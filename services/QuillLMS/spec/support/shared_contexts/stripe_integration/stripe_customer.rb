@@ -2,5 +2,5 @@
 
 RSpec.shared_context 'Stripe Customer' do
   let(:customer_email) { 'customer@example.com' }
-  let(:stripe_customer_id) { 'cus_LxxVS3iasfdBA' }
+  let(:stripe_customer_id) { "cus_#{SecureRandom.hex}" }
 end

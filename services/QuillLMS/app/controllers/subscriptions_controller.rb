@@ -62,7 +62,7 @@ class SubscriptionsController < ApplicationController
     @last_four = current_user&.last_four
     @trial_types = Subscription::TRIAL_TYPES
     @stripe_teacher_plan = PlanSerializer.new(Plan.stripe_teacher_plan).as_json
-    @payment_confirmation_subscription = payment_confirmation_subscription&.to_json
+    @subscription_purchased_today = subscription_purchased_today.to_json
 
     if @subscription_status&.key?('id')
       @user_authority_level = current_user.subscription_authority_level(@subscription_status['id'])
@@ -79,11 +79,9 @@ class SubscriptionsController < ApplicationController
     @subscription = current_user&.subscriptions&.find(params[:id])
   end
 
-  private def checkout_session_id
-    params[:checkout_session_id]
-  end
+  private def subscription_purchased_today
+    return unless params[:stripe_payment_success] == 'true'
 
-  private def payment_confirmation_subscription
-    Subscription.find_by_checkout_session_id(checkout_session_id)
+    current_user.subscriptions.find_by(created_at: Date.today.beginning_of_day...Date.today.end_of_day)
   end
 end

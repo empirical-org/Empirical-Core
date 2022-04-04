@@ -4,7 +4,7 @@ module StripeIntegration
   module Webhooks
     class EventHandlerFactory
       EVENT_HANDLERS = [
-        CheckoutSessionCompletedEventHandler
+        InvoicePaidEventHandler
       ]
 
       def self.for(stripe_webhook_event)

@@ -31,11 +31,7 @@ module StripeIntegration
     end
 
     private def stripe_webhook_event
-      StripeWebhookEvent.create!(
-        data: event.data.object,
-        event_type: event.type,
-        external_id: event.id
-      )
+      StripeWebhookEvent.create!(event_type: event.type, external_id: event.id)
     end
   end
 end

@@ -2,10 +2,15 @@
 
 require 'rails_helper'
 
-RSpec.describe StripeIntegration::Webhooks::CheckoutSessionCompletedEventHandler do
+RSpec.describe StripeIntegration::Webhooks::InvoicePaidEventHandler do
+  include_context 'Stripe Event'
+
   let(:stripe_webhook_event) { create(:stripe_webhook_event) }
+  let(:external_id) { stripe_webhook_event.external_id }
 
   subject { described_class.run(stripe_webhook_event) }
+
+  before { allow(Stripe::Event).to receive(:retrieve).with(external_id).and_return(stripe_event) }
 
   context 'happy path' do
     before { allow(StripeIntegration::Webhooks::SubscriptionCreator).to receive(:run) }

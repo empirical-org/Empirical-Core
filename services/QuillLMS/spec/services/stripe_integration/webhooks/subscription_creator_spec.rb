@@ -3,15 +3,11 @@
 require 'rails_helper'
 
 RSpec.describe StripeIntegration::Webhooks::SubscriptionCreator do
-  include_context 'Stripe Checkout Session'
+  include_context 'Stripe Invoice'
 
-  subject { described_class.run(data)}
+  subject { described_class.run(stripe_invoice) }
 
   let!(:customer) { create(:user, email: customer_email, stripe_customer_id: stripe_customer_id) }
-  let(:stub_subscription_retrieval) { allow(Stripe::Subscription).to receive(:retrieve).with(stripe_subscription_id) }
-  let(:data) { JSON.parse(stripe_checkout_session_data).deep_symbolize_keys }
-
-  before { stub_subscription_retrieval.and_return(stripe_subscription) }
 
   context 'happy path' do
     it { expect { subject }.to change(Subscription, :count).from(0).to(1) }
@@ -23,14 +19,32 @@ RSpec.describe StripeIntegration::Webhooks::SubscriptionCreator do
     end
   end
 
-  context 'nil stripe_subscription_id' do
-    let(:data) { { 'subscription' => nil } }
+  context 'nil period_end' do
+    before { allow(stripe_invoice).to receive(:period_end).and_return(nil) }
 
-    it { expect { subject }.to raise_error described_class::NilStripeSubscriptionIdError }
+    it { expect { subject }.to raise_error described_class::NilPeriodEndError }
+  end
+
+  context 'nil period_start' do
+    before { allow(stripe_invoice).to receive(:period_start).and_return(nil) }
+
+    it { expect { subject }.to raise_error described_class::NilPeriodStartError }
+  end
+
+  context 'nil stripe_price_id' do
+    before { allow(stripe_invoice.lines.data.first.price).to receive(:id).and_return(nil) }
+
+    it { expect { subject }.to raise_error described_class::NilStripePriceIdError }
+  end
+
+  context 'nil stripe_invoice_id' do
+    before { allow(stripe_invoice).to receive(:id).and_return(nil) }
+
+    it { expect { subject }.to raise_error described_class::NilStripeInvoiceIdError }
   end
 
   context 'subscription already exists' do
-    before { create(:subscription, stripe_subscription_id: stripe_subscription_id) }
+    before { create(:subscription, stripe_invoice_id: stripe_invoice_id) }
 
     it { expect { subject }.to raise_error described_class::DuplicateSubscriptionError }
   end

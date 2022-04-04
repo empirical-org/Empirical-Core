@@ -4,20 +4,20 @@
 #
 # Table name: subscriptions
 #
-#  id                     :integer          not null, primary key
-#  account_type           :string
-#  de_activated_date      :date
-#  expiration             :date
-#  payment_amount         :integer
-#  payment_method         :string
-#  purchaser_email        :string
-#  recurring              :boolean          default(FALSE)
-#  start_date             :date
-#  created_at             :datetime
-#  updated_at             :datetime
-#  plan_id                :integer
-#  purchaser_id           :integer
-#  stripe_subscription_id :string
+#  id                :integer          not null, primary key
+#  account_type      :string
+#  de_activated_date :date
+#  expiration        :date
+#  payment_amount    :integer
+#  payment_method    :string
+#  purchaser_email   :string
+#  recurring         :boolean          default(FALSE)
+#  start_date        :date
+#  created_at        :datetime
+#  updated_at        :datetime
+#  plan_id           :integer
+#  purchaser_id      :integer
+#  stripe_invoice_id :string
 #
 # Indexes
 #
@@ -26,6 +26,7 @@
 #  index_subscriptions_on_purchaser_id       (purchaser_id)
 #  index_subscriptions_on_recurring          (recurring)
 #  index_subscriptions_on_start_date         (start_date)
+#  index_subscriptions_on_stripe_invoice_id  (stripe_invoice_id) UNIQUE
 #
 require 'newrelic_rpm'
 require 'new_relic/agent'
@@ -85,7 +86,7 @@ class Subscription < ApplicationRecord
   PAYMENT_METHODS = ['Invoice', 'Credit Card', 'Premium Credit']
   ALL_TYPES = OFFICIAL_FREE_TYPES.dup.concat(OFFICIAL_PAID_TYPES)
 
-  validates :stripe_subscription_id, allow_blank: true, format: { with: /\Asub_[0-9a-zA-Z]*\z/ }
+  validates :stripe_invoice_id, allow_blank: true, format: { with: /\Ain_[0-9a-zA-Z]*\z/ }
 
   scope :active, -> { where(de_activated_date: nil).where("expiration > ?", Date.today).order(expiration: :asc) }
 
@@ -117,17 +118,6 @@ class Subscription < ApplicationRecord
 
   def self.create_with_user_join user_id, attributes
     create_with_school_or_user_join user_id, 'User', attributes
-  end
-
-
-  def self.find_by_checkout_session_id(checkout_session_id)
-    return nil if checkout_session_id.nil?
-
-    stripe_subscription_id = StripeWebhookEvent.stripe_subscription_id(checkout_session_id)
-
-    return nil if stripe_subscription_id.nil?
-
-    find_by(stripe_subscription_id: stripe_subscription_id)
   end
 
   def school_subscription?

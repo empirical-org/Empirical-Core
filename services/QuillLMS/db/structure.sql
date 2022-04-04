@@ -241,6 +241,8 @@ CREATE FUNCTION public.timespent_teacher(teacher integer) RETURNS bigint
 
 SET default_tablespace = '';
 
+SET default_table_access_method = heap;
+
 --
 -- Name: active_activity_sessions; Type: TABLE; Schema: public; Owner: -
 --
@@ -3516,7 +3518,6 @@ ALTER SEQUENCE public.standards_id_seq OWNED BY public.standards.id;
 CREATE TABLE public.stripe_webhook_events (
     id bigint NOT NULL,
     event_type character varying NOT NULL,
-    data jsonb NOT NULL,
     status character varying DEFAULT 'pending'::character varying,
     external_id character varying NOT NULL,
     processing_errors character varying,
@@ -3662,7 +3663,7 @@ CREATE TABLE public.subscriptions (
     de_activated_date date,
     payment_method character varying,
     payment_amount integer,
-    stripe_subscription_id character varying
+    stripe_invoice_id character varying
 );
 
 
@@ -6816,6 +6817,13 @@ CREATE INDEX index_subscriptions_on_start_date ON public.subscriptions USING btr
 
 
 --
+-- Name: index_subscriptions_on_stripe_invoice_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_subscriptions_on_stripe_invoice_id ON public.subscriptions USING btree (stripe_invoice_id);
+
+
+--
 -- Name: index_teacher_saved_activities_on_activity_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -7260,7 +7268,7 @@ CREATE INDEX uta ON public.activities_unit_templates USING btree (unit_template_
 -- Name: blog_posts tsvectorupdate; Type: TRIGGER; Schema: public; Owner: -
 --
 
-CREATE TRIGGER tsvectorupdate BEFORE INSERT OR UPDATE ON public.blog_posts FOR EACH ROW EXECUTE PROCEDURE public.blog_posts_search_trigger();
+CREATE TRIGGER tsvectorupdate BEFORE INSERT OR UPDATE ON public.blog_posts FOR EACH ROW EXECUTE FUNCTION public.blog_posts_search_trigger();
 
 
 --

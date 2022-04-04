@@ -117,7 +117,7 @@ export default class Subscriptions extends React.Component {
   }
 
   render() {
-    const { lastFour, premiumCredits, paymentConfirmationSubscription, stripeTeacherPlan } = this.props
+    const { lastFour, premiumCredits, subscriptionPurchasedToday, stripeTeacherPlan } = this.props
     const { subscriptionStatus, authorityLevel, availableCredits, earnedCredits, subscriptions, } = this.state
 
     const userHasValidSub = subscriptionStatus && !subscriptionStatus.expired;
@@ -159,7 +159,7 @@ export default class Subscriptions extends React.Component {
           premiumCredits={premiumCredits}
         />
         <RefundPolicy />
-        <PremiumConfirmationModal subscription={paymentConfirmationSubscription} />
+        <PremiumConfirmationModal subscription={subscriptionPurchasedToday} />
       </div>
     )
   }

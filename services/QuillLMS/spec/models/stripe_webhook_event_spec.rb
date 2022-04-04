@@ -5,7 +5,6 @@
 # Table name: stripe_webhook_events
 #
 #  id                :bigint           not null, primary key
-#  data              :jsonb            not null
 #  event_type        :string           not null
 #  processing_errors :string
 #  status            :string           default("pending")

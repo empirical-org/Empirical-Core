@@ -38,7 +38,7 @@ module StripeIntegration
     end
 
     private def success_url
-      "#{ENV['DEFAULT_URL']}/subscriptions?checkout_session_id={CHECKOUT_SESSION_ID}"
+      "#{ENV['DEFAULT_URL']}/subscriptions?stripe_payment_success=true"
     end
   end
 end

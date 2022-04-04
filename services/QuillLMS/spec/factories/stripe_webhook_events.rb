@@ -5,7 +5,6 @@
 # Table name: stripe_webhook_events
 #
 #  id                :bigint           not null, primary key
-#  data              :jsonb            not null
 #  event_type        :string           not null
 #  processing_errors :string
 #  status            :string           default("pending")
@@ -19,8 +18,7 @@
 #
 FactoryBot.define do
   factory :stripe_webhook_event, aliases: [:checkout_session_completed_webhook_event]  do
-    event_type { StripeIntegration::Webhooks::CheckoutSessionCompletedEventHandler::EVENT_TYPE }
-    data { {} }
+    event_type { StripeIntegration::Webhooks::InvoicePaidEventHandler::EVENT_TYPE }
     external_id { "evt_#{SecureRandom.hex}" }
 
     factory :unhandled_stripe_webhook_event do

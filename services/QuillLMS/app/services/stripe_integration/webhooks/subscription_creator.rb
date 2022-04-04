@@ -6,21 +6,22 @@ module StripeIntegration
       class Error < StandardError; end
       class DuplicateSubscriptionError < Error; end
       class NilStripeCustomerIdError < Error; end
-      class NilStripeSubscriptionIdError < Error; end
+      class NilStripeInvoiceIdError < Error; end
+      class NilStripePriceIdError < Error; end
       class PlanNotFoundError < Error; end
       class PurchaserNotFoundError < Error; end
 
-      attr_reader :purchaser_email, :stripe_customer_id, :stripe_subscription_id
+      attr_reader :stripe_invoice, :stripe_subscription
 
-      def initialize(data)
-        @purchaser_email = data['customer_email']
-        @stripe_customer_id = data['customer']
-        @stripe_subscription_id = data['subscription']
+      def initialize(stripe_invoice, stripe_subscription)
+        @stripe_invoice_id = stripe_invoice_id
+        @stripe_subscription = stripe_subscription
       end
 
       def run
-        raise NilStripeSubscriptionIdError if stripe_subscription_id.nil?
-        raise DuplicateSubscriptionError if Subscription.exists?(stripe_subscription_id: stripe_subscription_id)
+        raise NilPurchaserEmailError if purchaser_email.nil?
+        raise NilStripePriceIdError if stripe_price_id.nil?
+        raise NilStripeInvoiceIdError if stripe_invoice_id.nil?
 
         subscription
         save_stripe_customer_id
@@ -43,6 +44,11 @@ module StripeIntegration
         raise PurchaserNotFoundError
       end
 
+
+      private def purchaser_email
+        stripe_invoice.customer_email
+      end
+
       private def run_plan_custom_tasks
         return unless plan.teacher?
 
@@ -51,15 +57,15 @@ module StripeIntegration
       end
 
       private def start_date
-        Time.at(stripe_subscription.current_period_start).to_date
+        Time.at(stripe_subscription.current_period_end).to_date
+      end
+
+      private def stripe_customer_id
+        stripe_subscription.customer
       end
 
       private def stripe_price_id
-        stripe_subscription&.items&.data&.first&.price&.id
-      end
-
-      private def stripe_subscription
-        @stripe_subscription ||= Stripe::Subscription.retrieve(stripe_subscription_id)
+        stripe_subscription&.plan&.id
       end
 
       private def subscription
@@ -69,8 +75,10 @@ module StripeIntegration
           purchaser_email: purchaser_email,
           recurring: true,
           start_date: start_date,
-          stripe_subscription_id: stripe_subscription_id
+          stripe_invoice_id: stripe_invoice_id
         )
+      rescue ActiveRecord::RecordNotUnique
+        raise DuplicateInvoiceError
       end
 
       private def save_stripe_customer_id
@@ -81,5 +89,4 @@ module StripeIntegration
     end
   end
 end
-
 

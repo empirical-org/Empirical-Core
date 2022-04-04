@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 RSpec.shared_context 'Stripe Event' do
-  include_context 'Stripe Checkout Session'
+  include_context 'Stripe Invoice'
+
+  let(:stripe_event_id) { "evt_#{SecureRandom.hex}"}
 
   let(:stripe_event) do
     Stripe::Event.construct_from(
@@ -11,7 +13,7 @@ RSpec.shared_context 'Stripe Event' do
         api_version: '2020-08-27',
         created: 1648487559,
         data:  {
-          object: stripe_checkout_session
+          object: stripe_invoice
         },
         livemode: false,
         pending_webhooks: 3,
@@ -19,7 +21,7 @@ RSpec.shared_context 'Stripe Event' do
           id: 'req_ji2VMrCOabDEc7',
           idempotency_key: '14e52478-1935-43a8-ac5e-96bbc039706f'
         },
-        type: 'checkout.session.completed'
+        type: 'invoice.paid'
       }
     )
   end
