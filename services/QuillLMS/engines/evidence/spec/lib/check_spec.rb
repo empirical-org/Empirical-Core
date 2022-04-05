@@ -7,7 +7,7 @@ module Evidence
     let(:entry) { 'this is the entry'}
     let(:prompt) {'some prompt'}
     let(:previous_feedback) { []}
-
+    let(:error) {Evidence::Check::Spelling::BingException}
 
     context "get_feedback" do
       let(:response) { {key: 'value'} }
@@ -67,13 +67,11 @@ module Evidence
       end
 
       context "API raises error" do
-        let(:error) {Evidence::Check::Spelling::BingException}
-
         it "should skip that check and move to the next check" do
           first_check_class = Evidence::Check::ALL_CHECKS.first
           second_check_class = Evidence::Check::ALL_CHECKS.second
 
-          expect(Evidence.error_notifier).to receive(:report).with(error)
+          expect(Evidence.error_notifier).to receive(:report).with(error).once
           expect_any_instance_of(first_check_class).to receive(:run).once.and_raise(error)
           expect_any_instance_of(second_check_class).to receive(:run).once
           expect_any_instance_of(second_check_class).to receive(:optimal?).once.and_return(false)
@@ -91,15 +89,17 @@ module Evidence
 
     context "fallback_feedback" do
       it 'should construct feedback based on an error-type rule if it exists' do
+        expect(Evidence.error_notifier).to receive(:report).with(error).once
+
         Check::ALL_CHECKS.each do |check_class|
           if check_class == Check::AutoML
-            expect_any_instance_of(check_class).to receive(:run).and_raise("some error")
+            expect_any_instance_of(check_class).to receive(:run).and_raise(error)
           else
             expect_any_instance_of(check_class).to receive(:run)
             expect_any_instance_of(check_class).to receive(:optimal?).and_return(true)
           end
         end
-        rule = create(:evidence_rule, rule_type: Rule::TYPE_ERROR)
+        rule = create(:evidence_rule, rule_type: Rule::TYPE_ERROR, optimal: true)
         feedback = create(:evidence_feedback, rule: rule)
 
         result = Check.get_feedback(entry, prompt, previous_feedback)
@@ -110,9 +110,11 @@ module Evidence
       end
 
       it 'provides constant-based feedback if there is no error-type rule' do
+        expect(Evidence.error_notifier).to receive(:report).with(error).once
+
         Check::ALL_CHECKS.each do |check_class|
           if check_class == Check::AutoML
-            expect_any_instance_of(check_class).to receive(:run).and_raise("some error")
+            expect_any_instance_of(check_class).to receive(:run).and_raise(error)
           else
             expect_any_instance_of(check_class).to receive(:run)
             expect_any_instance_of(check_class).to receive(:optimal?).and_return(true)
