@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
+
 import getAuthToken from '../components/modules/get_auth_token';
 import LoadingIndicator from '../components/shared/loading_indicator'
 
@@ -79,9 +80,11 @@ export default class CmsDistrictIndex extends React.Component {
   }
 
   setSort = newSorted => {
+    const { query } = this.state
+
     const sort = newSorted[0].id
     const sort_direction = newSorted[0].desc ? 'desc' : 'asc'
-    if (sort !== this.state.query.sort || sort_direction !== this.state.query.sort_direction) {
+    if (sort !== query.sort || sort_direction !== query.sort_direction) {
       const newState = { ...this.state}
       newState.query.sort = sort
       newState.query.sort_direction = sort_direction
@@ -90,12 +93,14 @@ export default class CmsDistrictIndex extends React.Component {
   };
 
   search = (e) => {
+    const { query } = this.state
+
     e ? e.preventDefault() : null
     this.setState({loading: true})
     const link = `${process.env.DEFAULT_URL}/cms/districts/search`
     const data = new FormData();
-    Object.keys(this.state.query).forEach((k) => {
-      data.append(k, this.state.query[k])
+    Object.keys(query).forEach((k) => {
+      data.append(k, query[k])
     })
     fetch(link, {
       method: 'POST',
@@ -135,8 +140,10 @@ export default class CmsDistrictIndex extends React.Component {
   };
 
   renderPageSelector() {
-    const currentPage = this.state.query.page || 1
-    const totalPages = this.state.numberOfPages || 1
+    const { query, numberOfPages } = this.state
+
+    const currentPage = query.page || 1
+    const totalPages = numberOfPages || 1
     return (
       <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
         <a onClick={() => this.updatePage(1)}>First</a>
@@ -149,17 +156,19 @@ export default class CmsDistrictIndex extends React.Component {
   }
 
   renderTableOrLoading() {
-    if (this.state.loading) {
+    const { loading, data, columns } = this.state
+
+    if (loading) {
       return <LoadingIndicator />
-    } else if (this.state.data && this.state.data.length) {
-      const sort = this.state.query.sort ? this.state.query.sort : 'number_teachers'
-      const sortDescending = this.state.query.sort_direction ? this.state.query.sort_direction === 'desc' : true
+    } else if (data && data.length) {
+      const sort = query.sort ? query.sort : 'number_teachers'
+      const sortDescending = query.sort_direction ? query.sort_direction === 'desc' : true
       return (
         <div>
           <ReactTable
             className='progress-report activity-scores-table'
-            columns={this.state.columns}
-            data={this.state.data}
+            columns={columns}
+            data={data}
             defaultPageSize={100}
             defaultSorted={[{id: sort, desc: sortDescending}]}
             minRows={1}
@@ -180,6 +189,8 @@ export default class CmsDistrictIndex extends React.Component {
   }
 
   render() {
+    const { query } = this.state
+
     return (
       <div>
         <form acceptCharset="UTF-8" onSubmit={this.search} >
@@ -187,27 +198,27 @@ export default class CmsDistrictIndex extends React.Component {
             <div className='cms-meta-middle districts-meta-middle'>
               <div className='cms-form-row'>
                 <label>District Name</label>
-                <input id='district_name' name='district_name' onChange={e => this.updateField(e, 'district_name')} value={this.state.query.district_name} />
+                <input id='district_name' name='district_name' onChange={e => this.updateField(e, 'district_name')} value={query.district_name} />
               </div>
 
               <div className='cms-form-row'>
                 <label>City</label>
-                <input id='district_city' name='district_city' onChange={e => this.updateField(e, 'district_city')} value={this.state.query.district_city} />
+                <input id='district_city' name='district_city' onChange={e => this.updateField(e, 'district_city')} value={query.district_city} />
               </div>
 
               <div className='cms-form-row'>
                 <label>State</label>
-                <input id='district_state' name='district_state' onChange={e => this.updateField(e, 'district_state')} value={this.state.query.district_state} />
+                <input id='district_state' name='district_state' onChange={e => this.updateField(e, 'district_state')} value={query.district_state} />
               </div>
 
               <div className='cms-form-row'>
                 <label>Zip</label>
-                <input id='district_zip' name='district_zip' onChange={e => this.updateField(e, 'district_zip')} value={this.state.query.district_zip} />
+                <input id='district_zip' name='district_zip' onChange={e => this.updateField(e, 'district_zip')} value={query.district_zip} />
               </div>
 
               <div className='cms-form-row'>
                 <label>NCES ID</label>
-                <input id='nces_id' name='nces_id' onChange={e => this.updateField(e, 'nces_id')} value={this.state.query.nces_id} />
+                <input id='nces_id' name='nces_id' onChange={e => this.updateField(e, 'nces_id')} value={query.nces_id} />
               </div>
             </div>
 
