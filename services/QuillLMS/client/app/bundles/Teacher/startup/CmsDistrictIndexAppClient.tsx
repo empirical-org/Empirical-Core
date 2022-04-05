@@ -99,6 +99,7 @@ export default class CmsDistrictIndex extends React.Component {
     this.setState({loading: true})
     const link = `${process.env.DEFAULT_URL}/cms/districts/search`
     const data = new FormData();
+    data.append('district', '')
     Object.keys(query).forEach((k) => {
       data.append(k, query[k])
     })
@@ -156,7 +157,7 @@ export default class CmsDistrictIndex extends React.Component {
   }
 
   renderTableOrLoading() {
-    const { loading, data, columns } = this.state
+    const { loading, data, columns, query } = this.state
 
     if (loading) {
       return <LoadingIndicator />

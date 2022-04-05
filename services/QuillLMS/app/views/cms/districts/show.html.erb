@@ -19,12 +19,11 @@
             <td><%= school['number_teachers'] || '0' %></td>
             <td><%= school['premium_status'] || '' %></td>
             <td><%= school['number_admins'] || '0' %></td>
-            <td><%= link_to 'view', cms_school_path(school['school_id']) %></td>
             <td>
+              <%= link_to 'view', cms_school_path(school['school_id']) %>
+              <br />
               <% if !school['school_id'].blank? %>
-                <td>
-                  <%= link_to 'edit', edit_cms_school_path(school['school_id']) %>
-                </td>
+                <%= link_to 'edit', edit_cms_school_path(school['school_id']) %>
               <% end %>
             </td>
           </tr>
