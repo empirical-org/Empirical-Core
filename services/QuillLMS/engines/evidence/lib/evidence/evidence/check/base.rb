@@ -22,8 +22,8 @@ module Evidence
         begin
           check.run
         rescue => e
-          # TODO: log error to New Relic
-          puts e
+          Evidence.error_notifier.report(e)
+
           @error = e
         end
       end
