@@ -19,18 +19,19 @@
 class StripeWebhookEvent < ApplicationRecord
   STATUS_TYPES = [
     FAILED = 'failed',
+    IGNORED = 'ignored',
     PENDING = 'pending',
     PROCESSED = 'processed'
   ]
-
-  scope :pending, -> { where(status: PENDING) }
-  scope :processed, -> { where(status: PROCESSED) }
-  scope :failed, -> { where(status: FAILED) }
 
   validates :external_id, format: { with: /\Aevt_[0-9a-zA-Z]*\z/ }
 
   def failed!
     update(status: FAILED)
+  end
+
+  def ignored!
+    update(status: IGNORED)
   end
 
   def log_error(error)

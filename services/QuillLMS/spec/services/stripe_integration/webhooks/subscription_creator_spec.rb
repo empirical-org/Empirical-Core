@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe StripeIntegration::Webhooks::SubscriptionCreator do
   include_context 'Stripe Invoice'
 
-  subject { described_class.run(stripe_invoice) }
+  subject { described_class.run(stripe_invoice, stripe_subscription) }
 
   let!(:customer) { create(:user, email: customer_email, stripe_customer_id: stripe_customer_id) }
 
@@ -19,20 +19,8 @@ RSpec.describe StripeIntegration::Webhooks::SubscriptionCreator do
     end
   end
 
-  context 'nil period_end' do
-    before { allow(stripe_invoice).to receive(:period_end).and_return(nil) }
-
-    it { expect { subject }.to raise_error described_class::NilPeriodEndError }
-  end
-
-  context 'nil period_start' do
-    before { allow(stripe_invoice).to receive(:period_start).and_return(nil) }
-
-    it { expect { subject }.to raise_error described_class::NilPeriodStartError }
-  end
-
   context 'nil stripe_price_id' do
-    before { allow(stripe_invoice.lines.data.first.price).to receive(:id).and_return(nil) }
+    before { allow(stripe_subscription.items.data.first.price).to receive(:id).and_return(nil) }
 
     it { expect { subject }.to raise_error described_class::NilStripePriceIdError }
   end
@@ -43,10 +31,10 @@ RSpec.describe StripeIntegration::Webhooks::SubscriptionCreator do
     it { expect { subject }.to raise_error described_class::NilStripeInvoiceIdError }
   end
 
-  context 'subscription already exists' do
+  context 'stripe_invoice_id not unique' do
     before { create(:subscription, stripe_invoice_id: stripe_invoice_id) }
 
-    it { expect { subject }.to raise_error described_class::DuplicateSubscriptionError }
+    it { expect { subject }.to raise_error described_class::StripeInvoiceIdNotUniqueError }
   end
 
   context 'plan does not exist' do

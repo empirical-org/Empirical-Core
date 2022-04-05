@@ -5,20 +5,24 @@ module StripeIntegration
     SUBSCRIPTION_MODE = 'subscription'
 
     def create
-      checkout_session =
-        Stripe::Checkout::Session.create(
-          success_url: success_url,
-          cancel_url: cancel_url,
-          customer: stripe_customer_id,
-          customer_email: customer_email,
-          mode: SUBSCRIPTION_MODE,
-          line_items: [{
-            quantity: 1,
-            price: price_id
-          }]
-        )
-
+      checkout_session = Stripe::Checkout::Session.create(checkout_session_args)
       render json: { redirect_url: checkout_session.url }
+    end
+
+    private def checkout_session_args
+      {
+        success_url: success_url,
+        cancel_url: cancel_url,
+        mode: SUBSCRIPTION_MODE,
+        line_items: [{
+          quantity: 1,
+          price: stripe_price_id
+        }]
+      }.merge(customer_arg)
+    end
+
+    private def customer_arg
+      stripe_customer_id.nil? ? { customer_email: customer_email } : { customer: stripe_customer_id }
     end
 
     private def cancel_url
@@ -29,12 +33,12 @@ module StripeIntegration
       params[:customer_email]
     end
 
-    private def price_id
-      params[:price_id]
+    private def stripe_price_id
+      params[:stripe_price_id]
     end
 
     private def stripe_customer_id
-      params[:stripe_customer_id]
+      User.find_by(email: customer_email).stripe_customer_id
     end
 
     private def success_url

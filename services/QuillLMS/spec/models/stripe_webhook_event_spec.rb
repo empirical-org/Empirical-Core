@@ -24,10 +24,11 @@ RSpec.describe StripeWebhookEvent, type: :model do
   it { expect(subject).to be_valid }
 
   it { expect { subject.failed! }.to change(subject, :status).to(described_class::FAILED) }
+  it { expect { subject.ignored! }.to change(subject, :status).to(described_class::IGNORED) }
   it { expect { subject.processed! }.to change(subject, :status).to(described_class::PROCESSED) }
 
   context '#log_error' do
-    let(:error) { StripeIntegration::Webhooks::NilEventHandler::UnhandledEventError.new }
+    let(:error) { StripeIntegration::Webhooks::UnknownEventHandler::UnknownEventError.new }
 
     it { expect { subject.log_error(error) }.to change(subject, :status).to(described_class::FAILED) }
     it { expect { subject.log_error(error) }.to change(subject, :processing_errors).to(error.message) }
@@ -37,17 +38,4 @@ RSpec.describe StripeWebhookEvent, type: :model do
       subject.log_error(error)
     end
   end
-
-  context '#data' do
-    include_context "Stripe Checkout Session Completed Data"
-
-    subject { create(:checkout_session_completed_webhook_event, data: stripe_checkout_session_data) }
-
-    it { expect(subject.data['customer_email']).to eq customer_email }
-  end
-
-
-    # TODO
-    describe '.stripe_subcription_id' do
-    end
 end

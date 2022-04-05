@@ -7,7 +7,6 @@ export const StripeCheckoutSessionButton = ({
   buttonId,
   buttonText,
   customerEmail,
-  stripeCustomerId,
   stripePlan,
   userIsEligibleForNewSubscription,
   userIsSignedIn
@@ -29,9 +28,8 @@ export const StripeCheckoutSessionButton = ({
         url: `${process.env.DEFAULT_URL}/stripe_integration/checkout_sessions`,
         form: {
           authenticity_token: getAuthToken(),
-          customer: stripeCustomerId,
           customer_email: customerEmail,
-          price_id: plan.stripe_price_id
+          stripe_price_id: plan.stripe_price_id
         }
       }, (error, response, body) => {
         if (error) { throw Error(response.statusText) }

@@ -4,16 +4,25 @@ require 'rails_helper'
 
 RSpec.describe StripeIntegration::Webhooks::EventHandlerFactory do
   context '.for' do
-    let(:null_object_handler) { StripeIntegration::Webhooks::NilEventHandler }
+    context 'Handled Events' do
+      let(:event_handler) { StripeIntegration::Webhooks::InvoicePaidEventHandler }
+      let(:stripe_webhook_event) { create(:invoice_paid_stripe_webhook_event) }
 
-    it { expect(described_class.for(create(:unhandled_stripe_webhook_event)).class).to eq null_object_handler }
+      it { expect(described_class.for(stripe_webhook_event).class).to eq event_handler }
+    end
 
-    described_class::EVENT_HANDLERS.each do |event_handler|
-      context event_handler do
-        let(:stripe_webhook_event) { create(:stripe_webhook_event, event_type: event_handler::EVENT_TYPE) }
+    context 'Ignored Events' do
+      let(:event_handler) { StripeIntegration::Webhooks::IgnoredEventHandler }
+      let(:event_type) { event_handler::IGNORED_EVENTS.sample }
+      let(:stripe_webhook_event) { create(:stripe_webhook_event, event_type: event_type) }
 
-        it { expect(described_class.for(stripe_webhook_event).class).to eq event_handler }
-      end
+      it { expect(described_class.for(stripe_webhook_event).class).to eq event_handler }
+    end
+
+    context 'Unknown Events' do
+      let(:unknown_event_handler) { StripeIntegration::Webhooks::UnknownEventHandler }
+
+      it { expect(described_class.for(create(:unknown_stripe_webhook_event)).class).to eq unknown_event_handler }
     end
   end
 end

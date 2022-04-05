@@ -8,6 +8,11 @@ module StripeIntegration
       def initialize(stripe_webhook_event)
         @stripe_webhook_event = stripe_webhook_event
       end
+
+      private def stripe_event
+        @stripe_event ||= Stripe::Event.retrieve(stripe_webhook_event.external_id)
+        #TODO: add error handling for retrieve
+      end
     end
   end
 end

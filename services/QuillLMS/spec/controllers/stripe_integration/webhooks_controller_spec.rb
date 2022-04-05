@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe StripeIntegration::WebhooksController, type: :controller do
-  include_context "Stripe Checkout Session Completed Event"
+  include_context "Stripe Event"
 
   let(:stub_construct_event) { allow(Stripe::Webhook).to receive(:construct_event) }
   let(:handle_event_worker) { StripeIntegration::Webhooks::HandleEventWorker }
@@ -11,7 +11,7 @@ RSpec.describe StripeIntegration::WebhooksController, type: :controller do
   describe '#create' do
     context 'valid event payload' do
       let(:stripe_event_id) { "evt_#{SecureRandom.hex}" }
-      let(:event) { stripe_checkout_session_event }
+      let(:event) { stripe_event }
 
       before { stub_construct_event.and_return(event) }
 
@@ -24,7 +24,7 @@ RSpec.describe StripeIntegration::WebhooksController, type: :controller do
 
     context 'stripe_webhook_event with external_id already exists' do
       let(:stripe_event_id) { "evt_#{SecureRandom.hex}" }
-      let(:event) { stripe_checkout_session_event }
+      let(:event) { stripe_event }
       let!(:stripe_webhook_event) { create(:stripe_webhook_event, external_id: stripe_event_id) }
 
       before { stub_construct_event.and_return(event) }

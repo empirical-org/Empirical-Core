@@ -33,7 +33,6 @@ export const PremiumPricingGuide = ({
   independentPracticeActivityCount,
   lastFour,
   lessonsActivityCount,
-  stripeCustomerId,
   stripeTeacherPlan,
   userIsEligibleForNewSubscription,
 }) => {
@@ -49,7 +48,6 @@ export const PremiumPricingGuide = ({
         buttonId="purchase-btn"
         buttonText='Buy Now'
         customerEmail={customerEmail}
-        stripeCustomerId={stripeCustomerId}
         stripePlan={stripeTeacherPlan}
         userIsEligibleForNewSubscription={userIsEligibleForNewSubscription}
         userIsSignedIn={userIsSignedIn()}
@@ -63,7 +61,6 @@ export const PremiumPricingGuide = ({
         buttonClassName='btn-orange'
         buttonText='Upgrade to Premium Now'
         customerEmail={customerEmail}
-        stripeCustomerId={stripeCustomerId}
         stripePlan={stripeTeacherPlan}
         userIsEligibleForNewSubscription={userIsEligibleForNewSubscription}
         userIsSignedIn={userIsSignedIn()}

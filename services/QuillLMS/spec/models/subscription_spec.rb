@@ -37,7 +37,7 @@ describe Subscription, type: :model do
 
     it 'expects stripe_invoice_id to be of a given format' do
       subscription.stripe_invoice_id = 'not_the_subscription_format'
-      expect(plan).not_to be_valid
+      expect(subscription).not_to be_valid
     end
   end
 
@@ -495,10 +495,6 @@ describe Subscription, type: :model do
       it "does not return subscriptions that are neither recurring nor expiring today" do
         expect(subject).not_to include(subscription)
       end
-    end
-
-    # TODO
-    describe '#subscription_status' do
     end
   end
 end

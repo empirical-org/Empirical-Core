@@ -1334,8 +1334,4 @@ describe User, type: :model do
       it { expect(clever_user.clever_authorized?).to be true }
     end
   end
-
-  # TODO
-  describe '#subscription_status' do
-  end
 end

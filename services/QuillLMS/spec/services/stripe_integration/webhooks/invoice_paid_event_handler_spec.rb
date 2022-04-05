@@ -10,7 +10,10 @@ RSpec.describe StripeIntegration::Webhooks::InvoicePaidEventHandler do
 
   subject { described_class.run(stripe_webhook_event) }
 
-  before { allow(Stripe::Event).to receive(:retrieve).with(external_id).and_return(stripe_event) }
+  before do
+    allow(Stripe::Event).to receive(:retrieve).with(external_id).and_return(stripe_event)
+    allow(Stripe::Subscription).to receive(:retrieve).with(stripe_subscription_id).and_return(stripe_subscription)
+  end
 
   context 'happy path' do
     before { allow(StripeIntegration::Webhooks::SubscriptionCreator).to receive(:run) }

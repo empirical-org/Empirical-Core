@@ -119,7 +119,6 @@ const SubscriptionStatus = ({
         buttonClassName="renew-subscription q-button bg-orange text-white cta-button"
         buttonText='Renew Subscription'
         customerEmail={subscriptionStatus.customer_email}
-        stripeCustomerId={subscriptionStatus.stripe_customer_id}
         stripePlan={stripeTeacherPlan}
         userIsEligibleForNewSubscription={true}
         userIsSignedIn={true}

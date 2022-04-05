@@ -15,7 +15,7 @@ module StripeIntegration
     end
 
     private def endpoint_secret
-      ENV.fetch('STRIPE_ENDPOINT_SECRET')
+      ENV.fetch('STRIPE_ENDPOINT_SECRET', '')
     end
 
     private def event

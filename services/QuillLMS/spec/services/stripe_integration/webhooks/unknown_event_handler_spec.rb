@@ -2,9 +2,9 @@
 
 require 'rails_helper'
 
-RSpec.describe StripeIntegration::Webhooks::NilEventHandler do
-  let(:stripe_webhook_event) { create(:unhandled_stripe_webhook_event) }
-  let(:error_class) { described_class::UnhandledEventError }
+RSpec.describe StripeIntegration::Webhooks::UnknownEventHandler do
+  let(:stripe_webhook_event) { create(:unknown_stripe_webhook_event) }
+  let(:error_class) { described_class::UnknownEventError }
 
   subject { described_class.run(stripe_webhook_event) }
 

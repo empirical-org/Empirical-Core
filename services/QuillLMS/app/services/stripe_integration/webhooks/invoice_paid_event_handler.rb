@@ -17,7 +17,7 @@ module StripeIntegration
       end
 
       private def stripe_invoice
-        @stripe_invoice ||= Stripe::Event.retrieve(stripe_webhook_event.external_id).data.object
+        stripe_event.data.object
       end
 
       private def stripe_subscription
