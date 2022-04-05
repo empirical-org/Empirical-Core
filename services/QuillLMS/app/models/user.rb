@@ -431,7 +431,7 @@ class User < ApplicationRecord
 
   # returns them as an ActiveRecord relation
   def schools_i_administer
-    schools = administered_schools + administered_districts.map {|d| d.schools}.flatten
+    schools = (administered_schools + administered_districts.map {|d| d.schools}.flatten).uniq
     School.where(id: schools.map(&:id))
   end
 

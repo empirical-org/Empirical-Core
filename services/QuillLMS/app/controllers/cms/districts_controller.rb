@@ -222,24 +222,6 @@ class Cms::DistrictsController < Cms::CmsController
 
 
   private def school_query
-    # This should return an array of hashes that look like this:
-    # [
-    #   {
-    #     school_name: 'school name',
-    #     district_name: 'district name',
-    #     school_city: 'school city',
-    #     school_state: 'school state',
-    #     school_zip: Number(school zip),
-    #     frl: Number(frl),
-    #     number_teachers: Number(# of teachers),
-    #     premium_status: 'premium status',
-    #     number_admins: Number(# of admins),
-    #     id: '#',
-    #   }
-    # ]
-
-    # NOTE: IF YOU CHANGE THIS QUERY'S CONDITIONS, PLEASE BE SURE TO
-    # ADJUST THE PAGINATION QUERY STRING AS WELL.
     RawSqlRunner.execute(
       <<-SQL
         SELECT

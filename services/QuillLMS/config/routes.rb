@@ -605,7 +605,7 @@ EmpiricalGrammar::Application.routes.draw do
       member do
         get :new_admin
         post :add_admin_by_email
-        put 'remove_admin/:district_id', to: 'districts#remove_admin', as: :remove_admin
+        post :remove_admin
       end
     end
 

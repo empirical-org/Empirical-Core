@@ -57,7 +57,7 @@
             <tr>
               <td><%= admin[:name] %></td>
               <td><%= admin[:email] %></td>
-              <td><%= button_to 'Remove Admin', remove_admin_cms_district_path(user_id: admin[:user_id], district_id: admin[:district_id]), data: { confirm: 'Are you sure?' }, method: :put %></td>
+              <td><%= button_to 'Remove Admin', remove_admin_cms_district_path(user_id: admin[:user_id], district_id: admin[:district_id]), data: { confirm: 'Are you sure?' }, method: :post %></td>
             </tr>
           <% end %>
         </tbody>

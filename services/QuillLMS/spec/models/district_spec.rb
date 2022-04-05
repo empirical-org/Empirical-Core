@@ -25,4 +25,26 @@ describe District, type: :model do
   it { should have_many(:schools) }
   it { should have_many(:districts_admins) }
   it { should have_many(:admins).through(:districts_admins) }
+
+  context '#total_invoice' do
+    let!(:district) { create(:district)}
+    let!(:school) { create(:school)}
+    let!(:another_school) { create(:school)}
+    let!(:subscription) { create(:subscription, payment_amount: 500)}
+    let!(:another_subscription) { create(:subscription, payment_amount: 100)}
+
+    it 'should return 0 if there are no schools in the district' do
+      expect(district.total_invoice).to eq(0)
+    end
+
+    it 'should return the total invoice amount for that districts schools' do
+      school.update(district: district)
+      another_school.update(district: district)
+      create(:school_subscription, school: school, subscription: subscription)
+      create(:school_subscription, school: another_school, subscription: another_subscription)
+
+      expect(district.total_invoice).to eq(subscription.payment_amount + another_subscription.payment_amount)
+    end
+  end
+
 end
