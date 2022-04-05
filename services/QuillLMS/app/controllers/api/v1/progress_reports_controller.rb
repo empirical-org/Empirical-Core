@@ -84,8 +84,9 @@ class Api::V1::ProgressReportsController < Api::ApiController
 
   private def authorize_admin
     teacher_ids = Classroom.find(params[:classroom_id].to_i).teachers.pluck(:id)
-    teachers = current_user.schools_i_administer.joins(:schools_users)
+    teachers = User.joins(administered_schools: :schools_users)
       .where('schools_users.user_id IN (?)', teacher_ids)
+      .where(id: current_user.id)
 
     teachers.count > 0
   end

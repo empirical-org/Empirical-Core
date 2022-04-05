@@ -19,19 +19,28 @@ class DistrictsAdmins < ApplicationRecord
   belongs_to :district
   belongs_to :user
 
-  after_create :send_admin_email
+  after_create :attach_to_subscribed_schools
+  after_destroy :detach_from_schools
 
   def admin
     user
   end
 
-  def send_admin_email
+  def attach_to_subscribed_schools
     staff_user = User.find(user_id)&.email&.match('quill.org')
-    return unless Rails.env.production? || staff_user
+    return unless staff_user
 
     district = District.find(district_id)
     schools_with_subscriptions.each do |school|
+      school_admin = SchoolsAdmins.find_or_create_by(school: school, user: admin)
       NewAdminEmailWorker.perform_async(user_id, school.id)
+    end
+  end
+
+  def detach_from_schools
+    schools_with_subscriptions.each do |school|
+      school_admin = SchoolsAdmins.find_by(school: school, user: admin)
+      school_admin&.destroy
     end
   end
 

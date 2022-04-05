@@ -420,19 +420,10 @@ class User < ApplicationRecord
   ## End satismeter
 
   def admins_teachers
-    schools = schools_i_administer.includes(:user)
+    schools = administered_schools.includes(:users)
     return if schools.none?
 
     schools.map{|school| school.users.ids}.flatten
-  end
-
-  # finds all schools a user has admin rights for, through both
-  # the SchoolsAdmins table and the DistrictsAdmins table
-
-  # returns them as an ActiveRecord relation
-  def schools_i_administer
-    schools = (administered_schools + administered_districts.map {|d| d.schools}.flatten).uniq
-    School.where(id: schools.map(&:id))
   end
 
   def refresh_token!

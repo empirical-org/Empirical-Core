@@ -6,7 +6,8 @@ describe DistrictsAdmins, type: :model, redis: true do
   it { should belong_to(:district) }
   it { should belong_to(:user) }
 
-  it { is_expected.to callback(:send_admin_email).after(:create) }
+  it { is_expected.to callback(:attach_to_subscribed_schools).after(:create) }
+  it { is_expected.to callback(:detach_from_schools).after(:destroy) }
 
   let(:user) { create(:user, email: 'test@quill.org') }
   let(:district) { create(:district) }
@@ -20,10 +21,21 @@ describe DistrictsAdmins, type: :model, redis: true do
     end
   end
 
-  describe '#send_admin_email' do
+  describe '#attach_to_subscribed_schools' do
     it 'should kick off background job to send email' do
       create(:school_subscription, school_id: school.id, subscription_id: subscription.id)
-      expect{ admins.send_admin_email }.to change(NewAdminEmailWorker.jobs, :size)
+      expect{ admins.attach_to_subscribed_schools }.to change(NewAdminEmailWorker.jobs, :size)
+      expect(SchoolsAdmins.find_by(user: user, school: school)).to be
+    end
+  end
+
+  describe '#detach_from_schools' do
+    it 'should remove existing schools admins relationships' do
+      create(:school_subscription, school_id: school.id, subscription_id: subscription.id)
+      admins.attach_to_subscribed_schools
+      expect(SchoolsAdmins.find_by(user: user, school: school)).to be
+      admins.detach_from_schools
+      expect(SchoolsAdmins.find_by(user: user, school: school)).not_to be
     end
   end
 end
