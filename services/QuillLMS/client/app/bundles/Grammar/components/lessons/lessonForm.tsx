@@ -1,5 +1,6 @@
 import * as React from 'react';
 import QuestionSelector from 'react-select-search';
+import { fuzzySearch } from 'react-select-search';
 import { connect } from 'react-redux';
 import { EditorState, ContentState } from 'draft-js'
 
@@ -61,10 +62,6 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
     const changes: LessonFormState = {};
     changes[key] = event.target.value;
     this.setState(changes);
-  }
-
-  handleSearchChange = (e) => {
-    this.handleQuestionChange(e.value);
   }
 
   addConcept = (concept: { value: string }) => {
@@ -154,9 +151,11 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
       formatted = options.map(opt => ({ name: opt.prompt.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, ''), value: opt.key, }));
       return (
         <QuestionSelector
-          onChange={this.handleSearchChange}
+          filterOptions={fuzzySearch}
+          onChange={this.handleQuestionChange}
           options={formatted}
           placeholder="Search for a question"
+          search={true}
         />
       );
     }
