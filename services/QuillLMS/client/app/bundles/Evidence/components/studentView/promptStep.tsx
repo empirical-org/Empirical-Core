@@ -46,6 +46,7 @@ const FEEDBACK_LOADING_LIMIT = 30000;
 export class PromptStep extends React.Component<PromptStepProps, PromptStepState> {
   private editor: any // eslint-disable-line react/sort-comp
   private interval: any // eslint-disable-line react/sort-comp
+  private button: any // eslint-disable-line react/sort-comp
 
   constructor(props: PromptStepProps) {
     super(props)
@@ -64,6 +65,7 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     };
 
     this.editor = React.createRef()
+    this.button = React.createRef()
     this.interval = null;
   }
 
@@ -72,6 +74,7 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     const { submittedResponses } = this.props;
     const { numberOfSubmissions, submissionTime, timeAtLastFeedbackSubmissionCheck, failedToLoadFeedback } = this.state;
     const timeLapsed = Math.abs(timeAtLastFeedbackSubmissionCheck - submissionTime)
+    const awaitingFeedback = (numberOfSubmissions !== submittedResponses.length) && !failedToLoadFeedback
 
     if(submissionTime && numberOfSubmissions === submittedResponses.length) {
       this.setState({ submissionTime: 0, timeAtLastFeedbackSubmissionCheck: 0 });
@@ -80,6 +83,9 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     if(timeAtLastFeedbackSubmissionCheck && timeLapsed >= FEEDBACK_LOADING_LIMIT && !failedToLoadFeedback) {
       const feedbackFailedToLoadText = 'Sorry, our feedback did not load properly. Please try again or refresh the page.'
       this.setState({ failedToLoadFeedback: true, customFeedback: feedbackFailedToLoadText, customFeedbackKey: 'feedback failed' });
+    }
+    if(awaitingFeedback) {
+      this.button.current.focus()
     }
   }
 
@@ -174,13 +180,25 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
 
   promptAsRegex = () => new RegExp(`^${this.htmlStrippedPrompt(true)}`)
 
+  resetEditorCursorPosition = () => {
+    const range = document.createRange();
+    range.selectNodeContents(this.editor);
+    range.collapse(false);
+    const sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+  }
+
   onTextChange = (e) => {
     const { value } = e.target
     const text = value.replace(/<b>|<\/b>|<p>|<\/p>|<br>/g, '')
     const regex = this.promptAsRegex()
-    const caretPosition = EditCaretPositioning.saveSelection(this.editor)
+
     if (text.match(regex)) {
-      this.setState({ html: value, }, () => EditCaretPositioning.restoreSelection(this.editor, caretPosition))
+      this.setState({ html: value, }, () => {
+        this.editor.innerHTML = value
+        this.resetEditorCursorPosition()
+      })
       // if the student has deleted everything, we want to remove everything but the prompt stem
     } else if (!text.length) {
       this.resetText()
@@ -244,27 +262,27 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
 
   resetText = () => {
     const html = this.formattedStem()
-    this.setState({ html }, () => this.editor.innerHTML = html)
+    this.setState({ html }, () => {
+      this.editor.innerHTML = html
+      this.resetEditorCursorPosition()
+    })
   }
 
   setEditorRef = (node: JSX.Element) => this.editor = node
 
   onFocus = () => {
-    // following code ensures tabbing into editor always puts cursor at the end of the text
-    const el = this.editor
-    // retrieved from https://stackoverflow.com/a/4238971
-    if (typeof window.getSelection != "undefined" && typeof document.createRange != "undefined") {
-      const range = document.createRange();
-      range.selectNodeContents(el);
-      range.collapse(false);
-      const sel = window.getSelection();
-      sel.removeAllRanges();
-      sel.addRange(range);
-    } else if (typeof document.body.createTextRange != "undefined") {
-      const textRange = document.body.createTextRange();
-      textRange.moveToElementText(el);
-      textRange.collapse(false);
-      textRange.select();
+    if(document.activeElement !== this.button.current) {
+      // following code ensures tabbing into editor always puts cursor at the end of the text
+      const el = this.editor
+      // retrieved from https://stackoverflow.com/a/4238971
+      if (typeof window.getSelection != "undefined" && typeof document.createRange != "undefined") {
+        this.resetEditorCursorPosition()
+      } else if (typeof document.body.createTextRange != "undefined") {
+        const textRange = document.body.createTextRange();
+        textRange.moveToElementText(el);
+        textRange.collapse(false);
+        textRange.select();
+      }
     }
   }
 
@@ -357,7 +375,7 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     return(
       <div className="feedback-details-section">
         {this.getFeedbackLoadingDetails()}
-        <button className={className} onClick={onClick} type="button">{buttonLoadingSpinner}<span>{buttonCopy}</span></button>
+        <button className={className} onClick={onClick} ref={this.button} type="button">{buttonLoadingSpinner}<span>{buttonCopy}</span></button>
       </div>
     )
   }
