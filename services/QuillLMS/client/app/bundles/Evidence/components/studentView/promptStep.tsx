@@ -180,13 +180,25 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
 
   promptAsRegex = () => new RegExp(`^${this.htmlStrippedPrompt(true)}`)
 
+  resetEditorCursorPosition = (value) => {
+    this.editor.innerHTML = value
+    const range = document.createRange();
+    range.selectNodeContents(this.editor);
+    range.collapse(false);
+    const sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+  }
+
   onTextChange = (e) => {
     const { value } = e.target
     const text = value.replace(/<b>|<\/b>|<p>|<\/p>|<br>/g, '')
     const regex = this.promptAsRegex()
-    const caretPosition = EditCaretPositioning.saveSelection(this.editor)
+
     if (text.match(regex)) {
-      this.setState({ html: value, }, () => EditCaretPositioning.restoreSelection(this.editor, caretPosition))
+      this.setState({ html: value, }, () => {
+        this.resetEditorCursorPosition(value)
+      })
       // if the student has deleted everything, we want to remove everything but the prompt stem
     } else if (!text.length) {
       this.resetText()
@@ -250,7 +262,9 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
 
   resetText = () => {
     const html = this.formattedStem()
-    this.setState({ html }, () => this.editor.innerHTML = html)
+    this.setState({ html }, () => {
+      this.resetEditorCursorPosition(html)
+    })
   }
 
   setEditorRef = (node: JSX.Element) => this.editor = node
