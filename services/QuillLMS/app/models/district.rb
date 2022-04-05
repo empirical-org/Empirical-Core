@@ -22,5 +22,11 @@
 class District < ApplicationRecord
 
   has_many :schools
+  has_many :districts_admins, class_name: 'DistrictsAdmins'
+  has_many :admins, through: :districts_admins, source: :user
+
+  def total_invoice
+    schools.map { |s| s&.subscription&.payment_amount || 0 }.inject(0, :+)
+  end
 
 end

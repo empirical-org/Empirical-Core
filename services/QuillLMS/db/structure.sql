@@ -2019,6 +2019,38 @@ CREATE TABLE public.districts (
 
 
 --
+-- Name: districts_admins; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.districts_admins (
+    id bigint NOT NULL,
+    district_id bigint NOT NULL,
+    user_id bigint NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: districts_admins_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.districts_admins_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: districts_admins_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.districts_admins_id_seq OWNED BY public.districts_admins.id;
+
+
+--
 -- Name: districts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -4497,6 +4529,13 @@ ALTER TABLE ONLY public.districts ALTER COLUMN id SET DEFAULT nextval('public.di
 
 
 --
+-- Name: districts_admins id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.districts_admins ALTER COLUMN id SET DEFAULT nextval('public.districts_admins_id_seq'::regclass);
+
+
+--
 -- Name: districts_tables id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -5307,6 +5346,14 @@ ALTER TABLE ONLY public.criteria
 
 ALTER TABLE ONLY public.csv_exports
     ADD CONSTRAINT csv_exports_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: districts_admins districts_admins_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.districts_admins
+    ADD CONSTRAINT districts_admins_pkey PRIMARY KEY (id);
 
 
 --
@@ -6383,6 +6430,20 @@ CREATE INDEX index_criteria_on_concept_id ON public.criteria USING btree (concep
 --
 
 CREATE INDEX index_criteria_on_recommendation_id ON public.criteria USING btree (recommendation_id);
+
+
+--
+-- Name: index_districts_admins_on_district_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_districts_admins_on_district_id ON public.districts_admins USING btree (district_id);
+
+
+--
+-- Name: index_districts_admins_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_districts_admins_on_user_id ON public.districts_admins USING btree (user_id);
 
 
 --
@@ -8043,6 +8104,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220317153356'),
 ('20220321215816'),
 ('20220328165932'),
-('20220328170304');
+('20220328170304'),
+('20220404180807');
 
 

@@ -1,0 +1,69 @@
+<div class='container'>
+  <article class='simple-rounded-box cms-container'>
+    <%= link_to 'District Directory', cms_districts_path %> > <%= @district['Name'] %>
+    <br /><br />
+    <h2><%= @district['Name'] %></h2>
+    <br />
+    <table class='cms-results-table'>
+      <thead>
+        <tr>
+          <% ['Name', 'Teachers', 'Premium?', 'Admins', 'Manage'].each do |td| %>
+            <td><%= td %></td>
+          <% end %>
+        </tr>
+      </thead>
+      <tbody>
+        <% @school_data.each do |school| %>
+          <tr>
+            <td><%= school['school_name'] || 'N/A' %></td>
+            <td><%= school['number_teachers'] || '0' %></td>
+            <td><%= school['premium_status'] || '' %></td>
+            <td><%= school['number_admins'] || '0' %></td>
+            <td><%= link_to 'view', cms_school_path(school['school_id']) %></td>
+            <td>
+              <% if !school['school_id'].blank? %>
+                <td>
+                  <%= link_to 'edit', edit_cms_school_path(school['school_id']) %>
+                </td>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <br /><br />
+    <h2>District Info</h2>
+    <br />
+    <%= link_to 'Edit District Info', edit_cms_district_path(params[:id]), class: 'btn button-green' %>
+    <br />
+    <% @district.each do |k,v| %>
+      <br />
+      <p><strong><%= k %></strong></p>
+      <p><%= v || 'N/A' %></p>
+    <% end %>
+    <br /><br />
+    <h2>All Admins</h2>
+    <% if @admins.any? %>
+      <table class='cms-results-table'>
+        <thead>
+          <tr>
+            <% ['Name', 'Email', 'Remove Admin'].each do |td| %>
+              <td><%= td %></td>
+            <% end %>
+          </tr>
+        </thead>
+        <tbody>
+          <% @admins.each do |admin| %>
+            <tr>
+              <td><%= admin[:name] %></td>
+              <td><%= admin[:email] %></td>
+              <td><%= button_to 'Remove Admin', remove_admin_cms_district_path(user_id: admin[:user_id], district_id: admin[:district_id]), data: { confirm: 'Are you sure?' }, method: :put %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+    <br />
+    <%= link_to 'Add Admin', new_admin_cms_district_path(params[:id]), class: 'btn button-green' %>
+  </article>
+</div>

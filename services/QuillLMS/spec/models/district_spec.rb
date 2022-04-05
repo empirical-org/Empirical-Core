@@ -23,4 +23,6 @@ require 'rails_helper'
 
 describe District, type: :model do
   it { should have_many(:schools) }
+  it { should have_many(:districts_admins) }
+  it { should have_many(:admins).through(:districts_admins) }
 end

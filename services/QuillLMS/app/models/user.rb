@@ -90,7 +90,9 @@ class User < ApplicationRecord
   has_many :schools_i_authorize, class_name: 'School', foreign_key: 'authorizer_id'
 
   has_many :schools_admins, class_name: 'SchoolsAdmins'
+  has_many :districts_admins, class_name: 'DistrictsAdmins'
   has_many :administered_schools, through: :schools_admins, source: :school, foreign_key: :user_id
+  has_many :administered_districts, through: :districts_admins, source: :district, foreign_key: :user_id
   has_many :classrooms_teachers
   has_many :teacher_saved_activities, dependent: :destroy, foreign_key: 'teacher_id'
   has_many :activities, through: :teacher_saved_activities
@@ -418,10 +420,19 @@ class User < ApplicationRecord
   ## End satismeter
 
   def admins_teachers
-    schools = administered_schools.includes(:users)
+    schools = schools_i_administer.includes(:user)
     return if schools.none?
 
     schools.map{|school| school.users.ids}.flatten
+  end
+
+  # finds all schools a user has admin rights for, through both
+  # the SchoolsAdmins table and the DistrictsAdmins table
+
+  # returns them as an ActiveRecord relation
+  def schools_i_administer
+    schools = administered_schools + administered_districts.map {|d| d.schools}.flatten
+    School.where(id: schools.map(&:id))
   end
 
   def refresh_token!

@@ -16,7 +16,7 @@ class UserAdminSerializer < ActiveModel::Serializer
 
   def schools
     admin = User.find(object.id)
-    admin.administered_schools.select("schools.id, schools.nces_id, schools.name")
+    admin.schools_i_administer.select("schools.id, schools.nces_id, schools.name")
   end
 
 end

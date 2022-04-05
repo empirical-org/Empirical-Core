@@ -22,7 +22,7 @@ export default class CmsDistrictIndex extends React.Component {
         Header: 'Name',
         accessor: 'district_name',
         resizable: false,
-        minWidth: 170,
+        minWidth: 190,
         Cell: row => row.original.district_name
       }, {
         Header: "City",
@@ -42,6 +42,12 @@ export default class CmsDistrictIndex extends React.Component {
         resizable: false,
         minWidth: 60,
         Cell: row => Number(row.original.district_zip),
+      }, {
+        Header: 'Phone',
+        accessor: 'phone',
+        resizable: false,
+        minWidth: 130,
+        Cell: row => row.original.phone,
       }, {
         Header: "NCES ID",
         accessor: 'nces_id',
