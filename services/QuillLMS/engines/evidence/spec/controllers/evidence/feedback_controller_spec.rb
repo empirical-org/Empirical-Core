@@ -90,6 +90,17 @@ module Evidence
           expect(response.status).to(eq(200))
           expect(parsed_response["optimal"]).to be false
         end
+
+        it 'should return default spelling feedback spelling endpoint has an error' do
+          stub_const("Evidence::Check::ALL_CHECKS", [Check::Spelling])
+          stub_request(:get, "https://api.cognitive.microsoft.com/bing/v7.0/SpellCheck?mode=proof&text=test%20spelling%20error").to_return(:status => 200, :body => { :error => { :message => "There's a problem here" } }.to_json, :headers => ({}))
+          post :create, params: { entry: "test spelling error", :prompt_id => prompt.id, :session_id => 1 }, as: :json
+
+          parsed_response = JSON.parse(response.body)
+          expect(response.status).to(eq(200))
+          expect(parsed_response["feedback_text"]).to eq(Check::FALLBACK_RESPONSE[:feedback_text])
+          expect(parsed_response["optimal"]).to be true
+        end
       end
 
       context 'regex1 test' do

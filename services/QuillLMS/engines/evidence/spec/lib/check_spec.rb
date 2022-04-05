@@ -67,11 +67,14 @@ module Evidence
       end
 
       context "API raises error" do
+        let(:error) {Evidence::Check::Spelling::BingException}
+
         it "should skip that check and move to the next check" do
           first_check_class = Evidence::Check::ALL_CHECKS.first
           second_check_class = Evidence::Check::ALL_CHECKS.second
 
-          expect_any_instance_of(first_check_class).to receive(:run).once.and_raise("some error")
+          expect(Evidence.error_notifier).to receive(:report).with(error)
+          expect_any_instance_of(first_check_class).to receive(:run).once.and_raise(error)
           expect_any_instance_of(second_check_class).to receive(:run).once
           expect_any_instance_of(second_check_class).to receive(:optimal?).once.and_return(false)
 
