@@ -155,7 +155,7 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
           onChange={this.handleQuestionChange}
           options={formatted}
           placeholder="Search for a question"
-          search=true
+          search={true}
         />
       );
     }
