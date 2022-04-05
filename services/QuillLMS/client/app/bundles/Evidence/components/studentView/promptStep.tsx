@@ -180,8 +180,7 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
 
   promptAsRegex = () => new RegExp(`^${this.htmlStrippedPrompt(true)}`)
 
-  resetEditorCursorPosition = (value) => {
-    this.editor.innerHTML = value
+  resetEditorCursorPosition = () => {
     const range = document.createRange();
     range.selectNodeContents(this.editor);
     range.collapse(false);
@@ -197,7 +196,8 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
 
     if (text.match(regex)) {
       this.setState({ html: value, }, () => {
-        this.resetEditorCursorPosition(value)
+        this.editor.innerHTML = value
+        this.resetEditorCursorPosition()
       })
       // if the student has deleted everything, we want to remove everything but the prompt stem
     } else if (!text.length) {
@@ -263,7 +263,8 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
   resetText = () => {
     const html = this.formattedStem()
     this.setState({ html }, () => {
-      this.resetEditorCursorPosition(html)
+      this.editor.innerHTML = html
+      this.resetEditorCursorPosition()
     })
   }
 
@@ -275,12 +276,7 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
       const el = this.editor
       // retrieved from https://stackoverflow.com/a/4238971
       if (typeof window.getSelection != "undefined" && typeof document.createRange != "undefined") {
-        const range = document.createRange();
-        range.selectNodeContents(el);
-        range.collapse(false);
-        const sel = window.getSelection();
-        sel.removeAllRanges();
-        sel.addRange(range);
+        this.resetEditorCursorPosition()
       } else if (typeof document.body.createTextRange != "undefined") {
         const textRange = document.body.createTextRange();
         textRange.moveToElementText(el);
