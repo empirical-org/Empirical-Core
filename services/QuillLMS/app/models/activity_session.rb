@@ -162,7 +162,7 @@ class ActivitySession < ApplicationRecord
 
   def self.calculate_timespent(time_tracking)
     return nil unless time_tracking
-    return nil unless time_tracking.is_a?(Hash)
+    return nil unless time_tracking.respond_to?(:values)
 
     compact_values = time_tracking.values.compact
     median = compact_values.median
