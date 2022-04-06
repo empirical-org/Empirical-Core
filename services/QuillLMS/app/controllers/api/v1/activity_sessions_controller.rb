@@ -110,7 +110,7 @@ class Api::V1::ActivitySessionsController < Api::ApiController
 
     if timespent && timespent > 3600
       begin
-        raise "#{timespent} seconds for user #{@activity_session.user_id} and activity session #{@activity_session.id}"
+        raise "#{timespent} seconds for user #{@activity_session&.user_id} and activity session #{@activity_session&.id}"
       rescue => e
         Raven.capture_exception(e)
       end
