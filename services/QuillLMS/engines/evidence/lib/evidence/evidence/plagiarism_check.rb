@@ -154,10 +154,8 @@ module Evidence
       # we know that there's a minimum number of words that have to be identical.  This function
       # confirms that minimum amount of overlap to justify doing a set of Levenshtein calculations.
       source_arrays.any? do |source_array|
-        [
-         (target_array - source_array).length,
-         (source_array - target_array).length
-        ].max <= FUZZY_CHARACTER_THRESHOLD
+        ((target_array - source_array).length <= FUZZY_CHARACTER_THRESHOLD ||
+         (source_array - target_array).length <= FUZZY_CHARACTER_THRESHOLD)
       end
     end
 
