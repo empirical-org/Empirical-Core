@@ -139,7 +139,6 @@ describe PagesController do
       expect(assigns(:user_is_eligible_for_trial)).to eq user&.subscriptions&.none?
       expect(assigns(:user_has_school)).to eq !!user.school
       expect(assigns(:user_belongs_to_school_that_has_paid)).to eq user&.school ? Subscription.school_or_user_has_ever_paid?(user&.school) : false
-      expect(assigns(:last_four)).to eq user.last_four
     end
   end
 
