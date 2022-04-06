@@ -27,9 +27,6 @@ class DistrictsAdmins < ApplicationRecord
   end
 
   def attach_to_subscribed_schools
-    staff_user = User.find(user_id)&.email&.match('quill.org')
-    return unless staff_user
-
     district = District.find(district_id)
     schools_with_subscriptions.each do |school|
       school_admin = SchoolsAdmins.find_or_create_by(school: school, user: admin)

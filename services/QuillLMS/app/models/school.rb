@@ -140,7 +140,6 @@ class School < ApplicationRecord
   end
 
   def detach_from_existing_district_admins(district)
-    binding.pry
     return unless district.present? && district.admins.count > 0
 
     district.admins.each do |admin|
