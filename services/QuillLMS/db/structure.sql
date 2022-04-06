@@ -2010,7 +2010,7 @@ CREATE TABLE public.districts (
     nces_id integer,
     city character varying,
     state character varying,
-    zipcode integer,
+    zipcode character varying,
     phone character varying,
     total_students integer,
     total_schools integer,

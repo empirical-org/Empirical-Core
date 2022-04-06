@@ -13,7 +13,7 @@
 #  token          :string
 #  total_schools  :integer
 #  total_students :integer
-#  zipcode        :integer
+#  zipcode        :string
 #  created_at     :datetime
 #  updated_at     :datetime
 #  clever_id      :string

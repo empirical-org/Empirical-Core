@@ -164,4 +164,26 @@ describe School, type: :model do
       expect(School.school_year_start(time)).to eq(Date.parse('2019-07-01').beginning_of_day)
     end
   end
+
+  describe('district admin behavior') do
+    let(:school) { create(:school) }
+    let(:district) { create(:district) }
+    let(:admin) { create(:user)}
+
+    it 'creates new school admin record if a school is attached to a new district' do
+      create(:districts_admins, user: admin, district: district)
+      expect(SchoolsAdmins.find_by(school: school, user: admin)).not_to be
+      school.update(district_id: district.id)
+      expect(SchoolsAdmins.find_by(school: school, user: admin)).to be
+    end
+
+    it 'destroys school admin record if a school is detached from a district' do
+      create(:districts_admins, user: admin, district: district)
+      school.update(district_id: district.id)
+      expect(SchoolsAdmins.find_by(school: school, user: admin)).to be
+
+      school.update(district_id: nil)
+      expect(SchoolsAdmins.find_by(school: school, user: admin)).not_to be
+    end
+  end
 end

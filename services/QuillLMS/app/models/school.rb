@@ -62,6 +62,7 @@ class School < ApplicationRecord
   belongs_to :coordinator, class_name: 'User'
   belongs_to :district
 
+  before_save :update_district_admins, if: :will_save_change_to_district_id?
   validate :lower_grade_within_bounds, :upper_grade_within_bounds,
            :lower_grade_greater_than_upper_grade
 
@@ -138,6 +139,16 @@ class School < ApplicationRecord
     time.month >= SCHOOL_YEAR_START_MONTH ? time.beginning_of_year + HALF_A_YEAR : time.beginning_of_year - HALF_A_YEAR
   end
 
+  def detach_from_existing_district_admins(district)
+    binding.pry
+    return unless district.present? && district.admins.count > 0
+
+    district.admins.each do |admin|
+      school_admin = SchoolsAdmins.find_by(school: self, user: admin)
+      school_admin&.destroy
+    end
+  end
+
   private def generate_leap_csv_row(student, teacher, classroom, activity_session)
     [
       student.id,
@@ -167,5 +178,21 @@ class School < ApplicationRecord
     return true unless lower_grade && upper_grade
 
     errors.add(:lower_grade, 'must be less than or equal to upper grade') if lower_grade.to_i > upper_grade.to_i
+  end
+
+  private def update_district_admins
+    # destroy all SchoolsAdmins records that are also DistrictsAdmins records from the previous district
+    if district_id_was.present?
+      previous_district = District.find(district_id_was)
+      detach_from_existing_district_admins(previous_district)
+    end
+
+    if district_id.present?
+      new_district = District.find(district_id)
+      new_district_admins = new_district&.admins || []
+      new_district_admins.each do |da|
+        SchoolsAdmins.find_or_create_by(school: self, user: da)
+      end
+    end
   end
 end

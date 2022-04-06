@@ -236,8 +236,15 @@ class Subscription < ApplicationRecord
     end
   end
 
+  def detach_district_admins
+    schools.each do |school|
+      school.detach_from_existing_district_admins(school.district)
+    end
+  end
+
   def self.update_todays_expired_recurring_subscriptions
     expired_today_or_previously_and_recurring.each do |subscription|
+      subscription.detach_district_admins if OFFICIAL_SCHOOL_TYPES.include?(subscription.account_type)
       # TODO: Deactivate subscriptions with multiple users
       next unless subscription.users.count == 1
 
