@@ -171,7 +171,7 @@ export default class CurrentSubscription extends React.Component {
     const { last_four } = subscriptionStatus
 
     return (
-      <span>{`Credit Card Ending In ${last_four}`}
+      <span>{`Credit Card ending in ${last_four}`}
         <button
           className="interactive-wrapper focus-on-light"
           onClick={this.handleEditCreditCardClick}

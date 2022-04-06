@@ -325,39 +325,9 @@ class Subscription < ApplicationRecord
       'account_type' => account_type || plan&.name,
       'customer_email' => purchaser&.email,
       'expired' => expired?,
-      'last_four' => last_four,
+      'last_four' => StripeIntegration::Subscription.new(self).last_four,
       'purchaser_name' => purchaser&.name,
       'stripe_customer_id' => purchaser&.stripe_customer_id
     )
-  end
-
-  private def stripe_invoice
-    return nil if stripe_invoice_id.nil?
-
-    Stripe::Invoice.retrieve(stripe_invoice_id)
-  rescue Stripe::InvalidRequestError
-    nil
-  end
-
-  private def stripe_subscription
-    return nil if stripe_invoice.nil?
-
-    Stripe::Subscription.retrieve(stripe_invoice.subscription)
-  rescue Stripe::InvalidRequestError
-    nil
-  end
-
-  private def stripe_payment_method
-    return nil if stripe_subscription.nil?
-
-    Stripe::PaymentMethod.retrieve(stripe_subscription.default_payment_method)
-  rescue Stripe::InvalidRequestError
-    nil
-  end
-
-  private def last_four
-    return nil if stripe_payment_method.nil?
-
-    stripe_payment_method.card.last4
   end
 end
