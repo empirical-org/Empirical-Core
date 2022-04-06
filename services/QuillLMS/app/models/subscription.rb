@@ -90,6 +90,23 @@ class Subscription < ApplicationRecord
 
   scope :active, -> { where(de_activated_date: nil).where("expiration > ?", Date.today).order(expiration: :asc) }
 
+  def self.stripe_purchase_completed?(checkout_session_id)
+    return false if checkout_session_id.nil?
+
+    # TODO: remove this blocking waits for webhooks to complete
+    sleep 5
+
+    stripe_checkout_session = Stripe::Checkout::Session.retrieve(checkout_session_id)
+
+    return false if stripe_checkout_session&.subscription&.nil?
+
+    stripe_subscription = Stripe::Subscription.retrieve(stripe_checkout_session.subscription)
+
+    return false if stripe_subscription&.latest_invoice&.nil?
+
+    exists?(stripe_invoice_id: stripe_subscription.latest_invoice)
+  end
+
   def is_trial?
     account_type && TRIAL_TYPES.include?(account_type)
   end
@@ -353,11 +370,11 @@ class Subscription < ApplicationRecord
 
   def subscription_status
     attributes.merge(
-      account_type: account_type || plan&.name,
-      customer_email: purchaser&.email,
-      expired: expired?,
-      purchaser_name: purchaser&.name,
-      stripe_customer_id: purchaser&.stripe_customer_id
+      'account_type' => account_type || plan&.name,
+      'customer_email' => purchaser&.email,
+      'expired' => expired?,
+      'purchaser_name' => purchaser&.name,
+      'stripe_customer_id' => purchaser&.stripe_customer_id
     )
   end
 end

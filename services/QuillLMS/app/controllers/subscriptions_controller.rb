@@ -57,12 +57,12 @@ class SubscriptionsController < ApplicationController
   private def set_index_variables
     @subscriptions = current_user.subscriptions
     @premium_credits = current_user.credit_transactions.map {|x| x.serializable_hash(methods: :action)}.compact
+    @stripe_purchase_completed = Subscription.stripe_purchase_completed?(checkout_session_id)
     @subscription_status = current_user.subscription_status
     @school_subscription_types = Subscription::OFFICIAL_SCHOOL_TYPES
     @last_four = current_user&.last_four
     @trial_types = Subscription::TRIAL_TYPES
     @stripe_teacher_plan = PlanSerializer.new(Plan.stripe_teacher_plan).as_json
-    @subscription_purchased_today = subscription_purchased_today.to_json
 
     if @subscription_status&.key?('id')
       @user_authority_level = current_user.subscription_authority_level(@subscription_status['id'])
@@ -71,17 +71,15 @@ class SubscriptionsController < ApplicationController
     end
   end
 
+  private def checkout_session_id
+    params[:checkout_session_id]
+  end
+
   private def subscription_params
     params.require(:subscription).permit(:id, :purchaser_id, :expiration, :account_type, :authenticity_token, :recurring)
   end
 
   private def set_subscription
     @subscription = current_user&.subscriptions&.find(params[:id])
-  end
-
-  private def subscription_purchased_today
-    return unless params[:stripe_payment_success] == 'true'
-
-    current_user.subscriptions.find_by(created_at: Date.today.beginning_of_day...Date.today.end_of_day)
   end
 end

@@ -6,7 +6,7 @@ import SubscriptionStatus from '../components/subscriptions/SubscriptionStatus';
 import AvailableCredits from '../components/subscriptions/available_credits';
 import CurrentSubscription from '../components/subscriptions/current_subscription';
 import SubscriptionHistory from '../components/subscriptions/subscription_history';
-import PremiumConfirmationModal from '../components/subscriptions/premium_confirmation_modal';
+import PremiumConfirmationModal from '../components/subscriptions/PremiumConfirmationModal';
 import RefundPolicy from '../components/subscriptions/refund_policy';
 import PremiumCreditsTable from '../components/subscriptions/premium_credits_table';
 import getAuthToken from '../components/modules/get_auth_token';
@@ -16,12 +16,14 @@ export default class Subscriptions extends React.Component {
   constructor(props) {
     super(props);
     const availableAndEarnedCredits = this.availableAndEarnedCredits();
+    const { stripePurchaseCompleted } = this.props
 
     this.state = {
       subscriptions: props.subscriptions,
       subscriptionStatus: props.subscriptionStatus,
       availableCredits: availableAndEarnedCredits.available,
       earnedCredits: availableAndEarnedCredits.earned,
+      showPremiumConfirmationModal: stripePurchaseCompleted,
       authorityLevel: props.userAuthorityLevel,
     };
   }
@@ -45,11 +47,14 @@ export default class Subscriptions extends React.Component {
   currentSubscription(newSub) {
     const { subscriptionStatus, } = this.state
 
-    if (!subscriptionStatus || subscriptionStatus.expired) {
-      return newSub;
-    }
+    if (!subscriptionStatus || subscriptionStatus.expired) { return newSub }
+
     return subscriptionStatus;
   }
+
+  hidePremiumConfirmationModal = () => {
+    this.setState({ showPremiumConfirmationModal: false, });
+  };
 
   purchaserNameOrEmail() {
     const { subscriptionStatus, } = this.state
@@ -80,6 +85,10 @@ export default class Subscriptions extends React.Component {
     });
   };
 
+  showPremiumConfirmationModal = () => {
+    this.setState({ showPremiumConfirmationModal: true, });
+  };
+
   subscriptionType() {
     const { subscriptionStatus } = this.props
 
@@ -87,9 +96,6 @@ export default class Subscriptions extends React.Component {
 
     return ACCOUNT_TYPE_TO_SUBSCRIPTION_TYPES[subscriptionStatus.account_type]
   }
-
-  updateCard = () => {
-  };
 
   updateSubscription = (params, subscriptionId) => {
     request.put({
@@ -105,8 +111,11 @@ export default class Subscriptions extends React.Component {
   };
 
   updateSubscriptionStatus = subscription => {
-    this.setState({ subscriptionStatus: subscription, showPremiumConfirmationModal: true, showPurchaseModal: false, });
-  };
+    this.setState({
+      subscriptionStatus: subscription,
+      showPremiumConfirmationModal: true,
+    })
+  }
 
   userIsContact() {
     const { subscriptionStatus, } = this.props
@@ -117,8 +126,16 @@ export default class Subscriptions extends React.Component {
   }
 
   render() {
-    const { lastFour, premiumCredits, subscriptionPurchasedToday, stripeTeacherPlan } = this.props
-    const { subscriptionStatus, authorityLevel, availableCredits, earnedCredits, subscriptions, } = this.state
+    const { lastFour, premiumCredits, stripeTeacherPlan } = this.props
+
+    const {
+      authorityLevel,
+      availableCredits,
+      earnedCredits,
+      showPremiumConfirmationModal,
+      subscriptions,
+      subscriptionStatus
+    } = this.state
 
     const userHasValidSub = subscriptionStatus && !subscriptionStatus.expired;
     const subId = `${_.get(subscriptionStatus, 'id')}-subscription-status-id`;
@@ -159,7 +176,11 @@ export default class Subscriptions extends React.Component {
           premiumCredits={premiumCredits}
         />
         <RefundPolicy />
-        <PremiumConfirmationModal subscription={subscriptionPurchasedToday} />
+        <PremiumConfirmationModal
+          hideModal={this.hidePremiumConfirmationModal}
+          show={showPremiumConfirmationModal}
+          subscription={subscriptionStatus}
+        />
       </div>
     )
   }

@@ -50,7 +50,7 @@ RSpec.shared_context 'Stripe Subscription' do
         has_more: false,
         url: "/v1/subscription_items?subscription=#{stripe_subscription_id}"
       },
-      latest_invoice: 'in_1KfpDIBuKMgoObiuQVX5JBiR',
+      latest_invoice: nil,
       livemode: false,
       metadata: {},
       next_pending_invoice_item_invoice: nil,

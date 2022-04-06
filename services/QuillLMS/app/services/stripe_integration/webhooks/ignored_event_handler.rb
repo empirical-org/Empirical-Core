@@ -5,7 +5,6 @@ module StripeIntegration
     class IgnoredEventHandler < EventHandler
       IGNORED_EVENTS = [
         'charge.succeeded',
-        'checkout.session.completed',
         'customer.created',
         'customer.source.created',
         'customer.subscription.updated',
