@@ -158,7 +158,13 @@ module Evidence
       # we know that there's a minimum number of words that have to be identical.  This function
       # confirms that minimum amount of overlap to justify doing a set of Levenshtein calculations.
       source_arrays.any? do |source_array|
-        (source_array & target_array).length >= (MATCH_MINIMUM - FUZZY_CHARACTER_THRESHOLD)
+        intersection = source_array & target_array
+        # '&' collapses duplicates so that ['the', 'the'] & ['the', 'the'] == ['the']
+        # This throws off the expected value of length, so we use this bit here to add the duplicates back into the array.
+        # Note, the order will be scrambled [1,2,1] & [1,2,1] run through this flat_map will be [1,1,2], but since we are using
+        # length in this calculation, order doesn't matter
+        with_duplicates = intersection.flat_map { |word| [word]*[source_array.count(word), target_array.count(word)].min }
+        with_duplicates.length >= (MATCH_MINIMUM - FUZZY_CHARACTER_THRESHOLD)
       end
     end
 
