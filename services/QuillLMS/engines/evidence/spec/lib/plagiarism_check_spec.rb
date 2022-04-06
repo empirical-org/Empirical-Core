@@ -139,7 +139,7 @@ module Evidence
 
         it 'should generate the correct highlight even if the matched strings are full of repeated words' do
           entry = 'test ' * 10
-          passage = 'test ' * 20 
+          passage = 'test ' * 20
 
           plagiarism_check = Evidence::PlagiarismCheck.new(entry, passage, feedback, rule)
           feedback = plagiarism_check.feedback_object
