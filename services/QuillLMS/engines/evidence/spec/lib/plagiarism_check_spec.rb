@@ -116,14 +116,24 @@ module Evidence
       context 'fuzzy matching' do
         let(:feedback) { "this is some standard plagiarism feedback" }
 
-        it 'should identify plagiarism when there is a fuzzy match of 5 or less' do
-          entry = "This phrase plagiarises from the passage even though it has a ton of TYPOspaces in it."
+        it 'should identify plagiarism when there is a fuzzy match of 3 or less' do
+          entry = "This phrase plagiarises from the passage even though it hasTYP a ton of spaces in it."
           passage = "From the passage even though it has a ton of spaces."
 
           plagiarism_check = Evidence::PlagiarismCheck.new(entry, passage, feedback, rule)
           feedback = plagiarism_check.feedback_object
 
           expect(feedback[:optimal]).to be(false)
+        end
+
+        it 'should not identify plagiarism when there is a fuzzy match greater than the configured threshold' do
+          entry = "This phrase plagiarises from the passage even though it hasTYPOTYPO a ton of spaces in it."
+          passage = "From the passage even though it has a ton of spaces."
+
+          plagiarism_check = Evidence::PlagiarismCheck.new(entry, passage, feedback, rule)
+          feedback = plagiarism_check.feedback_object
+
+          expect(feedback[:optimal]).to be(true)
         end
 
         it 'should generate valid entry and passage highlights when fuzzy matching' do

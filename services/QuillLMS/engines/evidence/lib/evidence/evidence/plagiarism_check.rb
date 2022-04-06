@@ -156,7 +156,7 @@ module Evidence
       source_arrays.any? do |source_array|
         [(target_array - source_array).length,
          (source_array - target_array).length
-        ].max <= (MATCH_MINIMUM - FUZZY_CHARACTER_THRESHOLD)
+        ].max <= FUZZY_CHARACTER_THRESHOLD
       end
     end
 
