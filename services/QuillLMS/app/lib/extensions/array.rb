@@ -1,4 +1,7 @@
 class Array
+  # return middle element of sorted array
+  # for even-sized non-number arrays, return larger of middle two
+  # for even-sized number arrays, return average of middle two
   def median
     return nil if self.size == 0
     return self[0] if self.size == 1
