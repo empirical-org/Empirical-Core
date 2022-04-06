@@ -161,7 +161,7 @@ class ActivitySession < ApplicationRecord
   OUTLIER_MULTIPLIER = 50
 
   def self.calculate_timespent(time_tracking)
-    return nil unless time_tracking&.respond_to?(:values)
+    return nil unless time_tracking.respond_to?(:values)
 
     compact_values = time_tracking.values.compact
     median = compact_values.median
