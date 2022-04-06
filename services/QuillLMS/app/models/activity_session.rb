@@ -158,8 +158,18 @@ class ActivitySession < ApplicationRecord
     state == FINISHED_STATE
   end
 
+  OUTLIER_MULTIPLIER = 50
+
   def self.calculate_timespent(time_tracking)
-    time_tracking&.values&.compact&.sum
+    return nil unless time_tracking
+    return nil unless time_tracking.is_a?(Hash)
+
+    compact_values = time_tracking.values.compact
+    median = compact_values.median
+    outlier_threshold = median * OUTLIER_MULTIPLIER
+
+    # replace values 50x the median with median, since they are likely bad data
+    compact_values.sum {|v| v > outlier_threshold ? median.to_i : v}
   end
 
   def eligible_for_tracking?

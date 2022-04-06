@@ -864,9 +864,24 @@ end
   end
 
   describe '#calculate_timespent' do
+    it 'should return nil for nil' do
+      expect(ActivitySession.calculate_timespent(nil)).to be_nil
+    end
+
+    it 'should return nil for a string' do
+      expect(ActivitySession.calculate_timespent('hello')).to be_nil
+    end
+
     it 'should save timetracking data even if one of the values is nil' do
       time_tracking = {"1"=>188484, "2"=>94405, "3"=>89076, "4"=>120504, "onboarding"=>nil}
       expect(ActivitySession.calculate_timespent(time_tracking)).to eq(492469)
+    end
+
+    it 'should replace a large outlier with the median' do
+      time_tracking = {"1"=>1, "2"=>2, "3"=>3, "4" => 4, "onboarding"=>nil, "outlier" => 99999}
+      median = [1,2,3,4,99999].median
+      adjusted_total = 1 + 2 + 3 + 4 + median
+      expect(ActivitySession.calculate_timespent(time_tracking)).to eq(adjusted_total)
     end
   end
 
