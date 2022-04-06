@@ -92,4 +92,3 @@ module StripeIntegration
     end
   end
 end
-

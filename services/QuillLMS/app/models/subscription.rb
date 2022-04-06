@@ -133,19 +133,6 @@ class Subscription < ApplicationRecord
     ALL_TYPES
   end
 
-  def renew_subscription
-    # creates a new sub based off the old ones
-    # dups last subscription, other than the dates
-    new_sub = dup
-    new_sub.expiration = expiration + 365
-    new_sub.start_date = expiration
-    new_sub.de_activated_date = nil
-    new_sub.save!
-    update(de_activated_date: Date.today)
-    new_sub.users.push(users)
-    new_sub.schools.push(schools)
-  end
-
   def credit_user_and_de_activate
     if school_subscriptions.ids.any?
       # we should not do this if the sub belongs to a school
@@ -159,11 +146,6 @@ class Subscription < ApplicationRecord
       amount_to_credit = expiration - start_date
       CreditTransaction.create(user_id: user_subscriptions.first.user_id, amount: amount_to_credit.to_i, source: self)
     end
-  end
-
-
-  def self.expired_today_or_previously_and_recurring
-    Subscription.where('expiration <= ? AND recurring IS TRUE AND de_activated_date IS NULL', Date.today)
   end
 
   def self.school_or_user_has_ever_paid?(school_or_user)
@@ -216,16 +198,6 @@ class Subscription < ApplicationRecord
     end
   end
 
-  def update_if_charge_succeeds
-    charge = charge_user
-    if charge[:status] == 'succeeded'
-      renew_subscription
-    elsif expiration <= 7.days.ago
-      self.recurring = false
-      save(validate: false)
-    end
-  end
-
   def save_if_charge_succeeds(premium_type, school=nil)
     raise "an incorrect premium type #{premium_type} was passed" unless premium_type == 'school'
 
@@ -242,19 +214,6 @@ class Subscription < ApplicationRecord
     end
   end
 
-  def self.update_todays_expired_recurring_subscriptions
-    expired_today_or_previously_and_recurring.each do |subscription|
-      # TODO: Deactivate subscriptions with multiple users
-      next unless subscription.users.count == 1
-
-      if subscription.users.first.subscriptions.active.empty?
-        subscription.update_if_charge_succeeds
-      else
-        subscription.update(de_activated_date: Date.today)
-      end
-    end
-  end
-
   def self.promotional_dates
     # available to users who have never paid before
     # if today's month is before july, it expires end of June, else December
@@ -263,24 +222,10 @@ class Subscription < ApplicationRecord
     start_date: Date.today}
   end
 
-  protected def charge_user_for_teacher_premium
-    return unless purchaser&.stripe_customer?
-
-    Stripe::Charge.create(amount: TEACHER_PRICE, currency: 'usd', customer: purchaser.stripe_customer_id)
-  end
-
   protected def charge_user_for_school_premium(school)
     return unless purchaser&.stripe_customer?
 
     Stripe::Charge.create(amount: SCHOOL_FIRST_PURCHASE_PRICE, currency: 'usd', customer: purchaser.stripe_customer_id)
-  end
-
-  protected def charge_user
-    return unless purchaser&.stripe_customer?
-
-    Stripe::Charge.create(amount: renewal_price, currency: 'usd', customer: purchaser.stripe_customer_id)
-  rescue Stripe::CardError
-    UserMailer.declined_renewal_email(purchaser).deliver_now! if purchaser.email
   end
 
   def self.set_premium_expiration_and_start_date(school_or_user)

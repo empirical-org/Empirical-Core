@@ -294,15 +294,6 @@ class User < ApplicationRecord
     end
   end
 
-  def last_four
-    return unless stripe_customer?
-
-    stripe_payment_method_id = Stripe::Customer.retrieve(stripe_customer_id)&.invoice_settings&.default_payment_method
-    Stripe::PaymentMethod.retrieve(stripe_payment_method_id)&.card&.last4
-  rescue Stripe::InvalidRequestError
-    nil
-  end
-
   def stripe_customer?
     stripe_customer_id.present? && !Stripe::Customer.retrieve(stripe_customer_id).respond_to?(:deleted)
   rescue Stripe::InvalidRequestError
