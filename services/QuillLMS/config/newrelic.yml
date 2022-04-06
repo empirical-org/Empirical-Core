@@ -26,7 +26,8 @@ common: &default_settings
 
   # https://docs.newrelic.com/docs/apm/agents/ruby-agent/attributes/ruby-attribute-examples/
   attributes.include: request.parameters.*
-  attributes.exclude: [request.parameters.password, request.parameters.password_confirmation, request.parameters.email, request.parameters.name]
+  # Note, excluding 'active_activity_session' and 'activity_session' to cut down on NR data usage. They are very large params.
+  attributes.exclude: [request.parameters.password, request.parameters.password_confirmation, request.parameters.email, request.parameters.name, request.parameters.active_activity_session, request.parameters.activity_session]
 
 # Environment-specific settings are in this section.
 # RAILS_ENV or RACK_ENV (as appropriate) is used to determine the environment.
