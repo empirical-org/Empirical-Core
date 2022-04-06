@@ -6,7 +6,8 @@ export interface ActivityRouteProps {
 
 export interface InvalidHighlight {
   rule_id: number,
-  rule_type: string
+  rule_type: string,
+  prompt_id?: number
 }
 
 export interface ActivityInterface {
@@ -15,13 +16,13 @@ export interface ActivityInterface {
   flag?: string,
   title: string,
   notes: string,
-  scored_level: string,
-  target_level: number,
+  scored_level?: string,
+  target_level?: number,
   passages?: PassagesInterface[],
   prompts?: PromptInterface[],
   passage_attributes?: PassagesInterface[],
   prompt_attributes?: PromptInterface[],
-  invalid_highlights: InvalidHighlight[]
+  invalid_highlights?: InvalidHighlight[]
 }
 
 export interface PromptInterface {

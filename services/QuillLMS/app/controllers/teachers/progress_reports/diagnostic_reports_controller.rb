@@ -44,46 +44,77 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     render json: { students: students_json }
   end
 
-  # rubocop:disable Metrics/CyclomaticComplexity
   def individual_student_diagnostic_responses
+    data = fetch_individual_student_diagnostic_responses_cache
+
+    return render json: data, status: 404 if data.empty?
+
+    render json: data
+  end
+
+  # rubocop:disable Metrics/CyclomaticComplexity
+  private def fetch_individual_student_diagnostic_responses_cache
     activity_id = individual_student_diagnostic_responses_params[:activity_id]
     classroom_id = individual_student_diagnostic_responses_params[:classroom_id]
     unit_id = individual_student_diagnostic_responses_params[:unit_id]
     student_id = individual_student_diagnostic_responses_params[:student_id]
-    activity_session = find_activity_session_for_student_activity_and_classroom(student_id, activity_id, classroom_id, unit_id)
 
-    if !activity_session
-      return render json: {}, status: 404
-    end
+    cache_groups = {
+      student_id: student_id
+    }
 
-    student = User.find_by_id(student_id)
-    skills = Activity.find(activity_id).skills.distinct
-    pre_test = Activity.find_by_follow_up_activity_id(activity_id)
-    pre_test_activity_session = pre_test && find_activity_session_for_student_activity_and_classroom(student_id, pre_test.id, classroom_id, unit_id)
+    current_user.classroom_unit_by_ids_cache(
+      classroom_id: classroom_id,
+      unit_id: unit_id,
+      activity_id: activity_id,
+      key: 'diagnostic_reports.individual_student_diagnostic_responses',
+      groups: cache_groups
+    ) do
+      activity_session = find_activity_session_for_student_activity_and_classroom(student_id, activity_id, classroom_id, unit_id)
 
-    if pre_test && pre_test_activity_session
-      concept_results = {
-        pre: { questions: format_concept_results(pre_test_activity_session, pre_test_activity_session.concept_results.order("(metadata->>'questionNumber')::int")) },
-        post: { questions: format_concept_results(activity_session, activity_session.concept_results.order("(metadata->>'questionNumber')::int")) }
-      }
-      formatted_skills = skills.map do |skill|
-        {
-          pre: data_for_skill_by_activity_session(pre_test_activity_session.concept_results, skill),
-          post: data_for_skill_by_activity_session(activity_session.concept_results, skill)
-        }
+      if !activity_session
+        return {}
       end
-      skill_results = { skills: formatted_skills.uniq { |formatted_skill| formatted_skill[:pre][:skill] } }
-    else
-      concept_results = { questions: format_concept_results(activity_session, activity_session.concept_results.order("(metadata->>'questionNumber')::int")) }
-      skill_results = { skills: skills.map { |skill| data_for_skill_by_activity_session(activity_session.concept_results, skill) }.uniq { |formatted_skill| formatted_skill[:skill] } }
+
+      student = User.find_by_id(student_id)
+      skills = Activity.find(activity_id).skills.distinct
+      pre_test = Activity.find_by_follow_up_activity_id(activity_id)
+      pre_test_activity_session = pre_test && find_activity_session_for_student_activity_and_classroom(student_id, pre_test.id, classroom_id, unit_id)
+
+      if pre_test && pre_test_activity_session
+        concept_results = {
+          pre: { questions: format_concept_results(pre_test_activity_session, pre_test_activity_session.concept_results.order("(metadata->>'questionNumber')::int")) },
+          post: { questions: format_concept_results(activity_session, activity_session.concept_results.order("(metadata->>'questionNumber')::int")) }
+        }
+        formatted_skills = skills.map do |skill|
+          {
+            pre: data_for_skill_by_activity_session(pre_test_activity_session.concept_results, skill),
+            post: data_for_skill_by_activity_session(activity_session.concept_results, skill)
+          }
+        end
+        skill_results = { skills: formatted_skills.uniq { |formatted_skill| formatted_skill[:pre][:skill] } }
+      else
+        concept_results = { questions: format_concept_results(activity_session, activity_session.concept_results.order("(metadata->>'questionNumber')::int")) }
+        skill_results = { skills: skills.map { |skill| data_for_skill_by_activity_session(activity_session.concept_results, skill) }.uniq { |formatted_skill| formatted_skill[:skill] } }
+      end
+      { concept_results: concept_results, skill_results: skill_results, name: student.name }
     end
-    render json: { concept_results: concept_results, skill_results: skill_results, name: student.name }
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 
   def classrooms_with_students
-    classrooms = classrooms_with_students_for_report(params[:unit_id], params[:activity_id])
-    render json: classrooms.to_json
+    render json: fetch_classrooms_with_students_cache
+  end
+
+  private def fetch_classrooms_with_students_cache
+    cache_groups = {
+      unit_id: params[:unit_id],
+      activity_id: params[:activity_id]
+    }
+
+    current_user.all_classrooms_cache(key: 'teachers.progress_reports.diagnostic_reports.classrooms_with_students', groups: cache_groups) do
+      classrooms_with_students_for_report(params[:unit_id], params[:activity_id]).to_json
+    end
   end
 
   def recommendations_for_classroom
@@ -233,7 +264,18 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
   end
 
   def diagnostic_results_summary
-    render json: ResultsSummary.results_summary(results_summary_params[:activity_id], results_summary_params[:classroom_id], results_summary_params[:unit_id])
+    render json: fetch_diagnostic_results_summary_cache
+  end
+
+  private def fetch_diagnostic_results_summary_cache
+    current_user.classroom_unit_by_ids_cache(
+      classroom_id: params[:classroom_id],
+      unit_id: params[:unit_id],
+      activity_id: params[:activity_id],
+      key: 'teachers.progress_reports.diagnostic_reports.diagnostic_results_summary'
+    ) do
+      ResultsSummary.results_summary(results_summary_params[:activity_id], results_summary_params[:classroom_id], results_summary_params[:unit_id])
+    end
   end
 
   def diagnostic_growth_results_summary

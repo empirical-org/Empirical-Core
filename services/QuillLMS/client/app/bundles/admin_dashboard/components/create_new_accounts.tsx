@@ -1,5 +1,6 @@
 import * as React from 'react'
-import DropdownMenu from '../../Teacher/components/progress_reports/dropdown_filter'
+
+import { DropdownInput, } from '../../Shared/index'
 
 class CreateNewAccounts extends React.Component<any, any> {
   constructor(props) {
@@ -9,10 +10,7 @@ class CreateNewAccounts extends React.Component<any, any> {
       firstName: '',
       lastName: '',
       email: '',
-      school: {
-        value: '',
-        name: ''
-      }
+      school: props.schools[0]
     }
 
     this.renderMessage = this.renderMessage.bind(this)
@@ -41,7 +39,8 @@ class CreateNewAccounts extends React.Component<any, any> {
     return schools.map(school => {
       return {
         name: school.name,
-        value: school.id
+        value: school.id,
+        label: school.name
       }
     })
   }
@@ -56,7 +55,7 @@ class CreateNewAccounts extends React.Component<any, any> {
         last_name: lastName,
         email
       },
-      id: school.value
+      id: school.value || school.id
     }
     addTeacherAccount(data)
   }
@@ -96,16 +95,16 @@ class CreateNewAccounts extends React.Component<any, any> {
         <div className="form-and-schools-list">
           <div className="form">
             <div className="first-line">
-              <input className="first-name" onChange={this.handleFirstNameChange} placeholder="First Name" type="text" value={firstName} />
-              <input className="last-name" onChange={this.handleLastNameChange} placeholder="Last Name" type="text" value={lastName} />
-              <input className="email" onChange={this.handleEmailChange} placeholder="Email Address" type="text" value={email} />
+              <input aria-label="First Name" className="first-name" onChange={this.handleFirstNameChange} placeholder="First Name" type="text" value={firstName} />
+              <input aria-label="Last Name" className="last-name" onChange={this.handleLastNameChange} placeholder="Last Name" type="text" value={lastName} />
+              <input aria-label="Email Address" className="email" onChange={this.handleEmailChange} placeholder="Email Address" type="text" value={email} />
             </div>
-            <DropdownMenu
+            <DropdownInput
               className='second-line'
+              handleChange={this.updateSchool}
               options={this.schoolOptions()}
               placeholder='Select School for Teacher'
-              selectedOption={school}
-              selectOption={this.updateSchool}
+              value={this.schoolOptions().find(s => s.value === school.id || s.value === school.value)}
             />
             <button className="button-green pull-right" onClick={this.handleAddTeacherAccountClick} type="button">Add Teacher Account</button>
           </div>

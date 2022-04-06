@@ -130,7 +130,7 @@ const StudentRow = ({ studentResult, skillGroupSummaries, openPopover, setOpenPo
       />)
     )
   }
-  return <tr key={name}>{firstCell}{skillGroupCells}</tr>
+  return <tr id={id} key={name}>{firstCell}{skillGroupCells}</tr>
 }
 
 const StudentResultsTable = ({ skillGroupSummaries, studentResults, openPopover, setOpenPopover, responsesLink, }: StudentResultsTableProps) => {

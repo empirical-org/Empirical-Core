@@ -227,8 +227,6 @@ CREATE FUNCTION public.timespent_teacher(teacher integer) RETURNS bigint
 
 SET default_tablespace = '';
 
-SET default_with_oids = false;
-
 --
 -- Name: active_activity_sessions; Type: TABLE; Schema: public; Owner: -
 --
@@ -1592,9 +1590,10 @@ CREATE TABLE public.comprehension_rules (
     rule_type character varying NOT NULL,
     optimal boolean NOT NULL,
     suborder integer,
-    concept_uid character varying,
+    concept_uid character varying NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
+    sequence_type character varying,
     state character varying NOT NULL
 );
 
@@ -8051,6 +8050,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210219164011'),
 ('20210219185502'),
 ('20210222201347'),
+('20210224162204'),
 ('20210224165328'),
 ('20210224165329'),
 ('20210224165330'),
@@ -8100,11 +8100,11 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220201132114'),
 ('20220201161514'),
 ('20220315131616'),
+('20220317153356'),
+('20220321215816'),
 ('20220315172237'),
 ('20220317153356'),
 ('20220321215816'),
 ('20220328165932'),
 ('20220328170304'),
 ('20220404180807');
-
-

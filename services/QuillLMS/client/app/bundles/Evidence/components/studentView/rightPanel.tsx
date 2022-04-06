@@ -96,7 +96,7 @@ const RightPanel = ({
       <div className="steps-outer-container step-overview-container" onScroll={resetTimers}>
         <StepOverview
           activeStep={activeStep}
-          handleClick={onStartPromptSteps}
+          handleClick={toggleShowStepsSummary}
         />
         {bottomNavigation}
       </div>
@@ -120,6 +120,7 @@ const RightPanel = ({
       session={session}
       showReadTheDirectionsButton={showReadTheDirectionsButton}
       submitResponse={submitResponse}
+
     />
   )
 }

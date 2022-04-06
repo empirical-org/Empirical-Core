@@ -685,7 +685,7 @@ describe User, type: :model do
 
     context 'when the user has a positive balance' do
 
-      context 'and no extant subscription' do
+      context 'and no existing subscription' do
 
         it "creates a credit transaction that clears the user's credit" do
           user.redeem_credit
@@ -711,7 +711,7 @@ describe User, type: :model do
         end
       end
 
-      context 'and an extant subscription' do
+      context 'and an existing subscription' do
         it "creates a new subscription" do
           subscription = create(:subscription, expiration: Date.today + 3.days)
           create(:user_subscription, user: user, subscription: subscription)
@@ -982,7 +982,7 @@ describe User, type: :model do
         expect(user).to_not be_valid
       end
 
-      it 'uniqueness is enforced on extant users changing to an existing username' do
+      it 'uniqueness is enforced on existing users changing to an existing username' do
         user1 = create(:user)
         user2 = create(:user)
         expect(user2.update(username: user1.username)).to be(false)

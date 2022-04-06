@@ -4,7 +4,9 @@ require 'rails_helper'
 
 module Evidence
   RSpec.describe(PrefilterCheck) do
-    let(:rule_factory_overrides) { {rule_type: 'prefilter', universal: true, optimal: false} }
+    let(:rule_factory_overrides) do
+      { rule_type: 'prefilter', universal: true, optimal: false, concept_uid: 'a_concept_uid' }
+    end
 
     describe '#initialize' do
       it 'should retrieve associated Rules' do
@@ -90,6 +92,7 @@ module Evidence
             expect(response[:rule_uid]).to eq violation[:rule_uid]
             expect(response[:optimal]).to eq false
             expect(response[:feedback]).to eq "#{violation[:name]} feedback"
+            expect(response[:concept_uid]).to eq rule_factory_overrides[:concept_uid]
           end
         end
       end

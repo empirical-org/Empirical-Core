@@ -2,8 +2,7 @@
 // along with their result counts.
 import React from 'react'
 import request from 'request'
-import ReactTable from 'react-table'
-import 'react-table/react-table.css'
+import ReactTable from 'react-table-6'
 
 import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx'
 

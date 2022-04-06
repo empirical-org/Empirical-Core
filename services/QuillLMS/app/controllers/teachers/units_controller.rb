@@ -113,7 +113,7 @@ class Teachers::UnitsController < ApplicationController
   end
 
   def diagnostic_units
-    render json: diagnostics_organized_by_classroom.to_json
+    render json: fetch_diagnostic_units_cache
   end
 
   # Get all Units containing lessons, and only retrieve the classroom activities for lessons.
@@ -366,6 +366,12 @@ class Teachers::UnitsController < ApplicationController
     end
   end
 
+  private def fetch_diagnostic_units_cache
+    current_user.all_classrooms_cache(key: 'teachers.classrooms.diagnostic_units') do
+      diagnostics_organized_by_classroom
+    end
+  end
+
   # rubocop:disable Metrics/CyclomaticComplexity
   private def diagnostics_organized_by_classroom
     classrooms = []
@@ -374,10 +380,10 @@ class Teachers::UnitsController < ApplicationController
     diagnostic_records.each do |record|
       next if post_test_ids.include?(record['activity_id'])
 
-      index_of_extant_classroom = classrooms.find_index { |c| c['id'] == record['classroom_id'] }
+      index_of_existing_classroom = classrooms.find_index { |c| c['id'] == record['classroom_id'] }
       name = grouped_name(record)
 
-      next if record['post_test_id'] && index_of_extant_classroom && classrooms[index_of_extant_classroom]['diagnostics'].find { |diagnostic| diagnostic[:name] == name }
+      next if record['post_test_id'] && index_of_existing_classroom && classrooms[index_of_existing_classroom]['diagnostics'].find { |diagnostic| diagnostic[:name] == name }
 
       grouped_record = {
         name: name,
@@ -392,8 +398,8 @@ class Teachers::UnitsController < ApplicationController
         grouped_record[:pre]['completed_count'] = ActivitySession.where(activity_id: record['activity_id'], classroom_unit_id: record['classroom_unit_id'], state: 'finished', user_id: record['assigned_student_ids']).size
         grouped_record[:pre]['assigned_count'] = record['assigned_student_ids'].size
       end
-      if index_of_extant_classroom
-        classrooms[index_of_extant_classroom]['diagnostics'].push(grouped_record)
+      if index_of_existing_classroom
+        classrooms[index_of_existing_classroom]['diagnostics'].push(grouped_record)
         next
       end
       classroom = {
@@ -403,7 +409,7 @@ class Teachers::UnitsController < ApplicationController
       }
       classrooms.push(classroom)
     end
-    classrooms
+    classrooms.to_json
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 

@@ -18,7 +18,7 @@ import { generateConceptResults, } from '../../libs/conceptResults'
 import { ActivitiesReducerState } from '../../reducers/activitiesReducer'
 import { SessionReducerState } from '../../reducers/sessionReducer'
 import getParameterByName from '../../helpers/getParameterByName';
-import { getUrlParam, onMobile, outOfAttemptsForActivePrompt, getCurrentStepDataForEventTracking, everyOtherStepCompleted, getStrippedPassageHighlights } from '../../helpers/containerActionHelpers';
+import { getUrlParam, onMobile, outOfAttemptsForActivePrompt, getCurrentStepDataForEventTracking, everyOtherStepCompleted, getStrippedPassageHighlights, getLastSubmittedResponse } from '../../helpers/containerActionHelpers';
 import { renderReadPassageContainer, renderDirections} from '../../helpers/containerRenderHelpers';
 import { postTurkSession } from '../../utils/turkAPI';
 import { roundMillisecondsToSeconds, KEYDOWN, MOUSEMOVE, MOUSEDOWN, CLICK, KEYPRESS, VISIBILITYCHANGE, READ_PASSAGE_STEP_NUMBER, SO_PASSAGE_STEP_NUMBER } from '../../../Shared/index'
@@ -366,7 +366,9 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
 
   function submitProblemReport(args) {
     const { sessionID, } = session
-    reportAProblem({...args, sessionID})
+    const lastSubmittedResponse = getLastSubmittedResponse({ activities, session, activeStep });
+    const isOptimal = lastSubmittedResponse && lastSubmittedResponse.optimal;
+    reportAProblem({...args, sessionID, isOptimal})
   }
 
   function handleClickDoneHighlighting() {

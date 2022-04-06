@@ -9,7 +9,7 @@ export const WelcomeSlide = ({ onHandleClick, user }) => {
       <section id="information-section">
         <p className="subtext">{welcomeText}</p>
         <section id="header-container">
-          <p id="header">Welcome to Quill Evidence</p>
+          <p id="header">Welcome to Quill Reading for Evidence</p>
         </section>
         <section id="instructions-container">
           <div className="instruction-container">

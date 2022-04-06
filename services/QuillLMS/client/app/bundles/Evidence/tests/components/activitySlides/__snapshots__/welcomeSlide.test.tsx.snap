@@ -19,7 +19,7 @@ exports[`WelcomeSlide Component should match snapshot 1`] = `
       <p
         id="header"
       >
-        Welcome to Quill Evidence
+        Welcome to Quill Reading for Evidence
       </p>
     </section>
     <section

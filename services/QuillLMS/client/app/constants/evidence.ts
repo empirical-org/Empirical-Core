@@ -36,7 +36,7 @@ export const HIGHLIGHT_TYPE = 'highlight type'
 export const FEEDBACK_LAYER_ADDITION = 'feedback layer addition'
 export const FEEDBACK_LAYER_REMOVAL = 'feedback layer removal'
 export const ESSENTIAL_KNOWLEDGE_TEXT_FILLER = '<p>In this activity, you’ll read about how skateboarding gained popularity through a process called hierarchical diffusion.</p><br/><p><i>Hierarchical diffusion</i>, happens when an idea spreads through an established social structure (a hierarchy), usually from a person or place with more power and connections to people or places with less power and fewer connections.</p>'
-export const MAX_ATTEMPTS_FEEDBACK_TEXT = '<p>You completed four revisions!</p><br/><p>[A message about why the response fell short of being an optimal response, such as, “Your response was missing key details about why New York City is building a surge barrier.”] Here are some strong responses:</p><br/><ul><li>[Exemplar #1 Response (Show the full sentence stem and the exemplar part in bold)].</li><li>[Exemplar #2 Response (Show the full sentence stem and the exemplar part in bold)].</li></ul><br/><p>Think about how these responses are similar or different from your response. Then move on to the next prompt.</p>'
+export const BREAK_TAG = '<br/>';
 
 export const TEXT = 'text';
 export const FIRST_STRONG_EXAMPLE = 'first_strong_example';
@@ -168,6 +168,22 @@ export const ruleOrder = {
   'Spelling': 6
 }
 
+export const RULE_TYPE_TO_ROUTE_PART = {
+  autoML: 'semantic-labels',
+  plagiarism: 'plagiarism-rules',
+  'rules-based-1': 'regex-rules',
+  'rules-based-2': 'regex-rules',
+  'rules-based-3': 'regex-rules'
+}
+
+export const RULE_TYPE_TO_NAME = {
+  autoML: 'Semantic',
+  plagiarism: 'Plagiarism',
+  'rules-based-1': 'Sentence Structure Regex',
+  'rules-based-2': 'Post-topic Regex',
+  'rules-based-3': 'Typo Regex'
+}
+
 export const PROMPT_ATTEMPTS_FEEDBACK_LABELS = {
   "1": {
     attemptLabel: '1st Attempt',
@@ -208,19 +224,19 @@ export const blankActivity = {
       conjunction: 'because',
       text: '',
       max_attempts: 5,
-      max_attempts_feedback: MAX_ATTEMPTS_FEEDBACK_TEXT
+      max_attempts_feedback: ''
     },
     {
       conjunction: 'but',
       text: '',
       max_attempts: 5,
-      max_attempts_feedback: MAX_ATTEMPTS_FEEDBACK_TEXT
+      max_attempts_feedback: ''
     },
     {
       conjunction: 'so',
       text: '',
       max_attempts: 5,
-      max_attempts_feedback: MAX_ATTEMPTS_FEEDBACK_TEXT
+      max_attempts_feedback: ''
     }
   ]
 }
@@ -270,7 +286,6 @@ export const FLAG = 'Flag';
 export const PARENT_ACTIVITY_ID = 'Parent Activity ID';
 export const HIGHLIGHT_PROMPT = 'Highlight Prompt';
 export const PASSAGE = 'Passage';
-export const MAX_ATTEMPTS_FEEDBACK = 'Max attempts feedback';
 export const BECAUSE_STEM = 'Because stem';
 export const BUT_STEM = 'But stem';
 export const SO_STEM = 'So stem';
@@ -278,13 +293,16 @@ export const IMAGE_LINK = 'Image link';
 export const IMAGE_ALT_TEXT = 'Image alt text';
 export const IMAGE_CAPTION = 'Image caption';
 export const IMAGE_ATTRIBUTION = 'Image attribution';
+export const BUILDING_ESSENTIAL_KNOWLEDGE = 'Building Essential Knowledge';
+export const HIGHLIGHTING_PROMPT = 'Highlight Prompt';
+export const IMAGE = 'Image';
+export const MAX_ATTEMPTS_FEEDBACK = 'Max Attempts Feedback';
+export const PROMPTS = 'Prompts'
 
 export const activityFormKeys = [
   FLAG,
   TITLE,
   NOTES,
-  SCORED_READING_LEVEL,
-  TARGET_READING_LEVEL,
   PASSAGE,
   BECAUSE_STEM,
   BUT_STEM,

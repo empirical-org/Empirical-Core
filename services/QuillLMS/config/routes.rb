@@ -627,10 +627,8 @@ EmpiricalGrammar::Application.routes.draw do
 
   other_pages = %w(
     beta
-    ideas
     board
     press
-    partners
     develop
     mission
     about
@@ -643,7 +641,6 @@ EmpiricalGrammar::Application.routes.draw do
     stats
     team
     premium
-    teacher_resources
     media_kit
     play
     news
@@ -673,11 +670,13 @@ EmpiricalGrammar::Application.routes.draw do
   # These are legacy routes that we are redirecting for posterity.
   get 'comprehension', to: redirect('evidence')
   get 'blog_posts', to: redirect('/news')
-  get 'supporters', to: redirect('https://community.quill.org/')
+  get 'supporters', to: redirect('about')
   get 'story', to: redirect('/mission')
   get 'learning', to: redirect('https://support.quill.org/research-and-pedagogy')
   get 'new', to: redirect('/')
   get 'media', to: redirect('/media_kit')
+  get 'board', to: redirect('/team')
+  get 'partners', to: redirect('/about')
   # End legacy route redirects.
 
   tools = %w(diagnostic_tool connect_tool grammar_tool proofreader_tool lessons_tool)
@@ -809,7 +808,7 @@ EmpiricalGrammar::Application.routes.draw do
   get '/lib/mailer_previews' => "rails/mailers#index"
   get '/lib/mailer_previews/*path' => "rails/mailers#preview"
 
-  get "/donate" => redirect("https://community.quill.org/donate")
+  get "/donate" => redirect("/about")
   # catch-all 404
   get '*path', to: 'application#routing_error'
 

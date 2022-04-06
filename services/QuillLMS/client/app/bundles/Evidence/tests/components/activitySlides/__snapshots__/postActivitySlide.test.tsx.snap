@@ -85,7 +85,7 @@ exports[`PostActivitySlide Component should match snapshot 1`] = `
           <p>
             test1
             <strong>
-              because 
+               because 
             </strong>
             <br />
             <u />
@@ -151,7 +151,7 @@ exports[`PostActivitySlide Component should match snapshot 1`] = `
           <p>
             test2
             <strong>
-              but 
+               but 
             </strong>
             <br />
             <u />
@@ -217,7 +217,7 @@ exports[`PostActivitySlide Component should match snapshot 1`] = `
           <p>
             test3
             <strong>
-              so 
+               so 
             </strong>
             <br />
             <u />

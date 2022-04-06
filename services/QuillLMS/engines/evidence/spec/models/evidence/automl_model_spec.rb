@@ -164,8 +164,9 @@ module Evidence
       end
 
       it 'should strip any whitespace that is on "automl_model_id" before looking records up via Google' do
-        ENV['AUTOML_GOOGLE_PROJECT_ID'] = 'PROJECT_ID'
-        ENV['AUTOML_GOOGLE_LOCATION'] = 'LOCATION'
+        stub_const("AutomlModel::GOOGLE_PROJECT_ID", 'PROJECT_ID')
+        stub_const("AutomlModel::GOOGLE_LOCATION", 'LOCATION')
+
         automl_model_id = '   HAS_SPACES   '
         stripped_automl_model_id = automl_model_id.strip
         automl_model = build(:evidence_automl_model, automl_model_id: automl_model_id)
@@ -173,7 +174,7 @@ module Evidence
         auto_ml_stub = double
         expect(Google::Cloud::AutoML).to receive(:auto_ml).and_return(auto_ml_stub)
         expect(auto_ml_stub).to receive(:model_path).with(project: ENV['AUTOML_GOOGLE_PROJECT_ID'], location: ENV['AUTOML_GOOGLE_LOCATION'], model: stripped_automl_model_id)
-        automl_model.send(:automl_model_full_id)
+        automl_model.send(:automl_model_path)
       end
     end
 
@@ -214,29 +215,34 @@ module Evidence
 
         expect(prediction_client).to receive(:predict).and_return( MockPayload.new([result1, result2]) )
         expect(Google::Cloud::AutoML).to receive(:prediction_service).and_return(prediction_client)
-
-        client = double
-        expect(client).to receive(:model_path).and_return("the_path")
-        expect(Google::Cloud::AutoML).to receive(:auto_ml).and_return(client)
+        expect(prediction_client).to receive(:model_path).and_return("the_path")
 
         expect(automl_model.fetch_automl_label('some text')).to eq 'result1'
+      end
+
+      it "should raise if the google api a raises for a timeout" do
+        prediction_client = double
+
+        expect(prediction_client).to receive(:predict).and_raise(Google::Cloud::Error)
+        expect(Google::Cloud::AutoML).to receive(:prediction_service).and_return(prediction_client)
+        expect(prediction_client).to receive(:model_path).and_return("the_path")
+
+        expect { automl_model.fetch_automl_label('some text')}.to(raise_error(Google::Cloud::Error))
       end
     end
 
 
-    context 'should #automl_model_full_id' do
+    context 'should #automl_model_path' do
 
       it 'should call model_path on the automl_client with specified values' do
-        project_id = "PROJECT"
-        location = "us-central1"
         model = create(:evidence_automl_model)
-        ENV["AUTOML_GOOGLE_PROJECT_ID"] = project_id
-        ENV["AUTOML_GOOGLE_LOCATION"] = location
+        stub_const("AutomlModel::GOOGLE_PROJECT_ID", 'PROJECT')
+        stub_const("AutomlModel::GOOGLE_LOCATION", "us-central1")
 
         client = double
         allow(client).to receive(:model_path).and_return("the_path")
         expect(Google::Cloud::AutoML).to receive(:auto_ml).and_return(client)
-        expect(model.send(:automl_model_full_id)).to eq "the_path"
+        expect(model.send(:automl_model_path)).to eq "the_path"
       end
     end
 

@@ -4,7 +4,8 @@ import stripHtml from "string-strip-html";
 import { RouteComponentProps } from 'react-router-dom'
 import { useQuery } from 'react-query';
 import { firstBy } from "thenby";
-import ReactTable from 'react-table';
+import ReactTable from 'react-table-6'
+;
 import qs from 'qs';
 import * as _ from 'lodash'
 import DateTimePicker from 'react-datetime-picker';

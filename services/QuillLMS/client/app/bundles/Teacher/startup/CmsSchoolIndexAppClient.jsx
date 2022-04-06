@@ -1,6 +1,6 @@
 import React from 'react';
-import ReactTable from 'react-table';
-import 'react-table/react-table.css';
+import ReactTable from 'react-table-6'
+
 import getAuthToken from '../components/modules/get_auth_token';
 import LoadingIndicator from '../components/shared/loading_indicator'
 

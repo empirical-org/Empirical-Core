@@ -195,23 +195,23 @@ describe UnitTemplate, redis: true, type: :model do
       flag_types = ['beta_unit_templates', 'production_unit_templates', 'gamma_unit_templates', 'alpha_unit_templates']
       exist_count = 0
       flag_types.each do |flag|
-        exist_count += $redis.exists(flag) ? 1 : 0
+        exist_count += $redis.exists(flag) == 1 ? 1 : 0
       end
       exist_count
     end
 
     it "deletes the cache of the saved unit" do
       $redis.set("unit_template_id:#{unit_template.id}_serialized", 'something')
-      expect($redis.exists("unit_template_id:#{unit_template.id}_serialized")).to be
+      expect($redis.exists("unit_template_id:#{unit_template.id}_serialized")).to eq(1)
       unit_template.update(name: 'something else')
-      expect($redis.exists("unit_template_id:#{unit_template.id}_serialized")).not_to be
+      expect($redis.exists("unit_template_id:#{unit_template.id}_serialized")).to eq(0)
     end
 
     it "deletes the cache of the saved unit's flag, or production before and after save" do
       expect(exist_count).to eq(4)
       unit_template.update(flag: 'beta')
       expect(exist_count).to eq(3)
-      expect($redis.exists('alpha_unit_templates')).to be
+      expect($redis.exists('alpha_unit_templates')).to eq(1)
       unit_template.update(flag: 'alpha')
       expect(exist_count).to eq(2)
     end

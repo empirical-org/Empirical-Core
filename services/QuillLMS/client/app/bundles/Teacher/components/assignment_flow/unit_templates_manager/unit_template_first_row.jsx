@@ -35,7 +35,7 @@ export default class UnitTemplateFirstRow extends React.Component {
 
     return (
       <div className="tool-names">
-        <span>Contains activities from:</span>
+        <span>Contains activities from</span>
         <p>
           {toolRows}
         </p>

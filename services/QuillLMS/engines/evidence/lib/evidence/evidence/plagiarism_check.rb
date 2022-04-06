@@ -5,7 +5,7 @@ require 'hotwater'
 module Evidence
   class PlagiarismCheck
 
-    ALL_CORRECT_FEEDBACK = 'All plagiarism checks passed.'
+    ALL_CORRECT_FEEDBACK = '<p>All plagiarism checks passed.</p>'
     PASSAGE_TYPE = 'passage'
     ENTRY_TYPE = 'response'
     MATCH_MINIMUM = 10

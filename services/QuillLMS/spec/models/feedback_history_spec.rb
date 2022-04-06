@@ -138,6 +138,77 @@ RSpec.describe FeedbackHistory, type: :model do
     end
   end
 
+  context 'save_feedback' do
+    let(:entry) { 'some response text' }
+    let(:activity_session_uid) { SecureRandom.uuid }
+    let(:rule_uid) { SecureRandom.uuid }
+    let(:prompt_id) { 99 }
+    let(:attempt) { 5 }
+
+    let!(:feedback_hash) {
+      {
+        rule_uid: rule_uid,
+        concept_uid: 'rCuCaRpGZg0TeFfy4LeM9A',
+        feedback: 'write better',
+        feedback_type: 'grammar',
+        optimal: false,
+        highlight: [{text: 'some', type: 'entry', category: 'grammar', character: 0}],
+        response_id: 'abc123',
+        hint: 'a hint'
+      }
+    }
+
+    # missing hint: key, blank response, empty highlight
+    let(:feedback_hash_with_blank_metadata) {
+      {
+        rule_uid: rule_uid,
+        concept_uid: 'rCuCaRpGZg0TeFfy4LeM9A',
+        feedback: 'write better',
+        feedback_type: 'grammar',
+        optimal: false,
+        highlight: [],
+        response_id: '',
+      }
+    }
+
+    let(:highlight) {'some highlight'}
+
+    it 'should store the data properly' do
+      feedback = FeedbackHistory.save_feedback(feedback_hash, entry, prompt_id, activity_session_uid, attempt)
+
+      feedback_session = FeedbackSession.find_by(activity_session_uid: activity_session_uid)
+
+      expect(feedback.valid?).to be true
+      expect(feedback.feedback_session_uid).to eq(feedback_session.uid)
+      expect(feedback.prompt_id).to eq(prompt_id)
+      expect(feedback.feedback_text).to eq('write better')
+      expect(feedback.feedback_type).to eq('grammar')
+      expect(feedback.optimal).to be false
+      expect(feedback.concept_uid).to eq('rCuCaRpGZg0TeFfy4LeM9A')
+      expect(feedback.rule_uid).to eq(rule_uid)
+      expect(feedback.attempt).to eq(attempt)
+      expect(feedback.entry).to eq(entry)
+      expect(feedback.metadata['highlight'].first['text']).to eq('some')
+      expect(feedback.metadata['response_id']).to eq('abc123')
+      expect(feedback.metadata['hint']).to eq('a hint')
+    end
+
+    it 'should store the metadata properly for all blank_values' do
+      feedback = FeedbackHistory.save_feedback(feedback_hash_with_blank_metadata, entry, prompt_id, activity_session_uid, attempt)
+
+      expect(feedback.valid?).to be true
+      expect(feedback.metadata).to eq({})
+    end
+
+    it 'should store the metadata properly for one non blank value' do
+      feedback_hash = feedback_hash_with_blank_metadata.merge(highlight: [highlight])
+      feedback = FeedbackHistory.save_feedback(feedback_hash, entry, prompt_id, activity_session_uid, attempt)
+
+      expect(feedback.valid?).to be true
+      expect(feedback.metadata['highlight'].first).to eq(highlight)
+    end
+  end
+
   context 'batch_create' do
     before do
       @valid_fh_params = {

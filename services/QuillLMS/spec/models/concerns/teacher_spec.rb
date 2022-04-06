@@ -242,7 +242,7 @@ describe User, type: :model do
     end
 
     describe '#archived_classrooms' do
-      it 'returns an array of teachers archived classes if extant' do
+      it 'returns an array of teachers archived classes if existing' do
         classroom.update(visible: false)
         expect(teacher.archived_classrooms).to eq([classroom])
       end

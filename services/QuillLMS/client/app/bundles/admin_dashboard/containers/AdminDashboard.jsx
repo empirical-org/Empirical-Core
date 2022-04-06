@@ -63,17 +63,17 @@ export default class AdminDashboard extends React.Component {
   };
 
   addTeacherAccount = (data) => {
-    const that = this;
-    that.setState({ message: '', error: '', });
+    const { adminId } = this.props;
+    this.setState({ message: '', error: '', });
     data.authenticity_token = getAuthToken();
-    request.post(`${process.env.DEFAULT_URL}/admins/${that.props.id}/teachers`, {
+    request.post(`${process.env.DEFAULT_URL}/admins/${adminId}/teachers`, {
       json: data,
     },
     (e, r, response) => {
       if (response.error) {
-        that.setState({ error: response.error, });
+        this.setState({ error: response.error, });
       } else if (r.statusCode === 200) {
-        that.setState({ message: response.message, }, () => that.getData());
+        this.setState({ message: response.message, }, () => this.getData());
       } else {
         // to do, use Sentry to capture error
       }

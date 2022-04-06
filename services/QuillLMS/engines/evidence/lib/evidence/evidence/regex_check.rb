@@ -3,7 +3,7 @@
 module Evidence
   class RegexCheck
 
-    ALL_CORRECT_FEEDBACK = 'All regex checks passed.'
+    ALL_CORRECT_FEEDBACK = '<p>All regex checks passed.</p>'
     OPTIMAL_RULE_KEY = 'optimal_regex_rule_uid'
     attr_reader :entry, :prompt, :rule_type
 
@@ -64,11 +64,12 @@ module Evidence
     end
 
     private def first_failing_regex_rule
-      rules = @prompt.rules.where(rule_type: @rule_type).order(:suborder)
-      rules.each do |rule|
-        return rule unless rule.regex_is_passing?(@entry)
-      end
-      nil
+      rules = @prompt.rules
+        .where(rule_type: @rule_type)
+        .includes(:required_sequences, :incorrect_sequences)
+        .order(:suborder)
+
+      rules.find {|rule| !rule.regex_is_passing?(@entry) }
     end
   end
 end

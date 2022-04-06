@@ -261,6 +261,36 @@ describe Subscription, type: :model do
     end
   end
 
+  describe ".promotional_dates" do
+    context 'when called on a day prior to July, 1' do
+      before do
+        allow(Date).to receive(:today).and_return Date.new(2018,4,4)
+      end
+
+      it "returns an expiration date of June 30 the next year when called on a day prior to July" do
+        expect(Subscription.promotional_dates[:expiration]).to eq(Date.new(2019,6,30))
+      end
+
+      it "returns a start date one year from the day it was called" do
+        expect(Subscription.promotional_dates[:start_date]).to eq(Date.today)
+      end
+    end
+
+    context 'when called on a day after June 30' do
+      before do
+        allow(Date).to receive(:today).and_return Date.new(2018,10,4)
+      end
+
+      it "returns an expiration date of December 31 the next year when called on a day prior to July" do
+        expect(Subscription.promotional_dates[:expiration]).to eq(Date.new(2019,12,31))
+      end
+
+      it "returns a start date one year from the day it was called" do
+        expect(Subscription.promotional_dates[:start_date]).to eq(Date.today)
+      end
+    end
+  end
+
   describe 'create_with_user_join' do
     let!(:user) { create(:user) }
     let(:old_sub) { Subscription.create_with_user_join(user.id, expiration: Date.yesterday, account_type: 'Teacher Paid') }
@@ -282,28 +312,28 @@ describe Subscription, type: :model do
     end
 
     context 'when the subscription type is TEACHER_TRIAL' do
-      let!(:user_with_extant_subscription) { create(:user) }
-      let!(:extant_subscription ) { Subscription.create_with_user_join(user_with_extant_subscription.id, expiration: Date.today + 365, account_type: 'Teacher Paid') }
-      let!(:user_with_no_extant_subscription) { create(:user) }
-      let!(:user_with_expired_extant_subscription) { create(:user) }
-      let!(:extant_expired_subscription ) { Subscription.create_with_user_join(user_with_expired_extant_subscription.id, expiration: Date.today - 1, account_type: 'Teacher Paid') }
+      let!(:user_with_existing_subscription) { create(:user) }
+      let!(:existing_subscription ) { Subscription.create_with_user_join(user_with_existing_subscription.id, expiration: Date.today + 365, account_type: 'Teacher Paid') }
+      let!(:user_with_no_existing_subscription) { create(:user) }
+      let!(:user_with_expired_existing_subscription) { create(:user) }
+      let!(:existing_expired_subscription ) { Subscription.create_with_user_join(user_with_expired_existing_subscription.id, expiration: Date.today - 1, account_type: 'Teacher Paid') }
 
-      it 'creates a trial subscription with an expiration in 30 days if there is no extant subscription' do
+      it 'creates a trial subscription with an expiration in 30 days if there is no existing subscription' do
         attributes = { account_type: 'Teacher Trial' }
-        new_sub = Subscription.create_with_user_join(user_with_no_extant_subscription.id, attributes)
+        new_sub = Subscription.create_with_user_join(user_with_no_existing_subscription.id, attributes)
         expect(new_sub.expiration).to eq(Date.today + 30)
       end
 
-      it 'creates a trial subscription with an expiration in 30 days if there is an expired extant subscription' do
+      it 'creates a trial subscription with an expiration in 30 days if there is an expired existing subscription' do
         attributes = { account_type: 'Teacher Trial' }
-        new_sub = Subscription.create_with_user_join(user_with_expired_extant_subscription.id, attributes)
+        new_sub = Subscription.create_with_user_join(user_with_expired_existing_subscription.id, attributes)
         expect(new_sub.expiration).to eq(Date.today + 30)
       end
 
-      it 'create a trial subscription with an expiration 31 days after the extant subscription expiration' do
+      it 'create a trial subscription with an expiration 31 days after the existing subscription expiration' do
         attributes = { account_type: 'Teacher Trial' }
-        new_sub = Subscription.create_with_user_join(user_with_extant_subscription.id, attributes)
-        expect(new_sub.expiration).to eq(extant_subscription.expiration + 31)
+        new_sub = Subscription.create_with_user_join(user_with_existing_subscription.id, attributes)
+        expect(new_sub.expiration).to eq(existing_subscription.expiration + 31)
       end
     end
 

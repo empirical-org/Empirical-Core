@@ -3,10 +3,8 @@ import { shallow } from 'enzyme';
 
 import { mockActivity } from '../__mocks__/data';
 import ActivityForm from '../configureSettings/activityForm';
-
-jest.mock('string-strip-html', () => ({
-  default: jest.fn()
-}));
+import UpperFormSection from '../configureSettings/upperFormSection';
+import { DataTable } from '../../../../Shared';
 
 const mockProps = {
   activity: mockActivity,
@@ -21,9 +19,12 @@ describe('Activity Form component', () => {
   it('should render Activities', () => {
     expect(container).toMatchSnapshot();
   });
-  it('should render request errors if present', () => {
-    mockProps.requestErrors = ['passage.text: passage text is too short'];
+  it('should render an UpperFormSection component', () => {
     container = shallow(<ActivityForm {...mockProps} />);
-    expect(container.find('p.all-errors-message').text()).toEqual('passage.text: passage text is too short');
+    expect(container.find(UpperFormSection).length).toEqual(1);
+  });
+  it('should render a DataTable component', () => {
+    container = shallow(<ActivityForm {...mockProps} />);
+    expect(container.find(DataTable).length).toEqual(1);
   });
 });

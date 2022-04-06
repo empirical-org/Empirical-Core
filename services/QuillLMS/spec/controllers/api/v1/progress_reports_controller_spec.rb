@@ -52,6 +52,28 @@ describe Api::V1::ProgressReportsController, type: :controller do
         classroom_name: classroom.name
       }.to_json)
     end
+
+    it 'should successfully return fresh and cached payloads' do
+      # Storing payload data here before setting our 'call once' expectaton to confirm caching
+      report_results = ProgressReports::StudentOverview.results(classroom.id, student.id)
+
+      expect(ProgressReports::StudentOverview).to receive(:results).with(classroom.id, student.id).once.and_return(report_results)
+
+      session[:user_id] = teacher.id
+      2.times do
+        get :student_overview_data, params: { student_id: student.id, classroom_id: classroom.id }, as: :json
+        expect(response.status).to eq(200)
+        expect(response.body).to eq({
+          report_data: report_results,
+          student_data: {
+            name: student.name,
+            id: student.id,
+            last_active: student.last_active
+          },
+          classroom_name: classroom.name
+        }.to_json)
+      end
+    end
   end
 
   describe '#district_activity_scores' do

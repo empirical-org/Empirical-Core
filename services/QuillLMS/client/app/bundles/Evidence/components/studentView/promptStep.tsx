@@ -28,6 +28,8 @@ interface PromptStepState {
   customFeedbackKey: string|null;
   responseOverCharacterLimit: boolean;
   submissionTime: number;
+  timeAtLastFeedbackSubmissionCheck: number;
+  failedToLoadFeedback: boolean;
 }
 
 const RESPONSE = 'response'
@@ -38,9 +40,13 @@ const OVER_LIMIT_MESSSAGE = 'Your response is too long for our feedback bot to u
 const WARNING_THRESHOLD = 160;
 const LIMIT_THRESHOLD = 200;
 const MAX_ATTEMPTS = 5;
+const SLOW_FEEDBACK_CONSTRAINT = 10000;
+const FEEDBACK_LOADING_LIMIT = 30000;
 
 export class PromptStep extends React.Component<PromptStepProps, PromptStepState> {
   private editor: any // eslint-disable-line react/sort-comp
+  private interval: any // eslint-disable-line react/sort-comp
+  private button: any // eslint-disable-line react/sort-comp
 
   constructor(props: PromptStepProps) {
     super(props)
@@ -53,18 +59,38 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
       customFeedback: null,
       customFeedbackKey: null,
       responseOverCharacterLimit: false,
-      submissionTime: null
+      submissionTime: 0,
+      failedToLoadFeedback: false,
+      timeAtLastFeedbackSubmissionCheck: 0
     };
 
     this.editor = React.createRef()
+    this.button = React.createRef()
+    this.interval = null;
   }
 
-  componentDidUpdate(prevProps) {
+
+  componentDidUpdate() {
     const { submittedResponses } = this.props;
-    const { numberOfSubmissions, submissionTime } = this.state;
+    const { numberOfSubmissions, submissionTime, timeAtLastFeedbackSubmissionCheck, failedToLoadFeedback } = this.state;
+    const timeLapsed = Math.abs(timeAtLastFeedbackSubmissionCheck - submissionTime)
+    const awaitingFeedback = (numberOfSubmissions !== submittedResponses.length) && !failedToLoadFeedback
+
     if(submissionTime && numberOfSubmissions === submittedResponses.length) {
-      this.setState({ submissionTime: null });
+      this.setState({ submissionTime: 0, timeAtLastFeedbackSubmissionCheck: 0 });
+      clearInterval(this.interval);
     }
+    if(timeAtLastFeedbackSubmissionCheck && timeLapsed >= FEEDBACK_LOADING_LIMIT && !failedToLoadFeedback) {
+      const feedbackFailedToLoadText = 'Sorry, our feedback did not load properly. Please try again or refresh the page.'
+      this.setState({ failedToLoadFeedback: true, customFeedback: feedbackFailedToLoadText, customFeedbackKey: 'feedback failed' });
+    }
+    if(awaitingFeedback) {
+      this.button.current.focus()
+    }
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
   lastSubmittedResponse = () => {
@@ -154,13 +180,25 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
 
   promptAsRegex = () => new RegExp(`^${this.htmlStrippedPrompt(true)}`)
 
+  resetEditorCursorPosition = () => {
+    const range = document.createRange();
+    range.selectNodeContents(this.editor);
+    range.collapse(false);
+    const sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+  }
+
   onTextChange = (e) => {
     const { value } = e.target
     const text = value.replace(/<b>|<\/b>|<p>|<\/p>|<br>/g, '')
     const regex = this.promptAsRegex()
-    const caretPosition = EditCaretPositioning.saveSelection(this.editor)
+
     if (text.match(regex)) {
-      this.setState({ html: value, }, () => EditCaretPositioning.restoreSelection(this.editor, caretPosition))
+      this.setState({ html: value, }, () => {
+        this.editor.innerHTML = value
+        this.resetEditorCursorPosition()
+      })
       // if the student has deleted everything, we want to remove everything but the prompt stem
     } else if (!text.length) {
       this.resetText()
@@ -224,27 +262,27 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
 
   resetText = () => {
     const html = this.formattedStem()
-    this.setState({ html }, () => this.editor.innerHTML = html)
+    this.setState({ html }, () => {
+      this.editor.innerHTML = html
+      this.resetEditorCursorPosition()
+    })
   }
 
   setEditorRef = (node: JSX.Element) => this.editor = node
 
   onFocus = () => {
-    // following code ensures tabbing into editor always puts cursor at the end of the text
-    const el = this.editor
-    // retrieved from https://stackoverflow.com/a/4238971
-    if (typeof window.getSelection != "undefined" && typeof document.createRange != "undefined") {
-      const range = document.createRange();
-      range.selectNodeContents(el);
-      range.collapse(false);
-      const sel = window.getSelection();
-      sel.removeAllRanges();
-      sel.addRange(range);
-    } else if (typeof document.body.createTextRange != "undefined") {
-      const textRange = document.body.createTextRange();
-      textRange.moveToElementText(el);
-      textRange.collapse(false);
-      textRange.select();
+    if(document.activeElement !== this.button.current) {
+      // following code ensures tabbing into editor always puts cursor at the end of the text
+      const el = this.editor
+      // retrieved from https://stackoverflow.com/a/4238971
+      if (typeof window.getSelection != "undefined" && typeof document.createRange != "undefined") {
+        this.resetEditorCursorPosition()
+      } else if (typeof document.body.createTextRange != "undefined") {
+        const textRange = document.body.createTextRange();
+        textRange.moveToElementText(el);
+        textRange.collapse(false);
+        textRange.select();
+      }
     }
   }
 
@@ -253,10 +291,14 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
 
     this.setState(prevState => ({
       numberOfSubmissions: prevState.numberOfSubmissions + 1,
-      submissionTime: (new Date()).getTime()
+      submissionTime: (new Date()).getTime(),
+      failedToLoadFeedback: false,
+      customFeedback: null,
+      customFeedbackKey: null
     }), () => {
       const { numberOfSubmissions, } = this.state
       submitResponse(entry, promptId, promptText, numberOfSubmissions)
+      this.interval = setInterval(() => this.setState({ timeAtLastFeedbackSubmissionCheck: (new Date()).getTime() }), 1000);
     })
   }
 
@@ -291,25 +333,25 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
   }
 
   getFeedbackLoadingDetails = () => {
-    const { submissionTime } = this.state
+    const { submissionTime, timeAtLastFeedbackSubmissionCheck } = this.state
     if(!submissionTime) {
       return <span />
     }
-
-    const currentTime = (new Date()).getTime()
-    const timeLapsed = Math.abs(currentTime - submissionTime)
-    if(timeLapsed <= 5000) {
+    const timeLapsed = Math.abs(timeAtLastFeedbackSubmissionCheck - submissionTime)
+    if(timeLapsed <= SLOW_FEEDBACK_CONSTRAINT) {
       return <p>Finding feedback...</p>
+    } else if(timeLapsed > SLOW_FEEDBACK_CONSTRAINT && timeLapsed <= FEEDBACK_LOADING_LIMIT) {
+      return <p>Still finding feedback. Thanks for your patience!</p>
     }
-    return <p>Still finding feedback. Thanks for your patience!</p>
+    return <span />
   }
 
   renderFeedbackButtonAndDetails = () => {
     const { prompt, submittedResponses, completionButtonCallback, activityIsComplete} = this.props
     const { id, text, max_attempts } = prompt
-    const { html, numberOfSubmissions, responseOverCharacterLimit } = this.state
+    const { html, numberOfSubmissions, responseOverCharacterLimit, failedToLoadFeedback } = this.state
     const entry = this.stripHtml(html).trim()
-    const awaitingFeedback = numberOfSubmissions !== submittedResponses.length
+    const awaitingFeedback = (numberOfSubmissions !== submittedResponses.length) && !failedToLoadFeedback
     const buttonLoadingSpinner = awaitingFeedback ? <ButtonLoadingSpinner /> : null
     let buttonCopy = 'Get feedback'
     let className = 'quill-button focus-on-light'
@@ -333,7 +375,7 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     return(
       <div className="feedback-details-section">
         {this.getFeedbackLoadingDetails()}
-        <button className={className} onClick={onClick} type="button">{buttonLoadingSpinner}<span>{buttonCopy}</span></button>
+        <button className={className} onClick={onClick} ref={this.button} type="button">{buttonLoadingSpinner}<span>{buttonCopy}</span></button>
       </div>
     )
   }

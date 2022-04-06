@@ -37,6 +37,7 @@ class FeedbackHistory < ApplicationRecord
   MIN_FEEDBACK_LENGTH = 10
   MAX_FEEDBACK_LENGTH = 500
   FEEDBACK_TYPES = [
+    ERROR = "error",
     GRAMMAR = "grammar",
     PLAGIARISM = "plagiarism",
     RULES_BASED_ONE = "rules-based-1",
@@ -130,6 +131,34 @@ class FeedbackHistory < ApplicationRecord
 
   def most_recent_rating
     feedback_history_ratings.order(updated_at: :desc).first&.rating
+  end
+
+  # TODO: consider making this a background job.
+  def self.save_feedback(feedback_hash_raw, entry, prompt_id, activity_session_uid, attempt)
+    feedback_hash = feedback_hash_raw.deep_stringify_keys
+
+    # Remove blank values from metadata
+    metadata = {
+      highlight: feedback_hash['highlight'],
+      response_id: feedback_hash['response_id'],
+      hint: feedback_hash['hint']
+    }.reject {|_,v| v.blank? }
+
+    # NB, there is a before_create that swaps activity_session_uid for a feedback_session.uid
+    create(
+      feedback_session_uid: activity_session_uid,
+      prompt_id: prompt_id,
+      attempt: attempt,
+      entry: entry,
+      used: true,
+      time: Time.zone.now,
+      rule_uid: feedback_hash['rule_uid'],
+      concept_uid: feedback_hash['concept_uid'],
+      feedback_text: feedback_hash['feedback'],
+      feedback_type: feedback_hash['feedback_type'],
+      optimal: feedback_hash['optimal'],
+      metadata: metadata
+    )
   end
 
   def rule_violation_repititions?

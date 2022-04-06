@@ -94,3 +94,7 @@ export {
 export {
   UploadOptimalResponses
 } from './uploadOptimalResponses'
+
+export {
+  ToggleComponentSection
+} from './toggleComponentSection'

@@ -30,7 +30,7 @@ module Evidence
         'response_id': '0', # not currently used, but part of Evidence payload spec
         'labels': '',       # not currently used, but part of Evidence payload spec
         'concept_uid': '',
-        'feedback': '',
+        'feedback': '<p></p>',
         'optimal': true,
         'highlight': '',
         'rule_uid': ''

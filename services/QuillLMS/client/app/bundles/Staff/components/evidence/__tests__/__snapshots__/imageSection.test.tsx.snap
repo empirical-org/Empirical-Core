@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ImageSection component should render ImageSection 1`] = `
+<Fragment>
+  <Input
+    autoComplete="on"
+    className="image-link-input"
+    handleChange={[MockFunction]}
+    label="Image Link"
+    value=""
+  />
+  <Input
+    autoComplete="on"
+    className="image-alt-text-input"
+    handleChange={[MockFunction]}
+    label="Image Alt Text"
+  />
+  <Input
+    autoComplete="on"
+    className="image-caption-text-input"
+    handleChange={[MockFunction]}
+    label="Image Caption"
+  />
+  <div
+    className="image-attribution-container"
+  >
+    <p
+      className="text-editor-label "
+      id="image-attribution-label"
+    >
+       Image Attribution
+    </p>
+    <a
+      className="data-link image-attribution-guide-link"
+      href=""
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      Image Attribution Guide
+    </a>
+    <textarea
+      aria-labelledby="image-attribution-label"
+      className="image-attribution-text-area"
+      onChange={[MockFunction]}
+    />
+  </div>
+</Fragment>
+`;

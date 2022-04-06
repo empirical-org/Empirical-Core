@@ -1,7 +1,7 @@
 import * as React from 'react'
 import moment from 'moment'
 
-import { DataTable, Tooltip } from '../../../Shared/index'
+import { onMobile, DataTable, Tooltip } from '../../../Shared/index'
 import activityLaunchLink from '../modules/generate_activity_launch_link.js';
 
 const diagnosticSrc = `${process.env.CDN_URL}/images/icons/tool-diagnostic-gray.svg`
@@ -9,7 +9,7 @@ const connectSrc = `${process.env.CDN_URL}/images/icons/tool-connect-gray.svg`
 const grammarSrc = `${process.env.CDN_URL}/images/icons/tool-grammar-gray.svg`
 const proofreaderSrc = `${process.env.CDN_URL}/images/icons/tool-proofreader-gray.svg`
 const lessonsSrc = `${process.env.CDN_URL}/images/icons/tool-lessons-gray.svg`
-const evidenceSrc = `${process.env.CDN_URL}/images/icons/tool-comprehension-gray.svg`
+const evidenceSrc = `${process.env.CDN_URL}/images/icons/tool-evidence-gray.svg`
 
 const CONNECT_ACTIVITY_CLASSIFICATION_KEY = "connect"
 const GRAMMAR_ACTIVITY_CLASSIFICATION_KEY = "sentence"
@@ -26,6 +26,7 @@ const incompleteHeaders = [
     width: '633px',
     name: 'Activity',
     attribute: 'name',
+    noTooltip: onMobile(), // On mobile we don't want a tooltip wrapper since they basically don't work there
     headerClassName: 'name-section',
     rowSectionClassName: 'name-section'
   }, {
@@ -178,7 +179,7 @@ export default class StudentProfileUnit extends React.Component {
       case LESSONS_ACTIVITY_CLASSIFICATION_KEY:
         return <img alt="Apple representing Quill Lessons" src={lessonsSrc} />
       case EVIDENCE_ACTIVITY_CLASSIFICATION_KEY:
-        return <img alt="Book representing Quill Evidence" src={evidenceSrc} />
+        return <img alt="Book representing Quill Reading for Evidence" src={evidenceSrc} />
       default:
         return
     }
