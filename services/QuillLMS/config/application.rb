@@ -21,7 +21,7 @@ module EmpiricalGrammar
     # -- all .rb files in that directory are automatically loaded.
 
     # load custom extensions
-    Dir[Rails.root.join("app/lib/extensions/**/*.rb")].each { |f| require f }
+    Dir[Rails.root.join("app/lib/extensions/**/*.rb")].sort.each { |f| require f }
 
     config.cache_store = :redis_store, ENV["REDISCLOUD_URL"]
 
