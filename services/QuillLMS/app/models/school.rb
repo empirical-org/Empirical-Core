@@ -186,12 +186,12 @@ class School < ApplicationRecord
       detach_from_existing_district_admins(previous_district)
     end
 
-    if district_id.present?
-      new_district = District.find(district_id)
-      new_district_admins = new_district&.admins || []
-      new_district_admins.each do |da|
-        SchoolsAdmins.find_or_create_by(school: self, user: da)
-      end
+    return unless district_id.present?
+
+    new_district = District.find(district_id)
+    new_district_admins = new_district&.admins || []
+    new_district_admins.each do |da|
+      SchoolsAdmins.find_or_create_by(school: self, user: da)
     end
   end
 end

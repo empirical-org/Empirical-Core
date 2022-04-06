@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateDistrictsAdminsTable < ActiveRecord::Migration[5.1]
   def change
     create_table :districts_admins do |t|

@@ -63,13 +63,13 @@ describe Cms::DistrictsController do
       })
       expect(assigns(:school_data)).to eq([])
       expect(assigns(:admins)).to eq(DistrictsAdmins.includes(:user).where(district_id: district.id).map do |admin|
-          {
-              name: admin.user.name,
-              email: admin.user.email,
-              district_id: admin.district_id,
-              user_id: admin.user_id
-          }
-        end
+        {
+            name: admin.user.name,
+            email: admin.user.email,
+            district_id: admin.district_id,
+            user_id: admin.user_id
+        }
+      end
       )
     end
   end
