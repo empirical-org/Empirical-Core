@@ -31,7 +31,6 @@ export const PremiumPricingGuide = ({
   customerEmail,
   diagnosticActivityCount,
   independentPracticeActivityCount,
-  lastFour,
   lessonsActivityCount,
   stripeTeacherPlan,
   userIsEligibleForNewSubscription,
@@ -47,6 +46,7 @@ export const PremiumPricingGuide = ({
         buttonClassName="quill-button contained medium primary focus-on-light"
         buttonId="purchase-btn"
         buttonText='Buy Now'
+        cancelPath='premium'
         customerEmail={customerEmail}
         stripePlan={stripeTeacherPlan}
         userIsEligibleForNewSubscription={userIsEligibleForNewSubscription}
@@ -60,6 +60,7 @@ export const PremiumPricingGuide = ({
       <StripeCheckoutSessionButton
         buttonClassName='btn-orange'
         buttonText='Upgrade to Premium Now'
+        cancelPath='premium'
         customerEmail={customerEmail}
         stripePlan={stripeTeacherPlan}
         userIsEligibleForNewSubscription={userIsEligibleForNewSubscription}
@@ -77,7 +78,6 @@ export const PremiumPricingGuide = ({
             buyNowButton={buyNowButton}
             diagnosticActivityCount={diagnosticActivityCount}
             independentPracticeActivityCount={independentPracticeActivityCount}
-            lastFour={lastFour}
             lessonsActivityCount={lessonsActivityCount}
             stripeTeacherPlan={stripeTeacherPlan}
             userIsEligibleForNewSubscription={userIsEligibleForNewSubscription}

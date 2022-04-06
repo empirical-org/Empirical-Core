@@ -294,11 +294,13 @@ class User < ApplicationRecord
     end
   end
 
-  # gets last four digits of Stripe card
   def last_four
     return unless stripe_customer?
 
-    Stripe::Customer.retrieve(id: stripe_customer_id, expand: ['sources']).sources.data.first&.last4
+    stripe_payment_method_id = Stripe::Customer.retrieve(stripe_customer_id)&.invoice_settings&.default_payment_method
+    Stripe::PaymentMethod.retrieve(stripe_payment_method_id)&.card&.last4
+  rescue Stripe::InvalidRequestError
+    nil
   end
 
   def stripe_customer?

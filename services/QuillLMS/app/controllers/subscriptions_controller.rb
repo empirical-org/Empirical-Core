@@ -60,7 +60,6 @@ class SubscriptionsController < ApplicationController
     @stripe_purchase_completed = Subscription.stripe_purchase_completed?(checkout_session_id)
     @subscription_status = current_user.subscription_status
     @school_subscription_types = Subscription::OFFICIAL_SCHOOL_TYPES
-    @last_four = current_user&.last_four
     @trial_types = Subscription::TRIAL_TYPES
     @stripe_teacher_plan = PlanSerializer.new(Plan.stripe_teacher_plan).as_json
 

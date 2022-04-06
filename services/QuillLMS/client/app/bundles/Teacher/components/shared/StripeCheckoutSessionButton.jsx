@@ -6,6 +6,7 @@ export const StripeCheckoutSessionButton = ({
   buttonClassName,
   buttonId,
   buttonText,
+  cancelPath,
   customerEmail,
   stripePlan,
   userIsEligibleForNewSubscription,
@@ -28,6 +29,7 @@ export const StripeCheckoutSessionButton = ({
         url: `${process.env.DEFAULT_URL}/stripe_integration/checkout_sessions`,
         form: {
           authenticity_token: getAuthToken(),
+          cancel_path: cancelPath,
           customer_email: customerEmail,
           stripe_price_id: plan.stripe_price_id
         }

@@ -70,7 +70,10 @@ module StripeIntegration
 
       private def subscription
         @subscription ||= Subscription.create!(
+          account_type: plan.name,
           expiration: expiration,
+          payment_amount: plan.price,
+          payment_method: Subscription::CREDIT_CARD_PAYMENT_METHOD,
           plan: plan,
           purchaser_email: purchaser_email,
           recurring: true,

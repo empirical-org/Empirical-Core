@@ -25,8 +25,12 @@ module StripeIntegration
       stripe_customer_id.nil? ? { customer_email: customer_email } : { customer: stripe_customer_id }
     end
 
+    private def cancel_path
+      params[:cancel_path]
+    end
+
     private def cancel_url
-      "#{ENV['DEFAULT_URL']}/premium"
+      "#{ENV['DEFAULT_URL']}/#{cancel_path}"
     end
 
     private def customer_email

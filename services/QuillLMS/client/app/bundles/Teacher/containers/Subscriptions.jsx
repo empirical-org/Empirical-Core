@@ -126,7 +126,7 @@ export default class Subscriptions extends React.Component {
   }
 
   render() {
-    const { lastFour, premiumCredits, stripeTeacherPlan } = this.props
+    const { premiumCredits, stripeTeacherPlan } = this.props
 
     const {
       authorityLevel,
@@ -140,9 +140,6 @@ export default class Subscriptions extends React.Component {
     const userHasValidSub = subscriptionStatus && !subscriptionStatus.expired;
     const subId = `${_.get(subscriptionStatus, 'id')}-subscription-status-id`;
 
-    // don't show any last four unless they have an authority level with their purchase, or they don't have a sub
-    const lastFourToPass = (authorityLevel || !subscriptionStatus) ? lastFour : null;
-
     return (
       <div>
         <SubscriptionStatus
@@ -154,7 +151,6 @@ export default class Subscriptions extends React.Component {
         />
         <CurrentSubscription
           authorityLevel={authorityLevel}
-          lastFour={lastFourToPass}
           purchaserNameOrEmail={this.purchaserNameOrEmail()}
           subscriptionStatus={subscriptionStatus}
           subscriptionType={this.subscriptionType()}

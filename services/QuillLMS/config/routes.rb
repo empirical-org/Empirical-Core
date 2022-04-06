@@ -522,9 +522,8 @@ EmpiricalGrammar::Application.routes.draw do
   get '/select_school', to: 'schools#select_school'
 
   namespace :stripe_integration do
-    get '/checkout_sessions/subscriptions/:checkout_session_id', to: 'checkout_sessions#subscription'
     post '/checkout_sessions', to: 'checkout_sessions#create'
-
+    post '/billing_portal_sessions', to: 'billing_portal_sessions#create'
     post '/webhooks', to: 'webhooks#create'
   end
 

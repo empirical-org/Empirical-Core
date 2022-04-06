@@ -1,4 +1,6 @@
 import React from 'react';
+import request from 'request';
+import getAuthToken from '../modules/get_auth_token'
 import moment from 'moment';
 import _ from 'lodash';
 
@@ -7,14 +9,12 @@ import TitleAndContent from './current_subscription_title_and_content';
 import { TEACHER_PREMIUM_TRIAL, SCHOOL_PREMIUM, DISTRICT_PREMIUM } from './constants';
 
 import { Tooltip, helpIcon, } from '../../../Shared/index'
-import EnterOrUpdateStripeCard from '../modules/stripe/enter_or_update_card.js';
 
 export default class CurrentSubscription extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       showChangePlan: false,
-      lastFour: props.lastFour,
       recurring: _.get(props.subscriptionStatus, 'recurring'),
     };
   }
@@ -35,9 +35,8 @@ export default class CurrentSubscription extends React.Component {
 
   getPaymentMethod() {
     const { subscriptionStatus, authorityLevel, subscriptionType, } = this.props
-    const { lastFour, } = this.state
 
-    if (subscriptionStatus && subscriptionStatus.payment_method === 'Credit Card' && lastFour && authorityLevel) {
+    if (subscriptionStatus && subscriptionStatus.payment_method === 'Credit Card' && authorityLevel) {
       return this.editCreditCardElement();
     } else if (subscriptionStatus && subscriptionStatus.payment_method === 'Credit Card') {
       return <span>Credit Card</span>;
@@ -45,8 +44,6 @@ export default class CurrentSubscription extends React.Component {
       return <span>No Payment Method on File</span>;
     } else if (subscriptionStatus && ['Invoice', 'School Invoice'].includes(subscriptionStatus.payment_method)) {
       return <span>Invoice</span>;
-    } else if (!subscriptionStatus && lastFour) {
-      return this.editCreditCardElement();
     }
     return <span>No Payment Method on File</span>;
   }
@@ -151,13 +148,30 @@ export default class CurrentSubscription extends React.Component {
   }
 
   handleEditCreditCardClick = () => {
-    new EnterOrUpdateStripeCard(this.updateLastFour, 'Update');
-  };
+    const { subscriptionStatus } = this.props
+    const { stripe_customer_id } = subscriptionStatus
+
+    if ( !stripe_customer_id ) { return }
+
+    request.post({
+      url: `${process.env.DEFAULT_URL}/stripe_integration/billing_portal_sessions`,
+      form: {
+        authenticity_token: getAuthToken(),
+        stripe_customer_id: stripe_customer_id
+      }
+    }, (error, response, body) => {
+      if (error) { throw Error(response.statusText) }
+
+      window.location.replace(JSON.parse(body).redirect_url)
+    })
+  }
 
   editCreditCardElement() {
-    const { lastFour, } = this.state
+    const { subscriptionStatus } = this.props
+    const { last_four } = subscriptionStatus
+
     return (
-      <span>{`Credit Card Ending In ${lastFour}`}
+      <span>{`Credit Card Ending In ${last_four}`}
         <button
           className="interactive-wrapper focus-on-light"
           onClick={this.handleEditCreditCardClick}
@@ -229,11 +243,12 @@ export default class CurrentSubscription extends React.Component {
   }
 
   nextPlanAlertOrButtons(condition, renewDate) {
-    const { lastFour, } = this.state
     const { authorityLevel, subscriptionStatus, } = this.props
+    const { last_four } = subscriptionStatus
     const conditionWithAuthorization = `${condition} authorization: ${!!authorityLevel}`;
     const expiration = moment(subscriptionStatus.expiration);
     const remainingDays = expiration.diff(moment(), 'days');
+
     switch (conditionWithAuthorization) {
       case 'school sponsored authorization: false':
         return this.nextPlanAlert(this.onceYourPlanExpires());
@@ -252,7 +267,7 @@ export default class CurrentSubscription extends React.Component {
       case 'recurring authorization: false':
         return this.nextPlanAlert(`Your Subscription will be renewed on ${renewDate}.`);
       case 'recurring authorization: true':
-        return this.nextPlanAlert(`Your Subscription will be renewed on ${renewDate} and your card ending in ${lastFour} will be charged $${this.getPrice()}.`);
+        return this.nextPlanAlert(`Your Subscription will be renewed on ${renewDate} and your card ending in ${last_four} will be charged $${this.getPrice()}.`);
       case 'school expired authorization: true':
         return this.lessThan90Days();
       case 'school expired authorization: false':
@@ -322,11 +337,7 @@ export default class CurrentSubscription extends React.Component {
     });
   };
 
-  updateLastFour = newLastFour => {
-    this.setState({ lastFour: newLastFour, });
-  };
-
-  updateRecurring = () => {
+  updateRecurring = (recurring) => {
     const { updateSubscription, subscriptionStatus, } = this.props
     const { recurring, } = this.state
     updateSubscription(

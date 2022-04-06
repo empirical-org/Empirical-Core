@@ -118,6 +118,7 @@ const SubscriptionStatus = ({
       <StripeCheckoutSessionButton
         buttonClassName="renew-subscription q-button bg-orange text-white cta-button"
         buttonText='Renew Subscription'
+        cancelPath='subscriptions'
         customerEmail={subscriptionStatus.customer_email}
         stripePlan={stripeTeacherPlan}
         userIsEligibleForNewSubscription={true}

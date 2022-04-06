@@ -83,29 +83,17 @@ class Subscription < ApplicationRecord
   SCHOOL_FIRST_PURCHASE_PRICE = SCHOOL_RENEWAL_PRICE
   TEACHER_PRICE = 8000
   ALL_PRICES = [TEACHER_PRICE, SCHOOL_RENEWAL_PRICE]
-  PAYMENT_METHODS = ['Invoice', 'Credit Card', 'Premium Credit']
+  PAYMENT_METHODS = [
+    INVOICE_PAYMENT_METHOD = 'Invoice',
+    CREDIT_CARD_PAYMENT_METHOD = 'Credit Card',
+    PREMIUM_CREDIT_PAYMENT_METHOD = 'Premium Credit'
+  ]
+
   ALL_TYPES = OFFICIAL_FREE_TYPES.dup.concat(OFFICIAL_PAID_TYPES)
 
   validates :stripe_invoice_id, allow_blank: true, format: { with: /\Ain_[0-9a-zA-Z]*\z/ }
 
   scope :active, -> { where(de_activated_date: nil).where("expiration > ?", Date.today).order(expiration: :asc) }
-
-  def self.stripe_purchase_completed?(checkout_session_id)
-    return false if checkout_session_id.nil?
-
-    # TODO: remove this blocking waits for webhooks to complete
-    sleep 5
-
-    stripe_checkout_session = Stripe::Checkout::Session.retrieve(checkout_session_id)
-
-    return false if stripe_checkout_session&.subscription&.nil?
-
-    stripe_subscription = Stripe::Subscription.retrieve(stripe_checkout_session.subscription)
-
-    return false if stripe_subscription&.latest_invoice&.nil?
-
-    exists?(stripe_invoice_id: stripe_subscription.latest_invoice)
-  end
 
   def is_trial?
     account_type && TRIAL_TYPES.include?(account_type)
@@ -368,11 +356,31 @@ class Subscription < ApplicationRecord
     subscription
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
+  def self.stripe_purchase_completed?(checkout_session_id)
+    return false if checkout_session_id.nil?
+
+    # TODO: remove this blocking waits for webhooks to complete
+    sleep ENV.fetch('STRIPE_WAIT_FOR_WEBHOOK', 0).to_i
+
+    stripe_checkout_session = Stripe::Checkout::Session.retrieve(checkout_session_id)
+
+    return false if stripe_checkout_session&.subscription&.nil?
+
+    stripe_subscription = Stripe::Subscription.retrieve(stripe_checkout_session.subscription)
+
+    return false if stripe_subscription&.latest_invoice&.nil?
+
+    exists?(stripe_invoice_id: stripe_subscription.latest_invoice)
+  end
+  # rubocop:enable Metrics/CyclomaticComplexity
+
   def subscription_status
     attributes.merge(
       'account_type' => account_type || plan&.name,
       'customer_email' => purchaser&.email,
       'expired' => expired?,
+      'last_four' => purchaser&.last_four,
       'purchaser_name' => purchaser&.name,
       'stripe_customer_id' => purchaser&.stripe_customer_id
     )
