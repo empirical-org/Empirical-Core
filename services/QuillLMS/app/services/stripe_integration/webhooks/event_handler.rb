@@ -11,7 +11,6 @@ module StripeIntegration
 
       private def stripe_event
         @stripe_event ||= Stripe::Event.retrieve(stripe_webhook_event.external_id)
-        #TODO: add error handling for retrieve
       end
     end
   end

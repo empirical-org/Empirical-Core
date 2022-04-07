@@ -44,6 +44,11 @@ describe "Cron", type: :model do
       Cron.interval_1_day
     end
 
+    it "enqueues RenewExpiringRecurringSubscriptionsWorker" do
+      expect(RenewExpiringRecurringSubscriptionsWorker).to receive(:perform_async)
+      Cron.interval_1_day
+    end
+
     it "enqueues DailyStatsEmailJob" do
       expect(DailyStatsEmailJob).to receive(:perform_async)
       Cron.interval_1_day

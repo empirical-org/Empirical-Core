@@ -6,6 +6,7 @@ module StripeIntegration
       class UnknownEventError < StandardError; end
 
       def run
+        stripe_webhook_event.failed!
         stripe_webhook_event.log_error(UnknownEventError.new)
       end
     end
