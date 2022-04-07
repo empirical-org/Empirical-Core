@@ -307,8 +307,9 @@ export default class CurrentSubscription extends React.Component {
     this.setState({ lastFour: newLastFour, });
   };
 
-  updateRecurring = (recurring) => {
+  updateRecurring = () => {
     const { updateSubscription, subscriptionStatus, } = this.props
+    const { recurring, } = this.state
     updateSubscription(
       { recurring, }, _.get(subscriptionStatus, 'id'));
   };
