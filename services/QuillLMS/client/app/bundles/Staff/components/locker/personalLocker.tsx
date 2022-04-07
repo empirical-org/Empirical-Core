@@ -2,15 +2,11 @@ import * as React from 'react';
 
 import ReturnButton from './returnButton';
 
-import { renderLockerSections } from '../../helpers/locker/lockerHelperFunctions';
-
 export const PersonalLocker = ({ history, personalLocker }) => {
 
   function navigateToOrganizeForm() {
     history.push('/personal-locker/organize');
   }
-
-  const shouldRenderLockerSections = personalLocker && personalLocker.preferences;
 
   return(
     <div className="locker-content personal-locker-container">
@@ -21,7 +17,6 @@ export const PersonalLocker = ({ history, personalLocker }) => {
           <p>Organize Locker</p>
         </button>
       </div>
-      {shouldRenderLockerSections && renderLockerSections(personalLocker.preferences, 'personal')}
     </div>
   );
 }

@@ -2,8 +2,9 @@ import * as React from 'react';
 import * as _ from 'lodash';
 
 import ReturnButton from './returnButton';
-import { Input } from '../../../Shared';
+import { Input, SortableList } from '../../../Shared';
 import { InputEvent } from '../../interfaces/evidenceInterfaces';
+import { handleSetSectionLabel, handleSetLockerLabel } from '../../helpers/locker/lockerHelperFunctions';
 
 export const OrganizeLockerForm = ({ history, personalLocker }) => {
   const { label, preferences } = personalLocker;
@@ -26,33 +27,6 @@ export const OrganizeLockerForm = ({ history, personalLocker }) => {
     setLockerLabel(e.target.value)
   }
 
-  function handleSetSectionLabel(e: InputEvent, sectionToUpdate: number) {
-    const updatedPreferences = {};
-    Object.keys(lockerPreferences).map(sectionKey => {
-      updatedPreferences[sectionKey] = {...lockerPreferences[sectionKey]}
-    })
-    updatedPreferences[sectionToUpdate].sectionLabel = e.target.value;
-    setLockerPreferences(updatedPreferences);
-  }
-
-  function handleSetLockerLabel(e: InputEvent, sectionToUpdate: number, lockerToUpdate: string) {
-    const updatedPreferences = {};
-    Object.keys(lockerPreferences).map(sectionKey => {
-      updatedPreferences[sectionKey] = {...lockerPreferences[sectionKey]}
-      const section = updatedPreferences[sectionKey];
-      Object.keys(section).map(lockerKey => {
-        const property = updatedPreferences[sectionKey][lockerKey];
-        if(typeof property === 'object') {
-          updatedPreferences[sectionKey][lockerKey] = {...lockerPreferences[sectionKey][lockerKey]};
-        } else {
-          updatedPreferences[sectionKey][lockerKey] = lockerPreferences[sectionKey][lockerKey];
-        }
-      });
-    });
-    updatedPreferences[sectionToUpdate][lockerToUpdate].label = e.target.value;
-    setLockerPreferences(updatedPreferences);
-  }
-
   function renderFormForSections() {
     const sections = Object.keys(lockerPreferences);
     return sections.map((section, sectionKey) => {
@@ -62,12 +36,13 @@ export const OrganizeLockerForm = ({ history, personalLocker }) => {
         <div>
           <Input
             className="section-input"
-            handleChange={(e) => handleSetSectionLabel(e, sectionKey)}
+            handleChange={(e) => handleSetSectionLabel({ e, sectionToUpdate: sectionKey, lockerPreferences, setLockerPreferences })}
             key={sectionKey}
             label="Section label"
             value={sectionLabel}
           />
-          {renderInputsForIndividualLockers(sectionKey)}
+          <SortableList data={renderInputsForIndividualLockers(sectionKey)} />
+          {/* {renderInputsForIndividualLockers(sectionKey)} */}
         </div>
       );
     });
@@ -83,10 +58,24 @@ export const OrganizeLockerForm = ({ history, personalLocker }) => {
         <div>
           <Input
             className="locker-label-input"
-            handleChange={(e) => handleSetLockerLabel(e, sectionKey, lockerKey)}
+            handleChange={(e) => handleSetLockerLabel({ e, sectionToUpdate: sectionKey, lockerToUpdate: lockerKey, lockerPreferences, setLockerPreferences, attribute: 'label' })}
             key={lockerKey}
             label="Locker label"
             value={label}
+          />
+          <Input
+            className="locker-href-input"
+            handleChange={(e) => handleSetLockerLabel({ e, sectionToUpdate: sectionKey, lockerToUpdate: lockerKey, lockerPreferences, setLockerPreferences, attribute: 'href' })}
+            key={lockerKey}
+            label="Locker url"
+            value={href}
+          />
+          <Input
+            className="locker-emoji-input"
+            handleChange={(e) => handleSetLockerLabel({ e, sectionToUpdate: sectionKey, lockerToUpdate: lockerKey, lockerPreferences, setLockerPreferences, attribute: 'emoji' })}
+            key={lockerKey}
+            label="Locker emoji"
+            value={emoji}
           />
         </div>
       );
