@@ -108,13 +108,7 @@ class Api::V1::ActivitySessionsController < Api::ApiController
     time_tracking = data && data['time_tracking']
     timespent = @activity_session&.timespent || ActivitySession.calculate_timespent(time_tracking)
 
-    if timespent && timespent > 3600
-      begin
-        raise "#{timespent} seconds for user #{@activity_session&.user_id} and activity session #{@activity_session&.id}"
-      rescue => e
-        Raven.capture_exception(e)
-      end
-    end
+    record_long_timespent(timespent, @activity_session&.user_id, @activity_session&.id)
 
     params
       .permit(activity_session_permitted_params)
@@ -123,6 +117,17 @@ class Api::V1::ActivitySessionsController < Api::ApiController
       .merge(timespent: timespent && [timespent, MAX_4_BYTE_INTEGER_SIZE].min)
   end
   # rubocop:enable Metrics/CyclomaticComplexity
+
+  private def record_long_timespent(timespent, user_id, activity_session_id)
+    return if timespent.nil?
+    return if timespent <= 3600
+
+    begin
+      raise ActivitySession::LongTimeTrackingError, "#{timespent} seconds for user #{user_id} and activity session #{activity_session_id}"
+    rescue => e
+      Raven.capture_exception(e)
+    end
+  end
 
   private def transform_incoming_request
     if params[:concept_results].present?

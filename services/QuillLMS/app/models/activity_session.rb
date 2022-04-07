@@ -41,6 +41,8 @@ require 'new_relic/agent'
 
 class ActivitySession < ApplicationRecord
 
+  class LongTimeTrackingError < StandardError; end
+
   include ::NewRelic::Agent
 
   include Uid
