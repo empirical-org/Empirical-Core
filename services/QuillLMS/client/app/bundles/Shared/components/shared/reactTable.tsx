@@ -125,7 +125,8 @@ export const ReactTable = ({
                 <tr {...row.getRowProps()} className="rt-tr">
                   {row.cells.map(cell => {
                     return (
-                      <td {...cell.getCellProps({
+                      <td
+                        {...cell.getCellProps({
                           style: {
                             minWidth: cell.column.minWidth,
                             width: cell.column.width,
