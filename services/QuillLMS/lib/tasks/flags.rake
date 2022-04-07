@@ -26,5 +26,24 @@ namespace :flags do
       end
     end
 
+    desc 'remove specified flag for users from a CSV file'
+    task :remove_from_csv, [:filepath, :flag_name] => :environment do |t, args|
+      iostream = File.read(args[:filepath])
+      if (CSV.parse(iostream, headers: true).headers & ['id']).count != 1
+        puts "Invalid headers. Exiting."
+        exit 1
+      end
+
+      CSV.parse(iostream, headers: true) do |row|
+        user = User.find_by_id(row['id'])
+        if user.nil?
+          puts "Unable to locate user with id #{row['id']}"
+          next
+        end
+
+        user.update!(flags: user.flags - [args[:flag_name]])
+      end
+    end
+
   end
 end

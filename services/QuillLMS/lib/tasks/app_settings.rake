@@ -38,4 +38,21 @@ namespace :app_settings do
     app_setting.update!(user_ids_allow_list: app_setting.user_ids_allow_list.concat(user_ids).uniq)
     puts "AppSetting #{app_setting.name} has been updated with user list: #{user_ids}."
   end
+
+  # Example usage: rake 'remove_user_ids_from_allow_list[theName, filename]'
+  # This task uses ids instead of emails, since some users do not have emails
+  task :remove_user_ids_from_allow_list, [:name, :filename] => :environment do |t, args|
+    iostream = File.read(args[:filename])
+    if (CSV.parse(iostream, headers: true).headers & ["id"]).count != 1
+      puts "Invalid headers. Exiting."
+      exit 1
+    end
+
+    removable_user_ids = CSV.parse(iostream, headers: true).map { |row| row['id'] }.map(&:to_i)
+
+    app_setting = AppSetting.find_by_name!(args[:name])
+
+    app_setting.update!(user_ids_allow_list: app_setting.user_ids_allow_list - removable_user_ids)
+    puts "AppSetting #{app_setting.name} has been updated with these users removed: #{removable_user_ids}."
+  end
 end

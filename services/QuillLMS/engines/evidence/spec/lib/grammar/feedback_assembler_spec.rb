@@ -18,6 +18,23 @@ module Evidence
           }
         end
 
+        context 'specific rule checks' do
+          context 'their_vs_there_vs_they_re_they_re_optimal' do
+            let!(:rule) do
+              create(:evidence_rule, uid: 'e4cf078b-a838-445e-a873-c795da9f7ed8', optimal: false, rule_type: 'grammar')
+            end
+
+            it 'should return the expected rule uid' do
+              error_name = 'their_vs_there_vs_they_re_they_re_optimal'
+              expect(
+                FeedbackAssembler.run(
+                  client_response.merge({FeedbackAssembler.error_name => error_name})
+                )[:rule_uid]
+              ).to eq rule.uid
+            end
+          end
+        end
+
         context 'detects no grammar' do
           it 'should return optimal=true' do
             expect(

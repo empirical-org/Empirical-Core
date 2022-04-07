@@ -55,7 +55,7 @@ module Evidence
         'subject_verb_agreement_with_simple_noun_singular_noun_with_singular_to_have_verb_optimal_and_error_is_plural_to_have_verb' => '3feb708d-b789-42dc-8b7a-7288a0945fff',
         'than_versus_then_than_optimal' => '4aa3f48b-7be9-414b-91e0-ffa92c85f323',
         'than_versus_then_then_optimal' => 'ad97bd7a-1215-4c52-91ec-8973d646a381',
-        'their_vs_there_vs_they_re_they_optimal' => 'e4cf078b-a838-445e-a873-c795da9f7ed8',
+        'their_vs_there_vs_they_re_they_re_optimal' => 'e4cf078b-a838-445e-a873-c795da9f7ed8',
         'their_vs_there_vs_they_re_their_optimal' => '6ca8f080-c4a2-470e-8171-0fa72f0b18da',
         'their_vs_there_vs_they_re_there_optimal' => 'f257a25f-8bc3-46ce-b811-82cbd98fad2a',
         'there_no' => 'd1ffc7b1-12a6-43c5-9eb8-593215a04eb5',
