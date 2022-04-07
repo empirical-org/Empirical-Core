@@ -173,6 +173,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
       dispatch(setActiveStepForSession(nextStep))
       setStartTime(Date.now())
       trackCurrentPromptStartedEvent()
+      callSaveActiveActivitySession()
     } else {
       trackActivityCompletedEvent(); // If there is no next step, the activity is done
     }
