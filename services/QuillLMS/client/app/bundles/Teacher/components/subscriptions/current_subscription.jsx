@@ -1,6 +1,4 @@
 import React from 'react';
-import request from 'request';
-import getAuthToken from '../modules/get_auth_token'
 import moment from 'moment';
 import _ from 'lodash';
 
@@ -9,6 +7,7 @@ import TitleAndContent from './current_subscription_title_and_content';
 import { TEACHER_PREMIUM_TRIAL, SCHOOL_PREMIUM, DISTRICT_PREMIUM } from './constants';
 
 import { Tooltip, helpIcon, } from '../../../Shared/index'
+import { requestPost } from '../../../../modules/request';
 
 export default class CurrentSubscription extends React.Component {
   constructor(props) {
@@ -153,17 +152,10 @@ export default class CurrentSubscription extends React.Component {
 
     if ( !stripe_customer_id ) { return }
 
-    request.post({
-      url: `${process.env.DEFAULT_URL}/stripe_integration/billing_portal_sessions`,
-      form: {
-        authenticity_token: getAuthToken(),
-        stripe_customer_id: stripe_customer_id
-      }
-    }, (error, response, body) => {
-      if (error) { throw Error(response.statusText) }
+    const path = '/stripe_integration/billing_portal_sessions'
+    const data = { stripe_customer_id: stripe_customer_id }
 
-      window.location.replace(JSON.parse(body).redirect_url)
-    })
+    requestPost(path, data, body => { window.location.replace(body.redirect_url) })
   }
 
   editCreditCardElement() {

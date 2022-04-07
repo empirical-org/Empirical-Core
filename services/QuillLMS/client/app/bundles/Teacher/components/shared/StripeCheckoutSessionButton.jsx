@@ -1,6 +1,5 @@
 import React from 'react';
-import request from 'request';
-import getAuthToken from '../modules/get_auth_token'
+import { requestPost } from '../../../../modules/request';
 
 export const StripeCheckoutSessionButton = ({
   buttonClassName,
@@ -25,19 +24,14 @@ export const StripeCheckoutSessionButton = ({
         and we will renew it automatically when your subscription ends.`
       )
     } else {
-      request.post({
-        url: `${process.env.DEFAULT_URL}/stripe_integration/checkout_sessions`,
-        form: {
-          authenticity_token: getAuthToken(),
-          cancel_path: cancelPath,
-          customer_email: customerEmail,
-          stripe_price_id: plan.stripe_price_id
-        }
-      }, (error, response, body) => {
-        if (error) { throw Error(response.statusText) }
+      const path = '/stripe_integration/checkout_sessions'
+      const data = {
+        cancel_path: cancelPath,
+        customer_email: customerEmail,
+        stripe_price_id: plan.stripe_price_id
+      }
 
-        window.location.replace(JSON.parse(body).redirect_url)
-      })
+      requestPost(path, data, body => { window.location.replace(body.redirect_url) })
     }
   }
 
