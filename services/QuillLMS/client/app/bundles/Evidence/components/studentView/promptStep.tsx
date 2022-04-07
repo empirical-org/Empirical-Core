@@ -48,6 +48,7 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
   private interval: any // eslint-disable-line react/sort-comp
   private button: any // eslint-disable-line react/sort-comp
 
+
   constructor(props: PromptStepProps) {
     super(props)
 
@@ -180,25 +181,13 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
 
   promptAsRegex = () => new RegExp(`^${this.htmlStrippedPrompt(true)}`)
 
-  resetEditorCursorPosition = () => {
-    const range = document.createRange();
-    range.selectNodeContents(this.editor);
-    range.collapse(false);
-    const sel = window.getSelection();
-    sel.removeAllRanges();
-    sel.addRange(range);
-  }
-
   onTextChange = (e) => {
     const { value } = e.target
     const text = value.replace(/<b>|<\/b>|<p>|<\/p>|<br>/g, '')
     const regex = this.promptAsRegex()
-
+    const caretPosition = EditCaretPositioning.saveSelection(this.editor)
     if (text.match(regex)) {
-      this.setState({ html: value, }, () => {
-        this.editor.innerHTML = value
-        this.resetEditorCursorPosition()
-      })
+      this.setState({ html: value, }, () => EditCaretPositioning.restoreSelection(this.editor, caretPosition))
       // if the student has deleted everything, we want to remove everything but the prompt stem
     } else if (!text.length) {
       this.resetText()
@@ -262,27 +251,27 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
 
   resetText = () => {
     const html = this.formattedStem()
-    this.setState({ html }, () => {
-      this.editor.innerHTML = html
-      this.resetEditorCursorPosition()
-    })
+    this.setState({ html }, () => this.editor.innerHTML = html)
   }
 
   setEditorRef = (node: JSX.Element) => this.editor = node
 
   onFocus = () => {
-    if(document.activeElement !== this.button.current) {
-      // following code ensures tabbing into editor always puts cursor at the end of the text
-      const el = this.editor
-      // retrieved from https://stackoverflow.com/a/4238971
-      if (typeof window.getSelection != "undefined" && typeof document.createRange != "undefined") {
-        this.resetEditorCursorPosition()
-      } else if (typeof document.body.createTextRange != "undefined") {
-        const textRange = document.body.createTextRange();
-        textRange.moveToElementText(el);
-        textRange.collapse(false);
-        textRange.select();
-      }
+    // following code ensures tabbing into editor always puts cursor at the end of the text
+    const el = this.editor
+    // retrieved from https://stackoverflow.com/a/4238971
+    if (typeof window.getSelection != "undefined" && typeof document.createRange != "undefined") {
+      const range = document.createRange();
+      range.selectNodeContents(el);
+      range.collapse(false);
+      const sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+    } else if (typeof document.body.createTextRange != "undefined") {
+      const textRange = document.body.createTextRange();
+      textRange.moveToElementText(el);
+      textRange.collapse(false);
+      textRange.select();
     }
   }
 
