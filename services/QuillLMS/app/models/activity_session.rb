@@ -166,7 +166,7 @@ class ActivitySession < ApplicationRecord
   end
 
   def self.time_tracking_sum(time_tracking)
-    return nil unless time_tracking&.respond_to?(:values)
+    return nil unless time_tracking.respond_to?(:values)
 
     time_tracking.values.compact.sum
   end
