@@ -154,6 +154,11 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
 
     const uniqueCompletedSteps = Array.from(new Set(completedSteps))
     const { activeStep } = session;
+
+    // Don't go to the next step if we haven't flagged the current step as completed
+    // This particular condition can occur when loading data from a partially-completed session which triggers this effect
+    if (!uniqueCompletedSteps.includes(activeStep)) return
+
     let nextStep: number|undefined = activeStep + 1
     if (nextStep > ALL_STEPS.length || uniqueCompletedSteps.includes(nextStep)) {
       nextStep = ALL_STEPS.find(s => !uniqueCompletedSteps.includes(s))
