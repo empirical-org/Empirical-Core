@@ -52,6 +52,11 @@ class ActivitySession < ApplicationRecord
   STATE_STARTED = 'started'
   STATE_FINISHED = 'finished'
 
+  TIME_TRACKING_KEY = 'time_tracking'
+  TIME_TRACKING_EDITS_KEY = 'time_tracking_edits'
+
+  MAX_4_BYTE_INTEGER_SIZE = 2147483647
+
   default_scope { where(visible: true)}
   has_many :feedback_sessions, foreign_key: :activity_session_uid, primary_key: :uid
   has_many :feedback_histories, through: :feedback_sessions
@@ -148,7 +153,7 @@ class ActivitySession < ApplicationRecord
     elsif data.nil?
       nil
     else
-      self.class.calculate_timespent(data['time_tracking'])
+      self.class.time_tracking_sum(data['time_tracking'])
     end
   end
 
@@ -160,17 +165,16 @@ class ActivitySession < ApplicationRecord
     state == FINISHED_STATE
   end
 
-  OUTLIER_MULTIPLIER = 50
+  def self.time_tracking_sum(time_tracking)
+    time_tracking&.values&.compact&.sum
+  end
 
-  def self.calculate_timespent(time_tracking)
-    return nil unless time_tracking.respond_to?(:values)
+  def self.calculate_timespent(activity_session, time_tracking)
+    timespent = activity_session&.timespent || time_tracking_sum(time_tracking)
 
-    compact_values = time_tracking.values.compact
-    median = compact_values.median
-    outlier_threshold = median * OUTLIER_MULTIPLIER
+    return nil if timespent.nil?
 
-    # replace values 50x the median with median, since they are likely bad data
-    compact_values.sum {|v| v > outlier_threshold ? median.to_i : v}
+    [timespent, MAX_4_BYTE_INTEGER_SIZE].min
   end
 
   def eligible_for_tracking?

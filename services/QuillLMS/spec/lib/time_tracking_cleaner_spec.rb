@@ -67,8 +67,6 @@ describe TimeTrackingCleaner do
     }
   end
 
-
-
   describe '#clean' do
     it 'should return nil if passed nil' do
       expect(TimeTrackingCleaner.new(nil).clean).to be_nil
@@ -89,7 +87,6 @@ describe TimeTrackingCleaner do
     it 'should modify a hash with outliers and record the edits' do
       expect(TimeTrackingCleaner.new(data_with_outliers).clean).to eq(modified_data)
     end
-
 
     it 'should modify a hash with mulitple outliers and record the edits' do
       expect(TimeTrackingCleaner.new(data_with_multiple_outliers).clean).to eq(modified_data_multiple)

@@ -1,13 +1,11 @@
 class TimeTrackingCleaner
-  TIME_TRACKING_KEY = 'time_tracking'
-  EDITS_KEY = 'time_tracking_edits'
   OUTLIER_MULTIPLIER = 40
 
-  attr_accessor :time_tracking, :time_tracking_edits, :data_params
+  attr_reader :time_tracking, :data_params
 
   def initialize(data_params)
-    @time_tracking = data_params && data_params[TIME_TRACKING_KEY]
     @data_params = data_params
+    @time_tracking = data_params&.fetch(ActivitySession::TIME_TRACKING_KEY, nil)
   end
 
   def clean
@@ -15,8 +13,8 @@ class TimeTrackingCleaner
     return data_params if outliers.empty?
 
     data_params.merge(
-      TIME_TRACKING_KEY => cleaned_time_tracking,
-      EDITS_KEY => outliers
+      ActivitySession::TIME_TRACKING_KEY => cleaned_time_tracking,
+      ActivitySession::TIME_TRACKING_EDITS_KEY => outliers
     )
   end
 

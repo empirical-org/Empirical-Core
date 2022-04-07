@@ -7,8 +7,6 @@ class Api::V1::ActivitySessionsController < Api::ApiController
   before_action :find_activity_session, only: [:show, :update, :destroy]
   before_action :strip_access_token_from_request
 
-  MAX_4_BYTE_INTEGER_SIZE = 2147483647
-
   def show
     render json: @activity_session, meta: {status: 'success', message: nil, errors: nil}, serializer: ActivitySessionSerializer
   end
@@ -101,22 +99,21 @@ class Api::V1::ActivitySessionsController < Api::ApiController
     @activity_session = ActivitySession.unscoped.find_by_uid!(params[:id])
   end
 
-  # rubocop:disable Metrics/CyclomaticComplexity
   private def activity_session_params
     params.delete(:activity_session)
     data = params.delete(:data)&.permit!
-    time_tracking = data && data['time_tracking']
-    timespent = @activity_session&.timespent || ActivitySession.calculate_timespent(time_tracking)
+    clean_data = TimeTrackingCleaner.new(data).clean
+    time_tracking = clean_data&.fetch(ActivitySession::TIME_TRACKING_KEY, nil)
+    timespent = ActivitySession.calculate_timespent(@activity_session, time_tracking)
 
     record_long_timespent(timespent, @activity_session&.user_id, @activity_session&.id)
 
     params
       .permit(activity_session_permitted_params)
-      .merge(data: data)
+      .merge(data: clean_data)
       .reject { |_, v| v.nil? }
-      .merge(timespent: timespent && [timespent, MAX_4_BYTE_INTEGER_SIZE].min)
+      .merge(timespent: timespent)
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
 
   private def record_long_timespent(timespent, user_id, activity_session_id)
     return if timespent.nil?
