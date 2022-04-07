@@ -10,21 +10,26 @@ class TimeTrackingCleaner < ApplicationService
     @time_tracking = data_params&.fetch(ActivitySession::TIME_TRACKING_KEY, nil)
   end
 
+
+  # replace outlier time_tracking values with the list's median value
+  # if they are 40x larger than the median
+  # keep track of original data in data['time_tracking_edits']
+  # this is a backstop against a bug in the frontend time tracking with resumed sessions
   def run
     return data_params unless time_tracking.respond_to?(:values)
     return data_params if outliers.empty?
 
     data_params.merge(
-      ActivitySession::TIME_TRACKING_KEY => cleaned_time_tracking,
+      ActivitySession::TIME_TRACKING_KEY => time_tracking_outliers_replaced,
       ActivitySession::TIME_TRACKING_EDITS_KEY => outliers
     )
   end
 
-  def cleaned_time_tracking
+  private def time_tracking_outliers_replaced
     time_tracking.merge(outliers.transform_values {|_| median_value})
   end
 
-  def outliers
+  private def outliers
     @outliers ||= time_tracking.select {|_, v| v > outlier_threshold}
   end
 
