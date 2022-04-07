@@ -152,6 +152,10 @@ class Subscription < ApplicationRecord
     Subscription.where('expiration <= ? AND recurring IS TRUE AND de_activated_date IS NULL', Date.today)
   end
 
+  def self.expired_today_or_previously_and_not_recurring
+    Subscription.where('expiration <= ? AND recurring IS FALSE AND de_activated_date IS NULL', Date.today)
+  end
+
   def self.school_or_user_has_ever_paid?(school_or_user)
     # TODO: 'subscription type spot'
     paid_accounts = school_or_user.subscriptions.pluck(:account_type) & OFFICIAL_PAID_TYPES
@@ -246,7 +250,6 @@ class Subscription < ApplicationRecord
 
   def self.update_todays_expired_recurring_subscriptions
     expired_today_or_previously_and_recurring.each do |subscription|
-      subscription.detach_district_admins if OFFICIAL_SCHOOL_TYPES.include?(subscription.account_type)
       # TODO: Deactivate subscriptions with multiple users
       next unless subscription.users.count == 1
 
@@ -255,6 +258,12 @@ class Subscription < ApplicationRecord
       else
         subscription.update(de_activated_date: Date.today)
       end
+    end
+  end
+
+  def self.update_todays_expired_school_subscriptions
+    expired_today_or_previously_and_not_recurring.where(account_type: OFFICIAL_SCHOOL_TYPES).each do |subscription|
+      subscription.detach_district_admins
     end
   end
 

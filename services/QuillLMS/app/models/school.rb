@@ -182,7 +182,7 @@ class School < ApplicationRecord
   private def update_district_admins
     # destroy all SchoolsAdmins records that are also DistrictsAdmins records from the previous district
     if district_id_was.present?
-      previous_district = District.find(district_id_was)
+      previous_district = District.find_by(id: district_id_was)
       detach_from_existing_district_admins(previous_district)
     end
 
