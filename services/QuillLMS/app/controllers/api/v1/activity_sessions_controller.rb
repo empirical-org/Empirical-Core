@@ -122,7 +122,7 @@ class Api::V1::ActivitySessionsController < Api::ApiController
     begin
       raise ActivitySession::LongTimeTrackingError, "#{timespent} seconds for user #{user_id} and activity session #{activity_session_id}"
     rescue => e
-      Raven.capture_exception(e)
+      ErrorNotifier.report(e)
     end
   end
 
