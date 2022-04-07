@@ -4,7 +4,7 @@ require 'rails_helper'
 
 describe TimeTrackingCleaner do
   let(:empty_data) { ({}) }
-  let(:data_with_time_tracking) { ({'other_key' => 'other_value'}) }
+  let(:data_without_time_tracking) { ({'other_key' => 'other_value'}) }
 
   let(:data_without_outliers) do
     {
@@ -77,7 +77,7 @@ describe TimeTrackingCleaner do
     end
 
     it 'should not modify an a hash without time_tracking' do
-      expect(TimeTrackingCleaner.new(data_with_time_tracking).clean).to eq (data_with_time_tracking)
+      expect(TimeTrackingCleaner.new(data_without_time_tracking).clean).to eq (data_without_time_tracking)
     end
 
     it 'should not modify a hash with no outliers' do
