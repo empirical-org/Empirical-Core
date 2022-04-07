@@ -57,7 +57,7 @@ class SubscriptionsController < ApplicationController
   private def set_index_variables
     @subscriptions = current_user.subscriptions
     @premium_credits = current_user.credit_transactions.map {|x| x.serializable_hash(methods: :action)}.compact
-    @stripe_purchase_completed = Subscription.stripe_purchase_completed?(checkout_session_id)
+    @stripe_invoice_id = StripeIntegration::StripeInvoiceIdFinder.run(checkout_session_id)
     @subscription_status = current_user.subscription_status
     @school_subscription_types = Subscription::OFFICIAL_SCHOOL_TYPES
     @trial_types = Subscription::TRIAL_TYPES

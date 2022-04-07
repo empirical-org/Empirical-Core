@@ -16,14 +16,13 @@ export default class Subscriptions extends React.Component {
   constructor(props) {
     super(props);
     const availableAndEarnedCredits = this.availableAndEarnedCredits();
-    const { stripePurchaseCompleted } = this.props
 
     this.state = {
       subscriptions: props.subscriptions,
       subscriptionStatus: props.subscriptionStatus,
       availableCredits: availableAndEarnedCredits.available,
       earnedCredits: availableAndEarnedCredits.earned,
-      showPremiumConfirmationModal: stripePurchaseCompleted,
+      showPremiumConfirmationModal: false,
       authorityLevel: props.userAuthorityLevel,
     };
   }

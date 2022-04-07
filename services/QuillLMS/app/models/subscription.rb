@@ -342,25 +342,6 @@ class Subscription < ApplicationRecord
     subscription
   end
 
-  # rubocop:disable Metrics/CyclomaticComplexity
-  def self.stripe_purchase_completed?(checkout_session_id)
-    return false if checkout_session_id.nil?
-
-    # TODO: remove this blocking waits for webhooks to complete
-    sleep ENV.fetch('STRIPE_WAIT_FOR_WEBHOOK', 0).to_i
-
-    stripe_checkout_session = Stripe::Checkout::Session.retrieve(checkout_session_id)
-
-    return false if stripe_checkout_session&.subscription&.nil?
-
-    stripe_subscription = Stripe::Subscription.retrieve(stripe_checkout_session.subscription)
-
-    return false if stripe_subscription&.latest_invoice&.nil?
-
-    exists?(stripe_invoice_id: stripe_subscription.latest_invoice)
-  end
-  # rubocop:enable Metrics/CyclomaticComplexity
-
   def subscription_status
     attributes.merge(
       'account_type' => account_type || plan&.name,
