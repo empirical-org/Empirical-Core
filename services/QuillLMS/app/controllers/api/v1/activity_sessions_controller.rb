@@ -102,7 +102,7 @@ class Api::V1::ActivitySessionsController < Api::ApiController
   private def activity_session_params
     params.delete(:activity_session)
     data = params.delete(:data)&.permit!
-    clean_data = TimeTrackingCleaner.new(data).clean
+    clean_data = TimeTrackingCleaner.run(data)
     time_tracking = clean_data&.fetch(ActivitySession::TIME_TRACKING_KEY, nil)
     timespent = ActivitySession.calculate_timespent(@activity_session, time_tracking)
 

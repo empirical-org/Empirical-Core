@@ -24,7 +24,7 @@ describe TimeTrackingCleaner do
         'because' => 9
       }
     }
-   end
+  end
 
   let(:modified_data) do
     {
@@ -69,27 +69,27 @@ describe TimeTrackingCleaner do
 
   describe '#clean' do
     it 'should return nil if passed nil' do
-      expect(TimeTrackingCleaner.new(nil).clean).to be_nil
+      expect(TimeTrackingCleaner.run(nil)).to be_nil
     end
 
     it 'should not modify an empty hash' do
-      expect(TimeTrackingCleaner.new(empty_data).clean).to eq ({})
+      expect(TimeTrackingCleaner.run(empty_data)).to eq({})
     end
 
     it 'should not modify an a hash without time_tracking' do
-      expect(TimeTrackingCleaner.new(data_without_time_tracking).clean).to eq (data_without_time_tracking)
+      expect(TimeTrackingCleaner.run(data_without_time_tracking)).to eq(data_without_time_tracking)
     end
 
     it 'should not modify a hash with no outliers' do
-      expect(TimeTrackingCleaner.new(data_without_outliers).clean).to eq(data_without_outliers)
+      expect(TimeTrackingCleaner.run(data_without_outliers)).to eq(data_without_outliers)
     end
 
     it 'should modify a hash with outliers and record the edits' do
-      expect(TimeTrackingCleaner.new(data_with_outliers).clean).to eq(modified_data)
+      expect(TimeTrackingCleaner.run(data_with_outliers)).to eq(modified_data)
     end
 
     it 'should modify a hash with mulitple outliers and record the edits' do
-      expect(TimeTrackingCleaner.new(data_with_multiple_outliers).clean).to eq(modified_data_multiple)
+      expect(TimeTrackingCleaner.run(data_with_multiple_outliers)).to eq(modified_data_multiple)
     end
   end
 end

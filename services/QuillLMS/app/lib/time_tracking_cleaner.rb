@@ -1,4 +1,6 @@
-class TimeTrackingCleaner
+# frozen_string_literal: true
+
+class TimeTrackingCleaner < ApplicationService
   OUTLIER_MULTIPLIER = 40
 
   attr_reader :time_tracking, :data_params
@@ -8,7 +10,7 @@ class TimeTrackingCleaner
     @time_tracking = data_params&.fetch(ActivitySession::TIME_TRACKING_KEY, nil)
   end
 
-  def clean
+  def run
     return data_params unless time_tracking.respond_to?(:values)
     return data_params if outliers.empty?
 
