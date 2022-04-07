@@ -59,7 +59,7 @@ describe Cms::DistrictsController do
        'Total Students' => district.total_students,
        'Total Schools' => district.total_schools,
        'Grade Range' => district.grade_range,
-       'Total Invoice Amount' => district.total_invoice
+       'Total Invoice Amount' => district.total_invoice / 100
       })
       expect(assigns(:school_data)).to eq([])
       expect(assigns(:admins)).to eq(DistrictsAdmins.includes(:user).where(district_id: district.id).map do |admin|

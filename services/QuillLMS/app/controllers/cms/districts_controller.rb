@@ -36,7 +36,7 @@ class Cms::DistrictsController < Cms::CmsController
       'Total Students' => @district.total_students,
       'Total Schools' => @district.total_schools,
       'Grade Range' => @district.grade_range,
-      'Total Invoice Amount' => @district.total_invoice
+      'Total Invoice Amount' => @district.total_invoice / 100
     }
     @school_data = school_query
     @admins = DistrictsAdmins.includes(:user).where(district_id: params[:id].to_i).map do |admin|

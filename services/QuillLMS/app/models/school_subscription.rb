@@ -20,6 +20,7 @@ class SchoolSubscription < ApplicationRecord
   belongs_to :school
   belongs_to :subscription
   after_commit :update_schools_users
+  after_commit :attach_district_admins
   after_create :send_premium_emails
 
   def update_schools_users
@@ -41,6 +42,12 @@ class SchoolSubscription < ApplicationRecord
       school.users.each do |u|
         PremiumSchoolSubscriptionEmailWorker.perform_async(u.id) if u.email.match('quill.org')
       end
+    end
+  end
+
+  def attach_district_admins
+    school&.district&.distircts_admins&.each do |da|
+      da.attach_to_subscribed_schools
     end
   end
 end
