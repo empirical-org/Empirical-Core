@@ -154,3 +154,9 @@ export function getPromptForActivitySession(sessionData: any, conjunction: strin
     text: 'none'
   }
 }
+
+export const trimmedPrompt = (prompt: PromptInterface) => {
+  const newPrompt = {...prompt};
+  newPrompt.text = prompt.text.trim();
+  return newPrompt;
+}

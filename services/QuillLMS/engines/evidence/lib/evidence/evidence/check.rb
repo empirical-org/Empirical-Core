@@ -15,15 +15,15 @@ module Evidence
     ]
 
     FALLBACK_RESPONSE = {
-      feedback: "Thank you for your response.",
-      feedback_type: "autoML",
+      feedback: "<p>Thank you for your response! Something went wrong on our end and our feedback system doesn’t understand your response. Move on to the next prompt!</p>",
+      feedback_type: Rule::TYPE_ERROR,
       optimal: true,
     }
 
     def self.get_feedback(entry, prompt, previous_feedback)
       triggered_check = find_triggered_check(entry, prompt, previous_feedback)
 
-      triggered_check&.response || FALLBACK_RESPONSE
+      triggered_check&.response || fallback_feedback
     end
 
     # returns first nonoptimal feedback, and if all are optimal, returns automl feedback
@@ -45,6 +45,19 @@ module Evidence
       end
 
       first_nonoptimal_check || auto_ml_check
+    end
+
+    def self.fallback_feedback
+      @error_rule ||= Rule.find_by(rule_type: Rule::TYPE_ERROR)
+      {
+        feedback: @error_rule.feedbacks.first&.text || FALLBACK_RESPONSE[:feedback],
+        feedback_type: @error_rule.rule_type,
+        optimal: @error_rule.optimal,
+      }
+    rescue => e
+      Evidence.error_notifier.report(e)
+
+      FALLBACK_RESPONSE
     end
   end
 end

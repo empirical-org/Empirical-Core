@@ -9,7 +9,7 @@ import ImageSection from "./imageSection";
 
 import { validateForm, buildActivity, validateFormSection } from '../../../helpers/evidence/miscHelpers';
 import { renderInvalidHighlightLinks} from '../../../helpers/evidence/renderHelpers';
-import { getActivityPrompt, promptsByConjunction, buildBlankPrompt, getActivityPromptSetter } from '../../../helpers/evidence/promptHelpers';
+import { getActivityPrompt, promptsByConjunction, buildBlankPrompt, getActivityPromptSetter, trimmedPrompt  } from '../../../helpers/evidence/promptHelpers';
 import {
   BECAUSE, BUT, SO, activityFormKeys, PASSAGE, HIGHLIGHT_PROMPT, ESSENTIAL_KNOWLEDGE_TEXT_FILLER,
   BUILDING_ESSENTIAL_KNOWLEDGE, HIGHLIGHTING_PROMPT, IMAGE, MAX_ATTEMPTS_FEEDBACK, BREAK_TAG, TEXT, PROMPTS
@@ -69,16 +69,24 @@ const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormP
     }
   }
 
-  function handleSubmitActivity(){
+  function handleSubmitActivity() {
+    // safeguard against prompt stems being saved with trailing whitespaces (they cause issues when typing responses during student play)
+    const trimmedBecausePrompt = trimmedPrompt(activityBecausePrompt)
+    const trimmedButPrompt = trimmedPrompt(activityButPrompt)
+    const trimmedSoPrompt = trimmedPrompt(activitySoPrompt)
+    setActivityBecausePrompt(trimmedBecausePrompt);
+    setActivityButPrompt(trimmedPrompt(activityButPrompt));
+    setActivitySoPrompt(trimmedPrompt(activitySoPrompt));
+
     const activityObject = buildActivity({
       activityFlag,
       activityNotes,
       activityTitle,
       activityParentActivityId: parent_activity_id,
       activityPassages,
-      activityBecausePrompt,
-      activityButPrompt,
-      activitySoPrompt,
+      activityBecausePrompt: trimmedBecausePrompt,
+      activityButPrompt: trimmedButPrompt,
+      activitySoPrompt: trimmedSoPrompt,
       highlightPrompt: activityPassages[0].highlight_prompt || DEFAULT_HIGHLIGHT_PROMPT
     });
     const state = [

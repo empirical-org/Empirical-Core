@@ -1,7 +1,7 @@
 import * as React from 'react'
 import moment from 'moment'
 
-import { DataTable, Tooltip } from '../../../Shared/index'
+import { onMobile, DataTable, Tooltip } from '../../../Shared/index'
 import activityLaunchLink from '../modules/generate_activity_launch_link.js';
 
 const diagnosticSrc = `${process.env.CDN_URL}/images/icons/tool-diagnostic-gray.svg`
@@ -26,6 +26,7 @@ const incompleteHeaders = [
     width: '633px',
     name: 'Activity',
     attribute: 'name',
+    noTooltip: onMobile(), // On mobile we don't want a tooltip wrapper since they basically don't work there
     headerClassName: 'name-section',
     rowSectionClassName: 'name-section'
   }, {

@@ -5,7 +5,7 @@ require 'hotwater'
 module Evidence
   class PlagiarismCheck
 
-    ALL_CORRECT_FEEDBACK = 'All plagiarism checks passed.'
+    ALL_CORRECT_FEEDBACK = '<p>All plagiarism checks passed.</p>'
     PASSAGE_TYPE = 'passage'
     ENTRY_TYPE = 'response'
     MATCH_MINIMUM = 10
@@ -98,10 +98,6 @@ module Evidence
       !clean_passage.empty? && [clean_entry.split.size, clean_passage.split.size].min >= MATCH_MINIMUM
     end
 
-    private def intersect_with_duplicates(arr1, arr2)
-      (arr1 & arr2).flat_map { |n| [n]*[arr1.count(n), arr2.count(n)].min }
-    end
-
     private def clean(str)
       str.gsub(/[[:punct:]]/, '').downcase
     end
@@ -158,7 +154,8 @@ module Evidence
       # we know that there's a minimum number of words that have to be identical.  This function
       # confirms that minimum amount of overlap to justify doing a set of Levenshtein calculations.
       source_arrays.any? do |source_array|
-        (source_array & target_array).length >= (MATCH_MINIMUM - FUZZY_CHARACTER_THRESHOLD)
+        ((target_array - source_array).length <= FUZZY_CHARACTER_THRESHOLD ||
+         (source_array - target_array).length <= FUZZY_CHARACTER_THRESHOLD)
       end
     end
 
