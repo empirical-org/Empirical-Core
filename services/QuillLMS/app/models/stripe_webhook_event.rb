@@ -37,7 +37,7 @@ class StripeWebhookEvent < ApplicationRecord
   def log_error(error)
     failed!
     update(processing_errors: error.message)
-    ErrorNotifier.run(error, stripe_webhook_event: id)
+    ErrorNotifier.report(error, stripe_webhook_event: id)
   end
 
   def processed!

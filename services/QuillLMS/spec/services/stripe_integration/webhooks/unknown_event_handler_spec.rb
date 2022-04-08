@@ -14,5 +14,4 @@ RSpec.describe StripeIntegration::Webhooks::UnknownEventHandler do
     expect(stripe_webhook_event).to receive(:log_error)
     subject
   end
-
 end

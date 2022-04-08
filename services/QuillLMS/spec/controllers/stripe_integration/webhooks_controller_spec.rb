@@ -43,7 +43,7 @@ RSpec.describe StripeIntegration::WebhooksController, type: :controller do
 
       it "handles the JSON format error and reports to new relic" do
         expect(handle_event_worker).not_to receive(:perform_async)
-        expect(NewRelic::Agent).to receive(:notice_error).with(error)
+        expect(ErrorNotifier).to receive(:report).with(error)
         post :create
         expect(response.status).to eq 400
       end
@@ -56,7 +56,7 @@ RSpec.describe StripeIntegration::WebhooksController, type: :controller do
 
       it 'handles the signature error and reports to new relic' do
         expect(handle_event_worker).not_to receive(:perform_async)
-        expect(NewRelic::Agent).to receive(:notice_error).with(error)
+        expect(ErrorNotifier).to receive(:report).with(error)
         post :create
         expect(response.status).to eq 400
       end

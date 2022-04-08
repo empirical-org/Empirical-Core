@@ -35,7 +35,7 @@ RSpec.describe StripeWebhookEvent, type: :model do
     it { expect { subject.log_error(error) }.to change(subject, :processing_errors).to(error.message) }
 
     it do
-      expect(ErrorNotifier).to receive(:run).with(error, stripe_webhook_event: subject.id)
+      expect(ErrorNotifier).to receive(:report).with(error, stripe_webhook_event: subject.id)
       subject.log_error(error)
     end
   end
