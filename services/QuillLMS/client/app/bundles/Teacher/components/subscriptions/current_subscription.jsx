@@ -323,18 +323,14 @@ export default class CurrentSubscription extends React.Component {
     );
   }
 
-  showChangePlan = () => {
-    this.setState({
-      showChangePlan: true,
-    });
-  };
+  showChangePlan = () => { this.setState({ showChangePlan: true, }) }
 
-  updateRecurring = (recurring) => {
+  updateRecurring = () => {
     const { updateSubscription, subscriptionStatus, } = this.props
     const { recurring, } = this.state
-    updateSubscription(
-      { recurring, }, _.get(subscriptionStatus, 'id'));
-  };
+
+    updateSubscription({ recurring }, _.get(subscriptionStatus, 'id'));
+  }
 
   render() {
     const { subscriptionStatus, } = this.props

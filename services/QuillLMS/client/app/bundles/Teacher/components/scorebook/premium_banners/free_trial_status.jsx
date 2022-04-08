@@ -9,7 +9,7 @@ const FreeTrialStatus = ({ status, originPage, upgradeToPremiumNowButton, lastSu
     }
   };
 
-  const premiumButton = (originPage == 'premium')
+  const premiumButton = (originPage === 'premium')
     ? upgradeToPremiumNowButton()
     : <a href='/premium'><button className='btn-orange' type='button'>Upgrade to Premium Now</button></a>
 

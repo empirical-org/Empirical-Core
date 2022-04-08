@@ -24,7 +24,7 @@ class StripeWebhookEvent < ApplicationRecord
     PROCESSED = 'processed'
   ]
 
-  validates :external_id, format: { with: /\Aevt_[0-9a-zA-Z]*\z/ }
+  validates :external_id, stripe_uid: { prefix: :evt }
 
   def failed!
     update(status: FAILED)
@@ -37,7 +37,7 @@ class StripeWebhookEvent < ApplicationRecord
   def log_error(error)
     failed!
     update(processing_errors: error.message)
-    NewRelic::Agent.notice_error(error, stripe_webhook_event: id)
+    ErrorNotifier.run(error, stripe_webhook_event: id)
   end
 
   def processed!

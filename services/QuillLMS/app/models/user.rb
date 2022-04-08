@@ -73,8 +73,6 @@ class User < ApplicationRecord
 
   has_secure_password validations: false
   has_one :auth_credential, dependent: :destroy
-  has_many :user_subscriptions
-  has_many :subscriptions, through: :user_subscriptions
   has_many :checkboxes
   has_many :credit_transactions
   has_many :invitations, foreign_key: 'inviter_id'
@@ -243,7 +241,7 @@ class User < ApplicationRecord
   end
 
   def eligible_for_new_subscription?
-    !subscription || Subscription::TRIAL_TYPES.include?(subscription.account_type)
+    subscription.nil? || Subscription::TRIAL_TYPES.include?(subscription.account_type)
   end
 
   def last_expired_subscription

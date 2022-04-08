@@ -16,7 +16,7 @@ module StripeIntegration
     end
 
     private def return_url
-      "#{ENV['DEFAULT_URL']}/subscriptions"
+      subscriptions_path
     end
   end
 end

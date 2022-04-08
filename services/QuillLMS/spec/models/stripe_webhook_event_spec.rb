@@ -22,6 +22,7 @@ RSpec.describe StripeWebhookEvent, type: :model do
   subject { create(:stripe_webhook_event) }
 
   it { expect(subject).to be_valid }
+  it { expect(build(:stripe_webhook_event, external_id: 'invalid_id')).not_to be_valid }
 
   it { expect { subject.failed! }.to change(subject, :status).to(described_class::FAILED) }
   it { expect { subject.ignored! }.to change(subject, :status).to(described_class::IGNORED) }
@@ -34,7 +35,7 @@ RSpec.describe StripeWebhookEvent, type: :model do
     it { expect { subject.log_error(error) }.to change(subject, :processing_errors).to(error.message) }
 
     it do
-      expect(NewRelic::Agent).to receive(:notice_error).with(error, stripe_webhook_event: subject.id)
+      expect(ErrorNotifier).to receive(:run).with(error, stripe_webhook_event: subject.id)
       subject.log_error(error)
     end
   end

@@ -23,7 +23,7 @@ class PlanSerializer < ActiveModel::Serializer
   attributes :display_name, :price_in_dollars, :stripe_price_id
 
   def price_in_dollars
-    object.price / 100
+    object.price / 100.0
   end
 end
 
