@@ -875,7 +875,7 @@ end
       expect(ActivitySession.calculate_timespent(nil, 'hello')).to be_nil
     end
 
-    it 'should return timestamp of session passed in' do
+    it 'should return timespent of session passed in' do
       session = double(timespent: 100)
 
       expect(ActivitySession.calculate_timespent(session, time_tracking)).to eq(100)
