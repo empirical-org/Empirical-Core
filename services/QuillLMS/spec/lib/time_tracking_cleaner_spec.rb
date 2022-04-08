@@ -21,7 +21,8 @@ describe TimeTrackingCleaner do
       'time_tracking' => {
         'so' => 9999999,
         'but' => 10,
-        'because' => 9
+        'because' => 9,
+        'passage' => 8
       }
     }
   end
@@ -29,9 +30,10 @@ describe TimeTrackingCleaner do
   let(:modified_data) do
     {
       'time_tracking' => {
-        'so' => 10,
+        'so' => 9,
         'but' => 10,
-        'because' => 9
+        'because' => 9,
+        'passage' => 8
       },
       'time_tracking_edits' => {
         'so' => 9999999
@@ -139,6 +141,13 @@ describe TimeTrackingCleaner do
     it 'should not modify hash with existing edits no outliers' do
       expect(TimeTrackingCleaner.run(data_with_existing_edits_no_outliers)).to eq(data_with_existing_edits_no_outliers)
     end
+  end
 
+  describe '#median_value' do
+    let(:time_tracking) { {'time_tracking' => {'a'=>1,'b'=> 2}} }
+
+    it 'should round median to integer' do
+      expect(TimeTrackingCleaner.new(time_tracking).send(:median_value)).to eq(1)
+    end
   end
 end

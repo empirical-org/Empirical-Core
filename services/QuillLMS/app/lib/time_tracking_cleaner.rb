@@ -34,7 +34,7 @@ class TimeTrackingCleaner < ApplicationService
   end
 
   private def median_value
-    @median_value ||= time_tracking.values.compact.median
+    @median_value ||= time_tracking.values.compact.median.to_i
   end
 
   private def outlier_threshold
