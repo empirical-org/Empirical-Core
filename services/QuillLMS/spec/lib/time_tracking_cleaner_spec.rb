@@ -67,6 +67,46 @@ describe TimeTrackingCleaner do
     }
   end
 
+  let(:data_with_existing_edits) do
+    {
+      'time_tracking' => {
+        'so' => 10,
+        'but' => 999999,
+        'because' => 9
+      },
+      'time_tracking_edits' => {
+        'so' => 9999999
+      }
+    }
+  end
+
+  let(:modified_data_with_existing_edits) do
+    {
+      'time_tracking' => {
+        'so' => 10,
+        'but' => 10,
+        'because' => 9
+      },
+      'time_tracking_edits' => {
+        'so' => 9999999,
+        'but' => 999999,
+      }
+    }
+  end
+
+   let(:data_with_existing_edits_no_outliers) do
+    {
+      'time_tracking' => {
+        'so' => 10,
+        'but' => 10,
+        'because' => 9
+      },
+      'time_tracking_edits' => {
+        'so' => 9999999
+      }
+    }
+  end
+
   describe '#clean' do
     it 'should return nil if passed nil' do
       expect(TimeTrackingCleaner.run(nil)).to be_nil
@@ -91,5 +131,14 @@ describe TimeTrackingCleaner do
     it 'should modify a hash with mulitple outliers and record the edits' do
       expect(TimeTrackingCleaner.run(data_with_multiple_outliers)).to eq(modified_data_multiple)
     end
+
+    it 'should modify a hash with existing edits and preserve previous edits' do
+      expect(TimeTrackingCleaner.run(data_with_existing_edits)).to eq(modified_data_with_existing_edits)
+    end
+
+    it 'should not modify hash with existing edits no outliers' do
+      expect(TimeTrackingCleaner.run(data_with_existing_edits_no_outliers)).to eq(data_with_existing_edits_no_outliers)
+    end
+
   end
 end
