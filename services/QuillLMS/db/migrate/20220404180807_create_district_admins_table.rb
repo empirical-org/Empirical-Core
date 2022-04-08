@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-class CreateDistrictsAdminsTable < ActiveRecord::Migration[5.1]
+class CreateDistrictAdminsTable < ActiveRecord::Migration[5.1]
   def change
-    create_table :districts_admins do |t|
+    create_table :district_admins do |t|
       t.references :district, null: false, index: true
       t.references :user, null: false, index: true
 

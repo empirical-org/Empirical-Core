@@ -171,14 +171,22 @@ describe School, type: :model do
     let(:admin) { create(:user)}
 
     it 'creates new school admin record if a school is attached to a new district' do
-      create(:districts_admins, user: admin, district: district)
+      create(:district_admin, user: admin, district: district)
       expect(SchoolsAdmins.find_by(school: school, user: admin)).not_to be
       school.update(district_id: district.id)
       expect(SchoolsAdmins.find_by(school: school, user: admin)).to be
     end
 
+    it 'does not create new school admin record if a school is attached to a new district and the district admin is already admin for the school' do
+      create(:schools_admins, user: admin, school: school)
+      expect(SchoolsAdmins.where(school: school, user: admin).count).to eq 1
+
+      school.update(district_id: district.id)
+      expect(SchoolsAdmins.where(school: school, user: admin).count).to eq 1
+    end
+
     it 'destroys school admin record if a school is detached from a district' do
-      create(:districts_admins, user: admin, district: district)
+      create(:district_admin, user: admin, district: district)
       school.update(district_id: district.id)
       expect(SchoolsAdmins.find_by(school: school, user: admin)).to be
 

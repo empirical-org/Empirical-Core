@@ -2,7 +2,7 @@
 
 # == Schema Information
 #
-# Table name: districts_admins
+# Table name: district_admins
 #
 #  id          :bigint           not null, primary key
 #  created_at  :datetime         not null
@@ -12,12 +12,12 @@
 #
 # Indexes
 #
-#  index_districts_admins_on_district_id  (district_id)
-#  index_districts_admins_on_user_id      (user_id)
+#  index_district_admins_on_district_id  (district_id)
+#  index_district_admins_on_user_id      (user_id)
 #
 require 'rails_helper'
 
-describe DistrictsAdmins, type: :model, redis: true do
+describe DistrictAdmin, type: :model, redis: true do
   it { should belong_to(:district) }
   it { should belong_to(:user) }
 
@@ -28,7 +28,7 @@ describe DistrictsAdmins, type: :model, redis: true do
   let(:district) { create(:district) }
   let(:school) { create(:school, district: district) }
   let(:subscription) { create(:subscription, account_type: 'School Paid') }
-  let(:admins) { create(:districts_admins, user: user, district: district) }
+  let(:admins) { create(:district_admin, user: user, district: district) }
 
   describe '#admin' do
     it 'should return the user associated' do
@@ -41,6 +41,15 @@ describe DistrictsAdmins, type: :model, redis: true do
       create(:school_subscription, school_id: school.id, subscription_id: subscription.id)
       expect{ admins.attach_to_subscribed_schools }.to change(NewAdminEmailWorker.jobs, :size)
       expect(SchoolsAdmins.find_by(user: user, school: school)).to be
+    end
+
+    it 'should not create another record if user is already an admin' do
+      create(:school_subscription, school_id: school.id, subscription_id: subscription.id)
+      admins.attach_to_subscribed_schools
+      expect(SchoolsAdmins.where(user: user, school: school).count).to eq(1)
+
+      expect{ admins.attach_to_subscribed_schools }.not_to change(NewAdminEmailWorker.jobs, :size)
+      expect(SchoolsAdmins.where(user: user, school: school).count).to eq(1)
     end
   end
 

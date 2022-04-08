@@ -72,7 +72,7 @@ describe User, type: :model do
   it { should have_one(:schools_users) }
   it { should have_one(:school).through(:schools_users) }
   it { should have_many(:schools_admins).class_name('SchoolsAdmins') }
-  it { should have_many(:districts_admins).class_name('DistrictsAdmins') }
+  it { should have_many(:district_admins).class_name('DistrictAdmins') }
   it { should have_many(:administered_schools).through(:schools_admins).source(:school).with_foreign_key('user_id') }
   it { should have_many(:classrooms_teachers) }
   it { should have_many(:teacher_saved_activities).with_foreign_key('teacher_id') }

@@ -1996,6 +1996,38 @@ ALTER SEQUENCE public.csv_exports_id_seq OWNED BY public.csv_exports.id;
 
 
 --
+-- Name: district_admins; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.district_admins (
+    id bigint NOT NULL,
+    district_id bigint NOT NULL,
+    user_id bigint NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: district_admins_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.district_admins_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: district_admins_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.district_admins_id_seq OWNED BY public.district_admins.id;
+
+
+--
 -- Name: districts; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -2015,38 +2047,6 @@ CREATE TABLE public.districts (
     total_schools integer,
     grade_range character varying
 );
-
-
---
--- Name: districts_admins; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.districts_admins (
-    id bigint NOT NULL,
-    district_id bigint NOT NULL,
-    user_id bigint NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: districts_admins_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.districts_admins_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: districts_admins_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.districts_admins_id_seq OWNED BY public.districts_admins.id;
 
 
 --
@@ -4521,17 +4521,17 @@ ALTER TABLE ONLY public.csv_exports ALTER COLUMN id SET DEFAULT nextval('public.
 
 
 --
+-- Name: district_admins id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.district_admins ALTER COLUMN id SET DEFAULT nextval('public.district_admins_id_seq'::regclass);
+
+
+--
 -- Name: districts id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.districts ALTER COLUMN id SET DEFAULT nextval('public.districts_id_seq'::regclass);
-
-
---
--- Name: districts_admins id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.districts_admins ALTER COLUMN id SET DEFAULT nextval('public.districts_admins_id_seq'::regclass);
 
 
 --
@@ -5348,11 +5348,11 @@ ALTER TABLE ONLY public.csv_exports
 
 
 --
--- Name: districts_admins districts_admins_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: district_admins district_admins_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.districts_admins
-    ADD CONSTRAINT districts_admins_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.district_admins
+    ADD CONSTRAINT district_admins_pkey PRIMARY KEY (id);
 
 
 --
@@ -6432,17 +6432,17 @@ CREATE INDEX index_criteria_on_recommendation_id ON public.criteria USING btree 
 
 
 --
--- Name: index_districts_admins_on_district_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_district_admins_on_district_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_districts_admins_on_district_id ON public.districts_admins USING btree (district_id);
+CREATE INDEX index_district_admins_on_district_id ON public.district_admins USING btree (district_id);
 
 
 --
--- Name: index_districts_admins_on_user_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_district_admins_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_districts_admins_on_user_id ON public.districts_admins USING btree (user_id);
+CREATE INDEX index_district_admins_on_user_id ON public.district_admins USING btree (user_id);
 
 
 --
@@ -8050,7 +8050,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210219164011'),
 ('20210219185502'),
 ('20210222201347'),
-('20210224162204'),
 ('20210224165328'),
 ('20210224165329'),
 ('20210224165330'),
@@ -8106,3 +8105,5 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220328165932'),
 ('20220328170304'),
 ('20220404180807');
+
+

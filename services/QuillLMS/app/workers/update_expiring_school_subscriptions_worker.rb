@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class UpdateExpiringSchoolSubscriptions
+class UpdateExpiringSchoolSubscriptionsWorker
   include Sidekiq::Worker
 
   def perform

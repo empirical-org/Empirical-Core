@@ -34,12 +34,48 @@
     <h2>District Info</h2>
     <br />
     <%= link_to 'Edit District Info', edit_cms_district_path(params[:id]), class: 'btn button-green' %>
-    <br />
-    <% @district.each do |k,v| %>
-      <br />
-      <p><strong><%= k %></strong></p>
-      <p><%= v || 'N/A' %></p>
-    <% end %>
+    <br /> <br />
+
+    <p><strong>Name</strong></p>
+    <p><%= @district.name || 'N/A' %></p>
+    <br /> <br />
+
+    <p><strong>Clever ID</strong></p>
+    <p><%= @district.clever_id || 'N/A' %></p>
+    <br /> <br />
+
+    <p><strong>NCES ID</strong></p>
+    <p><%= @district.nces_id || 'N/A' %></p>
+    <br /> <br />
+
+    <p><strong>City</strong></p>
+    <p><%= @district.city || 'N/A' %></p>
+    <br /> <br />
+
+    <p><strong>State</strong></p>
+    <p><%= @district.state || 'N/A' %></p>
+    <br /> <br />
+
+    <p><strong>ZIP Code</strong></p>
+    <p><%= @district.zipcode || 'N/A' %></p>
+    <br /> <br />
+
+    <p><strong>Phone</strong></p>
+    <p><%= @district.phone || 'N/A' %></p>
+    <br /> <br />
+
+    <p><strong>Total Schools</strong></p>
+    <p><%= @district.total_schools || 'N/A' %></p>
+    <br /> <br />
+
+    <p><strong>Total Students</strong></p>
+    <p><%= @district.total_students || 'N/A' %></p>
+    <br /> <br />
+
+    <p><strong>Grade Range</strong></p>
+    <p><%= @district.grade_range || 'N/A' %></p>
+    <br /> <br />
+
     <br /><br />
     <h2>All Admins</h2>
     <% if @admins.any? %>

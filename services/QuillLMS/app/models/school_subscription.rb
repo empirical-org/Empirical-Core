@@ -46,7 +46,7 @@ class SchoolSubscription < ApplicationRecord
   end
 
   def attach_district_admins
-    school&.district&.districts_admins&.each do |da|
+    school&.district&.district_admins&.each do |da|
       da.attach_to_subscribed_schools
     end
   end

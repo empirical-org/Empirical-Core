@@ -2,7 +2,7 @@
 
 # == Schema Information
 #
-# Table name: districts_admins
+# Table name: district_admins
 #
 #  id          :bigint           not null, primary key
 #  created_at  :datetime         not null
@@ -12,10 +12,10 @@
 #
 # Indexes
 #
-#  index_districts_admins_on_district_id  (district_id)
-#  index_districts_admins_on_user_id      (user_id)
+#  index_district_admins_on_district_id  (district_id)
+#  index_district_admins_on_user_id      (user_id)
 #
-class DistrictsAdmins < ApplicationRecord
+class DistrictAdmin < ApplicationRecord
   belongs_to :district
   belongs_to :user
 
@@ -27,17 +27,18 @@ class DistrictsAdmins < ApplicationRecord
   end
 
   def attach_to_subscribed_schools
-    district = District.find(district_id)
+    current_schools = admin.administered_schools
     schools_with_subscriptions.each do |school|
-      school_admin = SchoolsAdmins.find_or_create_by(school: school, user: admin)
-      NewAdminEmailWorker.perform_async(user_id, school.id)
+      NewAdminEmailWorker.perform_async(admin.id, school.id) if !current_schools.include?(school)
     end
+
+    admin.administered_schools += schools_with_subscriptions
+    admin.save
   end
 
   def detach_from_schools
     schools_with_subscriptions.each do |school|
-      school_admin = SchoolsAdmins.find_by(school: school, user: admin)
-      school_admin&.destroy
+      SchoolsAdmins.where(school: schools_with_subscriptions, user: admin).destroy_all
     end
   end
 

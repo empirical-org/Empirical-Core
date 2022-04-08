@@ -7,7 +7,6 @@ describe Cms::DistrictsController do
 
   before { allow(controller).to receive(:current_user) { user } }
 
-  it { should use_before_action :signed_in! }
   it { should use_before_action :text_search_inputs }
   it { should use_before_action :set_district }
 
@@ -32,11 +31,12 @@ describe Cms::DistrictsController do
 
   describe '#search' do
     let(:district_hash) { {district_zip: "1234", district_name: 'Test District', district_city: 'Test City'} }
+    let!(:district) { create(:district, name: "Test District") }
 
     before { allow(RawSqlRunner).to receive(:execute).and_return([district_hash]) }
 
     it 'should search for the district and give the results' do
-      get :search
+      get :search, params: {:district_name => 'test'}
       expect(response.body).to eq({numberOfPages: 0, districtSearchQueryResults: [district_hash]}.to_json)
     end
   end
@@ -48,21 +48,9 @@ describe Cms::DistrictsController do
 
       get :show, params: { id: district.id }
 
-      expect(assigns(:district)).to eq({
-       'Name' => district.name,
-       'City' => district.city,
-       'State' => district.state,
-       'ZIP' => district.zipcode,
-       'Phone' => district.phone,
-       'NCES ID' => district.nces_id,
-       'Clever ID' => district.clever_id,
-       'Total Students' => district.total_students,
-       'Total Schools' => district.total_schools,
-       'Grade Range' => district.grade_range,
-       'Total Invoice Amount' => district.total_invoice / 100
-      })
+      expect(assigns(:district)).to eq(district)
       expect(assigns(:school_data)).to eq([])
-      expect(assigns(:admins)).to eq(DistrictsAdmins.includes(:user).where(district_id: district.id).map do |admin|
+      expect(assigns(:admins)).to eq(DistrictAdmin.includes(:user).where(district_id: district.id).map do |admin|
         {
             name: admin.user.name,
             email: admin.user.email,
@@ -122,22 +110,22 @@ describe Cms::DistrictsController do
       post :add_admin_by_email, params: { email_address: another_user.email, id: district.id }
       expect(flash[:success]).to eq "Yay! It worked! 🎉"
       expect(response).to redirect_to cms_district_path(district.id)
-      expect(DistrictsAdmins.last.user).to eq another_user
-      expect(DistrictsAdmins.last.district).to eq district
+      expect(DistrictAdmin.last.user).to eq another_user
+      expect(DistrictAdmin.last.district).to eq district
     end
   end
 
   describe '#remove_admin' do
     let!(:district) { create(:district)}
     let!(:another_user) { create(:user)}
-    let!(:districts_admins) { create(:districts_admins, district: district, user: another_user)}
+    let!(:district_admins) { create(:district_admin, district: district, user: another_user)}
 
     it 'should remove the admin relationship and redirect to cms district path' do
-      expect(DistrictsAdmins.find_by(user: another_user.id, district: district)).to be
+      expect(DistrictAdmin.find_by(user: another_user.id, district: district)).to be
       post :remove_admin, params: { id: district.id, user_id: another_user.id, district_id: district.id }
       expect(flash[:success]).to eq 'Success! 🎉'
       expect(response).to redirect_to cms_district_path(district.id)
-      expect(DistrictsAdmins.find_by(user: another_user.id, district: district)).not_to be
+      expect(DistrictAdmin.find_by(user: another_user.id, district: district)).not_to be
       expect(another_user.reload.administered_districts).to eq []
     end
   end

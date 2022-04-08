@@ -2,7 +2,7 @@
 
 # == Schema Information
 #
-# Table name: districts_admins
+# Table name: district_admins
 #
 #  id          :bigint           not null, primary key
 #  created_at  :datetime         not null
@@ -12,11 +12,11 @@
 #
 # Indexes
 #
-#  index_districts_admins_on_district_id  (district_id)
-#  index_districts_admins_on_user_id      (user_id)
+#  index_district_admins_on_district_id  (district_id)
+#  index_district_admins_on_user_id      (user_id)
 #
 FactoryBot.define do
-  factory :districts_admins do
+  factory :district_admin do
     district { create(:district) }
     user { create(:user) }
   end

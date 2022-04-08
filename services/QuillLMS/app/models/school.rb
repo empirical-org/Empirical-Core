@@ -142,10 +142,7 @@ class School < ApplicationRecord
   def detach_from_existing_district_admins(district)
     return unless district.present? && district.admins.count > 0
 
-    district.admins.each do |admin|
-      school_admin = SchoolsAdmins.find_by(school: self, user: admin)
-      school_admin&.destroy
-    end
+    schools_admins.where(user_id: district.admins.map(&:id)).destroy_all
   end
 
   private def generate_leap_csv_row(student, teacher, classroom, activity_session)
@@ -180,7 +177,7 @@ class School < ApplicationRecord
   end
 
   private def update_district_admins
-    # destroy all SchoolsAdmins records that are also DistrictsAdmins records from the previous district
+    # destroy all SchoolsAdmins records that are also DistrictAdmin records from the previous district
     if district_id_was.present?
       previous_district = District.find_by(id: district_id_was)
       detach_from_existing_district_admins(previous_district)
@@ -189,9 +186,6 @@ class School < ApplicationRecord
     return unless district_id.present?
 
     new_district = District.find(district_id)
-    new_district_admins = new_district&.admins || []
-    new_district_admins.each do |da|
-      SchoolsAdmins.find_or_create_by(school: self, user: da)
-    end
+    self.admins = (admins || []) + new_district.admins
   end
 end

@@ -22,11 +22,17 @@
 class District < ApplicationRecord
 
   has_many :schools
-  has_many :districts_admins, class_name: 'DistrictsAdmins'
-  has_many :admins, through: :districts_admins, source: :user
+  has_many :district_admins, class_name: 'DistrictAdmin'
+  has_many :admins, through: :district_admins, source: :user
+
+  scope :by_name, -> name { where('lower(name) LIKE ?', "%#{name.downcase}%") }
+  scope :by_city, -> city { where('lower(city) LIKE ?', "%#{city.downcase}%") }
+  scope :by_state, -> state { where(:state => state.upcase) }
+  scope :by_zipcode, -> zipcode { where(:zipcode => zipcode) }
+  scope :by_nces_id, -> nces_id { where(:nces_id => nces_id) }
 
   def total_invoice
-    schools.map { |s| s&.subscription&.payment_amount || 0 }.inject(0, :+)
+    schools.sum { |s| s&.subscription&.payment_amount || 0 } / 100
   end
 
 end
