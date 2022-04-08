@@ -96,7 +96,7 @@ describe TimeTrackingCleaner do
     }
   end
 
-   let(:data_with_existing_edits_no_outliers) do
+  let(:data_with_existing_edits_no_outliers) do
     {
       'time_tracking' => {
         'so' => 10,
