@@ -41,12 +41,6 @@ module Evidence
         expect(parsed_response['key1']).to eq('some value')
       end
 
-      it 'should return 404 early when the entry is empty' do
-        post :create, params: {prompt_id: prompt.id, session_id: session_id, previous_feedback: ([]), attempt: attempt }, as: :json
-
-        expect(response.status).to eq 404
-      end
-
       context "fallback response" do
         let(:fallback_feedback) { Check::FALLBACK_RESPONSE }
 

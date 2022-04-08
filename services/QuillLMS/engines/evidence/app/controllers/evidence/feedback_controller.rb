@@ -74,8 +74,6 @@ module Evidence
 
     private def set_params
       @entry = params[:entry]
-      return render(:body => nil, :status => 404) unless @entry
-
       begin
         @prompt = Evidence::Prompt.find(params[:prompt_id])
       rescue ActiveRecord::RecordNotFound
