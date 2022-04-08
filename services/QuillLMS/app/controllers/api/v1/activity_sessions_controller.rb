@@ -110,7 +110,7 @@ class Api::V1::ActivitySessionsController < Api::ApiController
 
     params
       .permit(activity_session_permitted_params)
-      .merge(data: clean_data)
+      .merge(data: clean_data&.permit!)
       .reject { |_, v| v.nil? }
       .merge(timespent: timespent)
   end
