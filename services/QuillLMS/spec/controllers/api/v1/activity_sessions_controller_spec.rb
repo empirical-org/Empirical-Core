@@ -143,6 +143,50 @@ describe Api::V1::ActivitySessionsController, type: :controller do
         expect(activity_session.data['time_tracking']).to include(data['time_tracking'])
       end
 
+      it 'should discard outlier, adjust time_tracking, and record edits' do
+        data = {
+          'time_tracking' => {
+            'so' => 9999999,
+            'but' => 10,
+            'because' => 9
+          }
+        }
+
+        modified_data = {
+          'time_tracking' => {
+            'so' => 10,
+            'but' => 10,
+            'because' => 9
+          },
+          'time_tracking_edits' => {
+            'so' => 9999999
+          }
+        }
+
+        expect(Raven).to_not receive(:capture_exception)
+
+        put :update, params: { id: activity_session.uid, data: data }, as: :json
+        activity_session.reload
+
+        expect(activity_session.timespent).to eq 29
+        expect(activity_session.data['time_tracking']).to include(modified_data['time_tracking'])
+        expect(activity_session.data['time_tracking_edits']).to include(modified_data['time_tracking_edits'])
+      end
+
+      it 'should log long session' do
+        data = {
+          'time_tracking' => {
+            'so' => 9999,
+            'but' => 9999,
+            'because' => 9999
+          }
+        }
+
+        expect(Raven).to receive(:capture_exception).with(ActivitySession::LongTimeTrackingError).once
+
+        put :update, params: { id: activity_session.uid, data: data }, as: :json
+      end
+
       describe 'the total time tracking value is larger than the maximum 4-byte integer size' do
         it 'saves timespent with the maximum 4-byte integer size' do
           data = {
