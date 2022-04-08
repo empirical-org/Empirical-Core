@@ -2,6 +2,9 @@
 
 class TimeTrackingCleaner < ApplicationService
   OUTLIER_MULTIPLIER = 40
+  # There are some keys that it doesn't make sense to use the median as a backfill
+  # So skipping them for now, until we have a more robust solution.
+  IGNORE_KEYS = ['proofreading_the_passage']
 
   attr_reader :time_tracking, :data_params, :time_tracking_edits
 
@@ -30,7 +33,7 @@ class TimeTrackingCleaner < ApplicationService
   end
 
   private def outliers
-    @outliers ||= time_tracking.select {|_, v| v > outlier_threshold}
+    @outliers ||= time_tracking.select {|_, v| v > outlier_threshold}.except(*IGNORE_KEYS)
   end
 
   private def median_value
