@@ -11,7 +11,6 @@ class TimeTrackingCleaner < ApplicationService
     @time_tracking_edits = data_params&.fetch(ActivitySession::TIME_TRACKING_EDITS_KEY, {})
   end
 
-
   # replace outlier time_tracking values with the list's median value
   # if they are 40x larger than the median
   # keep track of original data in data['time_tracking_edits']
