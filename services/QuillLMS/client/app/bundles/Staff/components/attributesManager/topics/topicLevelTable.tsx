@@ -1,9 +1,8 @@
 import * as React from 'react';
-import ReactTable from 'react-table-6'
-;
 import moment from 'moment';
 
 import { getColumnWidth, } from '../../shared/getColumnWidth'
+import { ReactTable, } from '../../../../Shared'
 
 interface TopicLevelTableProps {
   topics: Array<Topic>,
@@ -31,8 +30,8 @@ function columns(levelNumber, selectTopic, showExtraColumns, data) {
       Header: levelNumberColumnHeader,
       accessor: 'name',
       key: 'name',
-      Cell: (props) => (<button className="interactive-wrapper" onClick={() => selectTopic(props.original)}>{props.original.name}</button>),
-      sortType:  (a, b) => (a.name.localeCompare(b.name)),
+      Cell: ({row}) => (<button className="interactive-wrapper" onClick={() => selectTopic(row.original)}>{row.original.name}</button>),
+      sortType:  (a, b) => (a.original.name.localeCompare(b.original.name)),
       minWidth: levelNumberColumnWidth
     }
   ]
@@ -43,7 +42,7 @@ function columns(levelNumber, selectTopic, showExtraColumns, data) {
         Header: 'Activities',
         accessor: 'activity_count',
         key: 'activities',
-        sortType:  (a, b) => (a.activity_count - b.activity_count),
+        sortType:  (a, b) => (a.original.activity_count - b.original.activity_count),
         maxWidth: 120
       }
     ])
@@ -54,8 +53,8 @@ function columns(levelNumber, selectTopic, showExtraColumns, data) {
       Header: 'Created At',
       accessor: 'created_at',
       key: 'created_at',
-      Cell: (props) => moment(props.original.created_at).format('M/D/YY'),
-      sortType:  (a, b) => (new Date(a.created_at) - new Date(b.created_at)),
+      Cell: ({row}) => moment(row.original.created_at).format('M/D/YY'),
+      sortType:  (a, b) => (new Date(a.original.created_at) - new Date(b.original.created_at)),
     }
     sharedColumns = sharedColumns.concat([createdAtColumn])
   }
