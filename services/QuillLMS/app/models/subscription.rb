@@ -91,9 +91,15 @@ class Subscription < ApplicationRecord
 
   ALL_TYPES = OFFICIAL_FREE_TYPES.dup.concat(OFFICIAL_PAID_TYPES)
 
-  validates :stripe_invoice_id, allow_blank: true, format: { with: /\Ain_[0-9a-zA-Z]*\z/ }
+  STRIPE_INVOICE_ID_REGEX = /\Ain_[0-9a-zA-Z]*\z/
+
+  validates :stripe_invoice_id, allow_blank: true, format: { with: STRIPE_INVOICE_ID_REGEX }
 
   scope :active, -> { where(de_activated_date: nil).where("expiration > ?", Date.today).order(expiration: :asc) }
+
+  def self.find_by_id_or_stripe_invoice_id!(id)
+    id =~ STRIPE_INVOICE_ID_REGEX ? find_by!(stripe_invoice_id: id) : find(id)
+  end
 
   def is_trial?
     account_type && TRIAL_TYPES.include?(account_type)

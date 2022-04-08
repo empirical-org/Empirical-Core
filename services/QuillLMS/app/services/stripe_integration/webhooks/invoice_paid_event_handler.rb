@@ -21,7 +21,7 @@ module StripeIntegration
       end
 
       private def stripe_subscription
-        Stripe::Subscription.retrieve(stripe_invoice.subscription)
+        @stripe_subscription ||= Stripe::Subscription.retrieve(stripe_invoice.subscription)
       end
     end
   end

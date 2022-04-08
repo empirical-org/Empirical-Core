@@ -1,5 +1,6 @@
 import React from 'react';
 import request from 'request';
+import Pusher from 'pusher-js';
 import _ from 'lodash';
 
 import SubscriptionStatus from '../components/subscriptions/SubscriptionStatus';
@@ -11,6 +12,7 @@ import RefundPolicy from '../components/subscriptions/refund_policy';
 import PremiumCreditsTable from '../components/subscriptions/premium_credits_table';
 import getAuthToken from '../components/modules/get_auth_token';
 import { ACCOUNT_TYPE_TO_SUBSCRIPTION_TYPES } from '../components/subscriptions/constants';
+import { requestGet } from '../../../modules/request';
 
 export default class Subscriptions extends React.Component {
   constructor(props) {
@@ -25,6 +27,10 @@ export default class Subscriptions extends React.Component {
       showPremiumConfirmationModal: false,
       authorityLevel: props.userAuthorityLevel,
     };
+  }
+
+  componentDidMount() {
+    this.getStripePurchasedConfirmation()
   }
 
   availableAndEarnedCredits() {
@@ -49,6 +55,34 @@ export default class Subscriptions extends React.Component {
     if (!subscriptionStatus || subscriptionStatus.expired) { return newSub }
 
     return subscriptionStatus;
+  }
+
+  getStripePurchasedConfirmation = () => {
+    const { stripeInvoiceId } = this.props
+
+    if (!stripeInvoiceId) { return }
+
+    requestGet(`/subscriptions/${stripeInvoiceId}`, (body) => {
+      if (body.quill_retrieval_processing) {
+        this.initializePusherForPurchaseConfirmation()
+      } else {
+        this.updateSubscriptionStatus(body)
+      }
+    })
+  }
+
+  initializePusherForStripePurchaseConfirmation() {
+    if (process.env.RAILS_ENV === 'development') { Pusher.logToConsole = true }
+
+    const stripeInvoiceId = this.props
+    const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
+    const channelName = String(stripeInvoiceId)
+    const channel = pusher.subscribe(channelName);
+
+    channel.bind('stripe-subscription-created', () => {
+      this.getStripePurchasedConfirmation()
+      pusher.unsubscribe(channelName)
+    })
   }
 
   hidePremiumConfirmationModal = () => {

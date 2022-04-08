@@ -69,6 +69,12 @@ EmpiricalGrammar::Application.routes.draw do
   resources :student_feedback_responses, only: [:create]
 
   # for Stripe
+  namespace :stripe_integration do
+    post '/checkout_sessions', to: 'checkout_sessions#create'
+    post '/billing_portal_sessions', to: 'billing_portal_sessions#create'
+    post '/webhooks', to: 'webhooks#create'
+  end
+
   resources :charges, only: [:create]
   post 'charges/update_card' => 'charges#update_card'
   post 'charges/create_customer_with_card' => 'charges#create_customer_with_card'
@@ -80,6 +86,7 @@ EmpiricalGrammar::Application.routes.draw do
       get :purchaser_name
     end
   end
+
   resources :assessments
   resources :assignments
   resource :profile
@@ -521,12 +528,6 @@ EmpiricalGrammar::Application.routes.draw do
   put '/select_school', to: 'schools#select_school'
   get '/select_school', to: 'schools#select_school'
 
-  namespace :stripe_integration do
-    post '/checkout_sessions', to: 'checkout_sessions#create'
-    post '/billing_portal_sessions', to: 'billing_portal_sessions#create'
-    post '/webhooks', to: 'webhooks#create'
-  end
-
   namespace :cms do
     resources :images, only: [:index, :destroy, :create]
     put '/activity_categories/mass_update', to: 'activity_categories#mass_update'
@@ -566,7 +567,6 @@ EmpiricalGrammar::Application.routes.draw do
     get '/blog_posts/:id/unpublish', to: 'blog_posts#unpublish'
 
     resources :users do
-      # resource :subscription
       collection do
         get 'new_with_school/:school_id', to: 'users#new_with_school', as: :new_with_school
         post 'create_with_school/:school_id', to: 'users#create_with_school', as: :create_with_school

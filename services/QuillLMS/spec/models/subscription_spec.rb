@@ -497,4 +497,5 @@ describe Subscription, type: :model do
       end
     end
   end
+
 end

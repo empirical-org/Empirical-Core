@@ -79,6 +79,6 @@ class SubscriptionsController < ApplicationController
   end
 
   private def set_subscription
-    @subscription = current_user&.subscriptions&.find(params[:id])
+    @subscription = current_user&.subscriptions&.find_by_id_or_stripe_invoice_id!(params[:id])
   end
 end
