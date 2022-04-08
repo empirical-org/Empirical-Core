@@ -38,7 +38,6 @@ module Evidence
         feedback: '',
         feedback_type: Evidence::Rule::TYPE_PREFILTER,
         optimal: true,
-        response_id: '',
         entry: entry,
         concept_uid: '',
         rule_uid: OPTIMAL_RULE_UID,

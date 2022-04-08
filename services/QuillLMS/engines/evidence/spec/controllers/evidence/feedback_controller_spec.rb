@@ -68,7 +68,6 @@ module Evidence
                 :feedback => first_feedback.text,
                 :feedback_type => "autoML",
                 :optimal => rule.optimal,
-                :response_id => "",
                 :entry => entry,
                 :concept_uid => rule.concept_uid,
                 :rule_uid => rule.uid,
@@ -226,7 +225,6 @@ module Evidence
             'feedback' => nil,
             'feedback_type' => 'grammar',
             'optimal' => false,
-            'response_id' => '0',
             'highlight' => [
               { 'type' => 'response', 'text' => 'someText', 'character' => 0 }
             ],
@@ -280,7 +278,6 @@ module Evidence
             'feedback' => nil,
             'feedback_type' => 'opinion',
             'optimal' => false,
-            'response_id' => '0',
             'highlight' => [
               { 'type' => 'response', 'text' => 'someText', 'character' => 0 }
             ],
@@ -303,7 +300,6 @@ module Evidence
               'feedback' => 'lorem ipsum',
               'feedback_type' => 'opinion',
               'optimal' => false,
-              'response_id' => '0',
               'highlight' => [
                 { 'type' => 'response', 'text' => 'someText', 'character' => 0 }
               ],
@@ -358,7 +354,6 @@ module Evidence
           'feedback' => nil,
           'feedback_type' => 'grammar',
           'optimal' => false,
-          'response_id' => '0',
           'highlight' => [
             { 'type' => 'response', 'text' => 'someText', 'character' => 0 }
           ],
@@ -381,7 +376,6 @@ module Evidence
             'feedback' => 'lorem ipsum',
             'feedback_type' => 'grammar',
             'optimal' => false,
-            'response_id' => '0',
             'highlight' => [
               { 'type' => 'response', 'text' => 'someText', 'character' => 0 }
             ],
@@ -436,7 +430,6 @@ module Evidence
           'feedback' => nil,
           'feedback_type' => 'opinion',
           'optimal' => false,
-          'response_id' => '0',
           'highlight' => [
             { 'type' => 'response', 'text' => 'someText', 'character' => 0 }
           ],
@@ -459,7 +452,6 @@ module Evidence
             'feedback' => 'lorem ipsum',
             'feedback_type' => 'opinion',
             'optimal' => false,
-            'response_id' => '0',
             'highlight' => [
               { 'type' => 'response', 'text' => 'someText', 'character' => 0 }
             ],
@@ -610,7 +602,6 @@ module Evidence
               :feedback => first_feedback.text,
               :feedback_type => "autoML",
               :optimal => rule.optimal,
-              :response_id => "",
               :entry => entry,
               :concept_uid => rule.concept_uid,
               :rule_uid => rule.uid,
