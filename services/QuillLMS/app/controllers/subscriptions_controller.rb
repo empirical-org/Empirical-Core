@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class SubscriptionsController < ApplicationController
-  before_action :set_subscription, except: [:index, :create]
+  before_action :set_subscription, only: %i[purchaser_name show update destroy]
   before_action :require_user, only: [:index]
 
   def index
@@ -44,6 +44,12 @@ class SubscriptionsController < ApplicationController
     render json: @subscription
   end
 
+  def retrieve_stripe_subscription
+    @subscription = current_user&.subscriptions&.find_by(stripe_invoice_id: params[:stripe_invoice_id])
+
+    render json: @subscription || { quill_retrieval_processing: true }
+  end
+
   private def subscription_is_associated_with_current_user?
     @subscription.users.include?(current_user) || current_user.id == @subscription.purchaser_id
   end
@@ -79,6 +85,6 @@ class SubscriptionsController < ApplicationController
   end
 
   private def set_subscription
-    @subscription = current_user&.subscriptions&.find_by_id_or_stripe_invoice_id!(params[:id])
+    @subscription = current_user&.subscriptions&.find(params[:id])
   end
 end

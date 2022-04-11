@@ -30,7 +30,7 @@ export default class Subscriptions extends React.Component {
   }
 
   componentDidMount() {
-    this.getStripePurchasedConfirmation()
+    this.retrieveStripePurchasedConfirmation()
   }
 
   availableAndEarnedCredits() {
@@ -57,14 +57,14 @@ export default class Subscriptions extends React.Component {
     return subscriptionStatus;
   }
 
-  getStripePurchasedConfirmation = () => {
+  retrieveStripePurchasedConfirmation = () => {
     const { stripeInvoiceId } = this.props
 
     if (!stripeInvoiceId) { return }
 
-    requestGet(`/subscriptions/${stripeInvoiceId}`, (body) => {
+    requestGet(`/subscriptions/retrieve_stripe_subscription/${stripeInvoiceId}`, (body) => {
       if (body.quill_retrieval_processing) {
-        this.initializePusherForPurchaseConfirmation()
+        this.initializePusherForStripePurchaseConfirmation()
       } else {
         this.updateSubscriptionStatus(body)
       }
@@ -74,13 +74,13 @@ export default class Subscriptions extends React.Component {
   initializePusherForStripePurchaseConfirmation() {
     if (process.env.RAILS_ENV === 'development') { Pusher.logToConsole = true }
 
-    const stripeInvoiceId = this.props
+    const { stripeInvoiceId } = this.props
     const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
     const channelName = String(stripeInvoiceId)
     const channel = pusher.subscribe(channelName);
 
     channel.bind('stripe-subscription-created', () => {
-      this.getStripePurchasedConfirmation()
+      this.retrieveStripePurchasedConfirmation()
       pusher.unsubscribe(channelName)
     })
   }

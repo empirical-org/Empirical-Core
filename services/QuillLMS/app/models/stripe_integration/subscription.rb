@@ -11,7 +11,7 @@ module StripeIntegration
     end
 
     private def stripe_customer
-      Stripe::Customer.retrieve(stripe_subscription&.customer)
+      Stripe::Customer.retrieve(stripe_subscription.customer)
     end
 
     private def stripe_invoice
@@ -22,7 +22,7 @@ module StripeIntegration
     # If the credit card is subequently changed, then default payment method is removed from Stripe::Subscription and
     # added to Stripe::Customer.
     private def stripe_default_payment_method_id
-      stripe_subscription&.default_payment_method || stripe_customer&.invoice_settings&.default_payment_method
+      stripe_subscription.default_payment_method || stripe_customer.invoice_settings&.default_payment_method
     end
 
     private def stripe_payment_method
@@ -30,7 +30,7 @@ module StripeIntegration
     end
 
     private def stripe_subscription
-      Stripe::Subscription.retrieve(stripe_invoice&.subscription)
+      Stripe::Subscription.retrieve(stripe_invoice.subscription)
     end
   end
 end

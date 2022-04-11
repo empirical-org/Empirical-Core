@@ -75,6 +75,10 @@ EmpiricalGrammar::Application.routes.draw do
     post '/webhooks', to: 'webhooks#create'
   end
 
+  get 'subscriptions/retrieve_stripe_subscription/:stripe_invoice_id',
+    to: 'subscriptions#retrieve_stripe_subscription',
+    stripe_invoice_id: /in_[A-Za-z0-9]{8,}/
+
   resources :charges, only: [:create]
   post 'charges/update_card' => 'charges#update_card'
   post 'charges/create_customer_with_card' => 'charges#create_customer_with_card'
@@ -85,6 +89,7 @@ EmpiricalGrammar::Application.routes.draw do
     member do
       get :purchaser_name
     end
+
   end
 
   resources :assessments

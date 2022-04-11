@@ -23,14 +23,6 @@ class StripeUidValidator < ActiveModel::EachValidator
     SUB => 'Subscription',
   }.freeze
 
-  def self.regex(prefix)
-    /\A#{prefix}_[A-Za-z0-9]{8,}\z/
-  end
-
-  def self.valid?(prefix, value)
-    regex(prefix).match?(value)
-  end
-
   def check_validity!
     raise ArgumentError, 'Requires :prefix' unless options.include?(:prefix)
     raise ArgumentError, 'Invalid :prefix supplied' unless VALID_PREFIXES.include?(options[:prefix].to_s)
@@ -43,6 +35,6 @@ class StripeUidValidator < ActiveModel::EachValidator
   end
 
   private def regex(prefix)
-    self.class.regex(prefix)
+    /\A#{prefix}_[A-Za-z0-9]{8,}\z/
   end
 end

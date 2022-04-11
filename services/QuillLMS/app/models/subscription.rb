@@ -95,10 +95,6 @@ class Subscription < ApplicationRecord
 
   scope :active, -> { where(de_activated_date: nil).where("expiration > ?", Date.today).order(expiration: :asc) }
 
-  def self.find_by_id_or_stripe_invoice_id!(id)
-    StripeUidValidator.valid?(:in, id) ? find_by!(stripe_invoice_id: id) : find(id)
-  end
-
   def is_trial?
     account_type && TRIAL_TYPES.include?(account_type)
   end
