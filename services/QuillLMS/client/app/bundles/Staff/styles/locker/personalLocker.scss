@@ -2,16 +2,18 @@
   margin-top: 16px;
 
   .locker-section-container {
-    .lockers-container {
+    .personal-lockers-container {
       display: flex;
     }
   }
   .buttons-container {
     display: flex;
+    button {
+      width: 152px;
+    }
     .organize-button {
       display: flex;
       margin-left: 16px;
-      width: 152px;
       p {
         margin: 0
       }
@@ -31,9 +33,6 @@
       z-index: 100;
       .modal-content {
         overflow: auto;
-        .rule-form {
-          max-height: 100vh;
-        }
       }
     }
   }

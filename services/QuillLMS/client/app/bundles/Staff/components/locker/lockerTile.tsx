@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Input, Modal } from '../../../Shared';
+import { Input, Modal, closeIcon } from '../../../Shared';
 import { InputEvent } from '../../interfaces/evidenceInterfaces';
 
 export const LockerTile = ({ handleSetLockerProperty, locker, lockerKey, lockerPreferences, sectionKey }) => {
@@ -27,9 +27,12 @@ export const LockerTile = ({ handleSetLockerProperty, locker, lockerKey, lockerP
     setUrl(value);
   }
 
-  function renderModalContents() {
+  function renderOrganizeLockerModal() {
     return(
-      <div>
+      <Modal>
+        <div className="close-button-container">
+          <button className="interactive-wrapper focus-on-light" onClick={handleClick}><img alt={closeIcon.alt} src={closeIcon.src} /></button>
+        </div>
         <Input
           className="locker-input"
           handleChange={handleSetLockerLabel}
@@ -44,21 +47,13 @@ export const LockerTile = ({ handleSetLockerProperty, locker, lockerKey, lockerP
           label="Locker url"
           value={url}
         />
-        <div>
-          <button className="quill-button focus-on-light medium primary contained">Save</button>
-          <button className="quill-button focus-on-light medium primary contained" onClick={handleClick} >Cancel</button>
-        </div>
-      </div>
+      </Modal>
     );
   }
 
   return(
     <React.Fragment>
-      {modalOpen &&
-        <Modal>
-          {renderModalContents()}
-        </Modal>
-      }
+      {modalOpen && renderOrganizeLockerModal()}
       <button className="locker-container interactive-wrapper focus-on-light" onClick={handleClick}>
         <div className="left-side-contents">
           <span aria-label={locker.emojiLabel} className="emoji-image" role="img">{emoji}</span>

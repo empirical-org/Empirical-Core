@@ -1,8 +1,12 @@
 .organize-locker-form-container {
   margin-top: 16px;
-  .button-container {
-    width: 152px;
+  .buttons-container {
+    display: flex;
     margin-bottom: 16px;
+    .button-container {
+      width: 152px;
+      margin-right: 16px;
+    }
   }
   .organize-locker-form-contents {
     margin-top: 16px;
@@ -12,12 +16,23 @@
     }
     .locker-sections-container {
       padding: 8px;
-      .section-input {
-        width: 50%;
-        margin-bottom: 8px;
+      .upper-locker-section-container {
+        display: flex;
+        .section-input {
+          width: 50%;
+          margin-bottom: 8px;
+          margin: 0px 16px 8px 0px;
+        }
       }
       .lockers-container {
         display: flex;
+      }
+    }
+  }
+  .modal {
+    .modal-container {
+      .modal-content {
+        padding: 16px;
       }
     }
   }
