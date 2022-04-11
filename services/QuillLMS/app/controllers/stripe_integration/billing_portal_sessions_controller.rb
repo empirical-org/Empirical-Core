@@ -16,7 +16,7 @@ module StripeIntegration
     end
 
     private def return_url
-      subscriptions_path
+      subscriptions_url
     end
   end
 end
