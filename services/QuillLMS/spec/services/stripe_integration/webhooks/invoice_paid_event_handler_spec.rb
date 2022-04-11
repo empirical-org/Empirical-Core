@@ -4,6 +4,7 @@ require 'rails_helper'
 
 RSpec.describe StripeIntegration::Webhooks::InvoicePaidEventHandler do
   include_context 'Stripe Event'
+  include_context 'Stripe Customer'
 
   let(:stripe_webhook_event) { create(:stripe_webhook_event) }
   let(:external_id) { stripe_webhook_event.external_id }
@@ -16,7 +17,13 @@ RSpec.describe StripeIntegration::Webhooks::InvoicePaidEventHandler do
   end
 
   context 'happy path' do
-    before { allow(StripeIntegration::Webhooks::SubscriptionCreator).to receive(:run) }
+    let(:pusher_event) { described_class::PUSHER_EVENT }
+    let(:pusher_message) { pusher_event.titleize }
+
+    before do
+      allow(StripeIntegration::Webhooks::SubscriptionCreator).to receive(:run)
+      allow(PusherTrigger).to receive(:run).with(stripe_invoice_id, pusher_event, pusher_message)
+    end
 
     it { expect { subject }.to change(stripe_webhook_event, :status).to(StripeWebhookEvent::PROCESSED) }
   end
