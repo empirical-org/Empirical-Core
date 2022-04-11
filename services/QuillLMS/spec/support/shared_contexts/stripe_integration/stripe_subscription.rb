@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.shared_context 'Stripe Subscription' do
+  include_context 'Stripe Payment Method'
   include_context 'Stripe Price'
   include_context 'Stripe Customer'
 
@@ -27,7 +28,7 @@ RSpec.shared_context 'Stripe Subscription' do
       current_period_start: current_period_start,
       customer: stripe_customer_id,
       days_until_due: nil,
-      default_payment_method: 'pm_1KfpDGBuKMgoObiusdqCeP0U',
+      default_payment_method: stripe_payment_method_id,
       default_source: nil,
       default_tax_rates: [],
       discount: nil,
