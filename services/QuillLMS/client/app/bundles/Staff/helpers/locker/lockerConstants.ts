@@ -31,3 +31,12 @@ export const ACTIVITY_MANAGEMENT = 'activity management';
 export const CONCEPT_MANAGEMENT = 'concept management';
 export const USER_MANAGEMENT = 'user management';
 export const TEACHER_CENTER = 'teacher center';
+
+export const SAVE = 'Save';
+export const REVERT = 'Revert';
+export const DELETE = 'Delete';
+export const CANCEL = 'Cancel';
+export const SAVE_CONFIRMATION = 'Are you sure that you want to save these changes?';
+export const REVERT_CONFIRMATION = 'Are you sure that you want to revert these changes?';
+export const DELETE_SECTION_CONFIRMATION = 'Are you sure that you want to delete this section?';
+export const DELETE_LOCKER_CONFIRMATION = 'Are you sure that you want to delete this locker?';

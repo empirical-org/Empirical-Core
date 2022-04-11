@@ -1,0 +1,26 @@
+.modal {
+  .modal-container {
+    .modal-content {
+      .change-emoji-button {
+        color: #00c2a2;
+        margin-bottom: 8px;
+      }
+      .change-emoji-button:hover {
+        color: #06806b;
+      }
+    }
+  }
+}
+
+.emoji-container {
+  display: flex;
+  align-items: center;
+  margin: 8px 0px;
+  p {
+    margin: 0
+  }
+  .emoji {
+    font-size: 24px;
+    margin-left: 8px;
+  }
+}

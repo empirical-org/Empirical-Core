@@ -24,6 +24,12 @@
           margin: 0px 16px 8px 0px;
         }
       }
+      .buttons-container {
+        display: flex;
+        button {
+          margin-right: 16px;
+        }
+      }
       .lockers-container {
         display: flex;
       }
@@ -33,6 +39,12 @@
     .modal-container {
       .modal-content {
         padding: 16px;
+        .buttons-container {
+          margin: 0;
+          button {
+            margin-right: 16px;
+          }
+        }
       }
     }
   }

@@ -3,7 +3,7 @@ import * as React from 'react';
 import { lockerItems } from './lockerItems';
 
 import Locker from '../../components/locker/locker';
-import { titleCase } from '../../../Shared';
+import { titleCase, Modal } from '../../../Shared';
 import { InputEvent } from '../../interfaces/evidenceInterfaces';
 
 const TEAM = 'team';
@@ -79,4 +79,25 @@ export const handleSetLockerLabel = ({
   });
   updatedPreferences[sectionToUpdate][lockerToUpdate][attribute] = e.target.value;
   setLockerPreferences(updatedPreferences);
+}
+
+interface RenderConfirmationModalProps {
+  confirmationText: string,
+  leftClickHandler: (e: any) => void,
+  rightClickHandler: (e: any) => void,
+  leftButtonText: string,
+  rightButtonText: string,
+  buttonValue?: string
+}
+
+export function renderConfirmationModal({ confirmationText, leftClickHandler, rightClickHandler, leftButtonText, rightButtonText, buttonValue }: RenderConfirmationModalProps) {
+  return(
+    <Modal>
+      <p>{confirmationText}</p>
+      <div className="buttons-container">
+        <button className="quill-button focus-on-light fun primary outlined" onClick={leftClickHandler} value={buttonValue}>{leftButtonText}</button>
+        <button className="quill-button focus-on-light fun primary outlined" onClick={rightClickHandler}>{rightButtonText}</button>
+      </div>
+    </Modal>
+  );
 }
