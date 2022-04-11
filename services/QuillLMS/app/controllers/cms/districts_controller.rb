@@ -100,7 +100,7 @@ class Cms::DistrictsController < Cms::CmsController
       result = result.order("total_students DESC")
     end
 
-    result = add_where_conditions(result)
+    result = add_where_conditions(result).select(:id, :name, :city, :state, :zipcode, :phone, :total_students, :total_schools, :nces_id)
     # then write `add_where_conditions` function that just does `result = result.where(...)` for each condition you already have logic for
   end
 

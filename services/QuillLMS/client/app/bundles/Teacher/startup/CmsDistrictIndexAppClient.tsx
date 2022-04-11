@@ -20,28 +20,28 @@ export default class CmsDistrictIndex extends React.Component {
     return [
       {
         Header: 'Name',
-        accessor: 'district_name',
+        accessor: 'name',
         resizable: false,
         minWidth: 190,
-        Cell: row => row.original.district_name
+        Cell: row => row.original.name
       }, {
         Header: "City",
-        accessor: 'district_city',
+        accessor: 'city',
         minWidth: 140,
         resizable: false,
-        Cell: row => row.original.district_city
+        Cell: row => row.original.city
       }, {
         Header: "State",
-        accessor: 'district_state',
+        accessor: 'state',
         resizable: false,
         minWidth: 60,
-        Cell: row => row.original.district_state,
+        Cell: row => row.original.state,
       }, {
         Header: 'ZIP',
-        accessor: 'district_zip',
+        accessor: 'zipcode',
         resizable: false,
         minWidth: 60,
-        Cell: row => Number(row.original.district_zip),
+        Cell: row => row.original.zipcode,
       }, {
         Header: 'Phone',
         accessor: 'phone',
