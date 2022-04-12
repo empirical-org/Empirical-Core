@@ -24,13 +24,13 @@ module Evidence
         errored_response = sample_response.merge(status: 500)
         stub_request(:post, mock_endpoint).to_return(errored_response)
 
-        expect { client.post}.to raise_error(Evidence::Grammar::Client::GrammarAPIError)
+        expect { client.post}.to raise_error(Evidence::Grammar::Client::APIError)
       end
 
       it 'should raise error on timeout' do
         stub_request(:post, mock_endpoint).to_timeout
 
-        expect { client.post }.to raise_error(Net::OpenTimeout)
+        expect { client.post }.to raise_error(Evidence::Grammar::Client::APITimeoutError, "request took longer than 5 seconds")
       end
     end
   end
