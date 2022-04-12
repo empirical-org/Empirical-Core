@@ -864,9 +864,25 @@ end
   end
 
   describe '#calculate_timespent' do
+    let(:time_tracking) {{"1"=>1, "2"=>2, "3"=>3, "4" => 4}}
+    let(:time_tracking_with_nulls) { {"1"=>188484, "2"=>94405, "3"=>89076, "4"=>120504, "onboarding"=>nil} }
+
+    it 'should return nil for nil' do
+      expect(ActivitySession.calculate_timespent(nil, nil)).to be_nil
+    end
+
+    it 'should return nil for a string' do
+      expect(ActivitySession.calculate_timespent(nil, 'hello')).to be_nil
+    end
+
+    it 'should return timespent of session passed in' do
+      session = double(timespent: 100)
+
+      expect(ActivitySession.calculate_timespent(session, time_tracking)).to eq(100)
+    end
+
     it 'should save timetracking data even if one of the values is nil' do
-      time_tracking = {"1"=>188484, "2"=>94405, "3"=>89076, "4"=>120504, "onboarding"=>nil}
-      expect(ActivitySession.calculate_timespent(time_tracking)).to eq(492469)
+      expect(ActivitySession.calculate_timespent(nil, time_tracking_with_nulls)).to eq(492469)
     end
   end
 
