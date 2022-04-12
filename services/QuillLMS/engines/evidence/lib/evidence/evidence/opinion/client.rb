@@ -36,7 +36,7 @@ module Evidence
           }.to_json,
           timeout: API_TIMEOUT
         )
-      rescue Net::OpenTimeout => e
+      rescue Net::OpenTimeout
         raise APITimeoutError, TIMEOUT_ERROR_MESSAGE
       end
     end
