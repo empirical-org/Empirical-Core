@@ -156,7 +156,6 @@ exports[`PromptStep component active state when a suboptimal response has been s
         "feedback": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
         "feedback_type": "semantic",
         "optimal": false,
-        "response_id": 1,
       },
     ]
   }
@@ -269,7 +268,6 @@ exports[`PromptStep component active state when a suboptimal response has been s
               "feedback": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
               "feedback_type": "semantic",
               "optimal": false,
-              "response_id": 1,
             }
           }
           prompt={
@@ -290,7 +288,6 @@ exports[`PromptStep component active state when a suboptimal response has been s
                 "feedback": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
                 "feedback_type": "semantic",
                 "optimal": false,
-                "response_id": 1,
               },
             ]
           }
@@ -403,7 +400,6 @@ exports[`PromptStep component active state when an optimal response has been sub
         "feedback": "That's a really strong sentence! You used evidence from the text to identify why governments should make voting compulsory.",
         "feedback_type": "semantic",
         "optimal": true,
-        "response_id": 2,
       },
     ]
   }
@@ -516,7 +512,6 @@ exports[`PromptStep component active state when an optimal response has been sub
               "feedback": "That's a really strong sentence! You used evidence from the text to identify why governments should make voting compulsory.",
               "feedback_type": "semantic",
               "optimal": true,
-              "response_id": 2,
             }
           }
           prompt={
@@ -537,7 +532,6 @@ exports[`PromptStep component active state when an optimal response has been sub
                 "feedback": "That's a really strong sentence! You used evidence from the text to identify why governments should make voting compulsory.",
                 "feedback_type": "semantic",
                 "optimal": true,
-                "response_id": 2,
               },
             ]
           }
@@ -650,35 +644,30 @@ exports[`PromptStep component active state when the max attempts have been reach
         "feedback": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
         "feedback_type": "semantic",
         "optimal": false,
-        "response_id": 1,
       },
       Object {
         "entry": "Governments should make voting compulsory, so that more voices are heard in elections.",
         "feedback": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
         "feedback_type": "semantic",
         "optimal": false,
-        "response_id": 1,
       },
       Object {
         "entry": "Governments should make voting compulsory, so that more voices are heard in elections.",
         "feedback": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
         "feedback_type": "semantic",
         "optimal": false,
-        "response_id": 1,
       },
       Object {
         "entry": "Governments should make voting compulsory, so that more voices are heard in elections.",
         "feedback": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
         "feedback_type": "semantic",
         "optimal": false,
-        "response_id": 1,
       },
       Object {
         "entry": "Governments should make voting compulsory, so that more voices are heard in elections.",
         "feedback": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
         "feedback_type": "semantic",
         "optimal": false,
-        "response_id": 1,
       },
     ]
   }
@@ -791,7 +780,6 @@ exports[`PromptStep component active state when the max attempts have been reach
               "feedback": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
               "feedback_type": "semantic",
               "optimal": false,
-              "response_id": 1,
             }
           }
           prompt={
@@ -812,35 +800,30 @@ exports[`PromptStep component active state when the max attempts have been reach
                 "feedback": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
                 "feedback_type": "semantic",
                 "optimal": false,
-                "response_id": 1,
               },
               Object {
                 "entry": "Governments should make voting compulsory, so that more voices are heard in elections.",
                 "feedback": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
                 "feedback_type": "semantic",
                 "optimal": false,
-                "response_id": 1,
               },
               Object {
                 "entry": "Governments should make voting compulsory, so that more voices are heard in elections.",
                 "feedback": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
                 "feedback_type": "semantic",
                 "optimal": false,
-                "response_id": 1,
               },
               Object {
                 "entry": "Governments should make voting compulsory, so that more voices are heard in elections.",
                 "feedback": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
                 "feedback_type": "semantic",
                 "optimal": false,
-                "response_id": 1,
               },
               Object {
                 "entry": "Governments should make voting compulsory, so that more voices are heard in elections.",
                 "feedback": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
                 "feedback_type": "semantic",
                 "optimal": false,
-                "response_id": 1,
               },
             ]
           }
@@ -977,7 +960,6 @@ exports[`PromptStep component active state when the max attempts have been reach
         "feedback": "That's a really strong sentence! You used evidence from the text to identify why governments should make voting compulsory.",
         "feedback_type": "semantic",
         "optimal": true,
-        "response_id": 2,
       },
     ]
   }
@@ -1089,7 +1071,6 @@ exports[`PromptStep component active state when the max attempts have been reach
               "feedback": "That's a really strong sentence! You used evidence from the text to identify why governments should make voting compulsory.",
               "feedback_type": "semantic",
               "optimal": true,
-              "response_id": 2,
             }
           }
           prompt={
@@ -1110,7 +1091,6 @@ exports[`PromptStep component active state when the max attempts have been reach
                 "feedback": "That's a really strong sentence! You used evidence from the text to identify why governments should make voting compulsory.",
                 "feedback_type": "semantic",
                 "optimal": true,
-                "response_id": 2,
               },
             ]
           }
