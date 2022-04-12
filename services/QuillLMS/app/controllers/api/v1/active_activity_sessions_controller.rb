@@ -8,8 +8,6 @@ class Api::V1::ActiveActivitySessionsController < Api::ApiController
   end
 
   def update
-    # TODO: remove testing sleep
-    sleep 5
     retried = false
     begin
       @activity_session = ActiveActivitySession.find_or_initialize_by(uid: params[:id])
