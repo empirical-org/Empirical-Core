@@ -1,6 +1,7 @@
 import * as React from 'react';
 import uuid from 'uuid/v4';
 import _ from 'lodash';
+import { useQueryClient } from 'react-query';
 
 import ReturnButton from './returnButton';
 import LockerTile from './lockerTile';
@@ -11,11 +12,13 @@ import { renderConfirmationModal } from '../../helpers/locker/lockerHelperFuncti
 import { SAVE, REVERT, DELETE, CANCEL, SAVE_CONFIRMATION, REVERT_CONFIRMATION, DELETE_SECTION_CONFIRMATION, lockerItemOptions } from '../../helpers/locker/lockerConstants';
 import { lockerItems } from '../../helpers/locker/lockerItems';
 import { titleCase } from '../../helpers/evidence/miscHelpers';
+import { createLocker, updateLocker } from '../../utils/evidence/lockerAPIs';
 
-export const OrganizeLocker = ({ history, personalLocker }) => {
+export const OrganizeLocker = ({ history, personalLocker, userId }) => {
   const [errors, setErrors] = React.useState<any>(null);
   const [lockerLabel, setLockerLabel] = React.useState<string>(personalLocker && personalLocker.label);
   const [lockerPreferences, setLockerPreferences] = React.useState(null);
+  console.log("🚀 ~ file: organizeLocker.tsx ~ line 21 ~ OrganizeLocker ~ lockerPreferences", lockerPreferences)
   const [savelLockerModalOpen, setSavelLockerModalOpen] = React.useState<boolean>(false);
   const [revertlLockerModalOpen, setRevertlLockerModalOpen] = React.useState<boolean>(false);
   const [deletelLockerModalOpen, setDeletelLockerModalOpen] = React.useState<boolean>(false);
@@ -24,11 +27,14 @@ export const OrganizeLocker = ({ history, personalLocker }) => {
   const [sectionToUpdate, setSectionToUpdate] = React.useState<string>(null);
   const [existingLockerSelection, setExistingLockerSelection] = React.useState<DropdownObjectInterface>(lockerItemOptions[0]);
 
+  const queryClient = useQueryClient();
+
   React.useEffect(() => {
     if(personalLocker && personalLocker.label && !lockerLabel) {
       setLockerLabel(personalLocker.label);
     }
-    if(personalLocker && personalLocker.preferences && !!Object.keys(personalLocker.preferences).length) {
+    if(personalLocker && personalLocker.preferences && !lockerPreferences) {
+      // const parsedPreferences = JSON.parse(personalLocker.preferences);
       setLockerPreferences(personalLocker.preferences);
     }
   }, [personalLocker]);
@@ -47,12 +53,44 @@ export const OrganizeLocker = ({ history, personalLocker }) => {
 
   function handleSetLockerProperty({ value, sectionKey, lockerKey, property }: { value: any, sectionKey: number, lockerKey: string, property: string }) {
     const updatedLockerPreferences = _.cloneDeep(lockerPreferences);
-    updatedLockerPreferences[sectionKey].lockers[lockerKey][property] = value;
-    setLockerPreferences(updatedLockerPreferences);
+    if(property === 'emoji') {
+      const { emoji, names } = value;
+      updatedLockerPreferences[sectionKey].lockers[lockerKey].emoji = emoji;
+      updatedLockerPreferences[sectionKey].lockers[lockerKey].emojiLabel = names[0];
+      setLockerPreferences(updatedLockerPreferences);
+    } else {
+      updatedLockerPreferences[sectionKey].lockers[lockerKey][property] = value;
+      setLockerPreferences(updatedLockerPreferences);
+    }
   }
 
   function handleSaveLockerPreferences() {
-    history.push('/personal-locker')
+    if(personalLocker && personalLocker.user_id) {
+      const locker = {
+        user_id: userId,
+        label: lockerLabel,
+        preferences: lockerPreferences || {}
+      }
+      updateLocker(userId, locker).then((response) => {
+          if(response && !response.error) {
+            queryClient.refetchQueries('personal-locker');
+            history.push('/personal-locker')
+          }
+      });
+    } else {
+      const locker = {
+        user_id: userId,
+        label: lockerLabel,
+        preferences: lockerPreferences || {}
+      }
+      createLocker(userId, locker).then((response) => {
+        if(response && !response.error) {
+          queryClient.refetchQueries('personal-locker');
+          history.push('/personal-locker')
+        }
+      });
+    }
+    toggleSaveLockerPreferencesModal()
   }
 
   function handleRevertLockerPreferences() {
@@ -68,7 +106,7 @@ export const OrganizeLocker = ({ history, personalLocker }) => {
   }
 
   function handleAddSection() {
-    const updatedLockerPreferences = _.cloneDeep(lockerPreferences);
+    let updatedLockerPreferences = _.cloneDeep(lockerPreferences);
     updatedLockerPreferences[uuid()] = { label: '', lockers: {} };
     setLockerPreferences(updatedLockerPreferences);
   }
@@ -226,7 +264,7 @@ export const OrganizeLocker = ({ history, personalLocker }) => {
       </div>
       <div className="header-container">
         <h4>Organize your locker</h4>
-        <i>Note: this is not a live updating form. In order to persist all personal locker updates, please click the save changes button.</i>
+        <i>Note: this is not a live updating form. In order to persist all personal locker updates, please click the save changes button. Also, be sure to add "https://" to the beginning of locker URLs.</i>
       </div>
       <div className="organize-locker-form-contents">
         <Input

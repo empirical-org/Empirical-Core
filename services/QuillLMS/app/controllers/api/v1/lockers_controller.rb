@@ -21,6 +21,8 @@ class Api::V1::LockersController < Api::ApiController
   end
 
   def update
+    user_id = params[:id]
+    locker = Locker.where(user_id: user_id)&.first
     if locker.update(locker_params)
       render json: { locker: locker }, status: 200
     else
@@ -29,6 +31,6 @@ class Api::V1::LockersController < Api::ApiController
   end
 
   private def locker_params
-    params.require(:locker).permit(:user_id, :label, :preferences)
+    params.require(:locker).permit(:user_id, :label, preferences: {})
   end
 end

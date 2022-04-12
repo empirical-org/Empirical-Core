@@ -1,6 +1,10 @@
 .personal-locker-container {
   margin-top: 16px;
-
+  .locker-contents {
+    h3 {
+      margin-bottom: 24px;
+    }
+  }
   .locker-section-container {
     .personal-lockers-container {
       display: flex;

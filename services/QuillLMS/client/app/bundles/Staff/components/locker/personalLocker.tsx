@@ -13,9 +13,10 @@ export const PersonalLocker = ({ history, personalLocker }) => {
 
   function renderLockersForPersonalLocker() {
     const { label, preferences } = personalLocker
+    // const parsedPreferences = JSON.parse(preferences);
     return(
-      <div className="">
-        <h4>{label}</h4>
+      <div className="locker-contents">
+        <h3>{label}</h3>
         {Object.keys(preferences).map(sectionKey => {
           const { label, lockers } = preferences[sectionKey];
           return(

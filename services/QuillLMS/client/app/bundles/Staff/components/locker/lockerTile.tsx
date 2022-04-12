@@ -15,7 +15,6 @@ export const LockerTile = ({ handleDeleteLockerForSection, handleSetLockerProper
   const [showDeleteLockerModal, setShowDeleteLockerModal] = React.useState<boolean>(false);
   const [emoji, setEmoji] = React.useState<any>(locker.emoji);
 
-
   function toggleShowEmojiSelector() {
     setShowEmojiSelector(!showEmojiSelector);
   }
@@ -25,8 +24,7 @@ export const LockerTile = ({ handleDeleteLockerForSection, handleSetLockerProper
   }
 
   function handleEmojiClick(e: any, emojiObject: { emoji: string, names: string[]}) {
-    handleSetLockerProperty({ value: emojiObject.emoji, sectionKey, lockerKey, property: 'emoji' });
-    handleSetLockerProperty({ value: emojiObject.names[0], sectionKey, lockerKey, property: 'emojiLabel' });
+    handleSetLockerProperty({ value: emojiObject, sectionKey, lockerKey, property: 'emoji' });
     setEmoji(emojiObject.emoji);
     toggleShowEmojiSelector();
   };
