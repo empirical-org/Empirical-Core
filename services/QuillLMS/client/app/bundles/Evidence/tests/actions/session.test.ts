@@ -1,4 +1,6 @@
 import dispatch from '../../__mocks__/dispatch'
+import { getFeedback } from '../../actions/session'
+import { Events } from '../../modules/analytics'
 
 const mockPost = jest.fn()
 jest.mock('request', () => ({
@@ -9,9 +11,6 @@ const mockTrackAnalyticsEvent = jest.fn()
 jest.mock('../../actions/analytics', () => ({
   TrackAnalyticsEvent: mockTrackAnalyticsEvent
 }))
-
-import { getFeedback } from '../../actions/session'
-import { Events } from '../../modules/analytics'
 
 describe('Session actions', () => {
   describe('when the getFeedback action is dispatched', () => {
@@ -49,7 +48,6 @@ describe('Session actions', () => {
         promptStemText: mockPromptText,
         sessionID: mockSessionID,
         startingFeedback: mockStartingFeedback,
-        startingFeedbackID: mockStartingFeedbackID,
         submittedEntry: mockEntry
       })
     })
