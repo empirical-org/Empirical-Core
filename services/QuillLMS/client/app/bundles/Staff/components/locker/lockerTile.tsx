@@ -7,7 +7,7 @@ import { InputEvent } from '../../interfaces/evidenceInterfaces';
 import { renderConfirmationModal } from '../../helpers/locker/lockerHelperFunctions';
 import { DELETE, CANCEL, DELETE_LOCKER_CONFIRMATION } from '../../helpers/locker/lockerConstants';
 
-export const LockerTile = ({ handleDeleteLockerForSection, handleSetLockerProperty, locker, lockerKey, lockerPreferences, sectionKey }) => {
+export const LockerTile = ({ handleDeleteLockerForSection, handleSetLockerProperty, locker, lockerKey, sectionKey }) => {
   const [showOrganizeLockerModal, setShowOrganizeLockerModal] = React.useState<boolean>(false);
   const [label, setLabel] = React.useState<any>(locker.label);
   const [url, setUrl] = React.useState<any>(locker.href);
@@ -24,7 +24,7 @@ export const LockerTile = ({ handleDeleteLockerForSection, handleSetLockerProper
     setShowDeleteLockerModal(!showDeleteLockerModal);
   }
 
-  function handleEmojiClick(event, emojiObject) {
+  function handleEmojiClick(e: any, emojiObject: { emoji: string, names: string[]}) {
     handleSetLockerProperty({ value: emojiObject.emoji, sectionKey, lockerKey, property: 'emoji' });
     handleSetLockerProperty({ value: emojiObject.names[0], sectionKey, lockerKey, property: 'emojiLabel' });
     setEmoji(emojiObject.emoji);
@@ -49,23 +49,11 @@ export const LockerTile = ({ handleDeleteLockerForSection, handleSetLockerProper
     setUrl(value);
   }
 
-  function handleDeleteLocker(e) {
+  function handleDeleteLocker(e: InputEvent) {
     handleDeleteLockerForSection(sectionKey, lockerKey);
     toggleShowDeleteLockerModal();
     toggleShowOrganizeLockerModal();
   }
-
-  // function renderDeleteLockerModal() {
-  //   return(
-  //     <Modal>
-  //       <p>Are you sure that you want to delete this locker?</p>
-  //       <div className="buttons-container">
-  //         <button className="quill-button focus-on-light fun primary outlined" onClick={handleDeleteLocker}>Delete</button>
-  //         <button className="quill-button focus-on-light fun primary outlined" onClick={toggleShowDeleteLockerModal}>Cancel</button>
-  //       </div>
-  //     </Modal>
-  //   );
-  // }
 
   function renderOrganizeLockerModal() {
     return(
@@ -102,7 +90,6 @@ export const LockerTile = ({ handleDeleteLockerForSection, handleSetLockerProper
     <React.Fragment>
       {showOrganizeLockerModal && renderOrganizeLockerModal()}
       {showDeleteLockerModal && renderConfirmationModal({ confirmationText: DELETE_LOCKER_CONFIRMATION, leftClickHandler: handleDeleteLocker, rightClickHandler: toggleShowDeleteLockerModal, leftButtonText: DELETE, rightButtonText: CANCEL })}
-      {/* {showDeleteLockerModal && renderDeleteLockerModal()} */}
       <button className="locker-container interactive-wrapper focus-on-light" onClick={toggleShowOrganizeLockerModal}>
         <div className="left-side-contents">
           <span aria-label={locker.emojiLabel} className="emoji-image" role="img">{emoji}</span>

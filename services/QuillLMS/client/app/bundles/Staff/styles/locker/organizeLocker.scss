@@ -39,10 +39,17 @@
     .modal-container {
       .modal-content {
         padding: 16px;
+        height: min-content;
         .buttons-container {
           margin: 0;
           button {
             margin-right: 16px;
+          }
+        }
+        .existing-locker-selection-container {
+          height: 320px;
+          .existing-locker-options {
+            margin-top: 16px;
           }
         }
       }

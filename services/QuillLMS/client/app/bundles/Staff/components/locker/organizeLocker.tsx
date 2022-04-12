@@ -1,14 +1,16 @@
 import * as React from 'react';
 import uuid from 'uuid/v4';
-import { useQueryClient } from 'react-query';
+import _ from 'lodash';
 
 import ReturnButton from './returnButton';
 import LockerTile from './lockerTile';
 
-import { Input } from '../../../Shared';
-import { InputEvent } from '../../interfaces/evidenceInterfaces';
+import { DropdownInput, Input, Modal } from '../../../Shared';
+import { DropdownObjectInterface, InputEvent } from '../../interfaces/evidenceInterfaces';
 import { renderConfirmationModal } from '../../helpers/locker/lockerHelperFunctions';
-import { SAVE, REVERT, DELETE, CANCEL, SAVE_CONFIRMATION, REVERT_CONFIRMATION, DELETE_SECTION_CONFIRMATION } from '../../helpers/locker/lockerConstants';
+import { SAVE, REVERT, DELETE, CANCEL, SAVE_CONFIRMATION, REVERT_CONFIRMATION, DELETE_SECTION_CONFIRMATION, lockerItemOptions } from '../../helpers/locker/lockerConstants';
+import { lockerItems } from '../../helpers/locker/lockerItems';
+import { titleCase } from '../../helpers/evidence/miscHelpers';
 
 export const OrganizeLocker = ({ history, personalLocker }) => {
   const [errors, setErrors] = React.useState<any>(null);
@@ -17,8 +19,10 @@ export const OrganizeLocker = ({ history, personalLocker }) => {
   const [savelLockerModalOpen, setSavelLockerModalOpen] = React.useState<boolean>(false);
   const [revertlLockerModalOpen, setRevertlLockerModalOpen] = React.useState<boolean>(false);
   const [deletelLockerModalOpen, setDeletelLockerModalOpen] = React.useState<boolean>(false);
-
-  const queryClient = useQueryClient()
+  const [addLockerModalOpen, setAddLockerModalOpen] = React.useState<boolean>(false);
+  const [addExistingLockerModalOpen, setAddExistingLockerModalOpen] = React.useState<boolean>(false);
+  const [sectionToUpdate, setSectionToUpdate] = React.useState<string>(null);
+  const [existingLockerSelection, setExistingLockerSelection] = React.useState<DropdownObjectInterface>(lockerItemOptions[0]);
 
   React.useEffect(() => {
     if(personalLocker && personalLocker.label && !lockerLabel) {
@@ -33,18 +37,18 @@ export const OrganizeLocker = ({ history, personalLocker }) => {
     setLockerLabel(e.target.value)
   }
 
-  function handleSetSectionLabel(e: InputEvent, sectionKey) {
+  function handleSetSectionLabel(e: InputEvent, sectionKey: string) {
     const { target } = e;
     const { value } = target;
-    const updatedLockerPreferences = {...lockerPreferences};
+    const updatedLockerPreferences = _.cloneDeep(lockerPreferences);
     updatedLockerPreferences[sectionKey].label = value;
     setLockerPreferences(updatedLockerPreferences);
   }
 
   function handleSetLockerProperty({ value, sectionKey, lockerKey, property }: { value: any, sectionKey: number, lockerKey: string, property: string }) {
-    const updatedPreferences = {...lockerPreferences}
-    updatedPreferences[sectionKey].lockers[lockerKey][property] = value;
-    setLockerPreferences(updatedPreferences);
+    const updatedLockerPreferences = _.cloneDeep(lockerPreferences);
+    updatedLockerPreferences[sectionKey].lockers[lockerKey][property] = value;
+    setLockerPreferences(updatedLockerPreferences);
   }
 
   function handleSaveLockerPreferences() {
@@ -53,7 +57,9 @@ export const OrganizeLocker = ({ history, personalLocker }) => {
 
   function handleRevertLockerPreferences() {
     if(personalLocker && personalLocker.user_id) {
-      queryClient.refetchQueries('personal-locker');
+      const { label, preferences } = personalLocker
+      setLockerLabel(label);
+      setLockerPreferences(preferences);
     } else {
       setLockerLabel('');
       setLockerPreferences(null);
@@ -62,21 +68,31 @@ export const OrganizeLocker = ({ history, personalLocker }) => {
   }
 
   function handleAddSection() {
-    const updatedLockerPreferences = {...lockerPreferences};
+    const updatedLockerPreferences = _.cloneDeep(lockerPreferences);
     updatedLockerPreferences[uuid()] = { label: '', lockers: {} };
     setLockerPreferences(updatedLockerPreferences);
   }
 
   function handleAddLocker(e) {
-    const { target } = e;
-    const { value } = target;
-    const updatedLockerPreferences = {...lockerPreferences};
-    updatedLockerPreferences[value].lockers[uuid()] = { emoji: '', emojiLabel: '', href: '', label: '' };
+    const updatedLockerPreferences = _.cloneDeep(lockerPreferences);
+    updatedLockerPreferences[sectionToUpdate].lockers[uuid()] = { emoji: '', emojiLabel: '', href: '', label: '' };
     setLockerPreferences(updatedLockerPreferences);
+    toggleAddLockerSectionModal(e);
+  }
+
+  function handleAddExistingLocker(e) {
+    const { value } = existingLockerSelection;
+    const existingLocker = {...lockerItems[value]};
+    existingLocker.label = titleCase(existingLocker.label);
+    const updatedLockerPreferences = _.cloneDeep(lockerPreferences);
+    updatedLockerPreferences[sectionToUpdate].lockers[uuid()] = existingLocker;
+    setLockerPreferences(updatedLockerPreferences);
+    toggleAddExistingLockerSectionModal();
+    toggleAddLockerSectionModal(e);
   }
 
   function handleDeleteLocker(sectionKey: string, lockerKey: string) {
-    const updatedLockerPreferences = {...lockerPreferences};
+    const updatedLockerPreferences = _.cloneDeep(lockerPreferences);
     delete updatedLockerPreferences[sectionKey].lockers[lockerKey];
     setLockerPreferences(updatedLockerPreferences);
   }
@@ -93,13 +109,67 @@ export const OrganizeLocker = ({ history, personalLocker }) => {
     setDeletelLockerModalOpen(!deletelLockerModalOpen);
   }
 
+  function toggleAddLockerSectionModal(e) {
+    const { target } = e;
+    const { value } = target;
+    if(!sectionToUpdate) {
+      setSectionToUpdate(value);
+    }
+    if(addLockerModalOpen) {
+      // reset on close
+      setSectionToUpdate(null);
+    }
+    setAddLockerModalOpen(!addLockerModalOpen);
+  }
+
+  function toggleAddExistingLockerSectionModal() {
+    setAddExistingLockerModalOpen(!addExistingLockerModalOpen);
+  }
+
   function handleDeleteLockerSection(e) {
     const { target } = e;
     const { value } = target;
-    const updatedLockerPreferences = {...lockerPreferences};
+    const updatedLockerPreferences = _.cloneDeep(lockerPreferences);
     delete updatedLockerPreferences[value];
     setLockerPreferences(updatedLockerPreferences);
     toggleDeleteLockerSectionModal()
+  }
+
+  function handleExistingLockerSelectionChange(option: DropdownObjectInterface) {
+    setExistingLockerSelection(option);
+  }
+
+  function renderAddLockerModal() {
+    return(
+      <Modal>
+        <div className="buttons-container">
+          <button className="quill-button focus-on-light fun primary outlined" onClick={toggleAddExistingLockerSectionModal}>Select existing locker</button>
+          <button className="quill-button focus-on-light fun primary outlined" onClick={handleAddLocker}>Add custom locker</button>
+          <button className="quill-button focus-on-light fun primary outlined" onClick={toggleAddLockerSectionModal}>{CANCEL}</button>
+        </div>
+      </Modal>
+    );
+  }
+
+  function renderAddExistingLockerModal() {
+    return(
+      <Modal>
+        <div className="existing-locker-selection-container">
+          <div className="buttons-container">
+            <button className="quill-button focus-on-light fun primary outlined" onClick={handleAddExistingLocker}>Add</button>
+            <button className="quill-button focus-on-light fun primary outlined" onClick={toggleAddExistingLockerSectionModal}>{CANCEL}</button>
+          </div>
+          <DropdownInput
+            className="existing-locker-options"
+            handleChange={handleExistingLockerSelectionChange}
+            isSearchable={true}
+            label="Select existing locker"
+            options={lockerItemOptions}
+            value={existingLockerSelection}
+          />
+        </div>
+      </Modal>
+    );
   }
 
   function renderPersonalLockerSections() {
@@ -108,6 +178,8 @@ export const OrganizeLocker = ({ history, personalLocker }) => {
       return(
         <div className="locker-sections-container" key={sectionKey}>
           {deletelLockerModalOpen && renderConfirmationModal({ confirmationText: DELETE_SECTION_CONFIRMATION, leftClickHandler: handleDeleteLockerSection, rightClickHandler: toggleDeleteLockerSectionModal, leftButtonText: DELETE, rightButtonText: CANCEL, buttonValue: sectionKey })}
+          {addLockerModalOpen && renderAddLockerModal()}
+          {addExistingLockerModalOpen && renderAddExistingLockerModal()}
           <div className="upper-locker-section-container">
             <Input
               className="section-input"
@@ -116,7 +188,7 @@ export const OrganizeLocker = ({ history, personalLocker }) => {
               value={label}
             />
             <div className="buttons-container">
-              <button className="quill-button focus-on-light fun primary outlined" onClick={handleAddLocker} value={sectionKey}>Add locker</button>
+              <button className="quill-button focus-on-light fun primary outlined" onClick={toggleAddLockerSectionModal} value={sectionKey}>Add locker</button>
               <button className="quill-button focus-on-light fun primary outlined" onClick={toggleDeleteLockerSectionModal} value={sectionKey}>Delete section</button>
             </div>
           </div>
@@ -128,7 +200,6 @@ export const OrganizeLocker = ({ history, personalLocker }) => {
                 key={lockerKey}
                 locker={lockers[lockerKey]}
                 lockerKey={lockerKey}
-                lockerPreferences={lockerPreferences}
                 sectionKey={sectionKey}
               />
             ))}
