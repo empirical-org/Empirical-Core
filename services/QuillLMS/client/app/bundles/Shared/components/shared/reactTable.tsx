@@ -110,7 +110,7 @@ export const ReactTable = ({
                   })}
                   className={columnClassName(column.isSorted, column.isSortedDesc)}
                 >
-                  <div {...column.getSortByToggleProps()}>{column.render("Header")}</div>
+                  <div className="sortable-header" {...column.getSortByToggleProps()}>{column.render("Header")}</div>
                   <div>{filterable && column.canFilter ? column.render("Filter") : null}</div>
                 </th>
               ))}
