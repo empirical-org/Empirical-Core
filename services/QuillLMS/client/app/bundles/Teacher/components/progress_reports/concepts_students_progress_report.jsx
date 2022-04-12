@@ -3,16 +3,16 @@
 import React from 'react'
 import request from 'request'
 import queryString from 'query-string';
-import ReactTable from 'react-table-6'
 
 import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx'
 import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from './progress_report_constants'
 import EmptyStateForReport from './empty_state_for_report'
 
-import {sortByLastName} from '../../../../modules/sortingMethods.js'
+import {sortTableByLastName} from '../../../../modules/sortingMethods.js'
 import LoadingSpinner from '../shared/loading_indicator.jsx'
 import ItemDropdown from '../general_components/dropdown_selectors/item_dropdown'
 import userIsPremium from '../modules/user_is_premium'
+import { ReactTable, } from '../../../Shared/index'
 
 const showAllClassroomKey = 'All Classrooms'
 
@@ -59,15 +59,16 @@ export default class ConceptsStudentsProgressReport extends React.Component {
         Header: 'Student',
         accessor: 'name',
         resizable: false,
-        sortMethod: sortByLastName,
-        Cell: row => (
+        sortType: sortTableByLastName,
+        width: 174,
+        Cell: ({row}) => (
           <a href={row.original['concepts_href']}>{row.original['name']}</a>
         )
       }, {
         Header: 'Questions',
         accessor: 'total_result_count',
         resizable: false,
-        Cell: row => (
+        Cell: ({row}) => (
           <a className="row-link-disguise" href={row.original['concepts_href']}>{row.original['total_result_count']}</a>
         )
       }, {
@@ -75,7 +76,7 @@ export default class ConceptsStudentsProgressReport extends React.Component {
         accessor: 'correct_result_count',
         className: blurIfNotPremium,
         resizable: false,
-        Cell: row => (
+        Cell: ({row}) => (
           <a className="row-link-disguise" href={row.original['concepts_href']}>{row.original['correct_result_count']}</a>
         )
       }, {
@@ -83,7 +84,7 @@ export default class ConceptsStudentsProgressReport extends React.Component {
         accessor: 'incorrect_result_count',
         className: blurIfNotPremium,
         resizable: false,
-        Cell: row => (
+        Cell: ({row}) => (
           <a className="row-link-disguise" href={row.original['concepts_href']}>{row.original['incorrect_result_count']}</a>
         )
       }, {
@@ -91,7 +92,7 @@ export default class ConceptsStudentsProgressReport extends React.Component {
         accessor: 'percentage',
         resizable: false,
         className: blurIfNotPremium,
-        Cell: row => (
+        Cell: ({row}) => (
           <a className="row-link-disguise" href={row.original['concepts_href']}>{row.original['percentage']}%</a>
         )
       }, {
@@ -99,8 +100,8 @@ export default class ConceptsStudentsProgressReport extends React.Component {
         accessor: 'green_arrow',
         resizable: false,
         sortable: false,
-        width: 80,
-        Cell: row => (
+        maxWidth: 80,
+        Cell: ({row}) => (
           <a className='green-arrow' href={row.original['concepts_href']}>
             <img alt="" src="https://assets.quill.org/images/icons/chevron-dark-green.svg" />
           </a>
@@ -158,16 +159,11 @@ export default class ConceptsStudentsProgressReport extends React.Component {
             className='progress-report has-green-arrow'
             columns={this.columns()}
             data={filteredReportData}
-            defaultPageSize={filteredReportData.length}
             defaultSorted={[{
               id: 'total_result_count',
               desc: true
             }
             ]}
-            showPageSizeOptions={false}
-            showPagination={false}
-            showPaginationBottom={false}
-            showPaginationTop={false}
           />
         </div>
       )

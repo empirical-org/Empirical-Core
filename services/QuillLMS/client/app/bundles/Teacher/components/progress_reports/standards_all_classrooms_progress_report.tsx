@@ -2,7 +2,6 @@ import * as React from 'react'
 import request from 'request'
 import queryString from 'query-string';
 import _ from 'underscore'
-import ReactTable from 'react-table-6'
 
 import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx'
 import EmptyStateForReport from './empty_state_for_report'
@@ -11,8 +10,8 @@ import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from './progress_report_const
 import ItemDropdown from '../general_components/dropdown_selectors/item_dropdown'
 import LoadingSpinner from '../shared/loading_indicator.jsx'
 import userIsPremium from '../modules/user_is_premium'
-import {sortByStandardLevel} from '../../../../modules/sortingMethods.js'
-import { Tooltip } from '../../../Shared/components/shared'
+import {sortTableByStandardLevel} from '../../../../modules/sortingMethods.js'
+import { Tooltip, ReactTable, } from '../../../Shared/index'
 import { getTimeSpent } from '../../helpers/studentReports';
 
 
@@ -90,10 +89,10 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
       {
         Header: 'Standard level',
         accessor: 'standard_level',
-        sortMethod: sortByStandardLevel,
+        sortType: sortTableByStandardLevel,
         resizable: false,
         width: 150,
-        Cell: (row) => (
+        Cell: ({row}) => (
           <a className="standard-level" href={row.original['link']}>
             {row.original['standard_level_name']}
           </a>
@@ -101,16 +100,16 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
       }, {
         Header: "Standard name",
         accessor: 'standard_name',
-        sortMethod: sortByStandardLevel,
+        sortType: sortTableByStandardLevel,
         resizable: false,
         minWidth: 300,
-        Cell: (row) => this.renderTooltipRow(row),
+        Cell: ({row}) => this.renderTooltipRow(row),
         style: {overflow: 'visible'},
       }, {
         Header: "Students",
         accessor: 'number_of_students',
         resizable: false,
-        Cell: (row) => (
+        Cell: ({row}) => (
           <a className="row-link-disguise" href={row.original['link']}>
             {row.original['number_of_students']}
           </a>
@@ -120,7 +119,7 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
         accessor: 'proficient',
         resizable: false,
         className: blurIfNotPremium,
-        Cell: (row) => (
+        Cell: ({row}) => (
           <a className="row-link-disguise" href={row.original['link']}>
             {row.original['proficient']}
           </a>
@@ -129,7 +128,7 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
         Header: "Activities",
         accessor: 'activities',
         resizable: false,
-        Cell: (row) => (
+        Cell: ({row}) => (
           <a className="row-link-disguise" href={row.original['link']}>
             {row.original['activities']}
           </a>
@@ -138,7 +137,7 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
         Header: "Time spent",
         accessor: 'timespent',
         resizable: false,
-        Cell: (row) => (
+        Cell: ({row}) => (
           <a className="row-link-disguise" href={row.original['link']}>
             {getTimeSpent(row.original['timespent'])}
           </a>
@@ -234,12 +233,7 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
             className='progress-report has-green-arrow'
             columns={this.columns()}
             data={standardsData}
-            defaultPageSize={standardsData.length}
             defaultSorted={[{id: 'standard_level', desc: false}]}
-            showPageSizeOptions={false}
-            showPagination={false}
-            showPaginationBottom={false}
-            showPaginationTop={false}
             style={{overflow: 'visible'}}
           /></div>
       )
