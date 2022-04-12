@@ -3,6 +3,8 @@
 require "evidence/engine"
 
 module Evidence
+  HTTP_TIMEOUT_ERRORS = [::Net::OpenTimeout, ::Net::ReadTimeout]
+
   mattr_accessor :parent_activity_class
   mattr_accessor :parent_activity_classification_class
   mattr_accessor :change_log_class

@@ -73,6 +73,15 @@ module Evidence
         expect {spelling_check.feedback_object}.to raise_error(Evidence::SpellingCheck::BingTimeoutError, "request took longer than 5 seconds")
       end
 
+      it 'should raise error if the Bing API request times out with a Net::ReadTimeout' do
+        stub_request(:get, "https://api.cognitive.microsoft.com/bing/v7.0/SpellCheck?mode=proof&text=there%20is%20no%20spelling%20error%20here").to_raise(Net::ReadTimeout)
+        entry = "there is no spelling error here"
+        spelling_check = Evidence::SpellingCheck.new(entry)
+
+        expect {spelling_check.feedback_object}.to raise_error(Evidence::SpellingCheck::BingTimeoutError, "request took longer than 5 seconds")
+      end
+
+
       it 'should return appropriate error if the endpoint returns an error' do
         stub_request(:get, "https://api.cognitive.microsoft.com/bing/v7.0/SpellCheck?mode=proof&text=there%20is%20no%20spelling%20error%20here").to_return(:status => 200, :body => { :error => ({ :message => "There's a problem here" }) }.to_json, :headers => ({}))
         entry = "there is no spelling error here"
