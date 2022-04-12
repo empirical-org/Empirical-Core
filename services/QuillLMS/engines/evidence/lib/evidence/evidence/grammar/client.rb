@@ -7,7 +7,9 @@ module Evidence
       ALLOWED_PAYLOAD_KEYS = ['gapi_error', 'highlight']
       API_ENDPOINT = ENV['GRAMMAR_API_DOMAIN']
 
-      class GrammarAPIError < StandardError; end
+      class APIError < StandardError; end
+      class APITimeoutError < StandardError; end
+      TIMEOUT_ERROR_MESSAGE = "request took longer than #{API_TIMEOUT} seconds"
 
       def initialize(entry:, prompt_text:)
         @entry = entry
@@ -15,7 +17,17 @@ module Evidence
       end
 
       def post
-        response = HTTParty.post(
+        response = api_request
+
+        if !response.success?
+          raise APIError, "Encountered upstream error: #{response}"
+        end
+
+        response.filter { |k,v| ALLOWED_PAYLOAD_KEYS.include?(k) }
+      end
+
+      private def api_request
+        HTTParty.post(
           API_ENDPOINT,
           headers:  {'Content-Type': 'application/json'},
           body:     {
@@ -24,16 +36,10 @@ module Evidence
           }.to_json,
           timeout: API_TIMEOUT
         )
-
-        if !response.success?
-          raise GrammarAPIError, "Encountered upstream error: #{response}"
-        end
-
-        response.filter { |k,v| ALLOWED_PAYLOAD_KEYS.include?(k) }
-
+      rescue Net::OpenTimeout
+        raise APITimeoutError, TIMEOUT_ERROR_MESSAGE
       end
     end
-
   end
 end
 

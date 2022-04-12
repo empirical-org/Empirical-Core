@@ -2,8 +2,6 @@
 
 module Evidence
   class SpellingCheck
-    class BingRateLimitException < StandardError; end
-
     API_TIMEOUT = 5
     ALL_CORRECT_FEEDBACK = '<p>Correct spelling!</p>'
     FALLBACK_INCORRECT_FEEDBACK = '<p>Update the spelling of the bolded word(s).</p>'
@@ -11,6 +9,10 @@ module Evidence
     RESPONSE_TYPE = 'response'
     BING_API_URL = 'https://api.cognitive.microsoft.com/bing/v7.0/SpellCheck'
     SPELLING_CONCEPT_UID = 'H-2lrblngQAQ8_s-ctye4g'
+
+    class BingRateLimitException < StandardError; end
+    class BingTimeoutError < StandardError; end
+    TIMEOUT_ERROR_MESSAGE = "request took longer than #{API_TIMEOUT} seconds"
 
     # TODO: replace with better exception code
     EXCEPTIONS = [
@@ -94,7 +96,7 @@ module Evidence
 
       JSON.parse(@response.body)
     rescue Net::OpenTimeout
-      {}
+      raise BingTimeoutError, TIMEOUT_ERROR_MESSAGE
     end
   end
 end
