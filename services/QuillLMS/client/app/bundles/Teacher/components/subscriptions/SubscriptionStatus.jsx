@@ -101,9 +101,8 @@ const SubscriptionStatus = ({
       break;
   }
 
-  if (remainingDays < 1) {
+  if (remainingDays < 0) {
     const dateFormat = "MM/DD/YY"
-
     const formattedStartDate = subscriptionStatus && moment(subscriptionStatus.start_date).format(dateFormat)
     const formattedExpirationDate = expiration && expiration.format(dateFormat)
     content.boxColor = '#ff4542';

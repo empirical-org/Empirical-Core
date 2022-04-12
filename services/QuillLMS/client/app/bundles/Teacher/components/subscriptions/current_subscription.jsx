@@ -257,9 +257,9 @@ export default class CurrentSubscription extends React.Component {
         }
         return this.lessThan90Days();
       case 'recurring authorization: false':
-        return this.nextPlanAlert(`Your Subscription will be renewed on ${renewDate}.`);
+        return this.nextPlanAlert(`Your subscription will be renewed on ${renewDate}.`);
       case 'recurring authorization: true':
-        return this.nextPlanAlert(`Your Subscription will be renewed on ${renewDate} and your card ending in ${last_four} will be charged $${this.getPrice()}.`);
+        return this.nextPlanAlert(`Your subscription will be renewed on ${renewDate} and your card ending in ${last_four} will be charged $${this.getPrice()}.`);
       case 'school expired authorization: true':
         return this.lessThan90Days();
       case 'school expired authorization: false':
