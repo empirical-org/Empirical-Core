@@ -14,6 +14,12 @@ export {
 } from './components/feedback/conceptExplanation'
 
 export {
+  ReactTable,
+  TextFilter,
+  expanderColumn,
+} from './components/reactTable/reactTable'
+
+export {
   ArchivedButton,
   ButtonLoadingSpinner,
   Card,
@@ -26,9 +32,6 @@ export {
   FlagDropdown,
   Input,
   Passthrough,
-  ReactTable,
-  TextFilter,
-  expanderColumn,
   ResumeOrBeginButton,
   SmartSpinner,
   Snackbar,

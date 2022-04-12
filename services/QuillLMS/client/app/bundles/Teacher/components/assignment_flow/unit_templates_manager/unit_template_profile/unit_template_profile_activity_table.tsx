@@ -1,9 +1,7 @@
 import * as React from 'react';
 import ReactTooltip from 'react-tooltip'
-import ReactTable from 'react-table-6'
 
-
-import {Tooltip} from '../../../../../Shared/components/shared/tooltip'
+import { Tooltip, ReactTable, } from '../../../../../Shared/index'
 
 export default class UnitTemplateProfileActivityTable extends React.Component {
   redirectToActivity = (activityId) => {
@@ -15,37 +13,37 @@ export default class UnitTemplateProfileActivityTable extends React.Component {
     return [
       {
         Header: 'Tool',
-        width: 78,
+        maxWidth: 78,
         accessor: a => a,
         id: 'toolName',
-        Cell: props => <a className='row-link-disguise' onClick={() => this.redirectToActivity(props.value.id)}><div className={`icon-${props.value.classification.id}-green-no-border activity-icon`} /></a>
+        Cell: ({row}) => <a className='row-link-disguise' onClick={() => this.redirectToActivity(row.original.id)}><div className={`icon-${row.original.classification.id}-green-no-border activity-icon`} /></a>
       },
       {
         Header: 'Activity',
         accessor: a => a,
         width: 586,
         id: 'activityName',
-        Cell: props => {
-          const standardLevelName = props.value.standard_level_name ? `<p>${props.value.standard_level_name}</p>` : ''
-          const standardName = props.value.standard.name ? `<p>${props.value.standard.name}</p>` : ''
-          const readability = props.value.readability ? `<p>Readability: ${props.value.readability}</p>` : ''
-          const topic = props.value.level_zero_topic_name ? `<p>Topic: ${props.value.level_zero_topic_name}</p>` : ''
+        Cell: ({row}) => {
+          const standardLevelName = row.original.standard_level_name ? `<p>${row.original.standard_level_name}</p>` : ''
+          const standardName = row.original.standard.name ? `<p>${row.original.standard.name}</p>` : ''
+          const readability = row.original.readability ? `<p>Readability: ${row.original.readability}</p>` : ''
+          const topic = row.original.level_zero_topic_name ? `<p>Topic: ${row.original.level_zero_topic_name}</p>` : ''
           return (
             <a
               className='row-link-disguise highlight-on-hover'
               data-tip={
-                `<h1>${props.value.name}</h1>
-                <p>Tool: ${props.value.classification.name}</p>
+                `<h1>${row.original.name}</h1>
+                <p>Tool: ${row.original.classification.name}</p>
                 ${standardLevelName}
                 ${standardName}
                 ${readability}
                 ${topic}
-                <p>${props.value.description}</p>`
+                <p>${row.original.description}</p>`
               }
-              onClick={() => this.redirectToActivity(props.value.id)}
+              onClick={() => this.redirectToActivity(row.original.id)}
               target="_new"
             >
-              {props.value.name}
+              {row.original.name}
               <ReactTooltip className="react-tooltip-custom" effect="solid" html multiline type="light" />
             </a>
           )
@@ -54,31 +52,30 @@ export default class UnitTemplateProfileActivityTable extends React.Component {
       {
         Header: 'Concept',
         accessor: a => a,
-        width: 183,
+        maxWidth: 183,
         id: 'conceptName',
-        Cell: props => this.renderTooltipRow(props),
+        Cell: ({row}) => this.renderTooltipRow(row),
         style: {overflow: 'visible'}
       },
       {
         accessor: 'id',
         maxWidth: 81,
         textAlign: 'right',
-        accessor: a => a,
         id: 'chevron',
-        Cell: props => <a className='row-link-disguise' onClick={() => this.redirectToActivity(props.value.id)}>Preview</a>,
+        Cell: ({row}) => <a className='row-link-disguise' onClick={() => this.redirectToActivity(row.original.id)}>Preview</a>,
         style: {marginLeft: '14px'}
       }
     ];
   };
 
-  renderTooltipRow(props) {
+  renderTooltipRow(row) {
     const averageFontWidth = 9
     const headerWidthNumber = 183
-    const rowDisplayText = props.value.standard.standard_category.name
+    const rowDisplayText = row.original.standard.standard_category.name
     let style: React.CSSProperties = { width: `183px`, minWidth: `183px`, textAlign: `left` as CSS.TextAlignProperty }
-    const key = `${props.value.id}`
+    const key = `${row.original.id}`
     const sectionClass = 'something-class'
-    const sectionText = (<a className='row-link-disguise' onClick={() => this.redirectToActivity(props.value.id)} style={{color: 'black'}}><span>{props.value.standard.standard_category.name}</span></a>)
+    const sectionText = (<a className='row-link-disguise' onClick={() => this.redirectToActivity(row.original.id)} style={{color: 'black'}}><span>{row.original.standard.standard_category.name}</span></a>)
     if ((String(rowDisplayText).length * averageFontWidth) >= headerWidthNumber) {
       return (
         <Tooltip
@@ -117,7 +114,6 @@ export default class UnitTemplateProfileActivityTable extends React.Component {
           }
         }}
         resizable={false}
-        showPagination={false}
         sortable={false}
         style={{overflow: 'visible'}}
       />

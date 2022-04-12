@@ -47,12 +47,6 @@ export {
 } from './passthrough'
 
 export {
-  ReactTable,
-  TextFilter,
-  expanderColumn,
-} from './reactTable'
-
-export {
   ResumeOrBeginButton
 } from './resumeOrBeginButton'
 
