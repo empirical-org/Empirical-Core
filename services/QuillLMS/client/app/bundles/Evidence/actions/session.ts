@@ -222,8 +222,10 @@ export const getFeedback = (args: GetFeedbackArguments) => {
         hint,
         promptStemText: promptText,
         returnedFeedback: feedbackObj.feedback,
+        returnedFeedbackID: feedbackObj.response_id,
         sessionID,
         startingFeedback: mostRecentFeedback.feedback,
+        startingFeedbackID: mostRecentFeedback.response_id,
         submittedEntry: entry
       }));
       callback()
