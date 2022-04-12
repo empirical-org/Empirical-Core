@@ -95,7 +95,7 @@ module Evidence
       raise BingRateLimitException if @response.code == 429
 
       JSON.parse(@response.body)
-    rescue Net::OpenTimeout
+    rescue *Evidence::HTTP_TIMEOUT_ERRORS
       raise BingTimeoutError, TIMEOUT_ERROR_MESSAGE
     end
   end
