@@ -5,8 +5,10 @@ module StripeIntegration
     class IgnoredEventHandler < EventHandler
       IGNORED_EVENTS = [
         'charge.succeeded',
+        'checkout.session.completed',
         'customer.created',
         'customer.source.created',
+        'customer.subscription.created',
         'customer.subscription.updated',
         'customer.updated',
         'invoice.updated',
@@ -32,6 +34,5 @@ module StripeIntegration
     end
   end
 end
-
 
 
