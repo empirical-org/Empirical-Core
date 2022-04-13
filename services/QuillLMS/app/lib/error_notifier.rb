@@ -2,8 +2,8 @@
 
 module ErrorNotifier
   # pass an exception
-  def self.report(error)
+  def self.report(error, options = {})
     Raven.capture_exception(error)
-    NewRelic::Agent.notice_error(error)
+    NewRelic::Agent.notice_error(error, options)
   end
 end

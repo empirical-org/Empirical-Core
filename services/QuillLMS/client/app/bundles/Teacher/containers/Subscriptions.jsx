@@ -1,32 +1,36 @@
 import React from 'react';
 import request from 'request';
+import Pusher from 'pusher-js';
 import _ from 'lodash';
 
-import PurchaseModal from './PurchaseModal';
-
-import SubscriptionStatus from '../components/subscriptions/subscription_status';
+import SubscriptionStatus from '../components/subscriptions/SubscriptionStatus';
 import AvailableCredits from '../components/subscriptions/available_credits';
 import CurrentSubscription from '../components/subscriptions/current_subscription';
 import SubscriptionHistory from '../components/subscriptions/subscription_history';
-import PremiumConfirmationModal from '../components/subscriptions/premium_confirmation_modal';
+import PremiumConfirmationModal from '../components/subscriptions/PremiumConfirmationModal';
 import RefundPolicy from '../components/subscriptions/refund_policy';
 import PremiumCreditsTable from '../components/subscriptions/premium_credits_table';
 import getAuthToken from '../components/modules/get_auth_token';
 import { ACCOUNT_TYPE_TO_SUBSCRIPTION_TYPES } from '../components/subscriptions/constants';
+import { requestGet } from '../../../modules/request';
 
 export default class Subscriptions extends React.Component {
   constructor(props) {
     super(props);
     const availableAndEarnedCredits = this.availableAndEarnedCredits();
+
     this.state = {
       subscriptions: props.subscriptions,
       subscriptionStatus: props.subscriptionStatus,
       availableCredits: availableAndEarnedCredits.available,
       earnedCredits: availableAndEarnedCredits.earned,
       showPremiumConfirmationModal: false,
-      showPurchaseModal: false,
       authorityLevel: props.userAuthorityLevel,
     };
+  }
+
+  componentDidMount() {
+    this.retrieveStripePurchasedConfirmation()
   }
 
   availableAndEarnedCredits() {
@@ -48,18 +52,41 @@ export default class Subscriptions extends React.Component {
   currentSubscription(newSub) {
     const { subscriptionStatus, } = this.state
 
-    if (!subscriptionStatus || subscriptionStatus.expired) {
-      return newSub;
-    }
+    if (!subscriptionStatus || subscriptionStatus.expired) { return newSub }
+
     return subscriptionStatus;
+  }
+
+  retrieveStripePurchasedConfirmation = () => {
+    const { stripeInvoiceId } = this.props
+
+    if (!stripeInvoiceId) { return }
+
+    requestGet(`/subscriptions/retrieve_stripe_subscription/${stripeInvoiceId}`, (body) => {
+      if (body.quill_retrieval_processing) {
+        this.initializePusherForStripePurchaseConfirmation()
+      } else {
+        this.updateSubscriptionStatus(body)
+      }
+    })
+  }
+
+  initializePusherForStripePurchaseConfirmation() {
+    if (process.env.RAILS_ENV === 'development') { Pusher.logToConsole = true }
+
+    const { stripeInvoiceId } = this.props
+    const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
+    const channelName = String(stripeInvoiceId)
+    const channel = pusher.subscribe(channelName);
+
+    channel.bind('stripe-subscription-created', () => {
+      this.retrieveStripePurchasedConfirmation()
+      pusher.unsubscribe(channelName)
+    })
   }
 
   hidePremiumConfirmationModal = () => {
     this.setState({ showPremiumConfirmationModal: false, });
-  };
-
-  hidePurchaseModal = () => {
-    this.setState({ showPurchaseModal: false, });
   };
 
   purchaserNameOrEmail() {
@@ -95,23 +122,13 @@ export default class Subscriptions extends React.Component {
     this.setState({ showPremiumConfirmationModal: true, });
   };
 
-  showPurchaseModal = () => {
-    this.setState({ showPurchaseModal: true, });
-  };
-
   subscriptionType() {
-    const { subscriptionStatus, schoolSubscriptionTypes, trialSubscriptionTypes, } = this.props
+    const { subscriptionStatus } = this.props
 
-    if (!subscriptionStatus) {
-      return 'Basic';
-    }
-    const accountType = subscriptionStatus.account_type;
-    return ACCOUNT_TYPE_TO_SUBSCRIPTION_TYPES[accountType]
+    if (!subscriptionStatus) { return 'Basic' }
+
+    return ACCOUNT_TYPE_TO_SUBSCRIPTION_TYPES[subscriptionStatus.account_type]
   }
-
-  updateCard = () => {
-    this.showPurchaseModal();
-  };
 
   updateSubscription = (params, subscriptionId) => {
     request.put({
@@ -127,8 +144,11 @@ export default class Subscriptions extends React.Component {
   };
 
   updateSubscriptionStatus = subscription => {
-    this.setState({ subscriptionStatus: subscription, showPremiumConfirmationModal: true, showPurchaseModal: false, });
-  };
+    this.setState({
+      subscriptionStatus: subscription,
+      showPremiumConfirmationModal: true,
+    })
+  }
 
   userIsContact() {
     const { subscriptionStatus, } = this.props
@@ -139,27 +159,32 @@ export default class Subscriptions extends React.Component {
   }
 
   render() {
-    const { lastFour, premiumCredits, } = this.props
-    const { subscriptionStatus, authorityLevel, availableCredits, earnedCredits, showPremiumConfirmationModal, showPurchaseModal, subscriptions, } = this.state
+    const { premiumCredits, stripeTeacherPlan } = this.props
+
+    const {
+      authorityLevel,
+      availableCredits,
+      earnedCredits,
+      showPremiumConfirmationModal,
+      subscriptions,
+      subscriptionStatus
+    } = this.state
 
     const userHasValidSub = subscriptionStatus && !subscriptionStatus.expired;
-    const subId = `${_.get(subscriptionStatus, 'subscriptionStatus.id')}-subscription-status-id`;
-    // don't show any last four unless they have an authority level with their purchase, or they don't have a sub
-    const lastFourToPass = (authorityLevel || !subscriptionStatus) ? lastFour : null;
+    const subId = `${_.get(subscriptionStatus, 'id')}-subscription-status-id`;
+
     return (
       <div>
         <SubscriptionStatus
           key={subId}
-          showPurchaseModal={this.showPurchaseModal}
+          stripeTeacherPlan={stripeTeacherPlan}
           subscriptionStatus={subscriptionStatus}
           subscriptionType={this.subscriptionType()}
           userIsContact={this.userIsContact()}
         />
         <CurrentSubscription
           authorityLevel={authorityLevel}
-          lastFour={lastFourToPass}
           purchaserNameOrEmail={this.purchaserNameOrEmail()}
-          showPurchaseModal={this.showPurchaseModal}
           subscriptionStatus={subscriptionStatus}
           subscriptionType={this.subscriptionType()}
           updateSubscription={this.updateSubscription}
@@ -170,7 +195,11 @@ export default class Subscriptions extends React.Component {
           premiumCredits={premiumCredits}
           subscriptions={subscriptions}
         />
-        <AvailableCredits availableCredits={availableCredits} redeemPremiumCredits={this.redeemPremiumCredits} userHasValidSub={userHasValidSub} />
+        <AvailableCredits
+          availableCredits={availableCredits}
+          redeemPremiumCredits={this.redeemPremiumCredits}
+          userHasValidSub={userHasValidSub}
+        />
         <PremiumCreditsTable
           earnedCredits={earnedCredits}
           premiumCredits={premiumCredits}
@@ -181,14 +210,7 @@ export default class Subscriptions extends React.Component {
           show={showPremiumConfirmationModal}
           subscription={subscriptionStatus}
         />
-        <PurchaseModal
-          hideModal={this.hidePurchaseModal}
-          lastFour={lastFourToPass}
-          show={showPurchaseModal}
-          subscriptionType={this.subscriptionType()}
-          updateSubscriptionStatus={this.updateSubscriptionStatus}
-        />
       </div>
-    );
+    )
   }
 }

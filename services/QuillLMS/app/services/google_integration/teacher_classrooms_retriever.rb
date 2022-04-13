@@ -7,7 +7,7 @@ module GoogleIntegration
       Client::AccessTokenError
     ].freeze
 
-    PUSHER_EVENT_CHANNEL = "google-classrooms-retrieved"
+    PUSHER_EVENT = "google-classrooms-retrieved"
     UNAUTHENTICATED_RESPONSE = 'UNAUTHENTICATED'
 
     attr_reader :user_id
@@ -41,7 +41,7 @@ module GoogleIntegration
     end
 
     private def notify_pusher
-      PusherTrigger.run(user_id, PUSHER_EVENT_CHANNEL, "Google classrooms found for #{user_id}.")
+      PusherTrigger.run(user_id, PUSHER_EVENT, "Google classrooms found for #{user_id}.")
     end
 
     private def user

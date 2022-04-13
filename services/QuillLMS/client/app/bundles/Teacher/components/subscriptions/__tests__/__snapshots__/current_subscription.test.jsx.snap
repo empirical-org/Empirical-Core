@@ -38,7 +38,6 @@ exports[`CurrentSubscription container should render when there is no subscripti
 exports[`CurrentSubscription container when there is a current subscription should render when the purchaserNameOrEmail is an empty string 1`] = `
 <CurrentSubscription
   authorityLevel={null}
-  lastFour={null}
   purchaserNameOrEmail=""
   subscriptionStatus={
     Object {
@@ -48,6 +47,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
       "expiration": "2023-07-31",
       "expired": false,
       "id": 7,
+      "lastFour": null,
       "mail_to": "emilia+3@quill.org",
       "payment_amount": null,
       "payment_method": null,
@@ -260,7 +260,6 @@ exports[`CurrentSubscription container when there is a current subscription shou
 exports[`CurrentSubscription container when there is a current subscription should render when there is a purchaserNameOrEmail 1`] = `
 <CurrentSubscription
   authorityLevel={null}
-  lastFour={null}
   purchaserNameOrEmail="emilia+3@quill.org"
   subscriptionStatus={
     Object {
@@ -270,6 +269,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
       "expiration": "2023-07-31",
       "expired": false,
       "id": 7,
+      "lastFour": null,
       "mail_to": "emilia+3@quill.org",
       "payment_amount": null,
       "payment_method": null,
@@ -497,7 +497,6 @@ exports[`CurrentSubscription container when there is a current subscription shou
 exports[`CurrentSubscription container when there is a current subscription should render when there is no purchaserNameOrEmail 1`] = `
 <CurrentSubscription
   authorityLevel={null}
-  lastFour={null}
   purchaserNameOrEmail={null}
   subscriptionStatus={
     Object {
@@ -507,6 +506,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
       "expiration": "2023-07-31",
       "expired": false,
       "id": 7,
+      "lastFour": null,
       "mail_to": "emilia+3@quill.org",
       "payment_amount": null,
       "payment_method": null,

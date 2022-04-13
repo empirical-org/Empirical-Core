@@ -1,14 +1,12 @@
 import React from 'react';
 
 import QuestionsAndAnswers from './QuestionsAndAnswers.tsx'
-
-import PurchaseModal from './PurchaseModal';
-import PremiumConfirmationModal from '../components/subscriptions/premium_confirmation_modal';
 import PremiumBannerBuilder from '../components/scorebook/premium_banners/premium_banner_builder.jsx'
 import PremiumPricingMinisRow from '../components/premium/premium_pricing_minis_row.jsx';
+import PremiumFeaturesTable from '../components/premium/premium_features_table.tsx'
 import SubscriberLogos from '../components/premium/subscriber_logos.jsx';
 import SchoolPremium from '../components/premium/school_premium.jsx';
-import PremiumFeaturesTable from '../components/premium/premium_features_table.tsx'
+import StripeCheckoutSessionButton from '../components/shared/StripeCheckoutSessionButton';
 
 const subscribers = [
   { name: 'Achievement first school logo', source: '/images/subscribers/1_achievement.png', id: 'achievement-first'},
@@ -29,62 +27,44 @@ const subscribers = [
   { name: 'Princeton Public Schools logo', source: '/images/subscribers/16_princeton.png', id: 'princeton'}
 ]
 
-export const PremiumPricingGuide = ({ lastFour, diagnosticActivityCount, independentPracticeActivityCount, lessonsActivityCount, userIsEligibleForNewSubscription }) => {
-  // const size = useWindowSize();
-  // const onMobile = () => size.width <= MAX_VIEW_WIDTH_FOR_MOBILE
-  //
-  const [shouldShowPremiumConfirmationModal, setShouldShowPremiumConfirmationModal] = React.useState(false)
-  const [shouldShowPurchaseModal, setShouldShowPurchaseModal] = React.useState(false)
-  const [subscriptionType, setSubscriptionType] = React.useState(null)
-  const [subscriptionStatus, setSubscriptionStatus] = React.useState(null)
-  const [isScrolled, setIsScrolled] = React.useState(false)
+export const PremiumPricingGuide = ({
+  customerEmail,
+  diagnosticActivityCount,
+  independentPracticeActivityCount,
+  lessonsActivityCount,
+  stripeTeacherPlan,
+  userIsEligibleForNewSubscription,
+}) => {
 
   const userIsSignedIn = () => {
     return !!Number(document.getElementById('current-user-id').getAttribute('content'))
   }
-  const hidePremiumConfirmationModal = () => {
-    setShouldShowPremiumConfirmationModal(false)
-  };
 
-  const hidePurchaseModal = () => {
-    setShouldShowPurchaseModal(false)
-    setSubscriptionType(null)
-  };
-
-  const showPremiumConfirmationModal = () => {
-    setShouldShowPremiumConfirmationModal(true)
-  };
-
-  const showPurchaseModal = () => {
-    setShouldShowPurchaseModal(true)
-  };
-
-  const updateSubscriptionStatus = subscription => {
-    setSubscriptionStatus(subscription)
-    setShouldShowPremiumConfirmationModal(true)
-    setShouldShowPurchaseModal(false)
-  };
-
-  const renderPremiumConfirmationModal = () => {
-    if (!shouldShowPremiumConfirmationModal) { return }
+  const buyNowButton = () => {
     return (
-      <PremiumConfirmationModal
-        hideModal={hidePremiumConfirmationModal}
-        show={shouldShowPremiumConfirmationModal}
-        subscription={subscriptionStatus}
+      <StripeCheckoutSessionButton
+        buttonClassName="quill-button contained medium primary focus-on-light"
+        buttonId="purchase-btn"
+        buttonText='Buy Now'
+        cancelPath='premium'
+        customerEmail={customerEmail}
+        stripePlan={stripeTeacherPlan}
+        userIsEligibleForNewSubscription={userIsEligibleForNewSubscription}
+        userIsSignedIn={userIsSignedIn()}
       />
     )
   }
 
-  const renderPurchaseModal = () => {
-    if (!shouldShowPurchaseModal) { return }
+  const upgradeToPremiumNowButton = () => {
     return (
-      <PurchaseModal
-        hideModal={hidePurchaseModal}
-        lastFour={lastFour}
-        show={showPurchaseModal}
-        subscriptionType={subscriptionType}
-        updateSubscriptionStatus={updateSubscriptionStatus}
+      <StripeCheckoutSessionButton
+        buttonClassName='btn-orange'
+        buttonText='Upgrade to Premium Now'
+        cancelPath='premium'
+        customerEmail={customerEmail}
+        stripePlan={stripeTeacherPlan}
+        userIsEligibleForNewSubscription={userIsEligibleForNewSubscription}
+        userIsSignedIn={userIsSignedIn()}
       />
     )
   }
@@ -92,9 +72,17 @@ export const PremiumPricingGuide = ({ lastFour, diagnosticActivityCount, indepen
   return (
     <div>
       <div className="container premium-page">
-        {userIsSignedIn() && <PremiumBannerBuilder originPage="premium" showPurchaseModal={showPurchaseModal} />}
+        {userIsSignedIn() && <PremiumBannerBuilder originPage="premium" upgradeToPremiumNowButton={upgradeToPremiumNowButton} />}
         <div className="overview text-center">
-          <PremiumPricingMinisRow diagnosticActivityCount={diagnosticActivityCount} independentPracticeActivityCount={independentPracticeActivityCount} lastFour={lastFour} lessonsActivityCount={lessonsActivityCount} showPurchaseModal={showPurchaseModal} userIsEligibleForNewSubscription={userIsEligibleForNewSubscription} />
+          <PremiumPricingMinisRow
+            buyNowButton={buyNowButton}
+            diagnosticActivityCount={diagnosticActivityCount}
+            independentPracticeActivityCount={independentPracticeActivityCount}
+            lessonsActivityCount={lessonsActivityCount}
+            stripeTeacherPlan={stripeTeacherPlan}
+            userIsEligibleForNewSubscription={userIsEligibleForNewSubscription}
+          />
+
           <PremiumFeaturesTable
             diagnosticActivityCount={diagnosticActivityCount}
             independentPracticeActivityCount={independentPracticeActivityCount}
@@ -111,11 +99,8 @@ export const PremiumPricingGuide = ({ lastFour, diagnosticActivityCount, indepen
           supportLink="https://support.quill.org/quill-premium"
         />
       </div>
-      {renderPremiumConfirmationModal()}
-      {renderPurchaseModal()}
     </div>
   )
-
 }
 
 export default PremiumPricingGuide

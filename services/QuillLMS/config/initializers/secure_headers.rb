@@ -116,7 +116,8 @@ SecureHeaders::Configuration.default do |config|
       "https://*.satismeter.com",
       "http://localhost:8080/",
       "http://localhost:3200",
-      "ws://localhost:3200"
+      "ws://localhost:3200",
+      "https://checkout.stripe.com"
     ]
   }
 

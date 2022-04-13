@@ -69,10 +69,19 @@ EmpiricalGrammar::Application.routes.draw do
   resources :student_feedback_responses, only: [:create]
 
   # for Stripe
+  namespace :stripe_integration do
+    post '/checkout_sessions', to: 'checkout_sessions#create'
+    post '/billing_portal_sessions', to: 'billing_portal_sessions#create'
+    post '/webhooks', to: 'webhooks#create'
+  end
+
+  get 'subscriptions/retrieve_stripe_subscription/:stripe_invoice_id',
+    to: 'subscriptions#retrieve_stripe_subscription',
+    stripe_invoice_id: /in_[A-Za-z0-9]{8,}/
+
   resources :charges, only: [:create]
   post 'charges/update_card' => 'charges#update_card'
   post 'charges/create_customer_with_card' => 'charges#create_customer_with_card'
-  post 'charges/new_teacher_premium' => 'charges#new_teacher_premium'
   post 'charges/new_school_premium' => 'charges#new_school_premium'
   put 'credit_transactions/redeem_credits_for_premium' => 'credit_transactions#redeem_credits_for_premium'
 
@@ -80,7 +89,9 @@ EmpiricalGrammar::Application.routes.draw do
     member do
       get :purchaser_name
     end
+
   end
+
   resources :assessments
   resources :assignments
   resource :profile
@@ -561,7 +572,6 @@ EmpiricalGrammar::Application.routes.draw do
     get '/blog_posts/:id/unpublish', to: 'blog_posts#unpublish'
 
     resources :users do
-      # resource :subscription
       collection do
         get 'new_with_school/:school_id', to: 'users#new_with_school', as: :new_with_school
         post 'create_with_school/:school_id', to: 'users#create_with_school', as: :create_with_school
@@ -652,7 +662,7 @@ EmpiricalGrammar::Application.routes.draw do
 
   all_pages = other_pages
   all_pages.each do |page|
-    get page => "pages##{page}", as: "#{page}"
+    get page => "pages##{page}", as: page.to_s
   end
 
   # These are legacy routes that we are redirecting for posterity.

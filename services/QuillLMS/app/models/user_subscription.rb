@@ -54,5 +54,4 @@ class UserSubscription < ApplicationRecord
   def send_analytics
     PremiumAnalyticsWorker.perform_async(user_id, subscription&.account_type)
   end
-
 end

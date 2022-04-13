@@ -7,14 +7,13 @@ import TitleAndContent from './current_subscription_title_and_content';
 import { TEACHER_PREMIUM_TRIAL, SCHOOL_PREMIUM, DISTRICT_PREMIUM } from './constants';
 
 import { Tooltip, helpIcon, } from '../../../Shared/index'
-import EnterOrUpdateStripeCard from '../modules/stripe/enter_or_update_card.js';
+import { requestPost } from '../../../../modules/request';
 
 export default class CurrentSubscription extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       showChangePlan: false,
-      lastFour: props.lastFour,
       recurring: _.get(props.subscriptionStatus, 'recurring'),
     };
   }
@@ -35,9 +34,8 @@ export default class CurrentSubscription extends React.Component {
 
   getPaymentMethod() {
     const { subscriptionStatus, authorityLevel, subscriptionType, } = this.props
-    const { lastFour, } = this.state
 
-    if (subscriptionStatus && subscriptionStatus.payment_method === 'Credit Card' && lastFour && authorityLevel) {
+    if (subscriptionStatus && subscriptionStatus.payment_method === 'Credit Card' && authorityLevel) {
       return this.editCreditCardElement();
     } else if (subscriptionStatus && subscriptionStatus.payment_method === 'Credit Card') {
       return <span>Credit Card</span>;
@@ -45,8 +43,6 @@ export default class CurrentSubscription extends React.Component {
       return <span>No Payment Method on File</span>;
     } else if (subscriptionStatus && ['Invoice', 'School Invoice'].includes(subscriptionStatus.payment_method)) {
       return <span>Invoice</span>;
-    } else if (!subscriptionStatus && lastFour) {
-      return this.editCreditCardElement();
     }
     return <span>No Payment Method on File</span>;
   }
@@ -151,13 +147,23 @@ export default class CurrentSubscription extends React.Component {
   }
 
   handleEditCreditCardClick = () => {
-    new EnterOrUpdateStripeCard(this.updateLastFour, 'Update');
-  };
+    const { subscriptionStatus } = this.props
+    const { stripe_customer_id } = subscriptionStatus
+
+    if ( !stripe_customer_id ) { return }
+
+    const path = '/stripe_integration/billing_portal_sessions'
+    const data = { stripe_customer_id: stripe_customer_id }
+
+    requestPost(path, data, body => { window.location.replace(body.redirect_url) })
+  }
 
   editCreditCardElement() {
-    const { lastFour, } = this.state
+    const { subscriptionStatus } = this.props
+    const { last_four } = subscriptionStatus
+
     return (
-      <span>{`Credit Card Ending In ${lastFour}`}
+      <span>{`Credit Card ending in ${last_four}`}
         <button
           className="interactive-wrapper focus-on-light"
           onClick={this.handleEditCreditCardClick}
@@ -178,10 +184,33 @@ export default class CurrentSubscription extends React.Component {
 
     return (
       <div>
-        <button className="q-button bg-orange text-white" onClick={showPurchaseModal} type="button">Renew Subscription</button>
+        <button
+          className="q-button bg-orange text-white"
+          onClick={showPurchaseModal}
+          type="button"
+        >
+            Renew Subscription
+        </button>
       </div>
     );
   }
+
+  renewPremium() {
+    const { showPurchaseModal, } = this.props
+
+    return (
+      <div>
+        <button
+          className="renew-subscription q-button bg-orange text-white cta-button"
+          onClick={showPurchaseModal}
+          type="button"
+        >
+          Renew Subscription
+        </button>
+      </div>
+    );
+  }
+
 
   nextPlan() {
     const { subscriptionStatus, } = this.props
@@ -197,15 +226,21 @@ export default class CurrentSubscription extends React.Component {
   }
 
   nextPlanAlert(body) {
-    return <div className="next-plan-alert flex-row vertically-centered"><i className="fas fa-icon fa-lightbulb-o" />{body}</div>;
+    return (
+      <div className="next-plan-alert flex-row vertically-centered">
+        <i className="fas fa-icon fa-lightbulb-o" />
+        {body}
+      </div>
+    )
   }
 
   nextPlanAlertOrButtons(condition, renewDate) {
-    const { lastFour, } = this.state
     const { authorityLevel, subscriptionStatus, } = this.props
+    const { last_four } = subscriptionStatus
     const conditionWithAuthorization = `${condition} authorization: ${!!authorityLevel}`;
     const expiration = moment(subscriptionStatus.expiration);
     const remainingDays = expiration.diff(moment(), 'days');
+
     switch (conditionWithAuthorization) {
       case 'school sponsored authorization: false':
         return this.nextPlanAlert(this.onceYourPlanExpires());
@@ -222,9 +257,9 @@ export default class CurrentSubscription extends React.Component {
         }
         return this.lessThan90Days();
       case 'recurring authorization: false':
-        return this.nextPlanAlert(`Your Subscription will be renewed on ${renewDate}.`);
+        return this.nextPlanAlert(`Your subscription will be renewed on ${renewDate}.`);
       case 'recurring authorization: true':
-        return this.nextPlanAlert(`Your Subscription will be renewed on ${renewDate} and your card ending in ${lastFour} will be charged $${this.getPrice()}.`);
+        return this.nextPlanAlert(`Your subscription will be renewed on ${renewDate} and your card ending in ${last_four} will be charged $${this.getPrice()}.`);
       case 'school expired authorization: true':
         return this.lessThan90Days();
       case 'school expired authorization: false':
@@ -288,31 +323,14 @@ export default class CurrentSubscription extends React.Component {
     );
   }
 
-  renewPremium() {
-    const { showPurchaseModal, } = this.props
-    return (
-      <div>
-        <button className="renew-subscription q-button bg-orange text-white cta-button" onClick={showPurchaseModal} type="button">Renew Subscription</button>
-      </div>
-    );
-  }
-
-  showChangePlan = () => {
-    this.setState({
-      showChangePlan: true,
-    });
-  };
-
-  updateLastFour = newLastFour => {
-    this.setState({ lastFour: newLastFour, });
-  };
+  showChangePlan = () => { this.setState({ showChangePlan: true, }) }
 
   updateRecurring = () => {
     const { updateSubscription, subscriptionStatus, } = this.props
     const { recurring, } = this.state
-    updateSubscription(
-      { recurring, }, _.get(subscriptionStatus, 'id'));
-  };
+
+    updateSubscription({ recurring }, _.get(subscriptionStatus, 'id'));
+  }
 
   render() {
     const { subscriptionStatus, } = this.props

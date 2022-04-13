@@ -73,8 +73,6 @@ class User < ApplicationRecord
 
   has_secure_password validations: false
   has_one :auth_credential, dependent: :destroy
-  has_many :user_subscriptions
-  has_many :subscriptions, through: :user_subscriptions
   has_many :checkboxes
   has_many :credit_transactions
   has_many :invitations, foreign_key: 'inviter_id'
@@ -243,13 +241,7 @@ class User < ApplicationRecord
   end
 
   def eligible_for_new_subscription?
-    if subscription
-      # if they have a subscription it must be a trial one
-      Subscription::TRIAL_TYPES.include?(subscription.account_type)
-    else
-      # otherwise they are good for purchase
-      true
-    end
+    subscription.nil? || Subscription::TRIAL_TYPES.include?(subscription.account_type)
   end
 
   def last_expired_subscription
@@ -298,13 +290,6 @@ class User < ApplicationRecord
     else
       errors.add(:username, :invalid)
     end
-  end
-
-  # gets last four digits of Stripe card
-  def last_four
-    return unless stripe_customer?
-
-    Stripe::Customer.retrieve(id: stripe_customer_id, expand: ['sources']).sources.data.first&.last4
   end
 
   def stripe_customer?
@@ -614,6 +599,10 @@ class User < ApplicationRecord
   # Note this is an incremented count, so could be off.
   def completed_activity_count
     user_activity_classifications.sum(:count)
+  end
+
+  def subscription_status
+    subscription&.subscription_status || last_expired_subscription&.subscription_status
   end
 
   private def validate_flags

@@ -22,13 +22,13 @@
 require 'rails_helper'
 
 FactoryBot.define do
-  factory :plan, aliases: [:teacher_paid] do
+  factory :plan, aliases: [:teacher_paid_plan] do
     name { 'Teacher Paid' }
     display_name { 'Teacher Premium' }
     price { 9000 }
     audience { Plan::TEACHER_AUDIENCE_TYPE }
     interval { Plan::YEARLY_INTERVAL_TYPE }
     interval_count { 1 }
-    stripe_price_id { 'price_A0B1C2D3E4f5ghijk'}
+    stripe_price_id { "price_#{SecureRandom.hex}" }
   end
 end

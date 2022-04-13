@@ -39,7 +39,7 @@ export default class PremiumBannerBuilder extends React.Component {
   stateSpecificComponents = () => {
     const { has_premium, first_day_of_premium_or_trial, trial_days_remaining, last_subscription_was_trial, } = this.state
 
-    const { originPage } = this.props
+    const { originPage, upgradeToPremiumNowButton } = this.props
     if (has_premium === 'none'){
       return(<FreeTrialBanner status={has_premium} />);
     }
@@ -55,6 +55,7 @@ export default class PremiumBannerBuilder extends React.Component {
             lastSubscriptionWasTrial={last_subscription_was_trial}
             originPage={originPage}
             status={has_premium}
+            upgradeToPremiumNowButton={upgradeToPremiumNowButton}
           />
         </span>
       );

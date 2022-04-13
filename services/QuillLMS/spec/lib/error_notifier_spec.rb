@@ -8,7 +8,7 @@ describe ErrorNotifier do
 
     it 'should notify Sentry (Raven) and New Relic' do
       expect(Raven).to receive(:capture_exception).with(error).once
-      expect(NewRelic::Agent).to receive(:notice_error).with(error).once
+      expect(NewRelic::Agent).to receive(:notice_error).with(error, {}).once
 
       ErrorNotifier.report(error)
     end
