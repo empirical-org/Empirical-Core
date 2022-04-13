@@ -69,11 +69,11 @@ exports[`SubscriptionStatus container should render when the subscription is exp
     <p>
       <span>
         <strong>
-          Your
+          Your 
           teacher
            subscription (
           02/15/22
-           -
+           - 
           02/15/22
           ) has expired and you are back to Quill Basic.
         </strong>

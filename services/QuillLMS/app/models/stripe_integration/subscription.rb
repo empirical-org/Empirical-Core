@@ -11,11 +11,19 @@ module StripeIntegration
     end
 
     def stripe_subscription_id
+      return nil if stripe_invoice_id.nil?
+
       stripe_invoice.subscription
+    rescue Stripe::InvalidRequestError
+      nil
     end
 
     def stripe_customer_id
+      return nil if stripe_invoice_id.nil?
+
       stripe_subscription.customer
+    rescue Stripe::InvalidRequestError
+      nil
     end
 
     private def stripe_customer

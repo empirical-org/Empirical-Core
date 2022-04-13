@@ -25,7 +25,7 @@ RSpec.shared_context 'Stripe Setup Intent' do
       },
       next_action: nil,
       on_behalf_of: nil,
-      payment_method: payment_method_id,
+      payment_method: stripe_payment_method_id,
       payment_method_options: {
         card: {
           mandate_options: nil,

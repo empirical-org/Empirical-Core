@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe StripeIntegration::WebhooksController, type: :controller do
-  include_context "Stripe Invoice Event"
+  include_context "Stripe Invoice Paid Event"
 
   let(:stub_construct_event) { allow(Stripe::Webhook).to receive(:construct_event) }
   let(:handle_event_worker) { StripeIntegration::Webhooks::HandleEventWorker }

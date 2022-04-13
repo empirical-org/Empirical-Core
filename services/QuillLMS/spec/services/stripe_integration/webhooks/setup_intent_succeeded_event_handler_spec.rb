@@ -5,8 +5,7 @@ require 'rails_helper'
 RSpec.describe StripeIntegration::Webhooks::SetupIntentSucceededEventHandler do
   include_context 'Stripe Setup Intent Succeeded Event'
 
-  let(:event_type) { described_class::EVENT_TYPE }
-  let(:stripe_webhook_event) { create(:stripe_webhook_event) }
+  let(:stripe_webhook_event) { create(:stripe_webhook_event, event_type: described_class::EVENT_TYPE) }
   let(:external_id) { stripe_webhook_event.external_id }
 
   subject { described_class.run(stripe_webhook_event) }
@@ -15,7 +14,7 @@ RSpec.describe StripeIntegration::Webhooks::SetupIntentSucceededEventHandler do
     allow(Stripe::Event).to receive(:retrieve).with(external_id).and_return(stripe_event)
 
     allow(Stripe::Subscription)
-      .to receive(:retrieve)
+      .to receive(:update)
       .with(stripe_subscription_id, default_payment_method: stripe_payment_method_id)
   end
 
