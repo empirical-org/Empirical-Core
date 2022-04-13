@@ -70,8 +70,8 @@ EmpiricalGrammar::Application.routes.draw do
 
   # for Stripe
   namespace :stripe_integration do
-    post '/checkout_sessions', to: 'checkout_sessions#create'
-    post '/billing_portal_sessions', to: 'billing_portal_sessions#create'
+    post '/subscription_checkout_sessions', to: 'subscription_checkout_sessions#create'
+    post '/subscription_payment_methods', to: 'subscription_payment_methods#create'
     post '/webhooks', to: 'webhooks#create'
   end
 

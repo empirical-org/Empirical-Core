@@ -31,6 +31,7 @@ export default class Subscriptions extends React.Component {
 
   componentDidMount() {
     this.retrieveStripePurchasedConfirmation()
+    this.retrieveStripeSubscriptionPaymentMethodUpdating()
   }
 
   availableAndEarnedCredits() {
@@ -71,6 +72,20 @@ export default class Subscriptions extends React.Component {
     })
   }
 
+  retrieveStripeSubscriptionPaymentMethodUpdating = () => {
+    const { stripeInvoiceId, stripePaymentMethodUpdated } = this.props
+
+    if (!stripeInvoiceId || !stripePaymentMethodUpdated) { return }
+
+    requestGet(`/subscriptions/retrieve_stripe_subscription/${stripeInvoiceId}`, (body) => {
+      if (body.quill_retrieval_processing) {
+        this.initializePusherForStripeSubscriptionPaymentMethodUpdating()
+      } else {
+        this.updateSubscriptionStatus(body)
+      }
+    })
+  }
+
   initializePusherForStripePurchaseConfirmation() {
     if (process.env.RAILS_ENV === 'development') { Pusher.logToConsole = true }
 
@@ -80,7 +95,24 @@ export default class Subscriptions extends React.Component {
     const channel = pusher.subscribe(channelName);
 
     channel.bind('stripe-subscription-created', () => {
+      debugger
       this.retrieveStripePurchasedConfirmation()
+      pusher.unsubscribe(channelName)
+    })
+  }
+
+  initializePusherForStripeSubscriptionPaymentMethodUpdating() {
+    if (process.env.RAILS_ENV === 'development') { Pusher.logToConsole = true }
+
+    const { subscriptionStatus } = this.props
+    const { stripe_subscription_id } = subscriptionStatus
+
+    const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
+    const channelName = String(stripe_subscription_id)
+    const channel = pusher.subscribe(channelName);
+
+    channel.bind('stripe-subscription-payment-method-updated', () => {
+      this.retrieveStripeSubscriptionPaymentMethodUpdating()
       pusher.unsubscribe(channelName)
     })
   }

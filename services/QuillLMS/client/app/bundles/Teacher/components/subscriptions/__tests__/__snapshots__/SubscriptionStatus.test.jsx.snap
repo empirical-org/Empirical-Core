@@ -50,7 +50,7 @@ exports[`SubscriptionStatus container should render when the subscription is exp
           Your teacher subscription has expired
         </h2>
       </div>
-      <StripeCheckoutSessionButton
+      <StripeSubscriptionCheckoutSessionButton
         buttonClassName="renew-subscription q-button bg-orange text-white cta-button"
         buttonText="Renew Subscription"
         cancelPath="subscriptions"
@@ -64,16 +64,16 @@ exports[`SubscriptionStatus container should render when the subscription is exp
         >
           Renew Subscription
         </button>
-      </StripeCheckoutSessionButton>
+      </StripeSubscriptionCheckoutSessionButton>
     </div>
     <p>
       <span>
         <strong>
-          Your 
+          Your
           teacher
            subscription (
           02/15/22
-           - 
+           -
           02/15/22
           ) has expired and you are back to Quill Basic.
         </strong>

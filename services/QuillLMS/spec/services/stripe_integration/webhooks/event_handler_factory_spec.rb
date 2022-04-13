@@ -4,11 +4,12 @@ require 'rails_helper'
 
 RSpec.describe StripeIntegration::Webhooks::EventHandlerFactory do
   context '.for' do
-    context 'Handled Events' do
-      let(:event_handler) { StripeIntegration::Webhooks::InvoicePaidEventHandler }
-      let(:stripe_webhook_event) { create(:invoice_paid_stripe_webhook_event) }
+    described_class::SINGLE_EVENT_HANDLERS.each do |event_handler|
+      context event_handler.to_s do
+        let(:stripe_webhook_event) { create(:stripe_webhook_event, event_type: event_handler::EVENT_TYPE) }
 
-      it { expect(described_class.for(stripe_webhook_event).class).to eq event_handler }
+        it { expect(described_class.for(stripe_webhook_event).class).to eq event_handler }
+      end
     end
 
     context 'Ignored Events' do

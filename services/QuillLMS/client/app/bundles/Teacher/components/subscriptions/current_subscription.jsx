@@ -148,12 +148,12 @@ export default class CurrentSubscription extends React.Component {
 
   handleEditCreditCardClick = () => {
     const { subscriptionStatus } = this.props
-    const { stripe_customer_id } = subscriptionStatus
+    const { stripe_customer_id, stripe_subscription_id } = subscriptionStatus
 
     if ( !stripe_customer_id ) { return }
 
-    const path = '/stripe_integration/billing_portal_sessions'
-    const data = { stripe_customer_id: stripe_customer_id }
+    const path = '/stripe_integration/subscription_payment_methods'
+    const data = { stripe_customer_id, stripe_subscription_id }
 
     requestPost(path, data, body => { window.location.replace(body.redirect_url) })
   }
