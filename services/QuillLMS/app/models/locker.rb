@@ -16,5 +16,4 @@ class Locker < ApplicationRecord
 
   validates :user_id, presence: true, uniqueness: true
   validates :label, presence: true
-  # validates :preferences, presence: true
 end

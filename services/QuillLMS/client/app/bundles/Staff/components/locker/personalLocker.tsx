@@ -21,7 +21,7 @@ export const PersonalLocker = ({ history, personalLocker }) => {
           const { label, lockers } = preferences[sectionKey];
           return(
             <div className="locker-section-container" key={sectionKey}>
-              <h4>{titleCase(label)}</h4>
+              <h4>{label}</h4>
               <div className='personal-lockers-container'>
                 {Object.keys(lockers).map(lockerKey => {
                   return <Locker key={lockerKey} lockerContents={lockers[lockerKey]} />

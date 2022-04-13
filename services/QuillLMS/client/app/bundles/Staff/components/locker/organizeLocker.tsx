@@ -8,7 +8,7 @@ import LockerTile from './lockerTile';
 
 import { DropdownInput, Input, Modal } from '../../../Shared';
 import { DropdownObjectInterface, InputEvent } from '../../interfaces/evidenceInterfaces';
-import { renderConfirmationModal } from '../../helpers/locker/lockerHelperFunctions';
+import { renderConfirmationModal, validateLockerForm } from '../../helpers/locker/lockerHelperFunctions';
 import { SAVE, REVERT, DELETE, CANCEL, SAVE_CONFIRMATION, REVERT_CONFIRMATION, DELETE_SECTION_CONFIRMATION, lockerItemOptions } from '../../helpers/locker/lockerConstants';
 import { lockerItems } from '../../helpers/locker/lockerItems';
 import { titleCase } from '../../helpers/evidence/miscHelpers';
@@ -18,7 +18,6 @@ export const OrganizeLocker = ({ history, personalLocker, userId }) => {
   const [errors, setErrors] = React.useState<any>(null);
   const [lockerLabel, setLockerLabel] = React.useState<string>(personalLocker && personalLocker.label);
   const [lockerPreferences, setLockerPreferences] = React.useState(null);
-  console.log("🚀 ~ file: organizeLocker.tsx ~ line 21 ~ OrganizeLocker ~ lockerPreferences", lockerPreferences)
   const [savelLockerModalOpen, setSavelLockerModalOpen] = React.useState<boolean>(false);
   const [revertlLockerModalOpen, setRevertlLockerModalOpen] = React.useState<boolean>(false);
   const [deletelLockerModalOpen, setDeletelLockerModalOpen] = React.useState<boolean>(false);
@@ -65,30 +64,31 @@ export const OrganizeLocker = ({ history, personalLocker, userId }) => {
   }
 
   function handleSaveLockerPreferences() {
-    if(personalLocker && personalLocker.user_id) {
-      const locker = {
-        user_id: userId,
-        label: lockerLabel,
-        preferences: lockerPreferences || {}
-      }
-      updateLocker(userId, locker).then((response) => {
+    const locker = {
+      user_id: userId,
+      label: lockerLabel,
+      preferences: lockerPreferences || {}
+    }
+    const errors = validateLockerForm(locker);
+    if(Object.keys(errors).length) {
+      setErrors(errors)
+    } else {
+      setErrors(null);
+      if(personalLocker && personalLocker.user_id) {
+        updateLocker(userId, locker).then((response) => {
+            if(response && !response.error) {
+              queryClient.refetchQueries('personal-locker');
+              history.push('/personal-locker')
+            }
+        });
+      } else {
+        createLocker(userId, locker).then((response) => {
           if(response && !response.error) {
             queryClient.refetchQueries('personal-locker');
             history.push('/personal-locker')
           }
-      });
-    } else {
-      const locker = {
-        user_id: userId,
-        label: lockerLabel,
-        preferences: lockerPreferences || {}
+        });
       }
-      createLocker(userId, locker).then((response) => {
-        if(response && !response.error) {
-          queryClient.refetchQueries('personal-locker');
-          history.push('/personal-locker')
-        }
-      });
     }
     toggleSaveLockerPreferencesModal()
   }
@@ -221,6 +221,7 @@ export const OrganizeLocker = ({ history, personalLocker, userId }) => {
           <div className="upper-locker-section-container">
             <Input
               className="section-input"
+              error={errors && errors[sectionKey]}
               handleChange={(e) => handleSetSectionLabel(e, sectionKey)}
               label="Section label"
               value={label}
@@ -269,6 +270,7 @@ export const OrganizeLocker = ({ history, personalLocker, userId }) => {
       <div className="organize-locker-form-contents">
         <Input
           className="locker-label-input"
+          error={errors && errors['label']}
           handleChange={handleSetPersonalLockerLabel}
           label="Locker label"
           value={lockerLabel}

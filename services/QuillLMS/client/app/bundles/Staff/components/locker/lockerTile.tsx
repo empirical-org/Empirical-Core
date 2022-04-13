@@ -56,43 +56,51 @@ export const LockerTile = ({ handleDeleteLockerForSection, handleSetLockerProper
   function renderOrganizeLockerModal() {
     return(
       <Modal>
-        <div className="close-button-container">
-          <button className="interactive-wrapper focus-on-light" onClick={toggleShowOrganizeLockerModal}><img alt={closeIcon.alt} src={closeIcon.src} /></button>
+        <div className="organize-locker-modal">
+          <div className="close-button-container">
+            <button className="interactive-wrapper focus-on-light" onClick={toggleShowOrganizeLockerModal}><img alt={closeIcon.alt} src={closeIcon.src} /></button>
+          </div>
+          <Input
+            className="locker-input"
+            handleChange={handleSetLockerLabel}
+            key={sectionKey}
+            label="Locker label"
+            value={label}
+          />
+          <Input
+            className="locker-input"
+            handleChange={handleSetLockerUrl}
+            key={sectionKey}
+            label="Locker url"
+            value={url}
+          />
+          <div className="emoji-container">
+            <p className="emoji-label">Selected emoji: </p>
+            <p className="emoji">{emoji}</p>
+          </div>
+          {showEmojiSelector && <Picker onEmojiClick={handleEmojiClick} />}
+          <button className="interactive-wrapper focus-on-light change-emoji-button" onClick={toggleShowEmojiSelector}>Change emoji</button>
+          <div className="buttons-container">
+            <button className="quill-button focus-on-light fun primary outlined" onClick={toggleShowOrganizeLockerModal}>Accept Changes</button>
+            <button className="quill-button focus-on-light fun primary outlined" onClick={toggleShowDeleteLockerModal}>Delete locker</button>
+          </div>
         </div>
-        <Input
-          className="locker-input"
-          handleChange={handleSetLockerLabel}
-          key={sectionKey}
-          label="Locker label"
-          value={label}
-        />
-        <Input
-          className="locker-input"
-          handleChange={handleSetLockerUrl}
-          key={sectionKey}
-          label="Locker url"
-          value={url}
-        />
-        <div className="emoji-container">
-          <p>Selected emoji: </p>
-          <p className="emoji">{emoji}</p>
-        </div>
-        {showEmojiSelector && <Picker onEmojiClick={handleEmojiClick} />}
-        <button className="interactive-wrapper focus-on-light change-emoji-button" onClick={toggleShowEmojiSelector}>Change emoji</button>
-        <button className="quill-button focus-on-light fun primary outlined" onClick={toggleShowDeleteLockerModal}>Delete locker</button>
       </Modal>
     );
   }
+
+  const isEmptyLocker = !locker.label;
 
   return(
     <React.Fragment>
       {showOrganizeLockerModal && renderOrganizeLockerModal()}
       {showDeleteLockerModal && renderConfirmationModal({ confirmationText: DELETE_LOCKER_CONFIRMATION, leftClickHandler: handleDeleteLocker, rightClickHandler: toggleShowDeleteLockerModal, leftButtonText: DELETE, rightButtonText: CANCEL })}
       <button className="locker-container interactive-wrapper focus-on-light" onClick={toggleShowOrganizeLockerModal}>
-        <div className="left-side-contents">
+        {!isEmptyLocker && <div className="left-side-contents">
           <span aria-label={locker.emojiLabel} className="emoji-image" role="img">{emoji}</span>
           <p className="locker-label">{locker.label}</p>
-        </div>
+        </div>}
+        {isEmptyLocker && <p className="edit-locker">Click to edit</p>}
       </button>
     </React.Fragment>
   )

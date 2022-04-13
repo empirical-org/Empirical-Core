@@ -101,3 +101,20 @@ export function renderConfirmationModal({ confirmationText, leftClickHandler, ri
     </Modal>
   );
 }
+
+export function validateLockerForm(locker) {
+  console.log("🚀 ~ file: lockerHelperFunctions.tsx ~ line 106 ~ validateLockerForm ~ locker", locker)
+  const errors = {};
+  const { label, preferences } = locker;
+  if(!label) {
+    errors['label'] = 'Locker label cannot be blank';
+  }
+  Object.keys(preferences).map(sectionKey => {
+    const section = preferences[sectionKey];
+    const { label } = section
+    if(!label) {
+      errors[sectionKey] = 'Section label cannot be blank';
+    }
+  })
+  return errors;
+}
