@@ -182,7 +182,7 @@ describe Api::V1::ActivitySessionsController, type: :controller do
           }
         }
 
-        expect(Raven).to receive(:capture_exception).with(ActivitySession::LongTimeTrackingError).once
+        expect(ErrorNotifier).to receive(:report).with(ActivitySession::LongTimeTrackingError).once
 
         put :update, params: { id: activity_session.uid, data: data }, as: :json
       end
