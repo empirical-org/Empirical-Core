@@ -6,7 +6,7 @@ module CleverIntegration
       MESSAGE = 'Teacher required for clever client access'
     end
 
-    PUSHER_EVENT_CHANNEL = "clever-classrooms-retrieved"
+    PUSHER_EVENT = "clever-classrooms-retrieved"
 
     attr_reader :teacher_id
 
@@ -39,7 +39,7 @@ module CleverIntegration
     end
 
     private def notify_pusher
-      PusherTrigger.run(teacher_id, PUSHER_EVENT_CHANNEL, pusher_message)
+      PusherTrigger.run(teacher_id, PUSHER_EVENT, pusher_message)
     end
 
     private def pusher_message

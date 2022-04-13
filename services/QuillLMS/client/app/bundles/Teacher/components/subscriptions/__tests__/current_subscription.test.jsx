@@ -20,7 +20,6 @@ describe('CurrentSubscription container', () => {
   describe('when there is a current subscription', () => {
     const sharedProps = {
       "authorityLevel": null,
-      "lastFour": null,
       "purchaserNameOrEmail": "emilia+3@quill.org",
       "subscriptionStatus":  {
         "id": 7,
@@ -28,6 +27,7 @@ describe('CurrentSubscription container', () => {
         "created_at": "2022-02-16T14: 07: 25.976Z",
         "updated_at": "2022-02-16T14: 07: 25.976Z",
         "account_type": "School Paid",
+        "lastFour": null,
         "purchaser_email": "emilia+3@quill.org",
         "start_date": "2022-02-16",
         "subscription_type_id": null,

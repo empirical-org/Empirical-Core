@@ -48,8 +48,7 @@ class PagesController < ApplicationController
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 
-  def develop
-  end
+  def develop; end
 
   def mission
     redirect_to('/about')
@@ -59,8 +58,7 @@ class PagesController < ApplicationController
     @open_positions = OPEN_POSITIONS
   end
 
-  def beta
-  end
+  def beta; end
 
   def play
     @activity = Activity.with_classification.find_by_uid('-K0rnIIF_iejGqS3XPJ8')
@@ -68,8 +66,7 @@ class PagesController < ApplicationController
     redirect_to(@module_url.to_s)
   end
 
-  def about
-  end
+  def about; end
 
   def faq
     @sections = [
@@ -154,7 +151,7 @@ class PagesController < ApplicationController
           {
             question: "Is there a fixed progression of activities?",
             answer: "<p>While our activities are arranged by Common Core Standard, there is not a fixed progression of activities. Teachers have all of our activities available to them, and they may choose to assign any activity they're interested in teaching.</p>"
-          },
+          }
         ]
       },
       {
@@ -299,7 +296,7 @@ class PagesController < ApplicationController
           {
             question: "How can I get started with Quill?",
             answer: "<p>Teachers create teacher accounts and students create student accounts by clicking <a href='https://www.quill.org/account/new'>here</a>. Teachers are given a class code for each class. Students join their teacher's class by plugging in their teacher's class code. Teachers may also manually create accounts for their students. If you have a Google Classroom account, you can sign up with Google and import your students. For more information about getting started, please visit our <a href='https://www.quill.org/teacher-center'>Teacher Resources</a> page. You can also download our <a href='https://d1yxac6hjodhgc.cloudfront.net/wp-content/uploads/2015/11/Quill-Getting-Started-Guide-for-Teachers.pdf'>Getting Started Guide for Teachers.</a></p>"
-          },
+          }
         ]
       },
       {
@@ -326,7 +323,7 @@ class PagesController < ApplicationController
             answer: '
               <p>We are always looking for suggestions and ideas from our teachers to improve and grow Quill. If you have an idea for a feature you would like to see on Quill, please <a href="https://quillorg.canny.io/feedback">create a post here</a>. If you have an idea for content you would like to see on Quill, please <a href="https://quillorg.canny.io/content-feedback">create a post here</a>. We have turned many of our teachers&#39; ideas to products such as Quill Diagnostic and Quill Lessons, so don&#39;t hesitate to reach out to us.</p>
             '
-          },
+          }
         ]
       },
       {
@@ -343,7 +340,7 @@ class PagesController < ApplicationController
           {
             question: "How can I work with Quill as a developer?",
             answer: "<p>We are open source and can always use volunteer developers! Our Github is here: <a href='https://github.com/empirical-org'>https://github.com/empirical-org</a>.</p>"
-          },
+          }
         ]
       }
     ]
@@ -365,8 +362,7 @@ class PagesController < ApplicationController
     @body_class = 'auxiliary white-page formatted-text'
   end
 
-  def media_kit
-  end
+  def media_kit; end
 
   def privacy
     @body_class = 'auxiliary white-page formatted-text'
@@ -411,7 +407,8 @@ class PagesController < ApplicationController
 
     @user_has_school = !!current_user&.school && ['home school', 'us higher ed', 'international', 'other', 'not listed'].exclude?(current_user&.school&.name)
     @user_belongs_to_school_that_has_paid = current_user&.school ? Subscription.school_or_user_has_ever_paid?(current_user&.school) : false
-    @last_four = current_user&.last_four
+    @customer_email = current_user&.email
+    @stripe_teacher_plan = PlanSerializer.new(Plan.stripe_teacher_plan).as_json
 
     @diagnostic_activity_count =
       Activity.where(
@@ -439,8 +436,7 @@ class PagesController < ApplicationController
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 
-  def tutorials
-  end
+  def tutorials; end
 
   def press
     @in_the_news = BlogPost.where(draft: false, topic: BlogPost::IN_THE_NEWS).order(published_at: :desc)
@@ -451,8 +447,7 @@ class PagesController < ApplicationController
     @blog_posts = BlogPost.where(draft: false, topic: BlogPost::WHATS_NEW).order('order_number')
   end
 
-  def referrals_toc
-  end
+  def referrals_toc; end
 
   def preap_units
     render json: { units: preap_and_springboard_content }

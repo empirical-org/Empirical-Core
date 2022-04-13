@@ -1,27 +1,18 @@
 import * as React from 'react'
 
-const FreeTrialStatus = ({ status, originPage, handleClickUpgradeNow, lastSubscriptionWasTrial, data, }) => {
+const FreeTrialStatus = ({ status, originPage, upgradeToPremiumNowButton, lastSubscriptionWasTrial, data, }) => {
   const stateSpecificComponents = () => {
     if (status == 'trial') {
-      return (
-        <h4>You have {data} days left in your trial.</h4>
-      );
+      return <h4>You have {data} days left in your trial.</h4>
     } else if (status == 'locked') {
-      return (
-        <h4>Your Premium {lastSubscriptionWasTrial ? 'Trial' : 'Subscription'} Has Expired</h4>
-      );
+      return <h4>Your Premium {lastSubscriptionWasTrial ? 'Trial' : 'Subscription'} Has Expired</h4>
     }
   };
 
-  const premiumButton = originPage == 'premium' ?
-    (
-      <button className='btn-orange' onClick={handleClickUpgradeNow} type='button'>Upgrade to Premium Now</button>
-    ) :
-    (
-      <a href='/premium'>
-        <button className='btn-orange' type='button'>Upgrade to Premium Now</button>
-      </a>
-    )
+  const premiumButton = (originPage === 'premium')
+    ? upgradeToPremiumNowButton()
+    : <a href='/premium'><button className='btn-orange' type='button'>Upgrade to Premium Now</button></a>
+
   return (
     <div className='row'>
       <div className='col-md-9 col-xs-12 pull-left'>

@@ -44,21 +44,27 @@ exports[`SubscriptionStatus container should render when the subscription is exp
           }
         />
         <h2>
-          <h2>
-            <i
-              className="fas fa-exclamation-triangle"
-            />
-            Your teacher subscription has expired
-          </h2>
+          <i
+            className="fas fa-exclamation-triangle"
+          />
+          Your teacher subscription has expired
         </h2>
       </div>
-      <button
-        className="renew-subscription q-button bg-orange text-white cta-button"
-        onClick={[Function]}
-        type="button"
+      <StripeCheckoutSessionButton
+        buttonClassName="renew-subscription q-button bg-orange text-white cta-button"
+        buttonText="Renew Subscription"
+        cancelPath="subscriptions"
+        userIsEligibleForNewSubscription={true}
+        userIsSignedIn={true}
       >
-        Renew Subscription
-      </button>
+        <button
+          className="renew-subscription q-button bg-orange text-white cta-button"
+          onClick={[Function]}
+          type="button"
+        >
+          Renew Subscription
+        </button>
+      </StripeCheckoutSessionButton>
     </div>
     <p>
       <span>
@@ -104,13 +110,11 @@ exports[`SubscriptionStatus container should render when there is no subscriptio
           }
         />
         <h2>
-          <h2>
-            You have a Basic subscription
-            <img
-              alt="Basic"
-              src="https://assets.quill.org/images/shared/basic_icon.png"
-            />
-          </h2>
+          You have a Basic subscription
+          <img
+            alt="Basic"
+            src="https://assets.quill.org/images/shared/basic_icon.png"
+          />
         </h2>
       </div>
       <a

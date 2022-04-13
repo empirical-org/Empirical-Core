@@ -4,19 +4,20 @@
 #
 # Table name: subscriptions
 #
-#  id                   :integer          not null, primary key
-#  account_type         :string
-#  de_activated_date    :date
-#  expiration           :date
-#  payment_amount       :integer
-#  payment_method       :string
-#  purchaser_email      :string
-#  recurring            :boolean          default(FALSE)
-#  start_date           :date
-#  created_at           :datetime
-#  updated_at           :datetime
-#  purchaser_id         :integer
-#  subscription_type_id :integer
+#  id                :integer          not null, primary key
+#  account_type      :string
+#  de_activated_date :date
+#  expiration        :date
+#  payment_amount    :integer
+#  payment_method    :string
+#  purchaser_email   :string
+#  recurring         :boolean          default(FALSE)
+#  start_date        :date
+#  created_at        :datetime
+#  updated_at        :datetime
+#  plan_id           :integer
+#  purchaser_id      :integer
+#  stripe_invoice_id :string
 #
 # Indexes
 #
@@ -25,6 +26,7 @@
 #  index_subscriptions_on_purchaser_id       (purchaser_id)
 #  index_subscriptions_on_recurring          (recurring)
 #  index_subscriptions_on_start_date         (start_date)
+#  index_subscriptions_on_stripe_invoice_id  (stripe_invoice_id) UNIQUE
 #
 require 'newrelic_rpm'
 require 'new_relic/agent'
@@ -38,6 +40,7 @@ class Subscription < ApplicationRecord
   has_many :schools, through: :school_subscriptions
   belongs_to :purchaser, class_name: "User"
   belongs_to :subscription_type
+  belongs_to :plan, optional: true
   validates :expiration, presence: true
   after_commit :check_if_purchaser_email_is_in_database
   after_initialize :set_null_start_date_to_today
@@ -80,13 +83,24 @@ class Subscription < ApplicationRecord
   SCHOOL_FIRST_PURCHASE_PRICE = SCHOOL_RENEWAL_PRICE
   TEACHER_PRICE = 8000
   ALL_PRICES = [TEACHER_PRICE, SCHOOL_RENEWAL_PRICE]
-  PAYMENT_METHODS = ['Invoice', 'Credit Card', 'Premium Credit']
+  PAYMENT_METHODS = [
+    INVOICE_PAYMENT_METHOD = 'Invoice',
+    CREDIT_CARD_PAYMENT_METHOD = 'Credit Card',
+    PREMIUM_CREDIT_PAYMENT_METHOD = 'Premium Credit'
+  ]
+
   ALL_TYPES = OFFICIAL_FREE_TYPES.dup.concat(OFFICIAL_PAID_TYPES)
+
+  validates :stripe_invoice_id, allow_blank: true, stripe_uid: { prefix: :in }
 
   scope :active, -> { where(de_activated_date: nil).where("expiration > ?", Date.today).order(expiration: :asc) }
 
   def is_trial?
     account_type && TRIAL_TYPES.include?(account_type)
+  end
+
+  def expired?
+    expiration <= Date.today
   end
 
   def check_if_purchaser_email_is_in_database
@@ -132,6 +146,7 @@ class Subscription < ApplicationRecord
     new_sub.schools.push(schools)
   end
 
+
   def credit_user_and_de_activate
     if school_subscriptions.ids.any?
       # we should not do this if the sub belongs to a school
@@ -147,7 +162,6 @@ class Subscription < ApplicationRecord
     end
   end
 
-
   def self.expired_today_or_previously_and_recurring
     Subscription.where('expiration <= ? AND recurring IS TRUE AND de_activated_date IS NULL', Date.today)
   end
@@ -158,23 +172,9 @@ class Subscription < ApplicationRecord
     paid_accounts.any?
   end
 
-  def self.new_teacher_premium_sub(user)
-    expiration = Date.today + 1.year
-    new(expiration: expiration, start_date: Date.today, account_type: 'Teacher Paid', recurring: true, purchaser_id: user.id)
-  end
-
   def self.new_school_premium_sub(school, user)
     expiration = school_or_user_has_ever_paid?(school) ? (Date.today + 1.year) : promotional_dates[:expiration]
     new(expiration: expiration, start_date: Date.today, account_type: 'School Paid', recurring: true, purchaser_id: user.id)
-  end
-
-  def self.give_teacher_premium_if_charge_succeeds(user)
-    teacher_premium_sub = new_teacher_premium_sub(user)
-    teacher_premium_sub.save_if_charge_succeeds('teacher')
-    return false if teacher_premium_sub.new_record?
-
-    UserSubscription.create(user: user, subscription: teacher_premium_sub)
-    teacher_premium_sub
   end
 
   def self.give_school_premium_if_charge_succeeds(school, user)
@@ -197,6 +197,16 @@ class Subscription < ApplicationRecord
     end
   end
 
+  def update_if_charge_succeeds
+    charge = charge_user
+    if charge[:status] == 'succeeded'
+      renew_subscription
+    elsif expiration <= 7.days.ago
+      self.recurring = false
+      save(validate: false)
+    end
+  end
+
   def self.default_expiration_date(school_or_user)
     last_subscription = school_or_user.subscriptions.active.first
     if last_subscription.present?
@@ -208,26 +218,12 @@ class Subscription < ApplicationRecord
     end
   end
 
-  def update_if_charge_succeeds
-    charge = charge_user
-    if charge[:status] == 'succeeded'
-      renew_subscription
-    elsif expiration <= 7.days.ago
-      self.recurring = false
-      save(validate: false)
-    end
-  end
-
   def save_if_charge_succeeds(premium_type, school=nil)
-    if premium_type === 'teacher'
-      charge = charge_user_for_teacher_premium
-      payment_amount = TEACHER_PRICE
-    elsif premium_type === 'school'
-      charge = charge_user_for_school_premium(school)
-      payment_amount = SCHOOL_RENEWAL_PRICE
-    else
-      raise "an incorrect premium type #{premium_type} was passed"
-    end
+    raise "an incorrect premium type #{premium_type} was passed" unless premium_type == 'school'
+
+    charge = charge_user_for_school_premium(school)
+    payment_amount = SCHOOL_RENEWAL_PRICE
+
     if charge[:status] == 'succeeded'
       self.payment_method = 'Credit Card'
       self.payment_amount = payment_amount
@@ -257,12 +253,6 @@ class Subscription < ApplicationRecord
     exp_month_and_day = Date.today.month < 7 ? "30-6" : "31-12"
     {expiration: Date::strptime("#{exp_month_and_day}-#{Date.today.year+1}","%d-%m-%Y"),
     start_date: Date.today}
-  end
-
-  protected def charge_user_for_teacher_premium
-    return unless purchaser&.stripe_customer?
-
-    Stripe::Charge.create(amount: TEACHER_PRICE, currency: 'usd', customer: purchaser.stripe_customer_id)
   end
 
   protected def charge_user_for_school_premium(school)
@@ -324,7 +314,7 @@ class Subscription < ApplicationRecord
     self.start_date = Date.today
   end
 
-  def self.create_with_school_or_user_join school_or_user_id, type, attributes
+  def self.create_with_school_or_user_join(school_or_user_id, type, attributes)
     type = type.capitalize
     # since we're constantizing the type, need to make sure it is capitalized if not already
     school_or_user = type.constantize.find school_or_user_id
@@ -352,4 +342,14 @@ class Subscription < ApplicationRecord
     subscription
   end
 
+  def subscription_status
+    attributes.merge(
+      'account_type' => account_type || plan&.name,
+      'customer_email' => purchaser&.email,
+      'expired' => expired?,
+      'last_four' => StripeIntegration::Subscription.new(self).last_four,
+      'purchaser_name' => purchaser&.name,
+      'stripe_customer_id' => purchaser&.stripe_customer_id
+    )
+  end
 end

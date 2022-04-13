@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 
 class SubscriptionsController < ApplicationController
-  before_action :set_subscription, except: [:index, :create]
+  before_action :set_subscription, only: %i[purchaser_name show update destroy]
   before_action :require_user, only: [:index]
 
   def index
     set_index_variables
+
     respond_to do |format|
       format.html
       format.json {render json: @subscriptions}
@@ -43,6 +44,12 @@ class SubscriptionsController < ApplicationController
     render json: @subscription
   end
 
+  def retrieve_stripe_subscription
+    @subscription = current_user&.subscriptions&.find_by(stripe_invoice_id: params[:stripe_invoice_id])
+
+    render json: @subscription || { quill_retrieval_processing: true }
+  end
+
   private def subscription_is_associated_with_current_user?
     @subscription.users.include?(current_user) || current_user.id == @subscription.purchaser_id
   end
@@ -56,40 +63,22 @@ class SubscriptionsController < ApplicationController
   private def set_index_variables
     @subscriptions = current_user.subscriptions
     @premium_credits = current_user.credit_transactions.map {|x| x.serializable_hash(methods: :action)}.compact
-    subscription_status
+    @stripe_invoice_id = StripeIntegration::StripeInvoiceIdFinder.run(checkout_session_id)
+    @subscription_status = current_user.subscription_status
     @school_subscription_types = Subscription::OFFICIAL_SCHOOL_TYPES
-    @last_four = current_user&.last_four
     @trial_types = Subscription::TRIAL_TYPES
+    @stripe_teacher_plan = PlanSerializer.new(Plan.stripe_teacher_plan).as_json
+
     if @subscription_status&.key?('id')
       @user_authority_level = current_user.subscription_authority_level(@subscription_status['id'])
-      # @coordinator_email = Subscription.find(@subscription_status['id'])&.coordinator&.email
     else
       @user_authority_level = nil
     end
   end
 
-  # rubocop:disable Metrics/CyclomaticComplexity
-  private def subscription_status
-    current_subscription = current_user.subscription
-    if current_subscription
-      @subscription_status_obj = current_subscription
-      expired = false
-    elsif current_user.last_expired_subscription
-      @subscription_status_obj = current_user.last_expired_subscription
-      expired = true
-    else
-      @subscription_status = nil
-      return
-    end
-    attributes_for_front_end = {
-      expired: expired,
-      purchaser_name: @subscription_status_obj&.purchaser&.name,
-      mail_to: @subscription_status_obj&.purchaser&.email || @subscription_status_obj&.purchaser_email
-    }
-    subscription_attributes = @subscription_status_obj&.attributes || {}
-    @subscription_status = subscription_attributes.merge(attributes_for_front_end)
+  private def checkout_session_id
+    params[:checkout_session_id]
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
 
   private def subscription_params
     params.require(:subscription).permit(:id, :purchaser_id, :expiration, :account_type, :authenticity_token, :recurring)

@@ -3,7 +3,7 @@ import { mount } from 'enzyme';
 
 import { expiredSubscriptionStatus, } from './data'
 
-import SubscriptionStatus from '../subscription_status';
+import SubscriptionStatus from '../SubscriptionStatus';
 
 const sharedProps = {
   userIsContact: false,

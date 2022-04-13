@@ -6,9 +6,7 @@ describe SubscriptionsController do
   let!(:user) { create(:teacher, :premium) }
 
   context "with teacher" do
-    before do
-      allow(controller).to receive(:current_user) { user }
-    end
+    before { allow(controller).to receive(:current_user) { user } }
 
     describe '#index' do
       it 'should set the instance variables' do
@@ -16,7 +14,6 @@ describe SubscriptionsController do
         expect(assigns(:subscriptions)).to eq user.subscriptions
         expect(assigns(:premium_credits)).to eq user.credit_transactions
         expect(assigns(:school_subscription_types)).to eq Subscription::OFFICIAL_SCHOOL_TYPES
-        expect(assigns(:last_four)).to eq user.last_four
         expect(assigns(:trial_types)).to eq Subscription::TRIAL_TYPES
       end
     end
@@ -24,9 +21,7 @@ describe SubscriptionsController do
     describe '#index w/o subscription' do
       let!(:user_no_subscription) { create(:teacher) }
 
-      before do
-        allow(controller).to receive(:current_user) { user_no_subscription }
-      end
+      before { allow(controller).to receive(:current_user) { user_no_subscription } }
 
       it 'return valid response' do
         get :index
@@ -91,19 +86,15 @@ describe SubscriptionsController do
 
   context "without user" do
 
-    before do
-      allow(controller).to receive(:current_user) { nil }
-    end
+    before { allow(controller).to receive(:current_user) { nil } }
 
     describe '#index' do
-
       it 'should redirect to login' do
         get :index
 
         expect(response).to redirect_to('/session/new')
       end
     end
-
   end
 
 end

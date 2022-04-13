@@ -2,6 +2,8 @@ import React from 'react';
 import moment from 'moment';
 import pluralize from 'pluralize';
 
+import StripeCheckoutSessionButton from '../shared/StripeCheckoutSessionButton';
+
 import {
   TEACHER_PREMIUM_TRIAL,
   TEACHER_PREMIUM_CREDIT,
@@ -39,7 +41,13 @@ function teacherPremiumCopy(subscriptionType) {
   )
 };
 
-const SubscriptionStatus = ({ subscriptionType, showPurchaseModal, subscriptionStatus, userIsContact, }) => {
+const SubscriptionStatus = ({
+  stripeTeacherPlan,
+  subscriptionStatus,
+  subscriptionType,
+  userIsContact,
+}) => {
+
   const content = {};
   let image
   let expiration
@@ -55,7 +63,7 @@ const SubscriptionStatus = ({ subscriptionType, showPurchaseModal, subscriptionS
   switch (subscriptionType) {
     case 'Basic':
       image = 'basic_icon.png';
-      content.pCopy = quillBasicCopy;
+      content.premiumCopy = quillBasicCopy;
       content.boxColor = '#00c2a2';
       content.buttonOrDate = <a className="q-button cta-button bg-orange text-white" href="/premium">Learn More About Quill Premium</a>;
       subscriptionTypeText = 'Quill Basic';
@@ -65,7 +73,7 @@ const SubscriptionStatus = ({ subscriptionType, showPurchaseModal, subscriptionS
     case TEACHER_PREMIUM_CREDIT:
     case TEACHER_PREMIUM:
     case TEACHER_PREMIUM_SCHOLARSHIP:
-      content.pCopy = teacherPremiumCopy(subscriptionType);
+      content.premiumCopy = teacherPremiumCopy(subscriptionType);
       image = 'teacher_premium_icon.png';
       const teacherSubDisplayName = subscriptionType === TEACHER_PREMIUM_SCHOLARSHIP ? TEACHER_PREMIUM : subscriptionType
       content.status = <h2>You have a {teacherSubDisplayName} subscription<img alt={`${subscriptionType}`} src={`https://assets.quill.org/images/shared/${image}`} /></h2>;
@@ -78,7 +86,7 @@ const SubscriptionStatus = ({ subscriptionType, showPurchaseModal, subscriptionS
     case SCHOOL_PREMIUM:
     case DISTRICT_PREMIUM:
     case SCHOOL_PREMIUM_SCHOLARSHIP:
-      content.pCopy = schoolPremiumCopy(subscriptionType);
+      content.premiumCopy = schoolPremiumCopy(subscriptionType);
       const schoolSubDisplayName = subscriptionType === SCHOOL_PREMIUM_SCHOLARSHIP ? SCHOOL_PREMIUM : subscriptionType
       content.status = <h2>You have a {schoolSubDisplayName} subscription<img alt={`${subscriptionType}`} src={`https://assets.quill.org/images/shared/${image}`} /></h2>;
       content.boxColor = '#9c2bde';
@@ -93,19 +101,29 @@ const SubscriptionStatus = ({ subscriptionType, showPurchaseModal, subscriptionS
       break;
   }
 
-  if (remainingDays < 1) {
+  if (remainingDays < 0) {
     const dateFormat = "MM/DD/YY"
-
     const formattedStartDate = subscriptionStatus && moment(subscriptionStatus.start_date).format(dateFormat)
     const formattedExpirationDate = expiration && expiration.format(dateFormat)
     content.boxColor = '#ff4542';
     content.status = <h2><i className="fas fa-exclamation-triangle" />{`Your ${subscriptionType} subscription has expired`}</h2>;
-    content.pCopy = (
+    content.premiumCopy = (
       <span>
         <strong>Your {subscriptionType} subscription ({formattedStartDate} - {formattedExpirationDate}) has expired and you are back to Quill Basic.</strong>
         {quillBasicCopy}
       </span>);
-    content.buttonOrDate = <button className="renew-subscription q-button bg-orange text-white cta-button" onClick={showPurchaseModal} type="button">Renew Subscription</button>;
+
+    content.buttonOrDate = (
+      <StripeCheckoutSessionButton
+        buttonClassName="renew-subscription q-button bg-orange text-white cta-button"
+        buttonText='Renew Subscription'
+        cancelPath='subscriptions'
+        customerEmail={subscriptionStatus.customer_email}
+        stripePlan={stripeTeacherPlan}
+        userIsEligibleForNewSubscription={true}
+        userIsSignedIn={true}
+      />
+    )
   }
 
   content.buttonOrDate = content.buttonOrDate || (<span className="expiration-date">
@@ -118,11 +136,11 @@ const SubscriptionStatus = ({ subscriptionType, showPurchaseModal, subscriptionS
       <div className="flex-row space-between">
         <div className="box-and-h2 flex-row space-between">
           <div className="box" style={{ backgroundColor: content.boxColor, }} />
-          <h2>{content.status}</h2>
+          {content.status}
         </div>
         {content.buttonOrDate}
       </div>
-      <p>{content.pCopy}</p>
+      <p>{content.premiumCopy}</p>
     </section>
   );
 }
