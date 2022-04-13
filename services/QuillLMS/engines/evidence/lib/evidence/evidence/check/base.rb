@@ -22,7 +22,8 @@ module Evidence
         begin
           check.run
         rescue => e
-          Evidence.error_notifier.report(e)
+          context = {entry: entry, prompt_id: prompt&.id, prompt_text: prompt&.text}
+          Evidence.error_notifier.report(e, context)
 
           @error = e
         end

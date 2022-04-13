@@ -81,10 +81,14 @@ module Evidence
       end
 
       context "spelling test" do
+        let(:entry) { "no spelling error" }
+        let(:entry_with_error) { "speling error" }
+        let(:error_context) { {entry: entry, prompt_id: prompt.id, prompt_text: prompt.text}}
+
         it 'should return correct spelling feedback when endpoint returns 200' do
           stub_const("Evidence::Check::ALL_CHECKS", [Check::Spelling])
-          stub_request(:get, "https://api.cognitive.microsoft.com/bing/v7.0/SpellCheck?mode=proof&text=test%20spelin%20error").to_return(:status => 200, :body => { :flaggedTokens => ([{ :token => "spelin" }]) }.to_json, :headers => ({}))
-          post :create, params: { entry: "test spelin error", :prompt_id => prompt.id, :session_id => 1 }, as: :json
+          stub_request(:get, "https://api.cognitive.microsoft.com/bing/v7.0/SpellCheck?mode=proof&text=#{ERB::Util.url_encode(entry_with_error)}").to_return(:status => 200, :body => { :flaggedTokens => ([{ :token => "spelin" }]) }.to_json, :headers => ({}))
+          post :create, params: { entry: entry_with_error, :prompt_id => prompt.id, :session_id => 1 }, as: :json
 
           parsed_response = JSON.parse(response.body)
           expect(response.status).to(eq(200))
@@ -92,12 +96,12 @@ module Evidence
         end
 
         it 'should return default spelling feedback spelling endpoint has an error' do
-          expect(Evidence.error_notifier).to receive(:report).with(Evidence::Check::Spelling::BingException).once
+          expect(Evidence.error_notifier).to receive(:report).with(Evidence::Check::Spelling::BingException, error_context).once
           expect(Evidence.error_notifier).to receive(:report).with(NoMethodError).once
 
           stub_const("Evidence::Check::ALL_CHECKS", [Check::Spelling])
-          stub_request(:get, "https://api.cognitive.microsoft.com/bing/v7.0/SpellCheck?mode=proof&text=test%20spelling%20error").to_return(:status => 200, :body => { :error => { :message => "There's a problem here" } }.to_json, :headers => ({}))
-          post :create, params: { entry: "test spelling error", :prompt_id => prompt.id, :session_id => 1 }, as: :json
+          stub_request(:get, "https://api.cognitive.microsoft.com/bing/v7.0/SpellCheck?mode=proof&text=#{ERB::Util.url_encode(entry)}").to_return(:status => 200, :body => { :error => { :message => "There's a problem here" } }.to_json, :headers => ({}))
+          post :create, params: { entry: entry, :prompt_id => prompt.id, :session_id => 1 }, as: :json
 
           parsed_response = JSON.parse(response.body)
           expect(response.status).to(eq(200))
