@@ -245,7 +245,6 @@ const ChangeLog = ({ history, match }) => {
         columns={dataTableFields}
         data={filteredRows || []}
         defaultSorted={[{id: 'dateTime', desc: true}]}
-        showPagination={false}
       />)}
     </div>
   );
