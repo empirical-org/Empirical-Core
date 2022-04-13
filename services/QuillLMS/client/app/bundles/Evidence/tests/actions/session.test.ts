@@ -1,16 +1,16 @@
-import dispatch from '../../__mocks__/dispatch'
-import { getFeedback } from '../../actions/session'
-import { Events } from '../../modules/analytics'
+const mockTrackAnalyticsEvent = jest.fn()
+jest.mock('../../actions/analytics', () => ({
+  TrackAnalyticsEvent: mockTrackAnalyticsEvent
+}))
 
 const mockPost = jest.fn()
 jest.mock('request', () => ({
   post: mockPost
 }))
 
-const mockTrackAnalyticsEvent = jest.fn()
-jest.mock('../../actions/analytics', () => ({
-  TrackAnalyticsEvent: mockTrackAnalyticsEvent
-}))
+import dispatch from '../../__mocks__/dispatch'
+import { getFeedback } from '../../actions/session'
+import { Events } from '../../modules/analytics'
 
 describe('Session actions', () => {
   describe('when the getFeedback action is dispatched', () => {
