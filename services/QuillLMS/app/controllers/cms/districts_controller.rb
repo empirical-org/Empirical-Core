@@ -25,38 +25,11 @@ class Cms::DistrictsController < Cms::CmsController
 
   def show
     @school_data = school_query
-    @admins = DistrictAdmin.includes(:user).where(district_id: params[:id].to_i).map do |admin|
-      {
-        name: admin.user.name,
-        email: admin.user.email,
-        district_id: admin.district_id,
-        user_id: admin.user_id
-      }
-    end
+    @admins = DistrictAdmin.includes(:user).where(district_id: params[:id].to_i)
   end
 
   def new_admin
     @district = District.find(params[:id])
-  end
-
-  def add_admin_by_email
-    begin
-      user = User.find_by(email: params[:email_address])
-      district = District.find(params[:id])
-      DistrictAdmin.create!(user_id: user.id, district_id: district.id)
-      flash[:success] = "Yay! It worked! 🎉"
-      redirect_to cms_district_path(params[:id])
-    rescue
-      flash[:error] = "It didn't work! 😭😭😭"
-      redirect_back(fallback_location: fallback_location)
-    end
-  end
-
-  def remove_admin
-    admin = DistrictAdmin.find_by(user_id: params[:user_id], district_id: params[:district_id])
-    flash[:error] = 'Something went wrong.' unless admin.destroy
-    flash[:success] = 'Success! 🎉'
-    redirect_back(fallback_location: cms_district_path)
   end
 
   def edit

@@ -18,6 +18,7 @@
 class DistrictAdmin < ApplicationRecord
   belongs_to :district
   belongs_to :user
+  validates :user_id, uniqueness: { scope: :district_id }
 
   after_create :attach_to_subscribed_schools
   after_destroy :detach_from_schools

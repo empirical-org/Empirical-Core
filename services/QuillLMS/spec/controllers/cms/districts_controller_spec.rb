@@ -102,31 +102,4 @@ describe Cms::DistrictsController do
     end
   end
 
-  describe '#add_admin_by_email' do
-    let!(:another_user) { create(:user) }
-    let!(:district) { create(:district) }
-
-    it 'should create the districts admin and redirect to cms district path' do
-      post :add_admin_by_email, params: { email_address: another_user.email, id: district.id }
-      expect(flash[:success]).to eq "Yay! It worked! 🎉"
-      expect(response).to redirect_to cms_district_path(district.id)
-      expect(DistrictAdmin.last.user).to eq another_user
-      expect(DistrictAdmin.last.district).to eq district
-    end
-  end
-
-  describe '#remove_admin' do
-    let!(:district) { create(:district)}
-    let!(:another_user) { create(:user)}
-    let!(:district_admins) { create(:district_admin, district: district, user: another_user)}
-
-    it 'should remove the admin relationship and redirect to cms district path' do
-      expect(DistrictAdmin.find_by(user: another_user.id, district: district)).to be
-      post :remove_admin, params: { id: district.id, user_id: another_user.id, district_id: district.id }
-      expect(flash[:success]).to eq 'Success! 🎉'
-      expect(response).to redirect_to cms_district_path(district.id)
-      expect(DistrictAdmin.find_by(user: another_user.id, district: district)).not_to be
-      expect(another_user.reload.administered_districts).to eq []
-    end
-  end
 end

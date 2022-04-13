@@ -90,9 +90,9 @@
         <tbody>
           <% @admins.each do |admin| %>
             <tr>
-              <td><%= admin[:name] %></td>
-              <td><%= admin[:email] %></td>
-              <td><%= button_to 'Remove Admin', remove_admin_cms_district_path(user_id: admin[:user_id], district_id: admin[:district_id]), data: { confirm: 'Are you sure?' }, method: :post %></td>
+              <td><%= admin.user.name %></td>
+              <td><%= admin.user.email %></td>
+              <td><%= button_to 'Remove Admin', cms_district_district_admin_path(@district, admin), method: :delete %></td>
             </tr>
           <% end %>
         </tbody>

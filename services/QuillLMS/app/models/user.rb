@@ -90,7 +90,7 @@ class User < ApplicationRecord
   has_many :schools_i_authorize, class_name: 'School', foreign_key: 'authorizer_id'
 
   has_many :schools_admins, class_name: 'SchoolsAdmins'
-  has_many :district_admins, class_name: 'DistrictAdmin'
+  has_many :district_admins, class_name: 'DistrictAdmin', dependent: :destroy
   has_many :administered_schools, through: :schools_admins, source: :school, foreign_key: :user_id
   has_many :administered_districts, through: :district_admins, source: :district, foreign_key: :user_id
   has_many :classrooms_teachers

@@ -22,7 +22,7 @@
 class District < ApplicationRecord
 
   has_many :schools
-  has_many :district_admins, class_name: 'DistrictAdmin'
+  has_many :district_admins, class_name: 'DistrictAdmin', dependent: :destroy
   has_many :admins, through: :district_admins, source: :user
 
   scope :by_name, ->(name) { where('lower(name) LIKE ?', "%#{name.downcase}%") }

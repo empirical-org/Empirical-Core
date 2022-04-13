@@ -604,9 +604,8 @@ EmpiricalGrammar::Application.routes.draw do
       end
       member do
         get :new_admin
-        post :add_admin_by_email
-        post :remove_admin
       end
+      resources :district_admins
     end
 
     resources :announcements, only: [:index, :new, :create, :update, :edit]
