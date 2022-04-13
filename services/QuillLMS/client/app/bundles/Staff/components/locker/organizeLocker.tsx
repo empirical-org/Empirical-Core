@@ -16,7 +16,6 @@ import { createLocker, updateLocker } from '../../utils/evidence/lockerAPIs';
 
 export const OrganizeLocker = ({ history, personalLocker, userId }) => {
   const [errors, setErrors] = React.useState<any>(null);
-  console.log("🚀 ~ file: organizeLocker.tsx ~ line 19 ~ OrganizeLocker ~ errors", errors)
   const [lockerLabel, setLockerLabel] = React.useState<string>(personalLocker && personalLocker.label);
   const [lockerPreferences, setLockerPreferences] = React.useState(null);
   const [savelLockerModalOpen, setSavelLockerModalOpen] = React.useState<boolean>(false);

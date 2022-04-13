@@ -15,6 +15,7 @@ exports[`LockerIndex component should render LockerIndex 1`] = `
         "emoji": "🔆",
         "emojiLabel": "gear",
         "label": undefined,
+        "overrideTitleCase": true,
         "route": "personal-locker",
       }
     }

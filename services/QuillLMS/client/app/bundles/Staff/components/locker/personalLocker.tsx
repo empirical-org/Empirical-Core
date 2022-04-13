@@ -25,9 +25,8 @@ export const PersonalLocker = ({ history, personalLocker }) => {
                 })}
               </div>
             </div>
-            );
-          })
-        }
+          );
+        })}
       </div>
     )
   }

@@ -19,12 +19,12 @@ export const LockerIndex = ({ personalLocker }) => {
       return lockerItems['personal locker'];
     } else {
       const { label } = personalLocker;
-
       return {
         label,
         route: 'personal-locker',
         emoji: '🔆',
-        emojiLabel: 'gear'
+        emojiLabel: 'gear',
+        overrideTitleCase: true
       }
     }
   }
