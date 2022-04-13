@@ -4,7 +4,6 @@ import { lockerItems } from './lockerItems';
 
 import Locker from '../../components/locker/locker';
 import { titleCase, Modal } from '../../../Shared';
-import { InputEvent } from '../../interfaces/evidenceInterfaces';
 
 const TEAM = 'team';
 
@@ -30,57 +29,6 @@ const renderIndividualLockers = (lockerSection: string, lockers: any, lockerType
   });
 }
 
-export const handleSetSectionLabel = ({
-  e,
-  sectionToUpdate,
-  lockerPreferences,
-  setLockerPreferences
-} : {
-  e: InputEvent,
-  sectionToUpdate: number,
-  lockerPreferences: any,
-  setLockerPreferences: (preferences: any) => void
-}) => {
-  const updatedPreferences = {};
-  Object.keys(lockerPreferences).map(sectionKey => {
-    updatedPreferences[sectionKey] = {...lockerPreferences[sectionKey]}
-  })
-  updatedPreferences[sectionToUpdate].sectionLabel = e.target.value;
-  setLockerPreferences(updatedPreferences);
-}
-
-export const handleSetLockerLabel = ({
-  e,
-  sectionToUpdate,
-  lockerToUpdate,
-  lockerPreferences,
-  setLockerPreferences,
-  attribute
-} : {
-  e: InputEvent,
-  sectionToUpdate: number,
-  lockerToUpdate: string,
-  lockerPreferences: any,
-  setLockerPreferences: (preferences: any) => void,
-  attribute: string
-}) => {
-  const updatedPreferences = {};
-  Object.keys(lockerPreferences).map(sectionKey => {
-    updatedPreferences[sectionKey] = {...lockerPreferences[sectionKey]}
-    const section = updatedPreferences[sectionKey];
-    Object.keys(section).map(lockerKey => {
-      const property = updatedPreferences[sectionKey][lockerKey];
-      if(typeof property === 'object') {
-        updatedPreferences[sectionKey][lockerKey] = {...lockerPreferences[sectionKey][lockerKey]};
-      } else {
-        updatedPreferences[sectionKey][lockerKey] = lockerPreferences[sectionKey][lockerKey];
-      }
-    });
-  });
-  updatedPreferences[sectionToUpdate][lockerToUpdate][attribute] = e.target.value;
-  setLockerPreferences(updatedPreferences);
-}
-
 interface RenderConfirmationModalProps {
   confirmationText: string,
   leftClickHandler: (e: any) => void,
@@ -103,7 +51,6 @@ export function renderConfirmationModal({ confirmationText, leftClickHandler, ri
 }
 
 export function validateLockerForm(locker) {
-  console.log("🚀 ~ file: lockerHelperFunctions.tsx ~ line 106 ~ validateLockerForm ~ locker", locker)
   const errors = {};
   const { label, preferences } = locker;
   if(!label) {

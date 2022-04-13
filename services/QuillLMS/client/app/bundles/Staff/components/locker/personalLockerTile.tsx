@@ -81,7 +81,7 @@ export const PersonalLockerTile = ({ handleDeleteLockerForSection, handleSetLock
           {showEmojiSelector && <Picker onEmojiClick={handleEmojiClick} />}
           <button className="interactive-wrapper focus-on-light change-emoji-button" onClick={toggleShowEmojiSelector}>Change emoji</button>
           <div className="buttons-container">
-            <button className="quill-button focus-on-light fun primary outlined" onClick={toggleShowOrganizeLockerModal}>Accept Changes</button>
+            <button className="quill-button focus-on-light fun primary outlined" onClick={toggleShowOrganizeLockerModal}>Accept changes</button>
             <button className="quill-button focus-on-light fun primary outlined" onClick={toggleShowDeleteLockerModal}>Delete locker</button>
           </div>
         </div>

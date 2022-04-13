@@ -18,10 +18,10 @@ export const LockerApp = (props) => {
 
   return(
     <Switch>
-      <Route render={() => <OrganizeLocker personalLocker={personalLockerData && personalLockerData.locker} {...props} />} path='/:personal-locker/organize' />
-      <Route render={() => <PersonalLocker personalLocker={personalLockerData && personalLockerData.locker} {...props} />} path='/:personal-locker' />
-      <Route render={() => <TeamLocker {...props} />} path='/:team' />
-      <Route render={() => <LockerIndex personalLocker={personalLockerData && personalLockerData.locker} {...props} />} path='/' />
+      <Route path='/:personal-locker/organize' render={() => <OrganizeLocker personalLocker={personalLockerData && personalLockerData.locker} {...props} />} />
+      <Route path='/:personal-locker' render={() => <PersonalLocker personalLocker={personalLockerData && personalLockerData.locker} {...props} />} />
+      <Route path='/:team' render={() => <TeamLocker {...props} />} />
+      <Route path='/' render={() => <LockerIndex personalLocker={personalLockerData && personalLockerData.locker} {...props} />} />
     </Switch>
   );
 }

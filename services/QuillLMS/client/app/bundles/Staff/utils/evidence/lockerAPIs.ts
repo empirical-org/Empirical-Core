@@ -15,13 +15,12 @@ export const createLocker = async (userId: string, locker: any) => {
       user_id: userId,
       label: label,
       preferences: preferences
-     })
+    })
   });
   return { error: handleApiError('Failed to update locker, please try again', response) }
 }
 
 export const updateLocker = async (userId: string, locker: any) => {
-console.log("🚀 ~ file: lockerAPIs.ts ~ line 24 ~ updateLocker ~ locker", locker)
   const { label, preferences } = locker;
   const response = await mainApiFetch(`lockers/${userId}`, {
     method: 'PUT',
@@ -29,7 +28,7 @@ console.log("🚀 ~ file: lockerAPIs.ts ~ line 24 ~ updateLocker ~ locker", lock
       user_id: userId,
       label: label,
       preferences: preferences
-     })
+    })
   });
   return { error: handleApiError('Failed to update locker, please try again', response) }
 }

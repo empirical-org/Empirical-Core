@@ -3,8 +3,6 @@ import * as React from 'react';
 import ReturnButton from './returnButton';
 import Locker from './locker';
 
-import { titleCase } from '../../../Shared';
-
 export const PersonalLocker = ({ history, personalLocker }) => {
 
   function navigateToOrganizeForm() {
@@ -41,7 +39,7 @@ export const PersonalLocker = ({ history, personalLocker }) => {
       <div className="buttons-container">
         <ReturnButton backLink="/" buttonLabel="All lockers" history={history} />
         <button className="button-container interactive-wrapper focus-on-light organize-button" onClick={navigateToOrganizeForm}>
-          <p>⚙️</p>
+          <span aria-label="gear" role="img">⚙️</span>
           <p>{label}</p>
         </button>
       </div>

@@ -16,6 +16,7 @@ import { createLocker, updateLocker } from '../../utils/evidence/lockerAPIs';
 
 export const OrganizeLocker = ({ history, personalLocker, userId }) => {
   const [errors, setErrors] = React.useState<any>(null);
+  console.log("🚀 ~ file: organizeLocker.tsx ~ line 19 ~ OrganizeLocker ~ errors", errors)
   const [lockerLabel, setLockerLabel] = React.useState<string>(personalLocker && personalLocker.label);
   const [lockerPreferences, setLockerPreferences] = React.useState(null);
   const [savelLockerModalOpen, setSavelLockerModalOpen] = React.useState<boolean>(false);
@@ -38,7 +39,9 @@ export const OrganizeLocker = ({ history, personalLocker, userId }) => {
   }, [personalLocker]);
 
   function handleSetPersonalLockerLabel(e: InputEvent) {
-    setLockerLabel(e.target.value)
+    const { target } = e;
+    const { value } = target;
+    setLockerLabel(value)
   }
 
   function handleSetSectionLabel(e: InputEvent, sectionKey: string) {
@@ -75,16 +78,24 @@ export const OrganizeLocker = ({ history, personalLocker, userId }) => {
       setErrors(null);
       if(personalLocker && personalLocker.user_id) {
         updateLocker(userId, locker).then((response) => {
-            if(response && !response.error) {
-              queryClient.refetchQueries('personal-locker');
-              history.push('/personal-locker')
-            }
+          if(response && !response.error) {
+            queryClient.refetchQueries('personal-locker');
+            history.push('/personal-locker')
+          } else {
+            const { error } = response;
+            errors['submissionError'] = error
+            setErrors(errors);;
+          }
         });
       } else {
         createLocker(userId, locker).then((response) => {
           if(response && !response.error) {
             queryClient.refetchQueries('personal-locker');
             history.push('/personal-locker')
+          } else {
+            const { error } = response;
+            errors['submissionError'] = error
+            setErrors(errors);
           }
         });
       }
@@ -233,8 +244,8 @@ export const OrganizeLocker = ({ history, personalLocker, userId }) => {
           <div className="lockers-container">
             {Object.keys(lockers).map(lockerKey => (
               <PersonalLockerTile
-                handleSetLockerProperty={handleSetLockerProperty}
                 handleDeleteLockerForSection={handleDeleteLocker}
+                handleSetLockerProperty={handleSetLockerProperty}
                 key={lockerKey}
                 locker={lockers[lockerKey]}
                 lockerKey={lockerKey}
@@ -254,17 +265,18 @@ export const OrganizeLocker = ({ history, personalLocker, userId }) => {
       <div className="buttons-container">
         <ReturnButton backLink="/personal-locker" buttonLabel="Personal locker" history={history} />
         <button className="button-container interactive-wrapper focus-on-light organize-button" onClick={toggleSaveLockerPreferencesModal}>
-          <p>💾</p>
+          <span aria-label="floppy disk" role="img">💾</span>
           <p>Save changes</p>
         </button>
         <button className="button-container interactive-wrapper focus-on-light organize-button" onClick={toggleRevertLockerPreferencesModal}>
-          <p>♻</p>
+          <span aria-label="recycle sign" role="img">♻</span>
           <p>Revert changes</p>
         </button>
       </div>
       <div className="header-container">
         <h4>Organize your locker</h4>
         <i>Note: this is not a live updating form. In order to persist all personal locker updates, please click the save changes button. Also, be sure to add "https://" to the beginning of locker URLs.</i>
+        {errors && errors['submissionError'] && <p className="error-text">{errors['submissionError']}</p>}
       </div>
       <div className="organize-locker-form-contents">
         <Input

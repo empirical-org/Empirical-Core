@@ -20,7 +20,7 @@ const queryClient = new QueryClient({
 const LockerAppClient = (props) => (
   <QueryClientProvider client={queryClient} contextSharing={true}>
     <HashRouter>
-      <Route render={() => <LockerApp {...props} />} path="/" />
+      <Route path="/" render={() => <LockerApp {...props} />} />
     </HashRouter>
   </QueryClientProvider>
 );

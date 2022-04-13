@@ -16,9 +16,12 @@ exports[`PersonalLocker component should render PersonalLocker 1`] = `
       className="button-container interactive-wrapper focus-on-light organize-button"
       onClick={[Function]}
     >
-      <p>
+      <span
+        aria-label="gear"
+        role="img"
+      >
         ⚙️
-      </p>
+      </span>
       <p>
         Create locker
       </p>
