@@ -7,12 +7,27 @@ exports[`LockerIndex component should render LockerIndex 1`] = `
   <h3
     className="subheader"
   >
+    Personal Locker
+  </h3>
+  <Locker
+    lockerContents={
+      Object {
+        "emoji": "🔆",
+        "emojiLabel": "gear",
+        "label": undefined,
+        "route": "personal-locker",
+      }
+    }
+  />
+  <h3
+    className="subheader"
+  >
     Team lockers
   </h3>
   <div
     className="team-lockers-container"
   >
-    <TeamLocker
+    <Locker
       key="curriculum"
       lockerContents={
         Object {
@@ -44,7 +59,7 @@ exports[`LockerIndex component should render LockerIndex 1`] = `
         }
       }
     />
-    <TeamLocker
+    <Locker
       key="partnerships"
       lockerContents={
         Object {
@@ -82,7 +97,7 @@ exports[`LockerIndex component should render LockerIndex 1`] = `
         }
       }
     />
-    <TeamLocker
+    <Locker
       key="product"
       lockerContents={
         Object {
@@ -102,7 +117,7 @@ exports[`LockerIndex component should render LockerIndex 1`] = `
         }
       }
     />
-    <TeamLocker
+    <Locker
       key="support"
       lockerContents={
         Object {
@@ -140,7 +155,7 @@ exports[`LockerIndex component should render LockerIndex 1`] = `
         }
       }
     />
-    <TeamLocker
+    <Locker
       key="index"
       lockerContents={
         Object {

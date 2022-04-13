@@ -8,6 +8,8 @@
   .locker-section-container {
     .personal-lockers-container {
       display: flex;
+      max-width: 900px;
+      flex-wrap: wrap;
     }
   }
   .buttons-container {

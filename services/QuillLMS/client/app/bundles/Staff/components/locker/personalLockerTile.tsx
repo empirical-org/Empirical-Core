@@ -7,7 +7,7 @@ import { InputEvent } from '../../interfaces/evidenceInterfaces';
 import { renderConfirmationModal } from '../../helpers/locker/lockerHelperFunctions';
 import { DELETE, CANCEL, DELETE_LOCKER_CONFIRMATION } from '../../helpers/locker/lockerConstants';
 
-export const LockerTile = ({ handleDeleteLockerForSection, handleSetLockerProperty, locker, lockerKey, sectionKey }) => {
+export const PersonalLockerTile = ({ handleDeleteLockerForSection, handleSetLockerProperty, locker, lockerKey, sectionKey }) => {
   const [showOrganizeLockerModal, setShowOrganizeLockerModal] = React.useState<boolean>(false);
   const [label, setLabel] = React.useState<any>(locker.label);
   const [url, setUrl] = React.useState<any>(locker.href);
@@ -106,4 +106,4 @@ export const LockerTile = ({ handleDeleteLockerForSection, handleSetLockerProper
   )
 }
 
-export default LockerTile;
+export default PersonalLockerTile;

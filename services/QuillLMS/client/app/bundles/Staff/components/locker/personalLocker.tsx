@@ -13,7 +13,6 @@ export const PersonalLocker = ({ history, personalLocker }) => {
 
   function renderLockersForPersonalLocker() {
     const { label, preferences } = personalLocker
-    // const parsedPreferences = JSON.parse(preferences);
     return(
       <div className="locker-contents">
         <h3>{label}</h3>
@@ -35,13 +34,15 @@ export const PersonalLocker = ({ history, personalLocker }) => {
     )
   }
 
+  const label = personalLocker && personalLocker.user_id ? 'Organize locker' : 'Create locker';
+
   return(
     <div className="locker-content personal-locker-container">
       <div className="buttons-container">
         <ReturnButton backLink="/" buttonLabel="All lockers" history={history} />
         <button className="button-container interactive-wrapper focus-on-light organize-button" onClick={navigateToOrganizeForm}>
           <p>⚙️</p>
-          <p>Organize Locker</p>
+          <p>{label}</p>
         </button>
       </div>
       {personalLocker && renderLockersForPersonalLocker()}

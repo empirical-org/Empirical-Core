@@ -4,7 +4,7 @@ import _ from 'lodash';
 import { useQueryClient } from 'react-query';
 
 import ReturnButton from './returnButton';
-import LockerTile from './lockerTile';
+import PersonalLockerTile from './personalLockerTile';
 
 import { DropdownInput, Input, Modal } from '../../../Shared';
 import { DropdownObjectInterface, InputEvent } from '../../interfaces/evidenceInterfaces';
@@ -33,7 +33,6 @@ export const OrganizeLocker = ({ history, personalLocker, userId }) => {
       setLockerLabel(personalLocker.label);
     }
     if(personalLocker && personalLocker.preferences && !lockerPreferences) {
-      // const parsedPreferences = JSON.parse(personalLocker.preferences);
       setLockerPreferences(personalLocker.preferences);
     }
   }, [personalLocker]);
@@ -233,7 +232,7 @@ export const OrganizeLocker = ({ history, personalLocker, userId }) => {
           </div>
           <div className="lockers-container">
             {Object.keys(lockers).map(lockerKey => (
-              <LockerTile
+              <PersonalLockerTile
                 handleSetLockerProperty={handleSetLockerProperty}
                 handleDeleteLockerForSection={handleDeleteLocker}
                 key={lockerKey}
@@ -272,7 +271,7 @@ export const OrganizeLocker = ({ history, personalLocker, userId }) => {
           className="locker-label-input"
           error={errors && errors['label']}
           handleChange={handleSetPersonalLockerLabel}
-          label="Locker label"
+          label="Locker name"
           value={lockerLabel}
         />
         {lockerPreferences && renderPersonalLockerSections()}
