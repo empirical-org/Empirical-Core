@@ -4,9 +4,13 @@ module StripeIntegration
   module Webhooks
     class IgnoredEventHandler < EventHandler
       IGNORED_EVENTS = [
+        'balance.available',
         'charge.succeeded',
+        'checkout.session.completed',
         'customer.created',
         'customer.source.created',
+        'customer.source.updated',
+        'customer.subscription.created',
         'customer.subscription.updated',
         'customer.updated',
         'invoice.updated',
@@ -19,7 +23,10 @@ module StripeIntegration
         'invoiceitem.updated',
         'payment_intent.created',
         'payment_intent.succeeded',
-        'payment_method.attached'
+        'payment_method.attached',
+        'payment_method.automatically_updated',
+        'payout.created',
+        'payout.paid'
       ]
 
       def self.handles?(event_type)
@@ -32,6 +39,5 @@ module StripeIntegration
     end
   end
 end
-
 
 

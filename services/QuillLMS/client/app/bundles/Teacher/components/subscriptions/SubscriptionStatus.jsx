@@ -2,7 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import pluralize from 'pluralize';
 
-import StripeCheckoutSessionButton from '../shared/StripeCheckoutSessionButton';
+import StripeSubscriptionCheckoutSessionButton from '../shared/StripeSubscriptionCheckoutSessionButton';
 
 import {
   TEACHER_PREMIUM_TRIAL,
@@ -114,7 +114,7 @@ const SubscriptionStatus = ({
       </span>);
 
     content.buttonOrDate = (
-      <StripeCheckoutSessionButton
+      <StripeSubscriptionCheckoutSessionButton
         buttonClassName="renew-subscription q-button bg-orange text-white cta-button"
         buttonText='Renew Subscription'
         cancelPath='subscriptions'

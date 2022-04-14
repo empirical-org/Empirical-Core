@@ -6,7 +6,7 @@ import PremiumPricingMinisRow from '../components/premium/premium_pricing_minis_
 import PremiumFeaturesTable from '../components/premium/premium_features_table.tsx'
 import SubscriberLogos from '../components/premium/subscriber_logos.jsx';
 import SchoolPremium from '../components/premium/school_premium.jsx';
-import StripeCheckoutSessionButton from '../components/shared/StripeCheckoutSessionButton';
+import StripeSubscriptionCheckoutSessionButton from '../components/shared/StripeSubscriptionCheckoutSessionButton';
 
 const subscribers = [
   { name: 'Achievement first school logo', source: '/images/subscribers/1_achievement.png', id: 'achievement-first'},
@@ -42,7 +42,7 @@ export const PremiumPricingGuide = ({
 
   const buyNowButton = () => {
     return (
-      <StripeCheckoutSessionButton
+      <StripeSubscriptionCheckoutSessionButton
         buttonClassName="quill-button contained medium primary focus-on-light"
         buttonId="purchase-btn"
         buttonText='Buy Now'
@@ -57,7 +57,7 @@ export const PremiumPricingGuide = ({
 
   const upgradeToPremiumNowButton = () => {
     return (
-      <StripeCheckoutSessionButton
+      <StripeSubscriptionCheckoutSessionButton
         buttonClassName='btn-orange'
         buttonText='Upgrade to Premium Now'
         cancelPath='premium'
