@@ -124,32 +124,32 @@ export const ReactTable = ({
           ))}
         </thead>
         <tbody {...getTableBodyProps()} className="rt-tbody">
-            {page.map((row, i) => {
-              prepareRow(row);
-              return (
-                <div className="rt-tr-group">
-                  <tr {...row.getRowProps()} className="rt-tr">
-                    {row.cells.map(cell => {
-                      return (
-                        <td
-                          {...cell.getCellProps({
-                            style: {
-                              minWidth: cell.column.minWidth,
-                              width: cell.column.width,
-                              maxWidth: cell.column.maxWidth
-                            },
-                          })}
-                          className="rt-td"
-                        >
-                          {cell.render('Cell')}
-                        </td>
-                      );
-                    })}
-                  </tr>
-                  {row.isExpanded && SubComponent ? SubComponent(row) : null}
-                </div>
-              );
-            })}
+          {page.map((row, i) => {
+            prepareRow(row);
+            return (
+              <div className="rt-tr-group">
+                <tr {...row.getRowProps()} className="rt-tr">
+                  {row.cells.map(cell => {
+                    return (
+                      <td
+                        {...cell.getCellProps({
+                          style: {
+                            minWidth: cell.column.minWidth,
+                            width: cell.column.width,
+                            maxWidth: cell.column.maxWidth
+                          },
+                        })}
+                        className="rt-td"
+                      >
+                        {cell.render('Cell')}
+                      </td>
+                    );
+                  })}
+                </tr>
+                {row.isExpanded && SubComponent ? SubComponent(row) : null}
+              </div>
+            );
+          })}
         </tbody>
       </table>
       {showPaginationBottom && (
