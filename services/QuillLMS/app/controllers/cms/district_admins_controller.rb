@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 class Cms::DistrictAdminsController < Cms::CmsController
-  before_action :get_district, only: [:create]
+  before_action :set_district, only: [:create]
   before_action :set_district_admin, only: [:destroy]
 
   def create
-    @district_admin = @district.district_admins.build({user_id: User.find_by(email: district_admin_params)&.id})
+    @district_admin = @district.district_admins.build(user_id: User.find_by(email: district_admin_params)&.id)
 
     begin
       @district_admin.save!
@@ -23,17 +23,15 @@ class Cms::DistrictAdminsController < Cms::CmsController
     redirect_back(fallback_location: cms_district_path)
   end
 
-  private
+  def set_district
+    @district = District.find(params[:district_id])
+  end
 
-    def get_district
-      @district = District.find(params[:district_id])
-    end
+  def set_district_admin
+    @district_admin = DistrictAdmin.find(params[:id])
+  end
 
-    def set_district_admin
-      @district_admin = DistrictAdmin.find(params[:id])
-    end
-
-    def district_admin_params
-      params.require(:email)
-    end
+  def district_admin_params
+    params.require(:email)
+  end
 end

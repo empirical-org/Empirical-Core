@@ -4,10 +4,12 @@ require 'rails_helper'
 
 describe Cms::DistrictAdminsController do
   let(:user) { create(:staff) }
-
-  before { allow(controller).to receive(:current_user) { user } }
   let!(:district) { create(:district) }
   let!(:admin) { create(:user) }
+
+  before do
+    allow(controller).to receive(:current_user) { user }
+  end
 
   describe '#create' do
     it 'creates a new district admin' do
@@ -26,11 +28,14 @@ describe Cms::DistrictAdminsController do
     end
   end
 
-  describe '#create' do
-    it 'creates a new district admin' do
-      post :create, params: { district_id: district.id, email: admin.email}
+  describe '#destroy' do
+    it 'destroys the district admin' do
+      create(:district_admin, district: district, user: admin)
+      district_admin = DistrictAdmin.find_by_user_id(admin.id)
 
-      expect(DistrictAdmin.find_by_user_id(admin.id)).to be
+      delete :destroy, params: { district_id: district.id, id: district_admin.id}
+
+      expect(DistrictAdmin.find_by_user_id(admin.id)).not_to be
     end
   end
 end

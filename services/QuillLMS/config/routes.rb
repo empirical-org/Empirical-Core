@@ -605,7 +605,7 @@ EmpiricalGrammar::Application.routes.draw do
       member do
         get :new_admin
       end
-      resources :district_admins
+      resources :district_admins, only: [:create, :destroy]
     end
 
     resources :announcements, only: [:index, :new, :create, :update, :edit]
