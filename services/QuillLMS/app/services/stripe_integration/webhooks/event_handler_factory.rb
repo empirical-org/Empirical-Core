@@ -3,10 +3,12 @@
 module StripeIntegration
   module Webhooks
     class EventHandlerFactory
-      EVENT_HANDLERS = [
+      SINGLE_EVENT_HANDLERS = [
         InvoicePaidEventHandler,
-        IgnoredEventHandler
+        SetupIntentSucceededEventHandler
       ]
+
+      EVENT_HANDLERS = SINGLE_EVENT_HANDLERS + [IgnoredEventHandler]
 
       def self.for(stripe_webhook_event)
         EVENT_HANDLERS

@@ -343,13 +343,24 @@ class Subscription < ApplicationRecord
   end
 
   def subscription_status
+
+
     attributes.merge(
       'account_type' => account_type || plan&.name,
       'customer_email' => purchaser&.email,
       'expired' => expired?,
-      'last_four' => StripeIntegration::Subscription.new(self).last_four,
+      'last_four' => last_four,
       'purchaser_name' => purchaser&.name,
-      'stripe_customer_id' => purchaser&.stripe_customer_id
+      'stripe_customer_id' => purchaser&.stripe_customer_id,
+      'stripe_subscription_id' => stripe_subscription_id
     )
+  end
+
+  private def last_four
+    StripeIntegration::Subscription.new(self).last_four
+  end
+
+  private def stripe_subscription_id
+    StripeIntegration::Subscription.new(self).stripe_subscription_id
   end
 end

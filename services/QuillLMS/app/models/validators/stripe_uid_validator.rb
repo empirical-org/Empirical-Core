@@ -7,8 +7,10 @@ class StripeUidValidator < ActiveModel::EachValidator
     EVT = 'evt',
     IN = 'in',
     PLAN = 'plan',
+    PM = 'pm',
     PRICE = 'price',
     PROD = 'prod',
+    SETI = 'seti',
     SUB = 'sub'
   ].freeze
 
@@ -18,8 +20,10 @@ class StripeUidValidator < ActiveModel::EachValidator
     EVT => 'Event',
     IN => 'Invoice',
     PLAN => 'Plan',
+    PM => 'Payment Method',
     PRICE => 'Price',
     PROD => 'Product',
+    SETI => 'Setup Intent',
     SUB => 'Subscription',
   }.freeze
 

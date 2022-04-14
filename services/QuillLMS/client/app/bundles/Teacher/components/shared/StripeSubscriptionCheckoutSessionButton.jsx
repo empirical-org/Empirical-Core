@@ -1,7 +1,7 @@
 import React from 'react';
 import { requestPost } from '../../../../modules/request';
 
-export const StripeCheckoutSessionButton = ({
+export const StripeSubscriptionCheckoutSessionButton = ({
   buttonClassName,
   buttonId,
   buttonText,
@@ -24,7 +24,7 @@ export const StripeCheckoutSessionButton = ({
         and we will renew it automatically when your subscription ends.`
       )
     } else {
-      const path = '/stripe_integration/checkout_sessions'
+      const path = '/stripe_integration/subscription_checkout_sessions'
       const data = {
         cancel_path: cancelPath,
         customer_email: customerEmail,
@@ -47,4 +47,4 @@ export const StripeCheckoutSessionButton = ({
   )
 }
 
-export default StripeCheckoutSessionButton
+export default StripeSubscriptionCheckoutSessionButton

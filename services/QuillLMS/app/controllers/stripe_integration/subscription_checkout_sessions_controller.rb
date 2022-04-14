@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
 module StripeIntegration
-  class CheckoutSessionsController < ApplicationController
+  class SubscriptionCheckoutSessionsController < ApplicationController
     SUBSCRIPTION_MODE = 'subscription'
 
     def create
-      checkout_session = Stripe::Checkout::Session.create(checkout_session_args)
-      render json: { redirect_url: checkout_session.url }
+      subscription_checkout_session = Stripe::Checkout::Session.create(subscription_checkout_session_args)
+      render json: { redirect_url: subscription_checkout_session.url }
     end
 
-    private def checkout_session_args
+    private def subscription_checkout_session_args
       {
         success_url: success_url,
         cancel_url: cancel_url,
@@ -46,7 +46,7 @@ module StripeIntegration
     end
 
     private def success_url
-      "#{ENV['DEFAULT_URL']}/subscriptions?checkout_session_id={CHECKOUT_SESSION_ID}"
+      "#{subscriptions_url}?checkout_session_id={CHECKOUT_SESSION_ID}"
     end
   end
 end

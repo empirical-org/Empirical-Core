@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe StripeIntegration::CheckoutSessionsController, type: :controller do
+RSpec.describe StripeIntegration::SubscriptionCheckoutSessionsController, type: :controller do
   include_context 'Stripe Price'
   include_context 'Stripe Customer'
 
