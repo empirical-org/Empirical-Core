@@ -153,7 +153,6 @@ RSpec.describe FeedbackHistory, type: :model do
         feedback_type: 'grammar',
         optimal: false,
         highlight: [{text: 'some', type: 'entry', category: 'grammar', character: 0}],
-        response_id: 'abc123',
         hint: 'a hint'
       }
     }
@@ -167,7 +166,6 @@ RSpec.describe FeedbackHistory, type: :model do
         feedback_type: 'grammar',
         optimal: false,
         highlight: [],
-        response_id: '',
       }
     }
 
