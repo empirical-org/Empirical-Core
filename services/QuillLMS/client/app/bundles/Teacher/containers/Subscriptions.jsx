@@ -87,23 +87,18 @@ export default class Subscriptions extends React.Component {
   }
 
   initializePusherForStripePurchaseConfirmation() {
-    if (process.env.RAILS_ENV === 'development') { Pusher.logToConsole = true }
-
     const { stripeInvoiceId } = this.props
     const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
     const channelName = String(stripeInvoiceId)
     const channel = pusher.subscribe(channelName);
 
     channel.bind('stripe-subscription-created', () => {
-      debugger
       this.retrieveStripePurchasedConfirmation()
       pusher.unsubscribe(channelName)
     })
   }
 
   initializePusherForStripeSubscriptionPaymentMethodUpdating() {
-    if (process.env.RAILS_ENV === 'development') { Pusher.logToConsole = true }
-
     const { subscriptionStatus } = this.props
     const { stripe_subscription_id } = subscriptionStatus
 
