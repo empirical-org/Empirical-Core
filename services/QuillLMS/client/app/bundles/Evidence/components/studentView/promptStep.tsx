@@ -105,8 +105,6 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     return submittedResponses.map(r => r.entry).concat(text)
   }
 
-  stripHtml = (html: string) => html.replace(/<p>|<\/p>|<u>|<\/u>|<b>|<\/b>|<br>|<br\/>/g, '').replace(/&nbsp;/g, ' ')
-
   formattedPrompt = (submittedResponses?: Array<string>) => {
     if (submittedResponses && submittedResponses.length) {
       const lastSubmission = submittedResponses[submittedResponses.length - 1]
