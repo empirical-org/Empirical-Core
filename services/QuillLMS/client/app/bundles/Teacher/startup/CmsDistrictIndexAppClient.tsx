@@ -160,32 +160,35 @@ export default class CmsDistrictIndex extends React.Component {
 
     if (loading) {
       return <LoadingIndicator />
-    } else if (data && data.length) {
-      const sort = query.sort ? query.sort : 'number_teachers'
-      const sortDescending = query.sort_direction ? query.sort_direction === 'desc' : true
-      return (
-        <div>
-          <ReactTable
-            className='progress-report activity-scores-table'
-            columns={columns}
-            data={data}
-            defaultPageSize={100}
-            defaultSorted={[{id: sort, desc: sortDescending}]}
-            minRows={1}
-            onSortedChange={this.setSort}
-            showPageSizeOptions={false}
-            showPagination={false}
-            showPaginationBottom={false}
-            showPaginationTop={false}
-          />
-          <div className='cms-pagination-container'>
-            {this.renderPageSelector()}
-          </div>
-        </div>
-      )
-    } else {
+    }
+
+    if (!data || data.length === 0) {
       return <p>No records found for your query.</p>
     }
+
+    const sort = query.sort ? query.sort : 'number_teachers'
+    const sortDescending = query.sort_direction ? query.sort_direction === 'desc' : true
+    return (
+      <div>
+        <ReactTable
+          className='progress-report activity-scores-table'
+          columns={columns}
+          data={data}
+          defaultPageSize={100}
+          defaultSorted={[{id: sort, desc: sortDescending}]}
+          minRows={1}
+          onSortedChange={this.setSort}
+          showPageSizeOptions={false}
+          showPagination={false}
+          showPaginationBottom={false}
+          showPaginationTop={false}
+        />
+        <div className='cms-pagination-container'>
+          {this.renderPageSelector()}
+        </div>
+      </div>
+    )
+
   }
 
   render() {

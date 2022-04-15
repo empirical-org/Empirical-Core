@@ -19,8 +19,6 @@ describe Cms::DistrictsController do
   describe '#index' do
     let(:district_hash) { {district_zip: "1234", district_name: 'Test District', district_city: 'Test City'} }
 
-    before { allow(RawSqlRunner).to receive(:execute) { [district_hash] } }
-
     it 'should allows staff memeber to view and search through district' do
       get :index
       expect(assigns(:district_search_query)).to eq({})
@@ -32,8 +30,6 @@ describe Cms::DistrictsController do
   describe '#search' do
     let!(:district) { create(:district, name: "Test District") }
     let(:district_hash) { {id: district.id, name: district.name, nces_id: district.nces_id, city: district.city, state: district.state, zipcode: district.zipcode, phone: district.phone, total_students: district.total_students, total_schools: district.total_schools } }
-
-    before { allow(RawSqlRunner).to receive(:execute).and_return([district_hash]) }
 
     it 'should search for the district and give the results' do
       get :search, params: {:district_name => 'test'}

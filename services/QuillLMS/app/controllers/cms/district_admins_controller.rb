@@ -10,7 +10,7 @@ class Cms::DistrictAdminsController < Cms::CmsController
     begin
       @district_admin.save!
       flash[:success] = "Yay! It worked! 🎉"
-    rescue
+    raise ActiveRecord::RecordInvalid
       flash[:error] = "It didn't work! 😭😭😭"
     end
 
@@ -18,8 +18,12 @@ class Cms::DistrictAdminsController < Cms::CmsController
   end
 
   def destroy
-    flash[:error] = 'Something went wrong.' unless @district_admin.destroy
-    flash[:success] = 'Success! 🎉'
+    if @district_admin.destroy
+      flash[:success] = 'Success! 🎉'
+    else
+      flash[:error] = 'Something went wrong.'
+    end
+
     redirect_back(fallback_location: cms_district_path)
   end
 

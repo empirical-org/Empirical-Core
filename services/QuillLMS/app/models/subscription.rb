@@ -153,7 +153,7 @@ class Subscription < ApplicationRecord
   end
 
   def self.expired_today_or_previously_and_not_recurring
-    Subscription.where('expiration <= ? AND recurring IS FALSE AND de_activated_date IS NULL', Date.today)
+    Subscription.where(recurring: false, de_activated_date: nil).where('expiration <= ?', Date.today)
   end
 
   def self.school_or_user_has_ever_paid?(school_or_user)

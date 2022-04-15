@@ -32,7 +32,7 @@ class District < ApplicationRecord
   scope :by_nces_id, ->(nces_id) { where(:nces_id => nces_id) }
 
   def total_invoice
-    schools.sum { |s| s&.subscription&.payment_amount || 0 } / 100
+    schools.sum { |s| s&.subscription&.payment_amount || 0 } / 100.0
   end
 
 end

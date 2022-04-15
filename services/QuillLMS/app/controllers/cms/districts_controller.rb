@@ -19,7 +19,7 @@ class Cms::DistrictsController < Cms::CmsController
     district_search_query = district_query_params
     district_search_query_results = district_query(district_query_params)
     district_search_query_results ||= []
-    number_of_pages = (district_search_query_results.count / DISTRICTS_PER_PAGE).ceil
+    number_of_pages = (district_search_query_results.count / DISTRICTS_PER_PAGE.to_f).ceil
     render json: {numberOfPages: number_of_pages, districtSearchQueryResults: district_search_query_results}
   end
 
@@ -74,7 +74,6 @@ class Cms::DistrictsController < Cms::CmsController
     end
 
     result = add_where_conditions(result).select(:id, :name, :city, :state, :zipcode, :phone, :total_students, :total_schools, :nces_id)
-    # then write `add_where_conditions` function that just does `result = result.where(...)` for each condition you already have logic for
   end
 
   private def add_where_conditions(districts)
@@ -110,7 +109,7 @@ class Cms::DistrictsController < Cms::CmsController
       .joins(:schools_users)
       .joins(:schools_admins)
       .joins(school_subscription: :subscription)
-      .where('subscriptions.expiration > ? AND subscriptions.start_date <= ?', Date.today, Date.today)
+      .where('subscriptions.expiration > ? AND subscriptions.start_date <= ?', Date.current, Date.current)
       .group('schools.name, schools.id, subscriptions.account_type')
   end
 
