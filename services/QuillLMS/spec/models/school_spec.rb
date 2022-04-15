@@ -36,11 +36,13 @@
 #  authorizer_id         :integer
 #  clever_id             :string
 #  coordinator_id        :integer
+#  district_id           :bigint
 #  lea_id                :string
 #  nces_id               :string
 #
 # Indexes
 #
+#  index_schools_on_district_id     (district_id)
 #  index_schools_on_mail_zipcode    (mail_zipcode)
 #  index_schools_on_name            (name)
 #  index_schools_on_nces_id         (nces_id)
@@ -52,6 +54,8 @@
 require 'rails_helper'
 
 describe School, type: :model do
+  it { should belong_to(:district) }
+
   let!(:bk_school) { create :school, name: "Brooklyn Charter School", zipcode: '11206'}
   let!(:queens_school) { create :school, name: "Queens Charter School", zipcode: '11385'}
   let!(:bk_teacher) { create(:teacher, school: bk_school) }
@@ -158,6 +162,36 @@ describe School, type: :model do
     it 'fetches 07-01 of last year if the date is before 07-01' do
       time = Date.parse('2020-06-01')
       expect(School.school_year_start(time)).to eq(Date.parse('2019-07-01').beginning_of_day)
+    end
+  end
+
+  describe('district admin behavior') do
+    let(:school) { create(:school) }
+    let(:district) { create(:district) }
+    let(:admin) { create(:user)}
+
+    it 'creates new school admin record if a school is attached to a new district' do
+      create(:district_admin, user: admin, district: district)
+      expect(SchoolsAdmins.find_by(school: school, user: admin)).not_to be
+      school.update(district_id: district.id)
+      expect(SchoolsAdmins.find_by(school: school, user: admin)).to be
+    end
+
+    it 'does not create new school admin record if a school is attached to a new district and the district admin is already admin for the school' do
+      create(:schools_admins, user: admin, school: school)
+      expect(SchoolsAdmins.where(school: school, user: admin).count).to eq 1
+
+      school.update(district_id: district.id)
+      expect(SchoolsAdmins.where(school: school, user: admin).count).to eq 1
+    end
+
+    it 'destroys school admin record if a school is detached from a district' do
+      create(:district_admin, user: admin, district: district)
+      school.update(district_id: district.id)
+      expect(SchoolsAdmins.find_by(school: school, user: admin)).to be
+
+      school.update(district_id: nil)
+      expect(SchoolsAdmins.find_by(school: school, user: admin)).not_to be
     end
   end
 end

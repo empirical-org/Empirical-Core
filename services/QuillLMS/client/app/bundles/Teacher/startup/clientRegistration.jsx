@@ -29,6 +29,7 @@ import AnnouncementsApp from './AnnouncementsAppClient'
 import CmsActivitiesAppClient from './CmsActivitiesAppClient';
 import CmsUserIndexApp from './CmsUserIndexAppClient'
 import CmsSchoolIndexApp from './CmsSchoolIndexAppClient'
+import CmsDistrictIndexApp from './CmsDistrictIndexAppClient'
 import ForgotPasswordApp from './ForgotPasswordAppClient'
 import ResetPasswordApp from './ResetPasswordAppClient'
 import TeacherClassroomsApp from './TeacherClassroomsAppClient'
@@ -74,6 +75,7 @@ ReactOnRails.register({ TeacherGuideApp,
   CmsActivitiesAppClient,
   CmsUserIndexApp,
   CmsSchoolIndexApp,
+  CmsDistrictIndexApp,
   ResetPasswordApp,
   ForgotPasswordApp,
   TeacherClassroomsApp,

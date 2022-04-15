@@ -36,11 +36,13 @@
 #  authorizer_id         :integer
 #  clever_id             :string
 #  coordinator_id        :integer
+#  district_id           :bigint
 #  lea_id                :string
 #  nces_id               :string
 #
 # Indexes
 #
+#  index_schools_on_district_id     (district_id)
 #  index_schools_on_mail_zipcode    (mail_zipcode)
 #  index_schools_on_name            (name)
 #  index_schools_on_nces_id         (nces_id)
