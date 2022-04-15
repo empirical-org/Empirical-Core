@@ -10,7 +10,7 @@ class Cms::DistrictAdminsController < Cms::CmsController
     begin
       @district_admin.save!
       flash[:success] = "Yay! It worked! 🎉"
-    raise ActiveRecord::RecordInvalid
+    rescue ActiveRecord::RecordInvalid
       flash[:error] = "It didn't work! 😭😭😭"
     end
 
