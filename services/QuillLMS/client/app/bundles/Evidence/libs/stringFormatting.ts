@@ -1,4 +1,5 @@
 export const highlightSpelling = (str: string, wordsToFormat: string | string[]) => {
+  console.log("highlighSpelling: ", str)
   let wordArray = [].concat(wordsToFormat)
   let newString = str
   wordArray.forEach((word) => {
@@ -12,6 +13,7 @@ export const highlightSpelling = (str: string, wordsToFormat: string | string[])
 }
 
 export const highlightGrammar = (str: string, highlightArray=[]) => {
+  console.log("highlightGrammar: ", str)
   if (highlightArray.length < 1) { return str }
 
   highlightArray.sort(descendingOffsetComparator)
