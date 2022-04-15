@@ -33,7 +33,7 @@ describe Cms::DistrictsController do
 
     it 'should search for the district and give the results' do
       get :search, params: {:district_name => 'test'}
-      expect(response.body).to eq({numberOfPages: 0, districtSearchQueryResults: [district_hash]}.to_json)
+      expect(response.body).to eq({numberOfPages: 1, districtSearchQueryResults: [district_hash]}.to_json)
     end
   end
 
