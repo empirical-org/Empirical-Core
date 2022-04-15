@@ -1,5 +1,6 @@
 export const USERS = 'users';
 export const SCHOOLS = 'schools';
+export const DISTRICTS = 'districts';
 export const UNARCHIVE_UNITS = 'unarchive units';
 export const RESTORE_CLASSROOM_UNITS = 'restore classroom units';
 export const RESTORE_UNIT_ACTIVITIES = 'restore unit activities';
