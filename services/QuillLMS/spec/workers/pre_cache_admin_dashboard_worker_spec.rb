@@ -8,6 +8,7 @@ describe PreCacheAdminDashboardsWorker, type: :worker do
   let!(:current_admin1) { create(:user, last_sign_in: Time.now) }
   let!(:current_admin2) { create(:user, last_sign_in: Time.now) }
   let!(:not_admin) { create(:user, last_sign_in: Time.now) }
+  let(:mock_worker) {double(:perform_async)}
 
   before do
     create(:schools_admins, user: old_admin)
@@ -16,8 +17,6 @@ describe PreCacheAdminDashboardsWorker, type: :worker do
 
     allow(FindAdminUsersWorker).to receive(:set).with(queue: SidekiqQueue::DEFAULT).and_return(mock_worker)
   end
-
-  let(:mock_worker) {double(:perform_async)}
 
   it 'enqueues FindAdminUsersWorker for all active admins' do
     expect(mock_worker).to receive(:perform_async).with(current_admin1.id).once
