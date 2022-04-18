@@ -23,7 +23,7 @@ exports[`PersonalLocker component should render PersonalLocker 1`] = `
         ⚙️
       </span>
       <p>
-        Create locker
+        Add lockers
       </p>
     </button>
   </div>

@@ -273,7 +273,7 @@ export const OrganizeLocker = ({ history, personalLocker, userId }) => {
         </button>
       </div>
       <div className="header-container">
-        <h4>Organize your locker</h4>
+        <h4>Organize your lockers</h4>
         <i>Note: this is not a live updating form. In order to persist all personal locker updates, please click the save changes button. Also, be sure to add "https://" to the beginning of locker URLs.</i>
         {errors && errors['submissionError'] && <p className="error-text">{errors['submissionError']}</p>}
       </div>
@@ -282,7 +282,7 @@ export const OrganizeLocker = ({ history, personalLocker, userId }) => {
           className="locker-label-input"
           error={errors && errors['label']}
           handleChange={handleSetPersonalLockerLabel}
-          label="Locker name"
+          label="Collection label"
           value={lockerLabel}
         />
         {lockerPreferences && renderPersonalLockerSections()}

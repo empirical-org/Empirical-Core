@@ -31,7 +31,8 @@ export const PersonalLocker = ({ history, personalLocker }) => {
     )
   }
 
-  const label = personalLocker && personalLocker.user_id ? 'Organize locker' : 'Create locker';
+  // const label = 'Add lockers';
+  const label = personalLocker && personalLocker.user_id ? 'Organize lockers' : 'Add lockers';
 
   return(
     <div className="locker-content personal-locker-container">
