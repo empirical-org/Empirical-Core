@@ -70,7 +70,6 @@ const TopicColumn = ({ createNewTopic, levelNumber, getFilteredOptionsForLevel, 
         data={options}
         defaultFilterMethod={(filter, row) => row._original.name ? row._original.name.toLowerCase().includes(filter.value.toLowerCase()) : ''}
         filterable
-        showPagination={false}
       />
       {newTopicField}
     </div>

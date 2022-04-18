@@ -244,6 +244,7 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       id: "expander",
       resizable: false,
       className: "text-center",
+      maxWidth: 60,
       Cell: ({ row }) => {
         if (row.isGrouped) { return <span /> }
         return (

@@ -130,7 +130,6 @@ const StandardsTable = ({ searchValue, standardCategories, standardLevels, recor
         columns={columns(selectRecord, filteredRecords)}
         data={filteredRecords}
         defaultPageSize={filteredRecords.length}
-        showPagination={false}
       />
       <div className="record-box-container">
         {recordBox}

@@ -82,7 +82,6 @@ const ContentPartnersTable = ({ visible, contentPartners, saveContentPartnerChan
         className="records-table"
         columns={columns(selectRecord, visible)}
         data={filteredRecords}
-        showPagination={false}
       />
       <div className="record-box-container">
         {recordBox}

@@ -69,8 +69,6 @@ const TopicLevelTable: React.SFC<TopicLevelTableProps> = ({ topics, selectTopic,
       className="topics-table"
       columns={columns(levelNumber, selectTopic, showExtraColumns, data)}
       data={data}
-      defaultPageSize={data.length}
-      showPagination={false}
     />
   );
 };

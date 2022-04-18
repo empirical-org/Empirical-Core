@@ -332,8 +332,6 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
         data={dataToUse}
         defaultSorted={[{id: 'name', desc: false}]}
         filterable
-        showPageSizeOptions={false}
-        showPagination={false}
         SubComponent={(row) => {
           return (
             <PromptHealth
