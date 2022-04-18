@@ -104,7 +104,6 @@ export class LessonForm extends React.Component<LessonFormProps, LessonFormState
   }
 
   handleSearchChange = (value: string) => {
-  console.log("🚀 ~ file: lessonForm.tsx ~ line 107 ~ LessonForm ~ value", value)
     this.handleQuestionChange(value);
   }
 

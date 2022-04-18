@@ -212,7 +212,6 @@ class Questions extends React.Component {
         }
         return { name, value: opt.key || 'key', };
       });
-      console.log("🚀 ~ file: questions.jsx ~ line 215 ~ Questions ~ formatted ~ formatted", formatted)
       const searchBox = (
         <SelectSearch
           filterOptions={fuzzySearch}
