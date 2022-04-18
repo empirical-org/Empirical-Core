@@ -14,13 +14,12 @@ describe PreCacheAdminDashboardsWorker, type: :worker do
     create(:schools_admins, user: current_admin1)
     create(:schools_admins, user: current_admin2)
 
-    allow(FindAdminUsersWorker).to receive(:set).and_return(mock_worker)
+    allow(FindAdminUsersWorker).to receive(:set).with(queue: SidekiqQueue::DEFAULT).and_return(mock_worker)
   end
 
   let(:mock_worker) {double(:perform_async)}
 
   it 'enqueues FindAdminUsersWorker for all active admins' do
-
     expect(mock_worker).to receive(:perform_async).with(current_admin1.id).once
     expect(mock_worker).to receive(:perform_async).with(current_admin2.id).once
     worker.perform
