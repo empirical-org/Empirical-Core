@@ -12,6 +12,7 @@
 @import '~react-select/dist/react-select.css';
 @import '~font-awesome/css/font-awesome.css';
 @import '../../../../../app/assets/stylesheets/shared/teacher-preview-menu.scss';
+@import "../../../../node_modules/react-select-search/style.css";
 
 body {
   color: #3D3D3D;
@@ -539,4 +540,9 @@ textarea.submission {
 .sider-container {
   background-color: white;
   width: 360px;
+}
+
+.select-search__option {
+  height: min-content;
+  padding: 8px 16px 8px 16px;
 }

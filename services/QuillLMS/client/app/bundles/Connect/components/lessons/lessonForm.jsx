@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import QuestionSelector from 'react-select-search';
+import SelectSearch from 'react-select-search';
+import { fuzzySearch } from 'react-select-search';
 import { EditorState, ContentState } from 'draft-js'
 import ChooseModelContainer from './chooseModelContainer.jsx'
 import _ from 'underscore';
@@ -44,8 +45,8 @@ class LessonForm extends React.Component {
     this.setState({ landingPageHtml: e, });
   };
 
-  handleSearchChange = e => {
-    this.handleChange(e.value);
+  handleSearchChange = value => {
+    this.handleChange(value);
   };
 
   handleSelect = e => {
@@ -115,11 +116,13 @@ class LessonForm extends React.Component {
         formatted = options.map((opt) => { return { name: opt.title, value: opt.key } })
       }
       return (
-        <QuestionSelector
+        <SelectSearch
+          filterOptions={fuzzySearch}
           key={questionType}
           onChange={this.handleSearchChange}
           options={formatted}
           placeholder="Search for a question"
+          search={true}
         />
       );
     }
