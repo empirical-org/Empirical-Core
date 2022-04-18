@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useTable, useSortBy, usePagination, useFilters, useExpanded, } from "react-table";
+import { useTable, useSortBy, usePagination, useFilters, useExpanded, useGroupBy, } from "react-table";
 
 import ReactTablePagination from './reactTablePagination'
 
@@ -56,6 +56,7 @@ export const ReactTable = ({
   manualSortBy,
   manualPagination,
   manualPageCount,
+  defaultGroupBy,
   SubComponent,
 }) => {
   const defaultColumn = {
@@ -83,9 +84,10 @@ export const ReactTable = ({
       columns,
       autoResetSortBy: false,
       pageCount: manualPageCount,
-      initialState: { pageIndex: currentPage || 0, pageSize: defaultPageSize || data.length, sortBy: defaultSorted || [], }
+      initialState: { pageIndex: currentPage || 0, pageSize: defaultPageSize || data.length || 0, sortBy: defaultSorted || [], groupBy: defaultGroupBy || [], }
     },
     useFilters,
+    useGroupBy,
     useSortBy,
     useExpanded,
     usePagination,
@@ -141,12 +143,12 @@ export const ReactTable = ({
                         })}
                         className="rt-td"
                       >
-                        {cell.render('Cell')}
+                        {cell.isAggregated ? cell.render("Aggregated") : cell.render('Cell')}
                       </td>
                     );
                   })}
                 </tr>
-                {row.isExpanded && SubComponent ? SubComponent(row) : null}
+                {row.isExpanded && row.original && SubComponent ? SubComponent(row) : null}
               </div>
             );
           })}
