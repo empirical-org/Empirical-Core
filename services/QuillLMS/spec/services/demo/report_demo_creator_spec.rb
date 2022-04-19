@@ -88,8 +88,8 @@ RSpec.describe Demo::ReportDemoCreator do
     units = Demo::ReportDemoCreator.create_units(teacher)
 
     Demo::ReportDemoCreator.create_classroom_units(classroom, units)
-    # TODO: change this to dynamically calculate
-    expect {Demo::ReportDemoCreator.create_activity_sessions([student], classroom)}.to change {ActivitySession.count}.by(28)
+    total_act_sesh_count = Demo::ReportDemoCreator::ACTIVITY_PACKS_TEMPLATES.map {|ap| ap[:activity_sessions][0].keys.count}.sum
+    expect {Demo::ReportDemoCreator.create_activity_sessions([student], classroom)}.to change {ActivitySession.count}.by(total_act_sesh_count)
     act_sesh = ActivitySession.last
 
     last_template = Demo::ReportDemoCreator::ACTIVITY_PACKS_TEMPLATES.last
