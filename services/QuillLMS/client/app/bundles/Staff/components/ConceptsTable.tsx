@@ -83,8 +83,6 @@ const ConceptsTable: React.SFC<ConceptsTableProps> = ({concepts, visible, select
       className="concepts-table"
       columns={columns(selectConcept)}
       data={data}
-      defaultPageSize={data.length}
-      showPagination={false}
     />
   );
 };

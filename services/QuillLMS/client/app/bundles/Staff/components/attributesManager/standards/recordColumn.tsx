@@ -38,7 +38,6 @@ const RecordColumn: React.SFC<RecordColumnProps> = ({ records, selectRecord, rec
       columns={columns(selectRecord, recordType, records)}
       data={records}
       defaultPageSize={records.length}
-      showPagination={false}
     />
   );
 };

@@ -110,8 +110,6 @@ const ChangeLogsTable: React.SFC<ChangeLogsTableProps> = ({changeLogs}) => {
       className="concepts-table"
       columns={columns()}
       data={data}
-      defaultPageSize={data.length}
-      showPagination={false}
     />
   );
 };

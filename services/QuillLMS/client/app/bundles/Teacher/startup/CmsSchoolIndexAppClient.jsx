@@ -192,10 +192,6 @@ export default class CmsSchoolIndex extends React.Component {
             manualSortBy={true}
             minRows={1}
             onSortedChange={this.setSort}
-            showPageSizeOptions={false}
-            showPagination={false}
-            showPaginationBottom={false}
-            showPaginationTop={false}
           />
           <div className='cms-pagination-container'>
             {this.renderPageSelector()}
