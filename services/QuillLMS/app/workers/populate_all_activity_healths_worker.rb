@@ -16,7 +16,7 @@ class PopulateAllActivityHealthsWorker
       .not_archived
       .where(activity_classification_id: relevant_ids)
 
-    # spread these
+    # spread these, to cut down on DB resource contention.
     activities.each.with_index do |activity, index|
       PopulateActivityHealthWorker.perform_in(index * INTERVAL, activity.id)
     end
