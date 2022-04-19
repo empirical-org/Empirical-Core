@@ -160,7 +160,7 @@ export default class CmsDistrictIndex extends React.Component {
       return <p>No records found for your query.</p>
     }
 
-    const sort = query.sort ? query.sort : 'number_teachers'
+    const sort = query.sort ? query.sort : 'name'
     const sortDescending = query.sort_direction ? query.sort_direction === 'desc' : true
     return (
       <div>
