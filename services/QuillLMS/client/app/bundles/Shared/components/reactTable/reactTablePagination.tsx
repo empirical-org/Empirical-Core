@@ -132,9 +132,7 @@ export default class ReactTablePagination extends React.Component {
 
   render () {
     const {
-      // Computed
       pages,
-      // Props
       page,
       showPageSizeOptions,
       pageSizeOptions,
