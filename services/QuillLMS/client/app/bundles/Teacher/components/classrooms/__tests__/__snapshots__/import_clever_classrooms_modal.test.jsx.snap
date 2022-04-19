@@ -206,16 +206,20 @@ exports[`ImportCleverClassroomsModal component #handleClickImportClasses should 
             <div
               className="data-table-headers"
             >
-              <button
-                className="quill-checkbox selected data-table-header"
-                onClick={[Function]}
-                type="button"
+              <th
+                className="data-table-header"
               >
-                <img
-                  alt="check"
-                  src="https://assets.quill.org/images/icons/indeterminate.svg"
-                />
-              </button>
+                <button
+                  className="quill-checkbox selected"
+                  onClick={[Function]}
+                  type="button"
+                >
+                  <img
+                    alt="check"
+                    src="https://assets.quill.org/images/icons/indeterminate.svg"
+                  />
+                </button>
+              </th>
               <th
                 className="data-table-header undefined"
                 style={
@@ -1873,12 +1877,16 @@ exports[`ImportCleverClassroomsModal component initial load should render 1`] = 
             <div
               className="data-table-headers"
             >
-              <button
-                aria-label="Unchecked checkbox"
-                className="quill-checkbox unselected data-table-header"
-                onClick={[Function]}
-                type="button"
-              />
+              <th
+                className="data-table-header"
+              >
+                <button
+                  aria-label="Unchecked checkbox"
+                  className="quill-checkbox unselected"
+                  onClick={[Function]}
+                  type="button"
+                />
+              </th>
               <th
                 className="data-table-header undefined"
                 style={

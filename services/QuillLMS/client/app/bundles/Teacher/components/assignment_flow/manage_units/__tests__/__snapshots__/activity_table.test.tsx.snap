@@ -1547,11 +1547,11 @@ exports[`ActivityTable component renders if the current user created the unit 1`
       <div
         className="data-table-headers"
       >
-        <span
+        <th
           className="data-table-header reorder-header"
         >
           Order
-        </span>
+        </th>
         <th
           className="data-table-header undefined"
           style={
@@ -1602,7 +1602,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
             }
           }
         />
-        <span
+        <th
           className="data-table-header"
         />
       </div>

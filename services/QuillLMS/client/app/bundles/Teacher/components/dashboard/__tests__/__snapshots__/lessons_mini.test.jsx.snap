@@ -659,11 +659,11 @@ exports[`LessonsMini component not on mobile should render when there are lesson
           >
             Class
           </th>
-          <span
+          <th
             className="data-table-header actions-header"
           >
             More
-          </span>
+          </th>
           <th
             className="data-table-header last-header"
             style={
