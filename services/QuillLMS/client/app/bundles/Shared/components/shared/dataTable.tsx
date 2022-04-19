@@ -241,28 +241,24 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     if (header.isActions) { return this.renderActionsHeader(header) }
 
     const { sortAscending, sortAttribute, } = this.state
-    let sortArrow, onClick
-    let tabIndex = -1
     let className = `${dataTableHeaderClassName} ${header.headerClassName}`
     let style: React.CSSProperties = { width: `${header.width}`, minWidth: `${header.width}`, textAlign: `${this.attributeAlignment(header.attribute)}` as CSS.TextAlignProperty }
+    let headerContent = header.name
     if (header.isSortable) {
       const sortDirection = sortAscending ? ascending : descending
-      onClick = () => this.changeSort(header.sortAttribute || header.attribute)
-      sortArrow = [header.attribute, header.sortAttribute].includes(sortAttribute) ? <img alt="arrow" className={`sort-arrow ${sortDirection}`} src={arrowSrc} /> : null
+      const onClick = () => this.changeSort(header.sortAttribute || header.attribute)
+      const sortArrow = [header.attribute, header.sortAttribute].includes(sortAttribute) ? <img alt="arrow" className={`sort-arrow ${sortDirection}`} src={arrowSrc} /> : null
       className+= ' sortable'
-      tabIndex = 0
+      headerContent = <button className="interactive-wrapper focus-on-light" onClick={onClick} type="button">{header.name}{sortArrow}</button>
     }
+
     return (
-      <button
+      <th
         className={className}
-        onClick={onClick}
         style={style as any}
-        tabIndex={tabIndex}
-        type="button"
       >
-        {header.name}
-        {sortArrow}
-      </button>
+        {headerContent}
+      </th>
     )
   }
 

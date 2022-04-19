@@ -1388,7 +1388,7 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
         <div
           className="data-table-headers"
         >
-          <button
+          <th
             className="data-table-header undefined"
             style={
               Object {
@@ -1397,12 +1397,10 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
                 "width": "500px",
               }
             }
-            tabIndex={-1}
-            type="button"
           >
             Link
-          </button>
-          <button
+          </th>
+          <th
             className="data-table-header undefined"
             style={
               Object {
@@ -1411,12 +1409,10 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
                 "width": "200px",
               }
             }
-            tabIndex={-1}
-            type="button"
           >
             Expiration Date
-          </button>
-          <button
+          </th>
+          <th
             className="data-table-header undefined"
             style={
               Object {
@@ -1425,10 +1421,8 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
                 "width": "100px",
               }
             }
-            tabIndex={-1}
-            type="button"
           />
-          <button
+          <th
             className="data-table-header undefined"
             style={
               Object {
@@ -1437,10 +1431,8 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
                 "width": "100px",
               }
             }
-            tabIndex={-1}
-            type="button"
           />
-          <button
+          <th
             className="data-table-header undefined"
             style={
               Object {
@@ -1449,8 +1441,6 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
                 "width": "100px",
               }
             }
-            tabIndex={-1}
-            type="button"
           />
         </div>
         <div

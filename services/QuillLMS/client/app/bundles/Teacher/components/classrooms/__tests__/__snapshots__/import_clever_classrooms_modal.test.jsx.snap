@@ -216,7 +216,7 @@ exports[`ImportCleverClassroomsModal component #handleClickImportClasses should 
                   src="https://assets.quill.org/images/icons/indeterminate.svg"
                 />
               </button>
-              <button
+              <th
                 className="data-table-header undefined"
                 style={
                   Object {
@@ -225,12 +225,10 @@ exports[`ImportCleverClassroomsModal component #handleClickImportClasses should 
                     "width": "510px",
                   }
                 }
-                tabIndex={-1}
-                type="button"
               >
                 Class
-              </button>
-              <button
+              </th>
+              <th
                 className="data-table-header undefined"
                 style={
                   Object {
@@ -239,12 +237,10 @@ exports[`ImportCleverClassroomsModal component #handleClickImportClasses should 
                     "width": "110px",
                   }
                 }
-                tabIndex={-1}
-                type="button"
               >
                 Grade
-              </button>
-              <button
+              </th>
+              <th
                 className="data-table-header undefined"
                 style={
                   Object {
@@ -253,11 +249,9 @@ exports[`ImportCleverClassroomsModal component #handleClickImportClasses should 
                     "width": "51px",
                   }
                 }
-                tabIndex={-1}
-                type="button"
               >
                 Students
-              </button>
+              </th>
             </div>
             <div
               className="data-table-body"
@@ -1885,7 +1879,7 @@ exports[`ImportCleverClassroomsModal component initial load should render 1`] = 
                 onClick={[Function]}
                 type="button"
               />
-              <button
+              <th
                 className="data-table-header undefined"
                 style={
                   Object {
@@ -1894,12 +1888,10 @@ exports[`ImportCleverClassroomsModal component initial load should render 1`] = 
                     "width": "510px",
                   }
                 }
-                tabIndex={-1}
-                type="button"
               >
                 Class
-              </button>
-              <button
+              </th>
+              <th
                 className="data-table-header undefined"
                 style={
                   Object {
@@ -1908,12 +1900,10 @@ exports[`ImportCleverClassroomsModal component initial load should render 1`] = 
                     "width": "110px",
                   }
                 }
-                tabIndex={-1}
-                type="button"
               >
                 Grade
-              </button>
-              <button
+              </th>
+              <th
                 className="data-table-header undefined"
                 style={
                   Object {
@@ -1922,11 +1912,9 @@ exports[`ImportCleverClassroomsModal component initial load should render 1`] = 
                     "width": "51px",
                   }
                 }
-                tabIndex={-1}
-                type="button"
               >
                 Students
-              </button>
+              </th>
             </div>
             <div
               className="data-table-body"
