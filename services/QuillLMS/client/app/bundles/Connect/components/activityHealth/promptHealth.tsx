@@ -88,8 +88,6 @@ class PromptHealth extends React.Component<PromptHealthProps, PromptHealthState>
         defaultPageSize={dataResults.length}
         loading={false}
         pages={1}
-        showPageSizeOptions={false}
-        showPagination={false}
       />)
     } else {
       tableOrEmptyMessage = NO_DATA_FOUND_MESSAGE

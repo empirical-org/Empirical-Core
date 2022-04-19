@@ -158,7 +158,6 @@ const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
         columns={dataTableFields}
         data={formattedRows || []}
         defaultPageSize={formattedRows.length}
-        showPagination={false}
       />)}
     </div>
   );

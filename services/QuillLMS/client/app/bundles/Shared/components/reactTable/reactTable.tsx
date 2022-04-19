@@ -1,5 +1,7 @@
 import * as React from "react";
-import { useTable, useSortBy, usePagination, useFilters, useExpanded, } from "react-table";
+import { useTable, useSortBy, usePagination, useFilters, useExpanded, useGroupBy, } from "react-table";
+
+import ReactTablePagination from './reactTablePagination'
 
 function columnClassName(isSorted, isSortedDesc) {
   const defaultClassName = 'rt-th -cursor-pointer'
@@ -45,14 +47,16 @@ export const ReactTable = ({
   data,
   className,
   filterable,
-  showPagination,
+  defaultPageSize,
+  currentPage,
   defaultSorted,
-  minRows,
   onSortedChange,
-  showPageSizeOptions,
+  onPageChange,
   showPaginationBottom,
-  showPaginationTop,
   manualSortBy,
+  manualPagination,
+  manualPageCount,
+  defaultGroupBy,
   SubComponent,
 }) => {
   const defaultColumn = {
@@ -63,29 +67,27 @@ export const ReactTable = ({
     getTableProps,
     getTableBodyProps,
     headerGroups,
-    rows,
     prepareRow,
     page,
     canPreviousPage,
     canNextPage,
-    pageOptions,
     pageCount,
     gotoPage,
-    nextPage,
-    previousPage,
-    setPageSize,
-    state: { pageIndex, pageSize, sortBy, filters, }
+    state: { pageIndex, sortBy, }
   } = useTable(
     {
       data,
       defaultColumn,
       manualSortBy,
+      manualPagination,
       SubComponent,
       columns,
       autoResetSortBy: false,
-      initialState: { pageIndex: 0, sortBy: defaultSorted || [], }
+      pageCount: manualPageCount,
+      initialState: { pageIndex: currentPage || 0, pageSize: defaultPageSize || data.length || 0, sortBy: defaultSorted || [], groupBy: defaultGroupBy || [], }
     },
     useFilters,
+    useGroupBy,
     useSortBy,
     useExpanded,
     usePagination,
@@ -96,6 +98,12 @@ export const ReactTable = ({
       onSortedChange(sortBy);
     }
   }, [sortBy]);
+
+  React.useEffect(() => {
+    if (manualPagination && onPageChange) {
+      onPageChange(pageIndex);
+    }
+  }, [pageIndex]);
 
   return (
     <div className={`${className} ReactTable`}>
@@ -118,10 +126,10 @@ export const ReactTable = ({
           ))}
         </thead>
         <tbody {...getTableBodyProps()} className="rt-tbody">
-          {rows.map((row, i) => {
+          {page.map((row, i) => {
             prepareRow(row);
             return (
-              <React.Fragment>
+              <div className="rt-tr-group">
                 <tr {...row.getRowProps()} className="rt-tr">
                   {row.cells.map(cell => {
                     return (
@@ -135,17 +143,26 @@ export const ReactTable = ({
                         })}
                         className="rt-td"
                       >
-                        {cell.render('Cell')}
+                        {cell.isAggregated ? cell.render("Aggregated") : cell.render('Cell')}
                       </td>
                     );
                   })}
                 </tr>
-                {row.isExpanded && SubComponent ? SubComponent(row) : null}
-              </React.Fragment>
+                {row.isExpanded && row.original && SubComponent ? SubComponent(row) : null}
+              </div>
             );
           })}
         </tbody>
       </table>
+      {showPaginationBottom && (
+        <ReactTablePagination
+          canNext={canNextPage}
+          canPrevious={canPreviousPage}
+          onPageChange={gotoPage}
+          page={pageIndex}
+          pages={pageCount}
+        />
+      )}
     </div>
   );
 };

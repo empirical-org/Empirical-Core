@@ -116,7 +116,6 @@ exports[`ActivityStats component should render ActivityStats 1`] = `
       ]
     }
     defaultPageSize={3}
-    showPagination={false}
   />
 </div>
 `;
