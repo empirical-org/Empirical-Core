@@ -10,9 +10,11 @@ class PopulateAllActivityHealthsWorker
     # execute this command to start primary key indices back from 1
     ActiveRecord::Base.connection.execute("TRUNCATE activity_healths RESTART IDENTITY CASCADE")
 
+    relevant_ids = ActivityClassification.connect_or_grammar.pluck(:id)
+
     activities = Activity
       .not_archived
-      .where(activity_classification: ActivityClassification.connect_or_grammar)
+      .where(activity_classification_id: relevant_ids)
 
     # spread these
     activities.each.with_index do |activity, index|
