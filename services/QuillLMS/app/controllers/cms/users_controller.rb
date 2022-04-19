@@ -177,8 +177,9 @@ class Cms::UsersController < Cms::CmsController
           users.name AS name,
           users.email AS email,
           users.role AS role,
+          users.last_sign_in AS last_sign_in,
           subscriptions.account_type AS subscription,
-          TO_CHAR(users.last_sign_in, 'Mon DD, YYYY') AS last_sign_in,
+          TO_CHAR(users.last_sign_in, 'Mon DD, YYYY') AS last_sign_in_text,
           schools.name AS school,
           schools.id AS school_id,
           users.id AS id
@@ -278,9 +279,9 @@ class Cms::UsersController < Cms::CmsController
     sort = user_query_params[:sort]
     sort_direction = user_query_params[:sort_direction]
     if sort && sort_direction && sort != 'undefined' && sort_direction != 'undefined'
-      "ORDER BY #{sort} #{sort_direction}"
+      "ORDER BY #{sort} #{sort_direction} NULLS LAST"
     else
-      "ORDER BY last_sign_in DESC"
+      "ORDER BY last_sign_in DESC NULLS LAST"
     end
   end
 

@@ -154,11 +154,11 @@ describe('LessonForm component', () => {
     container.instance().handleQuestionChange('-KdChHgbE9212Jgzkoci');
     expect(container.state().selectedQuestions.length).toEqual(3);
   });
-  it('handleSearchChange calls handleQuestionChange, passing e.value as an argument', () => {
+  it('handleSearchChange calls handleQuestionChange, passing value as an argument', () => {
     const handleQuestionChange = jest.spyOn(container.instance(), 'handleQuestionChange');
-    const e = { value: 'saideira'};
-    container.instance().handleSearchChange(e);
-    expect(handleQuestionChange).toHaveBeenCalledWith(e.value);
+    const value = 'saideira';
+    container.instance().handleSearchChange(value);
+    expect(handleQuestionChange).toHaveBeenCalledWith(value);
   });
   it('sortCallback sets selectedQuestion piece of state to reordered array of questions', () => {
     const sortInfo = [
@@ -215,15 +215,15 @@ describe('LessonForm component', () => {
     expect(getQuestionKey(1)).toEqual(keys[1])
     expect(getQuestionKey(2)).toEqual(keys[2])
   });
-  it('renderSearchBox renders a QuestionSelector component with question options', () => {
+  it('renderSearchBox renders a SelectSearch component with question options', () => {
     const names = ['How much cheese is too much cheese?', 'What is the best way to cultivate mass?', 'Do jobs grow on jobbies?'];
     const handleSearchChange = container.instance().handleSearchChange;
-    const questionSelector = container.find('#all-questions');
-    const getQuestionName = i => questionSelector.props().options[i].name;
+    const selectSearch = container.find('#all-questions');
+    const getQuestionName = i => selectSearch.props().options[i].name;
     container.instance().renderSearchBox();
     expect(container).toMatchSnapshot()
-    expect(questionSelector.length).toEqual(1);
-    expect(questionSelector.props().onChange).toEqual(handleSearchChange);
+    expect(selectSearch.length).toEqual(1);
+    expect(selectSearch.props().onChange).toEqual(handleSearchChange);
     expect(getQuestionName(0)).toEqual(names[0]);
     expect(getQuestionName(1)).toEqual(names[1]);
     expect(getQuestionName(2)).toEqual(names[2]);

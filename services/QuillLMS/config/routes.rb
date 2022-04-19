@@ -70,8 +70,8 @@ EmpiricalGrammar::Application.routes.draw do
 
   # for Stripe
   namespace :stripe_integration do
-    post '/checkout_sessions', to: 'checkout_sessions#create'
-    post '/billing_portal_sessions', to: 'billing_portal_sessions#create'
+    post '/subscription_checkout_sessions', to: 'subscription_checkout_sessions#create'
+    post '/subscription_payment_methods', to: 'subscription_payment_methods#create'
     post '/webhooks', to: 'webhooks#create'
   end
 
@@ -481,6 +481,7 @@ EmpiricalGrammar::Application.routes.draw do
       resources :active_activity_sessions, only: [:show, :update]
       resources :activity_survey_responses, only: [:create]
       resources :student_problem_reports, only: [:create]
+      resources :lockers, only: [:show, :create, :update]
 
       mount Evidence::Engine => "/evidence", as: :evidence
     end
@@ -605,6 +606,17 @@ EmpiricalGrammar::Application.routes.draw do
         post :add_existing_user_by_email
         post :unlink
       end
+    end
+
+    resources :districts do
+      collection do
+        post :search
+        get :search, to: 'districts#index'
+      end
+      member do
+        get :new_admin
+      end
+      resources :district_admins, only: [:create, :destroy]
     end
 
     resources :announcements, only: [:index, :new, :create, :update, :edit]

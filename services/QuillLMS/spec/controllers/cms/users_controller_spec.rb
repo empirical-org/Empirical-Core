@@ -80,8 +80,9 @@ describe Cms::UsersController do
               "name"=> teacher.name,
               "email"=> teacher.email,
               "role"=> teacher.role,
-              "subscription"=> nil,
               "last_sign_in"=> nil,
+              "subscription"=> nil,
+              "last_sign_in_text" => nil,
               "school"=> nil,
               "school_id"=> nil,
               "id"=> teacher.id
@@ -90,8 +91,9 @@ describe Cms::UsersController do
               "name" => student.name,
               "email" => student.email,
               "role" => student.role,
-              "subscription" => nil,
               "last_sign_in" => nil,
+              "subscription" => nil,
+              "last_sign_in_text" => nil,
               "school" => nil,
               "school_id" => nil,
               "id" => student.id

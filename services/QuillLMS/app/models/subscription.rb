@@ -166,6 +166,10 @@ class Subscription < ApplicationRecord
     Subscription.where('expiration <= ? AND recurring IS TRUE AND de_activated_date IS NULL', Date.today)
   end
 
+  def self.expired_today_or_previously_and_not_recurring
+    Subscription.where(recurring: false, de_activated_date: nil).where('expiration <= ?', Date.today)
+  end
+
   def self.school_or_user_has_ever_paid?(school_or_user)
     # TODO: 'subscription type spot'
     paid_accounts = school_or_user.subscriptions.pluck(:account_type) & OFFICIAL_PAID_TYPES
@@ -234,6 +238,12 @@ class Subscription < ApplicationRecord
     end
   end
 
+  def detach_district_admins
+    schools.each do |school|
+      school.detach_from_existing_district_admins(school.district)
+    end
+  end
+
   def self.update_todays_expired_recurring_subscriptions
     expired_today_or_previously_and_recurring.each do |subscription|
       # TODO: Deactivate subscriptions with multiple users
@@ -244,6 +254,12 @@ class Subscription < ApplicationRecord
       else
         subscription.update(de_activated_date: Date.today)
       end
+    end
+  end
+
+  def self.update_todays_expired_school_subscriptions
+    expired_today_or_previously_and_not_recurring.where(account_type: OFFICIAL_SCHOOL_TYPES).each do |subscription|
+      subscription.detach_district_admins
     end
   end
 
@@ -343,13 +359,24 @@ class Subscription < ApplicationRecord
   end
 
   def subscription_status
+
+
     attributes.merge(
       'account_type' => account_type || plan&.name,
       'customer_email' => purchaser&.email,
       'expired' => expired?,
-      'last_four' => StripeIntegration::Subscription.new(self).last_four,
+      'last_four' => last_four,
       'purchaser_name' => purchaser&.name,
-      'stripe_customer_id' => purchaser&.stripe_customer_id
+      'stripe_customer_id' => purchaser&.stripe_customer_id,
+      'stripe_subscription_id' => stripe_subscription_id
     )
+  end
+
+  private def last_four
+    StripeIntegration::Subscription.new(self).last_four
+  end
+
+  private def stripe_subscription_id
+    StripeIntegration::Subscription.new(self).stripe_subscription_id
   end
 end

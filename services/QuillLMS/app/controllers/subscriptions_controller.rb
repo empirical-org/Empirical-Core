@@ -45,7 +45,7 @@ class SubscriptionsController < ApplicationController
   end
 
   def retrieve_stripe_subscription
-    @subscription = current_user&.subscriptions&.find_by(stripe_invoice_id: params[:stripe_invoice_id])
+    @subscription = current_user&.subscriptions&.find_by(stripe_invoice_id: params[:stripe_invoice_id])&.subscription_status
 
     render json: @subscription || { quill_retrieval_processing: true }
   end
@@ -64,6 +64,7 @@ class SubscriptionsController < ApplicationController
     @subscriptions = current_user.subscriptions
     @premium_credits = current_user.credit_transactions.map {|x| x.serializable_hash(methods: :action)}.compact
     @stripe_invoice_id = StripeIntegration::StripeInvoiceIdFinder.run(checkout_session_id)
+    @stripe_payment_method_updated = params[:stripe_payment_method_updated] == 'true'
     @subscription_status = current_user.subscription_status
     @school_subscription_types = Subscription::OFFICIAL_SCHOOL_TYPES
     @trial_types = Subscription::TRIAL_TYPES

@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ReturnButton component should render ReturnButton 1`] = `
+<button
+  className="button-container interactive-wrapper focus-on-light"
+  onClick={[Function]}
+>
+  <img
+    alt="left pointing arrow"
+    src="undefined/images/icons/arrow-back.svg"
+  />
+  <p>
+    test label
+  </p>
+</button>
+`;
