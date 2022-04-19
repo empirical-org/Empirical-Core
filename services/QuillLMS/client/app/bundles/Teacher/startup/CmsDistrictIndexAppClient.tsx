@@ -1,8 +1,8 @@
 import React from 'react';
-import ReactTable from 'react-table-6';
 
 import getAuthToken from '../components/modules/get_auth_token';
 import LoadingIndicator from '../components/shared/loading_indicator'
+import { ReactTable, } from '../../Shared/index'
 
 export default class CmsDistrictIndex extends React.Component {
   constructor(props) {
@@ -22,56 +22,48 @@ export default class CmsDistrictIndex extends React.Component {
         Header: 'Name',
         accessor: 'name',
         resizable: false,
-        minWidth: 190,
-        Cell: row => row.original.name
+        minWidth: 190
       }, {
         Header: "City",
         accessor: 'city',
         minWidth: 140,
-        resizable: false,
-        Cell: row => row.original.city
+        resizable: false
       }, {
         Header: "State",
         accessor: 'state',
         resizable: false,
-        minWidth: 60,
-        Cell: row => row.original.state,
+        minWidth: 60
       }, {
         Header: 'ZIP',
         accessor: 'zipcode',
         resizable: false,
-        minWidth: 60,
-        Cell: row => row.original.zipcode,
+        minWidth: 60
       }, {
         Header: 'Phone',
         accessor: 'phone',
         resizable: false,
-        minWidth: 130,
-        Cell: row => row.original.phone,
+        minWidth: 130
       }, {
         Header: "NCES ID",
         accessor: 'nces_id',
         resizable: false,
-        minWidth: 80,
-        Cell: row => row.original.nces_id
+        minWidth: 80
       }, {
         Header: "Schools",
         accessor: 'total_schools',
         resizable: false,
-        minWidth: 80,
-        Cell: row => Number(row.original.total_schools),
+        minWidth: 80
       }, {
         Header: "Students",
         accessor: 'total_students',
         resizable: false,
-        minWidth: 80,
-        Cell: row => Number(row.original.total_students),
+        minWidth: 80
       }, {
         Header: "Edit",
         accessor: 'edit',
         resizable: false,
         minWidth: 60,
-        Cell: (row) => {
+        Cell: ({row}) => {
           return <a href={`${process.env.DEFAULT_URL}/cms/districts/${row.original.id}`}>Edit</a>
         }
       }
@@ -79,6 +71,8 @@ export default class CmsDistrictIndex extends React.Component {
   }
 
   setSort = newSorted => {
+    if (!newSorted.length) { return }
+
     const { query } = this.state
 
     const sort = newSorted[0].id
@@ -176,12 +170,8 @@ export default class CmsDistrictIndex extends React.Component {
           data={data}
           defaultPageSize={100}
           defaultSorted={[{id: sort, desc: sortDescending}]}
-          minRows={1}
+          manualSortBy={true}
           onSortedChange={this.setSort}
-          showPageSizeOptions={false}
-          showPagination={false}
-          showPaginationBottom={false}
-          showPaginationTop={false}
         />
         <div className='cms-pagination-container'>
           {this.renderPageSelector()}
