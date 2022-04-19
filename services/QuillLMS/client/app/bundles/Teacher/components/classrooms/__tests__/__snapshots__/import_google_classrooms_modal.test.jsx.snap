@@ -301,7 +301,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                   type="button"
                 >
                   <img
-                    alt="check"
+                    alt="Checked checkbox"
                     src="https://assets.quill.org/images/icons/indeterminate.svg"
                   />
                 </button>

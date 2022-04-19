@@ -1603,6 +1603,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
           }
         />
         <th
+          aria-label="Header for remove column"
           className="data-table-header"
         />
       </div>
