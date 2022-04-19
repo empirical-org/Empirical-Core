@@ -93,7 +93,7 @@
     "react/jsx-no-undef": "error",
     "react/jsx-no-useless-fragment": "error",
     "react/jsx-props-no-multi-spaces": "error",
-    "react/jsx-sort-default-props": "error",
+    "react/jsx-sort-default-props": ["error", { "ignoreCase": true }],
     "react/jsx-sort-props": "error",
     "react/jsx-tag-spacing": "error",
     "react/jsx-uses-react": "error",
