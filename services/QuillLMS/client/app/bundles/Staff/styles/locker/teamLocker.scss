@@ -1,22 +1,5 @@
 .team-locker-container {
   margin-top: 16px;
-  .back-nav-link:hover {
-    text-decoration: none;
-  }
-  .button-container {
-    display: flex;
-    align-items: center;
-    border: 1px solid #cbc8c8;
-    width: 128px;
-    padding: 4px 8px 4px 8px;
-    border-radius: 6px;
-    p {
-      margin: 0px 0px 0px 8px;
-    }
-  }
-  .button-container:hover {
-    background-color: #efefef;
-  }
   .locker-section-container {
     h4 {
       margin-bottom: 16px;

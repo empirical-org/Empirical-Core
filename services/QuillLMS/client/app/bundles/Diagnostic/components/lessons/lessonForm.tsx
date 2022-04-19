@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import QuestionSelector from 'react-select-search';
+import SelectSearch from 'react-select-search';
+import { fuzzySearch } from 'react-select-search';
 import { EditorState, ContentState } from 'draft-js'
 import ChooseModel from './chooseModel';
 import { DeleteButton, NameInput } from './lessonFormComponents.tsx';
@@ -102,8 +103,8 @@ export class LessonForm extends React.Component<LessonFormProps, LessonFormState
     this.setState({ selectedQuestions: newSelectedQuestions, });
   }
 
-  handleSearchChange = (e: { value: string}) => {
-    this.handleQuestionChange(e.value);
+  handleSearchChange = (value: string) => {
+    this.handleQuestionChange(value);
   }
 
   sortCallback = (sortInfo: {
@@ -168,12 +169,14 @@ export class LessonForm extends React.Component<LessonFormProps, LessonFormState
         });
       }
       return (
-        <QuestionSelector
+        <SelectSearch
+          filterOptions={fuzzySearch}
           id="all-questions"
           key={questionType}
           onChange={this.handleSearchChange}
           options={formatted}
           placeholder="Search for a question"
+          search={true}
         />
       );
     }

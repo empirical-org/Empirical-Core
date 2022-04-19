@@ -20,6 +20,5 @@ RSpec.describe Locker, type: :model do
     it { expect(locker).to be_valid }
     it { should validate_uniqueness_of(:user_id) }
     it { should validate_presence_of(:label) }
-    it { should validate_presence_of(:preferences) }
   end
 end

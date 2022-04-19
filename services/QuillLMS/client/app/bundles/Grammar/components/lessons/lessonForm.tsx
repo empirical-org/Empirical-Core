@@ -1,11 +1,11 @@
 import * as React from 'react';
-import QuestionSelector from 'react-select-search';
+import SelectSearch from 'react-select-search';
 import { fuzzySearch } from 'react-select-search';
 import { connect } from 'react-redux';
 import { EditorState, ContentState } from 'draft-js'
 
 import ConceptSelector from '../shared/conceptSelector'
-import { GrammarActivity, Concepts, Concept } from '../../interfaces/grammarActivities'
+import { Concepts, Concept } from '../../interfaces/grammarActivities'
 import { Question } from '../../interfaces/questions'
 import { ConceptReducerState } from '../../reducers/conceptsReducer'
 import { hashToCollection, SortableList, TextEditor, } from '../../../Shared/index'
@@ -150,7 +150,7 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
       options = _.filter(options, option => option.flag !== "archived" && option.prompt); // filter out questions with no valid concept
       formatted = options.map(opt => ({ name: opt.prompt.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, ''), value: opt.key, }));
       return (
-        <QuestionSelector
+        <SelectSearch
           filterOptions={fuzzySearch}
           onChange={this.handleQuestionChange}
           options={formatted}
