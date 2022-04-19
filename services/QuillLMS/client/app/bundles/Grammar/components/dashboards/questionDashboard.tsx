@@ -1,14 +1,14 @@
 import * as React from 'react';
 import * as Redux from "redux";
-import ReactTable from 'react-table-6'
-;
+
 import { connect } from 'react-redux';
 import DashboardFilters from './dashboardFilters'
 import LoadingSpinner from '../shared/loading_spinner'
 import * as QuestionAndConceptMapActions from '../../actions/questionAndConceptMap'
 import { QuestionAndConceptMapReducerState } from '../../reducers/questionAndConceptMapReducer'
-import { DashboardConceptRow, DashboardQuestionRow, DashboardActivity } from '../../interfaces/dashboards'
+import { DashboardActivity } from '../../interfaces/dashboards'
 import Constants from '../../constants'
+import { ReactTable, } from '../../../Shared/index'
 
 const { PRODUCTION, GAMMA, BETA, ALPHA, ARCHIVED, NONE, } = Constants
 
@@ -46,7 +46,8 @@ class QuestionDashboard extends React.Component<QuestionDashboardProps, Question
         Header: 'Question',
         accessor: 'prompt',
         resizable: false,
-        Cell: (row: { original: DashboardQuestionRow }) => {
+        sortType: this.defaultSort,
+        Cell: ({row}) => {
           const prompt = row.original.prompt
           const formattedPrompt = prompt ? prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "").replace(/&quot;/ig, '"').replace(/&#x27;/ig, "'") : 'No prompt'
           return <a href={row.original.link}>{formattedPrompt}</a>
@@ -55,7 +56,8 @@ class QuestionDashboard extends React.Component<QuestionDashboardProps, Question
         Header: 'Concept',
         accessor: 'concept.name',
         resizable: false,
-        Cell: (row: { original: DashboardQuestionRow}) => {
+        sortType: this.defaultSort,
+        Cell: ({row}) => {
           const link = row.original.concept ? row.original.concept.link : ''
           const name = row.original.concept ? row.original.concept.name : ''
           return <a href={link}>{name}</a>
@@ -64,8 +66,8 @@ class QuestionDashboard extends React.Component<QuestionDashboardProps, Question
         Header: 'Explicitly Assigned Activities',
         accessor: 'explicitlyAssignedActivities',
         resizable: false,
-        sortMethod: this.sortActivityArray,
-        Cell: (row: { original: DashboardQuestionRow}) => {
+        sortType: this.sortActivityArray,
+        Cell: ({row}) => {
           const explicitlyAssignedActivities = row.original.explicitlyAssignedActivities || []
           return this.filterActivities(explicitlyAssignedActivities).map((act: DashboardActivity) => <a className="activity-link" href={act.link}>{act.title}</a>)
         },
@@ -73,8 +75,8 @@ class QuestionDashboard extends React.Component<QuestionDashboardProps, Question
         Header: 'Implicitly Assigned Activities',
         accessor: 'implicitlyAssignedActivities',
         resizable: false,
-        sortMethod: this.sortActivityArray,
-        Cell: (row: { original: DashboardQuestionRow}) => {
+        sortType: this.sortActivityArray,
+        Cell: ({row}) => {
           const implicitlyAssignedActivities = row.original.implicitlyAssignedActivities || []
           return this.filterActivities(implicitlyAssignedActivities).map((act: DashboardActivity) => <a className="activity-link" href={act.link}>{act.title}</a>)
         },
@@ -82,8 +84,8 @@ class QuestionDashboard extends React.Component<QuestionDashboardProps, Question
         Header: 'No Activities',
         accessor: 'noActivities',
         resizable: false,
-        sortMethod: (a: boolean, b: boolean) => a ? 1 : -1,
-        Cell: (row: { original: DashboardQuestionRow}) => <span>{String(row.original.noActivities)}</span>,
+        sortType: this.defaultSort,
+        Cell: ({row}) => <span>{String(row.original.noActivities)}</span>,
       }
     ];
   }
@@ -99,10 +101,10 @@ class QuestionDashboard extends React.Component<QuestionDashboardProps, Question
     if (!(activityArrayB && activityArrayB.length)) { return 1 }
     if (!(activityArrayA && activityArrayA.length)) { return -1 }
 
-    const firstActivityInArrayA = activityArrayA.map(act => act.title).sort(this.defaultSort)[0]
-    const firstActivityInArrayB = activityArrayB.map(act => act.title).sort(this.defaultSort)[0]
+    const firstActivityInArrayA = activityArrayA.map(act => act.title).sort(this.stringSort)[0]
+    const firstActivityInArrayB = activityArrayB.map(act => act.title).sort(this.stringSort)[0]
 
-    return this.defaultSort(firstActivityInArrayA, firstActivityInArrayB)
+    return this.stringSort(firstActivityInArrayA, firstActivityInArrayB)
   }
 
   normalizeStringForSorting = (string: string) => {
@@ -113,9 +115,11 @@ class QuestionDashboard extends React.Component<QuestionDashboardProps, Question
     }
   }
 
-  defaultSort = (a: string, b: string) => {
-    return this.normalizeStringForSorting(a).localeCompare(this.normalizeStringForSorting(b))
+  defaultSort = (row1, row2, key) => {
+    return this.stringSort(row1.original[key], row2.original[key])
   }
+
+  stringSort(string1, string2) { return this.normalizeStringForSorting(string1).localeCompare(this.normalizeStringForSorting(string2)) }
 
   render() {
     const { questionAndConceptMap, } = this.props
@@ -141,12 +145,7 @@ class QuestionDashboard extends React.Component<QuestionDashboardProps, Question
             className="question-dashboard-table"
             columns={this.columns()}
             data={filteredData}
-            defaultPageSize={filteredData.length}
             defaultSorted={[{ id: 'prompt', desc: false, }]}
-            defaultSortMethod={this.defaultSort}
-            minRows={1}
-            showPageSizeOptions={false}
-            showPagination={false}
           />
         </div>
       );
