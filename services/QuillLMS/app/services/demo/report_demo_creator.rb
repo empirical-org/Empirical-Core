@@ -404,18 +404,19 @@ module Demo::ReportDemoCreator
             cu = ClassroomUnit.find_by(classroom_id: classroom.id, unit_id: unit.id)
             new_activity_session = ActivitySession.create({activity_id: act_id, classroom_unit_id: cu.id, user_id: student.id, state: "finished", percentage: temp.percentage, uid: SecureRandom.uuid})
 
-            temp.feedback_sessions.each do |feedback_session_to_copy|
-              values = {
-                activity_session_uid: new_activity_session.uid,
-                uid: SecureRandom.uuid
-              }
-              new_feedback_session = FeedbackSession.create(values)
+            feedback_session_to_copy = temp.feedback_sessions.first
 
-              feedback_session_to_copy.feedback_history.each do |fh|
-                new_feedback_history = fh.dup
-                new_feedback_history.feedback_session_uid = new_feedback_session.uid
-                new_feedback_history.save
-              end
+            values = {
+              activity_session_uid: new_activity_session.uid,
+              uid: SecureRandom.uuid
+            }
+            new_feedback_session = FeedbackSession.create(values)
+
+            feedback_session_to_copy.feedback_history.each do |fh|
+              new_feedback_history = fh.dup
+              new_feedback_history.feedback_session_uid = new_feedback_session.uid
+              new_feedback_history.save
+            end
             end
           end
         else
@@ -439,8 +440,5 @@ module Demo::ReportDemoCreator
         end
       end
     end
-  end
-
-  private def create_evidence_activity_sessions
   end
 end
