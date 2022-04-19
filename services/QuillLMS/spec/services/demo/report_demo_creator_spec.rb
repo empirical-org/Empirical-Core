@@ -88,9 +88,12 @@ RSpec.describe Demo::ReportDemoCreator do
     units = Demo::ReportDemoCreator.create_units(teacher)
 
     Demo::ReportDemoCreator.create_classroom_units(classroom, units)
-    expect {Demo::ReportDemoCreator.create_activity_sessions([student], classroom)}.to change {ActivitySession.count}.by(24)
+    # TODO: change this to dynamically calculate
+    expect {Demo::ReportDemoCreator.create_activity_sessions([student], classroom)}.to change {ActivitySession.count}.by(28)
     act_sesh = ActivitySession.last
-    expect(act_sesh.activity_id).to eq(1664)
+
+    last_template = Demo::ReportDemoCreator::ACTIVITY_PACKS_TEMPLATES.last
+    expect(act_sesh.activity_id).to eq(last_template[:activity_sessions][0].keys.last)
     expect(act_sesh.user_id).to eq(student.id)
     expect(act_sesh.state).to eq('finished')
     expect(act_sesh.percentage).to eq(temp.percentage)
