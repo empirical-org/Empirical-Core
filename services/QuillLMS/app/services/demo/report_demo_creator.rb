@@ -2,7 +2,6 @@
 
 module Demo::ReportDemoCreator
 
-  COMPREHENSION_APP_SETTING = 'comprehension'
   REPLAYED_ACTIVITY_ID = 434
   REPLAYED_SAMPLE_USER_ID = 312664
   ACTIVITY_PACKS_TEMPLATES = [
@@ -205,6 +204,42 @@ module Demo::ReportDemoCreator
           1664 => 9962377
         }
       ]
+    },
+    {
+      name: "Evidence-Based Writing: Ethics in Science [Beta]",
+      activity_ids: [1726, 1815, 1813, 1830],
+      activity_sessions: [
+        {
+          1726 => 139852750,
+          1815 => 140313798,
+          1813 => 140315090,
+          1830 => 140405696
+        },
+        {
+          1726 => 140325094,
+          1815 => 140316082,
+          1813 => 140317901,
+          1830 => 140321693
+        },
+        {
+          1726 => 140710875,
+          1815 => 140723229,
+          1813 => 140744041,
+          1830 => 140771018
+        },
+        {
+          1726 => 140534754,
+          1815 => 140536782,
+          1813 => 140544585,
+          1830 => 140547957
+        },
+        {
+          1726 => 140063048,
+          1815 => 140566540,
+          1813 => 140569206,
+          1830 => 140571188
+        }
+      ]
     }
   ]
 
@@ -233,17 +268,9 @@ module Demo::ReportDemoCreator
       role: "teacher",
       password: 'password',
       password_confirmation: 'password',
-      flags: ['beta']
     }
 
     teacher = User.create(values)
-    app_setting = AppSetting.find_by(name: COMPREHENSION_APP_SETTING)
-
-    return teacher if app_setting.blank?
-
-    app_setting.user_ids_allow_list << teacher.id
-    app_setting.save
-    teacher
   end
 
   def self.create_classroom(teacher)
