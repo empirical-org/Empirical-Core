@@ -38,6 +38,12 @@
     }
   .ReactTable .rt-thead .rt-th {
     white-space: unset;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    div:first-of-type {
+      height: 100%;
+    }
   }
   .ReactTable .rt-tbody .rt-td {
     white-space: unset;

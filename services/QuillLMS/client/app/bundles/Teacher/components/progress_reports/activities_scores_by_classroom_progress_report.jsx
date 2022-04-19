@@ -3,7 +3,6 @@ import request from 'request'
 import _ from 'underscore'
 import queryString from 'query-string';
 import ReactTooltip from 'react-tooltip';
-import ReactTable from 'react-table-6'
 import moment from 'moment'
 
 import EmptyStateForReport from './empty_state_for_report'
@@ -14,6 +13,7 @@ import ItemDropdown from '../general_components/dropdown_selectors/item_dropdown
 import LoadingSpinner from '../shared/loading_indicator.jsx'
 import {sortByLastName, sortFromSQLTimeStamp} from '../../../../modules/sortingMethods.js'
 import { getTimeSpent } from '../../helpers/studentReports';
+import { ReactTable, } from '../../../Shared/index'
 
 const showAllClassroomKey = 'All classes'
 
@@ -61,15 +61,15 @@ export class ActivitiesScoresByClassroomProgressReport extends React.Component {
         accessor: 'name',
         resizable: false,
         sortMethod: sortByLastName,
-        Cell: row => (<a className='row-link-disguise underlined' href={`/teachers/progress_reports/student_overview?classroom_id=${row.original.classroom_id}&student_id=${row.original.student_id}`}>
+        Cell: ({row}) => (<a className='row-link-disguise underlined' href={`/teachers/progress_reports/student_overview?classroom_id=${row.original.classroom_id}&student_id=${row.original.student_id}`}>
           {row.original.name}
         </a>),
       }, {
         Header: "Activities completed",
         accessor: 'activity_count',
         resizable: false,
-        minWidth: 110,
-        Cell: row => (<a className='row-link-disguise' href={`/teachers/progress_reports/student_overview?classroom_id=${row.original.classroom_id}&student_id=${row.original.student_id}`}>
+        minWidth: 186,
+        Cell: ({row}) => (<a className='row-link-disguise' href={`/teachers/progress_reports/student_overview?classroom_id=${row.original.classroom_id}&student_id=${row.original.student_id}`}>
           {Number(row.original.activity_count)}
         </a>),
       }, {
@@ -77,7 +77,7 @@ export class ActivitiesScoresByClassroomProgressReport extends React.Component {
         accessor: 'average_score',
         resizable: false,
         minWidth: 80,
-        Cell: row => {
+        Cell: ({row}) => {
           const value = Math.round(parseFloat(row.original.average_score) * 100);
           return (
             <a className='row-link-disguise' href={`/teachers/progress_reports/student_overview?classroom_id=${row.original.classroom_id}&student_id=${row.original.student_id}`}>
@@ -91,7 +91,7 @@ export class ActivitiesScoresByClassroomProgressReport extends React.Component {
         accessor: 'timespent',
         resizable: false,
         minWidth: 80,
-        Cell: row => {
+        Cell: ({row}) => {
           const value = row.original.timespent;
           return (
             <a className='row-link-disguise' href={`/teachers/progress_reports/student_overview?classroom_id=${row.original.classroom_id}&student_id=${row.original.student_id}`}>
@@ -105,7 +105,7 @@ export class ActivitiesScoresByClassroomProgressReport extends React.Component {
         accessor: 'last_active',
         resizable: false,
         minWidth: 90,
-        Cell: row => (<a className='row-link-disguise' href={`/teachers/progress_reports/student_overview?classroom_id=${row.original.classroom_id}&student_id=${row.original.student_id}`}>
+        Cell: ({row}) => (<a className='row-link-disguise' href={`/teachers/progress_reports/student_overview?classroom_id=${row.original.classroom_id}&student_id=${row.original.student_id}`}>
           {row.original.last_active ? moment(row.original.last_active).format("MM/DD/YYYY") : <span />}
         </a>),
         sortMethod: sortFromSQLTimeStamp,
@@ -114,7 +114,7 @@ export class ActivitiesScoresByClassroomProgressReport extends React.Component {
         Header: "Class",
         accessor: 'classroom_name',
         resizable: false,
-        Cell: row => (
+        Cell: ({row}) => (
           <div className="activate-tooltip" data-for="classroom-tooltip" data-tip={`<p>${row.original.classroom_name}</p>`}>
             <ReactTooltip className="react-tooltip-custom" effect="solid" html id="classroom-tooltip" multiline type="light" />
             <a className="tooltip-trigger row-link-disguise" href={`/teachers/progress_reports/student_overview?classroom_id=${row.original.classroom_id}&student_id=${row.original.student_id}`} rel='noreferrer noopener' target="_blank">{row.original.classroom_name}</a>
@@ -166,12 +166,7 @@ export class ActivitiesScoresByClassroomProgressReport extends React.Component {
             className='progress-report'
             columns={this.columns()}
             data={filteredClassroomsData}
-            defaultPageSize={filteredClassroomsData.length}
             defaultSorted={[{id: 'last_active', desc: true}]}
-            showPageSizeOptions={false}
-            showPagination={false}
-            showPaginationBottom={false}
-            showPaginationTop={false}
           />
         </div>
       )
