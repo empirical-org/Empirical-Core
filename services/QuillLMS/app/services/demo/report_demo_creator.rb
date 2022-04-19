@@ -417,7 +417,6 @@ module Demo::ReportDemoCreator
               new_feedback_history.feedback_session_uid = new_feedback_session.uid
               new_feedback_history.save
             end
-            end
           end
         else
           act_sessions[num].each do |act_id, user_id|
