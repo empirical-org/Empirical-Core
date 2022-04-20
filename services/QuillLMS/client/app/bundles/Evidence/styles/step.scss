@@ -304,9 +304,6 @@
       }
     }
   }
-  .hint {
-    height: 344px;
-  }
 
   &:not(.active) {
     .step-content {
@@ -348,11 +345,18 @@
   }
 }
 
+@media (min-width: 992px) {
+  .hint {
+    height: 344px;
+  }
+}
+
 @media (min-width: 768px) and (max-width: 991px) {
   .hint {
     height: 304px;
   }
 }
+
 @media (min-width: 660px) and (max-width: 767px) {
   .hint {
     height: 256px;
