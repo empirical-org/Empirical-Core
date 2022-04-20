@@ -9,9 +9,11 @@ exports[`PinnedActivityBar component should render if it is being previewed 1`] 
 >
   <div
     className="pinned-activity"
+    role="status"
   >
     <span />
     <button
+      aria-label="Join undefined"
       className="quill-button medium primary contained focus-on-dark"
       onClick={[Function]}
       type="button"
@@ -31,9 +33,11 @@ exports[`PinnedActivityBar component should render if it is not being previewed 
 >
   <div
     className="pinned-activity"
+    role="status"
   >
     <span />
     <a
+      aria-label="Join undefined"
       className="quill-button medium primary contained focus-on-dark"
       href="/activity_sessions/classroom_units/2/activities/1"
     >
