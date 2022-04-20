@@ -172,8 +172,7 @@ export default class Subscriptions extends React.Component {
 
   updateSubscriptionStatus = subscription => {
     this.setState({
-      subscriptionStatus: subscription,
-      showPremiumConfirmationModal: true,
+      subscriptionStatus: subscription
     })
   }
 
