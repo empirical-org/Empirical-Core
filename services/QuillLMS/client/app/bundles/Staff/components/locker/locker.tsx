@@ -2,18 +2,9 @@ import * as React from "react";
 import { useHistory } from 'react-router-dom';
 
 import { titleCase, informationIcon, Tooltip } from "../../../Shared";
+import { LockerContentsInterface  } from "../../interfaces/interfaces";
 
-interface LockerContentsInterface {
-  label: string;
-  route: string;
-  href: string;
-  emoji: string;
-  emojiLabel: string;
-  tooltipInfo: string;
-  overrideTitleCase: boolean;
-}
-
-export const TeamLocker = ({ lockerContents }: {lockerContents: LockerContentsInterface}) => {
+export const Locker = ({ lockerContents }: {lockerContents: LockerContentsInterface}) => {
   const history = useHistory();
   const { label, route, href, emoji, emojiLabel, tooltipInfo, overrideTitleCase } = lockerContents;
 
@@ -53,4 +44,4 @@ export const TeamLocker = ({ lockerContents }: {lockerContents: LockerContentsIn
   )
 }
 
-export default TeamLocker;
+export default Locker;

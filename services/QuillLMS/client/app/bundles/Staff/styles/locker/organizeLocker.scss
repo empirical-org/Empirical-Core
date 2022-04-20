@@ -1,0 +1,69 @@
+.organize-locker-form-container {
+  margin-top: 16px;
+  .buttons-container {
+    display: flex;
+    margin-bottom: 16px;
+    .button-container {
+      width: 152px;
+      margin-right: 16px;
+    }
+  }
+  .header-container {
+    .error-text {
+      font-size: 12px;
+      font-weight: 600;
+      color: #ff0000;
+      margin: 8px 0px;
+    }
+  }
+  .organize-locker-form-contents {
+    margin-top: 16px;
+    .locker-label-input {
+      width: 50%;
+      margin-bottom: 24px;
+    }
+    .locker-sections-container {
+      padding: 8px;
+      .upper-locker-section-container {
+        display: flex;
+        .section-input {
+          width: 50%;
+          margin-bottom: 8px;
+          margin: 0px 16px 8px 0px;
+        }
+      }
+      .buttons-container {
+        display: flex;
+        button {
+          margin-right: 16px;
+        }
+      }
+      .lockers-container {
+        display: flex;
+        max-width: 900px;
+        flex-wrap: wrap;
+      }
+    }
+  }
+  .modal {
+    .modal-container {
+      .modal-content {
+        padding: 16px;
+        height: min-content;
+        .buttons-container {
+          margin: 0;
+          button {
+            margin-right: 16px;
+          }
+        }
+        .existing-locker-selection-container {
+          height: 384px;
+          width: 360;
+          .existing-locker-options {
+            margin-top: 16px;
+          }
+        }
+      }
+    }
+  }
+}

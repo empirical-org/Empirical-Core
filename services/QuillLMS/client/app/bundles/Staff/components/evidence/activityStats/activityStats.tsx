@@ -1,7 +1,6 @@
 import * as React from "react";
 import { RouteComponentProps } from 'react-router-dom'
 import { useQuery } from 'react-query';
-import ReactTable from 'react-table-6'
 ;
 import * as _ from 'lodash'
 
@@ -9,7 +8,7 @@ import FilterWidget from "../shared/filterWidget";
 import { ActivityRouteProps, PromptHealthInterface, InputEvent } from '../../../interfaces/evidenceInterfaces';
 import { fetchActivity } from '../../../utils/evidence/activityAPIs';
 import { fetchPromptHealth } from '../../../utils/evidence/ruleFeedbackHistoryAPIs';
-import { Spinner, } from '../../../../Shared/index';
+import { Spinner, ReactTable, } from '../../../../Shared/index';
 import { handlePageFilterClick } from '../../../helpers/evidence/miscHelpers';
 import { renderHeader } from '../../../helpers/evidence/renderHelpers';
 import { ACTIVITY_STATS } from '../../../../../constants/evidence';
@@ -91,7 +90,7 @@ const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       Header: '',
       accessor: "promptText",
       key: "promptText",
-      Cell: (data) => <span className="prompt-text">{data.original.promptText}</span> // eslint-disable-line react/display-name
+      Cell: ({row}) => <span className="prompt-text">{row.original.promptText}</span> // eslint-disable-line react/display-name
     },
     {
       Header: 'Total Responses',
@@ -159,7 +158,6 @@ const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
         columns={dataTableFields}
         data={formattedRows || []}
         defaultPageSize={formattedRows.length}
-        showPagination={false}
       />)}
     </div>
   );

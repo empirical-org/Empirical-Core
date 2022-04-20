@@ -1,5 +1,4 @@
 import * as React from 'react'
-import ReactTable from 'react-table-6'
 
 import { matchSorter } from 'match-sorter';
 import request from 'request'
@@ -12,8 +11,8 @@ import PromptHealth from './promptHealth'
 import { NumberFilterInput } from './numberFilterInput'
 
 import LoadingSpinner from '../shared/loading_indicator.jsx'
-import { sort, sortByList } from '../../../../modules/sortingMethods.js'
-import { FlagDropdown } from '../../../Shared/index'
+import { tableSort, sortTableByList } from '../../../../modules/sortingMethods.js'
+import { FlagDropdown, ReactTable, expanderColumn, TextFilter, } from '../../../Shared/index'
 import { filterNumbers } from '../../../../modules/filteringMethods.js'
 import actions from '../../actions/activityHealth'
 
@@ -65,26 +64,31 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
 
   columnDefinitions() {
     return [
+      expanderColumn,
       {
         Header: 'Name',
         accessor: 'name',
-        filterMethod: (filter, rows) =>
-          matchSorter(rows, filter.value, { keys: ["name"]}),
+        filter: (rows, idArray, filterValue) => {
+          return matchSorter(rows, filterValue, { keys: ['original.name']})
+        },
+        Filter: TextFilter,
         filterAll: true,
         resizeable: true,
         minWidth: 200,
-        sortMethod: sort,
-        Cell: cell => (<a href={cell.original.url} rel="noopener noreferrer" target="_blank">{cell.original.name}</a>)
+        sortType: tableSort,
+        Cell: ({row}) => (<a href={row.original.url} rel="noopener noreferrer" target="_blank">{row.original.name}</a>)
       },
       {
         Header: 'Activity Categories',
         accessor: 'activity_categories',
-        filterMethod: (filter, rows) =>
-          matchSorter(rows, filter.value, { keys: ["activity_categories"] }),
+        filter: (rows, idArray, filterValue) => {
+          return matchSorter(rows, filterValue, { keys: ['original.activity_categories']})
+        },
         filterAll: true,
+        Filter: TextFilter,
         resizeable: true,
-        sortMethod: sortByList,
-        Cell: (row) => (
+        sortType: sortTableByList,
+        Cell: ({row}) => (
           <div>
             {
               row.original['activity_categories'] ?
@@ -98,15 +102,17 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
       {
         Header: 'Tool',
         accessor: 'tool',
-        filterMethod: (filter, row) => {
-          if (filter.value === "all") { return true }
-          return row[filter.id] === filter.value
+        filter: (rows, idArray, filterValue) => {
+          return rows.filter(row => {
+            if (filterValue === "all") { return true }
+            return row.original.tool === filterValue
+          })
         },
-        Filter: ({ filter, onChange }) => (
+        Filter: ({ column, setFilter, }) => (
           <select
-            onChange={event => onChange(event.target.value)}
+            onChange={event => setFilter(column.id, event.target.value)}
             style={{ width: "100%" }}
-            value={filter ? filter.value : "all"}
+            value={column.filterValue ? column.filterValue : "all"}
           >
             <option value="all">All</option>
             <option value="connect">Connect</option>
@@ -114,19 +120,21 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
           </select>
         ),
         resizeable: true,
-        sortMethod: sort,
+        sortType: tableSort,
         minWidth: 90,
         Cell: props => this.getToolBadge(props.value)
       },
       {
         Header: 'Diagnostics',
         accessor: 'diagnostics',
-        filterMethod: (filter, rows) =>
-          matchSorter(rows, filter.value, { keys: ["diagnostics"] }),
+        filter: (rows, idArray, filterValue) => {
+          return matchSorter(rows, filterValue, { keys: ['original.diagnostics']})
+        },
         filterAll: true,
+        Filter: TextFilter,
         resizeable: true,
-        sortMethod: sortByList,
-        Cell: (row) => (
+        sortType: sortTableByList,
+        Cell: ({row}) => (
           <div>
             {
               row.original['diagnostics'] ?
@@ -143,29 +151,30 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
       {
         Header: "Plays in Last 3 Months",
         accessor: 'recent_plays',
-        filterMethod: filterNumbers,
-        Filter: ({ filter, onChange }) =>
+        filter: filterNumbers,
+        Filter: ({ column, setFilter }) =>
           (
             <NumberFilterInput
-              filter={filter}
-              handleChange={onChange}
+              column={column}
+              handleChange={setFilter}
               label="Filter for recent plays"
             />
           ),
         resizeable: true,
-        sortMethod: sort,
+        sortType: tableSort,
         Cell: props => addCommasToThousands(props.value),
         maxWidth: 90
       },
       {
         Header: 'Activity Packs',
         accessor: 'activity_packs',
-        filterMethod: (filter, rows) =>
+        filter: (filter, rows) =>
           matchSorter(rows, filter.value, { keys: ["activity_packs.*.name"] }),
         filterAll: true,
+        Filter: TextFilter,
         resizeable: true,
-        sortMethod: sortByList,
-        Cell: (row) => (
+        sortType: sortTableByList,
+        Cell: ({row}) => (
           <div>
             {
               row.original['activity_packs'] ?
@@ -182,51 +191,51 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
       {
         Header: 'Average Difficulty',
         accessor: 'avg_difficulty',
-        filterMethod: filterNumbers,
-        Filter: ({ filter, onChange }) =>
+        filter: filterNumbers,
+        Filter: ({ column, setFilter }) =>
           (
             <NumberFilterInput
-              filter={filter}
-              handleChange={onChange}
+              column={column}
+              handleChange={setFilter}
               label="Filter for average difficulty"
             />
           ),
         resizeable: true,
-        sortMethod: sort,
+        sortType: tableSort,
         Cell: props => props.value,
         maxWidth: 150
       },
       {
         Header: 'Standard Deviation Difficulty',
         accessor: 'standard_dev_difficulty',
-        filterMethod: filterNumbers,
-        Filter: ({ filter, onChange }) =>
+        filter: filterNumbers,
+        Filter: ({ column, setFilter }) =>
           (
             <NumberFilterInput
-              filter={filter}
-              handleChange={onChange}
+              column={column}
+              handleChange={setFilter}
               label="Filter for recent plays"
             />
           ),
         resizeable: true,
-        sortMethod: sort,
+        sortType: tableSort,
         Cell: props => props.value,
         maxWidth: 150
       },
       {
         Header: 'Average Common Unmatched',
         accessor: 'avg_common_unmatched',
-        filterMethod: filterNumbers,
-        Filter: ({ filter, onChange }) =>
+        filter: filterNumbers,
+        Filter: ({ column, setFilter }) =>
           (
             <NumberFilterInput
-              filter={filter}
-              handleChange={onChange}
+              column={column}
+              handleChange={setFilter}
               label="Filter for avg common unmatched"
             />
           ),
         resizeable: true,
-        sortMethod: sort,
+        sortType: tableSort,
         Cell: props => props.value,
         maxWidth: 150
       }
@@ -321,21 +330,12 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
         className='records-table'
         columns={this.columnDefinitions()}
         data={dataToUse}
-        defaultFilterMethod={(filter, row) =>
-          String(row[filter.id]) === filter.value}
-        defaultPageSize={dataToUse.length}
         defaultSorted={[{id: 'name', desc: false}]}
         filterable
-        loading={false}
-        pages={1}
-        ref={(r) => this.reactTable = r}
-        showPageSizeOptions={false}
-        showPagination={false}
-        style={{height: "600px"}}
-        SubComponent={row => {
+        SubComponent={(row) => {
           return (
             <PromptHealth
-              dataResults={row.original.prompt_healths}
+              dataResults={row.original && row.original.prompt_healths || []}
             />
           );
         }}

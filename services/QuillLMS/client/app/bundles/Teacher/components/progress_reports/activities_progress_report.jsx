@@ -1,7 +1,6 @@
 import React from 'react'
 import createReactClass from 'create-react-class';
 import request from 'request'
-import ReactTable from 'react-table-6'
 import moment from 'moment'
 
 import ProgressReportFilters from './progress_report_filters.jsx'
@@ -11,6 +10,7 @@ import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from './progress_report_const
 import LoadingSpinner from '../shared/loading_indicator.jsx'
 import TableFilterMixin from '../general_components/table/sortable_table/table_filter_mixin'
 import { getTimeSpent } from '../../helpers/studentReports';
+import { ReactTable, } from '../../../Shared/index'
 
 
 export default createReactClass({
@@ -23,7 +23,7 @@ export default createReactClass({
       loadingFilterOptions: true,
       currentPage: 0,
       csvData: [],
-      currentSort: {},
+      currentSort: {sort_param: 'completed_at', sort_descending: true},
       premium: false
     }
   },
@@ -115,7 +115,7 @@ export default createReactClass({
         Header: 'Student',
         accessor: 'student_id',
         resizeable: false,
-        Cell: props => studentFilters.find(student => student.value == props.value).name,
+        Cell: ({row}) => studentFilters.find(student => student.value == row.original.student_id).name,
         className: this.nonPremiumBlur(),
         maxWidth: 200
       },
@@ -123,21 +123,20 @@ export default createReactClass({
         Header: 'Date',
         accessor: 'completed_at',
         resizeable: false,
-        Cell: props => moment.unix(Number(props.value)).format('M/D/YY'),
+        Cell: ({row}) => moment.unix(Number(row.original.completed_at)).format('M/D/YY'),
         maxWidth: 90
       },
       {
         Header: 'Activity',
         accessor: 'activity_name',
         resizeable: false,
-        className: 'show-overflow',
-        Cell: props => props.value
+        className: 'show-overflow'
       },
       {
         Header: 'Score',
         accessor: 'percentage',
         resizeable: false,
-        Cell: props => props.value >= 0 ? `${Math.round(props.value * 100)}%` : 'Completed',
+        Cell: ({row}) => row.original.percentage >= 0 ? `${Math.round(row.original.percentage * 100)}%` : 'Completed',
         className: this.nonPremiumBlur(),
         maxWidth: 90
       },
@@ -145,7 +144,7 @@ export default createReactClass({
         Header: 'Time spent',
         accessor: 'timespent',
         resizeable: false,
-        Cell: props => getTimeSpent(props.value),
+        Cell: ({row}) => getTimeSpent(row.original.timespent),
         className: this.nonPremiumBlur(),
         maxWidth: 90
       },
@@ -153,14 +152,13 @@ export default createReactClass({
         Header: 'Standard',
         accessor: 'standard',
         resizeable: false,
-        Cell: props => props.value ? props.value.split(' ')[0] : '',
+        Cell: ({row}) => row.original.standard ? row.original.standard.split(' ')[0] : '',
         maxWidth: 90
       },
       {
         Header: 'Tool',
         accessor: 'activity_classification_name',
         resizeable: false,
-        Cell: props => props.value,
         maxWidth: 150
       }
     ];
@@ -187,6 +185,15 @@ export default createReactClass({
   },
 
   reactTableSortedChange: function(state, instance) {
+    if (!state.length) { return }
+    const { currentSort, } = this.state
+    const newSort = {
+      sort_param: state[0].id,
+      sort_descending: state[0].desc,
+    }
+
+    if (_.isEqual(currentSort, newSort)) { return }
+
     this.setState({
       // We want to revert to the first page if changing anything other than the page.
       currentPage: 0,
@@ -197,9 +204,11 @@ export default createReactClass({
     }, this.fetchData);
   },
 
-  reactTablePageChange: function(state, instance) {
+  reactTablePageChange: function(newPage) {
+    const { currentPage, } = this.state
+    if (currentPage === newPage) { return }
     this.setState({
-      currentPage: state,
+      currentPage: newPage,
     }, this.fetchData);
   },
 
@@ -215,21 +224,23 @@ export default createReactClass({
       selectedUnit,
       studentFilters,
       unitFilters,
+      currentSort,
     } = this.state
     let tableOrEmptyMessage
     if (results.length) {
       tableOrEmptyMessage = (<ReactTable
         className='progress-report'
         columns={this.columnDefinitions()}
+        currentPage={currentPage}
         data={results}
         defaultPageSize={Math.min(results.length, 25)}
-        defaultSorted={[{id: 'completed_at', desc: true}]}
+        defaultSorted={[{id: currentSort.sort_param, desc: currentSort.sort_descending}]}
         loading={loadingNewTableData}
-        manual={true}
+        manualPageCount={numPages}
+        manualPagination={true}
+        manualSortBy={true}
         onPageChange={this.reactTablePageChange}
         onSortedChange={this.reactTableSortedChange}
-        page={currentPage}
-        pages={numPages}
         resizable={false}
         showPageSizeOptions={false}
         showPagination={true}

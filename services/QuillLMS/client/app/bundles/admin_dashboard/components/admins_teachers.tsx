@@ -1,8 +1,8 @@
 import * as React from 'react';
 import TeacherLinks from './teacher_links';
-import ReactTable from 'react-table-6';
-
 import UnlinkLink from './unlink_link';
+
+import { ReactTable, } from '../../Shared/index'
 
 interface AdminsTeachersProps {
   data: Array<Object>;
@@ -45,14 +45,14 @@ const AdminsTeachers: React.SFC<AdminsTeachersProps> = ({
     {
       Header: 'Log In As Teacher',
       accessor: 'link_components',
-      Cell: (row) => {
+      Cell: ({row}) => {
         return <TeacherLinks isValid={isValid} links={row.original.links} />;
       },
       resizable: false,
     },
     {
       Header: 'Manage',
-      Cell: (row) => {
+      Cell: ({row}) => {
         return <UnlinkLink id={row.original.id} refreshData={refreshData} />;
       },
       minWidth: 130,
@@ -77,11 +77,6 @@ const AdminsTeachers: React.SFC<AdminsTeachersProps> = ({
           className='progress-report has-green-arrow'
           columns={teacherColumns}
           data={data}
-          defaultPageSize={data.length}
-          showPageSizeOptions={false}
-          showPagination={false}
-          showPaginationBottom={false}
-          showPaginationTop={false}
         />
       </div>
     </div>

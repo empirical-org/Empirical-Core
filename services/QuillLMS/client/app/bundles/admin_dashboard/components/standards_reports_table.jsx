@@ -1,36 +1,31 @@
 import React from 'react';
-import ReactTable from 'react-table-6'
-
 import moment from 'moment';
 
 import EmptyStateForReport from '../../Teacher/components/progress_reports/empty_state_for_report';
+import { ReactTable, } from '../../Shared/index'
 
 const StandardsReportsTable = ({ data, }) => {
   const columns = [
     {
       Header: 'Standard Level',
       accessor: 'standard_level_name',
-      resizable: false,
-      Cell: row => row.original.standard_level_name,
     }, {
       Header: 'Standard Name',
       accessor: 'name',
-      Cell: row => row.original.name,
     }, {
       Header: 'Students',
       accessor: 'total_student_count',
       resizable: false,
-      Cell: row => row.original.total_student_count,
     }, {
-      Header: 'Proficent',
+      Header: 'Proficient',
       accessor: 'proficient_count',
       resizable: false,
-      Cell: row => `${row.original.proficient_count  } of ${  row.original.total_student_count}`,
+      Cell: ({row}) => `${row.original.proficient_count  } of ${  row.original.total_student_count}`,
     }, {
       Header: 'Activities',
       accessor: 'total_activity_count',
       resizable: false,
-      Cell: row => Number(row.original.total_activity_count),
+      Cell: ({row}) => Number(row.original.total_activity_count),
     }
   ];
 
@@ -44,10 +39,8 @@ const StandardsReportsTable = ({ data, }) => {
           defaultPageSize={100}
           defaultSorted={[{ id: 'last_active', desc: true ,}]}
           minRows={1}
-          showPageSizeOptions={false}
           showPagination
           showPaginationBottom
-          showPaginationTop={false}
         />
       </div>
     );

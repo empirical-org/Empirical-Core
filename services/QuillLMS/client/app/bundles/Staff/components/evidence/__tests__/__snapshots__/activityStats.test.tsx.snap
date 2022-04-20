@@ -28,60 +28,7 @@ exports[`ActivityStats component should render ActivityStats 1`] = `
     turkSessionID=""
   />
   <ReactTable
-    AggregatedComponent={[Function]}
-    ExpanderComponent={[Function]}
-    FilterComponent={[Function]}
-    LoadingComponent={[Function]}
-    NoDataComponent={[Function]}
-    PadRowComponent={[Function]}
-    PaginationComponent={[Function]}
-    PivotValueComponent={[Function]}
-    ResizerComponent={[Function]}
-    TableComponent={[Function]}
-    TbodyComponent={[Function]}
-    TdComponent={[Function]}
-    TfootComponent={[Function]}
-    ThComponent={[Function]}
-    TheadComponent={[Function]}
-    TrComponent={[Function]}
-    TrGroupComponent={[Function]}
-    aggregatedKey="_aggregated"
     className="activity-stats-table"
-    collapseOnDataChange={true}
-    collapseOnPageChange={true}
-    collapseOnSortingChange={true}
-    column={
-      Object {
-        "Aggregated": undefined,
-        "Cell": undefined,
-        "Expander": undefined,
-        "Filter": undefined,
-        "Footer": undefined,
-        "Header": undefined,
-        "Pivot": undefined,
-        "PivotValue": undefined,
-        "Placeholder": undefined,
-        "aggregate": undefined,
-        "className": "",
-        "filterAll": false,
-        "filterMethod": undefined,
-        "filterable": undefined,
-        "footerClassName": "",
-        "footerStyle": Object {},
-        "getFooterProps": [Function],
-        "getHeaderProps": [Function],
-        "getProps": [Function],
-        "headerClassName": "",
-        "headerStyle": Object {},
-        "minResizeWidth": 11,
-        "minWidth": 100,
-        "resizable": undefined,
-        "show": true,
-        "sortMethod": undefined,
-        "sortable": undefined,
-        "style": Object {},
-      }
-    }
     columns={
       Array [
         Object {
@@ -168,86 +115,7 @@ exports[`ActivityStats component should render ActivityStats 1`] = `
         },
       ]
     }
-    defaultExpanded={Object {}}
-    defaultFilterMethod={[Function]}
-    defaultFiltered={Array []}
-    defaultPage={0}
     defaultPageSize={3}
-    defaultResized={Array []}
-    defaultSortDesc={false}
-    defaultSortMethod={[Function]}
-    defaultSorted={Array []}
-    expanderDefaults={
-      Object {
-        "filterable": false,
-        "resizable": false,
-        "sortable": false,
-        "width": 35,
-      }
-    }
-    filterable={false}
-    freezeWhenExpanded={false}
-    getLoadingProps={[Function]}
-    getNoDataProps={[Function]}
-    getPaginationProps={[Function]}
-    getProps={[Function]}
-    getResizerProps={[Function]}
-    getTableProps={[Function]}
-    getTbodyProps={[Function]}
-    getTdProps={[Function]}
-    getTfootProps={[Function]}
-    getTfootTdProps={[Function]}
-    getTfootTrProps={[Function]}
-    getTheadFilterProps={[Function]}
-    getTheadFilterThProps={[Function]}
-    getTheadFilterTrProps={[Function]}
-    getTheadGroupProps={[Function]}
-    getTheadGroupThProps={[Function]}
-    getTheadGroupTrProps={[Function]}
-    getTheadProps={[Function]}
-    getTheadThProps={[Function]}
-    getTheadTrProps={[Function]}
-    getTrGroupProps={[Function]}
-    getTrProps={[Function]}
-    groupedByPivotKey="_groupedByPivot"
-    indexKey="_index"
-    loading={false}
-    loadingText="Loading..."
-    multiSort={true}
-    nestingLevelKey="_nestingLevel"
-    nextText="Next"
-    noDataText="No rows found"
-    ofText="of"
-    onFetchData={[Function]}
-    originalKey="_original"
-    pageJumpText="jump to page"
-    pageSizeOptions={
-      Array [
-        5,
-        10,
-        20,
-        25,
-        50,
-        100,
-      ]
-    }
-    pageText="Page"
-    pivotDefaults={Object {}}
-    pivotIDKey="_pivotID"
-    pivotValKey="_pivotVal"
-    previousText="Previous"
-    resizable={true}
-    resolveData={[Function]}
-    rowsSelectorText="rows per page"
-    rowsText="rows"
-    showPageJump={true}
-    showPageSizeOptions={true}
-    showPagination={false}
-    showPaginationBottom={true}
-    showPaginationTop={false}
-    sortable={true}
-    style={Object {}}
-    subRowsKey="_subRows"
   />
 </div>
 `;

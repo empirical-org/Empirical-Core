@@ -1,22 +1,25 @@
 import * as React from 'react'
-import ReactTable from 'react-table-6'
-;
+
+import { ReactTable, } from '../../../../Shared/index'
 
 const columns = [
   {
     Header: 'Raw Score',
     accessor: 'raw_score',
-    key: 'raw_score'
+    key: 'raw_score',
+    width: 100
   },
   {
     Header: 'Grade Band',
     accessor: 'grade_band',
-    key: 'grade_band'
+    key: 'grade_band',
+    width: 100
   },
   {
     Header: 'Activities',
     accessor: 'activity_count',
-    key: 'activity_count'
+    key: 'activity_count',
+    width: 100
   },
 ]
 
@@ -29,7 +32,6 @@ const ActivityClassificationConversionChart = ({ classificationName, conversionC
         columns={columns}
         data={conversionChart}
         defaultPageSize={conversionChart.length}
-        showPagination={false}
       />
     </div>
   );

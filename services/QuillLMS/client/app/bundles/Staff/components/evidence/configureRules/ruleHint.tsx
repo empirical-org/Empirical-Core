@@ -63,7 +63,7 @@ const RuleHint = ({
           text={hint.explanation}
         />
         <p className="form-subsection-label">Hint Annotated Example</p>
-        <i>Click the square below or drag a file into it to upload. Please make sure to upload an .svg image.</i>
+        <i>Click the square below or drag a file into it to upload. Please make sure to upload an .svg image and ensure that any extra whitespace below the image is cropped.</i>
         <Dropzone onDrop={handleDrop} />
         {hint.image_link && hint.image_link.length ? <img alt={hint.image_alt_text} src={hint.image_link} /> : null}
         <p className="form-subsection-label">Hint Image Alt Text</p>
