@@ -807,6 +807,8 @@ EmpiricalGrammar::Application.routes.draw do
   get 'ap' => 'pages#ap'
   get 'AP', to: redirect('/ap')
   get 'springboard' => 'pages#springboard'
+  get 'request_quote' => 'sales_form_submission#request_quote'
+  get 'request_renewal' => 'sales_form_submission#request_renewal'
 
   get '/404' => 'errors#error404'
   get '/500' => 'errors#error500'

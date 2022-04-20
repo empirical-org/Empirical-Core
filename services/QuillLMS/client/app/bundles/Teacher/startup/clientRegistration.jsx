@@ -43,6 +43,7 @@ import UploadRostersApp from '../../Staff/startup/UploadRostersAppClient';
 import StudentNavbarItems from '../../Student/startup/StudentNavbarItemsAppClient'
 import StudentFeedbackModal from '../../Student/startup/StudentFeedbackModalAppClient'
 import LockerApp from '../../Staff/startup/lockerAppClient'
+import SalesFormApp from './SalesFormAppClient'
 
 require('../../../assets/styles/home.scss');
 
@@ -88,5 +89,6 @@ ReactOnRails.register({ TeacherGuideApp,
   SpringBoard,
   StudentFeedbackModal,
   UploadRostersApp,
-  LockerApp
+  LockerApp,
+  SalesFormApp
 });
