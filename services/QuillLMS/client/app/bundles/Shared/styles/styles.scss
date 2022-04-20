@@ -1,5 +1,3 @@
-@import '~react-table-6/react-table.css';
-
 @import './button.scss';
 @import './spinner.scss';
 @import './input.scss';
@@ -19,6 +17,8 @@
 @import './checkboxes.scss';
 @import './toggle_component_section';
 @import './text_editor';
+@import './react_table';
+@import "~react-select-search/style.css";
 
 #main-content {
   outline: none;

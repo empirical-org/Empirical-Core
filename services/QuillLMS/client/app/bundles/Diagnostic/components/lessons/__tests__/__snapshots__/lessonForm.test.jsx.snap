@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`LessonForm component renderSearchBox renders a QuestionSelector component with question options 1`] = `
+exports[`LessonForm component renderSearchBox renders a SelectSearch component with question options 1`] = `
 <div
   className="box"
 >
@@ -238,6 +238,7 @@ exports[`LessonForm component renderSearchBox renders a QuestionSelector compone
   >
     All Questions
     <Memo(ForwardRef)
+      filterOptions={[Function]}
       id="all-questions"
       key="questions"
       onChange={[Function]}
@@ -258,6 +259,7 @@ exports[`LessonForm component renderSearchBox renders a QuestionSelector compone
         ]
       }
       placeholder="Search for a question"
+      search={true}
     />
   </label>
   <br />

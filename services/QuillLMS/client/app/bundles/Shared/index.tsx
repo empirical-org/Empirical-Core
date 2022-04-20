@@ -14,6 +14,12 @@ export {
 } from './components/feedback/conceptExplanation'
 
 export {
+  ReactTable,
+  TextFilter,
+  expanderColumn,
+} from './components/reactTable/reactTable'
+
+export {
   ArchivedButton,
   ButtonLoadingSpinner,
   Card,

@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactTable from 'react-table-6'
+import { ReactTable, } from '../../Shared/index'
 
 import getAuthToken from '../components/modules/get_auth_token';
 import LoadingIndicator from '../components/shared/loading_indicator'
@@ -23,61 +23,53 @@ export default class CmsSchoolIndex extends React.Component {
         accessor: 'school_name',
         resizable: false,
         minWidth: 140,
-        Cell: row => row.original.school_name
       }, {
         Header: "District",
         accessor: 'district_name',
         resizable: false,
         minWidth: 140,
-        Cell: row => row.original.district_name
       }, {
         Header: "City",
         accessor: 'school_city',
         minWidth: 140,
         resizable: false,
-        Cell: row => row.original.school_city
       }, {
         Header: "State",
         accessor: 'school_state',
         resizable: false,
-        minWidth: 60,
-        Cell: row => row.original.school_state,
+        maxWidth: 60,
       }, {
         Header: 'ZIP',
         accessor: 'school_zip',
         resizable: false,
-        minWidth: 60,
-        Cell: row => Number(row.original.school_zip),
+        maxWidth: 60,
+        Cell: ({row}) => Number(row.original.school_zip),
       }, {
         Header: "FRL",
         accessor: 'frl',
         resizable: false,
-        minWidth: 60,
-        Cell: row => row.original.frl ? `${row.original.frl}%` : '',
+        maxWidth: 60,
+        Cell: ({row}) => row.original.frl ? `${row.original.frl}%` : '',
       }, {
         Header: "Teachers",
         accessor: 'number_teachers',
-        resizable: false,
         minWidth: 80,
-        Cell: row => Number(row.original.number_teachers),
+        Cell: ({row}) => Number(row.original.number_teachers),
       }, {
         Header: "Premium?",
         accessor: 'premium_status',
-        resizable: false,
         minWidth: 90,
-        Cell: row => row.original.premium_status,
       }, {
         Header: "Admins",
         accessor: 'number_admins',
-        resizable: false,
-        minWidth: 80,
-        Cell: row => Number(row.original.number_admins),
+        minWidth: 60,
+        Cell: ({row}) => Number(row.original.number_admins),
       }, {
         Header: "Edit",
         accessor: 'edit',
         resizable: false,
-        minWidth: 60,
-        Cell: (row) => {
+        maxWidth: 60,
+        Cell: ({row}) => {
           return <a href={`${process.env.DEFAULT_URL}/cms/schools/${row.original.id}`}>Edit</a>
         }
       }
@@ -85,6 +77,8 @@ export default class CmsSchoolIndex extends React.Component {
   }
 
   setSort = newSorted => {
+    if (!newSorted.length) { return }
+
     const sort = newSorted[0].id
     const sort_direction = newSorted[0].desc ? 'desc' : 'asc'
     if (sort !== this.state.query.sort || sort_direction !== this.state.query.sort_direction) {
@@ -195,12 +189,9 @@ export default class CmsSchoolIndex extends React.Component {
             data={this.state.data}
             defaultPageSize={100}
             defaultSorted={[{id: sort, desc: sortDescending}]}
+            manualSortBy={true}
             minRows={1}
             onSortedChange={this.setSort}
-            showPageSizeOptions={false}
-            showPagination={false}
-            showPaginationBottom={false}
-            showPaginationTop={false}
           />
           <div className='cms-pagination-container'>
             {this.renderPageSelector()}
