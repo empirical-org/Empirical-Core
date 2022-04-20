@@ -6,7 +6,7 @@ import { NavBar } from './navbar/navbar';
 
 import { routes } from "../routes";
 import { getParameterByName } from '../libs/getParameterByName';
-import { TeacherPreviewMenu, TeacherPreviewMenuButton } from '../../Shared/index';
+import { TeacherPreviewMenu, ScreenreaderInstructions, } from '../../Shared/index';
 import { fetchUserRole } from '../../Shared/utils/userAPIs';
 import { addKeyDownListener } from '../../Shared/hooks/addKeyDownListener';
 
@@ -84,6 +84,7 @@ export const Home = () => {
           />
         </aside>}
         <main style={{ height: '100vh', overflow: 'auto' }}>
+          <ScreenreaderInstructions />
           <button className="skip-main" onClick={handleSkipToMainContentClick} type="button">Skip to main content</button>
           {header}
           <div id="main-content" tabIndex={-1}>{renderRoutes(routes, {
