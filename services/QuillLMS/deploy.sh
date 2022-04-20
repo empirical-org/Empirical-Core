@@ -81,6 +81,9 @@ read -r -p "Deploy branch '$current_branch' to '$1' environment? [y/N]" response
 if [[ "$response" =~ ^([y])$ ]]
 then
     sh ../../scripts/post_slack_deploy.sh $app_name $1 $current_branch false
+
+    heroku git:remote -a $app_name
+
     if [ $1 == 'prod' ]
     then
         # For production, push directly from the remote production branch without going local
@@ -88,13 +91,13 @@ then
         # Documented here: https://github.com/empirical-org/test_repo/blob/destination_branch/test_file.txt
         git fetch origin production
         git fetch origin $DEPLOY_GIT_BRANCH
-        git push --no-verify --force origin origin/production:refs/heads/$DEPLOY_GIT_BRANCH
+        git push --no-verify --force heroku origin/production:refs/heads/main
 
         sh ../../scripts/post_slack_deploy_description.sh $app_name
         open $AUTOSCALE_URL
     else
         git fetch origin $DEPLOY_GIT_BRANCH
-        git push --no-verify --force origin ${current_branch}:$DEPLOY_GIT_BRANCH
+        git push --no-verify --force heroku ${current_branch}:main
     fi
     open "https://dashboard.heroku.com/apps/$HEROKU_APP/activity"
     open $URL
