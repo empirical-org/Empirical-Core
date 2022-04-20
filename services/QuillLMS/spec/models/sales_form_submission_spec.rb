@@ -1,5 +1,26 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: sales_form_submissions
+#
+#  id                             :bigint           not null, primary key
+#  collection_type                :string           not null
+#  comment                        :text             default("")
+#  district_name                  :string           not null
+#  email                          :string           not null
+#  first_name                     :string           not null
+#  last_name                      :string           not null
+#  phone_number                   :string           not null
+#  school_name                    :string           not null
+#  school_premium_count_estimate  :integer          default(0), not null
+#  student_premium_count_estimate :integer          default(0), not null
+#  submission_type                :string           not null
+#  teacher_premium_count_estimate :integer          default(0), not null
+#  zipcode                        :string           not null
+#  created_at                     :datetime         not null
+#  updated_at                     :datetime         not null
+#
 require 'rails_helper'
 
 RSpec.describe SalesFormSubmission, type: :model do
