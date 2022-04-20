@@ -11,9 +11,9 @@ class CreateSalesFormSubmissions < ActiveRecord::Migration[5.1]
       t.string :collection_type, null: false
       t.string :school_name, null: false
       t.string :district_name, null: false
-      t.integer :school_premium_count_estimate, null: false
-      t.integer :teacher_premium_count_estimate, null: false
-      t.integer :student_premium_count_estimate, null: false
+      t.integer :school_premium_count_estimate, null: false, default: 0
+      t.integer :teacher_premium_count_estimate, null: false, default: 0
+      t.integer :student_premium_count_estimate, null: false, default: 0
       t.string :submission_type, null: false
       t.text :comment, default: ''
 
