@@ -342,5 +342,14 @@
         display: none;
       }
     }
+    .hint {
+      height: 304px;
+    }
+  }
+}
+
+@media (max-width: 660px) {
+  .hint {
+    height: 248px;
   }
 }
