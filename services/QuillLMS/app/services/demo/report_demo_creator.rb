@@ -209,7 +209,6 @@ module Demo::ReportDemoCreator
     {
       name: "Evidence-Based Writing: Ethics in Science [Beta]",
       activity_ids: [1726, 1815, 1813, 1830],
-      is_evidence: true,
       activity_sessions: [
         {
           1726 => 139852750,
@@ -412,7 +411,7 @@ module Demo::ReportDemoCreator
             }
             new_feedback_session = FeedbackSession.create(values)
 
-            feedback_session_to_copy.feedback_history.each do |fh|
+            feedback_session_to_copy&.feedback_history&.each do |fh|
               new_feedback_history = fh.dup
               new_feedback_history.feedback_session_uid = new_feedback_session.uid
               new_feedback_history.save
