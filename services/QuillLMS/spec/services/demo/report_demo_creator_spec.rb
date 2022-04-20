@@ -77,7 +77,8 @@ RSpec.describe Demo::ReportDemoCreator do
       ap[:activity_sessions][0].each do |act_id, user_id|
         user = build(:user, id: user_id)
         user.save
-        create(:activity_session, state: 'finished', activity_id: act_id, user_id: user_id, is_final_score: true)
+        activity_session = create(:activity_session, state: 'finished', activity_id: act_id, user_id: user_id, is_final_score: true)
+        create(:concept_result, activity_session: activity_session)
       end
     end
 
@@ -97,5 +98,6 @@ RSpec.describe Demo::ReportDemoCreator do
     expect(act_sesh.user_id).to eq(student.id)
     expect(act_sesh.state).to eq('finished')
     expect(act_sesh.percentage).to eq(temp.percentage)
+    expect(act_sesh.concept_results.first.metadata).to eq(temp.concept_results.first.metadata)
   end
 end

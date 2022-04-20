@@ -395,45 +395,21 @@ module Demo::ReportDemoCreator
       ACTIVITY_PACKS_TEMPLATES.each do |activity_pack|
         unit = Unit.where(name: activity_pack[:name]).last
         act_sessions = activity_pack[:activity_sessions]
-        if activity_pack[:is_evidence]
-          act_sessions[num].each do |act_id, user_id|
-            temp = ActivitySession.unscoped.where({activity_id: act_id, user_id: user_id, is_final_score: true}).first
-            next unless temp
+        act_sessions[num].each do |act_id, user_id|
+          temp = ActivitySession.unscoped.where({activity_id: act_id, user_id: user_id, is_final_score: true}).first
+          next unless temp
 
-            cu = ClassroomUnit.find_by(classroom_id: classroom.id, unit_id: unit.id)
-            new_activity_session = ActivitySession.create({activity_id: act_id, classroom_unit_id: cu.id, user_id: student.id, state: "finished", percentage: temp.percentage, uid: SecureRandom.uuid})
+          cu = ClassroomUnit.find_by(classroom_id: classroom.id, unit_id: unit.id)
+          act_session = ActivitySession.create({activity_id: act_id, classroom_unit_id: cu.id, user_id: student.id, state: "finished", percentage: temp.percentage})
 
-            feedback_session_to_copy = temp.feedback_sessions.first
-
+          temp.concept_results.each do |cr|
             values = {
-              activity_session_uid: new_activity_session.uid,
-              uid: SecureRandom.uuid
+              activity_session_id: act_session.id,
+              concept_id: cr.concept_id,
+              metadata: cr.metadata,
+              question_type: cr.question_type
             }
-            new_feedback_session = FeedbackSession.create(values)
-
-            feedback_session_to_copy&.feedback_history&.each do |fh|
-              new_feedback_history = fh.dup
-              new_feedback_history.feedback_session_uid = new_feedback_session.uid
-              new_feedback_history.save
-            end
-          end
-        else
-          act_sessions[num].each do |act_id, user_id|
-            temp = ActivitySession.unscoped.where({activity_id: act_id, user_id: user_id, is_final_score: true}).first
-            next unless temp
-
-            cu = ClassroomUnit.find_by(classroom_id: classroom.id, unit_id: unit.id)
-            act_session = ActivitySession.create({activity_id: act_id, classroom_unit_id: cu.id, user_id: student.id, state: "finished", percentage: temp.percentage})
-
-            temp.concept_results.each do |cr|
-              values = {
-                activity_session_id: act_session.id,
-                concept_id: cr.concept_id,
-                metadata: cr.metadata,
-                question_type: cr.question_type
-              }
-              ConceptResult.create(values)
-            end
+            ConceptResult.create(values)
           end
         end
       end
