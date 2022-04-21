@@ -60,7 +60,7 @@ export class ActivitiesScoresByClassroomProgressReport extends React.Component {
         Header: 'Student',
         accessor: 'name',
         resizable: false,
-        sortMethod: sortTableByLastName,
+        sortType: sortTableByLastName,
         Cell: ({row}) => (<a className='row-link-disguise underlined' href={`/teachers/progress_reports/student_overview?classroom_id=${row.original.classroom_id}&student_id=${row.original.student_id}`}>
           {row.original.name}
         </a>),
@@ -108,7 +108,7 @@ export class ActivitiesScoresByClassroomProgressReport extends React.Component {
         Cell: ({row}) => (<a className='row-link-disguise' href={`/teachers/progress_reports/student_overview?classroom_id=${row.original.classroom_id}&student_id=${row.original.student_id}`}>
           {row.original.last_active ? moment(row.original.last_active).format("MM/DD/YYYY") : <span />}
         </a>),
-        sortMethod: sortFromSQLTimeStamp,
+        sortType: sortFromSQLTimeStamp,
       },
       {
         Header: "Class",
