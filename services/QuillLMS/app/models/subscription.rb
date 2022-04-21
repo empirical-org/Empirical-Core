@@ -229,7 +229,7 @@ class Subscription < ApplicationRecord
   end
 
   def renew_via_stripe
-    return ErrorNotifier.report(RenewalNilStripeCustomer, subscription_id: id) unless purchaser&.stripe_customer?
+    return ErrorNotifier.report(RenewalNilStripeCustomer.new, subscription_id: id) unless purchaser&.stripe_customer?
 
     Stripe::Subscription.create(
       customer: purchaser.stripe_customer_id,

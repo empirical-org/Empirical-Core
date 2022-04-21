@@ -374,7 +374,7 @@ describe Subscription, type: :model do
       subject { subscription.renew_via_stripe }
 
       context 'when stripe_customer? is false' do
-        let(:error) { described_class::RenewalNilStripeCustomer }
+        let(:error) { described_class::RenewalNilStripeCustomer.new }
 
         before { allow(purchaser).to receive(:stripe_customer?).and_return(false) }
 
