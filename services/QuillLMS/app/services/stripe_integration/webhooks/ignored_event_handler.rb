@@ -23,6 +23,7 @@ module StripeIntegration
         'invoice.updated',
         'invoiceitem.created',
         'invoiceitem.updated',
+        'payment_intent.cancelled',
         'payment_intent.created',
         'payment_intent.succeeded',
         'payment_method.attached',
