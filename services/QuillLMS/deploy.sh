@@ -90,7 +90,6 @@ then
         # This 'remote merge' requires your local git history/pointers of the remote branches to be up-to-date, so we run a 'git fetch' to do that.
         # Documented here: https://github.com/empirical-org/test_repo/blob/destination_branch/test_file.txt
         git fetch origin production
-        git fetch origin $DEPLOY_GIT_BRANCH
         # Heroku's git server keeps `push` calls open during the full deploy process
         # This means that under normal circumstances, this `push` call wouldn't terminate for, like, 20 minutes and the scriptwouldn't terminate
         # In order to avoid that, we apply `nohup` to disconnect stdin, pipe outputs to /dev/null, and end the command with `&` to run the command in the background
@@ -99,7 +98,6 @@ then
         sh ../../scripts/post_slack_deploy_description.sh $app_name
         open $AUTOSCALE_URL
     else
-        git fetch origin $DEPLOY_GIT_BRANCH
         # See note in the $1=="prod" condition for an explanation of this command's construction
         nohup git push --quiet --no-verify --force heroku ${current_branch}:main &> /dev/null &
     fi
