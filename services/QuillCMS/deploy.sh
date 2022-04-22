@@ -32,7 +32,7 @@ then
         # Heroku's git server keeps `push` calls open during the full deploy process
         # This means that under normal circumstances, this `push` call wouldn't terminate for, like, 20 minutes and the scriptwouldn't terminate
         # In order to avoid that, we apply `nohup` to disconnect stdin, pipe outputs to /dev/null, and end the command with `&` to run the command in the background
-        nohup git push --quiet --no-verify --force heroku origin/production:refs/heads/main &> /dev/null &
+        nohup git push --no-verify --force heroku origin/production:refs/heads/main &> /dev/null &
 
         open $AUTOSCALE_URL
         open $NR_URL
