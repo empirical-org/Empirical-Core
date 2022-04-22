@@ -74,7 +74,7 @@ namespace :nces_sync do
           grade_range: "#{row["Lowest Grade Offered"]} - #{row["Highest Grade Offered"]}"
         }
 
-        school = School.find_or_create_by()
+        school = School.find_or_create_by(nces_id: row["NCES ID"])
         if district.present?
           district.update!(attributes_hash)
         else
