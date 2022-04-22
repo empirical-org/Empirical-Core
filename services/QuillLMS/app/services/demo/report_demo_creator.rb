@@ -2,7 +2,7 @@
 
 module Demo::ReportDemoCreator
 
-  COMPREHENSION_APP_SETTING = "comprehension"
+  EVIDENCE_APP_SETTING = "comprehension"
   REPLAYED_ACTIVITY_ID = 434
   REPLAYED_SAMPLE_USER_ID = 312664
   ACTIVITY_PACKS_TEMPLATES = [
@@ -273,7 +273,7 @@ module Demo::ReportDemoCreator
     }
 
     teacher = User.create(values)
-    app_setting = AppSetting.find_by(name: COMPREHENSION_APP_SETTING)
+    app_setting = AppSetting.find_by(name: EVIDENCE_APP_SETTING)
 
     return teacher if app_setting.blank?
 

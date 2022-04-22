@@ -9,7 +9,7 @@ RSpec.describe Demo::ReportDemoCreator do
     Demo::ReportDemoCreator::ACTIVITY_PACKS_TEMPLATES.each do |ap|
       ap[:activity_ids].each {|id| create(:activity, id: id)}
     end
-    AppSetting.create(name: Demo::ReportDemoCreator::COMPREHENSION_APP_SETTING)
+    AppSetting.create(name: Demo::ReportDemoCreator::EVIDENCE_APP_SETTING)
   end
 
 
@@ -21,7 +21,7 @@ RSpec.describe Demo::ReportDemoCreator do
     expect(teacher.email).to eq(email)
     expect(teacher.role).to eq("teacher")
     expect(teacher.flags).to eq(["beta"])
-    expect(AppSetting.find_by(name: Demo::ReportDemoCreator::COMPREHENSION_APP_SETTING).user_ids_allow_list).to eq([teacher.id])
+    expect(AppSetting.find_by(name: Demo::ReportDemoCreator::EVIDENCE_APP_SETTING).user_ids_allow_list).to eq([teacher.id])
   end
 
   it 'creates a classroom for the teacher' do
