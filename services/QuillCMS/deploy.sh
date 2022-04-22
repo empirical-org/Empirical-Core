@@ -20,20 +20,25 @@ read -r -p "Deploy branch '$current_branch' to '$1' environment? [y/N]" response
 if [[ "$response" =~ ^([y])$ ]]
 then
     sh ../../scripts/post_slack_deploy.sh $app_name $1 $current_branch false
+
+    heroku git:remote -a $HEROKU_APP
+
     if [ $1 == 'prod' ]
     then
         # For production, push directly from the remote production branch without going local
         # This 'remote merge' requires your local git history/pointers of the remote branches to be up-to-date, so we run a 'git fetch' to do that.
         # Documented here: https://github.com/empirical-org/test_repo/blob/destination_branch/test_file.txt
         git fetch origin production
-        git fetch origin $DEPLOY_GIT_BRANCH
-        git push --no-verify --force origin origin/production:refs/heads/$DEPLOY_GIT_BRANCH
+        # Heroku's git server keeps `push` calls open during the full deploy process
+        # This means that under normal circumstances, this `push` call wouldn't terminate for, like, 20 minutes and the scriptwouldn't terminate
+        # In order to avoid that, we apply `nohup` to disconnect stdin, pipe outputs to /dev/null, and end the command with `&` to run the command in the background
+        nohup git push --no-verify --force heroku origin/production:refs/heads/main &> /dev/null &
 
         open $AUTOSCALE_URL
         open $NR_URL
     else
-        git fetch origin $DEPLOY_GIT_BRANCH
-        git push --no-verify --force origin ${current_branch}:$DEPLOY_GIT_BRANCH
+        # See note in the $1=="prod" condition for an explanation of this command's construction
+        nohup git push --no-verify --force heroku ${current_branch}:main &> /dev/null &
     fi
     open "https://dashboard.heroku.com/apps/$HEROKU_APP/activity"
     echo "Deploy screen opened in your browser, you can monitor from there."
