@@ -9,6 +9,7 @@ RSpec.describe Demo::ReportDemoCreator do
     Demo::ReportDemoCreator::ACTIVITY_PACKS_TEMPLATES.each do |ap|
       ap[:activity_ids].each {|id| create(:activity, id: id)}
     end
+    AppSetting.create(name: Demo::ReportDemoCreator::EVIDENCE_APP_SETTING)
   end
 
 
@@ -19,6 +20,8 @@ RSpec.describe Demo::ReportDemoCreator do
     expect(teacher.name).to eq("Demo Teacher")
     expect(teacher.email).to eq(email)
     expect(teacher.role).to eq("teacher")
+    expect(teacher.flags).to eq(["beta"])
+    expect(AppSetting.find_by(name: Demo::ReportDemoCreator::EVIDENCE_APP_SETTING).user_ids_allow_list).to eq([teacher.id])
   end
 
   it 'creates a classroom for the teacher' do
@@ -74,7 +77,8 @@ RSpec.describe Demo::ReportDemoCreator do
       ap[:activity_sessions][0].each do |act_id, user_id|
         user = build(:user, id: user_id)
         user.save
-        create(:activity_session, state: 'finished', activity_id: act_id, user_id: user_id, is_final_score: true)
+        activity_session = create(:activity_session, state: 'finished', activity_id: act_id, user_id: user_id, is_final_score: true)
+        create(:concept_result, activity_session: activity_session)
       end
     end
 
@@ -85,11 +89,15 @@ RSpec.describe Demo::ReportDemoCreator do
     units = Demo::ReportDemoCreator.create_units(teacher)
 
     Demo::ReportDemoCreator.create_classroom_units(classroom, units)
-    expect {Demo::ReportDemoCreator.create_activity_sessions([student], classroom)}.to change {ActivitySession.count}.by(24)
+    total_act_sesh_count = Demo::ReportDemoCreator::ACTIVITY_PACKS_TEMPLATES.map {|ap| ap[:activity_sessions][0].keys.count}.sum
+    expect {Demo::ReportDemoCreator.create_activity_sessions([student], classroom)}.to change {ActivitySession.count}.by(total_act_sesh_count)
     act_sesh = ActivitySession.last
-    expect(act_sesh.activity_id).to eq(1664)
+
+    last_template = Demo::ReportDemoCreator::ACTIVITY_PACKS_TEMPLATES.last
+    expect(act_sesh.activity_id).to eq(last_template[:activity_sessions][0].keys.last)
     expect(act_sesh.user_id).to eq(student.id)
     expect(act_sesh.state).to eq('finished')
     expect(act_sesh.percentage).to eq(temp.percentage)
+    expect(act_sesh.concept_results.first.metadata).to eq(temp.concept_results.first.metadata)
   end
 end
