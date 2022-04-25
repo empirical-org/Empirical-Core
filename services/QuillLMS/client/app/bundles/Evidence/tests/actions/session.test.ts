@@ -1,15 +1,14 @@
-import dispatch from '../../__mocks__/dispatch'
+const mockTrackAnalyticsEvent = jest.fn()
+jest.mock('../../actions/analytics', () => ({
+  TrackAnalyticsEvent: mockTrackAnalyticsEvent
+}))
 
 const mockPost = jest.fn()
 jest.mock('request', () => ({
   post: mockPost
 }))
 
-const mockTrackAnalyticsEvent = jest.fn()
-jest.mock('../../actions/analytics', () => ({
-  TrackAnalyticsEvent: mockTrackAnalyticsEvent
-}))
-
+import dispatch from '../../__mocks__/dispatch'
 import { getFeedback } from '../../actions/session'
 import { Events } from '../../modules/analytics'
 
@@ -24,8 +23,7 @@ describe('Session actions', () => {
     const mockStartingFeedback = 'Starting feedback'
     const mockStartingFeedbackID = 'STARTING_FEEDBACK_ID'
     const mockPreviousFeedback = [{
-      feedback: mockStartingFeedback,
-      response_id: mockStartingFeedbackID
+      feedback: mockStartingFeedback
     }]
     const mockCallback = jest.fn()
 
@@ -50,7 +48,6 @@ describe('Session actions', () => {
         promptStemText: mockPromptText,
         sessionID: mockSessionID,
         startingFeedback: mockStartingFeedback,
-        startingFeedbackID: mockStartingFeedbackID,
         submittedEntry: mockEntry
       })
     })

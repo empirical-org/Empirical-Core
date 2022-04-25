@@ -198,19 +198,17 @@ export const getFeedback = (args: GetFeedbackArguments) => {
       promptStemText: promptText,
       sessionID,
       startingFeedback: mostRecentFeedback.feedback,
-      startingFeedbackID: mostRecentFeedback.response_id,
       submittedEntry: entry
     }));
 
     request.post(requestObject, (e, r, body) => {
-      const { concept_uid, feedback, feedback_type, optimal, response_id, highlight, labels, hint, } = body
+      const { concept_uid, feedback, feedback_type, optimal, highlight, labels, hint, } = body
       const feedbackObj: FeedbackObject = {
         concept_uid,
         entry,
         feedback,
         feedback_type,
         optimal,
-        response_id,
         highlight,
         labels,
         hint,
@@ -223,10 +221,8 @@ export const getFeedback = (args: GetFeedbackArguments) => {
         hint,
         promptStemText: promptText,
         returnedFeedback: feedbackObj.feedback,
-        returnedFeedbackID: feedbackObj.response_id,
         sessionID,
         startingFeedback: mostRecentFeedback.feedback,
-        startingFeedbackID: mostRecentFeedback.response_id,
         submittedEntry: entry
       }));
       callback()

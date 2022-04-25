@@ -18,7 +18,6 @@ module Evidence
         feedback: feedback_text,
         feedback_type: @rule_type,
         optimal: matched_rule.blank?,
-        response_id: '',
         entry: @entry,
         concept_uid: matched_rule&.concept_uid || '',
         rule_uid: matched_rule&.uid || optimal_rule_uid,
