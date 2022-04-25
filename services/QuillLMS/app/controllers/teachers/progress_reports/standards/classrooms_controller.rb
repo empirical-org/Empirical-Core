@@ -27,10 +27,6 @@ class Teachers::ProgressReports::Standards::ClassroomsController < Teachers::Pro
   end
 end
 
-private def fetch_index_json_cache
-
-end
-
 private def student_names_and_ids(classroom_id)
   classroom_conditional = "AND classrooms.id = #{classroom_id}" if classroom_id
 
