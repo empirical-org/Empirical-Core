@@ -92,6 +92,15 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
     let!(:cu) { create(:classroom_unit, classroom: classroom, unit: unit, assigned_student_ids: [student1.id, student2.id, student3.id])}
     let!(:ua) { create(:unit_activity, unit: unit, activity: activity)}
 
+    it 'should cache results so that they are only calculated once' do
+      expect_any_instance_of(Teachers::ProgressReports::DiagnosticReportsController).to receive(:results_for_classroom).with(unit.id.to_s, activity.id.to_s, classroom.id.to_s).once.and_call_original
+      2.times do
+        get :students_by_classroom, params: ({activity_id: activity.id, unit_id: unit.id, classroom_id: classroom.id})
+
+        expect(response).to be_success
+      end
+    end
+
     it 'should return empty arrays when there are no activity_sessions' do
       get :students_by_classroom, params: ({activity_id: activity.id, unit_id: unit.id, classroom_id: classroom.id})
 
