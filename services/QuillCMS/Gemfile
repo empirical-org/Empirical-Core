@@ -67,3 +67,5 @@ group :development, :test do
   gem 'rspec-rails', '~> 4.0'
   gem 'webmock'
 end
+
+gem "redis-store", "~> 1.9"

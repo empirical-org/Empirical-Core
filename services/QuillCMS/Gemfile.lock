@@ -228,6 +228,8 @@ GEM
     redis (4.5.1)
     redis-namespace (1.8.1)
       redis (>= 3.0.4)
+    redis-store (1.9.1)
+      redis (>= 4, < 5)
     rexml (3.2.5)
     rspec-core (3.10.1)
       rspec-support (~> 3.10.0)
@@ -316,6 +318,7 @@ DEPENDENCIES
   rb-readline
   redis (~> 4.5)
   redis-namespace
+  redis-store (~> 1.9)
   rspec-rails (~> 4.0)
   rubyzip
   scenic (~> 1.5.4)
