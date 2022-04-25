@@ -22,7 +22,7 @@ module Evidence
 
     # rubocop:disable Metrics/CyclomaticComplexity
     private def get_plagiarism_feedback_from_previous_feedback(prev, rule)
-      previous_plagiarism = prev.select {|f| f["feedback_type"] == Evidence::Rule::TYPE_PLAGIARISM && f["optimal"] == false }
+      previous_plagiarism = prev&.select {|f| f["feedback_type"] == Evidence::Rule::TYPE_PLAGIARISM && f["optimal"] == false } || []
       feedbacks = rule&.feedbacks
       previous_plagiarism.empty? ? feedbacks&.find_by(order: 0)&.text : feedbacks&.find_by(order: 1)&.text
     end
