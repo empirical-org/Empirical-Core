@@ -28,7 +28,6 @@ module Evidence
         feedback: feedback.text,
         feedback_type: Rule::TYPE_AUTOML,
         optimal: matched_rule.optimal,
-        response_id: '',
         entry: @entry,
         concept_uid: matched_rule&.concept_uid || '',
         rule_uid: matched_rule&.uid || '',

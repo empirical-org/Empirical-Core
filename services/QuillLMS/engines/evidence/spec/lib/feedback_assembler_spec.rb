@@ -49,7 +49,6 @@ module Evidence
             feedback: nil,
             feedback_type: '',
             optimal: false,
-            response_id: '0',
             highlight: [
               { type: 'response', text: 'someText', character: 0 }
             ],
