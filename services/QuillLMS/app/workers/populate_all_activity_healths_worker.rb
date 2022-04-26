@@ -15,7 +15,6 @@ class PopulateAllActivityHealthsWorker
     activities = Activity
       .not_archived
       .where(activity_classification_id: relevant_ids)
-      .order(:id)
 
     # spread these, to cut down on DB resource contention.
     activities.each.with_index do |activity, index|
