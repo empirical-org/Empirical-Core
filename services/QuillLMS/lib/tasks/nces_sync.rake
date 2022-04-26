@@ -107,9 +107,5 @@ namespace :nces_sync do
     def self.clean_string(string)
       string.split("-")[0]
     end
-
-    def self.clean_int(string)
-      string.split("-")[0].to_i
-    end
   end
 end
