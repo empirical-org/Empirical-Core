@@ -64,5 +64,14 @@ describe('stringFormatting', () => {
       expect(result).toEqual('lorem <b>ipsum</b> ipsum <b>lorem</b>')
     });
 
+    it('should play', () => {
+      const highlights = [
+        { offset: 0, text: "they" },
+        { offset: 73, text: "is" }
+      ]
+      const result = highlightGrammar('they is great.', highlights)
+      expect(result).toEqual("<b>they</b> is great.")
+    });
+
   });
 });

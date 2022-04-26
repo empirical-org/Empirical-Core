@@ -12,8 +12,9 @@ export const highlightSpelling = (str: string, wordsToFormat: string | string[])
   return newString
 }
 
-export const highlightGrammar = (str: string, highlightArray=[]) => {
-  console.log("highlightGrammar: ", str)
+export const highlightGrammar = (oldStr: string, highlightArray=[]) => {
+  let str = oldStr
+
   if (highlightArray.length < 1) { return str }
 
   highlightArray.sort(descendingOffsetComparator)
@@ -32,7 +33,9 @@ export const highlightGrammar = (str: string, highlightArray=[]) => {
     }
 
     str = stringBeforeOffset + stringAfterOffset;
+    console.log(" interim: ", str, "before:", stringBeforeOffset, "after:", stringAfterOffset)
   })
+
 
   return str
 }
