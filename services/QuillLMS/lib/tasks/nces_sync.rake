@@ -85,7 +85,7 @@ namespace :nces_sync do
           latitude: row["Latitude"].to_f,
           ulocal: CSVHelper.clean_string(row["Locale"]).to_i,
           fte_classroom_teacher: row["FTE Teachers"].to_i,
-          free_lunches: row["Total Students"].to_i > 0 ? row["Free Lunch"].to_i / row["Total Students"].to_i : nil,
+          free_lunches: row["Total Students"].to_i > 0 ? (row["Free Lunch"].to_f / row["Total Students"].to_f * 100).to_i : nil,
           total_students: row["Total Students"].to_i
         }
 
@@ -106,7 +106,10 @@ namespace :nces_sync do
 
   module CSVHelper
     def self.clean_string(string)
-      string.split("-")[0]
+      cleaned_string = string.split("-")[0]
+
+      # nullify non-digit symbols here, we dont want them in our columns
+      cleaned_string.scan(/\D/).empty? ? cleaned_string : nil
     end
   end
 end
