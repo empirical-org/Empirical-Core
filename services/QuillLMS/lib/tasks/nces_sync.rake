@@ -31,7 +31,7 @@ namespace :nces_sync do
           phone: row["Phone"],
           total_schools: row["Total Schools"],
           total_students: row["Total Students"],
-          grade_range: "#{row["Lowest Grade Offered"]} - #{row["Highest Grade Offered"]}"
+          grade_range: "#{row['Lowest Grade Offered']} - #{row['Highest Grade Offered']}"
         }
 
         district = District.where("lower(name) = ?", attributes_hash[:name].downcase).first
@@ -41,7 +41,7 @@ namespace :nces_sync do
           District.create!(attributes_hash)
         end
 
-        puts "updated district #{row["District Name"]}"
+        puts "updated district #{row['District Name']}"
       end
     end
   end
@@ -98,7 +98,7 @@ namespace :nces_sync do
           School.create!(attributes_hash)
         end
 
-        puts "updated school #{row["School Name"]}"
+        puts "updated school #{row['School Name']}"
       end
     end
   end
