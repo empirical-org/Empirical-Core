@@ -46,7 +46,8 @@ namespace :nces_sync do
     end
   end
 
-  # Every year we need to run a fresh update of our data with NCES data.
+  # I recommend running this task AFTER running the district task, in case there are new districts
+  # that don't exist in our DB yet.
 
   # To run a fresh update:
 
