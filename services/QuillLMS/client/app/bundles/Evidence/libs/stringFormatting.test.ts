@@ -41,36 +41,38 @@ describe('stringFormatting', () => {
     });
 
     it('should bold, given 1 highlight', () => {
-      const result = highlightGrammar('lorem ipsum', [{offset: 6, text: "ipsum"}])
+      const result = highlightGrammar('lorem ipsum', [{character: 6, text: "ipsum"}])
       expect(result).toEqual('lorem <b>ipsum</b>')
     });
 
-    it('should not bold a phrase before the given offset', () => {
-      const result = highlightGrammar('lorem ipsum ipsum', [{offset: 8, text: "ipsum"}])
+    it('should not bold a phrase before the given character', () => {
+      const result = highlightGrammar('lorem ipsum ipsum', [{character: 8, text: "ipsum"}])
       expect(result).toEqual('lorem ipsum <b>ipsum</b>')
     });
 
-    it('should not bold a phrase after the given offset', () => {
-      const result = highlightGrammar('lorem ipsum ipsum', [{offset: 0, text: "ipsum"}])
+    it('should not bold a phrase after the given character', () => {
+      const result = highlightGrammar('lorem ipsum ipsum', [{character: 0, text: "ipsum"}])
       expect(result).toEqual('lorem <b>ipsum</b> ipsum')
     });
 
     it('should handle multiple, offsorted highlights', () => {
       const highlights = [
-        { offset: 18, text: "lorem" },
-        { offset: 6, text: "ipsum" }
+        { character: 18, text: "lorem" },
+        { character: 6, text: "ipsum" }
       ]
       const result = highlightGrammar('lorem ipsum ipsum lorem', highlights)
       expect(result).toEqual('lorem <b>ipsum</b> ipsum <b>lorem</b>')
     });
 
-    it('should play', () => {
+    // This is because the offsets are calculated from the start of the prompt + entry string,
+    // not just the entry
+    it('should incorporate promptLength param', () => {
       const highlights = [
-        { offset: 0, text: "they" },
-        { offset: 73, text: "is" }
+        { character: 10, text: "they" },
+        { character: 15, text: "is" }
       ]
-      const result = highlightGrammar('they is great.', highlights)
-      expect(result).toEqual("<b>they</b> is great.")
+      const result = highlightGrammar('they is great.', highlights, 10)
+      expect(result).toEqual("<b>they</b> <b>is</b> great.")
     });
 
   });

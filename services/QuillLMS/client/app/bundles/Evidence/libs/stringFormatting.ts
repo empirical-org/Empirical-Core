@@ -12,15 +12,16 @@ export const highlightSpelling = (str: string, wordsToFormat: string | string[])
   return newString
 }
 
-export const highlightGrammar = (oldStr: string, highlightArray=[]) => {
-  let str = oldStr
+export const highlightGrammar = (str: string, highlightArray, promptLength: number=0) => {
 
   if (highlightArray.length < 1) { return str }
 
   highlightArray.sort(descendingOffsetComparator)
 
   highlightArray.forEach((highlight) => {
-    let offset = highlight.offset
+    let offset = highlight.character - promptLength
+    console.log("offset: ", offset)
+    console.log("promptLength:", promptLength, "char", highlight.character)
     let stringAfterOffset = str.slice(offset)
     let stringBeforeOffset = offset === 0 ? '' : str.slice(0, offset)
 
@@ -33,10 +34,10 @@ export const highlightGrammar = (oldStr: string, highlightArray=[]) => {
     }
 
     str = stringBeforeOffset + stringAfterOffset;
-    console.log(" interim: ", str, "before:", stringBeforeOffset, "after:", stringAfterOffset)
+    console.log(" interim: ", str, "\nbefore:", stringBeforeOffset, "\nafter:", stringAfterOffset)
   })
 
-
+  console.log("\n end loop \n")
   return str
 }
 

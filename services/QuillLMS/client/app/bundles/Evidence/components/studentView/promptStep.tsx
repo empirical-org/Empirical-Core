@@ -145,7 +145,7 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     return highlightSpelling(str, wordsToFormat)
   }
 
-  formatStudentResponse = (str: string) => {
+  formatStudentResponse = (str: string, promptLength: number) => {
     const { prompt, submittedResponses, } = this.props
     const lastSubmittedResponse = this.lastSubmittedResponse()
 
@@ -164,7 +164,7 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     if (lastSubmittedResponse.feedback_type === 'plagiarism') {
       return this.formatPlagiarismHighlight(str, wordsToFormat)
     } else if (lastSubmittedResponse.feedback_type === 'grammar') {
-      return highlightGrammar(str, filteredHighlights)
+      return highlightGrammar(str, filteredHighlights, promptLength)
     } else {
       return highlightSpelling(str, wordsToFormat)
     }
@@ -319,7 +319,7 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     const textForCharacterCount = stripHtml(textWithoutStem);
     const spaceAtEnd = text.match(/\s$/m) ? '&nbsp;' : ''
     return {
-      htmlWithBolding: `<p>${this.highlightsAddedPrompt(this.htmlStrippedPrompt())}${this.formatStudentResponse(textWithoutStem)}${spaceAtEnd}</p>`,
+      htmlWithBolding: `<p>${this.highlightsAddedPrompt(this.htmlStrippedPrompt())}${this.formatStudentResponse(textWithoutStem, prompt.text.length)}${spaceAtEnd}</p>`,
       rawTextWithoutStem: textWithoutStem,
       textForCharacterCount
     }
