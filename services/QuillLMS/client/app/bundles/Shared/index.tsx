@@ -98,7 +98,8 @@ export {
   roundValuesToSeconds,
   roundMillisecondsToSeconds,
   titleCase,
-  onMobile
+  onMobile,
+  fillInBlankInputLabel,
 } from './libs/index'
 
 export {

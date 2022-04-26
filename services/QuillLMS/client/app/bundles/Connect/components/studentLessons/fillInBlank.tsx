@@ -16,7 +16,8 @@ import {
   Prompt,
   ConceptExplanation,
   Feedback,
-  getLatestAttempt
+  getLatestAttempt,
+  fillInBlankInputLabel,
 } from '../../../Shared/index'
 
 const qml = require('quill-marking-logic')
@@ -184,7 +185,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
   }
 
   renderInput = (i: number) => {
-    const { inputErrors, cues, inputVals } = this.state
+    const { inputErrors, cues, inputVals, blankAllowed, } = this.state
     const { question } = this.props;
     const maxAttemptsReached = question.attempts && question.attempts.length === 5;
     const latestAttempt = getLatestAttempt(question.attempts);
@@ -199,7 +200,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
     return (
       <span key={`span${i}`}>
         <input
-          aria-label="text input"
+          aria-label={fillInBlankInputLabel(cues, blankAllowed)}
           autoComplete="off"
           className={className}
           disabled={maxAttemptsReached || responseOptimal}
