@@ -40,6 +40,8 @@ namespace :nces_sync do
         else
           District.create!(attributes_hash)
         end
+
+        puts "updated district #{row["District Name"]}"
       end
     end
   end
@@ -63,24 +65,51 @@ namespace :nces_sync do
     ActiveRecord::Base.transaction do
       CSV.parse(file, headers: true) do |row|
         attributes_hash = {
-          name: row["District Name"].titleize,
-          nces_id: row["NCES ID"],
+          name: row["School Name"].titleize,
+          nces_id: row["NCES ID"].to_i,
           city: row["City"].titleize,
-          state: row["State"],
+          state: row["State"].strip,
           zipcode: row["Zip"],
           phone: row["Phone"],
-          total_schools: row["Total Schools"],
-          total_students: row["Total Students"],
-          grade_range: "#{row["Lowest Grade Offered"]} - #{row["Highest Grade Offered"]}"
+          mail_street: row["Mailing Street"],
+          mail_city: row["Mailing City"],
+          mail_state: row["Mailing State"].strip,
+          mail_zipcode: row["Mailing Zip"],
+          street: row["Street"],
+          nces_type_code: CSVHelper.clean_string(row["School Type"]),
+          nces_status_code: CSVHelper.clean_string(row["Status"]),
+          magnet: CSVHelper.clean_string(row["Magnet"]),
+          charter: CSVHelper.clean_string(row["Charter"]),
+          longitude: row["Longitude"].to_f,
+          latitude: row["Latitude"].to_f,
+          ulocal: CSVHelper.clean_string(row["Locale"]).to_i,
+          fte_classroom_teacher: row["FTE Teachers"].to_i,
+          free_lunches: row["Total Students"].to_i > 0 ? row["Free Lunch"].to_i / row["Total Students"].to_i : nil,
+          total_students: row["Total Students"].to_i
         }
 
-        school = School.find_or_create_by(nces_id: row["NCES ID"])
-        if district.present?
-          district.update!(attributes_hash)
+        district = District.find_by(nces_id: row["District NCES ID"])
+        attributes_hash[:district_id] = district&.id
+
+        school = School.find_by(nces_id: row["NCES ID"])
+        if school.present?
+          school.update!(attributes_hash.except(:name))
         else
-          District.create!(attributes_hash)
+          School.create!(attributes_hash)
         end
+
+        puts "updated school #{row["School Name"]}"
       end
+    end
+  end
+
+  module CSVHelper
+    def self.clean_string(string)
+      string.split("-")[0]
+    end
+
+    def self.clean_int(string)
+      string.split("-")[0].to_i
     end
   end
 end
