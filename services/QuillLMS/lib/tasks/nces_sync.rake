@@ -18,7 +18,9 @@ namespace :nces_sync do
 
   desc 'update the Districts table with data from a csv e.g. bundle exec rake nces_sync:import_districts[2021_nces_districts.csv]'
   task :import_districts, [:data_file] => [:environment] do |t, args|
-    file = File.read("lib/data/#{args[:data_file]}")
+    REQUIRED_HEADERS = ['District Name', 'NCES ID', 'City', 'State', 'Zip', 'Phone', 'Total Students', 'Total Schools', 'Lowest Grade Offered', 'Highest Grade Offered']
+
+    file = CSVHelper.read_file(args[:data_file], REQUIRED_HEADERS)
 
     ActiveRecord::Base.transaction do
       CSV.parse(file, headers: true) do |row|
@@ -61,7 +63,31 @@ namespace :nces_sync do
 
   desc 'update the Schools table with data from a csv e.g. bundle exec rake nces_sync:import_schools[2021_nces_schools.csv]'
   task :import_schools, [:data_file] => [:environment] do |t, args|
-    file = File.read("lib/data/#{args[:data_file]}")
+    REQUIRED_HEADERS = [
+      'School Name',
+      'NCES ID',
+      'City',
+      'State',
+      'Zip',
+      'Phone',
+      'Mailing Street',
+      'Mailing City',
+      'Mailing State',
+      'Mailing Zip',
+      'Street',
+      'School Type',
+      'Status',
+      'Magnet',
+      'Charter',
+      'Longitude',
+      'Latitude',
+      'Locale',
+      'FTE Teachers',
+      'Total Students',
+      'Free Lunch'
+    ]
+
+    file = CSVHelper.read_file(args[:data_file], REQUIRED_HEADERS)
 
     ActiveRecord::Base.transaction do
       CSV.parse(file, headers: true) do |row|
@@ -72,11 +98,11 @@ namespace :nces_sync do
           state: row["State"].strip,
           zipcode: row["Zip"],
           phone: row["Phone"],
-          mail_street: row["Mailing Street"],
-          mail_city: row["Mailing City"],
+          mail_street: row["Mailing Street"].titleize,
+          mail_city: row["Mailing City"].titleize,
           mail_state: row["Mailing State"].strip,
           mail_zipcode: row["Mailing Zip"],
-          street: row["Street"],
+          street: row["Street"].titleize,
           nces_type_code: CSVHelper.clean_string(row["School Type"]),
           nces_status_code: CSVHelper.clean_string(row["Status"]),
           magnet: CSVHelper.clean_string(row["Magnet"]),
@@ -110,6 +136,16 @@ namespace :nces_sync do
 
       # nullify non-digit symbols here, we dont want them in our columns
       cleaned_string.scan(/\D/).empty? ? cleaned_string : nil
+    end
+
+    def self.read_file(file_path, required_headers)
+      file = File.read("lib/data/#{file_path}")
+
+      if (CSV.parse(file, headers: true).headers & required_headers).count != required_headers.length
+        raise ArgumentError, "Invalid CSV headers."
+      end
+
+      file
     end
   end
 end
