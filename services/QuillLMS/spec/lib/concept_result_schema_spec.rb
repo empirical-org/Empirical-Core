@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'rails_helper'
 
 describe ConceptResultSchema do
@@ -23,7 +24,7 @@ describe ConceptResultSchema do
             foo: 'a',
             bar: 'b'
           }
-        },
+        }
       ]
 
     end

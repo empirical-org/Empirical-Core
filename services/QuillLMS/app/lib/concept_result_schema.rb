@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'pp'
 
 class ConceptResultSchema
@@ -19,8 +20,8 @@ class ConceptResultSchema
         counter += 1
         schema = merge_schema(schema, compute(row.metadata).first)
       end
+      puts "#{counter} records evaluated."
     end
-    puts "#{counter} records evaluated."
     pp(schema)
   end
 
@@ -31,7 +32,7 @@ class ConceptResultSchema
   end
 
   def self.compute(jsonish)
-    if jsonish.class == Hash
+    if jsonish.instance_of?(Hash)
       schema = {}
       jsonish.each do |k,v|
         schema[k] = compute(v)
@@ -39,7 +40,7 @@ class ConceptResultSchema
       return [schema]
     end
 
-    if jsonish.class == Array
+    if jsonish.instance_of?(Array)
       return ['array']
     end
 
