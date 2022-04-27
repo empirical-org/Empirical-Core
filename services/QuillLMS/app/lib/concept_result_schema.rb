@@ -13,11 +13,14 @@ class ConceptResultSchema
 
   def self.run
     schema = {}
+    counter = 0
     ConceptResult.all.find_in_batches do |batch|
       batch.each do |row|
+        counter += 1
         schema = merge_schema(schema, compute(row.metadata).first)
       end
     end
+    puts "#{counter} records evaluated."
     pp(schema)
   end
 
