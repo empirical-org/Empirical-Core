@@ -7,7 +7,7 @@ export const ExplanationSlide = ({ slideData, onHandleClick }) => {
   const { imageAlt, imageUrl } = imageData;
 
   return(
-    <div className="explanation-slide-container">
+    <div aria-live="polite" className="explanation-slide-container">
       <section id="information-section">
         <p className="subtext">Good to know</p>
         <section id="header-container">

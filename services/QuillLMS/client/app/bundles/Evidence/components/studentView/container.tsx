@@ -5,6 +5,7 @@ import { convertNodeToElement } from 'react-html-parser'
 
 import RightPanel from './rightPanel'
 import ActivityFollowUp from './activityFollowUp';
+import ReadPassageContainer from './readPassageContainer'
 
 import { explanationData } from "../activitySlides/explanationData";
 import ExplanationSlide from "../activitySlides/explanationSlide";
@@ -19,7 +20,7 @@ import { ActivitiesReducerState } from '../../reducers/activitiesReducer'
 import { SessionReducerState } from '../../reducers/sessionReducer'
 import getParameterByName from '../../helpers/getParameterByName';
 import { getUrlParam, onMobile, outOfAttemptsForActivePrompt, getCurrentStepDataForEventTracking, everyOtherStepCompleted, getStrippedPassageHighlights, getLastSubmittedResponse } from '../../helpers/containerActionHelpers';
-import { renderReadPassageContainer, renderDirections} from '../../helpers/containerRenderHelpers';
+import { renderDirections} from '../../helpers/containerRenderHelpers';
 import { postTurkSession } from '../../utils/turkAPI';
 import { roundMillisecondsToSeconds, KEYDOWN, MOUSEMOVE, MOUSEDOWN, CLICK, KEYPRESS, VISIBILITYCHANGE, READ_PASSAGE_STEP_NUMBER, SO_PASSAGE_STEP_NUMBER } from '../../../Shared/index'
 
@@ -544,16 +545,16 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
         hasStartedReadPassageStep,
         hasStartedPromptSteps
       })}
-      {renderReadPassageContainer({
-        activities,
-        activeStep,
-        handleReadPassageContainerScroll,
-        hasStartedPromptSteps,
-        hasStartedReadPassageStep,
-        scrolledToEndOfPassage,
-        showReadTheDirectionsButton,
-        transformMarkTags: transformMarkTags
-      })}
+      <ReadPassageContainer
+        activities={activities}
+        activeStep={activeStep}
+        handleReadPassageContainerScroll={handleReadPassageContainerScroll}
+        hasStartedPromptSteps={hasStartedPromptSteps}
+        hasStartedReadPassageStep={hasStartedReadPassageStep}
+        scrolledToEndOfPassage={scrolledToEndOfPassage}
+        showReadTheDirectionsButton={showReadTheDirectionsButton}
+        transformMarkTags={transformMarkTags}
+      />
       <RightPanel
         activateStep={activateStep}
         activeStep={activeStep}

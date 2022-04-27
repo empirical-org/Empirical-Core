@@ -7,7 +7,10 @@ import DirectionsSection from '../components/studentView/directionsSection'
 import PromptStep from '../components/studentView/promptStep'
 import HeaderImage from '../components/studentView/headerImage'
 
+import useFocus from '../../Shared/hooks/useFocus'
+
 const bigCheckSrc =  `${process.env.CDN_URL}/images/icons/check-circle-big.svg`
+const readPassageContainerClassName = "read-passage-container"
 
 export const renderDirectionsSection = ({ className, handleReadTheDirectionsButtonClick, activeStep, doneHighlighting, showReadTheDirectionsButton, activities }) => {
   const { currentActivity, } = activities
@@ -28,7 +31,7 @@ export const renderDirections = ({ handleReadTheDirectionsButtonClick, activeSte
   const DirectionsSection = renderDirectionsSection({ className: '', handleReadTheDirectionsButtonClick , activeStep, doneHighlighting, showReadTheDirectionsButton, activities })
 
   if ((!hasStartedReadPassageStep || (activeStep > READ_PASSAGE_STEP && !hasStartedPromptSteps)) && onMobile()) {
-    return
+    return <span />
   }
 
   if (!currentActivity || activeStep === READ_PASSAGE_STEP) {
@@ -48,7 +51,7 @@ export const renderStepNumber = (number: number, activeStep, completedSteps) => 
 
 export const renderReadPassageStep = (activeStep, activities, handleDoneReadingClick) => {
   const { currentActivity, } = activities
-  if (!currentActivity || activeStep !== READ_PASSAGE_STEP) { return }
+  if (!currentActivity || activeStep !== READ_PASSAGE_STEP) { return <span /> }
 
   return (
     <div className='read-passage-step-container'>
@@ -99,40 +102,6 @@ export const renderPromptStep = ({
         submitResponse={submitResponse}
         submittedResponses={(submittedResponses && submittedResponses[prompt.id]) || []}
       />
-    </div>
-  )
-}
-
-export const renderReadPassageContainer = ({
-  activities,
-  activeStep,
-  handleReadPassageContainerScroll,
-  hasStartedPromptSteps,
-  hasStartedReadPassageStep,
-  scrolledToEndOfPassage,
-  showReadTheDirectionsButton,
-  transformMarkTags
-}) => {
-  const { currentActivity, } = activities
-  if (!currentActivity) { return }
-
-  const { title, passages, } = currentActivity
-  const headerImage = passages[0].image_link && <img alt={passages[0].image_alt_text} className="header-image" src={passages[0].image_link} />
-  let innerContainerClassName = "read-passage-inner-container "
-  innerContainerClassName += !hasStartedReadPassageStep || showReadTheDirectionsButton || (activeStep > READ_PASSAGE_STEP && !hasStartedPromptSteps) ? 'blur' : ''
-
-  if ((!hasStartedReadPassageStep || (activeStep > READ_PASSAGE_STEP && !hasStartedPromptSteps)) && onMobile()) {
-    return
-  }
-  const formattedPassages = addPTagsToPassages(passages, scrolledToEndOfPassage)
-  const formattedPassage = formattedPassages ? formattedPassages[0] : '';
-  return (
-    <div className="read-passage-container" onScroll={handleReadPassageContainerScroll}>
-      <div className={innerContainerClassName}>
-        <h1 className="title">{title}</h1>
-        <HeaderImage headerImage={headerImage} passage={passages[0]} />
-        <div className="passage">{ReactHtmlParser(formattedPassage, { transform: transformMarkTags })}</div>
-      </div>
     </div>
   )
 }

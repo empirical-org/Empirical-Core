@@ -4,8 +4,15 @@ import DisplayStudentHighlight from './displayStudentHighlight'
 import DirectionsSection from './directionsSection'
 
 import { helpIcon, Tooltip } from '../../../Shared/index'
+import useFocus from '../../../Shared/hooks/useFocus'
 
 const ReadAndHighlightInstructions = ({ passage, activeStep, studentHighlights, removeHighlight, inReflection, }) => {
+  const [containerRef, setContainerFocus] = useFocus()
+
+  React.useEffect(() => {
+    setContainerFocus()
+  }, [])
+
   let studentHighlightsOrHighlightInstructions = (
     <div className="highlight-instructions">
       <p>Your highlights will appear here.</p>
@@ -27,7 +34,7 @@ const ReadAndHighlightInstructions = ({ passage, activeStep, studentHighlights, 
     readAndHighlightContainerClassName = 'read-and-highlight-container'
   }
   return (
-    <div className={readAndHighlightContainerClassName}>
+    <div className={readAndHighlightContainerClassName} ref={containerRef}>
       <DirectionsSection
         activeStep={activeStep}
         className="hide-on-mobile"
