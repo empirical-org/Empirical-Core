@@ -153,7 +153,6 @@ RSpec.describe FeedbackHistory, type: :model do
         feedback_type: 'grammar',
         optimal: false,
         highlight: [{text: 'some', type: 'entry', category: 'grammar', character: 0}],
-        response_id: 'abc123',
         hint: 'a hint'
       }
     }
@@ -167,7 +166,6 @@ RSpec.describe FeedbackHistory, type: :model do
         feedback_type: 'grammar',
         optimal: false,
         highlight: [],
-        response_id: '',
       }
     }
 
@@ -189,7 +187,6 @@ RSpec.describe FeedbackHistory, type: :model do
       expect(feedback.attempt).to eq(attempt)
       expect(feedback.entry).to eq(entry)
       expect(feedback.metadata['highlight'].first['text']).to eq('some')
-      expect(feedback.metadata['response_id']).to eq('abc123')
       expect(feedback.metadata['hint']).to eq('a hint')
     end
 

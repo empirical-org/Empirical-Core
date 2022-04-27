@@ -23,7 +23,15 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
   end
 
   def students_by_classroom
-    render json: results_for_classroom(params[:unit_id], params[:activity_id], params[:classroom_id])
+    classroom = Classroom.find(params[:classroom_id])
+    cache_groups = {
+      activity_id: params[:activity_id],
+      unit_id: params[:unit_id]
+    }
+    response = current_user.classroom_cache(classroom, key: 'teachers.progress_reports.diagnostic_reports.student_by_classroom', groups: cache_groups) do
+      results_for_classroom(params[:unit_id], params[:activity_id], params[:classroom_id])
+    end
+    render json: response
   end
 
   def diagnostic_student_responses_index

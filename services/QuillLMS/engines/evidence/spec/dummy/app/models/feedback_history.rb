@@ -18,7 +18,6 @@ class FeedbackHistory
       metadata: {
         highlight: feedback_hash['highlight'],
         labels: feedback_hash['labels'],
-        response_id: feedback_hash['response_id'],
         hint: feedback_hash['hint']
       }
     }
