@@ -765,6 +765,9 @@ EmpiricalGrammar::Application.routes.draw do
   get 'teachers/classrooms/assign_activities/featured-activity-packs/:activityPackId/assigned' => redirect('/assign/featured-activity-packs/%{activityPackId}/assigned')
   get 'teachers/classrooms/assign_activities/new_unit/students/edit/name/:unitName/activity_ids/:activityIdsArray' => redirect('/assign/new_unit/students/edit/name/%{unitName}/activity_ids/%{activityIdsArray}')
 
+  # Sales forms routes
+  get '/get_options_for_sales_form', to: 'sales_form_submission#get_options_for_sales_form'
+
   # Integration routes (which should look pretty, and thus need some specifying)
   get 'amplify' => 'integrations#amplify'
   get 'amplify/all' => 'integrations#amplify_all'
