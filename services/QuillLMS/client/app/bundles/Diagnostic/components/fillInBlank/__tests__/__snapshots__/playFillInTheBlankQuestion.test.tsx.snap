@@ -390,6 +390,7 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
             feedbackType="instructions"
           >
             <div
+              aria-live="assertive"
               className="student-feedback-container default"
               role="status"
             >
