@@ -1,22 +1,15 @@
 import * as React from 'react';
-import SelectSearch from 'react-select-search';
 
-import { titleCase, Input } from '../../../Shared';
+import LowerFormFields from './lowerFormFields';
+import SchoolOrDistrictFields from './schoolOrDistrictFields';
+import UpperFormFields from './upperFormFields';
+
+import { getSchoolsAndDistricts } from '../../helpers/salesForms';
 import { InputEvent } from '../../../Staff/interfaces/evidenceInterfaces';
-import { getSchoolsAndDistricts, schoolSearch, districtSearch, SCHOOL_NOT_LISTED, DISTRICT_NOT_LISTED } from '../../helpers/salesForms';
-
-const FIRST_NAME = 'First name';
-const LAST_NAME = 'Last name';
-const EMAIL = 'Email';
-const PHONE_NUMBER = 'Phone number';
-const ZIPCODE = 'Zipcode';
-const SCHOOL_PREMIUM_ESTIMATE = 'Estimated number of schools that will receive Quill Premium';
-const TEACHER_PREMIUM_ESTIMATE = 'Estimated number of teachers that will receive Quill Premium';
-const STUDENT_PREMIUM_ESTIMATE = 'Estimated number of students that will receive Quill Premium';
-const COMMENTS = 'Comments';
-const SCHOOL = 'School';
-const DISTRICT = 'District';
-const SCHOOL_OR_DISTRICT = 'School or district';
+import {
+  FIRST_NAME, LAST_NAME, EMAIL, PHONE_NUMBER, ZIPCODE, SCHOOL_PREMIUM_ESTIMATE, TEACHER_PREMIUM_ESTIMATE,
+  STUDENT_PREMIUM_ESTIMATE, COMMENTS, SCHOOL, DISTRICT, SCHOOL_OR_DISTRICT, SCHOOL_NOT_LISTED, DISTRICT_NOT_LISTED
+} from '../../../../constants/salesForm';
 
 export const SalesForm = ({ type }) => {
   const [errors, setErrors] = React.useState<string>('');
@@ -75,6 +68,10 @@ export const SalesForm = ({ type }) => {
     const { target } = e;
     const { value, id } = target;
     const setterFunction = stateSetters[id];
+    if(id === SCHOOL_OR_DISTRICT) {
+      setSchoolNotListed(false);
+      setDistrictNotListed(false);
+    }
     setterFunction(value);
   }
 
@@ -96,166 +93,40 @@ export const SalesForm = ({ type }) => {
     }
   };
 
-  function renderSchoolOrDistrictSelect() {
-    if(schoolIsSelected && !schoolNotListed) {
-      return(
-        <div>
-          <SelectSearch
-            filterOptions={schoolSearch}
-            onChange={handleSchoolSearchChange}
-            options={schools}
-            placeholder="Search for your school"
-            search={true}
-          />
-        </div>
-      );
-    }
-    if(schoolNotListed) {
-      return(
-        <Input
-          className="school"
-          handleChange={handleUpdateField}
-          id={SCHOOL}
-          label={SCHOOL}
-          placeholder=""
-          value={selectedSchool}
-        />
-      );
-    }
-    if(districtIsSelected && !districtNotListed) {
-      return(
-        <div>
-          <SelectSearch
-            filterOptions={districtSearch}
-            onChange={handleDistrictSearchChange}
-            options={districts}
-            placeholder="Search for your district"
-            search={true}
-          />
-        </div>
-      );
-    }
-    if(districtNotListed) {
-      return(
-        <Input
-          className="district"
-          handleChange={handleUpdateField}
-          id={DISTRICT}
-          label={DISTRICT}
-          placeholder=""
-          value={selectedDistrict}
-        />
-      );
-    }
-  }
   return(
     <div className="container">
-      <h3>{`${titleCase(type)} form`}</h3>
       <form>
-        <Input
-          className="first-name"
-          error={errors[FIRST_NAME]}
-          handleChange={handleUpdateField}
-          id={FIRST_NAME}
-          label={FIRST_NAME}
-          placeholder=""
-          value={firstName}
+        <UpperFormFields
+          type={type}
+          errors={errors}
+          handleUpdateField={handleUpdateField}
+          firstName={firstName}
+          lastName={lastName}
+          email={email}
+          phoneNumber={phoneNumber}
+          zipcode={zipcode}
         />
-        <Input
-          className="last-name"
-          error={errors[FIRST_NAME]}
-          handleChange={handleUpdateField}
-          id={LAST_NAME}
-          label={LAST_NAME}
-          placeholder=""
-          value={lastName}
+        <SchoolOrDistrictFields
+          schoolIsSelected={schoolIsSelected}
+          districtIsSelected={districtIsSelected}
+          schoolNotListed={schoolNotListed}
+          districtNotListed={districtNotListed}
+          selectedSchool={selectedSchool}
+          selectedDistrict={selectedDistrict}
+          schools={schools}
+          districts={districts}
+          handleUpdateField={handleUpdateField}
+          handleSchoolSearchChange={handleSchoolSearchChange}
+          handleDistrictSearchChange={handleDistrictSearchChange}
         />
-        <Input
-          className="email"
-          error={errors[EMAIL]}
-          handleChange={handleUpdateField}
-          id={EMAIL}
-          label={EMAIL}
-          placeholder=""
-          type="email"
-          value={email}
+        <LowerFormFields
+          errors={errors}
+          handleUpdateField={handleUpdateField}
+          schoolPremimumEstimate={schoolPremimumEstimate}
+          teacherPremimumEstimate={teacherPremimumEstimate}
+          studentPremimumEstimate={studentPremimumEstimate}
+          comments={comments}
         />
-        <Input
-          characterLimit={10}
-          className="phone-number"
-          error={errors[PHONE_NUMBER]}
-          handleChange={handleUpdateField}
-          id={PHONE_NUMBER}
-          label={PHONE_NUMBER}
-          placeholder=""
-          type="tel"
-          value={phoneNumber}
-        />
-        <Input
-          characterLimit={5}
-          className="zipcode"
-          error={errors[ZIPCODE]}
-          handleChange={handleUpdateField}
-          id={ZIPCODE}
-          label={ZIPCODE}
-          placeholder=""
-          value={zipcode}
-        />
-        <div>
-          <p>Do you represent a school or district?</p>
-          <div className="radio-options">
-            <div className="radio">
-              <label htmlFor={SCHOOL}>
-                <input checked={schoolIsSelected} id={SCHOOL_OR_DISTRICT} onChange={handleUpdateField} type="radio" value={SCHOOL} />
-                {SCHOOL}
-              </label>
-            </div>
-            <div className="radio">
-              <label htmlFor={DISTRICT}>
-                <input checked={districtIsSelected} id={SCHOOL_OR_DISTRICT} onChange={handleUpdateField} type="radio" value={DISTRICT} />
-                {DISTRICT}
-              </label>
-            </div>
-          </div>
-        </div>
-        {renderSchoolOrDistrictSelect()}
-        <Input
-          className="school-premium-estimate"
-          error={errors[SCHOOL_PREMIUM_ESTIMATE]}
-          handleChange={handleUpdateField}
-          id={SCHOOL_PREMIUM_ESTIMATE}
-          label={SCHOOL_PREMIUM_ESTIMATE}
-          placeholder=""
-          value={schoolPremimumEstimate}
-        />
-        <Input
-          className="teacher-premium-estimate"
-          error={errors[TEACHER_PREMIUM_ESTIMATE]}
-          handleChange={handleUpdateField}
-          id={TEACHER_PREMIUM_ESTIMATE}
-          label={TEACHER_PREMIUM_ESTIMATE}
-          placeholder=""
-          value={teacherPremimumEstimate}
-        />
-        <Input
-          className="student-premium-estimate"
-          error={errors[STUDENT_PREMIUM_ESTIMATE]}
-          handleChange={handleUpdateField}
-          id={STUDENT_PREMIUM_ESTIMATE}
-          label={STUDENT_PREMIUM_ESTIMATE}
-          placeholder=""
-          value={studentPremimumEstimate}
-        />
-        <div className="control">
-          <label className="label" htmlFor={COMMENTS} id="comments-label">Comments (optional)</label>
-          <textarea
-            aria-labelledby="comments-label"
-            id={COMMENTS}
-            onChange={handleUpdateField}
-            style={{minHeight: '100px', border: '1px solid black', padding: '10px', width: '100%'}}
-            value={comments}
-          />
-        </div>
       </form>
     </div>
   )

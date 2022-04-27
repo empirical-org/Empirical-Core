@@ -1,0 +1,14 @@
+export const FIRST_NAME = 'First name';
+export const LAST_NAME = 'Last name';
+export const EMAIL = 'Email';
+export const PHONE_NUMBER = 'Phone number';
+export const ZIPCODE = 'Zipcode';
+export const SCHOOL_PREMIUM_ESTIMATE = 'Estimated number of schools that will receive Quill Premium';
+export const TEACHER_PREMIUM_ESTIMATE = 'Estimated number of teachers that will receive Quill Premium';
+export const STUDENT_PREMIUM_ESTIMATE = 'Estimated number of students that will receive Quill Premium';
+export const COMMENTS = 'Comments';
+export const SCHOOL = 'School';
+export const DISTRICT = 'District';
+export const SCHOOL_OR_DISTRICT = 'School or district';
+export const SCHOOL_NOT_LISTED = "My school isn’t listed";
+export const DISTRICT_NOT_LISTED = "My district isn’t listed";

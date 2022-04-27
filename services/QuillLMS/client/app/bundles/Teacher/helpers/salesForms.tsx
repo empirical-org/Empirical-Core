@@ -1,5 +1,10 @@
-import { requestFailed } from "../../Staff/helpers/evidence/routingHelpers";
+import * as React from 'react';
+import SelectSearch from 'react-select-search';
 import Fuse from 'fuse.js';
+
+import { Input } from '../../Shared';
+import { requestFailed } from "../../Staff/helpers/evidence/routingHelpers";
+import { SCHOOL, DISTRICT, SCHOOL_NOT_LISTED, DISTRICT_NOT_LISTED } from '../../../constants/salesForm';
 
 const fetchDefaults = require("fetch-defaults");
 const baseUrl = process.env.DEFAULT_URL;
@@ -10,8 +15,6 @@ const headerHash = {
   }
 };
 const apiFetch = fetchDefaults(fetch, baseUrl, headerHash);
-export const SCHOOL_NOT_LISTED = "My school isn’t listed";
-export const DISTRICT_NOT_LISTED = "My district isn’t listed";
 
 export const getSchoolsAndDistricts = async (type: string) => {
   const url = `/get_options_for_sales_form?type=${type}`;
@@ -45,7 +48,7 @@ export function schoolSearch(options) {
   };
 }
 
-export function districtSearch(options) {
+export const districtSearch = (options) => {
   const fuse = new Fuse(options, {
       keys: ['name', 'groupName', 'items.name'],
       threshold: 0.3,
@@ -61,4 +64,69 @@ export function districtSearch(options) {
     }
     return fuse.search(value);
   };
+}
+
+export const renderSchoolOrDistrictSelect = ({
+  schoolIsSelected,
+  districtIsSelected,
+  schoolNotListed,
+  districtNotListed,
+  selectedSchool,
+  selectedDistrict,
+  schools,
+  districts,
+  handleUpdateField,
+  handleSchoolSearchChange,
+  handleDistrictSearchChange
+}) => {
+  if(schoolIsSelected && !schoolNotListed) {
+    return(
+      <div>
+        <SelectSearch
+          filterOptions={schoolSearch}
+          onChange={handleSchoolSearchChange}
+          options={schools}
+          placeholder="Search for your school"
+          search={true}
+        />
+      </div>
+    );
+  }
+  if(schoolNotListed) {
+    return(
+      <Input
+        className="school"
+        handleChange={handleUpdateField}
+        id={SCHOOL}
+        label={SCHOOL}
+        placeholder=""
+        value={selectedSchool}
+      />
+    );
+  }
+  if(districtIsSelected && !districtNotListed) {
+    return(
+      <div>
+        <SelectSearch
+          filterOptions={districtSearch}
+          onChange={handleDistrictSearchChange}
+          options={districts}
+          placeholder="Search for your district"
+          search={true}
+        />
+      </div>
+    );
+  }
+  if(districtNotListed) {
+    return(
+      <Input
+        className="district"
+        handleChange={handleUpdateField}
+        id={DISTRICT}
+        label={DISTRICT}
+        placeholder=""
+        value={selectedDistrict}
+      />
+    );
+  }
 }
