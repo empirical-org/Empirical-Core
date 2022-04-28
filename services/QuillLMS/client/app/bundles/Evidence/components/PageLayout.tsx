@@ -4,6 +4,7 @@ import {renderRoutes} from "react-router-config";
 import Header from "./Header";
 
 import { routes } from "../routes";
+import { ScreenreaderInstructions, } from '../../Shared/index'
 
 const PageLayout: React.StatelessComponent<{}> = (props: any) => {
   const { user } = props;
@@ -17,6 +18,7 @@ const PageLayout: React.StatelessComponent<{}> = (props: any) => {
 
   return (
     <div aria-live="polite" className="app-container">
+      <ScreenreaderInstructions />
       <button className="skip-main" onClick={handleSkipToMainContentClick} type="button">Skip to main content</button>
       <Header />
       <div id="main-content" tabIndex={-1}>{renderRoutes(routes, { user })}</div>

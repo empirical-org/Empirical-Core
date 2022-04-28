@@ -7,7 +7,7 @@ import TeacherNavbar from './navbar/teacherNavbar';
 
 import { routes } from "../routes";
 import { getParameterByName } from '../libs/getParameterByName';
-import { TeacherPreviewMenu } from '../../Shared/components/shared/teacherPreviewMenu';
+import { TeacherPreviewMenu, ScreenreaderInstructions, } from '../../Shared/index';
 import { fetchUserRole } from '../../Shared/utils/userAPIs';
 import { addKeyDownListener } from '../../Shared/hooks/addKeyDownListener';
 
@@ -79,7 +79,8 @@ export const Home = () => {
           />
         </aside>}
         <main style={{ height: '100vh', overflow: 'auto' }}>
-          {isPlaying && !isTeacherOrAdmin && <button className="skip-main" onClick={handleSkipToMainContentClick} type="button">Skip to main content</button>}
+          <ScreenreaderInstructions />
+          <button className="skip-main" onClick={handleSkipToMainContentClick} type="button">Skip to main content</button>
           {isPlaying && !isTeacherOrAdmin && <StudentNavBar />}
           {isPlaying && isTeacherOrAdmin && <TeacherNavbar isOnMobile={isOnMobile} onTogglePreview={handleTogglePreviewMenu} previewShowing={previewShowing} />}
           <div id="main-content" tabIndex={-1}>{renderRoutes(routes, {

@@ -2,6 +2,8 @@ import * as React from 'react';
 import { renderRoutes } from "react-router-config";
 import { routes } from "../routes";
 
+import { ScreenreaderInstructions, } from '../../Shared/index'
+
 export default class Home extends React.Component<any, any> {
   constructor(props) {
     super(props)
@@ -42,6 +44,7 @@ export default class Home extends React.Component<any, any> {
       <div className={className}>
         <div>
           <main>
+            <ScreenreaderInstructions />
             {skipToMainContentButton}
             {renderRoutes(routes)}
           </main>

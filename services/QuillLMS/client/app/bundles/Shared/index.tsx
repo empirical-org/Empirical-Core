@@ -33,6 +33,7 @@ export {
   Input,
   Passthrough,
   ResumeOrBeginButton,
+  ScreenreaderInstructions,
   SmartSpinner,
   Snackbar,
   defaultSnackbarTimeout,
