@@ -123,7 +123,7 @@ class Cms::DistrictsController < Cms::CmsController
   end
 
   private def school_query
-    @district.schools.select('schools.name, schools.id, schools.city, schools.state, schools.free_lunches, subscriptions.account_type, count(schools_users.id) as number_teachers, count(schools_admins.id) as number_admins')
+    @district.schools.select('schools.name, schools.id, schools.city, schools.state, schools.free_lunches, subscriptions.account_type, count(distinct schools_users.id) as number_teachers, count(distinct schools_admins.id) as number_admins')
       .left_joins(:schools_users)
       .left_joins(:schools_admins)
       .left_joins(school_subscription: :subscription)
