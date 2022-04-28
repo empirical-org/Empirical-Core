@@ -11,7 +11,8 @@ module Evidence
 
       save_feedback_history(feedback)
 
-      render json: feedback
+      # api-specific data doesn't need to be sent to the client
+      render json: feedback.except(:api)
     end
 
     def grammar
@@ -96,9 +97,11 @@ module Evidence
     private def save_feedback_history(feedback)
       return unless feedback
 
+      api_metadata = feedback[:api]
+      feedback = feedback.except(:api)
       attempt = params[:attempt] || 0
 
-      Evidence.feedback_history_class.save_feedback(feedback, @entry, @prompt.id, @session_id, attempt)
+      Evidence.feedback_history_class.save_feedback(feedback, @entry, @prompt.id, @session_id, attempt, api_metadata)
     end
 
   end

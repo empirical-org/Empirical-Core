@@ -1,6 +1,6 @@
 class FeedbackHistory
 
-  def self.save_feedback(feedback_hash_raw, entry, prompt_id, session_uid, attempt)
+  def self.save_feedback(feedback_hash_raw, entry, prompt_id, session_uid, attempt, api_metadata=nil)
     feedback_hash = feedback_hash_raw.deep_stringify_keys
 
     {
@@ -19,8 +19,9 @@ class FeedbackHistory
         highlight: feedback_hash['highlight'],
         labels: feedback_hash['labels'],
         hint: feedback_hash['hint']
-      }
-    }
+      },
+      api: api_metadata
+    }.reject {|_,v| v.blank? }
   end
 
 end
