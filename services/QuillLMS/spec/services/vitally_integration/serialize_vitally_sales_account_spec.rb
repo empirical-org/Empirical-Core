@@ -16,8 +16,7 @@ describe 'SerializeVitallySalesAccount' do
       free_lunches: 0,
       ppin: nil,
       nces_id: '111111111',
-      ulocal: '41',
-      district_id: district.id
+      ulocal: '41'
     )
   end
 
