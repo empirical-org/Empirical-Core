@@ -7,7 +7,7 @@
 #  id             :integer          not null, primary key
 #  city           :string
 #  grade_range    :string
-#  name           :string
+#  name           :string           not null
 #  phone          :string
 #  state          :string
 #  token          :string
@@ -19,7 +19,13 @@
 #  clever_id      :string
 #  nces_id        :integer
 #
+# Indexes
+#
+#  index_districts_on_nces_id  (nces_id) UNIQUE
+#
 class District < ApplicationRecord
+
+  validate :validate_name_not_blank
 
   has_many :schools
   has_many :district_admins, class_name: 'DistrictAdmin', dependent: :destroy
@@ -33,6 +39,10 @@ class District < ApplicationRecord
 
   def total_invoice
     schools.sum { |s| s&.subscription&.payment_amount || 0 } / 100.0
+  end
+
+  def validate_name_not_blank
+    errors.add(:base, "Name cannot be empty") if name.blank?
   end
 
 end
