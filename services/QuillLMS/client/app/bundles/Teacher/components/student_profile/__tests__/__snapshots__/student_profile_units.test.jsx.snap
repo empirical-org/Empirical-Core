@@ -473,7 +473,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
               <div
                 className="data-table-headers"
               >
-                <button
+                <th
                   className="data-table-header name-section"
                   style={
                     Object {
@@ -482,12 +482,10 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       "width": "633px",
                     }
                   }
-                  tabIndex={-1}
-                  type="button"
                 >
                   Activity
-                </button>
-                <button
+                </th>
+                <th
                   className="data-table-header tool-icon-section"
                   style={
                     Object {
@@ -496,12 +494,10 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       "width": "24px",
                     }
                   }
-                  tabIndex={-1}
-                  type="button"
                 >
                   Tool
-                </button>
-                <button
+                </th>
+                <th
                   className="data-table-header due-date-section"
                   style={
                     Object {
@@ -510,12 +506,10 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       "width": "85px",
                     }
                   }
-                  tabIndex={-1}
-                  type="button"
                 >
                   Due date
-                </button>
-                <button
+                </th>
+                <th
                   className="data-table-header action-button-section"
                   style={
                     Object {
@@ -524,8 +518,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       "width": "88px",
                     }
                   }
-                  tabIndex={-1}
-                  type="button"
                 />
               </div>
               <div
@@ -1065,7 +1057,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
               <div
                 className="data-table-headers"
               >
-                <button
+                <th
                   className="data-table-header name-section"
                   style={
                     Object {
@@ -1074,12 +1066,10 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       "width": "633px",
                     }
                   }
-                  tabIndex={-1}
-                  type="button"
                 >
                   Activity
-                </button>
-                <button
+                </th>
+                <th
                   className="data-table-header tool-icon-section"
                   style={
                     Object {
@@ -1088,12 +1078,10 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       "width": "24px",
                     }
                   }
-                  tabIndex={-1}
-                  type="button"
                 >
                   Tool
-                </button>
-                <button
+                </th>
+                <th
                   className="data-table-header due-date-section"
                   style={
                     Object {
@@ -1102,12 +1090,10 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       "width": "85px",
                     }
                   }
-                  tabIndex={-1}
-                  type="button"
                 >
                   Due date
-                </button>
-                <button
+                </th>
+                <th
                   className="data-table-header action-button-section"
                   style={
                     Object {
@@ -1116,8 +1102,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       "width": "88px",
                     }
                   }
-                  tabIndex={-1}
-                  type="button"
                 />
               </div>
               <div
@@ -2110,7 +2094,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
               <div
                 className="data-table-headers"
               >
-                <button
+                <th
                   className="data-table-header name-section"
                   style={
                     Object {
@@ -2119,12 +2103,10 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       "width": "633px",
                     }
                   }
-                  tabIndex={-1}
-                  type="button"
                 >
                   Activity
-                </button>
-                <button
+                </th>
+                <th
                   className="data-table-header tool-icon-section"
                   style={
                     Object {
@@ -2133,12 +2115,10 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       "width": "24px",
                     }
                   }
-                  tabIndex={-1}
-                  type="button"
                 >
                   Tool
-                </button>
-                <button
+                </th>
+                <th
                   className="data-table-header due-date-section"
                   style={
                     Object {
@@ -2147,12 +2127,10 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       "width": "85px",
                     }
                   }
-                  tabIndex={-1}
-                  type="button"
                 >
                   Due date
-                </button>
-                <button
+                </th>
+                <th
                   className="data-table-header action-button-section"
                   style={
                     Object {
@@ -2161,8 +2139,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       "width": "88px",
                     }
                   }
-                  tabIndex={-1}
-                  type="button"
                 />
               </div>
               <div
@@ -2702,7 +2678,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
               <div
                 className="data-table-headers"
               >
-                <button
+                <th
                   className="data-table-header name-section"
                   style={
                     Object {
@@ -2711,12 +2687,10 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       "width": "633px",
                     }
                   }
-                  tabIndex={-1}
-                  type="button"
                 >
                   Activity
-                </button>
-                <button
+                </th>
+                <th
                   className="data-table-header tool-icon-section"
                   style={
                     Object {
@@ -2725,12 +2699,10 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       "width": "24px",
                     }
                   }
-                  tabIndex={-1}
-                  type="button"
                 >
                   Tool
-                </button>
-                <button
+                </th>
+                <th
                   className="data-table-header due-date-section"
                   style={
                     Object {
@@ -2739,12 +2711,10 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       "width": "85px",
                     }
                   }
-                  tabIndex={-1}
-                  type="button"
                 >
                   Due date
-                </button>
-                <button
+                </th>
+                <th
                   className="data-table-header action-button-section"
                   style={
                     Object {
@@ -2753,8 +2723,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       "width": "88px",
                     }
                   }
-                  tabIndex={-1}
-                  type="button"
                 />
               </div>
               <div
@@ -3837,7 +3805,7 @@ exports[`StudentProfileUnits component should render only completed activities i
               <div
                 className="data-table-headers"
               >
-                <button
+                <th
                   className="data-table-header name-section"
                   style={
                     Object {
@@ -3846,12 +3814,10 @@ exports[`StudentProfileUnits component should render only completed activities i
                       "width": "465px",
                     }
                   }
-                  tabIndex={-1}
-                  type="button"
                 >
                   Activity
-                </button>
-                <button
+                </th>
+                <th
                   className="data-table-header score-section tooltip-section"
                   style={
                     Object {
@@ -3860,12 +3826,10 @@ exports[`StudentProfileUnits component should render only completed activities i
                       "width": "144px",
                     }
                   }
-                  tabIndex={-1}
-                  type="button"
                 >
                   Score
-                </button>
-                <button
+                </th>
+                <th
                   className="data-table-header tool-icon-section"
                   style={
                     Object {
@@ -3874,12 +3838,10 @@ exports[`StudentProfileUnits component should render only completed activities i
                       "width": "24px",
                     }
                   }
-                  tabIndex={-1}
-                  type="button"
                 >
                   Tool
-                </button>
-                <button
+                </th>
+                <th
                   className="data-table-header completed-due-date-section"
                   style={
                     Object {
@@ -3888,12 +3850,10 @@ exports[`StudentProfileUnits component should render only completed activities i
                       "width": "85px",
                     }
                   }
-                  tabIndex={-1}
-                  type="button"
                 >
                   Due date
-                </button>
-                <button
+                </th>
+                <th
                   className="data-table-header action-button-section"
                   style={
                     Object {
@@ -3902,8 +3862,6 @@ exports[`StudentProfileUnits component should render only completed activities i
                       "width": "88px",
                     }
                   }
-                  tabIndex={-1}
-                  type="button"
                 />
               </div>
               <div
@@ -4690,7 +4648,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
               <div
                 className="data-table-headers"
               >
-                <button
+                <th
                   className="data-table-header name-section"
                   style={
                     Object {
@@ -4699,12 +4657,10 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       "width": "633px",
                     }
                   }
-                  tabIndex={-1}
-                  type="button"
                 >
                   Activity
-                </button>
-                <button
+                </th>
+                <th
                   className="data-table-header tool-icon-section"
                   style={
                     Object {
@@ -4713,12 +4669,10 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       "width": "24px",
                     }
                   }
-                  tabIndex={-1}
-                  type="button"
                 >
                   Tool
-                </button>
-                <button
+                </th>
+                <th
                   className="data-table-header due-date-section"
                   style={
                     Object {
@@ -4727,12 +4681,10 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       "width": "85px",
                     }
                   }
-                  tabIndex={-1}
-                  type="button"
                 >
                   Due date
-                </button>
-                <button
+                </th>
+                <th
                   className="data-table-header action-button-section"
                   style={
                     Object {
@@ -4741,8 +4693,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       "width": "88px",
                     }
                   }
-                  tabIndex={-1}
-                  type="button"
                 />
               </div>
               <div
@@ -5343,7 +5293,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
               <div
                 className="data-table-headers"
               >
-                <button
+                <th
                   className="data-table-header name-section"
                   style={
                     Object {
@@ -5352,12 +5302,10 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       "width": "633px",
                     }
                   }
-                  tabIndex={-1}
-                  type="button"
                 >
                   Activity
-                </button>
-                <button
+                </th>
+                <th
                   className="data-table-header tool-icon-section"
                   style={
                     Object {
@@ -5366,12 +5314,10 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       "width": "24px",
                     }
                   }
-                  tabIndex={-1}
-                  type="button"
                 >
                   Tool
-                </button>
-                <button
+                </th>
+                <th
                   className="data-table-header due-date-section"
                   style={
                     Object {
@@ -5380,12 +5326,10 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       "width": "85px",
                     }
                   }
-                  tabIndex={-1}
-                  type="button"
                 >
                   Due date
-                </button>
-                <button
+                </th>
+                <th
                   className="data-table-header action-button-section"
                   style={
                     Object {
@@ -5394,8 +5338,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       "width": "88px",
                     }
                   }
-                  tabIndex={-1}
-                  type="button"
                 />
               </div>
               <div
@@ -6516,7 +6458,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
               <div
                 className="data-table-headers"
               >
-                <button
+                <th
                   className="data-table-header name-section"
                   style={
                     Object {
@@ -6525,12 +6467,10 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       "width": "633px",
                     }
                   }
-                  tabIndex={-1}
-                  type="button"
                 >
                   Activity
-                </button>
-                <button
+                </th>
+                <th
                   className="data-table-header tool-icon-section"
                   style={
                     Object {
@@ -6539,12 +6479,10 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       "width": "24px",
                     }
                   }
-                  tabIndex={-1}
-                  type="button"
                 >
                   Tool
-                </button>
-                <button
+                </th>
+                <th
                   className="data-table-header due-date-section"
                   style={
                     Object {
@@ -6553,12 +6491,10 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       "width": "85px",
                     }
                   }
-                  tabIndex={-1}
-                  type="button"
                 >
                   Due date
-                </button>
-                <button
+                </th>
+                <th
                   className="data-table-header action-button-section"
                   style={
                     Object {
@@ -6567,8 +6503,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       "width": "88px",
                     }
                   }
-                  tabIndex={-1}
-                  type="button"
                 />
               </div>
               <div
@@ -7169,7 +7103,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
               <div
                 className="data-table-headers"
               >
-                <button
+                <th
                   className="data-table-header name-section"
                   style={
                     Object {
@@ -7178,12 +7112,10 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       "width": "633px",
                     }
                   }
-                  tabIndex={-1}
-                  type="button"
                 >
                   Activity
-                </button>
-                <button
+                </th>
+                <th
                   className="data-table-header tool-icon-section"
                   style={
                     Object {
@@ -7192,12 +7124,10 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       "width": "24px",
                     }
                   }
-                  tabIndex={-1}
-                  type="button"
                 >
                   Tool
-                </button>
-                <button
+                </th>
+                <th
                   className="data-table-header due-date-section"
                   style={
                     Object {
@@ -7206,12 +7136,10 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       "width": "85px",
                     }
                   }
-                  tabIndex={-1}
-                  type="button"
                 >
                   Due date
-                </button>
-                <button
+                </th>
+                <th
                   className="data-table-header action-button-section"
                   style={
                     Object {
@@ -7220,8 +7148,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       "width": "88px",
                     }
                   }
-                  tabIndex={-1}
-                  type="button"
                 />
               </div>
               <div
@@ -8342,7 +8268,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
               <div
                 className="data-table-headers"
               >
-                <button
+                <th
                   className="data-table-header name-section"
                   style={
                     Object {
@@ -8351,12 +8277,10 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       "width": "633px",
                     }
                   }
-                  tabIndex={-1}
-                  type="button"
                 >
                   Activity
-                </button>
-                <button
+                </th>
+                <th
                   className="data-table-header tool-icon-section"
                   style={
                     Object {
@@ -8365,12 +8289,10 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       "width": "24px",
                     }
                   }
-                  tabIndex={-1}
-                  type="button"
                 >
                   Tool
-                </button>
-                <button
+                </th>
+                <th
                   className="data-table-header due-date-section"
                   style={
                     Object {
@@ -8379,12 +8301,10 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       "width": "85px",
                     }
                   }
-                  tabIndex={-1}
-                  type="button"
                 >
                   Due date
-                </button>
-                <button
+                </th>
+                <th
                   className="data-table-header action-button-section"
                   style={
                     Object {
@@ -8393,8 +8313,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       "width": "88px",
                     }
                   }
-                  tabIndex={-1}
-                  type="button"
                 />
               </div>
               <div
@@ -8995,7 +8913,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
               <div
                 className="data-table-headers"
               >
-                <button
+                <th
                   className="data-table-header name-section"
                   style={
                     Object {
@@ -9004,12 +8922,10 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       "width": "633px",
                     }
                   }
-                  tabIndex={-1}
-                  type="button"
                 >
                   Activity
-                </button>
-                <button
+                </th>
+                <th
                   className="data-table-header tool-icon-section"
                   style={
                     Object {
@@ -9018,12 +8934,10 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       "width": "24px",
                     }
                   }
-                  tabIndex={-1}
-                  type="button"
                 >
                   Tool
-                </button>
-                <button
+                </th>
+                <th
                   className="data-table-header due-date-section"
                   style={
                     Object {
@@ -9032,12 +8946,10 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       "width": "85px",
                     }
                   }
-                  tabIndex={-1}
-                  type="button"
                 >
                   Due date
-                </button>
-                <button
+                </th>
+                <th
                   className="data-table-header action-button-section"
                   style={
                     Object {
@@ -9046,8 +8958,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       "width": "88px",
                     }
                   }
-                  tabIndex={-1}
-                  type="button"
                 />
               </div>
               <div

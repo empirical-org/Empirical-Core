@@ -318,7 +318,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
         <div
           className="data-table-headers"
         >
-          <button
+          <th
             className="data-table-header undefined"
             style={
               Object {
@@ -327,12 +327,10 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                 "width": "125px",
               }
             }
-            tabIndex={-1}
-            type="button"
           >
             Student
-          </button>
-          <button
+          </th>
+          <th
             className="data-table-header undefined"
             style={
               Object {
@@ -341,12 +339,10 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                 "width": "245px",
               }
             }
-            tabIndex={-1}
-            type="button"
           >
             Activity
-          </button>
-          <button
+          </th>
+          <th
             className="data-table-header undefined"
             style={
               Object {
@@ -355,12 +351,10 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                 "width": "124px",
               }
             }
-            tabIndex={-1}
-            type="button"
           >
             Score
-          </button>
-          <button
+          </th>
+          <th
             className="data-table-header completed-section"
             style={
               Object {
@@ -369,11 +363,9 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                 "width": "84px",
               }
             }
-            tabIndex={-1}
-            type="button"
           >
             Completed
-          </button>
+          </th>
         </div>
         <div
           className="data-table-body"

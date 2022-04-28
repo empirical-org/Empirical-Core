@@ -1,5 +1,5 @@
 export function copyToClipboard(e: React.MouseEvent<HTMLButtonElement, MouseEvent>, setterFunction) {
-  navigator.clipboard.writeText(e.currentTarget.value)
+  navigator.clipboard && navigator.clipboard.writeText(e.currentTarget.value)
   setterFunction(true);
   setTimeout(() => setterFunction(false), 3000);
 };

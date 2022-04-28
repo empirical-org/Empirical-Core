@@ -131,49 +131,57 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
 
     const allDisabled = rows.every(row => row.checkDisabled)
     if (allDisabled) {
-      return <span className={`quill-checkbox disabled ${dataTableHeaderClassName}`} />
+      return <th aria-label="Disabled checkbox" className={`quill-checkbox disabled ${dataTableHeaderClassName}`} />
     }
 
     const allChecked = rows.every(row => row.checked)
     if (allChecked) {
       return (
-        <button className={`quill-checkbox selected ${dataTableHeaderClassName}`} onClick={uncheckAllRows} type="button">
-          <img alt="check" src={smallWhiteCheckSrc} />
-        </button>
+        <th className={dataTableHeaderClassName}>
+          <button className="quill-checkbox selected" onClick={uncheckAllRows} type="button">
+            <img alt="Checked checkbox" src={smallWhiteCheckSrc} />
+          </button>
+        </th>
       )
     }
 
     const anyChecked = rows.some(row => row.checked)
     if (anyChecked) {
       return (
-        <button className={`quill-checkbox selected ${dataTableHeaderClassName}`} onClick={uncheckAllRows} type="button">
-          <img alt="check" src={indeterminateSrc} />
-        </button>
+        <th className={dataTableHeaderClassName}>
+          <button className="quill-checkbox selected" onClick={uncheckAllRows} type="button">
+            <img alt="Checked checkbox" src={indeterminateSrc} />
+          </button>
+        </th>
       )
     }
 
-    return <button aria-label="Unchecked checkbox" className={`quill-checkbox unselected ${dataTableHeaderClassName}`} onClick={checkAllRows} type="button" />
+    return (
+      <th className={dataTableHeaderClassName}>
+        <button aria-label="Unchecked checkbox" className="quill-checkbox unselected" onClick={checkAllRows} type="button" />
+      </th>
+    )
   }
 
   renderHeaderForRemoval() {
     const { showRemoveIcon } = this.props
     if (!showRemoveIcon) { return null }
 
-    return <span className={dataTableHeaderClassName} />
+    return <th aria-label="Header for remove column" className={dataTableHeaderClassName} />
   }
 
   renderHeaderForOrder() {
     const { isReorderable } = this.props
     if (!isReorderable) { return }
 
-    return <span className={`${dataTableHeaderClassName} reorder-header`}>Order</span>
+    return <th className={`${dataTableHeaderClassName} reorder-header`}>Order</th>
   }
 
   renderActionsHeader(header) {
     const { showActions } = this.props
     if (!showActions) { return null }
 
-    return <span className={`${dataTableHeaderClassName} actions-header`}>{header.name || 'Actions'}</span>
+    return <th className={`${dataTableHeaderClassName} actions-header`}>{header.name || 'Actions'}</th>
   }
 
   renderRowCheckbox(row) {
@@ -241,28 +249,24 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     if (header.isActions) { return this.renderActionsHeader(header) }
 
     const { sortAscending, sortAttribute, } = this.state
-    let sortArrow, onClick
-    let tabIndex = -1
     let className = `${dataTableHeaderClassName} ${header.headerClassName}`
     let style: React.CSSProperties = { width: `${header.width}`, minWidth: `${header.width}`, textAlign: `${this.attributeAlignment(header.attribute)}` as CSS.TextAlignProperty }
+    let headerContent = header.name
     if (header.isSortable) {
       const sortDirection = sortAscending ? ascending : descending
-      onClick = () => this.changeSort(header.sortAttribute || header.attribute)
-      sortArrow = [header.attribute, header.sortAttribute].includes(sortAttribute) ? <img alt="arrow" className={`sort-arrow ${sortDirection}`} src={arrowSrc} /> : null
+      const onClick = () => this.changeSort(header.sortAttribute || header.attribute)
+      const sortArrow = [header.attribute, header.sortAttribute].includes(sortAttribute) ? <img alt="arrow" className={`sort-arrow ${sortDirection}`} src={arrowSrc} /> : null
       className+= ' sortable'
-      tabIndex = 0
+      headerContent = <button className="interactive-wrapper focus-on-light" onClick={onClick} type="button">{header.name}{sortArrow}</button>
     }
+
     return (
-      <button
+      <th
         className={className}
-        onClick={onClick}
         style={style as any}
-        tabIndex={tabIndex}
-        type="button"
       >
-        {header.name}
-        {sortArrow}
-      </button>
+        {headerContent}
+      </th>
     )
   }
 
