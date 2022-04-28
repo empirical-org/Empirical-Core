@@ -130,6 +130,7 @@ exports[`SingleAnswer component projector view inactive renders 1`] = `
         feedbackType="default"
       >
         <div
+          aria-live="assertive"
           className="student-feedback-container default"
           role="status"
         >
@@ -364,6 +365,7 @@ exports[`SingleAnswer component projector view when an answer is being displayed
         feedbackType="default"
       >
         <div
+          aria-live="assertive"
           className="student-feedback-container default"
           role="status"
         >
@@ -552,6 +554,7 @@ exports[`SingleAnswer component student view inactive renders 1`] = `
         feedbackType="default"
       >
         <div
+          aria-live="assertive"
           className="student-feedback-container default"
           role="status"
         >
@@ -747,6 +750,7 @@ exports[`SingleAnswer component student view when an answer is being displayed r
         feedbackType="default"
       >
         <div
+          aria-live="assertive"
           className="student-feedback-container default"
           role="status"
         >
@@ -936,6 +940,7 @@ exports[`SingleAnswer component student view when the student has submitted an a
         feedbackType="default"
       >
         <div
+          aria-live="assertive"
           className="student-feedback-container default"
           role="status"
         >

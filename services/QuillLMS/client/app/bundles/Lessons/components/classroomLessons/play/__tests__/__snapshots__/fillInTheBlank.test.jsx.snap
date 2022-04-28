@@ -351,6 +351,7 @@ exports[`FillInTheBlank component projector view inactive renders 1`] = `
         feedbackType="default"
       >
         <div
+          aria-live="assertive"
           className="student-feedback-container default"
           role="status"
         >
@@ -765,6 +766,7 @@ exports[`FillInTheBlank component projector view when an answer is being display
         feedbackType="default"
       >
         <div
+          aria-live="assertive"
           className="student-feedback-container default"
           role="status"
         >
@@ -1131,6 +1133,7 @@ exports[`FillInTheBlank component student view inactive renders 1`] = `
         feedbackType="default"
       >
         <div
+          aria-live="assertive"
           className="student-feedback-container default"
           role="status"
         >
@@ -1510,6 +1513,7 @@ exports[`FillInTheBlank component student view when an answer is being displayed
         feedbackType="default"
       >
         <div
+          aria-live="assertive"
           className="student-feedback-container default"
           role="status"
         >
@@ -1883,6 +1887,7 @@ exports[`FillInTheBlank component student view when the student has submitted an
         feedbackType="default"
       >
         <div
+          aria-live="assertive"
           className="student-feedback-container default"
           role="status"
         >
