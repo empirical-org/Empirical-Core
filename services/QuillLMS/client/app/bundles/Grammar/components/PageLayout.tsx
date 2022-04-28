@@ -7,7 +7,7 @@ import { Header } from "./Header";
 import { routes } from "../routes";
 import { fetchUserRole } from '../../Shared/utils/userAPIs';
 import getParameterByName from '../helpers/getParameterByName';
-import { TeacherPreviewMenu } from '../../Shared/index';
+import { TeacherPreviewMenu, ScreenreaderInstructions, } from '../../Shared/index';
 import { addKeyDownListener } from '../../Shared/hooks/addKeyDownListener';
 import { setCurrentQuestion } from '../actions/session';
 
@@ -63,6 +63,7 @@ export const PageLayout = () => {
   function renderContent (header: JSX.Element, showPreview: boolean, isOnMobile: boolean) {
     return(
       <main style={{ height: '100vh', overflow: 'auto' }}>
+        <ScreenreaderInstructions />
         <button className="skip-main" onClick={handleSkipToMainContentClick} type="button">Skip to main content</button>
         {header}
         <div id="main-content" tabIndex={-1}>{renderRoutes(routes, {

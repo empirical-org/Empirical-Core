@@ -74,7 +74,7 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
                 </span>,
                 <span>
                   <input
-                    aria-label="input0"
+                    aria-label="Complete the sentence with one of the following options or leave it blank: the, an, a"
                     autoComplete="off"
                     className="fill-in-blank-input"
                     disabled={false}
@@ -154,7 +154,7 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
                 </span>,
                 <span>
                   <input
-                    aria-label="input1"
+                    aria-label="Complete the sentence with one of the following options or leave it blank: the, an, a"
                     autoComplete="off"
                     className="fill-in-blank-input"
                     disabled={false}
@@ -236,7 +236,7 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
                 key="span0"
               >
                 <input
-                  aria-label="input0"
+                  aria-label="Complete the sentence with one of the following options or leave it blank: the, an, a"
                   autoComplete="off"
                   className="fill-in-blank-input"
                   disabled={false}
@@ -276,7 +276,7 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
                 key="span1"
               >
                 <input
-                  aria-label="input1"
+                  aria-label="Complete the sentence with one of the following options or leave it blank: the, an, a"
                   autoComplete="off"
                   className="fill-in-blank-input"
                   disabled={false}
@@ -390,6 +390,7 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
             feedbackType="instructions"
           >
             <div
+              aria-live="assertive"
               className="student-feedback-container default"
               role="status"
             >

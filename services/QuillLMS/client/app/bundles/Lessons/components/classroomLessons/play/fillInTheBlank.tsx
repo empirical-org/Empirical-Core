@@ -2,7 +2,8 @@ declare function require(name:string);
 import * as React from 'react'
 import * as _ from 'underscore'
 import {
-  Feedback
+  Feedback,
+  fillInBlankInputLabel,
 } from '../../../../Shared/index'
 import { stringNormalize } from 'quill-string-normalizer';
 
@@ -165,7 +166,7 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
     return (
       <span key={`span${i}`}>
         <input
-          aria-label={`input${i}`}
+          aria-label={fillInBlankInputLabel(cues)}
           autoComplete="off"
           className={inputClass}
           disabled={disabled}
