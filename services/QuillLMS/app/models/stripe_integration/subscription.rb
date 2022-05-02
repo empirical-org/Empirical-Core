@@ -2,8 +2,6 @@
 
 module StripeIntegration
   class Subscription < SimpleDelegator
-    class CustomerWithMultipleSources < StandardError; end
-
     def last_four
       return nil if stripe_invoice_id.nil?
 
@@ -19,7 +17,7 @@ module StripeIntegration
     end
 
     private def stripe_card
-      stripe_payment_method || stripe_source
+      stripe_payment_method || stripe_default_source
     end
 
     private def stripe_customer
@@ -30,6 +28,12 @@ module StripeIntegration
 
     private def stripe_customer_id
       stripe_subscription.customer
+    end
+
+    private def stripe_default_source
+      Stripe::Customer.retrieve_source(stripe_customer_id, stripe_customer&.default_source)
+    rescue Stripe::InvalidRequestError
+      nil
     end
 
     private def stripe_invoice
@@ -44,10 +48,6 @@ module StripeIntegration
 
     private def stripe_payment_method_id
       stripe_subscription.default_payment_method || stripe_customer.invoice_settings.default_payment_method
-    end
-
-    private def stripe_source
-      Stripe::PaymentMethod.list(customer: stripe_customer_id, type: 'card')&.data&.first
     end
 
     private def stripe_subscription
