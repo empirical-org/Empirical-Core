@@ -51,14 +51,18 @@ RSpec.describe StripeIntegration::Subscription do
 
     context 'stripe_payment_method does not exist' do
       let(:payment_method_error_msg) { "No such payment method: '#{stripe_payment_method_id}'" }
+      let(:retrieve_customer) { allow(Stripe::Customer).to receive(:retrieve) }
+      let(:default_source) { stripe_card_id }
+      let(:stripe_customer) { double(:customer, default_source: default_source) }
 
       let(:retrieve_source) do
-        allow(Stripe::PaymentMethod).to receive(:list).with(customer: stripe_customer_id, type: 'card')
+        allow(Stripe::Customer).to receive(:retrieve_source).with(stripe_customer_id, default_source)
       end
 
       before do
         retrieve_invoice.and_return(stripe_invoice)
         retrieve_subscription.and_return(stripe_subscription)
+        retrieve_customer.and_return(stripe_customer)
         retrieve_payment_method.and_raise(Stripe::InvalidRequestError.new(payment_method_error_msg, :id))
       end
 
@@ -71,9 +75,7 @@ RSpec.describe StripeIntegration::Subscription do
       end
 
       context 'stripe_source exists' do
-        include_context 'Stripe Sources'
-
-        before { retrieve_source.and_return(stripe_sources) }
+        before { retrieve_source.and_return(stripe_card) }
 
         it { expect(subject).to eq stripe_last_four }
       end
