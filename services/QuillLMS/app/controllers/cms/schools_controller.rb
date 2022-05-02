@@ -310,6 +310,8 @@ class Cms::SchoolsController < Cms::CmsController
             ON school_subscriptions.school_id = schools.id
           LEFT JOIN subscriptions
             ON subscriptions.id = school_subscriptions.subscription_id
+          LEFT JOIN districts
+            ON districts.id = schools.district_id
           #{where_query_string_builder}
           GROUP BY schools.id
           #{having_string}

@@ -34,13 +34,11 @@ class Cms::DistrictsController < Cms::CmsController
   end
 
   def create
-    new_district = District.new(edit_or_add_district_params)
-    begin
-      new_district.save!
-      redirect_to cms_district_path(new_district.id)
-    rescue => e
-      flash[:error] = e.message
-      redirect_to cms_districts_path
+    new_district = District.new(district_params)
+    if new_district.save
+      redirect_to cms_district_path(new_district)
+    else
+      redirect_to cms_districts_path, error: new_district.errors, flash: { error: new_district.errors }
     end
   end
 
@@ -54,12 +52,11 @@ class Cms::DistrictsController < Cms::CmsController
   end
 
   def update
-    begin
-      District.find(edit_or_add_district_params[:id]).update!(edit_or_add_district_params)
-      redirect_to cms_district_path(edit_or_add_district_params[:id])
-    rescue => e
-      flash[:error] = e.message
-      redirect_to cms_district_path(edit_or_add_district_params[:id])
+    district = District.find(district_params[:id])
+    if district.update(district_params)
+      redirect_to cms_district_path(params[:id])
+    else
+      redirect_to cms_district_path(district_params[:id]), error: district.errors
     end
   end
 
@@ -118,7 +115,7 @@ class Cms::DistrictsController < Cms::CmsController
     }
   end
 
-  private def edit_or_add_district_params
+  private def district_params
     params.require(:district).permit(:id, editable_district_attributes.values)
   end
 
