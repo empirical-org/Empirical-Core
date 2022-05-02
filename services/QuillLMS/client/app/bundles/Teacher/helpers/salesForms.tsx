@@ -30,6 +30,21 @@ export const getSchoolsAndDistricts = async (type: string) => {
   }
 }
 
+export const submitSalesForm = async (salesFormSubmission: any) => {
+  const url = `/submit_sales_form`;
+  const response = await apiFetch(url, {
+    method: 'POST',
+    body: JSON.stringify({ sales_form_submission: salesFormSubmission })
+  });
+  const { status } = response;
+
+  if(requestFailed(status)) {
+    return { error: 'Failed to submit form. Please try again.' };
+  } else {
+    return { success: true };
+  }
+}
+
 export function schoolSearch(options) {
   const fuse = new Fuse(options, {
       keys: ['name', 'groupName', 'items.name'],

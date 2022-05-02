@@ -767,6 +767,7 @@ EmpiricalGrammar::Application.routes.draw do
 
   # Sales forms routes
   get '/get_options_for_sales_form', to: 'sales_form_submission#get_options_for_sales_form'
+  post '/submit_sales_form', to: 'sales_form_submission#create'
 
   # Integration routes (which should look pretty, and thus need some specifying)
   get 'amplify' => 'integrations#amplify'

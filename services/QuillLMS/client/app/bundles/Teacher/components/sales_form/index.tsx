@@ -4,11 +4,11 @@ import LowerFormFields from './lowerFormFields';
 import SchoolOrDistrictFields from './schoolOrDistrictFields';
 import UpperFormFields from './upperFormFields';
 
-import { getSchoolsAndDistricts, validateSalesForm } from '../../helpers/salesForms';
+import { getSchoolsAndDistricts, validateSalesForm, submitSalesForm } from '../../helpers/salesForms';
 import { InputEvent } from '../../../Staff/interfaces/evidenceInterfaces';
 import {
   FIRST_NAME, LAST_NAME, EMAIL, PHONE_NUMBER, ZIPCODE, SCHOOL_PREMIUM_ESTIMATE, TEACHER_PREMIUM_ESTIMATE,
-  STUDENT_PREMIUM_ESTIMATE, COMMENTS, SCHOOL, DISTRICT, SCHOOL_OR_DISTRICT, SCHOOL_NOT_LISTED, DISTRICT_NOT_LISTED
+  STUDENT_PREMIUM_ESTIMATE, COMMENTS, SCHOOL, DISTRICT, SCHOOL_OR_DISTRICT, SCHOOL_NOT_LISTED, DISTRICT_NOT_LISTED, SUBMISSION_ERROR
 } from '../../../../constants/salesForm';
 
 export const SalesForm = ({ type }) => {
@@ -29,6 +29,7 @@ export const SalesForm = ({ type }) => {
   const [selectedDistrict, setSelectedDistrict] = React.useState<string>('');
   const [districtNotListed, setDistrictNotListed] = React.useState<boolean>(false);
   const [schoolOrDistrict, setSchoolOrDistrict] = React.useState<any>('');
+  const [formSubmitted, setFormSubmitted] = React.useState<boolean>(false);
 
   React.useEffect(() => {
     if(!schools.length) {
@@ -101,7 +102,7 @@ export const SalesForm = ({ type }) => {
       email: email,
       phone_number: phoneNumber,
       zipcode: zipcode,
-      collection_type: schoolOrDistrict,
+      collection_type: schoolOrDistrict.toLowerCase(),
       school_name: selectedSchool,
       district_name: selectedDistrict,
       school_premium_count_estimate: schoolPremimumEstimate,
@@ -115,13 +116,20 @@ export const SalesForm = ({ type }) => {
       setErrors(formErrors)
     } else {
       setErrors({});
-      console.log('success!')
+      submitSalesForm(salesFormSubmission).then(response => {
+        if(response.error) {
+          const submissionError = { [SUBMISSION_ERROR]: response.error };
+          setErrors(submissionError)
+        } else {
+          setFormSubmitted(true);
+        }
+      });
     }
   }
 
   return(
     <div className="sales-form-container">
-      <form className="container">
+      {!formSubmitted && <form className="container">
         <UpperFormFields
           email={email}
           errors={errors}
@@ -154,8 +162,10 @@ export const SalesForm = ({ type }) => {
           studentPremimumEstimate={studentPremimumEstimate}
           teacherPremimumEstimate={teacherPremimumEstimate}
         />
+        {errors[SUBMISSION_ERROR] && <p className="error-text">{errors[SUBMISSION_ERROR]}</p>}
         <button className="submit-button quill-button contained primary medium" onClick={handleFormSubmission}>Submit</button>
-      </form>
+      </form>}
+      {formSubmitted && <div className="success-container"><h3>Request successfully submitted!</h3></div>}
     </div>
   )
 }
