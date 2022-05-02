@@ -7,7 +7,7 @@ export const LowerFormFields = ({ errors, handleUpdateField, schoolPremimumEstim
   return(
     <React.Fragment>
       <Input
-        className="school-premium-estimate"
+        className="form-input estimate"
         error={errors[SCHOOL_PREMIUM_ESTIMATE]}
         handleChange={handleUpdateField}
         id={SCHOOL_PREMIUM_ESTIMATE}
@@ -16,7 +16,7 @@ export const LowerFormFields = ({ errors, handleUpdateField, schoolPremimumEstim
         value={schoolPremimumEstimate}
       />
       <Input
-        className="teacher-premium-estimate"
+        className="form-input estimate"
         error={errors[TEACHER_PREMIUM_ESTIMATE]}
         handleChange={handleUpdateField}
         id={TEACHER_PREMIUM_ESTIMATE}
@@ -25,7 +25,7 @@ export const LowerFormFields = ({ errors, handleUpdateField, schoolPremimumEstim
         value={teacherPremimumEstimate}
       />
       <Input
-        className="student-premium-estimate"
+        className="form-input estimate"
         error={errors[STUDENT_PREMIUM_ESTIMATE]}
         handleChange={handleUpdateField}
         id={STUDENT_PREMIUM_ESTIMATE}
@@ -33,8 +33,8 @@ export const LowerFormFields = ({ errors, handleUpdateField, schoolPremimumEstim
         placeholder=""
         value={studentPremimumEstimate}
       />
-      <div className="control">
-        <label className="label" htmlFor={COMMENTS} id="comments-label">Comments (optional)</label>
+      <div className="comments-container">
+        <label htmlFor={COMMENTS} id="comments-label">Comments (optional)</label>
         <textarea
           aria-labelledby="comments-label"
           id={COMMENTS}

@@ -7,9 +7,9 @@ export const UpperFormFields = ({ type, errors, handleUpdateField, firstName, la
 
   return(
     <React.Fragment>
-      <h3>{`${titleCase(type)} form`}</h3>
+      <h3 className="form-header">{`${titleCase(type)} form`}</h3>
       <Input
-        className="first-name"
+        className="form-input first-name"
         error={errors[FIRST_NAME]}
         handleChange={handleUpdateField}
         id={FIRST_NAME}
@@ -18,7 +18,7 @@ export const UpperFormFields = ({ type, errors, handleUpdateField, firstName, la
         value={firstName}
       />
       <Input
-        className="last-name"
+        className="form-input last-name"
         error={errors[LAST_NAME]}
         handleChange={handleUpdateField}
         id={LAST_NAME}
@@ -27,7 +27,7 @@ export const UpperFormFields = ({ type, errors, handleUpdateField, firstName, la
         value={lastName}
       />
       <Input
-        className="email"
+        className="form-input email"
         error={errors[EMAIL]}
         handleChange={handleUpdateField}
         id={EMAIL}
@@ -38,7 +38,7 @@ export const UpperFormFields = ({ type, errors, handleUpdateField, firstName, la
       />
       <Input
         characterLimit={10}
-        className="phone-number"
+        className="form-input phone"
         error={errors[PHONE_NUMBER]}
         handleChange={handleUpdateField}
         id={PHONE_NUMBER}
@@ -49,7 +49,7 @@ export const UpperFormFields = ({ type, errors, handleUpdateField, firstName, la
       />
       <Input
         characterLimit={5}
-        className="zipcode"
+        className="form-input zipcode"
         error={errors[ZIPCODE]}
         handleChange={handleUpdateField}
         id={ZIPCODE}

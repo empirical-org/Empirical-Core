@@ -4,7 +4,7 @@ import Fuse from 'fuse.js';
 
 import { Input } from '../../Shared';
 import { requestFailed } from "../../Staff/helpers/evidence/routingHelpers";
-import { SCHOOL, DISTRICT, SCHOOL_NOT_LISTED, DISTRICT_NOT_LISTED } from '../../../constants/salesForm';
+import { SCHOOL, DISTRICT, SCHOOL_NOT_LISTED, DISTRICT_NOT_LISTED, PROPERTIES, PROPERTY_LABELS } from '../../../constants/salesForm';
 
 const fetchDefaults = require("fetch-defaults");
 const baseUrl = process.env.DEFAULT_URL;
@@ -66,9 +66,8 @@ export const districtSearch = (options) => {
   };
 }
 
-export const renderSchoolOrDistrictSelect = ({
-  schoolIsSelected,
-  districtIsSelected,
+export const renderSchoolAndDistrictSelect = ({
+  errors,
   schoolNotListed,
   districtNotListed,
   selectedSchool,
@@ -79,54 +78,63 @@ export const renderSchoolOrDistrictSelect = ({
   handleSchoolSearchChange,
   handleDistrictSearchChange
 }) => {
-  if(schoolIsSelected && !schoolNotListed) {
-    return(
-      <div>
-        <SelectSearch
-          filterOptions={schoolSearch}
-          onChange={handleSchoolSearchChange}
-          options={schools}
-          placeholder="Search for your school"
-          search={true}
-        />
-      </div>
-    );
-  }
-  if(schoolNotListed) {
-    return(
-      <Input
-        className="school"
-        handleChange={handleUpdateField}
-        id={SCHOOL}
-        label={SCHOOL}
-        placeholder=""
-        value={selectedSchool}
-      />
-    );
-  }
-  if(districtIsSelected && !districtNotListed) {
-    return(
-      <div>
-        <SelectSearch
-          filterOptions={districtSearch}
-          onChange={handleDistrictSearchChange}
-          options={districts}
-          placeholder="Search for your district"
-          search={true}
-        />
-      </div>
-    );
-  }
-  if(districtNotListed) {
-    return(
-      <Input
-        className="district"
-        handleChange={handleUpdateField}
-        id={DISTRICT}
-        label={DISTRICT}
-        placeholder=""
-        value={selectedDistrict}
-      />
-    );
-  }
+  const schoolSearchInput = (
+    <SelectSearch
+      filterOptions={schoolSearch}
+      onChange={handleSchoolSearchChange}
+      options={schools}
+      placeholder="Search for your school"
+      search={true}
+    />
+  );
+  const districtSearchInput = (
+    <SelectSearch
+      filterOptions={districtSearch}
+      onChange={handleDistrictSearchChange}
+      options={districts}
+      placeholder="Search for your district"
+      search={true}
+    />
+  );
+  const schoolCustomInput = (
+    <Input
+      className="school"
+      handleChange={handleUpdateField}
+      id={SCHOOL}
+      label={SCHOOL}
+      placeholder=""
+      value={selectedSchool}
+    />
+  );
+  const districtCustomInput = (
+    <Input
+      className="district"
+      handleChange={handleUpdateField}
+      id={DISTRICT}
+      label={DISTRICT}
+      placeholder=""
+      value={selectedDistrict}
+    />
+  );
+  return(
+    <div>
+      {!schoolNotListed && schoolSearchInput}
+      {!districtNotListed && districtSearchInput}
+      {schoolNotListed && schoolCustomInput}
+      {districtNotListed && districtCustomInput}
+      {errors[SCHOOL] && <p className="error-text">{errors[SCHOOL]}</p>}
+      {errors[DISTRICT] && <p className="error-text">{errors[DISTRICT]}</p>}
+    </div>
+  );
+}
+
+export const validateSalesForm = (submission: any) => {
+  let errors = {};
+  PROPERTIES.map((property, i) => {
+    if(!submission[property]) {
+      const inputType = PROPERTY_LABELS[i];
+      errors[PROPERTY_LABELS[i]] = `${inputType} cannot be blank.`
+    }
+  });
+  return errors;
 }

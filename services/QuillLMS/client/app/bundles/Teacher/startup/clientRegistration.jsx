@@ -45,6 +45,8 @@ import StudentFeedbackModal from '../../Student/startup/StudentFeedbackModalAppC
 import LockerApp from '../../Staff/startup/lockerAppClient'
 import SalesFormApp from './SalesFormAppClient'
 
+import '../styles/styles.scss'
+
 require('../../../assets/styles/home.scss');
 
 // This is how react_on_rails can see the TeacherApp in the browser.

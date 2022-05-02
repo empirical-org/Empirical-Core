@@ -1,9 +1,10 @@
 import * as React from 'react';
 
-import { renderSchoolOrDistrictSelect } from '../../helpers/salesForms';
-import { SCHOOL, DISTRICT, SCHOOL_OR_DISTRICT } from '../../../../constants/salesForm';
+import { renderSchoolAndDistrictSelect } from '../../helpers/salesForms';
+import { SCHOOL, DISTRICT, SCHOOL_OR_DISTRICT, COLLECTION_TYPE } from '../../../../constants/salesForm';
 
 export const SchoolOrDistrictFields = ({
+  errors,
   schoolIsSelected,
   districtIsSelected,
   schoolNotListed,
@@ -18,7 +19,7 @@ export const SchoolOrDistrictFields = ({
  }) => {
   return(
     <React.Fragment>
-      <div>
+      <div className="school-or-district-container">
         <p>Do you represent a school or district?</p>
         <div className="radio-options">
           <div className="radio">
@@ -34,10 +35,10 @@ export const SchoolOrDistrictFields = ({
             </label>
           </div>
         </div>
+        {errors[COLLECTION_TYPE] && <p className="error-text">{errors[COLLECTION_TYPE]}</p>}
       </div>
-      {renderSchoolOrDistrictSelect({
-        schoolIsSelected,
-        districtIsSelected,
+      {renderSchoolAndDistrictSelect({
+        errors,
         schoolNotListed,
         districtNotListed,
         selectedSchool,

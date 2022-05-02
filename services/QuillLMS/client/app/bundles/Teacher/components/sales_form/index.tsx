@@ -4,7 +4,7 @@ import LowerFormFields from './lowerFormFields';
 import SchoolOrDistrictFields from './schoolOrDistrictFields';
 import UpperFormFields from './upperFormFields';
 
-import { getSchoolsAndDistricts } from '../../helpers/salesForms';
+import { getSchoolsAndDistricts, validateSalesForm } from '../../helpers/salesForms';
 import { InputEvent } from '../../../Staff/interfaces/evidenceInterfaces';
 import {
   FIRST_NAME, LAST_NAME, EMAIL, PHONE_NUMBER, ZIPCODE, SCHOOL_PREMIUM_ESTIMATE, TEACHER_PREMIUM_ESTIMATE,
@@ -12,7 +12,7 @@ import {
 } from '../../../../constants/salesForm';
 
 export const SalesForm = ({ type }) => {
-  const [errors, setErrors] = React.useState<string>('');
+  const [errors, setErrors] = React.useState<any>({});
   const [firstName, setFirstName] = React.useState<string>('');
   const [lastName, setLastName] = React.useState<string>('');
   const [email, setEmail] = React.useState<string>('');
@@ -93,40 +93,68 @@ export const SalesForm = ({ type }) => {
     }
   };
 
+  function handleFormSubmission(e) {
+    e.preventDefault();
+    const salesFormSubmission = {
+      first_name: firstName,
+      last_name: lastName,
+      email: email,
+      phone_number: phoneNumber,
+      zipcode: zipcode,
+      collection_type: schoolOrDistrict,
+      school_name: selectedSchool,
+      district_name: selectedDistrict,
+      school_premium_count_estimate: schoolPremimumEstimate,
+      teacher_premium_count_estimate: teacherPremimumEstimate,
+      student_premium_count_estimate: studentPremimumEstimate,
+      submission_type: type,
+      comment: comments,
+    }
+    const formErrors = validateSalesForm(salesFormSubmission);
+    if(Object.keys(formErrors).length) {
+      setErrors(formErrors)
+    } else {
+      setErrors({});
+      console.log('success!')
+    }
+  }
+
   return(
-    <div className="container">
-      <form>
+    <div className="sales-form-container">
+      <form className="container">
         <UpperFormFields
-          type={type}
-          errors={errors}
-          handleUpdateField={handleUpdateField}
-          firstName={firstName}
-          lastName={lastName}
           email={email}
+          errors={errors}
+          firstName={firstName}
+          handleUpdateField={handleUpdateField}
+          lastName={lastName}
           phoneNumber={phoneNumber}
+          type={type}
           zipcode={zipcode}
         />
         <SchoolOrDistrictFields
-          schoolIsSelected={schoolIsSelected}
           districtIsSelected={districtIsSelected}
-          schoolNotListed={schoolNotListed}
           districtNotListed={districtNotListed}
-          selectedSchool={selectedSchool}
-          selectedDistrict={selectedDistrict}
-          schools={schools}
           districts={districts}
-          handleUpdateField={handleUpdateField}
-          handleSchoolSearchChange={handleSchoolSearchChange}
+          errors={errors}
           handleDistrictSearchChange={handleDistrictSearchChange}
+          handleSchoolSearchChange={handleSchoolSearchChange}
+          handleUpdateField={handleUpdateField}
+          schoolIsSelected={schoolIsSelected}
+          schoolNotListed={schoolNotListed}
+          schools={schools}
+          selectedDistrict={selectedDistrict}
+          selectedSchool={selectedSchool}
         />
         <LowerFormFields
+          comments={comments}
           errors={errors}
           handleUpdateField={handleUpdateField}
           schoolPremimumEstimate={schoolPremimumEstimate}
-          teacherPremimumEstimate={teacherPremimumEstimate}
           studentPremimumEstimate={studentPremimumEstimate}
-          comments={comments}
+          teacherPremimumEstimate={teacherPremimumEstimate}
         />
+        <button className="submit-button quill-button contained primary medium" onClick={handleFormSubmission}>Submit</button>
       </form>
     </div>
   )
