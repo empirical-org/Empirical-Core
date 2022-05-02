@@ -6,7 +6,7 @@ module StripeIntegration
       Stripe::Subscription.update(stripe_subscription_id, cancel_at_period_end: cancel_at_period_end)
       render json: {}, status: 200
     rescue Stripe::InvalidRequestError => e
-      ErrorNotifier.report(e, subscription_id: subscription_id, cancel_at_period_end: cancel_at_period_end)
+      ErrorNotifier.report(e, stripe_subscription_id: stripe_subscription_id)
       render json: {}, status: 500
     end
 

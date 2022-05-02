@@ -13,7 +13,7 @@ export default class CurrentSubscription extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      changePlanVisible: false,
+      showChangePlan: false,
       recurring: _.get(props.subscriptionStatus, 'recurring'),
     };
   }
@@ -56,10 +56,10 @@ export default class CurrentSubscription extends React.Component {
   }
 
   changePlan() {
-    const { changePlanVisible, recurring, } = this.state
+    const { showChangePlan, recurring, } = this.state
     const { subscriptionType, } = this.props
 
-    if (changePlanVisible) {
+    if (showChangePlan) {
       return (
         <ChangePlan
           changeRecurringStatus={this.changeRecurringStatus}
@@ -73,17 +73,17 @@ export default class CurrentSubscription extends React.Component {
 
   changePlanInline() {
     const { authorityLevel, subscriptionStatus, } = this.props
-    const { changePlanVisible, } = this.state
+    const { showChangePlan, } = this.state
 
     if (authorityLevel && subscriptionStatus.payment_method === 'Credit Card') {
       return (
-        <span key={`change-plan${changePlanVisible}`}>
+        <span key={`change-plan${showChangePlan}`}>
           <button
             className="green-link interactive-wrapper focus-on-light"
-            onClick={changePlanVisible ? this.updateRecurring : this.showChangePlan}
+            onClick={showChangePlan ? this.updateRecurring : this.showChangePlan}
             type="button"
           >
-            {changePlanVisible ? 'Save Change' : 'Change Plan'}
+            {showChangePlan ? 'Save Change' : 'Change Plan'}
           </button>
           {this.changePlan()}
         </span>
@@ -334,7 +334,7 @@ export default class CurrentSubscription extends React.Component {
     );
   }
 
-  showChangePlan = () => { this.setState({ changePlanVisible: true, }) }
+  showChangePlan = () => { this.setState({ showChangePlan: true, }) }
 
   updateRecurring = () => {
     const { subscriptionStatus, updateSubscription } = this.props
@@ -346,6 +346,7 @@ export default class CurrentSubscription extends React.Component {
       const cancel_at_period_end = !recurring
       const data = { stripe_subscription_id, cancel_at_period_end }
       const success = () => { updateSubscription({ recurring }, _.get(subscriptionStatus, 'id')) }
+
       const error = () => { alert('An error occurred updating the subscription. Please contact hello@quill.org.') }
 
       requestPost(path, data, success, error)
