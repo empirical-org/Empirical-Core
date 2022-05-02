@@ -7,7 +7,7 @@
 #  id             :integer          not null, primary key
 #  city           :string
 #  grade_range    :string
-#  name           :string
+#  name           :string           not null
 #  phone          :string
 #  state          :string
 #  token          :string
@@ -18,6 +18,10 @@
 #  updated_at     :datetime
 #  clever_id      :string
 #  nces_id        :integer
+#
+# Indexes
+#
+#  index_districts_on_nces_id  (nces_id) UNIQUE
 #
 require 'rails_helper'
 

@@ -3,13 +3,14 @@
 require 'rails_helper'
 
 describe 'SerializeVitallySalesAccount' do
+  let!(:district) { create(:district, name: 'Kool District') }
   let(:school) do
     create(:school,
       name: 'Kool School',
       mail_city: 'New York',
       mail_state: 'NY',
       mail_zipcode: '11104',
-      leanm: 'Kool District',
+      district_id: district.id,
       phone: '555-666-3210',
       charter: 'N',
       free_lunches: 0,
