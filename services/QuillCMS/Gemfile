@@ -24,6 +24,8 @@ gem 'scenic', '~> 1.5.4'
 gem 'connection_pool'
 gem 'dalli'
 gem 'redis', '~> 4.5'
+gem "redis-rails", "~> 5.0"
+gem "redis-store", "~> 1.9"
 gem 'redis-namespace'
 #gem 'sidekiq-pro', '5.0.0', source: 'http://gems.contribsys.com/'
 gem 'sidekiq', '~> 5.2.10'

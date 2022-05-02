@@ -28,7 +28,7 @@ Rails.application.routes.draw do
   # Uptime status
   resource :status, only: [] do
     collection do
-      get :index, :database, :redis_cache, :redis_queue, :elasticsearch, :memcached
+      get :index, :database, :redis_cache, :redis_queue, :elasticsearch
     end
   end
 
