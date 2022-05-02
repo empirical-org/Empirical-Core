@@ -635,7 +635,7 @@ exports[`LessonsMini component not on mobile should render when there are lesson
         <div
           className="data-table-headers"
         >
-          <button
+          <th
             className="data-table-header undefined"
             style={
               Object {
@@ -644,12 +644,10 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                 "width": "289px",
               }
             }
-            tabIndex={-1}
-            type="button"
           >
             Quill Lesson
-          </button>
-          <button
+          </th>
+          <th
             className="data-table-header undefined"
             style={
               Object {
@@ -658,17 +656,15 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                 "width": "180px",
               }
             }
-            tabIndex={-1}
-            type="button"
           >
             Class
-          </button>
-          <span
+          </th>
+          <th
             className="data-table-header actions-header"
           >
             More
-          </span>
-          <button
+          </th>
+          <th
             className="data-table-header last-header"
             style={
               Object {
@@ -677,11 +673,9 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                 "width": "78px",
               }
             }
-            tabIndex={-1}
-            type="button"
           >
             Present
-          </button>
+          </th>
         </div>
         <div
           className="data-table-body"

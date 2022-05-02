@@ -11,7 +11,7 @@ import updateResponseResource from '../renderForQuestions/updateResponseResource
 import Cues from '../renderForQuestions/cues';
 import { ENGLISH, rightToLeftLanguages } from '../../modules/translation/languagePageInfo';
 import { Question } from '../../interfaces/Question';
-import { hashToCollection, Prompt, Feedback, getLatestAttempt, renderPreviewFeedback } from '../../../Shared/index'
+import { hashToCollection, Prompt, Feedback, getLatestAttempt, renderPreviewFeedback, fillInBlankInputLabel, } from '../../../Shared/index'
 
 interface PlayFillInTheBlankQuestionProps {
   currentKey: string,
@@ -174,7 +174,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
   }
 
   renderInput = (i: number) => {
-    const { inputErrors, cues } = this.state
+    const { inputErrors, cues, blankAllowed, } = this.state
     let className = 'fill-in-blank-input'
     if (inputErrors[i]) {
       className += ' error'
@@ -186,7 +186,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
     return (
       <span key={`span${i}`}>
         <input
-          aria-label={`input${i}`}
+          aria-label={fillInBlankInputLabel(cues, blankAllowed)}
           autoComplete="off"
           className={className}
           disabled={inputProperties['disabled']}
