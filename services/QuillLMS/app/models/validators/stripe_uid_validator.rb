@@ -2,6 +2,7 @@
 
 class StripeUidValidator < ActiveModel::EachValidator
   VALID_PREFIXES = [
+    CARD = 'card',
     CS = 'cs',
     CUS = 'cus',
     EVT = 'evt',
@@ -15,6 +16,7 @@ class StripeUidValidator < ActiveModel::EachValidator
   ].freeze
 
   PREFIX_TRANSLATION = {
+    CARD => 'Card',
     CS => 'Checkout Session',
     CUS => 'Customer',
     EVT => 'Event',
