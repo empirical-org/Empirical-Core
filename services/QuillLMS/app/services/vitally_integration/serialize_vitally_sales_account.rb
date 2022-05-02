@@ -26,7 +26,7 @@ class SerializeVitallySalesAccount
         city: @school.city,
         state: @school.state,
         zipcode: @school.zipcode,
-        district: @school.leanm,
+        district: @school.district&.name,
         phone: @school.phone,
         charter: @school.charter,
         frl: @school.free_lunches,
