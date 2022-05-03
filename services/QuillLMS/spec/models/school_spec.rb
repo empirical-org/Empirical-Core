@@ -11,7 +11,6 @@
 #  free_lunches          :integer
 #  fte_classroom_teacher :integer
 #  latitude              :decimal(9, 6)
-#  leanm                 :string
 #  longitude             :decimal(9, 6)
 #  lower_grade           :integer
 #  magnet                :string
@@ -37,7 +36,6 @@
 #  clever_id             :string
 #  coordinator_id        :integer
 #  district_id           :bigint
-#  lea_id                :string
 #  nces_id               :string
 #
 # Indexes

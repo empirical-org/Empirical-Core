@@ -11,7 +11,6 @@
 #  free_lunches          :integer
 #  fte_classroom_teacher :integer
 #  latitude              :decimal(9, 6)
-#  leanm                 :string
 #  longitude             :decimal(9, 6)
 #  lower_grade           :integer
 #  magnet                :string
@@ -37,7 +36,6 @@
 #  clever_id             :string
 #  coordinator_id        :integer
 #  district_id           :bigint
-#  lea_id                :string
 #  nces_id               :string
 #
 # Indexes
@@ -63,7 +61,6 @@ FactoryBot.define do
     city { mail_city }
     state { mail_state }
     zipcode { mail_zipcode }
-    leanm { "#{mail_city} School District" }
     name { "#{mail_city} School" }
     phone { "1-800-555-1234" }
     longitude { "-74.044500" }
@@ -76,8 +73,6 @@ FactoryBot.define do
 
     trait :private_school do
       nces_id { nil }
-      lea_id { nil }
-      leanm { nil }
       nces_type_code { nil }
       nces_status_code { nil }
       free_lunches { nil }
