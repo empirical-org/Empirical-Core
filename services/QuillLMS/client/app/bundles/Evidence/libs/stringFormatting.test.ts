@@ -52,7 +52,7 @@ describe('stringFormatting', () => {
 
     it('should not bold a phrase after the given character', () => {
       const result = highlightGrammar('lorem ipsum ipsum', [{character: 0, text: "ipsum"}])
-      expect(result).toEqual('lorem <b>ipsum</b> ipsum')
+      expect(result).toEqual('lorem ipsum ipsum')
     });
 
     it('should handle multiple, offsorted highlights', () => {
@@ -68,8 +68,8 @@ describe('stringFormatting', () => {
     // not just the entry
     it('should incorporate promptLength param', () => {
       const highlights = [
-        { character: 10, text: "they" },
-        { character: 15, text: "is" }
+        { character: 11, text: "they" },
+        { character: 16, text: "is" }
       ]
       const result = highlightGrammar('they is great.', highlights, 10)
       expect(result).toEqual("<b>they</b> <b>is</b> great.")
