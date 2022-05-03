@@ -33,7 +33,7 @@ module StripeIntegration
       end
 
       private def plan
-        @plan ||= Plan.find_by!(stripe_price_id: stripe_price_id)
+        @plan ||= Plan.find_stripe_plan!(stripe_price_id)
       rescue ActiveRecord::RecordNotFound
         raise PlanNotFoundError
       end
