@@ -4,6 +4,7 @@ module StripeIntegration
   module Webhooks
     class EventHandlerFactory
       SINGLE_EVENT_HANDLERS = [
+        CustomerSubscriptionUpdatedEventHandler,
         InvoicePaidEventHandler,
         SetupIntentSucceededEventHandler
       ]
