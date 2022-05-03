@@ -6,6 +6,7 @@ describe SalesFormSubmissionController, type: :controller do
 
   describe '#create' do
     let!(:sales_form_submission) { create(:sales_form_submission) }
+
     it 'should create sales_form_submission entry' do
       post :create, params: {
         sales_form_submission: {
@@ -42,14 +43,14 @@ describe SalesFormSubmissionController, type: :controller do
     end
   end
 
-  describe '#get_options_for_sales_form' do
+  describe '#options_for_sales_form' do
     let!(:sales_form_submission) { create(:sales_form_submission) }
     let!(:first_school) { create(:school) }
     let!(:second_school) { create(:school) }
     let!(:third_school) { create(:school) }
 
     it 'should return list of schools for type school' do
-      get :get_options_for_sales_form, params: { type: SalesFormSubmissionController::SCHOOL }
+      get :options_for_sales_form, params: { type: SalesFormSubmissionController::SCHOOL }
       school_options = School.all.map do |school|
         {
           name: school.name,
@@ -58,8 +59,9 @@ describe SalesFormSubmissionController, type: :controller do
       end
       expect(response.body).to eq({ options: school_options }.to_json)
     end
+
     it 'should return list of districts for type district' do
-      get :get_options_for_sales_form, params: { type: SalesFormSubmissionController::DISTRICT }
+      get :options_for_sales_form, params: { type: SalesFormSubmissionController::DISTRICT }
       district_options = District.all.map do |district|
         {
           name: district.name,

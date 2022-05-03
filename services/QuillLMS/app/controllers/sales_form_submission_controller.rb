@@ -25,7 +25,7 @@ class SalesFormSubmissionController < ApplicationController
     end
   end
 
-  def get_options_for_sales_form()
+  def options_for_sales_form
     type = params[:type]
     schools_or_districts = type == SCHOOL ? School.all : District.all
     options = schools_or_districts.map do |school_or_district|

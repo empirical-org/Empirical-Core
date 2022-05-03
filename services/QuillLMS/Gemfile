@@ -149,7 +149,7 @@ group :production, :staging do
   gem 'rails_autoscale_agent'
   gem 'rails_12factor'
   gem 'lograge' # for making logs more dense
-  # gem 'sqreen'
+  gem 'sqreen'
   # gem 'rack-timeout'
 end
 

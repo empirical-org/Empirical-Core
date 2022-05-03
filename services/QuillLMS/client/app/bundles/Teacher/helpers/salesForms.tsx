@@ -33,7 +33,7 @@ const headerHash = {
 const apiFetch = fetchDefaults(fetch, baseUrl, headerHash);
 
 export const getSchoolsAndDistricts = async (type: string) => {
-  const url = `/get_options_for_sales_form?type=${type}`;
+  const url = `/options_for_sales_form?type=${type}`;
   const response = await apiFetch(url);
   const { status } = response;
 
@@ -63,8 +63,8 @@ export const submitSalesForm = async (salesFormSubmission: SalesFormSubmission) 
 
 export function schoolSearch(options) {
   const fuse = new Fuse(options, {
-      keys: ['name', 'groupName', 'items.name'],
-      threshold: 0.3,
+    keys: ['name', 'groupName', 'items.name'],
+    threshold: 0.3,
   });
 
   return (value) => {
@@ -81,8 +81,8 @@ export function schoolSearch(options) {
 
 export const districtSearch = (options) => {
   const fuse = new Fuse(options, {
-      keys: ['name', 'groupName', 'items.name'],
-      threshold: 0.3,
+    keys: ['name', 'groupName', 'items.name'],
+    threshold: 0.3,
   });
 
   return (value) => {

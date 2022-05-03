@@ -16,7 +16,7 @@ export const SchoolAndDistrictFields = ({
   handleUpdateField,
   handleSchoolSearchChange,
   handleDistrictSearchChange
- }) => {
+}) => {
   return(
     <React.Fragment>
       <div className="school-or-district-container">
