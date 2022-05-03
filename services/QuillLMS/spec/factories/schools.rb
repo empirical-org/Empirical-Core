@@ -52,7 +52,6 @@
 FactoryBot.define do
   factory :school do
     sequence(:nces_id, 100000000000)
-    lea_id { "1234567" }
     mail_street { "123 Broadway" }
     mail_city { "New York City" }
     mail_state { "NY" }
