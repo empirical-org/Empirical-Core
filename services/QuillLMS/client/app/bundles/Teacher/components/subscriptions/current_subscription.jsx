@@ -60,7 +60,14 @@ export default class CurrentSubscription extends React.Component {
     const { subscriptionType, } = this.props
 
     if (showChangePlan) {
-      return (<ChangePlan changeRecurringStatus={this.changeRecurringStatus} price={this.getPrice()} recurring={recurring} subscriptionType={subscriptionType} />);
+      return (
+        <ChangePlan
+          changeRecurringStatus={this.changeRecurringStatus}
+          price={this.getPrice()}
+          recurring={recurring}
+          subscriptionType={subscriptionType}
+        />
+      );
     }
   }
 
@@ -69,15 +76,15 @@ export default class CurrentSubscription extends React.Component {
     const { showChangePlan, } = this.state
 
     if (authorityLevel && subscriptionStatus.payment_method === 'Credit Card') {
-      let onClickEvent = this.showChangePlan;
-      let copy = 'Change Plan';
-      if (showChangePlan) {
-        onClickEvent = this.updateRecurring;
-        copy = 'Save Change';
-      }
       return (
         <span key={`change-plan${showChangePlan}`}>
-          <button className="green-link interactive-wrapper focus-on-light" onClick={onClickEvent} type="button">{copy}</button>
+          <button
+            className="green-link interactive-wrapper focus-on-light"
+            onClick={showChangePlan ? this.updateRecurring : this.showChangePlan}
+            type="button"
+          >
+            {showChangePlan ? 'Save Change' : 'Change Plan'}
+          </button>
           {this.changePlan()}
         </span>
       );
@@ -85,11 +92,16 @@ export default class CurrentSubscription extends React.Component {
   }
 
   changeRecurringStatus = status => {
-    this.setState({ recurring: status, });
-  };
+    this.setState({ recurring: status, })
+  }
 
   contactSales() {
-    return <span>To renew your subscription for next year, contact us now at <a href="mailto:sales@quill.org">sales@quill.org</a>.</span>;
+    return (
+      <span>
+        To renew your subscription for next year, contact us now
+        at <a href="mailto:sales@quill.org">sales@quill.org</a>.
+      </span>
+    )
   }
 
   content() {
@@ -211,7 +223,6 @@ export default class CurrentSubscription extends React.Component {
     );
   }
 
-
   nextPlan() {
     const { subscriptionStatus, } = this.props
 
@@ -326,10 +337,22 @@ export default class CurrentSubscription extends React.Component {
   showChangePlan = () => { this.setState({ showChangePlan: true, }) }
 
   updateRecurring = () => {
-    const { updateSubscription, subscriptionStatus, } = this.props
-    const { recurring, } = this.state
+    const { subscriptionStatus, updateSubscription } = this.props
+    const { stripe_subscription_id } = subscriptionStatus
+    const { recurring } = this.state
 
-    updateSubscription({ recurring }, _.get(subscriptionStatus, 'id'));
+    if (stripe_subscription_id) {
+      const path = '/stripe_integration/subscription_renewals'
+      const cancel_at_period_end = !recurring
+      const data = { stripe_subscription_id, cancel_at_period_end }
+      const success = () => { updateSubscription({ recurring }, _.get(subscriptionStatus, 'id')) }
+
+      const error = () => { alert('An error occurred updating the subscription. Please contact hello@quill.org.') }
+
+      requestPost(path, data, success, error)
+    } else {
+      updateSubscription({ recurring }, _.get(subscriptionStatus, 'id'))
+    }
   }
 
   render() {

@@ -12,6 +12,7 @@ class StripeUidValidator < ActiveModel::EachValidator
     PRICE = 'price',
     PROD = 'prod',
     SETI = 'seti',
+    SI = 'si',
     SUB = 'sub'
   ].freeze
 
@@ -26,6 +27,7 @@ class StripeUidValidator < ActiveModel::EachValidator
     PRICE => 'Price',
     PROD => 'Product',
     SETI => 'Setup Intent',
+    SI => 'Subscription Item',
     SUB => 'Subscription',
   }.freeze
 

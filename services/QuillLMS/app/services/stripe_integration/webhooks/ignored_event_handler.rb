@@ -12,7 +12,6 @@ module StripeIntegration
         'customer.source.created',
         'customer.source.updated',
         'customer.subscription.created',
-        'customer.subscription.updated',
         'customer.updated',
         'file.created',
         'invoice.updated',
