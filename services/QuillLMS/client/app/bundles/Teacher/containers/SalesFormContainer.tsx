@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import SalesForm from '../components/sales_form';
+import SalesForm from '../components/salesForm';
 
 interface SalesFormContainerProps {
   type: string;

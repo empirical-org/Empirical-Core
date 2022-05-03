@@ -6,6 +6,7 @@ class SalesFormSubmissionController < ApplicationController
   RENEWAL_REQUEST = 'renewal request'
   QUOTE_REQUEST = 'quote request'
   SCHOOL = 'school'
+  DISTRICT = 'district'
 
   def request_renewal
     @type = RENEWAL_REQUEST

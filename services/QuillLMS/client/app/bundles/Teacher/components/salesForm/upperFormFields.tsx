@@ -8,6 +8,7 @@ export const UpperFormFields = ({ type, errors, handleUpdateField, firstName, la
   return(
     <React.Fragment>
       <h3 className="form-header">{`${titleCase(type)} form`}</h3>
+      <p className="disclaimer">Please fill out this form. We will respond with a quote within three business days.</p>
       <Input
         className="form-input first-name"
         error={errors[FIRST_NAME]}

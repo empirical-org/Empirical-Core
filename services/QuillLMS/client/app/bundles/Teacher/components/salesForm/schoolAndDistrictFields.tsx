@@ -3,7 +3,7 @@ import * as React from 'react';
 import { renderSchoolAndDistrictSelect } from '../../helpers/salesForms';
 import { SCHOOL, DISTRICT, SCHOOL_OR_DISTRICT, COLLECTION_TYPE } from '../../../../constants/salesForm';
 
-export const SchoolOrDistrictFields = ({
+export const SchoolAndDistrictFields = ({
   errors,
   schoolIsSelected,
   districtIsSelected,
@@ -53,4 +53,4 @@ export const SchoolOrDistrictFields = ({
   )
 }
 
-export default SchoolOrDistrictFields
+export default SchoolAndDistrictFields

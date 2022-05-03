@@ -1,0 +1,482 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SalesForm Component should match snapshot 1`] = `
+<SalesForm
+  type="renewal request"
+>
+  <div
+    className="sales-form-container"
+  >
+    <form
+      className="container"
+    >
+      <UpperFormFields
+        email=""
+        errors={Object {}}
+        firstName=""
+        handleUpdateField={[Function]}
+        lastName=""
+        phoneNumber=""
+        type="renewal request"
+        zipcode=""
+      >
+        <h3
+          className="form-header"
+        >
+          Renewal request form
+        </h3>
+        <p
+          className="disclaimer"
+        >
+          Please fill out this form. We will respond with a quote within three business days.
+        </p>
+        <Input
+          autoComplete="on"
+          className="form-input first-name"
+          handleChange={[Function]}
+          id="First name"
+          label="First name"
+          placeholder=""
+          value=""
+        >
+          <div
+            className="input-container  inactive  form-input first-name "
+            onClick={[Function]}
+            onKeyDown={[Function]}
+            role="button"
+            tabIndex={-1}
+          >
+            <label
+              htmlFor="First name"
+            >
+              First name
+            </label>
+            <input
+              autoComplete="on"
+              id="First name"
+              maxLength={10000}
+              onChange={[Function]}
+              onFocus={[Function]}
+              placeholder={false}
+              value=""
+            />
+          </div>
+        </Input>
+        <Input
+          autoComplete="on"
+          className="form-input last-name"
+          handleChange={[Function]}
+          id="Last name"
+          label="Last name"
+          placeholder=""
+          value=""
+        >
+          <div
+            className="input-container  inactive  form-input last-name "
+            onClick={[Function]}
+            onKeyDown={[Function]}
+            role="button"
+            tabIndex={-1}
+          >
+            <label
+              htmlFor="Last name"
+            >
+              Last name
+            </label>
+            <input
+              autoComplete="on"
+              id="Last name"
+              maxLength={10000}
+              onChange={[Function]}
+              onFocus={[Function]}
+              placeholder={false}
+              value=""
+            />
+          </div>
+        </Input>
+        <Input
+          autoComplete="on"
+          className="form-input email"
+          handleChange={[Function]}
+          id="Email"
+          label="Email"
+          placeholder=""
+          type="email"
+          value=""
+        >
+          <div
+            className="input-container  inactive  form-input email "
+            onClick={[Function]}
+            onKeyDown={[Function]}
+            role="button"
+            tabIndex={-1}
+          >
+            <label
+              htmlFor="Email"
+            >
+              Email
+            </label>
+            <input
+              autoComplete="on"
+              id="Email"
+              maxLength={10000}
+              onChange={[Function]}
+              onFocus={[Function]}
+              placeholder={false}
+              type="email"
+              value=""
+            />
+          </div>
+        </Input>
+        <Input
+          autoComplete="on"
+          characterLimit={10}
+          className="form-input phone"
+          handleChange={[Function]}
+          id="Phone number"
+          label="Phone number"
+          placeholder=""
+          type="tel"
+          value=""
+        >
+          <div
+            className="input-container  inactive  form-input phone has-character-limit"
+            onClick={[Function]}
+            onKeyDown={[Function]}
+            role="button"
+            tabIndex={-1}
+          >
+            <label
+              htmlFor="Phone number"
+            >
+              Phone number
+            </label>
+            <input
+              autoComplete="on"
+              id="Phone number"
+              maxLength={10}
+              onChange={[Function]}
+              onFocus={[Function]}
+              placeholder={false}
+              type="tel"
+              value=""
+            />
+            <div
+              className="character-limit"
+            >
+              <span>
+                0
+                /
+                10
+              </span>
+            </div>
+          </div>
+        </Input>
+        <Input
+          autoComplete="on"
+          characterLimit={5}
+          className="form-input zipcode"
+          handleChange={[Function]}
+          id="Zipcode"
+          label="Zipcode"
+          placeholder=""
+          value=""
+        >
+          <div
+            className="input-container  inactive  form-input zipcode has-character-limit"
+            onClick={[Function]}
+            onKeyDown={[Function]}
+            role="button"
+            tabIndex={-1}
+          >
+            <label
+              htmlFor="Zipcode"
+            >
+              Zipcode
+            </label>
+            <input
+              autoComplete="on"
+              id="Zipcode"
+              maxLength={5}
+              onChange={[Function]}
+              onFocus={[Function]}
+              placeholder={false}
+              value=""
+            />
+            <div
+              className="character-limit"
+            >
+              <span>
+                0
+                /
+                5
+              </span>
+            </div>
+          </div>
+        </Input>
+      </UpperFormFields>
+      <SchoolAndDistrictFields
+        districtIsSelected={false}
+        districtNotListed={false}
+        districts={Array []}
+        errors={Object {}}
+        handleDistrictSearchChange={[Function]}
+        handleSchoolSearchChange={[Function]}
+        handleUpdateField={[Function]}
+        schoolIsSelected={false}
+        schoolNotListed={false}
+        schools={Array []}
+        selectedDistrict=""
+        selectedSchool=""
+      >
+        <div
+          className="school-or-district-container"
+        >
+          <p>
+            Do you represent a school or district?
+          </p>
+          <div
+            className="radio-options"
+          >
+            <div
+              className="radio"
+            >
+              <label
+                htmlFor="School"
+              >
+                <input
+                  checked={false}
+                  id="School or district"
+                  onChange={[Function]}
+                  type="radio"
+                  value="School"
+                />
+                School
+              </label>
+            </div>
+            <div
+              className="radio"
+            >
+              <label
+                htmlFor="District"
+              >
+                <input
+                  checked={false}
+                  id="School or district"
+                  onChange={[Function]}
+                  type="radio"
+                  value="District"
+                />
+                District
+              </label>
+            </div>
+          </div>
+        </div>
+        <div>
+          <ForwardRef
+            filterOptions={[Function]}
+            onChange={[Function]}
+            options={Array []}
+            placeholder="Search for your school"
+            search={true}
+          >
+            <div
+              className="select-search"
+              id={null}
+            >
+              <div
+                className="select-search__value"
+              >
+                <input
+                  autoComplete="on"
+                  autoFocus={false}
+                  className="select-search__input"
+                  disabled={false}
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onKeyPress={[Function]}
+                  onKeyUp={[Function]}
+                  placeholder="Search for your school"
+                  readOnly={false}
+                  tabIndex="0"
+                  value=""
+                />
+              </div>
+            </div>
+          </ForwardRef>
+          <ForwardRef
+            filterOptions={[Function]}
+            onChange={[Function]}
+            options={Array []}
+            placeholder="Search for your district"
+            search={true}
+          >
+            <div
+              className="select-search"
+              id={null}
+            >
+              <div
+                className="select-search__value"
+              >
+                <input
+                  autoComplete="on"
+                  autoFocus={false}
+                  className="select-search__input"
+                  disabled={false}
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onKeyPress={[Function]}
+                  onKeyUp={[Function]}
+                  placeholder="Search for your district"
+                  readOnly={false}
+                  tabIndex="0"
+                  value=""
+                />
+              </div>
+            </div>
+          </ForwardRef>
+        </div>
+      </SchoolAndDistrictFields>
+      <LowerFormFields
+        comments=""
+        errors={Object {}}
+        handleUpdateField={[Function]}
+        schoolPremimumEstimate=""
+        studentPremimumEstimate=""
+        teacherPremimumEstimate=""
+      >
+        <Input
+          autoComplete="on"
+          className="form-input estimate"
+          handleChange={[Function]}
+          id="Estimated number of schools that will receive Quill Premium"
+          label="Estimated number of schools that will receive Quill Premium"
+          placeholder=""
+          value=""
+        >
+          <div
+            className="input-container  inactive  form-input estimate "
+            onClick={[Function]}
+            onKeyDown={[Function]}
+            role="button"
+            tabIndex={-1}
+          >
+            <label
+              htmlFor="Estimated number of schools that will receive Quill Premium"
+            >
+              Estimated number of schools that will receive Quill Premium
+            </label>
+            <input
+              autoComplete="on"
+              id="Estimated number of schools that will receive Quill Premium"
+              maxLength={10000}
+              onChange={[Function]}
+              onFocus={[Function]}
+              placeholder={false}
+              value=""
+            />
+          </div>
+        </Input>
+        <Input
+          autoComplete="on"
+          className="form-input estimate"
+          handleChange={[Function]}
+          id="Estimated number of teachers that will receive Quill Premium"
+          label="Estimated number of teachers that will receive Quill Premium"
+          placeholder=""
+          value=""
+        >
+          <div
+            className="input-container  inactive  form-input estimate "
+            onClick={[Function]}
+            onKeyDown={[Function]}
+            role="button"
+            tabIndex={-1}
+          >
+            <label
+              htmlFor="Estimated number of teachers that will receive Quill Premium"
+            >
+              Estimated number of teachers that will receive Quill Premium
+            </label>
+            <input
+              autoComplete="on"
+              id="Estimated number of teachers that will receive Quill Premium"
+              maxLength={10000}
+              onChange={[Function]}
+              onFocus={[Function]}
+              placeholder={false}
+              value=""
+            />
+          </div>
+        </Input>
+        <Input
+          autoComplete="on"
+          className="form-input estimate"
+          handleChange={[Function]}
+          id="Estimated number of students that will receive Quill Premium"
+          label="Estimated number of students that will receive Quill Premium"
+          placeholder=""
+          value=""
+        >
+          <div
+            className="input-container  inactive  form-input estimate "
+            onClick={[Function]}
+            onKeyDown={[Function]}
+            role="button"
+            tabIndex={-1}
+          >
+            <label
+              htmlFor="Estimated number of students that will receive Quill Premium"
+            >
+              Estimated number of students that will receive Quill Premium
+            </label>
+            <input
+              autoComplete="on"
+              id="Estimated number of students that will receive Quill Premium"
+              maxLength={10000}
+              onChange={[Function]}
+              onFocus={[Function]}
+              placeholder={false}
+              value=""
+            />
+          </div>
+        </Input>
+        <div
+          className="comments-container"
+        >
+          <label
+            htmlFor="Comments"
+            id="comments-label"
+          >
+            Comments (optional)
+          </label>
+          <textarea
+            aria-labelledby="comments-label"
+            id="Comments"
+            onChange={[Function]}
+            style={
+              Object {
+                "border": "1px solid black",
+                "minHeight": "100px",
+                "padding": "10px",
+                "width": "100%",
+              }
+            }
+            value=""
+          />
+        </div>
+      </LowerFormFields>
+      <button
+        className="submit-button quill-button contained primary medium"
+        onClick={[Function]}
+      >
+        Submit
+      </button>
+    </form>
+  </div>
+</SalesForm>
+`;

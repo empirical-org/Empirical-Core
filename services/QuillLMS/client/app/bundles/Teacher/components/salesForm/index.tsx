@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import LowerFormFields from './lowerFormFields';
-import SchoolOrDistrictFields from './schoolOrDistrictFields';
+import SchoolAndDistrictFields from './schoolAndDistrictFields';
 import UpperFormFields from './upperFormFields';
 
 import { getSchoolsAndDistricts, validateSalesForm, submitSalesForm } from '../../helpers/salesForms';
@@ -76,7 +76,7 @@ export const SalesForm = ({ type }) => {
     setterFunction(value);
   }
 
-  function handleSchoolSearchChange(value) {
+  function handleSchoolSearchChange(value: string) {
     if(value === SCHOOL_NOT_LISTED) {
       setSchoolNotListed(true);
       setSelectedSchool('');
@@ -85,7 +85,7 @@ export const SalesForm = ({ type }) => {
     }
   };
 
-  function handleDistrictSearchChange(value) {
+  function handleDistrictSearchChange(value: string) {
     if(value === DISTRICT_NOT_LISTED) {
       setDistrictNotListed(true);
       setSelectedDistrict('');
@@ -94,7 +94,7 @@ export const SalesForm = ({ type }) => {
     }
   };
 
-  function handleFormSubmission(e) {
+  function handleFormSubmission(e: React.MouseEvent) {
     e.preventDefault();
     const salesFormSubmission = {
       first_name: firstName,
@@ -105,11 +105,11 @@ export const SalesForm = ({ type }) => {
       collection_type: schoolOrDistrict.toLowerCase(),
       school_name: selectedSchool,
       district_name: selectedDistrict,
-      school_premium_count_estimate: schoolPremimumEstimate,
-      teacher_premium_count_estimate: teacherPremimumEstimate,
-      student_premium_count_estimate: studentPremimumEstimate,
+      school_premium_count_estimate: parseInt(schoolPremimumEstimate),
+      teacher_premium_count_estimate: parseInt(teacherPremimumEstimate),
+      student_premium_count_estimate: parseInt(studentPremimumEstimate),
       submission_type: type,
-      comment: comments,
+      comment: comments
     }
     const formErrors = validateSalesForm(salesFormSubmission);
     if(Object.keys(formErrors).length) {
@@ -140,7 +140,7 @@ export const SalesForm = ({ type }) => {
           type={type}
           zipcode={zipcode}
         />
-        <SchoolOrDistrictFields
+        <SchoolAndDistrictFields
           districtIsSelected={districtIsSelected}
           districtNotListed={districtNotListed}
           districts={districts}

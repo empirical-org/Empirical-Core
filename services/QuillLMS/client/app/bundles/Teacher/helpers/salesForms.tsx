@@ -4,7 +4,23 @@ import Fuse from 'fuse.js';
 
 import { Input } from '../../Shared';
 import { requestFailed } from "../../Staff/helpers/evidence/routingHelpers";
-import { SCHOOL, DISTRICT, SCHOOL_NOT_LISTED, DISTRICT_NOT_LISTED, PROPERTIES, PROPERTY_LABELS } from '../../../constants/salesForm';
+import { SCHOOL, DISTRICT, SCHOOL_NOT_LISTED, DISTRICT_NOT_LISTED, PROPERTIES, NUMERICAL_PROPERTIES, PROPERTY_LABELS } from '../../../constants/salesForm';
+
+interface SalesFormSubmission {
+  first_name: string,
+  last_name: string,
+  email: string,
+  phone_number: string,
+  zipcode: string,
+  collection_type: string,
+  school_name: string,
+  district_name: string,
+  school_premium_count_estimate: number,
+  teacher_premium_count_estimate: number,
+  student_premium_count_estimate: number,
+  submission_type: string,
+  comment?: string
+}
 
 const fetchDefaults = require("fetch-defaults");
 const baseUrl = process.env.DEFAULT_URL;
@@ -30,7 +46,7 @@ export const getSchoolsAndDistricts = async (type: string) => {
   }
 }
 
-export const submitSalesForm = async (salesFormSubmission: any) => {
+export const submitSalesForm = async (salesFormSubmission: SalesFormSubmission) => {
   const url = `/submit_sales_form`;
   const response = await apiFetch(url, {
     method: 'POST',
@@ -143,12 +159,15 @@ export const renderSchoolAndDistrictSelect = ({
   );
 }
 
-export const validateSalesForm = (submission: any) => {
+export const validateSalesForm = (submission: SalesFormSubmission) => {
   let errors = {};
   PROPERTIES.map((property, i) => {
-    if(!submission[property]) {
-      const inputType = PROPERTY_LABELS[i];
-      errors[PROPERTY_LABELS[i]] = `${inputType} cannot be blank.`
+    const value = submission[property];
+    const inputType = PROPERTY_LABELS[i];
+    if(NUMERICAL_PROPERTIES.includes(property) && isNaN(value)) {
+      errors[inputType] = `${inputType} must be a number.`
+    } else if(!value) {
+      errors[inputType] = `${inputType} cannot be blank.`
     }
   });
   return errors;

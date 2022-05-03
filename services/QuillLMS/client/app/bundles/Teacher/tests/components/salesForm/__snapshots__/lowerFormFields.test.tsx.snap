@@ -1,0 +1,133 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LowerFormFields Component should match snapshot 1`] = `
+<LowerFormFields
+  comments=""
+  errors={Object {}}
+  handleUpdateField={[MockFunction]}
+  schoolPremimumEstimate={1}
+  studentPremimumEstimate={400}
+  teacherPremimumEstimate={20}
+>
+  <Input
+    autoComplete="on"
+    className="form-input estimate"
+    handleChange={[MockFunction]}
+    id="Estimated number of schools that will receive Quill Premium"
+    label="Estimated number of schools that will receive Quill Premium"
+    placeholder=""
+    value={1}
+  >
+    <div
+      className="input-container  inactive has-text form-input estimate "
+      onClick={[Function]}
+      onKeyDown={[Function]}
+      role="button"
+      tabIndex={-1}
+    >
+      <label
+        htmlFor="Estimated number of schools that will receive Quill Premium"
+      >
+        Estimated number of schools that will receive Quill Premium
+      </label>
+      <input
+        autoComplete="on"
+        id="Estimated number of schools that will receive Quill Premium"
+        maxLength={10000}
+        onChange={[MockFunction]}
+        onFocus={[Function]}
+        placeholder={false}
+        value={1}
+      />
+    </div>
+  </Input>
+  <Input
+    autoComplete="on"
+    className="form-input estimate"
+    handleChange={[MockFunction]}
+    id="Estimated number of teachers that will receive Quill Premium"
+    label="Estimated number of teachers that will receive Quill Premium"
+    placeholder=""
+    value={20}
+  >
+    <div
+      className="input-container  inactive has-text form-input estimate "
+      onClick={[Function]}
+      onKeyDown={[Function]}
+      role="button"
+      tabIndex={-1}
+    >
+      <label
+        htmlFor="Estimated number of teachers that will receive Quill Premium"
+      >
+        Estimated number of teachers that will receive Quill Premium
+      </label>
+      <input
+        autoComplete="on"
+        id="Estimated number of teachers that will receive Quill Premium"
+        maxLength={10000}
+        onChange={[MockFunction]}
+        onFocus={[Function]}
+        placeholder={false}
+        value={20}
+      />
+    </div>
+  </Input>
+  <Input
+    autoComplete="on"
+    className="form-input estimate"
+    handleChange={[MockFunction]}
+    id="Estimated number of students that will receive Quill Premium"
+    label="Estimated number of students that will receive Quill Premium"
+    placeholder=""
+    value={400}
+  >
+    <div
+      className="input-container  inactive has-text form-input estimate "
+      onClick={[Function]}
+      onKeyDown={[Function]}
+      role="button"
+      tabIndex={-1}
+    >
+      <label
+        htmlFor="Estimated number of students that will receive Quill Premium"
+      >
+        Estimated number of students that will receive Quill Premium
+      </label>
+      <input
+        autoComplete="on"
+        id="Estimated number of students that will receive Quill Premium"
+        maxLength={10000}
+        onChange={[MockFunction]}
+        onFocus={[Function]}
+        placeholder={false}
+        value={400}
+      />
+    </div>
+  </Input>
+  <div
+    className="comments-container"
+  >
+    <label
+      htmlFor="Comments"
+      id="comments-label"
+    >
+      Comments (optional)
+    </label>
+    <textarea
+      aria-labelledby="comments-label"
+      id="Comments"
+      onChange={[MockFunction]}
+      style={
+        Object {
+          "border": "1px solid black",
+          "minHeight": "100px",
+          "padding": "10px",
+          "width": "100%",
+        }
+      }
+      value=""
+    />
+  </div>
+</LowerFormFields>
+`;

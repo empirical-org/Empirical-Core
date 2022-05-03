@@ -1,0 +1,130 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SchoolAndDistrictFields Component should match snapshot 1`] = `
+<SchoolAndDistrictFields
+  districtIsSelected={true}
+  districtNotListed={false}
+  districts={Array []}
+  errors={Object {}}
+  handleDistrictSearchChange={[MockFunction]}
+  handleSchoolSearchChange={[MockFunction]}
+  handleUpdateField={[MockFunction]}
+  schoolIsSelected={true}
+  schoolNotListed={false}
+  schools={Array []}
+  selectedDistrict=""
+  selectedSchool=""
+>
+  <div
+    className="school-or-district-container"
+  >
+    <p>
+      Do you represent a school or district?
+    </p>
+    <div
+      className="radio-options"
+    >
+      <div
+        className="radio"
+      >
+        <label
+          htmlFor="School"
+        >
+          <input
+            checked={true}
+            id="School or district"
+            onChange={[MockFunction]}
+            type="radio"
+            value="School"
+          />
+          School
+        </label>
+      </div>
+      <div
+        className="radio"
+      >
+        <label
+          htmlFor="District"
+        >
+          <input
+            checked={true}
+            id="School or district"
+            onChange={[MockFunction]}
+            type="radio"
+            value="District"
+          />
+          District
+        </label>
+      </div>
+    </div>
+  </div>
+  <div>
+    <ForwardRef
+      filterOptions={[Function]}
+      onChange={[MockFunction]}
+      options={Array []}
+      placeholder="Search for your school"
+      search={true}
+    >
+      <div
+        className="select-search"
+        id={null}
+      >
+        <div
+          className="select-search__value"
+        >
+          <input
+            autoComplete="on"
+            autoFocus={false}
+            className="select-search__input"
+            disabled={false}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onKeyPress={[Function]}
+            onKeyUp={[Function]}
+            placeholder="Search for your school"
+            readOnly={false}
+            tabIndex="0"
+            value=""
+          />
+        </div>
+      </div>
+    </ForwardRef>
+    <ForwardRef
+      filterOptions={[Function]}
+      onChange={[MockFunction]}
+      options={Array []}
+      placeholder="Search for your district"
+      search={true}
+    >
+      <div
+        className="select-search"
+        id={null}
+      >
+        <div
+          className="select-search__value"
+        >
+          <input
+            autoComplete="on"
+            autoFocus={false}
+            className="select-search__input"
+            disabled={false}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onKeyPress={[Function]}
+            onKeyUp={[Function]}
+            placeholder="Search for your district"
+            readOnly={false}
+            tabIndex="0"
+            value=""
+          />
+        </div>
+      </div>
+    </ForwardRef>
+  </div>
+</SchoolAndDistrictFields>
+`;

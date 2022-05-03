@@ -15,4 +15,5 @@ export const DISTRICT_NOT_LISTED = "My district isn’t listed";
 export const COLLECTION_TYPE = 'School or district selection';
 export const SUBMISSION_ERROR = 'Submission error';
 export const PROPERTIES = ['first_name', 'last_name', 'email', 'phone_number', 'zipcode', 'collection_type', 'school_name', 'district_name', 'school_premium_count_estimate', 'teacher_premium_count_estimate', 'student_premium_count_estimate'];
+export const NUMERICAL_PROPERTIES = ['school_premium_count_estimate', 'teacher_premium_count_estimate', 'student_premium_count_estimate'];
 export const PROPERTY_LABELS = [FIRST_NAME, LAST_NAME, EMAIL, PHONE_NUMBER, ZIPCODE, COLLECTION_TYPE, SCHOOL, DISTRICT, SCHOOL_PREMIUM_ESTIMATE, TEACHER_PREMIUM_ESTIMATE, STUDENT_PREMIUM_ESTIMATE];
