@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 RSpec.shared_context "Stripe Price" do
-  let(:stripe_price_id) { "price_#{SecureRandom.hex}" }
+  let(:stripe_price_id) { STRIPE_TEACHER_PLAN_PRICE_ID }
   let(:stripe_product_id) { "prod_#{SecureRandom.hex}" }
 
-  before { create(:teacher_paid_plan, stripe_price_id: stripe_price_id ) }
+  before { create(:teacher_paid_plan) }
 
   let(:stripe_price) do
     Stripe::Price.construct_from(
