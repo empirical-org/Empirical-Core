@@ -447,4 +447,78 @@ describe Subscription, type: :model do
       end
     end
   end
+
+  describe '#renewal_stripe_price_id' do
+    let(:subscription) { create(:subscription, account_type: account_type) }
+
+    subject { subscription.renewal_stripe_price_id }
+
+    context 'teachers' do
+      context 'paid' do
+        let(:account_type) { described_class::TEACHER_PAID }
+
+        it { expect(subject).to eq STRIPE_TEACHER_PLAN_PRICE_ID }
+      end
+
+      context 'trial' do
+        let(:account_type) { described_class::TEACHER_TRIAL }
+
+        it { expect(subject).to be nil }
+      end
+
+      context 'premium credit' do
+        let(:account_type) { described_class::PREMIUM_CREDIT }
+
+        it { expect(subject).to be nil }
+      end
+
+      context 'sponsored' do
+        let(:account_type) { described_class::TEACHER_SPONSORED_FREE }
+
+        it { expect(subject).to be nil }
+      end
+    end
+
+    context 'schools' do
+      context 'paid' do
+        let(:account_type) { described_class::SCHOOL_PAID }
+
+        it { expect(subject).to be nil }
+
+        context 'via stripe' do
+          before { allow(subscription).to receive(:stripe?).and_return(true) }
+
+          it { expect(subject).to be STRIPE_SCHOOL_PLAN_PRICE_ID }
+        end
+      end
+
+      context 'sponsored' do
+        let(:account_type) { described_class::SCHOOL_SPONSORED_FREE }
+
+        it { expect(subject).to be nil }
+
+      end
+    end
+
+    context 'districts' do
+      let(:account_type) { described_class::SCHOOL_DISTRICT_PAID }
+
+      it { expect(subject).to be nil }
+
+      context 'via stripe' do
+        before { allow(subscription).to receive(:stripe?).and_return(true) }
+
+        it { expect(subject).to be STRIPE_SCHOOL_PLAN_PRICE_ID }
+      end
+    end
+
+    context 'other' do
+      context 'CB lifetime premium' do
+        let(:account_type) { described_class::CB_LIFETIME_DURATION }
+
+        it { expect(subject).to be nil }
+      end
+    end
+  end
 end
+
