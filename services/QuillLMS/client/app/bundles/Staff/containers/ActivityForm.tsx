@@ -100,7 +100,16 @@ const ActivityForm = ({ activity, activityClassification, contentPartnerOptions,
     handleAttributeChange('topic_ids', options)
   }
 
-  const flagOptionElements = flagOptions.map(fo => (<option value={fo}>{fo}</option>))
+  const initialFlag = editedActivity.flags[0]
+  const flagOptionElements = flagOptions.map(fo => {
+    if (fo === 'archive') {
+      fo = 'archived'
+    }
+    if (fo === initialFlag) {
+      return <option value={fo} selected>{fo}</option>
+    }
+    return <option value={fo} >{fo}</option>
+  })
 
   const standardOptionElements = standardOptions.map(so => (<option value={so.id}>{so.name}</option>))
 
@@ -115,8 +124,10 @@ const ActivityForm = ({ activity, activityClassification, contentPartnerOptions,
       <select onChange={handleFollowUpActivityChange} value={editedActivity.follow_up_activity_id}>{followUpActivityOptionElements}</select>
     </section>)
   }
-
-
+  console.log("edited activity:", editedActivity)
+  console.log("intial flag:", editedActivity.flags[0])
+  console.log("flagOptionElements", flagOptionElements)
+  console.log("flagOptions", flagOptions)
   return (
     <section className="cms-form">
       <Snackbar text="Changes saved" visible={showSnackbar} />
