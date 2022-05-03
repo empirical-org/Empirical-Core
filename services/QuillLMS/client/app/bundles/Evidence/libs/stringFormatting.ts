@@ -1,5 +1,4 @@
 export const highlightSpelling = (str: string, wordsToFormat: string | string[]) => {
-  console.log("highlighSpelling: ", str)
   let wordArray = [].concat(wordsToFormat)
   let newString = str
   wordArray.forEach((word) => {
@@ -13,17 +12,14 @@ export const highlightSpelling = (str: string, wordsToFormat: string | string[])
 }
 
 export const highlightGrammar = (str: string, highlightArray, promptLength: number=0) => {
-
   if (highlightArray.length < 1) { return str }
 
   highlightArray.sort(descendingOffsetComparator)
 
   highlightArray.forEach((highlight) => {
-    let offset = highlight.character - promptLength
-    console.log("offset: ", offset)
-    console.log("promptLength:", promptLength, "char", highlight.character)
+    let offset = highlight.character - promptLength - 1
     let stringAfterOffset = str.slice(offset)
-    let stringBeforeOffset = offset === 0 ? '' : str.slice(0, offset)
+    let stringBeforeOffset = str.slice(0, offset)
 
     const phraseToFormat = stripEvidenceHtml(highlight.text)
     const matched = stringAfterOffset.match(`${phraseToFormat}[\\w\']*`)
@@ -34,10 +30,8 @@ export const highlightGrammar = (str: string, highlightArray, promptLength: numb
     }
 
     str = stringBeforeOffset + stringAfterOffset;
-    console.log(" interim: ", str, "\nbefore:", stringBeforeOffset, "\nafter:", stringAfterOffset)
   })
 
-  console.log("\n end loop \n")
   return str
 }
 
@@ -46,4 +40,3 @@ export const stripEvidenceHtml = (html: string) => html.replace(/<p>|<\/p>|<u>|<
 const descendingOffsetComparator = (a, b) => {
   return (a['offset'] - b['offset']) * (-1)
 }
-

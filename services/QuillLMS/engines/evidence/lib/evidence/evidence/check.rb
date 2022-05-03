@@ -3,15 +3,15 @@
 module Evidence
   module Check
     ALL_CHECKS = [
-      #Prefilter,
-      #RegexSentence,
-      #Opinion,
-      #Plagiarism,
+      Prefilter,
+      RegexSentence,
+      Opinion,
+      Plagiarism,
       AutoML,
-      #RegexPostTopic,
+      RegexPostTopic,
       Grammar,
-      #Spelling,
-      #RegexTypo
+      Spelling,
+      RegexTypo
     ]
 
     FALLBACK_RESPONSE = {
