@@ -39,5 +39,6 @@ FactoryBot.define do
 
     trait(:recurring) { recurring true }
     trait(:non_recurring) { recurring true }
+    trait(:stripe) { stripe_invoice_id { "in_#{SecureRandom.hex}"} }
   end
 end

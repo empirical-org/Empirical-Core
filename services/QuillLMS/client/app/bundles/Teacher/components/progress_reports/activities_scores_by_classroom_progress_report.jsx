@@ -11,7 +11,7 @@ import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from './progress_report_const
 
 import ItemDropdown from '../general_components/dropdown_selectors/item_dropdown'
 import LoadingSpinner from '../shared/loading_indicator.jsx'
-import {sortTableByLastName, sortFromSQLTimeStamp} from '../../../../modules/sortingMethods.js'
+import {sortTableByLastName, sortTableFromSQLTimeStamp} from '../../../../modules/sortingMethods.js'
 import { getTimeSpent } from '../../helpers/studentReports';
 import { ReactTable, } from '../../../Shared/index'
 
@@ -108,7 +108,7 @@ export class ActivitiesScoresByClassroomProgressReport extends React.Component {
         Cell: ({row}) => (<a className='row-link-disguise' href={`/teachers/progress_reports/student_overview?classroom_id=${row.original.classroom_id}&student_id=${row.original.student_id}`}>
           {row.original.last_active ? moment(row.original.last_active).format("MM/DD/YYYY") : <span />}
         </a>),
-        sortType: sortFromSQLTimeStamp,
+        sortType: sortTableFromSQLTimeStamp,
       },
       {
         Header: "Class",

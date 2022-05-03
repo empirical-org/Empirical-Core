@@ -24,9 +24,4 @@ class StatusesController < ApplicationController
     render plain: 'OK'
   end
 
-  def memcached
-    Rails.cache.read('NO_DATA')
-    render plain: 'OK'
-  end
-
 end

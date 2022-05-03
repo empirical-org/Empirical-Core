@@ -26,6 +26,9 @@ module QuillCMS
 
     # Redis
     config.cache_store = :redis_store, ENV['REDISCLOUD_URL']
+    # cache_versioning flag isn't supported in Redis in Rails 5.x
+    # Given our minimal use of cahing, this shouldn't matter for us
+    config.active_record.cache_versioning = false
 
     # Configuration for the application, engines, and railties goes here.
     #

@@ -44,7 +44,6 @@ describe Subscription, type: :model do
   describe '#is_trial?' do
     let!(:subscription) { create(:subscription) }
 
-
     it "returns true if the subscription is in Subscription::TRIAL_TYPES" do
       Subscription::TRIAL_TYPES.each do |tt|
         subscription.update(account_type: tt)
@@ -321,6 +320,8 @@ describe Subscription, type: :model do
       create(:subscription, :recurring, purchaser: purchaser, expiration: Date.today)
     end
 
+    let!(:user_subscription) { create(:user_subscription, subscription: recurring_subscription_expiring_today1) }
+
     let!(:recurring_subscription_expiring_today2) do
       create(:subscription, :recurring, purchaser: purchaser, expiration: Date.today)
     end
@@ -333,132 +334,66 @@ describe Subscription, type: :model do
       create(:subscription, :recurring, purchaser: purchaser, expiration: Date.today + 1)
     end
 
+    let!(:recurring_stripe_subscription_expiring_today) do
+      create(:subscription, :recurring, :stripe, purchaser: purchaser, expiration: Date.today)
+    end
+
     let!(:non_recurring_subscription_expiring_today) do
       create(:subscription, :non_recurring, purchaser: purchaser, expiration: Date.today + 1)
     end
 
     describe '.update_todays_expired_recurring_subscriptions' do
       let!(:target_subscriptions) { [recurring_subscription_expiring_today1, recurring_subscription_expiring_today2] }
+      let(:customer) { double(:customer, deleted: false) }
 
       subject { Subscription.update_todays_expired_recurring_subscriptions }
 
       before do
-        allow_any_instance_of(Subscription).to receive(:charge_user).and_return(status: 'succeeded')
         allow(Subscription).to receive(:expired_today_or_previously_and_recurring).and_return(target_subscriptions)
-        create(:user_subscription, subscription: recurring_subscription_expiring_today1)
+        allow(Stripe::Subscription).to receive(:create)
+        allow(Stripe::Customer).to receive(:retrieve).with(purchaser.stripe_customer_id).and_return(customer)
       end
 
-      it "calls update_if_charge_succeeds on all recurring subscriptions expiring that day that have users" do
-        expect(recurring_subscription_expiring_today1).to receive(:update_if_charge_succeeds)
-        expect(recurring_subscription_expiring_today2).not_to receive(:update_if_charge_succeeds)
+      it "calls renew_via_stripe on all recurring subscriptions expiring that day that have users" do
+        expect(recurring_subscription_expiring_today1).to receive(:renew_via_stripe)
         subject
       end
 
-      it "does not call update_if_charge_succeeds on any other subscriptions" do
-        expect(recurring_subscription_expiring_but_de_activated).not_to receive(:update_if_charge_succeeds)
-        expect(recurring_subscription_expiring_tomorrow).not_to receive(:update_if_charge_succeeds)
-        expect(non_recurring_subscription_expiring_today).not_to receive(:update_if_charge_succeeds)
+      it "does not call renew_via_stripe on any other subscriptions" do
+        expect(recurring_subscription_expiring_today2).not_to receive(:renew_via_stripe)
+        expect(recurring_subscription_expiring_but_de_activated).not_to receive(:renew_via_stripe)
+        expect(recurring_subscription_expiring_tomorrow).not_to receive(:renew_via_stripe)
+        expect(non_recurring_subscription_expiring_today).not_to receive(:renew_via_stripe)
         subject
-      end
-
-      context "user has multiple subscriptions" do
-        before { create(:user_subscription, user: recurring_subscription_expiring_today1.users.first) }
-
-        it "does not call update_if_charge_succeeds and de_activates that recurring subscription" do
-          expect(recurring_subscription_expiring_today1).not_to receive(:update_if_charge_succeeds)
-          subject
-          expect(recurring_subscription_expiring_today1.reload.de_activated_date).to eq Date.today
-        end
-      end
-
-      context "subscription has multiple users" do
-        before { create(:user_subscription, subscription: recurring_subscription_expiring_today1) }
-
-        it "does not call update_if_charge_succeeds" do
-          expect(recurring_subscription_expiring_today1).not_to receive(:update_if_charge_succeeds)
-          subject
-          expect(recurring_subscription_expiring_today1.reload.de_activated_date).to eq nil
-        end
       end
     end
 
-    describe '#update_if_charge_succeeds' do
+    describe '#renew_via_stripe' do
       let(:subscription) { recurring_subscription_expiring_today1 }
 
-      subject { subscription.update_if_charge_succeeds }
+      subject { subscription.renew_via_stripe }
 
-      context 'when the charge succeeds' do
-        before { allow(subscription).to receive(:charge_user).and_return(status: 'succeeded') }
+      context 'when stripe_customer? is false' do
+        let(:error) { described_class::RenewalNilStripeCustomer }
 
-        it "calls charge_user" do
+        before { allow(purchaser).to receive(:stripe_customer?).and_return(false) }
+
+        it "reports a RenewalNilStripeCustomer exception" do
+          expect(ErrorNotifier).to receive(:report).with(error, subscription_id: subscription.id)
           subject
         end
+      end
 
-        it "calls renew_subscription" do
-          expect(subscription).to receive(:renew_subscription)
+      context 'when stripe_customer? is true' do
+        include_context 'Stripe Price'
+
+        before { allow(purchaser).to receive(:stripe_customer?).and_return(true) }
+
+        it 'creates a new Stripe Subscription via Stripe API' do
+          expect(Stripe::Subscription).to receive(:create)
           subject
         end
       end
-
-      context 'when the charge does not succeed' do
-        before { allow(subscription).to receive(:charge_user).and_return(status: 'failed') }
-
-        it "calls charge_user" do
-          subject
-        end
-
-        it "does not call renew_subscription" do
-          expect(subscription).not_to receive(:renew_subscription)
-          subject
-        end
-
-        it "sets recurring to false if expiration is more than 7 days old" do
-          subscription.expiration = 10.days.ago
-          subject
-          expect(subscription.recurring).to be false
-        end
-
-        it "does not set recurring to false if expiration is less than 7 days old" do
-          subscription.expiration = 3.days.ago
-          subject
-          expect(subscription.recurring).to be true
-        end
-      end
-    end
-
-    describe '#renew_subscription' do
-      let!(:school) { create(:school_with_three_teachers) }
-
-      subject { subscription.renew_subscription }
-
-      it "sets the date it was called as the de_activated_date" do
-        subject
-        expect(subscription.de_activated_date).to eq(Date.today)
-      end
-
-      it "creates a new subscription" do
-        old_sub_count = Subscription.count
-        subject
-        expect(Subscription.count).to eq(old_sub_count + 1)
-      end
-
-      it "creates a new subscription with an expiration date that is 365 days more" do
-        subject
-        expect(Subscription.last.expiration).to eq(subscription.expiration + 365)
-      end
-
-      it "creates a new subscription with the same schools as the original subscription" do
-        subscription.schools.push(school)
-        subject
-        expect(Subscription.last.schools).to eq([school])
-      end
-
-      it "creates a new subscription with the same users as the original subscription" do
-        subscription.users.push(User.all)
-        subject
-        expect(Subscription.last.users).to eq(User.all)
-      end
-
     end
 
     describe '#renewal_price' do
@@ -482,6 +417,10 @@ describe Subscription, type: :model do
 
       it "returns all subscriptions where the expiration date is today and recurring is true and de_activated_date is null" do
         expect(subject).to contain_exactly(recurring_subscription_expiring_today1, recurring_subscription_expiring_today2)
+      end
+
+      it 'does not return stripe subscriptions' do
+        expect(subject).not_to include(recurring_stripe_subscription_expiring_today)
       end
 
       it "does not return subscriptions just because they expire today" do
