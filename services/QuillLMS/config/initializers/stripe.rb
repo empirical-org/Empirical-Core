@@ -7,5 +7,5 @@ Rails.configuration.stripe = {
 
 Stripe.api_key = Rails.configuration.stripe[:secret_key]
 
-STRIPE_SCHOOL_PLAN_PRICE_ID = ENV.fetch('STRIPE_SCHOOL_PLAN_PRICE_ID') { "price_#{SecureRandom.hex}" if Rails.env.test? }
-STRIPE_TEACHER_PLAN_PRICE_ID = ENV.fetch('STRIPE_TEACHER_PLAN_PRICE_ID') { "price_#{SecureRandom.hex}" if Rails.env.test? }
+STRIPE_SCHOOL_PLAN_PRICE_ID = ENV.fetch('STRIPE_SCHOOL_PLAN_PRICE_ID', nil)
+STRIPE_TEACHER_PLAN_PRICE_ID = ENV.fetch('STRIPE_TEACHER_PLAN_PRICE_ID', nil)
