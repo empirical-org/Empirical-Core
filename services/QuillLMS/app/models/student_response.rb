@@ -8,6 +8,8 @@ class StudentResponse < ApplicationRecord
   belongs_to :student_response_prompt_text
   belongs_to :student_response_question_type
 
+  has_one :student_response_extra_metadata
+
   has_many :student_responses_concepts
   has_many :concepts, through: :student_responses_concepts
 
@@ -17,6 +19,15 @@ class StudentResponse < ApplicationRecord
     data_hash = data_hash.deep_symbolize_keys
 
     metadata = data_hash[:metadata]
+
+    known_metadata_keys = [
+      :answer,
+      :attemptNumber,
+      :correct,
+      :directions,
+      :prompt,
+      :questionNumber
+    ]
 
     answer_text = StudentResponseAnswerText.find_or_create_by(text: metadata[:answer])
     directions_text = StudentResponseDirectionsText.find_or_create_by(text: metadata[:directions])
