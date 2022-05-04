@@ -11,9 +11,9 @@ describe('LowerFormFields Component', () => {
   const mockProps = {
     errors: {},
     handleUpdateField: jest.fn(),
-    schoolPremimumEstimate: 1,
-    teacherPremimumEstimate: 20,
-    studentPremimumEstimate: 400,
+    schoolPremiumEstimate: 1,
+    teacherPremiumEstimate: 20,
+    studentPremiumEstimate: 400,
     comments: ''
   }
   const component = mount(<LowerFormFields {...mockProps} />);

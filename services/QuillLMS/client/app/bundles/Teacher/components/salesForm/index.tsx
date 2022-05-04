@@ -4,6 +4,7 @@ import LowerFormFields from './lowerFormFields';
 import SchoolAndDistrictFields from './schoolAndDistrictFields';
 import UpperFormFields from './upperFormFields';
 
+import { Snackbar, defaultSnackbarTimeout } from '../../../Shared';
 import { getSchoolsAndDistricts, validateSalesForm, submitSalesForm } from '../../helpers/salesForms';
 import { InputEvent } from '../../../Staff/interfaces/evidenceInterfaces';
 import {
@@ -18,9 +19,9 @@ export const SalesForm = ({ type }) => {
   const [email, setEmail] = React.useState<string>('');
   const [phoneNumber, setPhoneNumber] = React.useState<string>('');
   const [zipcode, setZipcode] = React.useState<string>('');
-  const [schoolPremimumEstimate, setSchoolPremiumEstimate] = React.useState<string>('');
-  const [teacherPremimumEstimate, setTeacherPremiumEstimate] = React.useState<string>('');
-  const [studentPremimumEstimate, setStudentPremiumEstimate] = React.useState<string>('');
+  const [schoolPremiumEstimate, setSchoolPremiumEstimate] = React.useState<string>('');
+  const [teacherPremiumEstimate, setTeacherPremiumEstimate] = React.useState<string>('');
+  const [studentPremiumEstimate, setStudentPremiumEstimate] = React.useState<string>('');
   const [comments, setComments] = React.useState<string>('');
   const [schools, setSchools] = React.useState<any[]>([]);
   const [districts, setDistricts] = React.useState<any[]>([]);
@@ -29,24 +30,30 @@ export const SalesForm = ({ type }) => {
   const [selectedDistrict, setSelectedDistrict] = React.useState<string>('');
   const [districtNotListed, setDistrictNotListed] = React.useState<boolean>(false);
   const [schoolOrDistrict, setSchoolOrDistrict] = React.useState<any>('');
-  const [formSubmitted, setFormSubmitted] = React.useState<boolean>(false);
+  const [showSnackbar, setShowSnackbar] = React.useState(false)
 
   React.useEffect(() => {
     if(!schools.length) {
       getSchoolsAndDistricts('school').then((response) => {
         if(response && response.options) {
-          setSchools(response.options)
+          setSchools(response.options);
         }
       });
     }
     if(!districts.length) {
       getSchoolsAndDistricts('district').then((response) => {
         if(response && response.options) {
-          setDistricts(response.options)
+          setDistricts(response.options);
         }
       });
     }
   }, []);
+
+  React.useEffect(() => {
+    if (showSnackbar) {
+      setTimeout(() => setShowSnackbar(false), defaultSnackbarTimeout);
+    }
+  }, [showSnackbar]);
 
   const stateSetters = {
     [FIRST_NAME]: setFirstName,
@@ -106,9 +113,9 @@ export const SalesForm = ({ type }) => {
       collection_type: schoolOrDistrict.toLowerCase(),
       school_name: selectedSchool,
       district_name: selectedDistrict,
-      school_premium_count_estimate: parseInt(schoolPremimumEstimate),
-      teacher_premium_count_estimate: parseInt(teacherPremimumEstimate),
-      student_premium_count_estimate: parseInt(studentPremimumEstimate),
+      school_premium_count_estimate: parseInt(schoolPremiumEstimate),
+      teacher_premium_count_estimate: parseInt(teacherPremiumEstimate),
+      student_premium_count_estimate: parseInt(studentPremiumEstimate),
       submission_type: type,
       comment: comments
     }
@@ -122,7 +129,7 @@ export const SalesForm = ({ type }) => {
           const submissionError = { [SUBMISSION_ERROR]: response.error };
           setErrors(submissionError)
         } else {
-          setFormSubmitted(true);
+          setShowSnackbar(true);
         }
       });
     }
@@ -130,7 +137,7 @@ export const SalesForm = ({ type }) => {
 
   return(
     <div className="sales-form-container">
-      {!formSubmitted && <form className="container">
+      <form className="container">
         <UpperFormFields
           email={email}
           errors={errors}
@@ -159,14 +166,14 @@ export const SalesForm = ({ type }) => {
           comments={comments}
           errors={errors}
           handleUpdateField={handleUpdateField}
-          schoolPremimumEstimate={schoolPremimumEstimate}
-          studentPremimumEstimate={studentPremimumEstimate}
-          teacherPremimumEstimate={teacherPremimumEstimate}
+          schoolPremiumEstimate={schoolPremiumEstimate}
+          studentPremiumEstimate={studentPremiumEstimate}
+          teacherPremiumEstimate={teacherPremiumEstimate}
         />
         {errors[SUBMISSION_ERROR] && <p className="error-text">{errors[SUBMISSION_ERROR]}</p>}
-        <button className="submit-button quill-button contained primary medium" onClick={handleFormSubmission}>Submit</button>
-      </form>}
-      {formSubmitted && <div className="success-container"><h3>Request successfully submitted!</h3></div>}
+        <button className="submit-button quill-button contained primary medium focus-on-light" onClick={handleFormSubmission}>Submit</button>
+      </form>
+      <Snackbar text="Request successfully submitted!" visible={showSnackbar} />
     </div>
   )
 }

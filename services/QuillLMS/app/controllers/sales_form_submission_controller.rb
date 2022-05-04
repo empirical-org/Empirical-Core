@@ -27,14 +27,8 @@ class SalesFormSubmissionController < ApplicationController
 
   def options_for_sales_form
     type = params[:type]
-    schools_or_districts = type == SCHOOL ? School.all : District.all
-    options = schools_or_districts.map do |school_or_district|
-      {
-        name: school_or_district.name,
-        value: school_or_district.name
-      }
-    end
-    render json: { options: options }
+    schools_or_districts = type.classify.constantize.all.pluck(:name)
+    render json: { options: schools_or_districts }
   end
 
   private def sales_form_submission_params

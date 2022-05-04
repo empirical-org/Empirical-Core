@@ -2,7 +2,7 @@ import * as React from 'react';
 import SelectSearch from 'react-select-search';
 import Fuse from 'fuse.js';
 
-import { Input } from '../../Shared';
+import { Input, Spinner } from '../../Shared';
 import { requestFailed } from "../../Staff/helpers/evidence/routingHelpers";
 import { SCHOOL, DISTRICT, SCHOOL_NOT_LISTED, DISTRICT_NOT_LISTED, PROPERTIES, NUMERICAL_PROPERTIES, PROPERTY_LABELS } from '../../../constants/salesForm';
 
@@ -42,7 +42,8 @@ export const getSchoolsAndDistricts = async (type: string) => {
   } else {
     const schoolOrDistrictOptions = await response.json();
     const { options } = schoolOrDistrictOptions;
-    return { options: options };
+    const formattedOptions = options.map((option: string) => ({ name: option, value: option }));
+    return { options: formattedOptions };
   }
 }
 
@@ -146,6 +147,14 @@ export const renderSchoolAndDistrictSelect = ({
       value={selectedDistrict}
     />
   );
+  if(!schools.length || !districts.length) {
+    return(
+      <div className="loading-options-container">
+        <p>Loading school and district options...</p>
+        <Spinner/>
+      </div>
+    );
+  }
   return(
     <div>
       {!schoolNotListed && schoolSearchInput}

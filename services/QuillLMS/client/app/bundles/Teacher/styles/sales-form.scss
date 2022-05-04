@@ -28,14 +28,6 @@
         }
       }
     }
-    .comments-container {
-      margin: 16px 0px 16px 0px;
-      #comments-label {
-        color: black;
-        font-size: 16px;
-        font-weight: 100;
-      }
-    }
     .submit-button {
       margin: 16px 0px 16px 0px;
     }
@@ -45,10 +37,21 @@
       color: #ff0000;
       margin-bottom: 10px;
     }
-  }
-  .success-container {
-    display: flex;
-    justify-content: center;
-    height: 100%;
+    .loading-options-container {
+      p {
+        color: #7f7f7f;
+        margin-bottom: 8px;
+      }
+      .loading-spinner {
+        .spinner-container {
+          margin: 0;
+          padding: 0;
+          text-align: left;
+          .spinner {
+            height: 48px;
+          }
+        }
+      }
+    }
   }
 }

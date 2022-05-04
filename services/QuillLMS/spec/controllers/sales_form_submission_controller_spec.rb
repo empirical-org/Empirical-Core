@@ -51,23 +51,13 @@ describe SalesFormSubmissionController, type: :controller do
 
     it 'should return list of schools for type school' do
       get :options_for_sales_form, params: { type: SalesFormSubmissionController::SCHOOL }
-      school_options = School.all.map do |school|
-        {
-          name: school.name,
-          value: school.name
-        }
-      end
+      school_options = SalesFormSubmissionController::SCHOOL.classify.constantize.all.pluck(:name)
       expect(response.body).to eq({ options: school_options }.to_json)
     end
 
     it 'should return list of districts for type district' do
       get :options_for_sales_form, params: { type: SalesFormSubmissionController::DISTRICT }
-      district_options = District.all.map do |district|
-        {
-          name: district.name,
-          value: district.name
-        }
-      end
+      district_options = SalesFormSubmissionController::DISTRICT.classify.constantize.all.pluck(:name)
       expect(response.body).to eq({ options: district_options }.to_json)
     end
   end

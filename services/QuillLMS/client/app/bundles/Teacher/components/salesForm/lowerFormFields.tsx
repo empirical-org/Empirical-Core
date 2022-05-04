@@ -1,9 +1,9 @@
 import * as React from 'react';
 
-import { Input } from '../../../Shared';
+import { Input, TextArea } from '../../../Shared';
 import { SCHOOL_PREMIUM_ESTIMATE, TEACHER_PREMIUM_ESTIMATE, STUDENT_PREMIUM_ESTIMATE, COMMENTS } from '../../../../constants/salesForm';
 
-export const LowerFormFields = ({ errors, handleUpdateField, schoolPremimumEstimate, teacherPremimumEstimate, studentPremimumEstimate, comments }) => {
+export const LowerFormFields = ({ errors, handleUpdateField, schoolPremiumEstimate, teacherPremiumEstimate, studentPremiumEstimate, comments }) => {
   return(
     <React.Fragment>
       <Input
@@ -13,7 +13,7 @@ export const LowerFormFields = ({ errors, handleUpdateField, schoolPremimumEstim
         id={SCHOOL_PREMIUM_ESTIMATE}
         label={SCHOOL_PREMIUM_ESTIMATE}
         placeholder=""
-        value={schoolPremimumEstimate}
+        value={schoolPremiumEstimate}
       />
       <Input
         className="form-input estimate"
@@ -22,7 +22,7 @@ export const LowerFormFields = ({ errors, handleUpdateField, schoolPremimumEstim
         id={TEACHER_PREMIUM_ESTIMATE}
         label={TEACHER_PREMIUM_ESTIMATE}
         placeholder=""
-        value={teacherPremimumEstimate}
+        value={teacherPremiumEstimate}
       />
       <Input
         className="form-input estimate"
@@ -31,18 +31,17 @@ export const LowerFormFields = ({ errors, handleUpdateField, schoolPremimumEstim
         id={STUDENT_PREMIUM_ESTIMATE}
         label={STUDENT_PREMIUM_ESTIMATE}
         placeholder=""
-        value={studentPremimumEstimate}
+        value={studentPremiumEstimate}
       />
-      <div className="comments-container">
-        <label htmlFor={COMMENTS} id="comments-label">Comments (optional)</label>
-        <textarea
-          aria-labelledby="comments-label"
-          id={COMMENTS}
-          onChange={handleUpdateField}
-          style={{minHeight: '100px', border: '1px solid black', padding: '10px', width: '100%'}}
-          value={comments}
-        />
-      </div>
+      <TextArea
+        aria-labelledby="comments-label"
+        className="form-input"
+        handleChange={handleUpdateField}
+        id={COMMENTS}
+        label="Comments (optional)"
+        timesSubmitted={0}
+        value={comments}
+      />
     </React.Fragment>
   );
 }

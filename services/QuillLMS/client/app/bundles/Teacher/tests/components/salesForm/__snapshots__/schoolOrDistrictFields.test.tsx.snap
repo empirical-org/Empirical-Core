@@ -58,73 +58,27 @@ exports[`SchoolAndDistrictFields Component should match snapshot 1`] = `
       </div>
     </div>
   </div>
-  <div>
-    <ForwardRef
-      filterOptions={[Function]}
-      onChange={[MockFunction]}
-      options={Array []}
-      placeholder="Search for your school"
-      search={true}
-    >
+  <div
+    className="loading-options-container"
+  >
+    <p>
+      Loading school and district options...
+    </p>
+    <Spinner>
       <div
-        className="select-search"
-        id={null}
+        className="loading-spinner"
       >
         <div
-          className="select-search__value"
+          className="spinner-container"
         >
-          <input
-            autoComplete="on"
-            autoFocus={false}
-            className="select-search__input"
-            disabled={false}
-            onBlur={[Function]}
-            onChange={[Function]}
-            onFocus={[Function]}
-            onKeyDown={[Function]}
-            onKeyPress={[Function]}
-            onKeyUp={[Function]}
-            placeholder="Search for your school"
-            readOnly={false}
-            tabIndex="0"
-            value=""
+          <img
+            alt=""
+            className="spinner"
+            src="https://assets.quill.org/images/icons/loader_still.svg"
           />
         </div>
       </div>
-    </ForwardRef>
-    <ForwardRef
-      filterOptions={[Function]}
-      onChange={[MockFunction]}
-      options={Array []}
-      placeholder="Search for your district"
-      search={true}
-    >
-      <div
-        className="select-search"
-        id={null}
-      >
-        <div
-          className="select-search__value"
-        >
-          <input
-            autoComplete="on"
-            autoFocus={false}
-            className="select-search__input"
-            disabled={false}
-            onBlur={[Function]}
-            onChange={[Function]}
-            onFocus={[Function]}
-            onKeyDown={[Function]}
-            onKeyPress={[Function]}
-            onKeyUp={[Function]}
-            placeholder="Search for your district"
-            readOnly={false}
-            tabIndex="0"
-            value=""
-          />
-        </div>
-      </div>
-    </ForwardRef>
+    </Spinner>
   </div>
 </SchoolAndDistrictFields>
 `;

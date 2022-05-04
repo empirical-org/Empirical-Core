@@ -272,82 +272,36 @@ exports[`SalesForm Component should match snapshot 1`] = `
             </div>
           </div>
         </div>
-        <div>
-          <ForwardRef
-            filterOptions={[Function]}
-            onChange={[Function]}
-            options={Array []}
-            placeholder="Search for your school"
-            search={true}
-          >
+        <div
+          className="loading-options-container"
+        >
+          <p>
+            Loading school and district options...
+          </p>
+          <Spinner>
             <div
-              className="select-search"
-              id={null}
+              className="loading-spinner"
             >
               <div
-                className="select-search__value"
+                className="spinner-container"
               >
-                <input
-                  autoComplete="on"
-                  autoFocus={false}
-                  className="select-search__input"
-                  disabled={false}
-                  onBlur={[Function]}
-                  onChange={[Function]}
-                  onFocus={[Function]}
-                  onKeyDown={[Function]}
-                  onKeyPress={[Function]}
-                  onKeyUp={[Function]}
-                  placeholder="Search for your school"
-                  readOnly={false}
-                  tabIndex="0"
-                  value=""
+                <img
+                  alt=""
+                  className="spinner"
+                  src="https://assets.quill.org/images/icons/loader_still.svg"
                 />
               </div>
             </div>
-          </ForwardRef>
-          <ForwardRef
-            filterOptions={[Function]}
-            onChange={[Function]}
-            options={Array []}
-            placeholder="Search for your district"
-            search={true}
-          >
-            <div
-              className="select-search"
-              id={null}
-            >
-              <div
-                className="select-search__value"
-              >
-                <input
-                  autoComplete="on"
-                  autoFocus={false}
-                  className="select-search__input"
-                  disabled={false}
-                  onBlur={[Function]}
-                  onChange={[Function]}
-                  onFocus={[Function]}
-                  onKeyDown={[Function]}
-                  onKeyPress={[Function]}
-                  onKeyUp={[Function]}
-                  placeholder="Search for your district"
-                  readOnly={false}
-                  tabIndex="0"
-                  value=""
-                />
-              </div>
-            </div>
-          </ForwardRef>
+          </Spinner>
         </div>
       </SchoolAndDistrictFields>
       <LowerFormFields
         comments=""
         errors={Object {}}
         handleUpdateField={[Function]}
-        schoolPremimumEstimate=""
-        studentPremimumEstimate=""
-        teacherPremimumEstimate=""
+        schoolPremiumEstimate=""
+        studentPremiumEstimate=""
+        teacherPremiumEstimate=""
       >
         <Input
           autoComplete="on"
@@ -445,38 +399,50 @@ exports[`SalesForm Component should match snapshot 1`] = `
             />
           </div>
         </Input>
-        <div
-          className="comments-container"
+        <TextArea
+          aria-labelledby="comments-label"
+          className="form-input"
+          handleChange={[Function]}
+          id="Comments"
+          label="Comments (optional)"
+          timesSubmitted={0}
+          value=""
         >
-          <label
-            htmlFor="Comments"
-            id="comments-label"
-          >
-            Comments (optional)
-          </label>
-          <textarea
-            aria-labelledby="comments-label"
-            id="Comments"
-            onChange={[Function]}
-            style={
-              Object {
-                "border": "1px solid black",
-                "minHeight": "100px",
-                "padding": "10px",
-                "width": "100%",
-              }
-            }
-            value=""
-          />
-        </div>
+          <div>
+            <div
+              className="input-container textfield-container  inactive form-input"
+              onClick={[Function]}
+            >
+              <label>
+                Comments (optional)
+              </label>
+              <textarea
+                id="Comments"
+                maxLength={10000}
+                onFocus={[Function]}
+                value=""
+              />
+            </div>
+          </div>
+        </TextArea>
       </LowerFormFields>
       <button
-        className="submit-button quill-button contained primary medium"
+        className="submit-button quill-button contained primary medium focus-on-light"
         onClick={[Function]}
       >
         Submit
       </button>
     </form>
+    <Snackbar
+      text="Request successfully submitted!"
+      visible={false}
+    >
+      <div
+        className="quill-snackbar "
+      >
+        Request successfully submitted!
+      </div>
+    </Snackbar>
   </div>
 </SalesForm>
 `;
