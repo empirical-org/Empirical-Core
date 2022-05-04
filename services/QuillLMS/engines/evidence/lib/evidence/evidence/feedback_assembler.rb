@@ -27,7 +27,6 @@ module Evidence
     def self.default_payload
       {
         'feedback_type': '',
-        'response_id': '0', # not currently used, but part of Evidence payload spec
         'labels': '',       # not currently used, but part of Evidence payload spec
         'concept_uid': '',
         'feedback': '<p></p>',

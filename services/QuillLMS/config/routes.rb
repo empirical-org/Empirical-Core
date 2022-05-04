@@ -68,10 +68,10 @@ EmpiricalGrammar::Application.routes.draw do
 
   resources :student_feedback_responses, only: [:create]
 
-  # for Stripe
   namespace :stripe_integration do
     post '/subscription_checkout_sessions', to: 'subscription_checkout_sessions#create'
     post '/subscription_payment_methods', to: 'subscription_payment_methods#create'
+    post '/subscription_renewals', to: 'subscription_renewals#create'
     post '/webhooks', to: 'webhooks#create'
   end
 
@@ -89,7 +89,6 @@ EmpiricalGrammar::Application.routes.draw do
     member do
       get :purchaser_name
     end
-
   end
 
   resources :assessments

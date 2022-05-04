@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 RSpec.shared_context 'Stripe Subscription' do
+  include_context 'Stripe Subscription Item'
   include_context 'Stripe Payment Method'
-  include_context 'Stripe Price'
   include_context 'Stripe Customer'
 
   let(:stripe_subscription_id) { "sub_#{SecureRandom.hex}" }
@@ -36,17 +36,7 @@ RSpec.shared_context 'Stripe Subscription' do
       items: {
         object: 'list',
         data: [
-          {
-            id: 'si_LMYJmB1ZVMsHkV',
-            object: 'subscription_item',
-            billing_thresholds: nil,
-            created: 1647884416,
-            metadata: {},
-            price: stripe_price,
-            quantity: 1,
-            subscription: stripe_subscription_id,
-            tax_rates: []
-          }
+          stripe_subscription_item
         ],
         has_more: false,
         url: "/v1/subscription_items?subscription=#{stripe_subscription_id}"

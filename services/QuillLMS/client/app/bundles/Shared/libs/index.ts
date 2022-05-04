@@ -7,3 +7,4 @@ export { getCurrentQuestion, getQuestionsWithAttempts, getFilteredQuestions, get
 export { roundValuesToSeconds, roundMillisecondsToSeconds, } from './timeTrackingSharedFunctions'
 export { titleCase } from './titleCase'
 export { onMobile } from './onMobile'
+export { fillInBlankInputLabel, } from './fillInBlankInputLabel'
