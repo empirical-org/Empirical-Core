@@ -151,7 +151,7 @@ export const renderSchoolAndDistrictSelect = ({
     return(
       <div className="loading-options-container">
         <p>Loading school and district options...</p>
-        <Spinner/>
+        <Spinner />
       </div>
     );
   }
