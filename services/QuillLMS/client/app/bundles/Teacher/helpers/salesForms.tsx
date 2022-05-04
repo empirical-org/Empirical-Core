@@ -93,8 +93,8 @@ export const renderSchoolAndDistrictSelect = ({
       className="form-input"
       filterOptions={customSearch}
       handleChange={handleSchoolSearchChange}
-      label={schoolInputLabel}
       isSearchable={true}
+      label={schoolInputLabel}
       options={schoolOptions}
       value={selectedSchool}
     />
@@ -104,8 +104,8 @@ export const renderSchoolAndDistrictSelect = ({
       className="form-input"
       filterOptions={customSearch}
       handleChange={handleDistrictSearchChange}
-      label={districtInputLabel}
       isSearchable={true}
+      label={districtInputLabel}
       options={districtOptions}
       value={selectedDistrict}
     />

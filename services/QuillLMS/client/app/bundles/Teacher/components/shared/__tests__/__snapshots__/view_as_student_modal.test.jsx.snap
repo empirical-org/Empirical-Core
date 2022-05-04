@@ -159,6 +159,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
               defaultInputValue=""
               defaultMenuIsOpen={false}
               defaultValue={null}
+              filterOption={null}
               inputValue=""
               isClearable={false}
               menuIsOpen={false}
@@ -241,7 +242,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                 controlShouldRenderValue={true}
                 cursor={null}
                 escapeClearsValue={false}
-                filterOption={[Function]}
+                filterOption={null}
                 formatGroupLabel={[Function]}
                 getOptionLabel={[Function]}
                 getOptionValue={[Function]}
@@ -409,7 +410,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                       "controlShouldRenderValue": true,
                       "cursor": null,
                       "escapeClearsValue": false,
-                      "filterOption": [Function],
+                      "filterOption": null,
                       "formatGroupLabel": [Function],
                       "getOptionLabel": [Function],
                       "getOptionValue": [Function],
@@ -627,7 +628,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                             "controlShouldRenderValue": true,
                             "cursor": null,
                             "escapeClearsValue": false,
-                            "filterOption": [Function],
+                            "filterOption": null,
                             "formatGroupLabel": [Function],
                             "getOptionLabel": [Function],
                             "getOptionValue": [Function],
@@ -853,7 +854,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                                   "controlShouldRenderValue": true,
                                   "cursor": null,
                                   "escapeClearsValue": false,
-                                  "filterOption": [Function],
+                                  "filterOption": null,
                                   "formatGroupLabel": [Function],
                                   "getOptionLabel": [Function],
                                   "getOptionValue": [Function],
@@ -1079,7 +1080,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                                         "controlShouldRenderValue": true,
                                         "cursor": null,
                                         "escapeClearsValue": false,
-                                        "filterOption": [Function],
+                                        "filterOption": null,
                                         "formatGroupLabel": [Function],
                                         "getOptionLabel": [Function],
                                         "getOptionValue": [Function],
@@ -1259,7 +1260,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                                         "controlShouldRenderValue": true,
                                         "cursor": null,
                                         "escapeClearsValue": false,
-                                        "filterOption": [Function],
+                                        "filterOption": null,
                                         "formatGroupLabel": [Function],
                                         "getOptionLabel": [Function],
                                         "getOptionValue": [Function],
@@ -1558,7 +1559,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                                   "controlShouldRenderValue": true,
                                   "cursor": null,
                                   "escapeClearsValue": false,
-                                  "filterOption": [Function],
+                                  "filterOption": null,
                                   "formatGroupLabel": [Function],
                                   "getOptionLabel": [Function],
                                   "getOptionValue": [Function],
@@ -1766,7 +1767,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                                         "controlShouldRenderValue": true,
                                         "cursor": null,
                                         "escapeClearsValue": false,
-                                        "filterOption": [Function],
+                                        "filterOption": null,
                                         "formatGroupLabel": [Function],
                                         "getOptionLabel": [Function],
                                         "getOptionValue": [Function],
@@ -1985,7 +1986,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                                         "controlShouldRenderValue": true,
                                         "cursor": null,
                                         "escapeClearsValue": false,
-                                        "filterOption": [Function],
+                                        "filterOption": null,
                                         "formatGroupLabel": [Function],
                                         "getOptionLabel": [Function],
                                         "getOptionValue": [Function],
@@ -2514,6 +2515,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
               defaultInputValue=""
               defaultMenuIsOpen={false}
               defaultValue={null}
+              filterOption={null}
               inputValue=""
               isClearable={false}
               menuIsOpen={false}
@@ -2608,7 +2610,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                 controlShouldRenderValue={true}
                 cursor={null}
                 escapeClearsValue={false}
-                filterOption={[Function]}
+                filterOption={null}
                 formatGroupLabel={[Function]}
                 getOptionLabel={[Function]}
                 getOptionValue={[Function]}
@@ -2788,7 +2790,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                       "controlShouldRenderValue": true,
                       "cursor": null,
                       "escapeClearsValue": false,
-                      "filterOption": [Function],
+                      "filterOption": null,
                       "formatGroupLabel": [Function],
                       "getOptionLabel": [Function],
                       "getOptionValue": [Function],
@@ -3018,7 +3020,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                             "controlShouldRenderValue": true,
                             "cursor": null,
                             "escapeClearsValue": false,
-                            "filterOption": [Function],
+                            "filterOption": null,
                             "formatGroupLabel": [Function],
                             "getOptionLabel": [Function],
                             "getOptionValue": [Function],
@@ -3256,7 +3258,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                                   "controlShouldRenderValue": true,
                                   "cursor": null,
                                   "escapeClearsValue": false,
-                                  "filterOption": [Function],
+                                  "filterOption": null,
                                   "formatGroupLabel": [Function],
                                   "getOptionLabel": [Function],
                                   "getOptionValue": [Function],
@@ -3506,7 +3508,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                                         "controlShouldRenderValue": true,
                                         "cursor": null,
                                         "escapeClearsValue": false,
-                                        "filterOption": [Function],
+                                        "filterOption": null,
                                         "formatGroupLabel": [Function],
                                         "getOptionLabel": [Function],
                                         "getOptionValue": [Function],
@@ -3698,7 +3700,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                                         "controlShouldRenderValue": true,
                                         "cursor": null,
                                         "escapeClearsValue": false,
-                                        "filterOption": [Function],
+                                        "filterOption": null,
                                         "formatGroupLabel": [Function],
                                         "getOptionLabel": [Function],
                                         "getOptionValue": [Function],
@@ -4009,7 +4011,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                                   "controlShouldRenderValue": true,
                                   "cursor": null,
                                   "escapeClearsValue": false,
-                                  "filterOption": [Function],
+                                  "filterOption": null,
                                   "formatGroupLabel": [Function],
                                   "getOptionLabel": [Function],
                                   "getOptionValue": [Function],
@@ -4229,7 +4231,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                                         "controlShouldRenderValue": true,
                                         "cursor": null,
                                         "escapeClearsValue": false,
-                                        "filterOption": [Function],
+                                        "filterOption": null,
                                         "formatGroupLabel": [Function],
                                         "getOptionLabel": [Function],
                                         "getOptionValue": [Function],
@@ -4460,7 +4462,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                                         "controlShouldRenderValue": true,
                                         "cursor": null,
                                         "escapeClearsValue": false,
-                                        "filterOption": [Function],
+                                        "filterOption": null,
                                         "formatGroupLabel": [Function],
                                         "getOptionLabel": [Function],
                                         "getOptionValue": [Function],
