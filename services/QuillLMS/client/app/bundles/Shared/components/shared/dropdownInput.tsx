@@ -26,6 +26,11 @@ interface DropdownInputProps {
   type?: string;
   usesCustomOption?: boolean;
   value?: any;
+  filterOptions?: (
+    candidate: { label: string; value: string; data: any },
+    value: string,
+    options: { label: string; value: string }[]
+  ) => void;
 }
 
 interface DropdownInputState {
@@ -269,9 +274,14 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
     this.handleInputActivation()
   }
 
+  handleFilterOptions = (candidate: { label: string; value: string; data: any }, value: string) => {
+    const { filterOptions, options } = this.props;
+    return filterOptions(candidate, value, options)
+  }
+
   renderInput() {
     const { active, errorAcknowledged, menuIsOpen, cursor, inputValue, options } = this.state
-    const { className, label, value, placeholder, error, type, id, isSearchable, isMulti, optionType, usesCustomOption, } = this.props
+    const { className, label, value, placeholder, error, type, id, isSearchable, isMulti, optionType, usesCustomOption, filterOptions } = this.props
     const passedValue = value || ''
     const hasText = value || isMulti ? 'has-text' : ''
     const inactiveOrActive = active ? 'active' : 'inactive'
@@ -295,7 +305,8 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
       components: { Option: StandardDropdownOption },
       onInputChange: this.handleInputChange,
       tabIndex: isSearchable ? 0 : -1,
-      inputValue
+      inputValue,
+      filterOption: filterOptions ? this.handleFilterOptions : null
     }
     if (error) {
       if (errorAcknowledged) {

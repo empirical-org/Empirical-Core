@@ -1,8 +1,6 @@
 import * as React from 'react';
-import SelectSearch from 'react-select-search';
-import Fuse from 'fuse.js';
 
-import { Input, Spinner } from '../../Shared';
+import { DropdownInput, Input, Spinner } from '../../Shared';
 import { requestFailed } from "../../Staff/helpers/evidence/routingHelpers";
 import { SCHOOL, DISTRICT, SCHOOL_NOT_LISTED, DISTRICT_NOT_LISTED, PROPERTIES, NUMERICAL_PROPERTIES, PROPERTY_LABELS } from '../../../constants/salesForm';
 
@@ -42,7 +40,7 @@ export const getSchoolsAndDistricts = async (type: string) => {
   } else {
     const schoolOrDistrictOptions = await response.json();
     const { options } = schoolOrDistrictOptions;
-    const formattedOptions = options.map((option: string) => ({ name: option, value: option }));
+    const formattedOptions = options.map((option: string) => ({ label: option, value: option }));
     return { options: formattedOptions };
   }
 }
@@ -61,41 +59,18 @@ export const submitSalesForm = async (salesFormSubmission: SalesFormSubmission) 
   }
 }
 
-export function schoolSearch(options) {
-  const fuse = new Fuse(options, {
-    keys: ['name', 'groupName', 'items.name'],
-    threshold: 0.3,
-  });
-
-  return (value) => {
-    if (!value.length) {
-      return options;
-    }
-    const results = fuse.search(value)
-    if(value && !results.length) {
-      return [{ name: SCHOOL_NOT_LISTED, value: SCHOOL_NOT_LISTED}];
-    }
-    return fuse.search(value);
-  };
-}
-
-export const districtSearch = (options) => {
-  const fuse = new Fuse(options, {
-    keys: ['name', 'groupName', 'items.name'],
-    threshold: 0.3,
-  });
-
-  return (value) => {
-    if (!value.length) {
-      return options;
-    }
-    const results = fuse.search(value)
-    if(value && !results.length) {
-      return [{ name: DISTRICT_NOT_LISTED, value: DISTRICT_NOT_LISTED}];
-    }
-    return fuse.search(value);
-  };
-}
+export const customSearch = (
+  candidate: { label: string; value: string; data: any },
+  input: string,
+  options: { label: string; value: string }[]
+) => {
+  if (input) {
+    const lowerCaseValue = candidate.value.toLowerCase();
+    const lowerCaseInput = input.toLowerCase();
+    return lowerCaseValue.includes(lowerCaseInput) || candidate.value === options[0].value;
+  }
+  return true;
+};
 
 export const renderSchoolAndDistrictSelect = ({
   errors,
@@ -109,22 +84,30 @@ export const renderSchoolAndDistrictSelect = ({
   handleSchoolSearchChange,
   handleDistrictSearchChange
 }) => {
+  const schoolInputLabel = selectedSchool ? SCHOOL : "Search for your school";
+  const districtInputLabel = selectedDistrict ? DISTRICT : "Search for your district";
+  const schoolOptions = [{ label: SCHOOL_NOT_LISTED, value: SCHOOL_NOT_LISTED}, ...schools];
+  const districtOptions = [{ label: DISTRICT_NOT_LISTED, value: DISTRICT_NOT_LISTED}, ...schools];
   const schoolSearchInput = (
-    <SelectSearch
-      filterOptions={schoolSearch}
-      onChange={handleSchoolSearchChange}
-      options={schools}
-      placeholder="Search for your school"
-      search={true}
+    <DropdownInput
+      className="form-input"
+      filterOptions={customSearch}
+      handleChange={handleSchoolSearchChange}
+      label={schoolInputLabel}
+      isSearchable={true}
+      options={schoolOptions}
+      value={selectedSchool}
     />
   );
   const districtSearchInput = (
-    <SelectSearch
-      filterOptions={districtSearch}
-      onChange={handleDistrictSearchChange}
-      options={districts}
-      placeholder="Search for your district"
-      search={true}
+    <DropdownInput
+      className="form-input"
+      filterOptions={customSearch}
+      handleChange={handleDistrictSearchChange}
+      label={districtInputLabel}
+      isSearchable={true}
+      options={districtOptions}
+      value={selectedDistrict}
     />
   );
   const schoolCustomInput = (
@@ -158,8 +141,8 @@ export const renderSchoolAndDistrictSelect = ({
   return(
     <div>
       {!schoolNotListed && schoolSearchInput}
-      {!districtNotListed && districtSearchInput}
       {schoolNotListed && schoolCustomInput}
+      {!districtNotListed && districtSearchInput}
       {districtNotListed && districtCustomInput}
       {errors[SCHOOL] && <p className="error-text">{errors[SCHOOL]}</p>}
       {errors[DISTRICT] && <p className="error-text">{errors[DISTRICT]}</p>}

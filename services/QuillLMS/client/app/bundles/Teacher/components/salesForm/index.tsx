@@ -6,7 +6,7 @@ import UpperFormFields from './upperFormFields';
 
 import { Snackbar, defaultSnackbarTimeout } from '../../../Shared';
 import { getSchoolsAndDistricts, validateSalesForm, submitSalesForm } from '../../helpers/salesForms';
-import { InputEvent } from '../../../Staff/interfaces/evidenceInterfaces';
+import { DropdownObjectInterface, InputEvent } from '../../../Staff/interfaces/evidenceInterfaces';
 import {
   FIRST_NAME, LAST_NAME, EMAIL, PHONE_NUMBER, ZIPCODE, SCHOOL_PREMIUM_ESTIMATE, TEACHER_PREMIUM_ESTIMATE,
   STUDENT_PREMIUM_ESTIMATE, COMMENTS, SCHOOL, DISTRICT, SCHOOL_OR_DISTRICT, SCHOOL_NOT_LISTED, DISTRICT_NOT_LISTED, SUBMISSION_ERROR
@@ -25,9 +25,9 @@ export const SalesForm = ({ type }) => {
   const [comments, setComments] = React.useState<string>('');
   const [schools, setSchools] = React.useState<any[]>([]);
   const [districts, setDistricts] = React.useState<any[]>([]);
-  const [selectedSchool, setSelectedSchool] = React.useState<string>('');
+  const [selectedSchool, setSelectedSchool] = React.useState<any>('');
   const [schoolNotListed, setSchoolNotListed] = React.useState<boolean>(false);
-  const [selectedDistrict, setSelectedDistrict] = React.useState<string>('');
+  const [selectedDistrict, setSelectedDistrict] = React.useState<any>('');
   const [districtNotListed, setDistrictNotListed] = React.useState<boolean>(false);
   const [schoolOrDistrict, setSchoolOrDistrict] = React.useState<any>('');
   const [showSnackbar, setShowSnackbar] = React.useState(false)
@@ -84,21 +84,21 @@ export const SalesForm = ({ type }) => {
     setterFunction(value);
   }
 
-  function handleSchoolSearchChange(value: string) {
-    if(value === SCHOOL_NOT_LISTED) {
+  function handleSchoolSearchChange(option) {
+    if(option.value === SCHOOL_NOT_LISTED) {
       setSchoolNotListed(true);
       setSelectedSchool('');
     } else {
-      setSelectedSchool(value);
+      setSelectedSchool(option);
     }
   };
 
-  function handleDistrictSearchChange(value: string) {
-    if(value === DISTRICT_NOT_LISTED) {
+  function handleDistrictSearchChange(option) {
+    if(option.value === DISTRICT_NOT_LISTED) {
       setDistrictNotListed(true);
       setSelectedDistrict('');
     } else {
-      setSelectedDistrict(value);
+      setSelectedDistrict(option);
     }
   };
 
@@ -111,8 +111,8 @@ export const SalesForm = ({ type }) => {
       phone_number: phoneNumber,
       zipcode: zipcode,
       collection_type: schoolOrDistrict.toLowerCase(),
-      school_name: selectedSchool,
-      district_name: selectedDistrict,
+      school_name: selectedSchool && selectedSchool.value ? selectedSchool.value : selectedSchool,
+      district_name: selectedDistrict && selectedDistrict.value ? selectedDistrict.value : selectedDistrict,
       school_premium_count_estimate: parseInt(schoolPremiumEstimate),
       teacher_premium_count_estimate: parseInt(teacherPremiumEstimate),
       student_premium_count_estimate: parseInt(studentPremiumEstimate),
