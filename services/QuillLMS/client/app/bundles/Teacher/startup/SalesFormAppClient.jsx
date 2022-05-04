@@ -1,5 +1,5 @@
 import React from 'react';
-import SalesForm from '../containers/salesFormContainer';
+import SalesForm from '../containers/SalesFormContainer';
 
 const SalesFormAppClient = (props) => (
   <SalesForm {...props} />
