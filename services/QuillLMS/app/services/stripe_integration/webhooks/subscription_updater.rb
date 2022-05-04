@@ -6,18 +6,27 @@ module StripeIntegration
       class SubscriptionNotFoundError < StandardError; end
       class NilCancelAtPeriodEndError < StandardError; end
 
-      attr_reader :stripe_subscription
+      INCOMPLETE = 'incomplete'
 
-      def initialize(stripe_subscription)
+      attr_reader :stripe_subscription, :previous_attributes
+
+      def initialize(stripe_subscription, previous_attributes)
         @stripe_subscription = stripe_subscription
+        @previous_attributes = previous_attributes
       end
 
       def run
+        return if previously_incomplete?
+
         subscription.update!(recurring: recurring)
       end
 
       private def cancel_at_period_end
         stripe_subscription.cancel_at_period_end
+      end
+
+      private def previously_incomplete?
+        previous_attributes&.status == INCOMPLETE
       end
 
       private def recurring
