@@ -1,8 +1,6 @@
 import * as React from "react"
 import ReactHtmlParser from 'react-html-parser'
 
-import DirectionsSection from './directionsSection'
-import PromptStep from './promptStep'
 import HeaderImage from './headerImage'
 
 import useFocus from '../../../Shared/hooks/useFocus'
@@ -21,10 +19,10 @@ const ReadPassageContainer = ({
   const [containerRef, setContainerFocus] = useFocus()
 
   React.useEffect(() => {
-    if (hasStartedReadPassageStep) {
+    if (!showReadTheDirectionsButton) {
       setContainerFocus()
     }
-  }, [hasStartedReadPassageStep])
+  }, [showReadTheDirectionsButton])
 
   const { currentActivity, } = activities
   if (!currentActivity) { return <span /> }
@@ -41,7 +39,7 @@ const ReadPassageContainer = ({
   const formattedPassages = addPTagsToPassages(passages, scrolledToEndOfPassage)
   const formattedPassage = formattedPassages ? formattedPassages[0] : '';
   return (
-    <div className="read-passage-container" onScroll={handleReadPassageContainerScroll} ref={containerRef}>
+    <div className="read-passage-container no-focus-outline" onScroll={handleReadPassageContainerScroll} ref={containerRef} tabIndex={-1}>
       <div aria-hidden={innerPassageShouldBeBlurred} className={innerContainerClassName}>
         <h1 className="title">{title}</h1>
         <HeaderImage headerImage={headerImage} passage={passages[0]} />

@@ -1,5 +1,7 @@
 import * as React from 'react'
 
+import useFocus from '../../../Shared/hooks/useFocus'
+
 const baseImgSrc = `${process.env.CDN_URL}/images/pages/evidence`
 const checkMarkSrc = `${baseImgSrc}/components-selection-controls-dark-enabled-selected.svg`
 
@@ -81,6 +83,12 @@ const ActivitySurvey = ({ sessionID, saveActivitySurveyResponse, setSubmittedAct
   const [selectedEmoji, setSelectedEmoji] = React.useState(null)
   const [selectedMultipleChoiceOptions, setSelectedMultipleChoiceOptions] = React.useState([])
 
+  const [containerRef, setContainerFocus] = useFocus()
+
+  React.useEffect(() => {
+    setContainerFocus()
+  }, [])
+
   React.useEffect(() => { setSelectedMultipleChoiceOptions([]) }, [selectedEmoji])
 
   function handleSend() {
@@ -127,7 +135,7 @@ const ActivitySurvey = ({ sessionID, saveActivitySurveyResponse, setSubmittedAct
   const sendButtonClassName = selectedMultipleChoiceOptions.length ? 'quill-button large secondary outlined focus-on-dark' : 'quill-button large disabled contained focus-on-dark'
 
   return (
-    <div className="activity-follow-up-container activity-survey-container">
+    <div className="activity-follow-up-container activity-survey-container no-focus-outline" ref={containerRef} tabIndex={-1}>
       <div className="activity-survey-content">
         {activitySurveyHeader}
         <div className="emoji-buttons">{emojiButtons}</div>

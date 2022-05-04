@@ -7,7 +7,8 @@ exports[`ActivitySurvey Component should match snapshot 1`] = `
   setSubmittedActivitySurvey={[Function]}
 >
   <div
-    className="activity-follow-up-container activity-survey-container"
+    className="activity-follow-up-container activity-survey-container no-focus-outline"
+    tabIndex={-1}
   >
     <div
       className="activity-survey-content"

@@ -1,16 +1,10 @@
 import * as React from "react"
-import ReactHtmlParser from 'react-html-parser'
 
-import { onMobile, orderedSteps, everyOtherStepCompleted, addPTagsToPassages, READ_PASSAGE_STEP } from './containerActionHelpers'
+import { onMobile, READ_PASSAGE_STEP } from './containerActionHelpers'
 
 import DirectionsSection from '../components/studentView/directionsSection'
-import PromptStep from '../components/studentView/promptStep'
-import HeaderImage from '../components/studentView/headerImage'
-
-import useFocus from '../../Shared/hooks/useFocus'
 
 const bigCheckSrc =  `${process.env.CDN_URL}/images/icons/check-circle-big.svg`
-const readPassageContainerClassName = "read-passage-container"
 
 export const renderDirectionsSection = ({ className, handleReadTheDirectionsButtonClick, activeStep, doneHighlighting, showReadTheDirectionsButton, activities }) => {
   const { currentActivity, } = activities
@@ -57,51 +51,6 @@ export const renderReadPassageStep = (activeStep, activities, handleDoneReadingC
     <div className='read-passage-step-container'>
       <h2>Read the text.</h2>
       <button className='quill-button large primary contained done-reading-button' onClick={handleDoneReadingClick} type="button">Done reading</button>
-    </div>
-  )
-}
-
-export const renderPromptStep = ({
-  activateStep,
-  activityIsComplete,
-  completionButtonCallback,
-  completeStep,
-  submitResponse,
-  handleReadTheDirectionsButtonClick,
-  activities,
-  session,
-  activeStep,
-  completedSteps,
-  doneHighlighting,
-  showReadTheDirectionsButton,
-  reportAProblem,
-}) => {
-  const { currentActivity, } = activities
-  const { submittedResponses, hasReceivedData, } = session
-
-  if (!currentActivity || !hasReceivedData) return
-
-  // the first step is reading, so we will always start at 2 and therefore want to begin at the 0 index
-  const stepNumber = activeStep - 2;
-  const prompts = orderedSteps(activities);
-  const prompt = prompts[stepNumber];
-
-  return (
-    <div className="prompt-steps">
-      {renderDirectionsSection({ className: '', handleReadTheDirectionsButtonClick, activeStep, doneHighlighting, showReadTheDirectionsButton, activities })}
-      <PromptStep
-        activateStep={activateStep}
-        activityIsComplete={activityIsComplete}
-        className="step active"
-        completeStep={completeStep}
-        completionButtonCallback={completionButtonCallback}
-        key={activeStep}
-        prompt={prompt}
-        reportAProblem={reportAProblem}
-        stepNumber={activeStep}
-        submitResponse={submitResponse}
-        submittedResponses={(submittedResponses && submittedResponses[prompt.id]) || []}
-      />
     </div>
   )
 }
