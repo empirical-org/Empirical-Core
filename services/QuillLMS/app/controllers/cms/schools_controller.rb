@@ -45,7 +45,7 @@ class Cms::SchoolsController < Cms::CmsController
       'City' => @school.city || @school.mail_city,
       'State' => @school.state || @school.mail_state,
       'ZIP' => @school.zipcode || @school.mail_zipcode,
-      'District' => @school.leanm,
+      'District' => @school.district&.name,
       'Free and Reduced Price Lunch' => "#{@school.free_lunches}%",
       'NCES ID' => @school.nces_id,
       'PPIN' => @school.ppin,
@@ -198,7 +198,7 @@ class Cms::SchoolsController < Cms::CmsController
       <<-SQL
         SELECT
           schools.name AS school_name,
-          schools.leanm AS district_name,
+          districts.name AS district_name,
           COALESCE(schools.city, schools.mail_city) AS school_city,
           COALESCE(schools.state, schools.mail_state) AS school_state,
           COALESCE(schools.zipcode, schools.mail_zipcode) AS school_zip,
@@ -216,16 +216,18 @@ class Cms::SchoolsController < Cms::CmsController
           ON school_subscriptions.school_id = schools.id
         LEFT JOIN subscriptions
           ON subscriptions.id = school_subscriptions.subscription_id
+        LEFT JOIN districts
+          ON districts.id = schools.district_id
         #{where_query_string_builder}
         GROUP BY
           schools.name,
-          schools.leanm,
           schools.city,
           schools.state,
           schools.zipcode,
           schools.free_lunches,
           subscriptions.account_type,
-          schools.id
+          schools.id,
+          districts.name
         #{having_string}
         #{order_by_query_string}
         #{pagination_query_string}
@@ -265,7 +267,7 @@ class Cms::SchoolsController < Cms::CmsController
     # School city: schools.city or schools.mail_city
     # School state: schools.state or schools.mail_state
     # School zip: schools.zipcode or schools.mail_zipcode
-    # District name: schools.leanm
+    # District name: districts.name
     # Premium status: subscriptions.account_type
     sanitized_fuzzy_param_value = ActiveRecord::Base.connection.quote("%#{param_value}%")
     sanitized_param_value = ActiveRecord::Base.connection.quote(param_value)
@@ -280,7 +282,7 @@ class Cms::SchoolsController < Cms::CmsController
     when 'school_zip'
       "(schools.zipcode = #{sanitized_param_value} OR schools.mail_zipcode = #{sanitized_param_value})"
     when 'district_name'
-      "schools.leanm ILIKE #{sanitized_fuzzy_param_value}"
+      "districts.name ILIKE #{sanitized_fuzzy_param_value}"
     when 'premium_status'
       "subscriptions.account_type IN (#{sanitized_param_value})"
     else
@@ -308,6 +310,8 @@ class Cms::SchoolsController < Cms::CmsController
             ON school_subscriptions.school_id = schools.id
           LEFT JOIN subscriptions
             ON subscriptions.id = school_subscriptions.subscription_id
+          LEFT JOIN districts
+            ON districts.id = schools.district_id
           #{where_query_string_builder}
           GROUP BY schools.id
           #{having_string}
@@ -338,7 +342,6 @@ class Cms::SchoolsController < Cms::CmsController
       'School City' => :city,
       'School State' => :state,
       'School ZIP' => :zipcode,
-      'District Name' => :leanm,
       'FRP Lunch' => :free_lunches,
       'NCES ID' => :nces_id,
       'Clever ID' => :clever_id

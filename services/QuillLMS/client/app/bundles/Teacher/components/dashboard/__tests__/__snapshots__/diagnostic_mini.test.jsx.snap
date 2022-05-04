@@ -325,7 +325,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
         <div
           className="data-table-headers"
         >
-          <button
+          <th
             className="data-table-header undefined"
             style={
               Object {
@@ -334,12 +334,10 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 "width": "300px",
               }
             }
-            tabIndex={-1}
-            type="button"
           >
             Diagnostic
-          </button>
-          <button
+          </th>
+          <th
             className="data-table-header undefined"
             style={
               Object {
@@ -348,12 +346,10 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 "width": "180px",
               }
             }
-            tabIndex={-1}
-            type="button"
           >
             Class
-          </button>
-          <button
+          </th>
+          <th
             className="data-table-header undefined"
             style={
               Object {
@@ -362,12 +358,10 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 "width": "62px",
               }
             }
-            tabIndex={-1}
-            type="button"
           >
             Completed
-          </button>
-          <button
+          </th>
+          <th
             className="data-table-header last-header"
             style={
               Object {
@@ -376,11 +370,9 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 "width": "62px",
               }
             }
-            tabIndex={-1}
-            type="button"
           >
             Results
-          </button>
+          </th>
         </div>
         <div
           className="data-table-body"

@@ -1,0 +1,27 @@
+.screenreader-instructions {
+  left:-999px;
+  position:absolute;
+  top:auto;
+  width:1px;
+  height:1px;
+  overflow:hidden;
+  z-index:-999;
+}
+
+.screenreader-instructions:focus, .screenreader-instructions:active {
+  border-radius: 4px;
+  border: solid 1px #bdbdbd;
+  font-size: 15px;
+  line-height: 1;
+  background-color: white;
+  text-decoration: none;
+  outline: none;
+  padding: 13px 16px 12px;
+  left: 0;
+  top: 0;
+  width: auto;
+  height: auto;
+  overflow: auto;
+  z-index: 999;
+  color: #000000;
+}

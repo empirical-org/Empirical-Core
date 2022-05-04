@@ -132,7 +132,7 @@ exports[`FillInTheBlank component projector view inactive renders 1`] = `
             />
             <span>
               <input
-                aria-label="input0"
+                aria-label="Complete the sentence with one of the following options: the, a"
                 autoComplete="off"
                 className="disabled"
                 disabled={true}
@@ -241,7 +241,7 @@ exports[`FillInTheBlank component projector view inactive renders 1`] = `
             key="span0"
           >
             <input
-              aria-label="input0"
+              aria-label="Complete the sentence with one of the following options: the, a"
               autoComplete="off"
               className="disabled"
               disabled={true}
@@ -351,6 +351,7 @@ exports[`FillInTheBlank component projector view inactive renders 1`] = `
         feedbackType="default"
       >
         <div
+          aria-live="assertive"
           className="student-feedback-container default"
           role="status"
         >
@@ -546,7 +547,7 @@ exports[`FillInTheBlank component projector view when an answer is being display
             />
             <span>
               <input
-                aria-label="input0"
+                aria-label="Complete the sentence with one of the following options: the, a"
                 autoComplete="off"
                 className="disabled"
                 disabled={true}
@@ -655,7 +656,7 @@ exports[`FillInTheBlank component projector view when an answer is being display
             key="span0"
           >
             <input
-              aria-label="input0"
+              aria-label="Complete the sentence with one of the following options: the, a"
               autoComplete="off"
               className="disabled"
               disabled={true}
@@ -765,6 +766,7 @@ exports[`FillInTheBlank component projector view when an answer is being display
         feedbackType="default"
       >
         <div
+          aria-live="assertive"
           className="student-feedback-container default"
           role="status"
         >
@@ -914,7 +916,7 @@ exports[`FillInTheBlank component student view inactive renders 1`] = `
             />
             <span>
               <input
-                aria-label="input0"
+                aria-label="Complete the sentence with one of the following options: the, a"
                 autoComplete="off"
                 className=""
                 id="input0"
@@ -1022,7 +1024,7 @@ exports[`FillInTheBlank component student view inactive renders 1`] = `
             key="span0"
           >
             <input
-              aria-label="input0"
+              aria-label="Complete the sentence with one of the following options: the, a"
               autoComplete="off"
               className=""
               id="input0"
@@ -1131,6 +1133,7 @@ exports[`FillInTheBlank component student view inactive renders 1`] = `
         feedbackType="default"
       >
         <div
+          aria-live="assertive"
           className="student-feedback-container default"
           role="status"
         >
@@ -1293,7 +1296,7 @@ exports[`FillInTheBlank component student view when an answer is being displayed
             />
             <span>
               <input
-                aria-label="input0"
+                aria-label="Complete the sentence with one of the following options: the, a"
                 autoComplete="off"
                 className=""
                 id="input0"
@@ -1401,7 +1404,7 @@ exports[`FillInTheBlank component student view when an answer is being displayed
             key="span0"
           >
             <input
-              aria-label="input0"
+              aria-label="Complete the sentence with one of the following options: the, a"
               autoComplete="off"
               className=""
               id="input0"
@@ -1510,6 +1513,7 @@ exports[`FillInTheBlank component student view when an answer is being displayed
         feedbackType="default"
       >
         <div
+          aria-live="assertive"
           className="student-feedback-container default"
           role="status"
         >
@@ -1666,7 +1670,7 @@ exports[`FillInTheBlank component student view when the student has submitted an
             />
             <span>
               <input
-                aria-label="input0"
+                aria-label="Complete the sentence with one of the following options: the, a"
                 autoComplete="off"
                 className=""
                 id="input0"
@@ -1774,7 +1778,7 @@ exports[`FillInTheBlank component student view when the student has submitted an
             key="span0"
           >
             <input
-              aria-label="input0"
+              aria-label="Complete the sentence with one of the following options: the, a"
               autoComplete="off"
               className=""
               id="input0"
@@ -1883,6 +1887,7 @@ exports[`FillInTheBlank component student view when the student has submitted an
         feedbackType="default"
       >
         <div
+          aria-live="assertive"
           className="student-feedback-container default"
           role="status"
         >

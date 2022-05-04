@@ -4,33 +4,6 @@
     <br /><br />
     <h2><%= @district.name %></h2>
     <br />
-    <table class='cms-results-table'>
-      <thead>
-        <tr>
-          <% ['Name', 'Teachers', 'Premium?', 'Admins', 'Manage'].each do |td| %>
-            <td><%= td %></td>
-          <% end %>
-        </tr>
-      </thead>
-      <tbody>
-        <% @school_data.each do |school| %>
-          <tr>
-            <td><%= school['school_name'] || 'N/A' %></td>
-            <td><%= school['number_teachers'] || '0' %></td>
-            <td><%= school['premium_status'] || '' %></td>
-            <td><%= school['number_admins'] || '0' %></td>
-            <td>
-              <%= link_to 'view', cms_school_path(school['school_id']) %>
-              <br />
-              <% if !school['school_id'].blank? %>
-                <%= link_to 'edit', edit_cms_school_path(school['school_id']) %>
-              <% end %>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-    <br /><br />
     <h2>District Info</h2>
     <br />
     <%= link_to 'Edit District Info', edit_cms_district_path(params[:id]), class: 'btn button-green' %>
@@ -75,6 +48,37 @@
     <p><strong>Grade Range</strong></p>
     <p><%= @district.grade_range || 'N/A' %></p>
     <br /> <br />
+
+    <table class='cms-results-table'>
+      <thead>
+        <tr>
+          <% ['Name', 'City', 'State', 'FRL', 'Teachers', 'Premium?', 'Admins', 'Manage'].each do |td| %>
+            <td><%= td %></td>
+          <% end %>
+        </tr>
+      </thead>
+      <tbody>
+        <% @school_data.each do |school| %>
+          <tr>
+            <td><%= school.name || 'N/A' %></td>
+            <td><%= school.city || 'N/A' %></td>
+            <td><%= school.state || 'N/A' %></td>
+            <td><%= school.free_lunches || 'N/A' %>%</td>
+            <td><%= school.number_teachers || '0' %></td>
+            <td><%= school.account_type || '' %></td>
+            <td><%= school.number_admins || '0' %></td>
+            <td>
+              <%= link_to 'view', cms_school_path(school.id) %>
+              <br />
+              <% if school.id.present? %>
+                <%= link_to 'edit', edit_cms_school_path(school.id) %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <br /><br />
 
     <br /><br />
     <h2>All Admins</h2>

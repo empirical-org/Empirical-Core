@@ -140,7 +140,6 @@ class FeedbackHistory < ApplicationRecord
     # Remove blank values from metadata
     metadata = {
       highlight: feedback_hash['highlight'],
-      response_id: feedback_hash['response_id'],
       hint: feedback_hash['hint']
     }.reject {|_,v| v.blank? }
 

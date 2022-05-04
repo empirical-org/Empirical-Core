@@ -25,7 +25,6 @@ module Evidence
         feedback: feedback,
         feedback_type: Rule::TYPE_PLAGIARISM,
         optimal: optimal?,
-        response_id: '',
         entry: @entry,
         concept_uid: optimal? ? optimal_rule_hash["concept_uid"] : @rule&.concept_uid,
         rule_uid: optimal? ? optimal_rule_hash["uid"] : @rule&.uid,

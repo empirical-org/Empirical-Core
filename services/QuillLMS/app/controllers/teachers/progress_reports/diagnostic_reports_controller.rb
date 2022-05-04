@@ -23,7 +23,15 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
   end
 
   def students_by_classroom
-    render json: results_for_classroom(params[:unit_id], params[:activity_id], params[:classroom_id])
+    classroom = Classroom.find(params[:classroom_id])
+    cache_groups = {
+      activity_id: params[:activity_id],
+      unit_id: params[:unit_id]
+    }
+    response = current_user.classroom_cache(classroom, key: 'teachers.progress_reports.diagnostic_reports.student_by_classroom', groups: cache_groups) do
+      results_for_classroom(params[:unit_id], params[:activity_id], params[:classroom_id])
+    end
+    render json: response
   end
 
   def diagnostic_student_responses_index
@@ -79,7 +87,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
       student = User.find_by_id(student_id)
       skills = Activity.find(activity_id).skills.distinct
       pre_test = Activity.find_by_follow_up_activity_id(activity_id)
-      pre_test_activity_session = pre_test && find_activity_session_for_student_activity_and_classroom(student_id, pre_test.id, classroom_id, unit_id)
+      pre_test_activity_session = pre_test && find_activity_session_for_student_activity_and_classroom(student_id, pre_test.id, classroom_id, nil)
 
       if pre_test && pre_test_activity_session
         concept_results = {

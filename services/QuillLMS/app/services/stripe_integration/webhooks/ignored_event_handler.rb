@@ -6,13 +6,14 @@ module StripeIntegration
       IGNORED_EVENTS = [
         'balance.available',
         'charge.succeeded',
+        'checkout.session.expired',
         'checkout.session.completed',
         'customer.created',
         'customer.source.created',
         'customer.source.updated',
         'customer.subscription.created',
-        'customer.subscription.updated',
         'customer.updated',
+        'file.created',
         'invoice.updated',
         'invoice.created',
         'invoice.finalized',
@@ -21,12 +22,14 @@ module StripeIntegration
         'invoice.updated',
         'invoiceitem.created',
         'invoiceitem.updated',
+        'payment_intent.cancelled',
         'payment_intent.created',
         'payment_intent.succeeded',
         'payment_method.attached',
         'payment_method.automatically_updated',
         'payout.created',
-        'payout.paid'
+        'payout.paid',
+        'setup_intent.created'
       ]
 
       def self.handles?(event_type)

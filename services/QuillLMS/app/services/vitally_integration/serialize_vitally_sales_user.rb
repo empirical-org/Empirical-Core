@@ -213,7 +213,7 @@ class SerializeVitallySalesUser
   end
 
   private def district
-    @user.school.leanm if @user.school.present?
+    @user.school.district&.name if @user.school.present?
   end
 
 end

@@ -2416,12 +2416,12 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
           <div
             className="data-table-headers"
           >
-            <span
+            <th
               className="data-table-header reorder-header"
             >
               Order
-            </span>
-            <button
+            </th>
+            <th
               className="data-table-header undefined"
               style={
                 Object {
@@ -2430,8 +2430,6 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                   "width": "607px",
                 }
               }
-              tabIndex={-1}
-              type="button"
             >
               <span
                 className="tool-and-name-header"
@@ -2443,8 +2441,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                   Activity
                 </span>
               </span>
-            </button>
-            <button
+            </th>
+            <th
               className="data-table-header due-date-header-container"
               style={
                 Object {
@@ -2453,8 +2451,6 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                   "width": "120px",
                 }
               }
-              tabIndex={-1}
-              type="button"
             >
               <span
                 className="due-date-header"
@@ -2464,8 +2460,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                   (optional)
                 </span>
               </span>
-            </button>
-            <button
+            </th>
+            <th
               className="data-table-header undefined"
               style={
                 Object {
@@ -2474,10 +2470,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                   "width": "30px",
                 }
               }
-              tabIndex={-1}
-              type="button"
             />
-            <span
+            <th
+              aria-label="Header for remove column"
               className="data-table-header"
             />
           </div>
@@ -15758,7 +15753,7 @@ exports[`ActivityPack component renders if the current user did not create the u
           <div
             className="data-table-headers"
           >
-            <button
+            <th
               className="data-table-header undefined"
               style={
                 Object {
@@ -15767,8 +15762,6 @@ exports[`ActivityPack component renders if the current user did not create the u
                   "width": "724px",
                 }
               }
-              tabIndex={-1}
-              type="button"
             >
               <span
                 className="tool-and-name-header"
@@ -15780,8 +15773,8 @@ exports[`ActivityPack component renders if the current user did not create the u
                   Activity
                 </span>
               </span>
-            </button>
-            <button
+            </th>
+            <th
               className="data-table-header due-date-header-container no-right-margin"
               style={
                 Object {
@@ -15790,8 +15783,6 @@ exports[`ActivityPack component renders if the current user did not create the u
                   "width": "110px",
                 }
               }
-              tabIndex={-1}
-              type="button"
             >
               <span
                 className="due-date-header"
@@ -15801,8 +15792,8 @@ exports[`ActivityPack component renders if the current user did not create the u
                   (optional)
                 </span>
               </span>
-            </button>
-            <button
+            </th>
+            <th
               className="data-table-header undefined"
               style={
                 Object {
@@ -15811,8 +15802,6 @@ exports[`ActivityPack component renders if the current user did not create the u
                   "width": "30px",
                 }
               }
-              tabIndex={-1}
-              type="button"
             />
           </div>
           <div

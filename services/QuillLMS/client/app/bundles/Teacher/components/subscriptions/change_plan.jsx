@@ -12,10 +12,22 @@ export default class ChangePlan extends React.Component {
       <div className="change-plan">
         <div className="radio-group">
           <label className="radio-option">
-            <input checked={recurring} name="recurring" onChange={this.handleChange} type="radio" value={true} /> {this.props.subscriptionType} - ${this.props.price} Annual Subscription
+            <input
+              checked={recurring}
+              name="recurring"
+              onChange={this.handleChange}
+              type="radio"
+              value={true}
+            /> {this.props.subscriptionType} - ${this.props.price} Annual Subscription
           </label>
           <label className="radio-option">
-            <input checked={!recurring} name="recurring" onChange={this.handleChange} type="radio" value={false} /> Quill Basic - Free
+            <input
+              checked={!recurring}
+              name="recurring"
+              onChange={this.handleChange}
+              type="radio"
+              value={false}
+            /> Quill Basic - Free
           </label>
         </div>
       </div>

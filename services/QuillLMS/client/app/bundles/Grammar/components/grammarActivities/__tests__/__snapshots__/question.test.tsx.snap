@@ -254,6 +254,7 @@ Sentences flow easily when all the actions in a list have the same ending. This 
           feedbackType="instructions"
         >
           <div
+            aria-live="assertive"
             className="student-feedback-container default"
             role="status"
           >

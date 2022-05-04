@@ -3,7 +3,7 @@ export interface FeedbackObject {
   feedback: string,
   feedback_type: string,
   optimal: boolean,
-  response_id: string,
+  response_id?: string,
   entry: string,
   highlight: Highlight[],
   hint?: Hint,

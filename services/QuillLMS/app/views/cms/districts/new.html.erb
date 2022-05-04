@@ -1,0 +1,29 @@
+<div class='container'>
+  <article class='simple-rounded-box cms-container'>
+    <%= link_to 'District Directory', cms_districts_path %> > New District
+    <br /><br />
+    <h2>New District</h2>
+    <br />
+    <p><strong>Warning: Before you add a district, be sure to search for it via zipcode. Only add a district if you're certain it doesn't already exist.</strong></p>
+    <br /><strong>Notes:
+    <ul>
+      <li>State is just initials (e.g. NY)</li>
+      <li>Charter schools should have the charter network name as district.</li>
+    </strong></ul>
+    <br />
+    <div class='cms-form'>
+      <%= form_for @district, url: cms_districts_path(@district) do |f| %>
+        <% @editable_attributes.each do |attribute_name, attribute_field| %>
+          <div class='cms-form-row'>
+            <%= f.label attribute_field, attribute_name %>
+            <%= f.text_field attribute_field, autocomplete: 'off' %>
+          </div>
+        <% end %>
+
+        <div class='cms-submit-row'>
+          <%= f.button "Add District", class: 'button-green' %>
+        </div>
+      <% end %>
+    </div>
+  </article>
+</div>
