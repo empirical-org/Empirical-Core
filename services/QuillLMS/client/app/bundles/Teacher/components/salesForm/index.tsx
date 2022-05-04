@@ -70,6 +70,7 @@ export const SalesForm = ({ type }) => {
     const { value, id } = target;
     const setterFunction = stateSetters[id];
     if(id === SCHOOL_OR_DISTRICT) {
+      // reset to displaying search inputs in case user changes from school to district option (and vice versa)
       setSchoolNotListed(false);
       setDistrictNotListed(false);
     }

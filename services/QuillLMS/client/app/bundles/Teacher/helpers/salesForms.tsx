@@ -47,8 +47,7 @@ export const getSchoolsAndDistricts = async (type: string) => {
 }
 
 export const submitSalesForm = async (salesFormSubmission: SalesFormSubmission) => {
-  const url = `/submit_sales_form`;
-  const response = await apiFetch(url, {
+  const response = await apiFetch('/submit_sales_form', {
     method: 'POST',
     body: JSON.stringify({ sales_form_submission: salesFormSubmission })
   });
