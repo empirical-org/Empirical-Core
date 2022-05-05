@@ -33,11 +33,12 @@ module Evidence
     accepts_nested_attributes_for :prompts
 
     validates :parent_activity_id, uniqueness: {allow_nil: true}
-    validates :target_level, presence: true,
+    validates :target_level,
       numericality: {
         only_integer: true,
         less_than_or_equal_to: MAX_TARGET_LEVEL,
-        greater_than_or_equal_to: MIN_TARGET_LEVEL
+        greater_than_or_equal_to: MIN_TARGET_LEVEL,
+        allow_nil: true
       }
     validates :title, presence: true, length: {in: MIN_TITLE_LENGTH..MAX_TITLE_LENGTH}
     validates :notes, presence: true
