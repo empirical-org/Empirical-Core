@@ -8,7 +8,6 @@ class Cms::ActivitiesController < Cms::CmsController
 
   def index
     @flag = params[:flag].to_s.to_sym.presence || :production
-    @flag = :archived if @flag == :archive
 
     if @flag == :production
       @activities = @activity_classification.activities.production

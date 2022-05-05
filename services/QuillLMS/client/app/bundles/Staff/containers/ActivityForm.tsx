@@ -102,9 +102,6 @@ const ActivityForm = ({ activity, activityClassification, contentPartnerOptions,
 
   const initialFlag = editedActivity.flags[0]
   const flagOptionElements = flagOptions.map(fo => {
-    if (fo === 'archive') {
-      fo = 'archived'
-    }
     if (fo === initialFlag) {
       return <option value={fo} selected>{fo}</option>
     }
