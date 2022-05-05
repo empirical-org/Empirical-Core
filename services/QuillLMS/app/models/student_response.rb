@@ -97,13 +97,13 @@ class StudentResponse < ApplicationRecord
   end
 
   def self.extract_extra_metadata(metadata)
-    extra_metadata = metadata.except(KNOWN_METADATA_KEYS)    
+    extra_metadata = metadata.except(KNOWN_METADATA_KEYS)
     StudentResponseExtraMetadata.new(metadata: extra_metadata)
   end
 
   def self.bulk_create_from_metadata(data_hash_array)
     normalized_data_hash = roll_up_concepts(data_hash_array)
-    
+
     normalized_data_hash.each { |data_hash| create_from_metadata(data_hash) }
   end
 
@@ -113,10 +113,10 @@ class StudentResponse < ApplicationRecord
   def self.roll_up_concepts(data_hash_array)
     data_hash_array.reduce({}) do |rollup, value|
       key = "#{value[:questionNumber]}-#{value[:attemptNumber]}"
-      unless rollup[key]
-        rollup[key] = value.merge(concept_ids: [value[:concept_id]])
-      else
+      if rollup[key]
         rollup[key][:concept_ids].push(value[:concept_id])
+      else
+        rollup[key] = value.merge(concept_ids: [value[:concept_id]])
       end
     end.values
   end

@@ -19,5 +19,5 @@
 class StudentResponseExtraMetadata < ApplicationRecord
   belongs_to :student_response
 
-  validates :metadata, presence: true 
+  validates :metadata, presence: true
 end
