@@ -7,7 +7,7 @@ class OneOffBanner < WebinarBanner
 
   WEBINARS = {
     '5-12-11' => {
-      title: "Webinar: Wrapping Up the School Year with Quill is live now!",
+      title: "<strong>Webinar: Wrapping Up the School Year with Quill</strong> is live now!",
       link_display_text: "Click here to register and join.",
       link: "#{ZOOM_URL}/WN_m7Yc_C87RUu5sLW8yTz4eA#/registration"
     }
