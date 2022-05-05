@@ -26,7 +26,8 @@ module Evidence
       'sánchez',
       'kanaka',
       'kānaka',
-      'worldwatch'
+      'worldwatch',
+      'wilmut'
     ]
 
     attr_reader :entry
