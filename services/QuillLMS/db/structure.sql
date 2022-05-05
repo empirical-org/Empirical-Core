@@ -124,7 +124,7 @@ CREATE FUNCTION public.timespent_question(act_sess integer, question character v
           item timestamp;
         BEGIN
           SELECT created_at INTO as_created_at FROM activity_sessions WHERE id = act_sess;
-
+          
           -- backward compatibility block
           IF as_created_at IS NULL OR as_created_at < timestamp '2013-08-25 00:00:00.000000' THEN
             SELECT SUM(
@@ -139,11 +139,11 @@ CREATE FUNCTION public.timespent_question(act_sess integer, question character v
                       'epoch' FROM (activity_sessions.completed_at - activity_sessions.started_at)
                     )
                 END) INTO time_spent FROM activity_sessions WHERE id = act_sess AND state='finished';
-
+                
                 RETURN COALESCE(time_spent,0);
           END IF;
-
-
+          
+          
           first_item := NULL;
           last_item := NULL;
           max_item := NULL;
@@ -167,11 +167,11 @@ CREATE FUNCTION public.timespent_question(act_sess integer, question character v
 
             END IF;
           END LOOP;
-
+          
           IF max_item IS NOT NULL AND first_item IS NOT NULL THEN
             time_spent := time_spent + EXTRACT( EPOCH FROM max_item - first_item );
           END IF;
-
+          
           RETURN time_spent;
         END;
       $$;
@@ -186,7 +186,7 @@ CREATE FUNCTION public.timespent_student(student integer) RETURNS bigint
     AS $$
         SELECT COALESCE(SUM(time_spent),0) FROM (
           SELECT id,timespent_activity_session(id) AS time_spent FROM activity_sessions
-          WHERE activity_sessions.user_id = student
+          WHERE activity_sessions.user_id = student 
           GROUP BY id) as as_ids;
 
       $$;
@@ -226,6 +226,8 @@ CREATE FUNCTION public.timespent_teacher(teacher integer) RETURNS bigint
 
 
 SET default_tablespace = '';
+
+SET default_with_oids = false;
 
 --
 -- Name: active_activity_sessions; Type: TABLE; Schema: public; Owner: -
@@ -310,7 +312,7 @@ ALTER SEQUENCE public.activities_id_seq OWNED BY public.activities.id;
 CREATE TABLE public.activities_unit_templates (
     unit_template_id integer NOT NULL,
     activity_id integer NOT NULL,
-    id bigint NOT NULL,
+    id integer NOT NULL,
     order_number integer
 );
 
@@ -320,6 +322,7 @@ CREATE TABLE public.activities_unit_templates (
 --
 
 CREATE SEQUENCE public.activities_unit_templates_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -967,8 +970,8 @@ CREATE TABLE public.change_logs (
     id integer NOT NULL,
     explanation text,
     action character varying NOT NULL,
-    changed_record_type character varying NOT NULL,
     changed_record_id integer,
+    changed_record_type character varying NOT NULL,
     user_id integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
@@ -1198,7 +1201,7 @@ CREATE TABLE public.classrooms_teachers (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     "order" integer,
-    CONSTRAINT check_role_is_valid CHECK ((((role)::text = ANY (ARRAY[('owner'::character varying)::text, ('coteacher'::character varying)::text])) AND (role IS NOT NULL)))
+    CONSTRAINT check_role_is_valid CHECK ((((role)::text = ANY ((ARRAY['owner'::character varying, 'coteacher'::character varying])::text[])) AND (role IS NOT NULL)))
 );
 
 
@@ -1547,8 +1550,8 @@ ALTER SEQUENCE public.comprehension_prompts_rules_id_seq OWNED BY public.compreh
 
 CREATE TABLE public.comprehension_regex_rules (
     id integer NOT NULL,
-    regex_text character varying(200) NOT NULL,
-    case_sensitive boolean NOT NULL,
+    regex_text character varying(200),
+    case_sensitive boolean,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     rule_id integer,
@@ -1590,10 +1593,9 @@ CREATE TABLE public.comprehension_rules (
     rule_type character varying NOT NULL,
     optimal boolean NOT NULL,
     suborder integer,
-    concept_uid character varying NOT NULL,
+    concept_uid character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    sequence_type character varying,
     state character varying NOT NULL
 );
 
@@ -1899,8 +1901,8 @@ CREATE TABLE public.credit_transactions (
     id integer NOT NULL,
     amount integer NOT NULL,
     user_id integer NOT NULL,
-    source_type character varying,
     source_id integer,
+    source_type character varying,
     created_at timestamp without time zone,
     updated_at timestamp without time zone
 );
@@ -2070,42 +2072,6 @@ ALTER SEQUENCE public.districts_id_seq OWNED BY public.districts.id;
 
 
 --
--- Name: districts_tables; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.districts_tables (
-    id bigint NOT NULL,
-    name character varying NOT NULL,
-    nces_id character varying NOT NULL,
-    city character varying NOT NULL,
-    state character varying NOT NULL,
-    zipcode integer,
-    phone character varying,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: districts_tables_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.districts_tables_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: districts_tables_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.districts_tables_id_seq OWNED BY public.districts_tables.id;
-
-
---
 -- Name: districts_users; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -2156,8 +2122,8 @@ ALTER SEQUENCE public.evidence_hints_id_seq OWNED BY public.evidence_hints.id;
 CREATE TABLE public.feedback_histories (
     id integer NOT NULL,
     feedback_session_uid text,
-    prompt_type character varying,
     prompt_id integer,
+    prompt_type character varying,
     concept_uid text,
     attempt integer NOT NULL,
     entry text NOT NULL,
@@ -3279,7 +3245,7 @@ ALTER SEQUENCE public.schools_id_seq OWNED BY public.schools.id;
 CREATE TABLE public.schools_users (
     school_id integer,
     user_id integer,
-    id bigint NOT NULL
+    id integer NOT NULL
 );
 
 
@@ -3288,6 +3254,7 @@ CREATE TABLE public.schools_users (
 --
 
 CREATE SEQUENCE public.schools_users_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3533,6 +3500,40 @@ ALTER SEQUENCE public.standards_id_seq OWNED BY public.standards.id;
 
 
 --
+-- Name: stripe_webhook_events; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.stripe_webhook_events (
+    id bigint NOT NULL,
+    event_type character varying NOT NULL,
+    status character varying DEFAULT 'pending'::character varying,
+    external_id character varying NOT NULL,
+    processing_errors character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: stripe_webhook_events_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.stripe_webhook_events_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: stripe_webhook_events_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.stripe_webhook_events_id_seq OWNED BY public.stripe_webhook_events.id;
+
+
+--
 -- Name: student_feedback_responses; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3600,6 +3601,225 @@ ALTER SEQUENCE public.student_problem_reports_id_seq OWNED BY public.student_pro
 
 
 --
+-- Name: student_response_answer_texts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.student_response_answer_texts (
+    id bigint NOT NULL,
+    text text NOT NULL,
+    created_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: student_response_answer_texts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.student_response_answer_texts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: student_response_answer_texts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.student_response_answer_texts_id_seq OWNED BY public.student_response_answer_texts.id;
+
+
+--
+-- Name: student_response_directions_texts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.student_response_directions_texts (
+    id bigint NOT NULL,
+    text text NOT NULL,
+    created_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: student_response_directions_texts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.student_response_directions_texts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: student_response_directions_texts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.student_response_directions_texts_id_seq OWNED BY public.student_response_directions_texts.id;
+
+
+--
+-- Name: student_response_extra_metadata; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.student_response_extra_metadata (
+    id bigint NOT NULL,
+    metadata jsonb NOT NULL,
+    student_response_id bigint NOT NULL
+);
+
+
+--
+-- Name: student_response_extra_metadata_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.student_response_extra_metadata_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: student_response_extra_metadata_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.student_response_extra_metadata_id_seq OWNED BY public.student_response_extra_metadata.id;
+
+
+--
+-- Name: student_response_prompt_texts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.student_response_prompt_texts (
+    id bigint NOT NULL,
+    text text NOT NULL,
+    created_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: student_response_prompt_texts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.student_response_prompt_texts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: student_response_prompt_texts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.student_response_prompt_texts_id_seq OWNED BY public.student_response_prompt_texts.id;
+
+
+--
+-- Name: student_response_question_types; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.student_response_question_types (
+    id bigint NOT NULL,
+    text text NOT NULL,
+    created_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: student_response_question_types_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.student_response_question_types_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: student_response_question_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.student_response_question_types_id_seq OWNED BY public.student_response_question_types.id;
+
+
+--
+-- Name: student_responses; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.student_responses (
+    id bigint NOT NULL,
+    activity_session_id bigint NOT NULL,
+    attempt_number integer NOT NULL,
+    correct boolean NOT NULL,
+    question_id bigint NOT NULL,
+    question_number integer NOT NULL,
+    student_response_answer_text_id bigint NOT NULL,
+    student_response_directions_text_id bigint NOT NULL,
+    student_response_prompt_text_id bigint NOT NULL,
+    student_response_question_type_id bigint NOT NULL,
+    created_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: student_responses_concepts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.student_responses_concepts (
+    id bigint NOT NULL,
+    concept_id bigint NOT NULL,
+    student_response_id bigint NOT NULL,
+    created_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: student_responses_concepts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.student_responses_concepts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: student_responses_concepts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.student_responses_concepts_id_seq OWNED BY public.student_responses_concepts.id;
+
+
+--
+-- Name: student_responses_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.student_responses_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: student_responses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.student_responses_id_seq OWNED BY public.student_responses.id;
+
+
+--
 -- Name: students_classrooms; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3634,40 +3854,6 @@ ALTER SEQUENCE public.students_classrooms_id_seq OWNED BY public.students_classr
 
 
 --
--- Name: subscription_types; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.subscription_types (
-    id integer NOT NULL,
-    name character varying NOT NULL,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    price integer,
-    teacher_alias character varying
-);
-
-
---
--- Name: subscription_types_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.subscription_types_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: subscription_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.subscription_types_id_seq OWNED BY public.subscription_types.id;
-
-
---
 -- Name: subscriptions; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3679,12 +3865,13 @@ CREATE TABLE public.subscriptions (
     account_type character varying,
     purchaser_email character varying,
     start_date date,
-    subscription_type_id integer,
+    plan_id integer,
     purchaser_id integer,
     recurring boolean DEFAULT false,
     de_activated_date date,
     payment_method character varying,
-    payment_amount integer
+    payment_amount integer,
+    stripe_invoice_id character varying
 );
 
 
@@ -3996,7 +4183,8 @@ CREATE TABLE public.user_activity_classifications (
     id bigint NOT NULL,
     user_id bigint,
     activity_classification_id bigint,
-    count integer DEFAULT 0
+    count integer DEFAULT 0,
+    school_year_start timestamp without time zone NOT NULL
 );
 
 
@@ -4535,13 +4723,6 @@ ALTER TABLE ONLY public.districts ALTER COLUMN id SET DEFAULT nextval('public.di
 
 
 --
--- Name: districts_tables id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.districts_tables ALTER COLUMN id SET DEFAULT nextval('public.districts_tables_id_seq'::regclass);
-
-
---
 -- Name: evidence_hints id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -4822,6 +5003,13 @@ ALTER TABLE ONLY public.standards ALTER COLUMN id SET DEFAULT nextval('public.st
 
 
 --
+-- Name: stripe_webhook_events id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.stripe_webhook_events ALTER COLUMN id SET DEFAULT nextval('public.stripe_webhook_events_id_seq'::regclass);
+
+
+--
 -- Name: student_feedback_responses id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -4836,17 +5024,59 @@ ALTER TABLE ONLY public.student_problem_reports ALTER COLUMN id SET DEFAULT next
 
 
 --
+-- Name: student_response_answer_texts id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.student_response_answer_texts ALTER COLUMN id SET DEFAULT nextval('public.student_response_answer_texts_id_seq'::regclass);
+
+
+--
+-- Name: student_response_directions_texts id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.student_response_directions_texts ALTER COLUMN id SET DEFAULT nextval('public.student_response_directions_texts_id_seq'::regclass);
+
+
+--
+-- Name: student_response_extra_metadata id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.student_response_extra_metadata ALTER COLUMN id SET DEFAULT nextval('public.student_response_extra_metadata_id_seq'::regclass);
+
+
+--
+-- Name: student_response_prompt_texts id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.student_response_prompt_texts ALTER COLUMN id SET DEFAULT nextval('public.student_response_prompt_texts_id_seq'::regclass);
+
+
+--
+-- Name: student_response_question_types id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.student_response_question_types ALTER COLUMN id SET DEFAULT nextval('public.student_response_question_types_id_seq'::regclass);
+
+
+--
+-- Name: student_responses id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.student_responses ALTER COLUMN id SET DEFAULT nextval('public.student_responses_id_seq'::regclass);
+
+
+--
+-- Name: student_responses_concepts id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.student_responses_concepts ALTER COLUMN id SET DEFAULT nextval('public.student_responses_concepts_id_seq'::regclass);
+
+
+--
 -- Name: students_classrooms id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.students_classrooms ALTER COLUMN id SET DEFAULT nextval('public.students_classrooms_id_seq'::regclass);
-
-
---
--- Name: subscription_types id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.subscription_types ALTER COLUMN id SET DEFAULT nextval('public.subscription_types_id_seq'::regclass);
 
 
 --
@@ -5364,14 +5594,6 @@ ALTER TABLE ONLY public.districts
 
 
 --
--- Name: districts_tables districts_tables_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.districts_tables
-    ADD CONSTRAINT districts_tables_pkey PRIMARY KEY (id);
-
-
---
 -- Name: evidence_hints evidence_hints_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5604,14 +5826,6 @@ ALTER TABLE ONLY public.sales_stages
 
 
 --
--- Name: schema_migrations schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.schema_migrations
-    ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
-
-
---
 -- Name: school_subscriptions school_subscriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5700,6 +5914,14 @@ ALTER TABLE ONLY public.standards
 
 
 --
+-- Name: stripe_webhook_events stripe_webhook_events_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.stripe_webhook_events
+    ADD CONSTRAINT stripe_webhook_events_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: student_feedback_responses student_feedback_responses_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5716,19 +5938,67 @@ ALTER TABLE ONLY public.student_problem_reports
 
 
 --
+-- Name: student_response_answer_texts student_response_answer_texts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.student_response_answer_texts
+    ADD CONSTRAINT student_response_answer_texts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: student_response_directions_texts student_response_directions_texts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.student_response_directions_texts
+    ADD CONSTRAINT student_response_directions_texts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: student_response_extra_metadata student_response_extra_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.student_response_extra_metadata
+    ADD CONSTRAINT student_response_extra_metadata_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: student_response_prompt_texts student_response_prompt_texts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.student_response_prompt_texts
+    ADD CONSTRAINT student_response_prompt_texts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: student_response_question_types student_response_question_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.student_response_question_types
+    ADD CONSTRAINT student_response_question_types_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: student_responses_concepts student_responses_concepts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.student_responses_concepts
+    ADD CONSTRAINT student_responses_concepts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: student_responses student_responses_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.student_responses
+    ADD CONSTRAINT student_responses_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: students_classrooms students_classrooms_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.students_classrooms
     ADD CONSTRAINT students_classrooms_pkey PRIMARY KEY (id);
-
-
---
--- Name: subscription_types subscription_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.subscription_types
-    ADD CONSTRAINT subscription_types_pkey PRIMARY KEY (id);
 
 
 --
@@ -6852,10 +7122,108 @@ CREATE INDEX index_skills_on_skill_group_id ON public.skills USING btree (skill_
 
 
 --
+-- Name: index_stripe_webhook_events_on_external_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_stripe_webhook_events_on_external_id ON public.stripe_webhook_events USING btree (external_id);
+
+
+--
 -- Name: index_student_problem_reports_on_feedback_history_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_student_problem_reports_on_feedback_history_id ON public.student_problem_reports USING btree (feedback_history_id);
+
+
+--
+-- Name: index_student_response_answer_texts_on_text; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_student_response_answer_texts_on_text ON public.student_response_answer_texts USING btree (text);
+
+
+--
+-- Name: index_student_response_directions_texts_on_text; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_student_response_directions_texts_on_text ON public.student_response_directions_texts USING btree (text);
+
+
+--
+-- Name: index_student_response_extra_metadata_on_student_response_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_student_response_extra_metadata_on_student_response_id ON public.student_response_extra_metadata USING btree (student_response_id);
+
+
+--
+-- Name: index_student_response_prompt_texts_on_text; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_student_response_prompt_texts_on_text ON public.student_response_prompt_texts USING btree (text);
+
+
+--
+-- Name: index_student_response_question_types_on_text; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_student_response_question_types_on_text ON public.student_response_question_types USING btree (text);
+
+
+--
+-- Name: index_student_responses_concepts_on_concept_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_student_responses_concepts_on_concept_id ON public.student_responses_concepts USING btree (concept_id);
+
+
+--
+-- Name: index_student_responses_concepts_on_student_response_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_student_responses_concepts_on_student_response_id ON public.student_responses_concepts USING btree (student_response_id);
+
+
+--
+-- Name: index_student_responses_on_activity_session_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_student_responses_on_activity_session_id ON public.student_responses USING btree (activity_session_id);
+
+
+--
+-- Name: index_student_responses_on_question_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_student_responses_on_question_id ON public.student_responses USING btree (question_id);
+
+
+--
+-- Name: index_student_responses_on_student_response_answer_text_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_student_responses_on_student_response_answer_text_id ON public.student_responses USING btree (student_response_answer_text_id);
+
+
+--
+-- Name: index_student_responses_on_student_response_directions_text_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_student_responses_on_student_response_directions_text_id ON public.student_responses USING btree (student_response_directions_text_id);
+
+
+--
+-- Name: index_student_responses_on_student_response_prompt_text_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_student_responses_on_student_response_prompt_text_id ON public.student_responses USING btree (student_response_prompt_text_id);
+
+
+--
+-- Name: index_student_responses_on_student_response_question_type_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_student_responses_on_student_response_question_type_id ON public.student_responses USING btree (student_response_question_type_id);
 
 
 --
@@ -6877,13 +7245,6 @@ CREATE INDEX index_students_classrooms_on_student_id ON public.students_classroo
 --
 
 CREATE UNIQUE INDEX index_students_classrooms_on_student_id_and_classroom_id ON public.students_classrooms USING btree (student_id, classroom_id);
-
-
---
--- Name: index_subscription_types_on_name; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_subscription_types_on_name ON public.subscription_types USING btree (name);
 
 
 --
@@ -6919,6 +7280,13 @@ CREATE INDEX index_subscriptions_on_recurring ON public.subscriptions USING btre
 --
 
 CREATE INDEX index_subscriptions_on_start_date ON public.subscriptions USING btree (start_date);
+
+
+--
+-- Name: index_subscriptions_on_stripe_invoice_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_subscriptions_on_stripe_invoice_id ON public.subscriptions USING btree (stripe_invoice_id);
 
 
 --
@@ -7160,6 +7528,13 @@ CREATE INDEX tsv_idx ON public.blog_posts USING gin (tsv);
 
 
 --
+-- Name: uac_user_school_year_classification_unique; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX uac_user_school_year_classification_unique ON public.user_activity_classifications USING btree (user_id, school_year_start, activity_classification_id);
+
+
+--
 -- Name: unique_classroom_and_activity_for_cua_state; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -7216,10 +7591,17 @@ CREATE UNIQUE INDEX unique_index_users_on_username ON public.users USING btree (
 
 
 --
+-- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX unique_schema_migrations ON public.schema_migrations USING btree (version);
+
+
+--
 -- Name: user_activity_classification_unique_index; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX user_activity_classification_unique_index ON public.user_activity_classifications USING btree (user_id, activity_classification_id);
+CREATE INDEX user_activity_classification_unique_index ON public.user_activity_classifications USING btree (user_id, activity_classification_id);
 
 
 --
@@ -7331,6 +7713,14 @@ ALTER TABLE ONLY public.change_logs
 
 ALTER TABLE ONLY public.activities
     ADD CONSTRAINT fk_rails_1b6bf425e3 FOREIGN KEY (raw_score_id) REFERENCES public.raw_scores(id);
+
+
+--
+-- Name: student_response_extra_metadata fk_rails_22314996f1; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.student_response_extra_metadata
+    ADD CONSTRAINT fk_rails_22314996f1 FOREIGN KEY (student_response_id) REFERENCES public.student_responses(id);
 
 
 --
@@ -7446,11 +7836,27 @@ ALTER TABLE ONLY public.recommendations
 
 
 --
+-- Name: student_responses fk_rails_7be7b41fcd; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.student_responses
+    ADD CONSTRAINT fk_rails_7be7b41fcd FOREIGN KEY (student_response_answer_text_id) REFERENCES public.student_response_answer_texts(id);
+
+
+--
 -- Name: standards fk_rails_7c2e427970; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.standards
     ADD CONSTRAINT fk_rails_7c2e427970 FOREIGN KEY (standard_level_id) REFERENCES public.standard_levels(id);
+
+
+--
+-- Name: student_responses fk_rails_81c3cf86e6; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.student_responses
+    ADD CONSTRAINT fk_rails_81c3cf86e6 FOREIGN KEY (activity_session_id) REFERENCES public.activity_sessions(id);
 
 
 --
@@ -7467,6 +7873,14 @@ ALTER TABLE ONLY public.activities
 
 ALTER TABLE ONLY public.activity_topics
     ADD CONSTRAINT fk_rails_8b344bb36c FOREIGN KEY (activity_id) REFERENCES public.activities(id);
+
+
+--
+-- Name: student_responses_concepts fk_rails_9318471fa8; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.student_responses_concepts
+    ADD CONSTRAINT fk_rails_9318471fa8 FOREIGN KEY (concept_id) REFERENCES public.concepts(id);
 
 
 --
@@ -7494,11 +7908,27 @@ ALTER TABLE ONLY public.skill_concepts
 
 
 --
+-- Name: student_responses fk_rails_a5e132ba39; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.student_responses
+    ADD CONSTRAINT fk_rails_a5e132ba39 FOREIGN KEY (student_response_question_type_id) REFERENCES public.student_response_question_types(id);
+
+
+--
 -- Name: sales_stages fk_rails_a8025d2621; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.sales_stages
     ADD CONSTRAINT fk_rails_a8025d2621 FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
+-- Name: student_responses fk_rails_a8c1fff324; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.student_responses
+    ADD CONSTRAINT fk_rails_a8c1fff324 FOREIGN KEY (student_response_prompt_text_id) REFERENCES public.student_response_prompt_texts(id);
 
 
 --
@@ -7606,6 +8036,14 @@ ALTER TABLE ONLY public.student_problem_reports
 
 
 --
+-- Name: student_responses fk_rails_d9d7c6152f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.student_responses
+    ADD CONSTRAINT fk_rails_d9d7c6152f FOREIGN KEY (student_response_directions_text_id) REFERENCES public.student_response_directions_texts(id);
+
+
+--
 -- Name: recommendations fk_rails_dc326309ed; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -7619,6 +8057,14 @@ ALTER TABLE ONLY public.recommendations
 
 ALTER TABLE ONLY public.comprehension_regex_rules
     ADD CONSTRAINT fk_rails_dd1bb7c35b FOREIGN KEY (rule_id) REFERENCES public.comprehension_rules(id) ON DELETE CASCADE;
+
+
+--
+-- Name: student_responses_concepts fk_rails_deaebb5d91; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.student_responses_concepts
+    ADD CONSTRAINT fk_rails_deaebb5d91 FOREIGN KEY (student_response_id) REFERENCES public.student_responses(id);
 
 
 --
@@ -8093,17 +8539,28 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211019143514'),
 ('20211026160939'),
 ('20211108171529'),
+('20211202235402'),
 ('20220105145446'),
 ('20220106193721'),
 ('20220128175405'),
 ('20220201132114'),
 ('20220201161514'),
 ('20220315131616'),
-('20220315172237'),
 ('20220317153356'),
+('20220321170433'),
 ('20220321215816'),
+('20220322164718'),
+('20220323145502'),
+('20220323145803'),
 ('20220328165932'),
 ('20220328170304'),
-('20220404180807');
+('20220404180807'),
+('20220505154357'),
+('20220505154724'),
+('20220505154951'),
+('20220505155015'),
+('20220505155016'),
+('20220505155212'),
+('20220505155243');
 
 
