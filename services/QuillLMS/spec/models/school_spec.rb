@@ -71,7 +71,7 @@ describe School, type: :model do
     end
 
     it "returns the subscription with the latest expiration date multiple valid ones exists" do
-      later_subscription = create(:subscription, expiration: Date.today + 365)
+      later_subscription = create(:subscription, expiration: Date.current + 365)
       later_user_sub = create(:school_subscription, school: bk_school, subscription: later_subscription)
       expect(bk_school.reload.subscription).to eq(later_subscription)
     end

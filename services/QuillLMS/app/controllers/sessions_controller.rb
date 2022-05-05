@@ -45,13 +45,13 @@ class SessionsController < ApplicationController
     email_or_username = params[:user][:email].downcase.strip unless params[:user][:email].nil?
     @user =  User.find_by_username_or_email(email_or_username)
     if @user.nil?
-      render json: {message: 'An account with this email or username does not exist. Try again.', type: 'email'}, status: 401
+      render json: {message: 'An account with this email or username does not exist. Try again.', type: 'email'}, status: :unauthorized
     elsif @user.signed_up_with_google
-      render json: {message: 'Oops! You have a Google account. Log in that way instead.', type: 'email'}, status: 401
+      render json: {message: 'Oops! You have a Google account. Log in that way instead.', type: 'email'}, status: :unauthorized
     elsif @user.clever_id
-      render json: {message: 'Oops! You have a Clever account. Log in that way instead.', type: 'email'}, status: 401
+      render json: {message: 'Oops! You have a Clever account. Log in that way instead.', type: 'email'}, status: :unauthorized
     elsif @user.password_digest.nil?
-      render json: {message: 'Did you sign up with Google? If so, please log in with Google using the link above.', type: 'email'}, status: 401
+      render json: {message: 'Did you sign up with Google? If so, please log in with Google using the link above.', type: 'email'}, status: :unauthorized
     elsif @user.authenticate(params[:user][:password])
       sign_in(@user)
 
@@ -71,7 +71,7 @@ class SessionsController < ApplicationController
         render json: {redirect: '/'}
       end
     else
-      render json: {message: 'Wrong password. Try again or click Forgot password to reset it.', type: 'password'}, status: 401
+      render json: {message: 'Wrong password. Try again or click Forgot password to reset it.', type: 'password'}, status: :unauthorized
     end
   end
   # rubocop:enable Metrics/CyclomaticComplexity
@@ -80,9 +80,9 @@ class SessionsController < ApplicationController
     admin_id = session.delete(:admin_id)
     admin = User.find_by_id(admin_id)
     staff_id = session.delete(:staff_id)
-    cookies[:webinar_banner_recurring_closed] = { expires: Time.now }
-    cookies[:webinar_banner_one_off_closed] = { expires: Time.now }
-    cookies[:student_feedback_banner_1_closed] = { expires: Time.now }
+    cookies[:webinar_banner_recurring_closed] = { expires: Time.current }
+    cookies[:webinar_banner_one_off_closed] = { expires: Time.current }
+    cookies[:student_feedback_banner_1_closed] = { expires: Time.current }
     if admin.present? and (admin != current_user)
       sign_out
       sign_in(admin)

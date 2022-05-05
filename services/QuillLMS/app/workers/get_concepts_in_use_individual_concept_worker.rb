@@ -48,7 +48,7 @@ class GetConceptsInUseIndividualConceptWorker
           diagnostic_recommendations: [],
           name: grandparent_name + parent_name + c["concept_name"],
           uid: uid,
-          last_retrieved: Time.now.strftime("%m/%d/%y")
+          last_retrieved: Time.current.strftime("%m/%d/%y")
         }.stringify_keys
 
         case c["classification_name"]

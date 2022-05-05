@@ -259,13 +259,13 @@ RSpec.describe RuleFeedbackHistory, type: :model do
         feedback_history_id: f_h1.id,
         user_id: user1.id,
         rating: false,
-        updated_at: Time.now - 1.days
+        updated_at: 1.days.ago
       )
       f_h_r1_new = FeedbackHistoryRating.create!(
         feedback_history_id: f_h1.id,
         user_id: user2.id,
         rating: true,
-        updated_at: Time.now
+        updated_at: Time.current
       )
       result = RuleFeedbackHistory.generate_rulewise_report(
         rule_uid: so_rule1.uid,

@@ -138,7 +138,7 @@ class BlogPost < ApplicationRecord
     return if draft
     return if published_at
 
-    update(published_at: DateTime.now)
+    update(published_at: DateTime.current)
   end
 
   private def generate_slug

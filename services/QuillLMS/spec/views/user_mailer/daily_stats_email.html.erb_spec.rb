@@ -10,7 +10,7 @@ describe "user_mailer/daily_stats_email.html.erb", type: :view do
       'nps': 100,
       'respondents': [9, 0, 0]
     }
-    assign(:current_date, Time.now)
+    assign(:current_date, Time.current)
     assign(:daily_active_teachers, 10)
     assign(:daily_active_students, 10)
     assign(:new_teacher_signups, 99)

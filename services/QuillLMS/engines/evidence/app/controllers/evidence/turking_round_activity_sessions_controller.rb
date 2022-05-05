@@ -46,7 +46,7 @@ module Evidence
     end
 
     def validate
-      if Evidence::TurkingRound.find(params[:turking_round_id]).expires_at > Time.now && Evidence::Activity.find(params[:activity_id]).parent_activity.flag != ARCHIVED_FLAG
+      if Evidence::TurkingRound.find(params[:turking_round_id]).expires_at > Time.current && Evidence::Activity.find(params[:activity_id]).parent_activity.flag != ARCHIVED_FLAG
         return render json: true
       end
 

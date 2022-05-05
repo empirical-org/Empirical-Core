@@ -8,7 +8,7 @@ class UserLoginWorker
     @user = User.find_by(id: id)
     return unless @user
 
-    @user.update(ip_address: ip_address, last_sign_in: Time.now)
+    @user.update(ip_address: ip_address, last_sign_in: Time.current)
     @user.save
 
     analytics = Analyzer.new

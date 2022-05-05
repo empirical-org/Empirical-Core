@@ -428,7 +428,7 @@ module Teacher
   end
 
   def is_premium?
-    !!(subscription && subscription.expiration >= Date.today)
+    !!(subscription && subscription.expiration >= Date.current)
   end
 
   def getting_started_info
@@ -444,11 +444,11 @@ module Teacher
   end
 
   def subscription_is_expired?
-    subscription && subscription.expiration < Date.today
+    subscription && subscription.expiration < Date.current
   end
 
   def subscription_is_valid?
-    subscription && subscription.expiration > Date.today
+    subscription && subscription.expiration > Date.current
   end
 
   def teachers_activity_sessions_since_trial_start_date
@@ -457,9 +457,9 @@ module Teacher
   end
 
   def trial_days_remaining
-    valid_subscription =   subscription && subscription.expiration > Date.today
+    valid_subscription =   subscription && subscription.expiration > Date.current
     if valid_subscription && (subscription.is_trial?)
-      (subscription.expiration - Date.today).to_i
+      (subscription.expiration - Date.current).to_i
     else
       nil
     end
@@ -475,7 +475,7 @@ module Teacher
   def premium_updated_or_created_today?
     return unless subscription
 
-    [subscription.created_at, subscription.updated_at].max == Time.zone.now.beginning_of_day
+    [subscription.created_at, subscription.updated_at].max == Time.current.beginning_of_day
   end
 
   def premium_state
@@ -490,7 +490,7 @@ module Teacher
   end
 
   def is_beta_period_over?
-    Date.today >= TRIAL_START_DATE
+    Date.current >= TRIAL_START_DATE
   end
 
   def finished_diagnostic_unit_ids_with_classroom_id_and_activity_id

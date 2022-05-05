@@ -22,8 +22,8 @@ describe GoogleIntegration::RefreshAccessToken do
       code: 200,
       parsed_response: {
         'access_token' => 'what',
-        'expires_in' => Time.now + 1.day,
-        'issued_at' => Time.now,
+        'expires_in' => 1.day.from_now,
+        'issued_at' => Time.current,
       }
     )
 
@@ -33,8 +33,8 @@ describe GoogleIntegration::RefreshAccessToken do
 
     expect(credentials).to have_attributes(
       access_token: 'what',
-      expires_at: Time.now + 1.day,
-      timestamp: Time.now
+      expires_at: 1.day.from_now,
+      timestamp: Time.current
     )
   end
 
@@ -51,8 +51,8 @@ describe GoogleIntegration::RefreshAccessToken do
       code: 200,
       parsed_response: {
         'access_token' => 'what',
-        'expires_in' => Time.now + 1.day,
-        'issued_at' => Time.now,
+        'expires_in' => 1.day.from_now,
+        'issued_at' => Time.current,
       }
     )
 
@@ -62,8 +62,8 @@ describe GoogleIntegration::RefreshAccessToken do
 
     expect(expired_auth_credentials.reload).to have_attributes(
       access_token: 'what',
-      expires_at: Time.now + 1.day,
-      timestamp: Time.now
+      expires_at: 1.day.from_now,
+      timestamp: Time.current
     )
   end
 

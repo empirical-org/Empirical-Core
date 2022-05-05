@@ -115,7 +115,7 @@ class ActivitySessionsController < ApplicationController
   private def update_student_last_active
     return unless current_user&.role&.student?
 
-    UpdateStudentLastActiveWorker.perform_async(current_user.id, DateTime.now)
+    UpdateStudentLastActiveWorker.perform_async(current_user.id, DateTime.current)
   end
 
   private def authorize_student_belongs_to_classroom_unit!

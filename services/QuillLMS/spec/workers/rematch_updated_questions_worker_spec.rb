@@ -27,7 +27,7 @@ describe RematchUpdatedQuestionsWorker, type: :worker do
     )
 
     # will not be sent since out of the default window
-    prod_question3.update_column(:updated_at, Time.zone.now - 1.year)
+    prod_question3.update_column(:updated_at, 1.year.ago)
 
     beta_question = create(:question,
       data: {flag: Question::FLAG_BETA},
@@ -53,6 +53,6 @@ describe RematchUpdatedQuestionsWorker, type: :worker do
       headers:  {'Content-Type' => 'application/json', 'Accept' => 'application/json'}
     ).once
 
-    worker.perform(Time.zone.now - 30.minutes, Time.zone.now, 7)
+    worker.perform(30.minutes.ago, Time.current, 7)
   end
 end

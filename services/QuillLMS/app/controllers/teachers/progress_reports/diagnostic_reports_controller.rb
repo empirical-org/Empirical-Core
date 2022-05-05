@@ -294,7 +294,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
   # rubocop:disable Metrics/CyclomaticComplexity
   private def create_or_update_selected_packs
     if params[:whole_class]
-      $redis.set("user_id:#{current_user.id}_lesson_diagnostic_recommendations_start_time", Time.now)
+      $redis.set("user_id:#{current_user.id}_lesson_diagnostic_recommendations_start_time", Time.current)
       return render json: {}, status: 401 unless current_user.classrooms_i_teach.map(&:id).include?(params[:classroom_id].to_i)
 
       params[:unit_template_ids].each_with_index do |unit_template_id, index|
@@ -306,7 +306,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
         ut[:classrooms][0][:student_ids]&.compact&.any?
       end
       if selections_with_students.any?
-        $redis.set("user_id:#{current_user.id}_diagnostic_recommendations_start_time", Time.now)
+        $redis.set("user_id:#{current_user.id}_diagnostic_recommendations_start_time", Time.current)
         number_of_selections = selections_with_students.length
         selections_with_students.each_with_index do |value, index|
           last = (number_of_selections - 1) == index

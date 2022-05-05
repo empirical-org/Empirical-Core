@@ -172,10 +172,10 @@ module Evidence
       it 'should expire all associated Turking Rounds before destroy' do
         activity = create(:evidence_activity)
         turking_round = create(:evidence_turking_round, :activity => (activity))
-        expect(turking_round.expires_at > Time.zone.now).to be true
+        expect(turking_round.expires_at > Time.current).to be true
         activity.destroy
         turking_round.reload
-        expect(turking_round.expires_at < Time.zone.now).to be true
+        expect(turking_round.expires_at < Time.current).to be true
       end
     end
 

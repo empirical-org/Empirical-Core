@@ -63,7 +63,7 @@ class TeacherActivityFeed < RedisFeed
   end
 
   # NB, this only works with timestamps (not dates)
-  private def text_for_completed(completed_at, now = Time.now.in_time_zone.utc)
+  private def text_for_completed(completed_at, now = Time.current.in_time_zone.utc)
     return '' unless completed_at
 
     diff = (now - completed_at).round.abs

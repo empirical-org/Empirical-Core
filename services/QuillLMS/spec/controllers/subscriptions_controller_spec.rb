@@ -62,7 +62,7 @@ describe SubscriptionsController do
 
     describe '#create' do
       it 'should create the subscription' do
-        post :create, params: { subscription: { purchaser_id: user.id, expiration: Date.today+10.days, account_type: "some_type", recurring: false } }
+        post :create, params: { subscription: { purchaser_id: user.id, expiration: Date.current+10.days, account_type: "some_type", recurring: false } }
         expect(user.reload.subscriptions.last.account_type).to eq "some_type"
         expect(user.reload.subscriptions.last.recurring).to eq false
       end

@@ -33,7 +33,7 @@ describe 'SerializeActivityHealth' do
   end
 
   let!(:content_partner) { create(:content_partner, activities: [activity])}
-  let!(:start_time) { Time.now - 1.day }
+  let!(:start_time) { 1.day.ago }
   let!(:activity_session1) { create(:activity_session, activity: activity, state: "finished", started_at: DateTime.new(2021,1,1,4,0,0), completed_at: DateTime.new(2021,1,1,4,5,0)) }
   let!(:activity_session2) { create(:activity_session, activity: activity, state: "finished", started_at: start_time, completed_at: start_time + 10.minutes) }
   let!(:activity_session3) { create(:activity_session, activity: activity, state: "finished", started_at: start_time, completed_at: start_time + 20.minutes) }
@@ -112,7 +112,7 @@ describe 'SerializeActivityHealth' do
   it 'calculates the number plays in the last three months' do
     UnitActivity.where(activity: activity).destroy_all
     unit = create(:unit)
-    create(:classroom_unit, unit: unit, created_at: Date.today - 1.year)
+    create(:classroom_unit, unit: unit, created_at: Date.current - 1.year)
     create(:unit_activity, unit: unit, activity: activity)
     data = SerializeActivityHealth.new(activity).data
     expect(data[:recent_plays]).to eq(2)
@@ -121,7 +121,7 @@ describe 'SerializeActivityHealth' do
   it 'returns nil for recent_plays if the last assignment was less than 3 months ago' do
     UnitActivity.where(activity: activity).destroy_all
     unit = create(:unit)
-    create(:classroom_unit, unit: unit, created_at: Date.today - 1.month)
+    create(:classroom_unit, unit: unit, created_at: Date.current - 1.month)
     create(:unit_activity, unit: unit, activity: activity)
     data = SerializeActivityHealth.new(activity).data
     expect(data[:recent_plays]).to eq(nil)
@@ -130,7 +130,7 @@ describe 'SerializeActivityHealth' do
   it 'returns without erroring if some activity sessions have nil minutes to complete' do
     UnitActivity.where(activity: activity).destroy_all
     unit = create(:unit)
-    create(:classroom_unit, unit: unit, created_at: Date.today - 1.year)
+    create(:classroom_unit, unit: unit, created_at: Date.current - 1.year)
     create(:unit_activity, unit: unit, activity: activity)
     create(:activity_session, activity: activity, state: "finished", started_at: nil, completed_at: nil)
     data = SerializeActivityHealth.new(activity).data

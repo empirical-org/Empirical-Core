@@ -94,11 +94,9 @@ describe CsvExport, type: :model do
 
   describe '#mark_sent!' do
     let(:csv_export1) { create(:csv_export) }
-    let(:time) { Time.new('100') }
+    let(:time) { Time.utc('100') }
 
-    before do
-      allow(Time).to receive(:now).and_return(time)
-    end
+    before { allow(Time).to receive(:current).and_return(time) }
 
     it 'should set the emailed at as the current time' do
       csv_export1.mark_sent!

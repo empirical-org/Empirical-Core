@@ -48,21 +48,21 @@ shared_context 'profile' do
                                                   activity: activity2,
                                                   unit: unit2,
                                                   assigned_student_ids: [],
-                                                  due_date: Date.today + 3) }
+                                                  due_date: Date.current + 3) }
 
   let!(:classroom_activity_2a) { create(:classroom_activity,
                                                     classroom: classroom2,
                                                     activity: activity_2a,
                                                     unit: unit2,
                                                     assigned_student_ids: [],
-                                                    due_date: Date.today + 100)}
+                                                    due_date: Date.current + 100)}
 
   let!(:classroom_activity_2aa) { create(:classroom_activity,
                                                     classroom: classroom2,
                                                     activity: activity_2aa,
                                                     unit: unit2,
                                                     assigned_student_ids: [],
-                                                    due_date: Date.today + 100)}
+                                                    due_date: Date.current + 100)}
 
 
   let!(:classroom_activity_2b) { create(:classroom_activity,
@@ -70,7 +70,7 @@ shared_context 'profile' do
                                                     activity: activity_2b,
                                                     unit: unit2,
                                                     assigned_student_ids: [],
-                                                    due_date: Date.today + 1)}
+                                                    due_date: Date.current + 1)}
 
 
 
@@ -82,7 +82,7 @@ shared_context 'profile' do
                                                   classroom: classroom1,
                                                   activity: activity3,
                                                   unit: unit3,
-                                                  due_date: Date.today + 3) }
+                                                  due_date: Date.current + 3) }
 
   let!(:as1) { classroom_activity.session_for(student) }
   let!(:as_1a) { classroom_activity_1a.session_for(student) }

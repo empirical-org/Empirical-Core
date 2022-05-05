@@ -356,12 +356,12 @@ describe ActivitySession, type: :model, redis: true do
     context 'when unit_activity has a due date' do
       let(:unit) { create(:unit)}
       let(:classroom_unit) { create(:classroom_unit, unit: unit) }
-      let(:unit_activity) { create(:unit_activity, unit: unit, due_date:  Date.today+10.days) }
+      let(:unit_activity) { create(:unit_activity, unit: unit, due_date:  Date.current+10.days) }
       let(:activity_session) { create(:activity_session, classroom_unit: classroom_unit, activity: unit_activity.activity) }
 
       it 'should return the formatted due date of the unit activity' do
         unit.reload
-        expect(activity_session.formatted_due_date).to eq((Date.today+10.days).strftime("%A, %B %d, %Y"))
+        expect(activity_session.formatted_due_date).to eq((Date.current+10.days).strftime("%A, %B %d, %Y"))
       end
     end
   end
@@ -377,20 +377,20 @@ describe ActivitySession, type: :model, redis: true do
     end
 
     context 'when completed at is present' do
-      let(:activity_session) { create(:activity_session, completed_at: Date.today) }
+      let(:activity_session) { create(:activity_session, completed_at: Date.current) }
 
       it 'should return the formatted completed at' do
-        expect(activity_session.formatted_completed_at).to eq(Date.today.strftime('%A, %B %d, %Y'))
+        expect(activity_session.formatted_completed_at).to eq(Date.current.strftime('%A, %B %d, %Y'))
       end
     end
   end
 
   describe '#display_due_date_or_completed_at_date' do
     context 'when completed at present' do
-      let(:activity_session) { create(:activity_session, completed_at: Date.today) }
+      let(:activity_session) { create(:activity_session, completed_at: Date.current) }
 
       it 'should return the formatted completed at date' do
-        expect(activity_session.display_due_date_or_completed_at_date).to eq(Date.today.strftime('%A, %B %d, %Y'))
+        expect(activity_session.display_due_date_or_completed_at_date).to eq(Date.current.strftime('%A, %B %d, %Y'))
       end
     end
 
@@ -398,13 +398,13 @@ describe ActivitySession, type: :model, redis: true do
       context 'when due date present' do
         let(:student) { create(:student) }
         let(:classroom_unit) { create(:classroom_unit, assigned_student_ids: [student.id])}
-        let(:unit_activity) { create(:unit_activity, unit: classroom_unit.unit, due_date:  Date.today+2.days) }
+        let(:unit_activity) { create(:unit_activity, unit: classroom_unit.unit, due_date:  Date.current+2.days) }
         let(:activity_session) { create(:activity_session, classroom_unit: classroom_unit, user: student, activity: unit_activity.activity) }
 
         it 'should return the formatted due date for the classroom_unit' do
           activity_session.completed_at = nil
           activity_session.unit.reload
-          expect(activity_session.display_due_date_or_completed_at_date).to eq((Date.today+2.days).strftime('%A, %B %d, %Y'))
+          expect(activity_session.display_due_date_or_completed_at_date).to eq((Date.current+2.days).strftime('%A, %B %d, %Y'))
         end
       end
 
@@ -486,12 +486,10 @@ end
     end
 
     context 'when state is unstarted' do
-      let(:time) { Time.new("100") }
+      let(:time) { Time.utc("100") }
       let(:activity_session) { create(:activity_session, state: "unstarted") }
 
-      before do
-        allow(Time).to receive(:current).and_return(time)
-      end
+      before { allow(Time).to receive(:current).and_return(time) }
 
       it 'should set the started at and change the state' do
         activity_session.start
@@ -718,19 +716,19 @@ end
     let(:activity) {create(:activity)}
 
     let(:classroom_unit)   {create(:classroom_unit, classroom: classroom, assigned_student_ids: [student.id])}
-    let(:previous_final_score) {create(:activity_session, completed_at: Time.now, percentage: 0.9, is_final_score: true, user: student, classroom_unit: classroom_unit, activity: activity)}
+    let(:previous_final_score) {create(:activity_session, completed_at: Time.current, percentage: 0.9, is_final_score: true, user: student, classroom_unit: classroom_unit, activity: activity)}
 
     it 'updates when new activity session has higher percentage' do
       previous_final_score
       new_activity_session =  create(:activity_session, is_final_score: false, user: student, classroom_unit: classroom_unit, activity: activity)
-      new_activity_session.update_attributes completed_at: Time.now, state: 'finished', percentage: 0.95
+      new_activity_session.update_attributes completed_at: Time.current, state: 'finished', percentage: 0.95
       expect([ActivitySession.find(previous_final_score.id).reload.is_final_score, ActivitySession.find(new_activity_session.id).reload.is_final_score]).to eq([false, true])
     end
 
     it 'updates when new activity session has equal percentage' do
       previous_final_score
       new_activity_session =  create(:activity_session, is_final_score: false, user: student, classroom_unit: classroom_unit, activity: activity)
-      new_activity_session.update_attributes completed_at: Time.now, state: 'finished', percentage: previous_final_score.percentage
+      new_activity_session.update_attributes completed_at: Time.current, state: 'finished', percentage: previous_final_score.percentage
       expect([ActivitySession.find(previous_final_score.id).reload.is_final_score, ActivitySession.find(new_activity_session.id).reload.is_final_score]).to eq([false, true])
     end
 
@@ -738,7 +736,7 @@ end
       previous_final_score
       previous_final_score.update(percentage: nil)
       new_activity_session =  create(:activity_session, is_final_score: false, user: student, classroom_unit: classroom_unit, activity: activity)
-      new_activity_session.update_attributes completed_at: Time.now, state: 'finished', percentage: nil
+      new_activity_session.update_attributes completed_at: Time.current, state: 'finished', percentage: nil
       expect([ActivitySession.find(previous_final_score.id).reload.is_final_score, ActivitySession.find(new_activity_session.id).reload.is_final_score]).to eq([false, true])
     end
 
@@ -749,18 +747,18 @@ end
       previous_final_score
       previous_final_score.update(percentage: nil)
       new_activity_session =  create(:activity_session, is_final_score: false, user: student, classroom_unit: classroom_unit, activity: activity)
-      new_activity_session.update_attributes completed_at: Time.now, state: 'finished', percentage: nil
+      new_activity_session.update_attributes completed_at: Time.current, state: 'finished', percentage: nil
       expect([ActivitySession.find(previous_final_score.id).reload.is_final_score, ActivitySession.find(new_activity_session.id).reload.is_final_score]).to eq([false, true])
     end
 
     it 'doesnt update when new activity session has lower percentage' do
       previous_final_score
-      new_activity_session =  create(:activity_session, completed_at: Time.now, state: 'finished', percentage: 0.5, is_final_score: false, user: student, classroom_unit: classroom_unit, activity: activity)
+      new_activity_session =  create(:activity_session, completed_at: Time.current, state: 'finished', percentage: 0.5, is_final_score: false, user: student, classroom_unit: classroom_unit, activity: activity)
       expect([ActivitySession.find(previous_final_score.id).is_final_score, ActivitySession.find(new_activity_session.id).is_final_score]).to eq([true, false])
     end
 
     it 'mark finished anonymous sessions as final' do
-      new_activity_session =  create(:activity_session, completed_at: Time.now, state: 'finished', percentage: 0.5, is_final_score: false, user: nil, classroom_unit: nil, activity: activity)
+      new_activity_session =  create(:activity_session, completed_at: Time.current, state: 'finished', percentage: 0.5, is_final_score: false, user: nil, classroom_unit: nil, activity: activity)
       expect(new_activity_session.is_final_score).to eq(true)
     end
   end
@@ -1000,7 +998,7 @@ end
 
   describe "#minutes_to_complete" do
     it "should return minutes between completed_at and started_at" do
-      now = Time.now
+      now = Time.current
       activity_session = create(:activity_session, started_at: now, completed_at: now + (1 * 60))
       expect(activity_session.minutes_to_complete).to eq(1)
     end
@@ -1043,7 +1041,7 @@ end
 
       expect(teacher_feed.size).to eq(0)
 
-      activity_session.update(completed_at: Time.now)
+      activity_session.update(completed_at: Time.current)
 
       teacher_feed = TeacherActivityFeed.get(teacher.id)
 

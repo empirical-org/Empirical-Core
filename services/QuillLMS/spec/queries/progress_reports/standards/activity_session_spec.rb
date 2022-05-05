@@ -21,7 +21,7 @@ describe ProgressReports::Standards::ActivitySession do
     create(:unit_activity, activity: a, unit: cu.unit)
     as = create(:activity_session,
                               state: 'finished',
-                              completed_at: Time.now,
+                              completed_at: Time.current,
                               is_final_score: true,
                               percentage: 1,
                               classroom_unit: cu,

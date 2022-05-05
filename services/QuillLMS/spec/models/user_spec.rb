@@ -246,7 +246,7 @@ describe User, type: :model do
         let!(:user_subscription2) { create(:user_subscription, user: user, subscription: subscription2) }
 
         it "returns the user's most recently expired subscription" do
-          subscription.update(expiration: Date.today - 10)
+          subscription.update(expiration: Date.current - 10)
           expect(user.reload.last_expired_subscription).to eq(subscription2)
         end
 
@@ -283,7 +283,7 @@ describe User, type: :model do
         end
 
         it 'returns the subscription with the latest expiration date multiple valid ones exists' do
-          later_subscription = create(:subscription, expiration: Date.today + 365)
+          later_subscription = create(:subscription, expiration: Date.current + 365)
           create(:user_subscription, user: user, subscription: later_subscription)
           expect(user.reload.subscription).to eq(later_subscription)
         end
@@ -305,13 +305,13 @@ describe User, type: :model do
         end
 
         it 'returns an array including subscriptions that have not started yet, as long as their expiration is in the future and they have not been de-activated' do
-          later_subscription = create(:subscription, start_date: Date.today + 300, expiration: Date.today + 365)
+          later_subscription = create(:subscription, start_date: Date.current + 300, expiration: Date.current + 365)
           create(:user_subscription, user: user, subscription: later_subscription)
           expect(user.present_and_future_subscriptions).to include(later_subscription)
         end
 
         it 'does not return subscriptions that have been deactivated, even if their expiration date is in the future' do
-          de_activated_subscription = create(:subscription, start_date: Date.today + 300, expiration: Date.today + 365, de_activated_date: Date.yesterday)
+          de_activated_subscription = create(:subscription, start_date: Date.current + 300, expiration: Date.current + 365, de_activated_date: Date.yesterday)
           create(:user_subscription, user: user, subscription: de_activated_subscription)
           expect(user.present_and_future_subscriptions).not_to include(de_activated_subscription)
         end
@@ -677,7 +677,7 @@ describe User, type: :model do
 
           it 'starts immediately' do
             subscription = user.redeem_credit
-            expect(subscription.start_date).to eq(Date.today)
+            expect(subscription.start_date).to eq(Date.current)
           end
 
           it "with the user as the contact" do
@@ -689,14 +689,14 @@ describe User, type: :model do
 
       context 'and an existing subscription' do
         it "creates a new subscription" do
-          subscription = create(:subscription, expiration: Date.today + 3.days)
+          subscription = create(:subscription, expiration: Date.current + 3.days)
           create(:user_subscription, user: user, subscription: subscription)
 
           expect{ user.redeem_credit }.to change(Subscription, :count).by(1)
         end
 
         it "creates a new subscription with the start date equal to last subscription expiration" do
-          subscription = create(:subscription, expiration: Date.today + 3.days)
+          subscription = create(:subscription, expiration: Date.current + 3.days)
           create(:user_subscription, user: user, subscription: subscription)
 
           previous_subscription = user.subscriptions.last

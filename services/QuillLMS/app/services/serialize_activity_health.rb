@@ -54,8 +54,8 @@ class SerializeActivityHealth
   end
 
   private def recent_plays
-    if !@activity.classroom_units.empty? && @activity.classroom_units.order(:created_at).first.created_at <= Date.today - 3.months
-      ActivitySession.where("started_at >= ?", Date.today - 3.months).where(state: "finished", activity_id: @activity.id).count
+    if !@activity.classroom_units.empty? && @activity.classroom_units.order(:created_at).first.created_at <= Date.current - 3.months
+      ActivitySession.where("started_at >= ?", Date.current - 3.months).where(state: "finished", activity_id: @activity.id).count
     else
       nil
     end

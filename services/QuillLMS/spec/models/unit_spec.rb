@@ -155,7 +155,7 @@ describe Unit, type: :model do
   end
 
   describe '#touch_all_classrooms_and_classroom_units' do
-    let(:initial_time) { Time.now - 1.day}
+    let(:initial_time) { 1.day.ago}
     let!(:unit) { create(:unit) }
     let!(:classroom) { create(:classroom) }
     let!(:classroom_unit) { create(:classroom_unit, classroom: classroom, unit: unit)}
