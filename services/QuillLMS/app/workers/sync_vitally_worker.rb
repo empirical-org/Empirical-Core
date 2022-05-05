@@ -23,6 +23,10 @@ class SyncVitallyWorker
       user_ids = user_batch.map { |user| user.id }
       SyncVitallyUsersWorker.perform_async(user_ids)
     end
+    districts_to_sync.each_slice(100) do |district_batch|
+      district_ids = district_batch.map { |district| district.id }
+      SyncVitallyOrganizationsWorker.perform_async(district_ids)
+    end
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 
@@ -32,5 +36,9 @@ class SyncVitallyWorker
 
   def users_to_sync
     User.select(:id).joins(:school).where(:role => USER_ROLES_TO_SYNC)
+  end
+
+  def districts_to_sync
+    District.select(:id)
   end
 end
