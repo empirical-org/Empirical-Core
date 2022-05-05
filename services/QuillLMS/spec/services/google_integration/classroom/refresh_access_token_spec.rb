@@ -18,6 +18,7 @@ describe GoogleIntegration::RefreshAccessToken do
       refresh_token: 'haha-great'
     )
     http_client = double('http_client')
+
     response = double('response',
       code: 200,
       parsed_response: {

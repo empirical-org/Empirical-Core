@@ -93,7 +93,8 @@ class School < ApplicationRecord
   HALF_A_YEAR = 6.months
 
   def subscription
-    subscriptions.where("expiration > ? AND start_date <= ?", Date.current, Date.current).order(expiration: :desc).limit(1).first
+    today = Date.current
+    subscriptions.where("expiration > ? AND start_date <= ?", today, today).order(expiration: :desc).limit(1).first
   end
 
   def present_and_future_subscriptions

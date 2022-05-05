@@ -174,7 +174,7 @@ class ApplicationController < ActionController::Base
   end
 
   protected def time_diff(timestamp)
-    now = Time.current.in_time_zone.utc
+    now = Time.current.utc
 
     diff = now - timestamp
     diff.round.abs

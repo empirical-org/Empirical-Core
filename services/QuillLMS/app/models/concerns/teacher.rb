@@ -457,12 +457,12 @@ module Teacher
   end
 
   def trial_days_remaining
-    valid_subscription =   subscription && subscription.expiration > Date.current
-    if valid_subscription && (subscription.is_trial?)
-      (subscription.expiration - Date.current).to_i
-    else
-      nil
-    end
+    today = Date.current
+    valid_subscription = subscription && subscription.expiration > today
+
+    return nil unless valid_subscription && subscription.is_trial?
+
+    (subscription.expiration - today).to_i
   end
 
   def unlink

@@ -51,6 +51,6 @@ class Cron
 
   def self.now
     # We use UTC here to match the clock used for Heroku Scheduler
-    @t ||= Time.current.in_time_zone('UTC')
+    @t ||= Time.current.utc
   end
 end
