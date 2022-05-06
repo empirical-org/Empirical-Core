@@ -53,7 +53,7 @@ class CsvUploader < CarrierWave::Uploader::Base
 
   def filename
     # See: http://stackoverflow.com/questions/6920926/carrierwave-create-the-same-unique-filename-for-all-versioned-files
-    random_token = Digest::SHA2.hexdigest("#{Time.now.utc}--#{model.id}").first(6)
+    random_token = Digest::SHA2.hexdigest("#{Time.current.utc}--#{model.id}").first(6)
     ivar = "@#{mounted_as}_secure_token"
     token = model.instance_variable_get(ivar)
     token ||= model.instance_variable_set(ivar, random_token)

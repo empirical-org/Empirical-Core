@@ -95,7 +95,7 @@ class Auth::GoogleController < ApplicationController
         We could not find your account. Is this your first time logging in? <a href='/account/new'>Sign up</a> here if so.
         <br/>
         If you believe this is an error, please contact <strong>support@quill.org</strong> with the following info to unblock your account:
-        <i>failed login of #{@profile.email} and googleID #{@profile.google_id} at #{Time.zone.now}</i>.
+        <i>failed login of #{@profile.email} and googleID #{@profile.google_id} at #{Time.current}</i>.
       </p>
     HTML
   end

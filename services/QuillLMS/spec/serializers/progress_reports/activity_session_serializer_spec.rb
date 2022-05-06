@@ -13,8 +13,8 @@ describe ProgressReports::ActivitySessionSerializer, type: :serializer do
   let(:classroom) { create(:classroom) }
   let(:standard) { create(:standard) }
   let(:activity) { create(:activity, standard: standard) }
-  let(:started_at) { Time.zone.local(2015, 1, 1, 12, 15, 0) }
-  let(:completed_at) { Time.zone.local(2015, 1, 1, 13, 0, 0) }
+  let(:started_at) { Time.utc(2015, 1, 1, 12, 15, 0) }
+  let(:completed_at) { Time.utc(2015, 1, 1, 13, 0, 0) }
   let(:serializer) do
     ProgressReports::ActivitySessionSerializer.new(activity_session)
   end

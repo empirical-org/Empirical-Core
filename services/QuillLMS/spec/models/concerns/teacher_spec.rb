@@ -380,7 +380,7 @@ describe User, type: :model do
 
     describe '#premium_state' do
       context 'user has or had a subscription' do
-        let!(:subscription) { create(:subscription, expiration: Date.today + 1, account_type: 'Teacher Trial') }
+        let!(:subscription) { create(:subscription, expiration: 1.day.from_now.to_date, account_type: 'Teacher Trial') }
         let!(:user_subscription) { create(:user_subscription, user_id: teacher.id, subscription: subscription) }
 
         context 'user is on a valid trial' do

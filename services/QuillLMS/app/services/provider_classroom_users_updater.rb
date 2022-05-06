@@ -28,7 +28,7 @@ class ProviderClassroomUsersUpdater < ApplicationService
       .active
       .where(provider_classroom_id: provider_classroom_id)
       .where.not(provider_user_id: provider_user_ids)
-      .update_all(deleted_at: Time.now)
+      .update_all(deleted_at: Time.current)
   end
 
   private def create_new_active

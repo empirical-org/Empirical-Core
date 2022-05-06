@@ -7,7 +7,7 @@ describe "Cron", type: :model do
   describe "#interval_10_min" do
     [20, 50].each do |num_minutes|
       it "enqueues ResetGhostInspectorAccountWorker at #{num_minutes} minute marks" do
-        time = Time.now.midnight + num_minutes.minutes
+        time = Time.current.midnight + num_minutes.minutes
         expect(Cron).to receive(:now).at_least(:twice).and_return(time)
         expect(ResetGhostInspectorAccountWorker).to receive(:perform_async)
         Cron.interval_10_min
@@ -16,7 +16,7 @@ describe "Cron", type: :model do
 
     [0, 10, 30, 40].each do |num_minutes|
       it "does not enqueue ResetGhostInspectorAccountWorker at #{num_minutes} minute marks" do
-        time = Time.now.midnight + num_minutes.minutes
+        time = Time.current.midnight + num_minutes.minutes
         expect(Cron).to receive(:now).at_least(:twice).and_return(time)
         expect(ResetGhostInspectorAccountWorker).not_to receive(:perform_async)
         Cron.interval_10_min
@@ -33,7 +33,7 @@ describe "Cron", type: :model do
 
   describe "#interval_1_day" do
     it "calls run_saturday is now is a Saturday" do
-      a_saturday = Time.new(2019, 10, 19)
+      a_saturday = Time.utc(2019, 10, 19)
       expect(Cron).to receive(:now).and_return(a_saturday)
       expect(Cron).to receive(:run_saturday)
       Cron.interval_1_day

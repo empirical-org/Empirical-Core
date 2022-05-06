@@ -150,7 +150,7 @@ class FeedbackHistory < ApplicationRecord
       attempt: attempt,
       entry: entry,
       used: true,
-      time: Time.zone.now,
+      time: Time.current,
       rule_uid: feedback_hash['rule_uid'],
       concept_uid: feedback_hash['concept_uid'],
       feedback_text: feedback_hash['feedback'],

@@ -8,7 +8,7 @@ module Feature
     safe_percent_per_day = percent_per_day.to_f.zero? ? 1.0 : percent_per_day.to_f
     mod_base = 100.0/safe_percent_per_day
 
-    day_since_epoch = Time.zone.now.to_i / SECONDS_PER_DAY
+    day_since_epoch = Time.current.to_i / SECONDS_PER_DAY
 
     id % mod_base == day_since_epoch % mod_base
   end

@@ -1,4 +1,4 @@
-<% current_time_on_east_coast = Time.now.in_time_zone('America/New_York') %>
+<% current_time_on_east_coast = Time.current.in_time_zone('America/New_York') %>
 <% still_doing_webinars = current_time_on_east_coast <= Date.parse("20221102") %>
 
 <% if (still_doing_webinars && current_user&.teacher?) %>

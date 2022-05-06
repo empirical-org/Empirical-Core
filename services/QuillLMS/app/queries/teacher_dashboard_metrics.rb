@@ -49,7 +49,7 @@ class TeacherDashboardMetrics
   end
 
   private def today
-    @today ||= Date.today
+    @today ||= Date.current
   end
 
   private def days_since_last_sunday

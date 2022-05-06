@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe PromptFeedbackHistory, type: :model do
-  def generate_feedback_history(prompt_id, session_uid: nil, attempts: 1, ends_optimally: true, created_at: Time.now)
+  def generate_feedback_history(prompt_id, session_uid: nil, attempts: 1, ends_optimally: true, created_at: Time.current)
     histories = []
     session_uid ||= SecureRandom.uuid
     (attempts - 1).times do |idx|

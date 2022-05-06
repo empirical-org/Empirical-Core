@@ -40,7 +40,7 @@ class GenerateConceptsInUseArrayWorker
 
   private def set_concepts_in_use
     $redis.set("CONCEPTS_IN_USE", CONCEPTS_IN_USE)
-    $redis.set("NUMBER_OF_CONCEPTS_IN_USE_LAST_SET", Time.now)
+    $redis.set("NUMBER_OF_CONCEPTS_IN_USE_LAST_SET", Time.current)
   end
 
   private def set_question_types

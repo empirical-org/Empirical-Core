@@ -135,7 +135,7 @@ describe UserMailer, type: :mailer do
   end
 
   describe 'daily_stats_email' do
-    let(:date) { Time.now.getlocal('-05:00').yesterday.to_s}
+    let(:date) { Time.current.getlocal('-05:00').yesterday.to_s}
     let(:user) { build(:user) }
 
     before do

@@ -50,7 +50,7 @@ class StatusesController < ApplicationController
           "changelog": params['git_log'],
           "description": params['head_long'],
           "user": params['user'],
-          "timestamp": Time.now.utc
+          "timestamp": Time.current.utc
         }
       }.to_json
     end

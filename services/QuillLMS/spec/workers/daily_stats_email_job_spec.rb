@@ -7,7 +7,7 @@ describe DailyStatsEmailJob do
 
   describe '#perform' do
     it 'should send the stats email' do
-      date = Time.now.to_s
+      date = Time.current.to_s
 
       expect(UserMailer).to receive(:daily_stats_email)
         .with(date)

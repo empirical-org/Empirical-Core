@@ -215,7 +215,7 @@ RSpec.describe FeedbackHistory, type: :model do
         feedback_text: 'This is the feedback text',
         feedback_type: 'autoML',
         optimal: false,
-        time: Time.now,
+        time: Time.current,
         used: true
       }
       @invalid_fh_params = {}
@@ -444,7 +444,7 @@ RSpec.describe FeedbackHistory, type: :model do
       it 'return the total count of activity sessions' do
         expect(FeedbackHistory.get_total_count).to eq(2)
         expect(FeedbackHistory.get_total_count(activity_id: @activity1.id)).to eq(1)
-        expect(FeedbackHistory.get_total_count(start_date: Time.now)).to eq(0)
+        expect(FeedbackHistory.get_total_count(start_date: Time.current)).to eq(0)
         expect(FeedbackHistory.get_total_count(turk_session_id: @comprehension_turking_round.turking_round_id)).to eq(1)
       end
     end

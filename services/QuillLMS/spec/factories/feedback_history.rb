@@ -10,7 +10,7 @@ FactoryBot.define do
     feedback_type { "autoML" }
     optimal { true }
     used { true }
-    time { DateTime.now }
+    time { DateTime.current }
     metadata { {foo: 'bar'} }
     rule_uid { SecureRandom.uuid }
   end

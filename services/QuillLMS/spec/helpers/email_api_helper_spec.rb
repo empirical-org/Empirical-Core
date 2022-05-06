@@ -4,8 +4,8 @@ require 'rails_helper'
 
 describe EmailApiHelper do
 
-  start_time = Time.now.yesterday.beginning_of_day
-  end_time = Time.now.yesterday.end_of_day
+  start_time = Time.current.yesterday.beginning_of_day
+  end_time = Time.current.yesterday.end_of_day
   mock_nps_response = {
     'data': [
             {
@@ -70,7 +70,7 @@ describe EmailApiHelper do
 
   describe '#get_intercom_data' do
     it 'should return the count of closed conversations from the Intercom conversations API' do
-      mock_response = double('mock_response', { open: false, updated_at: Time.zone.now })
+      mock_response = double('mock_response', { open: false, updated_at: Time.current })
       conversation_list = class_double("ConversationList")
       allow(conversation_list).to receive(:find_all).with({open: false, sort_by: "updated_at", order: "desc"}).and_return([mock_response])
       expect_any_instance_of(Intercom::Client).to receive(:conversations).and_return(conversation_list)

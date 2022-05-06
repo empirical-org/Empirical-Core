@@ -66,7 +66,7 @@ RSpec.describe ProviderClassroomUser, type: :model do
 
   context 'scopes' do
     let!(:active_user) { create(factory, deleted_at: nil) }
-    let!(:deleted_user) { create(factory, deleted_at: Time.now) }
+    let!(:deleted_user) { create(factory, deleted_at: Time.current) }
 
     describe '.active' do
       it { expect(klass.active.to_a).to eq [active_user] }
@@ -108,7 +108,7 @@ RSpec.describe ProviderClassroomUser, type: :model do
   end
 
   describe '#deleted?' do
-    let(:deleted_user) { create(factory, deleted_at: Time.now) }
+    let(:deleted_user) { create(factory, deleted_at: Time.current) }
 
     it { expect(deleted_user.deleted?).to be true }
   end

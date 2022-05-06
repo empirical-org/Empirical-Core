@@ -58,6 +58,6 @@ class ProviderClassroomUser < ApplicationRecord
   end
 
   def soft_delete
-    update!(deleted_at: Time.now)
+    update!(deleted_at: Time.current)
   end
 end

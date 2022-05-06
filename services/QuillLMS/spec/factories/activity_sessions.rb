@@ -46,7 +46,7 @@ FactoryBot.define do
     percentage          { 0.50 }
     started_at          { created_at }
     state               'finished'
-    completed_at        { Time.now }
+    completed_at        { Time.current }
     is_final_score      true
     is_retry            false
     temporary           false
@@ -96,7 +96,7 @@ FactoryBot.define do
     trait :finished do
       percentage {0.50}
       state 'finished'
-      completed_at { Time.now }
+      completed_at { Time.current }
       is_final_score true
     end
 
