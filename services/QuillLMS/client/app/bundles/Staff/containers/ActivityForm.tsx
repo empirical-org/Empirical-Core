@@ -3,9 +3,8 @@ import * as React from 'react'
 import Topics from '../components/activityForm/topics'
 import RawScore from '../components/activityForm/rawScore'
 import ContentPartners from '../components/activityForm/contentPartners'
-
-import { Snackbar, defaultSnackbarTimeout } from '../../Shared/index'
-import { requestGet, requestPut, requestPost, } from '../../../modules/request/index'
+import { defaultSnackbarTimeout, Snackbar } from '../../Shared/index'
+import { requestGet, requestPost, requestPut } from '../../../modules/request/index'
 
 const ActivityForm = ({ activity, activityClassification, contentPartnerOptions, activityCategoryOptions, standardOptions, rawScoreOptions, passedTopicOptions, flagOptions, followUpActivityOptions, gradeBands, }) => {
   const [editedActivity, setEditedActivity] = React.useState(activity);
@@ -103,28 +102,26 @@ const ActivityForm = ({ activity, activityClassification, contentPartnerOptions,
   const initialFlag = editedActivity.flags[0]
   const flagOptionElements = flagOptions.map(fo => {
     if (fo === initialFlag) {
-      return <option value={fo} selected>{fo}</option>
+      return <option key={fo} selected value={fo} >{fo}</option>
     }
-    return <option value={fo} >{fo}</option>
+    return <option key={fo} value={fo} >{fo}</option>
   })
 
-  const standardOptionElements = standardOptions.map(so => (<option value={so.id}>{so.name}</option>))
+  const standardOptionElements = standardOptions.map(so => (<option key={so.id} value={so.id}>{so.name}</option>))
 
-  const activityCategoryOptionElements = activityCategoryOptions.map(so => (<option value={so.id}>{so.name}</option>))
+  const activityCategoryOptionElements = activityCategoryOptions.map(so => (<option key={so.id} value={so.id}>{so.name}</option>))
 
   let followUpActivityField
-
+  /* eslint-disable jsx-a11y/label-has-associated-control */
+  /* eslint-disable jsx-a11y/control-has-associated-label */
   if (activityClassification.key === 'lessons') {
-    const followUpActivityOptionElements = followUpActivityOptions.map(act => (<option value={act.id}>{act.name}</option>))
+    const followUpActivityOptionElements = followUpActivityOptions.map(act => (<option key={act.id} value={act.id}>{act.name}</option>))
     followUpActivityField = (<section>
       <label>Followup Activity</label>
       <select onChange={handleFollowUpActivityChange} value={editedActivity.follow_up_activity_id}>{followUpActivityOptionElements}</select>
     </section>)
   }
-  console.log("edited activity:", editedActivity)
-  console.log("intial flag:", editedActivity.flags[0])
-  console.log("flagOptionElements", flagOptionElements)
-  console.log("flagOptions", flagOptions)
+
   return (
     <section className="cms-form">
       <Snackbar text="Changes saved" visible={showSnackbar} />
@@ -164,10 +161,12 @@ const ActivityForm = ({ activity, activityClassification, contentPartnerOptions,
         <RawScore activity={editedActivity} gradeBands={gradeBands} handleRawScoreChange={handleRawScoreChange} rawScoreOptions={rawScoreOptions} />
         <Topics activity={editedActivity} createNewTopic={createNewTopic} handleTopicsChange={handleTopicsChange} topicOptions={topicOptions} />
         <input className={submitClassName()} disabled={!editedActivity.name.length} type="submit" value="Save" />
-        <p>When you've saved the activity, please head over to the <a href='/assign/activity-library'>Activity Library</a> to make sure the activity metadata looks right in production.</p>
+        <p>When you&apos;ve saved the activity, please head over to the <a href='/assign/activity-library'>Activity Library</a> to make sure the activity metadata looks right in production.</p>
       </form>
     </section>
   )
+  /* eslint-enable jsx-a11y/label-has-associated-control */
+  /* eslint-enable jsx-a11y/control-has-associated-label */
 }
 
 export default ActivityForm
