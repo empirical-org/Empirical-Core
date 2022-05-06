@@ -356,12 +356,12 @@ describe ActivitySession, type: :model, redis: true do
     context 'when unit_activity has a due date' do
       let(:unit) { create(:unit)}
       let(:classroom_unit) { create(:classroom_unit, unit: unit) }
-      let(:unit_activity) { create(:unit_activity, unit: unit, due_date:  Date.current+10.days) }
+      let(:unit_activity) { create(:unit_activity, unit: unit, due_date: 10.days.from_now) }
       let(:activity_session) { create(:activity_session, classroom_unit: classroom_unit, activity: unit_activity.activity) }
 
       it 'should return the formatted due date of the unit activity' do
         unit.reload
-        expect(activity_session.formatted_due_date).to eq((Date.current+10.days).strftime("%A, %B %d, %Y"))
+        expect(activity_session.formatted_due_date).to eq 10.days.from_now.strftime("%A, %B %d, %Y")
       end
     end
   end
@@ -398,13 +398,16 @@ describe ActivitySession, type: :model, redis: true do
       context 'when due date present' do
         let(:student) { create(:student) }
         let(:classroom_unit) { create(:classroom_unit, assigned_student_ids: [student.id])}
-        let(:unit_activity) { create(:unit_activity, unit: classroom_unit.unit, due_date:  Date.current+2.days) }
-        let(:activity_session) { create(:activity_session, classroom_unit: classroom_unit, user: student, activity: unit_activity.activity) }
+        let(:unit_activity) { create(:unit_activity, unit: classroom_unit.unit, due_date: 2.days.from_now) }
+
+        let(:activity_session) do
+          create(:activity_session, classroom_unit: classroom_unit, user: student, activity: unit_activity.activity)
+        end
 
         it 'should return the formatted due date for the classroom_unit' do
           activity_session.completed_at = nil
           activity_session.unit.reload
-          expect(activity_session.display_due_date_or_completed_at_date).to eq((Date.current+2.days).strftime('%A, %B %d, %Y'))
+          expect(activity_session.display_due_date_or_completed_at_date).to eq 2.days.from_now.strftime('%A, %B %d, %Y')
         end
       end
 
@@ -415,7 +418,7 @@ describe ActivitySession, type: :model, redis: true do
 
         it 'should return empty string' do
           activity_session.completed_at = nil
-          expect(activity_session.display_due_date_or_completed_at_date).to eq("")
+          expect(activity_session.display_due_date_or_completed_at_date).to eq ''
         end
       end
     end
@@ -425,7 +428,7 @@ describe ActivitySession, type: :model, redis: true do
 
       it 'should return empty string' do
         activity_session.completed_at = nil
-        expect(activity_session.display_due_date_or_completed_at_date).to eq("")
+        expect(activity_session.display_due_date_or_completed_at_date).to eq ''
       end
     end
   end

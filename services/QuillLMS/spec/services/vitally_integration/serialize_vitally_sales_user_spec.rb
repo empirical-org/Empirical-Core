@@ -37,7 +37,7 @@ describe 'SerializeVitallySalesUser' do
       diagnostics_finished: 2,
       percent_completed_diagnostics: 1.0
     }
-    year = School.school_year_start(Date.current - 1.year).year
+    year = School.school_year_start(1.year.ago).year
     CacheVitallyTeacherData.set(teacher.id, year, previous_year_data.to_json)
   end
 

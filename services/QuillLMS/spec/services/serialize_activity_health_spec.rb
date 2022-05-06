@@ -112,7 +112,7 @@ describe 'SerializeActivityHealth' do
   it 'calculates the number plays in the last three months' do
     UnitActivity.where(activity: activity).destroy_all
     unit = create(:unit)
-    create(:classroom_unit, unit: unit, created_at: Date.current - 1.year)
+    create(:classroom_unit, unit: unit, created_at: 1.year.ago)
     create(:unit_activity, unit: unit, activity: activity)
     data = SerializeActivityHealth.new(activity).data
     expect(data[:recent_plays]).to eq(2)
@@ -121,7 +121,7 @@ describe 'SerializeActivityHealth' do
   it 'returns nil for recent_plays if the last assignment was less than 3 months ago' do
     UnitActivity.where(activity: activity).destroy_all
     unit = create(:unit)
-    create(:classroom_unit, unit: unit, created_at: Date.current - 1.month)
+    create(:classroom_unit, unit: unit, created_at: 1.month.ago)
     create(:unit_activity, unit: unit, activity: activity)
     data = SerializeActivityHealth.new(activity).data
     expect(data[:recent_plays]).to eq(nil)
@@ -130,7 +130,7 @@ describe 'SerializeActivityHealth' do
   it 'returns without erroring if some activity sessions have nil minutes to complete' do
     UnitActivity.where(activity: activity).destroy_all
     unit = create(:unit)
-    create(:classroom_unit, unit: unit, created_at: Date.current - 1.year)
+    create(:classroom_unit, unit: unit, created_at: 1.year.ago)
     create(:unit_activity, unit: unit, activity: activity)
     create(:activity_session, activity: activity, state: "finished", started_at: nil, completed_at: nil)
     data = SerializeActivityHealth.new(activity).data

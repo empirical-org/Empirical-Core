@@ -94,9 +94,14 @@ class Subscription < ApplicationRecord
 
   validates :stripe_invoice_id, allow_blank: true, stripe_uid: { prefix: :in }
 
-  scope :active, -> { not_expired.where(de_activated_date: nil).order(expiration: :asc) }
+  scope :active, -> { not_expired.not_de_activated.order(expiration: :asc) }
   scope :expired, -> { where('expiration <= ?', Date.current) }
   scope :not_expired, -> { where('expiration > ?', Date.current) }
+  scope :not_de_activated, -> { where(de_activated_date: nil) }
+  scope :recurring, -> { where(recurring: true) }
+  scope :not_recurring, -> { where(recurring: false) }
+  scope :not_stripe, -> { where(stripe_invoice_id: nil) }
+  scope :started, -> { where("start_date <= ?", Date.current) }
 
   def is_trial?
     account_type && TRIAL_TYPES.include?(account_type)
@@ -153,14 +158,17 @@ class Subscription < ApplicationRecord
 
   def self.expired_today_or_previously_and_recurring
     Subscription
-      .where(stripe_invoice_id: nil, recurring: true, de_activated_date: nil)
       .expired
+      .not_de_activated
+      .not_stripe
+      .recurring
   end
 
   def self.expired_today_or_previously_and_not_recurring
     Subscription
-      .where(recurring: false, de_activated_date: nil)
       .expired
+      .not_de_activated
+      .not_recurring
   end
 
   def self.school_or_user_has_ever_paid?(school_or_user)

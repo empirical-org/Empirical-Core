@@ -43,46 +43,64 @@ shared_context 'profile' do
   let(:activity_2b) { create(:activity, classification: game2) }
 
   let!(:unit2) { create(:unit) }
-  let!(:classroom_activity2) { create(:classroom_activity,
-                                                  classroom: classroom2,
-                                                  activity: activity2,
-                                                  unit: unit2,
-                                                  assigned_student_ids: [],
-                                                  due_date: Date.current + 3) }
 
-  let!(:classroom_activity_2a) { create(:classroom_activity,
-                                                    classroom: classroom2,
-                                                    activity: activity_2a,
-                                                    unit: unit2,
-                                                    assigned_student_ids: [],
-                                                    due_date: Date.current + 100)}
+  let!(:classroom_activity2) do
+    create(
+      :classroom_activity,
+      classroom: classroom2,
+      activity: activity2,
+      unit: unit2,
+      assigned_student_ids: [],
+      due_date: 3.days.from_now
+    )
+  end
 
-  let!(:classroom_activity_2aa) { create(:classroom_activity,
-                                                    classroom: classroom2,
-                                                    activity: activity_2aa,
-                                                    unit: unit2,
-                                                    assigned_student_ids: [],
-                                                    due_date: Date.current + 100)}
+  let!(:classroom_activity_2a) do
+    create(
+      :classroom_activity,
+      classroom: classroom2,
+      activity: activity_2a,
+      unit: unit2,
+      assigned_student_ids: [],
+      due_date: 100.days.from_now
+    )
+  end
 
+  let!(:classroom_activity_2aa) do
+    create(
+      :classroom_activity,
+      classroom: classroom2,
+      activity: activity_2aa,
+      unit: unit2,
+      assigned_student_ids: [],
+      due_date: 100.days.from_now
+    )
+  end
 
-  let!(:classroom_activity_2b) { create(:classroom_activity,
-                                                    classroom: classroom2,
-                                                    activity: activity_2b,
-                                                    unit: unit2,
-                                                    assigned_student_ids: [],
-                                                    due_date: Date.current + 1)}
-
-
-
+  let!(:classroom_activity_2b) do
+    create(
+      :classroom_activity,
+      classroom: classroom2,
+      activity: activity_2b,
+      unit: unit2,
+      assigned_student_ids: [],
+      due_date: 1.day.from_now
+    )
+  end
 
   let(:activity3) { create(:activity, classification: game1) }
 
   let!(:unit3) { create(:unit) }
-  let!(:classroom_activity3) { create(:classroom_activity,
-                                                  classroom: classroom1,
-                                                  activity: activity3,
-                                                  unit: unit3,
-                                                  due_date: Date.current + 3) }
+
+  let!(:classroom_activity3) do
+    create(
+      :classroom_activity,
+      classroom: classroom1,
+      activity: activity3,
+      unit: unit3,
+      due_date: 3.days.from_now
+    )
+  end
 
   let!(:as1) { classroom_activity.session_for(student) }
   let!(:as_1a) { classroom_activity_1a.session_for(student) }

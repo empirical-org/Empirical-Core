@@ -60,7 +60,7 @@ describe UnitActivity, type: :model, redis: true do
       let(:classroom_acitivity) { create(:classroom_acitivity) }
 
       it 'should return the formatted due date' do
-        unit_activity.due_date = Date.current + 10.days
+        unit_activity.due_date = 10.days.from_now.to_date
         expect(unit_activity.formatted_due_date).to eq(unit_activity.due_date.strftime("%-m-%-e-%Y"))
       end
     end

@@ -6,7 +6,7 @@ RSpec.shared_context 'Stripe Subscription' do
   include_context 'Stripe Customer'
 
   let(:stripe_subscription_id) { "sub_#{SecureRandom.hex}" }
-  let(:current_period_end) { (Date.current + 365).to_time.to_i }
+  let(:current_period_end) { 1.year.from_now.to_i }
   let(:current_period_start) { Date.current.to_time.to_i }
 
   let(:stripe_subscription) do

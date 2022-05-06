@@ -247,21 +247,25 @@ class User < ApplicationRecord
   end
 
   def last_expired_subscription
-    subscriptions.where("expiration <= ?", Date.current).order(expiration: :desc).limit(1).first
+    subscriptions
+      .expired
+      .order(expiration: :desc)
+      .limit(1)
+      .first
   end
 
   def subscription
-    today = Date.current
-
     subscriptions
-      .where("expiration > ? AND start_date <= ?", today, today)
+      .started
+      .not_expired
+      .not_de_activated
       .order(expiration: :desc)
       .limit(1)
       .first
   end
 
   def present_and_future_subscriptions
-    subscriptions.where("expiration > ? AND de_activated_date IS NULL", Date.current).order(expiration: :asc)
+    subscriptions.active
   end
 
   def create(*args)

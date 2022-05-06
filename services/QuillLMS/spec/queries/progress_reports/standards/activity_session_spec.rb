@@ -19,14 +19,17 @@ describe ProgressReports::Standards::ActivitySession do
     c.students << s
     cu = create(:classroom_unit, assigned_student_ids: [s.id], classroom: c)
     create(:unit_activity, activity: a, unit: cu.unit)
-    as = create(:activity_session,
-                              state: 'finished',
-                              completed_at: Time.current,
-                              is_final_score: true,
-                              percentage: 1,
-                              classroom_unit: cu,
-                              user: s
-                            )
+
+    as = create(
+      :activity_session,
+      state: 'finished',
+      completed_at: Time.current,
+      is_final_score: true,
+      percentage: 1,
+      classroom_unit: cu,
+      user: s
+    )
+
     expect(subject.size).to eq(best_activity_sessions.size)
   end
 end

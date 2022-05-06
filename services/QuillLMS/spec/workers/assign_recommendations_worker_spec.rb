@@ -112,7 +112,7 @@ describe AssignRecommendationsWorker do
 
     context 'when more than one unit is found' do
       let!(:unit) { create(:unit, unit_template: unit_template, user: teacher, visible: false, updated_at: Date.current) }
-      let!(:unit1) { create(:unit, unit_template: unit_template, user: teacher, visible: false, updated_at: Date.current-1.day) }
+      let!(:unit1) { create(:unit, unit_template: unit_template, user: teacher, visible: false, updated_at: 1.day.ago) }
 
       def call_method
         subject.perform({
