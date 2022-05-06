@@ -134,11 +134,12 @@ class FeedbackHistory < ApplicationRecord
   end
 
   # TODO: consider making this a background job.
-  def self.save_feedback(feedback_hash_raw, entry, prompt_id, activity_session_uid, attempt)
+  def self.save_feedback(feedback_hash_raw, entry, prompt_id, activity_session_uid, attempt, api_metadata=nil)
     feedback_hash = feedback_hash_raw.deep_stringify_keys
 
     # Remove blank values from metadata
     metadata = {
+      api: api_metadata,
       highlight: feedback_hash['highlight'],
       hint: feedback_hash['hint']
     }.reject {|_,v| v.blank? }
