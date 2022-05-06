@@ -6,7 +6,7 @@ import Feedback from './feedback'
 
 import EditCaretPositioning from '../../helpers/EditCaretPositioning'
 import ButtonLoadingSpinner from '../shared/buttonLoadingSpinner'
-import { highlightSpellingGrammar } from '../../libs/stringFormatting'
+import { highlightGrammar, highlightSpelling, stripEvidenceHtml } from '../../libs/stringFormatting'
 
 interface PromptStepProps {
   activityIsComplete: Boolean;
@@ -105,8 +105,6 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     return submittedResponses.map(r => r.entry).concat(text)
   }
 
-  stripHtml = (html: string) => html.replace(/<p>|<\/p>|<u>|<\/u>|<b>|<\/b>|<br>|<br\/>/g, '').replace(/&nbsp;/g, ' ')
-
   formattedPrompt = (submittedResponses?: Array<string>) => {
     if (submittedResponses && submittedResponses.length) {
       const lastSubmission = submittedResponses[submittedResponses.length - 1]
@@ -142,12 +140,12 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
       return str
     }
 
-    let wordsToFormat = lastSubmittedResponse.highlight.filter(hl => hl.type === PROMPT).map(hl => this.stripHtml(hl.text))
+    let wordsToFormat = lastSubmittedResponse.highlight.filter(hl => hl.type === PROMPT).map(hl => stripEvidenceHtml(hl.text))
     wordsToFormat = wordsToFormat.length === 1 ? wordsToFormat[0] : wordsToFormat
-    return highlightSpellingGrammar(str, wordsToFormat)
+    return highlightSpelling(str, wordsToFormat)
   }
 
-  formatStudentResponse = (str: string) => {
+  formatStudentResponse = (str: string, promptLength: number) => {
     const { prompt, submittedResponses, } = this.props
     const lastSubmittedResponse = this.lastSubmittedResponse()
 
@@ -157,12 +155,18 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
 
     if (!thereAreResponseHighlights) { return str }
 
-    let wordsToFormat = lastSubmittedResponse.highlight.filter(hl => hl.type === RESPONSE).map(hl => this.stripHtml(hl.text))
+    const filteredHighlights = lastSubmittedResponse.highlight.filter(hl => hl.type === RESPONSE)
+
+    let wordsToFormat = filteredHighlights.map(hl => stripEvidenceHtml(hl.text))
+
     wordsToFormat = wordsToFormat.length === 1 ? wordsToFormat[0] : wordsToFormat
+
     if (lastSubmittedResponse.feedback_type === 'plagiarism') {
       return this.formatPlagiarismHighlight(str, wordsToFormat)
+    } else if (lastSubmittedResponse.feedback_type === 'grammar') {
+      return highlightGrammar(str, filteredHighlights, promptLength)
     } else {
-      return highlightSpellingGrammar(str, wordsToFormat)
+      return highlightSpelling(str, wordsToFormat)
     }
   }
 
@@ -221,9 +225,9 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
         diffIndices.forEach((originalIndex: number) => {
           const diffWordEquivalent = formattedPromptWordArray[originalIndex]
           newTextWordArray.push(diffWordEquivalent)
-          const diffWordWithoutHtmlLettersArray = textWordArray[originalIndex] ? this.stripHtml(textWordArray[originalIndex]).split('') : null
+          const diffWordWithoutHtmlLettersArray = textWordArray[originalIndex] ? stripEvidenceHtml(textWordArray[originalIndex]).split('') : null
           if (diffWordWithoutHtmlLettersArray) {
-            const diffWordEquivalentWithoutHtmlLettersArray = this.stripHtml(diffWordEquivalent)
+            const diffWordEquivalentWithoutHtmlLettersArray = stripEvidenceHtml(diffWordEquivalent)
             const indexOfLettersToKeepFromDiffWord = diffWordWithoutHtmlLettersArray.findIndex((letter: string, i: number) => letter !== diffWordEquivalentWithoutHtmlLettersArray[i])
             if (indexOfLettersToKeepFromDiffWord !== -1) {
               const partOfDiffWordToKeep = diffWordWithoutHtmlLettersArray.slice(indexOfLettersToKeepFromDiffWord).join('').replace(/(&nbsp;)|(<u>)|(<\/u>)/g, '')
@@ -315,7 +319,7 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     const textForCharacterCount = stripHtml(textWithoutStem);
     const spaceAtEnd = text.match(/\s$/m) ? '&nbsp;' : ''
     return {
-      htmlWithBolding: `<p>${this.highlightsAddedPrompt(this.htmlStrippedPrompt())}${this.formatStudentResponse(textWithoutStem)}${spaceAtEnd}</p>`,
+      htmlWithBolding: `<p>${this.highlightsAddedPrompt(this.htmlStrippedPrompt())}${this.formatStudentResponse(textWithoutStem, prompt.text.length)}${spaceAtEnd}</p>`,
       rawTextWithoutStem: textWithoutStem,
       textForCharacterCount
     }
@@ -339,7 +343,7 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     const { prompt, submittedResponses, completionButtonCallback, activityIsComplete} = this.props
     const { id, text, max_attempts } = prompt
     const { html, numberOfSubmissions, responseOverCharacterLimit, failedToLoadFeedback } = this.state
-    const entry = this.stripHtml(html).trim()
+    const entry = stripEvidenceHtml(html).trim()
     const awaitingFeedback = (numberOfSubmissions !== submittedResponses.length) && !failedToLoadFeedback
     const buttonLoadingSpinner = awaitingFeedback ? <ButtonLoadingSpinner /> : null
     let buttonCopy = 'Get feedback'
@@ -445,7 +449,7 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
           isResettable={!!rawTextWithoutStem.length}
           promptText={prompt.text}
           resetText={this.resetText}
-          stripHtml={this.stripHtml}
+          stripHtml={stripEvidenceHtml}
         />
         {this.renderCharacterLimitWarning(characterCount, characterCountClassName)}
       </div>

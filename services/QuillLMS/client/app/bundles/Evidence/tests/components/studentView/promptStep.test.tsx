@@ -4,6 +4,7 @@ import toJson from 'enzyme-to-json';
 
 import { activityOne, optimalSubmittedResponse, suboptimalSubmittedResponse, } from './data'
 
+import { stripEvidenceHtml } from '../../../libs/stringFormatting'
 import PromptStep from '../../../components/studentView/promptStep'
 import EditorContainer from '../../../components/studentView/editorContainer'
 
@@ -71,10 +72,10 @@ describe('PromptStep component', () => {
         })
       })
 
-      describe('#stripHtml', () => {
+      describe('#stripEvidenceHtml', () => {
         it('should return a string stripped of all u and p tags', () => {
           const htmlString = '<p>I am a paragraph<u> with an underline</u></p>'
-          expect(wrapper.instance().stripHtml(htmlString)).toEqual('I am a paragraph with an underline')
+          expect(stripEvidenceHtml(htmlString)).toEqual('I am a paragraph with an underline')
         })
       })
 
