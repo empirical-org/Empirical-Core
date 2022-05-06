@@ -50,7 +50,7 @@ describe('stringFormatting', () => {
       expect(result).toEqual('lorem ipsum <b>ipsum</b>')
     });
 
-    it('should not bold a phrase after the given character', () => {
+    it('should not bold a phrase twice', () => {
       const result = highlightGrammar('lorem ipsum ipsum', [{character: 1, text: "ipsum"}])
       expect(result).toEqual('lorem <b>ipsum</b> ipsum')
     });
