@@ -141,7 +141,7 @@ describe GoogleIntegration::RefreshAccessToken do
     end
 
     it 'should return true if the credentials have an expired expiration' do
-      user.auth_credential.update!({expires_at: Time.now - 1.day})
+      user.auth_credential.update!({expires_at: 1.day.ago})
       expect(subject.send(:should_refresh?)).to be true
     end
 
@@ -152,12 +152,12 @@ describe GoogleIntegration::RefreshAccessToken do
 
   describe '#token_too_old_to_refresh?' do
     it 'should return true if the token is more than 6 months old' do
-      user.auth_credential.update!({expires_at: Time.now - 12.months})
+      user.auth_credential.update!({expires_at: 12.months.ago})
       expect(subject.send(:token_too_old_to_refresh?)).to be true
     end
 
     it 'should return false if the token is less than 6 months old' do
-      user.auth_credential.update!({expires_at: Time.now - 1.month})
+      user.auth_credential.update!({expires_at: 1.month.ago})
       expect(subject.send(:token_too_old_to_refresh?)).to be false
     end
   end

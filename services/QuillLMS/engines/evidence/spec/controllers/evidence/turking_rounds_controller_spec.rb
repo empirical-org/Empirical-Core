@@ -78,7 +78,7 @@ module Evidence
 
       it 'should update record if valid, return nothing' do
         new_activity = create(:evidence_activity)
-        new_datetime = DateTime.now.utc
+        new_datetime = DateTime.current.utc
         patch(:update, :params => ({ :id => turking_round.id, :turking_round => ({ :activity_id => new_activity.id, :expires_at => new_datetime }) }))
         expect(response.body).to(eq(""))
         expect(response.code.to_i).to(eq(204))

@@ -37,7 +37,7 @@ describe 'Student Concern', type: :model do
   end
 
   let!(:started) do
-    create(:activity_session, user_id: student1.id, classroom_unit_id: classroom_unit3.id, started_at: Time.now)
+    create(:activity_session, user_id: student1.id, classroom_unit_id: classroom_unit3.id, started_at: Time.current)
   end
 
   let!(:completed_earlier) do
@@ -45,7 +45,7 @@ describe 'Student Concern', type: :model do
       :activity_session,
       user_id: student1.id,
       classroom_unit_id: classroom_unit4.id,
-      completed_at: Time.now - 5,
+      completed_at: 5.seconds.ago,
       state: 'finished',
       percentage: 0.7,
       activity: activity
@@ -57,7 +57,7 @@ describe 'Student Concern', type: :model do
       :activity_session,
       user_id: student1.id,
       classroom_unit_id: classroom_unit4.id,
-      completed_at: Time.now,
+      completed_at: Time.current,
       state: 'finished',
       percentage: 0.7,
       activity: activity

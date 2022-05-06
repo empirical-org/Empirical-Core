@@ -9,7 +9,7 @@ class RematchUpdatedQuestionsWorker
   JSON_HEADERS = {'Content-Type' => 'application/json', 'Accept' => 'application/json'}
   DELAY_PER_QUESTION = 1.minutes.to_i
 
-  def perform(start_time = Time.zone.now - 1.day, end_time = Time.zone.now, delay =  DELAY_PER_QUESTION)
+  def perform(start_time = 1.day.ago, end_time = Time.current, delay =  DELAY_PER_QUESTION)
     questions = Question
       .production
       .where(updated_at: start_time..end_time)

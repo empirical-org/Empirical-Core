@@ -21,7 +21,7 @@ class UpdateSalesContact
   end
 
   private def update_sales_stage
-    sales_stage.update(completed_at: Time.now, user: @current_user)
+    sales_stage.update(completed_at: Time.current, user: @current_user)
   end
 
   private def user

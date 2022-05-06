@@ -68,7 +68,7 @@ namespace :plagiarized_responses do
     input = CSV.read(args[:input_csv_path], headers: true)
     output_file_path = args[:input_csv_path].sub('.csv', '.result.csv')
     output_headers = input.headers + ['Plagiarism Feedback', '3 Character Difference', '5 Character Difference', '3 and 5 Match?']
-    start = Time.now
+    start = Time.current
     CSV.open(output_file_path, 'w', write_headers: true, headers: output_headers) do |output|
       input.each do |row|
         row['Plagiarism Feedback'] = (row['feedback_type'] == 'plagiarism')
@@ -84,7 +84,7 @@ namespace :plagiarized_responses do
         output << row
       end
     end
-    stop = Time.now
+    stop = Time.current
     puts stop - start
   end
 end

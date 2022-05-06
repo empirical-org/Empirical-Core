@@ -21,7 +21,7 @@ describe SegmentioHelper do
       expected_serialization = {
         userType: user.role,
         createdAt: user.created_at,
-        daysSinceJoining: ((Time.zone.now - user.created_at) / 60 / 60 / 24).to_i
+        daysSinceJoining: ((Time.current - user.created_at) / 60 / 60 / 24).to_i
       }
       expect(serialization).to eq(expected_serialization)
     end

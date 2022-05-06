@@ -22,7 +22,7 @@ FactoryBot.define do
     provider_user_id { (1..21).map{(1..9).to_a.sample}.join }
 
     trait(:active) { deleted_at { nil } }
-    trait(:deleted) { deleted_at { Time.now } }
+    trait(:deleted) { deleted_at { Time.current } }
 
     factory :google_classroom_user, parent: :provider_classroom_user, class: 'GoogleClassroomUser'
     factory :clever_classroom_user, parent: :provider_classroom_user, class: 'CleverClassroomUser'

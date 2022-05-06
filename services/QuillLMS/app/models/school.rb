@@ -91,11 +91,17 @@ class School < ApplicationRecord
   HALF_A_YEAR = 6.months
 
   def subscription
-    subscriptions.where("expiration > ? AND start_date <= ?", Date.today, Date.today).order(expiration: :desc).limit(1).first
+    subscriptions
+      .started
+      .not_expired
+      .not_de_activated
+      .order(expiration: :desc)
+      .limit(1)
+      .first
   end
 
   def present_and_future_subscriptions
-    subscriptions.where("expiration > ? AND de_activated_date IS NULL", Date.today).order(expiration: :asc)
+    subscriptions.active
   end
 
   def ulocal_to_school_type
