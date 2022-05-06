@@ -204,6 +204,14 @@ RSpec.describe FeedbackHistory, type: :model do
       expect(feedback.valid?).to be true
       expect(feedback.metadata['highlight'].first).to eq(highlight)
     end
+
+    it 'should save special "api" key to metadata if passed an api_metadata argument' do
+      api_metadata = {'confidence' => 1}
+      feedback = FeedbackHistory.save_feedback(feedback_hash, entry, prompt_id, activity_session_uid, attempt, api_metadata)
+
+      expect(feedback.valid?).to be true
+      expect(feedback.metadata['api']).to eq(api_metadata)
+    end
   end
 
   context 'batch_create' do
