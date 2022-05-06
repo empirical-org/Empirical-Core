@@ -74,6 +74,7 @@ module UserCacheable
       .where(classroom_id: classroom_id)
       .joins(:unit_activities)
       .where(unit: {unit_activities: {activity_id: activity_id}})
+      .order("classroom_units.updated_at DESC")
       .group("classroom_units.id")
       .first
   end
