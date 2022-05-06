@@ -24,7 +24,7 @@ RSpec.describe StudentResponseExtraMetadata, type: :model do
   end
 
   context 'associations' do
-    it { should have_many(:student_responses) }
+    it { should belong_to(:student_response) }
   end
 
   context 'validations' do

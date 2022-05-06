@@ -35,7 +35,7 @@
 #
 require 'rails_helper'
 
-RSpec.describe StudentResponseAnswerText, type: :model do
+RSpec.describe StudentResponse, type: :model do
   before do
     create(:student_response)
   end
@@ -48,7 +48,7 @@ RSpec.describe StudentResponseAnswerText, type: :model do
     it { should belong_to(:student_response_prompt_text) }
     it { should belong_to(:student_response_question_type) }
 
-    it { should have_one(:student_resopnse_extra_metadata) }
+    it { should have_one(:student_response_extra_metadata) }
 
     it { should have_many(:student_responses_concepts) }
     it { should have_many(:concepts).through(:student_responses_concepts) }
@@ -57,6 +57,6 @@ RSpec.describe StudentResponseAnswerText, type: :model do
   context 'validations' do
     it { should validate_presence_of(:attempt_number) }
     it { should validate_presence_of(:question_number) }
-    it { should validate_inclusion_of(:correct).in([true, false]) }
+    it { should validate_inclusion_of(:correct).in_array([true, false]) }
   end
 end
