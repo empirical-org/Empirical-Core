@@ -182,8 +182,11 @@ RSpec.describe UserCacheable, type: :model do
     let(:classroom_unit1) {create(:classroom_unit, classroom: classroom, unit: unit_activity1.unit) }
     let(:unit_activity2) { create(:unit_activity, activity: activity)}
     let(:classroom_unit2) {create(:classroom_unit, classroom: classroom, unit: unit_activity2.unit) }
+    let(:unit_activity3) { create(:unit_activity, activity: activity)}
+    let(:classroom_unit3) {create(:classroom_unit, classroom: classroom, unit: unit_activity3.unit) }
 
     it 'should call model_cache with last updated unit if no unit_id' do
+      classroom_unit2.touch
       expect(teacher).to receive(:model_cache).with(classroom_unit2, key: 'test.key', groups: {page: 1}, expires_in: subject::DEFAULT_EXPIRATION)
 
       teacher.classroom_unit_by_ids_cache(classroom_id: classroom.id, unit_id: nil, activity_id: activity.id, key: 'test.key', groups: {page: 1})
