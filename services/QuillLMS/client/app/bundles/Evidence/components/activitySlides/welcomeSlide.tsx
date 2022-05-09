@@ -5,7 +5,7 @@ import Footer from './footer';
 export const WelcomeSlide = ({ onHandleClick, user }) => {
   const welcomeText = user ? `Hi, ${user}!` : 'Hi there!'
   return(
-    <div className="explanation-slide-container" id="welcome-slide-container">
+    <div aria-live="polite" className="explanation-slide-container" id="welcome-slide-container">
       <section id="information-section">
         <p className="subtext">{welcomeText}</p>
         <section id="header-container">

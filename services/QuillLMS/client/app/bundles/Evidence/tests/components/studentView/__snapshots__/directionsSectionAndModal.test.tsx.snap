@@ -55,6 +55,11 @@ exports[`DirectionsSection component when the student is on the read passage ste
         <li>
           Then, read the text and highlight sentences to complete the task.
         </li>
+        <li
+          className="sr-only"
+        >
+          Screenreader users, please use your tab keys to navigate through the passage. Use the Enter key on a focused sentence to add it to your highlights or to remove it once it has already been highlighted.
+        </li>
       </ul>
     </section>
     <section
@@ -128,6 +133,11 @@ exports[`DirectionsSection component when the student should see the modal rende
         </li>
         <li>
           Then, read the text and highlight sentences to complete the task.
+        </li>
+        <li
+          className="sr-only"
+        >
+          Screenreader users, please use your tab keys to navigate through the passage. Use the Enter key on a focused sentence to add it to your highlights or to remove it once it has already been highlighted.
         </li>
       </ul>
     </section>

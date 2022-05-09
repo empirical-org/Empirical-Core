@@ -39,11 +39,17 @@ exports[`StepOverview component when the student is on step one renders 1`] = `
             >
               1
             </div>
+            <span
+              className="sr-only"
+            >
+              This is the active step:
+            </span>
             <p>
               Read a text and highlight sentences.
             </p>
           </div>
           <div
+            aria-hidden="true"
             className="now-tag"
           >
             Now
@@ -236,6 +242,11 @@ exports[`StepOverview component when the student is past step one renders 1`] = 
             >
               2
             </div>
+            <span
+              className="sr-only"
+            >
+              This is the active step:
+            </span>
             <p>
               Expand a sentence using 
               <u>
@@ -245,6 +256,7 @@ exports[`StepOverview component when the student is past step one renders 1`] = 
             </p>
           </div>
           <div
+            aria-hidden="true"
             className="now-tag"
           >
             Now

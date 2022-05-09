@@ -2,6 +2,7 @@
 
 exports[`ExplanationSlide Component should match snapshot 1`] = `
 <div
+  aria-live="polite"
   className="explanation-slide-container"
 >
   <section

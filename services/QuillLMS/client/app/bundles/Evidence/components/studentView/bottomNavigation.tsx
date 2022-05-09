@@ -12,21 +12,21 @@ const ReadAndHighlightTracker = ({
   showReadTheDirectionsButton
 }) => {
   const minimumMet = studentHighlights.length >= MINIMUM_STUDENT_HIGHLIGHT_COUNT
-  let doneButton = <button className="quill-button contained primary large focus-on-light disabled" type="button">Done</button>
+  let doneButton = <button className="quill-button contained primary large focus-on-light disabled" onClick={handleClickDoneHighlighting} type="button">Done</button>
   if (scrolledToEndOfPassage && minimumMet) {
     doneButton = <button className="quill-button contained primary large focus-on-light" onClick={handleClickDoneHighlighting} type="button">Done</button>
   }
   if(showReadTheDirectionsButton) {
     return(
       <div className="read-and-highlight-tracker bottom-navigation read-instructions">
-        <button className="quill-button contained primary large focus-on-light" onClick={handleReadTheDirectionsButtonClick}>Got it</button>
+        <button className="quill-button contained primary large focus-on-light" onClick={handleReadTheDirectionsButtonClick} type="button">Got it</button>
       </div>
     )
   }
   return (
     <div className="read-and-highlight-tracker bottom-navigation">
       {doneButton}
-      <div className="read-and-highlight-steps">
+      <div aria-hidden={true} className="read-and-highlight-steps">
         <div className="read-and-highlight-step">
           {scrolledToEndOfPassage ? <img alt={bigCheckIcon.alt} className="check-icon" src={bigCheckIcon.src} /> : <div className="incomplete-indicator" />}
           <span>Read the entire text</span>

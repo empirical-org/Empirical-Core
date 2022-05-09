@@ -2,7 +2,9 @@
 
 exports[`Feedback component should render Feedback 1`] = `
 <div
+  aria-live="polite"
   className="feedback-section "
+  role="status"
 >
   <ReactCSSTransitionReplace
     changeWidth={false}
@@ -39,7 +41,6 @@ exports[`Feedback component should render Feedback 1`] = `
             "__html": undefined,
           }
         }
-        role="status"
       />
       <div
         className="report-a-problem-button-container"

@@ -39,9 +39,10 @@ const Step = ({ active, completed, handleClick, step }: StepProps) => {
         <button className="step-overview-step active focus-on-dark" onClick={handleClick} type="button">
           <div className="left-side-container">
             <div className={`evidence-step-number-small ${active ? 'active' : ''}`}>{stepNumber}</div>
+            <span className="sr-only">This is the active step:</span>
             {html}
           </div>
-          <div className="now-tag">Now</div>
+          <div aria-hidden="true" className="now-tag">Now</div>
         </button>
       </section>
     )
