@@ -485,6 +485,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                         defaultInputValue=""
                         defaultMenuIsOpen={false}
                         defaultValue={null}
+                        filterOption={null}
                         inputValue=""
                         isClearable={false}
                         menuIsOpen={false}
@@ -512,7 +513,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                           controlShouldRenderValue={true}
                           cursor={null}
                           escapeClearsValue={false}
-                          filterOption={[Function]}
+                          filterOption={null}
                           formatGroupLabel={[Function]}
                           getOptionLabel={[Function]}
                           getOptionValue={[Function]}
@@ -584,7 +585,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                                 "controlShouldRenderValue": true,
                                 "cursor": null,
                                 "escapeClearsValue": false,
-                                "filterOption": [Function],
+                                "filterOption": null,
                                 "formatGroupLabel": [Function],
                                 "getOptionLabel": [Function],
                                 "getOptionValue": [Function],
@@ -710,7 +711,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                                       "controlShouldRenderValue": true,
                                       "cursor": null,
                                       "escapeClearsValue": false,
-                                      "filterOption": [Function],
+                                      "filterOption": null,
                                       "formatGroupLabel": [Function],
                                       "getOptionLabel": [Function],
                                       "getOptionValue": [Function],
@@ -844,7 +845,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                                             "controlShouldRenderValue": true,
                                             "cursor": null,
                                             "escapeClearsValue": false,
-                                            "filterOption": [Function],
+                                            "filterOption": null,
                                             "formatGroupLabel": [Function],
                                             "getOptionLabel": [Function],
                                             "getOptionValue": [Function],
@@ -965,7 +966,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                                                   "controlShouldRenderValue": true,
                                                   "cursor": null,
                                                   "escapeClearsValue": false,
-                                                  "filterOption": [Function],
+                                                  "filterOption": null,
                                                   "formatGroupLabel": [Function],
                                                   "getOptionLabel": [Function],
                                                   "getOptionValue": [Function],
@@ -1088,7 +1089,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                                                   "controlShouldRenderValue": true,
                                                   "cursor": null,
                                                   "escapeClearsValue": false,
-                                                  "filterOption": [Function],
+                                                  "filterOption": null,
                                                   "formatGroupLabel": [Function],
                                                   "getOptionLabel": [Function],
                                                   "getOptionValue": [Function],
@@ -1295,7 +1296,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                                             "controlShouldRenderValue": true,
                                             "cursor": null,
                                             "escapeClearsValue": false,
-                                            "filterOption": [Function],
+                                            "filterOption": null,
                                             "formatGroupLabel": [Function],
                                             "getOptionLabel": [Function],
                                             "getOptionValue": [Function],
@@ -1411,7 +1412,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                                                   "controlShouldRenderValue": true,
                                                   "cursor": null,
                                                   "escapeClearsValue": false,
-                                                  "filterOption": [Function],
+                                                  "filterOption": null,
                                                   "formatGroupLabel": [Function],
                                                   "getOptionLabel": [Function],
                                                   "getOptionValue": [Function],
@@ -1538,7 +1539,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                                                   "controlShouldRenderValue": true,
                                                   "cursor": null,
                                                   "escapeClearsValue": false,
-                                                  "filterOption": [Function],
+                                                  "filterOption": null,
                                                   "formatGroupLabel": [Function],
                                                   "getOptionLabel": [Function],
                                                   "getOptionValue": [Function],
