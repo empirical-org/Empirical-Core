@@ -74,6 +74,7 @@ But how can democracies have representative governments unless all or most of th
     onHandleClick={[Function]}
   >
     <div
+      aria-live="polite"
       className="explanation-slide-container"
       id="welcome-slide-container"
     >
