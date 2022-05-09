@@ -169,4 +169,18 @@ describe 'SegmentAnalytics' do
       })
     end
   end
+
+  context '#identify' do
+
+    let(:district) { create(:district) }
+    let(:school) { create(:school, district: district) }
+    let(:teacher) { create(:teacher, school: school) }
+
+    it 'sends events to Intercom when the user is a teacher' do
+      analytics.identify(teacher)
+      expect(identify_calls.size).to eq(1)
+      expect(track_calls.size).to eq(0)
+      expect(identify_calls[0][:traits][:district]).to eq(district.name)
+    end
+  end
 end
