@@ -51,7 +51,7 @@ class StudentResponse < ApplicationRecord
 
   # This is a list of keys from the old ConceptResults records
   # that this model knows how to normalize.  Any keys that are
-  # fed into create_from_metadata that aren't from this list,
+  # fed into create_from_json that aren't from this list,
   # will be stashed in a related StudentResponseExtraMetadata
   # record
   KNOWN_METADATA_KEYS = [
@@ -63,7 +63,7 @@ class StudentResponse < ApplicationRecord
     :questionNumber
   ]
 
-  def self.create_from_metadata(data_hash)
+  def self.create_from_json(data_hash)
     data_hash = data_hash.deep_symbolize_keys
 
     metadata = data_hash[:metadata]
@@ -101,10 +101,10 @@ class StudentResponse < ApplicationRecord
     StudentResponseExtraMetadata.new(metadata: extra_metadata)
   end
 
-  def self.bulk_create_from_metadata(data_hash_array)
+  def self.bulk_create_from_json(data_hash_array)
     normalized_data_hash = roll_up_concepts(data_hash_array)
 
-    normalized_data_hash.each { |data_hash| create_from_metadata(data_hash) }
+    normalized_data_hash.each { |data_hash| create_from_json(data_hash) }
   end
 
   # Takes an input of hashes representing old-style ConceptResult
