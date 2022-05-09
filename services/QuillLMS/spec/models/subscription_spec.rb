@@ -504,12 +504,6 @@ describe Subscription, type: :model do
       let(:account_type) { described_class::SCHOOL_DISTRICT_PAID }
 
       it { expect(subject).to be nil }
-
-      context 'via stripe' do
-        before { allow(subscription).to receive(:stripe?).and_return(true) }
-
-        it { expect(subject).to be STRIPE_SCHOOL_PLAN_PRICE_ID }
-      end
     end
 
     context 'other' do

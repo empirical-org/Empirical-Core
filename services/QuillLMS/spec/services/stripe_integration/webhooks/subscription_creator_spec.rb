@@ -71,4 +71,13 @@ RSpec.describe StripeIntegration::Webhooks::SubscriptionCreator do
 
     it { expect { subject }.to raise_error described_class::PurchaserNotFoundError }
   end
+
+  context 'purchaser has no school' do
+    let!(:school_plan) { create(:school_paid_plan) }
+
+    before { allow(Plan).to receive(:find_stripe_plan!).with(stripe_price_id).and_return(school_plan) }
+
+    it { expect { subject }.to raise_error described_class::PurchaserNilSchoolError }
+  end
 end
+
