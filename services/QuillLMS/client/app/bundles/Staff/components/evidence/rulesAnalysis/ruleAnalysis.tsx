@@ -76,7 +76,7 @@ const RuleAnalysis = ({ match }) => {
       const rows = responseRows(ruleFeedbackHistoryData.responses);
       setResponses(rows)
     }
-  }, [ruleFeedbackHistoryData])
+  }, [ruleFeedbackHistoryData, activityData])
 
   React.useEffect(() => {
     if(ruleFeedbackHistoryData) {
