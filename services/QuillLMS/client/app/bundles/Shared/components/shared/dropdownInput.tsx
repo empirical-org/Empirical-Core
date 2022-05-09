@@ -31,6 +31,7 @@ interface DropdownInputProps {
     value: string,
     options: { label: string; value: string }[]
   ) => void;
+  handleInputChange?: any
 }
 
 interface DropdownInputState {
@@ -148,8 +149,12 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
   }
 
   handleInputChange = (inputValue, action) => {
+    const { handleInputChange } = this.props;
     if (action.action !== "input-blur" && action.action !== 'menu-close') {
       this.setState({ inputValue });
+    }
+    if(handleInputChange) {
+      handleInputChange(inputValue);
     }
   }
 

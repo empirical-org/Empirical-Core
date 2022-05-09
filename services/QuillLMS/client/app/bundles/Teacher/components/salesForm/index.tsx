@@ -26,28 +26,26 @@ export const SalesForm = ({ type }) => {
   const [schools, setSchools] = React.useState<any[]>([]);
   const [districts, setDistricts] = React.useState<any[]>([]);
   const [selectedSchool, setSelectedSchool] = React.useState<any>('');
+  const [schoolSearchQuery, setSchoolSearchQuery] = React.useState<any>('');
   const [schoolNotListed, setSchoolNotListed] = React.useState<boolean>(false);
   const [selectedDistrict, setSelectedDistrict] = React.useState<any>('');
+  const [districtSearchQuery, setDistrictSearchQuery] = React.useState<any>('');
   const [districtNotListed, setDistrictNotListed] = React.useState<boolean>(false);
   const [schoolOrDistrict, setSchoolOrDistrict] = React.useState<any>('');
   const [showSnackbar, setShowSnackbar] = React.useState(false)
 
   React.useEffect(() => {
-    if(!schools.length) {
-      getSchoolsAndDistricts('school').then((response) => {
-        if(response && response.options) {
-          setSchools(response.options);
-        }
-      });
-    }
-    if(!districts.length) {
-      getSchoolsAndDistricts('district').then((response) => {
-        if(response && response.options) {
-          setDistricts(response.options);
-        }
-      });
-    }
-  }, []);
+    getSchoolsAndDistricts('school', schoolSearchQuery).then((response) => {
+      if(response && response.options) {
+        setSchools(response.options);
+      }
+    });
+    getSchoolsAndDistricts('district', districtSearchQuery).then((response) => {
+      if(response && response.options) {
+        setDistricts(response.options);
+      }
+    });
+  }, [schoolSearchQuery, districtSearchQuery]);
 
   React.useEffect(() => {
     if (showSnackbar) {
@@ -84,7 +82,16 @@ export const SalesForm = ({ type }) => {
     setterFunction(value);
   }
 
-  function handleSchoolSearchChange(option) {
+  function handleSchoolSearchTextChange(value: string) {
+    setSchoolSearchQuery(value);
+  }
+
+  function handleDistrictSearchTextChange(value: string) {
+    setDistrictSearchQuery(value);
+  }
+
+
+  function handleSchoolSearchSelectionChange(option) {
     if(option.value === SCHOOL_NOT_LISTED) {
       setSchoolNotListed(true);
       setSelectedSchool('');
@@ -93,7 +100,7 @@ export const SalesForm = ({ type }) => {
     }
   };
 
-  function handleDistrictSearchChange(option) {
+  function handleDistrictSearchSelectionChange(option) {
     if(option.value === DISTRICT_NOT_LISTED) {
       setDistrictNotListed(true);
       setSelectedDistrict('');
@@ -153,8 +160,10 @@ export const SalesForm = ({ type }) => {
           districtNotListed={districtNotListed}
           districts={districts}
           errors={errors}
-          handleDistrictSearchChange={handleDistrictSearchChange}
-          handleSchoolSearchChange={handleSchoolSearchChange}
+          handleDistrictSearchSelectionChange={handleDistrictSearchSelectionChange}
+          handleDistrictSearchTextChange={handleDistrictSearchTextChange}
+          handleSchoolSearchSelectionChange={handleSchoolSearchSelectionChange}
+          handleSchoolSearchTextChange={handleSchoolSearchTextChange}
           handleUpdateField={handleUpdateField}
           schoolIsSelected={schoolIsSelected}
           schoolNotListed={schoolNotListed}

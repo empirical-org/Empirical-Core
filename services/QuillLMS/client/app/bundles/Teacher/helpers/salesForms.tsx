@@ -1,8 +1,7 @@
 import * as React from 'react';
 
-import { DropdownInput, Input, Spinner } from '../../Shared';
 import { requestFailed } from "../../Staff/helpers/evidence/routingHelpers";
-import { SCHOOL, DISTRICT, SCHOOL_NOT_LISTED, DISTRICT_NOT_LISTED, PROPERTIES, NUMERICAL_PROPERTIES, PROPERTY_LABELS } from '../../../constants/salesForm';
+import { PROPERTIES, NUMERICAL_PROPERTIES, PROPERTY_LABELS } from '../../../constants/salesForm';
 
 interface SalesFormSubmission {
   first_name: string,
@@ -30,8 +29,8 @@ const headerHash = {
 };
 const apiFetch = fetchDefaults(fetch, baseUrl, headerHash);
 
-export const getSchoolsAndDistricts = async (type: string) => {
-  const url = `/options_for_sales_form?type=${type}`;
+export const getSchoolsAndDistricts = async (type: string, searchQuery: string) => {
+  const url = `/options_for_sales_form?type=${type}&search=${searchQuery}`;
   const response = await apiFetch(url);
   const { status } = response;
 
@@ -71,84 +70,6 @@ export const customSearch = (
   }
   return true;
 };
-
-export const renderSchoolAndDistrictSelect = ({
-  errors,
-  schoolNotListed,
-  districtNotListed,
-  selectedSchool,
-  selectedDistrict,
-  schools,
-  districts,
-  handleUpdateField,
-  handleSchoolSearchChange,
-  handleDistrictSearchChange
-}) => {
-  const schoolInputLabel = selectedSchool ? SCHOOL : "Search for your school";
-  const districtInputLabel = selectedDistrict ? DISTRICT : "Search for your district";
-  const schoolOptions = [{ label: SCHOOL_NOT_LISTED, value: SCHOOL_NOT_LISTED}, ...schools];
-  const districtOptions = [{ label: DISTRICT_NOT_LISTED, value: DISTRICT_NOT_LISTED}, ...schools];
-  const schoolSearchInput = (
-    <DropdownInput
-      className="form-input"
-      filterOptions={customSearch}
-      handleChange={handleSchoolSearchChange}
-      isSearchable={true}
-      label={schoolInputLabel}
-      options={schoolOptions}
-      value={selectedSchool}
-    />
-  );
-  const districtSearchInput = (
-    <DropdownInput
-      className="form-input"
-      filterOptions={customSearch}
-      handleChange={handleDistrictSearchChange}
-      isSearchable={true}
-      label={districtInputLabel}
-      options={districtOptions}
-      value={selectedDistrict}
-    />
-  );
-  const schoolCustomInput = (
-    <Input
-      className="school"
-      handleChange={handleUpdateField}
-      id={SCHOOL}
-      label={SCHOOL}
-      placeholder=""
-      value={selectedSchool}
-    />
-  );
-  const districtCustomInput = (
-    <Input
-      className="district"
-      handleChange={handleUpdateField}
-      id={DISTRICT}
-      label={DISTRICT}
-      placeholder=""
-      value={selectedDistrict}
-    />
-  );
-  if(!schools.length || !districts.length) {
-    return(
-      <div className="loading-options-container">
-        <p>Loading school and district options...</p>
-        <Spinner />
-      </div>
-    );
-  }
-  return(
-    <div>
-      {!schoolNotListed && schoolSearchInput}
-      {schoolNotListed && schoolCustomInput}
-      {!districtNotListed && districtSearchInput}
-      {districtNotListed && districtCustomInput}
-      {errors[SCHOOL] && <p className="error-text">{errors[SCHOOL]}</p>}
-      {errors[DISTRICT] && <p className="error-text">{errors[DISTRICT]}</p>}
-    </div>
-  );
-}
 
 export const validateSalesForm = (submission: SalesFormSubmission) => {
   let errors = {};

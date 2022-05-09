@@ -1,6 +1,7 @@
 import * as React from 'react';
 
-import { renderSchoolAndDistrictSelect } from '../../helpers/salesForms';
+import SchoolOrDistrictSelection from './schoolAndDistrictSelection'
+
 import { SCHOOL, DISTRICT, SCHOOL_OR_DISTRICT, COLLECTION_TYPE } from '../../../../constants/salesForm';
 
 export const SchoolAndDistrictFields = ({
@@ -14,8 +15,10 @@ export const SchoolAndDistrictFields = ({
   schools,
   districts,
   handleUpdateField,
-  handleSchoolSearchChange,
-  handleDistrictSearchChange
+  handleSchoolSearchSelectionChange,
+  handleSchoolSearchTextChange,
+  handleDistrictSearchSelectionChange,
+  handleDistrictSearchTextChange
 }) => {
   return(
     <React.Fragment>
@@ -37,18 +40,20 @@ export const SchoolAndDistrictFields = ({
         </div>
         {errors[COLLECTION_TYPE] && <p className="error-text">{errors[COLLECTION_TYPE]}</p>}
       </div>
-      {renderSchoolAndDistrictSelect({
-        errors,
-        schoolNotListed,
-        districtNotListed,
-        selectedSchool,
-        selectedDistrict,
-        schools,
-        districts,
-        handleUpdateField,
-        handleSchoolSearchChange,
-        handleDistrictSearchChange
-      })}
+      <SchoolOrDistrictSelection
+        errors={errors}
+        schoolNotListed={schoolNotListed}
+        districtNotListed={districtNotListed}
+        selectedSchool={selectedSchool}
+        selectedDistrict={selectedDistrict}
+        schools={schools}
+        districts={districts}
+        handleUpdateField={handleUpdateField}
+        handleSchoolSearchSelectionChange={handleSchoolSearchSelectionChange}
+        handleSchoolSearchTextChange={handleSchoolSearchTextChange}
+        handleDistrictSearchSelectionChange={handleDistrictSearchSelectionChange}
+        handleDistrictSearchTextChange={handleDistrictSearchTextChange}
+      />
     </React.Fragment>
   )
 }
