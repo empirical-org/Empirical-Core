@@ -21,7 +21,7 @@ const PromptStepContainer = ({
   const { currentActivity, } = activities
   const { submittedResponses, hasReceivedData, } = session
 
-  if (!currentActivity || !hasReceivedData) return
+  if (!currentActivity || !hasReceivedData) return <span />
 
   // the first step is reading, so we will always start at 2 and therefore want to begin at the 0 index
   const stepNumber = activeStep - 2;
