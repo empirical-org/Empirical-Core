@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { SCHOOL, DISTRICT, SCHOOL_NOT_LISTED, DISTRICT_NOT_LISTED } from '../../../../constants/salesForm';
-import { DropdownInput, Input, Spinner } from '../../../Shared';
+import { DropdownInput, Input } from '../../../Shared';
 import { customSearch } from '../../helpers/salesForms';
 
 export const SchoolAndDistrictSelection = ({
@@ -24,7 +24,7 @@ export const SchoolAndDistrictSelection = ({
   const districtOptions = [{ label: DISTRICT_NOT_LISTED, value: DISTRICT_NOT_LISTED}, ...districts];
   const schoolSearchInput = (
     <DropdownInput
-      className="form-input"
+      className="form-input school-dropdown"
       filterOptions={customSearch}
       handleChange={handleSchoolSearchSelectionChange}
       handleInputChange={handleSchoolSearchTextChange}
@@ -36,7 +36,7 @@ export const SchoolAndDistrictSelection = ({
   );
   const districtSearchInput = (
     <DropdownInput
-      className="form-input"
+      className="form-input district-dropdown"
       filterOptions={customSearch}
       handleChange={handleDistrictSearchSelectionChange}
       handleInputChange={handleDistrictSearchTextChange}

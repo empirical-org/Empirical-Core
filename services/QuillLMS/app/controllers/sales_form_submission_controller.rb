@@ -36,7 +36,7 @@ class SalesFormSubmissionController < ApplicationController
   private def search_query_prefix(search)
     prefix = ''
     if search.present?
-      prefix = search.gsub(/\d{5}/, "").strip()
+      prefix = search.gsub(/\d{5}/, "").strip
     end
     prefix
   end

@@ -41,18 +41,18 @@ export const SchoolAndDistrictFields = ({
         {errors[COLLECTION_TYPE] && <p className="error-text">{errors[COLLECTION_TYPE]}</p>}
       </div>
       <SchoolOrDistrictSelection
-        errors={errors}
-        schoolNotListed={schoolNotListed}
         districtNotListed={districtNotListed}
-        selectedSchool={selectedSchool}
-        selectedDistrict={selectedDistrict}
-        schools={schools}
         districts={districts}
-        handleUpdateField={handleUpdateField}
-        handleSchoolSearchSelectionChange={handleSchoolSearchSelectionChange}
-        handleSchoolSearchTextChange={handleSchoolSearchTextChange}
+        errors={errors}
         handleDistrictSearchSelectionChange={handleDistrictSearchSelectionChange}
         handleDistrictSearchTextChange={handleDistrictSearchTextChange}
+        handleSchoolSearchSelectionChange={handleSchoolSearchSelectionChange}
+        handleSchoolSearchTextChange={handleSchoolSearchTextChange}
+        handleUpdateField={handleUpdateField}
+        schoolNotListed={schoolNotListed}
+        schools={schools}
+        selectedDistrict={selectedDistrict}
+        selectedSchool={selectedSchool}
       />
     </React.Fragment>
   )

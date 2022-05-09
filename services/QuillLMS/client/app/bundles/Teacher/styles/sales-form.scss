@@ -12,6 +12,21 @@
     .form-input {
       width: 600px;
     }
+    .school-dropdown, .district-dropdown {
+      .dropdown {
+        .dropdown__control {
+          .dropdown__value-container {
+            div {
+              .dropdown__input {
+                input {
+                  height: auto;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
     .select-search {
       margin: 16px 0px 16px 0px;
     }

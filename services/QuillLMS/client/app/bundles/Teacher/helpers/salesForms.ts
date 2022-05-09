@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 import { requestFailed } from "../../Staff/helpers/evidence/routingHelpers";
 import { PROPERTIES, NUMERICAL_PROPERTIES, PROPERTY_LABELS } from '../../../constants/salesForm';
 
