@@ -34,6 +34,7 @@ class SalesFormSubmissionController < ApplicationController
   private def search_query_prefix
     search = params[:search]
     return '' if search.blank?
+
     search.gsub(/\d*/,'').squish
   end
 
