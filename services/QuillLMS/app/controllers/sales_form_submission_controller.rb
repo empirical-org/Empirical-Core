@@ -26,19 +26,15 @@ class SalesFormSubmissionController < ApplicationController
   end
 
   def options_for_sales_form
-    type = params[:type]
-    search_query = params[:search]
-    prefix = search_query_prefix(search_query)
-    schools_or_districts = type.classify.constantize.all.where("lower(name) LIKE :prefix", prefix: "#{prefix.downcase}%").limit(10).pluck(:name)
+    klass = params[:type].classify.constantize
+    schools_or_districts = klass.all.where("name ILIKE ?", "#{search_query_prefix}%").limit(10).pluck(:name)
     render json: { options: schools_or_districts }
   end
 
-  private def search_query_prefix(search)
-    prefix = ''
-    if search.present?
-      prefix = search.gsub(/\d{5}/, "").strip
-    end
-    prefix
+  private def search_query_prefix
+    search = params[:search]
+    return '' if search.blank?
+    search.gsub(/\d*/,'').squish
   end
 
   private def sales_form_submission_params

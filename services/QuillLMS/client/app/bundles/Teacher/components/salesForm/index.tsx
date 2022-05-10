@@ -40,12 +40,15 @@ export const SalesForm = ({ type }) => {
         setSchools(response.options);
       }
     });
+  }, [schoolSearchQuery]);
+
+  React.useEffect(() => {
     getSchoolsAndDistricts('district', districtSearchQuery).then((response) => {
       if(response && response.options) {
         setDistricts(response.options);
       }
     });
-  }, [schoolSearchQuery, districtSearchQuery]);
+  }, [districtSearchQuery]);
 
   React.useEffect(() => {
     if (showSnackbar) {
@@ -91,7 +94,7 @@ export const SalesForm = ({ type }) => {
   }
 
 
-  function handleSchoolSearchSelectionChange(option) {
+  function handleSchoolSearchSelectionChange(option: DropdownObjectInterface) {
     if(option.value === SCHOOL_NOT_LISTED) {
       setSchoolNotListed(true);
       setSelectedSchool('');
@@ -100,7 +103,7 @@ export const SalesForm = ({ type }) => {
     }
   };
 
-  function handleDistrictSearchSelectionChange(option) {
+  function handleDistrictSearchSelectionChange(option: DropdownObjectInterface) {
     if(option.value === DISTRICT_NOT_LISTED) {
       setDistrictNotListed(true);
       setSelectedDistrict('');
