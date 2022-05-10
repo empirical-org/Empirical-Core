@@ -17,8 +17,12 @@ export default class CurrentSubscription extends React.Component {
   }
 
   onceYourPlanExpires() {
-    const { subscriptionType, } = this.props
-    return `Once your current ${subscriptionType} subscription expires, you will be downgraded to Quill Basic.`;
+    const { subscriptionType, subscriptionStatus, authorityLevel, } = this.props
+    let text = `Once your current ${subscriptionType} subscription expires, you will be downgraded to Quill Basic.`;
+    if (subscriptionStatus.payment_method === 'Credit Card' && authorityLevel) {
+      text += ' To prevent your subscription from expiring, turn on automatic renewal.'
+    }
+    return text
   }
 
   getCondition() {
@@ -220,8 +224,7 @@ export default class CurrentSubscription extends React.Component {
   }
 
   nextPlanAlertOrButtons(condition, renewDate) {
-
-    const { authorityLevel, subscriptionStatus, } = this.props
+    const { authorityLevel, subscriptionStatus, subscriptionType, } = this.props
     const { last_four } = subscriptionStatus
     const conditionWithAuthorization = `${condition} authorization: ${!!authorityLevel}`;
     const expiration = moment(subscriptionStatus.expiration);
@@ -243,9 +246,9 @@ export default class CurrentSubscription extends React.Component {
         }
         return this.lessThan90Days();
       case 'recurring authorization: false':
-        return this.nextPlanAlert(`Your subscription will be renewed on ${renewDate}.`);
+        return this.nextPlanAlert(`Your ${subscriptionType} subscription will be renewed on ${renewDate}.`);
       case 'recurring authorization: true':
-        return this.nextPlanAlert(`Your subscription will be renewed on ${renewDate} and your card ending in ${last_four} will be charged $${this.getPrice()}.`);
+        return this.nextPlanAlert(`Your ${subscriptionType} subscription will be renewed on ${renewDate} and your card ending in ${last_four} will be charged $${this.getPrice()}.`);
       case 'school expired authorization: true':
         return this.lessThan90Days();
       case 'school expired authorization: false':

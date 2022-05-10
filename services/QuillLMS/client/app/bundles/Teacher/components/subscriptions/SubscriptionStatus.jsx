@@ -92,20 +92,21 @@ const SubscriptionStatus = ({
       break;
     case TEACHER_PREMIUM_TRIAL:
     case TEACHER_PREMIUM_CREDIT:
+    case TEACHER_PREMIUM_SCHOLARSHIP:
       content.premiumCopy = teacherPremiumCopy(subscriptionType, subscriptionStatus, remainingDays);
       image = 'teacher_premium_icon.png';
-      content.status = remainingDays < 0 ? <h2><i className="fas fa-exclamation-triangle" />{`Your ${subscriptionType} subscription has expired`}</h2> : <h2>You have a {subscriptionType} subscription<img alt={`${subscriptionType}`} src={`https://assets.quill.org/images/shared/${image}`} /></h2>
+      const teacherSubDisplayName = subscriptionType === TEACHER_PREMIUM_SCHOLARSHIP ? TEACHER_PREMIUM : subscriptionType
+      content.status = remainingDays < 0 ? <h2><i className="fas fa-exclamation-triangle" />{`Your ${subscriptionType} subscription has expired`}</h2> : <h2>You have a {teacherSubDisplayName} subscription<img alt={`${subscriptionType}`} src={`https://assets.quill.org/images/shared/${image}`} /></h2>
       content.boxColor = remainingDays < 0 ? '#ff4542' : '#348fdf'
       if (remainingDays < 0) {
         content.buttonOrDate = <a className="renew-subscription q-button bg-orange text-white cta-button focus-on-light" href="/premium">Subscribe to Premium</a>
       }
       break;
     case TEACHER_PREMIUM:
-    case TEACHER_PREMIUM_SCHOLARSHIP:
       content.premiumCopy = teacherPremiumCopy(subscriptionType, subscriptionStatus, remainingDays);
       image = 'teacher_premium_icon.png';
       const teacherSubDisplayName = subscriptionType === TEACHER_PREMIUM_SCHOLARSHIP ? TEACHER_PREMIUM : subscriptionType
-      content.status = remainingDays < 0 ? <h2><i className="fas fa-exclamation-triangle" />{`Your ${subscriptionType} subscription has expired`}</h2> : <h2>You have a {teacherSubDisplayName} subscription<img alt={`${subscriptionType}`} src={`https://assets.quill.org/images/shared/${image}`} /></h2>
+      content.status = remainingDays < 0 ? <h2><i className="fas fa-exclamation-triangle" />{`Your ${subscriptionType} subscription has expired`}</h2> : <h2>You have a {subscriptionType} subscription<img alt={`${subscriptionType}`} src={`https://assets.quill.org/images/shared/${image}`} /></h2>
       content.boxColor = remainingDays < 0 ? '#ff4542' : '#348fdf'
       if (remainingDays < 0) {
         content.buttonOrDate = (
