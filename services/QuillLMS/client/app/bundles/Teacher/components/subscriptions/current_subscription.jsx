@@ -267,9 +267,7 @@ export default class CurrentSubscription extends React.Component {
     if (subscriptionStatus.expired) {
       return this.nextPlanAlertOrButtons(`${condition} expired`);
     } else if (subscriptionStatus.account_type === 'Premium Credit') {
-      const content = (<span>Quill Basic - Free
-        <a className="green-link" href="/premium">Change Plan</a>
-      </span>);
+      const content = (<span>Quill Basic - Free</span>);
       return (<TitleAndContent content={content} title="Next Plan" />);
     } else if (condition === 'school sponsored') {
       nextPlan = this.nextPlanAlertOrButtons(condition);
