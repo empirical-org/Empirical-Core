@@ -17,6 +17,12 @@ namespace :activities do
     end
   end
 
+  desc "replace 'archive' flag with 'archived'"
+  task :replace_archive_flag_with_archived => :environment do
+    activities = Activity.where(flags: ['archive'])
+    activities.update_all(flags: ['archived'])
+  end
+
   desc 'Take pipe of CSV with activity names to be set to "private"'
   task set_to_private_by_name: :environment do
     pipe_data = $stdin.read unless $stdin.tty?
