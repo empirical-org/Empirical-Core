@@ -2,19 +2,17 @@ import React from 'react';
 import moment from 'moment';
 import _ from 'lodash';
 
-import ChangePlan from './change_plan';
 import TitleAndContent from './current_subscription_title_and_content';
 import { TEACHER_PREMIUM_TRIAL, SCHOOL_PREMIUM, DISTRICT_PREMIUM } from './constants';
 
-import { Tooltip, helpIcon, } from '../../../Shared/index'
+import { Tooltip, helpIcon, Snackbar, defaultSnackbarTimeout,} from '../../../Shared/index'
 import { requestPost } from '../../../../modules/request';
 
 export default class CurrentSubscription extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showChangePlan: false,
-      recurring: _.get(props.subscriptionStatus, 'recurring'),
+      showAutomaticRenewalModal: false
     };
   }
 
@@ -55,46 +53,6 @@ export default class CurrentSubscription extends React.Component {
     return '80';
   }
 
-  changePlan() {
-    const { showChangePlan, recurring, } = this.state
-    const { subscriptionType, } = this.props
-
-    if (showChangePlan) {
-      return (
-        <ChangePlan
-          changeRecurringStatus={this.changeRecurringStatus}
-          price={this.getPrice()}
-          recurring={recurring}
-          subscriptionType={subscriptionType}
-        />
-      );
-    }
-  }
-
-  changePlanInline() {
-    const { authorityLevel, subscriptionStatus, } = this.props
-    const { showChangePlan, } = this.state
-
-    if (authorityLevel && subscriptionStatus.payment_method === 'Credit Card') {
-      return (
-        <span key={`change-plan${showChangePlan}`}>
-          <button
-            className="green-link interactive-wrapper focus-on-light"
-            onClick={showChangePlan ? this.updateRecurring : this.showChangePlan}
-            type="button"
-          >
-            {showChangePlan ? 'Save Change' : 'Change Plan'}
-          </button>
-          {this.changePlan()}
-        </span>
-      );
-    }
-  }
-
-  changeRecurringStatus = status => {
-    this.setState({ recurring: status, })
-  }
-
   contactSales() {
     return (
       <span>
@@ -105,12 +63,12 @@ export default class CurrentSubscription extends React.Component {
   }
 
   content() {
-    const { subscriptionStatus, purchaserNameOrEmail, subscriptionType } = this.props
+    const { subscriptionStatus, purchaserNameOrEmail, subscriptionType, authorityLevel, } = this.props
 
     const metaRowClassName = 'sub-meta-info';
     if (subscriptionStatus) {
-      const titleContent = (
-        <span>
+      const planTitleContent = (
+        <span className="content-wrapper">
           {subscriptionType}
           <Tooltip
             tooltipText={`You have a ${subscriptionStatus.account_type} subscription`}
@@ -118,14 +76,30 @@ export default class CurrentSubscription extends React.Component {
           />
         </span>
       )
+      let automaticRenewalContent = subscriptionStatus.recurring ? 'On' : 'Off'
+
+      if (authorityLevel && subscriptionStatus.payment_method !== 'Credit Card' && !subscriptionStatus.recurring) {
+        automaticRenewalContent = (
+          <span className="content-wrapper">
+            Off
+            <Tooltip
+              tooltipText="To renew your subscription for next year, contact us at sales@quill.org."
+              tooltipTriggerText={<span><img alt={helpIcon.alt} className="subscription-tooltip" src={helpIcon.src} /></span>}
+            />
+          </span>
+        )
+      }
+
       return ({ metaRows: (
         <div className={metaRowClassName}>
           <div className="meta-section">
             <h3>CURRENT SUBSCRIPTION</h3>
             <div className="flex-row space-between">
               <div>
-                <TitleAndContent content={titleContent} title="Plan" />
+                <TitleAndContent content={planTitleContent} title="Plan" />
                 {purchaserNameOrEmail && purchaserNameOrEmail.length && <TitleAndContent content={purchaserNameOrEmail} title="Purchaser" />}
+                <TitleAndContent content={automaticRenewalContent} title="Automatic Renewal" />
+                {this.renderAutomaticRenewalButton()}
               </div>
               <div>
                 <TitleAndContent content={moment(subscriptionStatus.start_date).format('MMMM Do, YYYY')} title="Start Date" />
@@ -246,6 +220,7 @@ export default class CurrentSubscription extends React.Component {
   }
 
   nextPlanAlertOrButtons(condition, renewDate) {
+
     const { authorityLevel, subscriptionStatus, } = this.props
     const { last_four } = subscriptionStatus
     const conditionWithAuthorization = `${condition} authorization: ${!!authorityLevel}`;
@@ -300,7 +275,7 @@ export default class CurrentSubscription extends React.Component {
       nextPlan = this.nextPlanAlertOrButtons(condition);
     } else if (subscriptionStatus.recurring) {
       nextPlan = (<span>
-        {subscriptionType} - ${this.getPrice()} Annual Subscription {this.changePlanInline()}
+        {subscriptionType} - ${this.getPrice()} Annual Subscription
       </span>);
       const renewDate = moment(subscriptionStatus.expiration).add('days', 1).format('MMMM Do, YYYY');
       nextPlanAlertOrButtons = this.nextPlanAlertOrButtons('recurring', renewDate);
@@ -309,10 +284,10 @@ export default class CurrentSubscription extends React.Component {
       );
     } else if (condition === 'school' && !subscriptionStatus.recurring) {
       nextPlanAlertOrButtons = this.nextPlanAlertOrButtons(`${condition} non-recurring`);
-      nextPlan = <span>Quill Basic - Free {this.changePlanInline()}</span>;
+      nextPlan = <span>Quill Basic - Free</span>;
     } else {
       nextPlanAlertOrButtons = this.nextPlanAlert(this.onceYourPlanExpires());
-      nextPlan = <span>Quill Basic - Free {this.changePlanInline()}</span>;
+      nextPlan = <span>Quill Basic - Free</span>;
     }
     return (
       <div>
@@ -334,25 +309,104 @@ export default class CurrentSubscription extends React.Component {
     );
   }
 
-  showChangePlan = () => { this.setState({ showChangePlan: true, }) }
+  handleClickShowAutomaticRenewalModal = () => { this.setState({ showAutomaticRenewalModal: true, }) }
 
-  updateRecurring = () => {
+  handleClickHideAutomaticRenewalModal = () => { this.setState({ showAutomaticRenewalModal: false, }) }
+
+  showSnackbar = snackbarCopy => {
+    this.setState({ showSnackbar: true, snackbarCopy }, () => {
+      setTimeout(() => this.setState({ showSnackbar: false, }), defaultSnackbarTimeout)
+    })
+  };
+
+  handleUpdateRecurringClick = () => {
     const { subscriptionStatus, updateSubscription } = this.props
-    const { stripe_subscription_id } = subscriptionStatus
-    const { recurring } = this.state
+    const { stripe_subscription_id, recurring, id, } = subscriptionStatus
+    const newRecurringValue = !recurring
+
+    const callback = this.setState({ showAutomaticRenewalModal: false, }, () => {
+      if (newRecurringValue) {
+        this.showSnackbar('Automatic renewal turned on.')
+      }
+    })
 
     if (stripe_subscription_id) {
       const path = '/stripe_integration/subscription_renewals'
-      const cancel_at_period_end = !recurring
+      const cancel_at_period_end = !newRecurringValue
       const data = { stripe_subscription_id, cancel_at_period_end }
-      const success = () => { updateSubscription({ recurring }, _.get(subscriptionStatus, 'id')) }
+      const success = () => { updateSubscription({ recurring: newRecurringValue }, id, callback) }
 
       const error = () => { alert('An error occurred updating the subscription. Please contact hello@quill.org.') }
 
       requestPost(path, data, success, error)
     } else {
-      updateSubscription({ recurring }, _.get(subscriptionStatus, 'id'))
+      const callback = this.setState({
+        showAutomaticRenewalModal: false,
+      }, () => {
+        if (newRecurringValue) {
+          this.showSnackbar('Automatic renewal turned on.')
+        }
+      })
+      updateSubscription({ recurring: newRecurringValue }, id, callback)
     }
+  }
+
+  renderAutomaticRenewalButton() {
+    const { authorityLevel, subscriptionStatus, } = this.props
+
+    if (authorityLevel && subscriptionStatus.payment_method === 'Credit Card') {
+      return (
+        <button
+          className="q-button bg-orange text-white focus-on-light"
+          onClick={this.handleClickShowAutomaticRenewalModal}
+          type="button"
+        >
+          {subscriptionStatus.recurring ? 'Turn Off Automatic Renewal' : 'Turn On Automatic Renewal'}
+        </button>
+      );
+    }
+  }
+
+  renderAutomaticRenewalModal() {
+    const { authorityLevel, subscriptionStatus, subscriptionType, } = this.props
+    const { showAutomaticRenewalModal, } = this.state
+
+    if (!showAutomaticRenewalModal) { return <span /> }
+
+    const { last_four, recurring, } = subscriptionStatus
+    const expiration = moment(subscriptionStatus.expiration).format('MMMM Do, YYYY');
+    const renewDate = moment(subscriptionStatus.expiration).add('days', 1).format('MMMM Do, YYYY');
+
+    let header = 'Turn on automatic renewal?'
+    let body = `By turning on automatic renewal, your subscription to ${subscriptionType} will be renewed on ${renewDate} and your card ending in ${last_four} will be charged $${this.getPrice()}.`
+    let buttonText = 'Turn on'
+
+    if (recurring) {
+      header = 'Turn off automatic renewal?'
+      body = `By turning off automatic renewal, your subscription to ${subscriptionType} will be canceled at the end of the current billing cycle (${expiration}) and you will be downgraded to Quill Basic.`
+      buttonText = 'Turn off'
+    }
+
+    return (
+      <div className="modal-container automatic-renewal-modal-container">
+        <div className="modal-background" />
+        <div className="automatic-renewal-modal quill-modal modal-body">
+          <div>
+            <h3 className="title">{header}</h3>
+          </div>
+          <p>{body}</p>
+          <div className="form-buttons">
+            <button className="quill-button outlined secondary medium focus-on-light" onClick={this.handleClickHideAutomaticRenewalModal} type="button">Cancel</button>
+            <button className="quill-button contained primary medium focus-on-light" onClick={this.handleUpdateRecurringClick} type="button">{buttonText}</button>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  renderSnackbar() {
+    const { showSnackbar, snackbarCopy, } = this.state
+    return <Snackbar text={snackbarCopy} visible={showSnackbar} />
   }
 
   render() {
@@ -362,6 +416,7 @@ export default class CurrentSubscription extends React.Component {
     const content = this.content();
     return (
       <section>
+        {this.renderAutomaticRenewalModal()}
         <h2>Subscription Information</h2>
         <div className="current-subscription-information-and-cta">
           <div className="current-subscription-information">
@@ -369,6 +424,7 @@ export default class CurrentSubscription extends React.Component {
           </div>
           {content.cta}
         </div>
+        {this.renderSnackbar()}
       </section>
     );
   }

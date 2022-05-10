@@ -2,8 +2,6 @@ import React from 'react';
 import moment from 'moment';
 import pluralize from 'pluralize';
 
-import StripeSubscriptionCheckoutSessionButton from '../shared/StripeSubscriptionCheckoutSessionButton';
-
 import {
   TEACHER_PREMIUM_TRIAL,
   TEACHER_PREMIUM_CREDIT,
@@ -13,6 +11,8 @@ import {
   SCHOOL_PREMIUM_SCHOLARSHIP,
   DISTRICT_PREMIUM
 } from './constants';
+
+import StripeSubscriptionCheckoutSessionButton from '../shared/StripeSubscriptionCheckoutSessionButton';
 
 const quillBasicCopy = (
   <span>
@@ -88,9 +88,9 @@ const SubscriptionStatus = ({
     case SCHOOL_PREMIUM_SCHOLARSHIP:
       content.premiumCopy = schoolPremiumCopy(subscriptionType);
       const schoolSubDisplayName = subscriptionType === SCHOOL_PREMIUM_SCHOLARSHIP ? SCHOOL_PREMIUM : subscriptionType
+      image = 'school_premium_icon.png';
       content.status = <h2>You have a {schoolSubDisplayName} subscription<img alt={`${subscriptionType}`} src={`https://assets.quill.org/images/shared/${image}`} /></h2>;
       content.boxColor = '#9c2bde';
-      image = 'school_premium_icon.png';
       if (remainingDays < 90 && !subscriptionStatus.recurring) {
         if (userIsContact) {
           content.buttonOrDate = <button className="q-button bg-orange text-white cta-button" onClick={showPurchaseModal} type="button">Renew School Premium</button>;
