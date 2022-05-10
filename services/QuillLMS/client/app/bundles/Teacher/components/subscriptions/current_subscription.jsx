@@ -18,7 +18,7 @@ export default class CurrentSubscription extends React.Component {
 
   onceYourPlanExpires() {
     const { subscriptionType, } = this.props
-    return `Once your current ${subscriptionType} subscription expires, you will be downgraded to the Quill Basic subscription.`;
+    return `Once your current ${subscriptionType} subscription expires, you will be downgraded to Quill Basic.`;
   }
 
   getCondition() {
@@ -266,9 +266,6 @@ export default class CurrentSubscription extends React.Component {
     const condition = this.getCondition();
     if (subscriptionStatus.expired) {
       return this.nextPlanAlertOrButtons(`${condition} expired`);
-    } else if (subscriptionStatus.account_type === 'Premium Credit') {
-      const content = (<span>Quill Basic - Free</span>);
-      return (<TitleAndContent content={content} title="Next Plan" />);
     } else if (condition === 'school sponsored') {
       nextPlan = this.nextPlanAlertOrButtons(condition);
     } else if (subscriptionStatus.recurring) {

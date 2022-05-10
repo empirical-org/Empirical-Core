@@ -31,7 +31,20 @@ function schoolPremiumCopy(subscriptionType) {
   )
 };
 
-function teacherPremiumCopy(subscriptionType) {
+function teacherPremiumCopy(subscriptionType, subscriptionStatus, remainingDays) {
+  if (remainingDays < 0) {
+    const expiration = moment(subscriptionStatus.expiration)
+    const dateFormat = "MM/DD/YY"
+    const formattedStartDate = subscriptionStatus && moment(subscriptionStatus.start_date).format(dateFormat)
+    const formattedExpirationDate = expiration && expiration.format(dateFormat)
+
+    return (
+      <span>
+        <strong>Your {subscriptionType} subscription ({formattedStartDate} - {formattedExpirationDate}) has expired and you are back to Quill Basic.</strong>
+        {quillBasicCopy}
+      </span>
+    )
+  }
   return (
     <span>
       With {subscriptionType}, you will have access to all of Quill’s free reports as well as additional advanced reporting.
@@ -48,7 +61,6 @@ const SubscriptionStatus = ({
   userIsContact,
 }) => {
 
-  const content = {};
   let image
   let expiration
   let remainingDays
@@ -59,6 +71,15 @@ const SubscriptionStatus = ({
     expiration = moment(subscriptionStatus.expiration);
     remainingDays = expiration.diff(moment(), 'days');
   }
+
+  const content = {
+    status: <h2>{`You have a ${subscriptionTypeText} subscription`}<img alt={`${subscriptionTypeText}`} src={`https://assets.quill.org/images/shared/${image}`} /></h2>,
+    buttonOrDate: (
+      <span className="expiration-date">
+        <span>Valid Until:</span> <span>{`${expiration.format('MMMM Do, YYYY')}`}</span><span className="time-left-in-days"> | {`${remainingDays} ${pluralize('days', remainingDays)}`}</span>
+      </span>
+    )
+  };
 
   switch (subscriptionType) {
     case 'Basic':
@@ -71,16 +92,33 @@ const SubscriptionStatus = ({
       break;
     case TEACHER_PREMIUM_TRIAL:
     case TEACHER_PREMIUM_CREDIT:
+      content.premiumCopy = teacherPremiumCopy(subscriptionType, subscriptionStatus, remainingDays);
+      image = 'teacher_premium_icon.png';
+      content.status = remainingDays < 0 ? <h2><i className="fas fa-exclamation-triangle" />{`Your ${subscriptionType} subscription has expired`}</h2> : <h2>You have a {subscriptionType} subscription<img alt={`${subscriptionType}`} src={`https://assets.quill.org/images/shared/${image}`} /></h2>
+      content.boxColor = remainingDays < 0 ? '#ff4542' : '#348fdf'
+      if (remainingDays < 0) {
+        content.buttonOrDate = <a className="renew-subscription q-button bg-orange text-white cta-button focus-on-light" href="/premium">Subscribe to Premium</a>
+      }
+      break;
     case TEACHER_PREMIUM:
     case TEACHER_PREMIUM_SCHOLARSHIP:
-      content.premiumCopy = teacherPremiumCopy(subscriptionType);
+      content.premiumCopy = teacherPremiumCopy(subscriptionType, subscriptionStatus, remainingDays);
       image = 'teacher_premium_icon.png';
       const teacherSubDisplayName = subscriptionType === TEACHER_PREMIUM_SCHOLARSHIP ? TEACHER_PREMIUM : subscriptionType
-      content.status = <h2>You have a {teacherSubDisplayName} subscription<img alt={`${subscriptionType}`} src={`https://assets.quill.org/images/shared/${image}`} /></h2>;
+      content.status = remainingDays < 0 ? <h2><i className="fas fa-exclamation-triangle" />{`Your ${subscriptionType} subscription has expired`}</h2> : <h2>You have a {teacherSubDisplayName} subscription<img alt={`${subscriptionType}`} src={`https://assets.quill.org/images/shared/${image}`} /></h2>
+      content.boxColor = remainingDays < 0 ? '#ff4542' : '#348fdf'
       if (remainingDays < 0) {
-        content.boxColor = '#ff4542';
-      } else {
-        content.boxColor = '#348fdf';
+        content.buttonOrDate = (
+          <StripeSubscriptionCheckoutSessionButton
+            buttonClassName="renew-subscription q-button bg-orange text-white cta-button focus-on-light"
+            buttonText='Renew Subscription'
+            cancelPath='subscriptions'
+            customerEmail={subscriptionStatus.customer_email}
+            stripePlan={stripeTeacherPlan}
+            userIsEligibleForNewSubscription={true}
+            userIsSignedIn={true}
+          />
+        )
       }
       break;
     case SCHOOL_PREMIUM:
@@ -100,36 +138,6 @@ const SubscriptionStatus = ({
       }
       break;
   }
-
-  if (remainingDays < 0) {
-    const dateFormat = "MM/DD/YY"
-    const formattedStartDate = subscriptionStatus && moment(subscriptionStatus.start_date).format(dateFormat)
-    const formattedExpirationDate = expiration && expiration.format(dateFormat)
-    content.boxColor = '#ff4542';
-    content.status = <h2><i className="fas fa-exclamation-triangle" />{`Your ${subscriptionType} subscription has expired`}</h2>;
-    content.premiumCopy = (
-      <span>
-        <strong>Your {subscriptionType} subscription ({formattedStartDate} - {formattedExpirationDate}) has expired and you are back to Quill Basic.</strong>
-        {quillBasicCopy}
-      </span>);
-
-    content.buttonOrDate = (
-      <StripeSubscriptionCheckoutSessionButton
-        buttonClassName="renew-subscription q-button bg-orange text-white cta-button"
-        buttonText='Renew Subscription'
-        cancelPath='subscriptions'
-        customerEmail={subscriptionStatus.customer_email}
-        stripePlan={stripeTeacherPlan}
-        userIsEligibleForNewSubscription={true}
-        userIsSignedIn={true}
-      />
-    )
-  }
-
-  content.buttonOrDate = content.buttonOrDate || (<span className="expiration-date">
-    <span>Valid Until:</span> <span>{`${expiration.format('MMMM Do, YYYY')}`}</span><span className="time-left-in-days"> | {`${remainingDays} ${pluralize('days', remainingDays)}`}</span>
-  </span>);
-  content.status = content.status || <h2>{`You have a ${subscriptionTypeText} subscription`}<img alt={`${subscriptionTypeText}`} src={`https://assets.quill.org/images/shared/${image}`} /></h2>;
 
   return (
     <section className="subscription-status">
