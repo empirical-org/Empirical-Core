@@ -33,8 +33,6 @@ namespace :schools do
     ) do |row|
       school_hash = row.to_hash
       school = School.where(nces_id: school_hash['NCESSCH']).first_or_initialize
-      school.lea_id = school_hash['LEAID']
-      school.leanm = school_hash['LEA_NAME'].titleize
       school.name = school_hash['SCH_NAME'].titleize
       school.phone = school_hash['PHONE']
       school.mail_street = school_hash['MSTREET1'].titleize
@@ -73,7 +71,6 @@ namespace :schools do
   desc 'Titleize all school name, address and other relevant data points'
   task :titleize => :environment do
     School.all.each do |school|
-      school.leanm = school.leanm&.titleize
       school.name = school.name&.titleize
       school.mail_street = school.mail_street&.titleize
       school.mail_city = school.mail_city&.titleize

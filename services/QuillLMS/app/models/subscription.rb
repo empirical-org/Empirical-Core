@@ -38,7 +38,6 @@ class Subscription < ApplicationRecord
   has_many :users, through: :user_subscriptions
   has_many :school_subscriptions
   has_many :credit_transactions, as: :source
-  has_many :users, through: :user_subscriptions
   has_many :schools, through: :school_subscriptions
   belongs_to :purchaser, class_name: "User"
   belongs_to :subscription_type
@@ -95,16 +94,21 @@ class Subscription < ApplicationRecord
 
   validates :stripe_invoice_id, allow_blank: true, stripe_uid: { prefix: :in }
 
-  scope :active, -> { not_expired.where(de_activated_date: nil).order(expiration: :asc) }
-  scope :expired, -> { where('expiration <= ?', Date.today) }
-  scope :not_expired, -> { where('expiration > ?', Date.today) }
+  scope :active, -> { not_expired.not_de_activated.order(expiration: :asc) }
+  scope :expired, -> { where('expiration <= ?', Date.current) }
+  scope :not_expired, -> { where('expiration > ?', Date.current) }
+  scope :not_de_activated, -> { where(de_activated_date: nil) }
+  scope :recurring, -> { where(recurring: true) }
+  scope :not_recurring, -> { where(recurring: false) }
+  scope :not_stripe, -> { where(stripe_invoice_id: nil) }
+  scope :started, -> { where("start_date <= ?", Date.current) }
 
   def is_trial?
     account_type && TRIAL_TYPES.include?(account_type)
   end
 
   def expired?
-    expiration <= Date.today
+    expiration <= Date.current
   end
 
   def check_if_purchaser_email_is_in_database
@@ -144,9 +148,9 @@ class Subscription < ApplicationRecord
     elsif user_subscriptions.ids.count > 1
       report_to_new_relic("Sub credited and expired with multiple users. Subscription: #{id}")
     else
-      update(de_activated_date: Date.today, recurring: false)
+      update(de_activated_date: Date.current, recurring: false)
       # subtract later of start date or today's date from expiration date to calculate amount to credit
-      # amount_to_credit = self.expiration - [self.start_date, Date.today].max
+      # amount_to_credit = self.expiration - [self.start_date, Date.current].max
       amount_to_credit = expiration - start_date
       CreditTransaction.create(user_id: user_subscriptions.first.user_id, amount: amount_to_credit.to_i, source: self)
     end
@@ -154,14 +158,17 @@ class Subscription < ApplicationRecord
 
   def self.expired_today_or_previously_and_recurring
     Subscription
-      .where(stripe_invoice_id: nil, recurring: true, de_activated_date: nil)
       .expired
+      .not_de_activated
+      .not_stripe
+      .recurring
   end
 
   def self.expired_today_or_previously_and_not_recurring
     Subscription
-      .where(recurring: false, de_activated_date: nil)
       .expired
+      .not_de_activated
+      .not_recurring
   end
 
   def self.school_or_user_has_ever_paid?(school_or_user)
@@ -171,8 +178,9 @@ class Subscription < ApplicationRecord
   end
 
   def self.new_school_premium_sub(school, user)
-    expiration = school_or_user_has_ever_paid?(school) ? (Date.today + 1.year) : promotional_dates[:expiration]
-    new(expiration: expiration, start_date: Date.today, account_type: 'School Paid', recurring: true, purchaser_id: user.id)
+    today = Date.current
+    expiration = school_or_user_has_ever_paid?(school) ? (today + 1.year) : promotional_dates[:expiration]
+    new(expiration: expiration, start_date: today, account_type: 'School Paid', recurring: true, purchaser_id: user.id)
   end
 
   def self.give_school_premium_if_charge_succeeds(school, user)
@@ -188,11 +196,8 @@ class Subscription < ApplicationRecord
 
   def self.redemption_start_date(school_or_user)
     last_subscription = school_or_user.subscriptions.active.first
-    if last_subscription.present?
-      last_subscription.expiration
-    else
-      Date.today
-    end
+
+    last_subscription.present? ? last_subscription.expiration : Date.current
   end
 
   def self.default_expiration_date(school_or_user)
@@ -202,7 +207,7 @@ class Subscription < ApplicationRecord
     elsif school_or_user.instance_of?(School)
       promotional_dates[:expiration]
     else
-      Date.today + 1.year
+      Date.current + 1.year
     end
   end
 
@@ -243,7 +248,7 @@ class Subscription < ApplicationRecord
 
   def self.update_todays_expired_recurring_subscriptions
     expired_today_or_previously_and_recurring.each do |subscription|
-      subscription.update(recurring: false, de_activated_date: Date.today)
+      subscription.update(recurring: false, de_activated_date: Date.current)
 
       next unless subscription.users.count == 1
       next unless subscription.users.first.subscriptions.active.empty?
@@ -259,11 +264,12 @@ class Subscription < ApplicationRecord
   end
 
   def self.promotional_dates
+    today = Date.current
     # available to users who have never paid before
     # if today's month is before july, it expires end of June, else December
-    exp_month_and_day = Date.today.month < 7 ? "30-6" : "31-12"
-    {expiration: Date::strptime("#{exp_month_and_day}-#{Date.today.year+1}","%d-%m-%Y"),
-    start_date: Date.today}
+    exp_month_and_day = today.month < 7 ? "30-6" : "31-12"
+
+    { start_date: today, expiration: Date::strptime("#{exp_month_and_day}-#{today.year + 1}","%d-%m-%Y") }
   end
 
   protected def charge_user_for_school_premium(school)
@@ -273,26 +279,28 @@ class Subscription < ApplicationRecord
   end
 
   def self.set_premium_expiration_and_start_date(school_or_user)
+    today = Date.current
+
     if !Subscription.school_or_user_has_ever_paid?(school_or_user) && school_or_user.instance_of?(School)
       # We end their trial if they have one
-      school_or_user.subscription&.update(de_activated_date: Date.today)
+      school_or_user.subscription&.update(de_activated_date: today)
       # Then they get the promotional subscription
       promotional_dates
     elsif school_or_user.subscription
       # Expire one year later, start at end of sub
       old_sub = school_or_user.subscription
-      {expiration: old_sub.expiration + 1.year, start_date: old_sub.expiration}
+      { expiration: old_sub.expiration + 1.year, start_date: old_sub.expiration }
     else
-      # sub lasts one year from Date.today
-      {expiration: Date.today + 1.year, start_date: Date.today}
+      # sub lasts one year from Date.current
+      { expiration: today + 1.year, start_date: today }
     end
   end
 
   def self.set_trial_expiration_and_start_date(user=nil)
-    expiration = Date.today + 30
-    start_date = Date.today
+    start_date = Date.current
+    expiration = start_date + 30
     existing_sub = user&.subscription
-    if existing_sub&.expiration && existing_sub.expiration > Date.today
+    if existing_sub&.expiration && existing_sub.expiration > start_date
       start_date = existing_sub.expiration + 1
       expiration = start_date + 30
     end
@@ -300,7 +308,8 @@ class Subscription < ApplicationRecord
   end
 
   def self.set_cb_lifetime_expiration_and_start_date
-    {expiration: Date.today + CB_LIFETIME_DURATION, start_date: Date.today}
+    today = Date.current
+    { expiration: today + CB_LIFETIME_DURATION, start_date: today }
   end
 
   protected def report_to_new_relic(error)
@@ -314,7 +323,7 @@ class Subscription < ApplicationRecord
   protected def set_null_start_date_to_today
     return if start_date
 
-    self.start_date = Date.today
+    self.start_date = Date.current
   end
 
   def self.create_with_school_or_user_join(school_or_user_id, type, attributes)

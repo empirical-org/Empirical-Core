@@ -11,7 +11,7 @@ class SerializeVitallySalesUser
 
   # rubocop:disable Metrics/CyclomaticComplexity
   def data
-    current_time = Time.zone.now
+    current_time = Time.current
     school_year_start = School.school_year_start(current_time)
     school_year_end = school_year_start + 1.year
     active_students = active_students_query(@user).count
@@ -106,7 +106,7 @@ class SerializeVitallySalesUser
   end
 
   private def get_from_cache(key)
-    last_school_year = School.school_year_start(Date.today - 1.year).year
+    last_school_year = School.school_year_start(Date.current - 1.year).year
     cached_data = CacheVitallyTeacherData.get(@user.id, last_school_year)
     if cached_data.present?
       parsed_data = JSON.parse(cached_data)

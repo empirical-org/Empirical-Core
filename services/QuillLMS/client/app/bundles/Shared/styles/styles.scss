@@ -30,3 +30,9 @@
   border: none;
   padding: 0px;
 }
+
+.no-focus-outline {
+  &:focus {
+    outline: none;
+  }
+}

@@ -86,7 +86,6 @@ class Activity < ApplicationRecord
   scope :gamma_user, -> { where("'#{GAMMA}' = ANY(activities.flags) OR '#{PRODUCTION}' = ANY(activities.flags)")}
   scope :beta_user, -> { where("'#{BETA}' = ANY(activities.flags) OR '#{GAMMA}' = ANY(activities.flags) OR '#{PRODUCTION}' = ANY(activities.flags)")}
   scope :alpha_user, -> { where("'#{ALPHA}' = ANY(activities.flags) OR '#{BETA}' = ANY(activities.flags) OR '#{GAMMA}' = ANY(activities.flags) OR '#{PRODUCTION}' = ANY(activities.flags)")}
-  scope :not_archived, -> {where("'#{ARCHIVED}' != ANY(activities.flags)")}
 
   scope :with_classification, -> { includes(:classification).joins(:classification) }
 

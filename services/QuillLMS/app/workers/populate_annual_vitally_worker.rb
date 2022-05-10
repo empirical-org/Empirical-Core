@@ -9,7 +9,7 @@ class PopulateAnnualVitallyWorker
     # Don't synchronize non-production data
     return unless ENV['SYNC_TO_VITALLY'] == 'true'
 
-    year_to_sync = School.school_year_start(Date.today - 1.year).year
+    year_to_sync = School.school_year_start(Date.current - 1.year).year
     schools_to_sync.each_slice(100) do |school_batch|
       school_ids = school_batch.map(&:id)
       SyncVitallyPastYearAccountsWorker.perform_async(school_ids, year_to_sync)

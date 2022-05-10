@@ -771,7 +771,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
   end
 
   describe '#activity_feed' do
-    let!(:activity_session) {create(:activity_session, completed_at: Time.now) }
+    let!(:activity_session) {create(:activity_session, completed_at: Time.current) }
     let!(:teacher) { activity_session.teachers.first }
 
     before do

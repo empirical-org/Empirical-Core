@@ -58,7 +58,7 @@ class CsvExport < ApplicationRecord
   end
 
   def mark_sent!
-    self.emailed_at = Time.now
+    self.emailed_at = Time.current
     save!
   end
 

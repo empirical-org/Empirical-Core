@@ -11,7 +11,7 @@ class PreviousYearTeacherDatum
   def calculate_data
     school_year_start = Date.new(@year, 7, 1)
     school_year_end = school_year_start + 1.year
-    raise "Cannot calculate data for a school year that is still ongoing." if school_year_end > Time.now
+    raise "Cannot calculate data for a school year that is still ongoing." if school_year_end > Time.current
 
     active_students = active_students_query(@user).where("activity_sessions.completed_at >= ? and activity_sessions.completed_at < ?", school_year_start, school_year_end).count
     activities_assigned = activities_assigned_in_year_count(@user, school_year_start, school_year_end)

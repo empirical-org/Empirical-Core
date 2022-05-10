@@ -2,7 +2,8 @@
 
 exports[`PostActivitySlide Component should match snapshot 1`] = `
 <div
-  className="post-activity-slide-container"
+  className="post-activity-slide-container no-focus-outline"
+  tabIndex={-1}
 >
   <section
     id="information-section"

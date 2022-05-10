@@ -5,6 +5,7 @@ import { convertNodeToElement } from 'react-html-parser'
 
 import RightPanel from './rightPanel'
 import ActivityFollowUp from './activityFollowUp';
+import ReadPassageContainer from './readPassageContainer'
 
 import { explanationData } from "../activitySlides/explanationData";
 import ExplanationSlide from "../activitySlides/explanationSlide";
@@ -19,7 +20,7 @@ import { ActivitiesReducerState } from '../../reducers/activitiesReducer'
 import { SessionReducerState } from '../../reducers/sessionReducer'
 import getParameterByName from '../../helpers/getParameterByName';
 import { getUrlParam, onMobile, outOfAttemptsForActivePrompt, getCurrentStepDataForEventTracking, everyOtherStepCompleted, getStrippedPassageHighlights, getLastSubmittedResponse } from '../../helpers/containerActionHelpers';
-import { renderReadPassageContainer, renderDirections} from '../../helpers/containerRenderHelpers';
+import { renderDirections} from '../../helpers/containerRenderHelpers';
 import { postTurkSession } from '../../utils/turkAPI';
 import { roundMillisecondsToSeconds, KEYDOWN, MOUSEMOVE, MOUSEDOWN, CLICK, KEYPRESS, VISIBILITYCHANGE, READ_PASSAGE_STEP_NUMBER, SO_PASSAGE_STEP_NUMBER } from '../../../Shared/index'
 
@@ -166,7 +167,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
 
     if (nextStep) {
       // don't activate a step if it's already active
-      if (activeStep == nextStep) return
+      if (activeStep === nextStep) return
       // // don't activate nextSteps before Done reading button has been clicked
       if (nextStep && nextStep > 1 && !completedSteps.includes(READ_PASSAGE_STEP_NUMBER)) return
 
@@ -475,11 +476,19 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
       const highlightIncludesElement = strippedPassageHighlights.find(ph => ph.includes(stringifiedInnerElements)) // handles case where passage highlight spans more than one paragraph
       const elementIncludesHighlight = strippedPassageHighlights.find(ph => stringifiedInnerElements.includes(ph)) // handles case where passage highlight is only part of paragraph
       if (highlightIncludesElement) {
-        return <p><span className="passage-highlight">{stringifiedInnerElements}</span></p>
+        return (
+          <p>
+            <span className="passage-highlight">
+              <span className="sr-only">(yellow underlined text begins here)</span>
+              {stringifiedInnerElements}
+              <span className="sr-only">(yellow underlined text ends here)</span>
+            </span>
+          </p>
+        )
       }
       if (elementIncludesHighlight) {
         let newStringifiedInnerElements = stringifiedInnerElements
-        strippedPassageHighlights.forEach(ph => newStringifiedInnerElements = newStringifiedInnerElements.replace(ph, `<span class="passage-highlight">${ph}</span>`))
+        strippedPassageHighlights.forEach(ph => newStringifiedInnerElements = newStringifiedInnerElements.replace(ph, `<span class="passage-highlight"><span class="sr-only">(yellow underlined text begins here)</span>${ph}<span class="sr-only">(yellow underlined text ends here)</span></span>`))
         return <p dangerouslySetInnerHTML={{ __html: newStringifiedInnerElements }} />
       }
     }
@@ -544,16 +553,16 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
         hasStartedReadPassageStep,
         hasStartedPromptSteps
       })}
-      {renderReadPassageContainer({
-        activities,
-        activeStep,
-        handleReadPassageContainerScroll,
-        hasStartedPromptSteps,
-        hasStartedReadPassageStep,
-        scrolledToEndOfPassage,
-        showReadTheDirectionsButton,
-        transformMarkTags: transformMarkTags
-      })}
+      <ReadPassageContainer
+        activeStep={activeStep}
+        activities={activities}
+        handleReadPassageContainerScroll={handleReadPassageContainerScroll}
+        hasStartedPromptSteps={hasStartedPromptSteps}
+        hasStartedReadPassageStep={hasStartedReadPassageStep}
+        scrolledToEndOfPassage={scrolledToEndOfPassage}
+        showReadTheDirectionsButton={showReadTheDirectionsButton}
+        transformMarkTags={transformMarkTags}
+      />
       <RightPanel
         activateStep={activateStep}
         activeStep={activeStep}

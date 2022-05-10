@@ -7,7 +7,9 @@ RSpec.describe StripeIntegration::Webhooks::SubscriptionUpdater do
 
   before { allow(stripe_subscription).to receive(:latest_invoice).and_return(stripe_invoice_id) }
 
-  subject { described_class.run(stripe_subscription) }
+  let(:previous_attributes) { nil }
+
+  subject { described_class.run(stripe_subscription, previous_attributes) }
 
   context 'turn renew off' do
     let!(:subscription) { create(:subscription, :recurring, stripe_invoice_id: stripe_invoice_id) }
@@ -35,5 +37,11 @@ RSpec.describe StripeIntegration::Webhooks::SubscriptionUpdater do
 
   context 'no subscription exists in the db' do
     it { expect { subject }.to raise_error described_class::SubscriptionNotFoundError }
+
+    context 'stripe subscription was previously incomplete' do
+      let(:previous_attributes) { Stripe::StripeObject.construct_from(status: described_class::INCOMPLETE) }
+
+      it { expect { subject }.not_to raise_error }
+    end
   end
 end

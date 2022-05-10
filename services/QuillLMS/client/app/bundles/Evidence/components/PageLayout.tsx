@@ -17,7 +17,7 @@ const PageLayout: React.StatelessComponent<{}> = (props: any) => {
   }
 
   return (
-    <div aria-live="polite" className="app-container">
+    <div className="app-container">
       <ScreenreaderInstructions />
       <button className="skip-main" onClick={handleSkipToMainContentClick} type="button">Skip to main content</button>
       <Header />

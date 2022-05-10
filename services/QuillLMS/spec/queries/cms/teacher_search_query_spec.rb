@@ -8,7 +8,7 @@ describe Cms::TeacherSearchQuery do
   after { Timecop.return }
 
   describe '#run' do
-    todays_date = Date.today
+    todays_date = Date.current
 
     let!(:user) { create(:user, last_sign_in: todays_date) }
     let!(:school) { create(:school) }

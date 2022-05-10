@@ -143,7 +143,7 @@ describe Cms::SchoolsController do
     describe 'when there is no existing subscription' do
       it 'should create a new subscription that starts today and ends at the promotional expiration date' do
         get :new_subscription, params: { id: school_with_no_subscription.id }
-        expect(assigns(:subscription).start_date).to eq Date.today
+        expect(assigns(:subscription).start_date).to eq Date.current
         expect(assigns(:subscription).expiration).to eq Subscription.promotional_dates[:expiration]
       end
     end

@@ -18,7 +18,7 @@ describe SyncVitallyWorker, type: :worker do
     end
 
     it "#will kick off the PopulateAnnualVitallyWorker if it is July 1" do
-      allow(Date).to receive(:today).and_return Date.new(2020,7,1)
+      allow(Date).to receive(:current).and_return Date.new(2020,7,1)
       ENV['SYNC_TO_VITALLY'] = 'true'
       school = create(:school)
       user = create(:user)
@@ -27,7 +27,7 @@ describe SyncVitallyWorker, type: :worker do
     end
 
     it "#will NOT kick off the PopulateAnnualVitallyWorker if it is NOT July 1" do
-      allow(Date).to receive(:today).and_return Date.new(2020,7,2)
+      allow(Date).to receive(:current).and_return Date.new(2020,7,2)
       ENV['SYNC_TO_VITALLY'] = 'true'
       school = create(:school)
       user = create(:user)

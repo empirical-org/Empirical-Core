@@ -45,7 +45,7 @@ const feedbackForInnerHTML = (feedback) => {
 }
 
 const Feedback: React.SFC = ({ lastSubmittedResponse, prompt, submittedResponses, customFeedback, customFeedbackKey, reportAProblem, }: any) => {
-  const { entry, optimal, hint } = lastSubmittedResponse
+  const { entry, optimal, hint, highlight, } = lastSubmittedResponse
   const [reportAProblemExpanded, setReportAProblemExpanded] = React.useState(false)
   const [reportSubmitted, setReportSubmitted] = React.useState(false)
 
@@ -140,8 +140,23 @@ const Feedback: React.SFC = ({ lastSubmittedResponse, prompt, submittedResponses
     )
   }
 
+
+  let screenreaderPassageHighlightText
+  let screenreaderResponseHighlightText
+
+  const passageHighlights = highlight && highlight.filter(h => h.type === 'passage').map(h => stripHtml(h.text))
+  const responseHighlights = highlight && highlight.filter(h => h.type === 'response').map(h => stripHtml(h.text))
+
+  if (passageHighlights && passageHighlights.length) {
+    screenreaderPassageHighlightText = <p className="sr-only">Screenreader users, the feedback you just heard is referring to the following section(s) of the passage: {passageHighlights.join('; ')}</p>
+  }
+
+  if (responseHighlights && responseHighlights.length) {
+    screenreaderResponseHighlightText = <p className="sr-only">Screenreader users, the feedback you just heard is referring to the following word(s) of your response: {responseHighlights.join('; ')}</p>
+  }
+
   return (
-    <div className={`feedback-section ${reportAProblemExpanded ? 'expanded' : ''}`}>
+    <div aria-live="polite" className={`feedback-section ${reportAProblemExpanded ? 'expanded' : ''}`} role="status">
       <ReactCSSTransitionReplace
         transitionEnterTimeout={1000}
         transitionLeaveTimeout={400}
@@ -153,7 +168,9 @@ const Feedback: React.SFC = ({ lastSubmittedResponse, prompt, submittedResponses
               <img alt={imageAlt} src={imageSrc} />
               <p>Feedback</p>
             </div>
-            <p className="feedback-text" dangerouslySetInnerHTML={feedbackForInnerHTML(feedback)} role="status" />
+            <p className="feedback-text" dangerouslySetInnerHTML={feedbackForInnerHTML(feedback)} />
+            {screenreaderPassageHighlightText}
+            {screenreaderResponseHighlightText}
             <div className="report-a-problem-button-container">{reportAProblemButton}</div>
           </div>
           {reportAProblemSection}

@@ -27,7 +27,7 @@ describe 'SerializeVitallySalesAccount' do
       activities_finished: 1,
       activities_per_student: 1.0
     }
-    year = School.school_year_start(Date.today - 1.year).year
+    year = School.school_year_start(1.year.ago).year
     CacheVitallySchoolData.set(school.id, year, previous_year_data.to_json)
   end
 
@@ -150,9 +150,9 @@ describe 'SerializeVitallySalesAccount' do
   end
 
   it 'generates student data' do
-    active_student = create(:user, role: 'student', last_sign_in: Date.today)
-    active_old_student = create(:user, role: 'student', last_sign_in: Date.today - 2.year)
-    inactive_student = create(:user, role: 'student', last_sign_in: Date.today - 2.year)
+    active_student = create(:user, role: 'student', last_sign_in: Date.current)
+    active_old_student = create(:user, role: 'student', last_sign_in: 2.years.ago)
+    inactive_student = create(:user, role: 'student', last_sign_in: 2.years.ago)
     teacher = create(:user, role: 'teacher')
     teacher2 = create(:user, role: 'teacher')
     classroom = create(:classroom)
@@ -172,7 +172,7 @@ describe 'SerializeVitallySalesAccount' do
       user: active_old_student,
       classroom_unit: old_classroom_unit,
       state: 'finished',
-      updated_at: Time.now - 2.year
+      updated_at: 2.year.ago
     )
     last_activity_session = create(:activity_session,
       user: active_student,
