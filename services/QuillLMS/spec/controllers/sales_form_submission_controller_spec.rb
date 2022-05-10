@@ -25,7 +25,7 @@ describe SalesFormSubmissionController, type: :controller do
           comment: ''
         }
       }
-      expect(response).to have_http_status(204)
+      expect(response).to have_http_status(:no_content)
     end
   end
 
