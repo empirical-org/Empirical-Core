@@ -183,7 +183,8 @@ class SegmentAnalytics
       traits: {
         premium_state: user.premium_state,
         premium_type: user.subscription&.account_type,
-        auditor: user.auditor?
+        auditor: user.auditor?,
+        district: user.school&.district&.name
       },
       integrations: integration_rules(user.id)
     }
