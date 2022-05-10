@@ -46,6 +46,9 @@ class StudentResponse < ApplicationRecord
   has_many :student_responses_concepts
   has_many :concepts, through: :student_responses_concepts
 
+  has_many :student_response_concept_results
+  has_many :concept_results, through: :student_response_concept_results
+
   validates :correct, inclusion: {in: [true, false]}
   validates_presence_of :attempt_number, :question_number
 
@@ -96,36 +99,29 @@ class StudentResponse < ApplicationRecord
     )
   end
 
-  def self.extract_extra_metadata(metadata)
-    extra_metadata = metadata.except(KNOWN_METADATA_KEYS)
-    StudentResponseExtraMetadata.new(metadata: extra_metadata)
-  end
+  def self.create_from_concept_result(concept_result)
+    return if concept_result.student_response
 
-  def self.bulk_create_from_json(data_hash_array)
-    normalized_data_hash = roll_up_concepts(data_hash_array)
+    student_response = StudentResponse.find_by(
+      activity_session: concept_result.activity_session,
+      attempt_number: concept_results.metadata[:attemptNumber],
+      question_number: concept_results.metadata[:questionNumber]
+    )
 
-    normalized_data_hash.each { |data_hash| create_from_json(data_hash) }
-  end
+    StudentResponse.transaction do
+      unless student_response
+        student_response = new(
 
-  # Takes an input of hashes representing old-style ConceptResult
-  # and rolls them up so that a single response has only one entry
-  # plus an array of concept_ids that match to it
-  def self.roll_up_concepts(data_hash_array)
-    data_hash_array.reduce({}) do |rollup, value|
-      key = "#{value[:questionNumber]}-#{value[:attemptNumber]}"
-      if rollup[key]
-        rollup[key][:concept_ids].push(value[:concept_id])
-      else
-        rollup[key] = value.merge(concept_ids: [value[:concept_id]])
+        )
       end
-    end.values
-  end
 
-  def self.calculate_question_from_hash(data_hash)
-    activity_session = ActivitySession.find(data_hash[:activity_session_id])
-    question_index = data_hash[:metadata][:questionNumber] - 1
-    question_uid = activity_session.activity.data['questions'][question_index]['key']
-    Question.find_by_uid(question_uid)
+      unless student_response.concepts.include?(concept_result.concept)
+        student_response.concepts.append(concept_result.concept)
+      end
+
+      student_response.concept_results.append(concept_result)
+      student_response.save!
+    end
   end
 
   def legacy_format
@@ -142,8 +138,40 @@ class StudentResponse < ApplicationRecord
           directions: student_response_directions_text.text,
           prompt: student_response_prompt_text.text,
           questionNumber: question_number
-        }
+        }.merge(student_response_extra_metadata || {})
       }
     end
+  end
+
+  def self.bulk_create_from_json(data_hash_array)
+    normalized_data_hash = roll_up_concepts(data_hash_array)
+
+    normalized_data_hash.each { |data_hash| create_from_json(data_hash) }
+  end
+
+  private_class_method def self.extract_extra_metadata(metadata)
+    extra_metadata = metadata.except(KNOWN_METADATA_KEYS)
+    StudentResponseExtraMetadata.new(metadata: extra_metadata)
+  end
+
+  # Takes an input of hashes representing old-style ConceptResult
+  # and rolls them up so that a single response has only one entry
+  # plus an array of concept_ids that match to it
+  private_class_method def self.roll_up_concepts(data_hash_array)
+    data_hash_array.reduce({}) do |rollup, value|
+      key = "#{value[:questionNumber]}-#{value[:attemptNumber]}"
+      if rollup[key]
+        rollup[key][:concept_ids].push(value[:concept_id])
+      else
+        rollup[key] = value.merge(concept_ids: [value[:concept_id]])
+      end
+    end.values
+  end
+
+  private_class_method def self.calculate_question_from_hash(data_hash)
+    activity_session = ActivitySession.find(data_hash[:activity_session_id])
+    question_index = data_hash[:metadata][:questionNumber] - 1
+    question_uid = activity_session.activity.data['questions'][question_index]['key']
+    Question.find_by_uid(question_uid)
   end
 end
