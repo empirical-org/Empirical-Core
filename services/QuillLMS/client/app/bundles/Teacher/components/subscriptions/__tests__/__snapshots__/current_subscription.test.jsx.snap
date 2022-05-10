@@ -64,6 +64,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
   userIsContact={false}
 >
   <section>
+    <span />
     <h2>
       Subscription Information
     </h2>
@@ -88,7 +89,9 @@ exports[`CurrentSubscription container when there is a current subscription shou
               <div>
                 <_default
                   content={
-                    <span>
+                    <span
+                      className="content-wrapper"
+                    >
                       School Premium
                       <Tooltip
                         tooltipText="You have a School Paid subscription"
@@ -113,7 +116,9 @@ exports[`CurrentSubscription container when there is a current subscription shou
                       Plan
                     </span>
                     <span>
-                      <span>
+                      <span
+                        className="content-wrapper"
+                      >
                         School Premium
                         <Tooltip
                           tooltipText="You have a School Paid subscription"
@@ -155,6 +160,21 @@ exports[`CurrentSubscription container when there is a current subscription shou
                           </span>
                         </Tooltip>
                       </span>
+                    </span>
+                  </div>
+                </_default>
+                <_default
+                  content="Off"
+                  title="Automatic Renewal"
+                >
+                  <div>
+                    <span
+                      className="title"
+                    >
+                      Automatic Renewal
+                    </span>
+                    <span>
+                      Off
                     </span>
                   </div>
                 </_default>
@@ -217,7 +237,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
                   content={
                     <span>
                       <span>
-                        Quill Basic - Free 
+                        Quill Basic - Free
                       </span>
                     </span>
                   }
@@ -232,7 +252,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
                     <span>
                       <span>
                         <span>
-                          Quill Basic - Free 
+                          Quill Basic - Free
                         </span>
                       </span>
                     </span>
@@ -253,6 +273,11 @@ exports[`CurrentSubscription container when there is a current subscription shou
       </div>
       <span />
     </div>
+    <Snackbar>
+      <div
+        className="quill-snackbar "
+      />
+    </Snackbar>
   </section>
 </CurrentSubscription>
 `;
@@ -286,6 +311,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
   userIsContact={false}
 >
   <section>
+    <span />
     <h2>
       Subscription Information
     </h2>
@@ -310,7 +336,9 @@ exports[`CurrentSubscription container when there is a current subscription shou
               <div>
                 <_default
                   content={
-                    <span>
+                    <span
+                      className="content-wrapper"
+                    >
                       School Premium
                       <Tooltip
                         tooltipText="You have a School Paid subscription"
@@ -335,7 +363,9 @@ exports[`CurrentSubscription container when there is a current subscription shou
                       Plan
                     </span>
                     <span>
-                      <span>
+                      <span
+                        className="content-wrapper"
+                      >
                         School Premium
                         <Tooltip
                           tooltipText="You have a School Paid subscription"
@@ -395,6 +425,21 @@ exports[`CurrentSubscription container when there is a current subscription shou
                     </span>
                   </div>
                 </_default>
+                <_default
+                  content="Off"
+                  title="Automatic Renewal"
+                >
+                  <div>
+                    <span
+                      className="title"
+                    >
+                      Automatic Renewal
+                    </span>
+                    <span>
+                      Off
+                    </span>
+                  </div>
+                </_default>
               </div>
               <div>
                 <_default
@@ -454,7 +499,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
                   content={
                     <span>
                       <span>
-                        Quill Basic - Free 
+                        Quill Basic - Free
                       </span>
                     </span>
                   }
@@ -469,7 +514,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
                     <span>
                       <span>
                         <span>
-                          Quill Basic - Free 
+                          Quill Basic - Free
                         </span>
                       </span>
                     </span>
@@ -490,6 +535,11 @@ exports[`CurrentSubscription container when there is a current subscription shou
       </div>
       <span />
     </div>
+    <Snackbar>
+      <div
+        className="quill-snackbar "
+      />
+    </Snackbar>
   </section>
 </CurrentSubscription>
 `;
@@ -523,6 +573,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
   userIsContact={false}
 >
   <section>
+    <span />
     <h2>
       Subscription Information
     </h2>
@@ -547,7 +598,9 @@ exports[`CurrentSubscription container when there is a current subscription shou
               <div>
                 <_default
                   content={
-                    <span>
+                    <span
+                      className="content-wrapper"
+                    >
                       School Premium
                       <Tooltip
                         tooltipText="You have a School Paid subscription"
@@ -572,7 +625,9 @@ exports[`CurrentSubscription container when there is a current subscription shou
                       Plan
                     </span>
                     <span>
-                      <span>
+                      <span
+                        className="content-wrapper"
+                      >
                         School Premium
                         <Tooltip
                           tooltipText="You have a School Paid subscription"
@@ -617,6 +672,21 @@ exports[`CurrentSubscription container when there is a current subscription shou
                     </span>
                   </div>
                 </_default>
+                <_default
+                  content="Off"
+                  title="Automatic Renewal"
+                >
+                  <div>
+                    <span
+                      className="title"
+                    >
+                      Automatic Renewal
+                    </span>
+                    <span>
+                      Off
+                    </span>
+                  </div>
+                </_default>
               </div>
               <div>
                 <_default
@@ -676,7 +746,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
                   content={
                     <span>
                       <span>
-                        Quill Basic - Free 
+                        Quill Basic - Free
                       </span>
                     </span>
                   }
@@ -691,7 +761,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
                     <span>
                       <span>
                         <span>
-                          Quill Basic - Free 
+                          Quill Basic - Free
                         </span>
                       </span>
                     </span>
@@ -712,6 +782,11 @@ exports[`CurrentSubscription container when there is a current subscription shou
       </div>
       <span />
     </div>
+    <Snackbar>
+      <div
+        className="quill-snackbar "
+      />
+    </Snackbar>
   </section>
 </CurrentSubscription>
 `;

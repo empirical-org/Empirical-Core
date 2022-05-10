@@ -13,6 +13,7 @@ export const ACCOUNT_TYPE_TO_SUBSCRIPTION_TYPES = {
   "Teacher Paid": TEACHER_PREMIUM,
   "College Board Educator Lifetime Premium": TEACHER_PREMIUM,
   "School Paid": SCHOOL_PREMIUM,
+  "School Paid (via Stripe)": SCHOOL_PREMIUM,
   "School Sponsored Free": SCHOOL_PREMIUM_SCHOLARSHIP,
   "School District Paid": DISTRICT_PREMIUM
 }
