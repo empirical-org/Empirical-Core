@@ -22,7 +22,12 @@ describe Milestone, type: :model do
   describe 'types' do
     it 'should have the correct types hash' do
       expect(Milestone::TYPES[:invite_a_coteacher]).to eq('Invite a Co-Teacher')
-      expect(Milestone::TYPES[:refer_an_active_teacher]).to eq('Refer an Active Teacher',)
+      expect(Milestone::TYPES[:refer_an_active_teacher]).to eq('Refer an Active Teacher')
+      expect(Milestone::TYPES[:see_welcome_modal]).to eq('Invite a Co-Teacher')
+      expect(Milestone::TYPES[:acknowledge_diagnostic_banner]).to eq('Acknowledge Diagnostic Banner')
+      expect(Milestone::TYPES[:acknowledge_evidence_banner]).to eq('Acknowledge Evidence Banner')
+      expect(Milestone::TYPES[:acknowledge_lessons_banner]).to eq('Acknowledge Lessons Banner')
+      expect(Milestone::TYPES[:acknowledge_growth_diagnostic_promotion_card]).to eq('Acknowledge Growth Diagnostic Promotion Card')
     end
   end
 end
