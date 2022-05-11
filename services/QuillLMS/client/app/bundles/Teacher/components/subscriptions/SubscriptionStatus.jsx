@@ -105,7 +105,6 @@ const SubscriptionStatus = ({
     case TEACHER_PREMIUM:
       content.premiumCopy = teacherPremiumCopy(subscriptionType, subscriptionStatus, remainingDays);
       image = 'teacher_premium_icon.png';
-      const teacherSubDisplayName = subscriptionType === TEACHER_PREMIUM_SCHOLARSHIP ? TEACHER_PREMIUM : subscriptionType
       content.status = remainingDays < 0 ? <h2><i className="fas fa-exclamation-triangle" />{`Your ${subscriptionType} subscription has expired`}</h2> : <h2>You have a {subscriptionType} subscription<img alt={`${subscriptionType}`} src={`https://assets.quill.org/images/shared/${image}`} /></h2>
       content.boxColor = remainingDays < 0 ? '#ff4542' : '#348fdf'
       if (remainingDays < 0) {

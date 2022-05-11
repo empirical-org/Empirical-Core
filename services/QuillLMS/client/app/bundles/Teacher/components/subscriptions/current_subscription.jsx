@@ -18,11 +18,15 @@ export default class CurrentSubscription extends React.Component {
 
   onceYourPlanExpires() {
     const { subscriptionType, subscriptionStatus, authorityLevel, } = this.props
-    let text = `Once your current ${subscriptionType} subscription expires, you will be downgraded to Quill Basic.`;
+    const { payment_method, purchaser_email, } = subscriptionStatus
+    const baseText = `Once your current ${subscriptionType} subscription expires, you will be downgraded to Quill Basic.`;
     if (subscriptionStatus.payment_method === 'Credit Card' && authorityLevel) {
-      text += ' To prevent your subscription from expiring, turn on automatic renewal.'
+      return `${baseText} To prevent your subscription from expiring, turn on automatic renewal.`
     }
-    return text
+    if (subscriptionStatus.payment_method === 'Credit Card' && !authorityLevel) {
+      return <span>{baseText} To prevent your subscription from expiring, contact the purchaser at <a href={`mailto:${purchaser_email}`}>{purchaser_email}</a> and ask them to turn on automatic renewal.</span>
+    }
+    return baseText
   }
 
   getCondition() {
