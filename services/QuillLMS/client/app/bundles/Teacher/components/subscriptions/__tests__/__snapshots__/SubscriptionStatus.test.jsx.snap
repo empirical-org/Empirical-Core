@@ -23,7 +23,7 @@ exports[`SubscriptionStatus container should render when the subscription is exp
       "updated_at": "2022-02-15T16:43:30.344Z",
     }
   }
-  subscriptionType="teacher"
+  subscriptionType="Teacher Premium"
   userIsContact={false}
 >
   <section
@@ -47,28 +47,41 @@ exports[`SubscriptionStatus container should render when the subscription is exp
           <i
             className="fas fa-exclamation-triangle"
           />
-          Your teacher subscription has expired
+          Your Teacher Premium subscription has expired
         </h2>
       </div>
-      <span
-        className="expiration-date"
+      <StripeSubscriptionCheckoutSessionButton
+        buttonClassName="renew-subscription q-button bg-orange text-white cta-button focus-on-light"
+        buttonText="Renew Subscription"
+        cancelPath="subscriptions"
+        userIsEligibleForNewSubscription={true}
+        userIsSignedIn={true}
       >
-        <span>
-          Valid Until:
-        </span>
-         
-        <span>
-          February 15th, 2022
-        </span>
-        <span
-          className="time-left-in-days"
+        <button
+          className="renew-subscription q-button bg-orange text-white cta-button focus-on-light"
+          onClick={[Function]}
+          type="button"
         >
-           | 
-          -85 days
+          Renew Subscription
+        </button>
+      </StripeSubscriptionCheckoutSessionButton>
+    </div>
+    <p>
+      <span>
+        <strong>
+          Your 
+          Teacher Premium
+           subscription (
+          02/15/22
+           - 
+          02/15/22
+          ) has expired and you are back to Quill Basic.
+        </strong>
+        <span>
+          Quill Basic provides access to all of Quill's content. To access Quill Premium, you can purchase an individual teacher subscription or a school subscription.
         </span>
       </span>
-    </div>
-    <p />
+    </p>
   </section>
 </SubscriptionStatus>
 `;

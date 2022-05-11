@@ -19,7 +19,7 @@ describe('SubscriptionStatus container', () => {
   });
 
   it('should render when the subscription is expired', () => {
-    const wrapper = mount(<SubscriptionStatus {...sharedProps} subscriptionStatus={expiredSubscriptionStatus} subscriptionType="teacher" />);
+    const wrapper = mount(<SubscriptionStatus {...sharedProps} subscriptionStatus={expiredSubscriptionStatus} subscriptionType="Teacher Premium" />);
     expect(wrapper).toMatchSnapshot()
   });
 });
