@@ -42,11 +42,13 @@ function teacherPremiumCopy(subscriptionType) {
 };
 
 const SubscriptionStatus = ({
-  stripeTeacherPlan,
   subscriptionStatus,
   subscriptionType,
   userIsContact,
 }) => {
+
+
+  const renewalStripePriceId = subscriptionStatus && subscriptionStatus.renewal_stripe_price_id
 
   const content = {};
   let image
@@ -119,7 +121,7 @@ const SubscriptionStatus = ({
         buttonText='Renew Subscription'
         cancelPath='subscriptions'
         customerEmail={subscriptionStatus.customer_email}
-        stripePlan={stripeTeacherPlan}
+        stripePriceId={renewalStripePriceId}
         userIsEligibleForNewSubscription={true}
         userIsSignedIn={true}
       />
@@ -128,7 +130,7 @@ const SubscriptionStatus = ({
 
   content.buttonOrDate = content.buttonOrDate || (<span className="expiration-date">
     <span>Valid Until:</span> <span>{`${expiration.format('MMMM Do, YYYY')}`}</span><span className="time-left-in-days"> | {`${remainingDays} ${pluralize('days', remainingDays)}`}</span>
-  </span>);
+  </span>)
   content.status = content.status || <h2>{`You have a ${subscriptionTypeText} subscription`}<img alt={`${subscriptionTypeText}`} src={`https://assets.quill.org/images/shared/${image}`} /></h2>;
 
   return (

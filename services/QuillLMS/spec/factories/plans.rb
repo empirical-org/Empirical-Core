@@ -28,5 +28,12 @@ FactoryBot.define do
     audience { Plan::TEACHER_AUDIENCE_TYPE }
     interval { Plan::YEARLY_INTERVAL_TYPE }
     interval_count { 1 }
+
+    factory :school_paid_plan do
+      name { Plan::STRIPE_SCHOOL_PLAN }
+      display_name { 'School Premium' }
+      price { 180000 }
+      audience { Plan::SCHOOL_AUDIENCE_TYPE }
+    end
   end
 end

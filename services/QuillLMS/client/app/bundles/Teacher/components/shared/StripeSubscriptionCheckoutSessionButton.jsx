@@ -7,14 +7,12 @@ export const StripeSubscriptionCheckoutSessionButton = ({
   buttonText,
   cancelPath,
   customerEmail,
-  stripePlan,
+  stripePriceId,
   userIsEligibleForNewSubscription,
   userIsSignedIn
 }) => {
 
   const handleClick = () => {
-    const { plan } = stripePlan
-
     if (!userIsSignedIn) {
       alert('You must be logged in to activate Premium.')
     } else if (!userIsEligibleForNewSubscription) {
@@ -28,7 +26,7 @@ export const StripeSubscriptionCheckoutSessionButton = ({
       const data = {
         cancel_path: cancelPath,
         customer_email: customerEmail,
-        stripe_price_id: plan.stripe_price_id
+        stripe_price_id: stripePriceId
       }
 
       requestPost(path, data, body => { window.location.replace(body.redirect_url) })
