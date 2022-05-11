@@ -227,12 +227,22 @@ export default class CurrentSubscription extends React.Component {
     )
   }
 
-  nextPlanAlertOrButtons(condition, renewDate) {
+  renewDate() {
+    const { subscriptionStatus, } = this.props
+    return moment(subscriptionStatus.expiration).add('days', 1).format('MMMM Do, YYYY');
+  }
+
+  nextPlanAlertOrButtons(condition) {
     const { authorityLevel, subscriptionStatus, subscriptionType, } = this.props
-    const { last_four } = subscriptionStatus
+    const { last_four, recurring, } = subscriptionStatus
+
     const conditionWithAuthorization = `${condition} authorization: ${!!authorityLevel}`;
     const expiration = moment(subscriptionStatus.expiration);
     const remainingDays = expiration.diff(moment(), 'days');
+
+    if (recurring) {
+      return this.nextPlanAlert(`Your ${subscriptionType} subscription will be renewed on ${this.renewDate()} and your card ending in ${last_four} will be charged $${this.getPrice()}.`);
+    }
 
     switch (conditionWithAuthorization) {
       case 'school sponsored authorization: false':
@@ -249,10 +259,6 @@ export default class CurrentSubscription extends React.Component {
           return this.nextPlanAlert(this.onceYourPlanExpires());
         }
         return this.lessThan90Days();
-      case 'recurring authorization: false':
-        return this.nextPlanAlert(`Your ${subscriptionType} subscription will be renewed on ${renewDate}.`);
-      case 'recurring authorization: true':
-        return this.nextPlanAlert(`Your ${subscriptionType} subscription will be renewed on ${renewDate} and your card ending in ${last_four} will be charged $${this.getPrice()}.`);
       case 'school expired authorization: true':
         return this.lessThan90Days();
       case 'school expired authorization: false':
@@ -270,19 +276,20 @@ export default class CurrentSubscription extends React.Component {
     let nextPlan;
     let beginsOn;
     let nextPlanAlertOrButtons;
-    const condition = this.getCondition();
     if (subscriptionStatus.expired) {
       return this.nextPlanAlertOrButtons(`${condition} expired`);
-    } else if (condition === 'school sponsored') {
+    }
+
+    const condition = this.getCondition();
+    if (condition === 'school sponsored') {
       nextPlan = this.nextPlanAlertOrButtons(condition);
     } else if (subscriptionStatus.recurring) {
       nextPlan = (<span>
         {subscriptionType} - ${this.getPrice()} Annual Subscription
       </span>);
-      const renewDate = moment(subscriptionStatus.expiration).add('days', 1).format('MMMM Do, YYYY');
-      nextPlanAlertOrButtons = this.nextPlanAlertOrButtons('recurring', renewDate);
+      nextPlanAlertOrButtons = this.nextPlanAlertOrButtons();
       beginsOn = (
-        <TitleAndContent content={renewDate} title="Begins On" />
+        <TitleAndContent content={this.renewDate()} title="Begins On" />
       );
     } else if (condition === 'school' && !subscriptionStatus.recurring) {
       nextPlanAlertOrButtons = this.nextPlanAlertOrButtons(`${condition} non-recurring`);
