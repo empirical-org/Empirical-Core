@@ -19,7 +19,9 @@ const quillBasicCopy = (
     Quill Basic provides access to all of Quill&apos;s content. To access Quill Premium, you can purchase an individual teacher subscription or a school subscription.
   </span>);
 
-function schoolPremiumCopy(subscriptionType) {
+function schoolPremiumCopy(subscriptionType, subscriptionStatus, remainingDays, userIsContact) {
+  if (remainingDays < 0) { return expiredCopy(subscriptionType, subscriptionStatus, userIsContact) }
+
   return (
     <span>
       With {subscriptionType}, you will have access to all of Quill’s
@@ -31,20 +33,9 @@ function schoolPremiumCopy(subscriptionType) {
   )
 };
 
-function teacherPremiumCopy(subscriptionType, subscriptionStatus, remainingDays) {
-  if (remainingDays < 0) {
-    const expiration = moment(subscriptionStatus.expiration)
-    const dateFormat = "MM/DD/YY"
-    const formattedStartDate = subscriptionStatus && moment(subscriptionStatus.start_date).format(dateFormat)
-    const formattedExpirationDate = expiration && expiration.format(dateFormat)
+function teacherPremiumCopy(subscriptionType, subscriptionStatus, remainingDays, userIsContact) {
+  if (remainingDays < 0) { return expiredCopy(subscriptionType, subscriptionStatus) }
 
-    return (
-      <span>
-        <strong>Your {subscriptionType} subscription ({formattedStartDate} - {formattedExpirationDate}) has expired and you are back to Quill Basic.</strong>
-        {quillBasicCopy}
-      </span>
-    )
-  }
   return (
     <span>
       With {subscriptionType}, you will have access to all of Quill’s free reports as well as additional advanced reporting.
@@ -54,8 +45,34 @@ function teacherPremiumCopy(subscriptionType, subscriptionStatus, remainingDays)
   )
 };
 
+function expiredCopy(subscriptionType, subscriptionStatus, userIsContact) {
+  const { purchaser_email, purchaser_name, } = subscriptionStatus
+
+  const expiration = moment(subscriptionStatus.expiration)
+  const dateFormat = "MM/DD/YY"
+  const formattedStartDate = subscriptionStatus && moment(subscriptionStatus.start_date).format(dateFormat)
+  const formattedExpirationDate = expiration && expiration.format(dateFormat)
+
+  let billingContact
+
+  if (!userIsContact && purchaser_email) {
+    const billingContactEmailLink = <a href={`mailto:${purchaser_email}`}>{purchaser_email}</a>
+    const billingContactContent = purchaser_name ? <React.Fragment>{purchaser_name} ({billingContactEmailLink})</React.Fragment> : billingContactEmailLink
+    billingContact = <React.Fragment><br /><br />The billing contact for your subscription is <strong>{billingContactContent}.</strong></React.Fragment>
+  }
+
+  return (
+    <span>
+      <strong>Your {subscriptionType} subscription ({formattedStartDate} - {formattedExpirationDate}) has expired and you are back to Quill Basic.</strong>
+      {quillBasicCopy}
+      {billingContact}
+    </span>
+  )
+}
+
 const SubscriptionStatus = ({
   stripeTeacherPlan,
+  stripeSchoolPlan,
   subscriptionStatus,
   subscriptionType,
   userIsContact,
@@ -93,7 +110,7 @@ const SubscriptionStatus = ({
     case TEACHER_PREMIUM_TRIAL:
     case TEACHER_PREMIUM_CREDIT:
     case TEACHER_PREMIUM_SCHOLARSHIP:
-      content.premiumCopy = teacherPremiumCopy(subscriptionType, subscriptionStatus, remainingDays);
+      content.premiumCopy = teacherPremiumCopy(subscriptionType, subscriptionStatus, remainingDays, userIsContact);
       image = 'teacher_premium_icon.png';
       const teacherSubDisplayName = subscriptionType === TEACHER_PREMIUM_SCHOLARSHIP ? TEACHER_PREMIUM : subscriptionType
       content.status = remainingDays < 0 ? <h2><i className="fas fa-exclamation-triangle" />{`Your ${subscriptionType} subscription has expired`}</h2> : <h2>You have a {teacherSubDisplayName} subscription<img alt={`${subscriptionType}`} src={`https://assets.quill.org/images/shared/${image}`} /></h2>
@@ -103,7 +120,7 @@ const SubscriptionStatus = ({
       }
       break;
     case TEACHER_PREMIUM:
-      content.premiumCopy = teacherPremiumCopy(subscriptionType, subscriptionStatus, remainingDays);
+      content.premiumCopy = teacherPremiumCopy(subscriptionType, subscriptionStatus, remainingDays, userIsContact);
       image = 'teacher_premium_icon.png';
       content.status = remainingDays < 0 ? <h2><i className="fas fa-exclamation-triangle" />{`Your ${subscriptionType} subscription has expired`}</h2> : <h2>You have a {subscriptionType} subscription<img alt={`${subscriptionType}`} src={`https://assets.quill.org/images/shared/${image}`} /></h2>
       content.boxColor = remainingDays < 0 ? '#ff4542' : '#348fdf'
@@ -124,17 +141,23 @@ const SubscriptionStatus = ({
     case SCHOOL_PREMIUM:
     case DISTRICT_PREMIUM:
     case SCHOOL_PREMIUM_SCHOLARSHIP:
-      content.premiumCopy = schoolPremiumCopy(subscriptionType);
+      content.premiumCopy = schoolPremiumCopy(subscriptionType, subscriptionStatus, remainingDays, userIsContact);
       const schoolSubDisplayName = subscriptionType === SCHOOL_PREMIUM_SCHOLARSHIP ? SCHOOL_PREMIUM : subscriptionType
       image = 'school_premium_icon.png';
       content.status = <h2>You have a {schoolSubDisplayName} subscription<img alt={`${subscriptionType}`} src={`https://assets.quill.org/images/shared/${image}`} /></h2>;
       content.boxColor = '#9c2bde';
-      if (remainingDays < 90 && !subscriptionStatus.recurring) {
-        if (userIsContact) {
-          content.buttonOrDate = <button className="q-button bg-orange text-white cta-button" onClick={showPurchaseModal} type="button">Renew School Premium</button>;
-        } else {
-          content.buttonOrDate = <button type="button">Contact {subscriptionStatus.contact_name} to Renew</button>;
-        }
+      if (remainingDays < 0 && !subscriptionStatus.recurring) {
+        content.buttonOrDate = (
+          <StripeSubscriptionCheckoutSessionButton
+            buttonClassName="renew-subscription q-button bg-orange text-white cta-button focus-on-light"
+            buttonText='Renew Subscription'
+            cancelPath='subscriptions'
+            customerEmail={subscriptionStatus.customer_email}
+            stripePlan={stripeSchoolPlan}
+            userIsEligibleForNewSubscription={true}
+            userIsSignedIn={true}
+          />
+        )
       }
       break;
   }

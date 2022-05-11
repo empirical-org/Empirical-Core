@@ -116,5 +116,42 @@ describe('CurrentSubscription container', () => {
         expect(wrapper).toMatchSnapshot()
       })
     })
+    describe('school paid via stripe', () => {
+      describe('the current user is the purchaser', () => {
+        it('renders when there is an active recurring school premium subscription', () => {
+          const subscriptionStatus = { ...sharedProps.subscriptionStatus, account_type: "School Paid (via Stripe)", payment_method: 'Credit Card', recurring: true}
+          const wrapper = mount(<CurrentSubscription {...sharedProps} authorityLevel="purchaser" subscriptionStatus={subscriptionStatus} subscriptionType="School Premium" />);
+          expect(wrapper).toMatchSnapshot()
+        })
+        it('renders when there is an active non-recurring school premium subscription', () => {
+          const subscriptionStatus = { ...sharedProps.subscriptionStatus, account_type: "School Paid (via Stripe)", payment_method: 'Credit Card', recurring: false}
+          const wrapper = mount(<CurrentSubscription {...sharedProps} authorityLevel="purchaser" subscriptionStatus={subscriptionStatus} subscriptionType="School Premium" />);
+          expect(wrapper).toMatchSnapshot()
+        })
+        it('renders when there is an expired school premium subscription', () => {
+          const subscriptionStatus = { ...sharedProps.subscriptionStatus, ...expiredAttributes, account_type: "School Paid (via Stripe)", payment_method: 'Credit Card', recurring: false}
+          const wrapper = mount(<CurrentSubscription {...sharedProps} authorityLevel="purchaser" subscriptionStatus={subscriptionStatus} subscriptionType="School Premium" />);
+          expect(wrapper).toMatchSnapshot()
+        })
+      })
+      describe('the current user is not the purchaser', () => {
+        it('renders when there is an active recurring school premium subscription', () => {
+          const subscriptionStatus = { ...sharedProps.subscriptionStatus, account_type: "School Paid (via Stripe)", payment_method: 'Credit Card', recurring: true}
+          const wrapper = mount(<CurrentSubscription {...sharedProps} authorityLevel="purchaser" subscriptionStatus={subscriptionStatus} subscriptionType="School Premium" />);
+          expect(wrapper).toMatchSnapshot()
+        })
+        it('renders when there is an active non-recurring school premium subscription', () => {
+          const subscriptionStatus = { ...sharedProps.subscriptionStatus, account_type: "School Paid (via Stripe)", payment_method: 'Credit Card', recurring: false}
+          const wrapper = mount(<CurrentSubscription {...sharedProps} authorityLevel="purchaser" subscriptionStatus={subscriptionStatus} subscriptionType="School Premium" />);
+          expect(wrapper).toMatchSnapshot()
+        })
+        it('renders when there is an expired school premium subscription', () => {
+          const subscriptionStatus = { ...sharedProps.subscriptionStatus, ...expiredAttributes, account_type: "School Paid (via Stripe)", payment_method: 'Credit Card', recurring: false}
+          const wrapper = mount(<CurrentSubscription {...sharedProps} authorityLevel="purchaser" subscriptionStatus={subscriptionStatus} subscriptionType="School Premium" />);
+          expect(wrapper).toMatchSnapshot()
+        })
+
+      })
+    })
   })
 });

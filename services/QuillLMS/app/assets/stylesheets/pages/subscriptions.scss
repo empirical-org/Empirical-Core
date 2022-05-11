@@ -91,6 +91,12 @@
     padding-bottom: 0px;
     strong {
       padding-right: 4px;
+      a {
+        color: inherit;
+        &:hover {
+          color: inherit;
+        }
+      }
     }
     i, svg {
       color: #ff4542;

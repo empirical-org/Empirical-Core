@@ -20,11 +20,18 @@ export default class CurrentSubscription extends React.Component {
     const { subscriptionType, subscriptionStatus, authorityLevel, } = this.props
     const { payment_method, purchaser_email, } = subscriptionStatus
     const baseText = `Once your current ${subscriptionType} subscription expires, you will be downgraded to Quill Basic.`;
-    if (subscriptionStatus.payment_method === 'Credit Card' && authorityLevel) {
+
+    if (payment_method === 'Credit Card' && authorityLevel) {
       return `${baseText} To prevent your subscription from expiring, turn on automatic renewal.`
     }
-    if (subscriptionStatus.payment_method === 'Credit Card' && !authorityLevel) {
+    if (payment_method === 'Credit Card' && !authorityLevel) {
       return <span>{baseText} To prevent your subscription from expiring, contact the purchaser at <a href={`mailto:${purchaser_email}`}>{purchaser_email}</a> and ask them to turn on automatic renewal.</span>
+    }
+    if (payment_method !== 'Credit Card' && (authorityLevel || !purchaser_email)) {
+      return <span>{baseText} To renew your subscription for next year, contact us at <a href="mailto:sales@quill.org">sales@quill.org</a>.</span>
+    }
+    if (payment_method !== 'Credit Card' && !authorityLevel) {
+      return <span>{baseText} To renew your subscription for next year, contact the purchaser at <a href={`mailto:${purchaser_email}`}>{purchaser_email}</a> or the Quill team at <a href="mailto:sales@quill.org">sales@quill.org</a>.</span>
     }
     return baseText
   }
@@ -173,22 +180,6 @@ export default class CurrentSubscription extends React.Component {
     );
   }
 
-  lessThan90Days() {
-    const { showPurchaseModal, } = this.props
-
-    return (
-      <div>
-        <button
-          className="q-button bg-orange text-white"
-          onClick={showPurchaseModal}
-          type="button"
-        >
-            Renew Subscription
-        </button>
-      </div>
-    );
-  }
-
   renewPremium() {
     const { showPurchaseModal, } = this.props
 
@@ -236,72 +227,46 @@ export default class CurrentSubscription extends React.Component {
     const { authorityLevel, subscriptionStatus, subscriptionType, } = this.props
     const { last_four, recurring, } = subscriptionStatus
 
-    const conditionWithAuthorization = `${condition} authorization: ${!!authorityLevel}`;
-    const expiration = moment(subscriptionStatus.expiration);
-    const remainingDays = expiration.diff(moment(), 'days');
+    return this.nextPlanAlert(this.onceYourPlanExpires())
 
-    if (recurring) {
-      return this.nextPlanAlert(`Your ${subscriptionType} subscription will be renewed on ${this.renewDate()} and your card ending in ${last_four} will be charged $${this.getPrice()}.`);
-    }
-
-    switch (conditionWithAuthorization) {
-      case 'school sponsored authorization: false':
-        return this.nextPlanAlert(this.onceYourPlanExpires());
-      case 'school expired authorization: false':
-        return this.lessThan90Days();
-      case 'school non-recurring authorization: true':
-        if (remainingDays > 90) {
-          return this.nextPlanAlert(this.contactSales());
-        }
-        return this.lessThan90Days();
-      case 'school non-recurring authorization: false':
-        if (remainingDays > 90) {
-          return this.nextPlanAlert(this.onceYourPlanExpires());
-        }
-        return this.lessThan90Days();
-      case 'school expired authorization: true':
-        return this.lessThan90Days();
-      case 'school expired authorization: false':
-        return this.lessThan90Days();
-      case 'other expired authorization: false':
-        return this.renewPremium();
-      case 'other expired authorization: true':
-        return this.renewPremium();
-      default:
-    }
+    // switch (conditionWithAuthorization) {
+    //   case 'school sponsored authorization: false':
+    //     return this.nextPlanAlert(this.onceYourPlanExpires());
+    //   case 'school non-recurring authorization: true':
+    //     return this.nextPlanAlert(this.contactSales());
+    //   case 'school non-recurring authorization: false':
+    //     return this.nextPlanAlert(this.onceYourPlanExpires());
+    //   case 'other expired authorization: false':
+    //     return this.renewPremium();
+    //   case 'other expired authorization: true':
+    //     return this.renewPremium();
+    //   default:
+    // }
   }
 
   nextPlanContent() {
     const { subscriptionStatus, subscriptionType, } = this.props
-    let nextPlan;
-    let beginsOn;
-    let nextPlanAlertOrButtons;
-    if (subscriptionStatus.expired) {
-      return this.nextPlanAlertOrButtons(`${condition} expired`);
-    }
+
+    if (subscriptionStatus.expired) { return }
+
+    let nextPlan = <span>Quill Basic - Free</span>
+    let beginsOn
+    let nextPlanAlertOrButtons = this.nextPlanAlertOrButtons()
 
     const condition = this.getCondition();
-    if (condition === 'school sponsored') {
-      nextPlan = this.nextPlanAlertOrButtons(condition);
-    } else if (subscriptionStatus.recurring) {
-      nextPlan = (<span>
-        {subscriptionType} - ${this.getPrice()} Annual Subscription
-      </span>);
-      nextPlanAlertOrButtons = this.nextPlanAlertOrButtons();
+
+    if (subscriptionStatus.recurring) {
+      nextPlan = (<span>{subscriptionType} - ${this.getPrice()} Annual Subscription</span>);
+      nextPlanAlertOrButtons = this.nextPlanAlert(`Your ${subscriptionType} subscription will be renewed on ${this.renewDate()} and your card ending in ${subscriptionStatus.last_four} will be charged $${this.getPrice()}.`);
       beginsOn = (
         <TitleAndContent content={this.renewDate()} title="Begins On" />
       );
-    } else if (condition === 'school' && !subscriptionStatus.recurring) {
-      nextPlanAlertOrButtons = this.nextPlanAlertOrButtons(`${condition} non-recurring`);
-      nextPlan = <span>Quill Basic - Free</span>;
-    } else {
-      nextPlanAlertOrButtons = this.nextPlanAlert(this.onceYourPlanExpires());
-      nextPlan = <span>Quill Basic - Free</span>;
     }
+
     return (
       <div>
         <div className="flex-row space-between">
-          <TitleAndContent content={<span >{nextPlan}</span>} title="Next Plan" />
+          <TitleAndContent content={nextPlan} title="Next Plan" />
           {beginsOn}
         </div>
         {nextPlanAlertOrButtons}
