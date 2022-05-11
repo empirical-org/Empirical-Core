@@ -4,8 +4,7 @@ import IndividualFeaturesTable from './individual_features_table'
 
 export default class TeacherPricingMini extends React.Component {
   render() {
-    const { buyNowButton, premiumFeatureData, stripeTeacherPlan } = this.props
-    const { plan } = stripeTeacherPlan
+    const { buyNowButton, plan, premiumFeatureData} = this.props
 
     return (
       <div className="pricing-mini">

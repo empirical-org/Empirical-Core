@@ -71,13 +71,12 @@ function expiredCopy(subscriptionType, subscriptionStatus, userIsContact) {
 }
 
 const SubscriptionStatus = ({
-  stripeTeacherPlan,
-  stripeSchoolPlan,
   subscriptionStatus,
   subscriptionType,
   userIsContact,
 }) => {
 
+  const renewalStripePriceId = subscriptionStatus && subscriptionStatus.renewal_stripe_price_id
   let image
   let expiration
   let remainingDays

@@ -1,0 +1,72 @@
+.sales-form-container {
+  background-color: white;
+  padding: 16px;
+  form {
+    .form-header {
+      font-weight: 600;
+      margin-top: 16px;
+    }
+    .disclaimer, .form-input {
+      margin: 8px 0px 8px 0px;
+    }
+    .form-input {
+      width: 600px;
+    }
+    .school-dropdown, .district-dropdown {
+      .dropdown {
+        .dropdown__control {
+          .dropdown__value-container {
+            div {
+              .dropdown__input {
+                input {
+                  height: auto;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    .select-search {
+      margin: 16px 0px 16px 0px;
+    }
+    .school-or-district-container {
+      font-size: 16px;
+      p {
+        margin-right: 16px;
+      }
+      .radio-options {
+        display: flex;
+        align-items: baseline;
+        .radio {
+          margin-right: 8px;
+        }
+      }
+    }
+    .submit-button {
+      margin: 16px 0px 16px 0px;
+    }
+    .error-text {
+      font-size: 12px;
+      font-weight: 600;
+      color: #ff0000;
+      margin-bottom: 10px;
+    }
+    .loading-options-container {
+      p {
+        color: #7f7f7f;
+        margin-bottom: 8px;
+      }
+      .loading-spinner {
+        .spinner-container {
+          margin: 0;
+          padding: 0;
+          text-align: left;
+          .spinner {
+            height: 48px;
+          }
+        }
+      }
+    }
+  }
+}
