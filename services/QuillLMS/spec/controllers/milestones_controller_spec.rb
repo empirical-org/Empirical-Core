@@ -39,7 +39,7 @@ describe MilestonesController do
     end
   end
 
-  describe '#complete_acknowledge_diagnostic_banner' do
+  describe '#complete_acknowledge_evidence_banner' do
     let!(:milestone) { create(:acknowledge_evidence_banner) }
 
     it 'should push the milestone into users milestones' do

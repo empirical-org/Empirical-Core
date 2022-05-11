@@ -4414,18 +4414,22 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
     <div
       className="banners-container"
     >
-      <LessonsBanner
+      <Banner
         closeBanner={[Function]}
         selectedActivities={Array []}
+        showImage={true}
+        type="lessons"
       >
         <span />
-      </LessonsBanner>
-      <EvidenceBanner
+      </Banner>
+      <Banner
         closeBanner={[Function]}
         selectedActivities={Array []}
+        showImage={false}
+        type="evidence"
       >
         <span />
-      </EvidenceBanner>
+      </Banner>
     </div>
     <SearchAndSort
       handleSearch={[Function]}

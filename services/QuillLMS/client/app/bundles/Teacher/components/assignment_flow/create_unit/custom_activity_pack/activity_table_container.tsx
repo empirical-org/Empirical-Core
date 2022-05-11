@@ -91,18 +91,11 @@ const EmptyState = ({ undoLastFilter, resetAllFilters, }) => {
   )
 }
 
-const LessonsBanner = ({ bannerShowing, selectedActivities, closeBanner, }) => {
+const Banner = ({ bannerShowing, selectedActivities, closeBanner, type, showImage }) => {
   if (!bannerShowing) { return <span /> }
-  if (!selectedActivities.some(selectedActivity => selectedActivity.activity_classification.key === LESSONS)) { return <span /> }
+  if (!selectedActivities.some(selectedActivity => selectedActivity.activity_classification.key === type)) { return <span /> }
 
-  return <ActivityDisclaimerBanner activityType={LESSONS} closeBanner={closeBanner} showImage={true} />
-}
-
-const EvidenceBanner = ({ bannerShowing, selectedActivities, closeBanner, }) => {
-  if (!bannerShowing) { return <span /> }
-  if (!selectedActivities.some(selectedActivity => selectedActivity.activity_classification.key === EVIDENCE)) { return <span /> }
-
-  return <ActivityDisclaimerBanner activityType={EVIDENCE} closeBanner={closeBanner} showImage={false} />
+  return <ActivityDisclaimerBanner activityType={type} closeBanner={closeBanner} showImage={showImage} />
 }
 
 const ActivityTableContainer = ({
@@ -162,8 +155,8 @@ const ActivityTableContainer = ({
   return (
     <section className="activity-table-container">
       <div className="banners-container">
-        <LessonsBanner closeBanner={closeLessonsBanner} bannerShowing={lessonsBannerShowing} selectedActivities={selectedActivities} />
-        <EvidenceBanner closeBanner={closeEvidenceBanner} bannerShowing={evidenceBannerShowing} selectedActivities={selectedActivities} />
+        <Banner bannerShowing={lessonsBannerShowing} closeBanner={closeLessonsBanner} selectedActivities={selectedActivities} showImage={true} type={LESSONS} />
+        <Banner bannerShowing={evidenceBannerShowing} closeBanner={closeEvidenceBanner} selectedActivities={selectedActivities} showImage={false} type={EVIDENCE} />
       </div>
       <SearchAndSort handleSearch={handleSearch} search={search} setSort={setSort} sort={sort} />
       <FilterAndSort setShowMobileFilterMenu={setShowMobileFilterMenu} setShowMobileSortMenu={setShowMobileSortMenu} />
