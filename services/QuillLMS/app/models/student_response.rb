@@ -4,20 +4,22 @@
 #
 # Table name: student_responses
 #
-#  id                                  :bigint           not null, primary key
-#  attempt_number                      :integer          not null
-#  correct                             :boolean          not null
-#  question_number                     :integer          not null
-#  created_at                          :datetime         not null
-#  activity_session_id                 :bigint           not null
-#  question_id                         :bigint           not null
-#  student_response_answer_text_id     :bigint           not null
-#  student_response_directions_text_id :bigint           not null
-#  student_response_prompt_text_id     :bigint           not null
-#  student_response_question_type_id   :bigint           not null
+#  id                                    :bigint           not null, primary key
+#  attempt_number                        :integer          not null
+#  correct                               :boolean          not null
+#  question_number                       :integer          not null
+#  created_at                            :datetime         not null
+#  activity_session_id                   :bigint           not null
+#  question_id                           :bigint           not null
+#  student_response_answer_text_id       :bigint           not null
+#  student_response_directions_text_id   :bigint           not null
+#  student_response_instructions_text_id :bigint           not null
+#  student_response_prompt_text_id       :bigint           not null
+#  student_response_question_type_id     :bigint           not null
 #
 # Indexes
 #
+#  idx_student_responses_on_student_response_instructions_text_id  (student_response_instructions_text_id)
 #  index_student_responses_on_activity_session_id                  (activity_session_id)
 #  index_student_responses_on_question_id                          (question_id)
 #  index_student_responses_on_student_response_answer_text_id      (student_response_answer_text_id)
@@ -30,6 +32,7 @@
 #  fk_rails_...  (activity_session_id => activity_sessions.id)
 #  fk_rails_...  (student_response_answer_text_id => student_response_answer_texts.id)
 #  fk_rails_...  (student_response_directions_text_id => student_response_directions_texts.id)
+#  fk_rails_...  (student_response_instructions_text_id => student_response_instructions_texts.id)
 #  fk_rails_...  (student_response_prompt_text_id => student_response_prompt_texts.id)
 #  fk_rails_...  (student_response_question_type_id => student_response_question_types.id)
 #
@@ -38,6 +41,7 @@ class StudentResponse < ApplicationRecord
   belongs_to :question
   belongs_to :student_response_answer_text
   belongs_to :student_response_directions_text
+  belongs_to :student_response_instructions_text
   belongs_to :student_response_prompt_text
   belongs_to :student_response_question_type
 
@@ -73,6 +77,7 @@ class StudentResponse < ApplicationRecord
 
     answer_text = StudentResponseAnswerText.find_or_create_by(text: metadata[:answer])
     directions_text = StudentResponseDirectionsText.find_or_create_by(text: metadata[:directions])
+    instructions_text = StudentResponseInstructionsText.find_or_create_by(text: metadata[:instructions])
     prompt_text = StudentResponsePromptText.find_or_create_by(text: metadata[:prompt])
     question_type = StudentResponseQuestionType.find_or_create_by(text: data_hash[:question_type])
 
@@ -93,6 +98,7 @@ class StudentResponse < ApplicationRecord
       question_number: metadata[:questionNumber],
       student_response_answer_text: answer_text,
       student_response_directions_text: directions_text,
+      student_response_instructions_text: instructions_text,
       student_response_extra_metadata: extra_metadata,
       student_response_prompt_text: prompt_text,
       student_response_question_type: question_type
