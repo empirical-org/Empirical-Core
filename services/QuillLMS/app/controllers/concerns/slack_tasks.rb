@@ -22,8 +22,6 @@ module SlackTasks
   end
 
   private def should_post_to_slack?
-    # for testing only
-    return true
     return false unless ENV.fetch('RAILS_ENV', '') == 'production'
   end
 end
