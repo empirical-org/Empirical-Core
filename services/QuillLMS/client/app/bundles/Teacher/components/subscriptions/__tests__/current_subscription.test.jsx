@@ -1,5 +1,4 @@
 import React from 'react';
-import moment from 'moment';
 import { mount } from 'enzyme';
 
 import { expiredSubscriptionStatus, } from './data'
@@ -11,7 +10,7 @@ const sharedProps = {
   "purchaserNameOrEmail": "emilia+3@quill.org",
   "subscriptionStatus":  {
     "id": 7,
-    "expiration": moment().add('years', 1),
+    "expiration": '2070-01-01',
     "created_at": "2022-02-16T14: 07: 25.976Z",
     "updated_at": "2022-02-16T14: 07: 25.976Z",
     "account_type": "School Paid",
@@ -63,7 +62,7 @@ describe('CurrentSubscription container', () => {
   })
 
   describe('UI state iterations', () => {
-    const expiredAttributes = { expiration: moment().subtract('days', 1), expired: true }
+    const expiredAttributes = { expiration: '2022-01-1', expired: true }
     describe('trial', () => {
       it('renders when there is an active trial', () => {
         const subscriptionStatus = { ...sharedProps.subscriptionStatus, account_type: 'Teacher Trial'}

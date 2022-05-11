@@ -9,7 +9,7 @@ exports[`CurrentSubscription container UI state iterations premium credit render
       "account_type": "Premium Credit",
       "created_at": "2022-02-16T14: 07: 25.976Z",
       "de_activated_date": null,
-      "expiration": "2023-05-11T12:32:37.141Z",
+      "expiration": "2070-01-01",
       "expired": false,
       "id": 7,
       "lastFour": null,
@@ -176,7 +176,7 @@ exports[`CurrentSubscription container UI state iterations premium credit render
                   </div>
                 </_default>
                 <_default
-                  content="May 11th, 2023"
+                  content="January 1st, 2070"
                   title="End Date"
                 >
                   <div>
@@ -186,7 +186,7 @@ exports[`CurrentSubscription container UI state iterations premium credit render
                       End Date
                     </span>
                     <span>
-                      May 11th, 2023
+                      January 1st, 2070
                     </span>
                   </div>
                 </_default>
@@ -271,7 +271,7 @@ exports[`CurrentSubscription container UI state iterations premium credit render
       "account_type": "Premium Credit",
       "created_at": "2022-02-16T14: 07: 25.976Z",
       "de_activated_date": null,
-      "expiration": "2022-05-10T12:32:37.170Z",
+      "expiration": "2022-01-1",
       "expired": true,
       "id": 7,
       "lastFour": null,
@@ -303,7 +303,7 @@ exports[`CurrentSubscription container UI state iterations teacher free renders 
       "account_type": "College Board Educator Lifetime Premium",
       "created_at": "2022-02-16T14: 07: 25.976Z",
       "de_activated_date": null,
-      "expiration": "2023-05-11T12:32:37.141Z",
+      "expiration": "2070-01-01",
       "expired": false,
       "id": 7,
       "lastFour": null,
@@ -470,7 +470,7 @@ exports[`CurrentSubscription container UI state iterations teacher free renders 
                   </div>
                 </_default>
                 <_default
-                  content="May 11th, 2023"
+                  content="January 1st, 2070"
                   title="End Date"
                 >
                   <div>
@@ -480,7 +480,7 @@ exports[`CurrentSubscription container UI state iterations teacher free renders 
                       End Date
                     </span>
                     <span>
-                      May 11th, 2023
+                      January 1st, 2070
                     </span>
                   </div>
                 </_default>
@@ -565,7 +565,7 @@ exports[`CurrentSubscription container UI state iterations teacher free renders 
       "account_type": "College Board Educator Lifetime Premium",
       "created_at": "2022-02-16T14: 07: 25.976Z",
       "de_activated_date": null,
-      "expiration": "2022-05-10T12:32:37.170Z",
+      "expiration": "2022-01-1",
       "expired": true,
       "id": 7,
       "lastFour": null,
@@ -597,7 +597,7 @@ exports[`CurrentSubscription container UI state iterations teacher paid renders 
       "account_type": "Teacher Paid",
       "created_at": "2022-02-16T14: 07: 25.976Z",
       "de_activated_date": null,
-      "expiration": "2023-05-11T12:32:37.141Z",
+      "expiration": "2070-01-01",
       "expired": false,
       "id": 7,
       "lastFour": null,
@@ -771,7 +771,7 @@ exports[`CurrentSubscription container UI state iterations teacher paid renders 
                   </div>
                 </_default>
                 <_default
-                  content="May 11th, 2023"
+                  content="January 1st, 2070"
                   title="End Date"
                 >
                   <div>
@@ -781,7 +781,7 @@ exports[`CurrentSubscription container UI state iterations teacher paid renders 
                       End Date
                     </span>
                     <span>
-                      May 11th, 2023
+                      January 1st, 2070
                     </span>
                   </div>
                 </_default>
@@ -881,7 +881,7 @@ exports[`CurrentSubscription container UI state iterations teacher paid renders 
       "account_type": "Teacher Paid",
       "created_at": "2022-02-16T14: 07: 25.976Z",
       "de_activated_date": null,
-      "expiration": "2023-05-11T12:32:37.141Z",
+      "expiration": "2070-01-01",
       "expired": false,
       "id": 7,
       "lastFour": null,
@@ -1055,7 +1055,7 @@ exports[`CurrentSubscription container UI state iterations teacher paid renders 
                   </div>
                 </_default>
                 <_default
-                  content="May 11th, 2023"
+                  content="January 1st, 2070"
                   title="End Date"
                 >
                   <div>
@@ -1065,7 +1065,7 @@ exports[`CurrentSubscription container UI state iterations teacher paid renders 
                       End Date
                     </span>
                     <span>
-                      May 11th, 2023
+                      January 1st, 2070
                     </span>
                   </div>
                 </_default>
@@ -1139,7 +1139,7 @@ exports[`CurrentSubscription container UI state iterations teacher paid renders 
                   </div>
                 </_default>
                 <_default
-                  content="May 12th, 2023"
+                  content="January 2nd, 2070"
                   title="Begins On"
                 >
                   <div>
@@ -1149,7 +1149,7 @@ exports[`CurrentSubscription container UI state iterations teacher paid renders 
                       Begins On
                     </span>
                     <span>
-                      May 12th, 2023
+                      January 2nd, 2070
                     </span>
                   </div>
                 </_default>
@@ -1160,7 +1160,7 @@ exports[`CurrentSubscription container UI state iterations teacher paid renders 
                 <i
                   className="fas fa-icon fa-lightbulb-o"
                 />
-                Your Teacher Premium subscription will be renewed on May 12th, 2023 and your card ending in undefined will be charged $80.
+                Your Teacher Premium subscription will be renewed on January 2nd, 2070 and your card ending in undefined will be charged $80.
               </div>
             </div>
           </div>
@@ -1186,7 +1186,7 @@ exports[`CurrentSubscription container UI state iterations teacher paid renders 
       "account_type": "Teacher Paid",
       "created_at": "2022-02-16T14: 07: 25.976Z",
       "de_activated_date": null,
-      "expiration": "2022-05-10T12:32:37.170Z",
+      "expiration": "2022-01-1",
       "expired": true,
       "id": 7,
       "lastFour": null,
@@ -1218,7 +1218,7 @@ exports[`CurrentSubscription container UI state iterations trial renders when th
       "account_type": "Teacher Trial",
       "created_at": "2022-02-16T14: 07: 25.976Z",
       "de_activated_date": null,
-      "expiration": "2023-05-11T12:32:37.141Z",
+      "expiration": "2070-01-01",
       "expired": false,
       "id": 7,
       "lastFour": null,
@@ -1385,7 +1385,7 @@ exports[`CurrentSubscription container UI state iterations trial renders when th
                   </div>
                 </_default>
                 <_default
-                  content="May 11th, 2023"
+                  content="January 1st, 2070"
                   title="End Date"
                 >
                   <div>
@@ -1395,7 +1395,7 @@ exports[`CurrentSubscription container UI state iterations trial renders when th
                       End Date
                     </span>
                     <span>
-                      May 11th, 2023
+                      January 1st, 2070
                     </span>
                   </div>
                 </_default>
@@ -1480,7 +1480,7 @@ exports[`CurrentSubscription container UI state iterations trial renders when th
       "account_type": "Teacher Trial",
       "created_at": "2022-02-16T14: 07: 25.976Z",
       "de_activated_date": null,
-      "expiration": "2022-05-10T12:32:37.170Z",
+      "expiration": "2022-01-1",
       "expired": true,
       "id": 7,
       "lastFour": null,
@@ -1547,7 +1547,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
       "account_type": "School Paid",
       "created_at": "2022-02-16T14: 07: 25.976Z",
       "de_activated_date": null,
-      "expiration": "2023-05-11T12:32:37.141Z",
+      "expiration": "2070-01-01",
       "expired": false,
       "id": 7,
       "lastFour": null,
@@ -1699,7 +1699,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
                   </div>
                 </_default>
                 <_default
-                  content="May 11th, 2023"
+                  content="January 1st, 2070"
                   title="End Date"
                 >
                   <div>
@@ -1709,7 +1709,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
                       End Date
                     </span>
                     <span>
-                      May 11th, 2023
+                      January 1st, 2070
                     </span>
                   </div>
                 </_default>
@@ -1794,7 +1794,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
       "account_type": "School Paid",
       "created_at": "2022-02-16T14: 07: 25.976Z",
       "de_activated_date": null,
-      "expiration": "2023-05-11T12:32:37.141Z",
+      "expiration": "2070-01-01",
       "expired": false,
       "id": 7,
       "lastFour": null,
@@ -1961,7 +1961,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
                   </div>
                 </_default>
                 <_default
-                  content="May 11th, 2023"
+                  content="January 1st, 2070"
                   title="End Date"
                 >
                   <div>
@@ -1971,7 +1971,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
                       End Date
                     </span>
                     <span>
-                      May 11th, 2023
+                      January 1st, 2070
                     </span>
                   </div>
                 </_default>
@@ -2056,7 +2056,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
       "account_type": "School Paid",
       "created_at": "2022-02-16T14: 07: 25.976Z",
       "de_activated_date": null,
-      "expiration": "2023-05-11T12:32:37.141Z",
+      "expiration": "2070-01-01",
       "expired": false,
       "id": 7,
       "lastFour": null,
@@ -2208,7 +2208,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
                   </div>
                 </_default>
                 <_default
-                  content="May 11th, 2023"
+                  content="January 1st, 2070"
                   title="End Date"
                 >
                   <div>
@@ -2218,7 +2218,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
                       End Date
                     </span>
                     <span>
-                      May 11th, 2023
+                      January 1st, 2070
                     </span>
                   </div>
                 </_default>
