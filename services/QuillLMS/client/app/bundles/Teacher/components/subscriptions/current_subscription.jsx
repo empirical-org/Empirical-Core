@@ -61,11 +61,8 @@ export default class CurrentSubscription extends React.Component {
   }
 
   getPrice() {
-    const { subscriptionType, } = this.props
-    if ([DISTRICT_PREMIUM, SCHOOL_PREMIUM].includes(subscriptionType)) {
-      return '900';
-    }
-    return '80';
+    const { subscriptionStatus, } = this.props
+    return subscriptionStatus.renewal_price
   }
 
   contactSales() {

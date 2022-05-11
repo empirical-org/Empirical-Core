@@ -20,6 +20,7 @@ exports[`CurrentSubscription container UI state iterations premium credit render
       "purchaser_id": null,
       "purchaser_name": null,
       "recurring": false,
+      "renewal_price": null,
       "start_date": "2022-02-16",
       "subscription_type_id": null,
       "updated_at": "2022-02-16T14: 07: 25.976Z",
@@ -293,12 +294,641 @@ exports[`CurrentSubscription container UI state iterations premium credit render
       "purchaser_id": null,
       "purchaser_name": null,
       "recurring": false,
+      "renewal_price": null,
       "start_date": "2022-02-16",
       "subscription_type_id": null,
       "updated_at": "2022-02-16T14: 07: 25.976Z",
     }
   }
   subscriptionType="Teacher Premium Credit"
+  userIsContact={false}
+>
+  <span />
+</CurrentSubscription>
+`;
+
+exports[`CurrentSubscription container UI state iterations school paid via invoice the current user is not the purchaser renders when there is an active school premium subscription 1`] = `
+<CurrentSubscription
+  authorityLevel="purchaser"
+  purchaserNameOrEmail="emilia+3@quill.org"
+  subscriptionStatus={
+    Object {
+      "account_type": "School Paid (via Invoice)",
+      "created_at": "2022-02-16T14: 07: 25.976Z",
+      "de_activated_date": null,
+      "expiration": "2070-01-01",
+      "expired": false,
+      "id": 7,
+      "lastFour": null,
+      "mail_to": "emilia+3@quill.org",
+      "payment_amount": null,
+      "payment_method": "Credit Card",
+      "purchaser_email": "emilia+3@quill.org",
+      "purchaser_id": null,
+      "purchaser_name": null,
+      "recurring": false,
+      "renewal_price": 1800,
+      "start_date": "2022-02-16",
+      "subscription_type_id": null,
+      "updated_at": "2022-02-16T14: 07: 25.976Z",
+    }
+  }
+  subscriptionType="School Premium"
+  userIsContact={false}
+>
+  <section>
+    <span />
+    <h2>
+      Subscription Information
+    </h2>
+    <div
+      className="current-subscription-information-and-cta"
+    >
+      <div
+        className="current-subscription-information"
+      >
+        <div
+          className="sub-meta-info"
+        >
+          <div
+            className="meta-section"
+          >
+            <h3>
+              CURRENT SUBSCRIPTION
+            </h3>
+            <div
+              className="flex-row space-between"
+            >
+              <div>
+                <_default
+                  content={
+                    <span
+                      className="content-wrapper"
+                    >
+                      School Premium
+                      <Tooltip
+                        tooltipText="You have a School Paid (via Invoice) subscription"
+                        tooltipTriggerText={
+                          <span>
+                            <img
+                              alt="Question mark icon"
+                              className="subscription-tooltip"
+                              src="undefined/images/icons/icons-help.svg"
+                            />
+                          </span>
+                        }
+                      />
+                    </span>
+                  }
+                  title="Plan"
+                >
+                  <div>
+                    <span
+                      className="title"
+                    >
+                      Plan
+                    </span>
+                    <span>
+                      <span
+                        className="content-wrapper"
+                      >
+                        School Premium
+                        <Tooltip
+                          tooltipText="You have a School Paid (via Invoice) subscription"
+                          tooltipTriggerText={
+                            <span>
+                              <img
+                                alt="Question mark icon"
+                                className="subscription-tooltip"
+                                src="undefined/images/icons/icons-help.svg"
+                              />
+                            </span>
+                          }
+                        >
+                          <span
+                            className="quill-tooltip-trigger"
+                          >
+                            <span
+                              className="undefined"
+                              onClick={[Function]}
+                              onMouseEnter={[Function]}
+                              onMouseLeave={[Function]}
+                              tabIndex={null}
+                            >
+                              <span>
+                                <img
+                                  alt="Question mark icon"
+                                  className="subscription-tooltip"
+                                  src="undefined/images/icons/icons-help.svg"
+                                />
+                              </span>
+                            </span>
+                            <span
+                              className="quill-tooltip-wrapper"
+                            >
+                              <span
+                                className="quill-tooltip"
+                              />
+                            </span>
+                          </span>
+                        </Tooltip>
+                      </span>
+                    </span>
+                  </div>
+                </_default>
+                <_default
+                  content="emilia+3@quill.org"
+                  title="Purchaser"
+                >
+                  <div>
+                    <span
+                      className="title"
+                    >
+                      Purchaser
+                    </span>
+                    <span>
+                      emilia+3@quill.org
+                    </span>
+                  </div>
+                </_default>
+                <_default
+                  content="Off"
+                  title="Automatic Renewal"
+                >
+                  <div>
+                    <span
+                      className="title"
+                    >
+                      Automatic Renewal
+                    </span>
+                    <span>
+                      Off
+                    </span>
+                  </div>
+                </_default>
+                <button
+                  className="q-button bg-orange text-white focus-on-light"
+                  onClick={[Function]}
+                  type="button"
+                >
+                  Turn On Automatic Renewal
+                </button>
+              </div>
+              <div>
+                <_default
+                  content="February 16th, 2022"
+                  title="Start Date"
+                >
+                  <div>
+                    <span
+                      className="title"
+                    >
+                      Start Date
+                    </span>
+                    <span>
+                      February 16th, 2022
+                    </span>
+                  </div>
+                </_default>
+                <_default
+                  content="January 1st, 2070"
+                  title="End Date"
+                >
+                  <div>
+                    <span
+                      className="title"
+                    >
+                      End Date
+                    </span>
+                    <span>
+                      January 1st, 2070
+                    </span>
+                  </div>
+                </_default>
+              </div>
+            </div>
+          </div>
+          <div
+            className="meta-section payment"
+          >
+            <h3>
+              PAYMENT METHOD ON FILE
+            </h3>
+            <span>
+              Credit Card ending in undefined
+              <button
+                className="interactive-wrapper focus-on-light"
+                onClick={[Function]}
+                style={
+                  Object {
+                    "color": "#027360",
+                    "cursor": "pointer",
+                    "fontSize": "14px",
+                    "paddingLeft": "10px",
+                  }
+                }
+                type="button"
+              >
+                Edit Credit Card
+              </button>
+            </span>
+          </div>
+          <div
+            className="meta-section"
+          >
+            <h3>
+              NEXT SUBSCRIPTION
+            </h3>
+            <div>
+              <div
+                className="flex-row space-between"
+              >
+                <_default
+                  content={
+                    <span>
+                      Quill Basic - Free
+                    </span>
+                  }
+                  title="Next Plan"
+                >
+                  <div>
+                    <span
+                      className="title"
+                    >
+                      Next Plan
+                    </span>
+                    <span>
+                      <span>
+                        Quill Basic - Free
+                      </span>
+                    </span>
+                  </div>
+                </_default>
+              </div>
+              <div
+                className="next-plan-alert flex-row vertically-centered"
+              >
+                <i
+                  className="fas fa-icon fa-lightbulb-o"
+                />
+                Once your current School Premium subscription expires, you will be downgraded to Quill Basic. To prevent your subscription from expiring, turn on automatic renewal.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <span />
+    </div>
+    <Snackbar>
+      <div
+        className="quill-snackbar "
+      />
+    </Snackbar>
+  </section>
+</CurrentSubscription>
+`;
+
+exports[`CurrentSubscription container UI state iterations school paid via invoice the current user is not the purchaser renders when there is an expired school premium subscription 1`] = `
+<CurrentSubscription
+  authorityLevel="purchaser"
+  purchaserNameOrEmail="emilia+3@quill.org"
+  subscriptionStatus={
+    Object {
+      "account_type": "School Paid (via Invoice)",
+      "created_at": "2022-02-16T14: 07: 25.976Z",
+      "de_activated_date": null,
+      "expiration": "2022-01-1",
+      "expired": true,
+      "id": 7,
+      "lastFour": null,
+      "mail_to": "emilia+3@quill.org",
+      "payment_amount": null,
+      "payment_method": "Credit Card",
+      "purchaser_email": "emilia+3@quill.org",
+      "purchaser_id": null,
+      "purchaser_name": null,
+      "recurring": false,
+      "renewal_price": 1800,
+      "start_date": "2022-02-16",
+      "subscription_type_id": null,
+      "updated_at": "2022-02-16T14: 07: 25.976Z",
+    }
+  }
+  subscriptionType="School Premium"
+  userIsContact={false}
+>
+  <span />
+</CurrentSubscription>
+`;
+
+exports[`CurrentSubscription container UI state iterations school paid via invoice the current user is the purchaser renders when there is an active school premium subscription 1`] = `
+<CurrentSubscription
+  authorityLevel="purchaser"
+  purchaserNameOrEmail="emilia+3@quill.org"
+  subscriptionStatus={
+    Object {
+      "account_type": "School Paid (via Invoice)",
+      "created_at": "2022-02-16T14: 07: 25.976Z",
+      "de_activated_date": null,
+      "expiration": "2070-01-01",
+      "expired": false,
+      "id": 7,
+      "lastFour": null,
+      "mail_to": "emilia+3@quill.org",
+      "payment_amount": null,
+      "payment_method": "Credit Card",
+      "purchaser_email": "emilia+3@quill.org",
+      "purchaser_id": null,
+      "purchaser_name": null,
+      "recurring": false,
+      "renewal_price": 1800,
+      "start_date": "2022-02-16",
+      "subscription_type_id": null,
+      "updated_at": "2022-02-16T14: 07: 25.976Z",
+    }
+  }
+  subscriptionType="School Premium"
+  userIsContact={false}
+>
+  <section>
+    <span />
+    <h2>
+      Subscription Information
+    </h2>
+    <div
+      className="current-subscription-information-and-cta"
+    >
+      <div
+        className="current-subscription-information"
+      >
+        <div
+          className="sub-meta-info"
+        >
+          <div
+            className="meta-section"
+          >
+            <h3>
+              CURRENT SUBSCRIPTION
+            </h3>
+            <div
+              className="flex-row space-between"
+            >
+              <div>
+                <_default
+                  content={
+                    <span
+                      className="content-wrapper"
+                    >
+                      School Premium
+                      <Tooltip
+                        tooltipText="You have a School Paid (via Invoice) subscription"
+                        tooltipTriggerText={
+                          <span>
+                            <img
+                              alt="Question mark icon"
+                              className="subscription-tooltip"
+                              src="undefined/images/icons/icons-help.svg"
+                            />
+                          </span>
+                        }
+                      />
+                    </span>
+                  }
+                  title="Plan"
+                >
+                  <div>
+                    <span
+                      className="title"
+                    >
+                      Plan
+                    </span>
+                    <span>
+                      <span
+                        className="content-wrapper"
+                      >
+                        School Premium
+                        <Tooltip
+                          tooltipText="You have a School Paid (via Invoice) subscription"
+                          tooltipTriggerText={
+                            <span>
+                              <img
+                                alt="Question mark icon"
+                                className="subscription-tooltip"
+                                src="undefined/images/icons/icons-help.svg"
+                              />
+                            </span>
+                          }
+                        >
+                          <span
+                            className="quill-tooltip-trigger"
+                          >
+                            <span
+                              className="undefined"
+                              onClick={[Function]}
+                              onMouseEnter={[Function]}
+                              onMouseLeave={[Function]}
+                              tabIndex={null}
+                            >
+                              <span>
+                                <img
+                                  alt="Question mark icon"
+                                  className="subscription-tooltip"
+                                  src="undefined/images/icons/icons-help.svg"
+                                />
+                              </span>
+                            </span>
+                            <span
+                              className="quill-tooltip-wrapper"
+                            >
+                              <span
+                                className="quill-tooltip"
+                              />
+                            </span>
+                          </span>
+                        </Tooltip>
+                      </span>
+                    </span>
+                  </div>
+                </_default>
+                <_default
+                  content="emilia+3@quill.org"
+                  title="Purchaser"
+                >
+                  <div>
+                    <span
+                      className="title"
+                    >
+                      Purchaser
+                    </span>
+                    <span>
+                      emilia+3@quill.org
+                    </span>
+                  </div>
+                </_default>
+                <_default
+                  content="Off"
+                  title="Automatic Renewal"
+                >
+                  <div>
+                    <span
+                      className="title"
+                    >
+                      Automatic Renewal
+                    </span>
+                    <span>
+                      Off
+                    </span>
+                  </div>
+                </_default>
+                <button
+                  className="q-button bg-orange text-white focus-on-light"
+                  onClick={[Function]}
+                  type="button"
+                >
+                  Turn On Automatic Renewal
+                </button>
+              </div>
+              <div>
+                <_default
+                  content="February 16th, 2022"
+                  title="Start Date"
+                >
+                  <div>
+                    <span
+                      className="title"
+                    >
+                      Start Date
+                    </span>
+                    <span>
+                      February 16th, 2022
+                    </span>
+                  </div>
+                </_default>
+                <_default
+                  content="January 1st, 2070"
+                  title="End Date"
+                >
+                  <div>
+                    <span
+                      className="title"
+                    >
+                      End Date
+                    </span>
+                    <span>
+                      January 1st, 2070
+                    </span>
+                  </div>
+                </_default>
+              </div>
+            </div>
+          </div>
+          <div
+            className="meta-section payment"
+          >
+            <h3>
+              PAYMENT METHOD ON FILE
+            </h3>
+            <span>
+              Credit Card ending in undefined
+              <button
+                className="interactive-wrapper focus-on-light"
+                onClick={[Function]}
+                style={
+                  Object {
+                    "color": "#027360",
+                    "cursor": "pointer",
+                    "fontSize": "14px",
+                    "paddingLeft": "10px",
+                  }
+                }
+                type="button"
+              >
+                Edit Credit Card
+              </button>
+            </span>
+          </div>
+          <div
+            className="meta-section"
+          >
+            <h3>
+              NEXT SUBSCRIPTION
+            </h3>
+            <div>
+              <div
+                className="flex-row space-between"
+              >
+                <_default
+                  content={
+                    <span>
+                      Quill Basic - Free
+                    </span>
+                  }
+                  title="Next Plan"
+                >
+                  <div>
+                    <span
+                      className="title"
+                    >
+                      Next Plan
+                    </span>
+                    <span>
+                      <span>
+                        Quill Basic - Free
+                      </span>
+                    </span>
+                  </div>
+                </_default>
+              </div>
+              <div
+                className="next-plan-alert flex-row vertically-centered"
+              >
+                <i
+                  className="fas fa-icon fa-lightbulb-o"
+                />
+                Once your current School Premium subscription expires, you will be downgraded to Quill Basic. To prevent your subscription from expiring, turn on automatic renewal.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <span />
+    </div>
+    <Snackbar>
+      <div
+        className="quill-snackbar "
+      />
+    </Snackbar>
+  </section>
+</CurrentSubscription>
+`;
+
+exports[`CurrentSubscription container UI state iterations school paid via invoice the current user is the purchaser renders when there is an expired school premium subscription 1`] = `
+<CurrentSubscription
+  authorityLevel="purchaser"
+  purchaserNameOrEmail="emilia+3@quill.org"
+  subscriptionStatus={
+    Object {
+      "account_type": "School Paid (via Invoice)",
+      "created_at": "2022-02-16T14: 07: 25.976Z",
+      "de_activated_date": null,
+      "expiration": "2022-01-1",
+      "expired": true,
+      "id": 7,
+      "lastFour": null,
+      "mail_to": "emilia+3@quill.org",
+      "payment_amount": null,
+      "payment_method": "Credit Card",
+      "purchaser_email": "emilia+3@quill.org",
+      "purchaser_id": null,
+      "purchaser_name": null,
+      "recurring": false,
+      "renewal_price": 1800,
+      "start_date": "2022-02-16",
+      "subscription_type_id": null,
+      "updated_at": "2022-02-16T14: 07: 25.976Z",
+    }
+  }
+  subscriptionType="School Premium"
   userIsContact={false}
 >
   <span />
@@ -325,6 +955,7 @@ exports[`CurrentSubscription container UI state iterations school paid via strip
       "purchaser_id": null,
       "purchaser_name": null,
       "recurring": false,
+      "renewal_price": 1800,
       "start_date": "2022-02-16",
       "subscription_type_id": null,
       "updated_at": "2022-02-16T14: 07: 25.976Z",
@@ -605,6 +1236,7 @@ exports[`CurrentSubscription container UI state iterations school paid via strip
       "purchaser_id": null,
       "purchaser_name": null,
       "recurring": true,
+      "renewal_price": 1800,
       "start_date": "2022-02-16",
       "subscription_type_id": null,
       "updated_at": "2022-02-16T14: 07: 25.976Z",
@@ -825,7 +1457,7 @@ exports[`CurrentSubscription container UI state iterations school paid via strip
                     <span>
                       School Premium
                        - $
-                      900
+                      1800
                        Annual Subscription
                     </span>
                   }
@@ -841,7 +1473,7 @@ exports[`CurrentSubscription container UI state iterations school paid via strip
                       <span>
                         School Premium
                          - $
-                        900
+                        1800
                          Annual Subscription
                       </span>
                     </span>
@@ -869,7 +1501,7 @@ exports[`CurrentSubscription container UI state iterations school paid via strip
                 <i
                   className="fas fa-icon fa-lightbulb-o"
                 />
-                Your School Premium subscription will be renewed on January 2nd, 2070 and your card ending in undefined will be charged $900.
+                Your School Premium subscription will be renewed on January 2nd, 2070 and your card ending in undefined will be charged $1800.
               </div>
             </div>
           </div>
@@ -906,6 +1538,7 @@ exports[`CurrentSubscription container UI state iterations school paid via strip
       "purchaser_id": null,
       "purchaser_name": null,
       "recurring": false,
+      "renewal_price": 1800,
       "start_date": "2022-02-16",
       "subscription_type_id": null,
       "updated_at": "2022-02-16T14: 07: 25.976Z",
@@ -938,6 +1571,7 @@ exports[`CurrentSubscription container UI state iterations school paid via strip
       "purchaser_id": null,
       "purchaser_name": null,
       "recurring": false,
+      "renewal_price": 1800,
       "start_date": "2022-02-16",
       "subscription_type_id": null,
       "updated_at": "2022-02-16T14: 07: 25.976Z",
@@ -1218,6 +1852,7 @@ exports[`CurrentSubscription container UI state iterations school paid via strip
       "purchaser_id": null,
       "purchaser_name": null,
       "recurring": true,
+      "renewal_price": 1800,
       "start_date": "2022-02-16",
       "subscription_type_id": null,
       "updated_at": "2022-02-16T14: 07: 25.976Z",
@@ -1438,7 +2073,7 @@ exports[`CurrentSubscription container UI state iterations school paid via strip
                     <span>
                       School Premium
                        - $
-                      900
+                      1800
                        Annual Subscription
                     </span>
                   }
@@ -1454,7 +2089,7 @@ exports[`CurrentSubscription container UI state iterations school paid via strip
                       <span>
                         School Premium
                          - $
-                        900
+                        1800
                          Annual Subscription
                       </span>
                     </span>
@@ -1482,7 +2117,7 @@ exports[`CurrentSubscription container UI state iterations school paid via strip
                 <i
                   className="fas fa-icon fa-lightbulb-o"
                 />
-                Your School Premium subscription will be renewed on January 2nd, 2070 and your card ending in undefined will be charged $900.
+                Your School Premium subscription will be renewed on January 2nd, 2070 and your card ending in undefined will be charged $1800.
               </div>
             </div>
           </div>
@@ -1519,6 +2154,7 @@ exports[`CurrentSubscription container UI state iterations school paid via strip
       "purchaser_id": null,
       "purchaser_name": null,
       "recurring": false,
+      "renewal_price": 1800,
       "start_date": "2022-02-16",
       "subscription_type_id": null,
       "updated_at": "2022-02-16T14: 07: 25.976Z",
@@ -1551,6 +2187,7 @@ exports[`CurrentSubscription container UI state iterations teacher free renders 
       "purchaser_id": null,
       "purchaser_name": null,
       "recurring": false,
+      "renewal_price": null,
       "start_date": "2022-02-16",
       "subscription_type_id": null,
       "updated_at": "2022-02-16T14: 07: 25.976Z",
@@ -1824,6 +2461,7 @@ exports[`CurrentSubscription container UI state iterations teacher free renders 
       "purchaser_id": null,
       "purchaser_name": null,
       "recurring": false,
+      "renewal_price": null,
       "start_date": "2022-02-16",
       "subscription_type_id": null,
       "updated_at": "2022-02-16T14: 07: 25.976Z",
@@ -1856,6 +2494,7 @@ exports[`CurrentSubscription container UI state iterations teacher paid renders 
       "purchaser_id": null,
       "purchaser_name": null,
       "recurring": false,
+      "renewal_price": 80,
       "start_date": "2022-02-16",
       "subscription_type_id": null,
       "updated_at": "2022-02-16T14: 07: 25.976Z",
@@ -2136,6 +2775,7 @@ exports[`CurrentSubscription container UI state iterations teacher paid renders 
       "purchaser_id": null,
       "purchaser_name": null,
       "recurring": true,
+      "renewal_price": 80,
       "start_date": "2022-02-16",
       "subscription_type_id": null,
       "updated_at": "2022-02-16T14: 07: 25.976Z",
@@ -2437,6 +3077,7 @@ exports[`CurrentSubscription container UI state iterations teacher paid renders 
       "purchaser_id": null,
       "purchaser_name": null,
       "recurring": false,
+      "renewal_price": 80,
       "start_date": "2022-02-16",
       "subscription_type_id": null,
       "updated_at": "2022-02-16T14: 07: 25.976Z",
@@ -2469,6 +3110,7 @@ exports[`CurrentSubscription container UI state iterations trial renders when th
       "purchaser_id": null,
       "purchaser_name": null,
       "recurring": false,
+      "renewal_price": null,
       "start_date": "2022-02-16",
       "subscription_type_id": null,
       "updated_at": "2022-02-16T14: 07: 25.976Z",
@@ -2742,6 +3384,7 @@ exports[`CurrentSubscription container UI state iterations trial renders when th
       "purchaser_id": null,
       "purchaser_name": null,
       "recurring": false,
+      "renewal_price": null,
       "start_date": "2022-02-16",
       "subscription_type_id": null,
       "updated_at": "2022-02-16T14: 07: 25.976Z",
@@ -2809,6 +3452,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
       "purchaser_id": null,
       "purchaser_name": null,
       "recurring": false,
+      "renewal_price": null,
       "start_date": "2022-02-16",
       "subscription_type_id": null,
       "updated_at": "2022-02-16T14: 07: 25.976Z",
@@ -3067,6 +3711,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
       "purchaser_id": null,
       "purchaser_name": null,
       "recurring": false,
+      "renewal_price": null,
       "start_date": "2022-02-16",
       "subscription_type_id": null,
       "updated_at": "2022-02-16T14: 07: 25.976Z",
@@ -3340,6 +3985,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
       "purchaser_id": null,
       "purchaser_name": null,
       "recurring": false,
+      "renewal_price": null,
       "start_date": "2022-02-16",
       "subscription_type_id": null,
       "updated_at": "2022-02-16T14: 07: 25.976Z",

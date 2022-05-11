@@ -77,6 +77,7 @@ const SubscriptionStatus = ({
 }) => {
 
   const renewalStripePriceId = subscriptionStatus && subscriptionStatus.renewal_stripe_price_id
+
   let image
   let expiration
   let remainingDays
@@ -130,7 +131,7 @@ const SubscriptionStatus = ({
             buttonText='Renew Subscription'
             cancelPath='subscriptions'
             customerEmail={subscriptionStatus.customer_email}
-            stripePlan={stripeTeacherPlan}
+            stripePriceId={renewalStripePriceId}
             userIsEligibleForNewSubscription={true}
             userIsSignedIn={true}
           />
@@ -145,14 +146,14 @@ const SubscriptionStatus = ({
       image = 'school_premium_icon.png';
       content.status = <h2>You have a {schoolSubDisplayName} subscription<img alt={`${subscriptionType}`} src={`https://assets.quill.org/images/shared/${image}`} /></h2>;
       content.boxColor = '#9c2bde';
-      if (remainingDays < 0 && !subscriptionStatus.recurring) {
+      if (remainingDays < 0) {
         content.buttonOrDate = (
           <StripeSubscriptionCheckoutSessionButton
             buttonClassName="renew-subscription q-button bg-orange text-white cta-button focus-on-light"
             buttonText='Renew Subscription'
             cancelPath='subscriptions'
             customerEmail={subscriptionStatus.customer_email}
-            stripePlan={stripeSchoolPlan}
+            stripePriceId={renewalStripePriceId}
             userIsEligibleForNewSubscription={true}
             userIsSignedIn={true}
           />

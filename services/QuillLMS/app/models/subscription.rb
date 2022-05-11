@@ -378,6 +378,7 @@ class Subscription < ApplicationRecord
       'last_four' => last_four,
       'purchaser_name' => purchaser&.name,
       'renewal_stripe_price_id' => renewal_stripe_price_id,
+      'renewal_price' => plan && PlanSerializer.new(plan).price_in_dollars,
       'stripe_customer_id' => purchaser&.stripe_customer_id,
       'stripe_subscription_id' => stripe_subscription_id
     )
@@ -389,11 +390,9 @@ class Subscription < ApplicationRecord
 
   def renewal_stripe_price_id
     return STRIPE_TEACHER_PLAN_PRICE_ID if account_type == TEACHER_PAID
-    return STRIPE_SCHOOL_PLAN_PRICE_ID if stripe? && account_type == SCHOOL_PAID
-  end
-
-  def stripe?
-    stripe_invoice_id.present?
+    # can get cleaned up when we unify account types vs plan names, this covers the existing bases
+    return STRIPE_SCHOOL_PLAN_PRICE_ID if account_type == SCHOOL_PAID
+    return STRIPE_SCHOOL_PLAN_PRICE_ID if account_type == Plan::STRIPE_SCHOOL_PLAN
   end
 
   private def stripe_subscription_id
