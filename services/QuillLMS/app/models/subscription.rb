@@ -49,29 +49,45 @@ class Subscription < ApplicationRecord
   CB_LIFETIME_DURATION = 365 * 50 # In days, this is approximately 50 years
 
   CB_LIFETIME_SUBSCRIPTION_TYPE = 'College Board Educator Lifetime Premium'
+  PREMIUM_CREDIT = 'Premium Credit'
+  SCHOOL_DISTRICT_PAID = 'School District Paid'
+  SCHOOL_PAID = 'School Paid'
+  SCHOOL_SPONSORED_FREE = 'School Sponsored Free'
+  TEACHER_PAID = 'Teacher Paid'
+  TEACHER_SPONSORED_FREE = 'Teacher Sponsored Free'
+  TEACHER_TRIAL = 'Teacher Trial'
 
-  OFFICIAL_PAID_TYPES = ['School District Paid',
-                         'School Paid',
-                         'Teacher Paid',
-                         'Premium Credit',
-                         CB_LIFETIME_SUBSCRIPTION_TYPE]
+  OFFICIAL_PAID_TYPES = [
+    SCHOOL_DISTRICT_PAID,
+    SCHOOL_PAID,
+    TEACHER_PAID,
+    PREMIUM_CREDIT,
+    CB_LIFETIME_SUBSCRIPTION_TYPE
+  ]
 
-  OFFICIAL_FREE_TYPES = ['School Sponsored Free',
-                         'Teacher Sponsored Free',
-                         'Teacher Trial']
+  OFFICIAL_FREE_TYPES = [
+    SCHOOL_SPONSORED_FREE,
+    TEACHER_SPONSORED_FREE,
+    TEACHER_TRIAL
+  ]
 
-  OFFICIAL_SCHOOL_TYPES = ['School District Paid',
-                           'School Paid',
-                           'School Sponsored Free']
+  OFFICIAL_SCHOOL_TYPES = [
+    SCHOOL_DISTRICT_PAID,
+    SCHOOL_PAID,
+    SCHOOL_SPONSORED_FREE
+  ]
 
-  OFFICIAL_TEACHER_TYPES = ['Teacher Paid',
-                            'Premium Credit',
-                            'Teacher Sponsored Free',
-                            'Teacher Trial',
-                            CB_LIFETIME_SUBSCRIPTION_TYPE]
+  OFFICIAL_TEACHER_TYPES = [
+    TEACHER_PAID,
+    PREMIUM_CREDIT,
+    TEACHER_SPONSORED_FREE,
+    TEACHER_TRIAL,
+    CB_LIFETIME_SUBSCRIPTION_TYPE
+  ]
 
-  ALL_OFFICIAL_TYPES = OFFICIAL_PAID_TYPES.dup.concat(OFFICIAL_FREE_TYPES)
-  TRIAL_TYPES = ['Teacher Trial']
+  ALL_OFFICIAL_TYPES = OFFICIAL_PAID_TYPES + OFFICIAL_FREE_TYPES
+  TRIAL_TYPES = [TEACHER_TRIAL]
+
   SCHOOL_RENEWAL_PRICE = 90000
 
   TYPES_HASH = {
@@ -361,6 +377,7 @@ class Subscription < ApplicationRecord
       'expired' => expired?,
       'last_four' => last_four,
       'purchaser_name' => purchaser&.name,
+      'renewal_stripe_price_id' => renewal_stripe_price_id,
       'stripe_customer_id' => purchaser&.stripe_customer_id,
       'stripe_subscription_id' => stripe_subscription_id
     )
@@ -368,6 +385,15 @@ class Subscription < ApplicationRecord
 
   def last_four
     StripeIntegration::Subscription.new(self).last_four
+  end
+
+  def renewal_stripe_price_id
+    return STRIPE_TEACHER_PLAN_PRICE_ID if account_type == TEACHER_PAID
+    return STRIPE_SCHOOL_PLAN_PRICE_ID if stripe? && account_type == SCHOOL_PAID
+  end
+
+  def stripe?
+    stripe_invoice_id.present?
   end
 
   private def stripe_subscription_id

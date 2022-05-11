@@ -15,6 +15,7 @@ class PagesController < ApplicationController
   NUMBER_OF_SCHOOLS = "NUMBER_OF_SCHOOLS"
   NUMBER_OF_LOW_INCOME_SCHOOLS = "NUMBER_OF_LOW_INCOME_SCHOOLS"
   OPEN_POSITIONS = Configs[:careers][:open_positions]
+  SHOW_SCHOOL_BUY_NOW_BUTTON_APP_SETTING = 'show_school_buy_now_button'
 
   def home
     if signed_in?
@@ -408,7 +409,9 @@ class PagesController < ApplicationController
     @user_has_school = !!current_user&.school && ['home school', 'us higher ed', 'international', 'other', 'not listed'].exclude?(current_user&.school&.name)
     @user_belongs_to_school_that_has_paid = current_user&.school ? Subscription.school_or_user_has_ever_paid?(current_user&.school) : false
     @customer_email = current_user&.email
+    @stripe_school_plan = PlanSerializer.new(Plan.stripe_school_plan).as_json
     @stripe_teacher_plan = PlanSerializer.new(Plan.stripe_teacher_plan).as_json
+    @show_school_buy_now = AppSetting.enabled?(name: SHOW_SCHOOL_BUY_NOW_BUTTON_APP_SETTING, user: current_user)
 
     @diagnostic_activity_count =
       Activity.where(

@@ -9,10 +9,11 @@ exports[`PremiumPricingGuide container should render 1`] = `
       className="overview text-center"
     >
       <PremiumPricingMinisRow
-        buyNowButton={[Function]}
         diagnosticActivityCount={9}
         independentPracticeActivityCount={400}
         lessonsActivityCount={50}
+        schoolBuyNowButton={[Function]}
+        teacherBuyNowButton={[Function]}
       />
       <PremiumFeaturesTable
         diagnosticActivityCount={9}

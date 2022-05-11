@@ -8,6 +8,7 @@ module StripeIntegration
       class NilStripeInvoiceIdError < Error; end
       class NilStripePriceIdError < Error; end
       class PlanNotFoundError < Error; end
+      class PurchaserNilSchoolError < Error; end
       class PurchaserNotFoundError < Error; end
       class StripeInvoiceIdNotUniqueError < Error; end
 
@@ -50,10 +51,22 @@ module StripeIntegration
       end
 
       private def run_plan_custom_tasks
-        return unless plan.teacher?
+        case plan
+        when Plan.stripe_teacher_plan
+          UserSubscription.create!(user: purchaser, subscription: subscription)
+          UpdateSalesContactWorker.perform_async(purchaser.id, SalesStageType::TEACHER_PREMIUM)
+        when Plan.stripe_school_plan
+          raise PurchaserNilSchoolError if purchaser.school.nil?
 
-        UserSubscription.create!(user: purchaser, subscription: subscription)
-        UpdateSalesContactWorker.perform_async(purchaser.id, SalesStageType::TEACHER_PREMIUM)
+          SchoolSubscription.create!(school: purchaser.school, subscription: subscription)
+          UpdateSalesContactWorker.perform_async(purchaser.id, SalesStageType::SCHOOL_PREMIUM)
+        end
+      end
+
+      private def save_stripe_customer_id
+        raise NilStripeCustomerIdError if stripe_customer_id.nil?
+
+        purchaser.update!(stripe_customer_id: stripe_customer_id)
       end
 
       private def start_date
@@ -82,12 +95,6 @@ module StripeIntegration
         )
       rescue ActiveRecord::RecordNotUnique
         raise StripeInvoiceIdNotUniqueError
-      end
-
-      private def save_stripe_customer_id
-        raise NilStripeCustomerIdError if stripe_customer_id.nil?
-
-        purchaser.update!(stripe_customer_id: stripe_customer_id)
       end
     end
   end
