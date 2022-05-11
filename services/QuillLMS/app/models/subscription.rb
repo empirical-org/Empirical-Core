@@ -112,7 +112,8 @@ class Subscription < ApplicationRecord
 
   validates :stripe_invoice_id, allow_blank: true, stripe_uid: { prefix: :in }
 
-  delegate :stripe_cancel_at_period_end, :last_four, :stripe_subscription_id, to: :stripe_subscription
+  delegate :stripe_cancel_at_period_end, :last_four, :stripe_subscription_id, :stripe_subscription_url,
+    to: :stripe_subscription
 
   scope :active, -> { not_expired.not_de_activated.order(expiration: :asc) }
   scope :expired, -> { where('expiration <= ?', Date.current) }
@@ -396,7 +397,6 @@ class Subscription < ApplicationRecord
     StripeIntegration::Subscription.new(self)
   end
 
-
   def renewal_stripe_price_id
     return STRIPE_TEACHER_PLAN_PRICE_ID if [TEACHER_PAID, TEACHER_TRIAL].include?(account_type)
     return STRIPE_SCHOOL_PLAN_PRICE_ID if stripe? && account_type == SCHOOL_PAID
@@ -404,9 +404,5 @@ class Subscription < ApplicationRecord
 
   def stripe?
     stripe_invoice_id.present?
-  end
-
-  private def stripe_subscription_id
-    stripe_subscription.stripe_subscription_id
   end
 end

@@ -94,7 +94,6 @@
 
     <% if @user.role == 'teacher' %>
     <% if @user.subscriptions.any? %>
-      <% puts @user.credit_transactions.map {|x|     x.serializable_hash(methods: :action)}.compact %>
       <%= react_component('SubscriptionApp', props: {view: 'subscriptionHistory', subscriptions: @user.subscriptions, premiumCredits: @user.credit_transactions, authorityLevel: 'purchaser' }) %>
     <% end %>
 

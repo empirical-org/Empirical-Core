@@ -45,6 +45,34 @@ describe Cms::SubscriptionsController do
     end
   end
 
+  describe '#edit' do
+    context 'stripe' do
+      let(:subscription) { create(:subscription, :stripe) }
+      let(:stripe_subscription_id) { "sub_#{SecureRandom.hex}"}
+      let(:stripe_invoice_id) { subscription.stripe_invoice_id }
+      let(:stripe_invoice) { double(:stripe_invoice, subscription: stripe_subscription_id) }
+
+      before do
+        allow(Stripe::Invoice).to receive(:retrieve).with(stripe_invoice_id).and_return(stripe_invoice)
+        stub_request(:get, %r{https://api.stripe.com/v1/}).to_return(status: :found)
+      end
+
+      it 'redirects to the stripe dashboard' do
+        get :edit, params: { id: subscription.id }
+        expect(response).to have_http_status :found
+      end
+    end
+
+    context 'non stripe' do
+      let(:subscription) { create(:subscription) }
+
+      it 'redirects to the subscription edit view' do
+        get :edit, params: { id: subscription.id }
+        expect(response).to have_http_status :ok
+      end
+    end
+  end
+
   describe '#update' do
     let!(:subscription) { create(:subscription) }
 
