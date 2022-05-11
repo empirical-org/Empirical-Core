@@ -50,38 +50,25 @@ exports[`SubscriptionStatus container should render when the subscription is exp
           Your teacher subscription has expired
         </h2>
       </div>
-      <StripeSubscriptionCheckoutSessionButton
-        buttonClassName="renew-subscription q-button bg-orange text-white cta-button"
-        buttonText="Renew Subscription"
-        cancelPath="subscriptions"
-        userIsEligibleForNewSubscription={true}
-        userIsSignedIn={true}
+      <span
+        className="expiration-date"
       >
-        <button
-          className="renew-subscription q-button bg-orange text-white cta-button"
-          onClick={[Function]}
-          type="button"
-        >
-          Renew Subscription
-        </button>
-      </StripeSubscriptionCheckoutSessionButton>
-    </div>
-    <p>
-      <span>
-        <strong>
-          Your 
-          teacher
-           subscription (
-          02/15/22
-           - 
-          02/15/22
-          ) has expired and you are back to Quill Basic.
-        </strong>
         <span>
-          Quill Basic provides access to all of Quill's content. To access Quill Premium, you can purchase an individual teacher subscription or a school subscription.
+          Valid Until:
+        </span>
+         
+        <span>
+          February 15th, 2022
+        </span>
+        <span
+          className="time-left-in-days"
+        >
+           | 
+          -85 days
         </span>
       </span>
-    </p>
+    </div>
+    <p />
   </section>
 </SubscriptionStatus>
 `;

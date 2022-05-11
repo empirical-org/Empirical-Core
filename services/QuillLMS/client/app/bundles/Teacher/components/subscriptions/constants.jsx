@@ -17,3 +17,5 @@ export const ACCOUNT_TYPE_TO_SUBSCRIPTION_TYPES = {
   "School Sponsored Free": SCHOOL_PREMIUM_SCHOLARSHIP,
   "School District Paid": DISTRICT_PREMIUM
 }
+
+export const CREDIT_CARD = "Credit Card"

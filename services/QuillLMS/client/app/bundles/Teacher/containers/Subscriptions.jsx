@@ -192,11 +192,8 @@ export default class Subscriptions extends React.Component {
   }
 
   userIsContact() {
-    const { subscriptionStatus, } = this.props
-    if (subscriptionStatus) {
-      return Number(document.getElementById('current-user-id').getAttribute('content')) === subscriptionStatus.purchaser_id;
-    }
-    return false;
+    const { authorityLevel, } = this.state
+    return authorityLevel === 'purchaser'
   }
 
   render() {
