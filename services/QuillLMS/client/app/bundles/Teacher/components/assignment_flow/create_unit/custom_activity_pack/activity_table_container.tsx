@@ -161,8 +161,10 @@ const ActivityTableContainer = ({
 
   return (
     <section className="activity-table-container">
-      <LessonsBanner closeBanner={closeLessonsBanner} bannerShowing={lessonsBannerShowing} selectedActivities={selectedActivities} />
-      <EvidenceBanner closeBanner={closeEvidenceBanner} bannerShowing={evidenceBannerShowing} selectedActivities={selectedActivities} />
+      <div className="banners-container">
+        <LessonsBanner closeBanner={closeLessonsBanner} bannerShowing={lessonsBannerShowing} selectedActivities={selectedActivities} />
+        <EvidenceBanner closeBanner={closeEvidenceBanner} bannerShowing={evidenceBannerShowing} selectedActivities={selectedActivities} />
+      </div>
       <SearchAndSort handleSearch={handleSearch} search={search} setSort={setSort} sort={sort} />
       <FilterAndSort setShowMobileFilterMenu={setShowMobileFilterMenu} setShowMobileSortMenu={setShowMobileSortMenu} />
       {activityRowsOrEmptyState}

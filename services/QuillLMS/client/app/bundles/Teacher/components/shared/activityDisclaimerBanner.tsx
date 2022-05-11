@@ -12,7 +12,7 @@ const bodyOptions = {
 
 const ActivityDisclaimerBanner = ({ closeBanner, showImage, activityType }) => {
   return (
-    <section className="assigning-lessons-banner">
+    <section className="assigning-activity-disclaimer-banner">
       {showImage && <img alt="teacher at a board showing a projected Quill Lesson" src={quillLessonsTeacherSrc} />}
       <div className="text">
         {headerOptions[activityType]}
