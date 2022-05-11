@@ -186,7 +186,7 @@ export default class Subscriptions extends React.Component {
   }
 
   render() {
-    const { premiumCredits, stripeTeacherPlan } = this.props
+    const { premiumCredits } = this.props
 
     const {
       authorityLevel,
@@ -204,7 +204,6 @@ export default class Subscriptions extends React.Component {
       <div>
         <SubscriptionStatus
           key={subId}
-          stripeTeacherPlan={stripeTeacherPlan}
           subscriptionStatus={subscriptionStatus}
           subscriptionType={this.subscriptionType()}
           userIsContact={this.userIsContact()}

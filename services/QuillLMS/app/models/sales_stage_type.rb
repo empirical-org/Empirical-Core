@@ -21,7 +21,8 @@ class SalesStageType < ApplicationRecord
   validates :order, uniqueness: true
 
   ORDER_TYPES = [
-    TEACHER_PREMIUM = '2'
+    TEACHER_PREMIUM = '2',
+    SCHOOL_PREMIUM = '6.1'
   ]
 
   enum trigger: { auto: 0, user: 1 }

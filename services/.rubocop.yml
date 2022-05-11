@@ -275,6 +275,10 @@ Metrics/AbcSize:
 Metrics/BlockNesting:
   Max: 4
 
+Metrics/ClassLength:
+  Exclude:
+    - QuillLMS/app/controllers/pages_controller.rb
+
 Metrics/CyclomaticComplexity:
   Max: 7
 
