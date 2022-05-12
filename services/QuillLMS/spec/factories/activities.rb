@@ -33,7 +33,7 @@
 #  fk_rails_...  (standard_id => standards.id)
 #
 FactoryBot.define do
-  data = {questionType: "questions", questions: []}
+  data = {questionType: "questions", questions: [{key: 'fake_key'}]}
 
   factory :simple_activity, class: 'Activity'
 

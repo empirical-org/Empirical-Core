@@ -8,6 +8,7 @@
 #  attempt_number                             :integer          not null
 #  correct                                    :boolean          not null
 #  question_number                            :integer          not null
+#  question_score                             :float
 #  created_at                                 :datetime         not null
 #  activity_session_id                        :bigint           not null
 #  question_id                                :bigint           not null
@@ -71,7 +72,8 @@ class StudentResponse < ApplicationRecord
     :correct,
     :directions,
     :prompt,
-    :questionNumber
+    :questionNumber,
+    :questionScore
   ]
 
   def self.create_from_json(data_hash)
@@ -79,12 +81,12 @@ class StudentResponse < ApplicationRecord
 
     metadata = data_hash[:metadata]
 
-    answer_text = StudentResponseAnswerText.find_or_create_by(answer: metadata[:answer])
-    directions_text = StudentResponseDirectionsText.find_or_create_by(text: metadata[:directions])
-    instructions_text = StudentResponseDirectionsText.find_or_create_by(text: metadata[:instructions])
-    previous_feedback_text = StudentResponsePreviousFeedbackText.find_or_create_by(text: metadata[:lastFeedback])
-    prompt_text = StudentResponsePromptText.find_or_create_by(text: metadata[:prompt])
-    question_type = StudentResponseQuestionType.find_or_create_by(text: data_hash[:question_type])
+    answer_text = StudentResponseAnswerText.find_or_create_by(answer: metadata[:answer] || '')
+    directions_text = StudentResponseDirectionsText.find_or_create_by(text: metadata[:directions] || '')
+    instructions_text = StudentResponseInstructionsText.find_or_create_by(text: metadata[:instructions] || '')
+    previous_feedback_text = StudentResponsePreviousFeedbackText.find_or_create_by(text: metadata[:lastFeedback] || '')
+    prompt_text = StudentResponsePromptText.find_or_create_by(text: metadata[:prompt] || '')
+    question_type = StudentResponseQuestionType.find_or_create_by(text: data_hash[:question_type] || '')
 
     question = calculate_question_from_hash(data_hash)
 
@@ -96,11 +98,12 @@ class StudentResponse < ApplicationRecord
 
     create(
       activity_session_id: data_hash[:activity_session_id],
-      concepts: data_hash[:concept_ids].uniq,
+      concept_ids: data_hash[:concept_ids].uniq,
       attempt_number: metadata[:attemptNumber],
       correct: metadata[:correct],
       question: question,
       question_number: metadata[:questionNumber],
+      question_score: metadata[:questionScore],
       student_response_answer_text: answer_text,
       student_response_directions_text: directions_text,
       student_response_instructions_text: instructions_text,
@@ -164,7 +167,7 @@ class StudentResponse < ApplicationRecord
   end
 
   private_class_method def self.extract_extra_metadata(metadata)
-    extra_metadata = metadata.except(KNOWN_METADATA_KEYS).reject{ |_,v| v.nil? || v.empty? }
+    extra_metadata = metadata.except(KNOWN_METADATA_KEYS).reject{ |_,v| v.nil? || (v.is_a?(Enumerable) && v.empty?) }
 
     return if extra_metadata.empty?
 
@@ -192,6 +195,7 @@ class StudentResponse < ApplicationRecord
       question_index = data_hash[:metadata][:questionNumber] - 1
       question_uid = activity_session.activity.data['questions'][question_index]['key']
     end
-    Question.find_by_uid(question_uid)
+    puts question_uid
+    Question.find_by_uid!(question_uid)
   end
 end
