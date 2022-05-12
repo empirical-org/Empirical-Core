@@ -10,6 +10,7 @@ FactoryBot.define do
     student_response_answer_text
     student_response_directions_text
     student_response_instructions_text
+    student_response_previous_feedback_text
     student_response_prompt_text
     student_response_question_type
   end

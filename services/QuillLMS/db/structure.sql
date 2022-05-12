@@ -3752,6 +3752,36 @@ ALTER SEQUENCE public.student_response_instructions_texts_id_seq OWNED BY public
 
 
 --
+-- Name: student_response_previous_feedback_texts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.student_response_previous_feedback_texts (
+    id bigint NOT NULL,
+    text text NOT NULL,
+    created_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: student_response_previous_feedback_texts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.student_response_previous_feedback_texts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: student_response_previous_feedback_texts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.student_response_previous_feedback_texts_id_seq OWNED BY public.student_response_previous_feedback_texts.id;
+
+
+--
 -- Name: student_response_prompt_texts; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3825,6 +3855,7 @@ CREATE TABLE public.student_responses (
     student_response_answer_text_id bigint NOT NULL,
     student_response_directions_text_id bigint NOT NULL,
     student_response_instructions_text_id bigint NOT NULL,
+    student_response_previous_feedback_text_id bigint NOT NULL,
     student_response_prompt_text_id bigint NOT NULL,
     student_response_question_type_id bigint NOT NULL,
     created_at timestamp without time zone NOT NULL
@@ -5121,6 +5152,13 @@ ALTER TABLE ONLY public.student_response_instructions_texts ALTER COLUMN id SET 
 
 
 --
+-- Name: student_response_previous_feedback_texts id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.student_response_previous_feedback_texts ALTER COLUMN id SET DEFAULT nextval('public.student_response_previous_feedback_texts_id_seq'::regclass);
+
+
+--
 -- Name: student_response_prompt_texts id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -6054,6 +6092,14 @@ ALTER TABLE ONLY public.student_response_instructions_texts
 
 
 --
+-- Name: student_response_previous_feedback_texts student_response_previous_feedback_texts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.student_response_previous_feedback_texts
+    ADD CONSTRAINT student_response_previous_feedback_texts_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: student_response_prompt_texts student_response_prompt_texts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -6252,6 +6298,13 @@ CREATE UNIQUE INDEX feedback_history_ratings_uniqueness ON public.feedback_histo
 --
 
 CREATE INDEX idx_student_responses_on_student_response_instructions_text_id ON public.student_responses USING btree (student_response_instructions_text_id);
+
+
+--
+-- Name: idx_student_responses_on_student_response_previous_feedback_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX idx_student_responses_on_student_response_previous_feedback_id ON public.student_responses USING btree (student_response_previous_feedback_text_id);
 
 
 --
@@ -7277,6 +7330,13 @@ CREATE UNIQUE INDEX index_student_response_instructions_texts_on_text ON public.
 
 
 --
+-- Name: index_student_response_previous_feedback_texts_on_text; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_student_response_previous_feedback_texts_on_text ON public.student_response_previous_feedback_texts USING btree (text);
+
+
+--
 -- Name: index_student_response_prompt_texts_on_text; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -7881,6 +7941,14 @@ ALTER TABLE ONLY public.sales_stages
 
 ALTER TABLE ONLY public.classroom_unit_activity_states
     ADD CONSTRAINT fk_rails_457a11a3eb FOREIGN KEY (classroom_unit_id) REFERENCES public.classroom_units(id);
+
+
+--
+-- Name: student_responses fk_rails_45a97b2946; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.student_responses
+    ADD CONSTRAINT fk_rails_45a97b2946 FOREIGN KEY (student_response_previous_feedback_text_id) REFERENCES public.student_response_previous_feedback_texts(id);
 
 
 --
@@ -8702,6 +8770,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220505154357'),
 ('20220505154724'),
 ('20220505154951'),
+('20220505155013'),
 ('20220505155014'),
 ('20220505155015'),
 ('20220505155016'),

@@ -4,22 +4,24 @@
 #
 # Table name: student_responses
 #
-#  id                                    :bigint           not null, primary key
-#  attempt_number                        :integer          not null
-#  correct                               :boolean          not null
-#  question_number                       :integer          not null
-#  created_at                            :datetime         not null
-#  activity_session_id                   :bigint           not null
-#  question_id                           :bigint           not null
-#  student_response_answer_text_id       :bigint           not null
-#  student_response_directions_text_id   :bigint           not null
-#  student_response_instructions_text_id :bigint           not null
-#  student_response_prompt_text_id       :bigint           not null
-#  student_response_question_type_id     :bigint           not null
+#  id                                         :bigint           not null, primary key
+#  attempt_number                             :integer          not null
+#  correct                                    :boolean          not null
+#  question_number                            :integer          not null
+#  created_at                                 :datetime         not null
+#  activity_session_id                        :bigint           not null
+#  question_id                                :bigint           not null
+#  student_response_answer_text_id            :bigint           not null
+#  student_response_directions_text_id        :bigint           not null
+#  student_response_instructions_text_id      :bigint           not null
+#  student_response_previous_feedback_text_id :bigint           not null
+#  student_response_prompt_text_id            :bigint           not null
+#  student_response_question_type_id          :bigint           not null
 #
 # Indexes
 #
 #  idx_student_responses_on_student_response_instructions_text_id  (student_response_instructions_text_id)
+#  idx_student_responses_on_student_response_previous_feedback_id  (student_response_previous_feedback_text_id)
 #  index_student_responses_on_activity_session_id                  (activity_session_id)
 #  index_student_responses_on_question_id                          (question_id)
 #  index_student_responses_on_student_response_answer_text_id      (student_response_answer_text_id)
@@ -33,6 +35,7 @@
 #  fk_rails_...  (student_response_answer_text_id => student_response_answer_texts.id)
 #  fk_rails_...  (student_response_directions_text_id => student_response_directions_texts.id)
 #  fk_rails_...  (student_response_instructions_text_id => student_response_instructions_texts.id)
+#  fk_rails_...  (student_response_previous_feedback_text_id => student_response_previous_feedback_texts.id)
 #  fk_rails_...  (student_response_prompt_text_id => student_response_prompt_texts.id)
 #  fk_rails_...  (student_response_question_type_id => student_response_question_types.id)
 #
@@ -42,6 +45,7 @@ class StudentResponse < ApplicationRecord
   belongs_to :student_response_answer_text
   belongs_to :student_response_directions_text
   belongs_to :student_response_instructions_text
+  belongs_to :student_response_previous_feedback_text
   belongs_to :student_response_prompt_text
   belongs_to :student_response_question_type
 
@@ -77,7 +81,8 @@ class StudentResponse < ApplicationRecord
 
     answer_text = StudentResponseAnswerText.find_or_create_by(text: metadata[:answer])
     directions_text = StudentResponseDirectionsText.find_or_create_by(text: metadata[:directions])
-    instructions_text = StudentResponseInstructionsText.find_or_create_by(text: metadata[:instructions])
+    instructions_text = StudentResponseDirectionsText.find_or_create_by(text: metadata[:instructions])
+    previous_feedback_text = StudentResponsePreviousFeedbackText.find_or_create_by(text: metadata[:lastFeedback])
     prompt_text = StudentResponsePromptText.find_or_create_by(text: metadata[:prompt])
     question_type = StudentResponseQuestionType.find_or_create_by(text: data_hash[:question_type])
 
@@ -100,6 +105,7 @@ class StudentResponse < ApplicationRecord
       student_response_directions_text: directions_text,
       student_response_instructions_text: instructions_text,
       student_response_extra_metadata: extra_metadata,
+      student_response_previous_feedback_text: previous_feedback_text,
       student_response_prompt_text: prompt_text,
       student_response_question_type: question_type
     )
@@ -142,6 +148,8 @@ class StudentResponse < ApplicationRecord
           attemptNumber: attempt_number,
           correct: correct,
           directions: student_response_directions_text.text,
+          instructions: student_response_instructions_text.text,
+          lastFeedback: student_response_previous_feedback_text.text,
           prompt: student_response_prompt_text.text,
           questionNumber: question_number
         }.merge(student_response_extra_metadata || {})
@@ -156,7 +164,10 @@ class StudentResponse < ApplicationRecord
   end
 
   private_class_method def self.extract_extra_metadata(metadata)
-    extra_metadata = metadata.except(KNOWN_METADATA_KEYS)
+    extra_metadata = metadata.except(KNOWN_METADATA_KEYS).reject{ |_,v| v.nil? || v.empty? }
+
+    return if extra_metadata.empty?
+
     StudentResponseExtraMetadata.new(metadata: extra_metadata)
   end
 
@@ -175,9 +186,12 @@ class StudentResponse < ApplicationRecord
   end
 
   private_class_method def self.calculate_question_from_hash(data_hash)
-    activity_session = ActivitySession.find(data_hash[:activity_session_id])
-    question_index = data_hash[:metadata][:questionNumber] - 1
-    question_uid = activity_session.activity.data['questions'][question_index]['key']
+    question_uid = data_hash[:question_uid] || data_hash[:questionUid]
+    unless question_uid
+      activity_session = ActivitySession.find(data_hash[:activity_session_id])
+      question_index = data_hash[:metadata][:questionNumber] - 1
+      question_uid = activity_session.activity.data['questions'][question_index]['key']
+    end
     Question.find_by_uid(question_uid)
   end
 end
