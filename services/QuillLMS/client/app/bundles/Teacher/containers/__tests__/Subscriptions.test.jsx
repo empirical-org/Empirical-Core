@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import Subscriptions from '../subscriptions';
+import Subscriptions from '../Subscriptions';
 
 const sharedProps = {
   premiumCredits: [],
