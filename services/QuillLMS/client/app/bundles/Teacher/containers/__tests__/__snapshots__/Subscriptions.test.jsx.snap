@@ -10628,22 +10628,7 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
                     <i
                       className="fas fa-icon fa-lightbulb-o"
                     />
-                    <span>
-                      Once your current Teacher Premium (Scholarship) subscription expires, you will be downgraded to Quill Basic.
-                       To renew your subscription for next year, contact the purchaser at 
-                      <a
-                        href="mailto:emilia+3@quill.org"
-                      >
-                        emilia+3@quill.org
-                      </a>
-                       or 
-                      <a
-                        href="mailto:sales@quill.org"
-                      >
-                        the Quill team
-                      </a>
-                      .
-                    </span>
+                    Once your current Teacher Premium (Scholarship) subscription expires, you will be downgraded to Quill Basic.
                   </div>
                 </div>
               </div>

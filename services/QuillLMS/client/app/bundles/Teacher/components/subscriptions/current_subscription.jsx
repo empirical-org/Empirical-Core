@@ -8,6 +8,7 @@ import {
   SCHOOL_PREMIUM,
   DISTRICT_PREMIUM,
   TEACHER_PREMIUM_CREDIT,
+  TEACHER_PREMIUM_SCHOLARSHIP,
   SCHOOL_PREMIUM_SCHOLARSHIP,
   CREDIT_CARD,
 } from './constants';
@@ -28,7 +29,8 @@ export default class CurrentSubscription extends React.Component {
     const { payment_method, purchaser_email, } = subscriptionStatus
     const baseText = `Once your current ${subscriptionType} subscription expires, you will be downgraded to Quill Basic.`;
 
-    if ([TEACHER_PREMIUM_TRIAL, TEACHER_PREMIUM_CREDIT].includes(subscriptionType)) { return baseText }
+    if ([TEACHER_PREMIUM_TRIAL, TEACHER_PREMIUM_CREDIT, TEACHER_PREMIUM_SCHOLARSHIP].includes(subscriptionType)) { return baseText }
+    
     if (subscriptionType === SCHOOL_PREMIUM_SCHOLARSHIP && !authorityLevel) { return baseText }
 
     if (payment_method === CREDIT_CARD && authorityLevel) {
