@@ -5,7 +5,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
   premiumCredits={Array []}
   subscriptionStatus={
     Object {
-      "account_type": "District Paid",
+      "account_type": "School District Paid",
       "created_at": "2022-02-16T14: 07: 25.976Z",
       "de_activated_date": null,
       "expiration": "2070-01-01",
@@ -28,7 +28,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
   subscriptions={
     Array [
       Object {
-        "account_type": "District Paid",
+        "account_type": "School District Paid",
         "created_at": "2022-02-16T14: 07: 25.976Z",
         "de_activated_date": null,
         "expiration": "2070-01-01",
@@ -49,14 +49,14 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
       },
     ]
   }
-  userAuthorityLevel="purchaser"
+  userAuthorityLevel={null}
 >
   <div>
     <SubscriptionStatus
       key="7-subscription-status-id"
       subscriptionStatus={
         Object {
-          "account_type": "District Paid",
+          "account_type": "School District Paid",
           "created_at": "2022-02-16T14: 07: 25.976Z",
           "de_activated_date": null,
           "expiration": "2070-01-01",
@@ -76,7 +76,8 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
           "updated_at": "2022-02-16T14: 07: 25.976Z",
         }
       }
-      userIsContact={true}
+      subscriptionType="District Premium"
+      userIsContact={false}
     >
       <section
         className="subscription-status"
@@ -91,15 +92,17 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
               className="box"
               style={
                 Object {
-                  "backgroundColor": undefined,
+                  "backgroundColor": "#9c2bde",
                 }
               }
             />
             <h2>
-              You have a undefined subscription
+              You have a 
+              District Premium
+               subscription
               <img
-                alt="undefined"
-                src="https://assets.quill.org/images/shared/undefined"
+                alt="District Premium"
+                src="https://assets.quill.org/images/shared/school_premium_icon.png"
               />
             </h2>
           </div>
@@ -121,15 +124,30 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
             </span>
           </span>
         </div>
-        <p />
+        <p>
+          <span>
+            With 
+            District Premium
+            , you will have access to all of Quill’s free reports as well as additional advanced reporting. You will also be able to view and print reports of your students’ progress. Our advanced reports support concept, Common Core, and overall progress analysis. 
+            <a
+              className="green-link"
+              href="https://support.quill.org/quill-premium"
+            >
+              Here’s more information
+            </a>
+             about your 
+            District Premium
+             features.
+          </span>
+        </p>
       </section>
     </SubscriptionStatus>
     <CurrentSubscription
-      authorityLevel="purchaser"
+      authorityLevel={null}
       purchaserNameOrEmail="emilia+3@quill.org"
       subscriptionStatus={
         Object {
-          "account_type": "District Paid",
+          "account_type": "School District Paid",
           "created_at": "2022-02-16T14: 07: 25.976Z",
           "de_activated_date": null,
           "expiration": "2070-01-01",
@@ -149,8 +167,9 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
           "updated_at": "2022-02-16T14: 07: 25.976Z",
         }
       }
+      subscriptionType="District Premium"
       updateSubscription={[Function]}
-      userIsContact={true}
+      userIsContact={false}
     >
       <section>
         <span />
@@ -181,8 +200,9 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                         <span
                           className="content-wrapper"
                         >
+                          District Premium
                           <Tooltip
-                            tooltipText="You have a District Paid subscription"
+                            tooltipText="You have a School District Paid subscription"
                             tooltipTriggerText={
                               <span>
                                 <img
@@ -207,8 +227,9 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                           <span
                             className="content-wrapper"
                           >
+                            District Premium
                             <Tooltip
-                              tooltipText="You have a District Paid subscription"
+                              tooltipText="You have a School District Paid subscription"
                               tooltipTriggerText={
                                 <span>
                                   <img
@@ -266,25 +287,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                       </div>
                     </_default>
                     <_default
-                      content={
-                        <span
-                          className="content-wrapper"
-                        >
-                          Off
-                          <Tooltip
-                            tooltipText="To renew your subscription for next year, contact us at sales@quill.org."
-                            tooltipTriggerText={
-                              <span>
-                                <img
-                                  alt="Question mark icon"
-                                  className="subscription-tooltip"
-                                  src="undefined/images/icons/icons-help.svg"
-                                />
-                              </span>
-                            }
-                          />
-                        </span>
-                      }
+                      content="Off"
                       title="Automatic Renewal"
                     >
                       <div>
@@ -294,50 +297,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                           Automatic Renewal
                         </span>
                         <span>
-                          <span
-                            className="content-wrapper"
-                          >
-                            Off
-                            <Tooltip
-                              tooltipText="To renew your subscription for next year, contact us at sales@quill.org."
-                              tooltipTriggerText={
-                                <span>
-                                  <img
-                                    alt="Question mark icon"
-                                    className="subscription-tooltip"
-                                    src="undefined/images/icons/icons-help.svg"
-                                  />
-                                </span>
-                              }
-                            >
-                              <span
-                                className="quill-tooltip-trigger"
-                              >
-                                <span
-                                  className="undefined"
-                                  onClick={[Function]}
-                                  onMouseEnter={[Function]}
-                                  onMouseLeave={[Function]}
-                                  tabIndex={null}
-                                >
-                                  <span>
-                                    <img
-                                      alt="Question mark icon"
-                                      className="subscription-tooltip"
-                                      src="undefined/images/icons/icons-help.svg"
-                                    />
-                                  </span>
-                                </span>
-                                <span
-                                  className="quill-tooltip-wrapper"
-                                >
-                                  <span
-                                    className="quill-tooltip"
-                                  />
-                                </span>
-                              </span>
-                            </Tooltip>
-                          </span>
+                          Off
                         </span>
                       </div>
                     </_default>
@@ -425,12 +385,18 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                       className="fas fa-icon fa-lightbulb-o"
                     />
                     <span>
-                      Once your current undefined subscription expires, you will be downgraded to Quill Basic.
-                       To renew your subscription for next year, contact us at 
+                      Once your current District Premium subscription expires, you will be downgraded to Quill Basic.
+                       To renew your subscription for next year, contact the purchaser at 
+                      <a
+                        href="mailto:emilia+3@quill.org"
+                      >
+                        emilia+3@quill.org
+                      </a>
+                       or 
                       <a
                         href="mailto:sales@quill.org"
                       >
-                        sales@quill.org
+                        the Quill team
                       </a>
                       .
                     </span>
@@ -449,12 +415,12 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
       </section>
     </CurrentSubscription>
     <SubscriptionHistory
-      authorityLevel="purchaser"
+      authorityLevel={null}
       premiumCredits={Array []}
       subscriptions={
         Array [
           Object {
-            "account_type": "District Paid",
+            "account_type": "School District Paid",
             "created_at": "2022-02-16T14: 07: 25.976Z",
             "de_activated_date": null,
             "expiration": "2070-01-01",
@@ -523,8 +489,9 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                 key="7-2-row"
               >
                 <span>
+                  District Premium
                   <Tooltip
-                    tooltipText="District Paid subscription"
+                    tooltipText="School District Paid subscription"
                     tooltipTriggerText={
                       <span>
                         <img
@@ -674,7 +641,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
       show={false}
       subscription={
         Object {
-          "account_type": "District Paid",
+          "account_type": "School District Paid",
           "created_at": "2022-02-16T14: 07: 25.976Z",
           "de_activated_date": null,
           "expiration": "2070-01-01",
@@ -706,7 +673,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
   premiumCredits={Array []}
   subscriptionStatus={
     Object {
-      "account_type": "District Paid",
+      "account_type": "School District Paid",
       "created_at": "2022-02-16T14: 07: 25.976Z",
       "de_activated_date": null,
       "expiration": "2022-01-1",
@@ -729,7 +696,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
   subscriptions={
     Array [
       Object {
-        "account_type": "District Paid",
+        "account_type": "School District Paid",
         "created_at": "2022-02-16T14: 07: 25.976Z",
         "de_activated_date": null,
         "expiration": "2022-01-1",
@@ -750,14 +717,14 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
       },
     ]
   }
-  userAuthorityLevel="purchaser"
+  userAuthorityLevel={null}
 >
   <div>
     <SubscriptionStatus
       key="7-subscription-status-id"
       subscriptionStatus={
         Object {
-          "account_type": "District Paid",
+          "account_type": "School District Paid",
           "created_at": "2022-02-16T14: 07: 25.976Z",
           "de_activated_date": null,
           "expiration": "2022-01-1",
@@ -777,7 +744,8 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
           "updated_at": "2022-02-16T14: 07: 25.976Z",
         }
       }
-      userIsContact={true}
+      subscriptionType="District Premium"
+      userIsContact={false}
     >
       <section
         className="subscription-status"
@@ -800,36 +768,51 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
               <i
                 className="fas fa-exclamation-triangle"
               />
-              Your undefined subscription has expired
+              Your District Premium subscription has expired
             </h2>
           </div>
-          <span
-            className="expiration-date"
+          <a
+            className="renew-subscription q-button bg-orange text-white cta-button focus-on-light"
+            href="mailto:sales@quill.org"
           >
-            <span>
-              Valid Until:
-            </span>
-             
-            <span>
-              January 1st, 2022
-            </span>
-            <span
-              className="time-left-in-days"
-            >
-               | 
-              -131 days
-            </span>
-          </span>
+            Contact Us to Renew
+          </a>
         </div>
-        <p />
+        <p>
+          <span>
+            <strong>
+              Your 
+              District Premium
+               subscription (
+              02/16/22
+               - 
+              01/01/22
+              ) has expired and you are back to Quill Basic.
+            </strong>
+            <span>
+              Quill Basic provides access to all of Quill's content. To access Quill Premium, you can purchase an individual teacher subscription or a school subscription.
+            </span>
+            <br />
+            <br />
+            The billing contact for your subscription is 
+            <strong>
+              <a
+                href="mailto:emilia+3@quill.org"
+              >
+                emilia+3@quill.org
+              </a>
+              .
+            </strong>
+          </span>
+        </p>
       </section>
     </SubscriptionStatus>
     <CurrentSubscription
-      authorityLevel="purchaser"
+      authorityLevel={null}
       purchaserNameOrEmail="emilia+3@quill.org"
       subscriptionStatus={
         Object {
-          "account_type": "District Paid",
+          "account_type": "School District Paid",
           "created_at": "2022-02-16T14: 07: 25.976Z",
           "de_activated_date": null,
           "expiration": "2022-01-1",
@@ -849,18 +832,19 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
           "updated_at": "2022-02-16T14: 07: 25.976Z",
         }
       }
+      subscriptionType="District Premium"
       updateSubscription={[Function]}
-      userIsContact={true}
+      userIsContact={false}
     >
       <span />
     </CurrentSubscription>
     <SubscriptionHistory
-      authorityLevel="purchaser"
+      authorityLevel={null}
       premiumCredits={Array []}
       subscriptions={
         Array [
           Object {
-            "account_type": "District Paid",
+            "account_type": "School District Paid",
             "created_at": "2022-02-16T14: 07: 25.976Z",
             "de_activated_date": null,
             "expiration": "2022-01-1",
@@ -929,8 +913,9 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                 key="7-2-row"
               >
                 <span>
+                  District Premium
                   <Tooltip
-                    tooltipText="District Paid subscription"
+                    tooltipText="School District Paid subscription"
                     tooltipTriggerText={
                       <span>
                         <img
@@ -1080,7 +1065,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
       show={false}
       subscription={
         Object {
-          "account_type": "District Paid",
+          "account_type": "School District Paid",
           "created_at": "2022-02-16T14: 07: 25.976Z",
           "de_activated_date": null,
           "expiration": "2022-01-1",
@@ -1112,7 +1097,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
   premiumCredits={Array []}
   subscriptionStatus={
     Object {
-      "account_type": "District Paid",
+      "account_type": "School District Paid",
       "created_at": "2022-02-16T14: 07: 25.976Z",
       "de_activated_date": null,
       "expiration": "2070-01-01",
@@ -1135,7 +1120,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
   subscriptions={
     Array [
       Object {
-        "account_type": "District Paid",
+        "account_type": "School District Paid",
         "created_at": "2022-02-16T14: 07: 25.976Z",
         "de_activated_date": null,
         "expiration": "2070-01-01",
@@ -1163,7 +1148,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
       key="7-subscription-status-id"
       subscriptionStatus={
         Object {
-          "account_type": "District Paid",
+          "account_type": "School District Paid",
           "created_at": "2022-02-16T14: 07: 25.976Z",
           "de_activated_date": null,
           "expiration": "2070-01-01",
@@ -1183,6 +1168,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
           "updated_at": "2022-02-16T14: 07: 25.976Z",
         }
       }
+      subscriptionType="District Premium"
       userIsContact={true}
     >
       <section
@@ -1198,15 +1184,17 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
               className="box"
               style={
                 Object {
-                  "backgroundColor": undefined,
+                  "backgroundColor": "#9c2bde",
                 }
               }
             />
             <h2>
-              You have a undefined subscription
+              You have a 
+              District Premium
+               subscription
               <img
-                alt="undefined"
-                src="https://assets.quill.org/images/shared/undefined"
+                alt="District Premium"
+                src="https://assets.quill.org/images/shared/school_premium_icon.png"
               />
             </h2>
           </div>
@@ -1228,7 +1216,22 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
             </span>
           </span>
         </div>
-        <p />
+        <p>
+          <span>
+            With 
+            District Premium
+            , you will have access to all of Quill’s free reports as well as additional advanced reporting. You will also be able to view and print reports of your students’ progress. Our advanced reports support concept, Common Core, and overall progress analysis. 
+            <a
+              className="green-link"
+              href="https://support.quill.org/quill-premium"
+            >
+              Here’s more information
+            </a>
+             about your 
+            District Premium
+             features.
+          </span>
+        </p>
       </section>
     </SubscriptionStatus>
     <CurrentSubscription
@@ -1236,7 +1239,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
       purchaserNameOrEmail="emilia+3@quill.org"
       subscriptionStatus={
         Object {
-          "account_type": "District Paid",
+          "account_type": "School District Paid",
           "created_at": "2022-02-16T14: 07: 25.976Z",
           "de_activated_date": null,
           "expiration": "2070-01-01",
@@ -1256,6 +1259,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
           "updated_at": "2022-02-16T14: 07: 25.976Z",
         }
       }
+      subscriptionType="District Premium"
       updateSubscription={[Function]}
       userIsContact={true}
     >
@@ -1288,8 +1292,9 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                         <span
                           className="content-wrapper"
                         >
+                          District Premium
                           <Tooltip
-                            tooltipText="You have a District Paid subscription"
+                            tooltipText="You have a School District Paid subscription"
                             tooltipTriggerText={
                               <span>
                                 <img
@@ -1314,8 +1319,9 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                           <span
                             className="content-wrapper"
                           >
+                            District Premium
                             <Tooltip
-                              tooltipText="You have a District Paid subscription"
+                              tooltipText="You have a School District Paid subscription"
                               tooltipTriggerText={
                                 <span>
                                   <img
@@ -1532,7 +1538,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                       className="fas fa-icon fa-lightbulb-o"
                     />
                     <span>
-                      Once your current undefined subscription expires, you will be downgraded to Quill Basic.
+                      Once your current District Premium subscription expires, you will be downgraded to Quill Basic.
                        To renew your subscription for next year, contact us at 
                       <a
                         href="mailto:sales@quill.org"
@@ -1561,7 +1567,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
       subscriptions={
         Array [
           Object {
-            "account_type": "District Paid",
+            "account_type": "School District Paid",
             "created_at": "2022-02-16T14: 07: 25.976Z",
             "de_activated_date": null,
             "expiration": "2070-01-01",
@@ -1630,8 +1636,9 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                 key="7-2-row"
               >
                 <span>
+                  District Premium
                   <Tooltip
-                    tooltipText="District Paid subscription"
+                    tooltipText="School District Paid subscription"
                     tooltipTriggerText={
                       <span>
                         <img
@@ -1781,7 +1788,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
       show={false}
       subscription={
         Object {
-          "account_type": "District Paid",
+          "account_type": "School District Paid",
           "created_at": "2022-02-16T14: 07: 25.976Z",
           "de_activated_date": null,
           "expiration": "2070-01-01",
@@ -1813,7 +1820,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
   premiumCredits={Array []}
   subscriptionStatus={
     Object {
-      "account_type": "District Paid",
+      "account_type": "School District Paid",
       "created_at": "2022-02-16T14: 07: 25.976Z",
       "de_activated_date": null,
       "expiration": "2022-01-1",
@@ -1836,7 +1843,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
   subscriptions={
     Array [
       Object {
-        "account_type": "District Paid",
+        "account_type": "School District Paid",
         "created_at": "2022-02-16T14: 07: 25.976Z",
         "de_activated_date": null,
         "expiration": "2022-01-1",
@@ -1864,7 +1871,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
       key="7-subscription-status-id"
       subscriptionStatus={
         Object {
-          "account_type": "District Paid",
+          "account_type": "School District Paid",
           "created_at": "2022-02-16T14: 07: 25.976Z",
           "de_activated_date": null,
           "expiration": "2022-01-1",
@@ -1884,6 +1891,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
           "updated_at": "2022-02-16T14: 07: 25.976Z",
         }
       }
+      subscriptionType="District Premium"
       userIsContact={true}
     >
       <section
@@ -1907,28 +1915,32 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
               <i
                 className="fas fa-exclamation-triangle"
               />
-              Your undefined subscription has expired
+              Your District Premium subscription has expired
             </h2>
           </div>
-          <span
-            className="expiration-date"
+          <a
+            className="renew-subscription q-button bg-orange text-white cta-button focus-on-light"
+            href="mailto:sales@quill.org"
           >
+            Contact Us to Renew
+          </a>
+        </div>
+        <p>
+          <span>
+            <strong>
+              Your 
+              District Premium
+               subscription (
+              02/16/22
+               - 
+              01/01/22
+              ) has expired and you are back to Quill Basic.
+            </strong>
             <span>
-              Valid Until:
-            </span>
-             
-            <span>
-              January 1st, 2022
-            </span>
-            <span
-              className="time-left-in-days"
-            >
-               | 
-              -131 days
+              Quill Basic provides access to all of Quill's content. To access Quill Premium, you can purchase an individual teacher subscription or a school subscription.
             </span>
           </span>
-        </div>
-        <p />
+        </p>
       </section>
     </SubscriptionStatus>
     <CurrentSubscription
@@ -1936,7 +1948,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
       purchaserNameOrEmail="emilia+3@quill.org"
       subscriptionStatus={
         Object {
-          "account_type": "District Paid",
+          "account_type": "School District Paid",
           "created_at": "2022-02-16T14: 07: 25.976Z",
           "de_activated_date": null,
           "expiration": "2022-01-1",
@@ -1956,6 +1968,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
           "updated_at": "2022-02-16T14: 07: 25.976Z",
         }
       }
+      subscriptionType="District Premium"
       updateSubscription={[Function]}
       userIsContact={true}
     >
@@ -1967,7 +1980,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
       subscriptions={
         Array [
           Object {
-            "account_type": "District Paid",
+            "account_type": "School District Paid",
             "created_at": "2022-02-16T14: 07: 25.976Z",
             "de_activated_date": null,
             "expiration": "2022-01-1",
@@ -2036,8 +2049,9 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                 key="7-2-row"
               >
                 <span>
+                  District Premium
                   <Tooltip
-                    tooltipText="District Paid subscription"
+                    tooltipText="School District Paid subscription"
                     tooltipTriggerText={
                       <span>
                         <img
@@ -2187,7 +2201,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
       show={false}
       subscription={
         Object {
-          "account_type": "District Paid",
+          "account_type": "School District Paid",
           "created_at": "2022-02-16T14: 07: 25.976Z",
           "de_activated_date": null,
           "expiration": "2022-01-1",
@@ -4417,7 +4431,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
       },
     ]
   }
-  userAuthorityLevel="purchaser"
+  userAuthorityLevel={null}
 >
   <div>
     <SubscriptionStatus
@@ -4445,7 +4459,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
         }
       }
       subscriptionType="School Premium"
-      userIsContact={true}
+      userIsContact={false}
     >
       <section
         className="subscription-status"
@@ -4511,7 +4525,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
       </section>
     </SubscriptionStatus>
     <CurrentSubscription
-      authorityLevel="purchaser"
+      authorityLevel={null}
       purchaserNameOrEmail="emilia+3@quill.org"
       subscriptionStatus={
         Object {
@@ -4537,7 +4551,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
       }
       subscriptionType="School Premium"
       updateSubscription={[Function]}
-      userIsContact={true}
+      userIsContact={false}
     >
       <section>
         <span />
@@ -4655,25 +4669,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
                       </div>
                     </_default>
                     <_default
-                      content={
-                        <span
-                          className="content-wrapper"
-                        >
-                          Off
-                          <Tooltip
-                            tooltipText="To renew your subscription for next year, contact us at sales@quill.org."
-                            tooltipTriggerText={
-                              <span>
-                                <img
-                                  alt="Question mark icon"
-                                  className="subscription-tooltip"
-                                  src="undefined/images/icons/icons-help.svg"
-                                />
-                              </span>
-                            }
-                          />
-                        </span>
-                      }
+                      content="Off"
                       title="Automatic Renewal"
                     >
                       <div>
@@ -4683,50 +4679,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
                           Automatic Renewal
                         </span>
                         <span>
-                          <span
-                            className="content-wrapper"
-                          >
-                            Off
-                            <Tooltip
-                              tooltipText="To renew your subscription for next year, contact us at sales@quill.org."
-                              tooltipTriggerText={
-                                <span>
-                                  <img
-                                    alt="Question mark icon"
-                                    className="subscription-tooltip"
-                                    src="undefined/images/icons/icons-help.svg"
-                                  />
-                                </span>
-                              }
-                            >
-                              <span
-                                className="quill-tooltip-trigger"
-                              >
-                                <span
-                                  className="undefined"
-                                  onClick={[Function]}
-                                  onMouseEnter={[Function]}
-                                  onMouseLeave={[Function]}
-                                  tabIndex={null}
-                                >
-                                  <span>
-                                    <img
-                                      alt="Question mark icon"
-                                      className="subscription-tooltip"
-                                      src="undefined/images/icons/icons-help.svg"
-                                    />
-                                  </span>
-                                </span>
-                                <span
-                                  className="quill-tooltip-wrapper"
-                                >
-                                  <span
-                                    className="quill-tooltip"
-                                  />
-                                </span>
-                              </span>
-                            </Tooltip>
-                          </span>
+                          Off
                         </span>
                       </div>
                     </_default>
@@ -4815,11 +4768,17 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
                     />
                     <span>
                       Once your current School Premium subscription expires, you will be downgraded to Quill Basic.
-                       To renew your subscription for next year, contact us at 
+                       To renew your subscription for next year, contact the purchaser at 
+                      <a
+                        href="mailto:emilia+3@quill.org"
+                      >
+                        emilia+3@quill.org
+                      </a>
+                       or 
                       <a
                         href="mailto:sales@quill.org"
                       >
-                        sales@quill.org
+                        the Quill team
                       </a>
                       .
                     </span>
@@ -4838,7 +4797,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
       </section>
     </CurrentSubscription>
     <SubscriptionHistory
-      authorityLevel="purchaser"
+      authorityLevel={null}
       premiumCredits={Array []}
       subscriptions={
         Array [
@@ -5140,7 +5099,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
       },
     ]
   }
-  userAuthorityLevel="purchaser"
+  userAuthorityLevel={null}
 >
   <div>
     <SubscriptionStatus
@@ -5168,7 +5127,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
         }
       }
       subscriptionType="School Premium"
-      userIsContact={true}
+      userIsContact={false}
     >
       <section
         className="subscription-status"
@@ -5224,12 +5183,23 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
             <span>
               Quill Basic provides access to all of Quill's content. To access Quill Premium, you can purchase an individual teacher subscription or a school subscription.
             </span>
+            <br />
+            <br />
+            The billing contact for your subscription is 
+            <strong>
+              <a
+                href="mailto:emilia+3@quill.org"
+              >
+                emilia+3@quill.org
+              </a>
+              .
+            </strong>
           </span>
         </p>
       </section>
     </SubscriptionStatus>
     <CurrentSubscription
-      authorityLevel="purchaser"
+      authorityLevel={null}
       purchaserNameOrEmail="emilia+3@quill.org"
       subscriptionStatus={
         Object {
@@ -5255,12 +5225,12 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
       }
       subscriptionType="School Premium"
       updateSubscription={[Function]}
-      userIsContact={true}
+      userIsContact={false}
     >
       <span />
     </CurrentSubscription>
     <SubscriptionHistory
-      authorityLevel="purchaser"
+      authorityLevel={null}
       premiumCredits={Array []}
       subscriptions={
         Array [
@@ -6707,7 +6677,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
       },
     ]
   }
-  userAuthorityLevel="purchaser"
+  userAuthorityLevel={null}
 >
   <div>
     <SubscriptionStatus
@@ -6735,7 +6705,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
         }
       }
       subscriptionType="School Premium"
-      userIsContact={true}
+      userIsContact={false}
     >
       <section
         className="subscription-status"
@@ -6801,7 +6771,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
       </section>
     </SubscriptionStatus>
     <CurrentSubscription
-      authorityLevel="purchaser"
+      authorityLevel={null}
       purchaserNameOrEmail="emilia+3@quill.org"
       subscriptionStatus={
         Object {
@@ -6827,7 +6797,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
       }
       subscriptionType="School Premium"
       updateSubscription={[Function]}
-      userIsContact={true}
+      userIsContact={false}
     >
       <section>
         <span />
@@ -6959,13 +6929,6 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                         </span>
                       </div>
                     </_default>
-                    <button
-                      className="q-button bg-orange text-white focus-on-light"
-                      onClick={[Function]}
-                      type="button"
-                    >
-                      Turn On Automatic Renewal
-                    </button>
                   </div>
                   <div>
                     <_default
@@ -7008,22 +6971,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                   PAYMENT METHOD ON FILE
                 </h3>
                 <span>
-                  Credit Card ending in undefined
-                  <button
-                    className="interactive-wrapper focus-on-light"
-                    onClick={[Function]}
-                    style={
-                      Object {
-                        "color": "#027360",
-                        "cursor": "pointer",
-                        "fontSize": "14px",
-                        "paddingLeft": "10px",
-                      }
-                    }
-                    type="button"
-                  >
-                    Edit Credit Card
-                  </button>
+                  Credit Card
                 </span>
               </div>
               <div
@@ -7064,7 +7012,16 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                     <i
                       className="fas fa-icon fa-lightbulb-o"
                     />
-                    Once your current School Premium subscription expires, you will be downgraded to Quill Basic. To prevent your subscription from expiring, turn on automatic renewal.
+                    <span>
+                      Once your current School Premium subscription expires, you will be downgraded to Quill Basic.
+                       To prevent your subscription from expiring, contact the purchaser at 
+                      <a
+                        href="mailto:emilia+3@quill.org"
+                      >
+                        emilia+3@quill.org
+                      </a>
+                       and ask them to turn on automatic renewal.
+                    </span>
                   </div>
                 </div>
               </div>
@@ -7080,7 +7037,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
       </section>
     </CurrentSubscription>
     <SubscriptionHistory
-      authorityLevel="purchaser"
+      authorityLevel={null}
       premiumCredits={Array []}
       subscriptions={
         Array [
@@ -7382,7 +7339,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
       },
     ]
   }
-  userAuthorityLevel="purchaser"
+  userAuthorityLevel={null}
 >
   <div>
     <SubscriptionStatus
@@ -7410,7 +7367,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
         }
       }
       subscriptionType="School Premium"
-      userIsContact={true}
+      userIsContact={false}
     >
       <section
         className="subscription-status"
@@ -7476,7 +7433,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
       </section>
     </SubscriptionStatus>
     <CurrentSubscription
-      authorityLevel="purchaser"
+      authorityLevel={null}
       purchaserNameOrEmail="emilia+3@quill.org"
       subscriptionStatus={
         Object {
@@ -7502,7 +7459,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
       }
       subscriptionType="School Premium"
       updateSubscription={[Function]}
-      userIsContact={true}
+      userIsContact={false}
     >
       <section>
         <span />
@@ -7634,13 +7591,6 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                         </span>
                       </div>
                     </_default>
-                    <button
-                      className="q-button bg-orange text-white focus-on-light"
-                      onClick={[Function]}
-                      type="button"
-                    >
-                      Turn Off Automatic Renewal
-                    </button>
                   </div>
                   <div>
                     <_default
@@ -7683,22 +7633,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                   PAYMENT METHOD ON FILE
                 </h3>
                 <span>
-                  Credit Card ending in undefined
-                  <button
-                    className="interactive-wrapper focus-on-light"
-                    onClick={[Function]}
-                    style={
-                      Object {
-                        "color": "#027360",
-                        "cursor": "pointer",
-                        "fontSize": "14px",
-                        "paddingLeft": "10px",
-                      }
-                    }
-                    type="button"
-                  >
-                    Edit Credit Card
-                  </button>
+                  Credit Card
                 </span>
               </div>
               <div
@@ -7776,7 +7711,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
       </section>
     </CurrentSubscription>
     <SubscriptionHistory
-      authorityLevel="purchaser"
+      authorityLevel={null}
       premiumCredits={Array []}
       subscriptions={
         Array [
@@ -8078,7 +8013,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
       },
     ]
   }
-  userAuthorityLevel="purchaser"
+  userAuthorityLevel={null}
 >
   <div>
     <SubscriptionStatus
@@ -8106,7 +8041,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
         }
       }
       subscriptionType="School Premium"
-      userIsContact={true}
+      userIsContact={false}
     >
       <section
         className="subscription-status"
@@ -8162,12 +8097,23 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
             <span>
               Quill Basic provides access to all of Quill's content. To access Quill Premium, you can purchase an individual teacher subscription or a school subscription.
             </span>
+            <br />
+            <br />
+            The billing contact for your subscription is 
+            <strong>
+              <a
+                href="mailto:emilia+3@quill.org"
+              >
+                emilia+3@quill.org
+              </a>
+              .
+            </strong>
           </span>
         </p>
       </section>
     </SubscriptionStatus>
     <CurrentSubscription
-      authorityLevel="purchaser"
+      authorityLevel={null}
       purchaserNameOrEmail="emilia+3@quill.org"
       subscriptionStatus={
         Object {
@@ -8193,12 +8139,12 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
       }
       subscriptionType="School Premium"
       updateSubscription={[Function]}
-      userIsContact={true}
+      userIsContact={false}
     >
       <span />
     </CurrentSubscription>
     <SubscriptionHistory
-      authorityLevel="purchaser"
+      authorityLevel={null}
       premiumCredits={Array []}
       subscriptions={
         Array [
