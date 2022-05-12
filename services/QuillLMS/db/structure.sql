@@ -3606,7 +3606,7 @@ ALTER SEQUENCE public.student_problem_reports_id_seq OWNED BY public.student_pro
 
 CREATE TABLE public.student_response_answer_texts (
     id bigint NOT NULL,
-    text text NOT NULL,
+    answer jsonb NOT NULL,
     created_at timestamp without time zone NOT NULL
 );
 
@@ -7285,13 +7285,6 @@ CREATE UNIQUE INDEX index_stripe_webhook_events_on_external_id ON public.stripe_
 --
 
 CREATE INDEX index_student_problem_reports_on_feedback_history_id ON public.student_problem_reports USING btree (feedback_history_id);
-
-
---
--- Name: index_student_response_answer_texts_on_text; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_student_response_answer_texts_on_text ON public.student_response_answer_texts USING btree (text);
 
 
 --

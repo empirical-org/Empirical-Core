@@ -79,7 +79,7 @@ class StudentResponse < ApplicationRecord
 
     metadata = data_hash[:metadata]
 
-    answer_text = StudentResponseAnswerText.find_or_create_by(text: metadata[:answer])
+    answer_text = StudentResponseAnswerText.find_or_create_by(answer: metadata[:answer])
     directions_text = StudentResponseDirectionsText.find_or_create_by(text: metadata[:directions])
     instructions_text = StudentResponseDirectionsText.find_or_create_by(text: metadata[:instructions])
     previous_feedback_text = StudentResponsePreviousFeedbackText.find_or_create_by(text: metadata[:lastFeedback])
@@ -144,7 +144,7 @@ class StudentResponse < ApplicationRecord
         concept_id: concept.id,
         question_type: student_response_question_type.text,
         metadata: {
-          answer: student_response_answer_text.text,
+          answer: student_response_answer_text.answer,
           attemptNumber: attempt_number,
           correct: correct,
           directions: student_response_directions_text.text,

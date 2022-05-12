@@ -5,13 +5,11 @@
 # Table name: student_response_answer_texts
 #
 #  id         :bigint           not null, primary key
-#  text       :text             not null
+#  answer     :jsonb            not null
 #  created_at :datetime         not null
 #
-# Indexes
-#
-#  index_student_response_answer_texts_on_text  (text) UNIQUE
-#
 class StudentResponseAnswerText < ApplicationRecord
-  include IsStudentResponseNormalizedText
+  has_many :student_responses
+
+  validates :answer, uniqueness: true, length: { minimum: 0, allow_nil: false }
 end
