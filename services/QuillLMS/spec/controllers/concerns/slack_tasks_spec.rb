@@ -8,10 +8,7 @@ describe SlackTasks do
   let(:sales_form_submission) { create(:sales_form_submission) }
 
   before do
-
-    allow(ENV).to receive(:[]).with('RAILS_ENV').and_return('production')
-    ENV['SLACK_API_WEBHOOK_SALES'] = 'slack-test.com'
-    ENV['RAILS_ENV'] = 'production'
+    stub_const('ENV', {'RAILS_ENV' => 'production', 'SLACK_API_WEBHOOK_SALES' => 'slack-test.com'})
   end
 
   describe '#post_sales_form_submission' do
