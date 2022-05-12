@@ -30,7 +30,7 @@ export default class CurrentSubscription extends React.Component {
     const baseText = `Once your current ${subscriptionType} subscription expires, you will be downgraded to Quill Basic.`;
 
     if ([TEACHER_PREMIUM_TRIAL, TEACHER_PREMIUM_CREDIT, TEACHER_PREMIUM_SCHOLARSHIP].includes(subscriptionType)) { return baseText }
-    
+
     if (subscriptionType === SCHOOL_PREMIUM_SCHOLARSHIP && !authorityLevel) { return baseText }
 
     if (payment_method === CREDIT_CARD && authorityLevel) {
@@ -180,22 +180,6 @@ export default class CurrentSubscription extends React.Component {
     );
   }
 
-  renewPremium() {
-    const { showPurchaseModal, } = this.props
-
-    return (
-      <div>
-        <button
-          className="renew-subscription q-button bg-orange text-white cta-button"
-          onClick={showPurchaseModal}
-          type="button"
-        >
-          Renew Subscription
-        </button>
-      </div>
-    );
-  }
-
   nextPlan() {
     const { subscriptionStatus, } = this.props
 
@@ -308,7 +292,7 @@ export default class CurrentSubscription extends React.Component {
     if (authorityLevel && subscriptionStatus.payment_method === CREDIT_CARD) {
       return (
         <button
-          className="q-button bg-orange text-white focus-on-light"
+          className="quill-button medium primary contained focus-on-light"
           onClick={this.handleClickShowAutomaticRenewalModal}
           type="button"
         >

@@ -19,7 +19,7 @@ exports[`AvailableCredits container should render when there are no premium cred
        of Teacher Premium Credit available.
     </div>
     <a
-      className="q-button button cta-button bg-orange"
+      className="quill-button medium primary outlined focus-on-light"
       href="/referrals"
     >
       Earn Premium Credits
@@ -47,7 +47,7 @@ exports[`AvailableCredits container should render when there are premium credits
        of Teacher Premium Credit available.
     </div>
     <button
-      className="q-button cta-button bg-orange has-credit"
+      className="quill-button medium primary outlined focus-on-light"
       onClick={[Function]}
       type="button"
     >
