@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe StripeIntegration::Webhooks::SetupIntentSucceededEventHandler do
   include_context 'Stripe Setup Intent Succeeded Event'
 
-  let(:stripe_webhook_event) { create(:stripe_webhook_event, event_type: described_class.event_type) }
+  let(:stripe_webhook_event) { create(:stripe_webhook_event, event_type: stripe_event_type) }
   let(:external_id) { stripe_webhook_event.external_id }
 
   subject { described_class.run(stripe_webhook_event) }

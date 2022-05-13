@@ -5,10 +5,6 @@ module StripeIntegration
     class EventHandler < ApplicationService
       attr_reader :stripe_webhook_event
 
-      def self.event_type
-        to_s.demodulize.gsub('EventHandler','').underscore.tr('_','.')
-      end
-
       def initialize(stripe_webhook_event)
         @stripe_webhook_event = stripe_webhook_event
       end

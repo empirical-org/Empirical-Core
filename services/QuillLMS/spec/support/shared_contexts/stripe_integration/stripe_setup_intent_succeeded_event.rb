@@ -4,7 +4,7 @@ RSpec.shared_context 'Stripe Setup Intent Succeeded Event' do
   include_context 'Stripe Setup Intent'
 
   let(:stripe_setup_intent_event_id) { "evt_#{SecureRandom.hex}" }
-  let(:stripe_event_type) { StripeIntegration::Webhooks::SetupIntentSucceededEventHandler.event_type }
+  let(:stripe_event_type) { 'setup_intent.succeeded' }
 
   let(:stripe_event) do
     Stripe::Event.construct_from(
