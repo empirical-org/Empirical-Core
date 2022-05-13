@@ -112,8 +112,7 @@ const ActivityForm = ({ activity, activityClassification, contentPartnerOptions,
   const activityCategoryOptionElements = activityCategoryOptions.map(so => (<option key={so.id} value={so.id}>{so.name}</option>))
 
   let followUpActivityField
-  /* eslint-disable jsx-a11y/label-has-associated-control */
-  /* eslint-disable jsx-a11y/control-has-associated-label */
+
   if (activityClassification.key === 'lessons') {
     const followUpActivityOptionElements = followUpActivityOptions.map(act => (<option key={act.id} value={act.id}>{act.name}</option>))
     followUpActivityField = (<section>
@@ -165,8 +164,7 @@ const ActivityForm = ({ activity, activityClassification, contentPartnerOptions,
       </form>
     </section>
   )
-  /* eslint-enable jsx-a11y/label-has-associated-control */
-  /* eslint-enable jsx-a11y/control-has-associated-label */
+
 }
 
 export default ActivityForm
