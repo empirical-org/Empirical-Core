@@ -3,17 +3,18 @@
 module StripeIntegration
   module Webhooks
     class EventHandlerFactory
-      SINGLE_EVENT_HANDLERS = [
+      SINGLE_EVENT_HANDLER_CLASSES = [
         CustomerSubscriptionUpdatedEventHandler,
         InvoicePaidEventHandler,
         SetupIntentSucceededEventHandler
       ]
 
-      EVENT_HANDLERS = SINGLE_EVENT_HANDLERS + [IgnoredEventHandler]
+      SINGLE_EVENT_HANDLER_LOOKUP = SINGLE_EVENT_HANDLER_CLASSES.to_h { |klass| [klass.event_type, klass] }
+      EVENT_HANDLER_LOOKUP = SINGLE_EVENT_HANDLER_LOOKUP.merge(IgnoredEventHandler::EVENT_HANDLER_LOOKUP)
 
       def self.for(stripe_webhook_event)
-        EVENT_HANDLERS
-          .find(-> { UnknownEventHandler }) { |handler| handler.handles?(stripe_webhook_event.event_type) }
+        EVENT_HANDLER_LOOKUP
+          .fetch(stripe_webhook_event.event_type, UnknownEventHandler)
           .new(stripe_webhook_event)
       end
     end

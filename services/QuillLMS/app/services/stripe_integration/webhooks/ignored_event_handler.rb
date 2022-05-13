@@ -3,7 +3,7 @@
 module StripeIntegration
   module Webhooks
     class IgnoredEventHandler < EventHandler
-      IGNORED_EVENTS = [
+      IGNORED_EVENT_NAMES = [
         'balance.available',
         'charge.failed',
         'charge.refunded',
@@ -40,9 +40,7 @@ module StripeIntegration
         'setup_intent.succeeded'
       ]
 
-      def self.handles?(event_type)
-        IGNORED_EVENTS.include?(event_type)
-      end
+      EVENT_HANDLER_LOOKUP = IGNORED_EVENT_NAMES.to_h { |event_name| [event_name, self] }
 
       def run
         stripe_webhook_event.ignored!

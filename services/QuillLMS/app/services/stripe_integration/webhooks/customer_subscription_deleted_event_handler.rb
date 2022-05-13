@@ -3,12 +3,6 @@
 module StripeIntegration
   module Webhooks
     class CustomerSubscriptionDeletedEventHandler < EventHandler
-      EVENT_TYPE = 'customer.subscription.deleted'
-
-      def self.handles?(event_type)
-        event_type == EVENT_TYPE
-      end
-
       def run
         SubscriptionCanceler.run(stripe_event)
         stripe_webhook_event.processed!

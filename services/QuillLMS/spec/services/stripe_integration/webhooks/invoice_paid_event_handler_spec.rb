@@ -6,7 +6,7 @@ RSpec.describe StripeIntegration::Webhooks::InvoicePaidEventHandler do
   include_context 'Stripe Invoice Paid Event'
   include_context 'Stripe Customer'
 
-  let(:stripe_webhook_event) { create(:stripe_webhook_event, event_type: described_class::EVENT_TYPE) }
+  let(:stripe_webhook_event) { create(:stripe_webhook_event, event_type: described_class.event_type) }
   let(:external_id) { stripe_webhook_event.external_id }
 
   subject { described_class.run(stripe_webhook_event) }
