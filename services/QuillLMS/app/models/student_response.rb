@@ -169,12 +169,20 @@ class StudentResponse < ApplicationRecord
   private_class_method def self.set_normalized_text(target, data_hash)
     metadata = data_hash[:metadata]
 
-    unless metadata[:answer].nil?
-      answer_text = StudentResponseAnswerText.find_or_create_by(answer: metadata[:answer])
-      target.student_response_answer_text = answer_text
-    end
+    # There are six different strings that we normalize, and we use the
+    # same process for all of them:
+    #  1) If the key for the string isn't provided, skip it
+    #  2) Find the ID for this exact string if we've seen it before
+    #  3) Create a new normalized record if this string is brand new
+    #  4) Link the normalized reference to the StudentResponse model
+    # This array of arrays is used to execute that logic on each of the
+    # six strings we care about without actually writing the logic six
+    # different times.
 
     attribute_model_value_tuples = [
+      [:student_response_answer_text=,
+       StudentResponseAnswerText,
+       metadata[:answer]],
       [:student_response_directions_text=,
        StudentResponseDirectionsText,
        metadata[:directions]],
@@ -233,7 +241,7 @@ class StudentResponse < ApplicationRecord
 
   private def legacy_format_base_metadata
     metadata = {
-      answer: student_response_answer_text&.answer,
+      answer: student_response_answer_text&.text,
       attemptNumber: attempt_number,
       correct: correct ? 1 : 0,
       directions: student_response_directions_text&.text,

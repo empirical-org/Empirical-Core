@@ -116,7 +116,7 @@ RSpec.describe StudentResponse, type: :model do
         expect(response.concepts).to eq([concept])
         expect(response.question_number).to eq(metadata[:questionNumber])
         expect(response.question_score).to eq(metadata[:questionScore])
-        expect(response.student_response_answer_text.answer).to eq(metadata[:answer])
+        expect(response.student_response_answer_text.text).to eq(metadata[:answer])
         expect(response.student_response_directions_text.text).to eq(metadata[:directions])
         expect(response.student_response_prompt_text.text).to eq(metadata[:prompt])
         expect(response.student_response_previous_feedback_text.text).to eq(metadata[:lastFeedback])
@@ -131,7 +131,7 @@ RSpec.describe StudentResponse, type: :model do
           .and change(StudentResponsePromptText, :count).by(1)
           .and change(StudentResponseQuestionType, :count).by(1)
           .and not_change(StudentResponseInstructionsText, :count)
-          # No change expected here when "instructions" aren't in the payload
+          # No change expected above when "instructions" aren't in the payload
       end
 
       it 'should not link to records when the appropriate keys are not provided' do
@@ -142,7 +142,7 @@ RSpec.describe StudentResponse, type: :model do
       end
 
       it 'should find existing NormalizedText records when existing text is provided' do
-        create(:student_response_answer_text, answer: metadata[:answer])
+        create(:student_response_answer_text, text: metadata[:answer])
         create(:student_response_directions_text, text: metadata[:directions])
         expect { StudentResponse.create_from_json(json) }
           .to not_change(StudentResponseAnswerText, :count)
