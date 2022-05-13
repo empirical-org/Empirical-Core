@@ -50,15 +50,16 @@ class StudentResponse < ApplicationRecord
   belongs_to :student_response_prompt_text
   belongs_to :student_response_question_type
 
-  has_one :student_response_extra_metadata
+  has_one :student_response_extra_metadata, dependent: :destroy
 
-  has_many :student_responses_concepts
+  has_one :student_response_concept_result, dependent: :destroy
+  has_one :concept_result, through: :student_response_concept_result
+
+  has_many :student_responses_concepts, dependent: :destroy
   has_many :concepts, through: :student_responses_concepts
 
-  has_many :student_response_concept_results
-  has_many :concept_results, through: :student_response_concept_results
 
-  validates :correct, inclusion: {in: [true, false]}
+  validates_exclusion_of :correct, in: [nil]
   validates_presence_of :attempt_number, :question_number
 
   # This is a list of keys from the old ConceptResults records
@@ -71,6 +72,7 @@ class StudentResponse < ApplicationRecord
     :attemptNumber,
     :correct,
     :directions,
+    :lastFeedback,
     :prompt,
     :questionNumber,
     :questionScore
@@ -119,43 +121,52 @@ class StudentResponse < ApplicationRecord
 
     student_response = StudentResponse.find_by(
       activity_session: concept_result.activity_session,
-      attempt_number: concept_results.metadata[:attemptNumber],
-      question_number: concept_results.metadata[:questionNumber]
+      attempt_number: concept_result.metadata['attemptNumber'],
+      question_number: concept_result.metadata['questionNumber']
     )
 
     StudentResponse.transaction do
-      unless student_response
-        student_response = new(
-
-        )
-      end
-
-      unless student_response.concepts.include?(concept_result.concept)
+      # Create a totally new record if there isn't one yet
+      if !student_response
+        student_response = create_from_json(concept_result.as_json)
+      # If we have a student_response, but it doesn't have a the relevant
+      # Concept related, add the relation.
+      # This happens because old ConceptResult records do a row per Concept,
+      # while we do a row per answer (using multiple StudentResponseConcept
+      # records if there are multiple Concepts)
+      elsif !student_response.concepts.include?(concept_result.concept)
         student_response.concepts.append(concept_result.concept)
       end
 
-      student_response.concept_results.append(concept_result)
+      # Whether we create a new record, or add a concept, we should ensure
+      # that we record a relation to the source concept_result so we can
+      # skip migrating it in future runs
+      student_response.concept_result = concept_result
       student_response.save!
     end
+    student_response
   end
 
   def legacy_format
     concepts.map do |concept|
       {
         id: id,
+        activity_classification_id: activity_session.activity.activity_classification_id,
         activity_session_id: activity_session_id,
         concept_id: concept.id,
         question_type: student_response_question_type.text,
         metadata: {
           answer: student_response_answer_text.answer,
           attemptNumber: attempt_number,
-          correct: correct,
+          correct: correct ? 1 : 0,
           directions: student_response_directions_text.text,
           instructions: student_response_instructions_text.text,
           lastFeedback: student_response_previous_feedback_text.text,
           prompt: student_response_prompt_text.text,
-          questionNumber: question_number
+          questionNumber: question_number,
+          questionScore: question_score
         }.merge(student_response_extra_metadata || {})
+         .reject { |_,v| v.blank? }
       }
     end
   end
@@ -163,11 +174,11 @@ class StudentResponse < ApplicationRecord
   def self.bulk_create_from_json(data_hash_array)
     normalized_data_hash = roll_up_concepts(data_hash_array)
 
-    normalized_data_hash.each { |data_hash| create_from_json(data_hash) }
+    normalized_data_hash.map { |data_hash| create_from_json(data_hash) }
   end
 
   private_class_method def self.extract_extra_metadata(metadata)
-    extra_metadata = metadata.except(KNOWN_METADATA_KEYS).reject{ |_,v| v.nil? || (v.is_a?(Enumerable) && v.empty?) }
+    extra_metadata = metadata.except(*KNOWN_METADATA_KEYS).reject{ |_,v| v.nil? || (v.is_a?(Enumerable) && v.empty?) }
 
     return if extra_metadata.empty?
 
@@ -179,12 +190,13 @@ class StudentResponse < ApplicationRecord
   # plus an array of concept_ids that match to it
   private_class_method def self.roll_up_concepts(data_hash_array)
     data_hash_array.reduce({}) do |rollup, value|
-      key = "#{value[:questionNumber]}-#{value[:attemptNumber]}"
+      key = "#{value[:metadata][:questionNumber]}-#{value[:metadata][:attemptNumber]}"
       if rollup[key]
         rollup[key][:concept_ids].push(value[:concept_id])
       else
         rollup[key] = value.merge(concept_ids: [value[:concept_id]])
       end
+      rollup
     end.values
   end
 
@@ -195,7 +207,6 @@ class StudentResponse < ApplicationRecord
       question_index = data_hash[:metadata][:questionNumber] - 1
       question_uid = activity_session.activity.data['questions'][question_index]['key']
     end
-    puts question_uid
     Question.find_by_uid!(question_uid)
   end
 end
