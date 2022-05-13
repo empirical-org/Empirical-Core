@@ -3606,7 +3606,7 @@ ALTER SEQUENCE public.student_problem_reports_id_seq OWNED BY public.student_pro
 
 CREATE TABLE public.student_response_answer_texts (
     id bigint NOT NULL,
-    answer jsonb NOT NULL,
+    text jsonb NOT NULL,
     created_at timestamp without time zone NOT NULL
 );
 
@@ -3853,12 +3853,12 @@ CREATE TABLE public.student_responses (
     question_id bigint NOT NULL,
     question_number integer NOT NULL,
     question_score double precision,
-    student_response_answer_text_id bigint NOT NULL,
-    student_response_directions_text_id bigint NOT NULL,
-    student_response_instructions_text_id bigint NOT NULL,
-    student_response_previous_feedback_text_id bigint NOT NULL,
-    student_response_prompt_text_id bigint NOT NULL,
-    student_response_question_type_id bigint NOT NULL,
+    student_response_answer_text_id bigint,
+    student_response_directions_text_id bigint,
+    student_response_instructions_text_id bigint,
+    student_response_previous_feedback_text_id bigint,
+    student_response_prompt_text_id bigint,
+    student_response_question_type_id bigint,
     created_at timestamp without time zone NOT NULL
 );
 

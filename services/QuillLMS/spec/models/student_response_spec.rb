@@ -12,12 +12,12 @@
 #  created_at                                 :datetime         not null
 #  activity_session_id                        :bigint           not null
 #  question_id                                :bigint           not null
-#  student_response_answer_text_id            :bigint           not null
-#  student_response_directions_text_id        :bigint           not null
-#  student_response_instructions_text_id      :bigint           not null
-#  student_response_previous_feedback_text_id :bigint           not null
-#  student_response_prompt_text_id            :bigint           not null
-#  student_response_question_type_id          :bigint           not null
+#  student_response_answer_text_id            :bigint
+#  student_response_directions_text_id        :bigint
+#  student_response_instructions_text_id      :bigint
+#  student_response_previous_feedback_text_id :bigint
+#  student_response_prompt_text_id            :bigint
+#  student_response_question_type_id          :bigint
 #
 # Indexes
 #
@@ -78,29 +78,33 @@ RSpec.describe StudentResponse, type: :model do
       let(:activity) { create(:activity, data: {questions: [{key: question.uid}]}) }
       let(:activity_session) { create(:activity_session, activity: activity) }
       let(:concept) { create(:concept) }
-      let(:metadata) { {
-        "correct":1,
-        "directions":"Combine the sentences. (And)",
-        "lastFeedback":"Proofread your work. Check your spelling.",
-        "prompt":"Deserts are very dry. Years go by without rain.",
-        "attemptNumber":2,
-        "answer":"Deserts are very dry, and years go by without rain.",
-        "questionNumber":1,
-        "questionScore":0.8
-      } }
-      let(:json) { {
-        "concept_uid":concept.uid,
-        "question_type":"sentence-combining",
-        "metadata":metadata,
-        "concept_id":concept.id,
-        "activity_session_id":activity_session.id
-      } }
+      let(:metadata) do
+        {
+          "correct": 1,
+          "directions": "Combine the sentences. (And)",
+          "lastFeedback": "Proofread your work. Check your spelling.",
+          "prompt": "Deserts are very dry. Years go by without rain.",
+          "attemptNumber": 2,
+          "answer": "Deserts are very dry, and years go by without rain.",
+          "questionNumber": 1,
+          "questionScore": 0.8
+        }
+      end
+      let(:json) do
+        {
+          "concept_uid": concept.uid,
+          "question_type": "sentence-combining",
+          "metadata": metadata,
+          "concept_id": concept.id,
+          "activity_session_id": activity_session.id
+        }
+      end
 
       it 'should create a new StudentResponse record' do
         expect do
           response = StudentResponse.create_from_json(json)
           expect(response.valid?).to be(true)
-        end.to change { StudentResponse.count }.by(1)
+        end.to change(StudentResponse, :count).by(1)
       end
 
       it 'should store all input in the appropriate place' do
@@ -121,27 +125,28 @@ RSpec.describe StudentResponse, type: :model do
 
       it 'should create NormalizedText records when new text is provided' do
         expect { StudentResponse.create_from_json(json) }
-          .to change { StudentResponseAnswerText.count }.by(1)
-          .and change { StudentResponseDirectionsText.count }.by(1)
-          .and change { StudentResponseInstructionsText.count }.by(1)
-          .and change { StudentResponsePreviousFeedbackText.count }.by(1)
-          .and change { StudentResponsePromptText.count }.by(1)
-          .and change { StudentResponseQuestionType.count }.by(1)
+          .to change(StudentResponseAnswerText, :count).by(1)
+          .and change(StudentResponseDirectionsText, :count).by(1)
+          .and change(StudentResponsePreviousFeedbackText, :count).by(1)
+          .and change(StudentResponsePromptText, :count).by(1)
+          .and change(StudentResponseQuestionType, :count).by(1)
+          .and not_change(StudentResponseInstructionsText, :count)
+          # No change expected here when "instructions" aren't in the payload
       end
 
-      it 'should link to empty-string instances of NormalizedText records when the appropriate keys are not provided' do
+      it 'should not link to records when the appropriate keys are not provided' do
         response = StudentResponse.create_from_json(json)
         metadata = json[:metadata]
 
-        expect(response.student_response_instructions_text.text).to eq('')
+        expect(response.student_response_instructions_text).to be_nil
       end
 
       it 'should find existing NormalizedText records when existing text is provided' do
         create(:student_response_answer_text, answer: metadata[:answer])
         create(:student_response_directions_text, text: metadata[:directions])
         expect { StudentResponse.create_from_json(json) }
-          .to not_change { StudentResponseAnswerText.count }
-          .and not_change { StudentResponseDirectionsText.count }
+          .to not_change(StudentResponseAnswerText, :count)
+          .and not_change(StudentResponseDirectionsText, :count)
       end
 
       it 'should assign concept_ids if provided only singular concept_id key' do
@@ -178,13 +183,13 @@ RSpec.describe StudentResponse, type: :model do
         expect do
           response = StudentResponse.create_from_json(json)
           expect(response.student_response_extra_metadata.metadata).to eq(extra_metadata)
-        end.to change { StudentResponseExtraMetadata.count }.by(1)
+        end.to change(StudentResponseExtraMetadata, :count).by(1)
       end
 
       it 'should not create ExtraMetadata records if no unknown keys are provided' do
         expect(StudentResponseExtraMetadata.count).to eq(0)
         expect { StudentResponse.create_from_json(json) }
-          .not_to change { StudentResponseExtraMetadata.count }.from(0)
+          .not_to change(StudentResponseExtraMetadata, :count).from(0)
       end
     end
 
@@ -192,23 +197,25 @@ RSpec.describe StudentResponse, type: :model do
       let(:question) { create(:question) }
       let(:activity) { create(:activity, data: {questions: [{key: question.uid}]}) }
       let(:activity_session) { create(:activity_session, activity: activity) }
-      let(:metadata) { {
-        "correct":1,
-        "directions":"Combine the sentences. (And)",
-        "lastFeedback":"Proofread your work. Check your spelling.",
-        "prompt":"Deserts are very dry. Years go by without rain.",
-        "attemptNumber":2,
-        "answer":"Deserts are very dry, and years go by without rain.",
-        "questionNumber":1,
-        "questionScore":0.8
-      } }
+      let(:metadata) do
+        {
+          "correct": 1,
+          "directions": "Combine the sentences. (And)",
+          "lastFeedback": "Proofread your work. Check your spelling.",
+          "prompt": "Deserts are very dry. Years go by without rain.",
+          "attemptNumber": 2,
+          "answer": "Deserts are very dry, and years go by without rain.",
+          "questionNumber": 1,
+          "questionScore": 0.8
+        }
+      end
       let(:concept_result) { create(:sentence_combining, activity_session: activity_session, metadata: metadata) }
 
       it 'should create a new StudentResponse if none exists for the activity_session-attempt_number-question_number combination of the source ConceptResult' do
         expect do
           response = StudentResponse.create_from_concept_result(concept_result)
           expect(response.valid?).to be(true)
-        end.to change { StudentResponse.count }.by(1)
+        end.to change(StudentResponse, :count).by(1)
       end
 
       it 'should return early if the concept_result is already in a student_response_concept_results record' do
@@ -224,12 +231,12 @@ RSpec.describe StudentResponse, type: :model do
           activity_session: concept_result.activity_session,
           attempt_number: metadata[:attemptNumber],
           concepts: [different_concept],
-          question_number: metadata[:questionNumber],)
+          question_number: metadata[:questionNumber])
         expect do
           response = StudentResponse.create_from_concept_result(concept_result)
           expect(response).to eq(student_response)
           expect(response.concepts).to include(concept_result.concept, different_concept)
-        end.to not_change { StudentResponse.count }
+        end.to not_change(StudentResponse, :count)
            .and change { student_response.reload.concepts.length }.by(1)
       end
 
@@ -238,12 +245,12 @@ RSpec.describe StudentResponse, type: :model do
           activity_session: concept_result.activity_session,
           attempt_number: metadata[:attemptNumber],
           concepts: [concept_result.concept],
-          question_number: metadata[:questionNumber],)
+          question_number: metadata[:questionNumber])
 
         expect { StudentResponse.create_from_concept_result(concept_result) }
-          .to not_change { StudentResponse.count }
-          .and not_change { student_response.reload.concepts.length }
-          .and change { StudentResponseConceptResult.count }.by(1)
+          .to not_change(StudentResponse, :count)
+          .and not_change(student_response.reload.concepts, :length)
+          .and change(StudentResponseConceptResult, :count).by(1)
       end
     end
 
@@ -253,23 +260,27 @@ RSpec.describe StudentResponse, type: :model do
       let(:activity) { create(:activity, data: {questions: [{key: question1.uid},{key: question2.uid}]}) }
       let(:activity_session) { create(:activity_session, activity: activity) }
       let(:concept) { create(:concept) }
-      let(:metadata) { {
-        "correct":1,
-        "directions":"Combine the sentences. (And)",
-        "lastFeedback":"Proofread your work. Check your spelling.",
-        "prompt":"Deserts are very dry. Years go by without rain.",
-        "attemptNumber":2,
-        "answer":"Deserts are very dry, and years go by without rain.",
-        "questionNumber":1,
-        "questionScore":0.8
-      } }
-      let(:json) { {
-        "concept_uid":concept.uid,
-        "question_type":"sentence-combining",
-        "metadata":metadata,
-        "concept_id":concept.id,
-        "activity_session_id":activity_session.id
-      } }
+      let(:metadata) do
+        {
+          "correct": 1,
+          "directions": "Combine the sentences. (And)",
+          "lastFeedback": "Proofread your work. Check your spelling.",
+          "prompt": "Deserts are very dry. Years go by without rain.",
+          "attemptNumber": 2,
+          "answer": "Deserts are very dry, and years go by without rain.",
+          "questionNumber": 1,
+          "questionScore": 0.8
+        }
+      end
+      let(:json) do
+        {
+          "concept_uid": concept.uid,
+          "question_type": "sentence-combining",
+          "metadata": metadata,
+          "concept_id": concept.id,
+          "activity_session_id": activity_session.id
+        }
+      end
 
       it 'should create new records from an array of JSON objects' do
         json2 = json.deep_dup
@@ -278,7 +289,7 @@ RSpec.describe StudentResponse, type: :model do
         expect do
           response = StudentResponse.bulk_create_from_json([json, json2])
           expect(response.all?(&:valid?)).to be(true)
-        end.to change { StudentResponse.count }.by(2)
+        end.to change(StudentResponse, :count).by(2)
       end
 
       it 'should consolidate same attempt-question number records into a single StudentResponse record' do
@@ -288,8 +299,8 @@ RSpec.describe StudentResponse, type: :model do
         expect do
           response = StudentResponse.bulk_create_from_json([json, json2])
           expect(response.all?(&:valid?)).to be(true)
-        end.to change { StudentResponse.count }.by(1)
-           .and change { StudentResponsesConcept.count }.by(2)
+        end.to change(StudentResponse, :count).by(1)
+           .and change(StudentResponsesConcept, :count).by(2)
       end
     end
 
@@ -298,16 +309,18 @@ RSpec.describe StudentResponse, type: :model do
       let(:activity) { create(:activity, data: {questions: [{key: question.uid}]}) }
       let(:activity_session) { create(:activity_session, activity: activity) }
       let(:concept) { create(:concept) }
-      let(:metadata) { {
-        "correct":1,
-        "directions":"Combine the sentences. (And)",
-        "lastFeedback":"Proofread your work. Check your spelling.",
-        "prompt":"Deserts are very dry. Years go by without rain.",
-        "attemptNumber":2,
-        "answer":"Deserts are very dry, and years go by without rain.",
-        "questionNumber":1,
-        "questionScore":0.8
-      } }
+      let(:metadata) do
+        {
+          "correct": 1,
+          "directions": "Combine the sentences. (And)",
+          "lastFeedback": "Proofread your work. Check your spelling.",
+          "prompt": "Deserts are very dry. Years go by without rain.",
+          "attemptNumber": 2,
+          "answer": "Deserts are very dry, and years go by without rain.",
+          "questionNumber": 1,
+          "questionScore": 0.8
+        }
+      end
       let(:concept_result) { create(:sentence_combining, concept: concept, activity_session: activity_session, concept_uid: concept.uid, metadata: metadata, activity_classification_id: activity.activity_classification_id) }
 
       it 'should return data in the same shape as a ConceptResult' do

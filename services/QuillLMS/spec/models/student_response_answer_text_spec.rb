@@ -5,7 +5,7 @@
 # Table name: student_response_answer_texts
 #
 #  id         :bigint           not null, primary key
-#  answer     :jsonb            not null
+#  text       :jsonb            not null
 #  created_at :datetime         not null
 #
 require 'rails_helper'
@@ -20,30 +20,30 @@ RSpec.describe StudentResponseAnswerText, type: :model do
   end
 
   context 'validations' do
-    it { should validate_length_of(:answer).is_at_least(0) }
-    it { should validate_uniqueness_of(:answer) }
+    it { should validate_length_of(:text).is_at_least(0) }
+    it { should validate_uniqueness_of(:text) }
   end
 
   context 'answer data shape' do
     it 'should handle raw strings cleanly' do
       data = 'this is a test string'
-      model = create(:student_response_answer_text, answer: data)
+      model = create(:student_response_answer_text, text: data)
       expect(model.valid?).to be(true)
-      expect(model.answer).to eq(data)
+      expect(model.text).to eq(data)
     end
 
     it 'should handle arrays cleanly' do
       data = [1,2,3]
-      model = create(:student_response_answer_text, answer: data)
+      model = create(:student_response_answer_text, text: data)
       expect(model.valid?).to be(true)
-      expect(model.answer).to eq(data)
+      expect(model.text).to eq(data)
     end
 
     it 'should handle hashes cleanly' do
       data = {'foo' => 'bar'}
-      model = create(:student_response_answer_text, answer: data)
+      model = create(:student_response_answer_text, text: data)
       expect(model.valid?).to be(true)
-      expect(model.answer).to eq(data)
+      expect(model.text).to eq(data)
     end
   end
 end

@@ -12,12 +12,12 @@
 #  created_at                                 :datetime         not null
 #  activity_session_id                        :bigint           not null
 #  question_id                                :bigint           not null
-#  student_response_answer_text_id            :bigint           not null
-#  student_response_directions_text_id        :bigint           not null
-#  student_response_instructions_text_id      :bigint           not null
-#  student_response_previous_feedback_text_id :bigint           not null
-#  student_response_prompt_text_id            :bigint           not null
-#  student_response_question_type_id          :bigint           not null
+#  student_response_answer_text_id            :bigint
+#  student_response_directions_text_id        :bigint
+#  student_response_instructions_text_id      :bigint
+#  student_response_previous_feedback_text_id :bigint
+#  student_response_prompt_text_id            :bigint
+#  student_response_question_type_id          :bigint
 #
 # Indexes
 #
@@ -83,13 +83,6 @@ class StudentResponse < ApplicationRecord
 
     metadata = data_hash[:metadata]
 
-    answer_text = StudentResponseAnswerText.find_or_create_by(answer: metadata[:answer] || '')
-    directions_text = StudentResponseDirectionsText.find_or_create_by(text: metadata[:directions] || '')
-    instructions_text = StudentResponseInstructionsText.find_or_create_by(text: metadata[:instructions] || '')
-    previous_feedback_text = StudentResponsePreviousFeedbackText.find_or_create_by(text: metadata[:lastFeedback] || '')
-    prompt_text = StudentResponsePromptText.find_or_create_by(text: metadata[:prompt] || '')
-    question_type = StudentResponseQuestionType.find_or_create_by(text: data_hash[:question_type] || '')
-
     question = calculate_question_from_hash(data_hash)
 
     # Make sure that singular concept_id gets converted to array of
@@ -98,7 +91,7 @@ class StudentResponse < ApplicationRecord
 
     extra_metadata = extract_extra_metadata(metadata)
 
-    create(
+    student_response = new(
       activity_session_id: data_hash[:activity_session_id],
       concept_ids: data_hash[:concept_ids].uniq,
       attempt_number: metadata[:attemptNumber],
@@ -106,14 +99,13 @@ class StudentResponse < ApplicationRecord
       question: question,
       question_number: metadata[:questionNumber],
       question_score: metadata[:questionScore],
-      student_response_answer_text: answer_text,
-      student_response_directions_text: directions_text,
-      student_response_instructions_text: instructions_text,
-      student_response_extra_metadata: extra_metadata,
-      student_response_previous_feedback_text: previous_feedback_text,
-      student_response_prompt_text: prompt_text,
-      student_response_question_type: question_type
+      student_response_extra_metadata: extra_metadata
     )
+
+    set_normalized_text(student_response, data_hash)
+
+    student_response.save!
+    student_response
   end
 
   def self.create_from_concept_result(concept_result)
@@ -148,25 +140,14 @@ class StudentResponse < ApplicationRecord
   end
 
   def legacy_format
-    concepts.map do |concept|
+    denormalized_per_concept = concepts.map do |concept|
       {
         id: id,
         activity_classification_id: activity_session.activity.activity_classification_id,
         activity_session_id: activity_session_id,
         concept_id: concept.id,
-        question_type: student_response_question_type.text,
-        metadata: {
-          answer: student_response_answer_text.answer,
-          attemptNumber: attempt_number,
-          correct: correct ? 1 : 0,
-          directions: student_response_directions_text.text,
-          instructions: student_response_instructions_text.text,
-          lastFeedback: student_response_previous_feedback_text.text,
-          prompt: student_response_prompt_text.text,
-          questionNumber: question_number,
-          questionScore: question_score
-        }.merge(student_response_extra_metadata || {})
-         .reject { |_,v| v.blank? }
+        question_type: student_response_question_type&.text,
+        metadata: legacy_format_metadata
       }
     end
   end
@@ -185,11 +166,45 @@ class StudentResponse < ApplicationRecord
     StudentResponseExtraMetadata.new(metadata: extra_metadata)
   end
 
+  private_class_method def self.set_normalized_text(target, data_hash)
+    metadata = data_hash[:metadata]
+
+    unless metadata[:answer].nil?
+      answer_text = StudentResponseAnswerText.find_or_create_by(answer: metadata[:answer])
+      target.student_response_answer_text = answer_text
+    end
+
+    attribute_model_value_tuples = [
+      [:student_response_directions_text=,
+       StudentResponseDirectionsText,
+       metadata[:directions]],
+      [:student_response_instructions_text=,
+       StudentResponseInstructionsText,
+       metadata[:instructions]],
+      [:student_response_previous_feedback_text=,
+       StudentResponsePreviousFeedbackText,
+       metadata[:lastFeedback]],
+      [:student_response_prompt_text=,
+       StudentResponsePromptText,
+       metadata[:prompt]],
+      [:student_response_question_type=,
+       StudentResponseQuestionType,
+       data_hash[:question_type]]
+    ]
+
+    attribute_model_value_tuples.each do |attribute, model, value|
+      next if value.nil?
+
+      related_model = model.find_or_create_by(text: value)
+      target.send(attribute, related_model)
+    end
+  end
+
   # Takes an input of hashes representing old-style ConceptResult
   # and rolls them up so that a single response has only one entry
   # plus an array of concept_ids that match to it
   private_class_method def self.roll_up_concepts(data_hash_array)
-    data_hash_array.reduce({}) do |rollup, value|
+    data_hash_array.each_with_object({}) do |value, rollup|
       key = "#{value[:metadata][:questionNumber]}-#{value[:metadata][:attemptNumber]}"
       if rollup[key]
         rollup[key][:concept_ids].push(value[:concept_id])
@@ -208,5 +223,25 @@ class StudentResponse < ApplicationRecord
       question_uid = activity_session.activity.data['questions'][question_index]['key']
     end
     Question.find_by_uid!(question_uid)
+  end
+
+  private def legacy_format_metadata
+    metadata = legacy_format_base_metadata
+    metadata.merge!(student_response_extra_metadata || {})
+    metadata.reject { |_,v| v.blank? }
+  end
+
+  private def legacy_format_base_metadata
+    metadata = {
+      answer: student_response_answer_text&.answer,
+      attemptNumber: attempt_number,
+      correct: correct ? 1 : 0,
+      directions: student_response_directions_text&.text,
+      instructions: student_response_instructions_text&.text,
+      lastFeedback: student_response_previous_feedback_text&.text,
+      prompt: student_response_prompt_text&.text,
+      questionNumber: question_number,
+      questionScore: question_score
+    }
   end
 end
