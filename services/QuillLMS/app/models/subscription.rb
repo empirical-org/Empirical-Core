@@ -42,7 +42,9 @@ class Subscription < ApplicationRecord
   belongs_to :purchaser, class_name: "User"
   belongs_to :subscription_type
   belongs_to :plan, optional: true
+
   validates :expiration, presence: true
+
   after_commit :check_if_purchaser_email_is_in_database
   after_initialize :set_null_start_date_to_today
 
@@ -110,6 +112,8 @@ class Subscription < ApplicationRecord
 
   validates :stripe_invoice_id, allow_blank: true, stripe_uid: { prefix: :in }
 
+  delegate :stripe_cancel_at_period_end, :last_four, :stripe_subscription_id, to: :stripe_subscription
+
   scope :active, -> { not_expired.not_de_activated.order(expiration: :asc) }
   scope :expired, -> { where('expiration <= ?', Date.current) }
   scope :not_expired, -> { where('expiration > ?', Date.current) }
@@ -165,11 +169,16 @@ class Subscription < ApplicationRecord
       report_to_new_relic("Sub credited and expired with multiple users. Subscription: #{id}")
     else
       update(de_activated_date: Date.current, recurring: false)
+      stripe_cancel_at_period_end
       # subtract later of start date or today's date from expiration date to calculate amount to credit
       # amount_to_credit = self.expiration - [self.start_date, Date.current].max
       amount_to_credit = expiration - start_date
       CreditTransaction.create(user_id: user_subscriptions.first.user_id, amount: amount_to_credit.to_i, source: self)
     end
+  end
+
+  def disable_stripe_auto_renew
+    Stripe::Subscription.update(stripe_subscription_id, cancel_at_period_end: true)
   end
 
   def self.expired_today_or_previously_and_recurring
@@ -359,7 +368,11 @@ class Subscription < ApplicationRecord
       end
     end
 
-    school_or_user.subscriptions.each {|s| s.update!(recurring: false)}
+    school_or_user.subscriptions.each do |subscription|
+      subscription.update!(recurring: false)
+      subscription.stripe_cancel_at_period_end
+    end
+
     subscription = Subscription.create!(attributes)
 
     h = {}
@@ -383,9 +396,10 @@ class Subscription < ApplicationRecord
     )
   end
 
-  def last_four
-    StripeIntegration::Subscription.new(self).last_four
+  def stripe_subscription
+    StripeIntegration::Subscription.new(self)
   end
+
 
   def renewal_stripe_price_id
     return STRIPE_TEACHER_PLAN_PRICE_ID if account_type == TEACHER_PAID
@@ -397,6 +411,6 @@ class Subscription < ApplicationRecord
   end
 
   private def stripe_subscription_id
-    StripeIntegration::Subscription.new(self).stripe_subscription_id
+    stripe_subscription.stripe_subscription_id
   end
 end
