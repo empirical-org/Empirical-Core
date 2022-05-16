@@ -91,11 +91,11 @@ const EmptyState = ({ undoLastFilter, resetAllFilters, }) => {
   )
 }
 
-const Banner = ({ bannerShowing, selectedActivities, closeBanner, type, showImage }) => {
+const Banner = ({ bannerShowing, selectedActivities, closeBanner, type }) => {
   if (!bannerShowing) { return <span /> }
   if (!selectedActivities.some(selectedActivity => selectedActivity.activity_classification.key === type)) { return <span /> }
 
-  return <ActivityDisclaimerBanner activityType={type} closeBanner={closeBanner} showImage={showImage} />
+  return <ActivityDisclaimerBanner activityType={type} closeBanner={closeBanner} />
 }
 
 const ActivityTableContainer = ({
@@ -155,8 +155,8 @@ const ActivityTableContainer = ({
   return (
     <section className="activity-table-container">
       <div className="banners-container">
-        <Banner bannerShowing={lessonsBannerShowing} closeBanner={closeLessonsBanner} selectedActivities={selectedActivities} showImage={true} type={LESSONS} />
-        <Banner bannerShowing={evidenceBannerShowing} closeBanner={closeEvidenceBanner} selectedActivities={selectedActivities} showImage={false} type={EVIDENCE} />
+        <Banner bannerShowing={lessonsBannerShowing} closeBanner={closeLessonsBanner} selectedActivities={selectedActivities} type={LESSONS} />
+        <Banner bannerShowing={evidenceBannerShowing} closeBanner={closeEvidenceBanner} selectedActivities={selectedActivities} type={EVIDENCE} />
       </div>
       <SearchAndSort handleSearch={handleSearch} search={search} setSort={setSort} sort={sort} />
       <FilterAndSort setShowMobileFilterMenu={setShowMobileFilterMenu} setShowMobileSortMenu={setShowMobileSortMenu} />

@@ -29,6 +29,7 @@ import {
   defaultSnackbarTimeout,
   smallWhiteCheckIcon,
   previewIcon,
+  LESSONS,
 } from '../../../../../Shared/index'
 import useSnackbarMonitor from '../../../../../Shared/hooks/useSnackbarMonitor'
 
@@ -379,7 +380,7 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
   let assigningLessonsBanner
 
   if (lessonsSelections.length && lessonsBannerEnabled) {
-    assigningLessonsBanner = <ActivityDisclaimerBanner activityType="lessons" closeBanner={closeLessonsBanner} showImage={true} />
+    assigningLessonsBanner = <ActivityDisclaimerBanner activityType={LESSONS} closeBanner={closeLessonsBanner} />
   }
 
   let wholeClassInstructionSection
