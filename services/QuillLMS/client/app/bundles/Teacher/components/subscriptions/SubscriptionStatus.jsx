@@ -14,6 +14,8 @@ import {
 
 import StripeSubscriptionCheckoutSessionButton from '../shared/StripeSubscriptionCheckoutSessionButton';
 
+const CTA_BUTTON_CLASSNAME = "quill-button medium contained primary focus-on-light"
+
 const quillBasicCopy = (
   <span>
     Quill Basic provides access to all of Quill&apos;s content. To access Quill Premium, you can purchase an individual teacher subscription or a school subscription.
@@ -103,7 +105,7 @@ const SubscriptionStatus = ({
       image = 'basic_icon.png';
       content.premiumCopy = quillBasicCopy;
       content.boxColor = '#00c2a2';
-      content.buttonOrDate = <a className="q-button cta-button bg-orange text-white" href="/premium">Learn More About Quill Premium</a>;
+      content.buttonOrDate = <a className={CTA_BUTTON_CLASSNAME} href="/premium">Learn More About Quill Premium</a>;
       subscriptionTypeText = 'Quill Basic';
       content.status = <h2>{`You have a ${subscriptionType} subscription`}<img alt={`${subscriptionType}`} src={`https://assets.quill.org/images/shared/${image}`} /></h2>;
       break;
@@ -116,7 +118,7 @@ const SubscriptionStatus = ({
       content.status = <h2>You have a {teacherSubDisplayName} subscription<img alt={`${subscriptionType}`} src={`https://assets.quill.org/images/shared/${image}`} /></h2>
       content.boxColor = '#348fdf'
       if (remainingDays < 0) {
-        content.buttonOrDate = <a className="renew-subscription q-button bg-orange text-white cta-button focus-on-light" href="/premium">Subscribe to Premium</a>
+        content.buttonOrDate = <a className={CTA_BUTTON_CLASSNAME} href="/premium">Subscribe to Premium</a>
       }
       break;
     case TEACHER_PREMIUM:
@@ -127,7 +129,7 @@ const SubscriptionStatus = ({
       if (remainingDays < 0) {
         content.buttonOrDate = (
           <StripeSubscriptionCheckoutSessionButton
-            buttonClassName="renew-subscription q-button bg-orange text-white cta-button focus-on-light"
+            buttonClassName={CTA_BUTTON_CLASSNAME}
             buttonText='Renew Subscription'
             cancelPath='subscriptions'
             customerEmail={subscriptionStatus.customer_email}
@@ -146,7 +148,7 @@ const SubscriptionStatus = ({
       if (remainingDays < 0) {
         content.buttonOrDate = (
           <StripeSubscriptionCheckoutSessionButton
-            buttonClassName="renew-subscription q-button bg-orange text-white cta-button focus-on-light"
+            buttonClassName={CTA_BUTTON_CLASSNAME}
             buttonText='Renew Subscription'
             cancelPath='subscriptions'
             customerEmail={subscriptionStatus.customer_email}
@@ -165,7 +167,7 @@ const SubscriptionStatus = ({
       if (remainingDays < 0) {
         content.buttonOrDate = (
           <a
-            className="renew-subscription q-button bg-orange text-white cta-button focus-on-light"
+            className={CTA_BUTTON_CLASSNAME}
             href="mailto:sales@quill.org"
           >
             Contact Us to Renew
@@ -179,7 +181,7 @@ const SubscriptionStatus = ({
       content.status = <h2>You have a {SCHOOL_PREMIUM} subscription<img alt={`${subscriptionType}`} src={`https://assets.quill.org/images/shared/${image}`} /></h2>;
       content.boxColor = '#9c2bde';
       if (remainingDays < 0) {
-        content.buttonOrDate = <a className="renew-subscription q-button bg-orange text-white cta-button focus-on-light" href="/premium">Subscribe to Premium</a>
+        content.buttonOrDate = <a className={CTA_BUTTON_CLASSNAME} href="/premium">Subscribe to Premium</a>
       }
       break;
   }
