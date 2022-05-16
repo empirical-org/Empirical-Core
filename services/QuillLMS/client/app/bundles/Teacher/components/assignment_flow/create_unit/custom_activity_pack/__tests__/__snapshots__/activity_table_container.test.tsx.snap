@@ -4417,7 +4417,6 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       <Banner
         closeBanner={[Function]}
         selectedActivities={Array []}
-        showImage={true}
         type="lessons"
       >
         <span />
@@ -4425,7 +4424,6 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       <Banner
         closeBanner={[Function]}
         selectedActivities={Array []}
-        showImage={false}
         type="evidence"
       >
         <span />
