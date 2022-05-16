@@ -483,13 +483,13 @@ describe Subscription, type: :model do
       context 'paid' do
         let(:account_type) { described_class::SCHOOL_PAID }
 
-        it { expect(subject).to be nil }
+        it { expect(subject).to be STRIPE_SCHOOL_PLAN_PRICE_ID }
+      end
 
-        context 'via stripe' do
-          before { allow(subscription).to receive(:stripe?).and_return(true) }
+      context 'paid via stripe' do
+        let(:account_type) { Plan::STRIPE_SCHOOL_PLAN }
 
-          it { expect(subject).to be STRIPE_SCHOOL_PLAN_PRICE_ID }
-        end
+        it { expect(subject).to be STRIPE_SCHOOL_PLAN_PRICE_ID }
       end
 
       context 'sponsored' do
@@ -515,4 +515,3 @@ describe Subscription, type: :model do
     end
   end
 end
-
