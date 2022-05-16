@@ -65,6 +65,16 @@ describe 'ScorebookQuery' do
         new_completed_at
       end
 
+      it "converts timestamps in the SELECT clause to the current user's timezone if one is provided" do
+        tz = TZInfo::Timezone.get('Australia/Perth')
+        offset = tz.period_for_utc(Time.new.utc).utc_total_offset
+
+        results = Scorebook::Query.run(classroom.id, 1, nil, nil, nil, offset)
+
+        in_user_time = (activity_session1.updated_at + offset.seconds).strftime('%Y-%m-%d %H:%M:%S.%6N')
+        expect(results.find{|res| res['id'] == activity_session1.id}['updated_at']).to eq(in_user_time)
+      end
+
       it "factors in offset to return activities where the teacher is in a different timezone than the database" do
         tz = TZInfo::Timezone.get('Australia/Perth')
         offset = tz.period_for_utc(Time.new.utc).utc_total_offset

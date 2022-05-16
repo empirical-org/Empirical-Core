@@ -177,7 +177,6 @@ class Activity < ApplicationRecord
   end
 
   def flag=(flag)
-    flag = :archived if flag.to_sym == :archive
     self.flags = [flag]
   end
 
