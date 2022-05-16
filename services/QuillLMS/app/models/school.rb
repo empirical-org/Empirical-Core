@@ -100,6 +100,14 @@ class School < ApplicationRecord
       .first
   end
 
+  def last_expired_subscription
+    subscriptions
+      .expired
+      .order(expiration: :desc)
+      .limit(1)
+      .first
+  end
+
   def present_and_future_subscriptions
     subscriptions.active
   end

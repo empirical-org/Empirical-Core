@@ -110,3 +110,7 @@ export default class SubscriptionHistory extends React.Component {
     );
   }
 }
+
+SubscriptionHistory.defaultProps = {
+  premiumCredits: []
+}

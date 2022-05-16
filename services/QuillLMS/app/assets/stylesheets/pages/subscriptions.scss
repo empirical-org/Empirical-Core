@@ -3,6 +3,19 @@
   margin: auto;
   padding-top: 22px;
 
+  .school-dropdown-container {
+    min-height: 60px !important;
+    margin-bottom: 16px;
+    margin-top: 2px;
+    justify-content: flex-start;
+    .dropdown {
+      margin-right: 0px;
+    }
+    .dropdown__control {
+      background-color: transparent;
+    }
+  }
+
   .automatic-renewal-modal {
     height: min-content;
     h3 {
