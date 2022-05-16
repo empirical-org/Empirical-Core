@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Activity } from '../../../../../../interfaces/activityPack';
 
 import { requestPost, } from '../../../../../../modules/request';
+import { EVIDENCE } from '../../../../../Shared';
 import { UNIT_TEMPLATE_NAME, } from '../../assignmentFlowConstants';
 
 interface DataInterface {
@@ -61,27 +62,27 @@ export const UnitTemplateProfileAssignButton = ({ data }: UnitTemplateProfileAss
     )
   };
 
-  function isEvidenceActivityPack(data: DataInterface) {
-    if(!data.activities) { return false }
+  function isEvidenceActivityPack() {
+    if(!data || !data.activities) { return false }
 
     const { activities } = data;
     return activities.some(activity => {
       const { classification } = activity;
-      const { name } = classification;
-      return name === "Quill Reading for Evidence";
+      const { key } = classification;
+      return key === EVIDENCE;
     });
   }
 
-  const showWarning = isEvidenceActivityPack(data);
+  const showWarning = isEvidenceActivityPack();
   return(
-    <div>
+    <section className="evidence-warning-container">
       {propsSpecificComponent()}
-      {showWarning && <div className="evidence-warning">
+      {showWarning && <section className="evidence-warning">
         <p className="header">Activity Difficulty: Designed for 8th-12th Grade</p>
         <p className="text">Quill Reading for Evidence activities are designed for 8th-12 grade students or students reading at a Lexile level between 950-1250.</p>
-      </div>}
+      </section>}
       <p className="time"><i className="far fa-clock" />Estimated Time: {data.time} mins</p>
-    </div>
+    </section>
   );
 }
 
