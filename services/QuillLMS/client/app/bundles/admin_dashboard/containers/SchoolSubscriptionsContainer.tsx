@@ -44,7 +44,8 @@ const SchoolSubscriptionsContainer = () => {
       setStripePaymentMethodUpdated(body.stripe_payment_method_updated)
 
       if (!selectedSchoolId) {
-        setSelectedSchoolId(body.user_associated_school_id || body.schools[0].id)
+        const userAssociatedSchool = body.schools.find(school => school.id === body.user_associated_school_id) // handles edge case where the user is not an admin for the school they're associated with
+        setSelectedSchoolId(userAssociatedSchool ? userAssociatedSchool.id : body.schools[0].id)
       }
 
       callback ? callback() : null
