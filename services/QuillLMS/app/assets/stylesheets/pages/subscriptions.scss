@@ -79,18 +79,22 @@
     }
   }
 
-  .renew-subscription.cta-button {
-    height: 40px;
-    padding: 8px 9px;
-  }
-
   .subscription-status {
     background-color: #fff;
-    padding-top: 15px;
+    padding-top: 16px;
     color: #3b3b3b;
     padding-bottom: 0px;
+    .quill-button {
+      margin-right: 16px;
+    }
     strong {
       padding-right: 4px;
+      a {
+        color: inherit;
+        &:hover {
+          color: inherit;
+        }
+      }
     }
     i, svg {
       color: #ff4542;

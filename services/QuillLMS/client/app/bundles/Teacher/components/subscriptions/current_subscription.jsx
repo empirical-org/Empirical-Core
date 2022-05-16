@@ -3,7 +3,15 @@ import moment from 'moment';
 import _ from 'lodash';
 
 import TitleAndContent from './current_subscription_title_and_content';
-import { TEACHER_PREMIUM_TRIAL, SCHOOL_PREMIUM, DISTRICT_PREMIUM } from './constants';
+import {
+  TEACHER_PREMIUM_TRIAL,
+  SCHOOL_PREMIUM,
+  DISTRICT_PREMIUM,
+  TEACHER_PREMIUM_CREDIT,
+  TEACHER_PREMIUM_SCHOLARSHIP,
+  SCHOOL_PREMIUM_SCHOLARSHIP,
+  CREDIT_CARD,
+} from './constants';
 
 import { Tooltip, helpIcon, Snackbar, defaultSnackbarTimeout,} from '../../../Shared/index'
 import { requestPost } from '../../../../modules/request';
@@ -17,25 +25,35 @@ export default class CurrentSubscription extends React.Component {
   }
 
   onceYourPlanExpires() {
-    const { subscriptionType, } = this.props
-    return `Once your current ${subscriptionType} subscription expires, you will be downgraded to the Quill Basic subscription.`;
-  }
+    const { subscriptionType, subscriptionStatus, authorityLevel, } = this.props
+    const { payment_method, purchaser_email, } = subscriptionStatus
+    const baseText = `Once your current ${subscriptionType} subscription expires, you will be downgraded to Quill Basic.`;
 
-  getCondition() {
-    const { subscriptionType, } = this.props
-    if ([SCHOOL_PREMIUM, DISTRICT_PREMIUM].includes(subscriptionType)) {
-      return 'school'
-    } else {
-      return 'other'
+    if ([TEACHER_PREMIUM_TRIAL, TEACHER_PREMIUM_CREDIT, TEACHER_PREMIUM_SCHOLARSHIP].includes(subscriptionType)) { return baseText }
+
+    if (subscriptionType === SCHOOL_PREMIUM_SCHOLARSHIP && !authorityLevel) { return baseText }
+
+    if (payment_method === CREDIT_CARD && authorityLevel) {
+      return `${baseText} To prevent your subscription from expiring, turn on automatic renewal.`
     }
+    if (payment_method === CREDIT_CARD && !authorityLevel) {
+      return <span>{baseText} To prevent your subscription from expiring, contact the purchaser at <a href={`mailto:${purchaser_email}`}>{purchaser_email}</a> and ask them to turn on automatic renewal.</span>
+    }
+    if (payment_method !== CREDIT_CARD && (authorityLevel || !purchaser_email)) {
+      return <span>{baseText} To renew your subscription for next year, contact us at <a href="mailto:sales@quill.org">sales@quill.org</a>.</span>
+    }
+    if (payment_method !== CREDIT_CARD && !authorityLevel) {
+      return <span>{baseText} To renew your subscription for next year, contact the purchaser at <a href={`mailto:${purchaser_email}`}>{purchaser_email}</a> or <a href="mailto:sales@quill.org">the Quill team</a>.</span>
+    }
+    return baseText
   }
 
   getPaymentMethod() {
     const { subscriptionStatus, authorityLevel, subscriptionType, } = this.props
 
-    if (subscriptionStatus && subscriptionStatus.payment_method === 'Credit Card' && authorityLevel) {
+    if (subscriptionStatus && subscriptionStatus.payment_method === CREDIT_CARD && authorityLevel) {
       return this.editCreditCardElement();
-    } else if (subscriptionStatus && subscriptionStatus.payment_method === 'Credit Card') {
+    } else if (subscriptionStatus && subscriptionStatus.payment_method === CREDIT_CARD) {
       return <span>Credit Card</span>;
     } else if (subscriptionType === TEACHER_PREMIUM_TRIAL) {
       return <span>No Payment Method on File</span>;
@@ -46,11 +64,8 @@ export default class CurrentSubscription extends React.Component {
   }
 
   getPrice() {
-    const { subscriptionType, } = this.props
-    if ([DISTRICT_PREMIUM, SCHOOL_PREMIUM].includes(subscriptionType)) {
-      return '900';
-    }
-    return '80';
+    const { subscriptionStatus, } = this.props
+    return subscriptionStatus.renewal_price
   }
 
   contactSales() {
@@ -78,7 +93,7 @@ export default class CurrentSubscription extends React.Component {
       )
       let automaticRenewalContent = subscriptionStatus.recurring ? 'On' : 'Off'
 
-      if (authorityLevel && subscriptionStatus.payment_method !== 'Credit Card' && !subscriptionStatus.recurring) {
+      if (authorityLevel && subscriptionStatus.payment_method !== CREDIT_CARD && !subscriptionStatus.recurring) {
         automaticRenewalContent = (
           <span className="content-wrapper">
             Off
@@ -165,38 +180,6 @@ export default class CurrentSubscription extends React.Component {
     );
   }
 
-  lessThan90Days() {
-    const { showPurchaseModal, } = this.props
-
-    return (
-      <div>
-        <button
-          className="q-button bg-orange text-white"
-          onClick={showPurchaseModal}
-          type="button"
-        >
-            Renew Subscription
-        </button>
-      </div>
-    );
-  }
-
-  renewPremium() {
-    const { showPurchaseModal, } = this.props
-
-    return (
-      <div>
-        <button
-          className="renew-subscription q-button bg-orange text-white cta-button"
-          onClick={showPurchaseModal}
-          type="button"
-        >
-          Renew Subscription
-        </button>
-      </div>
-    );
-  }
-
   nextPlan() {
     const { subscriptionStatus, } = this.props
 
@@ -219,78 +202,32 @@ export default class CurrentSubscription extends React.Component {
     )
   }
 
-  nextPlanAlertOrButtons(condition, renewDate) {
-
-    const { authorityLevel, subscriptionStatus, } = this.props
-    const { last_four } = subscriptionStatus
-    const conditionWithAuthorization = `${condition} authorization: ${!!authorityLevel}`;
-    const expiration = moment(subscriptionStatus.expiration);
-    const remainingDays = expiration.diff(moment(), 'days');
-
-    switch (conditionWithAuthorization) {
-      case 'school sponsored authorization: false':
-        return this.nextPlanAlert(this.onceYourPlanExpires());
-      case 'school expired authorization: false':
-        return this.lessThan90Days();
-      case 'school non-recurring authorization: true':
-        if (remainingDays > 90) {
-          return this.nextPlanAlert(this.contactSales());
-        }
-        return this.lessThan90Days();
-      case 'school non-recurring authorization: false':
-        if (remainingDays > 90) {
-          return this.nextPlanAlert(this.onceYourPlanExpires());
-        }
-        return this.lessThan90Days();
-      case 'recurring authorization: false':
-        return this.nextPlanAlert(`Your subscription will be renewed on ${renewDate}.`);
-      case 'recurring authorization: true':
-        return this.nextPlanAlert(`Your subscription will be renewed on ${renewDate} and your card ending in ${last_four} will be charged $${this.getPrice()}.`);
-      case 'school expired authorization: true':
-        return this.lessThan90Days();
-      case 'school expired authorization: false':
-        return this.lessThan90Days();
-      case 'other expired authorization: false':
-        return this.renewPremium();
-      case 'other expired authorization: true':
-        return this.renewPremium();
-      default:
-    }
+  renewDate() {
+    const { subscriptionStatus, } = this.props
+    return moment(subscriptionStatus.expiration).add('days', 1).format('MMMM Do, YYYY');
   }
 
   nextPlanContent() {
     const { subscriptionStatus, subscriptionType, } = this.props
-    let nextPlan;
-    let beginsOn;
-    let nextPlanAlertOrButtons;
-    const condition = this.getCondition();
-    if (subscriptionStatus.expired) {
-      return this.nextPlanAlertOrButtons(`${condition} expired`);
-    } else if (subscriptionStatus.account_type === 'Premium Credit') {
-      const content = (<span>Quill Basic - Free</span>);
-      return (<TitleAndContent content={content} title="Next Plan" />);
-    } else if (condition === 'school sponsored') {
-      nextPlan = this.nextPlanAlertOrButtons(condition);
-    } else if (subscriptionStatus.recurring) {
-      nextPlan = (<span>
-        {subscriptionType} - ${this.getPrice()} Annual Subscription
-      </span>);
-      const renewDate = moment(subscriptionStatus.expiration).add('days', 1).format('MMMM Do, YYYY');
-      nextPlanAlertOrButtons = this.nextPlanAlertOrButtons('recurring', renewDate);
+
+    if (subscriptionStatus.expired) { return }
+
+    let nextPlan = <span>Quill Basic - Free</span>
+    let beginsOn
+    let nextPlanAlertOrButtons = this.nextPlanAlert(this.onceYourPlanExpires())
+
+    if (subscriptionStatus.recurring) {
+      nextPlan = (<span>{subscriptionType} - ${this.getPrice()} Annual Subscription</span>);
+      nextPlanAlertOrButtons = this.nextPlanAlert(`Your ${subscriptionType} subscription will be renewed on ${this.renewDate()} and your card ending in ${subscriptionStatus.last_four} will be charged $${this.getPrice()}.`);
       beginsOn = (
-        <TitleAndContent content={renewDate} title="Begins On" />
+        <TitleAndContent content={this.renewDate()} title="Begins On" />
       );
-    } else if (condition === 'school' && !subscriptionStatus.recurring) {
-      nextPlanAlertOrButtons = this.nextPlanAlertOrButtons(`${condition} non-recurring`);
-      nextPlan = <span>Quill Basic - Free</span>;
-    } else {
-      nextPlanAlertOrButtons = this.nextPlanAlert(this.onceYourPlanExpires());
-      nextPlan = <span>Quill Basic - Free</span>;
     }
+
     return (
       <div>
         <div className="flex-row space-between">
-          <TitleAndContent content={<span >{nextPlan}</span>} title="Next Plan" />
+          <TitleAndContent content={nextPlan} title="Next Plan" />
           {beginsOn}
         </div>
         {nextPlanAlertOrButtons}
@@ -352,10 +289,10 @@ export default class CurrentSubscription extends React.Component {
   renderAutomaticRenewalButton() {
     const { authorityLevel, subscriptionStatus, } = this.props
 
-    if (authorityLevel && subscriptionStatus.payment_method === 'Credit Card') {
+    if (authorityLevel && subscriptionStatus.payment_method === CREDIT_CARD) {
       return (
         <button
-          className="q-button bg-orange text-white focus-on-light"
+          className="quill-button medium primary contained focus-on-light"
           onClick={this.handleClickShowAutomaticRenewalModal}
           type="button"
         >
