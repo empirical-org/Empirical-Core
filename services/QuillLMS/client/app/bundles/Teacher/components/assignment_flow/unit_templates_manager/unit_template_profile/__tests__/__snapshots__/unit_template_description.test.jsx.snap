@@ -79,6 +79,7 @@ exports[`UnitTemplateProfileDescription component should render activity_info ha
   }
 >
   <div
+    className="unit-template-profile-description"
     dangerouslySetInnerHTML={
       Object {
         "__html": "<p class=\\"hi\\">hi there</p>",
