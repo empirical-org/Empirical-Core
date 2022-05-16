@@ -64,6 +64,11 @@
       }
     }
   }
+  @media (max-width: 991px) {
+    .links {
+      display: none;
+    }
+  }
 }
 
 .assignment-flow-container {
