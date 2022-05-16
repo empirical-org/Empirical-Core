@@ -52,7 +52,9 @@ exports[`UnitTemplateProfileDescription component should match snapshot 1`] = `
     }
   }
 >
-  <div>
+  <section
+    className="evidence-warning-container"
+  >
     <p
       className="time"
     >
@@ -63,6 +65,6 @@ exports[`UnitTemplateProfileDescription component should match snapshot 1`] = `
       60
        mins
     </p>
-  </div>
+  </section>
 </UnitTemplateProfileAssignButton>
 `;
