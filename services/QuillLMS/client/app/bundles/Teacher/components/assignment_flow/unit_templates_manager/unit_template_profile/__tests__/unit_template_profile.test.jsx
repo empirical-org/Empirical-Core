@@ -96,6 +96,9 @@ describe('UnitTemplateProfile component', () => {
     it('should set state.data to be response.data', () => {
       expect(wrapper.state('data')).toEqual(response.data)
     })
-
+    it('should set localStorage item clickedActivityPackId to activityPackId', () => {
+      const setItem = jest.spyOn(global.sessionStorage, 'setItem')
+      expect(setItem).toHaveBeenCalledWith('clickedActivityPackId', '34')
+    })
   })
 });

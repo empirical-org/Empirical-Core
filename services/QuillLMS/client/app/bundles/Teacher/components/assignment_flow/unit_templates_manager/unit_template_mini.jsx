@@ -14,7 +14,7 @@ export default class UnitTemplateMini extends React.Component {
   }
 
   componentDidMount() {
-    const clickedActivityPackId = window.sessionStorage.getItem('clickedActivityPack');
+    const clickedActivityPackId = window.sessionStorage.getItem('clickedActivityPackId');
     const miniRefId = this.miniRef.current ? this.miniRef.current.id : null;
     const isClickedMini = clickedActivityPackId && miniRefId && clickedActivityPackId === miniRefId;
 
@@ -29,7 +29,7 @@ export default class UnitTemplateMini extends React.Component {
   }
 
   componentWillUnmount() {
-    window.sessionStorage.setItem('clickedActivityPack', null);
+    window.sessionStorage.setItem('clickedActivityPackId', null);
   }
 
   isSignedIn() {

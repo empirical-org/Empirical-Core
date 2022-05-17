@@ -64,6 +64,11 @@ const minis = (diagnosticBannerShowing) => [
 const AssignANewActivity = ({ numberOfActivitiesAssigned, showDiagnosticBanner }) => {
   const [diagnosticBannerShowing, setDiagnosticBannerShowing] = React.useState(showDiagnosticBanner)
 
+  React.useState(() => {
+    // remove any previously stored activityPackId used for back navigation element focus in the event that user assigned pack or navigated back to dashboard before assigning
+    window.sessionStorage.setItem('clickedActivityPackId', null);
+  }, []);
+
   function closeDiagnosticBanner() {
     setDiagnosticBannerShowing(false)
 

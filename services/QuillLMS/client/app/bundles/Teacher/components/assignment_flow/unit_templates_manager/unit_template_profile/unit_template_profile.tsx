@@ -40,7 +40,9 @@ export class UnitTemplateProfile extends React.Component<RouteComponentProps, Un
     const { match } = this.props;
     const { activityPackId } = match.params;
     this.getProfileInfo(activityPackId);
-    window.sessionStorage.setItem('clickedActivityPack', activityPackId);
+    if(!window.sessionStorage.getItem('clickedActivityPackId')) {
+      window.sessionStorage.setItem('clickedActivityPackId', activityPackId);
+    }
   }
 
   UNSAFE_componentWillReceiveProps(nextProps: RouteComponentProps) {
