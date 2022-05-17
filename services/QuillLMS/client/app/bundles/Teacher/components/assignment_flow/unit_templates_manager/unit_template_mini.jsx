@@ -1,5 +1,6 @@
 import React from 'react'
-import { Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
+
 import UnitTemplateFirstRow from './unit_template_first_row'
 import UnitTemplateSecondRow from './unit_template_second_row'
 
@@ -26,10 +27,6 @@ export default class UnitTemplateMini extends React.Component {
       element.focus()
       window.scrollTo({top: y});
     }
-  }
-
-  componentWillUnmount() {
-    window.sessionStorage.setItem('clickedActivityPackId', null);
   }
 
   isSignedIn() {
