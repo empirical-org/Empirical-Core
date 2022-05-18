@@ -22,7 +22,7 @@ class SubscriptionsController < ApplicationController
   end
 
   def school_admin_subscriptions
-    @schools = current_user.administered_schools.map do |school|
+    schools = current_user.administered_schools.map do |school|
       {
         id: school.id,
         name: school.name,
@@ -30,19 +30,13 @@ class SubscriptionsController < ApplicationController
         subscription_status: school.subscription&.subscription_status || school.last_expired_subscription&.subscription_status
       }
     end
-    @user_associated_school_id = current_user.school&.id
-    
-    respond_to do |format|
-      format.html
-      format.json {
-        render json: {
-          schools: @schools,
-          user_associated_school_id: @user_associated_school_id,
-          stripe_invoice_id: @stripe_invoice_id,
-          stripe_payment_method_updated: @stripe_payment_method_updated
-        }
-      }
-    end
+
+    render json: {
+      schools: schools,
+      user_associated_school_id: current_user.school&.id,
+      stripe_invoice_id: @stripe_invoice_id,
+      stripe_payment_method_updated: @stripe_payment_method_updated
+    }
   end
 
   def purchaser_name
