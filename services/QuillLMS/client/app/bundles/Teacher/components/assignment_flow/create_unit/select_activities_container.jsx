@@ -44,7 +44,7 @@ export default class SelectActivitiesContainer extends React.Component {
   }
 
   render() {
-    const { editing, errorMessage, clickContinue, activities, selectedActivities, setSelectedActivities, toggleActivitySelection, unitName, showLessonsBanner, } = this.props
+    const { editing, errorMessage, clickContinue, activities, selectedActivities, setSelectedActivities, toggleActivitySelection, unitName, showLessonsBanner, showEvidenceBanner } = this.props
     const error = errorMessage ? <span><i className="fas fa-exclamation-triangle" />{errorMessage}</span> : '';
     const navigation = editing ? null : <AssignmentFlowNavigation />
 
@@ -59,6 +59,7 @@ export default class SelectActivitiesContainer extends React.Component {
           passedActivities={activities}
           selectedActivities={selectedActivities}
           setSelectedActivities={setSelectedActivities}
+          showEvidenceBanner={showEvidenceBanner}
           showLessonsBanner={showLessonsBanner}
           toggleActivitySelection={toggleActivitySelection}
           unitName={unitName}

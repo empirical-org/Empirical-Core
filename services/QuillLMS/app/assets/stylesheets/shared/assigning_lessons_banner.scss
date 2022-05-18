@@ -1,4 +1,4 @@
-.assigning-lessons-banner {
+.assigning-activity-disclaimer-banner {
   position: fixed;
   bottom: 0;
   z-index: 2;
@@ -32,7 +32,7 @@
 }
 
 @media (max-width: 1050px) {
-  .assigning-lessons-banner {
+  .assigning-activity-disclaimer-banner {
     margin-bottom: 0px;
     border-radius: 0px;
     flex-direction: column;

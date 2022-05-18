@@ -6,8 +6,9 @@ import ActivityRow from './activity_row'
 import Pagination from './pagination'
 import SortDropdown from './sort_dropdown'
 
-import AssigningLessonsBanner from '../../../shared/assigningLessonsBanner'
+import ActivityDisclaimerBanner from '../../../shared/activityDisclaimerBanner'
 import { requestPost, } from '../../../../../../modules/request'
+import { LESSONS, EVIDENCE } from '../../../../../Shared';
 
 const searchIconSrc = `${process.env.CDN_URL}/images/icons/search.svg`
 const closeIconSrc = `${process.env.CDN_URL}/images/icons/close.svg`
@@ -32,6 +33,7 @@ interface ActivityTableContainerProps {
   saveActivity: (activityId: number) => void,
   unsaveActivity: (activityId: number) => void,
   savedActivityIds: number[],
+  showEvidenceBanner: boolean,
   showLessonsBanner: boolean
 }
 
@@ -89,11 +91,11 @@ const EmptyState = ({ undoLastFilter, resetAllFilters, }) => {
   )
 }
 
-const LessonsBanner = ({ lessonsBannerShowing, selectedActivities, closeLessonsBanner, }) => {
-  if (!lessonsBannerShowing) { return <span /> }
-  if (!selectedActivities.some(sa => sa.activity_classification.key === 'lessons')) { return <span /> }
+const Banner = ({ bannerShowing, selectedActivities, closeBanner, type }) => {
+  if (!bannerShowing) { return <span /> }
+  if (!selectedActivities.some(selectedActivity => selectedActivity.activity_classification.key === type)) { return <span /> }
 
-  return <AssigningLessonsBanner closeLessonsBanner={closeLessonsBanner} />
+  return <ActivityDisclaimerBanner activityType={type} closeBanner={closeBanner} />
 }
 
 const ActivityTableContainer = ({
@@ -113,15 +115,22 @@ const ActivityTableContainer = ({
   saveActivity,
   unsaveActivity,
   savedActivityIds,
+  showEvidenceBanner,
   showLessonsBanner
 }: ActivityTableContainerProps) => {
   const [lessonsBannerShowing, setLessonsBannerShowing] = React.useState(showLessonsBanner)
+  const [evidenceBannerShowing, setEvidenceBannerShowing] = React.useState(showEvidenceBanner)
   const sortedActivities = sort ? sortFunctions[sort]([...filteredActivities]) : filteredActivities
   const currentPageActivities = sortedActivities.slice(lowerBound(currentPage), upperBound(currentPage));
 
   function closeLessonsBanner() {
     setLessonsBannerShowing(false)
     requestPost('/milestones/complete_acknowledge_lessons_banner')
+  }
+
+  function closeEvidenceBanner() {
+    setEvidenceBannerShowing(false)
+    requestPost('/milestones/complete_acknowledge_evidence_banner')
   }
 
 
@@ -145,7 +154,10 @@ const ActivityTableContainer = ({
 
   return (
     <section className="activity-table-container">
-      <LessonsBanner closeLessonsBanner={closeLessonsBanner} lessonsBannerShowing={lessonsBannerShowing} selectedActivities={selectedActivities} />
+      <div className="banners-container">
+        <Banner bannerShowing={lessonsBannerShowing} closeBanner={closeLessonsBanner} selectedActivities={selectedActivities} type={LESSONS} />
+        <Banner bannerShowing={evidenceBannerShowing} closeBanner={closeEvidenceBanner} selectedActivities={selectedActivities} type={EVIDENCE} />
+      </div>
       <SearchAndSort handleSearch={handleSearch} search={search} setSort={setSort} sort={sort} />
       <FilterAndSort setShowMobileFilterMenu={setShowMobileFilterMenu} setShowMobileSortMenu={setShowMobileSortMenu} />
       {activityRowsOrEmptyState}
