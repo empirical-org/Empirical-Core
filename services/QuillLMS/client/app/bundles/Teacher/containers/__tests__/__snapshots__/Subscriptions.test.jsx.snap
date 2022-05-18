@@ -120,7 +120,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
               className="time-left-in-days"
             >
                | 
-              17400 days
+              17394 days
             </span>
           </span>
         </div>
@@ -1212,7 +1212,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
               className="time-left-in-days"
             >
                | 
-              17400 days
+              17394 days
             </span>
           </span>
         </div>
@@ -2348,7 +2348,7 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
               className="time-left-in-days"
             >
                | 
-              17400 days
+              17394 days
             </span>
           </span>
         </div>
@@ -3425,7 +3425,7 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
               className="time-left-in-days"
             >
                | 
-              17400 days
+              17394 days
             </span>
           </span>
         </div>
@@ -4502,7 +4502,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
               className="time-left-in-days"
             >
                | 
-              17400 days
+              17394 days
             </span>
           </span>
         </div>
@@ -5603,7 +5603,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
               className="time-left-in-days"
             >
                | 
-              17400 days
+              17394 days
             </span>
           </span>
         </div>
@@ -6748,7 +6748,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
               className="time-left-in-days"
             >
                | 
-              17400 days
+              17394 days
             </span>
           </span>
         </div>
@@ -7410,7 +7410,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
               className="time-left-in-days"
             >
                | 
-              17400 days
+              17394 days
             </span>
           </span>
         </div>
@@ -8517,7 +8517,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
               className="time-left-in-days"
             >
                | 
-              17400 days
+              17394 days
             </span>
           </span>
         </div>
@@ -9192,7 +9192,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
               className="time-left-in-days"
             >
                | 
-              17400 days
+              17394 days
             </span>
           </span>
         </div>
@@ -10310,7 +10310,7 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
               className="time-left-in-days"
             >
                | 
-              17400 days
+              17394 days
             </span>
           </span>
         </div>
@@ -11387,7 +11387,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
               className="time-left-in-days"
             >
                | 
-              17400 days
+              17394 days
             </span>
           </span>
         </div>
@@ -12062,7 +12062,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
               className="time-left-in-days"
             >
                | 
-              17400 days
+              17394 days
             </span>
           </span>
         </div>
@@ -13191,7 +13191,7 @@ exports[`Subscriptions UI state iterations trial renders when there is an active
               className="time-left-in-days"
             >
                | 
-              17400 days
+              17394 days
             </span>
           </span>
         </div>
