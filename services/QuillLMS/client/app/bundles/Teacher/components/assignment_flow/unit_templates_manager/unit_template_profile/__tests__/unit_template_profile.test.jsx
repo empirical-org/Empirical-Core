@@ -7,6 +7,7 @@ import { UnitTemplateProfile } from '../unit_template_profile.tsx'
 import LoadingIndicator from '../../../../shared/loading_indicator'
 import UnitTemplateProfileDescription from '../unit_template_profile_description'
 import UnitTemplateProfileShareButtons from '../unit_template_profile_share_buttons';
+import { CLICKED_ACTIVITY_PACK_ID } from '../../../assignmentFlowConstants';
 
 const props = {
   history: {
@@ -98,7 +99,7 @@ describe('UnitTemplateProfile component', () => {
     })
     it('should set localStorage item clickedActivityPackId to activityPackId', () => {
       const setItem = jest.spyOn(global.sessionStorage, 'setItem')
-      expect(setItem).toHaveBeenCalledWith('clickedActivityPackId', '34')
+      expect(setItem).toHaveBeenCalledWith(CLICKED_ACTIVITY_PACK_ID, '34')
     })
   })
 });

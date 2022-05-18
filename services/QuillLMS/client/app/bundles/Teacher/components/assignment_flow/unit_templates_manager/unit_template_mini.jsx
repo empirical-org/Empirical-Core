@@ -5,6 +5,7 @@ import UnitTemplateFirstRow from './unit_template_first_row'
 import UnitTemplateSecondRow from './unit_template_second_row'
 
 import String from '../../modules/string.jsx'
+import { CLICKED_ACTIVITY_PACK_ID } from '../assignmentFlowConstants'
 
 export default class UnitTemplateMini extends React.Component {
   constructor(props) {
@@ -15,7 +16,7 @@ export default class UnitTemplateMini extends React.Component {
   }
 
   componentDidMount() {
-    const clickedActivityPackId = window.sessionStorage.getItem('clickedActivityPackId');
+    const clickedActivityPackId = window.sessionStorage.getItem(CLICKED_ACTIVITY_PACK_ID);
     const miniRefId = this.miniRef.current ? this.miniRef.current.id : null;
     const isClickedMini = clickedActivityPackId && miniRefId && clickedActivityPackId === miniRefId;
 

@@ -16,7 +16,8 @@ import {
   ACTIVITY_IDS_ARRAY,
   UNIT_TEMPLATE_ID,
   UNIT_NAME,
-  COLLEGE_BOARD_SLUG
+  COLLEGE_BOARD_SLUG,
+  CLICKED_ACTIVITY_PACK_ID
 } from '../../assignmentFlowConstants'
 import parsedQueryParams from '../../parsedQueryParams'
 import { requestGet } from '../../../../../../modules/request/index.js';
@@ -40,7 +41,7 @@ export class UnitTemplateProfile extends React.Component<RouteComponentProps, Un
     const { match } = this.props;
     const { activityPackId } = match.params;
     this.getProfileInfo(activityPackId);
-    window.sessionStorage.setItem('clickedActivityPackId', activityPackId);
+    window.sessionStorage.setItem(CLICKED_ACTIVITY_PACK_ID, activityPackId);
   }
 
   UNSAFE_componentWillReceiveProps(nextProps: RouteComponentProps) {

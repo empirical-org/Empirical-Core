@@ -3,6 +3,7 @@ import React from 'react'
 import AssignmentCard from './assignment_card'
 
 import { requestPost, } from '../../../../../modules/request'
+import { CLICKED_ACTIVITY_PACK_ID } from '../assignmentFlowConstants'
 
 const diagnosticWaveSrc = `${process.env.CDN_URL}/images/illustrations/diagnostic-wave.svg`
 const activityLibrarySrc = `${process.env.CDN_URL}/images/icons/icons-activity-library.svg`
@@ -66,7 +67,7 @@ const AssignANewActivity = ({ numberOfActivitiesAssigned, showDiagnosticBanner }
 
   React.useState(() => {
     // remove any previously stored activityPackId used for back navigation element focus in the event that user assigned pack or navigated back to dashboard before assigning
-    window.sessionStorage.removeItem('clickedActivityPackId');
+    window.sessionStorage.removeItem(CLICKED_ACTIVITY_PACK_ID);
   }, []);
 
   function closeDiagnosticBanner() {
