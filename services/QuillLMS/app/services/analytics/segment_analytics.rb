@@ -148,6 +148,35 @@ class SegmentAnalytics
 
   end
 
+  def trigger_teacher_subscription_will_expire(subscription_id)
+    subscription = Subscription.find(subscription_id)
+    teacher = subscription.users.first.id
+
+    track({
+      user_id: teacher.id,
+      event: SegmentIo::BackgroundEvents::TEACHER_SUB_WILL_EXPIRE,
+      properties: {
+        subscription_id: subscription.id
+      }
+    })
+  end
+
+  def trigger_school_subscription_will_expire(subscription_id)
+    subscription = Subscription.find(subscription_id)
+    school = subscription.schools.first
+
+    track({
+      # Segment requires us to send a unique User ID or Anonymous ID for every event
+      # generate a random UUID here because we don't want the School Subscription event to be associated to any real user
+      anonymous_id: SecureRandom.uuid,
+      event: SegmentIo::BackgroundEvents::SCHOOL_SUB_WILL_EXPIRE,
+      properties: {
+        subscription_id: subscription.id,
+        school_id: school.id
+      }
+    })
+  end
+
   def track(options)
     return unless backend.present?
 
