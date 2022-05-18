@@ -4,11 +4,11 @@ module StripeIntegration
   module Webhooks
     class SubscriptionCreator < ApplicationService
       class Error < StandardError; end
+      class NilSchoolError < Error; end
       class NilStripeCustomerIdError < Error; end
       class NilStripeInvoiceIdError < Error; end
       class NilStripePriceIdError < Error; end
       class PlanNotFoundError < Error; end
-      class PurchaserNilSchoolError < Error; end
       class PurchaserNotFoundError < Error; end
       class StripeInvoiceIdNotUniqueError < Error; end
 
@@ -56,9 +56,9 @@ module StripeIntegration
           UserSubscription.create!(user: purchaser, subscription: subscription)
           UpdateSalesContactWorker.perform_async(purchaser.id, SalesStageType::TEACHER_PREMIUM)
         when Plan.stripe_school_plan
-          raise PurchaserNilSchoolError if purchaser.school.nil?
+          raise NilSchoolError unless School.exists?(id: school_ids)
 
-          SchoolSubscription.create!(school: purchaser.school, subscription: subscription)
+          school_ids.each { |school_id| SchoolSubscription.create!(school_id: school_id, subscription: subscription) }
           UpdateSalesContactWorker.perform_async(purchaser.id, SalesStageType::SCHOOL_PREMIUM)
         end
       end
@@ -67,6 +67,10 @@ module StripeIntegration
         raise NilStripeCustomerIdError if stripe_customer_id.nil?
 
         purchaser.update!(stripe_customer_id: stripe_customer_id)
+      end
+
+      private def school_ids
+        stripe_subscription.metadata[:school_ids]
       end
 
       private def start_date
