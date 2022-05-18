@@ -62,6 +62,18 @@
       max-width: 1184px;
       padding: 0px 32px;
       margin: auto;
+      .banners-container {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        z-index: 2;
+        bottom: 0;
+        .assigning-activity-disclaimer-banner {
+          bottom: auto;
+          position: initial;
+          margin: 0px 0px 8px;
+        }
+      }
       .search-and-sort {
         min-height: 104px;
         display: flex;
@@ -213,7 +225,7 @@
   }
 
   @media (max-width: 1500px) and (min-width: 1051px) {
-    .main-content-container .activity-table-container .assigning-lessons-banner {
+    .main-content-container .activity-table-container .assigning-activity-disclaimer-banner {
       max-width: calc(100vw - 312px - 64px);
     }
   }
