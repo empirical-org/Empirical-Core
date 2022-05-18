@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Pusher from 'pusher-js';
 import _ from 'lodash';
+import qs from 'qs';
 
 import SubscriptionStatus from '../../Teacher/components/subscriptions/SubscriptionStatus';
 import CurrentSubscription from '../../Teacher/components/subscriptions/current_subscription';
@@ -22,9 +23,9 @@ const subscriptionType = (subscriptionStatus) => {
   return ACCOUNT_TYPE_TO_SUBSCRIPTION_TYPES[subscriptionStatus.account_type]
 }
 
-const SchoolSubscriptionsContainer = () => {
+const SchoolSubscriptionsContainer = ({ location, }) => {
   const [schools, setSchools] = React.useState([])
-  const [selectedSchoolId, setSelectedSchoolId] = React.useState(null)
+  const [selectedSchoolId, setSelectedSchoolId] = React.useState(Number(qs.parse(location.search.replace('?', '')).school_id))
   const [stripeInvoiceId, setStripeInvoiceId] = React.useState(null)
   const [stripePaymentMethodUpdated, setStripePaymentMethodUpdated] = React.useState(null)
   const [showPremiumConfirmationModal, setShowPremiumConfirmationModal] = React.useState(false)
