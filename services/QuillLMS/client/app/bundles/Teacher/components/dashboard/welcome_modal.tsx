@@ -14,7 +14,7 @@ const WelcomeModalWithoutDemo = ({close}) => (
       <div className="welcome-modal-text">
         <p>Our mission as a non-profit is to help students become strong writers, so all our content is completely free to use with an unlimited number of students.</p>
       </div>
-      <button className="quill-button contained primary medium" onClick={close} type="button">Let&apos;s go!</button>
+      <button className="quill-button contained focus-on-light primary medium" onClick={close} type="button">Let&apos;s go!</button>
     </div>
     <img alt="Teacher at projector in classroom" src={classroomActivitiesSrc} />
   </div>
@@ -39,8 +39,8 @@ const WelcomeModalWithDemo = ({close}) => (
         </div>
         <br />
         <div className="welcome-modal-buttons">
-          <a className="quill-button contained secondary medium outlined welcome-modal-demo" href={exploreDemoLink}>Explore demo</a>
-          <button className="quill-button contained primary medium welcome-modal-skip" onClick={close} type="button">Maybe later, skip</button>
+          <a className="quill-button contained focus-on-light secondary medium outlined welcome-modal-demo" href={exploreDemoLink}>Explore demo</a>
+          <button className="quill-button contained focus-on-light primary medium welcome-modal-skip" onClick={close} type="button">Maybe later, skip</button>
         </div>
       </div>
     </div>
