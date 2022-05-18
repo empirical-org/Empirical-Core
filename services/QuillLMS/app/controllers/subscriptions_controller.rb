@@ -16,6 +16,7 @@ class SubscriptionsController < ApplicationController
           premium_credits: @premium_credits,
           subscription_status: @subscription_status,
           user_authority_level: @user_authority_level,
+          current_user_email: @current_user_email
         }
       }
     end
@@ -32,6 +33,7 @@ class SubscriptionsController < ApplicationController
     end
 
     render json: {
+      current_user_email: current_user.email,
       schools: schools,
       user_associated_school_id: current_user.school&.id,
       stripe_invoice_id: @stripe_invoice_id,
@@ -87,6 +89,7 @@ class SubscriptionsController < ApplicationController
   end
 
   private def set_index_variables
+    @current_user_email = current_user.email
     @subscriptions = current_user.subscriptions
     @premium_credits = current_user.credit_transactions.map {|x| x.serializable_hash(methods: :action)}.compact
     @subscription_status = current_user.subscription_status
