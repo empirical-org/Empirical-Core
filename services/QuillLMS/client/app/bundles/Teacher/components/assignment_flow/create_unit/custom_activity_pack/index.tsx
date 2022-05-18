@@ -24,6 +24,7 @@ interface CustomActivityPackProps {
   setSelectedActivities: (selectedActivities: Activity[]) => void,
   toggleActivitySelection: (activity: Activity) => void,
   activityCategoryEditor?: ActivityCategoryEditor,
+  showEvidenceBanner?: boolean,
   showLessonsBanner?: boolean,
   saveButtonEnabled?: boolean
 }
@@ -36,6 +37,7 @@ const CustomActivityPack = ({
   toggleActivitySelection,
   isStaff,
   activityCategoryEditor,
+  showEvidenceBanner,
   showLessonsBanner,
   saveButtonEnabled
 }: CustomActivityPackProps) => {
@@ -331,6 +333,7 @@ const CustomActivityPack = ({
           setShowMobileFilterMenu={setShowMobileFilterMenu}
           setShowMobileSortMenu={setShowMobileSortMenu}
           setSort={setSort}
+          showEvidenceBanner={showEvidenceBanner}
           showLessonsBanner={showLessonsBanner}
           sort={sort}
           toggleActivitySelection={toggleActivitySelection}

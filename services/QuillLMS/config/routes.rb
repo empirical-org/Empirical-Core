@@ -140,6 +140,7 @@ EmpiricalGrammar::Application.routes.draw do
     post :complete_view_lesson_tutorial, on: :collection
     post :complete_acknowledge_lessons_banner, on: :collection
     post :complete_acknowledge_diagnostic_banner, on: :collection
+    post :complete_acknowledge_evidence_banner, on: :collection
     post :complete_acknowledge_growth_diagnostic_promotion_card, on: :collection
   end
 

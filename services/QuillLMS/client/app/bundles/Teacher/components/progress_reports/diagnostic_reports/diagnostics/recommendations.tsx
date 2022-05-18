@@ -19,7 +19,7 @@ import {
   Student,
 } from './interfaces'
 
-import AssigningLessonsBanner from '../../../shared/assigningLessonsBanner'
+import ActivityDisclaimerBanner from '../../../shared/activityDisclaimerBanner'
 import LoadingSpinner from '../../../shared/loading_indicator.jsx'
 import { requestGet, requestPost, } from '../../../../../../modules/request/index';
 import {
@@ -29,6 +29,7 @@ import {
   defaultSnackbarTimeout,
   smallWhiteCheckIcon,
   previewIcon,
+  LESSONS,
 } from '../../../../../Shared/index'
 import useSnackbarMonitor from '../../../../../Shared/hooks/useSnackbarMonitor'
 
@@ -379,7 +380,7 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
   let assigningLessonsBanner
 
   if (lessonsSelections.length && lessonsBannerEnabled) {
-    assigningLessonsBanner = <AssigningLessonsBanner closeLessonsBanner={closeLessonsBanner} />
+    assigningLessonsBanner = <ActivityDisclaimerBanner activityType={LESSONS} closeBanner={closeLessonsBanner} />
   }
 
   let wholeClassInstructionSection

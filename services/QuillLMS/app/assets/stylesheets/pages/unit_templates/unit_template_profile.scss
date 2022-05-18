@@ -125,6 +125,22 @@
       }
     }
 
+    .evidence-warning-container {
+      padding: 0;
+      border-bottom: none;
+      .evidence-warning {
+        background-color: #ffffe0;
+        padding: 16px 24px;
+        border: 1px solid #cecece;
+        margin-bottom: 1.9em;
+        .header {
+          font-weight: 600;
+          margin-bottom: 8px;
+        }
+      }
+    }
+
+
     .standards-and-concepts {
       margin: 1.9em 0em 0em;
       background-color: white;

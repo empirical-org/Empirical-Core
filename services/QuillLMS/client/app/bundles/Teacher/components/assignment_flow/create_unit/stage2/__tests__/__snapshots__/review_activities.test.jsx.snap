@@ -2,7 +2,7 @@
 
 exports[`ReviewActivities component should render 1`] = `
 <div
-  className="assignment-section"
+  className="assignment-section review-activities-section"
 >
   <div
     className="assignment-section-header"
