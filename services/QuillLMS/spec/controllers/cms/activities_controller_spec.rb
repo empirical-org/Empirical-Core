@@ -21,9 +21,9 @@ describe Cms::ActivitiesController, type: :controller do
   describe '#index' do
     before { allow_any_instance_of(ActivityClassification).to receive(:activities) { activities } }
 
-    context 'when flag is archive' do
+    context 'when flag is archived' do
       it 'should set the flag and activities' do
-        get :index, params: { activity_classification_id: classification.id, flag: :archive }
+        get :index, params: { activity_classification_id: classification.id, flag: :archived }
         expect(assigns(:flag)).to eq :archived
         expect(assigns(:activities)).to eq "flagged set"
       end

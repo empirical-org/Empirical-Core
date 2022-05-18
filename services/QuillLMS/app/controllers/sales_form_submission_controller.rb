@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class SalesFormSubmissionController < ApplicationController
+  include SlackTasks
+
   skip_before_action :verify_authenticity_token
 
   RENEWAL_REQUEST = 'renewal request'
@@ -19,6 +21,7 @@ class SalesFormSubmissionController < ApplicationController
   def create
     sales_form_submission = SalesFormSubmission.new(sales_form_submission_params)
     if  sales_form_submission.save!
+      post_sales_form_submission(sales_form_submission)
       head :no_content, status: 200
     else
       render json: sales_form_submission.errors, status: :unprocessable_entity
