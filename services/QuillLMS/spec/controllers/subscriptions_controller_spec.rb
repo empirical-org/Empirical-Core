@@ -117,14 +117,14 @@ describe SubscriptionsController do
       it 'should set the instance variables' do
         get :school_admin_subscriptions, params: { :format => 'json' }
         expect(JSON.parse(response.body)['user_associated_school_id']).to eq schools_admins1.user.school
-        expect(JSON.parse(response.body)['schools'][1]['id']).to eq JSON.parse(school1.id.to_json)
-        expect(JSON.parse(response.body)['schools'][1]['name']).to eq JSON.parse(school1.name.to_json)
-        expect(JSON.parse(response.body)['schools'][1]['subscriptions']).to eq JSON.parse(school1.subscriptions.to_json)
-        expect(JSON.parse(response.body)['schools'][1]['subscription_status']).to eq JSON.parse(school1.subscription.subscription_status.to_json)
-        expect(JSON.parse(response.body)['schools'][0]['id']).to eq JSON.parse(school2.id.to_json)
-        expect(JSON.parse(response.body)['schools'][0]['name']).to eq JSON.parse(school2.name.to_json)
-        expect(JSON.parse(response.body)['schools'][0]['subscriptions']).to eq JSON.parse(school2.subscriptions.to_json)
-        expect(JSON.parse(response.body)['schools'][0]['subscription_status']).to eq JSON.parse(school2.last_expired_subscription.subscription_status.to_json)
+        expect(JSON.parse(response.body)['schools'][0]['id']).to eq JSON.parse(school1.id.to_json)
+        expect(JSON.parse(response.body)['schools'][0]['name']).to eq JSON.parse(school1.name.to_json)
+        expect(JSON.parse(response.body)['schools'][0]['subscriptions']).to eq JSON.parse(school1.subscriptions.to_json)
+        expect(JSON.parse(response.body)['schools'][0]['subscription_status']).to eq JSON.parse(school1.subscription.subscription_status.to_json)
+        expect(JSON.parse(response.body)['schools'][1]['id']).to eq JSON.parse(school2.id.to_json)
+        expect(JSON.parse(response.body)['schools'][1]['name']).to eq JSON.parse(school2.name.to_json)
+        expect(JSON.parse(response.body)['schools'][1]['subscriptions']).to eq JSON.parse(school2.subscriptions.to_json)
+        expect(JSON.parse(response.body)['schools'][1]['subscription_status']).to eq JSON.parse(school2.last_expired_subscription.subscription_status.to_json)
       end
     end
   end

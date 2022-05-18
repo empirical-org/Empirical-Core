@@ -23,7 +23,7 @@ class SubscriptionsController < ApplicationController
   end
 
   def school_admin_subscriptions
-    schools = current_user.administered_schools.map do |school|
+    schools = current_user.administered_schools.order(:id).map do |school|
       {
         id: school.id,
         name: school.name,
