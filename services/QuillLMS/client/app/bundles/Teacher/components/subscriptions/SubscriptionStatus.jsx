@@ -76,6 +76,7 @@ const SubscriptionStatus = ({
   subscriptionStatus,
   subscriptionType,
   userIsContact,
+  customerEmail,
 }) => {
 
   const renewalStripePriceId = subscriptionStatus && subscriptionStatus.renewal_stripe_price_id
@@ -133,7 +134,7 @@ const SubscriptionStatus = ({
             buttonClassName={CTA_BUTTON_CLASSNAME}
             buttonText='Renew Subscription'
             cancelPath='subscriptions'
-            customerEmail={subscriptionStatus.customer_email}
+            customerEmail={customerEmail}
             stripePriceId={renewalStripePriceId}
             userIsEligibleForNewSubscription={true}
             userIsSignedIn={true}
@@ -152,7 +153,7 @@ const SubscriptionStatus = ({
             buttonClassName={CTA_BUTTON_CLASSNAME}
             buttonText='Renew Subscription'
             cancelPath='subscriptions'
-            customerEmail={subscriptionStatus.customer_email}
+            customerEmail={customerEmail}
             schoolIds={schoolIds}
             stripePriceId={renewalStripePriceId}
             userIsEligibleForNewSubscription={true}

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Pusher from 'pusher-js';
 import _ from 'lodash';
+import qs from 'qs';
 
 import SubscriptionStatus from '../../Teacher/components/subscriptions/SubscriptionStatus';
 import CurrentSubscription from '../../Teacher/components/subscriptions/current_subscription';
@@ -22,9 +23,10 @@ const subscriptionType = (subscriptionStatus) => {
   return ACCOUNT_TYPE_TO_SUBSCRIPTION_TYPES[subscriptionStatus.account_type]
 }
 
-const SchoolSubscriptionsContainer = () => {
+const SchoolSubscriptionsContainer = ({ location, }) => {
+  const [currentUserEmail, setCurrentUserEmail] = React.useState('')
   const [schools, setSchools] = React.useState([])
-  const [selectedSchoolId, setSelectedSchoolId] = React.useState(null)
+  const [selectedSchoolId, setSelectedSchoolId] = React.useState(Number(qs.parse(location.search.replace('?', '')).school_id))
   const [stripeInvoiceId, setStripeInvoiceId] = React.useState(null)
   const [stripePaymentMethodUpdated, setStripePaymentMethodUpdated] = React.useState(null)
   const [showPremiumConfirmationModal, setShowPremiumConfirmationModal] = React.useState(false)
@@ -42,6 +44,7 @@ const SchoolSubscriptionsContainer = () => {
       setSchools(body.schools)
       setStripeInvoiceId(body.stripe_invoice_id)
       setStripePaymentMethodUpdated(body.stripe_payment_method_updated)
+      setCurrentUserEmail(body.current_user_email)
 
       if (!selectedSchoolId) {
         const userAssociatedSchool = body.schools.find(school => school.id === body.user_associated_school_id) // handles edge case where the user is not an admin for the school they're associated with
@@ -135,6 +138,7 @@ const SchoolSubscriptionsContainer = () => {
         value={selectedSchoolOption}
       />
       <SubscriptionStatus
+        customerEmail={currentUserEmail}
         subscriptionStatus={subscription_status}
         subscriptionType={subscriptionType(subscription_status)}
         userIsContact={true}
