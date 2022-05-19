@@ -23,7 +23,7 @@ describe CopyConceptResultsToStudentResponsesWorker, type: :worker do
     let(:concept_result) { create(:sentence_combining, metadata: metadata, activity_session: activity_session) }
 
     it 'should create a Student Response record with Normalized Texts' do
-      expect { subject.perform([concept_result.id]) }.to change { StudentResponse.count }.by(1)
+      expect { subject.perform([concept_result.id]) }.to change(StudentResponse, :count).by(1)
 
       student_response = concept_result.student_response
 
@@ -45,8 +45,8 @@ describe CopyConceptResultsToStudentResponsesWorker, type: :worker do
     it 'should be idempotent so that if the same ID is present twice, only one new record is created' do
 
       expect { subject.perform([concept_result.id, concept_result.id]) }
-        .to change { StudentResponse.count }.by(1)
-        .and change { StudentResponse.count }.by(1)
+        .to change(StudentResponse, :count).by(1)
+        .and change(StudentResponse, :count).by(1)
     end
   end
 end

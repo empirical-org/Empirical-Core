@@ -24,7 +24,7 @@ describe EnqueueConceptResultsMigrationWorker, type: :worker do
       expect(ConceptResult).to receive(:select).and_return(select_double)
       expect(select_double).to receive(:find_in_batches).with(start: start, finish: finish, batch_size: batch_size).and_return([concept_result.id])
 
-       subject.perform(start, finish)
+      subject.perform(start, finish)
     end
 
     it 'should enqueue a CopyConceptResultsToStudentResponsesWorker' do
