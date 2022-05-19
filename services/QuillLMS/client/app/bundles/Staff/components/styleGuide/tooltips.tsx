@@ -16,7 +16,7 @@ class Tooltips extends React.Component<any, any> {
             {
               `<div className="tooltips-container">
   <Tooltip
-    isTabbable={true}
+    isTabbable={false}
     tooltipText="I am a tooltip!"
     tooltipTriggerText="Hover here"
   />
@@ -29,6 +29,7 @@ class Tooltips extends React.Component<any, any> {
           </pre>
           <div className="tooltips-container">
             <Tooltip
+              isTabbable={false}
               tooltipText="I am a tooltip!"
               tooltipTriggerText="Hover here"
             />
