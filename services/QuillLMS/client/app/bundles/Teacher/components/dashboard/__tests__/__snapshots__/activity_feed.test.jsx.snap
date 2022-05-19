@@ -409,7 +409,10 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               }
             >
               <span
+                aria-hidden={true}
+                aria-role="button"
                 className="quill-tooltip-trigger"
+                role="tooltip"
                 style={
                   Object {
                     "minWidth": "245px",
@@ -420,7 +423,10 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               >
                 <span
                   className="data-table-row-section undefined"
+                  onBlur={[Function]}
                   onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   style={
@@ -438,6 +444,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                   className="quill-tooltip-wrapper"
                 >
                   <span
+                    aria-live="polite"
                     className="quill-tooltip"
                   />
                 </span>
@@ -516,7 +523,10 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               }
             >
               <span
+                aria-hidden={true}
+                aria-role="button"
                 className="quill-tooltip-trigger"
+                role="tooltip"
                 style={
                   Object {
                     "minWidth": "245px",
@@ -527,7 +537,10 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               >
                 <span
                   className="data-table-row-section undefined"
+                  onBlur={[Function]}
                   onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   style={
@@ -545,6 +558,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                   className="quill-tooltip-wrapper"
                 >
                   <span
+                    aria-live="polite"
                     className="quill-tooltip"
                   />
                 </span>
@@ -883,7 +897,10 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               }
             >
               <span
+                aria-hidden={true}
+                aria-role="button"
                 className="quill-tooltip-trigger"
+                role="tooltip"
                 style={
                   Object {
                     "minWidth": "245px",
@@ -894,7 +911,10 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               >
                 <span
                   className="data-table-row-section undefined"
+                  onBlur={[Function]}
                   onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   style={
@@ -912,6 +932,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                   className="quill-tooltip-wrapper"
                 >
                   <span
+                    aria-live="polite"
                     className="quill-tooltip"
                   />
                 </span>

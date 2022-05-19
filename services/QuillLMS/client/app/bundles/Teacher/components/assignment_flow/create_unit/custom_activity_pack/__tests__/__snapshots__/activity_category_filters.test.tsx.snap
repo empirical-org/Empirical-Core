@@ -17815,11 +17815,17 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
             tooltipTriggerTextClass="tooltip-trigger-text"
           >
             <span
+              aria-hidden={true}
+              aria-role="button"
               className="quill-tooltip-trigger"
+              role="tooltip"
             >
               <span
                 className="tooltip-trigger-text"
+                onBlur={[Function]}
                 onClick={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
                 onMouseEnter={[Function]}
                 onMouseLeave={[Function]}
                 tabIndex={null}
@@ -17830,6 +17836,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 className="quill-tooltip-wrapper"
               >
                 <span
+                  aria-live="polite"
                   className="quill-tooltip"
                 />
               </span>
@@ -44639,11 +44646,17 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
             tooltipTriggerTextClass="tooltip-trigger-text"
           >
             <span
+              aria-hidden={true}
+              aria-role="button"
               className="quill-tooltip-trigger"
+              role="tooltip"
             >
               <span
                 className="tooltip-trigger-text"
+                onBlur={[Function]}
                 onClick={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
                 onMouseEnter={[Function]}
                 onMouseLeave={[Function]}
                 tabIndex={null}
@@ -44654,6 +44667,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 className="quill-tooltip-wrapper"
               >
                 <span
+                  aria-live="polite"
                   className="quill-tooltip"
                 />
               </span>

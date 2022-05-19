@@ -705,7 +705,10 @@ exports[`LessonsMini component not on mobile should render when there are lesson
               }
             >
               <span
+                aria-hidden={true}
+                aria-role="button"
                 className="quill-tooltip-trigger"
+                role="tooltip"
                 style={
                   Object {
                     "minWidth": "289px",
@@ -716,7 +719,10 @@ exports[`LessonsMini component not on mobile should render when there are lesson
               >
                 <span
                   className="data-table-row-section undefined"
+                  onBlur={[Function]}
                   onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   style={
@@ -734,6 +740,7 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                   className="quill-tooltip-wrapper"
                 >
                   <span
+                    aria-live="polite"
                     className="quill-tooltip"
                   />
                 </span>
@@ -963,7 +970,10 @@ exports[`LessonsMini component not on mobile should render when there are lesson
               }
             >
               <span
+                aria-hidden={true}
+                aria-role="button"
                 className="quill-tooltip-trigger"
+                role="tooltip"
                 style={
                   Object {
                     "minWidth": "289px",
@@ -974,7 +984,10 @@ exports[`LessonsMini component not on mobile should render when there are lesson
               >
                 <span
                   className="data-table-row-section undefined"
+                  onBlur={[Function]}
                   onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   style={
@@ -992,6 +1005,7 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                   className="quill-tooltip-wrapper"
                 >
                   <span
+                    aria-live="polite"
                     className="quill-tooltip"
                   />
                 </span>

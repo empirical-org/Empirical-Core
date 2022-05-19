@@ -124,11 +124,17 @@ exports[`StudentResultsTable component should render when there is no student da
                   }
                 >
                   <span
+                    aria-hidden={true}
+                    aria-role="button"
                     className="quill-tooltip-trigger"
+                    role="tooltip"
                   >
                     <span
                       className="undefined"
+                      onBlur={[Function]}
                       onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       tabIndex={null}
@@ -142,6 +148,7 @@ exports[`StudentResultsTable component should render when there is no student da
                       className="quill-tooltip-wrapper"
                     >
                       <span
+                        aria-live="polite"
                         className="quill-tooltip"
                       />
                     </span>
@@ -176,11 +183,17 @@ exports[`StudentResultsTable component should render when there is no student da
                   }
                 >
                   <span
+                    aria-hidden={true}
+                    aria-role="button"
                     className="quill-tooltip-trigger"
+                    role="tooltip"
                   >
                     <span
                       className="undefined"
+                      onBlur={[Function]}
                       onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       tabIndex={null}
@@ -194,6 +207,7 @@ exports[`StudentResultsTable component should render when there is no student da
                       className="quill-tooltip-wrapper"
                     >
                       <span
+                        aria-live="polite"
                         className="quill-tooltip"
                       />
                     </span>
@@ -228,11 +242,17 @@ exports[`StudentResultsTable component should render when there is no student da
                   }
                 >
                   <span
+                    aria-hidden={true}
+                    aria-role="button"
                     className="quill-tooltip-trigger"
+                    role="tooltip"
                   >
                     <span
                       className="undefined"
+                      onBlur={[Function]}
                       onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       tabIndex={null}
@@ -246,6 +266,7 @@ exports[`StudentResultsTable component should render when there is no student da
                       className="quill-tooltip-wrapper"
                     >
                       <span
+                        aria-live="polite"
                         className="quill-tooltip"
                       />
                     </span>
@@ -280,11 +301,17 @@ exports[`StudentResultsTable component should render when there is no student da
                   }
                 >
                   <span
+                    aria-hidden={true}
+                    aria-role="button"
                     className="quill-tooltip-trigger"
+                    role="tooltip"
                   >
                     <span
                       className="undefined"
+                      onBlur={[Function]}
                       onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       tabIndex={null}
@@ -298,6 +325,7 @@ exports[`StudentResultsTable component should render when there is no student da
                       className="quill-tooltip-wrapper"
                     >
                       <span
+                        aria-live="polite"
                         className="quill-tooltip"
                       />
                     </span>
@@ -332,11 +360,17 @@ exports[`StudentResultsTable component should render when there is no student da
                   }
                 >
                   <span
+                    aria-hidden={true}
+                    aria-role="button"
                     className="quill-tooltip-trigger"
+                    role="tooltip"
                   >
                     <span
                       className="undefined"
+                      onBlur={[Function]}
                       onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       tabIndex={null}
@@ -350,6 +384,7 @@ exports[`StudentResultsTable component should render when there is no student da
                       className="quill-tooltip-wrapper"
                     >
                       <span
+                        aria-live="polite"
                         className="quill-tooltip"
                       />
                     </span>
@@ -384,11 +419,17 @@ exports[`StudentResultsTable component should render when there is no student da
                   }
                 >
                   <span
+                    aria-hidden={true}
+                    aria-role="button"
                     className="quill-tooltip-trigger"
+                    role="tooltip"
                   >
                     <span
                       className="undefined"
+                      onBlur={[Function]}
                       onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       tabIndex={null}
@@ -402,6 +443,7 @@ exports[`StudentResultsTable component should render when there is no student da
                       className="quill-tooltip-wrapper"
                     >
                       <span
+                        aria-live="polite"
                         className="quill-tooltip"
                       />
                     </span>
@@ -436,11 +478,17 @@ exports[`StudentResultsTable component should render when there is no student da
                   }
                 >
                   <span
+                    aria-hidden={true}
+                    aria-role="button"
                     className="quill-tooltip-trigger"
+                    role="tooltip"
                   >
                     <span
                       className="undefined"
+                      onBlur={[Function]}
                       onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       tabIndex={null}
@@ -454,6 +502,7 @@ exports[`StudentResultsTable component should render when there is no student da
                       className="quill-tooltip-wrapper"
                     >
                       <span
+                        aria-live="polite"
                         className="quill-tooltip"
                       />
                     </span>
@@ -488,11 +537,17 @@ exports[`StudentResultsTable component should render when there is no student da
                   }
                 >
                   <span
+                    aria-hidden={true}
+                    aria-role="button"
                     className="quill-tooltip-trigger"
+                    role="tooltip"
                   >
                     <span
                       className="undefined"
+                      onBlur={[Function]}
                       onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       tabIndex={null}
@@ -506,6 +561,7 @@ exports[`StudentResultsTable component should render when there is no student da
                       className="quill-tooltip-wrapper"
                     >
                       <span
+                        aria-live="polite"
                         className="quill-tooltip"
                       />
                     </span>
@@ -1563,11 +1619,17 @@ exports[`StudentResultsTable component should render when there is student data 
                   }
                 >
                   <span
+                    aria-hidden={true}
+                    aria-role="button"
                     className="quill-tooltip-trigger"
+                    role="tooltip"
                   >
                     <span
                       className="undefined"
+                      onBlur={[Function]}
                       onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       tabIndex={null}
@@ -1581,6 +1643,7 @@ exports[`StudentResultsTable component should render when there is student data 
                       className="quill-tooltip-wrapper"
                     >
                       <span
+                        aria-live="polite"
                         className="quill-tooltip"
                       />
                     </span>
@@ -1623,11 +1686,17 @@ exports[`StudentResultsTable component should render when there is student data 
                   }
                 >
                   <span
+                    aria-hidden={true}
+                    aria-role="button"
                     className="quill-tooltip-trigger"
+                    role="tooltip"
                   >
                     <span
                       className="undefined"
+                      onBlur={[Function]}
                       onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       tabIndex={null}
@@ -1641,6 +1710,7 @@ exports[`StudentResultsTable component should render when there is student data 
                       className="quill-tooltip-wrapper"
                     >
                       <span
+                        aria-live="polite"
                         className="quill-tooltip"
                       />
                     </span>
@@ -1684,11 +1754,17 @@ exports[`StudentResultsTable component should render when there is student data 
                   }
                 >
                   <span
+                    aria-hidden={true}
+                    aria-role="button"
                     className="quill-tooltip-trigger"
+                    role="tooltip"
                   >
                     <span
                       className="undefined"
+                      onBlur={[Function]}
                       onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       tabIndex={null}
@@ -1702,6 +1778,7 @@ exports[`StudentResultsTable component should render when there is student data 
                       className="quill-tooltip-wrapper"
                     >
                       <span
+                        aria-live="polite"
                         className="quill-tooltip"
                       />
                     </span>
@@ -1745,11 +1822,17 @@ exports[`StudentResultsTable component should render when there is student data 
                   }
                 >
                   <span
+                    aria-hidden={true}
+                    aria-role="button"
                     className="quill-tooltip-trigger"
+                    role="tooltip"
                   >
                     <span
                       className="undefined"
+                      onBlur={[Function]}
                       onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       tabIndex={null}
@@ -1763,6 +1846,7 @@ exports[`StudentResultsTable component should render when there is student data 
                       className="quill-tooltip-wrapper"
                     >
                       <span
+                        aria-live="polite"
                         className="quill-tooltip"
                       />
                     </span>
@@ -1806,11 +1890,17 @@ exports[`StudentResultsTable component should render when there is student data 
                   }
                 >
                   <span
+                    aria-hidden={true}
+                    aria-role="button"
                     className="quill-tooltip-trigger"
+                    role="tooltip"
                   >
                     <span
                       className="undefined"
+                      onBlur={[Function]}
                       onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       tabIndex={null}
@@ -1824,6 +1914,7 @@ exports[`StudentResultsTable component should render when there is student data 
                       className="quill-tooltip-wrapper"
                     >
                       <span
+                        aria-live="polite"
                         className="quill-tooltip"
                       />
                     </span>
@@ -1866,11 +1957,17 @@ exports[`StudentResultsTable component should render when there is student data 
                   }
                 >
                   <span
+                    aria-hidden={true}
+                    aria-role="button"
                     className="quill-tooltip-trigger"
+                    role="tooltip"
                   >
                     <span
                       className="undefined"
+                      onBlur={[Function]}
                       onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
                       tabIndex={null}
@@ -1884,6 +1981,7 @@ exports[`StudentResultsTable component should render when there is student data 
                       className="quill-tooltip-wrapper"
                     >
                       <span
+                        aria-live="polite"
                         className="quill-tooltip"
                       />
                     </span>

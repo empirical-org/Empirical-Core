@@ -585,11 +585,17 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                       }
                     >
                       <span
+                        aria-hidden={true}
+                        aria-role="button"
                         className="quill-tooltip-trigger"
+                        role="tooltip"
                       >
                         <span
                           className="undefined"
+                          onBlur={[Function]}
                           onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
                           onMouseEnter={[Function]}
                           onMouseLeave={[Function]}
                           tabIndex={null}
@@ -609,6 +615,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                           className="quill-tooltip-wrapper"
                         >
                           <span
+                            aria-live="polite"
                             className="quill-tooltip"
                           />
                         </span>
@@ -858,11 +865,17 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                       }
                     >
                       <span
+                        aria-hidden={true}
+                        aria-role="button"
                         className="quill-tooltip-trigger"
+                        role="tooltip"
                       >
                         <span
                           className="undefined"
+                          onBlur={[Function]}
                           onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
                           onMouseEnter={[Function]}
                           onMouseLeave={[Function]}
                           tabIndex={null}
@@ -882,6 +895,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                           className="quill-tooltip-wrapper"
                         >
                           <span
+                            aria-live="polite"
                             className="quill-tooltip"
                           />
                         </span>

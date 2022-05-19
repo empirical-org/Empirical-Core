@@ -1,4 +1,5 @@
 import * as React from 'react'
+
 import { onMobile } from '../..'
 
 interface TooltipProps {
@@ -85,21 +86,31 @@ export class Tooltip extends React.Component<TooltipProps, { clickedFromMobile: 
     }
   }
 
+  handleTooltipKeyDown = (e) => {
+    if (e.key === 'Escape') { this.hideTooltip() }
+  }
+
   render() {
-    const { tooltipTriggerText, tooltipTriggerTextClass, tooltipTriggerStyle, tooltipTriggerTextStyle, isTabbable } = this.props
+    const { tooltipTriggerText, tooltipTriggerTextClass, tooltipTriggerStyle, tooltipTriggerTextStyle, isTabbable, } = this.props
     const tabIndex = isTabbable ? 0 : null;
 
     return (
       <span
+        aria-hidden={!isTabbable}
         className="quill-tooltip-trigger"
         ref={node => this.tooltipTrigger = node}
+        role="tooltip"
         style={tooltipTriggerStyle}
       >
         <span
           className={`${tooltipTriggerTextClass}`}
+          onBlur={this.hideTooltip}
           onClick={this.handleTooltipClick}
+          onFocus={this.showTooltip}
+          onKeyDown={this.handleTooltipKeyDown}
           onMouseEnter={this.showTooltip}
           onMouseLeave={this.startTimer}
+          role="button"
           style={tooltipTriggerTextStyle}
           tabIndex={tabIndex}
         >
@@ -107,6 +118,7 @@ export class Tooltip extends React.Component<TooltipProps, { clickedFromMobile: 
         </span>
         <span className="quill-tooltip-wrapper">
           <span
+            aria-live="polite"
             className="quill-tooltip"
             ref={node => this.tooltip = node}
           />

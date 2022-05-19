@@ -1517,7 +1517,10 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
               }
             >
               <span
+                aria-hidden={true}
+                aria-role="button"
                 className="quill-tooltip-trigger"
+                role="tooltip"
                 style={
                   Object {
                     "minWidth": "100px",
@@ -1528,7 +1531,10 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
               >
                 <span
                   className="data-table-row-section undefined"
+                  onBlur={[Function]}
                   onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   style={
@@ -1561,6 +1567,7 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
                   className="quill-tooltip-wrapper"
                 >
                   <span
+                    aria-live="polite"
                     className="quill-tooltip"
                   />
                 </span>
@@ -1601,7 +1608,10 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
               }
             >
               <span
+                aria-hidden={true}
+                aria-role="button"
                 className="quill-tooltip-trigger"
+                role="tooltip"
                 style={
                   Object {
                     "minWidth": "100px",
@@ -1612,7 +1622,10 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
               >
                 <span
                   className="data-table-row-section undefined"
+                  onBlur={[Function]}
                   onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   style={
@@ -1645,6 +1658,7 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
                   className="quill-tooltip-wrapper"
                 >
                   <span
+                    aria-live="polite"
                     className="quill-tooltip"
                   />
                 </span>
@@ -1683,7 +1697,10 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
               }
             >
               <span
+                aria-hidden={true}
+                aria-role="button"
                 className="quill-tooltip-trigger"
+                role="tooltip"
                 style={
                   Object {
                     "minWidth": "100px",
@@ -1694,7 +1711,10 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
               >
                 <span
                   className="data-table-row-section undefined"
+                  onBlur={[Function]}
                   onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   style={
@@ -1725,6 +1745,7 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
                   className="quill-tooltip-wrapper"
                 >
                   <span
+                    aria-live="polite"
                     className="quill-tooltip"
                   />
                 </span>

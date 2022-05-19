@@ -128,11 +128,17 @@ exports[`CurrentSubscription container when there is a current subscription shou
                           }
                         >
                           <span
+                            aria-hidden={true}
+                            aria-role="button"
                             className="quill-tooltip-trigger"
+                            role="tooltip"
                           >
                             <span
                               className="undefined"
+                              onBlur={[Function]}
                               onClick={[Function]}
+                              onFocus={[Function]}
+                              onKeyDown={[Function]}
                               onMouseEnter={[Function]}
                               onMouseLeave={[Function]}
                               tabIndex={null}
@@ -149,6 +155,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
                               className="quill-tooltip-wrapper"
                             >
                               <span
+                                aria-live="polite"
                                 className="quill-tooltip"
                               />
                             </span>
@@ -350,11 +357,17 @@ exports[`CurrentSubscription container when there is a current subscription shou
                           }
                         >
                           <span
+                            aria-hidden={true}
+                            aria-role="button"
                             className="quill-tooltip-trigger"
+                            role="tooltip"
                           >
                             <span
                               className="undefined"
+                              onBlur={[Function]}
                               onClick={[Function]}
+                              onFocus={[Function]}
+                              onKeyDown={[Function]}
                               onMouseEnter={[Function]}
                               onMouseLeave={[Function]}
                               tabIndex={null}
@@ -371,6 +384,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
                               className="quill-tooltip-wrapper"
                             >
                               <span
+                                aria-live="polite"
                                 className="quill-tooltip"
                               />
                             </span>
@@ -587,11 +601,17 @@ exports[`CurrentSubscription container when there is a current subscription shou
                           }
                         >
                           <span
+                            aria-hidden={true}
+                            aria-role="button"
                             className="quill-tooltip-trigger"
+                            role="tooltip"
                           >
                             <span
                               className="undefined"
+                              onBlur={[Function]}
                               onClick={[Function]}
+                              onFocus={[Function]}
+                              onKeyDown={[Function]}
                               onMouseEnter={[Function]}
                               onMouseLeave={[Function]}
                               tabIndex={null}
@@ -608,6 +628,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
                               className="quill-tooltip-wrapper"
                             >
                               <span
+                                aria-live="polite"
                                 className="quill-tooltip"
                               />
                             </span>

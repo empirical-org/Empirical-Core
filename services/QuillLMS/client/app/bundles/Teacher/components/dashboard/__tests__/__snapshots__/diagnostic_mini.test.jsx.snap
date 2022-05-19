@@ -415,7 +415,10 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
               }
             >
               <span
+                aria-hidden={true}
+                aria-role="button"
                 className="quill-tooltip-trigger"
+                role="tooltip"
                 style={
                   Object {
                     "minWidth": "180px",
@@ -426,7 +429,10 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
               >
                 <span
                   className="data-table-row-section undefined"
+                  onBlur={[Function]}
                   onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   style={
@@ -444,6 +450,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                   className="quill-tooltip-wrapper"
                 >
                   <span
+                    aria-live="polite"
                     className="quill-tooltip"
                   />
                 </span>
@@ -599,7 +606,10 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
               }
             >
               <span
+                aria-hidden={true}
+                aria-role="button"
                 className="quill-tooltip-trigger"
+                role="tooltip"
                 style={
                   Object {
                     "minWidth": "180px",
@@ -610,7 +620,10 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
               >
                 <span
                   className="data-table-row-section undefined"
+                  onBlur={[Function]}
                   onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   style={
@@ -628,6 +641,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                   className="quill-tooltip-wrapper"
                 >
                   <span
+                    aria-live="polite"
                     className="quill-tooltip"
                   />
                 </span>
@@ -712,7 +726,10 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
               }
             >
               <span
+                aria-hidden={true}
+                aria-role="button"
                 className="quill-tooltip-trigger"
+                role="tooltip"
                 style={
                   Object {
                     "minWidth": "180px",
@@ -723,7 +740,10 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
               >
                 <span
                   className="data-table-row-section undefined"
+                  onBlur={[Function]}
                   onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   style={
@@ -741,6 +761,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                   className="quill-tooltip-wrapper"
                 >
                   <span
+                    aria-live="polite"
                     className="quill-tooltip"
                   />
                 </span>

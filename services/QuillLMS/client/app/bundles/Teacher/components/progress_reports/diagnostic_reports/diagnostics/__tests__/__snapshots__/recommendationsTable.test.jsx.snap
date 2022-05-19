@@ -347,11 +347,17 @@ exports[`RecommendationsTable component should render when no students have comp
                     }
                   >
                     <span
+                      aria-hidden={true}
+                      aria-role="button"
                       className="quill-tooltip-trigger"
+                      role="tooltip"
                     >
                       <span
                         className="undefined"
+                        onBlur={[Function]}
                         onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
                         tabIndex={null}
@@ -365,6 +371,7 @@ exports[`RecommendationsTable component should render when no students have comp
                         className="quill-tooltip-wrapper"
                       >
                         <span
+                          aria-live="polite"
                           className="quill-tooltip"
                         />
                       </span>
@@ -398,11 +405,17 @@ exports[`RecommendationsTable component should render when no students have comp
                     }
                   >
                     <span
+                      aria-hidden={true}
+                      aria-role="button"
                       className="quill-tooltip-trigger"
+                      role="tooltip"
                     >
                       <span
                         className="undefined"
+                        onBlur={[Function]}
                         onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
                         tabIndex={null}
@@ -416,6 +429,7 @@ exports[`RecommendationsTable component should render when no students have comp
                         className="quill-tooltip-wrapper"
                       >
                         <span
+                          aria-live="polite"
                           className="quill-tooltip"
                         />
                       </span>
@@ -449,11 +463,17 @@ exports[`RecommendationsTable component should render when no students have comp
                     }
                   >
                     <span
+                      aria-hidden={true}
+                      aria-role="button"
                       className="quill-tooltip-trigger"
+                      role="tooltip"
                     >
                       <span
                         className="undefined"
+                        onBlur={[Function]}
                         onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
                         tabIndex={null}
@@ -467,6 +487,7 @@ exports[`RecommendationsTable component should render when no students have comp
                         className="quill-tooltip-wrapper"
                       >
                         <span
+                          aria-live="polite"
                           className="quill-tooltip"
                         />
                       </span>
@@ -500,11 +521,17 @@ exports[`RecommendationsTable component should render when no students have comp
                     }
                   >
                     <span
+                      aria-hidden={true}
+                      aria-role="button"
                       className="quill-tooltip-trigger"
+                      role="tooltip"
                     >
                       <span
                         className="undefined"
+                        onBlur={[Function]}
                         onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
                         tabIndex={null}
@@ -518,6 +545,7 @@ exports[`RecommendationsTable component should render when no students have comp
                         className="quill-tooltip-wrapper"
                       >
                         <span
+                          aria-live="polite"
                           className="quill-tooltip"
                         />
                       </span>
@@ -551,11 +579,17 @@ exports[`RecommendationsTable component should render when no students have comp
                     }
                   >
                     <span
+                      aria-hidden={true}
+                      aria-role="button"
                       className="quill-tooltip-trigger"
+                      role="tooltip"
                     >
                       <span
                         className="undefined"
+                        onBlur={[Function]}
                         onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
                         tabIndex={null}
@@ -569,6 +603,7 @@ exports[`RecommendationsTable component should render when no students have comp
                         className="quill-tooltip-wrapper"
                       >
                         <span
+                          aria-live="polite"
                           className="quill-tooltip"
                         />
                       </span>
@@ -602,11 +637,17 @@ exports[`RecommendationsTable component should render when no students have comp
                     }
                   >
                     <span
+                      aria-hidden={true}
+                      aria-role="button"
                       className="quill-tooltip-trigger"
+                      role="tooltip"
                     >
                       <span
                         className="undefined"
+                        onBlur={[Function]}
                         onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
                         tabIndex={null}
@@ -620,6 +661,7 @@ exports[`RecommendationsTable component should render when no students have comp
                         className="quill-tooltip-wrapper"
                       >
                         <span
+                          aria-live="polite"
                           className="quill-tooltip"
                         />
                       </span>
@@ -5026,11 +5068,17 @@ exports[`RecommendationsTable component should render when no students have comp
                         tooltipTriggerTextClass="student-name"
                       >
                         <span
+                          aria-hidden={true}
+                          aria-role="button"
                           className="quill-tooltip-trigger"
+                          role="tooltip"
                         >
                           <span
                             className="student-name"
+                            onBlur={[Function]}
                             onClick={[Function]}
+                            onFocus={[Function]}
+                            onKeyDown={[Function]}
                             onMouseEnter={[Function]}
                             onMouseLeave={[Function]}
                             tabIndex={null}
@@ -5041,6 +5089,7 @@ exports[`RecommendationsTable component should render when no students have comp
                             className="quill-tooltip-wrapper"
                           >
                             <span
+                              aria-live="polite"
                               className="quill-tooltip"
                             />
                           </span>
@@ -7390,11 +7439,17 @@ exports[`RecommendationsTable component should render when no students have comp
                         tooltipTriggerTextClass="student-name"
                       >
                         <span
+                          aria-hidden={true}
+                          aria-role="button"
                           className="quill-tooltip-trigger"
+                          role="tooltip"
                         >
                           <span
                             className="student-name"
+                            onBlur={[Function]}
                             onClick={[Function]}
+                            onFocus={[Function]}
+                            onKeyDown={[Function]}
                             onMouseEnter={[Function]}
                             onMouseLeave={[Function]}
                             tabIndex={null}
@@ -7405,6 +7460,7 @@ exports[`RecommendationsTable component should render when no students have comp
                             className="quill-tooltip-wrapper"
                           >
                             <span
+                              aria-live="polite"
                               className="quill-tooltip"
                             />
                           </span>
@@ -8542,11 +8598,17 @@ exports[`RecommendationsTable component should render when no students have comp
                         tooltipTriggerTextClass="student-name"
                       >
                         <span
+                          aria-hidden={true}
+                          aria-role="button"
                           className="quill-tooltip-trigger"
+                          role="tooltip"
                         >
                           <span
                             className="student-name"
+                            onBlur={[Function]}
                             onClick={[Function]}
+                            onFocus={[Function]}
+                            onKeyDown={[Function]}
                             onMouseEnter={[Function]}
                             onMouseLeave={[Function]}
                             tabIndex={null}
@@ -8557,6 +8619,7 @@ exports[`RecommendationsTable component should render when no students have comp
                             className="quill-tooltip-wrapper"
                           >
                             <span
+                              aria-live="polite"
                               className="quill-tooltip"
                             />
                           </span>
@@ -10663,11 +10726,17 @@ exports[`RecommendationsTable component should render when no students have comp
                         tooltipTriggerTextClass="student-name"
                       >
                         <span
+                          aria-hidden={true}
+                          aria-role="button"
                           className="quill-tooltip-trigger"
+                          role="tooltip"
                         >
                           <span
                             className="student-name"
+                            onBlur={[Function]}
                             onClick={[Function]}
+                            onFocus={[Function]}
+                            onKeyDown={[Function]}
                             onMouseEnter={[Function]}
                             onMouseLeave={[Function]}
                             tabIndex={null}
@@ -10678,6 +10747,7 @@ exports[`RecommendationsTable component should render when no students have comp
                             className="quill-tooltip-wrapper"
                           >
                             <span
+                              aria-live="polite"
                               className="quill-tooltip"
                             />
                           </span>
@@ -11352,11 +11422,17 @@ exports[`RecommendationsTable component should render when there are recommendat
                     }
                   >
                     <span
+                      aria-hidden={true}
+                      aria-role="button"
                       className="quill-tooltip-trigger"
+                      role="tooltip"
                     >
                       <span
                         className="undefined"
+                        onBlur={[Function]}
                         onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
                         tabIndex={null}
@@ -11370,6 +11446,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                         className="quill-tooltip-wrapper"
                       >
                         <span
+                          aria-live="polite"
                           className="quill-tooltip"
                         />
                       </span>
@@ -11403,11 +11480,17 @@ exports[`RecommendationsTable component should render when there are recommendat
                     }
                   >
                     <span
+                      aria-hidden={true}
+                      aria-role="button"
                       className="quill-tooltip-trigger"
+                      role="tooltip"
                     >
                       <span
                         className="undefined"
+                        onBlur={[Function]}
                         onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
                         tabIndex={null}
@@ -11421,6 +11504,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                         className="quill-tooltip-wrapper"
                       >
                         <span
+                          aria-live="polite"
                           className="quill-tooltip"
                         />
                       </span>
@@ -11454,11 +11538,17 @@ exports[`RecommendationsTable component should render when there are recommendat
                     }
                   >
                     <span
+                      aria-hidden={true}
+                      aria-role="button"
                       className="quill-tooltip-trigger"
+                      role="tooltip"
                     >
                       <span
                         className="undefined"
+                        onBlur={[Function]}
                         onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
                         tabIndex={null}
@@ -11472,6 +11562,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                         className="quill-tooltip-wrapper"
                       >
                         <span
+                          aria-live="polite"
                           className="quill-tooltip"
                         />
                       </span>
@@ -11505,11 +11596,17 @@ exports[`RecommendationsTable component should render when there are recommendat
                     }
                   >
                     <span
+                      aria-hidden={true}
+                      aria-role="button"
                       className="quill-tooltip-trigger"
+                      role="tooltip"
                     >
                       <span
                         className="undefined"
+                        onBlur={[Function]}
                         onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
                         tabIndex={null}
@@ -11523,6 +11620,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                         className="quill-tooltip-wrapper"
                       >
                         <span
+                          aria-live="polite"
                           className="quill-tooltip"
                         />
                       </span>
@@ -11556,11 +11654,17 @@ exports[`RecommendationsTable component should render when there are recommendat
                     }
                   >
                     <span
+                      aria-hidden={true}
+                      aria-role="button"
                       className="quill-tooltip-trigger"
+                      role="tooltip"
                     >
                       <span
                         className="undefined"
+                        onBlur={[Function]}
                         onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
                         tabIndex={null}
@@ -11574,6 +11678,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                         className="quill-tooltip-wrapper"
                       >
                         <span
+                          aria-live="polite"
                           className="quill-tooltip"
                         />
                       </span>
@@ -11607,11 +11712,17 @@ exports[`RecommendationsTable component should render when there are recommendat
                     }
                   >
                     <span
+                      aria-hidden={true}
+                      aria-role="button"
                       className="quill-tooltip-trigger"
+                      role="tooltip"
                     >
                       <span
                         className="undefined"
+                        onBlur={[Function]}
                         onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
                         tabIndex={null}
@@ -11625,6 +11736,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                         className="quill-tooltip-wrapper"
                       >
                         <span
+                          aria-live="polite"
                           className="quill-tooltip"
                         />
                       </span>
@@ -19253,11 +19365,17 @@ exports[`RecommendationsTable component should render when there are recommendat
                         tooltipTriggerTextClass="student-name"
                       >
                         <span
+                          aria-hidden={true}
+                          aria-role="button"
                           className="quill-tooltip-trigger"
+                          role="tooltip"
                         >
                           <span
                             className="student-name"
+                            onBlur={[Function]}
                             onClick={[Function]}
+                            onFocus={[Function]}
+                            onKeyDown={[Function]}
                             onMouseEnter={[Function]}
                             onMouseLeave={[Function]}
                             tabIndex={null}
@@ -19268,6 +19386,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                             className="quill-tooltip-wrapper"
                           >
                             <span
+                              aria-live="polite"
                               className="quill-tooltip"
                             />
                           </span>
@@ -23327,11 +23446,17 @@ exports[`RecommendationsTable component should render when there are recommendat
                         tooltipTriggerTextClass="student-name"
                       >
                         <span
+                          aria-hidden={true}
+                          aria-role="button"
                           className="quill-tooltip-trigger"
+                          role="tooltip"
                         >
                           <span
                             className="student-name"
+                            onBlur={[Function]}
                             onClick={[Function]}
+                            onFocus={[Function]}
+                            onKeyDown={[Function]}
                             onMouseEnter={[Function]}
                             onMouseLeave={[Function]}
                             tabIndex={null}
@@ -23342,6 +23467,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                             className="quill-tooltip-wrapper"
                           >
                             <span
+                              aria-live="polite"
                               className="quill-tooltip"
                             />
                           </span>
@@ -25268,11 +25394,17 @@ exports[`RecommendationsTable component should render when there are recommendat
                         tooltipTriggerTextClass="student-name"
                       >
                         <span
+                          aria-hidden={true}
+                          aria-role="button"
                           className="quill-tooltip-trigger"
+                          role="tooltip"
                         >
                           <span
                             className="student-name"
+                            onBlur={[Function]}
                             onClick={[Function]}
+                            onFocus={[Function]}
+                            onKeyDown={[Function]}
                             onMouseEnter={[Function]}
                             onMouseLeave={[Function]}
                             tabIndex={null}
@@ -25283,6 +25415,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                             className="quill-tooltip-wrapper"
                           >
                             <span
+                              aria-live="polite"
                               className="quill-tooltip"
                             />
                           </span>
@@ -28721,11 +28854,17 @@ exports[`RecommendationsTable component should render when there are recommendat
                         tooltipTriggerTextClass="student-name"
                       >
                         <span
+                          aria-hidden={true}
+                          aria-role="button"
                           className="quill-tooltip-trigger"
+                          role="tooltip"
                         >
                           <span
                             className="student-name"
+                            onBlur={[Function]}
                             onClick={[Function]}
+                            onFocus={[Function]}
+                            onKeyDown={[Function]}
                             onMouseEnter={[Function]}
                             onMouseLeave={[Function]}
                             tabIndex={null}
@@ -28736,6 +28875,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                             className="quill-tooltip-wrapper"
                           >
                             <span
+                              aria-live="polite"
                               className="quill-tooltip"
                             />
                           </span>
