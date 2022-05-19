@@ -71,7 +71,8 @@ describe 'ScorebookQuery' do
 
         results = Scorebook::Query.run(classroom.id, 1, nil, nil, nil, offset)
 
-        in_user_time = (activity_session1.updated_at + offset.seconds).strftime('%Y-%m-%d %H:%M:%S.%6N')
+        # Use ljust to ensure that trailing 0s are not discarded
+        in_user_time = (activity_session1.updated_at + offset.seconds).strftime('%Y-%m-%d %H:%M:%S.%6N').ljust(26, '0')
         expect(results.find{|res| res['id'] == activity_session1.id}['updated_at']).to eq(in_user_time)
       end
 
