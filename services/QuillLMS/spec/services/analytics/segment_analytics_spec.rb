@@ -137,7 +137,7 @@ describe 'SegmentAnalytics' do
 
   context 'trigger teacher subscription will expire' do
     let(:teacher) { create(:teacher) }
-    let(:subscription) { create(:subscription, account_type: 'Teacher Paid', recurring: true, expiration: Date.today + 30.days)}
+    let(:subscription) { create(:subscription, account_type: 'Teacher Paid', recurring: true, expiration: Time.zone.today + 30.days)}
     let!(:user_subscription) { create(:user_subscription, user: teacher, subscription: subscription)}
 
     it 'sends an event with information about the subscription' do
@@ -151,7 +151,7 @@ describe 'SegmentAnalytics' do
 
   context 'trigger school subscription will expire' do
     let(:school) { create(:school) }
-    let(:subscription) { create(:subscription, account_type: 'School Paid', recurring: true, expiration: Date.today + 30.days)}
+    let(:subscription) { create(:subscription, account_type: 'School Paid', recurring: true, expiration: Time.zone.today + 30.days)}
     let!(:school_subscription) { create(:school_subscription, school: school, subscription: subscription)}
 
     it 'sends an event with information about the subscription' do
