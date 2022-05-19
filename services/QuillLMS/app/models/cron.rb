@@ -26,6 +26,7 @@ class Cron
     # subscriptions
     RenewExpiringRecurringSubscriptionsWorker.perform_async
     UpdateExpiringSchoolSubscriptionsWorker.perform_async
+    AlertSoonToExpireSubscriptionsWorker.perform_async
 
     # demo
     ResetDemoAccountWorker.perform_async

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class AlertSoonToExpireSubscriptions
+class AlertSoonToExpireSubscriptionsWorker
   include Sidekiq::Worker
   sidekiq_options queue: SidekiqQueue::LOW
 
@@ -13,4 +13,5 @@ class AlertSoonToExpireSubscriptions
     analytics = SegmentAnalytics.new
     expiring_teacher_subs.each { |sub| analytics.trigger_teacher_subscription_will_expire(sub.id) }
     expiring_school_subs.each { |sub| analytics.trigger_school_subscription_will_expire(sub.id) }
+  end
 end

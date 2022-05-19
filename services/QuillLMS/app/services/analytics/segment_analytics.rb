@@ -150,10 +150,10 @@ class SegmentAnalytics
 
   def trigger_teacher_subscription_will_expire(subscription_id)
     subscription = Subscription.find(subscription_id)
-    teacher = subscription.users.first.id
+    teacher_id = subscription.users.first.id
 
     track({
-      user_id: teacher.id,
+      user_id: teacher_id,
       event: SegmentIo::BackgroundEvents::TEACHER_SUB_WILL_EXPIRE,
       properties: {
         subscription_id: subscription.id
@@ -163,7 +163,7 @@ class SegmentAnalytics
 
   def trigger_school_subscription_will_expire(subscription_id)
     subscription = Subscription.find(subscription_id)
-    school = subscription.schools.first
+    school_id = subscription.schools.first.id
 
     track({
       # Segment requires us to send a unique User ID or Anonymous ID for every event
@@ -172,7 +172,7 @@ class SegmentAnalytics
       event: SegmentIo::BackgroundEvents::SCHOOL_SUB_WILL_EXPIRE,
       properties: {
         subscription_id: subscription.id,
-        school_id: school.id
+        school_id: school_id
       }
     })
   end
