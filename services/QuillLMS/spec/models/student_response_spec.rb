@@ -136,7 +136,6 @@ RSpec.describe StudentResponse, type: :model do
 
       it 'should not link to records when the appropriate keys are not provided' do
         response = StudentResponse.create_from_json(json)
-        metadata = json[:metadata]
 
         expect(response.student_response_instructions_text).to be_nil
       end
