@@ -14,7 +14,7 @@ describe TeacherDashboardMetrics do
   let!(:unit_activities2) { create_list(:unit_activity, 4, unit: unit2) }
 
   before do
-    today = Date.today
+    today = Date.current
     july_second_of_this_year = Date.parse("02-07-#{today.year}")
     last_july_second = today.month > 7 ? july_second_of_this_year : july_second_of_this_year - 1.year
     older_classroom_unit1 = ClassroomUnit.create(classroom_id: classroom1.id, assigned_student_ids: classroom1.students.ids, created_at: last_july_second, unit: unit1)

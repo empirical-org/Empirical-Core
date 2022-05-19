@@ -17,7 +17,7 @@ class Cron
   def self.interval_1_day
     run_saturday if now.wday == 6
     # pass yesterday's date for stats email queries and labels
-    date = Time.now.getlocal('-05:00').yesterday
+    date = Time.current.getlocal('-05:00').yesterday
 
     DailyStatsEmailJob.perform_async(date)
     QuillStaffAccountsChangedWorker.perform_async
@@ -51,6 +51,6 @@ class Cron
 
   def self.now
     # We use UTC here to match the clock used for Heroku Scheduler
-    @t ||= Time.now.in_time_zone('UTC')
+    @t ||= Time.current.utc
   end
 end

@@ -1,6 +1,7 @@
 inherit_from: .rubocop_todo.yml
 
 require:
+  - rubocop-rails
   - rubocop-rspec
 
 inherit_mode:
@@ -274,6 +275,10 @@ Metrics/AbcSize:
 Metrics/BlockNesting:
   Max: 4
 
+Metrics/ClassLength:
+  Exclude:
+    - QuillLMS/app/controllers/pages_controller.rb
+
 Metrics/CyclomaticComplexity:
   Max: 7
 
@@ -343,6 +348,21 @@ Naming/VariableName:
 
 Naming/VariableNumber:
   Enabled: true
+
+#######################################################################################################################
+# RAILS
+#######################################################################################################################
+
+Rails/Date:
+  Enabled: true
+
+Rails/DurationArithmetic:
+  Enabled: true
+
+Rails/TimeZone:
+  Enabled: true
+  Exclude:
+    - "QuillLMS/spec/models/firebase_app_spec.rb"
 
 #######################################################################################################################
 # RSPEC

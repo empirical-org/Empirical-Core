@@ -30,14 +30,15 @@
 #
 FactoryBot.define do
   factory :subscription do
-    expiration { (Date.today + 15) }
-    start_date { (Date.today - 15) }
+    expiration { 15.days.from_now.to_date }
+    start_date { 15.days.ago.to_date }
     account_type { 'Teacher Trial' }
     purchaser_id { nil }
     payment_method { '' }
     stripe_invoice_id { nil }
 
     trait(:recurring) { recurring true }
-    trait(:non_recurring) { recurring true }
+    trait(:non_recurring) { recurring false }
+    trait(:stripe) { stripe_invoice_id { "in_#{SecureRandom.hex}"} }
   end
 end

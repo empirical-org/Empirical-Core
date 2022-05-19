@@ -20,7 +20,7 @@ describe Teachers::UnitsController, type: :controller do
 
   let!(:diagnostic) { create(:diagnostic) }
   let!(:diagnostic_activity) { create(:diagnostic_activity)}
-  let!(:unit_activity) { create(:unit_activity, unit: unit, activity: diagnostic_activity, due_date: Time.now )}
+  let!(:unit_activity) { create(:unit_activity, unit: unit, activity: diagnostic_activity, due_date: Time.current )}
 
   let!(:completed_activity_session) do
     create(:activity_session,

@@ -68,10 +68,10 @@ EmpiricalGrammar::Application.routes.draw do
 
   resources :student_feedback_responses, only: [:create]
 
-  # for Stripe
   namespace :stripe_integration do
     post '/subscription_checkout_sessions', to: 'subscription_checkout_sessions#create'
     post '/subscription_payment_methods', to: 'subscription_payment_methods#create'
+    post '/subscription_renewals', to: 'subscription_renewals#create'
     post '/webhooks', to: 'webhooks#create'
   end
 
@@ -89,7 +89,6 @@ EmpiricalGrammar::Application.routes.draw do
     member do
       get :purchaser_name
     end
-
   end
 
   resources :assessments
@@ -141,6 +140,7 @@ EmpiricalGrammar::Application.routes.draw do
     post :complete_view_lesson_tutorial, on: :collection
     post :complete_acknowledge_lessons_banner, on: :collection
     post :complete_acknowledge_diagnostic_banner, on: :collection
+    post :complete_acknowledge_evidence_banner, on: :collection
     post :complete_acknowledge_growth_diagnostic_promotion_card, on: :collection
   end
 
@@ -765,6 +765,10 @@ EmpiricalGrammar::Application.routes.draw do
   get 'teachers/classrooms/assign_activities/featured-activity-packs/:activityPackId/assigned' => redirect('/assign/featured-activity-packs/%{activityPackId}/assigned')
   get 'teachers/classrooms/assign_activities/new_unit/students/edit/name/:unitName/activity_ids/:activityIdsArray' => redirect('/assign/new_unit/students/edit/name/%{unitName}/activity_ids/%{activityIdsArray}')
 
+  # Sales forms routes
+  get '/options_for_sales_form', to: 'sales_form_submission#options_for_sales_form'
+  post '/submit_sales_form', to: 'sales_form_submission#create'
+
   # Integration routes (which should look pretty, and thus need some specifying)
   get 'amplify' => 'integrations#amplify'
   get 'amplify/all' => 'integrations#amplify_all'
@@ -808,6 +812,8 @@ EmpiricalGrammar::Application.routes.draw do
   get 'ap' => 'pages#ap'
   get 'AP', to: redirect('/ap')
   get 'springboard' => 'pages#springboard'
+  get 'request_quote' => 'sales_form_submission#request_quote'
+  get 'request_renewal' => 'sales_form_submission#request_renewal'
 
   get '/404' => 'errors#error404'
   get '/500' => 'errors#error500'

@@ -74,8 +74,8 @@
     background-color: transparent;
     border: none;
     padding: 0px;
-    &:focus {
-      outline: none;
+    .interactive-wrapper {
+      display: flex;
     }
   }
 

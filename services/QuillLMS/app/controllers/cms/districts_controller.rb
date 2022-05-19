@@ -28,6 +28,20 @@ class Cms::DistrictsController < Cms::CmsController
     @admins = DistrictAdmin.includes(:user).where(district_id: params[:id].to_i)
   end
 
+  def new
+    @district = District.new
+    @editable_attributes = editable_district_attributes
+  end
+
+  def create
+    new_district = District.new(district_params)
+    if new_district.save
+      redirect_to cms_district_path(new_district)
+    else
+      redirect_to cms_districts_path, error: new_district.errors, flash: { error: new_district.errors }
+    end
+  end
+
   def new_admin
     @district = District.find(params[:id])
   end
@@ -38,10 +52,11 @@ class Cms::DistrictsController < Cms::CmsController
   end
 
   def update
-    if District.find(edit_or_add_district_params[:id]).update(edit_or_add_district_params)
-      redirect_to cms_district_path(edit_or_add_district_params[:id])
+    district = District.find(district_params[:id])
+    if district.update(district_params)
+      redirect_to cms_district_path(params[:id])
     else
-      render :edit
+      redirect_to cms_district_path(district_params[:id]), error: district.errors
     end
   end
 
@@ -63,7 +78,7 @@ class Cms::DistrictsController < Cms::CmsController
 
   private def district_query(params)
     page = [district_query_params[:page].to_i - 1, 0].max
-    result = District.distinct.limit(DISTRICTS_PER_PAGE).offset(DISTRICTS_PER_PAGE * page)
+    result = District.distinct.offset(DISTRICTS_PER_PAGE * page)
 
     sort = district_query_params[:sort]
     sort_direction = district_query_params[:sort_direction]
@@ -100,16 +115,15 @@ class Cms::DistrictsController < Cms::CmsController
     }
   end
 
-  private def edit_or_add_district_params
+  private def district_params
     params.require(:district).permit(:id, editable_district_attributes.values)
   end
 
   private def school_query
-    @district.schools.select('schools.name, schools.id, subscriptions.account_type, count(schools_users.id) as number_teachers, count(schools_admins.id) as number_admins')
-      .joins(:schools_users)
-      .joins(:schools_admins)
-      .joins(school_subscription: :subscription)
-      .where('subscriptions.expiration > ? AND subscriptions.start_date <= ?', Date.current, Date.current)
+    @district.schools.select('schools.name, schools.id, schools.city, schools.state, schools.free_lunches, subscriptions.account_type, count(distinct schools_users.id) as number_teachers, count(distinct schools_admins.id) as number_admins')
+      .left_joins(:schools_users)
+      .left_joins(:schools_admins)
+      .left_joins(school_subscription: :subscription)
       .group('schools.name, schools.id, subscriptions.account_type')
   end
 

@@ -23,7 +23,15 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
   end
 
   def students_by_classroom
-    render json: results_for_classroom(params[:unit_id], params[:activity_id], params[:classroom_id])
+    classroom = Classroom.find(params[:classroom_id])
+    cache_groups = {
+      activity_id: params[:activity_id],
+      unit_id: params[:unit_id]
+    }
+    response = current_user.classroom_cache(classroom, key: 'teachers.progress_reports.diagnostic_reports.student_by_classroom', groups: cache_groups) do
+      results_for_classroom(params[:unit_id], params[:activity_id], params[:classroom_id])
+    end
+    render json: response
   end
 
   def diagnostic_student_responses_index
@@ -79,7 +87,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
       student = User.find_by_id(student_id)
       skills = Activity.find(activity_id).skills.distinct
       pre_test = Activity.find_by_follow_up_activity_id(activity_id)
-      pre_test_activity_session = pre_test && find_activity_session_for_student_activity_and_classroom(student_id, pre_test.id, classroom_id, unit_id)
+      pre_test_activity_session = pre_test && find_activity_session_for_student_activity_and_classroom(student_id, pre_test.id, classroom_id, nil)
 
       if pre_test && pre_test_activity_session
         concept_results = {
@@ -286,7 +294,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
   # rubocop:disable Metrics/CyclomaticComplexity
   private def create_or_update_selected_packs
     if params[:whole_class]
-      $redis.set("user_id:#{current_user.id}_lesson_diagnostic_recommendations_start_time", Time.now)
+      $redis.set("user_id:#{current_user.id}_lesson_diagnostic_recommendations_start_time", Time.current)
       return render json: {}, status: 401 unless current_user.classrooms_i_teach.map(&:id).include?(params[:classroom_id].to_i)
 
       params[:unit_template_ids].each_with_index do |unit_template_id, index|
@@ -294,26 +302,25 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
         UnitTemplate.assign_to_whole_class(params[:classroom_id], unit_template_id, last)
       end
     else
-      selections_with_students = params[:selections].select do |ut|
-        ut[:classrooms][0][:student_ids]&.compact&.any?
-      end
-      if selections_with_students.any?
-        $redis.set("user_id:#{current_user.id}_diagnostic_recommendations_start_time", Time.now)
-        number_of_selections = selections_with_students.length
-        selections_with_students.each_with_index do |value, index|
-          last = (number_of_selections - 1) == index
-          # this only accommodates one classroom at a time
-          classroom = value[:classrooms][0]
-          argument_hash = {
-            unit_template_id: value[:id],
-            classroom_id: classroom[:id],
-            student_ids: classroom[:student_ids].compact,
-            last: last,
-            lesson: false,
-            assigning_all_recommended_packs: params[:assigning_all_recommended_packs]
-          }
-          AssignRecommendationsWorker.perform_async(**argument_hash) if current_user.classrooms_i_teach.map(&:id).include?(classroom[:id].to_i)
-        end
+      selections_with_students = params[:selections].select { |ut| ut[:classrooms][0][:student_ids]&.compact&.any? }
+
+      return unless selections_with_students.any?
+
+      $redis.set("user_id:#{current_user.id}_diagnostic_recommendations_start_time", Time.current)
+      number_of_selections = selections_with_students.length
+      selections_with_students.each_with_index do |value, index|
+        last = (number_of_selections - 1) == index
+        # this only accommodates one classroom at a time
+        classroom = value[:classrooms][0]
+        argument_hash = {
+          unit_template_id: value[:id],
+          classroom_id: classroom[:id],
+          student_ids: classroom[:student_ids].compact,
+          last: last,
+          lesson: false,
+          assigning_all_recommended_packs: params[:assigning_all_recommended_packs]
+        }
+        AssignRecommendationsWorker.perform_async(**argument_hash) if current_user.classrooms_i_teach.map(&:id).include?(classroom[:id].to_i)
       end
     end
   end

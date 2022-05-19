@@ -6,7 +6,6 @@ export const submittedResponses = {
       "feedback":"Thank you for your response.",
       "feedback_type":"autoML",
       "optimal":true,
-      "response_id":"",
       "highlight":null
     }
   ],
@@ -17,7 +16,6 @@ export const submittedResponses = {
       "feedback":"Remember, for this activity, avoid giving your opinion—your thoughts, feelings, or suggestions. Rewrite your response without the word must, and make sure that your response expresses an idea from the text.",
       "feedback_type":"opinion",
       "optimal":false,
-      "response_id":"0",
       "highlight":[
         {
           "type":"response",
@@ -33,7 +31,6 @@ export const submittedResponses = {
       "feedback":"Thank you for your response.",
       "feedback_type":"autoML",
       "optimal":true,
-      "response_id":"",
       "highlight":null
     }
   ],
@@ -44,7 +41,6 @@ export const submittedResponses = {
       "feedback":"Remember, for this activity, avoid giving your opinion—your thoughts, feelings, or suggestions. Rewrite your response without the word should, and make sure that your response expresses an idea from the text.",
       "feedback_type":"opinion",
       "optimal":false,
-      "response_id":"0",
       "highlight":[
         {
           "type":"response",
@@ -60,7 +56,6 @@ export const submittedResponses = {
       "feedback":"Thank you for your response.",
       "feedback_type":"autoML",
       "optimal":true,
-      "response_id":"",
       "highlight":null
     }
   ]

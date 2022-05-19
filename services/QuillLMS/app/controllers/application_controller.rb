@@ -156,8 +156,8 @@ class ApplicationController < ActionController::Base
     return reset_session if current_user.google_id && current_user.auth_credential && !current_user.auth_credential&.refresh_token
 
     # Assuming that the refresh_token expires at (current_user.auth_credential.created_at  + 6 months),
-    # we can reset the session whenever (Time.now > (current_user.auth_credential.created_at + 5 months))
-    return reset_session if current_user.google_id && current_user.auth_credential && Time.now > (current_user.auth_credential.created_at + 5.months)
+    # we can reset the session whenever (Time.current > (current_user.auth_credential.created_at + 5 months))
+    return reset_session if current_user.google_id && current_user.auth_credential && Time.current > (current_user.auth_credential.created_at + 5.months)
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 
@@ -174,7 +174,7 @@ class ApplicationController < ActionController::Base
   end
 
   protected def time_diff(timestamp)
-    now = Time.now().in_time_zone.utc
+    now = Time.current.utc
 
     diff = now - timestamp
     diff.round.abs

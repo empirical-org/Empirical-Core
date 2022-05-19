@@ -273,7 +273,7 @@ export default class CreateUnit extends React.Component {
 
   stage1SpecificComponents = () => {
     const { activities, } = this.state
-    const { showLessonsBanner, } = this.props
+    const { showLessonsBanner, showEvidenceBanner} = this.props
     return (
       <Stage1
         activities={activities}
@@ -282,6 +282,7 @@ export default class CreateUnit extends React.Component {
         errorMessage={this.determineStage1ErrorMessage()}
         selectedActivities={this.getSelectedActivities()}
         setSelectedActivities={this.setSelectedActivities}
+        showEvidenceBanner={showEvidenceBanner}
         showLessonsBanner={showLessonsBanner}
         toggleActivitySelection={this.toggleActivitySelection}
         updateUnitName={this.updateUnitName}

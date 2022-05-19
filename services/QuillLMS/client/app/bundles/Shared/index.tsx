@@ -33,6 +33,7 @@ export {
   Input,
   Passthrough,
   ResumeOrBeginButton,
+  ScreenreaderInstructions,
   SmartSpinner,
   Snackbar,
   defaultSnackbarTimeout,
@@ -98,7 +99,8 @@ export {
   roundValuesToSeconds,
   roundMillisecondsToSeconds,
   titleCase,
-  onMobile
+  onMobile,
+  fillInBlankInputLabel,
 } from './libs/index'
 
 export {

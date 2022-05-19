@@ -26,7 +26,8 @@ module Evidence
       'sánchez',
       'kanaka',
       'kānaka',
-      'worldwatch'
+      'worldwatch',
+      'wilmut'
     ]
 
     attr_reader :entry
@@ -43,7 +44,6 @@ module Evidence
         feedback: optimal? ? ALL_CORRECT_FEEDBACK : non_optimal_feedback_string,
         feedback_type: FEEDBACK_TYPE,
         optimal: optimal?,
-        response_id: '',
         entry: @entry,
         concept_uid: SPELLING_CONCEPT_UID,
         rule_uid: spelling_rule&.uid || '',

@@ -32,6 +32,8 @@ export const PremiumPricingGuide = ({
   diagnosticActivityCount,
   independentPracticeActivityCount,
   lessonsActivityCount,
+  showSchoolBuyNow,
+  stripeSchoolPlan,
   stripeTeacherPlan,
   userIsEligibleForNewSubscription,
 }) => {
@@ -40,7 +42,7 @@ export const PremiumPricingGuide = ({
     return !!Number(document.getElementById('current-user-id').getAttribute('content'))
   }
 
-  const buyNowButton = () => {
+  const teacherBuyNowButton = () => {
     return (
       <StripeSubscriptionCheckoutSessionButton
         buttonClassName="quill-button contained medium primary focus-on-light"
@@ -48,7 +50,22 @@ export const PremiumPricingGuide = ({
         buttonText='Buy Now'
         cancelPath='premium'
         customerEmail={customerEmail}
-        stripePlan={stripeTeacherPlan}
+        stripePriceId={stripeTeacherPlan.plan.stripe_price_id}
+        userIsEligibleForNewSubscription={userIsEligibleForNewSubscription}
+        userIsSignedIn={userIsSignedIn()}
+      />
+    )
+  }
+
+  const schoolBuyNowButton = () => {
+    return (
+      <StripeSubscriptionCheckoutSessionButton
+        buttonClassName="quill-button contained medium primary focus-on-light"
+        buttonId="purchase-btn"
+        buttonText='Buy Now'
+        cancelPath='premium'
+        customerEmail={customerEmail}
+        stripePriceId={stripeSchoolPlan.plan.stripe_price_id}
         userIsEligibleForNewSubscription={userIsEligibleForNewSubscription}
         userIsSignedIn={userIsSignedIn()}
       />
@@ -62,7 +79,7 @@ export const PremiumPricingGuide = ({
         buttonText='Upgrade to Premium Now'
         cancelPath='premium'
         customerEmail={customerEmail}
-        stripePlan={stripeTeacherPlan}
+        stripePriceId={stripeTeacherPlan.plan.stripe_price_id}
         userIsEligibleForNewSubscription={userIsEligibleForNewSubscription}
         userIsSignedIn={userIsSignedIn()}
       />
@@ -75,11 +92,14 @@ export const PremiumPricingGuide = ({
         {userIsSignedIn() && <PremiumBannerBuilder originPage="premium" upgradeToPremiumNowButton={upgradeToPremiumNowButton} />}
         <div className="overview text-center">
           <PremiumPricingMinisRow
-            buyNowButton={buyNowButton}
             diagnosticActivityCount={diagnosticActivityCount}
             independentPracticeActivityCount={independentPracticeActivityCount}
             lessonsActivityCount={lessonsActivityCount}
+            schoolBuyNowButton={schoolBuyNowButton}
+            showSchoolBuyNow={showSchoolBuyNow}
+            stripeSchoolPlan={stripeSchoolPlan}
             stripeTeacherPlan={stripeTeacherPlan}
+            teacherBuyNowButton={teacherBuyNowButton}
             userIsEligibleForNewSubscription={userIsEligibleForNewSubscription}
           />
 

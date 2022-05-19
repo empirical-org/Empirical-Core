@@ -43,7 +43,8 @@ describe Cms::SchoolsController do
   end
 
   describe '#show' do
-    let!(:school) { create(:school) }
+    let!(:district) { create(:district) }
+    let!(:school) { create(:school, district: district) }
 
     it 'should assign the correct values' do
       allow_any_instance_of(Cms::TeacherSearchQuery).to receive(:run) { "teacher data" }
@@ -58,7 +59,7 @@ describe Cms::SchoolsController do
        'City' => school.city || school.mail_city,
        'State' => school.state || school.mail_state,
        'ZIP' => school.zipcode || school.mail_zipcode,
-       'District' => school.leanm,
+       'District' => school.district.name,
        'Free and Reduced Price Lunch' => "#{school.free_lunches}%",
        'NCES ID' => school.nces_id,
        'PPIN' => school.ppin,
@@ -88,7 +89,6 @@ describe Cms::SchoolsController do
           'School City' => :city,
           'School State' => :state,
           'School ZIP' => :zipcode,
-          'District Name' => :leanm,
           'FRP Lunch' => :free_lunches,
           'NCES ID' => :nces_id,
           'Clever ID' => :clever_id
@@ -122,14 +122,12 @@ describe Cms::SchoolsController do
           city: "test city",
           state: "test state",
           zipcode: "1100",
-          leanm: "lean",
           free_lunches: 2
       } }
       expect(School.last.name).to eq "test"
       expect(School.last.city).to eq "test city"
       expect(School.last.state).to eq "test state"
       expect(School.last.zipcode).to eq "1100"
-      expect(School.last.leanm).to eq "lean"
       expect(School.last.free_lunches).to eq 2
       expect(response).to redirect_to cms_school_path(School.last.id)
     end
@@ -145,7 +143,7 @@ describe Cms::SchoolsController do
     describe 'when there is no existing subscription' do
       it 'should create a new subscription that starts today and ends at the promotional expiration date' do
         get :new_subscription, params: { id: school_with_no_subscription.id }
-        expect(assigns(:subscription).start_date).to eq Date.today
+        expect(assigns(:subscription).start_date).to eq Date.current
         expect(assigns(:subscription).expiration).to eq Subscription.promotional_dates[:expiration]
       end
     end

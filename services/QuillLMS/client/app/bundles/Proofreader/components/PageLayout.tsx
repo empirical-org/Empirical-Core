@@ -3,6 +3,8 @@ import Header from "./Header";
 import {renderRoutes} from "react-router-config";
 import { routes } from "../routes";
 
+import { ScreenreaderInstructions, } from '../../Shared/index'
+
 export default class PageLayout extends React.Component<any, { showFocusState: boolean }> {
   constructor(props: any) {
     super(props)
@@ -50,6 +52,7 @@ export default class PageLayout extends React.Component<any, { showFocusState: b
     return (
       <div className={className}>
         <div className="page-content">
+          <ScreenreaderInstructions />
           <button className="skip-main" onClick={this.handleSkipToMainContentClick} type="button">Skip to main content</button>
           <button className="skip-main" onClick={this.handleSkipToPassageButtonsClick} type="button">Skip to passage buttons</button>
           {header}

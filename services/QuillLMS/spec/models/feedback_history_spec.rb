@@ -153,7 +153,6 @@ RSpec.describe FeedbackHistory, type: :model do
         feedback_type: 'grammar',
         optimal: false,
         highlight: [{text: 'some', type: 'entry', category: 'grammar', character: 0}],
-        response_id: 'abc123',
         hint: 'a hint'
       }
     }
@@ -167,7 +166,6 @@ RSpec.describe FeedbackHistory, type: :model do
         feedback_type: 'grammar',
         optimal: false,
         highlight: [],
-        response_id: '',
       }
     }
 
@@ -189,7 +187,6 @@ RSpec.describe FeedbackHistory, type: :model do
       expect(feedback.attempt).to eq(attempt)
       expect(feedback.entry).to eq(entry)
       expect(feedback.metadata['highlight'].first['text']).to eq('some')
-      expect(feedback.metadata['response_id']).to eq('abc123')
       expect(feedback.metadata['hint']).to eq('a hint')
     end
 
@@ -207,6 +204,14 @@ RSpec.describe FeedbackHistory, type: :model do
       expect(feedback.valid?).to be true
       expect(feedback.metadata['highlight'].first).to eq(highlight)
     end
+
+    it 'should save special "api" key to metadata if passed an api_metadata argument' do
+      api_metadata = {'confidence' => 1}
+      feedback = FeedbackHistory.save_feedback(feedback_hash, entry, prompt_id, activity_session_uid, attempt, api_metadata)
+
+      expect(feedback.valid?).to be true
+      expect(feedback.metadata['api']).to eq(api_metadata)
+    end
   end
 
   context 'batch_create' do
@@ -218,7 +223,7 @@ RSpec.describe FeedbackHistory, type: :model do
         feedback_text: 'This is the feedback text',
         feedback_type: 'autoML',
         optimal: false,
-        time: Time.now,
+        time: Time.current,
         used: true
       }
       @invalid_fh_params = {}
@@ -447,7 +452,7 @@ RSpec.describe FeedbackHistory, type: :model do
       it 'return the total count of activity sessions' do
         expect(FeedbackHistory.get_total_count).to eq(2)
         expect(FeedbackHistory.get_total_count(activity_id: @activity1.id)).to eq(1)
-        expect(FeedbackHistory.get_total_count(start_date: Time.now)).to eq(0)
+        expect(FeedbackHistory.get_total_count(start_date: Time.current)).to eq(0)
         expect(FeedbackHistory.get_total_count(turk_session_id: @comprehension_turking_round.turking_round_id)).to eq(1)
       end
     end

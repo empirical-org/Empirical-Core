@@ -3,6 +3,7 @@ import * as React from "react";
 import { BECAUSE, BUT, SO } from '../../../Shared/index'
 import { FIRST_STRONG_EXAMPLE, SECOND_STRONG_EXAMPLE } from "../../../../constants/evidence";
 import { PromptInterface } from "../../../Staff/interfaces/evidenceInterfaces";
+import useFocus from '../../../Shared/hooks/useFocus'
 
 const conjunctions = [BECAUSE, BUT, SO];
 
@@ -13,6 +14,11 @@ interface PostActivitySlideProps {
 }
 
 export const PostActivitySlide = ({ handleClick, prompts, responses }: PostActivitySlideProps) => {
+  const [containerRef, setContainerFocus] = useFocus()
+
+  React.useEffect(() => {
+    setContainerFocus()
+  }, [])
 
   function getStrongExemplar(conjunction: string, property: string) {
     const prompt = prompts.filter(prompt => prompt.conjunction === conjunction)[0];
@@ -60,7 +66,7 @@ export const PostActivitySlide = ({ handleClick, prompts, responses }: PostActiv
   }
 
   return(
-    <div className="post-activity-slide-container">
+    <div className="post-activity-slide-container no-focus-outline" ref={containerRef} tabIndex={-1}>
       <section id="information-section">
         <img alt="An illustration of a party popper" id="celebration-vector" src={`${process.env.CDN_URL}/images/evidence/party-celebration.svg`} />
         <p id="revision-text">You have completed the activity!</p>

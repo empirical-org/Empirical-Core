@@ -37,7 +37,7 @@ describe LessonPlanner::UnitSerializer, type: :serializer do
     let(:teacher) { classroom.owner }
     let(:student) {classroom.students.first}
     let(:activity) { create(:activity) }
-    let(:due_date) { Date.today }
+    let(:due_date) { Date.current }
     let(:unit) { create(:unit) }
     let!(:classroom_unit) do
       create(:classroom_unit,

@@ -27,8 +27,8 @@ describe 'ScorebookQuery' do
   let!(:unit_activity1) {create(:unit_activity, activity: activity1, unit: unit  )}
   let!(:unit_activity2) {create(:unit_activity, activity: activity2, unit: unit )}
 
-  let!(:activity_session1) {create(:activity_session,  completed_at: Time.now, percentage: 1.0, user: student, classroom_unit: classroom_unit, activity: activity1, is_final_score: true)}
-  let!(:activity_session2) {create(:activity_session,  completed_at: Time.now, percentage: 0.2, user: student, classroom_unit: classroom_unit, activity: activity2, is_final_score: true)}
+  let!(:activity_session1) {create(:activity_session,  completed_at: Time.current, percentage: 1.0, user: student, classroom_unit: classroom_unit, activity: activity1, is_final_score: true)}
+  let!(:activity_session2) {create(:activity_session,  completed_at: Time.current, percentage: 0.2, user: student, classroom_unit: classroom_unit, activity: activity2, is_final_score: true)}
 
   it 'returns a completed activity that is a final scores' do
     results = Scorebook::Query.run(classroom.id)
@@ -37,14 +37,14 @@ describe 'ScorebookQuery' do
 
   describe 'support date constraints' do
     it 'returns activities completed between the specified dates' do
-      begin_date = activity_session1.completed_at - 1.days
-      end_date = activity_session1.completed_at + 1.days
+      begin_date = activity_session1.completed_at - 1.day
+      end_date = activity_session1.completed_at + 1.day
       results = Scorebook::Query.run(classroom.id, 1, nil, begin_date.to_s, end_date.to_s)
       expect(results.map{|res| res['id']}).to include(activity_session1.id)
     end
 
     it 'does not return activities completed after the specified end date' do
-      begin_date = activity_session1.completed_at + 1.days
+      begin_date = activity_session1.completed_at + 1.day
       end_date = activity_session1.completed_at + 2.days
       results = Scorebook::Query.run(classroom.id, 1, nil, begin_date.to_s, end_date.to_s)
       expect(results.map{|res| res['id']}).not_to include(activity_session1.id)
@@ -52,7 +52,7 @@ describe 'ScorebookQuery' do
 
     it 'does not return activities completed before the specified start date' do
       begin_date = activity_session1.completed_at - 2.days
-      end_date = activity_session1.completed_at - 1.days
+      end_date = activity_session1.completed_at - 1.day
       results = Scorebook::Query.run(classroom.id, 1, nil, begin_date.to_s, end_date.to_s)
       expect(results.map{|res| res['id']}).not_to include(activity_session1.id)
     end
@@ -63,6 +63,16 @@ describe 'ScorebookQuery' do
         new_completed_at = Scorebook::Query.to_offset_datetime(original_completed_at, offset)
         activity_session.update(completed_at: new_completed_at)
         new_completed_at
+      end
+
+      it "converts timestamps in the SELECT clause to the current user's timezone if one is provided" do
+        tz = TZInfo::Timezone.get('Australia/Perth')
+        offset = tz.period_for_utc(Time.new.utc).utc_total_offset
+
+        results = Scorebook::Query.run(classroom.id, 1, nil, nil, nil, offset)
+
+        in_user_time = (activity_session1.updated_at + offset.seconds).strftime('%Y-%m-%d %H:%M:%S.%6N')
+        expect(results.find{|res| res['id'] == activity_session1.id}['updated_at']).to eq(in_user_time)
       end
 
       it "factors in offset to return activities where the teacher is in a different timezone than the database" do

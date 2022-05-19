@@ -497,7 +497,7 @@ class ActivitySession < ApplicationRecord
       user_id: student_id,
       activity: activity,
       state: 'started',
-      started_at: Time.now
+      started_at: Time.current
     )
   end
 

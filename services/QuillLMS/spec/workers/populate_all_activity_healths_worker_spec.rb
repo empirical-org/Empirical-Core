@@ -2,6 +2,10 @@
 
 require 'rails_helper'
 
+RSpec::Matchers.define :a_multiple_of do |x|
+  match { |actual| (actual % x).zero? }
+end
+
 describe PopulateAllActivityHealthsWorker do
   subject { described_class.new }
 
@@ -16,9 +20,9 @@ describe PopulateAllActivityHealthsWorker do
     it 'should kick off populate activity health worker jobs spread out by interval' do
       stub_const("PopulateAllActivityHealthsWorker::INTERVAL", 5)
 
-      expect(PopulateActivityHealthWorker).to receive(:perform_in).with(0, activity.id)
-      expect(PopulateActivityHealthWorker).to receive(:perform_in).with(5, activity_two.id)
-      expect(PopulateActivityHealthWorker).to receive(:perform_in).with(10, activity_three.id)
+      expect(PopulateActivityHealthWorker).to receive(:perform_in).with(a_multiple_of(5), activity.id)
+      expect(PopulateActivityHealthWorker).to receive(:perform_in).with(a_multiple_of(5), activity_two.id)
+      expect(PopulateActivityHealthWorker).to receive(:perform_in).with(a_multiple_of(5), activity_three.id)
       subject.perform
     end
 

@@ -28,12 +28,14 @@ module Evidence
         feedback: feedback.text,
         feedback_type: Rule::TYPE_AUTOML,
         optimal: matched_rule.optimal,
-        response_id: '',
         entry: @entry,
         concept_uid: matched_rule&.concept_uid || '',
         rule_uid: matched_rule&.uid || '',
         hint: matched_rule&.hint,
-        highlight: highlight
+        highlight: highlight,
+        api: {
+          confidence: @confidence_score
+        }
       }
     end
     # rubocop:enable Metrics/CyclomaticComplexity
@@ -45,7 +47,7 @@ module Evidence
     private def fetch_matched_rule
       return unless @automl_model
 
-      google_automl_label = @automl_model.fetch_automl_label(@entry)
+      google_automl_label, @confidence_score = @automl_model.fetch_automl_label(@entry)
       @prompt.rules.joins(:label).find_by(comprehension_labels: {name: google_automl_label})
     end
   end

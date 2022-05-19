@@ -51,6 +51,10 @@ export {
 } from './resumeOrBeginButton'
 
 export {
+  ScreenreaderInstructions
+} from './screenreaderInstructions'
+
+export {
   SmartSpinner
 } from './smartSpinner'
 

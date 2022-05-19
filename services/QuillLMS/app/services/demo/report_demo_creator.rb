@@ -2,6 +2,7 @@
 
 module Demo::ReportDemoCreator
 
+  EVIDENCE_APP_SETTING = "comprehension"
   REPLAYED_ACTIVITY_ID = 434
   REPLAYED_SAMPLE_USER_ID = 312664
   ACTIVITY_PACKS_TEMPLATES = [
@@ -204,6 +205,42 @@ module Demo::ReportDemoCreator
           1664 => 9962377
         }
       ]
+    },
+    {
+      name: "Evidence-Based Writing: Ethics in Science [Beta]",
+      activity_ids: [1726, 1815, 1813, 1830],
+      activity_sessions: [
+        {
+          1726 => 11776892,
+          1815 => 11776892,
+          1813 => 11776892,
+          1830 => 11776892
+        },
+        {
+          1726 => 11776894,
+          1815 => 11776894,
+          1813 => 11776894,
+          1830 => 11776894
+        },
+        {
+          1726 => 11776893,
+          1815 => 11776893,
+          1813 => 11776893,
+          1830 => 11776893
+        },
+        {
+          1726 => 11776896,
+          1815 => 11776896,
+          1813 => 11776896,
+          1830 => 11776896
+        },
+        {
+          1726 => 11776895,
+          1815 => 11776895,
+          1813 => 11776895,
+          1830 => 11776895
+        }
+      ]
     }
   ]
 
@@ -232,9 +269,17 @@ module Demo::ReportDemoCreator
       role: "teacher",
       password: 'password',
       password_confirmation: 'password',
+      flags: ["beta"]
     }
 
     teacher = User.create(values)
+    app_setting = AppSetting.find_by(name: EVIDENCE_APP_SETTING)
+
+    return teacher if app_setting.blank?
+
+    app_setting.user_ids_allow_list << teacher.id
+    app_setting.save
+    teacher
   end
 
   def self.create_classroom(teacher)
@@ -356,6 +401,7 @@ module Demo::ReportDemoCreator
 
           cu = ClassroomUnit.find_by(classroom_id: classroom.id, unit_id: unit.id)
           act_session = ActivitySession.create({activity_id: act_id, classroom_unit_id: cu.id, user_id: student.id, state: "finished", percentage: temp.percentage})
+
           temp.concept_results.each do |cr|
             values = {
               activity_session_id: act_session.id,

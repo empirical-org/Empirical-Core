@@ -119,7 +119,7 @@ module Demo::ReportDemoAPCreator
     attributes = {
       purchaser_id: teacher.id,
       account_type: 'Teacher Paid',
-      expiration: DateTime.now.next_year(20).to_time
+      expiration: DateTime.current.next_year(20).to_time
     }
     Subscription.create_with_user_join(teacher.id, attributes)
   end

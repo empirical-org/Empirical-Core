@@ -9,7 +9,8 @@ class SyncVitallyWorker
 
   # rubocop:disable Metrics/CyclomaticComplexity
   def perform
-    if Date.today.month == FIRST_DAY_OF_SCHOOL_YEAR_MONTH && Date.today.day == FIRST_DAY_OF_SCHOOL_YEAR_DAY
+    today = Date.current
+    if today.month == FIRST_DAY_OF_SCHOOL_YEAR_MONTH && today.day == FIRST_DAY_OF_SCHOOL_YEAR_DAY
       PopulateAnnualVitallyWorker.perform_async
     end
     # Don't synchronize non-production data

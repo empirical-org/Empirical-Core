@@ -300,9 +300,11 @@ class Teachers::ClassroomManagerController < ApplicationController
   # rubocop:disable Metrics/CyclomaticComplexity
   private def set_banner_variables
     acknowledge_diagnostic_banner_milestone = Milestone.find_by_name(Milestone::TYPES[:acknowledge_diagnostic_banner])
+    acknowledge_evidence_banner_milestone = Milestone.find_by_name(Milestone::TYPES[:acknowledge_evidence_banner])
     acknowledge_lessons_banner_milestone = Milestone.find_by_name(Milestone::TYPES[:acknowledge_lessons_banner])
     diagnostic_ids = Activity.diagnostic_activity_ids
     @show_diagnostic_banner = !UserMilestone.find_by(milestone_id: acknowledge_diagnostic_banner_milestone&.id, user_id: current_user&.id) && current_user&.unit_activities&.where(activity_id: diagnostic_ids)&.none?
+    @show_evidence_banner = !UserMilestone.find_by(milestone_id: acknowledge_evidence_banner_milestone&.id, user_id: current_user&.id) && current_user&.classroom_unit_activity_states&.where(completed: true)&.none?
     @show_lessons_banner = !UserMilestone.find_by(milestone_id: acknowledge_lessons_banner_milestone&.id, user_id: current_user&.id) && current_user&.classroom_unit_activity_states&.where(completed: true)&.none?
   end
   # rubocop:enable Metrics/CyclomaticComplexity

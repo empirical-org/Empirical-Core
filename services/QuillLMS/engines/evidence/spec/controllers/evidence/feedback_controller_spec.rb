@@ -27,13 +27,13 @@ module Evidence
 
     describe '#create' do
 
-      let(:feedback) { double('feedback', response: {key1: 'some value'} ) }
+      let(:feedback) { double('feedback', response: {key1: 'some value', api: {api_key: 'api_value'}} ) }
       let(:session_id) { 99 }
       let(:attempt) { 3 }
 
       it "should call Check.run_all, save history, and return feedback.response" do
         expect(Check).to receive(:get_feedback).with(entry, prompt, []).and_return(feedback.response)
-        expect(Evidence.feedback_history_class).to receive(:save_feedback).with(feedback.response, entry, prompt.id, session_id, attempt)
+        expect(Evidence.feedback_history_class).to receive(:save_feedback).with(feedback.response.except(:api), entry, prompt.id, session_id, attempt, feedback.response[:api])
 
         post :create, params: {entry: entry, prompt_id: prompt.id, session_id: session_id, previous_feedback: ([]), attempt: attempt }, as: :json
 
@@ -74,7 +74,6 @@ module Evidence
                 :feedback => first_feedback.text,
                 :feedback_type => "autoML",
                 :optimal => rule.optimal,
-                :response_id => "",
                 :entry => entry,
                 :concept_uid => rule.concept_uid,
                 :rule_uid => rule.uid,
@@ -236,7 +235,6 @@ module Evidence
             'feedback' => nil,
             'feedback_type' => 'grammar',
             'optimal' => false,
-            'response_id' => '0',
             'highlight' => [
               { 'type' => 'response', 'text' => 'someText', 'character' => 0 }
             ],
@@ -290,7 +288,6 @@ module Evidence
             'feedback' => nil,
             'feedback_type' => 'opinion',
             'optimal' => false,
-            'response_id' => '0',
             'highlight' => [
               { 'type' => 'response', 'text' => 'someText', 'character' => 0 }
             ],
@@ -313,7 +310,6 @@ module Evidence
               'feedback' => 'lorem ipsum',
               'feedback_type' => 'opinion',
               'optimal' => false,
-              'response_id' => '0',
               'highlight' => [
                 { 'type' => 'response', 'text' => 'someText', 'character' => 0 }
               ],
@@ -368,7 +364,6 @@ module Evidence
           'feedback' => nil,
           'feedback_type' => 'grammar',
           'optimal' => false,
-          'response_id' => '0',
           'highlight' => [
             { 'type' => 'response', 'text' => 'someText', 'character' => 0 }
           ],
@@ -391,7 +386,6 @@ module Evidence
             'feedback' => 'lorem ipsum',
             'feedback_type' => 'grammar',
             'optimal' => false,
-            'response_id' => '0',
             'highlight' => [
               { 'type' => 'response', 'text' => 'someText', 'character' => 0 }
             ],
@@ -446,7 +440,6 @@ module Evidence
           'feedback' => nil,
           'feedback_type' => 'opinion',
           'optimal' => false,
-          'response_id' => '0',
           'highlight' => [
             { 'type' => 'response', 'text' => 'someText', 'character' => 0 }
           ],
@@ -469,7 +462,6 @@ module Evidence
             'feedback' => 'lorem ipsum',
             'feedback_type' => 'opinion',
             'optimal' => false,
-            'response_id' => '0',
             'highlight' => [
               { 'type' => 'response', 'text' => 'someText', 'character' => 0 }
             ],
@@ -617,16 +609,16 @@ module Evidence
             post("automl", :params => ({ :entry => entry, :prompt_id => prompt.id, :session_id => 1, :previous_feedback => ([]) }), :as => :json)
             parsed_response = JSON.parse(response.body)
             expect({
+              :api => {:confidence => nil},
               :feedback => first_feedback.text,
               :feedback_type => "autoML",
               :optimal => rule.optimal,
-              :response_id => "",
               :entry => entry,
               :concept_uid => rule.concept_uid,
               :rule_uid => rule.uid,
               :highlight => ([]),
               :hint => rule.hint.serializable_hash
-            }.stringify_keys).to(eq(parsed_response))
+            }.deep_stringify_keys).to(eq(parsed_response))
           end
         end
       end

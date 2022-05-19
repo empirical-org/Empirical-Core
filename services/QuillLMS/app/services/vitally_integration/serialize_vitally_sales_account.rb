@@ -8,7 +8,7 @@ class SerializeVitallySalesAccount
   end
 
   def data
-    current_time = Time.zone.now
+    current_time = Time.current
     school_year_start = School.school_year_start(current_time)
     active_students = active_students_query(@school).count
     active_students_this_year = active_students_query(@school).where("activity_sessions.updated_at >= ?", school_year_start).count
@@ -26,7 +26,7 @@ class SerializeVitallySalesAccount
         city: @school.city,
         state: @school.state,
         zipcode: @school.zipcode,
-        district: @school.leanm,
+        district: @school.district&.name,
         phone: @school.phone,
         charter: @school.charter,
         frl: @school.free_lunches,
@@ -57,7 +57,7 @@ class SerializeVitallySalesAccount
   end
 
   private def get_from_cache(key)
-    last_school_year = School.school_year_start(Date.today - 1.year).year
+    last_school_year = School.school_year_start(Date.current - 1.year).year
     cached_data = CacheVitallySchoolData.get(@school.id, last_school_year)
     if cached_data.present?
       parsed_data = JSON.parse(cached_data)

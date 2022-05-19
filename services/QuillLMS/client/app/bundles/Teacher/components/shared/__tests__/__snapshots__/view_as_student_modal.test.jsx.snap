@@ -159,6 +159,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
               defaultInputValue=""
               defaultMenuIsOpen={false}
               defaultValue={null}
+              filterOption={null}
               inputValue=""
               isClearable={false}
               menuIsOpen={false}
@@ -241,7 +242,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                 controlShouldRenderValue={true}
                 cursor={null}
                 escapeClearsValue={false}
-                filterOption={[Function]}
+                filterOption={null}
                 formatGroupLabel={[Function]}
                 getOptionLabel={[Function]}
                 getOptionValue={[Function]}
@@ -409,7 +410,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                       "controlShouldRenderValue": true,
                       "cursor": null,
                       "escapeClearsValue": false,
-                      "filterOption": [Function],
+                      "filterOption": null,
                       "formatGroupLabel": [Function],
                       "getOptionLabel": [Function],
                       "getOptionValue": [Function],
@@ -627,7 +628,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                             "controlShouldRenderValue": true,
                             "cursor": null,
                             "escapeClearsValue": false,
-                            "filterOption": [Function],
+                            "filterOption": null,
                             "formatGroupLabel": [Function],
                             "getOptionLabel": [Function],
                             "getOptionValue": [Function],
@@ -853,7 +854,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                                   "controlShouldRenderValue": true,
                                   "cursor": null,
                                   "escapeClearsValue": false,
-                                  "filterOption": [Function],
+                                  "filterOption": null,
                                   "formatGroupLabel": [Function],
                                   "getOptionLabel": [Function],
                                   "getOptionValue": [Function],
@@ -1079,7 +1080,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                                         "controlShouldRenderValue": true,
                                         "cursor": null,
                                         "escapeClearsValue": false,
-                                        "filterOption": [Function],
+                                        "filterOption": null,
                                         "formatGroupLabel": [Function],
                                         "getOptionLabel": [Function],
                                         "getOptionValue": [Function],
@@ -1259,7 +1260,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                                         "controlShouldRenderValue": true,
                                         "cursor": null,
                                         "escapeClearsValue": false,
-                                        "filterOption": [Function],
+                                        "filterOption": null,
                                         "formatGroupLabel": [Function],
                                         "getOptionLabel": [Function],
                                         "getOptionValue": [Function],
@@ -1558,7 +1559,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                                   "controlShouldRenderValue": true,
                                   "cursor": null,
                                   "escapeClearsValue": false,
-                                  "filterOption": [Function],
+                                  "filterOption": null,
                                   "formatGroupLabel": [Function],
                                   "getOptionLabel": [Function],
                                   "getOptionValue": [Function],
@@ -1766,7 +1767,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                                         "controlShouldRenderValue": true,
                                         "cursor": null,
                                         "escapeClearsValue": false,
-                                        "filterOption": [Function],
+                                        "filterOption": null,
                                         "formatGroupLabel": [Function],
                                         "getOptionLabel": [Function],
                                         "getOptionValue": [Function],
@@ -1985,7 +1986,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                                         "controlShouldRenderValue": true,
                                         "cursor": null,
                                         "escapeClearsValue": false,
-                                        "filterOption": [Function],
+                                        "filterOption": null,
                                         "formatGroupLabel": [Function],
                                         "getOptionLabel": [Function],
                                         "getOptionValue": [Function],
@@ -2234,7 +2235,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
             <div
               className="data-table-headers"
             >
-              <button
+              <th
                 className="data-table-header undefined"
                 style={
                   Object {
@@ -2243,12 +2244,10 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                     "width": "160px",
                   }
                 }
-                tabIndex={-1}
-                type="button"
               >
                 Name
-              </button>
-              <button
+              </th>
+              <th
                 className="data-table-header undefined"
                 style={
                   Object {
@@ -2257,12 +2256,10 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                     "width": "361px",
                   }
                 }
-                tabIndex={-1}
-                type="button"
               >
                 Username
-              </button>
-              <button
+              </th>
+              <th
                 className="data-table-header view-button-section"
                 style={
                   Object {
@@ -2271,8 +2268,6 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                     "width": "88px",
                   }
                 }
-                tabIndex={-1}
-                type="button"
               />
             </div>
             <div
@@ -2520,6 +2515,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
               defaultInputValue=""
               defaultMenuIsOpen={false}
               defaultValue={null}
+              filterOption={null}
               inputValue=""
               isClearable={false}
               menuIsOpen={false}
@@ -2614,7 +2610,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                 controlShouldRenderValue={true}
                 cursor={null}
                 escapeClearsValue={false}
-                filterOption={[Function]}
+                filterOption={null}
                 formatGroupLabel={[Function]}
                 getOptionLabel={[Function]}
                 getOptionValue={[Function]}
@@ -2794,7 +2790,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                       "controlShouldRenderValue": true,
                       "cursor": null,
                       "escapeClearsValue": false,
-                      "filterOption": [Function],
+                      "filterOption": null,
                       "formatGroupLabel": [Function],
                       "getOptionLabel": [Function],
                       "getOptionValue": [Function],
@@ -3024,7 +3020,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                             "controlShouldRenderValue": true,
                             "cursor": null,
                             "escapeClearsValue": false,
-                            "filterOption": [Function],
+                            "filterOption": null,
                             "formatGroupLabel": [Function],
                             "getOptionLabel": [Function],
                             "getOptionValue": [Function],
@@ -3262,7 +3258,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                                   "controlShouldRenderValue": true,
                                   "cursor": null,
                                   "escapeClearsValue": false,
-                                  "filterOption": [Function],
+                                  "filterOption": null,
                                   "formatGroupLabel": [Function],
                                   "getOptionLabel": [Function],
                                   "getOptionValue": [Function],
@@ -3512,7 +3508,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                                         "controlShouldRenderValue": true,
                                         "cursor": null,
                                         "escapeClearsValue": false,
-                                        "filterOption": [Function],
+                                        "filterOption": null,
                                         "formatGroupLabel": [Function],
                                         "getOptionLabel": [Function],
                                         "getOptionValue": [Function],
@@ -3704,7 +3700,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                                         "controlShouldRenderValue": true,
                                         "cursor": null,
                                         "escapeClearsValue": false,
-                                        "filterOption": [Function],
+                                        "filterOption": null,
                                         "formatGroupLabel": [Function],
                                         "getOptionLabel": [Function],
                                         "getOptionValue": [Function],
@@ -4015,7 +4011,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                                   "controlShouldRenderValue": true,
                                   "cursor": null,
                                   "escapeClearsValue": false,
-                                  "filterOption": [Function],
+                                  "filterOption": null,
                                   "formatGroupLabel": [Function],
                                   "getOptionLabel": [Function],
                                   "getOptionValue": [Function],
@@ -4235,7 +4231,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                                         "controlShouldRenderValue": true,
                                         "cursor": null,
                                         "escapeClearsValue": false,
-                                        "filterOption": [Function],
+                                        "filterOption": null,
                                         "formatGroupLabel": [Function],
                                         "getOptionLabel": [Function],
                                         "getOptionValue": [Function],
@@ -4466,7 +4462,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                                         "controlShouldRenderValue": true,
                                         "cursor": null,
                                         "escapeClearsValue": false,
-                                        "filterOption": [Function],
+                                        "filterOption": null,
                                         "formatGroupLabel": [Function],
                                         "getOptionLabel": [Function],
                                         "getOptionValue": [Function],
@@ -4763,7 +4759,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
             <div
               className="data-table-headers"
             >
-              <button
+              <th
                 className="data-table-header undefined"
                 style={
                   Object {
@@ -4772,12 +4768,10 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                     "width": "160px",
                   }
                 }
-                tabIndex={-1}
-                type="button"
               >
                 Name
-              </button>
-              <button
+              </th>
+              <th
                 className="data-table-header undefined"
                 style={
                   Object {
@@ -4786,12 +4780,10 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                     "width": "361px",
                   }
                 }
-                tabIndex={-1}
-                type="button"
               >
                 Username
-              </button>
-              <button
+              </th>
+              <th
                 className="data-table-header view-button-section"
                 style={
                   Object {
@@ -4800,8 +4792,6 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                     "width": "88px",
                   }
                 }
-                tabIndex={-1}
-                type="button"
               />
             </div>
             <div

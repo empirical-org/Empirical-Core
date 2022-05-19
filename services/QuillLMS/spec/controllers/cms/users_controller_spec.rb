@@ -209,10 +209,12 @@ describe Cms::UsersController do
     let!(:user_subscription) { create(:user_subscription, user: another_user, subscription: subscription) }
 
     describe 'when there is no existing subscription' do
+      let(:today) { Date.current }
+
       it 'should create a new subscription that starts today and ends exactly 1 year later' do
         get :new_subscription, params: { id: user_with_no_subscription.id }
-        expect(assigns(:subscription).start_date).to eq Date.today
-        expect(assigns(:subscription).expiration).to eq Date.today + 1.year
+        expect(assigns(:subscription).start_date).to eq today
+        expect(assigns(:subscription).expiration).to eq today + 1.year
       end
     end
 
