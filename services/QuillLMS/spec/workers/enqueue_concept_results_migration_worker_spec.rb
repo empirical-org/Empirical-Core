@@ -36,19 +36,23 @@ describe EnqueueConceptResultsMigrationWorker, type: :worker do
     end
 
     it 'should take start params to skip existing ConceptResults' do
-      new_concept_result = create(:concept_result, activity_session: activity_session)
+      first_concept_result = concept_result
+      middle_concept_result = create(:concept_result, activity_session: activity_session)
+      final_concept_result = create(:concept_result, activity_session: activity_session)
 
-      expect(CopyConceptResultsToStudentResponsesWorker).to receive(:perform_async).with([new_concept_result.id])
+      expect(CopyConceptResultsToStudentResponsesWorker).to receive(:perform_async).with([final_concept_result.id])
 
-      subject.perform(new_concept_result.id, nil)
+      subject.perform(final_concept_result.id, nil)
     end
 
     it 'should take finish params to stop after specific ConceptResults' do
-      new_concept_result = create(:concept_result, activity_session: activity_session)
+      first_concept_result = concept_result
+      middle_concept_result = create(:concept_result, activity_session: activity_session)
+      final_concept_result = create(:concept_result, activity_session: activity_session)
 
-      expect(CopyConceptResultsToStudentResponsesWorker).to receive(:perform_async).with([concept_result.id])
+      expect(CopyConceptResultsToStudentResponsesWorker).to receive(:perform_async).with([concept_result.id, middle_concept_result.id])
 
-      subject.perform(nil, concept_result.id)
+      subject.perform(nil, middle_concept_result.id)
     end
   end
 end
