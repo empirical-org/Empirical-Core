@@ -1483,6 +1483,7 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
               December 7th, 2020
             </span>
             <Tooltip
+              isTabbable={true}
               key="copy-17-1"
               tooltipText={
                 <TurkSessionButton
@@ -1517,8 +1518,7 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
               }
             >
               <span
-                aria-hidden={true}
-                aria-role="button"
+                aria-hidden={false}
                 className="quill-tooltip-trigger"
                 role="tooltip"
                 style={
@@ -1537,6 +1537,7 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
                   onKeyDown={[Function]}
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
+                  role="button"
                   style={
                     Object {
                       "minWidth": "100px",
@@ -1544,7 +1545,7 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
                       "width": "100px",
                     }
                   }
-                  tabIndex={null}
+                  tabIndex={0}
                 >
                   <TurkSessionButton
                     clickHandler={[Function]}
@@ -1574,6 +1575,7 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
               </span>
             </Tooltip>
             <Tooltip
+              isTabbable={true}
               key="edit-17-1"
               tooltipText={
                 <TurkSessionButton
@@ -1608,8 +1610,7 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
               }
             >
               <span
-                aria-hidden={true}
-                aria-role="button"
+                aria-hidden={false}
                 className="quill-tooltip-trigger"
                 role="tooltip"
                 style={
@@ -1628,6 +1629,7 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
                   onKeyDown={[Function]}
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
+                  role="button"
                   style={
                     Object {
                       "minWidth": "100px",
@@ -1635,7 +1637,7 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
                       "width": "100px",
                     }
                   }
-                  tabIndex={null}
+                  tabIndex={0}
                 >
                   <TurkSessionButton
                     clickHandler={[Function]}
@@ -1665,6 +1667,7 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
               </span>
             </Tooltip>
             <Tooltip
+              isTabbable={true}
               key="delete-17-1"
               tooltipText={
                 <TurkSessionButton
@@ -1697,8 +1700,7 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
               }
             >
               <span
-                aria-hidden={true}
-                aria-role="button"
+                aria-hidden={false}
                 className="quill-tooltip-trigger"
                 role="tooltip"
                 style={
@@ -1717,6 +1719,7 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
                   onKeyDown={[Function]}
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
+                  role="button"
                   style={
                     Object {
                       "minWidth": "100px",
@@ -1724,7 +1727,7 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
                       "width": "100px",
                     }
                   }
-                  tabIndex={null}
+                  tabIndex={0}
                 >
                   <TurkSessionButton
                     clickHandler={[Function]}

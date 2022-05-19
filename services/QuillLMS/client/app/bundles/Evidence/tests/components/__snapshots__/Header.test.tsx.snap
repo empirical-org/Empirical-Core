@@ -52,7 +52,6 @@ exports[`StudentViewContainer component when the activity has loaded renders 1`]
           >
             <span
               aria-hidden={false}
-              aria-role="button"
               className="quill-tooltip-trigger"
               role="tooltip"
             >
@@ -64,6 +63,7 @@ exports[`StudentViewContainer component when the activity has loaded renders 1`]
                 onKeyDown={[Function]}
                 onMouseEnter={[Function]}
                 onMouseLeave={[Function]}
+                role="button"
                 tabIndex={0}
               >
                 <div>

@@ -12,7 +12,7 @@ interface TooltipProps {
   tooltipTriggerStyle?: { [key:string]: any }
 }
 
-export class Tooltip extends React.Component<TooltipProps, { clickedFromMobile: boolean, tooltipVisible: boolean }> {
+class Tooltip extends React.Component<TooltipProps, { clickedFromMobile: boolean, tooltipVisible: boolean }> {
   private timer: any // eslint-disable-line react/sort-comp
   private tooltip: any // eslint-disable-line react/sort-comp
   private tooltipTrigger: any // eslint-disable-line react/sort-comp
@@ -127,3 +127,9 @@ export class Tooltip extends React.Component<TooltipProps, { clickedFromMobile: 
     )
   }
 }
+
+Tooltip.defaultProps = {
+  isTabbable: true
+}
+
+export { Tooltip, }

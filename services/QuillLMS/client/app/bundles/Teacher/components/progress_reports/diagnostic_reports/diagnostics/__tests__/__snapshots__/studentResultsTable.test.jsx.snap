@@ -115,6 +115,7 @@ exports[`StudentResultsTable component should render when there is no student da
                 name="Compound-Complex Sentences"
               >
                 <Tooltip
+                  isTabbable={true}
                   tooltipText="<p>Compound-Complex Sentences<br/><br/>null</p>"
                   tooltipTriggerText={
                     <img
@@ -124,8 +125,7 @@ exports[`StudentResultsTable component should render when there is no student da
                   }
                 >
                   <span
-                    aria-hidden={true}
-                    aria-role="button"
+                    aria-hidden={false}
                     className="quill-tooltip-trigger"
                     role="tooltip"
                   >
@@ -137,7 +137,8 @@ exports[`StudentResultsTable component should render when there is no student da
                       onKeyDown={[Function]}
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
-                      tabIndex={null}
+                      role="button"
+                      tabIndex={0}
                     >
                       <img
                         alt="Question mark icon"
@@ -174,6 +175,7 @@ exports[`StudentResultsTable component should render when there is no student da
                 name="Appositive Phrases"
               >
                 <Tooltip
+                  isTabbable={true}
                   tooltipText="<p>Appositive Phrases<br/><br/>null</p>"
                   tooltipTriggerText={
                     <img
@@ -183,8 +185,7 @@ exports[`StudentResultsTable component should render when there is no student da
                   }
                 >
                   <span
-                    aria-hidden={true}
-                    aria-role="button"
+                    aria-hidden={false}
                     className="quill-tooltip-trigger"
                     role="tooltip"
                   >
@@ -196,7 +197,8 @@ exports[`StudentResultsTable component should render when there is no student da
                       onKeyDown={[Function]}
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
-                      tabIndex={null}
+                      role="button"
+                      tabIndex={0}
                     >
                       <img
                         alt="Question mark icon"
@@ -233,6 +235,7 @@ exports[`StudentResultsTable component should render when there is no student da
                 name="Relative Clauses"
               >
                 <Tooltip
+                  isTabbable={true}
                   tooltipText="<p>Relative Clauses<br/><br/>null</p>"
                   tooltipTriggerText={
                     <img
@@ -242,8 +245,7 @@ exports[`StudentResultsTable component should render when there is no student da
                   }
                 >
                   <span
-                    aria-hidden={true}
-                    aria-role="button"
+                    aria-hidden={false}
                     className="quill-tooltip-trigger"
                     role="tooltip"
                   >
@@ -255,7 +257,8 @@ exports[`StudentResultsTable component should render when there is no student da
                       onKeyDown={[Function]}
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
-                      tabIndex={null}
+                      role="button"
+                      tabIndex={0}
                     >
                       <img
                         alt="Question mark icon"
@@ -292,6 +295,7 @@ exports[`StudentResultsTable component should render when there is no student da
                 name="Participal Phrases"
               >
                 <Tooltip
+                  isTabbable={true}
                   tooltipText="<p>Participal Phrases<br/><br/>null</p>"
                   tooltipTriggerText={
                     <img
@@ -301,8 +305,7 @@ exports[`StudentResultsTable component should render when there is no student da
                   }
                 >
                   <span
-                    aria-hidden={true}
-                    aria-role="button"
+                    aria-hidden={false}
                     className="quill-tooltip-trigger"
                     role="tooltip"
                   >
@@ -314,7 +317,8 @@ exports[`StudentResultsTable component should render when there is no student da
                       onKeyDown={[Function]}
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
-                      tabIndex={null}
+                      role="button"
+                      tabIndex={0}
                     >
                       <img
                         alt="Question mark icon"
@@ -351,6 +355,7 @@ exports[`StudentResultsTable component should render when there is no student da
                 name="Parallel Structure"
               >
                 <Tooltip
+                  isTabbable={true}
                   tooltipText="<p>Parallel Structure<br/><br/>null</p>"
                   tooltipTriggerText={
                     <img
@@ -360,8 +365,7 @@ exports[`StudentResultsTable component should render when there is no student da
                   }
                 >
                   <span
-                    aria-hidden={true}
-                    aria-role="button"
+                    aria-hidden={false}
                     className="quill-tooltip-trigger"
                     role="tooltip"
                   >
@@ -373,7 +377,8 @@ exports[`StudentResultsTable component should render when there is no student da
                       onKeyDown={[Function]}
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
-                      tabIndex={null}
+                      role="button"
+                      tabIndex={0}
                     >
                       <img
                         alt="Question mark icon"
@@ -410,6 +415,7 @@ exports[`StudentResultsTable component should render when there is no student da
                 name="Advanced Combining"
               >
                 <Tooltip
+                  isTabbable={true}
                   tooltipText="<p>Advanced Combining<br/><br/>null</p>"
                   tooltipTriggerText={
                     <img
@@ -419,8 +425,7 @@ exports[`StudentResultsTable component should render when there is no student da
                   }
                 >
                   <span
-                    aria-hidden={true}
-                    aria-role="button"
+                    aria-hidden={false}
                     className="quill-tooltip-trigger"
                     role="tooltip"
                   >
@@ -432,7 +437,8 @@ exports[`StudentResultsTable component should render when there is no student da
                       onKeyDown={[Function]}
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
-                      tabIndex={null}
+                      role="button"
+                      tabIndex={0}
                     >
                       <img
                         alt="Question mark icon"
@@ -469,6 +475,7 @@ exports[`StudentResultsTable component should render when there is no student da
                 name="Subject-Verb Agreement"
               >
                 <Tooltip
+                  isTabbable={true}
                   tooltipText="<p>Subject-Verb Agreement<br/><br/>null</p>"
                   tooltipTriggerText={
                     <img
@@ -478,8 +485,7 @@ exports[`StudentResultsTable component should render when there is no student da
                   }
                 >
                   <span
-                    aria-hidden={true}
-                    aria-role="button"
+                    aria-hidden={false}
                     className="quill-tooltip-trigger"
                     role="tooltip"
                   >
@@ -491,7 +497,8 @@ exports[`StudentResultsTable component should render when there is no student da
                       onKeyDown={[Function]}
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
-                      tabIndex={null}
+                      role="button"
+                      tabIndex={0}
                     >
                       <img
                         alt="Question mark icon"
@@ -528,6 +535,7 @@ exports[`StudentResultsTable component should render when there is no student da
                 name="Nouns, Pronouns, and Verbs"
               >
                 <Tooltip
+                  isTabbable={true}
                   tooltipText="<p>Nouns, Pronouns, and Verbs<br/><br/>null</p>"
                   tooltipTriggerText={
                     <img
@@ -537,8 +545,7 @@ exports[`StudentResultsTable component should render when there is no student da
                   }
                 >
                   <span
-                    aria-hidden={true}
-                    aria-role="button"
+                    aria-hidden={false}
                     className="quill-tooltip-trigger"
                     role="tooltip"
                   >
@@ -550,7 +557,8 @@ exports[`StudentResultsTable component should render when there is no student da
                       onKeyDown={[Function]}
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
-                      tabIndex={null}
+                      role="button"
+                      tabIndex={0}
                     >
                       <img
                         alt="Question mark icon"
@@ -1610,6 +1618,7 @@ exports[`StudentResultsTable component should render when there is student data 
                 name="Capitalization"
               >
                 <Tooltip
+                  isTabbable={true}
                   tooltipText="<p>Capitalization<br/><br/>null</p>"
                   tooltipTriggerText={
                     <img
@@ -1619,8 +1628,7 @@ exports[`StudentResultsTable component should render when there is student data 
                   }
                 >
                   <span
-                    aria-hidden={true}
-                    aria-role="button"
+                    aria-hidden={false}
                     className="quill-tooltip-trigger"
                     role="tooltip"
                   >
@@ -1632,7 +1640,8 @@ exports[`StudentResultsTable component should render when there is student data 
                       onKeyDown={[Function]}
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
-                      tabIndex={null}
+                      role="button"
+                      tabIndex={0}
                     >
                       <img
                         alt="Question mark icon"
@@ -1677,6 +1686,7 @@ exports[`StudentResultsTable component should render when there is student data 
                 name="Plural and Possessive Nouns"
               >
                 <Tooltip
+                  isTabbable={true}
                   tooltipText="<p>Plural and Possessive Nouns<br/><br/>null</p>"
                   tooltipTriggerText={
                     <img
@@ -1686,8 +1696,7 @@ exports[`StudentResultsTable component should render when there is student data 
                   }
                 >
                   <span
-                    aria-hidden={true}
-                    aria-role="button"
+                    aria-hidden={false}
                     className="quill-tooltip-trigger"
                     role="tooltip"
                   >
@@ -1699,7 +1708,8 @@ exports[`StudentResultsTable component should render when there is student data 
                       onKeyDown={[Function]}
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
-                      tabIndex={null}
+                      role="button"
+                      tabIndex={0}
                     >
                       <img
                         alt="Question mark icon"
@@ -1745,6 +1755,7 @@ exports[`StudentResultsTable component should render when there is student data 
                 name="Adjectives and Adverbs"
               >
                 <Tooltip
+                  isTabbable={true}
                   tooltipText="<p>Adjectives and Adverbs<br/><br/>null</p>"
                   tooltipTriggerText={
                     <img
@@ -1754,8 +1765,7 @@ exports[`StudentResultsTable component should render when there is student data 
                   }
                 >
                   <span
-                    aria-hidden={true}
-                    aria-role="button"
+                    aria-hidden={false}
                     className="quill-tooltip-trigger"
                     role="tooltip"
                   >
@@ -1767,7 +1777,8 @@ exports[`StudentResultsTable component should render when there is student data 
                       onKeyDown={[Function]}
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
-                      tabIndex={null}
+                      role="button"
+                      tabIndex={0}
                     >
                       <img
                         alt="Question mark icon"
@@ -1813,6 +1824,7 @@ exports[`StudentResultsTable component should render when there is student data 
                 name="Prepositional Phrases"
               >
                 <Tooltip
+                  isTabbable={true}
                   tooltipText="<p>Prepositional Phrases<br/><br/>null</p>"
                   tooltipTriggerText={
                     <img
@@ -1822,8 +1834,7 @@ exports[`StudentResultsTable component should render when there is student data 
                   }
                 >
                   <span
-                    aria-hidden={true}
-                    aria-role="button"
+                    aria-hidden={false}
                     className="quill-tooltip-trigger"
                     role="tooltip"
                   >
@@ -1835,7 +1846,8 @@ exports[`StudentResultsTable component should render when there is student data 
                       onKeyDown={[Function]}
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
-                      tabIndex={null}
+                      role="button"
+                      tabIndex={0}
                     >
                       <img
                         alt="Question mark icon"
@@ -1881,6 +1893,7 @@ exports[`StudentResultsTable component should render when there is student data 
                 name="Compound Subjects, Objects, and Predicates"
               >
                 <Tooltip
+                  isTabbable={true}
                   tooltipText="<p>Compound Subjects, Objects, and Predicates<br/><br/>null</p>"
                   tooltipTriggerText={
                     <img
@@ -1890,8 +1903,7 @@ exports[`StudentResultsTable component should render when there is student data 
                   }
                 >
                   <span
-                    aria-hidden={true}
-                    aria-role="button"
+                    aria-hidden={false}
                     className="quill-tooltip-trigger"
                     role="tooltip"
                   >
@@ -1903,7 +1915,8 @@ exports[`StudentResultsTable component should render when there is student data 
                       onKeyDown={[Function]}
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
-                      tabIndex={null}
+                      role="button"
+                      tabIndex={0}
                     >
                       <img
                         alt="Question mark icon"
@@ -1948,6 +1961,7 @@ exports[`StudentResultsTable component should render when there is student data 
                 name="Commonly Confused Words"
               >
                 <Tooltip
+                  isTabbable={true}
                   tooltipText="<p>Commonly Confused Words<br/><br/>null</p>"
                   tooltipTriggerText={
                     <img
@@ -1957,8 +1971,7 @@ exports[`StudentResultsTable component should render when there is student data 
                   }
                 >
                   <span
-                    aria-hidden={true}
-                    aria-role="button"
+                    aria-hidden={false}
                     className="quill-tooltip-trigger"
                     role="tooltip"
                   >
@@ -1970,7 +1983,8 @@ exports[`StudentResultsTable component should render when there is student data 
                       onKeyDown={[Function]}
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
-                      tabIndex={null}
+                      role="button"
+                      tabIndex={0}
                     >
                       <img
                         alt="Question mark icon"

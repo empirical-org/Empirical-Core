@@ -34,12 +34,12 @@ exports[`OverrideWarningModal component should render 1`] = `
       >
         <p>
           <Tooltip
+            isTabbable={true}
             tooltipText="Student Name"
             tooltipTriggerText="1 student"
           >
             <span
-              aria-hidden={true}
-              aria-role="button"
+              aria-hidden={false}
               className="quill-tooltip-trigger"
               role="tooltip"
             >
@@ -51,7 +51,8 @@ exports[`OverrideWarningModal component should render 1`] = `
                 onKeyDown={[Function]}
                 onMouseEnter={[Function]}
                 onMouseLeave={[Function]}
-                tabIndex={null}
+                role="button"
+                tabIndex={0}
               >
                 1 student
               </span>

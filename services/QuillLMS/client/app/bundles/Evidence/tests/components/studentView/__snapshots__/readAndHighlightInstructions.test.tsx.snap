@@ -85,7 +85,6 @@ exports[`ReadAndHighlightInstructions component when the student has not started
         >
           <span
             aria-hidden={false}
-            aria-role="button"
             className="quill-tooltip-trigger"
             role="tooltip"
           >
@@ -97,6 +96,7 @@ exports[`ReadAndHighlightInstructions component when the student has not started
               onKeyDown={[Function]}
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
+              role="button"
               tabIndex={0}
             >
               <img
@@ -216,7 +216,6 @@ exports[`ReadAndHighlightInstructions component when the student has started mak
         >
           <span
             aria-hidden={false}
-            aria-role="button"
             className="quill-tooltip-trigger"
             role="tooltip"
           >
@@ -228,6 +227,7 @@ exports[`ReadAndHighlightInstructions component when the student has started mak
               onKeyDown={[Function]}
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
+              role="button"
               tabIndex={0}
             >
               <img

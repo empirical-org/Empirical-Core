@@ -63507,13 +63507,13 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                     type="button"
                   />
                   <Tooltip
+                    isTabbable={true}
                     tooltipText="History: Causes of the American Revolution"
                     tooltipTriggerText="History: Causes of the American Revolution"
                     tooltipTriggerTextClass="tooltip-trigger-text"
                   >
                     <span
-                      aria-hidden={true}
-                      aria-role="button"
+                      aria-hidden={false}
                       className="quill-tooltip-trigger"
                       role="tooltip"
                     >
@@ -63525,7 +63525,8 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                         onKeyDown={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
-                        tabIndex={null}
+                        role="button"
+                        tabIndex={0}
                       >
                         History: Causes of the American Revolution
                       </span>

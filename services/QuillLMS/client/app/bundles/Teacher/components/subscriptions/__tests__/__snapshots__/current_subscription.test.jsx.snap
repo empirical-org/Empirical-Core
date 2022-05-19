@@ -91,6 +91,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
                     <span>
                       School Premium
                       <Tooltip
+                        isTabbable={true}
                         tooltipText="You have a School Paid subscription"
                         tooltipTriggerText={
                           <span>
@@ -116,6 +117,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
                       <span>
                         School Premium
                         <Tooltip
+                          isTabbable={true}
                           tooltipText="You have a School Paid subscription"
                           tooltipTriggerText={
                             <span>
@@ -128,8 +130,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
                           }
                         >
                           <span
-                            aria-hidden={true}
-                            aria-role="button"
+                            aria-hidden={false}
                             className="quill-tooltip-trigger"
                             role="tooltip"
                           >
@@ -141,7 +142,8 @@ exports[`CurrentSubscription container when there is a current subscription shou
                               onKeyDown={[Function]}
                               onMouseEnter={[Function]}
                               onMouseLeave={[Function]}
-                              tabIndex={null}
+                              role="button"
+                              tabIndex={0}
                             >
                               <span>
                                 <img
@@ -320,6 +322,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
                     <span>
                       School Premium
                       <Tooltip
+                        isTabbable={true}
                         tooltipText="You have a School Paid subscription"
                         tooltipTriggerText={
                           <span>
@@ -345,6 +348,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
                       <span>
                         School Premium
                         <Tooltip
+                          isTabbable={true}
                           tooltipText="You have a School Paid subscription"
                           tooltipTriggerText={
                             <span>
@@ -357,8 +361,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
                           }
                         >
                           <span
-                            aria-hidden={true}
-                            aria-role="button"
+                            aria-hidden={false}
                             className="quill-tooltip-trigger"
                             role="tooltip"
                           >
@@ -370,7 +373,8 @@ exports[`CurrentSubscription container when there is a current subscription shou
                               onKeyDown={[Function]}
                               onMouseEnter={[Function]}
                               onMouseLeave={[Function]}
-                              tabIndex={null}
+                              role="button"
+                              tabIndex={0}
                             >
                               <span>
                                 <img
@@ -564,6 +568,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
                     <span>
                       School Premium
                       <Tooltip
+                        isTabbable={true}
                         tooltipText="You have a School Paid subscription"
                         tooltipTriggerText={
                           <span>
@@ -589,6 +594,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
                       <span>
                         School Premium
                         <Tooltip
+                          isTabbable={true}
                           tooltipText="You have a School Paid subscription"
                           tooltipTriggerText={
                             <span>
@@ -601,8 +607,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
                           }
                         >
                           <span
-                            aria-hidden={true}
-                            aria-role="button"
+                            aria-hidden={false}
                             className="quill-tooltip-trigger"
                             role="tooltip"
                           >
@@ -614,7 +619,8 @@ exports[`CurrentSubscription container when there is a current subscription shou
                               onKeyDown={[Function]}
                               onMouseEnter={[Function]}
                               onMouseLeave={[Function]}
-                              tabIndex={null}
+                              role="button"
+                              tabIndex={0}
                             >
                               <span>
                                 <img

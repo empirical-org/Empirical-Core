@@ -2,12 +2,12 @@
 
 exports[`Tooltip component should render when it is not searchable 1`] = `
 <Tooltip
+  isTabbable={true}
   tooltipText="I am a tooltip"
   tooltipTriggerText="I have a lot of text"
 >
   <span
-    aria-hidden={true}
-    aria-role="button"
+    aria-hidden={false}
     className="quill-tooltip-trigger"
     role="tooltip"
   >
@@ -19,7 +19,8 @@ exports[`Tooltip component should render when it is not searchable 1`] = `
       onKeyDown={[Function]}
       onMouseEnter={[Function]}
       onMouseLeave={[Function]}
-      tabIndex={null}
+      role="button"
+      tabIndex={0}
     >
       I have a lot of text
     </span>

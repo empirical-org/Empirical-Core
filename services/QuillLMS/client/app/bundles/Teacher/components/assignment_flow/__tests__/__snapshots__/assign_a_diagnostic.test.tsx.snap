@@ -570,6 +570,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                       </span>
                     </a>
                     <Tooltip
+                      isTabbable={true}
                       tooltipText="This is locked because you haven't assigned the Intermediate Baseline Diagnostic yet. Assign it to unlock the Intermediate Growth Diagnostic."
                       tooltipTriggerText={
                         <button
@@ -585,8 +586,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                       }
                     >
                       <span
-                        aria-hidden={true}
-                        aria-role="button"
+                        aria-hidden={false}
                         className="quill-tooltip-trigger"
                         role="tooltip"
                       >
@@ -598,7 +598,8 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                           onKeyDown={[Function]}
                           onMouseEnter={[Function]}
                           onMouseLeave={[Function]}
-                          tabIndex={null}
+                          role="button"
+                          tabIndex={0}
                         >
                           <button
                             className="quill-button small disabled contained"
@@ -850,6 +851,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                       </span>
                     </a>
                     <Tooltip
+                      isTabbable={true}
                       tooltipText="This is locked because you haven't assigned the Advanced Baseline Diagnostic yet. Assign it to unlock the Advanced Growth Diagnostic."
                       tooltipTriggerText={
                         <button
@@ -865,8 +867,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                       }
                     >
                       <span
-                        aria-hidden={true}
-                        aria-role="button"
+                        aria-hidden={false}
                         className="quill-tooltip-trigger"
                         role="tooltip"
                       >
@@ -878,7 +879,8 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                           onKeyDown={[Function]}
                           onMouseEnter={[Function]}
                           onMouseLeave={[Function]}
-                          tabIndex={null}
+                          role="button"
+                          tabIndex={0}
                         >
                           <button
                             className="quill-button small disabled contained"

@@ -16,11 +16,11 @@ class Tooltips extends React.Component<any, any> {
             {
               `<div className="tooltips-container">
   <Tooltip
+    isTabbable={true}
     tooltipText="I am a tooltip!"
     tooltipTriggerText="Hover here"
   />
   <Tooltip
-    isTabbable={true}
     tooltipText="But the wind and water know all the earth’s secrets. They’ve seen and heard all that has ever been said or done. And if you listen, they will tell you all the stories and sing every song. The stories of everyone who has ever lived. Millions and millions of lives. Millions and millions of stories."
     tooltipTriggerText="Or here"
   />
