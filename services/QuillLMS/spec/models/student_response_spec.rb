@@ -131,7 +131,7 @@ RSpec.describe StudentResponse, type: :model do
           .and change(StudentResponsePromptText, :count).by(1)
           .and change(StudentResponseQuestionType, :count).by(1)
           .and not_change(StudentResponseInstructionsText, :count)
-          # No change expected above when "instructions" aren't in the payload
+        # No change expected above when "instructions" aren't in the payload
       end
 
       it 'should not link to records when the appropriate keys are not provided' do
