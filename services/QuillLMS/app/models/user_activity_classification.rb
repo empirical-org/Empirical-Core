@@ -6,7 +6,6 @@
 #
 #  id                         :bigint           not null, primary key
 #  count                      :integer          default(0)
-#  school_year_start          :datetime         not null
 #  activity_classification_id :bigint
 #  user_id                    :bigint
 #
@@ -14,7 +13,6 @@
 #
 #  index_user_activity_classifications_on_classifications  (activity_classification_id)
 #  index_user_activity_classifications_on_user_id          (user_id)
-#  uac_user_school_year_classification_unique              (user_id,school_year_start,activity_classification_id) UNIQUE
 #  user_activity_classification_unique_index               (user_id,activity_classification_id)
 #
 # Foreign Keys

@@ -1,5 +1,20 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: announcements
+#
+#  id                :integer          not null, primary key
+#  announcement_type :string
+#  end               :datetime
+#  link              :text
+#  start             :datetime
+#  text              :text
+#
+# Indexes
+#
+#  index_announcements_on_start_and_end  (start,end)
+#
 FactoryBot.define do
   factory :announcement do
     announcement_type   Announcement::TYPES[:webinar]

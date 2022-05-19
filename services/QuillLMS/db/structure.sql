@@ -124,7 +124,7 @@ CREATE FUNCTION public.timespent_question(act_sess integer, question character v
           item timestamp;
         BEGIN
           SELECT created_at INTO as_created_at FROM activity_sessions WHERE id = act_sess;
-          
+
           -- backward compatibility block
           IF as_created_at IS NULL OR as_created_at < timestamp '2013-08-25 00:00:00.000000' THEN
             SELECT SUM(
@@ -139,11 +139,11 @@ CREATE FUNCTION public.timespent_question(act_sess integer, question character v
                       'epoch' FROM (activity_sessions.completed_at - activity_sessions.started_at)
                     )
                 END) INTO time_spent FROM activity_sessions WHERE id = act_sess AND state='finished';
-                
+
                 RETURN COALESCE(time_spent,0);
           END IF;
-          
-          
+
+
           first_item := NULL;
           last_item := NULL;
           max_item := NULL;
@@ -167,11 +167,11 @@ CREATE FUNCTION public.timespent_question(act_sess integer, question character v
 
             END IF;
           END LOOP;
-          
+
           IF max_item IS NOT NULL AND first_item IS NOT NULL THEN
             time_spent := time_spent + EXTRACT( EPOCH FROM max_item - first_item );
           END IF;
-          
+
           RETURN time_spent;
         END;
       $$;
@@ -186,7 +186,7 @@ CREATE FUNCTION public.timespent_student(student integer) RETURNS bigint
     AS $$
         SELECT COALESCE(SUM(time_spent),0) FROM (
           SELECT id,timespent_activity_session(id) AS time_spent FROM activity_sessions
-          WHERE activity_sessions.user_id = student 
+          WHERE activity_sessions.user_id = student
           GROUP BY id) as as_ids;
 
       $$;
@@ -2036,7 +2036,7 @@ ALTER SEQUENCE public.district_admins_id_seq OWNED BY public.district_admins.id;
 CREATE TABLE public.districts (
     id integer NOT NULL,
     clever_id character varying,
-    name character varying,
+    name character varying NOT NULL,
     token character varying,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
@@ -2732,7 +2732,6 @@ CREATE TABLE public.plans (
     audience character varying NOT NULL,
     "interval" character varying,
     interval_count integer,
-    stripe_price_id character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -3031,6 +3030,49 @@ ALTER SEQUENCE public.sales_contacts_id_seq OWNED BY public.sales_contacts.id;
 
 
 --
+-- Name: sales_form_submissions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.sales_form_submissions (
+    id bigint NOT NULL,
+    first_name character varying NOT NULL,
+    last_name character varying NOT NULL,
+    email character varying NOT NULL,
+    phone_number character varying NOT NULL,
+    zipcode character varying NOT NULL,
+    collection_type character varying NOT NULL,
+    school_name character varying NOT NULL,
+    district_name character varying NOT NULL,
+    school_premium_count_estimate integer DEFAULT 0 NOT NULL,
+    teacher_premium_count_estimate integer DEFAULT 0 NOT NULL,
+    student_premium_count_estimate integer DEFAULT 0 NOT NULL,
+    submission_type character varying NOT NULL,
+    comment text DEFAULT ''::text,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: sales_form_submissions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.sales_form_submissions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: sales_form_submissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.sales_form_submissions_id_seq OWNED BY public.sales_form_submissions.id;
+
+
+--
 -- Name: sales_stage_types; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3149,8 +3191,6 @@ ALTER SEQUENCE public.school_subscriptions_id_seq OWNED BY public.school_subscri
 CREATE TABLE public.schools (
     id integer NOT NULL,
     nces_id character varying,
-    lea_id character varying,
-    leanm character varying,
     name character varying,
     phone character varying,
     mail_street character varying,
@@ -4277,8 +4317,7 @@ CREATE TABLE public.user_activity_classifications (
     id bigint NOT NULL,
     user_id bigint,
     activity_classification_id bigint,
-    count integer DEFAULT 0,
-    school_year_start timestamp without time zone NOT NULL
+    count integer DEFAULT 0
 );
 
 
@@ -5003,6 +5042,13 @@ ALTER TABLE ONLY public.referrer_users ALTER COLUMN id SET DEFAULT nextval('publ
 --
 
 ALTER TABLE ONLY public.sales_contacts ALTER COLUMN id SET DEFAULT nextval('public.sales_contacts_id_seq'::regclass);
+
+
+--
+-- Name: sales_form_submissions id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.sales_form_submissions ALTER COLUMN id SET DEFAULT nextval('public.sales_form_submissions_id_seq'::regclass);
 
 
 --
@@ -5922,6 +5968,14 @@ ALTER TABLE ONLY public.referrer_users
 
 ALTER TABLE ONLY public.sales_contacts
     ADD CONSTRAINT sales_contacts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: sales_form_submissions sales_form_submissions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.sales_form_submissions
+    ADD CONSTRAINT sales_form_submissions_pkey PRIMARY KEY (id);
 
 
 --
@@ -6869,6 +6923,13 @@ CREATE INDEX index_district_admins_on_user_id ON public.district_admins USING bt
 
 
 --
+-- Name: index_districts_on_nces_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_districts_on_nces_id ON public.districts USING btree (nces_id);
+
+
+--
 -- Name: index_districts_users_on_district_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -7699,13 +7760,6 @@ CREATE INDEX name_idx ON public.users USING gin (name public.gin_trgm_ops);
 --
 
 CREATE INDEX tsv_idx ON public.blog_posts USING gin (tsv);
-
-
---
--- Name: uac_user_school_year_classification_unique; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX uac_user_school_year_classification_unique ON public.user_activity_classifications USING btree (user_id, school_year_start, activity_classification_id);
 
 
 --
@@ -8761,6 +8815,10 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220328165932'),
 ('20220328170304'),
 ('20220404180807'),
+('20220418234207'),
+('20220428171629'),
+('20220503133521'),
+('20220503155835'),
 ('20220505154357'),
 ('20220505154724'),
 ('20220505154951'),
