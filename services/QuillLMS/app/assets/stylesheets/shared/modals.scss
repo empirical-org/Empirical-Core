@@ -493,29 +493,6 @@
 .clever-classrooms-empty-modal,
 .google-classrooms-empty-modal,
 .reauthorize-clever-modal,
-.welcome-modal {
-  width: 560px;
-  overflow: visible;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  position: fixed !important;
-  text-align: left;
-  p {
-    line-height: 1.57;
-    color: #646464;
-    margin-bottom: 32px;
-  }
-  .checkboxes {
-    margin-bottom: 32px;
-    .checkbox-row {
-      margin-bottom: 16px;
-      align-items: flex-start;
-      .quill-checkbox {
-        margin-top: 5px;
-      }
-    }
-  }
-}
 
 .share-activity-pack-modal {
   bottom: 0;
@@ -682,13 +659,33 @@
   height: 250px;
 }
 
-.welcome-modal {
+.welcome-modal-without-demo {
   max-width: 760px;
   width: 100%;
   height: 440px;
   padding: 72px 0 72px 32px;
   display: flex;
   align-items: center;
+  overflow: visible;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  position: fixed !important;
+  text-align: left;
+  p {
+    line-height: 1.57;
+    color: #646464;
+    margin-bottom: 32px;
+  }
+  .checkboxes {
+    margin-bottom: 32px;
+    .checkbox-row {
+      margin-bottom: 16px;
+      align-items: flex-start;
+      .quill-checkbox {
+        margin-top: 5px;
+      }
+    }
+  }
   .modal-body {
     padding: 0px;
     margin-bottom: 0px;
@@ -722,6 +719,134 @@
     height: min-content;
     img {
       display: none;
+    }
+  }
+}
+
+.welcome-modal-with-demo {
+  width: 680px;
+  overflow: visible;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  position: fixed !important;
+  text-align: center;
+  max-width: 648px;
+  width: 100%;
+  height: 573px;
+  padding: 5px 0 20px 0px;
+  align-items: center;
+  .modal-body {
+    padding: 0px;
+    margin-bottom: 0px;
+    width: 100%;
+  }
+  h1 {
+    font-size: 30px;
+    font-weight: bold;
+    line-height: 1.27;
+    color: #000000;
+  }
+  h4 {
+    font-weight: bold;
+    margin: 10px;
+  }
+  .welcome-modal-text {
+    width: 300px;
+    display: inline-block;
+    margin-top: 48px;
+    margin-bottom: 36px;
+    .welcome-modal-header {
+      font-weight: 600;
+      margin: 5px;
+    }
+  }
+  img {
+    height: 215px;
+    width: 325px;
+    margin-top: 24px;
+  }
+  button {
+    width: min-content !important;
+  }
+  p {
+    line-height: 1.57;
+    color: #646464;
+  }
+  .welcome-modal-image-box {
+    background-color: #eef8f7;
+    height: 302px;
+    width: 600px;
+    display: inline-block;
+    padding-top: 24px;
+    border-radius: 6px;
+  }
+  .welcome-modal-card {
+    width: 300px;
+    text-align: center;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    padding: 20px;
+    margin: 20px;
+    button {
+      display: inline-block;
+    }
+  }
+  .welcome-modal-demo {
+    float: left;
+  }
+  .welcome-modal-go {
+    float: right;
+  }
+  .welcome-modal-buttons {
+    width: 300px;
+    display: inline-block;
+    button {
+      display: inline-block;
+    }
+    .welcome-modal-demo {
+      color: black;
+      background-color: white;
+      border: 1px solid #bdbdbd;
+    }
+    .welcome-modal-skip {
+      float: right;
+    }
+  }
+  .modal-head {
+    display: inline-block;
+    width: 648px;
+  }
+  .close-welcome-modal {
+    margin: 0 auto;
+    height: 40px;
+    float: right;
+    width: 40px;
+    overflow: hidden;
+    background-color: white;
+    img {
+      height: 40px;
+      width: 40px;
+      margin: 0 auto;
+    }
+  }
+  .close-welcome-modal:hover {
+    cursor: pointer;
+  }
+  @media (max-width: 780px) {
+    width: calc(100vw - 20px);
+  }
+  @media (max-width: 600px) {
+    min-width: 300px;
+    width: 70%;
+    padding: 32px 16px;
+    height: min-content;
+    img {
+      display: none;
+    }
+    .welcome-modal-image-box {
+      width: auto;
+      height: auto;
+      background-color: white;
     }
   }
 }
