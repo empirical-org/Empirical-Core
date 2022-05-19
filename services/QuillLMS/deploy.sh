@@ -88,7 +88,8 @@ then
     open $URL
     open $NR_URL
 
-    if [ $1 == 'prod' ] then
+    if [ $1 == 'prod' ]
+    then
         sh ../../scripts/post_slack_deploy_description.sh $app_name
         open $AUTOSCALE_URL
 
