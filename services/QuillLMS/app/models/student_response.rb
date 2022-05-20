@@ -11,7 +11,7 @@
 #  question_score                             :float
 #  created_at                                 :datetime         not null
 #  activity_session_id                        :bigint           not null
-#  question_id                                :bigint           not null
+#  question_id                                :bigint
 #  student_response_answer_text_id            :bigint
 #  student_response_directions_text_id        :bigint
 #  student_response_instructions_text_id      :bigint

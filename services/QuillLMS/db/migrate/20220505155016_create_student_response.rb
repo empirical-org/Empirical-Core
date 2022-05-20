@@ -6,7 +6,7 @@ class CreateStudentResponse < ActiveRecord::Migration[5.1]
       t.references :activity_session, null: false, foreign_key: true
       t.integer :attempt_number, null: false
       t.boolean :correct, null: false
-      t.references :question, null: false
+      t.references :question
       t.integer :question_number, null: false
       t.float :question_score
       t.references :student_response_answer_text, foreign_key: true
