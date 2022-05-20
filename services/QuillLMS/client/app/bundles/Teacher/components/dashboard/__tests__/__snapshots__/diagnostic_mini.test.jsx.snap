@@ -374,14 +374,14 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
             Results
           </th>
         </div>
-        <div
+        <tbody
           className="data-table-body"
         >
-          <div
+          <tr
             className="data-table-row  "
             key="447-484134-826269"
           >
-            <span
+            <td
               className="data-table-row-section undefined"
               key="diagnostic-447-484134-826269"
               style={
@@ -393,30 +393,21 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
               }
             >
               ELL Diagnostic
-            </span>
-            <Tooltip
-              key="classroom-447-484134-826269"
-              tooltipText="Quill Classroom Extremely Long So Long SUper Duper"
-              tooltipTriggerStyle={
-                Object {
-                  "minWidth": "180px",
-                  "textAlign": "left",
-                  "width": "180px",
+            </td>
+            <td>
+              <Tooltip
+                key="classroom-447-484134-826269"
+                tooltipText="Quill Classroom Extremely Long So Long SUper Duper"
+                tooltipTriggerStyle={
+                  Object {
+                    "minWidth": "180px",
+                    "textAlign": "left",
+                    "width": "180px",
+                  }
                 }
-              }
-              tooltipTriggerText="Quill Classroom Extremely Long So Long SUper Duper"
-              tooltipTriggerTextClass="data-table-row-section undefined"
-              tooltipTriggerTextStyle={
-                Object {
-                  "minWidth": "180px",
-                  "textAlign": "left",
-                  "width": "180px",
-                }
-              }
-            >
-              <span
-                className="quill-tooltip-trigger"
-                style={
+                tooltipTriggerText="Quill Classroom Extremely Long So Long SUper Duper"
+                tooltipTriggerTextClass="data-table-row-section undefined"
+                tooltipTriggerTextStyle={
                   Object {
                     "minWidth": "180px",
                     "textAlign": "left",
@@ -425,10 +416,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 }
               >
                 <span
-                  className="data-table-row-section undefined"
-                  onClick={[Function]}
-                  onMouseEnter={[Function]}
-                  onMouseLeave={[Function]}
+                  className="quill-tooltip-trigger"
                   style={
                     Object {
                       "minWidth": "180px",
@@ -436,20 +424,34 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                       "width": "180px",
                     }
                   }
-                  tabIndex={null}
-                >
-                  Quill Classroom Extremely Long So Long SUper Duper
-                </span>
-                <span
-                  className="quill-tooltip-wrapper"
                 >
                   <span
-                    className="quill-tooltip"
-                  />
+                    className="data-table-row-section undefined"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "180px",
+                        "textAlign": "left",
+                        "width": "180px",
+                      }
+                    }
+                    tabIndex={null}
+                  >
+                    Quill Classroom Extremely Long So Long SUper Duper
+                  </span>
+                  <span
+                    className="quill-tooltip-wrapper"
+                  >
+                    <span
+                      className="quill-tooltip"
+                    />
+                  </span>
                 </span>
-              </span>
-            </Tooltip>
-            <span
+              </Tooltip>
+            </td>
+            <td
               className="data-table-row-section completed-row-section"
               key="completed-447-484134-826269"
               style={
@@ -461,8 +463,8 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
               }
             >
               0 of 5
-            </span>
-            <span
+            </td>
+            <td
               className="data-table-row-section last-row-section"
               key="results-447-484134-826269"
               style={
@@ -485,16 +487,16 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                   View
                 </span>
               </a>
-            </span>
-            <span
+            </td>
+            <td
               className="removable data-table-row-section"
             />
-          </div>
-          <div
+          </tr>
+          <tr
             className="data-table-row  "
             key="447-484135-826269"
           >
-            <span
+            <td
               className="data-table-row-section undefined"
               key="diagnostic-447-484135-826269"
               style={
@@ -506,8 +508,8 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
               }
             >
               ELL Diagnostic
-            </span>
-            <span
+            </td>
+            <td
               className="data-table-row-section undefined"
               key="classroom-447-484135-826269"
               style={
@@ -519,8 +521,8 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
               }
             >
               A New Class
-            </span>
-            <span
+            </td>
+            <td
               className="data-table-row-section completed-row-section"
               key="completed-447-484135-826269"
               style={
@@ -532,8 +534,8 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
               }
             >
               0 of 0
-            </span>
-            <span
+            </td>
+            <td
               className="data-table-row-section last-row-section"
               key="results-447-484135-826269"
               style={
@@ -556,16 +558,16 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                   View
                 </span>
               </a>
-            </span>
-            <span
+            </td>
+            <td
               className="removable data-table-row-section"
             />
-          </div>
-          <div
+          </tr>
+          <tr
             className="data-table-row  "
             key="849-484134-826268"
           >
-            <span
+            <td
               className="data-table-row-section undefined"
               key="diagnostic-849-484134-826268"
               style={
@@ -577,30 +579,21 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
               }
             >
               Starter Diagnostic
-            </span>
-            <Tooltip
-              key="classroom-849-484134-826268"
-              tooltipText="Quill Classroom Extremely Long So Long SUper Duper"
-              tooltipTriggerStyle={
-                Object {
-                  "minWidth": "180px",
-                  "textAlign": "left",
-                  "width": "180px",
+            </td>
+            <td>
+              <Tooltip
+                key="classroom-849-484134-826268"
+                tooltipText="Quill Classroom Extremely Long So Long SUper Duper"
+                tooltipTriggerStyle={
+                  Object {
+                    "minWidth": "180px",
+                    "textAlign": "left",
+                    "width": "180px",
+                  }
                 }
-              }
-              tooltipTriggerText="Quill Classroom Extremely Long So Long SUper Duper"
-              tooltipTriggerTextClass="data-table-row-section undefined"
-              tooltipTriggerTextStyle={
-                Object {
-                  "minWidth": "180px",
-                  "textAlign": "left",
-                  "width": "180px",
-                }
-              }
-            >
-              <span
-                className="quill-tooltip-trigger"
-                style={
+                tooltipTriggerText="Quill Classroom Extremely Long So Long SUper Duper"
+                tooltipTriggerTextClass="data-table-row-section undefined"
+                tooltipTriggerTextStyle={
                   Object {
                     "minWidth": "180px",
                     "textAlign": "left",
@@ -609,10 +602,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 }
               >
                 <span
-                  className="data-table-row-section undefined"
-                  onClick={[Function]}
-                  onMouseEnter={[Function]}
-                  onMouseLeave={[Function]}
+                  className="quill-tooltip-trigger"
                   style={
                     Object {
                       "minWidth": "180px",
@@ -620,20 +610,34 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                       "width": "180px",
                     }
                   }
-                  tabIndex={null}
-                >
-                  Quill Classroom Extremely Long So Long SUper Duper
-                </span>
-                <span
-                  className="quill-tooltip-wrapper"
                 >
                   <span
-                    className="quill-tooltip"
-                  />
+                    className="data-table-row-section undefined"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "180px",
+                        "textAlign": "left",
+                        "width": "180px",
+                      }
+                    }
+                    tabIndex={null}
+                  >
+                    Quill Classroom Extremely Long So Long SUper Duper
+                  </span>
+                  <span
+                    className="quill-tooltip-wrapper"
+                  >
+                    <span
+                      className="quill-tooltip"
+                    />
+                  </span>
                 </span>
-              </span>
-            </Tooltip>
-            <span
+              </Tooltip>
+            </td>
+            <td
               className="data-table-row-section completed-row-section"
               key="completed-849-484134-826268"
               style={
@@ -645,8 +649,8 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
               }
             >
               5 of 5
-            </span>
-            <span
+            </td>
+            <td
               className="data-table-row-section last-row-section"
               key="results-849-484134-826268"
               style={
@@ -669,16 +673,16 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                   View
                 </span>
               </a>
-            </span>
-            <span
+            </td>
+            <td
               className="removable data-table-row-section"
             />
-          </div>
-          <div
+          </tr>
+          <tr
             className="data-table-row  "
             key="849-484134-826269"
           >
-            <span
+            <td
               className="data-table-row-section undefined"
               key="diagnostic-849-484134-826269"
               style={
@@ -690,30 +694,21 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
               }
             >
               Starter Diagnostic
-            </span>
-            <Tooltip
-              key="classroom-849-484134-826269"
-              tooltipText="Quill Classroom Extremely Long So Long SUper Duper"
-              tooltipTriggerStyle={
-                Object {
-                  "minWidth": "180px",
-                  "textAlign": "left",
-                  "width": "180px",
+            </td>
+            <td>
+              <Tooltip
+                key="classroom-849-484134-826269"
+                tooltipText="Quill Classroom Extremely Long So Long SUper Duper"
+                tooltipTriggerStyle={
+                  Object {
+                    "minWidth": "180px",
+                    "textAlign": "left",
+                    "width": "180px",
+                  }
                 }
-              }
-              tooltipTriggerText="Quill Classroom Extremely Long So Long SUper Duper"
-              tooltipTriggerTextClass="data-table-row-section undefined"
-              tooltipTriggerTextStyle={
-                Object {
-                  "minWidth": "180px",
-                  "textAlign": "left",
-                  "width": "180px",
-                }
-              }
-            >
-              <span
-                className="quill-tooltip-trigger"
-                style={
+                tooltipTriggerText="Quill Classroom Extremely Long So Long SUper Duper"
+                tooltipTriggerTextClass="data-table-row-section undefined"
+                tooltipTriggerTextStyle={
                   Object {
                     "minWidth": "180px",
                     "textAlign": "left",
@@ -722,10 +717,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 }
               >
                 <span
-                  className="data-table-row-section undefined"
-                  onClick={[Function]}
-                  onMouseEnter={[Function]}
-                  onMouseLeave={[Function]}
+                  className="quill-tooltip-trigger"
                   style={
                     Object {
                       "minWidth": "180px",
@@ -733,20 +725,34 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                       "width": "180px",
                     }
                   }
-                  tabIndex={null}
-                >
-                  Quill Classroom Extremely Long So Long SUper Duper
-                </span>
-                <span
-                  className="quill-tooltip-wrapper"
                 >
                   <span
-                    className="quill-tooltip"
-                  />
+                    className="data-table-row-section undefined"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "minWidth": "180px",
+                        "textAlign": "left",
+                        "width": "180px",
+                      }
+                    }
+                    tabIndex={null}
+                  >
+                    Quill Classroom Extremely Long So Long SUper Duper
+                  </span>
+                  <span
+                    className="quill-tooltip-wrapper"
+                  >
+                    <span
+                      className="quill-tooltip"
+                    />
+                  </span>
                 </span>
-              </span>
-            </Tooltip>
-            <span
+              </Tooltip>
+            </td>
+            <td
               className="data-table-row-section completed-row-section"
               key="completed-849-484134-826269"
               style={
@@ -758,8 +764,8 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
               }
             >
               0 of 5
-            </span>
-            <span
+            </td>
+            <td
               className="data-table-row-section last-row-section"
               key="results-849-484134-826269"
               style={
@@ -782,16 +788,16 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                   View
                 </span>
               </a>
-            </span>
-            <span
+            </td>
+            <td
               className="removable data-table-row-section"
             />
-          </div>
-          <div
+          </tr>
+          <tr
             className="data-table-row  "
             key="849-484135-826269"
           >
-            <span
+            <td
               className="data-table-row-section undefined"
               key="diagnostic-849-484135-826269"
               style={
@@ -803,8 +809,8 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
               }
             >
               Starter Diagnostic
-            </span>
-            <span
+            </td>
+            <td
               className="data-table-row-section undefined"
               key="classroom-849-484135-826269"
               style={
@@ -816,8 +822,8 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
               }
             >
               A New Class
-            </span>
-            <span
+            </td>
+            <td
               className="data-table-row-section completed-row-section"
               key="completed-849-484135-826269"
               style={
@@ -829,8 +835,8 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
               }
             >
               0 of 0
-            </span>
-            <span
+            </td>
+            <td
               className="data-table-row-section last-row-section"
               key="results-849-484135-826269"
               style={
@@ -853,12 +859,12 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                   View
                 </span>
               </a>
-            </span>
-            <span
+            </td>
+            <td
               className="removable data-table-row-section"
             />
-          </div>
-        </div>
+          </tr>
+        </tbody>
       </div>
     </DataTable>
     <button

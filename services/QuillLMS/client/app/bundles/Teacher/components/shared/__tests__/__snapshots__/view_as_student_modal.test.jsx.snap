@@ -2270,14 +2270,14 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                 }
               />
             </div>
-            <div
+            <tbody
               className="data-table-body"
             >
-              <div
+              <tr
                 className="data-table-row  "
                 key="5204398"
               >
-                <span
+                <td
                   className="data-table-row-section undefined"
                   key="name-5204398"
                   style={
@@ -2289,8 +2289,8 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                   }
                 >
                   Bleep Bloop
-                </span>
-                <span
+                </td>
+                <td
                   className="data-table-row-section undefined"
                   key="username-5204398"
                   style={
@@ -2301,7 +2301,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                     }
                   }
                 />
-                <span
+                <td
                   className="data-table-row-section view-button-section"
                   key="viewButton-5204398"
                   style={
@@ -2319,12 +2319,12 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                   >
                     View
                   </button>
-                </span>
-                <span
+                </td>
+                <td
                   className="removable data-table-row-section"
                 />
-              </div>
-            </div>
+              </tr>
+            </tbody>
           </div>
         </DataTable>
       </div>
@@ -4794,14 +4794,14 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                 }
               />
             </div>
-            <div
+            <tbody
               className="data-table-body"
             >
-              <div
+              <tr
                 className="data-table-row  "
                 key="5204397"
               >
-                <span
+                <td
                   className="data-table-row-section undefined"
                   key="name-5204397"
                   style={
@@ -4813,8 +4813,8 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                   }
                 >
                   Maya Angelou
-                </span>
-                <span
+                </td>
+                <td
                   className="data-table-row-section undefined"
                   key="username-5204397"
                   style={
@@ -4825,7 +4825,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                     }
                   }
                 />
-                <span
+                <td
                   className="data-table-row-section view-button-section"
                   key="viewButton-5204397"
                   style={
@@ -4843,16 +4843,16 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                   >
                     View
                   </button>
-                </span>
-                <span
+                </td>
+                <td
                   className="removable data-table-row-section"
                 />
-              </div>
-              <div
+              </tr>
+              <tr
                 className="data-table-row  "
                 key="5204396"
               >
-                <span
+                <td
                   className="data-table-row-section undefined"
                   key="name-5204396"
                   style={
@@ -4864,8 +4864,8 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                   }
                 >
                   James Joyce
-                </span>
-                <span
+                </td>
+                <td
                   className="data-table-row-section undefined"
                   key="username-5204396"
                   style={
@@ -4876,7 +4876,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                     }
                   }
                 />
-                <span
+                <td
                   className="data-table-row-section view-button-section"
                   key="viewButton-5204396"
                   style={
@@ -4894,16 +4894,16 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                   >
                     View
                   </button>
-                </span>
-                <span
+                </td>
+                <td
                   className="removable data-table-row-section"
                 />
-              </div>
-              <div
+              </tr>
+              <tr
                 className="data-table-row  "
                 key="5204394"
               >
-                <span
+                <td
                   className="data-table-row-section undefined"
                   key="name-5204394"
                   style={
@@ -4915,8 +4915,8 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                   }
                 >
                   Harper Lee
-                </span>
-                <span
+                </td>
+                <td
                   className="data-table-row-section undefined"
                   key="username-5204394"
                   style={
@@ -4927,7 +4927,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                     }
                   }
                 />
-                <span
+                <td
                   className="data-table-row-section view-button-section"
                   key="viewButton-5204394"
                   style={
@@ -4945,16 +4945,16 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                   >
                     View
                   </button>
-                </span>
-                <span
+                </td>
+                <td
                   className="removable data-table-row-section"
                 />
-              </div>
-              <div
+              </tr>
+              <tr
                 className="data-table-row  "
                 key="5204393"
               >
-                <span
+                <td
                   className="data-table-row-section undefined"
                   key="name-5204393"
                   style={
@@ -4966,8 +4966,8 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                   }
                 >
                   William Shakespeare
-                </span>
-                <span
+                </td>
+                <td
                   className="data-table-row-section undefined"
                   key="username-5204393"
                   style={
@@ -4978,7 +4978,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                     }
                   }
                 />
-                <span
+                <td
                   className="data-table-row-section view-button-section"
                   key="viewButton-5204393"
                   style={
@@ -4996,12 +4996,12 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                   >
                     View
                   </button>
-                </span>
-                <span
+                </td>
+                <td
                   className="removable data-table-row-section"
                 />
-              </div>
-            </div>
+              </tr>
+            </tbody>
           </div>
         </DataTable>
       </div>

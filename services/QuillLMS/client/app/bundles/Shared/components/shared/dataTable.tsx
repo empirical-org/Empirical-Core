@@ -189,20 +189,20 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
 
     if (!showCheckboxes) { return null }
 
-    if (row.checked) { return <button className="quill-checkbox selected data-table-row-section" onClick={() => uncheckRow(row.id)} type="button"><img alt="check" src={smallWhiteCheckSrc} /></button> }
+    if (row.checked) { return <td><button className="quill-checkbox selected data-table-row-section" onClick={() => uncheckRow(row.id)} type="button"><img alt="check" src={smallWhiteCheckSrc} /></button></td> }
 
-    if (row.checkDisabled) { return <span className="quill-checkbox disabled data-table-row-section" /> }
+    if (row.checkDisabled) { return <td className="quill-checkbox disabled data-table-row-section" /> }
 
-    return <button aria-label="Unchecked checkbox" className="quill-checkbox unselected data-table-row-section" onClick={() => checkRow(row.id)} type="button" />
+    return <td><button aria-label="Unchecked checkbox" className="quill-checkbox unselected data-table-row-section" onClick={() => checkRow(row.id)} type="button" /></td>
   }
 
   renderRowRemoveIcon(row) {
     const { showRemoveIcon, removeRow, } = this.props
     if (showRemoveIcon && row.removable) {
-      return <button className="removable data-table-row-section focus-on-light" id={`remove-button-${row.id}`} onClick={() => removeRow(row.id)} type="button"><img alt="x" src={removeSrc} /></button>
+      return <td><button className="removable data-table-row-section focus-on-light" id={`remove-button-${row.id}`} onClick={() => removeRow(row.id)} type="button"><img alt="x" src={removeSrc} /></button></td>
     }
 
-    return <span className='removable data-table-row-section' />
+    return <td className='removable data-table-row-section' />
   }
 
   renderActions(row) {
@@ -212,9 +212,9 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     const actionsIsOpen = rowWithActionsOpen === row.id;
 
     return (
-      <span className="data-table-row-section actions-section">
+      <td className="data-table-row-section actions-section">
         {actionsIsOpen ? this.renderOpenActions(row) : this.renderClosedActions(row)}
-      </span>
+      </td>
     )
   }
 
@@ -296,24 +296,26 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
 
     if (!header.noTooltip && (String(rowDisplayText).length * averageFontWidth) >= headerWidthNumber) {
       return (
-        <Tooltip
-          key={key}
-          tooltipText={rowDisplayText}
-          tooltipTriggerStyle={style}
-          tooltipTriggerText={sectionText}
-          tooltipTriggerTextClass={dataTableRowSectionClassName}
-          tooltipTriggerTextStyle={style}
-        />
+        <td>
+          <Tooltip
+            key={key}
+            tooltipText={rowDisplayText}
+            tooltipTriggerStyle={style}
+            tooltipTriggerText={sectionText}
+            tooltipTriggerTextClass={dataTableRowSectionClassName}
+            tooltipTriggerTextStyle={style}
+          />
+        </td>
       )
     } else {
       return (
-        <span
+        <td
           className={dataTableRowSectionClassName}
           key={key}
           style={style as any}
         >
           {sectionText}
-        </span>
+        </td>
       )
     }
   }
@@ -334,19 +336,19 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     const rowContent = <React.Fragment>{this.renderRowCheckbox(row)}{this.renderRowDragHandle(row)}{rowSections}{this.renderRowRemoveIcon(row)}</React.Fragment>
 
     if (row.link) {
-      return <a className={rowClassName} href={row.link} key={String(row.id)}>{rowContent}</a>
+      return <tr><a className={rowClassName} href={row.link} key={String(row.id)}>{rowContent}</a></tr>
     }
 
-    return <div className={rowClassName} key={String(row.id)}>{rowContent}</div>
+    return <tr className={rowClassName} key={String(row.id)}>{rowContent}</tr>
   }
 
   renderRows() {
     const { isReorderable, reorderCallback, } = this.props
     const rows = this.sortRows().map(row => this.renderRow(row))
     if (isReorderable) {
-      return <div className="data-table-body reorderable"><SortableList data={rows} helperClass="sortable-data-table-row" sortCallback={reorderCallback} useDragHandle={true} /></div>
+      return <tbody className="data-table-body reorderable"><SortableList data={rows} helperClass="sortable-data-table-row" sortCallback={reorderCallback} useDragHandle={true} /></tbody>
     }
-    return <div className="data-table-body">{rows}</div>
+    return <tbody className="data-table-body">{rows}</tbody>
   }
 
   render() {
