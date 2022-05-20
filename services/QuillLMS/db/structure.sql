@@ -3888,10 +3888,10 @@ ALTER SEQUENCE public.student_response_question_types_id_seq OWNED BY public.stu
 CREATE TABLE public.student_responses (
     id bigint NOT NULL,
     activity_session_id bigint NOT NULL,
-    attempt_number integer NOT NULL,
+    attempt_number integer,
     correct boolean NOT NULL,
     question_id bigint,
-    question_number integer NOT NULL,
+    question_number integer,
     question_score double precision,
     student_response_answer_text_id bigint,
     student_response_directions_text_id bigint,

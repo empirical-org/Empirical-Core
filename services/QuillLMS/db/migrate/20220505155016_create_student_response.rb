@@ -4,10 +4,10 @@ class CreateStudentResponse < ActiveRecord::Migration[5.1]
   def change
     create_table :student_responses do |t|
       t.references :activity_session, null: false, foreign_key: true
-      t.integer :attempt_number, null: false
+      t.integer :attempt_number
       t.boolean :correct, null: false
       t.references :question
-      t.integer :question_number, null: false
+      t.integer :question_number
       t.float :question_score
       t.references :student_response_answer_text, foreign_key: true
       t.references :student_response_directions_text, foreign_key: true

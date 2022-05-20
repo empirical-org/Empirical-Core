@@ -5,9 +5,9 @@
 # Table name: student_responses
 #
 #  id                                         :bigint           not null, primary key
-#  attempt_number                             :integer          not null
+#  attempt_number                             :integer
 #  correct                                    :boolean          not null
-#  question_number                            :integer          not null
+#  question_number                            :integer
 #  question_score                             :float
 #  created_at                                 :datetime         not null
 #  activity_session_id                        :bigint           not null
@@ -60,7 +60,6 @@ class StudentResponse < ApplicationRecord
 
 
   validates_exclusion_of :correct, in: [nil]
-  validates_presence_of :attempt_number, :question_number
 
   # This is a list of keys from the old ConceptResults records
   # that this model knows how to normalize.  Any keys that are
@@ -225,12 +224,15 @@ class StudentResponse < ApplicationRecord
 
   private_class_method def self.calculate_question_from_hash(data_hash)
     question_uid = data_hash[:question_uid] || data_hash[:questionUid]
-    unless question_uid
+    if !question_uid && data_hash[:metadata][:questionNumber]
       activity_session = ActivitySession.find(data_hash[:activity_session_id])
       question_index = data_hash[:metadata][:questionNumber] - 1
       question_uid = activity_session.activity.data['questions'][question_index]['key']
     end
-    Question.find_by_uid!(question_uid)
+
+    return if !question_uid
+
+    Question.find_by_uid(question_uid)
   end
 
   private def legacy_format_metadata

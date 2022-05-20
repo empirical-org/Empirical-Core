@@ -5,9 +5,9 @@
 # Table name: student_responses
 #
 #  id                                         :bigint           not null, primary key
-#  attempt_number                             :integer          not null
+#  attempt_number                             :integer
 #  correct                                    :boolean          not null
-#  question_number                            :integer          not null
+#  question_number                            :integer
 #  question_score                             :float
 #  created_at                                 :datetime         not null
 #  activity_session_id                        :bigint           not null
@@ -67,8 +67,6 @@ RSpec.describe StudentResponse, type: :model do
   end
 
   context 'validations' do
-    it { should validate_presence_of(:attempt_number) }
-    it { should validate_presence_of(:question_number) }
     it { should validate_exclusion_of(:correct).in_array([nil]) }
   end
 
@@ -338,6 +336,68 @@ RSpec.describe StudentResponse, type: :model do
 
         expect(payload.length).to eq(2)
         expect(payload.map { |h| h[:concept_id] }).to include(concept.id, concept2.id)
+      end
+    end
+
+    context 'self.calculate_question_from_hash' do
+      let(:question) { create(:question) }
+      let(:activity) { create(:activity, data: {questions: [{key: question.uid}]}) }
+      let(:activity_session) { create(:activity_session, activity: activity) }
+      let(:concept) { create(:concept) }
+      let(:metadata) do
+        {
+          "correct": 1,
+          "directions": "Combine the sentences. (And)",
+          "lastFeedback": "Proofread your work. Check your spelling.",
+          "prompt": "Deserts are very dry. Years go by without rain.",
+          "attemptNumber": 2,
+          "answer": "Deserts are very dry, and years go by without rain.",
+          "questionNumber": 1,
+          "questionScore": 0.8
+        }
+      end
+      let(:json) do
+        {
+          "concept_uid": concept.uid,
+          "question_type": "sentence-combining",
+          "metadata": metadata,
+          "concept_id": concept.id,
+          "activity_session_id": activity_session.id
+        }
+      end
+
+      it 'should calculate a question successfully if the question_uid is in the source' do
+        payload = json.deep_dup
+        payload[:metadata].delete(:questionNumber)
+        payload[:question_uid] = question.uid
+        student_response = StudentResponse.create_from_json(payload)
+
+        expect(student_response.question).to eq(question)
+      end
+
+      it 'should calculate a question successfully if the questionUid is in the source' do
+        payload = json.deep_dup
+        payload[:metadata].delete(:questionNumber)
+        payload[:questionUid] = question.uid
+
+        student_response = StudentResponse.create_from_json(payload)
+
+        expect(student_response.question).to eq(question)
+      end
+
+      it 'should calculate a question successfully if the source metadata has a questionNumber' do
+        student_response = StudentResponse.create_from_json(json)
+
+        expect(student_response.question).to eq(question)
+      end
+
+      it 'should calculate a null value if there is not question_uid or questionNumber available' do
+        payload = json.deep_dup
+        payload[:metadata].delete(:questionNumber)
+
+        student_response = StudentResponse.create_from_json(payload)
+
+        expect(student_response.question).to be(nil)
       end
     end
   end
