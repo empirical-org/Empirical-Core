@@ -2413,76 +2413,74 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
         <table
           className="data-table undefined"
         >
-          <thead>
-            <tr
-              className="data-table-headers"
+          <tr
+            className="data-table-headers"
+          >
+            <th
+              className="data-table-header reorder-header"
+              scope="col"
             >
-              <th
-                className="data-table-header reorder-header"
-                scope="col"
-              >
-                Order
-              </th>
-              <th
-                className="data-table-header undefined"
-                scope="col"
-                style={
-                  Object {
-                    "minWidth": "607px",
-                    "textAlign": "left",
-                    "width": "607px",
-                  }
+              Order
+            </th>
+            <th
+              className="data-table-header undefined"
+              scope="col"
+              style={
+                Object {
+                  "minWidth": "607px",
+                  "textAlign": "left",
+                  "width": "607px",
                 }
+              }
+            >
+              <span
+                className="tool-and-name-header"
               >
-                <span
-                  className="tool-and-name-header"
-                >
-                  <span>
-                    Tool
-                  </span>
-                  <span>
-                    Activity
-                  </span>
+                <span>
+                  Tool
                 </span>
-              </th>
-              <th
-                className="data-table-header due-date-header-container"
-                scope="col"
-                style={
-                  Object {
-                    "minWidth": "120px",
-                    "textAlign": "left",
-                    "width": "120px",
-                  }
-                }
-              >
-                <span
-                  className="due-date-header"
-                >
-                  Due date 
-                  <span>
-                    (optional)
-                  </span>
+                <span>
+                  Activity
                 </span>
-              </th>
-              <th
-                className="data-table-header undefined"
-                scope="col"
-                style={
-                  Object {
-                    "minWidth": "30px",
-                    "textAlign": "left",
-                    "width": "30px",
-                  }
+              </span>
+            </th>
+            <th
+              className="data-table-header due-date-header-container"
+              scope="col"
+              style={
+                Object {
+                  "minWidth": "120px",
+                  "textAlign": "left",
+                  "width": "120px",
                 }
-              />
-              <th
-                aria-label="Header for remove column"
-                className="data-table-header"
-                scope="col"
-              />
-            </tr>
-          </thead>
+              }
+            >
+              <span
+                className="due-date-header"
+              >
+                Due date 
+                <span>
+                  (optional)
+                </span>
+              </span>
+            </th>
+            <th
+              className="data-table-header undefined"
+              scope="col"
+              style={
+                Object {
+                  "minWidth": "30px",
+                  "textAlign": "left",
+                  "width": "30px",
+                }
+              }
+            />
+            <th
+              aria-label="Header for remove column"
+              className="data-table-header"
+              scope="col"
+            />
+          </tr>
           <tbody
             className="data-table-body reorderable"
           >
@@ -15817,65 +15815,63 @@ exports[`ActivityPack component renders if the current user did not create the u
         <table
           className="data-table undefined"
         >
-          <thead>
-            <tr
-              className="data-table-headers"
+          <tr
+            className="data-table-headers"
+          >
+            <th
+              className="data-table-header undefined"
+              scope="col"
+              style={
+                Object {
+                  "minWidth": "724px",
+                  "textAlign": "left",
+                  "width": "724px",
+                }
+              }
             >
-              <th
-                className="data-table-header undefined"
-                scope="col"
-                style={
-                  Object {
-                    "minWidth": "724px",
-                    "textAlign": "left",
-                    "width": "724px",
-                  }
-                }
+              <span
+                className="tool-and-name-header"
               >
-                <span
-                  className="tool-and-name-header"
-                >
-                  <span>
-                    Tool
-                  </span>
-                  <span>
-                    Activity
-                  </span>
+                <span>
+                  Tool
                 </span>
-              </th>
-              <th
-                className="data-table-header due-date-header-container no-right-margin"
-                scope="col"
-                style={
-                  Object {
-                    "minWidth": "110px",
-                    "textAlign": "left",
-                    "width": "110px",
-                  }
+                <span>
+                  Activity
+                </span>
+              </span>
+            </th>
+            <th
+              className="data-table-header due-date-header-container no-right-margin"
+              scope="col"
+              style={
+                Object {
+                  "minWidth": "110px",
+                  "textAlign": "left",
+                  "width": "110px",
                 }
+              }
+            >
+              <span
+                className="due-date-header"
               >
-                <span
-                  className="due-date-header"
-                >
-                  Due date 
-                  <span>
-                    (optional)
-                  </span>
+                Due date 
+                <span>
+                  (optional)
                 </span>
-              </th>
-              <th
-                className="data-table-header undefined"
-                scope="col"
-                style={
-                  Object {
-                    "minWidth": "30px",
-                    "textAlign": "left",
-                    "width": "30px",
-                  }
+              </span>
+            </th>
+            <th
+              className="data-table-header undefined"
+              scope="col"
+              style={
+                Object {
+                  "minWidth": "30px",
+                  "textAlign": "left",
+                  "width": "30px",
                 }
-              />
-            </tr>
-          </thead>
+              }
+            />
+          </tr>
           <tbody
             className="data-table-body"
           >

@@ -322,64 +322,62 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
       <table
         className="data-table undefined"
       >
-        <thead>
-          <tr
-            className="data-table-headers"
+        <tr
+          className="data-table-headers"
+        >
+          <th
+            className="data-table-header undefined"
+            scope="col"
+            style={
+              Object {
+                "minWidth": "300px",
+                "textAlign": "left",
+                "width": "300px",
+              }
+            }
           >
-            <th
-              className="data-table-header undefined"
-              scope="col"
-              style={
-                Object {
-                  "minWidth": "300px",
-                  "textAlign": "left",
-                  "width": "300px",
-                }
+            Diagnostic
+          </th>
+          <th
+            className="data-table-header undefined"
+            scope="col"
+            style={
+              Object {
+                "minWidth": "180px",
+                "textAlign": "left",
+                "width": "180px",
               }
-            >
-              Diagnostic
-            </th>
-            <th
-              className="data-table-header undefined"
-              scope="col"
-              style={
-                Object {
-                  "minWidth": "180px",
-                  "textAlign": "left",
-                  "width": "180px",
-                }
+            }
+          >
+            Class
+          </th>
+          <th
+            className="data-table-header undefined"
+            scope="col"
+            style={
+              Object {
+                "minWidth": "62px",
+                "textAlign": "left",
+                "width": "62px",
               }
-            >
-              Class
-            </th>
-            <th
-              className="data-table-header undefined"
-              scope="col"
-              style={
-                Object {
-                  "minWidth": "62px",
-                  "textAlign": "left",
-                  "width": "62px",
-                }
+            }
+          >
+            Completed
+          </th>
+          <th
+            className="data-table-header last-header"
+            scope="col"
+            style={
+              Object {
+                "minWidth": "62px",
+                "textAlign": "left",
+                "width": "62px",
               }
-            >
-              Completed
-            </th>
-            <th
-              className="data-table-header last-header"
-              scope="col"
-              style={
-                Object {
-                  "minWidth": "62px",
-                  "textAlign": "left",
-                  "width": "62px",
-                }
-              }
-            >
-              Results
-            </th>
-          </tr>
-        </thead>
+            }
+          >
+            Results
+          </th>
+        </tr>
         <tbody
           className="data-table-body"
         >

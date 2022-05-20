@@ -470,62 +470,60 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
             <table
               className="data-table undefined"
             >
-              <thead>
-                <tr
-                  className="data-table-headers"
+              <tr
+                className="data-table-headers"
+              >
+                <th
+                  className="data-table-header name-section"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "633px",
+                      "textAlign": "left",
+                      "width": "633px",
+                    }
+                  }
                 >
-                  <th
-                    className="data-table-header name-section"
-                    scope="col"
-                    style={
-                      Object {
-                        "minWidth": "633px",
-                        "textAlign": "left",
-                        "width": "633px",
-                      }
+                  Activity
+                </th>
+                <th
+                  className="data-table-header tool-icon-section"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "24px",
+                      "textAlign": "right",
+                      "width": "24px",
                     }
-                  >
-                    Activity
-                  </th>
-                  <th
-                    className="data-table-header tool-icon-section"
-                    scope="col"
-                    style={
-                      Object {
-                        "minWidth": "24px",
-                        "textAlign": "right",
-                        "width": "24px",
-                      }
+                  }
+                >
+                  Tool
+                </th>
+                <th
+                  className="data-table-header due-date-section"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "85px",
+                      "textAlign": "right",
+                      "width": "85px",
                     }
-                  >
-                    Tool
-                  </th>
-                  <th
-                    className="data-table-header due-date-section"
-                    scope="col"
-                    style={
-                      Object {
-                        "minWidth": "85px",
-                        "textAlign": "right",
-                        "width": "85px",
-                      }
+                  }
+                >
+                  Due date
+                </th>
+                <th
+                  className="data-table-header action-button-section"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "88px",
+                      "textAlign": "left",
+                      "width": "88px",
                     }
-                  >
-                    Due date
-                  </th>
-                  <th
-                    className="data-table-header action-button-section"
-                    scope="col"
-                    style={
-                      Object {
-                        "minWidth": "88px",
-                        "textAlign": "left",
-                        "width": "88px",
-                      }
-                    }
-                  />
-                </tr>
-              </thead>
+                  }
+                />
+              </tr>
               <tbody
                 className="data-table-body"
               >
@@ -1059,62 +1057,60 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
             <table
               className="data-table undefined"
             >
-              <thead>
-                <tr
-                  className="data-table-headers"
+              <tr
+                className="data-table-headers"
+              >
+                <th
+                  className="data-table-header name-section"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "633px",
+                      "textAlign": "left",
+                      "width": "633px",
+                    }
+                  }
                 >
-                  <th
-                    className="data-table-header name-section"
-                    scope="col"
-                    style={
-                      Object {
-                        "minWidth": "633px",
-                        "textAlign": "left",
-                        "width": "633px",
-                      }
+                  Activity
+                </th>
+                <th
+                  className="data-table-header tool-icon-section"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "24px",
+                      "textAlign": "right",
+                      "width": "24px",
                     }
-                  >
-                    Activity
-                  </th>
-                  <th
-                    className="data-table-header tool-icon-section"
-                    scope="col"
-                    style={
-                      Object {
-                        "minWidth": "24px",
-                        "textAlign": "right",
-                        "width": "24px",
-                      }
+                  }
+                >
+                  Tool
+                </th>
+                <th
+                  className="data-table-header due-date-section"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "85px",
+                      "textAlign": "left",
+                      "width": "85px",
                     }
-                  >
-                    Tool
-                  </th>
-                  <th
-                    className="data-table-header due-date-section"
-                    scope="col"
-                    style={
-                      Object {
-                        "minWidth": "85px",
-                        "textAlign": "left",
-                        "width": "85px",
-                      }
+                  }
+                >
+                  Due date
+                </th>
+                <th
+                  className="data-table-header action-button-section"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "88px",
+                      "textAlign": "left",
+                      "width": "88px",
                     }
-                  >
-                    Due date
-                  </th>
-                  <th
-                    className="data-table-header action-button-section"
-                    scope="col"
-                    style={
-                      Object {
-                        "minWidth": "88px",
-                        "textAlign": "left",
-                        "width": "88px",
-                      }
-                    }
-                  />
-                </tr>
-              </thead>
+                  }
+                />
+              </tr>
               <tbody
                 className="data-table-body"
               >
@@ -2086,62 +2082,60 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
             <table
               className="data-table undefined"
             >
-              <thead>
-                <tr
-                  className="data-table-headers"
+              <tr
+                className="data-table-headers"
+              >
+                <th
+                  className="data-table-header name-section"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "633px",
+                      "textAlign": "left",
+                      "width": "633px",
+                    }
+                  }
                 >
-                  <th
-                    className="data-table-header name-section"
-                    scope="col"
-                    style={
-                      Object {
-                        "minWidth": "633px",
-                        "textAlign": "left",
-                        "width": "633px",
-                      }
+                  Activity
+                </th>
+                <th
+                  className="data-table-header tool-icon-section"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "24px",
+                      "textAlign": "right",
+                      "width": "24px",
                     }
-                  >
-                    Activity
-                  </th>
-                  <th
-                    className="data-table-header tool-icon-section"
-                    scope="col"
-                    style={
-                      Object {
-                        "minWidth": "24px",
-                        "textAlign": "right",
-                        "width": "24px",
-                      }
+                  }
+                >
+                  Tool
+                </th>
+                <th
+                  className="data-table-header due-date-section"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "85px",
+                      "textAlign": "right",
+                      "width": "85px",
                     }
-                  >
-                    Tool
-                  </th>
-                  <th
-                    className="data-table-header due-date-section"
-                    scope="col"
-                    style={
-                      Object {
-                        "minWidth": "85px",
-                        "textAlign": "right",
-                        "width": "85px",
-                      }
+                  }
+                >
+                  Due date
+                </th>
+                <th
+                  className="data-table-header action-button-section"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "88px",
+                      "textAlign": "left",
+                      "width": "88px",
                     }
-                  >
-                    Due date
-                  </th>
-                  <th
-                    className="data-table-header action-button-section"
-                    scope="col"
-                    style={
-                      Object {
-                        "minWidth": "88px",
-                        "textAlign": "left",
-                        "width": "88px",
-                      }
-                    }
-                  />
-                </tr>
-              </thead>
+                  }
+                />
+              </tr>
               <tbody
                 className="data-table-body"
               >
@@ -2675,62 +2669,60 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
             <table
               className="data-table undefined"
             >
-              <thead>
-                <tr
-                  className="data-table-headers"
+              <tr
+                className="data-table-headers"
+              >
+                <th
+                  className="data-table-header name-section"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "633px",
+                      "textAlign": "left",
+                      "width": "633px",
+                    }
+                  }
                 >
-                  <th
-                    className="data-table-header name-section"
-                    scope="col"
-                    style={
-                      Object {
-                        "minWidth": "633px",
-                        "textAlign": "left",
-                        "width": "633px",
-                      }
+                  Activity
+                </th>
+                <th
+                  className="data-table-header tool-icon-section"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "24px",
+                      "textAlign": "right",
+                      "width": "24px",
                     }
-                  >
-                    Activity
-                  </th>
-                  <th
-                    className="data-table-header tool-icon-section"
-                    scope="col"
-                    style={
-                      Object {
-                        "minWidth": "24px",
-                        "textAlign": "right",
-                        "width": "24px",
-                      }
+                  }
+                >
+                  Tool
+                </th>
+                <th
+                  className="data-table-header due-date-section"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "85px",
+                      "textAlign": "left",
+                      "width": "85px",
                     }
-                  >
-                    Tool
-                  </th>
-                  <th
-                    className="data-table-header due-date-section"
-                    scope="col"
-                    style={
-                      Object {
-                        "minWidth": "85px",
-                        "textAlign": "left",
-                        "width": "85px",
-                      }
+                  }
+                >
+                  Due date
+                </th>
+                <th
+                  className="data-table-header action-button-section"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "88px",
+                      "textAlign": "left",
+                      "width": "88px",
                     }
-                  >
-                    Due date
-                  </th>
-                  <th
-                    className="data-table-header action-button-section"
-                    scope="col"
-                    style={
-                      Object {
-                        "minWidth": "88px",
-                        "textAlign": "left",
-                        "width": "88px",
-                      }
-                    }
-                  />
-                </tr>
-              </thead>
+                  }
+                />
+              </tr>
               <tbody
                 className="data-table-body"
               >
@@ -3796,75 +3788,73 @@ exports[`StudentProfileUnits component should render only completed activities i
             <table
               className="data-table undefined"
             >
-              <thead>
-                <tr
-                  className="data-table-headers"
+              <tr
+                className="data-table-headers"
+              >
+                <th
+                  className="data-table-header name-section"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "465px",
+                      "textAlign": "left",
+                      "width": "465px",
+                    }
+                  }
                 >
-                  <th
-                    className="data-table-header name-section"
-                    scope="col"
-                    style={
-                      Object {
-                        "minWidth": "465px",
-                        "textAlign": "left",
-                        "width": "465px",
-                      }
+                  Activity
+                </th>
+                <th
+                  className="data-table-header score-section tooltip-section"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "144px",
+                      "textAlign": "left",
+                      "width": "144px",
                     }
-                  >
-                    Activity
-                  </th>
-                  <th
-                    className="data-table-header score-section tooltip-section"
-                    scope="col"
-                    style={
-                      Object {
-                        "minWidth": "144px",
-                        "textAlign": "left",
-                        "width": "144px",
-                      }
+                  }
+                >
+                  Score
+                </th>
+                <th
+                  className="data-table-header tool-icon-section"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "24px",
+                      "textAlign": "right",
+                      "width": "24px",
                     }
-                  >
-                    Score
-                  </th>
-                  <th
-                    className="data-table-header tool-icon-section"
-                    scope="col"
-                    style={
-                      Object {
-                        "minWidth": "24px",
-                        "textAlign": "right",
-                        "width": "24px",
-                      }
+                  }
+                >
+                  Tool
+                </th>
+                <th
+                  className="data-table-header completed-due-date-section"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "85px",
+                      "textAlign": "left",
+                      "width": "85px",
                     }
-                  >
-                    Tool
-                  </th>
-                  <th
-                    className="data-table-header completed-due-date-section"
-                    scope="col"
-                    style={
-                      Object {
-                        "minWidth": "85px",
-                        "textAlign": "left",
-                        "width": "85px",
-                      }
+                  }
+                >
+                  Due date
+                </th>
+                <th
+                  className="data-table-header action-button-section"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "88px",
+                      "textAlign": "left",
+                      "width": "88px",
                     }
-                  >
-                    Due date
-                  </th>
-                  <th
-                    className="data-table-header action-button-section"
-                    scope="col"
-                    style={
-                      Object {
-                        "minWidth": "88px",
-                        "textAlign": "left",
-                        "width": "88px",
-                      }
-                    }
-                  />
-                </tr>
-              </thead>
+                  }
+                />
+              </tr>
               <tbody
                 className="data-table-body"
               >
@@ -4645,62 +4635,60 @@ exports[`StudentProfileUnits component should render only incomplete activities 
             <table
               className="data-table undefined"
             >
-              <thead>
-                <tr
-                  className="data-table-headers"
+              <tr
+                className="data-table-headers"
+              >
+                <th
+                  className="data-table-header name-section"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "633px",
+                      "textAlign": "left",
+                      "width": "633px",
+                    }
+                  }
                 >
-                  <th
-                    className="data-table-header name-section"
-                    scope="col"
-                    style={
-                      Object {
-                        "minWidth": "633px",
-                        "textAlign": "left",
-                        "width": "633px",
-                      }
+                  Activity
+                </th>
+                <th
+                  className="data-table-header tool-icon-section"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "24px",
+                      "textAlign": "right",
+                      "width": "24px",
                     }
-                  >
-                    Activity
-                  </th>
-                  <th
-                    className="data-table-header tool-icon-section"
-                    scope="col"
-                    style={
-                      Object {
-                        "minWidth": "24px",
-                        "textAlign": "right",
-                        "width": "24px",
-                      }
+                  }
+                >
+                  Tool
+                </th>
+                <th
+                  className="data-table-header due-date-section"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "85px",
+                      "textAlign": "right",
+                      "width": "85px",
                     }
-                  >
-                    Tool
-                  </th>
-                  <th
-                    className="data-table-header due-date-section"
-                    scope="col"
-                    style={
-                      Object {
-                        "minWidth": "85px",
-                        "textAlign": "right",
-                        "width": "85px",
-                      }
+                  }
+                >
+                  Due date
+                </th>
+                <th
+                  className="data-table-header action-button-section"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "88px",
+                      "textAlign": "left",
+                      "width": "88px",
                     }
-                  >
-                    Due date
-                  </th>
-                  <th
-                    className="data-table-header action-button-section"
-                    scope="col"
-                    style={
-                      Object {
-                        "minWidth": "88px",
-                        "textAlign": "left",
-                        "width": "88px",
-                      }
-                    }
-                  />
-                </tr>
-              </thead>
+                  }
+                />
+              </tr>
               <tbody
                 className="data-table-body"
               >
@@ -5293,62 +5281,60 @@ exports[`StudentProfileUnits component should render only incomplete activities 
             <table
               className="data-table undefined"
             >
-              <thead>
-                <tr
-                  className="data-table-headers"
+              <tr
+                className="data-table-headers"
+              >
+                <th
+                  className="data-table-header name-section"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "633px",
+                      "textAlign": "left",
+                      "width": "633px",
+                    }
+                  }
                 >
-                  <th
-                    className="data-table-header name-section"
-                    scope="col"
-                    style={
-                      Object {
-                        "minWidth": "633px",
-                        "textAlign": "left",
-                        "width": "633px",
-                      }
+                  Activity
+                </th>
+                <th
+                  className="data-table-header tool-icon-section"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "24px",
+                      "textAlign": "right",
+                      "width": "24px",
                     }
-                  >
-                    Activity
-                  </th>
-                  <th
-                    className="data-table-header tool-icon-section"
-                    scope="col"
-                    style={
-                      Object {
-                        "minWidth": "24px",
-                        "textAlign": "right",
-                        "width": "24px",
-                      }
+                  }
+                >
+                  Tool
+                </th>
+                <th
+                  className="data-table-header due-date-section"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "85px",
+                      "textAlign": "left",
+                      "width": "85px",
                     }
-                  >
-                    Tool
-                  </th>
-                  <th
-                    className="data-table-header due-date-section"
-                    scope="col"
-                    style={
-                      Object {
-                        "minWidth": "85px",
-                        "textAlign": "left",
-                        "width": "85px",
-                      }
+                  }
+                >
+                  Due date
+                </th>
+                <th
+                  className="data-table-header action-button-section"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "88px",
+                      "textAlign": "left",
+                      "width": "88px",
                     }
-                  >
-                    Due date
-                  </th>
-                  <th
-                    className="data-table-header action-button-section"
-                    scope="col"
-                    style={
-                      Object {
-                        "minWidth": "88px",
-                        "textAlign": "left",
-                        "width": "88px",
-                      }
-                    }
-                  />
-                </tr>
-              </thead>
+                  }
+                />
+              </tr>
               <tbody
                 className="data-table-body"
               >
@@ -6451,62 +6437,60 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
             <table
               className="data-table undefined"
             >
-              <thead>
-                <tr
-                  className="data-table-headers"
+              <tr
+                className="data-table-headers"
+              >
+                <th
+                  className="data-table-header name-section"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "633px",
+                      "textAlign": "left",
+                      "width": "633px",
+                    }
+                  }
                 >
-                  <th
-                    className="data-table-header name-section"
-                    scope="col"
-                    style={
-                      Object {
-                        "minWidth": "633px",
-                        "textAlign": "left",
-                        "width": "633px",
-                      }
+                  Activity
+                </th>
+                <th
+                  className="data-table-header tool-icon-section"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "24px",
+                      "textAlign": "right",
+                      "width": "24px",
                     }
-                  >
-                    Activity
-                  </th>
-                  <th
-                    className="data-table-header tool-icon-section"
-                    scope="col"
-                    style={
-                      Object {
-                        "minWidth": "24px",
-                        "textAlign": "right",
-                        "width": "24px",
-                      }
+                  }
+                >
+                  Tool
+                </th>
+                <th
+                  className="data-table-header due-date-section"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "85px",
+                      "textAlign": "right",
+                      "width": "85px",
                     }
-                  >
-                    Tool
-                  </th>
-                  <th
-                    className="data-table-header due-date-section"
-                    scope="col"
-                    style={
-                      Object {
-                        "minWidth": "85px",
-                        "textAlign": "right",
-                        "width": "85px",
-                      }
+                  }
+                >
+                  Due date
+                </th>
+                <th
+                  className="data-table-header action-button-section"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "88px",
+                      "textAlign": "left",
+                      "width": "88px",
                     }
-                  >
-                    Due date
-                  </th>
-                  <th
-                    className="data-table-header action-button-section"
-                    scope="col"
-                    style={
-                      Object {
-                        "minWidth": "88px",
-                        "textAlign": "left",
-                        "width": "88px",
-                      }
-                    }
-                  />
-                </tr>
-              </thead>
+                  }
+                />
+              </tr>
               <tbody
                 className="data-table-body"
               >
@@ -7099,62 +7083,60 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
             <table
               className="data-table undefined"
             >
-              <thead>
-                <tr
-                  className="data-table-headers"
+              <tr
+                className="data-table-headers"
+              >
+                <th
+                  className="data-table-header name-section"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "633px",
+                      "textAlign": "left",
+                      "width": "633px",
+                    }
+                  }
                 >
-                  <th
-                    className="data-table-header name-section"
-                    scope="col"
-                    style={
-                      Object {
-                        "minWidth": "633px",
-                        "textAlign": "left",
-                        "width": "633px",
-                      }
+                  Activity
+                </th>
+                <th
+                  className="data-table-header tool-icon-section"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "24px",
+                      "textAlign": "right",
+                      "width": "24px",
                     }
-                  >
-                    Activity
-                  </th>
-                  <th
-                    className="data-table-header tool-icon-section"
-                    scope="col"
-                    style={
-                      Object {
-                        "minWidth": "24px",
-                        "textAlign": "right",
-                        "width": "24px",
-                      }
+                  }
+                >
+                  Tool
+                </th>
+                <th
+                  className="data-table-header due-date-section"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "85px",
+                      "textAlign": "left",
+                      "width": "85px",
                     }
-                  >
-                    Tool
-                  </th>
-                  <th
-                    className="data-table-header due-date-section"
-                    scope="col"
-                    style={
-                      Object {
-                        "minWidth": "85px",
-                        "textAlign": "left",
-                        "width": "85px",
-                      }
+                  }
+                >
+                  Due date
+                </th>
+                <th
+                  className="data-table-header action-button-section"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "88px",
+                      "textAlign": "left",
+                      "width": "88px",
                     }
-                  >
-                    Due date
-                  </th>
-                  <th
-                    className="data-table-header action-button-section"
-                    scope="col"
-                    style={
-                      Object {
-                        "minWidth": "88px",
-                        "textAlign": "left",
-                        "width": "88px",
-                      }
-                    }
-                  />
-                </tr>
-              </thead>
+                  }
+                />
+              </tr>
               <tbody
                 className="data-table-body"
               >
@@ -8257,62 +8239,60 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
             <table
               className="data-table undefined"
             >
-              <thead>
-                <tr
-                  className="data-table-headers"
+              <tr
+                className="data-table-headers"
+              >
+                <th
+                  className="data-table-header name-section"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "633px",
+                      "textAlign": "left",
+                      "width": "633px",
+                    }
+                  }
                 >
-                  <th
-                    className="data-table-header name-section"
-                    scope="col"
-                    style={
-                      Object {
-                        "minWidth": "633px",
-                        "textAlign": "left",
-                        "width": "633px",
-                      }
+                  Activity
+                </th>
+                <th
+                  className="data-table-header tool-icon-section"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "24px",
+                      "textAlign": "right",
+                      "width": "24px",
                     }
-                  >
-                    Activity
-                  </th>
-                  <th
-                    className="data-table-header tool-icon-section"
-                    scope="col"
-                    style={
-                      Object {
-                        "minWidth": "24px",
-                        "textAlign": "right",
-                        "width": "24px",
-                      }
+                  }
+                >
+                  Tool
+                </th>
+                <th
+                  className="data-table-header due-date-section"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "85px",
+                      "textAlign": "right",
+                      "width": "85px",
                     }
-                  >
-                    Tool
-                  </th>
-                  <th
-                    className="data-table-header due-date-section"
-                    scope="col"
-                    style={
-                      Object {
-                        "minWidth": "85px",
-                        "textAlign": "right",
-                        "width": "85px",
-                      }
+                  }
+                >
+                  Due date
+                </th>
+                <th
+                  className="data-table-header action-button-section"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "88px",
+                      "textAlign": "left",
+                      "width": "88px",
                     }
-                  >
-                    Due date
-                  </th>
-                  <th
-                    className="data-table-header action-button-section"
-                    scope="col"
-                    style={
-                      Object {
-                        "minWidth": "88px",
-                        "textAlign": "left",
-                        "width": "88px",
-                      }
-                    }
-                  />
-                </tr>
-              </thead>
+                  }
+                />
+              </tr>
               <tbody
                 className="data-table-body"
               >
@@ -8905,62 +8885,60 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
             <table
               className="data-table undefined"
             >
-              <thead>
-                <tr
-                  className="data-table-headers"
+              <tr
+                className="data-table-headers"
+              >
+                <th
+                  className="data-table-header name-section"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "633px",
+                      "textAlign": "left",
+                      "width": "633px",
+                    }
+                  }
                 >
-                  <th
-                    className="data-table-header name-section"
-                    scope="col"
-                    style={
-                      Object {
-                        "minWidth": "633px",
-                        "textAlign": "left",
-                        "width": "633px",
-                      }
+                  Activity
+                </th>
+                <th
+                  className="data-table-header tool-icon-section"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "24px",
+                      "textAlign": "right",
+                      "width": "24px",
                     }
-                  >
-                    Activity
-                  </th>
-                  <th
-                    className="data-table-header tool-icon-section"
-                    scope="col"
-                    style={
-                      Object {
-                        "minWidth": "24px",
-                        "textAlign": "right",
-                        "width": "24px",
-                      }
+                  }
+                >
+                  Tool
+                </th>
+                <th
+                  className="data-table-header due-date-section"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "85px",
+                      "textAlign": "left",
+                      "width": "85px",
                     }
-                  >
-                    Tool
-                  </th>
-                  <th
-                    className="data-table-header due-date-section"
-                    scope="col"
-                    style={
-                      Object {
-                        "minWidth": "85px",
-                        "textAlign": "left",
-                        "width": "85px",
-                      }
+                  }
+                >
+                  Due date
+                </th>
+                <th
+                  className="data-table-header action-button-section"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "88px",
+                      "textAlign": "left",
+                      "width": "88px",
                     }
-                  >
-                    Due date
-                  </th>
-                  <th
-                    className="data-table-header action-button-section"
-                    scope="col"
-                    style={
-                      Object {
-                        "minWidth": "88px",
-                        "textAlign": "left",
-                        "width": "88px",
-                      }
-                    }
-                  />
-                </tr>
-              </thead>
+                  }
+                />
+              </tr>
               <tbody
                 className="data-table-body"
               >

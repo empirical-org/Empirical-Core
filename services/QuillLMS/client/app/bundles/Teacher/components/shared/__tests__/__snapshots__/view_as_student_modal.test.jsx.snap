@@ -2232,49 +2232,47 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
           <table
             className="data-table undefined"
           >
-            <thead>
-              <tr
-                className="data-table-headers"
+            <tr
+              className="data-table-headers"
+            >
+              <th
+                className="data-table-header undefined"
+                scope="col"
+                style={
+                  Object {
+                    "minWidth": "160px",
+                    "textAlign": "left",
+                    "width": "160px",
+                  }
+                }
               >
-                <th
-                  className="data-table-header undefined"
-                  scope="col"
-                  style={
-                    Object {
-                      "minWidth": "160px",
-                      "textAlign": "left",
-                      "width": "160px",
-                    }
+                Name
+              </th>
+              <th
+                className="data-table-header undefined"
+                scope="col"
+                style={
+                  Object {
+                    "minWidth": "361px",
+                    "textAlign": "right",
+                    "width": "361px",
                   }
-                >
-                  Name
-                </th>
-                <th
-                  className="data-table-header undefined"
-                  scope="col"
-                  style={
-                    Object {
-                      "minWidth": "361px",
-                      "textAlign": "right",
-                      "width": "361px",
-                    }
+                }
+              >
+                Username
+              </th>
+              <th
+                className="data-table-header view-button-section"
+                scope="col"
+                style={
+                  Object {
+                    "minWidth": "88px",
+                    "textAlign": "left",
+                    "width": "88px",
                   }
-                >
-                  Username
-                </th>
-                <th
-                  className="data-table-header view-button-section"
-                  scope="col"
-                  style={
-                    Object {
-                      "minWidth": "88px",
-                      "textAlign": "left",
-                      "width": "88px",
-                    }
-                  }
-                />
-              </tr>
-            </thead>
+                }
+              />
+            </tr>
             <tbody
               className="data-table-body"
             >
@@ -4758,49 +4756,47 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
           <table
             className="data-table undefined"
           >
-            <thead>
-              <tr
-                className="data-table-headers"
+            <tr
+              className="data-table-headers"
+            >
+              <th
+                className="data-table-header undefined"
+                scope="col"
+                style={
+                  Object {
+                    "minWidth": "160px",
+                    "textAlign": "left",
+                    "width": "160px",
+                  }
+                }
               >
-                <th
-                  className="data-table-header undefined"
-                  scope="col"
-                  style={
-                    Object {
-                      "minWidth": "160px",
-                      "textAlign": "left",
-                      "width": "160px",
-                    }
+                Name
+              </th>
+              <th
+                className="data-table-header undefined"
+                scope="col"
+                style={
+                  Object {
+                    "minWidth": "361px",
+                    "textAlign": "right",
+                    "width": "361px",
                   }
-                >
-                  Name
-                </th>
-                <th
-                  className="data-table-header undefined"
-                  scope="col"
-                  style={
-                    Object {
-                      "minWidth": "361px",
-                      "textAlign": "right",
-                      "width": "361px",
-                    }
+                }
+              >
+                Username
+              </th>
+              <th
+                className="data-table-header view-button-section"
+                scope="col"
+                style={
+                  Object {
+                    "minWidth": "88px",
+                    "textAlign": "left",
+                    "width": "88px",
                   }
-                >
-                  Username
-                </th>
-                <th
-                  className="data-table-header view-button-section"
-                  scope="col"
-                  style={
-                    Object {
-                      "minWidth": "88px",
-                      "textAlign": "left",
-                      "width": "88px",
-                    }
-                  }
-                />
-              </tr>
-            </thead>
+                }
+              />
+            </tr>
             <tbody
               className="data-table-body"
             >

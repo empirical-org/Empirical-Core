@@ -277,7 +277,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
   renderHeaders() {
     const { headers, } = this.props
     const headerItems = headers.map(header => this.renderHeader(header))
-    return <thead><tr className="data-table-headers">{this.renderHeaderCheckbox()}{this.renderHeaderForOrder()}{headerItems}{this.renderHeaderForRemoval()}</tr></thead>
+    return <tr className="data-table-headers">{this.renderHeaderCheckbox()}{this.renderHeaderForOrder()}{headerItems}{this.renderHeaderForRemoval()}</tr>
   }
 
   renderRowSection(row, header) {
