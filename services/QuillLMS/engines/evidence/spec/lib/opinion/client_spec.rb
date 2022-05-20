@@ -27,17 +27,22 @@ module Evidence
         expect { client.post}.to raise_error(Evidence::Opinion::Client::APIError)
       end
 
-      it 'should raise error on timeout' do
-        stub_request(:post, mock_endpoint).to_timeout
-
-        expect { client.post }.to raise_error(Evidence::Opinion::Client::APITimeoutError, "request took longer than 5 seconds")
+      it 'should raise error if the retry fails' do
+        allow(client).to receive(:api_request).and_raise(Net::ReadTimeout).twice
+        expect { client.post }.to raise_error(Evidence::Opinion::Client::APITimeoutError)
       end
 
-      it 'should raise error on Net::ReadTimeout timeout' do
-        stub_request(:post, mock_endpoint).to_raise(Net::ReadTimeout)
+      it 'should process successfully on retry' do
+        mock_response = double
+        allow(mock_response).to receive(:success?).and_return true
+        allow(mock_response).to receive(:filter).and_return []
 
-        expect { client.post }.to raise_error(Evidence::Opinion::Client::APITimeoutError, "request took longer than 5 seconds")
+        allow(client).to receive(:api_request).and_raise(Net::ReadTimeout).once
+        allow(client).to receive(:api_request).and_return(mock_response).once
+
+        expect { client.post }.to_not raise_error
       end
+
     end
   end
 end
