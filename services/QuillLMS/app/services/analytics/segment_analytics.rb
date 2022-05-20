@@ -151,10 +151,11 @@ class SegmentAnalytics
   def trigger_teacher_subscription_will_expire(subscription_id)
     subscription = Subscription.find(subscription_id)
     teacher_id = subscription.users.first.id
+    event = subscription.recurring ? SegmentIo::BackgroundEvents::RECURRING_TEACHER_SUB_WILL_EXPIRE : SegmentIo::BackgroundEvents::NON_RECURRING_TEACHER_SUB_WILL_EXPIRE
 
     track({
       user_id: teacher_id,
-      event: SegmentIo::BackgroundEvents::TEACHER_SUB_WILL_EXPIRE,
+      event: event,
       properties: {
         subscription_id: subscription.id
       }
@@ -164,12 +165,14 @@ class SegmentAnalytics
   def trigger_school_subscription_will_expire(subscription_id)
     subscription = Subscription.find(subscription_id)
     school_id = subscription.schools.first.id
+    event = subscription.recurring ? SegmentIo::BackgroundEvents::RECURRING_SCHOOL_SUB_WILL_EXPIRE : SegmentIo::BackgroundEvents::NON_RECURRING_SCHOOL_SUB_WILL_EXPIRE
 
     track({
       # Segment requires us to send a unique User ID or Anonymous ID for every event
       # generate a random UUID here because we don't want the School Subscription event to be associated to any real user
       anonymous_id: SecureRandom.uuid,
-      event: SegmentIo::BackgroundEvents::SCHOOL_SUB_WILL_EXPIRE,
+      user_id: subscription.purchaser_id,
+      event: event,
       properties: {
         subscription_id: subscription.id,
         school_id: school_id

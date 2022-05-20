@@ -138,28 +138,49 @@ describe 'SegmentAnalytics' do
   context 'trigger teacher subscription will expire' do
     let(:teacher) { create(:teacher) }
     let(:subscription) { create(:subscription, account_type: 'Teacher Paid', recurring: true, expiration: Time.zone.today + 30.days)}
+    let(:other_subscription) { create(:subscription, account_type: 'Teacher Paid', recurring: false, expiration: Time.zone.today + 30.days)}
     let!(:user_subscription) { create(:user_subscription, user: teacher, subscription: subscription)}
+    let!(:other_user_subscription) { create(:user_subscription, user: teacher, subscription: other_subscription)}
 
-    it 'sends an event with information about the subscription' do
+    it 'sends an event with information about the subscription for recurring subscriptions' do
       analytics.trigger_teacher_subscription_will_expire(subscription.id)
       expect(track_calls.size).to eq(1)
-      expect(track_calls[0][:event]).to eq(SegmentIo::BackgroundEvents::TEACHER_SUB_WILL_EXPIRE)
+      expect(track_calls[0][:event]).to eq(SegmentIo::BackgroundEvents::RECURRING_TEACHER_SUB_WILL_EXPIRE)
       expect(track_calls[0][:user_id]).to eq(teacher.id)
       expect(track_calls[0][:properties][:subscription_id]).to eq(subscription.id)
+    end
+
+    it 'sends an event with information about the subscription for non-recurring subscriptions' do
+      analytics.trigger_teacher_subscription_will_expire(other_subscription.id)
+      expect(track_calls.size).to eq(1)
+      expect(track_calls[0][:event]).to eq(SegmentIo::BackgroundEvents::NON_RECURRING_TEACHER_SUB_WILL_EXPIRE)
+      expect(track_calls[0][:user_id]).to eq(teacher.id)
+      expect(track_calls[0][:properties][:subscription_id]).to eq(other_subscription.id)
     end
   end
 
   context 'trigger school subscription will expire' do
     let(:school) { create(:school) }
     let(:subscription) { create(:subscription, account_type: 'School Paid', recurring: true, expiration: Time.zone.today + 30.days)}
+    let(:other_subscription) { create(:subscription, account_type: 'School Paid', recurring: false, expiration: Time.zone.today + 30.days, purchaser_id: 'test')}
     let!(:school_subscription) { create(:school_subscription, school: school, subscription: subscription)}
+    let!(:other_school_subscription) { create(:school_subscription, school: school, subscription: other_subscription)}
 
-    it 'sends an event with information about the subscription' do
+    it 'sends an event with information about the subscription for recurring subscriptions' do
       analytics.trigger_school_subscription_will_expire(subscription.id)
       expect(track_calls.size).to eq(1)
-      expect(track_calls[0][:event]).to eq(SegmentIo::BackgroundEvents::SCHOOL_SUB_WILL_EXPIRE)
+      expect(track_calls[0][:event]).to eq(SegmentIo::BackgroundEvents::RECURRING_SCHOOL_SUB_WILL_EXPIRE)
       expect(track_calls[0][:properties][:school_id]).to eq(school.id)
       expect(track_calls[0][:properties][:subscription_id]).to eq(subscription.id)
+    end
+
+    it 'sends an event with information about the subscription for nonrecurring subscriptions' do
+      analytics.trigger_school_subscription_will_expire(other_subscription.id)
+      expect(track_calls.size).to eq(1)
+      expect(track_calls[0][:event]).to eq(SegmentIo::BackgroundEvents::NON_RECURRING_SCHOOL_SUB_WILL_EXPIRE)
+      expect(track_calls[0][:properties][:school_id]).to eq(school.id)
+      expect(track_calls[0][:properties][:subscription_id]).to eq(other_subscription.id)
+      expect(track_calls[0][:user_id]).to eq(other_subscription.purchaser_id)
     end
   end
 
