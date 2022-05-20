@@ -182,6 +182,13 @@ describe 'SegmentAnalytics' do
       expect(track_calls[0][:properties][:subscription_id]).to eq(other_subscription.id)
       expect(track_calls[0][:user_id]).to eq(other_subscription.purchaser_id)
     end
+
+    it 'sends an event with anonymous ID if there is no purchaser id' do
+      analytics.trigger_school_subscription_will_expire(subscription.id)
+      expect(track_calls.size).to eq(1)
+      expect(track_calls[0][:user_id]).to eq(nil)
+      expect(track_calls[0][:anonymous_id]).to be
+    end
   end
 
   context '#track' do
