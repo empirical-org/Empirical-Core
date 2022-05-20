@@ -1382,67 +1382,74 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
         ]
       }
     >
-      <div
+      <table
         className="data-table turk-sessions-table"
       >
-        <div
-          className="data-table-headers"
-        >
-          <th
-            className="data-table-header undefined"
-            style={
-              Object {
-                "minWidth": "500px",
-                "textAlign": "left",
-                "width": "500px",
-              }
-            }
+        <thead>
+          <tr
+            className="data-table-headers"
           >
-            Link
-          </th>
-          <th
-            className="data-table-header undefined"
-            style={
-              Object {
-                "minWidth": "200px",
-                "textAlign": "left",
-                "width": "200px",
+            <th
+              className="data-table-header undefined"
+              scope="col"
+              style={
+                Object {
+                  "minWidth": "500px",
+                  "textAlign": "left",
+                  "width": "500px",
+                }
               }
-            }
-          >
-            Expiration Date
-          </th>
-          <th
-            className="data-table-header undefined"
-            style={
-              Object {
-                "minWidth": "100px",
-                "textAlign": "left",
-                "width": "100px",
+            >
+              Link
+            </th>
+            <th
+              className="data-table-header undefined"
+              scope="col"
+              style={
+                Object {
+                  "minWidth": "200px",
+                  "textAlign": "left",
+                  "width": "200px",
+                }
               }
-            }
-          />
-          <th
-            className="data-table-header undefined"
-            style={
-              Object {
-                "minWidth": "100px",
-                "textAlign": "left",
-                "width": "100px",
+            >
+              Expiration Date
+            </th>
+            <th
+              className="data-table-header undefined"
+              scope="col"
+              style={
+                Object {
+                  "minWidth": "100px",
+                  "textAlign": "left",
+                  "width": "100px",
+                }
               }
-            }
-          />
-          <th
-            className="data-table-header undefined"
-            style={
-              Object {
-                "minWidth": "100px",
-                "textAlign": "left",
-                "width": "100px",
+            />
+            <th
+              className="data-table-header undefined"
+              scope="col"
+              style={
+                Object {
+                  "minWidth": "100px",
+                  "textAlign": "left",
+                  "width": "100px",
+                }
               }
-            }
-          />
-        </div>
+            />
+            <th
+              className="data-table-header undefined"
+              scope="col"
+              style={
+                Object {
+                  "minWidth": "100px",
+                  "textAlign": "left",
+                  "width": "100px",
+                }
+              }
+            />
+          </tr>
+        </thead>
         <tbody
           className="data-table-body"
         >
@@ -1736,12 +1743,9 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
                 </span>
               </Tooltip>
             </td>
-            <td
-              className="removable data-table-row-section"
-            />
           </tr>
         </tbody>
-      </div>
+      </table>
     </DataTable>
     <Snackbar
       text="Copied!"

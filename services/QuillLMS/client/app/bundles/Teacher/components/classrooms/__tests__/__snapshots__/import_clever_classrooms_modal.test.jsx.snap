@@ -200,63 +200,69 @@ exports[`ImportCleverClassroomsModal component #handleClickImportClasses should 
           uncheckAllRows={[Function]}
           uncheckRow={[Function]}
         >
-          <div
+          <table
             className="data-table undefined"
           >
-            <div
-              className="data-table-headers"
-            >
-              <th
-                className="data-table-header"
+            <thead>
+              <tr
+                className="data-table-headers"
               >
-                <button
-                  className="quill-checkbox selected"
-                  onClick={[Function]}
-                  type="button"
+                <th
+                  className="data-table-header"
+                  scope="col"
                 >
-                  <img
-                    alt="Checked checkbox"
-                    src="https://assets.quill.org/images/icons/indeterminate.svg"
-                  />
-                </button>
-              </th>
-              <th
-                className="data-table-header undefined"
-                style={
-                  Object {
-                    "minWidth": "510px",
-                    "textAlign": "left",
-                    "width": "510px",
+                  <button
+                    className="quill-checkbox selected"
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    <img
+                      alt="Checked checkbox"
+                      src="https://assets.quill.org/images/icons/indeterminate.svg"
+                    />
+                  </button>
+                </th>
+                <th
+                  className="data-table-header undefined"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "510px",
+                      "textAlign": "left",
+                      "width": "510px",
+                    }
                   }
-                }
-              >
-                Class
-              </th>
-              <th
-                className="data-table-header undefined"
-                style={
-                  Object {
-                    "minWidth": "110px",
-                    "textAlign": "left",
-                    "width": "110px",
+                >
+                  Class
+                </th>
+                <th
+                  className="data-table-header undefined"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "110px",
+                      "textAlign": "left",
+                      "width": "110px",
+                    }
                   }
-                }
-              >
-                Grade
-              </th>
-              <th
-                className="data-table-header undefined"
-                style={
-                  Object {
-                    "minWidth": "51px",
-                    "textAlign": "right",
-                    "width": "51px",
+                >
+                  Grade
+                </th>
+                <th
+                  className="data-table-header undefined"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "51px",
+                      "textAlign": "right",
+                      "width": "51px",
+                    }
                   }
-                }
-              >
-                Students
-              </th>
-            </div>
+                >
+                  Students
+                </th>
+              </tr>
+            </thead>
             <tbody
               className="data-table-body"
             >
@@ -1657,9 +1663,6 @@ exports[`ImportCleverClassroomsModal component #handleClickImportClasses should 
                 >
                   3
                 </td>
-                <td
-                  className="removable data-table-row-section"
-                />
               </tr>
               <tr
                 className="data-table-row  "
@@ -1710,12 +1713,9 @@ exports[`ImportCleverClassroomsModal component #handleClickImportClasses should 
                 >
                   2
                 </td>
-                <td
-                  className="removable data-table-row-section"
-                />
               </tr>
             </tbody>
-          </div>
+          </table>
         </DataTable>
       </div>
       <div
@@ -1876,59 +1876,65 @@ exports[`ImportCleverClassroomsModal component initial load should render 1`] = 
           uncheckAllRows={[Function]}
           uncheckRow={[Function]}
         >
-          <div
+          <table
             className="data-table undefined"
           >
-            <div
-              className="data-table-headers"
-            >
-              <th
-                className="data-table-header"
+            <thead>
+              <tr
+                className="data-table-headers"
               >
-                <button
-                  aria-label="Unchecked checkbox"
-                  className="quill-checkbox unselected"
-                  onClick={[Function]}
-                  type="button"
-                />
-              </th>
-              <th
-                className="data-table-header undefined"
-                style={
-                  Object {
-                    "minWidth": "510px",
-                    "textAlign": "left",
-                    "width": "510px",
+                <th
+                  className="data-table-header"
+                  scope="col"
+                >
+                  <button
+                    aria-label="Unchecked checkbox"
+                    className="quill-checkbox unselected"
+                    onClick={[Function]}
+                    type="button"
+                  />
+                </th>
+                <th
+                  className="data-table-header undefined"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "510px",
+                      "textAlign": "left",
+                      "width": "510px",
+                    }
                   }
-                }
-              >
-                Class
-              </th>
-              <th
-                className="data-table-header undefined"
-                style={
-                  Object {
-                    "minWidth": "110px",
-                    "textAlign": "right",
-                    "width": "110px",
+                >
+                  Class
+                </th>
+                <th
+                  className="data-table-header undefined"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "110px",
+                      "textAlign": "right",
+                      "width": "110px",
+                    }
                   }
-                }
-              >
-                Grade
-              </th>
-              <th
-                className="data-table-header undefined"
-                style={
-                  Object {
-                    "minWidth": "51px",
-                    "textAlign": "right",
-                    "width": "51px",
+                >
+                  Grade
+                </th>
+                <th
+                  className="data-table-header undefined"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "51px",
+                      "textAlign": "right",
+                      "width": "51px",
+                    }
                   }
-                }
-              >
-                Students
-              </th>
-            </div>
+                >
+                  Students
+                </th>
+              </tr>
+            </thead>
             <tbody
               className="data-table-body"
             >
@@ -1981,9 +1987,6 @@ exports[`ImportCleverClassroomsModal component initial load should render 1`] = 
                 >
                   3
                 </td>
-                <td
-                  className="removable data-table-row-section"
-                />
               </tr>
               <tr
                 className="data-table-row  "
@@ -2034,12 +2037,9 @@ exports[`ImportCleverClassroomsModal component initial load should render 1`] = 
                 >
                   2
                 </td>
-                <td
-                  className="removable data-table-row-section"
-                />
               </tr>
             </tbody>
-          </div>
+          </table>
         </DataTable>
       </div>
       <div

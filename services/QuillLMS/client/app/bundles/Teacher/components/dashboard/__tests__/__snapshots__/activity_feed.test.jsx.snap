@@ -312,61 +312,67 @@ exports[`ActivityFeed component not on mobile should render when there are activ
         ]
       }
     >
-      <div
+      <table
         className="data-table undefined"
       >
-        <div
-          className="data-table-headers"
-        >
-          <th
-            className="data-table-header undefined"
-            style={
-              Object {
-                "minWidth": "125px",
-                "textAlign": "left",
-                "width": "125px",
-              }
-            }
+        <thead>
+          <tr
+            className="data-table-headers"
           >
-            Student
-          </th>
-          <th
-            className="data-table-header undefined"
-            style={
-              Object {
-                "minWidth": "245px",
-                "textAlign": "left",
-                "width": "245px",
+            <th
+              className="data-table-header undefined"
+              scope="col"
+              style={
+                Object {
+                  "minWidth": "125px",
+                  "textAlign": "left",
+                  "width": "125px",
+                }
               }
-            }
-          >
-            Activity
-          </th>
-          <th
-            className="data-table-header undefined"
-            style={
-              Object {
-                "minWidth": "124px",
-                "textAlign": "left",
-                "width": "124px",
+            >
+              Student
+            </th>
+            <th
+              className="data-table-header undefined"
+              scope="col"
+              style={
+                Object {
+                  "minWidth": "245px",
+                  "textAlign": "left",
+                  "width": "245px",
+                }
               }
-            }
-          >
-            Score
-          </th>
-          <th
-            className="data-table-header completed-section"
-            style={
-              Object {
-                "minWidth": "84px",
-                "textAlign": "left",
-                "width": "84px",
+            >
+              Activity
+            </th>
+            <th
+              className="data-table-header undefined"
+              scope="col"
+              style={
+                Object {
+                  "minWidth": "124px",
+                  "textAlign": "left",
+                  "width": "124px",
+                }
               }
-            }
-          >
-            Completed
-          </th>
-        </div>
+            >
+              Score
+            </th>
+            <th
+              className="data-table-header completed-section"
+              scope="col"
+              style={
+                Object {
+                  "minWidth": "84px",
+                  "textAlign": "left",
+                  "width": "84px",
+                }
+              }
+            >
+              Completed
+            </th>
+          </tr>
+        </thead>
         <tbody
           className="data-table-body"
         >
@@ -476,9 +482,6 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               >
                 Mar 5th
               </td>
-              <td
-                className="removable data-table-row-section"
-              />
             </a>
           </tr>
           <tr>
@@ -587,9 +590,6 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               >
                 Mar 5th
               </td>
-              <td
-                className="removable data-table-row-section"
-              />
             </a>
           </tr>
           <tr>
@@ -654,9 +654,6 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               >
                 Mar 5th
               </td>
-              <td
-                className="removable data-table-row-section"
-              />
             </a>
           </tr>
           <tr>
@@ -721,9 +718,6 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               >
                 Mar 5th
               </td>
-              <td
-                className="removable data-table-row-section"
-              />
             </a>
           </tr>
           <tr>
@@ -788,9 +782,6 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               >
                 Mar 5th
               </td>
-              <td
-                className="removable data-table-row-section"
-              />
             </a>
           </tr>
           <tr>
@@ -855,9 +846,6 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               >
                 Mar 5th
               </td>
-              <td
-                className="removable data-table-row-section"
-              />
             </a>
           </tr>
           <tr>
@@ -966,9 +954,6 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               >
                 Mar 5th
               </td>
-              <td
-                className="removable data-table-row-section"
-              />
             </a>
           </tr>
           <tr>
@@ -1033,9 +1018,6 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               >
                 Mar 4th
               </td>
-              <td
-                className="removable data-table-row-section"
-              />
             </a>
           </tr>
           <tr>
@@ -1100,9 +1082,6 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               >
                 Mar 3rd
               </td>
-              <td
-                className="removable data-table-row-section"
-              />
             </a>
           </tr>
           <tr>
@@ -1167,9 +1146,6 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               >
                 Dec 1st, 2020
               </td>
-              <td
-                className="removable data-table-row-section"
-              />
             </a>
           </tr>
           <tr>
@@ -1234,13 +1210,10 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               >
                 Dec 1st, 2020
               </td>
-              <td
-                className="removable data-table-row-section"
-              />
             </a>
           </tr>
         </tbody>
-      </div>
+      </table>
     </DataTable>
   </section>
 </ActivityFeed>

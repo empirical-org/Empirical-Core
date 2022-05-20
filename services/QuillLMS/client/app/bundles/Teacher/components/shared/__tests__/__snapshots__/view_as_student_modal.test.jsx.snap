@@ -2229,47 +2229,52 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
             ]
           }
         >
-          <div
+          <table
             className="data-table undefined"
           >
-            <div
-              className="data-table-headers"
-            >
-              <th
-                className="data-table-header undefined"
-                style={
-                  Object {
-                    "minWidth": "160px",
-                    "textAlign": "left",
-                    "width": "160px",
-                  }
-                }
+            <thead>
+              <tr
+                className="data-table-headers"
               >
-                Name
-              </th>
-              <th
-                className="data-table-header undefined"
-                style={
-                  Object {
-                    "minWidth": "361px",
-                    "textAlign": "right",
-                    "width": "361px",
+                <th
+                  className="data-table-header undefined"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "160px",
+                      "textAlign": "left",
+                      "width": "160px",
+                    }
                   }
-                }
-              >
-                Username
-              </th>
-              <th
-                className="data-table-header view-button-section"
-                style={
-                  Object {
-                    "minWidth": "88px",
-                    "textAlign": "left",
-                    "width": "88px",
+                >
+                  Name
+                </th>
+                <th
+                  className="data-table-header undefined"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "361px",
+                      "textAlign": "right",
+                      "width": "361px",
+                    }
                   }
-                }
-              />
-            </div>
+                >
+                  Username
+                </th>
+                <th
+                  className="data-table-header view-button-section"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "88px",
+                      "textAlign": "left",
+                      "width": "88px",
+                    }
+                  }
+                />
+              </tr>
+            </thead>
             <tbody
               className="data-table-body"
             >
@@ -2320,12 +2325,9 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                     View
                   </button>
                 </td>
-                <td
-                  className="removable data-table-row-section"
-                />
               </tr>
             </tbody>
-          </div>
+          </table>
         </DataTable>
       </div>
       <div
@@ -4753,47 +4755,52 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
             ]
           }
         >
-          <div
+          <table
             className="data-table undefined"
           >
-            <div
-              className="data-table-headers"
-            >
-              <th
-                className="data-table-header undefined"
-                style={
-                  Object {
-                    "minWidth": "160px",
-                    "textAlign": "left",
-                    "width": "160px",
-                  }
-                }
+            <thead>
+              <tr
+                className="data-table-headers"
               >
-                Name
-              </th>
-              <th
-                className="data-table-header undefined"
-                style={
-                  Object {
-                    "minWidth": "361px",
-                    "textAlign": "right",
-                    "width": "361px",
+                <th
+                  className="data-table-header undefined"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "160px",
+                      "textAlign": "left",
+                      "width": "160px",
+                    }
                   }
-                }
-              >
-                Username
-              </th>
-              <th
-                className="data-table-header view-button-section"
-                style={
-                  Object {
-                    "minWidth": "88px",
-                    "textAlign": "left",
-                    "width": "88px",
+                >
+                  Name
+                </th>
+                <th
+                  className="data-table-header undefined"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "361px",
+                      "textAlign": "right",
+                      "width": "361px",
+                    }
                   }
-                }
-              />
-            </div>
+                >
+                  Username
+                </th>
+                <th
+                  className="data-table-header view-button-section"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "88px",
+                      "textAlign": "left",
+                      "width": "88px",
+                    }
+                  }
+                />
+              </tr>
+            </thead>
             <tbody
               className="data-table-body"
             >
@@ -4844,9 +4851,6 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                     View
                   </button>
                 </td>
-                <td
-                  className="removable data-table-row-section"
-                />
               </tr>
               <tr
                 className="data-table-row  "
@@ -4895,9 +4899,6 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                     View
                   </button>
                 </td>
-                <td
-                  className="removable data-table-row-section"
-                />
               </tr>
               <tr
                 className="data-table-row  "
@@ -4946,9 +4947,6 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                     View
                   </button>
                 </td>
-                <td
-                  className="removable data-table-row-section"
-                />
               </tr>
               <tr
                 className="data-table-row  "
@@ -4997,12 +4995,9 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                     View
                   </button>
                 </td>
-                <td
-                  className="removable data-table-row-section"
-                />
               </tr>
             </tbody>
-          </div>
+          </table>
         </DataTable>
       </div>
       <div

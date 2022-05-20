@@ -629,54 +629,60 @@ exports[`LessonsMini component not on mobile should render when there are lesson
       }
       showActions={true}
     >
-      <div
+      <table
         className="data-table undefined"
       >
-        <div
-          className="data-table-headers"
-        >
-          <th
-            className="data-table-header undefined"
-            style={
-              Object {
-                "minWidth": "289px",
-                "textAlign": "left",
-                "width": "289px",
+        <thead>
+          <tr
+            className="data-table-headers"
+          >
+            <th
+              className="data-table-header undefined"
+              scope="col"
+              style={
+                Object {
+                  "minWidth": "289px",
+                  "textAlign": "left",
+                  "width": "289px",
+                }
               }
-            }
-          >
-            Quill Lesson
-          </th>
-          <th
-            className="data-table-header undefined"
-            style={
-              Object {
-                "minWidth": "180px",
-                "textAlign": "left",
-                "width": "180px",
+            >
+              Quill Lesson
+            </th>
+            <th
+              className="data-table-header undefined"
+              scope="col"
+              style={
+                Object {
+                  "minWidth": "180px",
+                  "textAlign": "left",
+                  "width": "180px",
+                }
               }
-            }
-          >
-            Class
-          </th>
-          <th
-            className="data-table-header actions-header"
-          >
-            More
-          </th>
-          <th
-            className="data-table-header last-header"
-            style={
-              Object {
-                "minWidth": "78px",
-                "textAlign": "left",
-                "width": "78px",
+            >
+              Class
+            </th>
+            <th
+              className="data-table-header actions-header"
+              scope="col"
+            >
+              More
+            </th>
+            <th
+              className="data-table-header last-header"
+              scope="col"
+              style={
+                Object {
+                  "minWidth": "78px",
+                  "textAlign": "left",
+                  "width": "78px",
+                }
               }
-            }
-          >
-            Present
-          </th>
-        </div>
+            >
+              Present
+            </th>
+          </tr>
+        </thead>
         <tbody
           className="data-table-body"
         >
@@ -792,9 +798,6 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                 </span>
               </a>
             </td>
-            <td
-              className="removable data-table-row-section"
-            />
           </tr>
           <tr
             className="data-table-row  "
@@ -864,9 +867,6 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                 </span>
               </a>
             </td>
-            <td
-              className="removable data-table-row-section"
-            />
           </tr>
           <tr
             className="data-table-row  "
@@ -936,9 +936,6 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                 </span>
               </a>
             </td>
-            <td
-              className="removable data-table-row-section"
-            />
           </tr>
           <tr
             className="data-table-row  "
@@ -1052,9 +1049,6 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                 </span>
               </a>
             </td>
-            <td
-              className="removable data-table-row-section"
-            />
           </tr>
           <tr
             className="data-table-row  "
@@ -1124,12 +1118,9 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                 </span>
               </a>
             </td>
-            <td
-              className="removable data-table-row-section"
-            />
           </tr>
         </tbody>
-      </div>
+      </table>
     </DataTable>
     <button
       className="bottom-button focus-on-light interactive-wrapper"

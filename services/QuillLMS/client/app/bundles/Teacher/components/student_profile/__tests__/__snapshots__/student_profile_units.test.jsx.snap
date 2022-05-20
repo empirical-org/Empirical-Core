@@ -467,59 +467,65 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
               ]
             }
           >
-            <div
+            <table
               className="data-table undefined"
             >
-              <div
-                className="data-table-headers"
-              >
-                <th
-                  className="data-table-header name-section"
-                  style={
-                    Object {
-                      "minWidth": "633px",
-                      "textAlign": "left",
-                      "width": "633px",
-                    }
-                  }
+              <thead>
+                <tr
+                  className="data-table-headers"
                 >
-                  Activity
-                </th>
-                <th
-                  className="data-table-header tool-icon-section"
-                  style={
-                    Object {
-                      "minWidth": "24px",
-                      "textAlign": "right",
-                      "width": "24px",
+                  <th
+                    className="data-table-header name-section"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "633px",
+                        "textAlign": "left",
+                        "width": "633px",
+                      }
                     }
-                  }
-                >
-                  Tool
-                </th>
-                <th
-                  className="data-table-header due-date-section"
-                  style={
-                    Object {
-                      "minWidth": "85px",
-                      "textAlign": "right",
-                      "width": "85px",
+                  >
+                    Activity
+                  </th>
+                  <th
+                    className="data-table-header tool-icon-section"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "24px",
+                        "textAlign": "right",
+                        "width": "24px",
+                      }
                     }
-                  }
-                >
-                  Due date
-                </th>
-                <th
-                  className="data-table-header action-button-section"
-                  style={
-                    Object {
-                      "minWidth": "88px",
-                      "textAlign": "left",
-                      "width": "88px",
+                  >
+                    Tool
+                  </th>
+                  <th
+                    className="data-table-header due-date-section"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "85px",
+                        "textAlign": "right",
+                        "width": "85px",
+                      }
                     }
-                  }
-                />
-              </div>
+                  >
+                    Due date
+                  </th>
+                  <th
+                    className="data-table-header action-button-section"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "88px",
+                        "textAlign": "left",
+                        "width": "88px",
+                      }
+                    }
+                  />
+                </tr>
+              </thead>
               <tbody
                 className="data-table-body"
               >
@@ -579,9 +585,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       Needs teacher
                     </span>
                   </td>
-                  <td
-                    className="removable data-table-row-section"
-                  />
                 </tr>
                 <tr
                   className="data-table-row  "
@@ -639,9 +642,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       Needs teacher
                     </span>
                   </td>
-                  <td
-                    className="removable data-table-row-section"
-                  />
                 </tr>
                 <tr
                   className="data-table-row  "
@@ -699,12 +699,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       Needs teacher
                     </span>
                   </td>
-                  <td
-                    className="removable data-table-row-section"
-                  />
                 </tr>
               </tbody>
-            </div>
+            </table>
           </DataTable>
         </div>
       </div>
@@ -1059,59 +1056,65 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
               ]
             }
           >
-            <div
+            <table
               className="data-table undefined"
             >
-              <div
-                className="data-table-headers"
-              >
-                <th
-                  className="data-table-header name-section"
-                  style={
-                    Object {
-                      "minWidth": "633px",
-                      "textAlign": "left",
-                      "width": "633px",
-                    }
-                  }
+              <thead>
+                <tr
+                  className="data-table-headers"
                 >
-                  Activity
-                </th>
-                <th
-                  className="data-table-header tool-icon-section"
-                  style={
-                    Object {
-                      "minWidth": "24px",
-                      "textAlign": "right",
-                      "width": "24px",
+                  <th
+                    className="data-table-header name-section"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "633px",
+                        "textAlign": "left",
+                        "width": "633px",
+                      }
                     }
-                  }
-                >
-                  Tool
-                </th>
-                <th
-                  className="data-table-header due-date-section"
-                  style={
-                    Object {
-                      "minWidth": "85px",
-                      "textAlign": "left",
-                      "width": "85px",
+                  >
+                    Activity
+                  </th>
+                  <th
+                    className="data-table-header tool-icon-section"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "24px",
+                        "textAlign": "right",
+                        "width": "24px",
+                      }
                     }
-                  }
-                >
-                  Due date
-                </th>
-                <th
-                  className="data-table-header action-button-section"
-                  style={
-                    Object {
-                      "minWidth": "88px",
-                      "textAlign": "left",
-                      "width": "88px",
+                  >
+                    Tool
+                  </th>
+                  <th
+                    className="data-table-header due-date-section"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "85px",
+                        "textAlign": "left",
+                        "width": "85px",
+                      }
                     }
-                  }
-                />
-              </div>
+                  >
+                    Due date
+                  </th>
+                  <th
+                    className="data-table-header action-button-section"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "88px",
+                        "textAlign": "left",
+                        "width": "88px",
+                      }
+                    }
+                  />
+                </tr>
+              </thead>
               <tbody
                 className="data-table-body"
               >
@@ -1175,9 +1178,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       Start
                     </a>
                   </td>
-                  <td
-                    className="removable data-table-row-section"
-                  />
                 </tr>
                 <tr
                   className="data-table-row  "
@@ -1239,9 +1239,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       Start
                     </a>
                   </td>
-                  <td
-                    className="removable data-table-row-section"
-                  />
                 </tr>
                 <tr
                   className="data-table-row  "
@@ -1303,9 +1300,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       Start
                     </a>
                   </td>
-                  <td
-                    className="removable data-table-row-section"
-                  />
                 </tr>
                 <tr
                   className="data-table-row  "
@@ -1367,9 +1361,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       Start
                     </a>
                   </td>
-                  <td
-                    className="removable data-table-row-section"
-                  />
                 </tr>
                 <tr
                   className="data-table-row  "
@@ -1431,9 +1422,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       Start
                     </a>
                   </td>
-                  <td
-                    className="removable data-table-row-section"
-                  />
                 </tr>
                 <tr
                   className="data-table-row  "
@@ -1495,9 +1483,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       Start
                     </a>
                   </td>
-                  <td
-                    className="removable data-table-row-section"
-                  />
                 </tr>
                 <tr
                   className="data-table-row  "
@@ -1559,9 +1544,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       Start
                     </a>
                   </td>
-                  <td
-                    className="removable data-table-row-section"
-                  />
                 </tr>
                 <tr
                   className="data-table-row  "
@@ -1623,12 +1605,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       Start
                     </a>
                   </td>
-                  <td
-                    className="removable data-table-row-section"
-                  />
                 </tr>
               </tbody>
-            </div>
+            </table>
           </DataTable>
         </div>
       </div>
@@ -2104,59 +2083,65 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
               ]
             }
           >
-            <div
+            <table
               className="data-table undefined"
             >
-              <div
-                className="data-table-headers"
-              >
-                <th
-                  className="data-table-header name-section"
-                  style={
-                    Object {
-                      "minWidth": "633px",
-                      "textAlign": "left",
-                      "width": "633px",
-                    }
-                  }
+              <thead>
+                <tr
+                  className="data-table-headers"
                 >
-                  Activity
-                </th>
-                <th
-                  className="data-table-header tool-icon-section"
-                  style={
-                    Object {
-                      "minWidth": "24px",
-                      "textAlign": "right",
-                      "width": "24px",
+                  <th
+                    className="data-table-header name-section"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "633px",
+                        "textAlign": "left",
+                        "width": "633px",
+                      }
                     }
-                  }
-                >
-                  Tool
-                </th>
-                <th
-                  className="data-table-header due-date-section"
-                  style={
-                    Object {
-                      "minWidth": "85px",
-                      "textAlign": "right",
-                      "width": "85px",
+                  >
+                    Activity
+                  </th>
+                  <th
+                    className="data-table-header tool-icon-section"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "24px",
+                        "textAlign": "right",
+                        "width": "24px",
+                      }
                     }
-                  }
-                >
-                  Due date
-                </th>
-                <th
-                  className="data-table-header action-button-section"
-                  style={
-                    Object {
-                      "minWidth": "88px",
-                      "textAlign": "left",
-                      "width": "88px",
+                  >
+                    Tool
+                  </th>
+                  <th
+                    className="data-table-header due-date-section"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "85px",
+                        "textAlign": "right",
+                        "width": "85px",
+                      }
                     }
-                  }
-                />
-              </div>
+                  >
+                    Due date
+                  </th>
+                  <th
+                    className="data-table-header action-button-section"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "88px",
+                        "textAlign": "left",
+                        "width": "88px",
+                      }
+                    }
+                  />
+                </tr>
+              </thead>
               <tbody
                 className="data-table-body"
               >
@@ -2216,9 +2201,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       Needs teacher
                     </span>
                   </td>
-                  <td
-                    className="removable data-table-row-section"
-                  />
                 </tr>
                 <tr
                   className="data-table-row  "
@@ -2276,9 +2258,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       Needs teacher
                     </span>
                   </td>
-                  <td
-                    className="removable data-table-row-section"
-                  />
                 </tr>
                 <tr
                   className="data-table-row  "
@@ -2336,12 +2315,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       Needs teacher
                     </span>
                   </td>
-                  <td
-                    className="removable data-table-row-section"
-                  />
                 </tr>
               </tbody>
-            </div>
+            </table>
           </DataTable>
         </div>
       </div>
@@ -2696,59 +2672,65 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
               ]
             }
           >
-            <div
+            <table
               className="data-table undefined"
             >
-              <div
-                className="data-table-headers"
-              >
-                <th
-                  className="data-table-header name-section"
-                  style={
-                    Object {
-                      "minWidth": "633px",
-                      "textAlign": "left",
-                      "width": "633px",
-                    }
-                  }
+              <thead>
+                <tr
+                  className="data-table-headers"
                 >
-                  Activity
-                </th>
-                <th
-                  className="data-table-header tool-icon-section"
-                  style={
-                    Object {
-                      "minWidth": "24px",
-                      "textAlign": "right",
-                      "width": "24px",
+                  <th
+                    className="data-table-header name-section"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "633px",
+                        "textAlign": "left",
+                        "width": "633px",
+                      }
                     }
-                  }
-                >
-                  Tool
-                </th>
-                <th
-                  className="data-table-header due-date-section"
-                  style={
-                    Object {
-                      "minWidth": "85px",
-                      "textAlign": "left",
-                      "width": "85px",
+                  >
+                    Activity
+                  </th>
+                  <th
+                    className="data-table-header tool-icon-section"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "24px",
+                        "textAlign": "right",
+                        "width": "24px",
+                      }
                     }
-                  }
-                >
-                  Due date
-                </th>
-                <th
-                  className="data-table-header action-button-section"
-                  style={
-                    Object {
-                      "minWidth": "88px",
-                      "textAlign": "left",
-                      "width": "88px",
+                  >
+                    Tool
+                  </th>
+                  <th
+                    className="data-table-header due-date-section"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "85px",
+                        "textAlign": "left",
+                        "width": "85px",
+                      }
                     }
-                  }
-                />
-              </div>
+                  >
+                    Due date
+                  </th>
+                  <th
+                    className="data-table-header action-button-section"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "88px",
+                        "textAlign": "left",
+                        "width": "88px",
+                      }
+                    }
+                  />
+                </tr>
+              </thead>
               <tbody
                 className="data-table-body"
               >
@@ -2812,9 +2794,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       Start
                     </a>
                   </td>
-                  <td
-                    className="removable data-table-row-section"
-                  />
                 </tr>
                 <tr
                   className="data-table-row  "
@@ -2876,9 +2855,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       Start
                     </a>
                   </td>
-                  <td
-                    className="removable data-table-row-section"
-                  />
                 </tr>
                 <tr
                   className="data-table-row  "
@@ -2940,9 +2916,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       Start
                     </a>
                   </td>
-                  <td
-                    className="removable data-table-row-section"
-                  />
                 </tr>
                 <tr
                   className="data-table-row  "
@@ -3004,9 +2977,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       Start
                     </a>
                   </td>
-                  <td
-                    className="removable data-table-row-section"
-                  />
                 </tr>
                 <tr
                   className="data-table-row  "
@@ -3068,9 +3038,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       Start
                     </a>
                   </td>
-                  <td
-                    className="removable data-table-row-section"
-                  />
                 </tr>
                 <tr
                   className="data-table-row  "
@@ -3132,9 +3099,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       Start
                     </a>
                   </td>
-                  <td
-                    className="removable data-table-row-section"
-                  />
                 </tr>
                 <tr
                   className="data-table-row  "
@@ -3196,9 +3160,6 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       Start
                     </a>
                   </td>
-                  <td
-                    className="removable data-table-row-section"
-                  />
                 </tr>
                 <tr
                   className="data-table-row  "
@@ -3260,12 +3221,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       Start
                     </a>
                   </td>
-                  <td
-                    className="removable data-table-row-section"
-                  />
                 </tr>
               </tbody>
-            </div>
+            </table>
           </DataTable>
         </div>
       </div>
@@ -3835,71 +3793,78 @@ exports[`StudentProfileUnits component should render only completed activities i
               ]
             }
           >
-            <div
+            <table
               className="data-table undefined"
             >
-              <div
-                className="data-table-headers"
-              >
-                <th
-                  className="data-table-header name-section"
-                  style={
-                    Object {
-                      "minWidth": "465px",
-                      "textAlign": "left",
-                      "width": "465px",
-                    }
-                  }
+              <thead>
+                <tr
+                  className="data-table-headers"
                 >
-                  Activity
-                </th>
-                <th
-                  className="data-table-header score-section tooltip-section"
-                  style={
-                    Object {
-                      "minWidth": "144px",
-                      "textAlign": "left",
-                      "width": "144px",
+                  <th
+                    className="data-table-header name-section"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "465px",
+                        "textAlign": "left",
+                        "width": "465px",
+                      }
                     }
-                  }
-                >
-                  Score
-                </th>
-                <th
-                  className="data-table-header tool-icon-section"
-                  style={
-                    Object {
-                      "minWidth": "24px",
-                      "textAlign": "right",
-                      "width": "24px",
+                  >
+                    Activity
+                  </th>
+                  <th
+                    className="data-table-header score-section tooltip-section"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "144px",
+                        "textAlign": "left",
+                        "width": "144px",
+                      }
                     }
-                  }
-                >
-                  Tool
-                </th>
-                <th
-                  className="data-table-header completed-due-date-section"
-                  style={
-                    Object {
-                      "minWidth": "85px",
-                      "textAlign": "left",
-                      "width": "85px",
+                  >
+                    Score
+                  </th>
+                  <th
+                    className="data-table-header tool-icon-section"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "24px",
+                        "textAlign": "right",
+                        "width": "24px",
+                      }
                     }
-                  }
-                >
-                  Due date
-                </th>
-                <th
-                  className="data-table-header action-button-section"
-                  style={
-                    Object {
-                      "minWidth": "88px",
-                      "textAlign": "left",
-                      "width": "88px",
+                  >
+                    Tool
+                  </th>
+                  <th
+                    className="data-table-header completed-due-date-section"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "85px",
+                        "textAlign": "left",
+                        "width": "85px",
+                      }
                     }
-                  }
-                />
-              </div>
+                  >
+                    Due date
+                  </th>
+                  <th
+                    className="data-table-header action-button-section"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "88px",
+                        "textAlign": "left",
+                        "width": "88px",
+                      }
+                    }
+                  />
+                </tr>
+              </thead>
               <tbody
                 className="data-table-body"
               >
@@ -3985,9 +3950,6 @@ exports[`StudentProfileUnits component should render only completed activities i
                       Replay
                     </a>
                   </td>
-                  <td
-                    className="removable data-table-row-section"
-                  />
                 </tr>
                 <tr
                   className="data-table-row  "
@@ -4071,12 +4033,9 @@ exports[`StudentProfileUnits component should render only completed activities i
                       Replay
                     </a>
                   </td>
-                  <td
-                    className="removable data-table-row-section"
-                  />
                 </tr>
               </tbody>
-            </div>
+            </table>
           </DataTable>
         </div>
       </div>
@@ -4683,59 +4642,65 @@ exports[`StudentProfileUnits component should render only incomplete activities 
               ]
             }
           >
-            <div
+            <table
               className="data-table undefined"
             >
-              <div
-                className="data-table-headers"
-              >
-                <th
-                  className="data-table-header name-section"
-                  style={
-                    Object {
-                      "minWidth": "633px",
-                      "textAlign": "left",
-                      "width": "633px",
-                    }
-                  }
+              <thead>
+                <tr
+                  className="data-table-headers"
                 >
-                  Activity
-                </th>
-                <th
-                  className="data-table-header tool-icon-section"
-                  style={
-                    Object {
-                      "minWidth": "24px",
-                      "textAlign": "right",
-                      "width": "24px",
+                  <th
+                    className="data-table-header name-section"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "633px",
+                        "textAlign": "left",
+                        "width": "633px",
+                      }
                     }
-                  }
-                >
-                  Tool
-                </th>
-                <th
-                  className="data-table-header due-date-section"
-                  style={
-                    Object {
-                      "minWidth": "85px",
-                      "textAlign": "right",
-                      "width": "85px",
+                  >
+                    Activity
+                  </th>
+                  <th
+                    className="data-table-header tool-icon-section"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "24px",
+                        "textAlign": "right",
+                        "width": "24px",
+                      }
                     }
-                  }
-                >
-                  Due date
-                </th>
-                <th
-                  className="data-table-header action-button-section"
-                  style={
-                    Object {
-                      "minWidth": "88px",
-                      "textAlign": "left",
-                      "width": "88px",
+                  >
+                    Tool
+                  </th>
+                  <th
+                    className="data-table-header due-date-section"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "85px",
+                        "textAlign": "right",
+                        "width": "85px",
+                      }
                     }
-                  }
-                />
-              </div>
+                  >
+                    Due date
+                  </th>
+                  <th
+                    className="data-table-header action-button-section"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "88px",
+                        "textAlign": "left",
+                        "width": "88px",
+                      }
+                    }
+                  />
+                </tr>
+              </thead>
               <tbody
                 className="data-table-body"
               >
@@ -4797,9 +4762,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       Resume
                     </a>
                   </td>
-                  <td
-                    className="removable data-table-row-section"
-                  />
                 </tr>
                 <tr
                   className="data-table-row  "
@@ -4857,9 +4819,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       Needs teacher
                     </span>
                   </td>
-                  <td
-                    className="removable data-table-row-section"
-                  />
                 </tr>
                 <tr
                   className="data-table-row  "
@@ -4917,9 +4876,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       Needs teacher
                     </span>
                   </td>
-                  <td
-                    className="removable data-table-row-section"
-                  />
                 </tr>
                 <tr
                   className="data-table-row  "
@@ -4977,12 +4933,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       Needs teacher
                     </span>
                   </td>
-                  <td
-                    className="removable data-table-row-section"
-                  />
                 </tr>
               </tbody>
-            </div>
+            </table>
           </DataTable>
         </div>
       </div>
@@ -5337,59 +5290,65 @@ exports[`StudentProfileUnits component should render only incomplete activities 
               ]
             }
           >
-            <div
+            <table
               className="data-table undefined"
             >
-              <div
-                className="data-table-headers"
-              >
-                <th
-                  className="data-table-header name-section"
-                  style={
-                    Object {
-                      "minWidth": "633px",
-                      "textAlign": "left",
-                      "width": "633px",
-                    }
-                  }
+              <thead>
+                <tr
+                  className="data-table-headers"
                 >
-                  Activity
-                </th>
-                <th
-                  className="data-table-header tool-icon-section"
-                  style={
-                    Object {
-                      "minWidth": "24px",
-                      "textAlign": "right",
-                      "width": "24px",
+                  <th
+                    className="data-table-header name-section"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "633px",
+                        "textAlign": "left",
+                        "width": "633px",
+                      }
                     }
-                  }
-                >
-                  Tool
-                </th>
-                <th
-                  className="data-table-header due-date-section"
-                  style={
-                    Object {
-                      "minWidth": "85px",
-                      "textAlign": "left",
-                      "width": "85px",
+                  >
+                    Activity
+                  </th>
+                  <th
+                    className="data-table-header tool-icon-section"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "24px",
+                        "textAlign": "right",
+                        "width": "24px",
+                      }
                     }
-                  }
-                >
-                  Due date
-                </th>
-                <th
-                  className="data-table-header action-button-section"
-                  style={
-                    Object {
-                      "minWidth": "88px",
-                      "textAlign": "left",
-                      "width": "88px",
+                  >
+                    Tool
+                  </th>
+                  <th
+                    className="data-table-header due-date-section"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "85px",
+                        "textAlign": "left",
+                        "width": "85px",
+                      }
                     }
-                  }
-                />
-              </div>
+                  >
+                    Due date
+                  </th>
+                  <th
+                    className="data-table-header action-button-section"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "88px",
+                        "textAlign": "left",
+                        "width": "88px",
+                      }
+                    }
+                  />
+                </tr>
+              </thead>
               <tbody
                 className="data-table-body"
               >
@@ -5453,9 +5412,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       Start
                     </a>
                   </td>
-                  <td
-                    className="removable data-table-row-section"
-                  />
                 </tr>
                 <tr
                   className="data-table-row  "
@@ -5517,9 +5473,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       Start
                     </a>
                   </td>
-                  <td
-                    className="removable data-table-row-section"
-                  />
                 </tr>
                 <tr
                   className="data-table-row  "
@@ -5581,9 +5534,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       Start
                     </a>
                   </td>
-                  <td
-                    className="removable data-table-row-section"
-                  />
                 </tr>
                 <tr
                   className="data-table-row  "
@@ -5645,9 +5595,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       Start
                     </a>
                   </td>
-                  <td
-                    className="removable data-table-row-section"
-                  />
                 </tr>
                 <tr
                   className="data-table-row  "
@@ -5709,9 +5656,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       Start
                     </a>
                   </td>
-                  <td
-                    className="removable data-table-row-section"
-                  />
                 </tr>
                 <tr
                   className="data-table-row  "
@@ -5773,9 +5717,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       Start
                     </a>
                   </td>
-                  <td
-                    className="removable data-table-row-section"
-                  />
                 </tr>
                 <tr
                   className="data-table-row  "
@@ -5837,9 +5778,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       Start
                     </a>
                   </td>
-                  <td
-                    className="removable data-table-row-section"
-                  />
                 </tr>
                 <tr
                   className="data-table-row  "
@@ -5901,12 +5839,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       Start
                     </a>
                   </td>
-                  <td
-                    className="removable data-table-row-section"
-                  />
                 </tr>
               </tbody>
-            </div>
+            </table>
           </DataTable>
         </div>
       </div>
@@ -6513,59 +6448,65 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
               ]
             }
           >
-            <div
+            <table
               className="data-table undefined"
             >
-              <div
-                className="data-table-headers"
-              >
-                <th
-                  className="data-table-header name-section"
-                  style={
-                    Object {
-                      "minWidth": "633px",
-                      "textAlign": "left",
-                      "width": "633px",
-                    }
-                  }
+              <thead>
+                <tr
+                  className="data-table-headers"
                 >
-                  Activity
-                </th>
-                <th
-                  className="data-table-header tool-icon-section"
-                  style={
-                    Object {
-                      "minWidth": "24px",
-                      "textAlign": "right",
-                      "width": "24px",
+                  <th
+                    className="data-table-header name-section"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "633px",
+                        "textAlign": "left",
+                        "width": "633px",
+                      }
                     }
-                  }
-                >
-                  Tool
-                </th>
-                <th
-                  className="data-table-header due-date-section"
-                  style={
-                    Object {
-                      "minWidth": "85px",
-                      "textAlign": "right",
-                      "width": "85px",
+                  >
+                    Activity
+                  </th>
+                  <th
+                    className="data-table-header tool-icon-section"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "24px",
+                        "textAlign": "right",
+                        "width": "24px",
+                      }
                     }
-                  }
-                >
-                  Due date
-                </th>
-                <th
-                  className="data-table-header action-button-section"
-                  style={
-                    Object {
-                      "minWidth": "88px",
-                      "textAlign": "left",
-                      "width": "88px",
+                  >
+                    Tool
+                  </th>
+                  <th
+                    className="data-table-header due-date-section"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "85px",
+                        "textAlign": "right",
+                        "width": "85px",
+                      }
                     }
-                  }
-                />
-              </div>
+                  >
+                    Due date
+                  </th>
+                  <th
+                    className="data-table-header action-button-section"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "88px",
+                        "textAlign": "left",
+                        "width": "88px",
+                      }
+                    }
+                  />
+                </tr>
+              </thead>
               <tbody
                 className="data-table-body"
               >
@@ -6627,9 +6568,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       Resume
                     </a>
                   </td>
-                  <td
-                    className="removable data-table-row-section"
-                  />
                 </tr>
                 <tr
                   className="data-table-row  "
@@ -6687,9 +6625,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       Needs teacher
                     </span>
                   </td>
-                  <td
-                    className="removable data-table-row-section"
-                  />
                 </tr>
                 <tr
                   className="data-table-row  "
@@ -6747,9 +6682,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       Needs teacher
                     </span>
                   </td>
-                  <td
-                    className="removable data-table-row-section"
-                  />
                 </tr>
                 <tr
                   className="data-table-row  "
@@ -6807,12 +6739,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       Needs teacher
                     </span>
                   </td>
-                  <td
-                    className="removable data-table-row-section"
-                  />
                 </tr>
               </tbody>
-            </div>
+            </table>
           </DataTable>
         </div>
       </div>
@@ -7167,59 +7096,65 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
               ]
             }
           >
-            <div
+            <table
               className="data-table undefined"
             >
-              <div
-                className="data-table-headers"
-              >
-                <th
-                  className="data-table-header name-section"
-                  style={
-                    Object {
-                      "minWidth": "633px",
-                      "textAlign": "left",
-                      "width": "633px",
-                    }
-                  }
+              <thead>
+                <tr
+                  className="data-table-headers"
                 >
-                  Activity
-                </th>
-                <th
-                  className="data-table-header tool-icon-section"
-                  style={
-                    Object {
-                      "minWidth": "24px",
-                      "textAlign": "right",
-                      "width": "24px",
+                  <th
+                    className="data-table-header name-section"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "633px",
+                        "textAlign": "left",
+                        "width": "633px",
+                      }
                     }
-                  }
-                >
-                  Tool
-                </th>
-                <th
-                  className="data-table-header due-date-section"
-                  style={
-                    Object {
-                      "minWidth": "85px",
-                      "textAlign": "left",
-                      "width": "85px",
+                  >
+                    Activity
+                  </th>
+                  <th
+                    className="data-table-header tool-icon-section"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "24px",
+                        "textAlign": "right",
+                        "width": "24px",
+                      }
                     }
-                  }
-                >
-                  Due date
-                </th>
-                <th
-                  className="data-table-header action-button-section"
-                  style={
-                    Object {
-                      "minWidth": "88px",
-                      "textAlign": "left",
-                      "width": "88px",
+                  >
+                    Tool
+                  </th>
+                  <th
+                    className="data-table-header due-date-section"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "85px",
+                        "textAlign": "left",
+                        "width": "85px",
+                      }
                     }
-                  }
-                />
-              </div>
+                  >
+                    Due date
+                  </th>
+                  <th
+                    className="data-table-header action-button-section"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "88px",
+                        "textAlign": "left",
+                        "width": "88px",
+                      }
+                    }
+                  />
+                </tr>
+              </thead>
               <tbody
                 className="data-table-body"
               >
@@ -7283,9 +7218,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       Start
                     </a>
                   </td>
-                  <td
-                    className="removable data-table-row-section"
-                  />
                 </tr>
                 <tr
                   className="data-table-row  "
@@ -7347,9 +7279,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       Start
                     </a>
                   </td>
-                  <td
-                    className="removable data-table-row-section"
-                  />
                 </tr>
                 <tr
                   className="data-table-row  "
@@ -7411,9 +7340,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       Start
                     </a>
                   </td>
-                  <td
-                    className="removable data-table-row-section"
-                  />
                 </tr>
                 <tr
                   className="data-table-row  "
@@ -7475,9 +7401,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       Start
                     </a>
                   </td>
-                  <td
-                    className="removable data-table-row-section"
-                  />
                 </tr>
                 <tr
                   className="data-table-row  "
@@ -7539,9 +7462,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       Start
                     </a>
                   </td>
-                  <td
-                    className="removable data-table-row-section"
-                  />
                 </tr>
                 <tr
                   className="data-table-row  "
@@ -7603,9 +7523,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       Start
                     </a>
                   </td>
-                  <td
-                    className="removable data-table-row-section"
-                  />
                 </tr>
                 <tr
                   className="data-table-row  "
@@ -7667,9 +7584,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       Start
                     </a>
                   </td>
-                  <td
-                    className="removable data-table-row-section"
-                  />
                 </tr>
                 <tr
                   className="data-table-row  "
@@ -7731,12 +7645,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       Start
                     </a>
                   </td>
-                  <td
-                    className="removable data-table-row-section"
-                  />
                 </tr>
               </tbody>
-            </div>
+            </table>
           </DataTable>
         </div>
       </div>
@@ -8343,59 +8254,65 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
               ]
             }
           >
-            <div
+            <table
               className="data-table undefined"
             >
-              <div
-                className="data-table-headers"
-              >
-                <th
-                  className="data-table-header name-section"
-                  style={
-                    Object {
-                      "minWidth": "633px",
-                      "textAlign": "left",
-                      "width": "633px",
-                    }
-                  }
+              <thead>
+                <tr
+                  className="data-table-headers"
                 >
-                  Activity
-                </th>
-                <th
-                  className="data-table-header tool-icon-section"
-                  style={
-                    Object {
-                      "minWidth": "24px",
-                      "textAlign": "right",
-                      "width": "24px",
+                  <th
+                    className="data-table-header name-section"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "633px",
+                        "textAlign": "left",
+                        "width": "633px",
+                      }
                     }
-                  }
-                >
-                  Tool
-                </th>
-                <th
-                  className="data-table-header due-date-section"
-                  style={
-                    Object {
-                      "minWidth": "85px",
-                      "textAlign": "right",
-                      "width": "85px",
+                  >
+                    Activity
+                  </th>
+                  <th
+                    className="data-table-header tool-icon-section"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "24px",
+                        "textAlign": "right",
+                        "width": "24px",
+                      }
                     }
-                  }
-                >
-                  Due date
-                </th>
-                <th
-                  className="data-table-header action-button-section"
-                  style={
-                    Object {
-                      "minWidth": "88px",
-                      "textAlign": "left",
-                      "width": "88px",
+                  >
+                    Tool
+                  </th>
+                  <th
+                    className="data-table-header due-date-section"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "85px",
+                        "textAlign": "right",
+                        "width": "85px",
+                      }
                     }
-                  }
-                />
-              </div>
+                  >
+                    Due date
+                  </th>
+                  <th
+                    className="data-table-header action-button-section"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "88px",
+                        "textAlign": "left",
+                        "width": "88px",
+                      }
+                    }
+                  />
+                </tr>
+              </thead>
               <tbody
                 className="data-table-body"
               >
@@ -8457,9 +8374,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       Resume
                     </a>
                   </td>
-                  <td
-                    className="removable data-table-row-section"
-                  />
                 </tr>
                 <tr
                   className="data-table-row  "
@@ -8517,9 +8431,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       Needs teacher
                     </span>
                   </td>
-                  <td
-                    className="removable data-table-row-section"
-                  />
                 </tr>
                 <tr
                   className="data-table-row  "
@@ -8577,9 +8488,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       Needs teacher
                     </span>
                   </td>
-                  <td
-                    className="removable data-table-row-section"
-                  />
                 </tr>
                 <tr
                   className="data-table-row  "
@@ -8637,12 +8545,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       Needs teacher
                     </span>
                   </td>
-                  <td
-                    className="removable data-table-row-section"
-                  />
                 </tr>
               </tbody>
-            </div>
+            </table>
           </DataTable>
         </div>
       </div>
@@ -8997,59 +8902,65 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
               ]
             }
           >
-            <div
+            <table
               className="data-table undefined"
             >
-              <div
-                className="data-table-headers"
-              >
-                <th
-                  className="data-table-header name-section"
-                  style={
-                    Object {
-                      "minWidth": "633px",
-                      "textAlign": "left",
-                      "width": "633px",
-                    }
-                  }
+              <thead>
+                <tr
+                  className="data-table-headers"
                 >
-                  Activity
-                </th>
-                <th
-                  className="data-table-header tool-icon-section"
-                  style={
-                    Object {
-                      "minWidth": "24px",
-                      "textAlign": "right",
-                      "width": "24px",
+                  <th
+                    className="data-table-header name-section"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "633px",
+                        "textAlign": "left",
+                        "width": "633px",
+                      }
                     }
-                  }
-                >
-                  Tool
-                </th>
-                <th
-                  className="data-table-header due-date-section"
-                  style={
-                    Object {
-                      "minWidth": "85px",
-                      "textAlign": "left",
-                      "width": "85px",
+                  >
+                    Activity
+                  </th>
+                  <th
+                    className="data-table-header tool-icon-section"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "24px",
+                        "textAlign": "right",
+                        "width": "24px",
+                      }
                     }
-                  }
-                >
-                  Due date
-                </th>
-                <th
-                  className="data-table-header action-button-section"
-                  style={
-                    Object {
-                      "minWidth": "88px",
-                      "textAlign": "left",
-                      "width": "88px",
+                  >
+                    Tool
+                  </th>
+                  <th
+                    className="data-table-header due-date-section"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "85px",
+                        "textAlign": "left",
+                        "width": "85px",
+                      }
                     }
-                  }
-                />
-              </div>
+                  >
+                    Due date
+                  </th>
+                  <th
+                    className="data-table-header action-button-section"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "88px",
+                        "textAlign": "left",
+                        "width": "88px",
+                      }
+                    }
+                  />
+                </tr>
+              </thead>
               <tbody
                 className="data-table-body"
               >
@@ -9113,9 +9024,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       Start
                     </a>
                   </td>
-                  <td
-                    className="removable data-table-row-section"
-                  />
                 </tr>
                 <tr
                   className="data-table-row  "
@@ -9177,9 +9085,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       Start
                     </a>
                   </td>
-                  <td
-                    className="removable data-table-row-section"
-                  />
                 </tr>
                 <tr
                   className="data-table-row  "
@@ -9241,9 +9146,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       Start
                     </a>
                   </td>
-                  <td
-                    className="removable data-table-row-section"
-                  />
                 </tr>
                 <tr
                   className="data-table-row  "
@@ -9305,9 +9207,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       Start
                     </a>
                   </td>
-                  <td
-                    className="removable data-table-row-section"
-                  />
                 </tr>
                 <tr
                   className="data-table-row  "
@@ -9369,9 +9268,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       Start
                     </a>
                   </td>
-                  <td
-                    className="removable data-table-row-section"
-                  />
                 </tr>
                 <tr
                   className="data-table-row  "
@@ -9433,9 +9329,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       Start
                     </a>
                   </td>
-                  <td
-                    className="removable data-table-row-section"
-                  />
                 </tr>
                 <tr
                   className="data-table-row  "
@@ -9497,9 +9390,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       Start
                     </a>
                   </td>
-                  <td
-                    className="removable data-table-row-section"
-                  />
                 </tr>
                 <tr
                   className="data-table-row  "
@@ -9561,12 +9451,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       Start
                     </a>
                   </td>
-                  <td
-                    className="removable data-table-row-section"
-                  />
                 </tr>
               </tbody>
-            </div>
+            </table>
           </DataTable>
         </div>
       </div>

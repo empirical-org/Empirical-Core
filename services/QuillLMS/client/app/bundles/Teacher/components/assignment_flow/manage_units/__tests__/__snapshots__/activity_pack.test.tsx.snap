@@ -2410,72 +2410,79 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
         }
         showRemoveIcon={true}
       >
-        <div
+        <table
           className="data-table undefined"
         >
-          <div
-            className="data-table-headers"
-          >
-            <th
-              className="data-table-header reorder-header"
+          <thead>
+            <tr
+              className="data-table-headers"
             >
-              Order
-            </th>
-            <th
-              className="data-table-header undefined"
-              style={
-                Object {
-                  "minWidth": "607px",
-                  "textAlign": "left",
-                  "width": "607px",
-                }
-              }
-            >
-              <span
-                className="tool-and-name-header"
+              <th
+                className="data-table-header reorder-header"
+                scope="col"
               >
-                <span>
-                  Tool
-                </span>
-                <span>
-                  Activity
-                </span>
-              </span>
-            </th>
-            <th
-              className="data-table-header due-date-header-container"
-              style={
-                Object {
-                  "minWidth": "120px",
-                  "textAlign": "left",
-                  "width": "120px",
+                Order
+              </th>
+              <th
+                className="data-table-header undefined"
+                scope="col"
+                style={
+                  Object {
+                    "minWidth": "607px",
+                    "textAlign": "left",
+                    "width": "607px",
+                  }
                 }
-              }
-            >
-              <span
-                className="due-date-header"
               >
-                Due date 
-                <span>
-                  (optional)
+                <span
+                  className="tool-and-name-header"
+                >
+                  <span>
+                    Tool
+                  </span>
+                  <span>
+                    Activity
+                  </span>
                 </span>
-              </span>
-            </th>
-            <th
-              className="data-table-header undefined"
-              style={
-                Object {
-                  "minWidth": "30px",
-                  "textAlign": "left",
-                  "width": "30px",
+              </th>
+              <th
+                className="data-table-header due-date-header-container"
+                scope="col"
+                style={
+                  Object {
+                    "minWidth": "120px",
+                    "textAlign": "left",
+                    "width": "120px",
+                  }
                 }
-              }
-            />
-            <th
-              aria-label="Header for remove column"
-              className="data-table-header"
-            />
-          </div>
+              >
+                <span
+                  className="due-date-header"
+                >
+                  Due date 
+                  <span>
+                    (optional)
+                  </span>
+                </span>
+              </th>
+              <th
+                className="data-table-header undefined"
+                scope="col"
+                style={
+                  Object {
+                    "minWidth": "30px",
+                    "textAlign": "left",
+                    "width": "30px",
+                  }
+                }
+              />
+              <th
+                aria-label="Header for remove column"
+                className="data-table-header"
+                scope="col"
+              />
+            </tr>
+          </thead>
           <tbody
             className="data-table-body reorderable"
           >
@@ -14390,7 +14397,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
               </sortableList>
             </SortableList>
           </tbody>
-        </div>
+        </table>
       </DataTable>
     </ActivityTable>
     <a
@@ -15807,63 +15814,68 @@ exports[`ActivityPack component renders if the current user did not create the u
         }
         showRemoveIcon={false}
       >
-        <div
+        <table
           className="data-table undefined"
         >
-          <div
-            className="data-table-headers"
-          >
-            <th
-              className="data-table-header undefined"
-              style={
-                Object {
-                  "minWidth": "724px",
-                  "textAlign": "left",
-                  "width": "724px",
-                }
-              }
+          <thead>
+            <tr
+              className="data-table-headers"
             >
-              <span
-                className="tool-and-name-header"
-              >
-                <span>
-                  Tool
-                </span>
-                <span>
-                  Activity
-                </span>
-              </span>
-            </th>
-            <th
-              className="data-table-header due-date-header-container no-right-margin"
-              style={
-                Object {
-                  "minWidth": "110px",
-                  "textAlign": "left",
-                  "width": "110px",
+              <th
+                className="data-table-header undefined"
+                scope="col"
+                style={
+                  Object {
+                    "minWidth": "724px",
+                    "textAlign": "left",
+                    "width": "724px",
+                  }
                 }
-              }
-            >
-              <span
-                className="due-date-header"
               >
-                Due date 
-                <span>
-                  (optional)
+                <span
+                  className="tool-and-name-header"
+                >
+                  <span>
+                    Tool
+                  </span>
+                  <span>
+                    Activity
+                  </span>
                 </span>
-              </span>
-            </th>
-            <th
-              className="data-table-header undefined"
-              style={
-                Object {
-                  "minWidth": "30px",
-                  "textAlign": "left",
-                  "width": "30px",
+              </th>
+              <th
+                className="data-table-header due-date-header-container no-right-margin"
+                scope="col"
+                style={
+                  Object {
+                    "minWidth": "110px",
+                    "textAlign": "left",
+                    "width": "110px",
+                  }
                 }
-              }
-            />
-          </div>
+              >
+                <span
+                  className="due-date-header"
+                >
+                  Due date 
+                  <span>
+                    (optional)
+                  </span>
+                </span>
+              </th>
+              <th
+                className="data-table-header undefined"
+                scope="col"
+                style={
+                  Object {
+                    "minWidth": "30px",
+                    "textAlign": "left",
+                    "width": "30px",
+                  }
+                }
+              />
+            </tr>
+          </thead>
           <tbody
             className="data-table-body"
           >
@@ -15939,9 +15951,6 @@ exports[`ActivityPack component renders if the current user did not create the u
                   />
                 </button>
               </td>
-              <td
-                className="removable data-table-row-section"
-              />
             </tr>
             <tr
               className="data-table-row  "
@@ -16015,9 +16024,6 @@ exports[`ActivityPack component renders if the current user did not create the u
                   />
                 </button>
               </td>
-              <td
-                className="removable data-table-row-section"
-              />
             </tr>
             <tr
               className="data-table-row  "
@@ -16091,9 +16097,6 @@ exports[`ActivityPack component renders if the current user did not create the u
                   />
                 </button>
               </td>
-              <td
-                className="removable data-table-row-section"
-              />
             </tr>
             <tr
               className="data-table-row  "
@@ -16167,9 +16170,6 @@ exports[`ActivityPack component renders if the current user did not create the u
                   />
                 </button>
               </td>
-              <td
-                className="removable data-table-row-section"
-              />
             </tr>
             <tr
               className="data-table-row  "
@@ -16243,9 +16243,6 @@ exports[`ActivityPack component renders if the current user did not create the u
                   />
                 </button>
               </td>
-              <td
-                className="removable data-table-row-section"
-              />
             </tr>
             <tr
               className="data-table-row  "
@@ -16319,9 +16316,6 @@ exports[`ActivityPack component renders if the current user did not create the u
                   />
                 </button>
               </td>
-              <td
-                className="removable data-table-row-section"
-              />
             </tr>
             <tr
               className="data-table-row  "
@@ -16395,9 +16389,6 @@ exports[`ActivityPack component renders if the current user did not create the u
                   />
                 </button>
               </td>
-              <td
-                className="removable data-table-row-section"
-              />
             </tr>
             <tr
               className="data-table-row  "
@@ -16471,9 +16462,6 @@ exports[`ActivityPack component renders if the current user did not create the u
                   />
                 </button>
               </td>
-              <td
-                className="removable data-table-row-section"
-              />
             </tr>
             <tr
               className="data-table-row  "
@@ -16547,12 +16535,9 @@ exports[`ActivityPack component renders if the current user did not create the u
                   />
                 </button>
               </td>
-              <td
-                className="removable data-table-row-section"
-              />
             </tr>
           </tbody>
-        </div>
+        </table>
       </DataTable>
     </ActivityTable>
   </section>

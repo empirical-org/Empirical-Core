@@ -131,13 +131,13 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
 
     const allDisabled = rows.every(row => row.checkDisabled)
     if (allDisabled) {
-      return <th aria-label="Disabled checkbox" className={`quill-checkbox disabled ${dataTableHeaderClassName}`} />
+      return <th aria-label="Disabled checkbox" className={`quill-checkbox disabled ${dataTableHeaderClassName}`} scope="col" />
     }
 
     const allChecked = rows.every(row => row.checked)
     if (allChecked) {
       return (
-        <th className={dataTableHeaderClassName}>
+        <th className={dataTableHeaderClassName} scope="col">
           <button className="quill-checkbox selected" onClick={uncheckAllRows} type="button">
             <img alt="Checked checkbox" src={smallWhiteCheckSrc} />
           </button>
@@ -148,7 +148,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     const anyChecked = rows.some(row => row.checked)
     if (anyChecked) {
       return (
-        <th className={dataTableHeaderClassName}>
+        <th className={dataTableHeaderClassName} scope="col">
           <button className="quill-checkbox selected" onClick={uncheckAllRows} type="button">
             <img alt="Checked checkbox" src={indeterminateSrc} />
           </button>
@@ -157,7 +157,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     }
 
     return (
-      <th className={dataTableHeaderClassName}>
+      <th className={dataTableHeaderClassName} scope="col">
         <button aria-label="Unchecked checkbox" className="quill-checkbox unselected" onClick={checkAllRows} type="button" />
       </th>
     )
@@ -167,21 +167,21 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     const { showRemoveIcon } = this.props
     if (!showRemoveIcon) { return null }
 
-    return <th aria-label="Header for remove column" className={dataTableHeaderClassName} />
+    return <th aria-label="Header for remove column" className={dataTableHeaderClassName} scope="col" />
   }
 
   renderHeaderForOrder() {
     const { isReorderable } = this.props
     if (!isReorderable) { return }
 
-    return <th className={`${dataTableHeaderClassName} reorder-header`}>Order</th>
+    return <th className={`${dataTableHeaderClassName} reorder-header`} scope="col">Order</th>
   }
 
   renderActionsHeader(header) {
     const { showActions } = this.props
     if (!showActions) { return null }
 
-    return <th className={`${dataTableHeaderClassName} actions-header`}>{header.name || 'Actions'}</th>
+    return <th className={`${dataTableHeaderClassName} actions-header`} scope="col">{header.name || 'Actions'}</th>
   }
 
   renderRowCheckbox(row) {
@@ -198,7 +198,10 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
 
   renderRowRemoveIcon(row) {
     const { showRemoveIcon, removeRow, } = this.props
-    if (showRemoveIcon && row.removable) {
+
+    if (!showRemoveIcon) { return }
+
+    if (row.removable) {
       return <td><button className="removable data-table-row-section focus-on-light" id={`remove-button-${row.id}`} onClick={() => removeRow(row.id)} type="button"><img alt="x" src={removeSrc} /></button></td>
     }
 
@@ -263,6 +266,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     return (
       <th
         className={className}
+        scope="col"
         style={style as any}
       >
         {headerContent}
@@ -273,7 +277,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
   renderHeaders() {
     const { headers, } = this.props
     const headerItems = headers.map(header => this.renderHeader(header))
-    return <div className="data-table-headers">{this.renderHeaderCheckbox()}{this.renderHeaderForOrder()}{headerItems}{this.renderHeaderForRemoval()}</div>
+    return <thead><tr className="data-table-headers">{this.renderHeaderCheckbox()}{this.renderHeaderForOrder()}{headerItems}{this.renderHeaderForRemoval()}</tr></thead>
   }
 
   renderRowSection(row, header) {
@@ -354,10 +358,10 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
   render() {
     const { className, } = this.props
     return (
-      <div className={`data-table ${className}`}>
+      <table className={`data-table ${className}`}>
         {this.renderHeaders()}
         {this.renderRows()}
-      </div>
+      </table>
     )
   }
 
