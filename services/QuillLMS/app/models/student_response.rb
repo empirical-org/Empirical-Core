@@ -52,8 +52,8 @@ class StudentResponse < ApplicationRecord
 
   has_one :student_response_extra_metadata, dependent: :destroy
 
-  has_one :student_response_concept_result, dependent: :destroy
-  has_one :concept_result, through: :student_response_concept_result
+  has_many :student_response_concept_results, dependent: :destroy
+  has_many :concept_results, through: :student_response_concept_results
 
   has_many :student_responses_concepts, dependent: :destroy
   has_many :concepts, through: :student_responses_concepts
@@ -132,7 +132,7 @@ class StudentResponse < ApplicationRecord
       # Whether we create a new record, or add a concept, we should ensure
       # that we record a relation to the source concept_result so we can
       # skip migrating it in future runs
-      student_response.concept_result = concept_result
+      student_response.concept_results.push(concept_result) unless student_response.concept_results.include?(concept_result)
       student_response.save!
     end
     student_response

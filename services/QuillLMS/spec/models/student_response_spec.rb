@@ -62,8 +62,8 @@ RSpec.describe StudentResponse, type: :model do
     it { should have_many(:student_responses_concepts).dependent(:destroy) }
     it { should have_many(:concepts).through(:student_responses_concepts) }
 
-    it { should have_one(:student_response_concept_result).dependent(:destroy) }
-    it { should have_one(:concept_result).through(:student_response_concept_result) }
+    it { should have_many(:student_response_concept_results).dependent(:destroy) }
+    it { should have_many(:concept_results).through(:student_response_concept_results) }
   end
 
   context 'validations' do
@@ -248,6 +248,23 @@ RSpec.describe StudentResponse, type: :model do
           .to not_change(StudentResponse, :count)
           .and not_change(student_response.reload.concepts, :length)
           .and change(StudentResponseConceptResult, :count).by(1)
+      end
+
+      it 'should create a new StudentResponseConceptResult record if one is missing, even if no other records are created or modified' do
+        extra_concept_result = create(:sentence_combining, activity_session: activity_session, metadata: metadata)
+        student_response = create(:student_response,
+          activity_session: concept_result.activity_session,
+          attempt_number: metadata[:attemptNumber],
+          concepts: [concept_result.concept],
+          question_number: metadata[:questionNumber],
+          concept_results: [extra_concept_result])
+
+        expect(student_response.concept_results).to eq([extra_concept_result])
+        expect { StudentResponse.create_from_concept_result(concept_result) }
+          .to not_change(StudentResponse, :count)
+          .and not_change(student_response.reload.concepts, :length)
+          .and change(StudentResponseConceptResult, :count).by(1)
+        expect(student_response.concept_results).to include(concept_result, extra_concept_result)
       end
     end
 
