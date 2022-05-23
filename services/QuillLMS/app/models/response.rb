@@ -188,6 +188,10 @@ class Response < ApplicationRecord
       end
       rollup
     end.values
+
+    data_hash_array
+      .group_by { |v| [v[:metadata][:questionNumber], v[:metadata][:attemptNumber]] }
+      .map { |_,v| v.first.merge({concept_ids: v.map { |c| c[:concept_id] }}) }
   end
 
   private_class_method def self.calculate_question_from_hash(data_hash)
@@ -204,13 +208,13 @@ class Response < ApplicationRecord
   end
 
   private def legacy_format_metadata
-    metadata = legacy_format_base_metadata
-    metadata.merge!(response_extra_metadata || {})
-    metadata.reject { |_,v| v.blank? }
+    legacy_format_base_metadata
+      .merge!(response_extra_metadata || {})
+      .reject { |_,v| v.blank? }
   end
 
   private def legacy_format_base_metadata
-    metadata = {
+    {
       answer: response_answer&.json,
       attemptNumber: attempt_number,
       correct: correct ? 1 : 0,
