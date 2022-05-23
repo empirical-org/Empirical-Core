@@ -27,10 +27,10 @@ describe EnqueueConceptResultsMigrationWorker, type: :worker do
       subject.perform(start, finish)
     end
 
-    it 'should enqueue a CopyConceptResultsToStudentResponsesWorker' do
+    it 'should enqueue a CopyConceptResultsToResponsesWorker' do
       concept_result_ids = ConceptResult.select(:id).all.map(&:id)
 
-      expect(CopyConceptResultsToStudentResponsesWorker).to receive(:perform_async).with(concept_result_ids)
+      expect(CopyConceptResultsToResponsesWorker).to receive(:perform_async).with(concept_result_ids)
 
       subject.perform(nil, nil)
     end
@@ -40,7 +40,7 @@ describe EnqueueConceptResultsMigrationWorker, type: :worker do
       middle_concept_result = create(:concept_result, activity_session: activity_session)
       final_concept_result = create(:concept_result, activity_session: activity_session)
 
-      expect(CopyConceptResultsToStudentResponsesWorker).to receive(:perform_async).with([final_concept_result.id])
+      expect(CopyConceptResultsToResponsesWorker).to receive(:perform_async).with([final_concept_result.id])
 
       subject.perform(final_concept_result.id, nil)
     end
@@ -50,7 +50,7 @@ describe EnqueueConceptResultsMigrationWorker, type: :worker do
       middle_concept_result = create(:concept_result, activity_session: activity_session)
       final_concept_result = create(:concept_result, activity_session: activity_session)
 
-      expect(CopyConceptResultsToStudentResponsesWorker).to receive(:perform_async).with([concept_result.id, middle_concept_result.id])
+      expect(CopyConceptResultsToResponsesWorker).to receive(:perform_async).with([concept_result.id, middle_concept_result.id])
 
       subject.perform(nil, middle_concept_result.id)
     end

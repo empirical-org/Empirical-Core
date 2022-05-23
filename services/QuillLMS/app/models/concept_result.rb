@@ -29,8 +29,8 @@ class ConceptResult < ApplicationRecord
   validates :concept, presence: true
   validates :activity_session_id, presence: true
 
-  has_one :student_response_concept_result, dependent: :destroy
-  has_one :student_response, through: :student_response_concept_result
+  has_one :response_concept_result, dependent: :destroy
+  has_one :response, through: :response_concept_result
 
   validates :question_type, inclusion: { in: %w(passage-proofreader sentence-writing sentence-fragment-expansion sentence-fragment-identification sentence-combining fill-in-the-blanks lessons-slide comprehension),
                    message: "%<value>s is not a valid question_type" }, :allow_nil => true
