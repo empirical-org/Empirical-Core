@@ -13,5 +13,7 @@
 #  index_response_previous_feedback_texts_on_text  (text) UNIQUE
 #
 class ResponsePreviousFeedback < ApplicationRecord
-  include IsResponseNormalizedText
+  has_many :responses
+
+  validates :text, uniqueness: true, length: { minimum: 0, allow_nil: false }
 end

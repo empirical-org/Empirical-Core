@@ -13,5 +13,7 @@
 #  index_response_directions_texts_on_text  (text) UNIQUE
 #
 class ResponseDirections < ApplicationRecord
-  include IsResponseNormalizedText
+  has_many :responses
+
+  validates :text, uniqueness: true, length: { minimum: 0, allow_nil: false }
 end

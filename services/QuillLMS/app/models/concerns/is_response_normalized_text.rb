@@ -7,9 +7,6 @@ module IsResponseNormalizedText
   extend ActiveSupport::Concern
 
   included do
-    has_many :responses
-
-    validates :text, uniqueness: true, length: { minimum: 0, allow_nil: false }
   end
 end
 
