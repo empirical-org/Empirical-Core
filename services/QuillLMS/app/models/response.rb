@@ -88,7 +88,6 @@ class Response < ApplicationRecord
     # conept_ids if that hasn't been done by an earlier step
     data_hash[:concept_ids] = [data_hash[:concept_id]] unless data_hash.key?(:concept_ids) && !data_hash[:concept_ids].empty?
 
-    extra_metadata = extract_extra_metadata(metadata)
 
     response = new(
       activity_session_id: data_hash[:activity_session_id],
@@ -97,11 +96,11 @@ class Response < ApplicationRecord
       correct: metadata[:correct],
       question: question,
       question_number: metadata[:questionNumber],
-      question_score: metadata[:questionScore],
-      response_extra_metadata: extra_metadata
+      question_score: metadata[:questionScore]
     )
 
-    set_normalized_text(response, data_hash)
+    response.set_normalized_text(data_hash)
+    response.set_extra_metadata(metadata)
 
     response.save!
     response
@@ -151,58 +150,29 @@ class Response < ApplicationRecord
     end
   end
 
-  def self.bulk_create_from_json(data_hash_array)
-    normalized_data_hash = roll_up_concepts(data_hash_array)
+  def set_normalized_text(data_hash)
+    metadata = data_hash[:metadata]
 
-    normalized_data_hash.map { |data_hash| create_from_json(data_hash) }
+    self.response_answer = ResponseAnswer.find_or_create_by(json: metadata[:answer]) unless metadata[:answer].nil?
+    self.response_directions = ResponseDirections.find_or_create_by(text: metadata[:directions]) unless metadata[:directions].nil?
+    self.response_instructions = ResponseInstructions.find_or_create_by(text: metadata[:instructions]) unless metadata[:instructions].nil?
+    self.response_previous_feedback = ResponsePreviousFeedback.find_or_create_by(text: metadata[:lastFeedback]) unless metadata[:lastFeedback].nil?
+    self.response_prompt = ResponsePrompt.find_or_create_by(text: metadata[:prompt]) unless metadata[:prompt].nil?
+    self.response_question_type = ResponseQuestionType.find_or_create_by(text: data_hash[:question_type]) unless data_hash[:question_type].nil?
   end
 
-  private_class_method def self.extract_extra_metadata(metadata)
+  def set_extra_metadata(metadata)
     extra_metadata = metadata.except(*KNOWN_METADATA_KEYS).reject{ |_,v| v.nil? || (v.is_a?(Enumerable) && v.empty?) }
 
     return if extra_metadata.empty?
 
-    ResponseExtraMetadata.new(metadata: extra_metadata)
+    self.response_extra_metadata = ResponseExtraMetadata.new(metadata: extra_metadata)
   end
 
-  private_class_method def self.set_normalized_text(target, data_hash)
-    metadata = data_hash[:metadata]
+  def self.bulk_create_from_json(data_hash_array)
+    normalized_data_hash = roll_up_concepts(data_hash_array)
 
-    # There are six different strings that we normalize, and we use the
-    # same process for all of them:
-    #  1) If the key for the string isn't provided, skip it
-    #  2) Find the ID for this exact string if we've seen it before
-    #  3) Create a new normalized record if this string is brand new
-    #  4) Link the normalized reference to the Response model
-    # This array of arrays is used to execute that logic on each of the
-    # six strings we care about without actually writing the logic six
-    # different times.
-
-    attribute_model_value_tuples = [
-      [:response_directions=,
-       ResponseDirections,
-       metadata[:directions]],
-      [:response_instructions=,
-       ResponseInstructions,
-       metadata[:instructions]],
-      [:response_previous_feedback=,
-       ResponsePreviousFeedback,
-       metadata[:lastFeedback]],
-      [:response_prompt=,
-       ResponsePrompt,
-       metadata[:prompt]],
-      [:response_question_type=,
-       ResponseQuestionType,
-       data_hash[:question_type]]
-    ]
-
-    target.response_answer = ResponseAnswer.find_or_create_by(json: metadata[:answer]) unless metadata[:answer].nil?
-    attribute_model_value_tuples.each do |attribute, model, value|
-      next if value.nil?
-
-      related_model = model.find_or_create_by(text: value)
-      target.send(attribute, related_model)
-    end
+    normalized_data_hash.map { |data_hash| create_from_json(data_hash) }
   end
 
   # Takes an input of hashes representing old-style ConceptResult
