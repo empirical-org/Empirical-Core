@@ -250,7 +250,7 @@ RSpec.describe StudentResponse, type: :model do
           .and change(StudentResponseConceptResult, :count).by(1)
       end
 
-      it 'should create a new StudentResponseConceptResult record if one is missing, even if no other records are created or modified' do
+      it 'should add a new StudentResponseConceptResult record to an existing StudentResponse if one exists with the same activity_session, question_number, and attempt_number' do
         extra_concept_result = create(:sentence_combining, activity_session: activity_session, metadata: metadata)
         student_response = create(:student_response,
           activity_session: concept_result.activity_session,
