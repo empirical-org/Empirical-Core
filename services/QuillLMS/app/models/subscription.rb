@@ -177,10 +177,6 @@ class Subscription < ApplicationRecord
     end
   end
 
-  def disable_stripe_auto_renew
-    Stripe::Subscription.update(stripe_subscription_id, cancel_at_period_end: true)
-  end
-
   def self.expired_today_or_previously_and_recurring
     Subscription
       .expired
