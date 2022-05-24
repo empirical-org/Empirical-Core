@@ -47,10 +47,12 @@ module SegmentIo
     VIEWED_DEMO = 'User logged into Demo account'
     PREVIEWED_ACTIVITY = 'Teacher previewed an activity'
     TEACHER_COMPLETED_ONBOARDING_CHECKLIST = 'Teacher completed onboarding checklist'
-    RECURRING_TEACHER_SUB_WILL_EXPIRE = 'Teacher Premium Renews in 30 Days | Automatic Renewal On'
-    RECURRING_SCHOOL_SUB_WILL_EXPIRE = 'School Premium Renews in 30 Days | Automatic Renewal On'
-    NON_RECURRING_TEACHER_SUB_WILL_EXPIRE = 'Teacher Premium Renews in 30 Days | Automatic Renewal Off'
-    NON_RECURRING_SCHOOL_SUB_WILL_EXPIRE = 'School Premium Renews in 30 Days | Automatic Renewal Off'
+    TEACHER_SUB_WILL_RENEW = 'Teacher Premium Renews in 30 Days | Automatic Renewal On'
+    SCHOOL_SUB_WILL_RENEW = 'School Premium Renews in 30 Days | Automatic Renewal On'
+    TEACHER_SUB_WILL_EXPIRE_IN_30 = 'Teacher Premium Expires in 30 Days | Automatic Renewal Off'
+    SCHOOL_SUB_WILL_EXPIRE_IN_30 = 'School Premium Expires in 30 Days | Automatic Renewal Off'
+    TEACHER_SUB_WILL_EXPIRE_IN_14 = 'Teacher Premium Expires in 14 Days | Automatic Renewal Off'
+    SCHOOL_SUB_WILL_EXPIRE_IN_14 = 'School Premium Expires in 14 Days | Automatic Renewal Off'
   end
 
   module Events
