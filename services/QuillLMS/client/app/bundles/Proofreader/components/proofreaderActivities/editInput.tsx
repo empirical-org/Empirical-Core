@@ -21,16 +21,22 @@ export default class EditInput extends React.Component<EditInputProps, {}> {
     let className = 'edit-input'
     if (underlined && underlineErrors) {
       className += ' underlined'
+      // disabling tabIndex rule because this is a non-standard use case - since screenreader users will likely be using tab keys to navigate the passage, it is important that this information is discoverable in that mode
+      /* eslint-disable jsx-a11y/no-noninteractive-tabindex */
       beforeElements.push(<span className="sr-only" tabIndex={0}>(underlined text begins here)</span>)
       afterElements.push(<span className="sr-only" tabIndex={0}>(underlined text ends here)</span>)
+      /* eslint-enable jsx-a11y/no-noninteractive-tabindex */
     }
     if (isFollowedByPunctuation) {
       className += ' no-right-margin'
     }
     if (currentText.trim() !== originalText) {
       className += ' bolded'
+      // disabling tabIndex rule because this is a non-standard use case - since screenreader users will likely be using tab keys to navigate the passage, it is important that this information is discoverable in that mode
+      /* eslint-disable jsx-a11y/no-noninteractive-tabindex */
       beforeElements.push(<span className="sr-only" tabIndex={0}>(bolded text begins here)</span>)
       afterElements.push(<span className="sr-only" tabIndex={0}>(bolded text ends here)</span>)
+      /* eslint-enable jsx-a11y/no-noninteractive-tabindex */
     }
     const key = `${paragraphIndex}-${wordIndex}-${numberOfResets}`
     return (
