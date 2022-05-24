@@ -470,7 +470,7 @@ describe Subscription, type: :model do
       context 'trial' do
         let(:account_type) { described_class::TEACHER_TRIAL }
 
-        it { expect(subject).to be nil }
+        it { expect(subject).to eq STRIPE_TEACHER_PLAN_PRICE_ID }
       end
 
       context 'premium credit' do
