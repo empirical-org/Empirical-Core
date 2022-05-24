@@ -388,7 +388,7 @@ class Subscription < ApplicationRecord
   end
 
   def renewal_stripe_price_id
-    return STRIPE_TEACHER_PLAN_PRICE_ID if account_type == TEACHER_PAID
+    return STRIPE_TEACHER_PLAN_PRICE_ID if [TEACHER_PAID, TEACHER_TRIAL].include?(account_type)
     return STRIPE_SCHOOL_PLAN_PRICE_ID if stripe? && account_type == SCHOOL_PAID
   end
 
