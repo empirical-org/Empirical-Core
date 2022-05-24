@@ -138,6 +138,12 @@ RSpec.describe Response, type: :model do
         expect(response.response_instructions).to be_nil
       end
 
+      it 'should not link to records when the value in the key is an empty string' do
+        response = Response.create_from_json(json.merge({question_type: nil}))
+
+        expect(response.response_question_type).to be_nil
+      end
+
       it 'should find existing NormalizedText records when existing text is provided' do
         create(:response_answer, json: metadata[:answer])
         create(:response_directions, text: metadata[:directions])
@@ -190,7 +196,7 @@ RSpec.describe Response, type: :model do
       end
     end
 
-    context 'self.create_from_concept_result' do
+    context 'self.find_or_create_from_concept_result' do
       let(:question) { create(:question) }
       let(:activity) { create(:activity, data: {questions: [{key: question.uid}]}) }
       let(:activity_session) { create(:activity_session, activity: activity) }
@@ -210,7 +216,7 @@ RSpec.describe Response, type: :model do
 
       it 'should create a new Response if none exists for the activity_session-attempt_number-question_number combination of the source ConceptResult' do
         expect do
-          response = Response.create_from_concept_result(concept_result)
+          response = Response.find_or_create_from_concept_result(concept_result)
           expect(response.valid?).to be(true)
         end.to change(Response, :count).by(1)
       end
@@ -219,7 +225,7 @@ RSpec.describe Response, type: :model do
         create(:response_concept_result, concept_result: concept_result)
 
         expect(Response).not_to receive(:find_by)
-        Response.create_from_concept_result(concept_result)
+        Response.find_or_create_from_concept_result(concept_result)
       end
 
       it 'should attach a new Concept to an existing Response if one exists for the activity_session-attempt_number-question_number combination of the ConceptResult' do
@@ -230,7 +236,7 @@ RSpec.describe Response, type: :model do
           concepts: [different_concept],
           question_number: metadata[:questionNumber])
         expect do
-          response = Response.create_from_concept_result(concept_result)
+          response = Response.find_or_create_from_concept_result(concept_result)
           expect(response).to eq(response)
           expect(response.concepts).to include(concept_result.concept, different_concept)
         end.to not_change(Response, :count)
@@ -244,7 +250,7 @@ RSpec.describe Response, type: :model do
           concepts: [concept_result.concept],
           question_number: metadata[:questionNumber])
 
-        expect { Response.create_from_concept_result(concept_result) }
+        expect { Response.find_or_create_from_concept_result(concept_result) }
           .to not_change(Response, :count)
           .and not_change(response.reload.concepts, :length)
           .and change(ResponseConceptResult, :count).by(1)
@@ -260,7 +266,7 @@ RSpec.describe Response, type: :model do
           concept_results: [extra_concept_result])
 
         expect(response.concept_results).to eq([extra_concept_result])
-        expect { Response.create_from_concept_result(concept_result) }
+        expect { Response.find_or_create_from_concept_result(concept_result) }
           .to not_change(Response, :count)
           .and not_change(response.reload.concepts, :length)
           .and change(ResponseConceptResult, :count).by(1)
@@ -338,7 +344,7 @@ RSpec.describe Response, type: :model do
       let(:concept_result) { create(:sentence_combining, concept: concept, activity_session: activity_session, concept_uid: concept.uid, metadata: metadata, activity_classification_id: activity.activity_classification_id) }
 
       it 'should return data in the same shape as a ConceptResult' do
-        response = Response.create_from_concept_result(concept_result)
+        response = Response.find_or_create_from_concept_result(concept_result)
 
         expect(response.legacy_format.first.except(:id)).to eq(concept_result.as_json.deep_symbolize_keys.except(:id))
       end
@@ -346,8 +352,8 @@ RSpec.describe Response, type: :model do
       it 'should return an array of hashes shaped like ConceptResults when a Response has multiple concepts' do
         concept2 = create(:concept)
         concept_result2 = create(:sentence_combining, concept: concept2, activity_session: activity_session, concept_uid: concept2.uid, metadata: metadata, activity_classification_id: activity.activity_classification_id)
-        Response.create_from_concept_result(concept_result)
-        response = Response.create_from_concept_result(concept_result2)
+        Response.find_or_create_from_concept_result(concept_result)
+        response = Response.find_or_create_from_concept_result(concept_result2)
 
         payload = response.legacy_format
 

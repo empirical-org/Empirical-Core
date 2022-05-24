@@ -106,7 +106,7 @@ class Response < ApplicationRecord
     response
   end
 
-  def self.create_from_concept_result(concept_result)
+  def self.find_or_create_from_concept_result(concept_result)
     return if concept_result.response
 
     response = Response.find_by(
@@ -153,12 +153,12 @@ class Response < ApplicationRecord
   def set_normalized_text(data_hash)
     metadata = data_hash[:metadata]
 
-    self.response_answer = ResponseAnswer.find_or_create_by(json: metadata[:answer]) unless metadata[:answer].nil?
-    self.response_directions = ResponseDirections.find_or_create_by(text: metadata[:directions]) unless metadata[:directions].nil?
-    self.response_instructions = ResponseInstructions.find_or_create_by(text: metadata[:instructions]) unless metadata[:instructions].nil?
-    self.response_previous_feedback = ResponsePreviousFeedback.find_or_create_by(text: metadata[:lastFeedback]) unless metadata[:lastFeedback].nil?
-    self.response_prompt = ResponsePrompt.find_or_create_by(text: metadata[:prompt]) unless metadata[:prompt].nil?
-    self.response_question_type = ResponseQuestionType.find_or_create_by(text: data_hash[:question_type]) unless data_hash[:question_type].nil?
+    self.response_answer = ResponseAnswer.find_or_create_by(json: metadata[:answer]) unless metadata[:answer].blank?
+    self.response_directions = ResponseDirections.find_or_create_by(text: metadata[:directions]) unless metadata[:directions].blank?
+    self.response_instructions = ResponseInstructions.find_or_create_by(text: metadata[:instructions]) unless metadata[:instructions].blank?
+    self.response_previous_feedback = ResponsePreviousFeedback.find_or_create_by(text: metadata[:lastFeedback]) unless metadata[:lastFeedback].blank?
+    self.response_prompt = ResponsePrompt.find_or_create_by(text: metadata[:prompt]) unless metadata[:prompt].blank?
+    self.response_question_type = ResponseQuestionType.find_or_create_by(text: data_hash[:question_type]) unless data_hash[:question_type].blank?
   end
 
   def set_extra_metadata(metadata)
