@@ -13,7 +13,7 @@ export default class EarlySubmitModal extends React.Component<EarlySubmitModalPr
   render() {
     const { requiredEditCount, closeModal, } = this.props
     return (
-      <div className="early-submit-modal-container" ref={(node) => this.modal = node} tabIndex={-1}>
+      <div aria-live="polite" className="early-submit-modal-container" ref={(node) => this.modal = node} tabIndex={-1}>
         <div className="early-submit-modal-background" />
         <div className="early-submit-modal">
           <div className="top-section">

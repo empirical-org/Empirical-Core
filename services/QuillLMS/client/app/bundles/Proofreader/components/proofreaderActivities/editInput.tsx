@@ -3,7 +3,7 @@ import ContentEditable from 'react-contenteditable';
 
 import { WordObject } from '../../interfaces/proofreaderActivities'
 
-type EditInputProps = WordObject & { onWordChange: Function, numberOfResets: number, isFollowedByPunctuation: boolean }
+type EditInputProps = WordObject & { onWordChange: Function, numberOfResets: number, isFollowedByPunctuation: boolean, underlineErrors: boolean }
 
 export default class EditInput extends React.Component<EditInputProps, {}> {
   handleWordChange = (e: any) => {
@@ -15,29 +15,39 @@ export default class EditInput extends React.Component<EditInputProps, {}> {
   setEditInputRef = node => this.editInput = node
 
   render() {
-    const { currentText, originalText, underlined, wordIndex, paragraphIndex, numberOfResets, isFollowedByPunctuation, } = this.props
+    const { currentText, originalText, underlined, wordIndex, paragraphIndex, numberOfResets, isFollowedByPunctuation, underlineErrors} = this.props
+    const beforeElements = []
+    const afterElements = []
     let className = 'edit-input'
-    if (underlined ) {
+    if (underlined && underlineErrors) {
       className += ' underlined'
+      beforeElements.push(<span className="sr-only" tabIndex={0}>(underlined text begins here)</span>)
+      afterElements.push(<span className="sr-only" tabIndex={0}>(underlined text ends here)</span>)
     }
     if (isFollowedByPunctuation) {
       className += ' no-right-margin'
     }
     if (currentText.trim() !== originalText) {
       className += ' bolded'
+      beforeElements.push(<span className="sr-only" tabIndex={0}>(bolded text begins here)</span>)
+      afterElements.push(<span className="sr-only" tabIndex={0}>(bolded text ends here)</span>)
     }
     const key = `${paragraphIndex}-${wordIndex}-${numberOfResets}`
     return (
-      <ContentEditable
-        className={className}
-        data-gramm={false}
-        html={currentText}
-        innerRef={this.setEditInputRef}
-        key={key}
-        onChange={this.handleWordChange}
-        spellCheck={false}
-        tagName="span"
-      />
+      <React.Fragment>
+        {beforeElements}
+        <ContentEditable
+          className={className}
+          data-gramm={false}
+          html={currentText}
+          innerRef={this.setEditInputRef}
+          key={key}
+          onChange={this.handleWordChange}
+          spellCheck={false}
+          tagName="span"
+        />
+        {afterElements}
+      </React.Fragment>
     )
   }
 }
