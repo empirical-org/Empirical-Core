@@ -71,6 +71,8 @@ describe Subscription, type: :model do
     let!(:subscription) { create(:subscription, expiration: Date.new(2018,4,6), purchaser: user) }
     let!(:user_subscription) { create(:user_subscription, subscription: subscription, user: user) }
 
+    subject { subscription.credit_user_and_de_activate }
+
     before { allow(Date).to receive(:current).and_return Date.new(2018,4,4) }
 
     context 'it does nothing to the subscription when' do
@@ -81,41 +83,46 @@ describe Subscription, type: :model do
       it 'is a subscription with multiple users_subscriptions linked' do
         user_subscription2
         old_sub_attributes = subscription.reload.attributes
-        subscription.credit_user_and_de_activate
+        subject
         expect(subscription.reload.attributes).to eq(old_sub_attributes)
       end
 
       it 'is a subscription with any school subscriptions linked' do
         school_subscription
         old_sub_attributes = subscription.reload.attributes
-        subscription.credit_user_and_de_activate
+        subject
         expect(subscription.reload.attributes).to eq(old_sub_attributes)
       end
     end
 
+    it 'calls stripe_cancel_at_period_end' do
+      expect(subscription).to receive(:stripe_cancel_at_period_end)
+      subject
+    end
+
     it 'sets the subscription to de_activate the day it is called' do
-      subscription.credit_user_and_de_activate
+      subject
       expect(subscription.de_activated_date).to eq(Date.current)
     end
 
     it 'sets the recurring to false when it is called' do
       subscription.update(recurring: true)
-      subscription.credit_user_and_de_activate
+      subject
       expect(subscription.recurring).to eq(false)
     end
 
     it 'creates a credit transaction for the right ammount' do
-      subscription.credit_user_and_de_activate
+      subject
       expect(CreditTransaction.last.amount).to eq(subscription.expiration - subscription.start_date)
     end
 
     it 'creates a credit transaction for the appropriate user' do
-      subscription.credit_user_and_de_activate
+      subject
       expect(CreditTransaction.last.user).to eq(user)
     end
 
     it 'creates a credit transaction with the correct source' do
-      subscription.credit_user_and_de_activate
+      subject
       expect(CreditTransaction.last.source).to eq(subscription)
     end
   end

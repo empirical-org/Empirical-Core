@@ -7,6 +7,28 @@ RSpec.describe StripeIntegration::Subscription do
 
   let(:subscription) { create(:subscription, stripe_invoice_id: stripe_invoice_id) }
 
+  describe '#stripe_cancel_at_period_end' do
+    subject { described_class.new(subscription).stripe_cancel_at_period_end }
+
+    context 'nil stripe_invoice_id' do
+      let(:stripe_invoice_id) { nil }
+
+      it 'should not call stripe' do
+        expect(Stripe::Subscription).not_to receive(:update)
+        subject
+      end
+    end
+
+    context 'stripe_invoice_id present' do
+      before { allow(Stripe::Invoice).to receive(:retrieve).with(stripe_invoice_id).and_return(stripe_invoice) }
+
+      it 'should set the cancel_at_period_end to true' do
+        expect(Stripe::Subscription).to receive(:update).with(stripe_subscription_id, cancel_at_period_end: true)
+        subject
+      end
+    end
+  end
+
   describe '#last_four' do
     subject { described_class.new(subscription).last_four }
 
