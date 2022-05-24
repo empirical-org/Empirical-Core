@@ -17,10 +17,10 @@ describe AlertSoonToExpireSubscriptionsWorker do
     let!(:expiring_14_school_sub) { create(:subscription, payment_method: 'Credit Card', account_type: 'School Paid', recurring: false, expiration: Time.zone.today + 14.days)}
     let(:user_subscription) { create(:user_subscription, user: user, subscription: renewing_teacher_subscription)}
     let(:school_subscription) { create(:school_subscription, school: school, subscription: renewing_school_subscription)}
-    let(:user_subscription_2) { create(:user_subscription, user: user, subscription: expiring_30_teacher_subscription)}
-    let(:school_subscription_2) { create(:school_subscription, school: school, subscription: expiring_30_school_subscription)}
-    let(:user_subscription_3) { create(:user_subscription, user: user, subscription: expiring_14_teacher_subscription)}
-    let(:school_subscription_3) { create(:school_subscription, school: school, subscription: expiring_14_school_subscription)}
+    let(:user_subscription_two) { create(:user_subscription, user: user, subscription: expiring_30_teacher_subscription)}
+    let(:school_subscription_two) { create(:school_subscription, school: school, subscription: expiring_30_school_subscription)}
+    let(:user_subscription_three) { create(:user_subscription, user: user, subscription: expiring_14_teacher_subscription)}
+    let(:school_subscription_three) { create(:school_subscription, school: school, subscription: expiring_14_school_subscription)}
 
     before do
       allow(SegmentAnalytics).to receive(:new) { analytics }
