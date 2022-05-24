@@ -3,12 +3,6 @@
 module StripeIntegration
   module Webhooks
     class CustomerSubscriptionUpdatedEventHandler < EventHandler
-      EVENT_TYPE = 'customer.subscription.updated'
-
-      def self.handles?(event_type)
-        event_type == EVENT_TYPE
-      end
-
       def run
         SubscriptionUpdater.run(stripe_event, previous_attributes)
         stripe_webhook_event.processed!
