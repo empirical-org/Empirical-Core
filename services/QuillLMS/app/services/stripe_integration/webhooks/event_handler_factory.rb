@@ -7,7 +7,7 @@ module StripeIntegration
         'customer.subscription.deleted' => CustomerSubscriptionDeletedEventHandler,
         'customer.subscription.updated' => CustomerSubscriptionUpdatedEventHandler,
         'invoice.paid' => InvoicePaidEventHandler,
-        'setup_intent.suceeded' => SetupIntentSucceededEventHandler
+        'setup_intent.succeeded' => SetupIntentSucceededEventHandler
       }
 
       EVENT_HANDLER_LOOKUP = SINGLE_EVENT_HANDLER_LOOKUP.merge(IgnoredEventHandler::EVENT_HANDLER_LOOKUP)

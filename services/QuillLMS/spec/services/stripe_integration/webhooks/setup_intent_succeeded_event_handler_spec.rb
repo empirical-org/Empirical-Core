@@ -10,20 +10,31 @@ RSpec.describe StripeIntegration::Webhooks::SetupIntentSucceededEventHandler do
 
   subject { described_class.run(stripe_webhook_event) }
 
-  before do
-    allow(Stripe::Event).to receive(:retrieve).with(external_id).and_return(stripe_event)
-
-    allow(Stripe::Subscription)
-      .to receive(:update)
-      .with(stripe_subscription_id, default_payment_method: stripe_payment_method_id)
-  end
+  before  { allow(Stripe::Event).to receive(:retrieve).with(external_id).and_return(stripe_event) }
 
   context 'happy path' do
+    before do
+      allow(PusherTrigger).to receive(:run).with(stripe_subscription_id, pusher_event, pusher_message)
+
+      allow(Stripe::Subscription)
+        .to receive(:update)
+        .with(stripe_subscription_id, default_payment_method: stripe_payment_method_id)
+    end
+
     let(:pusher_event) { described_class::PUSHER_EVENT }
     let(:pusher_message) { pusher_event.titleize }
 
-    before { allow(PusherTrigger).to receive(:run).with(stripe_subscription_id, pusher_event, pusher_message) }
-
     it { expect { subject }.to change(stripe_webhook_event, :status).to(StripeWebhookEvent::PROCESSED) }
+  end
+
+  context 'stripe_subscription_id is nil' do
+    let(:stripe_subscription_id) { nil }
+
+    it 'does not update stripe nor trigger Pusher' do
+      expect(Stripe::Subscription).not_to receive(:update)
+      expect(PusherTrigger).not_to receive(:run)
+
+      subject
+    end
   end
 end

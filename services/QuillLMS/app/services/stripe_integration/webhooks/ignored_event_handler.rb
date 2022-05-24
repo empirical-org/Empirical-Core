@@ -36,8 +36,7 @@ module StripeIntegration
         'payout.created',
         'payout.paid',
         'product.updated',
-        'setup_intent.created',
-        'setup_intent.succeeded'
+        'setup_intent.created'
       ]
 
       EVENT_HANDLER_LOOKUP = IGNORED_EVENT_NAMES.to_h { |event_name| [event_name, self] }
