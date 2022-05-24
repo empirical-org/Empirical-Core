@@ -4,7 +4,7 @@ import moment from 'moment';
 import "react-dates/initialize";
 
 import { SingleDatePicker } from 'react-dates'
-import { DataTable } from '../../../../../Shared/index'
+import { DataTable, Tooltip } from '../../../../../Shared/index'
 
 const tableHeaders = [
   {
@@ -16,6 +16,7 @@ const tableHeaders = [
   {
     name: 'Activity',
     attribute: 'activity',
+    rowSectionClassName: 'tooltip-section review-activities-section',
     width: '350px'
   },
   {
@@ -73,7 +74,7 @@ export default class ReviewActivities extends React.Component {
         activity_category,
         description,
         id,
-        anonymous_path
+        readability_grade_level
       } = activity
       const selectedDate = dueDates[id] ? moment(dueDates[id]) : null
       const focusedKey = `focused-${id}`
@@ -99,12 +100,14 @@ export default class ReviewActivities extends React.Component {
         <ReactTooltip className="react-tooltip-custom" effect="solid" html id={toolTooltipId} multiline type="light" />
         <span className={iconClassName} />
       </div>)
-      const activityName = (<div>
-        <div className="activate-tooltip" data-for={nameTooltipId} data-tip={`<h1>${name}</h1><p>Tool: ${activity_classification.alias}</p><p>${standard_level.name}</p><p>${description}</p>`}>
-          <ReactTooltip className="react-tooltip-custom" effect="solid" html id={nameTooltipId} multiline type="light" />
-          <a className="tooltip-trigger activity-name" href={anonymous_path} rel='noreferrer noopener' target="_blank">{name}</a>
-        </div>
-      </div>)
+      const activityName = (
+        <Tooltip
+          tooltipText={`<h4>${name}</h4><br/><p>Tool: ${activity_classification.alias}</p><br/><p>Readability score: ${readability_grade_level}</p><br/><p>${standard_level.name}</p><br/><p>${description}</p>`}
+          tooltipTriggerText={name}
+          tooltipTriggerTextClass="clipped-content"
+          tooltipTriggerTextStyle={{ maxWidth: '350px' }}
+        />
+      );
 
       return {
         id,

@@ -241,6 +241,11 @@
             display: none !important;
           }
         }
+        .review-activities-section {
+          .quill-tooltip {
+            display: initial !important;
+          }
+        }
       }
     }
 
