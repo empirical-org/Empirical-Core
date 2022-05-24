@@ -3,12 +3,7 @@
 module StripeIntegration
   module Webhooks
     class SetupIntentSucceededEventHandler < EventHandler
-      EVENT_TYPE = 'setup_intent.succeeded'
       PUSHER_EVENT = 'stripe-subscription-payment-method-updated'
-
-      def self.handles?(event_type)
-        event_type == EVENT_TYPE
-      end
 
       def run
         Stripe::Subscription.update(stripe_subscription_id, default_payment_method: stripe_payment_method_id)
