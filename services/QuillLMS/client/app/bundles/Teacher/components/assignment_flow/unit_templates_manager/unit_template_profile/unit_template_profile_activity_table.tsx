@@ -34,7 +34,7 @@ export const UnitTemplateProfileActivityTable = ({ data }) => {
           return(
             <Tooltip
               tooltipText={tooltipText}
-              tooltipTriggerText={tooltipTriggerElement }
+              tooltipTriggerText={tooltipTriggerElement}
             />
           );
         },

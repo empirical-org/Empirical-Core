@@ -5,6 +5,7 @@ import "react-dates/initialize";
 import { SingleDatePicker } from 'react-dates'
 import { DataTable, Tooltip, getIconForActivityClassification } from '../../../../../Shared/index'
 
+const ACTIVITY_COLUMN_MAX_WIDTH = '350px';
 const tableHeaders = [
   {
     name: 'Tool',
@@ -16,7 +17,7 @@ const tableHeaders = [
     name: 'Activity',
     attribute: 'activity',
     rowSectionClassName: 'tooltip-section review-activities-data-table-section',
-    width: '350px'
+    width: ACTIVITY_COLUMN_MAX_WIDTH
   },
   {
     name: 'Concept',
@@ -110,7 +111,7 @@ export default class ReviewActivities extends React.Component {
           tooltipText={activityNameTooltipText}
           tooltipTriggerText={name}
           tooltipTriggerTextClass="clipped-content"
-          tooltipTriggerTextStyle={{ maxWidth: '350px' }}
+          tooltipTriggerTextStyle={{ maxWidth: ACTIVITY_COLUMN_MAX_WIDTH }}
         />
       );
 
