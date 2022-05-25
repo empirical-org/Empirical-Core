@@ -227,8 +227,6 @@ CREATE FUNCTION public.timespent_teacher(teacher integer) RETURNS bigint
 
 SET default_tablespace = '';
 
-SET default_table_access_method = heap;
-
 --
 -- Name: active_activity_sessions; Type: TABLE; Schema: public; Owner: -
 --
