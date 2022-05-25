@@ -2988,7 +2988,7 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
             className="quill-button medium contained primary focus-on-light"
             href="/premium"
           >
-            Subscribe to Premium
+            Subscribe to premium
           </a>
         </div>
         <p>
@@ -4065,7 +4065,7 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
             className="quill-button medium contained primary focus-on-light"
             href="/premium"
           >
-            Subscribe to Premium
+            Subscribe to premium
           </a>
         </div>
         <p>
@@ -10950,7 +10950,7 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
             className="quill-button medium contained primary focus-on-light"
             href="/premium"
           >
-            Subscribe to Premium
+            Subscribe to premium
           </a>
         </div>
         <p>
@@ -13831,7 +13831,7 @@ exports[`Subscriptions UI state iterations trial renders when there is an expire
             className="quill-button medium contained primary focus-on-light"
             href="/premium"
           >
-            Subscribe to Premium
+            Subscribe to premium
           </a>
         </div>
         <p>

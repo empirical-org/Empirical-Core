@@ -118,7 +118,7 @@ const SubscriptionStatus = ({
       content.status = <h2>You have a {teacherSubDisplayName} subscription<img alt={`${subscriptionType}`} src={`https://assets.quill.org/images/shared/${image}`} /></h2>
       content.boxColor = '#348fdf'
       if (remainingDays < 0) {
-        content.buttonOrDate = <a className={CTA_BUTTON_CLASSNAME} href="/premium">Subscribe to Premium</a>
+        content.buttonOrDate = <a className={CTA_BUTTON_CLASSNAME} href="/premium">Subscribe to premium</a>
       }
       break;
     case TEACHER_PREMIUM:
@@ -181,7 +181,7 @@ const SubscriptionStatus = ({
       content.status = <h2>You have a {SCHOOL_PREMIUM} subscription<img alt={`${subscriptionType}`} src={`https://assets.quill.org/images/shared/${image}`} /></h2>;
       content.boxColor = '#9c2bde';
       if (remainingDays < 0) {
-        content.buttonOrDate = <a className={CTA_BUTTON_CLASSNAME} href="/premium">Subscribe to Premium</a>
+        content.buttonOrDate = <a className={CTA_BUTTON_CLASSNAME} href="/premium">Subscribe to premium</a>
       }
       break;
   }
