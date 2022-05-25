@@ -22,6 +22,10 @@ module StripeIntegration
       stripe_invoice.subscription
     end
 
+    def stripe_subscription_url
+      "#{STRIPE_DASHBOARD_URL}/subscriptions/#{stripe_subscription_id}"
+    end
+
     private def stripe_card
       stripe_payment_method || stripe_source
     end

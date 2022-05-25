@@ -106,15 +106,6 @@ describe Cms::SchoolsController do
     end
   end
 
-  describe '#edit_subscription' do
-    let!(:school) { create(:school) }
-
-    it 'should assing the subscription' do
-      get :edit_subscription, params: { id: school.id }
-      expect(assigns(:subscription)).to eq school.subscription
-    end
-  end
-
   describe '#create' do
     it 'should create the school with the given params' do
       post :create, params: { school: {
