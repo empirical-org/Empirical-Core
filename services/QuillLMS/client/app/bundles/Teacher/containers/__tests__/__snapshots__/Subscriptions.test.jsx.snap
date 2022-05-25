@@ -8747,7 +8747,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                   PAYMENT METHOD ON FILE
                 </h3>
                 <span>
-                  Credit Card ending in undefined
+                  Credit card ending in undefined
                   <button
                     className="interactive-wrapper focus-on-light"
                     onClick={[Function]}
@@ -9422,7 +9422,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                   PAYMENT METHOD ON FILE
                 </h3>
                 <span>
-                  Credit Card ending in undefined
+                  Credit card ending in undefined
                   <button
                     className="interactive-wrapper focus-on-light"
                     onClick={[Function]}
@@ -11617,7 +11617,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
                   PAYMENT METHOD ON FILE
                 </h3>
                 <span>
-                  Credit Card ending in undefined
+                  Credit card ending in undefined
                   <button
                     className="interactive-wrapper focus-on-light"
                     onClick={[Function]}
@@ -12292,7 +12292,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
                   PAYMENT METHOD ON FILE
                 </h3>
                 <span>
-                  Credit Card ending in undefined
+                  Credit card ending in undefined
                   <button
                     className="interactive-wrapper focus-on-light"
                     onClick={[Function]}
