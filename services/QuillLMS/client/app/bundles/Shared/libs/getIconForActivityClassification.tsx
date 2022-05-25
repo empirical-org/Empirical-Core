@@ -1,4 +1,5 @@
 import * as React from 'react';
+
 import { connectToolIcon, diagnosticToolIcon, grammarToolIcon, lessonsToolIcon, proofreaderToolIcon, evidenceToolIcon } from "../../Shared";
 
 export const getIconForActivityClassification = (activityClassificationId: number) => {

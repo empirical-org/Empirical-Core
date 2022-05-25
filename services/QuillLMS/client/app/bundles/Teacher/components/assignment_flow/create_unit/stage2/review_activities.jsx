@@ -5,19 +5,20 @@ import "react-dates/initialize";
 import { SingleDatePicker } from 'react-dates'
 import { DataTable, Tooltip, getIconForActivityClassification } from '../../../../../Shared/index'
 
-const ACTIVITY_COLUMN_MAX_WIDTH = '350px';
+const activityColumnMaxWidth = '350px';
+const rowSectionTooltipClassName =  'tooltip-section review-activities-data-table-section';
 const tableHeaders = [
   {
     name: 'Tool',
     attribute: 'tool',
     width: '30px',
-    rowSectionClassName: 'tooltip-section review-activities-data-table-section'
+    rowSectionClassName: rowSectionTooltipClassName
   },
   {
     name: 'Activity',
     attribute: 'activity',
-    rowSectionClassName: 'tooltip-section review-activities-data-table-section',
-    width: ACTIVITY_COLUMN_MAX_WIDTH
+    rowSectionClassName: rowSectionTooltipClassName,
+    width: activityColumnMaxWidth
   },
   {
     name: 'Concept',
@@ -111,7 +112,7 @@ export default class ReviewActivities extends React.Component {
           tooltipText={activityNameTooltipText}
           tooltipTriggerText={name}
           tooltipTriggerTextClass="clipped-content"
-          tooltipTriggerTextStyle={{ maxWidth: ACTIVITY_COLUMN_MAX_WIDTH }}
+          tooltipTriggerTextStyle={{ maxWidth: activityColumnMaxWidth }}
         />
       );
 
