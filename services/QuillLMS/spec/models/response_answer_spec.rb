@@ -8,6 +8,10 @@
 #  json       :jsonb            not null
 #  created_at :datetime         not null
 #
+# Indexes
+#
+#  index_response_answers_on_json  (json) UNIQUE
+#
 require 'rails_helper'
 
 RSpec.describe ResponseAnswer, type: :model do
@@ -20,7 +24,7 @@ RSpec.describe ResponseAnswer, type: :model do
   end
 
   context 'validations' do
-    it { should validate_length_of(:json).is_at_least(0) }
+    it { should validate_length_of(:json).is_at_least(1) }
     it { should validate_uniqueness_of(:json) }
   end
 

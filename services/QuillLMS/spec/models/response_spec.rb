@@ -30,16 +30,6 @@
 #  index_responses_on_response_prompt_id             (response_prompt_id)
 #  index_responses_on_response_question_type_id      (response_question_type_id)
 #
-# Foreign Keys
-#
-#  fk_rails_...  (activity_session_id => activity_sessions.id)
-#  fk_rails_...  (response_answer_id => response_answers.id)
-#  fk_rails_...  (response_directions_id => response_directions.id)
-#  fk_rails_...  (response_instructions_id => response_instructions.id)
-#  fk_rails_...  (response_previous_feedback_id => response_previous_feedbacks.id)
-#  fk_rails_...  (response_prompt_id => response_prompts.id)
-#  fk_rails_...  (response_question_type_id => response_question_types.id)
-#
 require 'rails_helper'
 
 RSpec.describe Response, type: :model do
@@ -422,6 +412,37 @@ RSpec.describe Response, type: :model do
 
         expect(response.question).to be(nil)
       end
+    end
+  end
+
+  context 'performance benchmarking', :benchmarking do
+    let(:question) { create(:question) }
+    let(:activity) { create(:activity, data: {questions: [{key: question.uid}]}) }
+
+    it 'performance migration from ConceptResults' do
+      samples = 100
+
+      samples.times do |i|
+        metadata = {
+          "correct": 1,
+          "directions": "Combine the sentences. (And)",
+          "lastFeedback": "Proofread your work. Check your spelling.",
+          "prompt": "Deserts are very dry. Years go by without rain.",
+          "attemptNumber": 2,
+          "answer": "Deserts are very dry, and years go by without rain.",
+          "questionNumber": 1,
+          "questionScore": 0.8
+        }
+        activity_session = create(:activity_session_without_concept_results, activity: activity)
+        create(:sentence_combining, activity_session: activity_session, metadata: metadata)
+      end
+
+      runtime = Benchmark.realtime do
+        ConceptResult.all.each do |cr|
+          Response.find_or_create_from_concept_result(cr)
+        end
+      end
+      puts format('Average ConceptResult migration runtime: %<runtime>.3f seconds', {runtime: (runtime / samples)})
     end
   end
 end

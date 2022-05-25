@@ -24,7 +24,7 @@ RSpec.describe ResponseDirections, type: :model do
   end
 
   context 'validations' do
-    it { should validate_length_of(:text).is_at_least(0) }
+    it { should validate_length_of(:text).is_at_least(1) }
     it { should validate_uniqueness_of(:text) }
   end
 end
