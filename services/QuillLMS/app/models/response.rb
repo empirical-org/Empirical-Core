@@ -99,8 +99,8 @@ class Response < ApplicationRecord
       question_score: metadata[:questionScore]
     )
 
-    response.set_normalized_text(data_hash)
-    response.set_extra_metadata(metadata)
+    response.assign_normalized_text(data_hash)
+    response.assign_extra_metadata(metadata)
 
     response.save!
     response
@@ -150,7 +150,7 @@ class Response < ApplicationRecord
     end
   end
 
-  def set_normalized_text(data_hash)
+  def assign_normalized_text(data_hash)
     metadata = data_hash[:metadata]
 
     self.response_answer = ResponseAnswer.find_or_create_by(json: metadata[:answer]) unless metadata[:answer].blank?
@@ -161,7 +161,7 @@ class Response < ApplicationRecord
     self.response_question_type = ResponseQuestionType.find_or_create_by(text: data_hash[:question_type]) unless data_hash[:question_type].blank?
   end
 
-  def set_extra_metadata(metadata)
+  def assign_extra_metadata(metadata)
     extra_metadata = metadata.except(*KNOWN_METADATA_KEYS).reject{ |_,v| v.nil? || (v.is_a?(Enumerable) && v.empty?) }
 
     return if extra_metadata.empty?

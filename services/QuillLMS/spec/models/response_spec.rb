@@ -74,7 +74,7 @@ RSpec.describe Response, type: :model do
     context 'self.create_from_json' do
       let(:question) { create(:question) }
       let(:activity) { create(:activity, data: {questions: [{key: question.uid}]}) }
-      let(:activity_session) { create(:activity_session, activity: activity) }
+      let(:activity_session) { create(:activity_session_without_concept_results, activity: activity) }
       let(:concept) { create(:concept) }
       let(:metadata) do
         {
@@ -236,8 +236,8 @@ RSpec.describe Response, type: :model do
           concepts: [different_concept],
           question_number: metadata[:questionNumber])
         expect do
-          response = Response.find_or_create_from_concept_result(concept_result)
-          expect(response).to eq(response)
+          new_response = Response.find_or_create_from_concept_result(concept_result)
+          expect(new_response).to eq(response.reload)
           expect(response.concepts).to include(concept_result.concept, different_concept)
         end.to not_change(Response, :count)
            .and change { response.reload.concepts.length }.by(1)

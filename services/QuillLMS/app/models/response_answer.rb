@@ -9,9 +9,9 @@
 #  created_at :datetime         not null
 #
 class ResponseAnswer < ApplicationRecord
-    has_many :responses
+  has_many :responses
 
-    # We use a JSON field here because Lessons abuses the unstructured
-    # nature of old-style ConceptResults to stash arrays in this value
-    validates :json, uniqueness: true, length: { minimum: 0, allow_nil: false }
+  # We use a JSON field here because Lessons abuses the unstructured
+  # nature of old-style ConceptResults to stash arrays in this value
+  validates :json, uniqueness: true, length: { minimum: 0, allow_nil: false }
 end
