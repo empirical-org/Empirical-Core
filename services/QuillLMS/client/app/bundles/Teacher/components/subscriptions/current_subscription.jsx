@@ -40,7 +40,7 @@ export default class CurrentSubscription extends React.Component {
       return <span>{baseText} To prevent your subscription from expiring, contact the purchaser at <a href={`mailto:${purchaser_email}`}>{purchaser_email}</a> and ask them to turn on automatic renewal.</span>
     }
     if (payment_method !== CREDIT_CARD && (authorityLevel || !purchaser_email)) {
-      return <span>{baseText} To renew your subscription for next year, contact us at <a href="mailto:sales@quill.org">sales@quill.org</a>.</span>
+      return <span>{baseText} To renew your subscription for next year, <a href="mailto:sales@quill.org">contact us</a> at sales@quill.org.</span>
     }
     if (payment_method !== CREDIT_CARD && !authorityLevel) {
       return <span>{baseText} To renew your subscription for next year, contact the purchaser at <a href={`mailto:${purchaser_email}`}>{purchaser_email}</a> or <a href="mailto:sales@quill.org">the Quill team</a>.</span>
@@ -56,11 +56,11 @@ export default class CurrentSubscription extends React.Component {
     } else if (subscriptionStatus && subscriptionStatus.payment_method === CREDIT_CARD) {
       return <span>Credit Card</span>;
     } else if (subscriptionType === TEACHER_PREMIUM_TRIAL) {
-      return <span>No Payment Method on File</span>;
+      return <span>No payment method on file</span>;
     } else if (subscriptionStatus && ['Invoice', 'School Invoice'].includes(subscriptionStatus.payment_method)) {
       return <span>Invoice</span>;
     }
-    return <span>No Payment Method on File</span>;
+    return <span>No payment method on file</span>;
   }
 
   getPrice() {

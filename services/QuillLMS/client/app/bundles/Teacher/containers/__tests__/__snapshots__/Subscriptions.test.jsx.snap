@@ -2571,7 +2571,7 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
                   PAYMENT METHOD ON FILE
                 </h3>
                 <span>
-                  No Payment Method on File
+                  No payment method on file
                 </span>
               </div>
               <div
@@ -3648,7 +3648,7 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
                   PAYMENT METHOD ON FILE
                 </h3>
                 <span>
-                  No Payment Method on File
+                  No payment method on file
                 </span>
               </div>
               <div
@@ -10533,7 +10533,7 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
                   PAYMENT METHOD ON FILE
                 </h3>
                 <span>
-                  No Payment Method on File
+                  No payment method on file
                 </span>
               </div>
               <div
@@ -13414,7 +13414,7 @@ exports[`Subscriptions UI state iterations trial renders when there is an active
                   PAYMENT METHOD ON FILE
                 </h3>
                 <span>
-                  No Payment Method on File
+                  No payment method on file
                 </span>
               </div>
               <div

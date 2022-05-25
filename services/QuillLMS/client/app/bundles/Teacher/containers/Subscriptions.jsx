@@ -193,7 +193,7 @@ export default class Subscriptions extends React.Component {
 
   userIsContact() {
     const { authorityLevel, } = this.state
-    return authorityLevel === 'purchaser'
+    return authorityLevel === 'purchaser' || !this.purchaserNameOrEmail()
   }
 
   render() {
