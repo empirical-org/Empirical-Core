@@ -19,16 +19,25 @@ class Cron
     # pass yesterday's date for stats email queries and labels
     date = Time.current.getlocal('-05:00').yesterday
 
+    # internal analytics and security
     DailyStatsEmailJob.perform_async(date)
     QuillStaffAccountsChangedWorker.perform_async
+
+    # subscriptions
     RenewExpiringRecurringSubscriptionsWorker.perform_async
     UpdateExpiringSchoolSubscriptionsWorker.perform_async
+    AlertSoonToExpireSubscriptionsWorker.perform_async
+
+    # demo
     ResetDemoAccountWorker.perform_async
+
+    # third party analytics
     SyncVitallyWorker.perform_async
+
+    # caching
     MaterializedViewRefreshWorker.perform_async
     RematchUpdatedQuestionsWorker.perform_async(date.beginning_of_day, date.end_of_day)
     PreCacheAdminDashboardsWorker.perform_async
-
     Question::TYPES.each { |type| RefreshQuestionCacheWorker.perform_async(type) }
   end
 

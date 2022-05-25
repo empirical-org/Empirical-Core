@@ -123,6 +123,7 @@ class Subscription < ApplicationRecord
   scope :not_recurring, -> { where(recurring: false) }
   scope :not_stripe, -> { where(stripe_invoice_id: nil) }
   scope :started, -> { where("start_date <= ?", Date.current) }
+  scope :paid_with_card, -> { where.not(stripe_invoice_id: nil).or(where(payment_method: 'Credit Card')) }
 
   def is_trial?
     account_type && TRIAL_TYPES.include?(account_type)
