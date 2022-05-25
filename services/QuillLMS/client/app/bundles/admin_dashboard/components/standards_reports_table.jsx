@@ -3,29 +3,41 @@ import moment from 'moment';
 
 import EmptyStateForReport from '../../Teacher/components/progress_reports/empty_state_for_report';
 import { ReactTable, } from '../../Shared/index'
+import { getTimeSpent } from '../../Teacher/helpers/studentReports';
 
 const StandardsReportsTable = ({ data, }) => {
   const columns = [
     {
-      Header: 'Standard Level',
+      Header: 'Standard level',
       accessor: 'standard_level_name',
     }, {
-      Header: 'Standard Name',
+      Header: 'Standard name',
       accessor: 'name',
+      minWidth: 350
     }, {
       Header: 'Students',
       accessor: 'total_student_count',
       resizable: false,
+      maxWidth: 90
     }, {
       Header: 'Proficient',
       accessor: 'proficient_count',
       resizable: false,
+      maxWidth: 120,
       Cell: ({row}) => `${row.original.proficient_count  } of ${  row.original.total_student_count}`,
     }, {
       Header: 'Activities',
       accessor: 'total_activity_count',
       resizable: false,
+      maxWidth: 90,
       Cell: ({row}) => Number(row.original.total_activity_count),
+    }, {
+      Header: "Time spent",
+      accessor: 'timespent',
+      Cell: ({row}) => {
+        const value = row.original.timespent;
+        return (getTimeSpent(value))
+      }
     }
   ];
 
