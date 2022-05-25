@@ -193,9 +193,7 @@ class Subscription < ApplicationRecord
   end
 
   def self.school_or_user_has_ever_paid?(school_or_user)
-    # TODO: 'subscription type spot'
-    paid_accounts = school_or_user.subscriptions.pluck(:account_type) & OFFICIAL_PAID_TYPES
-    paid_accounts.any?
+    (OFFICIAL_PAID_TYPES & school_or_user.subscriptions.pluck(:account_type)).present?
   end
 
   def self.new_school_premium_sub(school, user)
@@ -216,9 +214,7 @@ class Subscription < ApplicationRecord
   end
 
   def self.redemption_start_date(school_or_user)
-    last_subscription = school_or_user.subscriptions.active.first
-
-    last_subscription.present? ? last_subscription.expiration : Date.current
+    school_or_user&.subscriptions&.active&.first&.expiration || Date.current
   end
 
   def self.default_expiration_date(school_or_user)
