@@ -1,8 +1,8 @@
 import React, {useState} from 'react'
 
-import UnitTemplateActivityRow from './unit_template_activity_row';
+import UnitTemplateActivityRow from './unitTemplateActivityRow';
 
-import { FlagDropdown } from '../../Shared/index';
+import { FlagDropdown } from '../../../Shared/index';
 
 
 const UnitTemplateRow = ({

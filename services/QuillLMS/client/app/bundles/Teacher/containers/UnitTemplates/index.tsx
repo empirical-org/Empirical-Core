@@ -1,19 +1,18 @@
 import * as React from 'react'
 import request from 'request'
 
-import UnitTemplateRow from './unit_template_row'
+import UnitTemplateRow from './unitTemplateRow'
 
-import ItemDropdown from '../components/general_components/dropdown_selectors/item_dropdown';
-import LoadingSpinner from '../../Connect/components/shared/loading_indicator.jsx'
-import { SortableList, } from  '../../Shared/index'
-import getAuthToken from '../components/modules/get_auth_token'
+import ItemDropdown from '../../components/general_components/dropdown_selectors/item_dropdown';
+import LoadingSpinner from '../../../Connect/components/shared/loading_indicator.jsx'
+import { SortableList, } from  '../../../Shared/index'
+import getAuthToken from '../../components/modules/get_auth_token'
 
 
 const UNIT_TEMPLATES_URL = `${process.env.DEFAULT_URL}/cms/unit_templates.json`
 const DIAGNOSTICS_URL = `${process.env.DEFAULT_URL}/api/v1/activities/diagnostic_activities.json`
 const UPDATE_ORDER_URL = `${process.env.DEFAULT_URL}/cms/unit_templates/update_order_numbers`
 
-const NO_DATA_FOUND_MESSAGE = "Activity Packs data could not be found. Refresh to try again, or contact the engineering team."
 const ALL_FLAGS = 'All Flags'
 const ALL_DIAGNOSTICS = 'All Diagnostics'
 
@@ -30,22 +29,35 @@ const headerHash = {
   'Content-Type': 'application/json',
   'X-CSRF-Token': getAuthToken()
 }
+const ERROR_MESSAGE = 'Failed to fetch activities-- please refresh the page.'
 
 const UnitTemplates = () => {
 
-  const [loadingTableData, setLoadingTableData] = React.useState(true);
-  const [flag, setFlag] = React.useState(ALL_FLAGS)
-  const [fetchedData, setFetchedData] = React.useState([])
-  const [activitySearchInput, setActivitySearchInput] = React.useState("")
-  const [diagnostics, setDiagnostics] = React.useState([])
-  const [diagnostic, setDiagnostic] = React.useState(ALL_DIAGNOSTICS)
+  const [loadingTableData, setLoadingTableData] = React.useState<boolean>(true);
+  const [flag, setFlag] = React.useState<string>(ALL_FLAGS)
+  const [fetchedData, setFetchedData] = React.useState<any>([])
+  const [activitySearchInput, setActivitySearchInput] = React.useState<string>("")
+  const [diagnostics, setDiagnostics] = React.useState<any[]>([])
+  const [diagnostic, setDiagnostic] = React.useState<string>(ALL_DIAGNOSTICS)
+  const [error, setError] = React.useState<string>(null);
 
   React.useEffect(() => {
-    if (loadingTableData && fetchedData.length === 0 && diagnostics.length === 0) {
-      fetchUnitTemplatesData()
+    if (loadingTableData && !diagnostics.length) {
       fetchDiagnosticsData()
     }
-  })
+  }, [diagnostics])
+
+  React.useEffect(() => {
+    if (loadingTableData && !fetchedData.length) {
+      fetchUnitTemplatesData()
+    }
+  }, [fetchedData])
+
+  React.useEffect(() => {
+    if (loadingTableData && fetchedData.length && diagnostic.length) {
+      setLoadingTableData(false)
+    }
+  }, [fetchedData, diagnostics])
 
   function fetchUnitTemplatesData() {
     setLoadingTableData(true)
@@ -53,11 +65,11 @@ const UnitTemplates = () => {
       url: UNIT_TEMPLATES_URL,
     }, (e, r, body) => {
       if (e || r.statusCode !== 200) {
-        setLoadingTableData(false)
-        setFetchedData([])
+        setLoadingTableData(false);
+        setError(ERROR_MESSAGE)
       } else {
+        setError(null);
         const data = JSON.parse(body);
-        setLoadingTableData(false)
         setFetchedData(data.unit_templates)
       }
     });
@@ -68,8 +80,10 @@ const UnitTemplates = () => {
       url: DIAGNOSTICS_URL,
     }, (e, r, body) => {
       if (e || r.statusCode !== 200) {
-        setDiagnostics([])
+        setLoadingTableData(false);
+        setError(ERROR_MESSAGE)
       } else {
+        setError(null);
         const data = JSON.parse(body);
         setDiagnostics(data.diagnostics)
       }
@@ -160,7 +174,6 @@ const UnitTemplates = () => {
       method: 'DELETE',
       mode: 'cors',
       credentials: 'include',
-      body: {},
       headers: {
         'X-CSRF-Token': getAuthToken()
       }
@@ -171,7 +184,8 @@ const UnitTemplates = () => {
       return response.json();
     }).then((response) => {
       alert(`Activity pack was deleted.`)
-      fetchUnitTemplatesData();
+      const updatedActivities = [...fetchedData].filter(activity => activity.id !== id);
+      setFetchedData(updatedActivities);
     }).catch((error) => {
       // to do, use Sentry to capture error
     })
@@ -188,7 +202,6 @@ const UnitTemplates = () => {
       mode: 'cors',
       credentials: 'include',
       body: JSON.stringify({unit_template: newUnitTemplate}),
-      dataType: 'json',
       headers: headerHash,
     }).then((response) => {
       if (!response.ok) {
@@ -196,61 +209,36 @@ const UnitTemplates = () => {
       }
       return response.json();
     }).then((response) => {
-      let newData = fetchedData
+      const newData = [...fetchedData]
       newData[index] = response.unit_template
-      setFetchedData(newData, alert(`Activity Pack has been saved.`))
+      setFetchedData(newData)
+      alert('Activity Pack has been saved.')
     }).catch((error) => {
       // to do, use Sentry to capture error
     })
   }
 
   function renderTableRow(unitTemplate) {
-    const { id, name, diagnostic_names, flag, activities, unit_template_category } = unitTemplate
     return (
       <UnitTemplateRow
-        activities={activities}
-        diagnostic_names={diagnostic_names}
-        flag={flag}
         handleDelete={onDelete}
-        id={id}
-        key={id}
-        name={name}
-        unit_template_category={unit_template_category}
         unitTemplate={unitTemplate}
         updateUnitTemplate={updateUnitTemplate}
       />
     )
   }
 
-  function tableOrEmptyMessage() {
-    let tableOrEmptyMessage
-
-    if (fetchedData) {
-      let dataToUse = orderedUnitTemplates()
-      const unitTemplateRows = dataToUse.map((ut) => renderTableRow(ut))
-      tableOrEmptyMessage = (
-        <div className="blog-post-table">
-          <table>
-            {renderTableHeader()}
-            <SortableList data={unitTemplateRows} sortCallback={updateOrder} />
-          </table>
-        </div>
-      )
-    } else {
-      tableOrEmptyMessage = NO_DATA_FOUND_MESSAGE
-    }
-    return (
-      <div>
-        {tableOrEmptyMessage}
+  function renderActivitiesTable() {
+    const dataToUse = orderedUnitTemplates()
+    const unitTemplateRows = dataToUse.map((ut) => renderTableRow(ut))
+    return(
+      <div className="blog-post-table">
+        <table>
+          {renderTableHeader()}
+          <SortableList data={unitTemplateRows} sortCallback={updateOrder} />
+        </table>
       </div>
     )
-  }
-
-  function renderTable() {
-    if(loadingTableData) {
-      return <LoadingSpinner />
-    }
-    return (tableOrEmptyMessage())
   }
 
   function renderTableHeader() {
@@ -299,6 +287,8 @@ const UnitTemplates = () => {
     window.open(`unit_templates/new`, '_blank')
   }
 
+  const renderTable = !loadingTableData && fetchedData.length !== 0;
+
   return (
     <div className="cms-unit-templates">
       <div className="standard-columns">
@@ -321,7 +311,9 @@ const UnitTemplates = () => {
             {diagnosticsDropdown()}
           </div>
         </div>
-        {tableOrEmptyMessage()}
+        {renderTable && renderActivitiesTable()}
+        {loadingTableData && <LoadingSpinner />}
+        {error && <p className="error-message">{error}</p>}
       </div>
     </div>
   )
