@@ -78,7 +78,7 @@ const EditTooltip = ({ state, id, tooltipHeight, back, numberOfEdits, next, inde
     setContainerFocus()
   }, [])
 
-  let src, headerText, altText
+  let src, headerText
   switch (state) {
     case 'correct':
       src = correctIconSrc

@@ -614,13 +614,11 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       const { edits, necessaryEdits, loadingFirebaseSession, showWelcomePage, } = this.state
       const { currentActivity } = proofreaderActivities
 
-      if (loadingFirebaseSession) { return <div className="passage-container" ref={this.passageContainer}><LoadingSpinner /></div>}
-
       if (showWelcomePage) { return <WelcomePage onNextClick={this.handleNextClick} /> }
 
-      if (session.error) { return <div className="passage-container" ref={this.passageContainer}>{session.error}</div> }
+      if (loadingFirebaseSession || !currentActivity) { return <div className="passage-container" ref={this.passageContainer}><LoadingSpinner /></div>}
 
-      if (!currentActivity) { return <div className="passage-container" ref={this.passageContainer}><LoadingSpinner /></div>}
+      if (session.error) { return <div className="passage-container" ref={this.passageContainer}>{session.error}</div> }
 
       const className = currentActivity.underlineErrorsInProofreader ? 'underline-errors' : ''
       const necessaryEditsLength = necessaryEdits ? necessaryEdits.length : 1
