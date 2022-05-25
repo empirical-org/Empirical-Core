@@ -8,6 +8,10 @@
 #  json       :jsonb            not null
 #  created_at :datetime         not null
 #
+# Indexes
+#
+#  index_response_answers_on_json  (json) UNIQUE
+#
 class ResponseAnswer < ApplicationRecord
   has_many :responses
 

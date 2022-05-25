@@ -30,16 +30,6 @@
 #  index_responses_on_response_prompt_id             (response_prompt_id)
 #  index_responses_on_response_question_type_id      (response_question_type_id)
 #
-# Foreign Keys
-#
-#  fk_rails_...  (activity_session_id => activity_sessions.id)
-#  fk_rails_...  (response_answer_id => response_answers.id)
-#  fk_rails_...  (response_directions_id => response_directions.id)
-#  fk_rails_...  (response_instructions_id => response_instructions.id)
-#  fk_rails_...  (response_previous_feedback_id => response_previous_feedbacks.id)
-#  fk_rails_...  (response_prompt_id => response_prompts.id)
-#  fk_rails_...  (response_question_type_id => response_question_types.id)
-#
 class Response < ApplicationRecord
   belongs_to :activity_session
   belongs_to :question

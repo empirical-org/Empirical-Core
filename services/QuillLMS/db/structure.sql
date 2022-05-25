@@ -7154,6 +7154,13 @@ CREATE UNIQUE INDEX index_referrer_users_on_user_id ON public.referrer_users USI
 
 
 --
+-- Name: index_response_answers_on_json; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_response_answers_on_json ON public.response_answers USING btree (json);
+
+
+--
 -- Name: index_response_concept_results_on_concept_result_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -7928,14 +7935,6 @@ ALTER TABLE ONLY public.units
 
 
 --
--- Name: responses fk_rails_1289ba4c01; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.responses
-    ADD CONSTRAINT fk_rails_1289ba4c01 FOREIGN KEY (activity_session_id) REFERENCES public.activity_sessions(id);
-
-
---
 -- Name: change_logs fk_rails_1a847a1740; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -8016,14 +8015,6 @@ ALTER TABLE ONLY public.activity_topics
 
 
 --
--- Name: responses fk_rails_4d45ed9c27; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.responses
-    ADD CONSTRAINT fk_rails_4d45ed9c27 FOREIGN KEY (response_previous_feedback_id) REFERENCES public.response_previous_feedbacks(id);
-
-
---
 -- Name: skill_concepts fk_rails_51a05a5948; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -8085,14 +8076,6 @@ ALTER TABLE ONLY public.criteria
 
 ALTER TABLE ONLY public.recommendations
     ADD CONSTRAINT fk_rails_6745e4bc86 FOREIGN KEY (unit_template_id) REFERENCES public.unit_templates(id);
-
-
---
--- Name: responses fk_rails_6cb6d535e2; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.responses
-    ADD CONSTRAINT fk_rails_6cb6d535e2 FOREIGN KEY (response_answer_id) REFERENCES public.response_answers(id);
 
 
 --
@@ -8192,14 +8175,6 @@ ALTER TABLE ONLY public.comprehension_plagiarism_texts
 
 
 --
--- Name: responses fk_rails_c2f6d3d645; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.responses
-    ADD CONSTRAINT fk_rails_c2f6d3d645 FOREIGN KEY (response_directions_id) REFERENCES public.response_directions(id);
-
-
---
 -- Name: standards fk_rails_c84477fd6e; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -8296,14 +8271,6 @@ ALTER TABLE ONLY public.comprehension_regex_rules
 
 
 --
--- Name: responses fk_rails_dec4db8c44; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.responses
-    ADD CONSTRAINT fk_rails_dec4db8c44 FOREIGN KEY (response_instructions_id) REFERENCES public.response_instructions(id);
-
-
---
 -- Name: responses_concepts fk_rails_e3e3838dfb; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -8336,27 +8303,11 @@ ALTER TABLE ONLY public.content_partner_activities
 
 
 --
--- Name: responses fk_rails_f7ea0fa4b9; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.responses
-    ADD CONSTRAINT fk_rails_f7ea0fa4b9 FOREIGN KEY (response_question_type_id) REFERENCES public.response_question_types(id);
-
-
---
 -- Name: auth_credentials fk_rails_f92a275310; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.auth_credentials
     ADD CONSTRAINT fk_rails_f92a275310 FOREIGN KEY (user_id) REFERENCES public.users(id);
-
-
---
--- Name: responses fk_rails_fb52cd578a; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.responses
-    ADD CONSTRAINT fk_rails_fb52cd578a FOREIGN KEY (response_prompt_id) REFERENCES public.response_prompts(id);
 
 
 --
