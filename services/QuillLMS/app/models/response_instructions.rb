@@ -2,7 +2,7 @@
 
 # == Schema Information
 #
-# Table name: response_instructions_texts
+# Table name: response_instructions
 #
 #  id         :bigint           not null, primary key
 #  text       :text             not null
@@ -10,7 +10,7 @@
 #
 # Indexes
 #
-#  index_response_instructions_texts_on_text  (text) UNIQUE
+#  index_response_instructions_on_text  (text) UNIQUE
 #
 class ResponseInstructions < ApplicationRecord
   has_many :responses

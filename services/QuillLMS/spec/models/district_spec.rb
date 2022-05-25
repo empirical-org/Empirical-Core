@@ -7,16 +7,16 @@
 #  id             :integer          not null, primary key
 #  city           :string
 #  grade_range    :string
-#  name           :string           not null
+#  name           :string(255)      not null
 #  phone          :string
 #  state          :string
-#  token          :string
+#  token          :string(255)
 #  total_schools  :integer
 #  total_students :integer
 #  zipcode        :string
 #  created_at     :datetime
 #  updated_at     :datetime
-#  clever_id      :string
+#  clever_id      :string(255)
 #  nces_id        :integer
 #
 # Indexes

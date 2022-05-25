@@ -5,9 +5,9 @@
 # Table name: firebase_apps
 #
 #  id         :integer          not null, primary key
-#  name       :string
+#  name       :string(255)
 #  pkey       :text
-#  secret     :string
+#  secret     :string(255)
 #  created_at :datetime
 #  updated_at :datetime
 #

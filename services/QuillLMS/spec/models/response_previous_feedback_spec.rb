@@ -2,7 +2,7 @@
 
 # == Schema Information
 #
-# Table name: response_previous_feedback_texts
+# Table name: response_previous_feedbacks
 #
 #  id         :bigint           not null, primary key
 #  text       :text             not null
@@ -10,7 +10,7 @@
 #
 # Indexes
 #
-#  index_response_previous_feedback_texts_on_text  (text) UNIQUE
+#  index_response_previous_feedbacks_on_text  (text) UNIQUE
 #
 require 'rails_helper'
 

@@ -4,14 +4,14 @@
 #
 # Table name: responses_concepts
 #
-#  id                  :bigint           not null, primary key
-#  created_at          :datetime         not null
-#  concept_id          :bigint           not null
+#  id          :bigint           not null, primary key
+#  created_at  :datetime         not null
+#  concept_id  :bigint           not null
 #  response_id :bigint           not null
 #
 # Indexes
 #
-#  index_responses_concepts_on_concept_id           (concept_id)
+#  index_responses_concepts_on_concept_id   (concept_id)
 #  index_responses_concepts_on_response_id  (response_id)
 #
 # Foreign Keys

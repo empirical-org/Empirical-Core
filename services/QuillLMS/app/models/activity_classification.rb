@@ -5,16 +5,16 @@
 # Table name: activity_classifications
 #
 #  id                :integer          not null, primary key
-#  app_name          :string
-#  form_url          :string
+#  app_name          :string(255)
+#  form_url          :string(255)
 #  instructor_mode   :boolean          default(FALSE)
-#  key               :string           not null
+#  key               :string(255)      not null
 #  locked_by_default :boolean          default(FALSE)
-#  module_url        :string
-#  name              :string
+#  module_url        :string(255)
+#  name              :string(255)
 #  order_number      :integer          default(999999999)
 #  scored            :boolean          default(TRUE)
-#  uid               :string           not null
+#  uid               :string(255)      not null
 #  created_at        :datetime
 #  updated_at        :datetime
 #

@@ -7,8 +7,8 @@
 #  id             :integer          not null, primary key
 #  description    :text
 #  explanation    :text
-#  name           :string
-#  uid            :string           not null
+#  name           :string(255)
+#  uid            :string(255)      not null
 #  visible        :boolean          default(TRUE)
 #  created_at     :datetime
 #  updated_at     :datetime

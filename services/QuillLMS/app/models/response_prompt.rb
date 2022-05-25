@@ -2,7 +2,7 @@
 
 # == Schema Information
 #
-# Table name: response_prompt_texts
+# Table name: response_prompts
 #
 #  id         :bigint           not null, primary key
 #  text       :text             not null
@@ -10,7 +10,7 @@
 #
 # Indexes
 #
-#  index_response_prompt_texts_on_text  (text) UNIQUE
+#  index_response_prompts_on_text  (text) UNIQUE
 #
 class ResponsePrompt < ApplicationRecord
   has_many :responses

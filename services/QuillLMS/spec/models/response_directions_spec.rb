@@ -2,7 +2,7 @@
 
 # == Schema Information
 #
-# Table name: response_directions_texts
+# Table name: response_directions
 #
 #  id         :bigint           not null, primary key
 #  text       :text             not null
@@ -10,7 +10,7 @@
 #
 # Indexes
 #
-#  index_response_directions_texts_on_text  (text) UNIQUE
+#  index_response_directions_on_text  (text) UNIQUE
 #
 require 'rails_helper'
 

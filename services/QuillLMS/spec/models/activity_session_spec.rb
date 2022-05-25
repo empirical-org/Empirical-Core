@@ -7,34 +7,31 @@
 #  id                    :integer          not null, primary key
 #  completed_at          :datetime
 #  data                  :jsonb
-#  is_final_score        :boolean          default(FALSE)
-#  is_retry              :boolean          default(FALSE)
+#  is_final_score        :boolean
+#  is_retry              :boolean
 #  percentage            :float
 #  started_at            :datetime
-#  state                 :string           default("unstarted"), not null
-#  temporary             :boolean          default(FALSE)
+#  state                 :string(255)
+#  temporary             :boolean
 #  timespent             :integer
-#  uid                   :string
-#  visible               :boolean          default(TRUE), not null
+#  uid                   :string(255)
+#  visible               :boolean
 #  created_at            :datetime
 #  updated_at            :datetime
 #  activity_id           :integer
 #  classroom_activity_id :integer
 #  classroom_unit_id     :integer
-#  pairing_id            :string
+#  pairing_id            :string(255)
 #  user_id               :integer
 #
 # Indexes
 #
-#  index_activity_sessions_on_activity_id            (activity_id)
-#  index_activity_sessions_on_classroom_activity_id  (classroom_activity_id)
-#  index_activity_sessions_on_classroom_unit_id      (classroom_unit_id)
-#  index_activity_sessions_on_completed_at           (completed_at)
-#  index_activity_sessions_on_pairing_id             (pairing_id)
-#  index_activity_sessions_on_started_at             (started_at)
-#  index_activity_sessions_on_state                  (state)
-#  index_activity_sessions_on_uid                    (uid) UNIQUE
-#  index_activity_sessions_on_user_id                (user_id)
+#  newest_activity_sessions_activity_id_idx        (activity_id)
+#  newest_activity_sessions_classroom_unit_id_idx  (classroom_unit_id)
+#  newest_activity_sessions_state_idx              (state)
+#  newest_activity_sessions_uid_idx                (uid)
+#  newest_activity_sessions_user_id_idx            (user_id)
+#  newest_activity_sessions_visible_idx            (visible)
 #
 require 'rails_helper'
 

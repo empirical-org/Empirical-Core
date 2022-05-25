@@ -4,40 +4,40 @@
 #
 # Table name: responses
 #
-#  id                                         :bigint           not null, primary key
-#  attempt_number                             :integer
-#  correct                                    :boolean          not null
-#  question_number                            :integer
-#  question_score                             :float
-#  created_at                                 :datetime         not null
-#  activity_session_id                        :bigint           not null
-#  question_id                                :bigint
-#  response_answer_text_id            :bigint
-#  response_directions_text_id        :bigint
-#  response_instructions_text_id      :bigint
-#  response_previous_feedback_text_id :bigint
-#  response_prompt_text_id            :bigint
-#  response_question_type_id          :bigint
+#  id                            :bigint           not null, primary key
+#  attempt_number                :integer
+#  correct                       :boolean          not null
+#  question_number               :integer
+#  question_score                :float
+#  created_at                    :datetime         not null
+#  activity_session_id           :bigint           not null
+#  question_id                   :bigint
+#  response_answer_id            :bigint
+#  response_directions_id        :bigint
+#  response_instructions_id      :bigint
+#  response_previous_feedback_id :bigint
+#  response_prompt_id            :bigint
+#  response_question_type_id     :bigint
 #
 # Indexes
 #
-#  idx_responses_on_response_instructions_text_id  (response_instructions_text_id)
-#  idx_responses_on_response_previous_feedback_id  (response_previous_feedback_text_id)
-#  index_responses_on_activity_session_id                  (activity_session_id)
-#  index_responses_on_question_id                          (question_id)
-#  index_responses_on_response_answer_text_id      (response_answer_text_id)
-#  index_responses_on_response_directions_text_id  (response_directions_text_id)
-#  index_responses_on_response_prompt_text_id      (response_prompt_text_id)
-#  index_responses_on_response_question_type_id    (response_question_type_id)
+#  index_responses_on_activity_session_id            (activity_session_id)
+#  index_responses_on_question_id                    (question_id)
+#  index_responses_on_response_answer_id             (response_answer_id)
+#  index_responses_on_response_directions_id         (response_directions_id)
+#  index_responses_on_response_instructions_id       (response_instructions_id)
+#  index_responses_on_response_previous_feedback_id  (response_previous_feedback_id)
+#  index_responses_on_response_prompt_id             (response_prompt_id)
+#  index_responses_on_response_question_type_id      (response_question_type_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (activity_session_id => activity_sessions.id)
-#  fk_rails_...  (response_answer_text_id => response_answer_texts.id)
-#  fk_rails_...  (response_directions_text_id => response_directions_texts.id)
-#  fk_rails_...  (response_instructions_text_id => response_instructions_texts.id)
-#  fk_rails_...  (response_previous_feedback_text_id => response_previous_feedback_texts.id)
-#  fk_rails_...  (response_prompt_text_id => response_prompt_texts.id)
+#  fk_rails_...  (response_answer_id => response_answers.id)
+#  fk_rails_...  (response_directions_id => response_directions.id)
+#  fk_rails_...  (response_instructions_id => response_instructions.id)
+#  fk_rails_...  (response_previous_feedback_id => response_previous_feedbacks.id)
+#  fk_rails_...  (response_prompt_id => response_prompts.id)
 #  fk_rails_...  (response_question_type_id => response_question_types.id)
 #
 require 'rails_helper'

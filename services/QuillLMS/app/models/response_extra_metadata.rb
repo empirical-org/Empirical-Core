@@ -4,8 +4,8 @@
 #
 # Table name: response_extra_metadata
 #
-#  id                  :bigint           not null, primary key
-#  metadata            :jsonb            not null
+#  id          :bigint           not null, primary key
+#  metadata    :jsonb            not null
 #  response_id :bigint           not null
 #
 # Indexes

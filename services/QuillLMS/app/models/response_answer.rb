@@ -2,10 +2,10 @@
 
 # == Schema Information
 #
-# Table name: response_answer_texts
+# Table name: response_answers
 #
 #  id         :bigint           not null, primary key
-#  text       :jsonb            not null
+#  json       :jsonb            not null
 #  created_at :datetime         not null
 #
 class ResponseAnswer < ApplicationRecord
