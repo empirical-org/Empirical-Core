@@ -15,5 +15,5 @@
 class ResponseQuestionType < ApplicationRecord
   has_many :responses
 
-  validates :text, uniqueness: true, length: { minimum: 0, allow_nil: false }
+  validates :text, uniqueness: true, length: { minimum: 1, allow_nil: false }
 end

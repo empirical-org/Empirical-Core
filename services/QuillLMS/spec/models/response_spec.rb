@@ -135,13 +135,13 @@ RSpec.describe Response, type: :model do
       it 'should not link to records when the appropriate keys are not provided' do
         response = Response.create_from_json(json)
 
-        expect(response.response_instructions).to be_nil
+        expect(response.reload.response_instructions).to be_nil
       end
 
       it 'should not link to records when the value in the key is an empty string' do
         response = Response.create_from_json(json.merge({question_type: nil}))
 
-        expect(response.response_question_type).to be_nil
+        expect(response.reload.response_question_type).to be_nil
       end
 
       it 'should find existing NormalizedText records when existing text is provided' do

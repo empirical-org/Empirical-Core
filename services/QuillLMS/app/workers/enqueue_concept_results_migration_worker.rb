@@ -7,8 +7,8 @@ class EnqueueConceptResultsMigrationWorker
   BATCH_SIZE=100000
 
   def perform(start, finish)
-    start = start || 1
-    finish = finish || ConceptResult.maximum(:id)
+    start ||= 1
+    finish ||= ConceptResult.maximum(:id)
 
     while start < finish
       end_of_batch = [start + BATCH_SIZE, finish].min

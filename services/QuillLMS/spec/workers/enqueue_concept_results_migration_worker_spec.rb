@@ -15,7 +15,7 @@ describe EnqueueConceptResultsMigrationWorker, type: :worker do
     let!(:concept_result) { create(:concept_result, activity_session: activity_session) }
 
     it 'should have a max id to process equal to the highest ConceptResult.id' do
-      max_id = 99999 
+      max_id = 99999
       expect(ConceptResult).to receive(:maximum).with(:id).and_return(max_id)
       expect(CopyConceptResultsToResponsesWorker).to receive(:perform_async).with(1, max_id)
 

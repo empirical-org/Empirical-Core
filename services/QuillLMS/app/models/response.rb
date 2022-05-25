@@ -153,12 +153,12 @@ class Response < ApplicationRecord
   def assign_normalized_text(data_hash)
     metadata = data_hash[:metadata]
 
-    self.response_answer = ResponseAnswer.find_or_create_by(json: metadata[:answer]) unless metadata[:answer].blank?
-    self.response_directions = ResponseDirections.find_or_create_by(text: metadata[:directions]) unless metadata[:directions].blank?
-    self.response_instructions = ResponseInstructions.find_or_create_by(text: metadata[:instructions]) unless metadata[:instructions].blank?
-    self.response_previous_feedback = ResponsePreviousFeedback.find_or_create_by(text: metadata[:lastFeedback]) unless metadata[:lastFeedback].blank?
-    self.response_prompt = ResponsePrompt.find_or_create_by(text: metadata[:prompt]) unless metadata[:prompt].blank?
-    self.response_question_type = ResponseQuestionType.find_or_create_by(text: data_hash[:question_type]) unless data_hash[:question_type].blank?
+    self.response_answer = ResponseAnswer.find_or_create_by(json: metadata[:answer])
+    self.response_directions = ResponseDirections.find_or_create_by(text: metadata[:directions])
+    self.response_instructions = ResponseInstructions.find_or_create_by(text: metadata[:instructions])
+    self.response_previous_feedback = ResponsePreviousFeedback.find_or_create_by(text: metadata[:lastFeedback])
+    self.response_prompt = ResponsePrompt.find_or_create_by(text: metadata[:prompt])
+    self.response_question_type = ResponseQuestionType.find_or_create_by(text: data_hash[:question_type])
   end
 
   def assign_extra_metadata(metadata)
