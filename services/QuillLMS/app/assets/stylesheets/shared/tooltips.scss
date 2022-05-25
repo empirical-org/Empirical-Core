@@ -36,26 +36,3 @@
   padding-top: 12px;
   padding-bottom: 12px;
 }
-
-.react-tooltip-custom {
-  max-width: 200px;
-  font-size: 12px;
-  white-space: normal;
-  opacity: 1.0;
-  border: 1px solid #cecece;
-  h1 {
-    font-size: 12px !important;
-    font-weight: bold;
-    margin: 5px 0px !important;
-    text-align: left !important;
-  }
-  h1, p {
-    margin-bottom: 5px;
-  }
-  &.place-top:before {
-    border-top: 8px solid #cecece;
-  }
-  &.place-bottom:before {
-    border-bottom: 8px solid #cecece;
-  }
-}
