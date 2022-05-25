@@ -27,12 +27,12 @@ describe AlertSoonToExpireSubscriptionsWorker do
     end
 
     it 'should trigger the teacher subscription will renew event in segment' do
-      expect(analytics).to receive(:track_teacher_subscription).with(renewing_teacher_subscription.id, SegmentIo::BackgroundEvents::TEACHER_SUB_WILL_RENEW)
-      expect(analytics).to receive(:track_school_subscription).with(renewing_school_subscription.id, SegmentIo::BackgroundEvents::SCHOOL_SUB_WILL_RENEW)
-      expect(analytics).to receive(:track_teacher_subscription).with(expiring_30_teacher_sub.id, SegmentIo::BackgroundEvents::TEACHER_SUB_WILL_EXPIRE_IN_30)
-      expect(analytics).to receive(:track_school_subscription).with(expiring_30_school_sub.id, SegmentIo::BackgroundEvents::SCHOOL_SUB_WILL_EXPIRE_IN_30)
-      expect(analytics).to receive(:track_teacher_subscription).with(expiring_14_teacher_sub.id, SegmentIo::BackgroundEvents::TEACHER_SUB_WILL_EXPIRE_IN_14)
-      expect(analytics).to receive(:track_school_subscription).with(expiring_14_school_sub.id, SegmentIo::BackgroundEvents::SCHOOL_SUB_WILL_EXPIRE_IN_14)
+      expect(analytics).to receive(:track_teacher_subscription).with(renewing_teacher_subscription, SegmentIo::BackgroundEvents::TEACHER_SUB_WILL_RENEW)
+      expect(analytics).to receive(:track_school_subscription).with(renewing_school_subscription, SegmentIo::BackgroundEvents::SCHOOL_SUB_WILL_RENEW)
+      expect(analytics).to receive(:track_teacher_subscription).with(expiring_30_teacher_sub, SegmentIo::BackgroundEvents::TEACHER_SUB_WILL_EXPIRE_IN_30)
+      expect(analytics).to receive(:track_school_subscription).with(expiring_30_school_sub, SegmentIo::BackgroundEvents::SCHOOL_SUB_WILL_EXPIRE_IN_30)
+      expect(analytics).to receive(:track_teacher_subscription).with(expiring_14_teacher_sub, SegmentIo::BackgroundEvents::TEACHER_SUB_WILL_EXPIRE_IN_14)
+      expect(analytics).to receive(:track_school_subscription).with(expiring_14_school_sub, SegmentIo::BackgroundEvents::SCHOOL_SUB_WILL_EXPIRE_IN_14)
       subject.perform
     end
 
@@ -41,14 +41,14 @@ describe AlertSoonToExpireSubscriptionsWorker do
       non_expired_subscription = create(:subscription, account_type: 'Teacher Paid', recurring: true, expiration: Time.zone.today + 90.days)
       create(:user_subscription, user: user, subscription: non_expired_subscription)
 
-      expect(analytics).not_to receive(:track_teacher_subscription).with(non_expired_subscription.id)
+      expect(analytics).not_to receive(:track_teacher_subscription).with(non_expired_subscription)
       subject.perform
     end
 
     it 'should not trigger the event for subscriptions that are not paid for with credit card' do
       renewing_teacher_subscription.update(payment_method: 'Invoice')
 
-      expect(analytics).not_to receive(:track_teacher_subscription).with(renewing_teacher_subscription.id, SegmentIo::BackgroundEvents::TEACHER_SUB_WILL_RENEW)
+      expect(analytics).not_to receive(:track_teacher_subscription).with(renewing_teacher_subscription, SegmentIo::BackgroundEvents::TEACHER_SUB_WILL_RENEW)
       subject.perform
     end
   end

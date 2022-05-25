@@ -148,21 +148,19 @@ class SegmentAnalytics
 
   end
 
-  def track_teacher_subscription(subscription_id, event)
-    subscription = Subscription.find(subscription_id)
+  def track_teacher_subscription(subscription, event)
     teacher_id = subscription.users.first.id
 
     track({
       user_id: teacher_id,
       event: event,
       properties: {
-        subscription_id: subscription_id
+        subscription_id: subscription.id
       }
     })
   end
 
-  def track_school_subscription(subscription_id, event)
-    subscription = Subscription.find(subscription_id)
+  def track_school_subscription(subscription, event)
     school_id = subscription.schools.first.id
 
     if subscription.purchaser_id.present?

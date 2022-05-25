@@ -143,7 +143,7 @@ describe 'SegmentAnalytics' do
     let!(:other_user_subscription) { create(:user_subscription, user: teacher, subscription: other_subscription)}
 
     it 'sends an event with information about the subscription for recurring subscriptions' do
-      analytics.track_teacher_subscription(subscription.id, SegmentIo::BackgroundEvents::TEACHER_SUB_WILL_RENEW)
+      analytics.track_teacher_subscription(subscription, SegmentIo::BackgroundEvents::TEACHER_SUB_WILL_RENEW)
       expect(track_calls.size).to eq(1)
       expect(track_calls[0][:event]).to eq(SegmentIo::BackgroundEvents::TEACHER_SUB_WILL_RENEW)
       expect(track_calls[0][:user_id]).to eq(teacher.id)
@@ -151,7 +151,7 @@ describe 'SegmentAnalytics' do
     end
 
     it 'sends an event with information about the subscription for non-recurring subscriptions' do
-      analytics.track_teacher_subscription(other_subscription.id, SegmentIo::BackgroundEvents::TEACHER_SUB_WILL_EXPIRE_IN_30)
+      analytics.track_teacher_subscription(other_subscription, SegmentIo::BackgroundEvents::TEACHER_SUB_WILL_EXPIRE_IN_30)
       expect(track_calls.size).to eq(1)
       expect(track_calls[0][:event]).to eq(SegmentIo::BackgroundEvents::TEACHER_SUB_WILL_EXPIRE_IN_30)
       expect(track_calls[0][:user_id]).to eq(teacher.id)
@@ -167,7 +167,7 @@ describe 'SegmentAnalytics' do
     let!(:other_school_subscription) { create(:school_subscription, school: school, subscription: other_subscription)}
 
     it 'sends an event with information about the subscription for recurring subscriptions' do
-      analytics.track_school_subscription(subscription.id, SegmentIo::BackgroundEvents::SCHOOL_SUB_WILL_RENEW)
+      analytics.track_school_subscription(subscription, SegmentIo::BackgroundEvents::SCHOOL_SUB_WILL_RENEW)
       expect(track_calls.size).to eq(1)
       expect(track_calls[0][:event]).to eq(SegmentIo::BackgroundEvents::SCHOOL_SUB_WILL_RENEW)
       expect(track_calls[0][:properties][:school_id]).to eq(school.id)
@@ -175,7 +175,7 @@ describe 'SegmentAnalytics' do
     end
 
     it 'sends an event with information about the subscription for nonrecurring subscriptions' do
-      analytics.track_school_subscription(other_subscription.id, SegmentIo::BackgroundEvents::SCHOOL_SUB_WILL_EXPIRE_IN_30)
+      analytics.track_school_subscription(other_subscription, SegmentIo::BackgroundEvents::SCHOOL_SUB_WILL_EXPIRE_IN_30)
       expect(track_calls.size).to eq(1)
       expect(track_calls[0][:event]).to eq(SegmentIo::BackgroundEvents::SCHOOL_SUB_WILL_EXPIRE_IN_30)
       expect(track_calls[0][:properties][:school_id]).to eq(school.id)
@@ -184,7 +184,7 @@ describe 'SegmentAnalytics' do
     end
 
     it 'sends an event with anonymous ID if there is no purchaser id' do
-      analytics.track_school_subscription(subscription.id, SegmentIo::BackgroundEvents::SCHOOL_SUB_WILL_RENEW)
+      analytics.track_school_subscription(subscription, SegmentIo::BackgroundEvents::SCHOOL_SUB_WILL_RENEW)
       expect(track_calls.size).to eq(1)
       expect(track_calls[0][:user_id]).to eq(nil)
       expect(track_calls[0][:anonymous_id]).to be
