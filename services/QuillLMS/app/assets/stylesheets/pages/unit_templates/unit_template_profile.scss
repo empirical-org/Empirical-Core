@@ -25,12 +25,15 @@
     }
 
     .ReactTable.unit-template-profile-activities .rt-table a img {
-      padding-left: 20px;
+      padding: 8px 0px 8px 20px;
     }
 
     .ReactTable .rt-th, .ReactTable .rt-td {
       padding-top: 2.5px;
       padding-bottom: 4px;
+      .activity-name {
+        color: #027360;
+      }
     }
 
     .ReactTable.unit-template-profile-activities .rt-table .rt-tr:hover a.highlight-on-hover {
