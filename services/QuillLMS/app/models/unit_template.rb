@@ -9,7 +9,7 @@
 #  flag                      :string
 #  grades                    :text
 #  image_link                :string
-#  name                      :string(255)
+#  name                      :string
 #  order_number              :integer          default(999999999)
 #  time                      :integer
 #  created_at                :datetime

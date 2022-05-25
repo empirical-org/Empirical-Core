@@ -10,6 +10,20 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+--
 -- Name: hstore; Type: EXTENSION; Schema: -; Owner: -
 --
 
@@ -21,20 +35,6 @@ CREATE EXTENSION IF NOT EXISTS hstore WITH SCHEMA public;
 --
 
 COMMENT ON EXTENSION hstore IS 'data type for storing sets of (key, value) pairs';
-
-
---
--- Name: pg_stat_statements; Type: EXTENSION; Schema: -; Owner: -
---
-
-CREATE EXTENSION IF NOT EXISTS pg_stat_statements WITH SCHEMA public;
-
-
---
--- Name: EXTENSION pg_stat_statements; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON EXTENSION pg_stat_statements IS 'track execution statistics of all SQL statements executed';
 
 
 --
@@ -227,6 +227,8 @@ CREATE FUNCTION public.timespent_teacher(teacher integer) RETURNS bigint
 
 SET default_tablespace = '';
 
+SET default_with_oids = false;
+
 --
 -- Name: active_activity_sessions; Type: TABLE; Schema: public; Owner: -
 --
@@ -266,15 +268,15 @@ ALTER SEQUENCE public.active_activity_sessions_id_seq OWNED BY public.active_act
 
 CREATE TABLE public.activities (
     id integer NOT NULL,
-    name character varying(255),
+    name character varying,
     description text,
-    uid character varying(255) NOT NULL,
+    uid character varying NOT NULL,
     data jsonb,
     activity_classification_id integer,
     topic_id integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    flags character varying(255)[] DEFAULT '{}'::character varying[] NOT NULL,
+    flags character varying[] DEFAULT '{}'::character varying[] NOT NULL,
     repeatable boolean DEFAULT true,
     follow_up_activity_id integer,
     supporting_info character varying,
@@ -288,6 +290,7 @@ CREATE TABLE public.activities (
 --
 
 CREATE SEQUENCE public.activities_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -352,6 +355,7 @@ CREATE TABLE public.activity_categories (
 --
 
 CREATE SEQUENCE public.activity_categories_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -385,6 +389,7 @@ CREATE TABLE public.activity_category_activities (
 --
 
 CREATE SEQUENCE public.activity_category_activities_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -405,14 +410,14 @@ ALTER SEQUENCE public.activity_category_activities_id_seq OWNED BY public.activi
 
 CREATE TABLE public.activity_classifications (
     id integer NOT NULL,
-    name character varying(255),
-    key character varying(255) NOT NULL,
-    form_url character varying(255),
-    uid character varying(255) NOT NULL,
-    module_url character varying(255),
+    name character varying,
+    key character varying NOT NULL,
+    form_url character varying,
+    uid character varying NOT NULL,
+    module_url character varying,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    app_name character varying(255),
+    app_name character varying,
     order_number integer DEFAULT 999999999,
     instructor_mode boolean DEFAULT false,
     locked_by_default boolean DEFAULT false,
@@ -425,6 +430,7 @@ CREATE TABLE public.activity_classifications (
 --
 
 CREATE SEQUENCE public.activity_classifications_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -490,19 +496,19 @@ CREATE TABLE public.activity_sessions (
     classroom_activity_id integer,
     activity_id integer,
     user_id integer,
-    pairing_id character varying(255),
+    pairing_id character varying,
     percentage double precision,
-    state character varying(255),
+    state character varying DEFAULT 'unstarted'::character varying NOT NULL,
     completed_at timestamp without time zone,
-    uid character varying(255),
-    temporary boolean,
+    uid character varying,
+    temporary boolean DEFAULT false,
     data jsonb,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     started_at timestamp without time zone,
-    is_retry boolean,
-    is_final_score boolean,
-    visible boolean,
+    is_retry boolean DEFAULT false,
+    is_final_score boolean DEFAULT false,
+    visible boolean DEFAULT true NOT NULL,
     classroom_unit_id integer,
     timespent integer
 );
@@ -513,6 +519,7 @@ CREATE TABLE public.activity_sessions (
 --
 
 CREATE SEQUENCE public.activity_sessions_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -600,7 +607,7 @@ CREATE TABLE public.admin_accounts (
     id integer NOT NULL,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    name character varying(255)
+    name character varying
 );
 
 
@@ -622,6 +629,7 @@ CREATE TABLE public.admin_accounts_admins (
 --
 
 CREATE SEQUENCE public.admin_accounts_admins_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -641,6 +649,7 @@ ALTER SEQUENCE public.admin_accounts_admins_id_seq OWNED BY public.admin_account
 --
 
 CREATE SEQUENCE public.admin_accounts_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -673,6 +682,7 @@ CREATE TABLE public.admin_accounts_teachers (
 --
 
 CREATE SEQUENCE public.admin_accounts_teachers_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -812,7 +822,7 @@ ALTER SEQUENCE public.auth_credentials_id_seq OWNED BY public.auth_credentials.i
 
 CREATE TABLE public.authors (
     id integer NOT NULL,
-    name character varying(255),
+    name character varying,
     avatar text
 );
 
@@ -822,6 +832,7 @@ CREATE TABLE public.authors (
 --
 
 CREATE SEQUENCE public.authors_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -926,8 +937,8 @@ ALTER SEQUENCE public.blog_posts_id_seq OWNED BY public.blog_posts.id;
 CREATE TABLE public.categories (
     id integer NOT NULL,
     title text,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
 );
 
 
@@ -936,6 +947,7 @@ CREATE TABLE public.categories (
 --
 
 CREATE SEQUENCE public.categories_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1008,6 +1020,7 @@ CREATE TABLE public.checkboxes (
 --
 
 CREATE SEQUENCE public.checkboxes_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1048,6 +1061,7 @@ CREATE TABLE public.classroom_activities (
 --
 
 CREATE SEQUENCE public.classroom_activities_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1141,13 +1155,13 @@ ALTER SEQUENCE public.classroom_units_id_seq OWNED BY public.classroom_units.id;
 
 CREATE TABLE public.classrooms (
     id integer NOT NULL,
-    name character varying(255),
-    code character varying(255),
+    name character varying,
+    code character varying,
     teacher_id integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    clever_id character varying(255),
-    grade character varying(255),
+    clever_id character varying,
+    grade character varying,
     visible boolean DEFAULT true NOT NULL,
     google_classroom_id bigint,
     grade_level integer,
@@ -1160,6 +1174,7 @@ CREATE TABLE public.classrooms (
 --
 
 CREATE SEQUENCE public.classrooms_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1186,7 +1201,7 @@ CREATE TABLE public.classrooms_teachers (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     "order" integer,
-    CONSTRAINT check_role_is_valid CHECK ((((role)::text = ANY (ARRAY[('owner'::character varying)::text, ('coteacher'::character varying)::text])) AND (role IS NOT NULL)))
+    CONSTRAINT check_role_is_valid CHECK ((((role)::text = ANY ((ARRAY['owner'::character varying, 'coteacher'::character varying])::text[])) AND (role IS NOT NULL)))
 );
 
 
@@ -1195,6 +1210,7 @@ CREATE TABLE public.classrooms_teachers (
 --
 
 CREATE SEQUENCE public.classrooms_teachers_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1207,42 +1223,6 @@ CREATE SEQUENCE public.classrooms_teachers_id_seq
 --
 
 ALTER SEQUENCE public.classrooms_teachers_id_seq OWNED BY public.classrooms_teachers.id;
-
-
---
--- Name: comments; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.comments (
-    id integer NOT NULL,
-    title character varying(255),
-    body text,
-    user_id integer,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    ancestry character varying(255),
-    reply_type character varying(255),
-    lecture_chapter_id integer
-);
-
-
---
--- Name: comments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.comments_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: comments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.comments_id_seq OWNED BY public.comments.id;
 
 
 --
@@ -1570,8 +1550,8 @@ ALTER SEQUENCE public.comprehension_prompts_rules_id_seq OWNED BY public.compreh
 
 CREATE TABLE public.comprehension_regex_rules (
     id integer NOT NULL,
-    regex_text character varying(200) NOT NULL,
-    case_sensitive boolean NOT NULL,
+    regex_text character varying(200),
+    case_sensitive boolean,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     rule_id integer,
@@ -1760,6 +1740,7 @@ CREATE TABLE public.concept_results (
 --
 
 CREATE SEQUENCE public.concept_results_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1780,11 +1761,11 @@ ALTER SEQUENCE public.concept_results_id_seq OWNED BY public.concept_results.id;
 
 CREATE TABLE public.concepts (
     id integer NOT NULL,
-    name character varying(255),
+    name character varying,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     parent_id integer,
-    uid character varying(255) NOT NULL,
+    uid character varying NOT NULL,
     replacement_id integer,
     visible boolean DEFAULT true,
     description text,
@@ -1797,6 +1778,7 @@ CREATE TABLE public.concepts (
 --
 
 CREATE SEQUENCE public.concepts_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1896,6 +1878,7 @@ CREATE TABLE public.coteacher_classroom_invitations (
 --
 
 CREATE SEQUENCE public.coteacher_classroom_invitations_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1984,13 +1967,13 @@ ALTER SEQUENCE public.criteria_id_seq OWNED BY public.criteria.id;
 
 CREATE TABLE public.csv_exports (
     id integer NOT NULL,
-    export_type character varying(255),
+    export_type character varying,
     emailed_at timestamp without time zone,
     filters json,
     teacher_id integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    csv_file character varying(255)
+    csv_file character varying
 );
 
 
@@ -1999,6 +1982,7 @@ CREATE TABLE public.csv_exports (
 --
 
 CREATE SEQUENCE public.csv_exports_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2051,9 +2035,9 @@ ALTER SEQUENCE public.district_admins_id_seq OWNED BY public.district_admins.id;
 
 CREATE TABLE public.districts (
     id integer NOT NULL,
-    clever_id character varying(255),
-    name character varying(255) NOT NULL,
-    token character varying(255),
+    clever_id character varying,
+    name character varying NOT NULL,
+    token character varying,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     nces_id integer,
@@ -2072,6 +2056,7 @@ CREATE TABLE public.districts (
 --
 
 CREATE SEQUENCE public.districts_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2137,8 +2122,8 @@ ALTER SEQUENCE public.evidence_hints_id_seq OWNED BY public.evidence_hints.id;
 CREATE TABLE public.feedback_histories (
     id integer NOT NULL,
     feedback_session_uid text,
-    prompt_type character varying,
     prompt_id integer,
+    prompt_type character varying,
     concept_uid text,
     attempt integer NOT NULL,
     entry text NOT NULL,
@@ -2290,11 +2275,11 @@ ALTER SEQUENCE public.feedback_sessions_id_seq OWNED BY public.feedback_sessions
 
 CREATE TABLE public.file_uploads (
     id integer NOT NULL,
-    name character varying(255),
-    file character varying(255),
+    name character varying,
+    file character varying,
     description text,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
 );
 
 
@@ -2303,6 +2288,7 @@ CREATE TABLE public.file_uploads (
 --
 
 CREATE SEQUENCE public.file_uploads_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2323,8 +2309,8 @@ ALTER SEQUENCE public.file_uploads_id_seq OWNED BY public.file_uploads.id;
 
 CREATE TABLE public.firebase_apps (
     id integer NOT NULL,
-    name character varying(255),
-    secret character varying(255),
+    name character varying,
+    secret character varying,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     pkey text
@@ -2336,6 +2322,7 @@ CREATE TABLE public.firebase_apps (
 --
 
 CREATE SEQUENCE public.firebase_apps_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2402,6 +2389,7 @@ CREATE TABLE public.invitations (
 --
 
 CREATE SEQUENCE public.invitations_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2437,6 +2425,7 @@ CREATE TABLE public.ip_locations (
 --
 
 CREATE SEQUENCE public.ip_locations_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2501,6 +2490,7 @@ CREATE TABLE public.milestones (
 --
 
 CREATE SEQUENCE public.milestones_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2516,58 +2506,6 @@ ALTER SEQUENCE public.milestones_id_seq OWNED BY public.milestones.id;
 
 
 --
--- Name: new_activity_sessions; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.new_activity_sessions (
-    id integer NOT NULL,
-    classroom_activity_id integer,
-    activity_id integer,
-    user_id integer,
-    pairing_id character varying(255),
-    percentage double precision,
-    state character varying(255) NOT NULL,
-    completed_at timestamp without time zone,
-    uid character varying(255),
-    temporary boolean,
-    data public.hstore,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    started_at timestamp without time zone,
-    is_retry boolean,
-    is_final_score boolean,
-    visible boolean NOT NULL,
-    classroom_unit_id integer
-);
-
-
---
--- Name: newer_activity_sessions; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.newer_activity_sessions (
-    id integer,
-    classroom_activity_id integer,
-    activity_id integer,
-    user_id integer,
-    pairing_id character varying(255),
-    percentage double precision,
-    state character varying(255),
-    completed_at timestamp without time zone,
-    uid character varying(255),
-    temporary boolean,
-    data public.hstore,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    started_at timestamp without time zone,
-    is_retry boolean,
-    is_final_score boolean,
-    visible boolean,
-    classroom_unit_id integer
-);
-
-
---
 -- Name: oauth_access_grants; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -2575,12 +2513,12 @@ CREATE TABLE public.oauth_access_grants (
     id integer NOT NULL,
     resource_owner_id integer NOT NULL,
     application_id integer NOT NULL,
-    token character varying(255) NOT NULL,
+    token character varying NOT NULL,
     expires_in integer NOT NULL,
     redirect_uri text NOT NULL,
     created_at timestamp without time zone NOT NULL,
     revoked_at timestamp without time zone,
-    scopes character varying(255)
+    scopes character varying
 );
 
 
@@ -2589,6 +2527,7 @@ CREATE TABLE public.oauth_access_grants (
 --
 
 CREATE SEQUENCE public.oauth_access_grants_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2611,12 +2550,12 @@ CREATE TABLE public.oauth_access_tokens (
     id integer NOT NULL,
     resource_owner_id integer,
     application_id integer,
-    token character varying(255) NOT NULL,
-    refresh_token character varying(255),
+    token character varying NOT NULL,
+    refresh_token character varying,
     expires_in integer,
     revoked_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
-    scopes character varying(255)
+    scopes character varying
 );
 
 
@@ -2625,6 +2564,7 @@ CREATE TABLE public.oauth_access_tokens (
 --
 
 CREATE SEQUENCE public.oauth_access_tokens_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2645,9 +2585,9 @@ ALTER SEQUENCE public.oauth_access_tokens_id_seq OWNED BY public.oauth_access_to
 
 CREATE TABLE public.oauth_applications (
     id integer NOT NULL,
-    name character varying(255) NOT NULL,
-    uid character varying(255) NOT NULL,
-    secret character varying(255) NOT NULL,
+    name character varying NOT NULL,
+    uid character varying NOT NULL,
+    secret character varying NOT NULL,
     redirect_uri text NOT NULL,
     created_at timestamp without time zone,
     updated_at timestamp without time zone
@@ -2659,6 +2599,7 @@ CREATE TABLE public.oauth_applications (
 --
 
 CREATE SEQUENCE public.oauth_applications_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2695,6 +2636,7 @@ CREATE TABLE public.objectives (
 --
 
 CREATE SEQUENCE public.objectives_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2715,11 +2657,11 @@ ALTER SEQUENCE public.objectives_id_seq OWNED BY public.objectives.id;
 
 CREATE TABLE public.page_areas (
     id integer NOT NULL,
-    name character varying(255),
-    description character varying(255),
+    name character varying,
+    description character varying,
     content text,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
 );
 
 
@@ -2728,6 +2670,7 @@ CREATE TABLE public.page_areas (
 --
 
 CREATE SEQUENCE public.page_areas_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3368,41 +3311,6 @@ ALTER SEQUENCE public.responses_id_seq OWNED BY public.responses.id;
 
 
 --
--- Name: rules_misseds; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.rules_misseds (
-    id integer NOT NULL,
-    rule_id integer,
-    user_id integer,
-    assessment_id integer,
-    time_take timestamp without time zone,
-    missed boolean,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: rules_misseds_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.rules_misseds_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: rules_misseds_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.rules_misseds_id_seq OWNED BY public.rules_misseds.id;
-
-
---
 -- Name: sales_contacts; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3552,7 +3460,7 @@ ALTER SEQUENCE public.sales_stages_id_seq OWNED BY public.sales_stages.id;
 --
 
 CREATE TABLE public.schema_migrations (
-    version character varying(255) NOT NULL
+    version character varying NOT NULL
 );
 
 
@@ -3574,6 +3482,7 @@ CREATE TABLE public.school_subscriptions (
 --
 
 CREATE SEQUENCE public.school_subscriptions_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3594,22 +3503,22 @@ ALTER SEQUENCE public.school_subscriptions_id_seq OWNED BY public.school_subscri
 
 CREATE TABLE public.schools (
     id integer NOT NULL,
-    nces_id character varying(255),
-    name character varying(255),
-    phone character varying(255),
-    mail_street character varying(255),
-    mail_city character varying(255),
-    mail_state character varying(255),
-    mail_zipcode character varying(255),
-    street character varying(255),
-    city character varying(255),
-    state character varying(255),
-    zipcode character varying(255),
-    nces_type_code character varying(255),
-    nces_status_code character varying(255),
-    magnet character varying(255),
-    charter character varying(255),
-    ethnic_group character varying(255),
+    nces_id character varying,
+    name character varying,
+    phone character varying,
+    mail_street character varying,
+    mail_city character varying,
+    mail_state character varying,
+    mail_zipcode character varying,
+    street character varying,
+    city character varying,
+    state character varying,
+    zipcode character varying,
+    nces_type_code character varying,
+    nces_status_code character varying,
+    magnet character varying,
+    charter character varying,
+    ethnic_group character varying,
     longitude numeric(9,6),
     latitude numeric(9,6),
     ulocal integer,
@@ -3621,7 +3530,7 @@ CREATE TABLE public.schools (
     total_students integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    clever_id character varying(255),
+    clever_id character varying,
     ppin character varying,
     authorizer_id integer,
     coordinator_id integer,
@@ -3647,6 +3556,7 @@ CREATE TABLE public.schools_admins (
 --
 
 CREATE SEQUENCE public.schools_admins_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3666,6 +3576,7 @@ ALTER SEQUENCE public.schools_admins_id_seq OWNED BY public.schools_admins.id;
 --
 
 CREATE SEQUENCE public.schools_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3696,6 +3607,7 @@ CREATE TABLE public.schools_users (
 --
 
 CREATE SEQUENCE public.schools_users_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4060,6 +3972,7 @@ CREATE TABLE public.students_classrooms (
 --
 
 CREATE SEQUENCE public.students_classrooms_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4101,6 +4014,7 @@ CREATE TABLE public.subscriptions (
 --
 
 CREATE SEQUENCE public.subscriptions_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4264,7 +4178,7 @@ CREATE TABLE public.unit_activities (
     due_date timestamp without time zone,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    order_number integer
+    order_number smallint
 );
 
 
@@ -4294,9 +4208,9 @@ ALTER SEQUENCE public.unit_activities_id_seq OWNED BY public.unit_activities.id;
 
 CREATE TABLE public.unit_template_categories (
     id integer NOT NULL,
-    name character varying(255),
-    primary_color character varying(255),
-    secondary_color character varying(255)
+    name character varying,
+    primary_color character varying,
+    secondary_color character varying
 );
 
 
@@ -4305,6 +4219,7 @@ CREATE TABLE public.unit_template_categories (
 --
 
 CREATE SEQUENCE public.unit_template_categories_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4325,7 +4240,7 @@ ALTER SEQUENCE public.unit_template_categories_id_seq OWNED BY public.unit_templ
 
 CREATE TABLE public.unit_templates (
     id integer NOT NULL,
-    name character varying(255),
+    name character varying,
     unit_template_category_id integer,
     "time" integer,
     grades text,
@@ -4344,6 +4259,7 @@ CREATE TABLE public.unit_templates (
 --
 
 CREATE SEQUENCE public.unit_templates_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4364,7 +4280,7 @@ ALTER SEQUENCE public.unit_templates_id_seq OWNED BY public.unit_templates.id;
 
 CREATE TABLE public.units (
     id integer NOT NULL,
-    name character varying(255),
+    name character varying,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     visible boolean DEFAULT true NOT NULL,
@@ -4378,6 +4294,7 @@ CREATE TABLE public.units (
 --
 
 CREATE SEQUENCE public.units_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4441,6 +4358,7 @@ CREATE TABLE public.user_milestones (
 --
 
 CREATE SEQUENCE public.user_milestones_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4473,6 +4391,7 @@ CREATE TABLE public.user_subscriptions (
 --
 
 CREATE SEQUENCE public.user_subscriptions_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4493,18 +4412,18 @@ ALTER SEQUENCE public.user_subscriptions_id_seq OWNED BY public.user_subscriptio
 
 CREATE TABLE public.users (
     id integer NOT NULL,
-    name character varying(255),
-    email character varying(255),
-    password_digest character varying(255),
-    role character varying(255) DEFAULT 'user'::character varying,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    classcode character varying(255),
+    name character varying,
+    email character varying,
+    password_digest character varying,
+    role character varying DEFAULT 'user'::character varying,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    classcode character varying,
     active boolean DEFAULT false,
-    username character varying(255),
-    token character varying(255),
+    username character varying,
+    token character varying,
     ip_address inet,
-    clever_id character varying(255),
+    clever_id character varying,
     signed_up_with_google boolean DEFAULT false,
     send_newsletter boolean DEFAULT false,
     google_id character varying,
@@ -4512,8 +4431,8 @@ CREATE TABLE public.users (
     last_active timestamp without time zone,
     stripe_customer_id character varying,
     flags character varying[] DEFAULT '{}'::character varying[] NOT NULL,
-    title character varying,
     time_zone character varying,
+    title character varying,
     account_type character varying DEFAULT 'unknown'::character varying
 );
 
@@ -4523,6 +4442,7 @@ CREATE TABLE public.users (
 --
 
 CREATE SEQUENCE public.users_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4765,13 +4685,6 @@ ALTER TABLE ONLY public.classrooms ALTER COLUMN id SET DEFAULT nextval('public.c
 --
 
 ALTER TABLE ONLY public.classrooms_teachers ALTER COLUMN id SET DEFAULT nextval('public.classrooms_teachers_id_seq'::regclass);
-
-
---
--- Name: comments id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.comments ALTER COLUMN id SET DEFAULT nextval('public.comments_id_seq'::regclass);
 
 
 --
@@ -5195,13 +5108,6 @@ ALTER TABLE ONLY public.responses_concepts ALTER COLUMN id SET DEFAULT nextval('
 
 
 --
--- Name: rules_misseds id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.rules_misseds ALTER COLUMN id SET DEFAULT nextval('public.rules_misseds_id_seq'::regclass);
-
-
---
 -- Name: sales_contacts id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -5489,6 +5395,14 @@ ALTER TABLE ONLY public.activity_healths
 
 
 --
+-- Name: activity_sessions activity_sessions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.activity_sessions
+    ADD CONSTRAINT activity_sessions_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: activity_survey_responses activity_survey_responses_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5646,14 +5560,6 @@ ALTER TABLE ONLY public.classrooms
 
 ALTER TABLE ONLY public.classrooms_teachers
     ADD CONSTRAINT classrooms_teachers_pkey PRIMARY KEY (id);
-
-
---
--- Name: comments comments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.comments
-    ADD CONSTRAINT comments_pkey PRIMARY KEY (id);
 
 
 --
@@ -5945,14 +5851,6 @@ ALTER TABLE ONLY public.milestones
 
 
 --
--- Name: activity_sessions newest_activity_sessions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.activity_sessions
-    ADD CONSTRAINT newest_activity_sessions_pkey PRIMARY KEY (id);
-
-
---
 -- Name: oauth_access_grants oauth_access_grants_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -6142,14 +6040,6 @@ ALTER TABLE ONLY public.responses_concepts
 
 ALTER TABLE ONLY public.responses
     ADD CONSTRAINT responses_pkey PRIMARY KEY (id);
-
-
---
--- Name: rules_misseds rules_misseds_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.rules_misseds
-    ADD CONSTRAINT rules_misseds_pkey PRIMARY KEY (id);
 
 
 --
@@ -6508,6 +6398,69 @@ CREATE UNIQUE INDEX index_activity_classifications_on_uid ON public.activity_cla
 
 
 --
+-- Name: index_activity_sessions_on_activity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activity_sessions_on_activity_id ON public.activity_sessions USING btree (activity_id);
+
+
+--
+-- Name: index_activity_sessions_on_classroom_activity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activity_sessions_on_classroom_activity_id ON public.activity_sessions USING btree (classroom_activity_id);
+
+
+--
+-- Name: index_activity_sessions_on_classroom_unit_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activity_sessions_on_classroom_unit_id ON public.activity_sessions USING btree (classroom_unit_id);
+
+
+--
+-- Name: index_activity_sessions_on_completed_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activity_sessions_on_completed_at ON public.activity_sessions USING btree (completed_at);
+
+
+--
+-- Name: index_activity_sessions_on_pairing_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activity_sessions_on_pairing_id ON public.activity_sessions USING btree (pairing_id);
+
+
+--
+-- Name: index_activity_sessions_on_started_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activity_sessions_on_started_at ON public.activity_sessions USING btree (started_at);
+
+
+--
+-- Name: index_activity_sessions_on_state; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activity_sessions_on_state ON public.activity_sessions USING btree (state);
+
+
+--
+-- Name: index_activity_sessions_on_uid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_activity_sessions_on_uid ON public.activity_sessions USING btree (uid);
+
+
+--
+-- Name: index_activity_sessions_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_activity_sessions_on_user_id ON public.activity_sessions USING btree (user_id);
+
+
+--
 -- Name: index_activity_survey_responses_on_activity_session_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -6778,13 +6731,6 @@ CREATE INDEX index_classrooms_teachers_on_role ON public.classrooms_teachers USI
 --
 
 CREATE INDEX index_classrooms_teachers_on_user_id ON public.classrooms_teachers USING btree (user_id);
-
-
---
--- Name: index_comments_on_ancestry; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_comments_on_ancestry ON public.comments USING btree (ancestry);
 
 
 --
@@ -7810,48 +7756,6 @@ CREATE INDEX name_idx ON public.users USING gin (name public.gin_trgm_ops);
 
 
 --
--- Name: newest_activity_sessions_activity_id_idx; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX newest_activity_sessions_activity_id_idx ON public.activity_sessions USING btree (activity_id);
-
-
---
--- Name: newest_activity_sessions_classroom_unit_id_idx; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX newest_activity_sessions_classroom_unit_id_idx ON public.activity_sessions USING btree (classroom_unit_id);
-
-
---
--- Name: newest_activity_sessions_state_idx; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX newest_activity_sessions_state_idx ON public.activity_sessions USING btree (state);
-
-
---
--- Name: newest_activity_sessions_uid_idx; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX newest_activity_sessions_uid_idx ON public.activity_sessions USING btree (uid);
-
-
---
--- Name: newest_activity_sessions_user_id_idx; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX newest_activity_sessions_user_id_idx ON public.activity_sessions USING btree (user_id);
-
-
---
--- Name: newest_activity_sessions_visible_idx; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX newest_activity_sessions_visible_idx ON public.activity_sessions USING btree (visible);
-
-
---
 -- Name: tsv_idx; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -7925,7 +7829,7 @@ CREATE UNIQUE INDEX unique_schema_migrations ON public.schema_migrations USING b
 -- Name: user_activity_classification_unique_index; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX user_activity_classification_unique_index ON public.user_activity_classifications USING btree (user_id, activity_classification_id);
+CREATE INDEX user_activity_classification_unique_index ON public.user_activity_classifications USING btree (user_id, activity_classification_id);
 
 
 --
@@ -7947,20 +7851,6 @@ CREATE INDEX users_to_tsvector_idx ON public.users USING gin (to_tsvector('engli
 --
 
 CREATE INDEX users_to_tsvector_idx1 ON public.users USING gin (to_tsvector('english'::regconfig, (email)::text));
-
-
---
--- Name: users_to_tsvector_idx10; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX users_to_tsvector_idx10 ON public.users USING gin (to_tsvector('english'::regconfig, (username)::text));
-
-
---
--- Name: users_to_tsvector_idx11; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX users_to_tsvector_idx11 ON public.users USING gin (to_tsvector('english'::regconfig, split_part((ip_address)::text, '/'::text, 1)));
 
 
 --
@@ -7992,34 +7882,6 @@ CREATE INDEX users_to_tsvector_idx5 ON public.users USING gin (to_tsvector('engl
 
 
 --
--- Name: users_to_tsvector_idx6; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX users_to_tsvector_idx6 ON public.users USING gin (to_tsvector('english'::regconfig, (name)::text));
-
-
---
--- Name: users_to_tsvector_idx7; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX users_to_tsvector_idx7 ON public.users USING gin (to_tsvector('english'::regconfig, (email)::text));
-
-
---
--- Name: users_to_tsvector_idx8; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX users_to_tsvector_idx8 ON public.users USING gin (to_tsvector('english'::regconfig, (role)::text));
-
-
---
--- Name: users_to_tsvector_idx9; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX users_to_tsvector_idx9 ON public.users USING gin (to_tsvector('english'::regconfig, (classcode)::text));
-
-
---
 -- Name: uta; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -8030,7 +7892,7 @@ CREATE INDEX uta ON public.activities_unit_templates USING btree (unit_template_
 -- Name: blog_posts tsvectorupdate; Type: TRIGGER; Schema: public; Owner: -
 --
 
-CREATE TRIGGER tsvectorupdate BEFORE INSERT OR UPDATE ON public.blog_posts FOR EACH ROW EXECUTE FUNCTION public.blog_posts_search_trigger();
+CREATE TRIGGER tsvectorupdate BEFORE INSERT OR UPDATE ON public.blog_posts FOR EACH ROW EXECUTE PROCEDURE public.blog_posts_search_trigger();
 
 
 --
@@ -8505,10 +8367,6 @@ SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
 ('20121024193845'),
-('20121211230953'),
-('20121211231231'),
-('20121214024613'),
-('20121218155200'),
 ('20130309011601'),
 ('20130319203258'),
 ('20130319203518'),
@@ -8523,7 +8381,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20130426032817'),
 ('20130426032952'),
 ('20130429171512'),
-('20130510221334'),
 ('20130517024024'),
 ('20130517024604'),
 ('20130517024731'),
@@ -8815,7 +8672,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180824185824'),
 ('20180824195642'),
 ('20180827212450'),
-('20180831194317'),
 ('20180831194810'),
 ('20180910152342'),
 ('20180911171536'),
@@ -8943,6 +8799,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211019143514'),
 ('20211026160939'),
 ('20211108171529'),
+('20211202235402'),
 ('20220105145446'),
 ('20220106193721'),
 ('20220128175405'),

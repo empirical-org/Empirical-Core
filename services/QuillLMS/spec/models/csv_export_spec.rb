@@ -5,9 +5,9 @@
 # Table name: csv_exports
 #
 #  id          :integer          not null, primary key
-#  csv_file    :string(255)
+#  csv_file    :string
 #  emailed_at  :datetime
-#  export_type :string(255)
+#  export_type :string
 #  filters     :json
 #  created_at  :datetime
 #  updated_at  :datetime

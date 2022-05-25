@@ -5,15 +5,15 @@
 # Table name: classrooms
 #
 #  id                  :integer          not null, primary key
-#  code                :string(255)
-#  grade               :string(255)
+#  code                :string
+#  grade               :string
 #  grade_level         :integer
-#  name                :string(255)
+#  name                :string
 #  synced_name         :string
 #  visible             :boolean          default(TRUE), not null
 #  created_at          :datetime
 #  updated_at          :datetime
-#  clever_id           :string(255)
+#  clever_id           :string
 #  google_classroom_id :bigint
 #  teacher_id          :integer
 #

@@ -5,7 +5,7 @@
 # Table name: units
 #
 #  id               :integer          not null, primary key
-#  name             :string(255)
+#  name             :string
 #  visible          :boolean          default(TRUE), not null
 #  created_at       :datetime
 #  updated_at       :datetime

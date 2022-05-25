@@ -7,24 +7,24 @@
 #  id                    :integer          not null, primary key
 #  account_type          :string           default("unknown")
 #  active                :boolean          default(FALSE)
-#  classcode             :string(255)
-#  email                 :string(255)
+#  classcode             :string
+#  email                 :string
 #  flags                 :string           default([]), not null, is an Array
 #  ip_address            :inet
 #  last_active           :datetime
 #  last_sign_in          :datetime
-#  name                  :string(255)
-#  password_digest       :string(255)
-#  role                  :string(255)      default("user")
+#  name                  :string
+#  password_digest       :string
+#  role                  :string           default("user")
 #  send_newsletter       :boolean          default(FALSE)
 #  signed_up_with_google :boolean          default(FALSE)
 #  time_zone             :string
 #  title                 :string
-#  token                 :string(255)
-#  username              :string(255)
-#  created_at            :datetime         not null
-#  updated_at            :datetime         not null
-#  clever_id             :string(255)
+#  token                 :string
+#  username              :string
+#  created_at            :datetime
+#  updated_at            :datetime
+#  clever_id             :string
 #  google_id             :string
 #  stripe_customer_id    :string
 #
@@ -49,16 +49,10 @@
 #  username_idx                       (username gin_trgm_ops) USING gin
 #  users_to_tsvector_idx              (to_tsvector('english'::regconfig, (name)::text)) USING gin
 #  users_to_tsvector_idx1             (to_tsvector('english'::regconfig, (email)::text)) USING gin
-#  users_to_tsvector_idx10            (to_tsvector('english'::regconfig, (username)::text)) USING gin
-#  users_to_tsvector_idx11            (to_tsvector('english'::regconfig, split_part((ip_address)::text, '/'::text, 1))) USING gin
 #  users_to_tsvector_idx2             (to_tsvector('english'::regconfig, (role)::text)) USING gin
 #  users_to_tsvector_idx3             (to_tsvector('english'::regconfig, (classcode)::text)) USING gin
 #  users_to_tsvector_idx4             (to_tsvector('english'::regconfig, (username)::text)) USING gin
 #  users_to_tsvector_idx5             (to_tsvector('english'::regconfig, split_part((ip_address)::text, '/'::text, 1))) USING gin
-#  users_to_tsvector_idx6             (to_tsvector('english'::regconfig, (name)::text)) USING gin
-#  users_to_tsvector_idx7             (to_tsvector('english'::regconfig, (email)::text)) USING gin
-#  users_to_tsvector_idx8             (to_tsvector('english'::regconfig, (role)::text)) USING gin
-#  users_to_tsvector_idx9             (to_tsvector('english'::regconfig, (classcode)::text)) USING gin
 #
 class User < ApplicationRecord
   include Student

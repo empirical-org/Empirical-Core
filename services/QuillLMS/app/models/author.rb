@@ -6,7 +6,7 @@
 #
 #  id     :integer          not null, primary key
 #  avatar :text
-#  name   :string(255)
+#  name   :string
 #
 class Author < ApplicationRecord
   has_many :unit_templates
