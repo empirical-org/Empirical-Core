@@ -7,7 +7,7 @@ describe CopyConceptResultsToResponsesWorker, type: :worker do
   context '#perform' do
     let(:question) { create(:question) }
     let(:activity) { create(:activity, data: {questions: [{key: question.uid}]}) }
-    let(:activity_session) { create(:activity_session, activity: activity) }
+    let(:activity_session) { create(:activity_session_without_concept_results, activity: activity) }
     let(:metadata) do
       {
         "correct": 1,
@@ -23,7 +23,7 @@ describe CopyConceptResultsToResponsesWorker, type: :worker do
     let(:concept_result) { create(:sentence_combining, metadata: metadata, activity_session: activity_session) }
 
     it 'should create a Student Response record with Normalized Texts' do
-      expect { subject.perform([concept_result.id]) }.to change(Response, :count).by(1)
+      expect { subject.perform(concept_result.id, concept_result.id) }.to change(Response, :count).by(1)
 
       response = concept_result.response
 
@@ -43,10 +43,42 @@ describe CopyConceptResultsToResponsesWorker, type: :worker do
     end
 
     it 'should be idempotent so that if the same ID is present twice, only one new record is created' do
+      expect do
+        subject.perform(concept_result.id, concept_result.id)
+        subject.perform(concept_result.id, concept_result.id)
+      end.to change(Response, :count).by(1)
+         .and change(Response, :count).by(1)
+    end
 
-      expect { subject.perform([concept_result.id, concept_result.id]) }
-        .to change(Response, :count).by(1)
-        .and change(Response, :count).by(1)
+    it 'should run in batches up to BATCH_SIZE' do
+      batch_size = 2
+      stub_const("#{described_class}::BATCH_SIZE", batch_size)
+
+      expect(ConceptResult).to receive(:find_in_batches).with(start: nil, finish: nil, batch_size: batch_size)
+
+      subject.perform(nil, nil)
+    end
+
+    it 'should skip items with IDs lower than start' do
+      concept_result
+      activity_session2 = create(:activity_session_without_concept_results, activity: activity)
+      used_concept_result = create(:sentence_combining, metadata: metadata, activity_session: activity_session2)
+
+      expect(Response).not_to receive(:find_or_create_from_concept_result).with(concept_result)
+      expect(Response).to receive(:find_or_create_from_concept_result).with(used_concept_result)
+
+      subject.perform(used_concept_result.id, nil)
+    end
+
+    it 'should not process items with IDs higher than finish' do
+      concept_result
+      activity_session2 = create(:activity_session_without_concept_results, activity: activity)
+      skipped_concept_result = create(:sentence_combining, metadata: metadata, activity_session: activity_session2)
+
+      expect(Response).to receive(:find_or_create_from_concept_result).with(concept_result)
+      expect(Response).not_to receive(:find_or_create_from_concept_result).with(skipped_concept_result)
+
+      subject.perform(nil, concept_result.id)
     end
   end
 end

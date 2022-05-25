@@ -14,45 +14,53 @@ describe EnqueueConceptResultsMigrationWorker, type: :worker do
     let!(:activity_session) { create(:activity_session_without_concept_results) }
     let!(:concept_result) { create(:concept_result, activity_session: activity_session) }
 
-    it 'should find all ConceptResult records in batches' do
-      start = nil
-      finish = nil
-      batch_size = 1
-      stub_const("#{described_class}::BATCH_SIZE", batch_size)
-      select_double = double
-
-      expect(ConceptResult).to receive(:select).and_return(select_double)
-      expect(select_double).to receive(:find_in_batches).with(start: start, finish: finish, batch_size: batch_size).and_return([concept_result.id])
-
-      subject.perform(start, finish)
-    end
-
-    it 'should enqueue a CopyConceptResultsToResponsesWorker' do
-      concept_result_ids = ConceptResult.select(:id).all.map(&:id)
-
-      expect(CopyConceptResultsToResponsesWorker).to receive(:perform_async).with(concept_result_ids)
+    it 'should have a max id to process equal to the highest ConceptResult.id' do
+      max_id = 99999 
+      expect(ConceptResult).to receive(:maximum).with(:id).and_return(max_id)
+      expect(CopyConceptResultsToResponsesWorker).to receive(:perform_async).with(1, max_id)
 
       subject.perform(nil, nil)
     end
 
-    it 'should take start params to skip existing ConceptResults' do
-      first_concept_result = concept_result
-      middle_concept_result = create(:concept_result, activity_session: activity_session)
-      final_concept_result = create(:concept_result, activity_session: activity_session)
+    it 'should call CopyConceptResultsToResponsesWorker in batches of batch_size' do
+      batch_size = 2
+      stub_const("#{described_class}::BATCH_SIZE", batch_size)
+      max_id = 10
+      expect(ConceptResult).to receive(:maximum).with(:id).and_return(max_id)
 
-      expect(CopyConceptResultsToResponsesWorker).to receive(:perform_async).with([final_concept_result.id])
+      expect(CopyConceptResultsToResponsesWorker).to receive(:perform_async).with(1, 3).once
+      expect(CopyConceptResultsToResponsesWorker).to receive(:perform_async).with(3, 5).once
+      expect(CopyConceptResultsToResponsesWorker).to receive(:perform_async).with(5, 7).once
+      expect(CopyConceptResultsToResponsesWorker).to receive(:perform_async).with(7, 9).once
+      expect(CopyConceptResultsToResponsesWorker).to receive(:perform_async).with(9, 10).once
 
-      subject.perform(final_concept_result.id, nil)
+      subject.perform(nil, nil)
     end
 
-    it 'should take finish params to stop after specific ConceptResults' do
-      first_concept_result = concept_result
-      middle_concept_result = create(:concept_result, activity_session: activity_session)
-      final_concept_result = create(:concept_result, activity_session: activity_session)
+    it 'should begin enqueing starting with start value' do
+      max_id = 10
+      expect(ConceptResult).to receive(:maximum).with(:id).and_return(max_id)
+      start_id = 4
 
-      expect(CopyConceptResultsToResponsesWorker).to receive(:perform_async).with([concept_result.id, middle_concept_result.id])
+      expect(CopyConceptResultsToResponsesWorker).to receive(:perform_async).with(start_id, max_id).once
 
-      subject.perform(nil, middle_concept_result.id)
+      subject.perform(start_id, nil)
+    end
+
+    it 'should stop enqueing with finish value as long as finish is lower than max(ConceptResult.id)' do
+      end_id = 10
+
+      expect(CopyConceptResultsToResponsesWorker).to receive(:perform_async).with(1, end_id).once
+
+      subject.perform(nil, end_id)
+    end
+
+    it 'should stop enqueing with max(ConceptResult.id) if finish is not provided' do
+      max_id = 10
+      expect(ConceptResult).to receive(:maximum).with(:id).and_return(max_id)
+      expect(CopyConceptResultsToResponsesWorker).to receive(:perform_async).with(1, max_id).once
+
+      subject.perform(nil, nil)
     end
   end
 end

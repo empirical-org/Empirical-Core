@@ -7,8 +7,13 @@ class EnqueueConceptResultsMigrationWorker
   BATCH_SIZE=100000
 
   def perform(start, finish)
-    ConceptResult.select(:id).find_in_batches(start: start, finish: finish, batch_size: BATCH_SIZE) do |concept_result_ids|
-      CopyConceptResultsToResponsesWorker.perform_async(concept_result_ids.map(&:id))
+    start = start || 1
+    finish = finish || ConceptResult.maximum(:id)
+
+    while start < finish
+      end_of_batch = [start + BATCH_SIZE, finish].min
+      CopyConceptResultsToResponsesWorker.perform_async(start, end_of_batch)
+      start += BATCH_SIZE
     end
   end
 end
