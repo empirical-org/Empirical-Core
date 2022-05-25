@@ -15,7 +15,7 @@ const AvailableCredits = ({ userHasValidSub, redeemPremiumCredits, availableCred
   if (availableCredits > 0) {
     button = <button className="quill-button medium primary outlined focus-on-light" onClick={redeemIfNoCurrentSub} type="button">Redeem Premium Credits</button>;
   } else {
-    button = <a className="quill-button medium primary outlined focus-on-light" href="/referrals">Earn Premium Credits</a>;
+    button = <a className="quill-button medium primary outlined focus-on-light" href="/referrals">Earn premium credits</a>;
   }
   const weeksOfCredit = Math.round(availableCredits / 7)
   const whiteIfNoCredit = weeksOfCredit === 0 ? 'no-credits' : null;

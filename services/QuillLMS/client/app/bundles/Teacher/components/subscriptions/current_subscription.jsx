@@ -175,7 +175,7 @@ export default class CurrentSubscription extends React.Component {
             cursor: 'pointer',
           }}
           type="button"
-        >Edit Credit Card</button>
+        >Edit credit card</button>
       </span>
     );
   }
@@ -296,7 +296,7 @@ export default class CurrentSubscription extends React.Component {
           onClick={this.handleClickShowAutomaticRenewalModal}
           type="button"
         >
-          {subscriptionStatus.recurring ? 'Turn Off Automatic Renewal' : 'Turn On Automatic Renewal'}
+          {subscriptionStatus.recurring ? 'Turn off automatic renewal' : 'Turn on automatic renewal'}
         </button>
       );
     }

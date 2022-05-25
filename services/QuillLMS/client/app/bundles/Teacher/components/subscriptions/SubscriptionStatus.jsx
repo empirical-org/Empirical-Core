@@ -105,7 +105,7 @@ const SubscriptionStatus = ({
       image = 'basic_icon.png';
       content.premiumCopy = quillBasicCopy;
       content.boxColor = '#00c2a2';
-      content.buttonOrDate = <a className={CTA_BUTTON_CLASSNAME} href="/premium">Learn More About Quill Premium</a>;
+      content.buttonOrDate = <a className={CTA_BUTTON_CLASSNAME} href="/premium">Learn more about Quill Premium</a>;
       subscriptionTypeText = 'Quill Basic';
       content.status = <h2>{`You have a ${subscriptionType} subscription`}<img alt={`${subscriptionType}`} src={`https://assets.quill.org/images/shared/${image}`} /></h2>;
       break;
@@ -130,7 +130,7 @@ const SubscriptionStatus = ({
         content.buttonOrDate = (
           <StripeSubscriptionCheckoutSessionButton
             buttonClassName={CTA_BUTTON_CLASSNAME}
-            buttonText='Renew Subscription'
+            buttonText='Renew subscription'
             cancelPath='subscriptions'
             customerEmail={subscriptionStatus.customer_email}
             stripePriceId={renewalStripePriceId}
@@ -149,7 +149,7 @@ const SubscriptionStatus = ({
         content.buttonOrDate = (
           <StripeSubscriptionCheckoutSessionButton
             buttonClassName={CTA_BUTTON_CLASSNAME}
-            buttonText='Renew Subscription'
+            buttonText='Renew subscription'
             cancelPath='subscriptions'
             customerEmail={subscriptionStatus.customer_email}
             stripePriceId={renewalStripePriceId}
@@ -170,7 +170,7 @@ const SubscriptionStatus = ({
             className={CTA_BUTTON_CLASSNAME}
             href="mailto:sales@quill.org"
           >
-            Contact Us to Renew
+            Contact us to renew
           </a>
         )
       }

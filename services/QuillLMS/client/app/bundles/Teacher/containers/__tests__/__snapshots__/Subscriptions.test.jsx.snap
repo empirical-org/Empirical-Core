@@ -120,7 +120,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
               className="time-left-in-days"
             >
                | 
-              17394 days
+              17387 days
             </span>
           </span>
         </div>
@@ -572,7 +572,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
           className="quill-button medium primary outlined focus-on-light"
           href="/referrals"
         >
-          Earn Premium Credits
+          Earn premium credits
         </a>
       </div>
     </AvailableCredits>
@@ -775,7 +775,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
             className="quill-button medium contained primary focus-on-light"
             href="mailto:sales@quill.org"
           >
-            Contact Us to Renew
+            Contact us to renew
           </a>
         </div>
         <p>
@@ -996,7 +996,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
           className="quill-button medium primary outlined focus-on-light"
           href="/referrals"
         >
-          Earn Premium Credits
+          Earn premium credits
         </a>
       </div>
     </AvailableCredits>
@@ -1212,7 +1212,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
               className="time-left-in-days"
             >
                | 
-              17394 days
+              17387 days
             </span>
           </span>
         </div>
@@ -1719,7 +1719,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
           className="quill-button medium primary outlined focus-on-light"
           href="/referrals"
         >
-          Earn Premium Credits
+          Earn premium credits
         </a>
       </div>
     </AvailableCredits>
@@ -1922,7 +1922,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
             className="quill-button medium contained primary focus-on-light"
             href="mailto:sales@quill.org"
           >
-            Contact Us to Renew
+            Contact us to renew
           </a>
         </div>
         <p>
@@ -2132,7 +2132,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
           className="quill-button medium primary outlined focus-on-light"
           href="/referrals"
         >
-          Earn Premium Credits
+          Earn premium credits
         </a>
       </div>
     </AvailableCredits>
@@ -2348,7 +2348,7 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
               className="time-left-in-days"
             >
                | 
-              17394 days
+              17387 days
             </span>
           </span>
         </div>
@@ -2785,7 +2785,7 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
           className="quill-button medium primary outlined focus-on-light"
           href="/referrals"
         >
-          Earn Premium Credits
+          Earn premium credits
         </a>
       </div>
     </AvailableCredits>
@@ -3209,7 +3209,7 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
           className="quill-button medium primary outlined focus-on-light"
           href="/referrals"
         >
-          Earn Premium Credits
+          Earn premium credits
         </a>
       </div>
     </AvailableCredits>
@@ -3425,7 +3425,7 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
               className="time-left-in-days"
             >
                | 
-              17394 days
+              17387 days
             </span>
           </span>
         </div>
@@ -3862,7 +3862,7 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
           className="quill-button medium primary outlined focus-on-light"
           href="/referrals"
         >
-          Earn Premium Credits
+          Earn premium credits
         </a>
       </div>
     </AvailableCredits>
@@ -4286,7 +4286,7 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
           className="quill-button medium primary outlined focus-on-light"
           href="/referrals"
         >
-          Earn Premium Credits
+          Earn premium credits
         </a>
       </div>
     </AvailableCredits>
@@ -4502,7 +4502,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
               className="time-left-in-days"
             >
                | 
-              17394 days
+              17387 days
             </span>
           </span>
         </div>
@@ -4954,7 +4954,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
           className="quill-button medium primary outlined focus-on-light"
           href="/referrals"
         >
-          Earn Premium Credits
+          Earn premium credits
         </a>
       </div>
     </AvailableCredits>
@@ -5155,7 +5155,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
           </div>
           <StripeSubscriptionCheckoutSessionButton
             buttonClassName="quill-button medium contained primary focus-on-light"
-            buttonText="Renew Subscription"
+            buttonText="Renew subscription"
             cancelPath="subscriptions"
             userIsEligibleForNewSubscription={true}
             userIsSignedIn={true}
@@ -5165,7 +5165,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
               onClick={[Function]}
               type="button"
             >
-              Renew Subscription
+              Renew subscription
             </button>
           </StripeSubscriptionCheckoutSessionButton>
         </div>
@@ -5387,7 +5387,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
           className="quill-button medium primary outlined focus-on-light"
           href="/referrals"
         >
-          Earn Premium Credits
+          Earn premium credits
         </a>
       </div>
     </AvailableCredits>
@@ -5603,7 +5603,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
               className="time-left-in-days"
             >
                | 
-              17394 days
+              17387 days
             </span>
           </span>
         </div>
@@ -6110,7 +6110,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
           className="quill-button medium primary outlined focus-on-light"
           href="/referrals"
         >
-          Earn Premium Credits
+          Earn premium credits
         </a>
       </div>
     </AvailableCredits>
@@ -6311,7 +6311,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
           </div>
           <StripeSubscriptionCheckoutSessionButton
             buttonClassName="quill-button medium contained primary focus-on-light"
-            buttonText="Renew Subscription"
+            buttonText="Renew subscription"
             cancelPath="subscriptions"
             userIsEligibleForNewSubscription={true}
             userIsSignedIn={true}
@@ -6321,7 +6321,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
               onClick={[Function]}
               type="button"
             >
-              Renew Subscription
+              Renew subscription
             </button>
           </StripeSubscriptionCheckoutSessionButton>
         </div>
@@ -6532,7 +6532,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
           className="quill-button medium primary outlined focus-on-light"
           href="/referrals"
         >
-          Earn Premium Credits
+          Earn premium credits
         </a>
       </div>
     </AvailableCredits>
@@ -6748,7 +6748,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
               className="time-left-in-days"
             >
                | 
-              17394 days
+              17387 days
             </span>
           </span>
         </div>
@@ -7194,7 +7194,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
           className="quill-button medium primary outlined focus-on-light"
           href="/referrals"
         >
-          Earn Premium Credits
+          Earn premium credits
         </a>
       </div>
     </AvailableCredits>
@@ -7410,7 +7410,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
               className="time-left-in-days"
             >
                | 
-              17394 days
+              17387 days
             </span>
           </span>
         </div>
@@ -7868,7 +7868,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
           className="quill-button medium primary outlined focus-on-light"
           href="/referrals"
         >
-          Earn Premium Credits
+          Earn premium credits
         </a>
       </div>
     </AvailableCredits>
@@ -8069,7 +8069,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
           </div>
           <StripeSubscriptionCheckoutSessionButton
             buttonClassName="quill-button medium contained primary focus-on-light"
-            buttonText="Renew Subscription"
+            buttonText="Renew subscription"
             cancelPath="subscriptions"
             userIsEligibleForNewSubscription={true}
             userIsSignedIn={true}
@@ -8079,7 +8079,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
               onClick={[Function]}
               type="button"
             >
-              Renew Subscription
+              Renew subscription
             </button>
           </StripeSubscriptionCheckoutSessionButton>
         </div>
@@ -8301,7 +8301,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
           className="quill-button medium primary outlined focus-on-light"
           href="/referrals"
         >
-          Earn Premium Credits
+          Earn premium credits
         </a>
       </div>
     </AvailableCredits>
@@ -8517,7 +8517,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
               className="time-left-in-days"
             >
                | 
-              17394 days
+              17387 days
             </span>
           </span>
         </div>
@@ -8703,7 +8703,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                       onClick={[Function]}
                       type="button"
                     >
-                      Turn On Automatic Renewal
+                      Turn on automatic renewal
                     </button>
                   </div>
                   <div>
@@ -8761,7 +8761,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                     }
                     type="button"
                   >
-                    Edit Credit Card
+                    Edit credit card
                   </button>
                 </span>
               </div>
@@ -8976,7 +8976,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
           className="quill-button medium primary outlined focus-on-light"
           href="/referrals"
         >
-          Earn Premium Credits
+          Earn premium credits
         </a>
       </div>
     </AvailableCredits>
@@ -9192,7 +9192,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
               className="time-left-in-days"
             >
                | 
-              17394 days
+              17387 days
             </span>
           </span>
         </div>
@@ -9378,7 +9378,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                       onClick={[Function]}
                       type="button"
                     >
-                      Turn Off Automatic Renewal
+                      Turn off automatic renewal
                     </button>
                   </div>
                   <div>
@@ -9436,7 +9436,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                     }
                     type="button"
                   >
-                    Edit Credit Card
+                    Edit credit card
                   </button>
                 </span>
               </div>
@@ -9672,7 +9672,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
           className="quill-button medium primary outlined focus-on-light"
           href="/referrals"
         >
-          Earn Premium Credits
+          Earn premium credits
         </a>
       </div>
     </AvailableCredits>
@@ -9873,7 +9873,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
           </div>
           <StripeSubscriptionCheckoutSessionButton
             buttonClassName="quill-button medium contained primary focus-on-light"
-            buttonText="Renew Subscription"
+            buttonText="Renew subscription"
             cancelPath="subscriptions"
             userIsEligibleForNewSubscription={true}
             userIsSignedIn={true}
@@ -9883,7 +9883,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
               onClick={[Function]}
               type="button"
             >
-              Renew Subscription
+              Renew subscription
             </button>
           </StripeSubscriptionCheckoutSessionButton>
         </div>
@@ -10094,7 +10094,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
           className="quill-button medium primary outlined focus-on-light"
           href="/referrals"
         >
-          Earn Premium Credits
+          Earn premium credits
         </a>
       </div>
     </AvailableCredits>
@@ -10310,7 +10310,7 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
               className="time-left-in-days"
             >
                | 
-              17394 days
+              17387 days
             </span>
           </span>
         </div>
@@ -10747,7 +10747,7 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
           className="quill-button medium primary outlined focus-on-light"
           href="/referrals"
         >
-          Earn Premium Credits
+          Earn premium credits
         </a>
       </div>
     </AvailableCredits>
@@ -11171,7 +11171,7 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
           className="quill-button medium primary outlined focus-on-light"
           href="/referrals"
         >
-          Earn Premium Credits
+          Earn premium credits
         </a>
       </div>
     </AvailableCredits>
@@ -11387,7 +11387,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
               className="time-left-in-days"
             >
                | 
-              17394 days
+              17387 days
             </span>
           </span>
         </div>
@@ -11573,7 +11573,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
                       onClick={[Function]}
                       type="button"
                     >
-                      Turn On Automatic Renewal
+                      Turn on automatic renewal
                     </button>
                   </div>
                   <div>
@@ -11631,7 +11631,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
                     }
                     type="button"
                   >
-                    Edit Credit Card
+                    Edit credit card
                   </button>
                 </span>
               </div>
@@ -11846,7 +11846,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
           className="quill-button medium primary outlined focus-on-light"
           href="/referrals"
         >
-          Earn Premium Credits
+          Earn premium credits
         </a>
       </div>
     </AvailableCredits>
@@ -12062,7 +12062,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
               className="time-left-in-days"
             >
                | 
-              17394 days
+              17387 days
             </span>
           </span>
         </div>
@@ -12248,7 +12248,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
                       onClick={[Function]}
                       type="button"
                     >
-                      Turn Off Automatic Renewal
+                      Turn off automatic renewal
                     </button>
                   </div>
                   <div>
@@ -12306,7 +12306,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
                     }
                     type="button"
                   >
-                    Edit Credit Card
+                    Edit credit card
                   </button>
                 </span>
               </div>
@@ -12542,7 +12542,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
           className="quill-button medium primary outlined focus-on-light"
           href="/referrals"
         >
-          Earn Premium Credits
+          Earn premium credits
         </a>
       </div>
     </AvailableCredits>
@@ -12743,7 +12743,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
           </div>
           <StripeSubscriptionCheckoutSessionButton
             buttonClassName="quill-button medium contained primary focus-on-light"
-            buttonText="Renew Subscription"
+            buttonText="Renew subscription"
             cancelPath="subscriptions"
             userIsEligibleForNewSubscription={true}
             userIsSignedIn={true}
@@ -12753,7 +12753,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
               onClick={[Function]}
               type="button"
             >
-              Renew Subscription
+              Renew subscription
             </button>
           </StripeSubscriptionCheckoutSessionButton>
         </div>
@@ -12975,7 +12975,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
           className="quill-button medium primary outlined focus-on-light"
           href="/referrals"
         >
-          Earn Premium Credits
+          Earn premium credits
         </a>
       </div>
     </AvailableCredits>
@@ -13191,7 +13191,7 @@ exports[`Subscriptions UI state iterations trial renders when there is an active
               className="time-left-in-days"
             >
                | 
-              17394 days
+              17387 days
             </span>
           </span>
         </div>
@@ -13628,7 +13628,7 @@ exports[`Subscriptions UI state iterations trial renders when there is an active
           className="quill-button medium primary outlined focus-on-light"
           href="/referrals"
         >
-          Earn Premium Credits
+          Earn premium credits
         </a>
       </div>
     </AvailableCredits>
@@ -14052,7 +14052,7 @@ exports[`Subscriptions UI state iterations trial renders when there is an expire
           className="quill-button medium primary outlined focus-on-light"
           href="/referrals"
         >
-          Earn Premium Credits
+          Earn premium credits
         </a>
       </div>
     </AvailableCredits>

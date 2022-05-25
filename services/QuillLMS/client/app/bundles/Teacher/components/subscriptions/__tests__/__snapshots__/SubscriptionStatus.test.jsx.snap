@@ -52,7 +52,7 @@ exports[`SubscriptionStatus container should render when the subscription is exp
       </div>
       <StripeSubscriptionCheckoutSessionButton
         buttonClassName="quill-button medium contained primary focus-on-light"
-        buttonText="Renew Subscription"
+        buttonText="Renew subscription"
         cancelPath="subscriptions"
         userIsEligibleForNewSubscription={true}
         userIsSignedIn={true}
@@ -62,7 +62,7 @@ exports[`SubscriptionStatus container should render when the subscription is exp
           onClick={[Function]}
           type="button"
         >
-          Renew Subscription
+          Renew subscription
         </button>
       </StripeSubscriptionCheckoutSessionButton>
     </div>
@@ -121,7 +121,7 @@ exports[`SubscriptionStatus container should render when there is no subscriptio
         className="quill-button medium contained primary focus-on-light"
         href="/premium"
       >
-        Learn More About Quill Premium
+        Learn more about Quill Premium
       </a>
     </div>
     <p>
