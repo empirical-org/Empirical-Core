@@ -4,7 +4,7 @@ require_dependency 'evidence/application_controller'
 
 module Evidence
   class ActivitiesController < ApiController
-    before_action :set_activity, only: [:create, :show, :update, :destroy, :rules, :change_logs]
+    before_action :set_activity, only: [:create, :show, :update, :destroy, :change_logs]
     append_before_action :set_lms_user_id, only: [:create, :destroy]
 
     # GET /activities.json
@@ -45,7 +45,9 @@ module Evidence
 
     # GET /activities/1/rules.json
     def rules
-      render json: @activity.prompts&.map {|p| p.rules}&.flatten&.uniq
+      @activity = Evidence::Activity.includes(prompts: :rules).find(params[:id])
+      rules = @activity.prompts&.map {|p| p.rules}&.flatten&.uniq
+      render json: rules.map {|r| r.serializable_hash(include: [])}
     end
 
     # GET /activities/1/change_logs.json
