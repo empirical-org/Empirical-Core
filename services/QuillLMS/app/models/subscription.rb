@@ -401,4 +401,8 @@ class Subscription < ApplicationRecord
     return STRIPE_SCHOOL_PLAN_PRICE_ID if account_type == SCHOOL_PAID
     return STRIPE_SCHOOL_PLAN_PRICE_ID if account_type == Plan::STRIPE_SCHOOL_PLAN
   end
+
+  def stripe?
+    stripe_invoice_id.present?
+  end
 end
