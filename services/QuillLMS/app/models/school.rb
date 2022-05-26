@@ -157,6 +157,10 @@ class School < ApplicationRecord
     schools_admins.where(user_id: district.admins.map(&:id)).destroy_all
   end
 
+  def subscription_status
+    subscription&.subscription_status || last_expired_subscription&.subscription_status
+  end
+
   private def generate_leap_csv_row(student, teacher, classroom, activity_session)
     [
       student.id,

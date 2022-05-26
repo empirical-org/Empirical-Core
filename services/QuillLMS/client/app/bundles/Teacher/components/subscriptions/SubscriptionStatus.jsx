@@ -80,7 +80,7 @@ const SubscriptionStatus = ({
 }) => {
 
   const renewalStripePriceId = subscriptionStatus && subscriptionStatus.renewal_stripe_price_id
-  const schoolIds = subscriptionStatus && subscriptionStatus.schoolIds
+  const schoolIds = subscriptionStatus && subscriptionStatus.school_ids
 
   let image
   let expiration
