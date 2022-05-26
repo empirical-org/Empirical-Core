@@ -629,14 +629,15 @@ exports[`LessonsMini component not on mobile should render when there are lesson
       }
       showActions={true}
     >
-      <div
+      <table
         className="data-table undefined"
       >
-        <div
+        <tr
           className="data-table-headers"
         >
           <th
             className="data-table-header undefined"
+            scope="col"
             style={
               Object {
                 "minWidth": "289px",
@@ -649,6 +650,7 @@ exports[`LessonsMini component not on mobile should render when there are lesson
           </th>
           <th
             className="data-table-header undefined"
+            scope="col"
             style={
               Object {
                 "minWidth": "180px",
@@ -661,11 +663,13 @@ exports[`LessonsMini component not on mobile should render when there are lesson
           </th>
           <th
             className="data-table-header actions-header"
+            scope="col"
           >
             More
           </th>
           <th
             className="data-table-header last-header"
+            scope="col"
             style={
               Object {
                 "minWidth": "78px",
@@ -676,40 +680,29 @@ exports[`LessonsMini component not on mobile should render when there are lesson
           >
             Present
           </th>
-        </div>
-        <div
+        </tr>
+        <tbody
           className="data-table-body"
         >
-          <div
+          <tr
             className="data-table-row  "
             key="649-1-undefined"
           >
-            <Tooltip
-              isTabbable={true}
-              key="lesson-649-1-undefined"
-              tooltipText="Advanced Combining: Complex Sentences with Modifiers"
-              tooltipTriggerStyle={
-                Object {
-                  "minWidth": "289px",
-                  "textAlign": "left",
-                  "width": "289px",
+            <td>
+              <Tooltip
+                isTabbable={true}
+                key="lesson-649-1-undefined"
+                tooltipText="Advanced Combining: Complex Sentences with Modifiers"
+                tooltipTriggerStyle={
+                  Object {
+                    "minWidth": "289px",
+                    "textAlign": "left",
+                    "width": "289px",
+                  }
                 }
-              }
-              tooltipTriggerText="Advanced Combining: Complex Sentences with Modifiers"
-              tooltipTriggerTextClass="data-table-row-section undefined"
-              tooltipTriggerTextStyle={
-                Object {
-                  "minWidth": "289px",
-                  "textAlign": "left",
-                  "width": "289px",
-                }
-              }
-            >
-              <span
-                aria-hidden={false}
-                className="quill-tooltip-trigger"
-                role="tooltip"
-                style={
+                tooltipTriggerText="Advanced Combining: Complex Sentences with Modifiers"
+                tooltipTriggerTextClass="data-table-row-section undefined"
+                tooltipTriggerTextStyle={
                   Object {
                     "minWidth": "289px",
                     "textAlign": "left",
@@ -718,14 +711,9 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                 }
               >
                 <span
-                  className="data-table-row-section undefined"
-                  onBlur={[Function]}
-                  onClick={[Function]}
-                  onFocus={[Function]}
-                  onKeyDown={[Function]}
-                  onMouseEnter={[Function]}
-                  onMouseLeave={[Function]}
-                  role="button"
+                  aria-hidden={false}
+                  className="quill-tooltip-trigger"
+                  role="tooltip"
                   style={
                     Object {
                       "minWidth": "289px",
@@ -733,21 +721,39 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                       "width": "289px",
                     }
                   }
-                  tabIndex={0}
-                >
-                  Advanced Combining: Complex Sentences with Modifiers
-                </span>
-                <span
-                  className="quill-tooltip-wrapper"
                 >
                   <span
-                    aria-live="polite"
-                    className="quill-tooltip"
-                  />
+                    className="data-table-row-section undefined"
+                    onBlur={[Function]}
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onKeyDown={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    role="button"
+                    style={
+                      Object {
+                        "minWidth": "289px",
+                        "textAlign": "left",
+                        "width": "289px",
+                      }
+                    }
+                    tabIndex={0}
+                  >
+                    Advanced Combining: Complex Sentences with Modifiers
+                  </span>
+                  <span
+                    className="quill-tooltip-wrapper"
+                  >
+                    <span
+                      aria-live="polite"
+                      className="quill-tooltip"
+                    />
+                  </span>
                 </span>
-              </span>
-            </Tooltip>
-            <span
+              </Tooltip>
+            </td>
+            <td
               className="data-table-row-section undefined"
               key="classroom-649-1-undefined"
               style={
@@ -759,8 +765,8 @@ exports[`LessonsMini component not on mobile should render when there are lesson
               }
             >
               Quill Classroom
-            </span>
-            <span
+            </td>
+            <td
               className="data-table-row-section actions-section"
             >
               <button
@@ -773,8 +779,8 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                   src="https://assets.quill.org/images/icons/more-horizontal.svg"
                 />
               </button>
-            </span>
-            <span
+            </td>
+            <td
               className="data-table-row-section last-row-section"
               key="present-649-1-undefined"
               style={
@@ -797,16 +803,13 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                   Present
                 </span>
               </a>
-            </span>
-            <span
-              className="removable data-table-row-section"
-            />
-          </div>
-          <div
+            </td>
+          </tr>
+          <tr
             className="data-table-row  "
             key="563-6-undefined"
           >
-            <span
+            <td
               className="data-table-row-section undefined"
               key="lesson-563-6-undefined"
               style={
@@ -818,8 +821,8 @@ exports[`LessonsMini component not on mobile should render when there are lesson
               }
             >
               Lesson 1: And, Or, But, So
-            </span>
-            <span
+            </td>
+            <td
               className="data-table-row-section undefined"
               key="classroom-563-6-undefined"
               style={
@@ -831,8 +834,8 @@ exports[`LessonsMini component not on mobile should render when there are lesson
               }
             >
               New Class
-            </span>
-            <span
+            </td>
+            <td
               className="data-table-row-section actions-section"
             >
               <button
@@ -845,8 +848,8 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                   src="https://assets.quill.org/images/icons/more-horizontal.svg"
                 />
               </button>
-            </span>
-            <span
+            </td>
+            <td
               className="data-table-row-section last-row-section"
               key="present-563-6-undefined"
               style={
@@ -869,16 +872,13 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                   Present
                 </span>
               </a>
-            </span>
-            <span
-              className="removable data-table-row-section"
-            />
-          </div>
-          <div
+            </td>
+          </tr>
+          <tr
             className="data-table-row  "
             key="829-6-undefined"
           >
-            <span
+            <td
               className="data-table-row-section undefined"
               key="lesson-829-6-undefined"
               style={
@@ -890,8 +890,8 @@ exports[`LessonsMini component not on mobile should render when there are lesson
               }
             >
               Complex Sentences Overview
-            </span>
-            <span
+            </td>
+            <td
               className="data-table-row-section undefined"
               key="classroom-829-6-undefined"
               style={
@@ -903,8 +903,8 @@ exports[`LessonsMini component not on mobile should render when there are lesson
               }
             >
               New Class
-            </span>
-            <span
+            </td>
+            <td
               className="data-table-row-section actions-section"
             >
               <button
@@ -917,8 +917,8 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                   src="https://assets.quill.org/images/icons/more-horizontal.svg"
                 />
               </button>
-            </span>
-            <span
+            </td>
+            <td
               className="data-table-row-section last-row-section"
               key="present-829-6-undefined"
               style={
@@ -941,41 +941,27 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                   Present
                 </span>
               </a>
-            </span>
-            <span
-              className="removable data-table-row-section"
-            />
-          </div>
-          <div
+            </td>
+          </tr>
+          <tr
             className="data-table-row  "
             key="566-6-undefined"
           >
-            <Tooltip
-              isTabbable={true}
-              key="lesson-566-6-undefined"
-              tooltipText="Lesson 1: Conjunctions of Time (After, Until, Before, etc.)"
-              tooltipTriggerStyle={
-                Object {
-                  "minWidth": "289px",
-                  "textAlign": "left",
-                  "width": "289px",
+            <td>
+              <Tooltip
+                isTabbable={true}
+                key="lesson-566-6-undefined"
+                tooltipText="Lesson 1: Conjunctions of Time (After, Until, Before, etc.)"
+                tooltipTriggerStyle={
+                  Object {
+                    "minWidth": "289px",
+                    "textAlign": "left",
+                    "width": "289px",
+                  }
                 }
-              }
-              tooltipTriggerText="Lesson 1: Conjunctions of Time (After, Until, Before, etc.)"
-              tooltipTriggerTextClass="data-table-row-section undefined"
-              tooltipTriggerTextStyle={
-                Object {
-                  "minWidth": "289px",
-                  "textAlign": "left",
-                  "width": "289px",
-                }
-              }
-            >
-              <span
-                aria-hidden={false}
-                className="quill-tooltip-trigger"
-                role="tooltip"
-                style={
+                tooltipTriggerText="Lesson 1: Conjunctions of Time (After, Until, Before, etc.)"
+                tooltipTriggerTextClass="data-table-row-section undefined"
+                tooltipTriggerTextStyle={
                   Object {
                     "minWidth": "289px",
                     "textAlign": "left",
@@ -984,14 +970,9 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                 }
               >
                 <span
-                  className="data-table-row-section undefined"
-                  onBlur={[Function]}
-                  onClick={[Function]}
-                  onFocus={[Function]}
-                  onKeyDown={[Function]}
-                  onMouseEnter={[Function]}
-                  onMouseLeave={[Function]}
-                  role="button"
+                  aria-hidden={false}
+                  className="quill-tooltip-trigger"
+                  role="tooltip"
                   style={
                     Object {
                       "minWidth": "289px",
@@ -999,21 +980,39 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                       "width": "289px",
                     }
                   }
-                  tabIndex={0}
-                >
-                  Lesson 1: Conjunctions of Time (After, Until, Before, etc.)
-                </span>
-                <span
-                  className="quill-tooltip-wrapper"
                 >
                   <span
-                    aria-live="polite"
-                    className="quill-tooltip"
-                  />
+                    className="data-table-row-section undefined"
+                    onBlur={[Function]}
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onKeyDown={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    role="button"
+                    style={
+                      Object {
+                        "minWidth": "289px",
+                        "textAlign": "left",
+                        "width": "289px",
+                      }
+                    }
+                    tabIndex={0}
+                  >
+                    Lesson 1: Conjunctions of Time (After, Until, Before, etc.)
+                  </span>
+                  <span
+                    className="quill-tooltip-wrapper"
+                  >
+                    <span
+                      aria-live="polite"
+                      className="quill-tooltip"
+                    />
+                  </span>
                 </span>
-              </span>
-            </Tooltip>
-            <span
+              </Tooltip>
+            </td>
+            <td
               className="data-table-row-section undefined"
               key="classroom-566-6-undefined"
               style={
@@ -1025,8 +1024,8 @@ exports[`LessonsMini component not on mobile should render when there are lesson
               }
             >
               New Class
-            </span>
-            <span
+            </td>
+            <td
               className="data-table-row-section actions-section"
             >
               <button
@@ -1039,8 +1038,8 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                   src="https://assets.quill.org/images/icons/more-horizontal.svg"
                 />
               </button>
-            </span>
-            <span
+            </td>
+            <td
               className="data-table-row-section last-row-section"
               key="present-566-6-undefined"
               style={
@@ -1063,16 +1062,13 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                   Present
                 </span>
               </a>
-            </span>
-            <span
-              className="removable data-table-row-section"
-            />
-          </div>
-          <div
+            </td>
+          </tr>
+          <tr
             className="data-table-row  "
             key="568-6-undefined"
           >
-            <span
+            <td
               className="data-table-row-section undefined"
               key="lesson-568-6-undefined"
               style={
@@ -1084,8 +1080,8 @@ exports[`LessonsMini component not on mobile should render when there are lesson
               }
             >
               Lesson 1: Compound Objects and Predicates
-            </span>
-            <span
+            </td>
+            <td
               className="data-table-row-section undefined"
               key="classroom-568-6-undefined"
               style={
@@ -1097,8 +1093,8 @@ exports[`LessonsMini component not on mobile should render when there are lesson
               }
             >
               New Class
-            </span>
-            <span
+            </td>
+            <td
               className="data-table-row-section actions-section"
             >
               <button
@@ -1111,8 +1107,8 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                   src="https://assets.quill.org/images/icons/more-horizontal.svg"
                 />
               </button>
-            </span>
-            <span
+            </td>
+            <td
               className="data-table-row-section last-row-section"
               key="present-568-6-undefined"
               style={
@@ -1135,13 +1131,10 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                   Present
                 </span>
               </a>
-            </span>
-            <span
-              className="removable data-table-row-section"
-            />
-          </div>
-        </div>
-      </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </DataTable>
     <button
       className="bottom-button focus-on-light interactive-wrapper"

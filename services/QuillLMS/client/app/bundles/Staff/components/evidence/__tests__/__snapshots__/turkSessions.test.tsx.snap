@@ -1382,14 +1382,15 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
         ]
       }
     >
-      <div
+      <table
         className="data-table turk-sessions-table"
       >
-        <div
+        <tr
           className="data-table-headers"
         >
           <th
             className="data-table-header undefined"
+            scope="col"
             style={
               Object {
                 "minWidth": "500px",
@@ -1402,6 +1403,7 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
           </th>
           <th
             className="data-table-header undefined"
+            scope="col"
             style={
               Object {
                 "minWidth": "200px",
@@ -1414,6 +1416,7 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
           </th>
           <th
             className="data-table-header undefined"
+            scope="col"
             style={
               Object {
                 "minWidth": "100px",
@@ -1424,6 +1427,7 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
           />
           <th
             className="data-table-header undefined"
+            scope="col"
             style={
               Object {
                 "minWidth": "100px",
@@ -1434,6 +1438,7 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
           />
           <th
             className="data-table-header undefined"
+            scope="col"
             style={
               Object {
                 "minWidth": "100px",
@@ -1442,15 +1447,15 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
               }
             }
           />
-        </div>
-        <div
+        </tr>
+        <tbody
           className="data-table-body"
         >
-          <div
+          <tr
             className="data-table-row  "
             key="17-1"
           >
-            <span
+            <td
               className="data-table-row-section undefined"
               key="turkLink-17-1"
               style={
@@ -1468,8 +1473,8 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
               >
                 undefined/evidence/#/turk?uid=17&id=1
               </a>
-            </span>
-            <span
+            </td>
+            <td
               className="data-table-row-section undefined"
               key="expiration-17-1"
               style={
@@ -1481,139 +1486,36 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
               }
             >
               December 7th, 2020
-            </span>
-            <Tooltip
-              isTabbable={true}
-              key="copy-17-1"
-              tooltipText={
-                <TurkSessionButton
-                  clickHandler={[Function]}
-                  id={1}
-                  label="copy"
-                  value="undefined/evidence/#/turk?uid=17&id=1"
-                />
-              }
-              tooltipTriggerStyle={
-                Object {
-                  "minWidth": "100px",
-                  "textAlign": "left",
-                  "width": "100px",
-                }
-              }
-              tooltipTriggerText={
-                <TurkSessionButton
-                  clickHandler={[Function]}
-                  id={1}
-                  label="copy"
-                  value="undefined/evidence/#/turk?uid=17&id=1"
-                />
-              }
-              tooltipTriggerTextClass="data-table-row-section undefined"
-              tooltipTriggerTextStyle={
-                Object {
-                  "minWidth": "100px",
-                  "textAlign": "left",
-                  "width": "100px",
-                }
-              }
-            >
-              <span
-                aria-hidden={false}
-                className="quill-tooltip-trigger"
-                role="tooltip"
-                style={
-                  Object {
-                    "minWidth": "100px",
-                    "textAlign": "left",
-                    "width": "100px",
-                  }
-                }
-              >
-                <span
-                  className="data-table-row-section undefined"
-                  onBlur={[Function]}
-                  onClick={[Function]}
-                  onFocus={[Function]}
-                  onKeyDown={[Function]}
-                  onMouseEnter={[Function]}
-                  onMouseLeave={[Function]}
-                  role="button"
-                  style={
-                    Object {
-                      "minWidth": "100px",
-                      "textAlign": "left",
-                      "width": "100px",
-                    }
-                  }
-                  tabIndex={0}
-                >
+            </td>
+            <td>
+              <Tooltip
+                isTabbable={true}
+                key="copy-17-1"
+                tooltipText={
                   <TurkSessionButton
                     clickHandler={[Function]}
                     id={1}
                     label="copy"
                     value="undefined/evidence/#/turk?uid=17&id=1"
-                  >
-                    <button
-                      className="quill-button fun primary contained"
-                      id="1"
-                      onClick={[Function]}
-                      type="submit"
-                      value="undefined/evidence/#/turk?uid=17&id=1"
-                    >
-                      copy
-                    </button>
-                  </TurkSessionButton>
-                </span>
-                <span
-                  className="quill-tooltip-wrapper"
-                >
-                  <span
-                    aria-live="polite"
-                    className="quill-tooltip"
                   />
-                </span>
-              </span>
-            </Tooltip>
-            <Tooltip
-              isTabbable={true}
-              key="edit-17-1"
-              tooltipText={
-                <TurkSessionButton
-                  clickHandler={[Function]}
-                  id={1}
-                  label="edit"
-                  value="2020-12-07T22:52:41.945Z"
-                />
-              }
-              tooltipTriggerStyle={
-                Object {
-                  "minWidth": "100px",
-                  "textAlign": "left",
-                  "width": "100px",
                 }
-              }
-              tooltipTriggerText={
-                <TurkSessionButton
-                  clickHandler={[Function]}
-                  id={1}
-                  label="edit"
-                  value="2020-12-07T22:52:41.945Z"
-                />
-              }
-              tooltipTriggerTextClass="data-table-row-section undefined"
-              tooltipTriggerTextStyle={
-                Object {
-                  "minWidth": "100px",
-                  "textAlign": "left",
-                  "width": "100px",
+                tooltipTriggerStyle={
+                  Object {
+                    "minWidth": "100px",
+                    "textAlign": "left",
+                    "width": "100px",
+                  }
                 }
-              }
-            >
-              <span
-                aria-hidden={false}
-                className="quill-tooltip-trigger"
-                role="tooltip"
-                style={
+                tooltipTriggerText={
+                  <TurkSessionButton
+                    clickHandler={[Function]}
+                    id={1}
+                    label="copy"
+                    value="undefined/evidence/#/turk?uid=17&id=1"
+                  />
+                }
+                tooltipTriggerTextClass="data-table-row-section undefined"
+                tooltipTriggerTextStyle={
                   Object {
                     "minWidth": "100px",
                     "textAlign": "left",
@@ -1622,14 +1524,9 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
                 }
               >
                 <span
-                  className="data-table-row-section undefined"
-                  onBlur={[Function]}
-                  onClick={[Function]}
-                  onFocus={[Function]}
-                  onKeyDown={[Function]}
-                  onMouseEnter={[Function]}
-                  onMouseLeave={[Function]}
-                  role="button"
+                  aria-hidden={false}
+                  className="quill-tooltip-trigger"
+                  role="tooltip"
                   style={
                     Object {
                       "minWidth": "100px",
@@ -1637,73 +1534,82 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
                       "width": "100px",
                     }
                   }
-                  tabIndex={0}
                 >
+                  <span
+                    className="data-table-row-section undefined"
+                    onBlur={[Function]}
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onKeyDown={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    role="button"
+                    style={
+                      Object {
+                        "minWidth": "100px",
+                        "textAlign": "left",
+                        "width": "100px",
+                      }
+                    }
+                    tabIndex={0}
+                  >
+                    <TurkSessionButton
+                      clickHandler={[Function]}
+                      id={1}
+                      label="copy"
+                      value="undefined/evidence/#/turk?uid=17&id=1"
+                    >
+                      <button
+                        className="quill-button fun primary contained"
+                        id="1"
+                        onClick={[Function]}
+                        type="submit"
+                        value="undefined/evidence/#/turk?uid=17&id=1"
+                      >
+                        copy
+                      </button>
+                    </TurkSessionButton>
+                  </span>
+                  <span
+                    className="quill-tooltip-wrapper"
+                  >
+                    <span
+                      aria-live="polite"
+                      className="quill-tooltip"
+                    />
+                  </span>
+                </span>
+              </Tooltip>
+            </td>
+            <td>
+              <Tooltip
+                isTabbable={true}
+                key="edit-17-1"
+                tooltipText={
                   <TurkSessionButton
                     clickHandler={[Function]}
                     id={1}
                     label="edit"
                     value="2020-12-07T22:52:41.945Z"
-                  >
-                    <button
-                      className="quill-button fun primary contained"
-                      id="1"
-                      onClick={[Function]}
-                      type="submit"
-                      value="2020-12-07T22:52:41.945Z"
-                    >
-                      edit
-                    </button>
-                  </TurkSessionButton>
-                </span>
-                <span
-                  className="quill-tooltip-wrapper"
-                >
-                  <span
-                    aria-live="polite"
-                    className="quill-tooltip"
                   />
-                </span>
-              </span>
-            </Tooltip>
-            <Tooltip
-              isTabbable={true}
-              key="delete-17-1"
-              tooltipText={
-                <TurkSessionButton
-                  clickHandler={[Function]}
-                  id={1}
-                  label="delete"
-                />
-              }
-              tooltipTriggerStyle={
-                Object {
-                  "minWidth": "100px",
-                  "textAlign": "left",
-                  "width": "100px",
                 }
-              }
-              tooltipTriggerText={
-                <TurkSessionButton
-                  clickHandler={[Function]}
-                  id={1}
-                  label="delete"
-                />
-              }
-              tooltipTriggerTextClass="data-table-row-section undefined"
-              tooltipTriggerTextStyle={
-                Object {
-                  "minWidth": "100px",
-                  "textAlign": "left",
-                  "width": "100px",
+                tooltipTriggerStyle={
+                  Object {
+                    "minWidth": "100px",
+                    "textAlign": "left",
+                    "width": "100px",
+                  }
                 }
-              }
-            >
-              <span
-                aria-hidden={false}
-                className="quill-tooltip-trigger"
-                role="tooltip"
-                style={
+                tooltipTriggerText={
+                  <TurkSessionButton
+                    clickHandler={[Function]}
+                    id={1}
+                    label="edit"
+                    value="2020-12-07T22:52:41.945Z"
+                  />
+                }
+                tooltipTriggerTextClass="data-table-row-section undefined"
+                tooltipTriggerTextStyle={
                   Object {
                     "minWidth": "100px",
                     "textAlign": "left",
@@ -1712,14 +1618,9 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
                 }
               >
                 <span
-                  className="data-table-row-section undefined"
-                  onBlur={[Function]}
-                  onClick={[Function]}
-                  onFocus={[Function]}
-                  onKeyDown={[Function]}
-                  onMouseEnter={[Function]}
-                  onMouseLeave={[Function]}
-                  role="button"
+                  aria-hidden={false}
+                  className="quill-tooltip-trigger"
+                  role="tooltip"
                   style={
                     Object {
                       "minWidth": "100px",
@@ -1727,39 +1628,146 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
                       "width": "100px",
                     }
                   }
-                  tabIndex={0}
                 >
+                  <span
+                    className="data-table-row-section undefined"
+                    onBlur={[Function]}
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onKeyDown={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    role="button"
+                    style={
+                      Object {
+                        "minWidth": "100px",
+                        "textAlign": "left",
+                        "width": "100px",
+                      }
+                    }
+                    tabIndex={0}
+                  >
+                    <TurkSessionButton
+                      clickHandler={[Function]}
+                      id={1}
+                      label="edit"
+                      value="2020-12-07T22:52:41.945Z"
+                    >
+                      <button
+                        className="quill-button fun primary contained"
+                        id="1"
+                        onClick={[Function]}
+                        type="submit"
+                        value="2020-12-07T22:52:41.945Z"
+                      >
+                        edit
+                      </button>
+                    </TurkSessionButton>
+                  </span>
+                  <span
+                    className="quill-tooltip-wrapper"
+                  >
+                    <span
+                      aria-live="polite"
+                      className="quill-tooltip"
+                    />
+                  </span>
+                </span>
+              </Tooltip>
+            </td>
+            <td>
+              <Tooltip
+                isTabbable={true}
+                key="delete-17-1"
+                tooltipText={
                   <TurkSessionButton
                     clickHandler={[Function]}
                     id={1}
                     label="delete"
-                  >
-                    <button
-                      className="quill-button fun primary contained"
-                      id="1"
-                      onClick={[Function]}
-                      type="submit"
-                    >
-                      delete
-                    </button>
-                  </TurkSessionButton>
-                </span>
+                  />
+                }
+                tooltipTriggerStyle={
+                  Object {
+                    "minWidth": "100px",
+                    "textAlign": "left",
+                    "width": "100px",
+                  }
+                }
+                tooltipTriggerText={
+                  <TurkSessionButton
+                    clickHandler={[Function]}
+                    id={1}
+                    label="delete"
+                  />
+                }
+                tooltipTriggerTextClass="data-table-row-section undefined"
+                tooltipTriggerTextStyle={
+                  Object {
+                    "minWidth": "100px",
+                    "textAlign": "left",
+                    "width": "100px",
+                  }
+                }
+              >
                 <span
-                  className="quill-tooltip-wrapper"
+                  aria-hidden={false}
+                  className="quill-tooltip-trigger"
+                  role="tooltip"
+                  style={
+                    Object {
+                      "minWidth": "100px",
+                      "textAlign": "left",
+                      "width": "100px",
+                    }
+                  }
                 >
                   <span
-                    aria-live="polite"
-                    className="quill-tooltip"
-                  />
+                    className="data-table-row-section undefined"
+                    onBlur={[Function]}
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onKeyDown={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    role="button"
+                    style={
+                      Object {
+                        "minWidth": "100px",
+                        "textAlign": "left",
+                        "width": "100px",
+                      }
+                    }
+                    tabIndex={0}
+                  >
+                    <TurkSessionButton
+                      clickHandler={[Function]}
+                      id={1}
+                      label="delete"
+                    >
+                      <button
+                        className="quill-button fun primary contained"
+                        id="1"
+                        onClick={[Function]}
+                        type="submit"
+                      >
+                        delete
+                      </button>
+                    </TurkSessionButton>
+                  </span>
+                  <span
+                    className="quill-tooltip-wrapper"
+                  >
+                    <span
+                      aria-live="polite"
+                      className="quill-tooltip"
+                    />
+                  </span>
                 </span>
-              </span>
-            </Tooltip>
-            <span
-              className="removable data-table-row-section"
-            />
-          </div>
-        </div>
-      </div>
+              </Tooltip>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </DataTable>
     <Snackbar
       text="Copied!"
