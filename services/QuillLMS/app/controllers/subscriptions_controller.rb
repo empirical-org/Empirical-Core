@@ -9,7 +9,14 @@ class SubscriptionsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.json {render json: @subscriptions}
+      format.json {
+        render json: {
+          subscriptions: @subscriptions,
+          premium_credits: @premium_credits,
+          subscription_status: @subscription_status,
+          user_authority_level: @user_authority_level,
+        }
+      }
     end
   end
 
