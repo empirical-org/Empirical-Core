@@ -405,8 +405,4 @@ class Subscription < ApplicationRecord
   def stripe?
     stripe_invoice_id.present?
   end
-
-  private def stripe_subscription_id
-    stripe_subscription.stripe_subscription_id
-  end
 end
