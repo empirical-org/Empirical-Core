@@ -88,7 +88,7 @@ const SubscriptionStatus = ({
 
   if (subscriptionType !== 'Basic') {
     expiration = moment(subscriptionStatus.expiration);
-    remainingDays = expiration.diff(moment(), 'days');
+    remainingDays = expiration.diff(moment(Date.now()), 'days');
   }
 
   const content = {
