@@ -395,6 +395,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
               ELL Diagnostic
             </span>
             <Tooltip
+              isTabbable={true}
               key="classroom-447-484134-826269"
               tooltipText="Quill Classroom Extremely Long So Long SUper Duper"
               tooltipTriggerStyle={
@@ -415,7 +416,9 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
               }
             >
               <span
+                aria-hidden={false}
                 className="quill-tooltip-trigger"
+                role="tooltip"
                 style={
                   Object {
                     "minWidth": "180px",
@@ -426,9 +429,13 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
               >
                 <span
                   className="data-table-row-section undefined"
+                  onBlur={[Function]}
                   onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
+                  role="button"
                   style={
                     Object {
                       "minWidth": "180px",
@@ -436,7 +443,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                       "width": "180px",
                     }
                   }
-                  tabIndex={null}
+                  tabIndex={0}
                 >
                   Quill Classroom Extremely Long So Long SUper Duper
                 </span>
@@ -444,6 +451,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                   className="quill-tooltip-wrapper"
                 >
                   <span
+                    aria-live="polite"
                     className="quill-tooltip"
                   />
                 </span>
@@ -579,6 +587,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
               Starter Diagnostic
             </span>
             <Tooltip
+              isTabbable={true}
               key="classroom-849-484134-826268"
               tooltipText="Quill Classroom Extremely Long So Long SUper Duper"
               tooltipTriggerStyle={
@@ -599,7 +608,9 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
               }
             >
               <span
+                aria-hidden={false}
                 className="quill-tooltip-trigger"
+                role="tooltip"
                 style={
                   Object {
                     "minWidth": "180px",
@@ -610,9 +621,13 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
               >
                 <span
                   className="data-table-row-section undefined"
+                  onBlur={[Function]}
                   onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
+                  role="button"
                   style={
                     Object {
                       "minWidth": "180px",
@@ -620,7 +635,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                       "width": "180px",
                     }
                   }
-                  tabIndex={null}
+                  tabIndex={0}
                 >
                   Quill Classroom Extremely Long So Long SUper Duper
                 </span>
@@ -628,6 +643,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                   className="quill-tooltip-wrapper"
                 >
                   <span
+                    aria-live="polite"
                     className="quill-tooltip"
                   />
                 </span>
@@ -692,6 +708,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
               Starter Diagnostic
             </span>
             <Tooltip
+              isTabbable={true}
               key="classroom-849-484134-826269"
               tooltipText="Quill Classroom Extremely Long So Long SUper Duper"
               tooltipTriggerStyle={
@@ -712,7 +729,9 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
               }
             >
               <span
+                aria-hidden={false}
                 className="quill-tooltip-trigger"
+                role="tooltip"
                 style={
                   Object {
                     "minWidth": "180px",
@@ -723,9 +742,13 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
               >
                 <span
                   className="data-table-row-section undefined"
+                  onBlur={[Function]}
                   onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
+                  role="button"
                   style={
                     Object {
                       "minWidth": "180px",
@@ -733,7 +756,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                       "width": "180px",
                     }
                   }
-                  tabIndex={null}
+                  tabIndex={0}
                 >
                   Quill Classroom Extremely Long So Long SUper Duper
                 </span>
@@ -741,6 +764,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                   className="quill-tooltip-wrapper"
                 >
                   <span
+                    aria-live="polite"
                     className="quill-tooltip"
                   />
                 </span>

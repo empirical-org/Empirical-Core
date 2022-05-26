@@ -389,6 +389,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               Angie Thomas
             </span>
             <Tooltip
+              isTabbable={true}
               key="activityName-33"
               tooltipText="Subject and Object Pronoun Agreement 1"
               tooltipTriggerStyle={
@@ -409,7 +410,9 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               }
             >
               <span
+                aria-hidden={false}
                 className="quill-tooltip-trigger"
+                role="tooltip"
                 style={
                   Object {
                     "minWidth": "245px",
@@ -420,9 +423,13 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               >
                 <span
                   className="data-table-row-section undefined"
+                  onBlur={[Function]}
                   onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
+                  role="button"
                   style={
                     Object {
                       "minWidth": "245px",
@@ -430,7 +437,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                       "width": "245px",
                     }
                   }
-                  tabIndex={null}
+                  tabIndex={0}
                 >
                   Subject and Object Pronoun Agreement 1
                 </span>
@@ -438,6 +445,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                   className="quill-tooltip-wrapper"
                 >
                   <span
+                    aria-live="polite"
                     className="quill-tooltip"
                   />
                 </span>
@@ -496,6 +504,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               Angie Thomas
             </span>
             <Tooltip
+              isTabbable={true}
               key="activityName-32"
               tooltipText="Capitalize Names of People and the Pronoun \\"I\\""
               tooltipTriggerStyle={
@@ -516,7 +525,9 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               }
             >
               <span
+                aria-hidden={false}
                 className="quill-tooltip-trigger"
+                role="tooltip"
                 style={
                   Object {
                     "minWidth": "245px",
@@ -527,9 +538,13 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               >
                 <span
                   className="data-table-row-section undefined"
+                  onBlur={[Function]}
                   onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
+                  role="button"
                   style={
                     Object {
                       "minWidth": "245px",
@@ -537,7 +552,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                       "width": "245px",
                     }
                   }
-                  tabIndex={null}
+                  tabIndex={0}
                 >
                   Capitalize Names of People and the Pronoun "I"
                 </span>
@@ -545,6 +560,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                   className="quill-tooltip-wrapper"
                 >
                   <span
+                    aria-live="polite"
                     className="quill-tooltip"
                   />
                 </span>
@@ -863,6 +879,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               Angie Thomas
             </span>
             <Tooltip
+              isTabbable={true}
               key="activityName-25"
               tooltipText="Capitalize Holidays and Geographic Names"
               tooltipTriggerStyle={
@@ -883,7 +900,9 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               }
             >
               <span
+                aria-hidden={false}
                 className="quill-tooltip-trigger"
+                role="tooltip"
                 style={
                   Object {
                     "minWidth": "245px",
@@ -894,9 +913,13 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               >
                 <span
                   className="data-table-row-section undefined"
+                  onBlur={[Function]}
                   onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
+                  role="button"
                   style={
                     Object {
                       "minWidth": "245px",
@@ -904,7 +927,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                       "width": "245px",
                     }
                   }
-                  tabIndex={null}
+                  tabIndex={0}
                 >
                   Capitalize Holidays and Geographic Names
                 </span>
@@ -912,6 +935,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                   className="quill-tooltip-wrapper"
                 >
                   <span
+                    aria-live="polite"
                     className="quill-tooltip"
                   />
                 </span>
