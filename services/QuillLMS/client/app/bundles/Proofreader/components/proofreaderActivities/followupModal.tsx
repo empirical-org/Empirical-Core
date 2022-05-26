@@ -13,7 +13,7 @@ export default class FollowupModal extends React.Component<FollowupModalProps> {
   render() {
     const { goToLMS, goToFollowupPractice, } = this.props
     return (
-      <div className="followup-modal-container" ref={(node) => this.modal = node} tabIndex={-1}>
+      <div aria-live="polite" className="followup-modal-container" ref={(node) => this.modal = node} tabIndex={-1}>
         <div className="followup-modal-background" />
         <div className="followup-modal">
           <div className="top-section">
