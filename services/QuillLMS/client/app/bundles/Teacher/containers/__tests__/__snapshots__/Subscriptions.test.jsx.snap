@@ -1539,11 +1539,11 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                     />
                     <span>
                       Once your current District Premium subscription expires, you will be downgraded to Quill Basic.
-                       To renew your subscription for next year, contact us at 
+                       To renew your subscription for next year, 
                       <a
                         href="mailto:sales@quill.org"
                       >
-                        sales@quill.org
+                        contact us
                       </a>
                       .
                     </span>
@@ -5930,11 +5930,11 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
                     />
                     <span>
                       Once your current School Premium subscription expires, you will be downgraded to Quill Basic.
-                       To renew your subscription for next year, contact us at 
+                       To renew your subscription for next year, 
                       <a
                         href="mailto:sales@quill.org"
                       >
-                        sales@quill.org
+                        contact us
                       </a>
                       .
                     </span>
