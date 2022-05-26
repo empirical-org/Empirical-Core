@@ -17810,19 +17810,26 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
             type="button"
           />
           <Tooltip
+            isTabbable={true}
             tooltipText="History: Causes of the American Revolution"
             tooltipTriggerText="History: Causes of the American Revolution"
             tooltipTriggerTextClass="tooltip-trigger-text"
           >
             <span
+              aria-hidden={false}
               className="quill-tooltip-trigger"
+              role="tooltip"
             >
               <span
                 className="tooltip-trigger-text"
+                onBlur={[Function]}
                 onClick={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
                 onMouseEnter={[Function]}
                 onMouseLeave={[Function]}
-                tabIndex={null}
+                role="button"
+                tabIndex={0}
               >
                 History: Causes of the American Revolution
               </span>
@@ -17830,6 +17837,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 className="quill-tooltip-wrapper"
               >
                 <span
+                  aria-live="polite"
                   className="quill-tooltip"
                 />
               </span>
@@ -44634,19 +44642,26 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
             type="button"
           />
           <Tooltip
+            isTabbable={true}
             tooltipText="History: Causes of the American Revolution"
             tooltipTriggerText="History: Causes of the American Revolution"
             tooltipTriggerTextClass="tooltip-trigger-text"
           >
             <span
+              aria-hidden={false}
               className="quill-tooltip-trigger"
+              role="tooltip"
             >
               <span
                 className="tooltip-trigger-text"
+                onBlur={[Function]}
                 onClick={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
                 onMouseEnter={[Function]}
                 onMouseLeave={[Function]}
-                tabIndex={null}
+                role="button"
+                tabIndex={0}
               >
                 History: Causes of the American Revolution
               </span>
@@ -44654,6 +44669,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 className="quill-tooltip-wrapper"
               >
                 <span
+                  aria-live="polite"
                   className="quill-tooltip"
                 />
               </span>
