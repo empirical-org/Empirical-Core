@@ -21,7 +21,11 @@ class ClearUserDataWorker
       SchoolsUsers.where(user_id: id).destroy_all
       ClassroomUnit.where("? = ANY (assigned_student_ids)", id).each {|cu| cu.update(assigned_student_ids: cu.assigned_student_ids - [id])}
       ActivitySession.where(user_id: id).update_all(user_id: nil, classroom_unit_id: nil)
-    end
 
+      user.subscriptions.each do |subscription|
+        subscription.update!(recurring: false)
+        subscription.stripe_cancel_at_period_end
+      end
+    end
   end
 end

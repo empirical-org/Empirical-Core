@@ -48,14 +48,18 @@ class RuleFeedbackHistory
         entry: f_h.entry,
         highlight: f_h.metadata.instance_of?(Hash) ? f_h.metadata['highlight'] : '',
         session_uid: f_h.feedback_session_uid,
-        strength: f_h.feedback_history_ratings.order(updated_at: :desc).first&.rating
+        strength: f_h.feedback_history_ratings.max_by(&:updated_at)&.rating
     }
   end
 
   def self.generate_rulewise_report(rule_uid:, prompt_id:, start_date: nil, end_date: nil, turk_session_id: nil)
-    feedback_histories = FeedbackHistory.where(rule_uid: rule_uid, prompt_id: prompt_id, used: true)
-    feedback_histories = feedback_histories.where("feedback_histories.created_at >= ?", start_date) if start_date
-    feedback_histories = feedback_histories.where("feedback_histories.created_at <= ?", end_date) if end_date
+    start_filter = start_date ? ["feedback_histories.created_at >= ?", start_date] : []
+    end_filter = end_date ? ["feedback_histories.created_at <= ?", end_date] : []
+
+    feedback_histories = FeedbackHistory.where(rule_uid: rule_uid, prompt_id: prompt_id, used: true).includes(:feedback_history_ratings)
+    .where(start_filter)
+    .where(end_filter)
+
     if turk_session_id
       feedback_histories = feedback_histories.joins('LEFT JOIN feedback_sessions ON feedback_histories.feedback_session_uid = feedback_sessions.uid')
       feedback_histories = feedback_histories.joins('LEFT JOIN comprehension_turking_round_activity_sessions ON feedback_sessions.activity_session_uid = comprehension_turking_round_activity_sessions.activity_session_uid')

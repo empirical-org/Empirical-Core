@@ -64,6 +64,18 @@
     margin-top: 75px;
     .description {
       max-width: 500px;
+      .unit-template-profile-description {
+        h3 {
+          border-bottom: 1px solid #cecece;
+          padding-bottom: 8px;
+        }
+        ul {
+          padding: 8px 0px 16px 16px;
+          li {
+            padding: 8px 0px 8px;
+          }
+        }
+      }
       dl {
         dt {
           margin-bottom: 0.5em;

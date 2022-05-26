@@ -49,7 +49,6 @@ const ReadAndHighlightInstructions = ({ passage, activeStep, studentHighlights, 
         <div className="highlight-label-section">
           <h3>Highlights</h3>
           <Tooltip
-            isTabbable={true}
             tooltipText={tooltipText}
             tooltipTriggerText={tooltipTrigger}
           />

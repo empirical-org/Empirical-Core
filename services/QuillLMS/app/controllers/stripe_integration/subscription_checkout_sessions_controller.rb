@@ -14,11 +14,16 @@ module StripeIntegration
         success_url: success_url,
         cancel_url: cancel_url,
         mode: SUBSCRIPTION_MODE,
+        subscription_data: trial_period_days_arg,
         line_items: [{
-          quantity: 1,
-          price: stripe_price_id
+          price: stripe_price_id,
+          quantity: 1
         }]
       }.merge(customer_arg)
+    end
+
+    private def customer
+      User.find_by_stripe_customer_id_or_email(stripe_customer_id, customer_email)
     end
 
     private def customer_arg
@@ -37,6 +42,10 @@ module StripeIntegration
       params[:customer_email]
     end
 
+    private def school_plan?
+      stripe_price_id == STRIPE_SCHOOL_PLAN_PRICE_ID
+    end
+
     private def stripe_price_id
       params[:stripe_price_id]
     end
@@ -48,6 +57,19 @@ module StripeIntegration
     private def success_url
       "#{subscriptions_url}?checkout_session_id={CHECKOUT_SESSION_ID}"
     end
+
+    private def teacher_plan?
+      stripe_price_id == STRIPE_TEACHER_PLAN_PRICE_ID
+    end
+
+    private def trial_period_days_arg
+      return {} unless school_plan?
+
+      trial_period_days = BonusDaysCalculator.run(customer)
+
+      return {} if trial_period_days.zero?
+
+      { trial_period_days: trial_period_days }
+    end
   end
 end
-
