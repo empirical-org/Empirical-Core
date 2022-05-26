@@ -58,6 +58,7 @@ describe('DistrictActivityScores', () => {
         'Teacher Name',
         'Average Score',
         'Activity Count',
+        'Time Spent',
         'Last Active'
       ],
       [
@@ -67,6 +68,7 @@ describe('DistrictActivityScores', () => {
         'Mr Rodney',
         '100%',
         '3',
+        'N/A',
         undefined
       ]
     ]);
