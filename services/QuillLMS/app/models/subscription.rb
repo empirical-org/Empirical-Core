@@ -112,7 +112,8 @@ class Subscription < ApplicationRecord
 
   validates :stripe_invoice_id, allow_blank: true, stripe_uid: { prefix: :in }
 
-  delegate :stripe_cancel_at_period_end, :last_four, :stripe_subscription_id, to: :stripe_subscription
+  delegate :stripe_cancel_at_period_end, :last_four, :stripe_subscription_id, :stripe_subscription_url,
+    to: :stripe_subscription
 
   scope :active, -> { not_expired.not_de_activated.order(expiration: :asc) }
   scope :expired, -> { where('expiration <= ?', Date.current) }
@@ -122,6 +123,7 @@ class Subscription < ApplicationRecord
   scope :not_recurring, -> { where(recurring: false) }
   scope :not_stripe, -> { where(stripe_invoice_id: nil) }
   scope :started, -> { where("start_date <= ?", Date.current) }
+  scope :paid_with_card, -> { where.not(stripe_invoice_id: nil).or(where(payment_method: 'Credit Card')) }
 
   def is_trial?
     account_type && TRIAL_TYPES.include?(account_type)
@@ -193,9 +195,7 @@ class Subscription < ApplicationRecord
   end
 
   def self.school_or_user_has_ever_paid?(school_or_user)
-    # TODO: 'subscription type spot'
-    paid_accounts = school_or_user.subscriptions.pluck(:account_type) & OFFICIAL_PAID_TYPES
-    paid_accounts.any?
+    (OFFICIAL_PAID_TYPES & school_or_user.subscriptions.pluck(:account_type)).present?
   end
 
   def self.new_school_premium_sub(school, user)
@@ -216,9 +216,7 @@ class Subscription < ApplicationRecord
   end
 
   def self.redemption_start_date(school_or_user)
-    last_subscription = school_or_user.subscriptions.active.first
-
-    last_subscription.present? ? last_subscription.expiration : Date.current
+    school_or_user&.subscriptions&.active&.first&.expiration || Date.current
   end
 
   def self.default_expiration_date(school_or_user)
@@ -387,7 +385,6 @@ class Subscription < ApplicationRecord
       'last_four' => last_four,
       'purchaser_name' => purchaser&.name,
       'renewal_stripe_price_id' => renewal_stripe_price_id,
-      'renewal_price' => plan && PlanSerializer.new(plan).price_in_dollars,
       'stripe_customer_id' => purchaser&.stripe_customer_id,
       'stripe_subscription_id' => stripe_subscription_id
     )
@@ -396,7 +393,6 @@ class Subscription < ApplicationRecord
   def stripe_subscription
     StripeIntegration::Subscription.new(self)
   end
-
 
   def renewal_stripe_price_id
     return STRIPE_TEACHER_PLAN_PRICE_ID if [TEACHER_PAID, TEACHER_TRIAL].include?(account_type)
