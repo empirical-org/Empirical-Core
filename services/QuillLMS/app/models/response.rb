@@ -105,25 +105,24 @@ class Response < ApplicationRecord
       question_number: concept_result.metadata['questionNumber']
     )
 
-    Response.transaction do
-      # Create a totally new record if there isn't one yet
-      if !response
-        response = create_from_json(concept_result.as_json)
-      # If we have a response, but it doesn't have a the relevant
-      # Concept related, add the relation.
-      # This happens because old ConceptResult records do a row per Concept,
-      # while we do a row per answer (using multiple ResponseConcept
-      # records if there are multiple Concepts)
-      elsif !response.concepts.include?(concept_result.concept)
-        response.concepts.append(concept_result.concept)
-      end
-
-      # Whether we create a new record, or add a concept, we should ensure
-      # that we record a relation to the source concept_result so we can
-      # skip migrating it in future runs
-      response.concept_results.push(concept_result) unless response.concept_results.include?(concept_result)
-      response.save!
+    # Create a totally new record if there isn't one yet
+    if !response
+      response = create_from_json(concept_result.as_json)
+    # If we have a response, but it doesn't have a the relevant
+    # Concept related, add the relation.
+    # This happens because old ConceptResult records do a row per Concept,
+    # while we do a row per answer (using multiple ResponseConcept
+    # records if there are multiple Concepts)
+    elsif !response.concepts.include?(concept_result.concept)
+      response.concepts.append(concept_result.concept)
     end
+
+    # Whether we create a new record, or add a concept, we should ensure
+    # that we record a relation to the source concept_result so we can
+    # skip migrating it in future runs
+    response.concept_results.push(concept_result) unless response.concept_results.include?(concept_result)
+    response.save!
+
     response
   end
 
