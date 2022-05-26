@@ -344,27 +344,3 @@
     }
   }
 }
-
-@media (min-width: 992px) {
-  .hint {
-    height: 344px;
-  }
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  .hint {
-    height: 304px;
-  }
-}
-
-@media (min-width: 660px) and (max-width: 767px) {
-  .hint {
-    height: 256px;
-  }
-}
-
-@media (min-width: 320px) and (max-width: 659px) {
-  .hint {
-    height: 228px;
-  }
-}
