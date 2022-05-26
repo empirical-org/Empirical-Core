@@ -7,10 +7,9 @@ class CopyConceptResultsToResponsesWorker
   BATCH_SIZE=100000
 
   def perform(start, finish)
-    ConceptResult.find_in_batches(start: start, finish: finish, batch_size: BATCH_SIZE) do |concept_results_batch|
-      concept_results_batch.each do |concept_result|
-        Response.find_or_create_from_concept_result(concept_result)
-      end
+    (start..finish).each do |id|
+      concept_result = ConceptResult.find_by_id(id)
+      Response.find_or_create_from_concept_result(concept_result) if concept_result
     end
   end
 end

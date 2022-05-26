@@ -50,15 +50,6 @@ describe CopyConceptResultsToResponsesWorker, type: :worker do
          .and change(Response, :count).by(1)
     end
 
-    it 'should run in batches up to BATCH_SIZE' do
-      batch_size = 2
-      stub_const("#{described_class}::BATCH_SIZE", batch_size)
-
-      expect(ConceptResult).to receive(:find_in_batches).with(start: nil, finish: nil, batch_size: batch_size)
-
-      subject.perform(nil, nil)
-    end
-
     it 'should skip items with IDs lower than start' do
       concept_result
       activity_session2 = create(:activity_session_without_concept_results, activity: activity)
@@ -67,7 +58,7 @@ describe CopyConceptResultsToResponsesWorker, type: :worker do
       expect(Response).not_to receive(:find_or_create_from_concept_result).with(concept_result)
       expect(Response).to receive(:find_or_create_from_concept_result).with(used_concept_result)
 
-      subject.perform(used_concept_result.id, nil)
+      subject.perform(used_concept_result.id, used_concept_result.id)
     end
 
     it 'should not process items with IDs higher than finish' do
@@ -78,7 +69,7 @@ describe CopyConceptResultsToResponsesWorker, type: :worker do
       expect(Response).to receive(:find_or_create_from_concept_result).with(concept_result)
       expect(Response).not_to receive(:find_or_create_from_concept_result).with(skipped_concept_result)
 
-      subject.perform(nil, concept_result.id)
+      subject.perform(concept_result.id, concept_result.id)
     end
   end
 end
