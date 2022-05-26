@@ -1489,6 +1489,7 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
             </td>
             <td>
               <Tooltip
+                isTabbable={true}
                 key="copy-17-1"
                 tooltipText={
                   <TurkSessionButton
@@ -1523,7 +1524,9 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
                 }
               >
                 <span
+                  aria-hidden={false}
                   className="quill-tooltip-trigger"
+                  role="tooltip"
                   style={
                     Object {
                       "minWidth": "100px",
@@ -1534,9 +1537,13 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
                 >
                   <span
                     className="data-table-row-section undefined"
+                    onBlur={[Function]}
                     onClick={[Function]}
+                    onFocus={[Function]}
+                    onKeyDown={[Function]}
                     onMouseEnter={[Function]}
                     onMouseLeave={[Function]}
+                    role="button"
                     style={
                       Object {
                         "minWidth": "100px",
@@ -1544,7 +1551,7 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
                         "width": "100px",
                       }
                     }
-                    tabIndex={null}
+                    tabIndex={0}
                   >
                     <TurkSessionButton
                       clickHandler={[Function]}
@@ -1567,6 +1574,7 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
                     className="quill-tooltip-wrapper"
                   >
                     <span
+                      aria-live="polite"
                       className="quill-tooltip"
                     />
                   </span>
@@ -1575,6 +1583,7 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
             </td>
             <td>
               <Tooltip
+                isTabbable={true}
                 key="edit-17-1"
                 tooltipText={
                   <TurkSessionButton
@@ -1609,7 +1618,9 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
                 }
               >
                 <span
+                  aria-hidden={false}
                   className="quill-tooltip-trigger"
+                  role="tooltip"
                   style={
                     Object {
                       "minWidth": "100px",
@@ -1620,9 +1631,13 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
                 >
                   <span
                     className="data-table-row-section undefined"
+                    onBlur={[Function]}
                     onClick={[Function]}
+                    onFocus={[Function]}
+                    onKeyDown={[Function]}
                     onMouseEnter={[Function]}
                     onMouseLeave={[Function]}
+                    role="button"
                     style={
                       Object {
                         "minWidth": "100px",
@@ -1630,7 +1645,7 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
                         "width": "100px",
                       }
                     }
-                    tabIndex={null}
+                    tabIndex={0}
                   >
                     <TurkSessionButton
                       clickHandler={[Function]}
@@ -1653,6 +1668,7 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
                     className="quill-tooltip-wrapper"
                   >
                     <span
+                      aria-live="polite"
                       className="quill-tooltip"
                     />
                   </span>
@@ -1661,6 +1677,7 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
             </td>
             <td>
               <Tooltip
+                isTabbable={true}
                 key="delete-17-1"
                 tooltipText={
                   <TurkSessionButton
@@ -1693,7 +1710,9 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
                 }
               >
                 <span
+                  aria-hidden={false}
                   className="quill-tooltip-trigger"
+                  role="tooltip"
                   style={
                     Object {
                       "minWidth": "100px",
@@ -1704,9 +1723,13 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
                 >
                   <span
                     className="data-table-row-section undefined"
+                    onBlur={[Function]}
                     onClick={[Function]}
+                    onFocus={[Function]}
+                    onKeyDown={[Function]}
                     onMouseEnter={[Function]}
                     onMouseLeave={[Function]}
+                    role="button"
                     style={
                       Object {
                         "minWidth": "100px",
@@ -1714,7 +1737,7 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
                         "width": "100px",
                       }
                     }
-                    tabIndex={null}
+                    tabIndex={0}
                   >
                     <TurkSessionButton
                       clickHandler={[Function]}
@@ -1735,6 +1758,7 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
                     className="quill-tooltip-wrapper"
                   >
                     <span
+                      aria-live="polite"
                       className="quill-tooltip"
                     />
                   </span>

@@ -690,6 +690,7 @@ exports[`LessonsMini component not on mobile should render when there are lesson
           >
             <td>
               <Tooltip
+                isTabbable={true}
                 key="lesson-649-1-undefined"
                 tooltipText="Advanced Combining: Complex Sentences with Modifiers"
                 tooltipTriggerStyle={
@@ -710,7 +711,9 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                 }
               >
                 <span
+                  aria-hidden={false}
                   className="quill-tooltip-trigger"
+                  role="tooltip"
                   style={
                     Object {
                       "minWidth": "289px",
@@ -721,9 +724,13 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                 >
                   <span
                     className="data-table-row-section undefined"
+                    onBlur={[Function]}
                     onClick={[Function]}
+                    onFocus={[Function]}
+                    onKeyDown={[Function]}
                     onMouseEnter={[Function]}
                     onMouseLeave={[Function]}
+                    role="button"
                     style={
                       Object {
                         "minWidth": "289px",
@@ -731,7 +738,7 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                         "width": "289px",
                       }
                     }
-                    tabIndex={null}
+                    tabIndex={0}
                   >
                     Advanced Combining: Complex Sentences with Modifiers
                   </span>
@@ -739,6 +746,7 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                     className="quill-tooltip-wrapper"
                   >
                     <span
+                      aria-live="polite"
                       className="quill-tooltip"
                     />
                   </span>
@@ -941,6 +949,7 @@ exports[`LessonsMini component not on mobile should render when there are lesson
           >
             <td>
               <Tooltip
+                isTabbable={true}
                 key="lesson-566-6-undefined"
                 tooltipText="Lesson 1: Conjunctions of Time (After, Until, Before, etc.)"
                 tooltipTriggerStyle={
@@ -961,7 +970,9 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                 }
               >
                 <span
+                  aria-hidden={false}
                   className="quill-tooltip-trigger"
+                  role="tooltip"
                   style={
                     Object {
                       "minWidth": "289px",
@@ -972,9 +983,13 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                 >
                   <span
                     className="data-table-row-section undefined"
+                    onBlur={[Function]}
                     onClick={[Function]}
+                    onFocus={[Function]}
+                    onKeyDown={[Function]}
                     onMouseEnter={[Function]}
                     onMouseLeave={[Function]}
+                    role="button"
                     style={
                       Object {
                         "minWidth": "289px",
@@ -982,7 +997,7 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                         "width": "289px",
                       }
                     }
-                    tabIndex={null}
+                    tabIndex={0}
                   >
                     Lesson 1: Conjunctions of Time (After, Until, Before, etc.)
                   </span>
@@ -990,6 +1005,7 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                     className="quill-tooltip-wrapper"
                   >
                     <span
+                      aria-live="polite"
                       className="quill-tooltip"
                     />
                   </span>
