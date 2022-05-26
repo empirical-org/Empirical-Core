@@ -89,7 +89,7 @@ const SubscriptionStatus = ({
 
   if (subscriptionType !== 'Basic') {
     expiration = moment(subscriptionStatus.expiration);
-    remainingDays = expiration.diff(moment(), 'days');
+    remainingDays = expiration.diff(moment(Date.now()), 'days');
   }
 
   const content = {
@@ -106,7 +106,7 @@ const SubscriptionStatus = ({
       image = 'basic_icon.png';
       content.premiumCopy = quillBasicCopy;
       content.boxColor = '#00c2a2';
-      content.buttonOrDate = <a className={CTA_BUTTON_CLASSNAME} href="/premium">Learn More About Quill Premium</a>;
+      content.buttonOrDate = <a className={CTA_BUTTON_CLASSNAME} href="/premium">Learn more about Quill Premium</a>;
       subscriptionTypeText = 'Quill Basic';
       content.status = <h2>{`You have a ${subscriptionType} subscription`}<img alt={`${subscriptionType}`} src={`https://assets.quill.org/images/shared/${image}`} /></h2>;
       break;
@@ -119,7 +119,7 @@ const SubscriptionStatus = ({
       content.status = <h2>You have a {teacherSubDisplayName} subscription<img alt={`${subscriptionType}`} src={`https://assets.quill.org/images/shared/${image}`} /></h2>
       content.boxColor = '#348fdf'
       if (remainingDays < 0) {
-        content.buttonOrDate = <a className={CTA_BUTTON_CLASSNAME} href="/premium">Subscribe to Premium</a>
+        content.buttonOrDate = <a className={CTA_BUTTON_CLASSNAME} href="/premium">Subscribe to premium</a>
       }
       break;
     case TEACHER_PREMIUM:
@@ -131,9 +131,9 @@ const SubscriptionStatus = ({
         content.buttonOrDate = (
           <StripeSubscriptionCheckoutSessionButton
             buttonClassName={CTA_BUTTON_CLASSNAME}
-            buttonText='Renew Subscription'
+            buttonText='Renew subscription'
             cancelPath='subscriptions'
-            customerEmail={customerEmail}
+            customerEmail={subscriptionStatus.customer_email}
             stripePriceId={renewalStripePriceId}
             userIsEligibleForNewSubscription={true}
             userIsSignedIn={true}
@@ -150,9 +150,9 @@ const SubscriptionStatus = ({
         content.buttonOrDate = (
           <StripeSubscriptionCheckoutSessionButton
             buttonClassName={CTA_BUTTON_CLASSNAME}
-            buttonText='Renew Subscription'
+            buttonText='Renew subscription'
             cancelPath='subscriptions'
-            customerEmail={customerEmail}
+            customerEmail={subscriptionStatus.customer_email}
             stripePriceId={renewalStripePriceId}
             userIsEligibleForNewSubscription={true}
             userIsSignedIn={true}
@@ -171,7 +171,7 @@ const SubscriptionStatus = ({
             className={CTA_BUTTON_CLASSNAME}
             href="mailto:sales@quill.org"
           >
-            Contact Us to Renew
+            Contact us to renew
           </a>
         )
       }
@@ -182,7 +182,7 @@ const SubscriptionStatus = ({
       content.status = <h2>You have a {SCHOOL_PREMIUM} subscription<img alt={`${subscriptionType}`} src={`https://assets.quill.org/images/shared/${image}`} /></h2>;
       content.boxColor = '#9c2bde';
       if (remainingDays < 0) {
-        content.buttonOrDate = <a className={CTA_BUTTON_CLASSNAME} href="/premium">Subscribe to Premium</a>
+        content.buttonOrDate = <a className={CTA_BUTTON_CLASSNAME} href="/premium">Subscribe to premium</a>
       }
       break;
   }

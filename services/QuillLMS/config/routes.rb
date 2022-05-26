@@ -143,6 +143,7 @@ EmpiricalGrammar::Application.routes.draw do
     post :complete_view_lesson_tutorial, on: :collection
     post :complete_acknowledge_lessons_banner, on: :collection
     post :complete_acknowledge_diagnostic_banner, on: :collection
+    post :complete_acknowledge_evidence_banner, on: :collection
     post :complete_acknowledge_growth_diagnostic_promotion_card, on: :collection
   end
 
@@ -587,7 +588,6 @@ EmpiricalGrammar::Application.routes.draw do
         put :sign_in
         put :clear_data
         get :sign_in
-        get :edit_subscription
         get :new_subscription
         post :complete_sales_stage
       end
@@ -601,7 +601,6 @@ EmpiricalGrammar::Application.routes.draw do
         get :search, to: 'schools#index'
       end
       member do
-        get :edit_subscription
         get :new_subscription
         get :new_admin
         get :add_existing_user

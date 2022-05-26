@@ -4411,12 +4411,24 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
   <section
     className="activity-table-container"
   >
-    <LessonsBanner
-      closeLessonsBanner={[Function]}
-      selectedActivities={Array []}
+    <div
+      className="banners-container"
     >
-      <span />
-    </LessonsBanner>
+      <Banner
+        closeBanner={[Function]}
+        selectedActivities={Array []}
+        type="lessons"
+      >
+        <span />
+      </Banner>
+      <Banner
+        closeBanner={[Function]}
+        selectedActivities={Array []}
+        type="evidence"
+      >
+        <span />
+      </Banner>
+    </div>
     <SearchAndSort
       handleSearch={[Function]}
       search=""

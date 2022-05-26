@@ -72,8 +72,8 @@ describe("ActivityTableContainer component", () => {
       />
     )
 
-    it("should render a lessons banner", () => {
-      expect(wrapper.find(".assigning-lessons-banner").length).toBe(1)
+    it("should render a disclaimer banner", () => {
+      expect(wrapper.find(".assigning-activity-disclaimer-banner").length).toBe(1)
     })
   })
 })

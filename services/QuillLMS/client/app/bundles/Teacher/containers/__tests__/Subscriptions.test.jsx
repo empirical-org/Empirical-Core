@@ -43,6 +43,10 @@ const sharedProps = {
   }
 }
 
+jest.spyOn(global.Date, 'now').mockImplementation(() =>
+  new Date('2022-05-26T11:01:58.135Z').valueOf()
+);
+
 describe('Subscriptions UI state iterations', () => {
   const expiredAttributes = { expiration: '2022-01-1', expired: true }
 

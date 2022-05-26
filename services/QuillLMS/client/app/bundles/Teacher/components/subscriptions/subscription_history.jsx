@@ -73,21 +73,28 @@ export default class SubscriptionHistory extends React.Component {
             tooltipTriggerText={<span><img alt={helpIcon.alt} className="subscription-tooltip" src={helpIcon.src} /></span>}
           />
         </span>
-      );
+      )
+
       const tds = [
         <td key={`${sub.id}-1-row`}>{moment(sub.created_at).format('MMMM Do, YYYY')}</td>,
         <td key={`${sub.id}-2-row`}>{subscriptionTypeContent}</td>,
         <td key={`${sub.id}-3-row`}>{this.paymentContent(sub)}</td>,
         <td key={`${sub.id}-4-row`}>{`${duration} ${pluralize('month', duration)}`}</td>,
         <td key={`${sub.id}-5-row`}>{`${startD.format('MM/DD/YY')} - ${endD.format('MM/DD/YY')}`}</td>
-      ];
+      ]
+
       if (view === 'subscriptionHistory') {
-        tds.push(<td key={`${sub.id}-6-row`}><a href={`${process.env.DEFAULT_URL}/cms/subscriptions/${sub.id}/edit`}>Edit Subscription</a></td>);
+        const href = `${process.env.DEFAULT_URL}/cms/subscriptions/${sub.id}/edit`
+        const key = `${sub.id}-6-row`
+
+        if (sub.stripe_invoice_id) {
+          tds.push(<td key={key}><a href={href} rel='noopener noreferrer' target='_blank'>View in Stripe</a></td>)
+        } else {
+          tds.push(<td key={key}><a href={href}>Edit Subscription</a></td>)
+        }
       }
-      rows.push(
-        <tr key={`${sub.id}-subscription-table`}>{tds}</tr>
-      );
-    });
+      rows.push(<tr key={`${sub.id}-subscription-table`}>{tds}</tr>)
+    })
     return rows;
   }
 
@@ -96,7 +103,7 @@ export default class SubscriptionHistory extends React.Component {
 
     const tableHeaders = ['Purchase Date', 'Subscription', 'Payment', 'Length', 'Start & End Date'];
     if (view === 'subscriptionHistory') {
-      tableHeaders.push('Edit Link');
+      tableHeaders.push('Link');
     }
     return tableHeaders.map((content, i) => <th key={`${i}-table-header`}>{content}</th>);
   }

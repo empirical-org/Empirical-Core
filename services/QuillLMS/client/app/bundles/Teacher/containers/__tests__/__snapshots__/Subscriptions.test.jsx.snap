@@ -120,7 +120,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
               className="time-left-in-days"
             >
                | 
-              17394 days
+              17386 days
             </span>
           </span>
         </div>
@@ -202,6 +202,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                         >
                           District Premium
                           <Tooltip
+                            isTabbable={true}
                             tooltipText="You have a School District Paid subscription"
                             tooltipTriggerText={
                               <span>
@@ -229,6 +230,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                           >
                             District Premium
                             <Tooltip
+                              isTabbable={true}
                               tooltipText="You have a School District Paid subscription"
                               tooltipTriggerText={
                                 <span>
@@ -241,14 +243,20 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                               }
                             >
                               <span
+                                aria-hidden={false}
                                 className="quill-tooltip-trigger"
+                                role="tooltip"
                               >
                                 <span
                                   className="undefined"
+                                  onBlur={[Function]}
                                   onClick={[Function]}
+                                  onFocus={[Function]}
+                                  onKeyDown={[Function]}
                                   onMouseEnter={[Function]}
                                   onMouseLeave={[Function]}
-                                  tabIndex={null}
+                                  role="button"
+                                  tabIndex={0}
                                 >
                                   <span>
                                     <img
@@ -262,6 +270,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                                   className="quill-tooltip-wrapper"
                                 >
                                   <span
+                                    aria-live="polite"
                                     className="quill-tooltip"
                                   />
                                 </span>
@@ -491,6 +500,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                 <span>
                   District Premium
                   <Tooltip
+                    isTabbable={true}
                     tooltipText="School District Paid subscription"
                     tooltipTriggerText={
                       <span>
@@ -503,14 +513,20 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                     }
                   >
                     <span
+                      aria-hidden={false}
                       className="quill-tooltip-trigger"
+                      role="tooltip"
                     >
                       <span
                         className="undefined"
+                        onBlur={[Function]}
                         onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
-                        tabIndex={null}
+                        role="button"
+                        tabIndex={0}
                       >
                         <span>
                           <img
@@ -524,6 +540,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                         className="quill-tooltip-wrapper"
                       >
                         <span
+                          aria-live="polite"
                           className="quill-tooltip"
                         />
                       </span>
@@ -572,7 +589,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
           className="quill-button medium primary outlined focus-on-light"
           href="/referrals"
         >
-          Earn Premium Credits
+          Earn premium credits
         </a>
       </div>
     </AvailableCredits>
@@ -775,7 +792,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
             className="quill-button medium contained primary focus-on-light"
             href="mailto:sales@quill.org"
           >
-            Contact Us to Renew
+            Contact us to renew
           </a>
         </div>
         <p>
@@ -915,6 +932,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                 <span>
                   District Premium
                   <Tooltip
+                    isTabbable={true}
                     tooltipText="School District Paid subscription"
                     tooltipTriggerText={
                       <span>
@@ -927,14 +945,20 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                     }
                   >
                     <span
+                      aria-hidden={false}
                       className="quill-tooltip-trigger"
+                      role="tooltip"
                     >
                       <span
                         className="undefined"
+                        onBlur={[Function]}
                         onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
-                        tabIndex={null}
+                        role="button"
+                        tabIndex={0}
                       >
                         <span>
                           <img
@@ -948,6 +972,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                         className="quill-tooltip-wrapper"
                       >
                         <span
+                          aria-live="polite"
                           className="quill-tooltip"
                         />
                       </span>
@@ -996,7 +1021,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
           className="quill-button medium primary outlined focus-on-light"
           href="/referrals"
         >
-          Earn Premium Credits
+          Earn premium credits
         </a>
       </div>
     </AvailableCredits>
@@ -1212,7 +1237,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
               className="time-left-in-days"
             >
                | 
-              17394 days
+              17386 days
             </span>
           </span>
         </div>
@@ -1294,6 +1319,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                         >
                           District Premium
                           <Tooltip
+                            isTabbable={true}
                             tooltipText="You have a School District Paid subscription"
                             tooltipTriggerText={
                               <span>
@@ -1321,6 +1347,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                           >
                             District Premium
                             <Tooltip
+                              isTabbable={true}
                               tooltipText="You have a School District Paid subscription"
                               tooltipTriggerText={
                                 <span>
@@ -1333,14 +1360,20 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                               }
                             >
                               <span
+                                aria-hidden={false}
                                 className="quill-tooltip-trigger"
+                                role="tooltip"
                               >
                                 <span
                                   className="undefined"
+                                  onBlur={[Function]}
                                   onClick={[Function]}
+                                  onFocus={[Function]}
+                                  onKeyDown={[Function]}
                                   onMouseEnter={[Function]}
                                   onMouseLeave={[Function]}
-                                  tabIndex={null}
+                                  role="button"
+                                  tabIndex={0}
                                 >
                                   <span>
                                     <img
@@ -1354,6 +1387,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                                   className="quill-tooltip-wrapper"
                                 >
                                   <span
+                                    aria-live="polite"
                                     className="quill-tooltip"
                                   />
                                 </span>
@@ -1385,6 +1419,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                         >
                           Off
                           <Tooltip
+                            isTabbable={true}
                             tooltipText="To renew your subscription for next year, contact us at sales@quill.org."
                             tooltipTriggerText={
                               <span>
@@ -1412,6 +1447,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                           >
                             Off
                             <Tooltip
+                              isTabbable={true}
                               tooltipText="To renew your subscription for next year, contact us at sales@quill.org."
                               tooltipTriggerText={
                                 <span>
@@ -1424,14 +1460,20 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                               }
                             >
                               <span
+                                aria-hidden={false}
                                 className="quill-tooltip-trigger"
+                                role="tooltip"
                               >
                                 <span
                                   className="undefined"
+                                  onBlur={[Function]}
                                   onClick={[Function]}
+                                  onFocus={[Function]}
+                                  onKeyDown={[Function]}
                                   onMouseEnter={[Function]}
                                   onMouseLeave={[Function]}
-                                  tabIndex={null}
+                                  role="button"
+                                  tabIndex={0}
                                 >
                                   <span>
                                     <img
@@ -1445,6 +1487,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                                   className="quill-tooltip-wrapper"
                                 >
                                   <span
+                                    aria-live="polite"
                                     className="quill-tooltip"
                                   />
                                 </span>
@@ -1539,11 +1582,11 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                     />
                     <span>
                       Once your current District Premium subscription expires, you will be downgraded to Quill Basic.
-                       To renew your subscription for next year, contact us at 
+                       To renew your subscription for next year, 
                       <a
                         href="mailto:sales@quill.org"
                       >
-                        sales@quill.org
+                        contact us
                       </a>
                       .
                     </span>
@@ -1638,6 +1681,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                 <span>
                   District Premium
                   <Tooltip
+                    isTabbable={true}
                     tooltipText="School District Paid subscription"
                     tooltipTriggerText={
                       <span>
@@ -1650,14 +1694,20 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                     }
                   >
                     <span
+                      aria-hidden={false}
                       className="quill-tooltip-trigger"
+                      role="tooltip"
                     >
                       <span
                         className="undefined"
+                        onBlur={[Function]}
                         onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
-                        tabIndex={null}
+                        role="button"
+                        tabIndex={0}
                       >
                         <span>
                           <img
@@ -1671,6 +1721,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                         className="quill-tooltip-wrapper"
                       >
                         <span
+                          aria-live="polite"
                           className="quill-tooltip"
                         />
                       </span>
@@ -1719,7 +1770,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
           className="quill-button medium primary outlined focus-on-light"
           href="/referrals"
         >
-          Earn Premium Credits
+          Earn premium credits
         </a>
       </div>
     </AvailableCredits>
@@ -1922,7 +1973,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
             className="quill-button medium contained primary focus-on-light"
             href="mailto:sales@quill.org"
           >
-            Contact Us to Renew
+            Contact us to renew
           </a>
         </div>
         <p>
@@ -2051,6 +2102,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                 <span>
                   District Premium
                   <Tooltip
+                    isTabbable={true}
                     tooltipText="School District Paid subscription"
                     tooltipTriggerText={
                       <span>
@@ -2063,14 +2115,20 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                     }
                   >
                     <span
+                      aria-hidden={false}
                       className="quill-tooltip-trigger"
+                      role="tooltip"
                     >
                       <span
                         className="undefined"
+                        onBlur={[Function]}
                         onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
-                        tabIndex={null}
+                        role="button"
+                        tabIndex={0}
                       >
                         <span>
                           <img
@@ -2084,6 +2142,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                         className="quill-tooltip-wrapper"
                       >
                         <span
+                          aria-live="polite"
                           className="quill-tooltip"
                         />
                       </span>
@@ -2132,7 +2191,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
           className="quill-button medium primary outlined focus-on-light"
           href="/referrals"
         >
-          Earn Premium Credits
+          Earn premium credits
         </a>
       </div>
     </AvailableCredits>
@@ -2348,7 +2407,7 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
               className="time-left-in-days"
             >
                | 
-              17394 days
+              17386 days
             </span>
           </span>
         </div>
@@ -2430,6 +2489,7 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
                         >
                           Teacher Premium Credit
                           <Tooltip
+                            isTabbable={true}
                             tooltipText="You have a Premium Credit subscription"
                             tooltipTriggerText={
                               <span>
@@ -2457,6 +2517,7 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
                           >
                             Teacher Premium Credit
                             <Tooltip
+                              isTabbable={true}
                               tooltipText="You have a Premium Credit subscription"
                               tooltipTriggerText={
                                 <span>
@@ -2469,14 +2530,20 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
                               }
                             >
                               <span
+                                aria-hidden={false}
                                 className="quill-tooltip-trigger"
+                                role="tooltip"
                               >
                                 <span
                                   className="undefined"
+                                  onBlur={[Function]}
                                   onClick={[Function]}
+                                  onFocus={[Function]}
+                                  onKeyDown={[Function]}
                                   onMouseEnter={[Function]}
                                   onMouseLeave={[Function]}
-                                  tabIndex={null}
+                                  role="button"
+                                  tabIndex={0}
                                 >
                                   <span>
                                     <img
@@ -2490,6 +2557,7 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
                                   className="quill-tooltip-wrapper"
                                 >
                                   <span
+                                    aria-live="polite"
                                     className="quill-tooltip"
                                   />
                                 </span>
@@ -2571,7 +2639,7 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
                   PAYMENT METHOD ON FILE
                 </h3>
                 <span>
-                  No Payment Method on File
+                  No payment method on file
                 </span>
               </div>
               <div
@@ -2704,6 +2772,7 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
                 <span>
                   Teacher Premium Credit
                   <Tooltip
+                    isTabbable={true}
                     tooltipText="Premium Credit subscription"
                     tooltipTriggerText={
                       <span>
@@ -2716,14 +2785,20 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
                     }
                   >
                     <span
+                      aria-hidden={false}
                       className="quill-tooltip-trigger"
+                      role="tooltip"
                     >
                       <span
                         className="undefined"
+                        onBlur={[Function]}
                         onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
-                        tabIndex={null}
+                        role="button"
+                        tabIndex={0}
                       >
                         <span>
                           <img
@@ -2737,6 +2812,7 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
                         className="quill-tooltip-wrapper"
                       >
                         <span
+                          aria-live="polite"
                           className="quill-tooltip"
                         />
                       </span>
@@ -2785,7 +2861,7 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
           className="quill-button medium primary outlined focus-on-light"
           href="/referrals"
         >
-          Earn Premium Credits
+          Earn premium credits
         </a>
       </div>
     </AvailableCredits>
@@ -2988,7 +3064,7 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
             className="quill-button medium contained primary focus-on-light"
             href="/premium"
           >
-            Subscribe to Premium
+            Subscribe to premium
           </a>
         </div>
         <p>
@@ -3128,6 +3204,7 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
                 <span>
                   Teacher Premium Credit
                   <Tooltip
+                    isTabbable={true}
                     tooltipText="Premium Credit subscription"
                     tooltipTriggerText={
                       <span>
@@ -3140,14 +3217,20 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
                     }
                   >
                     <span
+                      aria-hidden={false}
                       className="quill-tooltip-trigger"
+                      role="tooltip"
                     >
                       <span
                         className="undefined"
+                        onBlur={[Function]}
                         onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
-                        tabIndex={null}
+                        role="button"
+                        tabIndex={0}
                       >
                         <span>
                           <img
@@ -3161,6 +3244,7 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
                         className="quill-tooltip-wrapper"
                       >
                         <span
+                          aria-live="polite"
                           className="quill-tooltip"
                         />
                       </span>
@@ -3209,7 +3293,7 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
           className="quill-button medium primary outlined focus-on-light"
           href="/referrals"
         >
-          Earn Premium Credits
+          Earn premium credits
         </a>
       </div>
     </AvailableCredits>
@@ -3425,7 +3509,7 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
               className="time-left-in-days"
             >
                | 
-              17394 days
+              17386 days
             </span>
           </span>
         </div>
@@ -3507,6 +3591,7 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
                         >
                           School Premium (Scholarship)
                           <Tooltip
+                            isTabbable={true}
                             tooltipText="You have a School Sponsored Free subscription"
                             tooltipTriggerText={
                               <span>
@@ -3534,6 +3619,7 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
                           >
                             School Premium (Scholarship)
                             <Tooltip
+                              isTabbable={true}
                               tooltipText="You have a School Sponsored Free subscription"
                               tooltipTriggerText={
                                 <span>
@@ -3546,14 +3632,20 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
                               }
                             >
                               <span
+                                aria-hidden={false}
                                 className="quill-tooltip-trigger"
+                                role="tooltip"
                               >
                                 <span
                                   className="undefined"
+                                  onBlur={[Function]}
                                   onClick={[Function]}
+                                  onFocus={[Function]}
+                                  onKeyDown={[Function]}
                                   onMouseEnter={[Function]}
                                   onMouseLeave={[Function]}
-                                  tabIndex={null}
+                                  role="button"
+                                  tabIndex={0}
                                 >
                                   <span>
                                     <img
@@ -3567,6 +3659,7 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
                                   className="quill-tooltip-wrapper"
                                 >
                                   <span
+                                    aria-live="polite"
                                     className="quill-tooltip"
                                   />
                                 </span>
@@ -3648,7 +3741,7 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
                   PAYMENT METHOD ON FILE
                 </h3>
                 <span>
-                  No Payment Method on File
+                  No payment method on file
                 </span>
               </div>
               <div
@@ -3781,6 +3874,7 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
                 <span>
                   School Premium (Scholarship)
                   <Tooltip
+                    isTabbable={true}
                     tooltipText="School Sponsored Free subscription"
                     tooltipTriggerText={
                       <span>
@@ -3793,14 +3887,20 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
                     }
                   >
                     <span
+                      aria-hidden={false}
                       className="quill-tooltip-trigger"
+                      role="tooltip"
                     >
                       <span
                         className="undefined"
+                        onBlur={[Function]}
                         onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
-                        tabIndex={null}
+                        role="button"
+                        tabIndex={0}
                       >
                         <span>
                           <img
@@ -3814,6 +3914,7 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
                         className="quill-tooltip-wrapper"
                       >
                         <span
+                          aria-live="polite"
                           className="quill-tooltip"
                         />
                       </span>
@@ -3862,7 +3963,7 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
           className="quill-button medium primary outlined focus-on-light"
           href="/referrals"
         >
-          Earn Premium Credits
+          Earn premium credits
         </a>
       </div>
     </AvailableCredits>
@@ -4065,7 +4166,7 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
             className="quill-button medium contained primary focus-on-light"
             href="/premium"
           >
-            Subscribe to Premium
+            Subscribe to premium
           </a>
         </div>
         <p>
@@ -4205,6 +4306,7 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
                 <span>
                   School Premium (Scholarship)
                   <Tooltip
+                    isTabbable={true}
                     tooltipText="School Sponsored Free subscription"
                     tooltipTriggerText={
                       <span>
@@ -4217,14 +4319,20 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
                     }
                   >
                     <span
+                      aria-hidden={false}
                       className="quill-tooltip-trigger"
+                      role="tooltip"
                     >
                       <span
                         className="undefined"
+                        onBlur={[Function]}
                         onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
-                        tabIndex={null}
+                        role="button"
+                        tabIndex={0}
                       >
                         <span>
                           <img
@@ -4238,6 +4346,7 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
                         className="quill-tooltip-wrapper"
                       >
                         <span
+                          aria-live="polite"
                           className="quill-tooltip"
                         />
                       </span>
@@ -4286,7 +4395,7 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
           className="quill-button medium primary outlined focus-on-light"
           href="/referrals"
         >
-          Earn Premium Credits
+          Earn premium credits
         </a>
       </div>
     </AvailableCredits>
@@ -4502,7 +4611,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
               className="time-left-in-days"
             >
                | 
-              17394 days
+              17386 days
             </span>
           </span>
         </div>
@@ -4584,6 +4693,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
                         >
                           School Premium
                           <Tooltip
+                            isTabbable={true}
                             tooltipText="You have a School Paid subscription"
                             tooltipTriggerText={
                               <span>
@@ -4611,6 +4721,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
                           >
                             School Premium
                             <Tooltip
+                              isTabbable={true}
                               tooltipText="You have a School Paid subscription"
                               tooltipTriggerText={
                                 <span>
@@ -4623,14 +4734,20 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
                               }
                             >
                               <span
+                                aria-hidden={false}
                                 className="quill-tooltip-trigger"
+                                role="tooltip"
                               >
                                 <span
                                   className="undefined"
+                                  onBlur={[Function]}
                                   onClick={[Function]}
+                                  onFocus={[Function]}
+                                  onKeyDown={[Function]}
                                   onMouseEnter={[Function]}
                                   onMouseLeave={[Function]}
-                                  tabIndex={null}
+                                  role="button"
+                                  tabIndex={0}
                                 >
                                   <span>
                                     <img
@@ -4644,6 +4761,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
                                   className="quill-tooltip-wrapper"
                                 >
                                   <span
+                                    aria-live="polite"
                                     className="quill-tooltip"
                                   />
                                 </span>
@@ -4873,6 +4991,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
                 <span>
                   School Premium
                   <Tooltip
+                    isTabbable={true}
                     tooltipText="School Paid subscription"
                     tooltipTriggerText={
                       <span>
@@ -4885,14 +5004,20 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
                     }
                   >
                     <span
+                      aria-hidden={false}
                       className="quill-tooltip-trigger"
+                      role="tooltip"
                     >
                       <span
                         className="undefined"
+                        onBlur={[Function]}
                         onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
-                        tabIndex={null}
+                        role="button"
+                        tabIndex={0}
                       >
                         <span>
                           <img
@@ -4906,6 +5031,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
                         className="quill-tooltip-wrapper"
                       >
                         <span
+                          aria-live="polite"
                           className="quill-tooltip"
                         />
                       </span>
@@ -4954,7 +5080,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
           className="quill-button medium primary outlined focus-on-light"
           href="/referrals"
         >
-          Earn Premium Credits
+          Earn premium credits
         </a>
       </div>
     </AvailableCredits>
@@ -5155,7 +5281,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
           </div>
           <StripeSubscriptionCheckoutSessionButton
             buttonClassName="quill-button medium contained primary focus-on-light"
-            buttonText="Renew Subscription"
+            buttonText="Renew subscription"
             cancelPath="subscriptions"
             userIsEligibleForNewSubscription={true}
             userIsSignedIn={true}
@@ -5165,7 +5291,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
               onClick={[Function]}
               type="button"
             >
-              Renew Subscription
+              Renew subscription
             </button>
           </StripeSubscriptionCheckoutSessionButton>
         </div>
@@ -5306,6 +5432,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
                 <span>
                   School Premium
                   <Tooltip
+                    isTabbable={true}
                     tooltipText="School Paid subscription"
                     tooltipTriggerText={
                       <span>
@@ -5318,14 +5445,20 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
                     }
                   >
                     <span
+                      aria-hidden={false}
                       className="quill-tooltip-trigger"
+                      role="tooltip"
                     >
                       <span
                         className="undefined"
+                        onBlur={[Function]}
                         onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
-                        tabIndex={null}
+                        role="button"
+                        tabIndex={0}
                       >
                         <span>
                           <img
@@ -5339,6 +5472,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
                         className="quill-tooltip-wrapper"
                       >
                         <span
+                          aria-live="polite"
                           className="quill-tooltip"
                         />
                       </span>
@@ -5387,7 +5521,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
           className="quill-button medium primary outlined focus-on-light"
           href="/referrals"
         >
-          Earn Premium Credits
+          Earn premium credits
         </a>
       </div>
     </AvailableCredits>
@@ -5603,7 +5737,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
               className="time-left-in-days"
             >
                | 
-              17394 days
+              17386 days
             </span>
           </span>
         </div>
@@ -5685,6 +5819,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
                         >
                           School Premium
                           <Tooltip
+                            isTabbable={true}
                             tooltipText="You have a School Paid subscription"
                             tooltipTriggerText={
                               <span>
@@ -5712,6 +5847,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
                           >
                             School Premium
                             <Tooltip
+                              isTabbable={true}
                               tooltipText="You have a School Paid subscription"
                               tooltipTriggerText={
                                 <span>
@@ -5724,14 +5860,20 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
                               }
                             >
                               <span
+                                aria-hidden={false}
                                 className="quill-tooltip-trigger"
+                                role="tooltip"
                               >
                                 <span
                                   className="undefined"
+                                  onBlur={[Function]}
                                   onClick={[Function]}
+                                  onFocus={[Function]}
+                                  onKeyDown={[Function]}
                                   onMouseEnter={[Function]}
                                   onMouseLeave={[Function]}
-                                  tabIndex={null}
+                                  role="button"
+                                  tabIndex={0}
                                 >
                                   <span>
                                     <img
@@ -5745,6 +5887,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
                                   className="quill-tooltip-wrapper"
                                 >
                                   <span
+                                    aria-live="polite"
                                     className="quill-tooltip"
                                   />
                                 </span>
@@ -5776,6 +5919,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
                         >
                           Off
                           <Tooltip
+                            isTabbable={true}
                             tooltipText="To renew your subscription for next year, contact us at sales@quill.org."
                             tooltipTriggerText={
                               <span>
@@ -5803,6 +5947,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
                           >
                             Off
                             <Tooltip
+                              isTabbable={true}
                               tooltipText="To renew your subscription for next year, contact us at sales@quill.org."
                               tooltipTriggerText={
                                 <span>
@@ -5815,14 +5960,20 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
                               }
                             >
                               <span
+                                aria-hidden={false}
                                 className="quill-tooltip-trigger"
+                                role="tooltip"
                               >
                                 <span
                                   className="undefined"
+                                  onBlur={[Function]}
                                   onClick={[Function]}
+                                  onFocus={[Function]}
+                                  onKeyDown={[Function]}
                                   onMouseEnter={[Function]}
                                   onMouseLeave={[Function]}
-                                  tabIndex={null}
+                                  role="button"
+                                  tabIndex={0}
                                 >
                                   <span>
                                     <img
@@ -5836,6 +5987,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
                                   className="quill-tooltip-wrapper"
                                 >
                                   <span
+                                    aria-live="polite"
                                     className="quill-tooltip"
                                   />
                                 </span>
@@ -5930,11 +6082,11 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
                     />
                     <span>
                       Once your current School Premium subscription expires, you will be downgraded to Quill Basic.
-                       To renew your subscription for next year, contact us at 
+                       To renew your subscription for next year, 
                       <a
                         href="mailto:sales@quill.org"
                       >
-                        sales@quill.org
+                        contact us
                       </a>
                       .
                     </span>
@@ -6029,6 +6181,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
                 <span>
                   School Premium
                   <Tooltip
+                    isTabbable={true}
                     tooltipText="School Paid subscription"
                     tooltipTriggerText={
                       <span>
@@ -6041,14 +6194,20 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
                     }
                   >
                     <span
+                      aria-hidden={false}
                       className="quill-tooltip-trigger"
+                      role="tooltip"
                     >
                       <span
                         className="undefined"
+                        onBlur={[Function]}
                         onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
-                        tabIndex={null}
+                        role="button"
+                        tabIndex={0}
                       >
                         <span>
                           <img
@@ -6062,6 +6221,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
                         className="quill-tooltip-wrapper"
                       >
                         <span
+                          aria-live="polite"
                           className="quill-tooltip"
                         />
                       </span>
@@ -6110,7 +6270,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
           className="quill-button medium primary outlined focus-on-light"
           href="/referrals"
         >
-          Earn Premium Credits
+          Earn premium credits
         </a>
       </div>
     </AvailableCredits>
@@ -6311,7 +6471,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
           </div>
           <StripeSubscriptionCheckoutSessionButton
             buttonClassName="quill-button medium contained primary focus-on-light"
-            buttonText="Renew Subscription"
+            buttonText="Renew subscription"
             cancelPath="subscriptions"
             userIsEligibleForNewSubscription={true}
             userIsSignedIn={true}
@@ -6321,7 +6481,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
               onClick={[Function]}
               type="button"
             >
-              Renew Subscription
+              Renew subscription
             </button>
           </StripeSubscriptionCheckoutSessionButton>
         </div>
@@ -6451,6 +6611,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
                 <span>
                   School Premium
                   <Tooltip
+                    isTabbable={true}
                     tooltipText="School Paid subscription"
                     tooltipTriggerText={
                       <span>
@@ -6463,14 +6624,20 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
                     }
                   >
                     <span
+                      aria-hidden={false}
                       className="quill-tooltip-trigger"
+                      role="tooltip"
                     >
                       <span
                         className="undefined"
+                        onBlur={[Function]}
                         onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
-                        tabIndex={null}
+                        role="button"
+                        tabIndex={0}
                       >
                         <span>
                           <img
@@ -6484,6 +6651,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
                         className="quill-tooltip-wrapper"
                       >
                         <span
+                          aria-live="polite"
                           className="quill-tooltip"
                         />
                       </span>
@@ -6532,7 +6700,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
           className="quill-button medium primary outlined focus-on-light"
           href="/referrals"
         >
-          Earn Premium Credits
+          Earn premium credits
         </a>
       </div>
     </AvailableCredits>
@@ -6748,7 +6916,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
               className="time-left-in-days"
             >
                | 
-              17394 days
+              17386 days
             </span>
           </span>
         </div>
@@ -6830,6 +6998,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                         >
                           School Premium
                           <Tooltip
+                            isTabbable={true}
                             tooltipText="You have a School Paid (via Stripe) subscription"
                             tooltipTriggerText={
                               <span>
@@ -6857,6 +7026,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                           >
                             School Premium
                             <Tooltip
+                              isTabbable={true}
                               tooltipText="You have a School Paid (via Stripe) subscription"
                               tooltipTriggerText={
                                 <span>
@@ -6869,14 +7039,20 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                               }
                             >
                               <span
+                                aria-hidden={false}
                                 className="quill-tooltip-trigger"
+                                role="tooltip"
                               >
                                 <span
                                   className="undefined"
+                                  onBlur={[Function]}
                                   onClick={[Function]}
+                                  onFocus={[Function]}
+                                  onKeyDown={[Function]}
                                   onMouseEnter={[Function]}
                                   onMouseLeave={[Function]}
-                                  tabIndex={null}
+                                  role="button"
+                                  tabIndex={0}
                                 >
                                   <span>
                                     <img
@@ -6890,6 +7066,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                                   className="quill-tooltip-wrapper"
                                 >
                                   <span
+                                    aria-live="polite"
                                     className="quill-tooltip"
                                   />
                                 </span>
@@ -7113,6 +7290,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                 <span>
                   School Premium
                   <Tooltip
+                    isTabbable={true}
                     tooltipText="School Paid (via Stripe) subscription"
                     tooltipTriggerText={
                       <span>
@@ -7125,14 +7303,20 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                     }
                   >
                     <span
+                      aria-hidden={false}
                       className="quill-tooltip-trigger"
+                      role="tooltip"
                     >
                       <span
                         className="undefined"
+                        onBlur={[Function]}
                         onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
-                        tabIndex={null}
+                        role="button"
+                        tabIndex={0}
                       >
                         <span>
                           <img
@@ -7146,6 +7330,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                         className="quill-tooltip-wrapper"
                       >
                         <span
+                          aria-live="polite"
                           className="quill-tooltip"
                         />
                       </span>
@@ -7194,7 +7379,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
           className="quill-button medium primary outlined focus-on-light"
           href="/referrals"
         >
-          Earn Premium Credits
+          Earn premium credits
         </a>
       </div>
     </AvailableCredits>
@@ -7410,7 +7595,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
               className="time-left-in-days"
             >
                | 
-              17394 days
+              17386 days
             </span>
           </span>
         </div>
@@ -7492,6 +7677,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                         >
                           School Premium
                           <Tooltip
+                            isTabbable={true}
                             tooltipText="You have a School Paid (via Stripe) subscription"
                             tooltipTriggerText={
                               <span>
@@ -7519,6 +7705,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                           >
                             School Premium
                             <Tooltip
+                              isTabbable={true}
                               tooltipText="You have a School Paid (via Stripe) subscription"
                               tooltipTriggerText={
                                 <span>
@@ -7531,14 +7718,20 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                               }
                             >
                               <span
+                                aria-hidden={false}
                                 className="quill-tooltip-trigger"
+                                role="tooltip"
                               >
                                 <span
                                   className="undefined"
+                                  onBlur={[Function]}
                                   onClick={[Function]}
+                                  onFocus={[Function]}
+                                  onKeyDown={[Function]}
                                   onMouseEnter={[Function]}
                                   onMouseLeave={[Function]}
-                                  tabIndex={null}
+                                  role="button"
+                                  tabIndex={0}
                                 >
                                   <span>
                                     <img
@@ -7552,6 +7745,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                                   className="quill-tooltip-wrapper"
                                 >
                                   <span
+                                    aria-live="polite"
                                     className="quill-tooltip"
                                   />
                                 </span>
@@ -7787,6 +7981,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                 <span>
                   School Premium
                   <Tooltip
+                    isTabbable={true}
                     tooltipText="School Paid (via Stripe) subscription"
                     tooltipTriggerText={
                       <span>
@@ -7799,14 +7994,20 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                     }
                   >
                     <span
+                      aria-hidden={false}
                       className="quill-tooltip-trigger"
+                      role="tooltip"
                     >
                       <span
                         className="undefined"
+                        onBlur={[Function]}
                         onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
-                        tabIndex={null}
+                        role="button"
+                        tabIndex={0}
                       >
                         <span>
                           <img
@@ -7820,6 +8021,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                         className="quill-tooltip-wrapper"
                       >
                         <span
+                          aria-live="polite"
                           className="quill-tooltip"
                         />
                       </span>
@@ -7868,7 +8070,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
           className="quill-button medium primary outlined focus-on-light"
           href="/referrals"
         >
-          Earn Premium Credits
+          Earn premium credits
         </a>
       </div>
     </AvailableCredits>
@@ -8069,7 +8271,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
           </div>
           <StripeSubscriptionCheckoutSessionButton
             buttonClassName="quill-button medium contained primary focus-on-light"
-            buttonText="Renew Subscription"
+            buttonText="Renew subscription"
             cancelPath="subscriptions"
             userIsEligibleForNewSubscription={true}
             userIsSignedIn={true}
@@ -8079,7 +8281,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
               onClick={[Function]}
               type="button"
             >
-              Renew Subscription
+              Renew subscription
             </button>
           </StripeSubscriptionCheckoutSessionButton>
         </div>
@@ -8220,6 +8422,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                 <span>
                   School Premium
                   <Tooltip
+                    isTabbable={true}
                     tooltipText="School Paid (via Stripe) subscription"
                     tooltipTriggerText={
                       <span>
@@ -8232,14 +8435,20 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                     }
                   >
                     <span
+                      aria-hidden={false}
                       className="quill-tooltip-trigger"
+                      role="tooltip"
                     >
                       <span
                         className="undefined"
+                        onBlur={[Function]}
                         onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
-                        tabIndex={null}
+                        role="button"
+                        tabIndex={0}
                       >
                         <span>
                           <img
@@ -8253,6 +8462,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                         className="quill-tooltip-wrapper"
                       >
                         <span
+                          aria-live="polite"
                           className="quill-tooltip"
                         />
                       </span>
@@ -8301,7 +8511,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
           className="quill-button medium primary outlined focus-on-light"
           href="/referrals"
         >
-          Earn Premium Credits
+          Earn premium credits
         </a>
       </div>
     </AvailableCredits>
@@ -8517,7 +8727,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
               className="time-left-in-days"
             >
                | 
-              17394 days
+              17386 days
             </span>
           </span>
         </div>
@@ -8599,6 +8809,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                         >
                           School Premium
                           <Tooltip
+                            isTabbable={true}
                             tooltipText="You have a School Paid (via Stripe) subscription"
                             tooltipTriggerText={
                               <span>
@@ -8626,6 +8837,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                           >
                             School Premium
                             <Tooltip
+                              isTabbable={true}
                               tooltipText="You have a School Paid (via Stripe) subscription"
                               tooltipTriggerText={
                                 <span>
@@ -8638,14 +8850,20 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                               }
                             >
                               <span
+                                aria-hidden={false}
                                 className="quill-tooltip-trigger"
+                                role="tooltip"
                               >
                                 <span
                                   className="undefined"
+                                  onBlur={[Function]}
                                   onClick={[Function]}
+                                  onFocus={[Function]}
+                                  onKeyDown={[Function]}
                                   onMouseEnter={[Function]}
                                   onMouseLeave={[Function]}
-                                  tabIndex={null}
+                                  role="button"
+                                  tabIndex={0}
                                 >
                                   <span>
                                     <img
@@ -8659,6 +8877,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                                   className="quill-tooltip-wrapper"
                                 >
                                   <span
+                                    aria-live="polite"
                                     className="quill-tooltip"
                                   />
                                 </span>
@@ -8703,7 +8922,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                       onClick={[Function]}
                       type="button"
                     >
-                      Turn On Automatic Renewal
+                      Turn on automatic renewal
                     </button>
                   </div>
                   <div>
@@ -8747,7 +8966,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                   PAYMENT METHOD ON FILE
                 </h3>
                 <span>
-                  Credit Card ending in undefined
+                  Credit card ending in undefined
                   <button
                     className="interactive-wrapper focus-on-light"
                     onClick={[Function]}
@@ -8761,7 +8980,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                     }
                     type="button"
                   >
-                    Edit Credit Card
+                    Edit credit card
                   </button>
                 </span>
               </div>
@@ -8895,6 +9114,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                 <span>
                   School Premium
                   <Tooltip
+                    isTabbable={true}
                     tooltipText="School Paid (via Stripe) subscription"
                     tooltipTriggerText={
                       <span>
@@ -8907,14 +9127,20 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                     }
                   >
                     <span
+                      aria-hidden={false}
                       className="quill-tooltip-trigger"
+                      role="tooltip"
                     >
                       <span
                         className="undefined"
+                        onBlur={[Function]}
                         onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
-                        tabIndex={null}
+                        role="button"
+                        tabIndex={0}
                       >
                         <span>
                           <img
@@ -8928,6 +9154,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                         className="quill-tooltip-wrapper"
                       >
                         <span
+                          aria-live="polite"
                           className="quill-tooltip"
                         />
                       </span>
@@ -8976,7 +9203,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
           className="quill-button medium primary outlined focus-on-light"
           href="/referrals"
         >
-          Earn Premium Credits
+          Earn premium credits
         </a>
       </div>
     </AvailableCredits>
@@ -9192,7 +9419,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
               className="time-left-in-days"
             >
                | 
-              17394 days
+              17386 days
             </span>
           </span>
         </div>
@@ -9274,6 +9501,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                         >
                           School Premium
                           <Tooltip
+                            isTabbable={true}
                             tooltipText="You have a School Paid (via Stripe) subscription"
                             tooltipTriggerText={
                               <span>
@@ -9301,6 +9529,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                           >
                             School Premium
                             <Tooltip
+                              isTabbable={true}
                               tooltipText="You have a School Paid (via Stripe) subscription"
                               tooltipTriggerText={
                                 <span>
@@ -9313,14 +9542,20 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                               }
                             >
                               <span
+                                aria-hidden={false}
                                 className="quill-tooltip-trigger"
+                                role="tooltip"
                               >
                                 <span
                                   className="undefined"
+                                  onBlur={[Function]}
                                   onClick={[Function]}
+                                  onFocus={[Function]}
+                                  onKeyDown={[Function]}
                                   onMouseEnter={[Function]}
                                   onMouseLeave={[Function]}
-                                  tabIndex={null}
+                                  role="button"
+                                  tabIndex={0}
                                 >
                                   <span>
                                     <img
@@ -9334,6 +9569,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                                   className="quill-tooltip-wrapper"
                                 >
                                   <span
+                                    aria-live="polite"
                                     className="quill-tooltip"
                                   />
                                 </span>
@@ -9378,7 +9614,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                       onClick={[Function]}
                       type="button"
                     >
-                      Turn Off Automatic Renewal
+                      Turn off automatic renewal
                     </button>
                   </div>
                   <div>
@@ -9422,7 +9658,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                   PAYMENT METHOD ON FILE
                 </h3>
                 <span>
-                  Credit Card ending in undefined
+                  Credit card ending in undefined
                   <button
                     className="interactive-wrapper focus-on-light"
                     onClick={[Function]}
@@ -9436,7 +9672,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                     }
                     type="button"
                   >
-                    Edit Credit Card
+                    Edit credit card
                   </button>
                 </span>
               </div>
@@ -9591,6 +9827,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                 <span>
                   School Premium
                   <Tooltip
+                    isTabbable={true}
                     tooltipText="School Paid (via Stripe) subscription"
                     tooltipTriggerText={
                       <span>
@@ -9603,14 +9840,20 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                     }
                   >
                     <span
+                      aria-hidden={false}
                       className="quill-tooltip-trigger"
+                      role="tooltip"
                     >
                       <span
                         className="undefined"
+                        onBlur={[Function]}
                         onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
-                        tabIndex={null}
+                        role="button"
+                        tabIndex={0}
                       >
                         <span>
                           <img
@@ -9624,6 +9867,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                         className="quill-tooltip-wrapper"
                       >
                         <span
+                          aria-live="polite"
                           className="quill-tooltip"
                         />
                       </span>
@@ -9672,7 +9916,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
           className="quill-button medium primary outlined focus-on-light"
           href="/referrals"
         >
-          Earn Premium Credits
+          Earn premium credits
         </a>
       </div>
     </AvailableCredits>
@@ -9873,7 +10117,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
           </div>
           <StripeSubscriptionCheckoutSessionButton
             buttonClassName="quill-button medium contained primary focus-on-light"
-            buttonText="Renew Subscription"
+            buttonText="Renew subscription"
             cancelPath="subscriptions"
             userIsEligibleForNewSubscription={true}
             userIsSignedIn={true}
@@ -9883,7 +10127,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
               onClick={[Function]}
               type="button"
             >
-              Renew Subscription
+              Renew subscription
             </button>
           </StripeSubscriptionCheckoutSessionButton>
         </div>
@@ -10013,6 +10257,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                 <span>
                   School Premium
                   <Tooltip
+                    isTabbable={true}
                     tooltipText="School Paid (via Stripe) subscription"
                     tooltipTriggerText={
                       <span>
@@ -10025,14 +10270,20 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                     }
                   >
                     <span
+                      aria-hidden={false}
                       className="quill-tooltip-trigger"
+                      role="tooltip"
                     >
                       <span
                         className="undefined"
+                        onBlur={[Function]}
                         onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
-                        tabIndex={null}
+                        role="button"
+                        tabIndex={0}
                       >
                         <span>
                           <img
@@ -10046,6 +10297,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                         className="quill-tooltip-wrapper"
                       >
                         <span
+                          aria-live="polite"
                           className="quill-tooltip"
                         />
                       </span>
@@ -10094,7 +10346,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
           className="quill-button medium primary outlined focus-on-light"
           href="/referrals"
         >
-          Earn Premium Credits
+          Earn premium credits
         </a>
       </div>
     </AvailableCredits>
@@ -10310,7 +10562,7 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
               className="time-left-in-days"
             >
                | 
-              17394 days
+              17386 days
             </span>
           </span>
         </div>
@@ -10392,6 +10644,7 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
                         >
                           Teacher Premium (Scholarship)
                           <Tooltip
+                            isTabbable={true}
                             tooltipText="You have a Teacher Sponsored Free subscription"
                             tooltipTriggerText={
                               <span>
@@ -10419,6 +10672,7 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
                           >
                             Teacher Premium (Scholarship)
                             <Tooltip
+                              isTabbable={true}
                               tooltipText="You have a Teacher Sponsored Free subscription"
                               tooltipTriggerText={
                                 <span>
@@ -10431,14 +10685,20 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
                               }
                             >
                               <span
+                                aria-hidden={false}
                                 className="quill-tooltip-trigger"
+                                role="tooltip"
                               >
                                 <span
                                   className="undefined"
+                                  onBlur={[Function]}
                                   onClick={[Function]}
+                                  onFocus={[Function]}
+                                  onKeyDown={[Function]}
                                   onMouseEnter={[Function]}
                                   onMouseLeave={[Function]}
-                                  tabIndex={null}
+                                  role="button"
+                                  tabIndex={0}
                                 >
                                   <span>
                                     <img
@@ -10452,6 +10712,7 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
                                   className="quill-tooltip-wrapper"
                                 >
                                   <span
+                                    aria-live="polite"
                                     className="quill-tooltip"
                                   />
                                 </span>
@@ -10533,7 +10794,7 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
                   PAYMENT METHOD ON FILE
                 </h3>
                 <span>
-                  No Payment Method on File
+                  No payment method on file
                 </span>
               </div>
               <div
@@ -10666,6 +10927,7 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
                 <span>
                   Teacher Premium (Scholarship)
                   <Tooltip
+                    isTabbable={true}
                     tooltipText="Teacher Sponsored Free subscription"
                     tooltipTriggerText={
                       <span>
@@ -10678,14 +10940,20 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
                     }
                   >
                     <span
+                      aria-hidden={false}
                       className="quill-tooltip-trigger"
+                      role="tooltip"
                     >
                       <span
                         className="undefined"
+                        onBlur={[Function]}
                         onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
-                        tabIndex={null}
+                        role="button"
+                        tabIndex={0}
                       >
                         <span>
                           <img
@@ -10699,6 +10967,7 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
                         className="quill-tooltip-wrapper"
                       >
                         <span
+                          aria-live="polite"
                           className="quill-tooltip"
                         />
                       </span>
@@ -10747,7 +11016,7 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
           className="quill-button medium primary outlined focus-on-light"
           href="/referrals"
         >
-          Earn Premium Credits
+          Earn premium credits
         </a>
       </div>
     </AvailableCredits>
@@ -10950,7 +11219,7 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
             className="quill-button medium contained primary focus-on-light"
             href="/premium"
           >
-            Subscribe to Premium
+            Subscribe to premium
           </a>
         </div>
         <p>
@@ -11090,6 +11359,7 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
                 <span>
                   Teacher Premium (Scholarship)
                   <Tooltip
+                    isTabbable={true}
                     tooltipText="Teacher Sponsored Free subscription"
                     tooltipTriggerText={
                       <span>
@@ -11102,14 +11372,20 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
                     }
                   >
                     <span
+                      aria-hidden={false}
                       className="quill-tooltip-trigger"
+                      role="tooltip"
                     >
                       <span
                         className="undefined"
+                        onBlur={[Function]}
                         onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
-                        tabIndex={null}
+                        role="button"
+                        tabIndex={0}
                       >
                         <span>
                           <img
@@ -11123,6 +11399,7 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
                         className="quill-tooltip-wrapper"
                       >
                         <span
+                          aria-live="polite"
                           className="quill-tooltip"
                         />
                       </span>
@@ -11171,7 +11448,7 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
           className="quill-button medium primary outlined focus-on-light"
           href="/referrals"
         >
-          Earn Premium Credits
+          Earn premium credits
         </a>
       </div>
     </AvailableCredits>
@@ -11387,7 +11664,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
               className="time-left-in-days"
             >
                | 
-              17394 days
+              17386 days
             </span>
           </span>
         </div>
@@ -11469,6 +11746,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
                         >
                           Teacher Premium
                           <Tooltip
+                            isTabbable={true}
                             tooltipText="You have a Teacher Paid subscription"
                             tooltipTriggerText={
                               <span>
@@ -11496,6 +11774,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
                           >
                             Teacher Premium
                             <Tooltip
+                              isTabbable={true}
                               tooltipText="You have a Teacher Paid subscription"
                               tooltipTriggerText={
                                 <span>
@@ -11508,14 +11787,20 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
                               }
                             >
                               <span
+                                aria-hidden={false}
                                 className="quill-tooltip-trigger"
+                                role="tooltip"
                               >
                                 <span
                                   className="undefined"
+                                  onBlur={[Function]}
                                   onClick={[Function]}
+                                  onFocus={[Function]}
+                                  onKeyDown={[Function]}
                                   onMouseEnter={[Function]}
                                   onMouseLeave={[Function]}
-                                  tabIndex={null}
+                                  role="button"
+                                  tabIndex={0}
                                 >
                                   <span>
                                     <img
@@ -11529,6 +11814,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
                                   className="quill-tooltip-wrapper"
                                 >
                                   <span
+                                    aria-live="polite"
                                     className="quill-tooltip"
                                   />
                                 </span>
@@ -11573,7 +11859,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
                       onClick={[Function]}
                       type="button"
                     >
-                      Turn On Automatic Renewal
+                      Turn on automatic renewal
                     </button>
                   </div>
                   <div>
@@ -11617,7 +11903,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
                   PAYMENT METHOD ON FILE
                 </h3>
                 <span>
-                  Credit Card ending in undefined
+                  Credit card ending in undefined
                   <button
                     className="interactive-wrapper focus-on-light"
                     onClick={[Function]}
@@ -11631,7 +11917,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
                     }
                     type="button"
                   >
-                    Edit Credit Card
+                    Edit credit card
                   </button>
                 </span>
               </div>
@@ -11765,6 +12051,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
                 <span>
                   Teacher Premium
                   <Tooltip
+                    isTabbable={true}
                     tooltipText="Teacher Paid subscription"
                     tooltipTriggerText={
                       <span>
@@ -11777,14 +12064,20 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
                     }
                   >
                     <span
+                      aria-hidden={false}
                       className="quill-tooltip-trigger"
+                      role="tooltip"
                     >
                       <span
                         className="undefined"
+                        onBlur={[Function]}
                         onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
-                        tabIndex={null}
+                        role="button"
+                        tabIndex={0}
                       >
                         <span>
                           <img
@@ -11798,6 +12091,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
                         className="quill-tooltip-wrapper"
                       >
                         <span
+                          aria-live="polite"
                           className="quill-tooltip"
                         />
                       </span>
@@ -11846,7 +12140,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
           className="quill-button medium primary outlined focus-on-light"
           href="/referrals"
         >
-          Earn Premium Credits
+          Earn premium credits
         </a>
       </div>
     </AvailableCredits>
@@ -12062,7 +12356,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
               className="time-left-in-days"
             >
                | 
-              17394 days
+              17386 days
             </span>
           </span>
         </div>
@@ -12144,6 +12438,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
                         >
                           Teacher Premium
                           <Tooltip
+                            isTabbable={true}
                             tooltipText="You have a Teacher Paid subscription"
                             tooltipTriggerText={
                               <span>
@@ -12171,6 +12466,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
                           >
                             Teacher Premium
                             <Tooltip
+                              isTabbable={true}
                               tooltipText="You have a Teacher Paid subscription"
                               tooltipTriggerText={
                                 <span>
@@ -12183,14 +12479,20 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
                               }
                             >
                               <span
+                                aria-hidden={false}
                                 className="quill-tooltip-trigger"
+                                role="tooltip"
                               >
                                 <span
                                   className="undefined"
+                                  onBlur={[Function]}
                                   onClick={[Function]}
+                                  onFocus={[Function]}
+                                  onKeyDown={[Function]}
                                   onMouseEnter={[Function]}
                                   onMouseLeave={[Function]}
-                                  tabIndex={null}
+                                  role="button"
+                                  tabIndex={0}
                                 >
                                   <span>
                                     <img
@@ -12204,6 +12506,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
                                   className="quill-tooltip-wrapper"
                                 >
                                   <span
+                                    aria-live="polite"
                                     className="quill-tooltip"
                                   />
                                 </span>
@@ -12248,7 +12551,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
                       onClick={[Function]}
                       type="button"
                     >
-                      Turn Off Automatic Renewal
+                      Turn off automatic renewal
                     </button>
                   </div>
                   <div>
@@ -12292,7 +12595,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
                   PAYMENT METHOD ON FILE
                 </h3>
                 <span>
-                  Credit Card ending in undefined
+                  Credit card ending in undefined
                   <button
                     className="interactive-wrapper focus-on-light"
                     onClick={[Function]}
@@ -12306,7 +12609,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
                     }
                     type="button"
                   >
-                    Edit Credit Card
+                    Edit credit card
                   </button>
                 </span>
               </div>
@@ -12461,6 +12764,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
                 <span>
                   Teacher Premium
                   <Tooltip
+                    isTabbable={true}
                     tooltipText="Teacher Paid subscription"
                     tooltipTriggerText={
                       <span>
@@ -12473,14 +12777,20 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
                     }
                   >
                     <span
+                      aria-hidden={false}
                       className="quill-tooltip-trigger"
+                      role="tooltip"
                     >
                       <span
                         className="undefined"
+                        onBlur={[Function]}
                         onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
-                        tabIndex={null}
+                        role="button"
+                        tabIndex={0}
                       >
                         <span>
                           <img
@@ -12494,6 +12804,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
                         className="quill-tooltip-wrapper"
                       >
                         <span
+                          aria-live="polite"
                           className="quill-tooltip"
                         />
                       </span>
@@ -12542,7 +12853,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
           className="quill-button medium primary outlined focus-on-light"
           href="/referrals"
         >
-          Earn Premium Credits
+          Earn premium credits
         </a>
       </div>
     </AvailableCredits>
@@ -12743,7 +13054,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
           </div>
           <StripeSubscriptionCheckoutSessionButton
             buttonClassName="quill-button medium contained primary focus-on-light"
-            buttonText="Renew Subscription"
+            buttonText="Renew subscription"
             cancelPath="subscriptions"
             userIsEligibleForNewSubscription={true}
             userIsSignedIn={true}
@@ -12753,7 +13064,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
               onClick={[Function]}
               type="button"
             >
-              Renew Subscription
+              Renew subscription
             </button>
           </StripeSubscriptionCheckoutSessionButton>
         </div>
@@ -12894,6 +13205,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
                 <span>
                   Teacher Premium
                   <Tooltip
+                    isTabbable={true}
                     tooltipText="Teacher Paid subscription"
                     tooltipTriggerText={
                       <span>
@@ -12906,14 +13218,20 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
                     }
                   >
                     <span
+                      aria-hidden={false}
                       className="quill-tooltip-trigger"
+                      role="tooltip"
                     >
                       <span
                         className="undefined"
+                        onBlur={[Function]}
                         onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
-                        tabIndex={null}
+                        role="button"
+                        tabIndex={0}
                       >
                         <span>
                           <img
@@ -12927,6 +13245,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
                         className="quill-tooltip-wrapper"
                       >
                         <span
+                          aria-live="polite"
                           className="quill-tooltip"
                         />
                       </span>
@@ -12975,7 +13294,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
           className="quill-button medium primary outlined focus-on-light"
           href="/referrals"
         >
-          Earn Premium Credits
+          Earn premium credits
         </a>
       </div>
     </AvailableCredits>
@@ -13191,7 +13510,7 @@ exports[`Subscriptions UI state iterations trial renders when there is an active
               className="time-left-in-days"
             >
                | 
-              17394 days
+              17386 days
             </span>
           </span>
         </div>
@@ -13273,6 +13592,7 @@ exports[`Subscriptions UI state iterations trial renders when there is an active
                         >
                           Teacher Premium Trial
                           <Tooltip
+                            isTabbable={true}
                             tooltipText="You have a Teacher Trial subscription"
                             tooltipTriggerText={
                               <span>
@@ -13300,6 +13620,7 @@ exports[`Subscriptions UI state iterations trial renders when there is an active
                           >
                             Teacher Premium Trial
                             <Tooltip
+                              isTabbable={true}
                               tooltipText="You have a Teacher Trial subscription"
                               tooltipTriggerText={
                                 <span>
@@ -13312,14 +13633,20 @@ exports[`Subscriptions UI state iterations trial renders when there is an active
                               }
                             >
                               <span
+                                aria-hidden={false}
                                 className="quill-tooltip-trigger"
+                                role="tooltip"
                               >
                                 <span
                                   className="undefined"
+                                  onBlur={[Function]}
                                   onClick={[Function]}
+                                  onFocus={[Function]}
+                                  onKeyDown={[Function]}
                                   onMouseEnter={[Function]}
                                   onMouseLeave={[Function]}
-                                  tabIndex={null}
+                                  role="button"
+                                  tabIndex={0}
                                 >
                                   <span>
                                     <img
@@ -13333,6 +13660,7 @@ exports[`Subscriptions UI state iterations trial renders when there is an active
                                   className="quill-tooltip-wrapper"
                                 >
                                   <span
+                                    aria-live="polite"
                                     className="quill-tooltip"
                                   />
                                 </span>
@@ -13414,7 +13742,7 @@ exports[`Subscriptions UI state iterations trial renders when there is an active
                   PAYMENT METHOD ON FILE
                 </h3>
                 <span>
-                  No Payment Method on File
+                  No payment method on file
                 </span>
               </div>
               <div
@@ -13547,6 +13875,7 @@ exports[`Subscriptions UI state iterations trial renders when there is an active
                 <span>
                   Teacher Premium Trial
                   <Tooltip
+                    isTabbable={true}
                     tooltipText="Teacher Trial subscription"
                     tooltipTriggerText={
                       <span>
@@ -13559,14 +13888,20 @@ exports[`Subscriptions UI state iterations trial renders when there is an active
                     }
                   >
                     <span
+                      aria-hidden={false}
                       className="quill-tooltip-trigger"
+                      role="tooltip"
                     >
                       <span
                         className="undefined"
+                        onBlur={[Function]}
                         onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
-                        tabIndex={null}
+                        role="button"
+                        tabIndex={0}
                       >
                         <span>
                           <img
@@ -13580,6 +13915,7 @@ exports[`Subscriptions UI state iterations trial renders when there is an active
                         className="quill-tooltip-wrapper"
                       >
                         <span
+                          aria-live="polite"
                           className="quill-tooltip"
                         />
                       </span>
@@ -13628,7 +13964,7 @@ exports[`Subscriptions UI state iterations trial renders when there is an active
           className="quill-button medium primary outlined focus-on-light"
           href="/referrals"
         >
-          Earn Premium Credits
+          Earn premium credits
         </a>
       </div>
     </AvailableCredits>
@@ -13831,7 +14167,7 @@ exports[`Subscriptions UI state iterations trial renders when there is an expire
             className="quill-button medium contained primary focus-on-light"
             href="/premium"
           >
-            Subscribe to Premium
+            Subscribe to premium
           </a>
         </div>
         <p>
@@ -13971,6 +14307,7 @@ exports[`Subscriptions UI state iterations trial renders when there is an expire
                 <span>
                   Teacher Premium Trial
                   <Tooltip
+                    isTabbable={true}
                     tooltipText="Teacher Trial subscription"
                     tooltipTriggerText={
                       <span>
@@ -13983,14 +14320,20 @@ exports[`Subscriptions UI state iterations trial renders when there is an expire
                     }
                   >
                     <span
+                      aria-hidden={false}
                       className="quill-tooltip-trigger"
+                      role="tooltip"
                     >
                       <span
                         className="undefined"
+                        onBlur={[Function]}
                         onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
-                        tabIndex={null}
+                        role="button"
+                        tabIndex={0}
                       >
                         <span>
                           <img
@@ -14004,6 +14347,7 @@ exports[`Subscriptions UI state iterations trial renders when there is an expire
                         className="quill-tooltip-wrapper"
                       >
                         <span
+                          aria-live="polite"
                           className="quill-tooltip"
                         />
                       </span>
@@ -14052,7 +14396,7 @@ exports[`Subscriptions UI state iterations trial renders when there is an expire
           className="quill-button medium primary outlined focus-on-light"
           href="/referrals"
         >
-          Earn Premium Credits
+          Earn premium credits
         </a>
       </div>
     </AvailableCredits>

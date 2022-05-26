@@ -91,7 +91,6 @@ export class Header extends React.Component<any, any> {
                 <img alt="Quill.org logo" className="hide-on-mobile" src={logoSrc} />
               </a>
               <Tooltip
-                isTabbable={true}
                 tooltipText="Quill Reading for Evidence is in beta, which means that it’s not perfect yet. As you complete activities, you may notice some issues—a button may not work or some feedback could be unhelpful. Please know that we’re actively working on Quill Reading for Evidence and making improvements every day."
                 tooltipTriggerText={tooltipTrigger}
                 tooltipTriggerTextClass="hide-on-mobile beta-tag focus-on-dark"

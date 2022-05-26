@@ -22,7 +22,7 @@ exports[`AvailableCredits container should render when there are no premium cred
       className="quill-button medium primary outlined focus-on-light"
       href="/referrals"
     >
-      Earn Premium Credits
+      Earn premium credits
     </a>
   </div>
 </AvailableCredits>

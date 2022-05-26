@@ -18,6 +18,7 @@
   display: flex;
   align-items: center;
   min-width: min-content;
+
 }
 
 .data-table-row-section {
@@ -51,8 +52,12 @@
   }
 }
 
-.data-table {
+table.data-table {
   overflow: scroll;
+  font-size: 14px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 
   .data-table-body:not(.reorderable) {
     .data-table-row:last-of-type {
@@ -84,6 +89,7 @@
     top: 0;
     background-color: white;
     z-index: 1;
+    width: min-content;
   }
 
   .data-table-row {
