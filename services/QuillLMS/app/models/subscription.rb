@@ -385,6 +385,7 @@ class Subscription < ApplicationRecord
       'last_four' => last_four,
       'purchaser_name' => purchaser&.name,
       'renewal_stripe_price_id' => renewal_stripe_price_id,
+      'renewal_price' => plan && PlanSerializer.new(plan).price_in_dollars,
       'stripe_customer_id' => purchaser&.stripe_customer_id,
       'stripe_subscription_id' => stripe_subscription_id
     )
