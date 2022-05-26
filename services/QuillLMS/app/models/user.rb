@@ -237,7 +237,7 @@ class User < ApplicationRecord
 
   def subscription_authority_level(subscription_id)
     subscription = Subscription.find subscription_id
-    if subscription.purchaser_id == id
+    if subscription.purchaser_id == id || subscription.purchaser_email&.downcase == email
       'purchaser'
     elsif subscription.schools.include?(school)
       if school.coordinator == self

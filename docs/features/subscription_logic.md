@@ -17,7 +17,7 @@ Scenario: The teacher has subscribed to Quill Premium by credit card. Their next
 ### Credit Card - Purchaser - Active - No CTA - Basic Plan
 Link: zpl.io/2955Bxe
 
-Tooltip: Once your current Teacher Premium subscription expires, you will be downgraded to the Quill Basic subscription.
+Tooltip: Once your current Teacher Premium subscription expires, you will be downgraded to Quill Basic.
 Scenario: The teacher has subscribed to Quill Premium by credit card. Their next plan is Quill Basic.
 
 ### Credit Card - Purchaser - Expired - Renew Subscription 
@@ -86,7 +86,7 @@ Scenario: When a school buys a subscription with a credit card, the next plan is
 ### Credit Card - Purchaser - Active - No CTA - Basic Plan
 Link: zpl.io/bokxr6k
 
-Tooltip: Once your current School Premium subscription expires, your accounts will be downgraded to the Quill Basic subscription.
+Tooltip: Once your current School Premium subscription expires, your accounts will be downgraded to Quill Basic.
 Scenario: when the purchaser changes plans to basic, the screen will be the same but the message in the tooltip will change
 
 ### Credit Card - Purchaser - Expired - Renew Subscription 
