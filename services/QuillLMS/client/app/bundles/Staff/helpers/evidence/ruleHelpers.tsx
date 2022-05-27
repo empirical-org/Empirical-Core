@@ -439,14 +439,6 @@ export function getRulesUrl(activityId: string, promptId: string, ruleType: stri
   }
 }
 
-export function getRulesUrlWithPlagiarismTexts(activityId: string) {
-  if (activityId) {
-    return `activities/${activityId}/rules_with_plagiarism_texts`
-  } else {
-    throw new Error('An Activity ID must be specified')
-  }
-}
-
 export function getReturnLinkRuleType(ruleType) {
   if(!ruleType) {
     return 'rules-index';

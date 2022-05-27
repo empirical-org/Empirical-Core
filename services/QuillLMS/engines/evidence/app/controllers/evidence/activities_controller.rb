@@ -47,13 +47,7 @@ module Evidence
     def rules
       @activity = Evidence::Activity.includes(prompts: :rules).find(params[:id])
       rules = @activity.prompts&.map {|p| p.rules}&.flatten&.uniq
-      render json: rules
-    end
-
-    def rules_with_plagiarism_texts
-      @activity = Evidence::Activity.includes(prompts: :rules).find(params[:id])
-      rules = @activity.prompts&.map {|p| p.rules.serializable_hash(include: [:feedbacks, :label, :plagiarism_texts])}&.flatten&.uniq
-      render json: rules
+      render json: rules.map {|r| r.serializable_hash(include: [])}
     end
 
     # GET /activities/1/change_logs.json
