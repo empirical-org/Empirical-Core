@@ -139,11 +139,6 @@ module PagesHelper
             img: 'team-daniel-giovanniello@2x.png'
           },
           {
-            name: 'Jeremy Hertz',
-            title: 'Director of School Partnerships',
-            img: 'team-jeremy-hertz@2x.png'
-          },
-          {
             name: 'Peter Kong',
             title: 'Senior Software Developer',
             img: 'team-peter-kong@2x.png'

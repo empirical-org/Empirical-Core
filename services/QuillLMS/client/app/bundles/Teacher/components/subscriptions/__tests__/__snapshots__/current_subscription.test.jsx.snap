@@ -44,7 +44,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
       "account_type": "School Paid",
       "created_at": "2022-02-16T14: 07: 25.976Z",
       "de_activated_date": null,
-      "expiration": "2023-07-31",
+      "expiration": "2070-01-01",
       "expired": false,
       "id": 7,
       "lastFour": null,
@@ -55,6 +55,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
       "purchaser_id": null,
       "purchaser_name": null,
       "recurring": false,
+      "renewal_price": null,
       "start_date": "2022-02-16",
       "subscription_type_id": null,
       "updated_at": "2022-02-16T14: 07: 25.976Z",
@@ -64,6 +65,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
   userIsContact={false}
 >
   <section>
+    <span />
     <h2>
       Subscription Information
     </h2>
@@ -88,9 +90,12 @@ exports[`CurrentSubscription container when there is a current subscription shou
               <div>
                 <_default
                   content={
-                    <span>
+                    <span
+                      className="content-wrapper"
+                    >
                       School Premium
                       <Tooltip
+                        isTabbable={true}
                         tooltipText="You have a School Paid subscription"
                         tooltipTriggerText={
                           <span>
@@ -113,9 +118,12 @@ exports[`CurrentSubscription container when there is a current subscription shou
                       Plan
                     </span>
                     <span>
-                      <span>
+                      <span
+                        className="content-wrapper"
+                      >
                         School Premium
                         <Tooltip
+                          isTabbable={true}
                           tooltipText="You have a School Paid subscription"
                           tooltipTriggerText={
                             <span>
@@ -128,14 +136,20 @@ exports[`CurrentSubscription container when there is a current subscription shou
                           }
                         >
                           <span
+                            aria-hidden={false}
                             className="quill-tooltip-trigger"
+                            role="tooltip"
                           >
                             <span
                               className="undefined"
+                              onBlur={[Function]}
                               onClick={[Function]}
+                              onFocus={[Function]}
+                              onKeyDown={[Function]}
                               onMouseEnter={[Function]}
                               onMouseLeave={[Function]}
-                              tabIndex={null}
+                              role="button"
+                              tabIndex={0}
                             >
                               <span>
                                 <img
@@ -149,12 +163,28 @@ exports[`CurrentSubscription container when there is a current subscription shou
                               className="quill-tooltip-wrapper"
                             >
                               <span
+                                aria-live="polite"
                                 className="quill-tooltip"
                               />
                             </span>
                           </span>
                         </Tooltip>
                       </span>
+                    </span>
+                  </div>
+                </_default>
+                <_default
+                  content="Off"
+                  title="Automatic Renewal"
+                >
+                  <div>
+                    <span
+                      className="title"
+                    >
+                      Automatic Renewal
+                    </span>
+                    <span>
+                      Off
                     </span>
                   </div>
                 </_default>
@@ -176,7 +206,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
                   </div>
                 </_default>
                 <_default
-                  content="July 31st, 2023"
+                  content="January 1st, 2070"
                   title="End Date"
                 >
                   <div>
@@ -186,7 +216,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
                       End Date
                     </span>
                     <span>
-                      July 31st, 2023
+                      January 1st, 2070
                     </span>
                   </div>
                 </_default>
@@ -200,7 +230,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
               PAYMENT METHOD ON FILE
             </h3>
             <span>
-              No Payment Method on File
+              No payment method on file
             </span>
           </div>
           <div
@@ -216,9 +246,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
                 <_default
                   content={
                     <span>
-                      <span>
-                        Quill Basic - Free 
-                      </span>
+                      Quill Basic - Free
                     </span>
                   }
                   title="Next Plan"
@@ -231,9 +259,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
                     </span>
                     <span>
                       <span>
-                        <span>
-                          Quill Basic - Free 
-                        </span>
+                        Quill Basic - Free
                       </span>
                     </span>
                   </div>
@@ -245,7 +271,22 @@ exports[`CurrentSubscription container when there is a current subscription shou
                 <i
                   className="fas fa-icon fa-lightbulb-o"
                 />
-                Once your current School Premium subscription expires, you will be downgraded to the Quill Basic subscription.
+                <span>
+                  Once your current School Premium subscription expires, you will be downgraded to Quill Basic.
+                   To renew your subscription for next year, contact the purchaser at 
+                  <a
+                    href="mailto:emilia+3@quill.org"
+                  >
+                    emilia+3@quill.org
+                  </a>
+                   or 
+                  <a
+                    href="mailto:sales@quill.org"
+                  >
+                    the Quill team
+                  </a>
+                  .
+                </span>
               </div>
             </div>
           </div>
@@ -253,6 +294,11 @@ exports[`CurrentSubscription container when there is a current subscription shou
       </div>
       <span />
     </div>
+    <Snackbar>
+      <div
+        className="quill-snackbar "
+      />
+    </Snackbar>
   </section>
 </CurrentSubscription>
 `;
@@ -266,7 +312,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
       "account_type": "School Paid",
       "created_at": "2022-02-16T14: 07: 25.976Z",
       "de_activated_date": null,
-      "expiration": "2023-07-31",
+      "expiration": "2070-01-01",
       "expired": false,
       "id": 7,
       "lastFour": null,
@@ -277,6 +323,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
       "purchaser_id": null,
       "purchaser_name": null,
       "recurring": false,
+      "renewal_price": null,
       "start_date": "2022-02-16",
       "subscription_type_id": null,
       "updated_at": "2022-02-16T14: 07: 25.976Z",
@@ -286,6 +333,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
   userIsContact={false}
 >
   <section>
+    <span />
     <h2>
       Subscription Information
     </h2>
@@ -310,9 +358,12 @@ exports[`CurrentSubscription container when there is a current subscription shou
               <div>
                 <_default
                   content={
-                    <span>
+                    <span
+                      className="content-wrapper"
+                    >
                       School Premium
                       <Tooltip
+                        isTabbable={true}
                         tooltipText="You have a School Paid subscription"
                         tooltipTriggerText={
                           <span>
@@ -335,9 +386,12 @@ exports[`CurrentSubscription container when there is a current subscription shou
                       Plan
                     </span>
                     <span>
-                      <span>
+                      <span
+                        className="content-wrapper"
+                      >
                         School Premium
                         <Tooltip
+                          isTabbable={true}
                           tooltipText="You have a School Paid subscription"
                           tooltipTriggerText={
                             <span>
@@ -350,14 +404,20 @@ exports[`CurrentSubscription container when there is a current subscription shou
                           }
                         >
                           <span
+                            aria-hidden={false}
                             className="quill-tooltip-trigger"
+                            role="tooltip"
                           >
                             <span
                               className="undefined"
+                              onBlur={[Function]}
                               onClick={[Function]}
+                              onFocus={[Function]}
+                              onKeyDown={[Function]}
                               onMouseEnter={[Function]}
                               onMouseLeave={[Function]}
-                              tabIndex={null}
+                              role="button"
+                              tabIndex={0}
                             >
                               <span>
                                 <img
@@ -371,6 +431,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
                               className="quill-tooltip-wrapper"
                             >
                               <span
+                                aria-live="polite"
                                 className="quill-tooltip"
                               />
                             </span>
@@ -395,6 +456,21 @@ exports[`CurrentSubscription container when there is a current subscription shou
                     </span>
                   </div>
                 </_default>
+                <_default
+                  content="Off"
+                  title="Automatic Renewal"
+                >
+                  <div>
+                    <span
+                      className="title"
+                    >
+                      Automatic Renewal
+                    </span>
+                    <span>
+                      Off
+                    </span>
+                  </div>
+                </_default>
               </div>
               <div>
                 <_default
@@ -413,7 +489,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
                   </div>
                 </_default>
                 <_default
-                  content="July 31st, 2023"
+                  content="January 1st, 2070"
                   title="End Date"
                 >
                   <div>
@@ -423,7 +499,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
                       End Date
                     </span>
                     <span>
-                      July 31st, 2023
+                      January 1st, 2070
                     </span>
                   </div>
                 </_default>
@@ -437,7 +513,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
               PAYMENT METHOD ON FILE
             </h3>
             <span>
-              No Payment Method on File
+              No payment method on file
             </span>
           </div>
           <div
@@ -453,9 +529,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
                 <_default
                   content={
                     <span>
-                      <span>
-                        Quill Basic - Free 
-                      </span>
+                      Quill Basic - Free
                     </span>
                   }
                   title="Next Plan"
@@ -468,9 +542,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
                     </span>
                     <span>
                       <span>
-                        <span>
-                          Quill Basic - Free 
-                        </span>
+                        Quill Basic - Free
                       </span>
                     </span>
                   </div>
@@ -482,7 +554,22 @@ exports[`CurrentSubscription container when there is a current subscription shou
                 <i
                   className="fas fa-icon fa-lightbulb-o"
                 />
-                Once your current School Premium subscription expires, you will be downgraded to the Quill Basic subscription.
+                <span>
+                  Once your current School Premium subscription expires, you will be downgraded to Quill Basic.
+                   To renew your subscription for next year, contact the purchaser at 
+                  <a
+                    href="mailto:emilia+3@quill.org"
+                  >
+                    emilia+3@quill.org
+                  </a>
+                   or 
+                  <a
+                    href="mailto:sales@quill.org"
+                  >
+                    the Quill team
+                  </a>
+                  .
+                </span>
               </div>
             </div>
           </div>
@@ -490,6 +577,11 @@ exports[`CurrentSubscription container when there is a current subscription shou
       </div>
       <span />
     </div>
+    <Snackbar>
+      <div
+        className="quill-snackbar "
+      />
+    </Snackbar>
   </section>
 </CurrentSubscription>
 `;
@@ -503,7 +595,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
       "account_type": "School Paid",
       "created_at": "2022-02-16T14: 07: 25.976Z",
       "de_activated_date": null,
-      "expiration": "2023-07-31",
+      "expiration": "2070-01-01",
       "expired": false,
       "id": 7,
       "lastFour": null,
@@ -514,6 +606,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
       "purchaser_id": null,
       "purchaser_name": null,
       "recurring": false,
+      "renewal_price": null,
       "start_date": "2022-02-16",
       "subscription_type_id": null,
       "updated_at": "2022-02-16T14: 07: 25.976Z",
@@ -523,6 +616,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
   userIsContact={false}
 >
   <section>
+    <span />
     <h2>
       Subscription Information
     </h2>
@@ -547,9 +641,12 @@ exports[`CurrentSubscription container when there is a current subscription shou
               <div>
                 <_default
                   content={
-                    <span>
+                    <span
+                      className="content-wrapper"
+                    >
                       School Premium
                       <Tooltip
+                        isTabbable={true}
                         tooltipText="You have a School Paid subscription"
                         tooltipTriggerText={
                           <span>
@@ -572,9 +669,12 @@ exports[`CurrentSubscription container when there is a current subscription shou
                       Plan
                     </span>
                     <span>
-                      <span>
+                      <span
+                        className="content-wrapper"
+                      >
                         School Premium
                         <Tooltip
+                          isTabbable={true}
                           tooltipText="You have a School Paid subscription"
                           tooltipTriggerText={
                             <span>
@@ -587,14 +687,20 @@ exports[`CurrentSubscription container when there is a current subscription shou
                           }
                         >
                           <span
+                            aria-hidden={false}
                             className="quill-tooltip-trigger"
+                            role="tooltip"
                           >
                             <span
                               className="undefined"
+                              onBlur={[Function]}
                               onClick={[Function]}
+                              onFocus={[Function]}
+                              onKeyDown={[Function]}
                               onMouseEnter={[Function]}
                               onMouseLeave={[Function]}
-                              tabIndex={null}
+                              role="button"
+                              tabIndex={0}
                             >
                               <span>
                                 <img
@@ -608,12 +714,28 @@ exports[`CurrentSubscription container when there is a current subscription shou
                               className="quill-tooltip-wrapper"
                             >
                               <span
+                                aria-live="polite"
                                 className="quill-tooltip"
                               />
                             </span>
                           </span>
                         </Tooltip>
                       </span>
+                    </span>
+                  </div>
+                </_default>
+                <_default
+                  content="Off"
+                  title="Automatic Renewal"
+                >
+                  <div>
+                    <span
+                      className="title"
+                    >
+                      Automatic Renewal
+                    </span>
+                    <span>
+                      Off
                     </span>
                   </div>
                 </_default>
@@ -635,7 +757,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
                   </div>
                 </_default>
                 <_default
-                  content="July 31st, 2023"
+                  content="January 1st, 2070"
                   title="End Date"
                 >
                   <div>
@@ -645,7 +767,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
                       End Date
                     </span>
                     <span>
-                      July 31st, 2023
+                      January 1st, 2070
                     </span>
                   </div>
                 </_default>
@@ -659,7 +781,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
               PAYMENT METHOD ON FILE
             </h3>
             <span>
-              No Payment Method on File
+              No payment method on file
             </span>
           </div>
           <div
@@ -675,9 +797,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
                 <_default
                   content={
                     <span>
-                      <span>
-                        Quill Basic - Free 
-                      </span>
+                      Quill Basic - Free
                     </span>
                   }
                   title="Next Plan"
@@ -690,9 +810,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
                     </span>
                     <span>
                       <span>
-                        <span>
-                          Quill Basic - Free 
-                        </span>
+                        Quill Basic - Free
                       </span>
                     </span>
                   </div>
@@ -704,7 +822,22 @@ exports[`CurrentSubscription container when there is a current subscription shou
                 <i
                   className="fas fa-icon fa-lightbulb-o"
                 />
-                Once your current School Premium subscription expires, you will be downgraded to the Quill Basic subscription.
+                <span>
+                  Once your current School Premium subscription expires, you will be downgraded to Quill Basic.
+                   To renew your subscription for next year, contact the purchaser at 
+                  <a
+                    href="mailto:emilia+3@quill.org"
+                  >
+                    emilia+3@quill.org
+                  </a>
+                   or 
+                  <a
+                    href="mailto:sales@quill.org"
+                  >
+                    the Quill team
+                  </a>
+                  .
+                </span>
               </div>
             </div>
           </div>
@@ -712,6 +845,11 @@ exports[`CurrentSubscription container when there is a current subscription shou
       </div>
       <span />
     </div>
+    <Snackbar>
+      <div
+        className="quill-snackbar "
+      />
+    </Snackbar>
   </section>
 </CurrentSubscription>
 `;
