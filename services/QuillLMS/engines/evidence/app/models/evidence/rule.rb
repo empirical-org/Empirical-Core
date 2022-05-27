@@ -68,7 +68,7 @@ module Evidence
 
       super(options.reverse_merge(
         only: [:id, :uid, :name, :note, :universal, :rule_type, :optimal, :state, :suborder, :concept_uid, :prompt_ids],
-        include: [:plagiarism_texts, :feedbacks, :label, :regex_rules, :hint],
+        include: [:feedbacks, :label, :regex_rules, :hint],
         methods: [:prompt_ids, :display_name, :conditional]
       ))
     end

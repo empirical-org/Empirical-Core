@@ -9,7 +9,7 @@ import { promptsByConjunction } from "../../../helpers/evidence/promptHelpers";
 import { getPromptIdString } from '../../../helpers/evidence/ruleHelpers';
 import { ActivityRouteProps, RuleInterface } from '../../../interfaces/evidenceInterfaces';
 import { BECAUSE, BUT, SO, PLAGIARISM } from '../../../../../constants/evidence';
-import { fetchRules } from '../../../utils/evidence/ruleAPIs';
+import { fetchRulesWithPlagiarismTexts } from '../../../utils/evidence/ruleAPIs';
 import { fetchActivity } from '../../../utils/evidence/activityAPIs';
 import { DataTable, Error, Spinner } from '../../../../Shared/index';
 
@@ -37,7 +37,7 @@ const PlagiarismRulesIndex: React.FC<RouteComponentProps<ActivityRouteProps>> = 
   const { data: plagiarismRulesData } = useQuery({
     // cache rules data for updates
     queryKey: [`rules-${activityId}-${PLAGIARISM}`, null, promptIds, PLAGIARISM],
-    queryFn: fetchRules
+    queryFn: fetchRulesWithPlagiarismTexts
   });
 
   React.useEffect(() => {

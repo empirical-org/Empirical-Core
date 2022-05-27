@@ -1,11 +1,27 @@
 import { RuleInterface } from '../../interfaces/evidenceInterfaces';
 import { handleApiError, apiFetch, handleRequestErrors, requestFailed } from '../../helpers/evidence/routingHelpers';
-import { getRulesUrl } from '../../helpers/evidence/ruleHelpers';
+import { getRulesUrl, getRulesUrlWithPlagiarismTexts } from '../../helpers/evidence/ruleHelpers';
 
 export const fetchRules = async ({ queryKey }) => {
   const [key, activityId, promptId, ruleType]: [string, string, any, string] = queryKey
 
   const url = getRulesUrl(activityId, promptId, ruleType)
+
+  const response = await apiFetch(url);
+  let rules = await response.json();
+  if(rules && rules.rules) {
+    rules = rules.rules;
+  }
+  return {
+    error: handleApiError('Failed to fetch rules, please refresh the page.', response),
+    rules: rules
+  };
+}
+
+export const fetchRulesWithPlagiarismTexts = async ({ queryKey }) => {
+  const [key, activityId, promptId, ruleType]: [string, string, any, string] = queryKey
+
+  const url = getRulesUrlWithPlagiarismTexts(activityId)
 
   const response = await apiFetch(url);
   let rules = await response.json();
