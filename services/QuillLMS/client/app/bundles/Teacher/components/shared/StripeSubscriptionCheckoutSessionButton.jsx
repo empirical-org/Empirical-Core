@@ -7,7 +7,7 @@ export const StripeSubscriptionCheckoutSessionButton = ({
   buttonText,
   cancelPath,
   customerEmail,
-  schoolIds,
+  schoolId,
   stripePriceId,
   userIsEligibleForNewSubscription,
   userIsSignedIn
@@ -27,7 +27,7 @@ export const StripeSubscriptionCheckoutSessionButton = ({
       const data = {
         cancel_path: cancelPath,
         customer_email: customerEmail,
-        ...(schoolIds && { school_ids: schoolIds }),
+        ...(schoolId && { school_id: schoolId }),
         stripe_price_id: stripePriceId
       }
 

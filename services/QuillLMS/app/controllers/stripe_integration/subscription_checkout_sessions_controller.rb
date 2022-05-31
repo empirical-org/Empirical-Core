@@ -38,7 +38,7 @@ module StripeIntegration
       params[:customer_email]
     end
 
-    private def school_ids
+    private def school_id
       params[:school_id]
     end
 
@@ -51,13 +51,15 @@ module StripeIntegration
     end
 
     private def success_url
-      "#{subscriptions_url}?checkout_session_id={CHECKOUT_SESSION_ID}"
+      return "#{subscriptions_url}?checkout_session_id={CHECKOUT_SESSION_ID}" unless school_id
+
+      "#{teacher_admin_subscriptions_url(school_id: school_id)}&checkout_session_id={CHECKOUT_SESSION_ID}"
     end
 
     private def subscription_data
-      return {} unless School.exists?(id: school_ids)
+      return {} unless School.exists?(id: school_id)
 
-      { metadata: { school_ids: school_ids } }
+      { metadata: { school_id: school_id } }
     end
   end
 end
