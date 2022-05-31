@@ -14,6 +14,7 @@ import { fetchActivity } from '../../../utils/evidence/activityAPIs';
 import { fetchRuleFeedbackHistories } from '../../../utils/evidence/ruleFeedbackHistoryAPIs';
 import { DropdownInput, Spinner, ReactTable, expanderColumn, } from '../../../../Shared/index';
 import { RULES_ANALYSIS } from '../../../../../constants/evidence';
+import { fetchModels } from "../../../utils/evidence/modelAPIs";
 
 const DEFAULT_RULE_TYPE = 'All Rules'
 
@@ -55,11 +56,18 @@ const MoreInfo = (row) => {
   )
 }
 
+const getDateFromLatestAutoMLModel = (models) => {
+  const latestModel = models?.find( model => model.state === 'active')
+  console.log("getDateFromLatestAutoMLModel called, latest model:", latestModel)
+  if (!latestModel) { return '' }
+  return latestModel.created_at
+}
+
 const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ history, match }) => {
   const { params } = match;
   const { activityId, promptConjunction, } = params;
   const today = new Date();
-  const thirtyDaysAgo = new Date().setDate(today.getDate()-30);
+  const thirtyDaysAgo = new Date().setDate(today.getDate()); // TODO: REVERT
 
   const ruleTypeValues = [DEFAULT_RULE_TYPE].concat(Object.keys(apiOrderLookup))
   const ruleTypeOptions = ruleTypeValues.map(val => ({ label: val, value: val, }))
@@ -67,7 +75,7 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
   const initialStartDateString = window.sessionStorage.getItem(`${RULES_ANALYSIS}startDate`) || '';
   const initialEndDateString = window.sessionStorage.getItem(`${RULES_ANALYSIS}endDate`) || '';
   const initialTurkSessionId = window.sessionStorage.getItem(`${RULES_ANALYSIS}turkSessionId`) || '';
-  const initialStartDate = initialStartDateString ? new Date(initialStartDateString) : new Date(thirtyDaysAgo);
+
   const initialEndDate = initialEndDateString ? new Date(initialEndDateString) : null;
 
   const selectedRuleTypeOption = ruleTypeOptions.find(opt => opt.value === ruleTypeFromUrl)
@@ -76,7 +84,6 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
   const [selectedPrompt, setSelectedPrompt] = React.useState(null)
   const [selectedRuleType, setSelectedRuleType] = React.useState(selectedRuleTypeOption)
   const [sorted, setSorted] = React.useState([])
-  const [startDate, onStartDateChange] = React.useState<Date>(initialStartDate);
   const [startDateForQuery, setStartDate] = React.useState<string>(initialStartDateString);
   const [endDate, onEndDateChange] = React.useState<Date>(initialEndDate);
   const [endDateForQuery, setEndDate] = React.useState<string>(initialEndDateString);
@@ -86,6 +93,16 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
   const [formattedRows, setFormattedRows] = React.useState<any[]>(null);
 
   const selectedConjunction = selectedPrompt ? selectedPrompt.conjunction : promptConjunction
+
+  const { data: modelsData } = useQuery({
+    queryKey: [`models-${selectedPrompt?.id}`, selectedPrompt?.id],
+    queryFn: fetchModels,
+    enabled: selectedPrompt !== null
+  });
+
+  const initialStartDate = initialStartDateString ? new Date(initialStartDateString) : new Date(thirtyDaysAgo);
+  const [startDate, onStartDateChange] = React.useState<Date>(initialStartDate);
+
 
   // cache rules data for updates
   const { data: ruleFeedbackHistory } = useQuery({
@@ -103,6 +120,12 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
     queryKey: [`activity-${activityId}`, activityId],
     queryFn: fetchActivity
   });
+
+  React.useEffect(() => {
+    onStartDateChange(getDateFromLatestAutoMLModel(modelsData?.models))
+    setStartDate(getDateFromLatestAutoMLModel(modelsData?.models))
+
+  }, [modelsData])
 
   React.useEffect(() => {
     if (selectedPrompt) { return }
@@ -425,6 +448,7 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
     )
   }
 
+
   return(
     <div className={containerClassName}>
       {renderHeader(activityData, 'Rules Analysis')}
@@ -450,7 +474,7 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
         onEndDateChange={onEndDateChange}
         onStartDateChange={onStartDateChange}
         showError={showError}
-        startDate={startDate}
+        startDate={startDateForQuery}
         turkSessionID={turkSessionID}
       />
       {renderDataSection()}
