@@ -34,7 +34,7 @@ class SyncVitallyWorker
   # rubocop:enable Metrics/CyclomaticComplexity
 
   def schools_to_sync
-    School.select(:id, :district_id).distinct.joins(:users).where('users.role = ?', 'teacher').where.not(district_id:nil)
+    School.select(:id, :district_id).distinct.joins(:users).where('users.role = ?', 'teacher').where.not(district_id: nil)
   end
 
   def users_to_sync

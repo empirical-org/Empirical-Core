@@ -9,7 +9,7 @@ describe SalesFormSubmissionController, type: :controller do
     let!(:school) { create(:school) }
 
     it 'should create sales_form_submission entry' do
-      sales_form_submission = double()
+      sales_form_submission = double
       allow(SalesFormSubmission).to receive(:new).and_return(sales_form_submission)
       allow(sales_form_submission).to receive(:save!).and_return(true)
       allow(sales_form_submission).to receive(:sync_to_vitally)
