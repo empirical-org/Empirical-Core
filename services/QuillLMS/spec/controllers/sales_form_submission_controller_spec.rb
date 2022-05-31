@@ -6,8 +6,16 @@ describe SalesFormSubmissionController, type: :controller do
 
   describe '#create' do
     let!(:sales_form_submission) { create(:sales_form_submission) }
+    let!(:school) { create(:school) }
 
     it 'should create sales_form_submission entry' do
+      sales_form_submission = double()
+      allow(SalesFormSubmission).to receive(:new).and_return(sales_form_submission)
+      allow(sales_form_submission).to receive(:save!).and_return(true)
+      allow(sales_form_submission).to receive(:sync_to_vitally)
+
+      expect(sales_form_submission).to receive(:save!)
+      expect(sales_form_submission).to receive(:sync_to_vitally)
       post :create, params: {
         sales_form_submission: {
           first_name: 'Bianca',
@@ -16,7 +24,7 @@ describe SalesFormSubmissionController, type: :controller do
           phone_number: '3334445555',
           zipcode: '10009',
           collection_type: 'school',
-          school_name: 'Academy of the Arts',
+          school_name: school.name,
           district_name: 'NYPS',
           school_premium_count_estimate: 1,
           teacher_premium_count_estimate: 20,
@@ -26,6 +34,7 @@ describe SalesFormSubmissionController, type: :controller do
         }
       }
       expect(response).to have_http_status(:no_content)
+
     end
   end
 

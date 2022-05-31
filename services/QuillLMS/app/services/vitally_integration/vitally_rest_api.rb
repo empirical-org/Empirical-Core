@@ -8,10 +8,10 @@ class VitallyRestApi
   end
 
   def create(type, payload)
-    send(type, payload)
+    post(type, payload)
   end
 
-  private def send(type, payload)
+  private def post(type, payload)
     HTTParty.post("#{VITALLY_REST_API_BASE_URL}/#{type}",
       headers: {
         Authorization: "Basic #{@api_key}",

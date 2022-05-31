@@ -55,13 +55,13 @@ class SalesFormSubmission < ApplicationRecord
     if collection_type == SCHOOL_COLLECTION_TYPE
       {
         templateId: vitally_template_id,
-        customerId: School.find_by(name: school_name).id,
+        customerId: School.find_by(name: school_name).id.to_s,
         traits: vitally_traits
       }
     else
       {
         templateId: vitally_template_id,
-        orgnanizationId: District.find_by(name: district_name).id,
+        organizationId: District.find_by(name: district_name).id.to_s,
         traits: vitally_traits
       }
     end
@@ -92,7 +92,8 @@ class SalesFormSubmission < ApplicationRecord
       number_of_students: student_premium_count_estimate,
       form_comments: comment,
       source: VITALLY_SOURCE,
-      intercom_link: ""
+      intercom_link: "",
+      sales_form_submission_id: id.to_s
     }
   end
 end

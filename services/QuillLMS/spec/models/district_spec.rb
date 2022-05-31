@@ -51,4 +51,26 @@ describe District, type: :model do
     end
   end
 
+  context '#vitally_data' do
+    let!(:district) { create(:district)}
+
+    it 'should return vitally payload with correct data' do
+      expect(district.vitally_data).to eq({
+        externalId: district.id.to_s,
+        name: district.name,
+        traits: {
+          name: district.name,
+          nces_id: district.nces_id,
+          clever_id: district.clever_id,
+          city: district.city,
+          state: district.state,
+          zipcode: district.zipcode,
+          phone: district.phone,
+          total_students: district.total_students,
+          total_schools: district.total_schools
+        }
+      })
+    end
+  end
+
 end
