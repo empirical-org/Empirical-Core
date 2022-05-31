@@ -30,6 +30,7 @@ class SalesFormSubmission < ApplicationRecord
     QUOTE_REQUEST_TYPE = 'quote request',
     RENEWAL_REQUEST_TYPE = 'renewal request'
   ]
+  VITALLY_SOURCE = "form"
 
   validates :first_name, presence: true
   validates :last_name, presence: true
@@ -47,7 +48,51 @@ class SalesFormSubmission < ApplicationRecord
 
   def sync_to_vitally
     api = VitallyRestApi.new
-    payload = SerializeVitallySalesProject.new(self).data
-    api.create("projects", payload)
+    api.create("projects", vitally_data)
+  end
+
+  private def vitally_data
+    if collection_type == SCHOOL_COLLECTION_TYPE
+      {
+        templateId: vitally_template_id,
+        customerId: School.find_by(name: school_name).id,
+        traits: vitally_traits
+      }
+    else
+      {
+        templateId: vitally_template_id,
+        orgnanizationId: District.find_by(name: district_name).id,
+        traits: vitally_traits
+      }
+    end
+  end
+
+  private def vitally_template_id
+    if collection_type == SCHOOL_COLLECTION_TYPE && submission_type == QUOTE_REQUEST_TYPE
+      "3faf0814-724d-4bb1-b56b-f854dfd23db8"
+    elsif collection_type == DISTRICT_COLLECTION_TYPE && submission_type == QUOTE_REQUEST_TYPE
+      "a96a963b-c1d4-4b33-94bb-f9a593046927"
+    elsif collection_type == SCHOOL_COLLECTION_TYPE && submission_type == RENEWAL_REQUEST_TYPE
+      "77925a98-2b74-47a6-81fb-c1922278df19"
+    else
+      "c1b2cd1f-f0aa-4e2c-855d-e3c1bce17a99"
+    end
+  end
+
+  private def vitally_traits
+    {
+      name: "#{first_name} #{last_name}",
+      email: email,
+      phone_number: phone_number,
+      school_name: school_name,
+      district_name: district_name,
+      zip_code: zipcode,
+      number_of_schools: school_premium_count_estimate,
+      number_of_teachers: teacher_premium_count_estimate,
+      number_of_students: student_premium_count_estimate,
+      form_comments: comment,
+      source: VITALLY_SOURCE,
+      intercom_link: ""
+    }
   end
 end

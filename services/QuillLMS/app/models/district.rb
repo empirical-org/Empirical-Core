@@ -41,4 +41,22 @@ class District < ApplicationRecord
     schools.sum { |s| s&.subscription&.payment_amount || 0 } / 100.0
   end
 
+  def vitally_data
+    {
+      externalId: id.to_s,
+      name: name,
+      traits: {
+        name: name,
+        nces_id: nces_id || "",
+        clever_id: clever_id || "",
+        city: city || "",
+        state: state || "",
+        zipcode: zipcode || "",
+        phone: phone || "",
+        total_students: total_students || "",
+        total_schools: total_schools || ""
+      }
+    }
+  end
+
 end

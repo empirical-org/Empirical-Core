@@ -5,7 +5,7 @@ class SyncVitallyOrganizationWorker
 
   def perform(district_id)
     district = District.find(district_id)
-    payload = SerializeVitallySalesOrganization.new(district).data
+    payload = district.vitally_data
     api = VitallyRestApi.new
     api.create("organizations", payload)
   end
