@@ -48,6 +48,7 @@ class Response < ApplicationRecord
   has_many :responses_concepts, dependent: :destroy
   has_many :concepts, through: :responses_concepts
 
+  accepts_nested_attributes_for :concepts, :concept_results
 
   validates_exclusion_of :correct, in: [nil]
 
@@ -68,6 +69,12 @@ class Response < ApplicationRecord
   ]
 
   def self.create_from_json(data_hash)
+    response = init_from_json(data_hash)
+    response.save!
+    response
+  end
+
+  def self.init_from_json(data_hash)
     data_hash = data_hash.deep_symbolize_keys
 
     metadata = data_hash[:metadata]
@@ -92,18 +99,21 @@ class Response < ApplicationRecord
     response.assign_normalized_text(data_hash)
     response.assign_extra_metadata(metadata)
 
-    response.save!
     response
   end
 
   def self.find_or_create_from_concept_result(concept_result)
     return if concept_result.response
 
-    response = Response.find_by(
-      activity_session: concept_result.activity_session,
-      attempt_number: concept_result.metadata['attemptNumber'],
-      question_number: concept_result.metadata['questionNumber']
-    )
+    if concept_result.metadata['questionNumber'] && concept_result.metadata['attemptNumber']
+      response = Response.find_by(
+        activity_session: concept_result.activity_session,
+        attempt_number: concept_result.metadata['attemptNumber'],
+        question_number: concept_result.metadata['questionNumber']
+      )
+    else
+      response = nil
+    end
 
     Response.transaction do
       # Create a totally new record if there isn't one yet
@@ -160,9 +170,9 @@ class Response < ApplicationRecord
   end
 
   def self.bulk_create_from_json(data_hash_array)
-    normalized_data_hash = roll_up_concepts(data_hash_array)
+    normalized_data_hashes = roll_up_concepts(data_hash_array)
 
-    normalized_data_hash.map { |data_hash| create_from_json(data_hash) }
+    normalized_data_hashes.map { |data_hash| create_from_json(data_hash) }
   end
 
   # Takes an input of hashes representing old-style ConceptResult

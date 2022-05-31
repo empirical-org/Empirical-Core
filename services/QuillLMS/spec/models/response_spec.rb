@@ -418,31 +418,32 @@ RSpec.describe Response, type: :model do
   context 'performance benchmarking', :benchmarking do
     let(:question) { create(:question) }
     let(:activity) { create(:activity, data: {questions: [{key: question.uid}]}) }
-
-    it 'performance migration from ConceptResults' do
-      samples = 100
-
+    let(:samples) { 100 }
+    let!(:concept_results) do
       samples.times do |i|
         metadata = {
           "correct": 1,
-          "directions": "Combine the sentences. (And)",
-          "lastFeedback": "Proofread your work. Check your spelling.",
-          "prompt": "Deserts are very dry. Years go by without rain.",
-          "attemptNumber": 2,
-          "answer": "Deserts are very dry, and years go by without rain.",
+          "directions": "Combine the sentences. (And)#{rand(10)}",
+          "lastFeedback": "Proofread your work. Check your spelling.#{rand(10)}",
+          "prompt": "Deserts are very dry. Years go by without rain.#{rand(10)}",
+          "attemptNumber": rand(10) + 1,
+          "answer": "Deserts are very dry, and years go by without rain.#{rand(10)}",
           "questionNumber": 1,
           "questionScore": 0.8
         }
         activity_session = create(:activity_session_without_concept_results, activity: activity)
         create(:sentence_combining, activity_session: activity_session, metadata: metadata)
       end
+    end
 
+    it 'performance migration from ConceptResults' do
       runtime = Benchmark.realtime do
         ConceptResult.all.each do |cr|
           Response.find_or_create_from_concept_result(cr)
         end
       end
-      puts format('Average ConceptResult migration runtime: %<runtime>.3f seconds', {runtime: (runtime / samples)})
+      puts format('Average ConceptResult migration runtime for %<count> items: %<runtime>.3f seconds', {runtime: (runtime / ConceptResult.count), count: ConceptResult.count})
+      expect(ResponseConceptResult.count).to eq(ConceptResult.count)
     end
   end
 end
