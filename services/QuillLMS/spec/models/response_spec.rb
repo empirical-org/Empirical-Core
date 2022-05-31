@@ -426,7 +426,7 @@ RSpec.describe Response, type: :model do
           "directions": "Combine the sentences. (And)#{rand(10)}",
           "lastFeedback": "Proofread your work. Check your spelling.#{rand(10)}",
           "prompt": "Deserts are very dry. Years go by without rain.#{rand(10)}",
-          "attemptNumber": rand(10) + 1,
+          "attemptNumber": rand(1..10),
           "answer": "Deserts are very dry, and years go by without rain.#{rand(10)}",
           "questionNumber": 1,
           "questionScore": 0.8
