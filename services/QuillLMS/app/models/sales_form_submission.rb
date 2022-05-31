@@ -44,4 +44,10 @@ class SalesFormSubmission < ApplicationRecord
   validates :student_premium_count_estimate, presence: true, numericality: { greater_than_or_equal_to: 0 }
   validates :collection_type, presence: true, inclusion: { in: COLLECTION_TYPES }
   validates :submission_type, presence: true, inclusion: { in: SUBMISSION_TYPES }
+
+  def sync_to_vitally
+    api = VitallyRestApi.new
+    payload = SerializeVitallySalesProject.new(self).data
+    api.create("projects", payload)
+  end
 end
