@@ -9,7 +9,14 @@ class SubscriptionsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.json {render json: @subscriptions}
+      format.json {
+        render json: {
+          subscriptions: @subscriptions,
+          premium_credits: @premium_credits,
+          subscription_status: @subscription_status,
+          user_authority_level: @user_authority_level,
+        }
+      }
     end
   end
 
@@ -68,7 +75,6 @@ class SubscriptionsController < ApplicationController
     @subscription_status = current_user.subscription_status
     @school_subscription_types = Subscription::OFFICIAL_SCHOOL_TYPES
     @trial_types = Subscription::TRIAL_TYPES
-    @stripe_teacher_plan = PlanSerializer.new(Plan.stripe_teacher_plan).as_json
 
     if @subscription_status&.key?('id')
       @user_authority_level = current_user.subscription_authority_level(@subscription_status['id'])

@@ -3,12 +3,7 @@
 module StripeIntegration
   module Webhooks
     class InvoicePaidEventHandler < EventHandler
-      EVENT_TYPE = 'invoice.paid'
       PUSHER_EVENT = 'stripe-subscription-created'
-
-      def self.handles?(event_type)
-        event_type == EVENT_TYPE
-      end
 
       def run
         SubscriptionCreator.run(stripe_invoice, stripe_subscription)

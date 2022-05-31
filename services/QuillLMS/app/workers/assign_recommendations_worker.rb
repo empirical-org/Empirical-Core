@@ -91,7 +91,7 @@ class AssignRecommendationsWorker
     start_time = $redis.get("user_id:#{teacher_id}_#{lesson_text}diagnostic_recommendations_start_time")
     return unless start_time
 
-    elapsed_time = Time.now - start_time.to_time
+    elapsed_time = Time.current - start_time.to_time
     if elapsed_time > 10
       diagnostic_recommendations_over_ten_seconds_count = $redis.get("#{lesson_text}diagnostic_recommendations_over_ten_seconds_count")
       if diagnostic_recommendations_over_ten_seconds_count

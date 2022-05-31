@@ -77,7 +77,7 @@ module Evidence
       }
       results = automl_prediction_client.predict(name: automl_prediction_model_path, payload: automl_payload)
       sorted_results = results.payload.sort_by { |i| i.classification.score }.reverse
-      sorted_results[0].display_name
+      [sorted_results[0].display_name, sorted_results[0].classification.score]
     end
 
     def older_models

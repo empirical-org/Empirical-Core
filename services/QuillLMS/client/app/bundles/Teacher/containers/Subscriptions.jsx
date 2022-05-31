@@ -17,7 +17,7 @@ import { requestGet } from '../../../modules/request';
 export default class Subscriptions extends React.Component {
   constructor(props) {
     super(props);
-    const availableAndEarnedCredits = this.availableAndEarnedCredits();
+    const availableAndEarnedCredits = this.availableAndEarnedCredits(props.premiumCredits);
 
     this.state = {
       subscriptions: props.subscriptions,
@@ -34,9 +34,7 @@ export default class Subscriptions extends React.Component {
     this.retrieveStripeSubscriptionPaymentMethodUpdating()
   }
 
-  availableAndEarnedCredits() {
-    const { premiumCredits, } = this.props
-
+  availableAndEarnedCredits(premiumCredits) {
     let earned = 0;
     let spent = 0;
 
@@ -157,35 +155,49 @@ export default class Subscriptions extends React.Component {
     return ACCOUNT_TYPE_TO_SUBSCRIPTION_TYPES[subscriptionStatus.account_type]
   }
 
-  updateSubscription = (params, subscriptionId) => {
+  updateSubscription = (params, subscriptionId, callback) => {
     request.put({
       url: `${process.env.DEFAULT_URL}/subscriptions/${subscriptionId}`,
       json: { subscription: params, authenticity_token: getAuthToken(), },
     }, (error, httpStatus, body) => {
       if (httpStatus.statusCode === 200) {
-        location.reload();
+        this.getSubscriptionData(callback)
       } else {
         alert('There was an error updating your subscription. Please try again or contact hello@quill.org.');
       }
     });
   };
 
+  getSubscriptionData(callback) {
+    requestGet('/subscriptions', (body) => {
+      const availableAndEarnedCredits = this.availableAndEarnedCredits(body.premium_credits);
+
+      this.setState({
+        subscriptions: body.subscriptions,
+        subscriptionStatus: body.subscription_status,
+        availableCredits: availableAndEarnedCredits.available,
+        earnedCredits: availableAndEarnedCredits.earned,
+        authorityLevel: body.user_authority_level,
+      }, () => {
+        callback ? callback() : null
+      });
+    })
+  }
+
   updateSubscriptionStatus = subscription => {
     this.setState({
+      showPremiumConfirmationModal: true,
       subscriptionStatus: subscription
     })
   }
 
   userIsContact() {
-    const { subscriptionStatus, } = this.props
-    if (subscriptionStatus) {
-      return Number(document.getElementById('current-user-id').getAttribute('content')) === subscriptionStatus.purchaser_id;
-    }
-    return false;
+    const { authorityLevel, } = this.state
+    return authorityLevel === 'purchaser' || !this.purchaserNameOrEmail()
   }
 
   render() {
-    const { premiumCredits, stripeTeacherPlan } = this.props
+    const { premiumCredits } = this.props
 
     const {
       authorityLevel,
@@ -203,7 +215,6 @@ export default class Subscriptions extends React.Component {
       <div>
         <SubscriptionStatus
           key={subId}
-          stripeTeacherPlan={stripeTeacherPlan}
           subscriptionStatus={subscriptionStatus}
           subscriptionType={this.subscriptionType()}
           userIsContact={this.userIsContact()}

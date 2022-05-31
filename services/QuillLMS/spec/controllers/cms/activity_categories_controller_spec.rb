@@ -10,7 +10,7 @@ describe Cms::ActivityCategoriesController, type: :controller do
   end
 
   around do |example|
-    travel_to(Time.zone.now) { example.run }
+    travel_to(Time.current) { example.run }
   end
 
   describe '#index' do

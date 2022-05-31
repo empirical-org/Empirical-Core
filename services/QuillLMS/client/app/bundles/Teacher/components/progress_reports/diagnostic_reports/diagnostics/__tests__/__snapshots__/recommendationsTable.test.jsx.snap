@@ -338,6 +338,7 @@ exports[`RecommendationsTable component should render when no students have comp
                     Compound-Complex Sentences
                   </span>
                   <Tooltip
+                    isTabbable={true}
                     tooltipText="<a href='/activities/packs/320' target=\\"_blank\\">Preview the activity pack</a>"
                     tooltipTriggerText={
                       <img
@@ -347,14 +348,20 @@ exports[`RecommendationsTable component should render when no students have comp
                     }
                   >
                     <span
+                      aria-hidden={false}
                       className="quill-tooltip-trigger"
+                      role="tooltip"
                     >
                       <span
                         className="undefined"
+                        onBlur={[Function]}
                         onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
-                        tabIndex={null}
+                        role="button"
+                        tabIndex={0}
                       >
                         <img
                           alt="Question mark icon"
@@ -365,6 +372,7 @@ exports[`RecommendationsTable component should render when no students have comp
                         className="quill-tooltip-wrapper"
                       >
                         <span
+                          aria-live="polite"
                           className="quill-tooltip"
                         />
                       </span>
@@ -389,6 +397,7 @@ exports[`RecommendationsTable component should render when no students have comp
                     Appositive Phrases
                   </span>
                   <Tooltip
+                    isTabbable={true}
                     tooltipText="<a href='/activities/packs/322' target=\\"_blank\\">Preview the activity pack</a>"
                     tooltipTriggerText={
                       <img
@@ -398,14 +407,20 @@ exports[`RecommendationsTable component should render when no students have comp
                     }
                   >
                     <span
+                      aria-hidden={false}
                       className="quill-tooltip-trigger"
+                      role="tooltip"
                     >
                       <span
                         className="undefined"
+                        onBlur={[Function]}
                         onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
-                        tabIndex={null}
+                        role="button"
+                        tabIndex={0}
                       >
                         <img
                           alt="Question mark icon"
@@ -416,6 +431,7 @@ exports[`RecommendationsTable component should render when no students have comp
                         className="quill-tooltip-wrapper"
                       >
                         <span
+                          aria-live="polite"
                           className="quill-tooltip"
                         />
                       </span>
@@ -440,6 +456,7 @@ exports[`RecommendationsTable component should render when no students have comp
                     Relative Clauses
                   </span>
                   <Tooltip
+                    isTabbable={true}
                     tooltipText="<a href='/activities/packs/324' target=\\"_blank\\">Preview the activity pack</a>"
                     tooltipTriggerText={
                       <img
@@ -449,14 +466,20 @@ exports[`RecommendationsTable component should render when no students have comp
                     }
                   >
                     <span
+                      aria-hidden={false}
                       className="quill-tooltip-trigger"
+                      role="tooltip"
                     >
                       <span
                         className="undefined"
+                        onBlur={[Function]}
                         onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
-                        tabIndex={null}
+                        role="button"
+                        tabIndex={0}
                       >
                         <img
                           alt="Question mark icon"
@@ -467,6 +490,7 @@ exports[`RecommendationsTable component should render when no students have comp
                         className="quill-tooltip-wrapper"
                       >
                         <span
+                          aria-live="polite"
                           className="quill-tooltip"
                         />
                       </span>
@@ -491,6 +515,7 @@ exports[`RecommendationsTable component should render when no students have comp
                     Participial Phrases
                   </span>
                   <Tooltip
+                    isTabbable={true}
                     tooltipText="<a href='/activities/packs/327' target=\\"_blank\\">Preview the activity pack</a>"
                     tooltipTriggerText={
                       <img
@@ -500,14 +525,20 @@ exports[`RecommendationsTable component should render when no students have comp
                     }
                   >
                     <span
+                      aria-hidden={false}
                       className="quill-tooltip-trigger"
+                      role="tooltip"
                     >
                       <span
                         className="undefined"
+                        onBlur={[Function]}
                         onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
-                        tabIndex={null}
+                        role="button"
+                        tabIndex={0}
                       >
                         <img
                           alt="Question mark icon"
@@ -518,6 +549,7 @@ exports[`RecommendationsTable component should render when no students have comp
                         className="quill-tooltip-wrapper"
                       >
                         <span
+                          aria-live="polite"
                           className="quill-tooltip"
                         />
                       </span>
@@ -542,6 +574,7 @@ exports[`RecommendationsTable component should render when no students have comp
                     Parallel Structure
                   </span>
                   <Tooltip
+                    isTabbable={true}
                     tooltipText="<a href='/activities/packs/329' target=\\"_blank\\">Preview the activity pack</a>"
                     tooltipTriggerText={
                       <img
@@ -551,14 +584,20 @@ exports[`RecommendationsTable component should render when no students have comp
                     }
                   >
                     <span
+                      aria-hidden={false}
                       className="quill-tooltip-trigger"
+                      role="tooltip"
                     >
                       <span
                         className="undefined"
+                        onBlur={[Function]}
                         onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
-                        tabIndex={null}
+                        role="button"
+                        tabIndex={0}
                       >
                         <img
                           alt="Question mark icon"
@@ -569,6 +608,7 @@ exports[`RecommendationsTable component should render when no students have comp
                         className="quill-tooltip-wrapper"
                       >
                         <span
+                          aria-live="polite"
                           className="quill-tooltip"
                         />
                       </span>
@@ -593,6 +633,7 @@ exports[`RecommendationsTable component should render when no students have comp
                     Advanced Combining
                   </span>
                   <Tooltip
+                    isTabbable={true}
                     tooltipText="<a href='/activities/packs/331' target=\\"_blank\\">Preview the activity pack</a>"
                     tooltipTriggerText={
                       <img
@@ -602,14 +643,20 @@ exports[`RecommendationsTable component should render when no students have comp
                     }
                   >
                     <span
+                      aria-hidden={false}
                       className="quill-tooltip-trigger"
+                      role="tooltip"
                     >
                       <span
                         className="undefined"
+                        onBlur={[Function]}
                         onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
-                        tabIndex={null}
+                        role="button"
+                        tabIndex={0}
                       >
                         <img
                           alt="Question mark icon"
@@ -620,6 +667,7 @@ exports[`RecommendationsTable component should render when no students have comp
                         className="quill-tooltip-wrapper"
                       >
                         <span
+                          aria-live="polite"
                           className="quill-tooltip"
                         />
                       </span>
@@ -5021,19 +5069,26 @@ exports[`RecommendationsTable component should render when no students have comp
                       name="Gabriel De La Concordia Garcia"
                     >
                       <Tooltip
+                        isTabbable={true}
                         tooltipText="Gabriel De La Concordia Garcia"
                         tooltipTriggerText="Gabriel De La Concordia Garcia"
                         tooltipTriggerTextClass="student-name"
                       >
                         <span
+                          aria-hidden={false}
                           className="quill-tooltip-trigger"
+                          role="tooltip"
                         >
                           <span
                             className="student-name"
+                            onBlur={[Function]}
                             onClick={[Function]}
+                            onFocus={[Function]}
+                            onKeyDown={[Function]}
                             onMouseEnter={[Function]}
                             onMouseLeave={[Function]}
-                            tabIndex={null}
+                            role="button"
+                            tabIndex={0}
                           >
                             Gabriel De La Concordia Garcia
                           </span>
@@ -5041,6 +5096,7 @@ exports[`RecommendationsTable component should render when no students have comp
                             className="quill-tooltip-wrapper"
                           >
                             <span
+                              aria-live="polite"
                               className="quill-tooltip"
                             />
                           </span>
@@ -7385,19 +7441,26 @@ exports[`RecommendationsTable component should render when no students have comp
                       name="Judy Heier-hammond Name Keeps Going For A Long Long Tim"
                     >
                       <Tooltip
+                        isTabbable={true}
                         tooltipText="Judy Heier-hammond Name Keeps Going For A Long Long Tim"
                         tooltipTriggerText="Judy Heier-hammond Name Keeps Going For A Long Long Tim"
                         tooltipTriggerTextClass="student-name"
                       >
                         <span
+                          aria-hidden={false}
                           className="quill-tooltip-trigger"
+                          role="tooltip"
                         >
                           <span
                             className="student-name"
+                            onBlur={[Function]}
                             onClick={[Function]}
+                            onFocus={[Function]}
+                            onKeyDown={[Function]}
                             onMouseEnter={[Function]}
                             onMouseLeave={[Function]}
-                            tabIndex={null}
+                            role="button"
+                            tabIndex={0}
                           >
                             Judy Heier-hammond Name Keeps Going For A Long Long Tim
                           </span>
@@ -7405,6 +7468,7 @@ exports[`RecommendationsTable component should render when no students have comp
                             className="quill-tooltip-wrapper"
                           >
                             <span
+                              aria-live="polite"
                               className="quill-tooltip"
                             />
                           </span>
@@ -8537,19 +8601,26 @@ exports[`RecommendationsTable component should render when no students have comp
                       name="Dehab Lee Kassis-washington"
                     >
                       <Tooltip
+                        isTabbable={true}
                         tooltipText="Dehab Lee Kassis-washington"
                         tooltipTriggerText="Dehab Lee Kassis-washington"
                         tooltipTriggerTextClass="student-name"
                       >
                         <span
+                          aria-hidden={false}
                           className="quill-tooltip-trigger"
+                          role="tooltip"
                         >
                           <span
                             className="student-name"
+                            onBlur={[Function]}
                             onClick={[Function]}
+                            onFocus={[Function]}
+                            onKeyDown={[Function]}
                             onMouseEnter={[Function]}
                             onMouseLeave={[Function]}
-                            tabIndex={null}
+                            role="button"
+                            tabIndex={0}
                           >
                             Dehab Lee Kassis-washington
                           </span>
@@ -8557,6 +8628,7 @@ exports[`RecommendationsTable component should render when no students have comp
                             className="quill-tooltip-wrapper"
                           >
                             <span
+                              aria-live="polite"
                               className="quill-tooltip"
                             />
                           </span>
@@ -10658,19 +10730,26 @@ exports[`RecommendationsTable component should render when no students have comp
                       name="Henry Wadsworth Longfellow"
                     >
                       <Tooltip
+                        isTabbable={true}
                         tooltipText="Henry Wadsworth Longfellow"
                         tooltipTriggerText="Henry Wadsworth Longfellow"
                         tooltipTriggerTextClass="student-name"
                       >
                         <span
+                          aria-hidden={false}
                           className="quill-tooltip-trigger"
+                          role="tooltip"
                         >
                           <span
                             className="student-name"
+                            onBlur={[Function]}
                             onClick={[Function]}
+                            onFocus={[Function]}
+                            onKeyDown={[Function]}
                             onMouseEnter={[Function]}
                             onMouseLeave={[Function]}
-                            tabIndex={null}
+                            role="button"
+                            tabIndex={0}
                           >
                             Henry Wadsworth Longfellow
                           </span>
@@ -10678,6 +10757,7 @@ exports[`RecommendationsTable component should render when no students have comp
                             className="quill-tooltip-wrapper"
                           >
                             <span
+                              aria-live="polite"
                               className="quill-tooltip"
                             />
                           </span>
@@ -11343,6 +11423,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                     Capitalization
                   </span>
                   <Tooltip
+                    isTabbable={true}
                     tooltipText="<a href='/activities/packs/308' target=\\"_blank\\">Preview the activity pack</a>"
                     tooltipTriggerText={
                       <img
@@ -11352,14 +11433,20 @@ exports[`RecommendationsTable component should render when there are recommendat
                     }
                   >
                     <span
+                      aria-hidden={false}
                       className="quill-tooltip-trigger"
+                      role="tooltip"
                     >
                       <span
                         className="undefined"
+                        onBlur={[Function]}
                         onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
-                        tabIndex={null}
+                        role="button"
+                        tabIndex={0}
                       >
                         <img
                           alt="Question mark icon"
@@ -11370,6 +11457,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                         className="quill-tooltip-wrapper"
                       >
                         <span
+                          aria-live="polite"
                           className="quill-tooltip"
                         />
                       </span>
@@ -11394,6 +11482,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                     Plural and Possessive Nouns
                   </span>
                   <Tooltip
+                    isTabbable={true}
                     tooltipText="<a href='/activities/packs/310' target=\\"_blank\\">Preview the activity pack</a>"
                     tooltipTriggerText={
                       <img
@@ -11403,14 +11492,20 @@ exports[`RecommendationsTable component should render when there are recommendat
                     }
                   >
                     <span
+                      aria-hidden={false}
                       className="quill-tooltip-trigger"
+                      role="tooltip"
                     >
                       <span
                         className="undefined"
+                        onBlur={[Function]}
                         onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
-                        tabIndex={null}
+                        role="button"
+                        tabIndex={0}
                       >
                         <img
                           alt="Question mark icon"
@@ -11421,6 +11516,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                         className="quill-tooltip-wrapper"
                       >
                         <span
+                          aria-live="polite"
                           className="quill-tooltip"
                         />
                       </span>
@@ -11445,6 +11541,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                     Adjectives and Adverbs
                   </span>
                   <Tooltip
+                    isTabbable={true}
                     tooltipText="<a href='/activities/packs/312' target=\\"_blank\\">Preview the activity pack</a>"
                     tooltipTriggerText={
                       <img
@@ -11454,14 +11551,20 @@ exports[`RecommendationsTable component should render when there are recommendat
                     }
                   >
                     <span
+                      aria-hidden={false}
                       className="quill-tooltip-trigger"
+                      role="tooltip"
                     >
                       <span
                         className="undefined"
+                        onBlur={[Function]}
                         onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
-                        tabIndex={null}
+                        role="button"
+                        tabIndex={0}
                       >
                         <img
                           alt="Question mark icon"
@@ -11472,6 +11575,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                         className="quill-tooltip-wrapper"
                       >
                         <span
+                          aria-live="polite"
                           className="quill-tooltip"
                         />
                       </span>
@@ -11496,6 +11600,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                     Prepositional Phrases
                   </span>
                   <Tooltip
+                    isTabbable={true}
                     tooltipText="<a href='/activities/packs/314' target=\\"_blank\\">Preview the activity pack</a>"
                     tooltipTriggerText={
                       <img
@@ -11505,14 +11610,20 @@ exports[`RecommendationsTable component should render when there are recommendat
                     }
                   >
                     <span
+                      aria-hidden={false}
                       className="quill-tooltip-trigger"
+                      role="tooltip"
                     >
                       <span
                         className="undefined"
+                        onBlur={[Function]}
                         onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
-                        tabIndex={null}
+                        role="button"
+                        tabIndex={0}
                       >
                         <img
                           alt="Question mark icon"
@@ -11523,6 +11634,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                         className="quill-tooltip-wrapper"
                       >
                         <span
+                          aria-live="polite"
                           className="quill-tooltip"
                         />
                       </span>
@@ -11547,6 +11659,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                     Compound Subjects, Objects, and Predicates
                   </span>
                   <Tooltip
+                    isTabbable={true}
                     tooltipText="<a href='/activities/packs/316' target=\\"_blank\\">Preview the activity pack</a>"
                     tooltipTriggerText={
                       <img
@@ -11556,14 +11669,20 @@ exports[`RecommendationsTable component should render when there are recommendat
                     }
                   >
                     <span
+                      aria-hidden={false}
                       className="quill-tooltip-trigger"
+                      role="tooltip"
                     >
                       <span
                         className="undefined"
+                        onBlur={[Function]}
                         onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
-                        tabIndex={null}
+                        role="button"
+                        tabIndex={0}
                       >
                         <img
                           alt="Question mark icon"
@@ -11574,6 +11693,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                         className="quill-tooltip-wrapper"
                       >
                         <span
+                          aria-live="polite"
                           className="quill-tooltip"
                         />
                       </span>
@@ -11598,6 +11718,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                     Commonly Confused Words
                   </span>
                   <Tooltip
+                    isTabbable={true}
                     tooltipText="<a href='/activities/packs/318' target=\\"_blank\\">Preview the activity pack</a>"
                     tooltipTriggerText={
                       <img
@@ -11607,14 +11728,20 @@ exports[`RecommendationsTable component should render when there are recommendat
                     }
                   >
                     <span
+                      aria-hidden={false}
                       className="quill-tooltip-trigger"
+                      role="tooltip"
                     >
                       <span
                         className="undefined"
+                        onBlur={[Function]}
                         onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
-                        tabIndex={null}
+                        role="button"
+                        tabIndex={0}
                       >
                         <img
                           alt="Question mark icon"
@@ -11625,6 +11752,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                         className="quill-tooltip-wrapper"
                       >
                         <span
+                          aria-live="polite"
                           className="quill-tooltip"
                         />
                       </span>
@@ -19248,19 +19376,26 @@ exports[`RecommendationsTable component should render when there are recommendat
                       name="Gabriel De La Concordia Garcia"
                     >
                       <Tooltip
+                        isTabbable={true}
                         tooltipText="Gabriel De La Concordia Garcia"
                         tooltipTriggerText="Gabriel De La Concordia Garcia"
                         tooltipTriggerTextClass="student-name"
                       >
                         <span
+                          aria-hidden={false}
                           className="quill-tooltip-trigger"
+                          role="tooltip"
                         >
                           <span
                             className="student-name"
+                            onBlur={[Function]}
                             onClick={[Function]}
+                            onFocus={[Function]}
+                            onKeyDown={[Function]}
                             onMouseEnter={[Function]}
                             onMouseLeave={[Function]}
-                            tabIndex={null}
+                            role="button"
+                            tabIndex={0}
                           >
                             Gabriel De La Concordia Garcia
                           </span>
@@ -19268,6 +19403,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                             className="quill-tooltip-wrapper"
                           >
                             <span
+                              aria-live="polite"
                               className="quill-tooltip"
                             />
                           </span>
@@ -23322,19 +23458,26 @@ exports[`RecommendationsTable component should render when there are recommendat
                       name="Judy Heier-hammond Name Keeps Going For A Long Long Tim"
                     >
                       <Tooltip
+                        isTabbable={true}
                         tooltipText="Judy Heier-hammond Name Keeps Going For A Long Long Tim"
                         tooltipTriggerText="Judy Heier-hammond Name Keeps Going For A Long Long Tim"
                         tooltipTriggerTextClass="student-name"
                       >
                         <span
+                          aria-hidden={false}
                           className="quill-tooltip-trigger"
+                          role="tooltip"
                         >
                           <span
                             className="student-name"
+                            onBlur={[Function]}
                             onClick={[Function]}
+                            onFocus={[Function]}
+                            onKeyDown={[Function]}
                             onMouseEnter={[Function]}
                             onMouseLeave={[Function]}
-                            tabIndex={null}
+                            role="button"
+                            tabIndex={0}
                           >
                             Judy Heier-hammond Name Keeps Going For A Long Long Tim
                           </span>
@@ -23342,6 +23485,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                             className="quill-tooltip-wrapper"
                           >
                             <span
+                              aria-live="polite"
                               className="quill-tooltip"
                             />
                           </span>
@@ -25263,19 +25407,26 @@ exports[`RecommendationsTable component should render when there are recommendat
                       name="Dehab Lee Kassis-washington"
                     >
                       <Tooltip
+                        isTabbable={true}
                         tooltipText="Dehab Lee Kassis-washington"
                         tooltipTriggerText="Dehab Lee Kassis-washington"
                         tooltipTriggerTextClass="student-name"
                       >
                         <span
+                          aria-hidden={false}
                           className="quill-tooltip-trigger"
+                          role="tooltip"
                         >
                           <span
                             className="student-name"
+                            onBlur={[Function]}
                             onClick={[Function]}
+                            onFocus={[Function]}
+                            onKeyDown={[Function]}
                             onMouseEnter={[Function]}
                             onMouseLeave={[Function]}
-                            tabIndex={null}
+                            role="button"
+                            tabIndex={0}
                           >
                             Dehab Lee Kassis-washington
                           </span>
@@ -25283,6 +25434,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                             className="quill-tooltip-wrapper"
                           >
                             <span
+                              aria-live="polite"
                               className="quill-tooltip"
                             />
                           </span>
@@ -28716,19 +28868,26 @@ exports[`RecommendationsTable component should render when there are recommendat
                       name="Henry Wadsworth Longfellow"
                     >
                       <Tooltip
+                        isTabbable={true}
                         tooltipText="Henry Wadsworth Longfellow"
                         tooltipTriggerText="Henry Wadsworth Longfellow"
                         tooltipTriggerTextClass="student-name"
                       >
                         <span
+                          aria-hidden={false}
                           className="quill-tooltip-trigger"
+                          role="tooltip"
                         >
                           <span
                             className="student-name"
+                            onBlur={[Function]}
                             onClick={[Function]}
+                            onFocus={[Function]}
+                            onKeyDown={[Function]}
                             onMouseEnter={[Function]}
                             onMouseLeave={[Function]}
-                            tabIndex={null}
+                            role="button"
+                            tabIndex={0}
                           >
                             Henry Wadsworth Longfellow
                           </span>
@@ -28736,6 +28895,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                             className="quill-tooltip-wrapper"
                           >
                             <span
+                              aria-live="polite"
                               className="quill-tooltip"
                             />
                           </span>

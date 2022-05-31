@@ -11,7 +11,6 @@
 #  free_lunches          :integer
 #  fte_classroom_teacher :integer
 #  latitude              :decimal(9, 6)
-#  leanm                 :string
 #  longitude             :decimal(9, 6)
 #  lower_grade           :integer
 #  magnet                :string
@@ -37,7 +36,6 @@
 #  clever_id             :string
 #  coordinator_id        :integer
 #  district_id           :bigint
-#  lea_id                :string
 #  nces_id               :string
 #
 # Indexes
@@ -93,11 +91,17 @@ class School < ApplicationRecord
   HALF_A_YEAR = 6.months
 
   def subscription
-    subscriptions.where("expiration > ? AND start_date <= ?", Date.today, Date.today).order(expiration: :desc).limit(1).first
+    subscriptions
+      .started
+      .not_expired
+      .not_de_activated
+      .order(expiration: :desc)
+      .limit(1)
+      .first
   end
 
   def present_and_future_subscriptions
-    subscriptions.where("expiration > ? AND de_activated_date IS NULL", Date.today).order(expiration: :asc)
+    subscriptions.active
   end
 
   def ulocal_to_school_type

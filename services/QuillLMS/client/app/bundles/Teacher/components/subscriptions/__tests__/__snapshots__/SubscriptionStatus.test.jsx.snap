@@ -23,7 +23,7 @@ exports[`SubscriptionStatus container should render when the subscription is exp
       "updated_at": "2022-02-15T16:43:30.344Z",
     }
   }
-  subscriptionType="teacher"
+  subscriptionType="Teacher Premium"
   userIsContact={false}
 >
   <section
@@ -47,22 +47,22 @@ exports[`SubscriptionStatus container should render when the subscription is exp
           <i
             className="fas fa-exclamation-triangle"
           />
-          Your teacher subscription has expired
+          Your Teacher Premium subscription has expired
         </h2>
       </div>
       <StripeSubscriptionCheckoutSessionButton
-        buttonClassName="renew-subscription q-button bg-orange text-white cta-button"
-        buttonText="Renew Subscription"
+        buttonClassName="quill-button medium contained primary focus-on-light"
+        buttonText="Renew subscription"
         cancelPath="subscriptions"
         userIsEligibleForNewSubscription={true}
         userIsSignedIn={true}
       >
         <button
-          className="renew-subscription q-button bg-orange text-white cta-button"
+          className="quill-button medium contained primary focus-on-light"
           onClick={[Function]}
           type="button"
         >
-          Renew Subscription
+          Renew subscription
         </button>
       </StripeSubscriptionCheckoutSessionButton>
     </div>
@@ -70,7 +70,7 @@ exports[`SubscriptionStatus container should render when the subscription is exp
       <span>
         <strong>
           Your 
-          teacher
+          Teacher Premium
            subscription (
           02/15/22
            - 
@@ -118,10 +118,10 @@ exports[`SubscriptionStatus container should render when there is no subscriptio
         </h2>
       </div>
       <a
-        className="q-button cta-button bg-orange text-white"
+        className="quill-button medium contained primary focus-on-light"
         href="/premium"
       >
-        Learn More About Quill Premium
+        Learn more about Quill Premium
       </a>
     </div>
     <p>

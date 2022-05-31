@@ -133,44 +133,42 @@ describe Teachers::ClassroomManagerController, type: :controller do
 
         it 'should be a an array with objects containing the activity id, post test id, and assigned classroom ids' do
           get :assign
-          expect(assigns(:assigned_pre_tests)).to eq ([
-            {
-              id: starter_pre_test.id,
-              post_test_id: starter_post_test.id,
-              assigned_classroom_ids: [user.classrooms_i_teach.last.id],
-              all_classrooms: [
-                {
-                  id: user.classrooms_i_teach.last.id,
-                  completed_pre_test_student_ids: [students_classrooms.student.id],
-                  completed_post_test_student_ids: []
-                }
-              ]
-            },
-            {
-              id: intermediate_pre_test.id,
-              post_test_id: intermediate_post_test.id,
-              assigned_classroom_ids: [],
-              all_classrooms: [
-                {
-                  id: user.classrooms_i_teach.last.id,
-                  completed_pre_test_student_ids: [],
-                  completed_post_test_student_ids: []
-                }
-              ]
-            },
-            {
-              id: advanced_pre_test.id,
-              post_test_id: advanced_post_test.id,
-              assigned_classroom_ids: [],
-              all_classrooms: [
-                {
-                  id: user.classrooms_i_teach.last.id,
-                  completed_pre_test_student_ids: [],
-                  completed_post_test_student_ids: []
-                }
-              ]
-            }
-          ])
+          expect(assigns(:assigned_pre_tests)).to include({
+            id: starter_pre_test.id,
+            post_test_id: starter_post_test.id,
+            assigned_classroom_ids: [user.classrooms_i_teach.last.id],
+            all_classrooms: [
+              {
+                id: user.classrooms_i_teach.last.id,
+                completed_pre_test_student_ids: [students_classrooms.student.id],
+                completed_post_test_student_ids: []
+              }
+            ]
+          },
+          {
+            id: intermediate_pre_test.id,
+            post_test_id: intermediate_post_test.id,
+            assigned_classroom_ids: [],
+            all_classrooms: [
+              {
+                id: user.classrooms_i_teach.last.id,
+                completed_pre_test_student_ids: [],
+                completed_post_test_student_ids: []
+              }
+            ]
+          },
+          {
+            id: advanced_pre_test.id,
+            post_test_id: advanced_post_test.id,
+            assigned_classroom_ids: [],
+            all_classrooms: [
+              {
+                id: user.classrooms_i_teach.last.id,
+                completed_pre_test_student_ids: [],
+                completed_post_test_student_ids: []
+              }
+            ]
+          })
         end
       end
 
@@ -771,7 +769,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
   end
 
   describe '#activity_feed' do
-    let!(:activity_session) {create(:activity_session, completed_at: Time.now) }
+    let!(:activity_session) {create(:activity_session, completed_at: Time.current) }
     let!(:teacher) { activity_session.teachers.first }
 
     before do

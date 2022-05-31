@@ -4,16 +4,15 @@
 #
 # Table name: plans
 #
-#  id              :bigint           not null, primary key
-#  audience        :string           not null
-#  display_name    :string           not null
-#  interval        :string
-#  interval_count  :integer
-#  name            :string           not null
-#  price           :integer          default(0)
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#  stripe_price_id :string
+#  id             :bigint           not null, primary key
+#  audience       :string           not null
+#  display_name   :string           not null
+#  interval       :string
+#  interval_count :integer
+#  name           :string           not null
+#  price          :integer          default(0)
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
 #
 # Indexes
 #

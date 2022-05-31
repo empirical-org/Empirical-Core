@@ -119,7 +119,7 @@ export default class ReviewActivities extends React.Component {
 
   render() {
     return (
-      <div className="assignment-section">
+      <div className="assignment-section review-activities-section">
         <div className="assignment-section-header">
           <span className="assignment-section-number">2</span>
           <span className="assignment-section-name">Review activities and pick due dates</span>

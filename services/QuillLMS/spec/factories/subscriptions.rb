@@ -30,8 +30,8 @@
 #
 FactoryBot.define do
   factory :subscription do
-    expiration { (Date.today + 15) }
-    start_date { (Date.today - 15) }
+    expiration { 15.days.from_now.to_date }
+    start_date { 15.days.ago.to_date }
     account_type { 'Teacher Trial' }
     purchaser_id { nil }
     payment_method { '' }

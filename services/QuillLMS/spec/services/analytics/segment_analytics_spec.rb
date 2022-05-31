@@ -135,6 +135,62 @@ describe 'SegmentAnalytics' do
 
   end
 
+  context 'track teacher subscription' do
+    let(:teacher) { create(:teacher) }
+    let(:subscription) { create(:subscription, account_type: 'Teacher Paid', recurring: true, expiration: Time.zone.today + 30.days)}
+    let(:other_subscription) { create(:subscription, account_type: 'Teacher Paid', recurring: false, expiration: Time.zone.today + 30.days)}
+    let!(:user_subscription) { create(:user_subscription, user: teacher, subscription: subscription)}
+    let!(:other_user_subscription) { create(:user_subscription, user: teacher, subscription: other_subscription)}
+
+    it 'sends an event with information about the subscription for recurring subscriptions' do
+      analytics.track_teacher_subscription(subscription, SegmentIo::BackgroundEvents::TEACHER_SUB_WILL_RENEW)
+      expect(track_calls.size).to eq(1)
+      expect(track_calls[0][:event]).to eq(SegmentIo::BackgroundEvents::TEACHER_SUB_WILL_RENEW)
+      expect(track_calls[0][:user_id]).to eq(teacher.id)
+      expect(track_calls[0][:properties][:subscription_id]).to eq(subscription.id)
+    end
+
+    it 'sends an event with information about the subscription for non-recurring subscriptions' do
+      analytics.track_teacher_subscription(other_subscription, SegmentIo::BackgroundEvents::TEACHER_SUB_WILL_EXPIRE_IN_30)
+      expect(track_calls.size).to eq(1)
+      expect(track_calls[0][:event]).to eq(SegmentIo::BackgroundEvents::TEACHER_SUB_WILL_EXPIRE_IN_30)
+      expect(track_calls[0][:user_id]).to eq(teacher.id)
+      expect(track_calls[0][:properties][:subscription_id]).to eq(other_subscription.id)
+    end
+  end
+
+  context 'track school subscription' do
+    let(:school) { create(:school) }
+    let(:subscription) { create(:subscription, account_type: 'School Paid', recurring: true, expiration: Time.zone.today + 30.days)}
+    let(:other_subscription) { create(:subscription, account_type: 'School Paid', recurring: false, expiration: Time.zone.today + 30.days, purchaser_id: 'test')}
+    let!(:school_subscription) { create(:school_subscription, school: school, subscription: subscription)}
+    let!(:other_school_subscription) { create(:school_subscription, school: school, subscription: other_subscription)}
+
+    it 'sends an event with information about the subscription for recurring subscriptions' do
+      analytics.track_school_subscription(subscription, SegmentIo::BackgroundEvents::SCHOOL_SUB_WILL_RENEW)
+      expect(track_calls.size).to eq(1)
+      expect(track_calls[0][:event]).to eq(SegmentIo::BackgroundEvents::SCHOOL_SUB_WILL_RENEW)
+      expect(track_calls[0][:properties][:school_id]).to eq(school.id)
+      expect(track_calls[0][:properties][:subscription_id]).to eq(subscription.id)
+    end
+
+    it 'sends an event with information about the subscription for nonrecurring subscriptions' do
+      analytics.track_school_subscription(other_subscription, SegmentIo::BackgroundEvents::SCHOOL_SUB_WILL_EXPIRE_IN_30)
+      expect(track_calls.size).to eq(1)
+      expect(track_calls[0][:event]).to eq(SegmentIo::BackgroundEvents::SCHOOL_SUB_WILL_EXPIRE_IN_30)
+      expect(track_calls[0][:properties][:school_id]).to eq(school.id)
+      expect(track_calls[0][:properties][:subscription_id]).to eq(other_subscription.id)
+      expect(track_calls[0][:user_id]).to eq(other_subscription.purchaser_id)
+    end
+
+    it 'sends an event with anonymous ID if there is no purchaser id' do
+      analytics.track_school_subscription(subscription, SegmentIo::BackgroundEvents::SCHOOL_SUB_WILL_RENEW)
+      expect(track_calls.size).to eq(1)
+      expect(track_calls[0][:user_id]).to eq(nil)
+      expect(track_calls[0][:anonymous_id]).to be
+    end
+  end
+
   context '#track' do
     let(:teacher) { create(:teacher) }
     let(:student) { create(:student) }
@@ -167,6 +223,20 @@ describe 'SegmentAnalytics' do
         all: true,
         Intercom: false
       })
+    end
+  end
+
+  context '#identify' do
+
+    let(:district) { create(:district) }
+    let(:school) { create(:school, district: district) }
+    let(:teacher) { create(:teacher, school: school) }
+
+    it 'sends events to Intercom when the user is a teacher' do
+      analytics.identify(teacher)
+      expect(identify_calls.size).to eq(1)
+      expect(track_calls.size).to eq(0)
+      expect(identify_calls[0][:traits][:district]).to eq(district.name)
     end
   end
 end

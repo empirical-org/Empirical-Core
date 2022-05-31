@@ -13,33 +13,6 @@ exports[`WelcomeModal component should render WelcomeModal 1`] = `
     recycle={false}
     width={600}
   />
-  <div
-    className="welcome-modal quill-modal"
-  >
-    <div
-      className="modal-body"
-    >
-      <h1>
-        Welcome to Quill!
-      </h1>
-      <div
-        className="welcome-modal-text"
-      >
-        <p>
-          Our mission as a non-profit is to help students become strong writers, so all our content is completely free to use with an unlimited number of students.
-        </p>
-      </div>
-      <button
-        className="quill-button contained primary medium"
-        type="button"
-      >
-        Let's go!
-      </button>
-    </div>
-    <img
-      alt="Teacher at projector in classroom"
-      src="undefined/images/pages/dashboard/illustrations-classroom-activities.svg"
-    />
-  </div>
+  <WelcomeModalWithoutDemo />
 </div>
 `;

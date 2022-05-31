@@ -200,14 +200,15 @@ exports[`ImportCleverClassroomsModal component #handleClickImportClasses should 
           uncheckAllRows={[Function]}
           uncheckRow={[Function]}
         >
-          <div
+          <table
             className="data-table undefined"
           >
-            <div
+            <tr
               className="data-table-headers"
             >
               <th
                 className="data-table-header"
+                scope="col"
               >
                 <button
                   className="quill-checkbox selected"
@@ -222,6 +223,7 @@ exports[`ImportCleverClassroomsModal component #handleClickImportClasses should 
               </th>
               <th
                 className="data-table-header undefined"
+                scope="col"
                 style={
                   Object {
                     "minWidth": "510px",
@@ -234,6 +236,7 @@ exports[`ImportCleverClassroomsModal component #handleClickImportClasses should 
               </th>
               <th
                 className="data-table-header undefined"
+                scope="col"
                 style={
                   Object {
                     "minWidth": "110px",
@@ -246,6 +249,7 @@ exports[`ImportCleverClassroomsModal component #handleClickImportClasses should 
               </th>
               <th
                 className="data-table-header undefined"
+                scope="col"
                 style={
                   Object {
                     "minWidth": "51px",
@@ -256,25 +260,27 @@ exports[`ImportCleverClassroomsModal component #handleClickImportClasses should 
               >
                 Students
               </th>
-            </div>
-            <div
+            </tr>
+            <tbody
               className="data-table-body"
             >
-              <div
+              <tr
                 className="data-table-row checked "
                 key="608aceedb9f28409c3320783"
               >
-                <button
-                  className="quill-checkbox selected data-table-row-section"
-                  onClick={[Function]}
-                  type="button"
-                >
-                  <img
-                    alt="check"
-                    src="https://assets.quill.org/images/shared/check-small-white.svg"
-                  />
-                </button>
-                <span
+                <td>
+                  <button
+                    className="quill-checkbox selected data-table-row-section"
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    <img
+                      alt="check"
+                      src="https://assets.quill.org/images/shared/check-small-white.svg"
+                    />
+                  </button>
+                </td>
+                <td
                   className="data-table-row-section undefined"
                   key="name-608aceedb9f28409c3320783"
                   style={
@@ -286,8 +292,8 @@ exports[`ImportCleverClassroomsModal component #handleClickImportClasses should 
                   }
                 >
                   Clever 101
-                </span>
-                <span
+                </td>
+                <td
                   className="data-table-row-section show-overflow"
                   key="grade-608aceedb9f28409c3320783"
                   style={
@@ -392,6 +398,7 @@ exports[`ImportCleverClassroomsModal component #handleClickImportClasses should 
                         defaultInputValue=""
                         defaultMenuIsOpen={false}
                         defaultValue={null}
+                        filterOption={null}
                         inputValue=""
                         isClearable={false}
                         menuIsOpen={false}
@@ -424,7 +431,7 @@ exports[`ImportCleverClassroomsModal component #handleClickImportClasses should 
                           controlShouldRenderValue={true}
                           cursor={null}
                           escapeClearsValue={false}
-                          filterOption={[Function]}
+                          filterOption={null}
                           formatGroupLabel={[Function]}
                           getOptionLabel={[Function]}
                           getOptionValue={[Function]}
@@ -501,7 +508,7 @@ exports[`ImportCleverClassroomsModal component #handleClickImportClasses should 
                                 "controlShouldRenderValue": true,
                                 "cursor": null,
                                 "escapeClearsValue": false,
-                                "filterOption": [Function],
+                                "filterOption": null,
                                 "formatGroupLabel": [Function],
                                 "getOptionLabel": [Function],
                                 "getOptionValue": [Function],
@@ -630,7 +637,7 @@ exports[`ImportCleverClassroomsModal component #handleClickImportClasses should 
                                       "controlShouldRenderValue": true,
                                       "cursor": null,
                                       "escapeClearsValue": false,
-                                      "filterOption": [Function],
+                                      "filterOption": null,
                                       "formatGroupLabel": [Function],
                                       "getOptionLabel": [Function],
                                       "getOptionValue": [Function],
@@ -767,7 +774,7 @@ exports[`ImportCleverClassroomsModal component #handleClickImportClasses should 
                                             "controlShouldRenderValue": true,
                                             "cursor": null,
                                             "escapeClearsValue": false,
-                                            "filterOption": [Function],
+                                            "filterOption": null,
                                             "formatGroupLabel": [Function],
                                             "getOptionLabel": [Function],
                                             "getOptionValue": [Function],
@@ -895,7 +902,7 @@ exports[`ImportCleverClassroomsModal component #handleClickImportClasses should 
                                                   "controlShouldRenderValue": true,
                                                   "cursor": null,
                                                   "escapeClearsValue": false,
-                                                  "filterOption": [Function],
+                                                  "filterOption": null,
                                                   "formatGroupLabel": [Function],
                                                   "getOptionLabel": [Function],
                                                   "getOptionValue": [Function],
@@ -1027,7 +1034,7 @@ exports[`ImportCleverClassroomsModal component #handleClickImportClasses should 
                                                   "controlShouldRenderValue": true,
                                                   "cursor": null,
                                                   "escapeClearsValue": false,
-                                                  "filterOption": [Function],
+                                                  "filterOption": null,
                                                   "formatGroupLabel": [Function],
                                                   "getOptionLabel": [Function],
                                                   "getOptionValue": [Function],
@@ -1237,7 +1244,7 @@ exports[`ImportCleverClassroomsModal component #handleClickImportClasses should 
                                             "controlShouldRenderValue": true,
                                             "cursor": null,
                                             "escapeClearsValue": false,
-                                            "filterOption": [Function],
+                                            "filterOption": null,
                                             "formatGroupLabel": [Function],
                                             "getOptionLabel": [Function],
                                             "getOptionValue": [Function],
@@ -1356,7 +1363,7 @@ exports[`ImportCleverClassroomsModal component #handleClickImportClasses should 
                                                   "controlShouldRenderValue": true,
                                                   "cursor": null,
                                                   "escapeClearsValue": false,
-                                                  "filterOption": [Function],
+                                                  "filterOption": null,
                                                   "formatGroupLabel": [Function],
                                                   "getOptionLabel": [Function],
                                                   "getOptionValue": [Function],
@@ -1486,7 +1493,7 @@ exports[`ImportCleverClassroomsModal component #handleClickImportClasses should 
                                                   "controlShouldRenderValue": true,
                                                   "cursor": null,
                                                   "escapeClearsValue": false,
-                                                  "filterOption": [Function],
+                                                  "filterOption": null,
                                                   "formatGroupLabel": [Function],
                                                   "getOptionLabel": [Function],
                                                   "getOptionValue": [Function],
@@ -1640,8 +1647,8 @@ exports[`ImportCleverClassroomsModal component #handleClickImportClasses should 
                       </StateManager>
                     </div>
                   </DropdownInput>
-                </span>
-                <span
+                </td>
+                <td
                   className="data-table-row-section undefined"
                   key="students-608aceedb9f28409c3320783"
                   style={
@@ -1653,22 +1660,21 @@ exports[`ImportCleverClassroomsModal component #handleClickImportClasses should 
                   }
                 >
                   3
-                </span>
-                <span
-                  className="removable data-table-row-section"
-                />
-              </div>
-              <div
+                </td>
+              </tr>
+              <tr
                 className="data-table-row  "
                 key="60944eff243ae50206973692"
               >
-                <button
-                  aria-label="Unchecked checkbox"
-                  className="quill-checkbox unselected data-table-row-section"
-                  onClick={[Function]}
-                  type="button"
-                />
-                <span
+                <td>
+                  <button
+                    aria-label="Unchecked checkbox"
+                    className="quill-checkbox unselected data-table-row-section"
+                    onClick={[Function]}
+                    type="button"
+                  />
+                </td>
+                <td
                   className="data-table-row-section undefined"
                   key="name-60944eff243ae50206973692"
                   style={
@@ -1680,8 +1686,8 @@ exports[`ImportCleverClassroomsModal component #handleClickImportClasses should 
                   }
                 >
                   Clever 103
-                </span>
-                <span
+                </td>
+                <td
                   className="data-table-row-section show-overflow"
                   key="grade-60944eff243ae50206973692"
                   style={
@@ -1692,7 +1698,7 @@ exports[`ImportCleverClassroomsModal component #handleClickImportClasses should 
                     }
                   }
                 />
-                <span
+                <td
                   className="data-table-row-section undefined"
                   key="students-60944eff243ae50206973692"
                   style={
@@ -1704,13 +1710,10 @@ exports[`ImportCleverClassroomsModal component #handleClickImportClasses should 
                   }
                 >
                   2
-                </span>
-                <span
-                  className="removable data-table-row-section"
-                />
-              </div>
-            </div>
-          </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </DataTable>
       </div>
       <div
@@ -1871,14 +1874,15 @@ exports[`ImportCleverClassroomsModal component initial load should render 1`] = 
           uncheckAllRows={[Function]}
           uncheckRow={[Function]}
         >
-          <div
+          <table
             className="data-table undefined"
           >
-            <div
+            <tr
               className="data-table-headers"
             >
               <th
                 className="data-table-header"
+                scope="col"
               >
                 <button
                   aria-label="Unchecked checkbox"
@@ -1889,6 +1893,7 @@ exports[`ImportCleverClassroomsModal component initial load should render 1`] = 
               </th>
               <th
                 className="data-table-header undefined"
+                scope="col"
                 style={
                   Object {
                     "minWidth": "510px",
@@ -1901,6 +1906,7 @@ exports[`ImportCleverClassroomsModal component initial load should render 1`] = 
               </th>
               <th
                 className="data-table-header undefined"
+                scope="col"
                 style={
                   Object {
                     "minWidth": "110px",
@@ -1913,6 +1919,7 @@ exports[`ImportCleverClassroomsModal component initial load should render 1`] = 
               </th>
               <th
                 className="data-table-header undefined"
+                scope="col"
                 style={
                   Object {
                     "minWidth": "51px",
@@ -1923,21 +1930,23 @@ exports[`ImportCleverClassroomsModal component initial load should render 1`] = 
               >
                 Students
               </th>
-            </div>
-            <div
+            </tr>
+            <tbody
               className="data-table-body"
             >
-              <div
+              <tr
                 className="data-table-row  "
                 key="608aceedb9f28409c3320783"
               >
-                <button
-                  aria-label="Unchecked checkbox"
-                  className="quill-checkbox unselected data-table-row-section"
-                  onClick={[Function]}
-                  type="button"
-                />
-                <span
+                <td>
+                  <button
+                    aria-label="Unchecked checkbox"
+                    className="quill-checkbox unselected data-table-row-section"
+                    onClick={[Function]}
+                    type="button"
+                  />
+                </td>
+                <td
                   className="data-table-row-section undefined"
                   key="name-608aceedb9f28409c3320783"
                   style={
@@ -1949,8 +1958,8 @@ exports[`ImportCleverClassroomsModal component initial load should render 1`] = 
                   }
                 >
                   Clever 101
-                </span>
-                <span
+                </td>
+                <td
                   className="data-table-row-section show-overflow"
                   key="grade-608aceedb9f28409c3320783"
                   style={
@@ -1961,7 +1970,7 @@ exports[`ImportCleverClassroomsModal component initial load should render 1`] = 
                     }
                   }
                 />
-                <span
+                <td
                   className="data-table-row-section undefined"
                   key="students-608aceedb9f28409c3320783"
                   style={
@@ -1973,22 +1982,21 @@ exports[`ImportCleverClassroomsModal component initial load should render 1`] = 
                   }
                 >
                   3
-                </span>
-                <span
-                  className="removable data-table-row-section"
-                />
-              </div>
-              <div
+                </td>
+              </tr>
+              <tr
                 className="data-table-row  "
                 key="60944eff243ae50206973692"
               >
-                <button
-                  aria-label="Unchecked checkbox"
-                  className="quill-checkbox unselected data-table-row-section"
-                  onClick={[Function]}
-                  type="button"
-                />
-                <span
+                <td>
+                  <button
+                    aria-label="Unchecked checkbox"
+                    className="quill-checkbox unselected data-table-row-section"
+                    onClick={[Function]}
+                    type="button"
+                  />
+                </td>
+                <td
                   className="data-table-row-section undefined"
                   key="name-60944eff243ae50206973692"
                   style={
@@ -2000,8 +2008,8 @@ exports[`ImportCleverClassroomsModal component initial load should render 1`] = 
                   }
                 >
                   Clever 103
-                </span>
-                <span
+                </td>
+                <td
                   className="data-table-row-section show-overflow"
                   key="grade-60944eff243ae50206973692"
                   style={
@@ -2012,7 +2020,7 @@ exports[`ImportCleverClassroomsModal component initial load should render 1`] = 
                     }
                   }
                 />
-                <span
+                <td
                   className="data-table-row-section undefined"
                   key="students-60944eff243ae50206973692"
                   style={
@@ -2024,13 +2032,10 @@ exports[`ImportCleverClassroomsModal component initial load should render 1`] = 
                   }
                 >
                   2
-                </span>
-                <span
-                  className="removable data-table-row-section"
-                />
-              </div>
-            </div>
-          </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </DataTable>
       </div>
       <div

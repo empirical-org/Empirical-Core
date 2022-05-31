@@ -17,18 +17,27 @@ class Cron
   def self.interval_1_day
     run_saturday if now.wday == 6
     # pass yesterday's date for stats email queries and labels
-    date = Time.now.getlocal('-05:00').yesterday
+    date = Time.current.getlocal('-05:00').yesterday
 
+    # internal analytics and security
     DailyStatsEmailJob.perform_async(date)
     QuillStaffAccountsChangedWorker.perform_async
+
+    # subscriptions
     RenewExpiringRecurringSubscriptionsWorker.perform_async
     UpdateExpiringSchoolSubscriptionsWorker.perform_async
+    AlertSoonToExpireSubscriptionsWorker.perform_async
+
+    # demo
     ResetDemoAccountWorker.perform_async
+
+    # third party analytics
     SyncVitallyWorker.perform_async
+
+    # caching
     MaterializedViewRefreshWorker.perform_async
     RematchUpdatedQuestionsWorker.perform_async(date.beginning_of_day, date.end_of_day)
     PreCacheAdminDashboardsWorker.perform_async
-
     Question::TYPES.each { |type| RefreshQuestionCacheWorker.perform_async(type) }
   end
 
@@ -51,6 +60,6 @@ class Cron
 
   def self.now
     # We use UTC here to match the clock used for Heroku Scheduler
-    @t ||= Time.now.in_time_zone('UTC')
+    @t ||= Time.current.utc
   end
 end

@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UnitTemplateProfileDescription component should match snapshot 1`] = `
+<UnitTemplateProfileAssignButton
+  data={
+    Object {
+      "activities": Array [
+        Object {
+          "classification": Object {
+            "id": 1,
+            "key": "sentence",
+            "name": "Quill Grammar",
+          },
+          "description": "This is a test Grammar activity.",
+          "id": 1,
+          "level_zero_topic_name": null,
+          "name": "Their, They're, There",
+          "readability": "4th-5th",
+          "standard": Object {
+            "id": 1,
+            "name": "1.1 Test Grammar Standard",
+            "standard_category": Object {
+              "id": 1,
+              "name": "Test Grammar Standard",
+            },
+          },
+          "standard_level_name": "CCSS: Grade 4",
+        },
+      ],
+      "activity_info": "",
+      "created_at": 123123123,
+      "diagnostics_recommended_by": null,
+      "flag": "",
+      "grades": Array [],
+      "id": 3,
+      "name": "Test Activity Pack",
+      "non_authenticated": false,
+      "number_of_standards": 0,
+      "order_number": 0,
+      "readability": "",
+      "time": 60,
+      "type": Object {
+        "name": "",
+        "primary_color": "",
+      },
+      "unit_template_category": Object {
+        "id": 4,
+        "name": "",
+        "primary_color": "",
+        "secondary_color": "",
+      },
+    }
+  }
+>
+  <section
+    className="evidence-warning-container"
+  >
+    <p
+      className="time"
+    >
+      <i
+        className="far fa-clock"
+      />
+      Estimated Time: 
+      60
+       mins
+    </p>
+  </section>
+</UnitTemplateProfileAssignButton>
+`;

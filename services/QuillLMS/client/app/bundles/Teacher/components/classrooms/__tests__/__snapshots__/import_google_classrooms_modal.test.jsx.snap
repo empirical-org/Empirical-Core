@@ -286,14 +286,15 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
           uncheckAllRows={[Function]}
           uncheckRow={[Function]}
         >
-          <div
+          <table
             className="data-table undefined"
           >
-            <div
+            <tr
               className="data-table-headers"
             >
               <th
                 className="data-table-header"
+                scope="col"
               >
                 <button
                   className="quill-checkbox selected"
@@ -308,6 +309,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
               </th>
               <th
                 className="data-table-header undefined"
+                scope="col"
                 style={
                   Object {
                     "minWidth": "510px",
@@ -320,6 +322,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
               </th>
               <th
                 className="data-table-header undefined"
+                scope="col"
                 style={
                   Object {
                     "minWidth": "110px",
@@ -332,6 +335,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
               </th>
               <th
                 className="data-table-header undefined"
+                scope="col"
                 style={
                   Object {
                     "minWidth": "32px",
@@ -344,6 +348,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
               </th>
               <th
                 className="data-table-header undefined"
+                scope="col"
                 style={
                   Object {
                     "minWidth": "51px",
@@ -354,25 +359,27 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
               >
                 Students
               </th>
-            </div>
-            <div
+            </tr>
+            <tbody
               className="data-table-body"
             >
-              <div
+              <tr
                 className="data-table-row checked "
                 key="5038757116"
               >
-                <button
-                  className="quill-checkbox selected data-table-row-section"
-                  onClick={[Function]}
-                  type="button"
-                >
-                  <img
-                    alt="check"
-                    src="https://assets.quill.org/images/shared/check-small-white.svg"
-                  />
-                </button>
-                <span
+                <td>
+                  <button
+                    className="quill-checkbox selected data-table-row-section"
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    <img
+                      alt="check"
+                      src="https://assets.quill.org/images/shared/check-small-white.svg"
+                    />
+                  </button>
+                </td>
+                <td
                   className="data-table-row-section undefined"
                   key="name-5038757116"
                   style={
@@ -384,8 +391,8 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                   }
                 >
                   Big Class 1
-                </span>
-                <span
+                </td>
+                <td
                   className="data-table-row-section show-overflow"
                   key="grade-5038757116"
                   style={
@@ -485,6 +492,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                         defaultInputValue=""
                         defaultMenuIsOpen={false}
                         defaultValue={null}
+                        filterOption={null}
                         inputValue=""
                         isClearable={false}
                         menuIsOpen={false}
@@ -512,7 +520,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                           controlShouldRenderValue={true}
                           cursor={null}
                           escapeClearsValue={false}
-                          filterOption={[Function]}
+                          filterOption={null}
                           formatGroupLabel={[Function]}
                           getOptionLabel={[Function]}
                           getOptionValue={[Function]}
@@ -584,7 +592,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                                 "controlShouldRenderValue": true,
                                 "cursor": null,
                                 "escapeClearsValue": false,
-                                "filterOption": [Function],
+                                "filterOption": null,
                                 "formatGroupLabel": [Function],
                                 "getOptionLabel": [Function],
                                 "getOptionValue": [Function],
@@ -710,7 +718,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                                       "controlShouldRenderValue": true,
                                       "cursor": null,
                                       "escapeClearsValue": false,
-                                      "filterOption": [Function],
+                                      "filterOption": null,
                                       "formatGroupLabel": [Function],
                                       "getOptionLabel": [Function],
                                       "getOptionValue": [Function],
@@ -844,7 +852,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                                             "controlShouldRenderValue": true,
                                             "cursor": null,
                                             "escapeClearsValue": false,
-                                            "filterOption": [Function],
+                                            "filterOption": null,
                                             "formatGroupLabel": [Function],
                                             "getOptionLabel": [Function],
                                             "getOptionValue": [Function],
@@ -965,7 +973,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                                                   "controlShouldRenderValue": true,
                                                   "cursor": null,
                                                   "escapeClearsValue": false,
-                                                  "filterOption": [Function],
+                                                  "filterOption": null,
                                                   "formatGroupLabel": [Function],
                                                   "getOptionLabel": [Function],
                                                   "getOptionValue": [Function],
@@ -1088,7 +1096,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                                                   "controlShouldRenderValue": true,
                                                   "cursor": null,
                                                   "escapeClearsValue": false,
-                                                  "filterOption": [Function],
+                                                  "filterOption": null,
                                                   "formatGroupLabel": [Function],
                                                   "getOptionLabel": [Function],
                                                   "getOptionValue": [Function],
@@ -1295,7 +1303,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                                             "controlShouldRenderValue": true,
                                             "cursor": null,
                                             "escapeClearsValue": false,
-                                            "filterOption": [Function],
+                                            "filterOption": null,
                                             "formatGroupLabel": [Function],
                                             "getOptionLabel": [Function],
                                             "getOptionValue": [Function],
@@ -1411,7 +1419,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                                                   "controlShouldRenderValue": true,
                                                   "cursor": null,
                                                   "escapeClearsValue": false,
-                                                  "filterOption": [Function],
+                                                  "filterOption": null,
                                                   "formatGroupLabel": [Function],
                                                   "getOptionLabel": [Function],
                                                   "getOptionValue": [Function],
@@ -1538,7 +1546,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                                                   "controlShouldRenderValue": true,
                                                   "cursor": null,
                                                   "escapeClearsValue": false,
-                                                  "filterOption": [Function],
+                                                  "filterOption": null,
                                                   "formatGroupLabel": [Function],
                                                   "getOptionLabel": [Function],
                                                   "getOptionValue": [Function],
@@ -1689,8 +1697,8 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                       </StateManager>
                     </div>
                   </DropdownInput>
-                </span>
-                <span
+                </td>
+                <td
                   className="data-table-row-section undefined"
                   key="year-5038757116"
                   style={
@@ -1702,8 +1710,8 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                   }
                 >
                   2017
-                </span>
-                <span
+                </td>
+                <td
                   className="data-table-row-section undefined"
                   key="students-5038757116"
                   style={
@@ -1715,22 +1723,21 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                   }
                 >
                   0
-                </span>
-                <span
-                  className="removable data-table-row-section"
-                />
-              </div>
-              <div
+                </td>
+              </tr>
+              <tr
                 className="data-table-row  "
                 key="1986991936"
               >
-                <button
-                  aria-label="Unchecked checkbox"
-                  className="quill-checkbox unselected data-table-row-section"
-                  onClick={[Function]}
-                  type="button"
-                />
-                <span
+                <td>
+                  <button
+                    aria-label="Unchecked checkbox"
+                    className="quill-checkbox unselected data-table-row-section"
+                    onClick={[Function]}
+                    type="button"
+                  />
+                </td>
+                <td
                   className="data-table-row-section undefined"
                   key="name-1986991936"
                   style={
@@ -1742,8 +1749,8 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                   }
                 >
                   shared class
-                </span>
-                <span
+                </td>
+                <td
                   className="data-table-row-section show-overflow"
                   key="grade-1986991936"
                   style={
@@ -1754,7 +1761,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                     }
                   }
                 />
-                <span
+                <td
                   className="data-table-row-section undefined"
                   key="year-1986991936"
                   style={
@@ -1766,8 +1773,8 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                   }
                 >
                   2017
-                </span>
-                <span
+                </td>
+                <td
                   className="data-table-row-section undefined"
                   key="students-1986991936"
                   style={
@@ -1779,22 +1786,21 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                   }
                 >
                   0
-                </span>
-                <span
-                  className="removable data-table-row-section"
-                />
-              </div>
-              <div
+                </td>
+              </tr>
+              <tr
                 className="data-table-row  "
                 key="5145051365"
               >
-                <button
-                  aria-label="Unchecked checkbox"
-                  className="quill-checkbox unselected data-table-row-section"
-                  onClick={[Function]}
-                  type="button"
-                />
-                <span
+                <td>
+                  <button
+                    aria-label="Unchecked checkbox"
+                    className="quill-checkbox unselected data-table-row-section"
+                    onClick={[Function]}
+                    type="button"
+                  />
+                </td>
+                <td
                   className="data-table-row-section undefined"
                   key="name-5145051365"
                   style={
@@ -1806,8 +1812,8 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                   }
                 >
                   test teacher is not a student
-                </span>
-                <span
+                </td>
+                <td
                   className="data-table-row-section show-overflow"
                   key="grade-5145051365"
                   style={
@@ -1818,7 +1824,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                     }
                   }
                 />
-                <span
+                <td
                   className="data-table-row-section undefined"
                   key="year-5145051365"
                   style={
@@ -1830,8 +1836,8 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                   }
                 >
                   2017
-                </span>
-                <span
+                </td>
+                <td
                   className="data-table-row-section undefined"
                   key="students-5145051365"
                   style={
@@ -1843,22 +1849,21 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                   }
                 >
                   9
-                </span>
-                <span
-                  className="removable data-table-row-section"
-                />
-              </div>
-              <div
+                </td>
+              </tr>
+              <tr
                 className="data-table-row  "
                 key="5144891078"
               >
-                <button
-                  aria-label="Unchecked checkbox"
-                  className="quill-checkbox unselected data-table-row-section"
-                  onClick={[Function]}
-                  type="button"
-                />
-                <span
+                <td>
+                  <button
+                    aria-label="Unchecked checkbox"
+                    className="quill-checkbox unselected data-table-row-section"
+                    onClick={[Function]}
+                    type="button"
+                  />
+                </td>
+                <td
                   className="data-table-row-section undefined"
                   key="name-5144891078"
                   style={
@@ -1870,8 +1875,8 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                   }
                 >
                   this won't work either
-                </span>
-                <span
+                </td>
+                <td
                   className="data-table-row-section show-overflow"
                   key="grade-5144891078"
                   style={
@@ -1882,7 +1887,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                     }
                   }
                 />
-                <span
+                <td
                   className="data-table-row-section undefined"
                   key="year-5144891078"
                   style={
@@ -1894,8 +1899,8 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                   }
                 >
                   2017
-                </span>
-                <span
+                </td>
+                <td
                   className="data-table-row-section undefined"
                   key="students-5144891078"
                   style={
@@ -1907,22 +1912,21 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                   }
                 >
                   0
-                </span>
-                <span
-                  className="removable data-table-row-section"
-                />
-              </div>
-              <div
+                </td>
+              </tr>
+              <tr
                 className="data-table-row  "
                 key="5144690989"
               >
-                <button
-                  aria-label="Unchecked checkbox"
-                  className="quill-checkbox unselected data-table-row-section"
-                  onClick={[Function]}
-                  type="button"
-                />
-                <span
+                <td>
+                  <button
+                    aria-label="Unchecked checkbox"
+                    className="quill-checkbox unselected data-table-row-section"
+                    onClick={[Function]}
+                    type="button"
+                  />
+                </td>
+                <td
                   className="data-table-row-section undefined"
                   key="name-5144690989"
                   style={
@@ -1934,8 +1938,8 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                   }
                 >
                   this will not work
-                </span>
-                <span
+                </td>
+                <td
                   className="data-table-row-section show-overflow"
                   key="grade-5144690989"
                   style={
@@ -1946,7 +1950,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                     }
                   }
                 />
-                <span
+                <td
                   className="data-table-row-section undefined"
                   key="year-5144690989"
                   style={
@@ -1958,8 +1962,8 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                   }
                 >
                   2017
-                </span>
-                <span
+                </td>
+                <td
                   className="data-table-row-section undefined"
                   key="students-5144690989"
                   style={
@@ -1971,22 +1975,21 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                   }
                 >
                   2
-                </span>
-                <span
-                  className="removable data-table-row-section"
-                />
-              </div>
-              <div
+                </td>
+              </tr>
+              <tr
                 className="data-table-row  "
                 key="5145161709"
               >
-                <button
-                  aria-label="Unchecked checkbox"
-                  className="quill-checkbox unselected data-table-row-section"
-                  onClick={[Function]}
-                  type="button"
-                />
-                <span
+                <td>
+                  <button
+                    aria-label="Unchecked checkbox"
+                    className="quill-checkbox unselected data-table-row-section"
+                    onClick={[Function]}
+                    type="button"
+                  />
+                </td>
+                <td
                   className="data-table-row-section undefined"
                   key="name-5145161709"
                   style={
@@ -1998,8 +2001,8 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                   }
                 >
                   test teacher is a student
-                </span>
-                <span
+                </td>
+                <td
                   className="data-table-row-section show-overflow"
                   key="grade-5145161709"
                   style={
@@ -2010,7 +2013,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                     }
                   }
                 />
-                <span
+                <td
                   className="data-table-row-section undefined"
                   key="year-5145161709"
                   style={
@@ -2022,8 +2025,8 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                   }
                 >
                   2017
-                </span>
-                <span
+                </td>
+                <td
                   className="data-table-row-section undefined"
                   key="students-5145161709"
                   style={
@@ -2035,13 +2038,10 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                   }
                 >
                   1
-                </span>
-                <span
-                  className="removable data-table-row-section"
-                />
-              </div>
-            </div>
-          </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </DataTable>
       </div>
       <div
@@ -2290,14 +2290,15 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
           uncheckAllRows={[Function]}
           uncheckRow={[Function]}
         >
-          <div
+          <table
             className="data-table undefined"
           >
-            <div
+            <tr
               className="data-table-headers"
             >
               <th
                 className="data-table-header"
+                scope="col"
               >
                 <button
                   aria-label="Unchecked checkbox"
@@ -2308,6 +2309,7 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
               </th>
               <th
                 className="data-table-header undefined"
+                scope="col"
                 style={
                   Object {
                     "minWidth": "510px",
@@ -2320,6 +2322,7 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
               </th>
               <th
                 className="data-table-header undefined"
+                scope="col"
                 style={
                   Object {
                     "minWidth": "110px",
@@ -2332,6 +2335,7 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
               </th>
               <th
                 className="data-table-header undefined"
+                scope="col"
                 style={
                   Object {
                     "minWidth": "32px",
@@ -2344,6 +2348,7 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
               </th>
               <th
                 className="data-table-header undefined"
+                scope="col"
                 style={
                   Object {
                     "minWidth": "51px",
@@ -2354,21 +2359,23 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
               >
                 Students
               </th>
-            </div>
-            <div
+            </tr>
+            <tbody
               className="data-table-body"
             >
-              <div
+              <tr
                 className="data-table-row  "
                 key="5038757116"
               >
-                <button
-                  aria-label="Unchecked checkbox"
-                  className="quill-checkbox unselected data-table-row-section"
-                  onClick={[Function]}
-                  type="button"
-                />
-                <span
+                <td>
+                  <button
+                    aria-label="Unchecked checkbox"
+                    className="quill-checkbox unselected data-table-row-section"
+                    onClick={[Function]}
+                    type="button"
+                  />
+                </td>
+                <td
                   className="data-table-row-section undefined"
                   key="name-5038757116"
                   style={
@@ -2380,8 +2387,8 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
                   }
                 >
                   Big Class 1
-                </span>
-                <span
+                </td>
+                <td
                   className="data-table-row-section show-overflow"
                   key="grade-5038757116"
                   style={
@@ -2392,7 +2399,7 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
                     }
                   }
                 />
-                <span
+                <td
                   className="data-table-row-section undefined"
                   key="year-5038757116"
                   style={
@@ -2404,8 +2411,8 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
                   }
                 >
                   2017
-                </span>
-                <span
+                </td>
+                <td
                   className="data-table-row-section undefined"
                   key="students-5038757116"
                   style={
@@ -2417,22 +2424,21 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
                   }
                 >
                   0
-                </span>
-                <span
-                  className="removable data-table-row-section"
-                />
-              </div>
-              <div
+                </td>
+              </tr>
+              <tr
                 className="data-table-row  "
                 key="1986991936"
               >
-                <button
-                  aria-label="Unchecked checkbox"
-                  className="quill-checkbox unselected data-table-row-section"
-                  onClick={[Function]}
-                  type="button"
-                />
-                <span
+                <td>
+                  <button
+                    aria-label="Unchecked checkbox"
+                    className="quill-checkbox unselected data-table-row-section"
+                    onClick={[Function]}
+                    type="button"
+                  />
+                </td>
+                <td
                   className="data-table-row-section undefined"
                   key="name-1986991936"
                   style={
@@ -2444,8 +2450,8 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
                   }
                 >
                   shared class
-                </span>
-                <span
+                </td>
+                <td
                   className="data-table-row-section show-overflow"
                   key="grade-1986991936"
                   style={
@@ -2456,7 +2462,7 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
                     }
                   }
                 />
-                <span
+                <td
                   className="data-table-row-section undefined"
                   key="year-1986991936"
                   style={
@@ -2468,8 +2474,8 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
                   }
                 >
                   2017
-                </span>
-                <span
+                </td>
+                <td
                   className="data-table-row-section undefined"
                   key="students-1986991936"
                   style={
@@ -2481,22 +2487,21 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
                   }
                 >
                   0
-                </span>
-                <span
-                  className="removable data-table-row-section"
-                />
-              </div>
-              <div
+                </td>
+              </tr>
+              <tr
                 className="data-table-row  "
                 key="5145051365"
               >
-                <button
-                  aria-label="Unchecked checkbox"
-                  className="quill-checkbox unselected data-table-row-section"
-                  onClick={[Function]}
-                  type="button"
-                />
-                <span
+                <td>
+                  <button
+                    aria-label="Unchecked checkbox"
+                    className="quill-checkbox unselected data-table-row-section"
+                    onClick={[Function]}
+                    type="button"
+                  />
+                </td>
+                <td
                   className="data-table-row-section undefined"
                   key="name-5145051365"
                   style={
@@ -2508,8 +2513,8 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
                   }
                 >
                   test teacher is not a student
-                </span>
-                <span
+                </td>
+                <td
                   className="data-table-row-section show-overflow"
                   key="grade-5145051365"
                   style={
@@ -2520,7 +2525,7 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
                     }
                   }
                 />
-                <span
+                <td
                   className="data-table-row-section undefined"
                   key="year-5145051365"
                   style={
@@ -2532,8 +2537,8 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
                   }
                 >
                   2017
-                </span>
-                <span
+                </td>
+                <td
                   className="data-table-row-section undefined"
                   key="students-5145051365"
                   style={
@@ -2545,22 +2550,21 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
                   }
                 >
                   9
-                </span>
-                <span
-                  className="removable data-table-row-section"
-                />
-              </div>
-              <div
+                </td>
+              </tr>
+              <tr
                 className="data-table-row  "
                 key="5144891078"
               >
-                <button
-                  aria-label="Unchecked checkbox"
-                  className="quill-checkbox unselected data-table-row-section"
-                  onClick={[Function]}
-                  type="button"
-                />
-                <span
+                <td>
+                  <button
+                    aria-label="Unchecked checkbox"
+                    className="quill-checkbox unselected data-table-row-section"
+                    onClick={[Function]}
+                    type="button"
+                  />
+                </td>
+                <td
                   className="data-table-row-section undefined"
                   key="name-5144891078"
                   style={
@@ -2572,8 +2576,8 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
                   }
                 >
                   this won't work either
-                </span>
-                <span
+                </td>
+                <td
                   className="data-table-row-section show-overflow"
                   key="grade-5144891078"
                   style={
@@ -2584,7 +2588,7 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
                     }
                   }
                 />
-                <span
+                <td
                   className="data-table-row-section undefined"
                   key="year-5144891078"
                   style={
@@ -2596,8 +2600,8 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
                   }
                 >
                   2017
-                </span>
-                <span
+                </td>
+                <td
                   className="data-table-row-section undefined"
                   key="students-5144891078"
                   style={
@@ -2609,22 +2613,21 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
                   }
                 >
                   0
-                </span>
-                <span
-                  className="removable data-table-row-section"
-                />
-              </div>
-              <div
+                </td>
+              </tr>
+              <tr
                 className="data-table-row  "
                 key="5144690989"
               >
-                <button
-                  aria-label="Unchecked checkbox"
-                  className="quill-checkbox unselected data-table-row-section"
-                  onClick={[Function]}
-                  type="button"
-                />
-                <span
+                <td>
+                  <button
+                    aria-label="Unchecked checkbox"
+                    className="quill-checkbox unselected data-table-row-section"
+                    onClick={[Function]}
+                    type="button"
+                  />
+                </td>
+                <td
                   className="data-table-row-section undefined"
                   key="name-5144690989"
                   style={
@@ -2636,8 +2639,8 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
                   }
                 >
                   this will not work
-                </span>
-                <span
+                </td>
+                <td
                   className="data-table-row-section show-overflow"
                   key="grade-5144690989"
                   style={
@@ -2648,7 +2651,7 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
                     }
                   }
                 />
-                <span
+                <td
                   className="data-table-row-section undefined"
                   key="year-5144690989"
                   style={
@@ -2660,8 +2663,8 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
                   }
                 >
                   2017
-                </span>
-                <span
+                </td>
+                <td
                   className="data-table-row-section undefined"
                   key="students-5144690989"
                   style={
@@ -2673,22 +2676,21 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
                   }
                 >
                   2
-                </span>
-                <span
-                  className="removable data-table-row-section"
-                />
-              </div>
-              <div
+                </td>
+              </tr>
+              <tr
                 className="data-table-row  "
                 key="5145161709"
               >
-                <button
-                  aria-label="Unchecked checkbox"
-                  className="quill-checkbox unselected data-table-row-section"
-                  onClick={[Function]}
-                  type="button"
-                />
-                <span
+                <td>
+                  <button
+                    aria-label="Unchecked checkbox"
+                    className="quill-checkbox unselected data-table-row-section"
+                    onClick={[Function]}
+                    type="button"
+                  />
+                </td>
+                <td
                   className="data-table-row-section undefined"
                   key="name-5145161709"
                   style={
@@ -2700,8 +2702,8 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
                   }
                 >
                   test teacher is a student
-                </span>
-                <span
+                </td>
+                <td
                   className="data-table-row-section show-overflow"
                   key="grade-5145161709"
                   style={
@@ -2712,7 +2714,7 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
                     }
                   }
                 />
-                <span
+                <td
                   className="data-table-row-section undefined"
                   key="year-5145161709"
                   style={
@@ -2724,8 +2726,8 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
                   }
                 >
                   2017
-                </span>
-                <span
+                </td>
+                <td
                   className="data-table-row-section undefined"
                   key="students-5145161709"
                   style={
@@ -2737,13 +2739,10 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
                   }
                 >
                   1
-                </span>
-                <span
-                  className="removable data-table-row-section"
-                />
-              </div>
-            </div>
-          </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </DataTable>
       </div>
       <div

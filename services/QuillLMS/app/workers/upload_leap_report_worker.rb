@@ -20,13 +20,13 @@ class UploadLeapReportWorker
       region: 'us-east-1'
     )
     bucket = s3.bucket(LEAP_S3_BUCKET)
-    obj = bucket.object("Data/#{Time.now.strftime('%Y-%m-%d_%H-%M-%S')}.csv")
+    obj = bucket.object("Data/#{Time.current.strftime('%Y-%m-%d_%H-%M-%S')}.csv")
     obj.put(body: csv_data, content_type: "text/csv")
   end
 
   private def current_academic_year_start
     # We use August 1 as a weak proxy for "start of school year"
-    now = Date.today
+    now = Date.current
     year = now.month >= 8 ? now.year : now.year - 1
     Date.parse("#{year}-08-01")
   end

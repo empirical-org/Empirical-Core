@@ -293,7 +293,9 @@ exports[`PromptStep component active state when a suboptimal response has been s
           }
         >
           <div
+            aria-live="polite"
             className="feedback-section "
+            role="status"
           >
             <ReactCSSTransitionReplace
               changeWidth={false}
@@ -345,7 +347,6 @@ exports[`PromptStep component active state when a suboptimal response has been s
                             "__html": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
                           }
                         }
-                        role="status"
                       />
                       <div
                         className="report-a-problem-button-container"
@@ -537,7 +538,9 @@ exports[`PromptStep component active state when an optimal response has been sub
           }
         >
           <div
+            aria-live="polite"
             className="feedback-section "
+            role="status"
           >
             <ReactCSSTransitionReplace
               changeWidth={false}
@@ -589,7 +592,6 @@ exports[`PromptStep component active state when an optimal response has been sub
                             "__html": "That's a really strong sentence! You used evidence from the text to identify why governments should make voting compulsory.",
                           }
                         }
-                        role="status"
                       />
                       <div
                         className="report-a-problem-button-container"
@@ -829,7 +831,9 @@ exports[`PromptStep component active state when the max attempts have been reach
           }
         >
           <div
+            aria-live="polite"
             className="feedback-section "
+            role="status"
           >
             <ReactCSSTransitionReplace
               changeWidth={false}
@@ -883,7 +887,6 @@ exports[`PromptStep component active state when the max attempts have been reach
  Governments should make voting compulsory because otherwise not everyone will vote.",
                           }
                         }
-                        role="status"
                       />
                       <div
                         className="report-a-problem-button-container"
@@ -1096,7 +1099,9 @@ exports[`PromptStep component active state when the max attempts have been reach
           }
         >
           <div
+            aria-live="polite"
             className="feedback-section "
+            role="status"
           >
             <ReactCSSTransitionReplace
               changeWidth={false}
@@ -1148,7 +1153,6 @@ exports[`PromptStep component active state when the max attempts have been reach
                             "__html": "That's a really strong sentence! You used evidence from the text to identify why governments should make voting compulsory.",
                           }
                         }
-                        role="status"
                       />
                       <div
                         className="report-a-problem-button-container"

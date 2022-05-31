@@ -4,10 +4,10 @@ require 'rails_helper'
 
 describe PreCacheAdminDashboardsWorker, type: :worker do
   let(:worker) { described_class.new }
-  let!(:old_admin) { create(:user, last_sign_in: Time.now - 1.year) }
-  let!(:current_admin1) { create(:user, last_sign_in: Time.now) }
-  let!(:current_admin2) { create(:user, last_sign_in: Time.now) }
-  let!(:not_admin) { create(:user, last_sign_in: Time.now) }
+  let!(:old_admin) { create(:user, last_sign_in: 1.year.ago) }
+  let!(:current_admin1) { create(:user, last_sign_in: Time.current) }
+  let!(:current_admin2) { create(:user, last_sign_in: Time.current) }
+  let!(:not_admin) { create(:user, last_sign_in: Time.current) }
   let(:mock_worker) {double(:perform_async)}
 
   before do

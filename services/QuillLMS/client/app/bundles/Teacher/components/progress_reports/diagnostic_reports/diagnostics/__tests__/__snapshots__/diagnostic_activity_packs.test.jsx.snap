@@ -191,6 +191,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
             defaultInputValue=""
             defaultMenuIsOpen={false}
             defaultValue={null}
+            filterOption={null}
             inputValue=""
             isClearable={false}
             isSearchable={false}
@@ -239,7 +240,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
               controlShouldRenderValue={true}
               cursor={null}
               escapeClearsValue={false}
-              filterOption={[Function]}
+              filterOption={null}
               formatGroupLabel={[Function]}
               getOptionLabel={[Function]}
               getOptionValue={[Function]}
@@ -346,7 +347,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                     "controlShouldRenderValue": true,
                     "cursor": null,
                     "escapeClearsValue": false,
-                    "filterOption": [Function],
+                    "filterOption": null,
                     "formatGroupLabel": [Function],
                     "getOptionLabel": [Function],
                     "getOptionValue": [Function],
@@ -503,7 +504,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                           "controlShouldRenderValue": true,
                           "cursor": null,
                           "escapeClearsValue": false,
-                          "filterOption": [Function],
+                          "filterOption": null,
                           "formatGroupLabel": [Function],
                           "getOptionLabel": [Function],
                           "getOptionValue": [Function],
@@ -668,7 +669,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                                 "controlShouldRenderValue": true,
                                 "cursor": null,
                                 "escapeClearsValue": false,
-                                "filterOption": [Function],
+                                "filterOption": null,
                                 "formatGroupLabel": [Function],
                                 "getOptionLabel": [Function],
                                 "getOptionValue": [Function],
@@ -824,7 +825,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                                       "controlShouldRenderValue": true,
                                       "cursor": null,
                                       "escapeClearsValue": false,
-                                      "filterOption": [Function],
+                                      "filterOption": null,
                                       "formatGroupLabel": [Function],
                                       "getOptionLabel": [Function],
                                       "getOptionValue": [Function],
@@ -1032,7 +1033,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                                 "controlShouldRenderValue": true,
                                 "cursor": null,
                                 "escapeClearsValue": false,
-                                "filterOption": [Function],
+                                "filterOption": null,
                                 "formatGroupLabel": [Function],
                                 "getOptionLabel": [Function],
                                 "getOptionValue": [Function],
@@ -1179,7 +1180,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                                       "controlShouldRenderValue": true,
                                       "cursor": null,
                                       "escapeClearsValue": false,
-                                      "filterOption": [Function],
+                                      "filterOption": null,
                                       "formatGroupLabel": [Function],
                                       "getOptionLabel": [Function],
                                       "getOptionValue": [Function],
@@ -1337,7 +1338,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                                       "controlShouldRenderValue": true,
                                       "cursor": null,
                                       "escapeClearsValue": false,
-                                      "filterOption": [Function],
+                                      "filterOption": null,
                                       "formatGroupLabel": [Function],
                                       "getOptionLabel": [Function],
                                       "getOptionValue": [Function],

@@ -2,6 +2,12 @@
 
 module StripeIntegration
   class Subscription < SimpleDelegator
+    def stripe_cancel_at_period_end
+      return if stripe_invoice_id.nil?
+
+      Stripe::Subscription.update(stripe_subscription_id, cancel_at_period_end: true)
+    end
+
     def last_four
       return nil if stripe_invoice_id.nil?
 
@@ -14,6 +20,10 @@ module StripeIntegration
       return nil if stripe_invoice_id.nil?
 
       stripe_invoice.subscription
+    end
+
+    def stripe_subscription_url
+      "#{STRIPE_DASHBOARD_URL}/subscriptions/#{stripe_subscription_id}"
     end
 
     private def stripe_card

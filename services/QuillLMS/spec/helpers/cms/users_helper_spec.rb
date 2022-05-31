@@ -4,9 +4,11 @@ require 'rails_helper'
 
 describe Cms::UsersHelper do
   describe '#format_date' do
+    let(:today) { Date.current }
+
     it 'should return the correct format' do
       expect(format_date(nil)).to eq "--"
-      expect(format_date(Date.today)).to eq Date.today.strftime("%b %d, %Y")
+      expect(format_date(today)).to eq today.strftime("%b %d, %Y")
     end
   end
 

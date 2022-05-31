@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
 class Cms::SubscriptionsController < Cms::CmsController
-  before_action :set_subscription, except: [:index, :create]
+  before_action :set_subscription, only: %i[show edit update destroy]
   before_action :subscription_data, only: [:edit]
-
 
   def show
   end
@@ -19,11 +18,10 @@ class Cms::SubscriptionsController < Cms::CmsController
   end
 
   def edit
-    # everything set in erb file
+    @subscription.stripe? ? redirect_to(@subscription.stripe_subscription_url) : render(:edit)
   end
 
   def update
-    @subscription = Subscription.find(params[:id])
     @subscription.update(subscription_params)
     render json: @subscription.reload
   end

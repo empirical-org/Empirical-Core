@@ -207,7 +207,7 @@ describe Api::V1::ActivitySessionsController, type: :controller do
       let(:token) { double :acceptable? => true, resource_owner_id: user.id }
       let(:user) { create(:student) }
       let!(:activity_session) do
-        create(:activity_session, state: 'finished', user: user, percentage: 1.0, completed_at: Time.now)
+        create(:activity_session, state: 'finished', user: user, percentage: 1.0, completed_at: Time.current)
       end
 
       before { allow(controller).to receive(:doorkeeper_token) {token} }

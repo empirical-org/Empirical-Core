@@ -15,7 +15,8 @@ exports[`ReadAndHighlightInstructions component when the student has not started
   studentHighlights={Array []}
 >
   <div
-    className="read-and-highlight-container hide-on-mobile"
+    className="read-and-highlight-container hide-on-mobile no-focus-outline"
+    tabIndex={-1}
   >
     <DirectionsSection
       activeStep={1}
@@ -42,6 +43,11 @@ exports[`ReadAndHighlightInstructions component when the student has not started
             </li>
             <li>
               Then, read the text and highlight sentences to complete the task.
+            </li>
+            <li
+              className="sr-only"
+            >
+              Screenreader users, please use your tab keys to navigate through the passage. Use the Enter key on a focused sentence to add it to your highlights or to remove it once it has already been highlighted.
             </li>
           </ul>
         </section>
@@ -78,13 +84,19 @@ exports[`ReadAndHighlightInstructions component when the student has not started
           }
         >
           <span
+            aria-hidden={false}
             className="quill-tooltip-trigger"
+            role="tooltip"
           >
             <span
               className="undefined"
+              onBlur={[Function]}
               onClick={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
+              role="button"
               tabIndex={0}
             >
               <img
@@ -96,6 +108,7 @@ exports[`ReadAndHighlightInstructions component when the student has not started
               className="quill-tooltip-wrapper"
             >
               <span
+                aria-live="polite"
                 className="quill-tooltip"
               />
             </span>
@@ -134,6 +147,7 @@ exports[`ReadAndHighlightInstructions component when the student has started mak
 >
   <div
     className="read-and-highlight-container"
+    tabIndex={-1}
   >
     <DirectionsSection
       activeStep={1}
@@ -160,6 +174,11 @@ exports[`ReadAndHighlightInstructions component when the student has started mak
             </li>
             <li>
               Then, read the text and highlight sentences to complete the task.
+            </li>
+            <li
+              className="sr-only"
+            >
+              Screenreader users, please use your tab keys to navigate through the passage. Use the Enter key on a focused sentence to add it to your highlights or to remove it once it has already been highlighted.
             </li>
           </ul>
         </section>
@@ -196,13 +215,19 @@ exports[`ReadAndHighlightInstructions component when the student has started mak
           }
         >
           <span
+            aria-hidden={false}
             className="quill-tooltip-trigger"
+            role="tooltip"
           >
             <span
               className="undefined"
+              onBlur={[Function]}
               onClick={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
+              role="button"
               tabIndex={0}
             >
               <img
@@ -214,6 +239,7 @@ exports[`ReadAndHighlightInstructions component when the student has started mak
               className="quill-tooltip-wrapper"
             >
               <span
+                aria-live="polite"
                 className="quill-tooltip"
               />
             </span>
@@ -233,6 +259,7 @@ exports[`ReadAndHighlightInstructions component when the student has started mak
             This is a highlight made by a student.
           </span>
           <button
+            aria-label="Remove highlight"
             className="interactive-wrapper focus-on-light"
             onClick={[Function]}
             type="button"

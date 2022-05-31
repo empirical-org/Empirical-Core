@@ -27,7 +27,17 @@ export default class PremiumPricingMinisRow extends React.Component {
   }
 
   render() {
-    const { diagnosticActivityCount, lessonsActivityCount, independentPracticeActivityCount, } = this.props
+    const {
+      diagnosticActivityCount,
+      lessonsActivityCount,
+      independentPracticeActivityCount,
+      schoolBuyNowButton,
+      showSchoolBuyNow,
+      stripeSchoolPlan,
+      stripeTeacherPlan,
+      teacherBuyNowButton,
+    } = this.props
+
     const { userIsSignedIn, isScrolled, } = this.state
 
     const premiumFeatureData = premiumFeatures({
@@ -49,12 +59,16 @@ export default class PremiumPricingMinisRow extends React.Component {
               userIsSignedIn={userIsSignedIn}
             />
             <TeacherPricingMini
-              {...this.props}
+              buyNowButton={teacherBuyNowButton}
+              plan={stripeTeacherPlan.plan}
               premiumFeatureData={premiumFeatureData}
             />
             <SchoolPricingMini
+              buyNowButton={schoolBuyNowButton}
+              plan={stripeSchoolPlan.plan}
               premiumFeatureData={premiumFeatureData}
               showBadges={!isScrolled}
+              showSchoolBuyNow={showSchoolBuyNow}
             />
           </div>
         </div>

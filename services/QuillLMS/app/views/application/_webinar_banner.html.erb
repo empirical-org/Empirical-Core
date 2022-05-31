@@ -1,7 +1,7 @@
-<% current_time_on_east_coast = Time.now.in_time_zone('America/New_York') %>
+<% current_time_on_east_coast = Time.current.in_time_zone('America/New_York') %>
 <% still_doing_webinars = current_time_on_east_coast <= Date.parse("20221102") %>
 
-<% if (still_doing_webinars && (!current_user || current_user.teacher?)) %>
+<% if (still_doing_webinars && current_user&.teacher?) %>
   <% recurring_banner = RecurringBanner.new(current_time_on_east_coast) %>
   <% if recurring_banner.show?(current_user&.subscription&.account_type) %>
     <div class="banner" id="webinar-banner-recurring">

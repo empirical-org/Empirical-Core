@@ -106,15 +106,6 @@ describe Cms::SchoolsController do
     end
   end
 
-  describe '#edit_subscription' do
-    let!(:school) { create(:school) }
-
-    it 'should assing the subscription' do
-      get :edit_subscription, params: { id: school.id }
-      expect(assigns(:subscription)).to eq school.subscription
-    end
-  end
-
   describe '#create' do
     it 'should create the school with the given params' do
       post :create, params: { school: {
@@ -143,7 +134,7 @@ describe Cms::SchoolsController do
     describe 'when there is no existing subscription' do
       it 'should create a new subscription that starts today and ends at the promotional expiration date' do
         get :new_subscription, params: { id: school_with_no_subscription.id }
-        expect(assigns(:subscription).start_date).to eq Date.today
+        expect(assigns(:subscription).start_date).to eq Date.current
         expect(assigns(:subscription).expiration).to eq Subscription.promotional_dates[:expiration]
       end
     end

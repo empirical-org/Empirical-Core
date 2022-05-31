@@ -11,7 +11,6 @@
 #  free_lunches          :integer
 #  fte_classroom_teacher :integer
 #  latitude              :decimal(9, 6)
-#  leanm                 :string
 #  longitude             :decimal(9, 6)
 #  lower_grade           :integer
 #  magnet                :string
@@ -37,7 +36,6 @@
 #  clever_id             :string
 #  coordinator_id        :integer
 #  district_id           :bigint
-#  lea_id                :string
 #  nces_id               :string
 #
 # Indexes
@@ -71,7 +69,7 @@ describe School, type: :model do
     end
 
     it "returns the subscription with the latest expiration date multiple valid ones exists" do
-      later_subscription = create(:subscription, expiration: Date.today + 365)
+      later_subscription = create(:subscription, expiration: 365.days.from_now.to_date)
       later_user_sub = create(:school_subscription, school: bk_school, subscription: later_subscription)
       expect(bk_school.reload.subscription).to eq(later_subscription)
     end

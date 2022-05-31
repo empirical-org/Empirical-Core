@@ -139,11 +139,6 @@ module PagesHelper
             img: 'team-daniel-giovanniello@2x.png'
           },
           {
-            name: 'Jeremy Hertz',
-            title: 'Director of School Partnerships',
-            img: 'team-jeremy-hertz@2x.png'
-          },
-          {
             name: 'Peter Kong',
             title: 'Senior Software Developer',
             img: 'team-peter-kong@2x.png'
@@ -185,7 +180,7 @@ module PagesHelper
           },
           {
             name: 'Thomas Robertson',
-            title: 'Senior Web Developer',
+            title: 'Senior Software Developer',
             img: 'team-thomas-robertson@2x.png'
           },
           {
@@ -207,6 +202,11 @@ module PagesHelper
             name: 'Anna Waterman',
             title: 'Curriculum Associate',
             img: 'team-anna-waterman@2x.png'
+          },
+          {
+            name: 'Jack Yi',
+            title: 'Product Designer',
+            img: 'team-jack-yi@2x.png'
           },
           {
             name: 'Cissy Yu',

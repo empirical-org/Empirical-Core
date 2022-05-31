@@ -42,7 +42,6 @@ describe SchoolSubscription, type: :model do
     let!(:subscription) {create(:subscription, account_type: 'School Paid')}
     let!(:school_sub) {create(:school_subscription, subscription_id: subscription.id, school_id: queens_school.id)}
 
-
     it "connects a new premium account to school's users if they do not have one" do
       queens_teacher.user_subscriptions.destroy_all
       expect(queens_teacher.reload.subscription).to eq(nil)

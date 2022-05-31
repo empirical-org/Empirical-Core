@@ -71,9 +71,9 @@ describe Subscription, type: :model do
     let!(:subscription) { create(:subscription, expiration: Date.new(2018,4,6), purchaser: user) }
     let!(:user_subscription) { create(:user_subscription, subscription: subscription, user: user) }
 
-    before do
-      allow(Date).to receive(:today).and_return Date.new(2018,4,4)
-    end
+    subject { subscription.credit_user_and_de_activate }
+
+    before { allow(Date).to receive(:current).and_return Date.new(2018,4,4) }
 
     context 'it does nothing to the subscription when' do
       let(:user_subscription2) { create(:user_subscription, subscription: subscription, user: user) }
@@ -83,41 +83,46 @@ describe Subscription, type: :model do
       it 'is a subscription with multiple users_subscriptions linked' do
         user_subscription2
         old_sub_attributes = subscription.reload.attributes
-        subscription.credit_user_and_de_activate
+        subject
         expect(subscription.reload.attributes).to eq(old_sub_attributes)
       end
 
       it 'is a subscription with any school subscriptions linked' do
         school_subscription
         old_sub_attributes = subscription.reload.attributes
-        subscription.credit_user_and_de_activate
+        subject
         expect(subscription.reload.attributes).to eq(old_sub_attributes)
       end
     end
 
+    it 'calls stripe_cancel_at_period_end' do
+      expect(subscription).to receive(:stripe_cancel_at_period_end)
+      subject
+    end
+
     it 'sets the subscription to de_activate the day it is called' do
-      subscription.credit_user_and_de_activate
-      expect(subscription.de_activated_date).to eq(Date.today)
+      subject
+      expect(subscription.de_activated_date).to eq(Date.current)
     end
 
     it 'sets the recurring to false when it is called' do
       subscription.update(recurring: true)
-      subscription.credit_user_and_de_activate
+      subject
       expect(subscription.recurring).to eq(false)
     end
 
     it 'creates a credit transaction for the right ammount' do
-      subscription.credit_user_and_de_activate
+      subject
       expect(CreditTransaction.last.amount).to eq(subscription.expiration - subscription.start_date)
     end
 
     it 'creates a credit transaction for the appropriate user' do
-      subscription.credit_user_and_de_activate
+      subject
       expect(CreditTransaction.last.user).to eq(user)
     end
 
     it 'creates a credit transaction with the correct source' do
-      subscription.credit_user_and_de_activate
+      subject
       expect(CreditTransaction.last.source).to eq(subscription)
     end
   end
@@ -223,7 +228,7 @@ describe Subscription, type: :model do
   describe ".promotional_dates" do
     context 'when called on a day prior to July, 1' do
       before do
-        allow(Date).to receive(:today).and_return Date.new(2018,4,4)
+        allow(Date).to receive(:current).and_return Date.new(2018,4,4)
       end
 
       it "returns an expiration date of June 30 the next year when called on a day prior to July" do
@@ -231,21 +236,19 @@ describe Subscription, type: :model do
       end
 
       it "returns a start date one year from the day it was called" do
-        expect(Subscription.promotional_dates[:start_date]).to eq(Date.today)
+        expect(Subscription.promotional_dates[:start_date]).to eq(Date.current)
       end
     end
 
     context 'when called on a day after June 30' do
-      before do
-        allow(Date).to receive(:today).and_return Date.new(2018,10,4)
-      end
+      before { allow(Date).to receive(:current).and_return Date.new(2018,10,4) }
 
       it "returns an expiration date of December 31 the next year when called on a day prior to July" do
         expect(Subscription.promotional_dates[:expiration]).to eq(Date.new(2019,12,31))
       end
 
       it "returns a start date one year from the day it was called" do
-        expect(Subscription.promotional_dates[:start_date]).to eq(Date.today)
+        expect(Subscription.promotional_dates[:start_date]).to eq(Date.current)
       end
     end
   end
@@ -266,27 +269,42 @@ describe Subscription, type: :model do
       it 'adds at least a year (or more, depending on promotions) to other accounts' do
         attributes = { account_type: 'Teacher Paid' }
         new_sub = Subscription.create_with_user_join(user.id, attributes)
-        expect(new_sub.expiration).to be >= (Date.today + 365)
+        expect(new_sub.expiration).to be >= 365.days.from_now.to_date
       end
     end
 
     context 'when the subscription type is TEACHER_TRIAL' do
       let!(:user_with_existing_subscription) { create(:user) }
-      let!(:existing_subscription ) { Subscription.create_with_user_join(user_with_existing_subscription.id, expiration: Date.today + 365, account_type: 'Teacher Paid') }
+
+      let!(:existing_subscription ) do
+        Subscription.create_with_user_join(
+          user_with_existing_subscription.id,
+          expiration: 365.days.from_now.to_date,
+          account_type: 'Teacher Paid'
+       )
+      end
+
       let!(:user_with_no_existing_subscription) { create(:user) }
       let!(:user_with_expired_existing_subscription) { create(:user) }
-      let!(:existing_expired_subscription ) { Subscription.create_with_user_join(user_with_expired_existing_subscription.id, expiration: Date.today - 1, account_type: 'Teacher Paid') }
+
+      let!(:existing_expired_subscription ) do
+        Subscription.create_with_user_join(
+          user_with_expired_existing_subscription.id,
+          expiration: 1.day.ago.to_date,
+          account_type: 'Teacher Paid'
+        )
+      end
 
       it 'creates a trial subscription with an expiration in 30 days if there is no existing subscription' do
         attributes = { account_type: 'Teacher Trial' }
         new_sub = Subscription.create_with_user_join(user_with_no_existing_subscription.id, attributes)
-        expect(new_sub.expiration).to eq(Date.today + 30)
+        expect(new_sub.expiration).to eq 30.days.from_now.to_date
       end
 
       it 'creates a trial subscription with an expiration in 30 days if there is an expired existing subscription' do
         attributes = { account_type: 'Teacher Trial' }
         new_sub = Subscription.create_with_user_join(user_with_expired_existing_subscription.id, attributes)
-        expect(new_sub.expiration).to eq(Date.today + 30)
+        expect(new_sub.expiration).to eq 30.days.from_now.to_date
       end
 
       it 'create a trial subscription with an expiration 31 days after the existing subscription expiration' do
@@ -317,29 +335,29 @@ describe Subscription, type: :model do
     let!(:subscription) { create(:subscription) }
 
     let!(:recurring_subscription_expiring_today1) do
-      create(:subscription, :recurring, purchaser: purchaser, expiration: Date.today)
+      create(:subscription, :recurring, purchaser: purchaser, expiration: Date.current)
     end
 
     let!(:user_subscription) { create(:user_subscription, subscription: recurring_subscription_expiring_today1) }
 
     let!(:recurring_subscription_expiring_today2) do
-      create(:subscription, :recurring, purchaser: purchaser, expiration: Date.today)
+      create(:subscription, :recurring, purchaser: purchaser, expiration: Date.current)
     end
 
     let!(:recurring_subscription_expiring_but_de_activated) do
-      create(:subscription, :recurring, purchaser: purchaser, expiration: Date.today, de_activated_date: Date.today)
+      create(:subscription, :recurring, purchaser: purchaser, expiration: Date.current, de_activated_date: Date.current)
     end
 
     let!(:recurring_subscription_expiring_tomorrow) do
-      create(:subscription, :recurring, purchaser: purchaser, expiration: Date.today + 1)
+      create(:subscription, :recurring, purchaser: purchaser, expiration: 1.day.from_now.to_date)
     end
 
     let!(:recurring_stripe_subscription_expiring_today) do
-      create(:subscription, :recurring, :stripe, purchaser: purchaser, expiration: Date.today)
+      create(:subscription, :recurring, :stripe, purchaser: purchaser, expiration: Date.current)
     end
 
     let!(:non_recurring_subscription_expiring_today) do
-      create(:subscription, :non_recurring, purchaser: purchaser, expiration: Date.today + 1)
+      create(:subscription, :non_recurring, purchaser: purchaser, expiration: 1.day.from_now.to_date)
     end
 
     describe '.update_todays_expired_recurring_subscriptions' do
@@ -433,6 +451,73 @@ describe Subscription, type: :model do
 
       it "does not return subscriptions that are neither recurring nor expiring today" do
         expect(subject).not_to include(subscription)
+      end
+    end
+  end
+
+  describe '#renewal_stripe_price_id' do
+    let(:subscription) { create(:subscription, account_type: account_type) }
+
+    subject { subscription.renewal_stripe_price_id }
+
+    context 'teachers' do
+      context 'paid' do
+        let(:account_type) { described_class::TEACHER_PAID }
+
+        it { expect(subject).to eq STRIPE_TEACHER_PLAN_PRICE_ID }
+      end
+
+      context 'trial' do
+        let(:account_type) { described_class::TEACHER_TRIAL }
+
+        it { expect(subject).to eq STRIPE_TEACHER_PLAN_PRICE_ID }
+      end
+
+      context 'premium credit' do
+        let(:account_type) { described_class::PREMIUM_CREDIT }
+
+        it { expect(subject).to be nil }
+      end
+
+      context 'sponsored' do
+        let(:account_type) { described_class::TEACHER_SPONSORED_FREE }
+
+        it { expect(subject).to be nil }
+      end
+    end
+
+    context 'schools' do
+      context 'paid' do
+        let(:account_type) { described_class::SCHOOL_PAID }
+
+        it { expect(subject).to be STRIPE_SCHOOL_PLAN_PRICE_ID }
+      end
+
+      context 'paid via stripe' do
+        let(:account_type) { Plan::STRIPE_SCHOOL_PLAN }
+
+        it { expect(subject).to be STRIPE_SCHOOL_PLAN_PRICE_ID }
+      end
+
+      context 'sponsored' do
+        let(:account_type) { described_class::SCHOOL_SPONSORED_FREE }
+
+        it { expect(subject).to be nil }
+
+      end
+    end
+
+    context 'districts' do
+      let(:account_type) { described_class::SCHOOL_DISTRICT_PAID }
+
+      it { expect(subject).to be nil }
+    end
+
+    context 'other' do
+      context 'CB lifetime premium' do
+        let(:account_type) { described_class::CB_LIFETIME_DURATION }
+
+        it { expect(subject).to be nil }
       end
     end
   end

@@ -114,9 +114,9 @@ describe UserSubscription, type: :model do
     let!(:new_user_sub) { create(:user_subscription, user_id: user1.id, subscription_id: new_sub.id) }
 
     it "sets existing present and future subscription's de_activated_date to today" do
-      expect(user1.subscriptions.map(&:de_activated_date)).not_to include(Date.today)
+      expect(user1.subscriptions.map(&:de_activated_date)).not_to include(Date.current)
       UserSubscription.redeem_present_and_future_subscriptions_for_credit(user1.id)
-      expect(user1.subscriptions.reload.map(&:de_activated_date)).to include(Date.today)
+      expect(user1.subscriptions.reload.map(&:de_activated_date)).to include(Date.current)
     end
   end
 end
