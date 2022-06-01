@@ -65,9 +65,11 @@ module StripeIntegration
     end
 
     private def success_url
-      return "#{subscriptions_url}?checkout_session_id={CHECKOUT_SESSION_ID}" if schools.empty?
-
-      "#{teacher_admin_subscriptions_url(school_id: school_ids.first)}&checkout_session_id={CHECKOUT_SESSION_ID}"
+      if schools.empty? || !customer.admin?
+        "#{subscriptions_url}?checkout_session_id={CHECKOUT_SESSION_ID}"
+      else
+        "#{teacher_admin_subscriptions_url(school_id: school_ids.first)}&checkout_session_id={CHECKOUT_SESSION_ID}"
+      end
     end
 
     private def subscription_data
