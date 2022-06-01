@@ -30,9 +30,8 @@ const UnitTemplateActivityRow = ({
   ];
 
   function showStandardData(standard) {
-    if(!standard) { return 'N/A' }
-    const { name } = standard;
-    const { standard_category } = standard;
+    if(!standard || standard && !standard.name || standard && !standard.standard_category) { return 'N/A' }
+    const { name, standard_category } = standard;
     return(
       <Tooltip
         tooltipText={name}

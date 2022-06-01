@@ -10,7 +10,6 @@ const UnitTemplateRow = ({
   unitTemplate,
   updateUnitTemplate
 }) => {
-  console.log("🚀 ~ file: unitTemplateRow.tsx ~ line 13 ~ unitTemplate", unitTemplate)
   const [showActivities, setShowActivities] = useState<boolean>(false);
 
   function deleteUnitTemplate() {

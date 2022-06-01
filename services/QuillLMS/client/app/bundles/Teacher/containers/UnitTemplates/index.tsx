@@ -7,7 +7,7 @@ import UnitTemplateFilterInputs from './unitTemplateFilterInputs'
 import LoadingSpinner from '../../../Connect/components/shared/loading_indicator.jsx'
 import { SortableList, Tooltip } from  '../../../Shared/index'
 import getAuthToken from '../../components/modules/get_auth_token'
-
+import { orderedUnitTemplates, sortUnitTemplates } from '../../helpers/unitTemplates'
 
 const UNIT_TEMPLATES_URL = `${process.env.DEFAULT_URL}/cms/unit_templates.json`
 const DIAGNOSTICS_URL = `${process.env.DEFAULT_URL}/api/v1/activities/diagnostic_activities.json`
@@ -93,7 +93,7 @@ const UnitTemplates = () => {
 
   function updateOrder(sortInfo) {
     if (isSortable()) {
-      let orderedData = sort(fetchedData)
+      let orderedData = sortUnitTemplates(fetchedData)
       const newOrder = sortInfo.map(item => item.key);
       let count = newOrder.length
       const newOrderedUnitTemplates = orderedData.map((ut) => {
@@ -128,53 +128,6 @@ const UnitTemplates = () => {
     }
 
   };
-
-  function orderedUnitTemplates() {
-    let filteredData = fetchedData
-    if (flag === NOT_ARCHIVED_FLAG) {
-      filteredData = fetchedData.filter(data => data.flag !== ARCHIVED_FLAG.toLowerCase())
-    } else if (flag !== ALL_FLAGS) {
-      filteredData = fetchedData.filter(data => data.flag === flag.toLowerCase())
-    }
-
-    if (searchInput !== '' && searchByActivityPack) {
-      filteredData = filteredData.filter(activity => {
-        const { name } = activity;
-        return name.toLowerCase().includes(searchInput.toLowerCase());
-      })
-    }
-
-    if (searchInput !== '' && !searchByActivityPack) {
-      filteredData = filteredData.filter(value => {
-        return (
-          value.activities && value.activities.map(x => x.name || '').some(y => y.toLowerCase().includes(searchInput.toLowerCase()))
-        );
-      })
-    }
-
-    if (diagnostic !== ALL_DIAGNOSTICS) {
-      filteredData = filteredData.filter(value => {
-        return (
-          value.diagnostic_names && value.diagnostic_names.some(y => y.toLowerCase().includes(diagnostic.toLowerCase()))
-        );
-      })
-    }
-
-    return sort(filteredData)
-  }
-
-  function sort (list) {
-    return list.sort((bp1, bp2) => {
-      // Group archived activities at the bottom of the list (they automatically get a higher order number
-      // than any unarchived activity)
-      if (bp1.flag.toLowerCase() === ARCHIVED_FLAG && bp2.flag.toLowerCase() !== ARCHIVED_FLAG) {
-        return 1
-      } else if (bp2.flag.toLowerCase() === ARCHIVED_FLAG && bp1.flag.toLowerCase() !== ARCHIVED_FLAG) {
-        return -1
-      }
-      return bp1.order_number - bp2.order_number
-    })
-  }
 
   function onDelete(id) {
     const link = `${process.env.DEFAULT_URL}/cms/unit_templates/${id}`
@@ -226,19 +179,18 @@ const UnitTemplates = () => {
     })
   }
 
-  function renderTableRow(unitTemplate) {
-    return (
+  function renderActivitiesTable() {
+    if(loadingTableData && fetchedData.length === 0) { return }
+
+    const filteredUnitTemplates = orderedUnitTemplates({ diagnostic, fetchedData, flag, searchByActivityPack, searchInput });
+    const unitTemplateRows = filteredUnitTemplates.map((unitTemplate) => (
       <UnitTemplateRow
         handleDelete={onDelete}
+        key={unitTemplate.id}
         unitTemplate={unitTemplate}
         updateUnitTemplate={updateUnitTemplate}
       />
-    )
-  }
-
-  function renderActivitiesTable() {
-    const dataToUse = orderedUnitTemplates()
-    const unitTemplateRows = dataToUse.map((ut) => renderTableRow(ut))
+    ));
     return(
       <div className="activity-packs-table">
         <table>
@@ -295,8 +247,6 @@ const UnitTemplates = () => {
     setSearchInput('');
   }
 
-  const renderTable = !loadingTableData && fetchedData.length !== 0;
-
   return (
     <div className="cms-unit-templates index-container">
       <div className="unit-template-inputs">
@@ -314,7 +264,7 @@ const UnitTemplates = () => {
           switchFlag={switchFlag}
         />
       </div>
-      {renderTable && renderActivitiesTable()}
+      {renderActivitiesTable()}
       {loadingTableData && <LoadingSpinner />}
       {error && <p className="error-message">{error}</p>}
     </div>
