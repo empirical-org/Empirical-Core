@@ -112,7 +112,7 @@ class Subscription < ApplicationRecord
 
   validates :stripe_invoice_id, allow_blank: true, stripe_uid: { prefix: :in }
 
-  delegate :stripe_cancel_at_period_end, :last_four, :stripe_subscription_id, :stripe_subscription_url,
+  delegate :stripe_cancel_at_period_end, :stripe_subscription_id, :stripe_subscription_url,
     to: :stripe_subscription
 
   scope :active, -> { not_expired.not_de_activated.order(expiration: :asc) }
@@ -375,6 +375,10 @@ class Subscription < ApplicationRecord
     "#{type}Subscription".constantize.create(h)
 
     subscription
+  end
+
+  def last_four
+    stripe_subscription&.last_four || purchaser&.last_four
   end
 
   def subscription_status

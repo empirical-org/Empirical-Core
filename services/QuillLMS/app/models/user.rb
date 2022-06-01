@@ -270,6 +270,14 @@ class User < ApplicationRecord
       .first
   end
 
+  def last_four
+    return nil unless stripe_customer_id
+
+    Stripe::Customer.retrieve(id: stripe_customer_id, expand: ['sources']).sources.data.first&.last4
+  rescue Stripe::InvalidRequestError
+    nil
+  end
+
   def present_and_future_subscriptions
     subscriptions.active
   end
