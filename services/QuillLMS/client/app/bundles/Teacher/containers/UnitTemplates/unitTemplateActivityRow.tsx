@@ -33,10 +33,18 @@ const UnitTemplateActivityRow = ({
     );
   }
 
-  function handleEditClick(e) {
+  function handleActivityClick(e) {
     const { target } = e;
     const { value } = target;
-    console.log("🚀 ~ file: unitTemplateActivityRow.tsx ~ line 24 ~ handleEditClick ~ value", value)
+    const link = `${process.env.DEFAULT_URL}${value}`;
+    window.open(link, "_blank");
+  }
+
+  function handleEditClick(e) {
+    const { target } = e;
+    const { id, value } = target;
+    const link = `${process.env.DEFAULT_URL}/cms/activity_classifications/${id}/activities/${value}/edit`;
+    window.open(link, "_blank");
   }
 
   function handleRemoveClick(e) {
@@ -47,18 +55,18 @@ const UnitTemplateActivityRow = ({
 
   function activityRows() {
     return activities.map(activity => {
-      const { id, name, flags, readability_grade_level, standard, activity_category, classification } = activity;
+      const { id, name, flags, readability_grade_level, standard, activity_category, classification, anonymous_path } = activity;
       console.log("🚀 ~ file: unitTemplateActivityRow.tsx ~ line 36 ~ activityRows ~ activity", activity)
       return {
         id,
-        name: name,
+        name: <button className="interactive-wrapper focus-on-light" onClick={handleActivityClick} value={anonymous_path}>{name}</button>,
         flag: commaSeparatedValuesString(flags),
         readability: readability_grade_level || 'N/A',
         ccss: showStandardData(standard),
         concept: activity_category && activity_category.name ? activity_category.name : 'N/A',
         tool: classification && classification.name ? classification.name : 'N/A',
-        edit: <button className="quill-button primary contained small focus-on-dark" onClick={handleEditClick} type="button" value={id}>Edit</button>,
-        remove: <button className="quill-button primary contained small focus-on-dark" onClick={handleRemoveClick} type="button" value={id}>Remove</button>
+        edit: <button className="interactive-wrapper focus-on-light" id={classification.id} onClick={handleEditClick} type="button" value={id}>Edit</button>,
+        remove: <button className="interactive-wrapper focus-on-light" onClick={handleRemoveClick} type="button" value={id}>Remove</button>
       }
     });
   }

@@ -61,7 +61,7 @@ const UnitTemplateRow = ({
 
   return (
     <div>
-      <tr className="blog-post-row unit-template-row">
+      <tr className="unit-template-row">
         {expandOrCollapseButton()}
         <td className="name-col">{unitTemplate.name}</td>
         <td className="flag-col"><FlagDropdown flag={unitTemplate.flag} handleFlagChange={handleSelectFlag} isLessons={false} /></td>

@@ -23,6 +23,13 @@
             padding: 16px;
             .data-table-row-section {
               white-space: break-spaces !important;
+              button {
+                color: #00c2a2;
+                text-align: left;
+              }
+              button:hover {
+                text-decoration: underline;
+              }
             }
           }
         }

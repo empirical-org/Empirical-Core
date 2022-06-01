@@ -88,9 +88,11 @@
 }
 
 .unit-template-row {
+  display: flex;
+  align-items: center;
   .expand-collapse-button {
     background: transparent;
-    height: 15px;
+    height: auto;
   }
   label {
     display: none;
