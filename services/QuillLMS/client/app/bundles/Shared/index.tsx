@@ -101,6 +101,7 @@ export {
   titleCase,
   onMobile,
   fillInBlankInputLabel,
+  commaSeparatedValuesString
 } from './libs/index'
 
 export {

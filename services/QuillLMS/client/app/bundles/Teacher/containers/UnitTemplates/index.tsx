@@ -5,7 +5,7 @@ import UnitTemplateRow from './unitTemplateRow'
 
 import ItemDropdown from '../../components/general_components/dropdown_selectors/item_dropdown';
 import LoadingSpinner from '../../../Connect/components/shared/loading_indicator.jsx'
-import { SortableList, } from  '../../../Shared/index'
+import { SortableList, Tooltip } from  '../../../Shared/index'
 import getAuthToken from '../../components/modules/get_auth_token'
 
 
@@ -232,7 +232,7 @@ const UnitTemplates = () => {
     const dataToUse = orderedUnitTemplates()
     const unitTemplateRows = dataToUse.map((ut) => renderTableRow(ut))
     return(
-      <div className="blog-post-table">
+      <div className="activity-packs-table">
         <table>
           {renderTableHeader()}
           <SortableList data={unitTemplateRows} sortCallback={updateOrder} />
@@ -247,7 +247,12 @@ const UnitTemplates = () => {
         <th className="name-col">Name</th>
         <th className="flag-col">Flag</th>
         <th className="diagnostics-col">Diagnostics</th>
-        <th className="category-col">Category</th>
+        <th className="category-col">
+          <Tooltip
+            tooltipText="Unit Template Category"
+            tooltipTriggerText="Pack Type"
+          />
+        </th>
       </tr>
     )
   }
@@ -290,10 +295,9 @@ const UnitTemplates = () => {
   const renderTable = !loadingTableData && fetchedData.length !== 0;
 
   return (
-    <div className="cms-unit-templates">
-      <div className="standard-columns">
-        <button className='button-green button-top' onClick={newUnitTemplate} type="button">New</button>
-        <div className="unit-template-inputs">
+    <div className="cms-unit-templates index-container">
+      <div className="unit-template-inputs">
+        <div className="upper-section">
           <input
             aria-label="Search by activity"
             className="search-box"
@@ -302,19 +306,20 @@ const UnitTemplates = () => {
             placeholder="Search by activity"
             value={activitySearchInput || ""}
           />
-          <div className="unit-template-dropdowns">
-            <ItemDropdown
-              callback={switchFlag}
-              items={options}
-              selectedItem={flag}
-            />
-            {diagnosticsDropdown()}
-          </div>
+          <button className='new-unit-template-button quill-button primary contained small focus-on-dark' onClick={newUnitTemplate} type="button">New</button>
         </div>
-        {renderTable && renderActivitiesTable()}
-        {loadingTableData && <LoadingSpinner />}
-        {error && <p className="error-message">{error}</p>}
+        <div className="unit-template-dropdowns">
+          <ItemDropdown
+            callback={switchFlag}
+            items={options}
+            selectedItem={flag}
+          />
+          {diagnosticsDropdown()}
+        </div>
       </div>
+      {renderTable && renderActivitiesTable()}
+      {loadingTableData && <LoadingSpinner />}
+      {error && <p className="error-message">{error}</p>}
     </div>
   )
 }

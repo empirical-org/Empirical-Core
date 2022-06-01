@@ -1,4 +1,34 @@
 .cms-unit-templates, .cms-activity-classifications {
+  &.index-container {
+    background-color: white;
+    padding: 24px;
+  }
+  .unit-template-inputs {
+    .upper-section {
+      display: flex;
+      align-items: baseline;
+      .new-unit-template-button {
+        margin-left: 52px;
+      }
+    }
+  }
+  .activity-packs-table {
+    table {
+      width: 95vw;
+      .unit-template-activity-row-table {
+        width: 95vw;
+        .data-table-body {
+          .data-table-row {
+            height: auto;
+            padding: 16px;
+            .data-table-row-section {
+              white-space: break-spaces !important;
+            }
+          }
+        }
+      }
+    }
+  }
   .save-button {
     margin-left: 10px;
   }
