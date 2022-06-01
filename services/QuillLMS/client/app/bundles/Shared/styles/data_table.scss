@@ -89,7 +89,7 @@ table.data-table {
     top: 0;
     background-color: white;
     z-index: 1;
-    width: min-content;
+    min-width: min-content;
   }
 
   .data-table-row {
