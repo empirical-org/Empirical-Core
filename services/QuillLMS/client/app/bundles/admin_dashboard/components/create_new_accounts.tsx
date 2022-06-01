@@ -83,7 +83,7 @@ class CreateNewAccounts extends React.Component<any, any> {
       <div id="create_new_accounts">
         <div className="header">
           <h2>Create New Accounts and Link Existing Teachers</h2>
-          <a className="quill-button secondary outlined fun focus-on-light" href="mailto:hello@quill.org?subject=Bulk Upload Teachers via CSV&body=Please attach your CSV file to this email.">Upload teachers via csv</a>
+          <a className="quill-button secondary outlined fun focus-on-light" href="mailto:hello@quill.org?subject=Bulk Upload Teachers via CSV&body=Please attach your CSV file to this email.">Upload teachers via CSV</a>
         </div>
         <p><span>Teachers New to Quill?</span> Input their information to create new Quill accounts.</p>
         <p>
