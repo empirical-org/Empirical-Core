@@ -59,7 +59,7 @@ const MoreInfo = (row) => {
 const getDateFromLatestAutoMLModel = (models) => {
   const latestModel = models?.find( model => model.state === 'active')
   console.log("getDateFromLatestAutoMLModel called, latest model:", latestModel)
-  if (!latestModel) { return '' }
+  if (!latestModel) { return null }
   return latestModel.created_at
 }
 
@@ -122,7 +122,7 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
   });
 
   React.useEffect(() => {
-    onStartDateChange(getDateFromLatestAutoMLModel(modelsData?.models))
+    onStartDateChange(new Date(getDateFromLatestAutoMLModel(modelsData?.models)))
     setStartDate(getDateFromLatestAutoMLModel(modelsData?.models))
 
   }, [modelsData])
@@ -474,7 +474,7 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
         onEndDateChange={onEndDateChange}
         onStartDateChange={onStartDateChange}
         showError={showError}
-        startDate={startDateForQuery}
+        startDate={startDate}
         turkSessionID={turkSessionID}
       />
       {renderDataSection()}
