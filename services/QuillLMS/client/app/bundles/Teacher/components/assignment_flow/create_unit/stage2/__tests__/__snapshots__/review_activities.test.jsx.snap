@@ -28,12 +28,13 @@ exports[`ReviewActivities component should render 1`] = `
           Object {
             "attribute": "tool",
             "name": "Tool",
-            "rowSectionClassName": "tool-icon",
+            "rowSectionClassName": "tooltip-section review-activities-data-table-section",
             "width": "30px",
           },
           Object {
             "attribute": "activity",
             "name": "Activity",
+            "rowSectionClassName": "tooltip-section review-activities-data-table-section",
             "width": "350px",
           },
           Object {
@@ -53,34 +54,16 @@ exports[`ReviewActivities component should render 1`] = `
       rows={
         Array [
           Object {
-            "activity": <div>
-              <div
-                className="activate-tooltip"
-                data-for="413-name"
-                data-tip="<h1>Sentence Structure Diagnostic</h1><p>Tool: Quill Diagnostic</p><p>Diagnostic</p><p>Assess students on eight areas of sentence structure. Quill then recommends up to eight weeks of instruction based on the results.</p>"
-              >
-                <ReactTooltip
-                  className="react-tooltip-custom"
-                  clickable={false}
-                  effect="solid"
-                  html={true}
-                  id="413-name"
-                  insecure={true}
-                  multiline={true}
-                  resizeHide={true}
-                  type="light"
-                  wrapper="div"
-                />
-                <a
-                  className="tooltip-trigger activity-name"
-                  href="/activity_sessions/anonymous?activity_id=413"
-                  rel="noreferrer noopener"
-                  target="_blank"
-                >
-                  Sentence Structure Diagnostic
-                </a>
-              </div>
-            </div>,
+            "activity": <Tooltip
+              tooltipText="<h5>Sentence Structure Diagnostic</h5><br/><p>Tool: Quill Diagnostic</p><br/><p>Diagnostic</p><br/><p>Assess students on eight areas of sentence structure. Quill then recommends up to eight weeks of instruction based on the results.</p>"
+              tooltipTriggerText="Sentence Structure Diagnostic"
+              tooltipTriggerTextClass="clipped-content"
+              tooltipTriggerTextStyle={
+                Object {
+                  "maxWidth": "350px",
+                }
+              }
+            />,
             "concept": "Diagnostics",
             "dueDate": <withStyles(SingleDatePicker)
               anchorDirection="left"
@@ -185,57 +168,27 @@ exports[`ReviewActivities component should render 1`] = `
             />,
             "id": 413,
             "removable": true,
-            "tool": <div
-              className="activate-tooltip"
-              data-for="413-tool"
-              data-tip="<h1>Sentence Structure Diagnostic</h1><p>Tool: Quill Diagnostic</p><p>Diagnostic</p><p>Assess students on eight areas of sentence structure. Quill then recommends up to eight weeks of instruction based on the results.</p>"
-            >
-              <ReactTooltip
-                className="react-tooltip-custom"
-                clickable={false}
-                effect="solid"
-                html={true}
-                id="413-tool"
-                insecure={true}
-                multiline={true}
-                resizeHide={true}
-                type="light"
-                wrapper="div"
-              />
-              <span
-                className="icon-4-green-no-border"
-              />
-            </div>,
+            "tool": <Tooltip
+              tooltipText="<h5>Quill Diagnostic</h5><br/><p>Identify Learning Gaps</p>"
+              tooltipTriggerText={
+                <img
+                  alt="Magnifying glass representing Quill Diagnostic"
+                  src="undefined/images/icons/diagnostic-forest-green.svg"
+                />
+              }
+            />,
           },
           Object {
-            "activity": <div>
-              <div
-                className="activate-tooltip"
-                data-for="654-name"
-                data-tip="<h1>Lesson 1: Using In, At, and On to Show Time</h1><p>Tool: Quill Lessons</p><p>1st Grade CCSS</p><p></p>"
-              >
-                <ReactTooltip
-                  className="react-tooltip-custom"
-                  clickable={false}
-                  effect="solid"
-                  html={true}
-                  id="654-name"
-                  insecure={true}
-                  multiline={true}
-                  resizeHide={true}
-                  type="light"
-                  wrapper="div"
-                />
-                <a
-                  className="tooltip-trigger activity-name"
-                  href="/activity_sessions/anonymous?activity_id=654"
-                  rel="noreferrer noopener"
-                  target="_blank"
-                >
-                  Lesson 1: Using In, At, and On to Show Time
-                </a>
-              </div>
-            </div>,
+            "activity": <Tooltip
+              tooltipText="<h5>Lesson 1: Using In, At, and On to Show Time</h5><br/><p>Tool: Quill Lessons</p><br/><p>1st Grade CCSS</p><br/><p></p>"
+              tooltipTriggerText="Lesson 1: Using In, At, and On to Show Time"
+              tooltipTriggerTextClass="clipped-content"
+              tooltipTriggerTextStyle={
+                Object {
+                  "maxWidth": "350px",
+                }
+              }
+            />,
             "concept": "Prepositions",
             "dueDate": <withStyles(SingleDatePicker)
               anchorDirection="left"
@@ -340,27 +293,15 @@ exports[`ReviewActivities component should render 1`] = `
             />,
             "id": 654,
             "removable": true,
-            "tool": <div
-              className="activate-tooltip"
-              data-for="654-tool"
-              data-tip="<h1>Lesson 1: Using In, At, and On to Show Time</h1><p>Tool: Quill Lessons</p><p>1st Grade CCSS</p><p></p>"
-            >
-              <ReactTooltip
-                className="react-tooltip-custom"
-                clickable={false}
-                effect="solid"
-                html={true}
-                id="654-tool"
-                insecure={true}
-                multiline={true}
-                resizeHide={true}
-                type="light"
-                wrapper="div"
-              />
-              <span
-                className="icon-6-green-no-border"
-              />
-            </div>,
+            "tool": <Tooltip
+              tooltipText="<h5>Quill Lessons</h5><br/><p>Lead Group Lessons</p>"
+              tooltipTriggerText={
+                <img
+                  alt="Apple representing Quill Lessons"
+                  src="undefined/images/icons/lessons-forest-green.svg"
+                />
+              }
+            />,
           },
         ]
       }

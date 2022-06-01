@@ -312,14 +312,15 @@ exports[`ActivityFeed component not on mobile should render when there are activ
         ]
       }
     >
-      <div
+      <table
         className="data-table undefined"
       >
-        <div
+        <tr
           className="data-table-headers"
         >
           <th
             className="data-table-header undefined"
+            scope="col"
             style={
               Object {
                 "minWidth": "125px",
@@ -332,6 +333,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
           </th>
           <th
             className="data-table-header undefined"
+            scope="col"
             style={
               Object {
                 "minWidth": "245px",
@@ -344,6 +346,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
           </th>
           <th
             className="data-table-header undefined"
+            scope="col"
             style={
               Object {
                 "minWidth": "124px",
@@ -356,6 +359,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
           </th>
           <th
             className="data-table-header completed-section"
+            scope="col"
             style={
               Object {
                 "minWidth": "84px",
@@ -366,50 +370,264 @@ exports[`ActivityFeed component not on mobile should render when there are activ
           >
             Completed
           </th>
-        </div>
-        <div
+        </tr>
+        <tbody
           className="data-table-body"
         >
-          <a
-            className="data-table-row  focus-on-light"
-            href="/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/76/user/7/activity/810"
-            key="33"
-          >
-            <span
-              className="data-table-row-section undefined"
-              key="studentName-33"
-              style={
-                Object {
-                  "minWidth": "125px",
-                  "textAlign": "left",
-                  "width": "125px",
-                }
-              }
+          <tr>
+            <a
+              className="data-table-row  focus-on-light"
+              href="/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/76/user/7/activity/810"
+              key="33"
             >
-              Angie Thomas
-            </span>
-            <Tooltip
-              key="activityName-33"
-              tooltipText="Subject and Object Pronoun Agreement 1"
-              tooltipTriggerStyle={
-                Object {
-                  "minWidth": "245px",
-                  "textAlign": "left",
-                  "width": "245px",
+              <td
+                className="data-table-row-section undefined"
+                key="studentName-33"
+                style={
+                  Object {
+                    "minWidth": "125px",
+                    "textAlign": "left",
+                    "width": "125px",
+                  }
                 }
-              }
-              tooltipTriggerText="Subject and Object Pronoun Agreement 1"
-              tooltipTriggerTextClass="data-table-row-section undefined"
-              tooltipTriggerTextStyle={
-                Object {
-                  "minWidth": "245px",
-                  "textAlign": "left",
-                  "width": "245px",
+              >
+                Angie Thomas
+              </td>
+              <td>
+                <Tooltip
+                  isTabbable={true}
+                  key="activityName-33"
+                  tooltipText="Subject and Object Pronoun Agreement 1"
+                  tooltipTriggerStyle={
+                    Object {
+                      "minWidth": "245px",
+                      "textAlign": "left",
+                      "width": "245px",
+                    }
+                  }
+                  tooltipTriggerText="Subject and Object Pronoun Agreement 1"
+                  tooltipTriggerTextClass="data-table-row-section undefined"
+                  tooltipTriggerTextStyle={
+                    Object {
+                      "minWidth": "245px",
+                      "textAlign": "left",
+                      "width": "245px",
+                    }
+                  }
+                >
+                  <span
+                    aria-hidden={false}
+                    className="quill-tooltip-trigger"
+                    role="tooltip"
+                    style={
+                      Object {
+                        "minWidth": "245px",
+                        "textAlign": "left",
+                        "width": "245px",
+                      }
+                    }
+                  >
+                    <span
+                      className="data-table-row-section undefined"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onMouseEnter={[Function]}
+                      onMouseLeave={[Function]}
+                      role="button"
+                      style={
+                        Object {
+                          "minWidth": "245px",
+                          "textAlign": "left",
+                          "width": "245px",
+                        }
+                      }
+                      tabIndex={0}
+                    >
+                      Subject and Object Pronoun Agreement 1
+                    </span>
+                    <span
+                      className="quill-tooltip-wrapper"
+                    >
+                      <span
+                        aria-live="polite"
+                        className="quill-tooltip"
+                      />
+                    </span>
+                  </span>
+                </Tooltip>
+              </td>
+              <td
+                className="data-table-row-section undefined"
+                key="scoreTag-33"
+                style={
+                  Object {
+                    "minWidth": "124px",
+                    "textAlign": "left",
+                    "width": "124px",
+                  }
                 }
-              }
+              >
+                <span
+                  className="score-tag not-yet-proficient"
+                >
+                  Not yet proficient
+                </span>
+              </td>
+              <td
+                className="data-table-row-section completed-section"
+                key="completed-33"
+                style={
+                  Object {
+                    "minWidth": "84px",
+                    "textAlign": "left",
+                    "width": "84px",
+                  }
+                }
+              >
+                Mar 5th
+              </td>
+            </a>
+          </tr>
+          <tr>
+            <a
+              className="data-table-row  focus-on-light"
+              href="/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/49/user/7/activity/885"
+              key="32"
             >
-              <span
-                className="quill-tooltip-trigger"
+              <td
+                className="data-table-row-section undefined"
+                key="studentName-32"
+                style={
+                  Object {
+                    "minWidth": "125px",
+                    "textAlign": "left",
+                    "width": "125px",
+                  }
+                }
+              >
+                Angie Thomas
+              </td>
+              <td>
+                <Tooltip
+                  isTabbable={true}
+                  key="activityName-32"
+                  tooltipText="Capitalize Names of People and the Pronoun \\"I\\""
+                  tooltipTriggerStyle={
+                    Object {
+                      "minWidth": "245px",
+                      "textAlign": "left",
+                      "width": "245px",
+                    }
+                  }
+                  tooltipTriggerText="Capitalize Names of People and the Pronoun \\"I\\""
+                  tooltipTriggerTextClass="data-table-row-section undefined"
+                  tooltipTriggerTextStyle={
+                    Object {
+                      "minWidth": "245px",
+                      "textAlign": "left",
+                      "width": "245px",
+                    }
+                  }
+                >
+                  <span
+                    aria-hidden={false}
+                    className="quill-tooltip-trigger"
+                    role="tooltip"
+                    style={
+                      Object {
+                        "minWidth": "245px",
+                        "textAlign": "left",
+                        "width": "245px",
+                      }
+                    }
+                  >
+                    <span
+                      className="data-table-row-section undefined"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onMouseEnter={[Function]}
+                      onMouseLeave={[Function]}
+                      role="button"
+                      style={
+                        Object {
+                          "minWidth": "245px",
+                          "textAlign": "left",
+                          "width": "245px",
+                        }
+                      }
+                      tabIndex={0}
+                    >
+                      Capitalize Names of People and the Pronoun "I"
+                    </span>
+                    <span
+                      className="quill-tooltip-wrapper"
+                    >
+                      <span
+                        aria-live="polite"
+                        className="quill-tooltip"
+                      />
+                    </span>
+                  </span>
+                </Tooltip>
+              </td>
+              <td
+                className="data-table-row-section undefined"
+                key="scoreTag-32"
+                style={
+                  Object {
+                    "minWidth": "124px",
+                    "textAlign": "left",
+                    "width": "124px",
+                  }
+                }
+              >
+                <span
+                  className="score-tag proficient"
+                >
+                  Proficient
+                </span>
+              </td>
+              <td
+                className="data-table-row-section completed-section"
+                key="completed-32"
+                style={
+                  Object {
+                    "minWidth": "84px",
+                    "textAlign": "left",
+                    "width": "84px",
+                  }
+                }
+              >
+                Mar 5th
+              </td>
+            </a>
+          </tr>
+          <tr>
+            <a
+              className="data-table-row  focus-on-light"
+              href="/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/49/user/7/activity/804"
+              key="29"
+            >
+              <td
+                className="data-table-row-section undefined"
+                key="studentName-29"
+                style={
+                  Object {
+                    "minWidth": "125px",
+                    "textAlign": "left",
+                    "width": "125px",
+                  }
+                }
+              >
+                Angie Thomas
+              </td>
+              <td
+                className="data-table-row-section undefined"
+                key="activityName-29"
                 style={
                   Object {
                     "minWidth": "245px",
@@ -418,105 +636,62 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                   }
                 }
               >
-                <span
-                  className="data-table-row-section undefined"
-                  onClick={[Function]}
-                  onMouseEnter={[Function]}
-                  onMouseLeave={[Function]}
-                  style={
-                    Object {
-                      "minWidth": "245px",
-                      "textAlign": "left",
-                      "width": "245px",
-                    }
+                Capitalize Names of People 1
+              </td>
+              <td
+                className="data-table-row-section undefined"
+                key="scoreTag-29"
+                style={
+                  Object {
+                    "minWidth": "124px",
+                    "textAlign": "left",
+                    "width": "124px",
                   }
-                  tabIndex={null}
-                >
-                  Subject and Object Pronoun Agreement 1
-                </span>
-                <span
-                  className="quill-tooltip-wrapper"
-                >
-                  <span
-                    className="quill-tooltip"
-                  />
-                </span>
-              </span>
-            </Tooltip>
-            <span
-              className="data-table-row-section undefined"
-              key="scoreTag-33"
-              style={
-                Object {
-                  "minWidth": "124px",
-                  "textAlign": "left",
-                  "width": "124px",
                 }
-              }
-            >
-              <span
-                className="score-tag not-yet-proficient"
               >
-                Not yet proficient
-              </span>
-            </span>
-            <span
-              className="data-table-row-section completed-section"
-              key="completed-33"
-              style={
-                Object {
-                  "minWidth": "84px",
-                  "textAlign": "left",
-                  "width": "84px",
+                <span
+                  className="score-tag proficient"
+                >
+                  Proficient
+                </span>
+              </td>
+              <td
+                className="data-table-row-section completed-section"
+                key="completed-29"
+                style={
+                  Object {
+                    "minWidth": "84px",
+                    "textAlign": "left",
+                    "width": "84px",
+                  }
                 }
-              }
+              >
+                Mar 5th
+              </td>
+            </a>
+          </tr>
+          <tr>
+            <a
+              className="data-table-row  focus-on-light"
+              href="/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/49/user/7/activity/802"
+              key="28"
             >
-              Mar 5th
-            </span>
-            <span
-              className="removable data-table-row-section"
-            />
-          </a>
-          <a
-            className="data-table-row  focus-on-light"
-            href="/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/49/user/7/activity/885"
-            key="32"
-          >
-            <span
-              className="data-table-row-section undefined"
-              key="studentName-32"
-              style={
-                Object {
-                  "minWidth": "125px",
-                  "textAlign": "left",
-                  "width": "125px",
+              <td
+                className="data-table-row-section undefined"
+                key="studentName-28"
+                style={
+                  Object {
+                    "minWidth": "125px",
+                    "textAlign": "left",
+                    "width": "125px",
+                  }
                 }
-              }
-            >
-              Angie Thomas
-            </span>
-            <Tooltip
-              key="activityName-32"
-              tooltipText="Capitalize Names of People and the Pronoun \\"I\\""
-              tooltipTriggerStyle={
-                Object {
-                  "minWidth": "245px",
-                  "textAlign": "left",
-                  "width": "245px",
-                }
-              }
-              tooltipTriggerText="Capitalize Names of People and the Pronoun \\"I\\""
-              tooltipTriggerTextClass="data-table-row-section undefined"
-              tooltipTriggerTextStyle={
-                Object {
-                  "minWidth": "245px",
-                  "textAlign": "left",
-                  "width": "245px",
-                }
-              }
-            >
-              <span
-                className="quill-tooltip-trigger"
+              >
+                Angie Thomas
+              </td>
+              <td
+                className="data-table-row-section undefined"
+                key="activityName-28"
                 style={
                   Object {
                     "minWidth": "245px",
@@ -525,365 +700,62 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                   }
                 }
               >
-                <span
-                  className="data-table-row-section undefined"
-                  onClick={[Function]}
-                  onMouseEnter={[Function]}
-                  onMouseLeave={[Function]}
-                  style={
-                    Object {
-                      "minWidth": "245px",
-                      "textAlign": "left",
-                      "width": "245px",
-                    }
+                Capitalize Geographic Names 1
+              </td>
+              <td
+                className="data-table-row-section undefined"
+                key="scoreTag-28"
+                style={
+                  Object {
+                    "minWidth": "124px",
+                    "textAlign": "left",
+                    "width": "124px",
                   }
-                  tabIndex={null}
-                >
-                  Capitalize Names of People and the Pronoun "I"
-                </span>
+                }
+              >
                 <span
-                  className="quill-tooltip-wrapper"
+                  className="score-tag nearly-proficient"
                 >
-                  <span
-                    className="quill-tooltip"
-                  />
+                  Nearly proficient
                 </span>
-              </span>
-            </Tooltip>
-            <span
-              className="data-table-row-section undefined"
-              key="scoreTag-32"
-              style={
-                Object {
-                  "minWidth": "124px",
-                  "textAlign": "left",
-                  "width": "124px",
+              </td>
+              <td
+                className="data-table-row-section completed-section"
+                key="completed-28"
+                style={
+                  Object {
+                    "minWidth": "84px",
+                    "textAlign": "left",
+                    "width": "84px",
+                  }
                 }
-              }
-            >
-              <span
-                className="score-tag proficient"
               >
-                Proficient
-              </span>
-            </span>
-            <span
-              className="data-table-row-section completed-section"
-              key="completed-32"
-              style={
-                Object {
-                  "minWidth": "84px",
-                  "textAlign": "left",
-                  "width": "84px",
-                }
-              }
+                Mar 5th
+              </td>
+            </a>
+          </tr>
+          <tr>
+            <a
+              className="data-table-row  focus-on-light"
+              href="/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/75/user/7/activity/808"
+              key="27"
             >
-              Mar 5th
-            </span>
-            <span
-              className="removable data-table-row-section"
-            />
-          </a>
-          <a
-            className="data-table-row  focus-on-light"
-            href="/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/49/user/7/activity/804"
-            key="29"
-          >
-            <span
-              className="data-table-row-section undefined"
-              key="studentName-29"
-              style={
-                Object {
-                  "minWidth": "125px",
-                  "textAlign": "left",
-                  "width": "125px",
+              <td
+                className="data-table-row-section undefined"
+                key="studentName-27"
+                style={
+                  Object {
+                    "minWidth": "125px",
+                    "textAlign": "left",
+                    "width": "125px",
+                  }
                 }
-              }
-            >
-              Angie Thomas
-            </span>
-            <span
-              className="data-table-row-section undefined"
-              key="activityName-29"
-              style={
-                Object {
-                  "minWidth": "245px",
-                  "textAlign": "left",
-                  "width": "245px",
-                }
-              }
-            >
-              Capitalize Names of People 1
-            </span>
-            <span
-              className="data-table-row-section undefined"
-              key="scoreTag-29"
-              style={
-                Object {
-                  "minWidth": "124px",
-                  "textAlign": "left",
-                  "width": "124px",
-                }
-              }
-            >
-              <span
-                className="score-tag proficient"
               >
-                Proficient
-              </span>
-            </span>
-            <span
-              className="data-table-row-section completed-section"
-              key="completed-29"
-              style={
-                Object {
-                  "minWidth": "84px",
-                  "textAlign": "left",
-                  "width": "84px",
-                }
-              }
-            >
-              Mar 5th
-            </span>
-            <span
-              className="removable data-table-row-section"
-            />
-          </a>
-          <a
-            className="data-table-row  focus-on-light"
-            href="/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/49/user/7/activity/802"
-            key="28"
-          >
-            <span
-              className="data-table-row-section undefined"
-              key="studentName-28"
-              style={
-                Object {
-                  "minWidth": "125px",
-                  "textAlign": "left",
-                  "width": "125px",
-                }
-              }
-            >
-              Angie Thomas
-            </span>
-            <span
-              className="data-table-row-section undefined"
-              key="activityName-28"
-              style={
-                Object {
-                  "minWidth": "245px",
-                  "textAlign": "left",
-                  "width": "245px",
-                }
-              }
-            >
-              Capitalize Geographic Names 1
-            </span>
-            <span
-              className="data-table-row-section undefined"
-              key="scoreTag-28"
-              style={
-                Object {
-                  "minWidth": "124px",
-                  "textAlign": "left",
-                  "width": "124px",
-                }
-              }
-            >
-              <span
-                className="score-tag nearly-proficient"
-              >
-                Nearly proficient
-              </span>
-            </span>
-            <span
-              className="data-table-row-section completed-section"
-              key="completed-28"
-              style={
-                Object {
-                  "minWidth": "84px",
-                  "textAlign": "left",
-                  "width": "84px",
-                }
-              }
-            >
-              Mar 5th
-            </span>
-            <span
-              className="removable data-table-row-section"
-            />
-          </a>
-          <a
-            className="data-table-row  focus-on-light"
-            href="/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/75/user/7/activity/808"
-            key="27"
-          >
-            <span
-              className="data-table-row-section undefined"
-              key="studentName-27"
-              style={
-                Object {
-                  "minWidth": "125px",
-                  "textAlign": "left",
-                  "width": "125px",
-                }
-              }
-            >
-              Angie Thomas
-            </span>
-            <span
-              className="data-table-row-section undefined"
-              key="activityName-27"
-              style={
-                Object {
-                  "minWidth": "245px",
-                  "textAlign": "left",
-                  "width": "245px",
-                }
-              }
-            >
-              Plural vs. Possessive Nouns 1
-            </span>
-            <span
-              className="data-table-row-section undefined"
-              key="scoreTag-27"
-              style={
-                Object {
-                  "minWidth": "124px",
-                  "textAlign": "left",
-                  "width": "124px",
-                }
-              }
-            >
-              <span
-                className="score-tag proficient"
-              >
-                Proficient
-              </span>
-            </span>
-            <span
-              className="data-table-row-section completed-section"
-              key="completed-27"
-              style={
-                Object {
-                  "minWidth": "84px",
-                  "textAlign": "left",
-                  "width": "84px",
-                }
-              }
-            >
-              Mar 5th
-            </span>
-            <span
-              className="removable data-table-row-section"
-            />
-          </a>
-          <a
-            className="data-table-row  focus-on-light"
-            href="/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/49/user/7/activity/801"
-            key="26"
-          >
-            <span
-              className="data-table-row-section undefined"
-              key="studentName-26"
-              style={
-                Object {
-                  "minWidth": "125px",
-                  "textAlign": "left",
-                  "width": "125px",
-                }
-              }
-            >
-              Angie Thomas
-            </span>
-            <span
-              className="data-table-row-section undefined"
-              key="activityName-26"
-              style={
-                Object {
-                  "minWidth": "245px",
-                  "textAlign": "left",
-                  "width": "245px",
-                }
-              }
-            >
-              Capitalize Holidays and Dates 1
-            </span>
-            <span
-              className="data-table-row-section undefined"
-              key="scoreTag-26"
-              style={
-                Object {
-                  "minWidth": "124px",
-                  "textAlign": "left",
-                  "width": "124px",
-                }
-              }
-            >
-              <span
-                className="score-tag nearly-proficient"
-              >
-                Nearly proficient
-              </span>
-            </span>
-            <span
-              className="data-table-row-section completed-section"
-              key="completed-26"
-              style={
-                Object {
-                  "minWidth": "84px",
-                  "textAlign": "left",
-                  "width": "84px",
-                }
-              }
-            >
-              Mar 5th
-            </span>
-            <span
-              className="removable data-table-row-section"
-            />
-          </a>
-          <a
-            className="data-table-row  focus-on-light"
-            href="/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/49/user/7/activity/181"
-            key="25"
-          >
-            <span
-              className="data-table-row-section undefined"
-              key="studentName-25"
-              style={
-                Object {
-                  "minWidth": "125px",
-                  "textAlign": "left",
-                  "width": "125px",
-                }
-              }
-            >
-              Angie Thomas
-            </span>
-            <Tooltip
-              key="activityName-25"
-              tooltipText="Capitalize Holidays and Geographic Names"
-              tooltipTriggerStyle={
-                Object {
-                  "minWidth": "245px",
-                  "textAlign": "left",
-                  "width": "245px",
-                }
-              }
-              tooltipTriggerText="Capitalize Holidays and Geographic Names"
-              tooltipTriggerTextClass="data-table-row-section undefined"
-              tooltipTriggerTextStyle={
-                Object {
-                  "minWidth": "245px",
-                  "textAlign": "left",
-                  "width": "245px",
-                }
-              }
-            >
-              <span
-                className="quill-tooltip-trigger"
+                Angie Thomas
+              </td>
+              <td
+                className="data-table-row-section undefined"
+                key="activityName-27"
                 style={
                   Object {
                     "minWidth": "245px",
@@ -892,327 +764,478 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                   }
                 }
               >
+                Plural vs. Possessive Nouns 1
+              </td>
+              <td
+                className="data-table-row-section undefined"
+                key="scoreTag-27"
+                style={
+                  Object {
+                    "minWidth": "124px",
+                    "textAlign": "left",
+                    "width": "124px",
+                  }
+                }
+              >
                 <span
-                  className="data-table-row-section undefined"
-                  onClick={[Function]}
-                  onMouseEnter={[Function]}
-                  onMouseLeave={[Function]}
-                  style={
+                  className="score-tag proficient"
+                >
+                  Proficient
+                </span>
+              </td>
+              <td
+                className="data-table-row-section completed-section"
+                key="completed-27"
+                style={
+                  Object {
+                    "minWidth": "84px",
+                    "textAlign": "left",
+                    "width": "84px",
+                  }
+                }
+              >
+                Mar 5th
+              </td>
+            </a>
+          </tr>
+          <tr>
+            <a
+              className="data-table-row  focus-on-light"
+              href="/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/49/user/7/activity/801"
+              key="26"
+            >
+              <td
+                className="data-table-row-section undefined"
+                key="studentName-26"
+                style={
+                  Object {
+                    "minWidth": "125px",
+                    "textAlign": "left",
+                    "width": "125px",
+                  }
+                }
+              >
+                Angie Thomas
+              </td>
+              <td
+                className="data-table-row-section undefined"
+                key="activityName-26"
+                style={
+                  Object {
+                    "minWidth": "245px",
+                    "textAlign": "left",
+                    "width": "245px",
+                  }
+                }
+              >
+                Capitalize Holidays and Dates 1
+              </td>
+              <td
+                className="data-table-row-section undefined"
+                key="scoreTag-26"
+                style={
+                  Object {
+                    "minWidth": "124px",
+                    "textAlign": "left",
+                    "width": "124px",
+                  }
+                }
+              >
+                <span
+                  className="score-tag nearly-proficient"
+                >
+                  Nearly proficient
+                </span>
+              </td>
+              <td
+                className="data-table-row-section completed-section"
+                key="completed-26"
+                style={
+                  Object {
+                    "minWidth": "84px",
+                    "textAlign": "left",
+                    "width": "84px",
+                  }
+                }
+              >
+                Mar 5th
+              </td>
+            </a>
+          </tr>
+          <tr>
+            <a
+              className="data-table-row  focus-on-light"
+              href="/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/49/user/7/activity/181"
+              key="25"
+            >
+              <td
+                className="data-table-row-section undefined"
+                key="studentName-25"
+                style={
+                  Object {
+                    "minWidth": "125px",
+                    "textAlign": "left",
+                    "width": "125px",
+                  }
+                }
+              >
+                Angie Thomas
+              </td>
+              <td>
+                <Tooltip
+                  isTabbable={true}
+                  key="activityName-25"
+                  tooltipText="Capitalize Holidays and Geographic Names"
+                  tooltipTriggerStyle={
                     Object {
                       "minWidth": "245px",
                       "textAlign": "left",
                       "width": "245px",
                     }
                   }
-                  tabIndex={null}
-                >
-                  Capitalize Holidays and Geographic Names
-                </span>
-                <span
-                  className="quill-tooltip-wrapper"
+                  tooltipTriggerText="Capitalize Holidays and Geographic Names"
+                  tooltipTriggerTextClass="data-table-row-section undefined"
+                  tooltipTriggerTextStyle={
+                    Object {
+                      "minWidth": "245px",
+                      "textAlign": "left",
+                      "width": "245px",
+                    }
+                  }
                 >
                   <span
-                    className="quill-tooltip"
-                  />
+                    aria-hidden={false}
+                    className="quill-tooltip-trigger"
+                    role="tooltip"
+                    style={
+                      Object {
+                        "minWidth": "245px",
+                        "textAlign": "left",
+                        "width": "245px",
+                      }
+                    }
+                  >
+                    <span
+                      className="data-table-row-section undefined"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onMouseEnter={[Function]}
+                      onMouseLeave={[Function]}
+                      role="button"
+                      style={
+                        Object {
+                          "minWidth": "245px",
+                          "textAlign": "left",
+                          "width": "245px",
+                        }
+                      }
+                      tabIndex={0}
+                    >
+                      Capitalize Holidays and Geographic Names
+                    </span>
+                    <span
+                      className="quill-tooltip-wrapper"
+                    >
+                      <span
+                        aria-live="polite"
+                        className="quill-tooltip"
+                      />
+                    </span>
+                  </span>
+                </Tooltip>
+              </td>
+              <td
+                className="data-table-row-section undefined"
+                key="scoreTag-25"
+                style={
+                  Object {
+                    "minWidth": "124px",
+                    "textAlign": "left",
+                    "width": "124px",
+                  }
+                }
+              >
+                <span
+                  className="score-tag proficient"
+                >
+                  Proficient
                 </span>
-              </span>
-            </Tooltip>
-            <span
-              className="data-table-row-section undefined"
-              key="scoreTag-25"
-              style={
-                Object {
-                  "minWidth": "124px",
-                  "textAlign": "left",
-                  "width": "124px",
+              </td>
+              <td
+                className="data-table-row-section completed-section"
+                key="completed-25"
+                style={
+                  Object {
+                    "minWidth": "84px",
+                    "textAlign": "left",
+                    "width": "84px",
+                  }
                 }
-              }
-            >
-              <span
-                className="score-tag proficient"
               >
-                Proficient
-              </span>
-            </span>
-            <span
-              className="data-table-row-section completed-section"
-              key="completed-25"
-              style={
-                Object {
-                  "minWidth": "84px",
-                  "textAlign": "left",
-                  "width": "84px",
-                }
-              }
+                Mar 5th
+              </td>
+            </a>
+          </tr>
+          <tr>
+            <a
+              className="data-table-row  focus-on-light"
+              href="/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/6/unit/85/user/7/activity/849"
+              key="24"
             >
-              Mar 5th
-            </span>
-            <span
-              className="removable data-table-row-section"
-            />
-          </a>
-          <a
-            className="data-table-row  focus-on-light"
-            href="/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/6/unit/85/user/7/activity/849"
-            key="24"
-          >
-            <span
-              className="data-table-row-section undefined"
-              key="studentName-24"
-              style={
-                Object {
-                  "minWidth": "125px",
-                  "textAlign": "left",
-                  "width": "125px",
+              <td
+                className="data-table-row-section undefined"
+                key="studentName-24"
+                style={
+                  Object {
+                    "minWidth": "125px",
+                    "textAlign": "left",
+                    "width": "125px",
+                  }
                 }
-              }
-            >
-              Angie Thomas
-            </span>
-            <span
-              className="data-table-row-section undefined"
-              key="activityName-24"
-              style={
-                Object {
-                  "minWidth": "245px",
-                  "textAlign": "left",
-                  "width": "245px",
-                }
-              }
-            >
-              Starter Diagnostic
-            </span>
-            <span
-              className="data-table-row-section undefined"
-              key="scoreTag-24"
-              style={
-                Object {
-                  "minWidth": "124px",
-                  "textAlign": "left",
-                  "width": "124px",
-                }
-              }
-            >
-              <span
-                className="score-tag completed"
               >
-                Completed
-              </span>
-            </span>
-            <span
-              className="data-table-row-section completed-section"
-              key="completed-24"
-              style={
-                Object {
-                  "minWidth": "84px",
-                  "textAlign": "left",
-                  "width": "84px",
+                Angie Thomas
+              </td>
+              <td
+                className="data-table-row-section undefined"
+                key="activityName-24"
+                style={
+                  Object {
+                    "minWidth": "245px",
+                    "textAlign": "left",
+                    "width": "245px",
+                  }
                 }
-              }
-            >
-              Mar 4th
-            </span>
-            <span
-              className="removable data-table-row-section"
-            />
-          </a>
-          <a
-            className="data-table-row  focus-on-light"
-            href="/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/85/user/7/activity/849"
-            key="23"
-          >
-            <span
-              className="data-table-row-section undefined"
-              key="studentName-23"
-              style={
-                Object {
-                  "minWidth": "125px",
-                  "textAlign": "left",
-                  "width": "125px",
-                }
-              }
-            >
-              Angie Thomas
-            </span>
-            <span
-              className="data-table-row-section undefined"
-              key="activityName-23"
-              style={
-                Object {
-                  "minWidth": "245px",
-                  "textAlign": "left",
-                  "width": "245px",
-                }
-              }
-            >
-              Starter Diagnostic
-            </span>
-            <span
-              className="data-table-row-section undefined"
-              key="scoreTag-23"
-              style={
-                Object {
-                  "minWidth": "124px",
-                  "textAlign": "left",
-                  "width": "124px",
-                }
-              }
-            >
-              <span
-                className="score-tag completed"
               >
-                Completed
-              </span>
-            </span>
-            <span
-              className="data-table-row-section completed-section"
-              key="completed-23"
-              style={
-                Object {
-                  "minWidth": "84px",
-                  "textAlign": "left",
-                  "width": "84px",
+                Starter Diagnostic
+              </td>
+              <td
+                className="data-table-row-section undefined"
+                key="scoreTag-24"
+                style={
+                  Object {
+                    "minWidth": "124px",
+                    "textAlign": "left",
+                    "width": "124px",
+                  }
                 }
-              }
-            >
-              Mar 3rd
-            </span>
-            <span
-              className="removable data-table-row-section"
-            />
-          </a>
-          <a
-            className="data-table-row  focus-on-light"
-            href="/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/4/user/6/activity/849"
-            key="3"
-          >
-            <span
-              className="data-table-row-section undefined"
-              key="studentName-3"
-              style={
-                Object {
-                  "minWidth": "125px",
-                  "textAlign": "left",
-                  "width": "125px",
-                }
-              }
-            >
-              Tahereh Mafi
-            </span>
-            <span
-              className="data-table-row-section undefined"
-              key="activityName-3"
-              style={
-                Object {
-                  "minWidth": "245px",
-                  "textAlign": "left",
-                  "width": "245px",
-                }
-              }
-            >
-              Starter Diagnostic
-            </span>
-            <span
-              className="data-table-row-section undefined"
-              key="scoreTag-3"
-              style={
-                Object {
-                  "minWidth": "124px",
-                  "textAlign": "left",
-                  "width": "124px",
-                }
-              }
-            >
-              <span
-                className="score-tag completed"
               >
-                Completed
-              </span>
-            </span>
-            <span
-              className="data-table-row-section completed-section"
-              key="completed-3"
-              style={
-                Object {
-                  "minWidth": "84px",
-                  "textAlign": "left",
-                  "width": "84px",
+                <span
+                  className="score-tag completed"
+                >
+                  Completed
+                </span>
+              </td>
+              <td
+                className="data-table-row-section completed-section"
+                key="completed-24"
+                style={
+                  Object {
+                    "minWidth": "84px",
+                    "textAlign": "left",
+                    "width": "84px",
+                  }
                 }
-              }
-            >
-              Dec 1st, 2020
-            </span>
-            <span
-              className="removable data-table-row-section"
-            />
-          </a>
-          <a
-            className="data-table-row  focus-on-light"
-            href="/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/4/user/7/activity/849"
-            key="2"
-          >
-            <span
-              className="data-table-row-section undefined"
-              key="studentName-2"
-              style={
-                Object {
-                  "minWidth": "125px",
-                  "textAlign": "left",
-                  "width": "125px",
-                }
-              }
-            >
-              Angie Thomas
-            </span>
-            <span
-              className="data-table-row-section undefined"
-              key="activityName-2"
-              style={
-                Object {
-                  "minWidth": "245px",
-                  "textAlign": "left",
-                  "width": "245px",
-                }
-              }
-            >
-              Starter Diagnostic
-            </span>
-            <span
-              className="data-table-row-section undefined"
-              key="scoreTag-2"
-              style={
-                Object {
-                  "minWidth": "124px",
-                  "textAlign": "left",
-                  "width": "124px",
-                }
-              }
-            >
-              <span
-                className="score-tag completed"
               >
-                Completed
-              </span>
-            </span>
-            <span
-              className="data-table-row-section completed-section"
-              key="completed-2"
-              style={
-                Object {
-                  "minWidth": "84px",
-                  "textAlign": "left",
-                  "width": "84px",
-                }
-              }
+                Mar 4th
+              </td>
+            </a>
+          </tr>
+          <tr>
+            <a
+              className="data-table-row  focus-on-light"
+              href="/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/85/user/7/activity/849"
+              key="23"
             >
-              Dec 1st, 2020
-            </span>
-            <span
-              className="removable data-table-row-section"
-            />
-          </a>
-        </div>
-      </div>
+              <td
+                className="data-table-row-section undefined"
+                key="studentName-23"
+                style={
+                  Object {
+                    "minWidth": "125px",
+                    "textAlign": "left",
+                    "width": "125px",
+                  }
+                }
+              >
+                Angie Thomas
+              </td>
+              <td
+                className="data-table-row-section undefined"
+                key="activityName-23"
+                style={
+                  Object {
+                    "minWidth": "245px",
+                    "textAlign": "left",
+                    "width": "245px",
+                  }
+                }
+              >
+                Starter Diagnostic
+              </td>
+              <td
+                className="data-table-row-section undefined"
+                key="scoreTag-23"
+                style={
+                  Object {
+                    "minWidth": "124px",
+                    "textAlign": "left",
+                    "width": "124px",
+                  }
+                }
+              >
+                <span
+                  className="score-tag completed"
+                >
+                  Completed
+                </span>
+              </td>
+              <td
+                className="data-table-row-section completed-section"
+                key="completed-23"
+                style={
+                  Object {
+                    "minWidth": "84px",
+                    "textAlign": "left",
+                    "width": "84px",
+                  }
+                }
+              >
+                Mar 3rd
+              </td>
+            </a>
+          </tr>
+          <tr>
+            <a
+              className="data-table-row  focus-on-light"
+              href="/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/4/user/6/activity/849"
+              key="3"
+            >
+              <td
+                className="data-table-row-section undefined"
+                key="studentName-3"
+                style={
+                  Object {
+                    "minWidth": "125px",
+                    "textAlign": "left",
+                    "width": "125px",
+                  }
+                }
+              >
+                Tahereh Mafi
+              </td>
+              <td
+                className="data-table-row-section undefined"
+                key="activityName-3"
+                style={
+                  Object {
+                    "minWidth": "245px",
+                    "textAlign": "left",
+                    "width": "245px",
+                  }
+                }
+              >
+                Starter Diagnostic
+              </td>
+              <td
+                className="data-table-row-section undefined"
+                key="scoreTag-3"
+                style={
+                  Object {
+                    "minWidth": "124px",
+                    "textAlign": "left",
+                    "width": "124px",
+                  }
+                }
+              >
+                <span
+                  className="score-tag completed"
+                >
+                  Completed
+                </span>
+              </td>
+              <td
+                className="data-table-row-section completed-section"
+                key="completed-3"
+                style={
+                  Object {
+                    "minWidth": "84px",
+                    "textAlign": "left",
+                    "width": "84px",
+                  }
+                }
+              >
+                Dec 1st, 2020
+              </td>
+            </a>
+          </tr>
+          <tr>
+            <a
+              className="data-table-row  focus-on-light"
+              href="/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/4/user/7/activity/849"
+              key="2"
+            >
+              <td
+                className="data-table-row-section undefined"
+                key="studentName-2"
+                style={
+                  Object {
+                    "minWidth": "125px",
+                    "textAlign": "left",
+                    "width": "125px",
+                  }
+                }
+              >
+                Angie Thomas
+              </td>
+              <td
+                className="data-table-row-section undefined"
+                key="activityName-2"
+                style={
+                  Object {
+                    "minWidth": "245px",
+                    "textAlign": "left",
+                    "width": "245px",
+                  }
+                }
+              >
+                Starter Diagnostic
+              </td>
+              <td
+                className="data-table-row-section undefined"
+                key="scoreTag-2"
+                style={
+                  Object {
+                    "minWidth": "124px",
+                    "textAlign": "left",
+                    "width": "124px",
+                  }
+                }
+              >
+                <span
+                  className="score-tag completed"
+                >
+                  Completed
+                </span>
+              </td>
+              <td
+                className="data-table-row-section completed-section"
+                key="completed-2"
+                style={
+                  Object {
+                    "minWidth": "84px",
+                    "textAlign": "left",
+                    "width": "84px",
+                  }
+                }
+              >
+                Dec 1st, 2020
+              </td>
+            </a>
+          </tr>
+        </tbody>
+      </table>
     </DataTable>
   </section>
 </ActivityFeed>

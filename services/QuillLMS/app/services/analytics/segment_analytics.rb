@@ -148,6 +148,44 @@ class SegmentAnalytics
 
   end
 
+  def track_teacher_subscription(subscription, event)
+    teacher_id = subscription.users.first.id
+
+    track({
+      user_id: teacher_id,
+      event: event,
+      properties: {
+        subscription_id: subscription.id
+      }
+    })
+  end
+
+  def track_school_subscription(subscription, event)
+    school_id = subscription.schools.first.id
+
+    if subscription.purchaser_id.present?
+      track({
+        user_id: subscription.purchaser_id,
+        event: event,
+        properties: {
+          subscription_id: subscription.id,
+          school_id: school_id
+        }
+      })
+    else
+      track({
+        # Segment requires us to send a unique User ID or Anonymous ID for every event
+        # generate a random UUID here because we don't want the School Subscription event to be associated to any real user
+        anonymous_id: SecureRandom.uuid,
+        event: event,
+        properties: {
+          subscription_id: subscription.id,
+          school_id: school_id
+        }
+      })
+    end
+  end
+
   def track(options)
     return unless backend.present?
 

@@ -44,6 +44,7 @@ export default class Paragraph extends React.Component<ParagraphProps, {}> {
           isFollowedByPunctuation={!!isFollowedByPunctuation}
           numberOfResets={numberOfResets}
           onWordChange={this.handleWordChange}
+          underlineErrors={underlineErrors}
         />
       )})
     return <div className={className}>{inputs}</div>

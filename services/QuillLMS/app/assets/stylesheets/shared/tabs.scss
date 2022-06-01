@@ -153,11 +153,11 @@
 }
 
 @media (min-width: 930px) {
-  .hide-on-desktop { display: none; }
+  .hide-on-desktop { display: none !important; }
 }
 
 @media (max-width: 930px) {
-  .hide-on-mobile { display: none; }
+  .hide-on-mobile { display: none !important; }
 
   .discover-tabs .full-screen:not(.mobile) {
     display: none;

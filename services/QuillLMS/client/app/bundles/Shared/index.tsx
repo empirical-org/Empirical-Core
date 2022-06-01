@@ -101,6 +101,7 @@ export {
   titleCase,
   onMobile,
   fillInBlankInputLabel,
+  getIconForActivityClassification,
   commaSeparatedValuesString
 } from './libs/index'
 
@@ -131,7 +132,13 @@ export {
   whiteCheckGreenBackgroundIcon,
   lockedIcon,
   closeIcon,
-  informationIcon
+  informationIcon,
+  connectToolIcon,
+  diagnosticToolIcon,
+  grammarToolIcon,
+  lessonsToolIcon,
+  proofreaderToolIcon,
+  evidenceToolIcon
 } from './images/index'
 
 export {

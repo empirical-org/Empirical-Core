@@ -8,4 +8,5 @@ export { roundValuesToSeconds, roundMillisecondsToSeconds, } from './timeTrackin
 export { titleCase } from './titleCase'
 export { onMobile } from './onMobile'
 export { fillInBlankInputLabel, } from './fillInBlankInputLabel'
+export { getIconForActivityClassification } from './getIconForActivityClassification'
 export { commaSeparatedValuesString, } from './commaSeparatedValuesString'

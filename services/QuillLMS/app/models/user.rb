@@ -237,7 +237,7 @@ class User < ApplicationRecord
 
   def subscription_authority_level(subscription_id)
     subscription = Subscription.find subscription_id
-    if subscription.purchaser_id == id
+    if subscription.purchaser_id == id || subscription.purchaser_email&.downcase == email
       'purchaser'
     elsif subscription.schools.include?(school)
       if school.coordinator == self
@@ -268,6 +268,14 @@ class User < ApplicationRecord
       .order(expiration: :desc)
       .limit(1)
       .first
+  end
+
+  def last_four
+    return nil unless stripe_customer_id
+
+    Stripe::Customer.retrieve(id: stripe_customer_id, expand: ['sources']).sources.data.first&.last4
+  rescue Stripe::InvalidRequestError
+    nil
   end
 
   def present_and_future_subscriptions

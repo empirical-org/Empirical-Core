@@ -12,9 +12,19 @@ describe SubscriptionsController do
       it 'should set the instance variables' do
         get :index
         expect(assigns(:subscriptions)).to eq user.subscriptions
+        expect(assigns(:subscription_status)).to eq user.subscription_status
         expect(assigns(:premium_credits)).to eq user.credit_transactions
         expect(assigns(:school_subscription_types)).to eq Subscription::OFFICIAL_SCHOOL_TYPES
         expect(assigns(:trial_types)).to eq Subscription::TRIAL_TYPES
+      end
+    end
+
+    describe '#index as json' do
+      it 'should set the instance variables' do
+        get :index, params: { :format => 'json' }
+        expect(JSON.parse(response.body)['subscriptions']).to eq JSON.parse(user.subscriptions.to_json)
+        expect(JSON.parse(response.body)['subscription_status']).to eq JSON.parse(user.subscription_status.to_json)
+        expect(JSON.parse(response.body)['premium_credits']).to eq JSON.parse(user.credit_transactions.to_json)
       end
     end
 
