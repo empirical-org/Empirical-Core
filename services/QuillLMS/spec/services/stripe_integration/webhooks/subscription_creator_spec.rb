@@ -23,11 +23,11 @@ RSpec.describe StripeIntegration::Webhooks::SubscriptionCreator do
 
   context 'school subscription' do
     context 'happy path' do
-      let(:user) { create(:user) }
       let!(:teacher) { create(:teacher) }
       let!(:other_teacher) { create(:teacher) }
       let!(:school) { create :school, users: [customer, teacher]}
       let!(:school_plan) { create(:school_paid_plan) }
+      let!(:stripe_subscription_metadata) { { school_ids: [school.id].to_json } }
 
       before { allow(Plan).to receive(:find_stripe_plan!).with(stripe_price_id).and_return(school_plan) }
 

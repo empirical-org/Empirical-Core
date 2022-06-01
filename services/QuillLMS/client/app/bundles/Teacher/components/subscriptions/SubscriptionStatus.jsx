@@ -80,7 +80,7 @@ const SubscriptionStatus = ({
 }) => {
 
   const renewalStripePriceId = subscriptionStatus && subscriptionStatus.renewal_stripe_price_id
-  const schoolId = subscriptionStatus && subscriptionStatus.school_id
+  const schoolIds = subscriptionStatus && JSON.stringify(subscriptionStatus.school_ids)
 
   let image
   let expiration
@@ -154,7 +154,7 @@ const SubscriptionStatus = ({
             buttonText='Renew subscription'
             cancelPath='subscriptions'
             customerEmail={customerEmail}
-            schoolId={schoolId}
+            schoolIds={schoolIds}
             stripePriceId={renewalStripePriceId}
             userIsEligibleForNewSubscription={true}
             userIsSignedIn={true}

@@ -42,8 +42,14 @@ module StripeIntegration
       params[:customer_email]
     end
 
-    private def school_id
-      params[:school_id]
+    private def schools
+      @schools ||= School.where(id: school_ids)
+    end
+
+    private def school_ids
+      return [] if params[:school_ids].nil?
+
+      JSON.parse(params[:school_ids])
     end
 
     private def school_plan?
@@ -59,15 +65,15 @@ module StripeIntegration
     end
 
     private def success_url
-      return "#{subscriptions_url}?checkout_session_id={CHECKOUT_SESSION_ID}" unless school_id
+      return "#{subscriptions_url}?checkout_session_id={CHECKOUT_SESSION_ID}" if schools.empty?
 
-      "#{teacher_admin_subscriptions_url(school_id: school_id)}&checkout_session_id={CHECKOUT_SESSION_ID}"
+      "#{teacher_admin_subscriptions_url(school_id: school_ids.first)}&checkout_session_id={CHECKOUT_SESSION_ID}"
     end
 
     private def subscription_data
-      return {} unless School.exists?(id: school_id)
+      return {} if schools.empty?
 
-      { metadata: { school_id: school_id } }
+      { metadata: { school_ids: school_ids.to_json } }
     end
 
     private def teacher_plan?

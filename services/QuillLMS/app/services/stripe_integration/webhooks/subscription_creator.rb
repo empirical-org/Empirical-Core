@@ -56,9 +56,10 @@ module StripeIntegration
           UserSubscription.create!(user: purchaser, subscription: subscription)
           UpdateSalesContactWorker.perform_async(purchaser.id, SalesStageType::TEACHER_PREMIUM)
         when Plan.stripe_school_plan
-          raise NilSchoolError unless School.find_by(id: school_id)
+          schools = School.where(id: school_ids)
+          raise NilSchoolError if schools.empty?
 
-          SchoolSubscription.create!(school_id: school_id, subscription: subscription)
+          schools.each { |school| subscription.school_subscriptions.create!(school: school) }
           UpdateSalesContactWorker.perform_async(purchaser.id, SalesStageType::SCHOOL_PREMIUM)
         end
       end
@@ -69,8 +70,10 @@ module StripeIntegration
         purchaser.update!(stripe_customer_id: stripe_customer_id)
       end
 
-      private def school_id
-        stripe_subscription.metadata[:school_id]
+      private def school_ids
+        return [] if stripe_subscription.metadata[:school_ids].nil?
+
+        JSON.parse(stripe_subscription.metadata[:school_ids])
       end
 
       private def start_date

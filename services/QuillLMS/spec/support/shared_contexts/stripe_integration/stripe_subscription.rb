@@ -8,6 +8,7 @@ RSpec.shared_context 'Stripe Subscription' do
   let(:stripe_subscription_id) { "sub_#{SecureRandom.hex}" }
   let(:current_period_end) { 1.year.from_now.to_i }
   let(:current_period_start) { Date.current.to_time.to_i }
+  let(:stripe_subscription_metadata) { {} }
 
   let(:stripe_subscription) do
     Stripe::Subscription.construct_from(
@@ -43,7 +44,7 @@ RSpec.shared_context 'Stripe Subscription' do
       },
       latest_invoice: nil,
       livemode: false,
-      metadata: {},
+      metadata: stripe_subscription_metadata,
       next_pending_invoice_item_invoice: nil,
       pause_collection: nil,
       payment_settings: {
