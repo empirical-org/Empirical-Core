@@ -7,11 +7,12 @@
 #  id                            :bigint           not null, primary key
 #  attempt_number                :integer
 #  correct                       :boolean          not null
+#  extra_metadata                :json
 #  question_number               :integer
 #  question_score                :float
 #  created_at                    :datetime         not null
 #  activity_session_id           :bigint           not null
-#  question_id                   :bigint
+#  concept_result_id             :bigint
 #  response_answer_id            :bigint
 #  response_directions_id        :bigint
 #  response_instructions_id      :bigint
@@ -22,7 +23,7 @@
 # Indexes
 #
 #  index_responses_on_activity_session_id            (activity_session_id)
-#  index_responses_on_question_id                    (question_id)
+#  index_responses_on_concept_result_id              (concept_result_id) UNIQUE
 #  index_responses_on_response_answer_id             (response_answer_id)
 #  index_responses_on_response_directions_id         (response_directions_id)
 #  index_responses_on_response_instructions_id       (response_instructions_id)
@@ -39,16 +40,6 @@ class Response < ApplicationRecord
   belongs_to :response_previous_feedback
   belongs_to :response_prompt
   belongs_to :response_question_type
-
-  has_one :response_extra_metadata, dependent: :destroy
-
-  has_many :response_concept_results, dependent: :destroy
-  has_many :concept_results, through: :response_concept_results
-
-  has_many :responses_concepts, dependent: :destroy
-  has_many :concepts, through: :responses_concepts
-
-  accepts_nested_attributes_for :concepts, :concept_results
 
   validates_exclusion_of :correct, in: [nil]
 
@@ -162,11 +153,15 @@ class Response < ApplicationRecord
   end
 
   def assign_extra_metadata(metadata)
-    extra_metadata = metadata.except(*KNOWN_METADATA_KEYS).reject{ |_,v| v.nil? || (v.is_a?(Enumerable) && v.empty?) }
+    extra_metadata = parse_extra_metadata(metadata)
 
     return if extra_metadata.empty?
 
-    self.response_extra_metadata = ResponseExtraMetadata.new(metadata: extra_metadata)
+    self.extra_metadata = extra_metadata
+  end
+
+  def self.parse_extra_metadata(metadata)
+    metadata.deep_symbolize_keys.except(*KNOWN_METADATA_KEYS).reject{ |_,v| v.nil? || (v.is_a?(Enumerable) && v.empty?) }
   end
 
   def self.bulk_create_from_json(data_hash_array)

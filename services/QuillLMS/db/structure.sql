@@ -3028,37 +3028,6 @@ ALTER SEQUENCE public.response_answers_id_seq OWNED BY public.response_answers.i
 
 
 --
--- Name: response_concept_results; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.response_concept_results (
-    id bigint NOT NULL,
-    concept_result_id bigint NOT NULL,
-    response_id bigint NOT NULL,
-    created_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: response_concept_results_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.response_concept_results_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: response_concept_results_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.response_concept_results_id_seq OWNED BY public.response_concept_results.id;
-
-
---
 -- Name: response_directions; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3086,36 +3055,6 @@ CREATE SEQUENCE public.response_directions_id_seq
 --
 
 ALTER SEQUENCE public.response_directions_id_seq OWNED BY public.response_directions.id;
-
-
---
--- Name: response_extra_metadata; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.response_extra_metadata (
-    id bigint NOT NULL,
-    metadata jsonb NOT NULL,
-    response_id bigint NOT NULL
-);
-
-
---
--- Name: response_extra_metadata_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.response_extra_metadata_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: response_extra_metadata_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.response_extra_metadata_id_seq OWNED BY public.response_extra_metadata.id;
 
 
 --
@@ -3236,78 +3175,6 @@ CREATE SEQUENCE public.response_question_types_id_seq
 --
 
 ALTER SEQUENCE public.response_question_types_id_seq OWNED BY public.response_question_types.id;
-
-
---
--- Name: responses; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.responses (
-    id bigint NOT NULL,
-    activity_session_id bigint NOT NULL,
-    attempt_number integer,
-    correct boolean NOT NULL,
-    question_id bigint,
-    question_number integer,
-    question_score double precision,
-    response_answer_id bigint,
-    response_directions_id bigint,
-    response_instructions_id bigint,
-    response_previous_feedback_id bigint,
-    response_prompt_id bigint,
-    response_question_type_id bigint,
-    created_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: responses_concepts; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.responses_concepts (
-    id bigint NOT NULL,
-    concept_id bigint NOT NULL,
-    response_id bigint NOT NULL,
-    created_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: responses_concepts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.responses_concepts_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: responses_concepts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.responses_concepts_id_seq OWNED BY public.responses_concepts.id;
-
-
---
--- Name: responses_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.responses_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: responses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.responses_id_seq OWNED BY public.responses.id;
 
 
 --
@@ -5045,24 +4912,10 @@ ALTER TABLE ONLY public.response_answers ALTER COLUMN id SET DEFAULT nextval('pu
 
 
 --
--- Name: response_concept_results id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.response_concept_results ALTER COLUMN id SET DEFAULT nextval('public.response_concept_results_id_seq'::regclass);
-
-
---
 -- Name: response_directions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.response_directions ALTER COLUMN id SET DEFAULT nextval('public.response_directions_id_seq'::regclass);
-
-
---
--- Name: response_extra_metadata id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.response_extra_metadata ALTER COLUMN id SET DEFAULT nextval('public.response_extra_metadata_id_seq'::regclass);
 
 
 --
@@ -5091,20 +4944,6 @@ ALTER TABLE ONLY public.response_prompts ALTER COLUMN id SET DEFAULT nextval('pu
 --
 
 ALTER TABLE ONLY public.response_question_types ALTER COLUMN id SET DEFAULT nextval('public.response_question_types_id_seq'::regclass);
-
-
---
--- Name: responses id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.responses ALTER COLUMN id SET DEFAULT nextval('public.responses_id_seq'::regclass);
-
-
---
--- Name: responses_concepts id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.responses_concepts ALTER COLUMN id SET DEFAULT nextval('public.responses_concepts_id_seq'::regclass);
 
 
 --
@@ -5971,27 +5810,11 @@ ALTER TABLE ONLY public.response_answers
 
 
 --
--- Name: response_concept_results response_concept_results_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.response_concept_results
-    ADD CONSTRAINT response_concept_results_pkey PRIMARY KEY (id);
-
-
---
 -- Name: response_directions response_directions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.response_directions
     ADD CONSTRAINT response_directions_pkey PRIMARY KEY (id);
-
-
---
--- Name: response_extra_metadata response_extra_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.response_extra_metadata
-    ADD CONSTRAINT response_extra_metadata_pkey PRIMARY KEY (id);
 
 
 --
@@ -6024,22 +5847,6 @@ ALTER TABLE ONLY public.response_prompts
 
 ALTER TABLE ONLY public.response_question_types
     ADD CONSTRAINT response_question_types_pkey PRIMARY KEY (id);
-
-
---
--- Name: responses_concepts responses_concepts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.responses_concepts
-    ADD CONSTRAINT responses_concepts_pkey PRIMARY KEY (id);
-
-
---
--- Name: responses responses_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.responses
-    ADD CONSTRAINT responses_pkey PRIMARY KEY (id);
 
 
 --
@@ -7161,31 +6968,10 @@ CREATE UNIQUE INDEX index_response_answers_on_json ON public.response_answers US
 
 
 --
--- Name: index_response_concept_results_on_concept_result_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_response_concept_results_on_concept_result_id ON public.response_concept_results USING btree (concept_result_id);
-
-
---
--- Name: index_response_concept_results_on_response_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_response_concept_results_on_response_id ON public.response_concept_results USING btree (response_id);
-
-
---
 -- Name: index_response_directions_on_text; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX index_response_directions_on_text ON public.response_directions USING btree (text);
-
-
---
--- Name: index_response_extra_metadata_on_response_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_response_extra_metadata_on_response_id ON public.response_extra_metadata USING btree (response_id);
 
 
 --
@@ -7214,76 +7000,6 @@ CREATE UNIQUE INDEX index_response_prompts_on_text ON public.response_prompts US
 --
 
 CREATE UNIQUE INDEX index_response_question_types_on_text ON public.response_question_types USING btree (text);
-
-
---
--- Name: index_responses_concepts_on_concept_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_responses_concepts_on_concept_id ON public.responses_concepts USING btree (concept_id);
-
-
---
--- Name: index_responses_concepts_on_response_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_responses_concepts_on_response_id ON public.responses_concepts USING btree (response_id);
-
-
---
--- Name: index_responses_on_activity_session_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_responses_on_activity_session_id ON public.responses USING btree (activity_session_id);
-
-
---
--- Name: index_responses_on_question_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_responses_on_question_id ON public.responses USING btree (question_id);
-
-
---
--- Name: index_responses_on_response_answer_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_responses_on_response_answer_id ON public.responses USING btree (response_answer_id);
-
-
---
--- Name: index_responses_on_response_directions_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_responses_on_response_directions_id ON public.responses USING btree (response_directions_id);
-
-
---
--- Name: index_responses_on_response_instructions_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_responses_on_response_instructions_id ON public.responses USING btree (response_instructions_id);
-
-
---
--- Name: index_responses_on_response_previous_feedback_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_responses_on_response_previous_feedback_id ON public.responses USING btree (response_previous_feedback_id);
-
-
---
--- Name: index_responses_on_response_prompt_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_responses_on_response_prompt_id ON public.responses USING btree (response_prompt_id);
-
-
---
--- Name: index_responses_on_response_question_type_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_responses_on_response_question_type_id ON public.responses USING btree (response_question_type_id);
 
 
 --
@@ -7951,14 +7667,6 @@ ALTER TABLE ONLY public.activities
 
 
 --
--- Name: response_concept_results fk_rails_2bd3ff9dfb; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.response_concept_results
-    ADD CONSTRAINT fk_rails_2bd3ff9dfb FOREIGN KEY (concept_result_id) REFERENCES public.concept_results(id);
-
-
---
 -- Name: comprehension_automl_models fk_rails_35c32f80fc; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -8036,14 +7744,6 @@ ALTER TABLE ONLY public.prompt_healths
 
 ALTER TABLE ONLY public.feedback_history_ratings
     ADD CONSTRAINT fk_rails_54039a8fd0 FOREIGN KEY (user_id) REFERENCES public.users(id);
-
-
---
--- Name: response_concept_results fk_rails_576cd8c6e2; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.response_concept_results
-    ADD CONSTRAINT fk_rails_576cd8c6e2 FOREIGN KEY (response_id) REFERENCES public.responses(id);
 
 
 --
@@ -8183,14 +7883,6 @@ ALTER TABLE ONLY public.standards
 
 
 --
--- Name: response_extra_metadata fk_rails_cd73e7adbe; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.response_extra_metadata
-    ADD CONSTRAINT fk_rails_cd73e7adbe FOREIGN KEY (response_id) REFERENCES public.responses(id);
-
-
---
 -- Name: concept_results fk_rails_cebe4a6023; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -8255,27 +7947,11 @@ ALTER TABLE ONLY public.recommendations
 
 
 --
--- Name: responses_concepts fk_rails_dc926db029; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.responses_concepts
-    ADD CONSTRAINT fk_rails_dc926db029 FOREIGN KEY (response_id) REFERENCES public.responses(id);
-
-
---
 -- Name: comprehension_regex_rules fk_rails_dd1bb7c35b; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.comprehension_regex_rules
     ADD CONSTRAINT fk_rails_dd1bb7c35b FOREIGN KEY (rule_id) REFERENCES public.comprehension_rules(id) ON DELETE CASCADE;
-
-
---
--- Name: responses_concepts fk_rails_e3e3838dfb; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.responses_concepts
-    ADD CONSTRAINT fk_rails_e3e3838dfb FOREIGN KEY (concept_id) REFERENCES public.concepts(id);
 
 
 --
@@ -8775,10 +8451,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220505154951'),
 ('20220505155013'),
 ('20220505155014'),
-('20220505155015'),
-('20220505155016'),
-('20220505155212'),
-('20220505155243'),
-('20220505155304');
+('20220505155015');
 
 
