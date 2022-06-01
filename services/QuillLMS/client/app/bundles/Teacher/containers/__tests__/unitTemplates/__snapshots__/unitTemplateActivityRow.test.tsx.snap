@@ -1,0 +1,80 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UnitTemplateActivityRow component should match snapshot 1`] = `
+<DataTable
+  averageFontWidth={7}
+  className="unit-template-activity-row-table"
+  headers={
+    Array [
+      Object {
+        "attribute": "name",
+        "name": "Name",
+        "noTooltip": true,
+        "rowSectionClassName": "tabbable-field",
+        "width": "264px",
+      },
+      Object {
+        "attribute": "flag",
+        "name": "Flag",
+        "noTooltip": true,
+        "width": "80px",
+      },
+      Object {
+        "attribute": "readability",
+        "name": "Readability",
+        "noTooltip": true,
+        "width": "64px",
+      },
+      Object {
+        "attribute": "ccss",
+        "name": "CCSS",
+        "rowSectionClassName": "tooltip-section ccss-section",
+        "width": "280px",
+      },
+      Object {
+        "attribute": "concept",
+        "name": <Tooltip
+          isTabbable={true}
+          tooltipText="Activity Category"
+          tooltipTriggerText={
+            <button
+              className="action-button interactive-wrapper focus-on-light"
+              onClick={[Function]}
+            >
+              Concept
+            </button>
+          }
+          tooltipTriggerTextStyle={
+            Object {
+              "maxWidth": "152px",
+            }
+          }
+        />,
+        "noTooltip": true,
+        "width": "152px",
+      },
+      Object {
+        "attribute": "tool",
+        "name": "Tool",
+        "noTooltip": true,
+        "width": "88px",
+      },
+      Object {
+        "attribute": "edit",
+        "name": "",
+        "noTooltip": true,
+        "rowSectionClassName": "tabbable-field",
+        "width": "88px",
+      },
+      Object {
+        "attribute": "remove",
+        "name": "",
+        "noTooltip": true,
+        "rowSectionClassName": "tabbable-field",
+        "width": "88px",
+      },
+    ]
+  }
+  rows={Array []}
+/>
+`;

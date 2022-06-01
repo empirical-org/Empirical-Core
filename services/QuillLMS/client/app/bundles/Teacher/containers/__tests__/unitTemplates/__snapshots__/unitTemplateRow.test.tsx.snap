@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UnitTemplateRow component should match snapshot 1`] = `
+<div>
+  <tr
+    className="unit-template-row"
+  >
+    <button
+      className="expand-collapse-button focus-on-light"
+      onClick={[Function]}
+      type="button"
+    >
+      <img
+        alt="expand-and-collapse"
+        src="https://assets.quill.org/images/shared/expand.svg"
+      />
+    </button>
+    <td
+      className="name-col"
+    />
+    <td
+      className="flag-col"
+    >
+      <FlagDropdown
+        handleFlagChange={[Function]}
+        isLessons={false}
+      />
+    </td>
+    <td
+      className="diagnostics-col"
+    >
+      N/A
+    </td>
+    <td
+      className="category-col"
+    />
+    <td>
+      <button
+        className="action-button interactive-wrapper focus-on-light"
+        onClick={[Function]}
+      >
+        preview
+      </button>
+    </td>
+    <td
+      className="edit-col"
+    >
+      <button
+        className="action-button interactive-wrapper focus-on-light"
+        onClick={[Function]}
+      >
+        edit
+      </button>
+    </td>
+    <td
+      className="delete-col"
+    >
+      <button
+        className="action-button interactive-wrapper focus-on-light"
+        onClick={[Function]}
+        type="button"
+      >
+        delete
+      </button>
+    </td>
+  </tr>
+</div>
+`;

@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import * as React from 'react'
 
 import UnitTemplateActivityRow from './unitTemplateActivityRow';
 
@@ -10,7 +10,7 @@ const UnitTemplateRow = ({
   unitTemplate,
   updateUnitTemplate
 }) => {
-  const [showActivities, setShowActivities] = useState<boolean>(false);
+  const [showActivities, setShowActivities] = React.useState<boolean>(false);
 
   function deleteUnitTemplate() {
     const confirm = window.confirm('Are you sure you want to delete ' + unitTemplate.name + '?');
@@ -24,15 +24,17 @@ const UnitTemplateRow = ({
   }
 
   function handleSelectFlag(e) {
-    let newUnitTemplate = unitTemplate
-    newUnitTemplate.flag = e.target.value
+    const { target } = e;
+    const { value } = target;
+    const newUnitTemplate = {...unitTemplate}
+    newUnitTemplate.flag = value
     updateUnitTemplate(newUnitTemplate)
   }
 
   function handleRemoveActivity(act_id) {
     const confirm = window.confirm('Are you sure you want to remove this activity?');
     if (confirm) {
-      let newUnitTemplate = unitTemplate
+      const newUnitTemplate = {...unitTemplate}
       let activityIds = unitTemplate.activities.map((a) => a.id)
       activityIds.splice(activityIds.indexOf(act_id), 1)
       newUnitTemplate.activity_ids = activityIds
@@ -48,9 +50,7 @@ const UnitTemplateRow = ({
 
   function renderDiagnostics() {
     const { diagnostic_names } = unitTemplate;
-    if(!diagnostic_names.length) {
-      return 'N/A'
-    }
+    if(!diagnostic_names.length) { return 'N/A' }
     return diagnostic_names.map(diagnositc => (
       <p key={diagnositc}>{diagnositc}</p>
     ));
@@ -89,7 +89,7 @@ const UnitTemplateRow = ({
         </td>
       </tr>
 
-      {showActivities ? <UnitTemplateActivityRow activities={unitTemplate.activities} handleRemove={handleRemoveActivity} /> : ''}
+      {showActivities && <UnitTemplateActivityRow activities={unitTemplate.activities} handleRemove={handleRemoveActivity} />}
 
     </div>
   )

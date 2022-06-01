@@ -37,6 +37,10 @@
               &.tabbable-field {
                 overflow: inherit;
               }
+              &.ccss-section {
+                white-space: inherit;
+                overflow: hidden;
+              }
             }
           }
         }

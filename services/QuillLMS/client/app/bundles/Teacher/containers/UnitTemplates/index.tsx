@@ -31,7 +31,7 @@ const headerHash = {
 }
 const ERROR_MESSAGE = 'Failed to fetch activities-- please refresh the page.'
 
-const UnitTemplates = () => {
+export const UnitTemplates = () => {
 
   const [loadingTableData, setLoadingTableData] = React.useState<boolean>(true);
   const [flag, setFlag] = React.useState<string>(ALL_FLAGS)

@@ -1,11 +1,11 @@
-import React from 'react'
+import * as React from 'react'
 
 import { DataTable, Tooltip, commaSeparatedValuesString, getIconForActivityClassification } from '../../../Shared'
 
 const conceptMaxWidth = '152px';
 const readabilityMaxWidth = '280px';
 
-const UnitTemplateActivityRow = ({
+export const UnitTemplateActivityRow = ({
   activities,
   handleRemove
 }) => {
@@ -22,7 +22,7 @@ const UnitTemplateActivityRow = ({
     { name: "Name", attribute:"name", width: "264px", rowSectionClassName: 'tabbable-field', noTooltip: true },
     { name: "Flag", attribute:"flag", width: "80px", noTooltip: true },
     { name: "Readability", attribute:"readability", width: "64px", noTooltip: true },
-    { name: "CCSS", attribute:"ccss", width: readabilityMaxWidth, rowSectionClassName: 'tooltip-section' },
+    { name: "CCSS", attribute:"ccss", width: readabilityMaxWidth, rowSectionClassName: 'tooltip-section ccss-section' },
     { name: conceptHeaderElement, attribute:"concept", width: conceptMaxWidth, noTooltip: true },
     { name: "Tool", attribute:"tool", width: "88px", noTooltip: true },
     { name: "", attribute:"edit", width: "88px", rowSectionClassName: 'tabbable-field', noTooltip: true },
@@ -30,15 +30,18 @@ const UnitTemplateActivityRow = ({
   ];
 
   function showStandardData(standard) {
-    if(!standard || standard && !standard.name || standard && !standard.standard_category) { return 'N/A' }
+    if(!standard || standard && !standard.name) { return 'N/A' }
     const { name, standard_category } = standard;
-    return(
-      <Tooltip
-        tooltipText={name}
-        tooltipTriggerText={standard_category.name}
-        tooltipTriggerTextStyle={{ maxWidth: readabilityMaxWidth }}
-      />
-    );
+    if(standard_category && standard_category.name) {
+      return(
+        <Tooltip
+          tooltipText={name}
+          tooltipTriggerText={standard_category.name}
+          tooltipTriggerTextStyle={{ maxWidth: readabilityMaxWidth }}
+        />
+      );
+    }
+    return name;
   }
 
   function handleActivityClick(e) {
