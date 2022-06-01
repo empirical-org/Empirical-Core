@@ -2,7 +2,6 @@ import React from 'react'
 import request from 'request'
 import _ from 'underscore'
 import queryString from 'query-string';
-import ReactTooltip from 'react-tooltip';
 import moment from 'moment'
 
 import EmptyStateForReport from './empty_state_for_report'
@@ -13,7 +12,7 @@ import ItemDropdown from '../general_components/dropdown_selectors/item_dropdown
 import LoadingSpinner from '../shared/loading_indicator.jsx'
 import {sortTableByLastName, sortTableFromSQLTimeStamp} from '../../../../modules/sortingMethods.js'
 import { getTimeSpent } from '../../helpers/studentReports';
-import { ReactTable, } from '../../../Shared/index'
+import { ReactTable, Tooltip } from '../../../Shared/index'
 
 const showAllClassroomKey = 'All classes'
 
@@ -114,12 +113,17 @@ export class ActivitiesScoresByClassroomProgressReport extends React.Component {
         Header: "Class",
         accessor: 'classroom_name',
         resizable: false,
-        Cell: ({row}) => (
-          <div className="activate-tooltip" data-for="classroom-tooltip" data-tip={`<p>${row.original.classroom_name}</p>`}>
-            <ReactTooltip className="react-tooltip-custom" effect="solid" html id="classroom-tooltip" multiline type="light" />
-            <a className="tooltip-trigger row-link-disguise" href={`/teachers/progress_reports/student_overview?classroom_id=${row.original.classroom_id}&student_id=${row.original.student_id}`} rel='noreferrer noopener' target="_blank">{row.original.classroom_name}</a>
-          </div>
-        )
+        Cell: ({row}) => {
+          const tooltipText = `<p>${row.original.classroom_name}</p>`;
+          const tooltipTriggerElement = <a className="tooltip-trigger row-link-disguise" href={`/teachers/progress_reports/student_overview?classroom_id=${row.original.classroom_id}&student_id=${row.original.student_id}`} rel='noreferrer noopener' target="_blank">{row.original.classroom_name}</a>
+          return(
+            <Tooltip
+              tooltipText={tooltipText}
+              tooltipTriggerText={tooltipTriggerElement}
+            />
+          )
+        },
+        style: { overflow: 'visible' }
       }
     ])
   }
