@@ -55,6 +55,7 @@ exports[`ReviewActivities component should render 1`] = `
         Array [
           Object {
             "activity": <Tooltip
+              isTabbable={true}
               tooltipText="<h5>Sentence Structure Diagnostic</h5><br/><p>Tool: Quill Diagnostic</p><br/><p>Diagnostic</p><br/><p>Assess students on eight areas of sentence structure. Quill then recommends up to eight weeks of instruction based on the results.</p>"
               tooltipTriggerText="Sentence Structure Diagnostic"
               tooltipTriggerTextClass="clipped-content"
@@ -169,6 +170,7 @@ exports[`ReviewActivities component should render 1`] = `
             "id": 413,
             "removable": true,
             "tool": <Tooltip
+              isTabbable={true}
               tooltipText="<h5>Quill Diagnostic</h5><br/><p>Identify Learning Gaps</p>"
               tooltipTriggerText={
                 <img
@@ -180,6 +182,7 @@ exports[`ReviewActivities component should render 1`] = `
           },
           Object {
             "activity": <Tooltip
+              isTabbable={true}
               tooltipText="<h5>Lesson 1: Using In, At, and On to Show Time</h5><br/><p>Tool: Quill Lessons</p><br/><p>1st Grade CCSS</p><br/><p></p>"
               tooltipTriggerText="Lesson 1: Using In, At, and On to Show Time"
               tooltipTriggerTextClass="clipped-content"
@@ -294,6 +297,7 @@ exports[`ReviewActivities component should render 1`] = `
             "id": 654,
             "removable": true,
             "tool": <Tooltip
+              isTabbable={true}
               tooltipText="<h5>Quill Lessons</h5><br/><p>Lead Group Lessons</p>"
               tooltipTriggerText={
                 <img
