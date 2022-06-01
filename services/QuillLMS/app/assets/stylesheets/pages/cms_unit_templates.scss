@@ -8,9 +8,14 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin: 0px 56px 24px 8px;
       .new-unit-template-button {
         margin-left: 52px;
+      }
+      .activity-or-pack-search-container {
+        margin-right: 16px;
+      }
+      .search-box {
+        margin-right: 8px;
       }
     }
   }

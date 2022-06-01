@@ -2,8 +2,8 @@ import * as React from 'react'
 import request from 'request'
 
 import UnitTemplateRow from './unitTemplateRow'
+import UnitTemplateFilterInputs from './unitTemplateFilterInputs'
 
-import ItemDropdown from '../../components/general_components/dropdown_selectors/item_dropdown';
 import LoadingSpinner from '../../../Connect/components/shared/loading_indicator.jsx'
 import { SortableList, Tooltip } from  '../../../Shared/index'
 import getAuthToken from '../../components/modules/get_auth_token'
@@ -36,10 +36,11 @@ const UnitTemplates = () => {
   const [loadingTableData, setLoadingTableData] = React.useState<boolean>(true);
   const [flag, setFlag] = React.useState<string>(ALL_FLAGS)
   const [fetchedData, setFetchedData] = React.useState<any>([])
-  const [activitySearchInput, setActivitySearchInput] = React.useState<string>("")
+  const [searchInput, setSearchInput] = React.useState<string>("")
   const [diagnostics, setDiagnostics] = React.useState<any[]>([])
   const [diagnostic, setDiagnostic] = React.useState<string>(ALL_DIAGNOSTICS)
   const [error, setError] = React.useState<string>(null);
+  const [searchByActivityPack, setSearchByActivityPack] = React.useState<boolean>(true);
 
   React.useEffect(() => {
     if (loadingTableData && !diagnostics.length) {
@@ -136,10 +137,17 @@ const UnitTemplates = () => {
       filteredData = fetchedData.filter(data => data.flag === flag.toLowerCase())
     }
 
-    if (activitySearchInput !== '') {
+    if (searchInput !== '' && searchByActivityPack) {
+      filteredData = filteredData.filter(activity => {
+        const { name } = activity;
+        return name.toLowerCase().includes(searchInput.toLowerCase());
+      })
+    }
+
+    if (searchInput !== '' && !searchByActivityPack) {
       filteredData = filteredData.filter(value => {
         return (
-          value.activities && value.activities.map(x => x.name || '').some(y => y.toLowerCase().includes(activitySearchInput.toLowerCase()))
+          value.activities && value.activities.map(x => x.name || '').some(y => y.toLowerCase().includes(searchInput.toLowerCase()))
         );
       })
     }
@@ -261,20 +269,10 @@ const UnitTemplates = () => {
     setDiagnostic(diagnostic)
   }
 
-  function diagnosticsDropdown() {
-    let diagnostic_names = diagnostics.filter(d => d.data && d.data["flag"] !== ARCHIVED_FLAG.toLowerCase()).map((d) => d.name)
-    diagnostic_names.push(ALL_DIAGNOSTICS)
-    return (
-      <ItemDropdown
-        callback={switchDiagnostic}
-        items={diagnostic_names}
-        selectedItem={diagnostic}
-      />
-    )
-  }
-
-  function handleSearchByActivity(e) {
-    setActivitySearchInput(e.target.value)
+  function handleSearch(e) {
+    const { target } = e;
+    const { value } = target;
+    setSearchInput(value)
   }
 
   function switchFlag(flag) {
@@ -283,7 +281,7 @@ const UnitTemplates = () => {
 
   function isSortable() {
     if(flag && ![ALL_FLAGS, NOT_ARCHIVED_FLAG, PRODUCTION_FLAG].includes(flag)) { return false }
-    if (activitySearchInput !== '') { return false}
+    if (searchInput !== '') { return false}
     if (diagnostic !== ALL_DIAGNOSTICS) { return false}
     return true
   };
@@ -292,28 +290,29 @@ const UnitTemplates = () => {
     window.open(`unit_templates/new`, '_blank')
   }
 
+  function handleRadioChange() {
+    setSearchByActivityPack(!searchByActivityPack);
+    setSearchInput('');
+  }
+
   const renderTable = !loadingTableData && fetchedData.length !== 0;
 
   return (
     <div className="cms-unit-templates index-container">
       <div className="unit-template-inputs">
-        <div className="upper-section">
-          <input
-            aria-label="Search by activity"
-            className="search-box"
-            name="searchInput"
-            onChange={handleSearchByActivity}
-            placeholder="Search by activity"
-            value={activitySearchInput || ""}
-          />
-          <ItemDropdown
-            callback={switchFlag}
-            items={options}
-            selectedItem={flag}
-          />
-          {diagnosticsDropdown()}
-          <button className='new-unit-template-button quill-button primary contained small focus-on-light' onClick={newUnitTemplate} type="button">New</button>
-        </div>
+        <UnitTemplateFilterInputs
+          diagnostic={diagnostic}
+          diagnostics={diagnostics}
+          flag={flag}
+          handleRadioChange={handleRadioChange}
+          handleSearch={handleSearch}
+          newUnitTemplate={newUnitTemplate}
+          options={options}
+          searchByActivityPack={searchByActivityPack}
+          searchInput={searchInput}
+          switchDiagnostic={switchDiagnostic}
+          switchFlag={switchFlag}
+        />
       </div>
       {renderTable && renderActivitiesTable()}
       {loadingTableData && <LoadingSpinner />}
