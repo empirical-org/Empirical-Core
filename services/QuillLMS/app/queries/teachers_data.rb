@@ -28,6 +28,8 @@ module TeachersData
       LEFT OUTER JOIN classrooms ON classrooms_teachers.classroom_id = classrooms.id
       LEFT OUTER JOIN students_classrooms ON classrooms.id = students_classrooms.classroom_id
       WHERE users.id IN (#{teacher_ids_str})
+      AND classrooms.visible
+      AND students_classrooms.visible
       GROUP BY users.id"
     )
 
@@ -40,7 +42,7 @@ module TeachersData
       INNER JOIN classroom_units ON units.id = classroom_units.unit_id
       INNER JOIN activity_sessions ON classroom_units.id = activity_sessions.classroom_unit_id
       WHERE users.id IN (#{teacher_ids_str})
-      AND activity_sessions.state = 'finished'
+      AND activity_sessions.completed_at >= '#{last_july_first}'::date
       GROUP BY users.id"
     )
 
@@ -53,7 +55,7 @@ module TeachersData
       INNER JOIN classroom_units ON units.id = classroom_units.unit_id
       INNER JOIN activity_sessions ON classroom_units.id = activity_sessions.classroom_unit_id
       WHERE users.id IN (#{teacher_ids_str})
-      AND activity_sessions.state = 'finished'
+      AND activity_sessions.completed_at >= '#{last_july_first}'::date
       GROUP BY users.id"
     )
 
@@ -109,5 +111,11 @@ module TeachersData
           'epoch' FROM (activity_sessions.completed_at - activity_sessions.started_at)
         )
       END)"
+  end
+
+  def self.last_july_first
+    today = Date.current
+    july_first_of_this_year = Date.parse("01-07-#{today.year}")
+    today.month > 7 ? july_first_of_this_year : july_first_of_this_year - 1.year
   end
 end

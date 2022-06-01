@@ -91,6 +91,9 @@ const AdminsTeachers: React.SFC<AdminsTeachersProps> = ({
         This list provides you with the ability to sign in to all of the
         teacher accounts for the schools you have admin access.
       </p>
+      <p>
+        The data represents totals from this school year, beginning July 1st.
+      </p>
       <div className="admins-teachers">
         <ReactTable
           className='progress-report has-green-arrow'
