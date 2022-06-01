@@ -306,15 +306,13 @@ const UnitTemplates = () => {
             placeholder="Search by activity"
             value={activitySearchInput || ""}
           />
-          <button className='new-unit-template-button quill-button primary contained small focus-on-dark' onClick={newUnitTemplate} type="button">New</button>
-        </div>
-        <div className="unit-template-dropdowns">
           <ItemDropdown
             callback={switchFlag}
             items={options}
             selectedItem={flag}
           />
           {diagnosticsDropdown()}
+          <button className='new-unit-template-button quill-button primary contained small focus-on-light' onClick={newUnitTemplate} type="button">New</button>
         </div>
       </div>
       {renderTable && renderActivitiesTable()}

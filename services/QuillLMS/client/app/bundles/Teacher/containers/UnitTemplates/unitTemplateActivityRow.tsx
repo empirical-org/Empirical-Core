@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { DataTable, Tooltip, commaSeparatedValuesString } from '../../../Shared'
+import { DataTable, Tooltip, commaSeparatedValuesString, getIconForActivityClassification } from '../../../Shared'
 
 const readabilityMaxWidth = '280px';
 
@@ -10,14 +10,14 @@ const UnitTemplateActivityRow = ({
 }) => {
 
   const dataTableFields = [
-    { name: "Name", attribute:"name", width: "264px", noTooltip: true },
+    { name: "Name", attribute:"name", width: "264px", rowSectionClassName: 'tabbable-field', noTooltip: true },
     { name: "Flag", attribute:"flag", width: "80px", noTooltip: true },
     { name: "Readability", attribute:"readability", width: "64px", noTooltip: true },
     { name: "CCSS", attribute:"ccss", width: readabilityMaxWidth, rowSectionClassName: 'tooltip-section' },
     { name: "Concept", attribute:"concept", width: "152px", noTooltip: true },
-    { name: "Tool", attribute:"tool", width: "152px", noTooltip: true },
-    { name: "", attribute:"edit", width: "88px", noTooltip: true },
-    { name: "", attribute:"remove", width: "88px", noTooltip: true },
+    { name: "Tool", attribute:"tool", width: "88px", noTooltip: true },
+    { name: "", attribute:"edit", width: "88px", rowSectionClassName: 'tabbable-field', noTooltip: true },
+    { name: "", attribute:"remove", width: "88px", rowSectionClassName: 'tabbable-field', noTooltip: true },
   ];
 
   function showStandardData(standard) {
@@ -56,17 +56,16 @@ const UnitTemplateActivityRow = ({
   function activityRows() {
     return activities.map(activity => {
       const { id, name, flags, readability_grade_level, standard, activity_category, classification, anonymous_path } = activity;
-      console.log("🚀 ~ file: unitTemplateActivityRow.tsx ~ line 36 ~ activityRows ~ activity", activity)
       return {
         id,
-        name: <button className="interactive-wrapper focus-on-light" onClick={handleActivityClick} value={anonymous_path}>{name}</button>,
+        name: <button className="action-button interactive-wrapper focus-on-light" onClick={handleActivityClick} value={anonymous_path}>{name}</button>,
         flag: commaSeparatedValuesString(flags),
         readability: readability_grade_level || 'N/A',
         ccss: showStandardData(standard),
         concept: activity_category && activity_category.name ? activity_category.name : 'N/A',
-        tool: classification && classification.name ? classification.name : 'N/A',
-        edit: <button className="interactive-wrapper focus-on-light" id={classification.id} onClick={handleEditClick} type="button" value={id}>Edit</button>,
-        remove: <button className="interactive-wrapper focus-on-light" onClick={handleRemoveClick} type="button" value={id}>Remove</button>
+        tool: classification && classification.id ? getIconForActivityClassification(classification.id) : 'N/A',
+        edit: <button className="action-button interactive-wrapper focus-on-light" id={classification.id} onClick={handleEditClick} type="button" value={id}>Edit</button>,
+        remove: <button className="action-button interactive-wrapper focus-on-light" onClick={handleRemoveClick} type="button" value={id}>Remove</button>
       }
     });
   }

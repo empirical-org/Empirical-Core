@@ -6,7 +6,9 @@
   .unit-template-inputs {
     .upper-section {
       display: flex;
-      align-items: baseline;
+      align-items: center;
+      justify-content: space-between;
+      margin: 0px 56px 24px 8px;
       .new-unit-template-button {
         margin-left: 52px;
       }
@@ -17,24 +19,31 @@
       width: 95vw;
       .unit-template-activity-row-table {
         width: 95vw;
+        margin-left: 24px;
+        .data-table-headers {
+          padding: 16px;
+        }
         .data-table-body {
           .data-table-row {
             height: auto;
             padding: 16px;
             .data-table-row-section {
-              white-space: break-spaces !important;
-              button {
-                color: #00c2a2;
-                text-align: left;
-              }
-              button:hover {
-                text-decoration: underline;
+              white-space: break-spaces;
+              &.tabbable-field {
+                overflow: inherit;
               }
             }
           }
         }
       }
     }
+  }
+  .action-button {
+    color: #00c2a2;
+    text-align: left;
+  }
+  button:hover {
+    text-decoration: underline;
   }
   .save-button {
     margin-left: 10px;
