@@ -92,7 +92,7 @@ const AdminsTeachers: React.SFC<AdminsTeachersProps> = ({
         teacher accounts for the schools you have admin access.
       </p>
       <p>
-        The data represents totals from this school year, beginning July 1st.
+        <strong>The data below represents usage from this school year, beginning July 1st.</strong>
       </p>
       <div className="admins-teachers">
         <ReactTable
