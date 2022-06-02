@@ -255,7 +255,7 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
         <div className="meta-overview flex-row space-between">
           <div className='header-and-info'>
             <h1>Standards Report</h1>
-            <p>Each activity on Quill is aligned to a Common Core standard. This reports shows your students’ overall progress on each of the standards. You can filter by student on this page to see one student’s progress on all of the standards. You can click on an individual standard to see all of the student results for that standard.</p>
+            <p>Each activity on Quill is aligned to a Common Core standard. This report shows your students’ overall progress on each of the standards. You can filter by student on this page to see one student’s progress on all of the standards. You can click on an individual standard to see all of the student results for that standard.</p>
           </div>
           <div className='csv-and-how-we-grade'>
             <CSVDownloadForProgressReport data={this.formatDataForCSV()} key={`data is updating: ${updatingData}`} />
