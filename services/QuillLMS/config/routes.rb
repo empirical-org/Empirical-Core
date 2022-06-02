@@ -164,7 +164,7 @@ EmpiricalGrammar::Application.routes.draw do
   put 'students/update_password' => 'students#update_password'
   get 'join/:classcode' => 'students#join_classroom'
   get 'teachers/admin_dashboard' => 'teachers#admin_dashboard'
-  get 'teachers/admin_dashboard/school_subscriptions' => 'teachers#admin_dashboard'
+  get 'teachers/admin_dashboard/school_subscriptions' => 'teachers#admin_dashboard', as: :teacher_admin_subscriptions
   get 'teachers/admin_dashboard/district_activity_scores' => 'teachers#admin_dashboard'
   get 'teachers/admin_dashboard/district_activity_scores/student_overview' => 'teachers#admin_dashboard'
   get 'teachers/admin_dashboard/district_concept_reports' => 'teachers#admin_dashboard'

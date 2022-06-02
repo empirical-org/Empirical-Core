@@ -28,7 +28,7 @@ class SubscriptionsController < ApplicationController
         id: school.id,
         name: school.name,
         subscriptions: school.subscriptions,
-        subscription_status: school.subscription&.subscription_status || school.last_expired_subscription&.subscription_status
+        subscription_status: school.subscription_status
       }
     end
 
