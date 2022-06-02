@@ -5,7 +5,7 @@ export const ActivityDetails = ({ data }) => {
 
   if (!Object.keys(data).length) { return <span /> }
 
-  const { concept_results, started_at, completed_at, updated, scores, activity_description } = data
+  const { concept_results, started_at, updated, scores, activity_description } = data
 
   function getClassName() {
     if (concept_results && concept_results.length) {
