@@ -28,6 +28,12 @@ RSpec.describe StripeIntegration::Webhooks::InvoicePaidEventHandler do
     it { expect { subject }.to change(stripe_webhook_event, :status).to(StripeWebhookEvent::PROCESSED) }
   end
 
+  context 'manual invoice' do
+    let(:stripe_subscription_id) { nil }
+
+    it { expect { subject }.to change(stripe_webhook_event, :status).to(StripeWebhookEvent::PROCESSED) }
+  end
+
   context 'raised errors' do
     let(:error_class) { StripeIntegration::Webhooks::SubscriptionCreator::Error.subclasses.sample }
 
