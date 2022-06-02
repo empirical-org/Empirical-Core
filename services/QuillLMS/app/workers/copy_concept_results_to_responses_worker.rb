@@ -6,6 +6,14 @@ class CopyConceptResultsToResponsesWorker
 
   BATCH_SIZE=100000
 
+  def check_cache(cache_hash, cache_value, klass, column)
+    return unless cache_value
+
+    cache_hash[cache_value] ||= klass.find_or_initialize_by(**{column => cache_value})
+    cache_hash[cache_value].save(validate: false) if cache_hash[cache_value].new_record?
+    cache_hash[cache_value].id
+  end
+
   def perform(start, finish)
     answers_cache = {}
     directions_cache = {}
@@ -24,13 +32,6 @@ class CopyConceptResultsToResponsesWorker
         prompt = concept_result.metadata['prompt']
         question_type = concept_result.question_type
 
-        answers_cache[answer] ||= ResponseAnswer.find_or_create_by(json: answer)&.id if answer
-        directions_cache[directions] ||= ResponseDirections.find_or_create_by(text: directions)&.id if directions
-        instructions_cache[instructions] ||= ResponseInstructions.find_or_create_by(text: instructions)&.id if instructions
-        previous_feedbacks_cache[previous_feedback] ||= ResponsePreviousFeedback.find_or_create_by(text: previous_feedback)&.id if previous_feedback
-        prompts_cache[prompt] ||= ResponsePrompt.find_or_create_by(text: prompt)&.id if prompt
-        question_types_cache[question_type] ||= ResponseQuestionType.find_or_create_by(text: question_type)&.id if question_type
-
         extra_metadata = Response.parse_extra_metadata(concept_result.metadata)
 
         worker.add({
@@ -41,12 +42,12 @@ class CopyConceptResultsToResponsesWorker
           question_score: concept_result.metadata['questionScore'],
           activity_session_id: concept_result.activity_session_id,
           concept_result_id: concept_result.id,
-          response_answer_id: answers_cache[answer],
-          response_diections_id: directions_cache[directions],
-          response_instructions_id: instructions_cache[instructions],
-          response_previous_feedback_id: previous_feedbacks_cache[previous_feedback],
-          response_prompt_id: prompts_cache[prompt],
-          response_question_type_id: question_types_cache[question_type]
+          response_answer_id: check_cache(answers_cache, answer, ResponseAnswer, :json),
+          response_diections_id: check_cache(directions_cache, directions, ResponseDirections, :text),
+          response_instructions_id: check_cache(instructions_cache, instructions, ResponseInstructions, :text),
+          response_previous_feedback_id: check_cache(previous_feedbacks_cache, previous_feedback, ResponsePreviousFeedback, :text),
+          response_prompt_id: check_cache(prompts_cache, prompt, ResponsePrompt, :text),
+          response_question_type_id: check_cache(question_types_cache, question_type, ResponseQuestionType, :text)
         })
       end
     end
