@@ -6,12 +6,39 @@ class CopyConceptResultsToResponsesWorker
 
   BATCH_SIZE=100000
 
-  def check_cache(cache_hash, cache_value, klass, column)
-    return unless cache_value
+  def check_cache(cache_hash, value, table)
+    return unless value
+    return cache_hash[value] if cache_hash[value]
 
-    cache_hash[cache_value] ||= klass.find_or_initialize_by(**{column => cache_value})
-    cache_hash[cache_value].save(validate: false) if cache_hash[cache_value].new_record?
-    cache_hash[cache_value].id
+    if table == 'response_answers'
+      column = 'json'
+      column_type = 'jsonb'
+    else
+      column = 'text'
+      column_type = 'text'
+    end
+
+    result = ActiveRecord::Base.connection.execute <<-SQL
+      WITH
+      input_rows(#{column}, created_at) AS (
+        VALUES (#{column_type} ('"' || #{ActiveRecord::Base.connection.quote(value)}|| '"'), current_timestamp)
+      ),
+      insert_rows AS (
+        INSERT INTO #{table} (#{column}, created_at)
+        SELECT * FROM input_rows
+        ON CONFLICT (#{column}) DO NOTHING
+        RETURNING id
+      )
+      SELECT 'i' AS source, id
+        FROM insert_rows
+      UNION ALL
+      SELECT 's' AS source, joined.id
+        FROM input_rows
+        JOIN #{table} AS joined
+          USING (#{column})
+    SQL
+
+    cache_hash[value] = result.first['id']
   end
 
   def perform(start, finish)
@@ -42,12 +69,12 @@ class CopyConceptResultsToResponsesWorker
           question_score: concept_result.metadata['questionScore'],
           activity_session_id: concept_result.activity_session_id,
           concept_result_id: concept_result.id,
-          response_answer_id: check_cache(answers_cache, answer, ResponseAnswer, :json),
-          response_diections_id: check_cache(directions_cache, directions, ResponseDirections, :text),
-          response_instructions_id: check_cache(instructions_cache, instructions, ResponseInstructions, :text),
-          response_previous_feedback_id: check_cache(previous_feedbacks_cache, previous_feedback, ResponsePreviousFeedback, :text),
-          response_prompt_id: check_cache(prompts_cache, prompt, ResponsePrompt, :text),
-          response_question_type_id: check_cache(question_types_cache, question_type, ResponseQuestionType, :text)
+          response_answer_id: check_cache(answers_cache, answer, 'response_answers'),
+          response_diections_id: check_cache(directions_cache, directions, 'response_directions'),
+          response_instructions_id: check_cache(instructions_cache, instructions, 'response_instructions'),
+          response_previous_feedback_id: check_cache(previous_feedbacks_cache, previous_feedback, 'response_previous_feedbacks'),
+          response_prompt_id: check_cache(prompts_cache, prompt, 'response_prompts'),
+          response_question_type_id: check_cache(question_types_cache, question_type, 'response_question_types')
         })
       end
     end
