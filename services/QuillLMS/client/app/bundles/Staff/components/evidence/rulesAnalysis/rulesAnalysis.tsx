@@ -57,8 +57,8 @@ const MoreInfo = (row) => {
 }
 
 const getDateFromLatestAutoMLModel = (models) => {
-  const latestModel = models?.find( model => model.state === 'active')
-  console.log("getDateFromLatestAutoMLModel called, latest model:", latestModel)
+  if (!models) { return null }
+  const latestModel = models.find( model => model.state === 'active')
   if (!latestModel) { return null }
   return latestModel.created_at
 }
@@ -67,7 +67,7 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
   const { params } = match;
   const { activityId, promptConjunction, } = params;
   const today = new Date();
-  const thirtyDaysAgo = new Date().setDate(today.getDate()); // TODO: REVERT
+  const thirtyDaysAgo = new Date().setDate(today.getDate()-30);
 
   const ruleTypeValues = [DEFAULT_RULE_TYPE].concat(Object.keys(apiOrderLookup))
   const ruleTypeOptions = ruleTypeValues.map(val => ({ label: val, value: val, }))
@@ -75,9 +75,8 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
   const initialStartDateString = window.sessionStorage.getItem(`${RULES_ANALYSIS}startDate`) || '';
   const initialEndDateString = window.sessionStorage.getItem(`${RULES_ANALYSIS}endDate`) || '';
   const initialTurkSessionId = window.sessionStorage.getItem(`${RULES_ANALYSIS}turkSessionId`) || '';
-
+  const initialStartDate = initialStartDateString ? new Date(initialStartDateString) : new Date(thirtyDaysAgo);
   const initialEndDate = initialEndDateString ? new Date(initialEndDateString) : null;
-
   const selectedRuleTypeOption = ruleTypeOptions.find(opt => opt.value === ruleTypeFromUrl)
 
   const [showError, setShowError] = React.useState<boolean>(false);
@@ -91,6 +90,7 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
   const [turkSessionID, setTurkSessionID] = React.useState<string>(initialTurkSessionId);
   const [turkSessionIDForQuery, setTurkSessionIDForQuery] = React.useState<string>(initialTurkSessionId);
   const [formattedRows, setFormattedRows] = React.useState<any[]>(null);
+  const [startDate, onStartDateChange] = React.useState<Date>(initialStartDate);
 
   const selectedConjunction = selectedPrompt ? selectedPrompt.conjunction : promptConjunction
 
@@ -99,10 +99,6 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
     queryFn: fetchModels,
     enabled: selectedPrompt !== null
   });
-
-  const initialStartDate = initialStartDateString ? new Date(initialStartDateString) : new Date(thirtyDaysAgo);
-  const [startDate, onStartDateChange] = React.useState<Date>(initialStartDate);
-
 
   // cache rules data for updates
   const { data: ruleFeedbackHistory } = useQuery({
@@ -447,7 +443,6 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       </div>
     )
   }
-
 
   return(
     <div className={containerClassName}>
