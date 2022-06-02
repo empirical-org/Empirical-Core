@@ -15,7 +15,7 @@ describe Admin::TeacherSerializer do
         school
         links
         number_of_students
-        number_of_questions_completed
+        number_of_activities_completed
         time_spent
       }
     end

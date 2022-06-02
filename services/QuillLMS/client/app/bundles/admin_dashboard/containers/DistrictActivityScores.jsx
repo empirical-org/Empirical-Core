@@ -8,6 +8,7 @@ import {
   switchTeacher,
   getDistrictActivityScores,
 } from '../../../actions/district_activity_scores';
+import { getTimeSpent } from '../../Teacher/helpers/studentReports';
 
 class DistrictActivityScores extends React.Component {
   componentDidMount() {
@@ -52,6 +53,7 @@ function formatDataForCSV(data) {
     'Teacher Name',
     'Average Score',
     'Activity Count',
+    'Time Spent',
     'Last Active'
   ];
   const csvRow = row => [
@@ -61,6 +63,7 @@ function formatDataForCSV(data) {
     row.teachers_name,
     `${(row.average_score * 100).toString()}%`,
     row.activity_count,
+    getTimeSpent(row.timespent),
     row.last_active
   ];
 
