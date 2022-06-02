@@ -101,6 +101,34 @@ describe SubscriptionsController do
     end
   end
 
+  context "with school admin" do
+    let!(:school1) { create(:school) }
+    let!(:school2) { create(:school) }
+    let!(:schools_admins1) { create(:schools_admins, school: school1) }
+    let!(:schools_admins2) { create(:schools_admins, user: schools_admins1.user, school: school2) }
+    let!(:subscription1) { create(:subscription, account_type: Subscription::SCHOOL_PAID ) }
+    let!(:school_subscription1) { create(:school_subscription, subscription: subscription1, school: school1) }
+    let!(:subscription2) { create(:subscription, account_type: Subscription::SCHOOL_PAID, expiration: '2020-01-1'.to_date ) }
+    let!(:school_subscription2) { create(:school_subscription, subscription: subscription2, school: school2) }
+
+    before { allow(controller).to receive(:current_user) { schools_admins1.user } }
+
+    describe '#school_admin_subscriptions' do
+      it 'should set the instance variables' do
+        get :school_admin_subscriptions, params: { :format => 'json' }
+        expect(JSON.parse(response.body)['user_associated_school_id']).to eq schools_admins1.user.school
+        expect(JSON.parse(response.body)['schools'][0]['id']).to eq JSON.parse(school1.id.to_json)
+        expect(JSON.parse(response.body)['schools'][0]['name']).to eq JSON.parse(school1.name.to_json)
+        expect(JSON.parse(response.body)['schools'][0]['subscriptions']).to eq JSON.parse(school1.subscriptions.to_json)
+        expect(JSON.parse(response.body)['schools'][0]['subscription_status']).to eq JSON.parse(school1.subscription.subscription_status.to_json)
+        expect(JSON.parse(response.body)['schools'][1]['id']).to eq JSON.parse(school2.id.to_json)
+        expect(JSON.parse(response.body)['schools'][1]['name']).to eq JSON.parse(school2.name.to_json)
+        expect(JSON.parse(response.body)['schools'][1]['subscriptions']).to eq JSON.parse(school2.subscriptions.to_json)
+        expect(JSON.parse(response.body)['schools'][1]['subscription_status']).to eq JSON.parse(school2.last_expired_subscription.subscription_status.to_json)
+      end
+    end
+  end
+
   context "without user" do
 
     before { allow(controller).to receive(:current_user) { nil } }
