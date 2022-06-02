@@ -60,7 +60,7 @@ const getDateFromLatestAutoMLModel = (models) => {
   if (!models) { return null }
   const latestModel = models.find( model => model.state === 'active')
   if (!latestModel) { return null }
-  return latestModel.created_at
+  return latestModel.updated_at
 }
 
 const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ history, match }) => {
