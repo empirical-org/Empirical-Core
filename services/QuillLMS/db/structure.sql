@@ -3178,6 +3178,48 @@ ALTER SEQUENCE public.response_question_types_id_seq OWNED BY public.response_qu
 
 
 --
+-- Name: responses; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.responses (
+    id bigint NOT NULL,
+    activity_session_id bigint NOT NULL,
+    attempt_number integer,
+    correct boolean NOT NULL,
+    question_number integer,
+    question_score double precision,
+    response_answer_id bigint,
+    response_directions_id bigint,
+    response_instructions_id bigint,
+    response_previous_feedback_id bigint,
+    response_prompt_id bigint,
+    response_question_type_id bigint,
+    extra_metadata json,
+    concept_result_id bigint,
+    created_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: responses_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.responses_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: responses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.responses_id_seq OWNED BY public.responses.id;
+
+
+--
 -- Name: sales_contacts; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -4947,6 +4989,13 @@ ALTER TABLE ONLY public.response_question_types ALTER COLUMN id SET DEFAULT next
 
 
 --
+-- Name: responses id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.responses ALTER COLUMN id SET DEFAULT nextval('public.responses_id_seq'::regclass);
+
+
+--
 -- Name: sales_contacts id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -5847,6 +5896,14 @@ ALTER TABLE ONLY public.response_prompts
 
 ALTER TABLE ONLY public.response_question_types
     ADD CONSTRAINT response_question_types_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: responses responses_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.responses
+    ADD CONSTRAINT responses_pkey PRIMARY KEY (id);
 
 
 --
@@ -7000,6 +7057,13 @@ CREATE UNIQUE INDEX index_response_prompts_on_text ON public.response_prompts US
 --
 
 CREATE UNIQUE INDEX index_response_question_types_on_text ON public.response_question_types USING btree (text);
+
+
+--
+-- Name: index_responses_on_concept_result_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_responses_on_concept_result_id ON public.responses USING btree (concept_result_id);
 
 
 --
@@ -8451,6 +8515,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220505154951'),
 ('20220505155013'),
 ('20220505155014'),
-('20220505155015');
+('20220505155015'),
+('20220505155016');
 
 

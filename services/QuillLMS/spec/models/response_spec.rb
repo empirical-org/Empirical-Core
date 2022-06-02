@@ -22,14 +22,7 @@
 #
 # Indexes
 #
-#  index_responses_on_activity_session_id            (activity_session_id)
-#  index_responses_on_concept_result_id              (concept_result_id) UNIQUE
-#  index_responses_on_response_answer_id             (response_answer_id)
-#  index_responses_on_response_directions_id         (response_directions_id)
-#  index_responses_on_response_instructions_id       (response_instructions_id)
-#  index_responses_on_response_previous_feedback_id  (response_previous_feedback_id)
-#  index_responses_on_response_prompt_id             (response_prompt_id)
-#  index_responses_on_response_question_type_id      (response_question_type_id)
+#  index_responses_on_concept_result_id  (concept_result_id) UNIQUE
 #
 require 'rails_helper'
 
