@@ -292,12 +292,22 @@ module Evidence
       let!(:prompt) { create(:evidence_prompt, :activity => (activity)) }
       let!(:rule) { create(:evidence_rule, :prompts => ([prompt])) }
       let!(:passage) { create(:evidence_passage, :activity => (activity)) }
+      let!(:feedback1) { create(:evidence_feedback, rule: rule) }
+      let!(:highlight1) { create(:evidence_highlight, feedback: feedback1, text: 'lorem') }
 
       it 'should return rules' do
         get(:rules, :params => ({ :id => activity.id }))
         parsed_response = JSON.parse(response.body)
         expect(response.code.to_i).to(eq(200))
         expect(rule.id).to(eq(parsed_response[0]["id"]))
+      end
+
+      it 'should return feedbacks and highlights associated with the rules' do
+        get(:rules, :params => ({ :id => activity.id }))
+        parsed_response = JSON.parse(response.body)
+
+        expect(parsed_response.first['feedbacks'].count).to eq 1
+        expect(parsed_response.first['feedbacks'].first['highlights'].first['text']).to eq 'lorem'
       end
 
       it 'should 404 if activity is invalid' do
