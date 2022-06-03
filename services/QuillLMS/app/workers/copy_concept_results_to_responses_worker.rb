@@ -18,10 +18,15 @@ class CopyConceptResultsToResponsesWorker
       column_type = 'text'
     end
 
+    if value.is_a?(String)
+      value = "to_json(#{ActiveRecord::Base.connection.quote(value)}::text)"
+    else
+      value = "'#{value.to_json.sub("'","''")}'"
+    end
     result = ActiveRecord::Base.connection.execute <<-SQL
       WITH
       input_rows(#{column}, created_at) AS (
-        VALUES (#{column_type} ('"' || #{ActiveRecord::Base.connection.quote(value)}|| '"'), current_timestamp)
+        VALUES (#{column_type} (#{value}), current_timestamp)
       ),
       insert_rows AS (
         INSERT INTO #{table} (#{column}, created_at)
@@ -61,6 +66,7 @@ class CopyConceptResultsToResponsesWorker
 
         extra_metadata = Response.parse_extra_metadata(concept_result.metadata)
 
+        puts "ConceptResult: #{concept_result.id}"
         worker.add({
           attempt_number: concept_result.metadata['attemptNumber'],
           correct: concept_result.metadata['correct'] == 1,
