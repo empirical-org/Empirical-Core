@@ -7,13 +7,13 @@ import LoadingIndicator from '../shared/loading_indicator'
 
 export default class GettingStartedMini extends React.Component {
   checklistSection() {
-    const props = this.props
-    if (props.checkboxData.loading) {
+    const { checkboxData} = this.props
+    if (checkboxData.loading) {
       return <LoadingIndicator />;
     }
     return (
       <CheckboxSection
-        checkboxes={props.checkboxData}
+        checkboxes={checkboxData}
         dashboard
       />
     )
@@ -21,8 +21,8 @@ export default class GettingStartedMini extends React.Component {
 
   graphSection() {
     let content;
-    const props = this.props
-    if (props.checkboxData.loading) {
+    const { checkboxData} = this.props
+    if (checkboxData.loading) {
       content = <LoadingIndicator />;
     } else {
       content =
@@ -36,8 +36,8 @@ export default class GettingStartedMini extends React.Component {
   }
 
   percentageCompleted = () => {
-    const props = this.props
-    const boxes = props.checkboxData
+    const { checkboxData} = this.props
+    const boxes = checkboxData
     const ratio = boxes.filter(obj => obj.completed).length / boxes.length
     return Math.floor(ratio * 100)
   }
