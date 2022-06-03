@@ -25,11 +25,9 @@ module TeachersData
         COUNT(DISTINCT students_classrooms.id) AS number_of_students
       FROM users
       LEFT OUTER JOIN classrooms_teachers ON users.id = classrooms_teachers.user_id
-      LEFT OUTER JOIN classrooms ON classrooms_teachers.classroom_id = classrooms.id
-      LEFT OUTER JOIN students_classrooms ON classrooms.id = students_classrooms.classroom_id
+      LEFT OUTER JOIN classrooms ON classrooms_teachers.classroom_id = classrooms.id AND classrooms.visible = true
+      LEFT OUTER JOIN students_classrooms ON classrooms.id = students_classrooms.classroom_id AND students_classrooms.visible = true
       WHERE users.id IN (#{teacher_ids_str})
-      AND classrooms.visible
-      AND students_classrooms.visible
       GROUP BY users.id"
     )
 
@@ -70,7 +68,9 @@ module TeachersData
     end
 
     activities_count_query.each do |row|
-      combiner[row.id][:number_of_activities_completed] = row.number_of_activities_completed
+      if combiner[row.id]
+        combiner[row.id][:number_of_activities_completed] = row.number_of_activities_completed
+      end
     end
 
     time_spent_query.each do |row|
