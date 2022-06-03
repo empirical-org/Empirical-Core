@@ -61,11 +61,8 @@ describe ProgressReports::Standards::StudentSerializer, type: :serializer do
     end
 
     it 'should not raise error when average_score is nil' do
-      mock_object = double.tap { |mock| allow(mock).to receive(:average_score).and_return(nil) }
-      serializer = described_class.new(mock_object)
-      expect do
-        serializer.average_score
-      end.to_not raise_error
+      serializer = described_class.new(double(average_score: nil))
+      expect { serializer.average_score }.to_not raise_error
       expect(serializer.average_score).to eq 0
     end
 
