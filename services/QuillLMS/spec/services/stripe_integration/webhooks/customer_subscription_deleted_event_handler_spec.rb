@@ -14,7 +14,7 @@ RSpec.describe StripeIntegration::Webhooks::CustomerSubscriptionDeletedEventHand
   before { allow(Stripe::Event).to receive(:retrieve).with(external_id).and_return(stripe_event) }
 
   context 'happy path' do
-    before { allow(subscription_canceler_class).to receive(:run).with(stripe_event) }
+    before { allow(subscription_canceler_class).to receive(:run).with(stripe_subscription) }
 
     it { expect { subject }.to change(stripe_webhook_event, :status).to(StripeWebhookEvent::PROCESSED) }
   end
@@ -22,7 +22,7 @@ RSpec.describe StripeIntegration::Webhooks::CustomerSubscriptionDeletedEventHand
   context 'error raised' do
     let(:error_class) { subscription_canceler_class::SubscriptionNotFoundError }
 
-    before { allow(subscription_canceler_class).to receive(:run).and_raise(error_class) }
+    before { allow(subscription_canceler_class).to receive(:run).with(stripe_subscription).and_raise(error_class) }
 
     it do
       expect(stripe_webhook_event).to receive(:log_error)
