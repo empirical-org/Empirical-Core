@@ -5,7 +5,7 @@
 # Table name: responses
 #
 #  id                            :bigint           not null, primary key
-#  answer                        :text
+#  answer                        :jsonb
 #  attempt_number                :integer
 #  correct                       :boolean          not null
 #  extra_metadata                :json

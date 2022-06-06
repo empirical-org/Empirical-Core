@@ -3158,7 +3158,7 @@ CREATE TABLE public.responses (
     correct boolean NOT NULL,
     question_number integer,
     question_score double precision,
-    answer text,
+    answer jsonb,
     response_directions_id bigint,
     response_instructions_id bigint,
     response_previous_feedback_id bigint,
