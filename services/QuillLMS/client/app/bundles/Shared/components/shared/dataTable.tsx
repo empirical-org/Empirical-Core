@@ -28,7 +28,7 @@ interface DataTableRow {
 
 interface DataTableHeader {
   width: string;
-  name: string;
+  name: string | React.ReactElement;
   attribute: string;
   noTooltip?: boolean;
   rowSectionClassName?: string;
