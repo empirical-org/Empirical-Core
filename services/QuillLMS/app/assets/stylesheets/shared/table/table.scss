@@ -3,3 +3,42 @@
       vertical-align: middle;
     }
 }
+
+.blog-post-table, .activity-packs-table {
+  margin-bottom: 40px;
+  tr {
+    display: flex;
+    padding: 5px;
+    &.blog-post-row {
+      border: 1px gray solid;
+      margin-top: 3px;
+      width: 100%
+    }
+    &.unit-template-row {
+      border: 1px #e0e0e0 solid;
+      margin-top: 0;
+      padding: 16px 0px;
+    }
+  }
+}
+
+.blog-post-table {
+  tr {
+    th, td {
+      width: 100px;
+    }
+    th:last-of-type, td:last-of-type, th:nth-of-type(7), td:nth-of-type(7) {
+      width: 50px;
+    }
+    th:first-of-type, td:first-of-type, th:nth-of-type(4), td:nth-of-type(4), th:nth-of-type(5), td:nth-of-type(5), th:nth-of-type(8), td:nth-of-type(8), td:nth-of-type(6), th:nth-of-type(6) {
+      width: 75px;
+    }
+    td:nth-of-type(2), th:nth-of-type(2) {
+      width: 200px;
+      padding-right: 10px;
+    }
+    td:nth-of-type(3), th:nth-of-type(3) {
+      width: 150px;
+    }
+  }
+}
