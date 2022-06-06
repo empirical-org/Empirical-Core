@@ -39,7 +39,7 @@ class CopyConceptResultsToResponsesWorker
           question_score: concept_result.metadata['questionScore'],
           activity_session_id: concept_result.activity_session_id,
           concept_result_id: concept_result.id,
-          response_diections_id: directions_cache[directions],
+          response_directions_id: directions_cache[directions],
           response_instructions_id: instructions_cache[instructions],
           response_previous_feedback_id: previous_feedbacks_cache[previous_feedback],
           response_prompt_id: prompts_cache[prompt],
