@@ -6,22 +6,37 @@ import { customSearch } from '../../helpers/salesForms';
 
 export const SchoolAndDistrictSelection = ({
   errors,
-  schoolNotListed,
+  districtIsSelected,
   districtNotListed,
-  selectedSchool,
-  selectedDistrict,
-  schools,
   districts,
-  handleUpdateField,
+  handleDistrictSearchSelectionChange,
+  handleDistrictSearchTextChange,
   handleSchoolSearchSelectionChange,
   handleSchoolSearchTextChange,
-  handleDistrictSearchSelectionChange,
-  handleDistrictSearchTextChange
+  handleUpdateField,
+  schoolIsSelected,
+  schoolNotListed,
+  schools,
+  selectedDistrict,
+  selectedSchool
 }) => {
+
+  React.useEffect(() => {
+    if(schoolNotListed) {
+      const element = document.getElementById(SCHOOL)
+      element.focus();
+    }
+    if(districtNotListed) {
+      const element = document.getElementById(DISTRICT)
+      element.focus();
+    }
+  }, [schoolNotListed, districtNotListed]);
+
   const schoolInputLabel = selectedSchool ? SCHOOL : "Search for your school";
   const districtInputLabel = selectedDistrict ? DISTRICT : "Search for your district";
   const schoolOptions = [{ label: SCHOOL_NOT_LISTED, value: SCHOOL_NOT_LISTED}, ...schools];
   const districtOptions = [{ label: DISTRICT_NOT_LISTED, value: DISTRICT_NOT_LISTED}, ...districts];
+
   const schoolSearchInput = (
     <DropdownInput
       className="form-input school-dropdown"
@@ -51,7 +66,7 @@ export const SchoolAndDistrictSelection = ({
       className="form-input school"
       handleChange={handleUpdateField}
       id={SCHOOL}
-      label={SCHOOL}
+      label={`${SCHOOL} name`}
       placeholder=""
       value={selectedSchool}
     />
@@ -61,17 +76,17 @@ export const SchoolAndDistrictSelection = ({
       className="form-input district"
       handleChange={handleUpdateField}
       id={DISTRICT}
-      label={DISTRICT}
+      label={`${DISTRICT} name`}
       placeholder=""
       value={selectedDistrict}
     />
   );
   return(
     <div>
-      {!schoolNotListed && schoolSearchInput}
-      {schoolNotListed && schoolCustomInput}
-      {!districtNotListed && districtSearchInput}
-      {districtNotListed && districtCustomInput}
+      {schoolIsSelected && !schoolNotListed && schoolSearchInput}
+      {schoolIsSelected && schoolNotListed && schoolCustomInput}
+      {districtIsSelected && !districtNotListed && districtSearchInput}
+      {districtIsSelected && districtNotListed && districtCustomInput}
       {errors[SCHOOL] && <p className="error-text">{errors[SCHOOL]}</p>}
       {errors[DISTRICT] && <p className="error-text">{errors[DISTRICT]}</p>}
     </div>
