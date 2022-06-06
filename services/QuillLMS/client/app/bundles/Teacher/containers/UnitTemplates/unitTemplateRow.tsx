@@ -31,12 +31,12 @@ const UnitTemplateRow = ({
     updateUnitTemplate(newUnitTemplate)
   }
 
-  function handleRemoveActivity(act_id) {
+  function handleRemoveActivity(activityId: string) {
     const confirm = window.confirm('Are you sure you want to remove this activity?');
     if (confirm) {
       const newUnitTemplate = {...unitTemplate}
-      let activityIds = unitTemplate.activities.map((a) => a.id)
-      activityIds.splice(activityIds.indexOf(act_id), 1)
+      const activityIds = unitTemplate.activities.map((activity) => activity.id)
+      activityIds.splice(activityIds.indexOf(parseInt(activityId)), 1)
       newUnitTemplate.activity_ids = activityIds
       updateUnitTemplate(newUnitTemplate)
     }
