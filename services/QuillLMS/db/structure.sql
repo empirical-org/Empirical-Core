@@ -2998,36 +2998,6 @@ ALTER SEQUENCE public.referrer_users_id_seq OWNED BY public.referrer_users.id;
 
 
 --
--- Name: response_answers; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.response_answers (
-    id bigint NOT NULL,
-    json jsonb NOT NULL,
-    created_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: response_answers_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.response_answers_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: response_answers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.response_answers_id_seq OWNED BY public.response_answers.id;
-
-
---
 -- Name: response_directions; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3175,6 +3145,48 @@ CREATE SEQUENCE public.response_question_types_id_seq
 --
 
 ALTER SEQUENCE public.response_question_types_id_seq OWNED BY public.response_question_types.id;
+
+
+--
+-- Name: responses; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.responses (
+    id bigint NOT NULL,
+    activity_session_id bigint NOT NULL,
+    attempt_number integer,
+    correct boolean NOT NULL,
+    question_number integer,
+    question_score double precision,
+    answer text,
+    response_directions_id bigint,
+    response_instructions_id bigint,
+    response_previous_feedback_id bigint,
+    response_prompt_id bigint,
+    response_question_type_id bigint,
+    extra_metadata json,
+    concept_result_id bigint,
+    created_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: responses_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.responses_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: responses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.responses_id_seq OWNED BY public.responses.id;
 
 
 --
@@ -4905,13 +4917,6 @@ ALTER TABLE ONLY public.referrer_users ALTER COLUMN id SET DEFAULT nextval('publ
 
 
 --
--- Name: response_answers id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.response_answers ALTER COLUMN id SET DEFAULT nextval('public.response_answers_id_seq'::regclass);
-
-
---
 -- Name: response_directions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -4944,6 +4949,13 @@ ALTER TABLE ONLY public.response_prompts ALTER COLUMN id SET DEFAULT nextval('pu
 --
 
 ALTER TABLE ONLY public.response_question_types ALTER COLUMN id SET DEFAULT nextval('public.response_question_types_id_seq'::regclass);
+
+
+--
+-- Name: responses id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.responses ALTER COLUMN id SET DEFAULT nextval('public.responses_id_seq'::regclass);
 
 
 --
@@ -5802,14 +5814,6 @@ ALTER TABLE ONLY public.referrer_users
 
 
 --
--- Name: response_answers response_answers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.response_answers
-    ADD CONSTRAINT response_answers_pkey PRIMARY KEY (id);
-
-
---
 -- Name: response_directions response_directions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5847,6 +5851,14 @@ ALTER TABLE ONLY public.response_prompts
 
 ALTER TABLE ONLY public.response_question_types
     ADD CONSTRAINT response_question_types_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: responses responses_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.responses
+    ADD CONSTRAINT responses_pkey PRIMARY KEY (id);
 
 
 --
@@ -6961,13 +6973,6 @@ CREATE UNIQUE INDEX index_referrer_users_on_user_id ON public.referrer_users USI
 
 
 --
--- Name: index_response_answers_on_json; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_response_answers_on_json ON public.response_answers USING btree (json);
-
-
---
 -- Name: index_response_directions_on_text; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -7000,6 +7005,13 @@ CREATE UNIQUE INDEX index_response_prompts_on_text ON public.response_prompts US
 --
 
 CREATE UNIQUE INDEX index_response_question_types_on_text ON public.response_question_types USING btree (text);
+
+
+--
+-- Name: index_responses_on_concept_result_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_responses_on_concept_result_id ON public.responses USING btree (concept_result_id);
 
 
 --
@@ -8446,11 +8458,11 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220428171629'),
 ('20220503133521'),
 ('20220503155835'),
-('20220505154357'),
 ('20220505154724'),
 ('20220505154951'),
 ('20220505155013'),
 ('20220505155014'),
-('20220505155015');
+('20220505155015'),
+('20220505155016');
 
 
