@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { DataTable, Tooltip, commaSeparatedValuesString, getIconForActivityClassification } from '../../../Shared'
+import { DataTable, Tooltip, getIconForActivityClassification } from '../../../Shared'
 
 const conceptMaxWidth = '152px';
 const readabilityMaxWidth = '280px';
@@ -13,7 +13,7 @@ export const UnitTemplateActivityRow = ({
   const conceptHeaderElement = (
     <Tooltip
       tooltipText="Activity Category"
-      tooltipTriggerText={<button className="action-button interactive-wrapper focus-on-light" onClick={handleOpenAttributesManager}>Concept</button>}
+      tooltipTriggerText={<a className="action-button focus-on-light" href={`${process.env.DEFAULT_URL}/cms/attributes_manager/activity_categories`} rel="noopener noreferrer" target="_blank">Concept</a>}
       tooltipTriggerTextStyle={{ maxWidth: conceptMaxWidth }}
     />
   );
@@ -44,42 +44,26 @@ export const UnitTemplateActivityRow = ({
     return name;
   }
 
-  function handleActivityClick(e) {
-    const { target } = e;
-    const { value } = target;
-    const link = `${process.env.DEFAULT_URL}${value}`;
-    window.open(link, "_blank");
-  }
-
-  function handleEditClick(e) {
-    const { target } = e;
-    const { id, value } = target;
-    const link = `${process.env.DEFAULT_URL}/cms/activity_classifications/${id}/activities/${value}/edit`;
-    window.open(link, "_blank");
-  }
-
   function handleRemoveClick(e) {
     const { target } = e;
     const { value } = target;
     handleRemove(value);
   }
 
-  function handleOpenAttributesManager(e) {
-    window.open(`${process.env.DEFAULT_URL}/cms/attributes_manager/activity_categories`, "_blank");
-  }
-
   function activityRows() {
     return activities.map(activity => {
       const { id, name, flags, readability_grade_level, standard, activity_category, classification, anonymous_path } = activity;
+      const activityLink = `${process.env.DEFAULT_URL}${anonymous_path}`;
+      const editLink = `${process.env.DEFAULT_URL}/cms/activity_classifications/${classification.id}/activities/${id}/edit`;
       return {
         id,
-        name: <button className="action-button interactive-wrapper focus-on-light" onClick={handleActivityClick} value={anonymous_path}>{name}</button>,
-        flag: commaSeparatedValuesString(flags),
+        name: <a className="action-button focus-on-light" href={activityLink} rel="noopener noreferrer" target="_blank">{name}</a>,
+        flag: flags && flags.length ? flags.join(', ') : 'N/A',
         readability: readability_grade_level || 'N/A',
         ccss: showStandardData(standard),
         concept: activity_category && activity_category.name ? activity_category.name : 'N/A',
         tool: classification && classification.id ? getIconForActivityClassification(classification.id) : 'N/A',
-        edit: <button className="action-button interactive-wrapper focus-on-light" id={classification.id} onClick={handleEditClick} type="button" value={id}>edit</button>,
+        edit: <a className="action-button focus-on-light" href={editLink} rel="noopener noreferrer" target="_blank">edit</a>,
         remove: <button className="action-button interactive-wrapper focus-on-light" onClick={handleRemoveClick} type="button" value={id}>remove</button>
       }
     });

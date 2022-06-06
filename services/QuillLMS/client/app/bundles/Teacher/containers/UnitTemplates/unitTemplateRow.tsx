@@ -43,32 +43,22 @@ const UnitTemplateRow = ({
   }
 
   function expandOrCollapseButton() {
-    const imageLink = showActivities ? 'collapse.svg' : 'expand.svg'
-    const innerElement = <img alt="expand-and-collapse" src={`https://assets.quill.org/images/shared/${imageLink}`} />
+    const imageLink = showActivities ? 'collapse.svg' : 'expand.svg';
+    const imageAlt = showActivities ? 'Collapse' : 'Expand';
+    const innerElement = <img alt={imageAlt} src={`https://assets.quill.org/images/shared/${imageLink}`} />
     return <button className="expand-collapse-button focus-on-light" onClick={handleHideActivitiesRow} type="button">{innerElement}</button>
   }
 
   function renderDiagnostics() {
     const { diagnostic_names } = unitTemplate;
     if(!diagnostic_names.length) { return 'N/A' }
-    return diagnostic_names.map(diagnositc => (
-      <p key={diagnositc}>{diagnositc}</p>
+    return diagnostic_names.map(diagnostic => (
+      <p key={diagnostic}>{diagnostic}</p>
     ));
   }
 
-  function handlePreviewClick(e) {
-    const { target } = e;
-    const { value } = target;
-    const link = `${process.env.DEFAULT_URL}/assign/featured-activity-packs/${value}`;
-    window.open(link, "_blank");
-  }
-
-  function handleEditClick(e) {
-    const { target } = e;
-    const { value } = target;
-    const link = `${process.env.DEFAULT_URL}/cms/unit_templates/${value}/edit`;
-    window.open(link, "_blank");
-  }
+  const previewLink = `${process.env.DEFAULT_URL}/assign/featured-activity-packs/${unitTemplate.id}`;
+  const editLink = `${process.env.DEFAULT_URL}/cms/unit_templates/${unitTemplate.id}/edit`;
 
   return (
     <div>
@@ -79,10 +69,10 @@ const UnitTemplateRow = ({
         <td className="diagnostics-col">{renderDiagnostics()}</td>
         <td className="category-col">{unitTemplate.unit_template_category && unitTemplate.unit_template_category.name}</td>
         <td>
-          <button className="action-button interactive-wrapper focus-on-light" onClick={handlePreviewClick} value={unitTemplate.id}>preview</button>
+          <a className="action-button focus-on-light" href={previewLink} rel="noopener noreferrer" target="_blank">preview</a>
         </td>
         <td className="edit-col">
-          <button className="action-button interactive-wrapper focus-on-light" onClick={handleEditClick} value={unitTemplate.id}>edit</button>
+          <a className="action-button focus-on-light" href={editLink} rel="noopener noreferrer" target="_blank">edit</a>
         </td>
         <td className="delete-col">
           <button className="action-button interactive-wrapper focus-on-light" onClick={deleteUnitTemplate} type="button">delete</button>

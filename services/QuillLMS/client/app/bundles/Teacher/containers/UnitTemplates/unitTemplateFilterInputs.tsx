@@ -23,12 +23,12 @@ export const UnitTemplateFilterInputs = ({
 }) => {
 
   function diagnosticsDropdown() {
-    let diagnostic_names = diagnostics.filter(d => d.data && d.data["flag"] !== ARCHIVED_FLAG.toLowerCase()).map((d) => d.name)
-    diagnostic_names.push(ALL_DIAGNOSTICS)
+    let diagnosticNames = diagnostics.filter(d => d.data && d.data["flag"] !== ARCHIVED_FLAG.toLowerCase()).map((d) => d.name)
+    diagnosticNames.push(ALL_DIAGNOSTICS)
     return (
       <ItemDropdown
         callback={switchDiagnostic}
-        items={diagnostic_names}
+        items={diagnosticNames}
         selectedItem={diagnostic}
       />
     )

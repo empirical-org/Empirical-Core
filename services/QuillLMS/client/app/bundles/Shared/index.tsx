@@ -101,8 +101,7 @@ export {
   titleCase,
   onMobile,
   fillInBlankInputLabel,
-  getIconForActivityClassification,
-  commaSeparatedValuesString
+  getIconForActivityClassification
 } from './libs/index'
 
 export {

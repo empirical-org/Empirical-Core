@@ -37,12 +37,14 @@ exports[`UnitTemplateActivityRow component should match snapshot 1`] = `
           isTabbable={true}
           tooltipText="Activity Category"
           tooltipTriggerText={
-            <button
-              className="action-button interactive-wrapper focus-on-light"
-              onClick={[Function]}
+            <a
+              className="action-button focus-on-light"
+              href="undefined/cms/attributes_manager/activity_categories"
+              rel="noopener noreferrer"
+              target="_blank"
             >
               Concept
-            </button>
+            </a>
           }
           tooltipTriggerTextStyle={
             Object {
