@@ -34,7 +34,6 @@
 class Response < ApplicationRecord
   belongs_to :activity_session
   belongs_to :question
-  belongs_to :response_answer
   belongs_to :response_directions
   belongs_to :response_instructions
   belongs_to :response_previous_feedback
@@ -79,6 +78,7 @@ class Response < ApplicationRecord
 
     response = new(
       activity_session_id: data_hash[:activity_session_id],
+      answer: data_hash[:answer],
       concept_ids: data_hash[:concept_ids].uniq,
       attempt_number: metadata[:attemptNumber],
       correct: metadata[:correct],
@@ -144,7 +144,6 @@ class Response < ApplicationRecord
   def assign_normalized_text(data_hash)
     metadata = data_hash[:metadata]
 
-    self.response_answer = ResponseAnswer.find_or_create_by(json: metadata[:answer])
     self.response_directions = ResponseDirections.find_or_create_by(text: metadata[:directions])
     self.response_instructions = ResponseInstructions.find_or_create_by(text: metadata[:instructions])
     self.response_previous_feedback = ResponsePreviousFeedback.find_or_create_by(text: metadata[:lastFeedback])
@@ -210,7 +209,7 @@ class Response < ApplicationRecord
 
   private def legacy_format_base_metadata
     {
-      answer: response_answer&.json,
+      answer: answer,
       attemptNumber: attempt_number,
       correct: correct ? 1 : 0,
       directions: response_directions&.text,

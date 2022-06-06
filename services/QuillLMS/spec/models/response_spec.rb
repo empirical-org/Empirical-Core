@@ -41,7 +41,6 @@ RSpec.describe Response, type: :model do
   context 'associations' do
     it { should belong_to(:activity_session) }
     it { should belong_to(:question) }
-    it { should belong_to(:response_answer) }
     it { should belong_to(:response_directions) }
     it { should belong_to(:response_instructions) }
     it { should belong_to(:response_previous_feedback) }
@@ -105,7 +104,7 @@ RSpec.describe Response, type: :model do
         expect(response.concepts).to eq([concept])
         expect(response.question_number).to eq(metadata[:questionNumber])
         expect(response.question_score).to eq(metadata[:questionScore])
-        expect(response.response_answer.json).to eq(metadata[:answer])
+        expect(response.answer).to eq(metadata[:answer])
         expect(response.response_directions.text).to eq(metadata[:directions])
         expect(response.response_prompt.text).to eq(metadata[:prompt])
         expect(response.response_previous_feedback.text).to eq(metadata[:lastFeedback])
@@ -136,11 +135,9 @@ RSpec.describe Response, type: :model do
       end
 
       it 'should find existing NormalizedText records when existing text is provided' do
-        create(:response_answer, json: metadata[:answer])
         create(:response_directions, text: metadata[:directions])
         expect { Response.create_from_json(json) }
-          .to not_change(ResponseAnswer, :count)
-          .and not_change(ResponseDirections, :count)
+          .to not_change(ResponseDirections, :count)
       end
 
       it 'should assign concept_ids if provided only singular concept_id key' do

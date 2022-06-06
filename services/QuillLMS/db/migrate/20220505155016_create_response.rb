@@ -8,7 +8,7 @@ class CreateResponse < ActiveRecord::Migration[5.1]
       t.boolean :correct, null: false
       t.integer :question_number
       t.float :question_score
-      t.references :response_answer, index: false
+      t.text :answer
       t.references :response_directions, index: false
       t.references :response_instructions, index: false
       t.references :response_previous_feedback, index: false
