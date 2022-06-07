@@ -1,6 +1,7 @@
 import React from 'react';
 
 import QuestionsAndAnswers from './QuestionsAndAnswers.tsx'
+
 import PremiumBannerBuilder from '../components/scorebook/premium_banners/premium_banner_builder.jsx'
 import PremiumPricingMinisRow from '../components/premium/premium_pricing_minis_row.jsx';
 import PremiumFeaturesTable from '../components/premium/premium_features_table.tsx'
@@ -27,20 +28,90 @@ const subscribers = [
   { name: 'Princeton Public Schools logo', source: '/images/subscribers/16_princeton.png', id: 'princeton'}
 ]
 
+const SchoolAndDistrictPremiumModal = ({ stripeSchoolPlan, associatedSchools, userIsSignedIn, renderSchoolBuyNowButton, startAtStageTwo, }) => {
+  let schoolBuyNowButton = <a className="quill-button contained medium primary focus-on-light" href="/session/new?redirect=/premium?school_purchase_stage_two=true">Buy Now</a>
+
+  if (associatedSchools.length === 1) {
+    const schoolIds = associatedSchools.map(s => s.id)
+    schoolBuyNowButton = renderSchoolBuyNowButton(schoolIds)
+  }
+
+  if (!userIsSignedIn) {
+    schoolBuyNowButton = <a className="quill-button contained medium primary focus-on-light" href="/session/new?redirect=/premium?school_purchase_stage_two=true">Buy Now</a>
+  }
+
+  const requestAQuoteButton = <a className="quill-button outlined medium secondary focus-on-light" href="https://quillpremium.wufoo.com/forms/quill-premium-quote/">Request a Quote</a>
+
+  return (
+    <div className="modal-container school-and-district-premium-modal-container">
+      <div className="modal-background" />
+      <div className="school-and-district-premium-modal quill-modal modal-body">
+        <div className="school-and-district-premium-column pricing-info">
+          <h2>Buy School Premium Now</h2>
+          <div className="premium-rates">
+            <h3>${stripeSchoolPlan.plan.price_in_dollars}</h3>
+            <p>Per school, per year</p>
+            <p>Purchase a school subscription now with a credit card.</p>
+          </div>
+          {schoolBuyNowButton}
+
+        </div>
+        <div className="school-and-district-premium-column pricing-info">
+          <h2>Request a School Premium Quote</h2>
+          <div className="premium-rates">
+            <h3>${stripeSchoolPlan.plan.price_in_dollars}</h3>
+            <p>Per school, per year</p>
+            <p>Complete the quote request form to receive a quote via email.</p>
+          </div>
+          {requestAQuoteButton}
+        </div>
+        <div className="school-and-district-premium-column pricing-info">
+          <h2>Contact Us for District Premium</h2>
+          <div className="premium-rates">
+            <h3>Custom</h3>
+            <p>Per school, per year</p>
+            <p>Quill provides discounts for multi-school subscriptions.</p>
+          </div>
+          {requestAQuoteButton}
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export const PremiumPricingGuide = ({
   customerEmail,
   diagnosticActivityCount,
   independentPracticeActivityCount,
   lessonsActivityCount,
-  schoolIds,
+  associatedSchools,
   showSchoolBuyNow,
   stripeSchoolPlan,
   stripeTeacherPlan,
   userIsEligibleForNewSubscription,
 }) => {
+  const [showSchoolAndDistrictPremiumModal, setShowSchoolAndDistrictPremiumModal] = React.useState(false)
 
   const userIsSignedIn = () => {
     return !!Number(document.getElementById('current-user-id').getAttribute('content'))
+  }
+
+  function handleShowSchoolAndDistrictPremiumModal() { setShowSchoolAndDistrictPremiumModal(true) }
+
+  const schoolBuyNowButton = (schoolIds) => {
+    return (
+      <StripeSubscriptionCheckoutSessionButton
+        buttonClassName="quill-button contained medium primary focus-on-light"
+        buttonId="purchase-btn"
+        buttonText='Buy Now'
+        cancelPath='premium'
+        customerEmail={customerEmail}
+        schoolIds={schoolIds}
+        stripePriceId={stripeSchoolPlan.plan.stripe_price_id}
+        userIsEligibleForNewSubscription={userIsEligibleForNewSubscription}
+        userIsSignedIn={userIsSignedIn}
+      />
+    )
   }
 
   const teacherBuyNowButton = () => {
@@ -52,22 +123,6 @@ export const PremiumPricingGuide = ({
         cancelPath='premium'
         customerEmail={customerEmail}
         stripePriceId={stripeTeacherPlan.plan.stripe_price_id}
-        userIsEligibleForNewSubscription={userIsEligibleForNewSubscription}
-        userIsSignedIn={userIsSignedIn()}
-      />
-    )
-  }
-
-  const schoolBuyNowButton = () => {
-    return (
-      <StripeSubscriptionCheckoutSessionButton
-        buttonClassName="quill-button contained medium primary focus-on-light"
-        buttonId="purchase-btn"
-        buttonText='Buy Now'
-        cancelPath='premium'
-        customerEmail={customerEmail}
-        schoolIds={schoolIds}
-        stripePriceId={stripeSchoolPlan.plan.stripe_price_id}
         userIsEligibleForNewSubscription={userIsEligibleForNewSubscription}
         userIsSignedIn={userIsSignedIn()}
       />
@@ -92,13 +147,20 @@ export const PremiumPricingGuide = ({
     <div>
       <div className="container premium-page">
         {userIsSignedIn() && <PremiumBannerBuilder originPage="premium" upgradeToPremiumNowButton={upgradeToPremiumNowButton} />}
+        {showSchoolAndDistrictPremiumModal && (
+          <SchoolAndDistrictPremiumModal
+            associatedSchools={associatedSchools}
+            renderSchoolBuyNowButton={schoolBuyNowButton}
+            stripeSchoolPlan={stripeSchoolPlan}
+            userIsSignedIn={userIsSignedIn()}
+          />
+        )}
         <div className="overview text-center">
           <PremiumPricingMinisRow
             diagnosticActivityCount={diagnosticActivityCount}
             independentPracticeActivityCount={independentPracticeActivityCount}
             lessonsActivityCount={lessonsActivityCount}
-            schoolBuyNowButton={schoolBuyNowButton}
-            showSchoolBuyNow={showSchoolBuyNow}
+            onClickPurchasingOptions={handleShowSchoolAndDistrictPremiumModal}
             stripeSchoolPlan={stripeSchoolPlan}
             stripeTeacherPlan={stripeTeacherPlan}
             teacherBuyNowButton={teacherBuyNowButton}

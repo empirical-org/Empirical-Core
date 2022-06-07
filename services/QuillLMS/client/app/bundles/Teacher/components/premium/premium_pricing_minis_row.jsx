@@ -5,6 +5,8 @@ import BasicPricingMini from './premium_minis/basic_pricing_mini.jsx';
 import TeacherPricingMini from './premium_minis/teacher_pricing_mini.jsx';
 import SchoolPricingMini from './premium_minis/school_pricing_mini.jsx';
 
+const MOBILE_WIDTH = 991
+
 export default class PremiumPricingMinisRow extends React.Component {
   state = {
     subscriptionType: null,
@@ -19,7 +21,7 @@ export default class PremiumPricingMinisRow extends React.Component {
 
   listenScrollEvent = e => {
     const { isScrolled, } = this.state
-    if (window.scrollY > 337 && !isScrolled) {
+    if (window.scrollY > 337 && !isScrolled && window.innerWidth > MOBILE_WIDTH) {
       this.setState({isScrolled: true})
     } else if (window.scrollY < 337 && isScrolled) {
       this.setState({isScrolled: false})
@@ -31,11 +33,10 @@ export default class PremiumPricingMinisRow extends React.Component {
       diagnosticActivityCount,
       lessonsActivityCount,
       independentPracticeActivityCount,
-      schoolBuyNowButton,
-      showSchoolBuyNow,
       stripeSchoolPlan,
       stripeTeacherPlan,
       teacherBuyNowButton,
+      onClickPurchasingOptions,
     } = this.props
 
     const { userIsSignedIn, isScrolled, } = this.state
@@ -64,11 +65,10 @@ export default class PremiumPricingMinisRow extends React.Component {
               premiumFeatureData={premiumFeatureData}
             />
             <SchoolPricingMini
-              buyNowButton={schoolBuyNowButton}
+              handleClickPurchasingOptions={onClickPurchasingOptions}
               plan={stripeSchoolPlan.plan}
               premiumFeatureData={premiumFeatureData}
               showBadges={!isScrolled}
-              showSchoolBuyNow={showSchoolBuyNow}
             />
           </div>
         </div>

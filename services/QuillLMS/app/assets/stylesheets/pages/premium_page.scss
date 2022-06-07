@@ -91,6 +91,31 @@ li.premium-tab > a:hover {
   background-color: white;
   width: 100%;
   text-align: center;
+  .modal-background {
+    z-index: 5;
+  }
+  .school-and-district-premium-modal {
+    z-index: 6;
+    display: flex;
+    padding: 0px;
+    min-height: min-content;
+    .school-and-district-premium-column {
+      margin: 32px 0px;
+      padding: 0px 16px;
+      text-align: left;
+      width: 224px;
+      flex: 1;
+      h2 {
+        height: min-content;
+      }
+      &:not(:last-of-type) {
+        border-right: 1px solid #E0E0E0;
+      }
+      &:last-of-type {
+        border-right: 1px solid transparent;
+      }
+    }
+  }
   .logo-tag  {
     padding: 25 0 90 0px;
     text-align: center;
@@ -140,7 +165,7 @@ li.premium-tab > a:hover {
     }
   }
   .school-premium-badge-container {
-    margin-top: 24px;
+    margin-top: 20px;
     text-align: left;
   }
   .school-premium-badge {
@@ -172,69 +197,76 @@ li.premium-tab > a:hover {
     background-color: white;
     border-radius: 8px;
     border-bottom: 1px solid #e0e0e0;
-    .premium-button-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      .quill-button {
-        width: 100%;
-        &:not(.primary) {
-          margin-bottom: 16px;
-        }
+  }
+  .premium-button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .quill-button {
+      width: 100%;
+      &:not(.primary) {
+        margin-bottom: 16px;
       }
     }
-    .promo-tab {
-      width: 239px;
-      height: 28px;
-      padding-top: 7px;
-      font-weight: 600;
-      border-top-left-radius: 7px;
-      border-top-right-radius: 7px;
-      background-color: #f8a724;
-      color: white;
+    p {
+      font-style: italic;
       font-size: 12px;
-      position: absolute;
-      left: 50%;
-      margin: auto;
-      -webkit-transform: translateX(-50%);
-              transform: translateX(-50%);
-      top: -27px;
+      line-height: 20px;
+      color: #5C5C5C;
+      margin-top: 4px;
     }
+  }
+  .promo-tab {
+    width: 239px;
+    height: 28px;
+    padding-top: 7px;
+    font-weight: 600;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    background-color: #f8a724;
+    color: white;
+    font-size: 12px;
+    position: absolute;
+    left: 50%;
+    margin: auto;
+    -webkit-transform: translateX(-50%);
+            transform: translateX(-50%);
+    top: -27px;
+  }
 
-    section {
-      border: none;
-    }
+  section {
+    border: none;
+  }
+  h2 {
+    font-size: 20px;
+    height: 52px;
+    margin: 0 0 24px;
+    font-weight: bold;
+    display: flex;
+    align-items: flex-end;
+    line-height: 1.3;
+    color: #262626;
+  }
+  .pricing-info {
+    padding: 16px;
     h2 {
-      font-size: 20px;
-      height: 52px;
-      margin: 0 0 24px;
-      font-weight: bold;
-      display: flex;
-      align-items: flex-end;
-      line-height: 1.3;
-      color: #262626;
+      font-size: 16px;
     }
-    .pricing-info {
-      padding: 24px 16px;
-      h2 {
-        font-size: 16px;
+    .semibold {
+      font-weight: 600;
+    }
+    .premium-rates {
+      min-height: 90px;
+      h3 {
+        margin: 24px 0 8px;
+        font-size: 24px;
+        line-height: 1.27;
+        color: #262626;
       }
-      .semibold {
-        font-weight: 600;
-      }
-      .premium-rates {
-        min-height: 90px;
-        h3 {
-          margin: 24px 0 8px;
-          font-size: 24px;
-          line-height: 1.27;
-          color: #262626;
-        }
-        p {
-          margin: 8px 0 24px;
-          line-height: 1.43;
-          color: #5c5c5c;
-        }
+      p {
+        margin: 8px 0 24px;
+        line-height: 1.43;
+        color: #5c5c5c;
       }
     }
   }
@@ -590,6 +622,33 @@ li.premium-tab > a:hover {
   .premium-page {
     padding-left: 10px;
     padding-right: 10px;
+
+    .school-and-district-premium-modal {
+      flex-direction: column;
+      .school-and-district-premium-column {
+        width: 300px;
+        border-right: 0px !important;
+        border-bottom: 1px solid #e0e0e0;
+        padding: 32px 0px;
+        margin: 0px 16px;
+        h2 {
+          font-size: 24px;
+        }
+        .quill-button {
+          width: 100%;
+        }
+      }
+    }
+
+    .school-premium-badge-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .school-premium-badge {
+        width: min-content;
+        white-space: nowrap;
+      }
+    }
 
     .container {
       padding-left: 0px;
