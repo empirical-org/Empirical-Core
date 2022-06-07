@@ -2,8 +2,8 @@
 
 require 'rails_helper'
 
-RSpec.describe StripeIntegration::Webhooks::CheckoutSessionExpiredEventHandler do
-  include_context 'Stripe Checkout Session Expired Event'
+RSpec.describe StripeIntegration::Webhooks::CheckoutSessionCompletedEventHandler do
+  include_context 'Stripe Checkout Session Completed Event'
 
   let!(:stripe_checkout_session) do
     create(:stripe_checkout_session, external_checkout_session_id: external_checkout_session_id)
