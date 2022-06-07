@@ -24,7 +24,7 @@ describe ProgressReports::Standards::AllClassroomsStandard do
       expected_keys =  [
         'id',
         'name',
-        'standard_category_name',
+        'standard_level_name',
         'total_activity_count',
         'total_student_count',
         'proficient_count',
