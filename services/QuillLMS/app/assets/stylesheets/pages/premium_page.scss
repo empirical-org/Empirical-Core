@@ -101,12 +101,15 @@ li.premium-tab > a:hover {
     min-height: min-content;
     .school-and-district-premium-column {
       margin: 32px 0px;
-      padding: 0px 16px;
+      padding: 0px 32px;
       text-align: left;
       width: 224px;
       flex: 1;
       h2 {
         height: min-content;
+      }
+      .quill-button {
+        width: 100%;
       }
       &:not(:last-of-type) {
         border-right: 1px solid #E0E0E0;
@@ -625,6 +628,8 @@ li.premium-tab > a:hover {
 
     .school-and-district-premium-modal {
       flex-direction: column;
+      max-height: calc(100vh - 72px - 72px);
+      overflow: scroll;
       .school-and-district-premium-column {
         width: 300px;
         border-right: 0px !important;
@@ -633,9 +638,6 @@ li.premium-tab > a:hover {
         margin: 0px 16px;
         h2 {
           font-size: 24px;
-        }
-        .quill-button {
-          width: 100%;
         }
       }
     }
