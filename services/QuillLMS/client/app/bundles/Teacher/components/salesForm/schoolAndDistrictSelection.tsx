@@ -32,8 +32,10 @@ export const SchoolAndDistrictSelection = ({
     }
   }, [schoolNotListed, districtNotListed]);
 
-  const schoolInputLabel = selectedSchool ? SCHOOL : "Search for your school";
-  const districtInputLabel = selectedDistrict ? DISTRICT : "Search for your district";
+  const schoolLabel = `${SCHOOL} name`;
+  const districtLabel = `${DISTRICT} name`;
+  const schoolInputLabel = selectedSchool ? schoolLabel : "Search for your school";
+  const districtInputLabel = selectedDistrict ? districtLabel : "Search for your district";
   const schoolOptions = [{ label: SCHOOL_NOT_LISTED, value: SCHOOL_NOT_LISTED}, ...schools];
   const districtOptions = [{ label: DISTRICT_NOT_LISTED, value: DISTRICT_NOT_LISTED}, ...districts];
 
@@ -66,7 +68,7 @@ export const SchoolAndDistrictSelection = ({
       className="form-input school"
       handleChange={handleUpdateField}
       id={SCHOOL}
-      label={`${SCHOOL} name`}
+      label={schoolLabel}
       placeholder=""
       value={selectedSchool}
     />
@@ -76,7 +78,7 @@ export const SchoolAndDistrictSelection = ({
       className="form-input district"
       handleChange={handleUpdateField}
       id={DISTRICT}
-      label={`${DISTRICT} name`}
+      label={districtLabel}
       placeholder=""
       value={selectedDistrict}
     />
