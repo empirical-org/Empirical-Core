@@ -16,6 +16,7 @@ class CreateResponse < ActiveRecord::Migration[5.1]
       t.references :response_question_type, index: false
       t.json :extra_metadata
       t.references :concept_result, index: {unique: true}
+      t.references :concept, index: false
 
       t.datetime :created_at, null: false
     end

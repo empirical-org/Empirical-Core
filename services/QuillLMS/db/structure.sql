@@ -3166,6 +3166,7 @@ CREATE TABLE public.responses (
     response_question_type_id bigint,
     extra_metadata json,
     concept_result_id bigint,
+    concept_id bigint,
     created_at timestamp without time zone NOT NULL
 );
 

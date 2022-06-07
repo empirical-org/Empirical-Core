@@ -6,7 +6,6 @@ FactoryBot.define do
     correct { true }
     question_number { 1 }
     activity_session
-    question
     answer { 'This is a response answer' }
     response_directions
     response_instructions
