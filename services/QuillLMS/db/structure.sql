@@ -2998,41 +2998,11 @@ ALTER SEQUENCE public.referrer_users_id_seq OWNED BY public.referrer_users.id;
 
 
 --
--- Name: response_answers; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.response_answers (
-    id bigint NOT NULL,
-    json jsonb NOT NULL,
-    created_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: response_answers_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.response_answers_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: response_answers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.response_answers_id_seq OWNED BY public.response_answers.id;
-
-
---
 -- Name: response_directions; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.response_directions (
-    id bigint NOT NULL,
+    id integer NOT NULL,
     text text NOT NULL,
     created_at timestamp without time zone NOT NULL
 );
@@ -3043,6 +3013,7 @@ CREATE TABLE public.response_directions (
 --
 
 CREATE SEQUENCE public.response_directions_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3062,7 +3033,7 @@ ALTER SEQUENCE public.response_directions_id_seq OWNED BY public.response_direct
 --
 
 CREATE TABLE public.response_instructions (
-    id bigint NOT NULL,
+    id integer NOT NULL,
     text text NOT NULL,
     created_at timestamp without time zone NOT NULL
 );
@@ -3073,6 +3044,7 @@ CREATE TABLE public.response_instructions (
 --
 
 CREATE SEQUENCE public.response_instructions_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3092,7 +3064,7 @@ ALTER SEQUENCE public.response_instructions_id_seq OWNED BY public.response_inst
 --
 
 CREATE TABLE public.response_previous_feedbacks (
-    id bigint NOT NULL,
+    id integer NOT NULL,
     text text NOT NULL,
     created_at timestamp without time zone NOT NULL
 );
@@ -3103,6 +3075,7 @@ CREATE TABLE public.response_previous_feedbacks (
 --
 
 CREATE SEQUENCE public.response_previous_feedbacks_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3122,7 +3095,7 @@ ALTER SEQUENCE public.response_previous_feedbacks_id_seq OWNED BY public.respons
 --
 
 CREATE TABLE public.response_prompts (
-    id bigint NOT NULL,
+    id integer NOT NULL,
     text text NOT NULL,
     created_at timestamp without time zone NOT NULL
 );
@@ -3133,6 +3106,7 @@ CREATE TABLE public.response_prompts (
 --
 
 CREATE SEQUENCE public.response_prompts_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3152,7 +3126,7 @@ ALTER SEQUENCE public.response_prompts_id_seq OWNED BY public.response_prompts.i
 --
 
 CREATE TABLE public.response_question_types (
-    id bigint NOT NULL,
+    id integer NOT NULL,
     text text NOT NULL,
     created_at timestamp without time zone NOT NULL
 );
@@ -3163,6 +3137,7 @@ CREATE TABLE public.response_question_types (
 --
 
 CREATE SEQUENCE public.response_question_types_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3183,19 +3158,20 @@ ALTER SEQUENCE public.response_question_types_id_seq OWNED BY public.response_qu
 
 CREATE TABLE public.responses (
     id bigint NOT NULL,
-    activity_session_id bigint NOT NULL,
+    activity_session_id integer NOT NULL,
+    answer jsonb,
     attempt_number integer,
+    concept_id integer,
+    concept_result_id integer,
     correct boolean NOT NULL,
+    extra_metadata jsonb,
     question_number integer,
     question_score double precision,
-    response_answer_id bigint,
-    response_directions_id bigint,
-    response_instructions_id bigint,
-    response_previous_feedback_id bigint,
-    response_prompt_id bigint,
-    response_question_type_id bigint,
-    extra_metadata json,
-    concept_result_id bigint,
+    response_directions_id integer,
+    response_instructions_id integer,
+    response_previous_feedback_id integer,
+    response_prompt_id integer,
+    response_question_type_id integer,
     created_at timestamp without time zone NOT NULL
 );
 
@@ -4947,13 +4923,6 @@ ALTER TABLE ONLY public.referrer_users ALTER COLUMN id SET DEFAULT nextval('publ
 
 
 --
--- Name: response_answers id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.response_answers ALTER COLUMN id SET DEFAULT nextval('public.response_answers_id_seq'::regclass);
-
-
---
 -- Name: response_directions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -5848,14 +5817,6 @@ ALTER TABLE ONLY public.referrals_users
 
 ALTER TABLE ONLY public.referrer_users
     ADD CONSTRAINT referrer_users_pkey PRIMARY KEY (id);
-
-
---
--- Name: response_answers response_answers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.response_answers
-    ADD CONSTRAINT response_answers_pkey PRIMARY KEY (id);
 
 
 --
@@ -7015,13 +6976,6 @@ CREATE UNIQUE INDEX index_referrer_users_on_referral_code ON public.referrer_use
 --
 
 CREATE UNIQUE INDEX index_referrer_users_on_user_id ON public.referrer_users USING btree (user_id);
-
-
---
--- Name: index_response_answers_on_json; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_response_answers_on_json ON public.response_answers USING btree (json);
 
 
 --
@@ -8510,7 +8464,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220428171629'),
 ('20220503133521'),
 ('20220503155835'),
-('20220505154357'),
 ('20220505154724'),
 ('20220505154951'),
 ('20220505155013'),

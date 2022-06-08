@@ -2,7 +2,9 @@
 
 class CreateResponsePrompt < ActiveRecord::Migration[5.1]
   def change
-    create_table :response_prompts do |t|
+    create_table :response_prompts, id: false do |t|
+      t.serial :id, limit: 4, primary_key: true
+
       t.text :text, null: false
 
       t.datetime :created_at, null: false

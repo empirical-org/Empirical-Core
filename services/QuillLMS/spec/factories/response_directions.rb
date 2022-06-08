@@ -4,7 +4,7 @@
 #
 # Table name: response_directions
 #
-#  id         :bigint           not null, primary key
+#  id         :integer          not null, primary key
 #  text       :text             not null
 #  created_at :datetime         not null
 #

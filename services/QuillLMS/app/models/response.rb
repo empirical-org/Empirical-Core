@@ -5,20 +5,21 @@
 # Table name: responses
 #
 #  id                            :bigint           not null, primary key
+#  answer                        :jsonb
 #  attempt_number                :integer
 #  correct                       :boolean          not null
-#  extra_metadata                :json
+#  extra_metadata                :jsonb
 #  question_number               :integer
 #  question_score                :float
 #  created_at                    :datetime         not null
-#  activity_session_id           :bigint           not null
-#  concept_result_id             :bigint
-#  response_answer_id            :bigint
-#  response_directions_id        :bigint
-#  response_instructions_id      :bigint
-#  response_previous_feedback_id :bigint
-#  response_prompt_id            :bigint
-#  response_question_type_id     :bigint
+#  activity_session_id           :integer          not null
+#  concept_id                    :integer
+#  concept_result_id             :integer
+#  response_directions_id        :integer
+#  response_instructions_id      :integer
+#  response_previous_feedback_id :integer
+#  response_prompt_id            :integer
+#  response_question_type_id     :integer
 #
 # Indexes
 #
@@ -26,8 +27,8 @@
 #
 class Response < ApplicationRecord
   belongs_to :activity_session
-  belongs_to :question
-  belongs_to :response_answer
+  belongs_to :concept
+  belongs_to :concept_result
   belongs_to :response_directions
   belongs_to :response_instructions
   belongs_to :response_previous_feedback
@@ -63,19 +64,12 @@ class Response < ApplicationRecord
 
     metadata = data_hash[:metadata]
 
-    question = calculate_question_from_hash(data_hash)
-
-    # Make sure that singular concept_id gets converted to array of
-    # conept_ids if that hasn't been done by an earlier step
-    data_hash[:concept_ids] = [data_hash[:concept_id]] unless data_hash.key?(:concept_ids) && !data_hash[:concept_ids].empty?
-
-
     response = new(
       activity_session_id: data_hash[:activity_session_id],
-      concept_ids: data_hash[:concept_ids].uniq,
+      answer: metadata[:answer],
+      concept_id: data_hash[:concept_id],
       attempt_number: metadata[:attemptNumber],
       correct: metadata[:correct],
-      question: question,
       question_number: metadata[:questionNumber],
       question_score: metadata[:questionScore]
     )
@@ -86,58 +80,30 @@ class Response < ApplicationRecord
     response
   end
 
+  def self.bulk_create_from_json(data_hash_array)
+    data_hash_array.map { |data_hash| create_from_json(data_hash) }
+  end
+
   def self.find_or_create_from_concept_result(concept_result)
-    return if concept_result.response
+    return concept_result.response if concept_result.response
 
-    if concept_result.metadata['questionNumber'] && concept_result.metadata['attemptNumber']
-      response = Response.find_by(
-        activity_session: concept_result.activity_session,
-        attempt_number: concept_result.metadata['attemptNumber'],
-        question_number: concept_result.metadata['questionNumber']
-      )
-    else
-      response = nil
-    end
-
-    Response.transaction do
-      # Create a totally new record if there isn't one yet
-      if !response
-        response = create_from_json(concept_result.as_json)
-      # If we have a response, but it doesn't have a the relevant
-      # Concept related, add the relation.
-      # This happens because old ConceptResult records do a row per Concept,
-      # while we do a row per answer (using multiple ResponseConcept
-      # records if there are multiple Concepts)
-      elsif !response.concepts.include?(concept_result.concept)
-        response.concepts.append(concept_result.concept)
-      end
-
-      # Whether we create a new record, or add a concept, we should ensure
-      # that we record a relation to the source concept_result so we can
-      # skip migrating it in future runs
-      response.concept_results.push(concept_result) unless response.concept_results.include?(concept_result)
-      response.save!
-    end
-    response
+    create_from_json(concept_result.as_json)
   end
 
   def legacy_format
-    denormalized_per_concept = concepts.map do |concept|
-      {
-        id: id,
-        activity_classification_id: activity_session.activity.activity_classification_id,
-        activity_session_id: activity_session_id,
-        concept_id: concept.id,
-        question_type: response_question_type&.text,
-        metadata: legacy_format_metadata
-      }
-    end
+    {
+      id: id,
+      activity_classification_id: activity_session.activity.activity_classification_id,
+      activity_session_id: activity_session_id,
+      concept_id: concept.id,
+      question_type: response_question_type&.text,
+      metadata: legacy_format_metadata
+    }
   end
 
   def assign_normalized_text(data_hash)
     metadata = data_hash[:metadata]
 
-    self.response_answer = ResponseAnswer.find_or_create_by(json: metadata[:answer])
     self.response_directions = ResponseDirections.find_or_create_by(text: metadata[:directions])
     self.response_instructions = ResponseInstructions.find_or_create_by(text: metadata[:instructions])
     self.response_previous_feedback = ResponsePreviousFeedback.find_or_create_by(text: metadata[:lastFeedback])
@@ -153,57 +119,19 @@ class Response < ApplicationRecord
     self.extra_metadata = extra_metadata
   end
 
-  def self.parse_extra_metadata(metadata)
+  def parse_extra_metadata(metadata)
     metadata.deep_symbolize_keys.except(*KNOWN_METADATA_KEYS).reject{ |_,v| v.nil? || (v.is_a?(Enumerable) && v.empty?) }
-  end
-
-  def self.bulk_create_from_json(data_hash_array)
-    normalized_data_hashes = roll_up_concepts(data_hash_array)
-
-    normalized_data_hashes.map { |data_hash| create_from_json(data_hash) }
-  end
-
-  # Takes an input of hashes representing old-style ConceptResult
-  # and rolls them up so that a single response has only one entry
-  # plus an array of concept_ids that match to it
-  private_class_method def self.roll_up_concepts(data_hash_array)
-    data_hash_array.each_with_object({}) do |value, rollup|
-      key = "#{value[:metadata][:questionNumber]}-#{value[:metadata][:attemptNumber]}"
-      if rollup[key]
-        rollup[key][:concept_ids].push(value[:concept_id])
-      else
-        rollup[key] = value.merge(concept_ids: [value[:concept_id]])
-      end
-      rollup
-    end.values
-
-    data_hash_array
-      .group_by { |v| [v[:metadata][:questionNumber], v[:metadata][:attemptNumber]] }
-      .map { |_,v| v.first.merge({concept_ids: v.map { |c| c[:concept_id] }}) }
-  end
-
-  private_class_method def self.calculate_question_from_hash(data_hash)
-    question_uid = data_hash[:question_uid] || data_hash[:questionUid]
-    if !question_uid && data_hash[:metadata][:questionNumber]
-      activity_session = ActivitySession.find(data_hash[:activity_session_id])
-      question_index = data_hash[:metadata][:questionNumber] - 1
-      question_uid = activity_session.activity.data['questions'][question_index]['key']
-    end
-
-    return if !question_uid
-
-    Question.find_by_uid(question_uid)
   end
 
   private def legacy_format_metadata
     legacy_format_base_metadata
-      .merge!(response_extra_metadata || {})
+      .merge!(extra_metadata || {})
       .reject { |_,v| v.blank? }
   end
 
   private def legacy_format_base_metadata
     {
-      answer: response_answer&.json,
+      answer: answer,
       attemptNumber: attempt_number,
       correct: correct ? 1 : 0,
       directions: response_directions&.text,

@@ -6,8 +6,7 @@ FactoryBot.define do
     correct { true }
     question_number { 1 }
     activity_session
-    question
-    response_answer
+    answer { 'This is a response answer' }
     response_directions
     response_instructions
     response_previous_feedback
