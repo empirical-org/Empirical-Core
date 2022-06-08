@@ -31,6 +31,17 @@ class SalesFormSubmission < ApplicationRecord
     RENEWAL_REQUEST_TYPE = 'renewal request'
   ]
   VITALLY_SOURCE = "form"
+  VITALLY_DISTRICTS_TYPE = "organizations"
+  VITALLY_SCHOOLS_TYPE = "accounts"
+  VITALLY_SALES_FORMS_TYPE = "projects"
+
+  FALLBACK_SCHOOL_NAME = "Unknown School"
+  FALLBACK_DISTRICT_NAME = "Unknown District"
+
+  SCHOOL_QUOTE_REQUEST_TEMPLATE_ID = "3faf0814-724d-4bb1-b56b-f854dfd23db8"
+  DISTRICT_QUOTE_REQUEST_TEMPLATE_ID = "a96a963b-c1d4-4b33-94bb-f9a593046927"
+  SCHOOL_RENEWAL_REQUEST_TEMPLATE_ID = "77925a98-2b74-47a6-81fb-c1922278df19"
+  DISTRICT_RENEWAL_REQUEST_TEMPLATE_ID = "c1b2cd1f-f0aa-4e2c-855d-e3c1bce17a99"
 
   validates :first_name, presence: true
   validates :last_name, presence: true
@@ -46,22 +57,32 @@ class SalesFormSubmission < ApplicationRecord
   validates :collection_type, presence: true, inclusion: { in: COLLECTION_TYPES }
   validates :submission_type, presence: true, inclusion: { in: SUBMISSION_TYPES }
 
-  def sync_to_vitally
+  def send_opportunity_to_vitally
     api = VitallyRestApi.new
-    api.create("projects", vitally_data)
+    district = District.find_by(name: district_name)
+    school = School.find_by(name: school_name)
+
+    if collection_type == DISTRICT_COLLECTION_TYPE && district.present? && !api.exists?("organizations", district.id)
+      api.create(VITALLY_DISTRICTS_TYPE, district.vitally_data)
+    elsif collection_type == SCHOOL_COLLECTION_TYPE && school.present? && !api.exists?("accounts", school.id)
+      api.create(VITALLY_SCHOOLS_TYPE, school.vitally_data)
+    end
+    api.create(VITALLY_SALES_FORMS_TYPE, vitally_data)
   end
 
-  private def vitally_data
+  def vitally_data
     if collection_type == SCHOOL_COLLECTION_TYPE
+      school = School.find_by(name: school_name) || School.find_by(name: FALLBACK_SCHOOL_NAME)
       {
         templateId: vitally_template_id,
-        customerId: School.find_by(name: school_name).id.to_s,
+        customerId: school.id.to_s,
         traits: vitally_traits
       }
     else
+      district = District.find_by(name: district_name) || District.find_by(name: FALLBACK_DISTRICT_NAME)
       {
         templateId: vitally_template_id,
-        organizationId: District.find_by(name: district_name).id.to_s,
+        organizationId: district.id.to_s,
         traits: vitally_traits
       }
     end
@@ -69,13 +90,13 @@ class SalesFormSubmission < ApplicationRecord
 
   private def vitally_template_id
     if collection_type == SCHOOL_COLLECTION_TYPE && submission_type == QUOTE_REQUEST_TYPE
-      "3faf0814-724d-4bb1-b56b-f854dfd23db8"
+      SCHOOL_QUOTE_REQUEST_TEMPLATE_ID
     elsif collection_type == DISTRICT_COLLECTION_TYPE && submission_type == QUOTE_REQUEST_TYPE
-      "a96a963b-c1d4-4b33-94bb-f9a593046927"
+      DISTRICT_QUOTE_REQUEST_TEMPLATE_ID
     elsif collection_type == SCHOOL_COLLECTION_TYPE && submission_type == RENEWAL_REQUEST_TYPE
-      "77925a98-2b74-47a6-81fb-c1922278df19"
+      SCHOOL_RENEWAL_REQUEST_TEMPLATE_ID
     else
-      "c1b2cd1f-f0aa-4e2c-855d-e3c1bce17a99"
+      DISTRICT_RENEWAL_REQUEST_TEMPLATE_ID
     end
   end
 
@@ -93,7 +114,7 @@ class SalesFormSubmission < ApplicationRecord
       form_comments: comment,
       source: VITALLY_SOURCE,
       intercom_link: "",
-      sales_form_submission_id: id.to_s
+      metabase_id: id.to_s
     }
   end
 end

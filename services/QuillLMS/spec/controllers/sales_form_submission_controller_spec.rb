@@ -12,10 +12,10 @@ describe SalesFormSubmissionController, type: :controller do
       sales_form_submission = double
       allow(SalesFormSubmission).to receive(:new).and_return(sales_form_submission)
       allow(sales_form_submission).to receive(:save!).and_return(true)
-      allow(sales_form_submission).to receive(:sync_to_vitally)
+      allow(sales_form_submission).to receive(:send_opportunituy_to_vitally)
 
       expect(sales_form_submission).to receive(:save!)
-      expect(sales_form_submission).to receive(:sync_to_vitally)
+      expect(sales_form_submission).to receive(:send_opportunity_to_vitally)
       post :create, params: {
         sales_form_submission: {
           first_name: 'Bianca',

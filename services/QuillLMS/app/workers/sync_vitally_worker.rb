@@ -16,13 +16,10 @@ class SyncVitallyWorker
     # Don't synchronize non-production data
     return unless ENV['SYNC_TO_VITALLY'] == 'true'
 
-    schools = schools_to_sync
-
-    districts_to_sync(schools).each_slice(100) do |district_batch|
-      district_ids = district_batch.map { |district| district.id }
-      district_ids.each { |id| SyncVitallyOrganizationWorker.perform_async(id) }
+    districts_to_sync.each do |district|
+      SyncVitallyOrganizationWorker.perform_async(district.id)
     end
-    schools.each_slice(100) do |school_batch|
+    schools_to_sync.each_slice(100) do |school_batch|
       school_ids = school_batch.map { |school| school.id }
       SyncVitallyAccountsWorker.perform_async(school_ids)
     end
@@ -34,14 +31,14 @@ class SyncVitallyWorker
   # rubocop:enable Metrics/CyclomaticComplexity
 
   def schools_to_sync
-    School.select(:id, :district_id).distinct.joins(:users).where('users.role = ?', 'teacher').where.not(district_id: nil)
+    @schools_to_sync ||= School.select(:id, :district_id).distinct.joins(:users).where('users.role = ?', 'teacher').where.not(district_id: nil)
   end
 
   def users_to_sync
     User.select(:id).joins(:school).where(:role => USER_ROLES_TO_SYNC)
   end
 
-  def districts_to_sync(schools)
-    schools.map(&:district).compact.uniq
+  def districts_to_sync
+    schools_to_sync.map(&:district).compact.uniq
   end
 end

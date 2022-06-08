@@ -149,6 +149,13 @@ class School < ApplicationRecord
     schools_admins.where(user_id: district.admins.map(&:id)).destroy_all
   end
 
+  def vitally_data
+    {
+      externalId: id.to_s,
+      name: name
+    }
+  end
+
   private def generate_leap_csv_row(student, teacher, classroom, activity_session)
     [
       student.id,

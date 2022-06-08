@@ -22,7 +22,7 @@ class SalesFormSubmissionController < ApplicationController
     sales_form_submission = SalesFormSubmission.new(sales_form_submission_params)
     if  sales_form_submission.save!
       post_sales_form_submission(sales_form_submission)
-      sales_form_submission.sync_to_vitally
+      sales_form_submission.send_opportunity_to_vitally
 
       head :no_content, status: 200
     else

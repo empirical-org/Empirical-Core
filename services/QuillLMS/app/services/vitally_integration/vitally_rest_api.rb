@@ -11,6 +11,11 @@ class VitallyRestApi
     post(type, payload)
   end
 
+  def exists?(type, id)
+    binding.pry
+    get(type, id)['error'].blank?
+  end
+
   private def post(type, payload)
     HTTParty.post("#{VITALLY_REST_API_BASE_URL}/#{type}",
       headers: {
@@ -18,6 +23,15 @@ class VitallyRestApi
         "Content-Type": "application/json"
       },
       body: payload.to_json
+    )
+  end
+
+  private def get(type, id)
+    HTTParty.get("#{VITALLY_REST_API_BASE_URL}/#{type}/#{id}",
+      headers: {
+        Authorization: "Basic #{@api_key}",
+        "Content-Type": "application/json"
+      }
     )
   end
 end
