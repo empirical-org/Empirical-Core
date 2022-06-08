@@ -100,6 +100,7 @@ li.premium-tab > a:hover {
     min-height: min-content;
     &.stage-one {
       padding: 40px 0px 0px;
+      max-width: calc(100vw - 20px);
       .interactive-wrapper {
         position: absolute;
         top: 32px;
@@ -667,7 +668,8 @@ li.premium-tab > a:hover {
       overflow: scroll;
       &.stage-one {
         .school-and-district-premium-column {
-          width: 300px;
+          width: calc(100vw - 52px);
+          max-width: 300px;
           border-right: 0px !important;
           border-bottom: 1px solid #e0e0e0;
           padding: 32px 0px;
