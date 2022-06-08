@@ -168,8 +168,8 @@ exports[`UpperFormFields Component should match snapshot 1`] = `
     characterLimit={5}
     className="form-input zipcode"
     handleChange={[MockFunction]}
-    id="Zipcode"
-    label="Zipcode"
+    id="ZIP code"
+    label="ZIP code"
     placeholder=""
     value="10009"
   >
@@ -181,13 +181,13 @@ exports[`UpperFormFields Component should match snapshot 1`] = `
       tabIndex={-1}
     >
       <label
-        htmlFor="Zipcode"
+        htmlFor="ZIP code"
       >
-        Zipcode
+        ZIP code
       </label>
       <input
         autoComplete="on"
-        id="Zipcode"
+        id="ZIP code"
         maxLength={5}
         onChange={[MockFunction]}
         onFocus={[Function]}
