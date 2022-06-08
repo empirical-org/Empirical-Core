@@ -4,6 +4,8 @@ module StripeIntegration
   module Webhooks
     class EventHandlerFactory
       SINGLE_EVENT_HANDLER_LOOKUP = {
+        'checkout.session.completed' => CheckoutSessionCompletedEventHandler,
+        'checkout.session.expired' => CheckoutSessionExpiredEventHandler,
         'customer.subscription.deleted' => CustomerSubscriptionDeletedEventHandler,
         'customer.subscription.updated' => CustomerSubscriptionUpdatedEventHandler,
         'invoice.paid' => InvoicePaidEventHandler,

@@ -4,6 +4,7 @@ module StripeIntegration
   module Webhooks
     class SubscriptionCreator < ApplicationService
       class Error < StandardError; end
+      class DuplicateSubscriptionError < Error; end
       class NilSchoolError < Error; end
       class NilStripeCustomerIdError < Error; end
       class NilStripeInvoiceIdError < Error; end
@@ -23,6 +24,7 @@ module StripeIntegration
         raise NilPurchaserEmailError if purchaser_email.nil?
         raise NilStripePriceIdError if stripe_price_id.nil?
         raise NilStripeInvoiceIdError if stripe_invoice.id.nil?
+        raise DuplicateSubscriptionError if purchaser.subscription.present?
 
         subscription
         save_stripe_customer_id
@@ -44,7 +46,6 @@ module StripeIntegration
       rescue ActiveRecord::RecordNotFound
         raise PurchaserNotFoundError
       end
-
 
       private def purchaser_email
         stripe_invoice.customer_email

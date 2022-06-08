@@ -7,12 +7,12 @@ RSpec.describe StripeIntegration::SubscriptionCheckoutSessionsController, type: 
   include_context 'Stripe Customer'
 
   describe '#create' do
-    let(:redirect_url) { '/some_redirect_url' }
-    let(:stripe_checkout_session) { double(:stripe_checkout_session, url: redirect_url) }
-    let(:params) { { customer_email: customer_email, price_id: stripe_price_id } }
+    let(:stripe_checkout_session) { create(:stripe_checkout_session) }
+    let(:redirect_url) { stripe_checkout_session.url }
+    let(:params) { { customer_email: customer_email, stripe_price_id: stripe_price_id } }
     let(:url) { '/stripe_integration/subscription_checkout_sessions' }
 
-    before { allow(Stripe::Checkout::Session).to receive(:create).and_return(stripe_checkout_session) }
+    before { allow(StripeCheckoutSession).to receive(:custom_find_or_create_by!).and_return(stripe_checkout_session) }
 
     it 'creates a stripe checkout session and provides a redirect' do
       post url, params: params, as: :json
