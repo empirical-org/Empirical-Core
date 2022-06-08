@@ -2,34 +2,48 @@
 
 module IntercomIntegration
   class WebhooksController < ApplicationController
-    protect_from_forgery except: :create
-
-    ENDPOINT_SECRET = ENV.fetch('STRIPE_ENDPOINT_SECRET', '')
+    # frozen_string_literal: true
+    skip_before_action :verify_authenticity_token
+    before_action :verify_signature, only: [:create]
 
     def create
-      Webhooks::HandleEventWorker.perform_async(stripe_webhook_event.id)
+      parsed_payload = JSON.parse(payload)
+      topic = parsed_payload["topic"]
+      if topic == "user.tag.created"
+        tag = parsed_payload["data"]["tag"]["name"]
+        if tag == "Quote Request School"
+          user = User.find(parsed_payload["data"]["user"]["user_id"])
+          sales_form_submission = SalesFormSubmission.create(
+            first_name: user.name.split[0],
+            last_name: user.name.split[1],
+            email: user.email,
+            phone_number: "",
+            zipcode: "",
+            school_name: user.school&.name,
+            district_name: user.school&.district&.name,
+            collection_type: "school",
+            submission_type: "quote request"
+          )
+          sales_form_submission.send_opportunity_to_vitally
+        elsif tag == "Quote Request District"
+        elsif tag == "Renewal Request School"
+        elsif tag == "Renewal Request District"
+        end
+      end
       head 200
-    rescue ActiveRecord::RecordNotUnique
-      head 200
-    rescue => e
-      ErrorNotifier.report(e)
-      head 400
-    end
-
-    private def event
-      @event ||= Stripe::Webhook.construct_event(payload, signature_header, ENDPOINT_SECRET)
     end
 
     private def payload
       request.body.read
     end
 
-    private def signature_header
-      request.env['HTTP_STRIPE_SIGNATURE']
-    end
-
-    private def stripe_webhook_event
-      StripeWebhookEvent.create!(event_type: event.type, external_id: event.id)
+    private def verify_signature
+      client_secret = ENV.fetch('INTERCOM_APP_SECRET', '')
+      hexdigest = OpenSSL::HMAC.hexdigest('sha1', client_secret, payload)
+      unless request.headers['X-Hub-Signature'] == "sha1=#{hexdigest}"
+        ErrorNotifier.report(new Error("unauthorized call of Intercom webhook"))
+        head :forbidden
+      end
     end
   end
 end
