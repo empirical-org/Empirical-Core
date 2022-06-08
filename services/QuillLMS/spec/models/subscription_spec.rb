@@ -29,7 +29,6 @@
 #  index_subscriptions_on_stripe_invoice_id  (stripe_invoice_id) UNIQUE
 #
 require 'rails_helper'
-require 'ostruct'
 
 describe Subscription, type: :model do
   context 'validations' do
@@ -61,7 +60,7 @@ describe Subscription, type: :model do
 
   describe 'the subscription type consts' do
     it "the official school and offical teacher types contain the same values as all offical types" do
-      types_by_role = Subscription::OFFICIAL_SCHOOL_TYPES.dup.concat(Subscription::OFFICIAL_TEACHER_TYPES)
+      types_by_role = Subscription::OFFICIAL_DISTRICT_TYPES + Subscription::OFFICIAL_SCHOOL_TYPES + Subscription::OFFICIAL_TEACHER_TYPES
       expect(types_by_role.uniq).to match_array(Subscription::ALL_OFFICIAL_TYPES)
     end
   end
@@ -195,26 +194,6 @@ describe Subscription, type: :model do
     end
   end
 
-  describe ".school_or_user_has_ever_paid?" do
-    let!(:subscription) { create(:subscription) }
-    let!(:user) { create(:user) }
-    let!(:user_subscription) { create(:user_subscription, subscription: subscription, user: user) }
-
-    it "responds with true if school or user has ever had anything in the OFFICIAL_PAID_TYPES_LIST" do
-      Subscription::OFFICIAL_PAID_TYPES.each do |type|
-        subscription.update(account_type: type)
-        expect(Subscription.school_or_user_has_ever_paid?(user)).to be
-      end
-    end
-
-    it "responds with false if school or user has only had things in the OFFICIAL_FREE_TYPES_LIST" do
-      Subscription::OFFICIAL_FREE_TYPES.each do |type|
-        subscription.update(account_type: type)
-        expect(Subscription.school_or_user_has_ever_paid?(user)).not_to be
-      end
-    end
-  end
-
   describe ".redemption_start_date" do
     let!(:school) { create(:school) }
     let!(:subscription) { create(:subscription, expiration: Date.tomorrow) }
@@ -253,13 +232,13 @@ describe Subscription, type: :model do
     end
   end
 
-  describe 'create_with_user_join' do
+  describe 'create_with_subscriber_join' do
     let!(:user) { create(:user) }
-    let(:old_sub) { Subscription.create_with_user_join(user.id, expiration: Date.yesterday, account_type: 'Teacher Paid') }
+    let(:old_sub) { Subscription.create_with_subscriber_join(user, expiration: Date.yesterday, account_type: 'Teacher Paid') }
 
     it 'creates a subscription based off of the passed attributes' do
       attributes = { expiration: Date.yesterday, account_type: 'Teacher Paid' }
-      new_sub = Subscription.create_with_user_join(user.id, attributes)
+      new_sub = Subscription.create_with_subscriber_join(user, attributes)
       expect(new_sub.account_type).to eq('Teacher Paid')
       expect(new_sub.expiration).to eq(Date.yesterday)
     end
@@ -268,7 +247,7 @@ describe Subscription, type: :model do
 
       it 'adds at least a year (or more, depending on promotions) to other accounts' do
         attributes = { account_type: 'Teacher Paid' }
-        new_sub = Subscription.create_with_user_join(user.id, attributes)
+        new_sub = Subscription.create_with_subscriber_join(user, attributes)
         expect(new_sub.expiration).to be >= 365.days.from_now.to_date
       end
     end
@@ -277,8 +256,8 @@ describe Subscription, type: :model do
       let!(:user_with_existing_subscription) { create(:user) }
 
       let!(:existing_subscription ) do
-        Subscription.create_with_user_join(
-          user_with_existing_subscription.id,
+        Subscription.create_with_subscriber_join(
+          user_with_existing_subscription,
           expiration: 365.days.from_now.to_date,
           account_type: 'Teacher Paid'
        )
@@ -288,8 +267,8 @@ describe Subscription, type: :model do
       let!(:user_with_expired_existing_subscription) { create(:user) }
 
       let!(:existing_expired_subscription ) do
-        Subscription.create_with_user_join(
-          user_with_expired_existing_subscription.id,
+        Subscription.create_with_subscriber_join(
+          user_with_expired_existing_subscription,
           expiration: 1.day.ago.to_date,
           account_type: 'Teacher Paid'
         )
@@ -297,26 +276,26 @@ describe Subscription, type: :model do
 
       it 'creates a trial subscription with an expiration in 30 days if there is no existing subscription' do
         attributes = { account_type: 'Teacher Trial' }
-        new_sub = Subscription.create_with_user_join(user_with_no_existing_subscription.id, attributes)
+        new_sub = Subscription.create_with_subscriber_join(user_with_no_existing_subscription, attributes)
         expect(new_sub.expiration).to eq 30.days.from_now.to_date
       end
 
       it 'creates a trial subscription with an expiration in 30 days if there is an expired existing subscription' do
         attributes = { account_type: 'Teacher Trial' }
-        new_sub = Subscription.create_with_user_join(user_with_expired_existing_subscription.id, attributes)
+        new_sub = Subscription.create_with_subscriber_join(user_with_expired_existing_subscription, attributes)
         expect(new_sub.expiration).to eq 30.days.from_now.to_date
       end
 
       it 'create a trial subscription with an expiration 31 days after the existing subscription expiration' do
         attributes = { account_type: 'Teacher Trial' }
-        new_sub = Subscription.create_with_user_join(user_with_existing_subscription.id, attributes)
+        new_sub = Subscription.create_with_subscriber_join(user_with_existing_subscription, attributes)
         expect(new_sub.expiration).to eq(existing_subscription.expiration + 31)
       end
     end
 
     it 'makes a matching UserSubscription join' do
       attributes = { expiration: Date.yesterday, account_type: 'Teacher Paid' }
-      new_sub = Subscription.create_with_user_join(user.id, attributes)
+      new_sub = Subscription.create_with_subscriber_join(user, attributes)
       join = new_sub.user_subscriptions.first
       expect([join.user_id, join.subscription_id]).to eq([user.id, new_sub.id])
     end
@@ -324,7 +303,7 @@ describe Subscription, type: :model do
     context 'when the subscription already exists' do
       it 'updates a UserSubscription based off of the passed attributes' do
         attributes = { expiration: Date.tomorrow }
-        Subscription.create_with_user_join(user.id, attributes)
+        Subscription.create_with_subscriber_join(user, attributes)
         expect(user.reload.subscription.expiration).to eq(Date.tomorrow)
       end
     end

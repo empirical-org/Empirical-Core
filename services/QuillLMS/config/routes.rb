@@ -619,6 +619,8 @@ EmpiricalGrammar::Application.routes.draw do
       end
       member do
         get :new_admin
+        get :new_subscription
+        get :edit_subscription
       end
       resources :district_admins, only: [:create, :destroy]
     end

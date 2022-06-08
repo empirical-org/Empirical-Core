@@ -141,7 +141,7 @@ export default class EditOrCreateSubscription extends React.Component {
     if (subscription.payment_method === 'Credit Card') {
       return (
         <label>
-                Recurring:
+          Recurring:
           <input
             checked={subscription.recurring}
             onChange={this.handleRecurringChange}
@@ -156,6 +156,7 @@ export default class EditOrCreateSubscription extends React.Component {
     const { view, } = this.props
     const submitVars = this.submitVars();
     const that = this;
+
     request[submitVars.httpVerb]({
       url: submitVars.urlString,
       json: submitVars.data,
@@ -174,43 +175,57 @@ export default class EditOrCreateSubscription extends React.Component {
   }
 
   submitConfirmation = () => {
-    const { school, } = this.props
-    if (school) {
-      if (confirm("You know you are about to add/edit an entire school's subscription, right?")) {
-        this.submit();
-      } else {
-        alert('submission canceled');
-      }
+    const { district, school } = this.props
+
+    let subscriberType = ''
+
+    if (district) {
+      subscriberType = 'District'
+    } else if (school) {
+      subscriberType = 'School'
+    }
+
+    if (confirm(`You know you are about to add/edit an entire ${subscriberType} subscription, right?`)) {
+      this.submit();
+    } else {
+      alert('submission canceled');
     }
   }
 
   submitVars = () => {
     const { subscription, } = this.state
-    const { view, schoolOrUser, user, school } = this.props
+    const { view, subscriber, subscriberType } = this.props
 
-    const varsObj = { data: { subscription: subscription, authenticity_token: getAuthToken(), }, urlString: `${process.env.DEFAULT_URL}/cms/subscriptions`, };
+    const varsObj = {
+      data: {
+        subscription: subscription,
+        authenticity_token: getAuthToken()
+      },
+      urlString: `${process.env.DEFAULT_URL}/cms/subscriptions`
+    }
+
     if (view === 'edit') {
       varsObj.httpVerb = 'put';
       varsObj.urlString += `/${subscription.id}`;
-    } else {
-      // we are creating
-      varsObj.data.school_or_user = schoolOrUser;
-      varsObj.data.school_or_user_id = schoolOrUser === 'school' ? school.id : user.id
-      varsObj.httpVerb = 'post';
+    } else if (view == 'new') {
+      varsObj.data.subscriber_id = subscriber.id
+      varsObj.data.subscriber_type = subscriberType
+      varsObj.httpVerb = 'post'
     }
-    return varsObj;
+    return varsObj
   }
 
   render() {
-    const { user, school, view, premiumTypes, subscriptionPaymentMethods, promoExpiration, } = this.props
+    const { subscriber, subscriberType, view, premiumTypes, subscriptionPaymentMethods, promoExpiration, } = this.props
     const { subscription, firstFocused, secondFocused } = this.state
 
-    const schoolOrUser = school || user || null;
-    const submitAction = school ? this.submitConfirmation : this.submit;
+    const submitAction = subscriberType === 'User' ? this.submit : this.submitConfirmation
+
     const subscriptionPaymentOptions = subscriptionPaymentMethods.concat('N/A')
+
     return (
       <div className="cms-subscription">
-        <h1>{view === 'edit' ? 'Edit' : 'New'} Subscription: {_.get(schoolOrUser, 'name')}</h1>
+        <h1>{view === 'edit' ? 'Edit' : 'New'} Subscription: {_.get(subscriber, 'name')}</h1>
         <h2>Subscription Information</h2>
         <label>Premium Status</label>
         <ItemDropdown

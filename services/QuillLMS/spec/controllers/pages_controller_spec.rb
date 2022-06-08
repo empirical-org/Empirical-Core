@@ -129,16 +129,14 @@ describe PagesController do
   describe '#premium' do
     let!(:user) { create(:user) }
 
-    before do
-      allow(controller).to receive(:current_user) { user }
-    end
+    before { allow(controller).to receive(:current_user) { user } }
 
     it 'should set the variables' do
       get :premium
-      expect(assigns(:user_is_eligible_for_new_subscription)).to eq user&.eligible_for_new_subscription?
-      expect(assigns(:user_is_eligible_for_trial)).to eq user&.subscriptions&.none?
-      expect(assigns(:user_has_school)).to eq !!user.school
-      expect(assigns(:user_belongs_to_school_that_has_paid)).to eq user&.school ? Subscription.school_or_user_has_ever_paid?(user&.school) : false
+      expect(assigns(:user_is_eligible_for_new_subscription)).to eq true
+      expect(assigns(:user_is_eligible_for_trial)).to eq true
+      expect(assigns(:user_has_school)).to eq false
+      expect(assigns(:user_belongs_to_school_that_has_paid)).to eq false
     end
   end
 

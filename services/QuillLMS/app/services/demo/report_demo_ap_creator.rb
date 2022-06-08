@@ -121,7 +121,7 @@ module Demo::ReportDemoAPCreator
       account_type: 'Teacher Paid',
       expiration: DateTime.current.next_year(20).to_time
     }
-    Subscription.create_with_user_join(teacher.id, attributes)
+    Subscription.create_with_subscriber_join(teacher, attributes)
   end
 
   def self.create_students(classroom)

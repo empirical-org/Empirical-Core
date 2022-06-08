@@ -29,6 +29,7 @@ class DistrictAdmin < ApplicationRecord
 
   def attach_to_subscribed_schools
     current_schools = admin.administered_schools
+
     schools_with_subscriptions.each do |school|
       NewAdminEmailWorker.perform_async(admin.id, school.id) if !current_schools.include?(school)
     end
@@ -39,11 +40,11 @@ class DistrictAdmin < ApplicationRecord
 
   def detach_from_schools
     schools_with_subscriptions.each do |school|
-      SchoolsAdmins.where(school: schools_with_subscriptions, user: admin).destroy_all
+      SchoolsAdmins.where(school: school, user: admin).destroy_all
     end
   end
 
   def schools_with_subscriptions
-    district.schools.filter{ |s| s.subscription.present?}
+    district.schools.filter { |school| school.subscription.present? }
   end
 end

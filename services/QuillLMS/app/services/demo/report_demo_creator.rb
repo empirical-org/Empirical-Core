@@ -306,7 +306,7 @@ module Demo::ReportDemoCreator
       purchaser_id: teacher.id,
       account_type: 'Teacher Trial'
     }
-    Subscription.create_with_user_join(teacher.id, attributes)
+    Subscription.create_with_subscriber_join(teacher, attributes)
   end
 
   def self.create_students(classroom, is_teacher_facing_demo_account)

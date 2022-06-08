@@ -31,6 +31,6 @@ FactoryBot.define do
     zipcode { "55555" }
     total_schools { 4 }
     total_students { 5 }
-    nces_id { "00000000" }
+    sequence(:nces_id) { |n| "0000000#{n}" }
   end
 end

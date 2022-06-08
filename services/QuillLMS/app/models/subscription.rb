@@ -34,11 +34,13 @@ require 'new_relic/agent'
 class Subscription < ApplicationRecord
   class RenewalNilStripeCustomer < StandardError; end
 
+  has_many :credit_transactions, as: :source
+  has_many :district_subscriptions
+  has_many :districts, through: :district_subscriptions
+  has_many :school_subscriptions
+  has_many :schools, through: :school_subscriptions
   has_many :user_subscriptions
   has_many :users, through: :user_subscriptions
-  has_many :school_subscriptions
-  has_many :credit_transactions, as: :source
-  has_many :schools, through: :school_subscriptions
   belongs_to :purchaser, class_name: "User"
   belongs_to :subscription_type
   belongs_to :plan, optional: true
@@ -65,19 +67,22 @@ class Subscription < ApplicationRecord
     TEACHER_PAID,
     PREMIUM_CREDIT,
     CB_LIFETIME_SUBSCRIPTION_TYPE
-  ]
+  ].freeze
 
   OFFICIAL_FREE_TYPES = [
     SCHOOL_SPONSORED_FREE,
     TEACHER_SPONSORED_FREE,
     TEACHER_TRIAL
-  ]
+  ].freeze
 
   OFFICIAL_SCHOOL_TYPES = [
-    SCHOOL_DISTRICT_PAID,
     SCHOOL_PAID,
     SCHOOL_SPONSORED_FREE
-  ]
+  ].freeze
+
+  OFFICIAL_DISTRICT_TYPES = [
+    SCHOOL_DISTRICT_PAID
+  ].freeze
 
   OFFICIAL_TEACHER_TYPES = [
     TEACHER_PAID,
@@ -85,7 +90,7 @@ class Subscription < ApplicationRecord
     TEACHER_SPONSORED_FREE,
     TEACHER_TRIAL,
     CB_LIFETIME_SUBSCRIPTION_TYPE
-  ]
+  ].freeze
 
   ALL_OFFICIAL_TYPES = OFFICIAL_PAID_TYPES + OFFICIAL_FREE_TYPES
   TRIAL_TYPES = [TEACHER_TRIAL]
@@ -102,13 +107,25 @@ class Subscription < ApplicationRecord
   SCHOOL_FIRST_PURCHASE_PRICE = SCHOOL_RENEWAL_PRICE
   TEACHER_PRICE = 8000
   ALL_PRICES = [TEACHER_PRICE, SCHOOL_RENEWAL_PRICE]
+
   PAYMENT_METHODS = [
     INVOICE_PAYMENT_METHOD = 'Invoice',
     CREDIT_CARD_PAYMENT_METHOD = 'Credit Card',
     PREMIUM_CREDIT_PAYMENT_METHOD = 'Premium Credit'
+  ].freeze
+
+  CMS_PAYMENT_METHODS = [
+    INVOICE_PAYMENT_METHOD,
+    PREMIUM_CREDIT_PAYMENT_METHOD
+  ].freeze
+
+  SUBSCRIBER_TYPES = [
+    DISTRICT = 'District',
+    SCHOOL = 'School',
+    TEACHER = 'User'
   ]
 
-  ALL_TYPES = OFFICIAL_FREE_TYPES.dup.concat(OFFICIAL_PAID_TYPES)
+  ALL_TYPES = OFFICIAL_FREE_TYPES.dup.concat(OFFICIAL_PAID_TYPES).freeze
 
   validates :stripe_invoice_id, allow_blank: true, stripe_uid: { prefix: :in }
 
@@ -124,6 +141,42 @@ class Subscription < ApplicationRecord
   scope :not_stripe, -> { where(stripe_invoice_id: nil) }
   scope :started, -> { where("start_date <= ?", Date.current) }
   scope :paid_with_card, -> { where.not(stripe_invoice_id: nil).or(where(payment_method: 'Credit Card')) }
+
+  def self.create_with_subscriber_join(subscriber, subscription_attrs)
+    if !subscription_attrs[:expiration]
+      case subscription_attrs[:account_type]
+      when TEACHER_TRIAL
+        subscription_attrs = subscription_attrs.merge(Subscription.set_trial_expiration_and_start_date(subscriber))
+      when CB_LIFETIME_SUBSCRIPTION_TYPE
+        subscription_attrs = subscription_attrs.merge(Subscription.set_cb_lifetime_expiration_and_start_date)
+      else
+        subscription_attrs = subscription_attrs.merge(Subscription.set_premium_expiration_and_start_date(subscriber))
+      end
+    end
+
+    subscriber.subscriptions.each do |existing_subscription|
+      existing_subscription.update!(recurring: false)
+      existing_subscription.stripe_cancel_at_period_end
+    end
+
+    subscription = Subscription.create!(subscription_attrs)
+    subscriber.join_subscription(subscription)
+    subscription
+  end
+
+  def audience
+    return DISTRICT if district_subscriptions.exists?
+    return SCHOOL if school_subscriptions.exists?
+    return TEACHER if user_subscriptions.exists?
+  end
+
+  def premium_types
+    case audience
+    when DISTRICT then OFFICIAL_DISTRICT_TYPES
+    when SCHOOL then OFFICIAL_SCHOOL_TYPES
+    when TEACHER then OFFICIAL_TEACHER_TYPES
+    end
+  end
 
   def is_trial?
     account_type && TRIAL_TYPES.include?(account_type)
@@ -151,12 +204,8 @@ class Subscription < ApplicationRecord
     end
   end
 
-  def self.create_with_user_join user_id, attributes
-    create_with_school_or_user_join user_id, 'User', attributes
-  end
-
   def school_subscription?
-    SchoolSubscription.where(subscription_id: id).limit(1).exists?
+    SchoolSubscription.exists?(subscription_id: id)
   end
 
   def self.account_types
@@ -164,12 +213,10 @@ class Subscription < ApplicationRecord
   end
 
   def credit_user_and_de_activate
-    return if school_subscriptions.ids.any? || user_subscriptions.ids.count > 1
+    return if district_subscriptions.ids.any? || school_subscriptions.ids.any? || user_subscriptions.ids.count > 1
 
     update(de_activated_date: Date.current, recurring: false)
     stripe_cancel_at_period_end
-    # subtract later of start date or today's date from expiration date to calculate amount to credit
-    # amount_to_credit = self.expiration - [self.start_date, Date.current].max
     amount_to_credit = expiration - start_date
     CreditTransaction.create(user_id: user_subscriptions.first.user_id, amount: amount_to_credit.to_i, source: self)
   end
@@ -189,13 +236,9 @@ class Subscription < ApplicationRecord
       .not_recurring
   end
 
-  def self.school_or_user_has_ever_paid?(school_or_user)
-    (OFFICIAL_PAID_TYPES & school_or_user.subscriptions.pluck(:account_type)).present?
-  end
-
   def self.new_school_premium_sub(school, user)
     today = Date.current
-    expiration = school_or_user_has_ever_paid?(school) ? (today + 1.year) : promotional_dates[:expiration]
+    expiration = school.ever_paid_for_subscription? ? (today + 1.year) : promotional_dates[:expiration]
     new(expiration: expiration, start_date: today, account_type: 'School Paid', recurring: true, purchaser_id: user.id)
   end
 
@@ -210,15 +253,15 @@ class Subscription < ApplicationRecord
     end
   end
 
-  def self.redemption_start_date(school_or_user)
-    school_or_user&.subscriptions&.active&.first&.expiration || Date.current
+  def self.redemption_start_date(subscriber)
+    subscriber&.subscriptions&.active&.first&.expiration || Date.current
   end
 
-  def self.default_expiration_date(school_or_user)
-    last_subscription = school_or_user.subscriptions.active.first
+  def self.default_expiration_date(subscriber)
+    last_subscription = subscriber.subscriptions.active.first
     if last_subscription.present?
-      redemption_start_date(school_or_user) + 1.year
-    elsif school_or_user.instance_of?(School)
+      redemption_start_date(subscriber) + 1.year
+    elsif subscriber.promotional_dates?
       promotional_dates[:expiration]
     else
       Date.current + 1.year
@@ -292,20 +335,17 @@ class Subscription < ApplicationRecord
     Stripe::Charge.create(amount: SCHOOL_FIRST_PURCHASE_PRICE, currency: 'usd', customer: purchaser.stripe_customer_id)
   end
 
-  def self.set_premium_expiration_and_start_date(school_or_user)
+  def self.set_premium_expiration_and_start_date(subscriber)
     today = Date.current
 
-    if !Subscription.school_or_user_has_ever_paid?(school_or_user) && school_or_user.instance_of?(School)
+    if !subscriber.ever_paid_for_subscription? && subscriber.promotional_dates?
       # We end their trial if they have one
-      school_or_user.subscription&.update(de_activated_date: today)
-      # Then they get the promotional subscription
+      subscriber.subscription&.update(de_activated_date: today)
       promotional_dates
-    elsif school_or_user.subscription
-      # Expire one year later, start at end of sub
-      old_sub = school_or_user.subscription
+    elsif subscriber.subscription
+      old_sub = subscriber.subscription
       { expiration: old_sub.expiration + 1.year, start_date: old_sub.expiration }
     else
-      # sub lasts one year from Date.current
       { expiration: today + 1.year, start_date: today }
     end
   end
@@ -340,38 +380,6 @@ class Subscription < ApplicationRecord
     self.start_date = Date.current
   end
 
-  def self.create_with_school_or_user_join(school_or_user_id, type, attributes)
-    type = type.capitalize
-    # since we're constantizing the type, need to make sure it is capitalized if not already
-    school_or_user = type.constantize.find school_or_user_id
-    # get school or user object
-    if !attributes[:expiration]
-      # if there is no expiration, either give them a trial one or a premium one
-      # TODO: 'subscription type spot'
-      if attributes[:account_type]&.downcase == 'teacher trial'
-        attributes = attributes.merge(Subscription.set_trial_expiration_and_start_date(school_or_user))
-      elsif attributes[:account_type] == CB_LIFETIME_SUBSCRIPTION_TYPE
-        attributes = attributes.merge(Subscription.set_cb_lifetime_expiration_and_start_date)
-      else
-        attributes = attributes.merge(Subscription.set_premium_expiration_and_start_date(school_or_user))
-      end
-    end
-
-    school_or_user.subscriptions.each do |subscription|
-      subscription.update!(recurring: false)
-      subscription.stripe_cancel_at_period_end
-    end
-
-    subscription = Subscription.create!(attributes)
-
-    h = {}
-    h["#{type.downcase}_id".to_sym] = school_or_user_id
-    h[:subscription_id] = subscription.id
-    "#{type}Subscription".constantize.create(h)
-
-    subscription
-  end
-
   def last_four
     stripe_subscription&.last_four || purchaser&.last_four
   end
@@ -397,7 +405,7 @@ class Subscription < ApplicationRecord
 
   def renewal_stripe_price_id
     return STRIPE_TEACHER_PLAN_PRICE_ID if [TEACHER_PAID, TEACHER_TRIAL].include?(account_type)
-    # can get cleaned up when we unify account types vs plan names, this covers the existing bases
+    # TODO: can get cleaned up when we unify account types vs plan names, this covers the existing bases
     return STRIPE_SCHOOL_PLAN_PRICE_ID if account_type == SCHOOL_PAID
     return STRIPE_SCHOOL_PLAN_PRICE_ID if account_type == Plan::STRIPE_SCHOOL_PLAN
   end

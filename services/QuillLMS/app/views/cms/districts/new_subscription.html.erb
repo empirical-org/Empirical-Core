@@ -2,12 +2,14 @@
   <%= react_component(
         'SubscriptionApp',
         props: {
-          view: 'edit',
-          school: @school,
+          view: 'new',
           district: @district,
+          subscriber: @district,
+          subscriberType: 'District',
           subscription: @subscription,
           premiumTypes: @premium_types,
-          subscriptionPaymentMethods: @subscription_payment_methods
+          subscriptionPaymentMethods: @subscription_payment_methods,
+          purchaserEmail: @purchaser_email
         }
       )
   %>

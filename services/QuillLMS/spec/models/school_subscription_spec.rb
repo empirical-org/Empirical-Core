@@ -51,7 +51,7 @@ describe SchoolSubscription, type: :model do
 
     it "connects a new premium account to school's users if they do have one" do
       queens_teacher.user_subscriptions.destroy_all
-      old_sub = Subscription.create_with_user_join(queens_teacher.id, {account_type: 'paid'})
+      old_sub = Subscription.create_with_subscriber_join(queens_teacher, account_type: 'paid')
       expect(queens_teacher.reload.subscription).to eq(old_sub)
       school_sub.update_schools_users
       expect(queens_teacher.reload.subscription).to eq(school_sub.subscription)
