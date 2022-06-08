@@ -8,18 +8,18 @@
 #  answer                        :jsonb
 #  attempt_number                :integer
 #  correct                       :boolean          not null
-#  extra_metadata                :json
+#  extra_metadata                :jsonb
 #  question_number               :integer
 #  question_score                :float
 #  created_at                    :datetime         not null
-#  activity_session_id           :bigint           not null
-#  concept_id                    :bigint
-#  concept_result_id             :bigint
-#  response_directions_id        :bigint
-#  response_instructions_id      :bigint
-#  response_previous_feedback_id :bigint
-#  response_prompt_id            :bigint
-#  response_question_type_id     :bigint
+#  activity_session_id           :integer          not null
+#  concept_id                    :integer
+#  concept_result_id             :integer
+#  response_directions_id        :integer
+#  response_instructions_id      :integer
+#  response_previous_feedback_id :integer
+#  response_prompt_id            :integer
+#  response_question_type_id     :integer
 #
 # Indexes
 #

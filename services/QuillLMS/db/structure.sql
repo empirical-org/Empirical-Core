@@ -3002,7 +3002,7 @@ ALTER SEQUENCE public.referrer_users_id_seq OWNED BY public.referrer_users.id;
 --
 
 CREATE TABLE public.response_directions (
-    id bigint NOT NULL,
+    id integer NOT NULL,
     text text NOT NULL,
     created_at timestamp without time zone NOT NULL
 );
@@ -3013,6 +3013,7 @@ CREATE TABLE public.response_directions (
 --
 
 CREATE SEQUENCE public.response_directions_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3032,7 +3033,7 @@ ALTER SEQUENCE public.response_directions_id_seq OWNED BY public.response_direct
 --
 
 CREATE TABLE public.response_instructions (
-    id bigint NOT NULL,
+    id integer NOT NULL,
     text text NOT NULL,
     created_at timestamp without time zone NOT NULL
 );
@@ -3043,6 +3044,7 @@ CREATE TABLE public.response_instructions (
 --
 
 CREATE SEQUENCE public.response_instructions_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3062,7 +3064,7 @@ ALTER SEQUENCE public.response_instructions_id_seq OWNED BY public.response_inst
 --
 
 CREATE TABLE public.response_previous_feedbacks (
-    id bigint NOT NULL,
+    id integer NOT NULL,
     text text NOT NULL,
     created_at timestamp without time zone NOT NULL
 );
@@ -3073,6 +3075,7 @@ CREATE TABLE public.response_previous_feedbacks (
 --
 
 CREATE SEQUENCE public.response_previous_feedbacks_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3092,7 +3095,7 @@ ALTER SEQUENCE public.response_previous_feedbacks_id_seq OWNED BY public.respons
 --
 
 CREATE TABLE public.response_prompts (
-    id bigint NOT NULL,
+    id integer NOT NULL,
     text text NOT NULL,
     created_at timestamp without time zone NOT NULL
 );
@@ -3103,6 +3106,7 @@ CREATE TABLE public.response_prompts (
 --
 
 CREATE SEQUENCE public.response_prompts_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3122,7 +3126,7 @@ ALTER SEQUENCE public.response_prompts_id_seq OWNED BY public.response_prompts.i
 --
 
 CREATE TABLE public.response_question_types (
-    id bigint NOT NULL,
+    id integer NOT NULL,
     text text NOT NULL,
     created_at timestamp without time zone NOT NULL
 );
@@ -3133,6 +3137,7 @@ CREATE TABLE public.response_question_types (
 --
 
 CREATE SEQUENCE public.response_question_types_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3153,20 +3158,20 @@ ALTER SEQUENCE public.response_question_types_id_seq OWNED BY public.response_qu
 
 CREATE TABLE public.responses (
     id bigint NOT NULL,
-    activity_session_id bigint NOT NULL,
+    activity_session_id integer NOT NULL,
+    answer jsonb,
     attempt_number integer,
+    concept_id integer,
+    concept_result_id integer,
     correct boolean NOT NULL,
+    extra_metadata jsonb,
     question_number integer,
     question_score double precision,
-    answer jsonb,
-    response_directions_id bigint,
-    response_instructions_id bigint,
-    response_previous_feedback_id bigint,
-    response_prompt_id bigint,
-    response_question_type_id bigint,
-    extra_metadata json,
-    concept_result_id bigint,
-    concept_id bigint,
+    response_directions_id integer,
+    response_instructions_id integer,
+    response_previous_feedback_id integer,
+    response_prompt_id integer,
+    response_question_type_id integer,
     created_at timestamp without time zone NOT NULL
 );
 

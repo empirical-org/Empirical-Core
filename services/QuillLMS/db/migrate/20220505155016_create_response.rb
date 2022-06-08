@@ -3,20 +3,20 @@
 class CreateResponse < ActiveRecord::Migration[5.1]
   def change
     create_table :responses do |t|
-      t.references :activity_session, null: false, index: false
+      t.references :activity_session, type: :int, null: false, index: false
+      t.jsonb :answer
       t.integer :attempt_number
+      t.references :concept, type: :int, limit: 2, index: false
+      t.references :concept_result, type: :int, limit: 8, index: {unique: true}
       t.boolean :correct, null: false
+      t.jsonb :extra_metadata
       t.integer :question_number
       t.float :question_score
-      t.jsonb :answer
-      t.references :response_directions, index: false
-      t.references :response_instructions, index: false
-      t.references :response_previous_feedback, index: false
-      t.references :response_prompt, index: false
-      t.references :response_question_type, index: false
-      t.json :extra_metadata
-      t.references :concept_result, index: {unique: true}
-      t.references :concept, index: false
+      t.references :response_directions, type: :int, limit: 4, index: false
+      t.references :response_instructions, type: :int, limit: 4, index: false
+      t.references :response_previous_feedback, type: :int, limit: 4, index: false
+      t.references :response_prompt, type: :int, limit: 4, index: false
+      t.references :response_question_type, type: :int, limit: 2, index: false
 
       t.datetime :created_at, null: false
     end
