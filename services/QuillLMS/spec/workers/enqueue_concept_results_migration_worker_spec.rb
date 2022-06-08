@@ -28,10 +28,10 @@ describe EnqueueConceptResultsMigrationWorker, type: :worker do
       max_id = 10
       expect(ConceptResult).to receive(:maximum).with(:id).and_return(max_id)
 
-      expect(CopyConceptResultsToResponsesWorker).to receive(:perform_async).with(1, 3).once
-      expect(CopyConceptResultsToResponsesWorker).to receive(:perform_async).with(3, 5).once
-      expect(CopyConceptResultsToResponsesWorker).to receive(:perform_async).with(5, 7).once
-      expect(CopyConceptResultsToResponsesWorker).to receive(:perform_async).with(7, 9).once
+      expect(CopyConceptResultsToResponsesWorker).to receive(:perform_async).with(1, 2).once
+      expect(CopyConceptResultsToResponsesWorker).to receive(:perform_async).with(3, 4).once
+      expect(CopyConceptResultsToResponsesWorker).to receive(:perform_async).with(5, 6).once
+      expect(CopyConceptResultsToResponsesWorker).to receive(:perform_async).with(7, 8).once
       expect(CopyConceptResultsToResponsesWorker).to receive(:perform_async).with(9, 10).once
 
       subject.perform(nil, nil)

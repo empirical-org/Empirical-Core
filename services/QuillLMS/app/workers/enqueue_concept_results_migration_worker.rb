@@ -11,7 +11,7 @@ class EnqueueConceptResultsMigrationWorker
     finish ||= ConceptResult.maximum(:id)
 
     while start < finish
-      end_of_batch = [start + BATCH_SIZE, finish].min
+      end_of_batch = [start + BATCH_SIZE - 1, finish].min
       CopyConceptResultsToResponsesWorker.perform_async(start, end_of_batch)
       start += BATCH_SIZE
     end
