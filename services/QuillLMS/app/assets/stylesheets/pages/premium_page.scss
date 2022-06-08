@@ -97,25 +97,60 @@ li.premium-tab > a:hover {
   .school-and-district-premium-modal {
     z-index: 6;
     display: flex;
-    padding: 0px;
     min-height: min-content;
-    .school-and-district-premium-column {
-      margin: 32px 0px;
-      padding: 0px 32px;
-      text-align: left;
-      width: 224px;
-      flex: 1;
-      h2 {
-        height: min-content;
+    &.stage-one {
+      padding: 40px 0px 0px;
+      .interactive-wrapper {
+        position: absolute;
+        top: 32px;
+        right: 32px;
       }
-      .quill-button {
+      .school-and-district-premium-column {
+        margin: 32px 0px;
+        padding: 0px 32px;
+        text-align: left;
+        width: 224px;
+        flex: 1;
+        h2 {
+          height: min-content;
+        }
+        .quill-button {
+          width: 100%;
+        }
+        &:not(:last-of-type) {
+          border-right: 1px solid #E0E0E0;
+        }
+        &:last-of-type {
+          border-right: 1px solid transparent;
+        }
+      }
+    }
+    &.stage-two {
+      flex-direction: column;
+      max-width: 560px;
+      width: calc(100vw - 20px);
+      .dropdown-container {
+        min-height: 42px !important;
+        margin: 36px 0px 24px;
+        justify-content: flex-start;
+        &.input-container.inactive .dropdown__placeholder {
+          display: inline-block;
+        }
+      }
+      p {
+        margin-bottom: 48px;
+      }
+      .school-search-container {
         width: 100%;
-      }
-      &:not(:last-of-type) {
-        border-right: 1px solid #E0E0E0;
-      }
-      &:last-of-type {
-        border-right: 1px solid transparent;
+        border: none;
+        padding: 0px;
+        .input-container {
+          min-height: min-content;
+        }
+        .schools-list-section {
+          margin: 16px 0px;
+          max-width: 100%;
+        }
       }
     }
   }
@@ -630,14 +665,16 @@ li.premium-tab > a:hover {
       flex-direction: column;
       max-height: calc(100vh - 72px - 72px);
       overflow: scroll;
-      .school-and-district-premium-column {
-        width: 300px;
-        border-right: 0px !important;
-        border-bottom: 1px solid #e0e0e0;
-        padding: 32px 0px;
-        margin: 0px 16px;
-        h2 {
-          font-size: 24px;
+      &.stage-one {
+        .school-and-district-premium-column {
+          width: 300px;
+          border-right: 0px !important;
+          border-bottom: 1px solid #e0e0e0;
+          padding: 32px 0px;
+          margin: 0px 16px;
+          h2 {
+            font-size: 24px;
+          }
         }
       }
     }
