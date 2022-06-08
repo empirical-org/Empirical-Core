@@ -102,7 +102,7 @@ class SchoolsController < ApplicationController
           )
         end
         school_user = SchoolsUsers.find_or_initialize_by(
-          user_id: current_user.id,
+          user_id: current_user.id
         )
         school_user.update(school_id: school.id)
         find_or_create_checkbox('Add School', current_user)
