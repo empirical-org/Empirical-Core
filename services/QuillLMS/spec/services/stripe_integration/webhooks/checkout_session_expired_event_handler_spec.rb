@@ -17,10 +17,5 @@ RSpec.describe StripeIntegration::Webhooks::CheckoutSessionExpiredEventHandler d
 
   before { allow(Stripe::Event).to receive(:retrieve).with(external_id).and_return(stripe_event) }
 
-  it 'updates the expiration of stripe checkout session' do
-    expect do
-      subject
-      stripe_checkout_session.reload
-    end.to change(stripe_checkout_session, :expiration)
-  end
+  it { expect { subject }.to change(StripeCheckoutSession, :count).from(1).to(0) }
 end

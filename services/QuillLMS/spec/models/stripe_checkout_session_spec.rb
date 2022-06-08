@@ -5,7 +5,6 @@
 # Table name: stripe_checkout_sessions
 #
 #  id                           :bigint           not null, primary key
-#  expiration                   :datetime         not null
 #  url                          :string           not null
 #  created_at                   :datetime         not null
 #  updated_at                   :datetime         not null
@@ -25,13 +24,6 @@
 require 'rails_helper'
 
 RSpec.describe StripeCheckoutSession, type: :model do
-
-  describe '.not_expired' do
-    let!(:stripe_checkout_session) { create(:stripe_checkout_session) }
-    let!(:expired_stripe_checkout_session) { create(:stripe_checkout_session, expiration: DateTime.now.utc) }
-
-    it { expect(described_class.not_expired).to eq [stripe_checkout_session] }
-  end
 
   describe '.custom_find_or_create_by!' do
     let(:external_checkout_session_args) { {} }

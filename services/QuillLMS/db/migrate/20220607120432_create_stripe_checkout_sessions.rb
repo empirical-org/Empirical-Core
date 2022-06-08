@@ -3,7 +3,6 @@
 class CreateStripeCheckoutSessions < ActiveRecord::Migration[5.1]
   def change
     create_table :stripe_checkout_sessions do |t|
-      t.datetime :expiration, null: false
       t.string :external_checkout_session_id, null: false, index: true
       t.string :stripe_price_id, null: false
       t.string :url, null: false

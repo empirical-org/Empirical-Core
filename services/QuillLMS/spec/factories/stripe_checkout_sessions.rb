@@ -5,7 +5,6 @@
 # Table name: stripe_checkout_sessions
 #
 #  id                           :bigint           not null, primary key
-#  expiration                   :datetime         not null
 #  url                          :string           not null
 #  created_at                   :datetime         not null
 #  updated_at                   :datetime         not null
@@ -24,7 +23,6 @@
 #
 FactoryBot.define do
   factory :stripe_checkout_session do
-    expiration { 24.hours.from_now }
     external_checkout_session_id { "cs_#{SecureRandom.hex}" }
     stripe_price_id { "price_#{SecureRandom.hex}" }
     url { "https://www.checkout.stripe/pay/cs_#{SecureRandom.hex}" }

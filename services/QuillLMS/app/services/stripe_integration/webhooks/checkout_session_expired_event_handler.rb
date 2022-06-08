@@ -4,7 +4,7 @@ module StripeIntegration
   module Webhooks
     class CheckoutSessionExpiredEventHandler < EventHandler
       def run
-        stripe_checkout_session&.update!(expiration: DateTime.now.utc)
+        stripe_checkout_session&.destroy!
         stripe_webhook_event.processed!
       rescue => e
         stripe_webhook_event.log_error(e)
