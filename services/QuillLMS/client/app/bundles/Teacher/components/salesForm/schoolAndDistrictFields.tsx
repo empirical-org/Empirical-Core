@@ -41,6 +41,7 @@ export const SchoolAndDistrictFields = ({
         {errors[COLLECTION_TYPE] && <p className="error-text">{errors[COLLECTION_TYPE]}</p>}
       </div>
       <SchoolOrDistrictSelection
+        districtIsSelected={districtIsSelected}
         districtNotListed={districtNotListed}
         districts={districts}
         errors={errors}
@@ -49,6 +50,7 @@ export const SchoolAndDistrictFields = ({
         handleSchoolSearchSelectionChange={handleSchoolSearchSelectionChange}
         handleSchoolSearchTextChange={handleSchoolSearchTextChange}
         handleUpdateField={handleUpdateField}
+        schoolIsSelected={schoolIsSelected}
         schoolNotListed={schoolNotListed}
         schools={schools}
         selectedDistrict={selectedDistrict}
