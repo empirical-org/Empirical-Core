@@ -1,5 +1,27 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: stripe_checkout_sessions
+#
+#  id                           :bigint           not null, primary key
+#  expiration                   :datetime         not null
+#  url                          :string           not null
+#  created_at                   :datetime         not null
+#  updated_at                   :datetime         not null
+#  external_checkout_session_id :string           not null
+#  stripe_price_id              :string           not null
+#  user_id                      :bigint
+#
+# Indexes
+#
+#  index_stripe_checkout_sessions_on_external_checkout_session_id  (external_checkout_session_id)
+#  index_stripe_checkout_sessions_on_user_id                       (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (user_id => users.id)
+#
 class StripeCheckoutSession < ApplicationRecord
   belongs_to :user
 
