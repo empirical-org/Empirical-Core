@@ -28,13 +28,12 @@ describe CopyConceptResultsToResponsesWorker, type: :worker do
       response = concept_result.response
 
       expect(response.activity_session).to eq(concept_result.activity_session)
-      expect(response.concepts).to eq([concept_result.concept])
+      expect(response.concept).to eq(concept_result.concept)
       expect(response.correct).to be(true)
       expect(response.attempt_number).to eq(metadata[:attemptNumber])
-      expect(response.question).to eq(question)
       expect(response.question_number).to eq(metadata[:questionNumber])
       expect(response.question_score).to eq(metadata[:questionScore])
-      expect(response.response_answer.json).to eq(metadata[:answer])
+      expect(response.answer).to eq(metadata[:answer])
       expect(response.response_directions.text).to eq(metadata[:directions])
       expect(response.response_instructions).to be(nil)
       expect(response.response_previous_feedback.text).to eq(metadata[:lastFeedback])
@@ -55,8 +54,11 @@ describe CopyConceptResultsToResponsesWorker, type: :worker do
       activity_session2 = create(:activity_session_without_concept_results, activity: activity)
       used_concept_result = create(:sentence_combining, metadata: metadata, activity_session: activity_session2)
 
-      expect(Response).not_to receive(:find_or_create_from_concept_result).with(concept_result)
-      expect(Response).to receive(:find_or_create_from_concept_result).with(used_concept_result)
+      bulk_insert_worker_stub = double
+      expect(Response).to receive(:bulk_insert).and_yield(bulk_insert_worker_stub)
+
+      expect(bulk_insert_worker_stub).to receive(:add).with(hash_including(concept_result_id: used_concept_result.id))
+      expect(bulk_insert_worker_stub).not_to receive(:add).with(hash_including(concept_result_id: concept_result.id))
 
       subject.perform(used_concept_result.id, used_concept_result.id)
     end
@@ -64,10 +66,13 @@ describe CopyConceptResultsToResponsesWorker, type: :worker do
     it 'should not process items with IDs higher than finish' do
       concept_result
       activity_session2 = create(:activity_session_without_concept_results, activity: activity)
-      skipped_concept_result = create(:sentence_combining, metadata: metadata, activity_session: activity_session2)
+      unused_concept_result = create(:sentence_combining, metadata: metadata, activity_session: activity_session2)
 
-      expect(Response).to receive(:find_or_create_from_concept_result).with(concept_result)
-      expect(Response).not_to receive(:find_or_create_from_concept_result).with(skipped_concept_result)
+      bulk_insert_worker_stub = double
+      expect(Response).to receive(:bulk_insert).and_yield(bulk_insert_worker_stub)
+
+      expect(bulk_insert_worker_stub).to receive(:add).with(hash_including(concept_result_id: concept_result.id))
+      expect(bulk_insert_worker_stub).not_to receive(:add).with(hash_including(concept_result_id: unused_concept_result.id))
 
       subject.perform(concept_result.id, concept_result.id)
     end

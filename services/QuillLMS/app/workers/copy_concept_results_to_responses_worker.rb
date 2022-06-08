@@ -28,9 +28,12 @@ class CopyConceptResultsToResponsesWorker
         prompts_cache[prompt] ||= ResponsePrompt.find_or_create_by(text: prompt)&.id if prompt
         question_types_cache[question_type] ||= ResponseQuestionType.find_or_create_by(text: question_type)&.id if question_type
 
+        extra_metadata = Response.parse_extra_metadata(concept_result.metadata)
+
         worker.add({
           answer: concept_result.metadata['answer'],
           attempt_number: concept_result.metadata['attemptNumber'],
+          concept_id: concept_result.concept_id,
           correct: concept_result.metadata['correct'] == 1,
           extra_metadata: extra_metadata,
           question_number: concept_result.metadata['questionNumber'],

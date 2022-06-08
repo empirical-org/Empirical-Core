@@ -90,6 +90,10 @@ class Response < ApplicationRecord
     create_from_json(concept_result.as_json)
   end
 
+  def self.parse_extra_metadata(metadata)
+    metadata.deep_symbolize_keys.except(*KNOWN_METADATA_KEYS).reject{ |_,v| v.nil? || (v.is_a?(Enumerable) && v.empty?) }
+  end
+
   def legacy_format
     {
       id: id,
@@ -112,15 +116,11 @@ class Response < ApplicationRecord
   end
 
   def assign_extra_metadata(metadata)
-    extra_metadata = parse_extra_metadata(metadata)
+    extra_metadata = self.class.parse_extra_metadata(metadata)
 
     return if extra_metadata.empty?
 
     self.extra_metadata = extra_metadata
-  end
-
-  def parse_extra_metadata(metadata)
-    metadata.deep_symbolize_keys.except(*KNOWN_METADATA_KEYS).reject{ |_,v| v.nil? || (v.is_a?(Enumerable) && v.empty?) }
   end
 
   private def legacy_format_metadata
