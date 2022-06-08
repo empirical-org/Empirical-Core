@@ -6,6 +6,7 @@ class CopyConceptResultsToResponsesWorker
 
   BATCH_SIZE=100000
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def perform(start, finish)
     directions_cache = {}
     instructions_cache = {}
@@ -49,4 +50,5 @@ class CopyConceptResultsToResponsesWorker
       end
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 end
