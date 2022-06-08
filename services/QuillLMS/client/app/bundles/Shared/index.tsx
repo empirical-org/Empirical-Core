@@ -170,5 +170,11 @@ export {
   PARTNERSHIPS,
   PRODUCT,
   SUPPORT,
-  TEAMS
+  TEAMS,
+  ARCHIVED_FLAG,
+  PRODUCTION_FLAG,
+  ALPHA_FLAG,
+  BETA_FLAG,
+  GAMMA_FLAG,
+  PRIVATE_FLAG
 } from './utils/constants'
