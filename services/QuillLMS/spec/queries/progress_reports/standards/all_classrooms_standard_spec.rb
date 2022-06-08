@@ -46,7 +46,7 @@ describe ProgressReports::Standards::AllClassroomsStandard do
 
     context 'with evidence activity' do
       let(:evidence_standard_category) do
-        create(:standard_category, id: described_class::EVIDENCE_STANDARD_CATEGORY)
+        create(:standard_category, id: Constants::EVIDENCE_STANDARD_CATEGORY)
       end
       let!(:evidence_standard) { create(:standard, standard_category: evidence_standard_category) }
       let!(:evidence_activity) { create(:activity, standard: evidence_standard)}

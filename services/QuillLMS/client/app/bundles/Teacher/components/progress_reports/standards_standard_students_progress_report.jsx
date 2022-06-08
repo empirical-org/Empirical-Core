@@ -25,6 +25,10 @@ export default class IndividualStandardsReport extends React.Component {
     this.getData()
   }
 
+  decorateAsEvidence(standard) {
+    return !!standard?.is_evidence
+  }
+
   getData() {
     this.setState({loading: true}, () => {
       const { sourceUrl } = this.props;
@@ -36,10 +40,12 @@ export default class IndividualStandardsReport extends React.Component {
         url: url
       }, (e, r, body) => {
         const data = JSON.parse(body)
-        const studentData = this.formattedStudentData(data.students)
+        const decorateAsEvidence = this.decorateAsEvidence(data.standards[0])
+        const studentData = this.formattedStudentData(data.students, decorateAsEvidence)
         const csvData = this.formatDataForCSV(data.students)
         const standard = data.standards[0]
         const classrooms = JSON.parse(body).classrooms
+
         const allClassrooms = {name: showAllClassroomKey}
         const selectedClassroom = data.selected_classroom ? data.selected_classroom : allClassrooms
         classrooms.unshift(allClassrooms)
@@ -78,7 +84,7 @@ export default class IndividualStandardsReport extends React.Component {
         className: blurIfNotPremium,
         resizable: false,
         Cell: ({row}) => (
-          `${row.original['average_score']}%`
+          `${row.original['average_score']}`
         )
       }, {
         Header: 'Proficiency Status',
@@ -104,12 +110,12 @@ export default class IndividualStandardsReport extends React.Component {
     return csvData
   }
 
-  formattedStudentData(data) {
+  formattedStudentData(data, decorateAsEvidence=false) {
     return data.map((row) => {
       row.name = row.name
       row.total_activity_count = Number(row.total_activity_count)
-      row.average_score = Number(row.average_score * 100)
-      row.proficiency_status = row.proficiency_status
+      row.average_score = decorateAsEvidence ? 'Not Scored' : `${Number(row.average_score * 100)}%`
+      row.mastery_status = decorateAsEvidence ? 'Not Scored' : row.mastery_status
       row.green_arrow = (
         <a className='green-arrow' href={row.student_standards_href}>
           <img alt="" src="https://assets.quill.org/images/icons/chevron-dark-green.svg" />

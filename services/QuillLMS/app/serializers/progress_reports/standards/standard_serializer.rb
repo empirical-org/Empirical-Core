@@ -15,10 +15,11 @@ class ProgressReports::Standards::StandardSerializer < ActiveModel::Serializer
              :timespent,
              :average_score,
              :standard_students_href,
-             :mastery_status
+             :mastery_status,
+             :is_evidence
 
   def average_score
-    object.average_score.round(2)
+    object.average_score&.round(2) || 0
   end
 
   def standard_students_href
