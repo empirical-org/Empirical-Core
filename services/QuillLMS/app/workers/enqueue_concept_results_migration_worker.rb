@@ -2,7 +2,7 @@
 
 class EnqueueConceptResultsMigrationWorker
   include Sidekiq::Worker
-  sidekiq_options queue: SidekiqQueue::LOW
+  sidekiq_options queue: SidekiqQueue::MIGRATION
 
   BATCH_SIZE=100000
 
