@@ -37,6 +37,7 @@ class SalesFormSubmission < ApplicationRecord
 
   VITALLY_DISTRICTS_TYPE = "organizations"
   VITALLY_SCHOOLS_TYPE = "accounts"
+  VITALLY_USERS_TYPE = "users"
   VITALLY_SALES_FORMS_TYPE = "projects"
 
   FALLBACK_SCHOOL_NAME = "Unknown School"
@@ -67,6 +68,14 @@ class SalesFormSubmission < ApplicationRecord
     elsif collection_type == SCHOOL_COLLECTION_TYPE && school.present? && !api.exists?("accounts", school.id)
       api.create(VITALLY_SCHOOLS_TYPE, school.vitally_data)
     end
+
+    # TODO: this part needs to be built out. we need to come up with some way to create a Vitally User if the user does not
+    # yet exist in our DB or in Vitally yet.
+
+    # if !api.exists?("users", vitally_user_id)
+    #   api.create(VITALLY_USERS_TYPE, vitally_user_data)
+    # end
+
     api.create(VITALLY_SALES_FORMS_TYPE, vitally_data)
   end
 
