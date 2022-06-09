@@ -115,6 +115,32 @@ describe AccountsController, type: :controller do
           expect(response.body).to eq({errors: {email: ["Enter a valid email"]}}.to_json)
         end
       end
+
+      context 'when user already exists in db as a sales contact' do
+        let!(:user) { create(:user, role: User::SALES_CONTACT) }
+        it 'should use that same user record but update all the fields' do
+          name = "Test Name"
+          password = "test123"
+          post :create, params: { user: { name: name, email: user.email, password: password, role: User::TEACHER } }
+          expect(response.status).to eq 200
+
+          updated_user = User.find(user.id)
+          expect(updated_user.name).to eq(name)
+          expect(updated_user.authenticate(password)).not_to eq(false)
+          expect(updated_user.role).to eq(User::TEACHER)
+        end
+      end
+
+      context 'when user tries to enter an email that already exists and is not a preexisting sales contact' do
+        let (:user) { create(:user, role: User::TEACHER) }
+        it 'should render a duplicate email error' do
+          name = "Test Name"
+          password = "test123"
+          post :create, params: { user: { name: name, email: user.email, password: password, role: User::TEACHER } }
+          expect(response.status).to eq 422
+          expect(response.body).to eq({errors: {email: ["That email is taken. Try another."]}}.to_json)
+        end
+      end
     end
   end
 

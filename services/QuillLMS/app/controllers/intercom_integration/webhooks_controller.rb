@@ -36,7 +36,6 @@ module IntercomIntegration
           sales_form_submission.submission_type = SalesFormSubmission::RENEWAL_REQUEST_TYPE
         end
         sales_form_submission.save!
-        sales_form_submission.send_opportunity_to_vitally
       end
       head 200
     end

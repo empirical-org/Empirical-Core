@@ -31,15 +31,27 @@ RSpec.describe SalesFormSubmission, type: :model do
     it { should validate_presence_of(:first_name) }
     it { should validate_presence_of(:last_name) }
     it { should validate_presence_of(:email) }
-    it { should validate_presence_of(:phone_number) }
-    it { should validate_presence_of(:zipcode) }
     it { should validate_presence_of(:collection_type) }
-    it { should validate_presence_of(:school_name) }
-    it { should validate_presence_of(:district_name) }
     it { should validate_presence_of(:school_premium_count_estimate) }
     it { should validate_presence_of(:teacher_premium_count_estimate) }
     it { should validate_presence_of(:student_premium_count_estimate) }
     it { should validate_presence_of(:submission_type) }
+  end
+
+  context 'hooks' do
+    it 'after_save, creates a new user record if a User does not already exist' do
+      expect { create(:sales_form_submission) }.to change { User.count }.by(1)
+    end
+
+    it 'after_save, creates a new user record with the email from the sales form submission' do
+      sales_form_submission = create(:sales_form_submission)
+      expect(User.find_by(email: sales_form_submission.email, role: User::SALES_CONTACT)).to be
+    end
+
+    it 'after_save, does not create a new user record if a User already exists' do
+      user = create(:user)
+      expect { create(:sales_form_submission, email: user.email) }.to change { User.count }.by(0)
+    end
   end
 
   context '#send_opportunity_to_vitally' do

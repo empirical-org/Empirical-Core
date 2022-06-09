@@ -150,8 +150,9 @@ class User < ApplicationRecord
   TEACHER = 'teacher'
   STUDENT = 'student'
   STAFF = 'staff'
-  ROLES      = [TEACHER, STUDENT, STAFF]
-  SAFE_ROLES = [STUDENT, TEACHER]
+  SALES_CONTACT = 'sales-contact'
+  ROLES      = [TEACHER, STUDENT, STAFF, SALES_CONTACT]
+  SAFE_ROLES = [STUDENT, TEACHER, SALES_CONTACT]
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
 
   ALPHA = 'alpha'

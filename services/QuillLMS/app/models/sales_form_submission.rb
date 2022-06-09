@@ -58,43 +58,87 @@ class SalesFormSubmission < ApplicationRecord
   validates :collection_type, presence: true, inclusion: { in: COLLECTION_TYPES }
   validates :submission_type, presence: true, inclusion: { in: SUBMISSION_TYPES }
 
+  after_save :vitally_callbacks
+
   def send_opportunity_to_vitally
-    api = VitallyRestApi.new
-    district = District.find_by(name: district_name)
-    school = School.find_by(name: school_name)
-
-    if collection_type == DISTRICT_COLLECTION_TYPE && district.present? && !api.exists?("organizations", district.id)
-      api.create(VITALLY_DISTRICTS_TYPE, district.vitally_data)
-    elsif collection_type == SCHOOL_COLLECTION_TYPE && school.present? && !api.exists?("accounts", school.id)
-      api.create(VITALLY_SCHOOLS_TYPE, school.vitally_data)
-    end
-
-    # TODO: this part needs to be built out. we need to come up with some way to create a Vitally User if the user does not
-    # yet exist in our DB or in Vitally yet.
-
-    # if !api.exists?("users", vitally_user_id)
-    #   api.create(VITALLY_USERS_TYPE, vitally_user_data)
-    # end
-
-    api.create(VITALLY_SALES_FORMS_TYPE, vitally_data)
+    @api.create(VITALLY_SALES_FORMS_TYPE, vitally_sales_form_data)
   end
 
-  def vitally_data
-    if collection_type == SCHOOL_COLLECTION_TYPE
-      school = School.find_by(name: school_name) || School.find_by(name: FALLBACK_SCHOOL_NAME)
+  def create_vitally_records_if_none_exist
+    district = District.find_by(name: district_name)
+    school = School.find_by(name: school_name)
+    user = find_or_create_user
+
+    if is_district_collection? && district.present? && !@api.exists?(VITALLY_DISTRICTS_TYPE, district.id)
+      @api.create(VITALLY_DISTRICTS_TYPE, district.vitally_data)
+    elsif is_school_collection? && school.present? && !@api.exists?(VITALLY_SCHOOLS_TYPE, school.id)
+      @api.create(VITALLY_SCHOOLS_TYPE, school.vitally_data)
+    end
+
+    if !@api.exists?(VITALLY_USERS_TYPE, user.id)
+      @api.create(VITALLY_USERS_TYPE, vitally_user_data)
+    end
+  end
+
+  def vitally_sales_form_data
+    if is_school_collection?
       {
         templateId: vitally_template_id,
-        customerId: school.id.to_s,
+        customerId: @api.get(VITALLY_SCHOOLS_TYPE, school.id)["id"],
         traits: vitally_traits
       }
     else
-      district = District.find_by(name: district_name) || District.find_by(name: FALLBACK_DISTRICT_NAME)
       {
         templateId: vitally_template_id,
-        organizationId: district.id.to_s,
+        organizationId: @api.get(VITALLY_DISTRICTS_TYPE, district.id)["id"],
         traits: vitally_traits
       }
     end
+  end
+
+  def vitally_user_data
+    user_payload = {
+      externalId: find_or_create_user.id,
+      name: "#{first_name} #{last_name}",
+      email: email,
+      traits: {
+        phone_number: phone_number,
+        zipcode: zipcode
+      }
+    }
+    user_payload[:accountIds] = [school.id] if is_school_collection?
+    user_payload[:organizationIds] = [district.id] if is_district_collection?
+    user_payload
+  end
+
+  def is_school_collection?
+    collection_type == SCHOOL_COLLECTION_TYPE
+  end
+
+  def is_district_collection?
+    collection_type == DISTRICT_COLLECTION_TYPE
+  end
+
+  private def school
+    @school ||= School.find_by(name: school_name) || School.find_by(name: FALLBACK_SCHOOL_NAME)
+  end
+
+  private def district
+    @district ||= District.find_by(name: district_name) || District.find_by(name: FALLBACK_DISTRICT_NAME)
+  end
+
+  private def vitally_callbacks
+    @api = VitallyRestApi.new
+
+    create_vitally_records_if_none_exist
+    send_opportunity_to_vitally
+  end
+
+  private def find_or_create_user
+    @user ||= User.find_by(email: email)
+    return @user if @user.present?
+
+    @user ||= User.create!(email: email, role: User::SALES_CONTACT, name: "#{first_name} #{last_name}", password: SecureRandom.uuid)
   end
 
   private def vitally_template_id

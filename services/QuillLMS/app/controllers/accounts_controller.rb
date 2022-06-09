@@ -94,7 +94,7 @@ class AccountsController < ApplicationController
   end
 
   protected def set_user
-    @user = User.find_by_id(session[:temporary_user_id]) || User.new
+    @user = User.find_by(email: user_params[:email], role: User::SALES_CONTACT) || User.find_by_id(session[:temporary_user_id]) || User.new
   end
 
   protected def trigger_account_creation_callbacks

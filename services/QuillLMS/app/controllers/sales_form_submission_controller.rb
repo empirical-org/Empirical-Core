@@ -20,9 +20,8 @@ class SalesFormSubmissionController < ApplicationController
 
   def create
     sales_form_submission = SalesFormSubmission.new(sales_form_submission_params)
-    if  sales_form_submission.save!
+    if sales_form_submission.save!
       post_sales_form_submission(sales_form_submission)
-      sales_form_submission.send_opportunity_to_vitally
 
       head :no_content, status: 200
     else
