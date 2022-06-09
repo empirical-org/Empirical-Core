@@ -18,17 +18,27 @@ RSpec.describe StripeIntegration::Webhooks::SubscriptionCreator do
         expect(UpdateSalesContactWorker).to receive(:perform_async).with(customer.id, SalesStageType::TEACHER_PREMIUM)
         subject
       end
+
+      context 'active teacher subscription already exists' do
+        let!(:subscription) { create(:subscription, plan: Plan.stripe_teacher_plan) }
+
+        before { create(:user_subscription, user: customer, subscription: subscription) }
+
+        it { expect { subject }.to raise_error described_class::DuplicateSubscriptionError }
+      end
     end
   end
 
   context 'school subscription' do
-    context 'happy path' do
-      let!(:teacher) { create(:teacher) }
-      let!(:other_teacher) { create(:teacher) }
-      let!(:school) { create :school, users: [customer, teacher]}
-      let!(:school_plan) { create(:school_premium_plan) }
-      let!(:stripe_subscription_metadata) { { school_ids: [school.id].to_json } }
+    let!(:teacher) { create(:teacher) }
+    let!(:other_teacher) { create(:teacher) }
+    let!(:school) { create(:school, users: [customer, teacher]) }
+    let!(:school_plan) { create(:school_premium_plan) }
+    let!(:stripe_subscription_metadata) { { school_ids: [school.id].to_json } }
+    let!(:other_school) { create(:school) }
+    let(:stripe_price_id) { STRIPE_SCHOOL_PLAN_PRICE_ID }
 
+    context 'happy path' do
       before { allow(Plan).to receive(:find_stripe_plan!).with(stripe_price_id).and_return(school_plan) }
 
       it { expect { subject }.to change(Subscription, :count).from(0).to(1) }
@@ -38,6 +48,24 @@ RSpec.describe StripeIntegration::Webhooks::SubscriptionCreator do
       it 'calls sales contact background job' do
         expect(UpdateSalesContactWorker).to receive(:perform_async).with(customer.id, SalesStageType::SCHOOL_PREMIUM)
         subject
+      end
+    end
+
+    context 'active school subscription exists' do
+      let!(:subscription) { create(:subscription, plan: school_plan) }
+
+      before { create(:user_subscription, user: customer, subscription: subscription) }
+
+      context 'for the same school' do
+        before { create(:school_subscription, school: school, subscription: subscription) }
+
+        it { expect { subject }.to raise_error described_class::DuplicateSubscriptionError }
+      end
+
+      context 'for a different school' do
+        before { create(:school_subscription, school: other_school, subscription: subscription) }
+
+        it { expect { subject }.not_to raise_error }
       end
     end
   end
@@ -64,14 +92,6 @@ RSpec.describe StripeIntegration::Webhooks::SubscriptionCreator do
     before { allow(Plan).to receive(:find_by!).and_raise(ActiveRecord::RecordNotFound) }
 
     it { expect { subject }.to raise_error described_class::PlanNotFoundError }
-  end
-
-  context 'active subscription already exists' do
-    let!(:subscription) { create(:subscription) }
-
-    before { create(:user_subscription, user: customer, subscription: subscription) }
-
-    it { expect { subject }.to raise_error described_class::DuplicateSubscriptionError }
   end
 
   context 'purchaser does not exist' do
