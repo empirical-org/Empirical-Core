@@ -15,7 +15,7 @@ class Teachers::ProgressReports::Standards::StudentStandardsController < Teacher
             serializer = ::ProgressReports::Standards::StandardSerializer.new(standard)
             # Doing this because can't figure out how to get custom params into serializers
             serializer.classroom_id = params[:classroom_id]
-            serializer.as_json(root: false)
+            serializer.as_json(root: false).merge(is_evidence: standard_category_id == Constants::EVIDENCE_STANDARD_CATEGORY)
           end
           student = User.find(params[:student_id])
           student = nil unless current_user.teaches_student?(student.id)

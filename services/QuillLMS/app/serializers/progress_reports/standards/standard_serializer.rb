@@ -18,6 +18,10 @@ class ProgressReports::Standards::StandardSerializer < ActiveModel::Serializer
              :mastery_status,
              :is_evidence
 
+  def is_evidence
+    !!object.try(:is_evidence)
+  end
+
   def average_score
     object.average_score&.round(2) || 0
   end

@@ -4,8 +4,6 @@ require 'rails_helper'
 
 describe ProgressReports::Standards::AllClassroomsStandard do
   describe '#results' do
-
-    #let!(:standard1) { create(:standard, standard_category: non_evidence_standard_category) }
     let!(:teacher1) { create(:teacher, :with_classrooms_students_and_activities) }
 
     let!(:sample_student_data) do

@@ -5,6 +5,8 @@ import request from 'request'
 
 import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx'
 
+import { NOT_SCORED_DISPLAY_TEXT } from './constants.js'
+
 import {sortTableByLastName} from '../../../../modules/sortingMethods.js'
 import LoadingSpinner from '../shared/loading_indicator.jsx'
 import ItemDropdown from '../general_components/dropdown_selectors/item_dropdown'
@@ -114,8 +116,8 @@ export default class IndividualStandardsReport extends React.Component {
     return data.map((row) => {
       row.name = row.name
       row.total_activity_count = Number(row.total_activity_count)
-      row.average_score = decorateAsEvidence ? 'Not Scored' : `${Number(row.average_score * 100)}%`
-      row.mastery_status = decorateAsEvidence ? 'Not Scored' : row.mastery_status
+      row.average_score = decorateAsEvidence ? NOT_SCORED_DISPLAY_TEXT : `${Number(row.average_score * 100)}%`
+      row.mastery_status = decorateAsEvidence ? NOT_SCORED_DISPLAY_TEXT : row.mastery_status
       row.green_arrow = (
         <a className='green-arrow' href={row.student_standards_href}>
           <img alt="" src="https://assets.quill.org/images/icons/chevron-dark-green.svg" />
