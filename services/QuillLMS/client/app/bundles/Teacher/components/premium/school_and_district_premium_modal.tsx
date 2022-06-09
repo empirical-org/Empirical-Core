@@ -4,26 +4,28 @@ import SchoolSelector, { NOT_LISTED, } from '../shared/school_selector'
 import { requestPost, requestPut, } from '../../../../modules/request';
 import { closeIcon, DropdownInput, Spinner, } from '../../../Shared/index'
 
-export const SCHOOL_PURCHASE_STAGE_TWO = 'school_purchase_stage_two'
+export const SCHOOL_SELECTION_STAGE = 'school_premium_purchase_selection_stage'
 
-const SchoolAndDistrictPremiumModal = ({ stripeSchoolPlan, associatedSchools, userIsSignedIn, startAtStageTwo, customerEmail, closeModal, handleNotListedSelection, }) => {
-  const [stage, setStage] = React.useState(startAtStageTwo ? 2 : 1)
+const PLAN_SELECTION_STAGE_NUMBER = 1
+const SCHOOL_SELECTION_STAGE_NUMBER = 2
+
+const SchoolAndDistrictPremiumModal = ({ stripeSchoolPlan, eligibleSchools, handleAlreadyPremiumSchoolSelection, userIsSignedIn, startAtSchoolSelectionStage, customerEmail, closeModal, handleNotListedSelection, }) => {
+  const [stage, setStage] = React.useState(startAtSchoolSelectionStage ? SCHOOL_SELECTION_STAGE_NUMBER : PLAN_SELECTION_STAGE_NUMBER)
   const [selectedSchool, setSelectedSchool] = React.useState(null)
-  const [loading, setLoading] = React.useState(false)
+  const [loading, setLoading] = React.useState(startAtSchoolSelectionStage)
 
-  React.useEffect(handleStageTwo, [])
-  React.useEffect(handleStageTwo, [stage])
+  React.useEffect(handleStartSchoolSelectionStage, [stage])
 
-  function goToStage2() {
+  function goToSchoolSelectionStage() {
     setLoading(true)
-    setStage(2)
+    setStage(SCHOOL_SELECTION_STAGE_NUMBER)
   }
 
-  function handleStageTwo() {
-    if (stage !== 2) { return }
+  function handleStartSchoolSelectionStage() {
+    if (stage !== SCHOOL_SELECTION_STAGE_NUMBER) { return }
 
-    if (associatedSchools.length === 1) {
-      const schoolIds = associatedSchools.map(s => s.id)
+    if (eligibleSchools.length === 1) {
+      const schoolIds = eligibleSchools.map(s => s.id)
       goToStripe(schoolIds)
     } else {
       setLoading(false)
@@ -48,10 +50,12 @@ const SchoolAndDistrictPremiumModal = ({ stripeSchoolPlan, associatedSchools, us
     requestPut(`${process.env.DEFAULT_URL}/select_school`, {
       school_id_or_type: idOrType,
     }, (body) => {
-      if (idOrType !== NOT_LISTED) {
-        goToStripe([idOrType])
-      } else {
+      if (idOrType === NOT_LISTED) {
         handleNotListedSelection()
+      } else if (body.subscription) {
+        handleAlreadyPremiumSchoolSelection()
+      } else {
+        goToStripe([idOrType])
       }
     });
   }
@@ -67,9 +71,9 @@ const SchoolAndDistrictPremiumModal = ({ stripeSchoolPlan, associatedSchools, us
     )
   }
 
-  if (stage === 2) {
-    if (associatedSchools.length) {
-      const schoolOptions = associatedSchools.map(school => ({ value: school.id, label: school.name, }))
+  if (stage === SCHOOL_SELECTION_STAGE_NUMBER) {
+    if (eligibleSchools.length) {
+      const schoolOptions = eligibleSchools.map(school => ({ value: school.id, label: school.name, }))
       const continueButton = selectedSchool ? <button className="quill-button medium contained primary focus-on-light" onClick={goToStripeWithSelectedSchool} type="button">Continue</button> : <button className="quill-button medium contained primary focus-on-light disabled" disabled type="button">Continue</button>
       return (
         <div className="modal-container school-and-district-premium-modal-container">
@@ -86,7 +90,7 @@ const SchoolAndDistrictPremiumModal = ({ stripeSchoolPlan, associatedSchools, us
             />
             <p>Your account is linked to multiple schools. To purchase multiple school subscriptions, please complete the purchase checkout for each school, or contact us at sales@quill.org for one invoice for multiple schools.</p>
             <div className="form-buttons">
-              <button className="quill-button outlined secondary medium" onClick={closeModal} type="button">Cancel</button>
+              <button className="quill-button outlined secondary medium focus-on-light" onClick={closeModal} type="button">Cancel</button>
               {continueButton}
             </div>
           </div>
@@ -104,12 +108,12 @@ const SchoolAndDistrictPremiumModal = ({ stripeSchoolPlan, associatedSchools, us
     }
   }
 
-  if (stage === 1) {
+  if (stage === PLAN_SELECTION_STAGE_NUMBER) {
     const requestAQuoteButton = <a className="quill-button outlined medium secondary focus-on-light" href="https://quillpremium.wufoo.com/forms/quill-premium-quote/">Request a Quote</a>
-    let schoolBuyNowButton = <button className="quill-button contained medium primary focus-on-light" onClick={goToStage2} type="button">Buy Now</button>
+    let schoolBuyNowButton = <button className="quill-button contained medium primary focus-on-light" onClick={goToSchoolSelectionStage} type="button">Buy Now</button>
 
     if (!userIsSignedIn) {
-      schoolBuyNowButton = <a className="quill-button contained medium primary focus-on-light" href={`/session/new?redirect=/premium?${SCHOOL_PURCHASE_STAGE_TWO}=true`}>Buy Now</a>
+      schoolBuyNowButton = <a className="quill-button contained medium primary focus-on-light" href={`/session/new?redirect=/premium?${SCHOOL_SELECTION_STAGE}=true`}>Buy Now</a>
     }
 
     return (

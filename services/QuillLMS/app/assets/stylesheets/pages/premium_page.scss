@@ -94,8 +94,20 @@ li.premium-tab > a:hover {
   .modal-background {
     z-index: 5;
   }
-  .school-and-district-premium-modal {
+  .quill-modal {
     z-index: 6;
+  }
+  .already-has-premium-modal {
+    max-width: calc(100vw - 20px);
+    min-height: min-content;
+    p {
+      margin: 24px 0px 48px;
+      a {
+        color: #00C2A2;
+      }
+    }
+  }
+  .school-and-district-premium-modal {
     display: flex;
     min-height: min-content;
     &.stage-one {

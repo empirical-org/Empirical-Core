@@ -107,7 +107,7 @@ class SchoolsController < ApplicationController
         school_user.school_id = school.id
         school_user.save
         find_or_create_checkbox('Add School', current_user)
-        render json: {}
+        render json: { school: school, subscription: school.subscription }
       }
     end
   end

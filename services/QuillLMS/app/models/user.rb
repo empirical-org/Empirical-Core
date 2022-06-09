@@ -631,6 +631,10 @@ class User < ApplicationRecord
     subscription&.subscription_status || last_expired_subscription&.subscription_status
   end
 
+  def associated_schools
+    [school].concat(administered_schools).uniq.select { |s| s.present? && School::ALTERNATIVE_SCHOOL_NAMES.exclude?(s.name) }
+  end
+
   private def validate_flags
     # ensures there are no items in the flags array that are not in the VALID_FLAGS const
     invalid_flags = flags - VALID_FLAGS

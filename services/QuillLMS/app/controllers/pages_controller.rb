@@ -408,7 +408,8 @@ class PagesController < ApplicationController
     @user_has_school = !!current_user&.school && ['home school', 'us higher ed', 'international', 'other', 'not listed'].exclude?(current_user&.school&.name)
     @user_belongs_to_school_that_has_paid = current_user&.school ? Subscription.school_or_user_has_ever_paid?(current_user&.school) : false
     @customer_email = current_user&.email
-    @associated_schools = current_user ? [current_user.school].concat(current_user.administered_schools).uniq.select { |s| s.present? && School::ALTERNATIVE_SCHOOL_NAMES.exclude?(s.name) } : []
+    @associated_schools = current_user&.associated_schools || []
+    @eligible_schools = @associated_schools.filter { |s| s.subscription.nil? }
     @stripe_school_plan = PlanSerializer.new(Plan.stripe_school_plan).as_json
     @stripe_teacher_plan = PlanSerializer.new(Plan.stripe_teacher_plan).as_json
 

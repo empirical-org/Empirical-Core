@@ -4,7 +4,7 @@ import { mount } from 'enzyme';
 import SchoolAndDistrictPremiumModal from '../school_and_district_premium_modal';
 
 const starterProps = {
-  "associatedSchools": [
+  "eligibleSchools": [
     {
       "id": 101608,
       "name": "Santa Fe High School",
@@ -39,13 +39,13 @@ describe('SchoolAndDistrictPremiumModal component', () => {
   });
 
   it('should render stage two when the user has no associated schools', () => {
-    const wrapper = mount(<SchoolAndDistrictPremiumModal {...starterProps} associatedSchools={[]} startAtStageTwo={true} />);
+    const wrapper = mount(<SchoolAndDistrictPremiumModal {...starterProps} eligibleSchools={[]} startAtStageTwo={true} />);
     expect(wrapper).toMatchSnapshot()
   });
 
   it('should render stage two when the user has more than one associated school', () => {
-    const associatedSchools = starterProps.associatedSchools.concat([{id: 1, name: 'Additional School'}])
-    const wrapper = mount(<SchoolAndDistrictPremiumModal {...starterProps} associatedSchools={associatedSchools} startAtStageTwo={true} />);
+    const eligibleSchools = starterProps.eligibleSchools.concat([{id: 1, name: 'Additional School'}])
+    const wrapper = mount(<SchoolAndDistrictPremiumModal {...starterProps} eligibleSchools={eligibleSchools} startAtStageTwo={true} />);
     expect(wrapper).toMatchSnapshot()
   });
 
