@@ -12,7 +12,6 @@ class VitallyRestApi
   end
 
   def exists?(type, id)
-    binding.pry
     get(type, id)['error'].blank?
   end
 
