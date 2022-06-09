@@ -7,17 +7,17 @@
 #  id                             :bigint           not null, primary key
 #  collection_type                :string           not null
 #  comment                        :text             default("")
-#  district_name                  :string           not null
+#  district_name                  :string
 #  email                          :string           not null
 #  first_name                     :string           not null
 #  last_name                      :string           not null
-#  phone_number                   :string           not null
-#  school_name                    :string           not null
+#  phone_number                   :string
+#  school_name                    :string
 #  school_premium_count_estimate  :integer          default(0), not null
 #  student_premium_count_estimate :integer          default(0), not null
 #  submission_type                :string           not null
 #  teacher_premium_count_estimate :integer          default(0), not null
-#  zipcode                        :string           not null
+#  zipcode                        :string
 #  created_at                     :datetime         not null
 #  updated_at                     :datetime         not null
 #
@@ -44,7 +44,7 @@ RSpec.describe SalesFormSubmission, type: :model do
 
   context '#send_opportunity_to_vitally' do
     let(:school) { create(:school)}
-    let(:sales_form_submission) { create(:sales_form_submission, collection_type: 'school', submission_type: 'quote request', school_name: school.name)}
+    let(:sales_form_submission) { create(:sales_form_submission, collection_type: 'school', source: 'form', submission_type: 'quote request', school_name: school.name)}
 
     it 'should sync to vitally with the appropriate payload for school level forms' do
       vitally_rest_api = double.as_null_object
@@ -63,7 +63,7 @@ RSpec.describe SalesFormSubmission, type: :model do
           number_of_teachers: sales_form_submission.teacher_premium_count_estimate,
           number_of_students: sales_form_submission.student_premium_count_estimate,
           form_comments: sales_form_submission.comment,
-          source: SalesFormSubmission::VITALLY_SOURCE,
+          source: SalesFormSubmission::FORM_SOURCE,
           intercom_link: '',
           metabase_id: sales_form_submission.id.to_s
         }
@@ -74,7 +74,7 @@ RSpec.describe SalesFormSubmission, type: :model do
 
     it 'should sync to vitally with the appropriate payload for district level forms' do
       district = create(:district)
-      sales_form_submission.update(collection_type: 'district', district_name: district.name)
+      sales_form_submission.update(collection_type: 'district', district_name: district.name, source: 'form')
       school.update(district: district)
 
       vitally_rest_api = double.as_null_object
@@ -93,7 +93,7 @@ RSpec.describe SalesFormSubmission, type: :model do
           number_of_teachers: sales_form_submission.teacher_premium_count_estimate,
           number_of_students: sales_form_submission.student_premium_count_estimate,
           form_comments: sales_form_submission.comment,
-          source: SalesFormSubmission::VITALLY_SOURCE,
+          source: SalesFormSubmission::FORM_SOURCE,
           intercom_link: '',
           metabase_id: sales_form_submission.id.to_s
         }
@@ -104,7 +104,7 @@ RSpec.describe SalesFormSubmission, type: :model do
 
     it 'should first create a school in vitally if it does not exist yet' do
       school = create(:school)
-      sales_form_submission = create(:sales_form_submission, collection_type: 'school', submission_type: 'quote request', school_name: school.name)
+      sales_form_submission = create(:sales_form_submission, collection_type: 'school', submission_type: 'quote request', source: 'form', school_name: school.name)
 
       vitally_rest_api = double.as_null_object
       allow(VitallyRestApi).to receive(:new).and_return(vitally_rest_api)
@@ -128,7 +128,7 @@ RSpec.describe SalesFormSubmission, type: :model do
 
     it 'should send a payload with the id for Unknown School if the school does not exist in the db' do
       school = create(:school, name: 'Unknown School')
-      sales_form_submission = create(:sales_form_submission, collection_type: 'school', submission_type: 'quote request', school_name: 'nonexistent school name')
+      sales_form_submission = create(:sales_form_submission, collection_type: 'school', submission_type: 'quote request', school_name: 'nonexistent school name', source: 'form')
 
       vitally_rest_api = double.as_null_object
       allow(VitallyRestApi).to receive(:new).and_return(vitally_rest_api)
@@ -148,7 +148,7 @@ RSpec.describe SalesFormSubmission, type: :model do
           number_of_teachers: sales_form_submission.teacher_premium_count_estimate,
           number_of_students: sales_form_submission.student_premium_count_estimate,
           form_comments: sales_form_submission.comment,
-          source: SalesFormSubmission::VITALLY_SOURCE,
+          source: SalesFormSubmission::FORM_SOURCE,
           intercom_link: '',
           metabase_id: sales_form_submission.id.to_s
         }

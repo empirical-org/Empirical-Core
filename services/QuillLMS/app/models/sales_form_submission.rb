@@ -7,21 +7,23 @@
 #  id                             :bigint           not null, primary key
 #  collection_type                :string           not null
 #  comment                        :text             default("")
-#  district_name                  :string           not null
+#  district_name                  :string
 #  email                          :string           not null
 #  first_name                     :string           not null
 #  last_name                      :string           not null
-#  phone_number                   :string           not null
-#  school_name                    :string           not null
+#  phone_number                   :string
+#  school_name                    :string
 #  school_premium_count_estimate  :integer          default(0), not null
 #  student_premium_count_estimate :integer          default(0), not null
 #  submission_type                :string           not null
 #  teacher_premium_count_estimate :integer          default(0), not null
-#  zipcode                        :string           not null
+#  zipcode                        :string
 #  created_at                     :datetime         not null
 #  updated_at                     :datetime         not null
 #
 class SalesFormSubmission < ApplicationRecord
+  attr_accessor :source
+
   COLLECTION_TYPES = [
     SCHOOL_COLLECTION_TYPE = 'school',
     DISTRICT_COLLECTION_TYPE = 'district'
@@ -30,7 +32,9 @@ class SalesFormSubmission < ApplicationRecord
     QUOTE_REQUEST_TYPE = 'quote request',
     RENEWAL_REQUEST_TYPE = 'renewal request'
   ]
-  VITALLY_SOURCE = "form"
+  FORM_SOURCE = "form"
+  INTERCOM_SOURCE = "intercom"
+
   VITALLY_DISTRICTS_TYPE = "organizations"
   VITALLY_SCHOOLS_TYPE = "accounts"
   VITALLY_SALES_FORMS_TYPE = "projects"
@@ -47,10 +51,6 @@ class SalesFormSubmission < ApplicationRecord
   validates :last_name, presence: true
   validates :email, presence: true
   validates_email_format_of :email, message: :invalid
-  validates :phone_number, presence: true
-  validates :zipcode, presence: true
-  validates :school_name, presence: true
-  validates :district_name, presence: true
   validates :school_premium_count_estimate, presence: true, numericality: { greater_than_or_equal_to: 0 }
   validates :teacher_premium_count_estimate, presence: true, numericality: { greater_than_or_equal_to: 0 }
   validates :student_premium_count_estimate, presence: true, numericality: { greater_than_or_equal_to: 0 }
@@ -112,7 +112,7 @@ class SalesFormSubmission < ApplicationRecord
       number_of_teachers: teacher_premium_count_estimate,
       number_of_students: student_premium_count_estimate,
       form_comments: comment,
-      source: VITALLY_SOURCE,
+      source: source,
       intercom_link: "",
       metabase_id: id.to_s
     }

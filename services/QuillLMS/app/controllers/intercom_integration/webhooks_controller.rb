@@ -10,25 +10,33 @@ module IntercomIntegration
       parsed_payload = JSON.parse(payload)
       topic = parsed_payload["topic"]
       if topic == "user.tag.created"
-        tag = parsed_payload["data"]["tag"]["name"]
+        tag = parsed_payload["data"]["item"]["tag"]["name"]
+        user = User.find(parsed_payload["data"]["item"]["user"]["user_id"])
+        sales_form_submission = SalesFormSubmission.new(
+          first_name: user.name.split[0],
+          last_name: user.name.split[1],
+          email: user.email,
+          phone_number: parsed_payload["data"]["item"]["user"]["phone"],
+          zipcode: parsed_payload["data"]["item"]["user"]["location_data"]["postal_code"],
+          school_name: user.school&.name,
+          district_name: user.school&.district&.name,
+          source: SalesFormSubmission::INTERCOM_SOURCE
+        )
         if tag == "Quote Request School"
-          user = User.find(parsed_payload["data"]["user"]["user_id"])
-          sales_form_submission = SalesFormSubmission.create(
-            first_name: user.name.split[0],
-            last_name: user.name.split[1],
-            email: user.email,
-            phone_number: "",
-            zipcode: "",
-            school_name: user.school&.name,
-            district_name: user.school&.district&.name,
-            collection_type: "school",
-            submission_type: "quote request"
-          )
-          sales_form_submission.send_opportunity_to_vitally
+          sales_form_submission.collection_type = SalesFormSubmission::SCHOOL_COLLECTION_TYPE
+          sales_form_submission.submission_type = SalesFormSubmission::QUOTE_REQUEST_TYPE
         elsif tag == "Quote Request District"
+          sales_form_submission.collection_type = SalesFormSubmission::DISTRICT_COLLECTION_TYPE
+          sales_form_submission.submission_type = SalesFormSubmission::QUOTE_REQUEST_TYPE
         elsif tag == "Renewal Request School"
+          sales_form_submission.collection_type = SalesFormSubmission::SCHOOL_COLLECTION_TYPE
+          sales_form_submission.submission_type = SalesFormSubmission::RENEWAL_REQUEST_TYPE
         elsif tag == "Renewal Request District"
+          sales_form_submission.collection_type = SalesFormSubmission::DISTRICT_COLLECTION_TYPE
+          sales_form_submission.submission_type = SalesFormSubmission::RENEWAL_REQUEST_TYPE
         end
+        sales_form_submission.save!
+        sales_form_submission.send_opportunity_to_vitally
       end
       head 200
     end
@@ -41,7 +49,7 @@ module IntercomIntegration
       client_secret = ENV.fetch('INTERCOM_APP_SECRET', '')
       hexdigest = OpenSSL::HMAC.hexdigest('sha1', client_secret, payload)
       unless request.headers['X-Hub-Signature'] == "sha1=#{hexdigest}"
-        ErrorNotifier.report(new Error("unauthorized call of Intercom webhook"))
+        raise "unauthorized call of Intercom webhook"
         head :forbidden
       end
     end
