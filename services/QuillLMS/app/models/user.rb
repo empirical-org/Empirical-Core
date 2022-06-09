@@ -113,6 +113,7 @@ class User < ApplicationRecord
   has_many :blog_post_user_ratings
 
   has_many :change_logs
+  has_many :stripe_checkout_sessions, dependent: :destroy
 
   accepts_nested_attributes_for :auth_credential
 

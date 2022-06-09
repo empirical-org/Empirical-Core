@@ -5,6 +5,7 @@ require 'rails_helper'
 RSpec.describe StripeIntegration::Webhooks::CustomerSubscriptionUpdatedEventHandler do
   include_context 'Stripe Customer Subscription Updated Event'
 
+  let!(:subscription) { create(:subscription, stripe_invoice_id: stripe_invoice_id) }
   let(:stripe_webhook_event) { create(:stripe_webhook_event, event_type: stripe_event_type) }
   let(:subscription_updater_class) { StripeIntegration::Webhooks::SubscriptionUpdater }
   let(:external_id) { stripe_webhook_event.external_id }
@@ -15,7 +16,7 @@ RSpec.describe StripeIntegration::Webhooks::CustomerSubscriptionUpdatedEventHand
   before { allow(Stripe::Event).to receive(:retrieve).with(external_id).and_return(stripe_event) }
 
   context 'happy path' do
-    before { allow(subscription_updater_class).to receive(:run).with(stripe_event, previous_attributes) }
+    before { allow(subscription_updater_class).to receive(:run).with(stripe_subscription, previous_attributes) }
 
     it { expect { subject }.to change(stripe_webhook_event, :status).to(StripeWebhookEvent::PROCESSED) }
   end

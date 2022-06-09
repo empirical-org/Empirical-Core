@@ -9,8 +9,6 @@ module StripeIntegration
         'charge.failed',
         'charge.refunded',
         'charge.succeeded',
-        'checkout.session.completed',
-        'checkout.session.expired',
         'customer.created',
         'customer.source.created',
         'customer.source.expiring',

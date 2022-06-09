@@ -589,6 +589,7 @@ EmpiricalGrammar::Application.routes.draw do
         put :clear_data
         get :sign_in
         get :new_subscription
+        get :edit_subscription
         post :complete_sales_stage
       end
       put 'make_admin/:school_id', to: 'users#make_admin', as: :make_admin
@@ -602,6 +603,7 @@ EmpiricalGrammar::Application.routes.draw do
       end
       member do
         get :new_subscription
+        get :edit_subscription
         get :new_admin
         get :add_existing_user
         post :add_admin_by_email
