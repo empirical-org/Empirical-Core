@@ -18,9 +18,11 @@ class ProgressReports::Standards::StandardSerializer < ActiveModel::Serializer
              :mastery_status,
              :is_evidence
 
+  # rubocop:disable Naming/PredicateName
   def is_evidence
     !!object.try(:is_evidence)
   end
+  # rubocop:enable Naming/PredicateName
 
   def average_score
     object.average_score&.round(2) || 0
