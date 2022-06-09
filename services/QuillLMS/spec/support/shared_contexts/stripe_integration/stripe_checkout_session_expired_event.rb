@@ -13,7 +13,7 @@ RSpec.shared_context 'Stripe Checkout Session Expired Event' do
       object: 'event',
       api_version: '2020-08-27',
       created: 1654609712,
-      data:  {
+      data: {
         object: external_checkout_session
       },
       livemode: false,

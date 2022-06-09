@@ -37,7 +37,7 @@ RSpec.shared_context 'Stripe Subscription' do
       discount: nil,
       ended_at: nil,
       items: {
-        object: 'lisk',
+        object: 'list',
         data: [
           stripe_subscription_item
         ],

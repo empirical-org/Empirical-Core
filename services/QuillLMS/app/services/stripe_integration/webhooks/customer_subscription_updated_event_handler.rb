@@ -4,7 +4,7 @@ module StripeIntegration
   module Webhooks
     class CustomerSubscriptionUpdatedEventHandler < EventHandler
       def run
-        SubscriptionUpdater.run(stripe_event, previous_attributes)
+        SubscriptionUpdater.run(stripe_subscription, previous_attributes)
         stripe_webhook_event.processed!
       rescue => e
         stripe_webhook_event.log_error(e)
