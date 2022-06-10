@@ -36,9 +36,14 @@ FactoryBot.define do
     purchaser_id { nil }
     payment_method { '' }
     stripe_invoice_id { nil }
+    plan { nil }
 
     trait(:recurring) { recurring true }
     trait(:non_recurring) { recurring false }
     trait(:stripe) { stripe_invoice_id { "in_#{SecureRandom.hex}"} }
+
+    after(:create) do |subscription|
+      subscription.update(account_type: subscription.plan.name) if subscription.plan.present?
+    end
   end
 end
