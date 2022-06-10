@@ -64,7 +64,7 @@ exports[`SchoolAndDistrictPremiumModal component should render stage one when th
           className="quill-button contained medium primary focus-on-light"
           href="/session/new?redirect=/premium?school_premium_purchase_selection_stage=true"
         >
-          Buy Now
+          Buy now
         </a>
       </div>
       <div
@@ -91,7 +91,7 @@ exports[`SchoolAndDistrictPremiumModal component should render stage one when th
           className="quill-button outlined medium secondary focus-on-light"
           href="https://quillpremium.wufoo.com/forms/quill-premium-quote/"
         >
-          Request a Quote
+          Request a quote
         </a>
       </div>
       <div
@@ -117,7 +117,7 @@ exports[`SchoolAndDistrictPremiumModal component should render stage one when th
           className="quill-button outlined medium secondary focus-on-light"
           href="https://quillpremium.wufoo.com/forms/quill-premium-quote/"
         >
-          Request a Quote
+          Request a quote
         </a>
       </div>
     </div>
@@ -190,7 +190,7 @@ exports[`SchoolAndDistrictPremiumModal component should render stage one when th
           onClick={[Function]}
           type="button"
         >
-          Buy Now
+          Buy now
         </button>
       </div>
       <div
@@ -217,7 +217,7 @@ exports[`SchoolAndDistrictPremiumModal component should render stage one when th
           className="quill-button outlined medium secondary focus-on-light"
           href="https://quillpremium.wufoo.com/forms/quill-premium-quote/"
         >
-          Request a Quote
+          Request a quote
         </a>
       </div>
       <div
@@ -243,7 +243,7 @@ exports[`SchoolAndDistrictPremiumModal component should render stage one when th
           className="quill-button outlined medium secondary focus-on-light"
           href="https://quillpremium.wufoo.com/forms/quill-premium-quote/"
         >
-          Request a Quote
+          Request a quote
         </a>
       </div>
     </div>
@@ -316,7 +316,7 @@ exports[`SchoolAndDistrictPremiumModal component should render stage one when th
           onClick={[Function]}
           type="button"
         >
-          Buy Now
+          Buy now
         </button>
       </div>
       <div
@@ -343,7 +343,7 @@ exports[`SchoolAndDistrictPremiumModal component should render stage one when th
           className="quill-button outlined medium secondary focus-on-light"
           href="https://quillpremium.wufoo.com/forms/quill-premium-quote/"
         >
-          Request a Quote
+          Request a quote
         </a>
       </div>
       <div
@@ -369,7 +369,7 @@ exports[`SchoolAndDistrictPremiumModal component should render stage one when th
           className="quill-button outlined medium secondary focus-on-light"
           href="https://quillpremium.wufoo.com/forms/quill-premium-quote/"
         >
-          Request a Quote
+          Request a quote
         </a>
       </div>
     </div>
@@ -447,7 +447,7 @@ exports[`SchoolAndDistrictPremiumModal component should render stage two when th
           onClick={[Function]}
           type="button"
         >
-          Buy Now
+          Buy now
         </button>
       </div>
       <div
@@ -474,7 +474,7 @@ exports[`SchoolAndDistrictPremiumModal component should render stage two when th
           className="quill-button outlined medium secondary focus-on-light"
           href="https://quillpremium.wufoo.com/forms/quill-premium-quote/"
         >
-          Request a Quote
+          Request a quote
         </a>
       </div>
       <div
@@ -500,7 +500,7 @@ exports[`SchoolAndDistrictPremiumModal component should render stage two when th
           className="quill-button outlined medium secondary focus-on-light"
           href="https://quillpremium.wufoo.com/forms/quill-premium-quote/"
         >
-          Request a Quote
+          Request a quote
         </a>
       </div>
     </div>
@@ -567,7 +567,7 @@ exports[`SchoolAndDistrictPremiumModal component should render stage two when th
           onClick={[Function]}
           type="button"
         >
-          Buy Now
+          Buy now
         </button>
       </div>
       <div
@@ -594,7 +594,7 @@ exports[`SchoolAndDistrictPremiumModal component should render stage two when th
           className="quill-button outlined medium secondary focus-on-light"
           href="https://quillpremium.wufoo.com/forms/quill-premium-quote/"
         >
-          Request a Quote
+          Request a quote
         </a>
       </div>
       <div
@@ -620,7 +620,7 @@ exports[`SchoolAndDistrictPremiumModal component should render stage two when th
           className="quill-button outlined medium secondary focus-on-light"
           href="https://quillpremium.wufoo.com/forms/quill-premium-quote/"
         >
-          Request a Quote
+          Request a quote
         </a>
       </div>
     </div>
