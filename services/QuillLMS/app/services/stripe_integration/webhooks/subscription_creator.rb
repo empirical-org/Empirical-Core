@@ -24,11 +24,24 @@ module StripeIntegration
         raise NilPurchaserEmailError if purchaser_email.nil?
         raise NilStripePriceIdError if stripe_price_id.nil?
         raise NilStripeInvoiceIdError if stripe_invoice.id.nil?
-        raise DuplicateSubscriptionError if purchaser.subscription.present?
+        raise DuplicateSubscriptionError if duplicate_subscription?
 
         subscription
         save_stripe_customer_id
         run_plan_custom_tasks
+      end
+
+      private def duplicate_subscription?
+        case plan
+        when Plan.stripe_teacher_plan
+          purchaser.subscription&.plan == plan
+        when Plan.stripe_school_plan
+          purchaser.associated_schools.any? do |school|
+            school.subscriptions.active.any?  do |subscription|
+              subscription.schools.pluck(:id).sort == school_ids
+            end
+          end
+        end
       end
 
       private def expiration
@@ -74,7 +87,7 @@ module StripeIntegration
       private def school_ids
         return [] if stripe_subscription.metadata[:school_ids].nil?
 
-        JSON.parse(stripe_subscription.metadata[:school_ids])
+        JSON.parse(stripe_subscription.metadata[:school_ids]).sort
       end
 
       private def start_date
