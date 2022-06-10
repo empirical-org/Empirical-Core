@@ -19,7 +19,7 @@ const SchoolPricingMini = ({ plan, premiumFeatureData, showBadges, handleClickPu
           onClick={handleClickPurchasingOptions}
           type="button"
         >
-          Purchasing Options
+          Purchasing options
         </button>
         <p>Request Quote or Buy Now</p>
       </div>

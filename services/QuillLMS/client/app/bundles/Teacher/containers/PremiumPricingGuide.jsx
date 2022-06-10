@@ -105,7 +105,7 @@ export const PremiumPricingGuide = ({
 
   const teacherBuyNowButton = () => {
     if (!userIsEligibleForNewSubscription) {
-      return <button className="quill-button contained medium primary focus-on-light" onClick={openAlreadyHasTeacherPremiumModal} type="button">Buy Now</button>
+      return <button className="quill-button contained medium primary focus-on-light" onClick={openAlreadyHasTeacherPremiumModal} type="button">Buy now</button>
     }
     return (
       <StripeSubscriptionCheckoutSessionButton

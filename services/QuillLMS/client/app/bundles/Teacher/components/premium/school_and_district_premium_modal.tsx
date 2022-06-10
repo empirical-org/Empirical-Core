@@ -109,11 +109,11 @@ const SchoolAndDistrictPremiumModal = ({ stripeSchoolPlan, eligibleSchools, hand
   }
 
   if (stage === PLAN_SELECTION_STAGE_NUMBER) {
-    const requestAQuoteButton = <a className="quill-button outlined medium secondary focus-on-light" href="https://quillpremium.wufoo.com/forms/quill-premium-quote/">Request a Quote</a>
-    let schoolBuyNowButton = <button className="quill-button contained medium primary focus-on-light" onClick={goToSchoolSelectionStage} type="button">Buy Now</button>
+    const requestAQuoteButton = <a className="quill-button outlined medium secondary focus-on-light" href="https://quillpremium.wufoo.com/forms/quill-premium-quote/">Request a quote</a>
+    let schoolBuyNowButton = <button className="quill-button contained medium primary focus-on-light" onClick={goToSchoolSelectionStage} type="button">Buy now</button>
 
     if (!userIsSignedIn) {
-      schoolBuyNowButton = <a className="quill-button contained medium primary focus-on-light" href={`/session/new?redirect=/premium?${SCHOOL_SELECTION_STAGE}=true`}>Buy Now</a>
+      schoolBuyNowButton = <a className="quill-button contained medium primary focus-on-light" href={`/session/new?redirect=/premium?${SCHOOL_SELECTION_STAGE}=true`}>Buy now</a>
     }
 
     return (
