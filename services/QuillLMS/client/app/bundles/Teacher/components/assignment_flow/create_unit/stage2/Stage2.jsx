@@ -5,11 +5,12 @@ import ReviewActivities from './review_activities'
 import AssignStudents from './assign_students'
 import SkipRecommendationsWarningModal from './skipRecommendationsWarningModal'
 import OverrideWarningModal from './overrideWarningModal'
+import GradeLevelWarningModal from './gradeLevelWarningModal'
 
 import ButtonLoadingIndicator from '../../../shared/button_loading_indicator';
 import AssignmentFlowNavigation from '../../assignment_flow_navigation.tsx'
 import ScrollToTop from '../../../shared/scroll_to_top'
-import { postTestClassAssignmentLockedMessages } from '../../assignmentFlowConstants'
+import { postTestClassAssignmentLockedMessages, readabilityGradeLevelToArrayOfGrades, } from '../../assignmentFlowConstants'
 
 export default class Stage2 extends React.Component {
   constructor(props) {
@@ -43,13 +44,25 @@ export default class Stage2 extends React.Component {
     return areAnyStudentsSelected && selectedActivities.length
   }
 
+  selectedClassrooms() {
+    const { classrooms, } = this.props
+
+    return classrooms.select(c => c.students.find(s => s.isSelected))
+  }
+
   handleClickAssign = () => {
     const { timesSubmitted, } = this.state
-    const { errorMessage, finish, alreadyCompletedDiagnosticStudentNames, notYetCompletedPreTestStudentNames, } = this.props
+    const { errorMessage, finish, alreadyCompletedDiagnosticStudentNames, notYetCompletedPreTestStudentNames, showGradeLevelWarning, classrooms, selectedActivities, } = this.props
+
+    const lowestSelectedClassroomGrade = Math.min(this.selectedClassrooms().map(c => Number(c.classroom.grade) || 12))
+    const aboveGradeLevelContentBeingAssigned = selectedActivities.find(a => Math.min(readabilityGradeLevelToArrayOfGrades(a.readability_grade_level)) > lowestSelectedClassroomGrade)
+
     if (alreadyCompletedDiagnosticStudentNames.length) {
       this.setState({ showOverrideWarningModal: true })
     } else if (notYetCompletedPreTestStudentNames.length) {
       this.setState({ showSkipRecommendationsWarningModal: true, })
+    } else if (showGradeLevelWarning && aboveGradeLevelContentBeingAssigned) {
+      this.setState({ showGradeLevelWarningModal: true, })
     } else if (this.buttonEnabled() && !errorMessage) {
       this.setState({ loading: true, });
       finish();
@@ -70,6 +83,10 @@ export default class Stage2 extends React.Component {
 
   closeOverrideWarningModal = () => {
     this.setState({ showOverrideWarningModal: false, })
+  }
+
+  closeGradeLevelWarningModal = () => {
+    this.setState({ showGradLevelWarningModal: false, })
   }
 
   renderOverrideWarningModal() {
@@ -100,6 +117,22 @@ export default class Stage2 extends React.Component {
         handleCloseModal={this.closeSkipRecommendationsWarningModal}
         restrictedActivityId={restrictedActivity.id}
         studentNames={notYetCompletedPreTestStudentNames}
+      />
+    )
+  }
+
+  renderGradeLevelWarningModal() {
+    const { showGradeLevelWarningModal, } = this.state
+    const { selectedActivities, } = this.props
+
+    if (!showGradeLevelWarningModal) { return }
+
+    return (
+      <GradeLevelWarningModal
+        handleClickAssign={this.onAssignDespiteWarning}
+        handleCloseModal={this.closeGradeLevelWarningModal}
+        selectedActivities={selectedActivities}
+        selectedClassrooms={this.selectedClassrooms()}
       />
     )
   }
