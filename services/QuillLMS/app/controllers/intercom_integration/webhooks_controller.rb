@@ -9,18 +9,19 @@ module IntercomIntegration
     def create
       parsed_payload = JSON.parse(payload)
       topic = parsed_payload["topic"]
-      if topic == "user.tag.created"
+      if topic == "user.tag.created" || topic == "contact.tag.created"
         tag = parsed_payload["data"]["item"]["tag"]["name"]
-        user = User.find(parsed_payload["data"]["item"]["user"]["user_id"])
+        user = find_or_create_user
         sales_form_submission = SalesFormSubmission.new(
           first_name: user.name.split[0],
           last_name: user.name.split[1],
           email: user.email,
           phone_number: parsed_payload["data"]["item"]["user"]["phone"],
           zipcode: parsed_payload["data"]["item"]["user"]["location_data"]["postal_code"],
-          school_name: user.school&.name,
-          district_name: user.school&.district&.name,
-          source: SalesFormSubmission::INTERCOM_SOURCE
+          school_name: user&.school&.name,
+          district_name: user&.school&.district&.name,
+          source: SalesFormSubmission::INTERCOM_SOURCE,
+          intercom_link: intercom_link(parsed_payload["data"]["item"]["user"]["id"])
         )
         if tag == "Quote Request School"
           sales_form_submission.collection_type = SalesFormSubmission::SCHOOL_COLLECTION_TYPE
@@ -40,6 +41,10 @@ module IntercomIntegration
       head 200
     end
 
+    private def intercom_link(intercom_user_id)
+      "https://app.intercom.com/a/apps/v2ms5bl3/users/#{intercom_user_id}/all-conversations"
+    end
+
     private def payload
       request.body.read
     end
@@ -51,6 +56,18 @@ module IntercomIntegration
         raise "unauthorized call of Intercom webhook"
         head :forbidden
       end
+    end
+
+    private def find_or_create_user
+      user User.find(parsed_payload["data"]["item"]["user"]["user_id"])
+      return user if user.present?
+
+      User.create!(
+        email: parsed_payload["data"]["item"]["user"]["email"],
+        role: User::SALES_CONTACT,
+        name: parsed_payload["data"]["item"]["user"]["name"],
+        password: SecureRandom.uuid
+      )
     end
   end
 end

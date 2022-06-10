@@ -23,6 +23,7 @@
 #
 class SalesFormSubmission < ApplicationRecord
   attr_accessor :source
+  attr_accessor :intercom_link
 
   COLLECTION_TYPES = [
     SCHOOL_COLLECTION_TYPE = 'school',
@@ -32,8 +33,8 @@ class SalesFormSubmission < ApplicationRecord
     QUOTE_REQUEST_TYPE = 'quote request',
     RENEWAL_REQUEST_TYPE = 'renewal request'
   ]
-  FORM_SOURCE = "form"
-  INTERCOM_SOURCE = "intercom"
+  FORM_SOURCE = "Form"
+  INTERCOM_SOURCE = "Intercom"
 
   VITALLY_DISTRICTS_TYPE = "organizations"
   VITALLY_SCHOOLS_TYPE = "accounts"
@@ -61,7 +62,7 @@ class SalesFormSubmission < ApplicationRecord
   after_save :vitally_callbacks
 
   def send_opportunity_to_vitally
-    @api.create(VITALLY_SALES_FORMS_TYPE, vitally_sales_form_data)
+    api.create(VITALLY_SALES_FORMS_TYPE, vitally_sales_form_data)
   end
 
   def create_vitally_records_if_none_exist
@@ -69,14 +70,14 @@ class SalesFormSubmission < ApplicationRecord
     school = School.find_by(name: school_name)
     user = find_or_create_user
 
-    if is_district_collection? && district.present? && !@api.exists?(VITALLY_DISTRICTS_TYPE, district.id)
-      @api.create(VITALLY_DISTRICTS_TYPE, district.vitally_data)
-    elsif is_school_collection? && school.present? && !@api.exists?(VITALLY_SCHOOLS_TYPE, school.id)
-      @api.create(VITALLY_SCHOOLS_TYPE, school.vitally_data)
+    if is_district_collection? && district.present? && !api.exists?(VITALLY_DISTRICTS_TYPE, district.id)
+      api.create(VITALLY_DISTRICTS_TYPE, district.vitally_data)
+    elsif is_school_collection? && school.present? && !api.exists?(VITALLY_SCHOOLS_TYPE, school.id)
+      api.create(VITALLY_SCHOOLS_TYPE, school.vitally_data)
     end
 
-    if !@api.exists?(VITALLY_USERS_TYPE, user.id)
-      @api.create(VITALLY_USERS_TYPE, vitally_user_data)
+    if !api.exists?(VITALLY_USERS_TYPE, user.id)
+      api.create(VITALLY_USERS_TYPE, vitally_user_data)
     end
   end
 
@@ -84,13 +85,13 @@ class SalesFormSubmission < ApplicationRecord
     if is_school_collection?
       {
         templateId: vitally_template_id,
-        customerId: @api.get(VITALLY_SCHOOLS_TYPE, school.id)["id"],
+        customerId: api.get(VITALLY_SCHOOLS_TYPE, school.id)["id"],
         traits: vitally_traits
       }
     else
       {
         templateId: vitally_template_id,
-        organizationId: @api.get(VITALLY_DISTRICTS_TYPE, district.id)["id"],
+        organizationId: api.get(VITALLY_DISTRICTS_TYPE, district.id)["id"],
         traits: vitally_traits
       }
     end
@@ -98,7 +99,7 @@ class SalesFormSubmission < ApplicationRecord
 
   def vitally_user_data
     user_payload = {
-      externalId: find_or_create_user.id,
+      externalId: find_or_create_user.id.to_s,
       name: "#{first_name} #{last_name}",
       email: email,
       traits: {
@@ -106,8 +107,8 @@ class SalesFormSubmission < ApplicationRecord
         zipcode: zipcode
       }
     }
-    user_payload[:accountIds] = [school.id] if is_school_collection?
-    user_payload[:organizationIds] = [district.id] if is_district_collection?
+    user_payload[:accountIds] = [school_vitally_id] if is_school_collection?
+    user_payload[:organizationIds] = [district_vitally_id] if is_district_collection?
     user_payload
   end
 
@@ -119,6 +120,10 @@ class SalesFormSubmission < ApplicationRecord
     collection_type == DISTRICT_COLLECTION_TYPE
   end
 
+  private def api
+    @api ||= VitallyRestApi.new
+  end
+
   private def school
     @school ||= School.find_by(name: school_name) || School.find_by(name: FALLBACK_SCHOOL_NAME)
   end
@@ -127,9 +132,15 @@ class SalesFormSubmission < ApplicationRecord
     @district ||= District.find_by(name: district_name) || District.find_by(name: FALLBACK_DISTRICT_NAME)
   end
 
-  private def vitally_callbacks
-    @api = VitallyRestApi.new
+  private def school_vitally_id
+    @school_vitally_id ||= api.get(VITALLY_SCHOOLS_TYPE, school.id)["id"]
+  end
 
+  private def district_vitally_id
+    @district_vitally_id ||= api.get(VITALLY_DISTRICTS_TYPE, district.id)["id"]
+  end
+
+  private def vitally_callbacks
     create_vitally_records_if_none_exist
     send_opportunity_to_vitally
   end
@@ -155,19 +166,19 @@ class SalesFormSubmission < ApplicationRecord
 
   private def vitally_traits
     {
-      name: "#{first_name} #{last_name}",
-      email: email,
-      phone_number: phone_number,
-      school_name: school_name,
-      district_name: district_name,
-      zip_code: zipcode,
-      number_of_schools: school_premium_count_estimate,
-      number_of_teachers: teacher_premium_count_estimate,
-      number_of_students: student_premium_count_estimate,
-      form_comments: comment,
-      source: source,
-      intercom_link: "",
-      metabase_id: id.to_s
+      "vitally.custom.name": "#{first_name} #{last_name}",
+      "vitally.custom.email": email,
+      "vitally.custom.phoneNumber": phone_number,
+      "vitally.custom.schoolName": school_name,
+      "vitally.custom.districtName": district_name,
+      "vitally.custom.zipCode": zipcode,
+      "vitally.custom.numberOfSchools": school_premium_count_estimate,
+      "vitally.custom.numberOfTeachers": teacher_premium_count_estimate,
+      "vitally.custom.numberOfStudents": student_premium_count_estimate,
+      "vitally.custom.formComments": comment,
+      "vitally.custom.opportunitySource": source,
+      "vitally.custom.intercomLink": "",
+      "vitally.custom.metabaseId": id
     }
   end
 end
