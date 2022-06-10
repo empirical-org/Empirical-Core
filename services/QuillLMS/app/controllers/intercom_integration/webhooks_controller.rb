@@ -60,7 +60,7 @@ module IntercomIntegration
 
     private def find_or_create_user
       parsed_payload = JSON.parse(payload)
-      user User.find(parsed_payload["data"]["item"]["user"]["user_id"])
+      user = User.find(parsed_payload["data"]["item"]["user"]["user_id"])
       return user if user.present?
 
       User.create!(

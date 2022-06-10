@@ -75,9 +75,9 @@ class SalesFormSubmission < ApplicationRecord
     end
 
     if !api.exists?(VITALLY_USERS_TYPE, user.id)
-      api.create(VITALLY_USERS_TYPE, vitally_user_data)
+      api.create(VITALLY_USERS_TYPE, vitally_user_create_data)
     else
-      api.update(VITALLY_USERS_TYPE, user.id, vitally_user_data)
+      api.update(VITALLY_USERS_TYPE, user.id, vitally_user_update_data)
     end
   end
 
@@ -97,7 +97,7 @@ class SalesFormSubmission < ApplicationRecord
     end
   end
 
-  def vitally_user_data
+  def vitally_user_create_data
     user_payload = {
       externalId: find_or_create_user.id.to_s,
       name: "#{first_name} #{last_name}",
@@ -110,6 +110,30 @@ class SalesFormSubmission < ApplicationRecord
     }
     user_payload[:accountIds] = [school_vitally_id] if is_school_collection?
     user_payload[:organizationIds] = [district_vitally_id] if is_district_collection?
+    user_payload
+  end
+
+  def vitally_user_update_data
+    user_payload = {
+      traits: {
+        "vitally.custom.opportunityOwner": true
+      }
+    }
+    if is_school_collection?
+      previous_school = find_or_create_user&.school
+      if previous_school.present? && previous_school != school
+        user_payload[:accountIds] = [api.get(VITALLY_SCHOOLS_TYPE, previous_school.id)["id"], school_vitally_id]
+      else
+        user_payload[:accountIds] = [school_vitally_id]
+      end
+    elsif is_district_collection?
+      previous_district = find_or_create_user&.school&.district
+      if previous_district.present? && previous_district != district
+        user_payload[:organizationIds] = [api.get(VITALLY_DISTRICTS_TYPE, previous_district.id)["id"], district_vitally_id]
+      else
+        user_payload[:organizationIds] = [district_vitally_id]
+      end
+    end
     user_payload
   end
 

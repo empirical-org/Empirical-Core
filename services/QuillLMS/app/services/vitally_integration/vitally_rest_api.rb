@@ -24,6 +24,16 @@ class VitallyRestApi
     )
   end
 
+  def update(type, id, payload)
+    HTTParty.put("#{VITALLY_REST_API_BASE_URL}/#{type}/#{id}",
+      headers: {
+        Authorization: "Basic #{@api_key}",
+        "Content-Type": "application/json"
+      },
+      body: payload.to_json
+    )
+  end
+
   private def post(type, payload)
     HTTParty.post("#{VITALLY_REST_API_BASE_URL}/#{type}",
       headers: {
