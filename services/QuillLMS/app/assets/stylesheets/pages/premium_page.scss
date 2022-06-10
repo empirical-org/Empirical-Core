@@ -113,6 +113,7 @@ li.premium-tab > a:hover {
     &.stage-one {
       padding: 40px 0px 0px;
       max-width: calc(100vw - 20px);
+      width: min-content;
       .interactive-wrapper {
         position: absolute;
         top: 32px;
