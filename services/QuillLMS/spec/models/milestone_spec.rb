@@ -28,6 +28,7 @@ describe Milestone, type: :model do
       expect(Milestone::TYPES[:acknowledge_evidence_banner]).to eq('Acknowledge Evidence Banner')
       expect(Milestone::TYPES[:acknowledge_lessons_banner]).to eq('Acknowledge Lessons Banner')
       expect(Milestone::TYPES[:acknowledge_growth_diagnostic_promotion_card]).to eq('Acknowledge Growth Diagnostic Promotion Card')
+      expect(Milestone::TYPES[:dismiss_grade_level_warning]).to eq('Dismiss Grade Level Warning')
     end
   end
 end
