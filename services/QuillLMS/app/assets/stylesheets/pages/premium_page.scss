@@ -164,6 +164,9 @@ li.premium-tab > a:hover {
         .schools-list-section {
           margin: 16px 0px;
           max-width: 100%;
+          .no-school-found, .default-school-search, .list {
+            min-height: 300px;
+          }
         }
       }
     }

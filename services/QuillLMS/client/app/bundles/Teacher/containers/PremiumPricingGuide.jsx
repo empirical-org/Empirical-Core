@@ -111,7 +111,7 @@ export const PremiumPricingGuide = ({
       <StripeSubscriptionCheckoutSessionButton
         buttonClassName="quill-button contained medium primary focus-on-light"
         buttonId="purchase-btn"
-        buttonText='Buy Now'
+        buttonText='Buy now'
         cancelPath='premium'
         customerEmail={customerEmail}
         stripePriceId={stripeTeacherPlan.plan.stripe_price_id}
