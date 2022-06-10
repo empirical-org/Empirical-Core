@@ -32,7 +32,7 @@ gem 'sidekiq', '~> 5.2.10'
 gem 'sinatra', require: false # Used for the web-based queue management interface
 
 # MIDDLEWARE
-gem 'rack-cors', require: 'rack/cors', '~> 1.1'
+gem 'rack-cors', '~> 1.1', require: 'rack/cors'
 gem 'rack-attack', '~> 6.5'
 gem 'rails_autoscale_agent', '~> 0.10'
 
