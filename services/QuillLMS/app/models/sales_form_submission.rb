@@ -45,7 +45,7 @@ class SalesFormSubmission < ApplicationRecord
   FALLBACK_DISTRICT_NAME = "Unknown District"
 
   SCHOOL_QUOTE_REQUEST_TEMPLATE_ID = "3faf0814-724d-4bb1-b56b-f854dfd23db8"
-  DISTRICT_QUOTE_REQUEST_TEMPLATE_ID = "a96a963b-c1d4-4b33-94bb-f9a593046927"
+  DISTRICT_QUOTE_REQUEST_TEMPLATE_ID = "4b9c3261-1060-4fe8-b804-8cd3121a1e3e"
   SCHOOL_RENEWAL_REQUEST_TEMPLATE_ID = "77925a98-2b74-47a6-81fb-c1922278df19"
   DISTRICT_RENEWAL_REQUEST_TEMPLATE_ID = "c1b2cd1f-f0aa-4e2c-855d-e3c1bce17a99"
 
@@ -66,8 +66,6 @@ class SalesFormSubmission < ApplicationRecord
   end
 
   def create_vitally_records_if_none_exist
-    district = District.find_by(name: district_name)
-    school = School.find_by(name: school_name)
     user = find_or_create_user
 
     if is_district_collection? && district.present? && !api.exists?(VITALLY_DISTRICTS_TYPE, district.id)
@@ -78,6 +76,8 @@ class SalesFormSubmission < ApplicationRecord
 
     if !api.exists?(VITALLY_USERS_TYPE, user.id)
       api.create(VITALLY_USERS_TYPE, vitally_user_data)
+    else
+      api.update(VITALLY_USERS_TYPE, user.id, vitally_user_data)
     end
   end
 
@@ -104,7 +104,8 @@ class SalesFormSubmission < ApplicationRecord
       email: email,
       traits: {
         phone_number: phone_number,
-        zipcode: zipcode
+        zipcode: zipcode,
+        "vitally.custom.opportunityOwner": true
       }
     }
     user_payload[:accountIds] = [school_vitally_id] if is_school_collection?
