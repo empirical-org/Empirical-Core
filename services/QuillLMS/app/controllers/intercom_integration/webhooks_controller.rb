@@ -7,7 +7,6 @@ module IntercomIntegration
     before_action :verify_signature, only: [:create]
 
     def create
-      parsed_payload = JSON.parse(payload)
       topic = parsed_payload["topic"]
       if topic == "user.tag.created" || topic == "contact.tag.created"
         tag = parsed_payload["data"]["item"]["tag"]["name"]
@@ -16,12 +15,12 @@ module IntercomIntegration
           first_name: user.name.split[0],
           last_name: user.name.split[1],
           email: user.email,
-          phone_number: parsed_payload["data"]["item"]["user"]["phone"],
-          zipcode: parsed_payload["data"]["item"]["user"]["location_data"]["postal_code"],
+          phone_number: user_payload["phone"],
+          zipcode: user_payload["location_data"]["postal_code"],
           school_name: user&.school&.name,
           district_name: user&.school&.district&.name,
           source: SalesFormSubmission::INTERCOM_SOURCE,
-          intercom_link: intercom_link(parsed_payload["data"]["item"]["user"]["id"])
+          intercom_link: intercom_link(user_payload["id"])
         )
         if tag == "Quote Request School"
           sales_form_submission.collection_type = SalesFormSubmission::SCHOOL_COLLECTION_TYPE
@@ -49,6 +48,14 @@ module IntercomIntegration
       request.body.read
     end
 
+    private def parsed_payload
+      @parsed_payload ||= JSON.parse(payload)
+    end
+
+    private def user_payload
+      @user_payload ||= parsed_payload["data"]["item"]["user"] || parsed_payload["data"]["item"]["contact"]
+    end
+
     private def verify_signature
       client_secret = ENV.fetch('INTERCOM_APP_SECRET', '')
       hexdigest = OpenSSL::HMAC.hexdigest('sha1', client_secret, payload)
@@ -59,14 +66,13 @@ module IntercomIntegration
     end
 
     private def find_or_create_user
-      parsed_payload = JSON.parse(payload)
-      user = User.find(parsed_payload["data"]["item"]["user"]["user_id"])
+      user = User.find(user_payload["user_id"])
       return user if user.present?
 
       User.create!(
-        email: parsed_payload["data"]["item"]["user"]["email"],
+        email: user_payload["email"],
         role: User::SALES_CONTACT,
-        name: parsed_payload["data"]["item"]["user"]["name"],
+        name: user_payload["name"],
         password: SecureRandom.uuid
       )
     end
