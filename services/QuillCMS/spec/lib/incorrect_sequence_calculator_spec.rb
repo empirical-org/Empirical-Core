@@ -5,9 +5,10 @@ RSpec.describe IncorrectSequenceCalculator do
   describe '#incorrect_sequences_for_question' do
     it 'should foo' do
       question_uid = 1
-      3.times { create(:response, question_uid: question_uid) }
+      create(:response, question_uid: question_uid)
+      create(:response, question_uid: question_uid)
       result = IncorrectSequenceCalculator.incorrect_sequences_for_question(question_uid)
-      expect(result.length).to eq 18
+      expect(result.length).to eq 14
     end
   end
 end
