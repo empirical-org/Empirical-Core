@@ -19,7 +19,7 @@ export default function SchoolPremiumModal({ hideModal, purchaseSchoolPremium, s
         <div className="cta-section">
           <h3>How would you like to renew your School’s <br />Premium subscription?</h3>
           <div className="flex-row space-between">
-            <a className="q-button bg-quillgreen text-white" href="https://quillpremium.wufoo.com/forms/quill-premium-quote">Email Me a Quote</a>
+            <a className="q-button bg-quillgreen text-white" href="https://quill.org/request_quote">Email Me a Quote</a>
             <button className="q-button bg-quillgreen text-white" onClick={purchaseSchoolPremium} type="submit">Pay with Credit Card</button>
           </div>
         </div>

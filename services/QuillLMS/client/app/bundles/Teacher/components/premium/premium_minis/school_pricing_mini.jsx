@@ -18,7 +18,7 @@ const SchoolPricingMini = ({ buyNowButton, plan, premiumFeatureData, showBadges,
 
         <a
           className="quill-button contained medium primary focus-on-light"
-          href="https://quillpremium.wufoo.com/forms/quill-premium-quote/"
+          href="https://quill.org/request_quote"
         >
           Contact us
         </a>
