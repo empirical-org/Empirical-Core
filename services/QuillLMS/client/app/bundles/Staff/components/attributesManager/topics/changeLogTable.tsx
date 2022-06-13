@@ -1,8 +1,8 @@
 import * as React from 'react';
-import ReactTable from 'react-table';
 import moment from 'moment';
 
 import { ChangeLog } from '../../../interfaces/interfaces';
+import { ReactTable, } from '../../../../Shared'
 
 interface ChangeLogsTableProps {
   changeLogs: Array<ChangeLog>
@@ -25,53 +25,53 @@ function columns() {
       Header: 'Topic Name',
       accessor: 'topic_name',
       key: 'topic_name',
-      Cell: (props) => (<div>{props.original.topic_name}</div>),
-      sortType: ((a, b) => a.topic_name.localeCompare(b.topic_name))
+      Cell: ({row}) => (<div>{row.original.topic_name}</div>),
+      sortType: ((a, b) => a.original.topic_name.localeCompare(b.original.topic_name))
     },
     {
       Header: 'Action',
       accessor: 'action',
       key: 'action',
-      Cell: (props) => (<div>{props.original.action}</div>),
-      sortType: ((a, b) => a.action.localeCompare(b.action)),
+      Cell: ({row}) => (<div>{row.original.action}</div>),
+      sortType: ((a, b) => a.original.action.localeCompare(b.original.action)),
       maxWidth: 120
     },
     {
       Header: 'Explanation',
       accessor: 'explanation',
       key: 'explanation',
-      Cell: (props) => (<div>{props.original.explanation}</div>),
-      sortType: ((a, b) => a.explanation.localeCompare(b.explanation)),
+      Cell: ({row}) => (<div>{row.original.explanation}</div>),
+      sortType: ((a, b) => a.original.explanation.localeCompare(b.original.explanation)),
       maxWidth: 250
     },
     {
       Header: 'Changed Attribute',
       accessor: 'changed_attribute',
       key: 'changed_attribute',
-      Cell: (props) => (<div>{props.original.changed_attribute}</div>),
-      sortType: ((a, b) => a.changed_attribute.localeCompare(b.changed_attribute)),
+      Cell: ({row}) => (<div>{row.original.changed_attribute}</div>),
+      sortType: ((a, b) => a.original.changed_attribute.localeCompare(b.original.changed_attribute)),
       maxWidth: 130
     },
     {
       Header: 'Previous Value',
       accessor: 'previous_value',
       key: 'previous_value',
-      Cell: (props) => (<div>{props.original.previous_value}</div>),
-      sortType: ((a, b) => a.previous_value.localeCompare(b.previous_value)),
+      Cell: ({row}) => (<div>{row.original.previous_value}</div>),
+      sortType: ((a, b) => a.original.previous_value.localeCompare(b.original.previous_value)),
     },
     {
       Header: 'Author',
       accessor: 'authorName',
       key: 'authorName',
-      Cell: (props) => (<div>{props.original.authorName}</div>),
-      sortType: ((a, b) => a.authorName.localeCompare(b.authorName)),
+      Cell: ({row}) => (<div>{row.original.authorName}</div>),
+      sortType: ((a, b) => a.original.authorName.localeCompare(b.original.authorName)),
     },
     {
       Header: 'Timestamp',
       accessor: 'created_at',
       key: 'created_at',
-      Cell: (props) => moment(props.original.created_at).format('MMMM D, YYYY [at] LT'),
-      sortType:  (a, b) => (new Date(a.created_at) - new Date(b.created_at)),
+      Cell: ({row}) => moment(row.original.created_at).format('MMMM D, YYYY [at] LT'),
+      sortType:  (a, b) => (new Date(a.original.created_at) - new Date(b.original.created_at)),
       sortDescFirst: true
     },
   ];
@@ -101,8 +101,6 @@ const ChangeLogsTable: React.SFC<ChangeLogsTableProps> = ({changeLogs}) => {
       className="change-log-table"
       columns={columns()}
       data={data}
-      defaultPageSize={data.length}
-      showPagination={false}
     />
   );
 };

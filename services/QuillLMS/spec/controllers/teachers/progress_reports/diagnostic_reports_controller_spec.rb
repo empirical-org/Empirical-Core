@@ -19,9 +19,69 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
       let!(:activity_session) { create(:activity_session, classroom_unit: classroom_unit, activity: activity, user: student) }
 
       it "redirects to the correct page" do
-        get :report_from_classroom_unit_activity_and_user, params: ({classroom_unit_id: classroom_unit.id, user_id: student.id, activity_id: activity.id})
+        get :report_from_classroom_unit_and_activity_and_user, params: ({classroom_unit_id: classroom_unit.id, user_id: student.id, activity_id: activity.id})
         expect(response).to redirect_to("/teachers/progress_reports/diagnostic_reports#/u/#{unit.id}/a/#{activity.id}/c/#{classroom.id}/student_report/#{student.id}")
       end
+    end
+  end
+
+  describe '#redirect_to_report_for_most_recent_activity_session_associated_with_activity_and_unit' do
+    describe 'when the activity is a diagnostic' do
+      describe 'pre-test without a post test' do
+        let(:unit) {create(:unit)}
+        let(:activity) { create(:diagnostic_activity)}
+        let!(:classroom_unit) { create(:classroom_unit, unit: unit, classroom: classroom) }
+        let!(:unit_activity) { create(:unit_activity, unit: unit, activity: activity)}
+        let!(:activity_session) { create(:activity_session, classroom_unit: classroom_unit, activity: activity, user: student) }
+
+        it 'responds with a summary link' do
+          get :redirect_to_report_for_most_recent_activity_session_associated_with_activity_and_unit, params: ({unit_id: unit.id, activity_id: activity.id})
+          expect(response.body).to eq({ url: "/teachers/progress_reports/diagnostic_reports#/diagnostics/#{activity.id}/classroom/#{classroom.id}/summary?unit=#{unit.id}"}.to_json)
+        end
+      end
+
+      describe 'pre-test with a post-test' do
+        let(:unit) {create(:unit)}
+        let(:post_test) { create(:diagnostic_activity)}
+        let(:activity) { create(:diagnostic_activity, follow_up_activity_id: post_test.id)}
+        let!(:classroom_unit) { create(:classroom_unit, unit: unit, classroom: classroom) }
+        let!(:unit_activity) { create(:unit_activity, unit: unit, activity: activity)}
+        let!(:activity_session) { create(:activity_session, classroom_unit: classroom_unit, activity: activity, user: student) }
+
+        it 'responds with a summary link' do
+          get :redirect_to_report_for_most_recent_activity_session_associated_with_activity_and_unit, params: ({unit_id: unit.id, activity_id: activity.id})
+          expect(response.body).to eq({ url: "/teachers/progress_reports/diagnostic_reports#/diagnostics/#{activity.id}/classroom/#{classroom.id}/summary?unit=#{unit.id}"}.to_json)
+        end
+      end
+
+      describe 'post-test' do
+        let(:unit) {create(:unit)}
+        let(:activity) { create(:diagnostic_activity)}
+        let!(:pre_test) { create(:diagnostic_activity, follow_up_activity_id: activity.id)}
+        let!(:classroom_unit) { create(:classroom_unit, unit: unit, classroom: classroom) }
+        let!(:unit_activity) { create(:unit_activity, unit: unit, activity: activity)}
+        let!(:activity_session) { create(:activity_session, classroom_unit: classroom_unit, activity: activity, user: student) }
+
+        it 'responds with a growth_summary link' do
+          get :redirect_to_report_for_most_recent_activity_session_associated_with_activity_and_unit, params: ({unit_id: unit.id, activity_id: activity.id})
+          expect(response.body).to eq({ url: "/teachers/progress_reports/diagnostic_reports#/diagnostics/#{activity.id}/classroom/#{classroom.id}/growth_summary?unit=#{unit.id}"}.to_json)
+        end
+      end
+
+      describe 'neither pre-test nor post-test' do
+        let(:unit) {create(:unit)}
+        let(:activity) { create(:diagnostic_activity)}
+        let!(:classroom_unit) { create(:classroom_unit, unit: unit, classroom: classroom) }
+        let!(:unit_activity) { create(:unit_activity, unit: unit, activity: activity)}
+        let!(:activity_session) { create(:activity_session, classroom_unit: classroom_unit, activity: activity, user: student) }
+
+        it 'responds with a summary link that has a unit query param' do
+          get :redirect_to_report_for_most_recent_activity_session_associated_with_activity_and_unit, params: ({unit_id: unit.id, activity_id: activity.id})
+          expect(response.body).to eq({ url: "/teachers/progress_reports/diagnostic_reports#/diagnostics/#{activity.id}/classroom/#{classroom.id}/summary?unit=#{unit.id}"}.to_json)
+        end
+
+      end
+
     end
   end
 
@@ -31,6 +91,15 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
     let!(:student3) { create(:user, classcode: classroom.code) }
     let!(:cu) { create(:classroom_unit, classroom: classroom, unit: unit, assigned_student_ids: [student1.id, student2.id, student3.id])}
     let!(:ua) { create(:unit_activity, unit: unit, activity: activity)}
+
+    it 'should cache results so that they are only calculated once' do
+      expect_any_instance_of(Teachers::ProgressReports::DiagnosticReportsController).to receive(:results_for_classroom).with(unit.id.to_s, activity.id.to_s, classroom.id.to_s).once.and_call_original
+      2.times do
+        get :students_by_classroom, params: ({activity_id: activity.id, unit_id: unit.id, classroom_id: classroom.id})
+
+        expect(response).to be_success
+      end
+    end
 
     it 'should return empty arrays when there are no activity_sessions' do
       get :students_by_classroom, params: ({activity_id: activity.id, unit_id: unit.id, classroom_id: classroom.id})
@@ -145,6 +214,10 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
         create(:activity_session, :started, user: student3, activity: activity, classroom_unit: cu)
       end
 
+      after do
+        Rails.cache.clear
+      end
+
       it 'should return report data for completed student sessions' do
         Rails.logger.info "\n\n\nStart"
         get :classrooms_with_students, params: ({activity_id: activity.id, unit_id: unit.id, classroom_id: classroom.id})
@@ -155,6 +228,21 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
 
         expect(json.count).to eq 1
         expect(json.first['students'].count).to eq 2
+      end
+
+      it 'should cache response data' do
+        expect(controller).to receive(:classrooms_with_students_for_report).with(any_args).once.and_call_original
+
+        2.times do
+          get :classrooms_with_students, params: ({activity_id: activity.id, unit_id: unit.id, classroom_id: classroom.id})
+
+          expect(response).to be_success
+
+          json = JSON.parse(response.body)
+
+          expect(json.count).to eq 1
+          expect(json.first['students'].count).to eq 2
+        end
       end
     end
   end
@@ -184,17 +272,17 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
     let(:unit_template_ids) { [unit_template1, unit_template2, unit_template3, unit_template4].map(&:id) }
 
     let(:selections) do
-       unit_template_ids.map do |unit_template_id|
-        {
-          id: unit_template_id,
-          classrooms: [
-            {
-              id: classroom.id,
-              student_ids: []
-            }
-          ]
-        }
-      end
+      unit_template_ids.map do |unit_template_id|
+       {
+         id: unit_template_id,
+         classrooms: [
+           {
+             id: classroom.id,
+             student_ids: []
+           }
+         ]
+       }
+     end
     end
 
     it 'creates units but does not create new classroom activities if passed no students ids' do

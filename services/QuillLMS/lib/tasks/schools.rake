@@ -6,22 +6,11 @@ require 'open-uri'
 # This code is taken from the Literacy Design Collaborative (ldc.org) and then modified.
 def nces_grade_level_mapping(nces_grade)
   case nces_grade
-  when 'PK'
-      0
-  when 'KG'
-      0
-  when 'M'
-      nil
-  when 'N'
-      nil
-  when 'UG'
-      nil
-  when 'AE'
-      nil
-  when '13'
-      12
+  when 'PK', 'KG' then 0
+  when 'M', 'N', 'UG', 'AE' then nil
+  when '13' then 12
   else
-      nces_grade
+    nces_grade
   end
 end
 
@@ -44,8 +33,6 @@ namespace :schools do
     ) do |row|
       school_hash = row.to_hash
       school = School.where(nces_id: school_hash['NCESSCH']).first_or_initialize
-      school.lea_id = school_hash['LEAID']
-      school.leanm = school_hash['LEA_NAME'].titleize
       school.name = school_hash['SCH_NAME'].titleize
       school.phone = school_hash['PHONE']
       school.mail_street = school_hash['MSTREET1'].titleize
@@ -84,14 +71,13 @@ namespace :schools do
   desc 'Titleize all school name, address and other relevant data points'
   task :titleize => :environment do
     School.all.each do |school|
-      school.leanm = school.leanm&.titleize
       school.name = school.name&.titleize
       school.mail_street = school.mail_street&.titleize
       school.mail_city = school.mail_city&.titleize
       school.street = school.street&.titleize
       school.city = school.street&.titleize
-      school.save! 
-    end  
+      school.save!
+    end
   end
 
   desc 'Update Clever IDs for existing schools based on a CSV file'
@@ -100,7 +86,7 @@ namespace :schools do
     QUILL_ID_KEY = 'Quill ID'
     CLEVER_ID_KEY = 'Clever School ID'
 
-    pipe_data = STDIN.read unless STDIN.tty?
+    pipe_data = $stdin.read unless $stdin.tty?
 
     unless pipe_data
       puts 'No data detected on STDIN.  You must pass data to the task for it to run.  Example:'

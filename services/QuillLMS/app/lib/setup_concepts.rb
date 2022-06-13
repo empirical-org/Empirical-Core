@@ -15,4 +15,4 @@ module Setup
       creator.create_all
     end
   end
-end 
+end

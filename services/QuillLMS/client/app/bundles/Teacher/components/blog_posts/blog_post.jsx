@@ -52,9 +52,9 @@ export default class BlogPost extends React.Component {
     if(this.state.ratingMessage === RATING_MESSAGES['instructions']) {
       return (
         <ul>
-          <li onClick={() => {this.selectRatingEmoji(0)}}>😞</li>
-          <li onClick={() => {this.selectRatingEmoji(1)}}>😐</li>
-          <li onClick={() => {this.selectRatingEmoji(2)}}>😃</li>
+          <li><button className="interactive-wrapper focus-on-light" onClick={() => {this.selectRatingEmoji(0)}} type="button"><span aria-label="Sad face emoji" role="img">😞</span></button></li>
+          <li><button className="interactive-wrapper focus-on-light" onClick={() => {this.selectRatingEmoji(1)}} type="button"><span aria-label="Neutral face emoji" role="img">😐</span></button></li>
+          <li><button className="interactive-wrapper focus-on-light" onClick={() => {this.selectRatingEmoji(2)}} type="button"><span aria-label="Happy face emoji" role="img">😃</span></button></li>
         </ul>
       )
     }

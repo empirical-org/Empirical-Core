@@ -1,2 +1,6 @@
 default:
   open_positions:
+    -
+      category: 'Product'
+      title: 'Senior Product Designer'
+      url: 'https://angel.co/company/quill-org/jobs/1863492-senior-product-designer-nonprofit-edtech'

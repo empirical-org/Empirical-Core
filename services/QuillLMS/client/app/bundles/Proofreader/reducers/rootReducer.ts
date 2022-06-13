@@ -6,12 +6,12 @@ import session from './sessionReducer'
 import concepts from './conceptsReducer'
 
 export const initState: IState = {
-    proofreaderActivities: {},
-    session: {}
+  proofreaderActivities: {},
+  session: {}
 };
 
 export const rootReducer = combineReducers({
-    proofreaderActivities,
-    session,
-    concepts
+  proofreaderActivities,
+  session,
+  concepts
 });

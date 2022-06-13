@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
 module CleverIntegration
-  class UsernameGenerator
+  class UsernameGenerator < ApplicationService
     attr_reader :first_name, :last_name
 
     def initialize(name)
-      @first_name = name.to_s.split("\s")[0]
-      @last_name = name.to_s.split("\s")[-1]
+      @first_name = name.to_s.split[0]
+      @last_name = name.to_s.split[-1]
     end
 
     def run
-      GenerateUsername.new(first_name, last_name).call
+      ::GenerateUsername.run(first_name, last_name)
     end
   end
 end

@@ -8,7 +8,7 @@ import { stringNormalize } from 'quill-string-normalizer'
 import { getGradedResponsesWithCallback } from '../../actions/responses.js';
 import { Feedback, Prompt, } from '../../../Shared/index';
 import Cues from '../renderForQuestions/cues.jsx';
-import { hashToCollection, } from '../../../Shared/index'
+import { hashToCollection, fillInBlankInputLabel, } from '../../../Shared/index'
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 
 const qml = require('quill-marking-logic')
@@ -144,7 +144,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
   }
 
   renderInput = (i) => {
-    const { inputErrors, cues, inputVals, } = this.state
+    const { inputErrors, cues, inputVals, blankAllowed, } = this.state
     let className = 'fill-in-blank-input'
     if (inputErrors.has(i)) {
       className += ' error'
@@ -155,7 +155,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     return (
       <span key={`span${i}`}>
         <input
-          aria-label="text input"
+          aria-label={fillInBlankInputLabel(cues, blankAllowed)}
           className={className}
           id={`input${i}`}
           key={i + 100}
@@ -257,10 +257,12 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
       const blankFeedback = question.blankAllowed ? ' or leave it blank' : ''
       const feedbackText = `Choose one of the options provided${blankFeedback}. Make sure it is spelled correctly.`
       const feedback = <p>{feedbackText}</p>
-      return (<Feedback
-        feedback={feedback}
-        feedbackType="revise-unmatched"
-      />)
+      return (
+        <Feedback
+          feedback={feedback}
+          feedbackType="revise-unmatched"
+        />
+      )
     }
 
     return <Feedback feedback={this.getInstructionText()} feedbackType="instructions" />

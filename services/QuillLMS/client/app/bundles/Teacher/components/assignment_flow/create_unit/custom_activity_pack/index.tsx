@@ -24,6 +24,7 @@ interface CustomActivityPackProps {
   setSelectedActivities: (selectedActivities: Activity[]) => void,
   toggleActivitySelection: (activity: Activity) => void,
   activityCategoryEditor?: ActivityCategoryEditor,
+  showEvidenceBanner?: boolean,
   showLessonsBanner?: boolean,
   saveButtonEnabled?: boolean
 }
@@ -36,6 +37,7 @@ const CustomActivityPack = ({
   toggleActivitySelection,
   isStaff,
   activityCategoryEditor,
+  showEvidenceBanner,
   showLessonsBanner,
   saveButtonEnabled
 }: CustomActivityPackProps) => {
@@ -303,41 +305,44 @@ const CustomActivityPack = ({
 
   const selectedActivitiesFilteredByFlag =  isStaff && !flagFilters.length ? [] : selectedActivities.filter(a => filterByFlag(flagFilters, a))
 
-  return (<div className="custom-activity-pack-page">
-    <Snackbar text={snackbarText} visible={showSnackbar} />
-    <MobileFilterMenu {...filterColumnProps} setShowMobileFilterMenu={setShowMobileFilterMenu} showMobileFilterMenu={showMobileFilterMenu} />
-    <MobileSortMenu setShowMobileSortMenu={setShowMobileSortMenu} setSort={setSort} showMobileSortMenu={showMobileSortMenu} />
-    <FilterColumn {...filterColumnProps} />
-    <section className="main-content-container">
-      <Header
-        handleClickContinue={clickContinue}
-        isStaff={isStaff}
-        saveButtonEnabled={saveButtonEnabled}
-        selectedActivities={selectedActivitiesFilteredByFlag}
-        setSelectedActivities={setSelectedActivities}
-        toggleActivitySelection={toggleActivitySelection}
-      />
-      <ActivityTableContainer
-        currentPage={currentPage}
-        filteredActivities={filteredActivities}
-        handleSearch={handleSearch}
-        resetAllFilters={resetAllFilters}
-        saveActivity={saveActivity}
-        savedActivityIds={savedActivityIds}
-        search={search}
-        selectedActivities={selectedActivities}
-        setCurrentPage={setCurrentPage}
-        setShowMobileFilterMenu={setShowMobileFilterMenu}
-        setShowMobileSortMenu={setShowMobileSortMenu}
-        setSort={setSort}
-        showLessonsBanner={showLessonsBanner}
-        sort={sort}
-        toggleActivitySelection={toggleActivitySelection}
-        undoLastFilter={undoLastFilter}
-        unsaveActivity={unsaveActivity}
-      />
-    </section>
-  </div>)
+  return (
+    <div className="custom-activity-pack-page">
+      <Snackbar text={snackbarText} visible={showSnackbar} />
+      <MobileFilterMenu {...filterColumnProps} setShowMobileFilterMenu={setShowMobileFilterMenu} showMobileFilterMenu={showMobileFilterMenu} />
+      <MobileSortMenu setShowMobileSortMenu={setShowMobileSortMenu} setSort={setSort} showMobileSortMenu={showMobileSortMenu} />
+      <FilterColumn {...filterColumnProps} />
+      <section className="main-content-container">
+        <Header
+          handleClickContinue={clickContinue}
+          isStaff={isStaff}
+          saveButtonEnabled={saveButtonEnabled}
+          selectedActivities={selectedActivitiesFilteredByFlag}
+          setSelectedActivities={setSelectedActivities}
+          toggleActivitySelection={toggleActivitySelection}
+        />
+        <ActivityTableContainer
+          currentPage={currentPage}
+          filteredActivities={filteredActivities}
+          handleSearch={handleSearch}
+          resetAllFilters={resetAllFilters}
+          saveActivity={saveActivity}
+          savedActivityIds={savedActivityIds}
+          search={search}
+          selectedActivities={selectedActivities}
+          setCurrentPage={setCurrentPage}
+          setShowMobileFilterMenu={setShowMobileFilterMenu}
+          setShowMobileSortMenu={setShowMobileSortMenu}
+          setSort={setSort}
+          showEvidenceBanner={showEvidenceBanner}
+          showLessonsBanner={showLessonsBanner}
+          sort={sort}
+          toggleActivitySelection={toggleActivitySelection}
+          undoLastFilter={undoLastFilter}
+          unsaveActivity={unsaveActivity}
+        />
+      </section>
+    </div>
+  )
 }
 
 export default CustomActivityPack

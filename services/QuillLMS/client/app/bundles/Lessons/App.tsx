@@ -15,13 +15,13 @@ if (!window.Promise) {
 
 if (process.env.RAILS_ENV === 'production') {
   Raven
-  .config(
-    'https://528794315c61463db7d5181ebc1d51b9@sentry.io/210579',
-    {
-      environment: process.env.RAILS_ENV,
-    }
-  )
-  .install();
+    .config(
+      'https://528794315c61463db7d5181ebc1d51b9@sentry.io/210579',
+      {
+        environment: process.env.RAILS_ENV,
+      }
+    )
+    .install();
 }
 
 BackOff();

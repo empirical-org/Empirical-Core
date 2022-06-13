@@ -32,6 +32,8 @@ module Teacher
     classrooms_i_teach.any? && !classrooms_i_teach.all?(&:new_record?)
   end
 
+  # TODO: classrooms_i_teach is also a defined association on User
+  # we should eliminate one of these
   def classrooms_i_teach
     Classroom.find_by_sql(base_sql_for_teacher_classrooms)
   end
@@ -66,6 +68,7 @@ module Teacher
     Set.new.tap { |ids| all_ids.each { |row| ids.merge(row.values) } }
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def ids_of_classroom_teachers_and_coteacher_invitations_that_i_coteach_or_am_the_invitee_of(classrooms_ids_to_check=nil)
     if classrooms_ids_to_check && classrooms_ids_to_check.any?
       # if there are specific ids passed it will only return those that match
@@ -97,9 +100,10 @@ module Teacher
 
     all_ids.each do |row|
       row.each do |k,v|
-        if k == 'coteacher_classroom_invitation_id'
+        case k
+        when 'coteacher_classroom_invitation_id'
           coteacher_classroom_invitation_ids << v
-        elsif k == 'classrooms_teachers_id'
+        when 'classrooms_teachers_id'
           classrooms_teachers_ids << v.to_i
         end
       end
@@ -110,6 +114,7 @@ module Teacher
       classrooms_teachers_ids: classrooms_teachers_ids.to_a
     }
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def affiliated_with_unit?(unit_id)
     RawSqlRunner.execute(
@@ -139,35 +144,39 @@ module Teacher
   end
 
   def archived_classrooms
-    Classroom.find_by_sql("#{base_sql_for_teacher_classrooms(false)} AND ct.role = 'owner' AND classrooms.visible = false")
+    Classroom.find_by_sql("#{base_sql_for_teacher_classrooms(only_visible_classrooms: false)} AND ct.role = 'owner' AND classrooms.visible = false")
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def handle_negative_classrooms_from_update_coteachers(classroom_ids=nil)
-    if classroom_ids && classroom_ids.any?
-      # destroy the extant invitation and teacher relationships
-      ids_of_classroom_teachers_and_coteacher_invitations_that_i_coteach_or_am_the_invitee_of(classroom_ids).each do |k,v|
-        if k == :classrooms_teachers_ids
-          ClassroomsTeacher.where(id: v).map(&:destroy)
-        elsif k ==  :coteacher_classroom_invitations_ids
-          CoteacherClassroomInvitation.where(id: v).map(&:destroy)
-        end
+    return unless classroom_ids && classroom_ids.any?
+
+    # destroy the existing invitation and teacher relationships
+    ids_of_classroom_teachers_and_coteacher_invitations_that_i_coteach_or_am_the_invitee_of(classroom_ids).each do |k,v|
+      case k
+      when :classrooms_teachers_ids
+        ClassroomsTeacher.where(id: v).map(&:destroy)
+      when :coteacher_classroom_invitations_ids
+        CoteacherClassroomInvitation.where(id: v).map(&:destroy)
       end
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def handle_positive_classrooms_from_update_coteachers(classroom_ids, inviter_id)
-    if classroom_ids && classroom_ids.any?
-      new_classroom_ids = classroom_ids.map(&:to_i) - classroom_ids_i_coteach_or_have_a_pending_invitation_to_coteach.to_a.map(&:to_i)
-      if new_classroom_ids.any?
-        invitation = Invitation.create(
-          invitee_email: email,
-          inviter_id: inviter_id,
-          invitation_type: Invitation::TYPES[:coteacher]
-        )
-        new_classroom_ids.each do |id|
-          CoteacherClassroomInvitation.find_or_create_by(invitation: invitation, classroom_id: id)
-        end
-      end
+    return unless classroom_ids && classroom_ids.any?
+
+    new_classroom_ids = classroom_ids.map(&:to_i) - classroom_ids_i_coteach_or_have_a_pending_invitation_to_coteach.to_a.map(&:to_i)
+    return unless new_classroom_ids.any?
+
+    invitation = Invitation.create(
+      invitee_email: email,
+      inviter_id: inviter_id,
+      invitation_type: Invitation::TYPES[:coteacher]
+    )
+
+    new_classroom_ids.each do |id|
+      CoteacherClassroomInvitation.find_or_create_by(invitation: invitation, classroom_id: id)
     end
   end
 
@@ -306,11 +315,17 @@ module Teacher
   end
 
   def google_classrooms
-    Classroom.find_by_sql("#{base_sql_for_teacher_classrooms} AND classrooms.google_classroom_id IS NOT NULL")
+    Classroom
+      .joins(:classrooms_teachers)
+      .where(classrooms_teachers: { user_id: id })
+      .where.not(google_classroom_id: nil)
   end
 
-  def transfer_account
-    TransferAccountWorker.perform_async(id, new_user.id);
+  def clever_classrooms
+    Classroom
+      .joins(:classrooms_teachers)
+      .where(classrooms_teachers: { user_id: id })
+      .where.not(clever_id: nil)
   end
 
   def classroom_units(includes_value = nil)
@@ -322,8 +337,10 @@ module Teacher
     end
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def update_teacher params
     return if !teacher?
+
     params[:role] = 'teacher' if params[:role] != 'student'
     params.permit(
       :id,
@@ -389,27 +406,29 @@ module Teacher
     end
     response
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def updated_school(school_id)
     school = School.find_by(id: school_id)
     if subscription && subscription.school_subscriptions.any? && !has_matching_subscription?(id, school&.subscription&.id)
       # then they were previously in a school with a subscription, so we destroy the relationship
       UserSubscription.find_by(user_id: id, subscription_id: subscription.id).destroy
-    elsif school && self&.subscription&.account_type == "Purchase Missing School"
-      SchoolSubscription.create(school_id: school_id, subscription_id: subscription.id)
     end
-    if school && school.subscription
-      # then we let the user subscription handle everything else
-      UserSubscription.create_user_sub_from_school_sub_if_they_do_not_have_that_school_sub(id, school.subscription.id)
-    end
+
+    return unless school && school.subscription
+
+    # then we let the user subscription handle everything else
+    UserSubscription.create_user_sub_from_school_sub_if_they_do_not_have_that_school_sub(id, school.subscription.id)
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def has_matching_subscription?(user_id, subscription_id)
     UserSubscription.where(user_id: user_id, subscription_id: subscription_id).exists?
   end
 
   def is_premium?
-    !!(subscription && subscription.expiration >= Date.today)
+    !!(subscription && subscription.expiration >= Date.current)
   end
 
   def getting_started_info
@@ -425,11 +444,11 @@ module Teacher
   end
 
   def subscription_is_expired?
-    subscription && subscription.expiration < Date.today
+    subscription && subscription.expiration < Date.current
   end
 
   def subscription_is_valid?
-    subscription && subscription.expiration > Date.today
+    subscription && subscription.expiration > Date.current
   end
 
   def teachers_activity_sessions_since_trial_start_date
@@ -438,29 +457,30 @@ module Teacher
   end
 
   def trial_days_remaining
-    valid_subscription =   subscription && subscription.expiration > Date.today
-    if valid_subscription && (subscription.is_trial?)
-      (subscription.expiration - Date.today).to_i
-    else
-      nil
-    end
+    today = Date.current
+    valid_subscription = subscription && subscription.expiration > today
+
+    return nil unless valid_subscription && subscription.is_trial?
+
+    (subscription.expiration - today).to_i
   end
 
   def unlink
+    VitallyIntegration::UnlinkUserWorker.perform_async(id, school&.id)
     self.school = nil
     updated_school(nil)
     save
   end
 
   def premium_updated_or_created_today?
-    if subscription
-      [subscription.created_at, subscription.updated_at].max == Time.zone.now.beginning_of_day
-    end
+    return unless subscription
+
+    [subscription.created_at, subscription.updated_at].max == Time.current.beginning_of_day
   end
 
   def premium_state
     if subscription
-      (Subscription::TRIAL_TYPES | Subscription::COVID_TYPES).include?(subscription.account_type) ? 'trial' : 'paid'
+      Subscription::TRIAL_TYPES.include?(subscription.account_type) ? 'trial' : 'paid'
     elsif subscriptions.exists?
       # then they have an expired or 'locked' sub
       'locked'
@@ -470,7 +490,7 @@ module Teacher
   end
 
   def is_beta_period_over?
-    Date.today >= TRIAL_START_DATE
+    Date.current >= TRIAL_START_DATE
   end
 
   def finished_diagnostic_unit_ids_with_classroom_id_and_activity_id
@@ -644,7 +664,7 @@ module Teacher
   end
 
   def generate_referrer_id
-    ReferrerUser.create(user_id: id, referral_code: name.downcase.gsub(/[^a-z ]/, '').gsub(' ', '-') + '-' + id.to_s)
+    ReferrerUser.create(user_id: id, referral_code: "#{name.downcase.gsub(/[^a-z ]/, '').gsub(' ', '-')}-#{id}")
   end
 
   def assigned_students_per_activity_assigned
@@ -657,7 +677,7 @@ module Teacher
     .select("assigned_student_ids, activities.id, unit_activities.created_at")
   end
 
-  private def base_sql_for_teacher_classrooms(only_visible_classrooms=true)
+  private def base_sql_for_teacher_classrooms(only_visible_classrooms: true)
     <<-SQL
       SELECT classrooms.*
       FROM classrooms_teachers AS ct

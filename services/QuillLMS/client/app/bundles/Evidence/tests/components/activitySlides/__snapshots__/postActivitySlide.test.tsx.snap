@@ -2,62 +2,274 @@
 
 exports[`PostActivitySlide Component should match snapshot 1`] = `
 <div
-  className="post-activity-slide-container"
+  className="post-activity-slide-container no-focus-outline"
+  tabIndex={-1}
 >
   <section
     id="information-section"
   >
-    <p
-      className="slide-sub-text"
-      id="first-sub-text"
-    >
-      Ru Paul, you completed the activity!
-    </p>
-    <p
-      id="revision-text"
-    >
-      You used evidence to write 3 strong sentences!
-    </p>
     <img
       alt="An illustration of a party popper"
       id="celebration-vector"
-      src="undefined/images/comprehension/celebrating-activity-completion.svg"
+      src="undefined/images/evidence/party-celebration.svg"
     />
+    <p
+      id="revision-text"
+    >
+      You have completed the activity!
+    </p>
+    <p
+      className="slide-sub-text"
+      id="second-sub-text"
+    >
+      Be proud of the work you did today, and celebrate your success! This practice will help you grow as a reader and a writer. The more you practice, the stronger your critical thinking, reading, and writing skills will be.
+    </p>
     <section
       id="reminder-badge-section"
     >
       <img
         alt="An illustration of an A+ that is crossed out"
         id="grade-badge"
-        src="undefined/images/comprehension/no-grade-badge.svg"
+        src="undefined/images/evidence/paper-check.svg"
       />
       <section
         id="reminder-text-section"
       >
         <p
-          id="reminder-header"
+          className="sub-header-text"
         >
           Reminder about grades
         </p>
         <p
-          id="reminder-subtext"
+          className="sub-header-subtext"
         >
-          Your teacher will see all of your revisions, but this activity was for practice, so it isn’t graded.
+          This is practice, so your teacher will see your revisions, but Quill won't assign you a grade.
         </p>
       </section>
     </section>
-    <p
-      className="slide-sub-text"
-      id="second-sub-text"
+  </section>
+  <section
+    className="responses-exemplars-container"
+  >
+    <section
+      className="review-response-header-section"
     >
-      Revising is a sign of being a thoughtful writer. Be proud of the work you did today and celebrate your success!
-    </p>
+      <p
+        className="sub-header-text"
+      >
+        Reflect on your work
+      </p>
+      <p
+        className="sub-header-subtext"
+      >
+        There are many different ways to use evidence in your writing. Consider how your responses compare to the strong examples. In what ways are they similar or different? Notice the ideas, the phrasing, and the tone of voice, and think about how you could use because, but, and so in your future writing.
+      </p>
+    </section>
+    <section
+      className="response-exemplars-section"
+    >
+      <section
+        className="response-section"
+      >
+        <div
+          className="response-exemplar-header"
+        >
+          <p
+            className="sub-header-text"
+          >
+            Your response
+          </p>
+        </div>
+        <section
+          className="response-box"
+        >
+          <p>
+            test1
+            <strong>
+               because 
+            </strong>
+            <br />
+            <u />
+          </p>
+        </section>
+      </section>
+      <section
+        className="exemplars-section"
+      >
+        <div
+          className="response-exemplar-header"
+        >
+          <p
+            className="sub-header-text"
+          >
+            Example strong responses
+          </p>
+        </div>
+        <section
+          className="exemplar-box"
+        >
+          <p>
+            test
+            <strong>
+              because 
+            </strong>
+            <br />
+            <u />
+          </p>
+        </section>
+        <section
+          className="exemplar-box"
+        >
+          <p>
+            test
+            <strong>
+              because 
+            </strong>
+            <br />
+            <u />
+          </p>
+        </section>
+      </section>
+    </section>
+    <section
+      className="response-exemplars-section"
+    >
+      <section
+        className="response-section"
+      >
+        <div
+          className="response-exemplar-header"
+        >
+          <p
+            className="sub-header-text"
+          >
+            Your response
+          </p>
+        </div>
+        <section
+          className="response-box"
+        >
+          <p>
+            test2
+            <strong>
+               but 
+            </strong>
+            <br />
+            <u />
+          </p>
+        </section>
+      </section>
+      <section
+        className="exemplars-section"
+      >
+        <div
+          className="response-exemplar-header"
+        >
+          <p
+            className="sub-header-text"
+          >
+            Example strong responses
+          </p>
+        </div>
+        <section
+          className="exemplar-box"
+        >
+          <p>
+            test
+            <strong>
+              but 
+            </strong>
+            <br />
+            <u />
+          </p>
+        </section>
+        <section
+          className="exemplar-box"
+        >
+          <p>
+            test
+            <strong>
+              but 
+            </strong>
+            <br />
+            <u />
+          </p>
+        </section>
+      </section>
+    </section>
+    <section
+      className="response-exemplars-section"
+    >
+      <section
+        className="response-section"
+      >
+        <div
+          className="response-exemplar-header"
+        >
+          <p
+            className="sub-header-text"
+          >
+            Your response
+          </p>
+        </div>
+        <section
+          className="response-box"
+        >
+          <p>
+            test3
+            <strong>
+               so 
+            </strong>
+            <br />
+            <u />
+          </p>
+        </section>
+      </section>
+      <section
+        className="exemplars-section"
+      >
+        <div
+          className="response-exemplar-header"
+        >
+          <p
+            className="sub-header-text"
+          >
+            Example strong responses
+          </p>
+        </div>
+        <section
+          className="exemplar-box"
+        >
+          <p>
+            test
+            <strong>
+              so 
+            </strong>
+            <br />
+            <u />
+          </p>
+        </section>
+        <section
+          className="exemplar-box"
+        >
+          <p>
+            test
+            <strong>
+              so 
+            </strong>
+            <br />
+            <u />
+          </p>
+        </section>
+      </section>
+    </section>
   </section>
   <section
     id="button-container"
   >
     <button
       className="quill-button large secondary outlined focus-on-dark"
+      onClick={[MockFunction]}
       type="button"
     >
       Next

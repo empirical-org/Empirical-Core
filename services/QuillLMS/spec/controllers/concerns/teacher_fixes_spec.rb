@@ -13,7 +13,6 @@ describe TeacherFixes do
   let!(:activity) { create(:activity) }
   let!(:unit1) { create(:unit) }
   let!(:unit2) { create(:unit) }
-  let!(:activity) { create(:activity) }
   let!(:classroom_unit1) { create(:classroom_unit, classroom: classroom, unit: unit1) }
   let!(:classroom_unit2) { create(:classroom_unit, classroom: classroom, unit: unit2) }
   let!(:classroom_unit3) { create(:classroom_unit, classroom: classroom) }
@@ -36,14 +35,14 @@ describe TeacherFixes do
   end
 
   let!(:started) do
-    create(:activity_session, user_id: student1.id, classroom_unit_id: classroom_unit3.id, started_at: Time.now)
+    create(:activity_session, user_id: student1.id, classroom_unit_id: classroom_unit3.id, started_at: Time.current)
   end
 
   let!(:completed_earlier) do
     create(:activity_session,
       user_id: student1.id,
       classroom_unit_id: classroom_unit4.id,
-      completed_at: Time.now - 5,
+      completed_at: Time.current - 5,
       state: 'finished',
       percentage: 0.7,
       activity: activity
@@ -54,32 +53,32 @@ describe TeacherFixes do
     create(:activity_session,
       user_id: student1.id,
       classroom_unit_id: classroom_unit4.id,
-      completed_at: Time.now,
+      completed_at: Time.current,
       state: 'finished',
       percentage: 0.7,
       activity: activity
     )
   end
 
-  let!(:classroom_unit_with_activity_sessions_1) { create(:classroom_unit_with_activity_sessions) }
-  let!(:classroom_unit_with_activity_sessions_2) { create(:classroom_unit_with_activity_sessions) }
+  let!(:classroom_unit_with_activity_sessions1) { create(:classroom_unit_with_activity_sessions) }
+  let!(:classroom_unit_with_activity_sessions2) { create(:classroom_unit_with_activity_sessions) }
 
-  let(:today) { Date.today }
+  let(:today) { Date.current }
   let(:a_year_ago) { today - 1.year }
 
   describe '#merge_activity_sessions_between_two_classroom_units' do
     it 'moves all activity sessions from the first classroom unit to the second' do
-      old_cu1_activity_session_ids = classroom_unit_with_activity_sessions_1.reload.activity_sessions.ids
+      old_cu1_activity_session_ids = classroom_unit_with_activity_sessions1.reload.activity_sessions.ids
       expect(old_cu1_activity_session_ids).not_to be_empty
-      old_cu2_activity_session_ids = classroom_unit_with_activity_sessions_2.reload.activity_sessions.ids
+      old_cu2_activity_session_ids = classroom_unit_with_activity_sessions2.reload.activity_sessions.ids
 
       TeacherFixes::merge_activity_sessions_between_two_classroom_units(
-        classroom_unit_with_activity_sessions_1,
-        classroom_unit_with_activity_sessions_2
+        classroom_unit_with_activity_sessions1,
+        classroom_unit_with_activity_sessions2
       )
 
-      new_cu1_activity_session_ids = classroom_unit_with_activity_sessions_1.reload.activity_sessions.ids
-      new_cu2_activity_session_ids = classroom_unit_with_activity_sessions_2.reload.activity_sessions.ids
+      new_cu1_activity_session_ids = classroom_unit_with_activity_sessions1.reload.activity_sessions.ids
+      new_cu2_activity_session_ids = classroom_unit_with_activity_sessions2.reload.activity_sessions.ids
       expect(new_cu1_activity_session_ids).to be_empty
       expect(new_cu2_activity_session_ids).to match_array(old_cu2_activity_session_ids + old_cu1_activity_session_ids)
     end
@@ -87,7 +86,7 @@ describe TeacherFixes do
     it 'preserves the finished activity session if the FROM session is started and the TO session is finished' do
       started_activity_session =
         create(:activity_session,
-          classroom_unit: classroom_unit_with_activity_sessions_1,
+          classroom_unit: classroom_unit_with_activity_sessions1,
           activity: activity,
           user: student1,
           updated_at: a_year_ago,
@@ -96,7 +95,7 @@ describe TeacherFixes do
 
       finished_activity_session =
         create(:activity_session,
-          classroom_unit: classroom_unit_with_activity_sessions_2,
+          classroom_unit: classroom_unit_with_activity_sessions2,
           activity: activity,
           user: student1,
           updated_at: today,
@@ -104,8 +103,8 @@ describe TeacherFixes do
         )
 
       TeacherFixes::merge_activity_sessions_between_two_classroom_units(
-        classroom_unit_with_activity_sessions_1.reload,
-        classroom_unit_with_activity_sessions_2.reload
+        classroom_unit_with_activity_sessions1.reload,
+        classroom_unit_with_activity_sessions2.reload
       )
 
       expect(started_activity_session.reload.visible).to be false
@@ -115,7 +114,7 @@ describe TeacherFixes do
     it 'preserves the finished activity session if the TO session is started and the FROM session is finished' do
       finished_activity_session =
         create(:activity_session,
-          classroom_unit: classroom_unit_with_activity_sessions_1,
+          classroom_unit: classroom_unit_with_activity_sessions1,
           activity: activity,
           user: student1,
           updated_at: a_year_ago,
@@ -124,7 +123,7 @@ describe TeacherFixes do
 
       started_activity_session =
         create(:activity_session,
-          classroom_unit: classroom_unit_with_activity_sessions_2,
+          classroom_unit: classroom_unit_with_activity_sessions2,
           activity: activity,
           user: student1,
           updated_at: today,
@@ -132,19 +131,19 @@ describe TeacherFixes do
         )
 
       TeacherFixes::merge_activity_sessions_between_two_classroom_units(
-        classroom_unit_with_activity_sessions_1.reload,
-        classroom_unit_with_activity_sessions_2.reload
+        classroom_unit_with_activity_sessions1.reload,
+        classroom_unit_with_activity_sessions2.reload
       )
 
       expect(started_activity_session.reload.visible).to be false
       expect(finished_activity_session.reload.visible).to be true
-      expect(finished_activity_session.reload.classroom_unit).to eq classroom_unit_with_activity_sessions_2
+      expect(finished_activity_session.reload.classroom_unit).to eq classroom_unit_with_activity_sessions2
     end
 
     it 'preserves the most recent activity session when it is in the TO classroom unit' do
       older_activity_session =
         create(:activity_session,
-          classroom_unit: classroom_unit_with_activity_sessions_1,
+          classroom_unit: classroom_unit_with_activity_sessions1,
           activity: activity,
           user: student1,
           updated_at: a_year_ago
@@ -152,15 +151,15 @@ describe TeacherFixes do
 
       newer_activity_session =
         create(:activity_session,
-          classroom_unit: classroom_unit_with_activity_sessions_2,
+          classroom_unit: classroom_unit_with_activity_sessions2,
           activity: activity,
           user: student1,
           updated_at: today
         )
 
       TeacherFixes::merge_activity_sessions_between_two_classroom_units(
-        classroom_unit_with_activity_sessions_1.reload,
-        classroom_unit_with_activity_sessions_2.reload
+        classroom_unit_with_activity_sessions1.reload,
+        classroom_unit_with_activity_sessions2.reload
       )
 
       expect(older_activity_session.reload.visible).to be false
@@ -169,7 +168,7 @@ describe TeacherFixes do
     it 'preserves the most recent activity session when it is in the FROM classroom unit' do
       older_activity_session =
         create(:activity_session,
-          classroom_unit: classroom_unit_with_activity_sessions_2,
+          classroom_unit: classroom_unit_with_activity_sessions2,
           activity: activity,
           user: student1,
           updated_at: a_year_ago
@@ -177,35 +176,35 @@ describe TeacherFixes do
 
       newer_activity_session =
         create(:activity_session,
-          classroom_unit: classroom_unit_with_activity_sessions_1,
+          classroom_unit: classroom_unit_with_activity_sessions1,
           activity: activity,
           user: student1,
           updated_at: today
         )
       TeacherFixes::merge_activity_sessions_between_two_classroom_units(
-        classroom_unit_with_activity_sessions_1.reload,
-        classroom_unit_with_activity_sessions_2.reload
+        classroom_unit_with_activity_sessions1.reload,
+        classroom_unit_with_activity_sessions2.reload
       )
 
       expect(older_activity_session.reload.visible).to be false
-      expect(newer_activity_session.reload.classroom_unit).to eq(classroom_unit_with_activity_sessions_2)
+      expect(newer_activity_session.reload.classroom_unit).to eq(classroom_unit_with_activity_sessions2)
     end
 
     it 'migrates activity session over when the newer classroom unit does not contain that activity session' do
       older_activity_session =
         create(:activity_session,
-          classroom_unit: classroom_unit_with_activity_sessions_1,
+          classroom_unit: classroom_unit_with_activity_sessions1,
           activity: activity,
           user: student1
         )
 
       TeacherFixes::merge_activity_sessions_between_two_classroom_units(
-        classroom_unit_with_activity_sessions_1.reload,
-        classroom_unit_with_activity_sessions_2.reload
+        classroom_unit_with_activity_sessions1.reload,
+        classroom_unit_with_activity_sessions2.reload
       )
 
       expect(older_activity_session.reload.visible).to be true
-      expect(older_activity_session.reload.classroom_unit).to eq(classroom_unit_with_activity_sessions_2)
+      expect(older_activity_session.reload.classroom_unit).to eq(classroom_unit_with_activity_sessions2)
     end
   end
 
@@ -282,14 +281,14 @@ describe TeacherFixes do
       create(:unit, user_id: classroom_with_classroom_units.owner.id, classrooms: [classroom_with_classroom_units])
     end
 
-    let(:activity_session_1) do
+    let(:activity_session1) do
       create(:activity_session,
         classroom_unit: classroom_with_classroom_units.classroom_units.first,
         user_id: student_a.id
       )
     end
 
-    let(:activity_session_2) do
+    let(:activity_session2) do
       create(:activity_session,
         classroom_unit: classroom_with_classroom_units.classroom_units.last,
         user_id: student_b.id
@@ -302,8 +301,8 @@ describe TeacherFixes do
     describe '#merge_two_units' do
       describe 'the first unit passed' do
         it 'has no classroom units' do
-            TeacherFixes::merge_two_units(unit1, unit2)
-            expect(unit1.reload.classroom_units.where(visible: true)).to be_empty
+          TeacherFixes::merge_two_units(unit1, unit2)
+          expect(unit1.reload.classroom_units.where(visible: true)).to be_empty
         end
       end
 
@@ -325,8 +324,8 @@ describe TeacherFixes do
       before do
         cu1.update(assigned_student_ids: [student_a.id], unit_id: unit1.id)
         cu2.update(assigned_student_ids: [student_b.id], unit_id: unit2.id)
-        activity_session_1
-        activity_session_2
+        activity_session1
+        activity_session2
       end
 
       it 'moves all assigned students from the first activity to the second' do

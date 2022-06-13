@@ -44,8 +44,8 @@ class SingleAnswer extends React.Component<SingleAnswerProps, SingleAnswerState>
     const { submissions, data, } = props
     this.state = {
       response: student && submissions && submissions[student] ?
-                submissions[student].data :
-                data.play.prefilledText,
+        submissions[student].data :
+        data.play.prefilledText,
       editing: false,
       submitted: student && submissions && submissions[student]
     };
@@ -88,14 +88,16 @@ class SingleAnswer extends React.Component<SingleAnswerProps, SingleAnswerState>
     const { response, } = this.state
     const { sampleCorrectAnswer, } = data.play
 
-    return (<ProjectedAnswers
-      projector={projector}
-      response={response}
-      sampleCorrectAnswer={sampleCorrectAnswer}
-      selectedSubmissionOrder={selected_submission_order}
-      selectedSubmissions={selected_submissions}
-      submissions={submissions}
-    />)
+    return (
+      <ProjectedAnswers
+        projector={projector}
+        response={response}
+        sampleCorrectAnswer={sampleCorrectAnswer}
+        selectedSubmissionOrder={selected_submission_order}
+        selectedSubmissions={selected_submissions}
+        submissions={submissions}
+      />
+    )
   }
 
   modeAppropriateRender() {
@@ -124,10 +126,12 @@ class SingleAnswer extends React.Component<SingleAnswerProps, SingleAnswerState>
 
     if (mode === PROJECT || !data.play.instructions) { return }
 
-    return (<Feedback
-      feedback={(<p dangerouslySetInnerHTML={{__html: data.play.instructions}} />)}
-      feedbackType="default"
-    />);
+    return (
+      <Feedback
+        feedback={(<p dangerouslySetInnerHTML={{__html: data.play.instructions}} />)}
+        feedbackType="default"
+      />
+    );
   }
 
   renderCues() {
@@ -166,10 +170,12 @@ class SingleAnswer extends React.Component<SingleAnswerProps, SingleAnswerState>
 
     const prompt = <SentenceFragments prompt={data.play.prompt} />
 
-    return (<PromptSection
-      mode={mode}
-      promptElement={prompt}
-    />)
+    return (
+      <PromptSection
+        mode={mode}
+        promptElement={prompt}
+      />
+    )
   }
 
   renderProjectorHeader() {

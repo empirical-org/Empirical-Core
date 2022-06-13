@@ -17,7 +17,7 @@ describe RedisFeed, type: :model do
       end
     end
 
-    before(:each) do
+    before do
       test_feed_class.new(1).send(:delete_all)
     end
 
@@ -86,12 +86,12 @@ describe RedisFeed, type: :model do
 
     let(:test_instance) { test_feed_class_with_callback.new(1) }
 
-    before(:each) do
-     test_instance.send(:delete_all)
+    before do
+      test_instance.send(:delete_all)
     end
 
     context "callbacks" do
-      it 'should fire callbacks when adding one item' do
+      it 'should fire callback when adding one item' do
         expect(test_instance).to receive(:callback_on_add).with(17)
 
         test_instance.add(17)

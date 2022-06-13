@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Api::V1::ActiveActivitySessionsController < Api::ApiController
-  before_action :activity_session_by_uid, only: [:show, :destroy]
+  before_action :activity_session_by_uid, only: [:show]
 
   def show
     render json: @activity_session.as_json
@@ -12,7 +12,7 @@ class Api::V1::ActiveActivitySessionsController < Api::ApiController
     begin
       @activity_session = ActiveActivitySession.find_or_initialize_by(uid: params[:id])
       @activity_session.data ||= {}
-      @activity_session.data = @activity_session.data.merge(working_params)
+      @activity_session.data = @activity_session.data.merge(update_params)
       @activity_session.save!
     rescue ActiveRecord::RecordNotUnique => e
       # Due to the way that ActiveRecord handles unique validations such as the one on UID,
@@ -23,32 +23,17 @@ class Api::V1::ActiveActivitySessionsController < Api::ApiController
       # If, for some reason, running this a second time generates the same error, we don't
       # want to keep retrying because that indicates some other, more worrying, problem.
       raise e if retried
+
       retried = true
       retry
     end
-    render json: @activity_session.as_json
+    head :no_content
   end
 
-  def destroy
-    @activity_session.destroy
-    render(plain: 'OK')
-  end
-
-  private def working_params
-    return valid_params unless params.dig(:active_activity_session, :passage)
-    permitted_passage_object = params[:active_activity_session][:passage].map do |paragraph| 
-      paragraph.map do |word_object|
-        word_object.permit!
-      end
-    end
-    valid_params.merge({ passage: permitted_passage_object })
-  end
-
-  private def valid_params
-    params
-      .permit(active_activity_session: {})
-      .require(:active_activity_session)
-      .except(:uid)
+  private def update_params
+    params['active_activity_session']
+      .reject {|key, _| key == 'uid' }
+      .to_unsafe_hash
   end
 
   private def activity_session_by_uid

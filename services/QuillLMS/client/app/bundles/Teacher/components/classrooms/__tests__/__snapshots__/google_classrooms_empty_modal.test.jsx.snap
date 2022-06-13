@@ -21,6 +21,7 @@ exports[`GoogleClassroomsEmptyModal component should render GoogleClassroomsEmpt
       className="no-active-classes"
     >
       <img
+        alt="empty class"
         src="undefined/images/illustrations/empty-class.svg"
       />
       <p>
@@ -33,6 +34,7 @@ exports[`GoogleClassroomsEmptyModal component should render GoogleClassroomsEmpt
       <button
         className="quill-button contained primary medium"
         onClick={[Function]}
+        type="button"
       >
         Close
       </button>

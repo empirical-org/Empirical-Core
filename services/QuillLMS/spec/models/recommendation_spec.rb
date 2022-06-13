@@ -42,7 +42,7 @@ RSpec.describe Recommendation, type: :model do
 
   describe 'enum' do
     it do
-      should define_enum_for(:category).with_values([
+      expect(subject).to define_enum_for(:category).with_values([
         :independent_practice,
         :group_lesson
       ])

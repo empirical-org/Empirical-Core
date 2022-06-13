@@ -1,7 +1,7 @@
 import {letters} from './letters'
 
 export function edits(word): string[] {
-  var i, results: string[] = [];
+  let i, results: string[] = [];
   // deletion
   for (i=0; i < word.length; i+=1)
     results.push(word.slice(0, i) + word.slice(i+1));

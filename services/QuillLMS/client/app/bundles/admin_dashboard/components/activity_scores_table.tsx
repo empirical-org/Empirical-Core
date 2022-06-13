@@ -1,10 +1,11 @@
 import * as React from 'react';
-import ReactTable from 'react-table';
-import EmptyStateForReport from '../../Teacher/components/progress_reports/empty_state_for_report';
-import * as moment from 'moment';
-import 'react-table/react-table.css';
-import { sortByLastName, sortFromSQLTimeStamp } from '../../../modules/sortingMethods';
 import { Link } from 'react-router-dom';
+import * as moment from 'moment';
+
+import EmptyStateForReport from '../../Teacher/components/progress_reports/empty_state_for_report'
+import { sortTableByLastName, sortTableFromSQLTimeStamp } from '../../../modules/sortingMethods';
+import { ReactTable, } from '../../Shared/index'
+import { getTimeSpent } from '../../Teacher/helpers/studentReports';
 
 interface ActivityScoresTableProps {
   data: Array<Object>;
@@ -16,9 +17,8 @@ const ActivityScoresTable = ({ data }) => {
       Header: 'Student',
       accessor: 'students_name',
       resizable: false,
-      minWidth: 120,
-      sortMethod: sortByLastName,
-      Cell: (row) => {
+      sortType: sortTableByLastName,
+      Cell: ({row}) => {
         const classroomId = row.original.classroom_id;
         const studentId = row.original.student_id;
         const to = {
@@ -32,14 +32,13 @@ const ActivityScoresTable = ({ data }) => {
       Header: "Completed",
       accessor: 'activity_count',
       resizable: false,
-      minWidth: 90,
-      Cell: row => Number(row.original.activity_count),
+      Cell: ({row}) => Number(row.original.activity_count),
     }, {
       Header: "Score",
       accessor: 'average_score',
       resizable: false,
-      minWidth: 60,
-      Cell: row => {
+      maxWidth: 90,
+      Cell: ({row}) => {
         const value = Math.round(parseFloat(row.original.average_score) * 100);
         return (isNaN(value) ? '--' : value + '%');
       }
@@ -47,48 +46,50 @@ const ActivityScoresTable = ({ data }) => {
       Header: "School",
       accessor: 'schools_name',
       resizable: false,
-      Cell: row => row.original.schools_name,
     }, {
       Header: 'Teacher',
       accessor: 'teachers_name',
       resizable: false,
-      sortMethod: sortByLastName,
-      Cell: row => row.original.teachers_name,
+      sortType: sortTableByLastName,
     }, {
       Header: "Class",
       accessor: 'classroom_name',
       resizable: false,
-      Cell: row => row.original.classroom_name,
     }, {
-      Header: "Last Active",
+      Header: "Time spent",
+      accessor: 'timespent',
+      Cell: ({row}) => {
+        const value = row.original.timespent;
+        return (getTimeSpent(value))
+      }
+    }, {
+      Header: "Last active",
       accessor: 'last_active',
       resizable: false,
       minWidth: 90,
-      Cell: (row) => {
+      Cell: ({row}) => {
         if (row.original.last_active) {
           return moment(row.original.last_active).format("MM/DD/YYYY");
         }
         return '--';
       },
-      sortMethod: sortFromSQLTimeStamp,
+      sortType: sortTableFromSQLTimeStamp,
     },
   ];
 
   if (data && data.length) {
-    return (<div key={`${data.length}-length-for-activities-scores-by-classroom`}>
-      <ReactTable
-        className='progress-report activity-scores-table has-green-arrow'
-        columns={columns}
-        data={data}
-        defaultPageSize={100}
-        defaultSorted={[{id: 'last_active', desc: true}]}
-        minRows={1}
-        showPageSizeOptions={false}
-        showPagination={true}
-        showPaginationBottom={true}
-        showPaginationTop={false}
-      />
-    </div>)
+    return (
+      <div key={`${data.length}-length-for-activities-scores-by-classroom`}>
+        <ReactTable
+          className='progress-report activity-scores-table has-green-arrow'
+          columns={columns}
+          data={data}
+          defaultPageSize={100}
+          defaultSorted={[{id: 'last_active', desc: true}]}
+          showPaginationBottom={true}
+        />
+      </div>
+    )
   } else {
     return <EmptyStateForReport />
   }

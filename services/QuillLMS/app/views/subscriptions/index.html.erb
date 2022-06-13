@@ -1,4 +1,16 @@
 <%= render 'teachers/shared/scorebook_tabs' %>
 <div class="subscriptions">
-  <%= react_component('SubscriptionApp', props: {subscriptions: @subscriptions, coordinatorEmail: @coordinatorEmail, premiumCredits: @premium_credits, subscriptionStatus: @subscription_status, schoolSubscriptionTypes: @school_subscription_types, trialSubscriptionTypes: @trial_types, lastFour: @last_four, userAuthorityLevel: @user_authority_level}) %>
+  <%= react_component('SubscriptionApp', props: {
+      coordinatorEmail: @coordinatorEmail,
+      currentUserEmail: @current_user_email,
+      premiumCredits: @premium_credits,
+      schoolSubscriptionTypes: @school_subscription_types,
+      stripeInvoiceId: @stripe_invoice_id,
+      stripePaymentMethodUpdated: @stripe_payment_method_updated,
+      subscriptions: @subscriptions,
+      subscriptionStatus: @subscription_status,
+      trialSubscriptionTypes: @trial_types,
+      userAuthorityLevel: @user_authority_level
+    })
+  %>
 </div>

@@ -21,7 +21,6 @@ exports[`BottomNavigation component when the student has made at least two highl
 >
   <ReadAndHighlightTracker
     handleClickDoneHighlighting={[Function]}
-    onMobile={false}
     scrolledToEndOfPassage={true}
     studentHighlights={
       Array [
@@ -41,6 +40,7 @@ exports[`BottomNavigation component when the student has made at least two highl
         Done
       </button>
       <div
+        aria-hidden={true}
         className="read-and-highlight-steps"
       >
         <div
@@ -94,7 +94,6 @@ exports[`BottomNavigation component when the student has made at least two highl
 >
   <ReadAndHighlightTracker
     handleClickDoneHighlighting={[Function]}
-    onMobile={true}
     scrolledToEndOfPassage={true}
     studentHighlights={
       Array [
@@ -114,6 +113,7 @@ exports[`BottomNavigation component when the student has made at least two highl
         Done
       </button>
       <div
+        aria-hidden={true}
         className="read-and-highlight-steps"
       >
         <div
@@ -218,7 +218,6 @@ exports[`BottomNavigation component when the student has scrolled to the end of 
 >
   <ReadAndHighlightTracker
     handleClickDoneHighlighting={[Function]}
-    onMobile={false}
     scrolledToEndOfPassage={true}
     studentHighlights={Array []}
   >
@@ -227,11 +226,13 @@ exports[`BottomNavigation component when the student has scrolled to the end of 
     >
       <button
         className="quill-button contained primary large focus-on-light disabled"
+        onClick={[Function]}
         type="button"
       >
         Done
       </button>
       <div
+        aria-hidden={true}
         className="read-and-highlight-steps"
       >
         <div
@@ -278,7 +279,6 @@ exports[`BottomNavigation component when the student has scrolled to the end of 
 >
   <ReadAndHighlightTracker
     handleClickDoneHighlighting={[Function]}
-    onMobile={true}
     scrolledToEndOfPassage={true}
     studentHighlights={Array []}
   >
@@ -287,11 +287,13 @@ exports[`BottomNavigation component when the student has scrolled to the end of 
     >
       <button
         className="quill-button contained primary large focus-on-light disabled"
+        onClick={[Function]}
         type="button"
       >
         Done
       </button>
       <div
+        aria-hidden={true}
         className="read-and-highlight-steps"
       >
         <div
@@ -342,7 +344,6 @@ exports[`BottomNavigation component when the student has started highlighting re
 >
   <ReadAndHighlightTracker
     handleClickDoneHighlighting={[Function]}
-    onMobile={false}
     scrolledToEndOfPassage={true}
     studentHighlights={
       Array [
@@ -355,11 +356,13 @@ exports[`BottomNavigation component when the student has started highlighting re
     >
       <button
         className="quill-button contained primary large focus-on-light disabled"
+        onClick={[Function]}
         type="button"
       >
         Done
       </button>
       <div
+        aria-hidden={true}
         className="read-and-highlight-steps"
       >
         <div
@@ -410,7 +413,6 @@ exports[`BottomNavigation component when the student has started highlighting re
 >
   <ReadAndHighlightTracker
     handleClickDoneHighlighting={[Function]}
-    onMobile={true}
     scrolledToEndOfPassage={true}
     studentHighlights={
       Array [
@@ -423,11 +425,13 @@ exports[`BottomNavigation component when the student has started highlighting re
     >
       <button
         className="quill-button contained primary large focus-on-light disabled"
+        onClick={[Function]}
         type="button"
       >
         Done
       </button>
       <div
+        aria-hidden={true}
         className="read-and-highlight-steps"
       >
         <div
@@ -474,7 +478,6 @@ exports[`BottomNavigation component when the student has started the read passag
 >
   <ReadAndHighlightTracker
     handleClickDoneHighlighting={[Function]}
-    onMobile={false}
     scrolledToEndOfPassage={[Function]}
     studentHighlights={Array []}
   >
@@ -483,11 +486,13 @@ exports[`BottomNavigation component when the student has started the read passag
     >
       <button
         className="quill-button contained primary large focus-on-light disabled"
+        onClick={[Function]}
         type="button"
       >
         Done
       </button>
       <div
+        aria-hidden={true}
         className="read-and-highlight-steps"
       >
         <div
@@ -534,7 +539,6 @@ exports[`BottomNavigation component when the student has started the read passag
 >
   <ReadAndHighlightTracker
     handleClickDoneHighlighting={[Function]}
-    onMobile={true}
     scrolledToEndOfPassage={[Function]}
     studentHighlights={Array []}
   >
@@ -543,11 +547,13 @@ exports[`BottomNavigation component when the student has started the read passag
     >
       <button
         className="quill-button contained primary large focus-on-light disabled"
+        onClick={[Function]}
         type="button"
       >
         Done
       </button>
       <div
+        aria-hidden={true}
         className="read-and-highlight-steps"
       >
         <div

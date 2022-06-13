@@ -5,10 +5,6 @@ Empirical-Core is our web app for managing students, assigning activities, and v
 
 **Fork and Clone this repository to submit a Pull Request**.
 
-**Getting Started:** [Visit our Community Page](http://community.quill.org/teams/quill-lms/). The Mailing List, Chat, Issues, and Docs can all be accessed from the community page.
-
-**CLA:** [Please register an account & sign our CLA](http://community.quill.org/signup/cla/).
-
 ## Install QuillLMS
 
 QuillLMS is the Learning Management System that powers Quill.org. It is part of Empirical-Core Here's how to get QuillLMS running on your system:

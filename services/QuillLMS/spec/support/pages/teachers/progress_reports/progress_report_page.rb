@@ -41,11 +41,11 @@ module Teachers
     end
 
     private def click_filter_button(filter_class)
-      find(filter_class + ' button').click
+      find("#{filter_class} button").click
     end
 
     private def filter_menu_dropdown_option(filter_class, option_name)
-      find(filter_class + ' ul.dropdown-menu li', text: option_name)
+      find("#{filter_class} ul.dropdown-menu li", text: option_name)
     end
   end
 end

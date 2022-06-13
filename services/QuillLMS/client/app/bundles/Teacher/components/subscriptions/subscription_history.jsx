@@ -2,7 +2,11 @@ import React from 'react';
 import moment from 'moment';
 import pluralize from 'pluralize';
 
-export default class extends React.Component {
+import { ACCOUNT_TYPE_TO_SUBSCRIPTION_TYPES } from './constants';
+
+import { Tooltip, helpIcon, } from '../../../Shared/index'
+
+export default class SubscriptionHistory extends React.Component {
 
   content() {
     const subscriptionHistoryRows = this.subscriptionHistoryRows();
@@ -15,18 +19,20 @@ export default class extends React.Component {
             </tr>
             {subscriptionHistoryRows}
           </tbody>
-        </table>);
+        </table>
+      );
     }
     return (
       <div className="empty-state flex-row justify-content">
         <h3>You have not yet started a Quill Premium Subscription</h3>
-        <p>Purchase Quill Premium or apply credits to get access to Premium reports.</p>
+        <p><a href="/premium">Purchase Quill Premium</a> or apply credits to get access to Premium reports.</p>
       </div>
     );
   }
 
   paymentContent(subscription) {
-    if (this.props.authorityLevel) {
+    const { authorityLevel, } = this.props
+    if (authorityLevel) {
       if (subscription.payment_amount) {
         return `$${subscription.payment_amount / 100}`;
       } else if (subscription.payment_method === 'Premium Credit') {
@@ -37,14 +43,16 @@ export default class extends React.Component {
   }
 
   subscriptionHistoryRows() {
+    const { subscriptions, premiumCredits, view, } = this.props
+
     const rows = [];
-    this.props.subscriptions.forEach((sub) => {
+    subscriptions.forEach((sub) => {
       const startD = moment(sub.start_date);
       const endD = moment(sub.expiration);
       const calculatedDuration = endD.diff(startD, 'months');
       // if duration is calculated as 0, make it 1
       const duration = Math.max(calculatedDuration, 1);
-      const matchingTransaction = this.props.premiumCredits.find(transaction => (transaction.source_id === sub.id && transaction.source_type === 'Subscription' && transaction.amount > 0));
+      const matchingTransaction = premiumCredits.find(transaction => (transaction.source_id === sub.id && transaction.source_type === 'Subscription' && transaction.amount > 0));
       if (matchingTransaction) {
         const amountCredited = matchingTransaction.amount > 6
           ? Math.round(matchingTransaction.amount / 7)
@@ -57,27 +65,45 @@ export default class extends React.Component {
           </tr>
         );
       }
+      const subscriptionTypeContent = (
+        <span>
+          {ACCOUNT_TYPE_TO_SUBSCRIPTION_TYPES[sub.account_type]}
+          <Tooltip
+            tooltipText={`${sub.account_type} subscription`}
+            tooltipTriggerText={<span><img alt={helpIcon.alt} className="subscription-tooltip" src={helpIcon.src} /></span>}
+          />
+        </span>
+      )
+
       const tds = [
         <td key={`${sub.id}-1-row`}>{moment(sub.created_at).format('MMMM Do, YYYY')}</td>,
-        <td key={`${sub.id}-2-row`}>{sub.account_type}</td>,
+        <td key={`${sub.id}-2-row`}>{subscriptionTypeContent}</td>,
         <td key={`${sub.id}-3-row`}>{this.paymentContent(sub)}</td>,
         <td key={`${sub.id}-4-row`}>{`${duration} ${pluralize('month', duration)}`}</td>,
         <td key={`${sub.id}-5-row`}>{`${startD.format('MM/DD/YY')} - ${endD.format('MM/DD/YY')}`}</td>
-      ];
-      if (this.props.view === 'subscriptionHistory') {
-        tds.push(<td key={`${sub.id}-6-row`}><a href={`${process.env.DEFAULT_URL}/cms/subscriptions/${sub.id}/edit`}>Edit Subscription</a></td>);
+      ]
+
+      if (view === 'subscriptionHistory') {
+        const href = `${process.env.DEFAULT_URL}/cms/subscriptions/${sub.id}/edit`
+        const key = `${sub.id}-6-row`
+
+        if (sub.stripe_invoice_id) {
+          tds.push(<td key={key}><a href={href} rel='noopener noreferrer' target='_blank'>View in Stripe</a></td>)
+        } else {
+          tds.push(<td key={key}><a href={href}>Edit Subscription</a></td>)
+        }
       }
-      rows.push(
-        <tr key={`${sub.id}-subscription-table`}>{tds}</tr>
-      );
-    });
+      rows.push(<tr key={`${sub.id}-subscription-table`}>{tds}</tr>)
+    })
     return rows;
   }
 
   tableHeaders() {
+    const { view, } = this.props
+
     const tableHeaders = ['Purchase Date', 'Subscription', 'Payment', 'Length', 'Start & End Date'];
-    if (this.props.view === 'subscriptionHistory') {
-      tableHeaders.push('Edit Link');
+    if (view === 'subscriptionHistory') {
+      tableHeaders.push('Link');
     }
     return tableHeaders.map((content, i) => <th key={`${i}-table-header`}>{content}</th>);
   }
@@ -90,4 +116,8 @@ export default class extends React.Component {
       </section>
     );
   }
+}
+
+SubscriptionHistory.defaultProps = {
+  premiumCredits: []
 }

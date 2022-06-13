@@ -41,10 +41,8 @@ module NavigationHelper
     when 'trial'
       "Premium  <i class='fas fa-star'></i> #{current_user.trial_days_remaining} Days Left"
     when 'locked'
-      "Premium  <i class='fas fa-star'></i> Trial Expired"
-    when nil
-      "Try Premium <i class='fas fa-star'></i>"
-    when 'none'
+      current_user.last_expired_subscription&.is_trial? ? "Premium  <i class='fas fa-star'></i> Trial Expired" : "Premium  <i class='fas fa-star'></i> Subscription Expired"
+    when 'none', nil
       "Try Premium <i class='fas fa-star'></i>"
     end
   end

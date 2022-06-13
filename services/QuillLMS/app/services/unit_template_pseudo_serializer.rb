@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class UnitTemplatePseudoSerializer
-  # attributes :id, :name, :time, :grades, :order_number, :number_of_standards, :activity_info, :author, :unit_template_category, :activities, :standards
+  # attributes :id, :name, :time, :grades, :order_number, :number_of_standards, :activity_info, :unit_template_category, :activities, :standards, :readability, :activities_recommended_by
 
   def initialize(unit_template, flag=nil)
     @unit_template = unit_template
@@ -18,10 +18,11 @@ class UnitTemplatePseudoSerializer
       created_at: ut.created_at.to_i,
       number_of_standards: number_of_standards,
       activity_info: ut.activity_info,
-      author: author,
       unit_template_category: unit_template_category,
       activities: activities,
-      type: type
+      type: type,
+      readability: ut.readability,
+      diagnostics_recommended_by: ut.diagnostics_recommended_by
     }
   end
 
@@ -43,14 +44,6 @@ class UnitTemplatePseudoSerializer
     }
   end
 
-  def author
-    author = @unit_template.author
-    {
-      name: author&.name,
-      avatar_url: author&.avatar_url
-    }
-  end
-
   def activities
     acts = RawSqlRunner.execute(
       <<-SQL
@@ -66,7 +59,8 @@ class UnitTemplatePseudoSerializer
           standards.name AS standard_name,
           standard_levels.name AS standard_level_name,
           standard_categories.id AS standard_category_id,
-          standard_categories.name AS standard_category_name
+          standard_categories.name AS standard_category_name,
+          topics.name AS level_zero_topic_name
         FROM activities
         LEFT JOIN standards
           ON standards.id = activities.standard_id
@@ -82,12 +76,34 @@ class UnitTemplatePseudoSerializer
           ON activities.id = activity_category_activities.activity_id
         LEFT JOIN activity_categories
           ON activity_categories.id = activity_category_activities.activity_category_id
+        LEFT JOIN activity_topics
+          ON activity_topics.activity_id = activities.id
+        LEFT JOIN topics
+          ON activity_topics.topic_id = topics.id AND topics.level = 0
         WHERE activities_unit_templates.unit_template_id = #{@unit_template.id}
           AND NOT 'archived' = ANY(activities.flags)
-        ORDER BY
+        GROUP BY
+          activities.id,
+          activities.name,
+          activities.flags,
+          activities.description,
+          activity_classifications.key,
+          activity_classifications.id,
+          activity_classifications.name,
+          standards.id,
+          standards.name,
+          standard_levels.name,
+          standard_categories.id,
+          standard_categories.name,
+          topics.name,
           activities_unit_templates.order_number,
           activity_categories.order_number,
           activity_category_activities.order_number
+        ORDER BY
+          activities_unit_templates.order_number,
+          activity_categories.order_number,
+          activity_category_activities.order_number,
+          topics.name
       SQL
     ).to_a
 
@@ -109,18 +125,21 @@ class UnitTemplatePseudoSerializer
           key: act['key'],
           id: act['activity_classification_id'],
           name: act['activity_classification_name']
-        }
+        },
+        readability: Activity.find(act['id']).readability_grade_level,
+        level_zero_topic_name: act['level_zero_topic_name']
       }
     end
 
     activity_hashes.uniq { |a| a[:id] }
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def type
     acts = @unit_template.activities
     if acts.any? { |act| act&.classification&.key == ActivityClassification::LESSONS_KEY }
       {
-        name: UnitTemplate::WHOLE_CLASS_AND_INDEPENDENT_PRACTICE,
+        name: UnitTemplate::WHOLE_CLASS_LESSONS,
         primary_color: '#9c2bde'
       }
     elsif acts.any? { |act| act&.classification&.key == ActivityClassification::DIAGNOSTIC_KEY }
@@ -135,4 +154,5 @@ class UnitTemplatePseudoSerializer
       }
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 end

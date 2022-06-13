@@ -1,26 +1,28 @@
 import * as React from 'react';
 import _ from 'underscore';
-import LoadingIndicator from '../../../shared/loading_indicator';
-import ScrollToTop from '../../../shared/scroll_to_top';
+import { RouteComponentProps } from 'react-router-dom';
+
 import UnitTemplateProfileDescription from './unit_template_profile_description';
 import UnitTemplateProfileAssignButton from './unit_template_profile_assign_button';
 import UnitTemplateProfileShareButtons from './unit_template_profile_share_buttons';
 import UnitTemplateProfileStandards from './unit_template_profile_standards';
 import UnitTemplateProfileActivityTable from './unit_template_profile_activity_table';
-import AssignmentFlowNavigation from '../../assignment_flow_navigation.tsx'
+
+import LoadingIndicator from '../../../shared/loading_indicator';
+import ScrollToTop from '../../../shared/scroll_to_top';
+import AssignmentFlowNavigation from '../../assignment_flow_navigation'
 import {
   UNIT_TEMPLATE_NAME,
   ACTIVITY_IDS_ARRAY,
   UNIT_TEMPLATE_ID,
   UNIT_NAME,
-  COLLEGE_BOARD_SLUG
-} from '../../assignmentFlowConstants.ts'
-import parsedQueryParams from '../../parsedQueryParams.ts'
-
+  COLLEGE_BOARD_SLUG,
+  CLICKED_ACTIVITY_PACK_ID
+} from '../../assignmentFlowConstants'
+import parsedQueryParams from '../../parsedQueryParams'
 import { requestGet } from '../../../../../../modules/request/index.js';
 import Activity from '../../../../../../interfaces/activity';
 import UnitTemplateProfileInterface from '../../../../../../interfaces/unitTemplateProfileInterface';
-import { RouteComponentProps } from 'react-router-dom';
 
 interface UnitTemplateProfileState {
   data: UnitTemplateProfile,
@@ -39,6 +41,7 @@ export class UnitTemplateProfile extends React.Component<RouteComponentProps, Un
     const { match } = this.props;
     const { activityPackId } = match.params;
     this.getProfileInfo(activityPackId);
+    window.sessionStorage.setItem(CLICKED_ACTIVITY_PACK_ID, activityPackId);
   }
 
   UNSAFE_componentWillReceiveProps(nextProps: RouteComponentProps) {

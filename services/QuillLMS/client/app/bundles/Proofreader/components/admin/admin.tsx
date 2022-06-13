@@ -23,10 +23,10 @@ class AdminContainer extends React.Component<AdminContainerProps> {
   componentDidMount() {
     const { dispatch, } = this.props
     this.fetchUser().then(userData => {
-        if (userData.user === null || (userData.hasOwnProperty('role') && userData.user.role !== 'staff')) {
-          window.location.href = newSessionEndpoint;
-        }
+      if (userData.user === null || (userData.hasOwnProperty('role') && userData.user.role !== 'staff')) {
+        window.location.href = newSessionEndpoint;
       }
+    }
     );
     dispatch(proofreaderActivitiesActions.startListeningToActivities());
     dispatch(conceptsActions.startListeningToConcepts());
@@ -38,10 +38,10 @@ class AdminContainer extends React.Component<AdminContainerProps> {
       mode: 'cors',
       credentials: 'include',
     }).then((response) => {
-    if (!response.ok) {
-      throw Error(response.statusText);
-    }
-    return response.json();
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+      return response.json();
     });
   }
 

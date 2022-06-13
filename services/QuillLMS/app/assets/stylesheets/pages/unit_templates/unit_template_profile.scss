@@ -25,12 +25,15 @@
     }
 
     .ReactTable.unit-template-profile-activities .rt-table a img {
-      padding-left: 20px;
+      padding: 8px 0px 8px 20px;
     }
 
     .ReactTable .rt-th, .ReactTable .rt-td {
       padding-top: 2.5px;
       padding-bottom: 4px;
+      .activity-name {
+        color: #027360;
+      }
     }
 
     .ReactTable.unit-template-profile-activities .rt-table .rt-tr:hover a.highlight-on-hover {
@@ -64,6 +67,18 @@
     margin-top: 75px;
     .description {
       max-width: 500px;
+      .unit-template-profile-description {
+        h3 {
+          border-bottom: 1px solid #cecece;
+          padding-bottom: 8px;
+        }
+        ul {
+          padding: 8px 0px 16px 16px;
+          li {
+            padding: 8px 0px 8px;
+          }
+        }
+      }
       dl {
         dt {
           margin-bottom: 0.5em;
@@ -74,6 +89,12 @@
           font-size: 16px;
           line-height: 1.5em;
         }
+      }
+      a {
+        color: #027360;
+      }
+      a:hover {
+        text-decoration: underline;
       }
     }
     .assign-buttons-and-standards {
@@ -107,8 +128,24 @@
       }
     }
 
+    .evidence-warning-container {
+      padding: 0;
+      border-bottom: none;
+      .evidence-warning {
+        background-color: #ffffe0;
+        padding: 16px 24px;
+        border: 1px solid #cecece;
+        margin-bottom: 1.9em;
+        .header {
+          font-weight: 600;
+          margin-bottom: 8px;
+        }
+      }
+    }
+
+
     .standards-and-concepts {
-      margin: 1.9em 0em;
+      margin: 1.9em 0em 0em;
       background-color: white;
 
       dl {
@@ -127,11 +164,8 @@
         }
 
         dd.concept {
-          margin-bottom: 0em;
           display: inline-block;
           padding: 0.2em 0.5em;
-          margin-right: 1em;
-          margin-top: 1em;
           border-radius: 5px;
           background-color: $verylightgray;
         }
@@ -139,6 +173,7 @@
     }
 
     .share {
+      margin-top: 1.9em;
       background-color: white;
     }
   }

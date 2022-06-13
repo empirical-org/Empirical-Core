@@ -47,6 +47,7 @@ class Teachers::ProgressReportsController < ApplicationController
 
   private def authorize!
     return if current_user.try(:teacher?)
+
     auth_failed
   end
 
@@ -78,18 +79,18 @@ class Teachers::ProgressReportsController < ApplicationController
 
   private def set_user
     @user = User.find_by_email "hello+#{demo_name}@quill.org"
-    if @user.nil?
-      recreate_demo
-      set_user
-    end
+    return if @user.present?
+
+    recreate_demo
+    set_user
   end
 
   private def set_staff_user
     @staff_user = User.find_by_email "hello+#{staff_demo_name}@quill.org"
-    if @staff_user.nil?
-      recreate_staff_demo
-      set_staff_user
-    end
+    return if @staff_user.present?
+
+    recreate_staff_demo
+    set_staff_user
   end
 
   private def set_ap_user
@@ -110,9 +111,10 @@ class Teachers::ProgressReportsController < ApplicationController
   end
 
   private def demo_redirect_path
-    if params[:name] == 'demoaccount'
+    case params[:name]
+    when 'demoaccount'
       teachers_progress_reports_concepts_students_path
-    elsif params[:name] == 'admin_demo'
+    when 'admin_demo'
       profile_path
     else
       scorebook_teachers_classrooms_path
@@ -120,12 +122,12 @@ class Teachers::ProgressReportsController < ApplicationController
   end
 
   private def recreate_demo
-    Demo::ReportDemoDestroyer.destroy_demo(demo_name)
-    Demo::ReportDemoCreator.create_demo(demo_name)
+    Demo::ReportDemoDestroyer.destroy_demo("hello+#{demo_name}@quill.org")
+    Demo::ReportDemoCreator.create_demo("hello+#{demo_name}@quill.org")
   end
 
   private def recreate_staff_demo
-    Demo::ReportDemoDestroyer.destroy_demo(staff_demo_name)
-    Demo::ReportDemoCreator.create_demo(staff_demo_name)
+    Demo::ReportDemoDestroyer.destroy_demo("hello+#{staff_demo_name}@quill.org")
+    Demo::ReportDemoCreator.create_demo("hello+#{staff_demo_name}@quill.org")
   end
 end

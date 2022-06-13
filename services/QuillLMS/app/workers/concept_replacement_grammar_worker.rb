@@ -4,6 +4,7 @@ class ConceptReplacementGrammarWorker
   include Sidekiq::Worker
   sidekiq_options queue: SidekiqQueue::LOW
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def perform(original_concept_uid, new_concept_uid)
     activities = HTTParty.get("#{ENV['FIREBASE_DATABASE_URL']}/v3/grammarActivities.json").parsed_response
     activities.each do |key, act|
@@ -45,30 +46,32 @@ class ConceptReplacementGrammarWorker
       end
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def replace_focus_points_or_incorrect_sequences_for_question(fp_or_is, original_concept_uid, new_concept_uid)
-    if fp_or_is.any? { |k, v| v['conceptResults'] && v['conceptResults'].any? { |crk, crv| crv['conceptUID'] == original_concept_uid } }
-      new_fp_or_is = fp_or_is.deep_dup
-      begin
-        fp_or_is.each do |k, v|
-          v['conceptResults'].each do |crk, crv|
-            if crv['conceptUID'] == original_concept_uid
-              concept = Concept.unscoped.find_by(uid: new_concept_uid)
-              parent_concept = concept.try(:parent)
-              grandparent_concept = parent_concept.try(:parent)
-              if concept && parent_concept && grandparent_concept
-                name = "#{grandparent_concept.name} | #{parent_concept.name} | #{concept.name}"
-                new_fp_or_is[k]['conceptResults'][crk]['name'] = name
-              end
-              new_fp_or_is[k]['conceptResults'][crk]['conceptUID'] = new_concept_uid
+    return unless fp_or_is.any? { |k, v| v['conceptResults'] && v['conceptResults'].any? { |crk, crv| crv['conceptUID'] == original_concept_uid } }
+
+    new_fp_or_is = fp_or_is.deep_dup
+    begin
+      fp_or_is.each do |k, v|
+        v['conceptResults'].each do |crk, crv|
+          if crv['conceptUID'] == original_concept_uid
+            concept = Concept.unscoped.find_by(uid: new_concept_uid)
+            parent_concept = concept.try(:parent)
+            grandparent_concept = parent_concept.try(:parent)
+            if concept && parent_concept && grandparent_concept
+              name = "#{grandparent_concept.name} | #{parent_concept.name} | #{concept.name}"
+              new_fp_or_is[k]['conceptResults'][crk]['name'] = name
             end
+            new_fp_or_is[k]['conceptResults'][crk]['conceptUID'] = new_concept_uid
           end
         end
-      rescue => e
-        NewRelic::Agent.notice_error(e)
       end
-      new_fp_or_is
+    rescue => e
+      NewRelic::Agent.notice_error(e)
     end
+    new_fp_or_is
   end
-
+  # rubocop:enable Metrics/CyclomaticComplexity
 end

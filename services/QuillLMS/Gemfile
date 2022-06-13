@@ -6,7 +6,7 @@ ruby '2.6.6'
 
 # CORE DEPS
 gem 'rails', '5.1.7'
-gem 'puma', '~> 4.3.8'
+gem 'puma', '>= 4.3.11'
 
 # EARLY TO APPLY TO OTHER GEMS
 gem 'dotenv-rails'
@@ -22,7 +22,7 @@ gem 'atomic_arrays'
 
 # USER AUTH, ETC
 gem 'bcrypt'
-gem "doorkeeper", ">= 4.2.0"
+gem "doorkeeper", "5.0.3"
 gem 'omniauth'
 gem 'omniauth-google-oauth2', '0.6.0'
 gem 'omniauth-clever'
@@ -34,7 +34,7 @@ gem 'rack-attack'
 gem 'premailer-rails'
 # if you have trouble installing nokogiri on a mac,
 # try uninstalling nokogiri, running `xcode-select --install`, and then `bundle install` once more
-gem 'nokogiri', '>= 1.10.4'
+gem 'nokogiri', '>= 1.13.2'
 
 # VALIDATIONS
 gem 'validates_email_format_of'
@@ -88,8 +88,9 @@ gem 'addressable'
 source "https://gems.contribsys.com/" do
   gem 'sidekiq-pro'
 end
+gem 'sidekiq', '~> 5.2.10'
 gem 'sidekiq-retries', require: false
-gem 'redis', '3.3.5'
+gem 'redis', '~> 4.5'
 gem 'redis-namespace'
 gem 'redis-rails'
 gem 'redis-rack-cache'
@@ -128,7 +129,6 @@ gem 'react_on_rails', '= 11.3.0'
 gem 'webpacker', '~> 3.0.0'
 
 # ASSET/UI
-gem 'therubyracer', require: false
 gem 'uglifier',     require: false
 gem 'kaminari', '~> 1.2.1'
 
@@ -152,13 +152,14 @@ group :production, :staging do
   gem 'rails_autoscale_agent'
   gem 'rails_12factor'
   gem 'lograge' # for making logs more dense
+  gem 'sqreen'
   # gem 'rack-timeout'
 end
 
 group :development do
   gem 'bullet'
   gem 'better_errors'
-  gem 'binding_of_caller', platforms: [:mri_21]
+  gem 'binding_of_caller'
   gem 'foreman'
   gem 'letter_opener'
   gem 'spring'
@@ -182,7 +183,7 @@ group :test, :development do
   gem 'factory_bot_rails', '~> 4.8.2', require: false
   gem 'fuubar', '~> 2.0.0.rc1'
   gem 'timecop'
-  gem 'byebug', '8.2.1' # getting errors on mac yosemite when trying to install 8.2.2
+  gem 'byebug'
   gem 'guard'
   gem 'guard-rspec'
   gem 'guard-shell'
@@ -202,6 +203,7 @@ group :test do
   gem 'capybara-screenshot'
   gem 'codeclimate-test-reporter', require: nil
   gem 'codecov'
+  gem 'mini_racer', '= 0.4.0'
   gem 'fakeredis', '~> 0.7.0'
   gem 'rails-controller-testing'
   gem 'selenium-webdriver'
@@ -216,7 +218,6 @@ end
 
 # Memory profiling
 gem 'puma_worker_killer', '~> 0.1.0'
-gem 'sqreen'
 
 # temp for migrations
 gem 'paperclip'

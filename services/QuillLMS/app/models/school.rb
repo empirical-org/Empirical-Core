@@ -11,7 +11,6 @@
 #  free_lunches          :integer
 #  fte_classroom_teacher :integer
 #  latitude              :decimal(9, 6)
-#  leanm                 :string
 #  longitude             :decimal(9, 6)
 #  lower_grade           :integer
 #  magnet                :string
@@ -36,11 +35,12 @@
 #  authorizer_id         :integer
 #  clever_id             :string
 #  coordinator_id        :integer
-#  lea_id                :string
+#  district_id           :bigint
 #  nces_id               :string
 #
 # Indexes
 #
+#  index_schools_on_district_id     (district_id)
 #  index_schools_on_mail_zipcode    (mail_zipcode)
 #  index_schools_on_name            (name)
 #  index_schools_on_nces_id         (nces_id)
@@ -58,7 +58,9 @@ class School < ApplicationRecord
   has_many :admins, through: :schools_admins, source: :user
   belongs_to :authorizer, class_name: 'User'
   belongs_to :coordinator, class_name: 'User'
+  belongs_to :district
 
+  before_save :update_district_admins, if: :will_save_change_to_district_id?
   validate :lower_grade_within_bounds, :upper_grade_within_bounds,
            :lower_grade_greater_than_upper_grade
 
@@ -85,12 +87,29 @@ class School < ApplicationRecord
     NOT_LISTED_SCHOOL_NAME => US_K12_SCHOOL_DISPLAY_NAME
   }
 
+  SCHOOL_YEAR_START_MONTH = 7
+  HALF_A_YEAR = 6.months
+
   def subscription
-   subscriptions.where("expiration > ? AND start_date <= ?", Date.today, Date.today).order(expiration: :desc).limit(1).first
+    subscriptions
+      .started
+      .not_expired
+      .not_de_activated
+      .order(expiration: :desc)
+      .limit(1)
+      .first
+  end
+
+  def last_expired_subscription
+    subscriptions
+      .expired
+      .order(expiration: :desc)
+      .limit(1)
+      .first
   end
 
   def present_and_future_subscriptions
-    subscriptions.where("expiration > ? AND de_activated_date IS NULL", Date.today).order(expiration: :asc)
+    subscriptions.active
   end
 
   def ulocal_to_school_type
@@ -129,7 +148,17 @@ class School < ApplicationRecord
   end
 
   def self.school_year_start(time)
-    time.month >= 8 ? time.beginning_of_year + 7.months : time.beginning_of_year - 5.months
+    time.month >= SCHOOL_YEAR_START_MONTH ? time.beginning_of_year + HALF_A_YEAR : time.beginning_of_year - HALF_A_YEAR
+  end
+
+  def detach_from_existing_district_admins(district)
+    return unless district.present? && district.admins.count > 0
+
+    schools_admins.where(user_id: district.admins.map(&:id)).destroy_all
+  end
+
+  def subscription_status
+    subscription&.subscription_status || last_expired_subscription&.subscription_status
   end
 
   private def generate_leap_csv_row(student, teacher, classroom, activity_session)
@@ -159,6 +188,20 @@ class School < ApplicationRecord
 
   private def lower_grade_greater_than_upper_grade
     return true unless lower_grade && upper_grade
+
     errors.add(:lower_grade, 'must be less than or equal to upper grade') if lower_grade.to_i > upper_grade.to_i
+  end
+
+  private def update_district_admins
+    # destroy all SchoolsAdmins records that are also DistrictAdmin records from the previous district
+    if district_id_was.present?
+      previous_district = District.find_by(id: district_id_was)
+      detach_from_existing_district_admins(previous_district)
+    end
+
+    return unless district_id.present?
+
+    new_district = District.find(district_id)
+    self.admins = (admins || []) + new_district.admins
   end
 end

@@ -162,6 +162,7 @@ exports[`Results component should render when there are no results 1`] = `
       className="spinner-container"
     >
       <img
+        alt=""
         className="spinner"
         src="/images/loader_still.svg"
       />
@@ -2232,6 +2233,7 @@ exports[`Results component should render when there are results 1`] = `
       className="spinner-container"
     >
       <img
+        alt=""
         className="spinner"
         src="/images/loader_still.svg"
       />

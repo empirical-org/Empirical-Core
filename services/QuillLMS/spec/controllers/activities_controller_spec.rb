@@ -93,15 +93,14 @@ describe ActivitiesController, type: :controller, redis: true do
     context 'student is assigned to classroom_unit' do
       before { classroom_unit.update(assigned_student_ids: [student.id]) }
 
-      it '' do
+      it 'redirects the appropriate activity session' do
         subject
-        expect(response)
-          .to redirect_to activity_session_from_classroom_unit_and_activity_path(classroom_unit, activity)
+        expect(response).to redirect_to activity_session_from_classroom_unit_and_activity_path(classroom_unit, activity)
       end
     end
 
     context 'student is not assigned to classroom_unit' do
-      it '' do
+      it 'redirects and raises an error' do
         subject
         expect(response).to redirect_to classes_path
         expect(flash[:error]).to match I18n.t('activity_link.errors.activity_not_assigned')
@@ -110,7 +109,8 @@ describe ActivitiesController, type: :controller, redis: true do
 
     context 'non-student user attempts to access link' do
       before { session[:user_id] = create(:teacher).id }
-      it '' do
+
+      it 'redirects the student to their profile' do
         subject
         expect(response).to redirect_to profile_path
       end
@@ -119,7 +119,7 @@ describe ActivitiesController, type: :controller, redis: true do
     context 'unit activity does not exist' do
       let(:another_activity) { create(:activity) }
 
-      it '' do
+      it 'redirects to the classrooms page' do
         get :activity_session, params: { id: another_activity.id, classroom_unit_id: classroom_unit.id }
         expect(response).to redirect_to classes_path
       end

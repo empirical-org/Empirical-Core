@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module CleverIntegration
-  class StudentUpdater
+  class StudentUpdater < ApplicationService
     attr_reader :clever_id, :data, :student, :username
 
     ACCOUNT_TYPE = ::User::CLEVER_ACCOUNT

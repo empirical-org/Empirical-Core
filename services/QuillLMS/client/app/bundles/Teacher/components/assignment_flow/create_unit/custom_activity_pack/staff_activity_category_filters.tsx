@@ -77,7 +77,8 @@ const StaffActivityCategoryFilterRow = ({
   }
 
   const activityCategoryNameElement = activityCategory.name.length * AVERAGE_FONT_WIDTH >= 160 ? <Tooltip tooltipText={activityCategory.name} tooltipTriggerText={activityCategory.name} tooltipTriggerTextClass="tooltip-trigger-text" /> : <span>{activityCategory.name}</span>
-  const DragHandle = SortableHandle(() => <img alt="Reorder icon" className="reorder-icon focus-on-light" src={reorderSrc} tabIndex={0} />);
+  // using a div as the outer element instead of a button here because something about default button behavior overrides the keypress handling by sortablehandle
+  const DragHandle = SortableHandle(() => <div className="focus-on-light" role="button" tabIndex={0}><img alt="Reorder icon" className="reorder-icon" src={reorderSrc} /></div>);
 
   if (inEditMode) {
     return (
@@ -190,26 +191,28 @@ const StaffActivityCategoryFilters = ({ activityCategoryEditor, filterActivities
   let createNewActivityCategoryButtonClassName = "quill-button primary contained fun"
   if (!newActivityCategoryName.length) { createNewActivityCategoryButtonClassName += ' disabled' }
 
-  return (<section className="filter-section staff-activity-category-filter-section">
-    <Snackbar text="Changes saved" visible={showSnackbar} />
-    <div className="name-and-clear-wrapper">
-      <h2>Concepts (Activity Category)
-        <Tooltip
-          tooltipText={activityCategoryTooltipText}
-          tooltipTriggerText={<i className="fal fa-info-circle" />}
+  return (
+    <section className="filter-section staff-activity-category-filter-section">
+      <Snackbar text="Changes saved" visible={showSnackbar} />
+      <div className="name-and-clear-wrapper">
+        <h2>Concepts (Activity Category)
+          <Tooltip
+            tooltipText={activityCategoryTooltipText}
+            tooltipTriggerText={<i className="fal fa-info-circle" />}
+          />
+        </h2>
+      </div>
+      {activityCategoryList}
+      <section className="create-activity-category-form">
+        <Input
+          handleChange={handleNewActivityCategoryNameChange}
+          label="Activity category"
+          value={newActivityCategoryName}
         />
-      </h2>
-    </div>
-    {activityCategoryList}
-    <section className="create-activity-category-form">
-      <Input
-        handleChange={handleNewActivityCategoryNameChange}
-        label="Activity category"
-        value={newActivityCategoryName}
-      />
-      <button className={createNewActivityCategoryButtonClassName} onClick={createNewActivityCategory}>Add</button>
+        <button className={createNewActivityCategoryButtonClassName} onClick={createNewActivityCategory}>Add</button>
+      </section>
     </section>
-  </section>)
+  )
 }
 
 export default StaffActivityCategoryFilters

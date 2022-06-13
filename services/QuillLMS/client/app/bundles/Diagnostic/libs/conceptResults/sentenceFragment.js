@@ -75,6 +75,6 @@ export function calculateCorrectnessOfSentence(attempt) {
   if (attempt && attempt.response && attempt.response.optimal !== undefined) {
     return attempt.response.optimal ? 1 : 0;
   } 
-    return 1;
+  return 1;
   
 }

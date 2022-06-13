@@ -9,7 +9,6 @@
 @import "components/landing-page-html";
 @import "components/multiple-choice";
 @import "components/_question_health";
-@import '~react-selectize/themes/index.css';
 @import '~react-select/dist/react-select.css';
 @import '~font-awesome/css/font-awesome.css';
 @import '../../../../../app/assets/stylesheets/shared/teacher-preview-menu.scss';
@@ -540,4 +539,9 @@ textarea.submission {
 .sider-container {
   background-color: white;
   width: 360px;
+}
+
+.select-search__option {
+  height: min-content;
+  padding: 8px 16px 8px 16px;
 }

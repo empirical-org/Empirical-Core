@@ -23,10 +23,9 @@ class UserSubscription < ApplicationRecord
   after_create :send_analytics
 
   def self.create_user_sub_from_school_sub_if_they_do_not_have_that_school_sub(user_id, subscription_id)
-      if !UserSubscription.where(user_id: user_id, subscription_id: subscription_id).exists?
-        # then the user does not have the school subscription yet
-        create_user_sub_from_school_sub(user_id, subscription_id)
-      end
+    return if UserSubscription.where(user_id: user_id, subscription_id: subscription_id).exists?
+
+    create_user_sub_from_school_sub(user_id, subscription_id)
   end
 
   def self.create_user_sub_from_school_sub(user_id, subscription_id)
@@ -36,14 +35,14 @@ class UserSubscription < ApplicationRecord
   end
 
   def send_premium_emails
-    if Rails.env.production? || User.find(user_id).email.match('quill.org')
-      if subscription.account_type.downcase != 'teacher trial' && subscription.school_subscriptions.empty?
-        #if subscription&.account_type&.downcase != 'teacher trial' && subscription&.school_subscriptions&.empty?
-        PremiumUserSubscriptionEmailWorker.perform_async(user_id)
-      elsif subscription.account_type.downcase != 'teacher trial'
-        logger.info("A premium school subscription email is being sent for Subscription #{subscription.id} and User #{user_id}")
-        PremiumSchoolSubscriptionEmailWorker.perform_async(user_id)
-      end
+    return unless Rails.env.production? || User.find(user_id).email.match('quill.org')
+
+    if subscription.account_type.downcase != 'teacher trial' && subscription.school_subscriptions.empty?
+      #if subscription&.account_type&.downcase != 'teacher trial' && subscription&.school_subscriptions&.empty?
+      PremiumUserSubscriptionEmailWorker.perform_async(user_id)
+    elsif subscription.account_type.downcase != 'teacher trial'
+      logger.info("A premium school subscription email is being sent for Subscription #{subscription.id} and User #{user_id}")
+      PremiumSchoolSubscriptionEmailWorker.perform_async(user_id)
     end
   end
 
@@ -55,5 +54,4 @@ class UserSubscription < ApplicationRecord
   def send_analytics
     PremiumAnalyticsWorker.perform_async(user_id, subscription&.account_type)
   end
-
 end

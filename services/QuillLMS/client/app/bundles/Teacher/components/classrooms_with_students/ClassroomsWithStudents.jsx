@@ -10,7 +10,7 @@ export default class ClassroomsWithStudents extends React.Component {
       data.create = true,
       data.unit_template_id = getParameterByName('unit_template_id');
       data.name = this.props.unitName,
-			data.activities = JSON.stringify(this.props.activityIds.split(',').map(actId => ({ id: actId, due_date: null, })));
+      data.activities = JSON.stringify(this.props.activityIds.split(',').map(actId => ({ id: actId, due_date: null, })));
     }
     return data;
   }
@@ -44,7 +44,7 @@ export default class ClassroomsWithStudents extends React.Component {
         classroomsWithNoAssignedStudents += 1;
       }
     }
-	);
+    );
     return classrooms_data;
   };
 
@@ -52,13 +52,13 @@ export default class ClassroomsWithStudents extends React.Component {
     if (!this.props.isSaveButtonEnabled) { return null }
     return (
       <EditStudentsButton
-        buttonText={'Assign Activity Pack'}
+        buttonText="Assign Activity Pack"
         dataFunc={this.ajaxData}
-        disabledText={'Add Students Before Assigning'}
+        disabledText="Add Students Before Assigning"
         enabled={this.props.isSaveButtonEnabled}
-        requestType={'POST'}
+        requestType="POST"
         successCallback={this.resetPage}
-        url={'/teachers/units'}
+        url="/teachers/units"
       />
     );
   }
@@ -74,11 +74,11 @@ export default class ClassroomsWithStudents extends React.Component {
   updateButton() {
     return (
       <EditStudentsButton
-        buttonText={'Update Students'}
+        buttonText="Update Students"
         dataFunc={this.ajaxData}
-        disabledText={'Edit Students Before Saving'}
+        disabledText="Edit Students Before Saving"
         enabled={this.props.isSaveButtonEnabled}
-        requestType={'PUT'}
+        requestType="PUT"
         successCallback={this.resetPage}
         url={`/teachers/units/${this.props.unitId}/update_classroom_unit_assigned_students`}
       />

@@ -47,6 +47,41 @@ describe UnitTemplate, redis: true, type: :model do
     end
   end
 
+  describe '#readability' do
+
+    it 'calculates readability range across activities by merging the lowest readability grade level and highest readability grade level' do
+      raw_score_one = create(:raw_score, :four_hundred_to_five_hundred)
+      raw_score_two = create(:raw_score, :eight_hundred_to_nine_hundred)
+
+      activity_one = create(:activity, raw_score: raw_score_one)
+      activity_two = create(:activity, raw_score: raw_score_two)
+
+      unit_template = create(:unit_template, activity_ids: [activity_one.id, activity_two.id])
+
+      expect(unit_template.readability).to eq("4th-7th")
+    end
+
+    it 'calculates readability as nil if the activities do not have readability' do
+      activity_one = create(:activity, raw_score: nil)
+      activity_two = create(:activity, raw_score: nil)
+
+      unit_template = create(:unit_template, activity_ids: [activity_one.id, activity_two.id])
+
+      expect(unit_template.readability).to eq(nil)
+    end
+
+    it 'calculates readability correctly if the activities all have the same readability' do
+      raw_score_one = create(:raw_score, :four_hundred_to_five_hundred)
+
+      activity_one = create(:activity, raw_score: raw_score_one)
+      activity_two = create(:activity, raw_score: raw_score_one)
+
+      unit_template = create(:unit_template, activity_ids: [activity_one.id, activity_two.id])
+
+      expect(unit_template.readability).to eq("4th-5th")
+    end
+  end
+
   describe '#related_models' do
     let!(:unit_template1) { create(:unit_template, unit_template_category_id: unit_template.unit_template_category_id) }
     let!(:unit_template2) { create(:unit_template) }
@@ -67,10 +102,6 @@ describe UnitTemplate, redis: true, type: :model do
     end
   end
 
-  describe '#activities' do
-    #TODO
-  end
-
   describe '#user_scope' do
     it 'should give the right unit template for the given flags' do
       expect(UnitTemplate.user_scope('alpha')).to eq(UnitTemplate.alpha_user)
@@ -83,7 +114,10 @@ describe UnitTemplate, redis: true, type: :model do
   describe '#get_cached_serialized_unit_template' do
     let(:category) { create(:unit_template_category) }
     let(:author) { create(:author) }
-    let(:activity) { create(:activity) }
+    let(:raw_score) { create(:raw_score, :five_hundred_to_six_hundred )}
+    let(:activity) { create(:activity, raw_score: raw_score) }
+    let(:topic) { create(:topic, level: 0) }
+    let!(:activity_topic) { create(:activity_topic, topic: topic, activity: activity) }
     let(:unit_template1) { create(:unit_template, author: author, unit_template_category: category, activities: [activity]) }
     let(:json) {
       {
@@ -104,19 +138,19 @@ describe UnitTemplate, redis: true, type: :model do
             key: activity.classification.key,
             id: activity.classification.id,
             name: activity.classification.name
-          }
+          },
+          readability: activity.readability_grade_level,
+          level_zero_topic_name: topic.name
         }],
+        diagnostics_recommended_by: [],
         activity_info: nil,
-        author: {
-          name: author.name,
-          avatar_url: author.avatar_url,
-        },
         created_at: unit_template1.created_at.to_i,
         grades: [],
         id: unit_template1.id,
         name: unit_template1.name,
         number_of_standards: 1,
         order_number: 999999999,
+        readability: activity.readability_grade_level,
         time: nil,
         unit_template_category: {
           primary_color: category.primary_color,
@@ -147,7 +181,7 @@ describe UnitTemplate, redis: true, type: :model do
 
   describe '#around_save callback' do
 
-    before(:each) do
+    before do
       $redis.redis.flushdb
       $redis.multi{
         $redis.set('beta_unit_templates', 'a')
@@ -161,23 +195,23 @@ describe UnitTemplate, redis: true, type: :model do
       flag_types = ['beta_unit_templates', 'production_unit_templates', 'gamma_unit_templates', 'alpha_unit_templates']
       exist_count = 0
       flag_types.each do |flag|
-        exist_count += $redis.exists(flag) ? 1 : 0
+        exist_count += $redis.exists(flag) == 1 ? 1 : 0
       end
       exist_count
     end
 
     it "deletes the cache of the saved unit" do
       $redis.set("unit_template_id:#{unit_template.id}_serialized", 'something')
-      expect($redis.exists("unit_template_id:#{unit_template.id}_serialized")).to be
+      expect($redis.exists("unit_template_id:#{unit_template.id}_serialized")).to eq(1)
       unit_template.update(name: 'something else')
-      expect($redis.exists("unit_template_id:#{unit_template.id}_serialized")).not_to be
+      expect($redis.exists("unit_template_id:#{unit_template.id}_serialized")).to eq(0)
     end
 
     it "deletes the cache of the saved unit's flag, or production before and after save" do
       expect(exist_count).to eq(4)
       unit_template.update(flag: 'beta')
       expect(exist_count).to eq(3)
-      expect($redis.exists('alpha_unit_templates')).to be
+      expect($redis.exists('alpha_unit_templates')).to eq(1)
       unit_template.update(flag: 'alpha')
       expect(exist_count).to eq(2)
     end

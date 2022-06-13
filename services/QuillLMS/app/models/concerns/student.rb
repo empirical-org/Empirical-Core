@@ -134,6 +134,7 @@ module Student
     end
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def merge_activity_sessions(secondary_account, teacher_id=nil)
     primary_account_activity_sessions = activity_sessions
     secondary_account_activity_sessions = secondary_account.activity_sessions
@@ -158,6 +159,7 @@ module Student
       end
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def remove_student_classrooms(teacher_id=nil)
     students_classrooms = StudentsClassrooms.where(student_id: id)

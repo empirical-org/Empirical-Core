@@ -1294,7 +1294,14 @@ exports[`adminContainer component should render with main sidebar when url does 
               </Switch>
               <Switch>
                 <Route
-                  component={[Function]}
+                  component={
+                    Object {
+                      "$$typeof": Symbol(react.memo),
+                      "WrappedComponent": [Function],
+                      "compare": null,
+                      "type": [Function],
+                    }
+                  }
                   computedMatch={
                     Object {
                       "isExact": true,
@@ -1521,6 +1528,11 @@ exports[`adminContainer component should render with main sidebar when url does 
                                       value="archived"
                                     >
                                       archived
+                                    </option>
+                                    <option
+                                      value="private"
+                                    >
+                                      private
                                     </option>
                                   </select>
                                 </span>

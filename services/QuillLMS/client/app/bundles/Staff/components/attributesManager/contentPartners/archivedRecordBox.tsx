@@ -57,48 +57,54 @@ const ArchivedRecordBox = ({ originalRecord, saveContentPartnerChanges, closeRec
   }
 
   function renderFields() {
-    return (<div>
-      <div className="record-input-container">
-        <Input
-          disabled={true}
-          label="Content Partner"
-          type='text'
-          value={record.name}
-        />
-        {renderArchivedOrLive()}
+    return (
+      <div>
+        <div className="record-input-container">
+          <Input
+            disabled={true}
+            label="Content Partner"
+            type='text'
+            value={record.name}
+          />
+          {renderArchivedOrLive()}
+        </div>
+        <div className="record-input-container description">
+          <TextArea
+            disabled={true}
+            label="Description"
+            type='text'
+            value={record.description}
+          />
+        </div>
       </div>
-      <div className="record-input-container description">
-        <TextArea
-          disabled={true}
-          label="Description"
-          type='text'
-          value={record.description}
-        />
-      </div>
-    </div>)
+    )
   }
 
   function renderSaveButton() {
-    return (<input
-      className="quill-button contained primary medium"
-      type="submit"
-      value="Unarchive, set live"
-    />)
+    return (
+      <input
+        className="quill-button contained primary medium"
+        type="submit"
+        value="Unarchive, set live"
+      />
+    )
   }
 
-  return (<div className="record-box">
-    <span className="close-record-box" onClick={closeRecordBox}><i className="fas fa-times" /></span>
-    <form acceptCharset="UTF-8" onSubmit={handleSubmit} >
-      <div className="static">
-        <p>Content Partner</p>
-        <h1>{record.name}</h1>
-      </div>
-      <div className="fields">
-        {renderFields()}
-        {renderSaveButton()}
-      </div>
-    </form>
-  </div>)
+  return (
+    <div className="record-box">
+      <span className="close-record-box" onClick={closeRecordBox}><i className="fas fa-times" /></span>
+      <form acceptCharset="UTF-8" onSubmit={handleSubmit} >
+        <div className="static">
+          <p>Content Partner</p>
+          <h1>{record.name}</h1>
+        </div>
+        <div className="fields">
+          {renderFields()}
+          {renderSaveButton()}
+        </div>
+      </form>
+    </div>
+  )
 }
 
 

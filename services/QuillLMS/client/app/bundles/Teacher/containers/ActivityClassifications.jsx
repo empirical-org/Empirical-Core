@@ -8,10 +8,12 @@ export default class ActivityClassifications extends React.Component {
   }
 
   resourceComponentGenerator(cmsComponent) {
-    return (<ActivityClassification
-      activityClassification={cmsComponent.state.resourceToEdit}
-      returnToIndex={cmsComponent.returnToIndex}
-    />)
+    return (
+      <ActivityClassification
+        activityClassification={cmsComponent.state.resourceToEdit}
+        returnToIndex={cmsComponent.returnToIndex}
+      />
+    )
   }
 
   render() {
@@ -23,6 +25,7 @@ export default class ActivityClassifications extends React.Component {
           resourceNamePlural='activity_classifications'
           resourceNameSingular='activity_classification'
         />
-      </div>);
+      </div>
+    );
   }
 }

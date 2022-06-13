@@ -13,7 +13,7 @@ import {
   ClassroomUnitId
 } from '../components/classroomLessons/interfaces';
 import {
- ClassroomLesson
+  ClassroomLesson
 } from '../interfaces/classroomLessons';
 import * as CustomizeIntf from '../interfaces/customize';
 import uuid from 'uuid/v4';
@@ -282,7 +282,7 @@ export function updateCurrentSlide(
 export function updateSlide(
   questionId: string,
   classroomSessionId: ClassroomSessionId
- ) {
+) {
   socket.instance.emit('updateClassroomLessonSession', {
     classroomSessionId,
     session: {
@@ -425,28 +425,28 @@ export function unpinActivityOnSaveAndExit(
   activityId: string,
   classroomUnitId: ClassroomUnitId
 ) {
-    let url = new URL('/api/v1/classroom_units/unpin_and_lock_activity', process.env.DEFAULT_URL);
-    const params = {
-      activity_id: activityId,
-      classroom_unit_id: classroomUnitId
-    };
-    Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
+  let url = new URL('/api/v1/classroom_units/unpin_and_lock_activity', process.env.DEFAULT_URL);
+  const params = {
+    activity_id: activityId,
+    classroom_unit_id: classroomUnitId
+  };
+  Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
 
-    fetch(url.href, {
-      method: 'PUT',
-      mode: 'cors',
-      credentials: 'include',
-      headers: {},
-    }).then((response) => {
-      if (!response.ok) {
-        throw Error(response.statusText);
-      }
-      return response.json();
-    }).then((response) => {
-      // to do - do something with this response
-    }).catch((error) => {
-      // to do - do something with this error
-    });
+  fetch(url.href, {
+    method: 'PUT',
+    mode: 'cors',
+    credentials: 'include',
+    headers: {},
+  }).then((response) => {
+    if (!response.ok) {
+      throw Error(response.statusText);
+    }
+    return response.json();
+  }).then((response) => {
+    // to do - do something with this response
+  }).catch((error) => {
+    // to do - do something with this error
+  });
 }
 
 export function toggleStudentFlag(

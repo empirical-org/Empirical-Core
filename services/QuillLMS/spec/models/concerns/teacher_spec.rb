@@ -46,7 +46,7 @@ describe User, type: :model do
         expect(teacher.classrooms_i_own_that_a_specific_user_coteaches_with_me(coteacher.id)).to eq([])
       end
 
-      it 'returns the classroom the user owns if they coteach that classroom with the coteacher_id ' do
+      it 'returns the classroom the user owns if they coteach that classroom with the coteacher_id' do
         ct = create(:classrooms_teacher, classroom: classroom, role: 'coteacher')
         coteacher = ct.user
         expect(teacher.classrooms_i_own_that_a_specific_user_coteaches_with_me(coteacher.id)).to eq([classroom])
@@ -126,6 +126,7 @@ describe User, type: :model do
     describe '#classrooms_i_coteach' do
       let!(:co_taught_classroom) {create(:classroom, :with_no_teacher)}
       let!(:co_taught_classrooms_teacher) {create(:classrooms_teacher, classroom: co_taught_classroom, user: teacher, role: 'coteacher')}
+
       it 'should return all visible classrooms associated with the teacher through classrooms teacher and role coteacher' do
         expect(teacher.classrooms_i_coteach).to match_array([co_taught_classroom])
         co_taught_classroom.update(visible: false)
@@ -153,12 +154,12 @@ describe User, type: :model do
     describe '#ids_of_classroom_teachers_and_coteacher_invitations_that_i_coteach_or_am_the_invitee_of' do
       let!(:co_taught_classroom) {create(:classroom, :with_no_teacher)}
       let!(:co_taught_classrooms_teacher) {create(:classrooms_teacher, classroom: co_taught_classroom, user: teacher, role: 'coteacher')}
-      let!(:co_taught_classrooms_teacher_2) {create(:classrooms_teacher, user: teacher, role: 'coteacher')}
+      let!(:co_taught_classrooms_teacher2) {create(:classrooms_teacher, user: teacher, role: 'coteacher')}
 
       let!(:pending_coteacher_invitation) {create(:pending_coteacher_invitation, inviter_id: teacher.id, invitee_email: co_taught_classrooms_teacher.user.email)}
-      let!(:pending_coteacher_invitation_2) {create(:pending_coteacher_invitation, invitee_email: co_taught_classrooms_teacher.user.email)}
+      let!(:pending_coteacher_invitation2) {create(:pending_coteacher_invitation, invitee_email: co_taught_classrooms_teacher.user.email)}
       let!(:coteacher_classroom_invitation) {create(:coteacher_classroom_invitation, invitation_id: pending_coteacher_invitation.id)}
-      let!(:coteacher_classroom_invitation_2) {create(:coteacher_classroom_invitation, invitation_id: pending_coteacher_invitation_2.id)}
+      let!(:coteacher_classroom_invitation2) {create(:coteacher_classroom_invitation, invitation_id: pending_coteacher_invitation2.id)}
 
       context 'with no passed classroom ids' do
         it "returns all the cotaught classrooms" do
@@ -172,23 +173,23 @@ describe User, type: :model do
 
       context 'with passed classroom ids' do
         it "returns cotaught classrooms if their classroom id is in the list" do
-          results = teacher.ids_of_classroom_teachers_and_coteacher_invitations_that_i_coteach_or_am_the_invitee_of([co_taught_classrooms_teacher_2.classroom_id])
-          expect(results[:classrooms_teachers_ids]).to include(co_taught_classrooms_teacher_2.id)
+          results = teacher.ids_of_classroom_teachers_and_coteacher_invitations_that_i_coteach_or_am_the_invitee_of([co_taught_classrooms_teacher2.classroom_id])
+          expect(results[:classrooms_teachers_ids]).to include(co_taught_classrooms_teacher2.id)
         end
 
         it "does not return cotaught classrooms if their classroom id is in the list" do
-          results = teacher.ids_of_classroom_teachers_and_coteacher_invitations_that_i_coteach_or_am_the_invitee_of([co_taught_classrooms_teacher_2.classroom_id])
+          results = teacher.ids_of_classroom_teachers_and_coteacher_invitations_that_i_coteach_or_am_the_invitee_of([co_taught_classrooms_teacher2.classroom_id])
           expect(results[:classrooms_teachers_ids]).to_not include(co_taught_classrooms_teacher.id)
         end
 
         it "returns coteacher classroom invitations if their classroom id is in the list" do
-          results = teacher.ids_of_classroom_teachers_and_coteacher_invitations_that_i_coteach_or_am_the_invitee_of([coteacher_classroom_invitation_2.classroom_id])
-          expect(results[:coteacher_classroom_invitations_ids]).to include(coteacher_classroom_invitation_2.id)
+          results = teacher.ids_of_classroom_teachers_and_coteacher_invitations_that_i_coteach_or_am_the_invitee_of([coteacher_classroom_invitation2.classroom_id])
+          expect(results[:coteacher_classroom_invitations_ids]).to include(coteacher_classroom_invitation2.id)
         end
 
-        it "does not return cotaught classrooms if their classroom id is in the list" do
+        it "does not return cotaught classroom invitations if their classroom id is in the list" do
           results = teacher.ids_of_classroom_teachers_and_coteacher_invitations_that_i_coteach_or_am_the_invitee_of([coteacher_classroom_invitation.classroom_id])
-          expect(results[:coteacher_classroom_invitations_ids]).to_not include(coteacher_classroom_invitation_2.id)
+          expect(results[:coteacher_classroom_invitations_ids]).to_not include(coteacher_classroom_invitation2.id)
         end
       end
     end
@@ -196,28 +197,28 @@ describe User, type: :model do
     describe '#handle_negative_classrooms_from_update_coteachers and #handle_positive_classrooms_from_update_coteachers' do
       let!(:co_taught_classroom) {create(:classroom, :with_no_teacher)}
       let!(:co_taught_classrooms_teacher) {create(:classrooms_teacher, classroom: co_taught_classroom, user: teacher, role: 'coteacher')}
-      let!(:co_taught_classrooms_teacher_2) {create(:classrooms_teacher, user: teacher, role: 'coteacher')}
+      let!(:co_taught_classrooms_teacher2) {create(:classrooms_teacher, user: teacher, role: 'coteacher')}
 
       let!(:pending_coteacher_invitation) {create(:pending_coteacher_invitation, inviter_id: teacher.id, invitee_email: co_taught_classrooms_teacher.user.email)}
-      let!(:pending_coteacher_invitation_2) {create(:pending_coteacher_invitation, invitee_email: co_taught_classrooms_teacher.user.email)}
+      let!(:pending_coteacher_invitation2) {create(:pending_coteacher_invitation, invitee_email: co_taught_classrooms_teacher.user.email)}
       let!(:coteacher_classroom_invitation) {create(:coteacher_classroom_invitation, invitation_id: pending_coteacher_invitation.id)}
-      let!(:coteacher_classroom_invitation_2) {create(:coteacher_classroom_invitation, invitation_id: pending_coteacher_invitation_2.id)}
+      let!(:coteacher_classroom_invitation2) {create(:coteacher_classroom_invitation, invitation_id: pending_coteacher_invitation2.id)}
 
       context '#handle_negative_classrooms_from_update_coteachers' do
         it "deletes only the passed classrooms from invitations, leaving other ones unaffected" do
           expect(CoteacherClassroomInvitation.exists?(id: coteacher_classroom_invitation.id)).to be
-          expect(CoteacherClassroomInvitation.exists?(id: coteacher_classroom_invitation_2.id)).to be
+          expect(CoteacherClassroomInvitation.exists?(id: coteacher_classroom_invitation2.id)).to be
           teacher.handle_negative_classrooms_from_update_coteachers([coteacher_classroom_invitation.classroom_id])
           expect(CoteacherClassroomInvitation.exists?(id: coteacher_classroom_invitation.id)).to_not be
-          expect(CoteacherClassroomInvitation.exists?(id: coteacher_classroom_invitation_2.id)).to be
+          expect(CoteacherClassroomInvitation.exists?(id: coteacher_classroom_invitation2.id)).to be
         end
 
         it "deletes only the passed classroom from coteacher relations, leaving other ones unaffected" do
           expect(ClassroomsTeacher.exists?(id: co_taught_classrooms_teacher.id)).to be
-          expect(ClassroomsTeacher.exists?(id: co_taught_classrooms_teacher_2.id)).to be
+          expect(ClassroomsTeacher.exists?(id: co_taught_classrooms_teacher2.id)).to be
           teacher.handle_negative_classrooms_from_update_coteachers([co_taught_classrooms_teacher.classroom_id])
           expect(ClassroomsTeacher.exists?(id: co_taught_classrooms_teacher.id)).to_not be
-          expect(ClassroomsTeacher.exists?(id: co_taught_classrooms_teacher_2.id)).to be
+          expect(ClassroomsTeacher.exists?(id: co_taught_classrooms_teacher2.id)).to be
         end
       end
 
@@ -241,7 +242,7 @@ describe User, type: :model do
     end
 
     describe '#archived_classrooms' do
-      it 'returns an array of teachers archived classes if extant' do
+      it 'returns an array of teachers archived classes if existing' do
         classroom.update(visible: false)
         expect(teacher.archived_classrooms).to eq([classroom])
       end
@@ -263,6 +264,7 @@ describe User, type: :model do
           # for some reason Rspec was setting expiration as today if I set it at Date.yesterday, so had to minus 1 from yesterday
           let!(:subscription) { create(:subscription, expiration: Date.yesterday - 1, account_type: 'Teacher Paid') }
           let!(:user_subscription) { create(:user_subscription, user_id: teacher.id, subscription: subscription) }
+
           it 'returns false' do
             expect(teacher.reload.is_premium?).to be false
           end
@@ -303,7 +305,7 @@ describe User, type: :model do
     end
 
     describe '#updated_school' do
-      let!(:queens_teacher_2) { create(:teacher) }
+      let!(:queens_teacher2) { create(:teacher) }
       let!(:queens_subscription) { create(:subscription) }
       let!(:queens_school) { create :school, name: 'Queens Charter School', zipcode: '11385' }
       let!(:queens_school_sub) { create(:school_subscription, subscription_id: queens_subscription.id, school_id: queens_school.id) }
@@ -315,7 +317,7 @@ describe User, type: :model do
       let!(:subscription) { create(:subscription) }
       let!(:brooklyn_subscription) { create(:subscription) }
       let!(:brooklyn_school_sub) { create(:school_subscription, subscription_id: brooklyn_subscription.id, school_id: brooklyn_school.id) }
-      let!(:queens_teacher_2_user_sub) { create(:user_subscription, user_id: queens_teacher_2.id, subscription_id: queens_subscription.id) }
+      let!(:queens_teacher2_user_sub) { create(:user_subscription, user_id: queens_teacher2.id, subscription_id: queens_subscription.id) }
 
       context 'when the school has no subscription' do
         it 'does nothing to the teachers personal subscription' do
@@ -340,15 +342,15 @@ describe User, type: :model do
           let!(:user_sub) {create(:user_subscription, subscription: create(:subscription), user: teacher)}
 
           it "deletes the teacher's user_sub when the teachers changes school" do
-            expect(queens_teacher_2_user_sub).to be
-            queens_teacher_2.updated_school(brooklyn_school.id)
-            expect(UserSubscription.find_by(id: queens_teacher_2_user_sub.id)).not_to be
+            expect(queens_teacher2_user_sub).to be
+            queens_teacher2.updated_school(brooklyn_school.id)
+            expect(UserSubscription.find_by(id: queens_teacher2_user_sub.id)).not_to be
           end
 
           it "updates the teacher's subscription when the teacher changes school" do
-            expect(queens_teacher_2.subscription).to eq(queens_subscription)
-            queens_teacher_2.updated_school(brooklyn_school.id)
-            expect(queens_teacher_2.reload.subscription).to eq(brooklyn_subscription)
+            expect(queens_teacher2.subscription).to eq(queens_subscription)
+            queens_teacher2.updated_school(brooklyn_school.id)
+            expect(queens_teacher2.reload.subscription).to eq(brooklyn_subscription)
           end
 
           it "the school subscription becomes the teacher's subscription if they had teacher premium" do
@@ -360,17 +362,17 @@ describe User, type: :model do
 
         describe 'and the teacher already has that school subscription' do
           it 'the user does not get a new subscription' do
-            prev_subscription = queens_teacher_2.subscription
-            queens_teacher_2.updated_school(queens_school.id)
-            expect(queens_teacher_2.reload.subscription).to eq(prev_subscription)
+            prev_subscription = queens_teacher2.subscription
+            queens_teacher2.updated_school(queens_school.id)
+            expect(queens_teacher2.reload.subscription).to eq(prev_subscription)
           end
         end
 
         describe 'and the user does not have a subscription' do
           it 'the user gets the school subscription' do
-            queens_teacher_2.user_subscriptions.destroy
-            queens_teacher_2.updated_school(brooklyn_school.id)
-            expect(queens_teacher_2.reload.subscription).to eq(brooklyn_school.subscription)
+            queens_teacher2.user_subscriptions.destroy
+            queens_teacher2.updated_school(brooklyn_school.id)
+            expect(queens_teacher2.reload.subscription).to eq(brooklyn_school.subscription)
           end
         end
       end
@@ -378,24 +380,12 @@ describe User, type: :model do
 
     describe '#premium_state' do
       context 'user has or had a subscription' do
-        let!(:subscription) { create(:subscription, expiration: Date.today + 1, account_type: 'Teacher Trial') }
+        let!(:subscription) { create(:subscription, expiration: 1.day.from_now.to_date, account_type: 'Teacher Trial') }
         let!(:user_subscription) { create(:user_subscription, user_id: teacher.id, subscription: subscription) }
+
         context 'user is on a valid trial' do
           it "returns 'trial'" do
-            subscription.update(account_type: 'trial')
-            expect(teacher.premium_state).to eq('trial')
-
             subscription.update(account_type: 'Teacher Trial')
-            expect(teacher.premium_state).to eq('trial')
-          end
-        end
-
-        context 'user has been on a COVID premium subscription' do
-          it "returns 'trial'" do
-            subscription.update(account_type: Subscription::COVID_19_SUBSCRIPTION_TYPE)
-            expect(teacher.premium_state).to eq('trial')
-
-            subscription.update(account_type: Subscription::COVID_19_SCHOOL_SUBSCRIPTION_TYPE)
             expect(teacher.premium_state).to eq('trial')
           end
         end
@@ -424,15 +414,31 @@ describe User, type: :model do
     end
 
     describe '#google_classrooms' do
-      let(:google_classroom) { create(:classroom, :from_google) }
+      let!(:google_classroom) { create(:classroom, :from_google) }
+      let!(:archived_google_classroom) { create(:classroom, :from_google, :with_no_teacher, :archived) }
       let(:google_classroom_teacher) { google_classroom.owner }
 
-      it "should return all the teacher's google classrooms" do
-        expect(google_classroom_teacher.google_classrooms).to eq([google_classroom])
+      before { create(:classrooms_teacher, user: google_classroom_teacher, classroom: archived_google_classroom) }
+
+      it "should return all the teacher's visible google classrooms" do
+        expect(google_classroom_teacher.google_classrooms).to match_array [google_classroom]
       end
 
       it 'should return empty if there are no google classrooms' do
-        expect(teacher.google_classrooms).to eq([])
+        expect(teacher.google_classrooms).to eq []
+      end
+    end
+
+    describe '#clever_classrooms' do
+      let(:clever_classroom) { create(:classroom, :from_clever) }
+      let(:clever_classroom_teacher) { clever_classroom.owner }
+
+      it "should return all the teacher's clever classrooms" do
+        expect(clever_classroom_teacher.clever_classrooms).to eq [clever_classroom]
+      end
+
+      it 'should return empty if there are no clever classrooms' do
+        expect(teacher.clever_classrooms).to eq []
       end
     end
 
@@ -478,7 +484,7 @@ describe User, type: :model do
       it 'should return classrooms and students if the teacher is a coteacher' do
         coteacher = create(:classrooms_teacher, classroom: classroom, role: 'coteacher').user
         response = coteacher.classrooms_i_am_the_coteacher_for_with_a_specific_teacher_with_students(teacher.id)
-        expect(response).to include(classroom.attributes.merge(students: classroom.students))
+        expect(response).to include(classroom.reload.attributes.merge(students: classroom.students))
       end
 
       it 'should return an empty array if user does not coteach with the teacher' do
@@ -509,6 +515,7 @@ describe User, type: :model do
 
     describe '#referral_code' do
       let!(:referral_code) { teacher.referrer_user.referral_code }
+
       it 'returns the appropriate referral code' do
         expect(teacher.referral_code).to be(referral_code)
       end
@@ -552,7 +559,7 @@ describe User, type: :model do
       it 'should return only the correct students assigned' do
         student_ids = assigned_units.pluck(:assigned_student_ids).flatten
 
-        other_teacher = create(:teacher, :with_classrooms_students_and_activities) 
+        other_teacher = create(:teacher, :with_classrooms_students_and_activities)
         other_assigned_activities_ids = other_teacher.assigned_students_per_activity_assigned.pluck(:id)
         other_student_ids = other_teacher.assigned_students_per_activity_assigned
           .pluck(:assigned_student_ids)

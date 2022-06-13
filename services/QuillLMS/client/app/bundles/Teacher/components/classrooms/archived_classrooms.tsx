@@ -1,9 +1,9 @@
 import * as React from 'react'
-import { Snackbar, defaultSnackbarTimeout } from '../../../Shared/index'
 
 import Classroom from './classroom'
 import UnarchiveClassroomModal from './unarchive_classroom_modal'
 
+import { Snackbar, defaultSnackbarTimeout } from '../../../Shared/index'
 import { requestGet } from '../../../../modules/request/index.js';
 
 interface ArchivedClassroomsProps {
@@ -49,7 +49,9 @@ export default class ArchivedClassrooms extends React.Component<ArchivedClassroo
   }
 
   clickClassroomHeader(classroomId) {
-    if (this.state.selectedClassroomId === classroomId) {
+    const { selectedClassroomId } = this.state
+
+    if (selectedClassroomId === classroomId) {
       this.setState({ selectedClassroomId: null})
     } else {
       this.setState({ selectedClassroomId: classroomId })
@@ -83,17 +85,19 @@ export default class ArchivedClassrooms extends React.Component<ArchivedClassroo
     const { showModal, classrooms, selectedClassroomId } = this.state
     if (showModal === unarchiveClassroomModal) {
       const selectedClassroom = classrooms.find(c => c.id === selectedClassroomId)
-      return (<UnarchiveClassroomModal
-        classroom={selectedClassroom}
-        close={this.closeModal}
-        onSuccess={this.onSuccess}
-      />)
+      return (
+        <UnarchiveClassroomModal
+          classroom={selectedClassroom}
+          close={this.closeModal}
+          onSuccess={this.onSuccess}
+        />
+      )
     }
   }
 
   renderPageContent() {
     const { user } = this.props
-    const { classrooms } = this.state
+    const { classrooms, selectedClassroomId } = this.state
     const ownArchivedClassrooms = classrooms.filter(c => {
       const classroomOwner = c.teachers.find(teacher => teacher.classroom_relation === 'owner')
       return !c.visible && classroomOwner.id === user.id
@@ -103,43 +107,54 @@ export default class ArchivedClassrooms extends React.Component<ArchivedClassroo
     } else {
       const classroomCards = classrooms.map(classroom => {
         const isOwnedByCurrentUser = !!ownArchivedClassrooms.find(c => c.id === classroom.id)
-        return (<Classroom
-          classroom={classroom}
-          classrooms={ownArchivedClassrooms}
-          clickClassroomHeader={this.clickClassroomHeader}
-          isOwnedByCurrentUser={isOwnedByCurrentUser}
-          onSuccess={this.onSuccess}
-          selected={classroom.id === this.state.selectedClassroomId}
-          unarchiveClass={() => this.openModal(unarchiveClassroomModal)}
-          user={user}
-        />)
+        return (
+          <Classroom
+            classroom={classroom}
+            classrooms={ownArchivedClassrooms}
+            clickClassroomHeader={this.clickClassroomHeader}
+            isOwnedByCurrentUser={isOwnedByCurrentUser}
+            key={classroom.id}
+            onSuccess={this.onSuccess}
+            selected={classroom.id === selectedClassroomId}
+            unarchiveClass={() => this.openModal(unarchiveClassroomModal)}
+            user={user}
+          />
+        )
       })
-      return (<div className="archived-classes">
-        {classroomCards}
-      </div>)
+      return (
+        <div className="archived-classes">
+          {classroomCards}
+        </div>
+      )
     }
   }
 
   renderHeader() {
     const { classrooms } = this.state
     if (classrooms.length) {
-      return (<div className="header">
-        <h1>Archived Classes</h1>
-      </div>)
+      return (
+        <div className="header">
+          <h1>Archived Classes</h1>
+        </div>
+      )
     } else {
-      return (<div className="header">
-        <h1>No archived classes</h1>
-        <p>When you archive a class, you'll see it listed here.</p>
-      </div>)
+      return (
+        <div className="header">
+          <h1>No archived classes</h1>
+          <p>When you archive a class, you will see it listed here.</p>
+        </div>
+      )
     }
   }
 
   render() {
-    return (<div className="archived-classrooms classrooms-page">
-      {this.renderUnarchiveClassroomModal()}
-      {this.renderSnackbar()}
-      {this.renderHeader()}
-      {this.renderPageContent()}
-    </div>)
+    return (
+      <div className="archived-classrooms classrooms-page">
+        {this.renderUnarchiveClassroomModal()}
+        {this.renderSnackbar()}
+        {this.renderHeader()}
+        {this.renderPageContent()}
+      </div>
+    )
   }
 }

@@ -36,7 +36,7 @@ shared_context 'Activity Progress Report' do
       percentage: 0.777778,
       user: student_in_classroom_one,
       classroom_unit: classroom_unit_one,
-      completed_at: Time.now
+      completed_at: Time.current
     )
   end
 
@@ -46,7 +46,7 @@ shared_context 'Activity Progress Report' do
       percentage: 0.75,
       user: student_in_classroom_two,
       classroom_unit: classroom_unit_two,
-      completed_at: Time.now
+      completed_at: Time.current
     )
   end
 

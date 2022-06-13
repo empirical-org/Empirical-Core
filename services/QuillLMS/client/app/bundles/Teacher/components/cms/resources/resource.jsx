@@ -7,9 +7,9 @@ export default class Resource extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.initializeModules();
-    var model1 = _.extend(props.initialModel, props.resource);
+    let model1 = _.extend(props.initialModel, props.resource);
 
-    var hash = {
+    let hash = {
       model: model1
     };
     this.state = hash;
@@ -33,24 +33,24 @@ export default class Resource extends React.Component {
   };
 
   updateModelState = (key, value) => {
-    var newState = this.state;
+    let newState = this.state;
     newState.model[key] = value;
     this.setState(newState);
   };
 
   addNestedResource = (kind, resource) => {
-    var newModel = this.modules.nestedResources[kind].add(resource)
+    let newModel = this.modules.nestedResources[kind].add(resource)
     this.nestedResourceSaveHelper(newModel)
   };
 
   removeNestedResourceAndSave = (kind, resource) => {
-    var newModel = this.modules.nestedResources[kind].remove(resource)
+    let newModel = this.modules.nestedResources[kind].remove(resource)
     this.nestedResourceSaveHelper(newModel)
   };
 
   nestedResourceSaveHelper = (newModel) => {
-    var data = _.pick(newModel, this.props.savingKeys)
-    var options = {
+    let data = _.pick(newModel, this.props.savingKeys)
+    let options = {
       callback: this.updateModelSaveCallback,
       savingKeys: this.props.savingKeys,
       fieldsToNormalize: this.props.fieldsToNormalize
@@ -63,8 +63,8 @@ export default class Resource extends React.Component {
   };
 
   save = () => {
-    var data = _.pick(this.state.model, this.props.savingKeys);
-    var options = {
+    let data = _.pick(this.state.model, this.props.savingKeys);
+    let options = {
       callback: this.props.returnToIndex,
       savingKeys: this.props.savingKeys,
       fieldsToNormalize: this.props.fieldsToNormalize
@@ -73,12 +73,12 @@ export default class Resource extends React.Component {
   };
 
   render() {
-    var inputs = this.modules.textInputGenerator.generate(this.props.formFields);
+    let inputs = this.modules.textInputGenerator.generate(this.props.formFields);
     let nestedResources
     if (this.props.nestedResources) {
       nestedResources = this.props.nestedResources.map((nr, index)=>{
-        var resources = this.state.model[nr.name];
-        var data = _.extend(nr, {resources: resources});
+        let resources = this.state.model[nr.name];
+        let data = _.extend(nr, {resources: resources});
         return <CmsNestedResource actions={{save: this.addNestedResource, delete: this.removeNestedResourceAndSave}} data={data} key={index} />;
       });
     }

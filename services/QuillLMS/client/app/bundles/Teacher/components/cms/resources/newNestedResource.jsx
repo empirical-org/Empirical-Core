@@ -14,7 +14,7 @@ export default class NewNestedResource extends React.Component {
   }
 
   updateModelState = (key, value) => {
-    var model = this.state.model;
+    let model = this.state.model;
     model[key] = value;
     this.setState({model: model});
   };
@@ -24,7 +24,7 @@ export default class NewNestedResource extends React.Component {
   };
 
   render() {
-    var inputs = this.modules.textInputGenerator.generate(this.props.data.formFields)
+    let inputs = this.modules.textInputGenerator.generate(this.props.data.formFields)
     return (
       <div>
         <h5> Add New : </h5>

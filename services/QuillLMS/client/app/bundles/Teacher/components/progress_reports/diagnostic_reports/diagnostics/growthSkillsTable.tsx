@@ -23,18 +23,20 @@ const GrowthSkillsTable = ({ skillGroup, isExpandable, }: { skillGroup: SkillGro
     const preSummaryClassName = pre.summary === FULLY_CORRECT ? 'fully-correct' : ''
     let postSummaryClassName = post.summary === FULLY_CORRECT ? 'fully-correct' : ''
     postSummaryClassName += showSkillGainedTag ? ' contains-skill-gained-tag' : ''
-    return (<tr key={pre.skill}>
-      <td>{pre.skill}</td>
-      <td><div className="no-left-padding"><span>Pre</span><span>Post</span></div></td>
-      <td className="center-align"><div><span>{pre.number_correct}</span><span>{post.number_correct}</span></div></td>
-      <td className="center-align"><div><span>{pre.number_incorrect}</span><span>{post.number_incorrect}</span></div></td>
-      <td>
-        <div>
-          <span className={preSummaryClassName}>{pre.summary}</span>
-          <span className={postSummaryClassName}>{post.summary}{showSkillGainedTag}</span>
-        </div>
-      </td>
-    </tr>)
+    return (
+      <tr key={pre.skill}>
+        <td>{pre.skill}</td>
+        <td><div className="no-left-padding"><span>Pre</span><span>Post</span></div></td>
+        <td className="center-align"><div><span>{pre.number_correct}</span><span>{post.number_correct}</span></div></td>
+        <td className="center-align"><div><span>{pre.number_incorrect}</span><span>{post.number_incorrect}</span></div></td>
+        <td>
+          <div>
+            <span className={preSummaryClassName}>{pre.summary}</span>
+            <span className={postSummaryClassName}>{post.summary}{showSkillGainedTag}</span>
+          </div>
+        </td>
+      </tr>
+    )
   })
 
   const displayedRows = isExpandable && !isExpanded ? skillRows.splice(0, DEFAULT_ROW_COUNT) : skillRows
@@ -42,21 +44,23 @@ const GrowthSkillsTable = ({ skillGroup, isExpandable, }: { skillGroup: SkillGro
 
   const tableClassName = isExpandable && !isExpanded ? 'contracted' : ''
 
-  return (<div className="skills-table-container">
-    <table className={`growth-skills-table ${tableClassName}`}>
-      <thead>
-        <tr>
-          <th className="skill-column-header">Skill</th>
-          <th />
-          <th>Correct</th>
-          <th>Incorrect</th>
-          <th className="summary-header">Summary</th>
-        </tr>
-      </thead>
-      <tbody>{displayedRows}</tbody>
-    </table>
-    {showMoreButton}
-  </div>)
+  return (
+    <div className="skills-table-container">
+      <table className={`growth-skills-table ${tableClassName}`}>
+        <thead>
+          <tr>
+            <th className="skill-column-header">Skill</th>
+            <th />
+            <th>Correct</th>
+            <th>Incorrect</th>
+            <th className="summary-header">Summary</th>
+          </tr>
+        </thead>
+        <tbody>{displayedRows}</tbody>
+      </table>
+      {showMoreButton}
+    </div>
+  )
 }
 
 export default GrowthSkillsTable

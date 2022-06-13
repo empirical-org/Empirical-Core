@@ -12,14 +12,14 @@ export default function (currentstate, action) {
       newstate = _.cloneDeep(currentstate);
       newstate.questions = action.data
       return newstate;
-      case C.SUCCESSFULLY_CLONED_CONNECT_FILL_IN_BLANK_QUESTION:
-        newstate = _.cloneDeep(currentstate);
-        newstate.message = 'You have successfully cloned this Fill In The Blank Question!'
-        return newstate
-      case C.ERROR_CLONING_CONNECT_FILL_IN_BLANK_QUESTION:
-        newstate = _.cloneDeep(currentstate);
-        newstate.error = 'There was a problem cloning this Fill In The Blank question.'
-        return newstate
+    case C.SUCCESSFULLY_CLONED_CONNECT_FILL_IN_BLANK_QUESTION:
+      newstate = _.cloneDeep(currentstate);
+      newstate.message = 'You have successfully cloned this Fill In The Blank Question!'
+      return newstate
+    case C.ERROR_CLONING_CONNECT_FILL_IN_BLANK_QUESTION:
+      newstate = _.cloneDeep(currentstate);
+      newstate.error = 'There was a problem cloning this Fill In The Blank question.'
+      return newstate
     default: return currentstate || initialState.questions;
   }
 }

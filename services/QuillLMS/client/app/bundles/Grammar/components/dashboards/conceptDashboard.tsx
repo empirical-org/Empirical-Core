@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as Redux from "redux";
-import ReactTable from 'react-table';
+;
 import { connect } from 'react-redux';
 import DashboardFilters from './dashboardFilters'
 import LoadingSpinner from '../shared/loading_spinner'
@@ -8,6 +8,7 @@ import * as QuestionAndConceptMapActions from '../../actions/questionAndConceptM
 import { QuestionAndConceptMapReducerState } from '../../reducers/questionAndConceptMapReducer'
 import { DashboardConceptRow, DashboardActivity } from '../../interfaces/dashboards'
 import Constants from '../../constants'
+import { ReactTable, } from '../../../Shared/index'
 
 const { PRODUCTION, GAMMA, BETA, ALPHA, ARCHIVED, NONE, } = Constants
 
@@ -39,7 +40,7 @@ class ConceptDashboard extends React.Component<ConceptDashboardProps, ConceptDas
         Header: 'Concept',
         accessor: 'name',
         resizable: false,
-        Cell: (row: { original: DashboardConceptRow}) => {
+        Cell: ({row}) => {
           const { link, name, } = row.original
           return <a href={link}>{name}</a>
         },
@@ -47,8 +48,8 @@ class ConceptDashboard extends React.Component<ConceptDashboardProps, ConceptDas
         Header: 'Explicitly Assigned Activities',
         accessor: 'explicitlyAssignedActivities',
         resizable: false,
-        sortMethod: this.sortActivityArray,
-        Cell: (row: { original: DashboardConceptRow}) => {
+        sortType: this.sortActivityArray,
+        Cell: ({row}) => {
           const explicitlyAssignedActivities = row.original.explicitlyAssignedActivities || []
           return this.filterActivities(explicitlyAssignedActivities).map((act: DashboardActivity) => <a className="activity-link" href={act.link}>{act.title}</a>)
         },
@@ -56,8 +57,8 @@ class ConceptDashboard extends React.Component<ConceptDashboardProps, ConceptDas
         Header: 'Implicitly Assigned Activities',
         accessor: 'implicitlyAssignedActivities',
         resizable: false,
-        sortMethod: this.sortActivityArray,
-        Cell: (row: { original: DashboardConceptRow}) => {
+        sortType: this.sortActivityArray,
+        Cell: ({row}) => {
           const implicitlyAssignedActivities = row.original.implicitlyAssignedActivities || []
           return this.filterActivities(implicitlyAssignedActivities).map((act: DashboardActivity) => <a className="activity-link" href={act.link}>{act.title}</a>)
         },
@@ -76,10 +77,10 @@ class ConceptDashboard extends React.Component<ConceptDashboardProps, ConceptDas
     if (!(activityArrayB && activityArrayB.length)) { return 1 }
     if (!(activityArrayA && activityArrayA.length)) { return -1 }
 
-    const firstActivityInArrayA = activityArrayA.map(act => act.title).sort(this.defaultSort)[0]
-    const firstActivityInArrayB = activityArrayB.map(act => act.title).sort(this.defaultSort)[0]
+    const firstActivityInArrayA = activityArrayA.map(act => act.title).sort(this.stringSort)[0]
+    const firstActivityInArrayB = activityArrayB.map(act => act.title).sort(this.stringSort)[0]
 
-    return this.defaultSort(firstActivityInArrayA, firstActivityInArrayB)
+    return this.stringSort(firstActivityInArrayA, firstActivityInArrayB)
   }
 
   normalizeStringForSorting = (string: string) => {
@@ -90,9 +91,11 @@ class ConceptDashboard extends React.Component<ConceptDashboardProps, ConceptDas
     }
   }
 
-  defaultSort = (a: string, b: string) => {
-    return this.normalizeStringForSorting(a).localeCompare(this.normalizeStringForSorting(b))
+  defaultSort = (row1, row2, key) => {
+    return this.stringSort(row1.original[key], row2.original[key])
   }
+
+  stringSort(string1, string2) { return this.normalizeStringForSorting(string1).localeCompare(this.normalizeStringForSorting(string2)) }
 
   render() {
     const { questionAndConceptMap, } = this.props
@@ -102,38 +105,35 @@ class ConceptDashboard extends React.Component<ConceptDashboardProps, ConceptDas
       && questionAndConceptMap.data.conceptRows
       && questionAndConceptMap.data.conceptRows.length
     ) {
-      return (<div className="dashboard-table-container concept-dashboard" key={`${questionAndConceptMap.data.conceptRows.length}-length-for-activities-scores-by-classroom`}>
-        <DashboardFilters
-          allowedActivityFlags={allowedActivityFlags}
-          updateAllowedActivityFlags={this.updateAllowedActivityFlags}
-        />
-        <ReactTable
-          className="concept-dashboard-table"
-          columns={this.columns()}
-          data={questionAndConceptMap.data.conceptRows}
-          defaultPageSize={questionAndConceptMap.data.conceptRows.length}
-          defaultSorted={[{ id: 'name', desc: false, }]}
-          defaultSortMethod={this.defaultSort}
-          minRows={1}
-          showPageSizeOptions={false}
-          showPagination={false}
-        />
-      </div>);
+      return (
+        <div className="dashboard-table-container concept-dashboard" key={`${questionAndConceptMap.data.conceptRows.length}-length-for-activities-scores-by-classroom`}>
+          <DashboardFilters
+            allowedActivityFlags={allowedActivityFlags}
+            updateAllowedActivityFlags={this.updateAllowedActivityFlags}
+          />
+          <ReactTable
+            className="concept-dashboard-table"
+            columns={this.columns()}
+            data={questionAndConceptMap.data.conceptRows}
+            defaultSorted={[{ id: 'name', desc: false, }]}
+          />
+        </div>
+      );
     }
     return <LoadingSpinner />;
   };
 }
 
 const mapStateToProps = (state: any) => {
-    return {
-      questionAndConceptMap: state.questionAndConceptMap
-    };
+  return {
+    questionAndConceptMap: state.questionAndConceptMap
+  };
 };
 
 const mapDispatchToProps = (dispatch: Redux.Dispatch<any>) => {
-    return {
-        dispatch
-    };
+  return {
+    dispatch
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ConceptDashboard);

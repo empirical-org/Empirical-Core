@@ -7,6 +7,7 @@ Lesson.all.each do |lesson|
   if data["questions"].blank?
     next
   end
+
   first_question = data["questions"][0]
   question_type = first_question["questionType"]
   if question_type && question_type.empty?

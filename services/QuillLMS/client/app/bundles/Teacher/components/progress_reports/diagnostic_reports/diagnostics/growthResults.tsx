@@ -2,12 +2,12 @@ import * as React from 'react'
 import { withRouter, Link, } from 'react-router-dom';
 
 import {
-  triangleUpIcon,
-  noDataYet,
   fileDocumentIcon,
+  noProficiencyTag,
+  partialProficiencyTag,
+  gainedProficiencyTag,
+  maintainedProficiencyTag,
 } from './shared'
-import PercentageCircle from './percentageCircle'
-import SkillGroupTooltip from './skillGroupTooltip'
 import StudentResultsTable from './studentResultsTable'
 import {
   SkillGroupSummary,
@@ -18,76 +18,8 @@ import {
 import LoadingSpinner from '../../../shared/loading_indicator.jsx'
 import { requestGet } from '../../../../../../modules/request/index';
 import {
-  Tooltip,
   CLICK,
 } from '../../../../../Shared/index'
-
-const SkillGroupSummaryCard = ({ skillGroupSummary, completedStudentCount }: { skillGroupSummary: SkillGroupSummary, completedStudentCount: number }) => {
-  const { name, description, not_yet_proficient_in_post_test_student_names, not_yet_proficient_in_pre_test_student_names, } = skillGroupSummary
-  let cardContent = noDataYet
-
-  if (completedStudentCount) {
-    const numberOfStudentsNeedingPracticeInPost = not_yet_proficient_in_post_test_student_names.length
-    const postPercentageNotProficient = (numberOfStudentsNeedingPracticeInPost/completedStudentCount) * 100
-    const postPercentageProficient = 100 - Math.round(postPercentageNotProficient)
-    const numberOfStudentsNeedingPracticeInPre = not_yet_proficient_in_pre_test_student_names.length
-    const prePercentageNotProficient = (numberOfStudentsNeedingPracticeInPre/completedStudentCount) * 100
-    const prePercentageProficient = 100 - Math.round(prePercentageNotProficient)
-    const delta = prePercentageProficient ? ((postPercentageProficient - prePercentageProficient) / prePercentageProficient) * 100 : postPercentageProficient
-
-    let needPracticeElement = <span className="need-practice-element no-practice-needed">No practice needed</span>
-    let growthElement = delta > 0 ? <span className="growth-element">{triangleUpIcon}<span>{Math.round(delta)}% growth</span></span> : <span className="growth-element no-growth">No growth</span>
-
-    if (numberOfStudentsNeedingPracticeInPost) {
-      const tooltipText = `<p>${not_yet_proficient_in_post_test_student_names.join('<br>')}</p>`
-      const tooltipTriggerText = numberOfStudentsNeedingPracticeInPost === 1 ? "1 student needs practice" : `${numberOfStudentsNeedingPracticeInPost} students need practice`
-      needPracticeElement = (<Tooltip
-        tooltipText={tooltipText}
-        tooltipTriggerText={tooltipTriggerText}
-        tooltipTriggerTextClass="need-practice-element"
-      />)
-    }
-
-    cardContent = (<React.Fragment>
-      <div className="percentage-circles">
-        <div>
-          <span className="percentage-circle-label">Pre proficient</span>
-          <PercentageCircle
-            bgcolor="#ebebeb"
-            borderWidth={8}
-            color="#9e9e9e"
-            innerColor="#ffffff"
-            percent={prePercentageProficient}
-            radius={52}
-          />
-        </div>
-        <div>
-          <span className="percentage-circle-label">Post proficient</span>
-          <PercentageCircle
-            bgcolor="#ebebeb"
-            borderWidth={8}
-            color="#4ea500"
-            innerColor="#ffffff"
-            percent={postPercentageProficient}
-            radius={52}
-          />
-        </div>
-      </div>
-      <div className="card-footer">
-        {needPracticeElement}
-        {growthElement}
-      </div>
-    </React.Fragment>)
-  }
-
-  return (<section className="skill-group-summary-card">
-    <div className="card-header">
-      <span className="skill-group-name">{name}</span>
-      <SkillGroupTooltip description={description} name={name} />
-    </div>
-    {cardContent}
-  </section>)
-}
 
 export const GrowthResults = ({ passedStudentResults, passedSkillGroupSummaries, match, mobileNavigation, }) => {
   const [loading, setLoading] = React.useState<boolean>(!passedStudentResults);
@@ -129,29 +61,43 @@ export const GrowthResults = ({ passedStudentResults, passedSkillGroupSummaries,
     if (!openPopover.studentId) { return }
 
     const popoverElements = document.getElementsByClassName('student-results-popover')
-    if (popoverElements && !popoverElements[0].contains(e.target)) {
+    const studentRow = document.getElementById(String(openPopover.studentId))
+    if (popoverElements && (!popoverElements[0].contains(e.target) && !studentRow.contains(e.target))) {
       setOpenPopover({})
     }
   }
 
   if (loading) { return <LoadingSpinner /> }
 
-  const completedStudentCount = studentResults.filter(sr => sr.skill_groups).length
-
-  const skillGroupSummaryCards = skillGroupSummaries.map(skillGroupSummary => <SkillGroupSummaryCard completedStudentCount={completedStudentCount} key={skillGroupSummary.name} skillGroupSummary={skillGroupSummary} />)
-
-  return (<main className="results-summary-container growth-results-summary-container">
-    <header>
-      <h1>Growth results summary</h1>
-      <a className="focus-on-light" href="https://support.quill.org/en/articles/5698227-how-do-i-read-the-growth-results-summary-report" rel="noopener noreferrer" target="_blank">{fileDocumentIcon}<span>Guide</span></a>
-    </header>
-    {mobileNavigation}
-    <section className="skill-group-summary-cards">{skillGroupSummaryCards}</section>
-    <section className="student-results">
-      <h2>Student results</h2>
-      <StudentResultsTable openPopover={openPopover} responsesLink={responsesLink} setOpenPopover={setOpenPopover} skillGroupSummaries={skillGroupSummaries} studentResults={studentResults} />
-    </section>
-  </main>
+  return (
+    <main className="results-summary-container growth-results-summary-container">
+      <header className="results-header">
+        <h1>Student results</h1>
+        <a className="focus-on-light" href="https://support.quill.org/en/articles/5698227-how-do-i-read-the-growth-results-summary-report" rel="noopener noreferrer" target="_blank">{fileDocumentIcon}<span>Guide</span></a>
+      </header>
+      {mobileNavigation}
+      <section className="proficiency-keys">
+        <div className="proficiency-key">
+          {noProficiencyTag}
+          <p>The student did not use any of the skills correctly.</p>
+        </div>
+        <div className="proficiency-key">
+          {partialProficiencyTag}
+          <p>The student’s response contained some correct responses, but not all of the responses were marked correct.</p>
+        </div>
+        <div className="proficiency-key">
+          {maintainedProficiencyTag}
+          <p>The student used all skills correctly 100% of the time on both the baseline diagnostic and the growth diagnostic.</p>
+        </div>
+        <div className="proficiency-key">
+          {gainedProficiencyTag}
+          <p>The student used one or more skills incorrectly on the baseline diagnostic but used all skills correctly on the growth diagnostic.</p>
+        </div>
+      </section>
+      <section className="student-results">
+        <StudentResultsTable openPopover={openPopover} responsesLink={responsesLink} setOpenPopover={setOpenPopover} skillGroupSummaries={skillGroupSummaries} studentResults={studentResults} />
+      </section>
+    </main>
   )
 }
 

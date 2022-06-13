@@ -2,6 +2,7 @@
 
 exports[`WelcomeSlide Component should match snapshot 1`] = `
 <div
+  aria-live="polite"
   className="explanation-slide-container"
   id="welcome-slide-container"
 >
@@ -19,7 +20,7 @@ exports[`WelcomeSlide Component should match snapshot 1`] = `
       <p
         id="header"
       >
-        Welcome to Quill Evidence
+        Welcome to Quill Reading for Evidence
       </p>
     </section>
     <section
@@ -41,7 +42,7 @@ exports[`WelcomeSlide Component should match snapshot 1`] = `
         <img
           alt="A sample article about volcanoes showing a sentence highlighted with the cursor over the highlighted sentence"
           className="step-image"
-          src="undefined/images/comprehension/article-highlighted.svg"
+          src="undefined/images/evidence/article-highlighted.svg"
         />
       </div>
       <div
@@ -60,7 +61,7 @@ exports[`WelcomeSlide Component should match snapshot 1`] = `
         <img
           alt="A sample question asking a student to fill in the rest of a sentence"
           className="step-image"
-          src="undefined/images/comprehension/sentence-prompt.svg"
+          src="undefined/images/evidence/sentence-prompt.svg"
         />
       </div>
       <div
@@ -79,7 +80,7 @@ exports[`WelcomeSlide Component should match snapshot 1`] = `
         <img
           alt="A sample feedback asking a student to add more detail to their sentence"
           className="step-image"
-          src="undefined/images/comprehension/sentence-feedback.svg"
+          src="undefined/images/evidence/sentence-feedback.svg"
         />
       </div>
     </section>

@@ -31,7 +31,7 @@ class TitleCards extends React.Component<ComponentProps, any> {
     return (
       <section className="section">
         <div className="admin-container">
-          <Link to={'/admin/title-cards/new'}>
+          <Link to="/admin/title-cards/new">
             <button className="button is-primary">Create a New Title Card</button>
           </Link>
           <p className="menu-label">Title Cards</p>

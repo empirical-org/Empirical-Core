@@ -1,0 +1,134 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SubscriptionStatus container should render when the subscription is expired 1`] = `
+<SubscriptionStatus
+  showPurchaseModal={[Function]}
+  subscriptionStatus={
+    Object {
+      "account_type": "Teacher Paid",
+      "created_at": "2022-02-15T16:43:30.344Z",
+      "de_activated_date": null,
+      "expiration": "2022-02-15",
+      "expired": true,
+      "id": 5,
+      "mail_to": null,
+      "payment_amount": null,
+      "payment_method": null,
+      "purchaser_email": null,
+      "purchaser_id": null,
+      "purchaser_name": null,
+      "recurring": false,
+      "start_date": "2022-02-15",
+      "subscription_type_id": null,
+      "updated_at": "2022-02-15T16:43:30.344Z",
+    }
+  }
+  subscriptionType="Teacher Premium"
+  userIsContact={false}
+>
+  <section
+    className="subscription-status"
+  >
+    <div
+      className="flex-row space-between"
+    >
+      <div
+        className="box-and-h2 flex-row space-between"
+      >
+        <div
+          className="box"
+          style={
+            Object {
+              "backgroundColor": "#ff4542",
+            }
+          }
+        />
+        <h2>
+          <i
+            className="fas fa-exclamation-triangle"
+          />
+          Your Teacher Premium subscription has expired
+        </h2>
+      </div>
+      <StripeSubscriptionCheckoutSessionButton
+        buttonClassName="quill-button medium contained primary focus-on-light"
+        buttonText="Renew subscription"
+        cancelPath="subscriptions"
+        userIsEligibleForNewSubscription={true}
+        userIsSignedIn={true}
+      >
+        <button
+          className="quill-button medium contained primary focus-on-light"
+          onClick={[Function]}
+          type="button"
+        >
+          Renew subscription
+        </button>
+      </StripeSubscriptionCheckoutSessionButton>
+    </div>
+    <p>
+      <span>
+        <strong>
+          Your 
+          Teacher Premium
+           subscription (
+          02/15/22
+           - 
+          02/15/22
+          ) has expired and you are back to Quill Basic.
+        </strong>
+        <span>
+          Quill Basic provides access to all of Quill's content. To access Quill Premium, you can purchase an individual teacher subscription or a school subscription.
+        </span>
+      </span>
+    </p>
+  </section>
+</SubscriptionStatus>
+`;
+
+exports[`SubscriptionStatus container should render when there is no subscription 1`] = `
+<SubscriptionStatus
+  showPurchaseModal={[Function]}
+  subscriptionType="Basic"
+  userIsContact={false}
+>
+  <section
+    className="subscription-status"
+  >
+    <div
+      className="flex-row space-between"
+    >
+      <div
+        className="box-and-h2 flex-row space-between"
+      >
+        <div
+          className="box"
+          style={
+            Object {
+              "backgroundColor": "#00c2a2",
+            }
+          }
+        />
+        <h2>
+          You have a Basic subscription
+          <img
+            alt="Basic"
+            src="https://assets.quill.org/images/shared/basic_icon.png"
+          />
+        </h2>
+      </div>
+      <a
+        className="quill-button medium contained primary focus-on-light"
+        href="/premium"
+      >
+        Learn more about Quill Premium
+      </a>
+    </div>
+    <p>
+      <span>
+        Quill Basic provides access to all of Quill's content. To access Quill Premium, you can purchase an individual teacher subscription or a school subscription.
+      </span>
+    </p>
+  </section>
+</SubscriptionStatus>
+`;

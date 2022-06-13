@@ -8,7 +8,6 @@
 @import "components/landing-page-html";
 @import "components/_language-choices";
 @import "components/_question_health";
-@import '~react-selectize/themes/index.css';
 @import '~react-select/dist/react-select.css';
 @import '~font-awesome/css/font-awesome.css';
 @import '../../../../../app/assets/stylesheets/shared/teacher-preview-menu.scss';
@@ -199,110 +198,6 @@ textarea.submission {
     color: #fff; // $dropdown-link-hover-color;  // #fff
     background-color: #337ab7; // $dropdown-link-hover-bg;  // #337ab7
   }
-}
-
-/** The option list should not be visible by default */
-.select-search__select {
-  display: none;
-}
-
-.select-search__input {
-  display: block;
-  width: 74%;
-  height: 32px;
-  border: 1px solid #aaa;
-  border-radius: 3px;
-  background: white;
-  outline: none;
-  font-size: 14px;
-  padding-left: 8px;
-  color: #303030;
-  -webkit-appearance: textfield;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  font-weight: none;
-  position: relative;
-  z-index: 2;
-  cursor: pointer;
-  font-family: sans-serif;
-  line-height: 50px;
-  justify-content: flex-start;
-  padding-right: 36px
-}
-
-/** If it's a multiple select, you can style it with this selector */
-.select-search--multiple .select-search__select {
-  display: block;
-}
-
-/** The list receives the modifier class "display" when the select has focus */
-.select-search__select--display {
-  display: block;
-}
-
-
-
-/** UL with the options */
-.select-search-box__options {
-  max-height: 200px;
-  overflow: scroll;
-  background-color: white;
-  border: 1px solid grey;
-  padding-right: 36px;
-  width: 74%;
-}
-
-/** The option (LI), look at the state classes below */
-.select-search-box__option {
-  font-size: 14px;
-  font-weight: 400;
-  color: #616b74;
-  padding: 15px 15px;
-  box-shadow: 0 1px 0 rgba(0,0,0,.1);
-  cursor: pointer;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/** When the option has been selected */
-.select-search__option-box--selected {
-
-}
-
-/** When the option is selected (when navigation with the arrow keys, up/down) */
-.select-search-box__option--hover, .select-search-box__option:hover {
-  background-color: #a3e8dc;
-}
-
-.select-search-box__search {
-  display: block;
-  width: 74%;
-  height: 32px;
-  border: 1px solid #aaa;
-  border-radius: 3px;
-  background: white;
-  outline: none;
-  font-size: 14px;
-  padding-left: 8px;
-  color: #303030;
-  -webkit-appearance: textfield;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  font-weight: none;
-  position: relative;
-  z-index: 2;
-  cursor: pointer;
-  font-family: sans-serif;
-  line-height: 50px;
-  justify-content: flex-start;
-  padding-right: 36px
-}
-
-.select-search-box__select--display {
-  display: block;
 }
 
 .sortable-list-item {
@@ -523,4 +418,9 @@ textarea.submission {
   .header {
     padding: 0px 16px;
   }
+}
+
+.select-search__option {
+  height: min-content;
+  padding: 8px 16px 8px 16px;
 }

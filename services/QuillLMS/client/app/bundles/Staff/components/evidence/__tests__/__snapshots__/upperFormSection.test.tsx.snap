@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UpperFormSection component should render UpperFormSection 1`] = `
+<Fragment>
+  <Input
+    autoComplete="on"
+    className="title-input"
+    handleChange={[MockFunction]}
+    label="Activity Name"
+    value=""
+  />
+  <Input
+    autoComplete="on"
+    className="name-input"
+    handleChange={[MockFunction]}
+    label="Internal Name"
+    value=""
+  />
+  <div
+    className="button-and-id-container"
+  >
+    <section
+      className="label-status-container"
+    >
+      <p
+        id="label-status-label"
+      >
+        Parent Activity ID
+      </p>
+      <p
+        id="label-status"
+      >
+        1
+      </p>
+    </section>
+    <button
+      className="quill-button fun primary contained focus-on-light"
+      id="activity-submit-button"
+      onClick={[MockFunction]}
+      type="submit"
+    >
+      Save
+    </button>
+  </div>
+  <DropdownInput
+    className="flag-input"
+    handleChange={[MockFunction]}
+    label="Activity Flag"
+    options={
+      Array [
+        Object {
+          "label": "alpha",
+          "value": "alpha",
+        },
+        Object {
+          "label": "private",
+          "value": "private",
+        },
+        Object {
+          "label": "beta",
+          "value": "beta",
+        },
+        Object {
+          "label": "gamma",
+          "value": "gamma",
+        },
+        Object {
+          "label": "production",
+          "value": "production",
+        },
+        Object {
+          "label": "archived",
+          "value": "archived",
+        },
+      ]
+    }
+  />
+</Fragment>
+`;

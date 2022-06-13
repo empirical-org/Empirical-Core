@@ -3,14 +3,14 @@
 require 'rails_helper'
 
 describe Cms::SchoolsController do
+  let(:user) { create(:staff) }
+
+  before { allow(controller).to receive(:current_user) { user } }
+
   it { should use_before_action :signed_in! }
   it { should use_before_action :text_search_inputs }
   it { should use_before_action :set_school }
   it { should use_before_action :subscription_data }
-
-  let(:user) { create(:staff) }
-
-  before { allow(controller).to receive(:current_user) { user } }
 
   describe "SCHOOLS_PER_PAGE" do
     it 'should have the correct value' do
@@ -43,7 +43,8 @@ describe Cms::SchoolsController do
   end
 
   describe '#show' do
-    let!(:school) { create(:school) }
+    let!(:district) { create(:district) }
+    let!(:school) { create(:school, district: district) }
 
     it 'should assign the correct values' do
       allow_any_instance_of(Cms::TeacherSearchQuery).to receive(:run) { "teacher data" }
@@ -58,7 +59,7 @@ describe Cms::SchoolsController do
        'City' => school.city || school.mail_city,
        'State' => school.state || school.mail_state,
        'ZIP' => school.zipcode || school.mail_zipcode,
-       'District' => school.leanm,
+       'District' => school.district.name,
        'Free and Reduced Price Lunch' => "#{school.free_lunches}%",
        'NCES ID' => school.nces_id,
        'PPIN' => school.ppin,
@@ -66,12 +67,12 @@ describe Cms::SchoolsController do
       })
       expect(assigns(:teacher_data)).to eq "teacher data"
       expect(assigns(:admins)).to eq(SchoolsAdmins.includes(:user).where(school_id: school.id).map do |admin|
-        {
-            name: admin.user.name,
-            email: admin.user.email,
-            school_id: admin.school_id,
-            user_id: admin.user_id
-        }
+          {
+              name: admin.user.name,
+              email: admin.user.email,
+              school_id: admin.school_id,
+              user_id: admin.user_id
+          }
         end
       )
     end
@@ -88,7 +89,6 @@ describe Cms::SchoolsController do
           'School City' => :city,
           'School State' => :state,
           'School ZIP' => :zipcode,
-          'District Name' => :leanm,
           'FRP Lunch' => :free_lunches,
           'NCES ID' => :nces_id,
           'Clever ID' => :clever_id
@@ -106,15 +106,6 @@ describe Cms::SchoolsController do
     end
   end
 
-  describe '#edit_subscription' do
-    let!(:school) { create(:school) }
-
-    it 'should assing the subscription' do
-      get :edit_subscription, params: { id: school.id }
-      expect(assigns(:subscription)).to eq school.subscription
-    end
-  end
-
   describe '#create' do
     it 'should create the school with the given params' do
       post :create, params: { school: {
@@ -122,16 +113,23 @@ describe Cms::SchoolsController do
           city: "test city",
           state: "test state",
           zipcode: "1100",
-          leanm: "lean",
           free_lunches: 2
       } }
       expect(School.last.name).to eq "test"
       expect(School.last.city).to eq "test city"
       expect(School.last.state).to eq "test state"
       expect(School.last.zipcode).to eq "1100"
-      expect(School.last.leanm).to eq "lean"
       expect(School.last.free_lunches).to eq 2
       expect(response).to redirect_to cms_school_path(School.last.id)
+    end
+  end
+
+  describe '#edit_subscription' do
+    let!(:school) { create(:school) }
+
+    it 'should assing the subscription' do
+      get :edit_subscription, params: { id: school.id }
+      expect(assigns(:subscription)).to eq school.subscription
     end
   end
 
@@ -145,7 +143,7 @@ describe Cms::SchoolsController do
     describe 'when there is no existing subscription' do
       it 'should create a new subscription that starts today and ends at the promotional expiration date' do
         get :new_subscription, params: { id: school_with_no_subscription.id }
-        expect(assigns(:subscription).start_date).to eq Date.today
+        expect(assigns(:subscription).start_date).to eq Date.current
         expect(assigns(:subscription).expiration).to eq Subscription.promotional_dates[:expiration]
       end
     end
@@ -175,7 +173,8 @@ describe Cms::SchoolsController do
   describe '#add_existing_user_by_email' do
     let!(:another_user) { create(:user, role: 'teacher') }
     let!(:school) { create(:school) }
-    before(:each) do
+
+    before do
       request.env['HTTP_REFERER'] = 'quill.org'
     end
 
@@ -197,7 +196,8 @@ describe Cms::SchoolsController do
   describe '#unlink' do
     let!(:school) { create(:school)}
     let!(:another_user) { create(:user, school: school)}
-    before(:each) do
+
+    before do
       request.env['HTTP_REFERER'] = cms_school_path(school.id)
     end
 

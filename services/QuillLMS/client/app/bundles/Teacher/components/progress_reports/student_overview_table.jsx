@@ -54,9 +54,11 @@ export default class StudentOveriewTable extends React.Component {
   greenArrow(row) {
     const { studentId } = this.props;
     if (row.completed_at) {
-      return (<a href={`/teachers/progress_reports/report_from_classroom_unit_activity_and_user/cu/${row.classroom_unit_id}/user/${studentId}/a/${row.activity_id}`}>
-        <img alt="" src="https://assets.quill.org/images/icons/chevron-dark-green.svg" />
-      </a>)
+      return (
+        <a href={`/teachers/progress_reports/report_from_classroom_unit_and_activity_and_user/cu/${row.classroom_unit_id}/user/${studentId}/a/${row.activity_id}`}>
+          <img alt="" src="https://assets.quill.org/images/icons/chevron-dark-green.svg" />
+        </a>
+      )
     }
   }
 
@@ -78,7 +80,7 @@ export default class StudentOveriewTable extends React.Component {
     const { studentId } = this.props;
     const { userIsPremium } = this.state;
     const scoreInfo = this.score(row);
-    const onClickFunction = row.completed_at ? () => window.location.href = `/teachers/progress_reports/report_from_classroom_unit_activity_and_user/cu/${row.classroom_unit_id}/user/${studentId}/a/${row.activity_id}` : () => {}
+    const onClickFunction = row.completed_at ? () => window.location.href = `/teachers/progress_reports/report_from_classroom_unit_and_activity_and_user/cu/${row.classroom_unit_id}/user/${studentId}/a/${row.activity_id}` : () => {}
     const blurIfNotPremium = userIsPremium ?  '' : 'non-premium-blur'
     return (
       <tr className={row.completed_at ? 'clickable' : ''} onClick={onClickFunction}>

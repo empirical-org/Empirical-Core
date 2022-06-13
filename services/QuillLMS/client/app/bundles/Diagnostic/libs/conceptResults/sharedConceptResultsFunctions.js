@@ -44,12 +44,12 @@ export function getConceptResultsForAttempt(question, attemptIndex, question_typ
       attemptNumber,
       answer,
     } :
-    {
-      correct: conceptResult.correct ? 1 : 0,
-      directions,
-      prompt,
-      attemptNumber,
-      answer,
-    },
+      {
+        correct: conceptResult.correct ? 1 : 0,
+        directions,
+        prompt,
+        attemptNumber,
+        answer,
+      },
   }));
 }

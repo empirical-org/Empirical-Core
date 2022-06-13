@@ -68,19 +68,32 @@ EmpiricalGrammar::Application.routes.draw do
 
   resources :student_feedback_responses, only: [:create]
 
-  # for Stripe
+  namespace :stripe_integration do
+    post '/subscription_checkout_sessions', to: 'subscription_checkout_sessions#create'
+    post '/subscription_payment_methods', to: 'subscription_payment_methods#create'
+    post '/subscription_renewals', to: 'subscription_renewals#create'
+    post '/webhooks', to: 'webhooks#create'
+  end
+
+  get 'subscriptions/retrieve_stripe_subscription/:stripe_invoice_id',
+    to: 'subscriptions#retrieve_stripe_subscription',
+    stripe_invoice_id: /in_[A-Za-z0-9]{8,}/
+
   resources :charges, only: [:create]
   post 'charges/update_card' => 'charges#update_card'
   post 'charges/create_customer_with_card' => 'charges#create_customer_with_card'
-  post 'charges/new_teacher_premium' => 'charges#new_teacher_premium'
   post 'charges/new_school_premium' => 'charges#new_school_premium'
   put 'credit_transactions/redeem_credits_for_premium' => 'credit_transactions#redeem_credits_for_premium'
 
   resources :subscriptions do
+    collection do
+      get :school_admin_subscriptions
+    end
     member do
       get :purchaser_name
     end
   end
+
   resources :assessments
   resources :assignments
   resource :profile
@@ -122,6 +135,7 @@ EmpiricalGrammar::Application.routes.draw do
   resources :activities, only: [] do
     post :retry, on: :member
     get :search, on: :collection
+    get :index_with_unit_templates, on: :collection
   end
 
   resources :milestones, only: [] do
@@ -129,6 +143,7 @@ EmpiricalGrammar::Application.routes.draw do
     post :complete_view_lesson_tutorial, on: :collection
     post :complete_acknowledge_lessons_banner, on: :collection
     post :complete_acknowledge_diagnostic_banner, on: :collection
+    post :complete_acknowledge_evidence_banner, on: :collection
     post :complete_acknowledge_growth_diagnostic_promotion_card, on: :collection
   end
 
@@ -149,6 +164,7 @@ EmpiricalGrammar::Application.routes.draw do
   put 'students/update_password' => 'students#update_password'
   get 'join/:classcode' => 'students#join_classroom'
   get 'teachers/admin_dashboard' => 'teachers#admin_dashboard'
+  get 'teachers/admin_dashboard/school_subscriptions' => 'teachers#admin_dashboard', as: :teacher_admin_subscriptions
   get 'teachers/admin_dashboard/district_activity_scores' => 'teachers#admin_dashboard'
   get 'teachers/admin_dashboard/district_activity_scores/student_overview' => 'teachers#admin_dashboard'
   get 'teachers/admin_dashboard/district_concept_reports' => 'teachers#admin_dashboard'
@@ -245,7 +261,8 @@ EmpiricalGrammar::Application.routes.draw do
     namespace :progress_reports do
       resources :activity_sessions, only: [:index]
       resources :csv_exports, only: [:create]
-      get 'report_from_classroom_unit_activity_and_user/cu/:classroom_unit_id/user/:user_id/a/:activity_id' => 'diagnostic_reports#report_from_classroom_unit_activity_and_user'
+      get 'report_from_classroom_unit_and_activity_and_user/cu/:classroom_unit_id/user/:user_id/a/:activity_id' => 'diagnostic_reports#report_from_classroom_unit_and_activity_and_user'
+      get 'report_from_classroom_and_unit_and_activity_and_user/classroom/:classroom_id/unit/:unit_id/user/:user_id/activity/:activity_id' => 'diagnostic_reports#report_from_classroom_and_unit_and_activity_and_user'
       get 'report_from_classroom_unit_and_activity/:classroom_unit_id/a/:activity_id' => 'diagnostic_reports#report_from_classroom_unit_and_activity'
       get 'diagnostic_reports' => 'diagnostic_reports#show'
       get 'diagnostic_status' => 'diagnostic_reports#diagnostic_status'
@@ -317,7 +334,6 @@ EmpiricalGrammar::Application.routes.draw do
 
         ##DASHBOARD ROUTES
         get :classroom_mini, controller: 'classroom_manager', action: 'classroom_mini'
-        get :dashboard_query, controller: 'classroom_manager', action: 'dashboard_query'
         get :premium, controller: 'classroom_manager', action: 'premium'
       end
 
@@ -383,6 +399,7 @@ EmpiricalGrammar::Application.routes.draw do
     namespace :v1 do
       get 'activities/uids_and_flags' => 'activities#uids_and_flags'
       get 'activities/activities_health' => 'activities#activities_health'
+      get 'activities/diagnostic_activities' => 'activities#diagnostic_activities'
       get 'rule_feedback_histories' => 'rule_feedback_histories#by_conjunction'
       get 'rule_feedback_history/:rule_uid' => 'rule_feedback_histories#rule_detail'
       get 'prompt_health' => 'rule_feedback_histories#prompt_health'
@@ -407,9 +424,9 @@ EmpiricalGrammar::Application.routes.draw do
 
       resources :users, only: [:index]
       resources :app_settings, only: [:index, :show], param: :name do
-          member do
-            get :admin_show
-          end
+        member do
+          get :admin_show
+        end
       end
 
       resources :classroom_units,         only: [] do
@@ -465,9 +482,10 @@ EmpiricalGrammar::Application.routes.draw do
           put 'update_model_concept'
         end
       end
-      resources :active_activity_sessions, only: [:show, :update, :destroy]
+      resources :active_activity_sessions, only: [:show, :update]
       resources :activity_survey_responses, only: [:create]
       resources :student_problem_reports, only: [:create]
+      resources :lockers, only: [:show, :create, :update]
 
       mount Evidence::Engine => "/evidence", as: :evidence
     end
@@ -507,6 +525,12 @@ EmpiricalGrammar::Application.routes.draw do
     get '/clever/callback', to: 'clever#clever'
   end
 
+  namespace :clever_integration do
+    get '/teachers/retrieve_classrooms', to: 'teachers#retrieve_classrooms'
+    post '/teachers/import_classrooms', to: 'teachers#import_classrooms'
+    put '/teachers/import_students', to: 'teachers#import_students'
+  end
+
   get '/clever/auth_url_details', to: 'clever#auth_url_details'
   get '/clever/no_classroom', to: 'clever#no_classroom'
   get '/auth/failure', to: 'sessions#failure'
@@ -544,7 +568,7 @@ EmpiricalGrammar::Application.routes.draw do
     resources :standard_categories, only: [:index, :create, :update]
     resources :authors, only: [:index, :create, :edit, :update, :new]
     put '/unit_templates/update_order_numbers', to: 'unit_templates#update_order_numbers'
-    resources :unit_templates, only: [:index, :create, :edit, :update, :destroy]
+    resources :unit_templates, only: [:index, :create, :edit, :new, :update, :destroy]
     resources :unit_template_categories, only: [:index, :edit, :create, :update, :destroy]
     put '/blog_posts/update_order_numbers', to: 'blog_posts#update_order_numbers'
     put '/blog_posts/update_featured_order_numbers', to: 'blog_posts#update_featured_order_numbers'
@@ -553,7 +577,6 @@ EmpiricalGrammar::Application.routes.draw do
     get '/blog_posts/:id/unpublish', to: 'blog_posts#unpublish'
 
     resources :users do
-      # resource :subscription
       collection do
         get 'new_with_school/:school_id', to: 'users#new_with_school', as: :new_with_school
         post 'create_with_school/:school_id', to: 'users#create_with_school', as: :create_with_school
@@ -565,8 +588,8 @@ EmpiricalGrammar::Application.routes.draw do
         put :sign_in
         put :clear_data
         get :sign_in
-        get :edit_subscription
         get :new_subscription
+        get :edit_subscription
         post :complete_sales_stage
       end
       put 'make_admin/:school_id', to: 'users#make_admin', as: :make_admin
@@ -579,14 +602,25 @@ EmpiricalGrammar::Application.routes.draw do
         get :search, to: 'schools#index'
       end
       member do
-        get :edit_subscription
         get :new_subscription
+        get :edit_subscription
         get :new_admin
         get :add_existing_user
         post :add_admin_by_email
         post :add_existing_user_by_email
         post :unlink
       end
+    end
+
+    resources :districts do
+      collection do
+        post :search
+        get :search, to: 'districts#index'
+      end
+      member do
+        get :new_admin
+      end
+      resources :district_admins, only: [:create, :destroy]
     end
 
     resources :announcements, only: [:index, :new, :create, :update, :edit]
@@ -607,10 +641,8 @@ EmpiricalGrammar::Application.routes.draw do
 
   other_pages = %w(
     beta
-    ideas
     board
     press
-    partners
     develop
     mission
     about
@@ -623,7 +655,6 @@ EmpiricalGrammar::Application.routes.draw do
     stats
     team
     premium
-    teacher_resources
     media_kit
     play
     news
@@ -642,21 +673,24 @@ EmpiricalGrammar::Application.routes.draw do
     preap_units
     springboard_units
     administrator
+    locker
   )
 
   all_pages = other_pages
   all_pages.each do |page|
-    get page => "pages##{page}", as: "#{page}"
+    get page => "pages##{page}", as: page.to_s
   end
 
   # These are legacy routes that we are redirecting for posterity.
   get 'comprehension', to: redirect('evidence')
   get 'blog_posts', to: redirect('/news')
-  get 'supporters', to: redirect('https://community.quill.org/')
+  get 'supporters', to: redirect('about')
   get 'story', to: redirect('/mission')
   get 'learning', to: redirect('https://support.quill.org/research-and-pedagogy')
   get 'new', to: redirect('/')
   get 'media', to: redirect('/media_kit')
+  get 'board', to: redirect('/team')
+  get 'partners', to: redirect('/about')
   # End legacy route redirects.
 
   tools = %w(diagnostic_tool connect_tool grammar_tool proofreader_tool lessons_tool)
@@ -735,6 +769,10 @@ EmpiricalGrammar::Application.routes.draw do
   get 'teachers/classrooms/assign_activities/featured-activity-packs/:activityPackId/assigned' => redirect('/assign/featured-activity-packs/%{activityPackId}/assigned')
   get 'teachers/classrooms/assign_activities/new_unit/students/edit/name/:unitName/activity_ids/:activityIdsArray' => redirect('/assign/new_unit/students/edit/name/%{unitName}/activity_ids/%{activityIdsArray}')
 
+  # Sales forms routes
+  get '/options_for_sales_form', to: 'sales_form_submission#options_for_sales_form'
+  post '/submit_sales_form', to: 'sales_form_submission#create'
+
   # Integration routes (which should look pretty, and thus need some specifying)
   get 'amplify' => 'integrations#amplify'
   get 'amplify/all' => 'integrations#amplify_all'
@@ -778,9 +816,11 @@ EmpiricalGrammar::Application.routes.draw do
   get 'ap' => 'pages#ap'
   get 'AP', to: redirect('/ap')
   get 'springboard' => 'pages#springboard'
+  get 'request_quote' => 'sales_form_submission#request_quote'
+  get 'request_renewal' => 'sales_form_submission#request_renewal'
 
-  get '/404' => 'errors#error_404'
-  get '/500' => 'errors#error_500'
+  get '/404' => 'errors#error404'
+  get '/500' => 'errors#error500'
 
   root to: 'pages#home_new'
 
@@ -788,7 +828,7 @@ EmpiricalGrammar::Application.routes.draw do
   get '/lib/mailer_previews' => "rails/mailers#index"
   get '/lib/mailer_previews/*path' => "rails/mailers#preview"
 
-  get "/donate" => redirect("https://community.quill.org/donate")
+  get "/donate" => redirect("/about")
   # catch-all 404
   get '*path', to: 'application#routing_error'
 

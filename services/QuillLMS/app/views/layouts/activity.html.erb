@@ -12,7 +12,7 @@
     <% flash.each do |key, value| %>
       <%= content_tag(:div, "<p>#{value}</p><i class='fas fa-times-circle' aria-hidden='true'></i>".html_safe, {class: "flash #{key}", onClick: "$(this).slideUp(300)"}) %>
     <% end %>
-    <% if ENV['UPGRADE'] && ENV['UPGRADE_END_TIME'] && Time.now < Time.parse(ENV['UPGRADE_END_TIME'])%>
+    <% if ENV['UPGRADE'] && ENV['UPGRADE_END_TIME'] && Time.current < Time.parse(ENV['UPGRADE_END_TIME'])%>
       <%= render partial: 'application/upgraded_bar' %>
     <% else %>
       <%= render partial: 'application/notification_bar' %>

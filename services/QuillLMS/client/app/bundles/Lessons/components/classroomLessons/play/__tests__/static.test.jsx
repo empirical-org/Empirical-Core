@@ -26,9 +26,9 @@ const props = {
 
 
 describe('Static component', () => {
-    it('renders', () => {
-      const wrapper = mount(<Static {...props} />)
-      expect(toJson(wrapper)).toMatchSnapshot()
-    })
+  it('renders', () => {
+    const wrapper = mount(<Static {...props} />)
+    expect(toJson(wrapper)).toMatchSnapshot()
+  })
 
 })

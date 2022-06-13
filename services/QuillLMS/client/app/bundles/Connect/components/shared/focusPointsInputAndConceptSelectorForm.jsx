@@ -35,7 +35,7 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
           this.setState({matchedCount: data.matchedCount})
         }
       });
-    };
+  };
 
   addOrEditItemLabel = () => {
     return this.props.item ? `Edit ${this.props.itemLabel}` : `Add New ${this.props.itemLabel}`;
@@ -140,23 +140,27 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
   }
 
   renderExplanatoryNote = () => {
-    return (<div style={{ marginBottom: '10px' }}>
-      <p>Focus points can contain regular expressions. See <a href="https://www.regextester.com/">this page</a> to test regular expressions, and access the cheat sheet on the right. <b>Note:</b> any periods need to be prefaced with a backslash ("\") in order to be evaluated correctly. Example: "walked\."</p>
-      <br />
-      <p>In order to indicate that two or more words or phrases must appear in the response together, you can separate them using "&&". Example: "running&&dancing&&swimming", "run&&dance&&swim".</p>
-    </div>)
+    return (
+      <div style={{ marginBottom: '10px' }}>
+        <p>Focus points can contain regular expressions. See <a href="https://www.regextester.com/">this page</a> to test regular expressions, and access the cheat sheet on the right. <b>Note:</b> any periods need to be prefaced with a backslash ("\") in order to be evaluated correctly. Example: "walked\."</p>
+        <br />
+        <p>In order to indicate that two or more words or phrases must appear in the response together, you can separate them using "&&". Example: "running&&dancing&&swimming", "run&&dance&&swim".</p>
+      </div>
+    )
   }
 
   renderSequenceTag = (seq, backgroundColor, i) => {
-    return (<span
-      className="tag"
-      key={i}
-      onClick={() => this.toggleSuggestedSequence(seq)}
-      style={{margin: '5px', backgroundColor: backgroundColor, color: 'white'}}
-    >
-      {seq}
-    </span>)
-   }
+    return (
+      <span
+        className="tag"
+        key={i}
+        onClick={() => this.toggleSuggestedSequence(seq)}
+        style={{margin: '5px', backgroundColor: backgroundColor, color: 'white'}}
+      >
+        {seq}
+      </span>
+    )
+  }
 
   renderTextInputFields = () => {
     return this.state.itemText.split(/\|{3}(?!\|)/).map(text => (
@@ -183,15 +187,15 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
               ContentState={ContentState}
               EditorState={EditorState}
               handleTextChange={this.handleFeedbackChange}
-              key={"feedback"}
+              key="feedback"
               text={this.state.itemFeedback || ""}
             />
             <label className="label" style={{ marginTop: 10, }}>Concepts</label>
             {this.renderConceptSelectorFields()}
           </div>
           <p className="control">
-            <button className={'button is-primary '} onClick={() => this.submit(this.props.item ? this.props.item.id : null)}>Submit</button>
-            <button className={'button is-outlined is-info'} onClick={() => window.history.back()} style={{ marginLeft: 5, }}>Cancel</button>
+            <button className="button is-primary " onClick={() => this.submit(this.props.item ? this.props.item.id : null)}>Submit</button>
+            <button className="button is-outlined is-info" onClick={() => window.history.back()} style={{ marginLeft: 5, }}>Cancel</button>
           </p>
         </div>
         <div>

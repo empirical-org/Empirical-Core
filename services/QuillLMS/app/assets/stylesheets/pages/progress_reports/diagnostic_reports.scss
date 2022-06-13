@@ -630,6 +630,20 @@ $lightgray: #cecece;
   .generic-mini {
     margin: 20px;
   }
+  .header {
+    display: flex;
+    justify-content: space-between;
+    margin: 0px 20px;
+    align-items: center;
+    text-align: left;
+    .dropdown-container {
+      min-height: 65px;
+      min-width: 200px;
+    }
+    .dropdown__control {
+      background-color: transparent;
+    }
+  }
   .premium {
     margin-top: 5px;
     color: #eda41b;
@@ -645,6 +659,14 @@ $lightgray: #cecece;
     padding-top: 10px;
   }
 
+  @media screen and (max-width: 768px) {
+    .header {
+      flex-direction: column;
+      .dropdown-container {
+        min-height: inherit;
+      }
+    }
+  }
 }
 
 @media screen and (max-width: 1000px) {

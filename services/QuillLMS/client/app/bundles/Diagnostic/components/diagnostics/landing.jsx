@@ -32,18 +32,20 @@ export default class Landing extends React.Component {
     if (landingPageHtml && landingPageHtml !== '<br/>') {
       return landingPageHtml
     } else {
-      return (<div>
-        <h1>You&#39;re working on the Quill Placement Activity </h1>
-        <p>
+      return (
+        <div>
+          <h1>You&#39;re working on the Quill Placement Activity </h1>
+          <p>
           You&#39;re about to answer {questionCount || '22'} questions about writing sentences.
           Don&#39;t worry, it&#39;s not a test. It&#39;s just to figure out what you know.
-        </p>
-        <p className="second-p">
+          </p>
+          <p className="second-p">
           Some of the questions might be about things you haven&#39;t learned yet—that&#39;s okay!
           Just answer them as best as you can.
           Once you&#39;re finished, Quill will create a learning plan just for you!
-        </p>
-      </div>)
+          </p>
+        </div>
+      )
     }
   }
 

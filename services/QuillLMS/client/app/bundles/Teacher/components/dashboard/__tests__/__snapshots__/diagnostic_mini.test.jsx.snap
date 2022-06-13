@@ -228,7 +228,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
             "id": "447-484134-826269",
             "results": <a
               className="focus-on-light"
-              href="/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484134/results?unit=826269"
+              href="/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484134/summary?unit=826269"
             >
               <img
                 alt="File with a chart icon"
@@ -238,7 +238,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 View
               </span>
             </a>,
-            "resultsHref": "/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484134/results?unit=826269",
+            "summaryHref": "/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484134/summary?unit=826269",
           },
           Object {
             "classroom": "A New Class",
@@ -247,7 +247,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
             "id": "447-484135-826269",
             "results": <a
               className="focus-on-light"
-              href="/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484135/results?unit=826269"
+              href="/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484135/summary?unit=826269"
             >
               <img
                 alt="File with a chart icon"
@@ -257,7 +257,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 View
               </span>
             </a>,
-            "resultsHref": "/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484135/results?unit=826269",
+            "summaryHref": "/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484135/summary?unit=826269",
           },
           Object {
             "classroom": "Quill Classroom Extremely Long So Long SUper Duper",
@@ -266,7 +266,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
             "id": "849-484134-826268",
             "results": <a
               className="focus-on-light"
-              href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/results?unit=826268"
+              href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/summary?unit=826268"
             >
               <img
                 alt="File with a chart icon"
@@ -276,7 +276,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 View
               </span>
             </a>,
-            "resultsHref": "/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/results?unit=826268",
+            "summaryHref": "/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/summary?unit=826268",
           },
           Object {
             "classroom": "Quill Classroom Extremely Long So Long SUper Duper",
@@ -285,7 +285,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
             "id": "849-484134-826269",
             "results": <a
               className="focus-on-light"
-              href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/results?unit=826269"
+              href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/summary?unit=826269"
             >
               <img
                 alt="File with a chart icon"
@@ -295,7 +295,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 View
               </span>
             </a>,
-            "resultsHref": "/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/results?unit=826269",
+            "summaryHref": "/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/summary?unit=826269",
           },
           Object {
             "classroom": "A New Class",
@@ -304,7 +304,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
             "id": "849-484135-826269",
             "results": <a
               className="focus-on-light"
-              href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484135/results?unit=826269"
+              href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484135/summary?unit=826269"
             >
               <img
                 alt="File with a chart icon"
@@ -314,19 +314,20 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 View
               </span>
             </a>,
-            "resultsHref": "/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484135/results?unit=826269",
+            "summaryHref": "/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484135/summary?unit=826269",
           },
         ]
       }
     >
-      <div
+      <table
         className="data-table undefined"
       >
-        <div
+        <tr
           className="data-table-headers"
         >
-          <button
+          <th
             className="data-table-header undefined"
+            scope="col"
             style={
               Object {
                 "minWidth": "300px",
@@ -334,13 +335,12 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 "width": "300px",
               }
             }
-            tabIndex={-1}
-            type="button"
           >
             Diagnostic
-          </button>
-          <button
+          </th>
+          <th
             className="data-table-header undefined"
+            scope="col"
             style={
               Object {
                 "minWidth": "180px",
@@ -348,13 +348,12 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 "width": "180px",
               }
             }
-            tabIndex={-1}
-            type="button"
           >
             Class
-          </button>
-          <button
+          </th>
+          <th
             className="data-table-header undefined"
+            scope="col"
             style={
               Object {
                 "minWidth": "62px",
@@ -362,13 +361,12 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 "width": "62px",
               }
             }
-            tabIndex={-1}
-            type="button"
           >
             Completed
-          </button>
-          <button
+          </th>
+          <th
             className="data-table-header last-header"
+            scope="col"
             style={
               Object {
                 "minWidth": "62px",
@@ -376,20 +374,18 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 "width": "62px",
               }
             }
-            tabIndex={-1}
-            type="button"
           >
             Results
-          </button>
-        </div>
-        <div
+          </th>
+        </tr>
+        <tbody
           className="data-table-body"
         >
-          <div
+          <tr
             className="data-table-row  "
             key="447-484134-826269"
           >
-            <span
+            <td
               className="data-table-row-section undefined"
               key="diagnostic-447-484134-826269"
               style={
@@ -401,30 +397,22 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
               }
             >
               ELL Diagnostic
-            </span>
-            <Tooltip
-              key="classroom-447-484134-826269"
-              tooltipText="Quill Classroom Extremely Long So Long SUper Duper"
-              tooltipTriggerStyle={
-                Object {
-                  "minWidth": "180px",
-                  "textAlign": "left",
-                  "width": "180px",
+            </td>
+            <td>
+              <Tooltip
+                isTabbable={true}
+                key="classroom-447-484134-826269"
+                tooltipText="Quill Classroom Extremely Long So Long SUper Duper"
+                tooltipTriggerStyle={
+                  Object {
+                    "minWidth": "180px",
+                    "textAlign": "left",
+                    "width": "180px",
+                  }
                 }
-              }
-              tooltipTriggerText="Quill Classroom Extremely Long So Long SUper Duper"
-              tooltipTriggerTextClass="data-table-row-section undefined"
-              tooltipTriggerTextStyle={
-                Object {
-                  "minWidth": "180px",
-                  "textAlign": "left",
-                  "width": "180px",
-                }
-              }
-            >
-              <span
-                className="quill-tooltip-trigger"
-                style={
+                tooltipTriggerText="Quill Classroom Extremely Long So Long SUper Duper"
+                tooltipTriggerTextClass="data-table-row-section undefined"
+                tooltipTriggerTextStyle={
                   Object {
                     "minWidth": "180px",
                     "textAlign": "left",
@@ -433,9 +421,9 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 }
               >
                 <span
-                  className="data-table-row-section undefined"
-                  onMouseEnter={[Function]}
-                  onMouseLeave={[Function]}
+                  aria-hidden={false}
+                  className="quill-tooltip-trigger"
+                  role="tooltip"
                   style={
                     Object {
                       "minWidth": "180px",
@@ -443,20 +431,39 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                       "width": "180px",
                     }
                   }
-                  tabIndex={null}
-                >
-                  Quill Classroom Extremely Long So Long SUper Duper
-                </span>
-                <span
-                  className="quill-tooltip-wrapper"
                 >
                   <span
-                    className="quill-tooltip"
-                  />
+                    className="data-table-row-section undefined"
+                    onBlur={[Function]}
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onKeyDown={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    role="button"
+                    style={
+                      Object {
+                        "minWidth": "180px",
+                        "textAlign": "left",
+                        "width": "180px",
+                      }
+                    }
+                    tabIndex={0}
+                  >
+                    Quill Classroom Extremely Long So Long SUper Duper
+                  </span>
+                  <span
+                    className="quill-tooltip-wrapper"
+                  >
+                    <span
+                      aria-live="polite"
+                      className="quill-tooltip"
+                    />
+                  </span>
                 </span>
-              </span>
-            </Tooltip>
-            <span
+              </Tooltip>
+            </td>
+            <td
               className="data-table-row-section completed-row-section"
               key="completed-447-484134-826269"
               style={
@@ -468,8 +475,8 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
               }
             >
               0 of 5
-            </span>
-            <span
+            </td>
+            <td
               className="data-table-row-section last-row-section"
               key="results-447-484134-826269"
               style={
@@ -482,7 +489,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
             >
               <a
                 className="focus-on-light"
-                href="/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484134/results?unit=826269"
+                href="/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484134/summary?unit=826269"
               >
                 <img
                   alt="File with a chart icon"
@@ -492,16 +499,13 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                   View
                 </span>
               </a>
-            </span>
-            <span
-              className="removable data-table-row-section"
-            />
-          </div>
-          <div
+            </td>
+          </tr>
+          <tr
             className="data-table-row  "
             key="447-484135-826269"
           >
-            <span
+            <td
               className="data-table-row-section undefined"
               key="diagnostic-447-484135-826269"
               style={
@@ -513,8 +517,8 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
               }
             >
               ELL Diagnostic
-            </span>
-            <span
+            </td>
+            <td
               className="data-table-row-section undefined"
               key="classroom-447-484135-826269"
               style={
@@ -526,8 +530,8 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
               }
             >
               A New Class
-            </span>
-            <span
+            </td>
+            <td
               className="data-table-row-section completed-row-section"
               key="completed-447-484135-826269"
               style={
@@ -539,8 +543,8 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
               }
             >
               0 of 0
-            </span>
-            <span
+            </td>
+            <td
               className="data-table-row-section last-row-section"
               key="results-447-484135-826269"
               style={
@@ -553,7 +557,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
             >
               <a
                 className="focus-on-light"
-                href="/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484135/results?unit=826269"
+                href="/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484135/summary?unit=826269"
               >
                 <img
                   alt="File with a chart icon"
@@ -563,16 +567,13 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                   View
                 </span>
               </a>
-            </span>
-            <span
-              className="removable data-table-row-section"
-            />
-          </div>
-          <div
+            </td>
+          </tr>
+          <tr
             className="data-table-row  "
             key="849-484134-826268"
           >
-            <span
+            <td
               className="data-table-row-section undefined"
               key="diagnostic-849-484134-826268"
               style={
@@ -584,30 +585,22 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
               }
             >
               Starter Diagnostic
-            </span>
-            <Tooltip
-              key="classroom-849-484134-826268"
-              tooltipText="Quill Classroom Extremely Long So Long SUper Duper"
-              tooltipTriggerStyle={
-                Object {
-                  "minWidth": "180px",
-                  "textAlign": "left",
-                  "width": "180px",
+            </td>
+            <td>
+              <Tooltip
+                isTabbable={true}
+                key="classroom-849-484134-826268"
+                tooltipText="Quill Classroom Extremely Long So Long SUper Duper"
+                tooltipTriggerStyle={
+                  Object {
+                    "minWidth": "180px",
+                    "textAlign": "left",
+                    "width": "180px",
+                  }
                 }
-              }
-              tooltipTriggerText="Quill Classroom Extremely Long So Long SUper Duper"
-              tooltipTriggerTextClass="data-table-row-section undefined"
-              tooltipTriggerTextStyle={
-                Object {
-                  "minWidth": "180px",
-                  "textAlign": "left",
-                  "width": "180px",
-                }
-              }
-            >
-              <span
-                className="quill-tooltip-trigger"
-                style={
+                tooltipTriggerText="Quill Classroom Extremely Long So Long SUper Duper"
+                tooltipTriggerTextClass="data-table-row-section undefined"
+                tooltipTriggerTextStyle={
                   Object {
                     "minWidth": "180px",
                     "textAlign": "left",
@@ -616,9 +609,9 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 }
               >
                 <span
-                  className="data-table-row-section undefined"
-                  onMouseEnter={[Function]}
-                  onMouseLeave={[Function]}
+                  aria-hidden={false}
+                  className="quill-tooltip-trigger"
+                  role="tooltip"
                   style={
                     Object {
                       "minWidth": "180px",
@@ -626,20 +619,39 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                       "width": "180px",
                     }
                   }
-                  tabIndex={null}
-                >
-                  Quill Classroom Extremely Long So Long SUper Duper
-                </span>
-                <span
-                  className="quill-tooltip-wrapper"
                 >
                   <span
-                    className="quill-tooltip"
-                  />
+                    className="data-table-row-section undefined"
+                    onBlur={[Function]}
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onKeyDown={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    role="button"
+                    style={
+                      Object {
+                        "minWidth": "180px",
+                        "textAlign": "left",
+                        "width": "180px",
+                      }
+                    }
+                    tabIndex={0}
+                  >
+                    Quill Classroom Extremely Long So Long SUper Duper
+                  </span>
+                  <span
+                    className="quill-tooltip-wrapper"
+                  >
+                    <span
+                      aria-live="polite"
+                      className="quill-tooltip"
+                    />
+                  </span>
                 </span>
-              </span>
-            </Tooltip>
-            <span
+              </Tooltip>
+            </td>
+            <td
               className="data-table-row-section completed-row-section"
               key="completed-849-484134-826268"
               style={
@@ -651,8 +663,8 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
               }
             >
               5 of 5
-            </span>
-            <span
+            </td>
+            <td
               className="data-table-row-section last-row-section"
               key="results-849-484134-826268"
               style={
@@ -665,7 +677,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
             >
               <a
                 className="focus-on-light"
-                href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/results?unit=826268"
+                href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/summary?unit=826268"
               >
                 <img
                   alt="File with a chart icon"
@@ -675,16 +687,13 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                   View
                 </span>
               </a>
-            </span>
-            <span
-              className="removable data-table-row-section"
-            />
-          </div>
-          <div
+            </td>
+          </tr>
+          <tr
             className="data-table-row  "
             key="849-484134-826269"
           >
-            <span
+            <td
               className="data-table-row-section undefined"
               key="diagnostic-849-484134-826269"
               style={
@@ -696,30 +705,22 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
               }
             >
               Starter Diagnostic
-            </span>
-            <Tooltip
-              key="classroom-849-484134-826269"
-              tooltipText="Quill Classroom Extremely Long So Long SUper Duper"
-              tooltipTriggerStyle={
-                Object {
-                  "minWidth": "180px",
-                  "textAlign": "left",
-                  "width": "180px",
+            </td>
+            <td>
+              <Tooltip
+                isTabbable={true}
+                key="classroom-849-484134-826269"
+                tooltipText="Quill Classroom Extremely Long So Long SUper Duper"
+                tooltipTriggerStyle={
+                  Object {
+                    "minWidth": "180px",
+                    "textAlign": "left",
+                    "width": "180px",
+                  }
                 }
-              }
-              tooltipTriggerText="Quill Classroom Extremely Long So Long SUper Duper"
-              tooltipTriggerTextClass="data-table-row-section undefined"
-              tooltipTriggerTextStyle={
-                Object {
-                  "minWidth": "180px",
-                  "textAlign": "left",
-                  "width": "180px",
-                }
-              }
-            >
-              <span
-                className="quill-tooltip-trigger"
-                style={
+                tooltipTriggerText="Quill Classroom Extremely Long So Long SUper Duper"
+                tooltipTriggerTextClass="data-table-row-section undefined"
+                tooltipTriggerTextStyle={
                   Object {
                     "minWidth": "180px",
                     "textAlign": "left",
@@ -728,9 +729,9 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 }
               >
                 <span
-                  className="data-table-row-section undefined"
-                  onMouseEnter={[Function]}
-                  onMouseLeave={[Function]}
+                  aria-hidden={false}
+                  className="quill-tooltip-trigger"
+                  role="tooltip"
                   style={
                     Object {
                       "minWidth": "180px",
@@ -738,20 +739,39 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                       "width": "180px",
                     }
                   }
-                  tabIndex={null}
-                >
-                  Quill Classroom Extremely Long So Long SUper Duper
-                </span>
-                <span
-                  className="quill-tooltip-wrapper"
                 >
                   <span
-                    className="quill-tooltip"
-                  />
+                    className="data-table-row-section undefined"
+                    onBlur={[Function]}
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onKeyDown={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    role="button"
+                    style={
+                      Object {
+                        "minWidth": "180px",
+                        "textAlign": "left",
+                        "width": "180px",
+                      }
+                    }
+                    tabIndex={0}
+                  >
+                    Quill Classroom Extremely Long So Long SUper Duper
+                  </span>
+                  <span
+                    className="quill-tooltip-wrapper"
+                  >
+                    <span
+                      aria-live="polite"
+                      className="quill-tooltip"
+                    />
+                  </span>
                 </span>
-              </span>
-            </Tooltip>
-            <span
+              </Tooltip>
+            </td>
+            <td
               className="data-table-row-section completed-row-section"
               key="completed-849-484134-826269"
               style={
@@ -763,8 +783,8 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
               }
             >
               0 of 5
-            </span>
-            <span
+            </td>
+            <td
               className="data-table-row-section last-row-section"
               key="results-849-484134-826269"
               style={
@@ -777,7 +797,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
             >
               <a
                 className="focus-on-light"
-                href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/results?unit=826269"
+                href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/summary?unit=826269"
               >
                 <img
                   alt="File with a chart icon"
@@ -787,16 +807,13 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                   View
                 </span>
               </a>
-            </span>
-            <span
-              className="removable data-table-row-section"
-            />
-          </div>
-          <div
+            </td>
+          </tr>
+          <tr
             className="data-table-row  "
             key="849-484135-826269"
           >
-            <span
+            <td
               className="data-table-row-section undefined"
               key="diagnostic-849-484135-826269"
               style={
@@ -808,8 +825,8 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
               }
             >
               Starter Diagnostic
-            </span>
-            <span
+            </td>
+            <td
               className="data-table-row-section undefined"
               key="classroom-849-484135-826269"
               style={
@@ -821,8 +838,8 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
               }
             >
               A New Class
-            </span>
-            <span
+            </td>
+            <td
               className="data-table-row-section completed-row-section"
               key="completed-849-484135-826269"
               style={
@@ -834,8 +851,8 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
               }
             >
               0 of 0
-            </span>
-            <span
+            </td>
+            <td
               className="data-table-row-section last-row-section"
               key="results-849-484135-826269"
               style={
@@ -848,7 +865,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
             >
               <a
                 className="focus-on-light"
-                href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484135/results?unit=826269"
+                href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484135/summary?unit=826269"
               >
                 <img
                   alt="File with a chart icon"
@@ -858,13 +875,10 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                   View
                 </span>
               </a>
-            </span>
-            <span
-              className="removable data-table-row-section"
-            />
-          </div>
-        </div>
-      </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </DataTable>
     <button
       className="bottom-button focus-on-light interactive-wrapper"
@@ -1089,7 +1103,7 @@ exports[`DiagnosticMini component on mobile should render when there are diagnos
           "id": "447-484134-826269",
           "results": <a
             className="focus-on-light"
-            href="/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484134/results?unit=826269"
+            href="/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484134/summary?unit=826269"
           >
             <img
               alt="File with a chart icon"
@@ -1099,7 +1113,7 @@ exports[`DiagnosticMini component on mobile should render when there are diagnos
               View
             </span>
           </a>,
-          "resultsHref": "/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484134/results?unit=826269",
+          "summaryHref": "/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484134/summary?unit=826269",
         }
       }
     >
@@ -1114,7 +1128,7 @@ exports[`DiagnosticMini component on mobile should render when there are diagnos
           </span>
           <a
             className="focus-on-light"
-            href="/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484134/results?unit=826269"
+            href="/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484134/summary?unit=826269"
           >
             View
           </a>
@@ -1134,7 +1148,7 @@ exports[`DiagnosticMini component on mobile should render when there are diagnos
           "id": "447-484135-826269",
           "results": <a
             className="focus-on-light"
-            href="/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484135/results?unit=826269"
+            href="/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484135/summary?unit=826269"
           >
             <img
               alt="File with a chart icon"
@@ -1144,7 +1158,7 @@ exports[`DiagnosticMini component on mobile should render when there are diagnos
               View
             </span>
           </a>,
-          "resultsHref": "/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484135/results?unit=826269",
+          "summaryHref": "/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484135/summary?unit=826269",
         }
       }
     >
@@ -1159,7 +1173,7 @@ exports[`DiagnosticMini component on mobile should render when there are diagnos
           </span>
           <a
             className="focus-on-light"
-            href="/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484135/results?unit=826269"
+            href="/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484135/summary?unit=826269"
           >
             View
           </a>
@@ -1179,7 +1193,7 @@ exports[`DiagnosticMini component on mobile should render when there are diagnos
           "id": "849-484134-826268",
           "results": <a
             className="focus-on-light"
-            href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/results?unit=826268"
+            href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/summary?unit=826268"
           >
             <img
               alt="File with a chart icon"
@@ -1189,7 +1203,7 @@ exports[`DiagnosticMini component on mobile should render when there are diagnos
               View
             </span>
           </a>,
-          "resultsHref": "/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/results?unit=826268",
+          "summaryHref": "/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/summary?unit=826268",
         }
       }
     >
@@ -1204,7 +1218,7 @@ exports[`DiagnosticMini component on mobile should render when there are diagnos
           </span>
           <a
             className="focus-on-light"
-            href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/results?unit=826268"
+            href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/summary?unit=826268"
           >
             View
           </a>
@@ -1224,7 +1238,7 @@ exports[`DiagnosticMini component on mobile should render when there are diagnos
           "id": "849-484134-826269",
           "results": <a
             className="focus-on-light"
-            href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/results?unit=826269"
+            href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/summary?unit=826269"
           >
             <img
               alt="File with a chart icon"
@@ -1234,7 +1248,7 @@ exports[`DiagnosticMini component on mobile should render when there are diagnos
               View
             </span>
           </a>,
-          "resultsHref": "/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/results?unit=826269",
+          "summaryHref": "/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/summary?unit=826269",
         }
       }
     >
@@ -1249,7 +1263,7 @@ exports[`DiagnosticMini component on mobile should render when there are diagnos
           </span>
           <a
             className="focus-on-light"
-            href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/results?unit=826269"
+            href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/summary?unit=826269"
           >
             View
           </a>
@@ -1269,7 +1283,7 @@ exports[`DiagnosticMini component on mobile should render when there are diagnos
           "id": "849-484135-826269",
           "results": <a
             className="focus-on-light"
-            href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484135/results?unit=826269"
+            href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484135/summary?unit=826269"
           >
             <img
               alt="File with a chart icon"
@@ -1279,7 +1293,7 @@ exports[`DiagnosticMini component on mobile should render when there are diagnos
               View
             </span>
           </a>,
-          "resultsHref": "/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484135/results?unit=826269",
+          "summaryHref": "/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484135/summary?unit=826269",
         }
       }
     >
@@ -1294,7 +1308,7 @@ exports[`DiagnosticMini component on mobile should render when there are diagnos
           </span>
           <a
             className="focus-on-light"
-            href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484135/results?unit=826269"
+            href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484135/summary?unit=826269"
           >
             View
           </a>

@@ -1,7 +1,8 @@
 import React from 'react';
-import DropdownFilter from '../progress_reports/dropdown_filter.jsx';
-import DateRangeFilter from '../general_components/date_range_filter.jsx';
 import moment from 'moment';
+
+import { DropdownInput, } from '../../../Shared'
+import DateRangeFilter from '../general_components/date_range_filter.jsx';
 
 const ScorebookFilters = (
   {
@@ -25,26 +26,36 @@ const ScorebookFilters = (
   }
 
   const inputDropdownStyle = Object.assign({}, datepickerDropdownStyle, {
-    'width': '250px'
+    'width': '30%'
   });
+  const classroomFilterOptions = classroomFilters.map((c) => {
+    c.label = c.name
+    return c
+  })
+
+  const selectedClassroomOption = classroomFilterOptions.find(c => selectedClassroom ? c.value === selectedClassroom.value : true)
+
+  const activityPackFilterOptions = unitFilters.map((c) => {
+    c.label = c.name
+    return c
+  })
+
+  const selectedActivityPackOption = activityPackFilterOptions.find(c => c.value === selectedUnit.value)
 
   return (
     <div className="row activity-page-dropdown-wrapper scorebook-filters">
       <div style={inputDropdownStyle}>
-        <DropdownFilter
-          icon="fa-users"
-          options={classroomFilters}
-          placeholder={'Select a Classroom'}
-          selectedOption={selectedClassroom}
-          selectOption={selectClassroom}
+        <DropdownInput
+          handleChange={selectClassroom}
+          options={classroomFilterOptions}
+          value={selectedClassroomOption}
         />
       </div>
       <div style={inputDropdownStyle}>
-        <DropdownFilter
-          icon="fa-book"
-          options={unitFilters}
-          selectedOption={selectedUnit}
-          selectOption={selectUnit}
+        <DropdownInput
+          handleChange={selectUnit}
+          options={activityPackFilterOptions}
+          value={selectedActivityPackOption}
         />
       </div>
       <div style={datepickerDropdownStyle}>

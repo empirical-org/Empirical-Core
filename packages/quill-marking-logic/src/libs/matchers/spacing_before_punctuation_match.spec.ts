@@ -16,11 +16,11 @@ const savedResponses: Array<Response> = [
 
 describe('The spacingBeforePunctuationMatch function', () => {
 
-    it('Should take a response string and return true if there is no space before punctuation', () => {
-        const responseString = "My dog took a nap, did yours ? ";
-        const matchedResponse = spacingBeforePunctuationMatch(responseString);
-        assert.isOk(matchedResponse);
-    });
+  it('Should take a response string and return true if there is no space before punctuation', () => {
+    const responseString = "My dog took a nap, did yours ? ";
+    const matchedResponse = spacingBeforePunctuationMatch(responseString);
+    assert.isOk(matchedResponse);
+  });
 
 });
 
@@ -29,13 +29,13 @@ describe('The spacingBeforePunctuationChecker', () => {
   it('Should return a partialResponse object if the response string is missing spacing before punctuation', () => {
     const responseString = "My dog took a nap, did yours ?";
     const partialResponse: PartialResponse =  {
-        feedback: spacingBeforePunctuationMatch(responseString).feedback,
-        author: 'Punctuation Hint',
-        parent_id: 1,
-        concept_results: [
-          conceptResultTemplate('mdFUuuNR7N352bbMw4Mj9Q')
-        ]
-      }
+      feedback: spacingBeforePunctuationMatch(responseString).feedback,
+      author: 'Punctuation Hint',
+      parent_id: 1,
+      concept_results: [
+        conceptResultTemplate('mdFUuuNR7N352bbMw4Mj9Q')
+      ]
+    }
     assert.equal(spacingBeforePunctuationChecker(responseString, savedResponses).feedback, partialResponse.feedback);
     assert.equal(spacingBeforePunctuationChecker(responseString, savedResponses).author, partialResponse.author);
     assert.equal(spacingBeforePunctuationChecker(responseString, savedResponses).parent_id, partialResponse.parent_id);

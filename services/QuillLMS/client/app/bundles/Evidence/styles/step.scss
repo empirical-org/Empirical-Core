@@ -1,7 +1,4 @@
 .step {
-  padding: 16px 24px 16px 16px;
-  border-radius: 4px;
-  border: solid 1px #d8d8d8;
   max-width: 631px;
   margin-bottom: 10px;
   display: flex;
@@ -12,7 +9,7 @@
   &:focus {
     outline: none;
   }
-  .passage-title, button, .feedback-section {
+  .passage-title {
     margin-left: 48px;
   }
   .step-header {
@@ -25,6 +22,61 @@
   }
   .step-content {
     width: 100%;
+  }
+  .active-content-container {
+    .character-counter-container {
+      display: flex;
+      justify-content: space-between;
+      margin-left: 48px;
+      margin-top: 8px;
+      p {
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 1.43;
+        &.approaching-limit {
+          color: #995f00
+        }
+        &.over-limit {
+          color: #e60017
+        }
+      }
+    }
+    .attempts-and-button-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 8px;
+      .attempts-container {
+        display: flex;
+        font-size: 14px;
+        color: #808080;
+        font-weight: 600;
+        .number-of-attempts {
+          width: 16px;
+          height: 20px;
+          margin: 0 4px 0 0;
+          padding: 0 4px;
+          border-radius: 4px;
+          background-color: #f1f3f4;
+          border-bottom: 1px solid #808080;
+        }
+      }
+      .feedback-details-section {
+        display: flex;
+        align-items: center;
+        p {
+          font-size: 14px;
+          color: #808080;
+          font-weight: 600;
+          margin-right: 8px;
+        }
+        button {
+          padding: 15px 16px;
+          width: auto;
+          margin: 8px;
+        }
+      }
+    }
   }
   .passage-title {
     font-size: 16px;
@@ -44,7 +96,7 @@
     color: white;
     width: calc(100% - 48px);
     padding: 15px 0px;
-    margin-top: 24px;
+    margin-top: 8px;
     border: none;
     display: flex;
     justify-content: center;
@@ -53,23 +105,13 @@
       background-color: #cccccc;
       color: #878787;
     }
-    .button-loading-spinner-container {
-      margin-right: 10px;
-    }
   }
   .feedback-section {
-    margin-top: 24px;
+    margin: 16px 8px 0px 0px;
     .report-a-problem-button {
-      margin-left: 0px;
-      padding: 9px 16px;
-      border-radius: 0px 0px 6px 6px;
-      border: solid 1px #d8d8d8;
-      background-color: #fff;
-      border-top: none;
-      font-size: 14px;
       font-weight: 600;
-      line-height: 1;
-      color: #555;
+      color: #808080;
+      font-size: 14px;
     }
     .report-a-problem-section {
       padding: 9px 16px 16px;
@@ -80,12 +122,12 @@
       .report-a-problem-section-header {
         display: flex;
         justify-content: space-between;
-        align-items: flex-start;
+        align-items: baseline;
         .label {
-          font-size: 14px;
-          font-weight: 600;
+          font-size: 16px;
           line-height: 1;
-          color: #555;
+          font-weight: normal;
+          color: #000000;
           margin-bottom: 8px;
         }
         .interactive-wrapper {
@@ -144,27 +186,86 @@
         margin-left: 16px;
       }
     }
-    .feedback {
-      border-radius: 6px 6px 6px 0px;
-      border: solid 1px #ff9f00;
-      background-color: #fff6e4;
+    .heads-up, .feedback, .hint {
+      display: flex;
+      flex-direction: column;
+      border-radius: 6px;
       padding: 16px;
       display: flex;
       align-items: flex-start;
       font-size: 16px;
       line-height: normal;
+      .label-section {
+        display: flex;
+        align-items: center;
+        margin-bottom: 12px;
+        p {
+          font-size: 14px;
+          font-weight: 600;
+        }
+      }
+    }
+    .heads-up {
+      .label-section p {
+        color: #5c5c5c;
+        margin-left: 12px;
+      }
+    }
+    .hint {
+      margin-top: 16px;
+      padding: 16px 0px;
+      p {
+        font-size: 14px;
+        line-height: 1.43;
+        color: #5c5c5c;
+        margin-bottom: 16px;
+      }
+      p, ul {
+        font-size: 14px;
+        line-height: 1.43;
+        color: #5c5c5c;
+      }
+      ul {
+        list-style: inherit;
+      }
+      li {
+        display: list-item;
+        margin-left: 20px;
+      }
+      .label-section p {
+        margin-left: 12px;
+        margin-bottom: 0px;
+      }
+
+    }
+    .heads-up {
+      border: solid 1px #9e9e9e;
+      background-color: #f5f5f5;
+      margin-top: 16px;
+    }
+    .feedback {
+      border: solid 1px #ff9f00;
+      background-color: #fff5e5;
       animation: revisepulse 0.8s 1;
 
       @keyframes revisepulse {
         0%  {
-          background-color: #fff6e4;
+          background-color: #fff5e5;
         }
         50% {
           background-color: #FF9F00;
         }
         100% {
-          background-color: #fff6e4;
+          background-color: #fff5e5;
         }
+      }
+      .label-section p {
+        color: #995f00;
+      }
+      .report-a-problem-button-container{
+        display: flex;
+        justify-content: flex-end;
+        width: 100%;
       }
       p {
         white-space: pre-wrap;
@@ -176,27 +277,32 @@
       img {
         margin-right: 12px;
       }
+      ul {
+        list-style: disc;
+        padding-left: 20px;
+      }
       &.optimal {
-        border: solid 1px #55a200;
-        background-color: #f4ffe8;
+        border: solid 1px #4ea500;
+        background-color: #e9f4e0;
         animation: optimalpulse 0.8s 1;
-
+        .label-section {
+          p {
+            color: #2a5900;
+          }
+        }
         @keyframes optimalpulse {
           0%  {
-            background-color: #fff6e4;
+            background-color: #e9f4e0;
           }
           50% {
-            background-color: #55a200;
+            background-color: #4ea500;
           }
           100% {
-            background-color: #fff6e4;
+            background-color: #e9f4e0;
           }
         }
       }
     }
-  }
-  &.active {
-    box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.2), 0 3px 3px -2px rgba(0, 0, 0, 0.12), 0 3px 4px 0 rgba(0, 0, 0, 0.14);
   }
 
   &:not(.active) {

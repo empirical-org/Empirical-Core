@@ -24,32 +24,36 @@ export default class RuleDescriptionField extends React.Component<any, any> {
   }
 
   renderAddRuleDescription() {
-    return (<div className="concept-attribute-field rule-description-field">
-      <div className="add-concept-attribute-field" onClick={this.showEditor}>
-        <i className="fas fa-plus" />
-        <p>Add a Grammar rule description (optional)</p>
+    return (
+      <div className="concept-attribute-field rule-description-field">
+        <div className="add-concept-attribute-field" onClick={this.showEditor}>
+          <i className="fas fa-plus" />
+          <p>Add a Grammar rule description (optional)</p>
+        </div>
       </div>
-    </div>)
+    )
   }
 
   renderRuleDescriptionEditor() {
     const { handleChange, ruleDescription, isNew, } = this.props
-    return (<div className="concept-attribute-field rule-description">
-      <div className="concept-attribute-field-editor">
-        <div className="concept-attribute-field-editor-header">
-          <p>Grammar rule description (optional)</p>
-          {isNew ? '' : <p className="remove-concept-attribute-field" onClick={this.cancel}><i className="fas fa-archive" /><span>Remove</span></p>}
+    return (
+      <div className="concept-attribute-field rule-description">
+        <div className="concept-attribute-field-editor">
+          <div className="concept-attribute-field-editor-header">
+            <p>Grammar rule description (optional)</p>
+            {isNew ? '' : <button className="interactive-wrapper focus-on-light remove-concept-attribute-field" onClick={this.cancel} type="button"><i className="fas fa-archive" /><span>Remove</span></button>}
+          </div>
+          <TextEditor
+            ContentState={ContentState}
+            EditorState={EditorState}
+            handleTextChange={handleChange}
+            key="rule-description"
+            text={ruleDescription}
+          />
+          {isNew ? <button className="interactive-wrapper focus-on-light cancel-concept-attribute-field" onClick={this.cancel} type="button">Cancel</button> : ''}
         </div>
-        <TextEditor
-          ContentState={ContentState}
-          EditorState={EditorState}
-          handleTextChange={handleChange}
-          key="rule-description"
-          text={ruleDescription}
-        />
-        {isNew ? <p className="cancel-concept-attribute-field" onClick={this.cancel}>Cancel</p> : ''}
       </div>
-    </div>)
+    )
   }
 
   render() {

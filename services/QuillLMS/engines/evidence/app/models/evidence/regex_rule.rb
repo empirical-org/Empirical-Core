@@ -24,6 +24,9 @@ module Evidence
     validates :case_sensitive, inclusion: CASE_SENSITIVE_ALLOWED_VALUES
     validates :sequence_type, inclusion: SEQUENCE_TYPES
 
+    scope :required_sequences, -> { where(sequence_type: TYPE_REQUIRED) }
+    scope :incorrect_sequences, -> { where(sequence_type: TYPE_INCORRECT) }
+
     def serializable_hash(options = nil)
       options ||= {}
 
@@ -46,6 +49,10 @@ module Evidence
       "Regex Rule Regex"
     end
 
+    def unconditional
+      !conditional
+    end
+
     def url
       rule.url
     end
@@ -64,6 +71,7 @@ module Evidence
 
     private def set_default_case_sensitivity
       return if case_sensitive.in? CASE_SENSITIVE_ALLOWED_VALUES
+
       self.case_sensitive = DEFAULT_CASE_SENSITIVITY
     end
 
@@ -81,9 +89,9 @@ module Evidence
     end
 
     private def log_update
-      if saved_change_to_regex_text?
-        log_change(nil, :update, self, "regex_text", regex_text_before_last_save, regex_text)
-      end
+      return unless saved_change_to_regex_text?
+
+      log_change(nil, :update, self, "regex_text", regex_text_before_last_save, regex_text)
     end
   end
 end

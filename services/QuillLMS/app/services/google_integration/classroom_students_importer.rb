@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module GoogleIntegration
-  class ClassroomStudentsImporter
+  class ClassroomStudentsImporter < ApplicationService
     attr_reader :classroom_students_data
 
     delegate :google_classroom_id, :google_ids, to: :classroom_students_data

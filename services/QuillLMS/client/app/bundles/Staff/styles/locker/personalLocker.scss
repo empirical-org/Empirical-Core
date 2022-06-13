@@ -1,0 +1,45 @@
+.personal-locker-container {
+  margin-top: 16px;
+  .locker-contents {
+    h3 {
+      margin-bottom: 24px;
+    }
+  }
+  .locker-section-container {
+    .personal-lockers-container {
+      display: flex;
+      max-width: 900px;
+      flex-wrap: wrap;
+    }
+  }
+  .buttons-container {
+    display: flex;
+    button {
+      width: 152px;
+    }
+    .organize-button {
+      display: flex;
+      margin-left: 16px;
+      p {
+        margin: 0
+      }
+      span {
+        margin-right: 8px;
+      }
+    }
+  }
+  .modal {
+    display: flex;
+    .modal-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      z-index: 100;
+      .modal-content {
+        overflow: auto;
+      }
+    }
+  }
+}

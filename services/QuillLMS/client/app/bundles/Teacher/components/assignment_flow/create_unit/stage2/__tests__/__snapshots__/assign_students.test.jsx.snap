@@ -27,14 +27,33 @@ exports[`Assign students component should render 1`] = `
         className="import-or-create-classroom-buttons"
       >
         <button
-          className="quill-button medium secondary outlined import-from-google-button"
+          className="interactive-wrapper import-from-clever-button"
           onClick={[Function]}
+          type="button"
         >
-          Import from Google Classroom
+          <img
+            alt="Clever Icon"
+            className="import-from-clever-button-icon"
+            src="undefined/images/icons/clever.svg"
+          />
+          Import from Clever
+        </button>
+        <button
+          className="interactive-wrapper import-from-google-button"
+          onClick={[Function]}
+          type="button"
+        >
+          <img
+            alt="Google Classroom Icon"
+            className="import-from-google-button-icon"
+            src="undefined/images/icons/google-classroom.svg"
+          />
+           Import from Google Classroom
         </button>
         <button
           className="quill-button medium secondary outlined create-a-class-button"
           onClick={[Function]}
+          type="button"
         >
           Create a class
         </button>

@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MaxAttemptsEditor component should render MaxAttemptsEditor 1`] = `
+<div>
+  <p
+    className="text-editor-label has-text"
+  >
+     - Max Attempts Feedback - Student Did Not Reach Optimal AutoML Label
+  </p>
+  <TextEditor
+    ContentState={[Function]}
+    EditorState={[Function]}
+    handleTextChange={[Function]}
+    key="but-max-attempt-feedback"
+    shouldCheckSpelling={true}
+    text="feedback"
+  />
+</div>
+`;

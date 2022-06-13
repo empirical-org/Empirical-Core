@@ -18,6 +18,7 @@ class Api::V1::FocusPointsController < Api::ApiController
 
   def update
     return not_found unless @question.data.dig("focusPoints", params[:id])
+
     if @question.set_focus_point(params[:id], valid_params)
       render_focus_point
     else
@@ -51,6 +52,7 @@ class Api::V1::FocusPointsController < Api::ApiController
   private def render_focus_point
     focus_point = @question.data.dig("focusPoints", params[:id])
     return not_found unless focus_point
+
     render(json: focus_point)
   end
 

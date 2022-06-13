@@ -95,31 +95,37 @@ export default class InviteCoteachersModal extends React.Component<InviteCoteach
     const { coteacher } = this.props
     const { email } = this.state
     if (coteacher) {
-      return (<Input
-        className="email disabled"
-        disabled={true}
-        label="Co-teacher email"
-        type="text"
-        value={email}
-      />)
+      return (
+        <Input
+          className="email disabled"
+          disabled={true}
+          label="Co-teacher email"
+          type="text"
+          value={email}
+        />
+      )
     } else {
-      return (<Input
-        className="email"
-        handleChange={this.handleEmailChange}
-        label="Co-teacher email"
-        placeholder="teacher@example.edu"
-        type="text"
-        value={email}
-      />)
+      return (
+        <Input
+          className="email"
+          handleChange={this.handleEmailChange}
+          label="Co-teacher email"
+          placeholder="teacher@example.edu"
+          type="text"
+          value={email}
+        />
+      )
     }
   }
 
   renderModalContent() {
-    return (<div className="invite-coteachers-modal-content">
-      <p>Co-teachers can do everything you can except move or merge students, archive classes, edit activity packs, and access your Premium features.</p>
-      {this.renderEmailInput()}
-      {this.renderDataTable()}
-    </div>)
+    return (
+      <div className="invite-coteachers-modal-content">
+        <p>Co-teachers can do everything you can except move or merge students, archive classes, edit activity packs, and access your Premium features.</p>
+        {this.renderEmailInput()}
+        {this.renderDataTable()}
+      </div>
+    )
   }
 
   renderDataTable() {
@@ -146,39 +152,43 @@ export default class InviteCoteachersModal extends React.Component<InviteCoteach
       }
     })
 
-    return (<DataTable
-      checkAllRows={this.checkAllRows}
-      checkRow={this.checkRow}
-      headers={headers}
-      rows={rows}
-      showCheckboxes={true}
-      uncheckAllRows={this.uncheckAllRows}
-      uncheckRow={this.uncheckRow}
-    />)
+    return (
+      <DataTable
+        checkAllRows={this.checkAllRows}
+        checkRow={this.checkRow}
+        headers={headers}
+        rows={rows}
+        showCheckboxes={true}
+        uncheckAllRows={this.uncheckAllRows}
+        uncheckRow={this.uncheckRow}
+      />
+    )
   }
 
   render() {
     const { close } = this.props
-    return (<div className="modal-container invite-coteachers-modal-container">
-      <div className="modal-background" />
-      <div className="invite-coteachers-modal quill-modal">
+    return (
+      <div className="modal-container invite-coteachers-modal-container">
+        <div className="modal-background" />
+        <div className="invite-coteachers-modal quill-modal">
 
-        <div className="invite-coteachers-modal-header">
-          <h3 className="title">Invite co-teachers</h3>
-        </div>
-
-        <div className="invite-coteachers-modal-body modal-body">
-          {this.renderModalContent()}
-        </div>
-
-        <div className="invite-coteachers-modal-footer">
-          <div className="buttons">
-            <button className="quill-button outlined secondary medium" onClick={close}>Cancel</button>
-            <button className={this.footerButtonClass()} onClick={this.inviteCoteachers}>Invite</button>
+          <div className="invite-coteachers-modal-header">
+            <h3 className="title">Invite co-teachers</h3>
           </div>
-        </div>
 
+          <div className="invite-coteachers-modal-body modal-body">
+            {this.renderModalContent()}
+          </div>
+
+          <div className="invite-coteachers-modal-footer">
+            <div className="buttons">
+              <button className="quill-button outlined secondary medium" onClick={close}>Cancel</button>
+              <button className={this.footerButtonClass()} onClick={this.inviteCoteachers}>Invite</button>
+            </div>
+          </div>
+
+        </div>
       </div>
-    </div>)
+    )
   }
 }

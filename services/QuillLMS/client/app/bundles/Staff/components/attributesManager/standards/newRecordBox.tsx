@@ -89,76 +89,86 @@ const NewRecordBox = ({ recordType, createNewRecord, closeRecordBox, standardCat
     const standardCategoryOptions = standardCategories.sort(sortWordsThatIncludeNumbers()).map(t => ({ value: t.id, label: t.name }))
     const standardLevelValue = standardLevelOptions.find(opt => opt.value === record.standard_level_id)
     const standardCategoryValue = standardCategoryOptions.find(opt => opt.value === record.standard_category_id)
-    return (<div>
-      <DropdownInput
-        handleChange={changeStandardLevel}
-        isSearchable={true}
-        label="Standard Level"
-        options={standardLevelOptions}
-        value={standardLevelValue}
-      />
-      <DropdownInput
-        handleChange={changeStandardCategory}
-        isSearchable={true}
-        label="Standard Category"
-        options={standardCategoryOptions}
-        value={standardCategoryValue}
-      />
-    </div>)
+    return (
+      <div>
+        <DropdownInput
+          handleChange={changeStandardLevel}
+          isSearchable={true}
+          label="Standard Level"
+          options={standardLevelOptions}
+          value={standardLevelValue}
+        />
+        <DropdownInput
+          handleChange={changeStandardCategory}
+          isSearchable={true}
+          label="Standard Category"
+          options={standardCategoryOptions}
+          value={standardCategoryValue}
+        />
+      </div>
+    )
   }
 
   function renderFields() {
     const dropdowns = recordType === STANDARD ? renderDropdownInputs() : null
 
-    return (<div>
-      {dropdowns}
-      <div className="record-input-container">
-        <Input
-          handleChange={renameRecord}
-          label={recordType}
-          type='text'
-          value={record.name}
-        />
+    return (
+      <div>
+        {dropdowns}
+        <div className="record-input-container">
+          <Input
+            handleChange={renameRecord}
+            label={recordType}
+            type='text'
+            value={record.name}
+          />
+        </div>
       </div>
-    </div>)
+    )
   }
 
   function renderSaveButton() {
     const { name, standard_category_id, standard_level_id, } = record
     const hasStandardCategoryAndLevelIfStandard = recordType === STANDARD ? standard_category_id && standard_level_id : true
     if (name.length && hasStandardCategoryAndLevelIfStandard) {
-      return (<input
-        className="quill-button contained primary medium"
-        type="submit"
-        value="Save"
-      />)
+      return (
+        <input
+          className="quill-button contained primary medium"
+          type="submit"
+          value="Save"
+        />
+      )
     }
   }
 
   function renderChangeLogModal() {
     if (!showChangeLogModal) { return }
 
-    return (<ChangeLogModal
-      cancel={closeChangeLogModal}
-      changedFields={[{ fieldName: 'new' }]}
-      record={record}
-      save={setChangeLogs}
-    />)
+    return (
+      <ChangeLogModal
+        cancel={closeChangeLogModal}
+        changedFields={[{ fieldName: 'new' }]}
+        record={record}
+        save={setChangeLogs}
+      />
+    )
   }
 
-  return (<div className="record-box create-record-box">
-    {renderChangeLogModal()}
-    <span className="close-record-box" onClick={closeRecordBox}><i className="fas fa-times" /></span>
-    <form acceptCharset="UTF-8" onSubmit={handleSubmit} >
-      <div className="static">
-        <p>Create a {recordType}</p>
-      </div>
-      <div className="fields">
-        {renderFields()}
-        {renderSaveButton()}
-      </div>
-    </form>
-  </div>)
+  return (
+    <div className="record-box create-record-box">
+      {renderChangeLogModal()}
+      <span className="close-record-box" onClick={closeRecordBox}><i className="fas fa-times" /></span>
+      <form acceptCharset="UTF-8" onSubmit={handleSubmit} >
+        <div className="static">
+          <p>Create a {recordType}</p>
+        </div>
+        <div className="fields">
+          {renderFields()}
+          {renderSaveButton()}
+        </div>
+      </form>
+    </div>
+  )
 }
 
 

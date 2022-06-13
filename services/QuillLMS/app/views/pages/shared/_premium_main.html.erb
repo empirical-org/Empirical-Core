@@ -5,20 +5,26 @@ document.addEventListener('keydown', function(e) {
   }
 });
 document.addEventListener('click', function(e) {
-  console.log("clicked")
   $('body').removeClass('show-focus');
 });
 </script>
+
 <span id='user-logged-in' data-signed-in= <%= !!current_user%>>
+
 <div id="first-preview-section">
-<%= react_component('PremiumPricingGuideApp', props: {
-  lastFour: @last_four,
-  userHasSchool: @user_has_school,
-  userIsEligibleForNewSubscription: @user_is_eligible_for_new_subscription,
-  userIsEligibleForTrial: @user_is_eligible_for_trial,
-  userBelongsToSchoolThatHasPaid: @user_belongs_to_school_that_has_paid,
-  diagnosticActivityCount: @diagnostic_activity_count,
-  lessonsActivityCount: @lessons_activity_count,
-  independentPracticeActivityCount: @independent_practice_activity_count
-}) %>
+  <%= react_component('PremiumPricingGuideApp', props: {
+      customerEmail: @customer_email,
+      diagnosticActivityCount: @diagnostic_activity_count,
+      independentPracticeActivityCount: @independent_practice_activity_count,
+      lessonsActivityCount: @lessons_activity_count,
+      schoolIds: @school_ids,
+      showSchoolBuyNow: @show_school_buy_now,
+      stripeSchoolPlan: @stripe_school_plan,
+      stripeTeacherPlan: @stripe_teacher_plan,
+      userBelongsToSchoolThatHasPaid: @user_belongs_to_school_that_has_paid,
+      userHasSchool: @user_has_school,
+      userIsEligibleForNewSubscription: @user_is_eligible_for_new_subscription,
+      userIsEligibleForTrial: @user_is_eligible_for_trial
+    })
+  %>
 </div>

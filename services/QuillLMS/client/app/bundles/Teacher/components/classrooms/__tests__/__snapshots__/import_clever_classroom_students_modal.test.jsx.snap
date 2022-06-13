@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ImportCleverClassroomStudentsModal component should render ImportCleverClassroomStudentsModal 1`] = `
+<div
+  className="modal-container import-clever-classroom-students-modal-container"
+>
+  <div
+    className="modal-background"
+  />
+  <div
+    className="import-clever-classroom-students-modal quill-modal modal-body"
+  >
+    <div>
+      <h3
+        className="title"
+      >
+        Import students from Clever
+      </h3>
+    </div>
+    <p>
+      You are about to import students from the class 
+      Quill Classroom
+      .
+    </p>
+    <div
+      className="checkboxes"
+    >
+      <div
+        className="checkbox-row"
+      >
+        <div
+          className="quill-checkbox unselected"
+          onClick={[Function]}
+        />
+        <span>
+          I understand that newly imported students have access to the activities that have already been assigned to the entire class.
+        </span>
+      </div>
+    </div>
+    <div
+      className="form-buttons"
+    >
+      <button
+        className="quill-button outlined secondary medium"
+        onClick={[Function]}
+        type="button"
+      >
+        Cancel
+      </button>
+      <button
+        className="quill-button contained primary medium disabled"
+        onClick={[Function]}
+        type="button"
+      >
+        Import students
+      </button>
+    </div>
+  </div>
+</div>
+`;

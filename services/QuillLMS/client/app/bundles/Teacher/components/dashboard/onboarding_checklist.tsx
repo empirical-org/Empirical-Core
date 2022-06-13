@@ -26,17 +26,19 @@ const OnboardingChecklistItem = ({ checked, name, link, }: OnboardingChecklistIt
 }
 
 const OnboardingChecklist = ({ onboardingChecklist, firstName, }: { onboardingChecklist: Array<OnboardingChecklistItemInterface>, firstName: string, }) => {
-  return (<div className="onboarding-checklist-container">
-    <div className="onboarding-checklist-body">
-      <h1>Welcome, {firstName}!</h1>
-      <p>Follow these steps to get the ball rolling.</p>
-      <div className="onboarding-checklist">
-        <OnboardingChecklistItem checked={true} name="Be inspired by a teacher growing up, and become one yourself" />
-        {onboardingChecklist.map(item => <OnboardingChecklistItem checked={item.checked} key={item.name} link={item.link} name={item.name} />)}
+  return (
+    <div className="onboarding-checklist-container">
+      <div className="onboarding-checklist-body">
+        <h1>Welcome, {firstName}!</h1>
+        <p>Follow these steps to get the ball rolling.</p>
+        <div className="onboarding-checklist">
+          <OnboardingChecklistItem checked={true} name="Be inspired by a teacher growing up, and become one yourself" />
+          {onboardingChecklist.map(item => <OnboardingChecklistItem checked={item.checked} key={item.name} link={item.link} name={item.name} />)}
+        </div>
       </div>
+      <img alt="Woman holding a check mark up to an oversized checklist" className="illustration" src={personWithChecklistSrc} />
     </div>
-    <img alt="Woman holding a check mark up to an oversized checklist" className="illustration" src={personWithChecklistSrc} />
-  </div>)
+  )
 }
 
 export default OnboardingChecklist

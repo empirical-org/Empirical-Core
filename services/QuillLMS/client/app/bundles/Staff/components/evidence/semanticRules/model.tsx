@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useQuery, queryCache } from 'react-query';
+import { useQuery, useQueryClient, } from 'react-query';
 import { withRouter, Link, useHistory } from 'react-router-dom';
 import { EditorState, ContentState } from 'draft-js';
 
@@ -12,6 +12,8 @@ const Model = ({ match }) => {
 
   const [errors, setErrors] = React.useState<object>({});
   let history = useHistory();
+
+  const queryClient = useQueryClient()
 
   // cache ruleSets data for handling rule suborder
   const { data: modelData } = useQuery({
@@ -33,7 +35,7 @@ const Model = ({ match }) => {
         updatedErrors['Model Submission Error'] = error;
         setErrors(updatedErrors);
       } else {
-        queryCache.clear();
+        queryClient.clear();
         history.push(`/activities/${activityId}/semantic-labels/all`);
       }
     });

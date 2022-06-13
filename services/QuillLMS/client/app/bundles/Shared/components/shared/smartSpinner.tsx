@@ -17,7 +17,7 @@ class SmartSpinner extends React.Component<any, any> {
     return (
       <div className="loading-spinner">
         <div className="spinner-container">
-          <img className="spinner" src={spinner} />
+          <img alt="" className="spinner" src={spinner} />
           <p className="spinner-message">{this.props.message}</p>
         </div>
       </div>

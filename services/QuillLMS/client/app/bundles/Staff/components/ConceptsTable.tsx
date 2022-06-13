@@ -1,9 +1,9 @@
 import * as React from 'react';
-import ReactTable from 'react-table';
+import moment from 'moment';
 import { firstBy } from "thenby";
 
 import { Concept } from '../containers/ConceptsIndex';
-import moment from 'moment';
+import { ReactTable, } from '../../Shared/index';
 
 interface ConceptsTableProps {
   concepts: Array<Concept>
@@ -28,29 +28,29 @@ function columns(selectConcept) {
       Header: 'Level 2',
       accessor: 'grandparentConceptName',
       key: 'grandparentConceptName',
-      Cell: (props) => (<div onClick={() => selectConcept(props.original.grandparentConceptId, 2)}>{props.original.grandparentConceptName}</div>),
-      sortType: firstBy<ConceptRow>('grandparentConceptName').thenBy('parentConceptName').thenBy('conceptName'),
+      Cell: ({row}) => (<div onClick={() => selectConcept(row.original.grandparentConceptId, 2)}>{row.original.grandparentConceptName}</div>),
+      sortType: firstBy<ConceptRow>(r => r.original.grandparentConceptName).thenBy(r => r.original.parentConceptName).thenBy(r => r.original.conceptName),
     },
     {
       Header: 'Level 1',
       accessor: 'parentConceptName',
       key: 'parentConceptName',
-      Cell: (props) => (<div onClick={() => selectConcept(props.original.parentConceptId, 1)}>{props.original.parentConceptName}</div>),
-      sortType: firstBy<ConceptRow>('parentConceptName').thenBy('conceptName'),
+      Cell: ({row}) => (<div onClick={() => selectConcept(row.original.parentConceptId, 1)}>{row.original.parentConceptName}</div>),
+      sortType: firstBy<ConceptRow>(r => r.original.parentConceptName).thenBy(r => r.original.conceptName),
     },
     {
       Header: 'Level 0',
       accessor: 'conceptName',
       key: 'conceptName',
-      Cell: (props) => (<div onClick={() => selectConcept(props.original.conceptId, 0)}>{props.original.conceptName}</div>),
-      sortType: firstBy('conceptName'),
+      Cell: ({row}) => (<div onClick={() => selectConcept(row.original.conceptId, 0)}>{row.original.conceptName}</div>),
+      sortType: firstBy(r => r.original.conceptName),
     },
     {
       Header: 'Created At',
       accessor: 'createdAt',
       key: 'createdAt',
-      Cell: (props) => moment(props.original.createdAt* 1000).format('M/D/YY'),
-      sortType:  (a, b) => (a.createdAt - b.createdAt),
+      Cell: ({row}) => moment(row.original.createdAt* 1000).format('M/D/YY'),
+      sortType:  (a, b) => (a.original.createdAt - b.original.createdAt),
     },
   ];
 }
@@ -83,8 +83,6 @@ const ConceptsTable: React.SFC<ConceptsTableProps> = ({concepts, visible, select
       className="concepts-table"
       columns={columns(selectConcept)}
       data={data}
-      defaultPageSize={data.length}
-      showPagination={false}
     />
   );
 };

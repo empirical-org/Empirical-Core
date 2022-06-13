@@ -152,10 +152,12 @@ export default class TeacherGeneralAccountInfo extends React.Component {
 
   renderButtonSection() {
     if (this.state.showButtonSection) {
-      return (<div className="button-section">
-        <div className="quill-button outlined secondary medium" id="cancel" onClick={this.resetAndDeactivateSection}>Cancel</div>
-        <input className={this.submitClass()} name="commit" type="submit" value="Save changes" />
-      </div>)
+      return (
+        <div className="button-section">
+          <div className="quill-button outlined secondary medium" id="cancel" onClick={this.resetAndDeactivateSection}>Cancel</div>
+          <input className={this.submitClass()} name="commit" type="submit" value="Save changes" />
+        </div>
+      )
     }
   }
 
@@ -163,34 +165,40 @@ export default class TeacherGeneralAccountInfo extends React.Component {
     const { googleId, cleverId, timesSubmitted, errors, } = this.props
     const { email, } = this.state
     if (googleId) {
-      return (<Input
-        className="email google-or-clever"
-        disabled={true}
-        helperText={'Unlink your Google account below to change your email.'}
-        label="Email"
-        type="text"
-        value={email}
-      />)
+      return (
+        <Input
+          className="email google-or-clever"
+          disabled={true}
+          helperText="Unlink your Google account below to change your email."
+          label="Email"
+          type="text"
+          value={email}
+        />
+      )
     } else if (cleverId) {
-      return (<Input
-        className="email google-or-clever"
-        disabled={true}
-        helperText={'Unlink your Clever account below to change your email.'}
-        label="Email"
-        type="text"
-        value={email}
-      />)
+      return (
+        <Input
+          className="email google-or-clever"
+          disabled={true}
+          helperText="Unlink your Clever account below to change your email."
+          label="Email"
+          type="text"
+          value={email}
+        />
+      )
     } else {
-      return (<Input
-        className="email"
-        error={errors.email}
-        handleChange={this.handleEmailChange}
-        label="Email"
-        onClick={this.activateSection}
-        timesSubmitted={timesSubmitted}
-        type='text'
-        value={email}
-      />)
+      return (
+        <Input
+          className="email"
+          error={errors.email}
+          handleChange={this.handleEmailChange}
+          label="Email"
+          onClick={this.activateSection}
+          timesSubmitted={timesSubmitted}
+          type='text'
+          value={email}
+        />
+      )
     }
   }
 
@@ -224,41 +232,43 @@ export default class TeacherGeneralAccountInfo extends React.Component {
     const selectedTimeZone = timeZoneOptions.find(tz => tz.name === timeZone)
     const selectedSchoolType = this.schoolTypeOptions().find(st => st.value === schoolType)
 
-    return (<div className="user-account-general user-account-section">
-      <h1>General</h1>
-      <form acceptCharset="UTF-8" onSubmit={this.handleSubmit} >
-        <div className="fields">
-          <Input
-            className="name"
-            error={errors.name}
-            handleChange={this.handleNameChange}
-            label="Full name"
-            onClick={this.activateSection}
-            timesSubmitted={timesSubmitted}
-            type="text"
-            value={name}
-          />
-          {this.renderEmail()}
-          <DropdownInput
-            error={errors.timeZone}
-            handleChange={this.handleTimezoneChange}
-            label="Time zone"
-            onClick={this.activateSection}
-            options={timeZoneOptions}
-            value={selectedTimeZone}
-          />
-          <DropdownInput
-            error={errors.schoolType}
-            handleChange={this.handleSchoolTypeChange}
-            label="School type"
-            onClick={this.activateSection}
-            options={this.schoolTypeOptions()}
-            value={selectedSchoolType}
-          />
-          {this.renderSchool()}
-        </div>
-        {this.renderButtonSection()}
-      </form>
-    </div>)
+    return (
+      <div className="user-account-general user-account-section">
+        <h1>General</h1>
+        <form acceptCharset="UTF-8" onSubmit={this.handleSubmit} >
+          <div className="fields">
+            <Input
+              className="name"
+              error={errors.name}
+              handleChange={this.handleNameChange}
+              label="Full name"
+              onClick={this.activateSection}
+              timesSubmitted={timesSubmitted}
+              type="text"
+              value={name}
+            />
+            {this.renderEmail()}
+            <DropdownInput
+              error={errors.timeZone}
+              handleChange={this.handleTimezoneChange}
+              label="Time zone"
+              onClick={this.activateSection}
+              options={timeZoneOptions}
+              value={selectedTimeZone}
+            />
+            <DropdownInput
+              error={errors.schoolType}
+              handleChange={this.handleSchoolTypeChange}
+              label="School type"
+              onClick={this.activateSection}
+              options={this.schoolTypeOptions()}
+              value={selectedSchoolType}
+            />
+            {this.renderSchool()}
+          </div>
+          {this.renderButtonSection()}
+        </form>
+      </div>
+    )
   }
 }

@@ -19,6 +19,7 @@ import {
   Student,
 } from './interfaces'
 
+import ActivityDisclaimerBanner from '../../../shared/activityDisclaimerBanner'
 import LoadingSpinner from '../../../shared/loading_indicator.jsx'
 import { requestGet, requestPost, } from '../../../../../../modules/request/index';
 import {
@@ -28,6 +29,7 @@ import {
   defaultSnackbarTimeout,
   smallWhiteCheckIcon,
   previewIcon,
+  LESSONS,
 } from '../../../../../Shared/index'
 import useSnackbarMonitor from '../../../../../Shared/hooks/useSnackbarMonitor'
 
@@ -65,39 +67,48 @@ const LessonRecommendation = ({ previouslyAssignedRecommendations, selections, s
   }
   const studentNames = students_needing_instruction.join('<br/>')
   const activityRows = activities.map(activity => {
-    return (<div className="activity-row" key={activity.name}>
-      <span>{activity.name}</span>
-      <a className="interactive-wrapper focus-on-light" href={activity.url} rel="noopener noreferrer" target="_blank">
-        <img alt={previewIcon.alt} src={previewIcon.src} />
-        <span>Preview</span>
-      </a>
-    </div>)
+    return (
+      <div className="activity-row" key={activity.name}>
+        <span>{activity.name}</span>
+        <a className="interactive-wrapper focus-on-light" href={activity.url} rel="noopener noreferrer" target="_blank">
+          <img alt={previewIcon.alt} src={previewIcon.src} />
+          <span>Preview</span>
+        </a>
+      </div>
+    )
   })
 
-  return (<section className={`lessons-recommendation ${isExpanded? 'is-expanded' : ''} ${isRecommended && !isAssigned ? 'is-recommended-and-not-assigned' : ''}`}>
-    <div className="top-row">
-      <div>
-        {isRecommended ? asteriskIcon : <span className="asterisk-placeholder" />}
-        {isAssigned ? <span className="checkbox-placeholder" /> : checkbox}
-        <h3>{name}</h3>
+  return (
+    <section className={`lessons-recommendation ${isExpanded? 'is-expanded' : ''} ${isRecommended && !isAssigned ? 'is-recommended-and-not-assigned' : ''}`}>
+      <div className="top-row">
+        <div>
+          {isRecommended ? asteriskIcon : <span className="asterisk-placeholder" />}
+          {isAssigned ? <span className="checkbox-placeholder" /> : checkbox}
+          <h3>{name}</h3>
+        </div>
+        <div>
+          {isAssigned && assigned}
+          <Tooltip
+            tooltipText={studentNames}
+            tooltipTriggerText={informationIcon}
+          />
+          <span>{students_needing_instruction.length} student{students_needing_instruction.length === 1 ? '' : 's'} need{students_needing_instruction.length === 1 ? 's' : ''} instruction</span>
+          <span className="activities-count">{activities.length} lesson{activities.length === 1 ? '' : 's'}</span>
+          <button className="interactive-wrapper" onClick={toggleExpansion} type="button">{expandIcon}</button>
+        </div>
       </div>
-      <div>
-        {isAssigned && assigned}
-        <Tooltip
-          tooltipText={studentNames}
-          tooltipTriggerText={informationIcon}
-        />
-        <span>{students_needing_instruction.length} student{students_needing_instruction.length === 1 ? '' : 's'} need{students_needing_instruction.length === 1 ? 's' : ''} instruction</span>
-        <span className="activities-count">{activities.length} lesson{activities.length === 1 ? '' : 's'}</span>
-        <button className="interactive-wrapper" onClick={toggleExpansion} type="button">{expandIcon}</button>
-      </div>
-    </div>
-    {isExpanded && activityRows}
-  </section>)
+      {isExpanded && activityRows}
+    </section>
+  )
 }
 
-const LessonsRecommendations = ({ previouslyAssignedRecommendations, recommendations, selections, setSelections, }) => {
-  return <div className="lessons-recommendations">{recommendations.map(recommendation => <LessonRecommendation key={recommendation.activity_pack_id} previouslyAssignedRecommendations={previouslyAssignedRecommendations} recommendation={recommendation} selections={selections} setSelections={setSelections} />)}</div>
+const LessonsRecommendations = ({ assigningLessonsBanner, previouslyAssignedRecommendations, recommendations, selections, setSelections, }) => {
+  return (
+    <div className="lessons-recommendations">
+      {recommendations.map(recommendation => <LessonRecommendation key={recommendation.activity_pack_id} previouslyAssignedRecommendations={previouslyAssignedRecommendations} recommendation={recommendation} selections={selections} setSelections={setSelections} />)}
+      {assigningLessonsBanner}
+    </div>
+  )
 }
 
 const RecommendationsButtons = ({numberSelected, assigning, assigned, assignActivityPacks, deselectAll, selectAll, selectAllRecommended}) => {
@@ -111,18 +122,20 @@ const RecommendationsButtons = ({numberSelected, assigning, assigned, assignActi
     assignButton = <button className="quill-button primary contained small focus-on-light" onClick={assignActivityPacks} type="button">Assign activity packs</button>
   }
 
-  return (<div className="recommendations-buttons-container">
-    <div className="recommendations-buttons">
-      <div>
-        <button className="quill-button fun secondary outlined focus-on-light" onClick={selectAll} type="button">Select all</button>
-        <button className="quill-button fun secondary outlined focus-on-light" onClick={selectAllRecommended} type="button">Select all recommended</button>
-        <button className="quill-button fun secondary outlined focus-on-light" onClick={deselectAll} type="button">Deselect all</button>
-      </div>
-      <div>
-        {assignButton}
+  return (
+    <div className="recommendations-buttons-container">
+      <div className="recommendations-buttons">
+        <div>
+          <button className="quill-button fun secondary outlined focus-on-light" onClick={selectAll} type="button">Select all</button>
+          <button className="quill-button fun secondary outlined focus-on-light" onClick={selectAllRecommended} type="button">Select all recommended</button>
+          <button className="quill-button fun secondary outlined focus-on-light" onClick={deselectAll} type="button">Deselect all</button>
+        </div>
+        <div>
+          {assignButton}
+        </div>
       </div>
     </div>
-  </div>)
+  )
 }
 
 const IndependentRecommendationsButtons = ({ assignActivityPacks, independentSelections, setIndependentSelections, recommendations, students, assigned, assigning, previouslyAssignedRecommendations, }) => {
@@ -176,7 +189,7 @@ const LessonsRecommendationsButtons = ({ lessonsSelections, assignLessonsActivit
   return <RecommendationsButtons assignActivityPacks={assignLessonsActivityPacks} assigned={assigned} assigning={assigning} deselectAll={handleDeselectAllClick} numberSelected={lessonsSelections.length} selectAll={handleSelectAllClick} selectAllRecommended={handleSelectAllRecommendedClick} />
 }
 
-export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passedPreviouslyAssignedLessonRecommendations, passedIndependentRecommendations, passedLessonRecommendations, match, mobileNavigation, activityName, location, }) => {
+export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passedPreviouslyAssignedLessonRecommendations, passedIndependentRecommendations, passedLessonRecommendations, match, mobileNavigation, activityName, location, lessonsBannerIsShowable, }) => {
   const [loading, setLoading] = React.useState<boolean>(!passedPreviouslyAssignedRecommendations && !passedIndependentRecommendations && !passedLessonRecommendations);
   const [previouslyAssignedIndependentRecommendations, setPreviouslyAssignedIndependentRecommendations] = React.useState<Recommendation[]>(passedPreviouslyAssignedRecommendations);
   const [previouslyAssignedLessonsRecommendations, setPreviouslyAssignedLessonsRecommendations] = React.useState<LessonRecommendation[]>(passedPreviouslyAssignedLessonRecommendations);
@@ -191,6 +204,7 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
   const [lessonsAssigned, setLessonsAssigned] = React.useState(false)
   const [showSnackbar, setShowSnackbar] = React.useState(false)
   const [snackbarText, setSnackbarText] = React.useState('')
+  const [lessonsBannerEnabled, setLessonsBannerEnabled] = React.useState(lessonsBannerIsShowable)
 
   useSnackbarMonitor(showSnackbar, setShowSnackbar, defaultSnackbarTimeout)
 
@@ -254,6 +268,11 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
       setLoading(false)
     }
   }, [independentRecommendations, lessonsRecommendations, previouslyAssignedLessonsRecommendations, previouslyAssignedIndependentRecommendations])
+
+  function closeLessonsBanner() {
+    setLessonsBannerEnabled(false)
+    requestPost('/milestones/complete_acknowledge_lessons_banner')
+  }
 
   function getRecommendations() {
     requestGet(`/teachers/progress_reports/recommendations_for_classroom/${classroomId}/activity/${activityId}${unitQueryString}`, (data) => {
@@ -336,11 +355,13 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
     })
   }
 
+  const responsesLink = (studentId: number) => unitId ? `/diagnostics/${activityId}/classroom/${classroomId}/responses/${studentId}?unit=${unitId}` : `/diagnostics/${activityId}/classroom/${classroomId}/responses/${studentId}`
+
   if (loading) { return <LoadingSpinner /> }
 
   const recommendedKey = (<div className="recommended-key">
     <div className="recommended-image">{asteriskIcon}</div>
-    <span>Recommended</span>
+    <span>Recommended practice - not yet proficient</span>
   </div>)
 
   let independentRecommendationsSection
@@ -351,9 +372,15 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
       <section className="independent-practice">
         <div className="section-header"><h2>Independent practice</h2>{recommendedKey}</div>
         <IndependentRecommendationsButtons assignActivityPacks={assignIndependentActivityPacks} assigned={independentAssigned} assigning={independentAssigning} independentSelections={independentSelections} previouslyAssignedRecommendations={previouslyAssignedIndependentRecommendations} recommendations={independentRecommendations} setIndependentSelections={setIndependentSelections} students={students} />
-        <RecommendationsTable previouslyAssignedRecommendations={previouslyAssignedIndependentRecommendations} recommendations={independentRecommendations} selections={independentSelections} setSelections={setIndependentSelections} students={students} />
+        <RecommendationsTable previouslyAssignedRecommendations={previouslyAssignedIndependentRecommendations} recommendations={independentRecommendations} responsesLink={responsesLink} selections={independentSelections} setSelections={setIndependentSelections} students={students} />
       </section>
     </React.Fragment>)
+  }
+
+  let assigningLessonsBanner
+
+  if (lessonsSelections.length && lessonsBannerEnabled) {
+    assigningLessonsBanner = <ActivityDisclaimerBanner activityType={LESSONS} closeBanner={closeLessonsBanner} />
   }
 
   let wholeClassInstructionSection
@@ -371,7 +398,7 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
         {recommendedKey}
       </div>
       <LessonsRecommendationsButtons assigned={lessonsAssigned} assigning={lessonsAssigning} assignLessonsActivityPacks={assignLessonsActivityPacks} lessonsRecommendations={lessonsRecommendations} lessonsSelections={lessonsSelections} setLessonsSelections={setLessonsSelections} students={students} />
-      <LessonsRecommendations previouslyAssignedRecommendations={previouslyAssignedLessonsRecommendations} recommendations={lessonsRecommendations} selections={lessonsSelections} setSelections={setLessonsSelections} />
+      <LessonsRecommendations assigningLessonsBanner={assigningLessonsBanner} previouslyAssignedRecommendations={previouslyAssignedLessonsRecommendations} recommendations={lessonsRecommendations} selections={lessonsSelections} setSelections={setLessonsSelections} />
     </section>)
   }
 
@@ -385,17 +412,18 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
     </section>)
   }
 
-  return (<main className="diagnostic-recommendations-container">
-    <Snackbar text={snackbarText} visible={showSnackbar} />
-    <header>
-      <h1>Practice recommendations</h1>
-      {!emptyState && <a className="focus-on-light" href="https://support.quill.org/en/articles/5698147-how-do-i-read-the-practice-recommendations-report" rel="noopener noreferrer" target="_blank">{fileDocumentIcon}<span>Guide</span></a>}
-    </header>
-    {mobileNavigation}
-    {emptyState}
-    {independentRecommendationsSection}
-    {wholeClassInstructionSection}
-  </main>
+  return (
+    <main className="diagnostic-recommendations-container">
+      <Snackbar text={snackbarText} visible={showSnackbar} />
+      <header>
+        <h1>Practice recommendations</h1>
+        {!emptyState && <a className="focus-on-light" href="https://support.quill.org/en/articles/5698147-how-do-i-read-the-practice-recommendations-report" rel="noopener noreferrer" target="_blank">{fileDocumentIcon}<span>Guide</span></a>}
+      </header>
+      {mobileNavigation}
+      {emptyState}
+      {independentRecommendationsSection}
+      {wholeClassInstructionSection}
+    </main>
   )
 }
 

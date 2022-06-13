@@ -1,9 +1,11 @@
 import * as React from 'react'
+import { Link, } from 'react-router-dom'
 
 import {
   noDataYet,
   asteriskIcon,
   correctImage,
+  baseDiagnosticImageSrc,
   WIDE_SCREEN_MINIMUM_WIDTH,
   LEFT_OFFSET,
   DEFAULT_LEFT_PADDING,
@@ -23,8 +25,11 @@ import {
 } from '../../../../../Shared/index'
 import useWindowSize from '../../../../../Shared/hooks/useWindowSize'
 
+const openInNewTabIcon = <img alt="Open in new tab icon" src={`${baseDiagnosticImageSrc}/icons-open-in-new.svg`} />
+
 interface RecommendationsTableProps {
   recommendations: Recommendation[];
+  responsesLink: (studentId: number) => string;
   previouslyAssignedRecommendations: Recommendation[];
   students: Student[];
   selections: Recommendation[];
@@ -66,47 +71,60 @@ const RecommendationCell = ({ student, isAssigned, isRecommended, isSelected, se
       <img alt={smallWhiteCheckIcon.alt} src={smallWhiteCheckIcon.src} />
     </span>)
   }
-  return (<td className="recommendation-cell">
-    <button className={`interactive-wrapper ${isRecommended && isSelected && !isAssigned ? 'recommended-and-selected' : ''}`} onClick={isAssigned ? () => {} : toggleSelection} type="button">
-      {isRecommended ? asteriskIcon : <span />}
-      {assigned || checkbox}
-      <span />
-    </button>
-  </td>)
+  return (
+    <td className="recommendation-cell">
+      <button className={`interactive-wrapper ${isRecommended && isSelected && !isAssigned ? 'recommended-and-selected' : ''}`} onClick={isAssigned ? () => {} : toggleSelection} type="button">
+        {isRecommended ? asteriskIcon : <span />}
+        {assigned || checkbox}
+        <span />
+      </button>
+    </td>
+  )
 }
 
-const StudentRow = ({ student, selections, recommendations, previouslyAssignedRecommendations, setSelections, }) => {
+const StudentRow = ({ student, selections, recommendations, previouslyAssignedRecommendations, setSelections, responsesLink, }) => {
   const { name, completed, id, } = student
-  const diagnosticNotCompletedMessage = completed ? null : <span className="diagnostic-not-completed">Diagnostic not completed</span>
-  const firstCell = (<th className="name-cell">
+
+  let firstCell = (<th className="name-cell">
     <div>
       <StudentNameOrTooltip name={name} />
-      {diagnosticNotCompletedMessage}
+      <span className="name-section-subheader">Diagnostic not completed</span>
     </div>
   </th>)
 
   let selectionCells = selections.map((selection: Recommendation) => (<td key={selection.name} />))
   if (completed) {
+    firstCell = (
+      <th className="name-cell">
+        <Link rel="noopener noreferrer" target="_blank" to={responsesLink(id)}>
+          <StudentNameOrTooltip name={name} />
+          {openInNewTabIcon}
+        </Link>
+      </th>
+    )
+
     selectionCells = selections.map((selection: Recommendation, i: number) => {
       const isAssigned = previouslyAssignedRecommendations.find(r => r.activity_pack_id === selection.activity_pack_id).students.includes(id)
       const isRecommended = recommendations.find(r => r.activity_pack_id === selection.activity_pack_id).students.includes(id)
       const isSelected = selection.students.includes(id)
-      return (<RecommendationCell
-        isAssigned={isAssigned}
-        isRecommended={isRecommended}
-        isSelected={isSelected}
-        key={`${id}-${selection.activity_pack_id}`}
-        selectionIndex={i}
-        selections={selections}
-        setSelections={setSelections}
-        student={student}
-      />)
+      return (
+        <RecommendationCell
+          isAssigned={isAssigned}
+          isRecommended={isRecommended}
+          isSelected={isSelected}
+          key={`${id}-${selection.activity_pack_id}`}
+          selectionIndex={i}
+          selections={selections}
+          setSelections={setSelections}
+          student={student}
+        />
+      )
     })
   }
   return <tr key={name}>{firstCell}{selectionCells}</tr>
 }
 
-const RecommendationsTable = ({ recommendations, students, selections, previouslyAssignedRecommendations, setSelections, }: RecommendationsTableProps) => {
+const RecommendationsTable = ({ recommendations, responsesLink, students, selections, previouslyAssignedRecommendations, setSelections, }: RecommendationsTableProps) => {
   const size = useWindowSize();
 
   const [isSticky, setIsSticky] = React.useState(false);
@@ -154,16 +172,18 @@ const RecommendationsTable = ({ recommendations, students, selections, previousl
 
   const tableHeaders = recommendations && recommendations.map(recommendation => {
     const { activity_pack_id, name, activity_count, students, } = recommendation
-    return (<th className="recommendation-header" key={name}>
-      <div className="name-and-tooltip">
-        <span>{name}</span>
-        <Tooltip
-          tooltipText={`<a href='/activities/packs/${activity_pack_id}' target="_blank">Preview the activity pack</a>`}
-          tooltipTriggerText={<img alt={helpIcon.alt} src={helpIcon.src} />}
-        />
-      </div>
-      <span className="activity-count">{activity_count} activities</span>
-    </th>)
+    return (
+      <th className="recommendation-header" key={name}>
+        <div className="name-and-tooltip">
+          <span>{name}</span>
+          <Tooltip
+            tooltipText={`<a href='/activities/packs/${activity_pack_id}' target="_blank">Preview the activity pack</a>`}
+            tooltipTriggerText={<img alt={helpIcon.alt} src={helpIcon.src} />}
+          />
+        </div>
+        <span className="activity-count">{activity_count} activities</span>
+      </th>
+    )
   })
 
   const studentRows = students.map(student => (
@@ -171,6 +191,7 @@ const RecommendationsTable = ({ recommendations, students, selections, previousl
       key={student.name}
       previouslyAssignedRecommendations={previouslyAssignedRecommendations}
       recommendations={recommendations}
+      responsesLink={responsesLink}
       selections={selections}
       setSelections={setSelections}
       student={student}
@@ -190,31 +211,35 @@ const RecommendationsTable = ({ recommendations, students, selections, previousl
       style = { left: -(LEFT_OFFSET - (stickyTableStyle.left - paddingLeft())) + 1 }
     }
 
-    return (<thead>
-      <tr>
-        <th className="corner-header" style={sticky ? style : {}}>Name</th>
-        {tableHeaders}
-      </tr>
-    </thead>)
+    return (
+      <thead>
+        <tr>
+          <th className="corner-header" style={sticky ? style : {}}>Name</th>
+          {tableHeaders}
+        </tr>
+      </thead>
+    )
   }
 
-  return (<div className="recommendations-table-container" onScroll={handleScroll}>
-    {isSticky && tableHasContent && (
-      <table
-        className={`${tableClassName} sticky`}
-        style={stickyTableStyle}
-      >
-        {renderHeader(true)}
+  return (
+    <div className="recommendations-table-container" onScroll={handleScroll}>
+      {isSticky && tableHasContent && (
+        <table
+          className={`${tableClassName} sticky`}
+          style={stickyTableStyle}
+        >
+          {renderHeader(true)}
+        </table>
+      )}
+      <table className={tableClassName} ref={tableRef} style={tableHasContent ? { paddingLeft: paddingLeft() } : { marginLeft: paddingLeft() }}>
+        {renderHeader(false)}
+        {tableHasContent ? null : noDataYet}
+        <tbody>
+          {studentRows}
+        </tbody>
       </table>
-    )}
-    <table className={tableClassName} ref={tableRef} style={tableHasContent ? { paddingLeft: paddingLeft() } : { marginLeft: paddingLeft() }}>
-      {renderHeader(false)}
-      {tableHasContent ? null : noDataYet}
-      <tbody>
-        {studentRows}
-      </tbody>
-    </table>
-  </div>)
+    </div>
+  )
 }
 
 export default RecommendationsTable

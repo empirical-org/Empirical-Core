@@ -41,17 +41,6 @@ exports[`EditorContainer component when the activity has loaded renders 1`] = `
         spellCheck={true}
       />
     </ContentEditable>
-    <button
-      className="disabled clear-button"
-      type="button"
-    >
-      <img
-        alt="circle with an x in it"
-        className="clear"
-        src="undefined/images/icons/clear-disabled.svg"
-      />
-      Clear response
-    </button>
   </div>
 </EditorContainer>
 `;

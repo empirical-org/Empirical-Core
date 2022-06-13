@@ -79,9 +79,9 @@ export default class TutorialIndex extends React.Component {
 
   previousButton() {
     if (this.state.slideNumber !== 1) {
-      return <p className="text-quillgreen previous-button" onClick={() => this.goToSlide(this.state.slideNumber - 1)}>Back</p>;
+      return <button className="text-quillgreen previous-button interactive-wrapper" onClick={() => this.goToSlide(this.state.slideNumber - 1)} type="button">Back</button>;
     }
-    return <div className="text-quillgreen previous-button" style={{ height: '22px', }} />;
+    return <div className="text-quillgreen previous-button interactive-wrapper" style={{ height: '22px', }} />;
   }
 
   qs() {

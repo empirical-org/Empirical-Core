@@ -25,7 +25,7 @@ describe('DistrictConceptReports', () => {
     const store = createMockStore(state);
     const wrapper = shallow(<DistrictConceptReports store={store} />);
 
-    expect(wrapper.prop('filteredConceptReportsData')).toEqual([classroom]);
+    expect(wrapper.find('DistrictConceptReports').prop('filteredConceptReportsData')).toEqual([classroom]);
   });
 
   it('formats csv data', () => {
@@ -51,7 +51,7 @@ describe('DistrictConceptReports', () => {
     const store = createMockStore(state);
     const wrapper = shallow(<DistrictConceptReports store={store} />);
 
-    expect(wrapper.prop('csvData')).toEqual([
+    expect(wrapper.find('DistrictConceptReports').prop('csvData')).toEqual([
       [
         'Student',
         'Teacher',
@@ -110,7 +110,7 @@ describe('DistrictConceptReports', () => {
     const store = createMockStore(state);
     const wrapper = shallow(<DistrictConceptReports store={store} />);
 
-    expect(wrapper.prop('filteredConceptReportsData')).toEqual([{
+    expect(wrapper.find('DistrictConceptReports').prop('filteredConceptReportsData')).toEqual([{
       classroom_name: "Mrs. Crabtree's Afternoon Bus",
       school_name: 'South Park Elementary',
       student_name: 'Butters',
@@ -155,19 +155,19 @@ describe('DistrictConceptReports', () => {
     const store = createMockStore(state);
     const wrapper = shallow(<DistrictConceptReports store={store} />);
 
-    expect(wrapper.prop('schoolNames')).toEqual([
+    expect(wrapper.find('DistrictConceptReports').prop('schoolNames')).toEqual([
       'All Schools',
       'Bel-Air Academy',
       'South Park Elementary'
     ]);
 
-    expect(wrapper.prop('teacherNames')).toEqual([
+    expect(wrapper.find('DistrictConceptReports').prop('teacherNames')).toEqual([
       'All Teachers',
       'Mr. Garrison',
       'Mrs. Crabtree'
     ]);
 
-    expect(wrapper.prop('classroomNames')).toEqual([
+    expect(wrapper.find('DistrictConceptReports').prop('classroomNames')).toEqual([
       'All Classrooms',
       "Mrs. Crabtree's Morning Bus",
       "Mrs. Crabtree's Afternoon Bus"

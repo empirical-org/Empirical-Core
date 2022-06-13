@@ -11,7 +11,6 @@
 #  free_lunches          :integer
 #  fte_classroom_teacher :integer
 #  latitude              :decimal(9, 6)
-#  leanm                 :string
 #  longitude             :decimal(9, 6)
 #  lower_grade           :integer
 #  magnet                :string
@@ -36,11 +35,12 @@
 #  authorizer_id         :integer
 #  clever_id             :string
 #  coordinator_id        :integer
-#  lea_id                :string
+#  district_id           :bigint
 #  nces_id               :string
 #
 # Indexes
 #
+#  index_schools_on_district_id     (district_id)
 #  index_schools_on_mail_zipcode    (mail_zipcode)
 #  index_schools_on_name            (name)
 #  index_schools_on_nces_id         (nces_id)
@@ -52,6 +52,8 @@
 require 'rails_helper'
 
 describe School, type: :model do
+  it { should belong_to(:district) }
+
   let!(:bk_school) { create :school, name: "Brooklyn Charter School", zipcode: '11206'}
   let!(:queens_school) { create :school, name: "Queens Charter School", zipcode: '11385'}
   let!(:bk_teacher) { create(:teacher, school: bk_school) }
@@ -59,15 +61,15 @@ describe School, type: :model do
   let!(:queens_teacher) { create(:teacher, school: queens_school) }
 
   describe('#subscription') do
-      let!(:subscription) { create(:subscription, expiration: Date.tomorrow) }
-      let!(:school_subscription) {create(:school_subscription, school: bk_school, subscription: subscription)}
+    let!(:subscription) { create(:subscription, expiration: Date.tomorrow) }
+    let!(:school_subscription) {create(:school_subscription, school: bk_school, subscription: subscription)}
 
     it "returns a subscription if a valid one exists" do
       expect(bk_school.reload.subscription).to eq(subscription)
     end
 
     it "returns the subscription with the latest expiration date multiple valid ones exists" do
-      later_subscription = create(:subscription, expiration: Date.today + 365)
+      later_subscription = create(:subscription, expiration: 365.days.from_now.to_date)
       later_user_sub = create(:school_subscription, school: bk_school, subscription: later_subscription)
       expect(bk_school.reload.subscription).to eq(later_subscription)
     end
@@ -150,14 +152,44 @@ describe School, type: :model do
   end
 
   describe('school_year_start method') do
-    it 'fetches 08-01 of this year if the date is after 08-01' do
-      time = Date.parse('2020-08-01')
+    it 'fetches 07-01 of this year if the date is after 07-01' do
+      time = Date.parse('2020-07-01')
       expect(School.school_year_start(time)).to eq(time.beginning_of_day)
     end
 
-    it 'fetches 08-01 of last year if the date is before 08-01' do
-      time = Date.parse('2020-07-01')
-      expect(School.school_year_start(time)).to eq(Date.parse('2019-08-01').beginning_of_day)
+    it 'fetches 07-01 of last year if the date is before 07-01' do
+      time = Date.parse('2020-06-01')
+      expect(School.school_year_start(time)).to eq(Date.parse('2019-07-01').beginning_of_day)
+    end
+  end
+
+  describe('district admin behavior') do
+    let(:school) { create(:school) }
+    let(:district) { create(:district) }
+    let(:admin) { create(:user)}
+
+    it 'creates new school admin record if a school is attached to a new district' do
+      create(:district_admin, user: admin, district: district)
+      expect(SchoolsAdmins.find_by(school: school, user: admin)).not_to be
+      school.update(district_id: district.id)
+      expect(SchoolsAdmins.find_by(school: school, user: admin)).to be
+    end
+
+    it 'does not create new school admin record if a school is attached to a new district and the district admin is already admin for the school' do
+      create(:schools_admins, user: admin, school: school)
+      expect(SchoolsAdmins.where(school: school, user: admin).count).to eq 1
+
+      school.update(district_id: district.id)
+      expect(SchoolsAdmins.where(school: school, user: admin).count).to eq 1
+    end
+
+    it 'destroys school admin record if a school is detached from a district' do
+      create(:district_admin, user: admin, district: district)
+      school.update(district_id: district.id)
+      expect(SchoolsAdmins.find_by(school: school, user: admin)).to be
+
+      school.update(district_id: nil)
+      expect(SchoolsAdmins.find_by(school: school, user: admin)).not_to be
     end
   end
 end

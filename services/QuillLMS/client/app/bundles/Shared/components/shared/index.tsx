@@ -51,6 +51,10 @@ export {
 } from './resumeOrBeginButton'
 
 export {
+  ScreenreaderInstructions
+} from './screenreaderInstructions'
+
+export {
   SmartSpinner
 } from './smartSpinner'
 
@@ -94,3 +98,7 @@ export {
 export {
   UploadOptimalResponses
 } from './uploadOptimalResponses'
+
+export {
+  ToggleComponentSection
+} from './toggleComponentSection'

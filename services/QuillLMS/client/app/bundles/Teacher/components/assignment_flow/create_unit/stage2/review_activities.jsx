@@ -1,22 +1,24 @@
 import React from 'react';
-import ReactTooltip from 'react-tooltip';
 import moment from 'moment';
 import "react-dates/initialize";
 
 import { SingleDatePicker } from 'react-dates'
-import { DataTable } from '../../../../../Shared/index'
+import { DataTable, Tooltip, getIconForActivityClassification } from '../../../../../Shared/index'
 
+const activityColumnMaxWidth = '350px';
+const rowSectionTooltipClassName =  'tooltip-section review-activities-data-table-section';
 const tableHeaders = [
   {
     name: 'Tool',
     attribute: 'tool',
     width: '30px',
-    rowSectionClassName: 'tool-icon'
+    rowSectionClassName: rowSectionTooltipClassName
   },
   {
     name: 'Activity',
     attribute: 'activity',
-    width: '350px'
+    rowSectionClassName: rowSectionTooltipClassName,
+    width: activityColumnMaxWidth
   },
   {
     name: 'Concept',
@@ -73,7 +75,7 @@ export default class ReviewActivities extends React.Component {
         activity_category,
         description,
         id,
-        anonymous_path
+        readability_grade_level
       } = activity
       const selectedDate = dueDates[id] ? moment(dueDates[id]) : null
       const focusedKey = `focused-${id}`
@@ -85,26 +87,34 @@ export default class ReviewActivities extends React.Component {
         focused={this.state[focusedKey]} // PropTypes.bool
         id={`${id}-date-picker`} // PropTypes.func.isRequired
         inputIconPosition="after" // PropTypes.string.isRequired,
-        navNext={'›'}
-        navPrev={'‹'}
+        navNext="›"
+        navPrev="‹"
         numberOfMonths={1}
         onDateChange={date => this.handleDueDateChange(id, date)}
         onFocusChange={({ focused, }) => this.setState({ [focusedKey]: focused })}
         placeholder="No due date"
       />)
-      const toolTooltipId = `${id}-tool`
-      const nameTooltipId = `${id}-name`
-      const iconClassName = 'tooltip-trigger ' + activity_classification ? `icon-${activity_classification.id}-green-no-border` : ''
-      const toolIcon = (<div className="activate-tooltip" data-for={toolTooltipId} data-tip={`<h1>${name}</h1><p>Tool: ${activity_classification.alias}</p><p>${standard_level.name}</p><p>${description}</p>`}>
-        <ReactTooltip className="react-tooltip-custom" effect="solid" html id={toolTooltipId} multiline type="light" />
-        <span className={iconClassName} />
-      </div>)
-      const activityName = (<div>
-        <div className="activate-tooltip" data-for={nameTooltipId} data-tip={`<h1>${name}</h1><p>Tool: ${activity_classification.alias}</p><p>${standard_level.name}</p><p>${description}</p>`}>
-          <ReactTooltip className="react-tooltip-custom" effect="solid" html id={nameTooltipId} multiline type="light" />
-          <a className="tooltip-trigger activity-name" href={anonymous_path} rel='noreferrer noopener' target="_blank">{name}</a>
-        </div>
-      </div>)
+      const toolName = activity_classification.alias;
+      const toolDescription = activity_classification.description;
+      const readabilityScore = readability_grade_level ? `<br/><p>Readability score: ${readability_grade_level}</p>` : '';
+      const standardLevelName = standard_level.name ? `<br/><p>${standard_level.name}</p>` : '';
+      const toolIconTooltipText = `<h5>${toolName}</h5><br/><p>${toolDescription}</p>`;
+      const activityNameTooltipText = `<h5>${name}</h5><br/><p>Tool: ${toolName}</p>${readabilityScore}${standardLevelName}<br/><p>${description}</p>`;
+
+      const toolIcon = (
+        <Tooltip
+          tooltipText={toolIconTooltipText}
+          tooltipTriggerText={getIconForActivityClassification(activity_classification.id)}
+        />
+      );
+      const activityName = (
+        <Tooltip
+          tooltipText={activityNameTooltipText}
+          tooltipTriggerText={name}
+          tooltipTriggerTextClass="clipped-content"
+          tooltipTriggerTextStyle={{ maxWidth: activityColumnMaxWidth }}
+        />
+      );
 
       return {
         id,
@@ -119,7 +129,7 @@ export default class ReviewActivities extends React.Component {
 
   render() {
     return (
-      <div className="assignment-section">
+      <div className="assignment-section review-activities-section">
         <div className="assignment-section-header">
           <span className="assignment-section-number">2</span>
           <span className="assignment-section-name">Review activities and pick due dates</span>

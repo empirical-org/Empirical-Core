@@ -12,6 +12,6 @@ RSpec.describe 'User login' do
     fill_in 'password', with: user.password
     click_on 'log-in'
     click_button "Let's go!"
-    expect(current_path).to eq '/teachers/classrooms/dashboard'
+    expect(page).to have_current_path '/teachers/classrooms/dashboard'
   end
 end

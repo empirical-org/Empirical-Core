@@ -3,8 +3,8 @@ import { ConceptFeedbackApi, } from '../libs/concept_feedback_api.ts';
 import { push } from 'react-router-redux';
 
 const actions = {
-	// called when the app starts. this means we immediately download all quotes, and
-	// then receive all quotes again as soon as anyone changes anything.
+  // called when the app starts. this means we immediately download all quotes, and
+  // then receive all quotes again as soon as anyone changes anything.
   startListeningToConceptsFeedback() {
     return function (dispatch, getState) {
       dispatch(actions.loadConceptsFeedback())

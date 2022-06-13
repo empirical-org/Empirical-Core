@@ -92,13 +92,13 @@ function hashToCollection(hash) {
 }
 
 function rematchIndividualQuestion(response, type, question, referenceResponses) {
-    const matcher = getMatcher(type);
-    const data = referenceResponses;
-    const formattedReferenceResponses = formatGradedResponses(data)
-    if (_.values(formattedReferenceResponses).find(resp => resp.optimal)) {
-      const matcherFields = getMatcherFields(type, question, formattedReferenceResponses);
-      return rematchResponse(matcher, matcherFields, response)
-    }
+  const matcher = getMatcher(type);
+  const data = referenceResponses;
+  const formattedReferenceResponses = formatGradedResponses(data)
+  if (_.values(formattedReferenceResponses).find(resp => resp.optimal)) {
+    const matcherFields = getMatcherFields(type, question, formattedReferenceResponses);
+    return rematchResponse(matcher, matcherFields, response)
+  }
 }
 
 function rematchResponse(matcher, matcherFields, response) {

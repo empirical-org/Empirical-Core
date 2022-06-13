@@ -1,6 +1,9 @@
 .diagnostic-individual-pack main.individual-student-responses-container {
+  header {
+    margin-bottom: 24px;
+  }
   .skills-table-container {
-    margin: 24px 0px;
+    margin: 0px 0px 24px;
     width: min-content;
     max-width: 100%;
     .skills-table, .growth-skills-table {

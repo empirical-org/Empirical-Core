@@ -1,7 +1,7 @@
 import * as React from 'react'
 import moment from 'moment'
 
-import { DataTable, Tooltip } from '../../../Shared/index'
+import { onMobile, DataTable, Tooltip } from '../../../Shared/index'
 import activityLaunchLink from '../modules/generate_activity_launch_link.js';
 
 const diagnosticSrc = `${process.env.CDN_URL}/images/icons/tool-diagnostic-gray.svg`
@@ -9,7 +9,7 @@ const connectSrc = `${process.env.CDN_URL}/images/icons/tool-connect-gray.svg`
 const grammarSrc = `${process.env.CDN_URL}/images/icons/tool-grammar-gray.svg`
 const proofreaderSrc = `${process.env.CDN_URL}/images/icons/tool-proofreader-gray.svg`
 const lessonsSrc = `${process.env.CDN_URL}/images/icons/tool-lessons-gray.svg`
-const evidenceSrc = `${process.env.CDN_URL}/images/icons/tool-comprehension-gray.svg`
+const evidenceSrc = `${process.env.CDN_URL}/images/icons/tool-evidence-gray.svg`
 
 const CONNECT_ACTIVITY_CLASSIFICATION_KEY = "connect"
 const GRAMMAR_ACTIVITY_CLASSIFICATION_KEY = "sentence"
@@ -26,6 +26,7 @@ const incompleteHeaders = [
     width: '633px',
     name: 'Activity',
     attribute: 'name',
+    noTooltip: onMobile(), // On mobile we don't want a tooltip wrapper since they basically don't work there
     headerClassName: 'name-section',
     rowSectionClassName: 'name-section'
   }, {
@@ -93,7 +94,7 @@ const completeHeaders = [
 export default class StudentProfileUnit extends React.Component {
   actionButton = (act, nextActivitySession) => {
     const { isBeingPreviewed, onShowPreviewModal, } = this.props
-    const { repeatable, locked, marked_complete, resume_link, classroom_unit_id, activity_id, finished, pre_activity_id, completed_pre_activity_session, activity_classification_key, } = act
+    const { repeatable, locked, marked_complete, resume_link, classroom_unit_id, activity_id, finished, pre_activity_id, completed_pre_activity_session, activity_classification_key, name, } = act
     let linkText = 'Start'
 
     if (activity_classification_key === DIAGNOSTIC_ACTIVITY_CLASSIFICATION_KEY && pre_activity_id && !completed_pre_activity_session) { return <span className="complete-baseline">Complete Baseline first</span>}
@@ -105,9 +106,9 @@ export default class StudentProfileUnit extends React.Component {
     if (locked) { return <span className="needs-teacher">Needs teacher</span> }
 
     if (finished) {
-      linkText = 'Replay';
+      linkText = `Replay`;
     } else if (resume_link === 1) {
-      linkText = 'Resume';
+      linkText = `Resume`;
     }
 
     const isNextActivity = nextActivitySession && classroom_unit_id === nextActivitySession.classroom_unit_id && activity_id === nextActivitySession.activity_id
@@ -118,6 +119,7 @@ export default class StudentProfileUnit extends React.Component {
 
       return (
         <button
+          aria-label={`${linkText} ${name}`}
           className={`quill-button medium focus-on-light ${buttonStyle}`}
           onClick={onClick}
           type="button"
@@ -129,6 +131,7 @@ export default class StudentProfileUnit extends React.Component {
 
     return (
       <a
+        aria-label={`${linkText} ${name}`}
         className={`quill-button medium focus-on-light ${buttonStyle}`}
         href={activityLaunchLink(classroom_unit_id, activity_id)}
       >
@@ -150,7 +153,8 @@ export default class StudentProfileUnit extends React.Component {
               <span>Completed</span>
             </div>
           }
-        />)
+        />
+      )
     }
 
     if (maxPercentage >= PROFICIENT_CUTOFF) {
@@ -177,7 +181,7 @@ export default class StudentProfileUnit extends React.Component {
       case LESSONS_ACTIVITY_CLASSIFICATION_KEY:
         return <img alt="Apple representing Quill Lessons" src={lessonsSrc} />
       case EVIDENCE_ACTIVITY_CLASSIFICATION_KEY:
-        return <img alt="Book representing Quill Evidence" src={evidenceSrc} />
+        return <img alt="Book representing Quill Reading for Evidence" src={evidenceSrc} />
       default:
         return
     }
@@ -199,12 +203,14 @@ export default class StudentProfileUnit extends React.Component {
       }
     })
 
-    return (<div className="activities-container completed-activities">
-      <DataTable
-        headers={completeHeaders}
-        rows={rows}
-      />
-    </div>)
+    return (
+      <div className="activities-container completed-activities">
+        <DataTable
+          headers={completeHeaders}
+          rows={rows}
+        />
+      </div>
+    )
   }
 
   renderIncompleteActivities = () => {
@@ -222,23 +228,27 @@ export default class StudentProfileUnit extends React.Component {
       }
     })
 
-    return (<div className="activities-container incomplete-activities">
-      <DataTable
-        headers={incompleteHeaders}
-        rows={rows}
-      />
-    </div>)
+    return (
+      <div className="activities-container incomplete-activities">
+        <DataTable
+          headers={incompleteHeaders}
+          rows={rows}
+        />
+      </div>
+    )
   }
 
   render() {
     const { unitName, id, isSelectedUnit, } = this.props
     const className = isSelectedUnit ? "student-profile-unit selected-unit" : "student-profile-unit"
-    return (<div className={className} id={id}>
-      <div className="unit-name">
-        <h2>{unitName}</h2>
+    return (
+      <div className={className} id={id}>
+        <div className="unit-name">
+          <h2>{unitName}</h2>
+        </div>
+        {this.renderIncompleteActivities()}
+        {this.renderCompletedActivities()}
       </div>
-      {this.renderIncompleteActivities()}
-      {this.renderCompletedActivities()}
-    </div>)
+    )
   }
 }

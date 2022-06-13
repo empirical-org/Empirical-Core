@@ -1,6 +1,6 @@
 import React from 'react';
-import ReactTable from 'react-table';
-import 'react-table/react-table.css';
+import { ReactTable, } from '../../Shared/index'
+
 import getAuthToken from '../components/modules/get_auth_token';
 import LoadingIndicator from '../components/shared/loading_indicator'
 
@@ -17,74 +17,68 @@ export default class CmsSchoolIndex extends React.Component {
   }
 
   getColumns() {
-      return [
-        {
-          Header: 'Name',
-          accessor: 'school_name',
-          resizable: false,
-          minWidth: 140,
-          Cell: row => row.original.school_name
-        }, {
-          Header: "District",
-          accessor: 'district_name',
-          resizable: false,
-          minWidth: 140,
-          Cell: row => row.original.district_name
-        }, {
-          Header: "City",
-          accessor: 'school_city',
-          minWidth: 140,
-          resizable: false,
-          Cell: row => row.original.school_city
-        }, {
-          Header: "State",
-          accessor: 'school_state',
-          resizable: false,
-          minWidth: 60,
-          Cell: row => row.original.school_state,
-        }, {
-          Header: 'ZIP',
-          accessor: 'school_zip',
-          resizable: false,
-          minWidth: 60,
-          Cell: row => Number(row.original.school_zip),
-        }, {
-          Header: "FRL",
-          accessor: 'frl',
-          resizable: false,
-          minWidth: 60,
-          Cell: row => row.original.frl ? `${row.original.frl}%` : '',
-        }, {
-          Header: "Teachers",
-          accessor: 'number_teachers',
-          resizable: false,
-          minWidth: 80,
-          Cell: row => Number(row.original.number_teachers),
-        }, {
-          Header: "Premium?",
-          accessor: 'premium_status',
-          resizable: false,
-          minWidth: 90,
-          Cell: row => row.original.premium_status,
-        }, {
-          Header: "Admins",
-          accessor: 'number_admins',
-          resizable: false,
-          minWidth: 80,
-          Cell: row => Number(row.original.number_admins),
-        }, {
-          Header: "Edit",
-          accessor: 'edit',
-          resizable: false,
-          minWidth: 60,
-          Cell: (row) => {
-            return <a href={`${process.env.DEFAULT_URL}/cms/schools/${row.original.id}`}>Edit</a>
-          }
+    return [
+      {
+        Header: 'Name',
+        accessor: 'school_name',
+        resizable: false,
+        minWidth: 140,
+      }, {
+        Header: "District",
+        accessor: 'district_name',
+        resizable: false,
+        minWidth: 140,
+      }, {
+        Header: "City",
+        accessor: 'school_city',
+        minWidth: 140,
+        resizable: false,
+      }, {
+        Header: "State",
+        accessor: 'school_state',
+        resizable: false,
+        maxWidth: 60,
+      }, {
+        Header: 'ZIP',
+        accessor: 'school_zip',
+        resizable: false,
+        maxWidth: 60,
+        Cell: ({row}) => Number(row.original.school_zip),
+      }, {
+        Header: "FRL",
+        accessor: 'frl',
+        resizable: false,
+        maxWidth: 60,
+        Cell: ({row}) => row.original.frl ? `${row.original.frl}%` : '',
+      }, {
+        Header: "Teachers",
+        accessor: 'number_teachers',
+        minWidth: 80,
+        Cell: ({row}) => Number(row.original.number_teachers),
+      }, {
+        Header: "Premium?",
+        accessor: 'premium_status',
+        minWidth: 90,
+      }, {
+        Header: "Admins",
+        accessor: 'number_admins',
+        minWidth: 60,
+        Cell: ({row}) => Number(row.original.number_admins),
+      }, {
+        Header: "Edit",
+        accessor: 'edit',
+        resizable: false,
+        maxWidth: 60,
+        Cell: ({row}) => {
+          return <a href={`${process.env.DEFAULT_URL}/cms/schools/${row.original.id}`}>Edit</a>
         }
-      ];
+      }
+    ];
   }
 
   setSort = newSorted => {
+    if (!newSorted.length) { return }
+
     const sort = newSorted[0].id
     const sort_direction = newSorted[0].desc ? 'desc' : 'asc'
     if (sort !== this.state.query.sort || sort_direction !== this.state.query.sort_direction) {
@@ -161,20 +155,24 @@ export default class CmsSchoolIndex extends React.Component {
   renderPageSelector() {
     const currentPage = this.state.query.page || 1
     const totalPages = this.state.numberOfPages || 1
-    return (<div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-      <a onClick={() => this.updatePage(1)}>First</a>
-      <form onSubmit={this.submitPageForm}>
-        <input defaultValue={currentPage} name='page' /><span>of {totalPages}</span>
-      </form>
-      <a onClick={() => this.updatePage(totalPages)}>Last</a>
-    </div>)
+    return (
+      <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+        <a onClick={() => this.updatePage(1)}>First</a>
+        <form onSubmit={this.submitPageForm}>
+          <input defaultValue={currentPage} name='page' /><span>of {totalPages}</span>
+        </form>
+        <a onClick={() => this.updatePage(totalPages)}>Last</a>
+      </div>
+    )
   }
 
   renderPremiumStatusSelect() {
     const options = this.props.schoolPremiumTypes.map(o => <option value={o}>{o}</option>)
-    return (<select multiple={true} onChange={this.updatePremiumStatus}>
-      {options}
-    </select>)
+    return (
+      <select multiple={true} onChange={this.updatePremiumStatus}>
+        {options}
+      </select>
+    )
   }
 
   renderTableOrLoading() {
@@ -183,27 +181,26 @@ export default class CmsSchoolIndex extends React.Component {
     } else if (this.state.data && this.state.data.length) {
       const sort = this.state.query.sort ? this.state.query.sort : 'number_teachers'
       const sortDescending = this.state.query.sort_direction ? this.state.query.sort_direction === 'desc' : true
-      return (<div>
-        <ReactTable
-          className='progress-report activity-scores-table'
-          columns={this.state.columns}
-          data={this.state.data}
-          defaultPageSize={100}
-          defaultSorted={[{id: sort, desc: sortDescending}]}
-          minRows={1}
-          onSortedChange={this.setSort}
-          showPageSizeOptions={false}
-          showPagination={false}
-          showPaginationBottom={false}
-          showPaginationTop={false}
-        />
-        <div className='cms-pagination-container'>
-          {this.renderPageSelector()}
+      return (
+        <div>
+          <ReactTable
+            className='progress-report activity-scores-table'
+            columns={this.state.columns}
+            data={this.state.data}
+            defaultPageSize={100}
+            defaultSorted={[{id: sort, desc: sortDescending}]}
+            manualSortBy={true}
+            minRows={1}
+            onSortedChange={this.setSort}
+          />
+          <div className='cms-pagination-container'>
+            {this.renderPageSelector()}
+          </div>
         </div>
-      </div>)
-  } else {
-    return <p>No records found for your query.</p>
-  }
+      )
+    } else {
+      return <p>No records found for your query.</p>
+    }
   }
 
   render() {

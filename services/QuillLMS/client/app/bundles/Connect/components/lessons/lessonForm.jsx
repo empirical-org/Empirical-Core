@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import QuestionSelector from 'react-select-search';
+import SelectSearch from 'react-select-search';
+import { fuzzySearch } from 'react-select-search';
 import { EditorState, ContentState } from 'draft-js'
 import ChooseModelContainer from './chooseModelContainer.jsx'
 import _ from 'underscore';
@@ -44,8 +45,8 @@ class LessonForm extends React.Component {
     this.setState({ landingPageHtml: e, });
   };
 
-  handleSearchChange = e => {
-    this.handleChange(e.value);
+  handleSearchChange = value => {
+    this.handleChange(value);
   };
 
   handleSelect = e => {
@@ -87,11 +88,12 @@ class LessonForm extends React.Component {
         const questionobj = this.props[question.questionType].data[question.key];
         const prompt = questionobj ? questionobj.prompt : 'Question No Longer Exists';
         const promptOrTitle = question.questionType === 'titleCards' ? questionobj.title : prompt
-        return (<p className="sortable-list-item" key={question.key} questionType={question.questionType}>
-          {promptOrTitle}
-          {'\t\t'}
-          <button onClick={this.handleChange.bind(null, question.key)}>Delete</button>
-        </p>
+        return (
+          <p className="sortable-list-item" key={question.key} questionType={question.questionType}>
+            {promptOrTitle}
+            {'\t\t'}
+            <button onClick={this.handleChange.bind(null, question.key)}>Delete</button>
+          </p>
         );
       });
       return <SortableList data={questionsList} key={this.state.selectedQuestions.length} sortCallback={this.sortCallback} />;
@@ -113,12 +115,16 @@ class LessonForm extends React.Component {
       } else {
         formatted = options.map((opt) => { return { name: opt.title, value: opt.key } })
       }
-      return (<QuestionSelector
-        key={questionType}
-        onChange={this.handleSearchChange}
-        options={formatted}
-        placeholder="Search for a question"
-      />);
+      return (
+        <SelectSearch
+          filterOptions={fuzzySearch}
+          key={questionType}
+          onChange={this.handleSearchChange}
+          options={formatted}
+          placeholder="Search for a question"
+          search={true}
+        />
+      );
     }
   };
 

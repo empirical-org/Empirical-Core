@@ -12,5 +12,5 @@ class CreateComprehensionFeedbacks < ActiveRecord::Migration[4.2]
     end
     add_index :comprehension_feedbacks, [:rule_id, :order], unique: true
   end
-  
+
 end

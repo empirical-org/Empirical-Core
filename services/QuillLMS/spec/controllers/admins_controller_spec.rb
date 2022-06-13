@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 describe AdminsController  do
+  before { allow(controller).to receive(:current_user) { user } }
+
   it { should use_before_action :admin! }
   it { should use_before_action :set_teacher }
   it { should use_before_action :admin_of_this_teacher! }
@@ -12,14 +14,9 @@ describe AdminsController  do
   let!(:teacher) { create(:teacher_with_school) }
   let!(:schools_admins) { create(:schools_admins, school: teacher.reload.school, user: user) }
 
-  before do
-    allow(controller).to receive(:current_user) { user }
-  end
 
   describe '#show' do
-    before do
-      allow(UserAdminSerializer).to receive(:new) { "some json" }
-    end
+    before { allow(UserAdminSerializer).to receive(:new) { "some json" } }
 
     it 'should render the correct json' do
       get :show, params: { id: teacher.id }

@@ -4,12 +4,12 @@ import _ from 'underscore'
 
 export default class TextInput extends React.Component {
   componentDidMount() {
-    var that = this;
+    let that = this;
     if (this.determineType() == 'file') {
       $('#' + this.getId()).fileupload({
         dataType: 'json',
         add: function (e, data) {
-          var file = data.files[0]
+          let file = data.files[0]
           that.props.update(that.props.name, file);
         }
       });
@@ -21,11 +21,11 @@ export default class TextInput extends React.Component {
   };
 
   titleCase = (string) => {
-    var words = string.split(' ')
-    var TitleCaseWords = _.map(words, function (word) {
+    let words = string.split(' ')
+    let TitleCaseWords = _.map(words, function (word) {
       return this.titleCaseHelper(word)
     }, this);
-    var result = _.reduce(TitleCaseWords, function (acc, word) {
+    let result = _.reduce(TitleCaseWords, function (acc, word) {
       return acc + ' ' + word;
     }, '')
 
@@ -41,7 +41,7 @@ export default class TextInput extends React.Component {
   };
 
   determineType = () => {
-    var type = null;
+    let type = null;
     if (this.props.type != undefined) {
       type = this.props.type
     } else if (this.props.name === 'password') {
@@ -71,7 +71,7 @@ export default class TextInput extends React.Component {
   };
 
   determineError = () => {
-    var errorKey, error;
+    let errorKey, error;
     errorKey = this.determineErrorKey();
     if ((this.props.errors) && (this.props.errors[errorKey])) {
       error = this.props.errors[errorKey][0];
@@ -82,7 +82,7 @@ export default class TextInput extends React.Component {
   };
 
   displayErrors = () => {
-    var error, result;
+    let error, result;
     error = this.determineError();
 
     if ((error !== null) && (error !== undefined)) {
@@ -98,7 +98,7 @@ export default class TextInput extends React.Component {
   };
 
   getUpdateFn = () => {
-    var fn = null
+    let fn = null
     if (this.determineType() !== 'file') {
       fn = this.update;
     }
@@ -106,7 +106,7 @@ export default class TextInput extends React.Component {
   };
 
   determineInputTag = () => {
-    var result;
+    let result;
     if (this.props.size == 'medium') {
       result = (<textarea
         defaultValue={this.determine('default', null)}
@@ -146,7 +146,7 @@ export default class TextInput extends React.Component {
   };
 
   render() {
-    var result;
+    let result;
     if (this.props.isSingleRow) {
       result = this.determineInputTag();
     } else {
@@ -164,7 +164,7 @@ export default class TextInput extends React.Component {
             </div>
           </div>
         </div>
-        );
+      );
     }
     return result;
   }

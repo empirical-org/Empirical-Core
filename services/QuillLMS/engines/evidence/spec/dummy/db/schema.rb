@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20211022145011) do
+ActiveRecord::Schema.define(version: 20220201161535) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -98,6 +98,7 @@ ActiveRecord::Schema.define(version: 20211022145011) do
     t.string "highlight_prompt"
     t.text "image_caption", default: ""
     t.text "image_attribution", default: ""
+    t.string "essential_knowledge_text", default: ""
     t.index ["activity_id"], name: "index_comprehension_passages_on_activity_id"
   end
 
@@ -106,7 +107,7 @@ ActiveRecord::Schema.define(version: 20211022145011) do
     t.string "text", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["rule_id"], name: "index_comprehension_plagiarism_texts_on_rule_id", unique: true
+    t.index ["rule_id"], name: "index_comprehension_plagiarism_texts_on_rule_id"
   end
 
   create_table "comprehension_prompts", id: :serial, force: :cascade do |t|
@@ -117,6 +118,8 @@ ActiveRecord::Schema.define(version: 20211022145011) do
     t.text "max_attempts_feedback"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "first_strong_example", default: ""
+    t.string "second_strong_example", default: ""
     t.index ["activity_id"], name: "index_comprehension_prompts_on_activity_id"
   end
 
@@ -174,6 +177,16 @@ ActiveRecord::Schema.define(version: 20211022145011) do
     t.index ["uuid"], name: "index_comprehension_turking_rounds_on_uuid", unique: true
   end
 
+  create_table "evidence_hints", force: :cascade do |t|
+    t.string "explanation", null: false
+    t.string "image_link", null: false
+    t.string "image_alt_text", null: false
+    t.bigint "rule_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["rule_id"], name: "index_evidence_hints_on_rule_id"
+  end
+
   create_table "users", id: :serial, force: :cascade do |t|
     t.string "name"
   end
@@ -183,5 +196,4 @@ ActiveRecord::Schema.define(version: 20211022145011) do
   add_foreign_key "comprehension_labels", "comprehension_rules", column: "rule_id", on_delete: :cascade
   add_foreign_key "comprehension_plagiarism_texts", "comprehension_rules", column: "rule_id", on_delete: :cascade
   add_foreign_key "comprehension_regex_rules", "comprehension_rules", column: "rule_id", on_delete: :cascade
-  add_foreign_key "evidence_sequences", "evidence_sequence_groups", column: "sequence_group_id", on_delete: :cascade
 end

@@ -1,15 +1,24 @@
 .rule-form-container {
+  .add-and-remove-plagiarism-buttons {
+    margin-top: 16px;
+    display: flex;
+    .quill-button {
+      margin-right: 16px;
+    }
+  }
+
+  .image-attribution-text-area {
+    margin-top: 16px;
+    width: 100%;
+    min-height: 112px;
+  }
+
   .rule-form {
     padding: 0px 30px 0px 30px;
     .title-input, .course-input, .flag-input, .reading-level-input,
     .reading-score-input, .because-input, .but-input, .name-input, .highlight-prompt-input,
     .scored-reading-level-input, .target-reading-level-input, .image-link-input {
       margin-top: 20px;
-    }
-    .image-attribution-text-area {
-      margin-top: 16px;
-      width: 100%;
-      min-height: 112px;
     }
     #image-attribution-label {
       margin-bottom: 8px;

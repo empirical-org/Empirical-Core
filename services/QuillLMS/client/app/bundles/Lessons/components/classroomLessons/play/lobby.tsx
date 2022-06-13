@@ -23,10 +23,12 @@ interface LobbyProps {
 class Lobby extends React.Component<LobbyProps, {}> {
   renderStudentBox(studentName, present) {
     const className = present ? "student-box present" : "student-box"
-    return (<div className={className} key={studentName}>
-      <div className="decorative-circle" />
-      <p>{studentName}</p>
-    </div>)
+    return (
+      <div className={className} key={studentName}>
+        <div className="decorative-circle" />
+        <p>{studentName}</p>
+      </div>
+    )
   }
 
   renderProjectorView() {
@@ -45,34 +47,38 @@ class Lobby extends React.Component<LobbyProps, {}> {
       const present = presence ? presence[studentUID] : false
       return this.renderStudentBox(studentName, present)
     })
-    return (<div className="projector-view">
-      <div className="projector-header">
-        <div className="projector-header-content">
-          <h1>Join the lesson</h1>
-          <ol>
-            <li>Go to quill.org</li>
-            <li>Log in</li>
-            <li>Select “Join”</li>
-          </ol>
+    return (
+      <div className="projector-view">
+        <div className="projector-header">
+          <div className="projector-header-content">
+            <h1>Join the lesson</h1>
+            <ol>
+              <li>Go to quill.org</li>
+              <li>Log in</li>
+              <li>Select “Join”</li>
+            </ol>
+          </div>
+        </div>
+        <div className="projector-body">
+          <h2>{numberOfPresentStudents} of {numberOfStudents} students have joined</h2>
+          <div className="student-list">
+            {studentList}
+          </div>
         </div>
       </div>
-      <div className="projector-body">
-        <h2>{numberOfPresentStudents} of {numberOfStudents} students have joined</h2>
-        <div className="student-list">
-          {studentList}
-        </div>
-      </div>
-    </div>)
+    )
   }
 
   renderStudentView() {
-    return (<div className="full-page-modal-container">
-      <div className="full-page-modal">
-        <img alt="An illustration of a laptop connected to Quill Lessons" src={LaptopConnectingToLessonsSrc} />
-        <h1>You&#39;ve joined the lesson!</h1>
-        <h2>Wait for other students to join and for your teacher to begin.</h2>
+    return (
+      <div className="full-page-modal-container">
+        <div className="full-page-modal">
+          <img alt="An illustration of a laptop connected to Quill Lessons" src={LaptopConnectingToLessonsSrc} />
+          <h1>You&#39;ve joined the lesson!</h1>
+          <h2>Wait for other students to join and for your teacher to begin.</h2>
+        </div>
       </div>
-    </div>)
+    )
   }
 
   renderStudentOrProjectorLobby() {
@@ -83,9 +89,11 @@ class Lobby extends React.Component<LobbyProps, {}> {
 
 
   render() {
-    return (<div className="student-lobby">
-      {this.renderStudentOrProjectorLobby()}
-    </div>)
+    return (
+      <div className="student-lobby">
+        {this.renderStudentOrProjectorLobby()}
+      </div>
+    )
   }
 
 }

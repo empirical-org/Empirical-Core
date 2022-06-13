@@ -3,7 +3,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import "react-dates/initialize";
 import { SingleDatePicker } from 'react-dates';
 import * as moment from 'moment';
-import { queryCache, useQuery } from 'react-query';
+import { useQueryClient, useQuery } from 'react-query';
 
 import EditOrDeleteTurkSession from './editOrDeleteTurkSession';
 import TurkSessionButton from './turkSessionButton';
@@ -13,7 +13,7 @@ import { ActivityRouteProps, TurkSessionInterface } from '../../../interfaces/ev
 import { createTurkSession, fetchTurkSessions } from '../../../utils/evidence/turkAPIs';
 import { fetchActivity } from '../../../utils/evidence/activityAPIs';
 import { DataTable, Error, Modal, Spinner, Snackbar, copyToClipboard } from '../../../../Shared/index';
-import { renderHeader } from '../../../helpers/evidence';
+import { renderHeader } from '../../../helpers/evidence/renderHelpers';
 
 const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) => {
   const [newTurkSessionDate, setNewTurkSessionDate] = React.useState<any>(null);
@@ -27,6 +27,8 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
   const [snackBarVisible, setSnackBarVisible] = React.useState(false);
   const { params } = match;
   const { activityId } = params;
+
+  const queryClient = useQueryClient()
 
   const { data: activityData } = useQuery({
     queryKey: [`activity-${activityId}`, activityId],
@@ -54,7 +56,7 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
         setDateError('');
         setShowSubmissionModal(true);
         // update turk sessions cache to display newly created turk session
-        queryCache.refetchQueries(`turk-sessions-${activityId}`)
+        queryClient.refetchQueries(`turk-sessions-${activityId}`)
       });
     }
   }

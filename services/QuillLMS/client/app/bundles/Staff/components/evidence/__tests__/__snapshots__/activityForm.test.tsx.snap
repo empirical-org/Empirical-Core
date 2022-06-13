@@ -4,199 +4,343 @@ exports[`Activity Form component should render Activities 1`] = `
 <div
   className="activity-form-container"
 >
-  <div
-    className="button-container"
-  >
-    <a
-      className="quill-button fun secondary outlined"
-      href="/evidence/#/play?uid=undefined&skipToPrompts=true"
-      rel="noopener noreferrer"
-      target="_blank"
-    >
-      Play Test Activity
-    </a>
-    <a
-      className="quill-button fun secondary outlined"
-      href="/evidence/#/play?uid=undefined"
-      rel="noopener noreferrer"
-      target="_blank"
-    >
-      Play Student Activity
-    </a>
-    <button
-      className="quill-button fun secondary outlined"
-      onClick={[MockFunction]}
-      type="button"
-    >
-      Archive Activity
-    </button>
-    <button
-      className="quill-button fun primary contained"
-      id="activity-submit-button"
-      onClick={[Function]}
-      type="submit"
-    >
-      Save
-    </button>
-  </div>
-  <form
-    className="comprehension-activity-form"
-  >
-    <Input
-      autoComplete="on"
-      className="title-input"
-      handleChange={[Function]}
-      label="Activity Title"
-      value="Could Capybaras Create Chaos?"
-    />
-    <Input
-      autoComplete="on"
-      className="name-input"
-      handleChange={[Function]}
-      label="Activity Notes"
-      value="Could Capybaras Create Chaos? [student testing]"
-    />
-    <Input
-      autoComplete="on"
-      className="scored-reading-level-input"
-      handleChange={[Function]}
-      label="Scored Reading Level"
-      value="7"
-    />
-    <Input
-      autoComplete="on"
-      className="target-reading-level-input"
-      handleChange={[Function]}
-      label="Target Reading Level"
-      value="7"
-    />
-    <section
-      className="label-status-container"
-    >
-      <p
-        id="label-status-label"
-      >
-        Parent Activity ID
-      </p>
-      <p
-        id="label-status"
-      >
-        17
-      </p>
-    </section>
-    <Input
-      autoComplete="on"
-      className="image-link-input"
-      handleChange={[Function]}
-      label="Image Link"
-    />
-    <Input
-      autoComplete="on"
-      className="image-alt-text-input"
-      handleChange={[Function]}
-      label="Image Alt Text"
-    />
-    <Input
-      autoComplete="on"
-      className="image-caption-text-input"
-      handleChange={[Function]}
-      label="Image Caption"
-    />
-    <p
-      className="text-editor-label"
-      id="image-attribution-label"
-    >
-       Image Attribution
-    </p>
-    <a
-      className="data-link image-attribution-guide-link"
-      href="https://www.notion.so/quill/Activity-Images-9bc3993400da46a6af445a8a0d2d9d3f#11e9a01b071e41bc954e1182d56e93e8"
-      rel="noopener noreferrer"
-      target="_blank"
-    >
-      Image Atributtion Guide
-    </a>
-    <textarea
-      className="image-attribution-text-area"
-      onChange={[Function]}
-    />
-    <p
-      className="text-editor-label has-text"
-    >
-      <span>
-        Passage
-      </span>
-      <button
-        className="quill-button fun secondary outlined focus-on-light"
-        onClick={[Function]}
-        type="button"
-      >
-        Hide highlights
-      </button>
-    </p>
-    <div
-      className=""
-    >
-      <TextEditor
-        ContentState={[Function]}
-        EditorState={[Function]}
-        handleTextChange={[Function]}
-        key="passage-description"
-        shouldCheckSpelling={true}
-        text="..."
-      />
-    </div>
-    <p
-      className="text-editor-label has-text"
-    >
-      Max Attempts Feedback
-    </p>
-    <TextEditor
-      ContentState={[Function]}
-      EditorState={[Function]}
-      handleTextChange={[Function]}
-      key="max-attempt-feedback"
-      shouldCheckSpelling={true}
-      text="At no point in your rambling, incoherent response were you even close to anything that could be considered a rational thought. I award you no points, and may God have mercy on your soul."
-    />
-    <Input
-      autoComplete="on"
-      className="highlight-prompt-input"
-      handleChange={[Function]}
-      label="Highlight Prompt: \\"As you read, highlight two sentences ...\\""
-      value="As you read, highlight two sentences "
-    />
-    <PromptsForm
-      activityBecausePrompt={
-        Object {
-          "conjunction": "because",
-          "id": 7,
-          "max_attempts": 5,
-          "max_attempts_feedback": "At no point in your rambling, incoherent response were you even close to anything that could be considered a rational thought. I award you no points, and may God have mercy on your soul.",
-          "text": "1",
-        }
+  <UpperFormSection
+    activity={
+      Object {
+        "notes": "Could Capybaras Create Chaos? [student testing]",
+        "parent_activity_id": "17",
+        "passages": Array [
+          Object {
+            "text": "...",
+          },
+        ],
+        "prompt_attributes": Array [
+          Object {
+            "conjunction": "because",
+            "first_strong_example": "",
+            "id": 7,
+            "max_attempts": 5,
+            "max_attempts_feedback": "At no point in your rambling, incoherent response were you even close to anything that could be considered a rational thought. I award you no points, and may God have mercy on your soul.",
+            "second_strong_example": "",
+            "text": "1",
+          },
+          Object {
+            "conjunction": "but",
+            "first_strong_example": "",
+            "id": 8,
+            "max_attempts": 5,
+            "max_attempts_feedback": "At no point in your rambling, incoherent response were you even close to anything that could be considered a rational thought. I award you no points, and may God have mercy on your soul.",
+            "second_strong_example": "",
+            "text": "2",
+          },
+          Object {
+            "conjunction": "so",
+            "first_strong_example": "",
+            "id": 9,
+            "max_attempts": 5,
+            "max_attempts_feedback": "At no point in your rambling, incoherent response were you even close to anything that could be considered a rational thought. I award you no points, and may God have mercy on your soul.",
+            "second_strong_example": "",
+            "text": "3",
+          },
+        ],
+        "prompts": Array [
+          Object {
+            "conjunction": "because",
+            "first_strong_example": "",
+            "id": 7,
+            "max_attempts": 5,
+            "max_attempts_feedback": "At no point in your rambling, incoherent response were you even close to anything that could be considered a rational thought. I award you no points, and may God have mercy on your soul.",
+            "second_strong_example": "",
+            "text": "1",
+          },
+          Object {
+            "conjunction": "but",
+            "first_strong_example": "",
+            "id": 8,
+            "max_attempts": 5,
+            "max_attempts_feedback": "At no point in your rambling, incoherent response were you even close to anything that could be considered a rational thought. I award you no points, and may God have mercy on your soul.",
+            "second_strong_example": "",
+            "text": "2",
+          },
+          Object {
+            "conjunction": "so",
+            "first_strong_example": "",
+            "id": 9,
+            "max_attempts": 5,
+            "max_attempts_feedback": "At no point in your rambling, incoherent response were you even close to anything that could be considered a rational thought. I award you no points, and may God have mercy on your soul.",
+            "second_strong_example": "",
+            "text": "3",
+          },
+        ],
+        "scored_level": "7",
+        "target_level": 7,
+        "title": "Could Capybaras Create Chaos?",
       }
-      activityButPrompt={
+    }
+    activityFlag="alpha"
+    activityNotes="Could Capybaras Create Chaos? [student testing]"
+    activityTitle="Could Capybaras Create Chaos?"
+    errors={Object {}}
+    formErrorsPresent={false}
+    handleSetActivityFlag={[Function]}
+    handleSetActivityNotes={[Function]}
+    handleSetActivityTitle={[Function]}
+    handleSubmitActivity={[Function]}
+    parentActivityId="17"
+    requestErrors={Array []}
+    showErrorsContainer={false}
+  />
+  <DataTable
+    averageFontWidth={7}
+    className="activity-fields-table"
+    defaultSortAttribute=""
+    headers={
+      Array [
         Object {
-          "conjunction": "but",
-          "id": 8,
-          "max_attempts": 5,
-          "max_attempts_feedback": "At no point in your rambling, incoherent response were you even close to anything that could be considered a rational thought. I award you no points, and may God have mercy on your soul.",
-          "text": "2",
-        }
-      }
-      activitySoPrompt={
+          "attribute": "component",
+          "name": "",
+          "width": "800px",
+        },
         Object {
-          "conjunction": "so",
-          "id": 9,
-          "max_attempts": 5,
-          "max_attempts_feedback": "At no point in your rambling, incoherent response were you even close to anything that could be considered a rational thought. I award you no points, and may God have mercy on your soul.",
-          "text": "3",
-        }
-      }
-      errors={Object {}}
-      handleSetPrompt={[Function]}
-    />
-  </form>
+          "attribute": "added",
+          "name": "Added?",
+          "width": "50px",
+        },
+      ]
+    }
+    rows={
+      Array [
+        Object {
+          "added": <img
+            alt="quill-circle-checkmark"
+            src="/images/green_check.svg"
+          />,
+          "component": <ToggleComponentSection
+            components={
+              Array [
+                <React.Fragment>
+                  <p
+                    className="text-editor-label has-text"
+                  >
+                    <span>
+                      Passage
+                    </span>
+                    <button
+                      className="quill-button fun primary outlined focus-on-light"
+                      onClick={[Function]}
+                      type="button"
+                    >
+                      Hide highlights
+                    </button>
+                  </p>
+                  <div
+                    className=""
+                  >
+                    <TextEditor
+                      ContentState={[Function]}
+                      EditorState={[Function]}
+                      handleTextChange={[Function]}
+                      shouldCheckSpelling={true}
+                      text="..."
+                    />
+                  </div>
+                </React.Fragment>,
+              ]
+            }
+            label="Text"
+          />,
+          "id": 0,
+        },
+        Object {
+          "added": <img
+            alt="quill-circle-checkmark"
+            src="/images/red_x.svg"
+          />,
+          "component": <ToggleComponentSection
+            components={
+              Array [
+                <ImageSection
+                  activityPassages={
+                    Array [
+                      Object {
+                        "text": "...",
+                      },
+                    ]
+                  }
+                  errors={Object {}}
+                  handleSetImageAltText={[Function]}
+                  handleSetImageAttribution={[Function]}
+                  handleSetImageCaption={[Function]}
+                  handleSetImageLink={[Function]}
+                  imageAttributionGuideLink="https://www.notion.so/quill/Activity-Images-9bc3993400da46a6af445a8a0d2d9d3f#11e9a01b071e41bc954e1182d56e93e8"
+                  imageAttributionStyle=""
+                />,
+              ]
+            }
+            label="Image"
+          />,
+          "id": 1,
+        },
+        Object {
+          "added": <img
+            alt="quill-circle-checkmark"
+            src="/images/red_x.svg"
+          />,
+          "component": <ToggleComponentSection
+            components={
+              Array [
+                <Input
+                  autoComplete="on"
+                  className="highlight-prompt-input"
+                  handleChange={[Function]}
+                  label="Highlight Prompt: \\"As you read, highlight two sentences ...\\""
+                  value="As you read, highlight two sentences "
+                />,
+              ]
+            }
+            label="Highlight Prompt"
+          />,
+          "id": 2,
+        },
+        Object {
+          "added": <img
+            alt="quill-circle-checkmark"
+            src="/images/red_x.svg"
+          />,
+          "component": <ToggleComponentSection
+            components={
+              Array [
+                <React.Fragment>
+                  <p
+                    className="text-editor-label "
+                  >
+                    Building Essential Knowledge Text
+                  </p>
+                  <TextEditor
+                    ContentState={[Function]}
+                    EditorState={[Function]}
+                    handleTextChange={[Function]}
+                    shouldCheckSpelling={true}
+                  />
+                </React.Fragment>,
+              ]
+            }
+            label="Building Essential Knowledge"
+          />,
+          "id": 3,
+        },
+        Object {
+          "added": <img
+            alt="quill-circle-checkmark"
+            src="/images/green_check.svg"
+          />,
+          "component": <ToggleComponentSection
+            components={
+              Array [
+                <MaxAttemptsEditor
+                  conjunction="because"
+                  handleSetPrompt={[Function]}
+                  prompt={
+                    Object {
+                      "conjunction": "because",
+                      "first_strong_example": "",
+                      "id": 7,
+                      "max_attempts": 5,
+                      "max_attempts_feedback": "At no point in your rambling, incoherent response were you even close to anything that could be considered a rational thought. I award you no points, and may God have mercy on your soul.",
+                      "second_strong_example": "",
+                      "text": "1",
+                    }
+                  }
+                />,
+                <MaxAttemptsEditor
+                  conjunction="but"
+                  handleSetPrompt={[Function]}
+                  prompt={
+                    Object {
+                      "conjunction": "but",
+                      "first_strong_example": "",
+                      "id": 8,
+                      "max_attempts": 5,
+                      "max_attempts_feedback": "At no point in your rambling, incoherent response were you even close to anything that could be considered a rational thought. I award you no points, and may God have mercy on your soul.",
+                      "second_strong_example": "",
+                      "text": "2",
+                    }
+                  }
+                />,
+                <MaxAttemptsEditor
+                  conjunction="so"
+                  handleSetPrompt={[Function]}
+                  prompt={
+                    Object {
+                      "conjunction": "so",
+                      "first_strong_example": "",
+                      "id": 9,
+                      "max_attempts": 5,
+                      "max_attempts_feedback": "At no point in your rambling, incoherent response were you even close to anything that could be considered a rational thought. I award you no points, and may God have mercy on your soul.",
+                      "second_strong_example": "",
+                      "text": "3",
+                    }
+                  }
+                />,
+              ]
+            }
+            label="Max Attempts Feedback"
+          />,
+          "id": 4,
+        },
+        Object {
+          "added": <img
+            alt="quill-circle-checkmark"
+            src="/images/red_x.svg"
+          />,
+          "component": <ToggleComponentSection
+            components={
+              Array [
+                <PromptsForm
+                  activityBecausePrompt={
+                    Object {
+                      "conjunction": "because",
+                      "first_strong_example": "",
+                      "id": 7,
+                      "max_attempts": 5,
+                      "max_attempts_feedback": "At no point in your rambling, incoherent response were you even close to anything that could be considered a rational thought. I award you no points, and may God have mercy on your soul.",
+                      "second_strong_example": "",
+                      "text": "1",
+                    }
+                  }
+                  activityButPrompt={
+                    Object {
+                      "conjunction": "but",
+                      "first_strong_example": "",
+                      "id": 8,
+                      "max_attempts": 5,
+                      "max_attempts_feedback": "At no point in your rambling, incoherent response were you even close to anything that could be considered a rational thought. I award you no points, and may God have mercy on your soul.",
+                      "second_strong_example": "",
+                      "text": "2",
+                    }
+                  }
+                  activitySoPrompt={
+                    Object {
+                      "conjunction": "so",
+                      "first_strong_example": "",
+                      "id": 9,
+                      "max_attempts": 5,
+                      "max_attempts_feedback": "At no point in your rambling, incoherent response were you even close to anything that could be considered a rational thought. I award you no points, and may God have mercy on your soul.",
+                      "second_strong_example": "",
+                      "text": "3",
+                    }
+                  }
+                  errors={Object {}}
+                  handleSetPrompt={[Function]}
+                />,
+              ]
+            }
+            label="Prompts"
+          />,
+          "id": 5,
+        },
+      ]
+    }
+  />
 </div>
 `;

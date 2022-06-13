@@ -35,7 +35,7 @@ export default class StepHtml extends React.Component<StepHtmlProps, StepHtmlSta
 
   header() {
     if (this.props.item.data && this.props.item.data.heading) {
-      return <p className="script-item-heading" onClick={this.toggleHideBody}>{this.props.item.data.heading}</p>
+      return <button className="script-item-heading interactive-wrapper focus-on-light" onClick={this.toggleHideBody} type="button">{this.props.item.data.heading}</button>
     }
   }
 
@@ -60,9 +60,9 @@ export default class StepHtml extends React.Component<StepHtmlProps, StepHtmlSta
           <div dangerouslySetInnerHTML={{ __html: this.props.item.data.body, }} />
         </li>)
       return html
-  } else {
-    return <span />
-  }
+    } else {
+      return <span />
+    }
   // return  renderStepHTML(item: ScriptItem, onlyShowHeaders: boolean | null, index: number) {
   //     if (item.data) {
   //       const html = onlyShowHeaders
@@ -74,6 +74,6 @@ export default class StepHtml extends React.Component<StepHtmlProps, StepHtmlSta
   //         </li>)
   //       return html
   //     }
-    }
+  }
 
 }

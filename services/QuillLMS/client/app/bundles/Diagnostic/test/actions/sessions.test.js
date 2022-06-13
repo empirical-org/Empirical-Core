@@ -1,7 +1,7 @@
 import 'whatwg-fetch'
 import SessionActions, { denormalizeSession,
-                         normalizeSession,
-                         allQuestions } from '../../actions/sessions';
+  normalizeSession,
+  allQuestions } from '../../actions/sessions';
 import {
   denormalizedSession,
   normalizedSession,

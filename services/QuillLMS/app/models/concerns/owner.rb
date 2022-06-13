@@ -36,6 +36,7 @@ module Owner
   def owned_by? user
     return false if owner.blank?
     return false if user.blank?
+
     owner == user
   end
 end

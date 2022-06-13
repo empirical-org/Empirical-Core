@@ -143,8 +143,8 @@ class SentenceFragment extends React.Component {
       );
     } else if (data[questionID]) {
       const activeLink = massEdit.numSelectedResponses > 1
-      ? <NavLink activeClassName="is-active" to='mass-edit'>Mass Edit ({massEdit.numSelectedResponses})</NavLink>
-      : <li style={{color: "#a2a1a1"}}>Mass Edit ({massEdit.numSelectedResponses})</li>
+        ? <NavLink activeClassName="is-active" to='mass-edit'>Mass Edit ({massEdit.numSelectedResponses})</NavLink>
+        : <li style={{color: "#a2a1a1"}}>Mass Edit ({massEdit.numSelectedResponses})</li>
       return (
         <div className="admin-container">
           {this.renderEditForm()}

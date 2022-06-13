@@ -1,113 +1,100 @@
 import * as React from 'react';
-import ReactTooltip from 'react-tooltip'
-import ReactTable from 'react-table'
 
-import {Tooltip} from '../../../../../Shared/components/shared/tooltip'
+import { Tooltip, ReactTable, getIconForActivityClassification } from '../../../../../Shared/index'
 
-export default class UnitTemplateProfileActivityTable extends React.Component {
-  redirectToActivity = (activityId) => {
+export const UnitTemplateProfileActivityTable = ({ data }) => {
+  const { activities } = data;
+
+  function redirectToActivity(activityId) {
     window.open(`/activity_sessions/anonymous?activity_id=${activityId}`, '_blank');
   };
 
-  columnDefinitions = () => {
+  function columnDefinitions() {
     // Student, Date, Activity, Score, Standard, Tool
     return [
       {
         Header: 'Tool',
-        width: 78,
+        maxWidth: 78,
         accessor: a => a,
         id: 'toolName',
-        Cell: props => <a className='row-link-disguise' onClick={() => this.redirectToActivity(props.value.id)}><div className={`icon-${props.value.classification.id}-green-no-border activity-icon`} /></a>
+        Cell: ({row}) => <a className='row-link-disguise' onClick={() => redirectToActivity(row.original.id)}>{getIconForActivityClassification(row.original.classification.id)}</a>
       },
       {
         Header: 'Activity',
         accessor: a => a,
         width: 586,
         id: 'activityName',
-        Cell: props => (<a
-          className='row-link-disguise highlight-on-hover'
-          data-tip={
-            `<h1>${props.value.name}</h1>
-              <p>Tool: ${props.value.classification.name}</p>
-              <p>${props.value.standard_level_name}</p>
-              <p>${props.value.standard.name}</p>
-              <p>${props.value.description}</p>`
-          }
-          onClick={() => this.redirectToActivity(props.value.id)}
-          target="_new"
-        >
-          {props.value.name}
-          <ReactTooltip className="react-tooltip-custom" effect="solid" html multiline type="light" />
-        </a>),
+        Cell: ({row}) => {
+          const standardLevelName = row.original.standard_level_name ? `<br/><p>${row.original.standard_level_name}</p>` : ''
+          const standardName = row.original.standard.name ? `<br/><p>${row.original.standard.name}</p>` : ''
+          const readability = row.original.readability ? `<br/><p>Readability: ${row.original.readability}</p>` : ''
+          const topic = row.original.level_zero_topic_name ? `<br/><p>Topic: ${row.original.level_zero_topic_name}</p>` : ''
+          const tooltipTriggerElement = <button className="interactive-wrapper activity-name focus-on-light highlight-on-hover" onClick={() => redirectToActivity(row.original.id)}>{row.original.name}</button>
+          const tooltipText = `<h5>${row.original.name}</h5><br/><p>Tool: ${row.original.classification.name}</p>${standardLevelName}${standardName}${readability}${topic}<br/><p>${row.original.description}</p>`
+          return(
+            <Tooltip
+              tooltipText={tooltipText}
+              tooltipTriggerText={tooltipTriggerElement}
+            />
+          );
+        },
+        style: { overflow: 'visible' }
       },
       {
         Header: 'Concept',
         accessor: a => a,
-        width: 183,
+        maxWidth: 183,
         id: 'conceptName',
-        Cell: props => this.renderTooltipRow(props),
+        Cell: ({row}) => renderTooltipRow(row),
         style: {overflow: 'visible'}
       },
       {
         accessor: 'id',
         maxWidth: 81,
         textAlign: 'right',
-        accessor: a => a,
         id: 'chevron',
-        Cell: props => <a className='row-link-disguise' onClick={() => this.redirectToActivity(props.value.id)}>Preview</a>,
+        Cell: ({row}) => <a className='row-link-disguise' onClick={() => redirectToActivity(row.original.id)}>Preview</a>,
         style: {marginLeft: '14px'}
       }
     ];
   };
 
-  renderTooltipRow(props) {
+  function renderTooltipRow(row) {
+    const { original } = row;
+    const { id, standard } = original;
+    const { standard_category } = standard;
+    const { name } = standard_category;
     const averageFontWidth = 9
     const headerWidthNumber = 183
-    const rowDisplayText = props.value.standard.standard_category.name
-    let style: React.CSSProperties = { width: `183px`, minWidth: `183px`, textAlign: `left` as CSS.TextAlignProperty }
-    const key = `${props.value.id}`
+    const rowDisplayText = name
+    let style: React.CSSProperties = { width: `183px`, minWidth: `183px`, textAlign: `left` }
+    const key = `${id}`
     const sectionClass = 'something-class'
-    const sectionText = (<a className='row-link-disguise' onClick={() => this.redirectToActivity(props.value.id)} style={{color: 'black'}}><span>{props.value.standard.standard_category.name}</span></a>)
+    const sectionText = (<a className='row-link-disguise' onClick={() => redirectToActivity(id)} style={{color: 'black'}}><span>{name}</span></a>)
     if ((String(rowDisplayText).length * averageFontWidth) >= headerWidthNumber) {
-      return (<Tooltip
-        key={key}
-        tooltipText={rowDisplayText}
-        tooltipTriggerStyle={style}
-        tooltipTriggerText={sectionText}
-        tooltipTriggerTextClass={sectionClass}
-        tooltipTriggerTextStyle={style}
-      />)
+      return (
+        <Tooltip
+          key={key}
+          tooltipText={rowDisplayText}
+          tooltipTriggerStyle={style}
+          tooltipTriggerText={sectionText}
+          tooltipTriggerTextClass={sectionClass}
+          tooltipTriggerTextStyle={style}
+        />
+      )
     } else {
       return sectionText
     }
   }
 
-  render() {
-    return (
-      <ReactTable
-        className='unit-template-profile-activities'
-        columns={this.columnDefinitions()}
-        data={this.props.data.activities}
-        defaultPageSize={this.props.data.activities.length}
-        getTdProps={(state, rowInfo, column, instance) => {
-          return {
-            onMouseEnter: (e, handleOriginal) => {
-              if (handleOriginal) {
-                handleOriginal()
-              }
-            },
-            onMouseLeave: (e, handleOriginal) => {
-              if (handleOriginal) {
-                handleOriginal()
-              }
-            }
-          }
-        }}
-        resizable={false}
-        showPagination={false}
-        sortable={false}
-        style={{overflow: 'visible'}}
-      />
-    )
-  }
+  return (
+    <ReactTable
+      className='unit-template-profile-activities'
+      columns={columnDefinitions()}
+      data={activities}
+      defaultPageSize={activities.length}
+    />
+  )
 }
+
+export default UnitTemplateProfileActivityTable;

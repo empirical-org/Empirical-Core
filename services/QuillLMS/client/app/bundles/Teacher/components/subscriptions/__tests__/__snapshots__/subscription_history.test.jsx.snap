@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SubscriptionHistory container should render when there is no subscription history 1`] = `
+<SubscriptionHistory
+  authorityLevel={null}
+  premiumCredits={Array []}
+  subscriptions={Array []}
+>
+  <section
+    className="subscription-history"
+  >
+    <h2>
+      Premium Subscription History
+    </h2>
+    <div
+      className="empty-state flex-row justify-content"
+    >
+      <h3>
+        You have not yet started a Quill Premium Subscription
+      </h3>
+      <p>
+        <a
+          href="/premium"
+        >
+          Purchase Quill Premium
+        </a>
+         or apply credits to get access to Premium reports.
+      </p>
+    </div>
+  </section>
+</SubscriptionHistory>
+`;

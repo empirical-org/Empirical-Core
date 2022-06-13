@@ -48,10 +48,9 @@
   "dependencies": {
     "foreman": "^3.0.1",
     "lazysizes": "^5.2.0-beta1",
-    "quill-marking-logic": "0.15.8",
+    "quill-marking-logic": "0.15.9",
     "react-csv": "^1.1.2",
-    "react-select": "^1.1.0",
-    "react-table": "^6.10.3"
+    "react-select": "^1.1.0"
   },
   "devDependencies": {
     "qs": "^6.9.0",

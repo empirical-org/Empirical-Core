@@ -28,7 +28,7 @@ class UnitActivity < ApplicationRecord
   include ::NewRelic::Agent
   include CheckboxCallback
 
-  belongs_to :unit #, touch: true
+  belongs_to :unit, touch: true
   belongs_to :activity
   has_many :classroom_unit_activity_states
 
@@ -37,13 +37,13 @@ class UnitActivity < ApplicationRecord
   after_save :hide_appropriate_activity_sessions, :teacher_checkbox
 
   def teacher_checkbox
-    if unit && unit.user && unit.visible && visible
-      owner = unit.user
-      checkbox_name = checkbox_type
-      if owner && unit.name
-        find_or_create_checkbox(checkbox_name, owner, activity_id)
-      end
-    end
+    return unless unit
+    return unless unit.user
+    return unless unit.visible
+    return unless unit.name
+    return unless visible
+
+    find_or_create_checkbox(checkbox_type, unit.user, activity_id)
   end
 
   def checkbox_type
@@ -67,7 +67,7 @@ class UnitActivity < ApplicationRecord
 
   def formatted_due_date
     if due_date.present?
-      due_date.month.to_s + "-" + due_date.day.to_s + "-" + due_date.year.to_s
+      "#{due_date.month}-#{due_date.day}-#{due_date.year}"
     else
       ""
     end
@@ -85,23 +85,24 @@ class UnitActivity < ApplicationRecord
   end
 
   private def hide_appropriate_activity_sessions
-    if visible == false
-      hide_all_activity_sessions
-    end
+    return if visible
+
+    hide_all_activity_sessions
   end
 
   private def hide_all_activity_sessions
-    if unit && unit.classroom_units
-      unit.classroom_units.each do |cu|
-        cu.activity_sessions.each do |as|
-          as.update(visible: false) if as.activity == activity
-        end
+    return unless unit&.classroom_units
+
+    unit.classroom_units.each do |cu|
+      cu.activity_sessions.each do |as|
+        as.update(visible: false) if as.activity == activity
       end
     end
   end
 
   def self.get_classroom_user_profile(classroom_id, user_id)
     return [] unless classroom_id && user_id
+
     # Generate a rich profile of Classroom Activities for a given user in a given classroom
     RawSqlRunner.execute(
       <<-SQL

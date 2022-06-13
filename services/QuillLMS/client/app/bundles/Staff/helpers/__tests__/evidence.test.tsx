@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { mockActivity } from '../../components/evidence/__mocks__/data';
-import { getPromptConjunction } from '../evidence';
+import { getPromptConjunction } from '../evidence/promptHelpers';
 import { BECAUSE, BUT, SO, ALL } from '../../../../constants/evidence';
 
 describe('Evidence helper functions', () => {

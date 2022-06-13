@@ -52,12 +52,14 @@ export default class ActivitiesUnit extends React.Component {
     // and we need to do a number of things with it that are better with an array
     const classrooms = Array.isArray(dclassy) ? dclassy : Array.from(dclassy);
     const classroomList = this.classroomList(classrooms);
-    return (<div className="assigned-to">
-      <span className="heading">Assigned to {classrooms.length} {Pluralize('class', classrooms.length)}:</span>
-      <ul>
-        {classroomList}
-      </ul>
-    </div>);
+    return (
+      <div className="assigned-to">
+        <span className="heading">Assigned to {classrooms.length} {Pluralize('class', classrooms.length)}:</span>
+        <ul>
+          {classroomList}
+        </ul>
+      </div>
+    );
   }
 
   changeToEdit = () => {
@@ -67,10 +69,10 @@ export default class ActivitiesUnit extends React.Component {
   classroomList = (classrooms) => {
     if (classrooms.length >= 4 && !this.state.showAllClassrooms) {
       const classroomsArray = classrooms.slice(0, 3).map((c, i) => <li key={i}>{c.name} <span>({c.assignedStudentCount}/{c.totalStudentCount} {Pluralize('student', c.totalStudentCount)})</span></li>)
-      classroomsArray.push(<li className="see-all" onClick={() => this.setState({showAllClassrooms: true})}>Show all {classrooms.length} classes <i className="fas fa-icon fa-chevron-down" /></li>)
+      classroomsArray.push(<button className="interactive-wrapper focus-on-light" onClick={() => this.setState({showAllClassrooms: true})} type="button"><li className="see-all" >Show all {classrooms.length} classes <i className="fas fa-icon fa-chevron-down" /></li></button>)
       return classroomsArray
     }
-      return classrooms.map((c, i) => <li key={i}>{c.name} <span>({c.assignedStudentCount}/{c.totalStudentCount} {Pluralize('student', c.totalStudentCount)})</span></li>)
+    return classrooms.map((c, i) => <li key={i}>{c.name} <span>({c.assignedStudentCount}/{c.totalStudentCount} {Pluralize('student', c.totalStudentCount)})</span></li>)
 
   }
 
@@ -80,15 +82,17 @@ export default class ActivitiesUnit extends React.Component {
     if (!this.props.report && !this.props.lesson && ownedByCurrentUser) {
       return <span className="delete-unit" onClick={this.hideUnit}>Delete Activity Pack</span>;
     } else if (!ownedByCurrentUser) {
-      return (<span
-        className='locked-unit'
-        onMouseEnter={this.toggleTooltip}
-        onMouseLeave={this.toggleTooltip}
-      >
-        <img src="https://assets.quill.org/images/icons/lock-activity-pack-icon.svg" />
+      return (
+        <span
+          className='locked-unit'
+          onMouseEnter={this.toggleTooltip}
+          onMouseLeave={this.toggleTooltip}
+        >
+          <img alt="" src="https://assets.quill.org/images/icons/lock-activity-pack-icon.svg" />
           Created By {firstCa.ownerName}
-        {this.renderTooltip()}
-      </span>);
+          {this.renderTooltip()}
+        </span>
+      );
     }
   }
 
@@ -143,12 +147,12 @@ export default class ActivitiesUnit extends React.Component {
   handleSubmit = () => {
     const that = this;
     api.changeActivityPackName(that.props.data.unitId, that.state.unitName,
-                               () => that.setState({edit: false,
-                                                    errors: undefined,
-                                                    savedUnitName: that.state.unitName}),
-                               (response) => that.setState({errors: response.body.errors,
-                                                            edit: false,
-                                                            unitName: that.state.savedUnitName}));
+      () => that.setState({edit: false,
+        errors: undefined,
+        savedUnitName: that.state.unitName}),
+      (response) => that.setState({errors: response.body.errors,
+        edit: false,
+        unitName: that.state.savedUnitName}));
   }
 
   hideUnit = () => {
@@ -264,11 +268,13 @@ export default class ActivitiesUnit extends React.Component {
   renderTooltip = () => {
     const visible = this.state.showTooltip ? 'visible' : 'invisible';
     const ownerName = this.state.classroomActivities.values().next().value.ownerName;
-    return (<div className={`tooltip ${visible}`}>
-      <i className="fas fa-caret-up" />
-      <p>Since {ownerName} created this activity pack, you are unable to edit this activity pack. You can ask the creator to edit it.</p>
-      <p>If you would like to assign additional practice activities, you can create a new pack for your students.</p>
-    </div>);
+    return (
+      <div className={`tooltip ${visible}`}>
+        <i className="fas fa-caret-up" />
+        <p>Since {ownerName} created this activity pack, you are unable to edit this activity pack. You can ask the creator to edit it.</p>
+        <p>If you would like to assign additional practice activities, you can create a new pack for your students.</p>
+      </div>
+    );
   }
 
   render = () => {

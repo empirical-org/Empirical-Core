@@ -3,9 +3,8 @@ import * as React from 'react'
 import Topics from '../components/activityForm/topics'
 import RawScore from '../components/activityForm/rawScore'
 import ContentPartners from '../components/activityForm/contentPartners'
-
-import { Snackbar, defaultSnackbarTimeout } from '../../Shared/index'
-import { requestGet, requestPut, requestPost, } from '../../../modules/request/index'
+import { defaultSnackbarTimeout, Snackbar } from '../../Shared/index'
+import { requestGet, requestPost, requestPut } from '../../../modules/request/index'
 
 const ActivityForm = ({ activity, activityClassification, contentPartnerOptions, activityCategoryOptions, standardOptions, rawScoreOptions, passedTopicOptions, flagOptions, followUpActivityOptions, gradeBands, }) => {
   const [editedActivity, setEditedActivity] = React.useState(activity);
@@ -58,8 +57,8 @@ const ActivityForm = ({ activity, activityClassification, contentPartnerOptions,
       (data) => {
         getTopics()
         setShowSnackbar(true)
-        const extantTopicIds = activity.topic_ids
-        handleTopicsChange(extantTopicIds.concat(data.topic.id))
+        const existingTopicIds = activity.topic_ids
+        handleTopicsChange(existingTopicIds.concat(data.topic.id))
       }
     )
   }
@@ -100,64 +99,72 @@ const ActivityForm = ({ activity, activityClassification, contentPartnerOptions,
     handleAttributeChange('topic_ids', options)
   }
 
-  const flagOptionElements = flagOptions.map(fo => (<option value={fo}>{fo}</option>))
+  const initialFlag = editedActivity.flags[0]
+  const flagOptionElements = flagOptions.map(fo => {
+    if (fo === initialFlag) {
+      return <option key={fo} selected value={fo} >{fo}</option>
+    }
+    return <option key={fo} value={fo} >{fo}</option>
+  })
 
-  const standardOptionElements = standardOptions.map(so => (<option value={so.id}>{so.name}</option>))
+  const standardOptionElements = standardOptions.map(so => (<option key={so.id} value={so.id}>{so.name}</option>))
 
-  const activityCategoryOptionElements = activityCategoryOptions.map(so => (<option value={so.id}>{so.name}</option>))
+  const activityCategoryOptionElements = activityCategoryOptions.map(so => (<option key={so.id} value={so.id}>{so.name}</option>))
 
   let followUpActivityField
 
   if (activityClassification.key === 'lessons') {
-    const followUpActivityOptionElements = followUpActivityOptions.map(act => (<option value={act.id}>{act.name}</option>))
+    const followUpActivityOptionElements = followUpActivityOptions.map(act => (<option key={act.id} value={act.id}>{act.name}</option>))
     followUpActivityField = (<section>
       <label>Followup Activity</label>
       <select onChange={handleFollowUpActivityChange} value={editedActivity.follow_up_activity_id}>{followUpActivityOptionElements}</select>
     </section>)
   }
 
+  return (
+    <section className="cms-form">
+      <Snackbar text="Changes saved" visible={showSnackbar} />
+      <form className="box-full-form form-vertical" onSubmit={handleSubmit}>
+        <section className="l-section">
+          <section>
+            <label>Activity name</label>
+            <input onChange={handleNameChange} value={editedActivity.name} />
+          </section>
+          <section className="description-container">
+            <label>Description</label>
+            <textarea cols={100} onChange={handleDescriptionChange} rows={10} value={editedActivity.description} />
+          </section>
+          <section>
+            <label>Flag</label>
+            <select onChange={handleFlagChange} value={editedActivity.flags[0]}>{flagOptionElements}</select>
+          </section>
+          <section className="repeatable-container checkbox-container">
+            <input checked={editedActivity.repeatable} onChange={handleRepeatableChange} type="checkbox" />
+            <label>Repeatable</label>
+          </section>
+        </section>
+        <section>
+          <label>Supporting info</label>
+          <input onChange={handleSupportingInfoChange} value={editedActivity.supporting_info} />
+        </section>
+        {followUpActivityField}
+        <section>
+          <label>Standard</label>
+          <select onChange={handleStandardChange} value={editedActivity.standard_id}>{standardOptionElements}</select>
+        </section>
+        <section>
+          <label>Activity Category</label>
+          <select className="activity-categories" multiple onChange={handleActivityCategoryChange} value={editedActivity.activity_category_ids}>{activityCategoryOptionElements}</select>
+        </section>
+        <ContentPartners activity={editedActivity} contentPartnerOptions={contentPartnerOptions} handleContentPartnerChange={handleContentPartnerChange} />
+        <RawScore activity={editedActivity} gradeBands={gradeBands} handleRawScoreChange={handleRawScoreChange} rawScoreOptions={rawScoreOptions} />
+        <Topics activity={editedActivity} createNewTopic={createNewTopic} handleTopicsChange={handleTopicsChange} topicOptions={topicOptions} />
+        <input className={submitClassName()} disabled={!editedActivity.name.length} type="submit" value="Save" />
+        <p>When you&apos;ve saved the activity, please head over to the <a href='/assign/activity-library'>Activity Library</a> to make sure the activity metadata looks right in production.</p>
+      </form>
+    </section>
+  )
 
-  return (<section className="cms-form">
-    <Snackbar text="Changes saved" visible={showSnackbar} />
-    <form className="box-full-form form-vertical" onSubmit={handleSubmit}>
-      <section className="l-section">
-        <section>
-          <label>Activity name</label>
-          <input onChange={handleNameChange} value={editedActivity.name} />
-        </section>
-        <section className="description-container">
-          <label>Description</label>
-          <textarea cols={100} onChange={handleDescriptionChange} rows={10} value={editedActivity.description} />
-        </section>
-        <section>
-          <label>Flag</label>
-          <select onChange={handleFlagChange} value={editedActivity.flags[0]}>{flagOptionElements}</select>
-        </section>
-        <section className="repeatable-container checkbox-container">
-          <input checked={editedActivity.repeatable} onChange={handleRepeatableChange} type="checkbox" />
-          <label>Repeatable</label>
-        </section>
-      </section>
-      <section>
-        <label>Supporting info</label>
-        <input onChange={handleSupportingInfoChange} value={editedActivity.supporting_info} />
-      </section>
-      {followUpActivityField}
-      <section>
-        <label>Standard</label>
-        <select onChange={handleStandardChange} value={editedActivity.standard_id}>{standardOptionElements}</select>
-      </section>
-      <section>
-        <label>Activity Category</label>
-        <select className="activity-categories" multiple onChange={handleActivityCategoryChange} value={editedActivity.activity_category_ids}>{activityCategoryOptionElements}</select>
-      </section>
-      <ContentPartners activity={editedActivity} contentPartnerOptions={contentPartnerOptions} handleContentPartnerChange={handleContentPartnerChange} />
-      <RawScore activity={editedActivity} gradeBands={gradeBands} handleRawScoreChange={handleRawScoreChange} rawScoreOptions={rawScoreOptions} />
-      <Topics activity={editedActivity} createNewTopic={createNewTopic} handleTopicsChange={handleTopicsChange} topicOptions={topicOptions} />
-      <input className={submitClassName()} disabled={!editedActivity.name.length} type="submit" value="Save" />
-      <p>When you've saved the activity, please head over to the <a href='/assign/activity-library'>Activity Library</a> to make sure the activity metadata looks right in production.</p>
-    </form>
-  </section>)
 }
 
 export default ActivityForm

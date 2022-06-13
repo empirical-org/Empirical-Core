@@ -62,35 +62,16 @@
       max-width: 1184px;
       padding: 0px 32px;
       margin: auto;
-      .lessons-banner {
-        position: fixed;
-        bottom: 0;
-        z-index: 2;
-        margin: 0px 0px 32px;
-        padding: 21px 24px 24px 0px;
-        border-radius: 6px;
-        box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 4px 5px 0 rgba(0, 0, 0, 0.14);
-        border: solid 1px #e0e0e0;
-        background-color: #ffefd2;
+      .banners-container {
         display: flex;
-        max-width: 1120px;
-        width: 100%;
-        align-items: flex-end;
-        .text {
-          margin-left: 16px;
-          flex: 1;
-          h2 {
-            font-weight: bold;
-            margin-bottom: 16px;
-          }
-          p {
-            color: #222222;
-            max-width: 600px;
-          }
-          a {
-            font-weight: 600;
-            color: #05806b;
-          }
+        flex-direction: column;
+        position: fixed;
+        z-index: 2;
+        bottom: 0;
+        .assigning-activity-disclaimer-banner {
+          bottom: auto;
+          position: initial;
+          margin: 0px 0px 8px;
         }
       }
       .search-and-sort {
@@ -244,7 +225,7 @@
   }
 
   @media (max-width: 1500px) and (min-width: 1051px) {
-    .main-content-container .activity-table-container .lessons-banner {
+    .main-content-container .activity-table-container .assigning-activity-disclaimer-banner {
       max-width: calc(100vw - 312px - 64px);
     }
   }
@@ -269,20 +250,6 @@
         padding: 0px;
         .search-and-sort {
           display: none;
-        }
-        .lessons-banner {
-          margin-bottom: 0px;
-          border-radius: 0px;
-          flex-direction: column;
-          align-items: flex-start;
-          padding: 16px;
-          img {
-            display: none;
-          }
-          .text {
-            margin-left: 0px;
-            margin-bottom: 16px;
-          }
         }
       }
     }

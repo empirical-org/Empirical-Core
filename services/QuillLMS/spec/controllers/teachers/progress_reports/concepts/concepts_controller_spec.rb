@@ -30,7 +30,10 @@ describe Teachers::ProgressReports::Concepts::ConceptsController, type: :control
 
       subject { get :index, params: { student_id: student.id }, as: :json }
 
-      before { session[:user_id] = teacher.id }
+      before do
+        session[:user_id] = teacher.id
+        Rails.cache.clear
+      end
 
       it 'includes a list of concepts in the JSON' do
         subject
@@ -42,6 +45,14 @@ describe Teachers::ProgressReports::Concepts::ConceptsController, type: :control
         subject
         expect(json).to have_key('student')
         expect(json['student']['name']).to eq(student.name)
+      end
+
+      it 'caches json response' do
+        expect(controller).to receive(:json_payload).once.and_call_original
+
+        2.times do
+          subject
+        end
       end
 
       context 'accessing another teacher\'s student data' do

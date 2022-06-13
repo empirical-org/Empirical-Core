@@ -12,9 +12,11 @@ const IndividualFeaturesTable = ({ premiumFeatureData, type, }) => {
   const expandImgAltText = `Arrow pointing ${isOpen ? 'up' : 'down'}`
 
   if (!isOpen) {
-    return (<div className="individual-features-table-container">
-      <button className="interactive-wrapper focus-on-light" onClick={toggleIsOpen} type="button">Show all features <img alt={expandImgAltText} src={expandSrc} /></button>
-    </div>)
+    return (
+      <div className="individual-features-table-container">
+        <button className="interactive-wrapper focus-on-light" onClick={toggleIsOpen} type="button">Show all features <img alt={expandImgAltText} src={expandSrc} /></button>
+      </div>
+    )
   }
 
   const table = premiumFeatureData.map(section => {
@@ -24,18 +26,22 @@ const IndividualFeaturesTable = ({ premiumFeatureData, type, }) => {
         <InfoTooltip tooltipText={feature.tooltipText} />
       </div>
     ))
-    return (<React.Fragment key={section.header}>
-      <div className="header-row">
-        <h3>{section.header}</h3>
-      </div>
-      {rows}
-    </React.Fragment>)
+    return (
+      <React.Fragment key={section.header}>
+        <div className="header-row">
+          <h3>{section.header}</h3>
+        </div>
+        {rows}
+      </React.Fragment>
+    )
   })
 
-  return (<div className="individual-features-table-container is-open">
-    <button className="interactive-wrapper focus-on-light" onClick={toggleIsOpen} type="button">Hide all features <img alt={expandImgAltText} src={expandSrc} /></button>
-    {table}
-  </div>)
+  return (
+    <div className="individual-features-table-container is-open">
+      <button className="interactive-wrapper focus-on-light" onClick={toggleIsOpen} type="button">Hide all features <img alt={expandImgAltText} src={expandSrc} /></button>
+      {table}
+    </div>
+  )
 }
 
 export default IndividualFeaturesTable

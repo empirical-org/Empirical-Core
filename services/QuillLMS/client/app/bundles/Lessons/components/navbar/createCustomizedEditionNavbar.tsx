@@ -9,7 +9,7 @@ const CreateCustomizedEditionNavbar: React.SFC<any> = () =>
         <span className="vertical-line" />
         <span>
           <a href="https://support.quill.org/using-quill-tools/quill-lessons/how-do-i-customize-a-quill-lesson">
-            <img className="help" src={helpIcon} />Help
+            <img alt="" className="help" src={helpIcon} />Help
           </a>
         </span>
       </div>

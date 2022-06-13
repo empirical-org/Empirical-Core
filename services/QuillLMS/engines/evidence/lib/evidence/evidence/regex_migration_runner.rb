@@ -6,6 +6,7 @@ module Evidence
       ActiveRecord::Base.transaction do
         RuleSet.all.each do |rule_set|
           next unless Evidence::Rule.where(name: rule_set.name, rule_type: Evidence::Rule::TYPE_REGEX, suborder: rule_set.priority).joins(:prompts).merge( Evidence::Prompt.where(id: rule_set.prompt_ids)).empty?
+
           rule = Rule.create!(
             name: rule_set.name,
             suborder: rule_set.priority,

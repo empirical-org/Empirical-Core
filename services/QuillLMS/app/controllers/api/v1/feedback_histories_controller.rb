@@ -65,7 +65,7 @@ class Api::V1::FeedbackHistoriesController < Api::ApiController
   end
 
   private def batch_feedback_history_params
-    # Note: nested params MUST be permitted last in any list
+    # NOTE: nested params MUST be permitted last in any list
     params.permit(
       feedback_histories: [
         :feedback_session_uid,

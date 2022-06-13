@@ -7,10 +7,10 @@ const email = 'hal@spaceodyssey.org'
 describe('the UpdateEmail component', () => {
 
   it('should render', () => {
-      const wrapper = shallow(
-        <UpdateEmail email={email} />
-      )
-      expect(wrapper).toMatchSnapshot()
+    const wrapper = shallow(
+      <UpdateEmail email={email} />
+    )
+    expect(wrapper).toMatchSnapshot()
   })
 
   it('should render the email in the state in the input field', () => {

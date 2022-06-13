@@ -1,376 +1,2093 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
-<div
-  className="assignment-flow-container"
+<AssignADiagnostic
+  assignedPreTests={
+    Array [
+      Object {
+        "assigned_classroom_ids": Array [
+          1,
+        ],
+        "id": 1663,
+        "post_test_id": 1664,
+      },
+      Object {
+        "assigned_classroom_ids": Array [],
+        "id": 1668,
+        "post_test_id": 1669,
+      },
+      Object {
+        "assigned_classroom_ids": Array [],
+        "id": 1678,
+        "post_test_id": 1680,
+      },
+    ]
+  }
 >
-  <AssignmentFlowNavigation />
-  <ScrollToTop />
   <div
-    className="diagnostic-page container"
+    className="assignment-flow-container"
   >
-    <h1>
-      Which diagnostic covers the skills you want to assess?
-    </h1>
-    <section
-      className="filter-tabs"
-    >
-      <FilterTab
-        activeFilter="All"
-        filter="All"
-        number={16}
-        setFilter={[Function]}
-      />
-      <FilterTab
-        activeFilter="All"
-        filter="General"
-        number={6}
-        setFilter={[Function]}
-      />
-      <FilterTab
-        activeFilter="All"
-        filter="ELL"
-        number={6}
-        setFilter={[Function]}
-      />
-      <FilterTab
-        activeFilter="All"
-        filter="CollegeBoard"
-        number={4}
-        setFilter={[Function]}
-      />
-    </section>
+    <AssignmentFlowNavigation>
+      <div
+        className="assignment-flow-navigation"
+      >
+        <div
+          className="assignment-flow-navigation-container"
+        >
+          <div
+            className="left"
+          >
+            <button
+              className="interactive-wrapper focus-on-light"
+              onClick={[Function]}
+              type="button"
+            >
+              <img
+                alt="green Quill logo"
+                src="undefined/images/logos/quill-logo-green.svg"
+              />
+            </button>
+            <div
+              className="links"
+            />
+          </div>
+          <div
+            className="right"
+          />
+        </div>
+        <div
+          className="progress-bar"
+        >
+          <div
+            className={null}
+          />
+        </div>
+      </div>
+    </AssignmentFlowNavigation>
+    <ScrollToTop />
     <div
-      className="minis"
+      className="diagnostic-page container"
     >
-      <div
-        className="grouped-minis"
-        key="starter"
+      <h1>
+        Which diagnostic covers the skills you want to assess?
+      </h1>
+      <section
+        className="filter-tabs"
       >
-        <AssignmentCard
-          bodyArray={
-            Array [
-              Object {
-                "key": "What",
-                "text": "Plural and possessive nouns, verbs, adjectives, adverbs of manner, commas, prepositions, basic capitalization, and commonly confused words",
-              },
-              Object {
-                "key": "When",
-                "text": "Your students are working on basic grammar concepts.",
-              },
-            ]
-          }
-          buttonLink="/activity_sessions/anonymous?activity_id=1663"
-          buttonText="Preview"
-          header="Starter Baseline Diagnostic (Pre)"
-          selectCard={[Function]}
-        />
-        <AssignmentCard
-          bodyArray={
-            Array [
-              Object {
-                "key": "What",
-                "text": "The Starter Growth Diagnostic has different questions but covers the same skills as the Starter Baseline Diagnostic.",
-              },
-              Object {
-                "key": "When",
-                "text": "Your students have completed the Starter Baseline Diagnostic, you've assigned the recommended practice, and now you're ready to measure their growth.",
-              },
-            ]
-          }
-          buttonLink="/activity_sessions/anonymous?activity_id=1664"
-          buttonText="Preview"
-          header="Starter Growth Diagnostic (Post)"
-          lockedText={false}
-          selectCard={[Function]}
-          showNewTag={true}
-        />
-      </div>
+        <FilterTab
+          activeFilter="All"
+          filter="All"
+          number={16}
+          setFilter={[Function]}
+        >
+          <button
+            className="active filter-tab focus-on-light"
+            onClick={[Function]}
+            type="button"
+          >
+            All
+             (
+            16
+            )
+          </button>
+        </FilterTab>
+        <FilterTab
+          activeFilter="All"
+          filter="General"
+          number={6}
+          setFilter={[Function]}
+        >
+          <button
+            className="filter-tab focus-on-light"
+            onClick={[Function]}
+            type="button"
+          >
+            General
+             (
+            6
+            )
+          </button>
+        </FilterTab>
+        <FilterTab
+          activeFilter="All"
+          filter="ELL"
+          number={6}
+          setFilter={[Function]}
+        >
+          <button
+            className="filter-tab focus-on-light"
+            onClick={[Function]}
+            type="button"
+          >
+            ELL
+             (
+            6
+            )
+          </button>
+        </FilterTab>
+        <FilterTab
+          activeFilter="All"
+          filter="CollegeBoard"
+          number={4}
+          setFilter={[Function]}
+        >
+          <button
+            className="filter-tab focus-on-light"
+            onClick={[Function]}
+            type="button"
+          >
+            CollegeBoard
+             (
+            4
+            )
+          </button>
+        </FilterTab>
+      </section>
       <div
-        className="grouped-minis"
-        key="intermediate"
+        className="minis"
       >
-        <AssignmentCard
-          bodyArray={
-            Array [
+        <div
+          className="grouped-minis"
+          key="starter"
+        >
+          <DiagnosticAssignmentCard
+            diagnostic={
               Object {
-                "key": "What",
-                "text": "Compound sentences, complex sentences, conjunctive adverbs, pronouns, and advanced capitalization",
-              },
+                "activityId": 1663,
+                "name": "Starter Baseline Diagnostic (Pre)",
+                "unitTemplateId": 99,
+                "what": "Plural and possessive nouns, verbs, adjectives, adverbs of manner, commas, prepositions, basic capitalization, and commonly confused words",
+                "when": "Your students are working on basic grammar concepts.",
+              }
+            }
+          >
+            <AssignmentCard
+              bodyArray={
+                Array [
+                  Object {
+                    "key": "What",
+                    "text": "Plural and possessive nouns, verbs, adjectives, adverbs of manner, commas, prepositions, basic capitalization, and commonly confused words",
+                  },
+                  Object {
+                    "key": "When",
+                    "text": "Your students are working on basic grammar concepts.",
+                  },
+                ]
+              }
+              buttonLink="/activity_sessions/anonymous?activity_id=1663"
+              buttonText="Preview"
+              header="Starter Baseline Diagnostic (Pre)"
+              selectCard={[Function]}
+            >
+              <div
+                className=" assignment-card quill-card"
+                onClick={[Function]}
+              >
+                <div
+                  className="top-row"
+                >
+                  <div
+                    className="left"
+                  >
+                    <div
+                      className="header-wrapper"
+                    >
+                      <h2>
+                        Starter Baseline Diagnostic (Pre)
+                      </h2>
+                    </div>
+                  </div>
+                  <div
+                    className="button-container"
+                  >
+                    <a
+                      className="interactive-wrapper focus-on-light"
+                      href="/activity_sessions/anonymous?activity_id=1663"
+                      onClick={[Function]}
+                      target="_blank"
+                    >
+                      <img
+                        alt="Eye icon"
+                        src="undefined/images/icons/icons-preview.svg"
+                      />
+                      <span>
+                        Preview
+                      </span>
+                    </a>
+                    <button
+                      className="quill-button fun contained primary focus-on-light"
+                      onClick={[Function]}
+                      type="button"
+                    >
+                      Select
+                    </button>
+                  </div>
+                </div>
+                <div
+                  className="body"
+                >
+                  <div
+                    className="body-element"
+                    key="What"
+                  >
+                    <p
+                      className="key"
+                    >
+                      What
+                    </p>
+                    <p
+                      className="text"
+                    >
+                      Plural and possessive nouns, verbs, adjectives, adverbs of manner, commas, prepositions, basic capitalization, and commonly confused words
+                    </p>
+                  </div>
+                  <div
+                    className="body-element"
+                    key="When"
+                  >
+                    <p
+                      className="key"
+                    >
+                      When
+                    </p>
+                    <p
+                      className="text"
+                    >
+                      Your students are working on basic grammar concepts.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </AssignmentCard>
+          </DiagnosticAssignmentCard>
+          <DiagnosticAssignmentCard
+            diagnostic={
               Object {
-                "key": "When",
-                "text": "Your students have practiced the basics of grammar and are ready to develop their sentence construction skills.",
-              },
-            ]
+                "activityId": 1664,
+                "lockedText": "This is locked because you haven't assigned the Starter Baseline Diagnostic yet. Assign it to unlock the Starter Growth Diagnostic.",
+                "name": "Starter Growth Diagnostic (Post)",
+                "unitTemplateId": 217,
+                "what": "The Starter Growth Diagnostic has different questions but covers the same skills as the Starter Baseline Diagnostic.",
+                "when": "Your students have completed the Starter Baseline Diagnostic, you've assigned the recommended practice, and now you're ready to measure their growth.",
+              }
+            }
+            lockedText={false}
+            showNewTag={true}
+          >
+            <AssignmentCard
+              bodyArray={
+                Array [
+                  Object {
+                    "key": "What",
+                    "text": "The Starter Growth Diagnostic has different questions but covers the same skills as the Starter Baseline Diagnostic.",
+                  },
+                  Object {
+                    "key": "When",
+                    "text": "Your students have completed the Starter Baseline Diagnostic, you've assigned the recommended practice, and now you're ready to measure their growth.",
+                  },
+                ]
+              }
+              buttonLink="/activity_sessions/anonymous?activity_id=1664"
+              buttonText="Preview"
+              header="Starter Growth Diagnostic (Post)"
+              lockedText={false}
+              selectCard={[Function]}
+              showNewTag={true}
+            >
+              <div
+                className="show-new-tag assignment-card quill-card"
+                onClick={[Function]}
+              >
+                <span
+                  className="new-tag"
+                >
+                  NEW
+                </span>
+                <div
+                  className="top-row"
+                >
+                  <div
+                    className="left"
+                  >
+                    <div
+                      className="header-wrapper"
+                    >
+                      <h2>
+                        Starter Growth Diagnostic (Post)
+                      </h2>
+                    </div>
+                  </div>
+                  <div
+                    className="button-container"
+                  >
+                    <a
+                      className="interactive-wrapper focus-on-light"
+                      href="/activity_sessions/anonymous?activity_id=1664"
+                      onClick={[Function]}
+                      target="_blank"
+                    >
+                      <img
+                        alt="Eye icon"
+                        src="undefined/images/icons/icons-preview.svg"
+                      />
+                      <span>
+                        Preview
+                      </span>
+                    </a>
+                    <button
+                      className="quill-button fun contained primary focus-on-light"
+                      onClick={[Function]}
+                      type="button"
+                    >
+                      Select
+                    </button>
+                  </div>
+                </div>
+                <div
+                  className="body"
+                >
+                  <div
+                    className="body-element"
+                    key="What"
+                  >
+                    <p
+                      className="key"
+                    >
+                      What
+                    </p>
+                    <p
+                      className="text"
+                    >
+                      The Starter Growth Diagnostic has different questions but covers the same skills as the Starter Baseline Diagnostic.
+                    </p>
+                  </div>
+                  <div
+                    className="body-element"
+                    key="When"
+                  >
+                    <p
+                      className="key"
+                    >
+                      When
+                    </p>
+                    <p
+                      className="text"
+                    >
+                      Your students have completed the Starter Baseline Diagnostic, you've assigned the recommended practice, and now you're ready to measure their growth.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </AssignmentCard>
+          </DiagnosticAssignmentCard>
+        </div>
+        <div
+          className="grouped-minis"
+          key="intermediate"
+        >
+          <DiagnosticAssignmentCard
+            diagnostic={
+              Object {
+                "activityId": 1668,
+                "name": "Intermediate Baseline Diagnostic (Pre)",
+                "unitTemplateId": 100,
+                "what": "Compound sentences, complex sentences, conjunctive adverbs, pronouns, and advanced capitalization",
+                "when": "Your students have practiced the basics of grammar and are ready to develop their sentence construction skills.",
+              }
+            }
+          >
+            <AssignmentCard
+              bodyArray={
+                Array [
+                  Object {
+                    "key": "What",
+                    "text": "Compound sentences, complex sentences, conjunctive adverbs, pronouns, and advanced capitalization",
+                  },
+                  Object {
+                    "key": "When",
+                    "text": "Your students have practiced the basics of grammar and are ready to develop their sentence construction skills.",
+                  },
+                ]
+              }
+              buttonLink="/activity_sessions/anonymous?activity_id=1668"
+              buttonText="Preview"
+              header="Intermediate Baseline Diagnostic (Pre)"
+              selectCard={[Function]}
+            >
+              <div
+                className=" assignment-card quill-card"
+                onClick={[Function]}
+              >
+                <div
+                  className="top-row"
+                >
+                  <div
+                    className="left"
+                  >
+                    <div
+                      className="header-wrapper"
+                    >
+                      <h2>
+                        Intermediate Baseline Diagnostic (Pre)
+                      </h2>
+                    </div>
+                  </div>
+                  <div
+                    className="button-container"
+                  >
+                    <a
+                      className="interactive-wrapper focus-on-light"
+                      href="/activity_sessions/anonymous?activity_id=1668"
+                      onClick={[Function]}
+                      target="_blank"
+                    >
+                      <img
+                        alt="Eye icon"
+                        src="undefined/images/icons/icons-preview.svg"
+                      />
+                      <span>
+                        Preview
+                      </span>
+                    </a>
+                    <button
+                      className="quill-button fun contained primary focus-on-light"
+                      onClick={[Function]}
+                      type="button"
+                    >
+                      Select
+                    </button>
+                  </div>
+                </div>
+                <div
+                  className="body"
+                >
+                  <div
+                    className="body-element"
+                    key="What"
+                  >
+                    <p
+                      className="key"
+                    >
+                      What
+                    </p>
+                    <p
+                      className="text"
+                    >
+                      Compound sentences, complex sentences, conjunctive adverbs, pronouns, and advanced capitalization
+                    </p>
+                  </div>
+                  <div
+                    className="body-element"
+                    key="When"
+                  >
+                    <p
+                      className="key"
+                    >
+                      When
+                    </p>
+                    <p
+                      className="text"
+                    >
+                      Your students have practiced the basics of grammar and are ready to develop their sentence construction skills.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </AssignmentCard>
+          </DiagnosticAssignmentCard>
+          <DiagnosticAssignmentCard
+            diagnostic={
+              Object {
+                "activityId": 1669,
+                "lockedText": "This is locked because you haven't assigned the Intermediate Baseline Diagnostic yet. Assign it to unlock the Intermediate Growth Diagnostic.",
+                "name": "Intermediate Growth Diagnostic (Post)",
+                "unitTemplateId": 237,
+                "what": "The Intermediate Growth Diagnostic has different questions but covers the same skills as the Intermediate Baseline Diagnostic.",
+                "when": "Your students have completed the Intermediate Baseline Diagnostic, you've assigned the recommended practice, and now you're ready to measure their growth.",
+              }
+            }
+            lockedText="This is locked because you haven't assigned the Intermediate Baseline Diagnostic yet. Assign it to unlock the Intermediate Growth Diagnostic."
+            showNewTag={true}
+          >
+            <AssignmentCard
+              bodyArray={
+                Array [
+                  Object {
+                    "key": "What",
+                    "text": "The Intermediate Growth Diagnostic has different questions but covers the same skills as the Intermediate Baseline Diagnostic.",
+                  },
+                  Object {
+                    "key": "When",
+                    "text": "Your students have completed the Intermediate Baseline Diagnostic, you've assigned the recommended practice, and now you're ready to measure their growth.",
+                  },
+                ]
+              }
+              buttonLink="/activity_sessions/anonymous?activity_id=1669"
+              buttonText="Preview"
+              header="Intermediate Growth Diagnostic (Post)"
+              lockedText="This is locked because you haven't assigned the Intermediate Baseline Diagnostic yet. Assign it to unlock the Intermediate Growth Diagnostic."
+              selectCard={[Function]}
+              showNewTag={true}
+            >
+              <div
+                className="show-new-tag assignment-card quill-card"
+                onClick={[Function]}
+              >
+                <span
+                  className="new-tag"
+                >
+                  NEW
+                </span>
+                <div
+                  className="top-row"
+                >
+                  <div
+                    className="left"
+                  >
+                    <div
+                      className="header-wrapper"
+                    >
+                      <h2>
+                        Intermediate Growth Diagnostic (Post)
+                      </h2>
+                    </div>
+                  </div>
+                  <div
+                    className="button-container"
+                  >
+                    <a
+                      className="interactive-wrapper focus-on-light"
+                      href="/activity_sessions/anonymous?activity_id=1669"
+                      onClick={[Function]}
+                      target="_blank"
+                    >
+                      <img
+                        alt="Eye icon"
+                        src="undefined/images/icons/icons-preview.svg"
+                      />
+                      <span>
+                        Preview
+                      </span>
+                    </a>
+                    <Tooltip
+                      isTabbable={true}
+                      tooltipText="This is locked because you haven't assigned the Intermediate Baseline Diagnostic yet. Assign it to unlock the Intermediate Growth Diagnostic."
+                      tooltipTriggerText={
+                        <button
+                          className="quill-button small disabled contained"
+                          type="button"
+                        >
+                          <img
+                            alt="Lock icon"
+                            src="undefined/images/icons/icons-locked.svg"
+                          />
+                           Locked
+                        </button>
+                      }
+                    >
+                      <span
+                        aria-hidden={false}
+                        className="quill-tooltip-trigger"
+                        role="tooltip"
+                      >
+                        <span
+                          className="undefined"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
+                        >
+                          <button
+                            className="quill-button small disabled contained"
+                            type="button"
+                          >
+                            <img
+                              alt="Lock icon"
+                              src="undefined/images/icons/icons-locked.svg"
+                            />
+                             Locked
+                          </button>
+                        </span>
+                        <span
+                          className="quill-tooltip-wrapper"
+                        >
+                          <span
+                            aria-live="polite"
+                            className="quill-tooltip"
+                          />
+                        </span>
+                      </span>
+                    </Tooltip>
+                  </div>
+                </div>
+                <div
+                  className="body"
+                >
+                  <div
+                    className="body-element"
+                    key="What"
+                  >
+                    <p
+                      className="key"
+                    >
+                      What
+                    </p>
+                    <p
+                      className="text"
+                    >
+                      The Intermediate Growth Diagnostic has different questions but covers the same skills as the Intermediate Baseline Diagnostic.
+                    </p>
+                  </div>
+                  <div
+                    className="body-element"
+                    key="When"
+                  >
+                    <p
+                      className="key"
+                    >
+                      When
+                    </p>
+                    <p
+                      className="text"
+                    >
+                      Your students have completed the Intermediate Baseline Diagnostic, you've assigned the recommended practice, and now you're ready to measure their growth.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </AssignmentCard>
+          </DiagnosticAssignmentCard>
+        </div>
+        <div
+          className="grouped-minis"
+          key="advanced"
+        >
+          <DiagnosticAssignmentCard
+            diagnostic={
+              Object {
+                "activityId": 1678,
+                "name": "Advanced Baseline Diagnostic (Pre)",
+                "unitTemplateId": 126,
+                "what": "Compound-complex sentences, appositive phrases, relative clauses, participial phrases, and parallel structure",
+                "when": "Your students are experienced with Quill, understand sentence combining, and are ready to develop multi-clause sentences.",
+              }
+            }
+          >
+            <AssignmentCard
+              bodyArray={
+                Array [
+                  Object {
+                    "key": "What",
+                    "text": "Compound-complex sentences, appositive phrases, relative clauses, participial phrases, and parallel structure",
+                  },
+                  Object {
+                    "key": "When",
+                    "text": "Your students are experienced with Quill, understand sentence combining, and are ready to develop multi-clause sentences.",
+                  },
+                ]
+              }
+              buttonLink="/activity_sessions/anonymous?activity_id=1678"
+              buttonText="Preview"
+              header="Advanced Baseline Diagnostic (Pre)"
+              selectCard={[Function]}
+            >
+              <div
+                className=" assignment-card quill-card"
+                onClick={[Function]}
+              >
+                <div
+                  className="top-row"
+                >
+                  <div
+                    className="left"
+                  >
+                    <div
+                      className="header-wrapper"
+                    >
+                      <h2>
+                        Advanced Baseline Diagnostic (Pre)
+                      </h2>
+                    </div>
+                  </div>
+                  <div
+                    className="button-container"
+                  >
+                    <a
+                      className="interactive-wrapper focus-on-light"
+                      href="/activity_sessions/anonymous?activity_id=1678"
+                      onClick={[Function]}
+                      target="_blank"
+                    >
+                      <img
+                        alt="Eye icon"
+                        src="undefined/images/icons/icons-preview.svg"
+                      />
+                      <span>
+                        Preview
+                      </span>
+                    </a>
+                    <button
+                      className="quill-button fun contained primary focus-on-light"
+                      onClick={[Function]}
+                      type="button"
+                    >
+                      Select
+                    </button>
+                  </div>
+                </div>
+                <div
+                  className="body"
+                >
+                  <div
+                    className="body-element"
+                    key="What"
+                  >
+                    <p
+                      className="key"
+                    >
+                      What
+                    </p>
+                    <p
+                      className="text"
+                    >
+                      Compound-complex sentences, appositive phrases, relative clauses, participial phrases, and parallel structure
+                    </p>
+                  </div>
+                  <div
+                    className="body-element"
+                    key="When"
+                  >
+                    <p
+                      className="key"
+                    >
+                      When
+                    </p>
+                    <p
+                      className="text"
+                    >
+                      Your students are experienced with Quill, understand sentence combining, and are ready to develop multi-clause sentences.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </AssignmentCard>
+          </DiagnosticAssignmentCard>
+          <DiagnosticAssignmentCard
+            diagnostic={
+              Object {
+                "activityId": 1680,
+                "lockedText": "This is locked because you haven't assigned the Advanced Baseline Diagnostic yet. Assign it to unlock the Advanced Growth Diagnostic.",
+                "name": "Advanced Growth Diagnostic (Post)",
+                "unitTemplateId": 409,
+                "what": "The Advanced Growth Diagnostic has different questions but covers the same skills as the Advanced Baseline Diagnostic.",
+                "when": "Your students have completed the Advanced Baseline Diagnostic, you've assigned the recommended practice, and now you're ready to measure their growth.",
+              }
+            }
+            lockedText="This is locked because you haven't assigned the Advanced Baseline Diagnostic yet. Assign it to unlock the Advanced Growth Diagnostic."
+            showNewTag={true}
+          >
+            <AssignmentCard
+              bodyArray={
+                Array [
+                  Object {
+                    "key": "What",
+                    "text": "The Advanced Growth Diagnostic has different questions but covers the same skills as the Advanced Baseline Diagnostic.",
+                  },
+                  Object {
+                    "key": "When",
+                    "text": "Your students have completed the Advanced Baseline Diagnostic, you've assigned the recommended practice, and now you're ready to measure their growth.",
+                  },
+                ]
+              }
+              buttonLink="/activity_sessions/anonymous?activity_id=1680"
+              buttonText="Preview"
+              header="Advanced Growth Diagnostic (Post)"
+              lockedText="This is locked because you haven't assigned the Advanced Baseline Diagnostic yet. Assign it to unlock the Advanced Growth Diagnostic."
+              selectCard={[Function]}
+              showNewTag={true}
+            >
+              <div
+                className="show-new-tag assignment-card quill-card"
+                onClick={[Function]}
+              >
+                <span
+                  className="new-tag"
+                >
+                  NEW
+                </span>
+                <div
+                  className="top-row"
+                >
+                  <div
+                    className="left"
+                  >
+                    <div
+                      className="header-wrapper"
+                    >
+                      <h2>
+                        Advanced Growth Diagnostic (Post)
+                      </h2>
+                    </div>
+                  </div>
+                  <div
+                    className="button-container"
+                  >
+                    <a
+                      className="interactive-wrapper focus-on-light"
+                      href="/activity_sessions/anonymous?activity_id=1680"
+                      onClick={[Function]}
+                      target="_blank"
+                    >
+                      <img
+                        alt="Eye icon"
+                        src="undefined/images/icons/icons-preview.svg"
+                      />
+                      <span>
+                        Preview
+                      </span>
+                    </a>
+                    <Tooltip
+                      isTabbable={true}
+                      tooltipText="This is locked because you haven't assigned the Advanced Baseline Diagnostic yet. Assign it to unlock the Advanced Growth Diagnostic."
+                      tooltipTriggerText={
+                        <button
+                          className="quill-button small disabled contained"
+                          type="button"
+                        >
+                          <img
+                            alt="Lock icon"
+                            src="undefined/images/icons/icons-locked.svg"
+                          />
+                           Locked
+                        </button>
+                      }
+                    >
+                      <span
+                        aria-hidden={false}
+                        className="quill-tooltip-trigger"
+                        role="tooltip"
+                      >
+                        <span
+                          className="undefined"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
+                        >
+                          <button
+                            className="quill-button small disabled contained"
+                            type="button"
+                          >
+                            <img
+                              alt="Lock icon"
+                              src="undefined/images/icons/icons-locked.svg"
+                            />
+                             Locked
+                          </button>
+                        </span>
+                        <span
+                          className="quill-tooltip-wrapper"
+                        >
+                          <span
+                            aria-live="polite"
+                            className="quill-tooltip"
+                          />
+                        </span>
+                      </span>
+                    </Tooltip>
+                  </div>
+                </div>
+                <div
+                  className="body"
+                >
+                  <div
+                    className="body-element"
+                    key="What"
+                  >
+                    <p
+                      className="key"
+                    >
+                      What
+                    </p>
+                    <p
+                      className="text"
+                    >
+                      The Advanced Growth Diagnostic has different questions but covers the same skills as the Advanced Baseline Diagnostic.
+                    </p>
+                  </div>
+                  <div
+                    className="body-element"
+                    key="When"
+                  >
+                    <p
+                      className="key"
+                    >
+                      When
+                    </p>
+                    <p
+                      className="text"
+                    >
+                      Your students have completed the Advanced Baseline Diagnostic, you've assigned the recommended practice, and now you're ready to measure their growth.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </AssignmentCard>
+          </DiagnosticAssignmentCard>
+        </div>
+        <div
+          className="grouped-minis"
+          key="ell-starter"
+        >
+          <DiagnosticAssignmentCard
+            diagnostic={
+              Object {
+                "activityId": 1161,
+                "name": "ELL Starter Baseline Diagnostic (Pre)",
+                "unitTemplateId": 154,
+                "what": "Simple verb conjugation, articles, subject-verb agreement, simple word order, singular and plural nouns, and adjective placement",
+                "when": "Your students are beginning English language learners who are working on foundational grammar skills.",
+              }
+            }
+          >
+            <AssignmentCard
+              bodyArray={
+                Array [
+                  Object {
+                    "key": "What",
+                    "text": "Simple verb conjugation, articles, subject-verb agreement, simple word order, singular and plural nouns, and adjective placement",
+                  },
+                  Object {
+                    "key": "When",
+                    "text": "Your students are beginning English language learners who are working on foundational grammar skills.",
+                  },
+                ]
+              }
+              buttonLink="/activity_sessions/anonymous?activity_id=1161"
+              buttonText="Preview"
+              header="ELL Starter Baseline Diagnostic (Pre)"
+              selectCard={[Function]}
+            >
+              <div
+                className=" assignment-card quill-card"
+                onClick={[Function]}
+              >
+                <div
+                  className="top-row"
+                >
+                  <div
+                    className="left"
+                  >
+                    <div
+                      className="header-wrapper"
+                    >
+                      <h2>
+                        ELL Starter Baseline Diagnostic (Pre)
+                      </h2>
+                    </div>
+                  </div>
+                  <div
+                    className="button-container"
+                  >
+                    <a
+                      className="interactive-wrapper focus-on-light"
+                      href="/activity_sessions/anonymous?activity_id=1161"
+                      onClick={[Function]}
+                      target="_blank"
+                    >
+                      <img
+                        alt="Eye icon"
+                        src="undefined/images/icons/icons-preview.svg"
+                      />
+                      <span>
+                        Preview
+                      </span>
+                    </a>
+                    <button
+                      className="quill-button fun contained primary focus-on-light"
+                      onClick={[Function]}
+                      type="button"
+                    >
+                      Select
+                    </button>
+                  </div>
+                </div>
+                <div
+                  className="body"
+                >
+                  <div
+                    className="body-element"
+                    key="What"
+                  >
+                    <p
+                      className="key"
+                    >
+                      What
+                    </p>
+                    <p
+                      className="text"
+                    >
+                      Simple verb conjugation, articles, subject-verb agreement, simple word order, singular and plural nouns, and adjective placement
+                    </p>
+                  </div>
+                  <div
+                    className="body-element"
+                    key="When"
+                  >
+                    <p
+                      className="key"
+                    >
+                      When
+                    </p>
+                    <p
+                      className="text"
+                    >
+                      Your students are beginning English language learners who are working on foundational grammar skills.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </AssignmentCard>
+          </DiagnosticAssignmentCard>
+          <DiagnosticAssignmentCard
+            diagnostic={
+              Object {
+                "activityId": 1774,
+                "lockedText": "This is locked because you haven't assigned the ELL Starter Baseline Diagnostic yet. Assign it to unlock the ELL Starter Growth Diagnostic.",
+                "name": "ELL Starter Growth Diagnostic (Post)",
+                "unitTemplateId": 411,
+                "what": "The ELL Starter Growth Diagnostic has different questions but covers the same skills as the ELL Starter Baseline Diagnostic.",
+                "when": "Your students have completed the ELL Starter Baseline Diagnostic, you've assigned the recommended practice, and now you're ready to measure their growth.",
+              }
+            }
+            showNewTag={true}
+          >
+            <AssignmentCard
+              bodyArray={
+                Array [
+                  Object {
+                    "key": "What",
+                    "text": "The ELL Starter Growth Diagnostic has different questions but covers the same skills as the ELL Starter Baseline Diagnostic.",
+                  },
+                  Object {
+                    "key": "When",
+                    "text": "Your students have completed the ELL Starter Baseline Diagnostic, you've assigned the recommended practice, and now you're ready to measure their growth.",
+                  },
+                ]
+              }
+              buttonLink="/activity_sessions/anonymous?activity_id=1774"
+              buttonText="Preview"
+              header="ELL Starter Growth Diagnostic (Post)"
+              selectCard={[Function]}
+              showNewTag={true}
+            >
+              <div
+                className="show-new-tag assignment-card quill-card"
+                onClick={[Function]}
+              >
+                <span
+                  className="new-tag"
+                >
+                  NEW
+                </span>
+                <div
+                  className="top-row"
+                >
+                  <div
+                    className="left"
+                  >
+                    <div
+                      className="header-wrapper"
+                    >
+                      <h2>
+                        ELL Starter Growth Diagnostic (Post)
+                      </h2>
+                    </div>
+                  </div>
+                  <div
+                    className="button-container"
+                  >
+                    <a
+                      className="interactive-wrapper focus-on-light"
+                      href="/activity_sessions/anonymous?activity_id=1774"
+                      onClick={[Function]}
+                      target="_blank"
+                    >
+                      <img
+                        alt="Eye icon"
+                        src="undefined/images/icons/icons-preview.svg"
+                      />
+                      <span>
+                        Preview
+                      </span>
+                    </a>
+                    <button
+                      className="quill-button fun contained primary focus-on-light"
+                      onClick={[Function]}
+                      type="button"
+                    >
+                      Select
+                    </button>
+                  </div>
+                </div>
+                <div
+                  className="body"
+                >
+                  <div
+                    className="body-element"
+                    key="What"
+                  >
+                    <p
+                      className="key"
+                    >
+                      What
+                    </p>
+                    <p
+                      className="text"
+                    >
+                      The ELL Starter Growth Diagnostic has different questions but covers the same skills as the ELL Starter Baseline Diagnostic.
+                    </p>
+                  </div>
+                  <div
+                    className="body-element"
+                    key="When"
+                  >
+                    <p
+                      className="key"
+                    >
+                      When
+                    </p>
+                    <p
+                      className="text"
+                    >
+                      Your students have completed the ELL Starter Baseline Diagnostic, you've assigned the recommended practice, and now you're ready to measure their growth.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </AssignmentCard>
+          </DiagnosticAssignmentCard>
+        </div>
+        <div
+          className="grouped-minis"
+          key="ell-intermediate"
+        >
+          <DiagnosticAssignmentCard
+            diagnostic={
+              Object {
+                "activityId": 1568,
+                "name": "ELL Intermediate Baseline Diagnostic (Pre)",
+                "unitTemplateId": 299,
+                "what": "Subject-verb agreement, possessives, prepositions, future tense, articles, and intermediate questions",
+                "when": "Your students are English language learners who have a foundational understanding of basic English grammar but need more practice with certain concepts.",
+              }
+            }
+          >
+            <AssignmentCard
+              bodyArray={
+                Array [
+                  Object {
+                    "key": "What",
+                    "text": "Subject-verb agreement, possessives, prepositions, future tense, articles, and intermediate questions",
+                  },
+                  Object {
+                    "key": "When",
+                    "text": "Your students are English language learners who have a foundational understanding of basic English grammar but need more practice with certain concepts.",
+                  },
+                ]
+              }
+              buttonLink="/activity_sessions/anonymous?activity_id=1568"
+              buttonText="Preview"
+              header="ELL Intermediate Baseline Diagnostic (Pre)"
+              selectCard={[Function]}
+            >
+              <div
+                className=" assignment-card quill-card"
+                onClick={[Function]}
+              >
+                <div
+                  className="top-row"
+                >
+                  <div
+                    className="left"
+                  >
+                    <div
+                      className="header-wrapper"
+                    >
+                      <h2>
+                        ELL Intermediate Baseline Diagnostic (Pre)
+                      </h2>
+                    </div>
+                  </div>
+                  <div
+                    className="button-container"
+                  >
+                    <a
+                      className="interactive-wrapper focus-on-light"
+                      href="/activity_sessions/anonymous?activity_id=1568"
+                      onClick={[Function]}
+                      target="_blank"
+                    >
+                      <img
+                        alt="Eye icon"
+                        src="undefined/images/icons/icons-preview.svg"
+                      />
+                      <span>
+                        Preview
+                      </span>
+                    </a>
+                    <button
+                      className="quill-button fun contained primary focus-on-light"
+                      onClick={[Function]}
+                      type="button"
+                    >
+                      Select
+                    </button>
+                  </div>
+                </div>
+                <div
+                  className="body"
+                >
+                  <div
+                    className="body-element"
+                    key="What"
+                  >
+                    <p
+                      className="key"
+                    >
+                      What
+                    </p>
+                    <p
+                      className="text"
+                    >
+                      Subject-verb agreement, possessives, prepositions, future tense, articles, and intermediate questions
+                    </p>
+                  </div>
+                  <div
+                    className="body-element"
+                    key="When"
+                  >
+                    <p
+                      className="key"
+                    >
+                      When
+                    </p>
+                    <p
+                      className="text"
+                    >
+                      Your students are English language learners who have a foundational understanding of basic English grammar but need more practice with certain concepts.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </AssignmentCard>
+          </DiagnosticAssignmentCard>
+          <DiagnosticAssignmentCard
+            diagnostic={
+              Object {
+                "activityId": 1814,
+                "lockedText": "This is locked because you haven't assigned the ELL Intermediate Baseline Diagnostic yet. Assign it to unlock the ELL Intermediate Growth Diagnostic.",
+                "name": "ELL Intermediate Growth Diagnostic (Post)",
+                "unitTemplateId": 444,
+                "what": "The ELL Intermediate Growth Diagnostic has different questions but covers the same skills as the ELL Intermediate Baseline Diagnostic.",
+                "when": "Your students have completed the ELL Intermediate Baseline Diagnostic, you've assigned the recommended practice, and now you're ready to measure their growth.",
+              }
+            }
+            showNewTag={true}
+          >
+            <AssignmentCard
+              bodyArray={
+                Array [
+                  Object {
+                    "key": "What",
+                    "text": "The ELL Intermediate Growth Diagnostic has different questions but covers the same skills as the ELL Intermediate Baseline Diagnostic.",
+                  },
+                  Object {
+                    "key": "When",
+                    "text": "Your students have completed the ELL Intermediate Baseline Diagnostic, you've assigned the recommended practice, and now you're ready to measure their growth.",
+                  },
+                ]
+              }
+              buttonLink="/activity_sessions/anonymous?activity_id=1814"
+              buttonText="Preview"
+              header="ELL Intermediate Growth Diagnostic (Post)"
+              selectCard={[Function]}
+              showNewTag={true}
+            >
+              <div
+                className="show-new-tag assignment-card quill-card"
+                onClick={[Function]}
+              >
+                <span
+                  className="new-tag"
+                >
+                  NEW
+                </span>
+                <div
+                  className="top-row"
+                >
+                  <div
+                    className="left"
+                  >
+                    <div
+                      className="header-wrapper"
+                    >
+                      <h2>
+                        ELL Intermediate Growth Diagnostic (Post)
+                      </h2>
+                    </div>
+                  </div>
+                  <div
+                    className="button-container"
+                  >
+                    <a
+                      className="interactive-wrapper focus-on-light"
+                      href="/activity_sessions/anonymous?activity_id=1814"
+                      onClick={[Function]}
+                      target="_blank"
+                    >
+                      <img
+                        alt="Eye icon"
+                        src="undefined/images/icons/icons-preview.svg"
+                      />
+                      <span>
+                        Preview
+                      </span>
+                    </a>
+                    <button
+                      className="quill-button fun contained primary focus-on-light"
+                      onClick={[Function]}
+                      type="button"
+                    >
+                      Select
+                    </button>
+                  </div>
+                </div>
+                <div
+                  className="body"
+                >
+                  <div
+                    className="body-element"
+                    key="What"
+                  >
+                    <p
+                      className="key"
+                    >
+                      What
+                    </p>
+                    <p
+                      className="text"
+                    >
+                      The ELL Intermediate Growth Diagnostic has different questions but covers the same skills as the ELL Intermediate Baseline Diagnostic.
+                    </p>
+                  </div>
+                  <div
+                    className="body-element"
+                    key="When"
+                  >
+                    <p
+                      className="key"
+                    >
+                      When
+                    </p>
+                    <p
+                      className="text"
+                    >
+                      Your students have completed the ELL Intermediate Baseline Diagnostic, you've assigned the recommended practice, and now you're ready to measure their growth.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </AssignmentCard>
+          </DiagnosticAssignmentCard>
+        </div>
+        <div
+          className="grouped-minis"
+          key="ell-advanced"
+        >
+          <DiagnosticAssignmentCard
+            diagnostic={
+              Object {
+                "activityId": 1590,
+                "name": "ELL Advanced Baseline Diagnostic (Pre)",
+                "unitTemplateId": 300,
+                "what": "Regular and irregular past tense, progressive tenses, phrasal verbs, choosing between prepositions, responding to questions, and commonly confused words",
+                "when": "Your students are English language learners who need practice with more difficult ELL skills before moving on to the Starter Diagnostic.",
+              }
+            }
+          >
+            <AssignmentCard
+              bodyArray={
+                Array [
+                  Object {
+                    "key": "What",
+                    "text": "Regular and irregular past tense, progressive tenses, phrasal verbs, choosing between prepositions, responding to questions, and commonly confused words",
+                  },
+                  Object {
+                    "key": "When",
+                    "text": "Your students are English language learners who need practice with more difficult ELL skills before moving on to the Starter Diagnostic.",
+                  },
+                ]
+              }
+              buttonLink="/activity_sessions/anonymous?activity_id=1590"
+              buttonText="Preview"
+              header="ELL Advanced Baseline Diagnostic (Pre)"
+              selectCard={[Function]}
+            >
+              <div
+                className=" assignment-card quill-card"
+                onClick={[Function]}
+              >
+                <div
+                  className="top-row"
+                >
+                  <div
+                    className="left"
+                  >
+                    <div
+                      className="header-wrapper"
+                    >
+                      <h2>
+                        ELL Advanced Baseline Diagnostic (Pre)
+                      </h2>
+                    </div>
+                  </div>
+                  <div
+                    className="button-container"
+                  >
+                    <a
+                      className="interactive-wrapper focus-on-light"
+                      href="/activity_sessions/anonymous?activity_id=1590"
+                      onClick={[Function]}
+                      target="_blank"
+                    >
+                      <img
+                        alt="Eye icon"
+                        src="undefined/images/icons/icons-preview.svg"
+                      />
+                      <span>
+                        Preview
+                      </span>
+                    </a>
+                    <button
+                      className="quill-button fun contained primary focus-on-light"
+                      onClick={[Function]}
+                      type="button"
+                    >
+                      Select
+                    </button>
+                  </div>
+                </div>
+                <div
+                  className="body"
+                >
+                  <div
+                    className="body-element"
+                    key="What"
+                  >
+                    <p
+                      className="key"
+                    >
+                      What
+                    </p>
+                    <p
+                      className="text"
+                    >
+                      Regular and irregular past tense, progressive tenses, phrasal verbs, choosing between prepositions, responding to questions, and commonly confused words
+                    </p>
+                  </div>
+                  <div
+                    className="body-element"
+                    key="When"
+                  >
+                    <p
+                      className="key"
+                    >
+                      When
+                    </p>
+                    <p
+                      className="text"
+                    >
+                      Your students are English language learners who need practice with more difficult ELL skills before moving on to the Starter Diagnostic.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </AssignmentCard>
+          </DiagnosticAssignmentCard>
+          <DiagnosticAssignmentCard
+            diagnostic={
+              Object {
+                "activityId": 1818,
+                "lockedText": "This is locked because you haven't assigned the ELL Advanced Baseline Diagnostic yet. Assign it to unlock the ELL Advanced Growth Diagnostic.",
+                "name": "ELL Advanced Growth Diagnostic (Post)",
+                "unitTemplateId": 445,
+                "what": "The ELL Advanced Growth Diagnostic has different questions but covers the same skills as the ELL Advanced Baseline Diagnostic.",
+                "when": "Your students have completed the ELL Advanced Baseline Diagnostic, you've assigned the recommended practice, and now you're ready to measure their growth.",
+              }
+            }
+            showNewTag={true}
+          >
+            <AssignmentCard
+              bodyArray={
+                Array [
+                  Object {
+                    "key": "What",
+                    "text": "The ELL Advanced Growth Diagnostic has different questions but covers the same skills as the ELL Advanced Baseline Diagnostic.",
+                  },
+                  Object {
+                    "key": "When",
+                    "text": "Your students have completed the ELL Advanced Baseline Diagnostic, you've assigned the recommended practice, and now you're ready to measure their growth.",
+                  },
+                ]
+              }
+              buttonLink="/activity_sessions/anonymous?activity_id=1818"
+              buttonText="Preview"
+              header="ELL Advanced Growth Diagnostic (Post)"
+              selectCard={[Function]}
+              showNewTag={true}
+            >
+              <div
+                className="show-new-tag assignment-card quill-card"
+                onClick={[Function]}
+              >
+                <span
+                  className="new-tag"
+                >
+                  NEW
+                </span>
+                <div
+                  className="top-row"
+                >
+                  <div
+                    className="left"
+                  >
+                    <div
+                      className="header-wrapper"
+                    >
+                      <h2>
+                        ELL Advanced Growth Diagnostic (Post)
+                      </h2>
+                    </div>
+                  </div>
+                  <div
+                    className="button-container"
+                  >
+                    <a
+                      className="interactive-wrapper focus-on-light"
+                      href="/activity_sessions/anonymous?activity_id=1818"
+                      onClick={[Function]}
+                      target="_blank"
+                    >
+                      <img
+                        alt="Eye icon"
+                        src="undefined/images/icons/icons-preview.svg"
+                      />
+                      <span>
+                        Preview
+                      </span>
+                    </a>
+                    <button
+                      className="quill-button fun contained primary focus-on-light"
+                      onClick={[Function]}
+                      type="button"
+                    >
+                      Select
+                    </button>
+                  </div>
+                </div>
+                <div
+                  className="body"
+                >
+                  <div
+                    className="body-element"
+                    key="What"
+                  >
+                    <p
+                      className="key"
+                    >
+                      What
+                    </p>
+                    <p
+                      className="text"
+                    >
+                      The ELL Advanced Growth Diagnostic has different questions but covers the same skills as the ELL Advanced Baseline Diagnostic.
+                    </p>
+                  </div>
+                  <div
+                    className="body-element"
+                    key="When"
+                  >
+                    <p
+                      className="key"
+                    >
+                      When
+                    </p>
+                    <p
+                      className="text"
+                    >
+                      Your students have completed the ELL Advanced Baseline Diagnostic, you've assigned the recommended practice, and now you're ready to measure their growth.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </AssignmentCard>
+          </DiagnosticAssignmentCard>
+        </div>
+        <DiagnosticAssignmentCard
+          diagnostic={
+            Object {
+              "activityId": 992,
+              "name": "AP Writing Skills Survey",
+              "unitTemplateId": 193,
+              "what": "Compound-complex sentences, appositive phrases, relative clauses, participial phrases, and parallel structure",
+              "when": "Your students are developing their advanced sentence-level writing skills to prepare for writing in an AP® classroom.",
+            }
           }
-          buttonLink="/activity_sessions/anonymous?activity_id=1668"
-          buttonText="Preview"
-          header="Intermediate Baseline Diagnostic (Pre)"
-          selectCard={[Function]}
-        />
-        <AssignmentCard
-          bodyArray={
-            Array [
-              Object {
-                "key": "What",
-                "text": "The Intermediate Growth Diagnostic has different questions but covers the same skills as the Intermediate Baseline Diagnostic.",
-              },
-              Object {
-                "key": "When",
-                "text": "Your students have completed the Intermediate Baseline Diagnostic, you've assigned the recommended practice, and now you're ready to measure their growth.",
-              },
-            ]
+          key="ap"
+        >
+          <AssignmentCard
+            bodyArray={
+              Array [
+                Object {
+                  "key": "What",
+                  "text": "Compound-complex sentences, appositive phrases, relative clauses, participial phrases, and parallel structure",
+                },
+                Object {
+                  "key": "When",
+                  "text": "Your students are developing their advanced sentence-level writing skills to prepare for writing in an AP® classroom.",
+                },
+              ]
+            }
+            buttonLink="/activity_sessions/anonymous?activity_id=992"
+            buttonText="Preview"
+            header="AP Writing Skills Survey"
+            selectCard={[Function]}
+          >
+            <div
+              className=" assignment-card quill-card"
+              onClick={[Function]}
+            >
+              <div
+                className="top-row"
+              >
+                <div
+                  className="left"
+                >
+                  <div
+                    className="header-wrapper"
+                  >
+                    <h2>
+                      AP Writing Skills Survey
+                    </h2>
+                  </div>
+                </div>
+                <div
+                  className="button-container"
+                >
+                  <a
+                    className="interactive-wrapper focus-on-light"
+                    href="/activity_sessions/anonymous?activity_id=992"
+                    onClick={[Function]}
+                    target="_blank"
+                  >
+                    <img
+                      alt="Eye icon"
+                      src="undefined/images/icons/icons-preview.svg"
+                    />
+                    <span>
+                      Preview
+                    </span>
+                  </a>
+                  <button
+                    className="quill-button fun contained primary focus-on-light"
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    Select
+                  </button>
+                </div>
+              </div>
+              <div
+                className="body"
+              >
+                <div
+                  className="body-element"
+                  key="What"
+                >
+                  <p
+                    className="key"
+                  >
+                    What
+                  </p>
+                  <p
+                    className="text"
+                  >
+                    Compound-complex sentences, appositive phrases, relative clauses, participial phrases, and parallel structure
+                  </p>
+                </div>
+                <div
+                  className="body-element"
+                  key="When"
+                >
+                  <p
+                    className="key"
+                  >
+                    When
+                  </p>
+                  <p
+                    className="text"
+                  >
+                    Your students are developing their advanced sentence-level writing skills to prepare for writing in an AP® classroom.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </AssignmentCard>
+        </DiagnosticAssignmentCard>
+        <DiagnosticAssignmentCard
+          diagnostic={
+            Object {
+              "activityId": 1229,
+              "name": "Pre-AP Writing Skills Survey 1",
+              "unitTemplateId": 194,
+              "what": "Subject-verb agreement, pronouns, and coordinating and subordinating conjunctions",
+              "when": "Your students are working on basic sentence patterns and the skills outlined in the Pre-AP® English High School Course Framework.",
+            }
           }
-          buttonLink="/activity_sessions/anonymous?activity_id=1669"
-          buttonText="Preview"
-          header="Intermediate Growth Diagnostic (Post)"
-          lockedText="This is locked because you haven't assigned the Intermediate Baseline Diagnostic yet. Assign it to unlock the Intermediate Growth Diagnostic."
-          selectCard={[Function]}
-          showNewTag={true}
-        />
+          key="pre-ap-1"
+        >
+          <AssignmentCard
+            bodyArray={
+              Array [
+                Object {
+                  "key": "What",
+                  "text": "Subject-verb agreement, pronouns, and coordinating and subordinating conjunctions",
+                },
+                Object {
+                  "key": "When",
+                  "text": "Your students are working on basic sentence patterns and the skills outlined in the Pre-AP® English High School Course Framework.",
+                },
+              ]
+            }
+            buttonLink="/activity_sessions/anonymous?activity_id=1229"
+            buttonText="Preview"
+            header="Pre-AP Writing Skills Survey 1"
+            selectCard={[Function]}
+          >
+            <div
+              className=" assignment-card quill-card"
+              onClick={[Function]}
+            >
+              <div
+                className="top-row"
+              >
+                <div
+                  className="left"
+                >
+                  <div
+                    className="header-wrapper"
+                  >
+                    <h2>
+                      Pre-AP Writing Skills Survey 1
+                    </h2>
+                  </div>
+                </div>
+                <div
+                  className="button-container"
+                >
+                  <a
+                    className="interactive-wrapper focus-on-light"
+                    href="/activity_sessions/anonymous?activity_id=1229"
+                    onClick={[Function]}
+                    target="_blank"
+                  >
+                    <img
+                      alt="Eye icon"
+                      src="undefined/images/icons/icons-preview.svg"
+                    />
+                    <span>
+                      Preview
+                    </span>
+                  </a>
+                  <button
+                    className="quill-button fun contained primary focus-on-light"
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    Select
+                  </button>
+                </div>
+              </div>
+              <div
+                className="body"
+              >
+                <div
+                  className="body-element"
+                  key="What"
+                >
+                  <p
+                    className="key"
+                  >
+                    What
+                  </p>
+                  <p
+                    className="text"
+                  >
+                    Subject-verb agreement, pronouns, and coordinating and subordinating conjunctions
+                  </p>
+                </div>
+                <div
+                  className="body-element"
+                  key="When"
+                >
+                  <p
+                    className="key"
+                  >
+                    When
+                  </p>
+                  <p
+                    className="text"
+                  >
+                    Your students are working on basic sentence patterns and the skills outlined in the Pre-AP® English High School Course Framework.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </AssignmentCard>
+        </DiagnosticAssignmentCard>
+        <DiagnosticAssignmentCard
+          diagnostic={
+            Object {
+              "activityId": 1230,
+              "name": "Pre-AP Writing Skills Survey 2",
+              "unitTemplateId": 195,
+              "what": "Conjunctive adverbs, relative clauses, appositive phrases, participial phrases, and parallel structure",
+              "when": "Your students are working on basic sentence patterns and the skills outlined in the Pre-AP® English High School Course Framework.",
+            }
+          }
+          key="pre-ap-2"
+        >
+          <AssignmentCard
+            bodyArray={
+              Array [
+                Object {
+                  "key": "What",
+                  "text": "Conjunctive adverbs, relative clauses, appositive phrases, participial phrases, and parallel structure",
+                },
+                Object {
+                  "key": "When",
+                  "text": "Your students are working on basic sentence patterns and the skills outlined in the Pre-AP® English High School Course Framework.",
+                },
+              ]
+            }
+            buttonLink="/activity_sessions/anonymous?activity_id=1230"
+            buttonText="Preview"
+            header="Pre-AP Writing Skills Survey 2"
+            selectCard={[Function]}
+          >
+            <div
+              className=" assignment-card quill-card"
+              onClick={[Function]}
+            >
+              <div
+                className="top-row"
+              >
+                <div
+                  className="left"
+                >
+                  <div
+                    className="header-wrapper"
+                  >
+                    <h2>
+                      Pre-AP Writing Skills Survey 2
+                    </h2>
+                  </div>
+                </div>
+                <div
+                  className="button-container"
+                >
+                  <a
+                    className="interactive-wrapper focus-on-light"
+                    href="/activity_sessions/anonymous?activity_id=1230"
+                    onClick={[Function]}
+                    target="_blank"
+                  >
+                    <img
+                      alt="Eye icon"
+                      src="undefined/images/icons/icons-preview.svg"
+                    />
+                    <span>
+                      Preview
+                    </span>
+                  </a>
+                  <button
+                    className="quill-button fun contained primary focus-on-light"
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    Select
+                  </button>
+                </div>
+              </div>
+              <div
+                className="body"
+              >
+                <div
+                  className="body-element"
+                  key="What"
+                >
+                  <p
+                    className="key"
+                  >
+                    What
+                  </p>
+                  <p
+                    className="text"
+                  >
+                    Conjunctive adverbs, relative clauses, appositive phrases, participial phrases, and parallel structure
+                  </p>
+                </div>
+                <div
+                  className="body-element"
+                  key="When"
+                >
+                  <p
+                    className="key"
+                  >
+                    When
+                  </p>
+                  <p
+                    className="text"
+                  >
+                    Your students are working on basic sentence patterns and the skills outlined in the Pre-AP® English High School Course Framework.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </AssignmentCard>
+        </DiagnosticAssignmentCard>
+        <DiagnosticAssignmentCard
+          diagnostic={
+            Object {
+              "activityId": 1432,
+              "name": "SpringBoard Writing Skills Survey",
+              "unitTemplateId": 253,
+              "what": "Subject-verb agreement, pronouns, coordinating and subordinating conjunctions, prepositional phrases, and commonly confused words",
+              "when": "Your students are working on basic sentence patterns and the grammar skills covered in the SpringBoard grades 6-8 materials.",
+            }
+          }
+          key="springboard"
+        >
+          <AssignmentCard
+            bodyArray={
+              Array [
+                Object {
+                  "key": "What",
+                  "text": "Subject-verb agreement, pronouns, coordinating and subordinating conjunctions, prepositional phrases, and commonly confused words",
+                },
+                Object {
+                  "key": "When",
+                  "text": "Your students are working on basic sentence patterns and the grammar skills covered in the SpringBoard grades 6-8 materials.",
+                },
+              ]
+            }
+            buttonLink="/activity_sessions/anonymous?activity_id=1432"
+            buttonText="Preview"
+            header="SpringBoard Writing Skills Survey"
+            selectCard={[Function]}
+          >
+            <div
+              className=" assignment-card quill-card"
+              onClick={[Function]}
+            >
+              <div
+                className="top-row"
+              >
+                <div
+                  className="left"
+                >
+                  <div
+                    className="header-wrapper"
+                  >
+                    <h2>
+                      SpringBoard Writing Skills Survey
+                    </h2>
+                  </div>
+                </div>
+                <div
+                  className="button-container"
+                >
+                  <a
+                    className="interactive-wrapper focus-on-light"
+                    href="/activity_sessions/anonymous?activity_id=1432"
+                    onClick={[Function]}
+                    target="_blank"
+                  >
+                    <img
+                      alt="Eye icon"
+                      src="undefined/images/icons/icons-preview.svg"
+                    />
+                    <span>
+                      Preview
+                    </span>
+                  </a>
+                  <button
+                    className="quill-button fun contained primary focus-on-light"
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    Select
+                  </button>
+                </div>
+              </div>
+              <div
+                className="body"
+              >
+                <div
+                  className="body-element"
+                  key="What"
+                >
+                  <p
+                    className="key"
+                  >
+                    What
+                  </p>
+                  <p
+                    className="text"
+                  >
+                    Subject-verb agreement, pronouns, coordinating and subordinating conjunctions, prepositional phrases, and commonly confused words
+                  </p>
+                </div>
+                <div
+                  className="body-element"
+                  key="When"
+                >
+                  <p
+                    className="key"
+                  >
+                    When
+                  </p>
+                  <p
+                    className="text"
+                  >
+                    Your students are working on basic sentence patterns and the grammar skills covered in the SpringBoard grades 6-8 materials.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </AssignmentCard>
+        </DiagnosticAssignmentCard>
       </div>
-      <div
-        className="grouped-minis"
-        key="advanced"
-      >
-        <AssignmentCard
-          bodyArray={
-            Array [
-              Object {
-                "key": "What",
-                "text": "Compound-complex sentences, appositive phrases, relative clauses, participial phrases, and parallel structure",
-              },
-              Object {
-                "key": "When",
-                "text": "Your students are experienced with Quill, understand sentence combining, and are ready to develop multi-clause sentences.",
-              },
-            ]
-          }
-          buttonLink="/activity_sessions/anonymous?activity_id=1678"
-          buttonText="Preview"
-          header="Advanced Baseline Diagnostic (Pre)"
-          selectCard={[Function]}
-        />
-        <AssignmentCard
-          bodyArray={
-            Array [
-              Object {
-                "key": "What",
-                "text": "The Advanced Growth Diagnostic has different questions but covers the same skills as the Advanced Baseline Diagnostic.",
-              },
-              Object {
-                "key": "When",
-                "text": "Your students have completed the Advanced Baseline Diagnostic, you've assigned the recommended practice, and now you're ready to measure their growth.",
-              },
-            ]
-          }
-          buttonLink="/activity_sessions/anonymous?activity_id=1680"
-          buttonText="Preview"
-          header="Advanced Growth Diagnostic (Post)"
-          lockedText="This is locked because you haven't assigned the Advanced Baseline Diagnostic yet. Assign it to unlock the Advanced Growth Diagnostic."
-          selectCard={[Function]}
-          showNewTag={true}
-        />
-      </div>
-      <div
-        className="grouped-minis"
-        key="ell-starter"
-      >
-        <AssignmentCard
-          bodyArray={
-            Array [
-              Object {
-                "key": "What",
-                "text": "Simple verb conjugation, articles, subject-verb agreement, simple word order, singular and plural nouns, and adjective placement",
-              },
-              Object {
-                "key": "When",
-                "text": "Your students are beginning English language learners who are working on foundational grammar skills.",
-              },
-            ]
-          }
-          buttonLink="/activity_sessions/anonymous?activity_id=1161"
-          buttonText="Preview"
-          header="ELL Starter Baseline Diagnostic (Pre)"
-          selectCard={[Function]}
-        />
-        <AssignmentCard
-          bodyArray={
-            Array [
-              Object {
-                "key": "What",
-                "text": "The ELL Starter Growth Diagnostic has different questions but covers the same skills as the ELL Starter Baseline Diagnostic.",
-              },
-              Object {
-                "key": "When",
-                "text": "Your students have completed the ELL Starter Baseline Diagnostic, you've assigned the recommended practice, and now you're ready to measure their growth.",
-              },
-            ]
-          }
-          buttonLink="/activity_sessions/anonymous?activity_id=1774"
-          buttonText="Preview"
-          header="ELL Starter Growth Diagnostic (Post)"
-          selectCard={[Function]}
-          showNewTag={true}
-        />
-      </div>
-      <div
-        className="grouped-minis"
-        key="ell-intermediate"
-      >
-        <AssignmentCard
-          bodyArray={
-            Array [
-              Object {
-                "key": "What",
-                "text": "Subject-verb agreement, possessives, prepositions, future tense, articles, and intermediate questions",
-              },
-              Object {
-                "key": "When",
-                "text": "Your students are English language learners who have a foundational understanding of basic English grammar but need more practice with certain concepts.",
-              },
-            ]
-          }
-          buttonLink="/activity_sessions/anonymous?activity_id=1568"
-          buttonText="Preview"
-          header="ELL Intermediate Baseline Diagnostic (Pre)"
-          selectCard={[Function]}
-        />
-        <AssignmentCard
-          bodyArray={
-            Array [
-              Object {
-                "key": "What",
-                "text": "The ELL Intermediate Growth Diagnostic has different questions but covers the same skills as the ELL Intermediate Baseline Diagnostic.",
-              },
-              Object {
-                "key": "When",
-                "text": "Your students have completed the ELL Intermediate Baseline Diagnostic, you've assigned the recommended practice, and now you're ready to measure their growth.",
-              },
-            ]
-          }
-          buttonLink="/activity_sessions/anonymous?activity_id=1814"
-          buttonText="Preview"
-          header="ELL Intermediate Growth Diagnostic (Post)"
-          selectCard={[Function]}
-          showNewTag={true}
-        />
-      </div>
-      <div
-        className="grouped-minis"
-        key="ell-advanced"
-      >
-        <AssignmentCard
-          bodyArray={
-            Array [
-              Object {
-                "key": "What",
-                "text": "Regular and irregular past tense, progressive tenses, phrasal verbs, choosing between prepositions, responding to questions, and commonly confused words",
-              },
-              Object {
-                "key": "When",
-                "text": "Your students are English language learners who need practice with more difficult ELL skills before moving on to the Starter Diagnostic.",
-              },
-            ]
-          }
-          buttonLink="/activity_sessions/anonymous?activity_id=1590"
-          buttonText="Preview"
-          header="ELL Advanced Baseline Diagnostic (Pre)"
-          selectCard={[Function]}
-        />
-        <AssignmentCard
-          bodyArray={
-            Array [
-              Object {
-                "key": "What",
-                "text": "The ELL Advanced Growth Diagnostic has different questions but covers the same skills as the ELL Advanced Baseline Diagnostic.",
-              },
-              Object {
-                "key": "When",
-                "text": "Your students have completed the ELL Advanced Baseline Diagnostic, you've assigned the recommended practice, and now you're ready to measure their growth.",
-              },
-            ]
-          }
-          buttonLink="/activity_sessions/anonymous?activity_id=1818"
-          buttonText="Preview"
-          header="ELL Advanced Growth Diagnostic (Post)"
-          selectCard={[Function]}
-          showNewTag={true}
-        />
-      </div>
-      <AssignmentCard
-        bodyArray={
-          Array [
-            Object {
-              "key": "What",
-              "text": "Compound-complex sentences, appositive phrases, relative clauses, participial phrases, and parallel structure",
-            },
-            Object {
-              "key": "When",
-              "text": "Your students are developing their advanced sentence-level writing skills to prepare for writing in an AP® classroom.",
-            },
-          ]
-        }
-        buttonLink="/activity_sessions/anonymous?activity_id=992"
-        buttonText="Preview"
-        header="AP Writing Skills Survey"
-        selectCard={[Function]}
-      />
-      <AssignmentCard
-        bodyArray={
-          Array [
-            Object {
-              "key": "What",
-              "text": "Subject-verb agreement, pronouns, and coordinating and subordinating conjunctions",
-            },
-            Object {
-              "key": "When",
-              "text": "Your students are working on basic sentence patterns and the skills outlined in the Pre-AP® English High School Course Framework.",
-            },
-          ]
-        }
-        buttonLink="/activity_sessions/anonymous?activity_id=1229"
-        buttonText="Preview"
-        header="Pre-AP Writing Skills Survey 1"
-        selectCard={[Function]}
-      />
-      <AssignmentCard
-        bodyArray={
-          Array [
-            Object {
-              "key": "What",
-              "text": "Conjunctive adverbs, relative clauses, appositive phrases, participial phrases, and parallel structure",
-            },
-            Object {
-              "key": "When",
-              "text": "Your students are working on basic sentence patterns and the skills outlined in the Pre-AP® English High School Course Framework.",
-            },
-          ]
-        }
-        buttonLink="/activity_sessions/anonymous?activity_id=1230"
-        buttonText="Preview"
-        header="Pre-AP Writing Skills Survey 2"
-        selectCard={[Function]}
-      />
-      <AssignmentCard
-        bodyArray={
-          Array [
-            Object {
-              "key": "What",
-              "text": "Subject-verb agreement, pronouns, coordinating and subordinating conjunctions, prepositional phrases, and commonly confused words",
-            },
-            Object {
-              "key": "When",
-              "text": "Your students are working on basic sentence patterns and the grammar skills covered in the SpringBoard grades 6-8 materials.",
-            },
-          ]
-        }
-        buttonLink="/activity_sessions/anonymous?activity_id=1432"
-        buttonText="Preview"
-        header="SpringBoard Writing Skills Survey"
-        selectCard={[Function]}
-      />
     </div>
   </div>
-</div>
+</AssignADiagnostic>
 `;

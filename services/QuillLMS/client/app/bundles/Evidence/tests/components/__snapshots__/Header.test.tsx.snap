@@ -3,58 +3,38 @@
 exports[`StudentViewContainer component when the activity has loaded renders 1`] = `
 <Header
   dispatch={[Function]}
+  session={Object {}}
 >
   <div
     className="header"
   >
     <div
-      className="inner-header"
+      className="inner-header mobile"
     >
       <div
-        className="left-side"
+        className="left-side-container mobile"
       >
-        <a
-          className="focus-on-dark"
+        <div
+          className="left-side"
         >
-          <img
-            alt="Quill.org logo"
-            className="hide-on-desktop"
-            src="undefined/images/logos/quill-logo-white-mobile.svg"
-          />
-          <img
-            alt="Quill.org logo"
-            className="hide-on-mobile"
-            src="undefined/images/logos/quill-logo-white.svg"
-          />
-        </a>
-        <Tooltip
-          isTabbable={true}
-          tooltipText="Quill Evidence is in beta, which means that it’s not perfect yet. As you complete activities, you may notice some issues—a button may not work or some feedback could be unhelpful. Please know that we’re actively working on Quill Evidence and making improvements everyday."
-          tooltipTriggerText={
-            <div>
-              <img
-                alt="Question mark icon"
-                src="undefined/images/icons/icons-help-white.svg"
-              />
-              <span>
-                Beta: 
-                <span>
-                  in development
-                </span>
-              </span>
-            </div>
-          }
-          tooltipTriggerTextClass="hide-on-mobile beta-tag focus-on-dark"
-        >
-          <span
-            className="quill-tooltip-trigger"
+          <a
+            className="focus-on-dark"
           >
-            <span
-              className="hide-on-mobile beta-tag focus-on-dark"
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              tabIndex={0}
-            >
+            <img
+              alt="Quill.org logo"
+              className="hide-on-desktop"
+              src="undefined/images/logos/quill-logo-white-mobile.svg"
+            />
+            <img
+              alt="Quill.org logo"
+              className="hide-on-mobile"
+              src="undefined/images/logos/quill-logo-white.svg"
+            />
+          </a>
+          <Tooltip
+            isTabbable={true}
+            tooltipText="Quill Reading for Evidence is in beta, which means that it’s not perfect yet. As you complete activities, you may notice some issues—a button may not work or some feedback could be unhelpful. Please know that we’re actively working on Quill Reading for Evidence and making improvements every day."
+            tooltipTriggerText={
               <div>
                 <img
                   alt="Question mark icon"
@@ -67,31 +47,68 @@ exports[`StudentViewContainer component when the activity has loaded renders 1`]
                   </span>
                 </span>
               </div>
-            </span>
+            }
+            tooltipTriggerTextClass="hide-on-mobile beta-tag focus-on-dark"
+          >
             <span
-              className="quill-tooltip-wrapper"
+              aria-hidden={false}
+              className="quill-tooltip-trigger"
+              role="tooltip"
             >
               <span
-                className="quill-tooltip"
-              />
+                className="hide-on-mobile beta-tag focus-on-dark"
+                onBlur={[Function]}
+                onClick={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                role="button"
+                tabIndex={0}
+              >
+                <div>
+                  <img
+                    alt="Question mark icon"
+                    src="undefined/images/icons/icons-help-white.svg"
+                  />
+                  <span>
+                    Beta: 
+                    <span>
+                      in development
+                    </span>
+                  </span>
+                </div>
+              </span>
+              <span
+                className="quill-tooltip-wrapper"
+              >
+                <span
+                  aria-live="polite"
+                  className="quill-tooltip"
+                />
+              </span>
             </span>
+          </Tooltip>
+          <span
+            className="hide-on-desktop beta-tag"
+          >
+            Beta
           </span>
-        </Tooltip>
-        <span
-          className="hide-on-desktop beta-tag"
-        >
-          Beta
-        </span>
+        </div>
       </div>
-      <button
-        className="save-and-exit focus-on-dark"
-        onClick={[Function]}
-        type="button"
+      <div
+        className="right-side-container mobile"
       >
-        <span>
-          Save and exit
-        </span>
-      </button>
+        <button
+          className="save-and-exit focus-on-dark"
+          onClick={[Function]}
+          type="button"
+        >
+          <span>
+            Save and exit
+          </span>
+        </button>
+      </div>
     </div>
   </div>
 </Header>

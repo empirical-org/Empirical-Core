@@ -1,54 +1,72 @@
-import React from 'react';
-import moment from 'moment';
-import activityTypeFromClassificationId from '../../modules/activity_type_from_classification_id.js';
+import React from 'react'
+import moment from 'moment'
 
-export default class ActivityDetails extends React.Component {
-  getClassName = () => {
-    if (this.props.data.concept_results && this.props.data.concept_results.length) {
-      return 'activity-details';
+export const ActivityDetails = ({ data }) => {
+
+  if (!Object.keys(data).length) { return <span /> }
+
+  const { concept_results, started_at, updated, scores, activity_description } = data
+
+  function getClassName() {
+    if (concept_results && concept_results.length) {
+      return 'activity-details'
     }
-    return 'activity-details no-concept-results';
-  };
+    return 'activity-details no-concept-results'
+  }
 
-  detailOrNot = () => {
-    let dateTitle,
-    dateBody;
-    if (!this.props.data.concept_results || !this.props.data.concept_results.length) {
-      if (this.props.data.started_at) {
+  function detailOrNot() {
+    let dateTitle, dateBody, completedTitle, completedBody
+
+    if (!concept_results || !concept_results.length) {
+      if (started_at) {
         dateTitle = 'Started'
-        dateBody = this.props.data.started_at
+        dateBody = started_at
       }
     } else {
-      const firstScore = this.props.data.scores[0]
-      const firstCr = this.props.data.concept_results[0];
-      if (firstScore && firstScore.completed_at) {
-        dateTitle = 'Completed';
-        dateBody = firstScore.completed_at;
+      const scoresExist = scores && scores.length
+      const firstCr = concept_results[0]
+
+      if (scoresExist) {
+        const completedAt = scores[0].completed_at
+
+        if (completedAt) {
+          completedTitle = 'Completed'
+          completedBody = completedAt
+        }
+
+        if (updated) {
+          dateTitle = 'Most Recent Attempt'
+          dateBody = updated
+        }
+
       } else {
-        dateTitle = 'Due';
-        dateBody = firstCr.due_date;
+        dateTitle = 'Due'
+        dateBody = firstCr.due_date
       }
     }
-    const obj = this.props.data.activity_description;
-    const objSection = obj ? <p><strong>Objectives:</strong>{` ${obj}`}</p> : <span />
+
+    const objectiveSection = activity_description ? <p><strong>Objectives:</strong>{` ${activity_description}`}</p> : <span />
     const dateSection = dateTitle ? <p><strong>{`${dateTitle}: `}</strong>{`${moment(dateBody).format('MMMM D, YYYY')}`}</p> : <span />
+    const completedSection = completedTitle ? <p><strong>{`${completedTitle}: `}</strong>{`${moment(completedBody).format('MMMM D, YYYY')}`}</p> : <span />
+
     return (
       <div className="activity-detail">
-        {objSection}
+        {objectiveSection}
         {dateSection}
+        {completedSection}
       </div>
-    );
-  };
+    )
+  }
 
-  render() {
-    return (
-      <div className={this.getClassName()}>
-        <div className="activity-detail">
-          <div className="activity-detail-body">
-            {this.detailOrNot()}
-          </div>
+  return (
+    <div className={getClassName()}>
+      <div className="activity-detail">
+        <div className="activity-detail-body">
+          {detailOrNot()}
         </div>
       </div>
-    );
-  }
+    </div>
+  )
 }
+
+export default ActivityDetails

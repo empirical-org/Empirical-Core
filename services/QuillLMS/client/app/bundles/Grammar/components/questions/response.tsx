@@ -270,16 +270,18 @@ export default class extends React.Component<ResponseProps, ResponseState> {
   renderConceptResults = (mode) => {
     const { conceptResults } = this.state
     const { concepts, response } = this.props
-    return (<ConceptResults
-      conceptResults={conceptResults}
-      concepts={concepts}
-      deleteConceptResult={this.deleteConceptResult}
-      handleConceptChange={this.handleConceptChange}
-      key={Object.keys(conceptResults).length}
-      mode={mode}
-      response={response}
-      toggleCheckboxCorrect={this.toggleCheckboxCorrect}
-    />)
+    return (
+      <ConceptResults
+        conceptResults={conceptResults}
+        concepts={concepts}
+        deleteConceptResult={this.deleteConceptResult}
+        handleConceptChange={this.handleConceptChange}
+        key={Object.keys(conceptResults).length}
+        mode={mode}
+        response={response}
+        toggleCheckboxCorrect={this.toggleCheckboxCorrect}
+      />
+    )
   }
 
   renderResponseContent = (isEditing, response) => {
@@ -310,7 +312,7 @@ export default class extends React.Component<ResponseProps, ResponseState> {
           (<span><strong>Differences:</strong> {diffText}</span>),
           (<br />),
           (<br />)
-          ];
+        ];
       }
     }
 

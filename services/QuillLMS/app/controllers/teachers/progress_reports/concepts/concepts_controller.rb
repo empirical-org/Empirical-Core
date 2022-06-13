@@ -13,8 +13,11 @@ class Teachers::ProgressReports::Concepts::ConceptsController < Teachers::Progre
   end
 
   private def json_payload
+    concepts_json = current_user.all_classrooms_cache(key: 'teachers.progress_reports.concepts.concepts') do
+      concepts_as_json
+    end
     {
-      concepts: concepts_as_json,
+      concepts: concepts_json,
       student: {name: student.name}
     }
   end
@@ -37,6 +40,7 @@ class Teachers::ProgressReports::Concepts::ConceptsController < Teachers::Progre
   private def student
     student_object = current_user.students.find{|student| student.id == params[:student_id].to_i}
     raise ActiveRecord::RecordNotFound unless student_object
+
     student_object
   end
 end

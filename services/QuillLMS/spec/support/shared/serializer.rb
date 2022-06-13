@@ -31,5 +31,5 @@ shared_examples_for 'serializer' do
         expect(parsed[result_key][nested_array_key]).to be_a(Array), "expected '#{nested_array_key}' to be an Array"
       end
     end
-  end  
+  end
 end

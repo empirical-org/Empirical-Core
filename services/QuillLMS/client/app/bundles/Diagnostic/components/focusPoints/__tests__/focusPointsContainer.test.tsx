@@ -36,7 +36,7 @@ describe('The focusPointsContainer', () => {
         <MemoryRouter>
           <FocusPointsContainer {...props} />
         </MemoryRouter>
-        );
+      );
       const order = wrapper.find('.card-header-icon').map(node => Number(node.text()));
       expect(order).toEqual([1, 2, 3]);
     });

@@ -10,11 +10,16 @@ exports[`AssignmentFlowNavigation component should render AssignmentFlowNavigati
     <div
       className="left"
     >
-      <img
-        alt="green Quill logo"
+      <button
+        className="interactive-wrapper focus-on-light"
         onClick={[Function]}
-        src="undefined/images/logos/quill-logo-green.svg"
-      />
+        type="button"
+      >
+        <img
+          alt="green Quill logo"
+          src="undefined/images/logos/quill-logo-green.svg"
+        />
+      </button>
       <div
         className="links"
       />

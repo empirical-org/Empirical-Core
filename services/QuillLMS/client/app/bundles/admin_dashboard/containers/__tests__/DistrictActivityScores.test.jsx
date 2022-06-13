@@ -25,7 +25,7 @@ describe('DistrictActivityScores', () => {
     const store = createMockStore(state);
     const wrapper = shallow(<DistrictActivityScores store={store} />);
 
-    expect(wrapper.prop('filteredClassroomsData')).toEqual([classroom]);
+    expect(wrapper.find('DistrictActivityScores').prop('filteredClassroomsData')).toEqual([classroom]);
   });
 
   it('formats csv data', () => {
@@ -50,7 +50,7 @@ describe('DistrictActivityScores', () => {
     const store = createMockStore(state);
     const wrapper = shallow(<DistrictActivityScores store={store} />);
 
-    expect(wrapper.prop('csvData')).toEqual([
+    expect(wrapper.find('DistrictActivityScores').prop('csvData')).toEqual([
       [
         'Classroom Name',
         'Student Name',
@@ -58,6 +58,7 @@ describe('DistrictActivityScores', () => {
         'Teacher Name',
         'Average Score',
         'Activity Count',
+        'Time Spent',
         'Last Active'
       ],
       [
@@ -67,6 +68,7 @@ describe('DistrictActivityScores', () => {
         'Mr Rodney',
         '100%',
         '3',
+        'N/A',
         undefined
       ]
     ]);
@@ -109,7 +111,7 @@ describe('DistrictActivityScores', () => {
     const store = createMockStore(state);
     const wrapper = shallow(<DistrictActivityScores store={store} />);
 
-    expect(wrapper.prop('filteredClassroomsData')).toEqual([{
+    expect(wrapper.find('DistrictActivityScores').prop('filteredClassroomsData')).toEqual([{
       classroom_name: 'Yeah Learning!',
       schools_name: 'Kool School',
       students_name: 'Rick',
@@ -154,19 +156,19 @@ describe('DistrictActivityScores', () => {
     const store = createMockStore(state);
     const wrapper = shallow(<DistrictActivityScores store={store} />);
 
-    expect(wrapper.prop('schoolNames')).toEqual([
+    expect(wrapper.find('DistrictActivityScores').prop('schoolNames')).toEqual([
       'All Schools',
       'School of Hard Knocks',
       'Kool School'
     ]);
 
-    expect(wrapper.prop('teacherNames')).toEqual([
+    expect(wrapper.find('DistrictActivityScores').prop('teacherNames')).toEqual([
       'All Teachers',
       'Mr. Smith',
       'Ms. Applebee'
     ]);
 
-    expect(wrapper.prop('classroomNames')).toEqual([
+    expect(wrapper.find('DistrictActivityScores').prop('classroomNames')).toEqual([
       'All Classrooms',
       'What what',
       'Yeah Learning!'

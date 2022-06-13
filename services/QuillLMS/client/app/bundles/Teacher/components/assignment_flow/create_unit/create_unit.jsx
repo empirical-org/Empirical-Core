@@ -14,7 +14,7 @@ import {
   UNIT_ID,
   ASSIGNED_CLASSROOMS,
   postTestClassAssignmentLockedMessages,
-} from '../assignmentFlowConstants.ts'
+} from '../assignmentFlowConstants'
 import parsedQueryParams from '../parsedQueryParams'
 import { requestGet, requestPost, } from '../../../../../modules/request';
 
@@ -74,6 +74,7 @@ export default class CreateUnit extends React.Component {
   }
 
   onCreateSuccess = (response) => {
+    const { history, } = this.props
     const { classrooms, name, } = this.state
     const { id } = response;
     this.setState({ newUnitId: id, assignSuccess: true, }, () => {
@@ -82,30 +83,35 @@ export default class CreateUnit extends React.Component {
       window.localStorage.setItem(UNIT_ID, id)
       window.localStorage.setItem(ASSIGNED_CLASSROOMS, JSON.stringify(assignedClassrooms))
       if (assignedClassrooms.every(c => c.classroom.emptyClassroomSelected)) {
-        this.props.history.push('/assign/add-students')
+        history.push('/assign/add-students')
       } else {
-        this.props.history.push('/assign/referral')
+        history.push('/assign/referral')
       }
       this.setStage(3);
     });
   }
 
   getActivities = () => {
+    const { match, } = this.props
     const { stage, } = this.state
     const privateFlag = [2, 3].includes(stage) ? "?flag=private" : ''
     requestGet(`/activities/search${privateFlag}`, (body) => {
       const { activities, } = body
-      const activityIdsArray = this.props.match.params.activityIdsArray || window.localStorage.getItem(ACTIVITY_IDS_ARRAY)
+      const activityIdsArray = match.params.activityIdsArray || window.localStorage.getItem(ACTIVITY_IDS_ARRAY)
       const activityIdsArrayAsArray = activityIdsArray.split(',')
       const selectedActivities = activityIdsArrayAsArray.map(id => activities.find(act => String(act.id) === id)).filter(Boolean)
       this.setState({ activities: activities, selectedActivities: selectedActivities, })
     })
   }
 
-  getClassrooms = () => this.state.classrooms
+  getClassrooms = () => {
+    const { classrooms, } = this.state
+    return classrooms
+  }
 
   getId = () => {
-    return this.state.model.id;
+    const { model, } = this.state
+    return model.id;
   }
 
   getProhibitedUnitNames = () => {
@@ -114,11 +120,20 @@ export default class CreateUnit extends React.Component {
     });
   }
 
-  getSelectedActivities = () => this.state.selectedActivities
+  getSelectedActivities = () => {
+    const { selectedActivities, } = this.state
+    return selectedActivities
+  }
 
-  getStage = () => this.state.stage;
+  getStage = () => {
+    const { stage, } = this.state
+    return stage
+  }
 
-  getUnitName = () => this.state.name
+  getUnitName = () => {
+    const { name, } = this.state
+    return name
+  }
 
   setStage = (stage) => {
     this.setState({ stage, });
@@ -140,13 +155,14 @@ export default class CreateUnit extends React.Component {
   }
 
   assignActivityDueDate = (activity, dueDate) => {
-    const model = Object.assign({}, this.state.model);
+    const { model, } = this.state
     model.dueDates[activity.id] = dueDate;
     this.setState({ model, });
   }
 
   clickContinue = () => {
-    this.props.history.push('/assign/select-classes')
+    const { history, } = this.props
+    history.push('/assign/select-classes')
     this.setStage(2);
     this.resetWindowPosition();
   }
@@ -172,8 +188,9 @@ export default class CreateUnit extends React.Component {
   }
 
   dueDate = (id) => {
-    if (this.state.model.dueDates && this.state.model.dueDates[id]) {
-      return this.state.model.dueDates[id];
+    const { model, } = this.state
+    if (model.dueDates && model.dueDates[id]) {
+      return model.dueDates[id];
     }
   }
 
@@ -243,8 +260,9 @@ export default class CreateUnit extends React.Component {
   }
 
   isUnitNameUnique = () => {
+    const { prohibitedUnitNames, } = this.state
     const unit = this.getUnitName();
-    return !this.state.prohibitedUnitNames.includes(unit.toLowerCase());
+    return !prohibitedUnitNames.includes(unit.toLowerCase());
   }
 
   isUnitNameValid = () => this.getUnitName() && this.getUnitName().length
@@ -254,18 +272,22 @@ export default class CreateUnit extends React.Component {
   }
 
   stage1SpecificComponents = () => {
-    const { showLessonsBanner, } = this.props
-    return (<Stage1
-      activities={this.state.activities}
-      clickContinue={this.clickContinue}
-      determineIfInputProvidedAndValid={this.determineIfInputProvidedAndValid}
-      errorMessage={this.determineStage1ErrorMessage()}
-      selectedActivities={this.getSelectedActivities()}
-      setSelectedActivities={this.setSelectedActivities}
-      showLessonsBanner={showLessonsBanner}
-      toggleActivitySelection={this.toggleActivitySelection}
-      updateUnitName={this.updateUnitName}
-    />);
+    const { activities, } = this.state
+    const { showLessonsBanner, showEvidenceBanner} = this.props
+    return (
+      <Stage1
+        activities={activities}
+        clickContinue={this.clickContinue}
+        determineIfInputProvidedAndValid={this.determineIfInputProvidedAndValid}
+        errorMessage={this.determineStage1ErrorMessage()}
+        selectedActivities={this.getSelectedActivities()}
+        setSelectedActivities={this.setSelectedActivities}
+        showEvidenceBanner={showEvidenceBanner}
+        showLessonsBanner={showLessonsBanner}
+        toggleActivitySelection={this.toggleActivitySelection}
+        updateUnitName={this.updateUnitName}
+      />
+    );
   }
 
   restrictedActivityBeingAssigned = () => {
@@ -350,34 +372,38 @@ export default class CreateUnit extends React.Component {
   }
 
   stage2SpecificComponents = () => {
-    const { user, assignedPreTests, } = this.props
+    const { model, } = this.state
+    const { cleverLink, user } = this.props
 
     const restrictedActivity = this.restrictedActivityBeingAssigned()
 
-    return (<Stage2
-      alreadyCompletedDiagnosticStudentNames={this.alreadyCompletedDiagnosticStudentNames()}
-      areAnyStudentsSelected={this.areAnyStudentsSelected()}
-      assignActivityDueDate={this.assignActivityDueDate}
-      classrooms={this.getClassrooms()}
-      data={this.assignSuccess}
-      dueDates={this.state.model.dueDates}
-      errorMessage={this.determineStage2ErrorMessage()}
-      fetchClassrooms={this.fetchClassrooms}
-      finish={this.finish}
-      isFromDiagnosticPath={!!parsedQueryParams().diagnostic_unit_template_id}
-      lockedClassroomIds={this.lockedClassroomIds()}
-      notYetCompletedPreTestStudentNames={this.notYetCompletedPreTestStudentNames()}
-      restrictedActivity={restrictedActivity}
-      selectedActivities={this.getSelectedActivities()}
-      toggleActivitySelection={this.toggleActivitySelection}
-      toggleClassroomSelection={this.toggleClassroomSelection}
-      toggleStudentSelection={this.toggleStudentSelection}
-      unitName={this.getUnitName()}
-      unitTemplateId={this.unitTemplateId()}
-      unitTemplateName={this.unitTemplateName()}
-      updateUnitName={this.updateUnitName}
-      user={user}
-    />);
+    return (
+      <Stage2
+        alreadyCompletedDiagnosticStudentNames={this.alreadyCompletedDiagnosticStudentNames()}
+        areAnyStudentsSelected={this.areAnyStudentsSelected()}
+        assignActivityDueDate={this.assignActivityDueDate}
+        classrooms={this.getClassrooms()}
+        cleverLink={cleverLink}
+        data={this.assignSuccess}
+        dueDates={model.dueDates}
+        errorMessage={this.determineStage2ErrorMessage()}
+        fetchClassrooms={this.fetchClassrooms}
+        finish={this.finish}
+        isFromDiagnosticPath={!!parsedQueryParams().diagnostic_unit_template_id}
+        lockedClassroomIds={this.lockedClassroomIds()}
+        notYetCompletedPreTestStudentNames={this.notYetCompletedPreTestStudentNames()}
+        restrictedActivity={restrictedActivity}
+        selectedActivities={this.getSelectedActivities()}
+        toggleActivitySelection={this.toggleActivitySelection}
+        toggleClassroomSelection={this.toggleClassroomSelection}
+        toggleStudentSelection={this.toggleStudentSelection}
+        unitName={this.getUnitName()}
+        unitTemplateId={this.unitTemplateId()}
+        unitTemplateName={this.unitTemplateName()}
+        updateUnitName={this.updateUnitName}
+        user={user}
+      />
+    )
   }
 
   moveToStage4 = () => {
@@ -403,31 +429,34 @@ export default class CreateUnit extends React.Component {
 
   stage4specificComponents = () => {
     const { referralCode, location, history, } = this.props
-    const { classrooms, selectedActivities, name, assignSuccess } = this.state
+    const { classrooms, selectedActivities, name, assignSuccess, newUnitId, } = this.state
     if (assignSuccess) {
-      return (<UnitAssignmentFollowup
-        classrooms={classrooms}
-        history={history}
-        location={location}
-        referralCode={referralCode}
-        referralCode={referralCode}
-        selectedActivities={selectedActivities}
-        unitName={name}
-      />);
+      return (
+        <UnitAssignmentFollowup
+          classrooms={classrooms}
+          history={history}
+          location={location}
+          referralCode={referralCode}
+          referralCode={referralCode}
+          selectedActivities={selectedActivities}
+          unitName={name}
+        />
+      );
     }
 
-    if (_.map(this.state.selectedActivities, activity => { return activity.activity_classification.id }).includes(6)) {
+    if (_.map(selectedActivities, activity => { return activity.activity_classification.id }).includes(6)) {
       // There is a lesson here, so we should send the teacher to the Lessons page.
-      window.location.href = `/teachers/classrooms/activity_planner/lessons#${this.state.newUnitId}`;
+      window.location.href = `/teachers/classrooms/activity_planner/lessons#${newUnitId}`;
     } else {
-      window.location.href = `/teachers/classrooms/activity_planner#${this.state.newUnitId}`;
+      window.location.href = `/teachers/classrooms/activity_planner#${newUnitId}`;
     }
   }
 
   toggleActivitySelection = (activity) => {
+    const { selectedActivities, } = this.state
     activity.selected = !activity.selected
-    const indexOfActivity = this.state.selectedActivities.findIndex(act => act.id === activity.id);
-    const newActivityArray = this.state.selectedActivities.slice();
+    const indexOfActivity = selectedActivities.findIndex(act => act.id === activity.id);
+    const newActivityArray = selectedActivities.slice();
     if (indexOfActivity === -1) {
       newActivityArray.push(activity);
     } else {
@@ -496,7 +525,10 @@ export default class CreateUnit extends React.Component {
 
   unitTemplateId = () => parsedQueryParams().unit_template_id || parsedQueryParams().diagnostic_unit_template_id || window.localStorage.getItem(UNIT_TEMPLATE_ID)
 
-  unitTemplateName = () => this.props.match.params.unitName || window.localStorage.getItem(UNIT_TEMPLATE_NAME)
+  unitTemplateName = () => {
+    const { match, } = this.props
+    match.params.unitName || window.localStorage.getItem(UNIT_TEMPLATE_NAME)
+  }
 
   updateUnitName = (e) => {
     this.isUnitNameValid();

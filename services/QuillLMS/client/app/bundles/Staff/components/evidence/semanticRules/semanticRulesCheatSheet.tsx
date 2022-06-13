@@ -5,7 +5,7 @@ import { useQuery } from 'react-query';
 import { fetchRules } from '../../../utils/evidence/ruleAPIs';
 import { DataTable, Spinner } from '../../../../Shared/index';
 import { fetchActivity } from '../../../utils/evidence/activityAPIs';
-import { renderHeader } from '../../../helpers/evidence';
+import { renderHeader } from '../../../helpers/evidence/renderHelpers';
 
 const SemanticRulesCheatSheet = ({ match, }) => {
   const { params } = match;

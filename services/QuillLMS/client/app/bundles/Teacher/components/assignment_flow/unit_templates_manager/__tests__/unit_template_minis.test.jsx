@@ -19,10 +19,10 @@ const sharedProps = {
         avatar_url: "avatar"
       },
       unit_template_category: {
-          primary_color: "#00c2a2",
-          secondary_color: "#027360",
-          name: "Diagnostic",
-          id: 9
+        primary_color: "#00c2a2",
+        secondary_color: "#027360",
+        name: "Diagnostic",
+        id: 9
       },
       activities: [],
       type: {
@@ -54,10 +54,10 @@ const sharedProps = {
           avatar_url: "avatar"
         },
         unit_template_category: {
-            primary_color: "#00c2a2",
-            secondary_color: "#027360",
-            name: "Diagnostic",
-            id: 9
+          primary_color: "#00c2a2",
+          secondary_color: "#027360",
+          name: "Diagnostic",
+          id: 9
         },
         activities: [],
         type: {

@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AvailableCredits container should render when there are no premium credits 1`] = `
+<AvailableCredits
+  availableCredits={0}
+  redeemPremiumCredits={[Function]}
+  userHasValidSub={false}
+>
+  <div
+    className="no-credits available-credit flex-row vertically-centered space-between"
+  >
+    <div
+      className="credit-quantity"
+    >
+      You have 
+      <span>
+        0 weeks 
+      </span>
+       of Teacher Premium Credit available.
+    </div>
+    <a
+      className="quill-button medium primary outlined focus-on-light"
+      href="/referrals"
+    >
+      Earn premium credits
+    </a>
+  </div>
+</AvailableCredits>
+`;
+
+exports[`AvailableCredits container should render when there are premium credits 1`] = `
+<AvailableCredits
+  availableCredits={28}
+  redeemPremiumCredits={[Function]}
+  userHasValidSub={false}
+>
+  <div
+    className="null available-credit flex-row vertically-centered space-between"
+  >
+    <div
+      className="credit-quantity"
+    >
+      You have 
+      <span>
+        4 weeks 
+      </span>
+       of Teacher Premium Credit available.
+    </div>
+    <button
+      className="quill-button medium primary outlined focus-on-light"
+      onClick={[Function]}
+      type="button"
+    >
+      Redeem Premium Credits
+    </button>
+  </div>
+</AvailableCredits>
+`;

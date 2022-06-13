@@ -8,7 +8,7 @@ import {
   handleSetRuleOptimal,
   handleSetRuleType,
 } from '../../../helpers/evidence/ruleHelpers';
-import { renderIDorUID } from '../../../helpers/evidence';
+import { renderIDorUID } from '../../../helpers/evidence/renderHelpers';
 import { ruleTypeOptions, universalRuleTypeOptions, ruleOptimalOptions } from '../../../../../constants/evidence';
 import { InputEvent, DropdownObjectInterface } from '../../../interfaces/evidenceInterfaces';
 import { Input, DropdownInput, TextEditor } from '../../../../Shared/index'

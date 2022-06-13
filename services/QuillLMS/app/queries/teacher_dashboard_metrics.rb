@@ -7,17 +7,17 @@ class TeacherDashboardMetrics
   end
 
   def run
-   {
-      weekly_assigned_activities_count: count_of_assigned_activities(last_sunday),
-      yearly_assigned_activities_count: count_of_assigned_activities(last_july_first),
-      weekly_completed_activities_count: completed_at_array.count {|date| date >= last_sunday},
-      yearly_completed_activities_count: completed_at_array.count {|date| date >= last_july_first}
-    }
+    {
+       weekly_assigned_activities_count: count_of_assigned_activities(last_sunday),
+       yearly_assigned_activities_count: count_of_assigned_activities(last_july_first),
+       weekly_completed_activities_count: completed_at_array.count {|date| date >= last_sunday},
+       yearly_completed_activities_count: completed_at_array.count {|date| date >= last_july_first}
+     }
   end
 
   def count_of_assigned_activities(start_date)
     classroom_units = ClassroomUnit
-      .where(classroom_id: classroom_ids)
+      .where(classroom_id: classroom_ids, visible: true)
       .where("created_at >= ?", start_date)
 
     activity_counts_by_unit = UnitActivity
@@ -49,11 +49,11 @@ class TeacherDashboardMetrics
   end
 
   private def today
-    @today ||= Date.today
+    @today ||= Date.current
   end
 
   private def days_since_last_sunday
-    @days_since_last_sunday ||= today.wday == 0 ? 0 : (today.wday + 6) % 7 + 1
+    @days_since_last_sunday ||= today.wday == 0 ? 0 : ((today.wday + 6) % 7) + 1
   end
 
   private def last_sunday

@@ -18,7 +18,7 @@ class HardcodedDomainRewriter
   private def fragment
     return '' if uri.fragment.blank?
 
-    '#' + uri.fragment
+    "##{uri.fragment}"
   end
 
   private def path
@@ -28,7 +28,7 @@ class HardcodedDomainRewriter
   private def query
     return '' if uri.query.blank?
 
-    '?' + uri.query
+    "?#{uri.query}"
   end
 
   private def uri

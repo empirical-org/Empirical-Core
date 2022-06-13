@@ -102,9 +102,9 @@ class AccountsController < ApplicationController
   end
 
   protected def create_referral_if_teacher_and_referrer
-    if @user.teacher? && request.env['affiliate.tag']
-      referrer_user_id = ReferrerUser.find_by(referral_code: request.env['affiliate.tag'])&.user&.id
-      ReferralsUser.create(user_id: referrer_user_id, referred_user_id: @user.id) if referrer_user_id
-    end
+    return unless @user.teacher? && request.env['affiliate.tag']
+
+    referrer_user_id = ReferrerUser.find_by(referral_code: request.env['affiliate.tag'])&.user&.id
+    ReferralsUser.create(user_id: referrer_user_id, referred_user_id: @user.id) if referrer_user_id
   end
 end

@@ -223,7 +223,7 @@ FactoryBot.define do
       end
 
       trait :with_generated_password do
-        password { name.to_s.split("\s")[-1] }
+        password { name.to_s.split[-1] }
       end
 
       factory :student_in_two_classrooms_with_many_activities do

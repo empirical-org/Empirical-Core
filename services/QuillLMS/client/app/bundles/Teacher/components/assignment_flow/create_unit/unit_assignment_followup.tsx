@@ -129,16 +129,18 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
   renderInviteStudents = () => {
     const { classrooms, } = this.props
     const emptyClassrooms = classrooms.filter(c => !c.students.length)
-    return (<div className="unit-assignment-followup invite-students">
-      <h1>Assigned!</h1>
-      <Card
-        header="Invite students to your classes"
-        imgAlt="students"
-        imgSrc={addStudentsSrc}
-        onClick={this.handleGoToClassroomIndex}
-        text={`You currently have ${this.numberOfClassroomsText(emptyClassrooms)} that ${emptyClassrooms.length === 1 ? 'has' : 'have'} no students.`}
-      />
-    </div>)
+    return (
+      <div className="unit-assignment-followup invite-students">
+        <h1>Assigned!</h1>
+        <Card
+          header="Invite students to your classes"
+          imgAlt="students"
+          imgSrc={addStudentsSrc}
+          onClick={this.handleGoToClassroomIndex}
+          text={`You currently have ${this.numberOfClassroomsText(emptyClassrooms)} that ${emptyClassrooms.length === 1 ? 'has' : 'have'} no students.`}
+        />
+      </div>
+    )
   }
 
   renderNextOptions = () => (
@@ -178,34 +180,36 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
   renderReferral = () => {
     const { referralCode, } = this.props
     const referralLink = `${process.env.DEFAULT_URL}/?referral_code=${referralCode}`
-    return (<div className="unit-assignment-followup referral">
-      {this.renderSnackbar()}
-      <div className="referral-card">
-        <img alt="gift" src={giftSrc} />
-        <h1>Recommend Quill and earn a month of free Quill Premium for Teachers.</h1>
-        <p>As a nonprofit organization that provides free activities, Quill relies on teachers to share the word.</p>
-        <p>For every teacher that signs up for Quill with your referral link and completes an activity with their students, you earn a month of free Quill Premium, and they receive a one-month free trial.</p>
-        <div className='share-box'>
-          <div className="referral-link-container">
-            <Input
-              disabled={true}
-              id="referral-link"
-              value={referralLink}
-            />
-            <CopyToClipboard onCopy={this.handleCopyLink} text={referralLink}>
-              <button className="quill-button secondary outlined small" type="button">Copy link</button>
-            </CopyToClipboard>
-          </div>
-          <p className="share-text">More ways to share: </p>
-          <div className='share-links'>
-            <a href={`https://twitter.com/home?status=I'm using @quill_org to help my students become better writers and critical thinkers. Want to join me? ${referralLink}`} rel="noopener noreferrer" target="_blank"><img alt="twitter icon" src={twitterSrc} /></a>
-            <a href={`https://www.facebook.com/share.php?u=${referralLink}`} rel="noopener noreferrer" target="_blank"><img alt="facebook icon" src={facebookSrc} /></a>
-            <a href={`https://plus.google.com/share?url=${referralLink}`} rel="noopener noreferrer" target="_blank"><img alt="google plus icon" src={googleSrc} /></a>
-            <a href={`mailto:mailto:?subject=Free tool to help your students become better writers&body=Hi! I've been using this free tool called Quill.org to help my students become better writers and critical thinkers, and I wanted to let you know about it. Hopefully it helps your students as much as it's helped mine! ${referralLink}`} rel="noopener noreferrer" target="_blank"><img alt="mail" src={emailSrc} /></a>
+    return (
+      <div className="unit-assignment-followup referral">
+        {this.renderSnackbar()}
+        <div className="referral-card">
+          <img alt="gift" src={giftSrc} />
+          <h1>Recommend Quill and earn a month of free Quill Premium for Teachers.</h1>
+          <p>As a nonprofit organization that provides free activities, Quill relies on teachers to share the word.</p>
+          <p>For every teacher that signs up for Quill with your referral link and completes an activity with their students, you earn a month of free Quill Premium, and they receive a one-month free trial.</p>
+          <div className='share-box'>
+            <div className="referral-link-container">
+              <Input
+                disabled={true}
+                id="referral-link"
+                value={referralLink}
+              />
+              <CopyToClipboard onCopy={this.handleCopyLink} text={referralLink}>
+                <button className="quill-button secondary outlined small" type="button">Copy link</button>
+              </CopyToClipboard>
+            </div>
+            <p className="share-text">More ways to share: </p>
+            <div className='share-links'>
+              <a href={`https://twitter.com/home?status=I'm using @quill_org to help my students become better writers and critical thinkers. Want to join me? ${referralLink}`} rel="noopener noreferrer" target="_blank"><img alt="twitter icon" src={twitterSrc} /></a>
+              <a href={`https://www.facebook.com/share.php?u=${referralLink}`} rel="noopener noreferrer" target="_blank"><img alt="facebook icon" src={facebookSrc} /></a>
+              <a href={`https://plus.google.com/share?url=${referralLink}`} rel="noopener noreferrer" target="_blank"><img alt="google plus icon" src={googleSrc} /></a>
+              <a href={`mailto:mailto:?subject=Free tool to help your students become better writers&body=Hi! I've been using this free tool called Quill.org to help my students become better writers and critical thinkers, and I wanted to let you know about it. Hopefully it helps your students as much as it's helped mine! ${referralLink}`} rel="noopener noreferrer" target="_blank"><img alt="mail" src={emailSrc} /></a>
+            </div>
           </div>
         </div>
       </div>
-    </div>)
+    )
   }
 
   renderFollowUp = () => {
@@ -228,11 +232,13 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
       return c.classroom
     })
 
-    return (<ViewAsStudentModal
-      classrooms={classroomsToPass}
-      close={this.closeViewAsStudentModal}
-      handleViewClick={this.onClickViewAsIndividualStudent}
-    />)
+    return (
+      <ViewAsStudentModal
+        classrooms={classroomsToPass}
+        close={this.closeViewAsStudentModal}
+        handleViewClick={this.onClickViewAsIndividualStudent}
+      />
+    )
   }
 
   render() {
@@ -241,13 +247,15 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
     if (!(showNextOptions || this.allAssignedClassroomsAreEmpty())) {
       button = <button className="quill-button medium contained primary" onClick={this.handleClickNext} type="button">Next</button>
     }
-    return (<div>
-      <AssignmentFlowNavigation button={button} />
-      <ScrollToTop />
-      {this.renderViewAsStudentModal()}
-      <div className="container">
-        {this.renderFollowUp()}
+    return (
+      <div>
+        <AssignmentFlowNavigation button={button} />
+        <ScrollToTop />
+        {this.renderViewAsStudentModal()}
+        <div className="container">
+          {this.renderFollowUp()}
+        </div>
       </div>
-    </div>)
+    )
   }
 }

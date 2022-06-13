@@ -1,14 +1,12 @@
 import * as React from 'react'
 import * as moment from 'moment'
 
-import { Tooltip, helpIcon, } from '../../../Shared/index'
-
 import ClassroomStudentSection from './classroom_student_section'
 import ClassroomTeacherSection from './classroom_teacher_section'
 import LeaveClassModal from './leave_class_modal'
 
+import { Tooltip, helpIcon, } from '../../../Shared/index'
 const expandSrc = `${process.env.CDN_URL}/images/icons/expand.svg`
-
 import NumberSuffix from '../modules/numberSuffixBuilder.js';
 
 export const leaveClassModal = 'leaveClassModal'
@@ -25,6 +23,7 @@ interface ClassroomProps {
   archiveClass?: (event) => void;
   unarchiveClass?: (event) => void;
   inviteStudents?: (event) => void;
+  importCleverClassroomStudents?: (event) => void;
   importGoogleClassroomStudents?: (event) => void;
   viewAsStudent?: (event) => void;
   onSuccess: (event) => void;
@@ -55,11 +54,58 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
     this.setState({ showModal: null })
   }
 
+  renderClassCode() {
+    const { classroom } = this.props
+    const { code, google_classroom_id, clever_id, } = classroom
+    if (google_classroom_id) {
+      return (
+        <Tooltip
+          tooltipText={`Class code: <b>${code}</b><br/><br/>The easiest way for your students to join your class is through Google Classroom. However, if your students are not syncing, try the class code.`}
+          tooltipTriggerText={<div className="text-and-icon-wrapper"><span>Class code:&nbsp;</span><img alt={helpIcon.alt} src={helpIcon.src} /></div>}
+        />
+      )
+    }
+
+    if (clever_id) {
+      return (
+        <Tooltip
+          tooltipText={`Class code: <b>${code}</b><br/><br/>The easiest way for your students to join your class is through Clever. However, if your students are not syncing, try the class code.`}
+          tooltipTriggerText={<div className="text-and-icon-wrapper"><span>Class code:&nbsp;</span><img alt={helpIcon.alt} src={helpIcon.src} /></div>}
+        />
+      )
+    }
+
+    return `Class code: ${code}`
+  }
+
+  renderGrade() {
+    const { classroom } = this.props
+    if (['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'].includes(classroom.grade)) {
+      return `${NumberSuffix(classroom.grade)} grade`
+    } else {
+      return classroom.grade && classroom.grade !== 'Other' ? classroom.grade : 'Other grade'
+    }
+  }
+
   renderClassType() {
+    const { classroom } = this.props
+    const { clever_id, google_classroom_id } = classroom
+
+    if (!clever_id && !google_classroom_id) { return null }
+
+    return (
+      <React.Fragment key={`class-type-item-${classroom.id}`}>
+        <span className="item">{this.renderClassTypeContent()}</span>
+        <span className="bullet item">•</span>
+      </React.Fragment>
+    )
+  }
+
+  renderClassTypeContent() {
     const { classroom } = this.props
     const { name, synced_name } = classroom
 
-    const text = classroom.google_classroom_id ? 'Google Classroom' : 'Clever Classroom'
+    const text = classroom.google_classroom_id ? 'Google Classroom' : 'Clever'
 
     if (synced_name === null || synced_name === name) {  return text }
 
@@ -79,70 +125,69 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
     )
   }
 
-
-  renderClassCode() {
+  renderArchivedDate() {
     const { classroom } = this.props
-    const { code, google_classroom_id, clever_id, } = classroom
-    if (google_classroom_id) {
-      return (<Tooltip
-        tooltipText={`Class code: <b>${code}</b><br/><br/>The easiest way for your students to join your class is through Google Classroom. However, if your students are not syncing, try the class code.`}
-        tooltipTriggerText={<div className="text-and-icon-wrapper"><span>Class code:&nbsp;</span><img alt={helpIcon.alt} src={helpIcon.src} /></div>}
-      />)
-    }
+    const updatedAt = moment(classroom.updated_at).format('MMM D, YYYY')
 
-    if (clever_id) {
-      return (<Tooltip
-        tooltipText={`Class code: <b>${code}</b><br/><br/>The easiest way for your students to join your class is through Clever. However, if your students are not syncing, try the class code.`}
-        tooltipTriggerText={<div className="text-and-icon-wrapper"><span>Class code:&nbsp;</span><img alt={helpIcon.alt} src={helpIcon.src} /></div>}
-      />)
-    }
+    if (classroom.visible) { return null}
 
-    return `Class code: ${code}`
+    return (
+      <React.Fragment key={`archived-at-bullet-${classroom.id}`}>
+        <span className="bullet item">•</span>
+        <span className="item">Archived {updatedAt}</span>
+      </React.Fragment>
+    )
   }
 
-  renderGrade() {
+  renderCoteachers() {
     const { classroom } = this.props
-    if (['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'].includes(classroom.grade)) {
-      return `${NumberSuffix(classroom.grade)} grade`
-    } else {
-      return classroom.grade && classroom.grade !== 'Other' ? classroom.grade : 'Other grade'
-    }
+    const numberOfStudents = classroom.students.length
+    const numberOfTeachers = classroom.teachers.length
+
+    if (numberOfStudents <= 1) { return null }
+
+    return (
+      <React.Fragment key={`number-of-coteachers-${classroom.id}`}>
+        <span className="item">
+          {numberOfTeachers - 1} {numberOfTeachers === 2 ? 'co-teacher' : 'co-teachers'}
+        </span>
+        <span className="bullet item">•</span>
+      </React.Fragment>
+    )
   }
 
   renderClassroomData() {
     const { classroom } = this.props
-    const { clever_id, google_classroom_id } = classroom
     const numberOfStudents = classroom.students.length
-    const numberOfTeachers = classroom.teachers.length
     const createdAt = moment(classroom.created_at).format('MMM D, YYYY')
-    const updatedAt = moment(classroom.updated_at).format('MMM D, YYYY')
-    const archivedDate = classroom.visible ? null : [<span className="bullet item">•</span>, <span className="item">Archived {updatedAt}</span>]
-    const coteachers = numberOfTeachers > 1 ? [<span className="item">{numberOfTeachers - 1} {numberOfTeachers === 2 ? 'co-teacher' : 'co-teachers'}</span>, <span className="bullet item">•</span>] : null
-    const classType = (google_classroom_id || clever_id) ? [<span className="item">{this.renderClassType()}</span>, <span className="bullet item">•</span>] : null
 
-    return (<div className="classroom-data">
-      <span className="item">{numberOfStudents} {numberOfStudents === 1 ? 'student' : 'students'}</span>
-      <span className="bullet item">•</span>
-      {coteachers}
-      {classType}
-      <span className="item">{this.renderClassCode()}</span>
-      <span className="bullet item">•</span>
-      <span className="item">{this.renderGrade()}</span>
-      <span className="bullet item">•</span>
-      <span className="item">Created {createdAt}</span>
-      {archivedDate}
-    </div>)
+    return (
+      <div className="classroom-data">
+        <span className="item">{numberOfStudents} {numberOfStudents === 1 ? 'student' : 'students'}</span>
+        <span className="bullet item">•</span>
+        {this.renderCoteachers()}
+        {this.renderClassType()}
+        <span className="item">{this.renderClassCode()}</span>
+        <span className="bullet item">•</span>
+        <span className="item">{this.renderGrade()}</span>
+        <span className="bullet item">•</span>
+        <span className="item">Created {createdAt}</span>
+        {this.renderArchivedDate()}
+      </div>
+    )
   }
 
   renderClassroomHeader() {
     const { classroom, clickClassroomHeader } = this.props
-    return (<div className="classroom-card-header" onClick={() => clickClassroomHeader(classroom.id)}>
-      <div className="classroom-info">
-        <h2 className="classroom-name">{classroom.name}</h2>
-        {this.renderClassroomData()}
+    return (
+      <div className="classroom-card-header" onClick={() => clickClassroomHeader(classroom.id)}>
+        <div className="classroom-info">
+          <h2 className="classroom-name">{classroom.name}</h2>
+          {this.renderClassroomData()}
+        </div>
+        <img alt="" className="expand-arrow" src={expandSrc} />
       </div>
-      <img className="expand-arrow" src={expandSrc} />
-    </div>)
+    )
   }
 
   renderClassSettings() {
@@ -157,28 +202,30 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
     let coteacherNote
     let classSettingsClassName = "class-settings"
     let settings = [
-      <button className="quill-button secondary outlined small" onClick={renameClass}>Rename class</button>,
-      <button className="quill-button secondary outlined small" onClick={changeGrade}>Change grade</button>,
-      <button className="quill-button secondary outlined small" onClick={archiveClass}>Archive</button>
+      <button className="quill-button secondary outlined small" key={`rename-class-${classroom.id}`} onClick={renameClass} type="button">Rename class</button>,
+      <button className="quill-button secondary outlined small" key={`change-grade-${classroom.id}`} onClick={changeGrade} type="button">Change grade</button>,
+      <button className="quill-button secondary outlined small" key={`archive-class-${classroom.id}`} onClick={archiveClass} type="button">Archive</button>
     ]
 
     if (!isOwnedByCurrentUser) {
       const owner = classroom.teachers.find(t => t.classroom_relation === 'owner')
       coteacherNote = <p className="coteacher-note">Looking for more class settings? Ask {owner.name}, the class owner.</p>
-      settings = [<button className="quill-button secondary outlined small" onClick={this.leaveClass}>Leave class</button>]
+      settings = [<button className="quill-button secondary outlined small" key={`leave-class-${classroom.id}`} onClick={this.leaveClass} type="button">Leave class</button>]
       classSettingsClassName+= ' coteacher-class-settings'
     } else if (!classroom.visible) {
       settings = [
-        <button className="quill-button secondary outlined small" onClick={unarchiveClass}>Un-archive</button>
+        <button className="quill-button secondary outlined small" key={`unarchive-class-${classroom.id}`} onClick={unarchiveClass} type="button">Un-archive</button>
       ]
     }
-    return (<div className={classSettingsClassName}>
-      <h3>Class settings</h3>
-      {coteacherNote}
-      <div className="class-settings-buttons">
-        {settings}
+    return (
+      <div className={classSettingsClassName}>
+        <h3>Class settings</h3>
+        {coteacherNote}
+        <div className="class-settings-buttons">
+          {settings}
+        </div>
       </div>
-    </div>)
+    )
   }
 
   renderClassroomContent() {
@@ -189,6 +236,7 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
       inviteStudents,
       classrooms,
       isOwnedByCurrentUser,
+      importCleverClassroomStudents,
       importGoogleClassroomStudents,
       viewAsStudent,
     } = this.props
@@ -199,40 +247,47 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
       isOwnedByCurrentUser,
       classrooms
     }
-    return (<div>
-      {this.renderClassSettings()}
-      <ClassroomStudentSection
-        {...sharedProps}
-        importGoogleClassroomStudents={importGoogleClassroomStudents}
-        inviteStudents={inviteStudents}
-        viewAsStudent={viewAsStudent}
-      />
-      <ClassroomTeacherSection
-        {...sharedProps}
-        leaveClass={this.leaveClass}
-      />
-    </div>)
+    return (
+      <div>
+        {this.renderClassSettings()}
+        <ClassroomStudentSection
+          {...sharedProps}
+          importCleverClassroomStudents={importCleverClassroomStudents}
+          importGoogleClassroomStudents={importGoogleClassroomStudents}
+          inviteStudents={inviteStudents}
+          viewAsStudent={viewAsStudent}
+        />
+        <ClassroomTeacherSection
+          {...sharedProps}
+          leaveClass={this.leaveClass}
+        />
+      </div>
+    )
   }
 
   renderLeaveClassModal() {
     const { classroom, onSuccess, } = this.props
     const { showModal } = this.state
     if (showModal === leaveClassModal) {
-      return (<LeaveClassModal
-        classroom={classroom}
-        close={this.closeModal}
-        onSuccess={onSuccess}
-      />)
+      return (
+        <LeaveClassModal
+          classroom={classroom}
+          close={this.closeModal}
+          onSuccess={onSuccess}
+        />
+      )
     }
   }
 
   renderClassroom() {
     const { selected, classroom, } = this.props
-    return (<div className={`classroom ${selected ? 'open' : 'closed'}`} id={classroom.id}>
-      {this.renderLeaveClassModal()}
-      {this.renderClassroomHeader()}
-      {selected ? this.renderClassroomContent() : null}
-    </div>)
+    return (
+      <div className={`classroom ${selected ? 'open' : 'closed'}`} id={classroom.id}>
+        {this.renderLeaveClassModal()}
+        {this.renderClassroomHeader()}
+        {selected ? this.renderClassroomContent() : null}
+      </div>
+    )
   }
 
   render() {

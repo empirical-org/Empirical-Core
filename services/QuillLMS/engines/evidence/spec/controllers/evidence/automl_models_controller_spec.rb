@@ -38,6 +38,7 @@ module Evidence
       before do
         session[:user_id] = 1
       end
+
       let!(:activity) { create(:evidence_activity, parent_activity_id: 1, title: "First Activity", target_level: 8, scored_level: "4th grade") }
       let!(:prompt) { create(:evidence_prompt, activity: activity, text: "it is good.") }
       let!(:automl_model) { build(:evidence_automl_model, prompt: prompt) }
@@ -123,7 +124,7 @@ module Evidence
 
       it 'should update record if valid' do
         new_prompt = create(:evidence_prompt)
-        new_prompt_id = new_prompt_id
+        new_prompt_id = new_prompt.id
         patch(:update, :params => ({ :id => automl_model.id, :automl_model => ({ :prompt_id => new_prompt_id }) }))
         expect(response.code.to_i).to(eq(200))
         expect(automl_model.id).to(eq(JSON.parse(response.body)["id"]))
@@ -145,6 +146,7 @@ module Evidence
       before do
         session[:user_id] = 1
       end
+
       let!(:automl_model) { create(:evidence_automl_model) }
 
       it 'should return an empty 200 response if activation is successful' do

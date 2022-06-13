@@ -1,7 +1,36 @@
 .activity-form-container {
   width: 100%;
+  padding: 0px 30px 0px 16px;
+  .expand-component-section-button {
+    margin: 16px 0px 16px 8px;
+    width: 40vw;
+    font-weight: 600;
+    &.open {
+      color: #00c2a2;
+    }
+  }
+  .activity-fields-table {
+    .data-table-body {
+      .data-table-row {
+        height: auto;
+        .quill-tooltip-trigger {
+          align-self: flex-start;
+          margin-top: 16px;
+        }
+      }
+      .data-table-row:hover {
+        background-color: #ffffff;
+      }
+    }
+  }
+  .image-attribution-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+  }
   .card {
     max-width: unset !important;
+    margin-bottom: 16px;
   }
   .error-message-container {
     width: 100%;
@@ -14,14 +43,22 @@
       text-align: left;
     }
   }
-  .comprehension-activity-form {
+  .title-input {
+    margin: 0px 0px 24px 0px;
+  }
+  .flag-input {
+    width: 10vw;
+  }
+  .button-and-id-container {
+    display: flex;
+    margin: 24px 0px 24px 0px;
     .label-status-container {
-      min-height: 58px;
-      margin-top: 8px;
+      margin-right: 16px;
       #label-status-label {
         font-size: 12px;
         font-weight: 600;
         color: #7f7f7f;
+        margin: 0;
       }
       #label-status {
         font-size: 16px;
@@ -29,70 +66,78 @@
         margin: 0;
       }
     }
+    a, button {
+      margin-left: 16px;
+    }
   }
-  .comprehension-activity-form {
-    max-width: none !important;
-    padding: 0px 30px 0px 30px;
-    .title-input, .course-input, .flag-input, .reading-level-input,
-    .reading-score-input, .because-input, .but-input, .name-input, .highlight-prompt-input,
-    .scored-reading-level-input, .target-reading-level-input, .image-link-input {
-      margin-top: 20px;
-    }
-    .image-attribution-text-area {
-      margin-top: 16px;
-      width: 100%;
-      min-height: 112px;
-    }
-    #image-attribution-label {
-      margin-bottom: 8px;
-    }
-    .so-input {
-      margin: 20px 0px 20px 0px;
-    }
-    .error-message {
+  .course-input, .flag-input, .reading-level-input,
+  .reading-score-input, .because-input, .but-input, .name-input, .highlight-prompt-input,
+  .scored-reading-level-input, .target-reading-level-input, .image-link-input,
+  .because-example, .but-example, .so-example {
+    margin-top: 20px;
+  }
+  .because-example, .but-example, .so-example {
+    margin-left: 16px;
+  }
+  .image-attribution-text-area {
+    margin-top: 16px;
+    width: 100%;
+    min-height: 112px;
+  }
+  #image-attribution-label {
+    margin-bottom: 8px;
+  }
+  .so-input {
+    margin: 20px 0px 20px 0px;
+  }
+  .error-message {
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.33;
+    color: #ff0000;
+    margin-top: 20px;
+  }
+  .text-editor-label {
+    color: #7f7f7f;
+    font-size: 16px;
+    margin: 10px 0px -10px 0px;
+    font-weight: normal;
+    display: flex;
+    align-items: center;
+    &.has-text {
       font-size: 12px;
       font-weight: 600;
-      line-height: 1.33;
-      color: #ff0000;
-      margin-top: 20px;
     }
-    .text-editor-label {
-      color: #7f7f7f;
-      font-size: 16px;
-      margin: 10px 0px -10px 0px;
-      font-weight: normal;
-      display: flex;
-      align-items: center;
-      &.has-text {
-        font-size: 12px;
-        font-weight: 600;
-      }
-      .quill-button {
-        margin-left: 8px;
+    .quill-button {
+      margin-left: 8px;
+    }
+  }
+  .hide-highlights {
+    span {
+      background-color: white !important;
+    }
+  }
+  #max-attempt-feedback {
+    &.focus {
+      .has-text {
+        color: red;
       }
     }
-    .text-editor-label:nth-of-type(2) {
-      margin-top: 20px;
-    }
-    .hide-highlights {
-      span {
-        background-color: white !important;
+  }
+  .prompt-section {
+    .plagiarism-section {
+      margin-left: 10px;
+      .primary-feedback-input, .secondary-feedback-input {
+        margin-top: 15px;
       }
     }
-    #max-attempt-feedback {
-      &.focus {
-        .has-text {
-          color: red;
-        }
-      }
-    }
-    .prompt-section {
-      .plagiarism-section {
-        margin-left: 10px;
-        .primary-feedback-input, .secondary-feedback-input {
-          margin-top: 15px;
-        }
-      }
+  }
+  .info-section {
+    display: flex;
+    align-items: center;
+    margin: 16px 0px -8px 0px;
+    p {
+      margin: 0px 0px 0px 4px;
     }
   }
   .close-button-container {

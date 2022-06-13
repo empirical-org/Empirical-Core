@@ -52,7 +52,7 @@ export interface Classroom {
   }[]
  }
 
- export interface ClassroomUnit {
+export interface ClassroomUnit {
   assign_on_join: boolean,
   assigned_student_ids: number[],
   classroom_id: number,
@@ -64,32 +64,25 @@ export interface Classroom {
 }
 
 export interface Activity {
-  activity_category: { id: number, name: string },
-  activity_category_id: number,
-  activity_category_name: string,
-  activity_classification: {
-    alias: string,
-    description: string,
+  classification: {
     key: string,
-    id: number
-  }
-  anonymous_path: string,
-  content_partners: any[],
-  description: string,
-  flags: string,
-  id: number
-  name: string,
-  readability_grade_level: string,
-  standard_level: { id: number, name: string }
-  standard_level_name: string,
-  standard_name: string,
-  topics: {
     id: number,
-    level: number,
+    name: string
+  },
+  description: string,
+  id: number,
+  level_zero_topic_name: string,
+  name: string,
+  readability: string,
+  standard: {
+    id: number,
     name: string,
-    parent_id: number
-  }[],
-  uid: string
+    standard_category: {
+      id: number,
+      name: string
+    }
+  }
+  standard_level_name: string
 }
 
 // activity object from DataTable

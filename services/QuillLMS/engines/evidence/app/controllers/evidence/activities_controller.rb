@@ -4,12 +4,12 @@ require_dependency 'evidence/application_controller'
 
 module Evidence
   class ActivitiesController < ApiController
-    before_action :set_activity, only: [:create, :show, :update, :destroy, :rules, :change_logs]
+    before_action :set_activity, only: [:create, :show, :update, :destroy, :change_logs]
     append_before_action :set_lms_user_id, only: [:create, :destroy]
 
     # GET /activities.json
     def index
-      @activities = Evidence::Activity.joins("LEFT JOIN activities ON comprehension_activities.parent_activity_id = activities.id").where("parent_activity_id IS NULL OR NOT 'archived' = ANY(activities.flags)").order(:title)
+      @activities = Evidence::Activity.order(:title).map { |a| a.serializable_hash(include: []) }
 
       render json: @activities
     end
@@ -45,7 +45,11 @@ module Evidence
 
     # GET /activities/1/rules.json
     def rules
-      render json: @activity.prompts&.map {|p| p.rules}&.flatten&.uniq
+      @activity = Evidence::Activity.includes(
+        prompts: { rules: [:plagiarism_texts, { feedbacks: :highlights }, :label, :regex_rules, :hint, :prompts]}
+      ).find(params[:id])
+      rules = @activity.prompts&.map {|p| p.rules}&.flatten&.uniq
+      render json: rules
     end
 
     # GET /activities/1/change_logs.json
@@ -72,8 +76,9 @@ module Evidence
         :parent_activity_id,
         :target_level,
         :scored_level,
-        passages_attributes: [:id, :text, :image_link, :image_alt_text, :image_caption, :image_attribution, :highlight_prompt],
-        prompts_attributes: [:id, :conjunction, :text, :max_attempts, :max_attempts_feedback]
+        :flag,
+        passages_attributes: [:id, :text, :image_link, :image_alt_text, :image_caption, :image_attribution, :highlight_prompt, :essential_knowledge_text],
+        prompts_attributes: [:id, :conjunction, :text, :max_attempts, :max_attempts_feedback, :first_strong_example, :second_strong_example]
       )
     end
   end

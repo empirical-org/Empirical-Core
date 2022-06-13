@@ -1,4 +1,22 @@
 .results-summary-container {
+  .results-empty-state {
+    img {
+      margin-top: 56px;
+      margin-bottom: 16px;
+    }
+    h2 {
+      font-weight: bold;
+      color: #000;
+      max-width: 520px;
+    }
+    p {
+      font-size: 16px;
+      color: #262626;
+      margin-top: 8px;
+      max-width: 460px;
+    }
+  }
+
   .skill-group-summary-cards {
     display: flex;
     flex-wrap: wrap;
@@ -110,8 +128,22 @@
       }
     }
   }
+  .proficiency-keys {
+    margin-top: 24px;
+    display: flex;
+    .proficiency-key {
+      max-width: 220px;
+      margin-right: 24px;
+      p {
+        font-size: 12px;
+        line-height: 1.33;
+        color: #808080;
+        margin-top: 16px;
+      }
+    }
+  }
   .student-results-table-container {
-    margin-top: 16px;
+    margin-top: 24px;
     overflow-x: scroll;
     position: relative;
     margin-left: -365px;
@@ -181,6 +213,9 @@
         top: 0;
         z-index: 2;
         height: 65px;
+        &.empty {
+          height: 48px;
+        }
         > th {
           border-top: 1px solid #e0e0e0;
         }
@@ -241,9 +276,13 @@
           color: #262626;
           width: 100%;
         }
-        .diagnostic-not-completed {
+        .name-section-subheader, .name-section-subheader .correct-skill-text {
           font-weight: normal;
           color: #808080;
+          font-size: 12px;
+          width: inherit;
+          display: flex;
+          margin-right: 4px;
         }
       }
       .quill-tooltip-wrapper {
@@ -257,6 +296,7 @@
     }
     .name-and-tooltip {
       display: flex;
+      align-items: flex-end;
       justify-content: space-between;
       .quill-tooltip-trigger {
         margin-left: 16px;
@@ -350,7 +390,7 @@
       }
     }
     .skill-group-header {
-      vertical-align: top;
+      vertical-align: bottom;
       padding: 8px;
       .label {
         font-size: 12px;
@@ -358,7 +398,7 @@
         line-height: 1.33;
         color: #808080;
         padding: 0px;
-        margin-bottom: 2px;
+        margin-top: 2px;
         display: block;
         text-align: left;
       }
@@ -369,10 +409,20 @@
   }
   @media (max-width: 930px) {
     padding: 40px 0px !important;
-    header, .mobile-navigation, .skill-group-summary-cards, .student-results h2 {
+    header, .mobile-navigation, .proficiency-keys, .results-empty-state, .skill-group-summary-cards, .student-results h2 {
       padding: 0px 32px;
     }
+    .proficiency-keys {
+      flex-direction: column;
+      .proficiency-key {
+        margin-bottom: 24px;
+        p {
+          margin-top: 8px;
+        }
+      }
+    }
     .student-results-table-container {
+      margin-top: 0px;
       margin-left: 0px;
       padding-left: 0px;
       width: 100%;

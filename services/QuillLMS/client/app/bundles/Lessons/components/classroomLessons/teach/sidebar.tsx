@@ -75,7 +75,7 @@ class Sidebar extends React.Component<ReducerSidebarProps & PassedSidebarProps &
     if (count > 15) {
       return;
     }
-    var y = elem.scrollTop;
+    let y = elem.scrollTop;
     y += Math.round( ( pos - y ) * 0.3 );
     if (Math.abs(y-pos) <= 2) {
       elem.scrollTop = pos;
@@ -96,7 +96,7 @@ class Sidebar extends React.Component<ReducerSidebarProps & PassedSidebarProps &
     const presence = this.props.classroomSessions.data.presence
     const numPresent = presence === undefined ? 0 : Object.keys(presence).filter((id) => presence[id] === true ).length
     return (
-      <div className="present-students"><img src={studentIcon} /><span> {numPresent} Student{numPresent === 1 ? '': 's'} Viewing</span></div>
+      <div className="present-students"><img alt="" src={studentIcon} /><span> {numPresent} Student{numPresent === 1 ? '': 's'} Viewing</span></div>
     )
   }
 
@@ -144,7 +144,7 @@ class Sidebar extends React.Component<ReducerSidebarProps & PassedSidebarProps &
             thumb = (
               <CLStudentSingleAnswer data={questions[slide].data} handleStudentSubmission={() => {}} {...props} />
             );
-          break
+            break
           case 'CL-FB':
             thumb = (
               <CLStudentFillInTheBlank data={questions[slide].data} handleStudentSubmission={() => {}} {...props} />

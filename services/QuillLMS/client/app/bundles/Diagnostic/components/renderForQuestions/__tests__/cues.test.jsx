@@ -5,14 +5,14 @@ import { Cues } from '../cues.tsx';
 import { Cue, CueExplanation } from '../../../../Shared/index';
 
 let mockProps = {
-    diagnosticID: 'ell',
-    displayArrowAndText: true,
-    question: {
-        cues: ['and', 'but', 'or'],
-        cuesLabel: 'choose one'
-    },
-    language: 'english',
-    translate: jest.fn()
+  diagnosticID: 'ell',
+  displayArrowAndText: true,
+  question: {
+    cues: ['and', 'but', 'or'],
+    cuesLabel: 'choose one'
+  },
+  language: 'english',
+  translate: jest.fn()
 };
 
 describe('Cues Component', () => {

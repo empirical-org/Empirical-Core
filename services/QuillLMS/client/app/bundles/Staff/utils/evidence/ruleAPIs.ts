@@ -1,8 +1,10 @@
 import { RuleInterface } from '../../interfaces/evidenceInterfaces';
-import { handleApiError, apiFetch, handleRequestErrors, requestFailed } from '../../helpers/evidence';
+import { handleApiError, apiFetch, handleRequestErrors, requestFailed } from '../../helpers/evidence/routingHelpers';
 import { getRulesUrl } from '../../helpers/evidence/ruleHelpers';
 
-export const fetchRules = async (key: string, activityId: string, promptId?: any, ruleType?: string) => {
+export const fetchRules = async ({ queryKey }) => {
+  const [key, activityId, promptId, ruleType]: [string, string, any, string] = queryKey
+
   const url = getRulesUrl(activityId, promptId, ruleType)
 
   const response = await apiFetch(url);
@@ -16,8 +18,8 @@ export const fetchRules = async (key: string, activityId: string, promptId?: any
   };
 }
 
-export const fetchUniversalRules = async (key: string) => {
-  const response = await apiFetch(`rules`);
+export const fetchUniversalRules = async () => {
+  const response = await apiFetch(`rules/universal`);
   let universalRules = await response.json();
   if(universalRules.rules && universalRules.rules.length) {
     universalRules = universalRules.rules.filter((rule: RuleInterface) => rule.universal);
@@ -28,7 +30,9 @@ export const fetchUniversalRules = async (key: string) => {
   };
 }
 
-export const fetchRule = async (key: string, ruleId: string) => {
+export const fetchRule = async ({ queryKey, }) => {
+  const [key, ruleId]: [string, string] = queryKey
+
   const response = await apiFetch(`rules/${ruleId}`);
   const rule = await response.json();
   return {
@@ -71,6 +75,7 @@ export const updateRule = async (ruleId: number, rule: RuleInterface) => {
     method: 'PUT',
     body: JSON.stringify({ rule })
   });
+
   const { status } = response;
 
   if(requestFailed(status)) {

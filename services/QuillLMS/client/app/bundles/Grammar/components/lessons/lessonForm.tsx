@@ -1,10 +1,11 @@
 import * as React from 'react';
-import QuestionSelector from 'react-select-search';
+import SelectSearch from 'react-select-search';
+import { fuzzySearch } from 'react-select-search';
 import { connect } from 'react-redux';
 import { EditorState, ContentState } from 'draft-js'
 
 import ConceptSelector from '../shared/conceptSelector'
-import { GrammarActivity, Concepts, Concept } from '../../interfaces/grammarActivities'
+import { Concepts, Concept } from '../../interfaces/grammarActivities'
 import { Question } from '../../interfaces/questions'
 import { ConceptReducerState } from '../../reducers/conceptsReducer'
 import { hashToCollection, SortableList, TextEditor, } from '../../../Shared/index'
@@ -61,10 +62,6 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
     const changes: LessonFormState = {};
     changes[key] = event.target.value;
     this.setState(changes);
-  }
-
-  handleSearchChange = (e) => {
-    this.handleQuestionChange(e.value);
   }
 
   addConcept = (concept: { value: string }) => {
@@ -131,11 +128,12 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
         const questionobj = questions.data[question.key];
         const prompt = questionobj ? questionobj.prompt : 'Question No Longer Exists';
         const promptOrTitle = questionobj.title || questionobj.prompt
-        return (<p className="sortable-list-item" key={question.key}>
-          {promptOrTitle}
-          {'\t\t'}
-          <button onClick={this.handleQuestionChange.bind(null, question.key)}>Delete</button>
-        </p>
+        return (
+          <p className="sortable-list-item" key={question.key}>
+            {promptOrTitle}
+            {'\t\t'}
+            <button onClick={this.handleQuestionChange.bind(null, question.key)}>Delete</button>
+          </p>
         );
       });
       return <SortableList data={questionsList} key={Object.keys(activityQuestions).length} sortCallback={this.sortCallback} />;
@@ -149,13 +147,17 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
     let options = hashToCollection(questions.data);
     let formatted
     if (options.length > 0) {
-        options = _.filter(options, option => option.flag !== "archived" && option.prompt); // filter out questions with no valid concept
-        formatted = options.map(opt => ({ name: opt.prompt.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, ''), value: opt.key, }));
-      return (<QuestionSelector
-        onChange={this.handleSearchChange}
-        options={formatted}
-        placeholder="Search for a question"
-      />);
+      options = _.filter(options, option => option.flag !== "archived" && option.prompt); // filter out questions with no valid concept
+      formatted = options.map(opt => ({ name: opt.prompt.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, ''), value: opt.key, }));
+      return (
+        <SelectSearch
+          filterOptions={fuzzySearch}
+          onChange={this.handleQuestionChange}
+          options={formatted}
+          placeholder="Search for a question"
+          search={true}
+        />
+      );
     }
   }
 
@@ -168,20 +170,22 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
         const conceptVal = activityConcepts[c]
         const conceptAttributes = concepts.data['0'].find((concept: Concept) => concept.uid === c)
         if (conceptVal && conceptAttributes) {
-          return (<div key={c} style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <span>{conceptAttributes.displayName}</span>
-            <span style={{ display: 'flex', justifyContent: 'space-between' }}>
-              <span>
-                <span>Quantity: </span>
-                <input
-                  defaultValue={conceptVal.quantity.toString()}
-                  onChange={(e) => this.changeConceptQuantity(c, e)}
-                  style={{ width: '50px' }}
-                />
+          return (
+            <div key={c} style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <span>{conceptAttributes.displayName}</span>
+              <span style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <span>
+                  <span>Quantity: </span>
+                  <input
+                    defaultValue={conceptVal.quantity.toString()}
+                    onChange={(e) => this.changeConceptQuantity(c, e)}
+                    style={{ width: '50px' }}
+                  />
+                </span>
+                <span onClick={() => this.removeConcept(c)} style={{ cursor: 'pointer' }}>X</span>
               </span>
-              <span onClick={() => this.removeConcept(c)} style={{ cursor: 'pointer' }}>X</span>
-            </span>
-          </div>)
+            </div>
+          )
         } else {
           return undefined
         }

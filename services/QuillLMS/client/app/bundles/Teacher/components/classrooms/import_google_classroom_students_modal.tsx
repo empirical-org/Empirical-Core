@@ -2,16 +2,13 @@ import * as React from 'react'
 import Pusher from 'pusher-js';
 
 import ButtonLoadingIndicator from '../shared/button_loading_indicator'
-
 import { requestPut } from '../../../../modules/request/index.js';
 
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
 
-type CheckboxNames = 'checkboxOne'|'checkboxTwo'|'checkboxThree'
-
 interface ImportGoogleClassroomStudentsModalProps {
   close: () => void;
-  onSuccess: (string) => void;
+  onSuccess: (snackbarCopy: string) => void;
   classroom: any;
 }
 
@@ -29,8 +26,8 @@ export default class ImportGoogleClassroomStudentsModal extends React.Component<
       waiting: false
     }
 
-    this.toggleCheckbox = this.toggleCheckbox.bind(this)
-    this.importStudents = this.importStudents.bind(this)
+    this.handleToggleCheckbox = this.handleToggleCheckbox.bind(this)
+    this.handleImportStudents = this.handleImportStudents.bind(this)
   }
 
   initializePusherForGoogleStudentImport(id) {
@@ -40,14 +37,20 @@ export default class ImportGoogleClassroomStudentsModal extends React.Component<
     const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
     const channelName = String(id)
     const channel = pusher.subscribe(channelName);
-    const that = this;
+    const { onSuccess } = this.props
+
     channel.bind('google-classroom-students-imported', () => {
-      that.props.onSuccess('Class re-synced')
+      onSuccess('Class re-synced')
+      pusher.unsubscribe(channelName)
+    });
+
+    channel.bind('google-account-reauthorization-required', () => {
+      onSuccess('Reauthorization needed from Google account before student import can be completed.')
       pusher.unsubscribe(channelName)
     });
   }
 
-  importStudents() {
+  handleImportStudents() {
     const { classroom, } = this.props
     this.setState({ waiting: true })
     requestPut(`/teachers/classrooms/${classroom.id}/import_google_students`, {}, (body) => {
@@ -64,53 +67,76 @@ export default class ImportGoogleClassroomStudentsModal extends React.Component<
     return buttonClass;
   }
 
-  toggleCheckbox() {
-    const newStateObj = { checkboxOne: !this.state.checkboxOne, }
+  handleToggleCheckbox() {
+    const { checkboxOne } = this.state
+    const newStateObj = { checkboxOne: !checkboxOne }
     this.setState(newStateObj)
   }
 
   renderCheckbox() {
-    const checkbox = this.state.checkboxOne
-    if (checkbox) {
-      return <div className="quill-checkbox selected" onClick={this.toggleCheckbox}><img alt="check" src={smallWhiteCheckSrc} /></div>
+    const { checkboxOne } = this.state
+
+    if (checkboxOne) {
+      return (
+        <div className="quill-checkbox selected" onClick={this.handleToggleCheckbox}>
+          <img alt="check" src={smallWhiteCheckSrc} />
+        </div>
+      )
     } else {
-      return <div className="quill-checkbox unselected" onClick={this.toggleCheckbox} />
+      return <div className="quill-checkbox unselected" onClick={this.handleToggleCheckbox} />
     }
   }
 
   renderCheckboxes() {
-    return (<div className="checkboxes">
-      <div className="checkbox-row">
-        {this.renderCheckbox()}
-        <span>I understand that newly imported students have access to the activities that have already been assigned to the entire class.</span>
+    return (
+      <div className="checkboxes">
+        <div className="checkbox-row">
+          {this.renderCheckbox()}
+          <span>
+            I understand that newly imported students have access to the activities that have already been assigned to
+            the entire class.
+          </span>
+        </div>
       </div>
-    </div>)
+    )
   }
 
   renderImportButton() {
     const { waiting } = this.state
     if (waiting) {
-      return <button className={this.submitButtonClass()}><ButtonLoadingIndicator /></button>
+      return (
+        <button className={this.submitButtonClass()} type="button">
+          <ButtonLoadingIndicator />
+        </button>
+      )
     } else {
-      return <button className={this.submitButtonClass()} onClick={this.importStudents}>Import students</button>
+      return (
+        <button className={this.submitButtonClass()} onClick={this.handleImportStudents} type="button">
+          Import students
+        </button>
+      )
     }
   }
 
   render() {
     const { classroom, close } = this.props
-    return (<div className="modal-container import-google-classroom-students-modal-container">
-      <div className="modal-background" />
-      <div className="import-google-classroom-students-modal quill-modal modal-body">
-        <div>
-          <h3 className="title">Import students from Google Classroom</h3>
-        </div>
-        <p>You're about to import students from the class {classroom.name}.</p>
-        {this.renderCheckboxes()}
-        <div className="form-buttons">
-          <button className="quill-button outlined secondary medium" onClick={close}>Cancel</button>
-          {this.renderImportButton()}
+    return (
+      <div className="modal-container import-google-classroom-students-modal-container">
+        <div className="modal-background" />
+        <div className="import-google-classroom-students-modal quill-modal modal-body">
+          <div>
+            <h3 className="title">Import students from Google Classroom</h3>
+          </div>
+          <p>You are about to import students from the class {classroom.name}.</p>
+          {this.renderCheckboxes()}
+          <div className="form-buttons">
+            <button className="quill-button outlined secondary medium" onClick={close} type="button">
+            Cancel
+            </button>
+            {this.renderImportButton()}
+          </div>
         </div>
       </div>
-    </div>)
+    )
   }
 }

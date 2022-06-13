@@ -2,7 +2,7 @@ import * as React from 'react';
 import { shallow } from 'enzyme';
 
 import PromptsForm from '../configureSettings/promptsForm';
-import { BUT, BECAUSE, SO, FIRST, SECOND }  from '../../../../../constants/evidence';
+import { BUT, BECAUSE, SO, TEXT, FIRST_STRONG_EXAMPLE, SECOND_STRONG_EXAMPLE }  from '../../../../../constants/evidence';
 
 const FEEDBACK = 'At no point in your rambling, incoherent response were you even close to anything that could be considered a rational thought. I award you no points, and may God have mercy on your soul.'
 
@@ -35,13 +35,31 @@ describe('PromptsForm component', () => {
   it('should render PromptsForm', () => {
     expect(container).toMatchSnapshot();
   });
-  it('should call handleSetPrompt when user types in input fields for because, but and so stems', () => {
+  it('should call handleSetPrompt when user types in input fields for because prompt properties', () => {
     const e = { target: { value: 'test change' } };
     container.find('Input').get(0).props.handleChange(e)
-    expect(mockProps.handleSetPrompt).toHaveBeenLastCalledWith(e, BECAUSE);
-    container.find('Input').get(1).props.handleChange(e, BUT)
-    expect(mockProps.handleSetPrompt).toHaveBeenLastCalledWith(e, BUT);
-    container.find('Input').get(2).props.handleChange(e, SO)
-    expect(mockProps.handleSetPrompt).toHaveBeenLastCalledWith(e, SO);
+    expect(mockProps.handleSetPrompt).toHaveBeenLastCalledWith(e.target.value, BECAUSE, TEXT);
+    container.find('Input').get(1).props.handleChange(e)
+    expect(mockProps.handleSetPrompt).toHaveBeenLastCalledWith(e.target.value, BECAUSE, FIRST_STRONG_EXAMPLE);
+    container.find('Input').get(2).props.handleChange(e)
+    expect(mockProps.handleSetPrompt).toHaveBeenLastCalledWith(e.target.value, BECAUSE, SECOND_STRONG_EXAMPLE);
+  });
+  it('should call handleSetPrompt when user types in input fields for but prompt properties', () => {
+    const e = { target: { value: 'test change' } };
+    container.find('Input').get(3).props.handleChange(e)
+    expect(mockProps.handleSetPrompt).toHaveBeenLastCalledWith(e.target.value, BUT, TEXT);
+    container.find('Input').get(4).props.handleChange(e)
+    expect(mockProps.handleSetPrompt).toHaveBeenLastCalledWith(e.target.value, BUT, FIRST_STRONG_EXAMPLE);
+    container.find('Input').get(5).props.handleChange(e)
+    expect(mockProps.handleSetPrompt).toHaveBeenLastCalledWith(e.target.value, BUT, SECOND_STRONG_EXAMPLE);
+  });
+  it('should call handleSetPrompt when user types in input fields for so prompt properties', () => {
+    const e = { target: { value: 'test change' } };
+    container.find('Input').get(6).props.handleChange(e)
+    expect(mockProps.handleSetPrompt).toHaveBeenLastCalledWith(e.target.value, SO, TEXT);
+    container.find('Input').get(7).props.handleChange(e)
+    expect(mockProps.handleSetPrompt).toHaveBeenLastCalledWith(e.target.value, SO, FIRST_STRONG_EXAMPLE);
+    container.find('Input').get(8).props.handleChange(e)
+    expect(mockProps.handleSetPrompt).toHaveBeenLastCalledWith(e.target.value, SO, SECOND_STRONG_EXAMPLE);
   });
 });

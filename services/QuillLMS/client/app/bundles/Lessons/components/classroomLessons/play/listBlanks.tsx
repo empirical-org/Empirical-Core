@@ -7,12 +7,12 @@ import {
 } from '../../../../Shared/index'
 
 import {
-QuestionData,
+  QuestionData,
 } from '../../../interfaces/classroomLessons'
 import {
-ClassroomLessonSession,
-SelectedSubmissionsForQuestion,
-QuestionSubmissionsList
+  ClassroomLessonSession,
+  SelectedSubmissionsForQuestion,
+  QuestionSubmissionsList
 } from '../interfaces'
 import TextEditor from '../../renderForQuestions/renderTextEditor';
 import SubmitButton from './submitButton'
@@ -70,14 +70,16 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
     if (mode !== PROJECT) { return }
     const { sampleCorrectAnswer, } = data.play
 
-    return (<ProjectedAnswers
-      projector={projector}
-      response={answers}
-      sampleCorrectAnswer={sampleCorrectAnswer}
-      selectedSubmissionOrder={selected_submission_order}
-      selectedSubmissions={selected_submissions}
-      submissions={submissions}
-    />)
+    return (
+      <ProjectedAnswers
+        projector={projector}
+        response={answers}
+        sampleCorrectAnswer={sampleCorrectAnswer}
+        selectedSubmissionOrder={selected_submission_order}
+        selectedSubmissions={selected_submissions}
+        submissions={submissions}
+      />
+    )
   }
 
   isSubmittable = () => {
@@ -153,10 +155,12 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
       feedbackType = 'revise-unmatched'
     }
 
-    return (<Feedback
-      feedback={(<p dangerouslySetInnerHTML={{__html: feedback}} />)}
-      feedbackType={feedbackType}
-    />);
+    return (
+      <Feedback
+        feedback={(<p dangerouslySetInnerHTML={{__html: feedback}} />)}
+        feedbackType={feedbackType}
+      />
+    );
   }
 
   renderModeSpecificContent(){
@@ -169,10 +173,12 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
       />
     )
     if (mode === PROJECT) {
-      return (<React.Fragment>
-        {promptSection}
-        {this.renderProjectedAnswers()}
-      </React.Fragment>)
+      return (
+        <React.Fragment>
+          {promptSection}
+          {this.renderProjectedAnswers()}
+        </React.Fragment>
+      )
     }
     const submitButton = answerCount(savedSubmission(submissions)) === data.play.nBlanks ? null : <SubmitButton disabled={!this.isSubmittable()} onClick={this.handleStudentSubmission} />
     return (

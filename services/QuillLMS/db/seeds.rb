@@ -36,37 +36,37 @@ create(:acknowledge_diagnostic_banner)
 create(:acknowledge_growth_diagnostic_promotion_card)
 
 # Path to SQL seeds files
-dir_path = File.dirname(__FILE__) + '/seeds/'
+dir_path = "#{File.dirname(__FILE__)}/seeds/"
 
 # Import concepts
-ActiveRecord::Base.connection.execute(File.read(dir_path + 'concepts.sql'))
+ActiveRecord::Base.connection.execute(File.read("#{dir_path}concepts.sql"))
 
 # Import activities
-ActiveRecord::Base.connection.execute(File.read(dir_path + 'activities.sql'))
+ActiveRecord::Base.connection.execute(File.read("#{dir_path}activities.sql"))
 
 # Import categories
-ActiveRecord::Base.connection.execute(File.read(dir_path + 'categories.sql'))
+ActiveRecord::Base.connection.execute(File.read("#{dir_path}categories.sql"))
 
 # Import activity categories
-ActiveRecord::Base.connection.execute(File.read(dir_path + 'activity_categories.sql'))
+ActiveRecord::Base.connection.execute(File.read("#{dir_path}activity_categories.sql"))
 
 # Import activity category activities
-ActiveRecord::Base.connection.execute(File.read(dir_path + 'activity_category_activities.sql'))
+ActiveRecord::Base.connection.execute(File.read("#{dir_path}activity_category_activities.sql"))
 
 # Import unit templates
-ActiveRecord::Base.connection.execute(File.read(dir_path + 'unit_templates.sql'))
+ActiveRecord::Base.connection.execute(File.read("#{dir_path}unit_templates.sql"))
 
 # Import unit template categories
-ActiveRecord::Base.connection.execute(File.read(dir_path + 'unit_template_categories.sql'))
+ActiveRecord::Base.connection.execute(File.read("#{dir_path}unit_template_categories.sql"))
 
 # Import activities unit templates
-ActiveRecord::Base.connection.execute(File.read(dir_path + 'activities_unit_templates.sql'))
+ActiveRecord::Base.connection.execute(File.read("#{dir_path}activities_unit_templates.sql"))
 
 # Import standards
-ActiveRecord::Base.connection.execute(File.read(dir_path + 'standards.sql'))
+ActiveRecord::Base.connection.execute(File.read("#{dir_path}standards.sql"))
 
 # Import activities standard categories
-ActiveRecord::Base.connection.execute(File.read(dir_path + 'standard_categories.sql'))
+ActiveRecord::Base.connection.execute(File.read("#{dir_path}standard_categories.sql"))
 
 # Generate standard_levels
 create(:grade_1_standard_level)

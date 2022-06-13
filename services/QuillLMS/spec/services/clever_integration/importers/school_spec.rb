@@ -3,8 +3,6 @@
 require 'rails_helper'
 
 describe CleverIntegration::Importers::School do
-  include_context 'clever'
-
   let!(:teacher) { create(:teacher, :signed_up_with_clever) }
   let!(:district_token) { '1' }
   let!(:district) { create(:district, clever_id: 'district_id_1', token: 'token1') }

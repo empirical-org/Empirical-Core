@@ -14,33 +14,63 @@ exports[`StepOverview component when the student is on step one renders 1`] = `
     <Step
       active={true}
       handleClick={[Function]}
-      text="Read a text and highlight sentences"
-      title="Step 1 - Now"
+      step={
+        Object {
+          "html": <p>
+            Read a text and highlight sentences.
+          </p>,
+          "stepNumber": 1,
+        }
+      }
     >
       <section
         className="step-overview-step-container"
       >
-        <img
-          alt="Right arrow in a circle"
-          src="undefined/images/icons/icons-arrow-right-circle-white.svg"
-        />
         <button
-          className="step-overview-step active"
+          className="step-overview-step active focus-on-dark"
           onClick={[Function]}
           type="button"
         >
-          <span>
-            Step 1 - Now
-          </span>
-          <p>
-            Read a text and highlight sentences
-          </p>
+          <div
+            className="left-side-container"
+          >
+            <div
+              className="evidence-step-number-small active"
+            >
+              1
+            </div>
+            <span
+              className="sr-only"
+            >
+              This is the active step:
+            </span>
+            <p>
+              Read a text and highlight sentences.
+            </p>
+          </div>
+          <div
+            aria-hidden="true"
+            className="now-tag"
+          >
+            Now
+          </div>
         </button>
       </section>
     </Step>
     <Step
-      text="Write three sentences using evidence"
-      title="Step 2 - After"
+      active={false}
+      step={
+        Object {
+          "html": <p>
+            Expand a sentence using 
+            <u>
+              because
+            </u>
+             to provide a reason.
+          </p>,
+          "stepNumber": 2,
+        }
+      }
     >
       <section
         className="step-overview-step-container"
@@ -48,11 +78,89 @@ exports[`StepOverview component when the student is on step one renders 1`] = `
         <div
           className="step-overview-step"
         >
-          <span>
-            Step 2 - After
-          </span>
+          <div
+            className="evidence-step-number-small"
+          >
+            2
+          </div>
           <p>
-            Write three sentences using evidence
+            Expand a sentence using 
+            <u>
+              because
+            </u>
+             to provide a reason.
+          </p>
+        </div>
+      </section>
+    </Step>
+    <Step
+      active={false}
+      step={
+        Object {
+          "html": <p>
+            Expand a sentence using 
+            <u>
+              but
+            </u>
+             to provide an opposing idea.
+          </p>,
+          "stepNumber": 3,
+        }
+      }
+    >
+      <section
+        className="step-overview-step-container"
+      >
+        <div
+          className="step-overview-step"
+        >
+          <div
+            className="evidence-step-number-small"
+          >
+            3
+          </div>
+          <p>
+            Expand a sentence using 
+            <u>
+              but
+            </u>
+             to provide an opposing idea.
+          </p>
+        </div>
+      </section>
+    </Step>
+    <Step
+      active={false}
+      step={
+        Object {
+          "html": <p>
+            Expand a sentence using 
+            <u>
+              so
+            </u>
+             to provide a result.
+          </p>,
+          "stepNumber": 4,
+        }
+      }
+    >
+      <section
+        className="step-overview-step-container"
+      >
+        <div
+          className="step-overview-step"
+        >
+          <div
+            className="evidence-step-number-small"
+          >
+            4
+          </div>
+          <p>
+            Expand a sentence using 
+            <u>
+              so
+            </u>
+             to provide a result.
           </p>
         </div>
       </section>
@@ -73,54 +181,163 @@ exports[`StepOverview component when the student is past step one renders 1`] = 
       Nice! Keep going!
     </h1>
     <Step
+      active={false}
       completed={true}
-      text="Read a text and highlight sentences"
-      title="Step 1 - Done"
+      handleClick={[Function]}
+      step={
+        Object {
+          "html": <p>
+            Read a text and highlight sentences.
+          </p>,
+          "stepNumber": 1,
+        }
+      }
     >
       <section
         className="step-overview-step-container"
       >
-        <img
-          alt="Green check icon"
-          src="undefined/images/icons/check-green.svg"
-        />
         <div
           className="step-overview-step completed"
         >
-          <span>
-            Step 1 - Done
-          </span>
+          <img
+            alt="White check with green background icon"
+            src="undefined/images/icons/icons-check-circle-dark.svg"
+          />
           <p>
-            Read a text and highlight sentences
+            Read a text and highlight sentences.
           </p>
         </div>
       </section>
     </Step>
     <Step
       active={true}
+      completed={false}
       handleClick={[Function]}
-      text="Write three sentences using evidence"
-      title="Step 2 - After"
+      step={
+        Object {
+          "html": <p>
+            Expand a sentence using 
+            <u>
+              because
+            </u>
+             to provide a reason.
+          </p>,
+          "stepNumber": 2,
+        }
+      }
     >
       <section
         className="step-overview-step-container"
       >
-        <img
-          alt="Right arrow in a circle"
-          src="undefined/images/icons/icons-arrow-right-circle-white.svg"
-        />
         <button
-          className="step-overview-step active"
+          className="step-overview-step active focus-on-dark"
           onClick={[Function]}
           type="button"
         >
-          <span>
-            Step 2 - After
-          </span>
-          <p>
-            Write three sentences using evidence
-          </p>
+          <div
+            className="left-side-container"
+          >
+            <div
+              className="evidence-step-number-small active"
+            >
+              2
+            </div>
+            <span
+              className="sr-only"
+            >
+              This is the active step:
+            </span>
+            <p>
+              Expand a sentence using 
+              <u>
+                because
+              </u>
+               to provide a reason.
+            </p>
+          </div>
+          <div
+            aria-hidden="true"
+            className="now-tag"
+          >
+            Now
+          </div>
         </button>
+      </section>
+    </Step>
+    <Step
+      active={false}
+      completed={false}
+      handleClick={[Function]}
+      step={
+        Object {
+          "html": <p>
+            Expand a sentence using 
+            <u>
+              but
+            </u>
+             to provide an opposing idea.
+          </p>,
+          "stepNumber": 3,
+        }
+      }
+    >
+      <section
+        className="step-overview-step-container"
+      >
+        <div
+          className="step-overview-step"
+        >
+          <div
+            className="evidence-step-number-small"
+          >
+            3
+          </div>
+          <p>
+            Expand a sentence using 
+            <u>
+              but
+            </u>
+             to provide an opposing idea.
+          </p>
+        </div>
+      </section>
+    </Step>
+    <Step
+      active={false}
+      completed={false}
+      handleClick={[Function]}
+      step={
+        Object {
+          "html": <p>
+            Expand a sentence using 
+            <u>
+              so
+            </u>
+             to provide a result.
+          </p>,
+          "stepNumber": 4,
+        }
+      }
+    >
+      <section
+        className="step-overview-step-container"
+      >
+        <div
+          className="step-overview-step"
+        >
+          <div
+            className="evidence-step-number-small"
+          >
+            4
+          </div>
+          <p>
+            Expand a sentence using 
+            <u>
+              so
+            </u>
+             to provide a result.
+          </p>
+        </div>
       </section>
     </Step>
   </div>

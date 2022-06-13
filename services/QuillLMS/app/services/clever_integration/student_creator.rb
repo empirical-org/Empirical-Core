@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module CleverIntegration
-  class StudentCreator
+  class StudentCreator < ApplicationService
     ACCOUNT_TYPE = ::User::CLEVER_ACCOUNT
     ROLE = ::User::STUDENT
 

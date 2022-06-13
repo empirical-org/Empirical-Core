@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Link } from 'react-router-dom';
-import { queryCache, useQuery } from 'react-query';
+import { useQueryClient, useQuery } from 'react-query';
 import stripHtml from "string-strip-html";
 
 import Navigation from '../navigation'
@@ -8,7 +8,7 @@ import RuleForm from '../configureRules/ruleForm';
 import { updateRule, deleteRule, fetchRule } from '../../../utils/evidence/ruleAPIs';
 import { RuleInterface } from '../../../interfaces/evidenceInterfaces';
 import { DataTable, Error, Modal, Spinner } from '../../../../Shared/index';
-import { renderErrorsContainer } from '../../../helpers/evidence';
+import { renderErrorsContainer } from '../../../helpers/evidence/renderHelpers';
 
 const UniversalRule = ({ history, location, match }) => {
   const { params } = match;
@@ -17,6 +17,8 @@ const UniversalRule = ({ history, location, match }) => {
   const [showDeleteRuleModal, setShowDeleteRuleModal] = React.useState<boolean>(false);
   const [showEditRuleModal, setShowEditRuleModal] = React.useState<boolean>(false);
   const [errors, setErrors] = React.useState<string[]>([]);
+
+  const queryClient = useQueryClient()
 
   // cache rule data
   const { data: ruleData } = useQuery({
@@ -86,8 +88,8 @@ const UniversalRule = ({ history, location, match }) => {
       } else {
         setErrors([]);
         // update rule caches to display newly updated rule
-        queryCache.refetchQueries(`rule-${ruleId}`);
-        queryCache.refetchQueries('universal-rules');
+        queryClient.refetchQueries(`rule-${ruleId}`);
+        queryClient.refetchQueries('universal-rules');
         toggleShowEditRuleModal();
       }
     });
@@ -101,7 +103,7 @@ const UniversalRule = ({ history, location, match }) => {
       } else {
         setErrors([]);
         toggleShowDeleteRuleModal();
-        queryCache.refetchQueries('universal-rules').then(() => {
+        queryClient.refetchQueries('universal-rules').then(() => {
           history.push({
             pathname: '/universal-rules',
             state: { ruleDeleted: true }

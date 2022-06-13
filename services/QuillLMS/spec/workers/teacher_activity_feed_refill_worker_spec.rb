@@ -45,8 +45,8 @@ describe TeacherActivityFeedRefillWorker, type: :worker do
     let!(:student1) {create(:student)}
     let!(:student2) {create(:student)}
     let!(:classroom_unit) { create(:classroom_unit, classroom_id: classroom.id, assigned_student_ids: [student1.id, student2.id], assign_on_join: false)}
-    let!(:activity_session1) {create(:activity_session, classroom_unit_id: classroom_unit.id, user_id: student1.id, completed_at: Time.zone.now - 2.days)}
-    let!(:activity_session2) {create(:activity_session, classroom_unit_id: classroom_unit.id, user_id: student2.id, completed_at: Time.zone.now - 1.day )}
+    let!(:activity_session1) {create(:activity_session, classroom_unit_id: classroom_unit.id, user_id: student1.id, completed_at: 2.days.ago)}
+    let!(:activity_session2) {create(:activity_session, classroom_unit_id: classroom_unit.id, user_id: student2.id, completed_at: 1.day.ago )}
 
     it 'should reset and refill activity feed with latest activities first' do
       expect(TeacherActivityFeed).to receive(:reset!).with(teacher.id).once

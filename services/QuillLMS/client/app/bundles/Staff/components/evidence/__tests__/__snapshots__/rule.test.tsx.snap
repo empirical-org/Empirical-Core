@@ -1,9 +1,74 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Rule component should render Rule 1`] = `
-<div
-  className="loading-spinner-container"
+<ContextProvider
+  value={true}
 >
-  <Spinner />
-</div>
+  <ContextProvider
+    value={
+      QueryClient {
+        "defaultOptions": Object {},
+        "mutationCache": MutationCache {
+          "config": Object {},
+          "listeners": Array [],
+          "mutationId": 0,
+          "mutations": Array [],
+        },
+        "mutationDefaults": Array [],
+        "queryCache": QueryCache {
+          "config": Object {},
+          "listeners": Array [],
+          "queries": Array [],
+          "queriesMap": Object {},
+        },
+        "queryDefaults": Array [],
+      }
+    }
+  >
+    <Rule
+      history={
+        Object {
+          "createHref": [Function],
+          "createKey": [Function],
+          "createLocation": [Function],
+          "createPath": [Function],
+          "go": [Function],
+          "goBack": [Function],
+          "goForward": [Function],
+          "listen": [Function],
+          "listenBefore": [Function],
+          "push": [Function],
+          "pushState": [Function],
+          "registerTransitionHook": [Function],
+          "replace": [Function],
+          "replaceState": [Function],
+          "setState": [Function],
+          "transitionTo": [Function],
+          "unregisterTransitionHook": [Function],
+        }
+      }
+      location={
+        Object {
+          "action": "POP",
+          "hash": "",
+          "key": null,
+          "pathname": "/",
+          "search": "",
+          "state": null,
+        }
+      }
+      match={
+        Object {
+          "isExact": true,
+          "params": Object {
+            "activityId": "1",
+            "ruleSetId": "104",
+          },
+          "path": "",
+          "url": "\`https://comprehension-247816.appspot.com/api/activities/:activityId/rulesets/:ruleSetId.json/\`",
+        }
+      }
+    />
+  </ContextProvider>
+</ContextProvider>
 `;

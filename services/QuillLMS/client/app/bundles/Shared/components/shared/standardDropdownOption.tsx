@@ -12,7 +12,7 @@ export const StandardDropdownOption = props => {
   const passedProps = {...props}
   passedProps.innerProps.id = data.value
   return (
-    <div onMouseOver={handleMouseEnter(props)}>
+    <div onFocus={handleMouseEnter(props)} onMouseOver={handleMouseEnter(props)}>
       <components.Option {...passedProps}>
         {data.label}
       </components.Option>

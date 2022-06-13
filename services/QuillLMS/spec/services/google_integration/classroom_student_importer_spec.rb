@@ -59,7 +59,7 @@ RSpec.describe GoogleIntegration::ClassroomStudentImporter do
 
     context 'no user exists with email' do
       context 'student exists with google_id' do
-        let(:another_email) { 'another_' + email }
+        let(:another_email) { "another_#{email}" }
 
         before { create(:student, email: another_email, google_id: google_id) }
 

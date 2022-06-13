@@ -6,34 +6,11 @@ describe PagesController do
   it { should use_before_action :determine_js_file }
   it { should use_before_action :determine_flag }
 
-  # no route for this action
-  # describe '#home' do
-  #   context 'when signed in' do
-  #     let(:user) { create(:user) }
-  #
-  #     before do
-  #       allow(controller).to receive(:current_user) { user }
-  #     end
-  #
-  #     it 'should redirect to profile path' do
-  #       get :home
-  #       expect(response).to redirect_to profile_path
-  #     end
-  #   end
-  #
-  #   context 'when no user is signed in' do
-  #     it 'should set the body class and activity' do
-  #       get :home
-  #       expect(assigns(:body_class)).to eq("home-page")
-  #       expect(assigns(:activity)).to eq Activity.with_classification.find_by_uid(ENV.fetch('HOMEPAGE_ACTIVITY_UID', ''))
-  #     end
-  #   end
-  # end
-
   describe '#home_new' do
     context 'when user is signed in' do
       before do
         allow(controller).to receive(:signed_in?) { true }
+        allow(controller).to receive(:current_user) { create(:user) }
       end
 
       it 'should redirect to profile path' do
@@ -73,20 +50,6 @@ describe PagesController do
     end
   end
 
-  describe '#ideas' do
-    let(:page) { double(:page, body: [{id: "some_id"}, {id: "some_other_id"}].to_json) }
-
-    before do
-      allow(HTTParty).to receive(:get) { page }
-    end
-
-    it 'should return the parsed body' do
-      get :ideas
-      expect(assigns(:connect_json)).to eq [{"id" => "some_id", "cards" => page}, {"id" => "some_other_id", "cards" => page}]
-      expect(assigns(:lessons_json)).to eq [{"id" => "some_id", "cards" => page}, {"id" => "some_other_id", "cards" => page}]
-    end
-  end
-
   describe '#play' do
     let!(:activity) { create(:activity, uid: "-K0rnIIF_iejGqS3XPJ8") }
 
@@ -97,14 +60,6 @@ describe PagesController do
       expect(response).to redirect_to activity.anonymous_module_url.to_s
     end
   end
-
-  # no route for this action
-  # describe '#about' do
-  #   it 'should set the body class' do
-  #     get :about
-  #     expect(assigns(:body_class)).to eq 'full-width-page white-page'
-  #   end
-  # end
 
   describe '#tos' do
     it 'should assign the body class' do
@@ -184,13 +139,25 @@ describe PagesController do
       expect(assigns(:user_is_eligible_for_trial)).to eq user&.subscriptions&.none?
       expect(assigns(:user_has_school)).to eq !!user.school
       expect(assigns(:user_belongs_to_school_that_has_paid)).to eq user&.school ? Subscription.school_or_user_has_ever_paid?(user&.school) : false
-      expect(assigns(:last_four)).to eq user.last_four
+    end
+  end
+
+  describe '#locker' do
+    let!(:user) { create(:user) }
+
+    before do
+      allow(controller).to receive(:current_user) { user }
     end
 
-    it 'should make the user eligible for trial even if they have a covid subscription' do
-      Subscription.create_with_user_join(user.id, account_type: Subscription::COVID_19_SUBSCRIPTION_TYPE)
-      get :premium
-      expect(assigns(:user_is_eligible_for_trial)).to eq true
+    it 'should redirect if current user is not staff' do
+      get :locker
+      expect(response).to redirect_to profile_path
+    end
+
+    it 'should render for staff' do
+      user.role = 'staff'
+      get :locker
+      expect(response.status).to eq 200
     end
   end
 

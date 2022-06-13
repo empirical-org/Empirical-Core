@@ -89,7 +89,9 @@ exports[`StudentResultsTable component should render when there is no student da
         }
       }
     >
-      <thead>
+      <thead
+        className="empty"
+      >
         <tr>
           <th
             className="corner-header"
@@ -101,11 +103,6 @@ exports[`StudentResultsTable component should render when there is no student da
             className="skill-group-header"
             key="Compound-Complex Sentences"
           >
-            <span
-              className="label"
-            >
-              Skill group
-            </span>
             <div
               className="name-and-tooltip"
             >
@@ -118,6 +115,7 @@ exports[`StudentResultsTable component should render when there is no student da
                 name="Compound-Complex Sentences"
               >
                 <Tooltip
+                  isTabbable={true}
                   tooltipText="<p>Compound-Complex Sentences<br/><br/>null</p>"
                   tooltipTriggerText={
                     <img
@@ -127,13 +125,20 @@ exports[`StudentResultsTable component should render when there is no student da
                   }
                 >
                   <span
+                    aria-hidden={false}
                     className="quill-tooltip-trigger"
+                    role="tooltip"
                   >
                     <span
                       className="undefined"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
-                      tabIndex={null}
+                      role="button"
+                      tabIndex={0}
                     >
                       <img
                         alt="Question mark icon"
@@ -144,6 +149,7 @@ exports[`StudentResultsTable component should render when there is no student da
                       className="quill-tooltip-wrapper"
                     >
                       <span
+                        aria-live="polite"
                         className="quill-tooltip"
                       />
                     </span>
@@ -151,16 +157,12 @@ exports[`StudentResultsTable component should render when there is no student da
                 </Tooltip>
               </SkillGroupTooltip>
             </div>
+            0
           </th>
           <th
             className="skill-group-header"
             key="Appositive Phrases"
           >
-            <span
-              className="label"
-            >
-              Skill group
-            </span>
             <div
               className="name-and-tooltip"
             >
@@ -173,6 +175,7 @@ exports[`StudentResultsTable component should render when there is no student da
                 name="Appositive Phrases"
               >
                 <Tooltip
+                  isTabbable={true}
                   tooltipText="<p>Appositive Phrases<br/><br/>null</p>"
                   tooltipTriggerText={
                     <img
@@ -182,13 +185,20 @@ exports[`StudentResultsTable component should render when there is no student da
                   }
                 >
                   <span
+                    aria-hidden={false}
                     className="quill-tooltip-trigger"
+                    role="tooltip"
                   >
                     <span
                       className="undefined"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
-                      tabIndex={null}
+                      role="button"
+                      tabIndex={0}
                     >
                       <img
                         alt="Question mark icon"
@@ -199,6 +209,7 @@ exports[`StudentResultsTable component should render when there is no student da
                       className="quill-tooltip-wrapper"
                     >
                       <span
+                        aria-live="polite"
                         className="quill-tooltip"
                       />
                     </span>
@@ -206,16 +217,12 @@ exports[`StudentResultsTable component should render when there is no student da
                 </Tooltip>
               </SkillGroupTooltip>
             </div>
+            0
           </th>
           <th
             className="skill-group-header"
             key="Relative Clauses"
           >
-            <span
-              className="label"
-            >
-              Skill group
-            </span>
             <div
               className="name-and-tooltip"
             >
@@ -228,6 +235,7 @@ exports[`StudentResultsTable component should render when there is no student da
                 name="Relative Clauses"
               >
                 <Tooltip
+                  isTabbable={true}
                   tooltipText="<p>Relative Clauses<br/><br/>null</p>"
                   tooltipTriggerText={
                     <img
@@ -237,13 +245,20 @@ exports[`StudentResultsTable component should render when there is no student da
                   }
                 >
                   <span
+                    aria-hidden={false}
                     className="quill-tooltip-trigger"
+                    role="tooltip"
                   >
                     <span
                       className="undefined"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
-                      tabIndex={null}
+                      role="button"
+                      tabIndex={0}
                     >
                       <img
                         alt="Question mark icon"
@@ -254,6 +269,7 @@ exports[`StudentResultsTable component should render when there is no student da
                       className="quill-tooltip-wrapper"
                     >
                       <span
+                        aria-live="polite"
                         className="quill-tooltip"
                       />
                     </span>
@@ -261,16 +277,12 @@ exports[`StudentResultsTable component should render when there is no student da
                 </Tooltip>
               </SkillGroupTooltip>
             </div>
+            0
           </th>
           <th
             className="skill-group-header"
             key="Participal Phrases"
           >
-            <span
-              className="label"
-            >
-              Skill group
-            </span>
             <div
               className="name-and-tooltip"
             >
@@ -283,6 +295,7 @@ exports[`StudentResultsTable component should render when there is no student da
                 name="Participal Phrases"
               >
                 <Tooltip
+                  isTabbable={true}
                   tooltipText="<p>Participal Phrases<br/><br/>null</p>"
                   tooltipTriggerText={
                     <img
@@ -292,13 +305,20 @@ exports[`StudentResultsTable component should render when there is no student da
                   }
                 >
                   <span
+                    aria-hidden={false}
                     className="quill-tooltip-trigger"
+                    role="tooltip"
                   >
                     <span
                       className="undefined"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
-                      tabIndex={null}
+                      role="button"
+                      tabIndex={0}
                     >
                       <img
                         alt="Question mark icon"
@@ -309,6 +329,7 @@ exports[`StudentResultsTable component should render when there is no student da
                       className="quill-tooltip-wrapper"
                     >
                       <span
+                        aria-live="polite"
                         className="quill-tooltip"
                       />
                     </span>
@@ -316,16 +337,12 @@ exports[`StudentResultsTable component should render when there is no student da
                 </Tooltip>
               </SkillGroupTooltip>
             </div>
+            0
           </th>
           <th
             className="skill-group-header"
             key="Parallel Structure"
           >
-            <span
-              className="label"
-            >
-              Skill group
-            </span>
             <div
               className="name-and-tooltip"
             >
@@ -338,6 +355,7 @@ exports[`StudentResultsTable component should render when there is no student da
                 name="Parallel Structure"
               >
                 <Tooltip
+                  isTabbable={true}
                   tooltipText="<p>Parallel Structure<br/><br/>null</p>"
                   tooltipTriggerText={
                     <img
@@ -347,13 +365,20 @@ exports[`StudentResultsTable component should render when there is no student da
                   }
                 >
                   <span
+                    aria-hidden={false}
                     className="quill-tooltip-trigger"
+                    role="tooltip"
                   >
                     <span
                       className="undefined"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
-                      tabIndex={null}
+                      role="button"
+                      tabIndex={0}
                     >
                       <img
                         alt="Question mark icon"
@@ -364,6 +389,7 @@ exports[`StudentResultsTable component should render when there is no student da
                       className="quill-tooltip-wrapper"
                     >
                       <span
+                        aria-live="polite"
                         className="quill-tooltip"
                       />
                     </span>
@@ -371,16 +397,12 @@ exports[`StudentResultsTable component should render when there is no student da
                 </Tooltip>
               </SkillGroupTooltip>
             </div>
+            0
           </th>
           <th
             className="skill-group-header"
             key="Advanced Combining"
           >
-            <span
-              className="label"
-            >
-              Skill group
-            </span>
             <div
               className="name-and-tooltip"
             >
@@ -393,6 +415,7 @@ exports[`StudentResultsTable component should render when there is no student da
                 name="Advanced Combining"
               >
                 <Tooltip
+                  isTabbable={true}
                   tooltipText="<p>Advanced Combining<br/><br/>null</p>"
                   tooltipTriggerText={
                     <img
@@ -402,13 +425,20 @@ exports[`StudentResultsTable component should render when there is no student da
                   }
                 >
                   <span
+                    aria-hidden={false}
                     className="quill-tooltip-trigger"
+                    role="tooltip"
                   >
                     <span
                       className="undefined"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
-                      tabIndex={null}
+                      role="button"
+                      tabIndex={0}
                     >
                       <img
                         alt="Question mark icon"
@@ -419,6 +449,7 @@ exports[`StudentResultsTable component should render when there is no student da
                       className="quill-tooltip-wrapper"
                     >
                       <span
+                        aria-live="polite"
                         className="quill-tooltip"
                       />
                     </span>
@@ -426,16 +457,12 @@ exports[`StudentResultsTable component should render when there is no student da
                 </Tooltip>
               </SkillGroupTooltip>
             </div>
+            0
           </th>
           <th
             className="skill-group-header"
             key="Subject-Verb Agreement"
           >
-            <span
-              className="label"
-            >
-              Skill group
-            </span>
             <div
               className="name-and-tooltip"
             >
@@ -448,6 +475,7 @@ exports[`StudentResultsTable component should render when there is no student da
                 name="Subject-Verb Agreement"
               >
                 <Tooltip
+                  isTabbable={true}
                   tooltipText="<p>Subject-Verb Agreement<br/><br/>null</p>"
                   tooltipTriggerText={
                     <img
@@ -457,13 +485,20 @@ exports[`StudentResultsTable component should render when there is no student da
                   }
                 >
                   <span
+                    aria-hidden={false}
                     className="quill-tooltip-trigger"
+                    role="tooltip"
                   >
                     <span
                       className="undefined"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
-                      tabIndex={null}
+                      role="button"
+                      tabIndex={0}
                     >
                       <img
                         alt="Question mark icon"
@@ -474,6 +509,7 @@ exports[`StudentResultsTable component should render when there is no student da
                       className="quill-tooltip-wrapper"
                     >
                       <span
+                        aria-live="polite"
                         className="quill-tooltip"
                       />
                     </span>
@@ -481,16 +517,12 @@ exports[`StudentResultsTable component should render when there is no student da
                 </Tooltip>
               </SkillGroupTooltip>
             </div>
+            0
           </th>
           <th
             className="skill-group-header"
             key="Nouns, Pronouns, and Verbs"
           >
-            <span
-              className="label"
-            >
-              Skill group
-            </span>
             <div
               className="name-and-tooltip"
             >
@@ -503,6 +535,7 @@ exports[`StudentResultsTable component should render when there is no student da
                 name="Nouns, Pronouns, and Verbs"
               >
                 <Tooltip
+                  isTabbable={true}
                   tooltipText="<p>Nouns, Pronouns, and Verbs<br/><br/>null</p>"
                   tooltipTriggerText={
                     <img
@@ -512,13 +545,20 @@ exports[`StudentResultsTable component should render when there is no student da
                   }
                 >
                   <span
+                    aria-hidden={false}
                     className="quill-tooltip-trigger"
+                    role="tooltip"
                   >
                     <span
                       className="undefined"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
-                      tabIndex={null}
+                      role="button"
+                      tabIndex={0}
                     >
                       <img
                         alt="Question mark icon"
@@ -529,6 +569,7 @@ exports[`StudentResultsTable component should render when there is no student da
                       className="quill-tooltip-wrapper"
                     >
                       <span
+                        aria-live="polite"
                         className="quill-tooltip"
                       />
                     </span>
@@ -536,6 +577,7 @@ exports[`StudentResultsTable component should render when there is no student da
                 </Tooltip>
               </SkillGroupTooltip>
             </div>
+            0
           </th>
         </tr>
       </thead>
@@ -630,7 +672,7 @@ exports[`StudentResultsTable component should render when there is no student da
                   </span>
                 </StudentNameOrTooltip>
                 <span
-                  className="diagnostic-not-completed"
+                  className="name-section-subheader"
                 >
                   Diagnostic not completed
                 </span>
@@ -742,7 +784,7 @@ exports[`StudentResultsTable component should render when there is no student da
                   </span>
                 </StudentNameOrTooltip>
                 <span
-                  className="diagnostic-not-completed"
+                  className="name-section-subheader"
                 >
                   Diagnostic not completed
                 </span>
@@ -854,7 +896,7 @@ exports[`StudentResultsTable component should render when there is no student da
                   </span>
                 </StudentNameOrTooltip>
                 <span
-                  className="diagnostic-not-completed"
+                  className="name-section-subheader"
                 >
                   Diagnostic not completed
                 </span>
@@ -966,7 +1008,7 @@ exports[`StudentResultsTable component should render when there is no student da
                   </span>
                 </StudentNameOrTooltip>
                 <span
-                  className="diagnostic-not-completed"
+                  className="name-section-subheader"
                 >
                   Diagnostic not completed
                 </span>
@@ -1078,7 +1120,7 @@ exports[`StudentResultsTable component should render when there is no student da
                   </span>
                 </StudentNameOrTooltip>
                 <span
-                  className="diagnostic-not-completed"
+                  className="name-section-subheader"
                 >
                   Diagnostic not completed
                 </span>
@@ -1550,7 +1592,9 @@ exports[`StudentResultsTable component should render when there is student data 
         }
       }
     >
-      <thead>
+      <thead
+        className=""
+      >
         <tr>
           <th
             className="corner-header"
@@ -1562,11 +1606,6 @@ exports[`StudentResultsTable component should render when there is student data 
             className="skill-group-header"
             key="Capitalization"
           >
-            <span
-              className="label"
-            >
-              Skill group
-            </span>
             <div
               className="name-and-tooltip"
             >
@@ -1579,6 +1618,7 @@ exports[`StudentResultsTable component should render when there is student data 
                 name="Capitalization"
               >
                 <Tooltip
+                  isTabbable={true}
                   tooltipText="<p>Capitalization<br/><br/>null</p>"
                   tooltipTriggerText={
                     <img
@@ -1588,13 +1628,20 @@ exports[`StudentResultsTable component should render when there is student data 
                   }
                 >
                   <span
+                    aria-hidden={false}
                     className="quill-tooltip-trigger"
+                    role="tooltip"
                   >
                     <span
                       className="undefined"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
-                      tabIndex={null}
+                      role="button"
+                      tabIndex={0}
                     >
                       <img
                         alt="Question mark icon"
@@ -1605,6 +1652,7 @@ exports[`StudentResultsTable component should render when there is student data 
                       className="quill-tooltip-wrapper"
                     >
                       <span
+                        aria-live="polite"
                         className="quill-tooltip"
                       />
                     </span>
@@ -1612,16 +1660,20 @@ exports[`StudentResultsTable component should render when there is student data 
                 </Tooltip>
               </SkillGroupTooltip>
             </div>
+            <span
+              className="label"
+            >
+              1
+               of 
+              1
+               student
+               proficient
+            </span>
           </th>
           <th
             className="skill-group-header"
             key="Plural and Possessive Nouns"
           >
-            <span
-              className="label"
-            >
-              Skill group
-            </span>
             <div
               className="name-and-tooltip"
             >
@@ -1634,6 +1686,7 @@ exports[`StudentResultsTable component should render when there is student data 
                 name="Plural and Possessive Nouns"
               >
                 <Tooltip
+                  isTabbable={true}
                   tooltipText="<p>Plural and Possessive Nouns<br/><br/>null</p>"
                   tooltipTriggerText={
                     <img
@@ -1643,13 +1696,20 @@ exports[`StudentResultsTable component should render when there is student data 
                   }
                 >
                   <span
+                    aria-hidden={false}
                     className="quill-tooltip-trigger"
+                    role="tooltip"
                   >
                     <span
                       className="undefined"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
-                      tabIndex={null}
+                      role="button"
+                      tabIndex={0}
                     >
                       <img
                         alt="Question mark icon"
@@ -1660,6 +1720,7 @@ exports[`StudentResultsTable component should render when there is student data 
                       className="quill-tooltip-wrapper"
                     >
                       <span
+                        aria-live="polite"
                         className="quill-tooltip"
                       />
                     </span>
@@ -1667,16 +1728,21 @@ exports[`StudentResultsTable component should render when there is student data 
                 </Tooltip>
               </SkillGroupTooltip>
             </div>
+            <span
+              className="label"
+            >
+              0
+               of 
+              1
+               student
+              s
+               proficient
+            </span>
           </th>
           <th
             className="skill-group-header"
             key="Adjectives and Adverbs"
           >
-            <span
-              className="label"
-            >
-              Skill group
-            </span>
             <div
               className="name-and-tooltip"
             >
@@ -1689,6 +1755,7 @@ exports[`StudentResultsTable component should render when there is student data 
                 name="Adjectives and Adverbs"
               >
                 <Tooltip
+                  isTabbable={true}
                   tooltipText="<p>Adjectives and Adverbs<br/><br/>null</p>"
                   tooltipTriggerText={
                     <img
@@ -1698,13 +1765,20 @@ exports[`StudentResultsTable component should render when there is student data 
                   }
                 >
                   <span
+                    aria-hidden={false}
                     className="quill-tooltip-trigger"
+                    role="tooltip"
                   >
                     <span
                       className="undefined"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
-                      tabIndex={null}
+                      role="button"
+                      tabIndex={0}
                     >
                       <img
                         alt="Question mark icon"
@@ -1715,6 +1789,7 @@ exports[`StudentResultsTable component should render when there is student data 
                       className="quill-tooltip-wrapper"
                     >
                       <span
+                        aria-live="polite"
                         className="quill-tooltip"
                       />
                     </span>
@@ -1722,16 +1797,21 @@ exports[`StudentResultsTable component should render when there is student data 
                 </Tooltip>
               </SkillGroupTooltip>
             </div>
+            <span
+              className="label"
+            >
+              0
+               of 
+              1
+               student
+              s
+               proficient
+            </span>
           </th>
           <th
             className="skill-group-header"
             key="Prepositional Phrases"
           >
-            <span
-              className="label"
-            >
-              Skill group
-            </span>
             <div
               className="name-and-tooltip"
             >
@@ -1744,6 +1824,7 @@ exports[`StudentResultsTable component should render when there is student data 
                 name="Prepositional Phrases"
               >
                 <Tooltip
+                  isTabbable={true}
                   tooltipText="<p>Prepositional Phrases<br/><br/>null</p>"
                   tooltipTriggerText={
                     <img
@@ -1753,13 +1834,20 @@ exports[`StudentResultsTable component should render when there is student data 
                   }
                 >
                   <span
+                    aria-hidden={false}
                     className="quill-tooltip-trigger"
+                    role="tooltip"
                   >
                     <span
                       className="undefined"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
-                      tabIndex={null}
+                      role="button"
+                      tabIndex={0}
                     >
                       <img
                         alt="Question mark icon"
@@ -1770,6 +1858,7 @@ exports[`StudentResultsTable component should render when there is student data 
                       className="quill-tooltip-wrapper"
                     >
                       <span
+                        aria-live="polite"
                         className="quill-tooltip"
                       />
                     </span>
@@ -1777,16 +1866,21 @@ exports[`StudentResultsTable component should render when there is student data 
                 </Tooltip>
               </SkillGroupTooltip>
             </div>
+            <span
+              className="label"
+            >
+              0
+               of 
+              1
+               student
+              s
+               proficient
+            </span>
           </th>
           <th
             className="skill-group-header"
             key="Compound Subjects, Objects, and Predicates"
           >
-            <span
-              className="label"
-            >
-              Skill group
-            </span>
             <div
               className="name-and-tooltip"
             >
@@ -1799,6 +1893,7 @@ exports[`StudentResultsTable component should render when there is student data 
                 name="Compound Subjects, Objects, and Predicates"
               >
                 <Tooltip
+                  isTabbable={true}
                   tooltipText="<p>Compound Subjects, Objects, and Predicates<br/><br/>null</p>"
                   tooltipTriggerText={
                     <img
@@ -1808,13 +1903,20 @@ exports[`StudentResultsTable component should render when there is student data 
                   }
                 >
                   <span
+                    aria-hidden={false}
                     className="quill-tooltip-trigger"
+                    role="tooltip"
                   >
                     <span
                       className="undefined"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
-                      tabIndex={null}
+                      role="button"
+                      tabIndex={0}
                     >
                       <img
                         alt="Question mark icon"
@@ -1825,6 +1927,7 @@ exports[`StudentResultsTable component should render when there is student data 
                       className="quill-tooltip-wrapper"
                     >
                       <span
+                        aria-live="polite"
                         className="quill-tooltip"
                       />
                     </span>
@@ -1832,16 +1935,20 @@ exports[`StudentResultsTable component should render when there is student data 
                 </Tooltip>
               </SkillGroupTooltip>
             </div>
+            <span
+              className="label"
+            >
+              1
+               of 
+              1
+               student
+               proficient
+            </span>
           </th>
           <th
             className="skill-group-header"
             key="Commonly Confused Words"
           >
-            <span
-              className="label"
-            >
-              Skill group
-            </span>
             <div
               className="name-and-tooltip"
             >
@@ -1854,6 +1961,7 @@ exports[`StudentResultsTable component should render when there is student data 
                 name="Commonly Confused Words"
               >
                 <Tooltip
+                  isTabbable={true}
                   tooltipText="<p>Commonly Confused Words<br/><br/>null</p>"
                   tooltipTriggerText={
                     <img
@@ -1863,13 +1971,20 @@ exports[`StudentResultsTable component should render when there is student data 
                   }
                 >
                   <span
+                    aria-hidden={false}
                     className="quill-tooltip-trigger"
+                    role="tooltip"
                   >
                     <span
                       className="undefined"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
                       onMouseEnter={[Function]}
                       onMouseLeave={[Function]}
-                      tabIndex={null}
+                      role="button"
+                      tabIndex={0}
                     >
                       <img
                         alt="Question mark icon"
@@ -1880,6 +1995,7 @@ exports[`StudentResultsTable component should render when there is student data 
                       className="quill-tooltip-wrapper"
                     >
                       <span
+                        aria-live="polite"
                         className="quill-tooltip"
                       />
                     </span>
@@ -1887,6 +2003,15 @@ exports[`StudentResultsTable component should render when there is student data 
                 </Tooltip>
               </SkillGroupTooltip>
             </div>
+            <span
+              className="label"
+            >
+              1
+               of 
+              1
+               student
+               proficient
+            </span>
           </th>
         </tr>
       </thead>
@@ -1977,7 +2102,7 @@ exports[`StudentResultsTable component should render when there is student data 
                   </span>
                 </StudentNameOrTooltip>
                 <span
-                  className="diagnostic-not-completed"
+                  className="name-section-subheader"
                 >
                   Diagnostic not completed
                 </span>
@@ -2089,7 +2214,7 @@ exports[`StudentResultsTable component should render when there is student data 
                   </span>
                 </StudentNameOrTooltip>
                 <span
-                  className="diagnostic-not-completed"
+                  className="name-section-subheader"
                 >
                   Diagnostic not completed
                 </span>
@@ -2201,7 +2326,7 @@ exports[`StudentResultsTable component should render when there is student data 
                   </span>
                 </StudentNameOrTooltip>
                 <span
-                  className="diagnostic-not-completed"
+                  className="name-section-subheader"
                 >
                   Diagnostic not completed
                 </span>
@@ -2313,7 +2438,7 @@ exports[`StudentResultsTable component should render when there is student data 
                   </span>
                 </StudentNameOrTooltip>
                 <span
-                  className="diagnostic-not-completed"
+                  className="name-section-subheader"
                 >
                   Diagnostic not completed
                 </span>
@@ -2748,6 +2873,7 @@ exports[`StudentResultsTable component should render when there is student data 
           }
         >
           <tr
+            id={7}
             key="Angie Thomas"
           >
             <th
@@ -2763,51 +2889,11 @@ exports[`StudentResultsTable component should render when there is student data 
                     Angie Thomas
                   </span>
                 </StudentNameOrTooltip>
-                <div
-                  className="skills-delta"
+                <span
+                  className="name-section-subheader"
                 >
-                  <img
-                    alt="Triangle up icon"
-                    src="undefined/images/pages/diagnostic_reports/icons-triangle-up-light-green.svg"
-                  />
-                  <span
-                    className="skill-count"
-                  >
-                    8
-                  </span>
-                  <Tooltip
-                    tooltipText="This growth score is the total number of skills gained, or the number of skills that were not fully correct on the pre-test but were fully correct on the post-test. This growth score only counts each skill one time, even if the skill is part of more than one skill group."
-                    tooltipTriggerText={
-                      <img
-                        alt="Question mark icon"
-                        src="undefined/images/icons/icons-help.svg"
-                      />
-                    }
-                  >
-                    <span
-                      className="quill-tooltip-trigger"
-                    >
-                      <span
-                        className="undefined"
-                        onMouseEnter={[Function]}
-                        onMouseLeave={[Function]}
-                        tabIndex={null}
-                      >
-                        <img
-                          alt="Question mark icon"
-                          src="undefined/images/icons/icons-help.svg"
-                        />
-                      </span>
-                      <span
-                        className="quill-tooltip-wrapper"
-                      >
-                        <span
-                          className="quill-tooltip"
-                        />
-                      </span>
-                    </span>
-                  </Tooltip>
-                </div>
+                  Diagnostic not completed
+                </span>
               </div>
             </th>
             <StudentResultCell
@@ -3208,32 +3294,6 @@ exports[`StudentResultsTable component should render when there is student data 
                     />
                     <span>
                       Gained proficiency
-                    </span>
-                  </div>
-                  <div
-                    className="pre-and-post-test-icons"
-                  >
-                    <span
-                      className="pre"
-                    >
-                      <span>
-                        Pre
-                      </span>
-                      <img
-                        alt="Outlined circle"
-                        src="undefined/images/pages/diagnostic_reports/components-proficiency-circle-gray-no-proficient.svg"
-                      />
-                    </span>
-                    <span
-                      className="post"
-                    >
-                      <span>
-                        Post
-                      </span>
-                      <img
-                        alt="Filled in circle"
-                        src="undefined/images/pages/diagnostic_reports/components-proficiency-circle-gray-proficiency.svg"
-                      />
                     </span>
                   </div>
                   <div
@@ -3657,32 +3717,6 @@ exports[`StudentResultsTable component should render when there is student data 
                     />
                     <span>
                       No proficiency
-                    </span>
-                  </div>
-                  <div
-                    className="pre-and-post-test-icons"
-                  >
-                    <span
-                      className="pre"
-                    >
-                      <span>
-                        Pre
-                      </span>
-                      <img
-                        alt="Outlined circle"
-                        src="undefined/images/pages/diagnostic_reports/components-proficiency-circle-gray-no-proficient.svg"
-                      />
-                    </span>
-                    <span
-                      className="post"
-                    >
-                      <span>
-                        Post
-                      </span>
-                      <img
-                        alt="Outlined circle"
-                        src="undefined/images/pages/diagnostic_reports/components-proficiency-circle-gray-no-proficient.svg"
-                      />
                     </span>
                   </div>
                   <div
@@ -4181,32 +4215,6 @@ exports[`StudentResultsTable component should render when there is student data 
                     </span>
                   </div>
                   <div
-                    className="pre-and-post-test-icons"
-                  >
-                    <span
-                      className="pre"
-                    >
-                      <span>
-                        Pre
-                      </span>
-                      <img
-                        alt="Half filled in circle"
-                        src="undefined/images/pages/diagnostic_reports/components-proficiency-circle-gray-partial-proficient.svg"
-                      />
-                    </span>
-                    <span
-                      className="post"
-                    >
-                      <span>
-                        Post
-                      </span>
-                      <img
-                        alt="Half filled in circle"
-                        src="undefined/images/pages/diagnostic_reports/components-proficiency-circle-gray-partial-proficient.svg"
-                      />
-                    </span>
-                  </div>
-                  <div
                     className="correct-skills-and-delta-wrapper"
                   >
                     <span
@@ -4661,32 +4669,6 @@ exports[`StudentResultsTable component should render when there is student data 
                     />
                     <span>
                       Partial proficiency
-                    </span>
-                  </div>
-                  <div
-                    className="pre-and-post-test-icons"
-                  >
-                    <span
-                      className="pre"
-                    >
-                      <span>
-                        Pre
-                      </span>
-                      <img
-                        alt="Half filled in circle"
-                        src="undefined/images/pages/diagnostic_reports/components-proficiency-circle-gray-partial-proficient.svg"
-                      />
-                    </span>
-                    <span
-                      className="post"
-                    >
-                      <span>
-                        Post
-                      </span>
-                      <img
-                        alt="Half filled in circle"
-                        src="undefined/images/pages/diagnostic_reports/components-proficiency-circle-gray-partial-proficient.svg"
-                      />
                     </span>
                   </div>
                   <div
@@ -5163,32 +5145,6 @@ exports[`StudentResultsTable component should render when there is student data 
                     </span>
                   </div>
                   <div
-                    className="pre-and-post-test-icons"
-                  >
-                    <span
-                      className="pre"
-                    >
-                      <span>
-                        Pre
-                      </span>
-                      <img
-                        alt="Half filled in circle"
-                        src="undefined/images/pages/diagnostic_reports/components-proficiency-circle-gray-partial-proficient.svg"
-                      />
-                    </span>
-                    <span
-                      className="post"
-                    >
-                      <span>
-                        Post
-                      </span>
-                      <img
-                        alt="Filled in circle"
-                        src="undefined/images/pages/diagnostic_reports/components-proficiency-circle-gray-proficiency.svg"
-                      />
-                    </span>
-                  </div>
-                  <div
                     className="correct-skills-and-delta-wrapper"
                   >
                     <span
@@ -5611,32 +5567,6 @@ exports[`StudentResultsTable component should render when there is student data 
                     />
                     <span>
                       Gained proficiency
-                    </span>
-                  </div>
-                  <div
-                    className="pre-and-post-test-icons"
-                  >
-                    <span
-                      className="pre"
-                    >
-                      <span>
-                        Pre
-                      </span>
-                      <img
-                        alt="Outlined circle"
-                        src="undefined/images/pages/diagnostic_reports/components-proficiency-circle-gray-no-proficient.svg"
-                      />
-                    </span>
-                    <span
-                      className="post"
-                    >
-                      <span>
-                        Post
-                      </span>
-                      <img
-                        alt="Filled in circle"
-                        src="undefined/images/pages/diagnostic_reports/components-proficiency-circle-gray-proficiency.svg"
-                      />
                     </span>
                   </div>
                   <div

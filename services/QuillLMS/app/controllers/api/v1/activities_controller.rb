@@ -1,12 +1,10 @@
 # frozen_string_literal: true
 
 class Api::V1::ActivitiesController < Api::ApiController
-  include QuillAuthentication
-
   CLASSIFICATION_TO_TOOL = {:connect => "connect", :sentence => "grammar"}
 
   before_action :doorkeeper_authorize!, only: [:create, :update, :destroy], unless: :staff?
-  before_action :find_activity, except: [:index, :create, :uids_and_flags, :published_edition, :activities_health]
+  before_action :find_activity, except: [:index, :create, :uids_and_flags, :published_edition, :activities_health, :diagnostic_activities]
 
   def show
     render json: @activity, meta: {status: 'success', message: nil, errors: nil}, serializer: ActivitySerializer
@@ -52,6 +50,10 @@ class Api::V1::ActivitiesController < Api::ApiController
       render json: @activity, meta: {status: 'failed', message: "Activity Destroy Failed", errors: @activity.errors}, serializer: ActivitySerializer
     end
 
+  end
+
+  def diagnostic_activities
+    render json: {diagnostics: Activity.where(classification: ActivityClassification.diagnostic)}
   end
 
   def follow_up_activity_name_and_supporting_info

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useQuery, queryCache } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 import { Link, withRouter } from 'react-router-dom';
 
 import RuleGenericAttributes from '../configureRules/ruleGenericAttributes';
@@ -8,10 +8,12 @@ import RuleSemanticAttributes from '../configureRules/ruleSemanticAttributes';
 import RuleRegexAttributes from '../configureRules/ruleRegexAttributes';
 import RulePrompts from '../configureRules/rulePrompts';
 import RuleUniversalAttributes from '../configureRules/ruleUniversalAttributes';
+import RuleHint from '../configureRules/ruleHint'
 import { Spinner } from '../../../../Shared/index';
 import { deleteRule, fetchRules, fetchUniversalRules } from '../../../utils/evidence/ruleAPIs';
 import { fetchConcepts, } from '../../../utils/evidence/conceptAPIs';
-import { formatPrompts, renderErrorsContainer, renderHeader } from '../../../helpers/evidence';
+import { renderErrorsContainer, renderHeader } from '../../../helpers/evidence/renderHelpers';
+import { formatPrompts } from '../../../helpers/evidence/promptHelpers';
 import { handleSubmitRule, getInitialRuleType, formatInitialFeedbacks, returnInitialFeedback, formatRegexRules, getReturnLinkRuleType, getReturnLinkLabel, renderDeleteRuleModal } from '../../../helpers/evidence/ruleHelpers';
 import { ruleOptimalOptions, regexRuleTypes, PLAGIARISM } from '../../../../../constants/evidence';
 import { RuleInterface, DropdownObjectInterface } from '../../../interfaces/evidenceInterfaces';
@@ -53,11 +55,11 @@ const RuleViewForm = ({
   const { params } = match;
   const { promptId } = params;
 
-  const { name, rule_type, id, uid, optimal, plagiarism_text, concept_uid, note, feedbacks, state, label, conditional } = rule;
+  const { name, rule_type, id, uid, optimal, plagiarism_texts, concept_uid, note, feedbacks, state, label, conditional, hint, } = rule;
 
   const initialRuleType = getInitialRuleType({ isUniversal, rule_type, universalRuleType: null});
   const initialRuleOptimal = optimal ? ruleOptimalOptions[0] : ruleOptimalOptions[1];
-  const initialPlagiarismText = plagiarism_text || { text: '' }
+  const initialPlagiarismTexts = plagiarism_texts || [{ text: '' }]
   const initalNote = note || '';
   const initialFeedbacks = feedbacks ? formatInitialFeedbacks(feedbacks) : returnInitialFeedback(initialRuleType.value);
   const initialLabel = label && label.name;
@@ -66,12 +68,13 @@ const RuleViewForm = ({
 
   const [errors, setErrors] = React.useState<object>({});
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
-  const [plagiarismText, setPlagiarismText] = React.useState<RuleInterface["plagiarism_text"]>(initialPlagiarismText);
+  const [plagiarismTexts, setPlagiarismTexts] = React.useState<RuleInterface["plagiarism_texts"]>(initialPlagiarismTexts);
   const [regexRules, setRegexRules] = React.useState<object>({});
   const [ruleConditional, setRuleConditional] = React.useState<boolean>(initialConditional)
   const [ruleConceptUID, setRuleConceptUID] = React.useState<string>(concept_uid || '');
   const [ruleNote, setRuleNote] = React.useState<string>(initalNote);
   const [ruleFeedbacks, setRuleFeedbacks] = React.useState<object>(initialFeedbacks);
+  const [ruleHint, setRuleHint] = React.useState<object|null>(hint)
   const [ruleOptimal, setRuleOptimal] = React.useState<any>(initialRuleOptimal);
   const [ruleName, setRuleName] = React.useState<string>(name || '');
   const [ruleLabelName, setRuleLabelName] = React.useState<string>(initialLabel);
@@ -83,6 +86,8 @@ const RuleViewForm = ({
   const [ruleType, setRuleType] = React.useState<DropdownObjectInterface>(initialRuleType);
   const [showDeleteRuleModal, setShowDeleteRuleModal] = React.useState<boolean>(false);
   const [universalRulesCount, setUniversalRulesCount] = React.useState<number>(null);
+
+  const queryClient = useQueryClient()
 
   // cache ruleSets data for handling rule suborder
   const { data: rulesData } = useQuery({
@@ -126,7 +131,7 @@ const RuleViewForm = ({
   function onHandleSubmitRule() {
     setIsLoading(true);
     handleSubmitRule({
-      plagiarismText,
+      plagiarismTexts,
       regexRules,
       rule,
       ruleId: id,
@@ -143,7 +148,8 @@ const RuleViewForm = ({
       ruleType,
       setErrors,
       submitRule,
-      universalRulesCount
+      universalRulesCount,
+      ruleHint,
     }).then(() => {
       setIsLoading(false);
     });
@@ -160,7 +166,7 @@ const RuleViewForm = ({
     deleteRule(ruleId).then((response) => {
       toggleShowDeleteRuleModal();
       // update ruleSets cache to remove delete ruleSet
-      queryCache.refetchQueries(`rules-${activityId}`);
+      queryClient.refetchQueries(`rules-${activityId}`);
       history.push(`/activities/${activityId}/${returnLinkRuleType}`);
     });
   }
@@ -237,9 +243,9 @@ const RuleViewForm = ({
         {ruleType && ruleType.value === PLAGIARISM && <RulePlagiarismAttributes
           errors={errors}
           plagiarismFeedbacks={ruleFeedbacks}
-          plagiarismText={plagiarismText}
+          plagiarismTexts={plagiarismTexts}
           setPlagiarismFeedbacks={setRuleFeedbacks}
-          setPlagiarismText={setPlagiarismText}
+          setPlagiarismTexts={setPlagiarismTexts}
         />}
         {ruleType && regexRuleTypes.includes(ruleType.value) && <RuleRegexAttributes
           errors={errors}
@@ -267,6 +273,11 @@ const RuleViewForm = ({
           setUniversalFeedback={setRuleFeedbacks}
           universalFeedback={ruleFeedbacks}
         />}
+        <RuleHint
+          errors={errors}
+          hint={ruleHint}
+          setHint={setRuleHint}
+        />
         <div className="submit-button-container">
           {showErrorsContainer && renderErrorsContainer(formErrorsPresent, requestErrors)}
           <button className="quill-button fun primary contained" id="rule-submit-button" onClick={onHandleSubmitRule} type="button">

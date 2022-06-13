@@ -46,7 +46,7 @@ export default class QuestionListByConcept extends React.Component<QuestionListB
             basePath={this.props.basePath}
             itemKey={question.key}
             key={question.key}
-            subpath={'responses'}
+            subpath="responses"
             text={formattedPrompt}
           />
         );

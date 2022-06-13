@@ -5,7 +5,7 @@ import { withRouter, Link } from 'react-router-dom';
 import { activateModel, fetchModel, fetchModels } from '../../../utils/evidence/modelAPIs';
 import { fetchRules } from '../../../utils/evidence/ruleAPIs';
 import { DataTable, Spinner } from '../../../../Shared/index';
-import { getCheckIcon } from '../../../helpers/evidence';
+import { getCheckIcon } from '../../../helpers/evidence/renderHelpers';
 
 const ActivateModelForm = ({ match }) => {
   const { params } = match;

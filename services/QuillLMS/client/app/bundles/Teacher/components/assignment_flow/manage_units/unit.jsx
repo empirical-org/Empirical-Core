@@ -33,8 +33,10 @@ export default class Unit extends React.Component {
     // and we need to do a number of things with it that are better with an array
     const classrooms = Array.isArray(dclassy) ? dclassy : Array.from(dclassy);
     const studentCount = this.props.data.num_students_assigned || this.props.data.studentCount;
-    return (<div className="assigned-to">{`Assigned to ${studentCount} ${Pluralize('Student', studentCount)} in
-    ${classrooms.length} ${Pluralize('class', classrooms.length)} (${classrooms.join(', ')}).`}</div>);
+    return (
+      <div className="assigned-to">{`Assigned to ${studentCount} ${Pluralize('Student', studentCount)} in
+    ${classrooms.length} ${Pluralize('class', classrooms.length)} (${classrooms.join(', ')}).`}</div>
+    );
   };
 
   editUnit = () => {
@@ -47,7 +49,7 @@ export default class Unit extends React.Component {
     if (!this.props.report && !this.props.lesson && ownedByCurrentUser) {
       return <span className="delete-unit" onClick={this.hideUnit}>Delete</span>;
     } else if (!ownedByCurrentUser) {
-      return <span className="locked-unit">   <img src="https://assets.quill.org/images/icons/lock-activity-pack-icon.svg"  />Created By {firstCa.ownerName}</span>;
+      return <span className="locked-unit">   <img alt="" src="https://assets.quill.org/images/icons/lock-activity-pack-icon.svg"  />Created By {firstCa.ownerName}</span>;
     }
   };
 

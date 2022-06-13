@@ -81,6 +81,7 @@ class Activity < ApplicationRecord
   GAMMA = 'gamma'
   BETA = 'beta'
   ALPHA = 'alpha'
+  ARCHIVED = 'archived'
 
   scope :gamma_user, -> { where("'#{GAMMA}' = ANY(activities.flags) OR '#{PRODUCTION}' = ANY(activities.flags)")}
   scope :beta_user, -> { where("'#{BETA}' = ANY(activities.flags) OR '#{GAMMA}' = ANY(activities.flags) OR '#{PRODUCTION}' = ANY(activities.flags)")}
@@ -105,17 +106,13 @@ class Activity < ApplicationRecord
   end
 
   def self.activity_with_recommendations_ids
-    Recommendation.all.map(&:activity_id).uniq
+    Rails.cache.fetch('all_recommendation_activity_ids', expires_in: 24.hours) do
+      Recommendation.all.map(&:activity_id).uniq
+    end
   end
 
   def self.find_by_id_or_uid(arg)
-    begin
-      find_by!(uid: arg)
-    rescue ActiveRecord::RecordNotFound
-      find(arg)
-    rescue ActiveRecord::RecordNotFound
-      raise ActiveRecord::RecordNotFound, "Couldn't find Activity with 'id' or 'uid'=#{arg}"
-    end
+    find_by(uid: arg)  || find(arg)
   end
 
   def standard_uid= uid
@@ -127,11 +124,12 @@ class Activity < ApplicationRecord
   end
 
   def self.user_scope(user_flag)
-    if user_flag == ALPHA
+    case user_flag
+    when ALPHA
       Activity.alpha_user
-    elsif user_flag == BETA
+    when BETA
       Activity.beta_user
-    elsif user_flag == GAMMA
+    when GAMMA
       Activity.gamma_user
     else
       Activity.production
@@ -172,13 +170,13 @@ class Activity < ApplicationRecord
   end
 
   # TODO: cleanup
-  def flag flag = nil
+  def flag(flag = nil)
     return super(flag) unless flag.nil?
+
     flags.first
   end
 
-  def flag= flag
-    flag = :archived if flag.to_sym == :archive
+  def flag=(flag)
     self.flags = [flag]
   end
 
@@ -206,7 +204,7 @@ class Activity < ApplicationRecord
   end
 
   def self.search_results(flag)
-    substring = flag ? flag + "_" : ""
+    substring = flag ? "#{flag}_" : ""
     activity_search_results = $redis.get("default_#{substring}activity_search")
     activity_search_results ||= ActivitySearchWrapper.search_cache_data(flag)
     JSON.parse(activity_search_results)
@@ -218,6 +216,7 @@ class Activity < ApplicationRecord
 
   def add_question(question)
     return if !validate_question(question)
+
     if !ACTIVITY_TYPES_WITH_QUESTIONS.include?(activity_classification_id)
       errors.add(:activity, "You can't add questions to this type of activity.")
       return
@@ -247,6 +246,7 @@ class Activity < ApplicationRecord
 
   def child_activity
     return unless is_evidence?
+
     Evidence::Activity.find_by(parent_activity_id: id)
   end
 

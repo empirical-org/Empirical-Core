@@ -66,10 +66,12 @@ const Pagination = ({ activities, currentPage, setCurrentPage, }: PaginationProp
   const lowestDisplayedNumber = lowerBound(currentPage) + 1
   const highestDisplayedNumber = upperBound(currentPage) > activities.length ? activities.length : upperBound(currentPage)
 
-  return (<section className="pagination-section">
-    {paginationRow}
-    <p>{lowestDisplayedNumber}-{highestDisplayedNumber} of {activities.length} activities</p>
-  </section>)
+  return (
+    <section className="pagination-section">
+      {paginationRow}
+      <p>{lowestDisplayedNumber}-{highestDisplayedNumber} of {activities.length} activities</p>
+    </section>
+  )
 }
 
 export default Pagination

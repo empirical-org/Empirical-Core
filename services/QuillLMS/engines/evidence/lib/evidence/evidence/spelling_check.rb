@@ -2,34 +2,56 @@
 
 module Evidence
   class SpellingCheck
-    class BingRateLimitException < StandardError; end
-
     API_TIMEOUT = 5
-    ALL_CORRECT_FEEDBACK = 'Correct spelling!'
-    FALLBACK_INCORRECT_FEEDBACK = 'Update the spelling of the bolded word(s).'
+    ALL_CORRECT_FEEDBACK = '<p>Correct spelling!</p>'
+    FALLBACK_INCORRECT_FEEDBACK = '<p>Update the spelling of the bolded word(s).</p>'
     FEEDBACK_TYPE = Rule::TYPE_SPELLING
     RESPONSE_TYPE = 'response'
     BING_API_URL = 'https://api.cognitive.microsoft.com/bing/v7.0/SpellCheck'
     SPELLING_CONCEPT_UID = 'H-2lrblngQAQ8_s-ctye4g'
+
+    class BingRateLimitException < StandardError; end
+    class BingTimeoutError < StandardError; end
+    TIMEOUT_ERROR_MESSAGE = "request took longer than #{API_TIMEOUT} seconds"
+
+    # TODO: replace with better exception code
+    EXCEPTIONS = [
+      'solartogether',
+      'jerom',
+      'espana',
+      'españa',
+      'cafebabel',
+      'cafébabel',
+      'sanchez',
+      'sánchez',
+      'kanaka',
+      'kānaka',
+      'worldwatch',
+      'wilmut'
+    ]
+
     attr_reader :entry
 
     def initialize(entry)
       @entry = entry
     end
 
+    # rubocop:disable Metrics/CyclomaticComplexity
     def feedback_object
       return {} if error.present?
+
       {
         feedback: optimal? ? ALL_CORRECT_FEEDBACK : non_optimal_feedback_string,
         feedback_type: FEEDBACK_TYPE,
         optimal: optimal?,
-        response_id: '',
         entry: @entry,
         concept_uid: SPELLING_CONCEPT_UID,
         rule_uid: spelling_rule&.uid || '',
+        hint: optimal? ? nil : spelling_rule&.hint,
         highlight: optimal? ? [] : highlight
       }
     end
+    # rubocop:enable Metrics/CyclomaticComplexity
 
     def non_optimal_feedback_string
       spelling_rule&.feedbacks&.first&.text || FALLBACK_INCORRECT_FEEDBACK
@@ -41,6 +63,7 @@ module Evidence
 
     private def spelling_rule
       return @spelling_rule if @spelling_rule
+
       @spelling_rule ||= Rule.where(rule_type: FEEDBACK_TYPE).first
     end
 
@@ -53,7 +76,7 @@ module Evidence
     end
 
     private def misspelled
-      bing_response['flaggedTokens'] || []
+      bing_response['flaggedTokens']&.reject {|r| r['token']&.downcase&.in?(EXCEPTIONS)} || []
     end
 
     private def bing_response
@@ -72,8 +95,8 @@ module Evidence
       raise BingRateLimitException if @response.code == 429
 
       JSON.parse(@response.body)
-    rescue Net::OpenTimeout
-      {}
+    rescue *Evidence::HTTP_TIMEOUT_ERRORS
+      raise BingTimeoutError, TIMEOUT_ERROR_MESSAGE
     end
   end
 end

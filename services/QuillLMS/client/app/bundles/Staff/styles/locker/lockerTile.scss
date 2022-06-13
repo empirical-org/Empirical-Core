@@ -1,0 +1,45 @@
+.modal {
+  .modal-container {
+    .modal-content {
+      .organize-locker-modal {
+        width: 480px;
+        .change-emoji-button {
+          color: #00c2a2;
+          margin-bottom: 16px;
+        }
+        .change-emoji-button:hover {
+          color: #06806b;
+        }
+      }
+    }
+  }
+}
+
+.emoji-container {
+  display: flex;
+  align-items: center;
+  margin: 8px 0px;
+  p {
+    margin: 0
+  }
+  .emoji-label {
+    font-size: 16px;
+    margin-right: 8px;
+  }
+  .emoji {
+    font-size: 48px;
+    margin-left: 8px;
+  }
+}
+
+.locker-container {
+  .edit-locker {
+    width: 100%;
+    margin: 0;
+    font-size: 16px;
+  }
+}
+
+.locker-container:hover {
+  background-color: #efefef;
+}

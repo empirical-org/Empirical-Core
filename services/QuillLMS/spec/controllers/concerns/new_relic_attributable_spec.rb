@@ -34,4 +34,19 @@ describe NewRelicAttributable, type: :controller do
       get :index
     end
   end
+
+  context 'Evidence engine' do
+    controller(Evidence::ApiController) do
+
+      def index
+        head :ok
+      end
+    end
+
+    it 'should pass user_id to NewRelic' do
+      allow(controller).to receive(:current_user) { user }
+      expect(::NewRelic::Agent).to receive(:add_custom_attributes).with({user_id: user.id})
+      get :index
+    end
+  end
 end

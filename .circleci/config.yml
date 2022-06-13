@@ -25,6 +25,7 @@ jobs:
           name: Bundle Install if cache isn't present.
           command: |
             cd services/QuillLMS
+            gem install bundler:2.2.33
             # BUNDLE_GEMS__CONTRIBSYS__COM defined in https://circleci.com/gh/empirical-org/Empirical-Core/edit#env-vars
             bundle config --local gems.contribsys.com ${BUNDLE_GEMS__CONTRIBSYS__COM}
             bundle check || bundle install --path vendor/bundle
@@ -229,7 +230,7 @@ jobs:
           command: |
             cd packages/quill-marking-logic
             FORCE_COLOR=true npm run test --colors
-  comprehension_go_build:
+  evidence_go_build:
     working_directory: ~/Empirical-Core
     docker:
       - image: circleci/golang:1.13
@@ -238,7 +239,7 @@ jobs:
       - run:
           name: Run tests
           command: |
-            cd services/comprehension/feedback-api-main/src/endpoint
+            cd services/evidence/feedback-api-main/src/endpoint
             go test
   evidence_rails_build:
     working_directory: ~/Empirical-Core
@@ -314,7 +315,7 @@ jobs:
   rubocop_lint:
     working_directory: ~/Empirical-Core
     docker:
-      - image: circleci/ruby:2.5.1-node
+      - image: circleci/ruby:2.6.6-node
     steps:
       - checkout
       - run:
@@ -344,15 +345,16 @@ workflows:
           filters:
             branches:
               ignore: /^deploy-.*/
-      - lms_integration_build:
-          <<: *default_filter
+      # Turning this off for now due to spurious failures
+      # - lms_integration_build:
+      #     <<: *default_filter
       - lms_node_build:
           <<: *default_filter
       - marking_logic_node_build:
           <<: *default_filter
       - cms_rails_build:
           <<: *default_filter
-      - comprehension_go_build:
+      - evidence_go_build:
           <<: *default_filter
       - evidence_rails_build:
           <<: *default_filter

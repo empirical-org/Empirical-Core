@@ -7,7 +7,7 @@
  * @version   v1.7.3
  */
 
-  /* Sample html structure
+/* Sample html structure
   <div class='tabs'>
     <ul class='horizontal'>
       <li><a href="#tab-1">Tab 1</a></li>
@@ -37,7 +37,7 @@
 
   $.fn.tabslet = function(options) {
 
-    var defaults = {
+    let defaults = {
       mouseevent:   'click',
       activeclass:  'active',
       attribute:    'href',
@@ -58,15 +58,15 @@
 
     return this.each(function() {
 
-      var $this      = $(this), _cache_li = [], _cache_div = [];
-      var _container = options.container ? $(options.container) : $this;
-      var _tabs      = _container.find('> div');
+      let $this      = $(this), _cache_li = [], _cache_div = [];
+      let _container = options.container ? $(options.container) : $this;
+      let _tabs      = _container.find('> div');
 
       // Caching
       _tabs.each(function() { _cache_div.push($(this).css('display')); });
 
       // Autorotate
-      var elements = $this.find('> ul > li'), i = options.active - 1; // ungly
+      let elements = $this.find('> ul > li'), i = options.active - 1; // ungly
 
       if ( !$this.data( 'tabslet-init' ) ) {
 
@@ -87,10 +87,10 @@
           elements.eq($this.opts.active - 1).addClass(options.activeclass);
         }
 
-        var fn = eval(
+        let fn = eval(
 
           function(e, tab) {
-            var _this = tab ? elements.find('a[' + $this.opts.attribute + '="' + tab +'"]').parent() : $(this);
+            let _this = tab ? elements.find('a[' + $this.opts.attribute + '="' + tab +'"]').parent() : $(this);
 
             _this.trigger('_before');
 
@@ -100,7 +100,7 @@
 
             i = elements.index(_this);
 
-            var currentTab = tab || _this.find('a').attr($this.opts.attribute);
+            let currentTab = tab || _this.find('a').attr($this.opts.attribute);
 
             if ($this.opts.deeplinking) location.hash = currentTab;
 
@@ -123,11 +123,11 @@
 
         );
 
-        var init = eval("elements." + $this.opts.mouseevent + "(fn)");
+        let init = eval("elements." + $this.opts.mouseevent + "(fn)");
 
         init;
 
-        var t;
+        let t;
 
         var forward = function() {
 
@@ -171,11 +171,11 @@
 
         function deep_link() {
 
-          var ids = [];
+          let ids = [];
 
           elements.find('a').each(function() { ids.push($(this).attr($this.opts.attribute)); });
 
-          var index = $.inArray(location.hash, ids)
+          let index = $.inArray(location.hash, ids)
 
           if (index > -1) {
 
@@ -189,7 +189,7 @@
 
         }
 
-        var move = function(direction) {
+        let move = function(direction) {
 
           if (direction == 'forward') i = i+=1 % elements.length; // wrap around
 

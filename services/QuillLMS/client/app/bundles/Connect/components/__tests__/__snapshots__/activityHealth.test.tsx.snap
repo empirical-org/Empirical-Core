@@ -1,12 +1,36 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ActivityHealth component should render ActivityHealth 1`] = `
-<Connect(ActivityHealth)
-  activityHealth={
+<ContextProvider
+  value={
     Object {
-      "flag": "All Flags",
+      "store": Object {
+        "dispatch": [Function],
+        "getState": [Function],
+        "replaceReducer": [Function],
+        "subscribe": [Function],
+        Symbol(observable): [Function],
+      },
+      "subscription": Object {
+        "addNestedSub": [Function],
+        "getListeners": [Function],
+        "handleChangeWrapper": [Function],
+        "isSubscribed": [Function],
+        "notifyNestedSubs": [Function],
+        "onStateChange": [Function],
+        "trySubscribe": [Function],
+        "tryUnsubscribe": [Function],
+      },
     }
   }
-  dispatch={[MockFunction]}
-/>
+>
+  <Connect(ActivityHealth)
+    activityHealth={
+      Object {
+        "flag": "All Flags",
+      }
+    }
+    dispatch={[MockFunction]}
+  />
+</ContextProvider>
 `;

@@ -11,80 +11,80 @@ const initialState = {
 }
 
 export default function(currentstate,action){
-    var newstate;
-    switch(action.type){
-        case C.RECEIVE_SENTENCE_FRAGMENTS_DATA:
-            return Object.assign({},currentstate,{
-                hasreceiveddata: true,
-                data: action.data,
-            });
-        case C.RECEIVE_SENTENCE_FRAGMENT_DATA:
-            return Object.assign({}, currentstate, {
-                data: Object.assign({}, currentstate.data, {
-                [action.uid]: action.data,
-                })
-            });
-        case C.AWAIT_NEW_SENTENCE_FRAGMENT_RESPONSE:
-            return Object.assign({},currentstate,{
-                submittingnew: true
-            });
-        case C.RECEIVE_NEW_SENTENCE_FRAGMENT_RESPONSE:
-            return Object.assign({},currentstate,{
-                submittingnew: false,
-                newSentenceFragmentModalOpen: false
-            });
-        case C.START_SENTENCE_FRAGMENT_EDIT:
-            newstate = _.cloneDeep(currentstate);
-            newstate.states[action.sfid] = C.EDITING_SENTENCE_FRAGMENT;
-            return newstate;
-        case C.FINISH_SENTENCE_FRAGMENT_EDIT:
-            newstate = _.cloneDeep(currentstate);
-            delete newstate.states[action.sfid];
-            return newstate;
-        case C.SUBMIT_SENTENCE_FRAGMENT_EDIT:
-            newstate = _.cloneDeep(currentstate);
-            newstate.states[action.sfid] = C.SUBMITTING_SENTENCE_FRAGMENT;
-            return newstate;
-        case C.TOGGLE_NEW_SENTENCE_FRAGMENT_MODAL:
-            return Object.assign({},currentstate,{
-                newSentenceFragmentModalOpen: !currentstate.newSentenceFragmentModalOpen
-            });
-        case C.START_RESPONSE_EDIT:
-            newstate = _.cloneDeep(currentstate);
-            newstate.states[action.sfid] = C.START_RESPONSE_EDIT + "_" + action.rid;
-            return newstate;
-        case C.FINISH_RESPONSE_EDIT:
-            newstate = _.cloneDeep(currentstate);
-            delete newstate.states[action.sfid];
-            return newstate;
-        case C.START_CHILD_RESPONSE_VIEW:
-            newstate = _.cloneDeep(currentstate);
-            newstate.states[action.sfid] = C.START_CHILD_RESPONSE_VIEW + "_" + action.rid;
-            return newstate;
-        case C.CANCEL_CHILD_RESPONSE_VIEW:
-            newstate = _.cloneDeep(currentstate);
-            delete newstate.states[action.sfid];
-            return newstate;
-        case C.START_FROM_RESPONSE_VIEW:
-            newstate = _.cloneDeep(currentstate);
-            newstate.states[action.sfid] = C.START_FROM_RESPONSE_VIEW + "_" + action.rid;
-            return newstate;
-        case C.CANCEL_FROM_RESPONSE_VIEW:
-            newstate = _.cloneDeep(currentstate);
-            delete newstate.states[action.sfid];
-            return newstate;
-        case C.START_TO_RESPONSE_VIEW:
-            newstate = _.cloneDeep(currentstate);
-            newstate.states[action.sfid] = C.START_TO_RESPONSE_VIEW + "_" + action.rid;
-            return newstate;
-        case C.CANCEL_TO_RESPONSE_VIEW:
-            newstate = _.cloneDeep(currentstate);
-            delete newstate.states[action.sfid];
-            return newstate;
-        case C.SUBMIT_RESPONSE_EDIT:
-            newstate = _.cloneDeep(currentstate);
-            newstate.states[action.sfid] = C.SUBMITTING_RESPONSE;
-            return newstate;
-        default: return currentstate || initialState.sentenceFragments;
-    }
+  let newstate;
+  switch(action.type){
+    case C.RECEIVE_SENTENCE_FRAGMENTS_DATA:
+      return Object.assign({},currentstate,{
+        hasreceiveddata: true,
+        data: action.data,
+      });
+    case C.RECEIVE_SENTENCE_FRAGMENT_DATA:
+      return Object.assign({}, currentstate, {
+        data: Object.assign({}, currentstate.data, {
+          [action.uid]: action.data,
+        })
+      });
+    case C.AWAIT_NEW_SENTENCE_FRAGMENT_RESPONSE:
+      return Object.assign({},currentstate,{
+        submittingnew: true
+      });
+    case C.RECEIVE_NEW_SENTENCE_FRAGMENT_RESPONSE:
+      return Object.assign({},currentstate,{
+        submittingnew: false,
+        newSentenceFragmentModalOpen: false
+      });
+    case C.START_SENTENCE_FRAGMENT_EDIT:
+      newstate = _.cloneDeep(currentstate);
+      newstate.states[action.sfid] = C.EDITING_SENTENCE_FRAGMENT;
+      return newstate;
+    case C.FINISH_SENTENCE_FRAGMENT_EDIT:
+      newstate = _.cloneDeep(currentstate);
+      delete newstate.states[action.sfid];
+      return newstate;
+    case C.SUBMIT_SENTENCE_FRAGMENT_EDIT:
+      newstate = _.cloneDeep(currentstate);
+      newstate.states[action.sfid] = C.SUBMITTING_SENTENCE_FRAGMENT;
+      return newstate;
+    case C.TOGGLE_NEW_SENTENCE_FRAGMENT_MODAL:
+      return Object.assign({},currentstate,{
+        newSentenceFragmentModalOpen: !currentstate.newSentenceFragmentModalOpen
+      });
+    case C.START_RESPONSE_EDIT:
+      newstate = _.cloneDeep(currentstate);
+      newstate.states[action.sfid] = C.START_RESPONSE_EDIT + "_" + action.rid;
+      return newstate;
+    case C.FINISH_RESPONSE_EDIT:
+      newstate = _.cloneDeep(currentstate);
+      delete newstate.states[action.sfid];
+      return newstate;
+    case C.START_CHILD_RESPONSE_VIEW:
+      newstate = _.cloneDeep(currentstate);
+      newstate.states[action.sfid] = C.START_CHILD_RESPONSE_VIEW + "_" + action.rid;
+      return newstate;
+    case C.CANCEL_CHILD_RESPONSE_VIEW:
+      newstate = _.cloneDeep(currentstate);
+      delete newstate.states[action.sfid];
+      return newstate;
+    case C.START_FROM_RESPONSE_VIEW:
+      newstate = _.cloneDeep(currentstate);
+      newstate.states[action.sfid] = C.START_FROM_RESPONSE_VIEW + "_" + action.rid;
+      return newstate;
+    case C.CANCEL_FROM_RESPONSE_VIEW:
+      newstate = _.cloneDeep(currentstate);
+      delete newstate.states[action.sfid];
+      return newstate;
+    case C.START_TO_RESPONSE_VIEW:
+      newstate = _.cloneDeep(currentstate);
+      newstate.states[action.sfid] = C.START_TO_RESPONSE_VIEW + "_" + action.rid;
+      return newstate;
+    case C.CANCEL_TO_RESPONSE_VIEW:
+      newstate = _.cloneDeep(currentstate);
+      delete newstate.states[action.sfid];
+      return newstate;
+    case C.SUBMIT_RESPONSE_EDIT:
+      newstate = _.cloneDeep(currentstate);
+      newstate.states[action.sfid] = C.SUBMITTING_RESPONSE;
+      return newstate;
+    default: return currentstate || initialState.sentenceFragments;
+  }
 };

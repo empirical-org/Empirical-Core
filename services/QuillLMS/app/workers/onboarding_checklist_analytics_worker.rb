@@ -8,9 +8,10 @@ class OnboardingChecklistAnalyticsWorker
       objective = Objective.find_by_name(name)
       Checkbox.find_by(user_id: user_id, objective_id: objective.id)
     end
-    if all_objectives_met
-      analytics = SegmentAnalytics.new
-      analytics.track_event_from_string("TEACHER_COMPLETED_ONBOARDING_CHECKLIST", user_id)
-    end
+
+    return unless all_objectives_met
+
+    analytics = SegmentAnalytics.new
+    analytics.track_event_from_string("TEACHER_COMPLETED_ONBOARDING_CHECKLIST", user_id)
   end
 end

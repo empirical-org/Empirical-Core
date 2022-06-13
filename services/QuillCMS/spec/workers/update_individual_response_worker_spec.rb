@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe UpdateIndividualResponseWorker do
-  let(:subject) { described_class.new }
+  subject { described_class.new }
 
   describe '#perform' do
     it 'should call update_index_in_elastic_search' do

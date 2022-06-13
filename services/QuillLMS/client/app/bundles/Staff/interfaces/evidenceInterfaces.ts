@@ -6,22 +6,23 @@ export interface ActivityRouteProps {
 
 export interface InvalidHighlight {
   rule_id: number,
-  rule_type: string
+  rule_type: string,
+  prompt_id?: number
 }
 
 export interface ActivityInterface {
   id?: string,
   parent_activity_id?: string,
+  flag?: string,
   title: string,
   notes: string,
-  // flag: string,
-  scored_level: string,
-  target_level: number,
+  scored_level?: string,
+  target_level?: number,
   passages?: PassagesInterface[],
   prompts?: PromptInterface[],
   passage_attributes?: PassagesInterface[],
   prompt_attributes?: PromptInterface[],
-  invalid_highlights: InvalidHighlight[]
+  invalid_highlights?: InvalidHighlight[]
 }
 
 export interface PromptInterface {
@@ -29,7 +30,9 @@ export interface PromptInterface {
   conjunction: string,
   text: string,
   max_attempts: number,
-  max_attempts_feedback: string
+  max_attempts_feedback: string,
+  first_strong_example: string,
+  second_strong_example: string
 }
 
 export interface RegexRuleInterface {
@@ -65,7 +68,14 @@ export interface PassagesInterface {
   image_alt_text?: string,
   image_caption?: string,
   image_attribution?: string,
-  highlight_prompt?: string
+  highlight_prompt?: string,
+  essential_knowledge_text?: string
+}
+
+export interface PlagiarismText {
+  id?: number,
+  rule_id?: number,
+  text: string
 }
 
 export interface RuleInterface {
@@ -81,15 +91,16 @@ export interface RuleInterface {
   prompt_ids?: number[],
   state: string,
   conditional?: boolean,
+  hint?: {
+    id: number,
+    image_link: string,
+    explanation: string
+  },
   label?: {
     id: number,
     name: string
   },
-  plagiarism_text?: {
-    id?: number,
-    rule_id?: number,
-    text: string
-  }
+  plagiarism_texts?: PlagiarismText[],
   regex_rules?: RegexRuleInterface[]
   regex_rules_attributes?: RegexRuleInterface[]
   feedbacks?: {

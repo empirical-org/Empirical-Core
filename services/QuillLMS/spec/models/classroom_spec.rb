@@ -51,6 +51,36 @@ describe Classroom, type: :model do
   let(:classroom) { build(:classroom) }
   let(:teacher) { create(:teacher) }
 
+  describe '#destroy' do
+    let(:teacher2) { create(:teacher)}
+    let(:classroom_to_destroy) { create(:classroom) }
+    let!(:classrooms_teacher) { create(:classrooms_teacher, user_id: teacher2.id, classroom_id: classroom_to_destroy.id) }
+
+    let(:unit1) { create(:unit) }
+    let!(:classroom_unit1) { create(:classroom_unit, unit_id: unit1.id, classroom_id: classroom_to_destroy.id ) }
+    let!(:unrelated_classroom_unit) { create(:classroom_unit) }
+
+    let(:student1) { create(:student) }
+    let!(:students_classrooms) { create(:students_classrooms, student_id: student1.id, classroom_id: classroom_to_destroy.id) }
+    let!(:unrelated_students_classroom) { create(:students_classrooms) }
+
+    let!(:invite) { create(:coteacher_classroom_invitation, classroom_id: classroom_to_destroy.id) }
+
+    it 'should cascade-destroy foreign key dependent records' do
+      expect do
+        classroom_to_destroy.destroy
+      end
+      .to change { Classroom.count }.by(-1)
+      .and change { Unit.count }.by(0)
+      .and change { ClassroomUnit.count }.by(-1)
+      .and change { User.count }.by(0)
+      .and change { StudentsClassrooms.count }.by(-1)
+      .and change { Activity.count }.by(0)
+      .and change { CoteacherClassroomInvitation.count }.by(-1)
+      expect(ClassroomsTeacher.where(classroom_id: classroom_to_destroy.id).count).to eq 0
+    end
+  end
+
   describe '#create_with_join' do
 
     context 'when passed valid classrooms data' do
@@ -207,6 +237,7 @@ describe Classroom, type: :model do
     it "must not run before validate" do
       expect(classroom.code).to be_nil
     end
+
     it "must generate a code after validations" do
       classroom=create(:classroom)
       expect(classroom.code).to_not be_nil

@@ -18,6 +18,7 @@ describe Teachers::ClassroomUnitsController, type: :controller do
     before do
       allow(controller).to receive(:current_user) { teacher }
     end
+
     describe '#launch_lesson' do
       let!(:milestone) { create(:milestone, name: "View Lessons Tutorial") }
 

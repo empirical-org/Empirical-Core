@@ -33,7 +33,7 @@ class QuestionHealthDashboard
   end
 
   private def score_to_attempts(score)
-    Y_INTERCEPT - SLOPE * score
+    Y_INTERCEPT - (SLOPE * score)
   end
 
   private def cms_data

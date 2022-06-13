@@ -31,15 +31,14 @@ export default class extends React.Component {
       onButtonClick = () => { window.location.assign('/teachers/classrooms?modal=create-a-class'); }
       buttonText = 'Create a Class';
       content = 'In order to access our different reports, you need to create a class and assign activities to your students.'
-    }
- 		return (
-   <div className="empty-progress-report">
-     <img src='/images/empty_state_illustration.png' />
-     <h1>{title}</h1>
-     <p>{content}</p>
-     <button className="button-green create-unit featured-button" onClick={onButtonClick}>{buttonText}</button>
-     <a href="/teacher-center">Teacher Center</a>
-   </div>
- );
+    } return (
+      <div className="empty-progress-report">
+        <img alt="" src='/images/empty_state_illustration.png' />
+        <h1>{title}</h1>
+        <p>{content}</p>
+        <button className="button-green create-unit featured-button" onClick={onButtonClick}>{buttonText}</button>
+        <a href="/teacher-center">Teacher Center</a>
+      </div>
+    );
   }
 }

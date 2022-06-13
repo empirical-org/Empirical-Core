@@ -95,6 +95,6 @@ FactoryBot.define do
         create(:change_log, changed_record: t)
       end
     end
-    
+
   end
 end

@@ -77,11 +77,11 @@ module Demo::ConceptResults
   end
 
   def self.process_arr(arr)
-    processed = arr.reduce([]) do |acc, ele|
-      extant = acc.find{|x| x[:activity] == ele[:activity]}
-      if extant.present?
-        crd = extant[:concept_result_data]
-        new_acc = acc.reject{|y| y == extant}
+    arr.reduce([]) do |acc, ele|
+      existing = acc.find{|x| x[:activity] == ele[:activity]}
+      if existing.present?
+        crd = existing[:concept_result_data]
+        new_acc = acc.reject{|y| y == existing}
       else
         crd = []
         new_acc = [].concat(acc)
@@ -93,7 +93,7 @@ module Demo::ConceptResults
       new_new_acc = [].concat(new_acc).push(new_hash)
       new_new_acc
     end
-    processed
+
   end
 
   def self.turn_csv_into_arr

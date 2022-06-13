@@ -27,7 +27,7 @@ describe('FillInBlankQuestion component', () => {
           value: 'test3'
         }
       },
-       states: {
+      states: {
         abc: {
           value: 'test1'
         },
@@ -37,7 +37,7 @@ describe('FillInBlankQuestion component', () => {
         ghi: {
           value: 'test3'
         }
-       }
+      }
     },
     massEdit: {
       numSelectedResponses: 3

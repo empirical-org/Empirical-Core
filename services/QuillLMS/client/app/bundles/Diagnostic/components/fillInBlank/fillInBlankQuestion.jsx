@@ -32,8 +32,8 @@ class FillInBlankQuestion extends Component {
       return (<p>Loading...</p>);
     } else if (question) {
       const activeLink = massEdit.numSelectedResponses > 1
-      ? <NavLink activeClassName="is-active" to={`/admin/fill-in-the-blanks/${questionID}/mass-edit`}>Mass Edit ({massEdit.numSelectedResponses})</NavLink>
-      : <li style={{color: "#a2a1a1"}}>Mass Edit ({massEdit.numSelectedResponses})</li>
+        ? <NavLink activeClassName="is-active" to={`/admin/fill-in-the-blanks/${questionID}/mass-edit`}>Mass Edit ({massEdit.numSelectedResponses})</NavLink>
+        : <li style={{color: "#a2a1a1"}}>Mass Edit ({massEdit.numSelectedResponses})</li>
       const data = fillInBlank.data
       return (
         <div className="admin-container">
@@ -60,10 +60,10 @@ class FillInBlankQuestion extends Component {
             </ul>
           </div>
           <Switch>
-            <Route component={ResponseComponentWrapper} path={`/admin/fill-in-the-blanks/:questionID/responses`} />
-            <Route component={MassEditContainer} path={`/admin/fill-in-the-blanks/:questionID/mass-edit`} />
-            <Route component={TestFillInBlankQuestionContainer} path={`/admin/fill-in-the-blanks/:questionID/test`} />
-            <Route component={EditFillInBlank} path={`/admin/fill-in-the-blanks/:questionID/edit`} />
+            <Route component={ResponseComponentWrapper} path="/admin/fill-in-the-blanks/:questionID/responses" />
+            <Route component={MassEditContainer} path="/admin/fill-in-the-blanks/:questionID/mass-edit" />
+            <Route component={TestFillInBlankQuestionContainer} path="/admin/fill-in-the-blanks/:questionID/test" />
+            <Route component={EditFillInBlank} path="/admin/fill-in-the-blanks/:questionID/edit" />
           </Switch>
         </div>
       );

@@ -63,24 +63,30 @@ export default class SchoolSelector extends React.Component {
   }
 
   renderLoading() {
-    return (<div className="loading">
-      <LoadingIndicator />
-    </div>)
+    return (
+      <div className="loading">
+        <LoadingIndicator />
+      </div>
+    )
   }
 
   renderDefault() {
-    return (<div className="default-school-search">
-      <img alt="Map with a magnifying glass over it" src={mapSearchSrc} />
-      <p className="message">Search for your school above</p>
-    </div>)
+    return (
+      <div className="default-school-search">
+        <img alt="Map with a magnifying glass over it" src={mapSearchSrc} />
+        <p className="message">Search for your school above</p>
+      </div>
+    )
   }
 
   renderNoSchoolFound() {
-    return (<div className="no-school-found">
-      <img alt="Map with a magnifying glass over it" src={mapSearchSrc} />
-      <p className="message">We couldn&#39;t find your school</p>
-      <p className="sub-text">Try another search or click skip for now below.</p>
-    </div>)
+    return (
+      <div className="no-school-found">
+        <img alt="Map with a magnifying glass over it" src={mapSearchSrc} />
+        <p className="message">We couldn&#39;t find your school</p>
+        <p className="sub-text">Try another search or click skip for now below.</p>
+      </div>
+    )
   }
 
   renderSchoolsList = (schools) => {
@@ -105,14 +111,16 @@ export default class SchoolSelector extends React.Component {
       if (numberOfTeachers) {
         numberOfTeachersText = `${numberOfTeachers} Quill Teacher${numberOfTeachers === 1 ? '' : 's'}`
       }
-      return (<SchoolOption
-        key={school.id}
-        numberOfTeachersText={numberOfTeachersText}
-        school={school}
-        secondaryText={secondaryText}
-        selectSchool={selectSchool}
-        text={text}
-      />)
+      return (
+        <SchoolOption
+          key={school.id}
+          numberOfTeachersText={numberOfTeachersText}
+          school={school}
+          secondaryText={secondaryText}
+          selectSchool={selectSchool}
+          text={text}
+        />
+      )
     })
     return <ul className="list quill-list double-line">{schoolItems}</ul>
   }
@@ -130,26 +138,30 @@ export default class SchoolSelector extends React.Component {
     } else {
       schoolsListOrEmptyState = this.renderNoSchoolFound()
     }
-    return (<div className="schools-list-section">
-      <div className="title">Results</div>
-      {schoolsListOrEmptyState}
-      <div className="school-not-listed">School not listed? <button className="interactive-wrapper" onClick={this.handleSkipClick} type="button">Skip for now</button></div>
-    </div>)
+    return (
+      <div className="schools-list-section">
+        <div className="title">Results</div>
+        {schoolsListOrEmptyState}
+        <div className="school-not-listed">School not listed? <button className="interactive-wrapper" onClick={this.handleSkipClick} type="button">Skip for now</button></div>
+      </div>
+    )
   }
 
   render () {
     const { errors, search, } = this.state
-    return (<div className="school-search-container">
-      <Input
-        className="search"
-        error={errors.search}
-        handleChange={this.update}
-        id="search"
-        label="Search by school name or zip code"
-        type="text"
-        value={search}
-      />
-      {this.renderSchoolsListSection()}
-    </div>)
+    return (
+      <div className="school-search-container">
+        <Input
+          className="search"
+          error={errors.search}
+          handleChange={this.update}
+          id="search"
+          label="Search by school name or zip code"
+          type="text"
+          value={search}
+        />
+        {this.renderSchoolsListSection()}
+      </div>
+    )
   }
 }

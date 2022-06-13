@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { MemoryRouter } from 'react-router-dom';
+import * as _ from 'lodash'
 
 import ActivitySettingsWrapper from '../configureSettings/activitySettingsWrapper';
 
@@ -12,6 +13,7 @@ jest.mock("react-query", () => ({
     status: "success",
     isFetching: true,
   })),
+  useQueryClient: jest.fn(() => ({})),
 }));
 
 const mockProps = {

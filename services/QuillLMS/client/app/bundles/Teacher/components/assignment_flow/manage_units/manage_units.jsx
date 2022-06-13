@@ -9,6 +9,7 @@ import ItemDropdown from '../../general_components/dropdown_selectors/item_dropd
 import getParameterByName from '../../modules/get_parameter_by_name';
 import getAuthToken from '../../modules/get_auth_token';
 import { DropdownInput, } from '../../../../Shared/index'
+import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from '../../progress_reports/progress_report_constants'
 
 const clipboardSrc = `${process.env.CDN_URL}/images/illustrations/clipboard.svg`
 
@@ -38,8 +39,14 @@ export default class ManageUnits extends React.Component {
   }
 
   getClassrooms = () => {
+    const { selectedClassroomId, } = this.state
     request.get(`${process.env.DEFAULT_URL}/teachers/classrooms/classrooms_i_teach`, (error, httpStatus, body) => {
       const classrooms = JSON.parse(body).classrooms;
+      const localStorageSelectedClassroomId = window.localStorage.getItem(PROGRESS_REPORTS_SELECTED_CLASSROOM_ID)
+      const classroomFromLocalStorageClassroomId = classrooms.find(c => Number(c.id) === Number(localStorageSelectedClassroomId))
+      if ((!selectedClassroomId || selectedClassroomId === allClassroomKey) && classroomFromLocalStorageClassroomId) {
+        this.setState({selectedClassroomId: Number(localStorageSelectedClassroomId)})
+      }
       this.handleClassrooms(classrooms);
     });
   };
@@ -86,7 +93,7 @@ export default class ManageUnits extends React.Component {
 
   getUnitsForCurrentClass = () => {
     const { selectedClassroomId, classrooms, allUnits, } = this.state
-    if (selectedClassroomId && selectedClassroomId != allClassroomKey) {
+    if (selectedClassroomId && selectedClassroomId !== allClassroomKey) {
       // TODO: Refactor this. It is ridiculous that we need to find a classroom and match on name. Instead, the units should just have a list of classroom_ids that we can match on.
       const selectedClassroom = classrooms.find(c => c.id === Number(selectedClassroomId));
       const unitsInCurrentClassroom = allUnits.filter(unit => unit.classrooms.find(c => c.name === selectedClassroom.name));
@@ -165,6 +172,7 @@ export default class ManageUnits extends React.Component {
   };
 
   switchClassrooms = (classroom) => {
+    window.localStorage.setItem(PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, classroom.id)
     if (classroom.id) {
       window.history.pushState({}, '', `/teachers/classrooms/activity_planner?classroom_id=${classroom.id}`);
     } else {
@@ -178,11 +186,13 @@ export default class ManageUnits extends React.Component {
     const { units, selectedClassroomId, classrooms, } = this.state
 
     if (!units.length) {
-      return (<div className="my-activities-empty-state container">
-        <img alt="Clipboard with notes written on it" src={clipboardSrc} />
-        <h2>Start by assigning activities</h2>
-        <p>Nothing to see here yet! Once you assign activities, they will show up here.</p>
-      </div>)
+      return (
+        <div className="my-activities-empty-state container">
+          <img alt="Clipboard with notes written on it" src={clipboardSrc} />
+          <h2>Start by assigning activities</h2>
+          <p>Nothing to see here yet! Once you assign activities, they will show up here.</p>
+        </div>
+      )
     }
 
     const activityPacks = units.map(unit => (

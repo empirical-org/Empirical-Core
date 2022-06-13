@@ -1,4 +1,5 @@
 import React from 'react'
+import { BrowserRouter as Router } from 'react-router-dom';
 import { mount } from 'enzyme'
 import * as $ from 'jquery'
 
@@ -22,24 +23,30 @@ const selectionsWithStudentData = [{"activity_count":7,"activity_pack_id":308,"n
 
 describe('RecommendationsTable component', () => {
   it('should render when no students have completed the diagnostic yet', () => {
-    const wrapper = mount(<RecommendationsTable
-      previouslyAssignedRecommendations={previouslyAssignedIndependentRecommendationsNoStudentData}
-      recommendations={independentRecommendationsNoStudentData}
-      selections={selectionsNoStudentData}
-      setSelections={() => {}}
-      students={students}
-    />)
+    const wrapper = mount(<Router>
+      <RecommendationsTable
+        previouslyAssignedRecommendations={previouslyAssignedIndependentRecommendationsNoStudentData}
+        recommendations={independentRecommendationsNoStudentData}
+        responsesLink={() => ''}
+        selections={selectionsNoStudentData}
+        setSelections={() => {}}
+        students={students}
+      />
+    </Router>)
     expect(wrapper).toMatchSnapshot()
   })
 
   it('should render when there are recommendations', () => {
-    const wrapper = mount(<RecommendationsTable
-      previouslyAssignedRecommendations={previouslyAssignedIndependentRecommendationsWithStudentData}
-      recommendations={independentRecommendationsWithStudentData}
-      selections={selectionsWithStudentData}
-      setSelections={() => {}}
-      students={students}
-    />)
+    const wrapper = mount(<Router>
+      <RecommendationsTable
+        previouslyAssignedRecommendations={previouslyAssignedIndependentRecommendationsWithStudentData}
+        recommendations={independentRecommendationsWithStudentData}
+        responsesLink={() => ''}
+        selections={selectionsWithStudentData}
+        setSelections={() => {}}
+        students={students}
+      />
+    </Router>)
     expect(wrapper).toMatchSnapshot()
   })
 })

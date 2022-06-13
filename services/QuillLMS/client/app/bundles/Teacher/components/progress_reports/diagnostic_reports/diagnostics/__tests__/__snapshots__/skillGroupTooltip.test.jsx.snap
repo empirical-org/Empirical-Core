@@ -6,6 +6,7 @@ exports[`SkillGroupTooltip component should render 1`] = `
   name="Capitalization"
 >
   <Tooltip
+    isTabbable={true}
     tooltipText="<p>Capitalization<br/><br/>Students who show proficiency in this skill will use capitalization at the beginning of a sentence and correct capitalization of names, dates, holidays, geographic locations, and the pronoun \\"I.\\"</p>"
     tooltipTriggerText={
       <img
@@ -15,13 +16,20 @@ exports[`SkillGroupTooltip component should render 1`] = `
     }
   >
     <span
+      aria-hidden={false}
       className="quill-tooltip-trigger"
+      role="tooltip"
     >
       <span
         className="undefined"
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
-        tabIndex={null}
+        role="button"
+        tabIndex={0}
       >
         <img
           alt="Question mark icon"
@@ -32,6 +40,7 @@ exports[`SkillGroupTooltip component should render 1`] = `
         className="quill-tooltip-wrapper"
       >
         <span
+          aria-live="polite"
           className="quill-tooltip"
         />
       </span>

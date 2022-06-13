@@ -46,17 +46,17 @@ RSpec.describe FeedbackHistory, type: :model do
     it { should validate_presence_of(:feedback_session_uid) }
 
     it { should validate_presence_of(:attempt) }
+
     it do
-       should validate_numericality_of(:attempt)
-        .only_integer
-        .is_greater_than_or_equal_to(1)
-        .is_less_than_or_equal_to(5)
+      expect(subject).to validate_numericality_of(:attempt)
+       .only_integer
+       .is_greater_than_or_equal_to(1)
+       .is_less_than_or_equal_to(5)
     end
 
     it { should validate_length_of(:concept_uid).is_equal_to(22) }
 
     it { should validate_presence_of(:entry) }
-    it { should validate_length_of(:entry).is_at_least(5).is_at_most(500) }
 
     it { should validate_length_of(:feedback_text).is_at_least(10).is_at_most(500) }
 
@@ -85,7 +85,7 @@ RSpec.describe FeedbackHistory, type: :model do
   end
 
   context 'concept results hash' do
-    setup do
+    before do
       @prompt = Evidence::Prompt.create(text: 'Test test test text')
       @activity = create(:evidence_activity)
       @activity_session = create(:activity_session, activity_id: @activity.id)
@@ -112,7 +112,7 @@ RSpec.describe FeedbackHistory, type: :model do
   end
 
   context 'serializable_hash' do
-    setup do
+    before do
       @prompt = Evidence::Prompt.create(text: 'Test text')
       @feedback_history = create(:feedback_history, prompt: @prompt)
     end
@@ -138,8 +138,84 @@ RSpec.describe FeedbackHistory, type: :model do
     end
   end
 
+  context 'save_feedback' do
+    let(:entry) { 'some response text' }
+    let(:activity_session_uid) { SecureRandom.uuid }
+    let(:rule_uid) { SecureRandom.uuid }
+    let(:prompt_id) { 99 }
+    let(:attempt) { 5 }
+
+    let!(:feedback_hash) {
+      {
+        rule_uid: rule_uid,
+        concept_uid: 'rCuCaRpGZg0TeFfy4LeM9A',
+        feedback: 'write better',
+        feedback_type: 'grammar',
+        optimal: false,
+        highlight: [{text: 'some', type: 'entry', category: 'grammar', character: 0}],
+        hint: 'a hint'
+      }
+    }
+
+    # missing hint: key, blank response, empty highlight
+    let(:feedback_hash_with_blank_metadata) {
+      {
+        rule_uid: rule_uid,
+        concept_uid: 'rCuCaRpGZg0TeFfy4LeM9A',
+        feedback: 'write better',
+        feedback_type: 'grammar',
+        optimal: false,
+        highlight: [],
+      }
+    }
+
+    let(:highlight) {'some highlight'}
+
+    it 'should store the data properly' do
+      feedback = FeedbackHistory.save_feedback(feedback_hash, entry, prompt_id, activity_session_uid, attempt)
+
+      feedback_session = FeedbackSession.find_by(activity_session_uid: activity_session_uid)
+
+      expect(feedback.valid?).to be true
+      expect(feedback.feedback_session_uid).to eq(feedback_session.uid)
+      expect(feedback.prompt_id).to eq(prompt_id)
+      expect(feedback.feedback_text).to eq('write better')
+      expect(feedback.feedback_type).to eq('grammar')
+      expect(feedback.optimal).to be false
+      expect(feedback.concept_uid).to eq('rCuCaRpGZg0TeFfy4LeM9A')
+      expect(feedback.rule_uid).to eq(rule_uid)
+      expect(feedback.attempt).to eq(attempt)
+      expect(feedback.entry).to eq(entry)
+      expect(feedback.metadata['highlight'].first['text']).to eq('some')
+      expect(feedback.metadata['hint']).to eq('a hint')
+    end
+
+    it 'should store the metadata properly for all blank_values' do
+      feedback = FeedbackHistory.save_feedback(feedback_hash_with_blank_metadata, entry, prompt_id, activity_session_uid, attempt)
+
+      expect(feedback.valid?).to be true
+      expect(feedback.metadata).to eq({})
+    end
+
+    it 'should store the metadata properly for one non blank value' do
+      feedback_hash = feedback_hash_with_blank_metadata.merge(highlight: [highlight])
+      feedback = FeedbackHistory.save_feedback(feedback_hash, entry, prompt_id, activity_session_uid, attempt)
+
+      expect(feedback.valid?).to be true
+      expect(feedback.metadata['highlight'].first).to eq(highlight)
+    end
+
+    it 'should save special "api" key to metadata if passed an api_metadata argument' do
+      api_metadata = {'confidence' => 1}
+      feedback = FeedbackHistory.save_feedback(feedback_hash, entry, prompt_id, activity_session_uid, attempt, api_metadata)
+
+      expect(feedback.valid?).to be true
+      expect(feedback.metadata['api']).to eq(api_metadata)
+    end
+  end
+
   context 'batch_create' do
-    setup do
+    before do
       @valid_fh_params = {
         feedback_session_uid: SecureRandom.uuid,
         attempt: 1,
@@ -147,24 +223,24 @@ RSpec.describe FeedbackHistory, type: :model do
         feedback_text: 'This is the feedback text',
         feedback_type: 'autoML',
         optimal: false,
-        time: Time.now,
+        time: Time.current,
         used: true
       }
       @invalid_fh_params = {}
     end
 
     it 'should save and return if all creations are valid' do
-        expect(FeedbackHistory.count).to eq(0)
-	FeedbackHistory.batch_create([@valid_fh_params, @valid_fh_params, @valid_fh_params])
-	expect(FeedbackHistory.count).to eq(3)
+      expect(FeedbackHistory.count).to eq(0)
+      FeedbackHistory.batch_create([@valid_fh_params, @valid_fh_params, @valid_fh_params])
+      expect(FeedbackHistory.count).to eq(3)
     end
 
     it 'should save any valid records if, but not any valid ones' do
-        expect(FeedbackHistory.count).to eq(0)
-	results = FeedbackHistory.batch_create([@invalid_fh_params, @valid_fh_params])
-	expect(FeedbackHistory.count).to eq(1)
-        expect(results[0].errors[:entry].include?("can't be blank")).to be
-        expect(results[1].valid?).to be
+      expect(FeedbackHistory.count).to eq(0)
+      results = FeedbackHistory.batch_create([@invalid_fh_params, @valid_fh_params])
+      expect(FeedbackHistory.count).to eq(1)
+      expect(results[0].errors[:entry].include?("can't be blank")).to be
+      expect(results[1].valid?).to be
     end
   end
 
@@ -186,7 +262,7 @@ RSpec.describe FeedbackHistory, type: :model do
   end
 
   context 'before_create: anonymize_session_uid' do
-    before(:each) do
+    before do
       @feedback_history = build(:feedback_history)
     end
 
@@ -217,7 +293,7 @@ RSpec.describe FeedbackHistory, type: :model do
   end
 
   context 'after_commit, on: :create' do
-    before(:each) do
+    before do
       @feedback_history = build(:feedback_history)
     end
 
@@ -306,7 +382,7 @@ RSpec.describe FeedbackHistory, type: :model do
   end
 
   context 'Session-aggregate FeedbackHistories' do
-    setup do
+    before do
       @activity1 = Evidence::Activity.create!(notes: 'Title_1', title: 'Title 1', parent_activity_id: 1, target_level: 1)
       @activity2 = Evidence::Activity.create!(notes: 'Title_2', title: 'Title 2', parent_activity_id: 2, target_level: 1)
       @because_prompt1 = Evidence::Prompt.create!(activity: @activity1, conjunction: 'because', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
@@ -376,7 +452,7 @@ RSpec.describe FeedbackHistory, type: :model do
       it 'return the total count of activity sessions' do
         expect(FeedbackHistory.get_total_count).to eq(2)
         expect(FeedbackHistory.get_total_count(activity_id: @activity1.id)).to eq(1)
-        expect(FeedbackHistory.get_total_count(start_date: Time.now)).to eq(0)
+        expect(FeedbackHistory.get_total_count(start_date: Time.current)).to eq(0)
         expect(FeedbackHistory.get_total_count(turk_session_id: @comprehension_turking_round.turking_round_id)).to eq(1)
       end
     end
@@ -487,12 +563,13 @@ RSpec.describe FeedbackHistory, type: :model do
     end
 
     context '#most_recent_rating' do
-      setup do
+      before do
         @prompt = Evidence::Prompt.create(text: 'Test text')
         @feedback_history = create(:feedback_history, prompt: @prompt)
         @user1 = create(:user)
         @user2 = create(:user)
       end
+
       it 'should return the most recent FeedbackHistoryRating rating' do
         params1 = { user_id: @user1.id, feedback_history_id: @feedback_history.id, rating: false }
         params2 = { user_id: @user2.id, feedback_history_id: @feedback_history.id, rating: true }

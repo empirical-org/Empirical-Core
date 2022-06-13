@@ -1,7 +1,8 @@
 import { TurkSessionInterface } from '../../interfaces/evidenceInterfaces';
-import { handleApiError, apiFetch } from '../../helpers/evidence';
+import { handleApiError, apiFetch } from '../../helpers/evidence/routingHelpers';
 
-export const fetchTurkSessions = async (key: string, activityId: string) => {
+export const fetchTurkSessions = async ({ queryKey, }) => {
+  const [key, activityId]: [string, string] = queryKey
   let turkSessions: TurkSessionInterface[];
   const response = await apiFetch('turking_rounds');
   turkSessions = await response.json();

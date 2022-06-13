@@ -16,6 +16,7 @@ module GoogleIntegration
 
     def create
       raise AccessTokenError, "No access token found" if !access_token
+
       client.authorization.access_token = access_token
       client
     end

@@ -195,23 +195,37 @@ describe Api::V1::ActivitiesController, type: :controller do
     end
   end
 
+  describe 'diagnostic_activities' do
+    let!(:connect_activity) { create(:connect_activity) }
+    let!(:diagnostic_activity_one) { create(:diagnostic_activity) }
+    let!(:diagnostic_activity_two) { create(:diagnostic_activity) }
+
+    it 'should return a list of diagnostic activities' do
+      get :diagnostic_activities, as: :json
+      response_obj = JSON.parse(response.body)['diagnostics']
+      expect(response_obj.size).to eq(2)
+      expect([diagnostic_activity_one.id, diagnostic_activity_two.id]).to include(response_obj[0]["id"])
+      expect([diagnostic_activity_one.id, diagnostic_activity_two.id]).to include(response_obj[1]["id"])
+    end
+  end
+
   describe '#question_health' do
     let!(:connect) { create(:activity_classification, key: ActivityClassification::CONNECT_KEY) }
     let!(:question) { create(:question)}
     let!(:activity) { create(:activity, activity_classification_id: connect.id) }
-    let!(:activity_session_1) { create(:activity_session, activity: activity) }
-    let!(:activity_session_2) { create(:activity_session, activity: activity) }
-    let!(:activity_session_3) { create(:activity_session, activity: activity) }
-    let!(:concept_result_1) do
-      create(:concept_result, activity_session: activity_session_1, metadata: {questionNumber: 1, questionScore: 1})
+    let!(:activity_session1) { create(:activity_session, activity: activity) }
+    let!(:activity_session2) { create(:activity_session, activity: activity) }
+    let!(:activity_session3) { create(:activity_session, activity: activity) }
+    let!(:concept_result1) do
+      create(:concept_result, activity_session: activity_session1, metadata: {questionNumber: 1, questionScore: 1})
     end
 
-    let!(:concept_result_2) do
-       create(:concept_result, activity_session: activity_session_2, metadata: {questionNumber: 1, questionScore: 0.75})
+    let!(:concept_result2) do
+      create(:concept_result, activity_session: activity_session2, metadata: {questionNumber: 1, questionScore: 0.75})
     end
 
-    let!(:concept_result_3) do
-       create(:concept_result, activity_session: activity_session_3, metadata: {questionNumber: 1, questionScore: 0})
+    let!(:concept_result3) do
+      create(:concept_result, activity_session: activity_session3, metadata: {questionNumber: 1, questionScore: 0})
     end
 
     before do

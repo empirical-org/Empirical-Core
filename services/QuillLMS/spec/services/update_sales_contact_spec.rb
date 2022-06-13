@@ -4,6 +4,7 @@ require 'rails_helper'
 
 describe UpdateSalesContact do
   before { Timecop.freeze }
+
   after { Timecop.return }
 
   it 'updates the sales stage for a user' do
@@ -15,7 +16,7 @@ describe UpdateSalesContact do
       .where('sales_stage_types.name = ?', 'Basic Subscription')
       .first
 
-    expect(stage.completed_at).to be_within(1.second).of Time.now
+    expect(stage.completed_at).to be_within(1.second).of Time.current
   end
 
   it 'adds a reference to the current user to the updated sales stage' do

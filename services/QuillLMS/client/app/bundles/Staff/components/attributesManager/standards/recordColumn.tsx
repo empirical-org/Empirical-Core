@@ -1,9 +1,9 @@
 import * as React from 'react';
-import ReactTable from 'react-table';
 
-import { sortWordsThatIncludeNumbers, } from './shared'
+import { tableSortWordsThatIncludeNumbers, } from './shared'
 
 import { getColumnWidth, } from '../../shared/getColumnWidth'
+import { ReactTable, } from '../../../../Shared/index'
 
 interface RecordColumnProps {
   records: Array<any>,
@@ -24,8 +24,8 @@ function columns(selectRecord, recordType, records) {
       Header: recordType,
       accessor: 'name',
       key: 'name',
-      Cell: (props) => (<button className="interactive-wrapper" onClick={() => selectRecord(props.original, recordType)}>{props.original.name}</button>),
-      sorter: sortWordsThatIncludeNumbers(),
+      Cell: ({row}) => (<button className="interactive-wrapper" onClick={() => selectRecord(row.original, recordType)}>{row.original.name}</button>),
+      sortType: tableSortWordsThatIncludeNumbers(),
       width: getColumnWidth('name', recordType, records)
     }
   ]
@@ -38,7 +38,6 @@ const RecordColumn: React.SFC<RecordColumnProps> = ({ records, selectRecord, rec
       columns={columns(selectRecord, recordType, records)}
       data={records}
       defaultPageSize={records.length}
-      showPagination={false}
     />
   );
 };

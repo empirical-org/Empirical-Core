@@ -72,6 +72,7 @@ describe User, type: :model do
   it { should have_one(:schools_users) }
   it { should have_one(:school).through(:schools_users) }
   it { should have_many(:schools_admins).class_name('SchoolsAdmins') }
+  it { should have_many(:district_admins).class_name('DistrictAdmin') }
   it { should have_many(:administered_schools).through(:schools_admins).source(:school).with_foreign_key('user_id') }
   it { should have_many(:classrooms_teachers) }
   it { should have_many(:teacher_saved_activities).with_foreign_key('teacher_id') }
@@ -128,9 +129,11 @@ describe User, type: :model do
         user.update(flags: [User::PERMISSIONS_FLAGS.first])
         expect(user.testing_flag).to eq(nil)
       end
+
       it "returns nil if the user does any flags" do
         expect(user.testing_flag).to eq(nil)
       end
+
       it "returns a flag from the User::TESTING_FLAGS array if the user does have one" do
         sample_testing_flag = User::TESTING_FLAGS.first
         user.update(flags: [sample_testing_flag])
@@ -148,20 +151,65 @@ describe User, type: :model do
         expect(user.auditor?).to eq(false)
       end
     end
-
   end
 
   describe '#last_four' do
-    it "returns nil if a user does not have a stripe_customer_id" do
+    it 'returns nil if a user does not have a stripe_customer_id' do
       expect(user.last_four).to eq(nil)
     end
 
-    it "calls Stripe::Customer.retrieve with the current user's stripe_customer_id " do
-      user.update(stripe_customer_id: 10)
-      expect(Stripe::Customer).to receive(:retrieve).with(user.stripe_customer_id) {
-        double('retrieve', sources: double(data: double(first: double(last4: 1000))))
-      }
-      expect(user.last_four).to eq(1000)
+    context 'user has a stripe customer_id' do
+      let(:user) { create(:user, stripe_customer_id: stripe_customer_id)}
+      let(:stripe_customer_id) { 'cus_abcdefg' }
+      let(:last4) { 1000 }
+      let(:customer) { double('customer') }
+      let(:customer_with_sources) { double('customer', sources: double(data: double(first: double(last4: last4)))) }
+      let(:retrieve_sources_args) { { id: stripe_customer_id, expand: ['sources'] } }
+
+      before do
+        allow(Stripe::Customer).to receive(:retrieve).with(stripe_customer_id).and_return(customer)
+        allow(Stripe::Customer).to receive(:retrieve).with(retrieve_sources_args).and_return(customer_with_sources)
+      end
+
+      it "calls Stripe::Customer.retrieve with the current user's stripe_customer_id" do
+        expect(user.last_four).to eq last4
+      end
+    end
+  end
+
+  describe '#stripe_customer?' do
+    let(:user) { create(:teacher, :has_a_stripe_customer_id) }
+    let(:stripe_customer_id) { user.stripe_customer_id }
+    let(:retrieve_stripe_customer) { allow(Stripe::Customer).to receive(:retrieve).with(stripe_customer_id) }
+
+    context 'user with no stripe_customer_id' do
+      it { expect(create(:teacher).stripe_customer?).to eq false }
+    end
+
+    context 'customer does not exist on stripe' do
+      let(:error_msg) { "No such customer: '#{stripe_customer_id}'" }
+
+      before { retrieve_stripe_customer.and_raise(Stripe::InvalidRequestError.new(error_msg, :id)) }
+
+      it { expect(user.stripe_customer?).to eq false }
+    end
+
+    context 'customer exists on stripe' do
+      let(:stripe_customer) { double(:stripe_customer, customer_attrs) }
+      let(:customer_attrs) { { id: stripe_customer_id, object: "customer" } }
+
+      before { retrieve_stripe_customer.and_return(stripe_customer) }
+
+      it { expect(user.stripe_customer?).to be true }
+    end
+
+    context 'customer exists on stripe but is deleted' do
+      let(:stripe_customer) { double(:stripe_customer, customer_attrs) }
+      let(:customer_attrs) { { id: stripe_customer_id, object: "customer", deleted: true } }
+
+      before { retrieve_stripe_customer.and_return(stripe_customer) }
+
+      it { expect(user.stripe_customer?).to be false }
     end
   end
 
@@ -183,12 +231,12 @@ describe User, type: :model do
 
   describe 'subscription methods' do
 
-    context('subscription methods') do
+    context 'subscription methods' do
       let(:user) { create(:user) }
       let!(:subscription) { create(:subscription, expiration: Date.tomorrow) }
       let!(:user_subscription) { create(:user_subscription, user: user, subscription: subscription) }
 
-      describe('#subscription_authority_level') do
+      describe '#subscription_authority_level' do
         let!(:school) {create(:school)}
         let!(:school_subscription) {create(:school_subscription, school: school, subscription: subscription)}
 
@@ -221,7 +269,7 @@ describe User, type: :model do
         let!(:user_subscription2) { create(:user_subscription, user: user, subscription: subscription2) }
 
         it "returns the user's most recently expired subscription" do
-          subscription.update(expiration: Date.today - 10)
+          subscription.update(expiration: 10.days.ago.to_date)
           expect(user.reload.last_expired_subscription).to eq(subscription2)
         end
 
@@ -231,7 +279,7 @@ describe User, type: :model do
         end
       end
 
-      describe('#eligible_for_new_subscription?') do
+      describe '#eligible_for_new_subscription?' do
         it "returns true if the user does not have a subscription" do
           user.reload.subscription.destroy
           expect(user.eligible_for_new_subscription?).to be
@@ -245,22 +293,20 @@ describe User, type: :model do
         end
 
         it "returns false if the user has a subscription that does not have a trial account type" do
-          (Subscription::ALL_PAID_TYPES).each do |type|
+          (Subscription::OFFICIAL_PAID_TYPES).each do |type|
             subscription.update(account_type: type)
             expect(user.reload.eligible_for_new_subscription?).to be false
           end
         end
       end
 
-
-
-      describe('#subscription') do
+      describe '#subscription' do
         it 'returns a subscription if a valid one exists' do
           expect(user.reload.subscription).to eq(subscription)
         end
 
         it 'returns the subscription with the latest expiration date multiple valid ones exists' do
-          later_subscription = create(:subscription, expiration: Date.today + 365)
+          later_subscription = create(:subscription, expiration: 365.days.from_now.to_date)
           create(:user_subscription, user: user, subscription: later_subscription)
           expect(user.reload.subscription).to eq(later_subscription)
         end
@@ -271,7 +317,7 @@ describe User, type: :model do
         end
       end
 
-      describe('#present_and_future_subscriptions') do
+      describe '#present_and_future_subscriptions' do
         it 'returns an empty array if there are no subscriptions with expirations in the future' do
           subscription.update(expiration: Date.yesterday)
           expect(user.present_and_future_subscriptions).to be_empty
@@ -282,21 +328,18 @@ describe User, type: :model do
         end
 
         it 'returns an array including subscriptions that have not started yet, as long as their expiration is in the future and they have not been de-activated' do
-          later_subscription = create(:subscription, start_date: Date.today + 300, expiration: Date.today + 365)
+          later_subscription = create(:subscription, start_date: 300.days.from_now.to_date, expiration: 365.days.from_now.to_date)
           create(:user_subscription, user: user, subscription: later_subscription)
           expect(user.present_and_future_subscriptions).to include(later_subscription)
         end
 
         it 'does not return subscriptions that have been deactivated, even if their expiration date is in the future' do
-          de_activated_subscription = create(:subscription, start_date: Date.today + 300, expiration: Date.today + 365, de_activated_date: Date.yesterday)
+          de_activated_subscription = create(:subscription, start_date: 300.days.from_now.to_date, expiration: 365.days.from_now.to_date, de_activated_date: Date.yesterday)
           create(:user_subscription, user: user, subscription: de_activated_subscription)
           expect(user.present_and_future_subscriptions).not_to include(de_activated_subscription)
         end
       end
     end
-
-
-
   end
 
   describe 'constants' do
@@ -552,7 +595,6 @@ describe User, type: :model do
 
   describe "default scope" do
     let(:user1) { create(:user) }
-    let(:user2) { create(:user) }
     let(:user2) { create(:user, role: 'temporary') }
 
     it 'must list all users but the ones with temporary role' do
@@ -642,7 +684,7 @@ describe User, type: :model do
 
     context 'when the user has a positive balance' do
 
-      context 'and no extant subscription' do
+      context 'and no existing subscription' do
 
         it "creates a credit transaction that clears the user's credit" do
           user.redeem_credit
@@ -658,7 +700,7 @@ describe User, type: :model do
 
           it 'starts immediately' do
             subscription = user.redeem_credit
-            expect(subscription.start_date).to eq(Date.today)
+            expect(subscription.start_date).to eq(Date.current)
           end
 
           it "with the user as the contact" do
@@ -668,16 +710,16 @@ describe User, type: :model do
         end
       end
 
-      context 'and an extant subscription' do
+      context 'and an existing subscription' do
         it "creates a new subscription" do
-          subscription = create(:subscription, expiration: Date.today + 3.days)
+          subscription = create(:subscription, expiration: 3.days.from_now.to_date)
           create(:user_subscription, user: user, subscription: subscription)
 
           expect{ user.redeem_credit }.to change(Subscription, :count).by(1)
         end
 
         it "creates a new subscription with the start date equal to last subscription expiration" do
-          subscription = create(:subscription, expiration: Date.today + 3.days)
+          subscription = create(:subscription, expiration: 3.days.from_now.to_date)
           create(:user_subscription, user: user, subscription: subscription)
 
           previous_subscription = user.subscriptions.last
@@ -923,6 +965,7 @@ describe User, type: :model do
           user = User.new(email: user_with_original_email.email)
           expect(user.save(validate: false)).to be
         end
+
         it 'cannot update its email to an existing one' do
           user = User.create(email: 'whatever@example.com', name: 'whatever whatever')
           user.save(validate: false)
@@ -938,11 +981,12 @@ describe User, type: :model do
         expect(user).to_not be_valid
       end
 
-      it 'uniqueness is enforced on extant users changing to an existing username' do
+      it 'uniqueness is enforced on existing users changing to an existing username' do
         user1 = create(:user)
         user2 = create(:user)
         expect(user2.update(username: user1.username)).to be(false)
       end
+
       it 'uniqueness is not enforced on non-unique usernames changing other fields' do
         user1 = create(:user, username: 'testtest.lan')
         user2 = build(:user, username: 'testtest.lan')
@@ -996,7 +1040,7 @@ describe User, type: :model do
         user.first_name = 'Has'
         user.last_name = 'Multiple Last Names'
         user.save
-        expect(user.name).to eq(user.first_name + ' ' + user.last_name)
+        expect(user.name).to eq("#{user.first_name} #{user.last_name}")
       end
     end
   end
@@ -1053,30 +1097,18 @@ describe User, type: :model do
 
     describe '#username' do
       subject { super().username }
+
       it { is_expected.to eq('john.doe@101') }
     end
 
     describe '#role' do
       subject { super().role }
+
       it { is_expected.to eq('student') }
     end
 
     it 'should authenticate with last name' do
       expect(subject.authenticate('Doe')).to be_truthy
-    end
-  end
-
-  describe '#newsletter?' do
-    let(:user) { build(:user) }
-
-    it 'returns true when send_newsletter is true' do
-      user.send_newsletter = true
-      expect(user.send(:newsletter?)).to eq(true)
-    end
-
-    it 'returns false when send_newsletter is false' do
-      user.send_newsletter = false
-      expect(user.send(:newsletter?)).to eq(false)
     end
   end
 
@@ -1100,7 +1132,7 @@ describe User, type: :model do
       let(:name) { 'SingleName' }
       let(:user) { User.new(name: name) }
 
-      before(:each) { user.name = name }
+      before { user.name = name }
 
       it 'returns "name, name"' do
         expect(sort_name).to eq "#{name}, #{name}"
@@ -1180,7 +1212,7 @@ describe User, type: :model do
       referrer_users = ReferrerUser.count
       teacher = create(:teacher)
       expect(ReferrerUser.count).to be(referrer_users + 1)
-      expect(teacher.referral_code).to eq(teacher.name.downcase.gsub(/[^a-z ]/, '').gsub(' ', '-') + '-' + teacher.id.to_s)
+      expect(teacher.referral_code).to eq("#{teacher.name.downcase.gsub(/[^a-z ]/, '').gsub(' ', '-')}-#{teacher.id}")
     end
 
     it 'does not create a new ReferrerUser when a student is created' do
@@ -1273,21 +1305,33 @@ describe User, type: :model do
   end
 
   describe '.valid_email?' do
-    it { expect { User.valid_email?('').to be_false } }
-    it { expect { User.valid_email?(nil).to be_false } }
-    it { expect { User.valid_email?('1').to be_false } }
-    it { expect { User.valid_email?('a@b.c').to be_true } }
+    it { expect(User.valid_email?('')).to be false }
+    it { expect(User.valid_email?(nil)).to be false }
+    it { expect(User.valid_email?('1')).to be false }
+    it { expect(User.valid_email?('a@b.com')).to be true }
   end
 
   describe '#google_authorized?' do
     context 'user without auth_credentials is unauthorized' do
-      it { expect(user.google_authorized?).to be false }
+      it { expect(user.google_authorized?).to be_falsey }
     end
 
     context 'user with auth credentials has valid authorization' do
       let(:google_user) { create(:google_auth_credential).user }
 
       it { expect(google_user.google_authorized?).to be true }
+    end
+  end
+
+  describe '#clever_authorized?' do
+    context 'user without auth_credentials is unauthorized' do
+      it { expect(user.clever_authorized?).to be_falsey }
+    end
+
+    context 'user with auth credentials has valid authorization' do
+      let(:clever_user) { create(:clever_library_auth_credential).user }
+
+      it { expect(clever_user.clever_authorized?).to be true }
     end
   end
 end

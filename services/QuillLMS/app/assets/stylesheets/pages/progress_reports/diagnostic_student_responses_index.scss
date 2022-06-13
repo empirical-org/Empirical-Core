@@ -1,69 +1,21 @@
 .diagnostic-individual-pack main.student-responses-index-container {
-  .proficiency-keys {
-    display: flex;
-    margin-top: 24px;
-    margin-bottom: 24px;
-    .proficiency-key {
-      min-width: 145px;
-      padding: 16px;
-      border-radius: 8px;
-      margin-right: 16px;
-      p {
-        margin-bottom: 2px;
-        font-size: 14px;
-        color: #5c5c5c;
-        &.proficiency-key-title {
-          font-weight: 600;
-          color: #262626;
-        }
-      }
-      &.not-yet-proficient {
-        background-color: #fff0f2;
-      }
-      &.nearly-proficient {
-        background-color: #fff5e5;
-      }
-      &.proficient {
-        background-color: #f1f8eb;
-      }
-    }
+  .data-table-container {
+    overflow: scroll;
   }
   .data-table {
     overflow: hidden;
     border-radius: 8px;
     border: solid 1px #e0e0e0;
+    margin-top: 24px;
     .data-table-headers {
       height: 32px;
     }
     &.hide-on-mobile {
-      width: 650px;
-    }
-    .score-header {
-      margin-right: 12px;
-    }
-    .score-section {
-      margin-right: 12px;
-      display: flex;
-      overflow: visible;
-      height: 100%;
-      span {
-        height: 100%;
-        padding: 12px;
-        margin-left: -12px;
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        width: 100%;
-        text-align: right;
-        &.proficient {
-          background-color: #f1f8eb;
-        }
-        &.nearly-proficient {
-          background-color: #fff5e5;
-        }
-        &.not-yet-proficient {
-          background-color: #fff0f2;
-        }
+      &.pre-test {
+        width: 650px;
+      }
+      &.post-test {
+        width: 770px;
       }
     }
     .individual-responses-header {
@@ -78,16 +30,30 @@
       a {
         margin: 8px 0px;
       }
-      .diagnostic-not-completed {
+      .name-section-subheader {
         position: absolute;
         top: 36%;
         right: 0px;
       }
     }
-    .diagnostic-not-completed {
+    .name-section-subheader {
       font-size: 12px;
       line-height: 1.33;
       color: #808080;
+    }
+    .skills-delta {
+      color: #367300;
+      img {
+        margin-right: 1px;
+      }
+    }
+  }
+
+  .toggle-explanation {
+    max-width: 770px;
+    margin-top: 20px;
+    h3 {
+      font-weight: 400;
     }
   }
 
@@ -122,7 +88,7 @@
         display: flex;
         flex-direction: column;
         padding: 12px 0px;
-        .diagnostic-not-completed {
+        .name-section-subheader {
           margin-top: 4px;
         }
       }

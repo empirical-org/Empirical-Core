@@ -16,26 +16,27 @@ describe ProgressReports::Standards::StudentSerializer, type: :serializer do
   let(:student_for_report) do
     ProgressReports::Standards::Student.new(teacher).results({}).first
   end
+
   let(:serializer) do
     serializer = described_class.new(student_for_report)
     serializer.classroom_id = 123
     serializer
   end
 
-  before do
-    student.activity_sessions.create!(
-      percentage: 0.7547,
-      state: 'finished',
-      completed_at: 5.minutes.ago,
-      classroom_unit: classroom_unit,
-      activity: activity
-    )
-  end
-
   describe '#to_json output' do
     let(:json)   { serializer.to_json }
     let(:parsed) { JSON.parse(json) }
     let(:parsed_student) { parsed['student'] }
+
+    before do
+      student.activity_sessions.create!(
+        percentage: 0.7547,
+        state: 'finished',
+        completed_at: 5.minutes.ago,
+        classroom_unit: classroom_unit,
+        activity: activity
+      )
+    end
 
     it 'includes the right keys' do
       expect(parsed_student.keys).to match_array(
@@ -58,5 +59,12 @@ describe ProgressReports::Standards::StudentSerializer, type: :serializer do
     it 'includes properly rounded scores' do
       expect(parsed_student['average_score']).to eq(0.75)
     end
+
+    it 'should not raise error when average_score is nil' do
+      serializer = described_class.new(double(average_score: nil))
+      expect { serializer.average_score }.to_not raise_error
+      expect(serializer.average_score).to eq 0
+    end
+
   end
 end

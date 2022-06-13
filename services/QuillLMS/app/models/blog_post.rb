@@ -91,9 +91,9 @@ class BlogPost < ApplicationRecord
   scope :for_topics, ->(topic) { live.order('order_number ASC').where(topic: topic) }
 
   def set_order_number
-    if order_number.nil?
-      self.order_number =  BlogPost.where(topic: topic).count
-    end
+    return if order_number.present?
+
+    self.order_number =  BlogPost.where(topic: topic).count
   end
 
 
@@ -104,17 +104,17 @@ class BlogPost < ApplicationRecord
 
   def path
     if TOPICS.include?(topic)
-      '/teacher-center/' + slug
+      "/teacher-center/#{slug}"
     else
-      '/student-center/' + slug
+      "/student-center/#{slug}"
     end
   end
 
   def topic_path
     if TOPICS.include?(topic)
-      '/teacher-center/topic/' + topic_slug
+      "/teacher-center/topic/#{topic_slug}"
     else
-      '/student-center/topic/' + topic_slug
+      "/student-center/topic/#{topic_slug}"
     end
   end
 
@@ -125,6 +125,7 @@ class BlogPost < ApplicationRecord
   def can_be_accessed_by(user)
     return true unless premium
     return true if premium && user&.is_premium?
+
     false
   end
 
@@ -134,9 +135,10 @@ class BlogPost < ApplicationRecord
   end
 
   def add_published_at
-    if !draft && !published_at
-      update(published_at: DateTime.now)
-    end
+    return if draft
+    return if published_at
+
+    update(published_at: DateTime.current)
   end
 
   private def generate_slug

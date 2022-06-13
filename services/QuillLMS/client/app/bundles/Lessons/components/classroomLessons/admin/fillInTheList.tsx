@@ -80,13 +80,13 @@ class AdminFillInTheList extends React.Component<AdminFillInTheListProps, any>{
   }
 
   handleNBlanks(e) {
-      const newVals = Object.assign(
-        {},
-        this.state.question
-      );
-      const nBlanks = e.target.value.length > 0 ? Number(e.target.value) : e.target.value;
-      _.set(newVals, 'play.nBlanks', nBlanks)
-      this.setState({question: newVals})
+    const newVals = Object.assign(
+      {},
+      this.state.question
+    );
+    const nBlanks = e.target.value.length > 0 ? Number(e.target.value) : e.target.value;
+    _.set(newVals, 'play.nBlanks', nBlanks)
+    this.setState({question: newVals})
   }
 
   handleSampleCorrectAnswerChange(e) {

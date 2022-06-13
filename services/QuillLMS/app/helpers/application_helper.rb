@@ -76,8 +76,8 @@ module ApplicationHelper
     user_id = activity_session&.user_id
 
     "/teachers/progress_reports/diagnostic_reports#/" \
-    "u/#{unit_id}/a/#{activity_id}/c/#{classroom_id}/student_report/" \
-    "#{user_id}"
+      "u/#{unit_id}/a/#{activity_id}/c/#{classroom_id}/student_report/" \
+      "#{user_id}"
   end
 
   def device

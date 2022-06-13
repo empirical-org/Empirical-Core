@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe PromptFeedbackHistory, type: :model do
-  def generate_feedback_history(prompt_id, session_uid: nil, attempts: 1, ends_optimally: true, created_at: Time.now)
+  def generate_feedback_history(prompt_id, session_uid: nil, attempts: 1, ends_optimally: true, created_at: Time.current)
     histories = []
     session_uid ||= SecureRandom.uuid
     (attempts - 1).times do |idx|
@@ -139,6 +139,7 @@ RSpec.describe PromptFeedbackHistory, type: :model do
 
       expect(result.all[0].num_first_attempt_not_optimal).to eq(1)
     end
+
     it 'should return sessions that match the filter params for start_date' do
       generate_feedback_history(@prompt1.id, created_at: '2021-08-03T05:00:00.000Z')
       generate_feedback_history(@prompt1.id, created_at: '2021-08-05T05:00:00.000Z')
@@ -147,6 +148,7 @@ RSpec.describe PromptFeedbackHistory, type: :model do
       result = PromptFeedbackHistory.prompt_health_query(activity_id: @main_activity.id, start_date: '2021-08-04T05:00:00.000Z')
       expect(result.all[0].session_count).to eq(2)
     end
+
     it 'should return sessions that match the filter params for end_date' do
       generate_feedback_history(@prompt1.id, created_at: '2021-08-03T05:00:00.000Z')
       generate_feedback_history(@prompt1.id, created_at: '2021-08-05T05:00:00.000Z')
@@ -155,6 +157,7 @@ RSpec.describe PromptFeedbackHistory, type: :model do
       result = PromptFeedbackHistory.prompt_health_query(activity_id: @main_activity.id, end_date: '2021-08-04T05:00:00.000Z')
       expect(result.all[0].session_count).to eq(1)
     end
+
     it 'should return sessions that match the filter params for turk_session_id' do
       activity_session1_uid = SecureRandom.uuid
       activity_session2_uid = SecureRandom.uuid
@@ -187,7 +190,7 @@ RSpec.describe PromptFeedbackHistory, type: :model do
       parsed_result = PromptFeedbackHistory.serialize_results(result)
 
       expect(parsed_result).to eq({
-	@prompt1.id => {
+  @prompt1.id => {
           prompt_id: @prompt1.id,
           total_responses: 2,
           session_count: 1,
@@ -199,8 +202,8 @@ RSpec.describe PromptFeedbackHistory, type: :model do
           num_sessions_with_non_consecutive_repeated_rule: 0.0,
           num_first_attempt_optimal: 0,
           num_first_attempt_not_optimal: 1
-	}.stringify_keys,
-	@prompt2.id => {
+  }.stringify_keys,
+  @prompt2.id => {
           prompt_id: @prompt2.id,
           total_responses: 1,
           session_count: 1,
@@ -212,7 +215,7 @@ RSpec.describe PromptFeedbackHistory, type: :model do
           num_sessions_with_non_consecutive_repeated_rule: 0.0,
           num_first_attempt_optimal: 1,
           num_first_attempt_not_optimal: 0
-	}.stringify_keys
+  }.stringify_keys
       })
     end
   end

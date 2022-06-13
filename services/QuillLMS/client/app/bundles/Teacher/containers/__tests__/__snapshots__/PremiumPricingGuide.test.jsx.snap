@@ -12,7 +12,8 @@ exports[`PremiumPricingGuide container should render 1`] = `
         diagnosticActivityCount={9}
         independentPracticeActivityCount={400}
         lessonsActivityCount={50}
-        showPurchaseModal={[Function]}
+        schoolBuyNowButton={[Function]}
+        teacherBuyNowButton={[Function]}
       />
       <PremiumFeaturesTable
         diagnosticActivityCount={9}

@@ -2,7 +2,7 @@ import React from 'react'
 export default class extends React.Component {
   stateSpecificComponents = () => {
     if (this.props.status == 'trial') {
-    return <h4>Success! You started your 30 day trial</h4>
+      return <h4>Success! You started your 30 day trial</h4>
     } else {
       return <h4>Success! You now have Premium</h4>
     }

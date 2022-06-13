@@ -99,16 +99,18 @@ export default class StudentProfileUnits extends React.Component {
 
     const content = this.displayedUnits().map(unit => {
       const { unit_id, unit_name, } = unit[Object.keys(unit)[0]][0]
-      return (<StudentProfileUnit
-        data={unit}
-        id={unit_id}
-        isBeingPreviewed={isBeingPreviewed}
-        isSelectedUnit={String(unit_id) === selectedUnitId}
-        key={unit_id}
-        nextActivitySession={nextActivitySession}
-        onShowPreviewModal={this.handleShowPreviewModal}
-        unitName={unit_name}
-      />)
+      return (
+        <StudentProfileUnit
+          data={unit}
+          id={unit_id}
+          isBeingPreviewed={isBeingPreviewed}
+          isSelectedUnit={String(unit_id) === selectedUnitId}
+          key={unit_id}
+          nextActivitySession={nextActivitySession}
+          onShowPreviewModal={this.handleShowPreviewModal}
+          unitName={unit_name}
+        />
+      )
     })
 
     return content.length ? content : this.renderEmptyState()
@@ -128,13 +130,15 @@ export default class StudentProfileUnits extends React.Component {
 
     const { name, classroom_unit_id, activity_id, } = pinnedActivity
 
-    return (<PinnedActivityBar
-      activityId={activity_id}
-      classroomUnitId={classroom_unit_id}
-      isBeingPreviewed={isBeingPreviewed}
-      name={name}
-      onShowPreviewModal={this.handleShowPreviewModal}
-    />)
+    return (
+      <PinnedActivityBar
+        activityId={activity_id}
+        classroomUnitId={classroom_unit_id}
+        isBeingPreviewed={isBeingPreviewed}
+        name={name}
+        onShowPreviewModal={this.handleShowPreviewModal}
+      />
+    )
   }
 
   renderPreviewModal = () => {
@@ -142,10 +146,12 @@ export default class StudentProfileUnits extends React.Component {
 
     if (!(showPreviewModal && previewActivityId)) { return }
 
-    return (<PreviewActivityModal
-      onClosePreviewActivityModalClick={this.handleClosePreviewActivityModalClick}
-      previewActivityId={previewActivityId}
-    />)
+    return (
+      <PreviewActivityModal
+        onClosePreviewActivityModalClick={this.handleClosePreviewActivityModalClick}
+        previewActivityId={previewActivityId}
+      />
+    )
   }
 
   renderPinnedActivityModal = () => {
@@ -155,13 +161,15 @@ export default class StudentProfileUnits extends React.Component {
     if (isBeingPreviewed || !pinnedActivity || closedPinnedActivityModal) { return }
 
     const { name, classroom_unit_id, activity_id, } = pinnedActivity
-    return (<PinnedActivityModal
-      activityId={activity_id}
-      classroomUnitId={classroom_unit_id}
-      name={name}
-      onClosePinnedActivityModalClick={this.handleClosePinnedActivityModalClick}
-      teacherName={teacherName}
-    />)
+    return (
+      <PinnedActivityModal
+        activityId={activity_id}
+        classroomUnitId={classroom_unit_id}
+        name={name}
+        onClosePinnedActivityModalClick={this.handleClosePinnedActivityModalClick}
+        teacherName={teacherName}
+      />
+    )
   }
 
   render() {

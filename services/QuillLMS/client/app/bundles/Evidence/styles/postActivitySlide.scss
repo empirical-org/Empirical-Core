@@ -5,6 +5,65 @@
   flex-direction: column;
   align-items: center;
 
+  .responses-exemplars-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #FFFFFF;
+    width: 100%;
+    max-width: 1200px;
+    margin-bottom: 40px;
+    border-radius: 6px;
+    border: solid 1px #e0e0e0;
+    .review-response-header-section {
+      margin-top: 40px;
+      max-width: 808px;
+      width: 100%;
+      text-align: center;
+      border-bottom: 1px solid #e0e0e0;
+      .sub-header-subtext {
+        margin-bottom: 40px;
+      }
+    }
+    .response-exemplars-section {
+      display: flex;
+      margin-top: 16px;
+      border-bottom: 1px solid #e0e0e0;
+      .response-section {
+        margin-right: 16px;
+        .response-exemplar-header {
+          display: flex;
+          justify-content: center;
+          margin-bottom: 8px;
+        }
+      }
+      .exemplars-section {
+        margin-left: 16px;
+        .response-exemplar-header {
+          text-align: center;
+          margin-bottom: 8px;
+        }
+        .exemplar-box {
+          p {
+            u {
+              margin-right: 4px;
+            }
+          }
+        }
+        .exemplar-box:last-of-type {
+          margin-bottom: 80px;
+        }
+      }
+    }
+    .exemplar-box, .response-box {
+      width: 568px;
+      margin-bottom: 32px;
+      background-color: #f5f5f5;
+      padding: 16px;
+      border-radius: 6px;
+    }
+  }
+
   #information-section {
     display: flex;
     flex-direction: column;
@@ -12,46 +71,55 @@
     justify-content: center;
     flex: 1;
     .slide-sub-text {
-      font-size: 20px;
+      font-size: 16px;
       font-weight: 600;
-      color: #e1f3f1;
-      max-width: 496px;
+      color: #b4e2db;
+      max-width: 552px;
       text-align: center;
     }
 
     #revision-text {
+      text-align: center;
       font-size: 40px;
       font-weight: bold;
-      color: #ffffff;;
+      color: #ffffff;
+      max-width: 616px;
+      margin-bottom: 8px;
+      line-height: 1.2;
     }
 
     #celebration-vector {
-      margin-top: 32px;
+      margin: 16px 0px 16px 0px;
     }
 
     #reminder-badge-section {
       display: flex;
-      align-items: flex-start;
+      align-items: center;
       width: 440px;
       background-color: #e1f3f1;
-      margin-bottom: 26px;
+      margin: 32px 0px 26px 0px;
       border-radius: 8px;
       box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 8px 10px 1px rgba(0, 0, 0, 0.14);
       transform: rotate(-2deg);
       #reminder-text-section {
         padding: 16px 0px;
-        #reminder-header {
-          color: #000000;
-          font-weight: bold;
-        }
-        #reminder-subtext {
-          color: #262626;
+        .sub-header-subtext {
+          max-width: 352px;
         }
       }
       #grade-badge {
-        padding-left: 4px;
+        margin: 0px 16px 0px 16px;
+        width: 48px;
       }
     }
+  }
+
+  .sub-header-text {
+    color: #000000;
+    font-weight: bold;
+  }
+  .sub-header-subtext {
+    color: #262626;
   }
 
   #button-container {
@@ -65,7 +133,8 @@
   }
 }
 
-@media (max-width: 1099px) {
+
+@media (max-width: 1200px) {
   .post-activity-slide-container {
     height: calc(100% - 48px);
     overflow-x: hidden;
@@ -82,30 +151,50 @@
       #revision-text {
         text-align: center;
         font-size: 24px;
+        margin: 0px 16px 0px 16px;
       }
 
       #celebration-vector {
         max-width: 320px;
       }
 
-      #reminder-badge-section {
-        width: 280px;
-        padding: 0px 16px;
-        margin: 0px 38px 0px 38px;
-
-        #grade-badge {
-          display: none;
-        }
+      #second-sub-text {
+        margin-top: 22px;
+        padding-bottom: 16px;
       }
 
       #first-sub-text {
         margin-top: 32px;
       }
-      #second-sub-text {
-        margin-top: 22px;
-        padding-bottom: 88px;
+    }
+
+    .responses-exemplars-container {
+      width: 90%;
+      margin-bottom: 96px;
+      .review-response-header-section {
+        .sub-header-subtext {
+          margin: 0px 16px 16px 16px;
+        }
+        .sub-header-text {
+          text-align: center;
+        }
+      }
+      .response-exemplars-section {
+        flex-direction: column;
+        align-items: center;
+        .response-section, .exemplars-section {
+          margin: 0;
+          padding: 0px 16px 0px 16px;
+          .response-box, .exemplar-box {
+            width: 60vw;
+          }
+          .exemplar-box:last-of-type {
+            margin-bottom: 40px
+          }
+        }
       }
     }
+
     #button-container {
       justify-content: flex-start;
       position: fixed;
@@ -122,5 +211,29 @@
   .post-activity-slide-container {
     height: min-content;
     padding-top: 16px;
+  }
+}
+
+@media (max-width: 600px) {
+  .post-activity-slide-container {
+    #information-section {
+      #reminder-badge-section {
+        width: 280px;
+        padding: 0px 16px;
+        margin: 0px 38px 24px 38px;
+        #grade-badge {
+          display: none;
+        }
+      }
+    }
+    .responses-exemplars-container {
+      .response-exemplars-section {
+        .response-section, .exemplars-section {
+          .response-box, .exemplar-box {
+            width: 75vw;
+          }
+        }
+      }
+    }
   }
 }

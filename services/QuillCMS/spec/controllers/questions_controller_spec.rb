@@ -1,12 +1,12 @@
 require "rails_helper"
 
 RSpec.describe QuestionsController, type: :controller do
-  before(:each) do
+  before do
     allow_any_instance_of(Response).to receive(:create_index_in_elastic_search)
   end
 
   context '#responses' do
-    before(:each) do
+    before do
       Rails.cache.clear
     end
 
@@ -40,7 +40,7 @@ RSpec.describe QuestionsController, type: :controller do
       let!(:graded_nonoptimal) {create(:graded_nonoptimal_response, question_uid: '123')}
       let!(:ungraded) {create(:ungraded_response, question_uid: '123')}
 
-      before(:each) do
+      before do
         GradedResponse.refresh
       end
 
@@ -78,7 +78,7 @@ RSpec.describe QuestionsController, type: :controller do
 
       let!(:ungraded) {create(:ungraded_response, question_uid: '123', count: 1000)}
 
-      before(:each) do
+      before do
         GradedResponse.refresh
         MultipleChoiceResponse.refresh
       end

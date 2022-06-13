@@ -1,9 +1,9 @@
 import React from 'react';
-import ReactTable from 'react-table';
-import 'react-table/react-table.css';
-import { sortByLastName, sortFromSQLTimeStamp } from 'modules/sortingMethods';
+
+import { sortTableByLastName, sortTableFromSQLTimeStamp } from 'modules/sortingMethods';
 import getAuthToken from '../components/modules/get_auth_token';
 import LoadingIndicator from '../components/shared/loading_indicator'
+import { ReactTable, } from '../../Shared/index'
 
 export default class CmsUserIndex extends React.Component {
   constructor(props) {
@@ -25,37 +25,34 @@ export default class CmsUserIndex extends React.Component {
         accessor: 'name',
         resizable: false,
         minWidth: 120,
-        sortMethod: sortByLastName,
-        Cell: row => row.original.name
+        sortType: sortTableByLastName,
       }, {
         Header: "Email",
         accessor: 'email',
         resizable: false,
         minWidth: 250,
-        Cell: row => row.original.email
       }, {
         Header: "Role",
         accessor: 'role',
-        minWidth: 80,
+        maxWidth: 80,
         resizable: false,
-        Cell: row => row.original.role
       }, {
         Header: "Premium",
         accessor: 'subscription',
         resizable: false,
-        Cell: row => row.original.subscription,
       }, {
         Header: 'Last Sign In',
         accessor: 'last_sign_in',
         resizable: false,
-        sortMethod: sortFromSQLTimeStamp,
-        Cell: row => row.original.last_sign_in,
+        minWidth: 100,
+        sortType: sortTableFromSQLTimeStamp,
+        Cell: ({row}) => String(row.original.last_sign_in_text)
       }, {
         Header: "School",
         accessor: 'school',
         resizable: false,
         minWidth: 90,
-        Cell: (row) => {
+        Cell: ({row}) => {
           if (row.original.school) {
             return <a href={`${process.env.DEFAULT_URL}/cms/schools/${row.original.school_id}`}>{row.original.school}</a>
           }
@@ -65,24 +62,24 @@ export default class CmsUserIndex extends React.Component {
         Header: "Edit",
         accessor: 'edit',
         resizable: false,
-        minWidth: 40,
-        Cell: (row) => {
+        maxWidth: 40,
+        Cell: ({row}) => {
           return <a href={`${process.env.DEFAULT_URL}/cms/users/${row.original.id}/edit`}>Edit</a>
         }
       }, {
         Header: "Details",
         accessor: 'details',
         resizable: false,
-        minWidth: 60,
-        Cell: (row) => {
+        maxWidth: 60,
+        Cell: ({row}) => {
           return <a href={`${process.env.DEFAULT_URL}/cms/users/${row.original.id}`}>Details</a>
         }
       }, {
         Header: "Sign In",
         accessor: 'sign_in',
         resizable: false,
-        minWidth: 60,
-        Cell: (row) => {
+        maxWidth: 60,
+        Cell: ({row}) => {
           return <a href={`${process.env.DEFAULT_URL}/cms/users/${row.original.id}/sign_in`}>Sign In</a>
         }
       }
@@ -90,6 +87,8 @@ export default class CmsUserIndex extends React.Component {
   }
 
   setSort = newSorted => {
+    if (!newSorted.length) { return }
+
     const sort = newSorted[0].id
     const sort_direction = newSorted[0].desc ? 'desc' : 'asc'
     if (sort !== this.state.query.sort || sort_direction !== this.state.query.sort_direction) {
@@ -162,20 +161,24 @@ export default class CmsUserIndex extends React.Component {
   renderPageSelector() {
     const currentPage = this.state.query.page || 1
     const totalPages = this.state.numberOfPages || 1
-    return (<div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-      <a onClick={() => this.updatePage(1)}>First</a>
-      <form onSubmit={this.submitPageForm}>
-        <input defaultValue={currentPage} name='page' /><span>of {totalPages}</span>
-      </form>
-      <a onClick={() => this.updatePage(totalPages)}>Last</a>
-    </div>)
+    return (
+      <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+        <a onClick={() => this.updatePage(1)}>First</a>
+        <form onSubmit={this.submitPageForm}>
+          <input defaultValue={currentPage} name='page' /><span>of {totalPages}</span>
+        </form>
+        <a onClick={() => this.updatePage(totalPages)}>Last</a>
+      </div>
+    )
   }
 
   renderPremiumStatusSelect() {
     const options = this.props.schoolPremiumTypes.map(o => <option value={o}>{o}</option>)
-    return (<select multiple={true} onChange={this.updatePremiumStatus}>
-      {options}
-    </select>)
+    return (
+      <select multiple={true} onChange={this.updatePremiumStatus}>
+        {options}
+      </select>
+    )
   }
 
   renderTableOrLoading() {
@@ -184,24 +187,23 @@ export default class CmsUserIndex extends React.Component {
     } else if (this.state.data && this.state.data.length) {
       const sort = this.state.query.sort ? this.state.query.sort : 'last_sign_in'
       const sortDescending = this.state.query.sort_direction ? this.state.query.sort_direction === 'desc' : true
-      return (<div>
-        <ReactTable
-          className='progress-report activity-scores-table'
-          columns={this.state.columns}
-          data={this.state.data}
-          defaultPageSize={100}
-          defaultSorted={[{id: sort, desc: sortDescending}]}
-          minRows={1}
-          onSortedChange={this.setSort}
-          showPageSizeOptions={false}
-          showPagination={false}
-          showPaginationBottom={false}
-          showPaginationTop={false}
-        />
-        <div className='cms-pagination-container'>
-          {this.renderPageSelector()}
+      return (
+        <div>
+          <ReactTable
+            className='progress-report activity-scores-table'
+            columns={this.state.columns}
+            data={this.state.data}
+            defaultPageSize={100}
+            defaultSorted={[{id: sort, desc: sortDescending}]}
+            manualSortBy={true}
+            minRows={1}
+            onSortedChange={this.setSort}
+          />
+          <div className='cms-pagination-container'>
+            {this.renderPageSelector()}
+          </div>
         </div>
-      </div>)
+      )
     } else if (this.state.numberOfPages === 0) {
       return <p>No records found.</p>
     }
@@ -210,16 +212,20 @@ export default class CmsUserIndex extends React.Component {
 
   renderUserFlagSelect() {
     const options = [<option value />].concat(this.props.userFlags.map(o => <option value={o}>{o}</option>))
-    return (<select onChange={e => this.updateField(e, 'user_flag')}>
-      {options}
-    </select>)
+    return (
+      <select onChange={e => this.updateField(e, 'user_flag')}>
+        {options}
+      </select>
+    )
   }
 
   renderUserRoleSelect() {
     const options = [<option value />].concat(this.props.userRoleTypes.map(o => <option value={o}>{o}</option>))
-    return (<select onChange={e => this.updateField(e, 'user_role')}>
-      {options}
-    </select>)
+    return (
+      <select onChange={e => this.updateField(e, 'user_role')}>
+        {options}
+      </select>
+    )
   }
 
   render() {

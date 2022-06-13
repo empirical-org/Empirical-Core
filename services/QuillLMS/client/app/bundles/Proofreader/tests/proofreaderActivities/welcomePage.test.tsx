@@ -7,8 +7,8 @@ describe("<WelcomePage />", () => {
     onNextClick={() => {}}
   />)
 
-    it("should render", () => {
-      expect(wrapper).toMatchSnapshot();
-    });
+  it("should render", () => {
+    expect(wrapper).toMatchSnapshot();
+  });
 
 });

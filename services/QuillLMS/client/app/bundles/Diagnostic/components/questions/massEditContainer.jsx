@@ -49,13 +49,13 @@ class MassEditContainer extends React.Component {
         method: 'POST',
         json: { responses: this.props.massEdit.selectedResponses, },
       },
-        (err, httpResponse, data) => {
-          const parsedResponses = _.indexBy(data.responses, 'id');
-          this.setState({
-            responses: parsedResponses,
-          });
-        }
-      );
+      (err, httpResponse, data) => {
+        const parsedResponses = _.indexBy(data.responses, 'id');
+        this.setState({
+          responses: parsedResponses,
+        });
+      }
+    );
   }
 
   clearResponsesFromMassEditArray() {
@@ -217,7 +217,7 @@ class MassEditContainer extends React.Component {
           </header>
           <div className="card-content">
             <div className="content">
-              <h3>CONCEPT RESULTS <span style={{ fontSize: '0.7em', marginLeft: '0.75em', }}>⚠️️ All other concept results associated with selected responses will be overwritten ⚠️️</span></h3>
+              <h3>CONCEPT RESULTS <span style={{ fontSize: '0.7em', marginLeft: '0.75em', }}>All other concept results associated with selected responses will be overwritten</span></h3>
               <ConceptResultList updateConceptResults={this.updateConceptResults} />
             </div>
           </div>

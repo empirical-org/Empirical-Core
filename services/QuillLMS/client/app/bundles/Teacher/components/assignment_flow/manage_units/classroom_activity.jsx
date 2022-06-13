@@ -76,10 +76,12 @@ export default class ClassroomActivity extends React.Component {
     if (isNaN(averageScore)) {
       return '—';
     } else if (nonRelevantActivityClassificationIds.includes(data.activityClassificationId)) {
-      return (<Tooltip
-        tooltipText={`This type of activity is not graded.`}
-        tooltipTriggerText="N/A"
-      />)
+      return (
+        <Tooltip
+          tooltipText="This type of activity is not graded."
+          tooltipTriggerText="N/A"
+        />
+      )
     } else if (Math.round(averageScore).toString().length === 2) {
       return `${averageScore.toPrecision(2)}%`;
     }
@@ -109,7 +111,7 @@ export default class ClassroomActivity extends React.Component {
     const { report, data, } = this.props
     if (!report && !(this.isLesson())) {
       const style = !data.ownedByCurrentUser ? { visibility: 'hidden', } : null;
-      return <div className="pull-right" style={style}><img className="delete-classroom-activity h-pointer" onClick={this.handleHideUnitActivityClick} src="/images/x.svg" /></div>;
+      return <button className="pull-right interactive-wrapper focus-on-light" onClick={this.handleHideUnitActivityClick} style={style} type="button"><img alt="" className="delete-classroom-activity h-pointer" src="/images/x.svg" /></button>;
     }
   }
 
@@ -126,7 +128,7 @@ export default class ClassroomActivity extends React.Component {
       return [
         <span className="number-of-students" key="number-of-students">{this.renderPieChart()} {data.completedCount} of {numberOfStudentsAssignedToUnit} {Pluralize('student', numberOfStudentsAssignedToUnit)}</span>,
         <span className="average-score" key="average-score">{this.calculateAverageScore()}</span>,
-        <img className="chevron-right" key="chevron-right" src="https://assets.quill.org/images/icons/chevron-dark-green.svg" />
+        <img alt="" className="chevron-right" key="chevron-right" src="https://assets.quill.org/images/icons/chevron-dark-green.svg" />
       ];
     } else if (report) {
       /* eslint-disable react/jsx-no-target-blank */
@@ -219,23 +221,25 @@ export default class ClassroomActivity extends React.Component {
       onMouseLeave={this.handleMouseActionOnSupportingInfo}
       target="_blank"
     >
-      <img src="https://assets.quill.org/images/icons/download-lesson-plan-green-icon.svg" />
+      <img alt="" src="https://assets.quill.org/images/icons/download-lesson-plan-green-icon.svg" />
       {this.renderLessonPlanTooltip()}
     </a>)
     /* eslint-enable react/jsx-no-target-blank */
-    return (<div className="lessons-end-row">
-      {this.lessonCompletedOrLaunch()}
-      <a
-        className="customize-lesson"
-        href={`/customize/${data.activityUid}`}
-        onMouseEnter={this.handleMouseActionOnCustomize}
-        onMouseLeave={this.handleMouseActionOnCustomize}
-      >
-        <i className="fas fa-icon fa-magic" />
-        {this.renderCustomizeTooltip()}
-      </a>
-      {supportingInfoLink}
-    </div>);
+    return (
+      <div className="lessons-end-row">
+        {this.lessonCompletedOrLaunch()}
+        <a
+          className="customize-lesson"
+          href={`/customize/${data.activityUid}`}
+          onMouseEnter={this.handleMouseActionOnCustomize}
+          onMouseLeave={this.handleMouseActionOnCustomize}
+        >
+          <i className="fas fa-icon fa-magic" />
+          {this.renderCustomizeTooltip()}
+        </a>
+        {supportingInfoLink}
+      </div>
+    );
   }
 
   uaId = () => {
@@ -252,10 +256,12 @@ export default class ClassroomActivity extends React.Component {
     const { showCustomizeTooltip, } = this.state
     if (!showCustomizeTooltip) { return }
 
-    return (<div className="customize-tooltip">
-      <i className="fas fa-caret-up" />
+    return (
+      <div className="customize-tooltip">
+        <i className="fas fa-caret-up" />
       Customize
-    </div>);
+      </div>
+    );
   }
 
   renderCustomizedEditionsTag = () => {
@@ -268,10 +274,12 @@ export default class ClassroomActivity extends React.Component {
     const { showLessonPlanTooltip, } = this.state
     if (!showLessonPlanTooltip) { return }
 
-    return (<div className="lesson-plan-tooltip">
-      <i className="fas fa-caret-up" />
+    return (
+      <div className="lesson-plan-tooltip">
+        <i className="fas fa-caret-up" />
       Download Lesson Plan
-    </div>);
+      </div>
+    );
   }
 
   renderLessonsAction = () => {
@@ -291,12 +299,14 @@ export default class ClassroomActivity extends React.Component {
     const { showModal, } = this.state
     const { data, } = this.props
     if (!showModal) { return }
-    return (<PreviewOrLaunchModal
-      classroomUnitId={this.classroomUnitId()}
-      closeModal={this.closeModal}
-      completed={data.completed}
-      lessonID={this.activityId()}
-    />);
+    return (
+      <PreviewOrLaunchModal
+        classroomUnitId={this.classroomUnitId()}
+        closeModal={this.closeModal}
+        completed={data.completed}
+        lessonID={this.activityId()}
+      />
+    );
   }
 
   renderPieChart = () => {

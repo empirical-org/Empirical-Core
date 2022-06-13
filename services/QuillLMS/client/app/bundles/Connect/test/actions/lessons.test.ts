@@ -73,9 +73,9 @@ describe('Lessons actions', () => {
 
   describe('setLessonFlag', () => {
     const expectedActions = [{
-        'type': 'SET_LESSON_FLAG',
-        'flag': 'production'
-      }
+      'type': 'SET_LESSON_FLAG',
+      'flag': 'production'
+    }
     ]
     store.dispatch(expectedActions[0])
     expect(store.getActions()).toEqual(expectedActions);

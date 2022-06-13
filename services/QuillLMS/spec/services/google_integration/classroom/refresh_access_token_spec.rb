@@ -4,7 +4,9 @@ require 'rails_helper'
 
 describe GoogleIntegration::RefreshAccessToken do
   let(:current_time) { Time.local(1990, 12, 20) }
+
   before { Timecop.freeze(current_time) }
+
   after { Timecop.return }
 
   it 'returns the new credentials if token is expired' do
@@ -16,12 +18,13 @@ describe GoogleIntegration::RefreshAccessToken do
       refresh_token: 'haha-great'
     )
     http_client = double('http_client')
+
     response = double('response',
       code: 200,
       parsed_response: {
         'access_token' => 'what',
-        'expires_in' => Time.now + 1.day,
-        'issued_at' => Time.now,
+        'expires_in' => 1.day.from_now,
+        'issued_at' => Time.current,
       }
     )
 
@@ -31,8 +34,8 @@ describe GoogleIntegration::RefreshAccessToken do
 
     expect(credentials).to have_attributes(
       access_token: 'what',
-      expires_at: Time.now + 1.day,
-      timestamp: Time.now
+      expires_at: 1.day.from_now,
+      timestamp: Time.current
     )
   end
 
@@ -49,8 +52,8 @@ describe GoogleIntegration::RefreshAccessToken do
       code: 200,
       parsed_response: {
         'access_token' => 'what',
-        'expires_in' => Time.now + 1.day,
-        'issued_at' => Time.now,
+        'expires_in' => 1.day.from_now,
+        'issued_at' => Time.current,
       }
     )
 
@@ -60,8 +63,8 @@ describe GoogleIntegration::RefreshAccessToken do
 
     expect(expired_auth_credentials.reload).to have_attributes(
       access_token: 'what',
-      expires_at: Time.now + 1.day,
-      timestamp: Time.now
+      expires_at: 1.day.from_now,
+      timestamp: Time.current
     )
   end
 

@@ -3,15 +3,13 @@
 require 'rails_helper'
 
 describe Cms::RecommendationsController do
+  let(:user) { create(:staff) }
+
+  before { allow(controller).to receive(:current_user) { user } }
+
   it { should use_before_action :set_activity_classification }
   it { should use_before_action :set_activity }
   it { should use_before_action :set_unit_templates }
-
-  let(:user) { create(:staff) }
-
-  before do
-    allow(controller).to receive(:current_user) { user }
-  end
 
   describe '#index' do
     let(:recommendations) { double(:recommendations) }
@@ -41,10 +39,7 @@ describe Cms::RecommendationsController do
     let!(:activity) { create(:activity) }
     let!(:activity_classification) { create(:activity_classification) }
 
-
-    before do
-      allow(Recommendation).to receive(:new) { recommendation }
-    end
+    before { allow(Recommendation).to receive(:new) { recommendation } }
 
     it 'should assign the concepts and recommendation' do
       get :new, params: { activity_classification_id: activity_classification.id, activity_id: activity.id }
@@ -58,7 +53,6 @@ describe Cms::RecommendationsController do
     let!(:activity) { create(:activity) }
     let!(:activity_classification) { create(:activity_classification) }
     let!(:recommendation) { create(:recommendation) }
-
 
     it 'should find the recommendation' do
       get :show, params: { id: recommendation.id, activity_id: activity.id, activity_classification_id: activity_classification.id }

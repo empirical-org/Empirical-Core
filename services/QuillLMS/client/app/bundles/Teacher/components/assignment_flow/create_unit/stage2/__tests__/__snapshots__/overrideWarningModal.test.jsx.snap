@@ -34,17 +34,25 @@ exports[`OverrideWarningModal component should render 1`] = `
       >
         <p>
           <Tooltip
+            isTabbable={true}
             tooltipText="Student Name"
             tooltipTriggerText="1 student"
           >
             <span
+              aria-hidden={false}
               className="quill-tooltip-trigger"
+              role="tooltip"
             >
               <span
                 className="undefined"
+                onBlur={[Function]}
+                onClick={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
                 onMouseEnter={[Function]}
                 onMouseLeave={[Function]}
-                tabIndex={null}
+                role="button"
+                tabIndex={0}
               >
                 1 student
               </span>
@@ -52,6 +60,7 @@ exports[`OverrideWarningModal component should render 1`] = `
                 className="quill-tooltip-wrapper"
               >
                 <span
+                  aria-live="polite"
                   className="quill-tooltip"
                 />
               </span>

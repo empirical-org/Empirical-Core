@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-module Evidence 
+module Evidence
   module Opinion
     class FeedbackAssembler < Evidence::FeedbackAssembler
       RULE_MAPPING = {
         'using_must' => '5545d756-9ba5-44d5-829a-0479cbbe941e',
-        'using_out' => '938dcafb-7b03-4fce-bacb-0ec690eccec0',
+        'using_ought' => '938dcafb-7b03-4fce-bacb-0ec690eccec0',
         'using_should' => 'aa5884e6-2646-4f4b-b0ed-938a2eab0507',
         'command_check' => '69c71c98-a9bc-49a6-856c-c206520f5e60',
         'common_opinionated_phrases_keyword_check' => '7ade48ba-f073-4ce5-9c54-501d556e99e2',
@@ -18,7 +18,7 @@ module Evidence
         'starts_with_a_verb' => '4f4ed261-16f8-44ae-905c-0ad7c6449af4'
       }
 
-      def self.error_to_rule_uid 
+      def self.error_to_rule_uid
         RULE_MAPPING
       end
 
@@ -26,7 +26,10 @@ module Evidence
         super.merge({'feedback_type' => 'opinion'})
       end
 
+      def self.error_name
+        'oapi_error'
+      end
     end
-    
+
   end
 end

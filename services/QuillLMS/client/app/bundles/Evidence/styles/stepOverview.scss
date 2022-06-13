@@ -11,25 +11,17 @@
       font-size: 40px;
       font-weight: bold;
       line-height: 1.2;
-      text-align: center;
       color: #ffffff;
       margin-bottom: 36px;
     }
     .step-overview-step-container {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      img {
-        width: 48px;
-        height: 48px;
-        margin-right: 16px;
-      }
       .step-overview-step {
-        padding: 20px;
+        display: flex;
+        align-items: center;
+        padding: 12px;
         border-radius: 8px;
         background-color: #06806b;
         color: #fff;
-        max-width: 562px;
         width: 100%;
         margin: 12px 0px;
         text-align: left;
@@ -39,14 +31,32 @@
           color: #e1f3f1;
         }
         p {
-          font-size: 24px;
+          font-size: 16px;
           font-weight: bold;
           line-height: 1.25;
           color: #ffffff;
-          margin-top: 4px;
+        }
+        img {
+          max-height: 24px;
+          margin-right: 8px;
+        }
+        .left-side-container {
+          display: flex;
+          align-items: center;
+          width: 100%;
+        }
+        .now-tag {
+          color: #000000;
+          background-color: #e1f3f1;
+          padding: 2px 8px;
+          border-radius: 12px;
+          font-weight: 600;
+          font-size: 14px;
         }
         &.active {
           border: solid 2px #e1f3f1;
+          padding-left: 10px;
+          justify-content: space-between;
         }
         &.completed p {
           text-decoration: line-through;

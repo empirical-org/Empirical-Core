@@ -31,8 +31,9 @@ describe Unit, type: :model do
   it { should have_many(:activities).through(:unit_activities) }
   it { should have_many(:standards).through(:activities) }
   it { should belong_to(:unit_template) }
+
   it do
-    is_expected
+    expect(subject)
       .to callback(:hide_classroom_units_and_unit_activities_if_visible_false)
       .after(:save)
   end
@@ -48,20 +49,20 @@ describe Unit, type: :model do
     end
   end
 
-  describe '#create_with_incremented_name' do 
-    context 'collision occurs' do 
-      it 'should create a Unit with an incremented name' do 
+  describe '#create_with_incremented_name' do
+    context 'collision occurs' do
+      it 'should create a Unit with an incremented name' do
         Unit.create!(user_id: teacher.id, name: 'used name')
-        expect do 
+        expect do
           Unit.create_with_incremented_name(user_id: teacher.id, name: 'used name')
         end.to change { Unit.count }.by 1
         expect(Unit.find_by(user_id: teacher.id, name: 'used name 2').present?).to be true
       end
     end
 
-    context 'normal path - no collision' do 
-      it 'should create a well-formed Unit' do 
-        expect do 
+    context 'normal path - no collision' do
+      it 'should create a well-formed Unit' do
+        expect do
           Unit.create_with_incremented_name(user_id: teacher.id, name: 'unique name')
         end.to change { Unit.count }.by 1
       end
@@ -150,6 +151,37 @@ describe Unit, type: :model do
 
     it 'should kick off background job for the lesson plan email' do
       expect{ unit.email_lesson_plan }.to change(LessonPlanEmailWorker.jobs, :size).by 1
+    end
+  end
+
+  describe '#touch_all_classrooms_and_classroom_units' do
+    let(:initial_time) { 1.day.ago}
+    let!(:unit) { create(:unit) }
+    let!(:classroom) { create(:classroom) }
+    let!(:classroom_unit) { create(:classroom_unit, classroom: classroom, unit: unit)}
+
+    it "should update classrooms and classroom_units updated_at on unit save" do
+      classroom.update_columns(updated_at: initial_time)
+      classroom_updated_at = classroom.reload.updated_at
+      classroom_unit.update_columns(updated_at: initial_time)
+      classroom_unit_updated_at = classroom_unit.reload.updated_at
+
+      unit.save
+
+      expect(classroom.reload.updated_at.to_i).not_to equal(classroom_updated_at.to_i)
+      expect(classroom_unit.reload.updated_at.to_i).not_to equal(classroom_unit_updated_at.to_i)
+    end
+
+    it "should update classrooms updated_t on classroom_unit touch" do
+      classroom.update_columns(updated_at: initial_time)
+      classroom_updated_at = classroom.reload.updated_at
+      classroom_unit.update_columns(updated_at: initial_time)
+      classroom_unit_updated_at = classroom_unit.reload.updated_at
+
+      unit.touch
+
+      expect(classroom.reload.updated_at.to_i).not_to equal(classroom_updated_at.to_i)
+      expect(classroom_unit.reload.updated_at.to_i).not_to equal(classroom_unit_updated_at.to_i)
     end
   end
 end

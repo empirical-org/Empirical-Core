@@ -91,7 +91,6 @@ export class TurkActivity extends React.Component {
       (err, httpResponse, body) => {
         if (httpResponse && httpResponse.statusCode === 200) {
           // to do, use Sentry to capture error
-          SessionActions.delete(sessionID);
           this.setState({ saved: true, });
         } else {
           // to do, use Sentry to capture error
@@ -120,7 +119,7 @@ export class TurkActivity extends React.Component {
     const { lessonID, } = params
 
     const filteredQuestions = data[lessonID].questions.filter(ques =>
-       this.props[ques.questionType].data[ques.key]  // eslint-disable-line react/destructuring-assignment
+      this.props[ques.questionType].data[ques.key]  // eslint-disable-line react/destructuring-assignment
     );
     // this is a quickfix for missing questions -- if we leave this in here
     // long term, we should return an array through a forloop to
@@ -190,12 +189,14 @@ export class TurkActivity extends React.Component {
     const currentQuestionIsNotFirstQuestion = calculatedAnsweredQuestionCount !== 0
     const displayedAnsweredQuestionCount = currentQuestionIsTitleCard && currentQuestionIsNotFirstQuestion ? calculatedAnsweredQuestionCount + 1 : calculatedAnsweredQuestionCount
 
-    return (<ProgressBar
-      answeredQuestionCount={displayedAnsweredQuestionCount}
-      label='questions'
-      percent={getProgressPercent(playTurk)}
-      questionCount={questionCount(playTurk)}
-    />)
+    return (
+      <ProgressBar
+        answeredQuestionCount={displayedAnsweredQuestionCount}
+        label='questions'
+        percent={getProgressPercent(playTurk)}
+        questionCount={questionCount(playTurk)}
+      />
+    )
   }
 
 

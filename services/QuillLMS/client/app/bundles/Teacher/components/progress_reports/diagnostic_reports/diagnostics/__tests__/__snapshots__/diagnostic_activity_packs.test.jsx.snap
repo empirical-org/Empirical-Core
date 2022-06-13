@@ -151,7 +151,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
         options={
           Array [
             Object {
-              "label": "All classes",
+              "label": "All classrooms",
               "value": "ALL",
             },
             Object {
@@ -166,7 +166,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
         }
         value={
           Object {
-            "label": "All classes",
+            "label": "All classrooms",
             "value": "ALL",
           }
         }
@@ -191,6 +191,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
             defaultInputValue=""
             defaultMenuIsOpen={false}
             defaultValue={null}
+            filterOption={null}
             inputValue=""
             isClearable={false}
             isSearchable={false}
@@ -200,7 +201,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
             options={
               Array [
                 Object {
-                  "label": "All classes",
+                  "label": "All classrooms",
                   "value": "ALL",
                 },
                 Object {
@@ -218,7 +219,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
             updateCursor={[Function]}
             value={
               Object {
-                "label": "All classes",
+                "label": "All classrooms",
                 "value": "ALL",
               }
             }
@@ -239,7 +240,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
               controlShouldRenderValue={true}
               cursor={null}
               escapeClearsValue={false}
-              filterOption={[Function]}
+              filterOption={null}
               formatGroupLabel={[Function]}
               getOptionLabel={[Function]}
               getOptionValue={[Function]}
@@ -270,7 +271,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
               options={
                 Array [
                   Object {
-                    "label": "All classes",
+                    "label": "All classrooms",
                     "value": "ALL",
                   },
                   Object {
@@ -292,7 +293,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
               updateCursor={[Function]}
               value={
                 Object {
-                  "label": "All classes",
+                  "label": "All classrooms",
                   "value": "ALL",
                 }
               }
@@ -317,7 +318,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                 options={
                   Array [
                     Object {
-                      "label": "All classes",
+                      "label": "All classrooms",
                       "value": "ALL",
                     },
                     Object {
@@ -346,7 +347,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                     "controlShouldRenderValue": true,
                     "cursor": null,
                     "escapeClearsValue": false,
-                    "filterOption": [Function],
+                    "filterOption": null,
                     "formatGroupLabel": [Function],
                     "getOptionLabel": [Function],
                     "getOptionValue": [Function],
@@ -377,7 +378,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                     "openMenuOnFocus": false,
                     "options": Array [
                       Object {
-                        "label": "All classes",
+                        "label": "All classrooms",
                         "value": "ALL",
                       },
                       Object {
@@ -398,7 +399,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                     "type": undefined,
                     "updateCursor": [Function],
                     "value": Object {
-                      "label": "All classes",
+                      "label": "All classrooms",
                       "value": "ALL",
                     },
                   }
@@ -474,7 +475,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                       options={
                         Array [
                           Object {
-                            "label": "All classes",
+                            "label": "All classrooms",
                             "value": "ALL",
                           },
                           Object {
@@ -503,7 +504,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                           "controlShouldRenderValue": true,
                           "cursor": null,
                           "escapeClearsValue": false,
-                          "filterOption": [Function],
+                          "filterOption": null,
                           "formatGroupLabel": [Function],
                           "getOptionLabel": [Function],
                           "getOptionValue": [Function],
@@ -534,7 +535,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                           "openMenuOnFocus": false,
                           "options": Array [
                             Object {
-                              "label": "All classes",
+                              "label": "All classrooms",
                               "value": "ALL",
                             },
                             Object {
@@ -555,7 +556,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                           "type": undefined,
                           "updateCursor": [Function],
                           "value": Object {
-                            "label": "All classes",
+                            "label": "All classrooms",
                             "value": "ALL",
                           },
                         }
@@ -639,7 +640,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                             options={
                               Array [
                                 Object {
-                                  "label": "All classes",
+                                  "label": "All classrooms",
                                   "value": "ALL",
                                 },
                                 Object {
@@ -668,7 +669,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                                 "controlShouldRenderValue": true,
                                 "cursor": null,
                                 "escapeClearsValue": false,
-                                "filterOption": [Function],
+                                "filterOption": null,
                                 "formatGroupLabel": [Function],
                                 "getOptionLabel": [Function],
                                 "getOptionValue": [Function],
@@ -699,7 +700,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                                 "openMenuOnFocus": false,
                                 "options": Array [
                                   Object {
-                                    "label": "All classes",
+                                    "label": "All classrooms",
                                     "value": "ALL",
                                   },
                                   Object {
@@ -720,7 +721,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                                 "type": undefined,
                                 "updateCursor": [Function],
                                 "value": Object {
-                                  "label": "All classes",
+                                  "label": "All classrooms",
                                   "value": "ALL",
                                 },
                               }
@@ -782,7 +783,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                                   cx={[Function]}
                                   data={
                                     Object {
-                                      "label": "All classes",
+                                      "label": "All classrooms",
                                       "value": "ALL",
                                     }
                                   }
@@ -795,7 +796,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                                   options={
                                     Array [
                                       Object {
-                                        "label": "All classes",
+                                        "label": "All classrooms",
                                         "value": "ALL",
                                       },
                                       Object {
@@ -824,7 +825,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                                       "controlShouldRenderValue": true,
                                       "cursor": null,
                                       "escapeClearsValue": false,
-                                      "filterOption": [Function],
+                                      "filterOption": null,
                                       "formatGroupLabel": [Function],
                                       "getOptionLabel": [Function],
                                       "getOptionValue": [Function],
@@ -855,7 +856,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                                       "openMenuOnFocus": false,
                                       "options": Array [
                                         Object {
-                                          "label": "All classes",
+                                          "label": "All classrooms",
                                           "value": "ALL",
                                         },
                                         Object {
@@ -876,7 +877,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                                       "type": undefined,
                                       "updateCursor": [Function],
                                       "value": Object {
-                                        "label": "All classes",
+                                        "label": "All classrooms",
                                         "value": "ALL",
                                       },
                                     }
@@ -936,7 +937,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                                     <div
                                       className="dropdown__single-value css-1uccc91-singleValue"
                                     >
-                                      All classes
+                                      All classrooms
                                     </div>
                                   </EmotionCssPropInternal>
                                 </SingleValue>
@@ -1003,7 +1004,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                             options={
                               Array [
                                 Object {
-                                  "label": "All classes",
+                                  "label": "All classrooms",
                                   "value": "ALL",
                                 },
                                 Object {
@@ -1032,7 +1033,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                                 "controlShouldRenderValue": true,
                                 "cursor": null,
                                 "escapeClearsValue": false,
-                                "filterOption": [Function],
+                                "filterOption": null,
                                 "formatGroupLabel": [Function],
                                 "getOptionLabel": [Function],
                                 "getOptionValue": [Function],
@@ -1063,7 +1064,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                                 "openMenuOnFocus": false,
                                 "options": Array [
                                   Object {
-                                    "label": "All classes",
+                                    "label": "All classrooms",
                                     "value": "ALL",
                                   },
                                   Object {
@@ -1084,7 +1085,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                                 "type": undefined,
                                 "updateCursor": [Function],
                                 "value": Object {
-                                  "label": "All classes",
+                                  "label": "All classrooms",
                                   "value": "ALL",
                                 },
                               }
@@ -1150,7 +1151,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                                   options={
                                     Array [
                                       Object {
-                                        "label": "All classes",
+                                        "label": "All classrooms",
                                         "value": "ALL",
                                       },
                                       Object {
@@ -1179,7 +1180,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                                       "controlShouldRenderValue": true,
                                       "cursor": null,
                                       "escapeClearsValue": false,
-                                      "filterOption": [Function],
+                                      "filterOption": null,
                                       "formatGroupLabel": [Function],
                                       "getOptionLabel": [Function],
                                       "getOptionValue": [Function],
@@ -1210,7 +1211,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                                       "openMenuOnFocus": false,
                                       "options": Array [
                                         Object {
-                                          "label": "All classes",
+                                          "label": "All classrooms",
                                           "value": "ALL",
                                         },
                                         Object {
@@ -1231,7 +1232,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                                       "type": undefined,
                                       "updateCursor": [Function],
                                       "value": Object {
-                                        "label": "All classes",
+                                        "label": "All classrooms",
                                         "value": "ALL",
                                       },
                                     }
@@ -1308,7 +1309,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                                   options={
                                     Array [
                                       Object {
-                                        "label": "All classes",
+                                        "label": "All classrooms",
                                         "value": "ALL",
                                       },
                                       Object {
@@ -1337,7 +1338,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                                       "controlShouldRenderValue": true,
                                       "cursor": null,
                                       "escapeClearsValue": false,
-                                      "filterOption": [Function],
+                                      "filterOption": null,
                                       "formatGroupLabel": [Function],
                                       "getOptionLabel": [Function],
                                       "getOptionValue": [Function],
@@ -1368,7 +1369,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                                       "openMenuOnFocus": false,
                                       "options": Array [
                                         Object {
-                                          "label": "All classes",
+                                          "label": "All classrooms",
                                           "value": "ALL",
                                         },
                                         Object {
@@ -1389,7 +1390,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                                       "type": undefined,
                                       "updateCursor": [Function],
                                       "value": Object {
-                                        "label": "All classes",
+                                        "label": "All classrooms",
                                         "value": "ALL",
                                       },
                                     }
@@ -1640,7 +1641,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                     <div>
                       <a
                         className="focus-on-light"
-                        href="/teachers/progress_reports/diagnostic_reports/#/diagnostics/992/classroom/6/results?unit=110"
+                        href="/teachers/progress_reports/diagnostic_reports/#/diagnostics/992/classroom/6/summary?unit=110"
                       >
                         View results and recommendations
                       </a>
@@ -1899,7 +1900,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                     <div>
                       <a
                         className="focus-on-light"
-                        href="/teachers/progress_reports/diagnostic_reports/#/diagnostics/992/classroom/1/results?unit=110"
+                        href="/teachers/progress_reports/diagnostic_reports/#/diagnostics/992/classroom/1/summary?unit=110"
                       >
                         View results and recommendations
                       </a>
@@ -2025,7 +2026,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                     <div>
                       <a
                         className="focus-on-light"
-                        href="/teachers/progress_reports/diagnostic_reports/#/diagnostics/1678/classroom/1/results"
+                        href="/teachers/progress_reports/diagnostic_reports/#/diagnostics/1678/classroom/1/summary"
                       >
                         View results and recommendations
                       </a>
@@ -2097,7 +2098,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                       <div>
                         <a
                           className="focus-on-light"
-                          href="/teachers/progress_reports/diagnostic_reports/#/diagnostics/1680/classroom/1/growth_results"
+                          href="/teachers/progress_reports/diagnostic_reports/#/diagnostics/1680/classroom/1/growth_summary"
                         >
                           View results and recommendations
                         </a>
@@ -2105,8 +2106,8 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                     </section>
                   </AssignedSection>
                 </PostSection>
-                <GrowthSummary
-                  growthSummaryLink="/teachers/progress_reports/diagnostic_reports/#/diagnostics/1680/classroom/1/growth_results"
+                <GrowthSummarySection
+                  growthSummaryLink="/teachers/progress_reports/diagnostic_reports/#/diagnostics/1680/classroom/1/growth_summary"
                   showGrowthSummary={true}
                   skillsGrowth={null}
                 >
@@ -2121,13 +2122,13 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                     <div>
                       <a
                         className="focus-on-light"
-                        href="/teachers/progress_reports/diagnostic_reports/#/diagnostics/1680/classroom/1/growth_results"
+                        href="/teachers/progress_reports/diagnostic_reports/#/diagnostics/1680/classroom/1/growth_summary"
                       >
                         View growth
                       </a>
                     </div>
                   </section>
-                </GrowthSummary>
+                </GrowthSummarySection>
               </div>
             </section>
           </Diagnostic>
@@ -2223,7 +2224,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                     <div>
                       <a
                         className="focus-on-light"
-                        href="/teachers/progress_reports/diagnostic_reports/#/diagnostics/1668/classroom/1/results"
+                        href="/teachers/progress_reports/diagnostic_reports/#/diagnostics/1668/classroom/1/summary"
                       >
                         View results and recommendations
                       </a>
@@ -2295,7 +2296,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                       <div>
                         <a
                           className="focus-on-light"
-                          href="/teachers/progress_reports/diagnostic_reports/#/diagnostics/1669/classroom/1/growth_results"
+                          href="/teachers/progress_reports/diagnostic_reports/#/diagnostics/1669/classroom/1/growth_summary"
                         >
                           View results and recommendations
                         </a>
@@ -2303,8 +2304,8 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                     </section>
                   </AssignedSection>
                 </PostSection>
-                <GrowthSummary
-                  growthSummaryLink="/teachers/progress_reports/diagnostic_reports/#/diagnostics/1669/classroom/1/growth_results"
+                <GrowthSummarySection
+                  growthSummaryLink="/teachers/progress_reports/diagnostic_reports/#/diagnostics/1669/classroom/1/growth_summary"
                   showGrowthSummary={true}
                   skillsGrowth={null}
                 >
@@ -2319,13 +2320,13 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                     <div>
                       <a
                         className="focus-on-light"
-                        href="/teachers/progress_reports/diagnostic_reports/#/diagnostics/1669/classroom/1/growth_results"
+                        href="/teachers/progress_reports/diagnostic_reports/#/diagnostics/1669/classroom/1/growth_summary"
                       >
                         View growth
                       </a>
                     </div>
                   </section>
-                </GrowthSummary>
+                </GrowthSummarySection>
               </div>
             </section>
           </Diagnostic>
@@ -2421,7 +2422,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                     <div>
                       <a
                         className="focus-on-light"
-                        href="/teachers/progress_reports/diagnostic_reports/#/diagnostics/1663/classroom/1/results"
+                        href="/teachers/progress_reports/diagnostic_reports/#/diagnostics/1663/classroom/1/summary"
                       >
                         View results and recommendations
                       </a>
@@ -2493,7 +2494,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                       <div>
                         <a
                           className="focus-on-light"
-                          href="/teachers/progress_reports/diagnostic_reports/#/diagnostics/1664/classroom/1/growth_results"
+                          href="/teachers/progress_reports/diagnostic_reports/#/diagnostics/1664/classroom/1/growth_summary"
                         >
                           View results and recommendations
                         </a>
@@ -2501,8 +2502,8 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                     </section>
                   </AssignedSection>
                 </PostSection>
-                <GrowthSummary
-                  growthSummaryLink="/teachers/progress_reports/diagnostic_reports/#/diagnostics/1664/classroom/1/growth_results"
+                <GrowthSummarySection
+                  growthSummaryLink="/teachers/progress_reports/diagnostic_reports/#/diagnostics/1664/classroom/1/growth_summary"
                   showGrowthSummary={true}
                   skillsGrowth={null}
                 >
@@ -2517,13 +2518,13 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                     <div>
                       <a
                         className="focus-on-light"
-                        href="/teachers/progress_reports/diagnostic_reports/#/diagnostics/1664/classroom/1/growth_results"
+                        href="/teachers/progress_reports/diagnostic_reports/#/diagnostics/1664/classroom/1/growth_summary"
                       >
                         View growth
                       </a>
                     </div>
                   </section>
-                </GrowthSummary>
+                </GrowthSummarySection>
               </div>
             </section>
           </Diagnostic>

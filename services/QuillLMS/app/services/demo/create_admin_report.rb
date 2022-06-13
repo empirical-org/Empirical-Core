@@ -17,6 +17,7 @@ class Demo::CreateAdminReport
   private :email_safe_school_name
   private :teacher_email
 
+  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
   private def create_demo
     # Create the school
     school = School.create!(name: name)
@@ -39,7 +40,7 @@ class Demo::CreateAdminReport
       User.create!(
         name: teacher,
         role: 'teacher',
-        email: "hello+admindemo-#{email_safe_school_name}-#{teacher.split(' ').last.downcase}@quill.org",
+        email: "hello+admindemo-#{email_safe_school_name}-#{teacher.split.last.downcase}@quill.org",
         username: '',
         password: SecureRandom.urlsafe_base64
       )
@@ -48,7 +49,7 @@ class Demo::CreateAdminReport
     teachers << admin_teacher
 
     # Upgrade everyone to premium
-    subscription_id = Subscription.create!(purchaser_id: admin_teacher.id, account_type: 'Demo Premium', expiration: Date.today + 100.years).id
+    subscription_id = Subscription.create!(purchaser_id: admin_teacher.id, account_type: 'Demo Premium', expiration: Date.current + 100.years).id
     teachers.each do |teacher|
       UserSubscription.create!(user_id: teacher.id, subscription_id: subscription_id)
     end
@@ -191,4 +192,5 @@ class Demo::CreateAdminReport
 
     admin_teacher
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
 end

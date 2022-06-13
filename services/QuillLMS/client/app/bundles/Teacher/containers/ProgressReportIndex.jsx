@@ -17,7 +17,7 @@ import { requestGet } from '../../../modules/request';
 export default class ProgressReportIndex extends React.Component {
 
   renderContent = () => {
-    const { currentUser, premiumStatus, } = this.props
+    const { currentUser, premiumStatus, classrooms, } = this.props
 
     const path = window.location.pathname;
     const shouldHaveBanner = !path.includes('/landing_page') && !path.includes('diagnostic_report');
@@ -26,6 +26,7 @@ export default class ProgressReportIndex extends React.Component {
       sourceUrl: `${path}.json`,
       premiumStatus,
       currentUser,
+      classrooms
     };
 
     const progressReportMapping = {
@@ -51,14 +52,16 @@ export default class ProgressReportIndex extends React.Component {
       }
     });
 
-    return (<div>
-      {shouldHaveBanner && <PremiumBannerBuilder originPage="report" />}
-      {component}
-    </div>)
+    return (
+      <div>
+        {shouldHaveBanner && <PremiumBannerBuilder originPage="report" />}
+        {component}
+      </div>
+    )
   };
 
 
   render() {
     return this.renderContent()
-   }
- }
+  }
+}

@@ -12,13 +12,15 @@ export default (props) => {
     />)
   ) : null
   const content = articles ? <div id="preview-card-container">{articles}</div>
-  : (<div style={{fontSize: '30px', display: 'flex', justifyContent: 'center', height: '60vh', alignItems: 'center', flexDirection: 'column', fontWeight: 'bold'}}>
+    : (<div style={{fontSize: '30px', display: 'flex', justifyContent: 'center', height: '60vh', alignItems: 'center', flexDirection: 'column', fontWeight: 'bold'}}>
         Coming Soon!
-    <img src="https://assets.quill.org/images/illustrations/empty-state-premium-reports.svg" style={{marginTop: '20px'}} />
-  </div>)
-    return (<div className="press-page">
+      <img alt="" src="https://assets.quill.org/images/illustrations/empty-state-premium-reports.svg" style={{marginTop: '20px'}} />
+    </div>)
+  return (
+    <div className="press-page">
       <HeaderSection subtitle="Read articles that feature Quill" title="In the news" />
       {content}
-    </div>)
+    </div>
+  )
 
 }

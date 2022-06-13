@@ -11,7 +11,7 @@ class ReferralsController < ApplicationController
   end
 
   def invite
-    # NOTE to future developers: you may be tempted to check that this user
+    # NOTE: to future developers: you may be tempted to check that this user
     # does not already exist in the database and decide not to send the email
     # if so. Do not do this as it has the potential to leak information about
     # which email addresses have accounts on Quill.org.
@@ -20,11 +20,11 @@ class ReferralsController < ApplicationController
       'email' => current_user.email,
       'name' => current_user.name
     }
-    if Rails.env.production? || (inviter_hash['email'].match('quill.org') && invitation_email.match('quill.org'))
-      if UserMailer.referral_invitation_email(inviter_hash, invitation_email).deliver_now!
-        return render json: {}
+
+    if (Rails.env.production? || (inviter_hash['email'].match('quill.org') && invitation_email.match('quill.org'))) && UserMailer.referral_invitation_email(inviter_hash, invitation_email).deliver_now!
+      return render json: {}
       end
-    end
+
     render json: { error: 'Something hath gone awry.' }, status: 500
   end
 end

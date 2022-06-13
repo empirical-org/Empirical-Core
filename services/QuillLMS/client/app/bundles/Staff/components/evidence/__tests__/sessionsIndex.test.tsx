@@ -2,6 +2,7 @@ import * as React from 'react';
 import 'whatwg-fetch';
 import { shallow } from 'enzyme';
 import { createMemoryHistory, createLocation } from 'history';
+import * as ReactTable from 'react-table';
 
 import SessionsIndex from '../activitySessions/sessionsIndex';
 import { activitySessionIndexResponseHeaders } from '../../../../../constants/evidence';
@@ -50,8 +51,8 @@ describe('SessionsIndex component', () => {
     expect(container).toMatchSnapshot();
   });
   it('should render a ReactTable component passing the activity sessions as props', () => {
-    expect(container.find('ReactTable').length).toEqual(1);
-    container.find('ReactTable').props().columns.forEach((column, i) => {
+    expect(container.find(".activity-sessions-table").length).toEqual(1);
+    container.find(".activity-sessions-table").props().columns.forEach((column, i) => {
       const { accessor } = column;
       expect(activitySessionIndexResponseHeaders[i].accessor).toEqual(accessor);
     })

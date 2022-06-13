@@ -19,16 +19,18 @@ const renderElementRow = (classNames) => (
 )
 
 const Buttons = () => {
-  return (<div id="buttons">
-    <h2 className="style-guide-h2">Buttons</h2>
-    <div className="element-container">
-      {renderElementRow('primary contained')}
-      {renderElementRow('primary outlined')}
-      {renderElementRow('secondary outlined')}
-      {renderElementRow('disabled contained')}
-      {renderElementRow('disabled outlined')}
+  return (
+    <div id="buttons">
+      <h2 className="style-guide-h2">Buttons</h2>
+      <div className="element-container">
+        {renderElementRow('primary contained')}
+        {renderElementRow('primary outlined')}
+        {renderElementRow('secondary outlined')}
+        {renderElementRow('disabled contained')}
+        {renderElementRow('disabled outlined')}
+      </div>
     </div>
-  </div>)
+  )
 }
 
 export default Buttons

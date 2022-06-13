@@ -39,14 +39,16 @@ const MobileActivityRow = ({ row, }) => {
     link,
     completed,
   } = row
-  return (<a className="mobile-data-row focus-on-light" href={link}>
-    <div className="top-row">
-      <span>{studentName}</span>
-      <span>{completed}</span>
-    </div>
-    <div>{activityName}</div>
-    <div>{scoreTag}</div>
-  </a>)
+  return (
+    <a className="mobile-data-row focus-on-light" href={link}>
+      <div className="top-row">
+        <span>{studentName}</span>
+        <span>{completed}</span>
+      </div>
+      <div>{activityName}</div>
+      <div>{scoreTag}</div>
+    </a>
+  )
 }
 
 const ActivityFeed = ({ onMobile, activityFeed, }) => {
@@ -61,18 +63,20 @@ const ActivityFeed = ({ onMobile, activityFeed, }) => {
       studentName: student_name,
       activityName: activity_name,
       scoreTag: <span className={`score-tag ${score.toLowerCase().split(' ').join('-')}`}>{score}</span>,
-      link: `/teachers/progress_reports/diagnostic_reports#/u/${unit_id}/a/${activity_id}/c/${classroom_id}/student_report/${user_id}`,
+      link: `/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/${classroom_id}/unit/${unit_id}/user/${user_id}/activity/${activity_id}`,
       completed,
       id,
     }
   })
 
   if (activityFeed.length === 0) {
-    return (<section className="activity-feed empty">
-      <img alt="Document with a bulleted list illustration" src={listIllustrationSrc} />
-      <h2>Activity feed</h2>
-      <p>Once your students complete activities, you’ll be able to see them here.</p>
-    </section>)
+    return (
+      <section className="activity-feed empty">
+        <img alt="Document with a bulleted list illustration" src={listIllustrationSrc} />
+        <h2>Activity feed</h2>
+        <p>Once your students complete activities, you’ll be able to see them here.</p>
+      </section>
+    )
   }
 
   let bottomButton
@@ -82,11 +86,13 @@ const ActivityFeed = ({ onMobile, activityFeed, }) => {
 
   const dataDisplay = onMobile ? rows.map(r => <MobileActivityRow key={r.id} row={r} />) : <DataTable headers={headers} rows={rows} />
 
-  return (<section className="activity-feed populated">
-    <h2>Activity feed</h2>
-    {dataDisplay}
-    {bottomButton}
-  </section>)
+  return (
+    <section className="activity-feed populated">
+      <h2>Activity feed</h2>
+      {dataDisplay}
+      {bottomButton}
+    </section>
+  )
 
 }
 

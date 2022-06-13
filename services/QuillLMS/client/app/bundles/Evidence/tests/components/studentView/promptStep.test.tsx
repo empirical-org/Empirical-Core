@@ -4,19 +4,22 @@ import toJson from 'enzyme-to-json';
 
 import { activityOne, optimalSubmittedResponse, suboptimalSubmittedResponse, } from './data'
 
+import { stripEvidenceHtml } from '../../../libs/stringFormatting'
 import PromptStep from '../../../components/studentView/promptStep'
 import EditorContainer from '../../../components/studentView/editorContainer'
+
+jest.mock('string-strip-html', () => ({
+  default: jest.fn()
+}));
 
 const prompt = activityOne.prompts[2]
 
 const defaultProps = {
-  active: false,
   activityIsComplete: false,
   className: 'step',
   everyOtherStepCompleted: false,
   submitResponse: () => {},
   completeStep: () => {},
-  stepNumberComponent: <span />,
   onClick: () => {},
   prompt,
   passedRef: () => {},
@@ -69,10 +72,10 @@ describe('PromptStep component', () => {
         })
       })
 
-      describe('#stripHtml', () => {
+      describe('#stripEvidenceHtml', () => {
         it('should return a string stripped of all u and p tags', () => {
           const htmlString = '<p>I am a paragraph<u> with an underline</u></p>'
-          expect(wrapper.instance().stripHtml(htmlString)).toEqual('I am a paragraph with an underline')
+          expect(stripEvidenceHtml(htmlString)).toEqual('I am a paragraph with an underline')
         })
       })
 
@@ -165,9 +168,9 @@ describe('PromptStep component', () => {
         expect(wrapper.find(EditorContainer)).toHaveLength(1)
       })
 
-      it('has a non-disabled button with the text "Start next sentence"', () => {
+      it('has a non-disabled button with the text "Next"', () => {
         expect(wrapper.find('.quill-button.disabled')).toHaveLength(0)
-        expect(wrapper.find('.quill-button').text()).toEqual("Start next sentence")
+        expect(wrapper.find('.quill-button').text()).toEqual("Next")
       })
 
     })
@@ -191,9 +194,9 @@ describe('PromptStep component', () => {
         expect(wrapper.find(EditorContainer)).toHaveLength(1)
       })
 
-      it('has a disabled button with the text "Get new feedback"', () => {
+      it('has a disabled button with the text "Get feedback"', () => {
         expect(wrapper.find('.quill-button.disabled')).toHaveLength(1)
-        expect(wrapper.find('.quill-button.disabled').text()).toEqual("Get new feedback")
+        expect(wrapper.find('.quill-button.disabled').text()).toEqual("Get feedback")
       })
     })
 
@@ -214,9 +217,9 @@ describe('PromptStep component', () => {
         expect(wrapper.find(EditorContainer)).toHaveLength(1)
       })
 
-      it('has a non-disabled button with the text "Start next sentence"', () => {
+      it('has a non-disabled button with the text "Next"', () => {
         expect(wrapper.find('.quill-button.disabled')).toHaveLength(0)
-        expect(wrapper.find('.quill-button').text()).toEqual("Start next sentence")
+        expect(wrapper.find('.quill-button').text()).toEqual("Next")
       })
     })
 
@@ -242,6 +245,29 @@ describe('PromptStep component', () => {
       it('has a non-disabled button with the text "Done"', () => {
         expect(wrapper.find('.quill-button.disabled')).toHaveLength(0)
         expect(wrapper.find('.quill-button').text()).toEqual("Done")
+      })
+    })
+
+    describe('while submitting a response', () => {
+      const submittedResponses = []
+      const wrapper = mount(<PromptStep
+        {...defaultProps}
+        active
+        className="step active"
+        submittedResponses={submittedResponses}
+      />)
+
+      wrapper.setState({ submissionTime: 1000, currentTime: 3000 })
+
+
+      it('displays "Finding feedback..." when feedback loading state is under 5 seconds', () => {
+        expect(wrapper.find('.feedback-details-section')).toHaveLength(1)
+        expect(wrapper.find('.feedback-details-section').props().children[0].props.children).toEqual('Finding feedback...')
+      })
+      it('displays "Finding feedback..." when feedback loading state is over 5 seconds', () => {
+        wrapper.setState({ submissionTime: 1000, timeAtLastFeedbackSubmissionCheck: 17000 })
+        expect(wrapper.find('.feedback-details-section')).toHaveLength(1)
+        expect(wrapper.find('.feedback-details-section').props().children[0].props.children).toEqual('Still finding feedback. Thanks for your patience!')
       })
     })
   })

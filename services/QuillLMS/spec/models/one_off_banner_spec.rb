@@ -18,7 +18,7 @@ describe OneOffBanner, type: :model do
   end
 
   it "does return true for show? when the key does have an associated webinar" do
-    time =  DateTime.new(2021,11,4,16,1,0)
+    time =  DateTime.new(2022,5,12,11,1,0)
     banner = OneOffBanner.new(time)
     expect(banner.show?).to eq(true)
   end
@@ -30,10 +30,10 @@ describe OneOffBanner, type: :model do
   end
 
   it "does return correct link and title when the key does have an associated recurring webinar" do
-    time =  DateTime.new(2021,11,4,16,1,0)
+    time =  DateTime.new(2022,5,12,11,1,0)
     banner = OneOffBanner.new(time)
-    expect(banner.title).to eq("<strong>Webinar: Supporting ELLs with Quill</strong> is live now!")
-    expect(banner.link).to eq("https://quill-org.zoom.us/webinar/register/WN_Yu6rY35bRTGfHOte0ciD0A")
+    expect(banner.title).to eq("<strong>Webinar: Wrapping Up the School Year with Quill</strong> is live now!")
+    expect(banner.link).to eq("https://quill-org.zoom.us/webinar/register/WN_m7Yc_C87RUu5sLW8yTz4eA#/registration")
   end
 
 end

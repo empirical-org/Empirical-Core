@@ -40,7 +40,7 @@ describe Api::V1::LessonsController, type: :controller do
       pre_create_count = Activity.count
       post :create, params: { lesson_type: "connect_lesson", lesson: data }, as: :json
       expect(Activity.count).to eq(pre_create_count + 1)
-      expect(Activity.find_by(name: data[:name]).flag = data[:flag])
+      expect(Activity.find_by(name: data[:name]).flag).to eq data[:flag].to_sym
     end
   end
 
@@ -50,7 +50,7 @@ describe Api::V1::LessonsController, type: :controller do
       put :update, params: { id: activity.uid, lesson: data }, as: :json
       activity.reload
       expect(activity.data).to eq(data)
-      expect(Activity.find_by(name: data["name"]).flag = data["flag"])
+      expect(Activity.find_by(name: data["name"]).flag).to eq data["flag"].to_sym
     end
 
     it "should return a 404 if the requested Lesson is not found" do

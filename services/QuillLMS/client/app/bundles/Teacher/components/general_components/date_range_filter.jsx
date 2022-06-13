@@ -22,12 +22,14 @@ export default class  DateRangeFilter extends React.Component {
       <div className='calendar-prefill-options'>
         {this.props.filterOptions.map(filter => {
           const selected = this.props.dateFilterName === filter.title
-          return (<DateRangeFilterOption
-            key={filter.title}
-            onClickFunction={() => { this.setDateFromFilter(filter) }}
-            selected={selected}
-            title={filter.title}
-          />)
+          return (
+            <DateRangeFilterOption
+              key={filter.title}
+              onClickFunction={() => { this.setDateFromFilter(filter) }}
+              selected={selected}
+              title={filter.title}
+            />
+          )
         }
         )}
       </div>
@@ -42,8 +44,8 @@ export default class  DateRangeFilter extends React.Component {
         endDate={this.props.endDate}
         focusedInput={this.state.focusedInput}
         isOutsideRange={day => {return false}}
-        navNext={'›'}
-        navPrev={'‹'}
+        navNext="›"
+        navPrev="‹"
         numberOfMonths={1}
         onDatesChange={({ startDate, endDate }) => this.props.selectDates(startDate, endDate, null)}
         onFocusChange={focusedInput => this.setState({ focusedInput })}

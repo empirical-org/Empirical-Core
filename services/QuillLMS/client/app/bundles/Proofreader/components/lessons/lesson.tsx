@@ -64,9 +64,11 @@ export class Lesson extends React.Component<LessonProps> {
     const { match } = this.props;
     const { params } = match;
     const { lessonID } = params;
-    return (<div style={{marginTop: '50px', border: '1px solid black', paddingBottom: '50px'}}>
-      <ProofreaderActivityContainer activityUID={lessonID} admin={true} />
-    </div>)
+    return (
+      <div style={{marginTop: '50px', border: '1px solid black', paddingBottom: '50px'}}>
+        <ProofreaderActivityContainer activityUID={lessonID} admin={true} />
+      </div>
+    )
   }
 
   render() {

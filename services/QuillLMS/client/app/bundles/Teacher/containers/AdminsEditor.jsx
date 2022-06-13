@@ -6,22 +6,22 @@ import Cms from './Cms.jsx'
 export default class extends React.Component {
   resourceComponentGenerator = (cmsComponent) => {
 
-    var initialModel = {
+    let initialModel = {
       id: null,
       name: null,
       email: null,
       password: null
     };
 
-    var savingKeys = ['id', 'name', 'email', 'password']
-    var fieldsToNormalize = []
+    let savingKeys = ['id', 'name', 'email', 'password']
+    let fieldsToNormalize = []
 
-    var formFields = [
+    let formFields = [
       {name: 'name'},
       {name: 'email'},
 
       {name: 'password',
-       type: 'password'}
+        type: 'password'}
     ];
     return (
       <div>
@@ -40,7 +40,7 @@ export default class extends React.Component {
           </div>
         </div>
       </div>
-           );
+    );
   };
 
   render() {

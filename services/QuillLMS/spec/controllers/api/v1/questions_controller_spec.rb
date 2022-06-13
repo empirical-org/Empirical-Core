@@ -7,9 +7,10 @@ describe Api::V1::QuestionsController, type: :controller do
   let!(:question) { create(:question) }
 
   describe "#index" do
-    before(:each) do
+    before do
       Rails.cache.clear
     end
+
     it "should return a list of Questions" do
       get :index, params: { question_type: 'connect_sentence_combining' }, as: :json
 
@@ -19,9 +20,10 @@ describe Api::V1::QuestionsController, type: :controller do
   end
 
   describe "#show" do
-    before(:each) do
+    before do
       Rails.cache.clear
     end
+
     it "should return the specified question" do
       get :show, params: { id: question.uid }, as: :json
       expect(JSON.parse(response.body)).to eq(question.data)

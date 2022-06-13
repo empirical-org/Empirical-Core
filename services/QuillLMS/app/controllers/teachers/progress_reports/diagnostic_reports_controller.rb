@@ -9,77 +9,137 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
   before_action :authorize_teacher!, only: [:question_view, :students_by_classroom, :recommendations_for_classroom, :lesson_recommendations_for_classroom, :previously_assigned_recommendations, :growth_results_summary, :results_summary]
 
   def show
+    set_banner_variables
     @classroom_id = current_user.classrooms_i_teach&.last&.id || nil
     @report = params[:report] || 'question'
   end
 
   def question_view
-      set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(params[:activity_id], params[:classroom_id], params[:unit_id])
-      activity = Activity.includes(:classification)
-                         .find(params[:activity_id])
-      render json: { data: results_by_question(params[:activity_id]),
-                     classification: activity.classification.key }.to_json
+    set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(params[:activity_id], params[:classroom_id], params[:unit_id])
+    activity = Activity.includes(:classification)
+                       .find(params[:activity_id])
+    render json: { data: results_by_question(params[:activity_id]),
+                   classification: activity.classification.key }.to_json
   end
 
   def students_by_classroom
-      render json: results_for_classroom(params[:unit_id], params[:activity_id], params[:classroom_id])
+    classroom = Classroom.find(params[:classroom_id])
+    cache_groups = {
+      activity_id: params[:activity_id],
+      unit_id: params[:unit_id]
+    }
+    response = current_user.classroom_cache(classroom, key: 'teachers.progress_reports.diagnostic_reports.student_by_classroom', groups: cache_groups) do
+      results_for_classroom(params[:unit_id], params[:activity_id], params[:classroom_id])
+    end
+    render json: response
   end
 
   def diagnostic_student_responses_index
     activity_id = results_summary_params[:activity_id]
     classroom_id = results_summary_params[:classroom_id]
     unit_id = results_summary_params[:unit_id]
-    set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(activity_id, classroom_id, unit_id, true)
 
-    render json: { students: diagnostic_student_responses }
+    students_json = current_user.classroom_unit_by_ids_cache(
+      classroom_id: classroom_id,
+      unit_id: unit_id,
+      activity_id: activity_id,
+      key: 'diagnostic_reports.diagnostic_student_responses_index'
+    ) do
+      set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(activity_id, classroom_id, unit_id, hashify_activity_sessions: true)
+      diagnostic_student_responses
+    end
+
+    render json: { students: students_json }
   end
 
   def individual_student_diagnostic_responses
+    data = fetch_individual_student_diagnostic_responses_cache
+
+    return render json: data, status: 404 if data.empty?
+
+    render json: data
+  end
+
+  # rubocop:disable Metrics/CyclomaticComplexity
+  private def fetch_individual_student_diagnostic_responses_cache
     activity_id = individual_student_diagnostic_responses_params[:activity_id]
     classroom_id = individual_student_diagnostic_responses_params[:classroom_id]
     unit_id = individual_student_diagnostic_responses_params[:unit_id]
     student_id = individual_student_diagnostic_responses_params[:student_id]
-    activity_session = find_activity_session_for_student_activity_and_classroom(student_id, activity_id, classroom_id, unit_id)
 
-    if !activity_session
-      return render json: {}, status: 404
-    end
+    cache_groups = {
+      student_id: student_id
+    }
 
-    student = User.find_by_id(student_id)
-    skills = Activity.find(activity_id).skills.distinct
-    pre_test = Activity.find_by_follow_up_activity_id(activity_id)
-    pre_test_activity_session = pre_test && find_activity_session_for_student_activity_and_classroom(student_id, pre_test.id, classroom_id, unit_id)
+    current_user.classroom_unit_by_ids_cache(
+      classroom_id: classroom_id,
+      unit_id: unit_id,
+      activity_id: activity_id,
+      key: 'diagnostic_reports.individual_student_diagnostic_responses',
+      groups: cache_groups
+    ) do
+      activity_session = find_activity_session_for_student_activity_and_classroom(student_id, activity_id, classroom_id, unit_id)
 
-    if pre_test && pre_test_activity_session
-      concept_results = {
-        pre: { questions: format_concept_results(pre_test_activity_session, pre_test_activity_session.concept_results.order("(metadata->>'questionNumber')::int")) },
-        post: { questions: format_concept_results(activity_session, activity_session.concept_results.order("(metadata->>'questionNumber')::int")) }
-      }
-      formatted_skills = skills.map do |skill|
-        {
-          pre: data_for_skill_by_activity_session(pre_test_activity_session.concept_results, skill),
-          post: data_for_skill_by_activity_session(activity_session.concept_results, skill)
-        }
+      if !activity_session
+        return {}
       end
-      skill_results = { skills: formatted_skills.uniq { |formatted_skill| formatted_skill[:pre][:skill] } }
-    else
-      concept_results = { questions: format_concept_results(activity_session, activity_session.concept_results.order("(metadata->>'questionNumber')::int")) }
-      skill_results = { skills: skills.map { |skill| data_for_skill_by_activity_session(activity_session.concept_results, skill) }.uniq { |formatted_skill| formatted_skill[:skill] } }
+
+      student = User.find_by_id(student_id)
+      skills = Activity.find(activity_id).skills.distinct
+      pre_test = Activity.find_by_follow_up_activity_id(activity_id)
+      pre_test_activity_session = pre_test && find_activity_session_for_student_activity_and_classroom(student_id, pre_test.id, classroom_id, nil)
+
+      if pre_test && pre_test_activity_session
+        concept_results = {
+          pre: { questions: format_concept_results(pre_test_activity_session, pre_test_activity_session.concept_results.order("(metadata->>'questionNumber')::int")) },
+          post: { questions: format_concept_results(activity_session, activity_session.concept_results.order("(metadata->>'questionNumber')::int")) }
+        }
+        formatted_skills = skills.map do |skill|
+          {
+            pre: data_for_skill_by_activity_session(pre_test_activity_session.concept_results, skill),
+            post: data_for_skill_by_activity_session(activity_session.concept_results, skill)
+          }
+        end
+        skill_results = { skills: formatted_skills.uniq { |formatted_skill| formatted_skill[:pre][:skill] } }
+      else
+        concept_results = { questions: format_concept_results(activity_session, activity_session.concept_results.order("(metadata->>'questionNumber')::int")) }
+        skill_results = { skills: skills.map { |skill| data_for_skill_by_activity_session(activity_session.concept_results, skill) }.uniq { |formatted_skill| formatted_skill[:skill] } }
+      end
+      { concept_results: concept_results, skill_results: skill_results, name: student.name }
     end
-    render json: { concept_results: concept_results, skill_results: skill_results, name: student.name }
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def classrooms_with_students
-    classrooms = classrooms_with_students_for_report(params[:unit_id], params[:activity_id])
-    render json: classrooms.to_json
+    render json: fetch_classrooms_with_students_cache
+  end
+
+  private def fetch_classrooms_with_students_cache
+    cache_groups = {
+      unit_id: params[:unit_id],
+      activity_id: params[:activity_id]
+    }
+
+    current_user.all_classrooms_cache(key: 'teachers.progress_reports.diagnostic_reports.classrooms_with_students', groups: cache_groups) do
+      classrooms_with_students_for_report(params[:unit_id], params[:activity_id]).to_json
+    end
   end
 
   def recommendations_for_classroom
-      render json: generate_recommendations_for_classroom(current_user, params[:unit_id], params[:classroom_id], params[:activity_id])
+    render json: generate_recommendations_for_classroom(current_user, params[:unit_id], params[:classroom_id], params[:activity_id])
   end
 
   def lesson_recommendations_for_classroom
-    render json: {lessonsRecommendations: get_recommended_lessons(current_user, params[:unit_id], params[:classroom_id], params[:activity_id])}
+    lesson_recs = current_user.classroom_unit_by_ids_cache(
+      classroom_id: params[:classroom_id],
+      unit_id: params[:unit_id],
+      activity_id: params[:activity_id],
+      key: 'diagnostic_reports.lesson_recommendations_for_classroom'
+    ) do
+      get_recommended_lessons(current_user, params[:unit_id], params[:classroom_id], params[:activity_id])
+    end
+
+    render json: {lessonsRecommendations: lesson_recs}
   end
 
   def diagnostic_activity_ids
@@ -95,9 +155,20 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
   end
 
   def skills_growth
-    render json: { skills_growth: skills_growth_by_classroom_for_post_tests(params[:classroom_id], params[:post_test_activity_id], params[:pre_test_activity_id]) }
+    classroom = Classroom.find(params[:classroom_id])
+    cache_keys = {
+      pre_test: params[:pre_test_activity_id],
+      post_test: params[:post_test_activity_id]
+    }
+
+    json = current_user.classroom_cache(classroom, key: 'teachers.progress_reports.diagnostic_reports.skills_growth', groups: cache_keys) do
+      { skills_growth: skills_growth_by_classroom_for_post_tests(params[:classroom_id], params[:post_test_activity_id], params[:pre_test_activity_id]) }
+    end
+
+    render json: json
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def redirect_to_report_for_most_recent_activity_session_associated_with_activity_and_unit
     params.permit(:unit_id, :activity_id)
     unit_id = params[:unit_id]
@@ -105,26 +176,35 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     classroom_units = ClassroomUnit.where(unit_id: unit_id, classroom_id: current_user.classrooms_i_teach.map(&:id))
     last_activity_session = ActivitySession.where(classroom_unit: classroom_units, activity_id: activity_id, is_final_score: true).order(updated_at: :desc).limit(1)&.first
     classroom_id = last_activity_session&.classroom_unit&.classroom_id
+
+    # rubocop:disable Style/GuardClause
     if !classroom_id
       return render json: {}, status: 404
+    elsif Activity.diagnostic_activity_ids.include?(activity_id.to_i)
+      activity_is_a_post_test = Activity.find_by(follow_up_activity_id: activity_id).present?
+      summary_or_growth_summary = activity_is_a_post_test ? 'growth_summary' : 'summary'
+      unit_query_string = "?unit=#{unit_id}"
+      render json: { url: "/teachers/progress_reports/diagnostic_reports#/diagnostics/#{activity_id}/classroom/#{classroom_id}/#{summary_or_growth_summary}#{unit_query_string}" }
     else
       render json: { url: "/teachers/progress_reports/diagnostic_reports#/u/#{unit_id}/a/#{activity_id}/c/#{classroom_id}/students" }
     end
+    # rubocop:enable Style/GuardClause
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def assign_selected_packs
-      if params[:selections]
-        params[:selections].map { |s| s['id']}.each do |ut_id|
-          ut = UnitTemplate.find(ut_id)
-          Unit.unscoped.find_or_create_by(unit_template_id: ut.id, name: ut.name, user_id: current_user.id)
-        end
+    if params[:selections]
+      params[:selections].map { |s| s['id']}.each do |ut_id|
+        ut = UnitTemplate.find(ut_id)
+        Unit.unscoped.find_or_create_by(unit_template_id: ut.id, name: ut.name, user_id: current_user.id)
       end
-      create_or_update_selected_packs
-      render json: { data: 'Hi' }
+    end
+    create_or_update_selected_packs
+    render json: { data: 'Hi' }
   end
 
   def default_diagnostic_report
-      redirect_to default_diagnostic_url
+    redirect_to default_diagnostic_url
   end
 
   def report_from_classroom_unit_and_activity
@@ -138,12 +218,23 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     end
   end
 
-  def report_from_classroom_unit_activity_and_user
-      act_sesh_report = activity_session_report(params[:classroom_unit_id].to_i, params[:user_id].to_i, params[:activity_id].to_i)
-      respond_to do |format|
-        format.html { redirect_to act_sesh_report[:url] }
-        format.json { render json: act_sesh_report.to_json }
-      end
+  def report_from_classroom_unit_and_activity_and_user
+    classroom_unit = ClassroomUnit.find(params[:classroom_unit_id])
+    unit_id = classroom_unit.unit_id
+    classroom_id = classroom_unit.classroom_id
+    act_sesh_report = activity_session_report(unit_id, classroom_id, params[:user_id].to_i, params[:activity_id].to_i)
+    respond_to do |format|
+      format.html { redirect_to act_sesh_report[:url] }
+      format.json { render json: act_sesh_report.to_json }
+    end
+  end
+
+  def report_from_classroom_and_unit_and_activity_and_user
+    act_sesh_report = activity_session_report(params[:unit_id], params[:classroom_id], params[:user_id].to_i, params[:activity_id].to_i)
+    respond_to do |format|
+      format.html { redirect_to act_sesh_report[:url] }
+      format.json { render json: act_sesh_report.to_json }
+    end
   end
 
   def diagnostic_status
@@ -181,7 +272,18 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
   end
 
   def diagnostic_results_summary
-    render json: ResultsSummary.results_summary(results_summary_params[:activity_id], results_summary_params[:classroom_id], results_summary_params[:unit_id])
+    render json: fetch_diagnostic_results_summary_cache
+  end
+
+  private def fetch_diagnostic_results_summary_cache
+    current_user.classroom_unit_by_ids_cache(
+      classroom_id: params[:classroom_id],
+      unit_id: params[:unit_id],
+      activity_id: params[:activity_id],
+      key: 'teachers.progress_reports.diagnostic_reports.diagnostic_results_summary'
+    ) do
+      ResultsSummary.results_summary(results_summary_params[:activity_id], results_summary_params[:classroom_id], results_summary_params[:unit_id])
+    end
   end
 
   def diagnostic_growth_results_summary
@@ -189,38 +291,40 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     render json: GrowthResultsSummary.growth_results_summary(pre_test.id, results_summary_params[:activity_id], results_summary_params[:classroom_id])
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   private def create_or_update_selected_packs
     if params[:whole_class]
-      $redis.set("user_id:#{current_user.id}_lesson_diagnostic_recommendations_start_time", Time.now)
+      $redis.set("user_id:#{current_user.id}_lesson_diagnostic_recommendations_start_time", Time.current)
       return render json: {}, status: 401 unless current_user.classrooms_i_teach.map(&:id).include?(params[:classroom_id].to_i)
+
       params[:unit_template_ids].each_with_index do |unit_template_id, index|
         last = (params[:unit_template_ids].length - 1 == index)
         UnitTemplate.assign_to_whole_class(params[:classroom_id], unit_template_id, last)
       end
     else
-      selections_with_students = params[:selections].select do |ut|
-        ut[:classrooms][0][:student_ids]&.compact&.any?
-      end
-      if selections_with_students.any?
-        $redis.set("user_id:#{current_user.id}_diagnostic_recommendations_start_time", Time.now)
-        number_of_selections = selections_with_students.length
-        selections_with_students.each_with_index do |value, index|
-            last = (number_of_selections - 1) == index
-            # this only accommodates one classroom at a time
-            classroom = value[:classrooms][0]
-            argument_hash = {
-              unit_template_id: value[:id],
-              classroom_id: classroom[:id],
-              student_ids: classroom[:student_ids].compact,
-              last: last,
-              lesson: false,
-              assigning_all_recommended_packs: params[:assigning_all_recommended_packs]
-            }
-            AssignRecommendationsWorker.perform_async(**argument_hash) if current_user.classrooms_i_teach.map(&:id).include?(classroom[:id].to_i)
-        end
+      selections_with_students = params[:selections].select { |ut| ut[:classrooms][0][:student_ids]&.compact&.any? }
+
+      return unless selections_with_students.any?
+
+      $redis.set("user_id:#{current_user.id}_diagnostic_recommendations_start_time", Time.current)
+      number_of_selections = selections_with_students.length
+      selections_with_students.each_with_index do |value, index|
+        last = (number_of_selections - 1) == index
+        # this only accommodates one classroom at a time
+        classroom = value[:classrooms][0]
+        argument_hash = {
+          unit_template_id: value[:id],
+          classroom_id: classroom[:id],
+          student_ids: classroom[:student_ids].compact,
+          last: last,
+          lesson: false,
+          assigning_all_recommended_packs: params[:assigning_all_recommended_packs]
+        }
+        AssignRecommendationsWorker.perform_async(**argument_hash) if current_user.classrooms_i_teach.map(&:id).include?(classroom[:id].to_i)
       end
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   private def authorize_teacher!
     classroom_teacher!(params[:classroom_id])
@@ -239,8 +343,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
       classroom_unit = ClassroomUnit.find_by(unit_id: unit_id, classroom_id: classroom_id)
       activity_session = ActivitySession.find_by(classroom_unit: classroom_unit, state: 'finished', user_id: student_id)
     else
-      unit_ids = current_user.units.joins("JOIN unit_activities ON unit_activities.activity_id = #{activity_id}")
-      classroom_units = ClassroomUnit.where(unit_id: unit_ids, classroom_id: classroom_id)
+      classroom_units = ClassroomUnit.where(classroom_id: classroom_id).joins(:unit, :unit_activities).where(unit: {unit_activities: {activity_id: activity_id}})
       activity_session = ActivitySession.where(activity_id: activity_id, classroom_unit_id: classroom_units.ids, state: 'finished', user_id: student_id).order(completed_at: :desc).first
     end
   end
@@ -285,6 +388,11 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
       total_acquired_skills_count = post_correct_skill_ids && pre_correct_skill_ids ? (post_correct_skill_ids - pre_correct_skill_ids).length : 0
       sum += total_acquired_skills_count > 0 ? total_acquired_skills_count : 0
     end
+  end
+
+  private def set_banner_variables
+    acknowledge_lessons_banner_milestone = Milestone.find_by_name(Milestone::TYPES[:acknowledge_lessons_banner])
+    @show_lessons_banner = !UserMilestone.find_by(milestone_id: acknowledge_lessons_banner_milestone&.id, user_id: current_user&.id) && current_user&.classroom_unit_activity_states&.where(completed: true)&.none?
   end
 
 end

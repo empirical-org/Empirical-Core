@@ -62,13 +62,15 @@ const IndividualTopicFilterRow = ({ topicFilters, topicKey, handleTopicFilterCha
 
   const topicNameElement = topic.name.length * AVERAGE_FONT_WIDTH >= 182 ? <Tooltip tooltipText={topic.name} tooltipTriggerText={topic.name} tooltipTriggerTextClass="tooltip-trigger-text" /> : <span>{topic.name}</span>
 
-  return (<div className="individual-row filter-row topic-row" key={topicKey}>
-    <div>
-      {checkbox}
-      {topicNameElement}
+  return (
+    <div className="individual-row filter-row topic-row" key={topicKey}>
+      <div>
+        {checkbox}
+        {topicNameElement}
+      </div>
+      <span>({activityCount})</span>
     </div>
-    <span>({activityCount})</span>
-  </div>)
+  )
 }
 
 const TopicToggle = ({filteredActivities, grouping, uniqueLevelTwoTopics, topicFilters, handleTopicFilterChange, }: TopicToggleProps) => {
@@ -117,17 +119,19 @@ const TopicToggle = ({filteredActivities, grouping, uniqueLevelTwoTopics, topicF
     )
   }
 
-  return (<section className="toggle-section activity-classification-toggle">
-    <div className="top-level filter-row">
-      <div>
-        {toggleArrow}
-        {topLevelCheckbox}
-        <span>{grouping.group}</span>
+  return (
+    <section className="toggle-section activity-classification-toggle">
+      <div className="top-level filter-row">
+        <div>
+          {toggleArrow}
+          {topLevelCheckbox}
+          <span>{grouping.group}</span>
+        </div>
+        <span>({topLevelActivityCount})</span>
       </div>
-      <span>({topLevelActivityCount})</span>
-    </div>
-    {individualFilters}
-  </section>)
+      {individualFilters}
+    </section>
+  )
 }
 
 const TopicFilters = ({ activities, filterActivities, topicFilters, handleTopicFilterChange, }: TopicFiltersProps) => {
@@ -167,13 +171,15 @@ const TopicFilters = ({ activities, filterActivities, topicFilters, handleTopicF
     />)
   )
   const clearButton = topicFilters.length ? <button className="interactive-wrapper clear-filter focus-on-light" onClick={clearAllTopicFilters} type="button">Clear</button> : <span />
-  return (<section className="filter-section">
-    <div className="name-and-clear-wrapper">
-      <h2>Topics</h2>
-      {clearButton}
-    </div>
-    {topicToggles}
-  </section>)
+  return (
+    <section className="filter-section">
+      <div className="name-and-clear-wrapper">
+        <h2>Topics</h2>
+        {clearButton}
+      </div>
+      {topicToggles}
+    </section>
+  )
 }
 
 export default TopicFilters

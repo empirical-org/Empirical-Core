@@ -29,7 +29,7 @@ class ClassroomUnitActivityState < ApplicationRecord
   include ::NewRelic::Agent
   include LessonsCache
 
-  belongs_to :classroom_unit
+  belongs_to :classroom_unit, touch: true
   belongs_to :unit_activity
 
   after_save :update_lessons_cache_with_data
@@ -48,9 +48,9 @@ class ClassroomUnitActivityState < ApplicationRecord
 
 
   private def lock_if_lesson
-    if unit_activity.activity.is_lesson?
-      update(locked: true)
-    end
+    return unless unit_activity.activity.is_lesson?
+
+    update(locked: true)
   end
 
   private def not_duplicate
@@ -75,18 +75,19 @@ class ClassroomUnitActivityState < ApplicationRecord
   end
 
   private def handle_pinning
-    if pinned == true
-      if visible == false
-        # unpin ca before archiving
-        update!(pinned: false)
-      else
-        # unpin any other pinned ca before pinning new one
-        classroom = classroom_unit.classroom
-        classroom_unit_ids = classroom.classroom_units.ids.flatten
-        pinned_cua = ClassroomUnitActivityState.unscoped.find_by(pinned: true, classroom_unit_id: classroom_unit_ids)
-        return if pinned_cua && pinned_cua == self
-        pinned_cua.update_column("pinned", false) if pinned_cua
-      end
+    return unless pinned
+
+    # unpin ca before archiving
+    if visible == false
+      update!(pinned: false)
+    else
+      # unpin any other pinned ca before pinning new one
+      classroom = classroom_unit.classroom
+      classroom_unit_ids = classroom.classroom_units.ids.flatten
+      pinned_cua = ClassroomUnitActivityState.unscoped.find_by(pinned: true, classroom_unit_id: classroom_unit_ids)
+      return if pinned_cua && pinned_cua == self
+
+      pinned_cua.update_column("pinned", false) if pinned_cua
     end
   end
 

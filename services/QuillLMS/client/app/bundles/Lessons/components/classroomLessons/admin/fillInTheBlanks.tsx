@@ -50,7 +50,7 @@ class AdminFillInTheBlanks extends Component<AdminFillInTheBlanksProps, AdminFil
         formattedPrompt+=s.concat('<strong>').concat('___').concat('</strong>')
       }
     })
-     this.setState({prefilledSampleCorrectAnswer: formattedPrompt})
+    this.setState({prefilledSampleCorrectAnswer: formattedPrompt})
   }
 
   handleTitleChange(e) {

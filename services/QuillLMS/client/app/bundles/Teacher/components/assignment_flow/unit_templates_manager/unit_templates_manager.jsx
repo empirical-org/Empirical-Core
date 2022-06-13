@@ -2,7 +2,9 @@ import React from 'react'
 import _l from 'lodash'
 import _ from 'underscore'
 import qs from 'qs'
+
 import UnitTemplateMinis from './unit_template_minis'
+
 import ScrollToTop from '../../shared/scroll_to_top'
 import fnl from '../../modules/fnl'
 import updaterGenerator from '../../modules/updater'
@@ -18,7 +20,7 @@ const types = [
     id: 'diagnostic'
   },
   {
-    name: 'Whole class + Independent practice',
+    name: 'Whole class lessons',
     id: 'whole-class'
   },
   {
@@ -49,6 +51,7 @@ export default class UnitTemplatesManager extends React.Component {
         model_id: null,
         relatedModels: [],
         selectedCategoryId: null,
+        selectedReadabilityLevel: null,
         lastActivityAssigned: null,
         grade: getParameterByName('grade'),
       }
@@ -100,7 +103,7 @@ export default class UnitTemplatesManager extends React.Component {
     })
   }
 
-  filterModels = (category, grade, typeId) => {
+  filterModels = (category, grade, typeId, readability) => {
     const { unitTemplatesManager, } = this.state
     let displayedModels = unitTemplatesManager.models
     let selectedCategoryId
@@ -118,11 +121,15 @@ export default class UnitTemplatesManager extends React.Component {
       const selectedTypeName = types.find(t => t.id === typeId).name
       displayedModels = displayedModels.filter(ut => ut.type.name === selectedTypeName)
     }
+    if (readability) {
+      displayedModels = displayedModels.filter(ut => ut.activities.find(act => act.readability === readability))
+    }
     return displayedModels
   };
 
   modelsInGrade(grade) {
-    return _.reject(this.state.unitTemplatesManager.models, (m) => {
+    const { unitTemplatesManager, } = this.state
+    return _.reject(unitTemplatesManager.models, (m) => {
       return _.indexOf(m.grades, grade)
     });
   }
@@ -133,21 +140,23 @@ export default class UnitTemplatesManager extends React.Component {
   }
 
   selectCategory = category => {
-    const { unitTemplatesManager, signedInTeacher, } = this.state
+    const { history, } = this.props
+    const { unitTemplatesManager, } = this.state
     const newUnitTemplatesManager = unitTemplatesManager
     newUnitTemplatesManager.selectedCategoryId = category.value
     this.setState({ unitTemplatesManager: newUnitTemplatesManager })
 
-    const { type, } = this.parsedQueryParams()
-    let url = signedInTeacher ? '/assign/featured-activity-packs' : '/activities/packs'
-    if (type && category.value) {
-      url = url.concat(`?type=${type}&category=${category.label}`)
-    } else if (type) {
-      url = url.concat(`?type=${type}`)
-    } else if (category.value) {
-      url = url.concat(`?category=${category.label}`)
-    }
-    this.props.history.push(url)
+    history.push(category.link)
+  };
+
+  selectReadability = readabilityLevel => {
+    const { history, } = this.props
+    const { unitTemplatesManager, } = this.state
+    const newUnitTemplatesManager = unitTemplatesManager
+    newUnitTemplatesManager.selectedReadabilityLevel = readabilityLevel.value
+    this.setState({ unitTemplatesManager: newUnitTemplatesManager })
+
+    history.push(readabilityLevel.link)
   };
 
   showAllGrades() {
@@ -156,21 +165,25 @@ export default class UnitTemplatesManager extends React.Component {
   }
 
   showUnitTemplates() {
-    if (this.state.unitTemplatesManager.models.length < 1) {
+    const { unitTemplatesManager, signedInTeacher, } = this.state
+    if (unitTemplatesManager.models.length < 1) {
       return <LoadingIndicator />
     }
 
-    const { category, grade, type, } = this.parsedQueryParams()
-    const displayedModels = this.filterModels(category, grade, type)
-    return (<UnitTemplateMinis
-      actions={this.unitTemplatesManagerActions()}
-      data={this.state.unitTemplatesManager}
-      displayedModels={displayedModels}
-      selectCategory={this.selectCategory}
-      selectedTypeId={type}
-      signedInTeacher={this.state.signedInTeacher}
-      types={types}
-    />)
+    const { category, grade, type, readability, } = this.parsedQueryParams()
+    const displayedModels = this.filterModels(category, grade, type, readability)
+    return (
+      <UnitTemplateMinis
+        actions={this.unitTemplatesManagerActions()}
+        data={unitTemplatesManager}
+        displayedModels={displayedModels}
+        selectCategory={this.selectCategory}
+        selectedTypeId={type}
+        selectReadability={this.selectReadability}
+        signedInTeacher={signedInTeacher}
+        types={types}
+      />
+    )
   }
 
   toggleTab(tab) {
@@ -201,23 +214,24 @@ export default class UnitTemplatesManager extends React.Component {
   }
 
   updateUnitTemplateModels = models => {
+    const { unitTemplatesManager, } = this.state
     const categories = _.chain(models).pluck('unit_template_category').uniq(_.property('id')).value();
     const newHash = {
       models,
       displayedModels: models,
       categories
     }
-    const modelId = this.state.unitTemplatesManager.model_id // would be set if we arrived here from a deep link
+    const modelId = unitTemplatesManager.model_id // would be set if we arrived here from a deep link
     if (modelId) {
       newHash.model = _.findWhere(models, {id: model_id});
       newHash.stage = 'profile'
     }
     this.updateUnitTemplatesManager(newHash)
 
-    const { category, grade, type, } = this.parsedQueryParams()
+    const { category, grade, type, readability, } = this.parsedQueryParams()
 
-    if (category || grade || type) {
-      this.filterModels(category, grade, type)
+    if (category || grade || type || readability) {
+      this.filterModels(category, grade, type, readability)
     }
   };
 

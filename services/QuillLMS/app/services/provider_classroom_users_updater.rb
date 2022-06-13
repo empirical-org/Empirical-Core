@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ProviderClassroomUsersUpdater
+class ProviderClassroomUsersUpdater < ApplicationService
   attr_reader :provider_classroom_id, :provider_user_ids, :provider_classroom_user_class
 
   def initialize(provider_classroom_id, provider_user_ids, provider_classroom_user_class)
@@ -28,7 +28,7 @@ class ProviderClassroomUsersUpdater
       .active
       .where(provider_classroom_id: provider_classroom_id)
       .where.not(provider_user_id: provider_user_ids)
-      .update_all(deleted_at: Time.now)
+      .update_all(deleted_at: Time.current)
   end
 
   private def create_new_active

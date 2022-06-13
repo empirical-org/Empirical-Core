@@ -16,17 +16,17 @@ describe CleverIntegration::StudentCreator do
   let(:email) { 'student@gmail.com' }
   let(:username) { 'username' }
 
-  subject { described_class.new(data) }
+  subject { described_class.run(data) }
 
   it 'will create a new student if none currently exists' do
-    expect { subject.run }.to change(User, :count).from(0).to(1)
+    expect { subject }.to change(User, :count).from(0).to(1)
   end
 
   context 'username already exists' do
     before { create(:student, username: username) }
 
     it 'will create a new student with an updated username' do
-      subject.run
+      subject
       new_student = ::User.find_by(email: email)
 
       expect(new_student.username).not_to eq username

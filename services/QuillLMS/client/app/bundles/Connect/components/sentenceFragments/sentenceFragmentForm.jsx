@@ -118,12 +118,12 @@ class sentenceFragmentForm extends React.Component {
   renderOptimalResponseTextInput = () => {
     const { optimalResponseText } = this.state
     return (
-    [
+      [
         (<label className="label">Optimal Answer Text (The most obvious short answer, you can add more later)</label>),
         (<p className="control">
           <input className="input" data-value="optimalResponseText" onChange={this.handleChange} type="text" value={optimalResponseText} />
         </p>)
-    ]
+      ]
     );
   };
 

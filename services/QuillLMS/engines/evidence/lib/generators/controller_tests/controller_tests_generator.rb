@@ -25,15 +25,15 @@ class ControllerTestsGenerator < TestUnit::Generators::Base # :nodoc:
 
   private
 
-    def attributes_hash
-      return if attributes_names.empty?
+  def attributes_hash
+    return if attributes_names.empty?
 
-      attributes_names.map do |name|
-        if %w(password password_confirmation).include?(name) && attributes.any?(&:password_digest?)
-          "#{name}: 'secret'"
-        else
-          "#{name}: @#{singular_table_name}.#{name}"
-        end
-      end.sort.join(', ')
-    end
+    attributes_names.map do |name|
+      if %w(password password_confirmation).include?(name) && attributes.any?(&:password_digest?)
+        "#{name}: 'secret'"
+      else
+        "#{name}: @#{singular_table_name}.#{name}"
+      end
+    end.sort.join(', ')
+  end
 end

@@ -3,27 +3,26 @@
 require 'rails_helper'
 
 describe ClassroomsTeachersController, type: :controller do
+  before { allow(controller).to receive(:current_user) { user } }
+
   it { should use_before_action :signed_in! }
   it { should use_before_action :multi_classroom_auth }
 
   let(:user) { create(:user) }
 
-  before do
-    allow(controller).to receive(:current_user) { user }
-  end
 
   describe '#edit_coteacher_form' do
     let(:classroom) { create(:classroom) }
-    let(:edit_info_for_teacher) {
+    let(:edit_info_for_teacher) do
       {
-          is_coteacher: [classroom.id],
-          invited_to_coteach: [classroom.id]
+        is_coteacher: [classroom.id],
+        invited_to_coteach: [classroom.id]
       }
-    }
+    end
 
     before do
-     allow(user).to receive(:classrooms_i_own_that_a_specific_user_coteaches_with_me) { [classroom] }
-     allow(user).to receive(:classroom_ids_i_have_invited_a_specific_teacher_to_coteach) { [classroom.id] }
+      allow(user).to receive(:classrooms_i_own_that_a_specific_user_coteaches_with_me) { [classroom] }
+      allow(user).to receive(:classroom_ids_i_have_invited_a_specific_teacher_to_coteach) { [classroom.id] }
     end
 
     it 'should set the classroom, coteachers, and selected teacher and classroom' do
@@ -32,40 +31,22 @@ describe ClassroomsTeachersController, type: :controller do
     end
   end
 
-  # describe '#update_coteachers' do
-  #   let(:classrooms) { {negative_classroom_ids: [1,2,3], positive_classroom_ids: [4,5,6]} }
-  #
-  #   before do
-  #     allow_any_instance_of(User).to receive(:handle_negative_classrooms_from_update_coteachers) { true }
-  #     allow_any_instance_of(User).to receive(:handle_positive_classrooms_from_update_coteachers) { true }
-  #   end
-  #
-  #   it 'should set the classrooms and update the coteacher with the correct classrooms' do
-  #     expect_any_instance_of(User).to receive(:handle_negative_classrooms_from_update_coteachers).with([1,2,3])
-  #     expect_any_instance_of(User).to receive(:handle_positive_classrooms_from_update_coteachers).with([4,5,6], user.id)
-  #     post :update_coteachers, classrooms: classrooms, classroom_teacher_id: user.id
-  #     expect(assigns(:classrooms)).to eq classrooms
-  #   end
-  # end
-
   describe '#update_order' do
+    let!(:user) { create(:teacher) }
+    let!(:classrooms_teachers) { create_list(:classrooms_teacher, 3, user_id: user.id) }
+    let(:updated_order) { [1, 2, 0] }
 
-    before do
-      user = create(:user, role: "teacher")
-      @classrooms_teacher1 = create(:classrooms_teacher, user_id: user.id)
-      @classrooms_teacher2 = create(:classrooms_teacher, user_id: user.id)
-      @classrooms_teacher3 = create(:classrooms_teacher, user_id: user.id)
+    let(:updated_classrooms_params) do
+      classrooms_teachers.map.with_index do |classrooms_teacher, i|
+        { id: classrooms_teacher.classroom_id, order: updated_order[i] }
+      end
     end
 
     it 'should update the order value for classrooms_teachers' do
-      classrooms_teacher_array = [@classrooms_teacher1, @classrooms_teacher2, @classrooms_teacher3]
-      order = [1, 2, 0]
-      params_array = [{ id: @classrooms_teacher1.classroom_id, order: 1 }, { id: @classrooms_teacher2.classroom_id, order: 2 }, { id: @classrooms_teacher3.classroom_id, order: 0 }]
+      put :update_order, params: { updated_classrooms: updated_classrooms_params.to_json }
 
-      put :update_order, params: { updated_classrooms: params_array.to_json }
-
-      classrooms_teacher_array.each_with_index do |classrooms_teacher, i|
-        expect classrooms_teacher.order == order[i]
+      classrooms_teachers.each_with_index do |classrooms_teacher, i|
+        expect(classrooms_teacher.reload.order).to eq updated_order[i]
       end
     end
   end
@@ -99,5 +80,4 @@ describe ClassroomsTeachersController, type: :controller do
       expect(response.body).to eq({message: "Deletion Succeeded!"}.to_json)
     end
   end
-
 end

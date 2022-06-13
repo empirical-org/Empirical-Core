@@ -59,21 +59,23 @@ export default class AssignmentCard extends React.Component<AssignmentCardProps,
     const recommendedToStartTag = showRecommendedToStartTag ? <span className="recommended-to-start-tag">Recommended to start</span> : null
     const leftClassName = showRecommendedToStartTag ? "left include-recommended-to-start-tag" : "left"
 
-    return (<div className={`${newTag ? 'show-new-tag' : ''} assignment-card quill-card`} onClick={this.handleClick}>
-      {newTag}
-      <div className="top-row">
-        <div className={leftClassName}>
-          {imgSrc && <img alt={imgAlt} className={imgClassName} src={imgSrc} />}
-          <div className="header-wrapper">
-            {recommendedToStartTag}
-            <h2>{header}</h2>
+    return (
+      <div className={`${newTag ? 'show-new-tag' : ''} assignment-card quill-card`} onClick={this.handleClick}>
+        {newTag}
+        <div className="top-row">
+          <div className={leftClassName}>
+            {imgSrc && <img alt={imgAlt} className={imgClassName} src={imgSrc} />}
+            <div className="header-wrapper">
+              {recommendedToStartTag}
+              <h2>{header}</h2>
+            </div>
           </div>
+          {this.renderButtons()}
         </div>
-        {this.renderButtons()}
+        <div className="body">
+          {bodyElements}
+        </div>
       </div>
-      <div className="body">
-        {bodyElements}
-      </div>
-    </div>)
+    )
   }
 }

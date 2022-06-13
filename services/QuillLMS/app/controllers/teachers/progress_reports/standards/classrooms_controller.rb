@@ -9,14 +9,19 @@ class Teachers::ProgressReports::Standards::ClassroomsController < Teachers::Pro
 
       format.json do
         classroom_id = params[:classroom_id]
-        student_id = nil
-        data = ::ProgressReports::Standards::AllClassroomsStandard.new(current_user).results(classroom_id, student_id)
-        render json: {
-          data: data,
-          teacher: UserWithEmailSerializer.new(current_user).as_json(root: false),
-          classrooms: current_user.classrooms_i_teach,
-          students: student_names_and_ids(classroom_id)
+        cache_groups = {
+          classroom_id: classroom_id
         }
+        response = current_user.all_classrooms_cache(key: 'teachers.progress_reports.standards.classroom.index', groups: cache_groups) do
+          data = ::ProgressReports::Standards::AllClassroomsStandard.new(current_user).results(classroom_id, nil)
+          {
+            data: data,
+            teacher: UserWithEmailSerializer.new(current_user).as_json(root: false),
+            classrooms: current_user.classrooms_i_teach,
+            students: student_names_and_ids(classroom_id)
+          }
+        end
+        render json: response
       end
     end
   end

@@ -13,7 +13,7 @@ module Evidence
 
       it 'should should have working accessor methods for all initialized fields' do
         regex_check = Evidence::RegexCheck.new("entry", prompt, rule.rule_type)
-        expect("entry").to(eq(regex_check.entry))
+        expect(regex_check.entry).to(eq("entry"))
         expect(prompt).to(eq(regex_check.prompt))
       end
     end
@@ -30,7 +30,7 @@ module Evidence
         expect(optimal_rule.rule_type).to(eq(feedback[:feedback_type]))
         expect(feedback[:optimal]).to(be_truthy)
         expect(entry).to(eq(feedback[:entry]))
-        expect("").to(eq(feedback[:concept_uid]))
+        expect(feedback[:concept_uid]).to(eq(""))
         expect(optimal_rule.uid).to(eq(feedback[:rule_uid]))
       end
 

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Teachers::ClassroomsController < ApplicationController
+  include CleverAuthable
+
   respond_to :json, :html, :pdf
   before_action :teacher!
   # The excepted/only methods below are ones that should be accessible to coteachers.
@@ -12,9 +14,11 @@ class Teachers::ClassroomsController < ApplicationController
 
   def index
     session[GOOGLE_REDIRECT] = request.env['PATH_INFO']
+    session[CLEVER_REDIRECT] = request.env['PATH_INFO']
 
     @coteacher_invitations = format_coteacher_invitations_for_index
     @classrooms = format_classrooms_for_index
+    @clever_link = clever_link
 
     respond_to do |format|
       format.html
@@ -27,8 +31,7 @@ class Teachers::ClassroomsController < ApplicationController
   end
 
   def classrooms_i_teach
-    @classrooms = current_user.classrooms_i_teach
-    render json: @classrooms.sort_by { |c| c[:update_at] }, each_serializer: ClassroomSerializer
+    render json: fetch_classrooms_i_teach_cache, each_serializer: ClassroomSerializer
   end
 
   def regenerate_code
@@ -80,18 +83,10 @@ class Teachers::ClassroomsController < ApplicationController
     end
   end
 
-  def destroy
-    authorize_owner! { params[:id] }
-    Classroom.find(params[:id]).destroy
-    # we need a performed? check here to avoid a double render, since
-    # authorize_owner can trigger a render, which is an anti-pattern
-    # more info: https://medium.com/cedarcode/abstractcontroller-doublerendererror-fix-d18881b80476
-    redirect_to teachers_classrooms_path unless performed?
-  end
-
   def bulk_archive
     Classroom.where(id: params[:ids]).each do |classroom|
       next if classroom.owner != current_user
+
       classroom.visible = false
       # we want to skip validations here because otherwise they can prevent archiving the classroom, when the classroom was created before the validation was added
       classroom.save(validate: false)
@@ -162,6 +157,13 @@ class Teachers::ClassroomsController < ApplicationController
     render json: {}
   end
 
+  private def fetch_classrooms_i_teach_cache
+    current_user.all_classrooms_cache(key: 'teachers.classrooms.classrooms_i_teach') do
+      @classrooms = current_user.classrooms_i_teach
+    end
+  end
+
+  # rubocop:disable Metrics/CyclomaticComplexity
   private def format_coteacher_invitations_for_index
     coteacher_invitations = CoteacherClassroomInvitation.includes(invitation: :inviter).joins(:invitation, :classroom).where(invitations: {invitee_email: current_user.email}, classrooms: { visible: true})
 
@@ -173,6 +175,7 @@ class Teachers::ClassroomsController < ApplicationController
       coteacher_invitation_obj
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   private def format_classrooms_for_index
     has_classroom_order = ClassroomsTeacher.where(user_id: current_user.id).all? { |classroom| classroom.order }
@@ -259,13 +262,16 @@ class Teachers::ClassroomsController < ApplicationController
   private def authorize_owner!
     classroom_id = block_given? ? yield : params[:id]
     return auth_failed unless classroom_id.present?
+
     classroom = Classroom.find_by(id: classroom_id)
     return auth_failed unless classroom
+
     classroom_owner!(classroom.id)
   end
 
   private def authorize_teacher!
     return unless params[:id].present?
+
     classroom_teacher!(params[:id])
   end
 end

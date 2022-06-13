@@ -1,8 +1,8 @@
 import * as React from 'react'
-import ReactTable from 'react-table'
-import 'react-table/react-table.css';
 import stripHtml from "string-strip-html";
 import _ from 'underscore'
+
+import { ReactTable, } from '../../../Shared/index'
 
 interface PromptHealthProps {
   dataResults: Array<Object>;
@@ -26,7 +26,8 @@ class PromptHealth extends React.Component<PromptHealthProps, PromptHealthState>
         accessor: 'text',
         resizeable: true,
         minWidth: 400,
-        Cell: cell => (<a href={cell.original.url} rel="noopener noreferrer" style={{color: 'mediumSeaGreen'}} target="_blank">{stripHtml(cell.original.text)}</a>),
+        Cell: ({row}) => {
+          return (<a href={row.original.url} rel="noopener noreferrer" style={{color: 'mediumSeaGreen'}} target="_blank">{row.original.text && stripHtml(row.original.text)}</a>)},
         style: { 'whiteSpace': 'unset' }
       },
       {
@@ -87,17 +88,15 @@ class PromptHealth extends React.Component<PromptHealthProps, PromptHealthState>
         defaultPageSize={dataResults.length}
         loading={false}
         pages={1}
-        showPageSizeOptions={false}
-        showPagination={false}
       />)
     } else {
       tableOrEmptyMessage = NO_DATA_FOUND_MESSAGE
     }
-      return (
-        <div>
-          {tableOrEmptyMessage}
-        </div>
-      )
+    return (
+      <div>
+        {tableOrEmptyMessage}
+      </div>
+    )
   }
 
   render() {

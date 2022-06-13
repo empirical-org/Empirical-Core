@@ -47,28 +47,30 @@ export default class ResponseList extends React.Component {
   }
 
   renderResponse(resp) {
-    return (<Response
-      allExpanded={this.props.expanded}
-      conceptID={this.props.conceptID}
-      concepts={this.props.concepts}
-      conceptsFeedback={this.props.conceptsFeedback}
-      dispatch={this.props.dispatch}
-      expand={this.props.expand}
-      expanded={this.props.expanded[resp.key]}
-      getChildResponses={this.props.getChildResponses}
-      getMatchingResponse={this.props.getMatchingResponse}
-      getResponse={this.props.getResponse}
-      key={resp.key}
-      massEdit={this.props.massEdit}
-      mode={this.props.mode}
-      question={this.props.question}
-      questionID={this.props.questionID}
-      readOnly={this.props.admin}
-      response={resp}
-      responses={this.props.responses}
-      state={this.props.states[this.props.questionID]}
-      states={this.props.states}
-    />)
+    return (
+      <Response
+        allExpanded={this.props.expanded}
+        conceptID={this.props.conceptID}
+        concepts={this.props.concepts}
+        conceptsFeedback={this.props.conceptsFeedback}
+        dispatch={this.props.dispatch}
+        expand={this.props.expand}
+        expanded={this.props.expanded[resp.key]}
+        getChildResponses={this.props.getChildResponses}
+        getMatchingResponse={this.props.getMatchingResponse}
+        getResponse={this.props.getResponse}
+        key={resp.key}
+        massEdit={this.props.massEdit}
+        mode={this.props.mode}
+        question={this.props.question}
+        questionID={this.props.questionID}
+        readOnly={this.props.admin}
+        response={resp}
+        responses={this.props.responses}
+        state={this.props.states[this.props.questionID]}
+        states={this.props.states}
+      />
+    )
   }
 
   filterInvalidFocusPointsOrIncorrectSequences = (fpOrIs) => {

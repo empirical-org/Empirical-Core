@@ -39,7 +39,7 @@ module GoogleIntegration
     end
 
     private def username
-      ::GenerateUsername.new(first_name, last_name, classroom.code).call
+      ::GenerateUsername.run(first_name, last_name, classroom.code)
     end
   end
 end

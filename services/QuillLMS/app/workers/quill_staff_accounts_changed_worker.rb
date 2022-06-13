@@ -14,7 +14,7 @@ class QuillStaffAccountsChangedWorker
     current_staff_accounts = current_staff_account_data
     previous_staff_accounts = cached_staff_account_data
     notify_staff(current_staff_accounts, previous_staff_accounts) unless current_staff_accounts == previous_staff_accounts
-    $redis.set(STAFF_ACCOUNTS_CACHE_KEY, current_staff_accounts.to_json)
+    $redis.set(STAFF_ACCOUNTS_CACHE_KEY, current_staff_accounts.to_json, ex: 25.hours.to_i)
   end
 
   def current_staff_account_data
@@ -31,6 +31,7 @@ class QuillStaffAccountsChangedWorker
     JSON.parse($redis.get(STAFF_ACCOUNTS_CACHE_KEY) || '[]')
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def notify_staff(current_staff_accounts, previous_staff_accounts)
     body = ''.dup
 
@@ -53,14 +54,15 @@ class QuillStaffAccountsChangedWorker
       end
     end
 
-    unless body.empty?
-      body.prepend("Staff Account Changes:\n\n")
-      ActionMailer::Base.mail(
-        from: EMAIL_NOTIFICATION_FROM,
-        to: EMAIL_NOTIFICATION_TO,
-        subject: 'SECURITY NOTIFICATION: Staff Account Updates',
-        body: body
-      ).deliver
-    end
+    return if body.empty?
+
+    body.prepend("Staff Account Changes:\n\n")
+    ActionMailer::Base.mail(
+      from: EMAIL_NOTIFICATION_FROM,
+      to: EMAIL_NOTIFICATION_TO,
+      subject: 'SECURITY NOTIFICATION: Staff Account Updates',
+      body: body
+    ).deliver
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 end

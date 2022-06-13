@@ -3,7 +3,8 @@
 exports[`ThankYouSlide Component should match snapshot 1`] = `
 <ThankYouSlide>
   <div
-    className="activity-follow-up-container thank-you-slide-container"
+    className="activity-follow-up-container thank-you-slide-container no-focus-outline"
+    tabIndex={-1}
   >
     <div
       className="thank-you-content"

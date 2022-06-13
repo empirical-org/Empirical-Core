@@ -11,27 +11,27 @@ export interface IState {
 }
 
 export const initStore = () => {
-    return (dispatch: Dispatch<{}>) => {
-        const initialState = {
-          questions: {},
-          grammarActivities: {}
-        }
-        return dispatch(initStoreAction(initialState));
-    };
+  return (dispatch: Dispatch<{}>) => {
+    const initialState = {
+      questions: {},
+      grammarActivities: {}
+    }
+    return dispatch(initStoreAction(initialState));
+  };
 };
 
 export const configureStore = () => {
-    if (process.env.NODE_ENV === "production") {
-        return createStore(
-            rootReducer,
-            applyMiddleware(thunk),
-        );
-    } else {
-        return createStore(
-            rootReducer,
-            composeWithDevTools(
-                applyMiddleware(thunk),
-            ),
-        );
-    }
+  if (process.env.NODE_ENV === "production") {
+    return createStore(
+      rootReducer,
+      applyMiddleware(thunk),
+    );
+  } else {
+    return createStore(
+      rootReducer,
+      composeWithDevTools(
+        applyMiddleware(thunk),
+      ),
+    );
+  }
 };

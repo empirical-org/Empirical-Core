@@ -16,7 +16,7 @@ export default class MergeTeacherAccounts extends React.Component {
     const that = this
     request.post({
       url: `${process.env.DEFAULT_URL}/teacher_fix/merge_teacher_accounts`,
-      json: {account_1_identifier: that.state.teacher1Identifier, account_2_identifier: that.state.teacher2Identifier, authenticity_token: getAuthToken()}
+      json: {account1_identifier: that.state.teacher1Identifier, account2_identifier: that.state.teacher2Identifier, authenticity_token: getAuthToken()}
     },
     (e, r, response) => {
       if (response.error) {
@@ -41,24 +41,26 @@ export default class MergeTeacherAccounts extends React.Component {
   }
 
   render() {
-    return (<div>
-      <h1><a href="/teacher_fix">Teacher Fixes</a></h1>
-      <h2>Merge Teacher Accounts</h2>
-      <p>This method will transfer all of the first teacher's classrooms and created units to the second teacher.</p>
-      <p>Please note that it will not delete the first teacher's account, nor impact the second teacher's premium status or other account information.</p>
+    return (
       <div>
-        <div className="input-row">
-          <label>Teacher One Email Or Username:</label>
-          <input onChange={(e) => this.updateTeacherIdentifier(e, 1)} type="text" value={this.state.teacher1Identifier} />
+        <h1><a href="/teacher_fix">Teacher Fixes</a></h1>
+        <h2>Merge Teacher Accounts</h2>
+        <p>This method will transfer all of the first teacher's classrooms and created units to the second teacher.</p>
+        <p>Please note that it will not delete the first teacher's account, nor impact the second teacher's premium status or other account information.</p>
+        <div>
+          <div className="input-row">
+            <label>Teacher One Email Or Username:</label>
+            <input onChange={(e) => this.updateTeacherIdentifier(e, 1)} type="text" value={this.state.teacher1Identifier} />
+          </div>
+          <div className="input-row">
+            <label>Teacher Two Email Or Username:</label>
+            <input onChange={(e) => this.updateTeacherIdentifier(e, 2)} type="text" value={this.state.teacher2Identifier} />
+          </div>
+          <button onClick={this.submitTeachers}>Merge Teacher Accounts</button>
+          {this.renderError()}
         </div>
-        <div className="input-row">
-          <label>Teacher Two Email Or Username:</label>
-          <input onChange={(e) => this.updateTeacherIdentifier(e, 2)} type="text" value={this.state.teacher2Identifier} />
-        </div>
-        <button onClick={this.submitTeachers}>Merge Teacher Accounts</button>
-        {this.renderError()}
-      </div>
 
-    </div>)
+      </div>
+    )
   }
 }

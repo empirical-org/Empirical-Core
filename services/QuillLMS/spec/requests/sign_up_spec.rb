@@ -66,7 +66,7 @@ describe 'Sign up', type: :request do
     let(:expected_student_email)    { "#{student_first_name}.#{student_last_name}@#{classroom.code}".downcase }
     let(:expected_student_password) { student_last_name.capitalize }
 
-    before(:each) do
+    before do
       password = 'password'
       teacher.update(password: password)
       sign_in(teacher.email, teacher.password)

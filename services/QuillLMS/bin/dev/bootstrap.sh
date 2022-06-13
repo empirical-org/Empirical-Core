@@ -5,10 +5,10 @@ then
   exit 1
 fi
 
-[ ! -d '/Applications/Postgres.app' ] && echo 'Please make sure Postgres.app is installed. Exiting.' && exit 1
+[ ! -d '/Applications/Postgres.app' ] && echo 'Please make sure Postgres.app is installed. Use the version "Postgres.app with all currently supported versions" on this page: https://postgresapp.com/downloads.html so that you use Postgres 10. Exiting.' && exit 1
 
-postgres_already_running_msg="It looks like you have a non-Postgres.app version \n 
-of postgres already running. Try running \n 
+postgres_already_running_msg="It looks like you have a non-Postgres.app version \n
+of postgres already running. Try running \n
 pg_ctl -D /usr/local/var/postgresql@10 \n
 to gracefully stop this process."
 
@@ -35,6 +35,9 @@ echo 'Install requirements'
 brew install redis
 brew install rbenv
 brew install ruby-build
+brew install readline
+brew install libyaml
+brew install shared-mime-info
 brew tap homebrew/services
 
 echo 'Install rbenv'
@@ -81,7 +84,7 @@ git remote add quill-lms-prod  https://git.heroku.com/empirical-grammar.git
 
 echo 'Install Bundler'
 # there are breaking changes in bundler 2.0, so pin to this version for now.
-gem install bundler -v 1.17.3
+gem install bundler -v 2.2.33
 gem install foreman -v 0.87.2
 
 # set bundle config, needed for sidekiq-pro

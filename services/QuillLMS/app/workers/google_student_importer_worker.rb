@@ -4,15 +4,19 @@ class GoogleStudentImporterWorker
   include Sidekiq::Worker
   sidekiq_options queue: SidekiqQueue::CRITICAL_EXTERNAL
 
+  PUSHER_EVENT = 'google-classroom-students-imported'
+  PUSHER_FAILED_EVENT = 'google-account-reauthorization-required'
+
   def perform(teacher_id, context = "none", selected_classroom_ids=nil)
     teacher = User.find(teacher_id)
-    GoogleIntegration::TeacherClassroomsStudentsImporter.new(teacher, selected_classroom_ids).run
-    PusherTrigger.run(teacher_id, 'google-classroom-students-imported', "Google classroom students imported for #{teacher_id}.")
-  rescue StandardError => e
-    if Rails.env.development?
-      puts 'ERROR', e
+
+    if teacher.google_authorized?
+      GoogleIntegration::TeacherClassroomsStudentsImporter.run(teacher, selected_classroom_ids)
+      PusherTrigger.run(teacher_id, PUSHER_EVENT, "Google classroom students imported for #{teacher_id}.")
     else
-      NewRelic::Agent.notice_error(e, custom_params: { context: context })
+      PusherTrigger.run(teacher_id, PUSHER_FAILED_EVENT, "Reauthorization needed for user #{teacher_id}.")
     end
+  rescue StandardError => e
+    NewRelic::Agent.notice_error(e, context: context)
   end
 end

@@ -3,6 +3,7 @@ import * as React from 'react';
 import { Activity, ActivityClassification, Topic, } from './interfaces'
 import { stringifyLowerLevelTopics, AVERAGE_FONT_WIDTH, } from './shared'
 
+import { imageTagForClassification, } from '../../assignmentFlowConstants'
 import { Tooltip } from '../../../../../Shared/index'
 import useWindowSize from '../../../../../Shared/hooks/useWindowSize'
 
@@ -18,12 +19,6 @@ const previewSrc = `${process.env.CDN_URL}/images/icons/preview.svg`
 const bookmarkSrc = `${process.env.CDN_URL}/images/icons/icons-bookmark.svg`
 const outlinedBookmarkSrc = `${process.env.CDN_URL}/images/icons/icons-bookmark-outline.svg`
 const removeSrc = `${process.env.CDN_URL}/images/icons/remove-in-circle.svg`
-const connectSrc = `${process.env.CDN_URL}/images/icons/description-connect.svg`
-const diagnosticSrc = `${process.env.CDN_URL}/images/icons/description-diagnostic.svg`
-const lessonsSrc = `${process.env.CDN_URL}/images/icons/description-lessons.svg`
-const proofreaderSrc = `${process.env.CDN_URL}/images/icons/description-proofreader.svg`
-const grammarSrc = `${process.env.CDN_URL}/images/icons/description-grammar.svg`
-const comprehensionSrc = `${process.env.CDN_URL}/images/icons/description-comprehension.svg`
 
 const IMAGE_WIDTH = 18
 const MARGIN = 16
@@ -70,39 +65,6 @@ const calculateMaxAllowedLengthForTopicSection = ({
   return maxAllowedLength
 }
 
-const imageTagForClassification = (classificationKey: string): JSX.Element => {
-  let imgAlt = ""
-  let imgSrc
-  switch(classificationKey) {
-    case 'connect':
-      imgAlt = "Target representing Quill Connect"
-      imgSrc = connectSrc
-      break
-    case 'diagnostic':
-      imgAlt = "Magnifying glass representing Quill Diagnostic"
-      imgSrc = diagnosticSrc
-      break
-    case 'sentence':
-      imgAlt = "Puzzle piece representing Quill Grammar"
-      imgSrc = grammarSrc
-      break
-    case 'lessons':
-      imgAlt = "Apple representing Quill Lessons"
-      imgSrc = lessonsSrc
-      break
-    case 'passage':
-      imgAlt = "Flag representing Quill Proofreader"
-      imgSrc = proofreaderSrc
-      break
-    case 'evidence':
-      imgAlt = "Book representing Quill Evidence"
-      imgSrc = comprehensionSrc
-      break
-  }
-
-  return <img alt={imgAlt} src={imgSrc} />
-}
-
 const ActivityRowCheckbox = ({ activity, isSelected, toggleActivitySelection, }: ActivityRowCheckboxProps) => {
   const handleCheckboxClick = () => toggleActivitySelection(activity, isSelected)
   if (isSelected) {
@@ -115,10 +77,12 @@ const ActivityRowCheckbox = ({ activity, isSelected, toggleActivitySelection, }:
 const ActivityRowClassification = ({ classification, }: { classification?: ActivityClassification }) => {
   const className = "second-line-section classification"
   if (classification) {
-    return (<span className={className}>
-      {imageTagForClassification(classification.key)}
-      <span>{classification.alias}</span>
-    </span>)
+    return (
+      <span className={className}>
+        {imageTagForClassification(classification.key)}
+        <span>{classification.alias}</span>
+      </span>
+    )
   }
 
   return <span className={className} />
@@ -127,10 +91,12 @@ const ActivityRowClassification = ({ classification, }: { classification?: Activ
 const ActivityRowConcept = ({ conceptName, }: { conceptName?: string }) => {
   const className = "second-line-section concept"
   if (conceptName) {
-    return (<span className={className}>
-      <img alt="Pencil writing icon" src={conceptSrc} />
-      <span>{conceptName}</span>
-    </span>)
+    return (
+      <span className={className}>
+        <img alt="Pencil writing icon" src={conceptSrc} />
+        <span>{conceptName}</span>
+      </span>
+    )
   }
 
   return <span className={className} />
@@ -151,10 +117,12 @@ const ActivityRowTopics = ({ topics, maxAllowedLength, }: { topics?: Topic[], ma
       />)
     }
 
-    return (<span className={className}>
-      <img alt="Globe icon" src={topicSrc} />
-      {topicElement}
-    </span>)
+    return (
+      <span className={className}>
+        <img alt="Globe icon" src={topicSrc} />
+        {topicElement}
+      </span>
+    )
   }
 
   return <span className={className} />
@@ -164,10 +132,12 @@ const ActivityRowTopics = ({ topics, maxAllowedLength, }: { topics?: Topic[], ma
 const ActivityRowReadabilityGradeLevel = ({ readabilityGradeLevel, }: { readabilityGradeLevel?: string }) => {
   const className = "second-line-section readability-level"
   if (readabilityGradeLevel) {
-    return (<span className={className}>
-      <img alt="Book icon" src={readabilitySrc} />
-      <span>Readability: Grades {readabilityGradeLevel}</span>
-    </span>)
+    return (
+      <span className={className}>
+        <img alt="Book icon" src={readabilitySrc} />
+        <span>Readability: Grades {readabilityGradeLevel}</span>
+      </span>
+    )
   }
 
   return <span className={className} />
@@ -176,10 +146,12 @@ const ActivityRowReadabilityGradeLevel = ({ readabilityGradeLevel, }: { readabil
 const ActivityRowStandardLevel = ({ standardLevelName, }: { standardLevelName?: string }) => {
   const className = "second-line-section standard-level"
   if (standardLevelName) {
-    return (<span className={className}>
-      <img alt="Common Core State Standards icon" src={ccssSrc} />
-      <span>{standardLevelName}</span>
-    </span>)
+    return (
+      <span className={className}>
+        <img alt="Common Core State Standards icon" src={ccssSrc} />
+        <span>{standardLevelName}</span>
+      </span>
+    )
   }
 
   return <span />
@@ -205,11 +177,13 @@ const ActivityRowExpandedSection = ({ activity, isExpanded}: { activity: Activit
     </div>)
   )
 
-  return (<React.Fragment>
-    {descriptionLine}
-    {readabilityLine}
-    {contentPartnerLines}
-  </React.Fragment>)
+  return (
+    <React.Fragment>
+      {descriptionLine}
+      {readabilityLine}
+      {contentPartnerLines}
+    </React.Fragment>
+  )
 }
 
 const ActivityRowTooltip = ({ activity, showTooltip}: { activity: Activity, showTooltip: boolean }) => {
@@ -232,11 +206,13 @@ const ActivityRowTooltip = ({ activity, showTooltip}: { activity: Activity, show
     </div>)
   )
 
-  return (<div className="activity-row-tooltip">
-    {descriptionLine}
-    {readabilityLine}
-    {contentPartnerLines}
-  </div>)
+  return (
+    <div className="activity-row-tooltip">
+      {descriptionLine}
+      {readabilityLine}
+      {contentPartnerLines}
+    </div>
+  )
 }
 
 const ActivityRow = ({ activity, isSelected, toggleActivitySelection, showCheckbox, showRemoveButton, isFirst, setShowSnackbar, saveActivity, unsaveActivity, savedActivityIds, }: ActivityRowProps) => {
@@ -272,36 +248,38 @@ const ActivityRow = ({ activity, isSelected, toggleActivitySelection, showCheckb
 
   const mobileOnly = showRemoveButton ? <div className="mobile-only">{removeButton}</div> : null
 
-  return (<section className={`activity-row ${expandClassName} ${isSelectedClassName} ${isFirstClassName}`}>
-    <ActivityRowTooltip activity={activity} showTooltip={showTooltip} />
-    <div className="first-line">
-      <div className="name-and-checkbox-wrapper">
-        {showCheckbox && <ActivityRowCheckbox activity={activity} isSelected={isSelected} toggleActivitySelection={toggleActivitySelection} />}
-        <button className="interactive-wrapper" onMouseEnter={toggleShowTooltip} onMouseLeave={toggleShowTooltip} tabIndex={-1} type="button"><h2>{name}</h2></button>
+  return (
+    <section className={`activity-row ${expandClassName} ${isSelectedClassName} ${isFirstClassName}`}>
+      <ActivityRowTooltip activity={activity} showTooltip={showTooltip} />
+      <div className="first-line">
+        <div className="name-and-checkbox-wrapper">
+          {showCheckbox && <ActivityRowCheckbox activity={activity} isSelected={isSelected} toggleActivitySelection={toggleActivitySelection} />}
+          <button className="interactive-wrapper" onMouseEnter={toggleShowTooltip} onMouseLeave={toggleShowTooltip} tabIndex={-1} type="button"><h2>{name}</h2></button>
+        </div>
+        <div className="buttons-wrapper">
+          {removeOrPreviewButton}
+          {saveOrSavedButton}
+          {expandButton}
+        </div>
       </div>
-      <div className="buttons-wrapper">
-        {removeOrPreviewButton}
-        {saveOrSavedButton}
-        {expandButton}
+      <div className="second-line">
+        <div className="classification-concept-topic-wrapper">
+          <ActivityRowClassification classification={activity_classification} />
+          <ActivityRowConcept conceptName={activity_category_name} />
+          <ActivityRowTopics
+            maxAllowedLength={calculateMaxAllowedLengthForTopicSection({ activity_classification, activity_category_name, readability_grade_level, standard_level_name})}
+            topics={topics}
+          />
+        </div>
+        <div className="readability-and-standard-level-wrapper">
+          <ActivityRowReadabilityGradeLevel readabilityGradeLevel={readability_grade_level} />
+          <ActivityRowStandardLevel standardLevelName={standard_level_name} />
+        </div>
       </div>
-    </div>
-    <div className="second-line">
-      <div className="classification-concept-topic-wrapper">
-        <ActivityRowClassification classification={activity_classification} />
-        <ActivityRowConcept conceptName={activity_category_name} />
-        <ActivityRowTopics
-          maxAllowedLength={calculateMaxAllowedLengthForTopicSection({ activity_classification, activity_category_name, readability_grade_level, standard_level_name})}
-          topics={topics}
-        />
-      </div>
-      <div className="readability-and-standard-level-wrapper">
-        <ActivityRowReadabilityGradeLevel readabilityGradeLevel={readability_grade_level} />
-        <ActivityRowStandardLevel standardLevelName={standard_level_name} />
-      </div>
-    </div>
-    <ActivityRowExpandedSection activity={activity} isExpanded={isExpanded} />
-    {mobileOnly}
-  </section>)
+      <ActivityRowExpandedSection activity={activity} isExpanded={isExpanded} />
+      {mobileOnly}
+    </section>
+  )
 }
 
 ActivityRow.defaultProps = {

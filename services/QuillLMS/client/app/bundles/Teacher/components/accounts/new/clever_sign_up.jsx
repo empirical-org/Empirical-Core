@@ -55,9 +55,11 @@ export default class CleverSignUp extends React.Component {
   render() {
     const { notAvailable, } = this.state
     if (notAvailable) { return <span /> }
-    return (<button className='clever-sign-up' onClick={this.handleClick} onKeyDown={this.handleKeyDown} type="button">
-      <img alt="Clever icon" src={`${process.env.CDN_URL}/images/shared/clever_icon.svg`} />
-      <span>Sign up with Clever</span>
-    </button>)
+    return (
+      <button className='clever-sign-up' onClick={this.handleClick} onKeyDown={this.handleKeyDown} type="button">
+        <img alt="Clever icon" src={`${process.env.CDN_URL}/images/shared/clever_icon.svg`} />
+        <span>Sign up with Clever</span>
+      </button>
+    )
   }
 }

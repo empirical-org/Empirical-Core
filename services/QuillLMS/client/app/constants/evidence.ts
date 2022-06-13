@@ -28,11 +28,28 @@ export const SPELLING = 'spelling';
 export const AUTO_ML = 'autoML';
 export const ACTIVE = 'active';
 export const INACTIVE = 'inactive';
+export const FEEDBACK = 'feedback'
+export const HIGHLIGHT_TEXT = 'highlight text'
+export const HIGHLIGHT_ADDITION = 'highlight addition'
+export const HIGHLIGHT_REMOVAL = 'highlight removal'
+export const HIGHLIGHT_TYPE = 'highlight type'
+export const FEEDBACK_LAYER_ADDITION = 'feedback layer addition'
+export const FEEDBACK_LAYER_REMOVAL = 'feedback layer removal'
+export const ESSENTIAL_KNOWLEDGE_TEXT_FILLER = '<p>In this activity, you’ll read about how skateboarding gained popularity through a process called hierarchical diffusion.</p><br/><p><i>Hierarchical diffusion</i>, happens when an idea spreads through an established social structure (a hierarchy), usually from a person or place with more power and connections to people or places with less power and fewer connections.</p>'
+export const BREAK_TAG = '<br/>';
+
+export const TEXT = 'text';
+export const FIRST_STRONG_EXAMPLE = 'first_strong_example';
+export const SECOND_STRONG_EXAMPLE = 'second_strong_example';
 
 export const flagOptions = [
   {
     label: 'alpha',
     value: 'alpha'
+  },
+  {
+    label: 'private',
+    value: 'private'
   },
   {
     label: 'beta',
@@ -113,7 +130,8 @@ export const ruleTypeOptions = [
 export const universalRuleTypeOptions = [
   {"value":"grammar","label":"Grammar"},
   {"value":"opinion","label":"Opinion"},
-  {"value":"spelling","label":"Spelling"}
+  {"value":"spelling","label":"Spelling"},
+  {"value":"prefilter","label":"Prefilter"}
 ];
 
 export const ruleHighlightOptions = [
@@ -150,6 +168,22 @@ export const ruleOrder = {
   'Spelling': 6
 }
 
+export const RULE_TYPE_TO_ROUTE_PART = {
+  autoML: 'semantic-labels',
+  plagiarism: 'plagiarism-rules',
+  'rules-based-1': 'regex-rules',
+  'rules-based-2': 'regex-rules',
+  'rules-based-3': 'regex-rules'
+}
+
+export const RULE_TYPE_TO_NAME = {
+  autoML: 'Semantic',
+  plagiarism: 'Plagiarism',
+  'rules-based-1': 'Sentence Structure Regex',
+  'rules-based-2': 'Post-topic Regex',
+  'rules-based-3': 'Typo Regex'
+}
+
 export const PROMPT_ATTEMPTS_FEEDBACK_LABELS = {
   "1": {
     attemptLabel: '1st Attempt',
@@ -182,7 +216,6 @@ export const PROMPT_HEADER_LABELS = {
 export const blankActivity = {
   title: '',
   notes: '',
-  // flag:'',
   scored_level: '',
   target_level: null,
   passage_attributes: [{ text: '' }],
@@ -191,19 +224,19 @@ export const blankActivity = {
       conjunction: 'because',
       text: '',
       max_attempts: 5,
-      max_attempts_feedback: 'Nice effort! You worked hard to make your sentence stronger.'
+      max_attempts_feedback: ''
     },
     {
       conjunction: 'but',
       text: '',
       max_attempts: 5,
-      max_attempts_feedback: 'Nice effort! You worked hard to make your sentence stronger.'
+      max_attempts_feedback: ''
     },
     {
       conjunction: 'so',
       text: '',
       max_attempts: 5,
-      max_attempts_feedback: 'Nice effort! You worked hard to make your sentence stronger.'
+      max_attempts_feedback: ''
     }
   ]
 }
@@ -249,10 +282,10 @@ export const NAME = 'Name';
 export const NOTES = 'Notes';
 export const SCORED_READING_LEVEL = 'Scored reading level';
 export const TARGET_READING_LEVEL = 'Target reading level';
+export const FLAG = 'Flag';
 export const PARENT_ACTIVITY_ID = 'Parent Activity ID';
 export const HIGHLIGHT_PROMPT = 'Highlight Prompt';
 export const PASSAGE = 'Passage';
-export const MAX_ATTEMPTS_FEEDBACK = 'Max attempts feedback';
 export const BECAUSE_STEM = 'Because stem';
 export const BUT_STEM = 'But stem';
 export const SO_STEM = 'So stem';
@@ -260,14 +293,17 @@ export const IMAGE_LINK = 'Image link';
 export const IMAGE_ALT_TEXT = 'Image alt text';
 export const IMAGE_CAPTION = 'Image caption';
 export const IMAGE_ATTRIBUTION = 'Image attribution';
+export const BUILDING_ESSENTIAL_KNOWLEDGE = 'Building Essential Knowledge';
+export const HIGHLIGHTING_PROMPT = 'Highlight Prompt';
+export const IMAGE = 'Image';
+export const MAX_ATTEMPTS_FEEDBACK = 'Max Attempts Feedback';
+export const PROMPTS = 'Prompts'
 
 export const activityFormKeys = [
+  FLAG,
   TITLE,
   NOTES,
-  SCORED_READING_LEVEL,
-  TARGET_READING_LEVEL,
   PASSAGE,
-  MAX_ATTEMPTS_FEEDBACK,
   BECAUSE_STEM,
   BUT_STEM,
   SO_STEM,
@@ -275,7 +311,8 @@ export const activityFormKeys = [
   IMAGE_ALT_TEXT,
   IMAGE_CAPTION,
   IMAGE_ATTRIBUTION,
-  HIGHLIGHT_PROMPT
+  HIGHLIGHT_PROMPT,
+  FLAG
 ];
 
 export const MINIMUM_READING_LEVEL = 4;
@@ -288,14 +325,6 @@ export const numericalWordOptions = {
   3: 'Fourth',
   4: 'Fifth'
 }
-
-export const FEEDBACK = 'feedback'
-export const HIGHLIGHT_TEXT = 'highlight text'
-export const HIGHLIGHT_ADDITION = 'highlight addition'
-export const HIGHLIGHT_REMOVAL = 'highlight removal'
-export const HIGHLIGHT_TYPE = 'highlight type'
-export const FEEDBACK_LAYER_ADDITION = 'feedback layer addition'
-export const FEEDBACK_LAYER_REMOVAL = 'feedback layer removal'
 
 export const activitySessionIndexResponseHeaders = [
   {

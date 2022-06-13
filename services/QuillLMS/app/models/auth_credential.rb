@@ -42,10 +42,14 @@ class AuthCredential < ApplicationRecord
     provider == GOOGLE_PROVIDER
   end
 
+  def clever_authorized?
+    [CLEVER_DISTRICT_PROVIDER, CLEVER_LIBRARY_PROVIDER].include?(provider)
+  end
+
   def refresh_token_valid?
     return false if !google_provider? || expires_at.nil? || refresh_token.nil?
 
-    Time.now < refresh_token_expires_at
+    Time.current < refresh_token_expires_at
   end
 
   def refresh_token_expires_at

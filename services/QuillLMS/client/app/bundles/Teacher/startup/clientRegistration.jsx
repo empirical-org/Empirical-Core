@@ -29,6 +29,7 @@ import AnnouncementsApp from './AnnouncementsAppClient'
 import CmsActivitiesAppClient from './CmsActivitiesAppClient';
 import CmsUserIndexApp from './CmsUserIndexAppClient'
 import CmsSchoolIndexApp from './CmsSchoolIndexAppClient'
+import CmsDistrictIndexApp from './CmsDistrictIndexAppClient'
 import ForgotPasswordApp from './ForgotPasswordAppClient'
 import ResetPasswordApp from './ResetPasswordAppClient'
 import TeacherClassroomsApp from './TeacherClassroomsAppClient'
@@ -41,6 +42,10 @@ import SpringBoard from './SpringBoardAppClient.tsx';
 import UploadRostersApp from '../../Staff/startup/UploadRostersAppClient';
 import StudentNavbarItems from '../../Student/startup/StudentNavbarItemsAppClient'
 import StudentFeedbackModal from '../../Student/startup/StudentFeedbackModalAppClient'
+import LockerApp from '../../Staff/startup/lockerAppClient'
+import SalesFormApp from './SalesFormAppClient'
+
+import '../styles/styles.scss'
 
 require('../../../assets/styles/home.scss');
 
@@ -73,6 +78,7 @@ ReactOnRails.register({ TeacherGuideApp,
   CmsActivitiesAppClient,
   CmsUserIndexApp,
   CmsSchoolIndexApp,
+  CmsDistrictIndexApp,
   ResetPasswordApp,
   ForgotPasswordApp,
   TeacherClassroomsApp,
@@ -84,5 +90,7 @@ ReactOnRails.register({ TeacherGuideApp,
   Ap,
   SpringBoard,
   StudentFeedbackModal,
-  UploadRostersApp
+  UploadRostersApp,
+  LockerApp,
+  SalesFormApp
 });

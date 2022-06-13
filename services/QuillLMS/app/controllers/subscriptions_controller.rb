@@ -1,15 +1,44 @@
 # frozen_string_literal: true
 
 class SubscriptionsController < ApplicationController
-  before_action :set_subscription, except: [:index, :create]
+  before_action :set_stripe_variables, only: [:index, :school_admin_subscriptions]
+  before_action :set_subscription, only: %i[purchaser_name show update destroy]
   before_action :require_user, only: [:index]
 
   def index
     set_index_variables
+
     respond_to do |format|
       format.html
-      format.json {render json: @subscriptions}
+      format.json {
+        render json: {
+          subscriptions: @subscriptions,
+          premium_credits: @premium_credits,
+          subscription_status: @subscription_status,
+          user_authority_level: @user_authority_level,
+          current_user_email: @current_user_email
+        }
+      }
     end
+  end
+
+  def school_admin_subscriptions
+    schools = current_user.administered_schools.order(:id).map do |school|
+      {
+        id: school.id,
+        name: school.name,
+        subscriptions: school.subscriptions,
+        subscription_status: school.subscription_status
+      }
+    end
+
+    render json: {
+      current_user_email: current_user.email,
+      schools: schools,
+      user_associated_school_id: current_user.school&.id,
+      stripe_invoice_id: @stripe_invoice_id,
+      stripe_payment_method_updated: @stripe_payment_method_updated
+    }
   end
 
   def purchaser_name
@@ -43,47 +72,44 @@ class SubscriptionsController < ApplicationController
     render json: @subscription
   end
 
+  def retrieve_stripe_subscription
+    @subscription = current_user&.subscriptions&.find_by(stripe_invoice_id: params[:stripe_invoice_id])&.subscription_status
+
+    render json: @subscription || { quill_retrieval_processing: true }
+  end
+
   private def subscription_is_associated_with_current_user?
     @subscription.users.include?(current_user) || current_user.id == @subscription.purchaser_id
   end
 
   private def subscription_belongs_to_purchaser?
-    if current_user != @subscription.purchaser
-      auth_failed
-    end
+    return if current_user == @subscription.purchaser
+
+    auth_failed
   end
 
   private def set_index_variables
+    @current_user_email = current_user.email
     @subscriptions = current_user.subscriptions
     @premium_credits = current_user.credit_transactions.map {|x| x.serializable_hash(methods: :action)}.compact
-    subscription_status
+    @subscription_status = current_user.subscription_status
     @school_subscription_types = Subscription::OFFICIAL_SCHOOL_TYPES
-    @last_four = current_user&.last_four
     @trial_types = Subscription::TRIAL_TYPES
+
     if @subscription_status&.key?('id')
       @user_authority_level = current_user.subscription_authority_level(@subscription_status['id'])
-      # @coordinator_email = Subscription.find(@subscription_status['id'])&.coordinator&.email
     else
       @user_authority_level = nil
     end
   end
 
-  private def subscription_status
-    current_subscription = current_user.subscription
-    if current_subscription
-      @subscription_status_obj = current_subscription
-      expired = false
-    else
-      @subscription_status_obj = current_user.last_expired_subscription
-      expired = true
-    end
-    attributes_for_front_end = {
-      expired: expired,
-      purchaser_name: @subscription_status_obj&.purchaser&.name,
-      mail_to: @subscription_status_obj&.purchaser&.email || @subscription_status_obj&.purchaser_email
-    }
-    subscription_attributes = @subscription_status_obj&.attributes || {}
-    @subscription_status = subscription_attributes.merge(attributes_for_front_end)
+  private def set_stripe_variables
+    @stripe_invoice_id = StripeIntegration::StripeInvoiceIdFinder.run(checkout_session_id)
+    @stripe_payment_method_updated = params[:stripe_payment_method_updated] == 'true'
+  end
+
+  private def checkout_session_id
+    params[:checkout_session_id]
   end
 
   private def subscription_params

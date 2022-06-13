@@ -119,10 +119,12 @@ export default class StudentGeneralAccountInfo extends Component {
   renderButtonSection() {
     const { showButtonSection, } = this.state
     if (showButtonSection) {
-      return (<div className="button-section">
-        <button className="quill-button outlined secondary medium focus-on-light" id="cancel" onClick={this.handleCancel} type="button">Cancel</button>
-        <input aria-label="Save changes" className={this.submitClass()} name="commit" type="submit" value="Save changes" />
-      </div>)
+      return (
+        <div className="button-section">
+          <button className="quill-button outlined secondary medium focus-on-light" id="cancel" onClick={this.handleCancel} type="button">Cancel</button>
+          <input aria-label="Save changes" className={this.submitClass()} name="commit" type="submit" value="Save changes" />
+        </div>
+      )
     }
   }
 

@@ -37,7 +37,7 @@ describe LessonPlanner::UnitSerializer, type: :serializer do
     let(:teacher) { classroom.owner }
     let(:student) {classroom.students.first}
     let(:activity) { create(:activity) }
-    let(:due_date) { Date.today }
+    let(:due_date) { Date.current }
     let(:unit) { create(:unit) }
     let!(:classroom_unit) do
       create(:classroom_unit,
@@ -69,8 +69,8 @@ describe LessonPlanner::UnitSerializer, type: :serializer do
       ]
     end
 
-    def subject
-      LessonPlanner::UnitSerializer.new(unit, root: false).as_json
+    subject do
+      LessonPlanner::UnitSerializer.new(unit.reload, root: false).as_json
     end
 
     context 'assigned_student_ids = []' do
@@ -96,8 +96,7 @@ describe LessonPlanner::UnitSerializer, type: :serializer do
 
     it 'has correct dueDates' do
       hash = {}
-      hash[activity.id] = due_date.month.to_s + "-" + due_date.day.to_s +
-        "-" + due_date.year.to_s
+      hash[activity.id] = "#{due_date.month}-#{due_date.day}-#{due_date.year}"
       expect(subject[:dueDates]).to eq(hash)
     end
   end

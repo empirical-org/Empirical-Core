@@ -96,20 +96,22 @@ const MobileFilterMenu = ({
     activityCategoryEditor
   }
 
-  return (<section className="mobile-filter-menu">
-    <div className="top-section">
-      <button className="interactive-wrapper focus-on-light" onClick={closeMobileFilterMenu} type="button">
-        <img alt="Close icon" src={closeIconSrc} />
+  return (
+    <section className="mobile-filter-menu">
+      <div className="top-section">
+        <button className="interactive-wrapper focus-on-light" onClick={closeMobileFilterMenu} type="button">
+          <img alt="Close icon" src={closeIconSrc} />
         Close
-      </button>
-    </div>
-    <FilterColumn
-      {...filterColumnProps}
-    />
-    <button className="quill-button primary contained medium focus-on-light" onClick={closeMobileFilterMenu} type="button">
+        </button>
+      </div>
+      <FilterColumn
+        {...filterColumnProps}
+      />
+      <button className="quill-button primary contained medium focus-on-light" onClick={closeMobileFilterMenu} type="button">
       Apply
-    </button>
-  </section>)
+      </button>
+    </section>
+  )
 }
 
 export default MobileFilterMenu

@@ -2,9 +2,11 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 const TabLink = ({ children, to }) => {
-  return (<li>
-    <NavLink activeClassName="is-active" to={to}>{children}</NavLink>
-  </li>)
+  return (
+    <li>
+      <NavLink activeClassName="is-active" to={to}>{children}</NavLink>
+    </li>
+  )
 };
 
 const AdminMainSidebar = () => {

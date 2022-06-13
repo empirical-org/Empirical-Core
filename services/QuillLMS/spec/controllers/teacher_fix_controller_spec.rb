@@ -3,11 +3,11 @@
 require 'rails_helper'
 
 describe TeacherFixController do
-  it { should use_before_action :staff! }
-
   let(:staff) { create(:staff) }
 
   before { allow(controller).to receive(:current_user) { staff } }
+
+  it { should use_before_action :staff! }
 
   describe '#archived_units' do
     context 'when user does not exist' do
@@ -189,7 +189,7 @@ describe TeacherFixController do
           let!(:student1) { create(:student, classrooms: [classroom]) }
 
           it 'should return a 200' do
-            post :merge_student_accounts, params: { account_1_identifier: student.email, account_2_identifier: student1.email }
+            post :merge_student_accounts, params: { account1_identifier: student.email, account2_identifier: student1.email }
             expect(response.status).to eq(200)
           end
         end
@@ -201,7 +201,7 @@ describe TeacherFixController do
           let!(:student1) { create(:student, classrooms: [classroom2] ) }
 
           it 'should return that students are not in the same classroom' do
-            post :merge_student_accounts, params: { account_1_identifier: student.email, account_2_identifier: student1.email }
+            post :merge_student_accounts, params: { account1_identifier: student.email, account2_identifier: student1.email }
             expect(response.body).to eq({error: "#{student1.email} is in at least one class that #{student.email} is not in, so we can't merge them."}.to_json)
           end
         end
@@ -212,7 +212,7 @@ describe TeacherFixController do
         let!(:user) { create(:user) }
 
         it 'should render that student is not a student' do
-          post :merge_student_accounts, params: { account_1_identifier: student.email, account_2_identifier: user.email }
+          post :merge_student_accounts, params: { account1_identifier: student.email, account2_identifier: user.email }
           expect(response.body).to eq({error: "#{user.email} is not a student."}.to_json)
         end
       end
@@ -222,7 +222,7 @@ describe TeacherFixController do
       let!(:student) { create(:student) }
 
       it 'should render that we do not have an account for the user' do
-        post :merge_student_accounts, params: { account_1_identifier: student.email, account_2_identifier: "test@email.com" }
+        post :merge_student_accounts, params: { account1_identifier: student.email, account2_identifier: "test@email.com" }
         expect(response.body).to eq({error: "We do not have an account for test@email.com"}.to_json)
 
       end
@@ -238,7 +238,7 @@ describe TeacherFixController do
         let!(:classrooms_teacher) { create(:classrooms_teacher, user_id: teacher.id) }
 
         it 'should update the classrooms teacher and unit' do
-          post :merge_teacher_accounts, params: { account_1_identifier: teacher.email, account_2_identifier: teacher1.email }
+          post :merge_teacher_accounts, params: { account1_identifier: teacher.email, account2_identifier: teacher1.email }
           expect(unit.reload.user_id).to eq teacher1.id
           expect(classrooms_teacher.reload.user_id).to eq teacher1.id
         end
@@ -249,7 +249,7 @@ describe TeacherFixController do
         let!(:user) { create(:user) }
 
         it 'should render that user is not a teacher' do
-          post :merge_teacher_accounts, params: { account_1_identifier: teacher.email, account_2_identifier: user.email }
+          post :merge_teacher_accounts, params: { account1_identifier: teacher.email, account2_identifier: user.email }
           expect(response.body).to eq({error: "#{user.email} is not a teacher."}.to_json)
         end
       end
@@ -259,7 +259,7 @@ describe TeacherFixController do
       let!(:teacher) { create(:teacher) }
 
       it 'should render that user does not exist' do
-        post :merge_teacher_accounts, params: { account_1_identifier: teacher.email, account_2_identifier: "test@email.com" }
+        post :merge_teacher_accounts, params: { account1_identifier: teacher.email, account2_identifier: "test@email.com" }
         expect(response.body).to eq( {error: "We do not have an account for test@email.com"}.to_json)
       end
     end
@@ -280,7 +280,7 @@ describe TeacherFixController do
 
             it 'should update the students classrooms, move the activity session and destroy the students classrooms' do
               # expect(user).to receive(:move_activity_sessions).with(classroom, classroom1)
-              post :move_student_from_one_class_to_another, params: { class_code_1: classroom.code, class_code_2: classroom1.code, student_identifier: user.email }
+              post :move_student_from_one_class_to_another, params: { class_code1: classroom.code, class_code2: classroom1.code, student_identifier: user.email }
               expect(students_classroom1.reload.visible).to eq true
               expect(StudentsClassrooms.unscoped.find(students_classroom.id).visible).not_to be
             end
@@ -288,7 +288,7 @@ describe TeacherFixController do
 
           context 'when students classrooms does not exist' do
             it 'should render student is not in any classrooms' do
-              post :move_student_from_one_class_to_another, params: { class_code_1: classroom.code, class_code_2: classroom1.code, student_identifier: user.email }
+              post :move_student_from_one_class_to_another, params: { class_code1: classroom.code, class_code2: classroom1.code, student_identifier: user.email }
               expect(response.body).to eq({error: "#{user.email} is not in a classroom with the code #{classroom.code}."}.to_json)
             end
           end
@@ -298,7 +298,7 @@ describe TeacherFixController do
           let!(:classroom) { create(:classroom) }
 
           it 'should render that classroom could not be found' do
-            post :move_student_from_one_class_to_another, params: { class_code_1: classroom.code, class_code_2: "some_code", student_identifier: user.email }
+            post :move_student_from_one_class_to_another, params: { class_code1: classroom.code, class_code2: "some_code", student_identifier: user.email }
             expect(response.body).to eq({error: "We cannot find a class with class code some_code."}.to_json)
           end
         end
@@ -435,7 +435,7 @@ describe TeacherFixController do
 
       it 'should not merge the classrooms' do
         expect(TeacherFixes).to_not receive(:merge_two_classrooms)
-        post :merge_two_classrooms, params: { class_code_1: classroom.code, class_code_2: "some_code" }
+        post :merge_two_classrooms, params: { class_code1: classroom.code, class_code2: "some_code" }
         expect(response.body).to eq({error: "The second class code is invalid"}.to_json)
       end
     end
@@ -445,7 +445,7 @@ describe TeacherFixController do
 
       it 'should not merge the classrooms' do
         expect(TeacherFixes).to_not receive(:merge_two_classrooms)
-        post :merge_two_classrooms, params: { class_code_2: classroom.code, class_code_1: "some_code" }
+        post :merge_two_classrooms, params: { class_code2: classroom.code, class_code1: "some_code" }
         expect(response.body).to eq({error: "The first class code is invalid"}.to_json)
       end
     end
@@ -456,7 +456,7 @@ describe TeacherFixController do
 
       it 'should merge the two classrooms' do
         expect(TeacherFixes).to receive(:merge_two_classrooms).with(classroom.id, classroom1.id)
-        post :merge_two_classrooms, params: { class_code_2: classroom1.code, class_code_1: classroom.code }
+        post :merge_two_classrooms, params: { class_code2: classroom1.code, class_code1: classroom.code }
         expect(response.code).to eq "200"
       end
     end

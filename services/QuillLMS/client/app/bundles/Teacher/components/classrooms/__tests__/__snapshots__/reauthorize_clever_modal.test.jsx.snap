@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ReauthorizeCleverModal component should render ReauthorizeCleverModal 1`] = `
+<div
+  className="modal-container reauthorize-clever-modal-container"
+>
+  <div
+    className="modal-background"
+  />
+  <div
+    className="reauthorize-clever-modal quill-modal modal-body"
+  >
+    <div>
+      <h3
+        className="title"
+      >
+        Reauthorize Clever
+      </h3>
+    </div>
+    <p>
+      To import a new Clever classroom, you need to reauthorize Clever access.
+      <br />
+      Clicking reauthorize will re-direct you to Clever.
+    </p>
+    <div
+      className="form-buttons"
+    >
+      <button
+        className="quill-button outlined secondary medium"
+        onClick={[Function]}
+        type="button"
+      >
+        Cancel
+      </button>
+      <button
+        className="quill-button contained primary medium"
+        onClick={[Function]}
+        type="button"
+      >
+        <span>
+          Reauthorize
+        </span>
+      </button>
+    </div>
+  </div>
+</div>
+`;

@@ -1,6 +1,6 @@
 import * as request from 'request';
 
-import { apiFetch, handleApiError } from '../../Staff/helpers/evidence';
+import { handleApiError, apiFetch } from '../../Staff/helpers/evidence/routingHelpers';
 
 export const postTurkSession = async (turkingRoundID: string, activitySessionUID: string) => {
 

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useQuery, queryCache } from 'react-query';
+import { useQuery, useQueryClient, } from 'react-query';
 import { Redirect, Route, Switch, withRouter } from 'react-router-dom';
 
 import SemanticLabelsOverview from './semanticLabelsOverview'
@@ -10,11 +10,11 @@ import ActivateModelForm from './activateModelForm';
 import Model from './model';
 
 import { ALL, BECAUSE, BUT, SO } from '../../../../../constants/evidence';
-import { getPromptForComponent, getPromptConjunction } from '../../../helpers/evidence';
+import { getPromptConjunction, getPromptForComponent } from '../../../helpers/evidence/promptHelpers';
 import { fetchActivity } from '../../../utils/evidence/activityAPIs';
 import { createRule, updateRule } from '../../../utils/evidence/ruleAPIs';
 import { Error, Spinner } from '../../../../Shared/index';
-import { renderHeader } from '../../../helpers/evidence';
+import { renderHeader } from '../../../helpers/evidence/renderHelpers';
 import { RuleInterface } from '../../../interfaces/evidenceInterfaces';
 
 const SemanticLabelsIndex = ({ location, history, match }) => {
@@ -22,6 +22,8 @@ const SemanticLabelsIndex = ({ location, history, match }) => {
   const { activityId } = params;
 
   const [errors, setErrors] = React.useState<string[]>([]);
+
+  const queryClient = useQueryClient()
 
   // get cached activity data to pass to ruleForm
   const { data: activityData } = useQuery({
@@ -38,7 +40,7 @@ const SemanticLabelsIndex = ({ location, history, match }) => {
         const { prompt_ids } = rule;
         const conjunction = getPromptConjunction(activityData, prompt_ids[0]);
         setErrors([]);
-        queryCache.clear();
+        queryClient.clear();
         history.push(`/activities/${activityId}/semantic-labels/${conjunction}`);
       }
       return rule;
@@ -54,7 +56,7 @@ const SemanticLabelsIndex = ({ location, history, match }) => {
         const { prompt_ids } = rule;
         const conjunction = getPromptConjunction(activityData, prompt_ids[0]);
         setErrors([]);
-        queryCache.clear();
+        queryClient.clear();
         history.push(`/activities/${activityId}/semantic-labels/${conjunction}`);
       }
       return rule;

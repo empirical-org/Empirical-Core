@@ -35,13 +35,4 @@ describe('SessionApi calls', () => {
       expect(mockRequestPut).toHaveBeenLastCalledWith(url, {active_activity_session: MOCK_CONTENT})
     })
   })
-
-  describe('remove', () => {
-    it('should call requestDelete', () => {
-      const MOCK_ID = 'id'
-      const url = `${sessionApiBaseUrl}/${MOCK_ID}.json`
-      SessionApi.remove(MOCK_ID)
-      expect(mockRequestDelete).toHaveBeenLastCalledWith(url)
-    })
-  })
 })

@@ -3,8 +3,8 @@
 require 'rails_helper'
 
 describe UpdateStudentLastActiveWorker do
-  let(:subject) { described_class.new }
-  
+  subject { described_class.new }
+
   describe '#perform' do
     let!(:user) { create(:user) }
     let(:new_date) { DateTime.new(100) }

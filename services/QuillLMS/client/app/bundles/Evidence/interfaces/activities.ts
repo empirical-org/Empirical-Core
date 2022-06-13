@@ -23,4 +23,5 @@ export interface Passage {
   image_caption?: string,
   image_attribution?: string,
   highlight_prompt?: string,
+  essential_knowledge_text?: string
 }

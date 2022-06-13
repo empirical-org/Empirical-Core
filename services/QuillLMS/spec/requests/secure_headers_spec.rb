@@ -3,36 +3,36 @@
 require 'rails_helper'
 
 class DummyController < ApplicationController
-  def index 
+  def index
     cookies['foo'] = 'bar'
     render json: {}
   end
 end
 
 describe DummyController, type: :request do
-  before do 
+  before do
     Rails.application.routes.draw do
       get '/dummy', to: 'dummy#index'
     end
-  end 
+  end
 
-  after do 
+  after do
     Rails.application.reload_routes!
   end
 
-  it 'should flag all cookies as HttpOnly' do 
+  it 'should flag all cookies as HttpOnly' do
     get '/dummy'
     expect(response.header['Set-Cookie']).to match('HttpOnly')
   end
 
-  it 'should set cache control headers' do 
+  it 'should set cache control headers' do
     get '/dummy'
     expect(response.header['Cache-Control']).to match('no-cache, no-store, max-age=0, must-revalidate')
     expect(response.header['Pragma']).to match('no-cache')
   end
 
-  xit 'should have a content security policy, both real and report-only' do 
+  it 'should have a content security policy, both real and report-only' do
     get '/dummy'
-    expect(response.header['Content-Security-Policy']).to_not be nil 
+    expect(response.header['Content-Security-Policy']).to_not be nil
   end
 end

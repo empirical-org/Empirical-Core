@@ -11,12 +11,16 @@ module Evidence
       it { should have_many(:passages).dependent(:destroy) }
 
       it { should have_many(:prompts).dependent(:destroy) }
+
+      it { should have_many(:turking_rounds).inverse_of(:activity) }
+      it { should have_many(:rules).through(:prompts) }
+      it { should have_many(:feedbacks).through(:rules) }
+      it { should have_many(:highlights).through(:feedbacks) }
+
     end
 
 
     context 'should validations' do
-
-      it { should validate_presence_of(:target_level) }
 
       it { should validate_numericality_of(:target_level).only_integer.is_greater_than_or_equal_to(1).is_less_than_or_equal_to(12) }
 
@@ -34,6 +38,7 @@ module Evidence
           ::ActivityClassification.create(:key => "evidence")
           create(:evidence_activity, :parent_activity_id => parent_activity.id)
         end
+
         let!(:activity_with_same_parent) { build(:evidence_activity, :parent_activity_id => parent_activity.id) }
 
         it 'should not be valid if not unique' do
@@ -53,45 +58,75 @@ module Evidence
         json_hash = activity.as_json
         expect(activity.id).to(eq(json_hash["id"]))
         expect(activity.parent_activity.id).to(eq(json_hash["parent_activity_id"]))
-        expect("First Activity").to(eq(json_hash["title"]))
-        expect("First Activity - Notes").to(eq(json_hash["notes"]))
-        expect(8).to(eq(json_hash["target_level"]))
-        expect("4th grade").to(eq(json_hash["scored_level"]))
+        expect(json_hash["title"]).to(eq("First Activity"))
+        expect(json_hash["notes"]).to(eq("First Activity - Notes"))
+        expect(json_hash["target_level"]).to(eq(8))
+        expect(json_hash["scored_level"]).to(eq("4th grade"))
         passage_hash = json_hash["passages"].first
         expect(passage.id).to(eq(passage_hash["id"]))
         expect(("Hello" * 20)).to(eq(passage_hash["text"]))
         prompt_hash = json_hash["prompts"].first
         expect(prompt.id).to(eq(prompt_hash["id"]))
-        expect("because").to(eq(prompt_hash["conjunction"]))
-        expect("it is good.").to(eq(prompt_hash["text"]))
-        expect(5).to(eq(prompt_hash["max_attempts"]))
-        expect("good work!.").to(eq(prompt_hash["max_attempts_feedback"]))
+        expect(prompt_hash["conjunction"]).to(eq("because"))
+        expect(prompt_hash["text"]).to(eq("it is good."))
+        expect(prompt_hash["max_attempts"]).to(eq(5))
+        expect(prompt_hash["max_attempts_feedback"]).to(eq("good work!."))
       end
     end
 
     context 'should create parent activity' do
 
       it 'should set the parent_activity_id to nil if passed in Activity does NOT exist' do
-        activity = create(:evidence_activity, :parent_activity_id => 7) 
+        activity = create(:evidence_activity, :parent_activity_id => 7)
         expect(activity.parent_activity).to(be_nil)
       end
 
       it 'should set the parent_activity_id if passed in Activity does exist' do
         parent_activity = ::Activity.create(:name => "test name")
-        activity = create(:evidence_activity, :parent_activity_id => parent_activity.id) 
+        activity = create(:evidence_activity, :parent_activity_id => parent_activity.id)
         expect(activity.parent_activity.id).to_not(be_nil)
       end
 
       it 'should create a new LMS activity if the parent_activity_id is not present' do
-        activity = create(:evidence_activity, :parent_activity_id => nil) 
+        activity = create(:evidence_activity, :parent_activity_id => nil)
         expect(activity.parent_activity.id).to(be_truthy)
       end
 
       it 'should set new parent activity flags to [alpha]' do
-        activity = create(:evidence_activity, :parent_activity_id => nil) 
+        activity = create(:evidence_activity, :parent_activity_id => nil)
         expect(activity.parent_activity.flags).to eq([Activity::LMS_ACTIVITY_DEFAULT_FLAG])
       end
     end
+
+    context '#flag' do
+      it 'should return the parent activity flag' do
+        parent_activity = ::Activity.create(:name => "test name", :flag => 'alpha')
+        activity = create(:evidence_activity, :parent_activity_id => parent_activity.id)
+        expect(activity.flag).to be(parent_activity.flag)
+      end
+    end
+
+    context '#flag=' do
+      describe 'if there is already a parent activity' do
+        it 'should update the parent activity flag' do
+          parent_activity = ::Activity.create(:name => "test name", :flag => 'alpha')
+          activity = create(:evidence_activity, :parent_activity_id => parent_activity.id)
+          activity.update(flag: 'beta')
+          parent_activity.reload
+          expect(parent_activity.flag).to be(:beta)
+        end
+      end
+
+      describe 'if there is not a parent activity' do
+        it 'should create one with the correct activity flag' do
+          activity = create(:evidence_activity)
+          activity.update(flag: 'beta')
+          activity.reload
+          expect(::Activity.find(activity.parent_activity_id).flag).to be(:beta)
+        end
+      end
+    end
+
 
     context '#update_parent_activity_name' do
       let(:activity) { create(:evidence_activity) }
@@ -118,15 +153,15 @@ module Evidence
     context 'should dependent destroy' do
 
       it 'should destroy dependent passages' do
-        activity = create(:evidence_activity) 
-        passage = create(:evidence_passage, :activity => (activity)) 
+        activity = create(:evidence_activity)
+        passage = create(:evidence_passage, :activity => (activity))
         activity.destroy
         expect(Passage.exists?(passage.id)).to(eq(false))
       end
 
       it 'should destroy dependent prompts' do
-        activity = create(:evidence_activity) 
-        prompt = create(:evidence_prompt, :activity => (activity)) 
+        activity = create(:evidence_activity)
+        prompt = create(:evidence_prompt, :activity => (activity))
         activity.destroy
         expect(Prompt.exists?(prompt.id)).to(eq(false))
       end
@@ -135,12 +170,12 @@ module Evidence
     context 'should before_destroy' do
 
       it 'should expire all associated Turking Rounds before destroy' do
-        activity = create(:evidence_activity) 
-        turking_round = create(:evidence_turking_round, :activity => (activity)) 
-        expect(turking_round.expires_at > Time.zone.now).to be true
+        activity = create(:evidence_activity)
+        turking_round = create(:evidence_turking_round, :activity => (activity))
+        expect(turking_round.expires_at > Time.current).to be true
         activity.destroy
         turking_round.reload
-        expect(turking_round.expires_at < Time.zone.now).to be true
+        expect(turking_round.expires_at < Time.current).to be true
       end
     end
 

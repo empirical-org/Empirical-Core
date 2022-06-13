@@ -19,7 +19,7 @@ module Evidence
       it { should validate_uniqueness_of(:order).scoped_to(:rule_id) }
     end
 
-    context 'should relationships' do 
+    context 'should relationships' do
 
       it { should belong_to(:rule) }
     end

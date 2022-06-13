@@ -93,13 +93,15 @@ class ELLSentenceCombining extends React.Component {
 
   renderFeedback = () => {
     const { question, } = this.props
-    return (<RenderFeedback
-      getQuestion={this.getQuestion}
-      listCuesAsString={this.listCuesAsString}
-      question={question}
-      renderFeedbackStatements={this.renderFeedbackStatements}
-      sentence="We have not seen this sentence before. Could you please try writing it in another way?"
-    />);
+    return (
+      <RenderFeedback
+        getQuestion={this.getQuestion}
+        listCuesAsString={this.listCuesAsString}
+        question={question}
+        renderFeedbackStatements={this.renderFeedbackStatements}
+        sentence="We have not seen this sentence before. Could you please try writing it in another way?"
+      />
+    );
   }
 
   getErrorsForAttempt(attempt) {
@@ -113,13 +115,15 @@ class ELLSentenceCombining extends React.Component {
   renderCues = () => {
     const { diagnosticID, language, translate } = this.props
     const question = this.getQuestion();
-    return (<RenderQuestionCues
-      diagnosticID={diagnosticID}
-      displayArrowAndText
-      language={language}
-      question={question}
-      translate={translate}
-    />);
+    return (
+      <RenderQuestionCues
+        diagnosticID={diagnosticID}
+        displayArrowAndText
+        language={language}
+        question={question}
+        translate={translate}
+      />
+    );
   }
 
   updateResponseResource = (response) => {
@@ -217,12 +221,14 @@ class ELLSentenceCombining extends React.Component {
     const { error, } = this.state
     if (!error) { return }
 
-    return (<div className="error-container">
-      <Feedback
-        feedback={<p>{error}</p>}
-        feedbackType="revise-unmatched"
-      />
-    </div>)
+    return (
+      <div className="error-container">
+        <Feedback
+          feedback={<p>{error}</p>}
+          feedbackType="revise-unmatched"
+        />
+      </div>
+    )
   }
 
   renderButton = () => {

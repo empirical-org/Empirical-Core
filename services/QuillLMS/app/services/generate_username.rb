@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class GenerateUsername
+class GenerateUsername < ApplicationService
   MAX_LOOPS = 1_000
 
   def initialize(first_name, last_name, classcode = nil)
@@ -9,7 +9,7 @@ class GenerateUsername
     @classcode = classcode
   end
 
-  def call
+  def run
     generate
   end
 
@@ -38,6 +38,7 @@ class GenerateUsername
 
   private def at_classcode(classcode)
     return "" if classcode.nil?
+
     "@#{classcode}"
   end
 end

@@ -3,28 +3,37 @@
 require 'rails_helper'
 
 describe Teachers::UnitsController, type: :controller do
-  it { should use_before_action :teacher! }
-  it { should use_before_action :authorize! }
-
   let!(:student) {create(:student)}
   let!(:classroom) { create(:classroom) }
   let!(:students_classrooms) { create(:students_classrooms, classroom: classroom, student: student)}
   let!(:teacher) { classroom.owner }
   let!(:unit) {create(:unit, user: teacher)}
   let!(:unit2) {create(:unit, user: teacher)}
-  let!(:classroom_unit) { create(:classroom_unit,
-    unit: unit,
-    classroom: classroom,
-    assigned_student_ids: [student.id]
-  )}
+
+  let!(:classroom_unit) do
+    create(:classroom_unit,
+     unit: unit,
+     classroom: classroom,
+     assigned_student_ids: [student.id]
+   )
+  end
+
   let!(:diagnostic) { create(:diagnostic) }
   let!(:diagnostic_activity) { create(:diagnostic_activity)}
-  let!(:unit_activity) { create(:unit_activity, unit: unit, activity: diagnostic_activity, due_date: Time.now )}
-  let!(:completed_activity_session) { create(:activity_session, user: student, activity: diagnostic_activity, classroom_unit: classroom_unit)}
+  let!(:unit_activity) { create(:unit_activity, unit: unit, activity: diagnostic_activity, due_date: Time.current )}
 
-  before do
-    session[:user_id] = teacher.id
+  let!(:completed_activity_session) do
+    create(:activity_session,
+      user: student,
+      activity: diagnostic_activity,
+      classroom_unit: classroom_unit
+    )
   end
+
+  before { session[:user_id] = teacher.id }
+
+  it { should use_before_action :teacher! }
+  it { should use_before_action :authorize! }
 
   describe '#create' do
     it 'kicks off a background job' do
@@ -101,11 +110,8 @@ describe Teachers::UnitsController, type: :controller do
   end
 
   describe '#diagnostic_units' do
-
-    it 'should render the correct json' do
-      get :diagnostic_units
-
-      expected_response = [
+    let(:expected_response) do
+      [
         {
           name: classroom.name,
           id: classroom.id,
@@ -128,7 +134,22 @@ describe Teachers::UnitsController, type: :controller do
           ]
         }
       ]
+    end
+
+    it 'should render the correct json' do
+      get :diagnostic_units
+
       expect(response.body).to eq(expected_response.to_json)
+    end
+
+    it 'should successfully render both fresh data and cached data' do
+      expect(controller).to receive(:diagnostics_organized_by_classroom).once.with(any_args).and_call_original
+      2.times do
+        get :diagnostic_units
+
+        expect(response.status).to eq(200)
+        expect(response.body).to eq(expected_response.to_json)
+      end
     end
   end
 
@@ -194,13 +215,13 @@ describe Teachers::UnitsController, type: :controller do
   describe '#classrooms_with_students_and_classroom_units' do
 
     it "returns #get_classrooms_with_students_and_classroom_units when it is passed a valid unit id" do
-        get :classrooms_with_students_and_classroom_units, params: { id: unit.id }
-        res = JSON.parse(response.body)
-        expect(res["classrooms"].first["id"]).to eq(classroom.id)
-        expect(res["classrooms"].first["name"]).to eq(classroom.name)
-        expect(res["classrooms"].first["students"].first['id']).to eq(student.id)
-        expect(res["classrooms"].first["students"].first['name']).to eq(student.name)
-        expect(res["classrooms"].first["classroom_unit"]).to eq({"id" => classroom_unit.id, "assigned_student_ids" => classroom_unit.assigned_student_ids, "assign_on_join" => true})
+      get :classrooms_with_students_and_classroom_units, params: { id: unit.id }
+      res = JSON.parse(response.body)
+      expect(res["classrooms"].first["id"]).to eq(classroom.id)
+      expect(res["classrooms"].first["name"]).to eq(classroom.name)
+      expect(res["classrooms"].first["students"].first['id']).to eq(student.id)
+      expect(res["classrooms"].first["students"].first['name']).to eq(student.name)
+      expect(res["classrooms"].first["classroom_unit"]).to eq({"id" => classroom_unit.id, "assigned_student_ids" => classroom_unit.assigned_student_ids, "assign_on_join" => true})
     end
 
 
@@ -253,7 +274,7 @@ describe Teachers::UnitsController, type: :controller do
   describe '#select_lesson_with_activity_id' do
     let!(:activity) { create(:lesson_activity) }
 
-    before(:each) do
+    before do
       ClassroomUnit.destroy_all
       UnitActivity.destroy_all
       session['user_id'] = classroom_unit.classroom.owner.id

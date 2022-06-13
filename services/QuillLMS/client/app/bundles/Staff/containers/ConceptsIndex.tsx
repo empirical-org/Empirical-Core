@@ -126,13 +126,15 @@ class ConceptsIndex extends React.Component<any, ConceptsIndexState> {
     const { selectedConcept, visible } = this.state
     const { conceptID, levelNumber } = selectedConcept
     if (conceptID && (levelNumber || levelNumber === 0)) {
-      return (<ConceptBoxContainer
-        closeConceptBox={this.closeConceptBox}
-        conceptID={conceptID}
-        finishEditingConcept={() => this.finishEditingConcept(refetch)}
-        levelNumber={levelNumber}
-        visible={visible}
-      />)
+      return (
+        <ConceptBoxContainer
+          closeConceptBox={this.closeConceptBox}
+          conceptID={conceptID}
+          finishEditingConcept={() => this.finishEditingConcept(refetch)}
+          levelNumber={levelNumber}
+          visible={visible}
+        />
+      )
     }
   }
 
@@ -144,26 +146,33 @@ class ConceptsIndex extends React.Component<any, ConceptsIndexState> {
 
   renderLiveAndArchivedTabs() {
     const { visible } = this.state
-    return (<div className="cms-tabs">
-      <p className={visible ? 'active' : ''} onClick={() => this.setVisible(true)}>Live</p>
-      <p className={visible ? '' : 'active'} onClick={() => this.setVisible(false)}>Archived</p>
-    </div>)
+    const className = "interactive-wrapper focus-on-light"
+    return (
+      <div className="cms-tabs">
+        <button className={visible ? `${className} active` : className} onClick={() => this.setVisible(true)} type="button">Live</button>
+        <button className={visible ? className : `${className} active`} onClick={() => this.setVisible(false)} type="button">Archived</button>
+      </div>
+    )
   }
 
   renderConcepts(data) {
     if (this.state.visible) {
-      return (<ConceptsTable
-        concepts={this.filterConcepts(data.concepts, this.state.searchValue)}
-        selectConcept={this.selectConcept}
-        visible={this.state.visible}
-      />)
+      return (
+        <ConceptsTable
+          concepts={this.filterConcepts(data.concepts, this.state.searchValue)}
+          selectConcept={this.selectConcept}
+          visible={this.state.visible}
+        />
+      )
     } else {
-      return (<ConceptLevels
-        concepts={this.filterConcepts(data.concepts, this.state.searchValue).filter(c => !c.visible)}
-        selectConcept={this.selectConcept}
-        selectedConcept={this.state.selectedConcept}
-        unselectConcept={this.closeConceptBox}
-      />)
+      return (
+        <ConceptLevels
+          concepts={this.filterConcepts(data.concepts, this.state.searchValue).filter(c => !c.visible)}
+          selectConcept={this.selectConcept}
+          selectedConcept={this.state.selectedConcept}
+          unselectConcept={this.closeConceptBox}
+        />
+      )
     }
   }
 
@@ -199,7 +208,8 @@ class ConceptsIndex extends React.Component<any, ConceptsIndexState> {
                   </div>
                   {this.renderConceptBox(refetch)}
                 </div>
-              </div>)
+              </div>
+            )
           }}
         </Query>
       </div>

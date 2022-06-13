@@ -22,13 +22,15 @@ class Concepts extends React.Component {
     if (dataRow) {
       return dataRow.map((concept) => {
         const { uid, displayName } = concept;
-        return (<LinkListItem
-          activeClassName='is-active'
-          basePath='concepts'
-          itemKey={uid}
-          key={uid}
-          text={displayName}
-        />)
+        return (
+          <LinkListItem
+            activeClassName='is-active'
+            basePath='concepts'
+            itemKey={uid}
+            key={uid}
+            text={displayName}
+          />
+        )
       })
     }
   };

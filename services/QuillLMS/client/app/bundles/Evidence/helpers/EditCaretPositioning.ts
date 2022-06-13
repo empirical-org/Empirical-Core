@@ -80,12 +80,12 @@ const restoreSelectionForWindowSelection = (containerEl, savedSel) => {
 }
 
 const restoreSelectionForDocumentSelection = (containerEl, savedSel) => {
-    const textRange = document.body.createTextRange();
-    textRange.moveToElementText(containerEl);
-    textRange.collapse(true);
-    textRange.moveEnd("character", savedSel.end);
-    textRange.moveStart("character", savedSel.start);
-    textRange.select();
+  const textRange = document.body.createTextRange();
+  textRange.moveToElementText(containerEl);
+  textRange.collapse(true);
+  textRange.moveEnd("character", savedSel.end);
+  textRange.moveStart("character", savedSel.start);
+  textRange.select();
 };
 
 export default { saveSelection, restoreSelection };

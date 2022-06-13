@@ -54,6 +54,8 @@ RSpec.configure do |config|
   config.mock_with :rspec do |mocks|
     mocks.verify_partial_doubles = true
   end
+
+  config.filter_run_excluding benchmarking: true
 end
 
 factory_files = Dir.glob('spec/factories/evidence/*')

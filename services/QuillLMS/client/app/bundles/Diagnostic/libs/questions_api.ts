@@ -6,11 +6,11 @@ import {
   QuestionCollection,
   FocusPointCollection,
   IncorrectSequenceCollection
- } from '../interfaces/questions';
+} from '../interfaces/questions';
 
 const SENTENCE_COMBINING_TYPE = 'diagnostic_sentence_combining',
-      SENTENCE_FRAGMENTS_TYPE = 'diagnostic_sentence_fragments',
-      FILL_IN_BLANKS_TYPE = 'diagnostic_fill_in_blanks'
+  SENTENCE_FRAGMENTS_TYPE = 'diagnostic_sentence_fragments',
+  FILL_IN_BLANKS_TYPE = 'diagnostic_fill_in_blanks'
 
 import { ApiConstants } from '../utils/api';
 

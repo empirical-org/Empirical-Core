@@ -8,12 +8,12 @@ export {checkGrammarQuestion} from './libs/graders/grammar'
 export {focusPointMatchHelper} from './libs/matchers/focus_point_match'
 export {incorrectSequenceMatchHelper} from './libs/matchers/incorrect_sequence_match'
 import {Response,
-PartialResponse,
-ConceptResult,
-FocusPoint,
-IncorrectSequence,
-FeedbackObject,
-GradingObject,
-WordCountChange} from './interfaces/index';
+  PartialResponse,
+  ConceptResult,
+  FocusPoint,
+  IncorrectSequence,
+  FeedbackObject,
+  GradingObject,
+  WordCountChange} from './interfaces/index';
 
 export {Response, PartialResponse, ConceptResult, FocusPoint, IncorrectSequence, FeedbackObject, GradingObject, WordCountChange}

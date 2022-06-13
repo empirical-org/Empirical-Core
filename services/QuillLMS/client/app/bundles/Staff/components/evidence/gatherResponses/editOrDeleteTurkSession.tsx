@@ -2,13 +2,15 @@ import * as React from "react";
 import "react-dates/initialize";
 import { SingleDatePicker } from 'react-dates';
 import * as moment from 'moment';
-import { queryCache } from 'react-query';
+import { useQueryClient, } from 'react-query';
 
 import { deleteTurkSession, editTurkSession } from '../../../utils/evidence/turkAPIs';
 
 const EditTurkSession = ({ activityId, closeModal, originalSessionDate, setMessage, turkSessionId }) => {
   const [turkSessionDate, setTurkSessionDate] = React.useState<object>(moment(originalSessionDate));
   const [focused, setFocusedState] = React.useState<boolean>(false);
+
+  const queryClient = useQueryClient()
 
   const handleDateChange = (date: {}) => { setTurkSessionDate(date) };
 
@@ -23,7 +25,7 @@ const EditTurkSession = ({ activityId, closeModal, originalSessionDate, setMessa
         setMessage('Turk session successfully edited!')
       }
       // update turk sessions cache to display edited turk session
-      queryCache.refetchQueries(`turk-sessions-${activityId}`);
+      queryClient.refetchQueries(`turk-sessions-${activityId}`);
       closeModal();
     });
   }
@@ -37,7 +39,7 @@ const EditTurkSession = ({ activityId, closeModal, originalSessionDate, setMessa
         setMessage('Turk session successfully deleted!')
       }
       // update turk sessions cache to reflect deleted turk session
-      queryCache.refetchQueries(`turk-sessions-${activityId}`);
+      queryClient.refetchQueries(`turk-sessions-${activityId}`);
       closeModal();
     });
   }

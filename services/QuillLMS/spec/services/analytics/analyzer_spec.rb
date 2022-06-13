@@ -4,8 +4,9 @@ require 'rails_helper'
 
 describe Analyzer do
   let(:analyzer) { double(:analyzer, track: true, identify: true) }
-  let(:subject) { described_class.new(analyzer) }
   let(:user) { double(:user, id: "some_id", ip_address: "some_ip") }
+
+  subject { described_class.new(analyzer) }
 
   describe '#track' do
     it 'should identify the user and track the correct attributes' do

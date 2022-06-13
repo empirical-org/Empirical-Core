@@ -9,8 +9,8 @@ module GrowthResultsSummary
   def growth_results_summary(pre_test_activity_id, post_test_activity_id, classroom_id)
     pre_test = Activity.find(pre_test_activity_id)
     @skill_groups = pre_test.skill_groups
-    set_pre_test_activity_sessions_and_assigned_students(pre_test_activity_id, classroom_id, true)
-    set_post_test_activity_sessions_and_assigned_students(post_test_activity_id, classroom_id, true)
+    set_pre_test_activity_sessions_and_assigned_students(pre_test_activity_id, classroom_id, hashify_activity_sessions: true)
+    set_post_test_activity_sessions_and_assigned_students(post_test_activity_id, classroom_id, hashify_activity_sessions: true)
     @skill_group_summaries = @skill_groups.map do |skill_group|
       {
         name: skill_group.name,
@@ -26,6 +26,7 @@ module GrowthResultsSummary
     }
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   private def student_results
     @post_test_assigned_students.map do |assigned_student|
       post_test_activity_session = @post_test_activity_sessions[assigned_student.id]
@@ -33,11 +34,18 @@ module GrowthResultsSummary
       if post_test_activity_session && pre_test_activity_session
         skill_groups = skill_groups_for_session(@skill_groups, post_test_activity_session, pre_test_activity_session, assigned_student.name)
         total_acquired_skills_count = skill_groups.map { |sg| sg[:acquired_skill_ids] }.flatten.uniq.count
+        total_possible_skills_count = skill_groups.map { |sg| sg[:skill_ids] }.flatten.uniq.count
+        total_correct_skills_count = skill_groups.map { |sg| sg[:post_correct_skill_ids] }.flatten.uniq.count
+        total_pre_correct_skills_count = skill_groups.map { |sg| sg[:pre_correct_skill_ids] }.flatten.uniq.count
         {
           name: assigned_student.name,
           id: assigned_student.id,
           skill_groups: skill_groups,
-          total_acquired_skills_count: total_acquired_skills_count
+          total_acquired_skills_count: total_acquired_skills_count,
+          total_correct_skills_count: total_correct_skills_count,
+          total_pre_correct_skills_count: total_pre_correct_skills_count,
+          total_possible_skills_count: total_possible_skills_count,
+          correct_skill_text: "#{total_correct_skills_count} of #{total_possible_skills_count} skills correct"
         }
       else
         { name: assigned_student.name }
@@ -55,6 +63,8 @@ module GrowthResultsSummary
       end
       pre_correct_skills = skills.select { |skill| skill[:pre][:summary] == FULLY_CORRECT }
       post_correct_skills = skills.select { |skill| skill[:post][:summary] == FULLY_CORRECT }
+      pre_correct_skill_ids = pre_correct_skills.map { |s| s[:pre][:id] }
+      post_correct_skill_ids = post_correct_skills.map { |s| s[:post][:id] }
       pre_correct_skill_number = pre_correct_skills.count
       pre_present_skill_number = skills.reduce(0) { |sum, skill| sum += skill[:pre][:summary] == NOT_PRESENT ? 0 : 1 }
       present_skill_number = skills.reduce(0) { |sum, skill| sum += skill[:post][:summary] == NOT_PRESENT ? 0 : 1 }
@@ -76,15 +86,20 @@ module GrowthResultsSummary
         pre_test_proficiency: pre_test_proficiency,
         post_test_proficiency: post_test_proficiency,
         id: skill_group.id,
-        acquired_skill_ids: post_correct_skills.map { |s| s[:post][:id] } - pre_correct_skills.map { |s| s[:pre][:id] }
+        post_correct_skill_ids: post_correct_skill_ids,
+        pre_correct_skill_ids: pre_correct_skill_ids,
+        acquired_skill_ids: post_correct_skill_ids - pre_correct_skill_ids,
+        skill_ids: skills.map { |s| s[:post][:id] }
       }
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   private def summarize_student_proficiency_for_skill_overall(present_skill_number, correct_skill_number, pre_correct_skill_number)
-    if correct_skill_number == 0
+    case correct_skill_number
+    when 0
       NO_PROFICIENCY
-    elsif present_skill_number == correct_skill_number
+    when present_skill_number
       correct_skill_number > pre_correct_skill_number ? GAINED_PROFICIENCY : MAINTAINED_PROFICIENCY
     else
       PARTIAL_PROFICIENCY

@@ -11,23 +11,23 @@ export interface IState {
 }
 
 export const initStore = () => {
-    return (dispatch: Dispatch<{}>) => {
-        return dispatch(initStoreAction());
-    };
+  return (dispatch: Dispatch<{}>) => {
+    return dispatch(initStoreAction());
+  };
 };
 
 export const configureStore = () => {
-    if (process.env.NODE_ENV === "production") {
-        return createStore(
-            rootReducer,
-            applyMiddleware(thunk),
-        );
-    } else {
-        return createStore(
-            rootReducer,
-            composeWithDevTools(
-                applyMiddleware(thunk),
-            ),
-        );
-    }
+  if (process.env.NODE_ENV === "production") {
+    return createStore(
+      rootReducer,
+      applyMiddleware(thunk),
+    );
+  } else {
+    return createStore(
+      rootReducer,
+      composeWithDevTools(
+        applyMiddleware(thunk),
+      ),
+    );
+  }
 };

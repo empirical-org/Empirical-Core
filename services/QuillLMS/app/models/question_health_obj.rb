@@ -15,6 +15,7 @@ class QuestionHealthObj
     @tool = tool
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def run
     health_dashboard = QuestionHealthDashboard.new(@activity.id, @question_number, @question.uid)
     data = @question.data
@@ -30,6 +31,7 @@ class QuestionHealthObj
       percent_reached_optimal: health_dashboard.percent_reached_optimal_for_question&.round(2)
     }
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   private def question_url
     QUESTION_TYPE_TO_URL[@question.question_type.to_sym]

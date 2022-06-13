@@ -212,17 +212,17 @@ class CustomizeEdition extends React.Component<any, any> {
     slides.forEach((slide, i) => {
       let question = slide.data.play;
       let isIncomplete = (
-          question.prompt === '' ||
+        question.prompt === '' ||
           question.prompt &&
           question.prompt.trim() === '' ||
           question.prompt === '<p></p>' ||
           question.prompt == '<p><br></p>'
-        ) || (
-          !question.prompt &&
+      ) || (
+        !question.prompt &&
           question.html &&
           question.html === '<p></p>' ||
           question.html == '<p><br></p>'
-        );
+      );
 
       if (isIncomplete) {
         incompleteQuestions.push(i);
@@ -267,12 +267,14 @@ class CustomizeEdition extends React.Component<any, any> {
     } else {
       text = <p className="error"><i className="fa fa-icon fa-exclamation-triangle" />You have left one of the fields above empty. Please fill out all the required fields and click Publish Edition.</p>
     }
-    return (<div className="publish-container">
-      <div className="publish">
-        {text}
-        <div className="publish-button" onClick={this.publish}>Publish Edition</div>
+    return (
+      <div className="publish-container">
+        <div className="publish">
+          {text}
+          <div className="publish-button" onClick={this.publish}>Publish Edition</div>
+        </div>
       </div>
-    </div>)
+    )
   }
 
   renderSlides() {
@@ -283,28 +285,32 @@ class CustomizeEdition extends React.Component<any, any> {
 
   renderSlide(q: Question, i: number) {
     const incompletePrompt = this.props.incompleteQuestions && this.props.incompleteQuestions.includes(i)
-    return (<Slide
-      clearSlide={this.clearSlide}
-      incompletePrompt={incompletePrompt}
-      key={i}
-      question={q}
-      questionIndex={i+1}
-      resetSlide={this.resetSlide}
-      updateQuestion={this.updateQuestion}
-    />)
+    return (
+      <Slide
+        clearSlide={this.clearSlide}
+        incompletePrompt={incompletePrompt}
+        key={i}
+        question={q}
+        questionIndex={i+1}
+        resetSlide={this.resetSlide}
+        updateQuestion={this.updateQuestion}
+      />
+    )
   }
 
   renderEditModal() {
     if (this.state.showEditModal) {
       const buttonClassName = this.props.editionMetadata.name ? 'active' : 'inactive'
-      return (<NameAndSampleQuestionModal
-        buttonClassName={buttonClassName}
-        closeEditModal={this.closeEditModal}
-        name={this.props.editionMetadata.name}
-        sampleQuestion={this.props.editionMetadata.sample_question}
-        updateName={this.updateName}
-        updateSampleQuestion={this.updateSampleQuestion}
-      />)
+      return (
+        <NameAndSampleQuestionModal
+          buttonClassName={buttonClassName}
+          closeEditModal={this.closeEditModal}
+          name={this.props.editionMetadata.name}
+          sampleQuestion={this.props.editionMetadata.sample_question}
+          updateName={this.updateName}
+          updateSampleQuestion={this.updateSampleQuestion}
+        />
+      )
     }
   }
 
@@ -314,12 +320,14 @@ class CustomizeEdition extends React.Component<any, any> {
       const backLink = classroomUnitId
         ? `customize/${this.props.match.params.lessonID}/${this.props.match.params.editionID}?&classroom_unit_id=${classroomUnitId}`
         : `customize/${this.props.match.params.lessonID}/${this.props.match.params.editionID}`
-      return (<SuccessModal
-        activityName={this.props.classroomLesson.data.title}
-        backLink={backLink}
-        editionLink={this.followUpLink()}
-        editionName={this.props.editionMetadata.name}
-      />)
+      return (
+        <SuccessModal
+          activityName={this.props.classroomLesson.data.title}
+          backLink={backLink}
+          editionLink={this.followUpLink()}
+          editionName={this.props.editionMetadata.name}
+        />
+      )
     }
   }
 
@@ -328,24 +336,26 @@ class CustomizeEdition extends React.Component<any, any> {
 
     if (!editionMetadata) { return <span /> }
 
-    return (<div>
-      <CustomizeNavbar />
-      <div className="customize-edition-container customize-page">
-        <div className="customize-edition">
-          {this.renderEditModal()}
-          {this.renderSuccessModal()}
-          <CustomizeEditionHeader
-            editionName={editionMetadata.name}
-            lessonNumber={classroomLesson.data.lesson}
-            lessonTitle={classroomLesson.data.title}
-            sampleQuestion={editionMetadata.sample_question}
-            showEditModal={this.showEditModal}
-          />
-          {this.renderSlides()}
-          {this.renderPublishSection()}
+    return (
+      <div>
+        <CustomizeNavbar />
+        <div className="customize-edition-container customize-page">
+          <div className="customize-edition">
+            {this.renderEditModal()}
+            {this.renderSuccessModal()}
+            <CustomizeEditionHeader
+              editionName={editionMetadata.name}
+              lessonNumber={classroomLesson.data.lesson}
+              lessonTitle={classroomLesson.data.title}
+              sampleQuestion={editionMetadata.sample_question}
+              showEditModal={this.showEditModal}
+            />
+            {this.renderSlides()}
+            {this.renderPublishSection()}
+          </div>
         </div>
       </div>
-    </div>)
+    )
   }
 }
 

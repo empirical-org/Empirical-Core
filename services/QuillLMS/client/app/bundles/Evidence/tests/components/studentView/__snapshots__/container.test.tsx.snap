@@ -62,6 +62,8 @@ But how can democracies have representative governments unless all or most of th
   }
   session={
     Object {
+      "activeStep": 1,
+      "explanationSlidesCompleted": false,
       "hasReceivedData": true,
       "sessionID": "MockSessionID",
       "submittedResponses": Array [],
@@ -72,6 +74,7 @@ But how can democracies have representative governments unless all or most of th
     onHandleClick={[Function]}
   >
     <div
+      aria-live="polite"
       className="explanation-slide-container"
       id="welcome-slide-container"
     >
@@ -89,7 +92,7 @@ But how can democracies have representative governments unless all or most of th
           <p
             id="header"
           >
-            Welcome to Quill Evidence
+            Welcome to Quill Reading for Evidence
           </p>
         </section>
         <section
@@ -111,7 +114,7 @@ But how can democracies have representative governments unless all or most of th
             <img
               alt="A sample article about volcanoes showing a sentence highlighted with the cursor over the highlighted sentence"
               className="step-image"
-              src="undefined/images/comprehension/article-highlighted.svg"
+              src="undefined/images/evidence/article-highlighted.svg"
             />
           </div>
           <div
@@ -130,7 +133,7 @@ But how can democracies have representative governments unless all or most of th
             <img
               alt="A sample question asking a student to fill in the rest of a sentence"
               className="step-image"
-              src="undefined/images/comprehension/sentence-prompt.svg"
+              src="undefined/images/evidence/sentence-prompt.svg"
             />
           </div>
           <div
@@ -149,7 +152,7 @@ But how can democracies have representative governments unless all or most of th
             <img
               alt="A sample feedback asking a student to add more detail to their sentence"
               className="step-image"
-              src="undefined/images/comprehension/sentence-feedback.svg"
+              src="undefined/images/evidence/sentence-feedback.svg"
             />
           </div>
         </section>

@@ -4,7 +4,6 @@ import createReactClass from 'create-react-class';
 
 import TableFilterMixin from '../general_components/table/sortable_table/table_filter_mixin'
 import TableSortingMixin from '../general_components/table/sortable_table/table_sorting_mixin'
-import Pagination from './pagination/pagination'
 import ExportCsv from './export_csv'
 import LoadingIndicator from '../shared/loading_indicator'
 import SortableTable from '../general_components/table/sortable_table/sortable_table.jsx'
@@ -54,7 +53,7 @@ export default createReactClass({
   },
 
   componentDidMount: function() {
-    var sortDefinitions = this.props.sortDefinitions();
+    let sortDefinitions = this.props.sortDefinitions();
     this.defineSorting(sortDefinitions.config, sortDefinitions.default);
     // Pass true to fetchData on mount becuase we only want to use the query params on the first load.
     this.fetchData(true);
@@ -81,7 +80,7 @@ export default createReactClass({
 
   // Get results with all filters, sorting
   getFilteredResults: function() {
-    var allResults = this.state.results;
+    let allResults = this.state.results;
     return this.applySorting(allResults);
   },
 
@@ -91,7 +90,7 @@ export default createReactClass({
   },
 
   goToPage: function(page) {
-    var newState = {
+    let newState = {
       currentPage: page
     };
     this.setState(newState, this.fetchData);
@@ -130,7 +129,7 @@ export default createReactClass({
   },
 
   requestParams: function() {
-    var requestParams = _.extend(this.state.currentFilters, {});
+    let requestParams = _.extend(this.state.currentFilters, {});
     if (this.props.pagination) {
       requestParams = _.extend(requestParams, {page: this.state.currentPage});
     }
@@ -141,7 +140,7 @@ export default createReactClass({
   fetchData: function(setStateBasedOnURLParams) {
     this.setState({loading: true});
     $.get(this.props.sourceUrl, this.requestParams(), function onSuccess(data) {
-        this.setState({
+      this.setState({
         activityClassification: data.classification,
         numPages: data.page_count,
         loading: false,
@@ -183,7 +182,7 @@ export default createReactClass({
   // Depending upon whether or not pagination is implemented,
   // sort results client-side or fetch sorted data from server.
   handleSort: function() {
-    var cb;
+    let cb;
     if (this.props.pagination) {
       cb = this.fetchData;
     } else {
@@ -207,15 +206,12 @@ export default createReactClass({
   },
 
   render: function() {
-    var pagination,
+    let pagination,
       csvExport,
       mainSection,
       faqLink;
-    var filteredResults = this.getFilteredResults();
-    if (this.props.pagination) {
-      pagination = <Pagination currentPage={this.state.currentPage} maxPageNumber={this.props.maxPageNumber} numberOfPages={this.state.numPages} selectPageNumber={this.goToPage} />;
-    }
-    var visibleResults = this.getVisibleResults(filteredResults);
+    let filteredResults = this.getFilteredResults();
+    let visibleResults = this.getVisibleResults(filteredResults);
 
     if (this.props.exportCsv) {
       csvExport = <ExportCsv disabled={!!this.state.disabled} exportType={this.props.exportCsv} filters={this.state.currentFilters} reportUrl={this.props.sourceUrl} teacher={this.state.teacher} />;

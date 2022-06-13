@@ -1,16 +1,40 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Lessons component matches the snapshot 1`] = `
-<Connect(Lessons)
-  props={
+<ContextProvider
+  value={
     Object {
-      "lessons": Object {
-        "data": Object {},
-        "hasreceiveddata": false,
-        "states": Object {},
-        "submittingnew": false,
+      "store": Object {
+        "dispatch": [Function],
+        "getState": [Function],
+        "replaceReducer": [Function],
+        "subscribe": [Function],
+        Symbol(observable): [Function],
+      },
+      "subscription": Object {
+        "addNestedSub": [Function],
+        "getListeners": [Function],
+        "handleChangeWrapper": [Function],
+        "isSubscribed": [Function],
+        "notifyNestedSubs": [Function],
+        "onStateChange": [Function],
+        "trySubscribe": [Function],
+        "tryUnsubscribe": [Function],
       },
     }
   }
-/>
+>
+  <Connect(Lessons)
+    props={
+      Object {
+        "lessons": Object {
+          "data": Object {},
+          "hasreceiveddata": false,
+          "states": Object {},
+          "submittingnew": false,
+        },
+      }
+    }
+  />
+</ContextProvider>
 `;

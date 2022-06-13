@@ -100,20 +100,22 @@ export default class MergeStudentAccountsModal extends React.Component<MergeStud
   }
 
   renderCheckboxes() {
-    return (<div className="checkboxes">
-      <div className="checkbox-row">
-        {this.renderCheckbox('checkboxOne')}
-        <span>I understand that all data from the account to merge will be transferred to the primary account.</span>
+    return (
+      <div className="checkboxes">
+        <div className="checkbox-row">
+          {this.renderCheckbox('checkboxOne')}
+          <span>I understand that all data from the account to merge will be transferred to the primary account.</span>
+        </div>
+        <div className="checkbox-row">
+          {this.renderCheckbox('checkboxTwo')}
+          <span>I understand that the account to merge will be removed from the class roster.</span>
+        </div>
+        <div className="checkbox-row">
+          {this.renderCheckbox('checkboxThree')}
+          <span>I understand that this action cannot be undone.</span>
+        </div>
       </div>
-      <div className="checkbox-row">
-        {this.renderCheckbox('checkboxTwo')}
-        <span>I understand that the account to merge will be removed from the class roster.</span>
-      </div>
-      <div className="checkbox-row">
-        {this.renderCheckbox('checkboxThree')}
-        <span>I understand that this action cannot be undone.</span>
-      </div>
-    </div>)
+    )
   }
 
   render() {
@@ -121,37 +123,39 @@ export default class MergeStudentAccountsModal extends React.Component<MergeStud
     const studentOptions = this.studentOptions()
     const studentOptionsForPrimary = studentOptions.filter(opt => opt.value !== secondaryAccountId)
     const studentOptionsForSecondary = studentOptions.filter(opt => opt.value !== primaryAccountId)
-    return (<div className="modal-container merge-student-accounts-modal-container">
-      <div className="modal-background" />
-      <div className="merge-student-accounts-modal quill-modal modal-body">
-        <div>
-          <h3 className="title">Merge student accounts</h3>
-        </div>
-        <p>Please select the account that you'd like the student to use going forward as the primary account.</p>
-        <div className="swap" onClick={this.swapAccounts}>
-          <img src={swapVerticalSrc} />
-          <span>Swap accounts</span>
-        </div>
-        <DropdownInput
-          className="primary-account"
-          handleChange={this.handlePrimaryAccountIdChange}
-          label="Select primary account"
-          options={studentOptionsForPrimary}
-          value={studentOptions.find(so => so.value === primaryAccountId)}
-        />
-        <DropdownInput
-          className="secondary-account"
-          handleChange={this.handleSecondaryAccountIdChange}
-          label="Select account to merge"
-          options={studentOptionsForSecondary}
-          value={studentOptions.find(so => so.value === secondaryAccountId)}
-        />
-        {this.renderCheckboxes()}
-        <div className="form-buttons">
-          <button className="quill-button outlined secondary medium" onClick={this.props.close}>Cancel</button>
-          <button className={this.submitButtonClass()} onClick={this.mergeStudentAccounts}>Merge accounts</button>
+    return (
+      <div className="modal-container merge-student-accounts-modal-container">
+        <div className="modal-background" />
+        <div className="merge-student-accounts-modal quill-modal modal-body">
+          <div>
+            <h3 className="title">Merge student accounts</h3>
+          </div>
+          <p>Please select the account that you'd like the student to use going forward as the primary account.</p>
+          <div className="swap" onClick={this.swapAccounts}>
+            <img alt="" src={swapVerticalSrc} />
+            <span>Swap accounts</span>
+          </div>
+          <DropdownInput
+            className="primary-account"
+            handleChange={this.handlePrimaryAccountIdChange}
+            label="Select primary account"
+            options={studentOptionsForPrimary}
+            value={studentOptions.find(so => so.value === primaryAccountId)}
+          />
+          <DropdownInput
+            className="secondary-account"
+            handleChange={this.handleSecondaryAccountIdChange}
+            label="Select account to merge"
+            options={studentOptionsForSecondary}
+            value={studentOptions.find(so => so.value === secondaryAccountId)}
+          />
+          {this.renderCheckboxes()}
+          <div className="form-buttons">
+            <button className="quill-button outlined secondary medium" onClick={this.props.close}>Cancel</button>
+            <button className={this.submitButtonClass()} onClick={this.mergeStudentAccounts}>Merge accounts</button>
+          </div>
         </div>
       </div>
-    </div>)
+    )
   }
 }

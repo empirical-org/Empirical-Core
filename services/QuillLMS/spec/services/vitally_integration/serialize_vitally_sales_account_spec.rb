@@ -3,13 +3,14 @@
 require 'rails_helper'
 
 describe 'SerializeVitallySalesAccount' do
+  let!(:district) { create(:district, name: 'Kool District') }
   let(:school) do
     create(:school,
       name: 'Kool School',
       mail_city: 'New York',
       mail_state: 'NY',
       mail_zipcode: '11104',
-      leanm: 'Kool District',
+      district_id: district.id,
       phone: '555-666-3210',
       charter: 'N',
       free_lunches: 0,
@@ -26,7 +27,7 @@ describe 'SerializeVitallySalesAccount' do
       activities_finished: 1,
       activities_per_student: 1.0
     }
-    year = Date.today.year - 1
+    year = School.school_year_start(1.year.ago).year
     CacheVitallySchoolData.set(school.id, year, previous_year_data.to_json)
   end
 
@@ -149,14 +150,16 @@ describe 'SerializeVitallySalesAccount' do
   end
 
   it 'generates student data' do
-    active_student = create(:user, role: 'student', last_sign_in: Date.today)
-    active_old_student = create(:user, role: 'student', last_sign_in: Date.today - 2.year)
-    inactive_student = create(:user, role: 'student', last_sign_in: Date.today - 2.year)
+    active_student = create(:user, role: 'student', last_sign_in: Date.current)
+    active_old_student = create(:user, role: 'student', last_sign_in: 2.years.ago)
+    inactive_student = create(:user, role: 'student', last_sign_in: 2.years.ago)
     teacher = create(:user, role: 'teacher')
+    teacher2 = create(:user, role: 'teacher')
     classroom = create(:classroom)
     classroom_unit = create(:classroom_unit, classroom: classroom)
     old_classroom_unit = create(:classroom_unit, classroom: classroom)
     create(:classrooms_teacher, user: teacher, classroom: classroom)
+    create(:classrooms_teacher, user: teacher2, classroom: classroom, role: 'coteacher')
     create(:students_classrooms, student: active_student, classroom: classroom)
     create(:students_classrooms, student: inactive_student, classroom: classroom)
     create(:students_classrooms, student: active_old_student, classroom: classroom)
@@ -169,7 +172,7 @@ describe 'SerializeVitallySalesAccount' do
       user: active_old_student,
       classroom_unit: old_classroom_unit,
       state: 'finished',
-      updated_at: Time.now - 2.year
+      updated_at: 2.year.ago
     )
     last_activity_session = create(:activity_session,
       user: active_student,
@@ -179,6 +182,7 @@ describe 'SerializeVitallySalesAccount' do
     school.users << active_student
     school.users << inactive_student
     school.users << teacher
+    school.users << teacher2
     school.users << create(:user, role: 'student')
 
     school_data = SerializeVitallySalesAccount.new(school).data

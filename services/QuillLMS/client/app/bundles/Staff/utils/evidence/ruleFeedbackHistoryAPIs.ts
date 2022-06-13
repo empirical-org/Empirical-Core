@@ -1,6 +1,8 @@
-import { handleApiError, mainApiFetch, getRuleFeedbackHistoriesUrl, getRuleFeedbackHistoryUrl, getActivityStatsUrl } from '../../helpers/evidence';
+import { handleApiError, mainApiFetch, getRuleFeedbackHistoriesUrl, getRuleFeedbackHistoryUrl, getActivityStatsUrl } from '../../helpers/evidence/routingHelpers';
 
-export const fetchRuleFeedbackHistories = async (key: string, activityId: string, selectedConjunction: string, startDate?: string, endDate?: string, turkSessionID?: string) => {
+export const fetchRuleFeedbackHistories = async ({ queryKey, }) => {
+  const [key, activityId, selectedConjunction, startDate, endDate, turkSessionID]: [string, string, string, string?, string?, string?] = queryKey
+
   if (!selectedConjunction || !startDate) { return }
   const url = getRuleFeedbackHistoriesUrl({ activityId, selectedConjunction, startDate, endDate, turkSessionID });
   const response = await mainApiFetch(url);
@@ -11,7 +13,9 @@ export const fetchRuleFeedbackHistories = async (key: string, activityId: string
   };
 }
 
-export const fetchRuleFeedbackHistoriesByRule = async (key: string, ruleUID: string, promptId: string, startDate?: string, endDate?: string, turkSessionID?: string) => {
+export const fetchRuleFeedbackHistoriesByRule = async ({ queryKey, }) => {
+  const [key, ruleUID, promptId, startDate, endDate, turkSessionID]: [string, string, string, string?, string?, string?] = queryKey
+
   const url = getRuleFeedbackHistoryUrl({ ruleUID, promptId, startDate, endDate, turkSessionID });
   const response = await mainApiFetch(url);
   const ruleFeedbackHistories = await response.json();
@@ -21,7 +25,9 @@ export const fetchRuleFeedbackHistoriesByRule = async (key: string, ruleUID: str
   };
 }
 
-export const fetchPromptHealth = async (key: string, activityId: string, startDate?: string, endDate?: string, turkSessionID?: string) => {
+export const fetchPromptHealth = async ({ queryKey, }) => {
+  const [key, activityId, startDate, endDate, turkSessionID]: [string, string, string?, string?, string?] = queryKey
+
   const url = getActivityStatsUrl({ activityId, startDate, endDate, turkSessionID });
   const response = await mainApiFetch(url);
   const promptHealth = await response.json();

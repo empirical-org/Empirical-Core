@@ -37,6 +37,6 @@ class Standard < ApplicationRecord
   after_commit { Activity.clear_activity_search_cache }
 
   def name_prefix
-    name.split(' ').first
+    name.split.first
   end
 end

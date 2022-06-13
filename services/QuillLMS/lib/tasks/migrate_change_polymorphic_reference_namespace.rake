@@ -20,6 +20,6 @@ namespace :migrate_change_polymorphic_reference_namespace do
 
     CHANGE_LOG_ENGINE_MODELS.each do |model_name|
       ChangeLog.where(changed_record_type: "Comprehension::#{model_name}").update_all(changed_record_type: "Evidence::#{model_name}")
-    end 
+    end
   end
 end

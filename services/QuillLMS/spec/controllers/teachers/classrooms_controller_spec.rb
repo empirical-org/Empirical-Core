@@ -109,22 +109,6 @@ describe Teachers::ClassroomsController, type: :controller do
     end
   end
 
-  describe '#remove_students' do
-    let!(:classroom) { create(:classroom) }
-    let(:teacher) { classroom.owner }
-
-    before do
-      allow(controller).to receive(:current_user) { teacher }
-    end
-
-    it 'should unhide the classroom' do
-      classroom.update(visible: false)
-      post :unhide, params: { class_id: classroom.id }
-      expect(classroom.reload.visible).to eq true
-    end
-  end
-
-
   describe 'creating a login pdf' do
     let(:teacher) { create(:teacher) }
     let(:different_classroom) { create(:classroom) }
@@ -332,13 +316,24 @@ describe Teachers::ClassroomsController, type: :controller do
     let(:classroom) { create(:classroom) }
 
     before do
-      allow(teacher).to receive(:classrooms_i_teach) { [classroom] }
+      allow(teacher).to receive(:classrooms_i_teach).once.and_return([classroom])
       allow(controller).to receive(:current_user) { teacher }
     end
 
     it 'should give the classroom i teach for the current user' do
       get :classrooms_i_teach
       expect(assigns(:classrooms)).to eq [classroom]
+    end
+
+    it 'should provide valid data when making fresh and cached queries' do
+
+      2.times do
+        get :classrooms_i_teach
+        expect(response.status).to eq(200)
+        classrooms_payload = JSON.parse(response.body)['classrooms']
+        expect(classrooms_payload.length).to eq(1)
+        expect(classrooms_payload[0]['id']).to eq(classroom.id)
+      end
     end
   end
 
@@ -374,25 +369,6 @@ describe Teachers::ClassroomsController, type: :controller do
     end
   end
 
-  describe '#destroy' do
-    let(:teacher) { create(:teacher) }
-    let(:classroom) { create(:classroom) }
-    let!(:classrooms_teacher) do
-      create(:classrooms_teacher, user_id: teacher.id, classroom: classroom)
-    end
-
-    before do
-      allow(controller).to receive(:current_user) { teacher }
-    end
-
-    it 'should destroy the given classroom' do
-
-      delete :destroy, params: { id: classroom.id }
-      expect{Classroom.find classroom.id}.to raise_exception ActiveRecord::RecordNotFound
-      expect(response).to redirect_to teachers_classrooms_path
-    end
-  end
-
   describe '#hide' do
     let!(:classroom) { create(:classroom) }
     let(:teacher) { classroom.owner }
@@ -410,20 +386,20 @@ describe Teachers::ClassroomsController, type: :controller do
 
   describe '#bulk_archive' do
     let!(:teacher) { create(:teacher) }
-    let!(:owned_classroom_1) { create(:classroom, :with_no_teacher) }
-    let!(:owned_classroom_2) { create(:classroom, :with_no_teacher) }
+    let!(:owned_classroom1) { create(:classroom, :with_no_teacher) }
+    let!(:owned_classroom2) { create(:classroom, :with_no_teacher) }
     let!(:unowned_classroom) { create(:classroom) }
-    let!(:classrooms_teacher_1) { create(:classrooms_teacher, classroom: owned_classroom_1, user: teacher, role: 'owner')}
-    let!(:classrooms_teacher_2) { create(:classrooms_teacher, classroom: owned_classroom_2, user: teacher, role: 'owner')}
+    let!(:classrooms_teacher1) { create(:classrooms_teacher, classroom: owned_classroom1, user: teacher, role: 'owner')}
+    let!(:classrooms_teacher2) { create(:classrooms_teacher, classroom: owned_classroom2, user: teacher, role: 'owner')}
 
     before do
       allow(controller).to receive(:current_user) { teacher }
     end
 
     it 'should hide the classrooms that are owned by the teacher and not hide the one that is not' do
-      put :bulk_archive, params: { ids: [owned_classroom_1.id, owned_classroom_2.id, unowned_classroom.id] }
-      expect(owned_classroom_1.reload.visible).to eq false
-      expect(owned_classroom_2.reload.visible).to eq false
+      put :bulk_archive, params: { ids: [owned_classroom1.id, owned_classroom2.id, unowned_classroom.id] }
+      expect(owned_classroom1.reload.visible).to eq false
+      expect(owned_classroom2.reload.visible).to eq false
       expect(unowned_classroom.reload.visible).to eq true
     end
   end

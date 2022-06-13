@@ -23,3 +23,20 @@ export interface ChangeLog {
   concept?: Concept
   createdAt?: number;
 }
+
+export interface LockerContentsInterface {
+  label: string,
+  route?: string,
+  href?: string,
+  emoji: string,
+  emojiLabel: string,
+  overrideTitleCase?: boolean,
+  tooltipInfo?: string,
+  lockers?: {
+    [key:string]: string[]
+  }
+}
+
+export interface LockerItemsInterface {
+  [key:string]: LockerContentsInterface
+}

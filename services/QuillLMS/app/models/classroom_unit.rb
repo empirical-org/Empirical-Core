@@ -28,7 +28,7 @@ class ClassroomUnit < ApplicationRecord
   include ::NewRelic::Agent
   include AtomicArrays
 
-  belongs_to :unit #, touch: true
+  belongs_to :unit # Note, there is a touch in the unit -> classroom_unit direction, so don't add one here.
   belongs_to :classroom
   has_many :activity_sessions
   has_many :unit_activities, through: :unit
@@ -38,6 +38,9 @@ class ClassroomUnit < ApplicationRecord
   validates :unit, uniqueness: { scope: :classroom }
   before_save :check_for_assign_on_join_and_update_students_array_if_true
   after_save  :hide_appropriate_activity_sessions
+  # Using an after_commit hook here because we want to trigger the callback
+  # on save or touch, and touch explicitly bypasses after_save hooks
+  after_commit :touch_classroom_without_callbacks
 
   # this method does not seem to be getting used, but leaving it in for the tests for now
   def assigned_students
@@ -73,16 +76,14 @@ class ClassroomUnit < ApplicationRecord
 
   private def hide_unassigned_activity_sessions
     #validate or hides any other related activity sessions
-    if activity_sessions.present?
-      activity_sessions.each do |as|
-        # We are explicitly checking to ensure that the student here actually belongs
-        # in this classroom before running the validate_assigned_student method because
-        # if this is not true, validate_assigned_student starts an infinite loop!
-        if !StudentsClassrooms.find_by(classroom_id: classroom_id, student_id: as.user_id)
-          as.update(visible: false)
-        elsif !validate_assigned_student(as.user_id)
-          as.update(visible: false)
-        end
+    return unless activity_sessions.present?
+
+    activity_sessions.each do |as|
+      # We are explicitly checking to ensure that the student here actually belongs
+      # in this classroom before running the validate_assigned_student method because
+      # if this is not true, validate_assigned_student starts an infinite loop!
+      if !StudentsClassrooms.find_by(classroom_id: classroom_id, student_id: as.user_id) || !validate_assigned_student(as.user_id)
+        as.update(visible: false)
       end
     end
   end
@@ -102,16 +103,22 @@ class ClassroomUnit < ApplicationRecord
 
   private def check_for_assign_on_join_and_update_students_array_if_true
     student_ids = StudentsClassrooms.where(classroom_id: classroom_id).pluck(:student_id)
-    if assigned_student_ids&.any? && !assign_on_join && assigned_student_ids.length >= student_ids.length
-      # then maybe it should be assign on join, so we do a more thorough check
-      if (assigned_student_ids - student_ids).empty?
-        # then it should indeed be assigned to all
-        self.assign_on_join = true
-      end
+    if assigned_student_ids&.any? &&
+       !assign_on_join &&
+       assigned_student_ids.length >= student_ids.length &&
+       (assigned_student_ids - student_ids).empty?
+
+      # then it should indeed be assigned to all
+      self.assign_on_join = true
     end
-    if assign_on_join
-      # then we ensure that it has all the student ids
-      self.assigned_student_ids = student_ids
-    end
+
+    return unless assign_on_join
+
+    # then we ensure that it has all the student ids
+    self.assigned_student_ids = student_ids
+  end
+
+  private def touch_classroom_without_callbacks
+    classroom&.update_columns(updated_at: current_time_from_proper_timezone) unless classroom&.destroyed?
   end
 end

@@ -1,0 +1,218 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LockerIndex component should render LockerIndex 1`] = `
+<div
+  className="locker-index-container locker-content"
+>
+  <h3
+    className="subheader"
+  >
+    Personal Locker
+  </h3>
+  <Locker
+    lockerContents={
+      Object {
+        "emoji": "🔆",
+        "emojiLabel": "gear",
+        "label": undefined,
+        "overrideTitleCase": true,
+        "route": "personal-locker",
+      }
+    }
+  />
+  <h3
+    className="subheader"
+  >
+    Team lockers
+  </h3>
+  <div
+    className="team-lockers-container"
+  >
+    <Locker
+      key="curriculum"
+      lockerContents={
+        Object {
+          "emoji": "📚",
+          "emojiLabel": "stack of books",
+          "label": "curriculum",
+          "lockers": Object {
+            "activity management": Array [
+              "activities",
+              "activity packs",
+              "activity packs categories",
+              "authors",
+              "rails admin",
+            ],
+            "concept management": Array [
+              "concepts",
+              "attributes manager",
+            ],
+            "tools": Array [
+              "evidence",
+              "connect",
+              "diagnostic",
+              "grammar",
+              "lessons",
+              "proofreader",
+            ],
+          },
+          "route": "curriculum",
+        }
+      }
+    />
+    <Locker
+      key="partnerships"
+      lockerContents={
+        Object {
+          "emoji": "🎓",
+          "emojiLabel": "graduation cap",
+          "label": "partnerships",
+          "lockers": Object {
+            "teacher center": Array [
+              "posts",
+              "article images",
+              "announcements",
+            ],
+            "teacher fixes": Array [
+              "unarchive units",
+              "restore classroom units",
+              "restore unit activities",
+              "restore activity sessions",
+              "merge student accounts",
+              "merge teacher accounts",
+              "transfer student to another class",
+              "unsync user with google classroom",
+              "merge two schools",
+              "merge two classrooms",
+              "merge activity packs",
+              "delete last activity sessions",
+              "remove unsynced students from classes",
+            ],
+            "user management": Array [
+              "users",
+              "schools",
+              "districts",
+              "upload rosters",
+            ],
+          },
+          "route": "partnerships",
+        }
+      }
+    />
+    <Locker
+      key="product"
+      lockerContents={
+        Object {
+          "emoji": "🚀",
+          "emojiLabel": "rocket ship",
+          "label": "product",
+          "lockers": Object {
+            "product": Array [
+              "backpack",
+            ],
+            "user management": Array [
+              "users",
+              "schools",
+            ],
+          },
+          "route": "product",
+        }
+      }
+    />
+    <Locker
+      key="support"
+      lockerContents={
+        Object {
+          "emoji": "📞",
+          "emojiLabel": "telephone",
+          "label": "support",
+          "lockers": Object {
+            "teacher center": Array [
+              "posts",
+              "article images",
+              "announcements",
+            ],
+            "teacher fixes": Array [
+              "unarchive units",
+              "restore classroom units",
+              "restore unit activities",
+              "restore activity sessions",
+              "merge student accounts",
+              "merge teacher accounts",
+              "transfer student to another class",
+              "unsync user with google classroom",
+              "merge two schools",
+              "merge two classrooms",
+              "merge activity packs",
+              "delete last activity sessions",
+              "remove unsynced students from classes",
+            ],
+            "user management": Array [
+              "users",
+              "schools",
+              "upload rosters",
+            ],
+          },
+          "route": "support",
+        }
+      }
+    />
+    <Locker
+      key="index"
+      lockerContents={
+        Object {
+          "emoji": "🔐",
+          "emojiLabel": "locked with key",
+          "label": "all lockers",
+          "lockers": Object {
+            "activity management": Array [
+              "activities",
+              "activity packs",
+              "activity packs categories",
+              "authors",
+              "rails admin",
+            ],
+            "concept management": Array [
+              "concepts",
+              "attributes manager",
+            ],
+            "product": Array [
+              "backpack",
+            ],
+            "teacher fixes": Array [
+              "unarchive units",
+              "restore classroom units",
+              "restore unit activities",
+              "restore activity sessions",
+              "merge student accounts",
+              "merge teacher accounts",
+              "transfer student to another class",
+              "unsync user with google classroom",
+              "merge two schools",
+              "merge two classrooms",
+              "merge activity packs",
+              "delete last activity sessions",
+              "remove unsynced students from classes",
+            ],
+            "tools": Array [
+              "evidence",
+              "connect",
+              "diagnostic",
+              "grammar",
+              "lessons",
+              "proofreader",
+            ],
+            "user management": Array [
+              "users",
+              "schools",
+              "districts",
+              "upload rosters",
+            ],
+          },
+          "route": "index",
+        }
+      }
+    />
+  </div>
+</div>
+`;

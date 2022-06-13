@@ -78,12 +78,14 @@ export default class Stage2 extends React.Component {
 
     if (!showOverrideWarningModal) { return }
 
-    return (<OverrideWarningModal
-      activityName={unitTemplateName}
-      handleClickAssign={this.onAssignDespiteWarning}
-      handleCloseModal={this.closeOverrideWarningModal}
-      studentNames={alreadyCompletedDiagnosticStudentNames}
-    />)
+    return (
+      <OverrideWarningModal
+        activityName={unitTemplateName}
+        handleClickAssign={this.onAssignDespiteWarning}
+        handleCloseModal={this.closeOverrideWarningModal}
+        studentNames={alreadyCompletedDiagnosticStudentNames}
+      />
+    )
   }
 
   renderSkipRecommendationsWarningModal() {
@@ -92,12 +94,14 @@ export default class Stage2 extends React.Component {
 
     if (!showSkipRecommendationsWarningModal) { return }
 
-    return (<SkipRecommendationsWarningModal
-      handleClickAssign={this.onAssignDespiteWarning}
-      handleCloseModal={this.closeSkipRecommendationsWarningModal}
-      restrictedActivityId={restrictedActivity.id}
-      studentNames={notYetCompletedPreTestStudentNames}
-    />)
+    return (
+      <SkipRecommendationsWarningModal
+        handleClickAssign={this.onAssignDespiteWarning}
+        handleCloseModal={this.closeSkipRecommendationsWarningModal}
+        restrictedActivityId={restrictedActivity.id}
+        studentNames={notYetCompletedPreTestStudentNames}
+      />
+    )
   }
 
   renderAssignStudentsSection() {
@@ -109,28 +113,34 @@ export default class Stage2 extends React.Component {
       fetchClassrooms,
       lockedClassroomIds,
       restrictedActivity,
+      cleverLink,
     } = this.props
 
-    return (<AssignStudents
-      classrooms={classrooms}
-      fetchClassrooms={fetchClassrooms}
-      lockedClassroomIds={lockedClassroomIds}
-      lockedMessage={restrictedActivity ? postTestClassAssignmentLockedMessages[restrictedActivity.id] : ''}
-      toggleClassroomSelection={toggleClassroomSelection}
-      toggleStudentSelection={toggleStudentSelection}
-      user={user}
-    />)
+    return (
+      <AssignStudents
+        classrooms={classrooms}
+        cleverLink={cleverLink}
+        fetchClassrooms={fetchClassrooms}
+        lockedClassroomIds={lockedClassroomIds}
+        lockedMessage={restrictedActivity ? postTestClassAssignmentLockedMessages[restrictedActivity.id] : ''}
+        toggleClassroomSelection={toggleClassroomSelection}
+        toggleStudentSelection={toggleStudentSelection}
+        user={user}
+      />
+    )
   }
 
   renderNameSection() {
     const { timesSubmitted, } = this.state
     const { errorMessage, unitName, updateUnitName, } = this.props
-    return (<NameTheUnit
-      nameError={errorMessage ? errorMessage.name : null}
-      timesSubmitted={timesSubmitted}
-      unitName={unitName}
-      updateUnitName={updateUnitName}
-    />)
+    return (
+      <NameTheUnit
+        nameError={errorMessage ? errorMessage.name : null}
+        timesSubmitted={timesSubmitted}
+        unitName={unitName}
+        updateUnitName={updateUnitName}
+      />
+    )
   }
 
   renderReviewActivitiesSection() {
@@ -140,12 +150,14 @@ export default class Stage2 extends React.Component {
       assignActivityDueDate,
       dueDates,
     } = this.props
-    return (<ReviewActivities
-      activities={selectedActivities}
-      assignActivityDueDate={assignActivityDueDate}
-      dueDates={dueDates}
-      toggleActivitySelection={toggleActivitySelection}
-    />)
+    return (
+      <ReviewActivities
+        activities={selectedActivities}
+        assignActivityDueDate={assignActivityDueDate}
+        dueDates={dueDates}
+        toggleActivitySelection={toggleActivitySelection}
+      />
+    )
   }
 
   render() {

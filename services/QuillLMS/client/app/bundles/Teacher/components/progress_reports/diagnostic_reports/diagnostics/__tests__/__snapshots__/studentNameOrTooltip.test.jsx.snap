@@ -5,18 +5,26 @@ exports[`StudentNameOrTooltip component should render if the name is long enough
   name="Gabriel De La Concordia Garcia Gabriel De La Concordia Garcia Gabriel De La Concordia Garcia"
 >
   <Tooltip
+    isTabbable={true}
     tooltipText="Gabriel De La Concordia Garcia Gabriel De La Concordia Garcia Gabriel De La Concordia Garcia"
     tooltipTriggerText="Gabriel De La Concordia Garcia Gabriel De La Concordia Garcia Gabriel De La Concordia Garcia"
     tooltipTriggerTextClass="student-name"
   >
     <span
+      aria-hidden={false}
       className="quill-tooltip-trigger"
+      role="tooltip"
     >
       <span
         className="student-name"
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
-        tabIndex={null}
+        role="button"
+        tabIndex={0}
       >
         Gabriel De La Concordia Garcia Gabriel De La Concordia Garcia Gabriel De La Concordia Garcia
       </span>
@@ -24,6 +32,7 @@ exports[`StudentNameOrTooltip component should render if the name is long enough
         className="quill-tooltip-wrapper"
       >
         <span
+          aria-live="polite"
           className="quill-tooltip"
         />
       </span>

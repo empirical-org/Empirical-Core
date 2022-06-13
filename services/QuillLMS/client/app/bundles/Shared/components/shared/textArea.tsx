@@ -123,24 +123,26 @@ export class TextArea extends React.Component<InputProps, InputState> {
     const sharedClasses = `input-container textfield-container ${hasText} ${inactiveOrActive} ${className}`
     if (error) {
       if (errorAcknowledged) {
-        return (<div
-          className={`error ${sharedClasses}`}
-          onClick={this.activateInput}
-          ref={node => this.node = node}
-        >
-          <label>{label}</label>
-          <textarea
-            disabled={disabled}
-            id={id}
-            maxLength={characterLimit ? characterLimit : 10000}
-            onChange={handleChange}
-            placeholder={placeholder}
-            ref={(input) => { this.input = input; }}
-            value={value}
-          />
-          {this.renderCancelSymbol()}
-          {this.renderCharacterLimit()}
-        </div>)
+        return (
+          <div
+            className={`error ${sharedClasses}`}
+            onClick={this.activateInput}
+            ref={node => this.node = node}
+          >
+            <label>{label}</label>
+            <textarea
+              disabled={disabled}
+              id={id}
+              maxLength={characterLimit ? characterLimit : 10000}
+              onChange={handleChange}
+              placeholder={placeholder}
+              ref={(input) => { this.input = input; }}
+              value={value}
+            />
+            {this.renderCancelSymbol()}
+            {this.renderCharacterLimit()}
+          </div>
+        )
       } else {
         return (
           <div
@@ -160,7 +162,8 @@ export class TextArea extends React.Component<InputProps, InputState> {
             {this.renderCancelSymbol()}
             {this.renderErrorText()}
             {this.renderCharacterLimit()}
-          </div>)
+          </div>
+        )
       }
     } else if (inactive) {
       return (
@@ -180,7 +183,8 @@ export class TextArea extends React.Component<InputProps, InputState> {
           />
           {this.renderHelperText()}
           {this.renderCharacterLimit()}
-        </div>)
+        </div>
+      )
     } else {
       return (
         <div
@@ -199,7 +203,8 @@ export class TextArea extends React.Component<InputProps, InputState> {
           />
           {this.renderCancelSymbol()}
           {this.renderCharacterLimit()}
-        </div>)
+        </div>
+      )
     }
   }
 

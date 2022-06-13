@@ -17,7 +17,7 @@ module Evidence
     end
 
     context 'should serializable_hash' do
-      let!(:plagiarism_text) { create(:evidence_plagiarism_text) } 
+      let!(:plagiarism_text) { create(:evidence_plagiarism_text) }
 
       it "fill out hash with all fields" do
         json_hash = plagiarism_text.as_json

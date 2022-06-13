@@ -9,8 +9,9 @@ class SerializeVitallySalesUser
     @user = user
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def data
-    current_time = Time.zone.now
+    current_time = Time.current
     school_year_start = School.school_year_start(current_time)
     school_year_end = school_year_start + 1.year
     active_students = active_students_query(@user).count
@@ -82,27 +83,30 @@ class SerializeVitallySalesUser
         percent_completed_diagnostics_last_year: get_from_cache("percent_completed_diagnostics"),
         evidence_activities_assigned_this_year: evidence_assigned_this_year,
         evidence_activities_completed_this_year: evidence_finished_this_year,
-        date_of_last_completed_evidence_activity: date_of_last_completed_evidence_activity
+        date_of_last_completed_evidence_activity: date_of_last_completed_evidence_activity,
+        premium_state: @user.premium_state,
+        premium_type: @user.subscription&.account_type
       }.merge(account_data_params)
     }
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def evidence_id
     ActivityClassification.evidence.id
   end
 
   def account_data
-    unless account_uid.blank? || account_data_params.blank?
-      {
-        accountId: account_uid.to_s,
-        type: 'account',
-        traits: account_data_params
-      }
-    end
+    return if account_uid.blank? || account_data_params.blank?
+
+    {
+      accountId: account_uid.to_s,
+      type: 'account',
+      traits: account_data_params
+    }
   end
 
   private def get_from_cache(key)
-   last_school_year = Date.today.year - 1
+    last_school_year = School.school_year_start(Date.current - 1.year).year
     cached_data = CacheVitallyTeacherData.get(@user.id, last_school_year)
     if cached_data.present?
       parsed_data = JSON.parse(cached_data)
@@ -209,7 +213,7 @@ class SerializeVitallySalesUser
   end
 
   private def district
-    @user.school.leanm if @user.school.present?
+    @user.school.district&.name if @user.school.present?
   end
 
 end

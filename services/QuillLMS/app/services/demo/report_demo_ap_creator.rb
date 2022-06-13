@@ -119,7 +119,7 @@ module Demo::ReportDemoAPCreator
     attributes = {
       purchaser_id: teacher.id,
       account_type: 'Teacher Paid',
-      expiration: DateTime.now.next_year(20).to_time
+      expiration: DateTime.current.next_year(20).to_time
     }
     Subscription.create_with_user_join(teacher.id, attributes)
   end
@@ -165,10 +165,10 @@ module Demo::ReportDemoAPCreator
       }
     ]
     student_values.each do |values|
-      if !values[:email].blank?
-        student = User.find_by(email: values[:email]) || User.create(values)
-      else
+      if values[:email].blank?
         student = User.create(values)
+      else
+        student = User.find_by(email: values[:email]) || User.create(values)
       end
       students.push(student)
       StudentsClassrooms.create({student_id: student.id, classroom_id: classroom.id})
@@ -206,6 +206,7 @@ module Demo::ReportDemoAPCreator
       templates[num].each do |act_id, user_id|
         temp = ActivitySession.unscoped.where({activity_id: act_id, user_id: user_id, is_final_score: true}).first
         next unless temp
+
         cu = ClassroomUnit.where("#{student.id} = ANY (assigned_student_ids) AND classroom_id=#{classroom.id}").first
         act_session = ActivitySession.create({activity_id: act_id, classroom_unit_id: cu.id, user_id: student.id, state: "finished", percentage: temp.percentage})
         temp.concept_results.each do |cr|

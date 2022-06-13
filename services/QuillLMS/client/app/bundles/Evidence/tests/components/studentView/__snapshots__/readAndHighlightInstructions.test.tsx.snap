@@ -3,7 +3,7 @@
 exports[`ReadAndHighlightInstructions component when the student has not started making highlights renders 1`] = `
 <ReadAndHighlightInstructions
   activeStep={1}
-  closeReadTheDirectionsModal={[Function]}
+  handleReadTheDirectionsButtonClick={[Function]}
   inReflection={false}
   passage={
     Object {
@@ -11,33 +11,51 @@ exports[`ReadAndHighlightInstructions component when the student has not started
     }
   }
   removeHighlight={[Function]}
-  showReadTheDirectionsModal={false}
+  showReadTheDirectionsButton={false}
   studentHighlights={Array []}
 >
   <div
-    className="read-and-highlight-container hide-on-mobile"
+    className="read-and-highlight-container hide-on-mobile no-focus-outline"
+    tabIndex={-1}
   >
-    <DirectionsSectionAndModal
+    <DirectionsSection
       activeStep={1}
       className="hide-on-mobile"
-      closeReadTheDirectionsModal={[Function]}
       inReflection={false}
       passage={
         Object {
           "highlight_prompt": "",
         }
       }
-      showReadTheDirectionsModal={false}
     >
       <div
         className="hide-on-mobile"
       >
-        <span />
         <section
           className="directions-section"
         >
           <h3>
             Directions
+          </h3>
+          <ul>
+            <li>
+              First, read the highlighting task below.
+            </li>
+            <li>
+              Then, read the text and highlight sentences to complete the task.
+            </li>
+            <li
+              className="sr-only"
+            >
+              Screenreader users, please use your tab keys to navigate through the passage. Use the Enter key on a focused sentence to add it to your highlights or to remove it once it has already been highlighted.
+            </li>
+          </ul>
+        </section>
+        <section
+          className="task-section"
+        >
+          <h3>
+            Task
           </h3>
           <p>
             As you read, highlight two sentences 
@@ -45,83 +63,65 @@ exports[`ReadAndHighlightInstructions component when the student has not started
           </p>
         </section>
       </div>
-    </DirectionsSectionAndModal>
+    </DirectionsSection>
     <section
       className="highlight-section"
     >
-      <h3>
-        Highlights
-      </h3>
-      <HighlightInstructions>
-        <div
-          className="highlight-instructions"
+      <div
+        className="highlight-label-section"
+      >
+        <h3>
+          Highlights
+        </h3>
+        <Tooltip
+          isTabbable={true}
+          tooltipText="<p>How to highlight:</p><br/><p>Step 1 - Hover over a sentence</p><br/><p>Step 2 - Click, tap, or select the sentence</p><br/><p>If you change your mind about something you've highlighted, click, tap, or deselect the sentence again to remove the highlight.</p>"
+          tooltipTriggerText={
+            <img
+              alt="Question mark icon"
+              src="undefined/images/icons/icons-help.svg"
+            />
+          }
         >
-          <h4>
-            How to highlight
-          </h4>
-          <div
-            className="highlight-instruction one"
+          <span
+            aria-hidden={false}
+            className="quill-tooltip-trigger"
+            role="tooltip"
           >
-            <h5
-              className="highlight-instruction-header"
+            <span
+              className="undefined"
+              onBlur={[Function]}
+              onClick={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              role="button"
+              tabIndex={0}
+            >
+              <img
+                alt="Question mark icon"
+                src="undefined/images/icons/icons-help.svg"
+              />
+            </span>
+            <span
+              className="quill-tooltip-wrapper"
             >
               <span
-                className="highlight-instruction-number"
-              >
-                1
-              </span>
-              <span>
-                Hover over a sentence
-              </span>
-            </h5>
-            <img
-              alt="Cursor pointing hand"
-              src="undefined/images/icons/cursor-pointinghand.svg"
-            />
-            <p>
-              <span
-                className="student-highlight hover"
-              >
-                Yellowstone National Park was established in 1872 as the first national park in the United States.
-              </span>
-               It spans across areas in Wyoming, Idaho, and Montana. Yellowstone is extremely special and famous because it is located on a dormant volcano.
-            </p>
-          </div>
-          <div
-            className="highlight-instruction two"
-          >
-            <h5
-              className="highlight-instruction-header"
-            >
-              <span
-                className="highlight-instruction-number"
-              >
-                2
-              </span>
-              <span>
-                Click, tap, or select the sentence*
-              </span>
-            </h5>
-            <img
-              alt="Default cursor showing exaggerated clicking"
-              src="undefined/images/icons/cursor-click.svg"
-            />
-            <p>
-              <span
-                className="student-highlight"
-              >
-                Yellowstone National Park was established in 1872 as the first national park in the United States.
-              </span>
-               It spans across areas in Wyoming, Idaho, and Montana. Yellowstone is extremely special and famous because it is located on a dormant volcano.
-            </p>
-            <p
-              className="unhighlight-instructions"
-            >
-              *If you change your mind about something you've highlighted, click, tap, or deselect the sentence to remove the highlight
-            </p>
-          </div>
-        </div>
-      </HighlightInstructions>
+                aria-live="polite"
+                className="quill-tooltip"
+              />
+            </span>
+          </span>
+        </Tooltip>
+      </div>
+      <div
+        className="highlight-instructions"
+      >
+        <p>
+          Your highlights will appear here.
+        </p>
+      </div>
     </section>
   </div>
 </ReadAndHighlightInstructions>
@@ -130,7 +130,7 @@ exports[`ReadAndHighlightInstructions component when the student has not started
 exports[`ReadAndHighlightInstructions component when the student has started making highlights renders 1`] = `
 <ReadAndHighlightInstructions
   activeStep={1}
-  closeReadTheDirectionsModal={[Function]}
+  handleReadTheDirectionsButtonClick={[Function]}
   inReflection={false}
   passage={
     Object {
@@ -138,7 +138,7 @@ exports[`ReadAndHighlightInstructions component when the student has started mak
     }
   }
   removeHighlight={[Function]}
-  showReadTheDirectionsModal={false}
+  showReadTheDirectionsButton={false}
   studentHighlights={
     Array [
       "This is a highlight made by a student.",
@@ -147,28 +147,46 @@ exports[`ReadAndHighlightInstructions component when the student has started mak
 >
   <div
     className="read-and-highlight-container"
+    tabIndex={-1}
   >
-    <DirectionsSectionAndModal
+    <DirectionsSection
       activeStep={1}
       className="hide-on-mobile"
-      closeReadTheDirectionsModal={[Function]}
       inReflection={false}
       passage={
         Object {
           "highlight_prompt": "",
         }
       }
-      showReadTheDirectionsModal={false}
     >
       <div
         className="hide-on-mobile"
       >
-        <span />
         <section
           className="directions-section"
         >
           <h3>
             Directions
+          </h3>
+          <ul>
+            <li>
+              First, read the highlighting task below.
+            </li>
+            <li>
+              Then, read the text and highlight sentences to complete the task.
+            </li>
+            <li
+              className="sr-only"
+            >
+              Screenreader users, please use your tab keys to navigate through the passage. Use the Enter key on a focused sentence to add it to your highlights or to remove it once it has already been highlighted.
+            </li>
+          </ul>
+        </section>
+        <section
+          className="task-section"
+        >
+          <h3>
+            Task
           </h3>
           <p>
             As you read, highlight two sentences 
@@ -176,13 +194,58 @@ exports[`ReadAndHighlightInstructions component when the student has started mak
           </p>
         </section>
       </div>
-    </DirectionsSectionAndModal>
+    </DirectionsSection>
     <section
       className="highlight-section"
     >
-      <h3>
-        Highlights
-      </h3>
+      <div
+        className="highlight-label-section"
+      >
+        <h3>
+          Highlights
+        </h3>
+        <Tooltip
+          isTabbable={true}
+          tooltipText="<p>How to highlight:</p><br/><p>Step 1 - Hover over a sentence</p><br/><p>Step 2 - Click, tap, or select the sentence</p><br/><p>If you change your mind about something you've highlighted, click, tap, or deselect the sentence again to remove the highlight.</p>"
+          tooltipTriggerText={
+            <img
+              alt="Question mark icon"
+              src="undefined/images/icons/icons-help.svg"
+            />
+          }
+        >
+          <span
+            aria-hidden={false}
+            className="quill-tooltip-trigger"
+            role="tooltip"
+          >
+            <span
+              className="undefined"
+              onBlur={[Function]}
+              onClick={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              role="button"
+              tabIndex={0}
+            >
+              <img
+                alt="Question mark icon"
+                src="undefined/images/icons/icons-help.svg"
+              />
+            </span>
+            <span
+              className="quill-tooltip-wrapper"
+            >
+              <span
+                aria-live="polite"
+                className="quill-tooltip"
+              />
+            </span>
+          </span>
+        </Tooltip>
+      </div>
       <DisplayStudentHighlight
         inReflection={false}
         key="This is a highlight made by a student."
@@ -196,6 +259,7 @@ exports[`ReadAndHighlightInstructions component when the student has started mak
             This is a highlight made by a student.
           </span>
           <button
+            aria-label="Remove highlight"
             className="interactive-wrapper focus-on-light"
             onClick={[Function]}
             type="button"

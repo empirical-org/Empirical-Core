@@ -5,7 +5,7 @@ import {countKeys} from './countKeys'
 
 export function correct(dictionary: Dictionary, potentialWord: string): string {
   if (dictionary.hasOwnProperty(potentialWord.toLowerCase()) || dictionary.hasOwnProperty(potentialWord)) {
-      return potentialWord
+    return potentialWord
   }
   const candidates = {}
   const list = edits(potentialWord);

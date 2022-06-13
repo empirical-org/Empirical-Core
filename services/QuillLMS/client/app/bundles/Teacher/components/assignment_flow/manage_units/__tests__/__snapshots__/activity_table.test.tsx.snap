@@ -1541,19 +1541,21 @@ exports[`ActivityTable component renders if the current user created the unit 1`
     }
     showRemoveIcon={true}
   >
-    <div
+    <table
       className="data-table undefined"
     >
-      <div
+      <tr
         className="data-table-headers"
       >
-        <span
+        <th
           className="data-table-header reorder-header"
+          scope="col"
         >
           Order
-        </span>
-        <button
+        </th>
+        <th
           className="data-table-header undefined"
+          scope="col"
           style={
             Object {
               "minWidth": "607px",
@@ -1561,8 +1563,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
               "width": "607px",
             }
           }
-          tabIndex={-1}
-          type="button"
         >
           <span
             className="tool-and-name-header"
@@ -1574,9 +1574,10 @@ exports[`ActivityTable component renders if the current user created the unit 1`
               Activity
             </span>
           </span>
-        </button>
-        <button
+        </th>
+        <th
           className="data-table-header due-date-header-container"
+          scope="col"
           style={
             Object {
               "minWidth": "120px",
@@ -1584,8 +1585,6 @@ exports[`ActivityTable component renders if the current user created the unit 1`
               "width": "120px",
             }
           }
-          tabIndex={-1}
-          type="button"
         >
           <span
             className="due-date-header"
@@ -1595,9 +1594,10 @@ exports[`ActivityTable component renders if the current user created the unit 1`
               (optional)
             </span>
           </span>
-        </button>
-        <button
+        </th>
+        <th
           className="data-table-header undefined"
+          scope="col"
           style={
             Object {
               "minWidth": "30px",
@@ -1605,20 +1605,20 @@ exports[`ActivityTable component renders if the current user created the unit 1`
               "width": "30px",
             }
           }
-          tabIndex={-1}
-          type="button"
         />
-        <span
+        <th
+          aria-label="Header for remove column"
           className="data-table-header"
+          scope="col"
         />
-      </div>
-      <div
+      </tr>
+      <tbody
         className="data-table-body reorderable"
       >
         <SortableList
           data={
             Array [
-              <div
+              <tr
                 className="data-table-row  "
               >
                 <React.Fragment>
@@ -1627,7 +1627,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                   >
                     <sortableHandle />
                   </span>
-                  <span
+                  <td
                     className="data-table-row-section tool-and-name-section"
                     style={
                       Object {
@@ -1657,8 +1657,8 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         Adverbs of Manner 1 (Starter)
                       </a>
                     </a>
-                  </span>
-                  <span
+                  </td>
+                  <td
                     className="data-table-row-section due-date-picker"
                     style={
                       Object {
@@ -1769,8 +1769,8 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                       withFullScreenPortal={false}
                       withPortal={false}
                     />
-                  </span>
-                  <span
+                  </td>
+                  <td
                     className="data-table-row-section undefined"
                     style={
                       Object {
@@ -1791,21 +1791,23 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         src="undefined/images/icons/icons-share.svg"
                       />
                     </button>
-                  </span>
-                  <button
-                    className="removable data-table-row-section focus-on-light"
-                    id="remove-button-7543552"
-                    onClick={[Function]}
-                    type="button"
-                  >
-                    <img
-                      alt="x"
-                      src="https://assets.quill.org/images/icons/remove.svg"
-                    />
-                  </button>
+                  </td>
+                  <td>
+                    <button
+                      className="removable data-table-row-section focus-on-light"
+                      id="remove-button-7543552"
+                      onClick={[Function]}
+                      type="button"
+                    >
+                      <img
+                        alt="x"
+                        src="https://assets.quill.org/images/icons/remove.svg"
+                      />
+                    </button>
+                  </td>
                 </React.Fragment>
-              </div>,
-              <div
+              </tr>,
+              <tr
                 className="data-table-row  "
               >
                 <React.Fragment>
@@ -1814,7 +1816,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                   >
                     <sortableHandle />
                   </span>
-                  <span
+                  <td
                     className="data-table-row-section tool-and-name-section"
                     style={
                       Object {
@@ -1844,8 +1846,8 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         Adverbs of Manner (Intermediate)
                       </a>
                     </a>
-                  </span>
-                  <span
+                  </td>
+                  <td
                     className="data-table-row-section due-date-picker"
                     style={
                       Object {
@@ -1956,8 +1958,8 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                       withFullScreenPortal={false}
                       withPortal={false}
                     />
-                  </span>
-                  <span
+                  </td>
+                  <td
                     className="data-table-row-section undefined"
                     style={
                       Object {
@@ -1978,21 +1980,23 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         src="undefined/images/icons/icons-share.svg"
                       />
                     </button>
-                  </span>
-                  <button
-                    className="removable data-table-row-section focus-on-light"
-                    id="remove-button-7543553"
-                    onClick={[Function]}
-                    type="button"
-                  >
-                    <img
-                      alt="x"
-                      src="https://assets.quill.org/images/icons/remove.svg"
-                    />
-                  </button>
+                  </td>
+                  <td>
+                    <button
+                      className="removable data-table-row-section focus-on-light"
+                      id="remove-button-7543553"
+                      onClick={[Function]}
+                      type="button"
+                    >
+                      <img
+                        alt="x"
+                        src="https://assets.quill.org/images/icons/remove.svg"
+                      />
+                    </button>
+                  </td>
                 </React.Fragment>
-              </div>,
-              <div
+              </tr>,
+              <tr
                 className="data-table-row  "
               >
                 <React.Fragment>
@@ -2001,7 +2005,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                   >
                     <sortableHandle />
                   </span>
-                  <span
+                  <td
                     className="data-table-row-section tool-and-name-section"
                     style={
                       Object {
@@ -2031,8 +2035,8 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         Adjectives and Adverbs (Starter)
                       </a>
                     </a>
-                  </span>
-                  <span
+                  </td>
+                  <td
                     className="data-table-row-section due-date-picker"
                     style={
                       Object {
@@ -2143,8 +2147,8 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                       withFullScreenPortal={false}
                       withPortal={false}
                     />
-                  </span>
-                  <span
+                  </td>
+                  <td
                     className="data-table-row-section undefined"
                     style={
                       Object {
@@ -2165,21 +2169,23 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         src="undefined/images/icons/icons-share.svg"
                       />
                     </button>
-                  </span>
-                  <button
-                    className="removable data-table-row-section focus-on-light"
-                    id="remove-button-7543554"
-                    onClick={[Function]}
-                    type="button"
-                  >
-                    <img
-                      alt="x"
-                      src="https://assets.quill.org/images/icons/remove.svg"
-                    />
-                  </button>
+                  </td>
+                  <td>
+                    <button
+                      className="removable data-table-row-section focus-on-light"
+                      id="remove-button-7543554"
+                      onClick={[Function]}
+                      type="button"
+                    >
+                      <img
+                        alt="x"
+                        src="https://assets.quill.org/images/icons/remove.svg"
+                      />
+                    </button>
+                  </td>
                 </React.Fragment>
-              </div>,
-              <div
+              </tr>,
+              <tr
                 className="data-table-row  "
               >
                 <React.Fragment>
@@ -2188,7 +2194,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                   >
                     <sortableHandle />
                   </span>
-                  <span
+                  <td
                     className="data-table-row-section tool-and-name-section"
                     style={
                       Object {
@@ -2218,8 +2224,8 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         Adjectives vs. Adverbs
                       </a>
                     </a>
-                  </span>
-                  <span
+                  </td>
+                  <td
                     className="data-table-row-section due-date-picker"
                     style={
                       Object {
@@ -2330,8 +2336,8 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                       withFullScreenPortal={false}
                       withPortal={false}
                     />
-                  </span>
-                  <span
+                  </td>
+                  <td
                     className="data-table-row-section undefined"
                     style={
                       Object {
@@ -2352,21 +2358,23 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         src="undefined/images/icons/icons-share.svg"
                       />
                     </button>
-                  </span>
-                  <button
-                    className="removable data-table-row-section focus-on-light"
-                    id="remove-button-7543555"
-                    onClick={[Function]}
-                    type="button"
-                  >
-                    <img
-                      alt="x"
-                      src="https://assets.quill.org/images/icons/remove.svg"
-                    />
-                  </button>
+                  </td>
+                  <td>
+                    <button
+                      className="removable data-table-row-section focus-on-light"
+                      id="remove-button-7543555"
+                      onClick={[Function]}
+                      type="button"
+                    >
+                      <img
+                        alt="x"
+                        src="https://assets.quill.org/images/icons/remove.svg"
+                      />
+                    </button>
+                  </td>
                 </React.Fragment>
-              </div>,
-              <div
+              </tr>,
+              <tr
                 className="data-table-row  "
               >
                 <React.Fragment>
@@ -2375,7 +2383,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                   >
                     <sortableHandle />
                   </span>
-                  <span
+                  <td
                     className="data-table-row-section tool-and-name-section"
                     style={
                       Object {
@@ -2405,8 +2413,8 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         Adjectives, Adverbs, and Prepositional Phrases 1
                       </a>
                     </a>
-                  </span>
-                  <span
+                  </td>
+                  <td
                     className="data-table-row-section due-date-picker"
                     style={
                       Object {
@@ -2517,8 +2525,8 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                       withFullScreenPortal={false}
                       withPortal={false}
                     />
-                  </span>
-                  <span
+                  </td>
+                  <td
                     className="data-table-row-section undefined"
                     style={
                       Object {
@@ -2539,20 +2547,22 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         src="undefined/images/icons/icons-share.svg"
                       />
                     </button>
-                  </span>
-                  <button
-                    className="removable data-table-row-section focus-on-light"
-                    id="remove-button-7543556"
-                    onClick={[Function]}
-                    type="button"
-                  >
-                    <img
-                      alt="x"
-                      src="https://assets.quill.org/images/icons/remove.svg"
-                    />
-                  </button>
+                  </td>
+                  <td>
+                    <button
+                      className="removable data-table-row-section focus-on-light"
+                      id="remove-button-7543556"
+                      onClick={[Function]}
+                      type="button"
+                    >
+                      <img
+                        alt="x"
+                        src="https://assets.quill.org/images/icons/remove.svg"
+                      />
+                    </button>
+                  </td>
                 </React.Fragment>
-              </div>,
+              </tr>,
             ]
           }
           helperClass="sortable-data-table-row"
@@ -2568,7 +2578,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
             hideSortableGhost={true}
             items={
               Array [
-                <div
+                <tr
                   className="data-table-row  "
                 >
                   <React.Fragment>
@@ -2577,7 +2587,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                     >
                       <sortableHandle />
                     </span>
-                    <span
+                    <td
                       className="data-table-row-section tool-and-name-section"
                       style={
                         Object {
@@ -2607,8 +2617,8 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           Adverbs of Manner 1 (Starter)
                         </a>
                       </a>
-                    </span>
-                    <span
+                    </td>
+                    <td
                       className="data-table-row-section due-date-picker"
                       style={
                         Object {
@@ -2719,8 +2729,8 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         withFullScreenPortal={false}
                         withPortal={false}
                       />
-                    </span>
-                    <span
+                    </td>
+                    <td
                       className="data-table-row-section undefined"
                       style={
                         Object {
@@ -2741,21 +2751,23 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           src="undefined/images/icons/icons-share.svg"
                         />
                       </button>
-                    </span>
-                    <button
-                      className="removable data-table-row-section focus-on-light"
-                      id="remove-button-7543552"
-                      onClick={[Function]}
-                      type="button"
-                    >
-                      <img
-                        alt="x"
-                        src="https://assets.quill.org/images/icons/remove.svg"
-                      />
-                    </button>
+                    </td>
+                    <td>
+                      <button
+                        className="removable data-table-row-section focus-on-light"
+                        id="remove-button-7543552"
+                        onClick={[Function]}
+                        type="button"
+                      >
+                        <img
+                          alt="x"
+                          src="https://assets.quill.org/images/icons/remove.svg"
+                        />
+                      </button>
+                    </td>
                   </React.Fragment>
-                </div>,
-                <div
+                </tr>,
+                <tr
                   className="data-table-row  "
                 >
                   <React.Fragment>
@@ -2764,7 +2776,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                     >
                       <sortableHandle />
                     </span>
-                    <span
+                    <td
                       className="data-table-row-section tool-and-name-section"
                       style={
                         Object {
@@ -2794,8 +2806,8 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           Adverbs of Manner (Intermediate)
                         </a>
                       </a>
-                    </span>
-                    <span
+                    </td>
+                    <td
                       className="data-table-row-section due-date-picker"
                       style={
                         Object {
@@ -2906,8 +2918,8 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         withFullScreenPortal={false}
                         withPortal={false}
                       />
-                    </span>
-                    <span
+                    </td>
+                    <td
                       className="data-table-row-section undefined"
                       style={
                         Object {
@@ -2928,21 +2940,23 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           src="undefined/images/icons/icons-share.svg"
                         />
                       </button>
-                    </span>
-                    <button
-                      className="removable data-table-row-section focus-on-light"
-                      id="remove-button-7543553"
-                      onClick={[Function]}
-                      type="button"
-                    >
-                      <img
-                        alt="x"
-                        src="https://assets.quill.org/images/icons/remove.svg"
-                      />
-                    </button>
+                    </td>
+                    <td>
+                      <button
+                        className="removable data-table-row-section focus-on-light"
+                        id="remove-button-7543553"
+                        onClick={[Function]}
+                        type="button"
+                      >
+                        <img
+                          alt="x"
+                          src="https://assets.quill.org/images/icons/remove.svg"
+                        />
+                      </button>
+                    </td>
                   </React.Fragment>
-                </div>,
-                <div
+                </tr>,
+                <tr
                   className="data-table-row  "
                 >
                   <React.Fragment>
@@ -2951,7 +2965,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                     >
                       <sortableHandle />
                     </span>
-                    <span
+                    <td
                       className="data-table-row-section tool-and-name-section"
                       style={
                         Object {
@@ -2981,8 +2995,8 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           Adjectives and Adverbs (Starter)
                         </a>
                       </a>
-                    </span>
-                    <span
+                    </td>
+                    <td
                       className="data-table-row-section due-date-picker"
                       style={
                         Object {
@@ -3093,8 +3107,8 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         withFullScreenPortal={false}
                         withPortal={false}
                       />
-                    </span>
-                    <span
+                    </td>
+                    <td
                       className="data-table-row-section undefined"
                       style={
                         Object {
@@ -3115,21 +3129,23 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           src="undefined/images/icons/icons-share.svg"
                         />
                       </button>
-                    </span>
-                    <button
-                      className="removable data-table-row-section focus-on-light"
-                      id="remove-button-7543554"
-                      onClick={[Function]}
-                      type="button"
-                    >
-                      <img
-                        alt="x"
-                        src="https://assets.quill.org/images/icons/remove.svg"
-                      />
-                    </button>
+                    </td>
+                    <td>
+                      <button
+                        className="removable data-table-row-section focus-on-light"
+                        id="remove-button-7543554"
+                        onClick={[Function]}
+                        type="button"
+                      >
+                        <img
+                          alt="x"
+                          src="https://assets.quill.org/images/icons/remove.svg"
+                        />
+                      </button>
+                    </td>
                   </React.Fragment>
-                </div>,
-                <div
+                </tr>,
+                <tr
                   className="data-table-row  "
                 >
                   <React.Fragment>
@@ -3138,7 +3154,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                     >
                       <sortableHandle />
                     </span>
-                    <span
+                    <td
                       className="data-table-row-section tool-and-name-section"
                       style={
                         Object {
@@ -3168,8 +3184,8 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           Adjectives vs. Adverbs
                         </a>
                       </a>
-                    </span>
-                    <span
+                    </td>
+                    <td
                       className="data-table-row-section due-date-picker"
                       style={
                         Object {
@@ -3280,8 +3296,8 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         withFullScreenPortal={false}
                         withPortal={false}
                       />
-                    </span>
-                    <span
+                    </td>
+                    <td
                       className="data-table-row-section undefined"
                       style={
                         Object {
@@ -3302,21 +3318,23 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           src="undefined/images/icons/icons-share.svg"
                         />
                       </button>
-                    </span>
-                    <button
-                      className="removable data-table-row-section focus-on-light"
-                      id="remove-button-7543555"
-                      onClick={[Function]}
-                      type="button"
-                    >
-                      <img
-                        alt="x"
-                        src="https://assets.quill.org/images/icons/remove.svg"
-                      />
-                    </button>
+                    </td>
+                    <td>
+                      <button
+                        className="removable data-table-row-section focus-on-light"
+                        id="remove-button-7543555"
+                        onClick={[Function]}
+                        type="button"
+                      >
+                        <img
+                          alt="x"
+                          src="https://assets.quill.org/images/icons/remove.svg"
+                        />
+                      </button>
+                    </td>
                   </React.Fragment>
-                </div>,
-                <div
+                </tr>,
+                <tr
                   className="data-table-row  "
                 >
                   <React.Fragment>
@@ -3325,7 +3343,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                     >
                       <sortableHandle />
                     </span>
-                    <span
+                    <td
                       className="data-table-row-section tool-and-name-section"
                       style={
                         Object {
@@ -3355,8 +3373,8 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           Adjectives, Adverbs, and Prepositional Phrases 1
                         </a>
                       </a>
-                    </span>
-                    <span
+                    </td>
+                    <td
                       className="data-table-row-section due-date-picker"
                       style={
                         Object {
@@ -3467,8 +3485,8 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         withFullScreenPortal={false}
                         withPortal={false}
                       />
-                    </span>
-                    <span
+                    </td>
+                    <td
                       className="data-table-row-section undefined"
                       style={
                         Object {
@@ -3489,20 +3507,22 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           src="undefined/images/icons/icons-share.svg"
                         />
                       </button>
-                    </span>
-                    <button
-                      className="removable data-table-row-section focus-on-light"
-                      id="remove-button-7543556"
-                      onClick={[Function]}
-                      type="button"
-                    >
-                      <img
-                        alt="x"
-                        src="https://assets.quill.org/images/icons/remove.svg"
-                      />
-                    </button>
+                    </td>
+                    <td>
+                      <button
+                        className="removable data-table-row-section focus-on-light"
+                        id="remove-button-7543556"
+                        onClick={[Function]}
+                        type="button"
+                      >
+                        <img
+                          alt="x"
+                          src="https://assets.quill.org/images/icons/remove.svg"
+                        />
+                      </button>
+                    </td>
                   </React.Fragment>
-                </div>,
+                </tr>,
               ]
             }
             keyCodes={
@@ -3540,7 +3560,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
             <Component
               items={
                 Array [
-                  <div
+                  <tr
                     className="data-table-row  "
                   >
                     <React.Fragment>
@@ -3549,7 +3569,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                       >
                         <sortableHandle />
                       </span>
-                      <span
+                      <td
                         className="data-table-row-section tool-and-name-section"
                         style={
                           Object {
@@ -3579,8 +3599,8 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             Adverbs of Manner 1 (Starter)
                           </a>
                         </a>
-                      </span>
-                      <span
+                      </td>
+                      <td
                         className="data-table-row-section due-date-picker"
                         style={
                           Object {
@@ -3691,8 +3711,8 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           withFullScreenPortal={false}
                           withPortal={false}
                         />
-                      </span>
-                      <span
+                      </td>
+                      <td
                         className="data-table-row-section undefined"
                         style={
                           Object {
@@ -3713,21 +3733,23 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             src="undefined/images/icons/icons-share.svg"
                           />
                         </button>
-                      </span>
-                      <button
-                        className="removable data-table-row-section focus-on-light"
-                        id="remove-button-7543552"
-                        onClick={[Function]}
-                        type="button"
-                      >
-                        <img
-                          alt="x"
-                          src="https://assets.quill.org/images/icons/remove.svg"
-                        />
-                      </button>
+                      </td>
+                      <td>
+                        <button
+                          className="removable data-table-row-section focus-on-light"
+                          id="remove-button-7543552"
+                          onClick={[Function]}
+                          type="button"
+                        >
+                          <img
+                            alt="x"
+                            src="https://assets.quill.org/images/icons/remove.svg"
+                          />
+                        </button>
+                      </td>
                     </React.Fragment>
-                  </div>,
-                  <div
+                  </tr>,
+                  <tr
                     className="data-table-row  "
                   >
                     <React.Fragment>
@@ -3736,7 +3758,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                       >
                         <sortableHandle />
                       </span>
-                      <span
+                      <td
                         className="data-table-row-section tool-and-name-section"
                         style={
                           Object {
@@ -3766,8 +3788,8 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             Adverbs of Manner (Intermediate)
                           </a>
                         </a>
-                      </span>
-                      <span
+                      </td>
+                      <td
                         className="data-table-row-section due-date-picker"
                         style={
                           Object {
@@ -3878,8 +3900,8 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           withFullScreenPortal={false}
                           withPortal={false}
                         />
-                      </span>
-                      <span
+                      </td>
+                      <td
                         className="data-table-row-section undefined"
                         style={
                           Object {
@@ -3900,21 +3922,23 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             src="undefined/images/icons/icons-share.svg"
                           />
                         </button>
-                      </span>
-                      <button
-                        className="removable data-table-row-section focus-on-light"
-                        id="remove-button-7543553"
-                        onClick={[Function]}
-                        type="button"
-                      >
-                        <img
-                          alt="x"
-                          src="https://assets.quill.org/images/icons/remove.svg"
-                        />
-                      </button>
+                      </td>
+                      <td>
+                        <button
+                          className="removable data-table-row-section focus-on-light"
+                          id="remove-button-7543553"
+                          onClick={[Function]}
+                          type="button"
+                        >
+                          <img
+                            alt="x"
+                            src="https://assets.quill.org/images/icons/remove.svg"
+                          />
+                        </button>
+                      </td>
                     </React.Fragment>
-                  </div>,
-                  <div
+                  </tr>,
+                  <tr
                     className="data-table-row  "
                   >
                     <React.Fragment>
@@ -3923,7 +3947,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                       >
                         <sortableHandle />
                       </span>
-                      <span
+                      <td
                         className="data-table-row-section tool-and-name-section"
                         style={
                           Object {
@@ -3953,8 +3977,8 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             Adjectives and Adverbs (Starter)
                           </a>
                         </a>
-                      </span>
-                      <span
+                      </td>
+                      <td
                         className="data-table-row-section due-date-picker"
                         style={
                           Object {
@@ -4065,8 +4089,8 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           withFullScreenPortal={false}
                           withPortal={false}
                         />
-                      </span>
-                      <span
+                      </td>
+                      <td
                         className="data-table-row-section undefined"
                         style={
                           Object {
@@ -4087,21 +4111,23 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             src="undefined/images/icons/icons-share.svg"
                           />
                         </button>
-                      </span>
-                      <button
-                        className="removable data-table-row-section focus-on-light"
-                        id="remove-button-7543554"
-                        onClick={[Function]}
-                        type="button"
-                      >
-                        <img
-                          alt="x"
-                          src="https://assets.quill.org/images/icons/remove.svg"
-                        />
-                      </button>
+                      </td>
+                      <td>
+                        <button
+                          className="removable data-table-row-section focus-on-light"
+                          id="remove-button-7543554"
+                          onClick={[Function]}
+                          type="button"
+                        >
+                          <img
+                            alt="x"
+                            src="https://assets.quill.org/images/icons/remove.svg"
+                          />
+                        </button>
+                      </td>
                     </React.Fragment>
-                  </div>,
-                  <div
+                  </tr>,
+                  <tr
                     className="data-table-row  "
                   >
                     <React.Fragment>
@@ -4110,7 +4136,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                       >
                         <sortableHandle />
                       </span>
-                      <span
+                      <td
                         className="data-table-row-section tool-and-name-section"
                         style={
                           Object {
@@ -4140,8 +4166,8 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             Adjectives vs. Adverbs
                           </a>
                         </a>
-                      </span>
-                      <span
+                      </td>
+                      <td
                         className="data-table-row-section due-date-picker"
                         style={
                           Object {
@@ -4252,8 +4278,8 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           withFullScreenPortal={false}
                           withPortal={false}
                         />
-                      </span>
-                      <span
+                      </td>
+                      <td
                         className="data-table-row-section undefined"
                         style={
                           Object {
@@ -4274,21 +4300,23 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             src="undefined/images/icons/icons-share.svg"
                           />
                         </button>
-                      </span>
-                      <button
-                        className="removable data-table-row-section focus-on-light"
-                        id="remove-button-7543555"
-                        onClick={[Function]}
-                        type="button"
-                      >
-                        <img
-                          alt="x"
-                          src="https://assets.quill.org/images/icons/remove.svg"
-                        />
-                      </button>
+                      </td>
+                      <td>
+                        <button
+                          className="removable data-table-row-section focus-on-light"
+                          id="remove-button-7543555"
+                          onClick={[Function]}
+                          type="button"
+                        >
+                          <img
+                            alt="x"
+                            src="https://assets.quill.org/images/icons/remove.svg"
+                          />
+                        </button>
+                      </td>
                     </React.Fragment>
-                  </div>,
-                  <div
+                  </tr>,
+                  <tr
                     className="data-table-row  "
                   >
                     <React.Fragment>
@@ -4297,7 +4325,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                       >
                         <sortableHandle />
                       </span>
-                      <span
+                      <td
                         className="data-table-row-section tool-and-name-section"
                         style={
                           Object {
@@ -4327,8 +4355,8 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             Adjectives, Adverbs, and Prepositional Phrases 1
                           </a>
                         </a>
-                      </span>
-                      <span
+                      </td>
+                      <td
                         className="data-table-row-section due-date-picker"
                         style={
                           Object {
@@ -4439,8 +4467,8 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           withFullScreenPortal={false}
                           withPortal={false}
                         />
-                      </span>
-                      <span
+                      </td>
+                      <td
                         className="data-table-row-section undefined"
                         style={
                           Object {
@@ -4461,20 +4489,22 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             src="undefined/images/icons/icons-share.svg"
                           />
                         </button>
-                      </span>
-                      <button
-                        className="removable data-table-row-section focus-on-light"
-                        id="remove-button-7543556"
-                        onClick={[Function]}
-                        type="button"
-                      >
-                        <img
-                          alt="x"
-                          src="https://assets.quill.org/images/icons/remove.svg"
-                        />
-                      </button>
+                      </td>
+                      <td>
+                        <button
+                          className="removable data-table-row-section focus-on-light"
+                          id="remove-button-7543556"
+                          onClick={[Function]}
+                          type="button"
+                        >
+                          <img
+                            alt="x"
+                            src="https://assets.quill.org/images/icons/remove.svg"
+                          />
+                        </button>
+                      </td>
                     </React.Fragment>
-                  </div>,
+                  </tr>,
                 ]
               }
             >
@@ -4486,7 +4516,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                   index={0}
                   key="0"
                   value={
-                    <div
+                    <tr
                       className="data-table-row  "
                     >
                       <React.Fragment>
@@ -4495,7 +4525,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         >
                           <sortableHandle />
                         </span>
-                        <span
+                        <td
                           className="data-table-row-section tool-and-name-section"
                           style={
                             Object {
@@ -4525,8 +4555,8 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               Adverbs of Manner 1 (Starter)
                             </a>
                           </a>
-                        </span>
-                        <span
+                        </td>
+                        <td
                           className="data-table-row-section due-date-picker"
                           style={
                             Object {
@@ -4637,8 +4667,8 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             withFullScreenPortal={false}
                             withPortal={false}
                           />
-                        </span>
-                        <span
+                        </td>
+                        <td
                           className="data-table-row-section undefined"
                           style={
                             Object {
@@ -4659,25 +4689,27 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               src="undefined/images/icons/icons-share.svg"
                             />
                           </button>
-                        </span>
-                        <button
-                          className="removable data-table-row-section focus-on-light"
-                          id="remove-button-7543552"
-                          onClick={[Function]}
-                          type="button"
-                        >
-                          <img
-                            alt="x"
-                            src="https://assets.quill.org/images/icons/remove.svg"
-                          />
-                        </button>
+                        </td>
+                        <td>
+                          <button
+                            className="removable data-table-row-section focus-on-light"
+                            id="remove-button-7543552"
+                            onClick={[Function]}
+                            type="button"
+                          >
+                            <img
+                              alt="x"
+                              src="https://assets.quill.org/images/icons/remove.svg"
+                            />
+                          </button>
+                        </td>
                       </React.Fragment>
-                    </div>
+                    </tr>
                   }
                 >
                   <Component
                     value={
-                      <div
+                      <tr
                         className="data-table-row  "
                       >
                         <React.Fragment>
@@ -4686,7 +4718,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           >
                             <sortableHandle />
                           </span>
-                          <span
+                          <td
                             className="data-table-row-section tool-and-name-section"
                             style={
                               Object {
@@ -4716,8 +4748,8 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                 Adverbs of Manner 1 (Starter)
                               </a>
                             </a>
-                          </span>
-                          <span
+                          </td>
+                          <td
                             className="data-table-row-section due-date-picker"
                             style={
                               Object {
@@ -4828,8 +4860,8 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               withFullScreenPortal={false}
                               withPortal={false}
                             />
-                          </span>
-                          <span
+                          </td>
+                          <td
                             className="data-table-row-section undefined"
                             style={
                               Object {
@@ -4850,26 +4882,28 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                 src="undefined/images/icons/icons-share.svg"
                               />
                             </button>
-                          </span>
-                          <button
-                            className="removable data-table-row-section focus-on-light"
-                            id="remove-button-7543552"
-                            onClick={[Function]}
-                            type="button"
-                          >
-                            <img
-                              alt="x"
-                              src="https://assets.quill.org/images/icons/remove.svg"
-                            />
-                          </button>
+                          </td>
+                          <td>
+                            <button
+                              className="removable data-table-row-section focus-on-light"
+                              id="remove-button-7543552"
+                              onClick={[Function]}
+                              type="button"
+                            >
+                              <img
+                                alt="x"
+                                src="https://assets.quill.org/images/icons/remove.svg"
+                              />
+                            </button>
+                          </td>
                         </React.Fragment>
-                      </div>
+                      </tr>
                     }
                   >
                     <div
                       className="list-item"
                     >
-                      <div
+                      <tr
                         className="data-table-row  "
                         key="7543552"
                       >
@@ -4878,16 +4912,21 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         >
                           <sortableHandle>
                             <Component>
-                              <img
-                                alt="Reorder icon"
-                                className="reorder-icon focus-on-light"
-                                src="undefined/images/icons/reorder.svg"
+                              <div
+                                className="focus-on-light"
+                                role="button"
                                 tabIndex={0}
-                              />
+                              >
+                                <img
+                                  alt="Reorder icon"
+                                  className="reorder-icon"
+                                  src="undefined/images/icons/reorder.svg"
+                                />
+                              </div>
                             </Component>
                           </sortableHandle>
                         </span>
-                        <span
+                        <td
                           className="data-table-row-section tool-and-name-section"
                           key="toolAndNameSection-7543552"
                           style={
@@ -4918,8 +4957,8 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               Adverbs of Manner 1 (Starter)
                             </a>
                           </a>
-                        </span>
-                        <span
+                        </td>
+                        <td
                           className="data-table-row-section due-date-picker"
                           key="dueDatePicker-7543552"
                           style={
@@ -6233,8 +6272,8 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               </SingleDatePicker>
                             </WithStyles>
                           </withStyles(SingleDatePicker)>
-                        </span>
-                        <span
+                        </td>
+                        <td
                           className="data-table-row-section undefined"
                           key="shareActivity-7543552"
                           style={
@@ -6256,19 +6295,21 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               src="undefined/images/icons/icons-share.svg"
                             />
                           </button>
-                        </span>
-                        <button
-                          className="removable data-table-row-section focus-on-light"
-                          id="remove-button-7543552"
-                          onClick={[Function]}
-                          type="button"
-                        >
-                          <img
-                            alt="x"
-                            src="https://assets.quill.org/images/icons/remove.svg"
-                          />
-                        </button>
-                      </div>
+                        </td>
+                        <td>
+                          <button
+                            className="removable data-table-row-section focus-on-light"
+                            id="remove-button-7543552"
+                            onClick={[Function]}
+                            type="button"
+                          >
+                            <img
+                              alt="x"
+                              src="https://assets.quill.org/images/icons/remove.svg"
+                            />
+                          </button>
+                        </td>
+                      </tr>
                     </div>
                   </Component>
                 </sortableElement>
@@ -6277,7 +6318,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                   index={1}
                   key="1"
                   value={
-                    <div
+                    <tr
                       className="data-table-row  "
                     >
                       <React.Fragment>
@@ -6286,7 +6327,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         >
                           <sortableHandle />
                         </span>
-                        <span
+                        <td
                           className="data-table-row-section tool-and-name-section"
                           style={
                             Object {
@@ -6316,8 +6357,8 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               Adverbs of Manner (Intermediate)
                             </a>
                           </a>
-                        </span>
-                        <span
+                        </td>
+                        <td
                           className="data-table-row-section due-date-picker"
                           style={
                             Object {
@@ -6428,8 +6469,8 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             withFullScreenPortal={false}
                             withPortal={false}
                           />
-                        </span>
-                        <span
+                        </td>
+                        <td
                           className="data-table-row-section undefined"
                           style={
                             Object {
@@ -6450,25 +6491,27 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               src="undefined/images/icons/icons-share.svg"
                             />
                           </button>
-                        </span>
-                        <button
-                          className="removable data-table-row-section focus-on-light"
-                          id="remove-button-7543553"
-                          onClick={[Function]}
-                          type="button"
-                        >
-                          <img
-                            alt="x"
-                            src="https://assets.quill.org/images/icons/remove.svg"
-                          />
-                        </button>
+                        </td>
+                        <td>
+                          <button
+                            className="removable data-table-row-section focus-on-light"
+                            id="remove-button-7543553"
+                            onClick={[Function]}
+                            type="button"
+                          >
+                            <img
+                              alt="x"
+                              src="https://assets.quill.org/images/icons/remove.svg"
+                            />
+                          </button>
+                        </td>
                       </React.Fragment>
-                    </div>
+                    </tr>
                   }
                 >
                   <Component
                     value={
-                      <div
+                      <tr
                         className="data-table-row  "
                       >
                         <React.Fragment>
@@ -6477,7 +6520,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           >
                             <sortableHandle />
                           </span>
-                          <span
+                          <td
                             className="data-table-row-section tool-and-name-section"
                             style={
                               Object {
@@ -6507,8 +6550,8 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                 Adverbs of Manner (Intermediate)
                               </a>
                             </a>
-                          </span>
-                          <span
+                          </td>
+                          <td
                             className="data-table-row-section due-date-picker"
                             style={
                               Object {
@@ -6619,8 +6662,8 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               withFullScreenPortal={false}
                               withPortal={false}
                             />
-                          </span>
-                          <span
+                          </td>
+                          <td
                             className="data-table-row-section undefined"
                             style={
                               Object {
@@ -6641,26 +6684,28 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                 src="undefined/images/icons/icons-share.svg"
                               />
                             </button>
-                          </span>
-                          <button
-                            className="removable data-table-row-section focus-on-light"
-                            id="remove-button-7543553"
-                            onClick={[Function]}
-                            type="button"
-                          >
-                            <img
-                              alt="x"
-                              src="https://assets.quill.org/images/icons/remove.svg"
-                            />
-                          </button>
+                          </td>
+                          <td>
+                            <button
+                              className="removable data-table-row-section focus-on-light"
+                              id="remove-button-7543553"
+                              onClick={[Function]}
+                              type="button"
+                            >
+                              <img
+                                alt="x"
+                                src="https://assets.quill.org/images/icons/remove.svg"
+                              />
+                            </button>
+                          </td>
                         </React.Fragment>
-                      </div>
+                      </tr>
                     }
                   >
                     <div
                       className="list-item"
                     >
-                      <div
+                      <tr
                         className="data-table-row  "
                         key="7543553"
                       >
@@ -6669,16 +6714,21 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         >
                           <sortableHandle>
                             <Component>
-                              <img
-                                alt="Reorder icon"
-                                className="reorder-icon focus-on-light"
-                                src="undefined/images/icons/reorder.svg"
+                              <div
+                                className="focus-on-light"
+                                role="button"
                                 tabIndex={0}
-                              />
+                              >
+                                <img
+                                  alt="Reorder icon"
+                                  className="reorder-icon"
+                                  src="undefined/images/icons/reorder.svg"
+                                />
+                              </div>
                             </Component>
                           </sortableHandle>
                         </span>
-                        <span
+                        <td
                           className="data-table-row-section tool-and-name-section"
                           key="toolAndNameSection-7543553"
                           style={
@@ -6709,8 +6759,8 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               Adverbs of Manner (Intermediate)
                             </a>
                           </a>
-                        </span>
-                        <span
+                        </td>
+                        <td
                           className="data-table-row-section due-date-picker"
                           key="dueDatePicker-7543553"
                           style={
@@ -8024,8 +8074,8 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               </SingleDatePicker>
                             </WithStyles>
                           </withStyles(SingleDatePicker)>
-                        </span>
-                        <span
+                        </td>
+                        <td
                           className="data-table-row-section undefined"
                           key="shareActivity-7543553"
                           style={
@@ -8047,19 +8097,21 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               src="undefined/images/icons/icons-share.svg"
                             />
                           </button>
-                        </span>
-                        <button
-                          className="removable data-table-row-section focus-on-light"
-                          id="remove-button-7543553"
-                          onClick={[Function]}
-                          type="button"
-                        >
-                          <img
-                            alt="x"
-                            src="https://assets.quill.org/images/icons/remove.svg"
-                          />
-                        </button>
-                      </div>
+                        </td>
+                        <td>
+                          <button
+                            className="removable data-table-row-section focus-on-light"
+                            id="remove-button-7543553"
+                            onClick={[Function]}
+                            type="button"
+                          >
+                            <img
+                              alt="x"
+                              src="https://assets.quill.org/images/icons/remove.svg"
+                            />
+                          </button>
+                        </td>
+                      </tr>
                     </div>
                   </Component>
                 </sortableElement>
@@ -8068,7 +8120,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                   index={2}
                   key="2"
                   value={
-                    <div
+                    <tr
                       className="data-table-row  "
                     >
                       <React.Fragment>
@@ -8077,7 +8129,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         >
                           <sortableHandle />
                         </span>
-                        <span
+                        <td
                           className="data-table-row-section tool-and-name-section"
                           style={
                             Object {
@@ -8107,8 +8159,8 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               Adjectives and Adverbs (Starter)
                             </a>
                           </a>
-                        </span>
-                        <span
+                        </td>
+                        <td
                           className="data-table-row-section due-date-picker"
                           style={
                             Object {
@@ -8219,8 +8271,8 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             withFullScreenPortal={false}
                             withPortal={false}
                           />
-                        </span>
-                        <span
+                        </td>
+                        <td
                           className="data-table-row-section undefined"
                           style={
                             Object {
@@ -8241,25 +8293,27 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               src="undefined/images/icons/icons-share.svg"
                             />
                           </button>
-                        </span>
-                        <button
-                          className="removable data-table-row-section focus-on-light"
-                          id="remove-button-7543554"
-                          onClick={[Function]}
-                          type="button"
-                        >
-                          <img
-                            alt="x"
-                            src="https://assets.quill.org/images/icons/remove.svg"
-                          />
-                        </button>
+                        </td>
+                        <td>
+                          <button
+                            className="removable data-table-row-section focus-on-light"
+                            id="remove-button-7543554"
+                            onClick={[Function]}
+                            type="button"
+                          >
+                            <img
+                              alt="x"
+                              src="https://assets.quill.org/images/icons/remove.svg"
+                            />
+                          </button>
+                        </td>
                       </React.Fragment>
-                    </div>
+                    </tr>
                   }
                 >
                   <Component
                     value={
-                      <div
+                      <tr
                         className="data-table-row  "
                       >
                         <React.Fragment>
@@ -8268,7 +8322,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           >
                             <sortableHandle />
                           </span>
-                          <span
+                          <td
                             className="data-table-row-section tool-and-name-section"
                             style={
                               Object {
@@ -8298,8 +8352,8 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                 Adjectives and Adverbs (Starter)
                               </a>
                             </a>
-                          </span>
-                          <span
+                          </td>
+                          <td
                             className="data-table-row-section due-date-picker"
                             style={
                               Object {
@@ -8410,8 +8464,8 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               withFullScreenPortal={false}
                               withPortal={false}
                             />
-                          </span>
-                          <span
+                          </td>
+                          <td
                             className="data-table-row-section undefined"
                             style={
                               Object {
@@ -8432,26 +8486,28 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                 src="undefined/images/icons/icons-share.svg"
                               />
                             </button>
-                          </span>
-                          <button
-                            className="removable data-table-row-section focus-on-light"
-                            id="remove-button-7543554"
-                            onClick={[Function]}
-                            type="button"
-                          >
-                            <img
-                              alt="x"
-                              src="https://assets.quill.org/images/icons/remove.svg"
-                            />
-                          </button>
+                          </td>
+                          <td>
+                            <button
+                              className="removable data-table-row-section focus-on-light"
+                              id="remove-button-7543554"
+                              onClick={[Function]}
+                              type="button"
+                            >
+                              <img
+                                alt="x"
+                                src="https://assets.quill.org/images/icons/remove.svg"
+                              />
+                            </button>
+                          </td>
                         </React.Fragment>
-                      </div>
+                      </tr>
                     }
                   >
                     <div
                       className="list-item"
                     >
-                      <div
+                      <tr
                         className="data-table-row  "
                         key="7543554"
                       >
@@ -8460,16 +8516,21 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         >
                           <sortableHandle>
                             <Component>
-                              <img
-                                alt="Reorder icon"
-                                className="reorder-icon focus-on-light"
-                                src="undefined/images/icons/reorder.svg"
+                              <div
+                                className="focus-on-light"
+                                role="button"
                                 tabIndex={0}
-                              />
+                              >
+                                <img
+                                  alt="Reorder icon"
+                                  className="reorder-icon"
+                                  src="undefined/images/icons/reorder.svg"
+                                />
+                              </div>
                             </Component>
                           </sortableHandle>
                         </span>
-                        <span
+                        <td
                           className="data-table-row-section tool-and-name-section"
                           key="toolAndNameSection-7543554"
                           style={
@@ -8500,8 +8561,8 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               Adjectives and Adverbs (Starter)
                             </a>
                           </a>
-                        </span>
-                        <span
+                        </td>
+                        <td
                           className="data-table-row-section due-date-picker"
                           key="dueDatePicker-7543554"
                           style={
@@ -9815,8 +9876,8 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               </SingleDatePicker>
                             </WithStyles>
                           </withStyles(SingleDatePicker)>
-                        </span>
-                        <span
+                        </td>
+                        <td
                           className="data-table-row-section undefined"
                           key="shareActivity-7543554"
                           style={
@@ -9838,19 +9899,21 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               src="undefined/images/icons/icons-share.svg"
                             />
                           </button>
-                        </span>
-                        <button
-                          className="removable data-table-row-section focus-on-light"
-                          id="remove-button-7543554"
-                          onClick={[Function]}
-                          type="button"
-                        >
-                          <img
-                            alt="x"
-                            src="https://assets.quill.org/images/icons/remove.svg"
-                          />
-                        </button>
-                      </div>
+                        </td>
+                        <td>
+                          <button
+                            className="removable data-table-row-section focus-on-light"
+                            id="remove-button-7543554"
+                            onClick={[Function]}
+                            type="button"
+                          >
+                            <img
+                              alt="x"
+                              src="https://assets.quill.org/images/icons/remove.svg"
+                            />
+                          </button>
+                        </td>
+                      </tr>
                     </div>
                   </Component>
                 </sortableElement>
@@ -9859,7 +9922,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                   index={3}
                   key="3"
                   value={
-                    <div
+                    <tr
                       className="data-table-row  "
                     >
                       <React.Fragment>
@@ -9868,7 +9931,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         >
                           <sortableHandle />
                         </span>
-                        <span
+                        <td
                           className="data-table-row-section tool-and-name-section"
                           style={
                             Object {
@@ -9898,8 +9961,8 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               Adjectives vs. Adverbs
                             </a>
                           </a>
-                        </span>
-                        <span
+                        </td>
+                        <td
                           className="data-table-row-section due-date-picker"
                           style={
                             Object {
@@ -10010,8 +10073,8 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             withFullScreenPortal={false}
                             withPortal={false}
                           />
-                        </span>
-                        <span
+                        </td>
+                        <td
                           className="data-table-row-section undefined"
                           style={
                             Object {
@@ -10032,25 +10095,27 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               src="undefined/images/icons/icons-share.svg"
                             />
                           </button>
-                        </span>
-                        <button
-                          className="removable data-table-row-section focus-on-light"
-                          id="remove-button-7543555"
-                          onClick={[Function]}
-                          type="button"
-                        >
-                          <img
-                            alt="x"
-                            src="https://assets.quill.org/images/icons/remove.svg"
-                          />
-                        </button>
+                        </td>
+                        <td>
+                          <button
+                            className="removable data-table-row-section focus-on-light"
+                            id="remove-button-7543555"
+                            onClick={[Function]}
+                            type="button"
+                          >
+                            <img
+                              alt="x"
+                              src="https://assets.quill.org/images/icons/remove.svg"
+                            />
+                          </button>
+                        </td>
                       </React.Fragment>
-                    </div>
+                    </tr>
                   }
                 >
                   <Component
                     value={
-                      <div
+                      <tr
                         className="data-table-row  "
                       >
                         <React.Fragment>
@@ -10059,7 +10124,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           >
                             <sortableHandle />
                           </span>
-                          <span
+                          <td
                             className="data-table-row-section tool-and-name-section"
                             style={
                               Object {
@@ -10089,8 +10154,8 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                 Adjectives vs. Adverbs
                               </a>
                             </a>
-                          </span>
-                          <span
+                          </td>
+                          <td
                             className="data-table-row-section due-date-picker"
                             style={
                               Object {
@@ -10201,8 +10266,8 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               withFullScreenPortal={false}
                               withPortal={false}
                             />
-                          </span>
-                          <span
+                          </td>
+                          <td
                             className="data-table-row-section undefined"
                             style={
                               Object {
@@ -10223,26 +10288,28 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                 src="undefined/images/icons/icons-share.svg"
                               />
                             </button>
-                          </span>
-                          <button
-                            className="removable data-table-row-section focus-on-light"
-                            id="remove-button-7543555"
-                            onClick={[Function]}
-                            type="button"
-                          >
-                            <img
-                              alt="x"
-                              src="https://assets.quill.org/images/icons/remove.svg"
-                            />
-                          </button>
+                          </td>
+                          <td>
+                            <button
+                              className="removable data-table-row-section focus-on-light"
+                              id="remove-button-7543555"
+                              onClick={[Function]}
+                              type="button"
+                            >
+                              <img
+                                alt="x"
+                                src="https://assets.quill.org/images/icons/remove.svg"
+                              />
+                            </button>
+                          </td>
                         </React.Fragment>
-                      </div>
+                      </tr>
                     }
                   >
                     <div
                       className="list-item"
                     >
-                      <div
+                      <tr
                         className="data-table-row  "
                         key="7543555"
                       >
@@ -10251,16 +10318,21 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         >
                           <sortableHandle>
                             <Component>
-                              <img
-                                alt="Reorder icon"
-                                className="reorder-icon focus-on-light"
-                                src="undefined/images/icons/reorder.svg"
+                              <div
+                                className="focus-on-light"
+                                role="button"
                                 tabIndex={0}
-                              />
+                              >
+                                <img
+                                  alt="Reorder icon"
+                                  className="reorder-icon"
+                                  src="undefined/images/icons/reorder.svg"
+                                />
+                              </div>
                             </Component>
                           </sortableHandle>
                         </span>
-                        <span
+                        <td
                           className="data-table-row-section tool-and-name-section"
                           key="toolAndNameSection-7543555"
                           style={
@@ -10291,8 +10363,8 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               Adjectives vs. Adverbs
                             </a>
                           </a>
-                        </span>
-                        <span
+                        </td>
+                        <td
                           className="data-table-row-section due-date-picker"
                           key="dueDatePicker-7543555"
                           style={
@@ -11606,8 +11678,8 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               </SingleDatePicker>
                             </WithStyles>
                           </withStyles(SingleDatePicker)>
-                        </span>
-                        <span
+                        </td>
+                        <td
                           className="data-table-row-section undefined"
                           key="shareActivity-7543555"
                           style={
@@ -11629,19 +11701,21 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               src="undefined/images/icons/icons-share.svg"
                             />
                           </button>
-                        </span>
-                        <button
-                          className="removable data-table-row-section focus-on-light"
-                          id="remove-button-7543555"
-                          onClick={[Function]}
-                          type="button"
-                        >
-                          <img
-                            alt="x"
-                            src="https://assets.quill.org/images/icons/remove.svg"
-                          />
-                        </button>
-                      </div>
+                        </td>
+                        <td>
+                          <button
+                            className="removable data-table-row-section focus-on-light"
+                            id="remove-button-7543555"
+                            onClick={[Function]}
+                            type="button"
+                          >
+                            <img
+                              alt="x"
+                              src="https://assets.quill.org/images/icons/remove.svg"
+                            />
+                          </button>
+                        </td>
+                      </tr>
                     </div>
                   </Component>
                 </sortableElement>
@@ -11650,7 +11724,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                   index={4}
                   key="4"
                   value={
-                    <div
+                    <tr
                       className="data-table-row  "
                     >
                       <React.Fragment>
@@ -11659,7 +11733,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         >
                           <sortableHandle />
                         </span>
-                        <span
+                        <td
                           className="data-table-row-section tool-and-name-section"
                           style={
                             Object {
@@ -11689,8 +11763,8 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               Adjectives, Adverbs, and Prepositional Phrases 1
                             </a>
                           </a>
-                        </span>
-                        <span
+                        </td>
+                        <td
                           className="data-table-row-section due-date-picker"
                           style={
                             Object {
@@ -11801,8 +11875,8 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             withFullScreenPortal={false}
                             withPortal={false}
                           />
-                        </span>
-                        <span
+                        </td>
+                        <td
                           className="data-table-row-section undefined"
                           style={
                             Object {
@@ -11823,25 +11897,27 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               src="undefined/images/icons/icons-share.svg"
                             />
                           </button>
-                        </span>
-                        <button
-                          className="removable data-table-row-section focus-on-light"
-                          id="remove-button-7543556"
-                          onClick={[Function]}
-                          type="button"
-                        >
-                          <img
-                            alt="x"
-                            src="https://assets.quill.org/images/icons/remove.svg"
-                          />
-                        </button>
+                        </td>
+                        <td>
+                          <button
+                            className="removable data-table-row-section focus-on-light"
+                            id="remove-button-7543556"
+                            onClick={[Function]}
+                            type="button"
+                          >
+                            <img
+                              alt="x"
+                              src="https://assets.quill.org/images/icons/remove.svg"
+                            />
+                          </button>
+                        </td>
                       </React.Fragment>
-                    </div>
+                    </tr>
                   }
                 >
                   <Component
                     value={
-                      <div
+                      <tr
                         className="data-table-row  "
                       >
                         <React.Fragment>
@@ -11850,7 +11926,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           >
                             <sortableHandle />
                           </span>
-                          <span
+                          <td
                             className="data-table-row-section tool-and-name-section"
                             style={
                               Object {
@@ -11880,8 +11956,8 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                 Adjectives, Adverbs, and Prepositional Phrases 1
                               </a>
                             </a>
-                          </span>
-                          <span
+                          </td>
+                          <td
                             className="data-table-row-section due-date-picker"
                             style={
                               Object {
@@ -11992,8 +12068,8 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               withFullScreenPortal={false}
                               withPortal={false}
                             />
-                          </span>
-                          <span
+                          </td>
+                          <td
                             className="data-table-row-section undefined"
                             style={
                               Object {
@@ -12014,26 +12090,28 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                 src="undefined/images/icons/icons-share.svg"
                               />
                             </button>
-                          </span>
-                          <button
-                            className="removable data-table-row-section focus-on-light"
-                            id="remove-button-7543556"
-                            onClick={[Function]}
-                            type="button"
-                          >
-                            <img
-                              alt="x"
-                              src="https://assets.quill.org/images/icons/remove.svg"
-                            />
-                          </button>
+                          </td>
+                          <td>
+                            <button
+                              className="removable data-table-row-section focus-on-light"
+                              id="remove-button-7543556"
+                              onClick={[Function]}
+                              type="button"
+                            >
+                              <img
+                                alt="x"
+                                src="https://assets.quill.org/images/icons/remove.svg"
+                              />
+                            </button>
+                          </td>
                         </React.Fragment>
-                      </div>
+                      </tr>
                     }
                   >
                     <div
                       className="list-item"
                     >
-                      <div
+                      <tr
                         className="data-table-row  "
                         key="7543556"
                       >
@@ -12042,16 +12120,21 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         >
                           <sortableHandle>
                             <Component>
-                              <img
-                                alt="Reorder icon"
-                                className="reorder-icon focus-on-light"
-                                src="undefined/images/icons/reorder.svg"
+                              <div
+                                className="focus-on-light"
+                                role="button"
                                 tabIndex={0}
-                              />
+                              >
+                                <img
+                                  alt="Reorder icon"
+                                  className="reorder-icon"
+                                  src="undefined/images/icons/reorder.svg"
+                                />
+                              </div>
                             </Component>
                           </sortableHandle>
                         </span>
-                        <span
+                        <td
                           className="data-table-row-section tool-and-name-section"
                           key="toolAndNameSection-7543556"
                           style={
@@ -12082,8 +12165,8 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               Adjectives, Adverbs, and Prepositional Phrases 1
                             </a>
                           </a>
-                        </span>
-                        <span
+                        </td>
+                        <td
                           className="data-table-row-section due-date-picker"
                           key="dueDatePicker-7543556"
                           style={
@@ -13397,8 +13480,8 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               </SingleDatePicker>
                             </WithStyles>
                           </withStyles(SingleDatePicker)>
-                        </span>
-                        <span
+                        </td>
+                        <td
                           className="data-table-row-section undefined"
                           key="shareActivity-7543556"
                           style={
@@ -13420,19 +13503,21 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               src="undefined/images/icons/icons-share.svg"
                             />
                           </button>
-                        </span>
-                        <button
-                          className="removable data-table-row-section focus-on-light"
-                          id="remove-button-7543556"
-                          onClick={[Function]}
-                          type="button"
-                        >
-                          <img
-                            alt="x"
-                            src="https://assets.quill.org/images/icons/remove.svg"
-                          />
-                        </button>
-                      </div>
+                        </td>
+                        <td>
+                          <button
+                            className="removable data-table-row-section focus-on-light"
+                            id="remove-button-7543556"
+                            onClick={[Function]}
+                            type="button"
+                          >
+                            <img
+                              alt="x"
+                              src="https://assets.quill.org/images/icons/remove.svg"
+                            />
+                          </button>
+                        </td>
+                      </tr>
                     </div>
                   </Component>
                 </sortableElement>
@@ -13440,8 +13525,8 @@ exports[`ActivityTable component renders if the current user created the unit 1`
             </Component>
           </sortableList>
         </SortableList>
-      </div>
-    </div>
+      </tbody>
+    </table>
   </DataTable>
 </ActivityTable>
 `;
@@ -14345,14 +14430,15 @@ exports[`ActivityTable component renders if the current user did not create the 
     }
     showRemoveIcon={false}
   >
-    <div
+    <table
       className="data-table undefined"
     >
-      <div
+      <tr
         className="data-table-headers"
       >
-        <button
+        <th
           className="data-table-header undefined"
+          scope="col"
           style={
             Object {
               "minWidth": "724px",
@@ -14360,8 +14446,6 @@ exports[`ActivityTable component renders if the current user did not create the 
               "width": "724px",
             }
           }
-          tabIndex={-1}
-          type="button"
         >
           <span
             className="tool-and-name-header"
@@ -14373,9 +14457,10 @@ exports[`ActivityTable component renders if the current user did not create the 
               Activity
             </span>
           </span>
-        </button>
-        <button
+        </th>
+        <th
           className="data-table-header due-date-header-container no-right-margin"
+          scope="col"
           style={
             Object {
               "minWidth": "110px",
@@ -14383,8 +14468,6 @@ exports[`ActivityTable component renders if the current user did not create the 
               "width": "110px",
             }
           }
-          tabIndex={-1}
-          type="button"
         >
           <span
             className="due-date-header"
@@ -14394,9 +14477,10 @@ exports[`ActivityTable component renders if the current user did not create the 
               (optional)
             </span>
           </span>
-        </button>
-        <button
+        </th>
+        <th
           className="data-table-header undefined"
+          scope="col"
           style={
             Object {
               "minWidth": "30px",
@@ -14404,18 +14488,16 @@ exports[`ActivityTable component renders if the current user did not create the 
               "width": "30px",
             }
           }
-          tabIndex={-1}
-          type="button"
         />
-      </div>
-      <div
+      </tr>
+      <tbody
         className="data-table-body"
       >
-        <div
+        <tr
           className="data-table-row  "
           key="7543506"
         >
-          <span
+          <td
             className="data-table-row-section tool-and-name-section"
             key="toolAndNameSection-7543506"
             style={
@@ -14446,8 +14528,8 @@ exports[`ActivityTable component renders if the current user did not create the 
                 Oedipus and the Sphinx
               </a>
             </a>
-          </span>
-          <span
+          </td>
+          <td
             className="data-table-row-section due-date-picker no-right-margin"
             key="dueDatePicker-7543506"
             style={
@@ -14459,8 +14541,8 @@ exports[`ActivityTable component renders if the current user did not create the 
             }
           >
             No due date
-          </span>
-          <span
+          </td>
+          <td
             className="data-table-row-section undefined"
             key="shareActivity-7543506"
             style={
@@ -14482,16 +14564,13 @@ exports[`ActivityTable component renders if the current user did not create the 
                 src="undefined/images/icons/icons-share.svg"
               />
             </button>
-          </span>
-          <span
-            className="removable data-table-row-section"
-          />
-        </div>
-        <div
+          </td>
+        </tr>
+        <tr
           className="data-table-row  "
           key="7543505"
         >
-          <span
+          <td
             className="data-table-row-section tool-and-name-section"
             key="toolAndNameSection-7543505"
             style={
@@ -14522,8 +14601,8 @@ exports[`ActivityTable component renders if the current user did not create the 
                 Why Sun and Moon Live in the Sky!
               </a>
             </a>
-          </span>
-          <span
+          </td>
+          <td
             className="data-table-row-section due-date-picker no-right-margin"
             key="dueDatePicker-7543505"
             style={
@@ -14535,8 +14614,8 @@ exports[`ActivityTable component renders if the current user did not create the 
             }
           >
             No due date
-          </span>
-          <span
+          </td>
+          <td
             className="data-table-row-section undefined"
             key="shareActivity-7543505"
             style={
@@ -14558,16 +14637,13 @@ exports[`ActivityTable component renders if the current user did not create the 
                 src="undefined/images/icons/icons-share.svg"
               />
             </button>
-          </span>
-          <span
-            className="removable data-table-row-section"
-          />
-        </div>
-        <div
+          </td>
+        </tr>
+        <tr
           className="data-table-row  "
           key="7543508"
         >
-          <span
+          <td
             className="data-table-row-section tool-and-name-section"
             key="toolAndNameSection-7543508"
             style={
@@ -14598,8 +14674,8 @@ exports[`ActivityTable component renders if the current user did not create the 
                 After, Although, Since
               </a>
             </a>
-          </span>
-          <span
+          </td>
+          <td
             className="data-table-row-section due-date-picker no-right-margin"
             key="dueDatePicker-7543508"
             style={
@@ -14611,8 +14687,8 @@ exports[`ActivityTable component renders if the current user did not create the 
             }
           >
             No due date
-          </span>
-          <span
+          </td>
+          <td
             className="data-table-row-section undefined"
             key="shareActivity-7543508"
             style={
@@ -14634,16 +14710,13 @@ exports[`ActivityTable component renders if the current user did not create the 
                 src="undefined/images/icons/icons-share.svg"
               />
             </button>
-          </span>
-          <span
-            className="removable data-table-row-section"
-          />
-        </div>
-        <div
+          </td>
+        </tr>
+        <tr
           className="data-table-row  "
           key="7543509"
         >
-          <span
+          <td
             className="data-table-row-section tool-and-name-section"
             key="toolAndNameSection-7543509"
             style={
@@ -14674,8 +14747,8 @@ exports[`ActivityTable component renders if the current user did not create the 
                 Once, Since, So That
               </a>
             </a>
-          </span>
-          <span
+          </td>
+          <td
             className="data-table-row-section due-date-picker no-right-margin"
             key="dueDatePicker-7543509"
             style={
@@ -14687,8 +14760,8 @@ exports[`ActivityTable component renders if the current user did not create the 
             }
           >
             No due date
-          </span>
-          <span
+          </td>
+          <td
             className="data-table-row-section undefined"
             key="shareActivity-7543509"
             style={
@@ -14710,16 +14783,13 @@ exports[`ActivityTable component renders if the current user did not create the 
                 src="undefined/images/icons/icons-share.svg"
               />
             </button>
-          </span>
-          <span
-            className="removable data-table-row-section"
-          />
-        </div>
-        <div
+          </td>
+        </tr>
+        <tr
           className="data-table-row  "
           key="7543507"
         >
-          <span
+          <td
             className="data-table-row-section tool-and-name-section"
             key="toolAndNameSection-7543507"
             style={
@@ -14750,8 +14820,8 @@ exports[`ActivityTable component renders if the current user did not create the 
                 New York City Ballet
               </a>
             </a>
-          </span>
-          <span
+          </td>
+          <td
             className="data-table-row-section due-date-picker no-right-margin"
             key="dueDatePicker-7543507"
             style={
@@ -14763,8 +14833,8 @@ exports[`ActivityTable component renders if the current user did not create the 
             }
           >
             No due date
-          </span>
-          <span
+          </td>
+          <td
             className="data-table-row-section undefined"
             key="shareActivity-7543507"
             style={
@@ -14786,16 +14856,13 @@ exports[`ActivityTable component renders if the current user did not create the 
                 src="undefined/images/icons/icons-share.svg"
               />
             </button>
-          </span>
-          <span
-            className="removable data-table-row-section"
-          />
-        </div>
-        <div
+          </td>
+        </tr>
+        <tr
           className="data-table-row  "
           key="7543510"
         >
-          <span
+          <td
             className="data-table-row-section tool-and-name-section"
             key="toolAndNameSection-7543510"
             style={
@@ -14826,8 +14893,8 @@ exports[`ActivityTable component renders if the current user did not create the 
                 Since, Because 1 (Starter)
               </a>
             </a>
-          </span>
-          <span
+          </td>
+          <td
             className="data-table-row-section due-date-picker no-right-margin"
             key="dueDatePicker-7543510"
             style={
@@ -14839,8 +14906,8 @@ exports[`ActivityTable component renders if the current user did not create the 
             }
           >
             No due date
-          </span>
-          <span
+          </td>
+          <td
             className="data-table-row-section undefined"
             key="shareActivity-7543510"
             style={
@@ -14862,16 +14929,13 @@ exports[`ActivityTable component renders if the current user did not create the 
                 src="undefined/images/icons/icons-share.svg"
               />
             </button>
-          </span>
-          <span
-            className="removable data-table-row-section"
-          />
-        </div>
-        <div
+          </td>
+        </tr>
+        <tr
           className="data-table-row  "
           key="7543504"
         >
-          <span
+          <td
             className="data-table-row-section tool-and-name-section"
             key="toolAndNameSection-7543504"
             style={
@@ -14902,8 +14966,8 @@ exports[`ActivityTable component renders if the current user did not create the 
                 Compound Subjects 1
               </a>
             </a>
-          </span>
-          <span
+          </td>
+          <td
             className="data-table-row-section due-date-picker no-right-margin"
             key="dueDatePicker-7543504"
             style={
@@ -14915,8 +14979,8 @@ exports[`ActivityTable component renders if the current user did not create the 
             }
           >
             No due date
-          </span>
-          <span
+          </td>
+          <td
             className="data-table-row-section undefined"
             key="shareActivity-7543504"
             style={
@@ -14938,16 +15002,13 @@ exports[`ActivityTable component renders if the current user did not create the 
                 src="undefined/images/icons/icons-share.svg"
               />
             </button>
-          </span>
-          <span
-            className="removable data-table-row-section"
-          />
-        </div>
-        <div
+          </td>
+        </tr>
+        <tr
           className="data-table-row  "
           key="7543503"
         >
-          <span
+          <td
             className="data-table-row-section tool-and-name-section"
             key="toolAndNameSection-7543503"
             style={
@@ -14978,8 +15039,8 @@ exports[`ActivityTable component renders if the current user did not create the 
                 Compound Subjects, Objects, and Predicates 1
               </a>
             </a>
-          </span>
-          <span
+          </td>
+          <td
             className="data-table-row-section due-date-picker no-right-margin"
             key="dueDatePicker-7543503"
             style={
@@ -14991,8 +15052,8 @@ exports[`ActivityTable component renders if the current user did not create the 
             }
           >
             No due date
-          </span>
-          <span
+          </td>
+          <td
             className="data-table-row-section undefined"
             key="shareActivity-7543503"
             style={
@@ -15014,16 +15075,13 @@ exports[`ActivityTable component renders if the current user did not create the 
                 src="undefined/images/icons/icons-share.svg"
               />
             </button>
-          </span>
-          <span
-            className="removable data-table-row-section"
-          />
-        </div>
-        <div
+          </td>
+        </tr>
+        <tr
           className="data-table-row  "
           key="7543502"
         >
-          <span
+          <td
             className="data-table-row-section tool-and-name-section"
             key="toolAndNameSection-7543502"
             style={
@@ -15054,8 +15112,8 @@ exports[`ActivityTable component renders if the current user did not create the 
                 Starter Diagnostic
               </a>
             </a>
-          </span>
-          <span
+          </td>
+          <td
             className="data-table-row-section due-date-picker no-right-margin"
             key="dueDatePicker-7543502"
             style={
@@ -15067,8 +15125,8 @@ exports[`ActivityTable component renders if the current user did not create the 
             }
           >
             Invalid date
-          </span>
-          <span
+          </td>
+          <td
             className="data-table-row-section undefined"
             key="shareActivity-7543502"
             style={
@@ -15090,13 +15148,10 @@ exports[`ActivityTable component renders if the current user did not create the 
                 src="undefined/images/icons/icons-share.svg"
               />
             </button>
-          </span>
-          <span
-            className="removable data-table-row-section"
-          />
-        </div>
-      </div>
-    </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </DataTable>
 </ActivityTable>
 `;

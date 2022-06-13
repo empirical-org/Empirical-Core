@@ -54,15 +54,20 @@
     justify-content: space-between;
     align-items: center;
     position: relative;
-    div {
-      outline: none;
+    button, a {
+      text-align: left;
       cursor: pointer;
+      .tooltip i {
+        bottom: 0px;
+        top: -32px;
+      }
     }
     img, .fa-magic {
       margin: 3px;
       padding: 5px;
       height: 33px;
       width: 33px;
+      color: white;
       &.hover {
         background-color: #027360;
       }
@@ -89,7 +94,7 @@
     i {
       color: white;
       position: absolute;
-      top: -12px;
+      top: -8px;
       right: 8px;
     }
     p {
@@ -129,9 +134,11 @@
   .customize-dropdown {
     font-weight: 600;
     left: 64px;
-    a {
+    button {
       display: block;
       color: #027360;
+      font-weight: 600;
+      width: 100%;
       &:hover {
         background-color: #f5f5f5;
       }

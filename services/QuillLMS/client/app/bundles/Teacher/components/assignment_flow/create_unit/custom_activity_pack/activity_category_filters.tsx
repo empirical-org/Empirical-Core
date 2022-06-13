@@ -46,13 +46,15 @@ const ActivityCategoryFilterRow = ({ activityCategoryFilters, activityCategory, 
 
   const activityCategoryNameElement = activityCategory.name.length * AVERAGE_FONT_WIDTH >= 200 ? <Tooltip tooltipText={activityCategory.name} tooltipTriggerText={activityCategory.name} tooltipTriggerTextClass="tooltip-trigger-text" /> : <span>{activityCategory.name}</span>
 
-  return (<div className="individual-row filter-row activity-category-row" key={activityCategory.id}>
-    <div>
-      {checkbox}
-      {activityCategoryNameElement}
+  return (
+    <div className="individual-row filter-row activity-category-row" key={activityCategory.id}>
+      <div>
+        {checkbox}
+        {activityCategoryNameElement}
+      </div>
+      <span>({activityCount})</span>
     </div>
-    <span>({activityCount})</span>
-  </div>)
+  )
 }
 
 const ActivityCategoryFilters = ({ activities, filterActivities, activityCategoryFilters, handleActivityCategoryFilterChange, }: ActivityCategoryFiltersProps) => {
@@ -82,14 +84,16 @@ const ActivityCategoryFilters = ({ activities, filterActivities, activityCategor
 
   const clearButton = activityCategoryFilters.length ? <button className="interactive-wrapper clear-filter focus-on-light" onClick={clearAllActivityCategoryFilters} type="button">Clear</button> : <span />
 
-  return (<section className="filter-section activity-category-filter-section">
-    <div className="name-and-clear-wrapper">
-      <h2>Concepts</h2>
-      {clearButton}
-    </div>
-    {activityCategoryRows}
-    <button className="interactive-wrapper focus-on-light toggle-show-all-button" onClick={toggleShowAll} type="button">{showAll ? 'View fewer' : `View all ${uniqueActivityCategories.length} concepts`}</button>
-  </section>)
+  return (
+    <section className="filter-section activity-category-filter-section">
+      <div className="name-and-clear-wrapper">
+        <h2>Concepts</h2>
+        {clearButton}
+      </div>
+      {activityCategoryRows}
+      <button className="interactive-wrapper focus-on-light toggle-show-all-button" onClick={toggleShowAll} type="button">{showAll ? 'View fewer' : `View all ${uniqueActivityCategories.length} concepts`}</button>
+    </section>
+  )
 }
 
 export default ActivityCategoryFilters

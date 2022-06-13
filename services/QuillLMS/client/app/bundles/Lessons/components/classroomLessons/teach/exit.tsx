@@ -21,27 +21,33 @@ class ExitSlide extends React.Component<any, any> {
   renderAssignmentOptionsAndButton() {
     const { followUpActivityName, students } = this.props;
     if (this.props.completed) {
-      return (<div className='assign-button-container'>
-        <button onClick={this.goToReports}>Exit Lesson | View Report</button>
-      </div>)
+      return (
+        <div className='assign-button-container'>
+          <button onClick={this.goToReports}>Exit Lesson | View Report</button>
+        </div>
+      )
     } else {
       if (followUpActivityName && students && Object.keys(students).length > 0) {
-        return (<div>
-          <AssignmentOptions
-            followUpActivityName={followUpActivityName}
-            numberOfStudents={students ? Object.keys(students).length : 0}
-            selectedOptionKey={this.props.selectedOptionKey}
-            updateSelectedOptionKey={this.props.updateSelectedOptionKey}
-          />
-          <AssignButton
-            assignAction={this.props.finishLesson}
-            selectedOptionKey={this.props.selectedOptionKey}
-          />
-        </div>)
+        return (
+          <div>
+            <AssignmentOptions
+              followUpActivityName={followUpActivityName}
+              numberOfStudents={students ? Object.keys(students).length : 0}
+              selectedOptionKey={this.props.selectedOptionKey}
+              updateSelectedOptionKey={this.props.updateSelectedOptionKey}
+            />
+            <AssignButton
+              assignAction={this.props.finishLesson}
+              selectedOptionKey={this.props.selectedOptionKey}
+            />
+          </div>
+        )
       } else if (!followUpActivityName && !this.props.data.preview) {
-        return (<div className='assign-button-container'>
-          <button onClick={this.props.finishLesson}>Mark Lesson As Complete</button>
-        </div>)
+        return (
+          <div className='assign-button-container'>
+            <button onClick={this.props.finishLesson}>Mark Lesson As Complete</button>
+          </div>
+        )
       }
     }
   }
@@ -49,11 +55,13 @@ class ExitSlide extends React.Component<any, any> {
   renderFlaggedStudents() {
     const {flaggedStudents, students} = this.props
     if (students && Object.keys(students).length > 0)
-    return  (<FlaggedStudents
-      flaggedStudents={flaggedStudents}
-      students={students}
-      toggleStudentFlag={this.props.toggleStudentFlag}
-    />)
+      return  (
+        <FlaggedStudents
+          flaggedStudents={flaggedStudents}
+          students={students}
+          toggleStudentFlag={this.props.toggleStudentFlag}
+        />
+      )
   }
 
   renderAssignedSection() {

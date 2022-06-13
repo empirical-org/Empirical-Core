@@ -1,20 +1,20 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 
+import { classroomProps, user } from './test_data/test_data'
+
 import AssignStudents, {
   createAClassForm,
   importGoogleClassroomsModal,
-  googleClassroomEmailModal,
+  linkGoogleAccountModal,
   googleClassroomsEmptyModal
 } from '../assign_students'
 import ClassroomCard from '../classroom_card.tsx'
 import CreateAClassInlineForm from '../create_a_class_inline_form.tsx'
 import ImportGoogleClassroomsModal from '../../../../classrooms/import_google_classrooms_modal.tsx'
-import GoogleClassroomEmailModal from '../../../../classrooms/google_classroom_email_modal.tsx'
+import LinkGoogleAccountModal from '../../../../classrooms/link_google_account_modal.tsx'
 import GoogleClassroomsEmptyModal from '../../../../classrooms/google_classrooms_empty_modal.tsx'
 
-
-import { classroomProps, user } from './test_data/test_data'
 
 describe('Assign students component', () => {
 
@@ -65,7 +65,7 @@ describe('Assign students component', () => {
     })
   })
 
-  describe('if this.state.showFormOrModal = googleClassroomEmailModal', () => {
+  describe('if this.state.showFormOrModal = linkGoogleAccountModal', () => {
     const wrapper = shallow(
       <AssignStudents
         classrooms={classroomProps}
@@ -75,10 +75,10 @@ describe('Assign students component', () => {
         user={user}
       />
     )
-    wrapper.setState({ showFormOrModal: googleClassroomEmailModal })
+    wrapper.setState({ showFormOrModal: linkGoogleAccountModal })
 
-    it('should render a googleClassroomEmailModal component', () => {
-      expect(wrapper.find(GoogleClassroomEmailModal).exists()).toBe(true)
+    it('should render a linkGoogleAccountModal component', () => {
+      expect(wrapper.find(LinkGoogleAccountModal).exists()).toBe(true)
     })
   })
 

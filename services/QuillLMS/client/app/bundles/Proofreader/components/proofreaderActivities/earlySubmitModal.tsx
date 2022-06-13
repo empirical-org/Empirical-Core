@@ -12,14 +12,16 @@ export default class EarlySubmitModal extends React.Component<EarlySubmitModalPr
 
   render() {
     const { requiredEditCount, closeModal, } = this.props
-    return (<div className="early-submit-modal-container" ref={(node) => this.modal = node} tabIndex={-1}>
-      <div className="early-submit-modal-background" />
-      <div className="early-submit-modal">
-        <div className="top-section">
-          <h1>Keep looking! You must make at least {requiredEditCount} edits.</h1>
-          <button className="quill-button medium primary contained focus-on-light" onClick={closeModal} type="button">Close</button>
+    return (
+      <div aria-live="polite" className="early-submit-modal-container" ref={(node) => this.modal = node} tabIndex={-1}>
+        <div className="early-submit-modal-background" />
+        <div className="early-submit-modal">
+          <div className="top-section">
+            <h1>Keep looking! You must make at least {requiredEditCount} edits.</h1>
+            <button className="quill-button medium primary contained focus-on-light" onClick={closeModal} type="button">Close</button>
+          </div>
         </div>
       </div>
-    </div>)
+    )
   }
 }

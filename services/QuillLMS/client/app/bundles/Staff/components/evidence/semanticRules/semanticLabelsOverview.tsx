@@ -7,16 +7,16 @@ import { Spinner } from '../../../../Shared/index';
 
 const SemanticLabelsOverview = ({ activityId, prompts }) => {
 
-function renderPrompts() {
-  return prompts.map(prompt => {
-    return(
-      <section className="prompt-section" key={prompt.id}>
-        <ModelsTable activityId={activityId} prompt={prompt} />
-        <LabelsTable activityId={activityId} prompt={prompt} />
-      </section>
-    )
-  });
-}
+  function renderPrompts() {
+    return prompts.map(prompt => {
+      return(
+        <section className="prompt-section" key={prompt.id}>
+          <ModelsTable activityId={activityId} prompt={prompt} />
+          <LabelsTable activityId={activityId} prompt={prompt} />
+        </section>
+      )
+    });
+  }
 
   if(!prompts) {
     return(

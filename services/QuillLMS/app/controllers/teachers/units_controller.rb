@@ -37,6 +37,7 @@ class Teachers::UnitsController < ApplicationController
     render json: response.to_json
   end
 
+  # rubocop:disable Lint/DuplicateBranch
   def update
     unit_template_names = UnitTemplate.pluck(:name).map(&:downcase)
     if unit_params[:name] && unit_params[:name] === ''
@@ -49,6 +50,7 @@ class Teachers::UnitsController < ApplicationController
       render json: {errors: { name: "Each activity pack needs a unique name. You're already using that name for another activity pack. Please choose a different name."} }, status: 422
     end
   end
+  # rubocop:enable Lint/DuplicateBranch
 
   def update_classroom_unit_assigned_students
     activities_data = UnitActivity.where(unit_id: params[:id]).order(:order_number).pluck(:activity_id).map { |id| { id: id } }
@@ -84,6 +86,7 @@ class Teachers::UnitsController < ApplicationController
     activity_id = params[:activity_id].to_i
     classroom_units = get_classroom_units_for_activity(activity_id)
     return render json: {errors: 'No activities found'}, status: 422 if classroom_units.empty?
+
     render json: {
       classroom_units: classroom_units,
       activity_name: Activity.select('name').where("id = #{activity_id}")
@@ -110,7 +113,7 @@ class Teachers::UnitsController < ApplicationController
   end
 
   def diagnostic_units
-    render json: diagnostics_organized_by_classroom.to_json
+    render json: fetch_diagnostic_units_cache
   end
 
   # Get all Units containing lessons, and only retrieve the classroom activities for lessons.
@@ -137,17 +140,28 @@ class Teachers::UnitsController < ApplicationController
   # :activity_id (in url)
   # :classroom_unit_id
   def score_info
-    completed = ActivitySession.where(
-      classroom_unit_id: params[:classroom_unit_id],
-      activity_id: params[:activity_id],
-      is_final_score: true,
-      visible: true
-    )
+    classroom_unit = ClassroomUnit.find_by(id: params[:classroom_unit_id])
+    return render json: { cumulative_score: 0, completed_count: 0 } unless classroom_unit
 
-    completed_count = completed.count
-    cumulative_score = completed.sum(:percentage) * 100
+    cache_groups = {
+      activity: params[:activity_id]
+    }
 
-    render json: {cumulative_score: cumulative_score, completed_count: completed_count}
+    json = current_user.classroom_unit_cache(classroom_unit, key: 'teachers.units.score_info', groups: cache_groups) do
+      completed = ActivitySession.where(
+        classroom_unit_id: params[:classroom_unit_id],
+        activity_id: params[:activity_id],
+        is_final_score: true,
+        visible: true
+      )
+
+      completed_count = completed.count
+      cumulative_score = completed.sum(:percentage) * 100
+
+      {cumulative_score: cumulative_score, completed_count: completed_count}
+    end
+
+    render json: json
   end
 
   private def lessons_with_current_user_and_activity
@@ -173,13 +187,13 @@ class Teachers::UnitsController < ApplicationController
   end
 
   private def authorize!
-    if params[:id]
-      @unit = Unit.find_by(id: params[:id])
-      if @unit.nil?
-        render json: {errors: 'Unit not found'}, status: 422
-      elsif !current_user.affiliated_with_unit?(@unit.id)
-        auth_failed
-      end
+    return unless params[:id]
+
+    @unit = Unit.find_by(id: params[:id])
+    if @unit.nil?
+      render json: {errors: 'Unit not found'}, status: 422
+    elsif !current_user.affiliated_with_unit?(@unit.id)
+      auth_failed
     end
   end
 
@@ -194,6 +208,7 @@ class Teachers::UnitsController < ApplicationController
     units_i_teach_own_or_coteach('teach', report, false)
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   private def units_i_teach_own_or_coteach(teach_own_or_coteach, report, lessons)
     # returns an empty array if teach_own_or_coteach_classrooms_array is empty
     teach_own_or_coteach_classrooms_array = current_user.send("classrooms_i_#{teach_own_or_coteach}").map(&:id)
@@ -312,6 +327,7 @@ class Teachers::UnitsController < ApplicationController
       unit
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   private def diagnostic_unit_records
     diagnostic_activity_ids = ActivityClassification.find_by_key('diagnostic').activity_ids
@@ -350,6 +366,13 @@ class Teachers::UnitsController < ApplicationController
     end
   end
 
+  private def fetch_diagnostic_units_cache
+    current_user.all_classrooms_cache(key: 'teachers.classrooms.diagnostic_units') do
+      diagnostics_organized_by_classroom
+    end
+  end
+
+  # rubocop:disable Metrics/CyclomaticComplexity
   private def diagnostics_organized_by_classroom
     classrooms = []
     diagnostic_records = diagnostic_unit_records
@@ -357,10 +380,10 @@ class Teachers::UnitsController < ApplicationController
     diagnostic_records.each do |record|
       next if post_test_ids.include?(record['activity_id'])
 
-      index_of_extant_classroom = classrooms.find_index { |c| c['id'] == record['classroom_id'] }
+      index_of_existing_classroom = classrooms.find_index { |c| c['id'] == record['classroom_id'] }
       name = grouped_name(record)
 
-      next if record['post_test_id'] && index_of_extant_classroom && classrooms[index_of_extant_classroom]['diagnostics'].find { |diagnostic| diagnostic[:name] == name }
+      next if record['post_test_id'] && index_of_existing_classroom && classrooms[index_of_existing_classroom]['diagnostics'].find { |diagnostic| diagnostic[:name] == name }
 
       grouped_record = {
         name: name,
@@ -375,8 +398,8 @@ class Teachers::UnitsController < ApplicationController
         grouped_record[:pre]['completed_count'] = ActivitySession.where(activity_id: record['activity_id'], classroom_unit_id: record['classroom_unit_id'], state: 'finished', user_id: record['assigned_student_ids']).size
         grouped_record[:pre]['assigned_count'] = record['assigned_student_ids'].size
       end
-      if index_of_extant_classroom
-        classrooms[index_of_extant_classroom]['diagnostics'].push(grouped_record)
+      if index_of_existing_classroom
+        classrooms[index_of_existing_classroom]['diagnostics'].push(grouped_record)
         next
       end
       classroom = {
@@ -386,12 +409,15 @@ class Teachers::UnitsController < ApplicationController
       }
       classrooms.push(classroom)
     end
-    classrooms
+    classrooms.to_json
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   private def record_with_aggregated_activity_sessions(diagnostic_records, activity_id, classroom_id, pre_test_activity_id)
     records = diagnostic_records.select { |record| record['activity_id'] == activity_id && record['classroom_id'] == classroom_id }
     return if records.empty?
+
     classroom_unit_ids = records.map { |record| record['classroom_unit_id'] }
     assigned_student_ids = records.map { |r| r['assigned_student_ids'] }.flatten.uniq
     activity_sessions = ActivitySession
@@ -400,10 +426,12 @@ class Teachers::UnitsController < ApplicationController
       .uniq { |activity_session| activity_session.user_id }
     record = records[0]
     return if !record
+
     record['completed_count'] = activity_sessions.size
     record['assigned_count'] = assigned_student_ids.size
     record.except('unit_id', 'unit_name', 'classroom_unit_id', 'assigned_student_ids')
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   private def grouped_name(record)
     activity_ids_to_names = {

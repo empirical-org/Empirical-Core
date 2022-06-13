@@ -27,20 +27,22 @@ export default class LeaveClassModal extends React.Component<LeaveClassModalProp
   }
 
   render() {
-    return (<div className="modal-container leave-class-modal-container">
-      <div className="modal-background" />
-      <div className="leave-class-modal quill-modal modal-body">
-        <div>
-          <h3 className="title">Leave class?</h3>
-        </div>
-        <div className="leave-class-modal-text">
-          <p>You won't be able to view or manage this class unless you're re-invited.</p>
-        </div>
-        <div className="form-buttons">
-          <button className="quill-button outlined secondary medium" onClick={this.props.close}>Cancel</button>
-          <button className="quill-button contained primary medium" onClick={this.leaveClass}>Leave class</button>
+    return (
+      <div className="modal-container leave-class-modal-container">
+        <div className="modal-background" />
+        <div className="leave-class-modal quill-modal modal-body">
+          <div>
+            <h3 className="title">Leave class?</h3>
+          </div>
+          <div className="leave-class-modal-text">
+            <p>You won't be able to view or manage this class unless you're re-invited.</p>
+          </div>
+          <div className="form-buttons">
+            <button className="quill-button outlined secondary medium" onClick={this.props.close}>Cancel</button>
+            <button className="quill-button contained primary medium" onClick={this.leaveClass}>Leave class</button>
+          </div>
         </div>
       </div>
-    </div>)
+    )
   }
 }

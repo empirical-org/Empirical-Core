@@ -1,12 +1,11 @@
 .editor-container {
   position: relative;
-  margin-left: 48px;
   .editor {
     min-height: 129px;
     border-radius: 4px;
+    margin-right: 8px;
     padding: 16px 16px 46px;
     background-color: #f1f3f4;
-    margin-top: 16px;
     font-size: 20px; /* TODO change back to 18px temp change for demo */
     border-bottom: 2px solid #009a80;
     cursor: text;
@@ -17,7 +16,6 @@
       border-bottom: 2px solid #ff9f00;
     }
     &.disabled {
-      background-color: white;
       border-bottom: none;
       border-radius: 0px;
       min-height: 60px;
@@ -26,8 +24,14 @@
         border-left: 2px solid #ff9f00;
       }
       &.optimal {
-        border-left: 2px solid #55a200;
+        border-bottom: 2px solid #55a200;
       }
+    }
+    &.approaching-limit {
+      border-bottom: 2px solid #ff9f00;
+    }
+    &.over-limit {
+      border-bottom: 2px solid #ff3348;
     }
   }
   .clear-button {

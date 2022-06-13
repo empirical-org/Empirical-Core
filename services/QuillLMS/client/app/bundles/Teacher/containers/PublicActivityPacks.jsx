@@ -16,18 +16,18 @@ export default class PublicActivityPacks extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.modules = {
-			fnl: new fnl,
-			updaterGenerator: new updaterGenerator(this),
-			unitTemplatesServer: new Server('unit_template', 'unit_templates', '/teachers'),
+      fnl: new fnl,
+      updaterGenerator: new updaterGenerator(this),
+      unitTemplatesServer: new Server('unit_template', 'unit_templates', '/teachers'),
       windowPosition: new WindowPosition(),
-		};
+    };
 
     this.deepExtendState = this.modules.updaterGenerator.updater(null)
     this.updateCreateUnit = this.modules.updaterGenerator.updater('createUnit');
     this.updateCreateUnitModel = this.modules.updaterGenerator.updater('createUnit.model');
     this.updateUnitTemplatesManager = this.modules.updaterGenerator.updater('unitTemplatesManager');
 
-    var state = {
+    let state = {
       tab: 'manageUnits', // 'createUnit', 'exploreActivityPacks'
       createUnit: {
         stage: 1,
@@ -52,7 +52,7 @@ export default class PublicActivityPacks extends React.Component {
     }
     state.unitTemplatesManager.non_authenticated = !($('#public-activity-packs').data('authenticated'));
     //FIXME: this concern should be handled with a react-router
-    var individualUnitTemplate = $('.teachers-unit-template')[0]
+    let individualUnitTemplate = $('.teachers-unit-template')[0]
     if (individualUnitTemplate) {
       state.tab = 'exploreActivityPacks';
       state.unitTemplatesManager.model_id = $('.teachers-unit-template').data('id');
@@ -65,13 +65,13 @@ export default class PublicActivityPacks extends React.Component {
   }
 
   selectModel = (ut) => {
-    var relatedModels = this._modelsInCategory(ut.unit_template_category.id)
+    let relatedModels = this._modelsInCategory(ut.unit_template_category.id)
     this.updateUnitTemplatesManager({stage: 'profile', model: ut, relatedModels: relatedModels})
     this.modules.windowPosition.reset();
   };
 
   _modelsInCategory = (categoryId) => {
-      return this.state.unitTemplatesManager.models.filter(ut => {
+    return this.state.unitTemplatesManager.models.filter(ut => {
       if (ut.unit_template_category && ut.unit_template_category.id === categoryId) {
         return ut
       }
@@ -79,17 +79,17 @@ export default class PublicActivityPacks extends React.Component {
   };
 
   updateUnitTemplateModels = (models) => {
-    var categories =  _.chain(models)
-                        .pluck('unit_template_category')
-                        .uniq(_.property('id'))
-                        .value();
+    let categories =  _.chain(models)
+      .pluck('unit_template_category')
+      .uniq(_.property('id'))
+      .value();
 
-    var newHash = {
+    let newHash = {
       models: models,
       displayedModels: models,
       categories: categories
     }
-    var model_id = this.state.unitTemplatesManager.model_id // would be set if we arrived here from a deep link
+    let model_id = this.state.unitTemplatesManager.model_id // would be set if we arrived here from a deep link
     if (model_id) {
       newHash.model = _.findWhere(models, {id: model_id});
       newHash.stage = 'profile'
@@ -116,11 +116,11 @@ export default class PublicActivityPacks extends React.Component {
   };
 
   fetchClassrooms = () => {
-    var that = this;
+    let that = this;
     requestGet('/teachers/classrooms/retrieve_classrooms_for_assigning_activities',
-               (data) => {
-                 that.updateCreateUnit({options: {classrooms: data.classrooms_and_their_students}})
-               }
+      (data) => {
+        that.updateCreateUnit({options: {classrooms: data.classrooms_and_their_students}})
+      }
     );
   };
 
@@ -130,9 +130,9 @@ export default class PublicActivityPacks extends React.Component {
 
   assign = () => {
     this.fetchClassrooms()
-    var unitTemplate = this.state.unitTemplatesManager.model;
-    var state = this.state;
-    var hash = {
+    let unitTemplate = this.state.unitTemplatesManager.model;
+    let state = this.state;
+    let hash = {
       tab: 'createUnit',
       createUnit: {
         stage: 2,
@@ -160,7 +160,7 @@ export default class PublicActivityPacks extends React.Component {
   };
 
   render() {
-    var tabSpecificComponents;
+    let tabSpecificComponents;
 
     tabSpecificComponents = (<UnitTemplatesManager
       actions={this.unitTemplatesManagerActions()}

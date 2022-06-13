@@ -98,7 +98,7 @@
     }
   }
   main {
-    padding: 40px 0px;
+    padding: 40px 0px 304px;
     width: calc(100vw - 260px);
     background-color: white;
     header {
@@ -148,6 +148,8 @@
       .student-results h2,
       .proficiency-keys,
       .recommendations-empty-state,
+      .results-empty-state,
+      .scoring-explanation-container,
       &.student-responses-index-container .data-table-container,
       &.individual-student-responses-container .skills-table-container-wrapper,
       &.individual-student-responses-container .concept-results-container,
@@ -171,6 +173,8 @@
       .student-results h2,
       .proficiency-keys,
       .recommendations-empty-state,
+      .results-empty-state,
+      .scoring-explanation-container,
       &.student-responses-index-container .data-table-container,
       &.individual-student-responses-container .skills-table-container-wrapper,
       &.individual-student-responses-container .concept-results-container,

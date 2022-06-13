@@ -54,24 +54,29 @@ class SerializeActivityHealth
   end
 
   private def recent_plays
-    if !@activity.classroom_units.empty? && @activity.classroom_units.order(:created_at).first.created_at <= Date.today - 3.months
-      ActivitySession.where("started_at >= ?", Date.today - 3.months).where(state: "finished", activity_id: @activity.id).count
+    today = Date.current
+    if !@activity.classroom_units.empty? && @activity.classroom_units.order(:created_at).first.created_at <= today - 3.months
+      ActivitySession.where("started_at >= ?", today - 3.months).where(state: "finished", activity_id: @activity.id).count
     else
       nil
     end
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   private def diagnostics
     @activity.unit_templates&.map {|ut| ut.recommendations}&.map{|r| r.map{|rr| rr.activity.name}}&.reject{|n| n == ''}&.flatten
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   private def average(list, attribute)
     return nil if list.empty?
+
     (list.map {|p| p[attribute] || 0}.sum(0.0) / list.size).round(2)
   end
 
   private def standard_deviation(list, attribute)
     return nil if list.empty?
+
     list = list.map {|p| p[attribute] }
     mean = list.sum(0.0) / list.size
     squares = list.map {|m| (m - mean) ** 2}

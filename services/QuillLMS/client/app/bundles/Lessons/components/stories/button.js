@@ -5,4 +5,4 @@ storiesOf("Button", module)
   .add("with text", () => (
     <button onClick={action('clicked')}>My first Button</button>
   )
-)
+  )

@@ -33,7 +33,7 @@
 #  fk_rails_...  (standard_id => standards.id)
 #
 class ActivitySerializer < ActiveModel::Serializer
-  attributes :uid, :id, :name, :description, :flags, :data, :created_at, :updated_at, :supporting_info, :anonymous_path, :activity_category
+  attributes :uid, :id, :name, :description, :flags, :data, :created_at, :updated_at, :supporting_info, :anonymous_path, :activity_category, :readability_grade_level
 
   has_one :classification, serializer: ClassificationSerializer
   has_one :standard
@@ -43,11 +43,14 @@ class ActivitySerializer < ActiveModel::Serializer
   end
 
   def activity_category
-    if object.id
-      ActivityCategory.joins("JOIN activity_category_activities ON activity_categories.id = activity_category_activities.activity_category_id")
+    return unless object.id
+
+    ActivityCategory
+      .joins("JOIN activity_category_activities ON activity_categories.id = activity_category_activities.activity_category_id")
       .where("activity_category_activities.activity_id = #{object.id}")
-      .limit(1).to_a.first
-    end
+      .limit(1)
+      .to_a
+      .first
   end
 
 end

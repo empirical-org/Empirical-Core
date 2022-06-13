@@ -1,5 +1,5 @@
 import * as React from 'react'
-import ReactTable from 'react-table'
+import { ReactTable, TextFilter, } from '../../../Shared/index'
 
 const TopicColumn = ({ createNewTopic, levelNumber, getFilteredOptionsForLevel, selectTopic, getSelectedOptionForLevel, }) => {
   const [newTopicName, setNewTopicName] = React.useState('')
@@ -23,11 +23,17 @@ const TopicColumn = ({ createNewTopic, levelNumber, getFilteredOptionsForLevel, 
 
   const columns = (selectedOption) => ([
     {
-      title: 'Name',
-      data: 'name',
+      Header: 'Name',
+      accessor: 'name',
       key: 'name',
-      Cell: (props) => (<div className={`record-cell ${selectedOption && selectedOption.id === props.original.id  ? 'selected' : ''}`} onClick={() => selectTopic(props.original.id)}>{props.original.name}</div>),
-      sortType:  (a, b) => (a.name.localeCompare(b.name)),
+      Cell: ({row}) => (<div className={`record-cell ${selectedOption && selectedOption.id === row.original.id  ? 'selected' : ''}`} onClick={() => selectTopic(row.original.id)}>{row.original.name}</div>),
+      sortType:  (a, b) => (a && b ? a.original.name.localeCompare(b.original.name) : 0),
+      Filter: TextFilter,
+      filter: (rows, idArray, filterValue) => {
+        return rows.filter(row => {
+          return row.original.name ? row.original.name.toLowerCase().includes(filterValue.toLowerCase()) : ''
+        })
+      },
     }
   ]);
 
@@ -55,18 +61,19 @@ const TopicColumn = ({ createNewTopic, levelNumber, getFilteredOptionsForLevel, 
     </div>)
   }
 
-  return (<div className="topic-column">
-    <label>Topic Level {levelNumber}</label>
-    {selectedOptionElement}
-    <ReactTable
-      columns={columns(selectedOption)}
-      data={options}
-      defaultFilterMethod={(filter, row) => row._original.name ? row._original.name.toLowerCase().includes(filter.value.toLowerCase()) : ''}
-      filterable
-      showPagination={false}
-    />
-    {newTopicField}
-  </div>);
+  return (
+    <div className="topic-column">
+      <label>Topic Level {levelNumber}</label>
+      {selectedOptionElement}
+      <ReactTable
+        columns={columns(selectedOption)}
+        data={options}
+        defaultFilterMethod={(filter, row) => row._original.name ? row._original.name.toLowerCase().includes(filter.value.toLowerCase()) : ''}
+        filterable
+      />
+      {newTopicField}
+    </div>
+  );
 }
 
 export default TopicColumn

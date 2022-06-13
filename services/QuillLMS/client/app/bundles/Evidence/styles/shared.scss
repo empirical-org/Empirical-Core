@@ -1,0 +1,19 @@
+.evidence-step-number-small {
+  width: 100%;
+  border-radius: 16px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  font-size: 16px;
+  font-weight: 600;
+  margin-right: 8px;
+  background-color: #005341;
+  color: #ffffff;
+  max-width: 24px;
+  height: 24px;
+  font-size: 14px;
+  &.active {
+    background-color: #ffffff;
+    color: #262626;
+  }
+}

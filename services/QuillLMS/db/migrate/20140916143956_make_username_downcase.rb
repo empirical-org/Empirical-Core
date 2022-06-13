@@ -3,7 +3,7 @@
 class MakeUsernameDowncase < ActiveRecord::Migration[4.2]
   def change
 
-    User.all.each { |u| 
+    User.all.each { |u|
       em = u.try(:email).downcase rescue nil
       un = u.try(:username).downcase rescue nil
 

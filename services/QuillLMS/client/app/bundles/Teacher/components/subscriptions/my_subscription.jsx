@@ -10,7 +10,7 @@ export default class extends React.Component {
     let copy,
       url;
     if (!subType || accountTypes.trial.includes(subType)) {
-        // then they are on trial or basic
+      // then they are on trial or basic
       copy = 'Buy Premium';
       url = '/premium';
     } else {
@@ -43,7 +43,7 @@ export default class extends React.Component {
             <input className="inactive" disabled value={expiration ? moment(expiration).format('MMMM Do, YYYY') : 'N/A'} />
           </div>
         </div>
-        <a className={'green-link'} href="/subscriptions">Manage Subscriptions</a>
+        <a className="green-link" href="/subscriptions">Manage Subscriptions</a>
       </span>
     );
   }

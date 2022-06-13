@@ -21,7 +21,7 @@ export default class extends React.Component {
       }
       return additionalResponses.map(response => (
         <p>{response.text}</p>
-        ));
+      ));
     }
   };
 
@@ -31,7 +31,7 @@ export default class extends React.Component {
       const additionalResponses = tag.responses.slice(1); // first response has already been rendered in unexpanded view
       return additionalResponses.map(response => (
         <p>{response.count}</p>
-        ));
+      ));
     }
   };
 

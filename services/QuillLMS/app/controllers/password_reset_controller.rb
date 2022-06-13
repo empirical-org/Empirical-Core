@@ -32,9 +32,9 @@ class PasswordResetController < ApplicationController
 
   def show
     @user = User.find_by_token(params[:id])
-    if @user.nil?
-      redirect_to password_reset_index_path, notice: 'That link is no longer valid.'
-    end
+    return if @user.present?
+
+    redirect_to password_reset_index_path, notice: 'That link is no longer valid.'
   end
 
   def update

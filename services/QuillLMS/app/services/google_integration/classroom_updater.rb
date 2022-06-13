@@ -1,22 +1,18 @@
 # frozen_string_literal: true
 
 module GoogleIntegration
-  class ClassroomUpdater
-    attr_reader :data, :google_classroom_id, :teacher_id
+  class ClassroomUpdater < ApplicationService
+    attr_reader :classroom, :data, :teacher_id
 
-    def initialize(data)
+    def initialize(classroom, data)
       @data = data
-      @google_classroom_id = data[:google_classroom_id]
+      @classroom = classroom
       @teacher_id = data[:teacher_id]
     end
 
     def run
       update
       classroom
-    end
-
-    private def classroom
-      @classroom ||= ::Classroom.unscoped.find_by!(google_classroom_id: google_classroom_id, teacher_id: teacher_id)
     end
 
     private def custom_name?
@@ -53,12 +49,7 @@ module GoogleIntegration
     end
 
     private def valid_name
-      temp_name = data[:name]
-
-      loop do
-        return temp_name unless other_owned_classroom_names.include?(temp_name)
-        temp_name += '_1'
-      end
+      ::DuplicateNameResolver.run(data[:name], other_owned_classroom_names)
     end
 
     private def visible

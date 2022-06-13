@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe CreateOrIncrementResponseWorker do
-  let(:subject) { described_class.new }
+  subject { described_class.new }
 
   before do
     allow(AdminUpdates).to receive(:run).and_return(nil)

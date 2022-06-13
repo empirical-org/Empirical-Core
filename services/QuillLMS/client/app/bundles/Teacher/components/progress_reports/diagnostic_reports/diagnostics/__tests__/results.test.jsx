@@ -14,10 +14,10 @@ import {
 import { Results, } from '../results'
 
 jest.mock('qs', () => ({
-    default: {
-      parse: jest.fn(() => ({}))
-    }
-  })
+  default: {
+    parse: jest.fn(() => ({}))
+  }
+})
 )
 
 describe('Results component', () => {

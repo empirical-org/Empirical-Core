@@ -17,11 +17,11 @@ class ModelTestsGenerator < TestUnit::Generators::Base # :nodoc:
   hook_for :fixture_replacement
 
   private
-    def yaml_key_value(key, value)
-      if RESERVED_YAML_KEYWORDS.include?(key.downcase)
-        "'#{key}': #{value}"
-      else
-        "#{key}: #{value}"
-      end
+  def yaml_key_value(key, value)
+    if RESERVED_YAML_KEYWORDS.include?(key.downcase)
+      "'#{key}': #{value}"
+    else
+      "#{key}: #{value}"
     end
+  end
 end

@@ -11,12 +11,12 @@ class SegmentAnalytics
 
   def initialize
     # Do not clobber the backend object if we already set a fake one under test
-    unless Rails.env.test?
-      self.backend ||= Segment::Analytics.new({
-        write_key: SegmentIo.configuration.write_key,
-        on_error: proc { |status, msg| print msg }
-      })
-    end
+    return if Rails.env.test?
+
+    self.backend ||= Segment::Analytics.new(
+      write_key: SegmentIo.configuration.write_key,
+      on_error: proc { |status, msg| print msg }
+    )
   end
 
   def track_event_from_string(event_name, user_id)
@@ -40,14 +40,15 @@ class SegmentAnalytics
     })
 
     # this event is for Vitally, which does not show properties
-    if Activity.diagnostic_activity_ids.include?(activity_id)
-      track({
-        user_id: teacher_id,
-        event: "#{SegmentIo::BackgroundEvents::DIAGNOSTIC_ASSIGNMENT} | #{activity.name}"
-      })
-    end
+    return unless Activity.diagnostic_activity_ids.include?(activity_id)
+
+    track({
+      user_id: teacher_id,
+      event: "#{SegmentIo::BackgroundEvents::DIAGNOSTIC_ASSIGNMENT} | #{activity.name}"
+    })
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def track_activity_pack_assignment(teacher_id, unit_id)
     unit = Unit.find_by_id(unit_id)
 
@@ -79,6 +80,7 @@ class SegmentAnalytics
       }
     })
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def track_activity_completion(user, student_id, activity)
     track({
@@ -88,6 +90,7 @@ class SegmentAnalytics
     })
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def track_classroom_creation(classroom)
     # TODO: Remove early return once this bug is fixed
     # https://sentry.io/organizations/quillorg-5s/issues/2459924163/?project=11238&query=is%3Aunresolved
@@ -109,6 +112,7 @@ class SegmentAnalytics
       }
     })
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def track_activity_search(user_id, search_query)
     track({
@@ -142,6 +146,44 @@ class SegmentAnalytics
       }
     })
 
+  end
+
+  def track_teacher_subscription(subscription, event)
+    teacher_id = subscription.users.first.id
+
+    track({
+      user_id: teacher_id,
+      event: event,
+      properties: {
+        subscription_id: subscription.id
+      }
+    })
+  end
+
+  def track_school_subscription(subscription, event)
+    school_id = subscription.schools.first.id
+
+    if subscription.purchaser_id.present?
+      track({
+        user_id: subscription.purchaser_id,
+        event: event,
+        properties: {
+          subscription_id: subscription.id,
+          school_id: school_id
+        }
+      })
+    else
+      track({
+        # Segment requires us to send a unique User ID or Anonymous ID for every event
+        # generate a random UUID here because we don't want the School Subscription event to be associated to any real user
+        anonymous_id: SecureRandom.uuid,
+        event: event,
+        properties: {
+          subscription_id: subscription.id,
+          school_id: school_id
+        }
+      })
+    end
   end
 
   def track(options)
@@ -179,7 +221,8 @@ class SegmentAnalytics
       traits: {
         premium_state: user.premium_state,
         premium_type: user.subscription&.account_type,
-        auditor: user.auditor?
+        auditor: user.auditor?,
+        district: user.school&.district&.name
       },
       integrations: integration_rules(user.id)
     }
@@ -192,7 +235,7 @@ class SegmentAnalytics
   private def activity_info_for_tracking(activity)
     {
       activity_name: activity.name,
-      tool_name: activity.classification.name.split(' ')[1]
+      tool_name: activity.classification.name.split[1]
     }
   end
 end

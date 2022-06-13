@@ -3,16 +3,14 @@
 require 'rails_helper'
 
 describe Cms::CriteriaController do
+  let(:user) { create(:staff) }
+
+  before { allow(controller).to receive(:current_user) { user } }
+
   it { should use_before_action :set_activity }
   it { should use_before_action :set_recommendation }
   it { should use_before_action :set_activity_classification }
   it { should use_before_action :set_criterion }
-
-  let(:user) { create(:staff) }
-
-  before do
-    allow(controller).to receive(:current_user) { user }
-  end
 
   describe '#new' do
     let!(:activity_classification) { create(:activity_classification) }
@@ -20,10 +18,8 @@ describe Cms::CriteriaController do
     let!(:recommendation) { create(:recommendation) }
     let(:criteria) { double(:criteria) }
 
-    before do
-      allow(Criterion).to receive(:new) { criteria }
-    end
-  
+    before { allow(Criterion).to receive(:new) { criteria } }
+
     it 'should give a new criteria' do
       get :new, params: { activity_classification_id: activity_classification.id, activity_id: activity.id, recommendation_id: recommendation.id }
       expect(assigns(:criterion)).to eq criteria
@@ -38,9 +34,9 @@ describe Cms::CriteriaController do
 
     it 'should create the criteria with the given params' do
       post :create, params: { criterion: {
-        concept_id: concept.id, 
-        count: 1, 
-        no_incorrect: 0 
+        concept_id: concept.id,
+        count: 1,
+        no_incorrect: 0
       }, activity_classification_id: activity_classification.id, activity_id: activity.id, recommendation_id: recommendation.id }
 
       expect(response).to redirect_to cms_activity_classification_activity_recommendation_path(

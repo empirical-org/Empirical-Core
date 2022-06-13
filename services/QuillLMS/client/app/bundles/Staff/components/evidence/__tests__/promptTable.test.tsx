@@ -4,6 +4,10 @@ import { shallow } from 'enzyme';
 
 import PromptTable from '../activitySessions/promptTable';
 
+jest.mock("react-query", () => ({
+  useQueryClient: jest.fn(() => ({})),
+}));
+
 jest.mock('string-strip-html', () => ({
   default: jest.fn()
 }));

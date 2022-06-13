@@ -157,6 +157,7 @@
       }
     }
     .name-cell {
+      padding: 0px;
       &:hover {
         background-color: #f5f5f5;
         z-index: 2;
@@ -165,10 +166,23 @@
         .quill-tooltip {
           display: none;
         }
+        img {
+          opacity: 0;
+        }
       }
       width: 216px;
       height: 48px;
-      padding: 0px 16px;
+      a {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        padding: 0px 16px;
+        align-items: center;
+        font-size: 14px;
+        font-weight: normal;
+        color: #262626;
+        justify-content: space-between;
+      }
       .student-name {
         overflow: hidden;
         text-overflow: ellipsis;
@@ -176,6 +190,7 @@
         display: inline-block;
       }
       > div {
+        padding: 0px 16px;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -186,7 +201,7 @@
           line-height: 1.43;
           color: #262626;
         }
-        .diagnostic-not-completed {
+        .name-section-subheader {
           font-weight: normal;
           color: #808080;
         }
@@ -267,7 +282,7 @@
     }
   }
   .whole-class-instruction {
-    margin-top: 48px;
+    margin-top: 64px;
     .lessons-recommendation {
       border-radius: 8px;
       border: solid 1px #e0e0e0;
@@ -345,6 +360,11 @@
           }
         }
       }
+    }
+  }
+  @media (max-width: 1500px) and (min-width: 931px) {
+    .assigning-activity-disclaimer-banner {
+      max-width: calc(100vw - 260px - 64px); // 260 for the navigation bar on the left, 64 for the padding around it on both sides
     }
   }
   @media (max-width: 930px) {

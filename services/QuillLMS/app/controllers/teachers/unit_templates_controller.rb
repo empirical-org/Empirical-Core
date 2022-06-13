@@ -80,9 +80,9 @@ class Teachers::UnitTemplatesController < ApplicationController
   end
 
   private def current_user_testing_flag
-    if current_user.present?
-      current_user.testing_flag
-    end
+    return unless current_user.present?
+
+    current_user.testing_flag
   end
 
   private def related_models_flag

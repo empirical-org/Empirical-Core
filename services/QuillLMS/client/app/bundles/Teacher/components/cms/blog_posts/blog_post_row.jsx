@@ -27,18 +27,20 @@ const BlogPostRow = ({
 }) => {
   const handleClickStar = () => onClickStar(id)
 
-  return (<tr className="blog-post-row">
-    <td>{featuredCellContent({ featuredOrderNumber, featuredBlogPostLimitReached, handleClickStar, draft, })}</td>
-    <td>{title}</td>
-    <td>{topic}</td>
-    <td>{createdAt}</td>
-    <td>{updatedAt}</td>
-    <td>{rating}</td>
-    <td>{views}</td>
-    <td><a className="button" href={editLink}>Edit</a></td>
-    <td><a className="button" href={previewLink}>Preview</a></td>
-    <td><a className="button" href={deleteLink}>Delete</a></td>
-  </tr>)
+  return (
+    <tr className="blog-post-row">
+      <td>{featuredCellContent({ featuredOrderNumber, featuredBlogPostLimitReached, handleClickStar, draft, })}</td>
+      <td>{title}</td>
+      <td>{topic}</td>
+      <td>{createdAt}</td>
+      <td>{updatedAt}</td>
+      <td>{rating}</td>
+      <td>{views}</td>
+      <td><a className="button" href={editLink}>Edit</a></td>
+      <td><a className="button" href={previewLink}>Preview</a></td>
+      <td><a className="button" href={deleteLink}>Delete</a></td>
+    </tr>
+  )
 }
 
 export default BlogPostRow

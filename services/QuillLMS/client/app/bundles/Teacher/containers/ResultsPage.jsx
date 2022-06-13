@@ -46,10 +46,12 @@ export default class ResultsPage extends React.Component {
     const { percentage, anonymous, integrationPartnerName, classroomUnitId, activityId, } = this.props
     if (percentage >= 0.8 || anonymous || integrationPartnerName) { return }
 
-    return (<div className="replay-button-container">
-      <p>All writers revise their work. Try this activity again.</p>
-      <a className="quill-button primary outlined large focus-on-light" href={activityLaunchLink(classroomUnitId, activityId)}>Replay</a>
-    </div>)
+    return (
+      <div className="replay-button-container">
+        <p>All writers revise their work. Try this activity again.</p>
+        <a className="quill-button primary outlined large focus-on-light" href={activityLaunchLink(classroomUnitId, activityId)}>Replay</a>
+      </div>
+    )
   }
 
   resultSectionDescription = category => {
@@ -67,9 +69,11 @@ export default class ResultsPage extends React.Component {
   resultsSection = () => {
     const { results, } = this.props
     const resultSections = Object.keys(results).map(category => this.renderResultSection(category, results[category]))
-    return (<div className="results-container">
-      {resultSections}
-    </div>)
+    return (
+      <div className="results-container">
+        {resultSections}
+      </div>
+    )
   }
 
   renderResultSection = (category, concepts) => {

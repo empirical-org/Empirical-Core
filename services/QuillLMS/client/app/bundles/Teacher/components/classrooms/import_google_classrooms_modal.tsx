@@ -166,15 +166,17 @@ export default class ImportGoogleClassroomsModal extends React.Component<ImportG
       }
     })
 
-    return (<DataTable
-      checkAllRows={this.checkAllRows}
-      checkRow={this.toggleRowCheck}
-      headers={headers}
-      rows={rows}
-      showCheckboxes={true}
-      uncheckAllRows={this.uncheckAllRows}
-      uncheckRow={this.toggleRowCheck}
-    />)
+    return (
+      <DataTable
+        checkAllRows={this.checkAllRows}
+        checkRow={this.toggleRowCheck}
+        headers={headers}
+        rows={rows}
+        showCheckboxes={true}
+        uncheckAllRows={this.uncheckAllRows}
+        uncheckRow={this.toggleRowCheck}
+      />
+    )
   }
 
   renderImportButton() {
@@ -188,26 +190,28 @@ export default class ImportGoogleClassroomsModal extends React.Component<ImportG
 
   render() {
     const { close } = this.props
-    return (<div className="modal-container import-google-classrooms-modal-container">
-      <div className="modal-background" />
-      <div className="import-google-classrooms-modal quill-modal">
+    return (
+      <div className="modal-container import-google-classrooms-modal-container">
+        <div className="modal-background" />
+        <div className="import-google-classrooms-modal quill-modal">
 
-        <div className="import-google-classrooms-modal-header">
-          <h3 className="title">Import classes from Google Classroom</h3>
-        </div>
-
-        <div className="import-google-classrooms-modal-body modal-body">
-          {this.renderModalContent()}
-        </div>
-
-        <div className="import-google-classrooms-modal-footer">
-          <div className="buttons">
-            <button className="quill-button outlined secondary medium" onClick={close} type="button">Cancel</button>
-            {this.renderImportButton()}
+          <div className="import-google-classrooms-modal-header">
+            <h3 className="title">Import classes from Google Classroom</h3>
           </div>
-        </div>
 
+          <div className="import-google-classrooms-modal-body modal-body">
+            {this.renderModalContent()}
+          </div>
+
+          <div className="import-google-classrooms-modal-footer">
+            <div className="buttons">
+              <button className="quill-button outlined secondary medium" onClick={close} type="button">Cancel</button>
+              {this.renderImportButton()}
+            </div>
+          </div>
+
+        </div>
       </div>
-    </div>)
+    )
   }
 }

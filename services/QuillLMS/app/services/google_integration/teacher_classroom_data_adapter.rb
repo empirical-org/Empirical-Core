@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module GoogleIntegration
-  class TeacherClassroomDataAdapter
+  class TeacherClassroomDataAdapter < ApplicationService
     attr_reader :user, :data
 
     def initialize(user, data)

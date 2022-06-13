@@ -27,8 +27,12 @@ class ClassroomsTeachersController < ApplicationController
 
   def update_order
     JSON.parse(params[:updated_classrooms]).each do |updated_classroom|
-      ClassroomsTeacher.where(classroom_id: updated_classroom['id'])&.first&.update(order: updated_classroom['order'])
+      current_user
+        .classrooms_teachers
+        .find_by(classroom_id: updated_classroom['id'])
+        &.update(order: updated_classroom['order'])
     end
+
     classrooms = ClassroomsTeacher.where(user_id: current_user.id)
     render json: { classrooms: classrooms }
   end

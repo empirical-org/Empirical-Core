@@ -9,6 +9,7 @@ describe ProgressReports::Standards::Unit do
     let(:standard_level_ids) { [standard_levels[0].id, standard_levels[1].id] }
     let(:filters) { {} }
     let(:teacher) {classrooms.first.owner}
+
     before do
       ClassroomsTeacher.all.each{|ct| ct.update(user: teacher)}
     end

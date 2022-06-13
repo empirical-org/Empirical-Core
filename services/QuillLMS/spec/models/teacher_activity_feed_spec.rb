@@ -187,7 +187,7 @@ describe TeacherActivityFeed, type: :model do
       end
     end
 
-    context 'when the timestamp was more than one week ago ' do
+    context 'when the timestamp was more than one week ago' do
       it 'should return the written out date if this calendar year' do
         completed_at = Time.parse('2021-01-01')
         now = Time.parse('2021-01-08')

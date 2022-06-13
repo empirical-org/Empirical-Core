@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PersonalLocker component should render PersonalLocker 1`] = `
+<div
+  className="locker-content personal-locker-container"
+>
+  <div
+    className="buttons-container"
+  >
+    <ReturnButton
+      backLink="/"
+      buttonLabel="All lockers"
+      history={Object {}}
+    />
+    <button
+      className="button-container interactive-wrapper focus-on-light organize-button"
+      onClick={[Function]}
+    >
+      <span
+        aria-label="gear"
+        role="img"
+      >
+        ⚙️
+      </span>
+      <p>
+        Add lockers
+      </p>
+    </button>
+  </div>
+  <div
+    className="locker-contents"
+  >
+    <h3 />
+  </div>
+</div>
+`;

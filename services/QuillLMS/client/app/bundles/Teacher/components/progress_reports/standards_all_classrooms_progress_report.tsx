@@ -2,17 +2,16 @@ import * as React from 'react'
 import request from 'request'
 import queryString from 'query-string';
 import _ from 'underscore'
-import ReactTable from 'react-table'
-import 'react-table/react-table.css'
 
 import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx'
 import EmptyStateForReport from './empty_state_for_report'
+import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from './progress_report_constants'
 
 import ItemDropdown from '../general_components/dropdown_selectors/item_dropdown'
 import LoadingSpinner from '../shared/loading_indicator.jsx'
 import userIsPremium from '../modules/user_is_premium'
-import {sortByStandardLevel} from '../../../../modules/sortingMethods.js'
-import { Tooltip } from '../../../Shared/components/shared'
+import {sortTableByStandardLevel} from '../../../../modules/sortingMethods.js'
+import { Tooltip, ReactTable, } from '../../../Shared/index'
 import { getTimeSpent } from '../../helpers/studentReports';
 
 
@@ -72,7 +71,13 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
       const students = Array.from(new Set(JSON.parse(body).students))
       classrooms.unshift({name: showAllClassroomKey})
       students.unshift({name: showAllStudentsKey})
-      that.setState({loading: false, updatingData: false, errors: body.errors, standardsData, classrooms, students});
+      const localStorageSelectedClassroomId = window.localStorage.getItem(PROGRESS_REPORTS_SELECTED_CLASSROOM_ID)
+      const classroomFromLocalStorageId = !selectedClassroomId && localStorageSelectedClassroomId && classrooms.find(c => Number(c.id) === Number(localStorageSelectedClassroomId))
+      if (classroomFromLocalStorageId) {
+        this.switchClassrooms(classroomFromLocalStorageId)
+      } else {
+        that.setState({loading: false, updatingData: false, errors: body.errors, standardsData, classrooms, students});
+      }
     });
   }
 
@@ -84,10 +89,10 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
       {
         Header: 'Standard level',
         accessor: 'standard_level',
-        sortMethod: sortByStandardLevel,
+        sortType: sortTableByStandardLevel,
         resizable: false,
         width: 150,
-        Cell: (row) => (
+        Cell: ({row}) => (
           <a className="standard-level" href={row.original['link']}>
             {row.original['standard_level_name']}
           </a>
@@ -95,49 +100,49 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
       }, {
         Header: "Standard name",
         accessor: 'standard_name',
-        sortMethod: sortByStandardLevel,
+        sortType: sortTableByStandardLevel,
         resizable: false,
         minWidth: 300,
-        Cell: (row) => this.renderTooltipRow(row),
+        Cell: ({row}) => this.renderTooltipRow(row),
         style: {overflow: 'visible'},
       }, {
         Header: "Students",
         accessor: 'number_of_students',
         resizable: false,
-        Cell: (row) => (
+        Cell: ({row}) => (
           <a className="row-link-disguise" href={row.original['link']}>
             {row.original['number_of_students']}
           </a>
         )
-        }, {
-				Header: "Proficient",
-				accessor: 'proficient',
-				resizable: false,
+      }, {
+        Header: "Proficient",
+        accessor: 'proficient',
+        resizable: false,
         className: blurIfNotPremium,
-        Cell: (row) => (
+        Cell: ({row}) => (
           <a className="row-link-disguise" href={row.original['link']}>
             {row.original['proficient']}
           </a>
         )
-				}, {
-				Header: "Activities",
-				accessor: 'activities',
-				resizable: false,
-        Cell: (row) => (
+      }, {
+        Header: "Activities",
+        accessor: 'activities',
+        resizable: false,
+        Cell: ({row}) => (
           <a className="row-link-disguise" href={row.original['link']}>
             {row.original['activities']}
           </a>
         )
-				}, {
+      }, {
         Header: "Time spent",
         accessor: 'timespent',
         resizable: false,
-        Cell: (row) => (
+        Cell: ({row}) => (
           <a className="row-link-disguise" href={row.original['link']}>
             {getTimeSpent(row.original['timespent'])}
           </a>
         )
-        }
+      }
     ])
   }
 
@@ -152,14 +157,16 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
       {row.original['name']}
     </a>)
     if ((String(rowDisplayText).length * averageFontWidth) >= headerWidthNumber) {
-      return (<Tooltip
-        key={key}
-        tooltipText={rowDisplayText}
-        tooltipTriggerStyle={style}
-        tooltipTriggerText={sectionText}
-        tooltipTriggerTextClass={sectionClass}
-        tooltipTriggerTextStyle={style}
-      />)
+      return (
+        <Tooltip
+          key={key}
+          tooltipText={rowDisplayText}
+          tooltipTriggerStyle={style}
+          tooltipTriggerText={sectionText}
+          tooltipTriggerTextClass={sectionClass}
+          tooltipTriggerTextStyle={style}
+        />
+      )
     } else {
       return sectionText
     }
@@ -212,6 +219,8 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
       window.history.pushState({}, '', window.location.pathname);
     }
 
+    window.localStorage.setItem(PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, classroom.id)
+
     this.setState({selectedClassroomId: classroom.id, updatingData: true}, () => this.getData())
   };
 
@@ -224,12 +233,7 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
             className='progress-report has-green-arrow'
             columns={this.columns()}
             data={standardsData}
-            defaultPageSize={standardsData.length}
             defaultSorted={[{id: 'standard_level', desc: false}]}
-            showPageSizeOptions={false}
-            showPagination={false}
-            showPaginationBottom={false}
-            showPaginationTop={false}
             style={{overflow: 'visible'}}
           /></div>
       )
@@ -251,7 +255,7 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
         <div className="meta-overview flex-row space-between">
           <div className='header-and-info'>
             <h1>Standards Report</h1>
-            <p>Each activity on Quill is aligned to a Common Core standard. This reports shows your students’ overall progress on each of the standards. You can filter by student on this page to see one student’s progress on all of the standards. You can click on an individual standard to see all of the student results for that standard.</p>
+            <p>Each activity on Quill is aligned to a Common Core standard. This report shows your students’ overall progress on each of the standards. You can filter by student on this page to see one student’s progress on all of the standards. You can click on an individual standard to see all of the student results for that standard.</p>
           </div>
           <div className='csv-and-how-we-grade'>
             <CSVDownloadForProgressReport data={this.formatDataForCSV()} key={`data is updating: ${updatingData}`} />

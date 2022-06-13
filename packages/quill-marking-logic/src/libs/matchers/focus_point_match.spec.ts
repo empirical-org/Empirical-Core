@@ -81,11 +81,11 @@ describe('The focusPointChecker', () => {
   it('Should return a partialResponse object if the response string matches a focus point', () => {
     const responseString = "Jared likes startups.";
     const partialResponse =  {
-        feedback: focusPointMatch(responseString, focusPoints).feedback,
-        author: 'Focus Point Hint',
-        parent_id: getTopOptimalResponse(savedResponses).id,
-        concept_results: focusPointMatch(responseString, focusPoints).concept_results
-      }
+      feedback: focusPointMatch(responseString, focusPoints).feedback,
+      author: 'Focus Point Hint',
+      parent_id: getTopOptimalResponse(savedResponses).id,
+      concept_results: focusPointMatch(responseString, focusPoints).concept_results
+    }
     assert.equal(focusPointChecker(responseString, focusPoints, savedResponses).feedback, partialResponse.feedback);
     assert.equal(focusPointChecker(responseString, focusPoints, savedResponses).author, partialResponse.author);
     assert.equal(focusPointChecker(responseString, focusPoints, savedResponses).parent_id, partialResponse.parent_id);
@@ -94,11 +94,11 @@ describe('The focusPointChecker', () => {
   it('Should return a partialResponse object if the response string matches a focus point', () => {
     const responseString = "Jared loves edtech and startups.";
     const partialResponse =  {
-        feedback: focusPointMatch(responseString, focusPoints).feedback,
-        author: 'Use the word likes',
-        parent_id: getTopOptimalResponse(savedResponses).id,
-        concept_results: focusPointMatch(responseString, focusPoints).concept_results
-      }
+      feedback: focusPointMatch(responseString, focusPoints).feedback,
+      author: 'Use the word likes',
+      parent_id: getTopOptimalResponse(savedResponses).id,
+      concept_results: focusPointMatch(responseString, focusPoints).concept_results
+    }
 
     assert.equal(focusPointChecker(responseString, focusPoints, savedResponses).feedback, partialResponse.feedback);
     assert.equal(focusPointChecker(responseString, focusPoints, savedResponses).author, partialResponse.author);

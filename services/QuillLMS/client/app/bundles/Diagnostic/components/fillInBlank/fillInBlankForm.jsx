@@ -141,11 +141,11 @@ class FillInBlankForm extends Component {
           <input className="input" onChange={this.handleCuesChange} type="text" value={cues} />
         </p>
         {this.renderOptimalField()}
-        <label className="label" onClick={this.toggleQuestionBlankAllowed}>Blank Allowed?</label>
+        <label className="label">Blank Allowed?</label>
         <p className="control">
           <input checked={blankAllowed} onClick={this.toggleQuestionBlankAllowed} type="checkbox" />
         </p>
-        <label className="label" onClick={this.toggleQuestionBlankAllowed}>Case Insensitive?</label>
+        <label className="label">Case Insensitive?</label>
         <p className="control">
           <input checked={caseInsensitive} onClick={this.toggleQuestionCaseInsensitive} type="checkbox" />
         </p>

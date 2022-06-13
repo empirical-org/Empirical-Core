@@ -1,0 +1,209 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UpperFormFields Component should match snapshot 1`] = `
+<UpperFormFields
+  email="test@gmail.com"
+  errors={Object {}}
+  firstName="Bianca"
+  handleUpdateField={[MockFunction]}
+  lastName="Del Rio"
+  phoneNumber="8675309"
+  type="renewal request"
+  zipcode="10009"
+>
+  <h3
+    className="form-header"
+  >
+    Renewal request form
+  </h3>
+  <p
+    className="disclaimer"
+  >
+    Please fill out this form. We will respond with a quote within three business days.
+  </p>
+  <Input
+    autoComplete="on"
+    className="form-input first-name"
+    handleChange={[MockFunction]}
+    id="First name"
+    label="First name"
+    placeholder=""
+    value="Bianca"
+  >
+    <div
+      className="input-container  inactive has-text form-input first-name "
+      onClick={[Function]}
+      onKeyDown={[Function]}
+      role="button"
+      tabIndex={-1}
+    >
+      <label
+        htmlFor="First name"
+      >
+        First name
+      </label>
+      <input
+        autoComplete="on"
+        id="First name"
+        maxLength={10000}
+        onChange={[MockFunction]}
+        onFocus={[Function]}
+        placeholder={false}
+        value="Bianca"
+      />
+    </div>
+  </Input>
+  <Input
+    autoComplete="on"
+    className="form-input last-name"
+    handleChange={[MockFunction]}
+    id="Last name"
+    label="Last name"
+    placeholder=""
+    value="Del Rio"
+  >
+    <div
+      className="input-container  inactive has-text form-input last-name "
+      onClick={[Function]}
+      onKeyDown={[Function]}
+      role="button"
+      tabIndex={-1}
+    >
+      <label
+        htmlFor="Last name"
+      >
+        Last name
+      </label>
+      <input
+        autoComplete="on"
+        id="Last name"
+        maxLength={10000}
+        onChange={[MockFunction]}
+        onFocus={[Function]}
+        placeholder={false}
+        value="Del Rio"
+      />
+    </div>
+  </Input>
+  <Input
+    autoComplete="on"
+    className="form-input email"
+    handleChange={[MockFunction]}
+    id="Email"
+    label="Email"
+    placeholder=""
+    type="email"
+    value="test@gmail.com"
+  >
+    <div
+      className="input-container  inactive has-text form-input email "
+      onClick={[Function]}
+      onKeyDown={[Function]}
+      role="button"
+      tabIndex={-1}
+    >
+      <label
+        htmlFor="Email"
+      >
+        Email
+      </label>
+      <input
+        autoComplete="on"
+        id="Email"
+        maxLength={10000}
+        onChange={[MockFunction]}
+        onFocus={[Function]}
+        placeholder={false}
+        type="email"
+        value="test@gmail.com"
+      />
+    </div>
+  </Input>
+  <Input
+    autoComplete="on"
+    characterLimit={10}
+    className="form-input phone"
+    handleChange={[MockFunction]}
+    id="Phone number"
+    label="Phone number"
+    placeholder=""
+    type="tel"
+    value="8675309"
+  >
+    <div
+      className="input-container  inactive has-text form-input phone has-character-limit"
+      onClick={[Function]}
+      onKeyDown={[Function]}
+      role="button"
+      tabIndex={-1}
+    >
+      <label
+        htmlFor="Phone number"
+      >
+        Phone number
+      </label>
+      <input
+        autoComplete="on"
+        id="Phone number"
+        maxLength={10}
+        onChange={[MockFunction]}
+        onFocus={[Function]}
+        placeholder={false}
+        type="tel"
+        value="8675309"
+      />
+      <div
+        className="character-limit"
+      >
+        <span>
+          7
+          /
+          10
+        </span>
+      </div>
+    </div>
+  </Input>
+  <Input
+    autoComplete="on"
+    characterLimit={5}
+    className="form-input zipcode"
+    handleChange={[MockFunction]}
+    id="ZIP code"
+    label="ZIP code"
+    placeholder=""
+    value="10009"
+  >
+    <div
+      className="input-container  inactive has-text form-input zipcode has-character-limit"
+      onClick={[Function]}
+      onKeyDown={[Function]}
+      role="button"
+      tabIndex={-1}
+    >
+      <label
+        htmlFor="ZIP code"
+      >
+        ZIP code
+      </label>
+      <input
+        autoComplete="on"
+        id="ZIP code"
+        maxLength={5}
+        onChange={[MockFunction]}
+        onFocus={[Function]}
+        placeholder={false}
+        value="10009"
+      />
+      <div
+        className="character-limit"
+      >
+        <span>
+          5
+          /
+          5
+        </span>
+      </div>
+    </div>
+  </Input>
+</UpperFormFields>
+`;

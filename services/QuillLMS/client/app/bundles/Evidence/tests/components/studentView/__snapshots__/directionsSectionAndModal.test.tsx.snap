@@ -1,17 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`DirectionsSectionAndModal component when the student is in reflection renders on desktop 1`] = `
-<DirectionsSectionAndModal
+exports[`DirectionsSection component when the student is in reflection renders on desktop 1`] = `
+<DirectionsSection
   activeStep={1}
   className=""
-  closeReadTheDirectionsModal={[Function]}
   inReflection={true}
   passage={
     Object {
       "highlight_prompt": "",
     }
   }
-  showReadTheDirectionsModal={false}
 >
   <div
     className=""
@@ -23,38 +21,52 @@ exports[`DirectionsSectionAndModal component when the student is in reflection r
         Directions
       </h3>
       <p>
-        Great! 
-        <u>
-          Now take a moment to reflect on the sentences you highlighted.
-        </u>
+        Great! Now take a moment to reflect on the sentences you highlighted. The ideas you highlighted may be helpful as you complete the writing prompts in the next section.
       </p>
     </section>
   </div>
-</DirectionsSectionAndModal>
+</DirectionsSection>
 `;
 
-exports[`DirectionsSectionAndModal component when the student is on the read passage step renders 1`] = `
-<DirectionsSectionAndModal
+exports[`DirectionsSection component when the student is on the read passage step renders 1`] = `
+<DirectionsSection
   activeStep={1}
   className=""
-  closeReadTheDirectionsModal={[Function]}
   inReflection={false}
   passage={
     Object {
       "highlight_prompt": "",
     }
   }
-  showReadTheDirectionsModal={false}
 >
   <div
     className=""
   >
-    <span />
     <section
       className="directions-section"
     >
       <h3>
         Directions
+      </h3>
+      <ul>
+        <li>
+          First, read the highlighting task below.
+        </li>
+        <li>
+          Then, read the text and highlight sentences to complete the task.
+        </li>
+        <li
+          className="sr-only"
+        >
+          Screenreader users, please use your tab keys to navigate through the passage. Use the Enter key on a focused sentence to add it to your highlights or to remove it once it has already been highlighted.
+        </li>
+      </ul>
+    </section>
+    <section
+      className="task-section"
+    >
+      <h3>
+        Task
       </h3>
       <p>
         As you read, highlight two sentences 
@@ -62,21 +74,49 @@ exports[`DirectionsSectionAndModal component when the student is on the read pas
       </p>
     </section>
   </div>
-</DirectionsSectionAndModal>
+</DirectionsSection>
 `;
 
-exports[`DirectionsSectionAndModal component when the student is past the read passage step renders on desktop 1`] = `
-<DirectionsSectionAndModal
+exports[`DirectionsSection component when the student is past the read passage step renders on desktop 1`] = `
+<DirectionsSection
   activeStep={2}
   className=""
-  closeReadTheDirectionsModal={[Function]}
   inReflection={false}
   passage={
     Object {
       "highlight_prompt": "",
     }
   }
-  showReadTheDirectionsModal={false}
+>
+  <section
+    className="directions-section"
+  >
+    <h3>
+      Directions
+    </h3>
+    <ul>
+      <li>
+        Use information from the text to finish the sentence.
+      </li>
+      <li>
+        Put the information in your own words.
+      </li>
+    </ul>
+  </section>
+</DirectionsSection>
+`;
+
+exports[`DirectionsSection component when the student should see the modal renders on desktop 1`] = `
+<DirectionsSection
+  activeStep={1}
+  className=""
+  inReflection={false}
+  passage={
+    Object {
+      "highlight_prompt": "",
+    }
+  }
+  showReadTheDirectionsButton={true}
 >
   <div
     className=""
@@ -87,56 +127,25 @@ exports[`DirectionsSectionAndModal component when the student is past the read p
       <h3>
         Directions
       </h3>
-      <p>
-        Use information from the text to finish the sentence. 
-        <u>
-          Remember to put the response in your own words.
-        </u>
-      </p>
-    </section>
-  </div>
-</DirectionsSectionAndModal>
-`;
-
-exports[`DirectionsSectionAndModal component when the student should see the modal renders on desktop 1`] = `
-<DirectionsSectionAndModal
-  activeStep={1}
-  className=""
-  closeReadTheDirectionsModal={[Function]}
-  inReflection={false}
-  passage={
-    Object {
-      "highlight_prompt": "",
-    }
-  }
-  showReadTheDirectionsModal={true}
->
-  <div
-    className=""
-  >
-    <ReadTheDirectionsModal
-      closeReadTheDirectionsModal={[Function]}
-    >
-      <section
-        className="read-the-directions-modal"
-      >
-        <p>
-          Read the directions carefully before moving onto reading and highlighting.
-        </p>
-        <button
-          className="quill-button primary contained large focus-on-light"
-          onClick={[Function]}
-          type="button"
+      <ul>
+        <li>
+          First, read the highlighting task below.
+        </li>
+        <li>
+          Then, read the text and highlight sentences to complete the task.
+        </li>
+        <li
+          className="sr-only"
         >
-          Got it
-        </button>
-      </section>
-    </ReadTheDirectionsModal>
+          Screenreader users, please use your tab keys to navigate through the passage. Use the Enter key on a focused sentence to add it to your highlights or to remove it once it has already been highlighted.
+        </li>
+      </ul>
+    </section>
     <section
-      className="directions-section"
+      className="task-section"
     >
       <h3>
-        Directions
+        Task
       </h3>
       <p>
         As you read, highlight two sentences 
@@ -144,5 +153,5 @@ exports[`DirectionsSectionAndModal component when the student should see the mod
       </p>
     </section>
   </div>
-</DirectionsSectionAndModal>
+</DirectionsSection>
 `;

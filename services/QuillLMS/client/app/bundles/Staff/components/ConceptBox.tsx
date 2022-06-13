@@ -114,13 +114,15 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
           changedFields.push(changedField)
         }
       })
-      return (<ChangeLogModal
-        cancel={this.closeChangeLogModal}
-        changedFields={changedFields}
-        levelNumber={this.props.levelNumber}
-        record={concept}
-        save={(changeLogs) => { this.save(editConcept, changeLogs)}}
-      />)
+      return (
+        <ChangeLogModal
+          cancel={this.closeChangeLogModal}
+          changedFields={changedFields}
+          levelNumber={this.props.levelNumber}
+          record={concept}
+          save={(changeLogs) => { this.save(editConcept, changeLogs)}}
+        />
+      )
     }
   }
 
@@ -200,128 +202,146 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
   renderDropdownInput = () => {
     const { concept } = this.state
     if (this.props.levelNumber === 0) {
-      return (<Query
-        query={gql(levelOneConceptsQuery())}
-      >
-        {({ loading, error, data }) => {
-          if (loading) return <p>Loading...</p>;
-          if (error) return <p>Error :(</p>;
-          const possibleConcepts = data.concepts.filter(c => c.visible && c.parent.visible).sort((a, b) => a.label.localeCompare(b.label));
-          const value = possibleConcepts.find(opt => opt.value === concept.parent.id)
-          return (<DropdownInput
-            handleChange={this.changeLevel1}
-            isSearchable={true}
-            label="Level 1"
-            options={possibleConcepts}
-            value={value}
-          />)
-        }}
-      </Query>)
+      return (
+        <Query
+          query={gql(levelOneConceptsQuery())}
+        >
+          {({ loading, error, data }) => {
+            if (loading) return <p>Loading...</p>;
+            if (error) return <p>Error :(</p>;
+            const possibleConcepts = data.concepts.filter(c => c.visible && c.parent.visible).sort((a, b) => a.label.localeCompare(b.label));
+            const value = possibleConcepts.find(opt => opt.value === concept.parent.id)
+            return (
+              <DropdownInput
+                handleChange={this.changeLevel1}
+                isSearchable={true}
+                label="Level 1"
+                options={possibleConcepts}
+                value={value}
+              />
+            )
+          }}
+        </Query>
+      )
     } else {
-      return (<Query
-        query={gql(levelTwoConceptsQuery())}
-      >
-        {({ loading, error, data }) => {
-          if (loading) return <p>Loading...</p>;
-          if (error) return <p>Error :(</p>;
-          const possibleConcepts = data.concepts.filter(c => c.visible).sort((a, b) => a.label.localeCompare(b.label));
-          const value = possibleConcepts.find(opt => opt.value === concept.parent.id)
-          return (<DropdownInput
-            handleChange={this.changeLevel2}
-            isSearchable={true}
-            label="Level 2"
-            options={possibleConcepts}
-            value={value}
-          />)
-        }}
-      </Query>)
+      return (
+        <Query
+          query={gql(levelTwoConceptsQuery())}
+        >
+          {({ loading, error, data }) => {
+            if (loading) return <p>Loading...</p>;
+            if (error) return <p>Error :(</p>;
+            const possibleConcepts = data.concepts.filter(c => c.visible).sort((a, b) => a.label.localeCompare(b.label));
+            const value = possibleConcepts.find(opt => opt.value === concept.parent.id)
+            return (
+              <DropdownInput
+                handleChange={this.changeLevel2}
+                isSearchable={true}
+                label="Level 2"
+                options={possibleConcepts}
+                value={value}
+              />
+            )
+          }}
+        </Query>
+      )
 
     }
   }
 
   renderRenameAndArchiveSection = () => {
     const { concept, } = this.state
-    return (<div className="rename-and-archive">
-      <span className="rename" onClick={this.activateConceptInput}>
-        <i className="fas fa-edit" />
-        <span>Rename</span>
-      </span>
-      <span className="archive" onClick={this.toggleVisiblity}>
-        <i className="fas fa-archive" />
-        <span>{ concept.visible ? 'Archive' : 'Unarchive' }</span>
-      </span>
-    </div>)
+    return (
+      <div className="rename-and-archive">
+        <span className="rename" onClick={this.activateConceptInput}>
+          <i className="fas fa-edit" />
+          <span>Rename</span>
+        </span>
+        <span className="archive" onClick={this.toggleVisiblity}>
+          <i className="fas fa-archive" />
+          <span>{ concept.visible ? 'Archive' : 'Unarchive' }</span>
+        </span>
+      </div>
+    )
   }
 
   renderLevels = () => {
     const { concept, } = this.state
     const { levelNumber, } = this.props
     if (levelNumber === 2) {
-      return (<div>
-        <div className="record-input-container">
+      return (
+        <div>
+          <div className="record-input-container">
+            <Input
+              handleCancel={this.cancelRename}
+              handleChange={this.renameConcept}
+              id='record-name'
+              label='Level 2'
+              type='text'
+              value={concept.name}
+            />
+            {this.renderRenameAndArchiveSection()}
+          </div>
+          <IndividualRecordChangeLogs changeLogs={concept.changeLogs} formatDateTime={formatDateTime} />
+        </div>
+      )
+    } else if (levelNumber === 1) {
+      return (
+        <div>
+          {this.renderDropdownInput()}
+          <div className="record-input-container">
+            <Input
+              handleCancel={this.cancelRename}
+              handleChange={this.renameConcept}
+              id='record-name'
+              label='Level 1'
+              type='text'
+              value={concept.name}
+            />
+            {this.renderRenameAndArchiveSection()}
+          </div>
+          <IndividualRecordChangeLogs changeLogs={concept.changeLogs} formatDateTime={formatDateTime} />
+        </div>
+      )
+    } else if (levelNumber === 0) {
+      return (
+        <div>
           <Input
-            handleCancel={this.cancelRename}
-            handleChange={this.renameConcept}
-            id='record-name'
+            disabled={true}
             label='Level 2'
             type='text'
-            value={concept.name}
+            value={concept.parent.parent.name}
           />
-          {this.renderRenameAndArchiveSection()}
+          {this.renderDropdownInput()}
+          <div className="record-input-container">
+            <Input
+              handleCancel={this.cancelRename}
+              handleChange={this.renameConcept}
+              id='record-name'
+              label='Level 0'
+              type='text'
+              value={concept.name}
+            />
+            {this.renderRenameAndArchiveSection()}
+          </div>
+          <RuleDescriptionField handleChange={this.changeDescription} ruleDescription={concept.description} />
+          <ExplanationField explanation={concept.explanation} handleChange={this.changeExplanation} />
+          <IndividualRecordChangeLogs changeLogs={concept.changeLogs} formatDateTime={formatDateTime} />
         </div>
-        <IndividualRecordChangeLogs changeLogs={concept.changeLogs} formatDateTime={formatDateTime} />
-      </div>)
-    } else if (levelNumber === 1) {
-      return (<div>
-        {this.renderDropdownInput()}
-        <div className="record-input-container">
-          <Input
-            handleCancel={this.cancelRename}
-            handleChange={this.renameConcept}
-            id='record-name'
-            label='Level 1'
-            type='text'
-            value={concept.name}
-          />
-          {this.renderRenameAndArchiveSection()}
-        </div>
-        <IndividualRecordChangeLogs changeLogs={concept.changeLogs} formatDateTime={formatDateTime} />
-      </div>)
-    } else if (levelNumber === 0) {
-      return (<div>
-        <Input
-          disabled={true}
-          label='Level 2'
-          type='text'
-          value={concept.parent.parent.name}
-        />
-        {this.renderDropdownInput()}
-        <div className="record-input-container">
-          <Input
-            handleCancel={this.cancelRename}
-            handleChange={this.renameConcept}
-            id='record-name'
-            label='Level 0'
-            type='text'
-            value={concept.name}
-          />
-          {this.renderRenameAndArchiveSection()}
-        </div>
-        <RuleDescriptionField handleChange={this.changeDescription} ruleDescription={concept.description} />
-        <ExplanationField explanation={concept.explanation} handleChange={this.changeExplanation} />
-        <IndividualRecordChangeLogs changeLogs={concept.changeLogs} formatDateTime={formatDateTime} />
-      </div>)
+      )
     }
   }
 
   renderSaveButton = () => {
     const { concept, originalConcept } = this.state
     if (!_.isEqual(concept, originalConcept)) {
-      return (<input
-        className="quill-button contained primary medium"
-        type="submit"
-        value="Save"
-      />)
+      return (
+        <input
+          className="quill-button contained primary medium"
+          type="submit"
+          value="Save"
+        />
+      )
     }
   }
 

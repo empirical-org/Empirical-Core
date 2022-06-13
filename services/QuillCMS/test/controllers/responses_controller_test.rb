@@ -31,7 +31,7 @@ class ResponsesControllerTest < ActionDispatch::IntegrationTest
   #   assert_response 201
   # end
 
-  
+
   # test "should update response" do
   #   patch response_url(@response), params: { response: {  } }, as: :json
   #   assert_response 200

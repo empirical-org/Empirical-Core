@@ -120,33 +120,35 @@ class StudentProfile extends React.Component {
 
     if (!selectedClassroomId) { return (<SelectAClassroom classrooms={classrooms} isBeingPreviewed={isBeingPreviewed} onClickCard={this.handleClassroomTabClick} />)}
 
-    return (<div className="student-profile-container">
-      <StudentProfileHeader
-        classroomName={student.classroom.name}
-        onClickAllClasses={this.handleClickAllClasses}
-        teacherName={student.classroom.teacher.name}
-      />
-      <div className="header-container">
-        <div className="container">
-          <h1>Classwork</h1>
-        </div>
-      </div>
-      <StudentProfileClassworkTabs
-        activeClassworkTab={activeClassworkTab}
-        onClickTab={this.handleClickClassworkTab}
-      />
-      <div id="student-profile">
-        <StudentProfileUnits
-          activeClassworkTab={activeClassworkTab}
-          data={scores}
-          isBeingPreviewed={isBeingPreviewed}
-          loading={loading}
-          nextActivitySession={nextActivitySession}
-          selectedUnitId={this.parsedQueryParams().unit_id}
+    return (
+      <div className="student-profile-container">
+        <StudentProfileHeader
+          classroomName={student.classroom.name}
+          onClickAllClasses={this.handleClickAllClasses}
           teacherName={student.classroom.teacher.name}
         />
+        <div className="header-container">
+          <div className="container">
+            <h1>Classwork</h1>
+          </div>
+        </div>
+        <StudentProfileClassworkTabs
+          activeClassworkTab={activeClassworkTab}
+          onClickTab={this.handleClickClassworkTab}
+        />
+        <div id="student-profile">
+          <StudentProfileUnits
+            activeClassworkTab={activeClassworkTab}
+            data={scores}
+            isBeingPreviewed={isBeingPreviewed}
+            loading={loading}
+            nextActivitySession={nextActivitySession}
+            selectedUnitId={this.parsedQueryParams().unit_id}
+            teacherName={student.classroom.teacher.name}
+          />
+        </div>
       </div>
-    </div>);
+    );
   }
 }
 

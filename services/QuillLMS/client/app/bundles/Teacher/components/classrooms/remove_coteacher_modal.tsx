@@ -66,12 +66,14 @@ export default class RemoveCoteacherModal extends React.Component<RemoveCoteache
   }
 
   renderCheckboxes() {
-    return (<div className="checkboxes">
-      <div className="checkbox-row">
-        {this.renderCheckbox('checkboxOne')}
-        <span>I understand that the co-teacher will no longer have access to the students’ work or data.</span>
+    return (
+      <div className="checkboxes">
+        <div className="checkbox-row">
+          {this.renderCheckbox('checkboxOne')}
+          <span>I understand that the co-teacher will no longer have access to the students’ work or data.</span>
+        </div>
       </div>
-    </div>)
+    )
   }
 
   render() {
@@ -80,19 +82,21 @@ export default class RemoveCoteacherModal extends React.Component<RemoveCoteache
     if (coteacher.invitation_id) {
       coteacherName = "This co-teacher's"
     }
-    return (<div className="modal-container remove-coteacher-modal-container">
-      <div className="modal-background" />
-      <div className="remove-coteacher-modal quill-modal modal-body">
-        <div>
-          <h3 className="title">Remove co-teacher from your class?</h3>
-        </div>
-        <p>{coteacherName} ({coteacher.email}) Quill account will remain active. You can re-invite the co-teacher later.</p>
-        {this.renderCheckboxes()}
-        <div className="form-buttons">
-          <button className="quill-button outlined secondary medium" onClick={close}>Cancel</button>
-          <button className={this.submitButtonClass()} onClick={this.removeCoteacher}>Remove from class</button>
+    return (
+      <div className="modal-container remove-coteacher-modal-container">
+        <div className="modal-background" />
+        <div className="remove-coteacher-modal quill-modal modal-body">
+          <div>
+            <h3 className="title">Remove co-teacher from your class?</h3>
+          </div>
+          <p>{coteacherName} ({coteacher.email}) Quill account will remain active. You can re-invite the co-teacher later.</p>
+          {this.renderCheckboxes()}
+          <div className="form-buttons">
+            <button className="quill-button outlined secondary medium" onClick={close}>Cancel</button>
+            <button className={this.submitButtonClass()} onClick={this.removeCoteacher}>Remove from class</button>
+          </div>
         </div>
       </div>
-    </div>)
+    )
   }
 }

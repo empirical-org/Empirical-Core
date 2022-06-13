@@ -3,14 +3,15 @@
 require 'rails_helper'
 
 describe Teachers::UnitTemplatesController, type: :controller do
+  before do
+    session[:user_id] = teacher.id
+  end
+
   it { should use_before_action :is_teacher? }
   it { should use_before_action :redirect_to_public_index_if_no_unit_template_found }
 
   include_context "Unit Assignments Variables"
 
-  before do
-    session[:user_id] = teacher.id
-  end
 
   let(:parsed_body) { JSON.parse(response.body) }
 

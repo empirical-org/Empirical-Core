@@ -4,13 +4,13 @@
  */
 (function ( $ ) { // This extends JQuery with the function loadingButton
   $.fn.loadingButton = function() {
-    var loadingSpinnerClass = 'loading-spinner',
-    container = this,
-    parent = {};
+    let loadingSpinnerClass = 'loading-spinner',
+      container = this,
+      parent = {};
 
     this.addClass('loading-btn');
     $('body').append('<span class="' + loadingSpinnerClass + '"></span>');
-    var buttonPosition = this.offset();
+    let buttonPosition = this.offset();
 
     // buttonPosition.left + 40 --->  Hackey centering but it works for now.
     $('.' + loadingSpinnerClass).css('left', buttonPosition.left + 40).css('top', buttonPosition.top);
@@ -20,9 +20,9 @@
 
 (function ( $ ) {
   $.fn.removeLoadingButton = function() {
-    var loadingSpinnerClass = 'loading-spinner',
-    container = this,
-    parent = {};
+    let loadingSpinnerClass = 'loading-spinner',
+      container = this,
+      parent = {};
 
     this.removeClass('loading-btn');
     $('.loading-spinner').remove();

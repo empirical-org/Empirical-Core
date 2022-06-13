@@ -4,7 +4,7 @@ namespace :responses do
     def roll_up_counts(response)
       question_uid = response.question_uid
       text = response.text
-      total_count = Response.where(question_uid: question_uid, text: text).sum(:count) 
+      total_count = Response.where(question_uid: question_uid, text: text).sum(:count)
       total_child_count = Response.where(question_uid: question_uid, text: text).sum(:child_count)
       total_first_attempt_count = Response.where(question_uid: question_uid, text: text).sum(:first_attempt_count)
       response.count = total_count

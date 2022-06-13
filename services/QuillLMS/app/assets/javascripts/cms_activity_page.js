@@ -3,10 +3,10 @@ $(function() {
     return;
   }
 
-  var $form = $('.activity-form form')
+  let $form = $('.activity-form form')
     , saved = false;
 
-  var iframeSrc = $('iframe').prop('src');
+  let iframeSrc = $('iframe').prop('src');
   window.quill = new Quill(iframeSrc, {
     afterIframeActivitySaved: function () {
       saved = true;

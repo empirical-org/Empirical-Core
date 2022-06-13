@@ -4,14 +4,14 @@ import { shallow } from 'enzyme';
 import ActivityDetails from '../activity_details';
 
 describe('ActivityDetails component', () => {
-  const baseData = { activity_classification_id: '4', caId: '12345', name: 'Sentence Structure Diagnostic', percentage: '1', updated: '2016-09-30 00:05:50.361093', userId: '666', scores: [{percentage: '1', completed_at: '2016-09-30 00:05:50.361093'}]};
+  const baseData = { activity_classification_id: '4', caId: '12345', name: 'Sentence Structure Diagnostic', percentage: '1', updated: '2016-10-17 00:05:50.361093', userId: '666', scores: [{percentage: '0.5', completed_at: '2016-09-30 00:05:50.361093'}, {percentage: '1', completed_at: '2016-10-17 00:05:50.361093'}]};
 
   it('should render div with appropriate class name depending on presence of concept results', () => {
     const wrapperNoConcepts = shallow(<ActivityDetails data={baseData} />);
     const wrapperWithConcepts = shallow(<ActivityDetails
       data={
-      Object.assign({}, baseData, { concept_results: ['not empty!'], })
-    }
+        Object.assign({}, baseData, { concept_results: ['not empty!'], })
+      }
     />);
     expect(wrapperNoConcepts.find('.activity-details.no-concept-results').exists()).toBe(true);
     expect(wrapperWithConcepts.find('.activity-details').exists()).toBe(true);
@@ -38,7 +38,7 @@ describe('ActivityDetails component', () => {
       />
     );
     expect(wrapperWithCompletedAt.text()).toMatch('Completed:');
-    expect(wrapperWithCompletedAt.text()).toMatch('September 30, 2016');
+    expect(wrapperWithCompletedAt.text()).toMatch('October 17, 2016');
   });
 
   it('should render due date text if due', () => {

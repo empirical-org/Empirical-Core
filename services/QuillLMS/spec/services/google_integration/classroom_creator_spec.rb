@@ -13,9 +13,7 @@ RSpec.describe GoogleIntegration::ClassroomCreator do
     }
   end
 
-  subject { described_class.new(data) }
-
-  let(:classroom) { subject.run }
+  subject { described_class.run(data) }
 
   let(:google_classroom_id) { 123456 }
 
@@ -24,10 +22,10 @@ RSpec.describe GoogleIntegration::ClassroomCreator do
 
     it 'creates a new classroom object with synced_name attr initially set to name' do
       expect(ClassroomsTeacher.count).to eq 0
-      expect(classroom.google_classroom_id).to eq google_classroom_id
-      expect(classroom.name).to eq name
-      expect(classroom.synced_name).to eq name
-      expect(classroom.classrooms_teachers.count).to eq 1
+      expect(subject.google_classroom_id).to eq google_classroom_id
+      expect(subject.name).to eq name
+      expect(subject.synced_name).to eq name
+      expect(subject.classrooms_teachers.count).to eq 1
     end
   end
 
@@ -35,33 +33,39 @@ RSpec.describe GoogleIntegration::ClassroomCreator do
     let(:name) { nil }
 
     it 'creates a new classroom object with synced_name attr initially set to name' do
-      expect(classroom.google_classroom_id).to eq google_classroom_id
-      expect(classroom.name).to eq "Classroom #{google_classroom_id}"
-      expect(classroom.synced_name).to eq nil
+      expect(subject.google_classroom_id).to eq google_classroom_id
+      expect(subject.name).to eq "Classroom #{google_classroom_id}"
+      expect(subject.synced_name).to eq nil
     end
   end
 
-  context "teacher owns another classroom with same name" do
+  context "teacher owns another classroom with name #{name}" do
     let(:name) { 'google classroom name' }
-    let(:synced_name) { name }
-    let(:name_1) { name }
-    let(:classroom_1) { create(:classroom, :from_google, :with_no_teacher, name: name_1) }
+    let(:classroom1) { create(:classroom, :from_google, :with_no_teacher, name: name) }
 
-    before { create(:classrooms_teacher, user_id: teacher_id, classroom: classroom_1) }
+    before { create(:classrooms_teacher, user_id: teacher_id, classroom: classroom1) }
 
-    it 'creates a new classroom object with new name to avoid a naming collision' do
-      expect(classroom.name).to eq "#{name}_1"
-    end
+    it { expect(subject.google_classroom_id).to eq google_classroom_id }
+    it { expect(subject.name).to eq "#{name}_1" }
+    it { expect(subject.synced_name).to eq name }
 
-    context 'and another classroom as same name as a renamed collision' do
-      let(:name_2) { "#{name}_1"}
-      let(:classroom_2) { create(:classroom, :from_google, :with_no_teacher, name: name_2) }
+    it { expect { subject }.to change(ClassroomsTeacher, :count).from(1).to(2) }
 
-      before { create(:classrooms_teacher, user_id: teacher_id, classroom: classroom_2) }
+    context "teacher owns other classrooms with names #{name}_1, ... #{name}_max" do
+      let(:max) { ::DuplicateNameResolver::MAX_BEFORE_RANDOMIZED }
 
-      it 'creates a new classroom object with new name to avoid two naming collisions' do
-        expect(classroom.name).to eq "#{name}_1_1"
+      before do
+        2.upto(max) do |n|
+          classroom = create(:classroom, :from_google, :with_no_teacher, name: "name_#{n}")
+          create(:classrooms_teacher, user_id: teacher_id, classroom: classroom)
+        end
       end
+
+      it "stops naming duplicates at max and then starts using random values" do
+        expect(subject.name).not_to eq "#{name}_11"
+      end
+
+      it { expect { subject }.to change(ClassroomsTeacher, :count).from(max).to(11) }
     end
   end
 end

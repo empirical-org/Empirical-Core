@@ -45,7 +45,6 @@ class Types::UserType < Types::BaseObject
     else
       []
     end
-
   end
 
   def completed_diagnostic
@@ -54,19 +53,19 @@ class Types::UserType < Types::BaseObject
 
   private def get_recommended_units(concept_result_scores)
     units = []
-    recommendations = Recommendation.where(activity_id: 413, category: 0).map do |activity_pack_recommendation|
-      activity_pack_recommendation.criteria.each do |req|
-        if req.no_incorrect && concept_result_scores[req[:concept_id]]["total"] > concept_result_scores[req[:concept_id]]["correct"]
-          units.pusharr(activity_pack_recommendation[:unit_template_id])
-          break
-        end
-        if concept_result_scores[req[:concept_id]]["correct"] < req[:count]
-          units.push(activity_pack_recommendation[:unit_template_id])
-          break
-        end
+    activity_pack_recommendation = Recommendation.find_by(activity_id: 413, category: 0)
+
+    activity_pack_recommendation.criteria.each do |req|
+      if req.no_incorrect && concept_result_scores[req[:concept_id]]["total"] > concept_result_scores[req[:concept_id]]["correct"]
+        units.pusharr(activity_pack_recommendation[:unit_template_id])
+        break
       end
-      return units
+      if concept_result_scores[req[:concept_id]]["correct"] < req[:count]
+        units.push(activity_pack_recommendation[:unit_template_id])
+        break
+      end
     end
+
     units
   end
 

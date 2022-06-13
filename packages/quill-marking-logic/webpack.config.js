@@ -1,28 +1,28 @@
-var path = require('path'),
-webpack = require('webpack');
+let path = require('path'),
+  webpack = require('webpack');
 
 module.exports = {
-entry: './example/main.ts',
-target: 'node',
-output: {
+  entry: './example/main.ts',
+  target: 'node',
+  output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
     filename: 'index.js'
-},
-module: {
+  },
+  module: {
     rules: [
-        { test: /\.ts$/, exclude: [/node_modules/], use: ['ts-loader'] }
+      { test: /\.ts$/, exclude: [/node_modules/], use: ['ts-loader'] }
     ]
-},
-resolve: {
+  },
+  resolve: {
     extensions: [".tsx", ".ts", ".js"]
-},
-devServer: {
+  },
+  devServer: {
     contentBase: path.resolve(__dirname, './example'),
     historyApiFallback: true,
     noInfo: true
-},
-node: {
+  },
+  node: {
     console: true,
     fs: 'empty',
     net: 'empty',
@@ -33,16 +33,16 @@ node: {
 
 if (process.env.NODE_ENV === 'production') {
 // module.exports.devtool = '#source-map'
-module.exports.plugins = (module.exports.plugins || []).concat([
+  module.exports.plugins = (module.exports.plugins || []).concat([
     new webpack.DefinePlugin({
-        'process.env': {
-            NODE_ENV: '"production"'
-        }
+      'process.env': {
+        NODE_ENV: '"production"'
+      }
     }),
     // new webpack.optimize.UglifyJsPlugin({
     //     compress: {
     //         warnings: false
     //     }
     // })
-])
+  ])
 }

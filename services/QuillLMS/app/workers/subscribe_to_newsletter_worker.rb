@@ -8,9 +8,9 @@ class SubscribeToNewsletterWorker
   def perform(recipient_id)
     @recipient = User.find recipient_id
     add_recipient_to_contacts
-    if @recipient.send_newsletter
-      add_recipient_to_list
-    end
+    return unless @recipient.send_newsletter
+
+    add_recipient_to_list
   end
 
   def add_recipient_to_contacts
@@ -41,5 +41,4 @@ class SubscribeToNewsletterWorker
 
     response = http.request(request)
   end
-
 end

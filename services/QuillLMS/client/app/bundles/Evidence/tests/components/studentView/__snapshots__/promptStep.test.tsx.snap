@@ -20,7 +20,6 @@ exports[`PromptStep component active state before any responses have been submit
       "text": "Governments should make voting compulsory because",
     }
   }
-  stepNumberComponent={<span />}
   submitResponse={[Function]}
   submittedResponses={Array []}
 >
@@ -30,24 +29,15 @@ exports[`PromptStep component active state before any responses have been submit
     <div
       className="step-content"
     >
-      <div>
-        <div
-          className="step-header"
-        >
-          <span />
-          <p
-            className="directions"
-          >
-            Use information from the text to finish the sentence:
-          </p>
-        </div>
-        <div
-          className="active-content-container"
-        >
+      <div
+        className="active-content-container"
+      >
+        <div>
           <EditorContainer
             className="editor"
             disabled={false}
             handleFocus={[Function]}
+            handleKeyDown={[Function]}
             handleTextChange={[Function]}
             html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
             innerRef={[Function]}
@@ -67,6 +57,7 @@ exports[`PromptStep component active state before any responses have been submit
                 innerRef={[Function]}
                 onChange={[Function]}
                 onFocus={[Function]}
+                onKeyDown={[Function]}
                 spellCheck={true}
               >
                 <div
@@ -88,28 +79,48 @@ exports[`PromptStep component active state before any responses have been submit
                   spellCheck={true}
                 />
               </ContentEditable>
-              <button
-                className="disabled clear-button"
-                type="button"
-              >
-                <img
-                  alt="circle with an x in it"
-                  className="clear"
-                  src="undefined/images/icons/clear-disabled.svg"
-                />
-                Clear response
-              </button>
             </div>
           </EditorContainer>
-          <button
-            className="quill-button focus-on-light disabled"
-            onClick={[Function]}
-            type="button"
+          <div
+            className="character-counter-container"
           >
-            <span>
-              Get feedback
-            </span>
-          </button>
+            <p>
+              Your response is too long for our feedback bot to understand
+            </p>
+            <p>
+              undefined/200
+            </p>
+          </div>
+        </div>
+        <div
+          className="attempts-and-button-container"
+        >
+          <div
+            className="attempts-container"
+          >
+            <p
+              className="number-of-attempts"
+            >
+              0
+            </p>
+            <p>
+              of 5 attempts
+            </p>
+          </div>
+          <div
+            className="feedback-details-section"
+          >
+            <span />
+            <button
+              className="quill-button focus-on-light disabled"
+              onClick={[Function]}
+              type="button"
+            >
+              <span>
+                Get feedback
+              </span>
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -137,7 +148,6 @@ exports[`PromptStep component active state when a suboptimal response has been s
       "text": "Governments should make voting compulsory because",
     }
   }
-  stepNumberComponent={<span />}
   submitResponse={[Function]}
   submittedResponses={
     Array [
@@ -146,7 +156,6 @@ exports[`PromptStep component active state when a suboptimal response has been s
         "feedback": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
         "feedback_type": "semantic",
         "optimal": false,
-        "response_id": 1,
       },
     ]
   }
@@ -157,24 +166,15 @@ exports[`PromptStep component active state when a suboptimal response has been s
     <div
       className="step-content"
     >
-      <div>
-        <div
-          className="step-header"
-        >
-          <span />
-          <p
-            className="directions"
-          >
-            Use information from the text to finish the sentence:
-          </p>
-        </div>
-        <div
-          className="active-content-container"
-        >
+      <div
+        className="active-content-container"
+      >
+        <div>
           <EditorContainer
             className="editor suboptimal"
             disabled={false}
             handleFocus={[Function]}
+            handleKeyDown={[Function]}
             handleTextChange={[Function]}
             html="<p>Governments should make voting compulsory <u>because</u>&nbsp;Governments should make voting compulsory, so that more voices are heard in elections.</p>"
             innerRef={[Function]}
@@ -194,6 +194,7 @@ exports[`PromptStep component active state when a suboptimal response has been s
                 innerRef={[Function]}
                 onChange={[Function]}
                 onFocus={[Function]}
+                onKeyDown={[Function]}
                 spellCheck={true}
               >
                 <div
@@ -215,138 +216,157 @@ exports[`PromptStep component active state when a suboptimal response has been s
                   spellCheck={true}
                 />
               </ContentEditable>
-              <button
-                className="clear-button"
-                onClick={[Function]}
-                type="button"
-              >
-                <img
-                  alt="circle with an x in it"
-                  className="clear"
-                  src="undefined/images/icons/clear-enabled.svg"
-                />
-                Clear response
-              </button>
             </div>
           </EditorContainer>
-          <button
-            className="quill-button focus-on-light disabled"
-            onClick={[Function]}
-            type="button"
+          <div
+            className="character-counter-container"
           >
-            <span>
-              Get new feedback
-            </span>
-          </button>
-          <Feedback
-            customFeedback={null}
-            customFeedbackKey={null}
-            lastSubmittedResponse={
+            <p>
+              Your response is too long for our feedback bot to understand
+            </p>
+            <p>
+              undefined/200
+            </p>
+          </div>
+        </div>
+        <div
+          className="attempts-and-button-container"
+        >
+          <div
+            className="attempts-container"
+          >
+            <p
+              className="number-of-attempts"
+            >
+              1
+            </p>
+            <p>
+              of 5 attempts
+            </p>
+          </div>
+          <div
+            className="feedback-details-section"
+          >
+            <span />
+            <button
+              className="quill-button focus-on-light disabled"
+              onClick={[Function]}
+              type="button"
+            >
+              <span>
+                Get feedback
+              </span>
+            </button>
+          </div>
+        </div>
+        <Feedback
+          customFeedback={null}
+          customFeedbackKey={null}
+          lastSubmittedResponse={
+            Object {
+              "entry": "Governments should make voting compulsory, so that more voices are heard in elections.",
+              "feedback": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
+              "feedback_type": "semantic",
+              "optimal": false,
+            }
+          }
+          prompt={
+            Object {
+              "conjunction": "because",
+              "max_attempts": 5,
+              "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+
+ Governments should make voting compulsory because otherwise not everyone will vote.",
+              "prompt_id": 1,
+              "text": "Governments should make voting compulsory because",
+            }
+          }
+          submittedResponses={
+            Array [
               Object {
                 "entry": "Governments should make voting compulsory, so that more voices are heard in elections.",
                 "feedback": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
                 "feedback_type": "semantic",
                 "optimal": false,
-                "response_id": 1,
-              }
-            }
-            prompt={
-              Object {
-                "conjunction": "because",
-                "max_attempts": 5,
-                "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
-
- Governments should make voting compulsory because otherwise not everyone will vote.",
-                "prompt_id": 1,
-                "text": "Governments should make voting compulsory because",
-              }
-            }
-            submittedResponses={
-              Array [
-                Object {
-                  "entry": "Governments should make voting compulsory, so that more voices are heard in elections.",
-                  "feedback": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
-                  "feedback_type": "semantic",
-                  "optimal": false,
-                  "response_id": 1,
-                },
-              ]
-            }
+              },
+            ]
+          }
+        >
+          <div
+            aria-live="polite"
+            className="feedback-section "
+            role="status"
           >
-            <div
-              className="feedback-section "
+            <ReactCSSTransitionReplace
+              changeWidth={false}
+              childComponent="span"
+              component="div"
+              notifyLeaving={false}
+              overflowHidden={true}
+              transitionAppear={false}
+              transitionEnter={true}
+              transitionEnterTimeout={1000}
+              transitionLeave={true}
+              transitionLeaveTimeout={400}
+              transitionName="fade"
             >
-              <p
-                className="feedback-section-header"
+              <div
+                style={Object {}}
               >
-                Feedback
-                <span>
-                  1
-                   of 
-                  5
-                   attempts
-                </span>
-              </p>
-              <ReactCSSTransitionReplace
-                changeWidth={false}
-                childComponent="span"
-                component="div"
-                notifyLeaving={false}
-                overflowHidden={true}
-                transitionAppear={false}
-                transitionEnter={true}
-                transitionEnterTimeout={1000}
-                transitionLeave={true}
-                transitionLeaveTimeout={400}
-                transitionName="fade"
-              >
-                <div
-                  style={Object {}}
+                <span
+                  key="1"
+                  style={null}
                 >
-                  <span
-                    key="1"
-                    style={null}
+                  <CSSTransitionGroupChild
+                    appear={false}
+                    enter={true}
+                    enterTimeout={1000}
+                    leave={true}
+                    leaveTimeout={400}
+                    name="fade"
                   >
-                    <CSSTransitionGroupChild
-                      appear={false}
-                      enter={true}
-                      enterTimeout={1000}
-                      leave={true}
-                      leaveTimeout={400}
-                      name="fade"
+                    <div
+                      className="feedback"
+                      key="1"
                     >
                       <div
-                        className="feedback"
-                        key="1"
+                        className="label-section"
                       >
                         <img
-                          alt="Arrows pointing in opposite directions, making a loop"
+                          alt="Revise icon"
                           src="undefined/images/icons/loop.svg"
                         />
-                        <p
-                          className="feedback-text"
-                          dangerouslySetInnerHTML={
-                            Object {
-                              "__html": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
-                            }
-                          }
-                          role="status"
-                        />
+                        <p>
+                          Feedback
+                        </p>
                       </div>
-                      <button
-                        className="report-a-problem-button"
-                        onClick={[Function]}
-                        type="button"
+                      <p
+                        className="feedback-text"
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
+                          }
+                        }
+                      />
+                      <div
+                        className="report-a-problem-button-container"
                       >
-                        Report a problem
-                      </button>
-                    </CSSTransitionGroupChild>
-                  </span>
-                </div>
-              </ReactCSSTransitionReplace>
-            </div>
-          </Feedback>
-        </div>
+                        <button
+                          className="report-a-problem-button interactive-wrapper"
+                          onClick={[Function]}
+                          type="button"
+                        >
+                          Report a problem
+                        </button>
+                      </div>
+                    </div>
+                    <span />
+                  </CSSTransitionGroupChild>
+                </span>
+              </div>
+            </ReactCSSTransitionReplace>
+          </div>
+        </Feedback>
       </div>
     </div>
   </div>
@@ -373,7 +393,6 @@ exports[`PromptStep component active state when an optimal response has been sub
       "text": "Governments should make voting compulsory because",
     }
   }
-  stepNumberComponent={<span />}
   submitResponse={[Function]}
   submittedResponses={
     Array [
@@ -382,7 +401,6 @@ exports[`PromptStep component active state when an optimal response has been sub
         "feedback": "That's a really strong sentence! You used evidence from the text to identify why governments should make voting compulsory.",
         "feedback_type": "semantic",
         "optimal": true,
-        "response_id": 2,
       },
     ]
   }
@@ -393,24 +411,15 @@ exports[`PromptStep component active state when an optimal response has been sub
     <div
       className="step-content"
     >
-      <div>
-        <div
-          className="step-header"
-        >
-          <span />
-          <p
-            className="directions"
-          >
-            Use information from the text to finish the sentence:
-          </p>
-        </div>
-        <div
-          className="active-content-container"
-        >
+      <div
+        className="active-content-container"
+      >
+        <div>
           <EditorContainer
             className="editor optimal disabled"
             disabled={true}
             handleFocus={[Function]}
+            handleKeyDown={[Function]}
             handleTextChange={[Function]}
             html="<p>Governments should make voting compulsory <u>because</u>&nbsp;Governments should make voting compulsory, so that the elected government represents the majority of the population.</p>"
             innerRef={[Function]}
@@ -430,6 +439,7 @@ exports[`PromptStep component active state when an optimal response has been sub
                 innerRef={[Function]}
                 onChange={[Function]}
                 onFocus={[Function]}
+                onKeyDown={[Function]}
                 spellCheck={true}
               >
                 <div
@@ -453,124 +463,155 @@ exports[`PromptStep component active state when an optimal response has been sub
               </ContentEditable>
             </div>
           </EditorContainer>
-          <button
-            className="quill-button focus-on-light"
-            onClick={[Function]}
-            type="button"
+          <div
+            className="character-counter-container"
           >
-            <span>
-              Start next sentence
-            </span>
-          </button>
-          <Feedback
-            customFeedback={null}
-            customFeedbackKey={null}
-            lastSubmittedResponse={
+            <p>
+              Your response is too long for our feedback bot to understand
+            </p>
+            <p>
+              undefined/200
+            </p>
+          </div>
+        </div>
+        <div
+          className="attempts-and-button-container"
+        >
+          <div
+            className="attempts-container"
+          >
+            <p
+              className="number-of-attempts"
+            >
+              1
+            </p>
+            <p>
+              of 5 attempts
+            </p>
+          </div>
+          <div
+            className="feedback-details-section"
+          >
+            <span />
+            <button
+              className="quill-button focus-on-light"
+              onClick={[Function]}
+              type="button"
+            >
+              <span>
+                Next
+              </span>
+            </button>
+          </div>
+        </div>
+        <Feedback
+          customFeedback={null}
+          customFeedbackKey={null}
+          lastSubmittedResponse={
+            Object {
+              "entry": "Governments should make voting compulsory, so that the elected government represents the majority of the population.",
+              "feedback": "That's a really strong sentence! You used evidence from the text to identify why governments should make voting compulsory.",
+              "feedback_type": "semantic",
+              "optimal": true,
+            }
+          }
+          prompt={
+            Object {
+              "conjunction": "because",
+              "max_attempts": 5,
+              "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+
+ Governments should make voting compulsory because otherwise not everyone will vote.",
+              "prompt_id": 1,
+              "text": "Governments should make voting compulsory because",
+            }
+          }
+          submittedResponses={
+            Array [
               Object {
                 "entry": "Governments should make voting compulsory, so that the elected government represents the majority of the population.",
                 "feedback": "That's a really strong sentence! You used evidence from the text to identify why governments should make voting compulsory.",
                 "feedback_type": "semantic",
                 "optimal": true,
-                "response_id": 2,
-              }
-            }
-            prompt={
-              Object {
-                "conjunction": "because",
-                "max_attempts": 5,
-                "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
-
- Governments should make voting compulsory because otherwise not everyone will vote.",
-                "prompt_id": 1,
-                "text": "Governments should make voting compulsory because",
-              }
-            }
-            submittedResponses={
-              Array [
-                Object {
-                  "entry": "Governments should make voting compulsory, so that the elected government represents the majority of the population.",
-                  "feedback": "That's a really strong sentence! You used evidence from the text to identify why governments should make voting compulsory.",
-                  "feedback_type": "semantic",
-                  "optimal": true,
-                  "response_id": 2,
-                },
-              ]
-            }
+              },
+            ]
+          }
+        >
+          <div
+            aria-live="polite"
+            className="feedback-section "
+            role="status"
           >
-            <div
-              className="feedback-section "
+            <ReactCSSTransitionReplace
+              changeWidth={false}
+              childComponent="span"
+              component="div"
+              notifyLeaving={false}
+              overflowHidden={true}
+              transitionAppear={false}
+              transitionEnter={true}
+              transitionEnterTimeout={1000}
+              transitionLeave={true}
+              transitionLeaveTimeout={400}
+              transitionName="fade"
             >
-              <p
-                className="feedback-section-header"
+              <div
+                style={Object {}}
               >
-                Feedback
-                <span>
-                  1
-                   of 
-                  5
-                   attempts
-                </span>
-              </p>
-              <ReactCSSTransitionReplace
-                changeWidth={false}
-                childComponent="span"
-                component="div"
-                notifyLeaving={false}
-                overflowHidden={true}
-                transitionAppear={false}
-                transitionEnter={true}
-                transitionEnterTimeout={1000}
-                transitionLeave={true}
-                transitionLeaveTimeout={400}
-                transitionName="fade"
-              >
-                <div
-                  style={Object {}}
+                <span
+                  key="1"
+                  style={null}
                 >
-                  <span
-                    key="1"
-                    style={null}
+                  <CSSTransitionGroupChild
+                    appear={false}
+                    enter={true}
+                    enterTimeout={1000}
+                    leave={true}
+                    leaveTimeout={400}
+                    name="fade"
                   >
-                    <CSSTransitionGroupChild
-                      appear={false}
-                      enter={true}
-                      enterTimeout={1000}
-                      leave={true}
-                      leaveTimeout={400}
-                      name="fade"
+                    <div
+                      className="feedback optimal"
+                      key="1"
                     >
                       <div
-                        className="feedback optimal"
-                        key="1"
+                        className="label-section"
                       >
                         <img
-                          alt="Small green circle with a check in it"
+                          alt="Check icon"
                           src="undefined/images/icons/check-circle-small.svg"
                         />
-                        <p
-                          className="feedback-text"
-                          dangerouslySetInnerHTML={
-                            Object {
-                              "__html": "That's a really strong sentence! You used evidence from the text to identify why governments should make voting compulsory.",
-                            }
-                          }
-                          role="status"
-                        />
+                        <p>
+                          Feedback
+                        </p>
                       </div>
-                      <button
-                        className="report-a-problem-button"
-                        onClick={[Function]}
-                        type="button"
+                      <p
+                        className="feedback-text"
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "That's a really strong sentence! You used evidence from the text to identify why governments should make voting compulsory.",
+                          }
+                        }
+                      />
+                      <div
+                        className="report-a-problem-button-container"
                       >
-                        Report a problem
-                      </button>
-                    </CSSTransitionGroupChild>
-                  </span>
-                </div>
-              </ReactCSSTransitionReplace>
-            </div>
-          </Feedback>
-        </div>
+                        <button
+                          className="report-a-problem-button interactive-wrapper"
+                          onClick={[Function]}
+                          type="button"
+                        >
+                          Report a problem
+                        </button>
+                      </div>
+                    </div>
+                    <span />
+                  </CSSTransitionGroupChild>
+                </span>
+              </div>
+            </ReactCSSTransitionReplace>
+          </div>
+        </Feedback>
       </div>
     </div>
   </div>
@@ -597,7 +638,6 @@ exports[`PromptStep component active state when the max attempts have been reach
       "text": "Governments should make voting compulsory because",
     }
   }
-  stepNumberComponent={<span />}
   submitResponse={[Function]}
   submittedResponses={
     Array [
@@ -606,35 +646,30 @@ exports[`PromptStep component active state when the max attempts have been reach
         "feedback": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
         "feedback_type": "semantic",
         "optimal": false,
-        "response_id": 1,
       },
       Object {
         "entry": "Governments should make voting compulsory, so that more voices are heard in elections.",
         "feedback": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
         "feedback_type": "semantic",
         "optimal": false,
-        "response_id": 1,
       },
       Object {
         "entry": "Governments should make voting compulsory, so that more voices are heard in elections.",
         "feedback": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
         "feedback_type": "semantic",
         "optimal": false,
-        "response_id": 1,
       },
       Object {
         "entry": "Governments should make voting compulsory, so that more voices are heard in elections.",
         "feedback": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
         "feedback_type": "semantic",
         "optimal": false,
-        "response_id": 1,
       },
       Object {
         "entry": "Governments should make voting compulsory, so that more voices are heard in elections.",
         "feedback": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
         "feedback_type": "semantic",
         "optimal": false,
-        "response_id": 1,
       },
     ]
   }
@@ -645,24 +680,15 @@ exports[`PromptStep component active state when the max attempts have been reach
     <div
       className="step-content"
     >
-      <div>
-        <div
-          className="step-header"
-        >
-          <span />
-          <p
-            className="directions"
-          >
-            Use information from the text to finish the sentence:
-          </p>
-        </div>
-        <div
-          className="active-content-container"
-        >
+      <div
+        className="active-content-container"
+      >
+        <div>
           <EditorContainer
             className="editor suboptimal disabled"
             disabled={true}
             handleFocus={[Function]}
+            handleKeyDown={[Function]}
             handleTextChange={[Function]}
             html="<p>Governments should make voting compulsory <u>because</u>&nbsp;Governments should make voting compulsory, so that more voices are heard in elections.</p>"
             innerRef={[Function]}
@@ -682,6 +708,7 @@ exports[`PromptStep component active state when the max attempts have been reach
                 innerRef={[Function]}
                 onChange={[Function]}
                 onFocus={[Function]}
+                onKeyDown={[Function]}
                 spellCheck={true}
               >
                 <div
@@ -705,154 +732,203 @@ exports[`PromptStep component active state when the max attempts have been reach
               </ContentEditable>
             </div>
           </EditorContainer>
-          <button
-            className="quill-button focus-on-light"
-            onClick={[Function]}
-            type="button"
+          <div
+            className="character-counter-container"
           >
-            <span>
-              Start next sentence
-            </span>
-          </button>
-          <Feedback
-            customFeedback={null}
-            customFeedbackKey={null}
-            lastSubmittedResponse={
+            <p>
+              Your response is too long for our feedback bot to understand
+            </p>
+            <p>
+              undefined/200
+            </p>
+          </div>
+        </div>
+        <div
+          className="attempts-and-button-container"
+        >
+          <div
+            className="attempts-container"
+          >
+            <p
+              className="number-of-attempts"
+            >
+              5
+            </p>
+            <p>
+              of 5 attempts
+            </p>
+          </div>
+          <div
+            className="feedback-details-section"
+          >
+            <span />
+            <button
+              className="quill-button focus-on-light"
+              onClick={[Function]}
+              type="button"
+            >
+              <span>
+                Next
+              </span>
+            </button>
+          </div>
+        </div>
+        <Feedback
+          customFeedback={null}
+          customFeedbackKey={null}
+          lastSubmittedResponse={
+            Object {
+              "entry": "Governments should make voting compulsory, so that more voices are heard in elections.",
+              "feedback": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
+              "feedback_type": "semantic",
+              "optimal": false,
+            }
+          }
+          prompt={
+            Object {
+              "conjunction": "because",
+              "max_attempts": 5,
+              "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+
+ Governments should make voting compulsory because otherwise not everyone will vote.",
+              "prompt_id": 1,
+              "text": "Governments should make voting compulsory because",
+            }
+          }
+          submittedResponses={
+            Array [
               Object {
                 "entry": "Governments should make voting compulsory, so that more voices are heard in elections.",
                 "feedback": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
                 "feedback_type": "semantic",
                 "optimal": false,
-                "response_id": 1,
-              }
-            }
-            prompt={
+              },
               Object {
-                "conjunction": "because",
-                "max_attempts": 5,
-                "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
-
- Governments should make voting compulsory because otherwise not everyone will vote.",
-                "prompt_id": 1,
-                "text": "Governments should make voting compulsory because",
-              }
-            }
-            submittedResponses={
-              Array [
-                Object {
-                  "entry": "Governments should make voting compulsory, so that more voices are heard in elections.",
-                  "feedback": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
-                  "feedback_type": "semantic",
-                  "optimal": false,
-                  "response_id": 1,
-                },
-                Object {
-                  "entry": "Governments should make voting compulsory, so that more voices are heard in elections.",
-                  "feedback": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
-                  "feedback_type": "semantic",
-                  "optimal": false,
-                  "response_id": 1,
-                },
-                Object {
-                  "entry": "Governments should make voting compulsory, so that more voices are heard in elections.",
-                  "feedback": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
-                  "feedback_type": "semantic",
-                  "optimal": false,
-                  "response_id": 1,
-                },
-                Object {
-                  "entry": "Governments should make voting compulsory, so that more voices are heard in elections.",
-                  "feedback": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
-                  "feedback_type": "semantic",
-                  "optimal": false,
-                  "response_id": 1,
-                },
-                Object {
-                  "entry": "Governments should make voting compulsory, so that more voices are heard in elections.",
-                  "feedback": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
-                  "feedback_type": "semantic",
-                  "optimal": false,
-                  "response_id": 1,
-                },
-              ]
-            }
+                "entry": "Governments should make voting compulsory, so that more voices are heard in elections.",
+                "feedback": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
+                "feedback_type": "semantic",
+                "optimal": false,
+              },
+              Object {
+                "entry": "Governments should make voting compulsory, so that more voices are heard in elections.",
+                "feedback": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
+                "feedback_type": "semantic",
+                "optimal": false,
+              },
+              Object {
+                "entry": "Governments should make voting compulsory, so that more voices are heard in elections.",
+                "feedback": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
+                "feedback_type": "semantic",
+                "optimal": false,
+              },
+              Object {
+                "entry": "Governments should make voting compulsory, so that more voices are heard in elections.",
+                "feedback": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
+                "feedback_type": "semantic",
+                "optimal": false,
+              },
+            ]
+          }
+        >
+          <div
+            aria-live="polite"
+            className="feedback-section "
+            role="status"
           >
-            <div
-              className="feedback-section "
+            <ReactCSSTransitionReplace
+              changeWidth={false}
+              childComponent="span"
+              component="div"
+              notifyLeaving={false}
+              overflowHidden={true}
+              transitionAppear={false}
+              transitionEnter={true}
+              transitionEnterTimeout={1000}
+              transitionLeave={true}
+              transitionLeaveTimeout={400}
+              transitionName="fade"
             >
-              <p
-                className="feedback-section-header"
+              <div
+                style={Object {}}
               >
-                Feedback
-                <span>
-                  5
-                   of 
-                  5
-                   attempts
-                </span>
-              </p>
-              <ReactCSSTransitionReplace
-                changeWidth={false}
-                childComponent="span"
-                component="div"
-                notifyLeaving={false}
-                overflowHidden={true}
-                transitionAppear={false}
-                transitionEnter={true}
-                transitionEnterTimeout={1000}
-                transitionLeave={true}
-                transitionLeaveTimeout={400}
-                transitionName="fade"
-              >
-                <div
-                  style={Object {}}
+                <span
+                  key="1"
+                  style={null}
                 >
-                  <span
-                    key="1"
-                    style={null}
+                  <CSSTransitionGroupChild
+                    appear={false}
+                    enter={true}
+                    enterTimeout={1000}
+                    leave={true}
+                    leaveTimeout={400}
+                    name="fade"
                   >
-                    <CSSTransitionGroupChild
-                      appear={false}
-                      enter={true}
-                      enterTimeout={1000}
-                      leave={true}
-                      leaveTimeout={400}
-                      name="fade"
+                    <div
+                      className="feedback"
+                      key="5"
                     >
                       <div
-                        className="feedback"
-                        key="5"
+                        className="label-section"
                       >
                         <img
-                          alt="Arrows pointing in opposite directions, making a loop"
+                          alt="Revise icon"
                           src="undefined/images/icons/loop.svg"
                         />
-                        <p
-                          className="feedback-text"
-                          dangerouslySetInnerHTML={
-                            Object {
-                              "__html": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+                        <p>
+                          Feedback
+                        </p>
+                      </div>
+                      <p
+                        className="feedback-text"
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
-                            }
                           }
-                          role="status"
-                        />
-                      </div>
-                      <button
-                        className="report-a-problem-button"
-                        onClick={[Function]}
-                        type="button"
+                        }
+                      />
+                      <div
+                        className="report-a-problem-button-container"
                       >
-                        Report a problem
-                      </button>
-                    </CSSTransitionGroupChild>
-                  </span>
-                </div>
-              </ReactCSSTransitionReplace>
+                        <button
+                          className="report-a-problem-button interactive-wrapper"
+                          onClick={[Function]}
+                          type="button"
+                        >
+                          Report a problem
+                        </button>
+                      </div>
+                    </div>
+                    <span />
+                  </CSSTransitionGroupChild>
+                </span>
+              </div>
+            </ReactCSSTransitionReplace>
+            <div
+              className="heads-up"
+            >
+              <div
+                className="label-section"
+              >
+                <img
+                  alt="Information icon"
+                  src="undefined/images/pages/evidence/icons-information-small.svg"
+                />
+                <p>
+                  Heads up
+                </p>
+              </div>
+              <p>
+                Our feedback bot is not perfect, and it sometimes might be wrong. If you think the feedback is inaccurate, please click on the “Report a problem” button above.
+              </p>
+              <br />
+              <p>
+                This activity is just for practice, and it is not graded. By practicing and revising on Quill, you are strengthening your writing skills.
+              </p>
             </div>
-          </Feedback>
-        </div>
+          </div>
+        </Feedback>
       </div>
     </div>
   </div>
@@ -879,7 +955,6 @@ exports[`PromptStep component active state when the max attempts have been reach
       "text": "Governments should make voting compulsory because",
     }
   }
-  stepNumberComponent={<span />}
   submitResponse={[Function]}
   submittedResponses={
     Array [
@@ -888,7 +963,6 @@ exports[`PromptStep component active state when the max attempts have been reach
         "feedback": "That's a really strong sentence! You used evidence from the text to identify why governments should make voting compulsory.",
         "feedback_type": "semantic",
         "optimal": true,
-        "response_id": 2,
       },
     ]
   }
@@ -899,24 +973,15 @@ exports[`PromptStep component active state when the max attempts have been reach
     <div
       className="step-content"
     >
-      <div>
-        <div
-          className="step-header"
-        >
-          <span />
-          <p
-            className="directions"
-          >
-            Use information from the text to finish the sentence:
-          </p>
-        </div>
-        <div
-          className="active-content-container"
-        >
+      <div
+        className="active-content-container"
+      >
+        <div>
           <EditorContainer
             className="editor optimal disabled"
             disabled={true}
             handleFocus={[Function]}
+            handleKeyDown={[Function]}
             handleTextChange={[Function]}
             html="<p>Governments should make voting compulsory <u>because</u>&nbsp;Governments should make voting compulsory, so that the elected government represents the majority of the population.</p>"
             innerRef={[Function]}
@@ -936,6 +1001,7 @@ exports[`PromptStep component active state when the max attempts have been reach
                 innerRef={[Function]}
                 onChange={[Function]}
                 onFocus={[Function]}
+                onKeyDown={[Function]}
                 spellCheck={true}
               >
                 <div
@@ -959,123 +1025,154 @@ exports[`PromptStep component active state when the max attempts have been reach
               </ContentEditable>
             </div>
           </EditorContainer>
-          <button
-            className="quill-button focus-on-light"
-            type="button"
+          <div
+            className="character-counter-container"
           >
-            <span>
-              Done
-            </span>
-          </button>
-          <Feedback
-            customFeedback={null}
-            customFeedbackKey={null}
-            lastSubmittedResponse={
+            <p>
+              Your response is too long for our feedback bot to understand
+            </p>
+            <p>
+              undefined/200
+            </p>
+          </div>
+        </div>
+        <div
+          className="attempts-and-button-container"
+        >
+          <div
+            className="attempts-container"
+          >
+            <p
+              className="number-of-attempts"
+            >
+              1
+            </p>
+            <p>
+              of 5 attempts
+            </p>
+          </div>
+          <div
+            className="feedback-details-section"
+          >
+            <span />
+            <button
+              className="quill-button focus-on-light"
+              type="button"
+            >
+              <span>
+                Done
+              </span>
+            </button>
+          </div>
+        </div>
+        <Feedback
+          customFeedback={null}
+          customFeedbackKey={null}
+          lastSubmittedResponse={
+            Object {
+              "entry": "Governments should make voting compulsory, so that the elected government represents the majority of the population.",
+              "feedback": "That's a really strong sentence! You used evidence from the text to identify why governments should make voting compulsory.",
+              "feedback_type": "semantic",
+              "optimal": true,
+            }
+          }
+          prompt={
+            Object {
+              "conjunction": "because",
+              "max_attempts": 5,
+              "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+
+ Governments should make voting compulsory because otherwise not everyone will vote.",
+              "prompt_id": 1,
+              "text": "Governments should make voting compulsory because",
+            }
+          }
+          submittedResponses={
+            Array [
               Object {
                 "entry": "Governments should make voting compulsory, so that the elected government represents the majority of the population.",
                 "feedback": "That's a really strong sentence! You used evidence from the text to identify why governments should make voting compulsory.",
                 "feedback_type": "semantic",
                 "optimal": true,
-                "response_id": 2,
-              }
-            }
-            prompt={
-              Object {
-                "conjunction": "because",
-                "max_attempts": 5,
-                "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
-
- Governments should make voting compulsory because otherwise not everyone will vote.",
-                "prompt_id": 1,
-                "text": "Governments should make voting compulsory because",
-              }
-            }
-            submittedResponses={
-              Array [
-                Object {
-                  "entry": "Governments should make voting compulsory, so that the elected government represents the majority of the population.",
-                  "feedback": "That's a really strong sentence! You used evidence from the text to identify why governments should make voting compulsory.",
-                  "feedback_type": "semantic",
-                  "optimal": true,
-                  "response_id": 2,
-                },
-              ]
-            }
+              },
+            ]
+          }
+        >
+          <div
+            aria-live="polite"
+            className="feedback-section "
+            role="status"
           >
-            <div
-              className="feedback-section "
+            <ReactCSSTransitionReplace
+              changeWidth={false}
+              childComponent="span"
+              component="div"
+              notifyLeaving={false}
+              overflowHidden={true}
+              transitionAppear={false}
+              transitionEnter={true}
+              transitionEnterTimeout={1000}
+              transitionLeave={true}
+              transitionLeaveTimeout={400}
+              transitionName="fade"
             >
-              <p
-                className="feedback-section-header"
+              <div
+                style={Object {}}
               >
-                Feedback
-                <span>
-                  1
-                   of 
-                  5
-                   attempts
-                </span>
-              </p>
-              <ReactCSSTransitionReplace
-                changeWidth={false}
-                childComponent="span"
-                component="div"
-                notifyLeaving={false}
-                overflowHidden={true}
-                transitionAppear={false}
-                transitionEnter={true}
-                transitionEnterTimeout={1000}
-                transitionLeave={true}
-                transitionLeaveTimeout={400}
-                transitionName="fade"
-              >
-                <div
-                  style={Object {}}
+                <span
+                  key="1"
+                  style={null}
                 >
-                  <span
-                    key="1"
-                    style={null}
+                  <CSSTransitionGroupChild
+                    appear={false}
+                    enter={true}
+                    enterTimeout={1000}
+                    leave={true}
+                    leaveTimeout={400}
+                    name="fade"
                   >
-                    <CSSTransitionGroupChild
-                      appear={false}
-                      enter={true}
-                      enterTimeout={1000}
-                      leave={true}
-                      leaveTimeout={400}
-                      name="fade"
+                    <div
+                      className="feedback optimal"
+                      key="1"
                     >
                       <div
-                        className="feedback optimal"
-                        key="1"
+                        className="label-section"
                       >
                         <img
-                          alt="Small green circle with a check in it"
+                          alt="Check icon"
                           src="undefined/images/icons/check-circle-small.svg"
                         />
-                        <p
-                          className="feedback-text"
-                          dangerouslySetInnerHTML={
-                            Object {
-                              "__html": "That's a really strong sentence! You used evidence from the text to identify why governments should make voting compulsory.",
-                            }
-                          }
-                          role="status"
-                        />
+                        <p>
+                          Feedback
+                        </p>
                       </div>
-                      <button
-                        className="report-a-problem-button"
-                        onClick={[Function]}
-                        type="button"
+                      <p
+                        className="feedback-text"
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "That's a really strong sentence! You used evidence from the text to identify why governments should make voting compulsory.",
+                          }
+                        }
+                      />
+                      <div
+                        className="report-a-problem-button-container"
                       >
-                        Report a problem
-                      </button>
-                    </CSSTransitionGroupChild>
-                  </span>
-                </div>
-              </ReactCSSTransitionReplace>
-            </div>
-          </Feedback>
-        </div>
+                        <button
+                          className="report-a-problem-button interactive-wrapper"
+                          onClick={[Function]}
+                          type="button"
+                        >
+                          Report a problem
+                        </button>
+                      </div>
+                    </div>
+                    <span />
+                  </CSSTransitionGroupChild>
+                </span>
+              </div>
+            </ReactCSSTransitionReplace>
+          </div>
+        </Feedback>
       </div>
     </div>
   </div>
@@ -1084,7 +1181,6 @@ exports[`PromptStep component active state when the max attempts have been reach
 
 exports[`PromptStep component inactive state renders 1`] = `
 <PromptStep
-  active={false}
   activityIsComplete={false}
   className="step"
   completeStep={[Function]}
@@ -1102,7 +1198,6 @@ exports[`PromptStep component inactive state renders 1`] = `
       "text": "Governments should make voting compulsory because",
     }
   }
-  stepNumberComponent={<span />}
   submitResponse={[Function]}
   submittedResponses={Array []}
 >
@@ -1112,20 +1207,98 @@ exports[`PromptStep component inactive state renders 1`] = `
     <div
       className="step-content"
     >
-      <div>
-        <div
-          className="step-header"
-        >
-          <span />
-          <p
-            className="prompt-text"
+      <div
+        className="active-content-container"
+      >
+        <div>
+          <EditorContainer
+            className="editor"
+            disabled={false}
+            handleFocus={[Function]}
+            handleKeyDown={[Function]}
+            handleTextChange={[Function]}
+            html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
+            innerRef={[Function]}
+            isResettable={false}
+            promptText="Governments should make voting compulsory because"
+            resetText={[Function]}
+            stripHtml={[Function]}
           >
-            Governments should make voting compulsory
-             
-            <span>
-              because
-            </span>
-          </p>
+            <div
+              className="editor-container"
+            >
+              <ContentEditable
+                className="editor"
+                data-gramm={false}
+                disabled={false}
+                html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
+                innerRef={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
+                spellCheck={true}
+              >
+                <div
+                  className="editor"
+                  contentEditable={true}
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>",
+                    }
+                  }
+                  data-gramm={false}
+                  disabled={false}
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  onInput={[Function]}
+                  onKeyDown={[Function]}
+                  onKeyUp={[Function]}
+                  spellCheck={true}
+                />
+              </ContentEditable>
+            </div>
+          </EditorContainer>
+          <div
+            className="character-counter-container"
+          >
+            <p>
+              Your response is too long for our feedback bot to understand
+            </p>
+            <p>
+              undefined/200
+            </p>
+          </div>
+        </div>
+        <div
+          className="attempts-and-button-container"
+        >
+          <div
+            className="attempts-container"
+          >
+            <p
+              className="number-of-attempts"
+            >
+              0
+            </p>
+            <p>
+              of 5 attempts
+            </p>
+          </div>
+          <div
+            className="feedback-details-section"
+          >
+            <span />
+            <button
+              className="quill-button focus-on-light disabled"
+              onClick={[Function]}
+              type="button"
+            >
+              <span>
+                Get feedback
+              </span>
+            </button>
+          </div>
         </div>
       </div>
     </div>

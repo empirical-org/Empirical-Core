@@ -69,45 +69,51 @@ export default class Slide extends React.Component<any, any> {
     if (this.state.showSlide) {
       const Component = getComponent(this.props.question.type)
       const showScriptButtonText = this.state.showScript ? 'Hide Step-By-Step Guide' : 'Show Step-By-Step Guide'
-      return (<div>
-        <Component
-          clearSlide={this.props.clearSlide}
-          incompletePrompt={this.props.incompletePrompt}
-          question={this.props.question.data}
-          questionIndex={this.props.questionIndex}
-          resetSlide={this.props.resetSlide}
-          updateQuestion={this.props.updateQuestion}
-        />
-        <div className="script-header" onClick={this.toggleShowScript}>
-          <img src="https://assets.quill.org/images/icons/show-steps.svg" />
-          <p>{showScriptButtonText}</p>
+      return (
+        <div>
+          <Component
+            clearSlide={this.props.clearSlide}
+            incompletePrompt={this.props.incompletePrompt}
+            question={this.props.question.data}
+            questionIndex={this.props.questionIndex}
+            resetSlide={this.props.resetSlide}
+            updateQuestion={this.props.updateQuestion}
+          />
+          <div className="script-header" onClick={this.toggleShowScript}>
+            <img alt="" src="https://assets.quill.org/images/icons/show-steps.svg" />
+            <p>{showScriptButtonText}</p>
+          </div>
+          {this.renderScript()}
         </div>
-        {this.renderScript()}
-      </div>)
+      )
     }
   }
 
   renderScript() {
     if (this.state.showScript) {
       const filteredScript = this.props.question.data.teach.script.filter(s => s.type === 'STEP-HTML' || s.type === 'STEP-HTML-TIP')
-      return (<div className="script">
-        <ScriptComponent script={filteredScript} />
-      </div>)
+      return (
+        <div className="script">
+          <ScriptComponent script={filteredScript} />
+        </div>
+      )
     }
   }
 
   render() {
     const showSlideButtonText = this.state.showSlide ? 'Hide' : 'Show'
-    return (<div className="slide-container" key={this.props.questionIndex}>
-      <div className='slide-header'>
-        <div className='slide-number-and-type-container' style={{minWidth: `${this.numberAndTypeWidth()}`}}>
-          <span className="slide-number">Slide {this.props.questionIndex} - </span>
-          <span className="slide-type">{this.slideTypeName()}</span>
+    return (
+      <div className="slide-container" key={this.props.questionIndex}>
+        <div className='slide-header'>
+          <div className='slide-number-and-type-container' style={{minWidth: `${this.numberAndTypeWidth()}`}}>
+            <span className="slide-number">Slide {this.props.questionIndex} - </span>
+            <span className="slide-type">{this.slideTypeName()}</span>
+          </div>
+          <span className="line" />
+          <span className="hide" onClick={this.toggleShowSlide}>{showSlideButtonText}</span>
         </div>
-        <span className="line" />
-        <span className="hide" onClick={this.toggleShowSlide}>{showSlideButtonText}</span>
+        {this.renderSlide()}
       </div>
-      {this.renderSlide()}
-    </div>)
+    )
   }
 }

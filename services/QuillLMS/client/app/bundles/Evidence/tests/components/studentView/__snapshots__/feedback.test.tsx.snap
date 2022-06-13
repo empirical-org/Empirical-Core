@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Feedback component should render Feedback 1`] = `
+<div
+  aria-live="polite"
+  className="feedback-section "
+  role="status"
+>
+  <ReactCSSTransitionReplace
+    changeWidth={false}
+    childComponent="span"
+    component="div"
+    notifyLeaving={false}
+    overflowHidden={true}
+    transitionAppear={false}
+    transitionEnter={true}
+    transitionEnterTimeout={1000}
+    transitionLeave={true}
+    transitionLeaveTimeout={400}
+    transitionName="fade"
+  >
+    <div
+      className="feedback"
+      key="0"
+    >
+      <div
+        className="label-section"
+      >
+        <img
+          alt="Revise icon"
+          src="undefined/images/icons/loop.svg"
+        />
+        <p>
+          Feedback
+        </p>
+      </div>
+      <p
+        className="feedback-text"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": undefined,
+          }
+        }
+      />
+      <div
+        className="report-a-problem-button-container"
+      >
+        <button
+          className="report-a-problem-button interactive-wrapper"
+          onClick={[Function]}
+          type="button"
+        >
+          Report a problem
+        </button>
+      </div>
+    </div>
+    <span />
+  </ReactCSSTransitionReplace>
+</div>
+`;

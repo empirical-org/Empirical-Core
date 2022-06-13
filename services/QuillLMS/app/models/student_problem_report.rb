@@ -23,4 +23,5 @@ class StudentProblemReport < ApplicationRecord
 
   validates_presence_of :feedback_history_id
   validates_presence_of :report
+  validates_presence_of :optimal
 end

@@ -4,9 +4,10 @@ require 'rails_helper'
 
 describe PublicProgressReports, type: :model do
 
-  before(:each) do
+  before do
     class FakeReports
       attr_accessor :session
+
       include PublicProgressReports
     end
   end
@@ -68,7 +69,7 @@ describe PublicProgressReports, type: :model do
     end
 
     describe "completed activities" do
-      before(:each) do
+      before do
         unit_activity = UnitActivity.where(activity: activity, unit: classroom_unit.unit).first
         create(:classroom_unit_activity_state, completed: true, classroom_unit: classroom_unit, unit_activity: unit_activity)
       end
@@ -83,15 +84,63 @@ describe PublicProgressReports, type: :model do
     end
   end
 
+  describe '#activity_session_report' do
+    describe 'when the activity is a diagnostic' do
+      let(:classroom) {create(:classroom)}
+      let(:student) { create(:student)}
+
+      describe 'pre-test' do
+        let(:unit) {create(:unit)}
+        let(:post_test) { create(:diagnostic_activity)}
+        let(:activity) { create(:diagnostic_activity, follow_up_activity_id: post_test.id)}
+        let!(:classroom_unit) { create(:classroom_unit, unit: unit, classroom: classroom) }
+        let!(:unit_activity) { create(:unit_activity, unit: unit, activity: activity)}
+        let!(:activity_session) { create(:activity_session, classroom_unit: classroom_unit, activity: activity, user: student) }
+
+        it 'responds with a link' do
+          expect(FakeReports.new.activity_session_report(unit.id, classroom.id, student.id, activity.id)).to eq({ url: "/teachers/progress_reports/diagnostic_reports#/diagnostics/#{activity.id}/classroom/#{classroom.id}/responses/#{student.id}?unit=#{unit.id}"})
+        end
+      end
+
+      describe 'post-test' do
+        let(:unit) {create(:unit)}
+        let(:activity) { create(:diagnostic_activity)}
+        let!(:pre_test) { create(:diagnostic_activity, follow_up_activity_id: activity.id)}
+        let!(:classroom_unit) { create(:classroom_unit, unit: unit, classroom: classroom) }
+        let!(:unit_activity) { create(:unit_activity, unit: unit, activity: activity)}
+        let!(:activity_session) { create(:activity_session, classroom_unit: classroom_unit, activity: activity, user: student) }
+
+        it 'responds with a link' do
+          expect(FakeReports.new.activity_session_report(unit.id, classroom.id, student.id, activity.id)).to eq({ url: "/teachers/progress_reports/diagnostic_reports#/diagnostics/#{activity.id}/classroom/#{classroom.id}/responses/#{student.id}?unit=#{unit.id}"})
+        end
+      end
+
+      describe 'neither pre-test nor post-test' do
+        let(:unit) {create(:unit)}
+        let(:activity) { create(:diagnostic_activity)}
+        let!(:classroom_unit) { create(:classroom_unit, unit: unit, classroom: classroom) }
+        let!(:unit_activity) { create(:unit_activity, unit: unit, activity: activity)}
+        let!(:activity_session) { create(:activity_session, classroom_unit: classroom_unit, activity: activity, user: student) }
+
+        it 'responds with a link' do
+          expect(FakeReports.new.activity_session_report(unit.id, classroom.id, student.id, activity.id)).to eq({ url: "/teachers/progress_reports/diagnostic_reports#/diagnostics/#{activity.id}/classroom/#{classroom.id}/responses/#{student.id}?unit=#{unit.id}"})
+        end
+
+      end
+
+    end
+
+  end
+
   describe "#classrooms_with_students_for_report" do
     let!(:teacher) { create(:teacher) }
     let!(:unit) { create(:unit, user: teacher) }
-    let!(:classroom_1) { create(:classroom_with_a_couple_students) }
-    let!(:classroom_teacher_1) { create(:classrooms_teacher, classroom: classroom_1, user: teacher) }
-    let!(:classroom_2) { create(:classroom_with_a_couple_students) }
-    let!(:classroom_teacher_2) { create(:classrooms_teacher, classroom: classroom_2, user: teacher) }
-    let!(:classroom_unit_1) { create(:classroom_unit, classroom: classroom_1, unit: unit)}
-    let!(:classroom_unit_2) { create(:classroom_unit, classroom: classroom_2, unit: unit)}
+    let!(:classroom1) { create(:classroom_with_a_couple_students) }
+    let!(:classroom_teacher1) { create(:classrooms_teacher, classroom: classroom1, user: teacher) }
+    let!(:classroom2) { create(:classroom_with_a_couple_students) }
+    let!(:classroom_teacher2) { create(:classrooms_teacher, classroom: classroom2, user: teacher) }
+    let!(:classroom_unit1) { create(:classroom_unit, classroom: classroom1, unit: unit)}
+    let!(:classroom_unit2) { create(:classroom_unit, classroom: classroom2, unit: unit)}
 
     context "no students have completed the activity" do
       describe "it is a diagnostic activity" do
@@ -105,14 +154,14 @@ describe PublicProgressReports, type: :model do
           classrooms = instance.classrooms_with_students_for_report(unit.id, diagnostic_activity.id)
 
           classroom_ids = classrooms.map { |c| c['id'] }
-          expect(classroom_ids).to include(classroom_1.id)
-          expect(classroom_ids).to include(classroom_2.id)
+          expect(classroom_ids).to include(classroom1.id)
+          expect(classroom_ids).to include(classroom2.id)
 
-          c1_index = classroom_ids.index(classroom_1.id)
-          c2_index = classroom_ids.index(classroom_2.id)
+          c1_index = classroom_ids.index(classroom1.id)
+          c2_index = classroom_ids.index(classroom2.id)
 
-          expect(classrooms[c1_index][:classroom_unit_id]).to eq(classroom_unit_1.id)
-          expect(classrooms[c2_index][:classroom_unit_id]).to eq(classroom_unit_2.id)
+          expect(classrooms[c1_index][:classroom_unit_id]).to eq(classroom_unit1.id)
+          expect(classrooms[c2_index][:classroom_unit_id]).to eq(classroom_unit2.id)
 
 
         end
@@ -129,20 +178,20 @@ describe PublicProgressReports, type: :model do
     let!(:diagnostic_activity) { create(:diagnostic_activity) }
     let!(:unit_activity) { create(:unit_activity, activity: diagnostic_activity, unit: unit1)}
     let!(:student_not_in_class) { create(:student) }
-    let!(:student_1) { create(:student) }
-    let!(:student_2) { create(:student) }
-    let!(:student_3) { create(:student) }
-    let!(:students_classrooms_1) { create(:students_classrooms, classroom: classroom, student: student_1)}
-    let!(:students_classrooms_2) { create(:students_classrooms, classroom: classroom, student: student_2)}
-    let!(:students_classrooms_3) { create(:students_classrooms, classroom: classroom, student: student_3)}
-    let!(:classroom_unit_1) { create(:classroom_unit, classroom: classroom, unit: unit1, assigned_student_ids: [student_1.id, student_2.id] )}
+    let!(:student1) { create(:student) }
+    let!(:student2) { create(:student) }
+    let!(:student3) { create(:student) }
+    let!(:students_classrooms1) { create(:students_classrooms, classroom: classroom, student: student1)}
+    let!(:students_classrooms2) { create(:students_classrooms, classroom: classroom, student: student2)}
+    let!(:students_classrooms3) { create(:students_classrooms, classroom: classroom, student: student3)}
+    let!(:classroom_unit1) { create(:classroom_unit, classroom: classroom, unit: unit1, assigned_student_ids: [student1.id, student2.id] )}
 
     it 'will only return students who are in the class and have their ids in the assigned array' do
       instance = FakeReports.new
       recommendations = instance.generate_recommendations_for_classroom(unit1.user, unit1.id, classroom.id, diagnostic_activity.id)
-      expect(recommendations[:students].find { |s| s[:id] == student_1.id}).to be
-      expect(recommendations[:students].find { |s| s[:id] == student_2.id}).to be
-      expect(recommendations[:students].find { |s| s[:id] == student_3.id}).not_to be
+      expect(recommendations[:students].find { |s| s[:id] == student1.id}).to be
+      expect(recommendations[:students].find { |s| s[:id] == student2.id}).to be
+      expect(recommendations[:students].find { |s| s[:id] == student3.id}).not_to be
       expect(recommendations[:students].find { |s| s[:id] == student_not_in_class.id}).not_to be
     end
   end
@@ -161,14 +210,14 @@ describe PublicProgressReports, type: :model do
     let!(:recommendation2) { create(:recommendation, activity: diagnostic_activity, unit_template: unit_template2, category: 1)}
     let!(:unit_activity) { create(:unit_activity, activity: diagnostic_activity, unit: unit1)}
     let!(:student_not_in_class) { create(:student) }
-    let!(:student_1) { create(:student) }
-    let!(:student_2) { create(:student) }
-    let!(:student_3) { create(:student) }
-    let!(:students_classrooms_1) { create(:students_classrooms, classroom: classroom, student: student_1)}
-    let!(:students_classrooms_2) { create(:students_classrooms, classroom: classroom, student: student_2)}
-    let!(:students_classrooms_3) { create(:students_classrooms, classroom: classroom, student: student_3)}
-    let!(:classroom_unit_1) { create(:classroom_unit, classroom: classroom, unit: unit1, assigned_student_ids: [student_1.id, student_2.id] )}
-    let!(:classroom_unit_2) { create(:classroom_unit, classroom: classroom2, unit: unit2, assigned_student_ids: [] )}
+    let!(:student1) { create(:student) }
+    let!(:student2) { create(:student) }
+    let!(:student3) { create(:student) }
+    let!(:students_classrooms1) { create(:students_classrooms, classroom: classroom, student: student1)}
+    let!(:students_classrooms2) { create(:students_classrooms, classroom: classroom, student: student2)}
+    let!(:students_classrooms3) { create(:students_classrooms, classroom: classroom, student: student3)}
+    let!(:classroom_unit1) { create(:classroom_unit, classroom: classroom, unit: unit1, assigned_student_ids: [student1.id, student2.id] )}
+    let!(:classroom_unit2) { create(:classroom_unit, classroom: classroom2, unit: unit2, assigned_student_ids: [] )}
 
     it 'will return previously assigned lesson recommendation only if that classroom has been assigned the lesson' do
       create(:classrooms_teacher, classroom: classroom, user: teacher)
@@ -182,30 +231,30 @@ describe PublicProgressReports, type: :model do
   end
 
   describe '#generic_questions_for_report' do
-    let!(:question_1) { create(:question) }
-    let!(:question_2) { create(:question) }
-    let!(:question_3) { create(:question) }
-    let!(:activity) { create(:activity, data: { 'questions' => [{ 'key' => question_1.uid }, { 'key' => question_2.uid }, { 'key' => question_3.uid }] }) }
+    let!(:question1) { create(:question) }
+    let!(:question2) { create(:question) }
+    let!(:question3) { create(:question) }
+    let!(:activity) { create(:activity, data: { 'questions' => [{ 'key' => question1.uid }, { 'key' => question2.uid }, { 'key' => question3.uid }] }) }
 
     it 'should return an array of question hashes with the relevant information' do
       expected_response = [
         {
           question_id: 1,
           score: nil,
-          prompt: question_1.data['prompt'],
-          instructions: question_1.data['instructions']
+          prompt: question1.data['prompt'],
+          instructions: question1.data['instructions']
         },
         {
           question_id: 2,
           score: nil,
-          prompt: question_2.data['prompt'],
-          instructions: question_2.data['instructions']
+          prompt: question2.data['prompt'],
+          instructions: question2.data['instructions']
         },
         {
           question_id: 3,
           score: nil,
-          prompt: question_3.data['prompt'],
-          instructions: question_3.data['instructions']
+          prompt: question3.data['prompt'],
+          instructions: question3.data['instructions']
         }
       ]
 

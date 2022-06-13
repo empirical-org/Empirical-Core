@@ -1,9 +1,10 @@
 import * as React from "react";
 import { Link, RouteComponentProps } from 'react-router-dom'
-import { queryCache, useQuery } from 'react-query';
+import { useQueryClient, useQuery } from 'react-query';
 import { firstBy } from 'thenby';
 
-import { getPromptsIcons, renderHeader } from '../../../helpers/evidence';
+import { renderHeader } from '../../../helpers/evidence/renderHelpers';
+import { getPromptsIcons } from '../../../helpers/evidence/promptHelpers';
 import { getPromptIdString } from '../../../helpers/evidence/ruleHelpers';
 import { ActivityRouteProps, RuleInterface, RegexRuleInterface } from '../../../interfaces/evidenceInterfaces';
 import { BECAUSE, BUT, SO, RULES_BASED_1, RULES_BASED_2, RULES_BASED_3 } from '../../../../../constants/evidence';
@@ -16,6 +17,8 @@ const RegexRulesIndex: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ ma
   const { activityId } = params;
 
   const [promptIds, setPromptIds] = React.useState<string>(null);
+
+  const queryClient = useQueryClient()
 
   // get cached activity data to pass to rule
   const { data: activityData } = useQuery({
@@ -52,9 +55,9 @@ const RegexRulesIndex: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ ma
   function handleReorder(sortInfo) {
     const idsInOrder = sortInfo.map(item => item.key)
     updateRuleOrders(idsInOrder).then((response) => {
-      queryCache.refetchQueries([`rules-${activityId}-${RULES_BASED_1}`])
-      queryCache.refetchQueries([`rules-${activityId}-${RULES_BASED_2}`])
-      queryCache.refetchQueries([`rules-${activityId}-${RULES_BASED_3}`])
+      queryClient.refetchQueries([`rules-${activityId}-${RULES_BASED_1}`])
+      queryClient.refetchQueries([`rules-${activityId}-${RULES_BASED_2}`])
+      queryClient.refetchQueries([`rules-${activityId}-${RULES_BASED_3}`])
     });
   }
 

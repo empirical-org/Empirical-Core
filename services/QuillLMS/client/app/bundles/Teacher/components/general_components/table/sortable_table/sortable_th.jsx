@@ -10,7 +10,7 @@ export default class SortableTh extends React.Component {
     if (_.isEmpty(this.props.displayName)) {
       return;
     }
-    var newDirection;
+    let newDirection;
     if (this.props.isCurrentSort) {
     // Toggle the sort direction if it has already been selected.
       newDirection = (this.props.sortDirection === 'asc') ? 'desc' : 'asc';
@@ -23,8 +23,8 @@ export default class SortableTh extends React.Component {
   };
 
   render() {
-    var arrow,
-        className = 'sorter';
+    let arrow,
+      className = 'sorter';
     if (this.props.isCurrentSort && !_.isEmpty(this.props.displayName)) {
       arrow = <i className={this.arrowClass()} />;
     }

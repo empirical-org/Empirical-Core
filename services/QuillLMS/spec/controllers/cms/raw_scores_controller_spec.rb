@@ -4,7 +4,7 @@ require 'rails_helper'
 
 describe Cms::RawScoresController do
   let!(:user) { create(:staff) }
-  let!(:raw_scores) { create_list(:raw_score, 10) }
+  let!(:raw_scores) { create_list(:raw_score, 10, :four_hundred_to_five_hundred) }
   let!(:connect) { create(:activity_classification, key: ActivityClassification::CONNECT_KEY) }
   let!(:grammar) { create(:activity_classification, key: ActivityClassification::GRAMMAR_KEY) }
   let!(:proofreader) { create(:activity_classification, key: ActivityClassification::PROOFREADER_KEY) }
@@ -30,6 +30,7 @@ describe Cms::RawScoresController do
     it 'creates a new raw score' do
       post :create, params: { raw_score: {
           name: 'New Raw Score',
+          order: 1
         } }
       parsed_response = JSON.parse(response.body)
       id = parsed_response["raw_score"]["id"]

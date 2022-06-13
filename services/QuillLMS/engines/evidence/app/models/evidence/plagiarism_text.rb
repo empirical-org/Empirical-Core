@@ -4,9 +4,11 @@ module Evidence
   class PlagiarismText < ApplicationRecord
     self.table_name = 'comprehension_plagiarism_texts'
 
+    default_scope { order(created_at: :asc) }
+
     include Evidence::ChangeLog
 
-    belongs_to :rule, inverse_of: :plagiarism_text
+    belongs_to :rule, inverse_of: :plagiarism_texts
 
     validates_presence_of :rule
     validates :text, presence: true

@@ -71,6 +71,7 @@ exports[`ScoreLegend component should render 1`] = `
       </div>
     </div>
     <Tooltip
+      isTabbable={true}
       tooltipText="This type of activity is not graded."
       tooltipTriggerText={
         <div

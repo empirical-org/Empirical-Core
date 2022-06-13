@@ -37,6 +37,7 @@ class CoteacherClassroomInvitationsController < ApplicationController
     params[:coteacher_invitation_ids].each do |coteacher_invitation_id|
       coteacher_invitation = CoteacherClassroomInvitation.find(coteacher_invitation_id)
       return auth_failed unless coteacher_invitation.invitation.invitee_email == current_user.email
+
       coteacher_invitation.destroy
     end
     respond_to do |format|

@@ -1,8 +1,8 @@
 import * as React from 'react';
-import ReactTable from 'react-table';
+import moment from 'moment';
 
 import { ChangeLog } from '../interfaces/interfaces';
-import moment from 'moment';
+import { ReactTable, } from '../../Shared/index'
 
 interface ChangeLogsTableProps {
   changeLogs: Array<ChangeLog>
@@ -26,60 +26,60 @@ function columns() {
       Header: 'Concept Name',
       accessor: 'conceptName',
       key: 'conceptName',
-      Cell: (props) => (<div>{props.original.conceptName}</div>),
-      sortType: ((a, b) => a.conceptName.localeCompare(b.conceptName))
+      Cell: ({row}) => (<div>{row.original.conceptName}</div>),
+      sortType: ((a, b) => a.original.conceptName.localeCompare(b.original.conceptName))
     },
     {
       Header: 'UID',
       accessor: 'conceptUID',
       key: 'conceptUID',
-      Cell: (props) => (<div>{props.original.conceptUID}</div>),
-      sortType: ((a, b) => a.conceptUID.localeCompare(b.conceptUID)),
+      Cell: ({row}) => (<div>{row.original.conceptUID}</div>),
+      sortType: ((a, b) => a.original.conceptUID.localeCompare(b.original.conceptUID)),
     },
     {
       Header: 'Action',
       accessor: 'action',
       key: 'action',
-      Cell: (props) => (<div>{props.original.action}</div>),
-      sortType: ((a, b) => a.action.localeCompare(b.action)),
+      Cell: ({row}) => (<div>{row.original.action}</div>),
+      sortType: ((a, b) => a.original.action.localeCompare(b.original.action)),
       maxWidth: 120
     },
     {
       Header: 'Explanation',
       accessor: 'explanation',
       key: 'explanation',
-      Cell: (props) => (<div>{props.original.explanation}</div>),
-      sortType: ((a, b) => a.explanation.localeCompare(b.explanation)),
+      Cell: ({row}) => (<div>{row.original.explanation}</div>),
+      sortType: ((a, b) => a.original.explanation.localeCompare(b.original.explanation)),
       maxWidth: 250
     },
     {
       Header: 'Changed Attribute',
       accessor: 'changedAttribute',
       key: 'changedAttribute',
-      Cell: (props) => (<div>{props.original.changedAttribute}</div>),
-      sortType: ((a, b) => a.changedAttribute.localeCompare(b.changedAttribute)),
+      Cell: ({row}) => (<div>{row.original.changedAttribute}</div>),
+      sortType: ((a, b) => a.original.changedAttribute.localeCompare(b.original.changedAttribute)),
       maxWidth: 130
     },
     {
       Header: 'Previous Value',
       accessor: 'previousValue',
       key: 'previousValue',
-      Cell: (props) => (<div>{props.original.previousValue}</div>),
-      sortType: ((a, b) => a.previousValue.localeCompare(b.previousValue)),
+      Cell: ({row}) => (<div>{row.original.previousValue}</div>),
+      sortType: ((a, b) => a.original.previousValue.localeCompare(b.original.previousValue)),
     },
     {
       Header: 'Author',
       accessor: 'authorName',
       key: 'authorName',
-      Cell: (props) => (<div>{props.original.authorName}</div>),
-      sortType: ((a, b) => a.authorName.localeCompare(b.authorName)),
+      Cell: ({row}) => (<div>{row.original.authorName}</div>),
+      sortType: ((a, b) => a.original.authorName.localeCompare(b.original.authorName)),
     },
     {
       Header: 'Timestamp',
       accessor: 'createdAt',
       key: 'createdAt',
-      Cell: (props) => moment.unix(props.original.createdAt).format('MMMM D, YYYY [at] LT'),
-      sortType:  (a, b) => (a.createdAt - b.createdAt),
+      Cell: ({row}) => moment.unix(row.original.createdAt).format('MMMM D, YYYY [at] LT'),
+      sortType:  (a, b) => (a.original.createdAt - b.original.createdAt),
       sortDescFirst: true
     },
   ];
@@ -110,8 +110,6 @@ const ChangeLogsTable: React.SFC<ChangeLogsTableProps> = ({changeLogs}) => {
       className="concepts-table"
       columns={columns()}
       data={data}
-      defaultPageSize={data.length}
-      showPagination={false}
     />
   );
 };

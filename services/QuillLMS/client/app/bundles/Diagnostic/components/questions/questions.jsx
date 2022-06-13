@@ -4,7 +4,8 @@ import actions from '../../actions/questions';
 import _ from 'underscore';
 import { QuestionListByConcept } from '../shared/questionListByConcept'
 import Question from '../../libs/question';
-import QuestionSelector from 'react-select-search';
+import SelectSearch from 'react-select-search';
+import { fuzzySearch } from 'react-select-search';
 import { push } from 'react-router-redux';
 import respWithStatus from '../../libs/responseTools.js';
 import { submitResponseEdit, setUpdatedResponse, deleteResponse } from '../../actions/responses';
@@ -187,9 +188,9 @@ class Questions extends React.Component {
     }
   };
 
-  handleSearchChange = e => {
+  handleSearchChange = value => {
     const { dispatch } = this.props;
-    const action = push(`/admin/questions/${e.value}/responses`);
+    const action = push(`/admin/questions/${value}/responses`);
     dispatch(action);
   };
 
@@ -211,7 +212,15 @@ class Questions extends React.Component {
         }
         return { name, value: opt.key || 'key', };
       });
-      const searchBox = (<QuestionSelector onChange={this.handleSearchChange} options={formatted} placeholder="Search for a question" />);
+      const searchBox = (
+        <SelectSearch
+          filterOptions={fuzzySearch}
+          onChange={this.handleSearchChange}
+          options={formatted}
+          placeholder="Search for a question"
+          search={true}
+        />
+      );
       return searchBox;
     }
   };
@@ -232,7 +241,7 @@ class Questions extends React.Component {
             <br />
             <br />
             <QuestionListByConcept
-              basePath={'questions'}
+              basePath="questions"
               concepts={concepts}
               questions={diagnosticQuestions}
               showOnlyArchived={showOnlyArchived}

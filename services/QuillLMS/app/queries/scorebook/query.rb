@@ -7,6 +7,7 @@ class Scorebook::Query
   def self.run(classroom_id, current_page=1, unit_id=nil, begin_date=nil, end_date=nil, offset=0)
     first_unit = units(unit_id) ? units(unit_id).first : nil
     last_unit = units(unit_id) ? units(unit_id).last : nil
+    user_timezone_offset = "+ INTERVAL '#{offset}' SECOND"
     RawSqlRunner.execute(
       <<-SQL
         SELECT
@@ -18,8 +19,8 @@ class Scorebook::Query
           activity.name AS activity_name,
           activity.id AS activity_id,
           activity.description AS activity_description,
-          MAX(acts.updated_at) AS updated_at,
-          MIN(acts.started_at) AS started_at,
+          MAX(acts.updated_at) #{user_timezone_offset} AS updated_at,
+          MIN(acts.started_at) #{user_timezone_offset} AS started_at,
           MAX(acts.percentage) AS percentage,
           SUM(acts.timespent) AS timespent,
           SUM(CASE WHEN acts.state = '#{ActivitySession::STATE_FINISHED}' THEN 1 ELSE 0 END) AS completed_attempts,
@@ -70,9 +71,10 @@ class Scorebook::Query
   end
 
   def self.units(unit_id)
-    if unit_id && !unit_id.blank?
-      ["JOIN units ON cu.unit_id = units.id", "AND units.id = #{ActiveRecord::Base.connection.quote(unit_id)}"]
-    end
+    return unless unit_id
+    return if unit_id.blank?
+
+    ["JOIN units ON cu.unit_id = units.id", "AND units.id = #{ActiveRecord::Base.connection.quote(unit_id)}"]
   end
 
   def self.sanitize_date(date)
@@ -84,6 +86,7 @@ class Scorebook::Query
     sanitized_begin_date = sanitize_date(begin_date)
     sanitized_end_date = sanitize_date(new_end_date)
     return unless sanitized_begin_date || sanitized_end_date
+
     "AND (
       CASE
       WHEN acts.completed_at IS NOT NULL THEN

@@ -2,6 +2,31 @@
   max-width: 950px;
   margin: auto;
   padding-top: 22px;
+  border-bottom: none;
+
+  .school-dropdown-container {
+    min-height: 60px !important;
+    margin-bottom: 16px;
+    margin-top: 2px;
+    justify-content: flex-start;
+    .dropdown {
+      margin-right: 0px !important;
+    }
+    .dropdown__control {
+      background-color: transparent;
+    }
+  }
+
+  .automatic-renewal-modal {
+    height: min-content;
+    h3 {
+      margin-bottom: 16px;
+    }
+    p {
+      margin-bottom: 24px;
+    }
+  }
+
   .q-button.cta-button {
     font-size: 14px;
     height: 40px;
@@ -68,18 +93,22 @@
     }
   }
 
-  .renew-subscription.cta-button {
-    height: 40px;
-    padding: 8px 9px;
-  }
-
   .subscription-status {
     background-color: #fff;
-    padding-top: 15px;
+    padding-top: 16px;
     color: #3b3b3b;
     padding-bottom: 0px;
+    .quill-button {
+      margin-right: 16px;
+    }
     strong {
       padding-right: 4px;
+      a {
+        color: inherit;
+        &:hover {
+          color: inherit;
+        }
+      }
     }
     i, svg {
       color: #ff4542;
@@ -140,6 +169,10 @@
         font-weight: 600;
         color: #666666;
       }
+      a {
+        color: #666;
+        text-decoration: underline;
+      }
     }
   }
 
@@ -173,6 +206,13 @@
           font-size: 14px;
           padding-left: 10px;
         }
+        .content-wrapper {
+          display: inline-flex;
+          align-items: center;
+        }
+        button {
+          margin-bottom: 20px;
+        }
       }
       h3 {
         font-size: 14px;
@@ -185,8 +225,8 @@
 
       .title {
         display: inline-block;
-        margin-right: 20px;
-        width: 124px;
+        margin-right: 8px;
+        width: 144px;
         margin-bottom: 20px;
         font-size: 16px;
         font-weight: 600;
@@ -361,4 +401,8 @@
       }
     }
   }
+}
+
+.subscription-tooltip {
+  padding-left: 5px;
 }

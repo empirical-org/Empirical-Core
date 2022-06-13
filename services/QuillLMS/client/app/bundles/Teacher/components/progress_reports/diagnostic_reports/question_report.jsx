@@ -72,7 +72,7 @@ export default class QuestionReport extends React.Component {
           columnDefinitions={this.columnDefinitions}
           filterTypes={[]}
           hideFaqLink={Boolean(true)}
-          jsonResultsKey={'data'}
+          jsonResultsKey="data"
           key={unitActivityClassroom}
           pagination={false}
           premiumStatus={this.props.premiumStatus}

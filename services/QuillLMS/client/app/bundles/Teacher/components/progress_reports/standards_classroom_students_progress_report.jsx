@@ -3,12 +3,12 @@
 import React from 'react'
 import request from 'request'
 import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx'
-import ReactTable from 'react-table'
-import 'react-table/react-table.css'
-import {sortByLastName} from '../../../../modules/sortingMethods.js'
+
+import {sortTableByLastName} from '../../../../modules/sortingMethods.js'
 import LoadingSpinner from '../shared/loading_indicator.jsx'
 import ItemDropdown from '../general_components/dropdown_selectors/item_dropdown'
 import userIsPremium from '../modules/user_is_premium'
+import { ReactTable, } from '../../../Shared/index'
 
 const showAllClassroomKey = 'All Classrooms'
 
@@ -43,8 +43,8 @@ export default class extends React.Component {
         Header: 'Student',
         accessor: 'name',
         resizable: false,
-        sortMethod: sortByLastName,
-        Cell: row => (
+        sortType: sortTableByLastName,
+        Cell: ({row}) => (
           <a href={row.original['concepts_href']}>{row.original['name']}</a>
         )
       }, {
@@ -58,7 +58,7 @@ export default class extends React.Component {
         resizable: false,
       }, {
         Header: 'Proficiency Status',
-        accessor: 'average_score',
+        accessor: 'mastery_status',
         className: blurIfNotPremium,
         resizable: false
       }, {
@@ -66,8 +66,8 @@ export default class extends React.Component {
         accessor: 'green_arrow',
         resizable: false,
         sortable: false,
-        width: 80,
-        Cell: row => (
+        maxWidth: 80,
+        Cell: ({row}) => (
           <a className='green-arrow' href={row.original['concepts_href']}>
             <img alt="" src="https://assets.quill.org/images/icons/chevron-dark-green.svg" />
           </a>
@@ -125,16 +125,11 @@ export default class extends React.Component {
             className='progress-report has-green-arrow'
             columns={this.columns()}
             data={this.state.filteredReportData}
-            defaultPageSize={this.state.filteredReportData.length}
             defaultSorted={[{
               id: 'total_result_count',
               desc: true
             }
-          ]}
-            showPageSizeOptions={false}
-            showPagination={false}
-            showPaginationBottom={false}
-            showPaginationTop={false}
+            ]}
           />
         </div>
       </div>

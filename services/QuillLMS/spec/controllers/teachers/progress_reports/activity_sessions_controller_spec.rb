@@ -4,6 +4,7 @@ require 'rails_helper'
 
 describe Teachers::ProgressReports::ActivitySessionsController, type: :controller do
   let(:teacher) { create(:teacher) }
+
   include_context 'Standard Progress Report'
   it_behaves_like 'Progress Report' do
     let(:default_filters) { {page: 1} }
@@ -47,6 +48,15 @@ describe Teachers::ProgressReports::ActivitySessionsController, type: :controlle
         expect(json['classrooms']).to eq(teacher.ids_and_names_of_affiliated_classrooms)
         expect(json['students']).to eq(teacher.ids_and_names_of_affiliated_students)
         expect(json['units']).to eq(teacher.ids_and_names_of_affiliated_units)
+      end
+
+      it 'renders the same data fresh and from cache' do
+        expect(controller).to receive(:return_data).with(any_args).once.and_call_original
+        2.times do
+          get :index, params: { page: 1 }, as: :json
+          expect(response.status).to eq(200)
+          expect(json['activity_sessions'][0]['activity_classification_name']).to_not be_nil
+        end
       end
     end
   end

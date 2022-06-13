@@ -10,7 +10,7 @@ describe ScorebookHelper, type: :helper do
       end
     end
 
-    context "when the score is greater than the proficiency cut off of  > #{ProficiencyEvaluator.proficiency_cutoff}" do
+    context "when the score is greater than the proficiency cut off of > #{ProficiencyEvaluator.proficiency_cutoff}" do
       it 'is green' do
         expect(helper.percentage_color(ProficiencyEvaluator.proficiency_cutoff + 0.01)).to eq('green')
       end

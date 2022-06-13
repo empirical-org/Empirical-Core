@@ -30,6 +30,8 @@ class Auth::GoogleController < ApplicationController
       url = session[ApplicationController::POST_AUTH_REDIRECT]
       session.delete(ApplicationController::POST_AUTH_REDIRECT)
       redirect_to url
+    elsif staff?
+      redirect_to locker_path
     else
       redirect_to profile_path
     end
@@ -52,11 +54,11 @@ class Auth::GoogleController < ApplicationController
   end
 
   private def follow_google_redirect
-    if session[GOOGLE_REDIRECT]
-      redirect_route = session[GOOGLE_REDIRECT]
-      session[GOOGLE_REDIRECT] = nil
-      redirect_to redirect_route
-    end
+    return unless session[GOOGLE_REDIRECT]
+
+    redirect_route = session[GOOGLE_REDIRECT]
+    session[GOOGLE_REDIRECT] = nil
+    redirect_to redirect_route
   end
 
   private def set_profile
@@ -80,11 +82,11 @@ class Auth::GoogleController < ApplicationController
     end
     @user = GoogleIntegration::User.new(@profile).update_or_initialize
 
-    if @user.new_record? && session[:role].blank?
-      flash[:error] = user_not_found_error_message
-      flash.keep(:error)
-      redirect_to(new_session_path, status: :see_other)
-    end
+    return unless @user.new_record? && session[:role].blank?
+
+    flash[:error] = user_not_found_error_message
+    flash.keep(:error)
+    redirect_to(new_session_path, status: :see_other)
   end
 
   private def user_not_found_error_message
@@ -93,17 +95,16 @@ class Auth::GoogleController < ApplicationController
         We could not find your account. Is this your first time logging in? <a href='/account/new'>Sign up</a> here if so.
         <br/>
         If you believe this is an error, please contact <strong>support@quill.org</strong> with the following info to unblock your account:
-        <i>failed login of #{@profile.email} and googleID #{@profile.google_id} at #{Time.zone.now}</i>.
+        <i>failed login of #{@profile.email} and googleID #{@profile.google_id} at #{Time.current}</i>.
       </p>
     HTML
   end
 
   private def save_student_from_google_signup
     return unless @user.new_record? && @user.student?
+    return if @user.save
 
-    unless @user.save
-      redirect_to new_account_path
-    end
+    redirect_to new_account_path
   end
 
   private def save_teacher_from_google_signup

@@ -196,7 +196,7 @@ export default class BlogPostIndex extends React.Component {
           slug={topic.slug}
           title={topic.name}
         />
-      );
+        );
       }
     })
     return sections;
@@ -204,12 +204,14 @@ export default class BlogPostIndex extends React.Component {
 
   render() {
     if (this.props.blogPosts.length === 0 && !this.props.query) {
-      return (<div className="container">
-        <div style={{fontSize: '40px', display: 'flex', justifyContent: 'center', height: '60vh', alignItems: 'center', flexDirection: 'column', fontWeight: 'bold'}}>
+      return (
+        <div className="container">
+          <div style={{fontSize: '40px', display: 'flex', justifyContent: 'center', height: '60vh', alignItems: 'center', flexDirection: 'column', fontWeight: 'bold'}}>
           Coming Soon!
-          <img src="https://assets.quill.org/images/illustrations/empty-state-premium-reports.svg" style={{marginTop: '20px'}} />
+            <img alt="" src="https://assets.quill.org/images/illustrations/empty-state-premium-reports.svg" style={{marginTop: '20px'}} />
+          </div>
         </div>
-      </div>)
+      )
     } else {
       return (
         <div id="knowledge-center">
@@ -223,6 +225,6 @@ export default class BlogPostIndex extends React.Component {
           {this.renderAnnouncement()}
           {this.renderBasedOnArticleFilter()}
         </div>
-    )};
+      )};
   }
 }

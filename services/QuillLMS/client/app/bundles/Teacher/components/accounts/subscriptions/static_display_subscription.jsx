@@ -51,7 +51,7 @@ export default class StaticDisplaySubscription extends React.Component {
             {this.renderExpirationDate()}
           </div>
         </span>
-        );
+      );
     }
     return (
       <span>

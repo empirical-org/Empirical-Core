@@ -17,6 +17,7 @@ class GoogleDriveLoader
   # Initialize the client.
   def client
     return @client if defined? @client
+
     @client = Google::APIClient.new(
       application_name: 'Example Ruby application',
       application_version: '1.0.0'
@@ -63,7 +64,7 @@ class GoogleDriveLoader
             "refresh_token"=>"1/e7iTzkgqVstNgpGjdvvk-hWDB9x_YgyUQe2PMKhO2Qg"}
 
     client.authorization.code = nil
-    client.authorization.issued_at = Time.now
+    client.authorization.issued_at = Time.current
     client.authorization.update_token!(auth)
   end
 
@@ -88,6 +89,7 @@ class GoogleDriveFile
 
   def initialize loader, child
     raise if loader.nil?
+
     @loader = loader
     @child = child
   end

@@ -60,27 +60,29 @@ export default class RenameClassModal extends React.Component<RenameClassModalPr
 
   render() {
     const { name, errors, timesSubmitted } = this.state
-    return (<div className="modal-container rename-class-modal-container">
-      <div className="modal-background" />
-      <div className="rename-class-modal quill-modal modal-body">
-        <div>
-          <h3 className="title">Rename your class</h3>
-        </div>
-        <Input
-          characterLimit={50}
-          className="name"
-          error={errors.name}
-          handleChange={this.handleNameChange}
-          label="Class name"
-          timesSubmitted={timesSubmitted}
-          type="text"
-          value={name}
-        />
-        <div className="form-buttons">
-          <button className="quill-button outlined secondary medium" onClick={this.props.close}>Cancel</button>
-          <button className={this.submitButtonClass()} onClick={this.renameClass}>Save</button>
+    return (
+      <div className="modal-container rename-class-modal-container">
+        <div className="modal-background" />
+        <div className="rename-class-modal quill-modal modal-body">
+          <div>
+            <h3 className="title">Rename your class</h3>
+          </div>
+          <Input
+            characterLimit={50}
+            className="name"
+            error={errors.name}
+            handleChange={this.handleNameChange}
+            label="Class name"
+            timesSubmitted={timesSubmitted}
+            type="text"
+            value={name}
+          />
+          <div className="form-buttons">
+            <button className="quill-button outlined secondary medium" onClick={this.props.close}>Cancel</button>
+            <button className={this.submitButtonClass()} onClick={this.renameClass}>Save</button>
+          </div>
         </div>
       </div>
-    </div>)
+    )
   }
 }

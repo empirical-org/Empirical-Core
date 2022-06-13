@@ -1,11 +1,12 @@
 import React from 'react'
-import DropdownFilter from './dropdown_filter.jsx'
 import _ from 'underscore'
+
+import { DropdownInput, } from '../../../Shared/index'
 
 export default class ProgressReportFilters extends React.Component {
   activeFilter = (selected, options) => {
     if(!selected || !options) { return ''; }
-    if(selected.value != options[0].value) {
+    if(selected.value !== options[0].value) {
       return 'actively-selected';
     } else {
       return '';
@@ -13,40 +14,61 @@ export default class ProgressReportFilters extends React.Component {
   };
 
   classroomFilter = () => {
+    const { selectedClassroom, classroomFilters, selectClassroom, } = this.props
     return (
       <div className="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4 classroom-filter" key="classroom-filter">
-        <DropdownFilter className={this.activeFilter(this.props.selectedClassroom, this.props.classroomFilters)} options={this.props.classroomFilters} selectedOption={this.props.selectedClassroom} selectOption={this.props.selectClassroom} />
+        <DropdownInput
+          className={this.activeFilter(selectedClassroom, classroomFilters)}
+          handleChange={selectClassroom}
+          options={classroomFilters}
+          value={selectedClassroom}
+        />
       </div>
     );
   };
 
   unitFilter = () => {
+    const { selectedUnit, unitFilters, selectUnit, } = this.props
+
     return (
       <div className="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4 unit-filter" key="unit-filter">
-        <DropdownFilter className={this.activeFilter(this.props.selectedUnit, this.props.unitFilters)} options={this.props.unitFilters} selectedOption={this.props.selectedUnit} selectOption={this.props.selectUnit} />
+        <DropdownInput
+          className={this.activeFilter(selectedUnit, unitFilters)}
+          handleChange={selectUnit}
+          options={unitFilters}
+          value={selectedUnit}
+        />
       </div>
     );
   };
 
   studentFilter = () => {
+    const { selectedStudent, studentFilters, selectStudent, } = this.props
+
     return (
       <div className="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4 student-filter" key="student-filter">
-        <DropdownFilter className={this.activeFilter(this.props.selectedStudent, this.props.studentFilters)} options={this.props.studentFilters} selectedOption={this.props.selectedStudent} selectOption={this.props.selectStudent} />
+        <DropdownInput
+          className={this.activeFilter(selectedStudent, studentFilters)}
+          handleChange={selectStudent}
+          options={studentFilters}
+          value={selectedStudent}
+        />
       </div>
     );
   };
 
   render() {
-    var filters = [];
-    if (_.include(this.props.filterTypes, 'classroom')) {
+    const { filterTypes, } = this.props
+    let filters = [];
+    if (_.include(filterTypes, 'classroom')) {
       filters.push(this.classroomFilter());
     }
 
-    if (_.include(this.props.filterTypes, 'unit')) {
+    if (_.include(filterTypes, 'unit')) {
       filters.push(this.unitFilter());
     }
 
-    if (_.include(this.props.filterTypes, 'student')) {
+    if (_.include(filterTypes, 'student')) {
       filters.push(this.studentFilter());
     }
 

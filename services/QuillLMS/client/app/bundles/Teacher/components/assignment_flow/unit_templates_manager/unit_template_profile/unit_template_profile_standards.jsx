@@ -1,37 +1,68 @@
 import React from 'react';
 import _ from 'underscore';
 
-export default class UnitTemplateProfileStandards extends React.Component {
-  getStandards = () => {
-    return _.chain(this.props.data.activities)
-            .map(_.property('standard'))
-            .uniq(_.property('name'))
-            .value();
-  };
+const UnitTemplateProfileStandards = ({ data, }) => {
+  const standards = _.uniq(data.activities.map(act => act.standard && act.standard.name)).filter(Boolean)
+  const concepts = _.uniq(data.activities.map(act => act.standard && act.standard.standard_category && act.standard.standard_category.name)).filter(Boolean)
+  const productionActivitiesRecommendedBy = data.diagnostics_recommended_by.filter(act => act.flags.includes("production") && act.name.length)
 
-  getConcepts = () => {
-    return _.uniq(_.map(this.getStandards(), standard => standard.standard_category.name));
-  };
+  if (!standards.length && !concepts.length && !data.readability && !productionActivitiesRecommendedBy.length) { return <span />}
 
-  renderStandards = (standards) => {
-    return _.map(standards, standard => <dd key={standard.name}>{standard.name}</dd>);
-  };
+  const renderStandards = () => {
+    if (!standards.length) { return <span /> }
 
-  renderConcepts = (concepts) => {
-    return _.map(concepts, concept => <dd className="concept" key={concept}>{concept}</dd>);
-  };
-
-  render() {
     return (
-      <div className="standards-and-concepts light-gray-bordered-box">
-        <dl>
-          <dt><strong>Standards</strong></dt>
-          {this.renderStandards(this.getStandards())}
+      <React.Fragment>
+        <dt><strong>Standards</strong></dt>
+        {standards.map(s => <dd key={s}>{s}</dd>)}
+      </React.Fragment>
+    )
+  };
 
-          <dt className="concepts"><strong>Concepts</strong></dt>
-          {this.renderConcepts(this.getConcepts())}
-        </dl>
-      </div>
-    );
-  }
+  const renderConcepts = () => {
+    if (!concepts.length) { return <span /> }
+
+    return (
+      <React.Fragment>
+        <dt><strong>Concepts</strong></dt>
+        {concepts.map(s => <dd className="concept" key={s}>{s}</dd>)}
+      </React.Fragment>
+    )
+  };
+
+  const renderReadability = () => {
+    if (!data.readability) { return <span /> }
+
+    return (
+      <React.Fragment>
+        <dt><strong>Readability</strong></dt>
+        <dd>{data.readability}</dd>
+      </React.Fragment>
+    )
+  };
+
+  const renderRecommendedBy = () => {
+    if (productionActivitiesRecommendedBy.length === 0) { return <span /> }
+
+    return (
+      <React.Fragment>
+        <dt><strong>Recommended by</strong></dt>
+        {productionActivitiesRecommendedBy.map(s => <dd key={s}>{s.name}</dd>)}
+      </React.Fragment>
+    )
+  };
+
+
+  return (
+    <div className="standards-and-concepts light-gray-bordered-box">
+      <dl>
+        {renderStandards()}
+        {renderConcepts()}
+        {renderReadability()}
+        {renderRecommendedBy()}
+      </dl>
+    </div>
+  );
 }
+
+export default UnitTemplateProfileStandards

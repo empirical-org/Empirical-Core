@@ -41,7 +41,7 @@ class ItemLevelForm extends React.Component {
       alert("You must choose a name for this item level")
       return
     }
-    var newItemLevel = {
+    let newItemLevel = {
       name: this.refs.newItemLevelName.value,
       integerValue: this.refs.integerValue.value,
     }
@@ -58,11 +58,11 @@ class ItemLevelForm extends React.Component {
         className="box"
         cancelAndDeleteButtons =
           (<div className="button-group">
-            <Link to={'/admin/item-levels'}>
-              <button className={"button is-danger"} onClick={this.deleteItemLevel}>Delete</button>
+            <Link to="/admin/item-levels">
+              <button className="button is-danger" onClick={this.deleteItemLevel}>Delete</button>
             </Link>
-            <Link to={'/admin/item-levels'}>
-              <button className={"button is-info"} onClick={this.cancelEdit}>Cancel</button>
+            <Link to="/admin/item-levels">
+              <button className="button is-info" onClick={this.cancelEdit}>Cancel</button>
             </Link>
           </div>)
       }
@@ -93,7 +93,7 @@ class ItemLevelForm extends React.Component {
             />
           </p>
           <div className="control">
-            <Link to={'admin/item-levels'}>
+            <Link to="admin/item-levels">
               <button className="button is-primary" onClick={this.submit}>Submit</button>
             </Link>
           </div>
@@ -101,10 +101,10 @@ class ItemLevelForm extends React.Component {
             {cancelAndDeleteButtons}
           </div>
         </div>
-    )} else {
-        return (
-          <div>Loading...</div>
-        )
+      )} else {
+      return (
+        <div>Loading...</div>
+      )
     }
   }
 }

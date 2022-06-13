@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe LessonRecommendationsQuery do
-  let(:subject) { described_class.new }
+  subject { described_class.new }
 
   describe '#rec_activities' do
     let(:activity_category) { create(:activity_category) }

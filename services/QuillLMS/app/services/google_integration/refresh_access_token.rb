@@ -34,6 +34,7 @@ module GoogleIntegration
         # 6 months can not be refreshed:
         # https://developers.google.com/identity/protocols/OAuth2#expiration
         raise TokenTooOldToRefreshError if token_too_old_to_refresh?
+
         handle_response(make_request)
       else
         current_credentials
@@ -92,13 +93,13 @@ module GoogleIntegration
     end
 
     private def access_token_expired?
-      Time.now > current_credentials.expires_at
+      Time.current > current_credentials.expires_at
     end
 
     private def token_too_old_to_refresh?
       return false if nil_access_token_expiration?
 
-      Time.now >= current_credentials.refresh_token_expires_at
+      Time.current >= current_credentials.refresh_token_expires_at
     end
 
     private def refresh_token_options

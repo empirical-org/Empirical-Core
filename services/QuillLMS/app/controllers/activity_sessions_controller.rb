@@ -53,16 +53,16 @@ class ActivitySessionsController < ApplicationController
 
   private def activity_session_from_id
     @activity_session ||= ActivitySession.where(id: params[:id]).first || ActivitySession.where(uid: params[:id]).first
-    unless @activity_session
-      render_error(404)
-    end
+    return if @activity_session
+
+    render_error(404)
   end
 
   private def activity_session_from_uid
     @activity_session ||= ActivitySession.unscoped.find_by(uid: params[:uid])
-    unless @activity_session
-      render_error(404)
-    end
+    return if @activity_session
+
+    render_error(404)
   end
 
   private def anonymous_return_url
@@ -75,9 +75,9 @@ class ActivitySessionsController < ApplicationController
 
   private def activity_session_for_update
     @activity_session ||= if params[:anonymous]
-        nil
+                            nil
       else
-      ActivitySession.unscoped.find(params[:id])
+        ActivitySession.unscoped.find(params[:id])
     end
   end
 
@@ -86,19 +86,16 @@ class ActivitySessionsController < ApplicationController
   end
 
   private def activity_session_authorize!
-    if @activity_session.user_id.nil?
-      return true
-    end
+    return true if @activity_session.user_id.nil?
+    return if AuthorizedUserForActivity.new(current_user, @activity_session).call
 
-    unless AuthorizedUserForActivity.new(current_user, @activity_session).call
-      render_error(404)
-    end
+    render_error(404)
   end
 
   private def activity_session_authorize_teacher!
-    unless AuthorizedTeacherForActivity.new(current_user, @activity_session).call
-      render_error(404)
-    end
+    return if  AuthorizedTeacherForActivity.new(current_user, @activity_session).call
+
+    render_error(404)
   end
 
   private def redirect_if_student_has_not_completed_pre_test
@@ -116,25 +113,26 @@ class ActivitySessionsController < ApplicationController
   end
 
   private def update_student_last_active
-    if current_user && current_user.role == 'student'
-      UpdateStudentLastActiveWorker.perform_async(current_user.id, DateTime.now)
-    end
+    return unless current_user&.role&.student?
+
+    UpdateStudentLastActiveWorker.perform_async(current_user.id, DateTime.current)
   end
 
   private def authorize_student_belongs_to_classroom_unit!
     return auth_failed if current_user.nil?
+
     @classroom_unit = ClassroomUnit.find params[:classroom_unit_id]
     if current_user.classrooms.exclude?(@classroom_unit.classroom) then auth_failed(hard: false) end
   end
 
   private def determine_layout
-    if session[:partner_session]
-      @partner_name = session[:partner_session]["partner_name"]
-      @partner_session_id = session[:partner_session]["session_id"]
-      if @partner_name && @partner_session_id
-        "integrations"
-      end
-    end
+    return unless session[:partner_session]
+
+    @partner_name = session[:partner_session]["partner_name"]
+    @partner_session_id = session[:partner_session]["session_id"]
+    return unless  @partner_name && @partner_session_id
+
+    "integrations"
   end
 
   private def allow_iframe

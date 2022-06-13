@@ -115,11 +115,13 @@ export default class PassageReviewer extends React.Component<PassageReviewerProp
     const { text, } = this.props
 
     if (text) {
-      return (<div className="reviewer-container">
-        <div className="reviewer" >
-          {this.renderFormattedText()}
+      return (
+        <div className="reviewer-container">
+          <div className="reviewer" >
+            {this.renderFormattedText()}
+          </div>
         </div>
-      </div>)
+      )
     } else {
       return <p>No passage</p>
     }

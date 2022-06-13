@@ -5,7 +5,7 @@ require 'rails_helper'
 describe GoogleIntegration::User do
   describe '#update_or_initialize' do
 
-    before(:each) do
+    before do
       allow_any_instance_of(GoogleIntegration::Profile).to receive(:access_token).and_return('whatever')
       allow_any_instance_of(GoogleIntegration::Profile).to receive(:refresh_token).and_return('whatever')
       allow_any_instance_of(GoogleIntegration::Profile).to receive(:expires_at).and_return('the future')

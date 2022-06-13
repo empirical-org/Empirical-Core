@@ -1,16 +1,19 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
-import CheckBoxes from '../general_components/check_boxes/check_boxes.jsx';
+import { EditorState, ContentState } from 'draft-js';
+import Dropzone from 'react-dropzone'
+import _ from 'underscore';
+
+import UnitTemplateActivitySelector from './unit_template_activity_selector'
 import DropdownSelector from '../general_components/dropdown_selectors/dropdown_selector.jsx';
-import CustomActivityPack from '../assignment_flow/create_unit/custom_activity_pack/index';
 import Server from '../modules/server/server.jsx';
 import Fnl from '../modules/fnl.jsx';
+import { TextEditor } from '../../../Shared/index'
 import TextInputGenerator from '../modules/componentGenerators/text_input_generator.jsx';
 import IndicatorGenerator from '../modules/indicator_generator.jsx';
 import OptionLoader from '../modules/option_loader.jsx';
 import MarkdownParser from '../shared/markdown_parser.jsx';
-import $ from 'jquery';
-import _ from 'underscore';
+import getAuthToken from '../modules/get_auth_token';
 
 export default createReactClass({
   displayName: 'unit_template',
@@ -19,6 +22,7 @@ export default createReactClass({
     this.initializeModules();
 
     let model = {
+      id: null,
       name: null,
       activity_info: null,
       time: null,
@@ -28,11 +32,14 @@ export default createReactClass({
       flag: this.props.unitTemplate.flag || null,
       author_id: null,
       order_number: this.props.unitTemplate.order_number || null,
+      readability: null,
+      diagnostic_names: []
     };
     model = _.extend(model, this.props.unitTemplate);
     const options = this.modules.optionsLoader.initialOptions();
+    const uploadedFileLink = "";
 
-    const hash = { model, options, };
+    const hash = { model, options, uploadedFileLink };
     return hash;
   },
 
@@ -46,15 +53,6 @@ export default createReactClass({
   formFields: [
     {
       name: 'name',
-    },
-    {
-      name: 'image_link',
-      label: 'Image Link for Social Media Meta Tag'
-    },
-    {
-      name: 'activity_info',
-      label: 'Activity Info',
-      size: 'medium',
     }
   ],
 
@@ -163,6 +161,10 @@ export default createReactClass({
     return '';
   },
 
+  handleActivityPackDescriptionChange(text) {
+    this.updateModelState('activity_info', text)
+  },
+
   handleNewSelectedActivities(newSelectedActivities) {
     const { model, } = this.state
     const selectedActivities = newSelectedActivities.map(item => item.id);
@@ -175,84 +177,155 @@ export default createReactClass({
     this.updateModelState('activities', newOrderedActivities)
   },
 
-  getGradeCheckBoxes() {
-    return (<CheckBoxes
-      items={this.state.options.grades}
-      label={'Grades'}
-      selectedItems={this.state.model.grades}
-      toggleItem={this.modules.indicatorGenerator.stateItemToggler('grades')}
-    />);
-  },
-
   getUnitTemplateCategorySelect() {
-    return (<DropdownSelector
-      defaultValue={this.state.model.unit_template_category_id}
-      label={'Select Activity Pack Category'}
-      options={this.state.options.unit_template_categories}
-      select={this.modules.indicatorGenerator.selector('unit_template_category_id')}
-    />);
+    return (
+      <DropdownSelector
+        defaultValue={this.state.model.unit_template_category_id}
+        label="Select Activity Pack Category"
+        options={this.state.options.unit_template_categories}
+        select={this.modules.indicatorGenerator.selector('unit_template_category_id')}
+      />
+    );
   },
 
   getStatusFlag() {
     // The label is a quick hack as it wasn't automatically turning to the correct one
-    return (<DropdownSelector
-      defaultValue={this.state.model.flag}
-      label={'Select Flag'}
-      options={this.state.options.flag}
-      select={this.modules.indicatorGenerator.selector('flag')}
-    />);
-  },
-
-  getAuthorSelect() {
-    return (<DropdownSelector
-      defaultValue={this.state.model.author_id}
-      label={'Select Author'}
-      options={this.state.options.authors}
-      select={this.modules.indicatorGenerator.selector('author_id')}
-    />);
+    return (
+      <DropdownSelector
+        defaultValue={this.state.model.flag}
+        label="Select Flag"
+        options={this.state.options.flag}
+        select={this.modules.indicatorGenerator.selector('flag')}
+      />
+    );
   },
 
   getTimeDropdownSelect() {
-    return (<DropdownSelector
-      defaultValue={this.state.model.time}
-      label={'Select time in minutes'}
-      options={this.state.options.times}
-      select={this.modules.indicatorGenerator.selector('time')}
-    />);
+    return (
+      <DropdownSelector
+        defaultValue={this.state.model.time}
+        label="Select time in minutes"
+        options={this.state.options.times}
+        select={this.modules.indicatorGenerator.selector('time')}
+      />
+    );
   },
 
-  getCustomActivityPack() {
-    return (<CustomActivityPack
-      clickContinue={this.save}
-      selectedActivities={this.state.model.activities}
-      setSelectedActivities={this.handleNewSelectedActivities}
-      toggleActivitySelection={this.toggleActivitySelection}
-    />);
+  getActivityPackDescriptionEditor() {
+    const { model } = this.state
+    const { activity_info } = model
+    return (
+      <div className="activity-pack-description">
+        <br />
+        <span>Activity Pack Description</span>
+        <TextEditor
+          ContentState={ContentState}
+          EditorState={EditorState}
+          handleTextChange={this.handleActivityPackDescriptionChange}
+          key="activity-pack-description"
+          shouldCheckSpelling={true}
+          text={activity_info}
+        />
+      </div>
+    );
   },
 
   getErrorMessageAndButton() {
-    return (<div className="error-message-and-button">
-      <div className={this.determineErrorMessageClass()}>{this.determineErrorMessage()}</div>
-      <button className={this.determineContinueButtonClass()} id="continue" onClick={this.save}>Save</button>
-    </div>);
+    return (
+      <div className="error-message-and-button">
+        <div className={this.determineErrorMessageClass()}>{this.determineErrorMessage()}</div>
+        <button className={this.determineContinueButtonClass()} id="continue" onClick={this.save}>Save</button>
+      </div>
+    );
+  },
+
+  getDiagnostics() {
+    const { model } = this.state
+    const { diagnostic_names } = model
+    return (
+      <div>
+        <h3>Diagnostics:</h3>
+        <span>{diagnostic_names && diagnostic_names.map((diagnostic) => {
+          return (<span>{diagnostic}<br /></span>);
+        })}</span>
+        <br /><br />
+      </div>
+    );
+  },
+
+  getPreviewLink() {
+    const { model } = this.state
+    const { id } = model
+    let url = `${process.env.DEFAULT_URL}/assign/featured-activity-packs/${id}`
+    return (<a className="link-green" href={url} rel="noopener noreferrer" target="_blank">Preview in Featured Activity Pack page</a>)
+  },
+
+  getReadability() {
+    const { model } = this.state
+    const { readability } = model
+    return (
+      <div>
+        <h3>Readability:</h3>
+        <span>{readability && `${readability}`}</span>
+        <br /><br />
+      </div>
+    )
+  },
+
+  handleDrop(acceptedFiles) {
+    acceptedFiles.forEach(file => {
+      const data = new FormData()
+      data.append('file', file)
+      fetch(`${process.env.DEFAULT_URL}/cms/images`, {
+        method: 'POST',
+        mode: 'cors',
+        credentials: 'include',
+        headers: {
+          'X-CSRF-Token': getAuthToken()
+        },
+        body: data
+      })
+        .then(response => response.json()) // if the response is a JSON object
+        .then(response => this.setState({uploadedFileLink: response.url})); // Handle the success response object
+    });
+  },
+
+  getPdfUpload() {
+    const { uploadedFileLink } = this.state
+    return (
+      <div>
+        <label>Click the square below or drag a file into it to upload a file:</label>
+        <Dropzone onDrop={this.handleDrop} />
+        <label>Here is the link to your uploaded file:</label>
+        <input value={uploadedFileLink} />
+      </div>
+    )
   },
 
   render() {
+    const { model, } = this.state
     let inputs;
     inputs = this.modules.textInputGenerator.generate(this.formFields);
     return (
       <span id="unit-template-editor">
+        {this.getStatusFlag()}
+        {this.getPreviewLink()}
         <span>
           {inputs}
-          {this.determineMarkdownParser()}
+          {this.getActivityPackDescriptionEditor()}
         </span>
-        {this.getAuthorSelect()}
         {this.getUnitTemplateCategorySelect()}
         {this.getTimeDropdownSelect()}
-        {this.getGradeCheckBoxes()}
-        {this.getStatusFlag()}
+        {this.getDiagnostics()}
+        {this.getReadability()}
+        {this.getPdfUpload()}
+        <br /><br />
         <span>
-          {this.getCustomActivityPack()}
+          <UnitTemplateActivitySelector
+            parentActivities={model.activities}
+            setParentActivities={this.handleNewSelectedActivities}
+            toggleParentActivity={this.toggleActivitySelection}
+          />
           {this.getErrorMessageAndButton()}
         </span>
       </span>

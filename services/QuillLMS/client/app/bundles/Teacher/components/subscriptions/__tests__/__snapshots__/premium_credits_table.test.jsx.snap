@@ -1,0 +1,162 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PremiumCreditsTable container should render when there are no premium credits 1`] = `
+<PremiumCreditsTable
+  earnedCredits={0}
+  premiumCredits={Array []}
+>
+  <section>
+    <div
+      className="flex-row space-between"
+    >
+      <h2>
+        Earned Premium Credits History
+      </h2>
+      <a
+        className="green-link"
+        href="/referrals"
+      >
+        How to earn more Premium credit
+      </a>
+    </div>
+    <table
+      className="premium-credits-table"
+    >
+      <tbody>
+        <tr>
+          <th>
+            Date Received
+          </th>
+          <th>
+            Amount Credited
+          </th>
+          <th>
+            Action
+          </th>
+        </tr>
+      </tbody>
+    </table>
+    <span
+      className="total-premium-credits"
+    >
+      <span
+        className="total-header"
+      >
+        Total Premium Credits Earned:
+      </span>
+       
+      0 weeks
+    </span>
+  </section>
+</PremiumCreditsTable>
+`;
+
+exports[`PremiumCreditsTable container should render when there are premium credits 1`] = `
+<PremiumCreditsTable
+  earnedCredits={0}
+  premiumCredits={
+    Array [
+      Object {
+        "action": null,
+        "amount": 28,
+        "created_at": "2022-02-16T13:31:38.332Z",
+        "id": 1,
+        "source_id": 2,
+        "source_type": "User",
+        "updated_at": "2022-02-16T13:31:38.332Z",
+        "user_id": 25,
+      },
+      Object {
+        "action": "You subscribed to Quill Premium",
+        "amount": -28,
+        "created_at": "2022-02-16T13:37:24.517Z",
+        "id": 2,
+        "source_id": 6,
+        "source_type": "Subscription",
+        "updated_at": "2022-02-16T13:37:24.517Z",
+        "user_id": 25,
+      },
+    ]
+  }
+>
+  <section>
+    <div
+      className="flex-row space-between"
+    >
+      <h2>
+        Earned Premium Credits History
+      </h2>
+      <a
+        className="green-link"
+        href="/referrals"
+      >
+        How to earn more Premium credit
+      </a>
+    </div>
+    <table
+      className="premium-credits-table"
+    >
+      <tbody>
+        <tr>
+          <th>
+            Date Received
+          </th>
+          <th>
+            Amount Credited
+          </th>
+          <th>
+            Action
+          </th>
+        </tr>
+        <tr
+          key="credit-1-premium-credit-table"
+        >
+          <td
+            className="date-received"
+          >
+            February 16th, 2022
+          </td>
+          <td
+            className="amount-credited"
+          >
+            4 weeks
+          </td>
+          <td
+            className="action"
+          />
+        </tr>
+        <tr
+          key="credit-2-premium-credit-table"
+        >
+          <td
+            className="date-received"
+          >
+            February 16th, 2022
+          </td>
+          <td
+            className="amount-credited"
+          >
+            -4 weeks
+          </td>
+          <td
+            className="action"
+          >
+            You subscribed to Quill Premium
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <span
+      className="total-premium-credits"
+    >
+      <span
+        className="total-header"
+      >
+        Total Premium Credits Earned:
+      </span>
+       
+      0 weeks
+    </span>
+  </section>
+</PremiumCreditsTable>
+`;

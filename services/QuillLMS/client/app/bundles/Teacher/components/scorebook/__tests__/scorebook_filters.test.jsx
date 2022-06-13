@@ -2,8 +2,8 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import ScorebookFilters from '../scorebook_filters.jsx'
-import DropdownFilter from '../../progress_reports/dropdown_filter.jsx'
 import DateRangeFilter from '../../general_components/date_range_filter.jsx'
+import { DropdownInput, } from '../../../../Shared/index'
 
 describe('Scorebook component', () => {
   const wrapper = shallow(
@@ -17,8 +17,8 @@ describe('Scorebook component', () => {
       unitFilters={[{name: 'All Units', value: ''}, { name: 'Something', value: 4}]}
     />)
 
-  it('renders two DropdownFilters', () => {
-    expect(wrapper.find(DropdownFilter).length).toEqual(2)
+  it('renders two DropdownInputs', () => {
+    expect(wrapper.find(DropdownInput).length).toEqual(2)
   })
 
   it('renders a DateRangeFilter', () => {

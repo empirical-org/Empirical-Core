@@ -12,7 +12,7 @@
 }
 
 .data-table-headers, .data-table-row {
-  height: 48px;
+  min-height: 48px;
   padding: 0px 16px;
   border-bottom: 1px solid #e0e0e0;
   display: flex;
@@ -51,8 +51,12 @@
   }
 }
 
-.data-table {
+table.data-table {
   overflow: scroll;
+  font-size: 14px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 
   .data-table-body:not(.reorderable) {
     .data-table-row:last-of-type {
@@ -74,8 +78,8 @@
     background-color: transparent;
     border: none;
     padding: 0px;
-    &:focus {
-      outline: none;
+    .interactive-wrapper {
+      display: flex;
     }
   }
 
@@ -84,6 +88,7 @@
     top: 0;
     background-color: white;
     z-index: 1;
+    min-width: min-content;
   }
 
   .data-table-row {

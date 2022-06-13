@@ -39,21 +39,21 @@ export default class UpdateUnitButton extends React.Component {
   };
 
   render() {
-  let text, color, clickHandler;
-  if (this.props.enabled && !this.state.loading) {
-    text = this.props.buttonText;
-    color = 'quillgreen';
-    clickHandler = this.handleClick
-  } else {
-    text = this.state.loading ? <span>Saving <ButtonLoadingIndicator /></span>: this.props.disabledText;
-    color = 'lightgray';
-    clickHandler = null
-  }
-  return (
-    <div>
-      <a className={`q-button cta-button bg-${color} text-white`} onClick={clickHandler}>{text}</a>
-      <span className="errors">{this.state.errors}</span>
-    </div>
-  )
+    let text, color, clickHandler;
+    if (this.props.enabled && !this.state.loading) {
+      text = this.props.buttonText;
+      color = 'quillgreen';
+      clickHandler = this.handleClick
+    } else {
+      text = this.state.loading ? <span>Saving <ButtonLoadingIndicator /></span>: this.props.disabledText;
+      color = 'lightgray';
+      clickHandler = null
+    }
+    return (
+      <div>
+        <a className={`q-button cta-button bg-${color} text-white`} onClick={clickHandler}>{text}</a>
+        <span className="errors">{this.state.errors}</span>
+      </div>
+    )
   }
 }

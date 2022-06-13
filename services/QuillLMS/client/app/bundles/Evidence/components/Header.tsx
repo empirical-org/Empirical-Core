@@ -6,11 +6,13 @@ import { Events } from '../modules/analytics';
 import '../styles/headerStyling.scss'
 
 import getParameterByName from '../helpers/getParameterByName';
-import { Tooltip, } from '../../Shared/index'
+import { Tooltip, READ_PASSAGE_STEP_NUMBER, BECAUSE_PASSAGE_STEP_NUMBER, BUT_PASSAGE_STEP_NUMBER, SO_PASSAGE_STEP_NUMBER, whiteCheckGreenBackgroundIcon } from '../../Shared/index'
+import { onMobile } from '../helpers/containerActionHelpers';
 
 const logoSrc = `${process.env.CDN_URL}/images/logos/quill-logo-white.svg`
 const mobileLogoSrc = `${process.env.CDN_URL}/images/logos/quill-logo-white-mobile.svg`
 const helpIcon = `${process.env.CDN_URL}/images/icons/icons-help-white.svg`
+const checkIcon = <img alt={whiteCheckGreenBackgroundIcon.alt} src={whiteCheckGreenBackgroundIcon.src} />;
 
 export class Header extends React.Component<any, any> {
   constructor(props: any) {
@@ -48,26 +50,58 @@ export class Header extends React.Component<any, any> {
     this.saveAndExit()
   }
 
+  renderNumberOrIcon = (step: number) => {
+    const { session } = this.props;
+    const { activeStep } = session;
+    if(step < activeStep) {
+      return checkIcon;
+    }
+    if(step === activeStep) {
+      return <div className="evidence-step-number-small active">{step}</div>
+    }
+    return <div className="evidence-step-number-small">{step}</div>
+  }
+
+  renderStepCounter = () => {
+    return(
+      <div className="nav-steps-count-container">
+        <p className="step-counter-label">Steps</p>
+        {this.renderNumberOrIcon(READ_PASSAGE_STEP_NUMBER)}
+        {this.renderNumberOrIcon(BECAUSE_PASSAGE_STEP_NUMBER)}
+        {this.renderNumberOrIcon(BUT_PASSAGE_STEP_NUMBER)}
+        {this.renderNumberOrIcon(SO_PASSAGE_STEP_NUMBER)}
+      </div>
+    );
+  }
+
   render() {
+    const { session } = this.props;
+    const { explanationSlidesCompleted, activityIsComplete } = session;
+    const showStepsCounter = explanationSlidesCompleted && !activityIsComplete
     const isNotTurk = !window.location.href.includes('turk')
     const tooltipTrigger = <div><img alt="Question mark icon" src={helpIcon} /><span>Beta: <span>in development</span></span></div>
+    const mobileStyle = onMobile() || !showStepsCounter ? 'mobile' : '';
     return (
       <div className="header">
-        <div className="inner-header">
-          <div className="left-side">
-            <a className="focus-on-dark" href={process.env.DEFAULT_URL}>
-              <img alt="Quill.org logo" className="hide-on-desktop" src={mobileLogoSrc} />
-              <img alt="Quill.org logo" className="hide-on-mobile" src={logoSrc} />
-            </a>
-            <Tooltip
-              isTabbable={true}
-              tooltipText="Quill Evidence is in beta, which means that it’s not perfect yet. As you complete activities, you may notice some issues—a button may not work or some feedback could be unhelpful. Please know that we’re actively working on Quill Evidence and making improvements everyday."
-              tooltipTriggerText={tooltipTrigger}
-              tooltipTriggerTextClass="hide-on-mobile beta-tag focus-on-dark"
-            />
-            <span className="hide-on-desktop beta-tag">Beta</span>
+        <div className={`inner-header ${mobileStyle}`}>
+          <div className={`left-side-container ${mobileStyle}`}>
+            <div className="left-side">
+              <a className="focus-on-dark" href={process.env.DEFAULT_URL}>
+                <img alt="Quill.org logo" className="hide-on-desktop" src={mobileLogoSrc} />
+                <img alt="Quill.org logo" className="hide-on-mobile" src={logoSrc} />
+              </a>
+              <Tooltip
+                tooltipText="Quill Reading for Evidence is in beta, which means that it’s not perfect yet. As you complete activities, you may notice some issues—a button may not work or some feedback could be unhelpful. Please know that we’re actively working on Quill Reading for Evidence and making improvements every day."
+                tooltipTriggerText={tooltipTrigger}
+                tooltipTriggerTextClass="hide-on-mobile beta-tag focus-on-dark"
+              />
+              <span className="hide-on-desktop beta-tag">Beta</span>
+            </div>
           </div>
-          {isNotTurk && <button className="save-and-exit focus-on-dark" onClick={this.handleOnClick} type="button"><span>Save and exit</span></button>}
+          <div className={`right-side-container ${mobileStyle}`}>
+            {showStepsCounter && !onMobile() && this.renderStepCounter()}
+            {isNotTurk && <button className="save-and-exit focus-on-dark" onClick={this.handleOnClick} type="button"><span>Save and exit</span></button>}
+          </div>
         </div>
       </div>
     );
@@ -82,7 +116,7 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: Redux.Dispatch<any>) => {
   return {
-      dispatch
+    dispatch
   };
 };
 

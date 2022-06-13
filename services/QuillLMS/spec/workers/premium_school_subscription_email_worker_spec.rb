@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe PremiumSchoolSubscriptionEmailWorker do
-  let(:subject) { described_class.new }
+  subject { described_class.new }
 
   describe '#perform' do
     let!(:user) { create(:teacher_with_school) }

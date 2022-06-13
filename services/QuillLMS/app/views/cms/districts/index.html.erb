@@ -1,0 +1,13 @@
+<div class='container'>
+  <article class='simple-rounded-box cms-container'>
+    <div style="margin-bottom:20px">
+      <h1 style="margin-bottom:20px">
+        District Search
+        <%= link_to 'Add New District', new_cms_district_path, class: 'btn button-green float-right'  %>
+      </h1>
+    </div>
+    <div class='cms-container-meta'>
+      <%= react_component('CmsDistrictIndexApp', props: {queryResults: @district_search_query_results, query: @district_search_query}) %>
+    </div>
+  </article>
+</div>

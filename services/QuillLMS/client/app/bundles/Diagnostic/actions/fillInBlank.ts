@@ -72,7 +72,7 @@ function submitQuestionEdit(qid, content) {
 }
 
 function toggleNewQuestionModal() {
-    return { type: C.TOGGLE_NEW_FILL_IN_BLANK_QUESTION_MODAL, };
+  return { type: C.TOGGLE_NEW_FILL_IN_BLANK_QUESTION_MODAL, };
 }
 
 function submitNewQuestion(content, response) {

@@ -46,9 +46,9 @@ function submitNewTitleCard(content) {
       const action = push(`/admin/title-cards/${body.uid}`);
       dispatch(action);
     })
-    .catch((body) => {
-      dispatch({ type: C.DISPLAY_ERROR, error: `Submission failed! ${body}`, });
-    });
+      .catch((body) => {
+        dispatch({ type: C.DISPLAY_ERROR, error: `Submission failed! ${body}`, });
+      });
   };
 }
 

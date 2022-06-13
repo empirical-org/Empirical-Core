@@ -29,11 +29,13 @@ const Dashboard = ({ onboardingChecklist, firstName, mustSeeModal, linkedToCleve
   function closeDemoModal() { setShowDemoModal(false) }
 
   if (!onboardingChecklist.every(obj => obj.checked)) {
-    return (<div className="dashboard">
-      {showWelcomeModal && <WelcomeModal close={closeWelcomeModal} size={size} />}
-      {showDemoModal && <DemoModal close={closeDemoModal} size={size} />}
-      <OnboardingChecklist firstName={firstName} onboardingChecklist={onboardingChecklist} />
-    </div>)
+    return (
+      <div className="dashboard">
+        {showWelcomeModal && <WelcomeModal close={closeWelcomeModal} size={size} />}
+        {showDemoModal && <DemoModal close={closeDemoModal} size={size} />}
+        <OnboardingChecklist firstName={firstName} onboardingChecklist={onboardingChecklist} />
+      </div>
+    )
   }
 
   const [metrics, setMetrics] = React.useState(null)
@@ -88,31 +90,35 @@ const Dashboard = ({ onboardingChecklist, firstName, mustSeeModal, linkedToCleve
   }
 
   if (loading) {
-    return (<div className="dashboard">
-      <div className="post-checklist-container loading">
-        <Spinner />
+    return (
+      <div className="dashboard">
+        <div className="post-checklist-container loading">
+          <Spinner />
+        </div>
       </div>
-    </div>)
+    )
   }
 
-  return (<div className="dashboard">
-    <div className="post-checklist-container">
-      {showDemoModal && <DemoModal close={closeDemoModal} size={size} />}
-      <main>
-        {showDiagnosticPromotionCard && <GrowthDiagnosticsPromotionCard />}
-        <KeyMetrics firstName={firstName} metrics={metrics} />
-        <DiagnosticMini diagnostics={diagnostics} onMobile={onMobile()} />
-        <LessonsMini lessons={lessons} onMobile={onMobile()} />
-        <ActivityFeed activityFeed={activityFeed} onMobile={onMobile()} />
-      </main>
-      <aside>
-        <HandyActions linkedToClever={linkedToClever} setShowDemoModal={setShowDemoModal} />
-        <DailyTinyTip />
-        <TeacherCenterHighlights featuredBlogPosts={featuredBlogPosts} />
-        <CollegeBoard />
-      </aside>
+  return (
+    <div className="dashboard">
+      <div className="post-checklist-container">
+        {showDemoModal && <DemoModal close={closeDemoModal} size={size} />}
+        <main>
+          {showDiagnosticPromotionCard && <GrowthDiagnosticsPromotionCard />}
+          <KeyMetrics firstName={firstName} metrics={metrics} />
+          <DiagnosticMini diagnostics={diagnostics} onMobile={onMobile()} />
+          <LessonsMini lessons={lessons} onMobile={onMobile()} />
+          <ActivityFeed activityFeed={activityFeed} onMobile={onMobile()} />
+        </main>
+        <aside>
+          <HandyActions linkedToClever={linkedToClever} setShowDemoModal={setShowDemoModal} />
+          <DailyTinyTip />
+          <TeacherCenterHighlights featuredBlogPosts={featuredBlogPosts} />
+          <CollegeBoard />
+        </aside>
+      </div>
     </div>
-  </div>)
+  )
 
 }
 

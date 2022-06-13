@@ -276,16 +276,16 @@ class Question extends React.Component {
             </ul>
           </div>
           <Switch>
-            <Route component={EditIncorrectSequenceContainer} path={`/admin/questions/:questionID/incorrect-sequences/:incorrectSequenceID/edit`} />
-            <Route component={NewIncorrectSequenceContainer} path={`/admin/questions/:questionID/incorrect-sequences/new`} />
-            <Route component={IncorrectSequenceContainer} path={`/admin/questions/:questionID/incorrect-sequences`} />
-            <Route component={EditFocusPointsContainer} path={`/admin/questions/:questionID/focus-points/:focusPointID/edit`} />
-            <Route component={NewFocusPointsContainer} path={`/admin/questions/:questionID/focus-points/new`} />
-            <Route component={FocusPointsContainer} path={`/admin/questions/:questionID/focus-points`} />
-            <Route component={TestQuestionContainer} path={`/admin/questions/:questionID/test`} />
-            <Route component={ChooseModelContainer} path={`/admin/questions/:questionID/choose-model`} />
-            <Route component={MassEditContainer} path={`/admin/questions/:questionID/mass-edit`} />
-            <Route component={ResponseComponentWrapper} path={`/admin/questions/:questionID/responses`} />
+            <Route component={EditIncorrectSequenceContainer} path="/admin/questions/:questionID/incorrect-sequences/:incorrectSequenceID/edit" />
+            <Route component={NewIncorrectSequenceContainer} path="/admin/questions/:questionID/incorrect-sequences/new" />
+            <Route component={IncorrectSequenceContainer} path="/admin/questions/:questionID/incorrect-sequences" />
+            <Route component={EditFocusPointsContainer} path="/admin/questions/:questionID/focus-points/:focusPointID/edit" />
+            <Route component={NewFocusPointsContainer} path="/admin/questions/:questionID/focus-points/new" />
+            <Route component={FocusPointsContainer} path="/admin/questions/:questionID/focus-points" />
+            <Route component={TestQuestionContainer} path="/admin/questions/:questionID/test" />
+            <Route component={ChooseModelContainer} path="/admin/questions/:questionID/choose-model" />
+            <Route component={MassEditContainer} path="/admin/questions/:questionID/mass-edit" />
+            <Route component={ResponseComponentWrapper} path="/admin/questions/:questionID/responses" />
           </Switch>
         </div>
       );

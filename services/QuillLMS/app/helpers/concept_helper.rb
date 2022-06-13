@@ -3,6 +3,7 @@
 module ConceptHelper
   def all_concept_stats(activity_session)
     return '' unless activity_session.present?
+
     # Generate a header for each applicable concept class (activity session has concept tag results for that class)
     concept_results = activity_session.concept_results
     concepts = activity_session.concepts
@@ -17,6 +18,7 @@ module ConceptHelper
     incorrect_count = 0
     concept_results.each do |result|
       next unless result.concept == concept
+
       if result.correct?
         correct_count += 1
       else
@@ -27,6 +29,6 @@ module ConceptHelper
       "<div class='col-xs-8 col-sm-8 col-xl-8'>#{concept.name}</div>" \
       "<div class='col-xs-2 col-sm-2 col-xl-2 correct-answer'>#{correct_count}</div>" \
       "<div class='col-xs-2 col-sm-2 col-xl-2 incorrect-answer'>#{incorrect_count}</div>" \
-    "</div>"
+      "</div>"
   end
 end

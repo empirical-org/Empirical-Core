@@ -8,29 +8,29 @@ export function subscribeToClassroomLessonSession({
   classroomSessionId
 }) {
   r.table('classroom_lesson_sessions')
-  .get(classroomSessionId)
-  .changes({ includeInitial: true })
-  .run(connection, (err, cursor) => {
-    cursor.each((err, document) => {
-      if (err) throw err
-      let session = document.new_val;
-      if (session) {
-        client.emit(`classroomLessonSession:${session.id}`, session)
-      }
+    .get(classroomSessionId)
+    .changes({ includeInitial: true })
+    .run(connection, (err, cursor) => {
+      cursor.each((err, document) => {
+        if (err) throw err
+        let session = document.new_val;
+        if (session) {
+          client.emit(`classroomLessonSession:${session.id}`, session)
+        }
+      });
     });
-  });
 }
 
 export function createPreviewSession({ connection, previewSessionData }) {
   r.table('classroom_lesson_sessions')
-  .insert(previewSessionData, { conflict: 'update' })
-  .run(connection)
+    .insert(previewSessionData, { conflict: 'update' })
+    .run(connection)
 }
 
 export function updateClassroomLessonSession({ connection, session }) {
   r.table('classroom_lesson_sessions')
-  .insert(session, { conflict: 'update' })
-  .run(connection);
+    .insert(session, { conflict: 'update' })
+    .run(connection);
 }
 
 export function createOrUpdateClassroomLessonSession({
@@ -39,30 +39,30 @@ export function createOrUpdateClassroomLessonSession({
   teacherIdObject
 }) {
   r.table('classroom_lesson_sessions')
-  .get(classroomSessionId)
-  .run(connection)
-  .then((foundSession) => {
-    const session = _setSessionDefaults(foundSession, classroomSessionId, teacherIdObject);
-
-    r.table('classroom_lesson_sessions')
-    .insert(session, { conflict: 'update' })
+    .get(classroomSessionId)
     .run(connection)
-  });
+    .then((foundSession) => {
+      const session = _setSessionDefaults(foundSession, classroomSessionId, teacherIdObject);
+
+      r.table('classroom_lesson_sessions')
+        .insert(session, { conflict: 'update' })
+        .run(connection)
+    });
 };
 
 // private function, exported for tests
 export function _setSessionDefaults(oldSession, sessionId, teacherObject) {
-    let session = oldSession || {};
+  let session = oldSession || {};
 
-    if (teacherObject &&  teacherObject.teacher_ids) {
-      session.teacher_ids = teacherObject.teacher_ids;
-    }
+  if (teacherObject &&  teacherObject.teacher_ids) {
+    session.teacher_ids = teacherObject.teacher_ids;
+  }
 
-    session.current_slide = session.current_slide || 0;
-    session.startTime = session.startTime || new Date();
-    session.id = session.id || sessionId;
+  session.current_slide = session.current_slide || 0;
+  session.startTime = session.startTime || new Date();
+  session.id = session.id || sessionId;
 
-   return session;
+  return session;
 }
 
 export function setSlideStartTime({
@@ -73,16 +73,16 @@ export function setSlideStartTime({
   let session = { id: classroomSessionId, timestamps: {} };
 
   r.table('classroom_lesson_sessions')
-  .get(classroomSessionId)('submissions')(questionId.toString())
-  .changes({ includeInitial: true })
-  .run(connection)
-  .catch(() => {
-    session['timestamps'][questionId.toString()] = new Date();
-    updateClassroomLessonSession({
-      session,
-      connection,
+    .get(classroomSessionId)('submissions')(questionId.toString())
+    .changes({ includeInitial: true })
+    .run(connection)
+    .catch(() => {
+      session['timestamps'][questionId.toString()] = new Date();
+      updateClassroomLessonSession({
+        session,
+        connection,
+      });
     });
-  });
 }
 
 export function addStudent({
@@ -94,22 +94,22 @@ export function addStudent({
   const nameRef = studentName.replace(/\s/g, '').toLowerCase()
 
   r.table('classroom_lesson_sessions')
-  .get(classroomSessionId)
-  .update((classroomActivity) => {
-    let students = {};
+    .get(classroomSessionId)
+    .update((classroomActivity) => {
+      let students = {};
 
-    if (!classroomActivity.students) {
-      students = { students: {} };
-    } else {
-      students = { students: classroomActivity['students'] };
-    }
-    students['students'][nameRef] = studentName;
-    return students;
-  })
-  .run(connection)
-  .then(() => {
-    client.emit(`studentAdded:${classroomSessionId}`, studentName, nameRef)
-  });
+      if (!classroomActivity.students) {
+        students = { students: {} };
+      } else {
+        students = { students: classroomActivity['students'] };
+      }
+      students['students'][nameRef] = studentName;
+      return students;
+    })
+    .run(connection)
+    .then(() => {
+      client.emit(`studentAdded:${classroomSessionId}`, studentName, nameRef)
+    });
 }
 
 export function saveStudentSubmission({
@@ -140,10 +140,10 @@ export function removeStudentSubmission({
   studentId,
 }) {
   r.table('classroom_lesson_sessions')
-  .get(classroomSessionId).replace(r.row.without({
-    submissions: { [questionId]: { [studentId]: true } }
-  }))
-  .run(connection)
+    .get(classroomSessionId).replace(r.row.without({
+      submissions: { [questionId]: { [studentId]: true } }
+    }))
+    .run(connection)
 }
 
 export function removeMode({
@@ -152,11 +152,11 @@ export function removeMode({
   questionId,
 }) {
   r.table('classroom_lesson_sessions')
-  .get(classroomSessionId)
-  .replace(r.row.without({
-    modes: { [questionId]: true }
-  }))
-  .run(connection)
+    .get(classroomSessionId)
+    .replace(r.row.without({
+      modes: { [questionId]: true }
+    }))
+    .run(connection)
 }
 
 export function clearAllSelectedSubmissions({
@@ -165,10 +165,10 @@ export function clearAllSelectedSubmissions({
   questionId,
 }) {
   r.table('classroom_lesson_sessions')
-  .get(classroomSessionId).replace(r.row.without({
-    selected_submissions: { [questionId]: true }
-  }))
-  .run(connection)
+    .get(classroomSessionId).replace(r.row.without({
+      selected_submissions: { [questionId]: true }
+    }))
+    .run(connection)
 
   removeSelectedSubmissionOrder({
     connection,
@@ -183,10 +183,10 @@ export function clearAllSubmissions({
   questionId,
 }) {
   r.table('classroom_lesson_sessions')
-  .get(classroomSessionId).replace(r.row.without({
-    submissions: { [questionId]: true }
-  }))
-  .run(connection)
+    .get(classroomSessionId).replace(r.row.without({
+      submissions: { [questionId]: true }
+    }))
+    .run(connection)
 }
 
 export function saveSelectedStudentSubmission({
@@ -196,15 +196,15 @@ export function saveSelectedStudentSubmission({
   connection,
 }) {
   r.table('classroom_lesson_sessions')
-  .get(classroomSessionId)
-  .update({
-    selected_submissions: {
-      [questionId]: {
-        [studentId]: true
+    .get(classroomSessionId)
+    .update({
+      selected_submissions: {
+        [questionId]: {
+          [studentId]: true
+        }
       }
-    }
-  })
-  .run(connection)
+    })
+    .run(connection)
 }
 
 export function updateStudentSubmissionOrder({
@@ -214,55 +214,55 @@ export function updateStudentSubmissionOrder({
   connection,
 }) {
   r.table('classroom_lesson_sessions')
-  .get(classroomSessionId)
-  .hasFields({
-    selected_submission_order: {
-      [questionId]: true
-    }
-  })
-  .run(connection)
-  .then((result) => {
-    if (result) {
-      r.table('classroom_lesson_sessions')
-      .get(classroomSessionId)('selected_submission_order')(questionId)
-      .contains(studentId)
-      .run(connection)
-      .then((result) => {
-        if (!result) {
-          r.table('classroom_lesson_sessions')
+    .get(classroomSessionId)
+    .hasFields({
+      selected_submission_order: {
+        [questionId]: true
+      }
+    })
+    .run(connection)
+    .then((result) => {
+      if (result) {
+        r.table('classroom_lesson_sessions')
+          .get(classroomSessionId)('selected_submission_order')(questionId)
+          .contains(studentId)
+          .run(connection)
+          .then((result) => {
+            if (!result) {
+              r.table('classroom_lesson_sessions')
+                .get(classroomSessionId)
+                .update({
+                  selected_submission_order: {
+                    [questionId]: r.row('selected_submission_order')(questionId)
+                      .append(studentId)
+                  }
+                })
+                .run(connection)
+            } else {
+              r.table('classroom_lesson_sessions')
+                .get(classroomSessionId)
+                .update({
+                  selected_submission_order: {
+                    [questionId]: r.row('selected_submission_order')(questionId)
+                      .filter((item) => item.ne(studentId))
+                  }
+                })
+                .run(connection)
+            }
+          })
+      } else {
+        r.table('classroom_lesson_sessions')
           .get(classroomSessionId)
           .update({
             selected_submission_order: {
-              [questionId]: r.row('selected_submission_order')(questionId)
-                .append(studentId)
+              [questionId]: [
+                studentId
+              ]
             }
           })
           .run(connection)
-        } else {
-          r.table('classroom_lesson_sessions')
-          .get(classroomSessionId)
-          .update({
-            selected_submission_order: {
-              [questionId]: r.row('selected_submission_order')(questionId)
-                .filter((item) => item.ne(studentId))
-            }
-          })
-          .run(connection)
-        }
-      })
-    } else {
-      r.table('classroom_lesson_sessions')
-      .get(classroomSessionId)
-      .update({
-        selected_submission_order: {
-          [questionId]: [
-            studentId
-          ]
-        }
-      })
-      .run(connection)
-    }
-  })
+      }
+    })
 }
 
 export function removeSelectedSubmissionOrder({
@@ -271,13 +271,13 @@ export function removeSelectedSubmissionOrder({
   connection,
 }) {
   r.table('classroom_lesson_sessions')
-  .get(classroomSessionId)
-  .replace(r.row.without({
-    selected_submission_order: {
-      [questionId]: true
-    }
-  }))
-  .run(connection)
+    .get(classroomSessionId)
+    .replace(r.row.without({
+      selected_submission_order: {
+        [questionId]: true
+      }
+    }))
+    .run(connection)
 }
 
 export function removeSelectedStudentSubmission({
@@ -287,27 +287,27 @@ export function removeSelectedStudentSubmission({
   connection,
 }) {
   r.table('classroom_lesson_sessions')
-  .get(classroomSessionId)
-  .replace(r.row.without({
-    selected_submissions: {
-      [questionId]: {
-        [studentId]: true
-      }
-    }
-  }))
-  .run(connection)
-  .then(() => {
-    r.table('classroom_lesson_sessions')
     .get(classroomSessionId)
     .replace(r.row.without({
-      selected_submission_order: {
-        [questionId]: [
-          studentId
-        ]
+      selected_submissions: {
+        [questionId]: {
+          [studentId]: true
+        }
       }
     }))
     .run(connection)
-  })
+    .then(() => {
+      r.table('classroom_lesson_sessions')
+        .get(classroomSessionId)
+        .replace(r.row.without({
+          selected_submission_order: {
+            [questionId]: [
+              studentId
+            ]
+          }
+        }))
+        .run(connection)
+    })
 }
 
 export function setMode({
@@ -317,13 +317,13 @@ export function setMode({
   connection,
 }) {
   r.table('classroom_lesson_sessions')
-  .get(classroomSessionId)
-  .update({
-    modes: {
-      [questionId]: mode
-    }
-  })
-  .run(connection)
+    .get(classroomSessionId)
+    .update({
+      modes: {
+        [questionId]: mode
+      }
+    })
+    .run(connection)
 }
 
 export function setModel({
@@ -333,13 +333,13 @@ export function setModel({
   connection,
 }) {
   r.table('classroom_lesson_sessions')
-  .get(classroomSessionId)
-  .update({
-    models: {
-      [questionId]: model
-    }
-  })
-  .run(connection)
+    .get(classroomSessionId)
+    .update({
+      models: {
+        [questionId]: model
+      }
+    })
+    .run(connection)
 }
 
 export function setPrompt({
@@ -349,13 +349,13 @@ export function setPrompt({
   connection,
 }) {
   r.table('classroom_lesson_sessions')
-  .get(classroomSessionId)
-  .update({
-    prompts: {
-      [questionId]: prompt
-    }
-  })
-  .run(connection)
+    .get(classroomSessionId)
+    .update({
+      prompts: {
+        [questionId]: prompt
+      }
+    })
+    .run(connection)
 }
 
 export function toggleStudentFlag({
@@ -364,34 +364,34 @@ export function toggleStudentFlag({
   connection,
 }) {
   r.table('classroom_lesson_sessions')
-  .get(classroomSessionId)
-  .hasFields({
-    flaggedStudents: {
-      [studentId]: true
-    }
-  })
-  .run(connection)
-  .then((result) => {
-    if (result) {
-      r.table('classroom_lesson_sessions')
-      .get(classroomSessionId)
-      .replace(r.row.without({
-        flaggedStudents: {
-          [studentId]: true
-        }
-      }))
-      .run(connection)
-    } else {
-      r.table('classroom_lesson_sessions')
-      .get(classroomSessionId)
-      .update({
-        flaggedStudents: {
-          [studentId]: true
-        }
-      })
-      .run(connection)
-    }
-  })
+    .get(classroomSessionId)
+    .hasFields({
+      flaggedStudents: {
+        [studentId]: true
+      }
+    })
+    .run(connection)
+    .then((result) => {
+      if (result) {
+        r.table('classroom_lesson_sessions')
+          .get(classroomSessionId)
+          .replace(r.row.without({
+            flaggedStudents: {
+              [studentId]: true
+            }
+          }))
+          .run(connection)
+      } else {
+        r.table('classroom_lesson_sessions')
+          .get(classroomSessionId)
+          .update({
+            flaggedStudents: {
+              [studentId]: true
+            }
+          })
+          .run(connection)
+      }
+    })
 }
 
 export function setWatchTeacherState({
@@ -399,11 +399,11 @@ export function setWatchTeacherState({
   connection,
 }) {
   r.table('classroom_lesson_sessions')
-  .get(classroomSessionId)
-  .update({
-    watchTeacherState: true
-  })
-  .run(connection)
+    .get(classroomSessionId)
+    .update({
+      watchTeacherState: true
+    })
+    .run(connection)
 }
 
 export function removeWatchTeacherState({
@@ -411,9 +411,9 @@ export function removeWatchTeacherState({
   connection,
 }) {
   r.table('classroom_lesson_sessions')
-  .get(classroomSessionId)
-  .replace(r.row.without('watchTeacherState'))
-  .run(connection)
+    .get(classroomSessionId)
+    .replace(r.row.without('watchTeacherState'))
+    .run(connection)
 }
 
 export function addStudents({
@@ -423,9 +423,9 @@ export function addStudents({
   connection,
 }) {
   r.table('classroom_lesson_sessions')
-  .get(classroomSessionId)
-  .update({ students: activitySessions, student_ids: studentIds })
-  .run(connection)
+    .get(classroomSessionId)
+    .update({ students: activitySessions, student_ids: studentIds })
+    .run(connection)
 }
 
 export function redirectAssignedStudents({
@@ -435,9 +435,9 @@ export function redirectAssignedStudents({
   connection,
 }) {
   r.table('classroom_lesson_sessions')
-  .get(classroomSessionId)
-  .update({ followUpOption, followUpUrl })
-  .run(connection)
+    .get(classroomSessionId)
+    .update({ followUpOption, followUpUrl })
+    .run(connection)
 }
 
 export function setClassroomName({
@@ -446,9 +446,9 @@ export function setClassroomName({
   connection,
 }) {
   r.table('classroom_lesson_sessions')
-  .get(classroomSessionId)
-  .update({ classroom_name: classroomName })
-  .run(connection)
+    .get(classroomSessionId)
+    .update({ classroom_name: classroomName })
+    .run(connection)
 }
 
 export function setTeacherName({
@@ -457,9 +457,9 @@ export function setTeacherName({
   connection,
 }) {
   r.table('classroom_lesson_sessions')
-  .get(classroomSessionId)
-  .update({ teacher_name: teacherName })
-  .run(connection)
+    .get(classroomSessionId)
+    .update({ teacher_name: teacherName })
+    .run(connection)
 }
 
 export function addFollowUpName({
@@ -468,9 +468,9 @@ export function addFollowUpName({
   connection,
 }) {
   r.table('classroom_lesson_sessions')
-  .get(classroomSessionId)
-  .update({ followUpActivityName })
-  .run(connection)
+    .get(classroomSessionId)
+    .update({ followUpActivityName })
+    .run(connection)
 }
 
 export function addSupportingInfo({
@@ -479,9 +479,9 @@ export function addSupportingInfo({
   connection,
 }) {
   r.table('classroom_lesson_sessions')
-  .get(classroomSessionId)
-  .update({ supportingInfo })
-  .run(connection)
+    .get(classroomSessionId)
+    .update({ supportingInfo })
+    .run(connection)
 }
 
 export function setEditionId({
@@ -491,25 +491,25 @@ export function setEditionId({
   client,
 }) {
   r.table('classroom_lesson_sessions')
-  .filter(r.row("id").eq(classroomSessionId))
-  .run(connection)
-  .then(cursor => cursor.toArray())
-  .then(sessionArray => {
-    const currentEditionId = sessionArray.length === 1 ? sessionArray[0].edition_id : null
-    if (currentEditionId !== editionId) {
-      setTeacherModels({
-        classroomSessionId,
-        editionId,
-        connection,
-      })
-      r.table('classroom_lesson_sessions')
-      .insert({ id: classroomSessionId, edition_id: editionId }, {conflict: 'update'})
-      .run(connection)
-      .then(() => {
+    .filter(r.row("id").eq(classroomSessionId))
+    .run(connection)
+    .then(cursor => cursor.toArray())
+    .then(sessionArray => {
+      const currentEditionId = sessionArray.length === 1 ? sessionArray[0].edition_id : null
+      if (currentEditionId !== editionId) {
+        setTeacherModels({
+          classroomSessionId,
+          editionId,
+          connection,
+        })
+        r.table('classroom_lesson_sessions')
+          .insert({ id: classroomSessionId, edition_id: editionId }, {conflict: 'update'})
+          .run(connection)
+          .then(() => {
+            client.emit(`editionIdSet:${classroomSessionId}`);
+          })
+      } else {
         client.emit(`editionIdSet:${classroomSessionId}`);
-      })
-    } else {
-      client.emit(`editionIdSet:${classroomSessionId}`);
-    }
-  })
+      }
+    })
 }

@@ -33,18 +33,20 @@ const Navbar = ({ params, selectedActivity, classrooms, buttonGroupCallback, dro
     dropdownCallback(selectedClassroom)
   }
 
-  return (<header className="reports-header">
-    <div className="container">
-      <div className="name-and-classroom-dropdown">
-        <h1>{selectedActivity.name}</h1>
-        <DropdownInput handleChange={onDropdownChange} options={classroomOptions} value={classroomOptions.find(opt => String(opt.value) === params.classroomId)} />
+  return (
+    <header className="reports-header">
+      <div className="container">
+        <div className="name-and-classroom-dropdown">
+          <h1>{selectedActivity.name}</h1>
+          <DropdownInput handleChange={onDropdownChange} options={classroomOptions} value={classroomOptions.find(opt => String(opt.value) === params.classroomId)} />
+        </div>
+        <nav>
+          {studentsButton({ buttonGroupCallback, })}
+          {questionsButton({ buttonGroupCallback, })}
+        </nav>
       </div>
-      <nav>
-        {studentsButton({ buttonGroupCallback, })}
-        {questionsButton({ buttonGroupCallback, })}
-      </nav>
-    </div>
-  </header>)
+    </header>
+  )
 }
 
 export default Navbar

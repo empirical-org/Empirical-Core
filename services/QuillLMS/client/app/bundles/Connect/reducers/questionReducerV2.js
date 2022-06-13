@@ -7,7 +7,7 @@ const initialState = {
 function question(state = initialState, action) {
   switch (action.type) {
     case SubmitActions.SUBMIT_RESPONSE_ANON:
-      // // console.log("Action: ", action)
+    // // console.log("Action: ", action)
       var changes = {
         attempts: state.attempts.concat([action.response])
       }

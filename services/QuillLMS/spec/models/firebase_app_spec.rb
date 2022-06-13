@@ -57,6 +57,7 @@ describe FirebaseApp, type: :model do
 
     context 'for an anonymous user' do
       let(:user) { nil }
+
       it "generates a token with the uid in the payload, where the uid is 'custom:anonymous'" do
         expected_subhash = {uid: 'custom:anonymous'}
         expect(generator).to receive(:create_token).with(hash_including(expected_subhash))

@@ -27,6 +27,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
 
   describe '#assign as a staff w/o classrooms' do
     let(:user) { create(:staff) }
+
     before do
       allow(controller).to receive(:current_user) { user }
     end
@@ -132,44 +133,42 @@ describe Teachers::ClassroomManagerController, type: :controller do
 
         it 'should be a an array with objects containing the activity id, post test id, and assigned classroom ids' do
           get :assign
-          expect(assigns(:assigned_pre_tests)).to eq ([
-            {
-              id: starter_pre_test.id,
-              post_test_id: starter_post_test.id,
-              assigned_classroom_ids: [user.classrooms_i_teach.last.id],
-              all_classrooms: [
-                {
-                  id: user.classrooms_i_teach.last.id,
-                  completed_pre_test_student_ids: [students_classrooms.student.id],
-                  completed_post_test_student_ids: []
-                }
-              ]
-            },
-            {
-              id: intermediate_pre_test.id,
-              post_test_id: intermediate_post_test.id,
-              assigned_classroom_ids: [],
-              all_classrooms: [
-                {
-                  id: user.classrooms_i_teach.last.id,
-                  completed_pre_test_student_ids: [],
-                  completed_post_test_student_ids: []
-                }
-              ]
-            },
-            {
-              id: advanced_pre_test.id,
-              post_test_id: advanced_post_test.id,
-              assigned_classroom_ids: [],
-              all_classrooms: [
-                {
-                  id: user.classrooms_i_teach.last.id,
-                  completed_pre_test_student_ids: [],
-                  completed_post_test_student_ids: []
-                }
-              ]
-            }
-          ])
+          expect(assigns(:assigned_pre_tests)).to include({
+            id: starter_pre_test.id,
+            post_test_id: starter_post_test.id,
+            assigned_classroom_ids: [user.classrooms_i_teach.last.id],
+            all_classrooms: [
+              {
+                id: user.classrooms_i_teach.last.id,
+                completed_pre_test_student_ids: [students_classrooms.student.id],
+                completed_post_test_student_ids: []
+              }
+            ]
+          },
+          {
+            id: intermediate_pre_test.id,
+            post_test_id: intermediate_post_test.id,
+            assigned_classroom_ids: [],
+            all_classrooms: [
+              {
+                id: user.classrooms_i_teach.last.id,
+                completed_pre_test_student_ids: [],
+                completed_post_test_student_ids: []
+              }
+            ]
+          },
+          {
+            id: advanced_pre_test.id,
+            post_test_id: advanced_post_test.id,
+            assigned_classroom_ids: [],
+            all_classrooms: [
+              {
+                id: user.classrooms_i_teach.last.id,
+                completed_pre_test_student_ids: [],
+                completed_post_test_student_ids: []
+              }
+            ]
+          })
         end
       end
 
@@ -513,6 +512,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
       expect(assigns(:subscription_type)).to eq "some subscription"
       expect(response.body).to eq({
         hasPremium: "some subscription",
+        last_subscription_was_trial: nil,
         trial_days_remaining: 10,
         first_day_of_premium_or_trial: true
       }.to_json)
@@ -566,10 +566,12 @@ describe Teachers::ClassroomManagerController, type: :controller do
 
   describe '#scores' do
     let(:teacher) { create(:teacher) }
+    let(:classroom) { create(:classroom) }
 
     before do
       allow(controller).to receive(:current_user) { teacher }
       allow(Scorebook::Query).to receive(:run) { [1, 2, 3] }
+      allow(Classroom).to receive(:find) { classroom }
     end
 
     it 'should render the correct json' do
@@ -611,20 +613,6 @@ describe Teachers::ClassroomManagerController, type: :controller do
     end
   end
 
-  describe '#dashboard_query' do
-    let(:teacher) { create(:teacher) }
-
-    before do
-      allow(Dashboard).to receive(:queries) { "queries" }
-      allow(controller).to receive(:current_user) { teacher }
-    end
-
-    it 'should render the dashboard query' do
-      get :dashboard_query
-      expect(response.body).to eq({performanceQuery: "queries"}.to_json)
-    end
-  end
-
   describe '#update_my_account' do
     let(:teacher) { create(:teacher) }
 
@@ -648,12 +636,12 @@ describe Teachers::ClassroomManagerController, type: :controller do
     before { allow(controller).to receive(:current_user) { teacher } }
 
     it 'should return an array with two classrooms' do
-      post :update_google_classrooms, params: { selected_classrooms: selected_classrooms }, as: :json
+     post :update_google_classrooms, params: { selected_classrooms: selected_classrooms }, as: :json
 
-      classrooms = JSON.parse(response.body).deep_symbolize_keys.fetch(:classrooms)
+     classrooms = JSON.parse(response.body).deep_symbolize_keys.fetch(:classrooms)
 
-      google_classroom_ids = classrooms.map { |classroom| classroom[:google_classroom_id] }.sort
-      expect(google_classroom_ids).to eq [google_classroom_id1, google_classroom_id2]
+     google_classroom_ids = classrooms.map { |classroom| classroom[:google_classroom_id] }.sort
+     expect(google_classroom_ids).to eq [google_classroom_id1, google_classroom_id2]
    end
   end
 
@@ -781,7 +769,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
   end
 
   describe '#activity_feed' do
-    let!(:activity_session) {create(:activity_session, completed_at: Time.now) }
+    let!(:activity_session) {create(:activity_session, completed_at: Time.current) }
     let!(:teacher) { activity_session.teachers.first }
 
     before do

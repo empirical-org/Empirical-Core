@@ -111,7 +111,7 @@ export default class LessonPlanner extends React.Component {
   selectModel = (ut) => {
     const relatedModels = _l.filter(this.state.unitTemplatesManager.models, {
       unit_template_category: {
-      id: ut.unit_template_category.id
+        id: ut.unit_template_category.id
       }
     })
     this.updateUnitTemplatesManager({stage: 'profile', model: ut, relatedModels: relatedModels})
@@ -151,7 +151,7 @@ export default class LessonPlanner extends React.Component {
 
   filterByGrade = () => {
     const { grade, models, } = this.state.unitTemplatesManager;
-    var uts;
+    let uts;
     if (grade) {
       uts = this._modelsInGrade(grade)
     } else {
@@ -190,12 +190,12 @@ export default class LessonPlanner extends React.Component {
       this.setState({tab: tab});
     } else if (tab === 'exploreActivityPacks') {
       this.deepExtendState({
-      tab: tab,
-      unitTemplatesManager: {
-        stage: 'index',
-        firstAssignButtonClicked: false,
-        model_id: null,
-        model: null
+        tab: tab,
+        unitTemplatesManager: {
+          stage: 'index',
+          firstAssignButtonClicked: false,
+          model_id: null,
+          model: null
         }
       });
       this.fetchUnitTemplateModels();
@@ -227,19 +227,19 @@ export default class LessonPlanner extends React.Component {
 
   toggleActivitySelection = (activity, true_or_false) => {
     if (true_or_false) {
-    this.analytics().track('select activity in lesson planner', {
+      this.analytics().track('select activity in lesson planner', {
         name: activity.name,
         id: activity.id
       });
     }
-    var sas = this.modules.fnl.toggleById(this.getSelectedActivities(), activity);
+    let sas = this.modules.fnl.toggleById(this.getSelectedActivities(), activity);
     this.updateCreateUnitModel({selectedActivities: sas});
   };
 
   clickAssignButton = () => this.updateUnitTemplatesManager({firstAssignButtonClicked: true});
 
   onFastAssignSuccess = () => {
-    var lastActivity = this.state.unitTemplatesManager.model;
+    let lastActivity = this.state.unitTemplatesManager.model;
     this.analytics().track('click Create Unit', {});
     this.deepExtendState(this.blankState());
     this.updateUnitTemplatesManager({lastActivityAssigned: lastActivity});
@@ -277,14 +277,14 @@ export default class LessonPlanner extends React.Component {
 
   manageUnit = () => {
     <ManageUnits actions={{
-        toggleTab: this.toggleTab,
-        editUnit: this.editUnit
-      }}
+      toggleTab: this.toggleTab,
+      editUnit: this.editUnit
+    }}
     />;
   };
 
   render() {
-    var tabSpecificComponents;
+    let tabSpecificComponents;
     // Ultimately, none of the tab state should exist, and we should transfer
     // entirely to react-router for managing that, along with redux for
     // the general state in this section

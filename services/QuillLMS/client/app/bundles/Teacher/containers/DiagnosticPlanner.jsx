@@ -7,13 +7,13 @@ import SuccessView from '../components/diagnostic/diagnostic_questionnaire/Succe
 export default class extends React.Component {
   render() {
 
-      return (
-        <Router history={browserHistory}>
-          <Route component={App} path="/diagnostic/:activityId/">
-            <Route component={SuccessView} path='success' />
-            <Route component={Stages} path='stage/:stage' />
-          </Route>
-        </Router>
-      );
+    return (
+      <Router history={browserHistory}>
+        <Route component={App} path="/diagnostic/:activityId/">
+          <Route component={SuccessView} path='success' />
+          <Route component={Stages} path='stage/:stage' />
+        </Route>
+      </Router>
+    );
   }
 }

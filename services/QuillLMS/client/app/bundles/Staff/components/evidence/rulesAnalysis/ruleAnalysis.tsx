@@ -1,8 +1,7 @@
 import * as React from "react";
-import { queryCache, useQuery } from 'react-query';
+import { useQueryClient, useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
-import ReactTable from 'react-table';
 import { firstBy } from 'thenby';
 
 import FilterWidget from "../shared/filterWidget";
@@ -12,8 +11,9 @@ import { fetchRuleFeedbackHistoriesByRule } from '../../../utils/evidence/ruleFe
 import { fetchConcepts, } from '../../../utils/evidence/conceptAPIs';
 import { createOrUpdateFeedbackHistoryRating, massCreateOrUpdateFeedbackHistoryRating, } from '../../../utils/evidence/feedbackHistoryRatingAPIs';
 import { InputEvent } from '../../../interfaces/evidenceInterfaces';
-import { DataTable, Error, Spinner, Input, smallWhiteCheckIcon, } from '../../../../Shared/index';
-import { handlePageFilterClick, renderHeader } from "../../../helpers/evidence";
+import { DataTable, Error, Spinner, Input, smallWhiteCheckIcon, ReactTable, } from '../../../../Shared/index';
+import { handlePageFilterClick } from "../../../helpers/evidence/miscHelpers";
+import { renderHeader } from "../../../helpers/evidence/renderHelpers";
 import { ALL, SCORED, UNSCORED, STRONG, WEAK, RULE_ANALYSIS, RULES_ANALYSIS } from '../../../../../constants/evidence';
 
 const extractHighlight = (highlightObject) => {
@@ -42,6 +42,8 @@ const RuleAnalysis = ({ match }) => {
   const [endDateForQuery, setEndDate] = React.useState<string>(initialEndDateString);
   const [turkSessionID, setTurkSessionID] = React.useState<string>(initialTurkSessionId);
   const [turkSessionIDForQuery, setTurkSessionIDForQuery] = React.useState<string>(initialTurkSessionId);
+
+  const queryClient = useQueryClient()
 
   const { data: activityData } = useQuery({
     queryKey: [`activity-${activityId}`, activityId],
@@ -74,7 +76,7 @@ const RuleAnalysis = ({ match }) => {
       const rows = responseRows(ruleFeedbackHistoryData.responses);
       setResponses(rows)
     }
-  }, [ruleFeedbackHistoryData])
+  }, [ruleFeedbackHistoryData, activityData])
 
   React.useEffect(() => {
     if(ruleFeedbackHistoryData) {
@@ -128,19 +130,19 @@ const RuleAnalysis = ({ match }) => {
   async function massMark(rating) {
     setSelectedIds([])
     massCreateOrUpdateFeedbackHistoryRating({ rating, feedback_history_ids: selectedIds}).then((response) => {
-      queryCache.refetchQueries([`rule-feedback-histories-by-rule-${ruleId}-${promptId}`, ruleId, promptId, startDateForQuery, endDateForQuery]);
+      queryClient.refetchQueries([`rule-feedback-histories-by-rule-${ruleId}-${promptId}`, ruleId, promptId, startDateForQuery, endDateForQuery]);
     });
   }
 
-   async function toggleStrength(response) { updateFeedbackHistoryRatingStrength(response.response_id, response.strength === true ? null : true) }
+  async function toggleStrength(response) { updateFeedbackHistoryRatingStrength(response.response_id, response.strength === true ? null : true) }
 
-   async function toggleWeakness(response) { updateFeedbackHistoryRatingStrength(response.response_id, response.strength === false ? null : false) }
+  async function toggleWeakness(response) { updateFeedbackHistoryRatingStrength(response.response_id, response.strength === false ? null : false) }
 
-   async function updateFeedbackHistoryRatingStrength(responseId, rating) {
-     createOrUpdateFeedbackHistoryRating({ rating, feedback_history_id: responseId}).then((response) => {
-       queryCache.refetchQueries([`rule-feedback-histories-by-rule-${ruleId}-${promptId}`, ruleId, promptId, startDateForQuery, endDateForQuery]);
-     });
-   }
+  async function updateFeedbackHistoryRatingStrength(responseId, rating) {
+    createOrUpdateFeedbackHistoryRating({ rating, feedback_history_id: responseId}).then((response) => {
+      queryClient.refetchQueries([`rule-feedback-histories-by-rule-${ruleId}-${promptId}`, ruleId, promptId, startDateForQuery, endDateForQuery]);
+    });
+  }
 
   function getSortedRows(rows, sortInfo) {
     if(sortInfo) {
@@ -153,9 +155,10 @@ const RuleAnalysis = ({ match }) => {
     }
   }
 
-  function handleDataUpdate(state) {
-    const { sorted } = state;
+  function handleDataUpdate(sorted) {
     const sortInfo = sorted[0];
+    if (!sortInfo) { return }
+
     const rows = responseRows(responses);
     const sortedRows = getSortedRows(rows, sortInfo)
     setResponses(sortedRows);
@@ -255,28 +258,28 @@ const RuleAnalysis = ({ match }) => {
     {
       Header: '',
       accessor: "selected",
-      width: 50
+      maxWidth: 50
     },
     {
       Header: "Time",
       accessor: "datetime",
-      width: 100
+      maxWidth: 100
     },
     {
       Header: prompt && prompt.text ? <b className="prompt-text" dangerouslySetInnerHTML={{ __html: prompt.text.replace(prompt.conjunction, `<span>${prompt.conjunction}</span>`)}} /> : '',
       accessor: "response",
-      width: 600,
-      sortMethod: (a, b) => (a.key.localeCompare(b.key))
+      maxWidth: 600,
+      sortType: (a, b) => (a.original.key.localeCompare(b.original.key))
     },
     {
       Header: "Highlighted Output",
       accessor: "highlight",
-      width: 100
+      maxWidth: 100
     },
     {
       Header: "",
       accessor: "strengthButtons",
-      width: 300
+      maxWidth: 300
     },
     {
       Header: "",
@@ -374,9 +377,8 @@ const RuleAnalysis = ({ match }) => {
         columns={responseHeaders}
         data={responses}
         defaultPageSize={responses.length < 100 ? responses.length : 100}
-        manual
-        onFetchData={(state) => handleDataUpdate(state)}
-        showPagination={true}
+        manualSortBy
+        onSortedChange={handleDataUpdate}
       />
     </div>
   );

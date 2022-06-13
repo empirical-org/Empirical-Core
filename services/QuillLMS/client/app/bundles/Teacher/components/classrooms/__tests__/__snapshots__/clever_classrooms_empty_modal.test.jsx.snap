@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CleverClassroomsEmptyModal component should render CleverClassroomsEmptyModal 1`] = `
+<div
+  className="modal-container clever-classrooms-empty-modal-container"
+>
+  <div
+    className="modal-background"
+  />
+  <div
+    className="clever-classrooms-empty-modal quill-modal modal-body"
+  >
+    <div>
+      <h3
+        className="title"
+      >
+        Create classes in Clever
+      </h3>
+    </div>
+    <div
+      className="no-active-classes"
+    >
+      <img
+        alt="empty class"
+        src="undefined/images/illustrations/empty-class.svg"
+      />
+      <p>
+        No classes are available to import yet. Go to Clever and create classes to import them into Quill.
+      </p>
+    </div>
+    <div
+      className="form-buttons"
+    >
+      <button
+        className="quill-button contained primary medium"
+        onClick={[Function]}
+        type="button"
+      >
+        Close
+      </button>
+    </div>
+  </div>
+</div>
+`;

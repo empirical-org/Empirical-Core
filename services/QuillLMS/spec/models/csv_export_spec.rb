@@ -52,29 +52,34 @@ describe CsvExport, type: :model do
 
     context 'activity sessions' do
       let(:export_type) { 'activity_sessions' }
+
       it_behaves_like "CSV Export Type"
     end
 
     context 'standards: all classrooms' do
       let(:export_type) { 'standards_classrooms' }
+
       it_behaves_like "CSV Export Type"
     end
 
     context 'standards: students by classroom' do
       let(:filters) { { classroom_id: classroom_one.id } }
       let(:export_type) { 'standards_classroom_students' }
+
       it_behaves_like "CSV Export Type"
     end
 
     context 'standards: standards by classroom' do
       let(:filters) { { classroom_id: classroom_one.id } }
       let(:export_type) { 'standards_classroom_standards' }
+
       it_behaves_like "CSV Export Type"
     end
 
     context 'standards: standards by student' do
       let(:filters) { { student_id: student_in_classroom_one.id } }
       let(:export_type) { 'standards_student_standards' }
+
       it_behaves_like "CSV Export Type"
     end
 
@@ -82,17 +87,16 @@ describe CsvExport, type: :model do
       let!(:standard) { create(:standard)}
       let(:filters) { { standard_id: standard.id } }
       let(:export_type) { 'standards_standard_students' }
+
       it_behaves_like "CSV Export Type"
     end
   end
 
   describe '#mark_sent!' do
     let(:csv_export1) { create(:csv_export) }
-    let(:time) { Time.new('100') }
+    let(:time) { Time.utc('100') }
 
-    before do
-      allow(Time).to receive(:now).and_return(time)
-    end
+    before { allow(Time).to receive(:current).and_return(time) }
 
     it 'should set the emailed at as the current time' do
       csv_export1.mark_sent!

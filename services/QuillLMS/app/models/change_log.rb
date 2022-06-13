@@ -157,19 +157,19 @@ class ChangeLog < ApplicationRecord
   end
 
   def full_action
-    "#{changed_record&.change_log_name} - #{action}" if changed_record&.respond_to?(:change_log_name)
+    "#{changed_record&.change_log_name} - #{action}" if changed_record.respond_to?(:change_log_name)
   end
 
   def changed_record_url
-    changed_record&.url if changed_record&.respond_to? :url
+    changed_record&.url if changed_record.respond_to?(:url)
   end
 
   def changed_record_display_name
-    changed_record&.evidence_name if changed_record&.respond_to?(:evidence_name)
+    changed_record&.evidence_name if changed_record.respond_to?(:evidence_name)
   end
 
   def conjunctions
-    changed_record&.conjunctions if changed_record&.respond_to?(:conjunctions)
+    changed_record&.conjunctions if changed_record.respond_to?(:conjunctions)
   end
 
   def user

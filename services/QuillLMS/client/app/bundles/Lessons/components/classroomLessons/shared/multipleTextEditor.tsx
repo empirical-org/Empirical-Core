@@ -34,10 +34,10 @@ class MultipleTextEditor extends React.Component<any, any> {
     }
     if (nextProps.boilerplate !== this.props.boilerplate) {
       this.setState({ text: EditorState.createWithContent(convertFromHTML(nextProps.boilerplate)), },
-      () => {
-        this.props.handleTextChange(convertToHTML(this.state.text.getCurrentContent()).replace(/<p><\/p>/g, '<br/>').replace(/&nbsp;/g, '<br/>'));
-      }
-    );
+        () => {
+          this.props.handleTextChange(convertToHTML(this.state.text.getCurrentContent()).replace(/<p><\/p>/g, '<br/>').replace(/&nbsp;/g, '<br/>'));
+        }
+      );
     }
   }
 

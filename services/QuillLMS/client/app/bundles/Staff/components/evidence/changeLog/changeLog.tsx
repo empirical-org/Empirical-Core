@@ -4,15 +4,15 @@ import stripHtml from "string-strip-html";
 import { RouteComponentProps } from 'react-router-dom'
 import { useQuery } from 'react-query';
 import { firstBy } from "thenby";
-import ReactTable from 'react-table';
+;
 import qs from 'qs';
 import * as _ from 'lodash'
 import DateTimePicker from 'react-datetime-picker';
 
-import { renderHeader } from '../../../helpers/evidence';
+import { renderHeader } from '../../../helpers/evidence/renderHelpers';
 import { sort } from '../../../../../modules/sortingMethods.js';
 import { fetchChangeLogs, fetchActivity } from '../../../utils/evidence/activityAPIs';
-import { DropdownInput, Spinner, } from '../../../../Shared/index';
+import { DropdownInput, Spinner, ReactTable, } from '../../../../Shared/index';
 
 const ChangeLog = ({ history, match }) => {
   const { params } = match;
@@ -124,14 +124,14 @@ const ChangeLog = ({ history, match }) => {
       key: "dateTime",
       sortMethod: sort,
       width: 160,
-      Cell: cell => (new Date(cell.original.dateTime).toLocaleString())
+      Cell: ({row}) => (new Date(row.original.dateTime).toLocaleString())
     },
     {
       Header: 'Action',
       accessor: "action",
       sortMethod: sort,
       width: 160,
-      Cell: cell => (<a href={cell.original.actionLink} rel="noopener noreferrer" target="_blank">{cell.original.action}</a>)
+      Cell: ({row}) => (<a href={row.original.actionLink} rel="noopener noreferrer" target="_blank">{row.original.action}</a>)
     },
     {
       Header: 'Rule/Model Name',
@@ -160,7 +160,7 @@ const ChangeLog = ({ history, match }) => {
       key: "previousValue",
       sortMethod: sort,
       width: 200,
-      Cell: cell => cell.original.previousValue ? (stripHtml(cell.original.previousValue)) : ''
+      Cell: ({row}) => row.original.previousValue ? (stripHtml(row.original.previousValue)) : ''
     },
     {
       Header: 'New Value',
@@ -168,7 +168,7 @@ const ChangeLog = ({ history, match }) => {
       key: "newValue",
       sortMethod: sort,
       width: 200,
-      Cell: cell => cell.original.newValue ? (stripHtml(cell.original.newValue)) : ''
+      Cell: ({row}) => row.original.newValue ? (stripHtml(row.original.newValue)) : ''
     },
     {
       Header: 'Author',
@@ -244,9 +244,7 @@ const ChangeLog = ({ history, match }) => {
         className="change-log-table"
         columns={dataTableFields}
         data={filteredRows || []}
-        defaultPageSize={filteredRows.length}
         defaultSorted={[{id: 'dateTime', desc: true}]}
-        showPagination={false}
       />)}
     </div>
   );

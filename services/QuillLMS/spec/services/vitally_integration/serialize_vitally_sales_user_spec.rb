@@ -4,8 +4,10 @@ require 'rails_helper'
 
 describe 'SerializeVitallySalesUser' do
   before { Timecop.freeze }
+
   after { Timecop.return }
-  let!(:current_time) { Time.now }
+
+  let!(:current_time) { Time.current }
   let!(:school) { create(:school) }
   let!(:teacher) { create(:user, role: 'teacher', school: school)}
   let!(:classroom) { create(:classroom) }
@@ -35,7 +37,7 @@ describe 'SerializeVitallySalesUser' do
       diagnostics_finished: 2,
       percent_completed_diagnostics: 1.0
     }
-    year = Date.today.year - 1
+    year = School.school_year_start(1.year.ago).year
     CacheVitallyTeacherData.set(teacher.id, year, previous_year_data.to_json)
   end
 
@@ -125,7 +127,10 @@ describe 'SerializeVitallySalesUser' do
 
     expect(teacher_data[:traits]).to include(
       premium_status: 'SUPER DUPER SUB',
-      premium_expiry_date: subscription.expiration
+      premium_expiry_date: subscription.expiration,
+      premium_state: teacher.premium_state,
+      premium_type: teacher.subscription&.account_type,
+      auditor: teacher.auditor?
     )
   end
 

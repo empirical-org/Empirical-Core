@@ -26,26 +26,31 @@ class ApplicationController < ActionController::Base
 
   def admin!
     return if current_user.try(:admin?)
+
     auth_failed
   end
 
   def staff!
     return if current_user.try(:staff?)
+
     auth_failed
   end
 
   def teacher_or_staff!
     return if current_user.try(:teacher?)
+
     staff!
   end
 
   def teacher!
     return if current_user.try(:teacher?)
+
     admin!
   end
 
   def student!
     return if current_user.try(:student?)
+
     auth_failed
   end
 
@@ -60,7 +65,7 @@ class ApplicationController < ActionController::Base
 
   def render_error(status)
     respond_to do |format|
-      format.html { render template: "errors/error_#{status}", status: status }
+      format.html { render template: "errors/error#{status}", status: status }
       # So technically we shouldn't really be setting the content-type header
       # in a content-less error response at all, but CORS security logic in Rails
       # falsely flags lack of content-type headers in responses to routes that end
@@ -112,7 +117,7 @@ class ApplicationController < ActionController::Base
   end
 
   protected def set_vary_header
-     response.headers['Vary'] = 'Accept'
+    response.headers['Vary'] = 'Accept'
   end
 
   protected def set_default_cache_security_headers
@@ -126,9 +131,11 @@ class ApplicationController < ActionController::Base
     Raven.extra_context(params: params.to_unsafe_h, url: request.url)
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   protected def confirm_valid_session
     # Don't do anything if there's no authorized user or session
     return if !current_user || !session
+
     # if user is staff, logout if last_sign_in was more than 4 hours ago
     if current_user && current_user.role == 'staff' && current_user.last_sign_in
       hours = time_diff(current_user.last_sign_in) / 3600
@@ -149,9 +156,10 @@ class ApplicationController < ActionController::Base
     return reset_session if current_user.google_id && current_user.auth_credential && !current_user.auth_credential&.refresh_token
 
     # Assuming that the refresh_token expires at (current_user.auth_credential.created_at  + 6 months),
-    # we can reset the session whenever (Time.now > (current_user.auth_credential.created_at + 5 months))
-    return reset_session if current_user.google_id && current_user.auth_credential && Time.now > (current_user.auth_credential.created_at + 5.months)
+    # we can reset the session whenever (Time.current > (current_user.auth_credential.created_at + 5 months))
+    return reset_session if current_user.google_id && current_user.auth_credential && Time.current > (current_user.auth_credential.created_at + 5.months)
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   protected def user_inactive_for_too_long?
     return false if session[KEEP_ME_SIGNED_IN] || current_user.google_id || current_user.clever_id
@@ -166,7 +174,7 @@ class ApplicationController < ActionController::Base
   end
 
   protected def time_diff(timestamp)
-    now = Time.now().in_time_zone.utc
+    now = Time.current.utc
 
     diff = now - timestamp
     diff.round.abs

@@ -14,10 +14,4 @@ module Archivable
   def unarchive
     update(visible: true)
   end
-
-  class_methods do
-    def archive_all
-      update_all(visible: false)
-    end
-  end
 end

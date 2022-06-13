@@ -8,13 +8,17 @@ class Cms::UnitTemplatesController < Cms::CmsController
     respond_to do |format|
       format.html
       format.json do
-        render json: UnitTemplate.order(order_number: :asc).map{|u| Cms::UnitTemplateSerializer.new(u).as_json(root: false)}
+        render json: UnitTemplate.includes(activities: [:classification, :standard]).includes(:unit_template_category).order(order_number: :asc).map{|u| Cms::UnitTemplateSerializer.new(u).as_json(root: false)}
       end
     end
   end
 
   def edit
     @unit_template = Cms::UnitTemplateSerializer.new(@unit_template).as_json(root: false)
+  end
+
+  def new
+    @unit_template = UnitTemplate.new
   end
 
   def create

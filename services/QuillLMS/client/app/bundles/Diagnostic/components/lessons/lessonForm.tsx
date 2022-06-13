@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import QuestionSelector from 'react-select-search';
+import SelectSearch from 'react-select-search';
+import { fuzzySearch } from 'react-select-search';
 import { EditorState, ContentState } from 'draft-js'
 import ChooseModel from './chooseModel';
 import { DeleteButton, NameInput } from './lessonFormComponents.tsx';
@@ -102,8 +103,8 @@ export class LessonForm extends React.Component<LessonFormProps, LessonFormState
     this.setState({ selectedQuestions: newSelectedQuestions, });
   }
 
-  handleSearchChange = (e: { value: string}) => {
-    this.handleQuestionChange(e.value);
+  handleSearchChange = (value: string) => {
+    this.handleQuestionChange(value);
   }
 
   sortCallback = (sortInfo: {
@@ -130,11 +131,12 @@ export class LessonForm extends React.Component<LessonFormProps, LessonFormState
         const questionObject = this.props[question.questionType].data[question.key]; // eslint-disable-line react/destructuring-assignment
         const prompt = questionObject ? questionObject.prompt : 'Question No Longer Exists';
         const promptOrTitle = questionObject && question.questionType === 'titleCards' ? questionObject.title : prompt
-        return (<p className="sortable-list-item" defaultValue={question.questionType} key={question.key}>
-          {promptOrTitle}
-          {'\t\t'}
-          <DeleteButton onChange={this.handleQuestionChange} questionId={question.key} />
-        </p>
+        return (
+          <p className="sortable-list-item" defaultValue={question.questionType} key={question.key}>
+            {promptOrTitle}
+            {'\t\t'}
+            <DeleteButton onChange={this.handleQuestionChange} questionId={question.key} />
+          </p>
         );
       });
       return <SortableList data={questionsList} id="currently-selected-questions" key={selectedQuestions.length} sortCallback={this.sortCallback} />;
@@ -166,13 +168,17 @@ export class LessonForm extends React.Component<LessonFormProps, LessonFormState
           return { name: opt.title, value: opt.key }
         });
       }
-      return (<QuestionSelector
-        id="all-questions"
-        key={questionType}
-        onChange={this.handleSearchChange}
-        options={formatted}
-        placeholder="Search for a question"
-      />);
+      return (
+        <SelectSearch
+          filterOptions={fuzzySearch}
+          id="all-questions"
+          key={questionType}
+          onChange={this.handleSearchChange}
+          options={formatted}
+          placeholder="Search for a question"
+          search={true}
+        />
+      );
     }
   }
 

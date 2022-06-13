@@ -19,7 +19,7 @@ export const HeaderSection = ({ title, subtitle, showCancelSearchButton, query }
       <form action={`${process.env.DEFAULT_URL}/${TEACHER_CENTER_SLUG}/search`}>
         <input defaultValue={query || null} name='query' placeholder='Search for posts' type='text' />
         <i className="fas fa-icon fa-search" />
-        {showCancelSearchButton ? <img className="cancel-button" onClick={() => window.location.href = `${process.env.DEFAULT_URL}/${TEACHER_CENTER_SLUG}/`} src={`${process.env.CDN_URL}/images/icons/CloseIcon.svg`} /> : null}
+        {showCancelSearchButton ? <button className="interactive-wrapper focus-on-light" onClick={() => window.location.href = `${process.env.DEFAULT_URL}/${TEACHER_CENTER_SLUG}/`} type="button"><img alt="" className="cancel-button" src={`${process.env.CDN_URL}/images/icons/CloseIcon.svg`} /></button> : null}
       </form>
     </div>
   )

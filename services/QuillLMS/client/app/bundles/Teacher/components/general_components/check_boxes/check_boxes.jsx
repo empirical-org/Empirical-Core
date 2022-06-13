@@ -4,7 +4,7 @@ import _ from 'underscore'
 
 export default class CheckBoxes extends React.Component {
   determineIfChecked = (item) => {
-    var val = _.contains(this.props.selectedItems, item);
+    let val = _.contains(this.props.selectedItems, item);
     return val;
   };
 
@@ -13,10 +13,12 @@ export default class CheckBoxes extends React.Component {
   };
 
   render() {
-    var checkBoxes = _.map(this.props.items, this.generateCheckBox, this);
-    return (<div className='vertical-checkboxes'>
-      <h3>{this.props.label}</h3>
-      <div>{checkBoxes}</div>
-    </div>);
+    let checkBoxes = _.map(this.props.items, this.generateCheckBox, this);
+    return (
+      <div className='vertical-checkboxes'>
+        <h3>{this.props.label}</h3>
+        <div>{checkBoxes}</div>
+      </div>
+    );
   }
 }

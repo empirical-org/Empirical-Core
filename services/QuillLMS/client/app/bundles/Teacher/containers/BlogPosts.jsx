@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactTable from 'react-table';
 import request from 'request';
 import moment from 'moment';
 
@@ -132,14 +131,16 @@ export default class BlogPosts extends React.Component {
     const tables = allTopics.map(t => {
       const filteredBlogPosts = blogPosts.filter(bp => bp.topic === t)
       if (filteredBlogPosts.length > 0) {
-        return (<BlogPostTable
-          blogPosts={filteredBlogPosts}
-          featuredBlogPostLimitReached={this.featuredBlogPosts().length >= FEATURED_BLOG_POST_LIMIT}
-          handleClickStar={this.onClickStar}
-          saveOrder={this.saveOrder}
-          topic={t}
-          updateOrder={this.updateOrderNumber}
-        />)
+        return (
+          <BlogPostTable
+            blogPosts={filteredBlogPosts}
+            featuredBlogPostLimitReached={this.featuredBlogPosts().length >= FEATURED_BLOG_POST_LIMIT}
+            handleClickStar={this.onClickStar}
+            saveOrder={this.saveOrder}
+            topic={t}
+            updateOrder={this.updateOrderNumber}
+          />
+        )
       }
     }
     )

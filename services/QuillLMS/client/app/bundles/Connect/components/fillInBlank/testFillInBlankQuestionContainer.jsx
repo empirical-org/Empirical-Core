@@ -68,10 +68,12 @@ class TestQuestion extends Component {
     const { gradedResponse, } = this.state
     if (gradedResponse) {
       const {author, feedback} = gradedResponse.response
-      return (<div style={{marginTop: '30px'}}>
-        <p>Author: {author}</p>
-        <p>Feedback: {feedback}</p>
-      </div>)
+      return (
+        <div style={{marginTop: '30px'}}>
+          <p>Author: {author}</p>
+          <p>Feedback: {feedback}</p>
+        </div>
+      )
     }
   }
 

@@ -1,4 +1,5 @@
 import React from 'react'
+
 import ConceptSelector from './conceptSelector.jsx'
 
 const ConceptSelectorWithCheckbox = (
@@ -21,10 +22,10 @@ const ConceptSelectorWithCheckbox = (
         />
       </div>
       <label className="checkbox" style={{lineHeight: '32px'}}>
-        <h3><input checked={checked} onClick={onCheckboxChange} type="checkbox" /> Correct?</h3>
+        <h3><input aria-label="Correct?" checked={checked} onClick={onCheckboxChange} type="checkbox" /> Correct?</h3>
       </label>
 
-      <p onClick={deleteConceptResult} style={{paddingLeft: '10px', paddingTop: '6px', cursor:'pointer'}}>X</p>
+      <button className="interactive-wrapper focus-on-light" onClick={deleteConceptResult} style={{paddingLeft: '10px', paddingTop: '6px', cursor:'pointer'}} type="button">X</button>
     </div>
   );
 };

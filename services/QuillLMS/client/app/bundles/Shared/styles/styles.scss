@@ -15,6 +15,11 @@
 @import './sliders.scss';
 @import './activity_container.scss';
 @import './checkboxes.scss';
+@import './toggle_component_section';
+@import './text_editor';
+@import './react_table';
+@import './screenreader_instructions';
+@import "~react-select-search/style.css";
 
 #main-content {
   outline: none;
@@ -24,4 +29,10 @@
   background-color: transparent;
   border: none;
   padding: 0px;
+}
+
+.no-focus-outline {
+  &:focus {
+    outline: none;
+  }
 }

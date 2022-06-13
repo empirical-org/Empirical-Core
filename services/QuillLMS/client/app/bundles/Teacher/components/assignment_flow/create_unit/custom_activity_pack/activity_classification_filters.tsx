@@ -67,16 +67,18 @@ const IndividualActivityClassificationFilterRow = ({ activityClassificationFilte
     </button>)
   }
 
-  return (<div className="individual-row filter-row" key={activityClassificationKey}>
-    <div>
-      {checkbox}
-      <div className="alias-and-description">
-        <span>{activityClassification.alias}</span>
-        <span className="description">{activityClassification.description}</span>
+  return (
+    <div className="individual-row filter-row" key={activityClassificationKey}>
+      <div>
+        {checkbox}
+        <div className="alias-and-description">
+          <span>{activityClassification.alias}</span>
+          <span className="description">{activityClassification.description}</span>
+        </div>
       </div>
+      <span>({activityCount})</span>
     </div>
-    <span>({activityCount})</span>
-  </div>)
+  )
 }
 
 const ActivityClassificationToggle = ({filteredActivities, grouping, uniqueActivityClassifications, activityClassificationFilters, handleActivityClassificationFilterChange, }: ActivityClassificationToggleProps) => {
@@ -125,17 +127,19 @@ const ActivityClassificationToggle = ({filteredActivities, grouping, uniqueActiv
     )
   }
 
-  return (<section className="toggle-section activity-classification-toggle">
-    <div className="top-level filter-row">
-      <div>
-        {toggleArrow}
-        {topLevelCheckbox}
-        <span>{grouping.group}</span>
+  return (
+    <section className="toggle-section activity-classification-toggle">
+      <div className="top-level filter-row">
+        <div>
+          {toggleArrow}
+          {topLevelCheckbox}
+          <span>{grouping.group}</span>
+        </div>
+        <span>({topLevelActivityCount})</span>
       </div>
-      <span>({topLevelActivityCount})</span>
-    </div>
-    {individualFilters}
-  </section>)
+      {individualFilters}
+    </section>
+  )
 }
 
 const SavedRow = ({ savedActivityFilters, handleSavedActivityFilterChange, savedActivityIds, filterActivities, }) => {
@@ -152,13 +156,15 @@ const SavedRow = ({ savedActivityFilters, handleSavedActivityFilterChange, saved
     </button>)
   }
 
-  return (<div className="individual-row filter-row saved-row">
-    <div>
-      {checkbox}
-      <span>Saved</span>
+  return (
+    <div className="individual-row filter-row saved-row">
+      <div>
+        {checkbox}
+        <span>Saved</span>
+      </div>
+      <span>({activityCount})</span>
     </div>
-    <span>({activityCount})</span>
-  </div>)
+  )
 }
 
 const ActivityClassificationFilters = ({
@@ -191,19 +197,21 @@ const ActivityClassificationFilters = ({
     />)
   )
   const clearButton = activityClassificationFilters.length ? <button className="interactive-wrapper clear-filter focus-on-light" onClick={clearAllActivityClassificationFilters} type="button">Clear</button> : <span />
-  return (<section className="filter-section">
-    <div className="name-and-clear-wrapper">
-      <h2>Activities</h2>
-      {clearButton}
-    </div>
-    <SavedRow
-      filterActivities={filterActivities}
-      handleSavedActivityFilterChange={handleSavedActivityFilterChange}
-      savedActivityFilters={savedActivityFilters}
-      savedActivityIds={savedActivityIds}
-    />
-    {activityClassificationToggles}
-  </section>)
+  return (
+    <section className="filter-section">
+      <div className="name-and-clear-wrapper">
+        <h2>Activities</h2>
+        {clearButton}
+      </div>
+      <SavedRow
+        filterActivities={filterActivities}
+        handleSavedActivityFilterChange={handleSavedActivityFilterChange}
+        savedActivityFilters={savedActivityFilters}
+        savedActivityIds={savedActivityIds}
+      />
+      {activityClassificationToggles}
+    </section>
+  )
 }
 
 export default ActivityClassificationFilters

@@ -3,11 +3,11 @@
 require 'rails_helper'
 
 describe Cms::RostersController do
-  it { should use_before_action :signed_in! }
-
   let(:user) { create(:staff) }
 
   before { allow(controller).to receive(:current_user) { user } }
+
+  it { should use_before_action :signed_in! }
 
   describe '#upload_teachers_and_students' do
     let!(:school) { create(:school)}

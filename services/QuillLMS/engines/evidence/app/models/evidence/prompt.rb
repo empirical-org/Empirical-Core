@@ -5,7 +5,7 @@ module Evidence
     self.table_name = 'comprehension_prompts'
 
     include Evidence::ChangeLog
-    
+
     MIN_TEXT_LENGTH = 10
     MAX_TEXT_LENGTH = 255
     CONJUNCTIONS = %w(because but so)
@@ -32,7 +32,8 @@ module Evidence
     def serializable_hash(options = nil)
       options ||= {}
       super(options.reverse_merge(
-        only: [:id, :conjunction, :text, :max_attempts, :max_attempts_feedback, :plagiarism_text, :plagiarism_first_feedback, :plagiarism_second_feedback]
+        only: [:id, :conjunction, :text, :max_attempts, :max_attempts_feedback, :plagiarism_texts, :plagiarism_first_feedback, :plagiarism_second_feedback, :first_strong_example, :second_strong_example],
+        methods: [:optimal_label_feedback]
       ))
     end
 
@@ -46,6 +47,11 @@ module Evidence
 
     def conjunctions
       [conjunction]
+    end
+
+    def optimal_label_feedback
+      # we can just grab the first feedback here because all optimal feedback text strings will be the same for any given prompt
+      rules.where(optimal: true, rule_type: Evidence::Rule::TYPE_AUTOML).joins("JOIN comprehension_feedbacks ON comprehension_feedbacks.rule_id = comprehension_rules.id").first&.feedbacks&.first&.text
     end
 
     private def downcase_conjunction
@@ -68,12 +74,12 @@ module Evidence
     private def validate_prompt_text_length
       length = text&.length
       prompt = "#{conjunction} prompt"
-      if length
-        if length < MIN_TEXT_LENGTH
-          errors.add(:text, "#{prompt} too short (minimum is #{MIN_TEXT_LENGTH} characters)")
-        elsif length > MAX_TEXT_LENGTH
-          errors.add(:text, "#{prompt} too long (maximum is #{MAX_TEXT_LENGTH} characters)")
-        end
+      return unless length
+
+      if length < MIN_TEXT_LENGTH
+        errors.add(:text, "#{prompt} too short (minimum is #{MIN_TEXT_LENGTH} characters)")
+      elsif length > MAX_TEXT_LENGTH
+        errors.add(:text, "#{prompt} too long (maximum is #{MAX_TEXT_LENGTH} characters)")
       end
     end
   end

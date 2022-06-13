@@ -11,6 +11,9 @@
   &.read-and-highlight-tracker {
     justify-content: space-between;
   }
+  &.read-instructions {
+    justify-content: flex-end;
+  }
   .read-and-highlight-steps {
     display: flex;
   }

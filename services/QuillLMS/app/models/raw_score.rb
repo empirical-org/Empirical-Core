@@ -6,11 +6,13 @@
 #
 #  id         :integer          not null, primary key
 #  name       :string           not null
+#  order      :integer          not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
 class RawScore < ApplicationRecord
   validates :name, presence: true
+  validates :order, presence: true
 
   def self.order_by_name
     RawScore.all.sort_by do |rs|
@@ -22,6 +24,7 @@ class RawScore < ApplicationRecord
     end
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def readability_grade_level(activity_classification_id=nil)
     activity_classification = ActivityClassification.find_by_id(activity_classification_id)
     case name
@@ -57,4 +60,5 @@ class RawScore < ApplicationRecord
       ""
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 end

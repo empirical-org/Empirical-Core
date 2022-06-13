@@ -1,9 +1,85 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Rules component should render Rules 1`] = `
-<div
-  className="loading-spinner-container"
+<ContextProvider
+  value={true}
 >
-  <Spinner />
-</div>
+  <ContextProvider
+    value={
+      QueryClient {
+        "defaultOptions": Object {},
+        "mutationCache": MutationCache {
+          "config": Object {},
+          "listeners": Array [],
+          "mutationId": 0,
+          "mutations": Array [],
+        },
+        "mutationDefaults": Array [],
+        "queryCache": QueryCache {
+          "config": Object {},
+          "listeners": Array [],
+          "queries": Array [],
+          "queriesMap": Object {},
+        },
+        "queryDefaults": Array [],
+      }
+    }
+  >
+    <Rules
+      activityId="17"
+      history={
+        Object {
+          "createHref": [Function],
+          "createKey": [Function],
+          "createLocation": [Function],
+          "createPath": [Function],
+          "go": [Function],
+          "goBack": [Function],
+          "goForward": [Function],
+          "listen": [Function],
+          "listenBefore": [Function],
+          "push": [Function],
+          "pushState": [Function],
+          "registerTransitionHook": [Function],
+          "replace": [Function],
+          "replaceState": [Function],
+          "setState": [Function],
+          "transitionTo": [Function],
+          "unregisterTransitionHook": [Function],
+        }
+      }
+      location={
+        Object {
+          "action": "POP",
+          "hash": "",
+          "key": null,
+          "pathname": "/",
+          "search": "",
+          "state": null,
+        }
+      }
+      match={
+        Object {
+          "isExact": true,
+          "params": Object {
+            "activityId": "1",
+          },
+          "path": "",
+          "url": "",
+        }
+      }
+      prompt={
+        Array [
+          Object {
+            "conjunction": "because",
+            "id": 1,
+            "max_attempts": 5,
+            "max_attempts_feedback": "good try!",
+            "text": "test",
+          },
+        ]
+      }
+    />
+  </ContextProvider>
+</ContextProvider>
 `;

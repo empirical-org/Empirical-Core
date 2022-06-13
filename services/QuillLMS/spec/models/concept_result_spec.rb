@@ -52,7 +52,7 @@ describe ConceptResult, type: :model do
     end
 
     it "can equal sentence-fragment-identification" do
-      concept_result_with_concept.update(question_type:'sentence-writing')
+      concept_result_with_concept.update(question_type:'sentence-fragment-identification')
       expect(concept_result_with_concept).to be_valid
     end
 

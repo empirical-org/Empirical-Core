@@ -33,7 +33,7 @@ RSpec.describe PreviousYearSchoolDatum, type: :model do
     end
 
     it 'should raise error if the year is the current year' do
-      expect { PreviousYearSchoolDatum.new(school, Date.today.year).calculate_data }.to raise_error("Cannot calculate data for a school year that is still ongoing.")
+      expect { PreviousYearSchoolDatum.new(school, Date.current.year).calculate_data }.to raise_error("Cannot calculate data for a school year that is still ongoing.")
     end
 
     it 'should calculate active students' do

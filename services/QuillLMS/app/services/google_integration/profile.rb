@@ -40,9 +40,9 @@ module GoogleIntegration
     end
 
     private def expiration_in_epoch_time
-      if credentials.present?
-        credentials.expires_at || credentials.expires_in
-      end
+      return unless credentials.present?
+
+      credentials.expires_at || credentials.expires_in
     end
 
     private def credentials

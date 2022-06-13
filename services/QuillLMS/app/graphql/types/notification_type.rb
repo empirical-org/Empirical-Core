@@ -8,7 +8,7 @@ class Types::NotificationType < Types::BaseObject
   field :user_id, ID, null: false
   field :href, String, null: true
 
-  def href 
+  def href
     object.meta['href']
   end
 

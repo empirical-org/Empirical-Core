@@ -1,0 +1,39 @@
+.toggle-explanation {
+  padding: 24px;
+  border-radius: 6px;
+  border: solid 1px #ffc566;
+  background-color: #fff3e0;
+  margin-top: 48px;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  div {
+    max-width: 760px;
+  }
+  h3 {
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1.38;
+    color: #000;
+  }
+  img {
+    margin-top: 13px;
+  }
+  &.is-open {
+    p {
+      color: #5c5c5c;
+      margin-top: 16px;
+    }
+    img {
+      transform: rotate(180deg);
+    }
+  }
+  &.is-closed {
+    p {
+      color: #5c5c5c;
+      margin-top: 8px;
+      font-style: italic;
+    }
+  }
+}

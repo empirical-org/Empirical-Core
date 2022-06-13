@@ -1,0 +1,312 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LessonForm component renderSearchBox renders a SelectSearch component with question options 1`] = `
+<div
+  className="box"
+>
+  <h4
+    className="title"
+  >
+    Add New Activity
+  </h4>
+  <p
+    className="control"
+  >
+    <NameInput
+      name="Even Moar Awesome Diagnostic"
+      onChange={[Function]}
+    />
+  </p>
+  <div
+    className="control"
+  >
+    <label
+      className="label"
+      htmlFor="landing-page-content"
+    >
+      Landing Page Content
+      <TextEditor
+        ContentState={[Function]}
+        EditorState={[Function]}
+        handleTextChange={[Function]}
+        id="landing-page-content"
+        text="<p>Test content</p>"
+      />
+    </label>
+  </div>
+  <br />
+  <p
+    className="control"
+  >
+    <label
+      className="label"
+      htmlFor="flag"
+    >
+      Flag
+      <span
+        className="select"
+      >
+        <select
+          defaultValue="beta"
+          onBlur={[Function]}
+        >
+          <option
+            value="alpha"
+          >
+            alpha
+          </option>
+          <option
+            value="beta"
+          >
+            beta
+          </option>
+          <option
+            value="gamma"
+          >
+            gamma
+          </option>
+          <option
+            value="production"
+          >
+            production
+          </option>
+          <option
+            value="archived"
+          >
+            archived
+          </option>
+        </select>
+      </span>
+    </label>
+  </p>
+  <p
+    className="control"
+  >
+    <label
+      className="label"
+      htmlFor="ell-check-input"
+    >
+      Is ELL?
+      <span>
+        <input
+          aria-label="ell-check-input"
+          checked={true}
+          onChange={[Function]}
+          type="checkbox"
+        />
+      </span>
+    </label>
+  </p>
+  <p
+    className="control"
+  >
+    <label
+      className="label"
+      htmlFor="question-type"
+    >
+      Question Type
+      <span
+        className="select"
+      >
+        <select
+          defaultValue="questions"
+          id="question-type"
+          onBlur={[Function]}
+        >
+          <option
+            value="questions"
+          >
+            Sentence Combining
+          </option>
+          <option
+            value="sentenceFragments"
+          >
+            Sentence Fragment
+          </option>
+          <option
+            value="fillInBlank"
+          >
+            Fill In the Blank
+          </option>
+          <option
+            value="titleCards"
+          >
+            Title Cards
+          </option>
+        </select>
+      </span>
+    </label>
+  </p>
+  <div
+    className="control"
+  >
+    <label
+      className="label"
+      htmlFor="currently-selected-questions"
+    >
+      Currently Selected Questions -- 
+      Total: 3
+      <SortableList
+        data={
+          Array [
+            <p
+              className="sortable-list-item"
+              defaultValue="fillInBlank"
+            >
+              What is the best way to cultivate mass?
+              		
+              <DeleteButton
+                onChange={
+                  [MockFunction] {
+                    "calls": Array [
+                      Array [
+                        "saideira",
+                      ],
+                    ],
+                    "results": Array [
+                      Object {
+                        "type": "return",
+                        "value": undefined,
+                      },
+                    ],
+                  }
+                }
+                questionId="-KdCgy8wt_rQiYpOURdW"
+              />
+            </p>,
+            <p
+              className="sortable-list-item"
+              defaultValue="sentenceFragments"
+            >
+              How much cheese is too much cheese?
+              		
+              <DeleteButton
+                onChange={
+                  [MockFunction] {
+                    "calls": Array [
+                      Array [
+                        "saideira",
+                      ],
+                    ],
+                    "results": Array [
+                      Object {
+                        "type": "return",
+                        "value": undefined,
+                      },
+                    ],
+                  }
+                }
+                questionId="-KOqLeXEvMjNuE6MGOop"
+              />
+            </p>,
+            <p
+              className="sortable-list-item"
+              defaultValue="fillInBlank"
+            >
+              Do jobs grow on jobbies?
+              		
+              <DeleteButton
+                onChange={
+                  [MockFunction] {
+                    "calls": Array [
+                      Array [
+                        "saideira",
+                      ],
+                    ],
+                    "results": Array [
+                      Object {
+                        "type": "return",
+                        "value": undefined,
+                      },
+                    ],
+                  }
+                }
+                questionId="-KdChHgbE9377Jgzkoci"
+              />
+            </p>,
+          ]
+        }
+        id="currently-selected-questions"
+        key="3"
+        sortCallback={[Function]}
+      />
+    </label>
+  </div>
+  <label
+    className="label"
+    htmlFor="all-questions"
+  >
+    All Questions
+    <Memo(ForwardRef)
+      filterOptions={[Function]}
+      id="all-questions"
+      key="questions"
+      onChange={[Function]}
+      options={
+        Array [
+          Object {
+            "name": "How much cheese is too much cheese?",
+            "value": "-KOqLeXEvMjNuE6MGOop",
+          },
+          Object {
+            "name": "What is the best way to cultivate mass?",
+            "value": "-KdCgy8wt_rQiYpOURdW",
+          },
+          Object {
+            "name": "Do jobs grow on jobbies?",
+            "value": "-KdChHgbE9377Jgzkoci",
+          },
+        ]
+      }
+      placeholder="Search for a question"
+      search={true}
+    />
+  </label>
+  <br />
+  <ChooseModel
+    conceptsFeedback={
+      Object {
+        "data": Object {
+          "-KOqLeXEvMjNuE6MGOop": Object {
+            "conceptID": "b5JpyWZYjhb94LTXGmYy7g",
+            "flag": "production",
+            "key": "-KOqLeXEvMjNuE6MGOop",
+            "prompt": "How much cheese is too much cheese?",
+            "title": "Question 1",
+          },
+          "-KdCgy8wt_rQiYpOURdW": Object {
+            "conceptID": "b5JpyWZYjhb94LTXGmYy7g",
+            "flag": "production",
+            "key": "-KdCgy8wt_rQiYpOURdW",
+            "prompt": "What is the best way to cultivate mass?",
+            "title": "Question 2",
+          },
+          "-KdChHgbE9377Jgzkoci": Object {
+            "conceptID": "b5JpyWZYjhb94LTXGmYy7g",
+            "flag": "production",
+            "key": "-KdChHgbE9377Jgzkoci",
+            "prompt": "Do jobs grow on jobbies?",
+            "title": "Question 3",
+          },
+        },
+        "hasreceiveddata": true,
+        "states": Object {},
+        "submittingnew": false,
+      }
+    }
+    modelConceptUID="QsC1lua0t41_J2em_c7kUA"
+    updateModelConcept={[Function]}
+  />
+  <p
+    className="control"
+  >
+    <button
+      className="button is-primary undefined"
+      onClick={[Function]}
+      type="submit"
+    >
+      Submit
+    </button>
+  </p>
+</div>
+`;

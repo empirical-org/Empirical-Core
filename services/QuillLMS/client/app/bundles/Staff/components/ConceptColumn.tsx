@@ -78,23 +78,27 @@ export default class ConceptColumn extends React.Component<ConceptColumnProps, C
   renderSorter() {
     const options = [{ value: 'name', label: 'Sort by A-Z'}, { value: 'createdAt', label: 'Date Created'}]
     const value = options.find(o => o.value === this.state.sortField)
-    return (<Select
-      className="sort-select"
-      isClearable={false}
-      isSearchable={false}
-      onChange={this.changeSort}
-      options={options}
-      value={value}
-    />)
+    return (
+      <Select
+        className="sort-select"
+        isClearable={false}
+        isSearchable={false}
+        onChange={this.changeSort}
+        options={options}
+        value={value}
+      />
+    )
   }
 
   render() {
-    return (<div className="concept-column">
-      <div className="concept-column-head">
-        <p>Level {this.props.levelNumber}</p>
-        {this.renderSorter()}
+    return (
+      <div className="concept-column">
+        <div className="concept-column-head">
+          <p>Level {this.props.levelNumber}</p>
+          {this.renderSorter()}
+        </div>
+        {this.renderConceptList()}
       </div>
-      {this.renderConceptList()}
-    </div>)
+    )
   }
 }

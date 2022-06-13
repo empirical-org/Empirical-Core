@@ -8,6 +8,9 @@ import UnitTemplateMini from './unit_template_mini'
 import AssignmentFlowNavigation from '../assignment_flow_navigation.tsx'
 import { DropdownInput } from '../../../../Shared/index'
 
+const ALL = 'All'
+const READABILITY_GRADE_LEVEL_LABELS = ['2nd-3rd', '4th-5th', '6th-7th', '8th-9th', '10th-12th']
+
 export default class UnitTemplateMinis extends React.Component {
   state =  { onMobile: window.innerWidth < 770 }
   getIndexLink() {
@@ -25,29 +28,49 @@ export default class UnitTemplateMinis extends React.Component {
     return _l.uniqBy(models, 'id');
   }
 
-  generateCategoryOptions() {
+  generateCategoryOptions(readabilityLevel, selectedTypeId) {
     const { data, } = this.props
-    const categoryOrder = ['All levels', 'Starter', 'Intermediate', 'Advanced', 'ELL']
+    const categoryOrder = [ALL, 'Starter', 'Intermediate', 'Advanced', 'ELL', 'Diagnostic', 'Themed', 'Skill Practice']
     return categoryOrder.map((name) => {
       const category = data.categories.find(cat => cat.name === name)
       if (category) {
+        category.label = category.name
         return {
           label: category.name,
           value: category.id,
-          link: `${this.getIndexLink()}?category=${category.name}`
+          link: `${this.getIndexLink()}${this.generateQueryString(category, readabilityLevel, selectedTypeId)}`
         }
       } else {
         return {
           label: name,
           value: null,
-          link: this.getIndexLink()
+          link: `${this.getIndexLink()}${this.generateQueryString(category, readabilityLevel, selectedTypeId)}`
         }
       }
     })
   }
 
+  generateReadabilityOptions(currentCategory, selectedTypeId) {
+    return [ALL].concat(READABILITY_GRADE_LEVEL_LABELS).map((level) => {
+      if (level === ALL) {
+        return {
+          label: level,
+          value: null,
+          link: `${this.getIndexLink()}${this.generateQueryString(currentCategory, null, selectedTypeId)}`
+        }
+      }
+
+      return {
+        label: level,
+        value: level,
+        link: `${this.getIndexLink()}${this.generateQueryString(currentCategory, level, selectedTypeId)}`
+      }
+    })
+  }
+
   generateShowAllGradesView() {
-    if (this.props.data.grade) {
+    const { data, } = this.props
+    if (data.grade) {
       return (
         <Link className="see-all-activity-packs button-grey button-dark-grey text-center center-block show-all" to={this.getIndexLink()}>Show All Activity Packs</Link>
       )
@@ -55,25 +78,28 @@ export default class UnitTemplateMinis extends React.Component {
   }
 
   generateUnitTemplateView = (model, index) => {
-    return (<UnitTemplateMini
-      actions={this.props.actions}
-      data={model}
-      index={index}
-      key={model.id}
-      signedInTeacher={this.props.signedInTeacher}
-    />)
+    const { actions, signedInTeacher, } = this.props
+    return (
+      <UnitTemplateMini
+        actions={actions}
+        data={model}
+        index={index}
+        key={model.id}
+        signedInTeacher={signedInTeacher}
+      />
+    )
   };
 
   generateUnitTemplateViews() {
-    const { grade, } = this.props.data;
-    const { signedInTeacher, } = this.props;
+    const { signedInTeacher, data, displayedModels, } = this.props;
+    const { grade, } = data;
     let models;
     if (grade) {
-      models = _.filter(this.props.displayedModels, (m) => {
+      models = _.filter(displayedModels, (m) => {
         return _.contains(m.grades, grade.toString());
       });
     } else {
-      models = this.props.displayedModels;
+      models = displayedModels;
     }
     models = _.sortBy(models, 'order_number');
     if (signedInTeacher) {
@@ -84,7 +110,8 @@ export default class UnitTemplateMinis extends React.Component {
   }
 
   userLoggedIn() {
-    return this.props.signedInTeacher
+    const { signedInTeacher, } = this.props
+    return signedInTeacher
   }
 
   userNotLoggedIn() {
@@ -112,8 +139,8 @@ export default class UnitTemplateMinis extends React.Component {
 
   getLabelName(name) {
     switch (name) {
-      case 'Whole class + Independent practice':
-        return 'Whole class + Independent';
+      case 'Whole class lessons':
+        return 'Whole class lessons';
       case 'Independent practice':
         return 'Independent'
       default:
@@ -121,26 +148,52 @@ export default class UnitTemplateMinis extends React.Component {
     }
   }
 
+  generateQueryString(category, readabilityLabel, typeId=null) {
+    let qs = ''
+
+    if (category) {
+      qs = `?category=${category.label}`
+    }
+
+    if (readabilityLabel) {
+      const readabilityQuery = `readability=${readabilityLabel}`
+      qs+= qs.length ? `&${readabilityQuery}` : `?${readabilityQuery}`
+    }
+
+    if (typeId) {
+      const typeQuery = `type=${typeId}`
+      qs+= qs.length ? `&${typeQuery}` : `?${typeQuery}`
+    }
+
+    return qs
+  }
+
   renderFilterOptions() {
     const { onMobile } = this.state
-    const { types, selectedTypeId, data, selectCategory, } = this.props
-    const categoryOptions = this.generateCategoryOptions()
-
+    const { types, selectedTypeId, data, selectCategory, selectReadability, } = this.props
+    const categoryOptions = this.generateCategoryOptions(data.selectedReadabilityLevel, selectedTypeId)
     const currentCategory = categoryOptions.find(cat => cat.value && cat.value === data.selectedCategoryId)
+
+    const readabilityOptions = this.generateReadabilityOptions(currentCategory, selectedTypeId)
+    const currentReadability = readabilityOptions.find(cat => cat.value && cat.value === data.selectedReadabilityLevel)
+
     const baseLink = this.getIndexLink()
 
     const typeOptions = types.map(type => {
       const { id, name, } = type
-      const qs = currentCategory ? `?category=${currentCategory.label}&type=${id}` : `?type=${id}`
-      return (<Link
-        className={selectedTypeId === id ? 'active' : null}
-        to={`${baseLink}${qs}`}
-      >{name}</Link>)
+      const qs = this.generateQueryString(currentCategory, data.selectedReadabilityLevel, id)
+      return (
+        <Link
+          className={selectedTypeId === id ? 'active' : null}
+          key={id}
+          to={`${baseLink}${qs}`}
+        >{name}</Link>
+      )
     })
 
     const typeOptionsForDropdown = types.map(type => {
       const { id, name } = type;
-      const qs = currentCategory ? `?category=${currentCategory.label}&type=${id}` : `?type=${id}`
+      const qs = this.generateQueryString(currentCategory, data.selectedReadabilityLevel, id)
       return {
         label: this.getLabelName(name),
         value: `${baseLink}${qs}`
@@ -151,7 +204,7 @@ export default class UnitTemplateMinis extends React.Component {
     const allPacksLink = (
       <Link
         className={!selectedTypeId ? 'active' : null}
-        to={currentCategory ? `${baseLink}?category=${currentCategory.label}`: baseLink}
+        to={`${baseLink}${this.generateQueryString(currentCategory, data.selectedReadabilityLevel)}`}
       >All packs</Link>
     );
 
@@ -171,33 +224,46 @@ export default class UnitTemplateMinis extends React.Component {
     return (
       <div className="filter-options">
         {typeOptionsWidget}
-        <DropdownInput
-          handleChange={selectCategory}
-          options={categoryOptions}
-          value={currentCategory || categoryOptions[0]}
-        />
+        <div className="dropdowns">
+          <DropdownInput
+            className="readability-dropdown"
+            handleChange={selectReadability}
+            label="Readability grade level"
+            options={readabilityOptions}
+            value={currentReadability || readabilityOptions[0]}
+          />
+          <DropdownInput
+            className="category-dropdown"
+            handleChange={selectCategory}
+            label="Pack type"
+            options={categoryOptions}
+            value={currentCategory || categoryOptions[0]}
+          />
+        </div>
       </div>
     )
   }
 
   render() {
-    return (<div className='unit-template-minis-container' key='always-display'>
-      {this.userLoggedIn() ? <AssignmentFlowNavigation /> : null}
-      <div className="container">
-        <div>
-          <h1>Select an activity pack for your students</h1>
+    return (
+      <div className='unit-template-minis-container' key='always-display'>
+        {this.userLoggedIn() ? <AssignmentFlowNavigation /> : null}
+        <div className="container">
           <div>
-            {this.renderFilterOptions()}
-            {this.generateShowAllGradesView()}
-            <div className="unit-template-minis">
-              {this.generateUnitTemplateViews()}
-            </div>
+            <h1>Select an activity pack for your students</h1>
             <div>
+              {this.renderFilterOptions()}
               {this.generateShowAllGradesView()}
+              <div className="unit-template-minis">
+                {this.generateUnitTemplateViews()}
+              </div>
+              <div>
+                {this.generateShowAllGradesView()}
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>)
+    )
   }
 }

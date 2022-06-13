@@ -41,9 +41,9 @@ const Topics = ({ activity, createNewTopic, topicOptions, handleTopicsChange, })
   function onChangeTopics(topicId) {
     let newTopicIds = [...activity.topic_ids, topicId]
     const topic = topicOptions.find(t => t.id === topicId)
-    const extantOption = getSelectedOptionForLevel(topic.level)
-    if (extantOption) {
-      newTopicIds = newTopicIds.filter(id => id !== extantOption.id)
+    const existingOption = getSelectedOptionForLevel(topic.level)
+    if (existingOption) {
+      newTopicIds = newTopicIds.filter(id => id !== existingOption.id)
     }
     handleTopicsChange(newTopicIds)
   }
@@ -59,16 +59,18 @@ const Topics = ({ activity, createNewTopic, topicOptions, handleTopicsChange, })
     createNewTopic
   }
 
-  return (<section className="topics-container enabled-attribute-container">
-    <section className="enable-topics-container checkbox-container">
-      <input checked={topicsEnabled} onChange={toggleTopicsEnabled} type="checkbox" />
-      <label>Topics enabled</label>
+  return (
+    <section className="topics-container enabled-attribute-container">
+      <section className="enable-topics-container checkbox-container">
+        <input checked={topicsEnabled} onChange={toggleTopicsEnabled} type="checkbox" />
+        <label>Topics enabled</label>
+      </section>
+      <TopicColumn {...sharedTopicColumnProps} levelNumber={3} />
+      <TopicColumn {...sharedTopicColumnProps} levelNumber={2} />
+      <TopicColumn {...sharedTopicColumnProps} levelNumber={1} />
+      <TopicColumn {...sharedTopicColumnProps} levelNumber={0} />
     </section>
-    <TopicColumn {...sharedTopicColumnProps} levelNumber={3} />
-    <TopicColumn {...sharedTopicColumnProps} levelNumber={2} />
-    <TopicColumn {...sharedTopicColumnProps} levelNumber={1} />
-    <TopicColumn {...sharedTopicColumnProps} levelNumber={0} />
-  </section>)
+  )
 }
 
 export default Topics

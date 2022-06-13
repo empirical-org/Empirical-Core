@@ -11,6 +11,7 @@ class Api::V1::SharedCacheController < Api::ApiController
     if !cached_data
       return not_found
     end
+
     render(json: cached_data)
   end
 

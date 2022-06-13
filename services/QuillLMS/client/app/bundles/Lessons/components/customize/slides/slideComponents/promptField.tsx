@@ -9,18 +9,20 @@ interface promptFieldProps {
 }
 
 const PromptField: React.SFC<any> = (props) => {
-  return (<div className="prompt-field field">
-    <label>Prompt {props.blankInstructions}</label>
-    <div className="control">
-      <MultipleTextEditor
-        handleTextChange={(e) => props.handleTextChange(e)}
-        incompletePrompt={props.incompletePrompt}
-        reset={props.reset}
-        showBlockquote={props.showBlockquote}
-        text={props.text}
-      />
+  return (
+    <div className="prompt-field field">
+      <label>Prompt {props.blankInstructions}</label>
+      <div className="control">
+        <MultipleTextEditor
+          handleTextChange={(e) => props.handleTextChange(e)}
+          incompletePrompt={props.incompletePrompt}
+          reset={props.reset}
+          showBlockquote={props.showBlockquote}
+          text={props.text}
+        />
+      </div>
     </div>
-  </div>)
+  )
 }
 
 export default PromptField

@@ -6,22 +6,22 @@ import React from 'react'
 export default class extends React.Component {
   resourceComponentGenerator = (cmsComponent) => {
 
-    var initialModel = {
+    let initialModel = {
       id: null,
       name: null,
       admins: []
     };
 
-    var savingKeys = ['id', 'name', 'admins', 'teachers'];
-    var fieldsToNormalize = [];
+    let savingKeys = ['id', 'name', 'admins', 'teachers'];
+    let fieldsToNormalize = [];
 
-    var formFields = [
+    let formFields = [
       {
         name: 'name'
       }
     ];
 
-    var nestedResources = [
+    let nestedResources = [
       {
         name: 'admins',
         message: 'must be an existing admin (can create one in the Admin cms)',
@@ -58,7 +58,7 @@ export default class extends React.Component {
           </div>
         </div>
       </div>
-           );
+    );
   };
 
   render() {

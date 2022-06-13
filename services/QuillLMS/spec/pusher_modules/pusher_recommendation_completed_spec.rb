@@ -4,8 +4,8 @@ require 'rails_helper'
 
 describe PusherRecommendationCompleted do
   describe '#run' do
-   let(:client) { double(:client, trigger: true) }
-   let(:classroom) { double(:classroom, id: "some_id", name: "some_name") }
+    let(:client) { double(:client, trigger: true) }
+    let(:classroom) { double(:classroom, id: "some_id", name: "some_name") }
 
     before do
       allow(Pusher::Client).to receive(:new) { client }

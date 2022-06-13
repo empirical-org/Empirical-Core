@@ -22,7 +22,6 @@ describe('ActivityHealth component', () => {
         <ActivityHealth {...mockProps} />
       </Provider>
     );
-    wrapper.instance().fetchActivityHealthData = jest.fn();
     expect(wrapper).toMatchSnapshot();
   });
 });

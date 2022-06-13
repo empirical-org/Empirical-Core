@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 const MakeCopy = 'https://assets.quill.org/images/icons/make-copy-edition-icon.svg'
 const EditEdition = 'https://assets.quill.org/images/icons/edit-edition-icon.svg'
 const DeleteEdition = 'https://assets.quill.org/images/icons/delete-edition-icon.svg'
+
 import * as CustomizeIntf from '../../interfaces/customize'
+import { MOUSEDOWN } from '../../../Shared/utils/eventNames'
 
 interface EditionRowState {
   showDropdown: boolean
@@ -26,83 +28,113 @@ export interface AppProps extends EditionRowProps, DispatchFromProps, StateFromP
 class EditionRow extends React.Component<AppProps, EditionRowState> {
   constructor(props) {
     super(props)
+
     this.state = {
       showDropdown: false
     }
-    this.renderCustomizeDropdown = this.renderCustomizeDropdown.bind(this)
-    this.makeNewEdition = this.makeNewEdition.bind(this)
-    this.editEdition = this.editEdition.bind(this)
-    this.archiveEdition = this.archiveEdition.bind(this)
-    this.toggleDropdown = this.toggleDropdown.bind(this)
-    this.hideDropdown = this.hideDropdown.bind(this)
   }
 
-  makeNewEdition() {
-    this.props.makeNewEdition(this.props.edition.key)
+  componentDidMount() {
+    document.addEventListener(MOUSEDOWN, this.handleDropdownBlur, true)
   }
 
-  editEdition() {
-    if (this.props.editEdition) {
-      this.props.editEdition(this.props.edition.key)
+  componentWillUnmount() {
+    document.removeEventListener(MOUSEDOWN, this.handleDropdownBlur, true)
+  }
+
+
+  handleClickMakeNewEdition = () => {
+    const { makeNewEdition, edition, } = this.props
+
+    makeNewEdition(edition.key)
+  }
+
+  handleClickEditEdition = () => {
+    const { editEdition, edition, } = this.props
+
+    if (editEdition) {
+      editEdition(edition.key)
     }
   }
 
-  archiveEdition() {
-    if (window.confirm('Are you sure you want to delete this edition? By deleting the edition, you will lose all the changes that you made to the slides.') && this.props.archiveEdition) {
-      this.props.archiveEdition(this.props.edition.key)
+  handleClickArchiveEdition = () => {
+    const { archiveEdition, edition, } = this.props
+
+    if (window.confirm('Are you sure you want to delete this edition? By deleting the edition, you will lose all the changes that you made to the slides.') && archiveEdition) {
+      archiveEdition(edition.key)
     }
   }
 
-  toggleDropdown() {
-    this.setState({showDropdown: !this.state.showDropdown})
+  handleDropdownClick = () => {
+    this.setState(prevState => ({showDropdown: !prevState.showDropdown}))
   }
 
-  hideDropdown() {
-    this.setState({showDropdown: false})
+  handleDropdownBlur = (e) => {
+    if (!this.node || !this.node.contains(e.target)) {
+      this.setState({showDropdown: false})
+    }
   }
 
-  renderCustomizeDropdown() {
-    const customizeClass = this.state.showDropdown ? 'open' : ''
-    return (<div className="customize-dropdown" onBlur={this.hideDropdown} tabIndex={0}>
-      <div className={`customize ${customizeClass}`} onClick={this.toggleDropdown}>
-        <i className="fa fa-icon fa-magic" />
-        Customize
-        <i className="fa fa-icon fa-caret-down" />
+  handleSelectAction = () => {
+    const { selectAction, edition, } = this.props
+
+    selectAction(edition.key)
+  }
+
+  renderCustomizeDropdown = () => {
+    const { showDropdown, } = this.state
+    const customizeClass = showDropdown ? 'open' : ''
+    return (
+      <div className="customize-dropdown" ref={node => this.node = node}>
+        <button className={`interactive-wrapper customize ${customizeClass}`} onClick={this.handleDropdownClick} type="button">
+          <i className="fa fa-icon fa-magic" />
+            Customize
+          <i className="fa fa-icon fa-caret-down" />
+        </button>
+        <div className="action">
+          {this.renderDropdown()}
+        </div>
       </div>
-      <div className="action">
-        {this.renderDropdown()}
-      </div>
-    </div>)
+    )
   }
 
   renderDropdown() {
-    const dropdownClass = this.state.showDropdown ? '' : 'hidden'
-      let options
-      const makeCopy = <div className="option" key="new" onClick={this.makeNewEdition}><img src={MakeCopy} />Make Copy</div>
-      if (this.props.creator === 'user') {
-        const editEdition = <div className="option" key="edit" onClick={this.editEdition}><img src={EditEdition} />Edit Edition</div>
-        const archiveEdition = <div className="option" key="archive" onClick={this.archiveEdition}><img src={DeleteEdition} />Delete Edition</div>
-        options = [makeCopy, editEdition, archiveEdition]
-      } else {
-        options = [makeCopy]
-      }
-      return (<div className={`dropdown ${dropdownClass}`}>
+    const { showDropdown, } = this.state
+    const { creator, } = this.props
+
+    const dropdownClass = showDropdown ? '' : 'hidden'
+    const makeCopy = <button className="interactive-wrapper option" key="new" onClick={this.handleClickMakeNewEdition} type="button"><img alt="" src={MakeCopy} />Make Copy</button>
+
+    let options = [makeCopy]
+    if (creator === 'user') {
+      const editEdition = <button className="interactive-wrapper option" key="edit" onClick={this.handleClickEditEdition} type="button"><img alt="" src={EditEdition} />Edit Edition</button>
+      const archiveEdition = <button className="interactive-wrapper option" key="archive" onClick={this.handleClickArchiveEdition} type="button"><img alt="" src={DeleteEdition} />Delete Edition</button>
+      options = [makeCopy, editEdition, archiveEdition]
+    }
+
+    return (
+      <div className={`dropdown ${dropdownClass}`}>
         {options}
-      </div>)
+      </div>
+    )
   }
 
   renderSelectButton() {
-    if (this.props.selectState) {
-      if (this.props.selectedEdition) {
-        return <button className="resume-button" onClick={() => this.props.selectAction(this.props.edition.key)}>Resume</button>
+    const { selectState, selectedEdition, } = this.props
+
+    if (selectState) {
+      if (selectedEdition) {
+        return <button className="resume-button" onClick={this.handleSelectAction} type="button">Resume</button>
       } else {
-        return <button className="select-button" onClick={() => this.props.selectAction(this.props.edition.key)}>Select</button>
+        return <button className="select-button" onClick={this.handleSelectAction} type="button">Select</button>
       }
     }
   }
 
   renderCreatedByTag() {
-    const teacher = this.props.customize.coteachers.find(t => t.id === this.props.edition.user_id)
+    const { customize, edition, } = this.props
+
+    const teacher = customize.coteachers.find(t => t.id === edition.user_id)
     const name = teacher ? teacher.name : null
     if (name) {
       return <span className='locked-unit'>  <i className="fa fa-icon fa-user" />{name}</span>
@@ -110,24 +142,28 @@ class EditionRow extends React.Component<AppProps, EditionRowState> {
   }
 
   render() {
-    const name = this.props.edition.name ? this.props.edition.name : 'Generic Content'
-    const createdByTag = this.props.creator === 'coteacher' ? this.renderCreatedByTag() : null
-    const sampleQuestionSection = this.props.edition.sample_question ? <p className="sample-question"><span>Sample Question: </span>{this.props.edition.sample_question}</p> : null
-    const selectedEditionClass = this.props.selectedEdition ? 'selected' : ''
-    const selectedEditionTag = this.props.selectedEdition ? <span className="in-progress"><i className="fa fa-icon fa-check" />In Progress</span> : null
-    return (<div className="edition-container">
-      <div className={`edition ${selectedEditionClass}`}>
-        <div className="text">
-          <div className="name-section"><p className="name">{name}</p>{createdByTag}</div>
-          {sampleQuestionSection}
+    const { edition, selectedEdition, creator, } = this.props
+
+    const name = edition.name ? edition.name : 'Generic Content'
+    const createdByTag = creator === 'coteacher' ? this.renderCreatedByTag() : null
+    const sampleQuestionSection = edition.sample_question ? <p className="sample-question"><span>Sample Question: </span>{edition.sample_question}</p> : null
+    const selectedEditionClass = selectedEdition ? 'selected' : ''
+    const selectedEditionTag = selectedEdition ? <span className="in-progress"><i className="fa fa-icon fa-check" />In Progress</span> : null
+    return (
+      <div className="edition-container">
+        <div className={`edition ${selectedEditionClass}`}>
+          <div className="text">
+            <div className="name-section"><p className="name">{name}</p>{createdByTag}</div>
+            {sampleQuestionSection}
+          </div>
+          <div className="action">
+            {this.renderCustomizeDropdown()}
+            {this.renderSelectButton()}
+          </div>
         </div>
-        <div className="action">
-          {this.renderCustomizeDropdown()}
-          {this.renderSelectButton()}
-        </div>
+        {selectedEditionTag}
       </div>
-      {selectedEditionTag}
-    </div>)
+    )
 
   }
 }

@@ -39,7 +39,7 @@ export default class TeacherGuide extends React.Component {
     const data = this.state.checkboxData;
     data.potential.forEach((obj) => {
       const objective = obj
-        // shows whether the objective has a corresponding completed checkbox
+      // shows whether the objective has a corresponding completed checkbox
       objective.completed = _.contains(data.completed, objective.id);
       if (!grouping[objective.section]) {
         grouping[objective.section] = [objective];

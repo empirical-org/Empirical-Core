@@ -15,7 +15,7 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
     end
 
     context 'with feedback_history' do
-      setup do
+      before do
         create(:feedback_history, entry: 'This is the first entry in history')
         create(:feedback_history, entry: 'This is the second entry in history')
       end
@@ -29,8 +29,8 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
         expect(Array).to eq(parsed_response.class)
         refute parsed_response.empty?
 
-        expect("This is the first entry in history").to eq(parsed_response.first['entry'])
-        expect("This is the second entry in history").to eq(parsed_response.last['entry'])
+        expect(parsed_response.first['entry']).to eq("This is the first entry in history")
+        expect(parsed_response.last['entry']).to eq("This is the second entry in history")
       end
     end
   end
@@ -44,7 +44,7 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
             attempt: 1,
             optimal: false,
             used: true,
-            time: DateTime.now,
+            time: DateTime.current,
             entry: 'This is the entry provided by the student',
             feedback_text: 'This is the feedback provided by the algorithm',
             feedback_type: 'autoML',
@@ -57,9 +57,9 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
 
       parsed_response = JSON.parse(response.body)
 
-      expect(201).to eq(response.code.to_i)
-      expect("This is the entry provided by the student").to eq(parsed_response['entry'])
-      expect(1).to eq(FeedbackHistory.count)
+      expect(response.code.to_i).to eq(201)
+      expect(parsed_response['entry']).to eq("This is the entry provided by the student")
+      expect(FeedbackHistory.count).to eq(1)
     end
 
     it "should populate metadata['highlight']" do
@@ -79,7 +79,7 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
             attempt: 1,
             optimal: false,
             used: true,
-            time: DateTime.now,
+            time: DateTime.current,
             entry: 'This is the entry provided by the student',
             feedback_text: 'This is the feedback provided by the algorithm',
             feedback_type: 'autoML',
@@ -102,7 +102,7 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
             attempt: 1,
             optimal: false,
             used: true,
-            time: DateTime.now,
+            time: DateTime.current,
             entry: 'This is the entry provided by the student',
             feedback_text: 'This is the feedback provided by the algorithm',
             feedback_type: 'autoML',
@@ -116,9 +116,9 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
 
       parsed_response = JSON.parse(response.body)
 
-      expect(201).to eq(response.code.to_i)
-      expect(1).to eq(FeedbackHistory.count)
-      expect("Evidence::Prompt").to eq(FeedbackHistory.find(parsed_response['id']).prompt_type)
+      expect(response.code.to_i).to eq(201)
+      expect(FeedbackHistory.count).to eq(1)
+      expect(FeedbackHistory.find(parsed_response['id']).prompt_type).to eq("Evidence::Prompt")
     end
 
     it "should not create an invalid record and return errors as json" do
@@ -126,9 +126,9 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
 
       parsed_response = JSON.parse(response.body)
 
-      expect(422).to eq(response.code.to_i)
+      expect(response.code.to_i).to eq(422)
       expect(parsed_response['entry'].include?("can't be blank")).to be
-      expect(0).to eq(Activity.count)
+      expect(Activity.count).to eq(0)
     end
   end
 
@@ -142,7 +142,7 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
               attempt: 1,
               optimal: false,
               used: true,
-              time: DateTime.now,
+              time: DateTime.current,
               entry: 'This is the entry provided by the student',
               feedback_text: 'This is the feedback provided by the algorithm',
               feedback_type: 'autoML',
@@ -157,7 +157,7 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
               attempt: 1,
               optimal: false,
               used: true,
-              time: DateTime.now,
+              time: DateTime.current,
               entry: 'This is the entry provided by the student',
               feedback_text: 'This is the feedback provided by the algorithm',
               feedback_type: 'autoML',
@@ -169,8 +169,8 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
         },
         as: :json
 
-      expect(201).to eq(response.code.to_i)
-      expect(2).to eq(FeedbackHistory.count)
+      expect(response.code.to_i).to eq(201)
+      expect(FeedbackHistory.count).to eq(2)
     end
 
     it "should not create valid records if one is invalid record but return errors as json" do
@@ -182,7 +182,7 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
               attempt: 1,
               optimal: false,
               used: true,
-              time: DateTime.now,
+              time: DateTime.current,
               entry: 'This is the entry provided by the student',
               feedback_text: 'This is the feedback provided by the algorithm',
               feedback_type: 'autoML',
@@ -194,7 +194,7 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
               attempt: 1,
               optimal: false,
               used: true,
-              time: DateTime.now,
+              time: DateTime.current,
               entry: 'This is the entry provided by the student',
               feedback_text: 'This is the feedback provided by the algorithm',
               feedback_type: 'autoML',
@@ -208,29 +208,29 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
 
       parsed_response = JSON.parse(response.body)
 
-      expect(422).to eq(response.code.to_i)
+      expect(response.code.to_i).to eq(422)
       expect(parsed_response['feedback_histories'][0]).to eq({})
       expect(parsed_response['feedback_histories'][1]['feedback_session_uid'].include?("can't be blank")).to be
-      expect(1).to eq(FeedbackHistory.count)
+      expect(FeedbackHistory.count).to eq(1)
     end
 
   end
 
   context "show" do
-    setup { @feedback_history = create(:feedback_history, entry: 'This is the first entry in history') }
+    before { @feedback_history = create(:feedback_history, entry: 'This is the first entry in history') }
 
     it "should return json if found" do
       get :show, params: { id: @feedback_history.id }, as: :json
 
       parsed_response = JSON.parse(response.body)
 
-      expect(200).to eq(response.code.to_i)
-      expect("This is the first entry in history").to eq(parsed_response['entry'])
+      expect(response.code.to_i).to eq(200)
+      expect(parsed_response['entry']).to eq("This is the first entry in history")
     end
 
     it "should raise if not found (to be handled by parent app)" do
       get :show, params: { id: 99999 }, as: :json
-      expect(404).to eq(response.status)
+      expect(response.status).to eq(404)
       expect(response.body.include?("The resource you were looking for does not exist")).to be
     end
 
@@ -245,7 +245,7 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
 
       parsed_response = JSON.parse(response.body)
 
-      expect(200).to eq(response.code.to_i)
+      expect(response.code.to_i).to eq(200)
       expect(prompt.as_json).to eq(parsed_response['prompt'])
     end
   end

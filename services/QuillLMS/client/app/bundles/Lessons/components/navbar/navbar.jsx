@@ -60,9 +60,9 @@ class Navbar extends React.Component {
       return (
         <div className="nav-right nav-menu" style={this.navStyles()}>
           <a className="nav-item" href="http://www.quill.org/connect/dwqa-questions/">FAQ</a>
-          <Link activeClassName="is-active" className="nav-item" onClick={this.reset} to={'/play'}>Demo</Link>
-          <Link activeClassName="is-active" className="nav-item" onClick={this.reset} to={'/results'}>Results</Link>
-          <Link activeClassName="is-active" className="nav-item" onClick={this.reset} to={'/lessons'}>Activities</Link>
+          <Link activeClassName="is-active" className="nav-item" onClick={this.reset} to="/play">Demo</Link>
+          <Link activeClassName="is-active" className="nav-item" onClick={this.reset} to="/results">Results</Link>
+          <Link activeClassName="is-active" className="nav-item" onClick={this.reset} to="/lessons">Activities</Link>
         </div>
       )
     }
@@ -95,14 +95,14 @@ class Navbar extends React.Component {
             </span>
           </div>
         </header>
-    )
+      )
     }
   }
 }
 
 const rightNav = (<div className="nav-right nav-menu">
   <span className="nav-item">
-    <Link activeClassName="is-active" className="nav-item" to={'/admin'}>Admin</Link>
+    <Link activeClassName="is-active" className="nav-item" to="/admin">Admin</Link>
   </span>
   <span className="nav-item">
     <a href="#">

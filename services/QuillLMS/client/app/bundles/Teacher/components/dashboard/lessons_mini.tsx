@@ -61,13 +61,15 @@ const MobileLessonRow = ({ row, }) => {
     presentHref,
     classroom
   } = row
-  return (<div className="mobile-data-row">
-    <div className="top-row">
-      <span>{lesson}</span>
-      <a className="focus-on-light" href={presentHref}>Present</a>
+  return (
+    <div className="mobile-data-row">
+      <div className="top-row">
+        <span>{lesson}</span>
+        <a className="focus-on-light" href={presentHref}>Present</a>
+      </div>
+      <div>{classroom}</div>
     </div>
-    <div>{classroom}</div>
-  </div>)
+  )
 }
 
 const LessonsMini = ({ lessons, onMobile, }) => {
@@ -110,19 +112,21 @@ const LessonsMini = ({ lessons, onMobile, }) => {
 
   const dataDisplay = onMobile ? rows.map(r => <MobileLessonRow key={r.id} row={r} />) : <DataTable headers={headers} rows={rows} showActions={true} />
 
-  return (<section className="lessons-mini">
-    <header>
-      <h2>
-        <span>Present a live </span>
-        <span className="no-break">
-          <span>lesson</span>
-          <a className="focus-on-light" href="https://support.quill.org/en/articles/5014099-how-does-the-present-a-live-lesson-section-on-the-teacher-home-page-work" rel="noopener noreferrer" target="_blank"><img alt={helpIcon.alt} src={helpIcon.src} /></a>
-        </span>
-      </h2>
-    </header>
-    {dataDisplay}
-    {lessons.length > INITIAL_MAX && !showAll && <button className="bottom-button focus-on-light interactive-wrapper" onClick={handleShowMoreClick} type="button">Show more <img alt={expandIcon.alt} src={expandIcon.src} /></button>}
-  </section>)
+  return (
+    <section className="lessons-mini">
+      <header>
+        <h2>
+          <span>Present a live </span>
+          <span className="no-break">
+            <span>lesson</span>
+            <a className="focus-on-light" href="https://support.quill.org/en/articles/5014099-how-does-the-present-a-live-lesson-section-on-the-teacher-home-page-work" rel="noopener noreferrer" target="_blank"><img alt={helpIcon.alt} src={helpIcon.src} /></a>
+          </span>
+        </h2>
+      </header>
+      {dataDisplay}
+      {lessons.length > INITIAL_MAX && !showAll && <button className="bottom-button focus-on-light interactive-wrapper" onClick={handleShowMoreClick} type="button">Show more <img alt={expandIcon.alt} src={expandIcon.src} /></button>}
+    </section>
+  )
 }
 
 export default LessonsMini

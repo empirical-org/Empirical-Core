@@ -2,57 +2,60 @@
 
 module PagesHelper
 
-	def pages_tab_class tabname
-		about_actions = ["mission", "develop", "faq"]
-		impact_actions = ['impact', 'map', 'stats']
-		team_actions = %w(team)
-		partners_actions = %w(partners)
-		news_actions = %w(news)
-		press_actions = %w(press)
-		standards_actions = ['activities']
-		topics_actions = ['index']
-		faq_actions = ['faq']
-		media_kit_actions = ['media_kit']
-		getting_started_actions = ['teacher-center']
-		media_actions = ['news', 'press', 'blog_posts']
-		if tabname == "about"
-			about_actions.include?(action_name) ? 'active' : ''
-		elsif tabname == 'faq'
-			faq_actions.include?(action_name) ? 'active' : ''
-		elsif tabname == 'press'
-			press_actions.include?(action_name) ? 'active' : ''
-		elsif tabname == 'partners'
-			partners_actions.include?(action_name) ? 'active' : ''
-		elsif tabname == "media"
-			media_actions.include?(action_name) ? 'active' : ''
-		elsif tabname == "team"
-			team_actions.include?(action_name) ? 'active' : ''
-		elsif tabname == 'getting-started'
-			# TODO: revert this when we launch front end of knowlege center
-			action_name == 'temporarily_render_old_teacher_resources' ? 'active' : ''
-		elsif tabname == 'news'
-			news_actions.include?(action_name) ? 'active' : ''
-		elsif tabname == 'media_kit'
-			media_kit_actions.include?(action_name) ? 'active' : ''
-		elsif tabname == "impact"
-			impact_actions.include?(action_name) ? 'active' : ''
-		elsif tabname == 'standards'
-			standards_actions.include?(action_name) ? 'active' : ''
-		elsif tabname == 'topics'
-			topics_actions.include?(action_name) ? 'active' : ''
-		elsif tabname == 'premium'
-			action_name == 'premium_from_discover' ? "premium-tab active" : ''
-		end
+  # rubocop:disable Metrics/CyclomaticComplexity
+  def pages_tab_class(tabname)
+    about_actions = ["mission", "develop", "faq"]
+    impact_actions = ['impact', 'map', 'stats']
+    team_actions = %w(team)
+    partners_actions = %w(partners)
+    news_actions = %w(news)
+    press_actions = %w(press)
+    standards_actions = ['activities']
+    topics_actions = ['index']
+    faq_actions = ['faq']
+    media_kit_actions = ['media_kit']
+    getting_started_actions = ['teacher-center']
+    media_actions = ['news', 'press', 'blog_posts']
+    case tabname
+    when "about"
+      about_actions.include?(action_name) ? 'active' : ''
+    when 'faq'
+      faq_actions.include?(action_name) ? 'active' : ''
+    when 'press'
+      press_actions.include?(action_name) ? 'active' : ''
+    when 'partners'
+      partners_actions.include?(action_name) ? 'active' : ''
+    when "media"
+      media_actions.include?(action_name) ? 'active' : ''
+    when "team"
+      team_actions.include?(action_name) ? 'active' : ''
+    when 'getting-started'
+      # TODO: revert this when we launch front end of knowlege center
+      action_name == 'temporarily_render_old_teacher_resources' ? 'active' : ''
+    when 'news'
+      news_actions.include?(action_name) ? 'active' : ''
+    when 'media_kit'
+      media_kit_actions.include?(action_name) ? 'active' : ''
+    when "impact"
+      impact_actions.include?(action_name) ? 'active' : ''
+    when 'standards'
+      standards_actions.include?(action_name) ? 'active' : ''
+    when 'topics'
+      topics_actions.include?(action_name) ? 'active' : ''
+    when 'premium'
+      action_name == 'premium_from_discover' ? "premium-tab active" : ''
+    end
 
-	end
+  end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
-	def subtab_class tabname
-		if action_name == tabname
-			"active"
-		else
-			""
-		end
-	end
+  def subtab_class(tabname)
+    if action_name == tabname
+      "active"
+    else
+      ""
+    end
+  end
 
   def team_info
     [
@@ -121,29 +124,19 @@ module PagesHelper
             img: 'team-shannon-browne@2x.png'
           },
           {
-            name: 'Tom Calabrese',
-            title: 'Lead Product Designer',
-            img: 'team-tom-calabrese@2x.png'
-          },
-          {
             name: 'Rachel Dantzler',
             title: 'Curriculum Developer',
             img: 'team-rachel-dantzler@2x.png'
           },
           {
             name: 'Emilia Friedberg',
-            title: 'Software Developer',
+            title: 'Senior Software Developer',
             img: 'team-emilia-friedberg@2x.png'
           },
           {
             name: 'Daniel Giovanniello',
             title: 'Partnerships Specialist',
             img: 'team-daniel-giovanniello@2x.png'
-          },
-          {
-            name: 'Jeremy Hertz',
-            title: 'Director of School Partnerships',
-            img: 'team-jeremy-hertz@2x.png'
           },
           {
             name: 'Peter Kong',
@@ -176,11 +169,6 @@ module PagesHelper
             img: 'team-katie-moylan@2x.png'
           },
           {
-            name: 'Lindsey Murphy',
-            title: 'Curriculum & Product Manager',
-            img: 'team-lindsey-murphy@2x.png'
-          },
-          {
             name: 'Erika Parker-Havens',
             title: 'Senior Instructional Coach',
             img: 'team-erika-parker-havens@2x.png'
@@ -192,7 +180,7 @@ module PagesHelper
           },
           {
             name: 'Thomas Robertson',
-            title: 'Senior Web Developer',
+            title: 'Senior Software Developer',
             img: 'team-thomas-robertson@2x.png'
           },
           {
@@ -216,14 +204,19 @@ module PagesHelper
             img: 'team-anna-waterman@2x.png'
           },
           {
+            name: 'Jack Yi',
+            title: 'Product Designer',
+            img: 'team-jack-yi@2x.png'
+          },
+          {
             name: 'Cissy Yu',
-            title: 'Junior Software Developer',
+            title: 'Software Developer',
             img: 'team-cissy-yu@2x.png'
           }
         ]
       }
     ]
-	 end
+  end
 
   def board_and_advisors_info
     [

@@ -5,25 +5,27 @@ class Cms::ActivityCategoriesController < Cms::CmsController
     render json: { activity_categories: format_activity_categories }
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def mass_update
-    ActivityCategory.all.each do |extant_ac|
-      ac = params[:activity_categories].find { |activity_category| activity_category[:id].to_i == extant_ac.id }
+    ActivityCategory.all.each do |existing_ac|
+      ac = params[:activity_categories].find { |activity_category| activity_category[:id].to_i == existing_ac.id }
       if ac
-        extant_ac.assign_attributes(ac.except(:activity_ids, :created_at, :updated_at, :id).permit!)
-        if extant_ac.changed?
-          extant_ac.save
+        existing_ac.assign_attributes(ac.except(:activity_ids, :created_at, :updated_at, :id).permit!)
+        if existing_ac.changed?
+          existing_ac.save
         end
 
-        if extant_ac.activity_category_activities.order(order_number: :asc).map(&:activity_id) != ac[:activity_ids]
-          extant_ac.activity_category_activities.destroy_all
-          ac[:activity_ids].each_with_index { |id, index| ActivityCategoryActivity.create(activity_category_id: extant_ac.id, activity_id: id, order_number: index) }
+        if existing_ac.activity_category_activities.order(order_number: :asc).map(&:activity_id) != ac[:activity_ids]
+          existing_ac.activity_category_activities.destroy_all
+          ac[:activity_ids].each_with_index { |id, index| ActivityCategoryActivity.create(activity_category_id: existing_ac.id, activity_id: id, order_number: index) }
         end
       else
-        extant_ac.destroy
+        existing_ac.destroy
       end
     end
     render json: { activity_categories: format_activity_categories }
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def create
     activity_category = ActivityCategory.create(activity_category_params)

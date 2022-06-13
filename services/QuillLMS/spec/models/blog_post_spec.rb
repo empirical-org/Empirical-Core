@@ -92,6 +92,7 @@ describe BlogPost, type: :model do
   describe '#can_be_accessed_by' do
     context 'when the article is free' do
       let(:free_article) { create(:blog_post) }
+
       it 'should be accessible' do
         expect(free_article.can_be_accessed_by(nil)).to be(true)
       end

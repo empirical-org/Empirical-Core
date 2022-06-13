@@ -73,6 +73,7 @@ exports[`Classroom component not selected should render as a closed card 1`] = `
       </div>
     </div>
     <img
+      alt=""
       className="expand-arrow"
       src="undefined/images/icons/expand.svg"
     />
@@ -153,6 +154,7 @@ exports[`Classroom component selected should render as an open card 1`] = `
       </div>
     </div>
     <img
+      alt=""
       className="expand-arrow"
       src="undefined/images/icons/expand.svg"
     />
@@ -176,7 +178,9 @@ exports[`Classroom component selected should render as an open card 1`] = `
       >
         <button
           className="quill-button secondary outlined small"
+          key="leave-class-285383"
           onClick={[Function]}
+          type="button"
         >
           Leave class
         </button>

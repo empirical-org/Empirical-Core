@@ -29,7 +29,7 @@ module Evidence
 
       it { should have_one(:label) }
 
-      it { should have_one(:plagiarism_text) }
+      it { should have_many(:plagiarism_texts) }
 
       it { should have_many(:feedbacks) }
 
@@ -132,10 +132,6 @@ module Evidence
         let!(:rule) { create(:evidence_rule) }
         let!(:regex_rule) { create(:evidence_regex_rule, :rule => (rule), :regex_text => "^Hello", :sequence_type => "incorrect", :conditional => false) }
         let!(:regex_rule_two) { create(:evidence_regex_rule, :rule => (rule), :regex_text => "^Something", :sequence_type => "incorrect", :conditional => false) }
-
-        it 'should be true if entry does not match the regex text' do
-          expect(rule.regex_is_passing?("Nope, I dont start with hello.")).to(eq(true))
-        end
 
         it 'should be true if sequence_type is incorrect and entry does not match the regex text' do
           expect(rule.regex_is_passing?("Nope, I dont start with hello.")).to(eq(true))
@@ -240,21 +236,21 @@ module Evidence
         it 'should assign newly created rule to all prompts if the rule is universal' do
           prompt = create(:evidence_prompt)
           rule = create(:evidence_rule, :universal => true)
-          expect(1).to(eq(prompt.rules.length))
+          expect(prompt.rules.length).to(eq(1))
           expect(rule.prompts.include?(prompt)).to(eq(true))
         end
 
         it 'should not assign newly created rule to all prompts if the rule is not universal' do
           prompt = create(:evidence_prompt)
           rule = create(:evidence_rule, :universal => false)
-          expect(0).to(eq(prompt.rules.length))
+          expect(prompt.rules.length).to(eq(0))
           expect(rule.prompts.include?(prompt)).to(eq(false))
         end
 
         it 'should not assign newly created rules to prompts that somehow already have them assigned' do
           prompt = create(:evidence_prompt)
           rule = create(:evidence_rule, :universal => true, :prompts => ([prompt]))
-          expect(1).to(eq(prompt.rules.length))
+          expect(prompt.rules.length).to(eq(1))
           expect(rule.prompts.include?(prompt)).to(eq(true))
         end
       end

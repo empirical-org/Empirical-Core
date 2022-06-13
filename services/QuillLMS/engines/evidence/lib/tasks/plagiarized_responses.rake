@@ -48,7 +48,7 @@ namespace :plagiarized_responses do
     # Derived from lib/evidence/evidence/plagiarism_check.rb 'match_entry_on_passage'
     def minimum_edit_distance_per_slice(entry, plagiarism_text)
       match_minimum = 10
-      shortest_distance_we_care_about = 5
+      shortest_distance_we_care_about = 3
 
       entry_arr = entry.gsub(/[[:punct:]]/, '').downcase.split
       plagiarism_arr = plagiarism_text.gsub(/[[:punct:]]/, '').downcase.split
@@ -67,26 +67,24 @@ namespace :plagiarized_responses do
 
     input = CSV.read(args[:input_csv_path], headers: true)
     output_file_path = args[:input_csv_path].sub('.csv', '.result.csv')
-    output_headers = input.headers + ['Plagiarism Feedback', '5 Character Difference', '10 Character Difference', '15 Character Difference', '20 Character Difference']
-    start = Time.now
+    output_headers = input.headers + ['Plagiarism Feedback', '3 Character Difference', '5 Character Difference', '3 and 5 Match?']
+    start = Time.current
     CSV.open(output_file_path, 'w', write_headers: true, headers: output_headers) do |output|
       input.each do |row|
         row['Plagiarism Feedback'] = (row['feedback_type'] == 'plagiarism')
+        row['3 Character Difference'] = false
         row['5 Character Difference'] = false
-        row['10 Character Difference'] = false
-        row['15 Character Difference'] = false
-        row['20 Character Difference'] = false
+        row['3 and 5 Match?'] = true
         closest_plagiarism = minimum_edit_distance_per_slice(row['entry'], row['plagiarism_text'])
         unless closest_plagiarism.nil?
+          row['3 Character Difference'] = (closest_plagiarism <= 3)
           row['5 Character Difference'] = (closest_plagiarism <= 5)
-          row['10 Character Difference'] = (closest_plagiarism <= 10)
-          row['15 Character Difference'] = (closest_plagiarism <= 15)
-          row['20 Character Difference'] = (closest_plagiarism <= 20)
+          row['3 and 5 Match?'] = (closest_plagiarism <= 3) == (closest_plagiarism <= 5)
         end
         output << row
       end
     end
-    stop = Time.now
+    stop = Time.current
     puts stop - start
   end
 end

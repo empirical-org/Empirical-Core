@@ -44,31 +44,6 @@ RSpec.describe ChargesController, type: :controller do
     end
   end
 
-  describe '#new_teacher_premium' do
-    context 'when new subscription' do
-      before do
-        allow(Subscription).to receive(:give_teacher_premium_if_charge_succeeds) { "subscription" }
-      end
-
-      it 'should kick off the sales contact updater and return the json' do
-        expect(UpdateSalesContactWorker).to receive(:perform_async).with(teacher.id, "2")
-        post :new_teacher_premium
-        expect(response.body).to eq({new_subscription: "subscription"}.to_json)
-      end
-    end
-
-    context 'when no new subscription' do
-      before do
-        allow(Subscription).to receive(:give_teacher_premium_if_charge_succeeds) { nil }
-      end
-
-      it 'should return the json' do
-        post :new_teacher_premium
-        expect(response.body).to eq({new_subscription: nil}.to_json)
-      end
-    end
-  end
-
   describe '#new_school_premium' do
     context 'when new subscription present' do
       before do

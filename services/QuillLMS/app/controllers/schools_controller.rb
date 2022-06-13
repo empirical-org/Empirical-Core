@@ -6,6 +6,7 @@ class SchoolsController < ApplicationController
   include CheckboxCallback
   MIN_PREFIX_LENGHT_WHEN_LAT_LON_NOT_PRESENT = 4
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def index
     @radius = params[:radius].presence || 5
     @lat = params[:lat]
@@ -47,7 +48,7 @@ class SchoolsController < ApplicationController
       cache_id = "LAT_LNG"
       if @zipcode.present?
         zip_arr << @zipcode
-      cache_id = "ZIPCODE"
+        cache_id = "ZIPCODE"
       else
         zip_arr += ZipcodeInfo.isinradius([@lat.to_f, @lng.to_f], @radius.to_i).map {|z| z.zipcode}
       end
@@ -61,7 +62,7 @@ class SchoolsController < ApplicationController
          "lower(name) LIKE :prefix", prefix: "%#{@prefix.downcase}%"
          ).group("schools.id")
          .limit(@limit)
-         $redis.set("#{cache_id}_RADIUS_TO_SCHOOL_#{@lat}_#{@lng}_#{@radius}", @schools.map {|s| s.id}.to_json)
+        $redis.set("#{cache_id}_RADIUS_TO_SCHOOL_#{@lat}_#{@lng}_#{@radius}", @schools.map {|s| s.id}.to_json)
          # short cache, highly specific
         $redis.expire("#{cache_id}_RADIUS_TO_SCHOOL_#{@lat}_#{@lng}_#{@radius}", 60*5)
       end
@@ -70,18 +71,19 @@ class SchoolsController < ApplicationController
     if @schools.empty? and @prefix.length < MIN_PREFIX_LENGHT_WHEN_LAT_LON_NOT_PRESENT
       @schools = []
     elsif @schools.empty?
-        @schools = School.select("schools.id, name, zipcode, mail_zipcode, street, mail_street, city, mail_city, state, mail_state, COUNT(schools_users.id) AS number_of_teachers")
-        .joins('LEFT JOIN schools_users ON schools_users.school_id = schools.id')
-        .where(
-           "lower(name) LIKE :prefix", prefix: "#{@prefix.downcase}%"
-         ).group("schools.id")
-         .limit(@limit)
+      @schools = School.select("schools.id, name, zipcode, mail_zipcode, street, mail_street, city, mail_city, state, mail_state, COUNT(schools_users.id) AS number_of_teachers")
+      .joins('LEFT JOIN schools_users ON schools_users.school_id = schools.id')
+      .where(
+         "lower(name) LIKE :prefix", prefix: "#{@prefix.downcase}%"
+       ).group("schools.id")
+       .limit(@limit)
       $redis.set("PREFIX_TO_SCHOOL_#{@prefix}", @schools.map {|s| s.id}.to_json)
       # longer cache, more general
       $redis.expire("PREFIX_TO_SCHOOL_#{@prefix}", 60*60)
     end
 
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def new
   end
@@ -99,8 +101,9 @@ class SchoolsController < ApplicationController
             name: school_params[:school_id_or_type]
           )
         end
-        school_user = SchoolsUsers.find_or_initialize_by(
-          user_id: current_user.id
+        school_user = SchoolsUsers.find_or_create_by(
+          user_id: current_user.id,
+          school_id: school.id
         )
         find_or_create_checkbox('Add School', current_user)
         render json: {}

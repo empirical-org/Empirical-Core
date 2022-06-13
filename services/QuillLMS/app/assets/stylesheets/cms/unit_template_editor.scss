@@ -11,3 +11,158 @@
     }
   }
 }
+
+.activity-pack-description {
+  .card {
+    max-width: unset !important;
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    background-color: white;
+  }
+}
+
+.unit-template-activities {
+  .no-activity-packs-label {
+    padding-top: 13px;
+    font-weight: normal;
+  }
+
+  .unit-template-selected-activities-table {
+    margin-top: 10px;
+    margin-bottom: 30px;
+  }
+
+  .selected-activities-header {
+    margin-bottom: 10px;
+  }
+
+  .ut-activities-headers {
+    display: inline;
+    background: none;
+    font-size: 14px;
+  }
+
+  .unit-template-filters {
+    input {
+      margin-right: 15px;
+      margin-top: 15px;
+    }
+    .name-search-box {
+      width: 400px;
+    }
+    .description-search-box {
+      width: 420px;
+    }
+    .activity-packs-search-box {
+      width: 300px;
+    }
+    .control {
+      margin-top: 10px;
+    }
+    .unit-template-dropdown-filters {
+      display: inline-flex;
+      .tool-dropdown {
+        margin: 10px;
+      }
+      .readability-dropdown {
+        margin: 10px;
+      }
+    }
+  }
+
+  .ellipses-button {
+    display: inline;
+  }
+
+  .unit-template-activities-table {
+
+    .ut-break {
+      width: 33px;
+      background: none;
+    }
+
+    .ut-name-col {
+      width: 300px;
+    }
+
+    .ut-flag-col {
+      width: 135px !important;
+    }
+
+    .ut-readability-col {
+      width: 125px !important;
+    }
+
+    .ut-concept-col {
+      width: 115px !important;
+    }
+
+    .ut-add-activity {
+      background-color: lightgreen;
+      padding: 1px;
+      border-radius: 5px;
+      padding-right: 10px;
+      padding-left: 10px;
+      color: white;
+      font-weight: bold;
+      border: 1px solid gray;
+      cursor: pointer;
+    }
+
+    .ut-remove-activity {
+      background-color: salmon;
+      padding: 1px;
+      border-radius: 5px;
+      padding-right: 10px;
+      padding-left: 10px;
+      color: white;
+      font-weight: bold;
+      border: 1px solid gray;
+      cursor: pointer;
+    }
+
+    .unit-template-activities-tbody {
+      background-color: white;
+      border-bottom: 1px solid black;
+
+      .ut-activity-row {
+        padding: 5px;
+        border-top: 1px solid gray;
+        border-left: 1px solid gray;
+        border-right: 1px solid gray;
+
+        .expand-collapse-button {
+          background-color: white;
+        }
+
+        .ut-activity-name-col {
+          width: 300px !important;
+        }
+
+        .ut-activity-flag-col {
+          width: 135px !important;
+        }
+
+        .ut-activity-readability-col {
+          width: 125px !important;
+        }
+
+        .ut-activity-cat-col {
+          width: 115px !important;
+          padding-left: 4px;
+        }
+
+        .ut-activity-class-col {
+          width: 100px !important;
+        }
+      }
+
+      .ut-activity-second-row {
+        border-left: 1px solid gray;
+        border-right: 1px solid gray;
+        border-bottom: 1px solid gray;
+      }
+    }
+  }
+}

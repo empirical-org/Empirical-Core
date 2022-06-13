@@ -45,7 +45,7 @@ shared_examples "an api request" do
       end
 
       context "meta node" do
-        before(:each) do
+        before do
           @meta = @parsed_body['meta']
         end
 

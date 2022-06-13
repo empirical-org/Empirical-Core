@@ -1,15 +1,17 @@
 import Promise from 'promise-polyfill';
+import { QueryClient, QueryClientProvider } from 'react-query'
+import * as React from 'react';
+import { Provider } from 'react-redux';
+import { HashRouter, Route, Switch } from 'react-router-dom';
+import * as Sentry from '@sentry/browser';
 
 // To add to window
 if (!window.Promise) {
   window.Promise = Promise;
 }
 import BackOff from './utils/backOff';
-import * as React from "react";
 import './styles/style.scss';
 import createStore from './utils/configureStore';
-import { Provider } from 'react-redux';
-import { HashRouter, Route, Switch } from 'react-router-dom';
 import conceptActions from './actions/concepts';
 import conceptsFeedbackActions from './actions/concepts-feedback';
 import questionActions from './actions/questions';
@@ -17,7 +19,6 @@ import fillInBlankActions from './actions/fillInBlank';
 import sentenceFragmentActions from './actions/sentenceFragments.ts';
 import lessonActions from './actions/lessons.ts';
 import * as titleCardActions from './actions/titleCards.ts';
-import * as Sentry from '@sentry/browser';
 import quillNormalizer from './libs/quillNormalizer';
 import './i18n';
 import Home from './components/home';
@@ -28,6 +29,7 @@ if (process.env.RAILS_ENV === 'production') {
 
 BackOff();
 const store = createStore();
+const queryClient = new QueryClient()
 
 // This is pretty hacky.
 // Ideally we should really be extracting the both UIDs from
@@ -79,9 +81,11 @@ class App extends React.Component<{}, {}> {
 
   public render(): JSX.Element {
     return (
-      <Provider store={store}>
-        <HashRouter basename="/">{route}</HashRouter>
-      </Provider>
+      <QueryClientProvider client={queryClient} contextSharing={true}>
+        <Provider store={store}>
+          <HashRouter basename="/">{route}</HashRouter>
+        </Provider>
+      </QueryClientProvider>
     );
   }
 }

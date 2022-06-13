@@ -38,20 +38,23 @@ describe AuthCredential, type: :model do
       context 'nil expires_at' do
         before { auth_credential.update(expires_at: nil) }
 
+        it { should_not_be_clever_authorized}
         it { should_not_be_google_authorized }
       end
 
       context 'nil refresh token' do
         before { auth_credential.update(refresh_token: nil) }
 
+        it { should_not_be_clever_authorized}
         it { should_not_be_google_authorized }
       end
 
       context 'expired refresh token' do
-        let(:expires_at) { Time.now - AuthCredential::GOOGLE_EXPIRATION_DURATION - 1.month }
+        let(:expires_at) { Time.current - AuthCredential::GOOGLE_EXPIRATION_DURATION - 1.month }
 
         before { auth_credential.update(expires_at: expires_at) }
 
+        it { should_not_be_clever_authorized}
         it { should_not_be_google_authorized }
       end
     end
@@ -63,6 +66,7 @@ describe AuthCredential, type: :model do
     it { expect(auth_credential.refresh_token_expires_at).to eq nil }
     it { expect(auth_credential.refresh_token_valid?).to eq false }
 
+    it { should_be_clever_authorized}
     it { should_not_be_google_authorized }
   end
 
@@ -72,10 +76,19 @@ describe AuthCredential, type: :model do
     it { expect(auth_credential.refresh_token_expires_at).to eq nil }
     it { expect(auth_credential.refresh_token_valid?).to eq false }
 
+    it { should_be_clever_authorized}
     it { should_not_be_google_authorized }
   end
 
   def should_not_be_google_authorized
     expect(auth_credential.google_authorized?).to be false
+  end
+
+  def should_be_clever_authorized
+    expect(auth_credential.clever_authorized?).to be true
+  end
+
+  def should_not_be_clever_authorized
+    expect(auth_credential.clever_authorized?).to be false
   end
 end

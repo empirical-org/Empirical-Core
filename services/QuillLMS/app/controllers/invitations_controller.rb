@@ -10,6 +10,7 @@ class InvitationsController < ApplicationController
       validate_email_and_classroom_ids
       @pending_invite = find_or_create_coteacher_invite_from_current_user
       raise StandardError, @pending_invite.errors[:base].join(" ") unless @pending_invite.valid?
+
       assign_classrooms_to_invitee
       invoke_email_worker
       render json: { invite_id: @pending_invite.id }
@@ -37,9 +38,9 @@ class InvitationsController < ApplicationController
   end
 
   private def invoke_email_worker
-    if Rails.env.production? || @invitee_email.match('quill.org')
-      InvitationEmailWorker.perform_async(@pending_invite.id)
-    end
+    return unless Rails.env.production? || @invitee_email.match('quill.org')
+
+    InvitationEmailWorker.perform_async(@pending_invite.id)
   end
 
   private def find_or_create_coteacher_invite_from_current_user
@@ -52,15 +53,15 @@ class InvitationsController < ApplicationController
   end
 
   private def validate_empty_classroom_ids_or_email
-    if @classroom_ids.empty? || @invitee_email.empty?
-      raise StandardError, "Please make sure you've entered a valid email and selected at least one classroom."
-    end
+    return if @classroom_ids.present? && @invitee_email.present?
+
+    raise StandardError, "Please make sure you've entered a valid email and selected at least one classroom."
   end
 
   private def validate_email_format
-    unless @invitee_email =~ /.+@.+\..+/i
-      raise StandardError, "Please make sure you've entered a valid email."
-    end
+    return if @invitee_email =~ /.+@.+\..+/i
+
+    raise StandardError, "Please make sure you've entered a valid email."
   end
 
   private def set_classroom_ids_and_inviteee_email
@@ -74,9 +75,9 @@ class InvitationsController < ApplicationController
   end
 
   private def assign_classrooms_to_invitee
-    extant_invitations_for_classrooms = @pending_invite.coteacher_classroom_invitations.pluck(:classroom_id)
+    existing_invitations_for_classrooms = @pending_invite.coteacher_classroom_invitations.pluck(:classroom_id)
     @classroom_ids.each do |id|
-      if extant_invitations_for_classrooms.exclude?(id)
+      if existing_invitations_for_classrooms.exclude?(id)
         invite = CoteacherClassroomInvitation.create(invitation_id: @pending_invite.id, classroom_id: id)
         raise StandardError, invite.errors[:base].join(" ") unless invite.valid?
       end

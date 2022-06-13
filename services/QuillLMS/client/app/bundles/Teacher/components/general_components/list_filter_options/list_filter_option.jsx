@@ -14,7 +14,7 @@ export default class ListFilterOption extends React.Component {
   };
 
   getClassName = () => {
-    var name;
+    let name;
     if (this.props.isSelected) {
       name = 'list-filter-option selected'
     } else {

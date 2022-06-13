@@ -3,7 +3,7 @@ import _ from 'underscore'
 
 export default class DropdownDateSelector extends React.Component {
   getDateParts = () => {
-    var dateParts, year, month, day;
+    let dateParts, year, month, day;
     if (this.props.date != null) {
       year = this.props.date.slice(0,4);
       month = this.props.date.slice(5,7);
@@ -25,12 +25,12 @@ export default class DropdownDateSelector extends React.Component {
   };
 
   createDateString = (dateParts) => {
-    var str = dateParts.year + "-" + dateParts.month + "-"  + dateParts.day
+    let str = dateParts.year + "-" + dateParts.month + "-"  + dateParts.day
     return str;
   };
 
   updateDatePart = (part) => {
-    var value, dateParts, str;
+    let value, dateParts, str;
     value = $(this.refs[part]).val();
     dateParts = this.getDateParts();
     dateParts[part] = value;
@@ -51,10 +51,10 @@ export default class DropdownDateSelector extends React.Component {
   };
 
   getYearOptions = () => {
-    var years, yearOptions;
+    let years, yearOptions;
     years = [];
     _.times(20, function (i) {
-      var next = 2015 + i;
+      let next = 2015 + i;
       years.push(next);
     });
     yearOptions = _.map(years, function (year) {
@@ -64,7 +64,7 @@ export default class DropdownDateSelector extends React.Component {
   };
 
   getMonthOptions = () => {
-    var monthNames, monthNumbers, months, monthOptions;
+    let monthNames, monthNumbers, months, monthOptions;
     monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     monthNumbers = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
     months = _.map(monthNames, function (name, index) {
@@ -80,7 +80,7 @@ export default class DropdownDateSelector extends React.Component {
   };
 
   getDayOptions = (month) => {
-    var numDays, days, shortMonths, dayOptions;
+    let numDays, days, shortMonths, dayOptions;
     shortMonths = ['04', '06', '09', '11'];
     if (month == '02') {
       numDays = 28;
@@ -91,12 +91,12 @@ export default class DropdownDateSelector extends React.Component {
     }
     days = [];
     _.times(numDays, function (i) {
-      var number = i+1;
-      var numberName = '' + number
+      let number = i+1;
+      let numberName = '' + number
       if (number < 10) {
         number = '0' + number;
       }
-      var next = {
+      let next = {
         name: '' + numberName,
         number: '' + number
       }
@@ -109,7 +109,7 @@ export default class DropdownDateSelector extends React.Component {
   };
 
   render() {
-    var dateParts, yearOptions, monthOptions, dayOptions;
+    let dateParts, yearOptions, monthOptions, dayOptions;
     dateParts = this.getDateParts();
     yearOptions = this.getYearOptions();
     monthOptions = this.getMonthOptions();

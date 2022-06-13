@@ -34,11 +34,10 @@ class FeedbackHistory < ApplicationRecord
   DEFAULT_PROMPT_TYPE = "Evidence::Prompt"
   MIN_ATTEMPT = 1
   MAX_ATTEMPT = 5
-  MIN_ENTRY_LENGTH = 5
-  MAX_ENTRY_LENGTH = 500
   MIN_FEEDBACK_LENGTH = 10
   MAX_FEEDBACK_LENGTH = 500
   FEEDBACK_TYPES = [
+    ERROR = "error",
     GRAMMAR = "grammar",
     PLAGIARISM = "plagiarism",
     RULES_BASED_ONE = "rules-based-1",
@@ -83,7 +82,7 @@ class FeedbackHistory < ApplicationRecord
       less_than_or_equal_to: MAX_ATTEMPT,
       greater_than_or_equal_to: MIN_ATTEMPT
     }
-  validates :entry, presence: true, length: {in: MIN_ENTRY_LENGTH..MAX_ENTRY_LENGTH}
+  validates :entry, presence: true
   validates :feedback_text, length: {in: MIN_FEEDBACK_LENGTH..MAX_FEEDBACK_LENGTH}
   validates :feedback_type, presence: true, inclusion: {in: FEEDBACK_TYPES}
   validates :optimal, inclusion: { in: [true, false] }
@@ -98,6 +97,7 @@ class FeedbackHistory < ApplicationRecord
 
   def concept_results_hash
     return {} if concept.blank?
+
     {
       concept_uid: concept_uid,
       activity_session_id: activity_session&.id,
@@ -122,15 +122,43 @@ class FeedbackHistory < ApplicationRecord
   end
 
   def serialize_by_activity_session
-   serializable_hash(only: [:session_uid, :start_date, :activity_id, :flags, :because_attempts, :but_attempts, :so_attempts, :scored_count, :weak_count, :strong_count, :complete], include: []).symbolize_keys
+    serializable_hash(only: [:session_uid, :start_date, :activity_id, :flags, :because_attempts, :but_attempts, :so_attempts, :scored_count, :weak_count, :strong_count, :complete], include: []).symbolize_keys
   end
 
   def serialize_by_activity_session_detail
-   serializable_hash(only: [:id, :entry, :feedback_text, :feedback_type, :optimal, :used, :rule_uid], include: [], methods: [:most_recent_rating]).symbolize_keys
+    serializable_hash(only: [:id, :entry, :feedback_text, :feedback_type, :optimal, :used, :rule_uid], include: [], methods: [:most_recent_rating]).symbolize_keys
   end
 
   def most_recent_rating
     feedback_history_ratings.order(updated_at: :desc).first&.rating
+  end
+
+  # TODO: consider making this a background job.
+  def self.save_feedback(feedback_hash_raw, entry, prompt_id, activity_session_uid, attempt, api_metadata=nil)
+    feedback_hash = feedback_hash_raw.deep_stringify_keys
+
+    # Remove blank values from metadata
+    metadata = {
+      api: api_metadata,
+      highlight: feedback_hash['highlight'],
+      hint: feedback_hash['hint']
+    }.reject {|_,v| v.blank? }
+
+    # NB, there is a before_create that swaps activity_session_uid for a feedback_session.uid
+    create(
+      feedback_session_uid: activity_session_uid,
+      prompt_id: prompt_id,
+      attempt: attempt,
+      entry: entry,
+      used: true,
+      time: Time.current,
+      rule_uid: feedback_hash['rule_uid'],
+      concept_uid: feedback_hash['concept_uid'],
+      feedback_text: feedback_hash['feedback'],
+      feedback_type: feedback_hash['feedback_type'],
+      optimal: feedback_hash['optimal'],
+      metadata: metadata
+    )
   end
 
   def rule_violation_repititions?
@@ -181,6 +209,7 @@ class FeedbackHistory < ApplicationRecord
     SQL
   end
 
+  # rubocop:disable Lint/DuplicateBranch
   def self.apply_activity_session_filter(query, filter_type)
     case filter_type
     when FILTER_ALL
@@ -199,7 +228,9 @@ class FeedbackHistory < ApplicationRecord
       query
     end
   end
+  # rubocop:enable Lint/DuplicateBranch
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def self.list_by_activity_session(activity_id: nil, page: 1, start_date: nil, end_date: nil, page_size: DEFAULT_PAGE_SIZE, turk_session_id: nil, filter_type: nil)
     query = select(
       <<-SQL
@@ -244,6 +275,7 @@ class FeedbackHistory < ApplicationRecord
     query = query.offset((page.to_i - 1) * page_size.to_i) if page && page.to_i > 1
     query
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def self.get_total_count(activity_id: nil, start_date: nil, end_date: nil, turk_session_id: nil)
     query = FeedbackHistory.select(:feedback_session_uid)
@@ -260,24 +292,26 @@ class FeedbackHistory < ApplicationRecord
     query.length
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def self.serialize_detail_by_activity_session(feedback_session_uid)
     history = FeedbackHistory.list_by_activity_session.where(feedback_session_uid: feedback_session_uid).first
     return nil unless history
+
     histories = FeedbackHistory.where(feedback_session_uid: feedback_session_uid).all
 
     output = history.serialize_by_activity_session
     prompt_groups = histories.group_by do |h|
       h&.prompt&.conjunction
     end
-    prompt_groups = prompt_groups.map do |conjunction, attempts|
-      [conjunction, {prompt_id: attempts.first.prompt_id, attempts: attempts}]
-    end.to_h.symbolize_keys
+    prompt_groups = prompt_groups.transform_values do |attempts|
+      {prompt_id: attempts.first.prompt_id, attempts: attempts}
+    end.symbolize_keys
 
-    attempt_groups = prompt_groups.map do |conjunction, detail|
-      [conjunction, detail[:attempts].group_by(&:attempt).map do |attempt_number, attempt|
-        [attempt_number, attempt.map(&:serialize_by_activity_session_detail)]
-      end.to_h]
-    end.to_h.symbolize_keys
+    attempt_groups = prompt_groups.transform_values do |detail|
+      detail[:attempts].group_by(&:attempt).transform_values do |attempt|
+        attempt.map(&:serialize_by_activity_session_detail)
+      end
+    end.symbolize_keys
 
     prompt_groups.each do |conjunction, _|
       prompt_groups[conjunction][:attempts] = attempt_groups[conjunction]
@@ -286,4 +320,5 @@ class FeedbackHistory < ApplicationRecord
     output[:prompts] = prompt_groups
     output.symbolize_keys
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 end

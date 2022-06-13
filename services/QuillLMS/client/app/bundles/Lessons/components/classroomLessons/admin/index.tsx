@@ -76,8 +76,8 @@ class ClassLessonsIndex extends Component<any, any> {
           {components}
         </ul>
       </div>
-  )
-}
+    )
+  }
 
   renderAddClassroomLesson() {
     return (
@@ -100,9 +100,11 @@ class ClassLessonsIndex extends Component<any, any> {
   }
 
   renderLinkToAllEditions() {
-    return (<div className="all-editions-link">
-      <a href="/lessons/#/admin/classroom-lessons/editions">See All User-Created Lesson Editions</a>
-    </div>)
+    return (
+      <div className="all-editions-link">
+        <a href="/lessons/#/admin/classroom-lessons/editions">See All User-Created Lesson Editions</a>
+      </div>
+    )
   }
 
   addLesson() {

@@ -4,7 +4,7 @@ import ReactMarkdown from 'react-markdown';
 
 export default class BlogPostContent extends React.Component {
   renderAvatar = () => {
-    return this.props.author ? <img src={this.props.author.avatar} /> : null
+    return this.props.author ? <img alt="" src={this.props.author.avatar} /> : null
   };
 
   renderBodyOrPaywall() {

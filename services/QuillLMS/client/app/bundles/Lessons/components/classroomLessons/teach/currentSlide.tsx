@@ -274,10 +274,12 @@ class CurrentSlide extends React.Component<CurrentSlideProps & StateFromProps, a
 
   renderTimeoutModal() {
     if (this.state.showTimeoutModal) {
-      return (<TimeoutModal
-        closeModal={this.closeTimeoutModal}
-        finishLesson={this.finishLesson}
-      />)
+      return (
+        <TimeoutModal
+          closeModal={this.closeTimeoutModal}
+          finishLesson={this.finishLesson}
+        />
+      )
     }
   }
 
@@ -289,11 +291,13 @@ class CurrentSlide extends React.Component<CurrentSlideProps & StateFromProps, a
 
   renderSignupModal() {
     if (this.props.classroomSessions.showSignupModal) {
-      return (<SignupModal
-        closeModal={this.closeSignupModal}
-        goToSignup={() => window.location.href = `${process.env.DEFAULT_URL}/account/new`}
-        lessonId={this.props.lessonId}
-      />)
+      return (
+        <SignupModal
+          closeModal={this.closeSignupModal}
+          goToSignup={() => window.location.href = `${process.env.DEFAULT_URL}/account/new`}
+          lessonId={this.props.lessonId}
+        />
+      )
     }
   }
 
@@ -357,18 +361,20 @@ class CurrentSlide extends React.Component<CurrentSlideProps & StateFromProps, a
             toggleStudentFlag={this.toggleStudentFlag}
             updateSelectedOptionKey={this.updateSelectedOptionKey}
           />)
-            break
+          break
         default:
           slide = <p>UNSUPPORTED QUESTION TYPE</p>
           break
       }
-      return (<div>
-        {this.renderPreviewModal()}
-        {this.renderTimeoutModal()}
-        {this.renderCongratulationsModal()}
-        {this.renderSignupModal()}
-        {slide}
-      </div>)
+      return (
+        <div>
+          {this.renderPreviewModal()}
+          {this.renderTimeoutModal()}
+          {this.renderCongratulationsModal()}
+          {this.renderSignupModal()}
+          {slide}
+        </div>
+      )
     } else {
       return (
         <div>

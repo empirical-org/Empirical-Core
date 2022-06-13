@@ -1,12 +1,11 @@
 import * as React from 'react'
-import ReactTable from 'react-table';
 import moment from 'moment';
 
 import RecordBox from './recordBox'
 import NewRecordBox from './newRecordBox'
 import ArchivedRecordBox from './archivedRecordBox'
 
-import { momentFormatConstants } from '../../../../Shared/index'
+import { momentFormatConstants, ReactTable, } from '../../../../Shared/index'
 
 function columns(selectRecord, visible) {
   const sharedColumn = {
@@ -14,8 +13,8 @@ function columns(selectRecord, visible) {
     accessor: 'name',
     defaultSortOrder: 'ascend',
     key: 'name',
-    Cell: (props) => (<button className="interactive-wrapper" onClick={() => selectRecord(props.original.id)}>{props.original.name}</button>),
-    sortType: (a, b) => a.name.localeCompare(b.name)
+    Cell: ({row}) => (<button className="interactive-wrapper" onClick={() => selectRecord(row.original.id)}>{row.original.name}</button>),
+    sortType: (a, b) => a.original.name.localeCompare(b.original.name)
   }
   if (visible) {
     return [
@@ -24,14 +23,14 @@ function columns(selectRecord, visible) {
         Header: 'Activities',
         accessor: 'activity_count',
         key: 'activity_count',
-        sortType:  (a, b) => (a.activity_count - b.activity_count)
+        sortType:  (a, b) => (a.original.activity_count - b.original.activity_count)
       },
       {
         Header: 'Created At',
         accessor: 'created_at',
         key: 'created_at',
-        Cell: (props) => moment(props.original.created_at).format(momentFormatConstants.MONTH_DAY_YEAR),
-        sortType:  (a, b) => (new Date(a.created_at) - new Date(b.created_at)),
+        Cell: ({row}) => moment(row.original.created_at).format(momentFormatConstants.MONTH_DAY_YEAR),
+        sortType:  (a, b) => (new Date(a.original.created_at) - new Date(b.original.created_at)),
       }
     ]
   }
@@ -77,19 +76,19 @@ const ContentPartnersTable = ({ visible, contentPartners, saveContentPartnerChan
     createNewContentPartner={createNewContentPartner}
   />)
 
-  return (<div className="content-partner-columns">
-    <ReactTable
-      className="records-table"
-      columns={columns(selectRecord, visible)}
-      data={filteredRecords}
-      defaultPageSize={filteredRecords.length}
-      showPagination={false}
-    />
-    <div className="record-box-container">
-      {recordBox}
-      {newRecordBox}
+  return (
+    <div className="content-partner-columns">
+      <ReactTable
+        className="records-table"
+        columns={columns(selectRecord, visible)}
+        data={filteredRecords}
+      />
+      <div className="record-box-container">
+        {recordBox}
+        {newRecordBox}
+      </div>
     </div>
-  </div>)
+  )
 }
 
 export default ContentPartnersTable

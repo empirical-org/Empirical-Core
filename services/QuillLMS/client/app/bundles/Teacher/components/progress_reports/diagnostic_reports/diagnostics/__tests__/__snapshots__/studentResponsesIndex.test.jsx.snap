@@ -64,6 +64,7 @@ exports[`StudentResponsesIndex component should render when there is no student 
           className="spinner-container"
         >
           <img
+            alt=""
             className="spinner"
             src="/images/loader_still.svg"
           />
@@ -249,6 +250,7 @@ exports[`StudentResponsesIndex component should render when there is student dat
           className="spinner-container"
         >
           <img
+            alt=""
             className="spinner"
             src="/images/loader_still.svg"
           />

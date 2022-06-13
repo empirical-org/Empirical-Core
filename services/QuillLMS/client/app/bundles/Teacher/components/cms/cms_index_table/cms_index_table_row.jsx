@@ -7,7 +7,7 @@ export default class CmsIndexTableRow extends React.Component {
   };
 
   delete = () => {
-    var confirm = window.confirm('are you sure you want to delete ' + this.props.data.resource[this.identifier()] + '?');
+    let confirm = window.confirm('are you sure you want to delete ' + this.props.data.resource[this.identifier()] + '?');
     if (confirm) {
       this.props.actions.delete(this.props.data.resource);
     }
@@ -19,7 +19,7 @@ export default class CmsIndexTableRow extends React.Component {
 
   activitiesLink = () => {
     if (this.props.resourceNameSingular === 'activity_classification') {
-      return <div className='col-xs-4' key={'activities'} onClick={this.goToActivities}>activities</div>
+      return <div className='col-xs-4' key="activities" onClick={this.goToActivities}>activities</div>
     }
   };
 
@@ -28,10 +28,10 @@ export default class CmsIndexTableRow extends React.Component {
   };
 
   render() {
-    var edit_and_delete;
+    let edit_and_delete;
     edit_and_delete = _.reduce(['edit', 'delete'], function (acc, ele) {
       if (this.props.actions[ele]) {
-        var el = <div className='col-xs-4' key={ele} onClick={this[ele]}>{ele}</div>
+        let el = <div className='col-xs-4' key={ele} onClick={this[ele]}>{ele}</div>
         return _.chain(acc).push(el).value();
       } else {
         return acc

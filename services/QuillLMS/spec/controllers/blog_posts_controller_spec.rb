@@ -47,7 +47,7 @@ describe BlogPostsController, type: :controller do
     end
 
     it 'should redirect to blog post even if there are extra chars' do
-      get :show, params: { slug: blog_post.slug + ')()(' }
+      get :show, params: { slug: "#{blog_post.slug})()(" }
 
       expect(response).to redirect_to "/teacher-center/#{blog_post.slug}"
     end
@@ -84,7 +84,8 @@ describe BlogPostsController, type: :controller do
   end
 
   describe '#show_topic' do
-    let(:topic) { BlogPost::TEACHER_TOPICS.sample }
+    let(:public_teacher_topics) { BlogPost::TEACHER_TOPICS - [BlogPost::USING_QUILL_FOR_READING_COMPREHENSION] }
+    let(:topic) { public_teacher_topics.sample }
     let(:blog_posts) { create_list(:blog_post, 3, topic: topic) }
     let(:draft_post) { create(:blog_post, :draft, topic: topic) }
 
@@ -123,6 +124,52 @@ describe BlogPostsController, type: :controller do
     it 'should return a title' do
       get :show_topic, params: { topic: topic.downcase.gsub(' ','-') }
       expect(assigns(:title)).to eq(topic)
+    end
+
+    context 'topics requiring authorization' do
+      let(:app_setting) { create(:app_setting, name: AppSetting::COMPREHENSION) }
+      let(:topic) { BlogPost::USING_QUILL_FOR_READING_COMPREHENSION }
+      let(:slug) { topic.tr(' ', '-').downcase }
+      let!(:blog_posts) { create_list(:blog_post, 2, topic: topic) }
+
+      subject { get :show_topic, params: { topic: slug } }
+
+      before { allow(controller).to receive(:current_user) { user } }
+
+      context 'user is a teacher' do
+        let(:user) { create(:teacher) }
+
+        it 'when app_setting is enabled for user, all posts for using-quill-for-reading-comprehension are returned' do
+          app_setting.enabled = true
+          app_setting.user_ids_allow_list = [user.id]
+          app_setting.save!
+          subject
+          expect(assigns(:blog_posts)).to match_array blog_posts
+        end
+
+        it 'should redirect to teacher_center if user is unauthorized' do
+          subject
+          expect(response).to redirect_to '/teacher-center'
+        end
+      end
+
+      context 'user is a student' do
+        let(:user) { create(:student) }
+
+        it 'should redirect to student_center' do
+          subject
+          expect(response).to redirect_to '/student-center'
+        end
+      end
+
+      context 'current_user is nil' do
+        let(:user) { nil }
+
+        it 'should redirect to teacher_center' do
+          subject
+          expect(response).to redirect_to '/teacher-center'
+        end
+      end
     end
   end
 

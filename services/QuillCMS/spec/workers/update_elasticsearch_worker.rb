@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 describe UpdateElasticsearchWorker do
-  let(:subject) { described_class.new }
+  subject { described_class.new }
+
   let(:response1) { create(:response, created_at: Time.zone.now.beginning_of_day, updated_at: Time.zone.now.beginning_of_day) }
   let(:response2) { create(:response, created_at: Time.zone.now.beginning_of_day, updated_at: Time.zone.now.beginning_of_day) }
   let(:response3) { create(:response, created_at: Time.zone.now.yesterday, updated_at: Time.zone.now.yesterday)}

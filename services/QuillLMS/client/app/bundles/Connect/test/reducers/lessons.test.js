@@ -19,12 +19,12 @@ describe('lessons readucer', () => {
     expect(
       reducer(initialReducerState, {type: C.SET_LESSON_FLAG, flag: 'production'})
     ).toEqual( {
-        hasreceiveddata: false,
-        submittingnew: false,
-        flag: 'production',
-        states: {}, // this will store per quote id if we're reading, editing or awaiting DB response
-        data: {} // this will contain firebase data
-      }
+      hasreceiveddata: false,
+      submittingnew: false,
+      flag: 'production',
+      states: {}, // this will store per quote id if we're reading, editing or awaiting DB response
+      data: {} // this will contain firebase data
+    }
     )
   })
 })

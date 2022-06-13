@@ -23,7 +23,7 @@ namespace :quillwriter do
 
 
     # activities
-    data = JSON.parse(File.open(Rails.root.join('db/writer-stories.json')).read)
+    data = JSON.parse(File.read(Rails.root.join('db/writer-stories.json')))
 
     # remove all activies before
     standard.activities.delete_all

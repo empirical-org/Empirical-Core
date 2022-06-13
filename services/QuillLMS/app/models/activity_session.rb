@@ -41,6 +41,8 @@ require 'new_relic/agent'
 
 class ActivitySession < ApplicationRecord
 
+  class LongTimeTrackingError < StandardError; end
+
   include ::NewRelic::Agent
 
   include Uid
@@ -50,10 +52,15 @@ class ActivitySession < ApplicationRecord
   STATE_STARTED = 'started'
   STATE_FINISHED = 'finished'
 
+  TIME_TRACKING_KEY = 'time_tracking'
+  TIME_TRACKING_EDITS_KEY = 'time_tracking_edits'
+
+  MAX_4_BYTE_INTEGER_SIZE = 2147483647
+
   default_scope { where(visible: true)}
   has_many :feedback_sessions, foreign_key: :activity_session_uid, primary_key: :uid
   has_many :feedback_histories, through: :feedback_sessions
-  belongs_to :classroom_unit
+  belongs_to :classroom_unit, touch: true
   belongs_to :activity
   has_one :classification, through: :activity
   has_many :user_activity_classifications, through: :classification
@@ -146,7 +153,7 @@ class ActivitySession < ApplicationRecord
     elsif data.nil?
       nil
     else
-      self.class.calculate_timespent(data['time_tracking'])
+      self.class.time_tracking_sum(data['time_tracking'])
     end
   end
 
@@ -158,8 +165,18 @@ class ActivitySession < ApplicationRecord
     state == FINISHED_STATE
   end
 
-  def self.calculate_timespent(time_tracking)
-    time_tracking&.values&.compact&.sum
+  def self.time_tracking_sum(time_tracking)
+    return nil unless time_tracking.respond_to?(:values)
+
+    time_tracking.values.compact.sum
+  end
+
+  def self.calculate_timespent(activity_session, time_tracking)
+    timespent = activity_session&.timespent || time_tracking_sum(time_tracking)
+
+    return nil if timespent.nil?
+
+    [timespent, MAX_4_BYTE_INTEGER_SIZE].min
   end
 
   def eligible_for_tracking?
@@ -219,6 +236,7 @@ class ActivitySession < ApplicationRecord
     super || unit_activity&.activity
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def determine_if_final_score
     return if state != 'finished' || (percentage.nil? && !activity.is_evidence?)
 
@@ -239,14 +257,17 @@ class ActivitySession < ApplicationRecord
     # return true otherwise save will be prevented
     true
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def formatted_due_date
     return nil if unit_activity&.due_date.nil?
+
     unit_activity.due_date.strftime('%A, %B %d, %Y')
   end
 
   def formatted_completed_at
     return nil if completed_at.nil?
+
     completed_at.strftime('%A, %B %d, %Y')
   end
 
@@ -272,7 +293,7 @@ class ActivitySession < ApplicationRecord
     if percentage.nil?
       "no percentage"
     else
-      (percentage*100).round.to_s + '%'
+      "#{(percentage*100).round}%"
     end
   end
 
@@ -286,6 +307,7 @@ class ActivitySession < ApplicationRecord
 
   def start
     return if state != 'unstarted'
+
     self.started_at ||= Time.current
     self.state = 'started'
   end
@@ -311,6 +333,7 @@ class ActivitySession < ApplicationRecord
     percentage
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def parse_for_results
     concept_results_by_concept = concept_results.group_by { |c| c.concept_id }
 
@@ -340,6 +363,7 @@ class ActivitySession < ApplicationRecord
 
     results
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   alias owner user
 
@@ -354,18 +378,12 @@ class ActivitySession < ApplicationRecord
 
   def invalidate_activity_session_count_if_completed
     classroom_id = classroom_unit&.classroom_id
-    if state == 'finished' && classroom_id
-      $redis.del("classroom_id:#{classroom_id}_completed_activity_count")
-    end
+    return unless state == 'finished' && classroom_id
+
+    $redis.del("classroom_id:#{classroom_id}_completed_activity_count")
   end
 
-  def self.save_concept_results(classroom_unit_id, activity_id, concept_results)
-    activity = Activity.find_by_id_or_uid(activity_id)
-    activity_sessions = ActivitySession.where(
-      activity: activity,
-      classroom_unit_id: classroom_unit_id
-    ).select(:id, :uid)
-
+  def self.save_concept_results(activity_sessions, concept_results)
     concept_results.each do |concept_result|
       activity_session_id = activity_sessions.find do |activity_session|
         if activity_session && concept_result
@@ -377,9 +395,7 @@ class ActivitySession < ApplicationRecord
       concept_result[:concept_id] = concept.id
       concept_result[:activity_session_id] = activity_session_id
       concept_result.delete(:activity_session_uid)
-    end
 
-    concept_results.each do |concept_result|
       ConceptResult.create(
         concept_id: concept_result[:concept_id],
         question_type: concept_result[:question_type],
@@ -389,13 +405,8 @@ class ActivitySession < ApplicationRecord
     end
   end
 
-  def self.delete_activity_sessions_with_no_concept_results(classroom_unit_id, activity_id)
+  def self.delete_activity_sessions_with_no_concept_results(activity_sessions)
     incomplete_activity_session_ids = []
-    activity = Activity.find_by_id_or_uid(activity_id)
-    activity_sessions = ActivitySession.where(
-      classroom_unit_id: classroom_unit_id,
-      activity: activity
-    )
     activity_sessions.each do |as|
       if as.concept_result_ids.empty?
         incomplete_activity_session_ids.push(as.id)
@@ -406,23 +417,17 @@ class ActivitySession < ApplicationRecord
 
   # this function is only for use by Lesson activities, which are not individually saved when the activity ends
   # other activity types make a call directly to the api/v1/activity_sessions controller with timetracking data included
-  def self.save_timetracking_data_from_active_activity_session(classroom_unit_id, activity_id)
-    activity = Activity.find_by_id_or_uid(activity_id)
-    activity_sessions = ActivitySession.where(
-      classroom_unit_id: classroom_unit_id,
-      activity: activity
-    )
+  def self.save_timetracking_data_from_active_activity_session(activity_sessions)
     activity_sessions.each do |as|
       time_tracking = ActiveActivitySession.find_by_uid(as.uid)&.data&.fetch("timeTracking")
-      as.data['time_tracking'] = time_tracking&.map{ |k, milliseconds| [k, (milliseconds / 1000).round] }.to_h # timetracking is stored in milliseconds for active activity sessions, but seconds on the activity session
+      as.data['time_tracking'] = time_tracking&.transform_values{ |milliseconds| (milliseconds / 1000).round } # timetracking is stored in milliseconds for active activity sessions, but seconds on the activity session
       as.timespent = as.timespent
       as.save
     end
   end
 
-  def self.mark_all_activity_sessions_complete(classroom_unit_id, activity_id, data={})
-    activity = Activity.find_by_id_or_uid(activity_id)
-    ActivitySession.unscoped.where(classroom_unit_id: classroom_unit_id, activity: activity).each do |as|
+  def self.mark_all_activity_sessions_complete(activity_sessions, data={})
+    activity_sessions.each do |as|
       as.update(
         state: 'finished',
         percentage: 1,
@@ -492,12 +497,13 @@ class ActivitySession < ApplicationRecord
       user_id: student_id,
       activity: activity,
       state: 'started',
-      started_at: Time.now
+      started_at: Time.current
     )
   end
 
   def minutes_to_complete
     return nil unless completed_at && started_at
+
     ((completed_at - started_at)/60).round
   end
 
@@ -534,6 +540,7 @@ class ActivitySession < ApplicationRecord
     end
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def self.search_sort_sql(sort)
     if sort.blank? or sort[:field].blank?
       sort = {
@@ -567,15 +574,15 @@ class ActivitySession < ApplicationRecord
       "standards.name #{order}"
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   private def trigger_events
     yield # http://stackoverflow.com/questions/4998553/rails-around-callbacks
 
     return unless saved_change_to_state?
+    return unless state == 'finished'
 
-    if state == 'finished'
-      FinishActivityWorker.perform_async(uid)
-    end
+    FinishActivityWorker.perform_async(uid)
   end
 
   private def set_state
@@ -597,9 +604,9 @@ class ActivitySession < ApplicationRecord
     # we check to see if it is finished because the only milestone we're checking for is the copleted idagnostic.
     # at a later date, we might have to update this check in case we want a milestone for sessions being assigned
     # or started.
-    if self.state == 'finished'
-      UpdateMilestonesWorker.perform_async(uid)
-    end
+    return unless self.state == 'finished'
+
+    UpdateMilestonesWorker.perform_async(uid)
   end
 
   private def increment_counts

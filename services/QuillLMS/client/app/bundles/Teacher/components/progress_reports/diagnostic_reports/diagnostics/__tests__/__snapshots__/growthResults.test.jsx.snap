@@ -93,6 +93,7 @@ exports[`GrowthResults component should render when there are no results 1`] = `
       className="spinner-container"
     >
       <img
+        alt=""
         className="spinner"
         src="/images/loader_still.svg"
       />
@@ -539,6 +540,7 @@ exports[`GrowthResults component should render when there are results 1`] = `
       className="spinner-container"
     >
       <img
+        alt=""
         className="spinner"
         src="/images/loader_still.svg"
       />

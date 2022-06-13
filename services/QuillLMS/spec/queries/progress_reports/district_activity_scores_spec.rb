@@ -11,7 +11,7 @@
 #   let!(:classroom_activity) { create(:classroom_activity, classroom: classroom) }
 #   let!(:student) { create(:student) }
 #   let!(:activity_session) { create(:activity_session, classroom_activity: classroom_activity, user: student) }
-#   let(:subject) { described_class.new(schools_admins) }
+#   subject { described_class.new(schools_admins) }
 #   let(:result) {
 #     {
 #       classroom_name: classroom.name,

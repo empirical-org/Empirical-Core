@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LockerTile component should render LockerTile 1`] = `
+<Fragment>
+  <button
+    className="locker-container interactive-wrapper focus-on-light"
+    onClick={[Function]}
+  >
+    <p
+      className="edit-locker"
+    >
+      Click to edit
+    </p>
+  </button>
+</Fragment>
+`;

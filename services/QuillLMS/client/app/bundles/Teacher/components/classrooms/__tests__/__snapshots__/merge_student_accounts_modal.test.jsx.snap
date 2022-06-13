@@ -25,6 +25,7 @@ exports[`MergeStudentAccountsModal component should render MergeStudentAccountsM
       onClick={[Function]}
     >
       <img
+        alt=""
         src="undefined/images/icons/swap-vertical.svg"
       />
       <span>

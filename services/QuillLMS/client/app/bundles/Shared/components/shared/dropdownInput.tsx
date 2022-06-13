@@ -8,7 +8,7 @@ import { CheckableDropdownValueContainer } from './checkableDropdownValueContain
 import { StandardDropdownOption } from './standardDropdownOption'
 
 interface DropdownInputProps {
-  options: Array<any>;
+  options: Array<{label: string, value: string, [key:string]: any}>;
   className?: string;
   disabled?: boolean;
   error?: string;
@@ -26,6 +26,12 @@ interface DropdownInputProps {
   type?: string;
   usesCustomOption?: boolean;
   value?: any;
+  filterOptions?: (
+    candidate: { label: string; value: string; data: any },
+    value: string,
+    options: { label: string; value: string }[]
+  ) => void;
+  handleInputChange?: any
 }
 
 interface DropdownInputState {
@@ -143,8 +149,12 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
   }
 
   handleInputChange = (inputValue, action) => {
+    const { handleInputChange } = this.props;
     if (action.action !== "input-blur" && action.action !== 'menu-close') {
       this.setState({ inputValue });
+    }
+    if(handleInputChange && action.action === 'input-change') {
+      handleInputChange(inputValue);
     }
   }
 
@@ -269,9 +279,14 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
     this.handleInputActivation()
   }
 
+  handleFilterOptions = (candidate: { label: string; value: string; data: any }, value: string) => {
+    const { filterOptions, options } = this.props;
+    return filterOptions(candidate, value, options)
+  }
+
   renderInput() {
     const { active, errorAcknowledged, menuIsOpen, cursor, inputValue, options } = this.state
-    const { className, label, value, placeholder, error, type, id, isSearchable, isMulti, optionType, usesCustomOption, } = this.props
+    const { className, label, value, placeholder, error, type, id, isSearchable, isMulti, optionType, usesCustomOption, filterOptions } = this.props
     const passedValue = value || ''
     const hasText = value || isMulti ? 'has-text' : ''
     const inactiveOrActive = active ? 'active' : 'inactive'
@@ -295,7 +310,8 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
       components: { Option: StandardDropdownOption },
       onInputChange: this.handleInputChange,
       tabIndex: isSearchable ? 0 : -1,
-      inputValue
+      inputValue,
+      filterOption: filterOptions ? this.handleFilterOptions : null
     }
     if (error) {
       if (errorAcknowledged) {
@@ -314,7 +330,8 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
               menuIsOpen={menuIsOpen}
               onChange={this.handleOptionSelection}
             />
-          </div>)
+          </div>
+        )
       } else {
         return (
           <div
@@ -331,30 +348,33 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
               menuIsOpen={false}
             />
             {this.renderErrorText()}
-          </div>)
+          </div>
+        )
       }
     } else if (isMulti) {
-      return (<div
-        className={sharedClasses}
-        onClick={this.handleInputActivation}
-        onKeyDown={this.handleKeyDownOnInputContainer}
-        ref={node => this.node = node}
-        role="button"
-        tabIndex={0}
-      >
-        <label htmlFor={id}>{label}</label>
-        <Select
-          {...sharedProps}
-          closeMenuOnSelect={false}
-          components={{ Option: CheckableDropdownOption, ValueContainer: CheckableDropdownValueContainer }}
-          hideSelectedOptions={false}
-          isMulti
-          isSearchable={false}
-          menuIsOpen={active ? menuIsOpen : false}
-          onChange={this.handleOptionSelection}
-          optionType={optionType}
-        />
-      </div>)
+      return (
+        <div
+          className={sharedClasses}
+          onClick={this.handleInputActivation}
+          onKeyDown={this.handleKeyDownOnInputContainer}
+          ref={node => this.node = node}
+          role="button"
+          tabIndex={0}
+        >
+          <label htmlFor={id}>{label}</label>
+          <Select
+            {...sharedProps}
+            closeMenuOnSelect={false}
+            components={{ Option: CheckableDropdownOption, ValueContainer: CheckableDropdownValueContainer }}
+            hideSelectedOptions={false}
+            isMulti
+            isSearchable={false}
+            menuIsOpen={active ? menuIsOpen : false}
+            onChange={this.handleOptionSelection}
+            optionType={optionType}
+          />
+        </div>
+      )
     } else if (usesCustomOption) {
       return (
         <div
@@ -373,7 +393,8 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
             menuIsOpen={active ? menuIsOpen : false}
             onChange={this.handleOptionSelection}
           />
-        </div>)
+        </div>
+      )
     } else if (!active) {
       return (
         <div

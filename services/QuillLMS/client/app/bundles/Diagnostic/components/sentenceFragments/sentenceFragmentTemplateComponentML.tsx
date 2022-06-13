@@ -172,13 +172,13 @@ class PlaySentenceFragment extends React.Component {
       const latestAttempt:{response: Response}|undefined  = getLatestAttempt(question.attempts);
       if (latestAttempt && latestAttempt.response) {
         if (!latestAttempt.response.optimal && latestAttempt.response.conceptResults) {
-            const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.conceptResults);
-            if (conceptID) {
-              const data = conceptsFeedback.data[conceptID.conceptUID];
-              if (data) {
-                return <ConceptExplanation {...data} />;
-              }
+          const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.conceptResults);
+          if (conceptID) {
+            const data = conceptsFeedback.data[conceptID.conceptUID];
+            if (data) {
+              return <ConceptExplanation {...data} />;
             }
+          }
         } else if (latestAttempt.response && !latestAttempt.response.optimal && latestAttempt.response.concept_results) {
           const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.concept_results);
           if (conceptID) {
@@ -243,7 +243,7 @@ class PlaySentenceFragment extends React.Component {
     if (latestAttempt) {
       const component = <span dangerouslySetInnerHTML={{__html: latestAttempt.response.feedback}} />
       instructions = latestAttempt.response.feedback ? component :
-      'Revise your work. A complete sentence must have an action word and a person or thing doing the action.';
+        'Revise your work. A complete sentence must have an action word and a person or thing doing the action.';
     } else if (question.instructions && question.instructions !== '') {
       instructions = question.instructions;
     } else {

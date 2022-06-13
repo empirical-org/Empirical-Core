@@ -27,6 +27,7 @@ module GoogleIntegration::Classroom::Requesters::Students
     if response.next_page_token
       return make_google_classroom_api_call(course_id, api_method, client, students, response.next_page_token)
     end
+
     students
   end
 end

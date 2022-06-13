@@ -3,14 +3,12 @@
 require 'rails_helper'
 
 describe Teachers::ProgressReportsController do
-  it { should use_before_action :authorize! }
-  it { should use_before_action :set_vary_header }
-
   let(:teacher) { create(:teacher) }
 
-  before do
-    allow(controller).to receive(:current_user) { teacher }
-  end
+  before { allow(controller).to receive(:current_user) { teacher } }
+
+  it { should use_before_action :authorize! }
+  it { should use_before_action :set_vary_header }
 
   describe '#demo' do
     context 'when name not given' do
@@ -34,12 +32,12 @@ describe Teachers::ProgressReportsController do
       context 'when demo account does not exist' do
         before do
           allow(Demo::ReportDemoDestroyer).to receive(:destroy_demo) { true }
-          allow(Demo::ReportDemoCreator).to receive(:create_demo) {|name| create(:user, email: "hello+#{name}@quill.org") }
+          allow(Demo::ReportDemoCreator).to receive(:create_demo) {|email| create(:user, email: email) }
         end
 
         it 'should destroy the current demo and create a new demo' do
-          expect(Demo::ReportDemoDestroyer).to receive(:destroy_demo).with("demoteacher")
-          expect(Demo::ReportDemoCreator).to receive(:create_demo).with("demoteacher")
+          expect(Demo::ReportDemoDestroyer).to receive(:destroy_demo).with("hello+demoteacher@quill.org")
+          expect(Demo::ReportDemoCreator).to receive(:create_demo).with("hello+demoteacher@quill.org")
           get :demo
         end
       end
@@ -77,12 +75,12 @@ describe Teachers::ProgressReportsController do
       context 'when demo account does not exist' do
         before do
           allow(Demo::ReportDemoDestroyer).to receive(:destroy_demo) { true }
-          allow(Demo::ReportDemoCreator).to receive(:create_demo) {|name| create(:user, email: "hello+#{name}@quill.org") }
+          allow(Demo::ReportDemoCreator).to receive(:create_demo) {|email| create(:user, email: email) }
         end
 
         it 'should destroy the current demo and create a new demo' do
-          expect(Demo::ReportDemoDestroyer).to receive(:destroy_demo).with("test")
-          expect(Demo::ReportDemoCreator).to receive(:create_demo).with("test")
+          expect(Demo::ReportDemoDestroyer).to receive(:destroy_demo).with("hello+test@quill.org")
+          expect(Demo::ReportDemoCreator).to receive(:create_demo).with("hello+test@quill.org")
           get :demo, params: { name: "test" }
         end
       end
@@ -148,11 +146,11 @@ describe Teachers::ProgressReportsController do
 
     context 'when demo account does not exist' do
       before do
-        allow(Demo::ReportDemoCreator).to receive(:create_demo) {|name| create(:user, email: "hello+#{name}@quill.org") }
+        allow(Demo::ReportDemoCreator).to receive(:create_demo) {|email| create(:user, email: email) }
       end
 
       it 'sets the user, redirects to scorebook teachers classrooms path when user doesnt exist' do
-        expect(Demo::ReportDemoCreator).to receive(:create_demo).with("demoteacher+staff")
+        expect(Demo::ReportDemoCreator).to receive(:create_demo).with("hello+demoteacher+staff@quill.org")
 
         get :staff_demo
         expect(response).to redirect_to scorebook_teachers_classrooms_path

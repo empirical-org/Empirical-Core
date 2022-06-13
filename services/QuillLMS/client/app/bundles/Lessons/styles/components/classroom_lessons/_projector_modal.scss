@@ -88,7 +88,7 @@
       }
     }
 
-    button {
+    button:not(.exit) {
       width: 147px;
     	height: 40px;
     	border-radius: 3px;

@@ -19,11 +19,11 @@ const savedResponses: Array<Response> = [
 
 describe('The punctuationInsensitiveMatch function', () => {
 
-    it('Should take a response string and find the corresponding saved response if the string matches exactly when punctuation is removed', () => {
-        const responseString = "My dog took a nap";
-        const matchedResponse: Response = punctuationInsensitiveMatch(responseString, savedResponses);
-        assert.equal(matchedResponse.id, savedResponses[0].id);
-    });
+  it('Should take a response string and find the corresponding saved response if the string matches exactly when punctuation is removed', () => {
+    const responseString = "My dog took a nap";
+    const matchedResponse: Response = punctuationInsensitiveMatch(responseString, savedResponses);
+    assert.equal(matchedResponse.id, savedResponses[0].id);
+  });
 
 });
 
@@ -32,13 +32,13 @@ describe('The punctuationInsensitiveChecker', () => {
   it('Should return a partialResponse object if the lowercased response string matches a lowercased partial response', () => {
     const responseString = "My dog took a nap";
     const partialResponse: PartialResponse =  {
-        feedback: feedbackStrings.punctuationError,
-        author: 'Punctuation Hint',
-        parent_id: punctuationInsensitiveMatch(responseString, savedResponses).id,
-        concept_results: [
-          conceptResultTemplate('mdFUuuNR7N352bbMw4Mj9Q')
-        ]
-      }
+      feedback: feedbackStrings.punctuationError,
+      author: 'Punctuation Hint',
+      parent_id: punctuationInsensitiveMatch(responseString, savedResponses).id,
+      concept_results: [
+        conceptResultTemplate('mdFUuuNR7N352bbMw4Mj9Q')
+      ]
+    }
     assert.equal(punctuationInsensitiveChecker(responseString, savedResponses).feedback, partialResponse.feedback);
     assert.equal(punctuationInsensitiveChecker(responseString, savedResponses).author, partialResponse.author);
     assert.equal(punctuationInsensitiveChecker(responseString, savedResponses).parent_id, partialResponse.parent_id);

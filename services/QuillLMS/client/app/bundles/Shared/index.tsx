@@ -14,6 +14,12 @@ export {
 } from './components/feedback/conceptExplanation'
 
 export {
+  ReactTable,
+  TextFilter,
+  expanderColumn,
+} from './components/reactTable/reactTable'
+
+export {
   ArchivedButton,
   ButtonLoadingSpinner,
   Card,
@@ -27,6 +33,7 @@ export {
   Input,
   Passthrough,
   ResumeOrBeginButton,
+  ScreenreaderInstructions,
   SmartSpinner,
   Snackbar,
   defaultSnackbarTimeout,
@@ -36,6 +43,7 @@ export {
   TeacherPreviewMenuButton,
   TextEditor,
   TextArea,
+  ToggleComponentSection,
   Tooltip,
   TwoThumbSlider,
   UploadOptimalResponses
@@ -89,7 +97,11 @@ export {
   getDisplayedText,
   renderPreviewFeedback,
   roundValuesToSeconds,
-  roundMillisecondsToSeconds
+  roundMillisecondsToSeconds,
+  titleCase,
+  onMobile,
+  fillInBlankInputLabel,
+  getIconForActivityClassification
 } from './libs/index'
 
 export {
@@ -116,8 +128,16 @@ export {
   removeIcon,
   encircledWhiteArrowIcon,
   greenCheckIcon,
+  whiteCheckGreenBackgroundIcon,
   lockedIcon,
   closeIcon,
+  informationIcon,
+  connectToolIcon,
+  diagnosticToolIcon,
+  grammarToolIcon,
+  lessonsToolIcon,
+  proofreaderToolIcon,
+  evidenceToolIcon
 } from './images/index'
 
 export {
@@ -130,3 +150,25 @@ export {
   SCROLL,
   TOUCHMOVE,
 } from './utils/eventNames'
+
+export {
+  DEFAULT_HIGHLIGHT_PROMPT,
+  BECAUSE,
+  BUT,
+  SO,
+  READ_PASSAGE_STEP_NUMBER,
+  BECAUSE_PASSAGE_STEP_NUMBER,
+  BUT_PASSAGE_STEP_NUMBER,
+  SO_PASSAGE_STEP_NUMBER,
+  EVIDENCE,
+  CONNECT,
+  DIAGNOSTIC,
+  GRAMMAR,
+  LESSONS,
+  PROOFREADER,
+  CURRICULUM,
+  PARTNERSHIPS,
+  PRODUCT,
+  SUPPORT,
+  TEAMS
+} from './utils/constants'

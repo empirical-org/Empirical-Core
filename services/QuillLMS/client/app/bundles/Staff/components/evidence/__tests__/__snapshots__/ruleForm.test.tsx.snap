@@ -1,100 +1,94 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`RuleForm component should render RuleForm 1`] = `
-<div
-  className="rule-form-container"
+<ContextProvider
+  value={true}
 >
-  <div
-    className="close-button-container"
+  <ContextProvider
+    value={
+      QueryClient {
+        "defaultOptions": Object {},
+        "mutationCache": MutationCache {
+          "config": Object {},
+          "listeners": Array [],
+          "mutationId": 0,
+          "mutations": Array [],
+        },
+        "mutationDefaults": Array [],
+        "queryCache": QueryCache {
+          "config": Object {},
+          "listeners": Array [],
+          "queries": Array [],
+          "queriesMap": Object {},
+        },
+        "queryDefaults": Array [],
+      }
+    }
   >
-    <button
-      className="quill-button fun primary contained"
-      id="activity-close-button"
-      onClick={[MockFunction]}
-      type="submit"
-    >
-      x
-    </button>
-  </div>
-  <form
-    className="rule-form"
-  >
-    <RuleGenericAttributes
-      concepts={Array []}
-      errors={Object {}}
+    <RuleForm
+      activityData={
+        Object {
+          "name": "test",
+          "scored_level": "7",
+          "target_level": 7,
+          "title": "test",
+        }
+      }
+      activityId="1"
+      closeModal={[MockFunction]}
       isUniversal={false}
-      ruleConceptUID="a34qreadbgt6"
-      ruleID={1}
-      ruleName="remove all instances of \\"it contains methane\\""
-      ruleNote=""
-      ruleOptimal={
+      requestErrors={Array []}
+      rule={
         Object {
-          "label": "Sub-Optimal",
-          "value": "",
+          "concept_uid": "a34qreadbgt6",
+          "feedbacks": Array [
+            Object {
+              "description": null,
+              "highlights": Array [],
+              "id": 7,
+              "order": 0,
+              "rule_id": 1,
+              "text": "Revise your work. Delete the phrase \\"it contains methane\\" because it repeats the first part of the sentence",
+            },
+          ],
+          "id": 1,
+          "name": "remove all instances of \\"it contains methane\\"",
+          "optimal": false,
+          "prompt_ids": Array [
+            1,
+            2,
+          ],
+          "regex_rules": Array [
+            Object {
+              "case_sensitive": false,
+              "id": 1,
+              "regex_text": "it contain(s)? methane gas",
+              "rule_id": 1,
+              "sequence_type": "incorrect",
+            },
+            Object {
+              "case_sensitive": true,
+              "id": 2,
+              "regex_text": "another reg(ex) line",
+              "rule_id": 1,
+              "sequence_type": "required",
+            },
+            Object {
+              "case_sensitive": false,
+              "id": 3,
+              "regex_text": "some m?ore reg(ex",
+              "rule_id": 1,
+              "sequence_type": "incorrect",
+            },
+          ],
+          "rule_type": "rules-based-1",
+          "state": "active",
+          "suborder": 0,
+          "universal": false,
         }
       }
-      ruleType={
-        Object {
-          "label": "Sentence Structure Regex",
-          "value": "rules-based-1",
-        }
-      }
-      ruleTypeDisabled={false}
-      setRuleConceptUID={[Function]}
-      setRuleName={[Function]}
-      setRuleNote={[Function]}
-      setRuleOptimal={[Function]}
-      setRuleType={[Function]}
+      submitRule={[MockFunction]}
     />
-    <RuleRegexAttributes
-      errors={Object {}}
-      regexFeedback={
-        Array [
-          Object {
-            "description": null,
-            "highlights_attributes": Array [],
-            "id": 7,
-            "order": 0,
-            "text": "Revise your work. Delete the phrase \\"it contains methane\\" because it repeats the first part of the sentence",
-          },
-        ]
-      }
-      regexRules={Object {}}
-      rulesToCreate={Object {}}
-      rulesToDelete={Object {}}
-      rulesToUpdate={Object {}}
-      setRegexFeedback={[Function]}
-      setRegexRules={[Function]}
-      setRulesToCreate={[Function]}
-      setRulesToDelete={[Function]}
-      setRulesToUpdate={[Function]}
-    />
-    <RulePrompts
-      errors={Object {}}
-      rulePrompts={Object {}}
-      rulePromptsDisabled={false}
-      setRulePrompts={[Function]}
-    />
-    <div
-      className="submit-button-container"
-    >
-      <button
-        className="quill-button fun primary contained"
-        id="activity-submit-button"
-        onClick={[Function]}
-        type="button"
-      >
-        Submit
-      </button>
-      <button
-        className="quill-button fun primary contained"
-        id="activity-cancel-button"
-        onClick={[MockFunction]}
-        type="submit"
-      >
-        Cancel
-      </button>
-    </div>
-  </form>
-</div>
+  </ContextProvider>
+</ContextProvider>
 `;

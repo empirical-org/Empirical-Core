@@ -11,7 +11,7 @@ const submissions = {
       data: "Blah",
       timestamp: "2020-06-15T20:02:41.677Z"
     }
-  }
+}
 
 const selectedSubmissionOrder = ['student']
 

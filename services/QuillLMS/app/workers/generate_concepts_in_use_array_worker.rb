@@ -3,7 +3,7 @@
 class GenerateConceptsInUseArrayWorker
   include Sidekiq::Worker
   sidekiq_options queue: SidekiqQueue::LOW
-  
+
   REDIS_KEY_QUESTION_TYPES = {
     "SC_QUESTIONS" => "connect_sentence_combining",
     "FIB_QUESTIONS" => "connect_fill_in_blanks",
@@ -24,7 +24,7 @@ class GenerateConceptsInUseArrayWorker
     set_question_types
     run_individual_concept_workers
   end
-  
+
   private def question_response(question_type)
     HTTParty
       .get("https://www.quill.org/api/v1/questions?question_type=#{question_type}")
@@ -37,12 +37,12 @@ class GenerateConceptsInUseArrayWorker
       GetConceptsInUseIndividualConceptWorker.perform_async(id)
     end
   end
-  
+
   private def set_concepts_in_use
     $redis.set("CONCEPTS_IN_USE", CONCEPTS_IN_USE)
-    $redis.set("NUMBER_OF_CONCEPTS_IN_USE_LAST_SET", Time.now)
+    $redis.set("NUMBER_OF_CONCEPTS_IN_USE_LAST_SET", Time.current)
   end
-  
+
   private def set_question_types
     REDIS_KEY_QUESTION_TYPES.each_pair do |redis_key, question_type|
       $redis.set(redis_key, question_response(question_type))

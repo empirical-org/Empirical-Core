@@ -1,15 +1,14 @@
 import React from 'react'
 import request from 'request'
 import _ from 'underscore'
-import ReactTable from 'react-table'
-import 'react-table/react-table.css'
 
 import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx'
 
 import LoadingSpinner from '../shared/loading_indicator.jsx'
 import userIsPremium from '../modules/user_is_premium'
-import {sortByStandardLevel} from '../../../../modules/sortingMethods.js'
+import {sortTableByStandardLevel} from '../../../../modules/sortingMethods.js'
 import { getTimeSpent } from '../../helpers/studentReports'
+import { ReactTable, } from '../../../Shared/index'
 
 export default class StandardsProgressReport extends React.Component {
   constructor() {
@@ -47,16 +46,16 @@ export default class StandardsProgressReport extends React.Component {
       {
         Header: 'Standard level',
         accessor: 'standard_level',
-        sortMethod: sortByStandardLevel,
+        sortType: sortTableByStandardLevel,
         resizable: false,
         width: 150
       }, {
         Header: "Standard name",
         accessor: 'standard_name',
-        sortMethod: sortByStandardLevel,
+        sortType: sortTableByStandardLevel,
         minWidth: 200,
         resizable: false,
-        Cell: row => (
+        Cell: ({row}) => (
           <a className='row-link-disguise underlined' href={`/teachers/progress_reports/standards/classrooms/0/standards/${row.original['id']}/students`}>
             {row.original['standard_name']}
           </a>
@@ -68,11 +67,11 @@ export default class StandardsProgressReport extends React.Component {
         resizable: false
       }, {
         Header: 'Time spent',
-        accessor: 'average_score',
+        accessor: 'timespent',
         className: blurIfNotPremium,
         resizable: false,
         width: 100,
-        Cell: row => (
+        Cell: ({row}) => (
           getTimeSpent(row.original['timespent'])
         )
       }, {
@@ -81,7 +80,7 @@ export default class StandardsProgressReport extends React.Component {
         className: blurIfNotPremium,
         resizable: false,
         width: 100,
-        Cell: row => (
+        Cell: ({row}) => (
           `${row.original['average_score']}%`
         )
       }, {
@@ -90,7 +89,7 @@ export default class StandardsProgressReport extends React.Component {
         className: blurIfNotPremium,
         resizable: false,
         width: 165,
-        Cell: row => (
+        Cell: ({row}) => (
           <span><span className={row.original['mastery_status'] === 'Proficient' ? 'proficient-indicator' : 'not-proficient-indicator'} />{row.original['mastery_status']}</span>
         )
       }
@@ -159,13 +158,9 @@ export default class StandardsProgressReport extends React.Component {
             className='progress-report has-green-arrow'
             columns={this.columns()}
             data={filteredData}
-            defaultPageSize={filteredData.length}
             defaultSorted={[{id: 'average_score', desc: false}]}
-            showPageSizeOptions={false}
-            showPagination={false}
-            showPaginationBottom={false}
-            showPaginationTop={false}
-          /></div>
+          />
+        </div>
       </div>
     )
   }

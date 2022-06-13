@@ -1,5 +1,12 @@
+.import-from-clever-button.loading,
 .import-from-google-button.loading {
   background-color: #f5f5f5;
+}
+
+.import-from-clever-button-icon,
+.import-from-google-button-icon {
+  margin-right: 8px;
+  margin-left: 16px;
 }
 
 .classrooms-page {
@@ -59,16 +66,19 @@
     }
   }
   .no-active-classes {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    img {
+      margin: 32px 0px 16px;
+    }
+    h2 {
+      font-size: 20px;
+      font-weight: bold;
+      line-height: normal;
+    }
     p {
-      font-size: 14px;
-      line-height: 1.57;
-      text-align: center;
-      color: #646464;
-      margin-top: 24px;
-      width: 461px;
+      margin: 8px 0px 32px;
+      font-size: 16px;
+      line-height: normal;
+      max-width: 460px;
     }
   }
 
@@ -93,7 +103,6 @@
     border-radius: 6px;
     border: solid 1px #e0e0e0;
     padding: 32px;
-    background-color: #fffffff;
     margin-bottom: 24px;
     display: flex;
     flex-direction: column;
@@ -165,6 +174,9 @@
       img {
         cursor: pointer;
       }
+    }
+    .data-table-headers {
+      width: 100%;
     }
     .data-table-row {
       .data-table-row-section {
@@ -324,7 +336,8 @@
       margin-right: 16px;
     }
   }
-  .invite-google-classroom-students, .invite-clever-students {
+  .invite-clever-classroom-students,
+  .invite-google-classroom-students {
     display: flex;
     flex-direction: column;
     span {
@@ -334,6 +347,7 @@
       font-size: 12px;
     }
   }
+  .invite-clever-classroom-students,
   .invite-google-classroom-students {
     align-items: flex-end;
     margin-bottom: 20px;
@@ -348,17 +362,6 @@
     margin-bottom: 40px;
     .quill-button {
       width: 128px;
-    }
-  }
-  .invite-clever-students {
-    margin-bottom: 38px;
-    p {
-      font-size: 14px;
-      line-height: 1.57;
-      color: #000;
-    }
-    span {
-      margin-top: 4px;
     }
   }
   .no-students {

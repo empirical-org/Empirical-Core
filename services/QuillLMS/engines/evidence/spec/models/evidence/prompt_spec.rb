@@ -55,7 +55,7 @@ module Evidence
           rule1 = create(:evidence_rule, :universal => true)
           rule2 = create(:evidence_rule, :universal => true)
           prompt = create(:evidence_prompt)
-          expect(2).to(eq(prompt.rules.length))
+          expect(prompt.rules.length).to(eq(2))
           expect(prompt.rules.include?(rule1)).to(eq(true))
           expect(prompt.rules.include?(rule2)).to(eq(true))
         end
@@ -64,7 +64,7 @@ module Evidence
           rule1 = create(:evidence_rule, :universal => true)
           rule2 = create(:evidence_rule, :universal => true)
           prompt = create(:evidence_prompt, :rules => ([rule1]))
-          expect(2).to(eq(prompt.rules.length))
+          expect(prompt.rules.length).to(eq(2))
           expect(prompt.rules.include?(rule1)).to(eq(true))
           expect(prompt.rules.include?(rule2)).to(eq(true))
         end
@@ -73,7 +73,7 @@ module Evidence
           universal_rule = create(:evidence_rule, :universal => true)
           non_universal_rule = create(:evidence_rule, :universal => false)
           prompt = create(:evidence_prompt)
-          expect(1).to(eq(prompt.rules.length))
+          expect(prompt.rules.length).to(eq(1))
           expect(prompt.rules.include?(universal_rule)).to(eq(true))
           expect(prompt.rules.include?(non_universal_rule)).to(eq(false))
         end
@@ -82,7 +82,7 @@ module Evidence
           universal_rule = create(:evidence_rule, :universal => true)
           non_universal_rule = create(:evidence_rule, :universal => false)
           prompt = create(:evidence_prompt, :rules => ([non_universal_rule]))
-          expect(2).to(eq(prompt.rules.length))
+          expect(prompt.rules.length).to(eq(2))
           expect(prompt.rules.include?(universal_rule)).to(eq(true))
           expect(prompt.rules.include?(non_universal_rule)).to(eq(true))
         end

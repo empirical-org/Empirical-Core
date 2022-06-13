@@ -2,6 +2,7 @@ declare function require(name:string);
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router'
+
 import Tooltip from '../classroomLessons/shared/tooltip'
 import { getParameterByName } from '../../libs/getParameterByName';
 import {
@@ -178,15 +179,17 @@ class TeacherNavbar extends React.Component<any, any> {
     if (classroomSessions.data.supportingInfo) {
       const className = tooltip === PDF ? HOVER : ''
       /* eslint-disable react/jsx-no-target-blank */
-      return (<a
-        href={`${process.env.DEFAULT_URL}/activities/${params.lessonID}/supporting_info`}
-        onMouseEnter={this.handleMouseEnterPDFIcon}
-        onMouseLeave={this.handleMouseLeaveTooltip}
-        target="_blank"
-      >
-        <img className={className} src={pdfIcon} />
-        {this.renderTooltip(PDF)}
-      </a>)
+      return (
+        <a
+          href={`${process.env.DEFAULT_URL}/activities/${params.lessonID}/supporting_info`}
+          onMouseEnter={this.handleMouseEnterPDFIcon}
+          onMouseLeave={this.handleMouseLeaveTooltip}
+          target="_blank"
+        >
+          <img alt="" className={className} src={pdfIcon} />
+          {this.renderTooltip(PDF)}
+        </a>
+      )
       /* eslint-enable react/jsx-no-target-blank */
     }
   }
@@ -244,7 +247,7 @@ class TeacherNavbar extends React.Component<any, any> {
       action = () => dispatch(showSignupModal())
       editText = 'Make A Copy'
     }
-    return <a onClick={action}><p>{editText}</p></a>
+    return <button className="interactive-wrapper focus-on-light" onClick={action} type="button"><p>{editText}</p></button>
   }
 
   handleSwitchEditionClick = () => {
@@ -277,7 +280,7 @@ class TeacherNavbar extends React.Component<any, any> {
       <div className='customize-dropdown'>
         <i className="fa fa-caret-up" />
         {this.renderEditLink()}
-        <a onClick={this.handleSwitchEditionClick}><p>Switch Edition</p></a>
+        <button className="interactive-wrapper focus-on-light" onClick={this.handleSwitchEditionClick} type="button"><p>Switch Edition</p></button>
       </div>
     )
   }
@@ -301,10 +304,12 @@ class TeacherNavbar extends React.Component<any, any> {
         if (numberOfStudents - 1 === index) {
           return (<p key={index}>{students[studentId]}</p>)
         } else {
-          return (<span key={index}>
-            <p>{students[studentId]}</p>
-            <hr />
-          </span>)
+          return (
+            <span key={index}>
+              <p>{students[studentId]}</p>
+              <hr />
+            </span>
+          )
         }
       })
     } else {
@@ -312,10 +317,12 @@ class TeacherNavbar extends React.Component<any, any> {
       content = <span><p className="no-flagged-students" key='no-flagged-students'>No Flagged Students</p><p className="explanation" key="explanation">Flag students based on their performance for small group instruction.</p></span>
     }
     const className = oneRow ? "flag-dropdown one-row" : "flag-dropdown"
-    return (<div className={className}>
-      <i className="fa fa-caret-up" />
-      {content}
-    </div>)
+    return (
+      <div className={className}>
+        <i className="fa fa-caret-up" />
+        {content}
+      </div>
+    )
   }
 
   handleExitLessonClick = () => {
@@ -351,10 +358,12 @@ class TeacherNavbar extends React.Component<any, any> {
       const assignLink = `${process.env.DEFAULT_URL}/assign/activity-library?activityClassificationFilters[]=lessons`
       const studentLink = window.location.href.replace('teach', 'play').concat('&student=student')
       /* eslint-disable react/jsx-no-target-blank */
-      return (<div className="lessons-teacher-preview-bar">
-        <p><i className="fa fa-eye" />You are previewing the teacher&#39;s view of Quill Lessons. <a href={assignLink} target="_blank">Assign Quill Lessons</a> from your dashboard.</p>
-        <a className="student-link" href={studentLink} target="_blank">Open Student View<i className="fa fa-external-link" /></a>
-      </div>)
+      return (
+        <div className="lessons-teacher-preview-bar">
+          <p><i className="fa fa-eye" />You are previewing the teacher&#39;s view of Quill Lessons. <a href={assignLink} target="_blank">Assign Quill Lessons</a> from your dashboard.</p>
+          <a className="student-link" href={studentLink} target="_blank">Open Student View<i className="fa fa-external-link" /></a>
+        </div>
+      )
       /* eslint-enable react/jsx-no-target-blank */
     }
   }
@@ -401,66 +410,75 @@ class TeacherNavbar extends React.Component<any, any> {
           <div className="lesson-title"><p><span>Lesson {classroomLesson.data.lesson}:</span> {classroomLesson.data.title}</p> {this.renderCustomizedEditionsTag()}</div>
           <span className="toolbar">
             {this.presentStudentCount()}
-            <div
+            <button
+              className="interactive-wrapper focus-on-dark"
               onBlur={this.handleCustomizeDropdownBlur}
               onClick={this.handleCustomizeDropdownClick}
               onMouseEnter={this.handleMouseEnterCustomizeIcon}
               onMouseLeave={this.handleMouseLeaveTooltip}
-              tabIndex={0}
+              type="button"
             >
               <i className={`${customizeClass} fa fa-icon fa-magic`} />
               {this.renderCustomizeDropdown()}
               {this.renderTooltip(CUSTOMIZE)}
-            </div>
+            </button>
             <div>
               {this.renderPDFLink()}
             </div>
-            <div
+            <button
+              className="interactive-wrapper focus-on-dark"
               onBlur={this.handleFlagDropdownBlur}
               onClick={this.handleFlagDropdownClick}
               onMouseEnter={this.handleMouseEnterFlagIcon}
               onMouseLeave={this.handleMouseLeaveTooltip}
-              tabIndex={0}
+              type="button"
             >
-              <img className={`flag-icon ${flagClass}`} src={flagIcon} />
+              <img alt="" className={`flag-icon ${flagClass}`} src={flagIcon} />
               {this.renderTooltip(FLAG)}
               {this.renderFlagDropdown()}
-            </div>
-            <div
+            </button>
+            <button
+              className="interactive-wrapper focus-on-dark"
               onClick={this.handleProjectorClick}
               onMouseEnter={this.handleMouseEnterProjectorIcon}
               onMouseLeave={this.handleMouseLeaveTooltip}
+              type="button"
             >
-              <img className={projectorClass} src={projectorIcon} />
+              <img alt="" className={projectorClass} src={projectorIcon} />
               {this.renderTooltip(PROJECTOR)}
-            </div>
-            <div
+            </button>
+            <button
+              className="interactive-wrapper focus-on-dark"
               onClick={this.handleWatchTeacherClick}
               onMouseEnter={this.handleMouseEnterWatchTeacherIcon}
               onMouseLeave={this.handleMouseLeaveTooltip}
+              type="button"
             >
-              <img className={watchTeacherClass} src={watchTeacherIcon} />
+              <img alt="" className={watchTeacherClass} src={watchTeacherIcon} />
               {this.renderTooltip(WATCH_TEACHER)}
-            </div>
-            <div
+            </button>
+            <button
+              className="interactive-wrapper focus-on-dark"
               onClick={this.handleExitLessonClick}
               onMouseEnter={this.handleMouseEnterExitIcon}
               onMouseLeave={this.handleMouseLeaveTooltip}
+              type="button"
             >
-              <img className={exitClass} src={exitIcon} />
+              <img alt="" className={exitClass} src={exitIcon} />
               {this.renderTooltip(EXIT)}
-            </div>
-            <div
+            </button>
+            <button
+              className="interactive-wrapper focus-on-dark"
               onBlur={this.handleHelpDropdownBlur}
               onClick={this.handleHelpDropdownClick}
               onMouseEnter={this.handleMouseEnterHelpIcon}
               onMouseLeave={this.handleMouseLeaveTooltip}
-              tabIndex={0}
+              type="button"
             >
-              <img className={`help-icon ${helpClass}`} src={helpIcon} />
+              <img alt="" className={`help-icon ${helpClass}`} src={helpIcon} />
               {this.renderTooltip(HELP)}
               {this.renderHelpDropdown()}
-            </div>
+            </button>
           </span>
         </div>
       </div>

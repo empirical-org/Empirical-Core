@@ -1,36 +1,135 @@
 import * as React from 'react'
+import { withRouter, Link, } from 'react-router-dom';
 
-import { baseDiagnosticImageSrc, triangleUpIcon, } from './shared'
+import {
+  triangleUpIcon,
+  noDataYet,
+  fileDocumentIcon,
+} from './shared'
+import PercentageCircle from './percentageCircle'
+import SkillGroupTooltip from './skillGroupTooltip'
+import {
+  SkillGroupSummary,
+  StudentResult,
+} from './interfaces'
 
-const barGraphIncreasingIcon = <img alt="Bar chart growth icon" src={`${baseDiagnosticImageSrc}/icons-bar-graph-increasing.svg`} />
+import LoadingSpinner from '../../../shared/loading_indicator.jsx'
+import { requestGet } from '../../../../../../modules/request/index';
+import {
+  Tooltip,
+} from '../../../../../Shared/index'
 
-interface GrowthSummaryProps {
-  showGrowthSummary?: boolean;
-  skillsGrowth?: number;
-  name?: string;
-  growthSummaryLink?: string;
-}
+const SkillGroupSummaryCard = ({ skillGroupSummary, completedStudentCount }: { skillGroupSummary: SkillGroupSummary, completedStudentCount: number }) => {
+  const { name, description, not_yet_proficient_in_post_test_student_names, not_yet_proficient_in_pre_test_student_names, } = skillGroupSummary
+  let cardContent = noDataYet
 
-const GrowthSummary = ({ showGrowthSummary, skillsGrowth, name, growthSummaryLink, }: GrowthSummaryProps) => {
-  if (showGrowthSummary) {
-    const growth = skillsGrowth > 0 ? <span className="growth">{triangleUpIcon}{skillsGrowth}</span> : <span className="no-growth">No growth yet</span>
-    return (<section className="growth-summary">
-      <div>
-        <h4>Growth summary</h4>
-        {skillsGrowth !== null && <p>{barGraphIncreasingIcon}<span>Skills growth: {growth}</span></p>}
+  if (completedStudentCount) {
+    const numberOfStudentsNeedingPracticeInPost = not_yet_proficient_in_post_test_student_names.length
+    const postPercentageNotProficient = (numberOfStudentsNeedingPracticeInPost/completedStudentCount) * 100
+    const postPercentageProficient = 100 - Math.round(postPercentageNotProficient)
+    const numberOfStudentsNeedingPracticeInPre = not_yet_proficient_in_pre_test_student_names.length
+    const prePercentageNotProficient = (numberOfStudentsNeedingPracticeInPre/completedStudentCount) * 100
+    const prePercentageProficient = 100 - Math.round(prePercentageNotProficient)
+    const delta = prePercentageProficient ? postPercentageProficient - prePercentageProficient : postPercentageProficient
+
+    let needPracticeElement = <span className="need-practice-element no-practice-needed">No practice needed</span>
+    let growthElement = delta > 0 ? <span className="growth-element">{triangleUpIcon}<span>{Math.round(delta)}% growth</span></span> : <span className="growth-element no-growth">No growth</span>
+
+    if (numberOfStudentsNeedingPracticeInPost) {
+      const tooltipText = `<p>${not_yet_proficient_in_post_test_student_names.join('<br>')}</p>`
+      const tooltipTriggerText = numberOfStudentsNeedingPracticeInPost === 1 ? "1 student needs practice" : `${numberOfStudentsNeedingPracticeInPost} students need practice`
+      needPracticeElement = (<Tooltip
+        tooltipText={tooltipText}
+        tooltipTriggerText={tooltipTriggerText}
+        tooltipTriggerTextClass="need-practice-element"
+      />)
+    }
+
+    cardContent = (<React.Fragment>
+      <div className="percentage-circles">
+        <div>
+          <span className="percentage-circle-label">Pre proficient</span>
+          <PercentageCircle
+            bgcolor="#ebebeb"
+            borderWidth={8}
+            color="#9e9e9e"
+            innerColor="#ffffff"
+            percent={prePercentageProficient}
+            radius={52}
+          />
+        </div>
+        <div>
+          <span className="percentage-circle-label">Post proficient</span>
+          <PercentageCircle
+            bgcolor="#ebebeb"
+            borderWidth={8}
+            color="#4ea500"
+            innerColor="#ffffff"
+            percent={postPercentageProficient}
+            radius={52}
+          />
+        </div>
       </div>
-      <div>
-        <a className="focus-on-light" href={growthSummaryLink}>View growth</a>
+      <div className="card-footer">
+        {needPracticeElement}
+        {growthElement}
       </div>
-    </section>)
+    </React.Fragment>)
   }
 
-  return (<section className="growth-summary">
-    <div>
-      <h4>Growth summary</h4>
-      <p>{barGraphIncreasingIcon}<span>To see how your students have grown, first assign the {name} (Post)</span></p>
-    </div>
-  </section>)
+  return (
+    <section className="skill-group-summary-card">
+      <div className="card-header">
+        <span className="skill-group-name">{name}</span>
+        <SkillGroupTooltip description={description} name={name} />
+      </div>
+      {cardContent}
+    </section>
+  )
 }
 
-export default GrowthSummary
+export const GrowthResults = ({ passedStudentResults, passedSkillGroupSummaries, match, mobileNavigation, }) => {
+  const [loading, setLoading] = React.useState<boolean>(!passedStudentResults);
+  const [studentResults, setStudentResults] = React.useState<StudentResult[]>(passedStudentResults || []);
+  const [skillGroupSummaries, setSkillGroupSummaries] = React.useState<SkillGroupSummary[]>(passedSkillGroupSummaries || []);
+
+  const { activityId, classroomId, } = match.params
+
+  React.useEffect(() => {
+    getResults()
+  }, [])
+
+  React.useEffect(() => {
+    setLoading(true)
+    getResults()
+  }, [activityId, classroomId])
+
+  function getResults() {
+    requestGet(`/teachers/progress_reports/diagnostic_growth_results_summary?activity_id=${activityId}&classroom_id=${classroomId}`,
+      (data) => {
+        setStudentResults(data.student_results);
+        setSkillGroupSummaries(data.skill_group_summaries);
+        setLoading(false)
+      }
+    )
+  }
+
+  if (loading) { return <LoadingSpinner /> }
+
+  const completedStudentCount = studentResults.filter(sr => sr.skill_groups).length
+
+  const skillGroupSummaryCards = skillGroupSummaries.map(skillGroupSummary => <SkillGroupSummaryCard completedStudentCount={completedStudentCount} key={skillGroupSummary.name} skillGroupSummary={skillGroupSummary} />)
+
+  return (
+    <main className="results-summary-container growth-results-summary-container">
+      <header>
+        <h1>Class summary</h1>
+        <a className="focus-on-light" href="https://support.quill.org/en/articles/5698227-how-do-i-read-the-growth-results-summary-report" rel="noopener noreferrer" target="_blank">{fileDocumentIcon}<span>Guide</span></a>
+      </header>
+      {mobileNavigation}
+      <section className="skill-group-summary-cards">{skillGroupSummaryCards}</section>
+    </main>
+  )
+}
+
+export default withRouter(GrowthResults)

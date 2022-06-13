@@ -7,24 +7,24 @@ namespace :data do
     PROFANITY_FEEDBACK = "Revise your work. When writing your response, make sure to use appropriate language."
     MULTIPLE_SENTENCES_FEEDBACK = "Revise your work. Your response should be only one sentence long."
     QUESTION_MARK_FEEDBACK = "Revise your response. Instead of using a question mark, write a statement that ends with a period. Remember, anytime you do an activity like this one on Quill, you'll write statements instead of questions."
-    
+
     prefilters = [
-      { name: 'too short', feedback: TOO_SHORT_FEEDBACK }, 
-      { name: 'profanity', feedback: PROFANITY_FEEDBACK }, 
+      { name: 'too short', feedback: TOO_SHORT_FEEDBACK },
+      { name: 'profanity', feedback: PROFANITY_FEEDBACK },
       { name: 'multiple sentences', feedback: MULTIPLE_SENTENCES_FEEDBACK },
       { name: 'ends in a question mark', feedback: QUESTION_MARK_FEEDBACK }
     ]
 
-    ActiveRecord::Base.transaction do 
+    ActiveRecord::Base.transaction do
       Evidence::Rule.find_or_create_by!(
         name: 'prefilter - optimal',
         universal: true,
         rule_type: 'prefilter',
         optimal: true,
-        state: 'active' 
+        state: 'active'
       )
 
-      prefilters.each do |prefilter| 
+      prefilters.each do |prefilter|
         rule = Evidence::Rule.find_or_create_by!(
           name: 'prefilter - ' << prefilter[:name],
           universal: true,
@@ -32,7 +32,7 @@ namespace :data do
           optimal: false,
           state: 'active'
         )
-    
+
         Evidence::Feedback.find_or_create_by!(
           rule_id: rule.id,
           order: 0,

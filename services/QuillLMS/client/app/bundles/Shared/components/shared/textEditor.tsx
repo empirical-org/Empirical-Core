@@ -3,11 +3,18 @@ import * as Draft from 'draft-js';
 import Editor from '@draft-js-plugins/editor'
 import { convertFromHTML, convertToHTML } from 'draft-convert'
 import * as Immutable from 'immutable'
+import {
+  RichUtils,
+  EditorState,
+} from 'draft-js'
 
 import { richButtonsPlugin, } from '../../index'
+import addLinkPluginPlugin from "../draftJSCustomPlugins/addLinkPlugin";
 
 const HIGHLIGHT = 'highlight'
 const HIGHLIGHTABLE = 'HIGHLIGHTABLE'
+const LINK = 'LINK'
+const MUTABLE = 'MUTABLE'
 
 // interface TextEditorProps {
 //   text: string;
@@ -32,10 +39,12 @@ const customRenderMap = Draft.DefaultDraftBlockRenderMap.merge(
 class TextEditor extends React.Component <any, any> {
   constructor(props: any) {
     super(props)
+    const addLinkPlugin = addLinkPluginPlugin
 
     this.state = {
       text: props.EditorState.createWithContent(this.contentState(props.text || '')),
-      richButtonsPlugin: richButtonsPlugin()
+      richButtonsPlugin: richButtonsPlugin(),
+      addLinkPlugin: addLinkPlugin,
     }
   }
 
@@ -43,10 +52,10 @@ class TextEditor extends React.Component <any, any> {
     const { boilerplate, EditorState, handleTextChange, ContentState, } = this.props
     if (nextProps.boilerplate !== boilerplate) {
       this.setState({text: EditorState.createWithContent(ContentState.createFromBlockArray(this.contentState(nextProps.boilerplate)))},
-      () => {
-        handleTextChange(this.html())
-      }
-    )
+        () => {
+          handleTextChange(this.html())
+        }
+      )
     }
   }
 
@@ -58,6 +67,12 @@ class TextEditor extends React.Component <any, any> {
           return <mark />;
         }
       },
+      entityToHTML: (entity, originalText) => {
+        if (entity.type === LINK) {
+          return <a href={entity.data.url}>{originalText}</a>;
+        }
+        return originalText;
+      }
     })(text.getCurrentContent());
   }
 
@@ -68,6 +83,15 @@ class TextEditor extends React.Component <any, any> {
           return currentStyle.add(HIGHLIGHTABLE);
         } else {
           return currentStyle;
+        }
+      },
+      htmlToEntity: (nodeName, node, createEntity) => {
+        if (nodeName === 'a') {
+          return createEntity(
+            LINK,
+            MUTABLE,
+            {url: node.href}
+          )
         }
       },
     })(html);
@@ -100,11 +124,29 @@ class TextEditor extends React.Component <any, any> {
       return 'handled';
     }
     return 'not-handled';
-}
+  }
+
+  // this code was pasted from the tutorial here:
+  // https://medium.com/@siobhanpmahoney/building-a-rich-text-editor-with-react-and-draft-js-part-2-2-embedding-links-d71b57d187a7
+  handleAddLink = () => {
+    const { text } = this.state
+    const editorState = text;
+    const selection = editorState.getSelection();
+    const link = window.prompt('Paste the link -')
+    if (!link) {
+      this.handleTextChange(RichUtils.toggleLink(editorState, selection, null));
+      return 'handled';
+    }
+    const content = editorState.getCurrentContent();
+    const contentWithEntity = content.createEntity(LINK, MUTABLE, { url: link });
+    const newEditorState = EditorState.push(editorState, contentWithEntity, 'create-entity');
+    const entityKey = contentWithEntity.getLastCreatedEntityKey();
+    this.handleTextChange(RichUtils.toggleLink(newEditorState, selection, entityKey))
+  }
 
   render() {
     const { shouldCheckSpelling } = this.props;
-    const { richButtonsPlugin, text, } = this.state
+    const { richButtonsPlugin, text, addLinkPlugin } = this.state
     const {
       // inline buttons
       ItalicButton, BoldButton, UnderlineButton, createStyleButton,
@@ -121,7 +163,7 @@ class TextEditor extends React.Component <any, any> {
     };
 
     return (
-      <div className="card is-fullwidth">
+      <div className="text-editor card is-fullwidth">
         <header className="card-header">
           <div className="myToolbar" style={{margin: '1em'}}>
             <H3Button />
@@ -131,6 +173,9 @@ class TextEditor extends React.Component <any, any> {
             <BlockquoteButton />
             <ULButton />
             <HighlightButton />
+            <button className="interactive-wrapper add-link" id="link-url" onClick={this.handleAddLink} type="button">
+              <span>Link</span>
+            </button>
           </div>
         </header>
         <div className="card-content">
@@ -142,7 +187,7 @@ class TextEditor extends React.Component <any, any> {
               handleKeyCommand={this.onKeyCommand}
               keyBindingFn={this.keyBindingFn}
               onChange={this.handleTextChange}
-              plugins={[richButtonsPlugin]}
+              plugins={[richButtonsPlugin, addLinkPlugin]}
               spellCheck={!!shouldCheckSpelling}
             />
           </div>

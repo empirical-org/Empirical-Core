@@ -27,5 +27,5 @@ json.meta do
   json.zipcode @zipcode
   json.radius @radius
   json.limit @limit
-  json.request_time DateTime.now.to_s
+  json.request_time DateTime.current.to_s
 end

@@ -4,12 +4,9 @@ require 'rails_helper'
 
 describe Cms::UnitTemplatesController, type: :controller do
   let!(:staff) { create(:staff)}
-
   let(:parsed_body) { JSON.parse(response.body) }
 
-  before do
-    allow(controller).to receive(:current_user) { staff }
-  end
+  before { allow(controller).to receive(:current_user) { staff } }
 
   describe '#index, as: :json' do
     let!(:author) { create(:author) }
@@ -30,6 +27,20 @@ describe Cms::UnitTemplatesController, type: :controller do
       expect(UnitTemplate.last.name).to eq template.name
       expect(UnitTemplate.last.flag).to eq template.flag
       expect(UnitTemplate.last.order_number).to eq template.order_number
+    end
+  end
+
+  describe '#new' do
+
+    let(:unit_template) { double(:unit_template) }
+
+    before do
+      allow(UnitTemplate).to receive(:new) { unit_template }
+    end
+
+    it 'should give a new criteria' do
+      get :new
+      expect(assigns(:unit_template)).to eq unit_template
     end
   end
 

@@ -5,7 +5,7 @@ import { firstBy } from 'thenby';
 
 import { fetchRules } from '../../../utils/evidence/ruleAPIs';
 import { DataTable, Spinner } from '../../../../Shared/index';
-import { getCheckIcon } from '../../../helpers/evidence';
+import { getCheckIcon } from '../../../helpers/evidence/renderHelpers';
 import { AUTO_ML } from '../../../../../constants/evidence';
 
 const LabelsTable = ({ activityId, prompt }) => {

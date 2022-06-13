@@ -4,6 +4,7 @@ class GetConceptsInUseIndividualConceptWorker
   include Sidekiq::Worker
   sidekiq_options queue: SidekiqQueue::LOW
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def perform(id)
     @sc_questions = JSON.parse($redis.get('SC_QUESTIONS'))
     @fib_questions = JSON.parse($redis.get('FIB_QUESTIONS'))
@@ -23,21 +24,22 @@ class GetConceptsInUseIndividualConceptWorker
 
       if existing_oc
         new_oc = existing_oc
-        if c["classification_name"] == 'Quill Connect'
+        case c["classification_name"]
+        when 'Quill Connect'
           new_oc["grades_connect_activities"] << (c["activity_name"])
-        elsif c["classification_name"] == "Quill Diagnostic"
+        when "Quill Diagnostic"
           new_oc["grades_diagnostic_activities"] << (c["activity_name"])
-        elsif c["classification_name"] == "Quill Grammar"
+        when "Quill Grammar"
           new_oc["grades_grammar_activities"] << (c["activity_name"])
-        elsif c["classification_name"] == "Quill Proofreader"
+        when "Quill Proofreader"
           new_oc["grades_proofreader_activities"] << (c["activity_name"])
         end
 
         index = @organized_concepts.find_index(existing_oc)
         @organized_concepts[index] = new_oc
       else
-        grandparent_name = c["grandparent_name"] ?  c["grandparent_name"] + ' | ' : ''
-        parent_name = c["parent_name"] ?  c["parent_name"] + ' | ' : ''
+        grandparent_name = c["grandparent_name"] ?  "#{c['grandparent_name']} | " : ''
+        parent_name = c["parent_name"] ?  "#{c['parent_name']} | " : ''
         new_oc = {
           grades_connect_activities: [],
           grades_diagnostic_activities: [],
@@ -46,16 +48,17 @@ class GetConceptsInUseIndividualConceptWorker
           diagnostic_recommendations: [],
           name: grandparent_name + parent_name + c["concept_name"],
           uid: uid,
-          last_retrieved: Time.now.strftime("%m/%d/%y")
+          last_retrieved: Time.current.strftime("%m/%d/%y")
         }.stringify_keys
 
-        if c["classification_name"] == 'Quill Connect'
+        case c["classification_name"]
+        when 'Quill Connect'
           new_oc["grades_connect_activities"] << (c["activity_name"])
-        elsif c["classification_name"] == "Quill Diagnostic"
+        when "Quill Diagnostic"
           new_oc["grades_diagnostic_activities"] << (c["activity_name"])
-        elsif c["classification_name"] == "Quill Grammar"
+        when "Quill Grammar"
           new_oc["grades_grammar_activities"] << (c["activity_name"])
-        elsif c["classification_name"] == "Quill Proofreader"
+        when "Quill Proofreader"
           new_oc["grades_proofreader_activities"] << (c["activity_name"])
         end
 
@@ -69,6 +72,7 @@ class GetConceptsInUseIndividualConceptWorker
 
     set_concepts_in_use_cache
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def get_activity_rows(id)
     begin

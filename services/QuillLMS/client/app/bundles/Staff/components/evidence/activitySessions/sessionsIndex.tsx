@@ -1,13 +1,13 @@
 import * as React from "react";
-import ReactTable from 'react-table';
 import { Link } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import * as moment from 'moment';
 import { firstBy } from 'thenby';
 import DateTimePicker from 'react-datetime-picker';
 
-import { handlePageFilterClick, renderHeader } from "../../../helpers/evidence";
-import { Error, Spinner, DropdownInput, Input } from '../../../../Shared/index';
+import { handlePageFilterClick } from "../../../helpers/evidence/miscHelpers";
+import { renderHeader } from "../../../helpers/evidence/renderHelpers";
+import { Error, Spinner, DropdownInput, Input, ReactTable, } from '../../../../Shared/index';
 import { fetchActivity, fetchActivitySessions } from '../../../utils/evidence/activityAPIs';
 import { DropdownObjectInterface, ActivitySessionInterface, ActivitySessionsInterface, InputEvent } from '../../../interfaces/evidenceInterfaces';
 import { activitySessionIndexResponseHeaders, activitySessionFilterOptions, SESSION_INDEX } from '../../../../../constants/evidence';
@@ -74,9 +74,8 @@ const SessionsIndex = ({ match }) => {
     setFilterOption(filterOption);
   }
 
-  function handleDataUpdate(activity_sessions: ActivitySessionInterface[], state: { sorted: object[]}) {
+  function handleDataUpdate(activitySessions, sorted) {
     if(startDateForQuery)  {
-      const { sorted } = state;
       const sortInfo = sorted[0];
       const rows = formatSessionsData(activity_sessions);
       const sortedRows = sortedSessions(rows, sortInfo)
@@ -228,10 +227,9 @@ const SessionsIndex = ({ match }) => {
           columns={activitySessionIndexResponseHeaders}
           data={rowData}
           defaultPageSize={rowData.length < 100 ? rowData.length : 100}
-          manual
+          manualSortBy
           /* eslint-disable-next-line react/jsx-no-bind */
-          onFetchData={(state) => handleDataUpdate(activity_sessions, state)}
-          showPagination={false}
+          onSortedChange={(sorted) => handleDataUpdate(activity_sessions, sorted)}
         />
       </section>
     </div>

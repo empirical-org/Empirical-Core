@@ -1,5 +1,6 @@
 import * as React from 'react'
-import DropdownMenu from '../../Teacher/components/progress_reports/dropdown_filter'
+
+import { DropdownInput, } from '../../Shared/index'
 
 class CreateNewAccounts extends React.Component<any, any> {
   constructor(props) {
@@ -9,10 +10,7 @@ class CreateNewAccounts extends React.Component<any, any> {
       firstName: '',
       lastName: '',
       email: '',
-      school: {
-        value: '',
-        name: ''
-      }
+      school: props.schools[0]
     }
 
     this.renderMessage = this.renderMessage.bind(this)
@@ -32,7 +30,7 @@ class CreateNewAccounts extends React.Component<any, any> {
   schoolsList = () => {
     const { schools, } = this.props
     return schools.map(school =>
-      <div className="school" key={school.id}><img src="https://assets.quill.org/images/icons/school_icon_admin.svg" />{school.name}</div>
+      <div className="school" key={school.id}><img alt="" src="https://assets.quill.org/images/icons/school_icon_admin.svg" />{school.name}</div>
     )
   }
 
@@ -41,7 +39,8 @@ class CreateNewAccounts extends React.Component<any, any> {
     return schools.map(school => {
       return {
         name: school.name,
-        value: school.id
+        value: school.id,
+        label: school.name
       }
     })
   }
@@ -56,7 +55,7 @@ class CreateNewAccounts extends React.Component<any, any> {
         last_name: lastName,
         email
       },
-      id: school.value
+      id: school.value || school.id
     }
     addTeacherAccount(data)
   }
@@ -80,45 +79,45 @@ class CreateNewAccounts extends React.Component<any, any> {
     /* eslint-disable react/jsx-no-target-blank */
     const supportLink = <a className="green-link" href="http://support.quill.org/getting-started-for-teachers/manage-classes/how-can-i-connect-my-account-to-my-school" target="_blank"> Here&#39;s the guide.</a>
     /* eslint-enable react/jsx-no-target-blank */
-    return (<div id="create_new_accounts">
-      <div className="header">
-        <h2>Create New Accounts and Link Existing Teachers</h2>
-        <a className="green-link" href="mailto:hello@quill.org?subject=Bulk Upload Teachers via CSV&body=Please attach your CSV file to this email.">
-          <button className="bg-white text-black" type="button">Upload Teachers via CSV</button>
-        </a>
-      </div>
-      <p><span>Teachers New to Quill?</span> Input their information to create new Quill accounts.</p>
-      <p>
-        <span>Teachers Have Quill Accounts?</span> When you submit their information, they will receive an email instructing them to link their accounts to your school. Teachers can link to their school from the My Account page.
-        {supportLink}
-      </p>
-      <div className="form-and-schools-list">
-        <div className="form">
-          <div className="first-line">
-            <input className="first-name" onChange={this.handleFirstNameChange} placeholder="First Name" type="text" value={firstName} />
-            <input className="last-name" onChange={this.handleLastNameChange} placeholder="Last Name" type="text" value={lastName} />
-            <input className="email" onChange={this.handleEmailChange} placeholder="Email Address" type="text" value={email} />
-          </div>
-          <DropdownMenu
-            className='second-line'
-            options={this.schoolOptions()}
-            placeholder='Select School for Teacher'
-            selectedOption={school}
-            selectOption={this.updateSchool}
-          />
-          <button className="button-green pull-right" onClick={this.handleAddTeacherAccountClick} type="button">Add Teacher Account</button>
+    return (
+      <div id="create_new_accounts">
+        <div className="header">
+          <h2>Create New Accounts and Link Existing Teachers</h2>
+          <a className="quill-button secondary outlined fun focus-on-light" href="mailto:hello@quill.org?subject=Bulk Upload Teachers via CSV&body=Please attach your CSV file to this email.">Upload teachers via CSV</a>
         </div>
-        <div className="schools">
-          <p>You have admin access to these schools:</p>
-          <div className="schools-list">
-            {this.schoolsList()}
+        <p><span>Teachers New to Quill?</span> Input their information to create new Quill accounts.</p>
+        <p>
+          <span>Teachers Have Quill Accounts?</span> When you submit their information, they will receive an email instructing them to link their accounts to your school. Teachers can link to their school from the My Account page.
+          {supportLink}
+        </p>
+        <div className="form-and-schools-list">
+          <div className="form">
+            <div className="first-line">
+              <input aria-label="First Name" className="first-name" onChange={this.handleFirstNameChange} placeholder="First Name" type="text" value={firstName} />
+              <input aria-label="Last Name" className="last-name" onChange={this.handleLastNameChange} placeholder="Last Name" type="text" value={lastName} />
+              <input aria-label="Email Address" className="email" onChange={this.handleEmailChange} placeholder="Email Address" type="text" value={email} />
+            </div>
+            <DropdownInput
+              className='second-line'
+              handleChange={this.updateSchool}
+              options={this.schoolOptions()}
+              placeholder='Select School for Teacher'
+              value={this.schoolOptions().find(s => s.value === school.id || s.value === school.value)}
+            />
+            <button className="button-green pull-right" onClick={this.handleAddTeacherAccountClick} type="button">Add Teacher Account</button>
           </div>
-          <p className="need-access pull-right">Need access to additional schools? <a className="green-link" href="mailto:hello@quill.org">Email Quill</a></p>
+          <div className="schools">
+            <p>You have admin access to these schools:</p>
+            <div className="schools-list">
+              {this.schoolsList()}
+            </div>
+            <p className="need-access pull-right">Need access to additional schools? <a className="green-link" href="mailto:hello@quill.org">Email Quill</a></p>
+          </div>
         </div>
+        {this.renderError()}
+        {this.renderMessage()}
       </div>
-      {this.renderError()}
-      {this.renderMessage()}
-    </div>)
+    )
   }
 }
 

@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe RuleFeedbackHistory, type: :model do
   before do
     # This is for CircleCI. Note that this refresh is NOT concurrent.
-    ActiveRecord::Base.refresh_materialized_view('feedback_histories_grouped_by_rule_uid', false)
+    ActiveRecord::Base.refresh_materialized_view('feedback_histories_grouped_by_rule_uid', concurrently: false)
   end
 
   def rule_factory(&hash_block)
@@ -235,6 +235,7 @@ RSpec.describe RuleFeedbackHistory, type: :model do
       responses = result[so_rule1.uid.to_sym][:responses]
 
       response_ids = responses.map {|r| r[:response_id]}
+
       expect(
         Set[*response_ids] == Set[f_h5.id]
       ).to be true
@@ -259,13 +260,13 @@ RSpec.describe RuleFeedbackHistory, type: :model do
         feedback_history_id: f_h1.id,
         user_id: user1.id,
         rating: false,
-        updated_at: Time.now - 1.days
+        updated_at: 1.days.ago
       )
       f_h_r1_new = FeedbackHistoryRating.create!(
         feedback_history_id: f_h1.id,
         user_id: user2.id,
         rating: true,
-        updated_at: Time.now
+        updated_at: Time.current
       )
       result = RuleFeedbackHistory.generate_rulewise_report(
         rule_uid: so_rule1.uid,
@@ -294,7 +295,7 @@ RSpec.describe RuleFeedbackHistory, type: :model do
         response_id: f_h.id,
         datetime: f_h.updated_at,
         entry: f_h.entry,
-        highlight: f_h.metadata.class == Hash ? f_h.metadata['highlight'] : '',
+        highlight: f_h.metadata.instance_of?(Hash) ? f_h.metadata['highlight'] : '',
         session_uid: f_h.feedback_session_uid,
         strength: f_h.feedback_history_ratings.order(updated_at: :desc).first&.rating
       }

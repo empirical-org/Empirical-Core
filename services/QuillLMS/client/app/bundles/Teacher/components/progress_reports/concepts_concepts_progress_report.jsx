@@ -2,12 +2,12 @@
 import React from 'react'
 import request from 'request'
 import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx'
-import ReactTable from 'react-table'
-import 'react-table/react-table.css'
+
 import LoadingSpinner from '../shared/loading_indicator.jsx'
 import userIsPremium from '../modules/user_is_premium'
+import { ReactTable, } from '../../../Shared/index'
 
-export default class extends React.Component {
+export default class IndividualStudentConceptReport extends React.Component {
 
   constructor(props) {
     super()
@@ -39,7 +39,7 @@ export default class extends React.Component {
         Header: 'Category',
         accessor: 'level_2_concept_name',
         resizable: false,
-        width: 200
+        maxWidth: 200
       }, {
         Header: 'Name',
         accessor: 'concept_name',
@@ -49,26 +49,26 @@ export default class extends React.Component {
         Header: 'Questions',
         accessor: 'total_result_count',
         resizable: false,
-        width: 120
+        maxWidth: 120
       }, {
         Header: 'Correct',
         accessor: 'correct_result_count',
         resizable: false,
         className: blurIfNotPremium,
-        width: 105
+        maxWidth: 105
       }, {
         Header: 'Incorrect',
         accessor: 'incorrect_result_count',
         resizable: false,
         className: blurIfNotPremium,
-        width: 115
+        maxWidth: 115
       }, {
         Header: 'Percentage',
         accessor: 'percentage',
         resizable: false,
         className: blurIfNotPremium,
-        Cell: props => props.value + '%',
-        width: 120
+        Cell: ({row}) => row.original.percentage + '%',
+        maxWidth: 120
       },
     ])
   }
@@ -95,16 +95,11 @@ export default class extends React.Component {
             className='progress-report has-green-arrow'
             columns={this.columns()}
             data={this.state.reportData}
-            defaultPageSize={this.state.reportData.length}
             defaultSorted={[{
               id: 'total_result_count',
               desc: true
             }
-          ]}
-            showPageSizeOptions={false}
-            showPagination={false}
-            showPaginationBottom={false}
-            showPaginationTop={false}
+            ]}
           />
         </div>
       </div>

@@ -1,6 +1,6 @@
 const mockApiFetch = jest.fn().mockImplementation((arg1, arg2) => Promise.resolve({}));
 
-jest.mock('../../../Staff/helpers/evidence', () => ({
+jest.mock('../../../Staff/helpers/evidence/routingHelpers', () => ({
   apiFetch: mockApiFetch
 }));
 

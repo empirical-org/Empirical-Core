@@ -37,9 +37,9 @@ export default class extends React.Component {
       },
       (err, httpResponse, data) => {
         this.setState({matchedCount: data.matchedCount})
-        }
-      );
-    };
+      }
+    );
+  };
 
   handleNameChange = (e) => {
     this.setState({name: e.target.value})
@@ -138,11 +138,13 @@ export default class extends React.Component {
   };
 
   renderExplanatoryNote = () => {
-    return (<div style={{ marginBottom: '10px' }}>
-      <p>Focus points can contain regular expressions. See <a href="https://www.regextester.com/">this page</a> to test regular expressions, and access the cheat sheet on the right. <b>Note:</b> any periods need to be prefaced with a backslash ("\") in order to be evaluated correctly. Example: "walked\."</p>
-      <br />
-      <p>In order to indicate that two or more words or phrases must appear in the response together, you can separate them using "&&". Example: "running&&dancing&&swimming", "run&&dance&&swim".</p>
-    </div>)
+    return (
+      <div style={{ marginBottom: '10px' }}>
+        <p>Focus points can contain regular expressions. See <a href="https://www.regextester.com/">this page</a> to test regular expressions, and access the cheat sheet on the right. <b>Note:</b> any periods need to be prefaced with a backslash ("\") in order to be evaluated correctly. Example: "walked\."</p>
+        <br />
+        <p>In order to indicate that two or more words or phrases must appear in the response together, you can separate them using "&&". Example: "running&&dancing&&swimming", "run&&dance&&swim".</p>
+      </div>
+    )
   };
 
   render() {
@@ -164,7 +166,7 @@ export default class extends React.Component {
               ContentState={ContentState}
               EditorState={EditorState}
               handleTextChange={this.handleFeedbackChange}
-              key={"feedback"}
+              key="feedback"
               text={this.state.itemFeedback || ""}
             />
             <label className="label" style={{ marginTop: 10, }}>Concepts</label>
@@ -175,8 +177,8 @@ export default class extends React.Component {
             </p>
           </div>
           <p className="control">
-            <button className={'button is-primary '} onClick={() => this.submit(this.props.item ? this.props.item.id : null)}>Submit</button>
-            <button className={'button is-outlined is-info'} onClick={() => window.history.back()} style={{ marginLeft: 5, }}>Cancel</button>
+            <button className="button is-primary " onClick={() => this.submit(this.props.item ? this.props.item.id : null)}>Submit</button>
+            <button className="button is-outlined is-info" onClick={() => window.history.back()} style={{ marginLeft: 5, }}>Cancel</button>
           </p>
         </div>
         <div>

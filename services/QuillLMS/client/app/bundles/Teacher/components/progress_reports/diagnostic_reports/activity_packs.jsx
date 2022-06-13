@@ -1,7 +1,8 @@
 import React from 'react';
 import request from 'request';
-import { Spinner } from '../../../../Shared/index';
 
+import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from '../progress_report_constants'
+import { Spinner } from '../../../../Shared/index';
 import Units from '../../assignment_flow/manage_units/activities_units.jsx';
 import EmptyProgressReport from '../../shared/EmptyProgressReport.jsx';
 import ItemDropdown from '../../general_components/dropdown_selectors/item_dropdown';
@@ -35,10 +36,16 @@ export default class ActivityPacks extends React.Component {
   }
 
   getClassrooms = () => {
+    const { selectedClassroomId, } = this.state
     request.get(`${process.env.DEFAULT_URL}/teachers/classrooms/classrooms_i_teach`, (error, httpStatus, body) => {
       const classrooms = JSON.parse(body).classrooms;
       if (classrooms.length > 0) {
-        this.setState({ classrooms, }, () => this.getUnits());
+        const newState = { classrooms, }
+        const localStorageSelectedClassroomId = window.localStorage.getItem(PROGRESS_REPORTS_SELECTED_CLASSROOM_ID)
+        if (!selectedClassroomId && localStorageSelectedClassroomId && classrooms.find(c => Number(c.id) === Number(localStorageSelectedClassroomId))) {
+          newState.selectedClassroomId = Number(localStorageSelectedClassroomId)
+        }
+        this.setState(newState, () => this.getUnits());
       } else {
         this.setState({ empty: true, loaded: true, });
       }
@@ -47,10 +54,10 @@ export default class ActivityPacks extends React.Component {
 
   getRecommendationIds = () => {
     fetch(`${process.env.DEFAULT_URL}/teachers/progress_reports/activity_with_recommendations_ids`, {
-    method: 'GET',
-    mode: 'cors',
-    credentials: 'include',
-  }).then((response) => {
+      method: 'GET',
+      mode: 'cors',
+      credentials: 'include',
+    }).then((response) => {
       if (!response.ok) {
         throw Error(response.statusText);
       }
@@ -70,12 +77,13 @@ export default class ActivityPacks extends React.Component {
   }
 
   getUnitsForCurrentClass = () => {
-    if (this.state.selectedClassroomId) {
-      const selectedClassroom = this.state.classrooms.find(c => c.id === Number(this.state.selectedClassroomId));
-      const unitsInCurrentClassroom = this.state.allUnits.filter(unit => unit.classrooms.find(classroom => selectedClassroom.name === classroom.name));
+    const { selectedClassroomId, allUnits, classrooms, } = this.state
+    if (selectedClassroomId) {
+      const selectedClassroom = classrooms.find(c => c.id === Number(selectedClassroomId));
+      const unitsInCurrentClassroom = allUnits.filter(unit => unit.classrooms.find(classroom => selectedClassroom.name === classroom.name));
       this.setState({ units: unitsInCurrentClassroom, });
     } else {
-      this.setState({ units: this.state.allUnits, });
+      this.setState({ units: allUnits, });
     }
   }
 
@@ -159,7 +167,7 @@ export default class ActivityPacks extends React.Component {
           caUnit.classrooms.push(classroom);
         }
         // if the activity info already exists, add to the completed count
-				// otherwise, add the activity info if it doesn't already exist
+        // otherwise, add the activity info if it doesn't already exist
         let completedCount,
           cumulativeScore;
         if (caUnit.classroomActivities.has(u.activity_id)) {
@@ -178,10 +186,11 @@ export default class ActivityPacks extends React.Component {
   }
 
   populateCompletionAndAverageScore = (data) => {
+    const { allUnits, } = this.state
     const requests = data.map((u) => {
       return new Promise(resolve => {
         request.get(`${process.env.DEFAULT_URL}/teachers/units/score_info_for_activity/${u.activity_id}?classroom_unit_id=${u.classroom_unit_id}`, (error, httpStatus, body) => {
-          this.state.allUnits.forEach((stateUnit) => {
+          allUnits.forEach((stateUnit) => {
             const unitActivity = stateUnit.classroomActivities.get(u.activity_id)
             if (typeof unitActivity != 'undefined' && stateUnit.classrooms.find(c => Number(c.cuId) === Number(u.classroom_unit_id))) {
               unitActivity.cumulativeScore += JSON.parse(body).cumulative_score;
@@ -196,21 +205,22 @@ export default class ActivityPacks extends React.Component {
   }
 
   stateBasedComponent = () => {
-    if (!this.state.loaded) {
+    const { loaded, classrooms, selectedClassroomId, units, activityWithRecommendationsIds, } = this.state
+    if (!loaded) {
       return <Spinner />;
     }
     let content;
 
     const allClassroomsClassroom = { name: 'All Classrooms', };
-    const classrooms = [allClassroomsClassroom].concat(this.state.classrooms);
-    const classroomWithSelectedId = classrooms.find(classroom =>
-      classroom && classroom.id === Number(this.state.selectedClassroomId)
+    const classroomOptions = [allClassroomsClassroom].concat(classrooms);
+    const classroomWithSelectedId = classroomOptions.find(classroom =>
+      classroom && classroom.id === Number(selectedClassroomId)
     );
     const selectedClassroom = classroomWithSelectedId || allClassroomsClassroom;
 
-    if (!this.state.classrooms || this.state.classrooms.filter(Boolean).length === 0) {
+    if (!classrooms || classrooms.filter(Boolean).length === 0) {
       content = <EmptyProgressReport missing="classrooms" />;
-    } else if (this.state.units.length === 0 && this.state.selectedClassroomId) {
+    } else if (units.length === 0 && selectedClassroomId) {
       content = (
         <EmptyProgressReport
           missing="activitiesForSelectedClassroom"
@@ -219,13 +229,13 @@ export default class ActivityPacks extends React.Component {
             this.getUnitsForCurrentClass();
           }}
         />);
-    } else if (this.state.units.length === 0) {
+    } else if (units.length === 0) {
       content = <EmptyProgressReport missing="activities" />;
     } else {
       content = (<Units
         activityReport={Boolean(true)}
-        activityWithRecommendationsIds={this.state.activityWithRecommendationsIds}
-        data={this.state.units}
+        activityWithRecommendationsIds={activityWithRecommendationsIds}
+        data={units}
         report={Boolean(true)}
       />);
     }
@@ -238,7 +248,7 @@ export default class ActivityPacks extends React.Component {
           <p>Select a classroom:</p>
           <ItemDropdown
             callback={this.switchClassrooms}
-            items={classrooms.filter(Boolean)}
+            items={classroomOptions.filter(Boolean)}
             selectedItem={selectedClassroom}
           />
         </div>
@@ -250,6 +260,7 @@ export default class ActivityPacks extends React.Component {
   switchClassrooms = (classroom) => {
     const path = '/teachers/progress_reports/diagnostic_reports/#/activity_packs';
    	window.history.pushState({}, '', classroom.id ? `${path}?classroom_id=${classroom.id}` : path);
+    window.localStorage.setItem(PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, classroom.id)
  		this.setState({ selectedClassroomId: classroom.id, }, () => this.getUnitsForCurrentClass());
   }
 

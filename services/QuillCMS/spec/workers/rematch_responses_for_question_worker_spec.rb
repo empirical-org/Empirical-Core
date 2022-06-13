@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe RematchResponsesForQuestionWorker do
-  let(:subject) { described_class.new }
+  subject { described_class.new }
 
   describe '#perform' do
     question_uid = 'FAKE_UID'

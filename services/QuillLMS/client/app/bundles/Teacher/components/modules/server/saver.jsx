@@ -1,12 +1,12 @@
 'use strict'
 
-  import Data from './data/data'
-  import Params from './params'
-  import _ from 'underscore'
+import Data from './data/data'
+import Params from './params'
+import _ from 'underscore'
 
- export default  function () {
+export default  function () {
 
-  var _modules = {
+  let _modules = {
     data:   new Data(),
     params: new Params()
   }

@@ -1,5 +1,5 @@
 import { ActivityInterface, DropdownObjectInterface } from '../../interfaces/evidenceInterfaces';
-import { handleApiError, apiFetch, mainApiFetch, handleRequestErrors, requestFailed, getActivitySessionsUrl } from '../../helpers/evidence';
+import { handleApiError, apiFetch, mainApiFetch, handleRequestErrors, requestFailed, getActivitySessionsUrl } from '../../helpers/evidence/routingHelpers';
 
 export const fetchActivities = async () => {
   let activities: ActivityInterface[];
@@ -11,19 +11,14 @@ export const fetchActivities = async () => {
   };
 }
 
-export const fetchActivity = async (key: string, activityId: string) => {
+export const fetchActivity = async ({ queryKey, }) => {
+  const [key, activityId] = queryKey
   let activity: ActivityInterface;
-  // let flagObject: any = {};
   const response = await apiFetch(`activities/${activityId}`);
   activity = await response.json();
-  // if(activity) {
-  //   const { flag } = activity
-  //   flagObject = { label: flag, value: flag };
-  // }
   return {
     activity,
-    error: handleApiError('Failed to fetch activity, please refresh the page.', response),
-    // flag: flagObject
+    error: handleApiError('Failed to fetch activity, please refresh the page.', response)
   };
 }
 
@@ -66,7 +61,8 @@ export const archiveParentActivity = async (parentActivityId: string) => {
   return { error: handleApiError('Failed to archive activity, please try again.', response) }
 }
 
-export const fetchActivitySessions = async (key: string, activityId: string, pageNumber: number, startDate: string, filterOptionForQuery: DropdownObjectInterface, endDate?: string, turkSessionID?: string) => {
+export const fetchActivitySessions = async ({ queryKey, }) => {
+  const [key, activityId, pageNumber, startDate, filterOptionForQuery, endDate, turkSessionID]: [string, string, number, string, DropdownObjectInterface, string, string] = queryKey
   const { value } = filterOptionForQuery
   const url = getActivitySessionsUrl({ activityId, pageNumber, startDate, endDate, turkSessionID, filterType: value });
   const response = await mainApiFetch(url);
@@ -78,7 +74,8 @@ export const fetchActivitySessions = async (key: string, activityId: string, pag
   };
 }
 
-export const fetchActivitySession = async (key: string, sessionId: string) => {
+export const fetchActivitySession = async ({ queryKey, }) => {
+  const [key, sessionId]: [string, string] = queryKey
   const response = await mainApiFetch(`session_feedback_histories/${sessionId}`);
   const activitySession = await response.json();
 
@@ -88,7 +85,8 @@ export const fetchActivitySession = async (key: string, sessionId: string) => {
   };
 }
 
-export const fetchChangeLogs = async (key: string, activityId: string) => {
+export const fetchChangeLogs = async ({ queryKey, }) => {
+  const [key, activityId]: [string, string] = queryKey
   const response = await apiFetch(`activities/${activityId}/change_logs`);
   const changeLogs = await response.json();
 

@@ -3,6 +3,7 @@ import React from 'react'
 import AssignmentCard from './assignment_card'
 
 import { requestPost, } from '../../../../../modules/request'
+import { CLICKED_ACTIVITY_PACK_ID } from '../assignmentFlowConstants'
 
 const diagnosticWaveSrc = `${process.env.CDN_URL}/images/illustrations/diagnostic-wave.svg`
 const activityLibrarySrc = `${process.env.CDN_URL}/images/icons/icons-activity-library.svg`
@@ -64,6 +65,11 @@ const minis = (diagnosticBannerShowing) => [
 const AssignANewActivity = ({ numberOfActivitiesAssigned, showDiagnosticBanner }) => {
   const [diagnosticBannerShowing, setDiagnosticBannerShowing] = React.useState(showDiagnosticBanner)
 
+  React.useState(() => {
+    // remove any previously stored activityPackId used for back navigation element focus in the event that user assigned pack or navigated back to dashboard before assigning
+    window.sessionStorage.removeItem(CLICKED_ACTIVITY_PACK_ID);
+  }, []);
+
   function closeDiagnosticBanner() {
     setDiagnosticBannerShowing(false)
 
@@ -85,17 +91,19 @@ const AssignANewActivity = ({ numberOfActivitiesAssigned, showDiagnosticBanner }
     </section>)
   }
 
-  return (<div className="assign-a-new-activity-container">
-    <div className="assign-a-new-activity container">
-      <h1>Find the perfect writing activities for your students.</h1>
-      {diagnosticBanner}
-      <div className="minis">{minis(diagnosticBannerShowing)}</div>
-      <p className="previously-assigned-activities">
+  return (
+    <div className="assign-a-new-activity-container">
+      <div className="assign-a-new-activity container">
+        <h1>Find the perfect writing activities for your students.</h1>
+        {diagnosticBanner}
+        <div className="minis">{minis(diagnosticBannerShowing)}</div>
+        <p className="previously-assigned-activities">
         You have {numberOfActivitiesAssigned} {numberOfActivitiesAssigned === 1 ? 'activity' : 'activities'} assigned.&nbsp;
-        <a href="/teachers/classrooms/activity_planner">View assigned activities</a>
-      </p>
+          <a href="/teachers/classrooms/activity_planner">View assigned activities</a>
+        </p>
+      </div>
     </div>
-  </div>)
+  )
 }
 
 export default AssignANewActivity

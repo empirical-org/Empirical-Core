@@ -4,6 +4,7 @@ require 'rails_helper'
 
 describe Api::V1::ActivitySessionsController, type: :controller do
   describe '#update' do
+
     let(:token) { double :acceptable? => true, resource_owner_id: user.id }
     let(:user) { create(:student) }
     let(:activity_classification) { create(:activity_classification) }
@@ -42,7 +43,7 @@ describe Api::V1::ActivitySessionsController, type: :controller do
     context 'concept results are included' do
       let(:writing_concept) { create(:concept, name: 'Creative Writing') }
 
-      let(:concept_result_1) do
+      let(:concept_result1) do
         create(:concept_result,
           activity_session_id: activity_session.id,
           concept: writing_concept,
@@ -50,25 +51,25 @@ describe Api::V1::ActivitySessionsController, type: :controller do
         )
       end
 
-      let(:concept_result_2) do
+      let(:concept_result2) do
         create(:concept_result,
           activity_session_id: activity_session.id,
           metadata: { baz: 'foo' }
         )
       end
 
-      let(:concept_result_3) do
+      let(:concept_result3) do
         create(:concept_result,
           activity_session_id: activity_session.id
         )
       end
 
       let(:concept_results) do
-        results = JSON.parse([concept_result_1, concept_result_2, concept_result_3].to_json)
+        results = JSON.parse([concept_result1, concept_result2, concept_result3].to_json)
 
-        results[0] = results[0].merge('concept_uid' => concept_result_1.concept.uid)
-        results[1] = results[1].merge('concept_uid' => concept_result_2.concept.uid)
-        results[2] = results[2].merge('concept_uid' => concept_result_3.concept.uid)
+        results[0] = results[0].merge('concept_uid' => concept_result1.concept.uid)
+        results[1] = results[1].merge('concept_uid' => concept_result2.concept.uid)
+        results[2] = results[2].merge('concept_uid' => concept_result3.concept.uid)
 
         results
       end
@@ -115,7 +116,16 @@ describe Api::V1::ActivitySessionsController, type: :controller do
       end
     end
 
-    context 'data time_tracking is included ' do
+    context 'the active activity session exists and the activity session is completed' do
+      it 'the active activity session gets deleted' do
+        active_activity_session = create(:active_activity_session, uid: activity_session.uid)
+
+        put :update, params: { id: activity_session.uid, state: 'finished' }, as: :json
+        expect(ActiveActivitySession.find_by_uid(activity_session.uid)).not_to be
+      end
+    end
+
+    context 'data time_tracking is included' do
 
       it 'updates timespent on activity session' do
         data = {
@@ -133,6 +143,50 @@ describe Api::V1::ActivitySessionsController, type: :controller do
         expect(activity_session.data['time_tracking']).to include(data['time_tracking'])
       end
 
+      it 'should discard outlier, adjust time_tracking, and record edits' do
+        data = {
+          'time_tracking' => {
+            'so' => 9999999,
+            'but' => 10,
+            'because' => 9
+          }
+        }
+
+        modified_data = {
+          'time_tracking' => {
+            'so' => 10,
+            'but' => 10,
+            'because' => 9
+          },
+          'time_tracking_edits' => {
+            'so' => 9999999
+          }
+        }
+
+        expect(Raven).to_not receive(:capture_exception)
+
+        put :update, params: { id: activity_session.uid, data: data }, as: :json
+        activity_session.reload
+
+        expect(activity_session.timespent).to eq 29
+        expect(activity_session.data['time_tracking']).to include(modified_data['time_tracking'])
+        expect(activity_session.data['time_tracking_edits']).to include(modified_data['time_tracking_edits'])
+      end
+
+      it 'should log long session' do
+        data = {
+          'time_tracking' => {
+            'so' => 9999,
+            'but' => 9999,
+            'because' => 9999
+          }
+        }
+
+        expect(ErrorNotifier).to receive(:report).with(ActivitySession::LongTimeTrackingError).once
+
+        put :update, params: { id: activity_session.uid, data: data }, as: :json
+      end
+
       describe 'the total time tracking value is larger than the maximum 4-byte integer size' do
         it 'saves timespent with the maximum 4-byte integer size' do
           data = {
@@ -146,6 +200,39 @@ describe Api::V1::ActivitySessionsController, type: :controller do
 
           expect(activity_session.timespent).to eq 2147483647
         end
+      end
+    end
+
+    context 'a finished session' do
+      let(:token) { double :acceptable? => true, resource_owner_id: user.id }
+      let(:user) { create(:student) }
+      let!(:activity_session) do
+        create(:activity_session, state: 'finished', user: user, percentage: 1.0, completed_at: Time.current)
+      end
+
+      before { allow(controller).to receive(:doorkeeper_token) {token} }
+
+      it 'returns a 422 error if activity session is already saved' do
+        put :update, params: { id: activity_session.uid }, as: :json
+        parsed_body = JSON.parse(response.body)
+        expect(parsed_body["meta"]["message"]).to eq("Activity Session Already Completed")
+      end
+
+      it 'returns a 200 if the activity session is not already finished and can be updated' do
+        activity_session.update(completed_at: nil, state: 'started')
+        put :update, params: { id: activity_session.uid }, as: :json
+        parsed_body = JSON.parse(response.body)
+        expect(parsed_body["meta"]["message"]).to eq("Activity Session Updated")
+      end
+
+      it 'returns a 422 error if activity session update method fails' do
+        # create a double
+        activity_session = create(:activity_session, state: 'started', user: user)
+        allow(activity_session).to receive(:update).and_return(false)
+
+        put :update, params: { id: activity_session.uid }, as: :json
+        parsed_body = JSON.parse(response.body)
+        expect(parsed_body["meta"]["message"]).to eq("Activity Session Already Completed")
       end
     end
   end
@@ -168,39 +255,6 @@ describe Api::V1::ActivitySessionsController, type: :controller do
       expect(JSON.parse(response.body)["activity_session"]["temporary"]).to eq session.temporary
       expect(JSON.parse(response.body)["activity_session"]["activity_uid"]).to eq session.activity_uid
       expect(JSON.parse(response.body)["activity_session"]["anonymous"]).to eq session.anonymous
-    end
-  end
-
-  describe '#update' do
-    let(:token) { double :acceptable? => true, resource_owner_id: user.id }
-    let(:user) { create(:student) }
-    let!(:activity_session) do
-      create(:activity_session, state: 'finished', user: user, percentage: 1.0, completed_at: Time.now)
-    end
-
-    before { allow(controller).to receive(:doorkeeper_token) {token} }
-
-    it 'returns a 422 error if activity session is already saved' do
-      put :update, params: { id: activity_session.uid }, as: :json
-      parsed_body = JSON.parse(response.body)
-      expect(parsed_body["meta"]["message"]).to eq("Activity Session Already Completed")
-    end
-
-    it 'returns a 200 if the activity session is not already finished and can be updated' do
-      activity_session.update(completed_at: nil, state: 'started')
-      put :update, params: { id: activity_session.uid }, as: :json
-      parsed_body = JSON.parse(response.body)
-      expect(parsed_body["meta"]["message"]).to eq("Activity Session Updated")
-    end
-
-    it 'returns a 422 error if activity session update method fails' do
-      # create a double
-      activity_session = create(:activity_session, state: 'started', user: user)
-      allow(activity_session).to receive(:update).and_return(false)
-
-      put :update, params: { id: activity_session.uid }, as: :json
-      parsed_body = JSON.parse(response.body)
-      expect(parsed_body["meta"]["message"]).to eq("Activity Session Already Completed")
     end
   end
 

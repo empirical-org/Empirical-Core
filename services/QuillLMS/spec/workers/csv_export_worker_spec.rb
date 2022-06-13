@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe CsvExportWorker do
-  let(:subject) { described_class.new }
+  subject { described_class.new }
 
   describe '#perform' do
     context 'when csv export is sent' do

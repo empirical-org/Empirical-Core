@@ -3,6 +3,7 @@
 module UnitsWithCompletedActivities
   extend ActiveSupport::Concern
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def units_with_completed_activities(cus)
     all_assigned_units = cus.group_by{|cu| cu.unit_id}
     relevant_unit_ids = []
@@ -13,5 +14,6 @@ module UnitsWithCompletedActivities
     end
     Unit.where(id: relevant_unit_ids)
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
 end

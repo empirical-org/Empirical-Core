@@ -14,14 +14,14 @@ import _ from 'underscore'
 import $ from 'jquery'
 export default function () {
 
-  var _scrollComputation = function (selector, component) {
-    var y = $(selector).height();
-    var w = 1/(component.state.currentPage + 1);
-    var z = y*(1 - w);
+  let _scrollComputation = function (selector, component) {
+    let y = $(selector).height();
+    let w = 1/(component.state.currentPage + 1);
+    let z = y*(1 - w);
     return z;
   };
 
-  var _loadMore = function (component) {
+  let _loadMore = function (component) {
     component.fetchData();
   };
 

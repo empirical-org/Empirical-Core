@@ -23,11 +23,10 @@
 #
 class UniqueNameWhenVisible < ActiveModel::Validator
   def validate(record)
-    if record.visible
-      if Unit.where(name: record.name, user_id: record.user_id, visible: true).where.not(id: record.id).any?
-        record.errors[:name] << 'must be unique.'
-      end
-    end
+    return unless record.visible
+    return if Unit.where(name: record.name, user_id: record.user_id, visible: true).where.not(id: record.id).none?
+
+    record.errors[:name] << 'must be unique.'
   end
 end
 
@@ -43,41 +42,48 @@ class Unit < ApplicationRecord
   has_many :standards, through: :activities
   default_scope { where(visible: true)}
   belongs_to :unit_template
-  after_save :hide_classroom_units_and_unit_activities_if_visible_false, :create_any_new_classroom_unit_activity_states
-  after_touch :save
+  after_save :hide_classroom_units_and_unit_activities_if_visible_false
+  after_save :create_any_new_classroom_unit_activity_states
+  # Using an after_commit hook here because we want to trigger the callback
+  # on save or touch, and touch explicitly bypasses after_save hooks
+  after_commit :touch_all_classrooms_and_classroom_units
 
   def hide_if_no_visible_unit_activities
-    if !unit_activities.where(visible: true).exists?
-      update(visible: false)
-    end
+    return if unit_activities.where(visible: true).exists?
+
+    update(visible: false)
   end
 
   def hide_classroom_units_and_unit_activities_if_visible_false
-    if visible == false
-      UnitActivity.where(unit_id: id, visible: true).each{|ua| ua.update(visible: false)}
-      ClassroomUnit.where(unit_id: id, visible: true).each{|cu| cu.update(visible: false)}
-    end
+    return if visible
+
+    UnitActivity.where(unit_id: id, visible: true).each{|ua| ua.update(visible: false)}
+    ClassroomUnit.where(unit_id: id, visible: true).each{|cu| cu.update(visible: false)}
   end
 
   def email_lesson_plan
     # limiting to production so teachers don't get emailed when we assign lessons from their account locally
-    if Rails.env.production? || user.email.match('quill.org')
-      unit_id = id
-      activity_ids = Activity.select('DISTINCT(activities.id)')
-      .joins("JOIN unit_activities ON unit_activities.activity_id = activities.id")
-      .joins("JOIN units ON unit_activities.unit_id = #{unit_id}")
-      .where( "activities.activity_classification_id = 6 AND activities.supporting_info IS NOT NULL")
-      if activity_ids.any?
-        activity_ids = activity_ids.map(&:id)
-        teacher_id = user_id
-        LessonPlanEmailWorker.perform_async(teacher_id, activity_ids, unit_id)
-      end
-    end
+    return unless Rails.env.production? || user.email.match('quill.org')
+
+    unit_id = id
+    activity_ids =
+      Activity
+        .select('DISTINCT(activities.id)')
+        .joins("JOIN unit_activities ON unit_activities.activity_id = activities.id")
+        .joins("JOIN units ON unit_activities.unit_id = #{unit_id}")
+        .where( "activities.activity_classification_id = 6 AND activities.supporting_info IS NOT NULL")
+
+    return unless activity_ids.any?
+
+    activity_ids = activity_ids.map(&:id)
+    teacher_id = user_id
+    LessonPlanEmailWorker.perform_async(teacher_id, activity_ids, unit_id)
   end
 
   def self.create_with_incremented_name(user_id:, name: )
     unit = Unit.create(user_id: user_id, name: name)
     return unit if unit.persisted?
+
     (2..20).each do |counter|
       unit = Unit.create(user_id: user_id, name: "#{name} #{counter}")
       return unit if unit.persisted?
@@ -94,4 +100,10 @@ class Unit < ApplicationRecord
     end
   end
 
+  # modeled after Rails 6 touch_all
+  # https://github.com/rails/rails/pull/31513/files#diff-18a561656864ea240daf46bdb1f50faace49f9ef74b90bcf667d9bbb17fce084R395
+  private def touch_all_classrooms_and_classroom_units
+    classroom_units.update_all(updated_at: current_time_from_proper_timezone)
+    classrooms.update_all(updated_at: current_time_from_proper_timezone)
+  end
 end

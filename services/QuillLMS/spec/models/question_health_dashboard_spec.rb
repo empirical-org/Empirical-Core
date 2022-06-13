@@ -4,13 +4,13 @@ require 'rails_helper'
 
 describe QuestionHealthDashboard, type: :model do
   let!(:activity) { create(:activity) }
-  let!(:activity_session_1) { create(:activity_session, activity: activity) }
-  let!(:activity_session_2) { create(:activity_session, activity: activity) }
-  let!(:activity_session_3) { create(:activity_session, activity: activity) }
+  let!(:activity_session1) { create(:activity_session, activity: activity) }
+  let!(:activity_session2) { create(:activity_session, activity: activity) }
+  let!(:activity_session3) { create(:activity_session, activity: activity) }
 
-  let!(:concept_result_1) do
+  let!(:concept_result1) do
     create(:concept_result,
-      activity_session: activity_session_1,
+      activity_session: activity_session1,
       metadata: {
         questionNumber: 1,
         questionScore: 1
@@ -18,19 +18,19 @@ describe QuestionHealthDashboard, type: :model do
     )
   end
 
-  let!(:concept_result_2) do
-     create(:concept_result,
-      activity_session: activity_session_2,
-      metadata: {
-        questionNumber: 1,
-        questionScore: 0.75
-      }
-    )
+  let!(:concept_result2) do
+    create(:concept_result,
+     activity_session: activity_session2,
+     metadata: {
+       questionNumber: 1,
+       questionScore: 0.75
+     }
+   )
   end
 
-  let!(:concept_result_3) do
+  let!(:concept_result3) do
     create(:concept_result,
-      activity_session: activity_session_3,
+      activity_session: activity_session3,
       metadata: {
         questionNumber: 1,
         questionScore: 0
@@ -38,9 +38,9 @@ describe QuestionHealthDashboard, type: :model do
     )
   end
 
-  let!(:concept_result_4) do
+  let!(:concept_result4) do
     create(:concept_result,
-      activity_session: activity_session_1,
+      activity_session: activity_session1,
       metadata: {
         questionNumber: 2,
         questionScore: 1

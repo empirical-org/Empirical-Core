@@ -16,31 +16,10 @@ module Evidence
         expect(parsed_response.empty?).to(eq(true))
       end
 
-      context 'should with activities where one has an archived parent' do
-        let!(:archived_activity) { Evidence.parent_activity_class.create(:name => "Archived Activity", :flags => (["archived"])) }
-        let!(:unarchived_activity) { Evidence.parent_activity_class.create(:name => "Unarchived Activity") }
-
-        before do
-          create(:evidence_activity, :parent_activity_id => archived_activity.id, :title => "First Activity", :target_level => 8)
-          create(:evidence_activity, :parent_activity_id => unarchived_activity.id, :title => "Second Activity", :target_level => 5)
-        end
-
-        it 'should return with only the unarchived activity' do
-          get(:index)
-          parsed_response = JSON.parse(response.body)
-          expect(response.status).to eq(200)
-          expect(parsed_response.class).to(eq(Array))
-          expect(parsed_response.empty?).to(eq(false))
-          expect(1).to(eq(parsed_response.length))
-          expect(parsed_response.first["title"]).to(eq("Second Activity"))
-          expect(parsed_response.first["target_level"]).to(eq(5))
-          expect(parsed_response.first["parent_activity_id"]).to(eq(unarchived_activity.id))
-        end
-      end
-
       context 'should with actitivites' do
         let!(:first_activity) { create(:evidence_activity, :title => "An Activity", :notes => "Notes 1", :target_level => 8) }
-        before(:each) do
+
+        before do
           create(:evidence_activity, :title => "The Activity", :notes => "Notes 2", :target_level => 5)
         end
 
@@ -59,7 +38,8 @@ module Evidence
 
     context 'should create' do
       let!(:activity) { build(:evidence_activity, :parent_activity_id => 1, :title => "First Activity", :target_level => 8, :scored_level => "4th grade", :notes => "First Activity - Notes") }
-      before(:each) do
+
+      before do
         session[:user_id] = 1
         Evidence.parent_activity_classification_class.create(:key => "evidence")
       end
@@ -145,9 +125,10 @@ module Evidence
     end
 
     context 'should update' do
-      before(:each) do
+      before do
         session[:user_id] = 1
       end
+
       let!(:activity) { create(:evidence_activity, :parent_activity_id => 1, :title => "First Activity", :target_level => 8, :scored_level => "4th grade") }
       let!(:passage) { create(:evidence_passage, :activity => (activity)) }
       let!(:prompt) { create(:evidence_prompt, :activity => (activity)) }
@@ -257,9 +238,11 @@ module Evidence
       before do
         session[:user_id] = 1
       end
+
       let!(:activity) {build(:evidence_activity, parent_activity_id: 1, title: "First Activity", target_level: 8, scored_level: "4th grade", notes: "First Activity - Notes")}
       let!(:prompt) {build(:evidence_prompt)}
       let!(:passage) {build(:evidence_passage)}
+
       Evidence.parent_activity_classification_class.create(key: 'evidence')
 
       it "should return change logs for that activity" do
@@ -309,12 +292,22 @@ module Evidence
       let!(:prompt) { create(:evidence_prompt, :activity => (activity)) }
       let!(:rule) { create(:evidence_rule, :prompts => ([prompt])) }
       let!(:passage) { create(:evidence_passage, :activity => (activity)) }
+      let!(:feedback1) { create(:evidence_feedback, rule: rule) }
+      let!(:highlight1) { create(:evidence_highlight, feedback: feedback1, text: 'lorem') }
 
       it 'should return rules' do
         get(:rules, :params => ({ :id => activity.id }))
         parsed_response = JSON.parse(response.body)
         expect(response.code.to_i).to(eq(200))
         expect(rule.id).to(eq(parsed_response[0]["id"]))
+      end
+
+      it 'should return feedbacks and highlights associated with the rules' do
+        get(:rules, :params => ({ :id => activity.id }))
+        parsed_response = JSON.parse(response.body)
+
+        expect(parsed_response.first['feedbacks'].count).to eq 1
+        expect(parsed_response.first['feedbacks'].first['highlights'].first['text']).to eq 'lorem'
       end
 
       it 'should 404 if activity is invalid' do

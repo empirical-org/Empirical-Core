@@ -1,13 +1,16 @@
 # frozen_string_literal: true
 
+require 'hotwater'
+
 module Evidence
   class PlagiarismCheck
 
-    ALL_CORRECT_FEEDBACK = 'All plagiarism checks passed.'
+    ALL_CORRECT_FEEDBACK = '<p>All plagiarism checks passed.</p>'
     PASSAGE_TYPE = 'passage'
     ENTRY_TYPE = 'response'
     MATCH_MINIMUM = 10
     OPTIMAL_RULE_KEY = 'optimal_plagiarism_rule_serialized'
+    FUZZY_CHARACTER_THRESHOLD = 3
     attr_reader :entry, :passage, :nonoptimal_feedback
 
     def initialize(entry, passage, feedback, rule)
@@ -22,10 +25,10 @@ module Evidence
         feedback: feedback,
         feedback_type: Rule::TYPE_PLAGIARISM,
         optimal: optimal?,
-        response_id: '',
         entry: @entry,
         concept_uid: optimal? ? optimal_rule_hash["concept_uid"] : @rule&.concept_uid,
         rule_uid: optimal? ? optimal_rule_hash["uid"] : @rule&.uid,
+        hint: optimal? ? nil : @rule&.hint,
         highlight: highlights
       }
     end
@@ -50,13 +53,14 @@ module Evidence
 
     private def highlights
       return [] if optimal?
+
       [entry_highlight, passage_highlight]
     end
 
     private def passage_highlight
       {
         type: PASSAGE_TYPE,
-        text: get_highlight(passage, clean_passage),
+        text: get_highlight(passage, clean_passage, matched_slice_passage),
         category: ''
       }
     end
@@ -64,7 +68,7 @@ module Evidence
     private def entry_highlight
       {
         type: ENTRY_TYPE,
-        text: get_highlight(entry, clean_entry),
+        text: get_highlight(entry, clean_entry, matched_slice),
         category: ''
       }
     end
@@ -79,15 +83,18 @@ module Evidence
 
     private def matched_slice
       return "" if !minimum_overlap?
+
       @matched_slice ||= match_entry_on_passage
     end
 
-    private def minimum_overlap?
-      !clean_passage.empty? && (intersect_with_duplicates(clean_entry.split, clean_passage.split)).size >= MATCH_MINIMUM
+    private def matched_slice_passage
+      return "" if !minimum_overlap?
+
+      @matched_slice_passage ||= match_passage_on_entry
     end
 
-    private def intersect_with_duplicates(arr1, arr2)
-      (arr1 & arr2).flat_map { |n| [n]*[arr1.count(n), arr2.count(n)].min }
+    private def minimum_overlap?
+      !clean_passage.empty? && [clean_entry.split.size, clean_passage.split.size].min >= MATCH_MINIMUM
     end
 
     private def clean(str)
@@ -99,29 +106,64 @@ module Evidence
     private def match_entry_on_passage
       entry_arr = clean_entry.split
 
-      slices = entry_arr.each_cons(MATCH_MINIMUM).with_index.to_a.map(&:reverse).to_h
-      matched_slices = slices.select {|k,v| v.in?(passage_word_arrays) }.keys
-      return "" if matched_slices.empty?
-
-      build_longest_continuous_slice(matched_slices, slices)
+      slices = entry_arr.each_cons(MATCH_MINIMUM)
+      identify_first_matched_substring(slices, passage_word_arrays)
     end
 
-    # using the indices of plagiarized slices, find the longest continuous plagiarized section
-    # piece together the words of the longest plagiarized section and return that string
-    def build_longest_continuous_slice(matched_slices, slices)
-      matched_consecutive_indices = matched_slices.slice_when {|before_item, after_item| after_item != before_item + 1}.to_a
-      longest_consecutive_indices = matched_consecutive_indices.max_by(&:size)
+    private def match_passage_on_entry
+      entry_arr = clean_entry.split
 
-      string_result = slices[longest_consecutive_indices[0]].join(' ')
-      longest_consecutive_indices.drop(1).each {|i| string_result += ' ' + slices[i].last}
-      string_result
+      slices = entry_arr.each_cons(MATCH_MINIMUM)
+      identify_first_matched_substring(passage_word_arrays, slices)
+    end
+
+    # rubocop:disable Metrics/CyclomaticComplexity
+    private def identify_first_matched_substring(slices_to_assemble, slices_to_match)
+      combined_matched_slices = []
+      # Placeholder to be overridden during the first run of the loop that makes it past the confirm_minimum_overlap? guard statement.  If that never happens, we don't have to calculate this value
+      slices_to_match_strings = nil
+      slices_to_assemble.each do |slice|
+        next false unless confirm_minimum_overlap?(slice, slices_to_match)
+
+        slice_string = slice.join(' ')
+        slices_to_match_strings ||= slices_to_match.map { |s| s.join(' ') }
+        match = slices_to_match_strings.any? { |match_string| ::Hotwater.levenshtein_distance(slice_string, match_string) <= FUZZY_CHARACTER_THRESHOLD }
+        if match
+          # If we have our first match, we want to populate the return value with the full string from
+          # that match
+          if combined_matched_slices.empty?
+            combined_matched_slices = slice_string
+          # If this is a subsequent match, we already have most of the words from the match in the
+          # return value already, and only need the last word (which will be the new word)
+          else
+            combined_matched_slices += " #{slice.last}"
+          end
+        # If we've been matching a series of slices, and this slice doesn't match, we've found
+        # all the contiguous matched slices and can stop
+        else
+          break unless combined_matched_slices.empty?
+        end
+      end
+      combined_matched_slices
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity
+
+    private def confirm_minimum_overlap?(target_array, source_arrays)
+      # Since we allow character deviation that's smaller than the total number of words compared
+      # we know that there's a minimum number of words that have to be identical.  This function
+      # confirms that minimum amount of overlap to justify doing a set of Levenshtein calculations.
+      source_arrays.any? do |source_array|
+        ((target_array - source_array).length <= FUZZY_CHARACTER_THRESHOLD ||
+         (source_array - target_array).length <= FUZZY_CHARACTER_THRESHOLD)
+      end
     end
 
     def passage_word_arrays
       @passage_word_arrays ||= clean_passage.split.each_cons(MATCH_MINIMUM).to_a
     end
 
-    private def get_highlight(text, cleaned_text)
+    # rubocop:disable Metrics/CyclomaticComplexity
+    private def get_highlight(text, cleaned_text, matched_slice)
       extra_space_indexes = []
       cleaned_text.each_char.with_index { |c, i| extra_space_indexes.push(i) if c == ' ' && cleaned_text[i+1] == ' ' }
 
@@ -136,5 +178,6 @@ module Evidence
       char_positions = text.enum_for(:scan, /[A-Za-z0-9\s]/).map { |c| Regexp.last_match.begin(0) }
       text[char_positions[start_index]..char_positions[end_index]]
     end
+    # rubocop:enable Metrics/CyclomaticComplexity
   end
 end

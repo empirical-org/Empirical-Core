@@ -59,9 +59,9 @@ module ResponseSearch
 
   module_function def build_regex_query_string(user_input)
     user_input.gsub!(%r{(?<=^/)([^\^])}, '.*\1')
-    user_input.gsub!(%r{(?<=^/)[\^]}, '')
-    user_input.gsub!(%r{([^\$])(?=/$)}, '\1.*')
-    user_input.gsub!(%r{([\$])(?=/$)}, '')
+    user_input.gsub!(%r{(?<=^/)\^}, '')
+    user_input.gsub!(%r{([^$])(?=/$)}, '\1.*')
+    user_input.gsub!(%r{(\$)(?=/$)}, '')
     user_input
   end
 
@@ -77,11 +77,11 @@ module ResponseSearch
     parsed_filters = filters.map do |key, value|
       key_value_to_not_string(key, value)
     end
-    current_string + parsed_filters.join("")
+    current_string + parsed_filters.join
   end
 
   module_function def add_spelling_filter(current_string, filter)
-    filter ? current_string + " AND NOT spelling_error:(true)" : current_string
+    filter ? "#{current_string} AND NOT spelling_error:(true)" : current_string
   end
 
   module_function def key_value_to_not_string(key, value)

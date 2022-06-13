@@ -5,8 +5,6 @@ import BasicPricingMini from './premium_minis/basic_pricing_mini.jsx';
 import TeacherPricingMini from './premium_minis/teacher_pricing_mini.jsx';
 import SchoolPricingMini from './premium_minis/school_pricing_mini.jsx';
 
-const handshakeHeartSrc = `${process.env.CDN_URL}/images/icons/handshake-heart.svg`
-
 export default class PremiumPricingMinisRow extends React.Component {
   state = {
     subscriptionType: null,
@@ -29,13 +27,24 @@ export default class PremiumPricingMinisRow extends React.Component {
   }
 
   render() {
-    const { diagnosticActivityCount, lessonsActivityCount, independentPracticeActivityCount, } = this.props
     const {
-      userIsSignedIn,
-      isScrolled,
-    } = this.state
+      diagnosticActivityCount,
+      lessonsActivityCount,
+      independentPracticeActivityCount,
+      schoolBuyNowButton,
+      showSchoolBuyNow,
+      stripeSchoolPlan,
+      stripeTeacherPlan,
+      teacherBuyNowButton,
+    } = this.props
 
-    const premiumFeatureData = premiumFeatures({ diagnosticActivityCount, lessonsActivityCount, independentPracticeActivityCount,})
+    const { userIsSignedIn, isScrolled, } = this.state
+
+    const premiumFeatureData = premiumFeatures({
+      diagnosticActivityCount,
+      lessonsActivityCount,
+      independentPracticeActivityCount
+    })
 
     return (
       <React.Fragment>
@@ -50,14 +59,16 @@ export default class PremiumPricingMinisRow extends React.Component {
               userIsSignedIn={userIsSignedIn}
             />
             <TeacherPricingMini
-              {...this.props}
-              hidePurchaseModal={this.hidePurchaseModal}
+              buyNowButton={teacherBuyNowButton}
+              plan={stripeTeacherPlan.plan}
               premiumFeatureData={premiumFeatureData}
-              userIsSignedIn={userIsSignedIn}
             />
             <SchoolPricingMini
+              buyNowButton={schoolBuyNowButton}
+              plan={stripeSchoolPlan.plan}
               premiumFeatureData={premiumFeatureData}
               showBadges={!isScrolled}
+              showSchoolBuyNow={showSchoolBuyNow}
             />
           </div>
         </div>

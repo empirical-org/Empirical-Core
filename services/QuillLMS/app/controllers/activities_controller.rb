@@ -14,6 +14,10 @@ class ActivitiesController < ApplicationController
     render json: search_result.to_json
   end
 
+  def index_with_unit_templates
+    render json: Activity.includes(:standard, :raw_score, :classification, :unit_templates, :activities_unit_templates).all.map{|a| Cms::ActivitySerializer.new(a).as_json(root: false)}
+  end
+
   def count
     @count = Activity.where(flags: '{production}').count
     render json: {count: @count}
@@ -25,9 +29,9 @@ class ActivitiesController < ApplicationController
   end
 
   def name_and_id
-    if @activity
-      render json: { name: @activity.name, id: @activity.id }
-    end
+    return unless @activity
+
+    render json: { name: @activity.name, id: @activity.id }
   end
 
   def last_unit_template
@@ -52,9 +56,9 @@ class ActivitiesController < ApplicationController
   end
 
   def supporting_info
-    if @activity.supporting_info
-      redirect_to @activity.supporting_info
-    end
+    return unless @activity.supporting_info
+
+    redirect_to @activity.supporting_info
   end
 
   def customize_lesson

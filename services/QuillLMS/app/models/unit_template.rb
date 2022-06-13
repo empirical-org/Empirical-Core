@@ -31,6 +31,7 @@ class UnitTemplate < ApplicationRecord
   has_many :units
   has_many :partner_contents, dependent: :destroy, as: :content
   has_many :recommendations, dependent: :destroy
+  has_many :diagnostics_recommended_by, :through => :recommendations, :source => :activity
   serialize :grades, Array
 
   validates :flag,
@@ -48,11 +49,36 @@ class UnitTemplate < ApplicationRecord
   scope :beta_user, -> { where("unit_templates.flag IN('#{PRODUCTION}','#{GAMMA}','#{BETA}') OR unit_templates.flag IS null")}
   scope :alpha_user, -> { where("unit_templates.flag IN('#{PRODUCTION}','#{GAMMA}','#{BETA}','#{ALPHA}') OR unit_templates.flag IS null")}
   scope :private_user, -> { where("unit_templates.flag IN('private', '#{PRODUCTION}','#{GAMMA}','#{BETA}','#{ALPHA}') OR unit_templates.flag IS null")}
+
+  USER_SCOPES = {
+    PRIVATE => UnitTemplate.private_user,
+    ALPHA => UnitTemplate.alpha_user,
+    BETA => UnitTemplate.beta_user,
+    GAMMA => UnitTemplate.gamma_user
+  }
+
   around_save :delete_relevant_caches
 
-  WHOLE_CLASS_AND_INDEPENDENT_PRACTICE = 'Whole class + Independent practice'
+  WHOLE_CLASS_LESSONS = 'Whole class lessons'
   INDEPENDENT_PRACTICE = 'Independent practice'
   DIAGNOSTIC = 'Diagnostic'
+
+  def readability
+    activities_with_raw_scores = activities.joins(:raw_score).where.not(raw_score: nil).reorder("raw_scores.order ASC")
+    return nil if activities_with_raw_scores.empty?
+
+    lowest_raw_score_activity = activities_with_raw_scores.first
+    highest_raw_score_activity = activities_with_raw_scores.last
+
+    lowest_readability_range = lowest_raw_score_activity.readability_grade_level
+    highest_readability_range = highest_raw_score_activity.readability_grade_level
+
+    "#{lowest_readability_range.split('-')[0]}-#{highest_readability_range.split('-')[1]}"
+  end
+
+  def diagnostic_names
+    diagnostics_recommended_by.pluck(:name)
+  end
 
   def activity_ids= activity_ids
     # getting around rails defaulting to activities being set in order of the activity id rather than the selected order
@@ -69,17 +95,7 @@ class UnitTemplate < ApplicationRecord
   end
 
   def self.user_scope(user_flag)
-    if user_flag == PRIVATE
-      UnitTemplate.private_user
-    elsif user_flag == ALPHA
-      UnitTemplate.alpha_user
-    elsif user_flag == BETA
-      UnitTemplate.beta_user
-    elsif user_flag == GAMMA
-      UnitTemplate.gamma_user
-    else
-      UnitTemplate.production
-    end
+    USER_SCOPES.fetch(user_flag, UnitTemplate.production)
   end
 
   def get_cached_serialized_unit_template(flag=nil)

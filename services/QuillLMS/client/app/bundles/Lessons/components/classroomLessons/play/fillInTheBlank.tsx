@@ -2,7 +2,8 @@ declare function require(name:string);
 import * as React from 'react'
 import * as _ from 'underscore'
 import {
-  Feedback
+  Feedback,
+  fillInBlankInputLabel,
 } from '../../../../Shared/index'
 import { stringNormalize } from 'quill-string-normalizer';
 
@@ -165,7 +166,7 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
     return (
       <span key={`span${i}`}>
         <input
-          aria-label={`input${i}`}
+          aria-label={fillInBlankInputLabel(cues)}
           autoComplete="off"
           className={inputClass}
           disabled={disabled}
@@ -212,10 +213,12 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
     const feedback = errorsPresent ? 'Choose one of the options provided. Make sure it is spelled correctly.' : data.play.instructions
     const feedbackType = errorsPresent ? 'revise-unmatched' : 'default'
 
-    return (<Feedback
-      feedback={(<p dangerouslySetInnerHTML={{__html: feedback}} />)}
-      feedbackType={feedbackType}
-    />);
+    return (
+      <Feedback
+        feedback={(<p dangerouslySetInnerHTML={{__html: feedback}} />)}
+        feedbackType={feedbackType}
+      />
+    );
   }
 
   renderCues() {
@@ -238,10 +241,12 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
   renderPrompt(elements: Array<JSX.Element>|undefined) {
     const { mode, } = this.props
     const prompt = <div className="prompt">{elements}</div>
-    return (<PromptSection
-      mode={mode}
-      promptElement={prompt}
-    />)
+    return (
+      <PromptSection
+        mode={mode}
+        promptElement={prompt}
+      />
+    )
   }
 
   renderProject() {
@@ -250,14 +255,16 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
     if (mode !== PROJECT) { return }
     const { sampleCorrectAnswer, } = data.play
 
-    return (<ProjectedAnswers
-      projector={projector}
-      response={this.zipInputsAndText()}
-      sampleCorrectAnswer={sampleCorrectAnswer}
-      selectedSubmissionOrder={selected_submission_order}
-      selectedSubmissions={selected_submissions}
-      submissions={submissions}
-    />)
+    return (
+      <ProjectedAnswers
+        projector={projector}
+        response={this.zipInputsAndText()}
+        sampleCorrectAnswer={sampleCorrectAnswer}
+        selectedSubmissionOrder={selected_submission_order}
+        selectedSubmissions={selected_submissions}
+        submissions={submissions}
+      />
+    )
   }
 
 

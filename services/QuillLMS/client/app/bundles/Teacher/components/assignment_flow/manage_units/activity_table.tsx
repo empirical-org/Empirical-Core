@@ -4,53 +4,12 @@ import * as moment from 'moment';
 
 import * as api from '../../modules/call_api';
 import { requestPut } from '../../../../../modules/request/index.js';
-import {
-  DataTable
-} from '../../../../Shared/index'
+import { DataTable } from '../../../../Shared/index'
 import { addKeyDownListener, } from '../../../../Shared/hooks/addKeyDownListener'
+import { getIconForActivityClassification } from '../../../../Shared/libs';
 
-const connectSrc = `${process.env.CDN_URL}/images/icons/connect-forest-green.svg`
-const diagnosticSrc = `${process.env.CDN_URL}/images/icons/diagnostic-forest-green.svg`
-const lessonsSrc = `${process.env.CDN_URL}/images/icons/lessons-forest-green.svg`
-const proofreaderSrc = `${process.env.CDN_URL}/images/icons/proofreader-forest-green.svg`
-const grammarSrc = `${process.env.CDN_URL}/images/icons/grammar-forest-green.svg`
-const comprehensionSrc = `${process.env.CDN_URL}/images/icons/tool-comprehension.svg`
 const shareActivitySrc = `${process.env.CDN_URL}/images/icons/icons-share.svg`
-
 export const AVERAGE_FONT_WIDTH = 7
-
-const imageTagForClassification = (activityClassificationId: string): JSX.Element => {
-  let imgAlt = ""
-  let imgSrc
-  switch(Number(activityClassificationId)) {
-    case 5:
-      imgAlt = "Target representing Quill Connect"
-      imgSrc = connectSrc
-      break
-    case 4:
-      imgAlt = "Magnifying glass representing Quill Diagnostic"
-      imgSrc = diagnosticSrc
-      break
-    case 2:
-      imgAlt = "Puzzle piece representing Quill Grammar"
-      imgSrc = grammarSrc
-      break
-    case 6:
-      imgAlt = "Apple representing Quill Lessons"
-      imgSrc = lessonsSrc
-      break
-    case 1:
-      imgAlt = "Flag representing Quill Proofreader"
-      imgSrc = proofreaderSrc
-      break
-    case 9:
-      imgAlt = "Book representing Quill Evidence"
-      imgSrc = comprehensionSrc
-      break
-  }
-
-  return <img alt={imgAlt} src={imgSrc} />
-}
 
 const tableHeaders = (isOwner) => ([
   {
@@ -122,8 +81,8 @@ const ActivityTable = ({ data, onSuccess, isOwner, handleActivityClicked, handle
 
   const activityRows = activityOrder.map(activityId => {
     const activity = classroomActivityArray.find(act => act.activityId === activityId)
-    if (!activity) { return }
-    const toolIcon = imageTagForClassification(activity.activityClassificationId)
+    if (!activity){ return }
+    const toolIcon = getIconForActivityClassification(activity.activityClassificationId)
     const previewLink = <a href={`/activity_sessions/anonymous?activity_id=${activity.activityId}`} tabIndex={-1}>{activity.name}</a>
     activity.toolAndNameSection = (<a className="interactive-wrapper focus-on-light" href={`/activity_sessions/anonymous?activity_id=${activity.activityId}`} id={`tool-and-name-section-${activity.uaId}`}>
       <span className="tool-icon-wrapper">{toolIcon}</span>
@@ -158,14 +117,16 @@ const ActivityTable = ({ data, onSuccess, isOwner, handleActivityClicked, handle
     activity.id = activity.uaId
     return activity
   }).filter(Boolean)
-  return (<DataTable
-    headers={tableHeaders(isOwner)}
-    isReorderable={isOwner}
-    removeRow={hideUnitActivity}
-    reorderCallback={reorderCallback}
-    rows={activityRows}
-    showRemoveIcon={isOwner}
-  />)
+  return (
+    <DataTable
+      headers={tableHeaders(isOwner)}
+      isReorderable={isOwner}
+      removeRow={hideUnitActivity}
+      reorderCallback={reorderCallback}
+      rows={activityRows}
+      showRemoveIcon={isOwner}
+    />
+  )
 }
 
 export default ActivityTable

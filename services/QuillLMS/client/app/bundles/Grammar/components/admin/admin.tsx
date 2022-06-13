@@ -36,10 +36,10 @@ class AdminContainer extends React.Component<AdminContainerProps> {
 
   UNSAFE_componentWillMount() {
     this.fetchUser().then(userData => {
-        if (userData.user === null || (userData.hasOwnProperty('role') && userData.user.role !== 'staff')) {
-          window.location = newSessionEndpoint;
-        }
+      if (userData.user === null || (userData.hasOwnProperty('role') && userData.user.role !== 'staff')) {
+        window.location = newSessionEndpoint;
       }
+    }
     );
     this.props.dispatch(questionsActions.startListeningToQuestions());
     this.props.dispatch(grammarActivitiesActions.startListeningToActivities());
@@ -54,10 +54,10 @@ class AdminContainer extends React.Component<AdminContainerProps> {
       mode: 'cors',
       credentials: 'include',
     }).then((response) => {
-    if (!response.ok) {
-      throw Error(response.statusText);
-    }
-    return response.json();
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+      return response.json();
     });
   }
 
@@ -70,22 +70,22 @@ class AdminContainer extends React.Component<AdminContainerProps> {
               General
             </p>
             <ul className="menu-list">
-              <TabLink activeClassName="is-active" to={'/admin/lessons'}>Grammar Activities</TabLink>
-              <TabLink activeClassName="is-active" to={'/admin/question_dashboard'}>Question Dashboard</TabLink>
-              <TabLink activeClassName="is-active" to={'/admin/concept_dashboard'}>Concept Dashboard</TabLink>
+              <TabLink activeClassName="is-active" to="/admin/lessons">Grammar Activities</TabLink>
+              <TabLink activeClassName="is-active" to="/admin/question_dashboard">Question Dashboard</TabLink>
+              <TabLink activeClassName="is-active" to="/admin/concept_dashboard">Concept Dashboard</TabLink>
             </ul>
             <p className="menu-label">
               Questions
             </p>
             <ul className="menu-list">
-              <TabLink activeClassName="is-active" to={'/admin/questions'}>Questions</TabLink>
+              <TabLink activeClassName="is-active" to="/admin/questions">Questions</TabLink>
             </ul>
             <p className="menu-label">
               Supporting
             </p>
             <ul className="menu-list">
-              <TabLink activeClassName="is-active" to={'/admin/concepts'}>Concepts</TabLink>
-              <TabLink activeClassName="is-active" to={'/admin/concepts_feedback'}>Concept Feedback</TabLink>
+              <TabLink activeClassName="is-active" to="/admin/concepts">Concepts</TabLink>
+              <TabLink activeClassName="is-active" to="/admin/concepts_feedback">Concept Feedback</TabLink>
             </ul>
           </aside>
           <div className="admin-container">
@@ -93,16 +93,16 @@ class AdminContainer extends React.Component<AdminContainerProps> {
           </div>
         </section>
         <Switch>
-          <Route component={Lesson} path={`/admin/lessons/:lessonID`} />
-          <Route component={Lessons} path={`/admin/lessons`} />
-          <Route component={Question} path={`/admin/questions/:questionID`} />
-          <Route component={Questions} path={`/admin/questions`} />
-          <Route component={Concept} path={`/admin/concepts/:conceptID`} />
-          <Route component={Concepts} path={`/admin/concepts`} />
-          <Route component={ConceptFeedback} path={`/admin/concepts_feedback/:conceptFeedbackID`} />
-          <Route component={ConceptsFeedback} path={`/admin/concepts_feedback`} />
-          <Route component={QuestionDashboard} path={`/admin/question_dashboard`} />
-          <Route component={ConceptDashboard} path={`/admin/concept_dashboard`} />
+          <Route component={Lesson} path="/admin/lessons/:lessonID" />
+          <Route component={Lessons} path="/admin/lessons" />
+          <Route component={Question} path="/admin/questions/:questionID" />
+          <Route component={Questions} path="/admin/questions" />
+          <Route component={Concept} path="/admin/concepts/:conceptID" />
+          <Route component={Concepts} path="/admin/concepts" />
+          <Route component={ConceptFeedback} path="/admin/concepts_feedback/:conceptFeedbackID" />
+          <Route component={ConceptsFeedback} path="/admin/concepts_feedback" />
+          <Route component={QuestionDashboard} path="/admin/question_dashboard" />
+          <Route component={ConceptDashboard} path="/admin/concept_dashboard" />
         </Switch>
       </div>
     );

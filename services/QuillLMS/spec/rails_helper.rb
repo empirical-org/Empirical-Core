@@ -72,12 +72,13 @@ RSpec.configure do |config|
   config.order = "random"
 
   config.before(:suite) { Rails.cache.clear }
-  config.before(:each) { SegmentAnalytics.backend = FakeSegmentBackend.new }
+  config.before { SegmentAnalytics.backend = FakeSegmentBackend.new }
 
   config.infer_spec_type_from_file_location!
 
   # focus tests
   config.filter_run focus: true
+  config.filter_run_excluding benchmarking: true
   config.silence_filter_announcements = true
   config.run_all_when_everything_filtered = true
 
@@ -87,7 +88,6 @@ RSpec.configure do |config|
     example.run
     ActionController::Base.perform_caching = caching
   end
-
 end
 
 if defined?(Coveralls)

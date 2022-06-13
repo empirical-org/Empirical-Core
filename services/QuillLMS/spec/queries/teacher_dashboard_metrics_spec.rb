@@ -14,7 +14,7 @@ describe TeacherDashboardMetrics do
   let!(:unit_activities2) { create_list(:unit_activity, 4, unit: unit2) }
 
   before do
-    today = Date.today
+    today = Date.current
     july_second_of_this_year = Date.parse("02-07-#{today.year}")
     last_july_second = today.month > 7 ? july_second_of_this_year : july_second_of_this_year - 1.year
     older_classroom_unit1 = ClassroomUnit.create(classroom_id: classroom1.id, assigned_student_ids: classroom1.students.ids, created_at: last_july_second, unit: unit1)
@@ -39,6 +39,15 @@ describe TeacherDashboardMetrics do
       expect(result[:yearly_assigned_activities_count]).to eq(21)
       expect(result[:weekly_completed_activities_count]).to eq(3)
       expect(result[:yearly_completed_activities_count]).to eq(9)
+    end
+
+    it 'should not include data from archived units' do
+      unit2.update(visible: false)
+      result = TeacherDashboardMetrics.new(teacher).run
+      expect(result[:weekly_assigned_activities_count]).to eq(0)
+      expect(result[:yearly_assigned_activities_count]).to eq(9)
+      expect(result[:weekly_completed_activities_count]).to eq(0)
+      expect(result[:yearly_completed_activities_count]).to eq(6)
     end
   end
 

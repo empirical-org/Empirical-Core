@@ -1,7 +1,7 @@
 import React from 'react';
 import {
-    shallow,
-    mount
+  shallow,
+  mount
 } from 'enzyme';
 import _ from 'lodash'
 
@@ -13,9 +13,9 @@ const { props, state, } = classroomsWithStudentsContainerData
 describe('ClassroomsWithStudentsContainer container', () => {
 
   it('should render', () => {
-      const wrapper = mount( <ClassroomsWithStudentsContainer {...props} />);
-          expect(wrapper.find(ClassroomsWithStudentsContainer).exists()).toBe(true);
-      });
+    const wrapper = mount( <ClassroomsWithStudentsContainer {...props} />);
+    expect(wrapper.find(ClassroomsWithStudentsContainer).exists()).toBe(true);
+  });
 
   describe('classroomUpdated', () => {
 
@@ -56,32 +56,32 @@ describe('ClassroomsWithStudentsContainer container', () => {
   describe('selectPreviouslyAssignedStudents', ()=> {
     it('selectPreviouslyAssignedStudents marks a student as selected if they are an assigned student', () => {
       const wrapper = shallow(<ClassroomsWithStudentsContainer {...props} />);
-        wrapper.setState(_.cloneDeep(state))
-        let assignedStudents = wrapper.state().classrooms[0].classroom_unit.assigned_student_ids
-        let students = wrapper.state().classrooms[0].students
-        wrapper.instance().selectPreviouslyAssignedStudents();
-        let selectedStudents = []
-        students.forEach((stud)=> {
-          if (stud.isSelected) {
-            selectedStudents.push(stud.id)
-          }
-        });
-        expect(assignedStudents.sort((a,b)=> a - b)).toEqual(selectedStudents.sort((a,b)=> a - b))
+      wrapper.setState(_.cloneDeep(state))
+      let assignedStudents = wrapper.state().classrooms[0].classroom_unit.assigned_student_ids
+      let students = wrapper.state().classrooms[0].students
+      wrapper.instance().selectPreviouslyAssignedStudents();
+      let selectedStudents = []
+      students.forEach((stud)=> {
+        if (stud.isSelected) {
+          selectedStudents.push(stud.id)
+        }
+      });
+      expect(assignedStudents.sort((a,b)=> a - b)).toEqual(selectedStudents.sort((a,b)=> a - b))
     })
     it('correctly marks when a missing student was assigned the activity', () => {
       const newWrapper = shallow( <ClassroomsWithStudentsContainer {...props} />);
       newWrapper.setState(_.cloneDeep(state))
-        let assignedStudents = newWrapper.state().classrooms[0].classroom_unit.assigned_student_ids
-        newWrapper.instance().selectPreviouslyAssignedStudents();
-        let students = newWrapper.state().classrooms[0].students
-        let selectedStudents = []
-        students.forEach((stud)=> {
-          if (stud.isSelected) {
-            selectedStudents.push(stud.id)
-          }
-        });
-        expect(selectedStudents.length).toEqual(assignedStudents.length)
-        expect(selectedStudents).not.toContain(0)
+      let assignedStudents = newWrapper.state().classrooms[0].classroom_unit.assigned_student_ids
+      newWrapper.instance().selectPreviouslyAssignedStudents();
+      let students = newWrapper.state().classrooms[0].students
+      let selectedStudents = []
+      students.forEach((stud)=> {
+        if (stud.isSelected) {
+          selectedStudents.push(stud.id)
+        }
+      });
+      expect(selectedStudents.length).toEqual(assignedStudents.length)
+      expect(selectedStudents).not.toContain(0)
     })
   })
 

@@ -37,27 +37,27 @@ export default class JoinClass extends React.Component {
       },
       body: data
     })
-    .then(response => response.json()) // if the response is a JSON object
-    .catch((error) => {
-      return { error: 'Oops! You need to be signed in to join a class.', }
-    })
-    .then((response) => {
+      .then(response => response.json()) // if the response is a JSON object
+      .catch((error) => {
+        return { error: 'Oops! You need to be signed in to join a class.', }
+      })
+      .then((response) => {
       // this.setState({ loading: false, })
-      if (response.error) {
-        let error
-        switch (response.error) {
-          case 'Class is archived':
-            error = 'Oops! That class has been archived. Please try a different class code.'
-            break
-          default:
-            error = 'Enter a valid class code. Ask your teacher for help.'
-            break
+        if (response.error) {
+          let error
+          switch (response.error) {
+            case 'Class is archived':
+              error = 'Oops! That class has been archived. Please try a different class code.'
+              break
+            default:
+              error = 'Enter a valid class code. Ask your teacher for help.'
+              break
+          }
+          this.setState({ errors: { classCode: error, }, timesSubmitted: timesSubmitted + 1, })
+        } else {
+          window.location.href = `/classrooms/${response.id}?joined=success`
         }
-        this.setState({ errors: { classCode: error, }, timesSubmitted: timesSubmitted + 1, })
-      } else {
-        window.location.href = `/classrooms/${response.id}?joined=success`
-      }
-    })
+      })
   }
 
   submitClass() {

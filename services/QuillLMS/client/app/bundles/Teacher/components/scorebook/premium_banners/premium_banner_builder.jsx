@@ -1,5 +1,6 @@
 import React from 'react'
 import $ from 'jquery'
+
 import FreeTrialBanner from './free_trial_banner.jsx'
 import NewSignUpBanner from './new_signup_banner.jsx'
 import FreeTrialStatus from './free_trial_status.jsx'
@@ -20,27 +21,25 @@ export default class PremiumBannerBuilder extends React.Component {
   }
 
   fetchData = () => {
-    var that = this;
+    let that = this;
     $.get('/teachers/classrooms/premium')
-    .done(function(data) {
-      that.setState({
-        has_premium: data['hasPremium'],
-        trial_days_remaining: data['trial_days_remaining'],
-        first_day_of_premium_or_trial: data['first_day_of_premium_or_trial']});});
+      .done(function(data) {
+        that.setState({
+          last_subscription_was_trial: data.last_subscription_was_trial,
+          has_premium: data['hasPremium'],
+          trial_days_remaining: data['trial_days_remaining'],
+          first_day_of_premium_or_trial: data['first_day_of_premium_or_trial']});});
   };
 
-  handleClickUpgradeNow = () => {
+  onClickUpgradeNow = () => {
     const { showPurchaseModal } = this.props
     showPurchaseModal()
   };
 
   stateSpecificComponents = () => {
-    // //////  if loading this banner becomes slow, uncomment this.
-    // if (this.state.has_premium === null){
-    //   return <EC.LoadingIndicator/>;
-    // }
-    const { has_premium, first_day_of_premium_or_trial, trial_days_remaining } = this.state
-    const { originPage } = this.props
+    const { has_premium, first_day_of_premium_or_trial, trial_days_remaining, last_subscription_was_trial, } = this.state
+
+    const { originPage, upgradeToPremiumNowButton } = this.props
     if (has_premium === 'none'){
       return(<FreeTrialBanner status={has_premium} />);
     }
@@ -50,17 +49,25 @@ export default class PremiumBannerBuilder extends React.Component {
     else if ((has_premium === 'trial') || (has_premium === 'locked')){
       return(
         <span>
-          <FreeTrialStatus data={trial_days_remaining} originPage={originPage} status={has_premium} upgradeNow={this.handleClickUpgradeNow} />
+          <FreeTrialStatus
+            data={trial_days_remaining}
+            handleClickUpgradeNow={this.onClickUpgradeNow}
+            lastSubscriptionWasTrial={last_subscription_was_trial}
+            originPage={originPage}
+            status={has_premium}
+            upgradeToPremiumNowButton={upgradeToPremiumNowButton}
+          />
         </span>
       );
     }
     else if ((has_premium === 'school') || ((has_premium === 'paid') && (first_day_of_premium_or_trial === false))) {
-        return (<span />);
-      }
+      return (<span />);
+    }
   };
 
   stateSpecificBackGroundColor = () => {
-    if (this.props.daysLeft == 30){
+    const { daysLeft, } = this.props
+    if (daysLeft === 30){
       return('#d0ffc6');
     } else {
       return('#ffe7c0');
@@ -68,7 +75,8 @@ export default class PremiumBannerBuilder extends React.Component {
   };
 
   stateSpecificBackGroundImage = () => {
-    if (this.props.daysLeft == 30){
+    const { daysLeft, } = this.props
+    if (daysLeft === 30){
       return('none');
     } else {
       return('url(/images/star_pattern_5.png)');
@@ -76,24 +84,25 @@ export default class PremiumBannerBuilder extends React.Component {
   };
 
   hasPremium = () => {
-    var color = this.stateSpecificBackGroundColor();
-    var img = this.stateSpecificBackGroundImage();
-    var divStyle = {
+    const { has_premium, first_day_of_premium_or_trial, } = this.state
+    let color = this.stateSpecificBackGroundColor();
+    let img = this.stateSpecificBackGroundImage();
+    let divStyle = {
       backgroundColor: color,
       backgroundImage: img
     };
-    if ((this.state.has_premium === null) || (this.state.has_premium === 'school') || ((this.state.has_premium === 'paid') && (this.state.first_day_of_premium_or_trial === false))) {
-        return (<span />);
-      } else
-      {
-        return (
-          <div id='premium-banner' style={divStyle}>
-            <div className='container'>
-              {this.stateSpecificComponents()}
-            </div>
+    if ((has_premium === null) || (has_premium === 'school') || ((has_premium === 'paid') && (first_day_of_premium_or_trial === false))) {
+      return (<span />);
+    } else
+    {
+      return (
+        <div id='premium-banner' style={divStyle}>
+          <div className='container'>
+            {this.stateSpecificComponents()}
           </div>
-    );
-  }
+        </div>
+      );
+    }
   };
 
   render() {

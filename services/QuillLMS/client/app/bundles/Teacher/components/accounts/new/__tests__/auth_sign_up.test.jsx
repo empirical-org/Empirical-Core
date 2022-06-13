@@ -9,11 +9,11 @@ import CleverSignUp from '../clever_sign_up'
 describe('AuthSignUp component', () => {
 
   it('should render <GoogleSignUp/> and <CleverSignUp/>', () => {
-      const wrapper = shallow(
-        <AuthSignUp />
-      );
-      expect(wrapper.find(GoogleSignUp)).toHaveLength(1);
-      expect(wrapper.find(CleverSignUp)).toHaveLength(1);
+    const wrapper = shallow(
+      <AuthSignUp />
+    );
+    expect(wrapper.find(GoogleSignUp)).toHaveLength(1);
+    expect(wrapper.find(CleverSignUp)).toHaveLength(1);
   });
 
 });

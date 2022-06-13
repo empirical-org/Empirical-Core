@@ -7,12 +7,15 @@ class SyncVitallyWorker
   FIRST_DAY_OF_SCHOOL_YEAR_MONTH = 7
   FIRST_DAY_OF_SCHOOL_YEAR_DAY = 1
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def perform
-    if Date.today.month == FIRST_DAY_OF_SCHOOL_YEAR_MONTH && Date.today.day == FIRST_DAY_OF_SCHOOL_YEAR_DAY
+    today = Date.current
+    if today.month == FIRST_DAY_OF_SCHOOL_YEAR_MONTH && today.day == FIRST_DAY_OF_SCHOOL_YEAR_DAY
       PopulateAnnualVitallyWorker.perform_async
     end
     # Don't synchronize non-production data
     return unless ENV['SYNC_TO_VITALLY'] == 'true'
+
     schools_to_sync.each_slice(100) do |school_batch|
       school_ids = school_batch.map { |school| school.id }
       SyncVitallyAccountsWorker.perform_async(school_ids)
@@ -22,6 +25,7 @@ class SyncVitallyWorker
       SyncVitallyUsersWorker.perform_async(user_ids)
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def schools_to_sync
     School.select(:id).distinct.joins(:users).where('users.role = ?', 'teacher')

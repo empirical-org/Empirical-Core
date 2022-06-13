@@ -1,9 +1,11 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
-import Scrollify from '../components/modules/scrollify';
 import $ from 'jquery';
 import request from 'request';
 import _ from 'underscore';
+
+import Scrollify from '../components/modules/scrollify';
+import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from '../components/progress_reports/progress_report_constants'
 import TableFilterMixin from '../components/general_components/table/sortable_table/table_filter_mixin.js';
 import StudentScores from '../components/scorebook/student_scores';
 import LoadingIndicator from '../components/shared/loading_indicator';
@@ -19,6 +21,7 @@ export default createReactClass({
   mixins: [TableFilterMixin],
 
   getInitialState() {
+    const { allClassrooms, selectedClassroom, premium_state, } = this.props
     this.modules = {
       scrollify: new Scrollify(),
     };
@@ -28,14 +31,14 @@ export default createReactClass({
     };
     return {
       units: [],
-      classrooms: this.props.allClassrooms,
+      classrooms: allClassrooms,
       selectedUnit: allActivityPacksUnit,
-      selectedClassroom: this.props.selectedClassroom,
-      classroomFilters: this.props.allClassrooms,
+      selectedClassroom: selectedClassroom,
+      classroomFilters: allClassrooms,
       unitFilters: [],
       scores: new Map(),
       beginDate: null,
-      premium_state: this.props.premium_state,
+      premium_state: premium_state,
       endDate: null,
       currentPage: 0,
       loading: false,
@@ -46,8 +49,9 @@ export default createReactClass({
   },
 
   componentDidMount() {
-    if (this.props.selectedClassroom) {
-      this.getUpdatedUnits(this.props.selectedClassroom.value);
+    const { selectedClassroom, } = this.props
+    if (selectedClassroom) {
+      this.getUpdatedUnits(selectedClassroom.value);
     } else {
       this.setStateFromLocalStorage(this.fetchData);
     }
@@ -89,20 +93,21 @@ export default createReactClass({
   },
 
   setStateFromLocalStorage(callback) {
+    const { allClassrooms, } = this.props
+    const { classrooms, } = this.state
     const state = {};
-    const storedSelectedClassroomId = window.localStorage.getItem('scorebookSelectedClassroomId');
+    const storedSelectedClassroomId = window.localStorage.getItem(PROGRESS_REPORTS_SELECTED_CLASSROOM_ID);
     const storedDateFilterName = window.localStorage.getItem('scorebookDateFilterName');
     const dateFilterName = !storedDateFilterName || storedDateFilterName === 'null' ? null : storedDateFilterName;
-    const selectedClassroomId = !storedSelectedClassroomId || storedSelectedClassroomId === 'null' ? null : storedSelectedClassroomId;
-    if (selectedClassroomId) {
-      const selectedClassroom = this.state.classrooms.find(c => c.id === selectedClassroomId);
+    if (storedSelectedClassroomId) {
+      const selectedClassroom = classrooms.find(c => Number(c.id) === Number(storedSelectedClassroomId));
       if (selectedClassroom) {
         state.selectedClassroom = selectedClassroom;
       } else {
-        state.selectedClassroom = this.props.allClassrooms[0]
+        state.selectedClassroom = allClassrooms[0]
       }
     } else {
-      state.selectedClassroom = this.props.allClassrooms[0]
+      state.selectedClassroom = allClassrooms[0]
     }
     if (state.selectedClassroom) {
       this.getUpdatedUnits(state.selectedClassroom.id)
@@ -126,9 +131,17 @@ export default createReactClass({
   },
 
   fetchData() {
-    const newCurrentPage = this.state.currentPage + 1;
+    const {
+      currentPage,
+      selectedClassroom,
+      selectedUnit,
+      beginDate,
+      endDate,
+      noLoadHasEverOccurredYet,
+    } = this.state
+    const newCurrentPage = currentPage + 1;
     this.setState({ loading: true, currentPage: newCurrentPage, });
-    if (!this.state.selectedClassroom) {
+    if (!selectedClassroom) {
       this.setState({ missing: 'classrooms', loading: false, });
       return;
     }
@@ -136,11 +149,11 @@ export default createReactClass({
       url: '/teachers/classrooms/scores',
       data: {
         current_page: newCurrentPage,
-        classroom_id: this.state.selectedClassroom.value,
-        unit_id: this.state.selectedUnit.value,
-        begin_date: this.formatDate(this.state.beginDate),
-        end_date: this.formatDate(this.state.endDate),
-        no_load_has_ever_occurred_yet: this.state.noLoadHasEverOccurredYet,
+        classroom_id: selectedClassroom.value,
+        unit_id: selectedUnit.value,
+        begin_date: this.formatDate(beginDate),
+        end_date: this.formatDate(endDate),
+        no_load_has_ever_occurred_yet: noLoadHasEverOccurredYet,
       },
       success: this.displayData,
     });
@@ -155,34 +168,36 @@ export default createReactClass({
     }, (error, httpStatus, body) => {
       const parsedBody = JSON.parse(body);
       const units = parsedBody.units;
+      const { scores, } = this.state
       if (units.length === 1) {
         const selectedUnit = units[0];
         that.setState({
           unitFilters: units,
           selectedUnit,
-          missing: this.checkMissing(this.state.scores),
+          missing: this.checkMissing(scores),
         });
       } else {
         const selectedUnit = { name: 'All activity packs', value: '', };
         that.setState({
           unitFilters: [selectedUnit].concat(units),
           selectedUnit,
-          missing: this.checkMissing(this.state.scores),
+          missing: this.checkMissing(scores),
         });
       }
     });
   },
 
   checkMissing(scores) {
-    if (!(this.state.anyScoresHaveLoadedPreviously == 'true') && scores.size > 0) {
+    const { anyScoresHaveLoadedPreviously, classroomFilters, unitFilters, } = this.state
+    if (!(anyScoresHaveLoadedPreviously == 'true') && scores.size > 0) {
       this.setState({ anyScoresHaveLoadedPreviously: true ,});
       localStorage.setItem('anyScoresHaveLoadedPreviously', true);
     }
-    if (!this.state.classroomFilters || this.state.classroomFilters.length === 0) {
+    if (!classroomFilters || classroomFilters.length === 0) {
       return 'classrooms';
-    } else if (this.state.anyScoresHaveLoadedPreviously == 'true' && (!scores || scores.size === 0)) {
+    } else if (anyScoresHaveLoadedPreviously == 'true' && (!scores || scores.size === 0)) {
       return 'activitiesWithinDateRange';
-    } else if (this.state.unitFilters.length && (!scores || scores.size === 0)) {
+    } else if (unitFilters.length && (!scores || scores.size === 0)) {
       return 'students';
     } else if (!scores || scores.size === 0) {
       return 'activities';
@@ -190,13 +205,15 @@ export default createReactClass({
   },
 
   displayData(data) {
+    const { allClassrooms, } = this.props
+    const { scores, } = this.state
     this.setState({
-      classroomFilters: this.props.allClassrooms,
+      classroomFilters: allClassrooms,
       is_last_page: data.is_last_page,
       premium_state: data.premium_state,
       noLoadHasEverOccurredYet: false,
     });
-    const newScores = new Map(this.state.scores);
+    const newScores = new Map(scores);
     data.scores.forEach((s) => {
       // add the score to the user scores arr or create a new one
       newScores.has(s.user_id) || newScores.set(s.user_id, { name: s.name, scores: [], });
@@ -230,14 +247,14 @@ export default createReactClass({
   },
 
   selectClassroom(option) {
-    window.localStorage.setItem('scorebookSelectedClassroomId', option.id);
+    window.localStorage.setItem(PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, option.id);
     this.getUpdatedUnits(option.value);
     this.setState({
       scores: new Map(),
       currentPage: 0,
       selectedClassroom: option,
     }, this.fetchData
-  );
+    );
   },
 
   selectDates(beginDate, endDate, dateFilterName) {
@@ -256,28 +273,41 @@ export default createReactClass({
     if(savedString && savedString !== 'null') {
       return moment(savedString)
     }
-      return null;
+    return null;
 
   },
 
   render() {
+    const { premium_state, } = this.props
+    const {
+      scores,
+      loading,
+      missing,
+      beginDate,
+      classroomFilters,
+      dateFilterName,
+      endDate,
+      selectedClassroom,
+      selectedUnit,
+      unitFilters,
+    } = this.state
     let content,
       loadingIndicator;
-    const scores = [];
+    const scoresForDisplay = [];
     let index = 0;
-    this.state.scores.forEach((s) => {
+    scores.forEach((s) => {
       index += 0;
       const sData = s.scores[0];
-      scores.push(<StudentScores data={{ scores: s.scores, name: s.name, activity_name: sData.activity_name, userId: sData.userId, classroomId: this.state.selectedClassroom.id, }} key={`${sData.userId}`} premium_state={this.props.premium_state} />);
+      scoresForDisplay.push(<StudentScores data={{ scores: s.scores, name: s.name, activity_name: sData.activity_name, userId: sData.userId, classroomId: selectedClassroom.id, }} key={`${sData.userId}`} premium_state={premium_state} />);
     });
 
-    if (this.state.loading) {
-      content = <div>{scores}<LoadingIndicator /></div>;
-    } else if (this.state.missing) {
-      const onButtonClick = this.state.missing == 'activitiesWithinDateRange' ? () => { this.selectDates(null, null); } : null;
-      content = <EmptyProgressReport missing={this.state.missing} onButtonClick={onButtonClick} />;
+    if (loading) {
+      content = <div>{scoresForDisplay}<LoadingIndicator /></div>;
+    } else if (missing) {
+      const onButtonClick = missing == 'activitiesWithinDateRange' ? () => { this.selectDates(null, null); } : null;
+      content = <EmptyProgressReport missing={missing} onButtonClick={onButtonClick} />;
     } else {
-      content = <div>{scores}</div>;
+      content = <div>{scoresForDisplay}</div>;
     }
 
     return (
@@ -286,17 +316,17 @@ export default createReactClass({
           <div className="container">
             <section className="section-content-wrapper">
               <ScorebookFilters
-                beginDate={this.state.beginDate}
-                classroomFilters={this.state.classroomFilters}
-                dateFilterName={this.state.dateFilterName}
+                beginDate={beginDate}
+                classroomFilters={classroomFilters}
+                dateFilterName={dateFilterName}
                 dateRangeFilterOptions={this.DATE_RANGE_FILTER_OPTIONS}
-                endDate={this.state.endDate}
+                endDate={endDate}
                 selectClassroom={this.selectClassroom}
                 selectDates={this.selectDates}
-                selectedClassroom={this.state.selectedClassroom}
-                selectedUnit={this.state.selectedUnit}
+                selectedClassroom={selectedClassroom}
+                selectedUnit={selectedUnit}
                 selectUnit={this.selectUnit}
-                unitFilters={this.state.unitFilters}
+                unitFilters={unitFilters}
               />
               <ScoreLegend />
               <AppLegend />

@@ -4,10 +4,11 @@ require 'rails_helper'
 
 describe Cms::TeacherSearchQuery do
   before { Timecop.freeze }
+
   after { Timecop.return }
 
   describe '#run' do
-    todays_date = Date.today
+    todays_date = Date.current
 
     let!(:user) { create(:user, last_sign_in: todays_date) }
     let!(:school) { create(:school) }
@@ -19,7 +20,8 @@ describe Cms::TeacherSearchQuery do
     let!(:classrooms_teacher) { create(:classrooms_teacher, classroom: classroom, user: user, role: "owner") }
     let!(:schools_users)  { create(:schools_users, user: user, school: school) }
     let!(:schools_admins) { create(:schools_admins, user: user, school: school) }
-    let!(:subject) { described_class.new(school.id) }
+
+    subject { described_class.new(school.id) }
 
     it 'should return the correct result in the right format' do
       output = subject.run

@@ -5,20 +5,12 @@ module CleverIntegration::SignUp::SchoolAdmin
   def self.run(auth_hash)
     parsed_data = parse_data(auth_hash)
 
-    if parsed_data[:district_id]
-      district = import_district(parsed_data[:district_id])
-      district_integration(parsed_data, district)
-    else
-      library_integration(auth_hash)
-    end
+    district = import_district(parsed_data[:district_id])
+    district_integration(parsed_data, district)
   end
 
-  def self.library_integration(auth_hash)
-    CleverIntegration::Importers::Library.run(auth_hash)
-  end
-
-  def self.district_integration(auth_hash, district)
-    user = create_user(auth_hash)
+  def self.district_integration(parsed_data, district)
+    user = create_user(parsed_data)
     if user.present?
       associate_user_to_district(user, district)
       import_schools(user, district.token)

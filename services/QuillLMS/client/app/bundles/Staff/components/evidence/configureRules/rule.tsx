@@ -1,11 +1,12 @@
 import * as React from "react";
-import { queryCache, useQuery } from 'react-query';
+import { useQueryClient, useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
 import stripHtml from "string-strip-html";
 
 import RuleForm from './ruleForm';
 
-import { getPromptsIcons, renderHeader } from '../../../helpers/evidence';
+import { renderHeader } from '../../../helpers/evidence/renderHelpers';
+import { getPromptsIcons } from '../../../helpers/evidence/promptHelpers';
 import { BECAUSE, BUT, SO } from '../../../../../constants/evidence';
 import { updateRule, deleteRule, fetchRule } from '../../../utils/evidence/ruleAPIs';
 import { RuleInterface } from '../../../interfaces/evidenceInterfaces';
@@ -18,6 +19,8 @@ const Rule = ({ history, match }) => {
   const [showDeleteRuleModal, setShowDeleteRuleModal] = React.useState<boolean>(false);
   const [showEditRuleModal, setShowEditRuleModal] = React.useState<boolean>(false);
   const [errors, setErrors] = React.useState<string[]>([]);
+
+  const queryClient = useQueryClient()
 
   // get cached activity data to pass to ruleForm
   const { data: activityData } = useQuery({
@@ -39,13 +42,16 @@ const Rule = ({ history, match }) => {
     setShowDeleteRuleModal(!showDeleteRuleModal);
   }
 
-  function handleAttributesFields(feedbacks, plagiarism_text) {
+  function handleAttributesFields(feedbacks, plagiarism_texts) {
     let attributesArray = [];
-    if(plagiarism_text && plagiarism_text.text) {
-      attributesArray = [{
-        label: 'Plagiarism Text',
-        value: stripHtml(plagiarism_text.text)
-      }];
+    if (plagiarism_texts && plagiarism_texts[0]) {
+      attributesArray = plagiarism_texts.map((plagiarism_text, i) => {
+        const { text } = plagiarism_text;
+        return {
+          label: `Plagiarism Text - Text String ${i + 1}`,
+          value: stripHtml(text)
+        }
+      });
     }
     const feedbacksArray = feedbacks.map((feedback, i) => {
       const { text } = feedback;
@@ -62,9 +68,9 @@ const Rule = ({ history, match }) => {
       return [];
     } else {
       // format for DataTable to display labels on left side and values on right
-      const { note, feedbacks, name, prompt_ids, rule_type, plagiarism_text } = rule;
+      const { note, feedbacks, name, prompt_ids, rule_type, plagiarism_texts } = rule;
       const promptsIcons = getPromptsIcons(activityData, prompt_ids);
-      const attributesFields = handleAttributesFields(feedbacks, plagiarism_text);
+      const attributesFields = handleAttributesFields(feedbacks, plagiarism_texts);
       const firstFields = [
         {
           label: 'Type',
@@ -113,7 +119,7 @@ const Rule = ({ history, match }) => {
       } else {
         setErrors([]);
         // update rule cache to display newly updated rule
-        queryCache.refetchQueries(`rule-${ruleId}`);
+        queryClient.refetchQueries(`rule-${ruleId}`);
         toggleShowEditRuleModal();
       }
     });
@@ -127,7 +133,7 @@ const Rule = ({ history, match }) => {
       } else {
         setErrors([]);
         // update ruleSets cache to remove delete ruleSet
-        queryCache.refetchQueries(`rules-${activityId}`);
+        queryClient.refetchQueries(`rules-${activityId}`);
         history.push(`/activities/${activityId}/rules`);
         toggleShowDeleteRuleModal();
       }

@@ -31,10 +31,22 @@
 
 	.app-legend {
 		padding-top: 25px;
+    .icons {
+      flex-direction: column;
+    }
+    .first-row {
+      margin-bottom: 20px;
+    }
+    .first-row, .second-row {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
 		.icon {
       background-color: #f7f5f5;
       text-align: left;
 			cursor: pointer;
+      min-width: 250px;
     }
     .icon:focus, .icon:hover {
       outline-offset: 6px;
@@ -52,6 +64,9 @@
 		}
 		.icon-wrapper {
 			margin-bottom: 3px;
+      &.evidence-icon {
+        height: 30px;
+      }
 		}
 		.icons-description-wrapper {
 			margin-left: 5px;

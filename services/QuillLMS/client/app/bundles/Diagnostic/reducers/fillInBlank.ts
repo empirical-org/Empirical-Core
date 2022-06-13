@@ -35,7 +35,7 @@ export default (
     case ActionTypes.RECEIVE_FILL_IN_BLANK_QUESTION_DATA:
       return Object.assign({},currentState,{
         data: Object.assign({}, currentState.data, {
-        [action.uid]: action.data
+          [action.uid]: action.data
         })
       });
     case ActionTypes.AWAIT_NEW_FILL_IN_BLANK_QUESTION_RESPONSE:

@@ -102,7 +102,6 @@ class TurkDiagnostic extends React.Component {
       (err, httpResponse, body) => {
         if (httpResponse && httpResponse.statusCode === 200) {
           // to do, use Sentry to capture error
-          SessionActions.delete(sessionID);
           this.setState({ saved: true, });
         } else {
           // to do, use Sentry to capture error
@@ -244,12 +243,14 @@ class TurkDiagnostic extends React.Component {
 
     const displayedAnsweredQuestionCount = currentQuestionIsTitleCard && currentQuestionIsNotFirstQuestion ? calculatedAnsweredQuestionCount + 1 : calculatedAnsweredQuestionCount
 
-    return (<ProgressBar
-      answeredQuestionCount={displayedAnsweredQuestionCount}
-      label='questions'
-      percent={getProgressPercent(playDiagnostic)}
-      questionCount={questionCount(playDiagnostic)}
-    />)
+    return (
+      <ProgressBar
+        answeredQuestionCount={displayedAnsweredQuestionCount}
+        label='questions'
+        percent={getProgressPercent(playDiagnostic)}
+        questionCount={questionCount(playDiagnostic)}
+      />
+    )
   }
 
   render() {

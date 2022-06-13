@@ -25,12 +25,13 @@ module Evidence
     end
 
     def expire!
-      update_attributes(expires_at: Time.zone.now)
+      update_attributes(expires_at: Time.current)
     end
 
     private def expires_at_in_future
       return if expires_at.blank?
-      errors.add(:expires_at, 'must be in the future') unless expires_at > Time.zone.now
+
+      errors.add(:expires_at, 'must be in the future') unless expires_at > Time.current
     end
 
     private def set_default_uuid

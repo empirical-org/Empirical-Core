@@ -1,41 +1,43 @@
 # frozen_string_literal: true
 
 module GoogleIntegration
-  class TeacherImportedClassroomsUpdater
-    attr_reader :user_id
+  class TeacherImportedClassroomsUpdater < ApplicationService
+    attr_reader :teacher_id
 
-    def initialize(user_id)
-      @user_id = user_id
+    def initialize(teacher_id)
+      @teacher_id = teacher_id
     end
 
     def run
       update_classrooms
     end
 
-    private def cached_data
-      TeacherClassroomsCache.get(user_id)
+    private def classroom_data(classroom)
+      classrooms_data.detect { |data| data[:google_classroom_id] == classroom.google_classroom_id }
     end
 
     private def classrooms_data
-      TeacherClassroomsData.new(user, cached_data)
+      @classrooms_data ||= TeacherClassroomsData.new(teacher, serialized_classrooms_data)
     end
 
-    private def imported_classrooms_data
-      classrooms_data.select do |classroom_data|
-        ::Classroom.unscoped.exists?(
-          google_classroom_id: classroom_data[:google_classroom_id],
-          teacher_id: user_id,
-          visible: true
-        )
-      end
+    private def google_classroom_ids
+      classrooms_data.map { |data| data[:google_classroom_id] }
+    end
+
+    private def imported_classrooms
+      teacher.google_classrooms.where(google_classroom_id: google_classroom_ids, visible: true)
+    end
+
+    private def serialized_classrooms_data
+      TeacherClassroomsCache.read(teacher_id)
     end
 
     private def update_classrooms
-      imported_classrooms_data.each { |data| ClassroomUpdater.new(data).run }
+      imported_classrooms.each { |classroom| ClassroomUpdater.run(classroom, classroom_data(classroom)) }
     end
 
-    private def user
-      ::User.find(user_id)
+    private def teacher
+      ::User.find(teacher_id)
     end
   end
 end

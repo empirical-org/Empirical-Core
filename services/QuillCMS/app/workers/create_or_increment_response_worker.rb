@@ -7,7 +7,9 @@ class CreateOrIncrementResponseWorker
   def perform(new_vals)
     symbolized_vals = new_vals.symbolize_keys
     response = Response.find_by(text: symbolized_vals[:text], question_uid: symbolized_vals[:question_uid])
-    if !response
+    if response
+      increment_counts(response, symbolized_vals)
+    else
       begin
         response = Response.new(symbolized_vals)
         if !response.text.blank? && response.save!
@@ -22,8 +24,6 @@ class CreateOrIncrementResponseWorker
       rescue ActiveRecord::RecordNotUnique, ActiveRecord::RecordInvalid => e
         raise CreateOrIncrementResponseWorker::RaceConditionError, symbolized_vals[:question_uid]
       end
-    else
-      increment_counts(response, symbolized_vals)
     end
   end
 
@@ -44,10 +44,11 @@ class CreateOrIncrementResponseWorker
     # id will be the first extant value or false. somehow 0 is being
     # used as when it shouldn't (possible JS remnant) so we verify that
     # id is truthy and not 0
-    if id && id != 0
-      parent = Response.find_by_id_or_uid(id)
-      parent.increment!(:child_count, 1, touch: true) unless parent.nil?
-    end
+    return unless id
+    return if id == 0
+
+    parent = Response.find_by_id_or_uid(id)
+    parent.increment!(:child_count, 1, touch: true) unless parent.nil?
   end
 
 end

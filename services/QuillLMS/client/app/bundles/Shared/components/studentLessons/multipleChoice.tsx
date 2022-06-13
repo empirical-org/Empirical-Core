@@ -6,7 +6,7 @@ const renderOptions = (next, answers) => {
     <button className="button lesson-multiple-choice-button" key={answer.key} onClick={next} type="button">
       {answer.text}
     </button>
-    )
+  )
   );
   return <div className="lesson-multiple-choice">{components}</div>
 }

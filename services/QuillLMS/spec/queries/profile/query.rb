@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe Profile::Query do
-  let(:subject) { described_class.new }
+  subject { described_class.new }
 
   describe '#query' do
     let!(:student) { create(:student) }

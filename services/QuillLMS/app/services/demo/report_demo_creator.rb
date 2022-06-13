@@ -2,6 +2,7 @@
 
 module Demo::ReportDemoCreator
 
+  EVIDENCE_APP_SETTING = "comprehension"
   REPLAYED_ACTIVITY_ID = 434
   REPLAYED_SAMPLE_USER_ID = 312664
   ACTIVITY_PACKS_TEMPLATES = [
@@ -189,7 +190,7 @@ module Demo::ReportDemoCreator
       activity_ids: [1664],
       activity_sessions: [
         {
-          1664 => 9962415
+          1664 => 11662573
         },
         {
           1664 => 9706466
@@ -204,13 +205,49 @@ module Demo::ReportDemoCreator
           1664 => 9962377
         }
       ]
+    },
+    {
+      name: "Evidence-Based Writing: Ethics in Science [Beta]",
+      activity_ids: [1726, 1815, 1813, 1830],
+      activity_sessions: [
+        {
+          1726 => 11776892,
+          1815 => 11776892,
+          1813 => 11776892,
+          1830 => 11776892
+        },
+        {
+          1726 => 11776894,
+          1815 => 11776894,
+          1813 => 11776894,
+          1830 => 11776894
+        },
+        {
+          1726 => 11776893,
+          1815 => 11776893,
+          1813 => 11776893,
+          1830 => 11776893
+        },
+        {
+          1726 => 11776896,
+          1815 => 11776896,
+          1813 => 11776896,
+          1830 => 11776896
+        },
+        {
+          1726 => 11776895,
+          1815 => 11776895,
+          1813 => 11776895,
+          1830 => 11776895
+        }
+      ]
     }
   ]
 
-  def self.create_demo(name)
-    teacher = create_teacher(name)
+  def self.create_demo(email)
+    teacher = create_teacher(email)
     classroom = create_classroom(teacher)
-    students = create_students(classroom)
+    students = create_students(classroom, !email) # using the presence of a passed email to determine whether this is the standard /demo account or not
     units = create_units(teacher)
     classroom_units = create_classroom_units(classroom, units)
     activity_sessions = create_activity_sessions(students, classroom)
@@ -220,8 +257,8 @@ module Demo::ReportDemoCreator
     TeacherActivityFeedRefillWorker.perform_async(teacher.id)
   end
 
-  def self.create_teacher(name)
-    email = name ? "hello+#{name}@quill.org" : "hello+demoteacher@quill.org"
+  def self.create_teacher(email)
+    email ||= "hello+demoteacher@quill.org"
 
     existing_teacher = User.find_by_email(email)
     existing_teacher.destroy if existing_teacher
@@ -232,9 +269,17 @@ module Demo::ReportDemoCreator
       role: "teacher",
       password: 'password',
       password_confirmation: 'password',
+      flags: ["beta"]
     }
 
     teacher = User.create(values)
+    app_setting = AppSetting.find_by(name: EVIDENCE_APP_SETTING)
+
+    return teacher if app_setting.blank?
+
+    app_setting.user_ids_allow_list << teacher.id
+    app_setting.save
+    teacher
   end
 
   def self.create_classroom(teacher)
@@ -264,7 +309,7 @@ module Demo::ReportDemoCreator
     Subscription.create_with_user_join(teacher.id, attributes)
   end
 
-  def self.create_students(classroom)
+  def self.create_students(classroom, is_teacher_facing_demo_account)
     students = []
     student_values = [
       {
@@ -299,15 +344,19 @@ module Demo::ReportDemoCreator
         name: "Angie Thomas",
         username: "angie.thomas.#{classroom.id}@demo-teacher",
         role: "student",
-        email: 'angie_thomas_demo@quill.org',
+        email: is_teacher_facing_demo_account ? 'angie_thomas_demo@quill.org' : nil, # we only want to generate this account with the email linked to quill.org/student_demo if this is the standard quill.org/demo account
         password: 'password',
         password_confirmation: 'password'
       }
     ]
-    # In case the old one didn't get deleted, delete Angie Thomas so that we
-    # won't raise a validation error.
-    # This is important as we have /student set to go to the Angie Thomas email
-    User.where(email: 'angie_thomas_demo@quill.org').each(&:destroy)
+
+    if is_teacher_facing_demo_account
+      # In case the old one didn't get deleted, delete Angie Thomas so that we
+      # won't raise a validation error.
+      # This is important as we have /student_demo set to go to the Angie Thomas email
+      User.where(email: 'angie_thomas_demo@quill.org').each(&:destroy)
+    end
+
     student_values.each do |values|
       student = User.create(values)
       StudentsClassrooms.create({student_id: student.id, classroom_id: classroom.id})
@@ -349,8 +398,10 @@ module Demo::ReportDemoCreator
         act_sessions[num].each do |act_id, user_id|
           temp = ActivitySession.unscoped.where({activity_id: act_id, user_id: user_id, is_final_score: true}).first
           next unless temp
+
           cu = ClassroomUnit.find_by(classroom_id: classroom.id, unit_id: unit.id)
           act_session = ActivitySession.create({activity_id: act_id, classroom_unit_id: cu.id, user_id: student.id, state: "finished", percentage: temp.percentage})
+
           temp.concept_results.each do |cr|
             values = {
               activity_session_id: act_session.id,

@@ -16,30 +16,85 @@ module TeachersData
     return [] if teacher_ids.blank?
 
     teacher_ids_str = teacher_ids.join(', ')
-    User.find_by_sql("SELECT
-      users.id,
-      users.name,
-      users.email,
-      COUNT(DISTINCT students_classrooms.id) AS number_of_students,
-      time_spent_query.number_of_questions_completed AS number_of_questions_completed,
-      MAX(time_spent_query.time_spent) AS time_spent
-    FROM users
-    LEFT OUTER JOIN classrooms_teachers ON users.id = classrooms_teachers.user_id
-    LEFT OUTER JOIN classrooms ON classrooms_teachers.classroom_id = classrooms.id
-    LEFT OUTER JOIN students_classrooms ON classrooms.id = students_classrooms.classroom_id
-    LEFT OUTER JOIN (SELECT acss_ids.teacher_id, #{time_spent}) AS time_spent, SUM(acss_ids.number_of_questions_completed) AS number_of_questions_completed FROM activity_sessions
-      INNER JOIN (SELECT users.id AS teacher_id, COUNT(DISTINCT concept_results.id) AS number_of_questions_completed, activity_sessions.id AS activity_session_id FROM users
+
+    number_of_students_query = User.find_by_sql(
+      "SELECT
+        users.id,
+        users.name,
+        users.email,
+        COUNT(DISTINCT students_classrooms.id) AS number_of_students
+      FROM users
+      LEFT OUTER JOIN classrooms_teachers ON users.id = classrooms_teachers.user_id
+      LEFT OUTER JOIN classrooms ON classrooms_teachers.classroom_id = classrooms.id AND classrooms.visible = true
+      LEFT OUTER JOIN students_classrooms ON classrooms.id = students_classrooms.classroom_id AND students_classrooms.visible = true
+      WHERE users.id IN (#{teacher_ids_str})
+      GROUP BY users.id"
+    )
+
+    activities_count_query = User.find_by_sql(
+      "SELECT
+        users.id,
+        COUNT(DISTINCT activity_sessions.id) AS number_of_activities_completed
+      FROM users
       INNER JOIN units ON users.id = units.user_id
       INNER JOIN classroom_units ON units.id = classroom_units.unit_id
       INNER JOIN activity_sessions ON classroom_units.id = activity_sessions.classroom_unit_id
-      INNER JOIN concept_results ON activity_sessions.id = concept_results.activity_session_id
       WHERE users.id IN (#{teacher_ids_str})
-      AND activity_sessions.state = 'finished'
-      GROUP BY users.id, activity_sessions.id) AS acss_ids ON activity_sessions.id = acss_ids.activity_session_id
-      GROUP BY acss_ids.teacher_id
-    ) AS time_spent_query ON users.id = time_spent_query.teacher_id
-    WHERE users.id IN (#{teacher_ids_str})
-    GROUP BY users.id, number_of_questions_completed")
+      AND activity_sessions.completed_at >= '#{last_july_first}'::date
+      GROUP BY users.id"
+    )
+
+    time_spent_query = User.find_by_sql(
+      "SELECT
+        users.id,
+        #{time_spent} AS time_spent
+      FROM users
+      INNER JOIN units ON users.id = units.user_id
+      INNER JOIN classroom_units ON units.id = classroom_units.unit_id
+      INNER JOIN activity_sessions ON classroom_units.id = activity_sessions.classroom_unit_id
+      WHERE users.id IN (#{teacher_ids_str})
+      AND activity_sessions.completed_at >= '#{last_july_first}'::date
+      GROUP BY users.id"
+    )
+
+    combiner = {}
+    number_of_students_query.each do |row|
+      combiner[row.id] = {
+        name: row.name,
+        email: row.email,
+        school: row.school,
+        number_of_students: row.number_of_students
+      }
+    end
+
+    activities_count_query.each do |row|
+      if combiner[row.id]
+        combiner[row.id][:number_of_activities_completed] = row.number_of_activities_completed
+      end
+    end
+
+    time_spent_query.each do |row|
+      combiner[row.id][:time_spent] = row.time_spent
+    end
+
+    result = combiner.keys.map do |key|
+      hash_value = combiner[key]
+      user = User.new(
+        id: key,
+        name: hash_value[:name],
+        email: hash_value[:email],
+        school: hash_value[:school]
+      )
+      user.define_singleton_method(:number_of_students) do
+        hash_value[:number_of_students]
+      end
+      user.define_singleton_method(:number_of_activities_completed) do
+        hash_value[:number_of_activities_completed]
+      end
+      user.define_singleton_method(:time_spent) { hash_value[:time_spent] }
+      user
+    end
+
   end
 
   def self.time_spent
@@ -55,6 +110,12 @@ module TeachersData
         EXTRACT (
           'epoch' FROM (activity_sessions.completed_at - activity_sessions.started_at)
         )
-      END"
+      END)"
+  end
+
+  def self.last_july_first
+    today = Date.current
+    july_first_of_this_year = Date.parse("01-07-#{today.year}")
+    today.month > 7 ? july_first_of_this_year : july_first_of_this_year - 1.year
   end
 end

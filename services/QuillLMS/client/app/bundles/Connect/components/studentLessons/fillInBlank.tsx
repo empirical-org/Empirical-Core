@@ -16,7 +16,8 @@ import {
   Prompt,
   ConceptExplanation,
   Feedback,
-  getLatestAttempt
+  getLatestAttempt,
+  fillInBlankInputLabel,
 } from '../../../Shared/index'
 
 const qml = require('quill-marking-logic')
@@ -109,7 +110,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
     if (latestAttempt && latestAttempt.response && latestAttempt.response.feedback) {
       const component = <span dangerouslySetInnerHTML={{__html: latestAttempt.response.feedback}} />
       instructions = latestAttempt.response.feedback ? component :
-      'Revise your work. Fill in the blanks with the word or phrase that best fits the sentence.';
+        'Revise your work. Fill in the blanks with the word or phrase that best fits the sentence.';
     } else if (question.instructions && question.instructions !== '') {
       instructions = question.instructions;
     }
@@ -184,7 +185,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
   }
 
   renderInput = (i: number) => {
-    const { inputErrors, cues, inputVals } = this.state
+    const { inputErrors, cues, inputVals, blankAllowed, } = this.state
     const { question } = this.props;
     const maxAttemptsReached = question.attempts && question.attempts.length === 5;
     const latestAttempt = getLatestAttempt(question.attempts);
@@ -199,7 +200,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
     return (
       <span key={`span${i}`}>
         <input
-          aria-label="text input"
+          aria-label={fillInBlankInputLabel(cues, blankAllowed)}
           autoComplete="off"
           className={className}
           disabled={maxAttemptsReached || responseOptimal}
@@ -230,12 +231,12 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
     if (latestAttempt && latestAttempt.response && !latestAttempt.response.optimal ) {
       if (latestAttempt.response.conceptResults) {
         const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.conceptResults);
-          if (conceptID) {
-            const data = conceptsFeedback.data[conceptID.conceptUID];
-            if (data) {
-              return <ConceptExplanation {...data} />;
-            }
+        if (conceptID) {
+          const data = conceptsFeedback.data[conceptID.conceptUID];
+          if (data) {
+            return <ConceptExplanation {...data} />;
           }
+        }
       } else if (latestAttempt.response.concept_results) {
         const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.concept_results);
         if (conceptID) {
@@ -378,19 +379,23 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
       const blankFeedback = question.blankAllowed ? ' or leave it blank' : ''
       const feedbackText = `Choose one of the options provided${blankFeedback}. Make sure it is spelled correctly.`
       const feedback = <p>{feedbackText}</p>
-      return (<Feedback
-        feedback={feedback}
-        feedbackType="revise-unmatched"
-      />)
+      return (
+        <Feedback
+          feedback={feedback}
+          feedbackType="revise-unmatched"
+        />
+      )
     }
 
-    return (<FeedbackContainer
-      previewMode={previewMode}
-      question={question}
-      renderFeedbackStatements={this.renderFeedbackStatements}
-      responses={responses}
-      sentence={this.getInstructionText()}
-    />)
+    return (
+      <FeedbackContainer
+        previewMode={previewMode}
+        question={question}
+        renderFeedbackStatements={this.renderFeedbackStatements}
+        responses={responses}
+        sentence={this.getInstructionText()}
+      />
+    )
   }
 
   render() {
@@ -401,26 +406,27 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
     } else {
       fullPageInstructions = { display: 'block', width: '100%' }
     }
-    return (<div className="student-container-inner-diagnostic">
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <div style={fullPageInstructions}>
-          <div>
-            <Prompt elements={this.getPromptElements()} style={styles.container} />
-            <Cues
-              customText={this.customText()}
-              displayArrowAndText={true}
-              question={question}
-            />
-            {this.renderFeedback()}
+    return (
+      <div className="student-container-inner-diagnostic">
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <div style={fullPageInstructions}>
+            <div>
+              <Prompt elements={this.getPromptElements()} style={styles.container} />
+              <Cues
+                customText={this.customText()}
+                displayArrowAndText={true}
+                question={question}
+              />
+              {this.renderFeedback()}
+            </div>
           </div>
+          {this.renderMedia()}
         </div>
-        {this.renderMedia()}
+        <div className="question-button-group button-group" style={{marginTop: 20}}>
+          {this.renderButton()}
+        </div>
+        {this.renderConceptExplanation()}
       </div>
-      <div className="question-button-group button-group" style={{marginTop: 20}}>
-        {this.renderButton()}
-      </div>
-      {this.renderConceptExplanation()}
-    </div>
     );
   }
 

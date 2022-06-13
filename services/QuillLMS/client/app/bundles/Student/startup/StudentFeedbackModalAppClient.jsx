@@ -35,26 +35,28 @@ const StudentFeedbackModal = ({ question, gradeLevels, }) => {
     saveButtonClass += ' disabled';
   }
 
-  return (<div className="student-feedback-modal-container" id="student-feedback-modal-component">
-    <div className="modal-background" />
-    <div className="student-feedback-modal">
-      <h1>{question}</h1>
-      <p>Please help us to improve Quill by typing your response below. Your response won&#39;t be made public.</p>
-      <form acceptCharset="UTF-8" >
-        <TextArea
-          characterLimit={1000}
-          handleChange={updateResponse}
-          label=''
-          timesSubmitted={0}
-          value={response}
-        />
-        <div className="buttons">
-          <button className="quill-button medium secondary outlined focus-on-light" onClick={cancel} type="button">Cancel</button>
-          <button className={saveButtonClass} onClick={handleClickSave} type="button">Submit</button>
-        </div>
-      </form>
+  return (
+    <div className="student-feedback-modal-container" id="student-feedback-modal-component">
+      <div className="modal-background" />
+      <div className="student-feedback-modal">
+        <h1>{question}</h1>
+        <p>Please help us to improve Quill by typing your response below. Your response won&#39;t be made public.</p>
+        <form acceptCharset="UTF-8" >
+          <TextArea
+            characterLimit={1000}
+            handleChange={updateResponse}
+            label=''
+            timesSubmitted={0}
+            value={response}
+          />
+          <div className="buttons">
+            <button className="quill-button medium secondary outlined focus-on-light" onClick={cancel} type="button">Cancel</button>
+            <button className={saveButtonClass} onClick={handleClickSave} type="button">Submit</button>
+          </div>
+        </form>
+      </div>
     </div>
-  </div>)
+  )
 }
 
 export default StudentFeedbackModal

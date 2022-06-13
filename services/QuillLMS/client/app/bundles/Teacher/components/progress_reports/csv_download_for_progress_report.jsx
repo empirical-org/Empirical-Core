@@ -1,5 +1,5 @@
 import React from 'react'
-import {CSVDownload, CSVLink} from 'react-csv'
+import {CSVLink} from 'react-csv'
 import userIsPremium from '../modules/user_is_premium'
 import _ from 'underscore'
 import _l from 'lodash'
@@ -11,7 +11,12 @@ function formatData(data) {
   })
 }
 
-export default class CSVDownloadForProgressReports extends React.Component {
+const unclickedDownloadBtnClass = "btn button-green"
+const clickedDownloadBtnClass = "quill-button medium primary contained focus-on-light"
+const printBtnClass = "print-button"
+const printImgClass = "print-img"
+
+export class CSVDownloadForProgressReport extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -20,11 +25,6 @@ export default class CSVDownloadForProgressReports extends React.Component {
     }
 
     document.addEventListener('click', this.closeDropdownIfOpen.bind(this))
-  }
-
-
-  componentDidMount() {
-    this.cleanData(this.props.data)
   }
 
   componentWillUnmount() {
@@ -41,7 +41,8 @@ export default class CSVDownloadForProgressReports extends React.Component {
   }
 
   changeValues(row) {
-    this.props.valuesToChange.forEach(keyFunction => {
+    const { valuesToChange } = this.props
+    valuesToChange.forEach(keyFunction => {
       row[keyFunction.key] = keyFunction.function(row[keyFunction.key])
     })
   }
@@ -51,18 +52,19 @@ export default class CSVDownloadForProgressReports extends React.Component {
   }
 
   cleanData(data) {
+    const { keysToOmit, valuesToChange, preserveCasing } = this.props;
     let finalValue
     if (!Array.isArray(data[0])) {
       const copiedData = JSON.parse(JSON.stringify(data))
       let newData = []
       copiedData.forEach(row => {
-        if (this.props.keysToOmit) {
+        if (keysToOmit) {
           row = this.omitKeys(row)
         }
-        if (this.props.valuesToChange) {
+        if (valuesToChange) {
           this.changeValues(row)
         }
-        if (!this.props.preserveCasing) {
+        if (!preserveCasing) {
           this.getRidOfCamelCase(row)
         }
         newData.push(row)
@@ -71,11 +73,14 @@ export default class CSVDownloadForProgressReports extends React.Component {
     } else {
       finalValue = data
     }
-    this.setState({data: finalValue})
+    return formatData(finalValue)
   }
 
   closeDropdownIfOpen(e) {
-    if (this.state.showDropdown && e.target.classList.value !== 'btn button-green' && e.target.classList.value !== 'print-button' && e.target.classList.value !== 'print-img') {
+    const { className, } = this.props
+    const { showDropdown } = this.state
+    const ignoreClasses = [printBtnClass, printImgClass, clickedDownloadBtnClass, unclickedDownloadBtnClass, className]
+    if (showDropdown && !ignoreClasses.includes(e.target.classList.value)) {
       this.setState({ showDropdown: false})
     }
   }
@@ -85,23 +90,24 @@ export default class CSVDownloadForProgressReports extends React.Component {
   }
 
   omitKeys(row) {
-    return _.omit(row, this.props.keysToOmit)
+    const { keysToOmit } = this.props
+    return _.omit(row, keysToOmit)
   }
 
   toggleDropdown = () => {
-    this.setState({
-      showDropdown: !this.state.showDropdown
-    })
+    const { showDropdown } = this.state
+    this.setState({ showDropdown: !showDropdown })
   };
 
   render() {
-    if (this.state.userIsPremium && this.props.data) {
+    const { userIsPremium, showDropdown } = this.state;
+    const { buttonCopy, className, data, studentName } = this.props;
+    if (userIsPremium && data) {
       let dropdown,
         style,
         c
-      if (this.state.showDropdown) {
+      if (showDropdown) {
         style = {
-          // border: "solid 1px #00c2a2",
           boxShadow: "0 0 0 1px #00c2a2",
           backgroundColor: '#fff',
           color: '#00c2a2'
@@ -120,17 +126,17 @@ export default class CSVDownloadForProgressReports extends React.Component {
 
             <div className='button-wrapper'>
 
-              <button className="print-button" onClick={window.print}>
+              <button className={printBtnClass} onClick={window.print}>
                 <img
                   alt="print"
-                  className="print-img"
+                  className={printImgClass}
                   src="https://assets.quill.org/images/icons/download-report-premium.svg"
                 />PDF
               </button>
 
               <CSVLink
-                data={formatData(this.state.data)}
-                filename={this.formatFilename(this.props.studentName)}
+                data={this.cleanData(data)}
+                filename={this.formatFilename(studentName)}
                 target="_blank"
               >
                 <button>
@@ -145,18 +151,22 @@ export default class CSVDownloadForProgressReports extends React.Component {
       }
       return (
         <div className='download-button-wrapper'>
-          <button className="quill-button medium primary contained focus-on-light" onClick={this.toggleDropdown} style={style}>{this.props.buttonCopy || "Download Report"}</button>
+          <button className={clickedDownloadBtnClass} onClick={this.toggleDropdown} style={style}>{buttonCopy || "Download Report"}</button>
           {dropdown}
         </div>
       )
     } else {
-      return (<button
-        className={this.props.className || 'btn button-green'}
-        onClick={this.handleClick}
-        style={{
-        display: 'block'
-      }}
-      >{this.props.buttonCopy || "Download Report"}</button>)
+      return (
+        <button
+          className={className || unclickedDownloadBtnClass}
+          onClick={this.handleClick}
+          style={{display: 'block'}}
+        >
+          {buttonCopy || "Download Report"}
+        </button>
+      )
     }
   }
 }
+
+export default CSVDownloadForProgressReport;

@@ -1,13 +1,13 @@
 import * as React from "react";
-import { queryCache } from 'react-query';
+import { useQueryClient, } from 'react-query';
 import { withRouter } from 'react-router-dom';
 
 import ActivityForm from './activityForm';
 
 import { ActivityInterface } from '../../../interfaces/evidenceInterfaces';
 import SubmissionModal from '../shared/submissionModal';
-import { createActivity, updateActivity, archiveParentActivity } from '../../../utils/evidence/activityAPIs';
-import { renderHeader } from "../../../helpers/evidence";
+import { createActivity, updateActivity } from '../../../utils/evidence/activityAPIs';
+import { renderHeader } from "../../../helpers/evidence/renderHelpers";
 import { Spinner } from '../../../../Shared/index';
 
 const ActivitySettings = ({ activity, history }: {activity: ActivityInterface, history: any}) => {
@@ -15,22 +15,7 @@ const ActivitySettings = ({ activity, history }: {activity: ActivityInterface, h
   const [errorOrSuccessMessage, setErrorOrSuccessMessage] = React.useState<string>(null);
   const [showSubmissionModal, setShowSubmissionModal] = React.useState<boolean>(false);
   const [errors, setErrors] = React.useState<string[]>([]);
-
-  function handleClickArchiveActivity() {
-    if (window.confirm('Are you sure you want to archive? If you archive, it will not be displayed on the "View Activities" page. Please also make sure that the activity has the correct parent activity id, because the parent activity will be archived as well.')) {
-      archiveParentActivity(activity.parent_activity_id).then((response) => {
-        const { error } = response;
-        error && setErrorOrSuccessMessage(error);
-        queryCache.refetchQueries(`activity-${id}`)
-        if(!error) {
-          // reset errorOrSuccessMessage in case of subsequent submission
-          setErrorOrSuccessMessage('Activity successfully archived!');
-        }
-        toggleSubmissionModal();
-      });
-
-    }
-  }
+  const queryClient = useQueryClient()
 
   function handleUpdateActivity (activity: ActivityInterface) {
     updateActivity(activity, id).then((response) => {
@@ -38,7 +23,8 @@ const ActivitySettings = ({ activity, history }: {activity: ActivityInterface, h
       if(errors && errors.length) {
         setErrors(errors);
       } else {
-        queryCache.refetchQueries(`activity-${id}`)
+        queryClient.refetchQueries(`activity-${id}`)
+        queryClient.removeQueries('activities')
         setErrors([]);
         // reset errorOrSuccessMessage in case of subsequent submission
         setErrorOrSuccessMessage('Activity successfully updated!');
@@ -54,7 +40,7 @@ const ActivitySettings = ({ activity, history }: {activity: ActivityInterface, h
         setErrors(errors);
       } else {
         // update activities cache to display newly created activity
-        queryCache.refetchQueries('activities');
+        queryClient.refetchQueries('activities');
         setErrors([]);
         setErrorOrSuccessMessage('Activity successfully created!');
         toggleSubmissionModal();
@@ -85,8 +71,8 @@ const ActivitySettings = ({ activity, history }: {activity: ActivityInterface, h
   return(
     <div className="activity-settings-container">
       {showSubmissionModal && renderSubmissionModal()}
-      {activity && renderHeader({activity: activity}, 'Activity Settings')}
-      <ActivityForm activity={activity} handleClickArchiveActivity={handleClickArchiveActivity} requestErrors={errors} submitActivity={submitFunction} />
+      {activity && renderHeader({activity: activity}, 'Activity Settings', true)}
+      <ActivityForm activity={activity} requestErrors={errors} submitActivity={submitFunction} />
     </div>
   );
 }

@@ -23,16 +23,18 @@
 
   <script defer src=<%= ENV['FONT_AWESOME_KIT_LINK'] %> crossorigin="anonymous" integrity="sha384-p7JrABPXxZLpj1XoHTzkPyVs8ekVssRFXc4B7XU6Z1c8XVDA7sVPem/lQ9UouxqE"></script>
   <!-- Inspectlet tracking -->
-  <% if current_user&.teacher? %>
-    <script type="text/javascript">
-      (function() {
-      window.__insp = window.__insp || [];
-      __insp.push(['wid', 392647994]);
-      var ldinsp = function(){
-      if(typeof window.__inspld != "undefined") return; window.__inspld = 1; var insp = document.createElement('script'); insp.type = 'text/javascript'; insp.async = true; insp.id = "inspsync"; insp.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://cdn.inspectlet.com/inspectlet.js?wid=392647994&r=' + Math.floor(new Date().getTime()/3600000); var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(insp, x); };
-      setTimeout(ldinsp, 0);
-      })();
-    </script>
+  <% if ENV.fetch('SHOW_INSPECTLET', 'true') == 'true' %>
+    <% if current_user&.teacher? %>
+      <script type="text/javascript">
+        (function() {
+        window.__insp = window.__insp || [];
+        __insp.push(['wid', 392647994]);
+        var ldinsp = function(){
+        if(typeof window.__inspld != "undefined") return; window.__inspld = 1; var insp = document.createElement('script'); insp.type = 'text/javascript'; insp.async = true; insp.id = "inspsync"; insp.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://cdn.inspectlet.com/inspectlet.js?wid=392647994&r=' + Math.floor(new Date().getTime()/3600000); var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(insp, x); };
+        setTimeout(ldinsp, 0);
+        })();
+      </script>
+    <% end %>
   <% end %>
   <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet" lazyload>
 

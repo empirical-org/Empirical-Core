@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useQuery, queryCache } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 import { Route, Switch, withRouter } from 'react-router-dom';
 
 import PlagiarismRulesIndex from './plagiarismRulesIndex';
@@ -23,6 +23,8 @@ const PlagiarismRulesRouter = ({ history, match }) => {
     queryFn: fetchActivity
   });
 
+  const queryClient = useQueryClient()
+
   function renderActivityName({ activity }) {
     if(!activity) {
       return;
@@ -40,7 +42,7 @@ const PlagiarismRulesRouter = ({ history, match }) => {
         setErrors([]);
         const queryString = getRefetchQueryString(rule, activityId);
         // update rules cache to display newly created rule
-        queryCache.refetchQueries(queryString).then(() => {
+        queryClient.refetchQueries(queryString).then(() => {
           history.push(`/activities/${activityId}/plagiarism-rules`);
         });
       }
@@ -56,7 +58,7 @@ const PlagiarismRulesRouter = ({ history, match }) => {
       } else {
         setErrors([]);
         // update rules cache to display newly updated rule
-        queryCache.refetchQueries(`rule-${ruleId}`).then(() => {
+        queryClient.refetchQueries(`rule-${ruleId}`).then(() => {
           history.push(`/activities/${activityId}/plagiarism-rules`);
         });
       }

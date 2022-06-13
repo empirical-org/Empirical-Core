@@ -27,13 +27,13 @@ const savedResponses: Array<Response> = [
 describe('The caseStartMatch function', () => {
 
   it('Should return true if the response string starts with a lowercase letter', () => {
-      const responseString = "my dog took a nap.";
-      assert.ok(caseStartMatch(responseString, savedResponses));
+    const responseString = "my dog took a nap.";
+    assert.ok(caseStartMatch(responseString, savedResponses));
   });
 
   it('Should return false if the response string does not start with a lowercase letter', () => {
-      const responseString = "My dog took a nap.";
-      assert.notOk(caseStartMatch(responseString, savedResponses));
+    const responseString = "My dog took a nap.";
+    assert.notOk(caseStartMatch(responseString, savedResponses));
   });
 
 });
@@ -43,13 +43,13 @@ describe('The caseStartChecker', () => {
   it('Should return a partialResponse object if the response string starts with a lowercase letter', () => {
     const responseString = "my dog took a nap.";
     const partialResponse =  {
-        feedback: feedbackStrings.caseError,
-        author: 'Capitalization Hint',
-        parent_id: getTopOptimalResponse(savedResponses).id,
-        concept_results: [
-          conceptResultTemplate('S76ceOpAWR-5m-k47nu6KQ')
-        ],
-      }
+      feedback: feedbackStrings.caseError,
+      author: 'Capitalization Hint',
+      parent_id: getTopOptimalResponse(savedResponses).id,
+      concept_results: [
+        conceptResultTemplate('S76ceOpAWR-5m-k47nu6KQ')
+      ],
+    }
     assert.equal(caseStartChecker(responseString, savedResponses).feedback, partialResponse.feedback);
     assert.equal(caseStartChecker(responseString, savedResponses).author, partialResponse.author);
     assert.equal(caseStartChecker(responseString, savedResponses).parent_id, partialResponse.parent_id);

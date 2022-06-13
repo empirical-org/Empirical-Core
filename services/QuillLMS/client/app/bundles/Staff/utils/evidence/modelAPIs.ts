@@ -1,6 +1,7 @@
-import { handleApiError, apiFetch, getModelsUrl } from '../../helpers/evidence';
+import { handleApiError, apiFetch, getModelsUrl } from '../../helpers/evidence/routingHelpers';
 
-export const fetchModels = async (key: string, promptId?: any, state?: string) => {
+export const fetchModels = async ({ queryKey }) => {
+  const [key, promptId, state]: [string, number, string?] = queryKey
   const url = getModelsUrl(promptId, state);
 
   const response = await apiFetch(url);
@@ -21,7 +22,8 @@ export const updateModel = async (modelId: number, notes: string) => {
   return { error: handleApiError('Failed to update model, please try again.', response), model: updatedModel };
 }
 
-export const fetchModel = async (key: string, modelId: string) => {
+export const fetchModel = async ({ queryKey }) => {
+  const [key, modelId]: [string, number] = queryKey
   const response = await apiFetch(`automl_models/${modelId}`);
   const model = await response.json();
   return { error: handleApiError('Failed to fetch models, please try again.', response), model: model };

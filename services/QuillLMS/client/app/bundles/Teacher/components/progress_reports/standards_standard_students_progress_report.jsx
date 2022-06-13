@@ -2,16 +2,15 @@
 // along with their result counts.
 import React from 'react'
 import request from 'request'
-import ReactTable from 'react-table'
-import 'react-table/react-table.css'
 
 import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx'
 
-import {sortByLastName} from '../../../../modules/sortingMethods.js'
+import {sortTableByLastName} from '../../../../modules/sortingMethods.js'
 import LoadingSpinner from '../shared/loading_indicator.jsx'
 import ItemDropdown from '../general_components/dropdown_selectors/item_dropdown'
 import userIsPremium from '../modules/user_is_premium'
 import { getTimeSpent } from '../../helpers/studentReports'
+import { ReactTable, } from '../../../Shared/index'
 
 const showAllClassroomKey = 'All classrooms'
 
@@ -57,8 +56,8 @@ export default class IndividualStandardsReport extends React.Component {
         Header: 'Student',
         accessor: 'name',
         resizable: false,
-        sortMethod: sortByLastName,
-        Cell: row => (
+        sortType: sortTableByLastName,
+        Cell: ({row}) => (
           <a href={row.original['student_standards_href']}><span className='row-link-disguise underlined'>{row.original['name']}</span></a>
         )
       }, {
@@ -70,7 +69,7 @@ export default class IndividualStandardsReport extends React.Component {
         accessor: 'timespent',
         className: blurIfNotPremium,
         resizable: false,
-        Cell: row => (
+        Cell: ({row}) => (
           getTimeSpent(row.original['timespent'])
         )
       }, {
@@ -78,7 +77,7 @@ export default class IndividualStandardsReport extends React.Component {
         accessor: 'average_score',
         className: blurIfNotPremium,
         resizable: false,
-        Cell: row => (
+        Cell: ({row}) => (
           `${row.original['average_score']}%`
         )
       }, {
@@ -86,7 +85,7 @@ export default class IndividualStandardsReport extends React.Component {
         accessor: 'mastery_status',
         className: blurIfNotPremium,
         resizable: false,
-        Cell: row => (
+        Cell: ({row}) => (
           <span><span className={row.original['mastery_status'] === 'Proficient' ? 'proficient-indicator' : 'not-proficient-indicator'} />{row.original['mastery_status']}</span>
         )
       }
@@ -151,16 +150,11 @@ export default class IndividualStandardsReport extends React.Component {
             className='progress-report'
             columns={this.columns()}
             data={studentData}
-            defaultPageSize={studentData.length}
             defaultSorted={[{
               id: 'average_score',
               desc: false
             }
-          ]}
-            showPageSizeOptions={false}
-            showPagination={false}
-            showPaginationBottom={false}
-            showPaginationTop={false}
+            ]}
           />
         </div>
       </div>

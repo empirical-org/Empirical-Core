@@ -1,6 +1,8 @@
 import * as React from 'react';
 
-import { renderReadPassageStep, renderPromptSteps } from '../../helpers/containerRenderHelpers';
+import PromptStepContainer from './promptStepContainer'
+
+import { renderReadPassageStep, } from '../../helpers/containerRenderHelpers';
 
 const Steps = ({
   activeStep,
@@ -11,35 +13,34 @@ const Steps = ({
   completionButtonCallback,
   completeStep,
   submitResponse,
-  closeReadTheDirectionsModal,
+  handleReadTheDirectionsButtonClick,
   session,
   completedSteps,
   doneHighlighting,
   resetTimers,
-  showReadTheDirectionsModal,
-  stepsHash,
+  showReadTheDirectionsButton,
   reportAProblem,
 }) => {
+  const promptStepContainerProps = {
+    activateStep,
+    activityIsComplete,
+    completionButtonCallback,
+    completeStep,
+    submitResponse,
+    handleReadTheDirectionsButtonClick,
+    activities,
+    session,
+    activeStep,
+    completedSteps,
+    doneHighlighting,
+    showReadTheDirectionsButton,
+    reportAProblem,
+  }
   return(
     <div className="steps-outer-container" onScroll={resetTimers}>
       <div className="steps-inner-container" onScroll={resetTimers}>
         {renderReadPassageStep(activeStep, activities, handleDoneReadingClick)}
-        {renderPromptSteps({
-          activateStep,
-          activityIsComplete,
-          completionButtonCallback,
-          completeStep,
-          submitResponse,
-          closeReadTheDirectionsModal,
-          activities,
-          session,
-          activeStep,
-          completedSteps,
-          doneHighlighting,
-          showReadTheDirectionsModal,
-          stepsHash,
-          reportAProblem,
-        })}
+        <PromptStepContainer {...promptStepContainerProps} />
       </div>
     </div>
   )

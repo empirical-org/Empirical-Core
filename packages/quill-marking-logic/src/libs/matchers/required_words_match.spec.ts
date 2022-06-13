@@ -24,10 +24,10 @@ const savedResponses: Array<Response> = [
 
 describe('The requiredWordsMatch function', () => {
 
-    it('Should take a response string and return a feedback object if it is missing a required word', () => {
-        const responseString = "My dog took a.";
-        assert.ok(requiredWordsMatch(responseString, savedResponses));
-    });
+  it('Should take a response string and return a feedback object if it is missing a required word', () => {
+    const responseString = "My dog took a.";
+    assert.ok(requiredWordsMatch(responseString, savedResponses));
+  });
 
 });
 
@@ -36,13 +36,13 @@ describe('The requiredWordsChecker', () => {
   it('Should return a partialResponse object if the response string is missing a required word', () => {
     const responseString = "My dog took a";
     const partialResponse: PartialResponse =  {
-        feedback: requiredWordsMatch(responseString, savedResponses).feedback,
-        author: 'Required Words Hint',
-        parent_id: 2,
-        concept_results: [
-          conceptResultTemplate('mdFUuuNR7N352bbMw4Mj9Q')
-        ]
-      }
+      feedback: requiredWordsMatch(responseString, savedResponses).feedback,
+      author: 'Required Words Hint',
+      parent_id: 2,
+      concept_results: [
+        conceptResultTemplate('mdFUuuNR7N352bbMw4Mj9Q')
+      ]
+    }
     assert.equal(requiredWordsChecker(responseString, savedResponses).feedback, partialResponse.feedback);
     assert.equal(requiredWordsChecker(responseString, savedResponses).author, partialResponse.author);
     assert.equal(requiredWordsChecker(responseString, savedResponses).parent_id, partialResponse.parent_id);
