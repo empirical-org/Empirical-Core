@@ -231,10 +231,6 @@ export const UnitTemplates = () => {
     return true
   };
 
-  function newUnitTemplate() {
-    window.open(`unit_templates/new`, '_blank')
-  }
-
   function handleRadioChange() {
     setSearchByActivityPack(!searchByActivityPack);
     setSearchInput('');
@@ -249,7 +245,6 @@ export const UnitTemplates = () => {
           flag={flag}
           handleRadioChange={handleRadioChange}
           handleSearch={handleSearch}
-          newUnitTemplate={newUnitTemplate}
           options={options}
           searchByActivityPack={searchByActivityPack}
           searchInput={searchInput}

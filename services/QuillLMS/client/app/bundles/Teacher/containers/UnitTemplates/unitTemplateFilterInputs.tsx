@@ -18,8 +18,7 @@ export const UnitTemplateFilterInputs = ({
   options,
   diagnostics,
   diagnostic,
-  switchDiagnostic,
-  newUnitTemplate
+  switchDiagnostic
 }) => {
 
   function diagnosticsDropdown() {
@@ -32,6 +31,10 @@ export const UnitTemplateFilterInputs = ({
         selectedItem={diagnostic}
       />
     )
+  }
+
+  function handleNewUnitTemplateClick() {
+    window.open('/cms/unit_templates/new', '_blank');
   }
 
   return(
@@ -74,7 +77,7 @@ export const UnitTemplateFilterInputs = ({
         selectedItem={flag}
       />
       {diagnosticsDropdown()}
-      <button className='new-unit-template-button quill-button primary contained small focus-on-light' onClick={newUnitTemplate} type="button">New</button>
+      <button className='new-unit-template-button quill-button primary contained small focus-on-light' onClick={handleNewUnitTemplateClick} type="button">New</button>
     </div>
   )
 }
