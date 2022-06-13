@@ -4,7 +4,7 @@ import { DEFAULT_HIGHLIGHT_PROMPT, } from '../../../Shared/utils/constants'
 import { informationIcon } from '../../../Shared/index'
 
 const READ_PASSAGE_STEP = 1
-const promptDirections = [<li>Use information from the text to finish the sentence.</li>, <li>Put the information in your own words.</li>]
+const promptDirections = [<li>Use information <b>from the text</b> to finish the sentence.</li>, <li>Put the information in your own words.</li>]
 const highlightDirections = [<li>First, read the highlighting task below.</li>, <li>Then, read the text and highlight sentences to complete the task.</li>, <li className="sr-only">Screenreader users, please use your tab keys to navigate through the passage. Use the Enter key on a focused sentence to add it to your highlights or to remove it once it has already been highlighted.</li>]
 
 const renderDirections = (directionElementsArray: JSX.Element[]) => (
