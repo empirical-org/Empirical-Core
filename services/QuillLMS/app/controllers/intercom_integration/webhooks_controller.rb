@@ -66,7 +66,7 @@ module IntercomIntegration
     end
 
     private def find_or_create_user
-      user = User.find_by(id: user_payload["user_id"])
+      user = User.find_by(id: user_payload["user_id"]) if !user_payload["anonymous"]
       return user if user.present?
 
       User.create!(
