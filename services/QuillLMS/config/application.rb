@@ -22,6 +22,7 @@ module EmpiricalGrammar
 
     # load custom extensions
     Dir[Rails.root.join("app/lib/extensions/**/*.rb")].sort.each { |f| require f }
+    require Rails.root.join("app/lib/constants.rb")
 
     config.cache_store = :redis_store, ENV["REDISCLOUD_URL"]
 
