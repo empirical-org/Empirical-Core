@@ -46,7 +46,6 @@ describe CopyConceptResultsToResponsesWorker, type: :worker do
         subject.perform(concept_result.id, concept_result.id)
         subject.perform(concept_result.id, concept_result.id)
       end.to change(Response, :count).by(1)
-         .and change(Response, :count).by(1)
     end
 
     it 'should skip items with IDs lower than start' do

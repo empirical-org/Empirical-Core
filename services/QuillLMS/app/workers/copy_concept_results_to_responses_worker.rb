@@ -23,11 +23,11 @@ class CopyConceptResultsToResponsesWorker
         prompt = concept_result.metadata['prompt']
         question_type = concept_result.question_type
 
-        directions_cache[directions] ||= ResponseDirections.find_or_create_by(text: directions)&.id if directions
-        instructions_cache[instructions] ||= ResponseInstructions.find_or_create_by(text: instructions)&.id if instructions
-        previous_feedbacks_cache[previous_feedback] ||= ResponsePreviousFeedback.find_or_create_by(text: previous_feedback)&.id if previous_feedback
-        prompts_cache[prompt] ||= ResponsePrompt.find_or_create_by(text: prompt)&.id if prompt
-        question_types_cache[question_type] ||= ResponseQuestionType.find_or_create_by(text: question_type)&.id if question_type
+        directions_cache[directions] ||= ResponseDirections.find_or_create_by!(text: directions)&.id if directions
+        instructions_cache[instructions] ||= ResponseInstructions.find_or_create_by!(text: instructions)&.id if instructions
+        previous_feedbacks_cache[previous_feedback] ||= ResponsePreviousFeedback.find_or_create_by!(text: previous_feedback)&.id if previous_feedback
+        prompts_cache[prompt] ||= ResponsePrompt.find_or_create_by!(text: prompt)&.id if prompt
+        question_types_cache[question_type] ||= ResponseQuestionType.find_or_create_by!(text: question_type)&.id if question_type
 
         extra_metadata = Response.parse_extra_metadata(concept_result.metadata)
 
