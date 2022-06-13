@@ -21,7 +21,8 @@ class ProgressReports::Standards::NewStandard
           COUNT(DISTINCT(best_activity_sessions.user_id)) AS total_student_count,
           SUM(best_activity_sessions.timespent) AS timespent,
           COALESCE(AVG(proficient_count.user_count), 0)::integer AS proficient_student_count,
-          COALESCE(AVG(not_proficient_count.user_count), 0)::integer AS not_proficient_student_count
+          COALESCE(AVG(not_proficient_count.user_count), 0)::integer AS not_proficient_student_count,
+          (CASE WHEN standards.standard_category_id = #{::Constants::EVIDENCE_STANDARD_CATEGORY} THEN true ELSE false END) AS is_evidence
         SQL
       )
       .joins('JOIN standard_levels ON standard_levels.id = standards.standard_level_id')
