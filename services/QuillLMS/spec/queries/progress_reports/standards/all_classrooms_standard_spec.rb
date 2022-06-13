@@ -14,8 +14,12 @@ describe ProgressReports::Standards::AllClassroomsStandard do
       }
     end
 
-    let!(:activity_session_non_evidence) do
-      create(:activity_session, user: sample_student_data[:student], classroom_unit: sample_student_data[:classroom_unit])
+    let!(:activity_session) do
+      create(
+        :activity_session,
+        user: sample_student_data[:student],
+        classroom_unit: sample_student_data[:classroom_unit]
+      )
     end
 
     it 'should return the correctly shaped payload' do
@@ -35,6 +39,20 @@ describe ProgressReports::Standards::AllClassroomsStandard do
     end
 
     context 'without evidence activity' do
+      let(:non_evidence_standard_category) do
+        create(:standard_category, id: ::Constants::EVIDENCE_STANDARD_CATEGORY-1)
+      end
+      let!(:non_evidence_standard) { create(:standard, standard_category: non_evidence_standard_category) }
+      let!(:non_evidence_activity) { create(:activity, standard: non_evidence_standard)}
+      let!(:activity_session_non_evidence) do
+        create(
+          :activity_session,
+          user: sample_student_data[:student],
+          classroom_unit: sample_student_data[:classroom_unit],
+          activity: non_evidence_activity
+        )
+      end
+
       it 'should indicate evidence activities via the is_evidence property' do
         result = ProgressReports::Standards::AllClassroomsStandard.new(teacher1)
         .results(sample_student_data[:classroom_unit].classroom_id, nil)
