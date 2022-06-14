@@ -55,7 +55,7 @@ export default class Stage2 extends React.Component {
     const { errorMessage, finish, alreadyCompletedDiagnosticStudentNames, notYetCompletedPreTestStudentNames, showGradeLevelWarning, classrooms, selectedActivities, } = this.props
 
     const lowestSelectedClassroomGrade = Math.min(this.selectedClassrooms().map(c => Number(c.classroom.grade) || 12))
-    const aboveGradeLevelContentBeingAssigned = selectedActivities.find(a => Math.min(readabilityGradeLevelToArrayOfGrades(a.readability_grade_level)) > lowestSelectedClassroomGrade)
+    const aboveGradeLevelContentBeingAssigned = selectedActivities.find(a => Math.min(readabilityGradeLevelToArrayOfGrades[a.readability_grade_level]) > lowestSelectedClassroomGrade)
 
     if (alreadyCompletedDiagnosticStudentNames.length) {
       this.setState({ showOverrideWarningModal: true })
@@ -197,6 +197,7 @@ export default class Stage2 extends React.Component {
     const { unitTemplateName, unitTemplateId, selectedActivities, isFromDiagnosticPath, } = this.props
     return (
       <div>
+        {this.renderGradeLevelWarningModal()}
         {this.renderOverrideWarningModal()}
         {this.renderSkipRecommendationsWarningModal()}
         <ScrollToTop />
