@@ -27,6 +27,14 @@ RSpec.describe StripeIntegration::Webhooks::SubscriptionUpdater do
     it { expect { subject }.to change { subscription.reload.recurring }.from(false).to(true) }
   end
 
+  context 'current_period_end is set but there is no status key' do
+    let!(:subscription) { create(:subscription, :non_recurring, stripe_invoice_id: stripe_invoice_id) }
+
+    let(:previous_attributes) { Stripe::StripeObject.construct_from(current_period_end: Time.current.to_i) }
+
+    it { expect { subject }.not_to raise_error }
+  end
+
   context 'cancel_at_period_end is nil on stripe' do
     let!(:subscription) { create(:subscription, stripe_invoice_id: stripe_invoice_id) }
 
@@ -45,3 +53,5 @@ RSpec.describe StripeIntegration::Webhooks::SubscriptionUpdater do
     end
   end
 end
+
+

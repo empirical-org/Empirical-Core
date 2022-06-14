@@ -3,7 +3,7 @@
 module Evidence
   module Opinion
     class Client
-      API_TIMEOUT = 5
+      API_TIMEOUT = 1
       ALLOWED_PAYLOAD_KEYS = ['oapi_error', 'highlight']
       API_ENDPOINT = ENV['OPINION_API_DOMAIN']
 
@@ -17,13 +17,22 @@ module Evidence
       end
 
       def post
-        response = api_request
-
+        response = api_request_with_retry
         if !response.success?
           raise APIError, "Encountered upstream error: #{response}"
         end
 
         response.filter { |k,v| ALLOWED_PAYLOAD_KEYS.include?(k) }
+      end
+
+      private def api_request_with_retry
+        api_request
+      rescue *Evidence::HTTP_TIMEOUT_ERRORS
+        begin
+          api_request
+        rescue *Evidence::HTTP_TIMEOUT_ERRORS
+          raise APITimeoutError, TIMEOUT_ERROR_MESSAGE
+        end
       end
 
       private def api_request
@@ -36,11 +45,8 @@ module Evidence
           }.to_json,
           timeout: API_TIMEOUT
         )
-      rescue *Evidence::HTTP_TIMEOUT_ERRORS
-        raise APITimeoutError, TIMEOUT_ERROR_MESSAGE
       end
+
     end
   end
 end
-
-

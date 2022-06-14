@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UnitTemplateFilterInputs component should match snapshot 1`] = `
+<div
+  className="upper-section"
+>
+  <div
+    className="activity-or-pack-search-container"
+  >
+    <div
+      className="radio-options"
+    >
+      <div
+        className="radio"
+      >
+        <label
+          htmlFor="search by activity"
+        >
+          <input
+            checked={false}
+            id="search by activity"
+            onChange={[MockFunction]}
+            type="radio"
+            value="search by activity"
+          />
+          search by activity
+        </label>
+      </div>
+      <div
+        className="radio"
+      >
+        <label
+          htmlFor="search by activity pack"
+        >
+          <input
+            checked={true}
+            id="search by activity pack"
+            onChange={[MockFunction]}
+            type="radio"
+            value="search by activity pack"
+          />
+          search by activity pack
+        </label>
+      </div>
+    </div>
+  </div>
+  <input
+    aria-label="Search by activity pack"
+    className="search-box"
+    name="searchInput"
+    onChange={[MockFunction]}
+    placeholder="Search by activity pack"
+    value=""
+  />
+  <ItemDropdown
+    callback={[MockFunction]}
+    items={Array []}
+    selectedItem=""
+  />
+  <ItemDropdown
+    callback={[MockFunction]}
+    items={
+      Array [
+        "All Diagnostics",
+      ]
+    }
+    selectedItem={Object {}}
+  />
+  <button
+    className="new-unit-template-button quill-button primary contained small focus-on-light"
+    onClick={Object {}}
+    type="button"
+  >
+    New
+  </button>
+</div>
+`;

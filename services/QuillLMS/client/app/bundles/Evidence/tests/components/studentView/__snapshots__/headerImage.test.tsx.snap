@@ -14,13 +14,9 @@ exports[`Header Image component should render Header Image 1`] = `
       <p
         className="header-image-caption"
       />
-      <span
-        className="sr-only"
-      >
-        Image credit: 
-      </span>
       <Tooltip
         handleClick={[Function]}
+        isTabbable={true}
         tooltipTriggerText="Image credit"
         tooltipTriggerTextClass="image-attribution-tooltip"
       />

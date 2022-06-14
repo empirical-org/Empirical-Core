@@ -235,6 +235,7 @@ RSpec.describe RuleFeedbackHistory, type: :model do
       responses = result[so_rule1.uid.to_sym][:responses]
 
       response_ids = responses.map {|r| r[:response_id]}
+
       expect(
         Set[*response_ids] == Set[f_h5.id]
       ).to be true

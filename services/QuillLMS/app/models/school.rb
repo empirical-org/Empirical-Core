@@ -100,6 +100,14 @@ class School < ApplicationRecord
       .first
   end
 
+  def last_expired_subscription
+    subscriptions
+      .expired
+      .order(expiration: :desc)
+      .limit(1)
+      .first
+  end
+
   def present_and_future_subscriptions
     subscriptions.active
   end
@@ -147,6 +155,10 @@ class School < ApplicationRecord
     return unless district.present? && district.admins.count > 0
 
     schools_admins.where(user_id: district.admins.map(&:id)).destroy_all
+  end
+
+  def subscription_status
+    subscription&.subscription_status || last_expired_subscription&.subscription_status
   end
 
   private def generate_leap_csv_row(student, teacher, classroom, activity_session)

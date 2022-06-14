@@ -1,5 +1,5 @@
 import * as expect from 'expect'
-import { isValidRegex } from '../../libs/isValidRegex'
+import { isValidRegex } from '../../../Shared'
 
 describe('#isValidRegex', () => {
 

@@ -5,7 +5,7 @@ class Admin::TeacherSerializer < ActiveModel::Serializer
   attributes :id, :name, :email, :school,
             :links,
             :number_of_students,
-            :number_of_questions_completed,
+            :number_of_activities_completed,
             :time_spent
 
   def school
@@ -24,8 +24,8 @@ class Admin::TeacherSerializer < ActiveModel::Serializer
     x.present? ? x : 0
   end
 
-  def number_of_questions_completed
-    x = object.try(:number_of_questions_completed)
+  def number_of_activities_completed
+    x = object.try(:number_of_activities_completed)
     x.present? ? x.round : 0
   end
 
@@ -36,9 +36,8 @@ class Admin::TeacherSerializer < ActiveModel::Serializer
     mm, ss = x.divmod(60)
     ss2 = ss.floor
     hh, mm2 = mm.divmod(60)
-    dd, hh2 = hh.divmod(24)
 
-    "#{dd} days, #{hh2} hours, #{mm2} minutes" #, #{ss2} seconds"
+    "#{hh} hours" #, #{ss2} seconds"
   end
 
 end

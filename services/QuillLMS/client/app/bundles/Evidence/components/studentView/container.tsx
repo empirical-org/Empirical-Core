@@ -471,7 +471,11 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
     const strippedPassageHighlights = getStrippedPassageHighlights({ activities, session, activeStep });
 
     if (['p'].includes(node.name) && activeStep > 1 && strippedPassageHighlights && strippedPassageHighlights.length) {
-      const stringifiedInnerElements = node.children.map(n => n.data ? n.data : n.children[0].data).join('')
+      const stringifiedInnerElements = node.children.map(n => {
+        if (n.data) { return n.data }
+        if (n.children[0]) { return n.children[0].data}
+        return ''
+      }).join('')
       if (!stringifiedInnerElements) { return }
       const highlightIncludesElement = strippedPassageHighlights.find(ph => ph.includes(stringifiedInnerElements)) // handles case where passage highlight spans more than one paragraph
       const elementIncludesHighlight = strippedPassageHighlights.find(ph => stringifiedInnerElements.includes(ph)) // handles case where passage highlight is only part of paragraph
@@ -496,7 +500,11 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
     if (node.name === 'mark') {
       const shouldBeHighlightable = !doneHighlighting && !showReadTheDirectionsButton && hasStartedReadPassageStep
       const innerElements = node.children.map((n, i) => convertNodeToElement(n, i, transformMarkTags))
-      const stringifiedInnerElements = node.children.map(n => n.data ? n.data : n.children[0].data).join('')
+      const stringifiedInnerElements = node.children.map(n => {
+        if (n.data) { return n.data }
+        if (n.children[0]) { return n.children[0].data}
+        return ''
+      }).join('')
       let className = ''
       if(activeStep === 1) {
         className += studentHighlights.includes(stringifiedInnerElements) ? ' highlighted' : ''

@@ -9,7 +9,7 @@
   "dependencies": {
     "lodash": "^4.17.21",
     "request": "^2.81.0",
-    "typescript": "^3.6.4",
+    "typescript": "^3.9.5",
     "glob-parent": ">=5.1.2"
   },
   "devDependencies": {

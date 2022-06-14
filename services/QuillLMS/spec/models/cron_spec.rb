@@ -73,6 +73,11 @@ describe "Cron", type: :model do
       expect(PreCacheAdminDashboardsWorker).to receive(:perform_async)
       Cron.interval_1_day
     end
+
+    it "enqueues AlertSoonToExpireSubscriptionsWorker" do
+      expect(AlertSoonToExpireSubscriptionsWorker).to receive(:perform_async)
+      Cron.interval_1_day
+    end
   end
 
   describe "#run_saturday" do

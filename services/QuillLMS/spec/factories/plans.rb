@@ -21,7 +21,7 @@
 require 'rails_helper'
 
 FactoryBot.define do
-  factory :plan, aliases: [:teacher_paid_plan] do
+  factory :plan, aliases: [:teacher_premium_plan] do
     name { Plan::STRIPE_TEACHER_PLAN }
     display_name { 'Teacher Premium' }
     price { 9000 }
@@ -29,7 +29,7 @@ FactoryBot.define do
     interval { Plan::YEARLY_INTERVAL_TYPE }
     interval_count { 1 }
 
-    factory :school_paid_plan do
+    factory :school_premium_plan do
       name { Plan::STRIPE_SCHOOL_PLAN }
       display_name { 'School Premium' }
       price { 180000 }

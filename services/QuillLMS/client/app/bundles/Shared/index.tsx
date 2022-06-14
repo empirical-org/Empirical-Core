@@ -101,6 +101,7 @@ export {
   titleCase,
   onMobile,
   fillInBlankInputLabel,
+  getIconForActivityClassification
 } from './libs/index'
 
 export {
@@ -130,7 +131,13 @@ export {
   whiteCheckGreenBackgroundIcon,
   lockedIcon,
   closeIcon,
-  informationIcon
+  informationIcon,
+  connectToolIcon,
+  diagnosticToolIcon,
+  grammarToolIcon,
+  lessonsToolIcon,
+  proofreaderToolIcon,
+  evidenceToolIcon
 } from './images/index'
 
 export {
