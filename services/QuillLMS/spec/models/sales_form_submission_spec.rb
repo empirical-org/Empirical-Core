@@ -39,6 +39,7 @@ RSpec.describe SalesFormSubmission, type: :model do
     it { should validate_presence_of(:student_premium_count_estimate) }
     it { should validate_presence_of(:submission_type) }
   end
+
   context 'school name validation with blank district name' do
     let(:sales_form_submission) { build(:sales_form_submission, district_name: '') }
 
@@ -46,6 +47,7 @@ RSpec.describe SalesFormSubmission, type: :model do
     it { should validate_presence_of(:school_name) }
     it { should validate_presence_of(:district_name) }
   end
+
   context 'district name validation with blank school name' do
     let(:sales_form_submission) { build(:sales_form_submission, school_name: '') }
 

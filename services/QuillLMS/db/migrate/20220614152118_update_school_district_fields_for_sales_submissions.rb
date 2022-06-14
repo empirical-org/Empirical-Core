@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UpdateSchoolDistrictFieldsForSalesSubmissions < ActiveRecord::Migration[5.1]
   def change
     change_column_null :sales_form_submissions, :school_name, true
