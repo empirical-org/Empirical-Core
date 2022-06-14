@@ -118,8 +118,10 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
   });
 
   React.useEffect(() => {
-    onStartDateChange(new Date(getDateFromLatestAutoMLModel(modelsData?.models)))
-    setStartDate(getDateFromLatestAutoMLModel(modelsData?.models))
+    if (modelsData?.models) {
+      onStartDateChange(new Date(getDateFromLatestAutoMLModel(modelsData.models)))
+      setStartDate(getDateFromLatestAutoMLModel(modelsData.models))
+    }
 
   }, [modelsData])
 
