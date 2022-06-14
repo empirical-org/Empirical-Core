@@ -10,20 +10,6 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: -
---
-
-CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
-
-
---
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
-
-
---
 -- Name: hstore; Type: EXTENSION; Schema: -; Owner: -
 --
 
@@ -67,6 +53,18 @@ CREATE FUNCTION public.blog_posts_search_trigger() RETURNS trigger
         return new;
       end
       $$;
+
+
+--
+-- Name: my_jsonb_to_hstore(jsonb); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.my_jsonb_to_hstore(jsonb) RETURNS public.hstore
+    LANGUAGE sql IMMUTABLE STRICT
+    AS $_$
+            SELECT hstore(array_agg(key), array_agg(value))
+            FROM   jsonb_each_text($1)
+          $_$;
 
 
 --
@@ -124,7 +122,7 @@ CREATE FUNCTION public.timespent_question(act_sess integer, question character v
           item timestamp;
         BEGIN
           SELECT created_at INTO as_created_at FROM activity_sessions WHERE id = act_sess;
-
+          
           -- backward compatibility block
           IF as_created_at IS NULL OR as_created_at < timestamp '2013-08-25 00:00:00.000000' THEN
             SELECT SUM(
@@ -139,11 +137,11 @@ CREATE FUNCTION public.timespent_question(act_sess integer, question character v
                       'epoch' FROM (activity_sessions.completed_at - activity_sessions.started_at)
                     )
                 END) INTO time_spent FROM activity_sessions WHERE id = act_sess AND state='finished';
-
+                
                 RETURN COALESCE(time_spent,0);
           END IF;
-
-
+          
+          
           first_item := NULL;
           last_item := NULL;
           max_item := NULL;
@@ -167,11 +165,11 @@ CREATE FUNCTION public.timespent_question(act_sess integer, question character v
 
             END IF;
           END LOOP;
-
+          
           IF max_item IS NOT NULL AND first_item IS NOT NULL THEN
             time_spent := time_spent + EXTRACT( EPOCH FROM max_item - first_item );
           END IF;
-
+          
           RETURN time_spent;
         END;
       $$;
@@ -186,7 +184,7 @@ CREATE FUNCTION public.timespent_student(student integer) RETURNS bigint
     AS $$
         SELECT COALESCE(SUM(time_spent),0) FROM (
           SELECT id,timespent_activity_session(id) AS time_spent FROM activity_sessions
-          WHERE activity_sessions.user_id = student
+          WHERE activity_sessions.user_id = student 
           GROUP BY id) as as_ids;
 
       $$;
@@ -226,6 +224,8 @@ CREATE FUNCTION public.timespent_teacher(teacher integer) RETURNS bigint
 
 
 SET default_tablespace = '';
+
+SET default_table_access_method = heap;
 
 --
 -- Name: active_activity_sessions; Type: TABLE; Schema: public; Owner: -
@@ -310,7 +310,7 @@ ALTER SEQUENCE public.activities_id_seq OWNED BY public.activities.id;
 CREATE TABLE public.activities_unit_templates (
     unit_template_id integer NOT NULL,
     activity_id integer NOT NULL,
-    id bigint NOT NULL,
+    id integer NOT NULL,
     order_number integer
 );
 
@@ -320,6 +320,7 @@ CREATE TABLE public.activities_unit_templates (
 --
 
 CREATE SEQUENCE public.activities_unit_templates_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -967,8 +968,8 @@ CREATE TABLE public.change_logs (
     id integer NOT NULL,
     explanation text,
     action character varying NOT NULL,
-    changed_record_type character varying NOT NULL,
     changed_record_id integer,
+    changed_record_type character varying NOT NULL,
     user_id integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
@@ -1590,10 +1591,9 @@ CREATE TABLE public.comprehension_rules (
     rule_type character varying NOT NULL,
     optimal boolean NOT NULL,
     suborder integer,
-    concept_uid character varying NOT NULL,
+    concept_uid character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    sequence_type character varying,
     state character varying NOT NULL
 );
 
@@ -1899,8 +1899,8 @@ CREATE TABLE public.credit_transactions (
     id integer NOT NULL,
     amount integer NOT NULL,
     user_id integer NOT NULL,
-    source_type character varying,
     source_id integer,
+    source_type character varying,
     created_at timestamp without time zone,
     updated_at timestamp without time zone
 );
@@ -2034,7 +2034,7 @@ ALTER SEQUENCE public.district_admins_id_seq OWNED BY public.district_admins.id;
 CREATE TABLE public.districts (
     id integer NOT NULL,
     clever_id character varying,
-    name character varying,
+    name character varying NOT NULL,
     token character varying,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
@@ -2067,42 +2067,6 @@ CREATE SEQUENCE public.districts_id_seq
 --
 
 ALTER SEQUENCE public.districts_id_seq OWNED BY public.districts.id;
-
-
---
--- Name: districts_tables; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.districts_tables (
-    id bigint NOT NULL,
-    name character varying NOT NULL,
-    nces_id character varying NOT NULL,
-    city character varying NOT NULL,
-    state character varying NOT NULL,
-    zipcode integer,
-    phone character varying,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: districts_tables_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.districts_tables_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: districts_tables_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.districts_tables_id_seq OWNED BY public.districts_tables.id;
 
 
 --
@@ -2156,8 +2120,8 @@ ALTER SEQUENCE public.evidence_hints_id_seq OWNED BY public.evidence_hints.id;
 CREATE TABLE public.feedback_histories (
     id integer NOT NULL,
     feedback_session_uid text,
-    prompt_type character varying,
     prompt_id integer,
+    prompt_type character varying,
     concept_uid text,
     attempt integer NOT NULL,
     entry text NOT NULL,
@@ -2766,7 +2730,6 @@ CREATE TABLE public.plans (
     audience character varying NOT NULL,
     "interval" character varying,
     interval_count integer,
-    stripe_price_id character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -3065,6 +3028,49 @@ ALTER SEQUENCE public.sales_contacts_id_seq OWNED BY public.sales_contacts.id;
 
 
 --
+-- Name: sales_form_submissions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.sales_form_submissions (
+    id bigint NOT NULL,
+    first_name character varying NOT NULL,
+    last_name character varying NOT NULL,
+    email character varying NOT NULL,
+    phone_number character varying NOT NULL,
+    zipcode character varying NOT NULL,
+    collection_type character varying NOT NULL,
+    school_name character varying,
+    district_name character varying,
+    school_premium_count_estimate integer DEFAULT 0 NOT NULL,
+    teacher_premium_count_estimate integer DEFAULT 0 NOT NULL,
+    student_premium_count_estimate integer DEFAULT 0 NOT NULL,
+    submission_type character varying NOT NULL,
+    comment text DEFAULT ''::text,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: sales_form_submissions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.sales_form_submissions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: sales_form_submissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.sales_form_submissions_id_seq OWNED BY public.sales_form_submissions.id;
+
+
+--
 -- Name: sales_stage_types; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3183,8 +3189,6 @@ ALTER SEQUENCE public.school_subscriptions_id_seq OWNED BY public.school_subscri
 CREATE TABLE public.schools (
     id integer NOT NULL,
     nces_id character varying,
-    lea_id character varying,
-    leanm character varying,
     name character varying,
     phone character varying,
     mail_street character varying,
@@ -3279,7 +3283,7 @@ ALTER SEQUENCE public.schools_id_seq OWNED BY public.schools.id;
 CREATE TABLE public.schools_users (
     school_id integer,
     user_id integer,
-    id bigint NOT NULL
+    id integer NOT NULL
 );
 
 
@@ -3288,6 +3292,7 @@ CREATE TABLE public.schools_users (
 --
 
 CREATE SEQUENCE public.schools_users_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3533,6 +3538,74 @@ ALTER SEQUENCE public.standards_id_seq OWNED BY public.standards.id;
 
 
 --
+-- Name: stripe_checkout_sessions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.stripe_checkout_sessions (
+    id bigint NOT NULL,
+    external_checkout_session_id character varying NOT NULL,
+    stripe_price_id character varying NOT NULL,
+    url character varying NOT NULL,
+    user_id bigint,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: stripe_checkout_sessions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.stripe_checkout_sessions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: stripe_checkout_sessions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.stripe_checkout_sessions_id_seq OWNED BY public.stripe_checkout_sessions.id;
+
+
+--
+-- Name: stripe_webhook_events; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.stripe_webhook_events (
+    id bigint NOT NULL,
+    event_type character varying NOT NULL,
+    status character varying DEFAULT 'pending'::character varying,
+    external_id character varying NOT NULL,
+    processing_errors character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: stripe_webhook_events_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.stripe_webhook_events_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: stripe_webhook_events_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.stripe_webhook_events_id_seq OWNED BY public.stripe_webhook_events.id;
+
+
+--
 -- Name: student_feedback_responses; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3634,40 +3707,6 @@ ALTER SEQUENCE public.students_classrooms_id_seq OWNED BY public.students_classr
 
 
 --
--- Name: subscription_types; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.subscription_types (
-    id integer NOT NULL,
-    name character varying NOT NULL,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    price integer,
-    teacher_alias character varying
-);
-
-
---
--- Name: subscription_types_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.subscription_types_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: subscription_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.subscription_types_id_seq OWNED BY public.subscription_types.id;
-
-
---
 -- Name: subscriptions; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3679,12 +3718,13 @@ CREATE TABLE public.subscriptions (
     account_type character varying,
     purchaser_email character varying,
     start_date date,
-    subscription_type_id integer,
+    plan_id integer,
     purchaser_id integer,
     recurring boolean DEFAULT false,
     de_activated_date date,
     payment_method character varying,
-    payment_amount integer
+    payment_amount integer,
+    stripe_invoice_id character varying
 );
 
 
@@ -4535,13 +4575,6 @@ ALTER TABLE ONLY public.districts ALTER COLUMN id SET DEFAULT nextval('public.di
 
 
 --
--- Name: districts_tables id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.districts_tables ALTER COLUMN id SET DEFAULT nextval('public.districts_tables_id_seq'::regclass);
-
-
---
 -- Name: evidence_hints id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -4731,6 +4764,13 @@ ALTER TABLE ONLY public.sales_contacts ALTER COLUMN id SET DEFAULT nextval('publ
 
 
 --
+-- Name: sales_form_submissions id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.sales_form_submissions ALTER COLUMN id SET DEFAULT nextval('public.sales_form_submissions_id_seq'::regclass);
+
+
+--
 -- Name: sales_stage_types id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -4822,6 +4862,20 @@ ALTER TABLE ONLY public.standards ALTER COLUMN id SET DEFAULT nextval('public.st
 
 
 --
+-- Name: stripe_checkout_sessions id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.stripe_checkout_sessions ALTER COLUMN id SET DEFAULT nextval('public.stripe_checkout_sessions_id_seq'::regclass);
+
+
+--
+-- Name: stripe_webhook_events id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.stripe_webhook_events ALTER COLUMN id SET DEFAULT nextval('public.stripe_webhook_events_id_seq'::regclass);
+
+
+--
 -- Name: student_feedback_responses id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -4840,13 +4894,6 @@ ALTER TABLE ONLY public.student_problem_reports ALTER COLUMN id SET DEFAULT next
 --
 
 ALTER TABLE ONLY public.students_classrooms ALTER COLUMN id SET DEFAULT nextval('public.students_classrooms_id_seq'::regclass);
-
-
---
--- Name: subscription_types id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.subscription_types ALTER COLUMN id SET DEFAULT nextval('public.subscription_types_id_seq'::regclass);
 
 
 --
@@ -5364,14 +5411,6 @@ ALTER TABLE ONLY public.districts
 
 
 --
--- Name: districts_tables districts_tables_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.districts_tables
-    ADD CONSTRAINT districts_tables_pkey PRIMARY KEY (id);
-
-
---
 -- Name: evidence_hints evidence_hints_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5588,6 +5627,14 @@ ALTER TABLE ONLY public.sales_contacts
 
 
 --
+-- Name: sales_form_submissions sales_form_submissions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.sales_form_submissions
+    ADD CONSTRAINT sales_form_submissions_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: sales_stage_types sales_stage_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5601,14 +5648,6 @@ ALTER TABLE ONLY public.sales_stage_types
 
 ALTER TABLE ONLY public.sales_stages
     ADD CONSTRAINT sales_stages_pkey PRIMARY KEY (id);
-
-
---
--- Name: schema_migrations schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.schema_migrations
-    ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
 
 
 --
@@ -5700,6 +5739,22 @@ ALTER TABLE ONLY public.standards
 
 
 --
+-- Name: stripe_checkout_sessions stripe_checkout_sessions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.stripe_checkout_sessions
+    ADD CONSTRAINT stripe_checkout_sessions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: stripe_webhook_events stripe_webhook_events_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.stripe_webhook_events
+    ADD CONSTRAINT stripe_webhook_events_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: student_feedback_responses student_feedback_responses_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5721,14 +5776,6 @@ ALTER TABLE ONLY public.student_problem_reports
 
 ALTER TABLE ONLY public.students_classrooms
     ADD CONSTRAINT students_classrooms_pkey PRIMARY KEY (id);
-
-
---
--- Name: subscription_types subscription_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.subscription_types
-    ADD CONSTRAINT subscription_types_pkey PRIMARY KEY (id);
 
 
 --
@@ -6446,6 +6493,13 @@ CREATE INDEX index_district_admins_on_user_id ON public.district_admins USING bt
 
 
 --
+-- Name: index_districts_on_nces_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_districts_on_nces_id ON public.districts USING btree (nces_id);
+
+
+--
 -- Name: index_districts_users_on_district_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -6852,6 +6906,27 @@ CREATE INDEX index_skills_on_skill_group_id ON public.skills USING btree (skill_
 
 
 --
+-- Name: index_stripe_checkout_sessions_on_external_checkout_session_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_stripe_checkout_sessions_on_external_checkout_session_id ON public.stripe_checkout_sessions USING btree (external_checkout_session_id);
+
+
+--
+-- Name: index_stripe_checkout_sessions_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_stripe_checkout_sessions_on_user_id ON public.stripe_checkout_sessions USING btree (user_id);
+
+
+--
+-- Name: index_stripe_webhook_events_on_external_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_stripe_webhook_events_on_external_id ON public.stripe_webhook_events USING btree (external_id);
+
+
+--
 -- Name: index_student_problem_reports_on_feedback_history_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -6877,13 +6952,6 @@ CREATE INDEX index_students_classrooms_on_student_id ON public.students_classroo
 --
 
 CREATE UNIQUE INDEX index_students_classrooms_on_student_id_and_classroom_id ON public.students_classrooms USING btree (student_id, classroom_id);
-
-
---
--- Name: index_subscription_types_on_name; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_subscription_types_on_name ON public.subscription_types USING btree (name);
 
 
 --
@@ -6919,6 +6987,13 @@ CREATE INDEX index_subscriptions_on_recurring ON public.subscriptions USING btre
 --
 
 CREATE INDEX index_subscriptions_on_start_date ON public.subscriptions USING btree (start_date);
+
+
+--
+-- Name: index_subscriptions_on_stripe_invoice_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_subscriptions_on_stripe_invoice_id ON public.subscriptions USING btree (stripe_invoice_id);
 
 
 --
@@ -7216,6 +7291,13 @@ CREATE UNIQUE INDEX unique_index_users_on_username ON public.users USING btree (
 
 
 --
+-- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX unique_schema_migrations ON public.schema_migrations USING btree (version);
+
+
+--
 -- Name: user_activity_classification_unique_index; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -7282,7 +7364,7 @@ CREATE INDEX uta ON public.activities_unit_templates USING btree (unit_template_
 -- Name: blog_posts tsvectorupdate; Type: TRIGGER; Schema: public; Owner: -
 --
 
-CREATE TRIGGER tsvectorupdate BEFORE INSERT OR UPDATE ON public.blog_posts FOR EACH ROW EXECUTE PROCEDURE public.blog_posts_search_trigger();
+CREATE TRIGGER tsvectorupdate BEFORE INSERT OR UPDATE ON public.blog_posts FOR EACH ROW EXECUTE FUNCTION public.blog_posts_search_trigger();
 
 
 --
@@ -7363,6 +7445,14 @@ ALTER TABLE ONLY public.user_activity_classifications
 
 ALTER TABLE ONLY public.sales_stages
     ADD CONSTRAINT fk_rails_41082adef9 FOREIGN KEY (sales_contact_id) REFERENCES public.sales_contacts(id);
+
+
+--
+-- Name: stripe_checkout_sessions fk_rails_428a7d5f1b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.stripe_checkout_sessions
+    ADD CONSTRAINT fk_rails_428a7d5f1b FOREIGN KEY (user_id) REFERENCES public.users(id);
 
 
 --
@@ -8099,11 +8189,21 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220201132114'),
 ('20220201161514'),
 ('20220315131616'),
-('20220315172237'),
 ('20220317153356'),
+('20220321170433'),
+('20220321213514'),
 ('20220321215816'),
+('20220322164718'),
+('20220323145502'),
+('20220323145803'),
 ('20220328165932'),
 ('20220328170304'),
-('20220404180807');
+('20220404180807'),
+('20220418234207'),
+('20220428171629'),
+('20220503133521'),
+('20220503155835'),
+('20220607120432'),
+('20220614152118');
 
 
