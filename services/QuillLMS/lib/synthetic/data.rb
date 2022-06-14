@@ -49,16 +49,18 @@ module Synthetic
     # Throttling to 100 sentences at a time.
     BATCH_SIZE = 100
 
-    attr_reader :results, :languages, :test_percent, :data_count, :labels
+    attr_reader :results, :languages, :test_percent, :data_count, :labels, :manual_types
 
     # params:
     # texts_and_labels: [['text', 'label_5'],['text', 'label_1'],...]
     # languages: [:es, :ja, ...]
     # test_percent: float. What percent should be used for both the test and validation set
+    # manual_types: bool, whether to assign TEXT,VALIDATION,TRAIN to each row
     # Passing 0.2 will use 20% for testing, 20% for validation and 60% for training
-    def initialize(texts_and_labels, languages: TRAIN_LANGUAGES.keys, spelling: true, test_percent: 0.2)
+    def initialize(texts_and_labels, languages: TRAIN_LANGUAGES.keys, spelling: true, manual_types: true, test_percent: 0.2)
       @languages = languages
       @test_percent = test_percent
+      @manual_types = manual_types
 
       clean_text_and_labels = texts_and_labels
         .keep_if(&:last) # remove blank labels
@@ -80,6 +82,10 @@ module Synthetic
 
       fetch_synthetic_spelling_errors
 
+      assign_types if manual_types
+    end
+
+    def assign_types
       # assign TEST and VALIDATION types to each label to ensure minimum per label
       labels.each do |label|
         testing_sample = @results
@@ -149,9 +155,9 @@ module Synthetic
       results
     end
 
-    # only fetch results for items with type 'TRAIN'
+    # only fetch results for items with type 'TRAIN' if using manual_types
     def fetch_synthetic_translations_for(language: )
-      results.select {|r| r.type == TYPE_TRAIN}.each_slice(BATCH_SIZE).each do |results_slice|
+      results.select {|r| !manual_types || r.type == TYPE_TRAIN}.each_slice(BATCH_SIZE).each do |results_slice|
         translations = TRANSLATOR.translate(results_slice.map(&:text), from: ENGLISH, to: language)
         english_texts = TRANSLATOR.translate(translations.map(&:text), from: language, to: ENGLISH)
 
@@ -185,17 +191,19 @@ module Synthetic
     # pass in file paths, e.g. /Users/yourname/Desktop/
     # defaults to a dry run (doesn't hit)
     # r = Synthetic::Data.generate_training_export('/Users/danieldrabik/Documents/quill/synthetic/Responses_Translation_Nuclear_Because_Dec13.csv')
-    def self.generate_training_export(input_file_path, live: false, languages: TRAIN_LANGUAGES.keys, test_percent: 0.2)
+    def self.generate_training_export(input_file_path, live: false, languages: TRAIN_LANGUAGES.keys, manual_types: true, test_percent: 0.2)
 
       output_csv = input_file_path.gsub(CSV_END_MATCH, SYNTHETIC_CSV)
       output_training_csv = input_file_path.gsub(CSV_END_MATCH, TRAIN_CSV)
 
       texts_and_labels = CSV.open(input_file_path).to_a
 
-      synthetics = Synthetic::Data.new(texts_and_labels, languages: languages, test_percent: test_percent)
+      synthetics = Synthetic::Data.new(texts_and_labels, languages: languages, manual_types: manual_types, test_percent: test_percent)
 
-      synthetics.validate_minimum_per_label!
-      synthetics.validate_language_count_and_percent!
+      if manual_types
+        synthetics.validate_minimum_per_label!
+        synthetics.validate_language_count_and_percent!
+      end
 
       if live
         synthetics.fetch_synthetic_translations
