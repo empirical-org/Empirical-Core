@@ -152,8 +152,8 @@ module Evidence
           :notes => automl_model.notes
         }.stringify_keys
         expect(
-          expected <= automl_model.serializable_hash
-        ).to be true
+          automl_model.serializable_hash
+        ).to include(expected)
       end
     end
 
