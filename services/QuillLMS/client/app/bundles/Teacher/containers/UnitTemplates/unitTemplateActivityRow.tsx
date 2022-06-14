@@ -1,6 +1,7 @@
 import * as React from 'react'
 
 import { DataTable, Tooltip, getIconForActivityClassification } from '../../../Shared'
+import { editActivityLink } from '../../helpers/unitTemplates';
 
 const conceptMaxWidth = '152px';
 const readabilityMaxWidth = '280px';
@@ -63,7 +64,7 @@ export const UnitTemplateActivityRow = ({
         ccss: showStandardData(standard),
         concept: activity_category && activity_category.name ? activity_category.name : 'N/A',
         tool: classification && classification.id ? getIconForActivityClassification(classification.id) : 'N/A',
-        edit: <a className="action-button focus-on-light" href={editLink} rel="noopener noreferrer" target="_blank">edit</a>,
+        edit: <a className="action-button focus-on-light" href={editActivityLink(classification.id, id)} rel="noopener noreferrer" target="_blank">edit</a>,
         remove: <button className="action-button interactive-wrapper focus-on-light" onClick={handleRemoveClick} type="button" value={id}>remove</button>
       }
     });

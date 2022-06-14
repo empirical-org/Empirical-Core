@@ -1,11 +1,11 @@
 import * as React from 'react'
 import request from 'request';
 
-import UnitTemplateActivityDataRow from './unit_template_activity_data_row'
+import UnitTemplateActivityDataRow from './unitTemplateActivityDataRow'
 
-import { FlagDropdown, SortableList } from '../../../Shared/index'
-import Pagination from '../../../Teacher/components/assignment_flow/create_unit/custom_activity_pack/pagination'
-import { lowerBound, upperBound, } from '../../../Teacher/components/assignment_flow/create_unit/custom_activity_pack/shared'
+import { FlagDropdown, SortableList, Spinner } from '../../../Shared/index'
+import Pagination from '../assignment_flow/create_unit/custom_activity_pack/pagination'
+import { lowerBound, upperBound, } from '../assignment_flow/create_unit/custom_activity_pack/shared'
 
 const ACTIVITIES_URL = `${process.env.DEFAULT_URL}/activities/index_with_unit_templates`
 const DEFAULT_FLAG = 'All Flags'
@@ -28,7 +28,7 @@ const UnitTemplateActivitySelector = ({ parentActivities, setParentActivities, t
   const [activities, setActivities] = React.useState<Array<any>>([])
   const [selectedActivities, setSelectedActivities] = React.useState<Array<any>>(parentActivities)
   const [loading, setLoading] = React.useState<boolean>(true);
-  const [currentPage, setCurrentPage] = React.useState<Number>(1);
+  const [currentPage, setCurrentPage] = React.useState<number>(1);
   const [nameSearch, setNameSearch] = React.useState<string>('')
   const [descriptionSearch, setDescriptionSearch] = React.useState<string>('')
   const [conceptSearch, setConceptSearch] = React.useState<string>('')
@@ -108,6 +108,7 @@ const UnitTemplateActivitySelector = ({ parentActivities, setParentActivities, t
       <th className="ut-readability-col">Readability</th>
       <th className="ut-concept-col">Concept</th>
       <th className="ut-tool-col">Tool</th>
+      <th className="ut-edit-col"/>
     </tr>
   )
 
@@ -250,6 +251,10 @@ const UnitTemplateActivitySelector = ({ parentActivities, setParentActivities, t
 
     </div>
   )
+
+  if(!activities.length) {
+    return <Spinner/>
+  }
 
   return (
     <div className="unit-template-activities">

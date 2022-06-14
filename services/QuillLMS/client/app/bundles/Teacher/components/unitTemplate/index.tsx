@@ -3,7 +3,7 @@ import { EditorState, ContentState } from 'draft-js';
 import Dropzone from 'react-dropzone'
 import _ from 'underscore';
 
-import UnitTemplateActivitySelector from './unit_template_activity_selector'
+import UnitTemplateActivitySelector from './unitTemplateActivitySelector'
 import DropdownSelector from '../general_components/dropdown_selectors/dropdown_selector.jsx';
 import Server from '../modules/server/server.jsx';
 import Fnl from '../modules/fnl.jsx';
@@ -29,7 +29,6 @@ const FLAG_DROPDOWN_OPTIONS = [PRODUCTION_FLAG, ALPHA_FLAG, BETA_FLAG, GAMMA_FLA
 const TIME_OPTIONS = ['0', '10', '20', '30', '40', '50', '60', '70', '80', '90', '100', '110', '120', '130', '140', '150', '160', '170', '180', '190'];
 
 export const UnitTemplate = ({ unitTemplate }) => {
-  console.log("🚀 ~ file: unit_template.tsx ~ line 355 ~ UnitTemplate ~ unitTemplate", unitTemplate)
   const { id, flag, time, unit_template_category, name, activity_info, readability, diagnostic_names, activities } = unitTemplate;
   const [activityPackFlag, setActivityPackFlag] = React.useState<DropdownObjectInterface>(flag ? {value: flag, label: flag} : null);
   const [activityPackName, setActivityPackName] = React.useState<any>(name);
@@ -180,7 +179,7 @@ export const UnitTemplate = ({ unitTemplate }) => {
   }
 
   return(
-    <div className="container cms-unit-template-editor" id="unit-template-editor">
+    <div className="cms-unit-template-editor" id="unit-template-editor">
       {showSubmissionModal && renderSubmissionModal()}
       <DropdownInput
         error={errors && errors['activityPackFlag']}
@@ -210,29 +209,31 @@ export const UnitTemplate = ({ unitTemplate }) => {
           text={activityPackInfo}
         />
       </section>
-      <section className="activity-pack-type-container">
-        <label htmlFor="pack-type-dropdown">
-          <Tooltip tooltipText="Unit Template Category" tooltipTriggerText="Pack Type" />
-        </label>
+      <section className="middle-section">
+        <section className="activity-pack-type-container">
+          <label htmlFor="pack-type-dropdown">
+            <Tooltip tooltipText="Unit Template Category" tooltipTriggerText="Pack Type" />
+          </label>
+          <DropdownInput
+            error={errors && errors['activityPackType']}
+            handleChange={handlePackTypeChange}
+            id="pack-type-dropdown"
+            isSearchable={true}
+            options={getOptions(PACK_TYPE_OPTIONS)}
+            value={activityPackType}
+          />
+        </section>
         <DropdownInput
-          error={errors && errors['activityPackType']}
-          handleChange={handlePackTypeChange}
-          id="pack-type-dropdown"
+          handleChange={handleTimeChange}
+          id="time-dropdown"
           isSearchable={true}
-          options={getOptions(PACK_TYPE_OPTIONS)}
-          value={activityPackType}
+          label="Select time in minutes"
+          options={getOptions(TIME_OPTIONS)}
+          value={activityPackTime}
         />
+        {renderDiagnosticsSection()}
+        {renderReadabilitySection()}
       </section>
-      <DropdownInput
-        handleChange={handleTimeChange}
-        id="time-dropdown"
-        isSearchable={true}
-        label="Select time in minutes"
-        options={getOptions(TIME_OPTIONS)}
-        value={activityPackTime}
-      />
-      {renderDiagnosticsSection()}
-      {renderReadabilitySection()}
       {renderPdfUploadSection()}
       <section className="activity-selector-container padded-element">
         <UnitTemplateActivitySelector
@@ -242,7 +243,7 @@ export const UnitTemplate = ({ unitTemplate }) => {
         />
       </section>
       <div className="error-message-and-button">
-        {errors && <p>Please fix the form errors and try submitting again.</p>}
+        {errors && <p className="all-errors-message">Please fix the form errors and try submitting again.</p>}
         <button className="quill-button primary contained medium focus-on-light" id="continue" onClick={handleSaveUnitTemplate}>Save</button>
       </div>
     </div>

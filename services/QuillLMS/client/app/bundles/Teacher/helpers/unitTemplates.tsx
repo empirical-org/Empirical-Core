@@ -57,6 +57,8 @@ export function orderedUnitTemplates({
   return sortUnitTemplates(filteredData)
 }
 
+export const editActivityLink = (classificationId, id) => `${process.env.DEFAULT_URL}/cms/activity_classifications/${classificationId}/activities/${id}/edit`;
+
 export const validateUnitTemplateForm = ({ activityPackFlag, activityPackName, activityPackType }) => {
   const errors = {};
   if(!activityPackFlag) {
