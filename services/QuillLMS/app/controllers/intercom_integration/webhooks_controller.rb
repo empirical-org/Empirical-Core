@@ -2,7 +2,8 @@
 
 module IntercomIntegration
   class WebhooksController < ApplicationController
-    # frozen_string_literal: true
+    UNKNOWN_NAME = "Unknown User"
+
     skip_before_action :verify_authenticity_token
     before_action :verify_signature, only: [:create]
 
@@ -75,7 +76,7 @@ module IntercomIntegration
       User.create!(
         email: user_payload["email"],
         role: User::SALES_CONTACT,
-        name: user_payload["name"],
+        name: user_payload["name"] || UNKNOWN_NAME,
         password: SecureRandom.uuid
       )
     end
