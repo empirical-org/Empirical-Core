@@ -129,7 +129,7 @@ export const SalesForm = ({ type }) => {
       submission_type: type,
       comment: comments
     }
-    const formErrors = validateSalesForm(salesFormSubmission);
+    const formErrors = validateSalesForm({ salesFormSubmission, schoolIsSelected, districtIsSelected });
     if(Object.keys(formErrors).length) {
       setErrors(formErrors)
     } else {

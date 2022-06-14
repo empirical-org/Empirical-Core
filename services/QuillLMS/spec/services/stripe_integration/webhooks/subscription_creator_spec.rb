@@ -26,7 +26,7 @@ RSpec.describe StripeIntegration::Webhooks::SubscriptionCreator do
       let!(:teacher) { create(:teacher) }
       let!(:other_teacher) { create(:teacher) }
       let!(:school) { create :school, users: [customer, teacher]}
-      let!(:school_plan) { create(:school_paid_plan) }
+      let!(:school_plan) { create(:school_premium_plan) }
       let!(:stripe_subscription_metadata) { { school_ids: [school.id].to_json } }
 
       before { allow(Plan).to receive(:find_stripe_plan!).with(stripe_price_id).and_return(school_plan) }
@@ -66,6 +66,14 @@ RSpec.describe StripeIntegration::Webhooks::SubscriptionCreator do
     it { expect { subject }.to raise_error described_class::PlanNotFoundError }
   end
 
+  context 'active subscription already exists' do
+    let!(:subscription) { create(:subscription) }
+
+    before { create(:user_subscription, user: customer, subscription: subscription) }
+
+    it { expect { subject }.to raise_error described_class::DuplicateSubscriptionError }
+  end
+
   context 'purchaser does not exist' do
     before { allow(User).to receive(:find_by!).and_raise(ActiveRecord::RecordNotFound) }
 
@@ -73,7 +81,7 @@ RSpec.describe StripeIntegration::Webhooks::SubscriptionCreator do
   end
 
   context 'school does not exist' do
-    let!(:school_plan) { create(:school_paid_plan) }
+    let!(:school_plan) { create(:school_premium_plan) }
 
     before { allow(Plan).to receive(:find_stripe_plan!).with(stripe_price_id).and_return(school_plan) }
 

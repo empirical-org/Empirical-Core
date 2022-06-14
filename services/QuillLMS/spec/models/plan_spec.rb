@@ -65,13 +65,13 @@ RSpec.describe Plan, type: :model do
   end
 
   context '.stripe_teacher_plan' do
-    let!(:plan) { create(:teacher_paid_plan) }
+    let!(:plan) { create(:teacher_premium_plan) }
 
     it { expect(Plan.stripe_teacher_plan).to eq plan }
   end
 
   context 'teacher?' do
-    let(:plan) { create(:teacher_paid_plan) }
+    let(:plan) { create(:teacher_premium_plan) }
 
     it { expect(plan.teacher?).to be true }
   end

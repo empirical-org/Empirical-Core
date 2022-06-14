@@ -5,11 +5,13 @@ module StripeIntegration
     SUBSCRIPTION_MODE = 'subscription'
 
     def create
-      subscription_checkout_session = Stripe::Checkout::Session.create(subscription_checkout_session_args)
-      render json: { redirect_url: subscription_checkout_session.url }
+      stripe_checkout_session =
+        StripeCheckoutSession.custom_find_or_create_by!(external_checkout_session_args, stripe_price_id, customer.id)
+
+      render json: { redirect_url: stripe_checkout_session.url }
     end
 
-    private def subscription_checkout_session_args
+    private def external_checkout_session_args
       {
         cancel_url: cancel_url,
         line_items: [{
@@ -17,7 +19,7 @@ module StripeIntegration
           quantity: 1
         }],
         mode: SUBSCRIPTION_MODE,
-        subscription_data: subscription_data,
+        subscription_data: subscription_data.merge(trial_period_days_arg),
         success_url: success_url
       }.merge(customer_arg)
     end

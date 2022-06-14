@@ -7,12 +7,12 @@
 #  id                             :bigint           not null, primary key
 #  collection_type                :string           not null
 #  comment                        :text             default("")
-#  district_name                  :string           not null
+#  district_name                  :string
 #  email                          :string           not null
 #  first_name                     :string           not null
 #  last_name                      :string           not null
 #  phone_number                   :string           not null
-#  school_name                    :string           not null
+#  school_name                    :string
 #  school_premium_count_estimate  :integer          default(0), not null
 #  student_premium_count_estimate :integer          default(0), not null
 #  submission_type                :string           not null
@@ -37,8 +37,8 @@ class SalesFormSubmission < ApplicationRecord
   validates_email_format_of :email, message: :invalid
   validates :phone_number, presence: true
   validates :zipcode, presence: true
-  validates :school_name, presence: true
-  validates :district_name, presence: true
+  validates :school_name, presence: true, unless: :district_name
+  validates :district_name, presence: true, unless: :school_name
   validates :school_premium_count_estimate, presence: true, numericality: { greater_than_or_equal_to: 0 }
   validates :teacher_premium_count_estimate, presence: true, numericality: { greater_than_or_equal_to: 0 }
   validates :student_premium_count_estimate, presence: true, numericality: { greater_than_or_equal_to: 0 }
