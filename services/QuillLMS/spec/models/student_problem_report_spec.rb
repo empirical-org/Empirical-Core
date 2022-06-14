@@ -5,7 +5,6 @@
 # Table name: student_problem_reports
 #
 #  id                  :bigint           not null, primary key
-#  optimal             :boolean          default(FALSE), not null
 #  report              :string           not null
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
