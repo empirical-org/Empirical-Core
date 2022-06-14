@@ -9,6 +9,43 @@ export const SCHOOL_SELECTION_STAGE = 'school_premium_purchase_selection_stage'
 const PLAN_SELECTION_STAGE_NUMBER = 1
 const SCHOOL_SELECTION_STAGE_NUMBER = 2
 
+const SchoolSelectionStage = ({ eligibleSchools, selectedSchool, goToStripeWithSelectedSchool, setSelectedSchool, closeModal, selectSchool, }) => {
+  if (eligibleSchools.length) {
+    const schoolOptions = eligibleSchools.map(school => ({ value: school.id, label: school.name, }))
+    const continueButton = selectedSchool ? <button className="quill-button medium contained primary focus-on-light" onClick={goToStripeWithSelectedSchool} type="button">Continue</button> : <button className="quill-button medium contained primary focus-on-light disabled" disabled type="button">Continue</button>
+    return (
+      <div className="modal-container school-and-district-premium-modal-container">
+        <div className="modal-background" />
+        <div className="school-and-district-premium-modal stage-two quill-modal modal-body">
+          <div>
+            <h3 className="title">Select the school to purchase Premium</h3>
+          </div>
+          <DropdownInput
+            handleChange={setSelectedSchool}
+            options={schoolOptions}
+            placeholder="Select school"
+            value={selectedSchool}
+          />
+          <p>Your account is linked to multiple schools. To purchase multiple school subscriptions, please complete the purchase checkout for each school, or contact us at sales@quill.org for one invoice for multiple schools.</p>
+          <div className="form-buttons">
+            <button className="quill-button outlined secondary medium focus-on-light" onClick={closeModal} type="button">Cancel</button>
+            {continueButton}
+          </div>
+        </div>
+      </div>
+    )
+  } else {
+    return (
+      <div className="modal-container school-and-district-premium-modal-container">
+        <div className="modal-background" />
+        <div className="school-and-district-premium-modal stage-two quill-modal modal-body">
+          <SchoolSelector selectSchool={selectSchool} />
+        </div>
+      </div>
+    )
+  }
+}
+
 const SchoolAndDistrictPremiumModal = ({ stripeSchoolPlan, eligibleSchools, handleAlreadyPremiumSchoolSelection, userIsSignedIn, startAtSchoolSelectionStage, customerEmail, closeModal, handleNotListedSelection, }) => {
   const [stage, setStage] = React.useState(startAtSchoolSelectionStage ? SCHOOL_SELECTION_STAGE_NUMBER : PLAN_SELECTION_STAGE_NUMBER)
   const [selectedSchool, setSelectedSchool] = React.useState(null)
@@ -72,40 +109,16 @@ const SchoolAndDistrictPremiumModal = ({ stripeSchoolPlan, eligibleSchools, hand
   }
 
   if (stage === SCHOOL_SELECTION_STAGE_NUMBER) {
-    if (eligibleSchools.length) {
-      const schoolOptions = eligibleSchools.map(school => ({ value: school.id, label: school.name, }))
-      const continueButton = selectedSchool ? <button className="quill-button medium contained primary focus-on-light" onClick={goToStripeWithSelectedSchool} type="button">Continue</button> : <button className="quill-button medium contained primary focus-on-light disabled" disabled type="button">Continue</button>
-      return (
-        <div className="modal-container school-and-district-premium-modal-container">
-          <div className="modal-background" />
-          <div className="school-and-district-premium-modal stage-two quill-modal modal-body">
-            <div>
-              <h3 className="title">Select the school to purchase Premium</h3>
-            </div>
-            <DropdownInput
-              handleChange={setSelectedSchool}
-              options={schoolOptions}
-              placeholder="Select school"
-              value={selectedSchool}
-            />
-            <p>Your account is linked to multiple schools. To purchase multiple school subscriptions, please complete the purchase checkout for each school, or contact us at sales@quill.org for one invoice for multiple schools.</p>
-            <div className="form-buttons">
-              <button className="quill-button outlined secondary medium focus-on-light" onClick={closeModal} type="button">Cancel</button>
-              {continueButton}
-            </div>
-          </div>
-        </div>
-      )
-    } else {
-      return (
-        <div className="modal-container school-and-district-premium-modal-container">
-          <div className="modal-background" />
-          <div className="school-and-district-premium-modal stage-two quill-modal modal-body">
-            <SchoolSelector selectSchool={selectSchool} />
-          </div>
-        </div>
-      )
-    }
+    return (
+      <SchoolSelectionStage
+        closeModal={closeModal}
+        eligibleSchools={eligibleSchools}
+        goToStripeWithSelectedSchool={goToStripeWithSelectedSchool}
+        selectedSchool={selectedSchool}
+        selectSchool={selectSchool}
+        setSelectedSchool={setSelectedSchool}
+      />
+    )
   }
 
   if (stage === PLAN_SELECTION_STAGE_NUMBER) {

@@ -6,6 +6,7 @@ import TeacherPricingMini from './premium_minis/teacher_pricing_mini.jsx';
 import SchoolPricingMini from './premium_minis/school_pricing_mini.jsx';
 
 const MOBILE_WIDTH = 991
+const VERTICAL_INTERSECTION_OF_PREMIUM_PRICING_ROW_AND_TABLE = 337
 
 export default class PremiumPricingMinisRow extends React.Component {
   state = {
@@ -21,9 +22,9 @@ export default class PremiumPricingMinisRow extends React.Component {
 
   listenScrollEvent = e => {
     const { isScrolled, } = this.state
-    if (window.scrollY > 337 && !isScrolled && window.innerWidth > MOBILE_WIDTH) {
+    if (window.scrollY > VERTICAL_INTERSECTION_OF_PREMIUM_PRICING_ROW_AND_TABLE && !isScrolled && window.innerWidth > MOBILE_WIDTH) {
       this.setState({isScrolled: true})
-    } else if (window.scrollY < 337 && isScrolled) {
+    } else if (window.scrollY < VERTICAL_INTERSECTION_OF_PREMIUM_PRICING_ROW_AND_TABLE && isScrolled) {
       this.setState({isScrolled: false})
     }
   }
