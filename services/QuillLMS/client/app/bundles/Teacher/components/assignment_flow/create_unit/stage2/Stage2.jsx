@@ -56,7 +56,11 @@ export default class Stage2 extends React.Component {
 
     const selectedClassrooms = this.selectedClassrooms()
     const lowestSelectedClassroomGrade = Math.min(...selectedClassrooms.map(c => Number(c.classroom.grade) || 12))
-    const aboveGradeLevelContentBeingAssigned = selectedActivities.find(a => Math.min(...readabilityGradeLevelToArrayOfGrades[a.readability_grade_level]) > lowestSelectedClassroomGrade)
+    const aboveGradeLevelContentBeingAssigned = selectedActivities.find(a => {
+      if (!(a.readability_grade_level && readabilityGradeLevelToArrayOfGrades[a.readability_grade_level])) { return }
+      
+      return Math.min(...readabilityGradeLevelToArrayOfGrades[a.readability_grade_level]) > lowestSelectedClassroomGrade
+    })
 
     if (alreadyCompletedDiagnosticStudentNames.length) {
       this.setState({ showOverrideWarningModal: true })

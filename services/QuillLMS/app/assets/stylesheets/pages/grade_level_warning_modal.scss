@@ -11,10 +11,13 @@
     padding: 32px 32px 0px;
   }
   .data-table {
-    max-height: 198px;
+    max-height: 199px;
     margin-bottom: 32px;
     a {
       color: #027360;
+    }
+    .data-table-row:last-of-type {
+      border-bottom: 1px solid #e0e0e0 !important;
     }
   }
   .modal-body {
