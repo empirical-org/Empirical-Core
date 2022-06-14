@@ -3,7 +3,6 @@ import { editActivityLink } from '../../helpers/unitTemplates';
 
 const UNSELECTED_TYPE = 'unselected'
 const UnitTemplateActivityDataRow = ({activity, handleAdd, handleRemove, type}) => {
-console.log("🚀 ~ file: unitTemplateActivityDataRow.tsx ~ line 5 ~ UnitTemplateActivityDataRow ~ activity", activity)
   const [showActivities, setShowActivities] = React.useState(false);
 
   const showHideActivitiesRow = () => {
@@ -36,7 +35,7 @@ console.log("🚀 ~ file: unitTemplateActivityDataRow.tsx ~ line 5 ~ UnitTemplat
   }
 
   const previewActivityLink = `${process.env.DEFAULT_URL}/activity_sessions/anonymous?activity_id=${activity.id}`;
-
+  const activityClassificationId = activity && activity.classification ? activity.classification.id : null;
   return (
     <span>
       <tr className="ut-activity-row">
@@ -50,7 +49,7 @@ console.log("🚀 ~ file: unitTemplateActivityDataRow.tsx ~ line 5 ~ UnitTemplat
         <td className="ut-activity-cat-col">{activity.activity_category && activity.activity_category.name}</td>
         <td className="ut-activity-class-col">{activity.classification && activity.classification.name}</td>
         <td className="ut-activity-edit-col">
-          <a className="data-link" href={editActivityLink(activity.classification.id, activity.id)} rel="noopener noreferrer" target="_blank">edit</a>
+          <a className="data-link" href={editActivityLink(activityClassificationId, activity.id)} rel="noopener noreferrer" target="_blank">edit</a>
         </td>
       </tr>
       {showActivities && secondRow}

@@ -57,7 +57,11 @@ export function orderedUnitTemplates({
   return sortUnitTemplates(filteredData)
 }
 
-export const editActivityLink = (classificationId, id) => `${process.env.DEFAULT_URL}/cms/activity_classifications/${classificationId}/activities/${id}/edit`;
+export const editActivityLink = (classificationId, activityId) => `${process.env.DEFAULT_URL}/cms/activity_classifications/${classificationId}/activities/${activityId}/edit`;
+
+export const editActivityPackLink = (unitTemplateId) => `${process.env.DEFAULT_URL}/cms/unit_templates/${unitTemplateId}/edit`;
+
+export const previewActivityLink = (activityId) => `${process.env.DEFAULT_URL}/activity_sessions/anonymous?activity_id=${activityId}`;
 
 export const validateUnitTemplateForm = ({ activityPackFlag, activityPackName, activityPackType }) => {
   const errors = {};

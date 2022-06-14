@@ -3,6 +3,7 @@ import * as React from 'react'
 import UnitTemplateActivityRow from './unitTemplateActivityRow';
 
 import { FlagDropdown } from '../../../Shared/index';
+import { editActivityPackLink } from '../../helpers/unitTemplates';
 
 
 const UnitTemplateRow = ({
@@ -58,7 +59,6 @@ const UnitTemplateRow = ({
   }
 
   const previewLink = `${process.env.DEFAULT_URL}/assign/featured-activity-packs/${unitTemplate.id}`;
-  const editLink = `${process.env.DEFAULT_URL}/cms/unit_templates/${unitTemplate.id}/edit`;
 
   return (
     <div>
@@ -72,7 +72,7 @@ const UnitTemplateRow = ({
           <a className="action-button focus-on-light" href={previewLink} rel="noopener noreferrer" target="_blank">preview</a>
         </td>
         <td className="edit-col">
-          <a className="action-button focus-on-light" href={editLink} rel="noopener noreferrer" target="_blank">edit</a>
+          <a className="action-button focus-on-light" href={editActivityPackLink(unitTemplate.id)} rel="noopener noreferrer" target="_blank">edit</a>
         </td>
         <td className="delete-col">
           <button className="action-button interactive-wrapper focus-on-light" onClick={deleteUnitTemplate} type="button">delete</button>

@@ -34,6 +34,45 @@
       color: #7f7f7f;
     }
   }
+  .activity-selector-container {
+    .unit-template-activities {
+      .unit-template-activity-row-table {
+        .data-table-headers {
+          padding: 8px;
+        }
+        .data-table-body {
+          .data-table-row {
+            height: auto;
+            padding: 8px;
+            .data-table-row-section {
+              white-space: break-spaces;
+              &.tabbable-field {
+                overflow: inherit;
+              }
+              &.description-section {
+                white-space: inherit;
+                overflow: hidden;
+              }
+              &.in-packs-section {
+                p {
+                  padding-bottom: 8px;
+                }
+              }
+              .add-activity-button {
+                background-color: #06806b;
+                padding: 0px 8px;
+                color: white;
+                border-radius: 6px;
+              }
+              .add-activity-button:hover {
+                background-color: #08907b;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
   .activity-pack-description-container {
     .text-editor {
       max-width: 1000px;
@@ -75,7 +114,6 @@
     }
   }
 }
-
 .activity-pack-description {
   .card {
     max-width: unset !important;

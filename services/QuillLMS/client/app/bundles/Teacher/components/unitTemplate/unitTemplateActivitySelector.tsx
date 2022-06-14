@@ -6,6 +6,7 @@ import UnitTemplateActivityDataRow from './unitTemplateActivityDataRow'
 import { FlagDropdown, SortableList, Spinner } from '../../../Shared/index'
 import Pagination from '../assignment_flow/create_unit/custom_activity_pack/pagination'
 import { lowerBound, upperBound, } from '../assignment_flow/create_unit/custom_activity_pack/shared'
+import UnitTemplateActivitiesTable from './unitTemplateActivitiesTable';
 
 const ACTIVITIES_URL = `${process.env.DEFAULT_URL}/activities/index_with_unit_templates`
 const DEFAULT_FLAG = 'All Flags'
@@ -111,21 +112,6 @@ const UnitTemplateActivitySelector = ({ parentActivities, setParentActivities, t
       <th className="ut-edit-col"/>
     </tr>
   )
-
-
-  const activityRows = currentPageActivities().map((act) => {
-    return (
-      <div>
-        <UnitTemplateActivityDataRow
-          activity={act}
-          handleAdd={handleAddActivity}
-          handleRemove={handleRemoveActivity}
-          key={act.id}
-          type={UNSELECTED_TYPE}
-        />
-      </div>
-    )
-  })
 
   function handleNameSearch(e) {
     setNameSearch(e.target.value)
@@ -262,14 +248,7 @@ const UnitTemplateActivitySelector = ({ parentActivities, setParentActivities, t
       {selectedActivitiesTable()}
       <h4>All Activities:</h4>
       {filterInputs}
-      <div className="unit-template-activities-table">
-        <table className="unit-template-activities-table-rows">
-          {tableHeaders}
-          <tbody className="unit-template-activities-tbody">
-            {activityRows}
-          </tbody>
-        </table>
-      </div>
+      <UnitTemplateActivitiesTable activities={currentPageActivities()} handleAddActivity={handleAddActivity} />
       <Pagination activities={getFilteredActivities()} currentPage={currentPage} setCurrentPage={setCurrentPage} />
     </div>
   )
