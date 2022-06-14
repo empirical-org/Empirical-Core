@@ -97,7 +97,7 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
   const { data: modelsData } = useQuery({
     queryKey: [`models-${selectedPrompt?.id}`, selectedPrompt?.id],
     queryFn: fetchModels,
-    enabled: selectedPrompt !== null
+    enabled: !!selectedPrompt
   });
 
   // cache rules data for updates
