@@ -11,7 +11,11 @@
 #  email                          :string           not null
 #  first_name                     :string           not null
 #  last_name                      :string           not null
+<<<<<<< HEAD
 #  phone_number                   :string
+=======
+#  phone_number                   :string           not null
+>>>>>>> b49c4fdb0a2a71d580789170398fbd467aa1c354
 #  school_name                    :string
 #  school_premium_count_estimate  :integer          default(0), not null
 #  student_premium_count_estimate :integer          default(0), not null
@@ -38,6 +42,7 @@ RSpec.describe SalesFormSubmission, type: :model do
     it { should validate_presence_of(:submission_type) }
   end
 
+<<<<<<< HEAD
   context 'hooks' do
     it 'after_save, creates a new user record if a User does not already exist' do
       expect { create(:sales_form_submission) }.to change { User.count }.by(1)
@@ -168,5 +173,21 @@ RSpec.describe SalesFormSubmission, type: :model do
       expect(vitally_rest_api).to receive(:create).with(SalesFormSubmission::VITALLY_SALES_FORMS_TYPE, payload)
       sales_form_submission.send_opportunity_to_vitally
     end
+=======
+  context 'school name validation with blank district name' do
+    let(:sales_form_submission) { build(:sales_form_submission, district_name: '') }
+
+    it { expect(sales_form_submission).to be_valid }
+    it { should validate_presence_of(:school_name) }
+    it { should validate_presence_of(:district_name) }
+  end
+
+  context 'district name validation with blank school name' do
+    let(:sales_form_submission) { build(:sales_form_submission, school_name: '') }
+
+    it { expect(sales_form_submission).to be_valid }
+    it { should validate_presence_of(:school_name) }
+    it { should validate_presence_of(:district_name) }
+>>>>>>> b49c4fdb0a2a71d580789170398fbd467aa1c354
   end
 end

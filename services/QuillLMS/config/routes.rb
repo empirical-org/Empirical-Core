@@ -90,6 +90,9 @@ EmpiricalGrammar::Application.routes.draw do
   put 'credit_transactions/redeem_credits_for_premium' => 'credit_transactions#redeem_credits_for_premium'
 
   resources :subscriptions do
+    collection do
+      get :school_admin_subscriptions
+    end
     member do
       get :purchaser_name
     end
@@ -165,6 +168,7 @@ EmpiricalGrammar::Application.routes.draw do
   put 'students/update_password' => 'students#update_password'
   get 'join/:classcode' => 'students#join_classroom'
   get 'teachers/admin_dashboard' => 'teachers#admin_dashboard'
+  get 'teachers/admin_dashboard/school_subscriptions' => 'teachers#admin_dashboard', as: :teacher_admin_subscriptions
   get 'teachers/admin_dashboard/district_activity_scores' => 'teachers#admin_dashboard'
   get 'teachers/admin_dashboard/district_activity_scores/student_overview' => 'teachers#admin_dashboard'
   get 'teachers/admin_dashboard/district_concept_reports' => 'teachers#admin_dashboard'
@@ -589,6 +593,7 @@ EmpiricalGrammar::Application.routes.draw do
         put :clear_data
         get :sign_in
         get :new_subscription
+        get :edit_subscription
         post :complete_sales_stage
       end
       put 'make_admin/:school_id', to: 'users#make_admin', as: :make_admin
@@ -602,6 +607,7 @@ EmpiricalGrammar::Application.routes.draw do
       end
       member do
         get :new_subscription
+        get :edit_subscription
         get :new_admin
         get :add_existing_user
         post :add_admin_by_email

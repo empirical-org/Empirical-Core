@@ -25,23 +25,22 @@ module TeachersData
         COUNT(DISTINCT students_classrooms.id) AS number_of_students
       FROM users
       LEFT OUTER JOIN classrooms_teachers ON users.id = classrooms_teachers.user_id
-      LEFT OUTER JOIN classrooms ON classrooms_teachers.classroom_id = classrooms.id
-      LEFT OUTER JOIN students_classrooms ON classrooms.id = students_classrooms.classroom_id
+      LEFT OUTER JOIN classrooms ON classrooms_teachers.classroom_id = classrooms.id AND classrooms.visible = true
+      LEFT OUTER JOIN students_classrooms ON classrooms.id = students_classrooms.classroom_id AND students_classrooms.visible = true
       WHERE users.id IN (#{teacher_ids_str})
       GROUP BY users.id"
     )
 
-    question_count_query = User.find_by_sql(
+    activities_count_query = User.find_by_sql(
       "SELECT
         users.id,
-        COUNT(DISTINCT concept_results.id) AS number_of_questions_completed
+        COUNT(DISTINCT activity_sessions.id) AS number_of_activities_completed
       FROM users
       INNER JOIN units ON users.id = units.user_id
       INNER JOIN classroom_units ON units.id = classroom_units.unit_id
       INNER JOIN activity_sessions ON classroom_units.id = activity_sessions.classroom_unit_id
-      INNER JOIN concept_results ON activity_sessions.id = concept_results.activity_session_id
       WHERE users.id IN (#{teacher_ids_str})
-      AND activity_sessions.state = 'finished'
+      AND activity_sessions.completed_at >= '#{last_july_first}'::date
       GROUP BY users.id"
     )
 
@@ -54,7 +53,7 @@ module TeachersData
       INNER JOIN classroom_units ON units.id = classroom_units.unit_id
       INNER JOIN activity_sessions ON classroom_units.id = activity_sessions.classroom_unit_id
       WHERE users.id IN (#{teacher_ids_str})
-      AND activity_sessions.state = 'finished'
+      AND activity_sessions.completed_at >= '#{last_july_first}'::date
       GROUP BY users.id"
     )
 
@@ -68,8 +67,10 @@ module TeachersData
       }
     end
 
-    question_count_query.each do |row|
-      combiner[row.id][:number_of_questions_completed] = row.number_of_questions_completed
+    activities_count_query.each do |row|
+      if combiner[row.id]
+        combiner[row.id][:number_of_activities_completed] = row.number_of_activities_completed
+      end
     end
 
     time_spent_query.each do |row|
@@ -87,8 +88,8 @@ module TeachersData
       user.define_singleton_method(:number_of_students) do
         hash_value[:number_of_students]
       end
-      user.define_singleton_method(:number_of_questions_completed) do
-        hash_value[:number_of_questions_completed]
+      user.define_singleton_method(:number_of_activities_completed) do
+        hash_value[:number_of_activities_completed]
       end
       user.define_singleton_method(:time_spent) { hash_value[:time_spent] }
       user
@@ -110,5 +111,11 @@ module TeachersData
           'epoch' FROM (activity_sessions.completed_at - activity_sessions.started_at)
         )
       END)"
+  end
+
+  def self.last_july_first
+    today = Date.current
+    july_first_of_this_year = Date.parse("01-07-#{today.year}")
+    today.month > 7 ? july_first_of_this_year : july_first_of_this_year - 1.year
   end
 end

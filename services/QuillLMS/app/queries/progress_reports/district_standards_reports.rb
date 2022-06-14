@@ -44,7 +44,7 @@ class ProgressReports::DistrictStandardsReports
         COUNT(DISTINCT(final_activity_sessions.activity_id)) as total_activity_count,
         COUNT(DISTINCT(final_activity_sessions.user_id)) as total_student_count,
         COUNT(DISTINCT(avg_score_for_standard_by_user.user_id)) as proficient_count,
-        SUM(final_activity_sessions.timespent) as timespent
+        ROUND(AVG(final_activity_sessions.timespent) * COUNT(DISTINCT(final_activity_sessions.id))) AS timespent
       FROM standards
         JOIN standard_levels ON standard_levels.id = standards.standard_level_id
         JOIN final_activity_sessions ON final_activity_sessions.standard_id = standards.id

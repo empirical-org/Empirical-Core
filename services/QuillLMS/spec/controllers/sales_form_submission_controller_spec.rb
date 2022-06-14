@@ -57,10 +57,11 @@ describe SalesFormSubmissionController, type: :controller do
     let!(:first_school) { create(:school) }
     let!(:second_school) { create(:school) }
     let!(:third_school) { create(:school) }
+    let!(:fourth_school) { create(:school, name: '') }
 
-    it 'should return list of schools for type school' do
+    it 'should return list of schools for type school with entries containing blank name properties filtered out' do
       get :options_for_sales_form, params: { type: SalesFormSubmissionController::SCHOOL }
-      school_options = SalesFormSubmissionController::SCHOOL.classify.constantize.all.pluck(:name)
+      school_options = SalesFormSubmissionController::SCHOOL.classify.constantize.all.where.not(name: [nil, '']).pluck(:name)
       expect(response.body).to eq({ options: school_options }.to_json)
     end
 

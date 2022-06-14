@@ -132,3 +132,33 @@ export const informationIcon = {
   alt: 'Information icon',
   src: `${process.env.CDN_URL}/images/pages/evidence/icons-information-small.svg`
 }
+
+export const connectToolIcon = {
+  alt: 'Target representing Quill Connect',
+  src: `${process.env.CDN_URL}/images/icons/connect-forest-green.svg`
+}
+
+export const diagnosticToolIcon = {
+  alt: 'Magnifying glass representing Quill Diagnostic',
+  src: `${process.env.CDN_URL}/images/icons/diagnostic-forest-green.svg`
+}
+
+export const grammarToolIcon = {
+  alt: 'Puzzle piece representing Quill Grammar',
+  src: `${process.env.CDN_URL}/images/icons/grammar-forest-green.svg`
+}
+
+export const lessonsToolIcon = {
+  alt: 'Apple representing Quill Lessons',
+  src: `${process.env.CDN_URL}/images/icons/lessons-forest-green.svg`
+}
+
+export const proofreaderToolIcon = {
+  alt: 'Flag representing Quill Proofreader',
+  src: `${process.env.CDN_URL}/images/icons/proofreader-forest-green.svg`
+}
+
+export const evidenceToolIcon = {
+  alt: 'Book representing Quill Reading for Evidence',
+  src: `${process.env.CDN_URL}/images/icons/tool-evidence.svg`
+}

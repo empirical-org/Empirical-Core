@@ -4,7 +4,7 @@ RSpec.shared_context "Stripe Price" do
   let(:stripe_price_id) { STRIPE_TEACHER_PLAN_PRICE_ID }
   let(:stripe_product_id) { "prod_#{SecureRandom.hex}" }
 
-  before { create(:teacher_paid_plan) }
+  before { create(:teacher_premium_plan) }
 
   let(:stripe_price) do
     Stripe::Price.construct_from(

@@ -112,7 +112,7 @@ class Subscription < ApplicationRecord
 
   validates :stripe_invoice_id, allow_blank: true, stripe_uid: { prefix: :in }
 
-  delegate :stripe_cancel_at_period_end, :last_four, :stripe_subscription_id, :stripe_subscription_url,
+  delegate :stripe_cancel_at_period_end, :stripe_subscription_id, :stripe_subscription_url,
     to: :stripe_subscription
 
   scope :active, -> { not_expired.not_de_activated.order(expiration: :asc) }
@@ -164,19 +164,14 @@ class Subscription < ApplicationRecord
   end
 
   def credit_user_and_de_activate
-    if school_subscriptions.ids.any?
-      # we should not do this if the sub belongs to a school
-      report_to_new_relic("Sub credited and expired with school. Subscription: #{id}")
-    elsif user_subscriptions.ids.count > 1
-      report_to_new_relic("Sub credited and expired with multiple users. Subscription: #{id}")
-    else
-      update(de_activated_date: Date.current, recurring: false)
-      stripe_cancel_at_period_end
-      # subtract later of start date or today's date from expiration date to calculate amount to credit
-      # amount_to_credit = self.expiration - [self.start_date, Date.current].max
-      amount_to_credit = expiration - start_date
-      CreditTransaction.create(user_id: user_subscriptions.first.user_id, amount: amount_to_credit.to_i, source: self)
-    end
+    return if school_subscriptions.ids.any? || user_subscriptions.ids.count > 1
+
+    update(de_activated_date: Date.current, recurring: false)
+    stripe_cancel_at_period_end
+    # subtract later of start date or today's date from expiration date to calculate amount to credit
+    # amount_to_credit = self.expiration - [self.start_date, Date.current].max
+    amount_to_credit = expiration - start_date
+    CreditTransaction.create(user_id: user_subscriptions.first.user_id, amount: amount_to_credit.to_i, source: self)
   end
 
   def self.expired_today_or_previously_and_recurring
@@ -377,6 +372,10 @@ class Subscription < ApplicationRecord
     subscription
   end
 
+  def last_four
+    stripe_subscription&.last_four || purchaser&.last_four
+  end
+
   def subscription_status
     attributes.merge(
       'account_type' => account_type || plan&.name,
@@ -386,6 +385,7 @@ class Subscription < ApplicationRecord
       'purchaser_name' => purchaser&.name,
       'renewal_stripe_price_id' => renewal_stripe_price_id,
       'renewal_price' => plan && PlanSerializer.new(plan).price_in_dollars,
+      'school_ids' =>  schools.pluck(:id),
       'stripe_customer_id' => purchaser&.stripe_customer_id,
       'stripe_subscription_id' => stripe_subscription_id
     )

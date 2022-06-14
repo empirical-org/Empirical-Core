@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class SubscriptionsController < ApplicationController
+  before_action :set_stripe_variables, only: [:index, :school_admin_subscriptions]
   before_action :set_subscription, only: %i[purchaser_name show update destroy]
   before_action :require_user, only: [:index]
 
@@ -15,9 +16,29 @@ class SubscriptionsController < ApplicationController
           premium_credits: @premium_credits,
           subscription_status: @subscription_status,
           user_authority_level: @user_authority_level,
+          current_user_email: @current_user_email
         }
       }
     end
+  end
+
+  def school_admin_subscriptions
+    schools = current_user.administered_schools.order(:id).map do |school|
+      {
+        id: school.id,
+        name: school.name,
+        subscriptions: school.subscriptions,
+        subscription_status: school.subscription_status
+      }
+    end
+
+    render json: {
+      current_user_email: current_user.email,
+      schools: schools,
+      user_associated_school_id: current_user.school&.id,
+      stripe_invoice_id: @stripe_invoice_id,
+      stripe_payment_method_updated: @stripe_payment_method_updated
+    }
   end
 
   def purchaser_name
@@ -68,10 +89,9 @@ class SubscriptionsController < ApplicationController
   end
 
   private def set_index_variables
+    @current_user_email = current_user.email
     @subscriptions = current_user.subscriptions
     @premium_credits = current_user.credit_transactions.map {|x| x.serializable_hash(methods: :action)}.compact
-    @stripe_invoice_id = StripeIntegration::StripeInvoiceIdFinder.run(checkout_session_id)
-    @stripe_payment_method_updated = params[:stripe_payment_method_updated] == 'true'
     @subscription_status = current_user.subscription_status
     @school_subscription_types = Subscription::OFFICIAL_SCHOOL_TYPES
     @trial_types = Subscription::TRIAL_TYPES
@@ -81,6 +101,11 @@ class SubscriptionsController < ApplicationController
     else
       @user_authority_level = nil
     end
+  end
+
+  private def set_stripe_variables
+    @stripe_invoice_id = StripeIntegration::StripeInvoiceIdFinder.run(checkout_session_id)
+    @stripe_payment_method_updated = params[:stripe_payment_method_updated] == 'true'
   end
 
   private def checkout_session_id

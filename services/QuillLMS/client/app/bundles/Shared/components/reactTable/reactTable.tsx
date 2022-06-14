@@ -42,6 +42,24 @@ export const expanderColumn = {
   }
 }
 
+interface ReactTableProps {
+  columns: any[],
+  data: any[],
+  className?: string,
+  filterable?: boolean,
+  defaultPageSize?: number,
+  currentPage?: number,
+  defaultSorted?: string,
+  onSortedChange?: (sortBy: string) => void,
+  onPageChange?: (pageIndex: number) => void,
+  showPaginationBottom?: boolean,
+  manualSortBy?: boolean,
+  manualPagination?: boolean,
+  manualPageCount?: boolean,
+  defaultGroupBy?: string,
+  SubComponent?: any
+}
+
 export const ReactTable = ({
   columns,
   data,
@@ -58,7 +76,7 @@ export const ReactTable = ({
   manualPageCount,
   defaultGroupBy,
   SubComponent,
-}) => {
+}: ReactTableProps) => {
   const defaultColumn = {
     width: 'min-content',
   };
@@ -138,7 +156,8 @@ export const ReactTable = ({
                           style: {
                             minWidth: cell.column.minWidth,
                             width: cell.column.width,
-                            maxWidth: cell.column.maxWidth
+                            maxWidth: cell.column.maxWidth,
+                            ...cell.column.style
                           },
                         })}
                         className="rt-td"

@@ -5,11 +5,10 @@ module StripeIntegration
     class IgnoredEventHandler < EventHandler
       IGNORED_EVENT_NAMES = [
         'balance.available',
+        'charge.captured',
         'charge.failed',
         'charge.refunded',
         'charge.succeeded',
-        'checkout.session.expired',
-        'checkout.session.completed',
         'customer.created',
         'customer.source.created',
         'customer.source.expiring',
@@ -17,7 +16,6 @@ module StripeIntegration
         'customer.subscription.created',
         'customer.updated',
         'file.created',
-        'invoice.updated',
         'invoice.created',
         'invoice.finalized',
         'invoice.payment_failed',
@@ -27,7 +25,8 @@ module StripeIntegration
         'invoice.voided',
         'invoiceitem.created',
         'invoiceitem.updated',
-        'payment_intent.cancelled',
+        'payment_intent.amount_capturable_updated',
+        'payment_intent.canceled',
         'payment_intent.created',
         'payment_intent.payment_failed',
         'payment_intent.succeeded',
@@ -36,6 +35,9 @@ module StripeIntegration
         'payout.created',
         'payout.paid',
         'product.updated',
+        'quote.canceled',
+        'quote.created',
+        'quote.finalized',
         'setup_intent.created'
       ]
 

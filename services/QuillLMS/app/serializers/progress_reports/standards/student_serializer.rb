@@ -18,7 +18,7 @@ class ProgressReports::Standards::StudentSerializer < ActiveModel::Serializer
              :mastery_status
 
   def average_score
-    object.average_score.round(2)
+    object.average_score&.round(2) || 0
   end
 
   def student_standards_href

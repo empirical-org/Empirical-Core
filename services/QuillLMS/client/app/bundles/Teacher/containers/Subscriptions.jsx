@@ -26,6 +26,7 @@ export default class Subscriptions extends React.Component {
       earnedCredits: availableAndEarnedCredits.earned,
       showPremiumConfirmationModal: false,
       authorityLevel: props.userAuthorityLevel,
+      currentUserEmail: props.currentUserEmail
     };
   }
 
@@ -205,7 +206,8 @@ export default class Subscriptions extends React.Component {
       earnedCredits,
       showPremiumConfirmationModal,
       subscriptions,
-      subscriptionStatus
+      subscriptionStatus,
+      currentUserEmail,
     } = this.state
 
     const userHasValidSub = subscriptionStatus && !subscriptionStatus.expired;
@@ -214,6 +216,7 @@ export default class Subscriptions extends React.Component {
     return (
       <div>
         <SubscriptionStatus
+          customerEmail={currentUserEmail}
           key={subId}
           subscriptionStatus={subscriptionStatus}
           subscriptionType={this.subscriptionType()}

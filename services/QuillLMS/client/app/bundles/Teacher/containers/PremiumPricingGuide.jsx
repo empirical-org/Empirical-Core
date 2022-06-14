@@ -32,6 +32,7 @@ export const PremiumPricingGuide = ({
   diagnosticActivityCount,
   independentPracticeActivityCount,
   lessonsActivityCount,
+  schoolIds,
   showSchoolBuyNow,
   stripeSchoolPlan,
   stripeTeacherPlan,
@@ -65,6 +66,7 @@ export const PremiumPricingGuide = ({
         buttonText='Buy Now'
         cancelPath='premium'
         customerEmail={customerEmail}
+        schoolIds={schoolIds}
         stripePriceId={stripeSchoolPlan.plan.stripe_price_id}
         userIsEligibleForNewSubscription={userIsEligibleForNewSubscription}
         userIsSignedIn={userIsSignedIn()}

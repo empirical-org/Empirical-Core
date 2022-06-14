@@ -7,7 +7,7 @@ module Evidence
       rule = prompt.rules&.find_by(rule_type: Evidence::Rule::TYPE_PLAGIARISM)
       feedback = get_plagiarism_feedback_from_previous_feedback(previous_feedback, rule)
 
-      if rule.plagiarism_texts.none?
+      if rule.nil? || rule.plagiarism_texts&.none?
         @response = Evidence::PlagiarismCheck.new(entry, '', feedback, rule).feedback_object
       else
         plagiarism_check = nil

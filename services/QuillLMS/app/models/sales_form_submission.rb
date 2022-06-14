@@ -11,7 +11,11 @@
 #  email                          :string           not null
 #  first_name                     :string           not null
 #  last_name                      :string           not null
+<<<<<<< HEAD
 #  phone_number                   :string
+=======
+#  phone_number                   :string           not null
+>>>>>>> b49c4fdb0a2a71d580789170398fbd467aa1c354
 #  school_name                    :string
 #  school_premium_count_estimate  :integer          default(0), not null
 #  student_premium_count_estimate :integer          default(0), not null
@@ -53,6 +57,10 @@ class SalesFormSubmission < ApplicationRecord
   validates :last_name, presence: true
   validates :email, presence: true
   validates_email_format_of :email, message: :invalid
+  validates :phone_number, presence: true
+  validates :zipcode, presence: true
+  validates :school_name, presence: true, unless: :district_name
+  validates :district_name, presence: true, unless: :school_name
   validates :school_premium_count_estimate, presence: true, numericality: { greater_than_or_equal_to: 0 }
   validates :teacher_premium_count_estimate, presence: true, numericality: { greater_than_or_equal_to: 0 }
   validates :student_premium_count_estimate, presence: true, numericality: { greater_than_or_equal_to: 0 }

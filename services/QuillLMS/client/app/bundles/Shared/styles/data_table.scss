@@ -12,13 +12,12 @@
 }
 
 .data-table-headers, .data-table-row {
-  height: 48px;
+  min-height: 48px;
   padding: 0px 16px;
   border-bottom: 1px solid #e0e0e0;
   display: flex;
   align-items: center;
   min-width: min-content;
-
 }
 
 .data-table-row-section {
@@ -89,7 +88,7 @@ table.data-table {
     top: 0;
     background-color: white;
     z-index: 1;
-    width: min-content;
+    min-width: min-content;
   }
 
   .data-table-row {

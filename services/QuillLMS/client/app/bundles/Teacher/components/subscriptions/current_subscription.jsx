@@ -257,12 +257,12 @@ export default class CurrentSubscription extends React.Component {
   handleUpdateRecurringClick = () => {
     const { subscriptionStatus, updateSubscription } = this.props
     const { stripe_subscription_id, recurring, id, } = subscriptionStatus
+
     const newRecurringValue = !recurring
+    const snackbarText = `Automatic renewal turned ${newRecurringValue ? 'on' : 'off'}.` // "recurring" is the old value, so the description is the inverse
 
     const callback = this.setState({ showAutomaticRenewalModal: false, }, () => {
-      if (newRecurringValue) {
-        this.showSnackbar('Automatic renewal turned on.')
-      }
+      this.showSnackbar(snackbarText)
     })
 
     if (stripe_subscription_id) {
@@ -278,9 +278,7 @@ export default class CurrentSubscription extends React.Component {
       const callback = this.setState({
         showAutomaticRenewalModal: false,
       }, () => {
-        if (newRecurringValue) {
-          this.showSnackbar('Automatic renewal turned on.')
-        }
+        this.showSnackbar(snackbarText)
       })
       updateSubscription({ recurring: newRecurringValue }, id, callback)
     }

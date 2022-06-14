@@ -31,7 +31,7 @@ class SalesFormSubmissionController < ApplicationController
 
   def options_for_sales_form
     klass = params[:type].classify.constantize
-    schools_or_districts = klass.all.where("name ILIKE ?", "#{search_query_prefix}%").limit(10).pluck(:name)
+    schools_or_districts = klass.all.where.not(name: [nil, '']).where("name ILIKE ?", "#{search_query_prefix}%").limit(10).pluck(:name)
     render json: { options: schools_or_districts }
   end
 
