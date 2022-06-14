@@ -53,10 +53,6 @@ class SalesFormSubmission < ApplicationRecord
   validates :last_name, presence: true
   validates :email, presence: true
   validates_email_format_of :email, message: :invalid
-  validates :phone_number, presence: true
-  validates :zipcode, presence: true
-  validates :school_name, presence: true, unless: :district_name
-  validates :district_name, presence: true, unless: :school_name
   validates :school_premium_count_estimate, presence: true, numericality: { greater_than_or_equal_to: 0 }
   validates :teacher_premium_count_estimate, presence: true, numericality: { greater_than_or_equal_to: 0 }
   validates :student_premium_count_estimate, presence: true, numericality: { greater_than_or_equal_to: 0 }
@@ -206,7 +202,7 @@ class SalesFormSubmission < ApplicationRecord
       "vitally.custom.numberOfStudents": student_premium_count_estimate,
       "vitally.custom.formComments": comment,
       "vitally.custom.opportunitySource": source,
-      "vitally.custom.intercomLink": "",
+      "vitally.custom.intercomLink": intercom_link,
       "vitally.custom.metabaseId": id
     }
   end

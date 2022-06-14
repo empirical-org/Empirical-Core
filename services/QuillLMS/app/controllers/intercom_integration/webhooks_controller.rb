@@ -69,6 +69,9 @@ module IntercomIntegration
       user = User.find_by(id: user_payload["user_id"]) if !user_payload["anonymous"]
       return user if user.present?
 
+      user = User.find_by(email: user_payload["email"])
+      return user if user.present?
+
       User.create!(
         email: user_payload["email"],
         role: User::SALES_CONTACT,
