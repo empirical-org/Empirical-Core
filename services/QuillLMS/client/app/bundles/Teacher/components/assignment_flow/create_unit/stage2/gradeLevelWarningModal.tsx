@@ -65,7 +65,7 @@ const GradeLevelWarningModal = ({ handleClickAssign, handleCloseModal, selectedA
 
   const activityTableRows = selectedActivities.map(a => ({
     id: a.id,
-    name: <a href={a.anonymous_path} target="_blank">{a.name}</a>,
+    name: <a href={a.anonymous_path} rel="noopener noreferrer" target="_blank">{a.name}</a>,
     suggestedGrades: readabilityGradeLevelToArrayOfGrades[a.readability_grade_level]?.join(', ')
   }))
 
