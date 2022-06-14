@@ -47,15 +47,16 @@ export default class Stage2 extends React.Component {
   selectedClassrooms() {
     const { classrooms, } = this.props
 
-    return classrooms.select(c => c.students.find(s => s.isSelected))
+    return classrooms.filter(c => c.students.find(s => s.isSelected) || c.classroom.emptyClassroomSelected)
   }
 
   handleClickAssign = () => {
     const { timesSubmitted, } = this.state
     const { errorMessage, finish, alreadyCompletedDiagnosticStudentNames, notYetCompletedPreTestStudentNames, showGradeLevelWarning, classrooms, selectedActivities, } = this.props
 
-    const lowestSelectedClassroomGrade = Math.min(this.selectedClassrooms().map(c => Number(c.classroom.grade) || 12))
-    const aboveGradeLevelContentBeingAssigned = selectedActivities.find(a => Math.min(readabilityGradeLevelToArrayOfGrades[a.readability_grade_level]) > lowestSelectedClassroomGrade)
+    const selectedClassrooms = this.selectedClassrooms()
+    const lowestSelectedClassroomGrade = Math.min(...selectedClassrooms.map(c => Number(c.classroom.grade) || 12))
+    const aboveGradeLevelContentBeingAssigned = selectedActivities.find(a => Math.min(...readabilityGradeLevelToArrayOfGrades[a.readability_grade_level]) > lowestSelectedClassroomGrade)
 
     if (alreadyCompletedDiagnosticStudentNames.length) {
       this.setState({ showOverrideWarningModal: true })
@@ -86,7 +87,7 @@ export default class Stage2 extends React.Component {
   }
 
   closeGradeLevelWarningModal = () => {
-    this.setState({ showGradLevelWarningModal: false, })
+    this.setState({ showGradeLevelWarningModal: false, })
   }
 
   renderOverrideWarningModal() {

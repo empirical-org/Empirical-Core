@@ -37,7 +37,7 @@ const GradeLevelWarningModal = ({ handleClickAssign, handleCloseModal, selectedA
 
   function completeDismissWarningCheckboxMilestone() {
     if (dismissWarningCheckbox) {
-      requestPost('/milestones/complete_acknowledge_growth_diagnostic_promotion_card')
+      requestPost('/milestones/complete_dismiss_grade_level_warning')
     }
   }
 
