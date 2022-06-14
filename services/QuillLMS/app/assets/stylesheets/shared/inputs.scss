@@ -134,3 +134,11 @@ select {
   position: relative;
   right: 20px;
 }
+
+.editor-with-border-and-padding {
+  max-width: 650px;
+  padding: 8px;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  margin-top: 24px;
+}

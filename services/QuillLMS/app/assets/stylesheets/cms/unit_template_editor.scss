@@ -1,4 +1,6 @@
 #unit-template-editor {
+  padding-top: 24px;
+  padding-bottom: 24px;
   .text-input-row {
     min-width: 500px;
     margin-top: 30px;
@@ -8,6 +10,57 @@
 
     textarea {
       height: 250px;
+    }
+  }
+  .input-container, .padded-element {
+    padding: 8px;
+  }
+  .dropdown {
+    max-width: 256px;
+  }
+  .activity-pack-type-container {
+    label {
+      margin-left: 8px;
+    }
+  }
+  .activity-pack-description-container {
+    .text-editor {
+      max-width: 936px;
+      padding: 10px;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+    }
+  }
+  .readability-section, .pdf-upload-container {
+    p {
+      padding: 8px 0px 8px 0px;
+    }
+  }
+  section {
+    padding: 8px 0px 8px 0px;
+  }
+  .modal {
+    display: flex;
+    .modal-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      z-index: 100;
+      .modal-content {
+        height: auto;
+        border-radius: 6px;
+        .submission-modal-contents {
+          padding: 16px;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+          button {
+            margin-top: 16px;
+          }
+        }
+      }
     }
   }
 }

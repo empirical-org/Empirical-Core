@@ -7,13 +7,14 @@ import UnitTemplateActivitySelector from './unit_template_activity_selector'
 import DropdownSelector from '../general_components/dropdown_selectors/dropdown_selector.jsx';
 import Server from '../modules/server/server.jsx';
 import Fnl from '../modules/fnl.jsx';
-import { DropdownInput, Input, TextEditor, Tooltip, PRODUCTION_FLAG, ALPHA_FLAG, BETA_FLAG, GAMMA_FLAG, ARCHIVED_FLAG, PRIVATE_FLAG } from '../../../Shared/index'
+import { DropdownInput, Input, TextEditor, Tooltip, Modal, PRODUCTION_FLAG, ALPHA_FLAG, BETA_FLAG, GAMMA_FLAG, ARCHIVED_FLAG, PRIVATE_FLAG } from '../../../Shared/index'
 import TextInputGenerator from '../modules/componentGenerators/text_input_generator.jsx';
 import IndicatorGenerator from '../modules/indicator_generator.jsx';
 import OptionLoader from '../modules/option_loader.jsx';
 import MarkdownParser from '../shared/markdown_parser.jsx';
 import getAuthToken from '../modules/get_auth_token';
 import { DropdownObjectInterface } from '../../../Staff/interfaces/evidenceInterfaces';
+import { validateUnitTemplateForm } from '../../helpers/unitTemplates';
 
 const ELL = 'ELL';
 const UNIVERSITY = 'University';
@@ -37,6 +38,8 @@ export const UnitTemplate = ({ unitTemplate }) => {
   const [activityPackTime, setActivityPackTime] = React.useState<DropdownObjectInterface>(time ? {value: time.toString(), label: time.toString()} : null);
   const [activityPackActivities, setActivityPackActivities] = React.useState<any>(activities ? activities : []);
   const [uploadedFileLink, setUploadedFileLink] = React.useState<string>('');
+  const [showSubmissionModal, setShowSubmissionModal] = React.useState<boolean>(false);
+  const [submissionModalMessage, setSubmissionModalMessage] = React.useState<string>('');
   const [errors, setErrors] = React.useState<any>(null);
 
 
@@ -108,18 +111,33 @@ export const UnitTemplate = ({ unitTemplate }) => {
   }
 
   function handleSaveUnitTemplate() {
-    console.log('saved!')
+    const errors = validateUnitTemplateForm({ activityPackFlag, activityPackName, activityPackType });
+    if(Object.keys(errors).length) {
+      setErrors(errors)
+    } else {
+      setErrors(null);
+      setSubmissionModalMessage('Activity pack successfully saved!')
+      setShowSubmissionModal(true);
+    }
+  }
+
+  function handleCloseSubmissionModal() {
+    setShowSubmissionModal(false);
   }
 
   function renderActivityPackPreviewLink() {
     if(!id) { return };
     const url = `${process.env.DEFAULT_URL}/assign/featured-activity-packs/${id}`;
-    return <a className="link-green" href={url} rel="noopener noreferrer" target="_blank">Preview in Featured Activity Pack page</a>;
+    return(
+      <div className="padded-element">
+        <a className="data-link" href={url} rel="noopener noreferrer" target="_blank">Preview in Featured Activity Pack page</a>
+      </div>
+    );
   }
 
   function renderReadabilitySection() {
     return (
-      <section className="readability-section">
+      <section className="readability-section padded-element">
         <h3>Readability:</h3>
         {readability && <p>{readability}</p>}
       </section>
@@ -128,7 +146,7 @@ export const UnitTemplate = ({ unitTemplate }) => {
 
   function renderDiagnosticsSection() {
     return (
-      <section className="diagnostic-section">
+      <section className="diagnostic-section padded-element">
         <h3>Diagnostics:</h3>
         <section>
           {diagnostic_names && diagnostic_names.map((diagnostic) => {
@@ -141,7 +159,7 @@ export const UnitTemplate = ({ unitTemplate }) => {
 
   function renderPdfUploadSection() {
     return (
-      <div>
+      <div className="pdf-upload-container padded-element">
         <label>Click the square below or drag a file into it to upload a file:</label>
         <Dropzone onDrop={handleFileDrop} />
         <p>Here is the link to your uploaded file:</p>
@@ -150,10 +168,24 @@ export const UnitTemplate = ({ unitTemplate }) => {
     )
   }
 
+  function renderSubmissionModal() {
+    return(
+      <Modal className="rule-view-form-modal">
+        <section className="submission-modal-contents">
+          <p>{submissionModalMessage}</p>
+          <button className="quill-button primary contained fun focus-on-light" onClick={handleCloseSubmissionModal}>Close</button>
+        </section>
+      </Modal>
+    )
+  }
+
   return(
-    <div id="unit-template-editor">
+    <div className="container cms-unit-template-editor" id="unit-template-editor">
+      {showSubmissionModal && renderSubmissionModal()}
       <DropdownInput
+        error={errors && errors['activityPackFlag']}
         handleChange={handleFlagChange}
+        isSearchable={true}
         label="Select flag"
         options={getOptions(FLAG_DROPDOWN_OPTIONS)}
         value={activityPackFlag}
@@ -161,12 +193,12 @@ export const UnitTemplate = ({ unitTemplate }) => {
       {renderActivityPackPreviewLink()}
       <Input
         className="name-input"
-        error={errors ? errors['name'] : null}
+        error={errors && errors['activityPackName']}
         handleChange={handleNameChange}
         label="Name"
         value={activityPackName}
       />
-      <section className="activity-pack-description">
+      <section className="activity-pack-description-container padded-element">
         <label htmlFor="activity-pack-description">Activity Pack Description</label>
         <TextEditor
           id="activity-pack-description"
@@ -178,13 +210,15 @@ export const UnitTemplate = ({ unitTemplate }) => {
           text={activityPackInfo}
         />
       </section>
-      <section>
+      <section className="activity-pack-type-container">
         <label htmlFor="pack-type-dropdown">
           <Tooltip tooltipText="Unit Template Category" tooltipTriggerText="Pack Type" />
         </label>
         <DropdownInput
+          error={errors && errors['activityPackType']}
           handleChange={handlePackTypeChange}
           id="pack-type-dropdown"
+          isSearchable={true}
           options={getOptions(PACK_TYPE_OPTIONS)}
           value={activityPackType}
         />
@@ -192,6 +226,7 @@ export const UnitTemplate = ({ unitTemplate }) => {
       <DropdownInput
         handleChange={handleTimeChange}
         id="time-dropdown"
+        isSearchable={true}
         label="Select time in minutes"
         options={getOptions(TIME_OPTIONS)}
         value={activityPackTime}
@@ -199,7 +234,7 @@ export const UnitTemplate = ({ unitTemplate }) => {
       {renderDiagnosticsSection()}
       {renderReadabilitySection()}
       {renderPdfUploadSection()}
-      <section>
+      <section className="activity-selector-container padded-element">
         <UnitTemplateActivitySelector
           parentActivities={activityPackActivities}
           setParentActivities={handleNewSelectedActivities}
@@ -207,6 +242,7 @@ export const UnitTemplate = ({ unitTemplate }) => {
         />
       </section>
       <div className="error-message-and-button">
+        {errors && <p>Please fix the form errors and try submitting again.</p>}
         <button className="quill-button primary contained medium focus-on-light" id="continue" onClick={handleSaveUnitTemplate}>Save</button>
       </div>
     </div>

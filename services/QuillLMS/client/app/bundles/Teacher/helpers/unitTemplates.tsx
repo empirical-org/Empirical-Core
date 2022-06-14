@@ -56,3 +56,17 @@ export function orderedUnitTemplates({
 
   return sortUnitTemplates(filteredData)
 }
+
+export const validateUnitTemplateForm = ({ activityPackFlag, activityPackName, activityPackType }) => {
+  const errors = {};
+  if(!activityPackFlag) {
+    errors['activityPackFlag'] = 'Activity pack flag is required.'
+  }
+  if(!activityPackName) {
+    errors['activityPackName'] = 'Activity pack name is required.'
+  }
+  if(!activityPackType) {
+    errors['activityPackType'] = 'Activity pack type is required.'
+  }
+  return errors;
+}
