@@ -11,11 +11,7 @@
 #  email                          :string           not null
 #  first_name                     :string           not null
 #  last_name                      :string           not null
-<<<<<<< HEAD
 #  phone_number                   :string
-=======
-#  phone_number                   :string           not null
->>>>>>> b49c4fdb0a2a71d580789170398fbd467aa1c354
 #  school_name                    :string
 #  school_premium_count_estimate  :integer          default(0), not null
 #  student_premium_count_estimate :integer          default(0), not null
