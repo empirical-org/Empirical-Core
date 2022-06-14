@@ -162,6 +162,8 @@ class School < ApplicationRecord
       externalId: id.to_s,
       name: name
     }
+  end
+
   def subscription_status
     subscription&.subscription_status || last_expired_subscription&.subscription_status
   end
