@@ -7,16 +7,16 @@ import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx
 import EmptyStateForReport from './empty_state_for_report'
 import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from './progress_report_constants'
 
+import { NOT_SCORED_DISPLAY_TEXT } from './constants.js'
+
 import ItemDropdown from '../general_components/dropdown_selectors/item_dropdown'
 import LoadingSpinner from '../shared/loading_indicator.jsx'
 import userIsPremium from '../modules/user_is_premium'
 import {sortTableByStandardLevel} from '../../../../modules/sortingMethods.js'
 import { Tooltip, ReactTable, } from '../../../Shared/index'
-import { getTimeSpent } from '../../helpers/studentReports';
-
+import { getTimeSpent } from '../../helpers/studentReports'
 
 interface StandardsAllClassroomsProgressReportProps {
-
 }
 
 interface StandardsAllClassroomsProgressReportState {
@@ -192,7 +192,7 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
       row.standard_level = row.standard_level_name
       row.standard_name = row.name
       row.number_of_students = Number(row.total_student_count)
-      row.proficient = `${row.proficient_count} of ${row.total_student_count}`
+      row.proficient = row.is_evidence ? NOT_SCORED_DISPLAY_TEXT : `${row.proficient_count} of ${row.total_student_count}`
       row.activities = Number(row.total_activity_count)
       row.green_arrow = (
         <a className='green-arrow' href={`/teachers/progress_reports/standards/classrooms/${selectedClassroomId || 0}/standards/${row.id}/students`}>
