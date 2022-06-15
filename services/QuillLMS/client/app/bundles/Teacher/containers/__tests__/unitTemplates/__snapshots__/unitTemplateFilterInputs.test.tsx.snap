@@ -66,12 +66,13 @@ exports[`UnitTemplateFilterInputs component should match snapshot 1`] = `
     }
     selectedItem={Object {}}
   />
-  <button
+  <a
     className="new-unit-template-button quill-button primary contained small focus-on-light"
-    onClick={[Function]}
-    type="button"
+    href="undefined/cms/unit_templates/new"
+    rel="noopener noreferrer"
+    target="_blank"
   >
     New
-  </button>
+  </a>
 </div>
 `;

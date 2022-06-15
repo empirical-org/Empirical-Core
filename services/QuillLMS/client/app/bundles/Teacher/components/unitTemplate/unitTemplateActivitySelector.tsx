@@ -140,12 +140,12 @@ export const UnitTemplateActivitySelector = ({ parentActivities, setParentActivi
   }
 
   if(!activities.length) {
-    return <Spinner/>
+    return <Spinner />
   }
 
   return (
     <div className="unit-template-activities">
-      <UnitTemplateSelectedActivitiesTable activities={activities} selectedActivities={selectedActivities} handleRemoveActivity={handleRemoveActivity} updateOrder={updateOrder} />
+      <UnitTemplateSelectedActivitiesTable activities={activities} handleRemoveActivity={handleRemoveActivity} selectedActivities={selectedActivities} updateOrder={updateOrder} />
       <h4>All Activities:</h4>
       <div className="unit-template-filters">
         <div className="top-filters">

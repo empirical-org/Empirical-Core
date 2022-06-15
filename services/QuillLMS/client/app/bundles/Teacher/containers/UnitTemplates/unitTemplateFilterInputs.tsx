@@ -33,10 +33,6 @@ export const UnitTemplateFilterInputs = ({
     )
   }
 
-  function handleNewUnitTemplateClick() {
-    window.open('/cms/unit_templates/new', '_blank');
-  }
-
   return(
     <div className="upper-section">
       <div className="activity-or-pack-search-container">
@@ -77,7 +73,7 @@ export const UnitTemplateFilterInputs = ({
         selectedItem={flag}
       />
       {diagnosticsDropdown()}
-      <button className='new-unit-template-button quill-button primary contained small focus-on-light' onClick={handleNewUnitTemplateClick} type="button">New</button>
+      <a className='new-unit-template-button quill-button primary contained small focus-on-light' href={`${process.env.DEFAULT_URL}/cms/unit_templates/new`} rel="noopener noreferrer" target="_blank">New</a>
     </div>
   )
 }

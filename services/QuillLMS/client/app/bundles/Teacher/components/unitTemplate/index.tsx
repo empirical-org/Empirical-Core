@@ -15,11 +15,11 @@ const TIME_OPTIONS = ['0', '10', '20', '30', '40', '50', '60', '70', '80', '90',
 const SUCCESS_MESSAGE = 'Activity pack successfully saved!';
 
 export const UnitTemplate = ({ unitTemplate }) => {
-  const { id, flag, time, unit_template_category, name, activity_info, readability, diagnostic_names, activities } = unitTemplate;
+  const { id, flag, time, unit_template_category_id, name, activity_info, readability, diagnostic_names, activities } = unitTemplate;
   const [activityPackFlag, setActivityPackFlag] = React.useState<DropdownObjectInterface>(flag ? {value: flag, label: flag} : null);
   const [activityPackName, setActivityPackName] = React.useState<any>(name);
   const [activityPackInfo, setActivityPackInfo] = React.useState<string>(activity_info);
-  const [activityPackType, setActivityPackType] = React.useState<DropdownObjectInterface>(unit_template_category ? {value: unit_template_category.name, label: unit_template_category.name} : null);
+  const [activityPackType, setActivityPackType] = React.useState<DropdownObjectInterface>(null);
   const [activityPackTime, setActivityPackTime] = React.useState<DropdownObjectInterface>(time ? {value: time.toString(), label: time.toString()} : null);
   const [activityPackActivities, setActivityPackActivities] = React.useState<any>(activities ? activities : []);
   const [unitTemplateCategories, setUnitTemplateCategories] = React.useState<any>([])
@@ -32,6 +32,10 @@ export const UnitTemplate = ({ unitTemplate }) => {
     fetchUnitTemplateCategories().then(response => {
       if(response.unitTemplateCategories) {
         const options = response.unitTemplateCategories.map(unitTemplateCategory => ({ label: unitTemplateCategory.name, value: unitTemplateCategory.id }));
+        const option = unit_template_category_id ? options.filter(option => option.value === unit_template_category_id)[0] : null;
+        if(option) {
+          setActivityPackType(option);
+        }
         setUnitTemplateCategories(options);
       } else {
         const { error } = response;
@@ -230,10 +234,10 @@ export const UnitTemplate = ({ unitTemplate }) => {
       <section className="activity-pack-description-container padded-element">
         <label htmlFor="activity-pack-description">Activity Pack Description</label>
         <TextEditor
-          id="activity-pack-description"
           ContentState={ContentState}
           EditorState={EditorState}
           handleTextChange={handlePackDescriptionChange}
+          id="activity-pack-description"
           key="activity-pack-description"
           shouldCheckSpelling={true}
           text={activityPackInfo}

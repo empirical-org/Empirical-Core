@@ -3,13 +3,13 @@ import { shallow } from 'enzyme';
 
 import { UnitTemplateSelectedActivitiesTable } from '../unitTemplateSelectedActivitiesTable';
 
-describe('UnitTemplate component', () => {
+describe('UnitTemplateSelectedActivitiesTable component', () => {
   it('should match snapshot', () => {
     const wrapper = shallow(
       <UnitTemplateSelectedActivitiesTable
         activities={[]}
-        selectedActivities={[]}
         handleRemoveActivity={jest.fn}
+        selectedActivities={[]}
         updateOrder={jest.fn}
       />
     );

@@ -84,11 +84,7 @@ export const unitTemplateDataTableFields = [
 ];
 
 export function displayInPacksInfo(unitTemplateNames: string[]) {
-  return(
-    <React.Fragment>
-      {unitTemplateNames.map(name => (<p>{name}</p>))}
-    </React.Fragment>
-  );
+  return unitTemplateNames.map(name => (<p>{name}</p>));
 }
 
 export function unitTemplateActivityRows({ activities, handleClick, type }) {
