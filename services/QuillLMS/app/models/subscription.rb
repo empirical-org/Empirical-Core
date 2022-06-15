@@ -95,18 +95,11 @@ class Subscription < ApplicationRecord
   ALL_OFFICIAL_TYPES = OFFICIAL_PAID_TYPES + OFFICIAL_FREE_TYPES
   TRIAL_TYPES = [TEACHER_TRIAL]
 
-  SCHOOL_RENEWAL_PRICE = 90000
-
   TYPES_HASH = {
     trial: TRIAL_TYPES,
     teacher: OFFICIAL_TEACHER_TYPES,
     school: OFFICIAL_SCHOOL_TYPES
   }
-
-  # 2/27 - for now every school is 90000 cents, whether they are renewing or re-signing up.
-  SCHOOL_FIRST_PURCHASE_PRICE = SCHOOL_RENEWAL_PRICE
-  TEACHER_PRICE = 8000
-  ALL_PRICES = [TEACHER_PRICE, SCHOOL_RENEWAL_PRICE]
 
   PAYMENT_METHODS = [
     INVOICE_PAYMENT_METHOD = 'Invoice',
@@ -123,7 +116,7 @@ class Subscription < ApplicationRecord
     DISTRICT = 'District',
     SCHOOL = 'School',
     TEACHER = 'User'
-  ]
+  ].freeze
 
   ALL_TYPES = OFFICIAL_FREE_TYPES.dup.concat(OFFICIAL_PAID_TYPES).freeze
 
@@ -196,14 +189,6 @@ class Subscription < ApplicationRecord
     update(purchaser_id: new_purchaser_id)
   end
 
-  def renewal_price
-    if schools.any?
-      SCHOOL_RENEWAL_PRICE
-    else
-      TEACHER_PRICE
-    end
-  end
-
   def school_subscription?
     SchoolSubscription.exists?(subscription_id: id)
   end
@@ -236,23 +221,6 @@ class Subscription < ApplicationRecord
       .not_recurring
   end
 
-  def self.new_school_premium_sub(school, user)
-    today = Date.current
-    expiration = school.ever_paid_for_subscription? ? (today + 1.year) : promotional_dates[:expiration]
-    new(expiration: expiration, start_date: today, account_type: 'School Paid', recurring: true, purchaser_id: user.id)
-  end
-
-  def self.give_school_premium_if_charge_succeeds(school, user)
-    school_premium_sub = new_school_premium_sub(school, user)
-    school_premium_sub.save_if_charge_succeeds('school', school)
-    if school_premium_sub.new_record?
-      false
-    else
-      SchoolSubscription.create(school: school, subscription: school_premium_sub)
-      school_premium_sub
-    end
-  end
-
   def self.redemption_start_date(subscriber)
     subscriber&.subscriptions&.active&.first&.expiration || Date.current
   end
@@ -265,22 +233,6 @@ class Subscription < ApplicationRecord
       promotional_dates[:expiration]
     else
       Date.current + 1.year
-    end
-  end
-
-  def save_if_charge_succeeds(premium_type, school=nil)
-    raise "an incorrect premium type #{premium_type} was passed" unless premium_type == 'school'
-
-    charge = charge_user_for_school_premium(school)
-    payment_amount = SCHOOL_RENEWAL_PRICE
-
-    if charge[:status] == 'succeeded'
-      self.payment_method = 'Credit Card'
-      self.payment_amount = payment_amount
-      save!
-      self
-    else
-      nil
     end
   end
 
@@ -322,17 +274,9 @@ class Subscription < ApplicationRecord
 
   def self.promotional_dates
     today = Date.current
-    # available to users who have never paid before
-    # if today's month is before july, it expires end of June, else December
     exp_month_and_day = today.month < 7 ? "30-6" : "31-12"
 
     { start_date: today, expiration: Date::strptime("#{exp_month_and_day}-#{today.year + 1}","%d-%m-%Y") }
-  end
-
-  protected def charge_user_for_school_premium(school)
-    return unless purchaser&.stripe_customer?
-
-    Stripe::Charge.create(amount: SCHOOL_FIRST_PURCHASE_PRICE, currency: 'usd', customer: purchaser.stripe_customer_id)
   end
 
   def self.set_premium_expiration_and_start_date(subscriber)
