@@ -4,7 +4,7 @@ import Dropzone from 'react-dropzone'
 
 import UnitTemplateActivitySelector from './unitTemplateActivitySelector'
 
-import { DropdownInput, Input, TextEditor, Tooltip, Modal, PRODUCTION_FLAG, ALPHA_FLAG, BETA_FLAG, GAMMA_FLAG, ARCHIVED_FLAG, PRIVATE_FLAG } from '../../../Shared/index'
+import { DropdownInput, Input, TextEditor, Tooltip, Modal, PRODUCTION_FLAG, ALPHA_FLAG, BETA_FLAG, GAMMA_FLAG, ARCHIVED_FLAG, PRIVATE_FLAG, NOT_APPLICABLE } from '../../../Shared/index'
 import getAuthToken from '../modules/get_auth_token';
 import { DropdownObjectInterface } from '../../../Staff/interfaces/evidenceInterfaces';
 import { validateUnitTemplateForm } from '../../helpers/unitTemplates';
@@ -166,7 +166,7 @@ export const UnitTemplate = ({ unitTemplate }) => {
     return (
       <section className="readability-section padded-element">
         <h3>Readability:</h3>
-        {!readability && <p>N/A</p>}
+        {!readability && <p>{NOT_APPLICABLE}</p>}
         {readability && <p>{readability}</p>}
       </section>
     )
@@ -177,7 +177,7 @@ export const UnitTemplate = ({ unitTemplate }) => {
       <section className="diagnostics-section padded-element">
         <h3>Diagnostics:</h3>
         <section className="diagnostics">
-          {!diagnostic_names && <p>N/A</p>}
+          {!diagnostic_names && <p>{NOT_APPLICABLE}</p>}
           {diagnostic_names && diagnostic_names.map((diagnostic) => {
             return <p>{diagnostic}</p>;
           })}

@@ -68,7 +68,7 @@ exports[`UnitTemplateFilterInputs component should match snapshot 1`] = `
   />
   <button
     className="new-unit-template-button quill-button primary contained small focus-on-light"
-    onClick={Object {}}
+    onClick={[Function]}
     type="button"
   >
     New

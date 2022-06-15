@@ -22,7 +22,7 @@ const TOOL_OPTIONS = [
   'Quill Diagnostic'
 ]
 
-const UnitTemplateActivitySelector = ({ parentActivities, setParentActivities, toggleParentActivity }) => {
+export const UnitTemplateActivitySelector = ({ parentActivities, setParentActivities, toggleParentActivity }) => {
 
   const [activities, setActivities] = React.useState<Array<any>>([])
   const [selectedActivities, setSelectedActivities] = React.useState<Array<any>>(parentActivities)

@@ -3,7 +3,7 @@ import * as React from 'react';
 import { SortableList } from '../../../Shared/index';
 import { unitTemplateDataTableFields, unitTemplateActivityRows } from '../../helpers/unitTemplates';
 
-const UnitTemplateSelectedActivitiesTable = ({ activities, selectedActivities, handleRemoveActivity, updateOrder }) => {
+export const UnitTemplateSelectedActivitiesTable = ({ activities, selectedActivities, handleRemoveActivity, updateOrder }) => {
 
   function activityRows() {
     const fullSelectedActivities = activities.length ? selectedActivities.map((act) => activities.find(a => act.id === a.id)) : [];
