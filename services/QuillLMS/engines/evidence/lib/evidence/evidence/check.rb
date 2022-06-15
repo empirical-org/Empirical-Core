@@ -22,14 +22,14 @@ module Evidence
       optimal: true,
     }
 
-    def self.get_feedback(entry, prompt, previous_feedback, feedback_types)
+    def self.get_feedback(entry, prompt, previous_feedback, feedback_types=nil)
       triggered_check = find_triggered_check(entry, prompt, previous_feedback, feedback_types)
 
       triggered_check&.response || fallback_feedback
     end
 
     # returns first nonoptimal feedback, and if all are optimal, returns automl feedback
-    def self.find_triggered_check(entry, prompt, previous_feedback, feedback_types)
+    def self.find_triggered_check(entry, prompt, previous_feedback, feedback_types=nil)
       auto_ml_check = nil
       first_nonoptimal_check = nil
 
