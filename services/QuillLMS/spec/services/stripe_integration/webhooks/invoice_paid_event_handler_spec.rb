@@ -34,6 +34,17 @@ RSpec.describe StripeIntegration::Webhooks::InvoicePaidEventHandler do
     it { expect { subject }.to change(stripe_webhook_event, :status).to(StripeWebhookEvent::PROCESSED) }
   end
 
+  context 'refund invoice' do
+    let!(:stripe_invoice_amount_paid) { 0 }
+
+    it { expect { subject }.to change(stripe_webhook_event, :status).to(StripeWebhookEvent::PROCESSED) }
+
+    it 'does not create a subscription' do
+      expect(StripeIntegration::Webhooks::SubscriptionCreator).not_to receive(:run)
+      subject
+    end
+  end
+
   context 'raised errors' do
     let(:error_class) { StripeIntegration::Webhooks::SubscriptionCreator::Error.subclasses.sample }
 
