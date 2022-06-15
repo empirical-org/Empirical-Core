@@ -5,17 +5,14 @@ import UnitTemplateRow from './unitTemplateRow'
 import UnitTemplateFilterInputs from './unitTemplateFilterInputs'
 
 import LoadingSpinner from '../../../Connect/components/shared/loading_indicator.jsx'
-import { SortableList, Tooltip, ARCHIVED_FLAG, PRODUCTION_FLAG, ALPHA_FLAG, BETA_FLAG, GAMMA_FLAG, PRIVATE_FLAG } from  '../../../Shared/index'
+import { SortableList, Tooltip, PRODUCTION_FLAG, ALPHA_FLAG, BETA_FLAG, GAMMA_FLAG, PRIVATE_FLAG } from  '../../../Shared/index'
 import getAuthToken from '../../components/modules/get_auth_token'
-import { orderedUnitTemplates, sortUnitTemplates } from '../../helpers/unitTemplates'
+import { orderedUnitTemplates, sortUnitTemplates, ALL_FLAGS, ALL_DIAGNOSTICS, NOT_ARCHIVED_FLAG, ARCHIVED_FLAG } from '../../helpers/unitTemplates'
 
 const UNIT_TEMPLATES_URL = `${process.env.DEFAULT_URL}/cms/unit_templates.json`
 const DIAGNOSTICS_URL = `${process.env.DEFAULT_URL}/api/v1/activities/diagnostic_activities.json`
 const UPDATE_ORDER_URL = `${process.env.DEFAULT_URL}/cms/unit_templates/update_order_numbers`
 
-const ALL_FLAGS = 'all flags'
-const ALL_DIAGNOSTICS = 'all diagnostics'
-const NOT_ARCHIVED_FLAG = 'not archived'
 const options = [ALL_FLAGS, NOT_ARCHIVED_FLAG, ARCHIVED_FLAG, ALPHA_FLAG, BETA_FLAG, GAMMA_FLAG, PRODUCTION_FLAG, PRIVATE_FLAG]
 const headerHash = {
   'Accept': 'application/json',

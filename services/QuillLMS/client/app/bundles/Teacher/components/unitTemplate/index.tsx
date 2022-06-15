@@ -1,32 +1,18 @@
 import * as React from 'react';
 import { EditorState, ContentState } from 'draft-js';
 import Dropzone from 'react-dropzone'
-import _ from 'underscore';
 
 import UnitTemplateActivitySelector from './unitTemplateActivitySelector'
-import DropdownSelector from '../general_components/dropdown_selectors/dropdown_selector.jsx';
-import Server from '../modules/server/server.jsx';
-import Fnl from '../modules/fnl.jsx';
+
 import { DropdownInput, Input, TextEditor, Tooltip, Modal, PRODUCTION_FLAG, ALPHA_FLAG, BETA_FLAG, GAMMA_FLAG, ARCHIVED_FLAG, PRIVATE_FLAG } from '../../../Shared/index'
-import TextInputGenerator from '../modules/componentGenerators/text_input_generator.jsx';
-import IndicatorGenerator from '../modules/indicator_generator.jsx';
-import OptionLoader from '../modules/option_loader.jsx';
-import MarkdownParser from '../shared/markdown_parser.jsx';
 import getAuthToken from '../modules/get_auth_token';
 import { DropdownObjectInterface } from '../../../Staff/interfaces/evidenceInterfaces';
 import { validateUnitTemplateForm } from '../../helpers/unitTemplates';
+import { fetchUnitTemplateCategories, updateUnitTemplate, createUnitTemplate } from '../../utils/unitTemplateAPIs';
 
-const ELL = 'ELL';
-const UNIVERSITY = 'University';
-const THEMED = 'Themed';
-const DIAGNOSTIC = 'Diagnostic';
-const STARTER = 'Starter';
-const INTERMEDIATE = 'Intermediate';
-const ADVANCED = 'Advanced';
-
-const PACK_TYPE_OPTIONS = [ELL, UNIVERSITY, THEMED, DIAGNOSTIC, STARTER, INTERMEDIATE, ADVANCED];
 const FLAG_DROPDOWN_OPTIONS = [PRODUCTION_FLAG, ALPHA_FLAG, BETA_FLAG, GAMMA_FLAG, ARCHIVED_FLAG, PRIVATE_FLAG];
 const TIME_OPTIONS = ['0', '10', '20', '30', '40', '50', '60', '70', '80', '90', '100', '110', '120', '130', '140', '150', '160', '170', '180', '190'];
+const SUCCESS_MESSAGE = 'Activity pack successfully saved!';
 
 export const UnitTemplate = ({ unitTemplate }) => {
   const { id, flag, time, unit_template_category, name, activity_info, readability, diagnostic_names, activities } = unitTemplate;
@@ -36,11 +22,24 @@ export const UnitTemplate = ({ unitTemplate }) => {
   const [activityPackType, setActivityPackType] = React.useState<DropdownObjectInterface>(unit_template_category ? {value: unit_template_category.name, label: unit_template_category.name} : null);
   const [activityPackTime, setActivityPackTime] = React.useState<DropdownObjectInterface>(time ? {value: time.toString(), label: time.toString()} : null);
   const [activityPackActivities, setActivityPackActivities] = React.useState<any>(activities ? activities : []);
+  const [unitTemplateCategories, setUnitTemplateCategories] = React.useState<any>([])
   const [uploadedFileLink, setUploadedFileLink] = React.useState<string>('');
-  const [showSubmissionModal, setShowSubmissionModal] = React.useState<boolean>(false);
-  const [submissionModalMessage, setSubmissionModalMessage] = React.useState<string>('');
+  const [showModal, setShowModal] = React.useState<boolean>(false);
+  const [modalMessage, setModalMessage] = React.useState<string>('');
   const [errors, setErrors] = React.useState<any>(null);
 
+  React.useEffect(() => {
+    fetchUnitTemplateCategories().then(response => {
+      if(response.unitTemplateCategories) {
+        const options = response.unitTemplateCategories.map(unitTemplateCategory => ({ label: unitTemplateCategory.name, value: unitTemplateCategory.id }));
+        setUnitTemplateCategories(options);
+      } else {
+        const { error } = response;
+        setModalMessage(error);
+        setShowModal(true);
+      }
+    })
+  }, []);
 
   function getOptions(options: string[]) {
     return options.map((option: string) => ({ value: option, label: option }));
@@ -112,16 +111,45 @@ export const UnitTemplate = ({ unitTemplate }) => {
   function handleSaveUnitTemplate() {
     const errors = validateUnitTemplateForm({ activityPackFlag, activityPackName, activityPackType });
     if(Object.keys(errors).length) {
-      setErrors(errors)
+      return setErrors(errors);
+    }
+    setErrors(null);
+    const unitTemplateObject = {
+      name: activityPackName,
+      flag: activityPackFlag.value,
+      activity_info: activityPackInfo,
+      time: activityPackTime.value,
+      unit_template_category_id: activityPackType.value,
+      activity_ids: activityPackActivities.map(activity => activity.id),
+      invalidParam: true
+    };
+    if(id) {
+      updateUnitTemplate(unitTemplateObject, id).then(response => {
+        if(response.success) {
+          setModalMessage(SUCCESS_MESSAGE);
+          setShowModal(true);
+        } else {
+          const { error } = response;
+          setModalMessage(error);
+          setShowModal(true);
+        }
+      })
     } else {
-      setErrors(null);
-      setSubmissionModalMessage('Activity pack successfully saved!')
-      setShowSubmissionModal(true);
+      createUnitTemplate(unitTemplateObject).then(response => {
+        if(response.success) {
+          setModalMessage(SUCCESS_MESSAGE);
+          setShowModal(true);
+        } else {
+          const { error } = response;
+          setModalMessage(error);
+          setShowModal(true);
+        }
+      })
     }
   }
 
   function handleCloseSubmissionModal() {
-    setShowSubmissionModal(false);
+    setShowModal(false);
   }
 
   function renderActivityPackPreviewLink() {
@@ -138,6 +166,7 @@ export const UnitTemplate = ({ unitTemplate }) => {
     return (
       <section className="readability-section padded-element">
         <h3>Readability:</h3>
+        {!readability && <p>N/A</p>}
         {readability && <p>{readability}</p>}
       </section>
     )
@@ -145,9 +174,10 @@ export const UnitTemplate = ({ unitTemplate }) => {
 
   function renderDiagnosticsSection() {
     return (
-      <section className="diagnostic-section padded-element">
+      <section className="diagnostics-section padded-element">
         <h3>Diagnostics:</h3>
-        <section>
+        <section className="diagnostics">
+          {!diagnostic_names && <p>N/A</p>}
           {diagnostic_names && diagnostic_names.map((diagnostic) => {
             return <p>{diagnostic}</p>;
           })}
@@ -171,7 +201,7 @@ export const UnitTemplate = ({ unitTemplate }) => {
     return(
       <Modal className="rule-view-form-modal">
         <section className="submission-modal-contents">
-          <p>{submissionModalMessage}</p>
+          <p>{modalMessage}</p>
           <button className="quill-button primary contained fun focus-on-light" onClick={handleCloseSubmissionModal}>Close</button>
         </section>
       </Modal>
@@ -180,7 +210,7 @@ export const UnitTemplate = ({ unitTemplate }) => {
 
   return(
     <div className="cms-unit-template-editor" id="unit-template-editor">
-      {showSubmissionModal && renderSubmissionModal()}
+      {showModal && renderSubmissionModal()}
       <DropdownInput
         error={errors && errors['activityPackFlag']}
         handleChange={handleFlagChange}
@@ -219,7 +249,7 @@ export const UnitTemplate = ({ unitTemplate }) => {
             handleChange={handlePackTypeChange}
             id="pack-type-dropdown"
             isSearchable={true}
-            options={getOptions(PACK_TYPE_OPTIONS)}
+            options={unitTemplateCategories}
             value={activityPackType}
           />
         </section>

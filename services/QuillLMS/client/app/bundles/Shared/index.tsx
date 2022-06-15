@@ -176,5 +176,6 @@ export {
   ALPHA_FLAG,
   BETA_FLAG,
   GAMMA_FLAG,
-  PRIVATE_FLAG
+  PRIVATE_FLAG,
+  NOT_APPLICABLE
 } from './utils/constants'

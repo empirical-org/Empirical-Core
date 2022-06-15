@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import UnitTemplateActivityRow from './unitTemplateActivityRow';
 
-import { FlagDropdown } from '../../../Shared/index';
+import { FlagDropdown, NOT_APPLICABLE } from '../../../Shared/index';
 import { editActivityPackLink } from '../../helpers/unitTemplates';
 
 
@@ -52,7 +52,7 @@ const UnitTemplateRow = ({
 
   function renderDiagnostics() {
     const { diagnostic_names } = unitTemplate;
-    if(!diagnostic_names.length) { return 'N/A' }
+    if(!diagnostic_names.length) { return NOT_APPLICABLE }
     return diagnostic_names.map(diagnostic => (
       <p key={diagnostic}>{diagnostic}</p>
     ));

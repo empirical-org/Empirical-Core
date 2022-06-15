@@ -26,3 +26,5 @@ export const ALPHA_FLAG = 'alpha'
 export const BETA_FLAG = 'beta'
 export const GAMMA_FLAG = 'gamma'
 export const PRIVATE_FLAG = 'private'
+
+export const NOT_APPLICABLE = 'N/A'
