@@ -409,8 +409,8 @@ class PagesController < ApplicationController
     @customer_email = current_user&.email
     @associated_schools = current_user&.associated_schools || []
     @eligible_schools = @associated_schools.filter { |s| s.subscription.nil? }
-    @stripe_school_plan = PlanSerializer.new(Plan.stripe_school_plan).as_json
-    @stripe_teacher_plan = PlanSerializer.new(Plan.stripe_teacher_plan).as_json
+    @stripe_school_plan = PlanSerializer.new(Plan.stripe_school).as_json
+    @stripe_teacher_plan = PlanSerializer.new(Plan.stripe_teacher).as_json
 
     @diagnostic_activity_count =
       Activity.where(

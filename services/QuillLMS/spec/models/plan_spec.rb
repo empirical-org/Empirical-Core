@@ -64,10 +64,10 @@ RSpec.describe Plan, type: :model do
     it { should have_readonly_attribute(:price) }
   end
 
-  context '.stripe_teacher_plan' do
+  context '.stripe_teacher' do
     let!(:plan) { create(:teacher_premium_plan) }
 
-    it { expect(Plan.stripe_teacher_plan).to eq plan }
+    it { expect(Plan.stripe_teacher).to eq plan }
   end
 
   context 'teacher?' do

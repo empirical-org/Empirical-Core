@@ -389,7 +389,7 @@ describe Subscription, type: :model do
       end
 
       context 'paid via stripe' do
-        let(:account_type) { Plan::STRIPE_SCHOOL_PLAN }
+        let(:account_type) { Plan::STRIPE_SCHOOL }
 
         it { expect(subject).to be STRIPE_SCHOOL_PLAN_PRICE_ID }
       end

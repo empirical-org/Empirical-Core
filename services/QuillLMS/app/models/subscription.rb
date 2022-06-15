@@ -248,7 +248,7 @@ class Subscription < ApplicationRecord
     Stripe::Subscription.create(
       customer: purchaser.stripe_customer_id,
       items: [
-        price: Plan.stripe_teacher_plan.stripe_price_id
+        price: Plan.stripe_teacher.stripe_price_id
       ]
     )
   rescue Stripe::InvalidRequestError, RenewalNilStripeCustomer => e
@@ -348,10 +348,8 @@ class Subscription < ApplicationRecord
   end
 
   def renewal_stripe_price_id
-    return STRIPE_TEACHER_PLAN_PRICE_ID if [TEACHER_PAID, TEACHER_TRIAL].include?(account_type)
-    # TODO: can get cleaned up when we unify account types vs plan names, this covers the existing bases
-    return STRIPE_SCHOOL_PLAN_PRICE_ID if account_type == SCHOOL_PAID
-    return STRIPE_SCHOOL_PLAN_PRICE_ID if account_type == Plan::STRIPE_SCHOOL_PLAN
+    return STRIPE_TEACHER_PLAN_PRICE_ID if plan.teacher?
+    return STRIPE_SCHOOL_PLAN_PRICE_ID if plan.school?
   end
 
   def stripe?

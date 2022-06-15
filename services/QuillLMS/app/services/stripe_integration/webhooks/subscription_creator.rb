@@ -35,9 +35,9 @@ module StripeIntegration
 
       private def duplicate_subscription?
         case plan
-        when Plan.stripe_teacher_plan
+        when Plan.stripe_teacher
           purchaser.subscription&.plan == plan
-        when Plan.stripe_school_plan
+        when Plan.stripe_school
           purchaser.associated_schools.any? do |school|
             school.subscriptions.active.any?  do |subscription|
               subscription.schools.pluck(:id).sort == school_ids
@@ -72,10 +72,10 @@ module StripeIntegration
 
       private def run_plan_custom_tasks
         case plan
-        when Plan.stripe_teacher_plan
+        when Plan.stripe_teacher
           UserSubscription.create!(user: purchaser, subscription: subscription)
           UpdateSalesContactWorker.perform_async(purchaser.id, SalesStageType::TEACHER_PREMIUM)
-        when Plan.stripe_school_plan
+        when Plan.stripe_school
           schools = School.where(id: school_ids)
           raise NilSchoolError if schools.empty?
 

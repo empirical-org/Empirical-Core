@@ -31,12 +31,21 @@ class Plan < ApplicationRecord
     DAILY_INTERVAL_TYPE = 'daily'
   ].freeze
 
-  STRIPE_SCHOOL_PLAN = 'School Paid (via Stripe)'
-  STRIPE_TEACHER_PLAN = 'Teacher Paid'
+  NAMES = [
+    COLLEGE_BOARD_LIFETIME = 'College Board Educator Lifetime Premium',
+    INVOICE_SCHOOL = 'School Paid (via invoice)',
+    PREMIUM_CREDIT = 'Premium Credit',
+    SCHOOL_DISTRICT = 'School District Paid',
+    SCHOOL_SPONSORED = 'School Sponsored Free',
+    STRIPE_SCHOOL = 'School Paid (via Stripe)',
+    STRIPE_TEACHER = 'Teacher Paid',
+    TEACHER_TRIAL = 'Teacher Trial',
+    TEACHER_SPONSORED = 'Teacher Sponsored Free'
+  ].freeze
 
   NAME_TO_STRIPE_PRICE_ID = {
-    STRIPE_SCHOOL_PLAN => STRIPE_SCHOOL_PLAN_PRICE_ID,
-    STRIPE_TEACHER_PLAN => STRIPE_TEACHER_PLAN_PRICE_ID
+    STRIPE_SCHOOL => STRIPE_SCHOOL_PLAN_PRICE_ID,
+    STRIPE_TEACHER => STRIPE_TEACHER_PLAN_PRICE_ID
   }.freeze
 
   STRIPE_PRICE_ID_TO_NAME = NAME_TO_STRIPE_PRICE_ID.invert
@@ -55,12 +64,12 @@ class Plan < ApplicationRecord
     find_by!(name: STRIPE_PRICE_ID_TO_NAME[stripe_price_id])
   end
 
-  def self.stripe_school_plan
-    find_by(name: STRIPE_SCHOOL_PLAN)
+  def self.stripe_school
+    find_by(name: STRIPE_SCHOOL)
   end
 
-  def self.stripe_teacher_plan
-    find_by(name: STRIPE_TEACHER_PLAN)
+  def self.stripe_teacher
+    find_by(name: STRIPE_TEACHER)
   end
 
   def stripe_price_id

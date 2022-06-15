@@ -22,7 +22,7 @@ require 'rails_helper'
 
 FactoryBot.define do
   factory :plan, aliases: [:teacher_premium_plan] do
-    name { Plan::STRIPE_TEACHER_PLAN }
+    name { Plan::STRIPE_TEACHER }
     display_name { 'Teacher Premium' }
     price { 9000 }
     audience { Plan::TEACHER_AUDIENCE_TYPE }
@@ -30,7 +30,7 @@ FactoryBot.define do
     interval_count { 1 }
 
     factory :school_premium_plan do
-      name { Plan::STRIPE_SCHOOL_PLAN }
+      name { Plan::STRIPE_SCHOOL }
       display_name { 'School Premium' }
       price { 180000 }
       audience { Plan::SCHOOL_AUDIENCE_TYPE }

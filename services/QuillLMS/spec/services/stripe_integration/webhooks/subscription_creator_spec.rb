@@ -9,8 +9,8 @@ RSpec.describe StripeIntegration::Webhooks::SubscriptionCreator do
 
   let!(:customer) { create(:user, email: customer_email, stripe_customer_id: stripe_customer_id) }
   let!(:school_plan) { create(:school_premium_plan) }
-  let!(:school_plan_price) { Plan.stripe_school_plan.price }
-  let!(:teacher_plan_price) { Plan.stripe_teacher_plan.price }
+  let!(:school_plan_price) { Plan.stripe_school.price }
+  let!(:teacher_plan_price) { Plan.stripe_teacher.price }
 
   context 'teacher subscription' do
     let(:stripe_invoice_amount_paid) { teacher_plan_price }
@@ -25,7 +25,7 @@ RSpec.describe StripeIntegration::Webhooks::SubscriptionCreator do
       end
 
       context 'active teacher subscription already exists' do
-        let!(:subscription) { create(:subscription, plan: Plan.stripe_teacher_plan) }
+        let!(:subscription) { create(:subscription, plan: Plan.stripe_teacher) }
 
         before { create(:user_subscription, user: customer, subscription: subscription) }
 
