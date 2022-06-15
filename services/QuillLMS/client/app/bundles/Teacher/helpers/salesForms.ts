@@ -1,5 +1,5 @@
 import { requestFailed } from "../../Staff/helpers/evidence/routingHelpers";
-import { PROPERTIES, NUMERICAL_PROPERTIES, PROPERTY_LABELS } from '../../../constants/salesForm';
+import { PROPERTIES, NUMERICAL_PROPERTIES, PROPERTY_LABELS, SCHOOL, DISTRICT } from '../../../constants/salesForm';
 
 interface SalesFormSubmission {
   first_name: string,
@@ -69,14 +69,21 @@ export const customSearch = (
   return true;
 };
 
-export const validateSalesForm = (submission: SalesFormSubmission) => {
+export const validateSalesForm = ({salesFormSubmission, schoolIsSelected, districtIsSelected}: { salesFormSubmission: SalesFormSubmission, schoolIsSelected: boolean, districtIsSelected: boolean }) => {
   let errors = {};
   PROPERTIES.map((property, i) => {
-    const value = submission[property];
+    const value = salesFormSubmission[property];
     const inputType = PROPERTY_LABELS[i];
+    const missingSchoolValue = schoolIsSelected && inputType === SCHOOL && !value;
+    const missingDistrictValue = districtIsSelected && inputType === DISTRICT && !value;
+    const missingOtherProperty = inputType !== SCHOOL && inputType !== DISTRICT && !value;
     if(NUMERICAL_PROPERTIES.includes(property) && isNaN(value)) {
       errors[inputType] = `${inputType} must be a number.`
-    } else if(!value) {
+    } else if(missingSchoolValue) {
+      errors[inputType] = `${SCHOOL} name cannot be blank.`
+    } else if(missingDistrictValue) {
+      errors[inputType] = `${DISTRICT} name cannot be blank.`
+    } else if(missingOtherProperty) {
       errors[inputType] = `${inputType} cannot be blank.`
     }
   });

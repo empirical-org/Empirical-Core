@@ -84,13 +84,19 @@ exports[`ReadAndHighlightInstructions component when the student has not started
           }
         >
           <span
+            aria-hidden={false}
             className="quill-tooltip-trigger"
+            role="tooltip"
           >
             <span
               className="undefined"
+              onBlur={[Function]}
               onClick={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
+              role="button"
               tabIndex={0}
             >
               <img
@@ -102,6 +108,7 @@ exports[`ReadAndHighlightInstructions component when the student has not started
               className="quill-tooltip-wrapper"
             >
               <span
+                aria-live="polite"
                 className="quill-tooltip"
               />
             </span>
@@ -208,13 +215,19 @@ exports[`ReadAndHighlightInstructions component when the student has started mak
           }
         >
           <span
+            aria-hidden={false}
             className="quill-tooltip-trigger"
+            role="tooltip"
           >
             <span
               className="undefined"
+              onBlur={[Function]}
               onClick={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
+              role="button"
               tabIndex={0}
             >
               <img
@@ -226,6 +239,7 @@ exports[`ReadAndHighlightInstructions component when the student has started mak
               className="quill-tooltip-wrapper"
             >
               <span
+                aria-live="polite"
                 className="quill-tooltip"
               />
             </span>

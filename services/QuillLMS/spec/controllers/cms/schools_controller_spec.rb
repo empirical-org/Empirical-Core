@@ -106,15 +106,6 @@ describe Cms::SchoolsController do
     end
   end
 
-  describe '#edit_subscription' do
-    let!(:school) { create(:school) }
-
-    it 'should assing the subscription' do
-      get :edit_subscription, params: { id: school.id }
-      expect(assigns(:subscription)).to eq school.subscription
-    end
-  end
-
   describe '#create' do
     it 'should create the school with the given params' do
       post :create, params: { school: {
@@ -130,6 +121,15 @@ describe Cms::SchoolsController do
       expect(School.last.zipcode).to eq "1100"
       expect(School.last.free_lunches).to eq 2
       expect(response).to redirect_to cms_school_path(School.last.id)
+    end
+  end
+
+  describe '#edit_subscription' do
+    let!(:school) { create(:school) }
+
+    it 'should assing the subscription' do
+      get :edit_subscription, params: { id: school.id }
+      expect(assigns(:subscription)).to eq school.subscription
     end
   end
 

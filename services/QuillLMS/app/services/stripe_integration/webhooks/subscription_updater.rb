@@ -26,7 +26,7 @@ module StripeIntegration
       end
 
       private def previously_incomplete?
-        previous_attributes&.status == INCOMPLETE
+        previous_attributes.respond_to?(:status) && previous_attributes.status == INCOMPLETE
       end
 
       private def recurring

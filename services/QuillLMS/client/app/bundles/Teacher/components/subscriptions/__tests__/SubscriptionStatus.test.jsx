@@ -4,6 +4,7 @@ import { mount } from 'enzyme';
 import { expiredSubscriptionStatus, } from './data'
 
 import SubscriptionStatus from '../SubscriptionStatus';
+import { TEACHER_PREMIUM, } from '../constants'
 
 const sharedProps = {
   userIsContact: false,
@@ -19,7 +20,7 @@ describe('SubscriptionStatus container', () => {
   });
 
   it('should render when the subscription is expired', () => {
-    const wrapper = mount(<SubscriptionStatus {...sharedProps} subscriptionStatus={expiredSubscriptionStatus} subscriptionType="teacher" />);
+    const wrapper = mount(<SubscriptionStatus {...sharedProps} subscriptionStatus={expiredSubscriptionStatus} subscriptionType={TEACHER_PREMIUM} />);
     expect(wrapper).toMatchSnapshot()
   });
 });

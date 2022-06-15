@@ -3,13 +3,12 @@
 module StripeIntegration
   module Webhooks
     class IgnoredEventHandler < EventHandler
-      IGNORED_EVENTS = [
+      IGNORED_EVENT_NAMES = [
         'balance.available',
+        'charge.captured',
         'charge.failed',
         'charge.refunded',
         'charge.succeeded',
-        'checkout.session.expired',
-        'checkout.session.completed',
         'customer.created',
         'customer.source.created',
         'customer.source.expiring',
@@ -17,7 +16,6 @@ module StripeIntegration
         'customer.subscription.created',
         'customer.updated',
         'file.created',
-        'invoice.updated',
         'invoice.created',
         'invoice.finalized',
         'invoice.payment_failed',
@@ -27,7 +25,8 @@ module StripeIntegration
         'invoice.voided',
         'invoiceitem.created',
         'invoiceitem.updated',
-        'payment_intent.cancelled',
+        'payment_intent.amount_capturable_updated',
+        'payment_intent.canceled',
         'payment_intent.created',
         'payment_intent.payment_failed',
         'payment_intent.succeeded',
@@ -36,13 +35,13 @@ module StripeIntegration
         'payout.created',
         'payout.paid',
         'product.updated',
-        'setup_intent.created',
-        'setup_intent.succeeded'
+        'quote.canceled',
+        'quote.created',
+        'quote.finalized',
+        'setup_intent.created'
       ]
 
-      def self.handles?(event_type)
-        IGNORED_EVENTS.include?(event_type)
-      end
+      EVENT_HANDLER_LOOKUP = IGNORED_EVENT_NAMES.to_h { |event_name| [event_name, self] }
 
       def run
         stripe_webhook_event.ignored!

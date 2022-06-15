@@ -71,7 +71,7 @@ module IncorrectSequenceCalculator
     model = train_correct_sentences(Response.where(question_uid: uid, optimal: true).pluck(:text))
     counter = Hash.new(0)
     response_count = Response.where(question_uid: uid, optimal: [false, nil]).count > 250 ? 1 : 0
-    Response.where(question_uid: uid, optimal: [false, nil]).where("count > ?", response_count).pluck_in_batches(:text, :count, batch_size: 250) do |batch|
+    Response.where(question_uid: uid, optimal: [false, nil]).where("count > ?", response_count).pluck_in_batches(:text, :count, **{batch_size: 250}) do |batch|
       counter = train_incorrect_sentences(batch, model, counter)
     end
     amplify(counter, model)

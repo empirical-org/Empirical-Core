@@ -150,6 +150,9 @@
       .due-date-picker .DateInput_input::placeholder {
         color: #000;
       }
+      .data-table-headers {
+        max-width: min-content;
+      }
       .list-item {
         display: flex;
         align-items: baseline;

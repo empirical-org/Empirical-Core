@@ -6,82 +6,57 @@ exports[`UnitTemplateProfileDescription component should render activity_info ha
     Object {
       "activities": Array [
         Object {
-          "anonymous_path": "/activity_sessions/anonymous?activity_id=303",
           "classification": Object {
-            "alias": "Quill Grammar",
-            "created_at": "2014-04-19T00:05:03.113Z",
-            "form_url": "https://grammar.quill.org/play/sw",
-            "id": 2,
-            "image_class": "icon-puzzle-gray",
+            "id": 1,
             "key": "sentence",
-            "module_url": "https://grammar.quill.org/play/sw",
             "name": "Quill Grammar",
-            "scorebook_icon_class": "icon-puzzle",
-            "uid": "s2u3tVuguhfUjOQxDP-7RA",
-            "updated_at": "2017-01-24T16:06:52.270Z",
           },
-          "created_at": "2016-03-08T22:28:58.921Z",
-          "data": null,
-          "description": "Write five sentences using the correct preposition.",
-          "flags": Array [
-            "production",
-          ],
-          "id": 303,
-          "name": "From",
+          "description": "This is a test Grammar activity.",
+          "id": 1,
+          "level_zero_topic_name": null,
+          "name": "Their, They're, There",
+          "readability": "4th-5th",
           "standard": Object {
-            "created_at": "2014-04-19T15:42:40.907Z",
-            "id": 6,
-            "name": "1.1i. Frequently Occurring Prepositions",
+            "id": 1,
+            "name": "1.1 Test Grammar Standard",
             "standard_category": Object {
-              "created_at": "2015-02-07T21:55:22.293Z",
-              "id": 5,
-              "name": "Prepositions",
-              "updated_at": "2015-02-07T21:55:22.293Z",
+              "id": 1,
+              "name": "Test Grammar Standard",
             },
-            "standard_level": Object {
-              "created_at": "2013-11-12T18:03:10.973Z",
-              "id": 7,
-              "name": "1st Grade CCSS",
-              "updated_at": "2015-02-27T22:02:03.770Z",
-            },
-            "updated_at": "2015-02-07T21:55:22.303Z",
           },
-          "uid": "-KCNLERe7k5EKlr2sm1b",
-          "updated_at": "2016-03-17T19:06:21.724Z",
+          "standard_level_name": "CCSS: Grade 4",
         },
       ],
-      "activity_info": "<p class=\\"hi\\">hi there</p>",
-      "author": Object {
-        "avatar_url": "https://empirical-core-dev.s3.amazonaws.com/authors/avatars/000/000/006/thumb/Sara_Angel_96.png?1451924889",
-        "description": "I am a human",
-        "id": 6,
-        "name": "Sara A.",
-      },
-      "grades": Array [
-        "1",
-      ],
-      "id": 34,
-      "name": "barebones activity",
+      "activity_info": "",
+      "created_at": 123123123,
+      "diagnostics_recommended_by": null,
+      "flag": "",
+      "grades": Array [],
+      "id": 3,
+      "name": "Test Activity Pack",
       "non_authenticated": false,
-      "number_of_standards": 1,
-      "order_number": 1,
-      "problem": "bloopd i am problem rawr",
-      "summary": "bloop",
-      "teacher_review": "lalala",
-      "time": 20,
+      "number_of_standards": 0,
+      "order_number": 0,
+      "readability": "",
+      "time": 60,
+      "type": Object {
+        "name": "",
+        "primary_color": "",
+      },
       "unit_template_category": Object {
-        "id": 3,
-        "name": "ELL",
-        "primary_color": ".348fdf",
-        "secondary_color": ".014f92",
+        "id": 4,
+        "name": "",
+        "primary_color": "",
+        "secondary_color": "",
       },
     }
   }
 >
   <div
+    className="unit-template-profile-description"
     dangerouslySetInnerHTML={
       Object {
-        "__html": "<p class=\\"hi\\">hi there</p>",
+        "__html": "",
       }
     }
   />

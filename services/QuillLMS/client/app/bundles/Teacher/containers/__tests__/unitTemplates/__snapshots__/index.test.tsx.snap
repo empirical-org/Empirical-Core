@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UnitTemplates container should match snapshot 1`] = `
+<div
+  className="cms-unit-templates index-container"
+>
+  <div
+    className="unit-template-inputs"
+  >
+    <UnitTemplateFilterInputs
+      diagnostic="All Diagnostics"
+      diagnostics={Array []}
+      flag="All Flags"
+      handleRadioChange={[Function]}
+      handleSearch={[Function]}
+      newUnitTemplate={[Function]}
+      options={
+        Array [
+          "All Flags",
+          "Not Archived",
+          "Archived",
+          "Alpha",
+          "Beta",
+          "Gamma",
+          "Production",
+          "Private",
+        ]
+      }
+      searchByActivityPack={true}
+      searchInput=""
+      switchDiagnostic={[Function]}
+      switchFlag={[Function]}
+    />
+  </div>
+  <LoadingIndicator />
+</div>
+`;

@@ -113,6 +113,7 @@ class User < ApplicationRecord
   has_many :blog_post_user_ratings
 
   has_many :change_logs
+  has_many :stripe_checkout_sessions, dependent: :destroy
 
   accepts_nested_attributes_for :auth_credential
 
@@ -179,6 +180,12 @@ class User < ApplicationRecord
     )
   end
 
+  def self.find_by_stripe_customer_id_or_email(stripe_customer_id, email)
+    return User.find_by(stripe_customer_id: stripe_customer_id) if stripe_customer_id.present?
+
+    User.find_by(email: email)
+  end
+
   def self.valid_email?(email)
     ValidatesEmailFormatOf.validate_email_format(email).nil?
   end
@@ -231,7 +238,7 @@ class User < ApplicationRecord
 
   def subscription_authority_level(subscription_id)
     subscription = Subscription.find subscription_id
-    if subscription.purchaser_id == id
+    if subscription.purchaser_id == id || subscription.purchaser_email&.downcase == email
       'purchaser'
     elsif subscription.schools.include?(school)
       if school.coordinator == self
@@ -262,6 +269,14 @@ class User < ApplicationRecord
       .order(expiration: :desc)
       .limit(1)
       .first
+  end
+
+  def last_four
+    return nil unless stripe_customer_id
+
+    Stripe::Customer.retrieve(id: stripe_customer_id, expand: ['sources']).sources.data.first&.last4
+  rescue Stripe::InvalidRequestError
+    nil
   end
 
   def present_and_future_subscriptions
@@ -615,6 +630,10 @@ class User < ApplicationRecord
 
   def subscription_status
     subscription&.subscription_status || last_expired_subscription&.subscription_status
+  end
+
+  def associated_schools
+    [school].concat(administered_schools).uniq.select { |s| s.present? && School::ALTERNATIVE_SCHOOL_NAMES.exclude?(s.name) }
   end
 
   private def validate_flags

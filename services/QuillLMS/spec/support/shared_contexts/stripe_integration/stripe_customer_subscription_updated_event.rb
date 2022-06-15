@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 RSpec.shared_context 'Stripe Customer Subscription Updated Event' do
-  include_context 'Stripe Subscription'
+  include_context 'Stripe Invoice'
   include_context 'Stripe Payment Method'
 
   let(:stripe_event_id) { "evt_#{SecureRandom.hex}"}
-  let(:stripe_event_type) { StripeIntegration::Webhooks::CustomerSubscriptionUpdatedEventHandler::EVENT_TYPE }
+  let(:stripe_event_type) { 'customer.subscription.updated' }
 
   let(:stripe_event) do
     Stripe::Event.construct_from(
@@ -13,7 +13,9 @@ RSpec.shared_context 'Stripe Customer Subscription Updated Event' do
       object: 'event',
       api_version: '2020-08-27',
       created: 1650057070,
-      data: stripe_subscription,
+      data: {
+        object: stripe_subscription
+      },
       livemode: false,
       pending_webhooks: 0,
       request: {

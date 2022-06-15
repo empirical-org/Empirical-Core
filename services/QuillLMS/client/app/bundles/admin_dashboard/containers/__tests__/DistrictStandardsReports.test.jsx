@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { mount, shallow } from 'enzyme';
 import { createMockStore } from 'redux-test-utils';
+
 import AdminDashboardRouter from '../AdminDashboardRouter.jsx';
 import DistrictStandardsReports from '../DistrictStandardsReports.jsx';
 
@@ -57,14 +58,16 @@ describe('DistrictStandardsReports', () => {
         'Standard Name',
         'Students',
         'Proficient',
-        'Activities'
+        'Activities',
+        'Time Spent'
       ],
       [
         "Mrs. Bonker's 2nd Grade",
         '1.1b How to tell a cactus from a cow',
         60,
         29,
-        2
+        2,
+        'N/A'
       ]
     ]);
   });
