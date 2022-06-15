@@ -160,7 +160,7 @@ module Evidence
         expect(checks).to eq([Check::Prefilter, Check::Plagiarism])
       end
 
-      it 'should raise a  NoMatchedFeedbackTypes exception if filters are provided but no matches are generated' do
+      it 'should raise a NoMatchedFeedbackTypes exception if filters are provided but no matches are generated' do
         expect do
           checks = Check.checks_to_run(['NotARealCheck'])
         end.to raise_error(Check::NoMatchedFeedbackTypesError)

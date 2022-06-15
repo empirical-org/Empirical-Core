@@ -64,6 +64,7 @@ module Evidence
 
     def self.checks_to_run(feedback_types)
       return ALL_CHECKS if feedback_types.nil? || feedback_types.empty?
+
       qualified_feedback_types = feedback_types.map { |t| "Evidence::Check::#{t}" }
       filtered_checks = ALL_CHECKS.select { |check| qualified_feedback_types.include?(check.name) }
 
