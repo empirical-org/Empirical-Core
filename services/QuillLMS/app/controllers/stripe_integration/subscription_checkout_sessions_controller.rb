@@ -5,8 +5,12 @@ module StripeIntegration
     SUBSCRIPTION_MODE = 'subscription'
 
     def create
-      stripe_checkout_session =
-        StripeCheckoutSession.custom_find_or_create_by!(external_checkout_session_args, stripe_price_id, customer.id)
+      stripe_checkout_session = StripeCheckoutSession.custom_find_or_create_by!(
+        external_checkout_session_args: external_checkout_session_args,
+        school_ids: school_ids,
+        stripe_price_id: stripe_price_id,
+        user_id: customer.id
+      )
 
       render json: { redirect_url: stripe_checkout_session.url }
     end
@@ -51,7 +55,7 @@ module StripeIntegration
     private def school_ids
       return [] if params[:school_ids].nil?
 
-      JSON.parse(params[:school_ids])
+      JSON.parse(params[:school_ids]).sort
     end
 
     private def school_plan?
