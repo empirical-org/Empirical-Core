@@ -7,7 +7,7 @@ module Evidence
     before_action :set_params, only: [:create]
 
     def create
-      feedback = Check.get_feedback(@entry, @prompt, @previous_feedback)
+      feedback = Check.get_feedback(@entry, @prompt, @previous_feedback, @feedback_types)
 
       save_feedback_history(feedback)
 
@@ -26,6 +26,7 @@ module Evidence
       end
       @session_id = params[:session_id]
       @previous_feedback = params[:previous_feedback]
+      @feedback_types = params[:feedback_types]
     end
 
     private def save_feedback_history(feedback)

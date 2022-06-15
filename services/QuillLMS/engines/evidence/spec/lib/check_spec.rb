@@ -143,5 +143,28 @@ module Evidence
         expect(result).to eq(Check::FALLBACK_RESPONSE)
       end
     end
+
+    context 'checks_to_run' do
+      it 'should return ALL_CHECKS unmodified if the value is nil' do
+        checks = Check.checks_to_run(nil)
+        expect(checks).to eq(Check::ALL_CHECKS)
+      end
+
+      it 'should return ALL_CHECKS unmodified if the value is empty' do
+        checks = Check.checks_to_run([])
+        expect(checks).to eq(Check::ALL_CHECKS)
+      end
+
+      it 'should return an array containing only specified checks' do
+        checks = Check.checks_to_run(['Prefilter', 'Plagiarism'])
+        expect(checks).to eq([Check::Prefilter, Check::Plagiarism])
+      end
+
+      it 'should raise a  NoMatchedFeedbackTypes exception if filters are provided but no matches are generated' do
+        expect do
+          checks = Check.checks_to_run(['NotARealCheck'])
+        end.to raise_error(Check::NoMatchedFeedbackTypesError)
+      end
+    end
   end
 end
