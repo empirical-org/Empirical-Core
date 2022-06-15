@@ -4,7 +4,7 @@ import IndividualFeaturesTable from './individual_features_table'
 
 const greenCheckSrc = `${process.env.CDN_URL}/images/icons/icons-check-green.svg`
 
-const SchoolPricingMini = ({ buyNowButton, plan, premiumFeatureData, showBadges, showSchoolBuyNow }) => (
+const SchoolPricingMini = ({ plan, premiumFeatureData, showBadges, handleClickPurchasingOptions, }) => (
 
   <div className="pricing-mini">
     <section className="pricing-info">
@@ -14,14 +14,14 @@ const SchoolPricingMini = ({ buyNowButton, plan, premiumFeatureData, showBadges,
         <p>Per school, per year</p>
       </div>
       <div className="premium-button-container">
-        { showSchoolBuyNow && buyNowButton() }
-
-        <a
+        <button
           className="quill-button contained medium primary focus-on-light"
-          href="https://quillpremium.wufoo.com/forms/quill-premium-quote/"
+          onClick={handleClickPurchasingOptions}
+          type="button"
         >
-          Contact us
-        </a>
+          Purchasing options
+        </button>
+        <p>Request Quote or Buy Now</p>
       </div>
       {showBadges && <div className="school-premium-badge-container">
         <div className="school-premium-badge"><img alt="Check icon" src={greenCheckSrc} /> 2 PD sessions</div>
