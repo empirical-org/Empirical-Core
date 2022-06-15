@@ -4,7 +4,7 @@ jobs:
     working_directory: ~/Empirical-Core
     parallelism: 4
     docker:
-      - image: circleci/ruby:2.7.6
+      - image: cimg/ruby:2.7.6
         environment:
           PG_DB: quill_test_db
           PG_USER: ubuntu
@@ -63,7 +63,7 @@ jobs:
     working_directory: ~/Empirical-Core
     parallelism: 1
     docker:
-      - image: circleci/ruby:2.7.6-node
+      - image: cimg/ruby:2.7.6-node
         environment:
           PG_DB: quill_test_db
           PG_USER: ubuntu
@@ -246,7 +246,7 @@ jobs:
     working_directory: ~/Empirical-Core
     parallelism: 4
     docker:
-      - image: circleci/ruby:2.7.6
+      - image: cimg/ruby:2.7.6
         environment:
           PG_DB: quill_evidence_test_db
           PG_USER: ubuntu
@@ -316,7 +316,7 @@ jobs:
   rubocop_lint:
     working_directory: ~/Empirical-Core
     docker:
-      - image: circleci/ruby:2.7.6-node
+      - image: cimg/ruby:2.7.6-node
     steps:
       - checkout
       - run:
