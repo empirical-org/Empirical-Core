@@ -4,7 +4,7 @@ module StripeIntegration
   module Webhooks
     class SubscriptionCreator < ApplicationService
       class Error < StandardError; end
-      class AmountPaidMismatch < Error; end
+      class AmountPaidMismatchError < Error; end
       class DuplicateSubscriptionError < Error; end
       class NilSchoolError < Error; end
       class NilStripeCustomerIdError < Error; end
@@ -26,7 +26,7 @@ module StripeIntegration
         raise NilStripePriceIdError if stripe_price_id.nil?
         raise NilStripeInvoiceIdError if stripe_invoice.id.nil?
         raise DuplicateSubscriptionError if duplicate_subscription?
-        raise AmountPaidMismatch if payment_amount != plan.price
+        raise AmountPaidMismatchError if payment_amount != plan.price
 
         subscription
         save_stripe_customer_id
