@@ -9,7 +9,7 @@ module IntercomIntegration
 
     def create
       topic = parsed_payload["topic"]
-      if topic == "user.tag.created" || topic == "contact.tag.created"
+      if ["user.tag.created", "contact.tag.created"].include?(topic)
         tag = parsed_payload["data"]["item"]["tag"]["name"]
         user = find_or_create_user
         sales_form_submission = SalesFormSubmission.new(
@@ -23,18 +23,21 @@ module IntercomIntegration
           source: SalesFormSubmission::INTERCOM_SOURCE,
           intercom_link: intercom_link(user_payload["id"])
         )
-        if tag == "Quote Request School"
+        case tag
+        when "Quote Request School"
           sales_form_submission.collection_type = SalesFormSubmission::SCHOOL_COLLECTION_TYPE
           sales_form_submission.submission_type = SalesFormSubmission::QUOTE_REQUEST_TYPE
-        elsif tag == "Quote Request District"
+        when "Quote Request District"
           sales_form_submission.collection_type = SalesFormSubmission::DISTRICT_COLLECTION_TYPE
           sales_form_submission.submission_type = SalesFormSubmission::QUOTE_REQUEST_TYPE
-        elsif tag == "Renewal Request School"
+        when == "Renewal Request School"
           sales_form_submission.collection_type = SalesFormSubmission::SCHOOL_COLLECTION_TYPE
           sales_form_submission.submission_type = SalesFormSubmission::RENEWAL_REQUEST_TYPE
-        elsif tag == "Renewal Request District"
+        when "Renewal Request District"
           sales_form_submission.collection_type = SalesFormSubmission::DISTRICT_COLLECTION_TYPE
           sales_form_submission.submission_type = SalesFormSubmission::RENEWAL_REQUEST_TYPE
+        else
+          raise "Unrecognized tag type"
         end
         sales_form_submission.save!
       end
@@ -60,10 +63,8 @@ module IntercomIntegration
     private def verify_signature
       client_secret = ENV.fetch('INTERCOM_APP_SECRET', '')
       hexdigest = OpenSSL::HMAC.hexdigest('sha1', client_secret, payload)
-      unless request.headers['X-Hub-Signature'] == "sha1=#{hexdigest}"
-        raise "unauthorized call of Intercom webhook"
-        head :forbidden
-      end
+      return if request.headers['X-Hub-Signature'] == "sha1=#{hexdigest}"
+      raise "unauthorized call of Intercom webhook"
     end
 
     private def find_or_create_user

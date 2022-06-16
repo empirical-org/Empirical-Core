@@ -22,8 +22,7 @@
 #  updated_at                     :datetime         not null
 #
 class SalesFormSubmission < ApplicationRecord
-  attr_accessor :source
-  attr_accessor :intercom_link
+  attr_accessor :source, :intercom_link
 
   COLLECTION_TYPES = [
     SCHOOL_COLLECTION_TYPE = 'school',
@@ -68,21 +67,21 @@ class SalesFormSubmission < ApplicationRecord
   def create_vitally_records_if_none_exist
     user = find_or_create_user
 
-    if is_district_collection? && district.present? && !api.exists?(VITALLY_DISTRICTS_TYPE, district.id)
+    if district_collection? && district.present? && !api.exists?(VITALLY_DISTRICTS_TYPE, district.id)
       api.create(VITALLY_DISTRICTS_TYPE, district.vitally_data)
-    elsif is_school_collection? && school.present? && !api.exists?(VITALLY_SCHOOLS_TYPE, school.id)
+    elsif school_collection? && school.present? && !api.exists?(VITALLY_SCHOOLS_TYPE, school.id)
       api.create(VITALLY_SCHOOLS_TYPE, school.vitally_data)
     end
 
-    if !api.exists?(VITALLY_USERS_TYPE, user.id)
-      api.create(VITALLY_USERS_TYPE, vitally_user_create_data)
-    else
+    if api.exists?(VITALLY_USERS_TYPE, user.id)
       api.update(VITALLY_USERS_TYPE, user.id, vitally_user_update_data)
+    else
+      api.create(VITALLY_USERS_TYPE, vitally_user_create_data)
     end
   end
 
   def vitally_sales_form_data
-    if is_school_collection?
+    if school_collection?
       {
         templateId: vitally_template_id,
         customerId: api.get(VITALLY_SCHOOLS_TYPE, school.id)["id"],
@@ -108,8 +107,8 @@ class SalesFormSubmission < ApplicationRecord
         "vitally.custom.opportunityOwner": true
       }
     }
-    user_payload[:accountIds] = [school_vitally_id] if is_school_collection?
-    user_payload[:organizationIds] = [district_vitally_id] if is_district_collection?
+    user_payload[:accountIds] = [school_vitally_id] if school_collection?
+    user_payload[:organizationIds] = [district_vitally_id] if district_collection?
     user_payload
   end
 
@@ -119,14 +118,14 @@ class SalesFormSubmission < ApplicationRecord
         "vitally.custom.opportunityOwner": true
       }
     }
-    if is_school_collection?
+    if school_collection?
       previous_school = find_or_create_user&.school
       if previous_school.present? && previous_school != school
         user_payload[:accountIds] = [api.get(VITALLY_SCHOOLS_TYPE, previous_school.id)["id"], school_vitally_id]
       else
         user_payload[:accountIds] = [school_vitally_id]
       end
-    elsif is_district_collection?
+    elsif district_collection?
       previous_district = find_or_create_user&.school&.district
       if previous_district.present? && previous_district != district
         user_payload[:organizationIds] = [api.get(VITALLY_DISTRICTS_TYPE, previous_district.id)["id"], district_vitally_id]
@@ -137,11 +136,11 @@ class SalesFormSubmission < ApplicationRecord
     user_payload
   end
 
-  def is_school_collection?
+  def school_collection?
     collection_type == SCHOOL_COLLECTION_TYPE
   end
 
-  def is_district_collection?
+  def district_collection?
     collection_type == DISTRICT_COLLECTION_TYPE
   end
 

@@ -11,11 +11,17 @@
 #  email                          :string           not null
 #  first_name                     :string           not null
 #  last_name                      :string           not null
-<<<<<<< HEAD
 #  phone_number                   :string
-=======
-#  phone_number                   :string           not null
->>>>>>> b49c4fdb0a2a71d580789170398fbd467aa1c354
+#  school_name                    :string
+#  school_premium_count_estimate  :integer          default(0), not null
+#  student_premium_count_estimate :integer          default(0), not null
+#  submission_type                :string           not null
+#  teacher_premium_count_estimate :integer          default(0), not null
+#  zipcode                        :string
+#  created_at                     :datetime         not null
+#  updated_at                     :datetime         not null
+#
+#  phone_number                   :string
 #  school_name                    :string
 #  school_premium_count_estimate  :integer          default(0), not null
 #  student_premium_count_estimate :integer          default(0), not null
@@ -42,8 +48,11 @@ RSpec.describe SalesFormSubmission, type: :model do
     it { should validate_presence_of(:submission_type) }
   end
 
-<<<<<<< HEAD
   context 'hooks' do
+    before do
+      allow_any_instance_of(HTTParty).to receive(:get).and_return({error: 'error'})
+    end
+
     it 'after_save, creates a new user record if a User does not already exist' do
       expect { create(:sales_form_submission) }.to change { User.count }.by(1)
     end
@@ -61,7 +70,7 @@ RSpec.describe SalesFormSubmission, type: :model do
 
   context '#send_opportunity_to_vitally' do
     let(:school) { create(:school)}
-    let(:sales_form_submission) { create(:sales_form_submission, collection_type: 'school', source: 'form', submission_type: 'quote request', school_name: school.name)}
+    let(:sales_form_submission) { build(:sales_form_submission, collection_type: 'school', source: 'form', submission_type: 'quote request', school_name: school.name)}
 
     it 'should sync to vitally with the appropriate payload for school level forms' do
       vitally_rest_api = double.as_null_object
@@ -91,7 +100,7 @@ RSpec.describe SalesFormSubmission, type: :model do
 
     it 'should sync to vitally with the appropriate payload for district level forms' do
       district = create(:district)
-      sales_form_submission.update(collection_type: 'district', district_name: district.name, source: 'form')
+      sales_form_submission = build(:sales_form_submission, collection_type: 'district', source: 'form', submission_type: 'quote request', district_name: district.name)
       school.update(district: district)
 
       vitally_rest_api = double.as_null_object
@@ -121,31 +130,31 @@ RSpec.describe SalesFormSubmission, type: :model do
 
     it 'should first create a school in vitally if it does not exist yet' do
       school = create(:school)
-      sales_form_submission = create(:sales_form_submission, collection_type: 'school', submission_type: 'quote request', source: 'form', school_name: school.name)
+      sales_form_submission = build(:sales_form_submission, collection_type: 'school', submission_type: 'quote request', source: 'form', school_name: school.name)
 
       vitally_rest_api = double.as_null_object
       allow(VitallyRestApi).to receive(:new).and_return(vitally_rest_api)
       allow(vitally_rest_api).to receive(:exists?).with(SalesFormSubmission::VITALLY_SCHOOLS_TYPE, school.id).and_return(false)
 
       expect(vitally_rest_api).to receive(:create).with(SalesFormSubmission::VITALLY_SCHOOLS_TYPE, school.vitally_data)
-      sales_form_submission.send_opportunity_to_vitally
+      sales_form_submission.create_vitally_records_if_none_exist
     end
 
     it 'should first create a district in vitally if it does not exist yet' do
       district = create(:district)
-      sales_form_submission = create(:sales_form_submission, collection_type: 'district', submission_type: 'quote request', district_name: district.name)
+      sales_form_submission = build(:sales_form_submission, collection_type: 'district', submission_type: 'quote request', district_name: district.name)
 
       vitally_rest_api = double.as_null_object
       allow(VitallyRestApi).to receive(:new).and_return(vitally_rest_api)
       allow(vitally_rest_api).to receive(:exists?).with(SalesFormSubmission::VITALLY_DISTRICTS_TYPE, district.id).and_return(false)
 
       expect(vitally_rest_api).to receive(:create).with(SalesFormSubmission::VITALLY_DISTRICTS_TYPE, district.vitally_data)
-      sales_form_submission.send_opportunity_to_vitally
+      sales_form_submission.create_vitally_records_if_none_exist
     end
 
     it 'should send a payload with the id for Unknown School if the school does not exist in the db' do
       school = create(:school, name: 'Unknown School')
-      sales_form_submission = create(:sales_form_submission, collection_type: 'school', submission_type: 'quote request', school_name: 'nonexistent school name', source: 'form')
+      sales_form_submission = build(:sales_form_submission, collection_type: 'school', submission_type: 'quote request', school_name: 'nonexistent school name', source: 'form')
 
       vitally_rest_api = double.as_null_object
       allow(VitallyRestApi).to receive(:new).and_return(vitally_rest_api)
@@ -173,21 +182,5 @@ RSpec.describe SalesFormSubmission, type: :model do
       expect(vitally_rest_api).to receive(:create).with(SalesFormSubmission::VITALLY_SALES_FORMS_TYPE, payload)
       sales_form_submission.send_opportunity_to_vitally
     end
-=======
-  context 'school name validation with blank district name' do
-    let(:sales_form_submission) { build(:sales_form_submission, district_name: '') }
-
-    it { expect(sales_form_submission).to be_valid }
-    it { should validate_presence_of(:school_name) }
-    it { should validate_presence_of(:district_name) }
-  end
-
-  context 'district name validation with blank school name' do
-    let(:sales_form_submission) { build(:sales_form_submission, school_name: '') }
-
-    it { expect(sales_form_submission).to be_valid }
-    it { should validate_presence_of(:school_name) }
-    it { should validate_presence_of(:district_name) }
->>>>>>> b49c4fdb0a2a71d580789170398fbd467aa1c354
   end
 end
