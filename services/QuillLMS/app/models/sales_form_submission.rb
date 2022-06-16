@@ -65,19 +65,8 @@ class SalesFormSubmission < ApplicationRecord
   end
 
   def create_vitally_records_if_none_exist
-    user = find_or_create_user
-
-    if district_collection? && district.present? && !api.exists?(VITALLY_DISTRICTS_TYPE, district.id)
-      api.create(VITALLY_DISTRICTS_TYPE, district.vitally_data)
-    elsif school_collection? && school.present? && !api.exists?(VITALLY_SCHOOLS_TYPE, school.id)
-      api.create(VITALLY_SCHOOLS_TYPE, school.vitally_data)
-    end
-
-    if api.exists?(VITALLY_USERS_TYPE, user.id)
-      api.update(VITALLY_USERS_TYPE, user.id, vitally_user_update_data)
-    else
-      api.create(VITALLY_USERS_TYPE, vitally_user_create_data)
-    end
+    create_school_or_district_if_none_exist
+    create_vitally_user_if_none_exists
   end
 
   def vitally_sales_form_data
@@ -119,19 +108,9 @@ class SalesFormSubmission < ApplicationRecord
       }
     }
     if school_collection?
-      previous_school = find_or_create_user&.school
-      if previous_school.present? && previous_school != school
-        user_payload[:accountIds] = [api.get(VITALLY_SCHOOLS_TYPE, previous_school.id)["id"], school_vitally_id]
-      else
-        user_payload[:accountIds] = [school_vitally_id]
-      end
+      user_payload[:accountIds] = school_array_for_existing_user
     elsif district_collection?
-      previous_district = find_or_create_user&.school&.district
-      if previous_district.present? && previous_district != district
-        user_payload[:organizationIds] = [api.get(VITALLY_DISTRICTS_TYPE, previous_district.id)["id"], district_vitally_id]
-      else
-        user_payload[:organizationIds] = [district_vitally_id]
-      end
+      user_payload[:organizationIds] = district_array_for_existing_user
     end
     user_payload
   end
@@ -185,6 +164,42 @@ class SalesFormSubmission < ApplicationRecord
       SCHOOL_RENEWAL_REQUEST_TEMPLATE_ID
     else
       DISTRICT_RENEWAL_REQUEST_TEMPLATE_ID
+    end
+  end
+
+  private def create_school_or_district_if_none_exist
+    if district_collection? && district.present? && !api.exists?(VITALLY_DISTRICTS_TYPE, district.id)
+      api.create(VITALLY_DISTRICTS_TYPE, district.vitally_data)
+    elsif school_collection? && school.present? && !api.exists?(VITALLY_SCHOOLS_TYPE, school.id)
+      api.create(VITALLY_SCHOOLS_TYPE, school.vitally_data)
+    end
+  end
+
+  private def create_vitally_user_if_none_exists
+    user = find_or_create_user
+
+    if api.exists?(VITALLY_USERS_TYPE, user.id)
+      api.update(VITALLY_USERS_TYPE, user.id, vitally_user_update_data)
+    else
+      api.create(VITALLY_USERS_TYPE, vitally_user_create_data)
+    end
+  end
+
+  private def school_array_for_existing_user
+    previous_school = find_or_create_user&.school
+    if previous_school.present? && previous_school != school
+      [api.get(VITALLY_SCHOOLS_TYPE, previous_school.id)["id"], school_vitally_id]
+    else
+      [school_vitally_id]
+    end
+  end
+
+  private def district_array_for_existing_user
+    previous_district = find_or_create_user&.school&.district
+    if previous_district.present? && previous_district != district
+      user_payload[:organizationIds] = [api.get(VITALLY_DISTRICTS_TYPE, previous_district.id)["id"], district_vitally_id]
+    else
+      user_payload[:organizationIds] = [district_vitally_id]
     end
   end
 

@@ -118,6 +118,7 @@ describe AccountsController, type: :controller do
 
       context 'when user already exists in db as a sales contact' do
         let!(:user) { create(:user, role: User::SALES_CONTACT) }
+
         it 'should use that same user record but update all the fields' do
           name = "Test Name"
           password = "test123"
@@ -132,7 +133,8 @@ describe AccountsController, type: :controller do
       end
 
       context 'when user tries to enter an email that already exists and is not a preexisting sales contact' do
-        let (:user) { create(:user, role: User::TEACHER) }
+        let(:user) { create(:user, role: User::TEACHER) }
+
         it 'should render a duplicate email error' do
           name = "Test Name"
           password = "test123"

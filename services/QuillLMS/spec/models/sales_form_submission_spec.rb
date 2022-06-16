@@ -54,7 +54,7 @@ RSpec.describe SalesFormSubmission, type: :model do
     end
 
     it 'after_save, creates a new user record if a User does not already exist' do
-      expect { create(:sales_form_submission) }.to change { User.count }.by(1)
+      expect { create(:sales_form_submission) }.to change(User, :count).by(1)
     end
 
     it 'after_save, creates a new user record with the email from the sales form submission' do
@@ -64,7 +64,7 @@ RSpec.describe SalesFormSubmission, type: :model do
 
     it 'after_save, does not create a new user record if a User already exists' do
       user = create(:user)
-      expect { create(:sales_form_submission, email: user.email) }.to change { User.count }.by(0)
+      expect { create(:sales_form_submission, email: user.email) }.to change(User, :count).by(0)
     end
   end
 

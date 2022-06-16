@@ -23,22 +23,8 @@ module IntercomIntegration
           source: SalesFormSubmission::INTERCOM_SOURCE,
           intercom_link: intercom_link(user_payload["id"])
         )
-        case tag
-        when "Quote Request School"
-          sales_form_submission.collection_type = SalesFormSubmission::SCHOOL_COLLECTION_TYPE
-          sales_form_submission.submission_type = SalesFormSubmission::QUOTE_REQUEST_TYPE
-        when "Quote Request District"
-          sales_form_submission.collection_type = SalesFormSubmission::DISTRICT_COLLECTION_TYPE
-          sales_form_submission.submission_type = SalesFormSubmission::QUOTE_REQUEST_TYPE
-        when == "Renewal Request School"
-          sales_form_submission.collection_type = SalesFormSubmission::SCHOOL_COLLECTION_TYPE
-          sales_form_submission.submission_type = SalesFormSubmission::RENEWAL_REQUEST_TYPE
-        when "Renewal Request District"
-          sales_form_submission.collection_type = SalesFormSubmission::DISTRICT_COLLECTION_TYPE
-          sales_form_submission.submission_type = SalesFormSubmission::RENEWAL_REQUEST_TYPE
-        else
-          raise "Unrecognized tag type"
-        end
+        sales_form_submission.collection_type = collection_type(tag)
+        sales_form_submission.submission_type = submission_type(tag)
         sales_form_submission.save!
       end
       head 200
@@ -64,6 +50,7 @@ module IntercomIntegration
       client_secret = ENV.fetch('INTERCOM_APP_SECRET', '')
       hexdigest = OpenSSL::HMAC.hexdigest('sha1', client_secret, payload)
       return if request.headers['X-Hub-Signature'] == "sha1=#{hexdigest}"
+
       raise "unauthorized call of Intercom webhook"
     end
 
@@ -80,6 +67,28 @@ module IntercomIntegration
         name: user_payload["name"] || UNKNOWN_NAME,
         password: SecureRandom.uuid
       )
+    end
+
+    private def collection_type(tag)
+      case tag
+      when "Quote Request School", "Renewal Request School"
+        SalesFormSubmission::SCHOOL_COLLECTION_TYPE
+      when "Quote Request District", "Renewal Request District"
+        SalesFormSubmission::DISTRICT_COLLECTION_TYPE
+      else
+        ""
+      end
+    end
+
+    private def submission_type(tag)
+      case tag
+      when "Quote Request School", "Quote Request District"
+        SalesFormSubmission::QUOTE_REQUEST_TYPE
+      when "Renewal Request School", "Renewal Request District"
+        SalesFormSubmission::RENEWAL_REQUEST_TYPE
+      else
+        ""
+      end
     end
   end
 end
