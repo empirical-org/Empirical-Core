@@ -25,7 +25,7 @@ module Evidence
     def self.get_feedback(entry, prompt, previous_feedback, feedback_types=nil)
       triggered_check = find_triggered_check(entry, prompt, previous_feedback, feedback_types)
 
-      triggered_check&.response || fallback_feedback
+      triggered_check || fallback_feedback
     end
 
     # returns first nonoptimal feedback, and if all are optimal, returns automl feedback
@@ -46,19 +46,27 @@ module Evidence
         end
       end
 
-      first_nonoptimal_check || auto_ml_check
+      first_nonoptimal_check&.response || auto_ml_check&.response
+    rescue => e
+      Evidence.error_notifier.report(e)
+
+      fallback_feedback(e.message)
     end
 
-    def self.fallback_feedback
+    def self.fallback_feedback(debug=nil)
       @error_rule ||= Rule.find_by(rule_type: Rule::TYPE_ERROR)
-      {
+      feedback = {
         feedback: @error_rule.feedbacks.first&.text || FALLBACK_RESPONSE[:feedback],
         feedback_type: @error_rule.rule_type,
         optimal: @error_rule.optimal,
       }
+
+      return feedback.merge({debug: debug}) if debug
+      feedback
     rescue => e
       Evidence.error_notifier.report(e)
 
+      return FALLBACK_RESPONSE.merge({debug: debug}) if debug
       FALLBACK_RESPONSE
     end
 
@@ -68,7 +76,7 @@ module Evidence
       qualified_feedback_types = feedback_types.map { |t| "Evidence::Check::#{t}" }
       filtered_checks = ALL_CHECKS.select { |check| qualified_feedback_types.include?(check.name) }
 
-      raise NoMatchedFeedbackTypesError if filtered_checks.empty?
+      raise NoMatchedFeedbackTypesError.new("None of the specified feedback_types (#{feedback_types}) were valid.") if filtered_checks.empty?
 
       filtered_checks
     end
