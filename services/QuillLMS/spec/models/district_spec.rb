@@ -53,4 +53,39 @@ describe District, type: :model do
     end
   end
 
+  context '#schools_and_subscription_status' do
+    let!(:district) { create(:district) }
+    let!(:school1) { create(:school, district: district) }
+    let!(:school2) { create(:school, district: district) }
+
+    subject { district.schools_and_subscription_status }
+
+    context 'no schools' do
+      before { allow(district).to receive(:schools).and_return([]) }
+
+      it { expect(subject).to match_array [] }
+    end
+
+    context 'no district subscription' do
+      it { expect(subject).to match_array [data(school1, false), data(school2, false)] }
+    end
+
+    context 'district subscription present' do
+      let!(:subscription) { create(:district_subscription, district: district).subscription }
+
+      context 'no school subscriptions present' do
+        it { expect(subject).to match_array [data(school1, false), data(school2, false)] }
+      end
+
+      context 'school subscriptions present' do
+        before { create(:school_subscription, subscription: subscription, school: school2) }
+
+        it { expect(subject).to match_array [data(school1, false), data(school2, true)] }
+      end
+    end
+
+    def data(school, has_subscription)
+      { id: school.id, name: school.name, checked: has_subscription }
+    end
+  end
 end

@@ -146,11 +146,11 @@ class Subscription < ApplicationRecord
     if !subscription_attrs[:expiration]
       case subscription_attrs[:account_type]
       when TEACHER_TRIAL
-        subscription_attrs = subscription_attrs.merge(Subscription.set_trial_expiration_and_start_date(subscriber))
+        subscription_attrs = subscription_attrs.merge(set_trial_expiration_and_start_date(subscriber))
       when CB_LIFETIME_SUBSCRIPTION_TYPE
-        subscription_attrs = subscription_attrs.merge(Subscription.set_cb_lifetime_expiration_and_start_date)
+        subscription_attrs = subscription_attrs.merge(set_cb_lifetime_expiration_and_start_date)
       else
-        subscription_attrs = subscription_attrs.merge(Subscription.set_premium_expiration_and_start_date(subscriber))
+        subscription_attrs = subscription_attrs.merge(set_premium_expiration_and_start_date(subscriber))
       end
     end
 
@@ -413,4 +413,29 @@ class Subscription < ApplicationRecord
   def stripe?
     stripe_invoice_id.present?
   end
+
+  def update_selected_school_subscriptions(schools)
+    return if schools.blank?
+
+    update_checked_school_subscriptions(schools.select { |school| school['checked'] }.pluck('id'))
+    update_unchecked_school_subscriptions(schools.reject { |school| school['checked'] }.pluck('id'))
+  end
+
+  private def update_checked_school_subscriptions(checked_school_ids)
+    return if checked_school_ids.empty?
+
+    existing_school_ids = school_subscriptions.where(school_id: checked_school_ids).pluck(:school_id)
+    new_school_ids = checked_school_ids - existing_school_ids
+    return if new_school_ids.empty?
+
+    new_school_id_attrs = new_school_ids.map { |school_id| {school_id: school_id } }
+    school_subscriptions.create!(new_school_id_attrs)
+  end
+
+  private def update_unchecked_school_subscriptions(unchecked_school_ids)
+    return if unchecked_school_ids.empty?
+
+    school_subscriptions.where(school_id: unchecked_school_ids).delete_all
+  end
+
 end

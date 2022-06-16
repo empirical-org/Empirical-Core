@@ -40,7 +40,7 @@ class SchoolSubscription < ApplicationRecord
       end
     else
       school.users.each do |user|
-        PremiumSchoolSubscriptionEmailWorker.perform_async(user.id) if user.email.match('quill.org')
+        PremiumSchoolSubscriptionEmailWorker.perform_async(user.id) if user.email&.match('quill.org')
       end
     end
   end

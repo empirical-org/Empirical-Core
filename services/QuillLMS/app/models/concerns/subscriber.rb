@@ -11,7 +11,6 @@ module Subscriber
     subscriptions
       .expired
       .order(expiration: :desc)
-      .limit(1)
       .first
   end
 
@@ -29,7 +28,6 @@ module Subscriber
       .not_expired
       .not_de_activated
       .order(expiration: :desc)
-      .limit(1)
       .first
   end
 

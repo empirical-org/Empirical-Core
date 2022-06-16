@@ -23,10 +23,4 @@
 class DistrictSubscription < ApplicationRecord
   belongs_to :district, optional: false
   belongs_to :subscription, optional: false
-
-  after_create :create_school_subscriptions
-
-  def create_school_subscriptions
-    district.schools.each { |school| school.school_subscriptions.create!(subscription: subscription) }
-  end
 end

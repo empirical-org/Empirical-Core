@@ -38,7 +38,7 @@ class UserSubscription < ApplicationRecord
   end
 
   def send_premium_emails
-    return unless Rails.env.production? || user.email.match('quill.org')
+    return unless Rails.env.production? || user.email&.match('quill.org')
 
     if subscription.account_type != Subscription::TEACHER_TRIAL && subscription.school_subscriptions.empty?
       PremiumUserSubscriptionEmailWorker.perform_async(user_id)

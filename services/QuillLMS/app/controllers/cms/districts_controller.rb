@@ -38,10 +38,12 @@ class Cms::DistrictsController < Cms::CmsController
       start_date: Subscription.redemption_start_date(@district),
       expiration: Subscription.default_expiration_date(@district)
     )
+    @schools = @district.schools_and_subscription_status
   end
 
   def edit_subscription
     @subscription = @district&.subscription
+    @schools = @district.schools_and_subscription_status
   end
 
   def create
