@@ -73,13 +73,13 @@ class SalesFormSubmission < ApplicationRecord
     if school_collection?
       {
         templateId: vitally_template_id,
-        customerId: api.get(VITALLY_SCHOOLS_TYPE, school.id)&.try(:id),
+        customerId: api.get(VITALLY_SCHOOLS_TYPE, school.id)["id"],
         traits: vitally_traits
       }
     else
       {
         templateId: vitally_template_id,
-        organizationId: api.get(VITALLY_DISTRICTS_TYPE, district.id)&.try(:id),
+        organizationId: api.get(VITALLY_DISTRICTS_TYPE, district.id)["id"],
         traits: vitally_traits
       }
     end
@@ -136,11 +136,11 @@ class SalesFormSubmission < ApplicationRecord
   end
 
   private def school_vitally_id
-    @school_vitally_id ||= api.get(VITALLY_SCHOOLS_TYPE, school.id)&.try(:id)
+    @school_vitally_id ||= api.get(VITALLY_SCHOOLS_TYPE, school.id)["id"]
   end
 
   private def district_vitally_id
-    @district_vitally_id ||= api.get(VITALLY_DISTRICTS_TYPE, district.id)&.try(:id)
+    @district_vitally_id ||= api.get(VITALLY_DISTRICTS_TYPE, district.id)["id"]
   end
 
   private def vitally_callbacks
@@ -188,7 +188,7 @@ class SalesFormSubmission < ApplicationRecord
   private def school_array_for_existing_user
     previous_school = find_or_create_user&.school
     if previous_school.present? && previous_school != school
-      [api.get(VITALLY_SCHOOLS_TYPE, previous_school.id)&.try(:id), school_vitally_id]
+      [api.get(VITALLY_SCHOOLS_TYPE, previous_school.id)["id"], school_vitally_id]
     else
       [school_vitally_id]
     end
@@ -197,7 +197,7 @@ class SalesFormSubmission < ApplicationRecord
   private def district_array_for_existing_user
     previous_district = find_or_create_user&.school&.district
     if previous_district.present? && previous_district != district
-      user_payload[:organizationIds] = [api.get(VITALLY_DISTRICTS_TYPE, previous_district.id)&.try(:id), district_vitally_id]
+      user_payload[:organizationIds] = [api.get(VITALLY_DISTRICTS_TYPE, previous_district.id)["id"], district_vitally_id]
     else
       user_payload[:organizationIds] = [district_vitally_id]
     end
