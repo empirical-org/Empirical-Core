@@ -4,15 +4,17 @@
     <br /><br />
     <h2>Edit: <%= @user.name %></h2>
     <br />
-    <% if @subscription %>
-      <%= link_to 'Edit Subscription', edit_subscription_cms_user_path(params[:id]), class: 'btn button-green' %>
-    <% end %>
     <%= link_to 'Create Subscription', "/cms/users/#{params[:id]}/new_subscription", class: 'btn button-green' %>
     <br /><br />
     <% if @user.subscriptions.any? %>
-           <% puts @user.credit_transactions.map {|x| x.serializable_hash(methods: :action)}.compact %>
-      <%= react_component('SubscriptionApp', props: {view: 'subscriptionHistory', subscriptions: @user.subscriptions,
-                           premiumCredits: @user.credit_transactions, authorityLevel: 'purchaser' }) %>
+      <%= react_component('SubscriptionApp', props: {
+            view: 'subscriptionHistory',
+            subscriptions: @user.subscriptions,
+            premiumCredits: @user.credit_transactions,
+            authorityLevel: 'purchaser'
+          }
+        )
+      %>
     <% end %>
     <%= render "form" %>
   </article>

@@ -22,6 +22,7 @@ module Evidence
       'españa',
       'cafebabel',
       'cafébabel',
+      'then',
       'sanchez',
       'sánchez',
       'kanaka',

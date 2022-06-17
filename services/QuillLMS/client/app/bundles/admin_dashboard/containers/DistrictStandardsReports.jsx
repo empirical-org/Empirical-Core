@@ -8,6 +8,7 @@ import {
   switchTeacher,
   getDistrictStandardsReports,
 } from '../../../actions/district_standards_reports';
+import { getTimeSpent } from '../../Teacher/helpers/studentReports';
 
 class DistrictStandardsReports extends React.Component {
   componentDidMount() {
@@ -50,14 +51,16 @@ function formatDataForCSV(data) {
     'Standard Name',
     'Students',
     'Proficient',
-    'Activities'
+    'Activities',
+    'Time Spent'
   ];
   const csvRow = row => [
     row.standard_level_name,
     row.name,
     row.total_student_count,
     row.proficient_count,
-    row.total_activity_count
+    row.total_activity_count,
+    getTimeSpent(row.timespent),
   ];
 
   csvData.push(csvHeader);

@@ -11,16 +11,16 @@ namespace :plans do
           audience: 'teacher',
           interval: 'yearly',
           interval_count: 1,
-          stripe_price_id: ENV.fetch('STRIPE_TEACHER_PREMIUM_PRICE_ID', '')
+          stripe_price_id: ENV.fetch('STRIPE_TEACHER_PLAN_PRICE_ID', '')
         },
         {
           name: 'School Paid (via Stripe)',
           display_name: 'School Premium',
-          price: 8000,
+          price: 180000,
           audience: 'school',
           interval: 'yearly',
           interval_count: 1,
-          stripe_price_id: ENV.fetch('STRIPE_SCHOOL_PREMIUM_PRICE_ID', '')
+          stripe_price_id: ENV.fetch('STRIPE_SCHOOL_PLAN_PRICE_ID', '')
         },
         {
           name: 'School Paid (via invoice)',

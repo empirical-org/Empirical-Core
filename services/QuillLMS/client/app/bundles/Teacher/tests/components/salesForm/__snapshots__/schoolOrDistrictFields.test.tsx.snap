@@ -59,10 +59,12 @@ exports[`SchoolAndDistrictFields Component should match snapshot 1`] = `
     </div>
   </div>
   <SchoolAndDistrictSelection
+    districtIsSelected={true}
     districtNotListed={false}
     districts={Array []}
     errors={Object {}}
     handleUpdateField={[MockFunction]}
+    schoolIsSelected={true}
     schoolNotListed={false}
     schools={Array []}
     selectedDistrict=""

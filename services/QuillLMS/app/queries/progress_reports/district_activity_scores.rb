@@ -34,6 +34,7 @@ class ProgressReports::DistrictActivityScores
           AND activities.activity_classification_id <> 4
         ) AS average_score,
         COUNT(activity_sessions.id) AS activity_count,
+        SUM(activity_sessions.timespent) AS timespent,
         classrooms.id AS classroom_id
       FROM classroom_units
       JOIN activity_sessions

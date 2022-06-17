@@ -22,7 +22,7 @@ FactoryBot.define do
     external_id { "evt_#{SecureRandom.hex}" }
 
     factory :ignored_stripe_webhook_event do
-      event_type { StripeIntegration::Webhooks::IgnoredEventHandler::IGNORED_EVENTS.sample }
+      event_type { StripeIntegration::Webhooks::IgnoredEventHandler::IGNORED_EVENT_NAMES.sample }
     end
   end
 end

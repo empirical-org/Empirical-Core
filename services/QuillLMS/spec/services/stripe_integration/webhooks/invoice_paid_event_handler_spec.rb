@@ -6,7 +6,7 @@ RSpec.describe StripeIntegration::Webhooks::InvoicePaidEventHandler do
   include_context 'Stripe Invoice Paid Event'
   include_context 'Stripe Customer'
 
-  let(:stripe_webhook_event) { create(:stripe_webhook_event, event_type: described_class::EVENT_TYPE) }
+  let(:stripe_webhook_event) { create(:stripe_webhook_event, event_type: stripe_event_type) }
   let(:external_id) { stripe_webhook_event.external_id }
 
   subject { described_class.run(stripe_webhook_event) }
@@ -24,6 +24,12 @@ RSpec.describe StripeIntegration::Webhooks::InvoicePaidEventHandler do
       allow(StripeIntegration::Webhooks::SubscriptionCreator).to receive(:run)
       allow(PusherTrigger).to receive(:run).with(stripe_invoice_id, pusher_event, pusher_message)
     end
+
+    it { expect { subject }.to change(stripe_webhook_event, :status).to(StripeWebhookEvent::PROCESSED) }
+  end
+
+  context 'manual invoice' do
+    let(:stripe_subscription_id) { nil }
 
     it { expect { subject }.to change(stripe_webhook_event, :status).to(StripeWebhookEvent::PROCESSED) }
   end

@@ -151,6 +151,12 @@
       height: 286px;
       li {
         cursor: pointer;
+        .interactive-wrapper {
+          display: flex;
+          justify-content: space-between;
+          width: 100%;
+          text-align: left;
+        }
       }
     }
     .school-not-listed {

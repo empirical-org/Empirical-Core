@@ -140,7 +140,20 @@ module Evidence
 
       it 'should serialize into the expected shape' do
         automl_model = create(:evidence_automl_model)
-        expect({ :id => automl_model.id, :automl_model_id => automl_model.automl_model_id, :name => automl_model.name, :labels => automl_model.labels, :state => automl_model.state, :created_at => automl_model.created_at, :prompt_id => automl_model.prompt_id, :older_models => automl_model.older_models, :notes => automl_model.notes }.stringify_keys).to(eq(automl_model.serializable_hash))
+        expected = {
+          :id => automl_model.id,
+          :automl_model_id => automl_model.automl_model_id,
+          :name => automl_model.name,
+          :labels => automl_model.labels,
+          :state => automl_model.state,
+          :created_at => automl_model.created_at,
+          :prompt_id => automl_model.prompt_id,
+          :older_models => automl_model.older_models,
+          :notes => automl_model.notes
+        }.stringify_keys
+        expect(
+          automl_model.serializable_hash
+        ).to include(expected)
       end
     end
 

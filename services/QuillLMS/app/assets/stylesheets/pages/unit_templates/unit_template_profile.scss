@@ -25,12 +25,15 @@
     }
 
     .ReactTable.unit-template-profile-activities .rt-table a img {
-      padding-left: 20px;
+      padding: 8px 0px 8px 20px;
     }
 
     .ReactTable .rt-th, .ReactTable .rt-td {
       padding-top: 2.5px;
       padding-bottom: 4px;
+      .activity-name {
+        color: #027360;
+      }
     }
 
     .ReactTable.unit-template-profile-activities .rt-table .rt-tr:hover a.highlight-on-hover {
@@ -64,6 +67,18 @@
     margin-top: 75px;
     .description {
       max-width: 500px;
+      .unit-template-profile-description {
+        h3 {
+          border-bottom: 1px solid #cecece;
+          padding-bottom: 8px;
+        }
+        ul {
+          padding: 8px 0px 16px 16px;
+          li {
+            padding: 8px 0px 8px;
+          }
+        }
+      }
       dl {
         dt {
           margin-bottom: 0.5em;

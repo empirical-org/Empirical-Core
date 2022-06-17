@@ -19,7 +19,6 @@ import ProgressBar from './progressBar'
 import WelcomePage from './welcomePage'
 import formatInitialPassage from './formatInitialPassage'
 
-
 import getParameterByName from '../../helpers/getParameterByName';
 import EditCaretPositioning from '../../helpers/EditCaretPositioning'
 import { getActivity } from "../../actions/proofreaderActivities";
@@ -148,6 +147,8 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
 
     constructor(props: any) {
       super(props);
+
+      this.passageContainer = null
 
       const { proofreaderActivities, admin, } = props
 
@@ -467,7 +468,10 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
     }
 
     handleNextClick = () => {
-      this.setState({ showWelcomePage: false }, () => window.scrollTo(0, 0))
+      this.setState({ showWelcomePage: false }, () => {
+        window.scrollTo(0, 0)
+        this.passageContainer && this.passageContainer.focus()
+      })
     }
 
     handleResetClick = () => {
@@ -610,19 +614,17 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       const { edits, necessaryEdits, loadingFirebaseSession, showWelcomePage, } = this.state
       const { currentActivity } = proofreaderActivities
 
-      if (loadingFirebaseSession) { return <LoadingSpinner />}
-
       if (showWelcomePage) { return <WelcomePage onNextClick={this.handleNextClick} /> }
 
-      if (session.error) { return <div>{session.error}</div> }
+      if (loadingFirebaseSession || !currentActivity) { return <div className="passage-container" ref={this.passageContainer}><LoadingSpinner /></div>}
 
-      if (!currentActivity) { return <LoadingSpinner />}
+      if (session.error) { return <div className="passage-container" ref={this.passageContainer}>{session.error}</div> }
 
       const className = currentActivity.underlineErrorsInProofreader ? 'underline-errors' : ''
       const necessaryEditsLength = necessaryEdits ? necessaryEdits.length : 1
       const meterWidth = edits / necessaryEditsLength * 100
       return (
-        <div className="passage-container">
+        <div className="passage-container" ref={this.passageContainer}>
           <div className="header-section">
             <ProgressBar answeredQuestionCount={edits} percent={meterWidth} questionCount={necessaryEditsLength} />
             <div className="inner-header">
@@ -631,6 +633,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
                 <div>
                   <img alt="Directions icon" src={directionSrc} />
                   <p dangerouslySetInnerHTML={{__html: currentActivity.description || this.defaultInstructions()}} />
+                  <p className="sr-only">Screenreader users: once you have finished reading the passage, use the tab keys to navigate between words and make changes to ones that have errors. {currentActivity.underlineErrorsInProofreader && 'Words that contain errors will be described as underlined.'} Words that you have already changed will be described as bolded. There are {necessaryEditsLength} errors to find and fix. When you are done, navigate to the "Get Feedback" button after the passage and select it.</p>
                 </div>
               </div>
             </div>

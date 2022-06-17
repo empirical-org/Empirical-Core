@@ -3,6 +3,12 @@
   cursor: pointer;
   white-space: nowrap;
   width: min-content;
+  .clipped-content {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
 }
 
 .quill-tooltip:not(.visible) {

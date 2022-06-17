@@ -13,7 +13,7 @@ export default class ResetModal extends React.Component<ResetModalProps> {
   render() {
     const { reset, closeModal, } = this.props
     return (
-      <div className="reset-modal-container" ref={(node) => this.modal = node} tabIndex={-1}>
+      <div aria-live="polite" className="reset-modal-container" ref={(node) => this.modal = node} tabIndex={-1}>
         <div className="reset-modal-background" />
         <div className="reset-modal">
           <div className="top-section">

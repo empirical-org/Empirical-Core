@@ -1,6 +1,7 @@
 
 .unit-template-headers {
-  margin-left: 35px;
+  margin: 0px 24px 0px 36px;
+  padding: 4px !important;
 }
 
 .unit-template-inputs {
@@ -10,66 +11,12 @@
     height: 40px;
   }
   .dropdown-container {
-    top: -15px;
-    padding: 10px;
+    padding: 0px 16px 0px 16px;
   }
   .search-box {
     height: 35px;
     width: 450px;
-    margin-bottom: 20px;
   }
-}
-
-.name-col {
-  width: 300px !important;
-}
-
-.diagnostics-col {
-  width: 300px !important;
-}
-
-.flag-col {
-  width: 135px !important;
-}
-
-.category-col {
-  width: 125px !important;
-}
-
-.edit-col {
-  width: 50px !important;
-}
-
-.delete-col {
-  width: 75px !important;
-}
-
-.activity-name-col {
-  width: 250px !important;
-}
-
-.activity-flag-col {
-  width: 100px !important;
-}
-
-.activity-read-col {
-  width: 100px !important;
-}
-
-.activity-ccss-col {
-  width: 300px !important;
-}
-
-.activity-class-col {
-  width: 100px !important;
-}
-
-.activity-cat-col {
-  width: 120px !important;
-}
-
-.activity-remove-col {
-  width: 100px !important;
 }
 
 .delete-unit-template {
@@ -88,12 +35,42 @@
 }
 
 .unit-template-row {
+  display: flex;
+  align-items: center;
   .expand-collapse-button {
     background: transparent;
-    height: 15px;
+    height: auto;
+    margin-right: 4px;
+  }
+  .expand-collapse-button:focus {
+    outline-offset: 0px;
   }
   label {
     display: none;
+  }
+}
+
+.activity-packs-table {
+  .unit-template-row, .unit-template-headers {
+    th, td {
+      margin-right: 24px;
+    }
+    th:nth-of-type(1), td:nth-of-type(1) {
+      width: 264px;
+    }
+    th:nth-of-type(2), td:nth-of-type(2) {
+      width: 144px;
+      margin-right: 48px;
+    }
+    th:nth-of-type(3), td:nth-of-type(3) {
+      width: 280px;
+    }
+    th:nth-of-type(4), td:nth-of-type(4) {
+      width: 152px;
+    }
+    th:nth-of-type(5), td:nth-of-type(5), th:nth-of-type(6), td:nth-of-type(6), th:nth-of-type(7), td:nth-of-type(7)  {
+      width: 88px;
+    }
   }
 }
 
