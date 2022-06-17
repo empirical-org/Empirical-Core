@@ -32,7 +32,7 @@ module Evidence
     def self.find_triggered_check(entry, prompt, previous_feedback, feedback_types=nil)
       auto_ml_check = nil
 
-      checks_to_run(feedback_types).reduce(nil) do |response, check_to_run|
+      checks_to_run(feedback_types).reduce(nil) do |_, check_to_run|
         check = check_to_run.run(entry, prompt, previous_feedback)
 
         next unless check.success?
