@@ -4,7 +4,7 @@ class EnqueueConceptResultsMigrationWorker
   include Sidekiq::Worker
   sidekiq_options queue: SidekiqQueue::MIGRATION
 
-  BATCH_SIZE=100000
+  BATCH_SIZE=1_000
 
   def perform(start, finish)
     start ||= 1

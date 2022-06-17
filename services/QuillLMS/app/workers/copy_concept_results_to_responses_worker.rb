@@ -4,8 +4,6 @@ class CopyConceptResultsToResponsesWorker
   include Sidekiq::Worker
   sidekiq_options queue: SidekiqQueue::MIGRATION
 
-  BATCH_SIZE=100000
-
   # rubocop:disable Metrics/CyclomaticComplexity
   def perform(start, finish)
     directions_cache = {}
@@ -14,7 +12,7 @@ class CopyConceptResultsToResponsesWorker
     prompts_cache = {}
     question_types_cache = {}
 
-    Response.bulk_insert(ignore: true) do |worker|
+    Response.bulk_insert(ignore: true) do |bulk_inserter|
       ConceptResult.where(id: start..finish).each do |concept_result|
 
         directions = concept_result.metadata['directions']
@@ -31,7 +29,7 @@ class CopyConceptResultsToResponsesWorker
 
         extra_metadata = Response.parse_extra_metadata(concept_result.metadata)
 
-        worker.add({
+        bulk_inserter.add({
           answer: concept_result.metadata['answer'],
           attempt_number: concept_result.metadata['attemptNumber'],
           concept_id: concept_result.concept_id,

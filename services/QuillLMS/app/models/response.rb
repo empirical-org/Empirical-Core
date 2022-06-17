@@ -35,7 +35,7 @@ class Response < ApplicationRecord
   belongs_to :response_prompt
   belongs_to :response_question_type
 
-  validates_exclusion_of :correct, in: [nil]
+  validates_inclusion_of :correct, in: [true, false]
 
   # This is a list of keys from the old ConceptResults records
   # that this model knows how to normalize.  Any keys that are
@@ -69,7 +69,7 @@ class Response < ApplicationRecord
       answer: metadata[:answer],
       concept_id: data_hash[:concept_id],
       attempt_number: metadata[:attemptNumber],
-      correct: metadata[:correct],
+      correct: ActiveModel::Type::Boolean.new.cast(metadata[:correct]),
       question_number: metadata[:questionNumber],
       question_score: metadata[:questionScore]
     )
@@ -125,7 +125,7 @@ class Response < ApplicationRecord
 
   private def legacy_format_metadata
     legacy_format_base_metadata
-      .merge!(extra_metadata || {})
+      .merge(extra_metadata || {})
       .reject { |_,v| v.blank? }
   end
 

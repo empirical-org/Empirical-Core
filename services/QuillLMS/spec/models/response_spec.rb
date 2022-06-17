@@ -44,7 +44,7 @@ RSpec.describe Response, type: :model do
   end
 
   context 'validations' do
-    it { should validate_exclusion_of(:correct).in_array([nil]) }
+    it { should validate_inclusion_of(:correct).in_array([true, false]) }
   end
 
   context 'methods' do
