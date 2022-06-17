@@ -222,15 +222,15 @@ class User < ApplicationRecord
     return if balance <= 0
 
     new_sub =
-      Subscription.create_with_subscriber_join(
-        self,
+      Subscription.create_and_attach_subscriber(
         {
           account_type: 'Premium Credit',
           payment_method: 'Premium Credit',
           expiration: Subscription.redemption_start_date(self) + balance,
           start_date: Subscription.redemption_start_date(self),
           purchaser_id: id
-        }
+        },
+        self
       )
 
     CreditTransaction.create!(user: self, amount: 0 - balance, source: new_sub) if new_sub
@@ -496,7 +496,7 @@ class User < ApplicationRecord
     UserMailer.lesson_plan_email(self, lessons, unit).deliver_now! if email.present?
   end
 
-  def join_subscription(subscription)
+  def attach_subscription(subscription)
     user_subscriptions.create(subscription: subscription)
   end
 

@@ -404,7 +404,7 @@ class PagesController < ApplicationController
   def premium
     @user_is_eligible_for_new_subscription= current_user&.eligible_for_new_subscription?
     @user_is_eligible_for_trial = current_user&.subscriptions&.none?
-    @user_has_school = !!current_user&.school && current_user.school.not_alternative?
+    @user_has_school = !!current_user&.school && !current_user.school.alternative?
     @user_belongs_to_school_that_has_paid = !!current_user&.school&.ever_paid_for_subscription?
     @customer_email = current_user&.email
     @associated_schools = current_user&.associated_schools || []

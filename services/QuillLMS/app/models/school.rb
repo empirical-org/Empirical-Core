@@ -96,12 +96,12 @@ class School < ApplicationRecord
     time.month >= SCHOOL_YEAR_START_MONTH ? time.beginning_of_year + HALF_A_YEAR : time.beginning_of_year - HALF_A_YEAR
   end
 
-  def join_subscription(subscription)
+  def attach_subscription(subscription)
     school_subscriptions.create(subscription: subscription)
   end
 
-  def not_alternative?
-    !ALTERNATIVE_SCHOOL_NAMES.include?(name)
+  def alternative?
+    ALTERNATIVE_SCHOOL_NAMES.include?(name)
   end
 
   def ulocal_to_school_type

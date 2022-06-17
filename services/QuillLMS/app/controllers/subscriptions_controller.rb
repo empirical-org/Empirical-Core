@@ -57,7 +57,7 @@ class SubscriptionsController < ApplicationController
     attributes = subscription_params
     attributes[:purchaser_id] ||= current_user.id
     attributes.delete(:authenticity_token)
-    @subscription = Subscription.create_with_subscriber_join(current_user, attributes)
+    @subscription = Subscription.create_and_attach_subscriber(attributes, subscriber)
     render json: @subscription
   end
 

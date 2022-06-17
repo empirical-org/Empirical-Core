@@ -119,12 +119,6 @@ class Subscription < ApplicationRecord
     PREMIUM_CREDIT_PAYMENT_METHOD
   ].freeze
 
-  SUBSCRIBER_TYPES = [
-    DISTRICT = 'District',
-    SCHOOL = 'School',
-    TEACHER = 'User'
-  ]
-
   ALL_TYPES = OFFICIAL_FREE_TYPES.dup.concat(OFFICIAL_PAID_TYPES).freeze
 
   validates :stripe_invoice_id, allow_blank: true, stripe_uid: { prefix: :in }
@@ -142,7 +136,7 @@ class Subscription < ApplicationRecord
   scope :started, -> { where("start_date <= ?", Date.current) }
   scope :paid_with_card, -> { where.not(stripe_invoice_id: nil).or(where(payment_method: 'Credit Card')) }
 
-  def self.create_with_subscriber_join(subscriber, subscription_attrs)
+  def self.create_and_attach_subscriber(subscription_attrs, subscriber)
     if !subscription_attrs[:expiration]
       case subscription_attrs[:account_type]
       when TEACHER_TRIAL
@@ -160,22 +154,16 @@ class Subscription < ApplicationRecord
     end
 
     subscription = Subscription.create!(subscription_attrs)
-    subscriber.join_subscription(subscription)
+    subscriber.attach_subscription(subscription)
     subscription
   end
 
-  def audience
-    return DISTRICT if district_subscriptions.exists?
-    return SCHOOL if school_subscriptions.exists?
-    return TEACHER if user_subscriptions.exists?
-  end
-
   def premium_types
-    case audience
-    when DISTRICT then OFFICIAL_DISTRICT_TYPES
-    when SCHOOL then OFFICIAL_SCHOOL_TYPES
-    when TEACHER then OFFICIAL_TEACHER_TYPES
-    end
+    return OFFICIAL_DISTRICT_TYPES if district_subscriptions.exists?
+    return OFFICIAL_SCHOOL_TYPES if school_subscriptions.exists?
+    return OFFICIAL_TEACHER_TYPES if user_subscriptions.exists?
+
+    []
   end
 
   def is_trial?

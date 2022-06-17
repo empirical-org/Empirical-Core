@@ -408,9 +408,11 @@ module Teacher
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def updated_school(school_id)
     school = School.find_by(id: school_id)
-    if subscription && subscription.school_subscriptions.any? && !has_matching_subscription?(self, school&.subscription)
+
+    if subscription&.school_subscriptions&.any? && !has_matching_subscription?(self, school&.subscription)
       # then they were previously in a school with a subscription, so we destroy the relationship
       UserSubscription.find_by(user_id: id, subscription_id: subscription.id).destroy
     end
@@ -420,6 +422,7 @@ module Teacher
     # then we let the user subscription handle everything else
     UserSubscription.create_user_sub_from_school_sub_if_they_do_not_have_that_school_sub(self, school.subscription)
   end
+  # rubocop:endable Metrics/CyclomaticComplexity
 
   def has_matching_subscription?(user, subscription)
     UserSubscription.exists?(user: user, subscription: subscription)

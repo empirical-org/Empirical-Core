@@ -362,7 +362,7 @@ class Cms::SchoolsController < Cms::CmsController
     @premium_types = Subscription::OFFICIAL_SCHOOL_TYPES
     @subscription_payment_methods = Subscription::CMS_PAYMENT_METHODS
 
-    return unless @school&.not_alternative?
+    return if @school.nil? || @school.alternative?
 
     @school_users = @school.users.select(:id, :email, :name)
   end
