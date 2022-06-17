@@ -12,7 +12,7 @@ class VitallyRestApi
   end
 
   def exists?(type, id)
-    get(type, id)['error'].blank?
+    get(type, id).try(:error).blank?
   end
 
   def get(type, id)

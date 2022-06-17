@@ -98,4 +98,10 @@ describe Cms::DistrictsController do
     end
   end
 
+  describe '#create' do
+    it 'does not create, returns an error message if district NCES ID is not unique' do
+      raise "test not written"
+    end
+  end
+
 end

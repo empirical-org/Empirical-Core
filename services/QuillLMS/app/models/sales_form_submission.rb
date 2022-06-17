@@ -43,10 +43,10 @@ class SalesFormSubmission < ApplicationRecord
   FALLBACK_SCHOOL_NAME = "Unknown School"
   FALLBACK_DISTRICT_NAME = "Unknown District"
 
-  SCHOOL_QUOTE_REQUEST_TEMPLATE_ID = "3faf0814-724d-4bb1-b56b-f854dfd23db8"
-  DISTRICT_QUOTE_REQUEST_TEMPLATE_ID = "4b9c3261-1060-4fe8-b804-8cd3121a1e3e"
-  SCHOOL_RENEWAL_REQUEST_TEMPLATE_ID = "77925a98-2b74-47a6-81fb-c1922278df19"
-  DISTRICT_RENEWAL_REQUEST_TEMPLATE_ID = "c1b2cd1f-f0aa-4e2c-855d-e3c1bce17a99"
+  SCHOOL_QUOTE_REQUEST_TEMPLATE_ID = ENV['VITALLY_SCHOOL_QUOTE_TEMPLATE_ID']
+  DISTRICT_QUOTE_REQUEST_TEMPLATE_ID = ENV['VITALLY_DISTRICT_QUOTE_TEMPLATE_ID']
+  SCHOOL_RENEWAL_REQUEST_TEMPLATE_ID = ENV['VITALLY_SCHOOL_RENEWAL_TEMPLATE_ID']
+  DISTRICT_RENEWAL_REQUEST_TEMPLATE_ID = ENV['VITALLY_DISTRICT_RENEWAL_TEMPLATE_ID']
 
   validates :first_name, presence: true
   validates :last_name, presence: true
@@ -73,13 +73,13 @@ class SalesFormSubmission < ApplicationRecord
     if school_collection?
       {
         templateId: vitally_template_id,
-        customerId: api.get(VITALLY_SCHOOLS_TYPE, school.id)["id"],
+        customerId: api.get(VITALLY_SCHOOLS_TYPE, school.id)&.try(:id),
         traits: vitally_traits
       }
     else
       {
         templateId: vitally_template_id,
-        organizationId: api.get(VITALLY_DISTRICTS_TYPE, district.id)["id"],
+        organizationId: api.get(VITALLY_DISTRICTS_TYPE, district.id)&.try(:id),
         traits: vitally_traits
       }
     end
@@ -136,11 +136,11 @@ class SalesFormSubmission < ApplicationRecord
   end
 
   private def school_vitally_id
-    @school_vitally_id ||= api.get(VITALLY_SCHOOLS_TYPE, school.id)["id"]
+    @school_vitally_id ||= api.get(VITALLY_SCHOOLS_TYPE, school.id)&.try(:id)
   end
 
   private def district_vitally_id
-    @district_vitally_id ||= api.get(VITALLY_DISTRICTS_TYPE, district.id)["id"]
+    @district_vitally_id ||= api.get(VITALLY_DISTRICTS_TYPE, district.id)&.try(:id)
   end
 
   private def vitally_callbacks
@@ -188,7 +188,7 @@ class SalesFormSubmission < ApplicationRecord
   private def school_array_for_existing_user
     previous_school = find_or_create_user&.school
     if previous_school.present? && previous_school != school
-      [api.get(VITALLY_SCHOOLS_TYPE, previous_school.id)["id"], school_vitally_id]
+      [api.get(VITALLY_SCHOOLS_TYPE, previous_school.id)&.try(:id), school_vitally_id]
     else
       [school_vitally_id]
     end
@@ -197,7 +197,7 @@ class SalesFormSubmission < ApplicationRecord
   private def district_array_for_existing_user
     previous_district = find_or_create_user&.school&.district
     if previous_district.present? && previous_district != district
-      user_payload[:organizationIds] = [api.get(VITALLY_DISTRICTS_TYPE, previous_district.id)["id"], district_vitally_id]
+      user_payload[:organizationIds] = [api.get(VITALLY_DISTRICTS_TYPE, previous_district.id)&.try(:id), district_vitally_id]
     else
       user_payload[:organizationIds] = [district_vitally_id]
     end

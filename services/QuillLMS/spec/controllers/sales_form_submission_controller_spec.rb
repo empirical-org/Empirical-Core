@@ -5,8 +5,13 @@ require 'rails_helper'
 describe SalesFormSubmissionController, type: :controller do
 
   describe '#create' do
-    let!(:sales_form_submission) { create(:sales_form_submission) }
     let!(:school) { create(:school) }
+
+    before do
+      allow(HTTParty).to receive(:get)
+      allow(HTTParty).to receive(:put)
+      allow(HTTParty).to receive(:post)
+    end
 
     it 'should create sales_form_submission entry' do
       sales_form_submission = double
@@ -15,7 +20,6 @@ describe SalesFormSubmissionController, type: :controller do
       allow(sales_form_submission).to receive(:send_opportunituy_to_vitally)
 
       expect(sales_form_submission).to receive(:save!)
-      expect(sales_form_submission).to receive(:send_opportunity_to_vitally)
       post :create, params: {
         sales_form_submission: {
           first_name: 'Bianca',
@@ -53,7 +57,6 @@ describe SalesFormSubmissionController, type: :controller do
   end
 
   describe '#options_for_sales_form' do
-    let!(:sales_form_submission) { create(:sales_form_submission) }
     let!(:first_school) { create(:school) }
     let!(:second_school) { create(:school) }
     let!(:third_school) { create(:school) }

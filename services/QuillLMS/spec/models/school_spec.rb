@@ -192,4 +192,12 @@ describe School, type: :model do
       expect(SchoolsAdmins.find_by(school: school, user: admin)).not_to be
     end
   end
+
+  describe('vitally_data') do
+    let(:school) { create(:school) }
+
+    it 'sends a payload that contains the correct data for vitally' do
+      expect(school.vitally_data).to eq({externalId: school.id.to_s, name: school.name})
+    end
+  end
 end

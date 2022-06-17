@@ -144,6 +144,13 @@ describe AccountsController, type: :controller do
         end
       end
     end
+
+
+    context 'when user already exists in the DB as a sales contact' do
+      it 'saves updates to that user instead of creating a new user' do
+        raise "test not written"
+      end
+    end
   end
 
   describe '#update' do
