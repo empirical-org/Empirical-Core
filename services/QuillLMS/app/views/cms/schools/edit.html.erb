@@ -20,6 +20,10 @@
             <%= f.text_field attribute_field, autocomplete: 'off' %>
           </div>
         <% end %>
+        <div class='cms-form-row'>
+          <%= f.label :district_id, 'District' %>
+          <%= f.collection_select :district_id, District.order(:name), :id, :name, include_blank: false %>
+        </div>
 
         <%= f.hidden_field :id %>
 

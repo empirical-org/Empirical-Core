@@ -61,7 +61,8 @@ class Cms::SchoolsController < Cms::CmsController
   # This allows staff members to edit certain details about a school.
   def edit
     @school = School.find(params[:id])
-    @editable_attributes = editable_school_attributes
+    # Except 'District' because we have special handling in the view
+    @editable_attributes = editable_school_attributes.except('District')
   end
 
   def update
@@ -83,7 +84,8 @@ class Cms::SchoolsController < Cms::CmsController
   # This allows staff members to create a new school.
   def new
     @school = School.new
-    @editable_attributes = editable_school_attributes
+    # Except 'District' because we have special handling in the view
+    @editable_attributes = editable_school_attributes.except('District')
   end
 
   def create
@@ -339,7 +341,8 @@ class Cms::SchoolsController < Cms::CmsController
       'School ZIP' => :zipcode,
       'FRP Lunch' => :free_lunches,
       'NCES ID' => :nces_id,
-      'Clever ID' => :clever_id
+      'Clever ID' => :clever_id,
+      'District' => :district_id
     }
   end
 
