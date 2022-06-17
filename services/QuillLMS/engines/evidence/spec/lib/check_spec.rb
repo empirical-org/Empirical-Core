@@ -93,7 +93,7 @@ module Evidence
         end
       end
 
-      context "exception handling"
+      context "exception handling" do
         it "should return fallback feedback with the raised error assigned to a 'debug' key" do
           error = Check::NoMatchedFeedbackTypesError.new('Test error')
           expect(Check).to receive(:checks_to_run).and_raise(error)
@@ -102,6 +102,7 @@ module Evidence
 
           expect(feedback[:debug]).to eq(error.message)
         end
+      end
     end
 
     context "fallback_feedback" do

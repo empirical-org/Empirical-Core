@@ -31,22 +31,18 @@ module Evidence
     # returns first nonoptimal feedback, and if all are optimal, returns automl feedback
     def self.find_triggered_check(entry, prompt, previous_feedback, feedback_types=nil)
       auto_ml_check = nil
-      first_nonoptimal_check = nil
 
-      checks_to_run(feedback_types).each do |check_to_run|
+      checks_to_run(feedback_types).reduce(nil) do |response, check_to_run|
         check = check_to_run.run(entry, prompt, previous_feedback)
 
         next unless check.success?
 
-        auto_ml_check = check if check.auto_ml?
+        break check&.response unless check.optimal?
 
-        if !check.optimal?
-          first_nonoptimal_check = check
-          break
-        end
+        auto_ml_check = check&.response if check.auto_ml?
+
+        auto_ml_check
       end
-
-      first_nonoptimal_check&.response || auto_ml_check&.response
     rescue => e
       Evidence.error_notifier.report(e)
 
@@ -62,11 +58,13 @@ module Evidence
       }
 
       return feedback.merge({debug: debug}) if debug
+
       feedback
     rescue => e
       Evidence.error_notifier.report(e)
 
       return FALLBACK_RESPONSE.merge({debug: debug}) if debug
+
       FALLBACK_RESPONSE
     end
 
@@ -76,7 +74,7 @@ module Evidence
       qualified_feedback_types = feedback_types.map { |t| "Evidence::Check::#{t}" }
       filtered_checks = ALL_CHECKS.select { |check| qualified_feedback_types.include?(check.name) }
 
-      raise NoMatchedFeedbackTypesError.new("None of the specified feedback_types (#{feedback_types}) were valid.") if filtered_checks.empty?
+      raise NoMatchedFeedbackTypesError, "None of the specified feedback_types (#{feedback_types}) were valid." if filtered_checks.empty?
 
       filtered_checks
     end
