@@ -47,21 +47,4 @@ class District < ApplicationRecord
   def total_invoice
     schools.sum { |s| s&.subscription&.payment_amount || 0 } / 100.0
   end
-
-  def schools_and_subscription_status
-    schools_with_subscription + schools_without_subscription
-  end
-
-  def schools_with_subscription
-    (schools & (subscription&.schools || [])).map { |school| school_and_subscription_status(school, true) }
-  end
-
-  def schools_without_subscription
-    (schools - (subscription&.schools || [])).map { |school| school_and_subscription_status(school, false) }
-  end
-
-  private def school_and_subscription_status(school, has_subscription)
-    { id: school.id, name: school.name, checked: has_subscription }
-  end
-
 end

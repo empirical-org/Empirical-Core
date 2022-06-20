@@ -31,6 +31,7 @@ class SchoolSubscription < ApplicationRecord
     end
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def send_premium_emails
     return unless school&.users
 
@@ -44,6 +45,7 @@ class SchoolSubscription < ApplicationRecord
       end
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def attach_district_admins
     school&.district&.district_admins&.each do |district_admin|

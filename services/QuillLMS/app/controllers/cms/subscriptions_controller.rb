@@ -38,7 +38,7 @@ class Cms::SubscriptionsController < Cms::CmsController
   private def subscription_data
     @district = @subscription.districts&.first
     @school = @subscription.schools&.first
-    @schools = @district&.schools_and_subscription_status
+    @schools = DistrictSchoolsAndSubscriptionStatus.run(@district, @subscription)
     @premium_types = @subscription.premium_types
     @subscription_payment_methods = Subscription::CMS_PAYMENT_METHODS
 
