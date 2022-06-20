@@ -116,7 +116,7 @@ class Subscription < ApplicationRecord
     DISTRICT = 'District',
     SCHOOL = 'School',
     TEACHER = 'User'
-  ].freeze
+  ]
 
   ALL_TYPES = OFFICIAL_FREE_TYPES.dup.concat(OFFICIAL_PAID_TYPES).freeze
 

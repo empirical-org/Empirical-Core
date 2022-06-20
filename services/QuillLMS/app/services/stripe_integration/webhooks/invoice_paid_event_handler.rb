@@ -3,23 +3,24 @@
 module StripeIntegration
   module Webhooks
     class InvoicePaidEventHandler < EventHandler
-      class ZeroAmountPaidError < StandardError; end
-
+      ACTIVE = 'active'
       PUSHER_EVENT = 'stripe-subscription-created'
 
       def run
-        check_for_zero_paid
-        create_subscription unless manual_invoice?
+        create_subscription
         stripe_webhook_event.processed!
       rescue => e
         stripe_webhook_event.log_error(e)
       end
 
-      private def check_for_zero_paid
-        raise ZeroAmountPaidInvoiceError if stripe_invoice.amount_paid.zero?
+      private def active_subscription?
+        stripe_subscription.respond_to?(:status) && stripe_subscription.status == ACTIVE
       end
 
       private def create_subscription
+        return if manual_invoice?
+        return unless active_subscription?
+
         SubscriptionCreator.run(stripe_invoice, stripe_subscription)
         PusherTrigger.run(stripe_invoice.id, PUSHER_EVENT, PUSHER_EVENT.titleize)
       end
