@@ -67,7 +67,7 @@ const UnitTemplateRow = ({
         <td className="name-col">{unitTemplate.name}</td>
         <td className="flag-col"><FlagDropdown flag={unitTemplate.flag} handleFlagChange={handleSelectFlag} isLessons={false} /></td>
         <td className="diagnostics-col">{renderDiagnostics()}</td>
-        <td className="category-col">{unitTemplate.unit_template_category && unitTemplate.unit_template_category.name}</td>
+        <td className="category-col">{unitTemplate.unit_template_category && unitTemplate.unit_template_category.name || NOT_APPLICABLE}</td>
         <td>
           <a className="action-button focus-on-light" href={previewLink} rel="noopener noreferrer" target="_blank">preview</a>
         </td>
