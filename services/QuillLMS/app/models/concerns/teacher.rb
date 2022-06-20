@@ -422,7 +422,7 @@ module Teacher
     # then we let the user subscription handle everything else
     UserSubscription.create_user_sub_from_school_sub_if_they_do_not_have_that_school_sub(self, school.subscription)
   end
-  # rubocop:endable Metrics/CyclomaticComplexity
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def has_matching_subscription?(user, subscription)
     UserSubscription.exists?(user: user, subscription: subscription)

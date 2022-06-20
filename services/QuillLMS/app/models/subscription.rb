@@ -148,14 +148,16 @@ class Subscription < ApplicationRecord
       end
     end
 
-    subscriber.subscriptions.each do |existing_subscription|
-      existing_subscription.update!(recurring: false)
-      existing_subscription.stripe_cancel_at_period_end
-    end
+    ActiveRecord::Base.transaction(requires_new: true) do
+      subscriber.subscriptions.each do |existing_subscription|
+        existing_subscription.update!(recurring: false)
+        existing_subscription.stripe_cancel_at_period_end
+      end
 
-    subscription = Subscription.create!(subscription_attrs)
-    subscriber.attach_subscription(subscription)
-    subscription
+      subscription = Subscription.create!(subscription_attrs)
+      subscriber.attach_subscription(subscription)
+      subscription
+    end
   end
 
   def premium_types
@@ -401,29 +403,4 @@ class Subscription < ApplicationRecord
   def stripe?
     stripe_invoice_id.present?
   end
-
-  def update_selected_school_subscriptions(schools)
-    return if schools.blank?
-
-    update_checked_school_subscriptions(schools.select { |school| school['checked'] }.pluck('id'))
-    update_unchecked_school_subscriptions(schools.reject { |school| school['checked'] }.pluck('id'))
-  end
-
-  private def update_checked_school_subscriptions(checked_school_ids)
-    return if checked_school_ids.empty?
-
-    existing_school_ids = school_subscriptions.where(school_id: checked_school_ids).pluck(:school_id)
-    new_school_ids = checked_school_ids - existing_school_ids
-    return if new_school_ids.empty?
-
-    new_school_id_attrs = new_school_ids.map { |school_id| {school_id: school_id } }
-    school_subscriptions.create!(new_school_id_attrs)
-  end
-
-  private def update_unchecked_school_subscriptions(unchecked_school_ids)
-    return if unchecked_school_ids.empty?
-
-    school_subscriptions.where(school_id: unchecked_school_ids).delete_all
-  end
-
 end

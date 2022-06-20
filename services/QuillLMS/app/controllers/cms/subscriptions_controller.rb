@@ -10,10 +10,13 @@ class Cms::SubscriptionsController < Cms::CmsController
   def create
     if params[:subscriber_id] && params[:subscriber_type]
       @subscriber = params[:subscriber_type].constantize.find(params[:subscriber_id])
-      @subscription = Subscription.create_and_attach_subscriber(subscription_params, @subscriber)
-      @subscription.update_selected_school_subscriptions(params[:schools])
+
+      ActiveRecord::Base.transaction do
+        @subscription = Subscription.create_and_attach_subscriber(subscription_params, @subscriber)
+        Cms::SchoolSubscriptionsUpdater.run(@subscription, params[:schools])
+      end
     else
-      @subscription = Subscription.create(subscription_params)
+      @subscription = Subscription.create!(subscription_params)
     end
     render json: @subscription
   end
@@ -23,8 +26,11 @@ class Cms::SubscriptionsController < Cms::CmsController
   end
 
   def update
-    @subscription.update(subscription_params)
-    @subscription.update_selected_school_subscriptions(params[:schools])
+    ActiveRecord::Base.transaction do
+      @subscription.update(subscription_params)
+      Cms::SchoolSubscriptionsUpdater.run(@subscription, params[:schools])
+    end
+
     render json: @subscription.reload
   end
 
@@ -38,7 +44,7 @@ class Cms::SubscriptionsController < Cms::CmsController
   private def subscription_data
     @district = @subscription.districts&.first
     @school = @subscription.schools&.first
-    @schools = DistrictSchoolsAndSubscriptionStatus.run(@district, @subscription)
+    @schools = Cms::DistrictSchoolsAndSubscriptionStatus.run(@district, @subscription)
     @premium_types = @subscription.premium_types
     @subscription_payment_methods = Subscription::CMS_PAYMENT_METHODS
 
