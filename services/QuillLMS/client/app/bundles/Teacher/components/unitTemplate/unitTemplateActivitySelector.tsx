@@ -25,7 +25,6 @@ const TOOL_OPTIONS = [
 export const UnitTemplateActivitySelector = ({ parentActivities, setParentActivities, toggleParentActivity }) => {
 
   const [activities, setActivities] = React.useState<Array<any>>([])
-  console.log("🚀 ~ file: unitTemplateActivitySelector.tsx ~ line 28 ~ UnitTemplateActivitySelector ~ activities", activities)
   const [selectedActivities, setSelectedActivities] = React.useState<Array<any>>(parentActivities)
   const [loading, setLoading] = React.useState<boolean>(true);
   const [currentPage, setCurrentPage] = React.useState<number>(1);

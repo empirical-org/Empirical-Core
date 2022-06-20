@@ -1,0 +1,286 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UnitTemplate component should match snapshot 1`] = `
+<div
+  className="cms-unit-template-editor"
+  id="unit-template-editor"
+>
+  <Snackbar
+    text=""
+    visible={false}
+  />
+  <DropdownInput
+    error={null}
+    handleChange={[Function]}
+    isSearchable={true}
+    label="Select flag"
+    options={
+      Array [
+        Object {
+          "label": "production",
+          "value": "production",
+        },
+        Object {
+          "label": "alpha",
+          "value": "alpha",
+        },
+        Object {
+          "label": "beta",
+          "value": "beta",
+        },
+        Object {
+          "label": "gamma",
+          "value": "gamma",
+        },
+        Object {
+          "label": "archived",
+          "value": "archived",
+        },
+        Object {
+          "label": "private",
+          "value": "private",
+        },
+      ]
+    }
+    value={
+      Object {
+        "label": "private",
+        "value": "private",
+      }
+    }
+  />
+  <div
+    className="padded-element"
+  >
+    <a
+      className="data-link"
+      href="undefined/assign/featured-activity-packs/86"
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      Preview in Featured Activity Pack page
+    </a>
+  </div>
+  <Input
+    autoComplete="on"
+    className="name-input"
+    error={null}
+    handleChange={[Function]}
+    label="Name"
+    value="Adjectives Practice - Swap Pack"
+  />
+  <section
+    className="activity-pack-description-container padded-element"
+  >
+    <label
+      htmlFor="activity-pack-description"
+    >
+      Activity Pack Description
+    </label>
+    <TextEditor
+      ContentState={[Function]}
+      EditorState={[Function]}
+      handleTextChange={[Function]}
+      id="activity-pack-description"
+      key="activity-pack-description"
+      shouldCheckSpelling={true}
+      text="### What will students be doing? 
+<br>
+
+* Students combine two sentences by adding a given adjective. 
+* Students rewrite a sentence and fill in the blank with the correct word. 
+* Students rewrite a sentence and correct the underlined word. <br>
+
+### What skills will students be practicing?
+<br>
+
+* Students practice adding and adjective before the correct noun.
+* Students practice forming and using comparative and superlative adjectives.
+* Students practice choosing between comparative and superlative adjectives based on the sentence.<br>
+
+### What is the theme of the pack?
+<br>
+
+* This pack does not have a theme. Each activity explores a different topic as students practice writing sentences with correct adjective form and use. 
+"
+    />
+  </section>
+  <section
+    className="middle-section"
+  >
+    <section
+      className="activity-pack-type-container"
+    >
+      <label
+        htmlFor="pack-type-dropdown"
+      >
+        <Tooltip
+          isTabbable={true}
+          tooltipText="Unit Template Category"
+          tooltipTriggerText="Pack Type"
+        />
+      </label>
+      <DropdownInput
+        error={null}
+        handleChange={[Function]}
+        id="pack-type-dropdown"
+        isSearchable={true}
+        options={Array []}
+        value={null}
+      />
+    </section>
+    <DropdownInput
+      handleChange={[Function]}
+      id="time-dropdown"
+      isSearchable={true}
+      label="Select time in minutes"
+      options={
+        Array [
+          Object {
+            "label": "0",
+            "value": "0",
+          },
+          Object {
+            "label": "10",
+            "value": "10",
+          },
+          Object {
+            "label": "20",
+            "value": "20",
+          },
+          Object {
+            "label": "30",
+            "value": "30",
+          },
+          Object {
+            "label": "40",
+            "value": "40",
+          },
+          Object {
+            "label": "50",
+            "value": "50",
+          },
+          Object {
+            "label": "60",
+            "value": "60",
+          },
+          Object {
+            "label": "70",
+            "value": "70",
+          },
+          Object {
+            "label": "80",
+            "value": "80",
+          },
+          Object {
+            "label": "90",
+            "value": "90",
+          },
+          Object {
+            "label": "100",
+            "value": "100",
+          },
+          Object {
+            "label": "110",
+            "value": "110",
+          },
+          Object {
+            "label": "120",
+            "value": "120",
+          },
+          Object {
+            "label": "130",
+            "value": "130",
+          },
+          Object {
+            "label": "140",
+            "value": "140",
+          },
+          Object {
+            "label": "150",
+            "value": "150",
+          },
+          Object {
+            "label": "160",
+            "value": "160",
+          },
+          Object {
+            "label": "170",
+            "value": "170",
+          },
+          Object {
+            "label": "180",
+            "value": "180",
+          },
+          Object {
+            "label": "190",
+            "value": "190",
+          },
+        ]
+      }
+      value={
+        Object {
+          "label": "70",
+          "value": "70",
+        }
+      }
+    />
+    <section
+      className="diagnostics-section padded-element"
+    >
+      <h3>
+        Diagnostics:
+      </h3>
+      <section
+        className="diagnostics"
+      >
+        <p>
+          N/A
+        </p>
+      </section>
+    </section>
+    <section
+      className="readability-section padded-element"
+    >
+      <h3>
+        Readability:
+      </h3>
+      <p>
+        4th-7th
+      </p>
+    </section>
+  </section>
+  <div
+    className="pdf-upload-container padded-element"
+  >
+    <label>
+      Click the square below or drag a file into it to upload a file:
+    </label>
+    <Component
+      onDrop={[Function]}
+    />
+    <p>
+      Here is the link to your uploaded file:
+    </p>
+  </div>
+  <div
+    className="error-message-and-button-container"
+  >
+    <button
+      className="quill-button primary contained medium focus-on-light"
+      onClick={[Function]}
+    >
+      Save
+    </button>
+  </div>
+  <section
+    className="activity-selector-container padded-element"
+  >
+    <UnitTemplateActivitySelector
+      parentActivities={Array []}
+      setParentActivities={[Function]}
+      toggleParentActivity={[Function]}
+    />
+  </section>
+</div>
+`;
