@@ -5,6 +5,7 @@
 # Table name: stripe_checkout_sessions
 #
 #  id                           :bigint           not null, primary key
+#  school_ids                   :integer          default([]), is an Array
 #  url                          :string           not null
 #  created_at                   :datetime         not null
 #  updated_at                   :datetime         not null
@@ -24,6 +25,7 @@
 FactoryBot.define do
   factory :stripe_checkout_session do
     external_checkout_session_id { "cs_#{SecureRandom.hex}" }
+    school_ids { [] }
     stripe_price_id { "price_#{SecureRandom.hex}" }
     url { "https://www.checkout.stripe/pay/cs_#{SecureRandom.hex}" }
     user

@@ -1,0 +1,629 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SchoolAndDistrictPremiumModal component should render stage one when the user is not signed in 1`] = `
+<SchoolAndDistrictPremiumModal
+  customerEmail="emilia+usertesting@quill.org"
+  eligibleSchools={
+    Array [
+      Object {
+        "id": 101608,
+        "name": "Santa Fe High School",
+      },
+    ]
+  }
+  stripeSchoolPlan={
+    Object {
+      "plan": Object {
+        "display_name": "School Premium",
+        "price_in_dollars": 1800,
+        "stripe_price_id": "price_1Kda6ZBuKMgoObiu0cd4WQZw",
+      },
+    }
+  }
+  userIsSignedIn={false}
+>
+  <div
+    className="modal-container school-and-district-premium-modal-container"
+  >
+    <div
+      className="modal-background"
+    />
+    <div
+      className="school-and-district-premium-modal stage-one quill-modal modal-body"
+    >
+      <button
+        className="interactive-wrapper focus-on-light"
+        type="button"
+      >
+        <img
+          alt="Close icon"
+          src="undefined/images/icons/close.svg"
+        />
+      </button>
+      <div
+        className="school-and-district-premium-column pricing-info"
+      >
+        <h2>
+          Buy School Premium Now
+        </h2>
+        <div
+          className="premium-rates"
+        >
+          <h3>
+            $
+            1800
+          </h3>
+          <p>
+            Per school, per year
+          </p>
+          <p>
+            Purchase a school subscription now with a credit card.
+          </p>
+        </div>
+        <a
+          className="quill-button contained medium primary focus-on-light"
+          href="/session/new?redirect=/premium?school_premium_purchase_selection_stage=true"
+        >
+          Buy now
+        </a>
+      </div>
+      <div
+        className="school-and-district-premium-column pricing-info"
+      >
+        <h2>
+          Request a School Premium Quote
+        </h2>
+        <div
+          className="premium-rates"
+        >
+          <h3>
+            $
+            1800
+          </h3>
+          <p>
+            Per school, per year
+          </p>
+          <p>
+            Complete the quote request form to receive a quote via email.
+          </p>
+        </div>
+        <a
+          className="quill-button outlined medium secondary focus-on-light"
+          href="https://quillpremium.wufoo.com/forms/quill-premium-quote/"
+        >
+          Request a quote
+        </a>
+      </div>
+      <div
+        className="school-and-district-premium-column pricing-info"
+      >
+        <h2>
+          Contact Us for District Premium
+        </h2>
+        <div
+          className="premium-rates"
+        >
+          <h3>
+            Custom
+          </h3>
+          <p>
+            Per school, per year
+          </p>
+          <p>
+            Quill provides discounts for multi-school subscriptions.
+          </p>
+        </div>
+        <a
+          className="quill-button outlined medium secondary focus-on-light"
+          href="https://quillpremium.wufoo.com/forms/quill-premium-quote/"
+        >
+          Request a quote
+        </a>
+      </div>
+    </div>
+  </div>
+</SchoolAndDistrictPremiumModal>
+`;
+
+exports[`SchoolAndDistrictPremiumModal component should render stage one when the user is signed in 1`] = `
+<SchoolAndDistrictPremiumModal
+  customerEmail="emilia+usertesting@quill.org"
+  eligibleSchools={
+    Array [
+      Object {
+        "id": 101608,
+        "name": "Santa Fe High School",
+      },
+    ]
+  }
+  stripeSchoolPlan={
+    Object {
+      "plan": Object {
+        "display_name": "School Premium",
+        "price_in_dollars": 1800,
+        "stripe_price_id": "price_1Kda6ZBuKMgoObiu0cd4WQZw",
+      },
+    }
+  }
+  userIsSignedIn={true}
+>
+  <div
+    className="modal-container school-and-district-premium-modal-container"
+  >
+    <div
+      className="modal-background"
+    />
+    <div
+      className="school-and-district-premium-modal stage-one quill-modal modal-body"
+    >
+      <button
+        className="interactive-wrapper focus-on-light"
+        type="button"
+      >
+        <img
+          alt="Close icon"
+          src="undefined/images/icons/close.svg"
+        />
+      </button>
+      <div
+        className="school-and-district-premium-column pricing-info"
+      >
+        <h2>
+          Buy School Premium Now
+        </h2>
+        <div
+          className="premium-rates"
+        >
+          <h3>
+            $
+            1800
+          </h3>
+          <p>
+            Per school, per year
+          </p>
+          <p>
+            Purchase a school subscription now with a credit card.
+          </p>
+        </div>
+        <button
+          className="quill-button contained medium primary focus-on-light"
+          onClick={[Function]}
+          type="button"
+        >
+          Buy now
+        </button>
+      </div>
+      <div
+        className="school-and-district-premium-column pricing-info"
+      >
+        <h2>
+          Request a School Premium Quote
+        </h2>
+        <div
+          className="premium-rates"
+        >
+          <h3>
+            $
+            1800
+          </h3>
+          <p>
+            Per school, per year
+          </p>
+          <p>
+            Complete the quote request form to receive a quote via email.
+          </p>
+        </div>
+        <a
+          className="quill-button outlined medium secondary focus-on-light"
+          href="https://quillpremium.wufoo.com/forms/quill-premium-quote/"
+        >
+          Request a quote
+        </a>
+      </div>
+      <div
+        className="school-and-district-premium-column pricing-info"
+      >
+        <h2>
+          Contact Us for District Premium
+        </h2>
+        <div
+          className="premium-rates"
+        >
+          <h3>
+            Custom
+          </h3>
+          <p>
+            Per school, per year
+          </p>
+          <p>
+            Quill provides discounts for multi-school subscriptions.
+          </p>
+        </div>
+        <a
+          className="quill-button outlined medium secondary focus-on-light"
+          href="https://quillpremium.wufoo.com/forms/quill-premium-quote/"
+        >
+          Request a quote
+        </a>
+      </div>
+    </div>
+  </div>
+</SchoolAndDistrictPremiumModal>
+`;
+
+exports[`SchoolAndDistrictPremiumModal component should render stage one when the user is signed in 2`] = `
+<SchoolAndDistrictPremiumModal
+  customerEmail="emilia+usertesting@quill.org"
+  eligibleSchools={
+    Array [
+      Object {
+        "id": 101608,
+        "name": "Santa Fe High School",
+      },
+    ]
+  }
+  stripeSchoolPlan={
+    Object {
+      "plan": Object {
+        "display_name": "School Premium",
+        "price_in_dollars": 1800,
+        "stripe_price_id": "price_1Kda6ZBuKMgoObiu0cd4WQZw",
+      },
+    }
+  }
+  userIsSignedIn={true}
+>
+  <div
+    className="modal-container school-and-district-premium-modal-container"
+  >
+    <div
+      className="modal-background"
+    />
+    <div
+      className="school-and-district-premium-modal stage-one quill-modal modal-body"
+    >
+      <button
+        className="interactive-wrapper focus-on-light"
+        type="button"
+      >
+        <img
+          alt="Close icon"
+          src="undefined/images/icons/close.svg"
+        />
+      </button>
+      <div
+        className="school-and-district-premium-column pricing-info"
+      >
+        <h2>
+          Buy School Premium Now
+        </h2>
+        <div
+          className="premium-rates"
+        >
+          <h3>
+            $
+            1800
+          </h3>
+          <p>
+            Per school, per year
+          </p>
+          <p>
+            Purchase a school subscription now with a credit card.
+          </p>
+        </div>
+        <button
+          className="quill-button contained medium primary focus-on-light"
+          onClick={[Function]}
+          type="button"
+        >
+          Buy now
+        </button>
+      </div>
+      <div
+        className="school-and-district-premium-column pricing-info"
+      >
+        <h2>
+          Request a School Premium Quote
+        </h2>
+        <div
+          className="premium-rates"
+        >
+          <h3>
+            $
+            1800
+          </h3>
+          <p>
+            Per school, per year
+          </p>
+          <p>
+            Complete the quote request form to receive a quote via email.
+          </p>
+        </div>
+        <a
+          className="quill-button outlined medium secondary focus-on-light"
+          href="https://quillpremium.wufoo.com/forms/quill-premium-quote/"
+        >
+          Request a quote
+        </a>
+      </div>
+      <div
+        className="school-and-district-premium-column pricing-info"
+      >
+        <h2>
+          Contact Us for District Premium
+        </h2>
+        <div
+          className="premium-rates"
+        >
+          <h3>
+            Custom
+          </h3>
+          <p>
+            Per school, per year
+          </p>
+          <p>
+            Quill provides discounts for multi-school subscriptions.
+          </p>
+        </div>
+        <a
+          className="quill-button outlined medium secondary focus-on-light"
+          href="https://quillpremium.wufoo.com/forms/quill-premium-quote/"
+        >
+          Request a quote
+        </a>
+      </div>
+    </div>
+  </div>
+</SchoolAndDistrictPremiumModal>
+`;
+
+exports[`SchoolAndDistrictPremiumModal component should render stage two when the user has more than one associated school 1`] = `
+<SchoolAndDistrictPremiumModal
+  customerEmail="emilia+usertesting@quill.org"
+  eligibleSchools={
+    Array [
+      Object {
+        "id": 101608,
+        "name": "Santa Fe High School",
+      },
+      Object {
+        "id": 1,
+        "name": "Additional School",
+      },
+    ]
+  }
+  startAtStageTwo={true}
+  stripeSchoolPlan={
+    Object {
+      "plan": Object {
+        "display_name": "School Premium",
+        "price_in_dollars": 1800,
+        "stripe_price_id": "price_1Kda6ZBuKMgoObiu0cd4WQZw",
+      },
+    }
+  }
+  userIsSignedIn={true}
+>
+  <div
+    className="modal-container school-and-district-premium-modal-container"
+  >
+    <div
+      className="modal-background"
+    />
+    <div
+      className="school-and-district-premium-modal stage-one quill-modal modal-body"
+    >
+      <button
+        className="interactive-wrapper focus-on-light"
+        type="button"
+      >
+        <img
+          alt="Close icon"
+          src="undefined/images/icons/close.svg"
+        />
+      </button>
+      <div
+        className="school-and-district-premium-column pricing-info"
+      >
+        <h2>
+          Buy School Premium Now
+        </h2>
+        <div
+          className="premium-rates"
+        >
+          <h3>
+            $
+            1800
+          </h3>
+          <p>
+            Per school, per year
+          </p>
+          <p>
+            Purchase a school subscription now with a credit card.
+          </p>
+        </div>
+        <button
+          className="quill-button contained medium primary focus-on-light"
+          onClick={[Function]}
+          type="button"
+        >
+          Buy now
+        </button>
+      </div>
+      <div
+        className="school-and-district-premium-column pricing-info"
+      >
+        <h2>
+          Request a School Premium Quote
+        </h2>
+        <div
+          className="premium-rates"
+        >
+          <h3>
+            $
+            1800
+          </h3>
+          <p>
+            Per school, per year
+          </p>
+          <p>
+            Complete the quote request form to receive a quote via email.
+          </p>
+        </div>
+        <a
+          className="quill-button outlined medium secondary focus-on-light"
+          href="https://quillpremium.wufoo.com/forms/quill-premium-quote/"
+        >
+          Request a quote
+        </a>
+      </div>
+      <div
+        className="school-and-district-premium-column pricing-info"
+      >
+        <h2>
+          Contact Us for District Premium
+        </h2>
+        <div
+          className="premium-rates"
+        >
+          <h3>
+            Custom
+          </h3>
+          <p>
+            Per school, per year
+          </p>
+          <p>
+            Quill provides discounts for multi-school subscriptions.
+          </p>
+        </div>
+        <a
+          className="quill-button outlined medium secondary focus-on-light"
+          href="https://quillpremium.wufoo.com/forms/quill-premium-quote/"
+        >
+          Request a quote
+        </a>
+      </div>
+    </div>
+  </div>
+</SchoolAndDistrictPremiumModal>
+`;
+
+exports[`SchoolAndDistrictPremiumModal component should render stage two when the user has no associated schools 1`] = `
+<SchoolAndDistrictPremiumModal
+  customerEmail="emilia+usertesting@quill.org"
+  eligibleSchools={Array []}
+  startAtStageTwo={true}
+  stripeSchoolPlan={
+    Object {
+      "plan": Object {
+        "display_name": "School Premium",
+        "price_in_dollars": 1800,
+        "stripe_price_id": "price_1Kda6ZBuKMgoObiu0cd4WQZw",
+      },
+    }
+  }
+  userIsSignedIn={true}
+>
+  <div
+    className="modal-container school-and-district-premium-modal-container"
+  >
+    <div
+      className="modal-background"
+    />
+    <div
+      className="school-and-district-premium-modal stage-one quill-modal modal-body"
+    >
+      <button
+        className="interactive-wrapper focus-on-light"
+        type="button"
+      >
+        <img
+          alt="Close icon"
+          src="undefined/images/icons/close.svg"
+        />
+      </button>
+      <div
+        className="school-and-district-premium-column pricing-info"
+      >
+        <h2>
+          Buy School Premium Now
+        </h2>
+        <div
+          className="premium-rates"
+        >
+          <h3>
+            $
+            1800
+          </h3>
+          <p>
+            Per school, per year
+          </p>
+          <p>
+            Purchase a school subscription now with a credit card.
+          </p>
+        </div>
+        <button
+          className="quill-button contained medium primary focus-on-light"
+          onClick={[Function]}
+          type="button"
+        >
+          Buy now
+        </button>
+      </div>
+      <div
+        className="school-and-district-premium-column pricing-info"
+      >
+        <h2>
+          Request a School Premium Quote
+        </h2>
+        <div
+          className="premium-rates"
+        >
+          <h3>
+            $
+            1800
+          </h3>
+          <p>
+            Per school, per year
+          </p>
+          <p>
+            Complete the quote request form to receive a quote via email.
+          </p>
+        </div>
+        <a
+          className="quill-button outlined medium secondary focus-on-light"
+          href="https://quillpremium.wufoo.com/forms/quill-premium-quote/"
+        >
+          Request a quote
+        </a>
+      </div>
+      <div
+        className="school-and-district-premium-column pricing-info"
+      >
+        <h2>
+          Contact Us for District Premium
+        </h2>
+        <div
+          className="premium-rates"
+        >
+          <h3>
+            Custom
+          </h3>
+          <p>
+            Per school, per year
+          </p>
+          <p>
+            Quill provides discounts for multi-school subscriptions.
+          </p>
+        </div>
+        <a
+          className="quill-button outlined medium secondary focus-on-light"
+          href="https://quillpremium.wufoo.com/forms/quill-premium-quote/"
+        >
+          Request a quote
+        </a>
+      </div>
+    </div>
+  </div>
+</SchoolAndDistrictPremiumModal>
+`;

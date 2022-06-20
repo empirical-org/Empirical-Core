@@ -1,12 +1,19 @@
 import React from 'react';
+import qs from 'qs'
 
 import QuestionsAndAnswers from './QuestionsAndAnswers.tsx'
+
+import SchoolAndDistrictPremiumModal, { SCHOOL_SELECTION_STAGE, } from '../components/premium/school_and_district_premium_modal'
 import PremiumBannerBuilder from '../components/scorebook/premium_banners/premium_banner_builder.jsx'
 import PremiumPricingMinisRow from '../components/premium/premium_pricing_minis_row.jsx';
 import PremiumFeaturesTable from '../components/premium/premium_features_table.tsx'
 import SubscriberLogos from '../components/premium/subscriber_logos.jsx';
 import SchoolPremium from '../components/premium/school_premium.jsx';
+import SchoolSelector, { NOT_LISTED, } from '../components/shared/school_selector'
 import StripeSubscriptionCheckoutSessionButton from '../components/shared/StripeSubscriptionCheckoutSessionButton';
+import { requestPost, requestPut, } from '../../../modules/request';
+import { closeIcon, DropdownInput, Snackbar, defaultSnackbarTimeout, Spinner, } from '../../Shared/index'
+import useSnackbarMonitor from '../../Shared/hooks/useSnackbarMonitor'
 
 const subscribers = [
   { name: 'Achievement first school logo', source: '/images/subscribers/1_achievement.png', id: 'achievement-first'},
@@ -27,47 +34,87 @@ const subscribers = [
   { name: 'Princeton Public Schools logo', source: '/images/subscribers/16_princeton.png', id: 'princeton'}
 ]
 
+const AlreadyHasPremiumModal = ({ type, close, }) => (
+  <div className="modal-container already-has-premium-modal-container">
+    <div className="modal-background" />
+    <div className="already-has-premium-modal quill-modal modal-body">
+      <div>
+        <h3 className="title">You already have a {type} subscription.</h3>
+      </div>
+      <p>Please visit the <a className="focus-on-light" href="/subscriptions">My Subscriptions</a> page  to learn more.</p>
+      <div className="form-buttons">
+        <button className="quill-button medium contained primary focus-on-light" onClick={close} type="button">OK</button>
+      </div>
+    </div>
+  </div>
+)
+
 export const PremiumPricingGuide = ({
   customerEmail,
   diagnosticActivityCount,
   independentPracticeActivityCount,
   lessonsActivityCount,
-  schoolIds,
-  showSchoolBuyNow,
+  associatedSchools,
+  eligibleSchools,
   stripeSchoolPlan,
   stripeTeacherPlan,
   userIsEligibleForNewSubscription,
 }) => {
+  const openModalToSchoolSelection = window.location && qs.parse(window.location.search.replace('?', ''))[SCHOOL_SELECTION_STAGE]
+  const [showSchoolAndDistrictPremiumModal, setShowSchoolAndDistrictPremiumModal] = React.useState(!!openModalToSchoolSelection)
+  const [showAlreadyHasTeacherPremiumModal, setShowAlreadyHasTeacherPremiumModal] = React.useState(false)
+  const [showAlreadyHasSchoolPremiumModal, setShowAlreadyHasSchoolPremiumModal] = React.useState(false)
+  const [showSnackbar, setShowSnackbar] = React.useState(false)
+
+  useSnackbarMonitor(showSnackbar, setShowSnackbar, defaultSnackbarTimeout)
 
   const userIsSignedIn = () => {
     return !!Number(document.getElementById('current-user-id').getAttribute('content'))
   }
 
+  function closeSchoolAndDistrictPremiumModal() { setShowSchoolAndDistrictPremiumModal(false) }
+
+  function openSchoolAndDistrictPremiumModal() { setShowSchoolAndDistrictPremiumModal(true) }
+
+  function closeAlreadyHasSchoolPremiumModal() { setShowAlreadyHasSchoolPremiumModal(false) }
+
+  function openAlreadyHasSchoolPremiumModal() { setShowAlreadyHasSchoolPremiumModal(true) }
+
+  function closeAlreadyHasTeacherPremiumModal() { setShowAlreadyHasTeacherPremiumModal(false) }
+
+  function openAlreadyHasTeacherPremiumModal() { setShowAlreadyHasTeacherPremiumModal(true) }
+
+
+  function handleNotListedSelection() {
+    setShowSnackbar(true)
+    closeSchoolAndDistrictPremiumModal()
+  }
+
+  function handleAlreadyPremiumSchoolSelection() {
+    closeSchoolAndDistrictPremiumModal()
+    openAlreadyHasSchoolPremiumModal()
+  }
+
+  function handleClickPurchasingOptions() {
+    if (associatedSchools.length && !eligibleSchools.length) {
+      openAlreadyHasSchoolPremiumModal()
+    } else {
+      openSchoolAndDistrictPremiumModal()
+    }
+  }
+
   const teacherBuyNowButton = () => {
+    if (!userIsEligibleForNewSubscription) {
+      return <button className="quill-button contained medium primary focus-on-light" onClick={openAlreadyHasTeacherPremiumModal} type="button">Buy now</button>
+    }
     return (
       <StripeSubscriptionCheckoutSessionButton
         buttonClassName="quill-button contained medium primary focus-on-light"
         buttonId="purchase-btn"
-        buttonText='Buy Now'
+        buttonText='Buy now'
         cancelPath='premium'
         customerEmail={customerEmail}
         stripePriceId={stripeTeacherPlan.plan.stripe_price_id}
-        userIsEligibleForNewSubscription={userIsEligibleForNewSubscription}
-        userIsSignedIn={userIsSignedIn()}
-      />
-    )
-  }
-
-  const schoolBuyNowButton = () => {
-    return (
-      <StripeSubscriptionCheckoutSessionButton
-        buttonClassName="quill-button contained medium primary focus-on-light"
-        buttonId="purchase-btn"
-        buttonText='Buy Now'
-        cancelPath='premium'
-        customerEmail={customerEmail}
-        schoolIds={schoolIds}
-        stripePriceId={stripeSchoolPlan.plan.stripe_price_id}
         userIsEligibleForNewSubscription={userIsEligibleForNewSubscription}
         userIsSignedIn={userIsSignedIn()}
       />
@@ -91,14 +138,28 @@ export const PremiumPricingGuide = ({
   return (
     <div>
       <div className="container premium-page">
+        <Snackbar text="Sorry, you need to select a school to purchase School Premium." visible={showSnackbar} />
         {userIsSignedIn() && <PremiumBannerBuilder originPage="premium" upgradeToPremiumNowButton={upgradeToPremiumNowButton} />}
+        {showSchoolAndDistrictPremiumModal && (
+          <SchoolAndDistrictPremiumModal
+            closeModal={closeSchoolAndDistrictPremiumModal}
+            customerEmail={customerEmail}
+            eligibleSchools={eligibleSchools}
+            handleAlreadyPremiumSchoolSelection={handleAlreadyPremiumSchoolSelection}
+            handleNotListedSelection={handleNotListedSelection}
+            startAtSchoolSelectionStage={openModalToSchoolSelection}
+            stripeSchoolPlan={stripeSchoolPlan}
+            userIsSignedIn={userIsSignedIn()}
+          />
+        )}
+        {showAlreadyHasSchoolPremiumModal && <AlreadyHasPremiumModal close={closeAlreadyHasSchoolPremiumModal} type="School Premium" />}
+        {showAlreadyHasTeacherPremiumModal && <AlreadyHasPremiumModal close={closeAlreadyHasTeacherPremiumModal} type="Teacher Premium" />}
         <div className="overview text-center">
           <PremiumPricingMinisRow
             diagnosticActivityCount={diagnosticActivityCount}
             independentPracticeActivityCount={independentPracticeActivityCount}
             lessonsActivityCount={lessonsActivityCount}
-            schoolBuyNowButton={schoolBuyNowButton}
-            showSchoolBuyNow={showSchoolBuyNow}
+            onClickPurchasingOptions={handleClickPurchasingOptions}
             stripeSchoolPlan={stripeSchoolPlan}
             stripeTeacherPlan={stripeTeacherPlan}
             teacherBuyNowButton={teacherBuyNowButton}

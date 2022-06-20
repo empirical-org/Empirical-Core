@@ -307,35 +307,35 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  active_model_serializers
-  activerecord-import
-  bulk_insert
+  active_model_serializers (~> 0.10)
+  activerecord-import (~> 1.1)
+  bulk_insert (~> 1.9)
   byebug
-  connection_pool
-  dalli
+  connection_pool (~> 2.2.5)
+  dalli (~> 2.7)
   dotenv-rails (~> 2.7)
   elasticsearch-model (~> 5.1)
   elasticsearch-rails (~> 5.1)
   factory_bot_rails (~> 4.8.2)
-  httparty
-  kaminari
+  httparty (~> 0.18)
+  kaminari (~> 1.2)
   listen (>= 3.0.5, < 3.2)
   newrelic_rpm
   pg (~> 1.2)
   pry (~> 0.10.4)
   puma (~> 4.3)
   pusher (~> 1.4.3)
-  rack-attack
-  rack-cors
+  rack-attack (~> 6.5)
+  rack-cors (~> 1.1)
   rails (~> 6.1)
-  rails_autoscale_agent
+  rails_autoscale_agent (~> 0.10)
   rb-readline
   redis (~> 4.5)
-  redis-namespace
+  redis-namespace (~> 1.8)
   redis-rails (~> 5.0)
   redis-store (~> 1.9)
   rspec-rails (~> 4.0)
-  rubyzip
+  rubyzip (~> 2.3)
   scenic (~> 1.5.4)
   sidekiq (~> 5.2.10)
   sinatra
@@ -344,7 +344,7 @@ DEPENDENCIES
   webmock
 
 RUBY VERSION
-   ruby 2.6.6p146
+   ruby 2.7.6p219
 
 BUNDLED WITH
    1.17.3

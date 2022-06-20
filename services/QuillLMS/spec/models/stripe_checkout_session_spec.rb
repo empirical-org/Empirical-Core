@@ -5,6 +5,7 @@
 # Table name: stripe_checkout_sessions
 #
 #  id                           :bigint           not null, primary key
+#  school_ids                   :integer          default([]), is an Array
 #  url                          :string           not null
 #  created_at                   :datetime         not null
 #  updated_at                   :datetime         not null
@@ -26,9 +27,16 @@ require 'rails_helper'
 RSpec.describe StripeCheckoutSession, type: :model do
 
   describe '.custom_find_or_create_by!' do
-    let(:external_checkout_session_args) { {} }
+    let(:stripe_checkout_session_args) do
+      {
+        external_checkout_session_args: {},
+        school_ids: [],
+        stripe_price_id: stripe_price_id,
+        user_id: user_id
+      }
+    end
 
-    subject { described_class.custom_find_or_create_by!(external_checkout_session_args, stripe_price_id, user_id) }
+    subject { described_class.custom_find_or_create_by!(stripe_checkout_session_args) }
 
     context 'stripe_checkout_session exists' do
       let!(:stripe_checkout_session) { create(:stripe_checkout_session) }
@@ -46,7 +54,7 @@ RSpec.describe StripeCheckoutSession, type: :model do
       let(:user_id) { create(:user).id }
       let(:url) { 'https;//example.com' }
 
-      let(:external_checkout_session) { double(id: external_checkout_session_id, url: url, expires_at: DateTime.now.utc) }
+      let(:external_checkout_session) { double(id: external_checkout_session_id, url: url) }
 
       before { allow(Stripe::Checkout::Session).to receive(:create).and_return(external_checkout_session) }
 
