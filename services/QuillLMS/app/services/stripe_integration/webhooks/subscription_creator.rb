@@ -73,7 +73,7 @@ module StripeIntegration
           schools = School.where(id: school_ids)
           raise NilSchoolError if schools.empty?
 
-          schools.each { |school| subscription.school_subscriptions.create!(school: school) }
+          subscription.school_subscriptions.create!(schools.map { |school| { school_id: school.id } })
           UpdateSalesContactWorker.perform_async(purchaser.id, SalesStageType::SCHOOL_PREMIUM)
         end
       end
