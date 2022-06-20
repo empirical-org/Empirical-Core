@@ -83,13 +83,16 @@ export const unitTemplateDataTableFields = [
   { name: "", attribute:"edit", width: "88px", rowSectionClassName: 'tabbable-field', noTooltip: true }
 ];
 
-export function displayInPacksInfo(unitTemplateNames: string[]) {
-  return unitTemplateNames.map(name => (<p>{name}</p>));
+export function displayInPacksInfo(unitTemplates) {
+  return unitTemplates.map(unitTemplate => {
+    const { id, name } = unitTemplate;
+    return <a className="data-link focus-on-light" href={editActivityPackLink(id)} rel="noopener noreferrer" target="_blank">{name}</a>;
+  });
 }
 
 export function unitTemplateActivityRows({ activities, handleClick, type }) {
   return activities.map(activity => {
-    const { id, name, flags, activity_category, classification, readability_grade_level, description, unit_template_names } = activity;
+    const { id, name, flags, activity_category, classification, readability_grade_level, description, unit_templates } = activity;
     const buttonStyle = type === 'add' ? 'add-activity-button' : 'remove-activity-button'
     const buttonText = type === 'add' ? '+' : '-'
     return {
@@ -97,7 +100,7 @@ export function unitTemplateActivityRows({ activities, handleClick, type }) {
       addActivity: <button className={`${buttonStyle} interactive-wrapper focus-on-light`} onClick={() => handleClick(activity)}>{buttonText}</button>,
       name: <a className="data-link focus-on-light" href={previewActivityLink(id)} rel="noopener noreferrer" target="_blank">{name}</a>,
       description: description || NOT_APPLICABLE,
-      inPacks: displayInPacksInfo(unit_template_names),
+      inPacks: displayInPacksInfo(unit_templates),
       flag: flags && flags.length ? flags.join(', ') : NOT_APPLICABLE,
       readability: readability_grade_level || NOT_APPLICABLE,
       concept: activity_category && activity_category.name ? activity_category.name : NOT_APPLICABLE,

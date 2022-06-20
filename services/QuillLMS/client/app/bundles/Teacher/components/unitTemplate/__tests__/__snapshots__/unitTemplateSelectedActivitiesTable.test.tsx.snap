@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`UnitTemplate component should match snapshot 1`] = `
+exports[`UnitTemplateSelectedActivitiesTable component should match snapshot 1`] = `
 <div
   className="unit-template-activities-table unit-template-selected-activities-table"
 >

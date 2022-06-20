@@ -25,6 +25,7 @@ const TOOL_OPTIONS = [
 export const UnitTemplateActivitySelector = ({ parentActivities, setParentActivities, toggleParentActivity }) => {
 
   const [activities, setActivities] = React.useState<Array<any>>([])
+  console.log("🚀 ~ file: unitTemplateActivitySelector.tsx ~ line 28 ~ UnitTemplateActivitySelector ~ activities", activities)
   const [selectedActivities, setSelectedActivities] = React.useState<Array<any>>(parentActivities)
   const [loading, setLoading] = React.useState<boolean>(true);
   const [currentPage, setCurrentPage] = React.useState<number>(1);
@@ -68,12 +69,12 @@ export const UnitTemplateActivitySelector = ({ parentActivities, setParentActivi
       const nameMatch = nameSearch === '' || (act.name && act.name.toLowerCase().includes(nameSearch.toLowerCase()))
       const descriptionMatch = descriptionSearch === '' || (act.description && act.description.toLowerCase().includes(descriptionSearch.toLowerCase()))
       const conceptMatch = conceptSearch === '' || (act.activity_category && act.activity_category.name.toLowerCase().includes(conceptSearch.toLowerCase()))
-      const activityPackMatch = activityPacksSearch === '' || (act.unit_template_names && act.unit_template_names.some(ut => ut.toLowerCase().includes(activityPacksSearch.toLowerCase())))
+      const activityPackMatch = activityPacksSearch === '' || (act.unit_templates && act.unit_templates.some(ut => ut.name.toLowerCase().includes(activityPacksSearch.toLowerCase())))
       const flagMatch = flagSearch === DEFAULT_FLAG || (act.data && act.data['flag'] && act.data['flag'] === flagSearch)
       const toolMatch = toolSearch === DEFAULT_TOOL || (act.classification && act.classification.name === toolSearch)
       const readabilityMatch = readabilitySearch === DEFAULT_READABILITY || (act.readability_grade_level && act.readability_grade_level === readabilitySearch)
       const selectedActivitiesMatch = selectedActivities.length === 0 || !selectedActivities.map(a => a.id).includes(act.id)
-      const showNoActivityPacksMatch = showNoActivityPacks === false || (act.unit_template_names && act.unit_template_names.length === 0)
+      const showNoActivityPacksMatch = showNoActivityPacks === false || (act.unit_templates && act.unit_templates.length === 0)
       return (
         nameMatch && descriptionMatch && conceptMatch && activityPackMatch &&
         flagMatch && toolMatch && readabilityMatch && selectedActivitiesMatch && showNoActivityPacksMatch

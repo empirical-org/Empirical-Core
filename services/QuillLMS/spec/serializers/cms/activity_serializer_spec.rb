@@ -20,7 +20,7 @@ describe Cms::ActivitySerializer do
         supporting_info
         activity_category
         readability_grade_level
-        unit_template_names
+        unit_templates
         classification
       }
     end

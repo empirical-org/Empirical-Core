@@ -4,7 +4,7 @@ import Dropzone from 'react-dropzone'
 
 import UnitTemplateActivitySelector from './unitTemplateActivitySelector'
 
-import { DropdownInput, Input, TextEditor, Tooltip, Modal, PRODUCTION_FLAG, ALPHA_FLAG, BETA_FLAG, GAMMA_FLAG, ARCHIVED_FLAG, PRIVATE_FLAG, NOT_APPLICABLE } from '../../../Shared/index'
+import { DropdownInput, Input, TextEditor, Tooltip, Snackbar, defaultSnackbarTimeout, PRODUCTION_FLAG, ALPHA_FLAG, BETA_FLAG, GAMMA_FLAG, ARCHIVED_FLAG, PRIVATE_FLAG, NOT_APPLICABLE } from '../../../Shared/index'
 import getAuthToken from '../modules/get_auth_token';
 import { DropdownObjectInterface } from '../../../Staff/interfaces/evidenceInterfaces';
 import { validateUnitTemplateForm } from '../../helpers/unitTemplates';
@@ -21,9 +21,11 @@ export const UnitTemplate = ({ unitTemplate }) => {
   const [activityPackInfo, setActivityPackInfo] = React.useState<string>(activity_info);
   const [activityPackType, setActivityPackType] = React.useState<DropdownObjectInterface>(null);
   const [activityPackTime, setActivityPackTime] = React.useState<DropdownObjectInterface>(time ? {value: time.toString(), label: time.toString()} : null);
-  const [activityPackActivities, setActivityPackActivities] = React.useState<any>(activities ? activities : []);
+  const [activityPackActivities, setActivityPackActivities] = React.useState<any>(activities || []);
   const [unitTemplateCategories, setUnitTemplateCategories] = React.useState<any>([])
   const [uploadedFileLink, setUploadedFileLink] = React.useState<string>('');
+  const [showSnackbar, setShowSnackbar] = React.useState(false)
+  const [snackbarMessage, setSnackbarMessage] = React.useState('')
   const [showModal, setShowModal] = React.useState<boolean>(false);
   const [modalMessage, setModalMessage] = React.useState<string>('');
   const [errors, setErrors] = React.useState<any>(null);
@@ -39,11 +41,17 @@ export const UnitTemplate = ({ unitTemplate }) => {
         setUnitTemplateCategories(options);
       } else {
         const { error } = response;
-        setModalMessage(error);
-        setShowModal(true);
+        setSnackbarMessage(error);
+        setShowSnackbar(true);
       }
     })
   }, []);
+
+  React.useEffect(() => {
+    if (showSnackbar) {
+      setTimeout(() => setShowSnackbar(false), defaultSnackbarTimeout)
+    }
+  }, [showSnackbar])
 
   function getOptions(options: string[]) {
     return options.map((option: string) => ({ value: option, label: option }));
@@ -130,30 +138,30 @@ export const UnitTemplate = ({ unitTemplate }) => {
     if(id) {
       updateUnitTemplate(unitTemplateObject, id).then(response => {
         if(response.success) {
-          setModalMessage(SUCCESS_MESSAGE);
-          setShowModal(true);
+          setSnackbarMessage(SUCCESS_MESSAGE);
+          setShowSnackbar(true);
         } else {
           const { error } = response;
-          setModalMessage(error);
-          setShowModal(true);
+          setSnackbarMessage(error);
+          setShowSnackbar(true);
         }
       })
     } else {
       createUnitTemplate(unitTemplateObject).then(response => {
         if(response.success) {
-          setModalMessage(SUCCESS_MESSAGE);
-          setShowModal(true);
+          setSnackbarMessage(SUCCESS_MESSAGE);
+          setShowSnackbar(true);
         } else {
           const { error } = response;
-          setModalMessage(error);
-          setShowModal(true);
+          setSnackbarMessage(error);
+          setShowSnackbar(true);
         }
       })
     }
   }
 
   function handleCloseSubmissionModal() {
-    setShowModal(false);
+    setShowSnackbar(false);
   }
 
   function renderActivityPackPreviewLink() {
@@ -181,7 +189,7 @@ export const UnitTemplate = ({ unitTemplate }) => {
       <section className="diagnostics-section padded-element">
         <h3>Diagnostics:</h3>
         <section className="diagnostics">
-          {!diagnostic_names && <p>{NOT_APPLICABLE}</p>}
+          {!diagnostic_names.length && <p>{NOT_APPLICABLE}</p>}
           {diagnostic_names && diagnostic_names.map((diagnostic) => {
             return <p>{diagnostic}</p>;
           })}
@@ -201,20 +209,9 @@ export const UnitTemplate = ({ unitTemplate }) => {
     )
   }
 
-  function renderSubmissionModal() {
-    return(
-      <Modal className="rule-view-form-modal">
-        <section className="submission-modal-contents">
-          <p>{modalMessage}</p>
-          <button className="quill-button primary contained fun focus-on-light" onClick={handleCloseSubmissionModal}>Close</button>
-        </section>
-      </Modal>
-    )
-  }
-
   return(
     <div className="cms-unit-template-editor" id="unit-template-editor">
-      {showModal && renderSubmissionModal()}
+      <Snackbar text={snackbarMessage} visible={showSnackbar} />
       <DropdownInput
         error={errors && errors['activityPackFlag']}
         handleChange={handleFlagChange}
@@ -269,6 +266,10 @@ export const UnitTemplate = ({ unitTemplate }) => {
         {renderReadabilitySection()}
       </section>
       {renderPdfUploadSection()}
+      <div className="error-message-and-button-container">
+        <button className="quill-button primary contained medium focus-on-light" onClick={handleSaveUnitTemplate}>Save</button>
+        {errors && <p className="all-errors-message">Please fix the form errors and try submitting again.</p>}
+      </div>
       <section className="activity-selector-container padded-element">
         <UnitTemplateActivitySelector
           parentActivities={activityPackActivities}
@@ -276,10 +277,6 @@ export const UnitTemplate = ({ unitTemplate }) => {
           toggleParentActivity={toggleActivitySelection}
         />
       </section>
-      <div className="error-message-and-button">
-        {errors && <p className="all-errors-message">Please fix the form errors and try submitting again.</p>}
-        <button className="quill-button primary contained medium focus-on-light" id="continue" onClick={handleSaveUnitTemplate}>Save</button>
-      </div>
     </div>
   );
 }
