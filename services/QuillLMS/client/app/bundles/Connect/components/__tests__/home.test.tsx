@@ -4,7 +4,9 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 
 import { Home } from '../home';
 
-const queryClient = new QueryClient()
+import { defaultQueryClientOptions } from '../../../Shared';
+
+const queryClient = new QueryClient({ defaultOptions: defaultQueryClientOptions })
 
 describe('Home Component', () => {
   const component = shallow(

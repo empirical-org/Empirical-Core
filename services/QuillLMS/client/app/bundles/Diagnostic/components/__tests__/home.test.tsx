@@ -2,9 +2,11 @@ import * as React from 'react';
 import { shallow } from 'enzyme';
 import { QueryClient, QueryClientProvider } from 'react-query'
 
+import { defaultQueryClientOptions } from '../../../Shared';
+
 import { Home } from '../home';
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({ defaultOptions: defaultQueryClientOptions })
 
 describe('Home Component', () => {
   const component = shallow(

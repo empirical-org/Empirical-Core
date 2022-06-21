@@ -23,13 +23,15 @@ import quillNormalizer from './libs/quillNormalizer';
 import './i18n';
 import Home from './components/home';
 
+import { defaultQueryClientOptions } from '../Shared';
+
 if (process.env.RAILS_ENV === 'production') {
   Sentry.init({ dsn: 'https://528794315c61463db7d5181ebc1d51b9@o95148.ingest.sentry.io/210579' })
 }
 
 BackOff();
 const store = createStore();
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({ defaultOptions: defaultQueryClientOptions })
 
 // This is pretty hacky.
 // Ideally we should really be extracting the both UIDs from

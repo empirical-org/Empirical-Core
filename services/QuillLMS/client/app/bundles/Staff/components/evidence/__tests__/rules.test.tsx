@@ -4,6 +4,7 @@ import { createMemoryHistory, createLocation } from 'history';
 import { QueryClient, QueryClientProvider } from 'react-query'
 
 import Rules from '../configureRules/rules';
+import { defaultQueryClientOptions } from '../../../../Shared';
 import 'whatwg-fetch';
 
 const mockProps = {
@@ -21,7 +22,8 @@ const mockProps = {
   location: createLocation('')
 }
 
-const queryClient = new QueryClient()
+
+const queryClient = new QueryClient({ defaultOptions: defaultQueryClientOptions })
 
 describe('Rules component', () => {
   const container = shallow(

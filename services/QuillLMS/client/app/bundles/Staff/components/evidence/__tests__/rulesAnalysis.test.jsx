@@ -4,6 +4,7 @@ import { createMemoryHistory, createLocation } from 'history';
 import { QueryClient, QueryClientProvider } from 'react-query'
 import 'whatwg-fetch';
 
+import { defaultQueryClientOptions } from '../../../Shared';
 import RulesAnalysis from '../rulesAnalysis/rulesAnalysis';
 
 jest.mock('qs', () => ({
@@ -26,7 +27,8 @@ const mockProps = {
   location: createLocation('')
 }
 
-const queryClient = new QueryClient()
+
+const queryClient = new QueryClient({ defaultOptions: defaultQueryClientOptions })
 
 describe('RulesAnalysis component', () => {
   const container = shallow(

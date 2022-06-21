@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 
 import { mockRule } from '../__mocks__/data';
 import RuleForm from '../configureRules/ruleForm';
+import { defaultQueryClientOptions } from '../../../../Shared';
 
 jest.mock('../../../helpers/evidence/ruleHelpers', () => ({
   // ...jest.requireActual('../../../helpers/evidence/ruleHelpers'),
@@ -43,7 +44,8 @@ jest.mock('../../../helpers/evidence/renderHelpers', () => ({
   }
 }));
 
-const queryClient = new QueryClient()
+
+const queryClient = new QueryClient({ defaultOptions: defaultQueryClientOptions })
 
 const mockProps = {
   rule: mockRule,

@@ -21,6 +21,7 @@ import titleCardActions from './actions/titleCards.ts';
 import quillNormalizer from './libs/quillNormalizer';
 import Home from './components/home.tsx';
 
+import { defaultQueryClientOptions } from '../Shared';
 
 if (process.env.NODE_ENV === 'production') {
   Sentry.init({ dsn: 'https://528794315c61463db7d5181ebc1d51b9@o95148.ingest.sentry.io/210579' })
@@ -28,7 +29,7 @@ if (process.env.NODE_ENV === 'production') {
 
 BackOff();
 const store = createStore();
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({ defaultOptions: defaultQueryClientOptions })
 
 // This is pretty hacky.
 // Ideally we should really be extracting the both UIDs from

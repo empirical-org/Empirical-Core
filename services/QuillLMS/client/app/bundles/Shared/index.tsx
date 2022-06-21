@@ -172,3 +172,5 @@ export {
   SUPPORT,
   TEAMS
 } from './utils/constants'
+
+export { defaultQueryClientOptions } from './utils/defaultOptions'

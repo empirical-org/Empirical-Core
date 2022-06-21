@@ -8,7 +8,7 @@ import { configureStore, initStore } from "./store/configStore";
 
 const store = configureStore();
 store.dispatch(initStore());
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({ defaultOptions: defaultQueryClientOptions })
 
 class App extends React.Component<{}, {}> {
   componentDidMount() {

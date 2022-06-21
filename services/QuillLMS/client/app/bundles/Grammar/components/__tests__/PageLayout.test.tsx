@@ -4,7 +4,9 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 
 import { PageLayout } from '../PageLayout';
 
-const queryClient = new QueryClient()
+import { defaultQueryClientOptions } from '../../../Shared';
+
+const queryClient = new QueryClient({ defaultOptions: defaultQueryClientOptions })
 
 describe('PageLayout Component', () => {
   const component = shallow(
