@@ -54,6 +54,8 @@ require 'rails_helper'
 describe School, type: :model do
   it { should belong_to(:district) }
 
+  it_behaves_like 'a subscriber'
+
   let!(:bk_school) { create :school, name: "Brooklyn Charter School", zipcode: '11206'}
   let!(:queens_school) { create :school, name: "Queens Charter School", zipcode: '11385'}
   let!(:bk_teacher) { create(:teacher, school: bk_school) }

@@ -79,10 +79,6 @@ EmpiricalGrammar::Application.routes.draw do
     to: 'subscriptions#retrieve_stripe_subscription',
     stripe_invoice_id: /in_[A-Za-z0-9]{8,}/
 
-  resources :charges, only: [:create]
-  post 'charges/update_card' => 'charges#update_card'
-  post 'charges/create_customer_with_card' => 'charges#create_customer_with_card'
-  post 'charges/new_school_premium' => 'charges#new_school_premium'
   put 'credit_transactions/redeem_credits_for_premium' => 'credit_transactions#redeem_credits_for_premium'
 
   resources :subscriptions do
@@ -619,6 +615,8 @@ EmpiricalGrammar::Application.routes.draw do
       end
       member do
         get :new_admin
+        get :new_subscription
+        get :edit_subscription
       end
       resources :district_admins, only: [:create, :destroy]
     end

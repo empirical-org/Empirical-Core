@@ -50,8 +50,10 @@
 #  unique_index_schools_on_ppin     (ppin) UNIQUE WHERE ((ppin)::text <> ''::text)
 #
 class School < ApplicationRecord
-  has_many :school_subscription
-  has_many :subscriptions, through: :school_subscription
+  include Subscriber
+
+  has_many :school_subscriptions
+  has_many :subscriptions, through: :school_subscriptions
   has_many :schools_users,  class_name: 'SchoolsUsers'
   has_many :users, through: :schools_users
   has_many :schools_admins, class_name: 'SchoolsAdmins'
@@ -90,26 +92,16 @@ class School < ApplicationRecord
   SCHOOL_YEAR_START_MONTH = 7
   HALF_A_YEAR = 6.months
 
-  def subscription
-    subscriptions
-      .started
-      .not_expired
-      .not_de_activated
-      .order(expiration: :desc)
-      .limit(1)
-      .first
+  def self.school_year_start(time)
+    time.month >= SCHOOL_YEAR_START_MONTH ? time.beginning_of_year + HALF_A_YEAR : time.beginning_of_year - HALF_A_YEAR
   end
 
-  def last_expired_subscription
-    subscriptions
-      .expired
-      .order(expiration: :desc)
-      .limit(1)
-      .first
+  def attach_subscription(subscription)
+    school_subscriptions.create(subscription: subscription)
   end
 
-  def present_and_future_subscriptions
-    subscriptions.active
+  def alternative?
+    ALTERNATIVE_SCHOOL_NAMES.include?(name)
   end
 
   def ulocal_to_school_type
@@ -147,18 +139,10 @@ class School < ApplicationRecord
     User.joins(student_in_classroom: {teachers: :school}).where(schools: {id: id}).distinct
   end
 
-  def self.school_year_start(time)
-    time.month >= SCHOOL_YEAR_START_MONTH ? time.beginning_of_year + HALF_A_YEAR : time.beginning_of_year - HALF_A_YEAR
-  end
-
   def detach_from_existing_district_admins(district)
     return unless district.present? && district.admins.count > 0
 
     schools_admins.where(user_id: district.admins.map(&:id)).destroy_all
-  end
-
-  def subscription_status
-    subscription&.subscription_status || last_expired_subscription&.subscription_status
   end
 
   private def generate_leap_csv_row(student, teacher, classroom, activity_session)

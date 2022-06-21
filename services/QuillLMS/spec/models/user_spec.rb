@@ -105,6 +105,8 @@ describe User, type: :model do
 
   it { should have_secure_password }
 
+  it_behaves_like 'a subscriber'
+
   let(:user) { build(:user) }
   let!(:user_with_original_email) { build(:user, email: 'fake@example.com') }
 

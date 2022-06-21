@@ -29,7 +29,7 @@ RSpec.describe BonusDaysCalculator do
   context 'school has paid before' do
     let(:args) { [user] }
 
-    before { allow(Subscription).to receive(:school_or_user_has_ever_paid?).with(school).and_return(true) }
+    before { allow(school).to receive(:ever_paid_for_subscription?).and_return(true) }
 
     it { expect(subject).to eq 0 }
   end

@@ -23,13 +23,13 @@ class Plan < ApplicationRecord
     DISTRICT_AUDIENCE_TYPE = 'district',
     TEACHER_AUDIENCE_TYPE = 'teacher',
     SCHOOL_AUDIENCE_TYPE = 'school'
-  ]
+  ].freeze
 
   INTERVAL_TYPES = [
     YEARLY_INTERVAL_TYPE = 'yearly',
     WEEKLY_INTERVAL_TYPE = 'weekly',
     DAILY_INTERVAL_TYPE = 'daily'
-  ]
+  ].freeze
 
   STRIPE_SCHOOL_PLAN = 'School Paid (via Stripe)'
   STRIPE_TEACHER_PLAN = 'Teacher Paid'
@@ -37,7 +37,7 @@ class Plan < ApplicationRecord
   NAME_TO_STRIPE_PRICE_ID = {
     STRIPE_SCHOOL_PLAN => STRIPE_SCHOOL_PLAN_PRICE_ID,
     STRIPE_TEACHER_PLAN => STRIPE_TEACHER_PLAN_PRICE_ID
-  }
+  }.freeze
 
   STRIPE_PRICE_ID_TO_NAME = NAME_TO_STRIPE_PRICE_ID.invert
 
