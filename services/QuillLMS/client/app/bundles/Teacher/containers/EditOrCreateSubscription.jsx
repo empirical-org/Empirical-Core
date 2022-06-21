@@ -11,7 +11,7 @@ export default class EditOrCreateSubscription extends React.Component {
   constructor(props) {
     super(props);
 
-    const { subscription, current_subscription, } = props
+    const { schools, subscription, current_subscription, } = props
 
     const defaultSubscription = subscription || current_subscription
 
@@ -23,8 +23,8 @@ export default class EditOrCreateSubscription extends React.Component {
       subscription: defaultSubscription,
       firstFocused: false,
       secondFocused: false,
-      schools: this.props.schools,
-    };
+      schools
+    }
   }
 
   changePaymentMethod = (e) => {
