@@ -16,7 +16,7 @@ RSpec.describe Api::V1::AppSettingsController, type: :controller do
 
       get :index, as: :json
 
-      expect(response).to be_success
+      expect(response).to be_successful
       expected_keys = Set["first", "second", "third"]
       expect(Set[*JSON.parse(response.body).keys]).to eq expected_keys
     end
@@ -31,7 +31,7 @@ RSpec.describe Api::V1::AppSettingsController, type: :controller do
 
       get :admin_show, params: { name: 'lorem' }, as: :json
 
-      expect(response).to be_success
+      expect(response).to be_successful
       expect(JSON.parse(response.body)['user_emails_in_allow_list']).to eq(%w(a@b.com c@d.com))
     end
 
@@ -43,7 +43,7 @@ RSpec.describe Api::V1::AppSettingsController, type: :controller do
 
       get :admin_show, params: { name: 'lorem' }, as: :json
 
-      expect(response).to be_success
+      expect(response).to be_successful
       expect(JSON.parse(response.body)['user_emails_in_allow_list']).to eq(%w(a@b.com))
     end
 
@@ -55,7 +55,7 @@ RSpec.describe Api::V1::AppSettingsController, type: :controller do
 
       get :admin_show, params: { name: 'lorem' }, as: :json
 
-      expect(response).to be_success
+      expect(response).to be_successful
       expect(JSON.parse(response.body)['user_emails_in_allow_list']).to eq(%w(a@b.com))
       expect(JSON.parse(response.body)['users_without_emails']).to eq([user2.name])
     end
@@ -68,7 +68,7 @@ RSpec.describe Api::V1::AppSettingsController, type: :controller do
 
       get :show, params: { name: 'lorem' }, as: :json
 
-      expect(response).to be_success
+      expect(response).to be_successful
       expect(JSON.parse(response.body)).to eq({ "lorem" => false })
     end
   end

@@ -182,7 +182,7 @@ describe PagesController do
   describe 'careers page' do
     it 'should load page' do
       get :careers
-      expect(response).to be_success
+      expect(response).to be_successful
     end
   end
 
