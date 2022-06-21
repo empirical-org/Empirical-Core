@@ -26,28 +26,30 @@ class SchoolSubscription < ApplicationRecord
   def update_schools_users
     return unless school&.users
 
-    school.users.each do |u|
-      UserSubscription.create_user_sub_from_school_sub_if_they_do_not_have_that_school_sub(u.id, subscription_id)
+    school.users.each do |user|
+      UserSubscription.create_user_sub_from_school_sub_if_they_do_not_have_that_school_sub(user, subscription)
     end
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def send_premium_emails
     return unless school&.users
 
     if Rails.env.production?
-      school.users.each do |u|
-        PremiumSchoolSubscriptionEmailWorker.perform_async(u.id)
+      school.users.each do |user|
+        PremiumSchoolSubscriptionEmailWorker.perform_async(user.id)
       end
     else
-      school.users.each do |u|
-        PremiumSchoolSubscriptionEmailWorker.perform_async(u.id) if u.email.match('quill.org')
+      school.users.each do |user|
+        PremiumSchoolSubscriptionEmailWorker.perform_async(user.id) if user.email&.match('quill.org')
       end
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def attach_district_admins
-    school&.district&.district_admins&.each do |da|
-      da.attach_to_subscribed_schools
+    school&.district&.district_admins&.each do |district_admin|
+      district_admin.attach_to_subscribed_schools
     end
   end
 end

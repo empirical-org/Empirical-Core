@@ -8,8 +8,13 @@ RSpec.describe StripeIntegration::Webhooks::SubscriptionCreator do
   subject { described_class.run(stripe_invoice, stripe_subscription) }
 
   let!(:customer) { create(:user, email: customer_email, stripe_customer_id: stripe_customer_id) }
+  let!(:school_plan) { create(:school_premium_plan) }
+  let!(:school_plan_price) { Plan.stripe_school_plan.price }
+  let!(:teacher_plan_price) { Plan.stripe_teacher_plan.price }
 
   context 'teacher subscription' do
+    let(:stripe_invoice_amount_paid) { teacher_plan_price }
+
     context 'happy path' do
       it { expect { subject }.to change(Subscription, :count).from(0).to(1) }
       it { expect { subject }.to change(UserSubscription, :count).from(0).to(1) }
@@ -32,15 +37,13 @@ RSpec.describe StripeIntegration::Webhooks::SubscriptionCreator do
   context 'school subscription' do
     let!(:teacher) { create(:teacher) }
     let!(:school) { create(:school, users: [teacher]) }
-    let!(:school_plan) { create(:school_premium_plan) }
     let!(:stripe_subscription_metadata) { { school_ids: [school.id].to_json } }
     let!(:other_teacher) { create(:teacher) }
     let!(:other_school) { create(:school, users: [other_teacher]) }
-    let(:stripe_price_id) { STRIPE_SCHOOL_PLAN_PRICE_ID }
+    let!(:stripe_price_id) { STRIPE_SCHOOL_PLAN_PRICE_ID }
+    let!(:stripe_invoice_amount_paid) { school_plan_price }
 
     context 'happy path' do
-      before { allow(Plan).to receive(:find_stripe_plan!).with(stripe_price_id).and_return(school_plan) }
-
       it { expect { subject }.to change(Subscription, :count).from(0).to(1) }
       it { expect { subject }.to change(SchoolSubscription, :count).from(0).to(1) }
       it { expect { subject }.to change(UserSubscription, :count).from(0).to(1) }
@@ -123,11 +126,16 @@ RSpec.describe StripeIntegration::Webhooks::SubscriptionCreator do
   end
 
   context 'school does not exist' do
-    let!(:school_plan) { create(:school_premium_plan) }
-
-    before { allow(Plan).to receive(:find_stripe_plan!).with(stripe_price_id).and_return(school_plan) }
+    let!(:stripe_price_id) { STRIPE_SCHOOL_PLAN_PRICE_ID }
+    let!(:stripe_invoice_amount_paid) { school_plan_price }
 
     it { expect { subject }.to raise_error described_class::NilSchoolError }
+  end
+
+  context 'amount paid different than plan price' do
+    let!(:stripe_invoice_amount_paid) { stripe_plan.plan.amount - 1  }
+
+    it { expect { subject }.to raise_error described_class::AmountPaidMismatchError }
   end
 end
 

@@ -59,6 +59,7 @@ class User < ApplicationRecord
   include Teacher
   include CheckboxCallback
   include UserCacheable
+  include Subscriber
 
   attr_accessor :validate_username, :require_password_confirmation_when_password_present, :newsletter
 
@@ -221,15 +222,15 @@ class User < ApplicationRecord
     return if balance <= 0
 
     new_sub =
-      Subscription.create_with_user_join(
-        id,
+      Subscription.create_and_attach_subscriber(
         {
           account_type: 'Premium Credit',
           payment_method: 'Premium Credit',
           expiration: Subscription.redemption_start_date(self) + balance,
           start_date: Subscription.redemption_start_date(self),
           purchaser_id: id
-        }
+        },
+        self
       )
 
     CreditTransaction.create!(user: self, amount: 0 - balance, source: new_sub) if new_sub
@@ -251,24 +252,6 @@ class User < ApplicationRecord
 
   def eligible_for_new_subscription?
     subscription.nil? || Subscription::TRIAL_TYPES.include?(subscription.account_type)
-  end
-
-  def last_expired_subscription
-    subscriptions
-      .expired
-      .order(expiration: :desc)
-      .limit(1)
-      .first
-  end
-
-  def subscription
-    subscriptions
-      .started
-      .not_expired
-      .not_de_activated
-      .order(expiration: :desc)
-      .limit(1)
-      .first
   end
 
   def last_four
@@ -513,6 +496,10 @@ class User < ApplicationRecord
     UserMailer.lesson_plan_email(self, lessons, unit).deliver_now! if email.present?
   end
 
+  def attach_subscription(subscription)
+    user_subscriptions.create(subscription: subscription)
+  end
+
   def send_premium_user_subscription_email
     UserMailer.premium_user_subscription_email(self).deliver_now! if email.present?
   end
@@ -626,10 +613,6 @@ class User < ApplicationRecord
   # Note this is an incremented count, so could be off.
   def completed_activity_count
     user_activity_classifications.sum(:count)
-  end
-
-  def subscription_status
-    subscription&.subscription_status || last_expired_subscription&.subscription_status
   end
 
   def associated_schools

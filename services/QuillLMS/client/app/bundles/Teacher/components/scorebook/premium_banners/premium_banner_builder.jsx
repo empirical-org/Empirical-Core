@@ -31,11 +31,6 @@ export default class PremiumBannerBuilder extends React.Component {
           first_day_of_premium_or_trial: data['first_day_of_premium_or_trial']});});
   };
 
-  onClickUpgradeNow = () => {
-    const { showPurchaseModal } = this.props
-    showPurchaseModal()
-  };
-
   stateSpecificComponents = () => {
     const { has_premium, first_day_of_premium_or_trial, trial_days_remaining, last_subscription_was_trial, } = this.state
 
@@ -51,7 +46,6 @@ export default class PremiumBannerBuilder extends React.Component {
         <span>
           <FreeTrialStatus
             data={trial_days_remaining}
-            handleClickUpgradeNow={this.onClickUpgradeNow}
             lastSubscriptionWasTrial={last_subscription_was_trial}
             originPage={originPage}
             status={has_premium}
