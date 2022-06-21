@@ -4,6 +4,7 @@ module StripeIntegration
   module Webhooks
     class SubscriptionCreator < ApplicationService
       class Error < StandardError; end
+      class AmountPaidMismatchError < Error; end
       class DuplicateSubscriptionError < Error; end
       class NilSchoolError < Error; end
       class NilStripeCustomerIdError < Error; end
@@ -25,6 +26,7 @@ module StripeIntegration
         raise NilStripePriceIdError if stripe_price_id.nil?
         raise NilStripeInvoiceIdError if stripe_invoice.id.nil?
         raise DuplicateSubscriptionError if duplicate_subscription?
+        raise AmountPaidMismatchError if payment_amount != plan.price
 
         subscription
         save_stripe_customer_id
@@ -46,6 +48,10 @@ module StripeIntegration
 
       private def expiration
         Time.at(stripe_subscription.current_period_end).to_date
+      end
+
+      private def payment_amount
+        stripe_invoice.amount_paid
       end
 
       private def plan
@@ -106,7 +112,7 @@ module StripeIntegration
         @subscription ||= ::Subscription.create!(
           account_type: plan.name,
           expiration: expiration,
-          payment_amount: plan.price,
+          payment_amount: payment_amount,
           payment_method: ::Subscription::CREDIT_CARD_PAYMENT_METHOD,
           plan: plan,
           purchaser_email: purchaser_email,
