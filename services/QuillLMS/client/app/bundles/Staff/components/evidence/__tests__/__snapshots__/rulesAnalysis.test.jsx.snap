@@ -7,7 +7,12 @@ exports[`RulesAnalysis component should render RulesAnalysis 1`] = `
   <ContextProvider
     value={
       QueryClient {
-        "defaultOptions": Object {},
+        "defaultOptions": Object {
+          "queries": Object {
+            "cacheTime": Infinity,
+            "staleTime": Infinity,
+          },
+        },
         "mutationCache": MutationCache {
           "config": Object {},
           "listeners": Array [],
