@@ -12,6 +12,7 @@ class ProgressReports::ActivitySession
       .completed
       .by_teacher(@teacher)
       .order(ActivitySession.search_sort_sql(filters[:sort]))
+
     ActivitySession.with_filters(query, filters)
   end
 end

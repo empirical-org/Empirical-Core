@@ -445,7 +445,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
       get :students_list, params: { id: classroom.id }, as: :json
       expect(assigns(:classroom)).to eq classroom
       expect(response.body).to eq({
-        students: classroom.students.order("substring(users.name, '(?=\s).*') asc, users.name asc"),
+        students: classroom.students.order(Arel.sql("substring(users.name, '(?=\s).*') asc, users.name asc"))
       }.to_json)
     end
   end
