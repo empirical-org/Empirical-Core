@@ -528,10 +528,6 @@ class User < ApplicationRecord
     UnsubscribeFromNewsletterWorker.perform_async(id)
   end
 
-  ransacker :created_at_date, type: :date do |parent|
-    Arel::Nodes::SqlLiteral.new "date(items.created_at)"
-  end
-
   # Create the user from a Clever info hash
   def self.create_from_clever(hash, role_override = nil)
     user = User.where(email: hash[:info][:email]).first_or_initialize
