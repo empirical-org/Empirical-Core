@@ -6,7 +6,7 @@ exports[`Rule component should render Rule 1`] = `
 >
   <ContextProvider
     value={
-      QueryClient {
+      DefaultReactQueryClient {
         "defaultOptions": Object {
           "queries": Object {
             "cacheTime": Infinity,

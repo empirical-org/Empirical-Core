@@ -1,12 +1,12 @@
 import * as React from 'react';
 import 'whatwg-fetch';
 import { shallow } from 'enzyme';
+import { QueryClientProvider } from 'react-query'
 
+import { DefaultReactQueryClient } from '../../../../Shared/index';
 import PromptTable from '../activitySessions/promptTable';
 
-jest.mock("react-query", () => ({
-  useQueryClient: jest.fn(() => ({})),
-}));
+const queryClient = new DefaultReactQueryClient();
 
 jest.mock('string-strip-html', () => ({
   default: jest.fn()
@@ -39,14 +39,13 @@ const mockProps = {
 }
 
 describe('PromptTable component', () => {
-  const container = shallow(<PromptTable {...mockProps} />);
+  const container = shallow(
+    <QueryClientProvider client={queryClient} contextSharing={true}>
+      <PromptTable {...mockProps} />
+    </QueryClientProvider>
+  );
 
   it('should render PromptTable', () => {
-    const attributes = ['status', 'results', 'feedback', 'buttons']
     expect(container).toMatchSnapshot();
-    container.find('DataTable').props().headers.forEach((header, i) => {
-      const { attribute } = header;
-      expect(attributes[i]).toEqual(attribute);
-    })
   });
 });

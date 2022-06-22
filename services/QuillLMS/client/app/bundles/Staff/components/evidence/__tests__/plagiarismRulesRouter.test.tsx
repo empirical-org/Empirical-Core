@@ -1,19 +1,12 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { MemoryRouter } from 'react-router-dom';
+import { QueryClientProvider } from 'react-query'
 
 import PlagiarismRulesRouter from '../plagiarismRules/plagiarismRulesRouter';
+import { DefaultReactQueryClient } from '../../../../Shared';
 
-const mockActivity = [{ id: 1, title: 'First' }]
-jest.mock("react-query", () => ({
-  useQuery: jest.fn(() => ({
-    data: { activity: mockActivity},
-    error: null,
-    status: "success",
-    isFetching: true,
-  })),
-  useQueryClient: jest.fn(() => ({})),
-}));
+const queryClient = new DefaultReactQueryClient();
 
 const mockProps = {
   match: {
@@ -31,7 +24,9 @@ const mockProps = {
 describe('PlagiarismRulesRouter component', () => {
   const container = mount(
     <MemoryRouter>
-      <PlagiarismRulesRouter {...mockProps} />
+      <QueryClientProvider client={queryClient} contextSharing={true}>
+        <PlagiarismRulesRouter {...mockProps} />
+      </QueryClientProvider>
     </MemoryRouter>
   );
   it('should render PlagiarismRulesRouter', () => {

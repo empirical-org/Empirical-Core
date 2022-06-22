@@ -2,19 +2,12 @@ import * as React from 'react';
 import { shallow } from 'enzyme';
 import { createMemoryHistory, createLocation } from 'history';
 import 'whatwg-fetch';
+import { QueryClientProvider } from 'react-query'
 
 import Activities from '../activities';
-import { DataTable } from '../../../../Shared/index';
+import { DefaultReactQueryClient } from '../../../../Shared/index';
 
-const mockActivities = [{ id: 1, title: 'First' }, { id: 2, title: 'Second' }]
-jest.mock("react-query", () => ({
-  useQuery: jest.fn(() => ({
-    data: { activities: mockActivities},
-    error: null,
-    status: "success",
-    isFetching: true,
-  })),
-}));
+const queryClient = new DefaultReactQueryClient();
 
 describe('Activities component', () => {
   const mockProps = {
@@ -28,10 +21,13 @@ describe('Activities component', () => {
     location: createLocation('')
   }
   const container = shallow(
-    <Activities {...mockProps} />
+    <QueryClientProvider client={queryClient} contextSharing={true}>
+      <Activities {...mockProps} />
+    </QueryClientProvider>
   );
 
-  it('should render a DataTable passing activites', () => {
-    expect(container.find(DataTable).length).toEqual(1)
+  it('should render an Activities component', () => {
+    console.log(container.debug())
+    expect(container.find(Activities).length).toEqual(1)
   });
 });
