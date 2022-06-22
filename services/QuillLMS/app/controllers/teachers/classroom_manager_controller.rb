@@ -93,7 +93,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   def students_list
     @classroom = current_user.classrooms_i_teach.find {|classroom| classroom.id == params[:id]&.to_i}
     last_name = "substring(users.name, '(?=\s).*')"
-    render json: {students: @classroom&.students&.order("#{last_name} asc, users.name asc")}
+    render json: { students: @classroom&.students&.order(Arel.sql("#{last_name} asc, users.name asc")) }
   end
 
   def premium

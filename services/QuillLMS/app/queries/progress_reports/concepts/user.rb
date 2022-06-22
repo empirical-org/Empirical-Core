@@ -18,6 +18,6 @@ class ProgressReports::Concepts::User
       )
       .joins("JOIN #{filtered_correct_results} ON users.id = filtered_correct_results.user_id")
       .group('users.id')
-      .order("#{last_name} ASC, users.name ASC")
+      .order(Arel.sql("#{last_name} ASC, users.name ASC"))
   end
 end
