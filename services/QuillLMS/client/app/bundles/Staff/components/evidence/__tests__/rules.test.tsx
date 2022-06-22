@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 import { createMemoryHistory, createLocation } from 'history';
-import { QueryClient, QueryClientProvider } from 'react-query'
+import { QueryClientProvider } from 'react-query'
 
 import Rules from '../configureRules/rules';
-import { defaultQueryClientOptions } from '../../../../Shared';
+import { DefaultReactQueryClient } from '../../../../Shared';
 import 'whatwg-fetch';
 
 const mockProps = {
@@ -23,7 +23,7 @@ const mockProps = {
 }
 
 
-const queryClient = new QueryClient({ defaultOptions: defaultQueryClientOptions })
+const queryClient = new DefaultReactQueryClient();
 
 describe('Rules component', () => {
   const container = shallow(

@@ -173,4 +173,4 @@ export {
   TEAMS
 } from './utils/constants'
 
-export { defaultQueryClientOptions } from './utils/defaultOptions'
+export { DefaultReactQueryClient } from './utils/defaultReactQueryClient'

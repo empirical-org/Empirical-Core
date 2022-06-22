@@ -4,7 +4,7 @@ import { createMemoryHistory, createLocation } from 'history';
 import { QueryClient, QueryClientProvider } from 'react-query'
 
 import RuleAnalysis from '../rulesAnalysis/ruleAnalysis';
-import { defaultQueryClientOptions } from '../../../../Shared';
+import { DefaultReactQueryClient } from '../../../../Shared';
 import 'whatwg-fetch';
 
 const mockProps = {
@@ -21,7 +21,7 @@ const mockProps = {
 }
 
 
-const queryClient = new QueryClient({ defaultOptions: defaultQueryClientOptions })
+const queryClient = new DefaultReactQueryClient();
 
 describe('RuleAnalysis component', () => {
   const container = shallow(

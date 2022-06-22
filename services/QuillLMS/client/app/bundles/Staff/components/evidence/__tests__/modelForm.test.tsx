@@ -4,7 +4,7 @@ import { MemoryRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query'
 
 import ModelForm from '../semanticRules/modelForm';
-import { Input, defaultQueryClientOptions } from '../../../../Shared/index';
+import { Input, DefaultReactQueryClient } from '../../../../Shared/index';
 
 const mockProps = {
   match: {
@@ -19,7 +19,7 @@ const mockProps = {
   history: {}
 }
 
-const queryClient = new QueryClient({ defaultOptions: defaultQueryClientOptions })
+const queryClient = new DefaultReactQueryClient();
 
 describe('ModelForm component', () => {
   const container = mount(

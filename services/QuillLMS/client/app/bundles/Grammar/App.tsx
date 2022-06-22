@@ -6,9 +6,11 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 import {route} from "./routes";
 import { configureStore, initStore } from "./store/configStore";
 
+import { DefaultReactQueryClient } from "../Shared";
+
 const store = configureStore();
 store.dispatch(initStore());
-const queryClient = new QueryClient({ defaultOptions: defaultQueryClientOptions })
+const queryClient = new DefaultReactQueryClient();
 
 class App extends React.Component<{}, {}> {
   componentDidMount() {

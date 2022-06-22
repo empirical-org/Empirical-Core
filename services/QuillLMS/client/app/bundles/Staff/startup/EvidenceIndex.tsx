@@ -1,11 +1,11 @@
 import React from 'react';
 import { HashRouter, Route,  } from 'react-router-dom'
-import { QueryClient, QueryClientProvider } from 'react-query'
+import { QueryClientProvider } from 'react-query'
 
 import EvidenceLanding from '../components/evidence/EvidenceLanding';
-import { defaultQueryClientOptions } from '../../Shared';
+import { DefaultReactQueryClient } from '../../Shared';
 
-const queryClient = new QueryClient({ defaultOptions: defaultQueryClientOptions })
+const queryClient = new DefaultReactQueryClient();
 
 const EvidenceIndex = () => (
   <QueryClientProvider client={queryClient} contextSharing={true}>
