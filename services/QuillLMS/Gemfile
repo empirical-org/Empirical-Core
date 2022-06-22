@@ -14,7 +14,6 @@ gem 'dotenv-rails', '~>2.6'
 # DB/MODEL
 gem 'pg', '0.18.4'
 gem 'ancestry', '~> 3.0.5'
-gem 'ransack'
 gem 'ranked-model', '~> 0.4.3'
 gem 'rails_admin', '~> 1.4.3'
 gem 'bulk_insert', '~> 1.7'

@@ -855,7 +855,6 @@ DEPENDENCIES
   rails_admin (~> 2.2)
   rails_autoscale_agent
   ranked-model (~> 0.4.3)
-  ransack
   rb-readline
   react_on_rails (= 11.3.0)
   redcarpet (~> 3.5.1)
