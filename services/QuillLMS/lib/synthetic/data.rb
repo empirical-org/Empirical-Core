@@ -6,8 +6,6 @@ module Synthetic
   class Data
     include Synthetic::ManualTypes
 
-    class NotEnoughData < StandardError; end;
-
     Result = Struct.new(:text, :label, :translations, :misspellings, :type, keyword_init: true)
     TrainRow = Struct.new(:text, :label, :synthetic, :type, keyword_init: true) do
       def to_a
@@ -146,7 +144,6 @@ module Synthetic
 
       synthetics.fetch_synthetic_spelling_errors
       synthetics.fetch_synthetic_translations if live
-
 
       synthetics.results_to_csv(output_csv)
       synthetics.results_to_training_csv(output_training_csv)

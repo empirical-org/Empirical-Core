@@ -38,21 +38,18 @@ module Synthetic
         end
       end
 
-      assigned_tests = MIN_TEST_PER_LABEL * labels.size
-      assigned_train = MIN_TRAIN_PER_LABEL * labels.size
-
-      if assigned_tests > test_count
-        raise NotEnoughData, "Test Needed: #{assigned_tests}, allocated: #{test_count}"
+      if test_count_needed > test_count_allocated
+        raise NotEnoughData, "Test Needed: #{test_count_needed}, allocated: #{test_count_allocated}"
       end
 
-      if assigned_train > train_count
-        raise NotEnoughData, "Train Needed: #{assigned_train}, allocated: #{train_count}"
+      if train_count_needed > train_count_allocated
+        raise NotEnoughData, "Train Needed: #{train_count_needed}, allocated: #{train_count_allocated}"
       end
 
       remaining_types = [
-        Array.new(test_count - assigned_tests, TYPE_TEST),
-        Array.new(test_count - assigned_tests, TYPE_VALIDATION),
-        Array.new(train_count - assigned_train, TYPE_TRAIN)
+        Array.new(test_count_allocated - test_count_needed, TYPE_TEST),
+        Array.new(test_count_allocated - test_count_needed, TYPE_VALIDATION),
+        Array.new(train_count_allocated - train_count_needed, TYPE_TRAIN)
       ].flatten.shuffle
 
       # assign rest of empty types
@@ -62,12 +59,19 @@ module Synthetic
       end
     end
 
+    def test_count_needed
+      MIN_TEST_PER_LABEL * labels.size
+    end
 
-    def train_count
+    def train_count_needed
+      MIN_TRAIN_PER_LABEL * labels.size
+    end
+
+    def train_count_allocated
       data_count - (test_count * 2)
     end
 
-    def test_count
+    def test_count_allocated
       (data_count * test_percent).ceil
     end
 
