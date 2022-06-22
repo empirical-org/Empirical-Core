@@ -31,6 +31,5 @@ describe('SessionsIndex component', () => {
 
   it('should render SessionsIndex', () => {
     expect(container).toMatchSnapshot();
-    console.log(container.debug())
   });
 });

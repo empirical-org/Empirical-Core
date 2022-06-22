@@ -6,7 +6,7 @@ exports[`PageLayout Component should match snapshot 1`] = `
 >
   <ContextProvider
     value={
-      QueryClient {
+      DefaultReactQueryClient {
         "defaultOptions": Object {
           "queries": Object {
             "cacheTime": Infinity,

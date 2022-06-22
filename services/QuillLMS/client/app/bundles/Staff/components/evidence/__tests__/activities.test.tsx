@@ -27,7 +27,6 @@ describe('Activities component', () => {
   );
 
   it('should render an Activities component', () => {
-    console.log(container.debug())
     expect(container.find(Activities).length).toEqual(1)
   });
 });
