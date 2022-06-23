@@ -18,6 +18,7 @@ module Evidence
 
     before_destroy :expire_turking_rounds
     before_validation :set_parent_activity, on: :create
+    before_validation :increment_version, on: :update
     after_save :update_parent_activity_name, if: :saved_change_to_title?
 
     has_many :passages, inverse_of: :activity, dependent: :destroy
@@ -43,6 +44,7 @@ module Evidence
     validates :title, presence: true, length: {in: MIN_TITLE_LENGTH..MAX_TITLE_LENGTH}
     validates :notes, presence: true
     validates :scored_level, length: { maximum: MAX_SCORED_LEVEL_LENGTH, allow_nil: true}
+    validate :version_monotonically_increases, on: :update
 
     def set_parent_activity
       if parent_activity_id
@@ -105,6 +107,16 @@ module Evidence
 
     private def expire_turking_rounds
       turking_rounds.each(&:expire!)
+    end
+
+    private def increment_version
+      self.version += 1
+    end
+
+    private def version_monotonically_increases
+      current_persisted_version = self.class.find(id).version
+      return if version == current_persisted_version + 1
+      errors.add(:version, 'does not monotonically increase.')
     end
   end
 end
