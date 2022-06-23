@@ -33,6 +33,12 @@ module Evidence
       it { should validate_length_of(:scored_level).is_at_most(100) }
 
       context 'version' do
+        it 'a monotonically increasing version should be valid' do
+          activity = create(:evidence_activity)
+          expect { activity.update!({title: activity.title << " 2"}) }
+          .to change { activity.version }.by 1
+        end
+
         it 'a non-monotonically increasing version should be invalid' do
           activity = create(:evidence_activity)
           expect do
