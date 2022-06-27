@@ -162,3 +162,8 @@ export const evidenceToolIcon = {
   alt: 'Book representing Quill Reading for Evidence',
   src: `${process.env.CDN_URL}/images/icons/tool-evidence.svg`
 }
+
+export const warningIcon = {
+  alt: 'Warning icon',
+  src: `${process.env.CDN_URL}/images/icons/warning-icon.svg`
+}

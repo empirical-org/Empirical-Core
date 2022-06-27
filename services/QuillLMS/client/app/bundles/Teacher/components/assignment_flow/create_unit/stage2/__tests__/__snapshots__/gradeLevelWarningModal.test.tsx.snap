@@ -1,0 +1,700 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GradeLevelWarningModal component should render 1`] = `
+<GradeLevelWarningModal
+  selectedActivities={
+    Array [
+      Object {
+        "activity_category": Object {
+          "id": 48,
+          "name": "Diagnostics",
+        },
+        "activity_category_id": 48,
+        "activity_category_name": "Diagnostics",
+        "activity_classification": Object {
+          "alias": "Quill Diagnostic",
+          "description": "Identify Learning Gaps",
+          "id": 4,
+          "key": "diagnostic",
+        },
+        "anonymous_path": "/activity_sessions/anonymous?activity_id=1432",
+        "content_partners": Array [
+          Object {
+            "description": "College Board is working with Quill to provide additional writing practice for Pre-AP, AP, and SpringBoard students. Quill activities align with Course Framework skills.",
+            "id": 2,
+            "name": "College Board",
+          },
+        ],
+        "description": "Students answer questions on 7 areas of sentence structure aligned to the grammar instruction featured in the SpringBoard Language and Writer’s Craft and Language Checkpoint lesson components. These skills include subject-verb agreement, compound sentences, and subordinating conjunctions. This diagnostic is intended for grades 6-8.",
+        "flags": "{production}",
+        "id": 1432,
+        "name": "SpringBoard® Writing Skills Survey",
+        "readability_grade_level": null,
+        "standard_level": Object {
+          "id": 0,
+          "name": null,
+        },
+        "standard_level_name": null,
+        "standard_name": null,
+        "topics": Array [],
+        "uid": "5dfe46da-e13c-4b5b-a71d-55a9ae5669b0",
+      },
+      Object {
+        "activity_category": Object {
+          "id": 14,
+          "name": "Compound Sentences",
+        },
+        "activity_category_id": 14,
+        "activity_category_name": "Compound Sentences",
+        "activity_classification": Object {
+          "alias": "Quill Connect",
+          "description": "Combine Sentences",
+          "id": 5,
+          "key": "connect",
+        },
+        "anonymous_path": "/activity_sessions/anonymous?activity_id=897",
+        "content_partners": Array [],
+        "description": "Students practice writing compound and complex sentences by combining two sentences using one of the three provided joining words. Students must choose the joining word that best connects the ideas.",
+        "flags": "{production}",
+        "id": 897,
+        "name": "And, Because, Or (Intermediate)",
+        "readability_grade_level": "8th-9th",
+        "standard_level": Object {
+          "id": 9,
+          "name": "CCSS: Grade 3",
+        },
+        "standard_level_name": "CCSS: Grade 3",
+        "standard_name": "3.1h Use coordinating and subordinating conjunctions",
+        "topics": Array [
+          Object {
+            "id": 7,
+            "level": 3,
+            "name": "Science",
+            "parent_id": 0,
+          },
+          Object {
+            "id": 12,
+            "level": 0,
+            "name": "Various Animals",
+            "parent_id": 0,
+          },
+          Object {
+            "id": 13,
+            "level": 2,
+            "name": "Animals",
+            "parent_id": 7,
+          },
+        ],
+        "uid": "-LVKWAApZXBPkThVPINH",
+      },
+      Object {
+        "activity_category": Object {
+          "id": 14,
+          "name": "Compound Sentences",
+        },
+        "activity_category_id": 14,
+        "activity_category_name": "Compound Sentences",
+        "activity_classification": Object {
+          "alias": "Quill Connect",
+          "description": "Combine Sentences",
+          "id": 5,
+          "key": "connect",
+        },
+        "anonymous_path": "/activity_sessions/anonymous?activity_id=1001",
+        "content_partners": Array [],
+        "description": "Students practice writing compound-complex sentences by combining three sentences. Students are provided four joining words and must choose the two that best connect the ideas.",
+        "flags": "{production}",
+        "id": 1001,
+        "name": "Compound-Complex Sentences (Intermediate)",
+        "readability_grade_level": "10th-12th",
+        "standard_level": Object {
+          "id": 13,
+          "name": "CCSS: Grade 7",
+        },
+        "standard_level_name": "CCSS: Grade 7",
+        "standard_name": "7.1b Choose among simple, compound, complex, and compound-complex sentences to signal differing relationships among ideas",
+        "topics": Array [
+          Object {
+            "id": 3,
+            "level": 3,
+            "name": "Culture",
+            "parent_id": 0,
+          },
+          Object {
+            "id": 52,
+            "level": 2,
+            "name": "Sports",
+            "parent_id": 3,
+          },
+          Object {
+            "id": 83,
+            "level": 1,
+            "name": "Winter Sports",
+            "parent_id": 0,
+          },
+          Object {
+            "id": 134,
+            "level": 0,
+            "name": "The 1980 Olympic Hockey Game",
+            "parent_id": 0,
+          },
+        ],
+        "uid": "-Lio40_H3wSaN21sp5--",
+      },
+    ]
+  }
+  selectedClassrooms={
+    Array [
+      Object {
+        "classroom": Object {
+          "clever_id": null,
+          "code": "find-donkey",
+          "created_at": "2022-06-14T16:04:43.376Z",
+          "emptyClassroomSelected": true,
+          "google_classroom_id": null,
+          "grade": "University",
+          "grade_level": null,
+          "id": 1202571,
+          "name": "University",
+          "synced_name": null,
+          "teacher_id": null,
+          "updated_at": "2022-06-14T18:41:45.802Z",
+          "visible": true,
+        },
+        "students": Array [],
+      },
+      Object {
+        "classroom": Object {
+          "clever_id": null,
+          "code": "give-rule",
+          "created_at": "2022-06-14T16:03:39.231Z",
+          "emptyClassroomSelected": true,
+          "google_classroom_id": null,
+          "grade": "4",
+          "grade_level": null,
+          "id": 1202562,
+          "name": "Fourth Grade",
+          "synced_name": null,
+          "teacher_id": null,
+          "updated_at": "2022-06-14T18:41:45.802Z",
+          "visible": true,
+        },
+        "students": Array [],
+      },
+      Object {
+        "classroom": Object {
+          "clever_id": null,
+          "code": "octave-cakes",
+          "created_at": "2022-04-12T12:02:00.822Z",
+          "google_classroom_id": null,
+          "grade": "12",
+          "grade_level": null,
+          "id": 1198446,
+          "name": "Test Class",
+          "synced_name": null,
+          "teacher_id": null,
+          "updated_at": "2022-06-14T18:41:45.802Z",
+          "visible": true,
+        },
+        "students": Array [
+          Object {
+            "account_type": "Student Created Account",
+            "active": false,
+            "classcode": null,
+            "clever_id": null,
+            "created_at": "2022-04-13T17:12:23.570Z",
+            "email": "blindinspirationcast@gmail.com",
+            "flags": Array [],
+            "google_id": null,
+            "id": 12281381,
+            "ip_address": Object {
+              "addr": 1286222463,
+              "family": 2,
+              "mask_addr": 4294967295,
+            },
+            "isSelected": true,
+            "last_active": "2022-04-13T18:23:07.000Z",
+            "last_sign_in": "2022-04-13T17:12:23.589Z",
+            "name": "Colleen Connor",
+            "password_digest": "$2a$10$6xbr9p7EEcdSxcbNXUJn4.jklQIYSAL1afIS8XrG15vL12OmFUAx2",
+            "role": "student",
+            "send_newsletter": false,
+            "signed_up_with_google": false,
+            "stripe_customer_id": null,
+            "time_zone": null,
+            "title": null,
+            "token": null,
+            "updated_at": "2022-04-13T18:23:07.874Z",
+            "username": "cconnor",
+          },
+        ],
+      },
+    ]
+  }
+>
+  <div
+    className="modal-container grade-level-warning-modal-container"
+  >
+    <div
+      className="modal-background"
+    />
+    <div
+      className="grade-level-warning-modal quill-modal"
+    >
+      <div
+        className="grade-level-warning-modal-header"
+      >
+        <h3
+          className="title"
+        >
+          Heads up! Activity grade level is above the classroom grade
+        </h3>
+      </div>
+      <div
+        className="grade-level-warning-modal-body modal-body"
+      >
+        <p>
+          Activities you are assigning are above the recommended grade level for your classes. Please confirm you want to assign these activities.
+        </p>
+        <DataTable
+          averageFontWidth={7}
+          headers={
+            Array [
+              Object {
+                "attribute": "name",
+                "name": "Activity name",
+                "width": "521px",
+              },
+              Object {
+                "attribute": "suggestedGrades",
+                "name": "Suggested grades",
+                "width": "117px",
+              },
+            ]
+          }
+          rows={
+            Array [
+              Object {
+                "id": 1432,
+                "name": <a
+                  href="/activity_sessions/anonymous?activity_id=1432"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  SpringBoard® Writing Skills Survey
+                </a>,
+                "suggestedGrades": undefined,
+              },
+              Object {
+                "id": 897,
+                "name": <a
+                  href="/activity_sessions/anonymous?activity_id=897"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  And, Because, Or (Intermediate)
+                </a>,
+                "suggestedGrades": "8, 9",
+              },
+              Object {
+                "id": 1001,
+                "name": <a
+                  href="/activity_sessions/anonymous?activity_id=1001"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  Compound-Complex Sentences (Intermediate)
+                </a>,
+                "suggestedGrades": "10, 11, 12",
+              },
+            ]
+          }
+        >
+          <table
+            className="data-table undefined"
+          >
+            <tr
+              className="data-table-headers"
+            >
+              <th
+                className="data-table-header undefined"
+                scope="col"
+                style={
+                  Object {
+                    "minWidth": "521px",
+                    "textAlign": "left",
+                    "width": "521px",
+                  }
+                }
+              >
+                Activity name
+              </th>
+              <th
+                className="data-table-header undefined"
+                scope="col"
+                style={
+                  Object {
+                    "minWidth": "117px",
+                    "textAlign": "left",
+                    "width": "117px",
+                  }
+                }
+              >
+                Suggested grades
+              </th>
+            </tr>
+            <tbody
+              className="data-table-body"
+            >
+              <tr
+                className="data-table-row  "
+                key="1432"
+              >
+                <td
+                  className="data-table-row-section undefined"
+                  key="name-1432"
+                  style={
+                    Object {
+                      "minWidth": "521px",
+                      "textAlign": "left",
+                      "width": "521px",
+                    }
+                  }
+                >
+                  <a
+                    href="/activity_sessions/anonymous?activity_id=1432"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    SpringBoard® Writing Skills Survey
+                  </a>
+                </td>
+                <td
+                  className="data-table-row-section undefined"
+                  key="suggestedGrades-1432"
+                  style={
+                    Object {
+                      "minWidth": "117px",
+                      "textAlign": "left",
+                      "width": "117px",
+                    }
+                  }
+                />
+              </tr>
+              <tr
+                className="data-table-row  "
+                key="897"
+              >
+                <td
+                  className="data-table-row-section undefined"
+                  key="name-897"
+                  style={
+                    Object {
+                      "minWidth": "521px",
+                      "textAlign": "left",
+                      "width": "521px",
+                    }
+                  }
+                >
+                  <a
+                    href="/activity_sessions/anonymous?activity_id=897"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    And, Because, Or (Intermediate)
+                  </a>
+                </td>
+                <td
+                  className="data-table-row-section undefined"
+                  key="suggestedGrades-897"
+                  style={
+                    Object {
+                      "minWidth": "117px",
+                      "textAlign": "left",
+                      "width": "117px",
+                    }
+                  }
+                >
+                  8, 9
+                </td>
+              </tr>
+              <tr
+                className="data-table-row  "
+                key="1001"
+              >
+                <td
+                  className="data-table-row-section undefined"
+                  key="name-1001"
+                  style={
+                    Object {
+                      "minWidth": "521px",
+                      "textAlign": "left",
+                      "width": "521px",
+                    }
+                  }
+                >
+                  <a
+                    href="/activity_sessions/anonymous?activity_id=1001"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    Compound-Complex Sentences (Intermediate)
+                  </a>
+                </td>
+                <td
+                  className="data-table-row-section undefined"
+                  key="suggestedGrades-1001"
+                  style={
+                    Object {
+                      "minWidth": "117px",
+                      "textAlign": "left",
+                      "width": "117px",
+                    }
+                  }
+                >
+                  10, 11, 12
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </DataTable>
+        <DataTable
+          averageFontWidth={7}
+          headers={
+            Array [
+              Object {
+                "attribute": "name",
+                "name": "Class name",
+                "width": "521px",
+              },
+              Object {
+                "attribute": "assignedGrade",
+                "name": "Assigned grade",
+                "width": "117px",
+              },
+            ]
+          }
+          rows={
+            Array [
+              Object {
+                "assignedGrade": "University",
+                "id": 1202571,
+                "name": "University",
+              },
+              Object {
+                "assignedGrade": <span
+                  className="warning"
+                >
+                  <img
+                    alt="Warning icon"
+                    src="undefined/images/icons/warning-icon.svg"
+                  />
+                  <span>
+                    Grade 
+                    4
+                  </span>
+                </span>,
+                "id": 1202562,
+                "name": "Fourth Grade",
+              },
+              Object {
+                "assignedGrade": "Grade 12",
+                "id": 1198446,
+                "name": "Test Class",
+              },
+            ]
+          }
+        >
+          <table
+            className="data-table undefined"
+          >
+            <tr
+              className="data-table-headers"
+            >
+              <th
+                className="data-table-header undefined"
+                scope="col"
+                style={
+                  Object {
+                    "minWidth": "521px",
+                    "textAlign": "left",
+                    "width": "521px",
+                  }
+                }
+              >
+                Class name
+              </th>
+              <th
+                className="data-table-header undefined"
+                scope="col"
+                style={
+                  Object {
+                    "minWidth": "117px",
+                    "textAlign": "left",
+                    "width": "117px",
+                  }
+                }
+              >
+                Assigned grade
+              </th>
+            </tr>
+            <tbody
+              className="data-table-body"
+            >
+              <tr
+                className="data-table-row  "
+                key="1202571"
+              >
+                <td
+                  className="data-table-row-section undefined"
+                  key="name-1202571"
+                  style={
+                    Object {
+                      "minWidth": "521px",
+                      "textAlign": "left",
+                      "width": "521px",
+                    }
+                  }
+                >
+                  University
+                </td>
+                <td
+                  className="data-table-row-section undefined"
+                  key="assignedGrade-1202571"
+                  style={
+                    Object {
+                      "minWidth": "117px",
+                      "textAlign": "left",
+                      "width": "117px",
+                    }
+                  }
+                >
+                  University
+                </td>
+              </tr>
+              <tr
+                className="data-table-row  "
+                key="1202562"
+              >
+                <td
+                  className="data-table-row-section undefined"
+                  key="name-1202562"
+                  style={
+                    Object {
+                      "minWidth": "521px",
+                      "textAlign": "left",
+                      "width": "521px",
+                    }
+                  }
+                >
+                  Fourth Grade
+                </td>
+                <td
+                  className="data-table-row-section undefined"
+                  key="assignedGrade-1202562"
+                  style={
+                    Object {
+                      "minWidth": "117px",
+                      "textAlign": "left",
+                      "width": "117px",
+                    }
+                  }
+                >
+                  <span
+                    className="warning"
+                  >
+                    <img
+                      alt="Warning icon"
+                      src="undefined/images/icons/warning-icon.svg"
+                    />
+                    <span>
+                      Grade 
+                      4
+                    </span>
+                  </span>
+                </td>
+              </tr>
+              <tr
+                className="data-table-row  "
+                key="1198446"
+              >
+                <td
+                  className="data-table-row-section undefined"
+                  key="name-1198446"
+                  style={
+                    Object {
+                      "minWidth": "521px",
+                      "textAlign": "left",
+                      "width": "521px",
+                    }
+                  }
+                >
+                  Test Class
+                </td>
+                <td
+                  className="data-table-row-section undefined"
+                  key="assignedGrade-1198446"
+                  style={
+                    Object {
+                      "minWidth": "117px",
+                      "textAlign": "left",
+                      "width": "117px",
+                    }
+                  }
+                >
+                  Grade 12
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </DataTable>
+        <p>
+          We’re sharing this message to make sure that your students are ready for these activities. Students who have experience with Quill may be ready to practice more challenging activities. However, if you are not sure, you can preview the activity first to try it yourself and see if it’s the right level for your students.
+        </p>
+      </div>
+      <div
+        className="grade-level-warning-modal-footer"
+      >
+        <div
+          className="checkbox-wrapper"
+        >
+          <button
+            aria-checked={true}
+            className="quill-checkbox selected focus-on-light"
+            onClick={[Function]}
+            role="checkbox"
+            type="button"
+          >
+            <img
+              alt="Check icon"
+              src="undefined/images/shared/check-small-white.svg"
+            />
+          </button>
+           
+          <span>
+            Don't show this warning again
+          </span>
+        </div>
+        <div
+          className="buttons"
+        >
+          <button
+            className="quill-button outlined secondary medium focus-on-light"
+            onClick={[Function]}
+            type="button"
+          >
+            Go back to edit assignment
+          </button>
+          <button
+            className="quill-button contained primary medium focus-on-light"
+            onClick={[Function]}
+            type="button"
+          >
+            Assign pack to class
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</GradeLevelWarningModal>
+`;
