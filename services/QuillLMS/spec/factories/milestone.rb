@@ -43,5 +43,9 @@ FactoryBot.define do
     factory :acknowledge_growth_diagnostic_promotion_card do
       name { 'Acknowledge Growth Diagnostic Promotion Card' }
     end
+
+    factory :dismiss_grade_level_warning do
+      name { 'Dismiss Grade Level Warning' }
+    end
   end
 end
