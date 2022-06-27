@@ -20,7 +20,6 @@ class SchoolSubscription < ApplicationRecord
   belongs_to :school
   belongs_to :subscription
   after_commit :update_schools_users
-  after_commit :attach_district_admins
   after_create :send_premium_emails
 
   def update_schools_users
@@ -46,10 +45,4 @@ class SchoolSubscription < ApplicationRecord
     end
   end
   # rubocop:enable Metrics/CyclomaticComplexity
-
-  def attach_district_admins
-    school&.district&.district_admins&.each do |district_admin|
-      district_admin.attach_to_subscribed_schools
-    end
-  end
 end
