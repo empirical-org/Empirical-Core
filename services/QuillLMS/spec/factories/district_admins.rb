@@ -17,7 +17,7 @@
 #
 FactoryBot.define do
   factory :district_admin do
-    district { create(:district) }
-    user { create(:user) }
+    district
+    user
   end
 end

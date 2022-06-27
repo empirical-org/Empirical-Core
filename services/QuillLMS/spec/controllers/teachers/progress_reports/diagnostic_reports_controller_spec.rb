@@ -97,14 +97,14 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
       2.times do
         get :students_by_classroom, params: ({activity_id: activity.id, unit_id: unit.id, classroom_id: classroom.id})
 
-        expect(response).to be_success
+        expect(response).to be_successful
       end
     end
 
     it 'should return empty arrays when there are no activity_sessions' do
       get :students_by_classroom, params: ({activity_id: activity.id, unit_id: unit.id, classroom_id: classroom.id})
 
-      expect(response).to be_success
+      expect(response).to be_successful
 
       json = JSON.parse(response.body)
 
@@ -125,7 +125,7 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
       it 'should return report data for students and not_completed_name' do
         get :students_by_classroom, params: ({activity_id: activity.id, unit_id: unit.id, classroom_id: classroom.id})
 
-        expect(response).to be_success
+        expect(response).to be_successful
 
         json = JSON.parse(response.body)
 
@@ -150,7 +150,7 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
         it 'should return report data for students and missing_name' do
           get :students_by_classroom, params: ({activity_id: activity.id, unit_id: unit.id, classroom_id: classroom.id})
 
-          expect(response).to be_success
+          expect(response).to be_successful
 
           json = JSON.parse(response.body)
 
@@ -179,7 +179,7 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
         it 'should return all 3 records and average score' do
           get :students_by_classroom, params: ({activity_id: activity.id, unit_id: unit.id, classroom_id: classroom.id})
 
-          expect(response).to be_success
+          expect(response).to be_successful
 
           json = JSON.parse(response.body)
 
@@ -222,7 +222,7 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
         Rails.logger.info "\n\n\nStart"
         get :classrooms_with_students, params: ({activity_id: activity.id, unit_id: unit.id, classroom_id: classroom.id})
 
-        expect(response).to be_success
+        expect(response).to be_successful
 
         json = JSON.parse(response.body)
 
@@ -236,7 +236,7 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
         2.times do
           get :classrooms_with_students, params: ({activity_id: activity.id, unit_id: unit.id, classroom_id: classroom.id})
 
-          expect(response).to be_success
+          expect(response).to be_successful
 
           json = JSON.parse(response.body)
 
@@ -257,14 +257,14 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
     it 'should not error with no activity_sessions' do
       get :lesson_recommendations_for_classroom, params: ({activity_id: activity.id, unit_id: unit.id, classroom_id: classroom.id})
 
-      expect(response).to be_success
+      expect(response).to be_successful
     end
 
     it 'should not error with activity_sessions' do
       create(:activity_session, classroom_unit: @classroom_unit, activity: activity)
       get :lesson_recommendations_for_classroom, params: ({activity_id: activity.id, unit_id: unit.id, classroom_id: classroom.id})
 
-      expect(response).to be_success
+      expect(response).to be_successful
     end
   end
 
@@ -322,7 +322,7 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
     it 'should return the total number of acquired skills' do
       get :skills_growth, params: ({classroom_id: classroom.id, post_test_activity_id: post_test_unit_activity.activity_id, pre_test_activity_id: pre_test_unit_activity.activity_id})
 
-      expect(response).to be_success
+      expect(response).to be_successful
       json = JSON.parse(response.body)
       expect(json['skills_growth']).to eq 1
     end

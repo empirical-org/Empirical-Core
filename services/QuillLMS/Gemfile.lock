@@ -576,11 +576,6 @@ GEM
     rake (13.0.6)
     ranked-model (0.4.3)
       activerecord (>= 4.1.16)
-    ransack (1.8.10)
-      actionpack (>= 3.0, < 5.2)
-      activerecord (>= 3.0, < 5.2)
-      activesupport (>= 3.0, < 5.2)
-      i18n
     rb-fsevent (0.10.3)
     rb-inotify (0.10.0)
       ffi (~> 1.0)
@@ -884,7 +879,6 @@ DEPENDENCIES
   rails_admin (~> 1.4.3)
   rails_autoscale_agent
   ranked-model
-  ransack
   rb-readline
   react_on_rails (= 11.3.0)
   redcarpet (~> 3.5.1)

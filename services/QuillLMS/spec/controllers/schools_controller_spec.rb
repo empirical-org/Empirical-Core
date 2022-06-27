@@ -55,14 +55,14 @@ describe SchoolsController, type: :controller do
   context "there is a current user" do
 
     describe '#select_school' do
-      let(:user) { create(:user) }
+      let(:user) { create(:user, email: 'emilaif@gmail.com') }
 
       before { allow(controller).to receive(:current_user) { user } }
 
       it 'should attach the user to school' do
-        expect(SchoolsUsers).to receive(:find_or_create_by).with(user_id: user.id, school_id: @school1.id)
-
         put :select_school, params: { school_id_or_type: @school1.id }, as: :json
+
+        expect(SchoolsUsers.find_by(user_id: user.id, school_id: @school1.id)).to be
       end
     end
 

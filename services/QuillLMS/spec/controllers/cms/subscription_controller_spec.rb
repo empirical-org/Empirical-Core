@@ -14,8 +14,8 @@ describe Cms::SubscriptionsController do
     it 'should create the subscription' do
       post :create,
         params: {
-          school_or_user_id: school.id,
-          school_or_user: "school",
+          subscriber_id: school.id,
+          subscriber_type: 'School',
           subscription: subscription.attributes
         }
 
@@ -36,8 +36,8 @@ describe Cms::SubscriptionsController do
 
       post :create,
         params: {
-          school_or_user_id: school.id,
-          school_or_user: "school",
+          subscriber_id: school.id,
+          subscriber_type: 'School',
           subscription: new_subscription.attributes
         }
 

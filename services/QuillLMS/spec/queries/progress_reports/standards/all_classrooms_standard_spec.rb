@@ -40,7 +40,10 @@ describe ProgressReports::Standards::AllClassroomsStandard do
 
     context 'without evidence activity' do
       let(:non_evidence_standard_category) do
-        create(:standard_category, id: ::Constants::EVIDENCE_STANDARD_CATEGORY-1)
+        # The ID cannot be 27, which is a special value. Additionally, it must be large enough
+        # to never collide with the ids of other FactoryBot instances
+
+        create(:standard_category, id: 99999)
       end
       let!(:non_evidence_standard) { create(:standard, standard_category: non_evidence_standard_category) }
       let!(:non_evidence_activity) { create(:activity, standard: non_evidence_standard)}

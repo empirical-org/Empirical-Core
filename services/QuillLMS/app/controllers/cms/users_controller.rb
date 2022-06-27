@@ -346,4 +346,8 @@ class Cms::UsersController < Cms::CmsController
     ChangeLog.create(change_log)
   end
 
+  private def subscription_data
+    @premium_types = Subscription::OFFICIAL_TEACHER_TYPES
+    @subscription_payment_methods = Subscription::CMS_PAYMENT_METHODS
+  end
 end

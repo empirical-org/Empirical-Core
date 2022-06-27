@@ -1,4 +1,16 @@
 <div class='container'>
-  <%= react_component('SubscriptionApp', props: {view: 'new', user: @user, schoolOrUser: 'user', subscription: @subscription, premiumTypes: @premium_types,
-  subscriptionPaymentMethods: @subscription_payment_methods, schoolsUsers: @schools_users })%>
+  <%= react_component(
+        'SubscriptionApp',
+        props: {
+          view: 'new',
+          user: @user,
+          subscriber: @user,
+          subscriberType: 'User',
+          subscription: @subscription,
+          premiumTypes: @premium_types,
+          subscriptionPaymentMethods: @subscription_payment_methods,
+          schoolsUsers: @schools_users
+        }
+      )
+  %>
 </div>
