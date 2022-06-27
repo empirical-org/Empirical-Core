@@ -71,9 +71,11 @@ const IndividualActivityClassificationFilterRow = ({ activityClassificationFilte
     <div className="individual-row filter-row" key={activityClassificationKey}>
       <div>
         {checkbox}
-        <div className="alias-and-description">
+        <div className="activity-classification-data">
           <span>{activityClassification.alias}</span>
           <span className="description">{activityClassification.description}</span>
+          <span className="grade-text">{activityClassification.gradeText}</span>
+          {activityClassification.new && <div className="activity-classification-new-tag">NEW</div>}
         </div>
       </div>
       <span>({activityCount})</span>
@@ -94,6 +96,7 @@ const ActivityClassificationToggle = ({filteredActivities, grouping, uniqueActiv
   function checkAllFilters() {
     const newActivityClassificationFilters = Array.from(new Set(activityClassificationFilters.concat(grouping.keys)))
     handleActivityClassificationFilterChange(newActivityClassificationFilters)
+    setIsOpen(true)
   }
 
   const toggleArrow = <button aria-label="Toggle menu" className="interactive-wrapper focus-on-light filter-toggle-button" onClick={toggleIsOpen} type="button"><img alt="" className={isOpen ? 'is-open' : 'is-closed'} src={dropdownIconSrc} /></button>
@@ -137,6 +140,7 @@ const ActivityClassificationToggle = ({filteredActivities, grouping, uniqueActiv
         </div>
         <span>({topLevelActivityCount})</span>
       </div>
+      {grouping.new && <div className="activity-classification-new-tag">NEW</div>}
       {individualFilters}
     </section>
   )

@@ -1,14 +1,15 @@
 .custom-activity-pack-page {
   .filter-column {
-    padding: 10px 16px 32px;
+    padding: 10px 24px 32px 0px;
     .filter-section {
       padding-top: 24px;
       margin-bottom: 8px;
       h2 {
         padding-left: 24px;
+        font-weight: 700;
       }
       .clear-filter {
-        font-weight: 600;
+        font-weight: 700;
         line-height: normal;
         color: #06806b;
       }
@@ -30,6 +31,19 @@
         padding-left: 24px;
         line-height: 1.57;
         color: #646464;
+      }
+      .activity-classification-new-tag {
+        font-weight: 700;
+        font-size: 9px;
+        display: flex;
+        align-items: center;
+        color: #FFFFFF;
+        background: #F3AC4E;
+        border-radius: 5px;
+        width: 32px;
+        height: 19px;
+        justify-content: center;
+        margin-top: 4px;
       }
       .slider-wrapper {
         padding-left: 24px;
@@ -154,23 +168,43 @@
           align-items: center;
         }
         .filter-toggle-button {
-          margin-right: 8px;
+          margin: 0px 4px;
           .is-closed {
             transform: rotate(270deg);
           }
         }
       }
+      > .activity-classification-new-tag {
+        margin-left: 48px;
+      }
       .individual-row {
         margin-left: 48px;
-        .alias-and-description {
+        .activity-classification-data {
           flex-direction: column;
           .description {
-            font-size: 12px;
-            line-height: 1;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 16px;
+            color: #9C9C9C;
+            font-style: italic;
             overflow: visible;
-            color: #5c5c5c;
-            margin-top: 8px;
+            margin-top: 4px;
             max-width: 174px;
+          }
+          .grade-text {
+            height: 18px;
+            background-color: #AEAEAE;
+            border-radius: 5px;
+            color: white;
+            margin-top: 4px;
+            font-weight: 400;
+            padding: 0px 8px;
+            width: min-content;
+            font-size: 14px;
+            line-height: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
           }
         }
       }
