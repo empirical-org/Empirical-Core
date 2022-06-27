@@ -60,7 +60,7 @@ class Cms::SchoolsController < Cms::CmsController
   # This allows staff members to edit certain details about a school.
   def edit
     @school = School.find(params[:id])
-    @editable_attributes = editable_school_attributes
+    @editable_text_attributes = editable_school_text_attributes
   end
 
   def update
@@ -86,7 +86,7 @@ class Cms::SchoolsController < Cms::CmsController
   # This allows staff members to create a new school.
   def new
     @school = School.new
-    @editable_attributes = editable_school_attributes
+    @editable_text_attributes = editable_school_text_attributes
   end
 
   def create
@@ -334,7 +334,7 @@ class Cms::SchoolsController < Cms::CmsController
     params.require(:school).permit(:id, editable_school_attributes.values)
   end
 
-  private def editable_school_attributes
+  private def editable_school_text_attributes
     {
       'School Name' => :name,
       'School City' => :city,
@@ -344,6 +344,12 @@ class Cms::SchoolsController < Cms::CmsController
       'NCES ID' => :nces_id,
       'Clever ID' => :clever_id
     }
+  end
+
+  private def editable_school_attributes
+    editable_school_text_attributes.merge({
+      'District' => :district_id
+    })
   end
 
   private def subscription_params
