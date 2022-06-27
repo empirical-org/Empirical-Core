@@ -204,13 +204,6 @@ class Subscription < ApplicationRecord
       .recurring
   end
 
-  def self.expired_today_or_previously_and_not_recurring
-    Subscription
-      .expired
-      .not_de_activated
-      .not_recurring
-  end
-
   def self.redemption_start_date(subscriber)
     subscriber&.subscriptions&.active&.first&.expiration || Date.current
   end
@@ -223,12 +216,6 @@ class Subscription < ApplicationRecord
       promotional_dates[:expiration]
     else
       Date.current + 1.year
-    end
-  end
-
-  def detach_district_admins
-    schools.each do |school|
-      school.detach_from_existing_district_admins(school.district)
     end
   end
 
@@ -253,12 +240,6 @@ class Subscription < ApplicationRecord
       next unless subscription.users.first.subscriptions.active.empty?
 
       subscription.renew_via_stripe
-    end
-  end
-
-  def self.update_todays_expired_school_subscriptions
-    expired_today_or_previously_and_not_recurring.where(account_type: OFFICIAL_SCHOOL_TYPES).each do |subscription|
-      subscription.detach_district_admins
     end
   end
 
