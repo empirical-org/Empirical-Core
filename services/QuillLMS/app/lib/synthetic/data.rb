@@ -7,7 +7,7 @@ module Synthetic
     include Synthetic::ManualTypes
 
     Result = Struct.new(:text, :label, :translations, :misspellings, :type, keyword_init: true)
-    TrainRow = Struct.new(:text, :label, :synthetic, :type, keyword_init: true) do
+    TrainRow = Struct.new(:text, :label, :type, keyword_init: true) do
       def to_a
         [type, text, label]
       end
@@ -20,8 +20,6 @@ module Synthetic
     SYNTHETIC_CSV = '_with_synthetic_detail.csv'
     TRAIN_CSV = '_training.csv'
 
-    # NB, there is a V3, but that throws errors with our current Google Integration
-    TRANSLATOR = ::Google::Cloud::Translate.new(version: :v2)
     # Use this https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
     LANGUAGES = {
       es: 'spanish',
@@ -50,7 +48,7 @@ module Synthetic
     # test_percent: float. What percent should be used for both the test and validation set
     # manual_types: bool, whether to assign TEXT,VALIDATION,TRAIN to each row
     # Passing 0.2 will use 20% for testing, 20% for validation and 60% for training
-    def initialize(texts_and_labels, languages: TRAIN_LANGUAGES.keys, spelling: true, manual_types: true, test_percent: 0.2)
+    def initialize(texts_and_labels, languages: TRAIN_LANGUAGES.keys, manual_types: false, test_percent: 0.2)
       @languages = languages
       @test_percent = test_percent
       @manual_types = manual_types
@@ -103,8 +101,8 @@ module Synthetic
     # only fetch results for items with type 'TRAIN' if using manual_types
     def fetch_synthetic_translations_for(language: )
       results.select {|r| !manual_types || r.type == TYPE_TRAIN}.each_slice(BATCH_SIZE).each do |results_slice|
-        translations = TRANSLATOR.translate(results_slice.map(&:text), from: ENGLISH, to: language)
-        english_texts = TRANSLATOR.translate(translations.map(&:text), from: language, to: ENGLISH)
+        translations = translator.translate(results_slice.map(&:text), from: ENGLISH, to: language)
+        english_texts = translator.translate(translations.map(&:text), from: language, to: ENGLISH)
 
         results_slice.each.with_index do |result, index|
           result.translations[language] = english_texts[index].text
@@ -127,9 +125,9 @@ module Synthetic
 
     # input file is a csv with two columns and no header: text, label
     # pass in file paths, e.g. /Users/yourname/Desktop/
-    # defaults to a dry run (doesn't hit)
+    # defaults to a dry run (doesn't hit paid translations endpoint)
     # r = Synthetic::Data.generate_training_export('/Users/danieldrabik/Documents/quill/synthetic/Responses_Translation_Nuclear_Because_Dec13.csv')
-    def self.generate_training_export(input_file_path, live: false, languages: TRAIN_LANGUAGES.keys, manual_types: false, test_percent: 0.2)
+    def self.generate_training_export(input_file_path, paid: false, languages: TRAIN_LANGUAGES.keys, manual_types: false, test_percent: 0.2)
       output_csv = input_file_path.gsub(CSV_END_MATCH, SYNTHETIC_CSV)
       output_training_csv = input_file_path.gsub(CSV_END_MATCH, TRAIN_CSV)
 
@@ -143,11 +141,16 @@ module Synthetic
       end
 
       synthetics.fetch_synthetic_spelling_errors
-      synthetics.fetch_synthetic_translations if live
+      synthetics.fetch_synthetic_translations if paid
 
       synthetics.results_to_csv(output_csv)
       synthetics.results_to_training_csv(output_training_csv)
       synthetics
+    end
+
+    # NB, there is a V3, but that throws errors with our current Google Integration
+    private def translator
+      @translator ||= ::Google::Cloud::Translate.new(version: :v2)
     end
 
     def results_to_training_csv(file_path)
@@ -159,12 +162,12 @@ module Synthetic
     def training_data_rows
       [].tap do |data|
         results.each do |result|
-          data << TrainRow.new(text: result.text, label: result.label, synthetic: false, type: result.type)
+          data << TrainRow.new(text: result.text, label: result.label, type: result.type)
           result.translations.each do |_, new_text|
-            data << TrainRow.new(text: new_text, label: result.label, synthetic: true, type: result.type)
+            data << TrainRow.new(text: new_text, label: result.label, type: result.type)
           end
           result.misspellings.each do |_, new_text|
-            data << TrainRow.new(text: new_text, label: result.label, synthetic: true, type: result.type)
+            data << TrainRow.new(text: new_text, label: result.label, type: result.type)
           end
         end
       end
