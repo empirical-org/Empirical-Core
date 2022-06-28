@@ -24,9 +24,9 @@ describe GrowthResultsSummary do
   let!(:concept) { create(:concept) }
   let!(:skill) { create(:skill, skill_group: pre_test_skill_group_activity.skill_group) }
   let!(:skill_concept) { create(:skill_concept, concept: concept, skill: skill) }
-  let!(:pre_test_correct_concept_result) { create(:concept_result_with_correct_answer, concept: concept, activity_session: pre_test_activity_session) }
-  let!(:post_test_correct_concept_result) { create(:concept_result_with_correct_answer, concept: concept, activity_session: post_test_activity_session) }
-  let!(:pre_test_incorrect_concept_result) { create(:concept_result_with_incorrect_answer, concept: concept, activity_session: pre_test_activity_session) }
+  let!(:pre_test_correct_concept_result) { create(:old_concept_result_with_correct_answer, concept: concept, activity_session: pre_test_activity_session) }
+  let!(:post_test_correct_concept_result) { create(:old_concept_result_with_correct_answer, concept: concept, activity_session: post_test_activity_session) }
+  let!(:pre_test_incorrect_concept_result) { create(:old_concept_result_with_incorrect_answer, concept: concept, activity_session: pre_test_activity_session) }
 
   describe '#growth_results_summary' do
     it 'should return data with the student results and skill group summaries' do

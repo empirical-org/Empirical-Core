@@ -18,8 +18,8 @@ describe ResultsSummary do
   let!(:concept) { create(:concept) }
   let!(:skill) { create(:skill, skill_group: skill_group_activity.skill_group) }
   let!(:skill_concept) { create(:skill_concept, concept: concept, skill: skill) }
-  let!(:correct_concept_result) { create(:concept_result_with_correct_answer, concept: concept, activity_session: activity_session) }
-  let!(:incorrect_concept_result) { create(:concept_result_with_incorrect_answer, concept: concept, activity_session: activity_session) }
+  let!(:correct_concept_result) { create(:old_concept_result_with_correct_answer, concept: concept, activity_session: activity_session) }
+  let!(:incorrect_concept_result) { create(:old_concept_result_with_incorrect_answer, concept: concept, activity_session: activity_session) }
 
   describe '#results_summary' do
     it 'should return data with the student results and skill group summaries' do

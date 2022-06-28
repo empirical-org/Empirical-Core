@@ -78,7 +78,7 @@ RSpec.describe Demo::ReportDemoCreator do
         user = build(:user, id: user_id)
         user.save
         activity_session = create(:activity_session, state: 'finished', activity_id: act_id, user_id: user_id, is_final_score: true)
-        create(:concept_result, activity_session: activity_session)
+        create(:old_concept_result, activity_session: activity_session)
       end
     end
 

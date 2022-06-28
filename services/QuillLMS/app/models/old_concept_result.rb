@@ -20,8 +20,7 @@
 #
 #  fk_rails_...  (activity_classification_id => activity_classifications.id)
 #
-class ConceptResultOld < ApplicationRecord
-
+class OldConceptResult < ApplicationRecord
   belongs_to :concept
   belongs_to :activity_session
   belongs_to :activity_classification

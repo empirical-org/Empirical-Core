@@ -44,7 +44,7 @@ describe Api::V1::ActivitySessionsController, type: :controller do
       let(:writing_concept) { create(:concept, name: 'Creative Writing') }
 
       let(:concept_result1) do
-        create(:concept_result,
+        create(:old_concept_result,
           activity_session_id: activity_session.id,
           concept: writing_concept,
           metadata: { foo: 'bar' }
@@ -52,14 +52,14 @@ describe Api::V1::ActivitySessionsController, type: :controller do
       end
 
       let(:concept_result2) do
-        create(:concept_result,
+        create(:old_concept_result,
           activity_session_id: activity_session.id,
           metadata: { baz: 'foo' }
         )
       end
 
       let(:concept_result3) do
-        create(:concept_result,
+        create(:old_concept_result,
           activity_session_id: activity_session.id
         )
       end
@@ -82,16 +82,16 @@ describe Api::V1::ActivitySessionsController, type: :controller do
 
       it 'stores the concept results' do
         activity_session.reload
-        expect(activity_session.concept_results.size).to eq 7
+        expect(activity_session.old_concept_results.size).to eq 7
       end
 
       it 'saves the arbitrary metadata for the results' do
         activity_session.reload
-        expect(activity_session.concept_results.find{|x| x.metadata == {"foo"=>"bar"}}).to be
+        expect(activity_session.old_concept_results.find{|x| x.metadata == {"foo"=>"bar"}}).to be
       end
 
       it 'saves the concept tag relationship (ID) in the result' do
-        expect(ConceptResultOld.where(activity_session_id: activity_session, concept_id: writing_concept.id).count).to eq 2
+        expect(OldConceptResult.where(activity_session_id: activity_session, concept_id: writing_concept.id).count).to eq 2
       end
     end
 
@@ -110,9 +110,9 @@ describe Api::V1::ActivitySessionsController, type: :controller do
 
       # this is no longer the case, as results should not be saved with nonexistent concept tag
       it 'does not save the concept result' do
-        activity_session.concept_results.destroy_all
+        activity_session.old_concept_results.destroy_all
         response = subject
-        expect(activity_session.concept_results).to eq([])
+        expect(activity_session.old_concept_results).to eq([])
       end
     end
 

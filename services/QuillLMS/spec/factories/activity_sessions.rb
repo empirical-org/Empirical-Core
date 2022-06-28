@@ -72,7 +72,7 @@ FactoryBot.define do
       classroom_unit = activity_session.classroom_unit
       UnitActivity.find_or_create_by(activity: activity_session.activity, unit_id: classroom_unit.unit_id)
       StudentsClassrooms.find_or_create_by(student_id: activity_session.user_id, classroom_id: classroom_unit.classroom_id )
-      create(:concept_result, activity_session: activity_session)
+      create(:old_concept_result, activity_session: activity_session)
     end
 
     trait :retry do
@@ -126,7 +126,7 @@ FactoryBot.define do
 
     factory :activity_session_without_concept_results do
       after(:create) do |activity_session|
-        ConceptResultOld.where(activity_session: activity_session).destroy_all
+        OldConceptResult.where(activity_session: activity_session).destroy_all
       end
     end
   end

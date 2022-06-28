@@ -9,8 +9,8 @@ describe DiagnosticReports do
     let!(:activity_session) { create(:activity_session) }
     let!(:concept) { create(:concept) }
     let!(:skill_concept) { create(:skill_concept, concept: concept) }
-    let!(:correct_concept_result) { create(:concept_result_with_correct_answer, concept: concept, activity_session: activity_session) }
-    let!(:incorrect_concept_result) { create(:concept_result_with_incorrect_answer, concept: concept, activity_session: activity_session) }
+    let!(:correct_concept_result) { create(:old_concept_result_with_correct_answer, concept: concept, activity_session: activity_session) }
+    let!(:incorrect_concept_result) { create(:old_concept_result_with_incorrect_answer, concept: concept, activity_session: activity_session) }
 
     it 'should return data with the name of the skill, number of correct concept results, number of incorrect concept results, and a summary' do
       expect(data_for_skill_by_activity_session(activity_session.concept_results, skill_concept.skill)).to eq({

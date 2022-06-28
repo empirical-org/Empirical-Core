@@ -505,15 +505,15 @@ end
   describe '#parse_for_results' do
     let!(:activity_session) { create(:activity_session) }
     let!(:proficient_concept) { create(:concept)}
-    let!(:proficient_concept_result) { create(:concept_result_with_correct_answer, concept: proficient_concept, activity_session: activity_session)}
+    let!(:proficient_concept_result) { create(:old_concept_result_with_correct_answer, concept: proficient_concept, activity_session: activity_session)}
     let!(:nearly_proficient_concept) { create(:concept)}
-    let!(:nearly_proficient_concept_result_positive1) { create(:concept_result_with_correct_answer, concept: nearly_proficient_concept, activity_session: activity_session)}
-    let!(:nearly_proficient_concept_result_positive2) { create(:concept_result_with_correct_answer, concept: nearly_proficient_concept, activity_session: activity_session)}
-    let!(:nearly_proficient_concept_result_negative) { create(:concept_result_with_incorrect_answer, concept: nearly_proficient_concept, activity_session: activity_session)}
+    let!(:nearly_proficient_concept_result_positive1) { create(:old_concept_result_with_correct_answer, concept: nearly_proficient_concept, activity_session: activity_session)}
+    let!(:nearly_proficient_concept_result_positive2) { create(:old_concept_result_with_correct_answer, concept: nearly_proficient_concept, activity_session: activity_session)}
+    let!(:nearly_proficient_concept_result_negative) { create(:old_concept_result_with_incorrect_answer, concept: nearly_proficient_concept, activity_session: activity_session)}
     let!(:not_yet_proficient_concept) { create(:concept)}
-    let!(:not_yet_proficient_concept_result) { create(:concept_result_with_incorrect_answer, concept: not_yet_proficient_concept, activity_session: activity_session)}
+    let!(:not_yet_proficient_concept_result) { create(:old_concept_result_with_incorrect_answer, concept: not_yet_proficient_concept, activity_session: activity_session)}
     let!(:ignored_concept) { create(:concept, uid: ActivitySession::CONCEPT_UIDS_TO_EXCLUDE_FROM_REPORT[0])}
-    let!(:ignored_concept_result) { create(:concept_result_with_incorrect_answer, concept: ignored_concept, activity_session: activity_session)}
+    let!(:ignored_concept_result) { create(:old_concept_result_with_incorrect_answer, concept: ignored_concept, activity_session: activity_session)}
 
     it 'should return an object with concept results organized by category' do
       expect(activity_session.parse_for_results[ActivitySession::PROFICIENT]).to be_present
