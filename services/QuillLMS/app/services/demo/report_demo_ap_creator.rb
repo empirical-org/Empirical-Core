@@ -216,7 +216,7 @@ module Demo::ReportDemoAPCreator
             metadata: cr.metadata,
             question_type: cr.question_type
           }
-          ConceptResult.create(values)
+          ConceptResultOld.create(values)
         end
       end
     end

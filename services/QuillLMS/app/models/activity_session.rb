@@ -66,9 +66,9 @@ class ActivitySession < ApplicationRecord
   has_many :user_activity_classifications, through: :classification
   has_one :classroom, through: :classroom_unit
   has_one :unit, through: :classroom_unit
-  has_many :concept_results
+  has_many :concept_results_old
   has_many :teachers, through: :classroom
-  has_many :concepts, -> { distinct }, through: :concept_results
+  has_many :concepts, -> { distinct }, through: :concept_results_old
   has_one :active_activity_session, foreign_key: :uid, primary_key: :uid
   has_one :activity_survey_response
 
@@ -335,7 +335,7 @@ class ActivitySession < ApplicationRecord
 
   # rubocop:disable Metrics/CyclomaticComplexity
   def parse_for_results
-    concept_results_by_concept = concept_results.group_by { |c| c.concept_id }
+    concept_results_by_concept = concept_results_old.group_by { |c| c.concept_id }
 
     results = {
       PROFICIENT => [],
@@ -396,7 +396,7 @@ class ActivitySession < ApplicationRecord
       concept_result[:activity_session_id] = activity_session_id
       concept_result.delete(:activity_session_uid)
 
-      ConceptResult.create(
+      ConceptResultOld.create(
         concept_id: concept_result[:concept_id],
         question_type: concept_result[:question_type],
         activity_session_id: concept_result[:activity_session_id],
@@ -440,7 +440,7 @@ class ActivitySession < ApplicationRecord
 
   def self.activity_session_metadata(activity_sessions)
     activity_sessions.map do |activity_session|
-      activity_session.concept_results.map do |concept_result|
+      activity_session.concept_results_old.map do |concept_result|
         concept_result.metadata
       end
     end.flatten
@@ -516,11 +516,11 @@ class ActivitySession < ApplicationRecord
   end
 
   # when using this method, you should eager load ass
-  # e.g. .includes(:concept_results, activity: {skills: :concepts})
+  # e.g. .includes(:concept_results_old, activity: {skills: :concepts})
   def correct_skills
     @correct_skills ||= begin
       skills.select do |skill|
-        results = concept_results.select {|cr| cr.concept_id.in?(skill.concept_ids)}
+        results = concept_results_old.select {|cr| cr.concept_id.in?(skill.concept_ids)}
 
         results.length && results.all?(&:correct?)
       end

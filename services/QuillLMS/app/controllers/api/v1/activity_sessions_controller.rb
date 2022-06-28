@@ -85,7 +85,7 @@ class Api::V1::ActivitySessionsController < Api::ApiController
     concept_results_to_save = @concept_results.map { |c| concept_results_hash(c) }.reject(&:empty?)
     return if concept_results_to_save.empty?
 
-    ConceptResult.bulk_insert(values: concept_results_to_save)
+    ConceptResultOld.bulk_insert(values: concept_results_to_save)
   end
 
   private def concept_results_hash(concept_result)

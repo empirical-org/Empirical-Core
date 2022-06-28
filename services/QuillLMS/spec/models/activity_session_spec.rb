@@ -542,7 +542,7 @@ end
     it 'should return the ignored concept result if there are at least four concept results for it' do
       3.times do |i|
         ignored_concept_result.id = nil
-        ConceptResult.create(ignored_concept_result.attributes)
+        ConceptResultOld.create(ignored_concept_result.attributes)
       end
       expect(activity_session.parse_for_results[ActivitySession::NOT_YET_PROFICIENT]).to include(ignored_concept.name)
     end
@@ -828,7 +828,7 @@ end
     before { activity_session.update_attributes(visible: true) }
 
     it 'should create a concept result with the hash given' do
-      expect(ConceptResult).to receive(:create).with({
+      expect(ConceptResultOld).to receive(:create).with({
         activity_session_id: activity_session.id,
         concept_id: concept.id,
         metadata: metadata,

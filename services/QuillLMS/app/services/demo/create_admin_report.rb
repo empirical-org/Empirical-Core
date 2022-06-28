@@ -170,7 +170,7 @@ class Demo::CreateAdminReport
               percentage: exemplar_activity_session.percentage,
             )
             exemplar_activity_session.concept_results.each do |cr|
-              ConceptResult.create!(
+              ConceptResultOld.create!(
                 activity_session_id: activity_session.id,
                 concept_id: cr.concept_id,
                 metadata: cr.metadata,

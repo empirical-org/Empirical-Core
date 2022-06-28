@@ -20,8 +20,8 @@ describe ProgressReports::DistrictConceptReports do
 
     it 'should return the correct results' do
       correct = concept_result.metadata["correct"]
-      incorrect = ConceptResult.count - correct
-      percentage = (100 * correct.to_f / ConceptResult.count).floor
+      incorrect = ConceptResultOld.count - correct
+      percentage = (100 * correct.to_f / ConceptResultOld.count).floor
 
       expect(subject.results).to eq(
         [{

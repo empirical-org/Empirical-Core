@@ -54,7 +54,7 @@ module Demo::ConceptResults
     concept = Concept.find_or_create_by(name: concept_name)
     crs = []
     number_of_concept_results.to_i.times do |i|
-      cr = ConceptResult.find_or_create_by(concept: concept, activity_session: activity_session)
+      cr = ConceptResultOld.find_or_create_by(concept: concept, activity_session: activity_session)
       cr.update(metadata: {})
       crs.push(cr)
     end

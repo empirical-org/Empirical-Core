@@ -22,7 +22,7 @@
 #
 require 'rails_helper'
 
-describe ConceptResult, type: :model do
+describe ConceptResultOld, type: :model do
 
   let(:concept_result) { build(:concept_result, concept: nil) }
   let!(:concept) { create(:concept) }

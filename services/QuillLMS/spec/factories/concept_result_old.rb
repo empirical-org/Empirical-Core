@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :concept_result do
+  factory :concept_result_old do
     concept
     activity_session
     metadata { { "answer": 'Arbitrary sample correct answer.', "correct": 1 } }

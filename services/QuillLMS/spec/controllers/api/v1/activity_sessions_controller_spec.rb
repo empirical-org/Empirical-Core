@@ -91,7 +91,7 @@ describe Api::V1::ActivitySessionsController, type: :controller do
       end
 
       it 'saves the concept tag relationship (ID) in the result' do
-        expect(ConceptResult.where(activity_session_id: activity_session, concept_id: writing_concept.id).count).to eq 2
+        expect(ConceptResultOld.where(activity_session_id: activity_session, concept_id: writing_concept.id).count).to eq 2
       end
     end
 
