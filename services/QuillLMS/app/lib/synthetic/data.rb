@@ -7,11 +7,6 @@ module Synthetic
     include Synthetic::ManualTypes
 
     Result = Struct.new(:text, :label, :translations, :misspellings, :type, keyword_init: true)
-    TrainRow = Struct.new(:text, :label, :type, keyword_init: true) do
-      def to_a
-        [type, text, label]
-      end
-    end
 
     SPELLING_SUBSTITUTES = Configs[:spelling_substitutes]
     WORD_BOUNDARY = '\b'
@@ -156,19 +151,20 @@ module Synthetic
 
     def results_to_training_csv(file_path)
       CSV.open(file_path, "w") do |csv|
-        training_data_rows.uniq.each {|row| csv << row.to_a }
+        training_data_rows.uniq.each {|row| csv << row }
       end
     end
 
+    # array of arrays: [[type, text, label],...]
     def training_data_rows
       [].tap do |data|
         results.each do |result|
-          data << TrainRow.new(text: result.text, label: result.label, type: result.type)
+          data << [result.type, result.text, result.label]
           result.translations.each do |_, new_text|
-            data << TrainRow.new(text: new_text, label: result.label, type: result.type)
+            data << [result.type, new_text, result.label]
           end
           result.misspellings.each do |_, new_text|
-            data << TrainRow.new(text: new_text, label: result.label, type: result.type)
+            data << [result.type, new_text, result.label]
           end
         end
       end
