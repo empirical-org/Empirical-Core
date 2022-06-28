@@ -1,21 +1,11 @@
 import React from 'react';
 import { HashRouter, Route } from 'react-router-dom';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClientProvider } from 'react-query';
 
+import { DefaultReactQueryClient } from '../../Shared';
 import LockerApp from '../components/locker/lockerApp';
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      refetchOnWindowFocus: false,
-      refetchOnMount: false,
-      refetchOnReconnect: false,
-      retry: false,
-      // 24 hours in minutes
-      staleTime: 1440,
-    },
-  },
-});
+const queryClient = new DefaultReactQueryClient();
 
 const LockerAppClient = (props) => (
   <QueryClientProvider client={queryClient} contextSharing={true}>

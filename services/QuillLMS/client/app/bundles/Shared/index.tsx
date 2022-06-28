@@ -180,3 +180,5 @@ export {
   PRIVATE_FLAG,
   NOT_APPLICABLE
 } from './utils/constants'
+
+export { DefaultReactQueryClient } from './utils/defaultReactQueryClient'

@@ -1,44 +1,12 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { MemoryRouter } from 'react-router-dom';
+import { QueryClientProvider } from 'react-query'
 
+import { DefaultReactQueryClient } from '../../../../Shared/index';
 import ActivateModelForm from '../semanticRules/activateModelForm';
-import { DataTable } from '../../../../Shared/index';
 
-const mockModel = { id: 2, automl_model_id: '378jghai', name: 'Test Model', older_models: 0, labels: [{ id: 1, name: "label_1"}] }
-const mockModels = [
-  { id: 1, name: 'model_1', state: 'inactive', created_at: '', older_models: 0, labels: [{ id: 1, name: 'label_1' }] },
-  { id: 2, name: 'model_2', state: 'active', created_at: '', older_models: 1, labels: [{ id: 2, name: 'label_2' }] },
-];
-const mockRules = [
-  { id: 1, name: 'rule_1', state: 'active', optimal: false, label: { id: 1, name: 'label_1' } },
-  { id: 2, name: 'rule_2', state: 'active', optimal: false, label: { id: 2, name: 'label_2' } },
-]
-
-jest.mock("react-query", () => ({
-  useQuery: jest.fn(() => ({
-    data: { model: mockModel},
-    error: null,
-    status: "success",
-    isFetching: true,
-  })),
-}));
-jest.mock("react-query", () => ({
-  useQuery: jest.fn(() => ({
-    data: { rules: mockModels},
-    error: null,
-    status: "success",
-    isFetching: true,
-  })),
-}));
-jest.mock("react-query", () => ({
-  useQuery: jest.fn(() => ({
-    data: { rules: mockRules},
-    error: null,
-    status: "success",
-    isFetching: true,
-  })),
-}));
+const queryClient = new DefaultReactQueryClient();
 
 const mockProps = {
   match: {
@@ -56,13 +24,12 @@ const mockProps = {
 describe('ActivateModelForm component', () => {
   const container = mount(
     <MemoryRouter>
-      <ActivateModelForm {...mockProps} />
+      <QueryClientProvider client={queryClient} contextSharing={true}>
+        <ActivateModelForm {...mockProps} />
+      </QueryClientProvider>
     </MemoryRouter>
   );
   it('should render ActivateModelForm', () => {
     expect(container.find(ActivateModelForm).length).toEqual(1);
-  });
-  it('should render two DataTable components', () => {
-    expect(container.find(DataTable).length).toEqual(2);
   });
 });

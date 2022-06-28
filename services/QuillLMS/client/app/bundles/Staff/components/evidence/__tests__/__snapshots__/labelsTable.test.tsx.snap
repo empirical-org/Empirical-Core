@@ -1,150 +1,44 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`LabelsTable component should render LabelsTable 1`] = `
-<section
-  className="semantic-labels-container"
+<ContextProvider
+  value={true}
 >
-  <DataTable
-    averageFontWidth={7}
-    className="semantic-labels-table"
-    headers={
-      Array [
-        Object {
-          "attribute": "id",
-          "name": "Rule ID",
-          "width": "70px",
-        },
-        Object {
-          "attribute": "descriptive_label",
-          "name": "Descriptive Label",
-          "width": "400px",
-        },
-        Object {
-          "attribute": "automl_label",
-          "name": "AutoML Label",
-          "width": "150px",
-        },
-        Object {
-          "attribute": "state",
-          "name": "Active?",
-          "width": "150px",
-        },
-        Object {
-          "attribute": "optimal",
-          "name": "Optimal?",
-          "width": "70px",
-        },
-        Object {
-          "attribute": "edit",
-          "name": "",
-          "width": "70px",
-        },
-      ]
-    }
-    rows={
-      Array [
-        Object {
-          "automl_label": "label_1",
-          "descriptive_label": "rule_1",
-          "edit": <Link
-            className="data-link"
-            to={
-              Object {
-                "pathname": "/activities/17/semantic-labels/1/1",
-                "state": Object {
-                  "conjunction": "because",
-                  "rule": Object {
-                    "id": 1,
-                    "label": Object {
-                      "id": 1,
-                      "name": "label_1",
-                    },
-                    "name": "rule_1",
-                    "optimal": false,
-                    "state": "active",
-                  },
-                },
-              }
-            }
-          >
-            View
-          </Link>,
-          "id": 1,
-          "optimal": <img
-            alt="quill-circle-checkmark"
-            src="/images/red_x.svg"
-          />,
-          "state": <img
-            alt="quill-circle-checkmark"
-            src="/images/green_check.svg"
-          />,
-          "state_for_sort": "active",
-        },
-        Object {
-          "automl_label": "label_2",
-          "descriptive_label": "rule_2",
-          "edit": <Link
-            className="data-link"
-            to={
-              Object {
-                "pathname": "/activities/17/semantic-labels/1/2",
-                "state": Object {
-                  "conjunction": "because",
-                  "rule": Object {
-                    "id": 2,
-                    "label": Object {
-                      "id": 2,
-                      "name": "label_2",
-                    },
-                    "name": "rule_2",
-                    "optimal": false,
-                    "state": "active",
-                  },
-                },
-              }
-            }
-          >
-            View
-          </Link>,
-          "id": 2,
-          "optimal": <img
-            alt="quill-circle-checkmark"
-            src="/images/red_x.svg"
-          />,
-          "state": <img
-            alt="quill-circle-checkmark"
-            src="/images/green_check.svg"
-          />,
-          "state_for_sort": "active",
-        },
-      ]
-    }
-  />
-  <div
-    className="button-wrapper"
-  >
-    <Link
-      className="quill-button fun primary contained"
-      id="add-rule-button"
-      to={
-        Object {
-          "pathname": "/activities/17/semantic-labels/1/new",
-          "state": Object {
-            "conjunction": "because",
+  <ContextProvider
+    value={
+      DefaultReactQueryClient {
+        "defaultOptions": Object {
+          "queries": Object {
+            "cacheTime": Infinity,
+            "staleTime": Infinity,
           },
+        },
+        "mutationCache": MutationCache {
+          "config": Object {},
+          "listeners": Array [],
+          "mutationId": 0,
+          "mutations": Array [],
+        },
+        "mutationDefaults": Array [],
+        "queryCache": QueryCache {
+          "config": Object {},
+          "listeners": Array [],
+          "queries": Array [],
+          "queriesMap": Object {},
+        },
+        "queryDefaults": Array [],
+      }
+    }
+  >
+    <LabelsTable
+      activityId="17"
+      prompt={
+        Object {
+          "conjunction": "because",
+          "id": 1,
         }
       }
-    >
-      Add Label
-    </Link>
-    <Link
-      className="quill-button fun secondary outlined"
-      rel="noopener noreferrer"
-      target="_blank"
-      to="/activities/17/semantic-labels/1/semantic-rules-cheat-sheet"
-    >
-      Semantic Rules Cheat Sheet
-    </Link>
-  </div>
-</section>
+    />
+  </ContextProvider>
+</ContextProvider>
 `;
