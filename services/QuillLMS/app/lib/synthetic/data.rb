@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "google/cloud/translate"
 # This API authenticates automagically, by setting the ENV vars for:
 # TRANSLATE_PROJECT (project id)
@@ -6,7 +8,23 @@ module Synthetic
   class Data
     include Synthetic::ManualTypes
 
-    Result = Struct.new(:text, :label, :translations, :misspellings, :type, keyword_init: true)
+    Result = Struct.new(:text, :label, :translations, :misspellings, :type, keyword_init: true) do
+      def to_training_rows
+        [
+          [type, text, label],
+          translations.map {|_, new_text| [type, new_text, label]}.flatten(1),
+          misspellings.map {|_, new_text| [type, new_text, label]}.flatten(1)
+        ]
+      end
+
+      def to_detail_rows
+        [
+          [text, label,'','', 'original', type],
+          translations.map {|language, new_text| [new_text, label, text, new_text == text ? 'no_change' : '', LANGUAGES[language] || language, type]}.flatten(1),
+          misspellings.map {|misspelled_word, new_text| [new_text, label, text, new_text == text ? 'no_change' : '', "spelling-#{misspelled_word}", type]}.flatten(1)
+        ]
+      end
+    end
 
     SPELLING_SUBSTITUTES = Configs[:spelling_substitutes]
     WORD_BOUNDARY = '\b'
@@ -62,7 +80,7 @@ module Synthetic
           text: text_and_label.first,
           label: text_and_label.last,
           translations: {},
-          misspellings: {}
+          misspellings: {},
         )
       end
 
@@ -155,41 +173,24 @@ module Synthetic
       end
     end
 
-    # array of arrays: [[type, text, label],...]
     def training_data_rows
-      [].tap do |data|
-        results.each do |result|
-          data << [result.type, result.text, result.label]
-          result.translations.each do |_, new_text|
-            data << [result.type, new_text, result.label]
-          end
-          result.misspellings.each do |_, new_text|
-            data << [result.type, new_text, result.label]
-          end
-        end
-      end
+      results
+        .map(&:to_training_rows)
+        .flatten(1)
+        .reject(&:empty?)
+    end
+
+    def detail_data_rows
+      results
+        .map(&:to_detail_rows)
+        .flatten(1)
+        .reject(&:empty?)
     end
 
     def results_to_csv(file_path)
       CSV.open(file_path, "w") do |csv|
         csv << ['Text', 'Label', 'Original', 'Changed?', 'Language/Spelling', 'Type']
         detail_data_rows.each {|row| csv << row }
-      end
-    end
-
-    def detail_data_rows
-      [].tap do |data|
-        results.each do |result|
-          data << [result.text, result.label,'','', 'original', result.type]
-
-          result.translations.each do |language, new_text|
-            data << [new_text, result.label, result.text, new_text == result.text ? 'no_change' : '', LANGUAGES[language] || language, result.type]
-          end
-
-          result.misspellings.each do |misspelled_word, new_text|
-            data << [new_text, result.label, result.text, new_text == result.text ? 'no_change' : '', "spelling-#{misspelled_word}", result.type]
-          end
-        end
       end
     end
   end
