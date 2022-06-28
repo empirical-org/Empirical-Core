@@ -393,6 +393,11 @@ class PagesController < ApplicationController
     @description = 'Lead whole-class and small group writing instruction with interactive writing prompts and discussion topics.'
   end
 
+  def evidence_tool
+    @title = 'Quill Reading for Evidence | Use a text to write with evidence'
+    @description = ''
+  end
+
   def activities
     @body_class = 'full-width-page white-page'
     @standard_level = params[:standard_level_id].present? ? StandardLevel.find(params[:standard_level_id]) : StandardLevel.first
@@ -507,7 +512,7 @@ class PagesController < ApplicationController
     case action_name
     when 'home'
       'home'
-    when 'home_new', 'diagnostic_tool', 'connect_tool', 'grammar_tool', 'proofreader_tool', 'lessons_tool'
+    when 'home_new', 'diagnostic_tool', 'connect_tool', 'grammar_tool', 'proofreader_tool', 'lessons_tool', 'evidence_tool'
       'twenty_seventeen_home'
     when ApplicationController::EVIDENCE, ApplicationController::PROOFREADER, ApplicationController::GRAMMAR, ApplicationController::LESSONS, ApplicationController::DIAGNOSTIC, ApplicationController::CONNECT
       'activity'
@@ -519,7 +524,7 @@ class PagesController < ApplicationController
     case action_name
     when 'partners', 'mission', 'faq', 'impact', 'team', 'tos', 'media_kit', 'media', 'privacy', 'map', 'teacher-center', 'news', 'stats', 'activities'
       @js_file = 'public'
-    when 'grammar_tool', 'connect_tool', 'diagnostic_tool', 'proofreader_tool', 'lessons_tool'
+    when 'grammar_tool', 'connect_tool', 'diagnostic_tool', 'proofreader_tool', 'lessons_tool', 'evidence_tool'
       @js_file = 'tools'
     when 'backpack' || 'locker'
       @js_file = 'staff'
@@ -541,7 +546,7 @@ class PagesController < ApplicationController
 
   private def determine_flag
     case action_name
-    when 'grammar_tool', 'connect_tool', 'diagnostic_tool', 'proofreader_tool', 'lessons_tool'
+    when 'grammar_tool', 'connect_tool', 'diagnostic_tool', 'proofreader_tool', 'lessons_tool', 'evidence_tool'
       @beta_flag = current_user && current_user&.testing_flag == 'beta'
     end
   end

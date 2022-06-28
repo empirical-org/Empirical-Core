@@ -1,0 +1,27 @@
+<section class="tool-header">
+  <%= render partial: 'pages/shared/navbar' %>
+  <% @active_tab = 'Quill Reading for Evidence' %>
+  <% @tool = 'evidence' %>
+  <%= render partial: "pages/shared/tools_anchor_navbar", active_tab: @active_tab, tool: @tool%>
+</section>
+<div class="tool-container evidence-tool-page">
+
+    <section class='bg-quillteal tool-hero text-center tool-section'>
+      <h1 class="q-h1">
+          <img class="tool-page-icon lazyload" data-src='https://assets.quill.org/images/icons/tool-evidence-white.svg'>Quill Reading for Evidence
+      </h1>
+      <p class='description'>
+        With Quill's new Reading For Evidence tool, students engage with high-interest texts by constructing sentences that synthesize evidence from the text, with Quill's feedback engine automatically grading and providing hundreds of custom, targeted feedback for each prompt designed to enable students to continually revise and improve their writing.
+      </p>
+      <section class="tool-ctas evidence-tool">
+        <a href='/activity_sessions/anonymous?activity_id=244' target="_blank" class="q-button cta-button text-quillteal bg-white">Try a sample activity</a>
+      </section>
+    </section>
+
+</div>
+
+<% if current_user %>
+  <%= render partial: 'footer' %>
+<% else %>
+  <%= render partial: 'pages/shared/footer' %>
+<% end %>
