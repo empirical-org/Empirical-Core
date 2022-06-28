@@ -58,4 +58,14 @@ describe MilestonesController do
       expect(user.milestones).to include milestone
     end
   end
+
+  describe '#complete_dismiss_grade_level_warning' do
+    let!(:milestone) { create(:dismiss_grade_level_warning) }
+
+    it 'should push the milestone into users milestones' do
+      expect(user.milestones).to_not include milestone
+      post :complete_dismiss_grade_level_warning
+      expect(user.milestones).to include milestone
+    end
+  end
 end

@@ -24,6 +24,7 @@ class Milestone < ApplicationRecord
     acknowledge_diagnostic_banner: 'Acknowledge Diagnostic Banner',
     acknowledge_evidence_banner: 'Acknowledge Evidence Banner',
     acknowledge_lessons_banner: 'Acknowledge Lessons Banner',
-    acknowledge_growth_diagnostic_promotion_card: 'Acknowledge Growth Diagnostic Promotion Card'
+    acknowledge_growth_diagnostic_promotion_card: 'Acknowledge Growth Diagnostic Promotion Card',
+    dismiss_grade_level_warning: 'Dismiss Grade Level Warning'
   }
 end

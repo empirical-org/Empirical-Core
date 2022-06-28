@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
 class Cms::DistrictsController < Cms::CmsController
-
   before_action :text_search_inputs, only: [:index, :search]
-  before_action :set_district, only: [
-    :show
-  ]
+  before_action :set_district, only: [:edit, :new_admin, :show, :new_subscription, :edit_subscription]
+  before_action :subscription_data, only: [:new_subscription, :edit_subscription]
 
   DISTRICTS_PER_PAGE = 30
 
@@ -24,6 +22,7 @@ class Cms::DistrictsController < Cms::CmsController
   end
 
   def show
+    @subscription = @district&.subscription
     @school_data = school_query
     @admins = DistrictAdmin.includes(:user).where(district_id: params[:id].to_i)
   end
@@ -31,6 +30,20 @@ class Cms::DistrictsController < Cms::CmsController
   def new
     @district = District.new
     @editable_attributes = editable_district_attributes
+  end
+
+  def new_subscription
+    @subscription = Subscription.new(
+      account_type: Subscription::SCHOOL_DISTRICT_PAID,
+      start_date: Subscription.redemption_start_date(@district),
+      expiration: Subscription.default_expiration_date(@district)
+    )
+    @schools = Cms::DistrictSchoolsAndSubscriptionStatus.run(@district, @subscription)
+  end
+
+  def edit_subscription
+    @subscription = @district&.subscription
+    @schools = Cms::DistrictSchoolsAndSubscriptionStatus.run(@district, @subscription)
   end
 
   def create
@@ -42,12 +55,9 @@ class Cms::DistrictsController < Cms::CmsController
     end
   end
 
-  def new_admin
-    @district = District.find(params[:id])
-  end
+  def new_admin; end
 
   def edit
-    @district = District.find(params[:id])
     @editable_attributes = editable_district_attributes
   end
 
@@ -61,7 +71,7 @@ class Cms::DistrictsController < Cms::CmsController
   end
 
   private def set_district
-    @district = District.find params[:id]
+    @district = District.find(params[:id])
   end
 
   private def text_search_inputs
@@ -120,11 +130,26 @@ class Cms::DistrictsController < Cms::CmsController
   end
 
   private def school_query
-    @district.schools.select('schools.name, schools.id, schools.city, schools.state, schools.free_lunches, subscriptions.account_type, count(distinct schools_users.id) as number_teachers, count(distinct schools_admins.id) as number_admins')
+    @district
+      .schools
+      .select(
+        'schools.name,
+        schools.id,
+        schools.city,
+        schools.state,
+        schools.free_lunches,
+        subscriptions.account_type,
+        count(distinct schools_users.id) as number_teachers,
+        count(distinct schools_admins.id) as number_admins'
+      )
       .left_joins(:schools_users)
       .left_joins(:schools_admins)
-      .left_joins(school_subscription: :subscription)
+      .left_joins(school_subscriptions: :subscription)
       .group('schools.name, schools.id, subscriptions.account_type')
   end
 
+  private def subscription_data
+    @premium_types = Subscription::OFFICIAL_DISTRICT_TYPES
+    @subscription_payment_methods = Subscription::CMS_PAYMENT_METHODS
+  end
 end

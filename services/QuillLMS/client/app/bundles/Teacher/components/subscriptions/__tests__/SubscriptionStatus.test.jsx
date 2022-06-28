@@ -9,7 +9,6 @@ import { TEACHER_PREMIUM, } from '../constants'
 const sharedProps = {
   userIsContact: false,
   subscriptionType: 'Basic',
-  showPurchaseModal: () => {}
 }
 
 describe('SubscriptionStatus container', () => {

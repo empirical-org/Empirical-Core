@@ -137,7 +137,8 @@ export {
   grammarToolIcon,
   lessonsToolIcon,
   proofreaderToolIcon,
-  evidenceToolIcon
+  evidenceToolIcon,
+  warningIcon,
 } from './images/index'
 
 export {

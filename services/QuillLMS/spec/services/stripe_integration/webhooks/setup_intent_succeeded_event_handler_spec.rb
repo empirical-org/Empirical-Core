@@ -27,6 +27,22 @@ RSpec.describe StripeIntegration::Webhooks::SetupIntentSucceededEventHandler do
     it { expect { subject }.to change(stripe_webhook_event, :status).to(StripeWebhookEvent::PROCESSED) }
   end
 
+  context 'metadata does not respond to subscription_id' do
+    let(:metadata) { double(:metadata) }
+
+    before do
+      allow(stripe_setup_intent).to receive(:metadata).and_return(metadata)
+      allow(metadata).to receive(:respond_to?).with(:subscription_id).and_return(false)
+    end
+
+    it 'does not update stripe nor trigger Pusher' do
+      expect(Stripe::Subscription).not_to receive(:update)
+      expect(PusherTrigger).not_to receive(:run)
+
+      subject
+    end
+  end
+
   context 'stripe_subscription_id is nil' do
     let(:stripe_subscription_id) { nil }
 

@@ -5,7 +5,7 @@ source 'https://rubygems.org'
 ruby '2.6.6'
 
 # CORE DEPS
-gem 'rails', '5.1.7'
+gem 'rails', '5.2.8'
 gem 'puma', '>= 4.3.11'
 
 # EARLY TO APPLY TO OTHER GEMS
@@ -14,7 +14,6 @@ gem 'dotenv-rails'
 # DB/MODEL
 gem 'pg', '0.18.4'
 gem 'ancestry'
-gem 'ransack'
 gem 'ranked-model'
 gem 'rails_admin', '~> 1.4.3'
 gem 'bulk_insert'

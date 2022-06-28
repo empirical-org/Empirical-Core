@@ -9,10 +9,8 @@ import PremiumPricingMinisRow from '../components/premium/premium_pricing_minis_
 import PremiumFeaturesTable from '../components/premium/premium_features_table.tsx'
 import SubscriberLogos from '../components/premium/subscriber_logos.jsx';
 import SchoolPremium from '../components/premium/school_premium.jsx';
-import SchoolSelector, { NOT_LISTED, } from '../components/shared/school_selector'
 import StripeSubscriptionCheckoutSessionButton from '../components/shared/StripeSubscriptionCheckoutSessionButton';
-import { requestPost, requestPut, } from '../../../modules/request';
-import { closeIcon, DropdownInput, Snackbar, defaultSnackbarTimeout, Spinner, } from '../../Shared/index'
+import { Snackbar, defaultSnackbarTimeout, } from '../../Shared/index'
 import useSnackbarMonitor from '../../Shared/hooks/useSnackbarMonitor'
 
 const subscribers = [

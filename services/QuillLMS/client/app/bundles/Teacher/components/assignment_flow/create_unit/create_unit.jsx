@@ -373,7 +373,7 @@ export default class CreateUnit extends React.Component {
 
   stage2SpecificComponents = () => {
     const { model, } = this.state
-    const { cleverLink, user } = this.props
+    const { cleverLink, user, showGradeLevelWarning, } = this.props
 
     const restrictedActivity = this.restrictedActivityBeingAssigned()
 
@@ -394,6 +394,7 @@ export default class CreateUnit extends React.Component {
         notYetCompletedPreTestStudentNames={this.notYetCompletedPreTestStudentNames()}
         restrictedActivity={restrictedActivity}
         selectedActivities={this.getSelectedActivities()}
+        showGradeLevelWarning={showGradeLevelWarning}
         toggleActivitySelection={this.toggleActivitySelection}
         toggleClassroomSelection={this.toggleClassroomSelection}
         toggleStudentSelection={this.toggleStudentSelection}

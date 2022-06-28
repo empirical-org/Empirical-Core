@@ -15,12 +15,16 @@
     <br />
     <div class='cms-form'>
       <%= form_for @school, url: cms_schools_path(@school) do |f| %>
-        <% @editable_attributes.each do |attribute_name, attribute_field| %>
+        <% @editable_text_attributes.each do |attribute_name, attribute_field| %>
           <div class='cms-form-row'>
             <%= f.label attribute_field, attribute_name %>
             <%= f.text_field attribute_field, autocomplete: 'off' %>
           </div>
         <% end %>
+        <div class='cms-form-row'>
+          <%= f.label :district_id, 'District' %>
+          <%= f.collection_select :district_id, District.order(:name), :id, :name, include_blank: false %>
+        </div>
 
         <div class='cms-submit-row'>
           <%= f.button "Add School", class: 'button-green' %>
