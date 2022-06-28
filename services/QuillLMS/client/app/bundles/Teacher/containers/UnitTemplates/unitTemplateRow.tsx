@@ -52,7 +52,7 @@ const UnitTemplateRow = ({
 
   function renderDiagnostics() {
     const { diagnostic_names } = unitTemplate;
-    if(!diagnostic_names.length) { return NOT_APPLICABLE }
+    if((!diagnostic_names || !diagnostic_names.length)) { return NOT_APPLICABLE }
     return diagnostic_names.map(diagnostic => (
       <p key={diagnostic}>{diagnostic}</p>
     ));

@@ -189,7 +189,7 @@ export const UnitTemplate = ({ unitTemplate }) => {
       <section className="diagnostics-section padded-element">
         <h3>Diagnostics:</h3>
         <section className="diagnostics">
-          {!diagnostic_names.length && <p>{NOT_APPLICABLE}</p>}
+          {(!diagnostic_names || !diagnostic_names.length) && <p>{NOT_APPLICABLE}</p>}
           {diagnostic_names && diagnostic_names.map((diagnostic) => {
             return <p>{diagnostic}</p>;
           })}
