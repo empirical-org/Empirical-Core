@@ -33,7 +33,9 @@ exports[`UnitTemplateRow component should match snapshot 1`] = `
     </td>
     <td
       className="category-col"
-    />
+    >
+      N/A
+    </td>
     <td>
       <a
         className="action-button focus-on-light"

@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UnitTemplateActivitySelector component should match snapshot 1`] = `<Spinner />`;

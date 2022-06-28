@@ -18,8 +18,7 @@ export const UnitTemplateFilterInputs = ({
   options,
   diagnostics,
   diagnostic,
-  switchDiagnostic,
-  newUnitTemplate
+  switchDiagnostic
 }) => {
 
   function diagnosticsDropdown() {
@@ -74,7 +73,7 @@ export const UnitTemplateFilterInputs = ({
         selectedItem={flag}
       />
       {diagnosticsDropdown()}
-      <button className='new-unit-template-button quill-button primary contained small focus-on-light' onClick={newUnitTemplate} type="button">New</button>
+      <a className='new-unit-template-button quill-button primary contained small focus-on-light' href={`${process.env.DEFAULT_URL}/cms/unit_templates/new`} rel="noopener noreferrer" target="_blank">New</a>
     </div>
   )
 }
