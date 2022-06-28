@@ -5,7 +5,7 @@ source 'https://rubygems.org'
 ruby '2.7.6'
 
 # CORE DEPS
-gem 'rails', '5.2.8'
+gem 'rails', '~> 6.0.5'
 gem 'puma', '>= 4.3.11'
 
 # EARLY TO APPLY TO OTHER GEMS
@@ -31,8 +31,6 @@ gem 'rack-attack', '~> 6.3'
 
 # EMAIL
 gem 'premailer-rails'
-# if you have trouble installing nokogiri on a mac,
-# try uninstalling nokogiri, running `xcode-select --install`, and then `bundle install` once more
 gem 'nokogiri', '>= 1.13.2'
 
 # VALIDATIONS
@@ -113,7 +111,6 @@ gem 'graphql'
 gem 'sass'
 gem 'sass-rails'
 gem 'bootstrap-sass', '~> 3.4.1'
-gem 'sassc-rails', '>= 2.1.0'
 
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
@@ -126,7 +123,7 @@ gem 'react_on_rails', '= 11.3.0'
 gem 'webpacker', '~> 3.0.0'
 
 # ASSET/UI
-gem 'uglifier',     require: false
+gem 'uglifier', require: false
 gem 'kaminari', '~> 1.2.1'
 
 # MIDDLEWARE
@@ -142,12 +139,21 @@ gem 'rack-heartbeat'
 # INTEGRATIONS
 gem 'clever-ruby', '~> 2.0.1'
 
+# Memory profiling
+gem 'puma_worker_killer', '~> 0.1.0'
+
+# temp for migrations
+gem 'paperclip'
+
+# TBD
+gem 'rb-readline'
+gem 'awesome_print'
+
 group :production, :staging do
   gem 'rails_autoscale_agent'
   gem 'rails_12factor'
-  gem 'lograge' # for making logs more dense
+  gem 'lograge'
   gem 'sqreen'
-  # gem 'rack-timeout'
 end
 
 group :development do
@@ -155,14 +161,13 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'foreman'
+  gem 'graphiql-rails'
   gem 'letter_opener'
   gem 'spring'
   gem 'spring-commands-rspec'
   gem 'livingstyleguide'
   gem 'annotate'
 end
-
-gem 'awesome_print'
 
 group :test, :development do
   gem 'parallel_tests'
@@ -208,13 +213,3 @@ group :test do
   gem 'vcr'
   gem 'webmock'
 end
-
-# Memory profiling
-gem 'puma_worker_killer', '~> 0.1.0'
-
-# temp for migrations
-gem 'paperclip'
-
-gem 'rb-readline'
-
-gem 'graphiql-rails', group: :development
