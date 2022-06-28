@@ -90,7 +90,8 @@ module Synthetic
           padded_key = WORD_BOUNDARY + key + WORD_BOUNDARY
           next unless result.text.match?(padded_key)
 
-          text_with_misspell = result.text.gsub(Regexp.new(padded_key), SPELLING_SUBSTITUTES[key])
+          # TODO: add randomness to spelling substitutions
+          text_with_misspell = result.text.gsub(Regexp.new(padded_key), SPELLING_SUBSTITUTES[key]&.first)
           result.misspellings[key] = text_with_misspell
         end
       end
