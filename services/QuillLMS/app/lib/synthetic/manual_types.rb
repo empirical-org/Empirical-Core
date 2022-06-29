@@ -85,7 +85,7 @@ module Synthetic
     end
 
     def data_count
-      @data_count ||= results.size
+      results.size
     end
 
     # We need the test and validation sets to be above 5%
