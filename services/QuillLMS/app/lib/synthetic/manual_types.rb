@@ -73,7 +73,7 @@ module Synthetic
     end
 
     def train_count_allocated
-      data_count - (test_count * 2)
+      data_count - (test_count_needed * 2)
     end
 
     def test_count_allocated
@@ -89,6 +89,18 @@ module Synthetic
 
     def data_count
       results.size
+    end
+
+    def train_data
+      results.select {|r| r.type == TYPE_TRAIN}
+    end
+
+    def test_data
+      results.select {|r| r.type == TYPE_TEST}
+    end
+
+    def validation_data
+      results.select {|r| r.type == TYPE_VALIDATION}
     end
 
     # We need the test and validation sets to be above 5%
