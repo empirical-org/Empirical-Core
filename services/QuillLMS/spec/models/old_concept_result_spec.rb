@@ -2,7 +2,7 @@
 
 # == Schema Information
 #
-# Table name: concept_results
+# Table name: old_concept_results
 #
 #  id                         :integer          not null, primary key
 #  metadata                   :json
@@ -13,8 +13,8 @@
 #
 # Indexes
 #
-#  index_concept_results_on_activity_session_id  (activity_session_id)
-#  index_concept_results_on_concept_id           (concept_id)
+#  index_old_concept_results_on_activity_session_id  (activity_session_id)
+#  index_old_concept_results_on_concept_id           (concept_id)
 #
 # Foreign Keys
 #
