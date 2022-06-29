@@ -3,14 +3,14 @@
 require 'rails_helper'
 
 describe Synthetic::ManualTypes do
-  let(:label_1) { 'label_1'}
-  let(:label_2) { 'label_2'}
+  let(:label1) { 'label1'}
+  let(:label2) { 'label2'}
   let(:enough_labeled_data) do
-    70.times.map {|i| ["text string #{i}", label_1]} +
-      70.times.map {|i| ["other string #{i}", label_2]}
+    70.times.map {|i| ["text string #{i}", label1]} +
+      70.times.map {|i| ["other string #{i}", label2]}
   end
 
-  let(:not_enough_labeled_data) { [['text string', label_1], ['other text', label_2]] }
+  let(:not_enough_labeled_data) { [['text string', label1], ['other text', label2]] }
 
   describe '#new' do
     let(:synthetics) { Synthetic::Data.new(enough_labeled_data, languages: [:es], manual_types: true)}
