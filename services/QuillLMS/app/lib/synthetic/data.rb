@@ -8,12 +8,12 @@ module Synthetic
   class Data
     include Synthetic::ManualTypes
 
-    Result = Struct.new(:text, :label, :translations, :misspellings, :type, keyword_init: true) do
+    Result = Struct.new(:text, :label, :translations, :spellings, :type, keyword_init: true) do
       def to_training_rows
         [
           [type, text, label],
           translations.map {|_, new_text| [type, new_text, label]}.flatten(1),
-          misspellings.map {|_, new_text| [type, new_text, label]}.flatten(1)
+          spellings.map {|_, new_text| [type, new_text, label]}.flatten(1)
         ]
       end
 
@@ -21,7 +21,7 @@ module Synthetic
         [
           [text, label,'','', 'original', type],
           translations.map {|language, new_text| [new_text, label, text, new_text == text ? 'no_change' : '', LANGUAGES[language] || language, type]}.flatten(1),
-          misspellings.map {|misspelled_word, new_text| [new_text, label, text, new_text == text ? 'no_change' : '', "spelling-#{misspelled_word}", type]}.flatten(1)
+          spellings.map {|misspelled_word, new_text| [new_text, label, text, new_text == text ? 'no_change' : '', "spelling-#{misspelled_word}", type]}.flatten(1)
         ]
       end
     end
@@ -80,7 +80,7 @@ module Synthetic
           text: text_and_label.first,
           label: text_and_label.last,
           translations: {},
-          misspellings: {},
+          spellings: {},
         )
       end
 
