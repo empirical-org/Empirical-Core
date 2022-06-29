@@ -79,7 +79,7 @@ describe Synthetic::Data do
     end
 
     describe "#training_data_rows" do
-      it 'should produce and array of arrays to make a csv' do
+      it 'should produce an array of arrays to make a csv used for training' do
         training_data = synthetics.training_data_rows
         first_row = training_data.first
 
@@ -93,7 +93,7 @@ describe Synthetic::Data do
     end
 
     describe "#detail_data_rows" do
-      it 'should produce and array of arrays to make a csv' do
+      it 'should produce an array of arrays to make a csv used for analyzing synthetic data' do
         data = synthetics.detail_data_rows
 
         # 2 original, 2 translations, 1 spelling error
