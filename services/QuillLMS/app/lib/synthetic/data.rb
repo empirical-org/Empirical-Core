@@ -75,7 +75,7 @@ module Synthetic
           text: text_and_label.first,
           label: text_and_label.last,
           translations: {},
-          spellings: {},
+          spellings: {}
         )
       end
 

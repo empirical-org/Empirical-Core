@@ -4,7 +4,7 @@ require 'rails_helper'
 
 describe Synthetic::Data do
   let(:labeled_data) { [['text string', 'label_5'], ['other text', 'label_11']] }
-  let(:mock_translator) { double() }
+  let(:mock_translator) { double }
 
   describe '#new' do
     let(:synthetics) { Synthetic::Data.new(labeled_data, languages: [:es])}
@@ -70,9 +70,9 @@ describe Synthetic::Data do
     before do
       synthetics.stub(:translator).and_return(mock_translator)
       # translate to spanish mock
-      expect(mock_translator).to receive(:translate).with(labeled_with_spelling.map(&:first), from: :en, to: :es).and_return([double(text: 'adios'), double(text: 'hola')])
+      allow(mock_translator).to receive(:translate).with(labeled_with_spelling.map(&:first), from: :en, to: :es).and_return([double(text: 'adios'), double(text: 'hola')])
       # translate to english mock
-      expect(mock_translator).to receive(:translate).with(['adios', 'hola'], from: :es, to: :en).and_return([double(text: 'goodbye'), double(text: 'hello')])
+      allow(mock_translator).to receive(:translate).with(['adios', 'hola'], from: :es, to: :en).and_return([double(text: 'goodbye'), double(text: 'hello')])
 
       synthetics.fetch_synthetic_translations
       synthetics.fetch_synthetic_spelling_errors

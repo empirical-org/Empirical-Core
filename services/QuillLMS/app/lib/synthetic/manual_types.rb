@@ -4,7 +4,7 @@ module Synthetic
   module ManualTypes
     extend ActiveSupport::Concern
 
-    class NotEnoughData < StandardError; end;
+    class NotEnoughData < StandardError; end
 
     MIN_AUTOML_TEST_PERCENT = 0.05
     MIN_TEST_PER_LABEL = 10
@@ -18,10 +18,12 @@ module Synthetic
       attr_reader :manual_types
     end
 
+    # TODO: This could use refactoring, but might be removed entirely.
+    # rubocop:disable Metrics/CyclomaticComplexity
     def assign_types
       # assign TEST and VALIDATION types to each label to ensure minimum per label
       labels.each do |label|
-        testing_sample = @results
+        testing_sample = results
           .select {|r| r.label == label }
           .sample(MIN_TEST_PER_LABEL * 2)
 
@@ -30,7 +32,7 @@ module Synthetic
           result.type = index.odd? ? TYPE_TEST : TYPE_VALIDATION
         end
 
-        training_sample = @results
+        training_sample = results
           .select {|r| r.label == label && r.type.nil? }
           .sample(MIN_TRAIN_PER_LABEL)
 
@@ -60,6 +62,7 @@ module Synthetic
         result.type = remaining_types[index] || TYPE_TRAIN
       end
     end
+    # rubocop:enable Metrics/CyclomaticComplexity
 
     def test_count_needed
       MIN_TEST_PER_LABEL * labels.size
@@ -104,14 +107,18 @@ module Synthetic
 
     def validate_minimum_per_label!
       invalid_labels = labels.select do |label|
-        results.count {|r| r.label == label && r.type == TYPE_VALIDATION } < MIN_TEST_PER_LABEL ||
-        results.count {|r| r.label == label && r.type == TYPE_TEST } < MIN_TEST_PER_LABEL ||
-        results.count {|r| r.label == label && r.type == TYPE_TRAIN } < MIN_TRAIN_PER_LABEL
+        label_count_invalid(label, TYPE_VALIDATION, MIN_TEST_PER_LABEL) ||
+          label_count_invalid(label, TYPE_TEST, MIN_TEST_PER_LABEL) ||
+          label_count_invalid(label, TYPE_TRAIN, MIN_TRAIN_PER_LABEL)
       end
 
       return if invalid_labels.empty?
 
       raise NotEnoughData, "There is not enough data for labels: #{invalid_labels.join(',')}"
+    end
+
+    private def label_count_invalid(label, type, minimum)
+      results.count {|r| r.label == label && r.type == type } < minimum
     end
   end
 end
