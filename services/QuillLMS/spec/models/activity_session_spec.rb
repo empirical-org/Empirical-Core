@@ -845,7 +845,7 @@ end
     let!(:activity_session1) { create(:activity_session, activity: activity, classroom_unit: classroom_unit) }
 
     it 'should delete the activity sessions without the concept results' do
-      activity_session.concept_results.destroy_all
+      activity_session.old_concept_results.destroy_all
       expect{ ActivitySession.delete_activity_sessions_with_no_concept_results([activity_session, activity_session1]) }.to change(ActivitySession, :count).by(-1)
     end
   end

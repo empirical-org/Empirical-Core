@@ -16,7 +16,7 @@ describe ProgressReports::Concepts::Concept do
     let(:filters) { {} }
 
     it 'can retrieve concepts based on no filters' do
-      expect(subject.size).to eq(teacher.classrooms_i_teach.map(&:activity_sessions).flatten.map(&:concept_results).flatten.map(&:concept).uniq.count)
+      expect(subject.size).to eq(teacher.classrooms_i_teach.map(&:activity_sessions).flatten.map(&:old_concept_results).flatten.map(&:concept).uniq.count)
     end
 
     it 'retrieves the total result count' do

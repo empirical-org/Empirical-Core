@@ -179,7 +179,7 @@ module PublicProgressReports
   end
 
   def formatted_score_obj(final_activity_session, classification_key, student, average_score_on_quill)
-    formatted_concept_results = format_concept_results(final_activity_session, final_activity_session.concept_results)
+    formatted_concept_results = format_concept_results(final_activity_session, final_activity_session.old_concept_results)
     if [ActivityClassification::LESSONS_KEY, ActivityClassification::DIAGNOSTIC_KEY].include?(classification_key)
       score = get_average_score(formatted_concept_results)
     elsif [ActivityClassification::EVIDENCE_KEY].include?(classification_key)
@@ -358,7 +358,7 @@ module PublicProgressReports
 
   def concept_results_by_count(activity_session)
     hash = Hash.new { |h, k| h[k] = Hash.new { |j, l| j[l] = 0 } }
-    activity_session.concept_results.each do |concept_result|
+    activity_session.old_concept_results.each do |concept_result|
       hash[concept_result.concept.uid]["correct"] += concept_result["metadata"]["correct"]
       hash[concept_result.concept.uid]["total"] += 1
     end

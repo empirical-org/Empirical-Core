@@ -98,6 +98,6 @@ RSpec.describe Demo::ReportDemoCreator do
     expect(act_sesh.user_id).to eq(student.id)
     expect(act_sesh.state).to eq('finished')
     expect(act_sesh.percentage).to eq(temp.percentage)
-    expect(act_sesh.concept_results.first.metadata).to eq(temp.concept_results.first.metadata)
+    expect(act_sesh.old_concept_results.first.metadata).to eq(temp.old_concept_results.first.metadata)
   end
 end
