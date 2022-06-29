@@ -11,6 +11,7 @@ RSpec.shared_context 'Stripe Subscription' do
   let(:stripe_subscription_current_period_start) { Date.current.to_time.to_i }
   let(:stripe_subscription_canceled_at) { nil }
   let(:stripe_subscription_metadata) { {} }
+  let(:stripe_subscription_status) { 'active' }
 
   let(:stripe_subscription) do
     Stripe::Subscription.construct_from(
@@ -58,7 +59,7 @@ RSpec.shared_context 'Stripe Subscription' do
       pending_update: nil,
       schedule: nil,
       start_date: 1647884415,
-      status: 'active',
+      status: stripe_subscription_status,
       test_clock: nil,
       transfer_data: nil,
       trial_end: nil,

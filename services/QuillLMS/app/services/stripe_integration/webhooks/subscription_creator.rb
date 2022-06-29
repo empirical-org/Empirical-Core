@@ -4,6 +4,7 @@ module StripeIntegration
   module Webhooks
     class SubscriptionCreator < ApplicationService
       class Error < StandardError; end
+      class AmountPaidMismatchError < Error; end
       class DuplicateSubscriptionError < Error; end
       class NilSchoolError < Error; end
       class NilStripeCustomerIdError < Error; end
@@ -24,15 +25,33 @@ module StripeIntegration
         raise NilPurchaserEmailError if purchaser_email.nil?
         raise NilStripePriceIdError if stripe_price_id.nil?
         raise NilStripeInvoiceIdError if stripe_invoice.id.nil?
-        raise DuplicateSubscriptionError if purchaser.subscription.present?
+        raise DuplicateSubscriptionError if duplicate_subscription?
+        raise AmountPaidMismatchError if payment_amount != plan.price
 
         subscription
         save_stripe_customer_id
         run_plan_custom_tasks
       end
 
+      private def duplicate_subscription?
+        case plan
+        when Plan.stripe_teacher_plan
+          purchaser.subscription&.plan == plan
+        when Plan.stripe_school_plan
+          purchaser.associated_schools.any? do |school|
+            school.subscriptions.active.any?  do |subscription|
+              subscription.schools.pluck(:id).sort == school_ids
+            end
+          end
+        end
+      end
+
       private def expiration
         Time.at(stripe_subscription.current_period_end).to_date
+      end
+
+      private def payment_amount
+        stripe_invoice.amount_paid
       end
 
       private def plan
@@ -60,7 +79,7 @@ module StripeIntegration
           schools = School.where(id: school_ids)
           raise NilSchoolError if schools.empty?
 
-          schools.each { |school| subscription.school_subscriptions.create!(school: school) }
+          subscription.school_subscriptions.create!(schools.map { |school| { school_id: school.id } })
           UpdateSalesContactWorker.perform_async(purchaser.id, SalesStageType::SCHOOL_PREMIUM)
         end
       end
@@ -74,7 +93,7 @@ module StripeIntegration
       private def school_ids
         return [] if stripe_subscription.metadata[:school_ids].nil?
 
-        JSON.parse(stripe_subscription.metadata[:school_ids])
+        JSON.parse(stripe_subscription.metadata[:school_ids]).sort
       end
 
       private def start_date
@@ -93,7 +112,7 @@ module StripeIntegration
         @subscription ||= ::Subscription.create!(
           account_type: plan.name,
           expiration: expiration,
-          payment_amount: plan.price,
+          payment_amount: payment_amount,
           payment_method: ::Subscription::CREDIT_CARD_PAYMENT_METHOD,
           plan: plan,
           purchaser_email: purchaser_email,

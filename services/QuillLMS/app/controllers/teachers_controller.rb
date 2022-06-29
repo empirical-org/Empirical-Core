@@ -139,7 +139,7 @@ class TeachersController < ApplicationController
         .joins("JOIN activities ON unit_activities.activity_id = activities.id")
         .joins("JOIN classroom_unit_activity_states ON classroom_unit_activity_states.classroom_unit_id = classroom_units.id AND classroom_unit_activity_states.unit_activity_id = unit_activities.id AND completed = FALSE")
         .group("classrooms.name, activities.name, activities.id, activities.supporting_info, classroom_units.unit_id, classroom_units.id, classrooms.id, classroom_units.assigned_student_ids, classroom_units.created_at, unit_activities.created_at")
-        .order("greatest(classroom_units.created_at, unit_activities.created_at) DESC")
+        .order(Arel.sql("greatest(classroom_units.created_at, unit_activities.created_at) DESC"))
 
     units = records.map do |r|
       {
@@ -166,7 +166,7 @@ class TeachersController < ApplicationController
       .joins("LEFT JOIN activities AS pre_test ON pre_test.follow_up_activity_id = activities.id")
       .joins("LEFT JOIN activity_sessions ON activity_sessions.activity_id = unit_activities.activity_id AND activity_sessions.classroom_unit_id = classroom_units.id AND activity_sessions.visible AND activity_sessions.is_final_score")
       .group("classrooms.name, activities.name, activities.id, activities.follow_up_activity_id, pre_test.id, classroom_units.unit_id, classrooms.id, classroom_units.assigned_student_ids, classroom_units.created_at, unit_activities.created_at")
-      .order("greatest(classroom_units.created_at, unit_activities.created_at) DESC")
+      .order(Arel.sql("greatest(classroom_units.created_at, unit_activities.created_at) DESC"))
       units = records.map do |r|
         {
           assigned_count: r['assigned_count'] || 0,

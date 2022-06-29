@@ -1,114 +1,74 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`PromptTable component should render PromptTable 1`] = `
-<section
-  className="prompt-table-container"
+<ContextProvider
+  value={true}
 >
-  <section
-    className="attempts-section"
-  >
-    <p
-      className="attempts-label"
-    >
-      Attempts
-    </p>
-    <p
-      className="attempts-value"
-    >
-      1
-    </p>
-  </section>
-  <section
-    className="completed-section"
-  >
-    <p
-      className="completed-label"
-    >
-      Completed
-    </p>
-    <p
-      className="completed-value"
-    >
-      False
-    </p>
-  </section>
-  <DataTable
-    averageFontWidth={7}
-    className="attempts-feedback-table"
-    headers={
-      Array [
-        Object {
-          "attribute": "status",
-          "name": "Status",
-          "width": "100px",
+  <ContextProvider
+    value={
+      DefaultReactQueryClient {
+        "defaultOptions": Object {
+          "queries": Object {
+            "cacheTime": Infinity,
+            "staleTime": Infinity,
+          },
         },
-        Object {
-          "attribute": "results",
-          "name": "Results",
-          "width": "600px",
+        "mutationCache": MutationCache {
+          "config": Object {},
+          "listeners": Array [],
+          "mutationId": 0,
+          "mutations": Array [],
         },
-        Object {
-          "attribute": "feedback",
-          "name": "Rule",
-          "width": "300px",
+        "mutationDefaults": Array [],
+        "queryCache": QueryCache {
+          "config": Object {},
+          "listeners": Array [],
+          "queries": Array [],
+          "queriesMap": Object {},
         },
-        Object {
-          "attribute": "buttons",
-          "name": "",
-          "width": "120px",
-        },
-      ]
+        "queryDefaults": Array [],
+      }
     }
-    rows={
-      Array [
+  >
+    <PromptTable
+      activity={
         Object {
-          "id": "undefined:0:attempt",
-          "results": <div>
-            <b />
-            <p
-              className="entry"
-            >
-              
-            </p>
-          </div>,
-          "status": "1st Attempt",
-        },
+          "name": "Test Name",
+          "prompts": Array [
+            Object {
+              "conjunction": "because",
+              "id": 1,
+              "max_attempts": 5,
+              "max_attempts_feedback": "good try!",
+              "text": "test",
+            },
+          ],
+          "scored_level": "7",
+          "target_level": 7,
+          "title": "Test Activity",
+        }
+      }
+      prompt={
         Object {
-          "buttons": <div
-            className="strength-buttons"
-          >
-            <button
-              className="strength-button"
-              onClick={[Function]}
-              type="button"
-            >
-              strong
-            </button>
-            <button
-              className="strength-button"
-              onClick={[Function]}
-              type="button"
-            >
-              weak
-            </button>
-          </div>,
-          "className": "sub-optimal",
-          "feedback": <Link
-            className="data-link word-wrap"
-            rel="noopener noreferrer"
-            target="_blank"
-            to="/activities/undefined/rules-analysis/undefined/rule/undefined/prompt/undefined"
-          >
-            : null
-          </Link>,
-          "id": "undefined:0:feedback",
-          "results": <p
-            className="word-wrap"
-          />,
-          "status": "1st Feedback",
-        },
-      ]
-    }
-  />
-</section>
+          "attempts": Object {
+            "1": Array [
+              Object {
+                "entry": "",
+                "feedback_text": "",
+                "feedback_type": "",
+                "optimal": false,
+              },
+            ],
+          },
+          "conjunction": "because",
+          "max_attempts": 5,
+          "max_attempts_feedback": "good try!",
+          "text": "test",
+        }
+      }
+      sessionId="3q7dvhjhas"
+      showHeader={false}
+    />
+  </ContextProvider>
+</ContextProvider>
 `;

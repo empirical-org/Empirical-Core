@@ -168,7 +168,7 @@ jobs:
   cms_rails_build:
     working_directory: ~/Empirical-Core
     docker:
-      - image: ruby:2.6.6
+      - image: ruby:2.7.6
         environment:
           PG_DB: quill_cms_test_db
           PG_USER: ubuntu
@@ -191,6 +191,7 @@ jobs:
           name: Bundle Install if cache isn't present.
           command: |
             cd services/QuillCMS
+            gem install bundler:1.17.3
             bundle config --local gems.contribsys.com ${BUNDLE_GEMS__CONTRIBSYS__COM}
             bundle check || bundle install --path vendor/bundle
       - save_cache:

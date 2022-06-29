@@ -1,0 +1,151 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UnitTemplateSelectedActivitiesTable component should match snapshot 1`] = `
+<div
+  className="unit-template-activities-table unit-template-selected-activities-table"
+>
+  <h4
+    className="selected-activities-header"
+  >
+    Selected Activities:
+  </h4>
+  <table
+    className="data-table-body unit-template-activities-table-rows"
+  >
+    <tr
+      className="data-table-headers"
+    >
+      <th
+        className="data-table-header"
+        scope="col"
+        style={
+          Object {
+            "minWidth": "32px",
+            "width": "32px",
+          }
+        }
+      />
+      <th
+        className="data-table-header"
+        scope="col"
+        style={
+          Object {
+            "minWidth": "208px",
+            "width": "208px",
+          }
+        }
+      >
+        Name
+      </th>
+      <th
+        className="data-table-header"
+        scope="col"
+        style={
+          Object {
+            "minWidth": "232px",
+            "width": "232px",
+          }
+        }
+      >
+        Description
+      </th>
+      <th
+        className="data-table-header"
+        scope="col"
+        style={
+          Object {
+            "minWidth": "232px",
+            "width": "232px",
+          }
+        }
+      >
+        In packs
+      </th>
+      <th
+        className="data-table-header"
+        scope="col"
+        style={
+          Object {
+            "minWidth": "80px",
+            "width": "80px",
+          }
+        }
+      >
+        Flag
+      </th>
+      <th
+        className="data-table-header"
+        scope="col"
+        style={
+          Object {
+            "minWidth": "64px",
+            "width": "64px",
+          }
+        }
+      >
+        Readability
+      </th>
+      <th
+        className="data-table-header"
+        scope="col"
+        style={
+          Object {
+            "minWidth": "152px",
+            "width": "152px",
+          }
+        }
+      >
+        <Tooltip
+          isTabbable={true}
+          tooltipText="Activity Category"
+          tooltipTriggerText={
+            <a
+              className="data-link focus-on-light"
+              href="undefined/cms/attributes_manager/activity_categories"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Concept
+            </a>
+          }
+          tooltipTriggerTextStyle={
+            Object {
+              "maxWidth": "152px",
+            }
+          }
+        />
+      </th>
+      <th
+        className="data-table-header"
+        scope="col"
+        style={
+          Object {
+            "minWidth": "88px",
+            "width": "88px",
+          }
+        }
+      >
+        Tool
+      </th>
+      <th
+        className="data-table-header"
+        scope="col"
+        style={
+          Object {
+            "minWidth": "88px",
+            "width": "88px",
+          }
+        }
+      />
+    </tr>
+    <tbody
+      className="unit-template-activities-tbody"
+    >
+      <SortableList
+        data={Array []}
+        sortCallback={[Function]}
+      />
+    </tbody>
+  </table>
+</div>
+`;

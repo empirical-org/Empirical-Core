@@ -69,4 +69,11 @@
       }
     }
   }
+  .success-message-container {
+    height: 100%;
+    border-bottom: none;
+    p {
+      padding: 16px 0px 16px 0px;
+    }
+  }
 }

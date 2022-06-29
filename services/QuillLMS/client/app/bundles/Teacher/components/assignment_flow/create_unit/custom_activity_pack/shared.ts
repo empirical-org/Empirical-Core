@@ -10,15 +10,20 @@ export const lowerBound = (currentPage: number): number => (currentPage - 1) * R
 
 export const upperBound = (currentPage: number): number => currentPage * RESULTS_PER_PAGE;
 
-export const activityClassificationGroupings = (showComprehension: boolean) => {
-  let independentPracticeKeys = ['connect', 'sentence', 'passage']
-  if (showComprehension) {
-    independentPracticeKeys = independentPracticeKeys.concat(['evidence'])
+export const activityClassificationGroupings = (showEvidence: boolean) => {
+  let independentReadingTextsGroup
+  if (showEvidence) {
+    independentReadingTextsGroup = {
+      group: 'Independent: Reading Texts',
+      keys: ['evidence'],
+      new: true
+    }
   }
   return ([
+    independentReadingTextsGroup,
     {
-      group: 'Independent Practice',
-      keys: independentPracticeKeys
+      group: 'Independent: Language Skills',
+      keys: ['connect', 'sentence', 'passage']
     },
     {
       group: 'Whole Class Instruction',
@@ -28,7 +33,7 @@ export const activityClassificationGroupings = (showComprehension: boolean) => {
       group: 'Diagnostics',
       keys: ['diagnostic']
     }
-  ])
+  ].filter(Boolean))
 }
 
 export const getNumberFromString = (string) => {

@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { QueryClient, QueryClientProvider } from 'react-query'
+import { QueryClientProvider } from 'react-query'
 
 import { mockRule } from '../__mocks__/data';
 import RuleForm from '../configureRules/ruleForm';
+import { DefaultReactQueryClient } from '../../../../Shared';
 
 jest.mock('../../../helpers/evidence/ruleHelpers', () => ({
   // ...jest.requireActual('../../../helpers/evidence/ruleHelpers'),
@@ -43,7 +44,8 @@ jest.mock('../../../helpers/evidence/renderHelpers', () => ({
   }
 }));
 
-const queryClient = new QueryClient()
+
+const queryClient = new DefaultReactQueryClient();
 
 const mockProps = {
   rule: mockRule,

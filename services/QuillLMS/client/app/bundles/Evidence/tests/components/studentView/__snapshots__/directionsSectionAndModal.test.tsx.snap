@@ -96,7 +96,11 @@ exports[`DirectionsSection component when the student is past the read passage s
     </h3>
     <ul>
       <li>
-        Use information from the text to finish the sentence.
+        Use information 
+        <b>
+          from the text
+        </b>
+         to finish the sentence.
       </li>
       <li>
         Put the information in your own words.

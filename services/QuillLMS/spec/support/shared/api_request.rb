@@ -22,7 +22,7 @@ shared_examples "a simple api request" do
   end
 
   it 'sends a list' do
-    expect(response).to be_success
+    expect(response).to be_successful
     json = JSON.parse(response.body)
     expect(json[lwc_model_name.pluralize].length).to eq(3)
   end

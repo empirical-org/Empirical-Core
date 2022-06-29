@@ -60,7 +60,7 @@ FactoryBot.define do
     city { mail_city }
     state { mail_state }
     zipcode { mail_zipcode }
-    name { "#{mail_city} School" }
+    sequence(:name) { |n| "#{mail_city} School #{n}" }
     phone { "1-800-555-1234" }
     longitude { "-74.044500" }
     latitude { "40.689249" }

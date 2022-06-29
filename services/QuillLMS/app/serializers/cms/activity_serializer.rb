@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Cms::ActivitySerializer < ActiveModel::Serializer
-  attributes :uid, :id, :name, :description, :flags, :data, :created_at, :updated_at, :supporting_info, :activity_category, :readability_grade_level, :unit_template_names
+  attributes :uid, :id, :name, :description, :flags, :data, :created_at, :updated_at, :supporting_info, :activity_category, :readability_grade_level, :unit_templates
 
   has_one :classification, serializer: ClassificationSerializer
 
@@ -16,7 +16,7 @@ class Cms::ActivitySerializer < ActiveModel::Serializer
       .first
   end
 
-  def unit_template_names
-    object.unit_templates.map {|ut| ut.name}
+  def unit_templates
+    object.unit_templates.where.not(flag: 'archived')
   end
 end

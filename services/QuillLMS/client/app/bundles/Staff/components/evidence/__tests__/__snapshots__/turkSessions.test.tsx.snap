@@ -1,1784 +1,791 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`TurkSessions component should render TurkSessions 1`] = `
-<TurkSessions
-  history={
-    Object {
-      "createHref": [Function],
-      "createKey": [Function],
-      "createLocation": [Function],
-      "createPath": [Function],
-      "go": [Function],
-      "goBack": [Function],
-      "goForward": [Function],
-      "listen": [Function],
-      "listenBefore": [Function],
-      "push": [Function],
-      "pushState": [Function],
-      "registerTransitionHook": [Function],
-      "replace": [Function],
-      "replaceState": [Function],
-      "setState": [Function],
-      "transitionTo": [Function],
-      "unregisterTransitionHook": [Function],
-    }
-  }
-  location={
-    Object {
-      "action": "POP",
-      "hash": "",
-      "key": null,
-      "pathname": "/",
-      "search": "",
-      "state": null,
-    }
-  }
-  match={
-    Object {
-      "isExact": true,
-      "params": Object {
-        "activityId": "1",
+<QueryClientProvider
+  client={
+    DefaultReactQueryClient {
+      "defaultOptions": Object {
+        "queries": Object {
+          "cacheTime": Infinity,
+          "staleTime": Infinity,
+        },
       },
-      "path": "",
-      "url": "",
+      "mutationCache": MutationCache {
+        "config": Object {},
+        "listeners": Array [],
+        "mutationId": 0,
+        "mutations": Array [],
+      },
+      "mutationDefaults": Array [],
+      "queryCache": QueryCache {
+        "config": Object {},
+        "listeners": Array [],
+        "queries": Array [
+          Query {
+            "abortSignalConsumed": false,
+            "cache": [Circular],
+            "cacheTime": Infinity,
+            "defaultOptions": undefined,
+            "gcTimeout": undefined,
+            "hadObservers": true,
+            "initialState": Object {
+              "data": undefined,
+              "dataUpdateCount": 0,
+              "dataUpdatedAt": 0,
+              "error": null,
+              "errorUpdateCount": 0,
+              "errorUpdatedAt": 0,
+              "fetchFailureCount": 0,
+              "fetchMeta": null,
+              "isFetching": false,
+              "isInvalidated": false,
+              "isPaused": false,
+              "status": "idle",
+            },
+            "meta": undefined,
+            "observers": Array [
+              QueryObserver {
+                "client": [Circular],
+                "currentQuery": [Circular],
+                "currentQueryInitialState": Object {
+                  "data": undefined,
+                  "dataUpdateCount": 0,
+                  "dataUpdatedAt": 0,
+                  "error": null,
+                  "errorUpdateCount": 0,
+                  "errorUpdatedAt": 0,
+                  "fetchFailureCount": 0,
+                  "fetchMeta": null,
+                  "isFetching": false,
+                  "isInvalidated": false,
+                  "isPaused": false,
+                  "status": "idle",
+                },
+                "currentRefetchInterval": false,
+                "currentResult": Object {
+                  "data": undefined,
+                  "dataUpdatedAt": 0,
+                  "error": null,
+                  "errorUpdatedAt": 0,
+                  "failureCount": 0,
+                  "isError": false,
+                  "isFetched": false,
+                  "isFetchedAfterMount": false,
+                  "isFetching": true,
+                  "isIdle": false,
+                  "isLoading": true,
+                  "isLoadingError": false,
+                  "isPlaceholderData": false,
+                  "isPreviousData": false,
+                  "isRefetchError": false,
+                  "isRefetching": false,
+                  "isStale": true,
+                  "isSuccess": false,
+                  "refetch": [Function],
+                  "remove": [Function],
+                  "status": "loading",
+                },
+                "currentResultOptions": Object {
+                  "_defaulted": true,
+                  "cacheTime": Infinity,
+                  "optimisticResults": true,
+                  "queryFn": [Function],
+                  "queryHash": "[\\"activity-1\\",\\"1\\"]",
+                  "queryKey": Array [
+                    "activity-1",
+                    "1",
+                  ],
+                  "staleTime": Infinity,
+                },
+                "currentResultState": Object {
+                  "data": undefined,
+                  "dataUpdateCount": 0,
+                  "dataUpdatedAt": 0,
+                  "error": null,
+                  "errorUpdateCount": 0,
+                  "errorUpdatedAt": 0,
+                  "fetchFailureCount": 0,
+                  "fetchMeta": null,
+                  "isFetching": true,
+                  "isInvalidated": false,
+                  "isPaused": false,
+                  "status": "loading",
+                },
+                "listeners": Array [
+                  [Function],
+                ],
+                "options": Object {
+                  "_defaulted": true,
+                  "cacheTime": Infinity,
+                  "optimisticResults": true,
+                  "queryFn": [Function],
+                  "queryHash": "[\\"activity-1\\",\\"1\\"]",
+                  "queryKey": Array [
+                    "activity-1",
+                    "1",
+                  ],
+                  "staleTime": Infinity,
+                },
+                "previousQueryResult": undefined,
+                "previousSelectError": null,
+                "refetch": [Function],
+                "refetchIntervalId": undefined,
+                "remove": [Function],
+                "staleTimeoutId": undefined,
+                "trackedProps": Array [],
+              },
+            ],
+            "options": Object {
+              "_defaulted": true,
+              "cacheTime": Infinity,
+              "optimisticResults": true,
+              "queryFn": [Function],
+              "queryHash": "[\\"activity-1\\",\\"1\\"]",
+              "queryKey": Array [
+                "activity-1",
+                "1",
+              ],
+              "staleTime": Infinity,
+            },
+            "promise": Promise {},
+            "queryHash": "[\\"activity-1\\",\\"1\\"]",
+            "queryKey": Array [
+              "activity-1",
+              "1",
+            ],
+            "retryer": Retryer {
+              "abort": [Function],
+              "cancel": [Function],
+              "cancelRetry": [Function],
+              "continue": [Function],
+              "continueRetry": [Function],
+              "failureCount": 0,
+              "isPaused": false,
+              "isResolved": false,
+              "isTransportCancelable": false,
+              "promise": Promise {},
+            },
+            "revertState": Object {
+              "data": undefined,
+              "dataUpdateCount": 0,
+              "dataUpdatedAt": 0,
+              "error": null,
+              "errorUpdateCount": 0,
+              "errorUpdatedAt": 0,
+              "fetchFailureCount": 0,
+              "fetchMeta": null,
+              "isFetching": false,
+              "isInvalidated": false,
+              "isPaused": false,
+              "status": "idle",
+            },
+            "state": Object {
+              "data": undefined,
+              "dataUpdateCount": 0,
+              "dataUpdatedAt": 0,
+              "error": null,
+              "errorUpdateCount": 0,
+              "errorUpdatedAt": 0,
+              "fetchFailureCount": 0,
+              "fetchMeta": null,
+              "isFetching": true,
+              "isInvalidated": false,
+              "isPaused": false,
+              "status": "loading",
+            },
+          },
+          Query {
+            "abortSignalConsumed": false,
+            "cache": [Circular],
+            "cacheTime": Infinity,
+            "defaultOptions": undefined,
+            "gcTimeout": undefined,
+            "hadObservers": true,
+            "initialState": Object {
+              "data": undefined,
+              "dataUpdateCount": 0,
+              "dataUpdatedAt": 0,
+              "error": null,
+              "errorUpdateCount": 0,
+              "errorUpdatedAt": 0,
+              "fetchFailureCount": 0,
+              "fetchMeta": null,
+              "isFetching": false,
+              "isInvalidated": false,
+              "isPaused": false,
+              "status": "idle",
+            },
+            "meta": undefined,
+            "observers": Array [
+              QueryObserver {
+                "client": [Circular],
+                "currentQuery": [Circular],
+                "currentQueryInitialState": Object {
+                  "data": undefined,
+                  "dataUpdateCount": 0,
+                  "dataUpdatedAt": 0,
+                  "error": null,
+                  "errorUpdateCount": 0,
+                  "errorUpdatedAt": 0,
+                  "fetchFailureCount": 0,
+                  "fetchMeta": null,
+                  "isFetching": false,
+                  "isInvalidated": false,
+                  "isPaused": false,
+                  "status": "idle",
+                },
+                "currentRefetchInterval": false,
+                "currentResult": Object {
+                  "data": undefined,
+                  "dataUpdatedAt": 0,
+                  "error": null,
+                  "errorUpdatedAt": 0,
+                  "failureCount": 0,
+                  "isError": false,
+                  "isFetched": false,
+                  "isFetchedAfterMount": false,
+                  "isFetching": true,
+                  "isIdle": false,
+                  "isLoading": true,
+                  "isLoadingError": false,
+                  "isPlaceholderData": false,
+                  "isPreviousData": false,
+                  "isRefetchError": false,
+                  "isRefetching": false,
+                  "isStale": true,
+                  "isSuccess": false,
+                  "refetch": [Function],
+                  "remove": [Function],
+                  "status": "loading",
+                },
+                "currentResultOptions": Object {
+                  "_defaulted": true,
+                  "cacheTime": Infinity,
+                  "optimisticResults": true,
+                  "queryFn": [Function],
+                  "queryHash": "[\\"turk-sessions-1\\",\\"1\\"]",
+                  "queryKey": Array [
+                    "turk-sessions-1",
+                    "1",
+                  ],
+                  "staleTime": Infinity,
+                },
+                "currentResultState": Object {
+                  "data": undefined,
+                  "dataUpdateCount": 0,
+                  "dataUpdatedAt": 0,
+                  "error": null,
+                  "errorUpdateCount": 0,
+                  "errorUpdatedAt": 0,
+                  "fetchFailureCount": 0,
+                  "fetchMeta": null,
+                  "isFetching": true,
+                  "isInvalidated": false,
+                  "isPaused": false,
+                  "status": "loading",
+                },
+                "listeners": Array [
+                  [Function],
+                ],
+                "options": Object {
+                  "_defaulted": true,
+                  "cacheTime": Infinity,
+                  "optimisticResults": true,
+                  "queryFn": [Function],
+                  "queryHash": "[\\"turk-sessions-1\\",\\"1\\"]",
+                  "queryKey": Array [
+                    "turk-sessions-1",
+                    "1",
+                  ],
+                  "staleTime": Infinity,
+                },
+                "previousQueryResult": undefined,
+                "previousSelectError": null,
+                "refetch": [Function],
+                "refetchIntervalId": undefined,
+                "remove": [Function],
+                "staleTimeoutId": undefined,
+                "trackedProps": Array [],
+              },
+            ],
+            "options": Object {
+              "_defaulted": true,
+              "cacheTime": Infinity,
+              "optimisticResults": true,
+              "queryFn": [Function],
+              "queryHash": "[\\"turk-sessions-1\\",\\"1\\"]",
+              "queryKey": Array [
+                "turk-sessions-1",
+                "1",
+              ],
+              "staleTime": Infinity,
+            },
+            "promise": Promise {},
+            "queryHash": "[\\"turk-sessions-1\\",\\"1\\"]",
+            "queryKey": Array [
+              "turk-sessions-1",
+              "1",
+            ],
+            "retryer": Retryer {
+              "abort": [Function],
+              "cancel": [Function],
+              "cancelRetry": [Function],
+              "continue": [Function],
+              "continueRetry": [Function],
+              "failureCount": 0,
+              "isPaused": false,
+              "isResolved": false,
+              "isTransportCancelable": false,
+              "promise": Promise {},
+            },
+            "revertState": Object {
+              "data": undefined,
+              "dataUpdateCount": 0,
+              "dataUpdatedAt": 0,
+              "error": null,
+              "errorUpdateCount": 0,
+              "errorUpdatedAt": 0,
+              "fetchFailureCount": 0,
+              "fetchMeta": null,
+              "isFetching": false,
+              "isInvalidated": false,
+              "isPaused": false,
+              "status": "idle",
+            },
+            "state": Object {
+              "data": undefined,
+              "dataUpdateCount": 0,
+              "dataUpdatedAt": 0,
+              "error": null,
+              "errorUpdateCount": 0,
+              "errorUpdatedAt": 0,
+              "fetchFailureCount": 0,
+              "fetchMeta": null,
+              "isFetching": true,
+              "isInvalidated": false,
+              "isPaused": false,
+              "status": "loading",
+            },
+          },
+        ],
+        "queriesMap": Object {
+          "[\\"activity-1\\",\\"1\\"]": Query {
+            "abortSignalConsumed": false,
+            "cache": [Circular],
+            "cacheTime": Infinity,
+            "defaultOptions": undefined,
+            "gcTimeout": undefined,
+            "hadObservers": true,
+            "initialState": Object {
+              "data": undefined,
+              "dataUpdateCount": 0,
+              "dataUpdatedAt": 0,
+              "error": null,
+              "errorUpdateCount": 0,
+              "errorUpdatedAt": 0,
+              "fetchFailureCount": 0,
+              "fetchMeta": null,
+              "isFetching": false,
+              "isInvalidated": false,
+              "isPaused": false,
+              "status": "idle",
+            },
+            "meta": undefined,
+            "observers": Array [
+              QueryObserver {
+                "client": [Circular],
+                "currentQuery": [Circular],
+                "currentQueryInitialState": Object {
+                  "data": undefined,
+                  "dataUpdateCount": 0,
+                  "dataUpdatedAt": 0,
+                  "error": null,
+                  "errorUpdateCount": 0,
+                  "errorUpdatedAt": 0,
+                  "fetchFailureCount": 0,
+                  "fetchMeta": null,
+                  "isFetching": false,
+                  "isInvalidated": false,
+                  "isPaused": false,
+                  "status": "idle",
+                },
+                "currentRefetchInterval": false,
+                "currentResult": Object {
+                  "data": undefined,
+                  "dataUpdatedAt": 0,
+                  "error": null,
+                  "errorUpdatedAt": 0,
+                  "failureCount": 0,
+                  "isError": false,
+                  "isFetched": false,
+                  "isFetchedAfterMount": false,
+                  "isFetching": true,
+                  "isIdle": false,
+                  "isLoading": true,
+                  "isLoadingError": false,
+                  "isPlaceholderData": false,
+                  "isPreviousData": false,
+                  "isRefetchError": false,
+                  "isRefetching": false,
+                  "isStale": true,
+                  "isSuccess": false,
+                  "refetch": [Function],
+                  "remove": [Function],
+                  "status": "loading",
+                },
+                "currentResultOptions": Object {
+                  "_defaulted": true,
+                  "cacheTime": Infinity,
+                  "optimisticResults": true,
+                  "queryFn": [Function],
+                  "queryHash": "[\\"activity-1\\",\\"1\\"]",
+                  "queryKey": Array [
+                    "activity-1",
+                    "1",
+                  ],
+                  "staleTime": Infinity,
+                },
+                "currentResultState": Object {
+                  "data": undefined,
+                  "dataUpdateCount": 0,
+                  "dataUpdatedAt": 0,
+                  "error": null,
+                  "errorUpdateCount": 0,
+                  "errorUpdatedAt": 0,
+                  "fetchFailureCount": 0,
+                  "fetchMeta": null,
+                  "isFetching": true,
+                  "isInvalidated": false,
+                  "isPaused": false,
+                  "status": "loading",
+                },
+                "listeners": Array [
+                  [Function],
+                ],
+                "options": Object {
+                  "_defaulted": true,
+                  "cacheTime": Infinity,
+                  "optimisticResults": true,
+                  "queryFn": [Function],
+                  "queryHash": "[\\"activity-1\\",\\"1\\"]",
+                  "queryKey": Array [
+                    "activity-1",
+                    "1",
+                  ],
+                  "staleTime": Infinity,
+                },
+                "previousQueryResult": undefined,
+                "previousSelectError": null,
+                "refetch": [Function],
+                "refetchIntervalId": undefined,
+                "remove": [Function],
+                "staleTimeoutId": undefined,
+                "trackedProps": Array [],
+              },
+            ],
+            "options": Object {
+              "_defaulted": true,
+              "cacheTime": Infinity,
+              "optimisticResults": true,
+              "queryFn": [Function],
+              "queryHash": "[\\"activity-1\\",\\"1\\"]",
+              "queryKey": Array [
+                "activity-1",
+                "1",
+              ],
+              "staleTime": Infinity,
+            },
+            "promise": Promise {},
+            "queryHash": "[\\"activity-1\\",\\"1\\"]",
+            "queryKey": Array [
+              "activity-1",
+              "1",
+            ],
+            "retryer": Retryer {
+              "abort": [Function],
+              "cancel": [Function],
+              "cancelRetry": [Function],
+              "continue": [Function],
+              "continueRetry": [Function],
+              "failureCount": 0,
+              "isPaused": false,
+              "isResolved": false,
+              "isTransportCancelable": false,
+              "promise": Promise {},
+            },
+            "revertState": Object {
+              "data": undefined,
+              "dataUpdateCount": 0,
+              "dataUpdatedAt": 0,
+              "error": null,
+              "errorUpdateCount": 0,
+              "errorUpdatedAt": 0,
+              "fetchFailureCount": 0,
+              "fetchMeta": null,
+              "isFetching": false,
+              "isInvalidated": false,
+              "isPaused": false,
+              "status": "idle",
+            },
+            "state": Object {
+              "data": undefined,
+              "dataUpdateCount": 0,
+              "dataUpdatedAt": 0,
+              "error": null,
+              "errorUpdateCount": 0,
+              "errorUpdatedAt": 0,
+              "fetchFailureCount": 0,
+              "fetchMeta": null,
+              "isFetching": true,
+              "isInvalidated": false,
+              "isPaused": false,
+              "status": "loading",
+            },
+          },
+          "[\\"turk-sessions-1\\",\\"1\\"]": Query {
+            "abortSignalConsumed": false,
+            "cache": [Circular],
+            "cacheTime": Infinity,
+            "defaultOptions": undefined,
+            "gcTimeout": undefined,
+            "hadObservers": true,
+            "initialState": Object {
+              "data": undefined,
+              "dataUpdateCount": 0,
+              "dataUpdatedAt": 0,
+              "error": null,
+              "errorUpdateCount": 0,
+              "errorUpdatedAt": 0,
+              "fetchFailureCount": 0,
+              "fetchMeta": null,
+              "isFetching": false,
+              "isInvalidated": false,
+              "isPaused": false,
+              "status": "idle",
+            },
+            "meta": undefined,
+            "observers": Array [
+              QueryObserver {
+                "client": [Circular],
+                "currentQuery": [Circular],
+                "currentQueryInitialState": Object {
+                  "data": undefined,
+                  "dataUpdateCount": 0,
+                  "dataUpdatedAt": 0,
+                  "error": null,
+                  "errorUpdateCount": 0,
+                  "errorUpdatedAt": 0,
+                  "fetchFailureCount": 0,
+                  "fetchMeta": null,
+                  "isFetching": false,
+                  "isInvalidated": false,
+                  "isPaused": false,
+                  "status": "idle",
+                },
+                "currentRefetchInterval": false,
+                "currentResult": Object {
+                  "data": undefined,
+                  "dataUpdatedAt": 0,
+                  "error": null,
+                  "errorUpdatedAt": 0,
+                  "failureCount": 0,
+                  "isError": false,
+                  "isFetched": false,
+                  "isFetchedAfterMount": false,
+                  "isFetching": true,
+                  "isIdle": false,
+                  "isLoading": true,
+                  "isLoadingError": false,
+                  "isPlaceholderData": false,
+                  "isPreviousData": false,
+                  "isRefetchError": false,
+                  "isRefetching": false,
+                  "isStale": true,
+                  "isSuccess": false,
+                  "refetch": [Function],
+                  "remove": [Function],
+                  "status": "loading",
+                },
+                "currentResultOptions": Object {
+                  "_defaulted": true,
+                  "cacheTime": Infinity,
+                  "optimisticResults": true,
+                  "queryFn": [Function],
+                  "queryHash": "[\\"turk-sessions-1\\",\\"1\\"]",
+                  "queryKey": Array [
+                    "turk-sessions-1",
+                    "1",
+                  ],
+                  "staleTime": Infinity,
+                },
+                "currentResultState": Object {
+                  "data": undefined,
+                  "dataUpdateCount": 0,
+                  "dataUpdatedAt": 0,
+                  "error": null,
+                  "errorUpdateCount": 0,
+                  "errorUpdatedAt": 0,
+                  "fetchFailureCount": 0,
+                  "fetchMeta": null,
+                  "isFetching": true,
+                  "isInvalidated": false,
+                  "isPaused": false,
+                  "status": "loading",
+                },
+                "listeners": Array [
+                  [Function],
+                ],
+                "options": Object {
+                  "_defaulted": true,
+                  "cacheTime": Infinity,
+                  "optimisticResults": true,
+                  "queryFn": [Function],
+                  "queryHash": "[\\"turk-sessions-1\\",\\"1\\"]",
+                  "queryKey": Array [
+                    "turk-sessions-1",
+                    "1",
+                  ],
+                  "staleTime": Infinity,
+                },
+                "previousQueryResult": undefined,
+                "previousSelectError": null,
+                "refetch": [Function],
+                "refetchIntervalId": undefined,
+                "remove": [Function],
+                "staleTimeoutId": undefined,
+                "trackedProps": Array [],
+              },
+            ],
+            "options": Object {
+              "_defaulted": true,
+              "cacheTime": Infinity,
+              "optimisticResults": true,
+              "queryFn": [Function],
+              "queryHash": "[\\"turk-sessions-1\\",\\"1\\"]",
+              "queryKey": Array [
+                "turk-sessions-1",
+                "1",
+              ],
+              "staleTime": Infinity,
+            },
+            "promise": Promise {},
+            "queryHash": "[\\"turk-sessions-1\\",\\"1\\"]",
+            "queryKey": Array [
+              "turk-sessions-1",
+              "1",
+            ],
+            "retryer": Retryer {
+              "abort": [Function],
+              "cancel": [Function],
+              "cancelRetry": [Function],
+              "continue": [Function],
+              "continueRetry": [Function],
+              "failureCount": 0,
+              "isPaused": false,
+              "isResolved": false,
+              "isTransportCancelable": false,
+              "promise": Promise {},
+            },
+            "revertState": Object {
+              "data": undefined,
+              "dataUpdateCount": 0,
+              "dataUpdatedAt": 0,
+              "error": null,
+              "errorUpdateCount": 0,
+              "errorUpdatedAt": 0,
+              "fetchFailureCount": 0,
+              "fetchMeta": null,
+              "isFetching": false,
+              "isInvalidated": false,
+              "isPaused": false,
+              "status": "idle",
+            },
+            "state": Object {
+              "data": undefined,
+              "dataUpdateCount": 0,
+              "dataUpdatedAt": 0,
+              "error": null,
+              "errorUpdateCount": 0,
+              "errorUpdatedAt": 0,
+              "fetchFailureCount": 0,
+              "fetchMeta": null,
+              "isFetching": true,
+              "isInvalidated": false,
+              "isPaused": false,
+              "status": "loading",
+            },
+          },
+        },
+      },
+      "queryDefaults": Array [],
+      "unsubscribeFocus": [Function],
+      "unsubscribeOnline": [Function],
     }
   }
+  contextSharing={true}
 >
-  <div
-    className="turk-sessions-container"
+  <TurkSessions
+    history={
+      Object {
+        "createHref": [Function],
+        "createKey": [Function],
+        "createLocation": [Function],
+        "createPath": [Function],
+        "go": [Function],
+        "goBack": [Function],
+        "goForward": [Function],
+        "listen": [Function],
+        "listenBefore": [Function],
+        "push": [Function],
+        "pushState": [Function],
+        "registerTransitionHook": [Function],
+        "replace": [Function],
+        "replaceState": [Function],
+        "setState": [Function],
+        "transitionTo": [Function],
+        "unregisterTransitionHook": [Function],
+      }
+    }
+    location={
+      Object {
+        "action": "POP",
+        "hash": "",
+        "key": null,
+        "pathname": "/",
+        "search": "",
+        "state": null,
+      }
+    }
+    match={
+      Object {
+        "isExact": true,
+        "params": Object {
+          "activityId": "1",
+        },
+        "path": "",
+        "url": "",
+      }
+    }
   >
     <div
-      className="add-session-container"
+      className="loading-spinner-container"
     >
-      <div
-        className="date-picker-container"
-      >
-        <label
-          className="datepicker-label"
-          htmlFor="date-picker"
+      <Spinner>
+        <div
+          className="loading-spinner"
         >
-          Expiration
-        </label>
-        <withStyles(SingleDatePicker)
-          anchorDirection="left"
-          appendToBody={false}
-          block={false}
-          calendarInfoPosition="bottom"
-          customCloseIcon={null}
-          customInputIcon={null}
-          date={null}
-          dayPickerNavigationInlineStyles={null}
-          daySize={39}
-          disableScroll={false}
-          disabled={false}
-          displayFormat={[Function]}
-          enableOutsideDays={false}
-          firstDayOfWeek={null}
-          focused={false}
-          hideKeyboardShortcutsPanel={false}
-          horizontalMargin={0}
-          horizontalMonthPadding={13}
-          id="date-picker"
-          initialVisibleMonth={null}
-          inputIconPosition="after"
-          isDayBlocked={[Function]}
-          isDayHighlighted={[Function]}
-          isOutsideRange={[Function]}
-          isRTL={false}
-          keepFocusOnInput={false}
-          keepOpenOnDateSelect={false}
-          monthFormat="MMMM YYYY"
-          navNext={null}
-          navPosition="navPositionTop"
-          navPrev={null}
-          noBorder={false}
-          numberOfMonths={1}
-          onClose={[Function]}
-          onDateChange={[Function]}
-          onFocusChange={[Function]}
-          onNextMonthClick={[Function]}
-          onPrevMonthClick={[Function]}
-          openDirection="down"
-          orientation="horizontal"
-          phrases={
-            Object {
-              "calendarLabel": "Calendar",
-              "chooseAvailableDate": [Function],
-              "clearDate": "Clear Date",
-              "closeDatePicker": "Close",
-              "dateIsSelected": [Function],
-              "dateIsUnavailable": [Function],
-              "enterKey": "Enter key",
-              "escape": "Escape key",
-              "hideKeyboardShortcutsPanel": "Close the shortcuts panel.",
-              "homeEnd": "Home and end keys",
-              "jumpToNextMonth": "Move forward to switch to the next month.",
-              "jumpToPrevMonth": "Move backward to switch to the previous month.",
-              "keyboardBackwardNavigationInstructions": "Navigate backward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
-              "keyboardForwardNavigationInstructions": "Navigate forward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
-              "keyboardShortcuts": "Keyboard Shortcuts",
-              "leftArrowRightArrow": "Right and left arrow keys",
-              "moveFocusByOneDay": "Move backward (left) and forward (right) by one day.",
-              "moveFocusByOneMonth": "Switch months.",
-              "moveFocusByOneWeek": "Move backward (up) and forward (down) by one week.",
-              "moveFocustoStartAndEndOfWeek": "Go to the first or last day of a week.",
-              "openThisPanel": "Open this panel.",
-              "pageUpPageDown": "page up and page down keys",
-              "questionMark": "Question mark",
-              "returnFocusToInput": "Return to the date input field.",
-              "roleDescription": "datepicker",
-              "selectFocusedDate": "Select the date in focus.",
-              "showKeyboardShortcutsPanel": "Open the keyboard shortcuts panel.",
-              "upArrowDownArrow": "up and down arrow keys",
-            }
-          }
-          placeholder="Date"
-          readOnly={false}
-          regular={false}
-          renderCalendarInfo={null}
-          renderDayContents={null}
-          renderMonthElement={null}
-          renderMonthText={null}
-          renderNavNextButton={null}
-          renderNavPrevButton={null}
-          renderWeekHeaderElement={null}
-          reopenPickerOnClearDate={false}
-          required={false}
-          screenReaderInputMessage=""
-          showClearDate={false}
-          showDefaultInputIcon={false}
-          small={false}
-          verticalHeight={null}
-          verticalSpacing={22}
-          weekDayFormat="dd"
-          withFullScreenPortal={false}
-          withPortal={false}
-        >
-          <WithStyles
-            anchorDirection="left"
-            appendToBody={false}
-            block={false}
-            calendarInfoPosition="bottom"
-            customCloseIcon={null}
-            customInputIcon={null}
-            date={null}
-            dayPickerNavigationInlineStyles={null}
-            daySize={39}
-            disableScroll={false}
-            disabled={false}
-            displayFormat={[Function]}
-            enableOutsideDays={false}
-            firstDayOfWeek={null}
-            focused={false}
-            forwardedRef={null}
-            hideKeyboardShortcutsPanel={false}
-            horizontalMargin={0}
-            horizontalMonthPadding={13}
-            id="date-picker"
-            initialVisibleMonth={null}
-            inputIconPosition="after"
-            isDayBlocked={[Function]}
-            isDayHighlighted={[Function]}
-            isOutsideRange={[Function]}
-            isRTL={false}
-            keepFocusOnInput={false}
-            keepOpenOnDateSelect={false}
-            monthFormat="MMMM YYYY"
-            navNext={null}
-            navPosition="navPositionTop"
-            navPrev={null}
-            noBorder={false}
-            numberOfMonths={1}
-            onClose={[Function]}
-            onDateChange={[Function]}
-            onFocusChange={[Function]}
-            onNextMonthClick={[Function]}
-            onPrevMonthClick={[Function]}
-            openDirection="down"
-            orientation="horizontal"
-            phrases={
-              Object {
-                "calendarLabel": "Calendar",
-                "chooseAvailableDate": [Function],
-                "clearDate": "Clear Date",
-                "closeDatePicker": "Close",
-                "dateIsSelected": [Function],
-                "dateIsUnavailable": [Function],
-                "enterKey": "Enter key",
-                "escape": "Escape key",
-                "hideKeyboardShortcutsPanel": "Close the shortcuts panel.",
-                "homeEnd": "Home and end keys",
-                "jumpToNextMonth": "Move forward to switch to the next month.",
-                "jumpToPrevMonth": "Move backward to switch to the previous month.",
-                "keyboardBackwardNavigationInstructions": "Navigate backward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
-                "keyboardForwardNavigationInstructions": "Navigate forward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
-                "keyboardShortcuts": "Keyboard Shortcuts",
-                "leftArrowRightArrow": "Right and left arrow keys",
-                "moveFocusByOneDay": "Move backward (left) and forward (right) by one day.",
-                "moveFocusByOneMonth": "Switch months.",
-                "moveFocusByOneWeek": "Move backward (up) and forward (down) by one week.",
-                "moveFocustoStartAndEndOfWeek": "Go to the first or last day of a week.",
-                "openThisPanel": "Open this panel.",
-                "pageUpPageDown": "page up and page down keys",
-                "questionMark": "Question mark",
-                "returnFocusToInput": "Return to the date input field.",
-                "roleDescription": "datepicker",
-                "selectFocusedDate": "Select the date in focus.",
-                "showKeyboardShortcutsPanel": "Open the keyboard shortcuts panel.",
-                "upArrowDownArrow": "up and down arrow keys",
-              }
-            }
-            placeholder="Date"
-            readOnly={false}
-            regular={false}
-            renderCalendarInfo={null}
-            renderDayContents={null}
-            renderMonthElement={null}
-            renderMonthText={null}
-            renderNavNextButton={null}
-            renderNavPrevButton={null}
-            renderWeekHeaderElement={null}
-            reopenPickerOnClearDate={false}
-            required={false}
-            screenReaderInputMessage=""
-            showClearDate={false}
-            showDefaultInputIcon={false}
-            small={false}
-            verticalHeight={null}
-            verticalSpacing={22}
-            weekDayFormat="dd"
-            withFullScreenPortal={false}
-            withPortal={false}
+          <div
+            className="spinner-container"
           >
-            <SingleDatePicker
-              anchorDirection="left"
-              appendToBody={false}
-              block={false}
-              calendarInfoPosition="bottom"
-              css={[Function]}
-              customCloseIcon={null}
-              customInputIcon={null}
-              date={null}
-              dayPickerNavigationInlineStyles={null}
-              daySize={39}
-              disableScroll={false}
-              disabled={false}
-              displayFormat={[Function]}
-              enableOutsideDays={false}
-              firstDayOfWeek={null}
-              focused={false}
-              hideKeyboardShortcutsPanel={false}
-              horizontalMargin={0}
-              horizontalMonthPadding={13}
-              id="date-picker"
-              initialVisibleMonth={null}
-              inputIconPosition="after"
-              isDayBlocked={[Function]}
-              isDayHighlighted={[Function]}
-              isOutsideRange={[Function]}
-              isRTL={false}
-              keepFocusOnInput={false}
-              keepOpenOnDateSelect={false}
-              monthFormat="MMMM YYYY"
-              navNext={null}
-              navPosition="navPositionTop"
-              navPrev={null}
-              noBorder={false}
-              numberOfMonths={1}
-              onClose={[Function]}
-              onDateChange={[Function]}
-              onFocusChange={[Function]}
-              onNextMonthClick={[Function]}
-              onPrevMonthClick={[Function]}
-              openDirection="down"
-              orientation="horizontal"
-              phrases={
-                Object {
-                  "calendarLabel": "Calendar",
-                  "chooseAvailableDate": [Function],
-                  "clearDate": "Clear Date",
-                  "closeDatePicker": "Close",
-                  "dateIsSelected": [Function],
-                  "dateIsUnavailable": [Function],
-                  "enterKey": "Enter key",
-                  "escape": "Escape key",
-                  "hideKeyboardShortcutsPanel": "Close the shortcuts panel.",
-                  "homeEnd": "Home and end keys",
-                  "jumpToNextMonth": "Move forward to switch to the next month.",
-                  "jumpToPrevMonth": "Move backward to switch to the previous month.",
-                  "keyboardBackwardNavigationInstructions": "Navigate backward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
-                  "keyboardForwardNavigationInstructions": "Navigate forward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
-                  "keyboardShortcuts": "Keyboard Shortcuts",
-                  "leftArrowRightArrow": "Right and left arrow keys",
-                  "moveFocusByOneDay": "Move backward (left) and forward (right) by one day.",
-                  "moveFocusByOneMonth": "Switch months.",
-                  "moveFocusByOneWeek": "Move backward (up) and forward (down) by one week.",
-                  "moveFocustoStartAndEndOfWeek": "Go to the first or last day of a week.",
-                  "openThisPanel": "Open this panel.",
-                  "pageUpPageDown": "page up and page down keys",
-                  "questionMark": "Question mark",
-                  "returnFocusToInput": "Return to the date input field.",
-                  "roleDescription": "datepicker",
-                  "selectFocusedDate": "Select the date in focus.",
-                  "showKeyboardShortcutsPanel": "Open the keyboard shortcuts panel.",
-                  "upArrowDownArrow": "up and down arrow keys",
-                }
-              }
-              placeholder="Date"
-              readOnly={false}
-              regular={false}
-              renderCalendarInfo={null}
-              renderDayContents={null}
-              renderMonthElement={null}
-              renderMonthText={null}
-              renderNavNextButton={null}
-              renderNavPrevButton={null}
-              renderWeekHeaderElement={null}
-              reopenPickerOnClearDate={false}
-              required={false}
-              screenReaderInputMessage=""
-              showClearDate={false}
-              showDefaultInputIcon={false}
-              small={false}
-              styles={
-                Object {
-                  "SingleDatePicker": "SingleDatePicker",
-                  "SingleDatePicker__block": "SingleDatePicker__block",
-                  "SingleDatePicker_closeButton": "SingleDatePicker_closeButton",
-                  "SingleDatePicker_closeButton_svg": "SingleDatePicker_closeButton_svg",
-                  "SingleDatePicker_picker": "SingleDatePicker_picker",
-                  "SingleDatePicker_picker__directionLeft": "SingleDatePicker_picker__directionLeft",
-                  "SingleDatePicker_picker__directionRight": "SingleDatePicker_picker__directionRight",
-                  "SingleDatePicker_picker__fullScreenPortal": "SingleDatePicker_picker__fullScreenPortal",
-                  "SingleDatePicker_picker__portal": "SingleDatePicker_picker__portal",
-                  "SingleDatePicker_picker__rtl": "SingleDatePicker_picker__rtl",
-                }
-              }
-              theme={
-                Object {
-                  "reactDates": Object {
-                    "border": Object {
-                      "input": Object {
-                        "border": 0,
-                        "borderBottom": "2px solid transparent",
-                        "borderBottomFocused": "2px solid #008489",
-                        "borderFocused": 0,
-                        "borderLeft": 0,
-                        "borderLeftFocused": 0,
-                        "borderRadius": 0,
-                        "borderRight": 0,
-                        "borderRightFocused": 0,
-                        "borderTop": 0,
-                        "borderTopFocused": 0,
-                        "outlineFocused": 0,
-                      },
-                      "pickerInput": Object {
-                        "borderRadius": 2,
-                        "borderStyle": "solid",
-                        "borderWidth": 1,
-                      },
-                    },
-                    "color": Object {
-                      "background": "#fff",
-                      "backgroundDark": "#f2f2f2",
-                      "backgroundFocused": "#fff",
-                      "blocked_calendar": Object {
-                        "backgroundColor": "#cacccd",
-                        "backgroundColor_active": "#cacccd",
-                        "backgroundColor_hover": "#cacccd",
-                        "borderColor": "#cacccd",
-                        "borderColor_active": "#cacccd",
-                        "borderColor_hover": "#cacccd",
-                        "color": "#82888a",
-                        "color_active": "#82888a",
-                        "color_hover": "#82888a",
-                      },
-                      "blocked_out_of_range": Object {
-                        "backgroundColor": "#fff",
-                        "backgroundColor_active": "#fff",
-                        "backgroundColor_hover": "#fff",
-                        "borderColor": "#e4e7e7",
-                        "borderColor_active": "#e4e7e7",
-                        "borderColor_hover": "#e4e7e7",
-                        "color": "#cacccd",
-                        "color_active": "#cacccd",
-                        "color_hover": "#cacccd",
-                      },
-                      "border": "rgb(219, 219, 219)",
-                      "core": Object {
-                        "border": "#dbdbdb",
-                        "borderBright": "#f4f5f5",
-                        "borderLight": "#e4e7e7",
-                        "borderLighter": "#eceeee",
-                        "borderMedium": "#c4c4c4",
-                        "gray": "#484848",
-                        "grayLight": "#82888a",
-                        "grayLighter": "#cacccd",
-                        "grayLightest": "#f2f2f2",
-                        "primary": "#00a699",
-                        "primaryShade_1": "#33dacd",
-                        "primaryShade_2": "#66e2da",
-                        "primaryShade_3": "#80e8e0",
-                        "primaryShade_4": "#b2f1ec",
-                        "primary_dark": "#008489",
-                        "secondary": "#007a87",
-                        "white": "#fff",
-                        "yellow": "#ffe8bc",
-                        "yellow_dark": "#ffce71",
-                      },
-                      "disabled": "#f2f2f2",
-                      "highlighted": Object {
-                        "backgroundColor": "#ffe8bc",
-                        "backgroundColor_active": "#ffce71",
-                        "backgroundColor_hover": "#ffce71",
-                        "color": "#484848",
-                        "color_active": "#484848",
-                        "color_hover": "#484848",
-                      },
-                      "hoveredSpan": Object {
-                        "backgroundColor": "#b2f1ec",
-                        "backgroundColor_active": "#80e8e0",
-                        "backgroundColor_hover": "#b2f1ec",
-                        "borderColor": "#80e8e0",
-                        "borderColor_active": "#80e8e0",
-                        "borderColor_hover": "#80e8e0",
-                        "color": "#007a87",
-                        "color_active": "#007a87",
-                        "color_hover": "#007a87",
-                      },
-                      "minimumNights": Object {
-                        "backgroundColor": "#fff",
-                        "backgroundColor_active": "#fff",
-                        "backgroundColor_hover": "#fff",
-                        "borderColor": "#eceeee",
-                        "color": "#cacccd",
-                        "color_active": "#cacccd",
-                        "color_hover": "#cacccd",
-                      },
-                      "outside": Object {
-                        "backgroundColor": "#fff",
-                        "backgroundColor_active": "#fff",
-                        "backgroundColor_hover": "#fff",
-                        "color": "#484848",
-                        "color_active": "#484848",
-                        "color_hover": "#484848",
-                      },
-                      "placeholderText": "#757575",
-                      "selected": Object {
-                        "backgroundColor": "#00a699",
-                        "backgroundColor_active": "#00a699",
-                        "backgroundColor_hover": "#00a699",
-                        "borderColor": "#00a699",
-                        "borderColor_active": "#00a699",
-                        "borderColor_hover": "#00a699",
-                        "color": "#fff",
-                        "color_active": "#fff",
-                        "color_hover": "#fff",
-                      },
-                      "selectedSpan": Object {
-                        "backgroundColor": "#66e2da",
-                        "backgroundColor_active": "#33dacd",
-                        "backgroundColor_hover": "#33dacd",
-                        "borderColor": "#33dacd",
-                        "borderColor_active": "#00a699",
-                        "borderColor_hover": "#00a699",
-                        "color": "#fff",
-                        "color_active": "#fff",
-                        "color_hover": "#fff",
-                      },
-                      "text": "#484848",
-                      "textDisabled": "#dbdbdb",
-                      "textFocused": "#007a87",
-                    },
-                    "font": Object {
-                      "captionSize": 18,
-                      "input": Object {
-                        "letterSpacing_small": "0.2px",
-                        "lineHeight": "24px",
-                        "lineHeight_small": "18px",
-                        "size": 19,
-                        "size_small": 15,
-                        "styleDisabled": "italic",
-                        "weight": 200,
-                      },
-                      "size": 14,
-                    },
-                    "noScrollBarOnVerticalScrollable": false,
-                    "sizing": Object {
-                      "arrowWidth": 24,
-                      "inputWidth": 130,
-                      "inputWidth_small": 97,
-                    },
-                    "spacing": Object {
-                      "captionPaddingBottom": 37,
-                      "captionPaddingTop": 22,
-                      "dayPickerHorizontalPadding": 9,
-                      "displayTextPaddingBottom": 9,
-                      "displayTextPaddingBottom_small": 5,
-                      "displayTextPaddingHorizontal": undefined,
-                      "displayTextPaddingHorizontal_small": undefined,
-                      "displayTextPaddingLeft": 11,
-                      "displayTextPaddingLeft_small": 7,
-                      "displayTextPaddingRight": 11,
-                      "displayTextPaddingRight_small": 7,
-                      "displayTextPaddingTop": 11,
-                      "displayTextPaddingTop_small": 7,
-                      "displayTextPaddingVertical": undefined,
-                      "displayTextPaddingVertical_small": undefined,
-                      "inputPadding": 0,
-                    },
-                    "zIndex": 0,
-                  },
-                }
-              }
-              verticalHeight={null}
-              verticalSpacing={22}
-              weekDayFormat="dd"
-              withFullScreenPortal={false}
-              withPortal={false}
-            >
-              <div
-                className="SingleDatePicker SingleDatePicker_1"
-              >
-                <OutsideClickHandler
-                  disabled={false}
-                  display="block"
-                  onOutsideClick={[Function]}
-                  useCapture={true}
-                >
-                  <div>
-                    <SingleDatePickerInputController
-                      block={false}
-                      customCloseIcon={null}
-                      customInputIcon={null}
-                      date={null}
-                      disabled={false}
-                      displayFormat={[Function]}
-                      focused={false}
-                      id="date-picker"
-                      inputIconPosition="after"
-                      isFocused={false}
-                      isOutsideRange={[Function]}
-                      isRTL={false}
-                      keepOpenOnDateSelect={false}
-                      noBorder={false}
-                      onClose={[Function]}
-                      onDateChange={[Function]}
-                      onFocusChange={[Function]}
-                      onKeyDownArrowDown={[Function]}
-                      onKeyDownQuestionMark={[Function]}
-                      openDirection="down"
-                      phrases={
-                        Object {
-                          "calendarLabel": "Calendar",
-                          "chooseAvailableDate": [Function],
-                          "clearDate": "Clear Date",
-                          "closeDatePicker": "Close",
-                          "dateIsSelected": [Function],
-                          "dateIsUnavailable": [Function],
-                          "enterKey": "Enter key",
-                          "escape": "Escape key",
-                          "hideKeyboardShortcutsPanel": "Close the shortcuts panel.",
-                          "homeEnd": "Home and end keys",
-                          "jumpToNextMonth": "Move forward to switch to the next month.",
-                          "jumpToPrevMonth": "Move backward to switch to the previous month.",
-                          "keyboardBackwardNavigationInstructions": "Navigate backward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
-                          "keyboardForwardNavigationInstructions": "Navigate forward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
-                          "keyboardShortcuts": "Keyboard Shortcuts",
-                          "leftArrowRightArrow": "Right and left arrow keys",
-                          "moveFocusByOneDay": "Move backward (left) and forward (right) by one day.",
-                          "moveFocusByOneMonth": "Switch months.",
-                          "moveFocusByOneWeek": "Move backward (up) and forward (down) by one week.",
-                          "moveFocustoStartAndEndOfWeek": "Go to the first or last day of a week.",
-                          "openThisPanel": "Open this panel.",
-                          "pageUpPageDown": "page up and page down keys",
-                          "questionMark": "Question mark",
-                          "returnFocusToInput": "Return to the date input field.",
-                          "roleDescription": "datepicker",
-                          "selectFocusedDate": "Select the date in focus.",
-                          "showKeyboardShortcutsPanel": "Open the keyboard shortcuts panel.",
-                          "upArrowDownArrow": "up and down arrow keys",
-                        }
-                      }
-                      placeholder="Date"
-                      readOnly={false}
-                      regular={false}
-                      reopenPickerOnClearDate={false}
-                      required={false}
-                      screenReaderMessage=""
-                      showCaret={true}
-                      showClearDate={false}
-                      showDefaultInputIcon={false}
-                      small={false}
-                      verticalSpacing={22}
-                    >
-                      <withStyles(SingleDatePickerInput)
-                        block={false}
-                        customCloseIcon={null}
-                        customInputIcon={null}
-                        disabled={false}
-                        displayValue={null}
-                        focused={false}
-                        id="date-picker"
-                        inputIconPosition="after"
-                        isFocused={false}
-                        isRTL={false}
-                        noBorder={false}
-                        onChange={[Function]}
-                        onClearDate={[Function]}
-                        onFocus={[Function]}
-                        onKeyDownArrowDown={[Function]}
-                        onKeyDownQuestionMark={[Function]}
-                        onKeyDownShiftTab={[Function]}
-                        onKeyDownTab={[Function]}
-                        openDirection="down"
-                        phrases={
-                          Object {
-                            "calendarLabel": "Calendar",
-                            "chooseAvailableDate": [Function],
-                            "clearDate": "Clear Date",
-                            "closeDatePicker": "Close",
-                            "dateIsSelected": [Function],
-                            "dateIsUnavailable": [Function],
-                            "enterKey": "Enter key",
-                            "escape": "Escape key",
-                            "hideKeyboardShortcutsPanel": "Close the shortcuts panel.",
-                            "homeEnd": "Home and end keys",
-                            "jumpToNextMonth": "Move forward to switch to the next month.",
-                            "jumpToPrevMonth": "Move backward to switch to the previous month.",
-                            "keyboardBackwardNavigationInstructions": "Navigate backward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
-                            "keyboardForwardNavigationInstructions": "Navigate forward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
-                            "keyboardShortcuts": "Keyboard Shortcuts",
-                            "leftArrowRightArrow": "Right and left arrow keys",
-                            "moveFocusByOneDay": "Move backward (left) and forward (right) by one day.",
-                            "moveFocusByOneMonth": "Switch months.",
-                            "moveFocusByOneWeek": "Move backward (up) and forward (down) by one week.",
-                            "moveFocustoStartAndEndOfWeek": "Go to the first or last day of a week.",
-                            "openThisPanel": "Open this panel.",
-                            "pageUpPageDown": "page up and page down keys",
-                            "questionMark": "Question mark",
-                            "returnFocusToInput": "Return to the date input field.",
-                            "roleDescription": "datepicker",
-                            "selectFocusedDate": "Select the date in focus.",
-                            "showKeyboardShortcutsPanel": "Open the keyboard shortcuts panel.",
-                            "upArrowDownArrow": "up and down arrow keys",
-                          }
-                        }
-                        placeholder="Date"
-                        readOnly={false}
-                        regular={false}
-                        required={false}
-                        screenReaderMessage=""
-                        showCaret={true}
-                        showClearDate={false}
-                        showDefaultInputIcon={false}
-                        small={false}
-                        verticalSpacing={22}
-                      >
-                        <WithStyles
-                          block={false}
-                          customCloseIcon={null}
-                          customInputIcon={null}
-                          disabled={false}
-                          displayValue={null}
-                          focused={false}
-                          forwardedRef={null}
-                          id="date-picker"
-                          inputIconPosition="after"
-                          isFocused={false}
-                          isRTL={false}
-                          noBorder={false}
-                          onChange={[Function]}
-                          onClearDate={[Function]}
-                          onFocus={[Function]}
-                          onKeyDownArrowDown={[Function]}
-                          onKeyDownQuestionMark={[Function]}
-                          onKeyDownShiftTab={[Function]}
-                          onKeyDownTab={[Function]}
-                          openDirection="down"
-                          phrases={
-                            Object {
-                              "calendarLabel": "Calendar",
-                              "chooseAvailableDate": [Function],
-                              "clearDate": "Clear Date",
-                              "closeDatePicker": "Close",
-                              "dateIsSelected": [Function],
-                              "dateIsUnavailable": [Function],
-                              "enterKey": "Enter key",
-                              "escape": "Escape key",
-                              "hideKeyboardShortcutsPanel": "Close the shortcuts panel.",
-                              "homeEnd": "Home and end keys",
-                              "jumpToNextMonth": "Move forward to switch to the next month.",
-                              "jumpToPrevMonth": "Move backward to switch to the previous month.",
-                              "keyboardBackwardNavigationInstructions": "Navigate backward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
-                              "keyboardForwardNavigationInstructions": "Navigate forward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
-                              "keyboardShortcuts": "Keyboard Shortcuts",
-                              "leftArrowRightArrow": "Right and left arrow keys",
-                              "moveFocusByOneDay": "Move backward (left) and forward (right) by one day.",
-                              "moveFocusByOneMonth": "Switch months.",
-                              "moveFocusByOneWeek": "Move backward (up) and forward (down) by one week.",
-                              "moveFocustoStartAndEndOfWeek": "Go to the first or last day of a week.",
-                              "openThisPanel": "Open this panel.",
-                              "pageUpPageDown": "page up and page down keys",
-                              "questionMark": "Question mark",
-                              "returnFocusToInput": "Return to the date input field.",
-                              "roleDescription": "datepicker",
-                              "selectFocusedDate": "Select the date in focus.",
-                              "showKeyboardShortcutsPanel": "Open the keyboard shortcuts panel.",
-                              "upArrowDownArrow": "up and down arrow keys",
-                            }
-                          }
-                          placeholder="Date"
-                          readOnly={false}
-                          regular={false}
-                          required={false}
-                          screenReaderMessage=""
-                          showCaret={true}
-                          showClearDate={false}
-                          showDefaultInputIcon={false}
-                          small={false}
-                          verticalSpacing={22}
-                        >
-                          <SingleDatePickerInput
-                            block={false}
-                            css={[Function]}
-                            customCloseIcon={null}
-                            customInputIcon={null}
-                            disabled={false}
-                            displayValue={null}
-                            focused={false}
-                            id="date-picker"
-                            inputIconPosition="after"
-                            isFocused={false}
-                            isRTL={false}
-                            noBorder={false}
-                            onChange={[Function]}
-                            onClearDate={[Function]}
-                            onFocus={[Function]}
-                            onKeyDownArrowDown={[Function]}
-                            onKeyDownQuestionMark={[Function]}
-                            onKeyDownShiftTab={[Function]}
-                            onKeyDownTab={[Function]}
-                            openDirection="down"
-                            phrases={
-                              Object {
-                                "calendarLabel": "Calendar",
-                                "chooseAvailableDate": [Function],
-                                "clearDate": "Clear Date",
-                                "closeDatePicker": "Close",
-                                "dateIsSelected": [Function],
-                                "dateIsUnavailable": [Function],
-                                "enterKey": "Enter key",
-                                "escape": "Escape key",
-                                "hideKeyboardShortcutsPanel": "Close the shortcuts panel.",
-                                "homeEnd": "Home and end keys",
-                                "jumpToNextMonth": "Move forward to switch to the next month.",
-                                "jumpToPrevMonth": "Move backward to switch to the previous month.",
-                                "keyboardBackwardNavigationInstructions": "Navigate backward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
-                                "keyboardForwardNavigationInstructions": "Navigate forward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
-                                "keyboardShortcuts": "Keyboard Shortcuts",
-                                "leftArrowRightArrow": "Right and left arrow keys",
-                                "moveFocusByOneDay": "Move backward (left) and forward (right) by one day.",
-                                "moveFocusByOneMonth": "Switch months.",
-                                "moveFocusByOneWeek": "Move backward (up) and forward (down) by one week.",
-                                "moveFocustoStartAndEndOfWeek": "Go to the first or last day of a week.",
-                                "openThisPanel": "Open this panel.",
-                                "pageUpPageDown": "page up and page down keys",
-                                "questionMark": "Question mark",
-                                "returnFocusToInput": "Return to the date input field.",
-                                "roleDescription": "datepicker",
-                                "selectFocusedDate": "Select the date in focus.",
-                                "showKeyboardShortcutsPanel": "Open the keyboard shortcuts panel.",
-                                "upArrowDownArrow": "up and down arrow keys",
-                              }
-                            }
-                            placeholder="Date"
-                            readOnly={false}
-                            regular={false}
-                            required={false}
-                            screenReaderMessage=""
-                            showCaret={true}
-                            showClearDate={false}
-                            showDefaultInputIcon={false}
-                            small={false}
-                            styles={
-                              Object {
-                                "SingleDatePickerInput": "SingleDatePickerInput",
-                                "SingleDatePickerInput__block": "SingleDatePickerInput__block",
-                                "SingleDatePickerInput__disabled": "SingleDatePickerInput__disabled",
-                                "SingleDatePickerInput__rtl": "SingleDatePickerInput__rtl",
-                                "SingleDatePickerInput__showClearDate": "SingleDatePickerInput__showClearDate",
-                                "SingleDatePickerInput__withBorder": "SingleDatePickerInput__withBorder",
-                                "SingleDatePickerInput_calendarIcon": "SingleDatePickerInput_calendarIcon",
-                                "SingleDatePickerInput_calendarIcon_svg": "SingleDatePickerInput_calendarIcon_svg",
-                                "SingleDatePickerInput_clearDate": "SingleDatePickerInput_clearDate",
-                                "SingleDatePickerInput_clearDate__default": "SingleDatePickerInput_clearDate__default",
-                                "SingleDatePickerInput_clearDate__hide": "SingleDatePickerInput_clearDate__hide",
-                                "SingleDatePickerInput_clearDate__small": "SingleDatePickerInput_clearDate__small",
-                                "SingleDatePickerInput_clearDate_svg": "SingleDatePickerInput_clearDate_svg",
-                                "SingleDatePickerInput_clearDate_svg__small": "SingleDatePickerInput_clearDate_svg__small",
-                              }
-                            }
-                            theme={
-                              Object {
-                                "reactDates": Object {
-                                  "border": Object {
-                                    "input": Object {
-                                      "border": 0,
-                                      "borderBottom": "2px solid transparent",
-                                      "borderBottomFocused": "2px solid #008489",
-                                      "borderFocused": 0,
-                                      "borderLeft": 0,
-                                      "borderLeftFocused": 0,
-                                      "borderRadius": 0,
-                                      "borderRight": 0,
-                                      "borderRightFocused": 0,
-                                      "borderTop": 0,
-                                      "borderTopFocused": 0,
-                                      "outlineFocused": 0,
-                                    },
-                                    "pickerInput": Object {
-                                      "borderRadius": 2,
-                                      "borderStyle": "solid",
-                                      "borderWidth": 1,
-                                    },
-                                  },
-                                  "color": Object {
-                                    "background": "#fff",
-                                    "backgroundDark": "#f2f2f2",
-                                    "backgroundFocused": "#fff",
-                                    "blocked_calendar": Object {
-                                      "backgroundColor": "#cacccd",
-                                      "backgroundColor_active": "#cacccd",
-                                      "backgroundColor_hover": "#cacccd",
-                                      "borderColor": "#cacccd",
-                                      "borderColor_active": "#cacccd",
-                                      "borderColor_hover": "#cacccd",
-                                      "color": "#82888a",
-                                      "color_active": "#82888a",
-                                      "color_hover": "#82888a",
-                                    },
-                                    "blocked_out_of_range": Object {
-                                      "backgroundColor": "#fff",
-                                      "backgroundColor_active": "#fff",
-                                      "backgroundColor_hover": "#fff",
-                                      "borderColor": "#e4e7e7",
-                                      "borderColor_active": "#e4e7e7",
-                                      "borderColor_hover": "#e4e7e7",
-                                      "color": "#cacccd",
-                                      "color_active": "#cacccd",
-                                      "color_hover": "#cacccd",
-                                    },
-                                    "border": "rgb(219, 219, 219)",
-                                    "core": Object {
-                                      "border": "#dbdbdb",
-                                      "borderBright": "#f4f5f5",
-                                      "borderLight": "#e4e7e7",
-                                      "borderLighter": "#eceeee",
-                                      "borderMedium": "#c4c4c4",
-                                      "gray": "#484848",
-                                      "grayLight": "#82888a",
-                                      "grayLighter": "#cacccd",
-                                      "grayLightest": "#f2f2f2",
-                                      "primary": "#00a699",
-                                      "primaryShade_1": "#33dacd",
-                                      "primaryShade_2": "#66e2da",
-                                      "primaryShade_3": "#80e8e0",
-                                      "primaryShade_4": "#b2f1ec",
-                                      "primary_dark": "#008489",
-                                      "secondary": "#007a87",
-                                      "white": "#fff",
-                                      "yellow": "#ffe8bc",
-                                      "yellow_dark": "#ffce71",
-                                    },
-                                    "disabled": "#f2f2f2",
-                                    "highlighted": Object {
-                                      "backgroundColor": "#ffe8bc",
-                                      "backgroundColor_active": "#ffce71",
-                                      "backgroundColor_hover": "#ffce71",
-                                      "color": "#484848",
-                                      "color_active": "#484848",
-                                      "color_hover": "#484848",
-                                    },
-                                    "hoveredSpan": Object {
-                                      "backgroundColor": "#b2f1ec",
-                                      "backgroundColor_active": "#80e8e0",
-                                      "backgroundColor_hover": "#b2f1ec",
-                                      "borderColor": "#80e8e0",
-                                      "borderColor_active": "#80e8e0",
-                                      "borderColor_hover": "#80e8e0",
-                                      "color": "#007a87",
-                                      "color_active": "#007a87",
-                                      "color_hover": "#007a87",
-                                    },
-                                    "minimumNights": Object {
-                                      "backgroundColor": "#fff",
-                                      "backgroundColor_active": "#fff",
-                                      "backgroundColor_hover": "#fff",
-                                      "borderColor": "#eceeee",
-                                      "color": "#cacccd",
-                                      "color_active": "#cacccd",
-                                      "color_hover": "#cacccd",
-                                    },
-                                    "outside": Object {
-                                      "backgroundColor": "#fff",
-                                      "backgroundColor_active": "#fff",
-                                      "backgroundColor_hover": "#fff",
-                                      "color": "#484848",
-                                      "color_active": "#484848",
-                                      "color_hover": "#484848",
-                                    },
-                                    "placeholderText": "#757575",
-                                    "selected": Object {
-                                      "backgroundColor": "#00a699",
-                                      "backgroundColor_active": "#00a699",
-                                      "backgroundColor_hover": "#00a699",
-                                      "borderColor": "#00a699",
-                                      "borderColor_active": "#00a699",
-                                      "borderColor_hover": "#00a699",
-                                      "color": "#fff",
-                                      "color_active": "#fff",
-                                      "color_hover": "#fff",
-                                    },
-                                    "selectedSpan": Object {
-                                      "backgroundColor": "#66e2da",
-                                      "backgroundColor_active": "#33dacd",
-                                      "backgroundColor_hover": "#33dacd",
-                                      "borderColor": "#33dacd",
-                                      "borderColor_active": "#00a699",
-                                      "borderColor_hover": "#00a699",
-                                      "color": "#fff",
-                                      "color_active": "#fff",
-                                      "color_hover": "#fff",
-                                    },
-                                    "text": "#484848",
-                                    "textDisabled": "#dbdbdb",
-                                    "textFocused": "#007a87",
-                                  },
-                                  "font": Object {
-                                    "captionSize": 18,
-                                    "input": Object {
-                                      "letterSpacing_small": "0.2px",
-                                      "lineHeight": "24px",
-                                      "lineHeight_small": "18px",
-                                      "size": 19,
-                                      "size_small": 15,
-                                      "styleDisabled": "italic",
-                                      "weight": 200,
-                                    },
-                                    "size": 14,
-                                  },
-                                  "noScrollBarOnVerticalScrollable": false,
-                                  "sizing": Object {
-                                    "arrowWidth": 24,
-                                    "inputWidth": 130,
-                                    "inputWidth_small": 97,
-                                  },
-                                  "spacing": Object {
-                                    "captionPaddingBottom": 37,
-                                    "captionPaddingTop": 22,
-                                    "dayPickerHorizontalPadding": 9,
-                                    "displayTextPaddingBottom": 9,
-                                    "displayTextPaddingBottom_small": 5,
-                                    "displayTextPaddingHorizontal": undefined,
-                                    "displayTextPaddingHorizontal_small": undefined,
-                                    "displayTextPaddingLeft": 11,
-                                    "displayTextPaddingLeft_small": 7,
-                                    "displayTextPaddingRight": 11,
-                                    "displayTextPaddingRight_small": 7,
-                                    "displayTextPaddingTop": 11,
-                                    "displayTextPaddingTop_small": 7,
-                                    "displayTextPaddingVertical": undefined,
-                                    "displayTextPaddingVertical_small": undefined,
-                                    "inputPadding": 0,
-                                  },
-                                  "zIndex": 0,
-                                },
-                              }
-                            }
-                            verticalSpacing={22}
-                          >
-                            <div
-                              className="SingleDatePickerInput SingleDatePickerInput_1 SingleDatePickerInput__withBorder SingleDatePickerInput__withBorder_2"
-                            >
-                              <withStyles(DateInput)
-                                block={false}
-                                disabled={false}
-                                displayValue={null}
-                                focused={false}
-                                id="date-picker"
-                                isFocused={false}
-                                onChange={[Function]}
-                                onFocus={[Function]}
-                                onKeyDownArrowDown={[Function]}
-                                onKeyDownQuestionMark={[Function]}
-                                onKeyDownShiftTab={[Function]}
-                                onKeyDownTab={[Function]}
-                                openDirection="down"
-                                placeholder="Date"
-                                readOnly={false}
-                                regular={false}
-                                required={false}
-                                screenReaderMessage="Navigate forward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates."
-                                showCaret={true}
-                                small={false}
-                                verticalSpacing={22}
-                              >
-                                <WithStyles
-                                  block={false}
-                                  disabled={false}
-                                  displayValue={null}
-                                  focused={false}
-                                  forwardedRef={null}
-                                  id="date-picker"
-                                  isFocused={false}
-                                  onChange={[Function]}
-                                  onFocus={[Function]}
-                                  onKeyDownArrowDown={[Function]}
-                                  onKeyDownQuestionMark={[Function]}
-                                  onKeyDownShiftTab={[Function]}
-                                  onKeyDownTab={[Function]}
-                                  openDirection="down"
-                                  placeholder="Date"
-                                  readOnly={false}
-                                  regular={false}
-                                  required={false}
-                                  screenReaderMessage="Navigate forward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates."
-                                  showCaret={true}
-                                  small={false}
-                                  verticalSpacing={22}
-                                >
-                                  <DateInput
-                                    block={false}
-                                    css={[Function]}
-                                    disabled={false}
-                                    displayValue={null}
-                                    focused={false}
-                                    id="date-picker"
-                                    isFocused={false}
-                                    onChange={[Function]}
-                                    onFocus={[Function]}
-                                    onKeyDownArrowDown={[Function]}
-                                    onKeyDownQuestionMark={[Function]}
-                                    onKeyDownShiftTab={[Function]}
-                                    onKeyDownTab={[Function]}
-                                    openDirection="down"
-                                    placeholder="Date"
-                                    readOnly={false}
-                                    regular={false}
-                                    required={false}
-                                    screenReaderMessage="Navigate forward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates."
-                                    showCaret={true}
-                                    small={false}
-                                    styles={
-                                      Object {
-                                        "DateInput": "DateInput",
-                                        "DateInput__block": "DateInput__block",
-                                        "DateInput__disabled": "DateInput__disabled",
-                                        "DateInput__small": "DateInput__small",
-                                        "DateInput_fang": "DateInput_fang",
-                                        "DateInput_fangShape": "DateInput_fangShape",
-                                        "DateInput_fangStroke": "DateInput_fangStroke",
-                                        "DateInput_input": "DateInput_input",
-                                        "DateInput_input__disabled": "DateInput_input__disabled",
-                                        "DateInput_input__focused": "DateInput_input__focused",
-                                        "DateInput_input__readOnly": "DateInput_input__readOnly",
-                                        "DateInput_input__regular": "DateInput_input__regular",
-                                        "DateInput_input__small": "DateInput_input__small",
-                                        "DateInput_screenReaderMessage": "DateInput_screenReaderMessage",
-                                      }
-                                    }
-                                    theme={
-                                      Object {
-                                        "reactDates": Object {
-                                          "border": Object {
-                                            "input": Object {
-                                              "border": 0,
-                                              "borderBottom": "2px solid transparent",
-                                              "borderBottomFocused": "2px solid #008489",
-                                              "borderFocused": 0,
-                                              "borderLeft": 0,
-                                              "borderLeftFocused": 0,
-                                              "borderRadius": 0,
-                                              "borderRight": 0,
-                                              "borderRightFocused": 0,
-                                              "borderTop": 0,
-                                              "borderTopFocused": 0,
-                                              "outlineFocused": 0,
-                                            },
-                                            "pickerInput": Object {
-                                              "borderRadius": 2,
-                                              "borderStyle": "solid",
-                                              "borderWidth": 1,
-                                            },
-                                          },
-                                          "color": Object {
-                                            "background": "#fff",
-                                            "backgroundDark": "#f2f2f2",
-                                            "backgroundFocused": "#fff",
-                                            "blocked_calendar": Object {
-                                              "backgroundColor": "#cacccd",
-                                              "backgroundColor_active": "#cacccd",
-                                              "backgroundColor_hover": "#cacccd",
-                                              "borderColor": "#cacccd",
-                                              "borderColor_active": "#cacccd",
-                                              "borderColor_hover": "#cacccd",
-                                              "color": "#82888a",
-                                              "color_active": "#82888a",
-                                              "color_hover": "#82888a",
-                                            },
-                                            "blocked_out_of_range": Object {
-                                              "backgroundColor": "#fff",
-                                              "backgroundColor_active": "#fff",
-                                              "backgroundColor_hover": "#fff",
-                                              "borderColor": "#e4e7e7",
-                                              "borderColor_active": "#e4e7e7",
-                                              "borderColor_hover": "#e4e7e7",
-                                              "color": "#cacccd",
-                                              "color_active": "#cacccd",
-                                              "color_hover": "#cacccd",
-                                            },
-                                            "border": "rgb(219, 219, 219)",
-                                            "core": Object {
-                                              "border": "#dbdbdb",
-                                              "borderBright": "#f4f5f5",
-                                              "borderLight": "#e4e7e7",
-                                              "borderLighter": "#eceeee",
-                                              "borderMedium": "#c4c4c4",
-                                              "gray": "#484848",
-                                              "grayLight": "#82888a",
-                                              "grayLighter": "#cacccd",
-                                              "grayLightest": "#f2f2f2",
-                                              "primary": "#00a699",
-                                              "primaryShade_1": "#33dacd",
-                                              "primaryShade_2": "#66e2da",
-                                              "primaryShade_3": "#80e8e0",
-                                              "primaryShade_4": "#b2f1ec",
-                                              "primary_dark": "#008489",
-                                              "secondary": "#007a87",
-                                              "white": "#fff",
-                                              "yellow": "#ffe8bc",
-                                              "yellow_dark": "#ffce71",
-                                            },
-                                            "disabled": "#f2f2f2",
-                                            "highlighted": Object {
-                                              "backgroundColor": "#ffe8bc",
-                                              "backgroundColor_active": "#ffce71",
-                                              "backgroundColor_hover": "#ffce71",
-                                              "color": "#484848",
-                                              "color_active": "#484848",
-                                              "color_hover": "#484848",
-                                            },
-                                            "hoveredSpan": Object {
-                                              "backgroundColor": "#b2f1ec",
-                                              "backgroundColor_active": "#80e8e0",
-                                              "backgroundColor_hover": "#b2f1ec",
-                                              "borderColor": "#80e8e0",
-                                              "borderColor_active": "#80e8e0",
-                                              "borderColor_hover": "#80e8e0",
-                                              "color": "#007a87",
-                                              "color_active": "#007a87",
-                                              "color_hover": "#007a87",
-                                            },
-                                            "minimumNights": Object {
-                                              "backgroundColor": "#fff",
-                                              "backgroundColor_active": "#fff",
-                                              "backgroundColor_hover": "#fff",
-                                              "borderColor": "#eceeee",
-                                              "color": "#cacccd",
-                                              "color_active": "#cacccd",
-                                              "color_hover": "#cacccd",
-                                            },
-                                            "outside": Object {
-                                              "backgroundColor": "#fff",
-                                              "backgroundColor_active": "#fff",
-                                              "backgroundColor_hover": "#fff",
-                                              "color": "#484848",
-                                              "color_active": "#484848",
-                                              "color_hover": "#484848",
-                                            },
-                                            "placeholderText": "#757575",
-                                            "selected": Object {
-                                              "backgroundColor": "#00a699",
-                                              "backgroundColor_active": "#00a699",
-                                              "backgroundColor_hover": "#00a699",
-                                              "borderColor": "#00a699",
-                                              "borderColor_active": "#00a699",
-                                              "borderColor_hover": "#00a699",
-                                              "color": "#fff",
-                                              "color_active": "#fff",
-                                              "color_hover": "#fff",
-                                            },
-                                            "selectedSpan": Object {
-                                              "backgroundColor": "#66e2da",
-                                              "backgroundColor_active": "#33dacd",
-                                              "backgroundColor_hover": "#33dacd",
-                                              "borderColor": "#33dacd",
-                                              "borderColor_active": "#00a699",
-                                              "borderColor_hover": "#00a699",
-                                              "color": "#fff",
-                                              "color_active": "#fff",
-                                              "color_hover": "#fff",
-                                            },
-                                            "text": "#484848",
-                                            "textDisabled": "#dbdbdb",
-                                            "textFocused": "#007a87",
-                                          },
-                                          "font": Object {
-                                            "captionSize": 18,
-                                            "input": Object {
-                                              "letterSpacing_small": "0.2px",
-                                              "lineHeight": "24px",
-                                              "lineHeight_small": "18px",
-                                              "size": 19,
-                                              "size_small": 15,
-                                              "styleDisabled": "italic",
-                                              "weight": 200,
-                                            },
-                                            "size": 14,
-                                          },
-                                          "noScrollBarOnVerticalScrollable": false,
-                                          "sizing": Object {
-                                            "arrowWidth": 24,
-                                            "inputWidth": 130,
-                                            "inputWidth_small": 97,
-                                          },
-                                          "spacing": Object {
-                                            "captionPaddingBottom": 37,
-                                            "captionPaddingTop": 22,
-                                            "dayPickerHorizontalPadding": 9,
-                                            "displayTextPaddingBottom": 9,
-                                            "displayTextPaddingBottom_small": 5,
-                                            "displayTextPaddingHorizontal": undefined,
-                                            "displayTextPaddingHorizontal_small": undefined,
-                                            "displayTextPaddingLeft": 11,
-                                            "displayTextPaddingLeft_small": 7,
-                                            "displayTextPaddingRight": 11,
-                                            "displayTextPaddingRight_small": 7,
-                                            "displayTextPaddingTop": 11,
-                                            "displayTextPaddingTop_small": 7,
-                                            "displayTextPaddingVertical": undefined,
-                                            "displayTextPaddingVertical_small": undefined,
-                                            "inputPadding": 0,
-                                          },
-                                          "zIndex": 0,
-                                        },
-                                      }
-                                    }
-                                    verticalSpacing={22}
-                                  >
-                                    <div
-                                      className="DateInput DateInput_1"
-                                    >
-                                      <input
-                                        aria-describedby="DateInput__screen-reader-message-date-picker"
-                                        aria-label="Date"
-                                        autoComplete="off"
-                                        className="DateInput_input DateInput_input_1"
-                                        disabled={false}
-                                        id="date-picker"
-                                        name="date-picker"
-                                        onChange={[Function]}
-                                        onFocus={[Function]}
-                                        onKeyDown={[Function]}
-                                        placeholder="Date"
-                                        readOnly={false}
-                                        required={false}
-                                        type="text"
-                                        value=""
-                                      />
-                                      <p
-                                        className="DateInput_screenReaderMessage DateInput_screenReaderMessage_1"
-                                        id="DateInput__screen-reader-message-date-picker"
-                                      >
-                                        Navigate forward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates.
-                                      </p>
-                                    </div>
-                                  </DateInput>
-                                </WithStyles>
-                              </withStyles(DateInput)>
-                            </div>
-                          </SingleDatePickerInput>
-                        </WithStyles>
-                      </withStyles(SingleDatePickerInput)>
-                    </SingleDatePickerInputController>
-                  </div>
-                </OutsideClickHandler>
-              </div>
-            </SingleDatePicker>
-          </WithStyles>
-        </withStyles(SingleDatePicker)>
-      </div>
-      <button
-        className="generate-session-button quill-button fun primary contained"
-        onClick={[Function]}
-        type="submit"
-      >
-        Generate Turk Session
-      </button>
+            <img
+              alt=""
+              className="spinner"
+              src="https://assets.quill.org/images/icons/loader_still.svg"
+            />
+          </div>
+        </div>
+      </Spinner>
     </div>
-    <DataTable
-      averageFontWidth={7}
-      className="turk-sessions-table"
-      headers={
-        Array [
-          Object {
-            "attribute": "turkLink",
-            "name": "Link",
-            "width": "500px",
-          },
-          Object {
-            "attribute": "expiration",
-            "name": "Expiration Date",
-            "width": "200px",
-          },
-          Object {
-            "attribute": "copy",
-            "name": "",
-            "width": "100px",
-          },
-          Object {
-            "attribute": "edit",
-            "name": "",
-            "width": "100px",
-          },
-          Object {
-            "attribute": "delete",
-            "name": "",
-            "width": "100px",
-          },
-        ]
-      }
-      rows={
-        Array [
-          Object {
-            "copy": <TurkSessionButton
-              clickHandler={[Function]}
-              id={1}
-              label="copy"
-              value="undefined/evidence/#/turk?uid=17&id=1"
-            />,
-            "delete": <TurkSessionButton
-              clickHandler={[Function]}
-              id={1}
-              label="delete"
-            />,
-            "edit": <TurkSessionButton
-              clickHandler={[Function]}
-              id={1}
-              label="edit"
-              value="2020-12-07T22:52:41.945Z"
-            />,
-            "expiration": "December 7th, 2020",
-            "id": "17-1",
-            "turkLink": <a
-              href="undefined/evidence/#/turk?uid=17&id=1"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              undefined/evidence/#/turk?uid=17&id=1
-            </a>,
-          },
-        ]
-      }
-    >
-      <table
-        className="data-table turk-sessions-table"
-      >
-        <tr
-          className="data-table-headers"
-        >
-          <th
-            className="data-table-header undefined"
-            scope="col"
-            style={
-              Object {
-                "minWidth": "500px",
-                "textAlign": "left",
-                "width": "500px",
-              }
-            }
-          >
-            Link
-          </th>
-          <th
-            className="data-table-header undefined"
-            scope="col"
-            style={
-              Object {
-                "minWidth": "200px",
-                "textAlign": "left",
-                "width": "200px",
-              }
-            }
-          >
-            Expiration Date
-          </th>
-          <th
-            className="data-table-header undefined"
-            scope="col"
-            style={
-              Object {
-                "minWidth": "100px",
-                "textAlign": "left",
-                "width": "100px",
-              }
-            }
-          />
-          <th
-            className="data-table-header undefined"
-            scope="col"
-            style={
-              Object {
-                "minWidth": "100px",
-                "textAlign": "left",
-                "width": "100px",
-              }
-            }
-          />
-          <th
-            className="data-table-header undefined"
-            scope="col"
-            style={
-              Object {
-                "minWidth": "100px",
-                "textAlign": "left",
-                "width": "100px",
-              }
-            }
-          />
-        </tr>
-        <tbody
-          className="data-table-body"
-        >
-          <tr
-            className="data-table-row  "
-            key="17-1"
-          >
-            <td
-              className="data-table-row-section undefined"
-              key="turkLink-17-1"
-              style={
-                Object {
-                  "minWidth": "500px",
-                  "textAlign": "left",
-                  "width": "500px",
-                }
-              }
-            >
-              <a
-                href="undefined/evidence/#/turk?uid=17&id=1"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                undefined/evidence/#/turk?uid=17&id=1
-              </a>
-            </td>
-            <td
-              className="data-table-row-section undefined"
-              key="expiration-17-1"
-              style={
-                Object {
-                  "minWidth": "200px",
-                  "textAlign": "left",
-                  "width": "200px",
-                }
-              }
-            >
-              December 7th, 2020
-            </td>
-            <td>
-              <Tooltip
-                isTabbable={true}
-                key="copy-17-1"
-                tooltipText={
-                  <TurkSessionButton
-                    clickHandler={[Function]}
-                    id={1}
-                    label="copy"
-                    value="undefined/evidence/#/turk?uid=17&id=1"
-                  />
-                }
-                tooltipTriggerStyle={
-                  Object {
-                    "minWidth": "100px",
-                    "textAlign": "left",
-                    "width": "100px",
-                  }
-                }
-                tooltipTriggerText={
-                  <TurkSessionButton
-                    clickHandler={[Function]}
-                    id={1}
-                    label="copy"
-                    value="undefined/evidence/#/turk?uid=17&id=1"
-                  />
-                }
-                tooltipTriggerTextClass="data-table-row-section undefined"
-                tooltipTriggerTextStyle={
-                  Object {
-                    "minWidth": "100px",
-                    "textAlign": "left",
-                    "width": "100px",
-                  }
-                }
-              >
-                <span
-                  aria-hidden={false}
-                  className="quill-tooltip-trigger"
-                  role="tooltip"
-                  style={
-                    Object {
-                      "minWidth": "100px",
-                      "textAlign": "left",
-                      "width": "100px",
-                    }
-                  }
-                >
-                  <span
-                    className="data-table-row-section undefined"
-                    onBlur={[Function]}
-                    onClick={[Function]}
-                    onFocus={[Function]}
-                    onKeyDown={[Function]}
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    role="button"
-                    style={
-                      Object {
-                        "minWidth": "100px",
-                        "textAlign": "left",
-                        "width": "100px",
-                      }
-                    }
-                    tabIndex={0}
-                  >
-                    <TurkSessionButton
-                      clickHandler={[Function]}
-                      id={1}
-                      label="copy"
-                      value="undefined/evidence/#/turk?uid=17&id=1"
-                    >
-                      <button
-                        className="quill-button fun primary contained"
-                        id="1"
-                        onClick={[Function]}
-                        type="submit"
-                        value="undefined/evidence/#/turk?uid=17&id=1"
-                      >
-                        copy
-                      </button>
-                    </TurkSessionButton>
-                  </span>
-                  <span
-                    className="quill-tooltip-wrapper"
-                  >
-                    <span
-                      aria-live="polite"
-                      className="quill-tooltip"
-                    />
-                  </span>
-                </span>
-              </Tooltip>
-            </td>
-            <td>
-              <Tooltip
-                isTabbable={true}
-                key="edit-17-1"
-                tooltipText={
-                  <TurkSessionButton
-                    clickHandler={[Function]}
-                    id={1}
-                    label="edit"
-                    value="2020-12-07T22:52:41.945Z"
-                  />
-                }
-                tooltipTriggerStyle={
-                  Object {
-                    "minWidth": "100px",
-                    "textAlign": "left",
-                    "width": "100px",
-                  }
-                }
-                tooltipTriggerText={
-                  <TurkSessionButton
-                    clickHandler={[Function]}
-                    id={1}
-                    label="edit"
-                    value="2020-12-07T22:52:41.945Z"
-                  />
-                }
-                tooltipTriggerTextClass="data-table-row-section undefined"
-                tooltipTriggerTextStyle={
-                  Object {
-                    "minWidth": "100px",
-                    "textAlign": "left",
-                    "width": "100px",
-                  }
-                }
-              >
-                <span
-                  aria-hidden={false}
-                  className="quill-tooltip-trigger"
-                  role="tooltip"
-                  style={
-                    Object {
-                      "minWidth": "100px",
-                      "textAlign": "left",
-                      "width": "100px",
-                    }
-                  }
-                >
-                  <span
-                    className="data-table-row-section undefined"
-                    onBlur={[Function]}
-                    onClick={[Function]}
-                    onFocus={[Function]}
-                    onKeyDown={[Function]}
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    role="button"
-                    style={
-                      Object {
-                        "minWidth": "100px",
-                        "textAlign": "left",
-                        "width": "100px",
-                      }
-                    }
-                    tabIndex={0}
-                  >
-                    <TurkSessionButton
-                      clickHandler={[Function]}
-                      id={1}
-                      label="edit"
-                      value="2020-12-07T22:52:41.945Z"
-                    >
-                      <button
-                        className="quill-button fun primary contained"
-                        id="1"
-                        onClick={[Function]}
-                        type="submit"
-                        value="2020-12-07T22:52:41.945Z"
-                      >
-                        edit
-                      </button>
-                    </TurkSessionButton>
-                  </span>
-                  <span
-                    className="quill-tooltip-wrapper"
-                  >
-                    <span
-                      aria-live="polite"
-                      className="quill-tooltip"
-                    />
-                  </span>
-                </span>
-              </Tooltip>
-            </td>
-            <td>
-              <Tooltip
-                isTabbable={true}
-                key="delete-17-1"
-                tooltipText={
-                  <TurkSessionButton
-                    clickHandler={[Function]}
-                    id={1}
-                    label="delete"
-                  />
-                }
-                tooltipTriggerStyle={
-                  Object {
-                    "minWidth": "100px",
-                    "textAlign": "left",
-                    "width": "100px",
-                  }
-                }
-                tooltipTriggerText={
-                  <TurkSessionButton
-                    clickHandler={[Function]}
-                    id={1}
-                    label="delete"
-                  />
-                }
-                tooltipTriggerTextClass="data-table-row-section undefined"
-                tooltipTriggerTextStyle={
-                  Object {
-                    "minWidth": "100px",
-                    "textAlign": "left",
-                    "width": "100px",
-                  }
-                }
-              >
-                <span
-                  aria-hidden={false}
-                  className="quill-tooltip-trigger"
-                  role="tooltip"
-                  style={
-                    Object {
-                      "minWidth": "100px",
-                      "textAlign": "left",
-                      "width": "100px",
-                    }
-                  }
-                >
-                  <span
-                    className="data-table-row-section undefined"
-                    onBlur={[Function]}
-                    onClick={[Function]}
-                    onFocus={[Function]}
-                    onKeyDown={[Function]}
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    role="button"
-                    style={
-                      Object {
-                        "minWidth": "100px",
-                        "textAlign": "left",
-                        "width": "100px",
-                      }
-                    }
-                    tabIndex={0}
-                  >
-                    <TurkSessionButton
-                      clickHandler={[Function]}
-                      id={1}
-                      label="delete"
-                    >
-                      <button
-                        className="quill-button fun primary contained"
-                        id="1"
-                        onClick={[Function]}
-                        type="submit"
-                      >
-                        delete
-                      </button>
-                    </TurkSessionButton>
-                  </span>
-                  <span
-                    className="quill-tooltip-wrapper"
-                  >
-                    <span
-                      aria-live="polite"
-                      className="quill-tooltip"
-                    />
-                  </span>
-                </span>
-              </Tooltip>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </DataTable>
-    <Snackbar
-      text="Copied!"
-      visible={false}
-    >
-      <div
-        className="quill-snackbar "
-      >
-        Copied!
-      </div>
-    </Snackbar>
-  </div>
-</TurkSessions>
+  </TurkSessions>
+</QueryClientProvider>
 `;

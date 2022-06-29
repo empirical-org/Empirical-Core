@@ -34,6 +34,10 @@ Shoulda::Matchers.configure do |config|
   end
 end
 
+# Define any negatated matchers we need
+# https://relishapp.com/rspec/rspec-expectations/v/3-8/docs/define-negated-matcher
+RSpec::Matchers.define_negated_matcher :not_change, :change
+
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].sort.each {|f| require f}

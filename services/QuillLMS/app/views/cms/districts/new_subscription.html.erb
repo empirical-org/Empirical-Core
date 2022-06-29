@@ -1,0 +1,17 @@
+<div class='container'>
+  <%= react_component(
+        'SubscriptionApp',
+        props: {
+          view: 'new',
+          district: @district,
+          schools: @schools,
+          subscriber: @district,
+          subscriberType: 'District',
+          subscription: @subscription,
+          premiumTypes: @premium_types,
+          subscriptionPaymentMethods: @subscription_payment_methods,
+          purchaserEmail: @purchaser_email
+        }
+      )
+  %>
+</div>

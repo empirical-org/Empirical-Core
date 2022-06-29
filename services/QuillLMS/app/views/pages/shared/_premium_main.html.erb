@@ -13,12 +13,12 @@ document.addEventListener('click', function(e) {
 
 <div id="first-preview-section">
   <%= react_component('PremiumPricingGuideApp', props: {
+      associatedSchools: @associated_schools,
+      eligibleSchools: @eligible_schools,
       customerEmail: @customer_email,
       diagnosticActivityCount: @diagnostic_activity_count,
       independentPracticeActivityCount: @independent_practice_activity_count,
       lessonsActivityCount: @lessons_activity_count,
-      schoolIds: @school_ids,
-      showSchoolBuyNow: @show_school_buy_now,
       stripeSchoolPlan: @stripe_school_plan,
       stripeTeacherPlan: @stripe_teacher_plan,
       userBelongsToSchoolThatHasPaid: @user_belongs_to_school_that_has_paid,

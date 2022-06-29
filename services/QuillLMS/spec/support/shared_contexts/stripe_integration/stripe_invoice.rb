@@ -4,6 +4,7 @@ RSpec.shared_context 'Stripe Invoice' do
   include_context 'Stripe Subscription'
 
   let(:stripe_invoice_id) { "in_#{SecureRandom.hex}" }
+  let(:stripe_invoice_amount_paid) { Plan.stripe_teacher_plan.price }
 
   let(:stripe_invoice) do
     Stripe::Invoice.construct_from(
@@ -13,7 +14,7 @@ RSpec.shared_context 'Stripe Invoice' do
       account_name: "Quill.org",
       account_tax_ids: nil,
       amount_due: 2000,
-      amount_paid: 2000,
+      amount_paid: stripe_invoice_amount_paid,
       amount_remaining: 0,
       application_fee_amount: nil,
       attempt_count: 1,

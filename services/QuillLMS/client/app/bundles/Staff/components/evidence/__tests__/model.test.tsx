@@ -1,20 +1,13 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { MemoryRouter } from 'react-router-dom';
+import { QueryClientProvider } from 'react-query'
 
 import Model from '../semanticRules/model';
-import { DataTable } from '../../../../Shared/index';
 
-const mockModel = { id: 1, automl_model_id: '378jghai', name: 'Test Model', older_models: 0, labels: [] }
-jest.mock("react-query", () => ({
-  useQuery: jest.fn(() => ({
-    data: { model: mockModel},
-    error: null,
-    status: "success",
-    isFetching: true,
-  })),
-  useQueryClient: jest.fn(() => ({})),
-}));
+import { DefaultReactQueryClient } from '../../../../Shared/index';
+
+const queryClient = new DefaultReactQueryClient();
 
 const mockProps = {
   match: {
@@ -31,13 +24,12 @@ const mockProps = {
 describe('Model component', () => {
   const container = mount(
     <MemoryRouter>
-      <Model {...mockProps} />
+      <QueryClientProvider client={queryClient} contextSharing={true}>
+        <Model {...mockProps} />
+      </QueryClientProvider>
     </MemoryRouter>
   );
   it('should render Model', () => {
     expect(container.find(Model).length).toEqual(1);
-  });
-  it('should render two DataTable components', () => {
-    expect(container.find(DataTable).length).toEqual(2);
   });
 });

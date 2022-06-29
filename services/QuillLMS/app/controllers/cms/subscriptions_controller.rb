@@ -8,11 +8,15 @@ class Cms::SubscriptionsController < Cms::CmsController
   end
 
   def create
-    if params['school_or_user']
-      @subscription = Subscription.create_with_school_or_user_join( params[:school_or_user_id], params[:school_or_user], subscription_params)
+    if params[:subscriber_id] && params[:subscriber_type]
+      @subscriber = params[:subscriber_type].constantize.find(params[:subscriber_id])
+
+      ActiveRecord::Base.transaction do
+        @subscription = Subscription.create_and_attach_subscriber(subscription_params, @subscriber)
+        Cms::SchoolSubscriptionsUpdater.run(@subscription, params[:schools])
+      end
     else
-      @subscription = Subscription.new
-      @subscription.create(subscription_params)
+      @subscription = Subscription.create!(subscription_params)
     end
     render json: @subscription
   end
@@ -22,7 +26,11 @@ class Cms::SubscriptionsController < Cms::CmsController
   end
 
   def update
-    @subscription.update(subscription_params)
+    ActiveRecord::Base.transaction do
+      @subscription.update(subscription_params)
+      Cms::SchoolSubscriptionsUpdater.run(@subscription, params[:schools])
+    end
+
     render json: @subscription.reload
   end
 
@@ -33,22 +41,37 @@ class Cms::SubscriptionsController < Cms::CmsController
     @subscription = Subscription.find(params[:id])
   end
 
+  private def subscription_data
+    @district = @subscription.districts&.first
+    @school = @subscription.schools&.first
+    @schools = Cms::DistrictSchoolsAndSubscriptionStatus.run(@district, @subscription)
+    @premium_types = @subscription.premium_types
+    @subscription_payment_methods = Subscription::CMS_PAYMENT_METHODS
+
+    return if @school.nil? || @school.alternative?
+
+    @school_users = @school.users.select(:id, :email, :name)
+  end
+
+  private def schools_params
+    params[:schools]
+  end
+
   private def subscription_params
     params.require(:subscription).permit([
-     :id,
-     :expiration,
-     :created_at,
-     :updated_at,
-     :account_type,
-     :purchaser_email,
-     :start_date,
-     :subscription_type_id,
-     :purchaser_id,
-     :recurring,
-     :de_activated_date,
-     :payment_method,
-     :payment_amount
-    ]
-  )
+      :id,
+      :expiration,
+      :created_at,
+      :updated_at,
+      :account_type,
+      :purchaser_email,
+      :start_date,
+      :subscription_type_id,
+      :purchaser_id,
+      :recurring,
+      :de_activated_date,
+      :payment_method,
+      :payment_amount
+    ])
   end
 end
