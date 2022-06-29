@@ -84,6 +84,10 @@ module Synthetic
       0.2
     end
 
+    def data_count
+      @data_count ||= results.size
+    end
+
     # We need the test and validation sets to be above 5%
     def validate_language_count_and_percent!
       training_percent = 1 - (test_percent * 2)

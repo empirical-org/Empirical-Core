@@ -53,7 +53,7 @@ module Synthetic
     # Throttling to 100 sentences at a time.
     BATCH_SIZE = 100
 
-    attr_reader :results, :languages, :data_count, :labels
+    attr_reader :results, :languages, :labels
 
     # params:
     # texts_and_labels: [['text', 'label_5'],['text', 'label_1'],...]
@@ -66,8 +66,6 @@ module Synthetic
       clean_text_and_labels = texts_and_labels
         .keep_if(&:last) # remove blank labels
         .uniq(&:first) # remove duplicate texts
-
-      @data_count = clean_text_and_labels.size
 
       @labels = clean_text_and_labels.map(&:last).uniq
 
