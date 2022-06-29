@@ -19,7 +19,7 @@ describe Synthetic::Data do
       expect(first_result.text).to eq 'text string'
       expect(first_result.label).to eq 'label_5'
       expect(first_result.translations).to eq({})
-      expect(first_result.misspellings).to eq({})
+      expect(first_result.spellings).to eq({})
     end
   end
 
@@ -59,7 +59,7 @@ describe Synthetic::Data do
 
       expect(first_result.text).to eq 'their text'
       expect(first_result.label).to eq 'label_1'
-      expect(first_result.misspellings['their']).to eq 'ther text'
+      expect(first_result.spellings['their']).to eq 'ther text'
     end
   end
 

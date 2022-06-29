@@ -102,7 +102,7 @@ module Synthetic
 
           # TODO: add randomness to spelling substitutions
           text_with_misspell = result.text.gsub(Regexp.new(padded_key), SPELLING_SUBSTITUTES[key]&.first)
-          result.misspellings[key] = text_with_misspell
+          result.spellings[key] = text_with_misspell
         end
       end
 
