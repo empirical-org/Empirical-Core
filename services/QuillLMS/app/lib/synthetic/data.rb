@@ -108,7 +108,7 @@ module Synthetic
     end
 
     # only fetch results for items with type 'TRAIN' if using manual_types
-    def fetch_synthetic_translations_for(language: )
+    private def fetch_synthetic_translations_for(language: )
       results.select {|r| !manual_types || r.type == TYPE_TRAIN}.each_slice(BATCH_SIZE).each do |results_slice|
         translations = translator.translate(results_slice.map(&:text), from: ENGLISH, to: language)
         english_texts = translator.translate(translations.map(&:text), from: language, to: ENGLISH)
@@ -136,13 +136,13 @@ module Synthetic
     # pass in file paths, e.g. /Users/yourname/Desktop/
     # defaults to a dry run (doesn't hit paid translations endpoint)
     # r = Synthetic::Data.generate_training_export('/Users/danieldrabik/Documents/quill/synthetic/Responses_Translation_Nuclear_Because_Dec13.csv')
-    def self.generate_training_export(input_file_path, paid: false, languages: TRAIN_LANGUAGES.keys, manual_types: false, test_percent: 0.2)
+    def self.generate_training_export(input_file_path, paid: false, languages: TRAIN_LANGUAGES.keys, manual_types: false)
       output_csv = input_file_path.gsub(CSV_END_MATCH, SYNTHETIC_CSV)
       output_training_csv = input_file_path.gsub(CSV_END_MATCH, TRAIN_CSV)
 
       texts_and_labels = CSV.open(input_file_path).to_a
 
-      synthetics = Synthetic::Data.new(texts_and_labels, languages: languages, manual_types: manual_types, test_percent: test_percent)
+      synthetics = Synthetic::Data.new(texts_and_labels, languages: languages, manual_types: manual_types)
 
       if manual_types
         synthetics.validate_minimum_per_label!
