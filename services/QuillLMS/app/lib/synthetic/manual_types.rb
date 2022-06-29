@@ -77,6 +77,13 @@ module Synthetic
       (data_count * test_percent).ceil
     end
 
+    # TODO: If we start using this code again, make this a variable
+    # test_percent: float. What percent should be used for both the test and validation set
+    # Passing 0.2 will use 20% for testing, 20% for validation and 60% for training
+    def test_percent
+      0.2
+    end
+
     # We need the test and validation sets to be above 5%
     def validate_language_count_and_percent!
       training_percent = 1 - (test_percent * 2)

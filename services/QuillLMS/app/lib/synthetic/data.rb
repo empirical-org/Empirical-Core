@@ -53,17 +53,14 @@ module Synthetic
     # Throttling to 100 sentences at a time.
     BATCH_SIZE = 100
 
-    attr_reader :results, :languages, :test_percent, :data_count, :labels
+    attr_reader :results, :languages, :data_count, :labels
 
     # params:
     # texts_and_labels: [['text', 'label_5'],['text', 'label_1'],...]
     # languages: [:es, :ja, ...]
-    # test_percent: float. What percent should be used for both the test and validation set
     # manual_types: bool, whether to assign TEXT,VALIDATION,TRAIN to each row
-    # Passing 0.2 will use 20% for testing, 20% for validation and 60% for training
-    def initialize(texts_and_labels, languages: TRAIN_LANGUAGES.keys, manual_types: false, test_percent: 0.2)
+    def initialize(texts_and_labels, languages: TRAIN_LANGUAGES.keys, manual_types: false)
       @languages = languages
-      @test_percent = test_percent
       @manual_types = manual_types
 
       clean_text_and_labels = texts_and_labels
