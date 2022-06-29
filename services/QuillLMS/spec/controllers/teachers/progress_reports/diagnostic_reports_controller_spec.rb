@@ -315,9 +315,9 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
     let!(:concept) { create(:concept) }
     let!(:skill) { create(:skill, skill_group: pre_test_skill_group_activity.skill_group) }
     let!(:skill_concept) { create(:skill_concept, concept: concept, skill: skill) }
-    let!(:pre_test_correct_concept_result) { create(:old_concept_result_with_correct_answer, concept: concept, activity_session: pre_test_activity_session) }
-    let!(:post_test_correct_concept_result) { create(:old_concept_result_with_correct_answer, concept: concept, activity_session: post_test_activity_session) }
-    let!(:pre_test_incorrect_concept_result) { create(:old_concept_result_with_incorrect_answer, concept: concept, activity_session: pre_test_activity_session) }
+    let!(:pre_test_correct_concept_result) { create(:concept_result_with_correct_answer, concept: concept, activity_session: pre_test_activity_session) }
+    let!(:post_test_correct_concept_result) { create(:concept_result_with_correct_answer, concept: concept, activity_session: post_test_activity_session) }
+    let!(:pre_test_incorrect_concept_result) { create(:concept_result_with_incorrect_answer, concept: concept, activity_session: pre_test_activity_session) }
 
     it 'should return the total number of acquired skills' do
       get :skills_growth, params: ({classroom_id: classroom.id, post_test_activity_id: post_test_unit_activity.activity_id, pre_test_activity_id: pre_test_unit_activity.activity_id})

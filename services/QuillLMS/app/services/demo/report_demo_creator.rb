@@ -385,7 +385,7 @@ module Demo::ReportDemoCreator
         metadata: cr.metadata,
         question_type: cr.question_type
       }
-      ConceptResultOld.create(values)
+      OldConceptResult.create(values)
     end
   end
 
@@ -409,7 +409,7 @@ module Demo::ReportDemoCreator
               metadata: cr.metadata,
               question_type: cr.question_type
             }
-            ConceptResultOld.create(values)
+            OldConceptResult.create(values)
           end
         end
       end

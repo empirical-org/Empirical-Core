@@ -142,7 +142,7 @@ module PublicProgressReports
     # Use DISTINCT ON to only pull one session per user
     final_sessions_by_user = ActivitySession
       .select("DISTINCT ON (activity_sessions.user_id) user_id, activity_sessions.*")
-      .includes(concept_results: :concept)
+      .includes(old_concept_results: :concept)
       .where(
         user_id: students.map(&:id),
         is_final_score: true,

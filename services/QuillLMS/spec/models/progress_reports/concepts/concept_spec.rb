@@ -20,17 +20,17 @@ describe ProgressReports::Concepts::Concept do
     end
 
     it 'retrieves the total result count' do
-      expect(subject.first.total_result_count).to eq(ConceptResultOld.where(concept: subject.first.concept_id).count)
+      expect(subject.first.total_result_count).to eq(OldConceptResult.where(concept: subject.first.concept_id).count)
     end
 
     it 'retrieves the correct result count' do
       cr_count = 0
-      ConceptResultOld.where(concept: subject.first.concept_id).pluck(:metadata).each{|cr| cr_count += cr["correct"]}
+      OldConceptResult.where(concept: subject.first.concept_id).pluck(:metadata).each{|cr| cr_count += cr["correct"]}
       expect(subject.first.correct_result_count).to eq(cr_count)
     end
 
     it 'retrieves the incorrect result count' do
-      results = ConceptResultOld.where(concept: subject.first.concept_id).pluck(:metadata)
+      results = OldConceptResult.where(concept: subject.first.concept_id).pluck(:metadata)
       cr_count = 0
       results.each{|cr| cr_count += cr["correct"]}
       incorrect_count = results.count - cr_count

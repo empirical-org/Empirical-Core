@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Demo::ConceptResults
+module Demo::OldConceptResults
 
   def self.create_from_classrooms(classrooms)
     activity_sessions = classrooms
@@ -54,7 +54,7 @@ module Demo::ConceptResults
     concept = Concept.find_or_create_by(name: concept_name)
     crs = []
     number_of_concept_results.to_i.times do |i|
-      cr = ConceptResultOld.find_or_create_by(concept: concept, activity_session: activity_session)
+      cr = OldConceptResult.find_or_create_by(concept: concept, activity_session: activity_session)
       cr.update(metadata: {})
       crs.push(cr)
     end

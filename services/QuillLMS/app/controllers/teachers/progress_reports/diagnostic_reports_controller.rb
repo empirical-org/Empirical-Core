@@ -380,7 +380,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     @post_test_activity_sessions.reduce(0) do |sum, as|
       post_correct_skill_ids = as&.correct_skill_ids
       pre_correct_skill_ids = ActivitySession
-        .includes(:concept_results, activity: {skills: :concepts})
+        .includes(:old_concept_results, activity: {skills: :concepts})
         .where(user_id: as.user_id, activity_id: pre_test_activity_id)
         .order(completed_at: :desc)
         .first

@@ -24,9 +24,9 @@ require 'rails_helper'
 
 describe OldConceptResult, type: :model do
 
-  let(:concept_result) { build(:concept_result, concept: nil) }
+  let(:concept_result) { build(:old_concept_result, concept: nil) }
   let!(:concept) { create(:concept) }
-  let(:concept_result_with_concept) { build(:concept_result, concept: concept) }
+  let(:concept_result_with_concept) { build(:old_concept_result, concept: concept) }
 
   describe '#concept_uid=' do
     it 'assigns the concept with that UID' do
