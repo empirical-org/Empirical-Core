@@ -91,19 +91,19 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
 
       if pre_test && pre_test_activity_session
         concept_results = {
-          pre: { questions: format_concept_results(pre_test_activity_session, pre_test_activity_session.concept_results.order("(metadata->>'questionNumber')::int")) },
-          post: { questions: format_concept_results(activity_session, activity_session.concept_results.order("(metadata->>'questionNumber')::int")) }
+          pre: { questions: format_concept_results(pre_test_activity_session, pre_test_activity_session.old_concept_results.order("(metadata->>'questionNumber')::int")) },
+          post: { questions: format_concept_results(activity_session, activity_session.old_concept_results.order("(metadata->>'questionNumber')::int")) }
         }
         formatted_skills = skills.map do |skill|
           {
-            pre: data_for_skill_by_activity_session(pre_test_activity_session.concept_results, skill),
-            post: data_for_skill_by_activity_session(activity_session.concept_results, skill)
+            pre: data_for_skill_by_activity_session(pre_test_activity_session.old_concept_results, skill),
+            post: data_for_skill_by_activity_session(activity_session.old_concept_results, skill)
           }
         end
         skill_results = { skills: formatted_skills.uniq { |formatted_skill| formatted_skill[:pre][:skill] } }
       else
-        concept_results = { questions: format_concept_results(activity_session, activity_session.concept_results.order("(metadata->>'questionNumber')::int")) }
-        skill_results = { skills: skills.map { |skill| data_for_skill_by_activity_session(activity_session.concept_results, skill) }.uniq { |formatted_skill| formatted_skill[:skill] } }
+        concept_results = { questions: format_concept_results(activity_session, activity_session.old_concept_results.order("(metadata->>'questionNumber')::int")) }
+        skill_results = { skills: skills.map { |skill| data_for_skill_by_activity_session(activity_session.old_concept_results, skill) }.uniq { |formatted_skill| formatted_skill[:skill] } }
       end
       { concept_results: concept_results, skill_results: skill_results, name: student.name }
     end
@@ -353,7 +353,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
       activity_session = @activity_sessions[student.id]
 
       if activity_session
-        formatted_concept_results = format_concept_results(activity_session, activity_session.concept_results)
+        formatted_concept_results = format_concept_results(activity_session, activity_session.old_concept_results)
         score = get_average_score(formatted_concept_results)
         if score >= (ProficiencyEvaluator.proficiency_cutoff * 100)
           proficiency = ActivitySession::PROFICIENT

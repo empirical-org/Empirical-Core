@@ -29,7 +29,7 @@ module Demo::OldConceptResults
   end
 
   def self.handle_scores(activity_session)
-    crs = activity_session.reload.concept_results
+    crs = activity_session.reload.old_concept_results
     percentage = activity_session.percentage
     num_correct = (percentage*crs.count).ceil
     shuffled = crs.shuffle
