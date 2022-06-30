@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
-class Api::SimpleSerializer < ActiveModel::Serializer
+class Api::SimpleSerializer < ApplicationSerializer
   attributes :uid, :name
 end

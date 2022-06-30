@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
-class ProviderClassroomWithUnsyncedStudentsSerializer < ActiveModel::Serializer
+class ProviderClassroomWithUnsyncedStudentsSerializer < ApplicationSerializer
   attributes :id, :name, :code, :unsynced_students
-  self.root = false
+
+  def as_json(*_options)
+    super(root: false)
+  end
 
   def unsynced_students
     object.unsynced_students.map do |student|
@@ -14,3 +17,4 @@ class ProviderClassroomWithUnsyncedStudentsSerializer < ActiveModel::Serializer
     end
   end
 end
+

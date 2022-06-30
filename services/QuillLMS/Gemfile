@@ -106,7 +106,7 @@ gem 'active_link_to'
 gem 'analytics-ruby', '~> 2.0.0', :require => 'segment/analytics'
 
 # API
-gem 'active_model_serializers', '~> 0.9.0'
+gem 'active_model_serializers', '~> 0.10.13'
 gem 'graphql'
 
 # UI HELPERS

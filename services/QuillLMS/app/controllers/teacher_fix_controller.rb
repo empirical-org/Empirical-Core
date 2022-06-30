@@ -273,14 +273,14 @@ class TeacherFixController < ApplicationController
   end
 
   private def unsynced_students_by_classroom
-    ActiveModel::ArraySerializer.new(
+    ActiveModel::Serializer::CollectionSerializer.new(
       provider_classrooms_with_unsynced_students,
       each_serializer: ProviderClassroomWithUnsyncedStudentsSerializer
     )
   end
 
   private def provider_classrooms_with_unsynced_students
-    ProviderClassroomsWithUnsyncedStudentsFinder.new(teacher.id).run
+    ProviderClassroomsWithUnsyncedStudentsFinder.run(teacher.id)
   end
 
   private def teacher

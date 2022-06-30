@@ -7,15 +7,8 @@ describe ProgressReports::Standards::StudentSerializer, type: :serializer do
   let(:teacher) { classroom.owner }
   let(:student) {classroom.students.first}
   let(:activity) { create(:activity) }
-  let(:classroom_unit) do
-    create(:classroom_unit,
-      classroom: classroom,
-      assigned_student_ids: [student.id]
-    )
-  end
-  let(:student_for_report) do
-    ProgressReports::Standards::Student.new(teacher).results({}).first
-  end
+  let(:classroom_unit) { create(:classroom_unit, classroom: classroom, assigned_student_ids: [student.id]) }
+  let(:student_for_report) { ProgressReports::Standards::Student.new(teacher).results({}).first }
 
   let(:serializer) do
     serializer = described_class.new(student_for_report)

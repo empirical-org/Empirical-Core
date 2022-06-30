@@ -36,7 +36,7 @@
 #  index_activity_sessions_on_uid                    (uid) UNIQUE
 #  index_activity_sessions_on_user_id                (user_id)
 #
-class ActivitySessionSerializer < ActiveModel::Serializer
+class ActivitySessionSerializer < ApplicationSerializer
   attributes :uid, :percentage, :state, :completed_at, :data, :temporary,
               :activity_uid, :anonymous
 end
