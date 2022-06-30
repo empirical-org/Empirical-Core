@@ -119,7 +119,6 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 
 gem 'slim-rails'
-gem 'haml-rails'
 
 gem 'es5-shim-rails'
 # Use the exact gem version to match npm version of react-on-rails
