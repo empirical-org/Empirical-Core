@@ -15,7 +15,7 @@ gem 'dotenv-rails', '~>2.6'
 gem 'pg', '0.18.4'
 gem 'ancestry', '~> 3.0.5'
 gem 'ranked-model', '~> 0.4.3'
-gem 'rails_admin', '~> 1.4.3'
+gem 'rails_admin', '~> 2.2'
 gem 'bulk_insert', '~> 1.7'
 gem 'atomic_arrays', '~> 1.1.0'
 
