@@ -42,27 +42,27 @@ describe OldConceptResult, type: :model do
     end
 
     it "can equal passage-proofreader" do
-      concept_result_with_concept.update(question_type:'passage-proofreader')
+      concept_result_with_concept.update(question_type: 'passage-proofreader')
       expect(concept_result_with_concept).to be_valid
     end
 
     it "can equal sentence-writing" do
-      concept_result_with_concept.update(question_type:'sentence-writing')
+      concept_result_with_concept.update(question_type: 'sentence-writing')
       expect(concept_result_with_concept).to be_valid
     end
 
     it "can equal sentence-fragment-identification" do
-      concept_result_with_concept.update(question_type:'sentence-fragment-identification')
+      concept_result_with_concept.update(question_type: 'sentence-fragment-identification')
       expect(concept_result_with_concept).to be_valid
     end
 
     it "can equal sentence-fragment-expansion" do
-      concept_result_with_concept.update(question_type:'sentence-fragment-expansion')
+      concept_result_with_concept.update(question_type: 'sentence-fragment-expansion')
       expect(concept_result_with_concept).to be_valid
     end
 
     it "can equal sentence-combining" do
-      concept_result_with_concept.update(question_type:'sentence-combining')
+      concept_result_with_concept.update(question_type: 'sentence-combining')
       expect(concept_result_with_concept).to be_valid
     end
 
