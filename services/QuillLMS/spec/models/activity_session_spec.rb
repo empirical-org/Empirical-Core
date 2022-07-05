@@ -49,7 +49,7 @@ describe ActivitySession, type: :model, redis: true do
   it { should have_many(:feedback_histories).through(:feedback_sessions) }
   it { should have_one(:classroom).through(:classroom_unit) }
   it { should have_one(:unit).through(:classroom_unit) }
-  it { should have_many(:concepts).through(:concept_results) }
+  it { should have_many(:concepts).through(:old_concept_results) }
   it { should have_many(:teachers).through(:classroom) }
   it { should belong_to(:user) }
 
@@ -542,7 +542,7 @@ end
     it 'should return the ignored concept result if there are at least four concept results for it' do
       3.times do |i|
         ignored_concept_result.id = nil
-        ConceptResult.create(ignored_concept_result.attributes)
+        OldConceptResult.create(ignored_concept_result.attributes)
       end
       expect(activity_session.parse_for_results[ActivitySession::NOT_YET_PROFICIENT]).to include(ignored_concept.name)
     end
@@ -828,7 +828,7 @@ end
     before { activity_session.update_attributes(visible: true) }
 
     it 'should create a concept result with the hash given' do
-      expect(ConceptResult).to receive(:create).with({
+      expect(OldConceptResult).to receive(:create).with({
         activity_session_id: activity_session.id,
         concept_id: concept.id,
         metadata: metadata,
@@ -845,7 +845,7 @@ end
     let!(:activity_session1) { create(:activity_session, activity: activity, classroom_unit: classroom_unit) }
 
     it 'should delete the activity sessions without the concept results' do
-      activity_session.concept_results.destroy_all
+      activity_session.old_concept_results.destroy_all
       expect{ ActivitySession.delete_activity_sessions_with_no_concept_results([activity_session, activity_session1]) }.to change(ActivitySession, :count).by(-1)
     end
   end

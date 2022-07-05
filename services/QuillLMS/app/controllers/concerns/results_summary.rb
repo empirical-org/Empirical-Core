@@ -48,7 +48,7 @@ module ResultsSummary
   # rubocop:disable Metrics/CyclomaticComplexity
   private def skill_groups_for_session(skill_groups, activity_session, student_name)
     skill_groups.map do |skill_group|
-      skills = skill_group.skills.map { |skill| data_for_skill_by_activity_session(activity_session.concept_results, skill) }
+      skills = skill_group.skills.map { |skill| data_for_skill_by_activity_session(activity_session.old_concept_results, skill) }
       present_skill_number = skills.reduce(0) { |sum, skill| sum += skill[:summary] == NOT_PRESENT ? 0 : 1 }
       correct_skills = skills.select { |skill| skill[:summary] == FULLY_CORRECT }
       correct_skill_ids = correct_skills.map { |s| s[:id] }

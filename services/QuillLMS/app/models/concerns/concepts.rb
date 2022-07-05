@@ -8,7 +8,7 @@ module Concepts
     return '' unless activity_session.present?
 
     @concepts = activity_session.concepts
-    @concept_results_by_question_type = activity_session.concept_results.group_by{|c| c.question_type}.values
+    @concept_results_by_question_type = activity_session.old_concept_results.group_by{|c| c.question_type}.values
     organize_by_type
   end
 
