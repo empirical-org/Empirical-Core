@@ -28,10 +28,11 @@ export const Concept = ({ concepts, match, questions, fillInBlank }) => {
   function renderQuestionsForConcept() {
     const questionsForConcept = getQuestionsForConcept()
     const listItems = questionsForConcept.map((question) => {
-      const archivedTag = question.flag === 'archived' ? <strong>ARCHIVED - </strong> : ''
+      const { key, flag, prompt } = question
+      const archivedTag = flag === 'archived' ? <strong>ARCHIVED - </strong> : ''
       return (
-        <li key={question.key}>
-          <Link to={'/admin/questions/' + question.key + '/responses'}>{archivedTag}{question.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")}</Link>
+        <li key={key}>
+          <Link to={'/admin/questions/' + key + '/responses'}>{archivedTag}{prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")}</Link>
         </li>
       )
     })
