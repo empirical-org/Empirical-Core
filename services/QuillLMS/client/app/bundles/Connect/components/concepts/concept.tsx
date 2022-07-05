@@ -43,7 +43,7 @@ export const Concept = ({ concepts, match, questions, fillInBlank }) => {
   const concept = getConcept()
 
   if(hasreceiveddata === false) {
-    return <Spinner/>
+    return <Spinner />
   }
   if (concept) {
     return (
