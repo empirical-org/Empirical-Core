@@ -272,7 +272,20 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
   end
 
   def diagnostic_results_summary
-    render json: ResultsSummary.results_summary(results_summary_params[:activity_id], results_summary_params[:classroom_id], results_summary_params[:unit_id])
+    render json: fetch_diagnostic_results_summary_cache
+  end
+
+  private def fetch_diagnostic_results_summary_cache
+    groups = { activity_id: params[:activity_id] }
+    current_user.classroom_unit_by_ids_cache(
+      classroom_id: params[:classroom_id],
+      unit_id: params[:unit_id],
+      activity_id: params[:activity_id],
+      key: 'teachers.progress_reports.diagnostic_reports.diagnostic_results_summary',
+      groups: groups
+    ) do
+      ResultsSummary.results_summary(results_summary_params[:activity_id], results_summary_params[:classroom_id], results_summary_params[:unit_id])
+    end
   end
 
   def diagnostic_growth_results_summary
