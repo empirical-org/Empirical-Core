@@ -213,7 +213,7 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
           }
         >
           <span
-            className="second-line-section classification"
+            className="attribute-section classification"
           >
             <img
               alt="Target representing Quill Connect"
@@ -228,7 +228,7 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
           conceptName="History: Maya, Aztec, Inca"
         >
           <span
-            className="second-line-section concept"
+            className="attribute-section concept"
           >
             <img
               alt="Pencil writing icon"
@@ -271,18 +271,18 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
           }
         >
           <span
-            className="second-line-section topic"
+            className="attribute-section topic"
           />
         </ActivityRowTopics>
       </div>
       <div
-        className="readability-and-standard-level-wrapper"
+        className="grade-range-and-standard-level-wrapper"
       >
         <ActivityRowReadabilityGradeLevel
           readabilityGradeLevel="8th-9th"
         >
           <span
-            className="second-line-section readability-level"
+            className="attribute-section grade-range"
           >
             <img
               alt="Book icon"
@@ -298,7 +298,7 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
           standardLevelName="7th Grade CCSS"
         >
           <span
-            className="second-line-section standard-level"
+            className="attribute-section standard-level"
           >
             <img
               alt="Common Core State Standards icon"
@@ -610,7 +610,7 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
           }
         >
           <span
-            className="second-line-section classification"
+            className="attribute-section classification"
           >
             <img
               alt="Target representing Quill Connect"
@@ -625,7 +625,7 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
           conceptName="History: Maya, Aztec, Inca"
         >
           <span
-            className="second-line-section concept"
+            className="attribute-section concept"
           >
             <img
               alt="Pencil writing icon"
@@ -668,18 +668,18 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
           }
         >
           <span
-            className="second-line-section topic"
+            className="attribute-section topic"
           />
         </ActivityRowTopics>
       </div>
       <div
-        className="readability-and-standard-level-wrapper"
+        className="grade-range-and-standard-level-wrapper"
       >
         <ActivityRowReadabilityGradeLevel
           readabilityGradeLevel="8th-9th"
         >
           <span
-            className="second-line-section readability-level"
+            className="attribute-section grade-range"
           >
             <img
               alt="Book icon"
@@ -695,7 +695,7 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
           standardLevelName="7th Grade CCSS"
         >
           <span
-            className="second-line-section standard-level"
+            className="attribute-section standard-level"
           >
             <img
               alt="Common Core State Standards icon"
@@ -1081,7 +1081,7 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
           }
         >
           <span
-            className="second-line-section classification"
+            className="attribute-section classification"
           >
             <img
               alt="Target representing Quill Connect"
@@ -1096,7 +1096,7 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
           conceptName="History: Maya, Aztec, Inca"
         >
           <span
-            className="second-line-section concept"
+            className="attribute-section concept"
           >
             <img
               alt="Pencil writing icon"
@@ -1139,18 +1139,18 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
           }
         >
           <span
-            className="second-line-section topic"
+            className="attribute-section topic"
           />
         </ActivityRowTopics>
       </div>
       <div
-        className="readability-and-standard-level-wrapper"
+        className="grade-range-and-standard-level-wrapper"
       >
         <ActivityRowReadabilityGradeLevel
           readabilityGradeLevel="8th-9th"
         >
           <span
-            className="second-line-section readability-level"
+            className="attribute-section grade-range"
           >
             <img
               alt="Book icon"
@@ -1166,7 +1166,7 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
           standardLevelName="7th Grade CCSS"
         >
           <span
-            className="second-line-section standard-level"
+            className="attribute-section standard-level"
           >
             <img
               alt="Common Core State Standards icon"
@@ -1541,7 +1541,7 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
           }
         >
           <span
-            className="second-line-section classification"
+            className="attribute-section classification"
           >
             <img
               alt="Target representing Quill Connect"
@@ -1556,7 +1556,7 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
           conceptName="History: Maya, Aztec, Inca"
         >
           <span
-            className="second-line-section concept"
+            className="attribute-section concept"
           >
             <img
               alt="Pencil writing icon"
@@ -1599,18 +1599,18 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
           }
         >
           <span
-            className="second-line-section topic"
+            className="attribute-section topic"
           />
         </ActivityRowTopics>
       </div>
       <div
-        className="readability-and-standard-level-wrapper"
+        className="grade-range-and-standard-level-wrapper"
       >
         <ActivityRowReadabilityGradeLevel
           readabilityGradeLevel="8th-9th"
         >
           <span
-            className="second-line-section readability-level"
+            className="attribute-section grade-range"
           >
             <img
               alt="Book icon"
@@ -1626,7 +1626,7 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
           standardLevelName="7th Grade CCSS"
         >
           <span
-            className="second-line-section standard-level"
+            className="attribute-section standard-level"
           >
             <img
               alt="Common Core State Standards icon"

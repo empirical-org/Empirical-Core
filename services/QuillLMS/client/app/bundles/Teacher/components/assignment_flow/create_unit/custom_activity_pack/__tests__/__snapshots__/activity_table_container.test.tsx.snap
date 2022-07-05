@@ -4806,7 +4806,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               }
             >
               <span
-                className="second-line-section classification"
+                className="attribute-section classification"
               >
                 <img
                   alt="Target representing Quill Connect"
@@ -4821,7 +4821,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               conceptName="History: Maya, Aztec, Inca"
             >
               <span
-                className="second-line-section concept"
+                className="attribute-section concept"
               >
                 <img
                   alt="Pencil writing icon"
@@ -4864,18 +4864,18 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               }
             >
               <span
-                className="second-line-section topic"
+                className="attribute-section topic"
               />
             </ActivityRowTopics>
           </div>
           <div
-            className="readability-and-standard-level-wrapper"
+            className="grade-range-and-standard-level-wrapper"
           >
             <ActivityRowReadabilityGradeLevel
               readabilityGradeLevel="8th-9th"
             >
               <span
-                className="second-line-section readability-level"
+                className="attribute-section grade-range"
               >
                 <img
                   alt="Book icon"
@@ -4891,7 +4891,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               standardLevelName="7th Grade CCSS"
             >
               <span
-                className="second-line-section standard-level"
+                className="attribute-section standard-level"
               >
                 <img
                   alt="Common Core State Standards icon"
@@ -5258,7 +5258,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               }
             >
               <span
-                className="second-line-section classification"
+                className="attribute-section classification"
               >
                 <img
                   alt="Target representing Quill Connect"
@@ -5273,7 +5273,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               conceptName="History: Maya, Aztec, Inca"
             >
               <span
-                className="second-line-section concept"
+                className="attribute-section concept"
               >
                 <img
                   alt="Pencil writing icon"
@@ -5316,18 +5316,18 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               }
             >
               <span
-                className="second-line-section topic"
+                className="attribute-section topic"
               />
             </ActivityRowTopics>
           </div>
           <div
-            className="readability-and-standard-level-wrapper"
+            className="grade-range-and-standard-level-wrapper"
           >
             <ActivityRowReadabilityGradeLevel
               readabilityGradeLevel="6th-7th"
             >
               <span
-                className="second-line-section readability-level"
+                className="attribute-section grade-range"
               >
                 <img
                   alt="Book icon"
@@ -5343,7 +5343,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               standardLevelName="7th Grade CCSS"
             >
               <span
-                className="second-line-section standard-level"
+                className="attribute-section standard-level"
               >
                 <img
                   alt="Common Core State Standards icon"
@@ -5710,7 +5710,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               }
             >
               <span
-                className="second-line-section classification"
+                className="attribute-section classification"
               >
                 <img
                   alt="Target representing Quill Connect"
@@ -5725,7 +5725,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               conceptName="History: Maya, Aztec, Inca"
             >
               <span
-                className="second-line-section concept"
+                className="attribute-section concept"
               >
                 <img
                   alt="Pencil writing icon"
@@ -5768,18 +5768,18 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               }
             >
               <span
-                className="second-line-section topic"
+                className="attribute-section topic"
               />
             </ActivityRowTopics>
           </div>
           <div
-            className="readability-and-standard-level-wrapper"
+            className="grade-range-and-standard-level-wrapper"
           >
             <ActivityRowReadabilityGradeLevel
               readabilityGradeLevel="6th-7th"
             >
               <span
-                className="second-line-section readability-level"
+                className="attribute-section grade-range"
               >
                 <img
                   alt="Book icon"
@@ -5795,7 +5795,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               standardLevelName="7th Grade CCSS"
             >
               <span
-                className="second-line-section standard-level"
+                className="attribute-section standard-level"
               >
                 <img
                   alt="Common Core State Standards icon"
@@ -6162,7 +6162,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               }
             >
               <span
-                className="second-line-section classification"
+                className="attribute-section classification"
               >
                 <img
                   alt="Target representing Quill Connect"
@@ -6177,7 +6177,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               conceptName="History: Maya, Aztec, Inca"
             >
               <span
-                className="second-line-section concept"
+                className="attribute-section concept"
               >
                 <img
                   alt="Pencil writing icon"
@@ -6220,18 +6220,18 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               }
             >
               <span
-                className="second-line-section topic"
+                className="attribute-section topic"
               />
             </ActivityRowTopics>
           </div>
           <div
-            className="readability-and-standard-level-wrapper"
+            className="grade-range-and-standard-level-wrapper"
           >
             <ActivityRowReadabilityGradeLevel
               readabilityGradeLevel="8th-9th"
             >
               <span
-                className="second-line-section readability-level"
+                className="attribute-section grade-range"
               >
                 <img
                   alt="Book icon"
@@ -6247,7 +6247,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               standardLevelName="7th Grade CCSS"
             >
               <span
-                className="second-line-section standard-level"
+                className="attribute-section standard-level"
               >
                 <img
                   alt="Common Core State Standards icon"
@@ -6614,7 +6614,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               }
             >
               <span
-                className="second-line-section classification"
+                className="attribute-section classification"
               >
                 <img
                   alt="Target representing Quill Connect"
@@ -6629,7 +6629,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               conceptName="History: Chinese Dynasties"
             >
               <span
-                className="second-line-section concept"
+                className="attribute-section concept"
               >
                 <img
                   alt="Pencil writing icon"
@@ -6672,18 +6672,18 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               }
             >
               <span
-                className="second-line-section topic"
+                className="attribute-section topic"
               />
             </ActivityRowTopics>
           </div>
           <div
-            className="readability-and-standard-level-wrapper"
+            className="grade-range-and-standard-level-wrapper"
           >
             <ActivityRowReadabilityGradeLevel
               readabilityGradeLevel="8th-9th"
             >
               <span
-                className="second-line-section readability-level"
+                className="attribute-section grade-range"
               >
                 <img
                   alt="Book icon"
@@ -6699,7 +6699,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               standardLevelName="7th Grade CCSS"
             >
               <span
-                className="second-line-section standard-level"
+                className="attribute-section standard-level"
               >
                 <img
                   alt="Common Core State Standards icon"
@@ -7066,7 +7066,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               }
             >
               <span
-                className="second-line-section classification"
+                className="attribute-section classification"
               >
                 <img
                   alt="Target representing Quill Connect"
@@ -7081,7 +7081,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               conceptName="History: Chinese Dynasties"
             >
               <span
-                className="second-line-section concept"
+                className="attribute-section concept"
               >
                 <img
                   alt="Pencil writing icon"
@@ -7124,18 +7124,18 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               }
             >
               <span
-                className="second-line-section topic"
+                className="attribute-section topic"
               />
             </ActivityRowTopics>
           </div>
           <div
-            className="readability-and-standard-level-wrapper"
+            className="grade-range-and-standard-level-wrapper"
           >
             <ActivityRowReadabilityGradeLevel
               readabilityGradeLevel="8th-9th"
             >
               <span
-                className="second-line-section readability-level"
+                className="attribute-section grade-range"
               >
                 <img
                   alt="Book icon"
@@ -7151,7 +7151,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               standardLevelName="7th Grade CCSS"
             >
               <span
-                className="second-line-section standard-level"
+                className="attribute-section standard-level"
               >
                 <img
                   alt="Common Core State Standards icon"
@@ -7518,7 +7518,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               }
             >
               <span
-                className="second-line-section classification"
+                className="attribute-section classification"
               >
                 <img
                   alt="Target representing Quill Connect"
@@ -7533,7 +7533,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               conceptName="History: Chinese Dynasties"
             >
               <span
-                className="second-line-section concept"
+                className="attribute-section concept"
               >
                 <img
                   alt="Pencil writing icon"
@@ -7576,18 +7576,18 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               }
             >
               <span
-                className="second-line-section topic"
+                className="attribute-section topic"
               />
             </ActivityRowTopics>
           </div>
           <div
-            className="readability-and-standard-level-wrapper"
+            className="grade-range-and-standard-level-wrapper"
           >
             <ActivityRowReadabilityGradeLevel
               readabilityGradeLevel="6th-7th"
             >
               <span
-                className="second-line-section readability-level"
+                className="attribute-section grade-range"
               >
                 <img
                   alt="Book icon"
@@ -7603,7 +7603,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               standardLevelName="7th Grade CCSS"
             >
               <span
-                className="second-line-section standard-level"
+                className="attribute-section standard-level"
               >
                 <img
                   alt="Common Core State Standards icon"
@@ -7970,7 +7970,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               }
             >
               <span
-                className="second-line-section classification"
+                className="attribute-section classification"
               >
                 <img
                   alt="Target representing Quill Connect"
@@ -7985,7 +7985,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               conceptName="History: Chinese Dynasties"
             >
               <span
-                className="second-line-section concept"
+                className="attribute-section concept"
               >
                 <img
                   alt="Pencil writing icon"
@@ -8028,18 +8028,18 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               }
             >
               <span
-                className="second-line-section topic"
+                className="attribute-section topic"
               />
             </ActivityRowTopics>
           </div>
           <div
-            className="readability-and-standard-level-wrapper"
+            className="grade-range-and-standard-level-wrapper"
           >
             <ActivityRowReadabilityGradeLevel
               readabilityGradeLevel="8th-9th"
             >
               <span
-                className="second-line-section readability-level"
+                className="attribute-section grade-range"
               >
                 <img
                   alt="Book icon"
@@ -8055,7 +8055,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               standardLevelName="7th Grade CCSS"
             >
               <span
-                className="second-line-section standard-level"
+                className="attribute-section standard-level"
               >
                 <img
                   alt="Common Core State Standards icon"
@@ -8422,7 +8422,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               }
             >
               <span
-                className="second-line-section classification"
+                className="attribute-section classification"
               >
                 <img
                   alt="Target representing Quill Connect"
@@ -8437,7 +8437,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               conceptName="History: Age of Exploration"
             >
               <span
-                className="second-line-section concept"
+                className="attribute-section concept"
               >
                 <img
                   alt="Pencil writing icon"
@@ -8480,18 +8480,18 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               }
             >
               <span
-                className="second-line-section topic"
+                className="attribute-section topic"
               />
             </ActivityRowTopics>
           </div>
           <div
-            className="readability-and-standard-level-wrapper"
+            className="grade-range-and-standard-level-wrapper"
           >
             <ActivityRowReadabilityGradeLevel
               readabilityGradeLevel="8th-9th"
             >
               <span
-                className="second-line-section readability-level"
+                className="attribute-section grade-range"
               >
                 <img
                   alt="Book icon"
@@ -8507,7 +8507,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               standardLevelName="7th Grade CCSS"
             >
               <span
-                className="second-line-section standard-level"
+                className="attribute-section standard-level"
               >
                 <img
                   alt="Common Core State Standards icon"
@@ -8874,7 +8874,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               }
             >
               <span
-                className="second-line-section classification"
+                className="attribute-section classification"
               >
                 <img
                   alt="Target representing Quill Connect"
@@ -8889,7 +8889,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               conceptName="History: Age of Exploration"
             >
               <span
-                className="second-line-section concept"
+                className="attribute-section concept"
               >
                 <img
                   alt="Pencil writing icon"
@@ -8932,18 +8932,18 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               }
             >
               <span
-                className="second-line-section topic"
+                className="attribute-section topic"
               />
             </ActivityRowTopics>
           </div>
           <div
-            className="readability-and-standard-level-wrapper"
+            className="grade-range-and-standard-level-wrapper"
           >
             <ActivityRowReadabilityGradeLevel
               readabilityGradeLevel="8th-9th"
             >
               <span
-                className="second-line-section readability-level"
+                className="attribute-section grade-range"
               >
                 <img
                   alt="Book icon"
@@ -8959,7 +8959,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               standardLevelName="7th Grade CCSS"
             >
               <span
-                className="second-line-section standard-level"
+                className="attribute-section standard-level"
               >
                 <img
                   alt="Common Core State Standards icon"
@@ -9326,7 +9326,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               }
             >
               <span
-                className="second-line-section classification"
+                className="attribute-section classification"
               >
                 <img
                   alt="Target representing Quill Connect"
@@ -9341,7 +9341,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               conceptName="History: Age of Exploration"
             >
               <span
-                className="second-line-section concept"
+                className="attribute-section concept"
               >
                 <img
                   alt="Pencil writing icon"
@@ -9384,18 +9384,18 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               }
             >
               <span
-                className="second-line-section topic"
+                className="attribute-section topic"
               />
             </ActivityRowTopics>
           </div>
           <div
-            className="readability-and-standard-level-wrapper"
+            className="grade-range-and-standard-level-wrapper"
           >
             <ActivityRowReadabilityGradeLevel
               readabilityGradeLevel="8th-9th"
             >
               <span
-                className="second-line-section readability-level"
+                className="attribute-section grade-range"
               >
                 <img
                   alt="Book icon"
@@ -9411,7 +9411,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               standardLevelName="7th Grade CCSS"
             >
               <span
-                className="second-line-section standard-level"
+                className="attribute-section standard-level"
               >
                 <img
                   alt="Common Core State Standards icon"
@@ -9778,7 +9778,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               }
             >
               <span
-                className="second-line-section classification"
+                className="attribute-section classification"
               >
                 <img
                   alt="Target representing Quill Connect"
@@ -9793,7 +9793,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               conceptName="History: Age of Exploration"
             >
               <span
-                className="second-line-section concept"
+                className="attribute-section concept"
               >
                 <img
                   alt="Pencil writing icon"
@@ -9836,18 +9836,18 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               }
             >
               <span
-                className="second-line-section topic"
+                className="attribute-section topic"
               />
             </ActivityRowTopics>
           </div>
           <div
-            className="readability-and-standard-level-wrapper"
+            className="grade-range-and-standard-level-wrapper"
           >
             <ActivityRowReadabilityGradeLevel
               readabilityGradeLevel="8th-9th"
             >
               <span
-                className="second-line-section readability-level"
+                className="attribute-section grade-range"
               >
                 <img
                   alt="Book icon"
@@ -9863,7 +9863,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               standardLevelName="7th Grade CCSS"
             >
               <span
-                className="second-line-section standard-level"
+                className="attribute-section standard-level"
               >
                 <img
                   alt="Common Core State Standards icon"
@@ -10230,7 +10230,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               }
             >
               <span
-                className="second-line-section classification"
+                className="attribute-section classification"
               >
                 <img
                   alt="Target representing Quill Connect"
@@ -10245,7 +10245,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               conceptName="History: The Renaissance"
             >
               <span
-                className="second-line-section concept"
+                className="attribute-section concept"
               >
                 <img
                   alt="Pencil writing icon"
@@ -10288,18 +10288,18 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               }
             >
               <span
-                className="second-line-section topic"
+                className="attribute-section topic"
               />
             </ActivityRowTopics>
           </div>
           <div
-            className="readability-and-standard-level-wrapper"
+            className="grade-range-and-standard-level-wrapper"
           >
             <ActivityRowReadabilityGradeLevel
               readabilityGradeLevel="8th-9th"
             >
               <span
-                className="second-line-section readability-level"
+                className="attribute-section grade-range"
               >
                 <img
                   alt="Book icon"
@@ -10315,7 +10315,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               standardLevelName="7th Grade CCSS"
             >
               <span
-                className="second-line-section standard-level"
+                className="attribute-section standard-level"
               >
                 <img
                   alt="Common Core State Standards icon"
@@ -10682,7 +10682,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               }
             >
               <span
-                className="second-line-section classification"
+                className="attribute-section classification"
               >
                 <img
                   alt="Target representing Quill Connect"
@@ -10697,7 +10697,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               conceptName="History: The Renaissance"
             >
               <span
-                className="second-line-section concept"
+                className="attribute-section concept"
               >
                 <img
                   alt="Pencil writing icon"
@@ -10740,18 +10740,18 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               }
             >
               <span
-                className="second-line-section topic"
+                className="attribute-section topic"
               />
             </ActivityRowTopics>
           </div>
           <div
-            className="readability-and-standard-level-wrapper"
+            className="grade-range-and-standard-level-wrapper"
           >
             <ActivityRowReadabilityGradeLevel
               readabilityGradeLevel="8th-9th"
             >
               <span
-                className="second-line-section readability-level"
+                className="attribute-section grade-range"
               >
                 <img
                   alt="Book icon"
@@ -10767,7 +10767,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               standardLevelName="7th Grade CCSS"
             >
               <span
-                className="second-line-section standard-level"
+                className="attribute-section standard-level"
               >
                 <img
                   alt="Common Core State Standards icon"
@@ -11134,7 +11134,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               }
             >
               <span
-                className="second-line-section classification"
+                className="attribute-section classification"
               >
                 <img
                   alt="Target representing Quill Connect"
@@ -11149,7 +11149,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               conceptName="History: The Renaissance"
             >
               <span
-                className="second-line-section concept"
+                className="attribute-section concept"
               >
                 <img
                   alt="Pencil writing icon"
@@ -11192,18 +11192,18 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               }
             >
               <span
-                className="second-line-section topic"
+                className="attribute-section topic"
               />
             </ActivityRowTopics>
           </div>
           <div
-            className="readability-and-standard-level-wrapper"
+            className="grade-range-and-standard-level-wrapper"
           >
             <ActivityRowReadabilityGradeLevel
               readabilityGradeLevel="8th-9th"
             >
               <span
-                className="second-line-section readability-level"
+                className="attribute-section grade-range"
               >
                 <img
                   alt="Book icon"
@@ -11219,7 +11219,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               standardLevelName="7th Grade CCSS"
             >
               <span
-                className="second-line-section standard-level"
+                className="attribute-section standard-level"
               >
                 <img
                   alt="Common Core State Standards icon"
@@ -11586,7 +11586,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               }
             >
               <span
-                className="second-line-section classification"
+                className="attribute-section classification"
               >
                 <img
                   alt="Target representing Quill Connect"
@@ -11601,7 +11601,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               conceptName="History: The Renaissance"
             >
               <span
-                className="second-line-section concept"
+                className="attribute-section concept"
               >
                 <img
                   alt="Pencil writing icon"
@@ -11644,18 +11644,18 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               }
             >
               <span
-                className="second-line-section topic"
+                className="attribute-section topic"
               />
             </ActivityRowTopics>
           </div>
           <div
-            className="readability-and-standard-level-wrapper"
+            className="grade-range-and-standard-level-wrapper"
           >
             <ActivityRowReadabilityGradeLevel
               readabilityGradeLevel="8th-9th"
             >
               <span
-                className="second-line-section readability-level"
+                className="attribute-section grade-range"
               >
                 <img
                   alt="Book icon"
@@ -11671,7 +11671,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               standardLevelName="7th Grade CCSS"
             >
               <span
-                className="second-line-section standard-level"
+                className="attribute-section standard-level"
               >
                 <img
                   alt="Common Core State Standards icon"
@@ -12038,7 +12038,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               }
             >
               <span
-                className="second-line-section classification"
+                className="attribute-section classification"
               >
                 <img
                   alt="Target representing Quill Connect"
@@ -12053,7 +12053,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               conceptName="History: American Revolution"
             >
               <span
-                className="second-line-section concept"
+                className="attribute-section concept"
               >
                 <img
                   alt="Pencil writing icon"
@@ -12096,18 +12096,18 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               }
             >
               <span
-                className="second-line-section topic"
+                className="attribute-section topic"
               />
             </ActivityRowTopics>
           </div>
           <div
-            className="readability-and-standard-level-wrapper"
+            className="grade-range-and-standard-level-wrapper"
           >
             <ActivityRowReadabilityGradeLevel
               readabilityGradeLevel="6th-7th"
             >
               <span
-                className="second-line-section readability-level"
+                className="attribute-section grade-range"
               >
                 <img
                   alt="Book icon"
@@ -12123,7 +12123,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               standardLevelName="7th Grade CCSS"
             >
               <span
-                className="second-line-section standard-level"
+                className="attribute-section standard-level"
               >
                 <img
                   alt="Common Core State Standards icon"
@@ -12490,7 +12490,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               }
             >
               <span
-                className="second-line-section classification"
+                className="attribute-section classification"
               >
                 <img
                   alt="Target representing Quill Connect"
@@ -12505,7 +12505,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               conceptName="History: American Revolution"
             >
               <span
-                className="second-line-section concept"
+                className="attribute-section concept"
               >
                 <img
                   alt="Pencil writing icon"
@@ -12548,18 +12548,18 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               }
             >
               <span
-                className="second-line-section topic"
+                className="attribute-section topic"
               />
             </ActivityRowTopics>
           </div>
           <div
-            className="readability-and-standard-level-wrapper"
+            className="grade-range-and-standard-level-wrapper"
           >
             <ActivityRowReadabilityGradeLevel
               readabilityGradeLevel="6th-7th"
             >
               <span
-                className="second-line-section readability-level"
+                className="attribute-section grade-range"
               >
                 <img
                   alt="Book icon"
@@ -12575,7 +12575,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               standardLevelName="7th Grade CCSS"
             >
               <span
-                className="second-line-section standard-level"
+                className="attribute-section standard-level"
               >
                 <img
                   alt="Common Core State Standards icon"
@@ -12942,7 +12942,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               }
             >
               <span
-                className="second-line-section classification"
+                className="attribute-section classification"
               >
                 <img
                   alt="Target representing Quill Connect"
@@ -12957,7 +12957,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               conceptName="History: American Revolution"
             >
               <span
-                className="second-line-section concept"
+                className="attribute-section concept"
               >
                 <img
                   alt="Pencil writing icon"
@@ -13000,18 +13000,18 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               }
             >
               <span
-                className="second-line-section topic"
+                className="attribute-section topic"
               />
             </ActivityRowTopics>
           </div>
           <div
-            className="readability-and-standard-level-wrapper"
+            className="grade-range-and-standard-level-wrapper"
           >
             <ActivityRowReadabilityGradeLevel
               readabilityGradeLevel="6th-7th"
             >
               <span
-                className="second-line-section readability-level"
+                className="attribute-section grade-range"
               >
                 <img
                   alt="Book icon"
@@ -13027,7 +13027,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               standardLevelName="7th Grade CCSS"
             >
               <span
-                className="second-line-section standard-level"
+                className="attribute-section standard-level"
               >
                 <img
                   alt="Common Core State Standards icon"
@@ -13394,7 +13394,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               }
             >
               <span
-                className="second-line-section classification"
+                className="attribute-section classification"
               >
                 <img
                   alt="Target representing Quill Connect"
@@ -13409,7 +13409,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               conceptName="History: American Revolution"
             >
               <span
-                className="second-line-section concept"
+                className="attribute-section concept"
               >
                 <img
                   alt="Pencil writing icon"
@@ -13452,18 +13452,18 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               }
             >
               <span
-                className="second-line-section topic"
+                className="attribute-section topic"
               />
             </ActivityRowTopics>
           </div>
           <div
-            className="readability-and-standard-level-wrapper"
+            className="grade-range-and-standard-level-wrapper"
           >
             <ActivityRowReadabilityGradeLevel
               readabilityGradeLevel="6th-7th"
             >
               <span
-                className="second-line-section readability-level"
+                className="attribute-section grade-range"
               >
                 <img
                   alt="Book icon"
@@ -13479,7 +13479,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               standardLevelName="7th Grade CCSS"
             >
               <span
-                className="second-line-section standard-level"
+                className="attribute-section standard-level"
               >
                 <img
                   alt="Common Core State Standards icon"
