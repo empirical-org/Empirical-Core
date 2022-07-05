@@ -2,7 +2,7 @@
 
 module Utils::Numeric
   def self.to_human_string(numeric)
-    raise ArgumentError, "Not a numeric" unless numeric.is_a?(Numeric)
+    return numeric.to_s unless numeric.is_a?(Numeric)
 
     millions = ->(x) { x >= 1_000_000 && x < 1_000_000_000 }
     billions = ->(x) { x >= 1_000_000_000 }
