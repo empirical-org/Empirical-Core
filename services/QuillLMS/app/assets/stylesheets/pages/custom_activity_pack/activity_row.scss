@@ -7,6 +7,11 @@
     position: relative;
     h2 {
       font-size: 16px;
+      display: flex;
+      img {
+        margin-right: 8px;
+        height: 20px;
+      }
     }
     .first-line, .second-line {
       display: flex;
@@ -23,6 +28,9 @@
       }
       .buttons-wrapper {
         display: flex;
+        .non-toggle-buttons {
+          display: flex;
+        }
       }
       .preview-link, .remove-button {
         margin-right: 24px;
@@ -41,19 +49,52 @@
         }
       }
     }
-    .second-line {
+
+    .vertical-divider {
+      height: 100%;
+      border-left: 1px solid #D3D3D3;
+      padding-left: 8px;
+      margin-left: 4px;
+    }
+
+    .diagonal-divider {
+      margin: 0px 12px 0px 4px;
+    }
+
+    .extended-topic {
+      display: flex;
+      align-items: flex-start;
+      img {
+        margin-bottom: 0px;
+      }
+      span {
+        white-space: normal;
+      }
+    }
+
+    .second-line, .third-line {
       padding: 0px 56px 0px 32px;
-      .classification-concept-topic-wrapper, .readability-and-standard-level-wrapper {
+      .classification-concept-topic-wrapper, .grade-range-and-standard-level-wrapper {
         display: flex;
         flex-direction: row;
-      }
-      .classification-concept-topic-wrapper {
-        .second-line-section {
-          margin-right: 16px;
+        .grade-level {
+          margin-right: 4px;
+          display: inline-flex;
+          padding: 0px 5px;
+          background: #06806B;
+          border-radius: 4px;
+          color: white;
+          align-items: center;
+          justify-content: center;
+          font-weight: 700;
+          font-size: 12px;
+          line-height: 22px;
+          &:first-of-type {
+            margin-left: 8px;
+          }
         }
       }
-      .second-line-section {
-        display: flex;
+      .attribute-section {
         white-space: nowrap;
         .quill-tooltip-wrapper {
           width: 400px;
@@ -63,25 +104,40 @@
         }
       }
       .standard-level {
-        margin-left: 16px;
+        width: 130px;
       }
     }
-    .second-line, .expanded-line, .tooltip-line {
+    .second-line, .third-line, .expanded-line, .tooltip-line {
       img {
         margin-right: 2px;
-        margin-bottom: 1px;
+        margin-bottom: 3px;
       }
       span {
         line-height: 1.57;
         color: #646464;
       }
     }
+    .third-line .topic {
+      margin-top: 8px;
+    }
     .tooltip-line:not(:first-of-type) {
       margin-top: 16px;
     }
     .expanded-line {
-      padding-left: 32px;
+      max-width: 33%;
       margin-top: 16px;
+      &:not(:last-of-type) {
+        padding-right: 16px;
+        margin-right: 12px;
+        border-right: 1px solid #D3D3D3;
+      }
+    }
+    .expanded-section {
+      display: flex;
+      margin-left: 32px;
+      padding-right: 16px;
+      margin-right: -16px;
+      border-top: 1px solid #d3d3d3;
     }
     .expanded-line, .tooltip-line {
       display: flex;
@@ -99,6 +155,14 @@
     &.expanded {
       .expand-button img {
         transform: rotate(180deg);
+      }
+      .third-line {
+        margin-top: 16px;
+        border-top: 1px solid #D3D3D3;
+        margin-left: 32px;
+        padding: 16px 0px;
+        margin-right: -16px;
+        margin: 16px -16px 0px 32px;
       }
     }
     &.not-expanded:not(:hover) {
@@ -125,7 +189,7 @@
     @media (max-width: 1050px) {
       margin: 0px 16px;
       .first-line, .second-line {
-        .buttons-wrapper, .topic, .readability-and-standard-level-wrapper {
+        .buttons-wrapper, .topic, .grade-range-and-standard-level-wrapper {
           display: none;
         }
       }
@@ -138,6 +202,11 @@
       }
       &.is-first {
         border-top: 1px solid #e0e0e0;
+      }
+    }
+    @media (max-width: 500px) {
+      .extended-topic {
+        flex-wrap: wrap;
       }
     }
     .mobile-only {

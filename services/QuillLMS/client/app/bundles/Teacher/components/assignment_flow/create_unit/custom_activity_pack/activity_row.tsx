@@ -11,7 +11,7 @@ const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-whi
 const expandSrc = `${process.env.CDN_URL}/images/shared/expand.svg`
 const conceptSrc = `${process.env.CDN_URL}/images/icons/description-concept.svg`
 const ccssSrc = `${process.env.CDN_URL}/images/icons/description-ccss.svg`
-const readabilitySrc = `${process.env.CDN_URL}/images/icons/description-readability.svg`
+const gradeSrc = `${process.env.CDN_URL}/images/icons/description-readability.svg`
 const informationSrc = `${process.env.CDN_URL}/images/icons/description-information.svg`
 const copyrightSrc = `${process.env.CDN_URL}/images/icons/description-copyright.svg`
 const topicSrc = `${process.env.CDN_URL}/images/icons/icons-description-topic.svg`
@@ -22,9 +22,8 @@ const removeSrc = `${process.env.CDN_URL}/images/icons/remove-in-circle.svg`
 
 const IMAGE_WIDTH = 18
 const MARGIN = 16
-const ELLIPSES_LENGTH = 3
 
-const readabilityCopy = "Since Quill activities focus on building writing skills, using a text with a lower readability level is sometimes beneficial as it enables students to practice the writing skill."
+const readabilityCopy = "Quill recommends using activities where the text readability level is the same or lower than the student’s reading level so that the student can focus on building their writing skills."
 
 interface ActivityRowCheckboxProps {
   activity: Activity,
@@ -74,22 +73,8 @@ const ActivityRowCheckbox = ({ activity, isSelected, toggleActivitySelection, }:
   return <button aria-label="unchecked checkbox" className="quill-checkbox focus-on-light unselected" onClick={handleCheckboxClick} type="button" />
 }
 
-const ActivityRowClassification = ({ classification, }: { classification?: ActivityClassification }) => {
-  const className = "second-line-section classification"
-  if (classification) {
-    return (
-      <span className={className}>
-        {imageTagForClassification(classification.key)}
-        <span>{classification.alias}</span>
-      </span>
-    )
-  }
-
-  return <span className={className} />
-}
-
 const ActivityRowConcept = ({ conceptName, }: { conceptName?: string }) => {
-  const className = "second-line-section concept"
+  const className = "attribute-section concept"
   if (conceptName) {
     return (
       <span className={className}>
@@ -102,49 +87,57 @@ const ActivityRowConcept = ({ conceptName, }: { conceptName?: string }) => {
   return <span className={className} />
 }
 
-const ActivityRowTopics = ({ topics, maxAllowedLength, }: { topics?: Topic[], maxAllowedLength: number }) => {
-  const className = "second-line-section topic"
-  if (topics && topics.length && maxAllowedLength >= (IMAGE_WIDTH + MARGIN + ELLIPSES_LENGTH)) {
-    const topicString = stringifyLowerLevelTopics(topics)
-    let topicElement = <span>{topicString}</span>
-    const widthOfTopicSectionInPixels = (topicString.length * AVERAGE_FONT_WIDTH) + IMAGE_WIDTH + MARGIN
-    if (widthOfTopicSectionInPixels >= maxAllowedLength) {
-      const abbreviatedTopicStringLength = ((maxAllowedLength - IMAGE_WIDTH - MARGIN) / AVERAGE_FONT_WIDTH) - ELLIPSES_LENGTH
-      const abbreviatedTopicString = `${topicString.substring(0, abbreviatedTopicStringLength)}...`
-      topicElement = (<Tooltip
-        tooltipText={topicString}
-        tooltipTriggerText={abbreviatedTopicString}
-      />)
-    }
+const ActivityRowTopics = ({ topics, maxAllowedLength, onTertiaryLine, inExpandedView, }: { topics?: Topic[], maxAllowedLength: number, onTertiaryLine: boolean, inExpandedView, }) => {
+  const className = "attribute-section topic"
 
+  if (!(topics && topics.length)) { return <span /> }
+
+  const topicString = stringifyLowerLevelTopics(topics)
+  const widthOfTopicSectionInPixels = (topicString.length * AVERAGE_FONT_WIDTH) + IMAGE_WIDTH + MARGIN
+  const widthExceedsAllottedSpaceOnSecondLine = widthOfTopicSectionInPixels >= maxAllowedLength
+
+  if (inExpandedView && onTertiaryLine) {
+    const thirdLevelTopic = topics.find(t => Number(t.level) === 3)
+    const secondLevelTopic = topics.find(t => Number(t.level) === 2)
+    const diagonalDivider = <span className="diagonal-divider">/</span>
+    return (
+      <span className="attribute-section extended-topic">
+        <span><img alt="Globe icon" src={topicSrc} />{thirdLevelTopic?.name}</span>
+        {diagonalDivider}
+        <span>{secondLevelTopic?.name}</span>
+        {diagonalDivider}
+        <span className="lowest-level">{topicString}</span>
+      </span>
+    )
+  } else if ((widthExceedsAllottedSpaceOnSecondLine && onTertiaryLine) || (!widthExceedsAllottedSpaceOnSecondLine && !onTertiaryLine)) {
     return (
       <span className={className}>
+        {!onTertiaryLine && <span className="vertical-divider" />}
         <img alt="Globe icon" src={topicSrc} />
-        {topicElement}
+        <span>{topicString}</span>
       </span>
     )
   }
 
-  return <span className={className} />
+  return <span />
 }
 
 
-const ActivityRowReadabilityGradeLevel = ({ readabilityGradeLevel, }: { readabilityGradeLevel?: string }) => {
-  const className = "second-line-section readability-level"
-  if (readabilityGradeLevel) {
-    return (
-      <span className={className}>
-        <img alt="Book icon" src={readabilitySrc} />
-        <span>Readability: Grades {readabilityGradeLevel}</span>
-      </span>
-    )
-  }
+const ActivityRowGradeRange = ({ gradeRange, }: { gradeRange?: string }) => {
+  const className = "attribute-section grade-range"
 
-  return <span className={className} />
+  const gradeLevels = ["4 - 5", "6 - 7", "8 - 9", "10 - 12"].map(gradeLevel => <span className="grade-level">{gradeLevel}</span>)
+
+  return (
+    <span className={className}>
+      <img alt="Book icon" src={gradeSrc} />
+      <span>Grades: {gradeLevels}</span>
+    </span>
+  )
 }
 
 const ActivityRowStandardLevel = ({ standardLevelName, }: { standardLevelName?: string }) => {
-  const className = "second-line-section standard-level"
+  const className = "attribute-section standard-level"
   if (standardLevelName) {
     return (
       <span className={className}>
@@ -166,23 +159,31 @@ const ActivityRowExpandedSection = ({ activity, isExpanded}: { activity: Activit
   </div>)
 
   const readabilityLine = activity.readability_grade_level && (<div className="expanded-line">
-    <img alt="Book icon" src={readabilitySrc} />
-    <span>{readabilityCopy}</span>
+    <img alt="Book icon" src={gradeSrc} />
+    <div>
+      <span>{readabilityCopy}</span>
+    </div>
   </div>)
 
-  const contentPartnerLines = activity.content_partners && activity.content_partners.map(cp => (
-    <div className="expanded-line" key={cp.id}>
+  const contentPartnersArray = activity.content_partners.map(cp => (
+    <React.Fragment>
       <img alt="Copyright icon" src={copyrightSrc} />
       <span>{cp.description}</span>
-    </div>)
-  )
+    </React.Fragment>
+  ))
+
+  const contentPartnerLines = contentPartnersArray.length ? (
+    <div className="expanded-line" key="content-partners">
+      {contentPartnersArray}
+    </div>
+  ) : null
 
   return (
-    <React.Fragment>
-      {descriptionLine}
+    <div className="expanded-section">
       {readabilityLine}
+      {descriptionLine}
       {contentPartnerLines}
-    </React.Fragment>
+    </div>
   )
 }
 
@@ -195,7 +196,7 @@ const ActivityRowTooltip = ({ activity, showTooltip}: { activity: Activity, show
   </div>)
 
   const readabilityLine = activity.readability_grade_level && (<div className="tooltip-line">
-    <img alt="Book icon" src={readabilitySrc} />
+    <img alt="Book icon" src={gradeSrc} />
     <span>{readabilityCopy}</span>
   </div>)
 
@@ -208,8 +209,8 @@ const ActivityRowTooltip = ({ activity, showTooltip}: { activity: Activity, show
 
   return (
     <div className="activity-row-tooltip">
-      {descriptionLine}
       {readabilityLine}
+      {descriptionLine}
       {contentPartnerLines}
     </div>
   )
@@ -227,7 +228,7 @@ const ActivityRow = ({ activity, isSelected, toggleActivitySelection, showCheckb
     setShowSnackbar && setShowSnackbar(true)
   }
 
-  const { activity_classification, name, activity_category_name, standard_level_name, anonymous_path, readability_grade_level, topics, id, } = activity
+  const { activity_classification, name, activity_category_name, standard_level_name, anonymous_path, readability_grade_level, topics, id, grade_range, } = activity
 
   function handleClickSaveButton() { saveActivity(id) }
   function handleClickSavedButton() { unsaveActivity(id) }
@@ -241,12 +242,26 @@ const ActivityRow = ({ activity, isSelected, toggleActivitySelection, showCheckb
   const removeButton = <button className="interactive-wrapper focus-on-light remove-button" onClick={removeActivity} type="button"><img alt="Remove icon" src={removeSrc} />Remove</button>
   const removeOrPreviewButton = showRemoveButton ? removeButton : previewButton
   const saveOrSavedButton = savedActivityIds && savedActivityIds.includes(id) ? savedButton : saveButton
+  const nonToggleButtons = <div className="non-toggle-buttons">{removeOrPreviewButton}{saveOrSavedButton}</div>
 
   const expandClassName = isExpanded ? 'expanded' : 'not-expanded'
   const isSelectedClassName = isSelected ? 'selected' : 'not-selected'
   const isFirstClassName = isFirst ? 'is-first' : ''
 
-  const mobileOnly = showRemoveButton ? <div className="mobile-only">{removeButton}</div> : null
+  let thirdLine
+
+  if (topics && topics.length) {
+    thirdLine = (
+      <div className="third-line">
+        <ActivityRowTopics
+          inExpandedView={isExpanded}
+          maxAllowedLength={calculateMaxAllowedLengthForTopicSection({ activity_classification, activity_category_name, readability_grade_level, standard_level_name})}
+          onTertiaryLine={true}
+          topics={topics}
+        />
+      </div>
+    )
+  }
 
   return (
     <section className={`activity-row ${expandClassName} ${isSelectedClassName} ${isFirstClassName}`}>
@@ -254,30 +269,32 @@ const ActivityRow = ({ activity, isSelected, toggleActivitySelection, showCheckb
       <div className="first-line">
         <div className="name-and-checkbox-wrapper">
           {showCheckbox && <ActivityRowCheckbox activity={activity} isSelected={isSelected} toggleActivitySelection={toggleActivitySelection} />}
-          <button className="interactive-wrapper" onMouseEnter={toggleShowTooltip} onMouseLeave={toggleShowTooltip} tabIndex={-1} type="button"><h2>{name}</h2></button>
+          <button className="interactive-wrapper" onMouseEnter={toggleShowTooltip} onMouseLeave={toggleShowTooltip} tabIndex={-1} type="button"><h2>{imageTagForClassification(activity_classification.key)}<span>{name}</span></h2></button>
         </div>
         <div className="buttons-wrapper">
-          {removeOrPreviewButton}
-          {saveOrSavedButton}
+          {nonToggleButtons}
           {expandButton}
         </div>
       </div>
       <div className="second-line">
         <div className="classification-concept-topic-wrapper">
-          <ActivityRowClassification classification={activity_classification} />
           <ActivityRowConcept conceptName={activity_category_name} />
+          {activity_category_name && topics && topics.length && <span className="vertical-divider" />}
           <ActivityRowTopics
+            inExpandedView={isExpanded}
             maxAllowedLength={calculateMaxAllowedLengthForTopicSection({ activity_classification, activity_category_name, readability_grade_level, standard_level_name})}
+            onTertiaryLine={false}
             topics={topics}
           />
         </div>
-        <div className="readability-and-standard-level-wrapper">
-          <ActivityRowReadabilityGradeLevel readabilityGradeLevel={readability_grade_level} />
+        <div className="grade-range-and-standard-level-wrapper">
           <ActivityRowStandardLevel standardLevelName={standard_level_name} />
+          {standard_level_name && grade_range && <span className="vertical-divider" />}
+          <ActivityRowGradeRange gradeRange={grade_range} />
         </div>
       </div>
+      {thirdLine}
       <ActivityRowExpandedSection activity={activity} isExpanded={isExpanded} />
-      {mobileOnly}
     </section>
   )
 }
