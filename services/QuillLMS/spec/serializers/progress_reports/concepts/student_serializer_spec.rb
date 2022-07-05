@@ -26,8 +26,8 @@ describe ProgressReports::Concepts::StudentSerializer, type: :serializer do
       state: 'finished',
       completed_at: 5.minutes.ago,
     )
-    activity_session.concept_results.create!(concept: concept, metadata: {'correct' => 1})
-    activity_session.concept_results.create!(concept: concept, metadata: {'correct' => 0})
+    activity_session.old_concept_results.create!(concept: concept, metadata: {'correct' => 1})
+    activity_session.old_concept_results.create!(concept: concept, metadata: {'correct' => 0})
   end
 
   describe '#to_json' do

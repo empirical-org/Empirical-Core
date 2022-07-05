@@ -23,16 +23,16 @@ class GradesController < ApplicationController
     RawSqlRunner.execute(
       <<-SQL
         SELECT
-          concept_results.metadata,
+          old_concept_results.metadata,
           activities.description,
           concepts.name,
           activity_sessions.completed_at + INTERVAL '#{current_user.utc_offset} seconds' AS completed_at,
           unit_activities.due_date
         FROM activity_sessions
-        LEFT JOIN concept_results
-          ON concept_results.activity_session_id = activity_sessions.id
+        LEFT JOIN old_concept_results
+          ON old_concept_results.activity_session_id = activity_sessions.id
         LEFT JOIN concepts
-          ON concept_results.concept_id = concepts.id
+          ON old_concept_results.concept_id = concepts.id
         JOIN classroom_units
           ON classroom_units.id = activity_sessions.classroom_unit_id
         JOIN activities

@@ -45,7 +45,7 @@ class QuestionHealthDashboard
       SELECT
       cr.metadata::json->>'questionScore' AS score,
       cr.activity_session_id
-      FROM concept_results cr
+      FROM old_concept_results cr
       INNER JOIN (
         SELECT *
         FROM activity_sessions

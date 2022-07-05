@@ -47,7 +47,7 @@ describe 'SerializeActivityHealth' do
   let!(:recommendation) { create(:recommendation, activity: diagnostic, unit_template: unit_template)}
 
   let!(:concept_result1) do
-    create(:concept_result,
+    create(:old_concept_result,
      activity_session: activity_session1,
      metadata: {
        questionNumber: 1,
@@ -57,7 +57,7 @@ describe 'SerializeActivityHealth' do
   end
 
   let!(:concept_result2) do
-    create(:concept_result,
+    create(:old_concept_result,
       activity_session: activity_session2,
       metadata: {
         questionNumber: 1,
@@ -67,7 +67,7 @@ describe 'SerializeActivityHealth' do
   end
 
   let!(:concept_result3) do
-    create(:concept_result,
+    create(:old_concept_result,
       activity_session: activity_session3,
       metadata: {
         questionNumber: 1,
@@ -77,7 +77,7 @@ describe 'SerializeActivityHealth' do
   end
 
   let!(:concept_result4) do
-    create(:concept_result,
+    create(:old_concept_result,
       activity_session: activity_session1,
       metadata: {
         questionNumber: 2,
