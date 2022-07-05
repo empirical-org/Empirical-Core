@@ -63,7 +63,9 @@ class Cms::ActivitiesController < Cms::CmsController
       'flags',
       'standard_id',
       'raw_score_id',
-      'follow_up_activity_id'
+      'follow_up_activity_id',
+      'minimum_grade_level',
+      'maximum_grade_level'
     )
     formatted_activity['content_partner_ids'] = activity.content_partner_ids
     formatted_activity['topic_ids'] = activity.topic_ids
@@ -83,6 +85,7 @@ class Cms::ActivitiesController < Cms::CmsController
     @raw_score_options = RawScore.order_by_name
     @grade_band_hash = {}
     @raw_score_options.each { |rs| @grade_band_hash[rs.name] = rs.readability_grade_level(@activity_classification.id) }
+    @readability_grade_band_to_minimum_grade_level_map = Activity::READABILITY_GRADE_LEVEL_TO_MINIMUM_GRADE_LEVEL_MAP
   end
 
   protected def set_style_and_javascript_file
@@ -102,6 +105,8 @@ class Cms::ActivitiesController < Cms::CmsController
                                      :follow_up_activity_id,
                                      :supporting_info,
                                      :raw_score_id,
+                                     :minimum_grade_level,
+                                     :maximum_grade_level,
                                      topic_ids: [],
                                      activity_category_ids: [],
                                      content_partner_ids: [],

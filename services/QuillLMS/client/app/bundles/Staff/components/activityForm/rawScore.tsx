@@ -11,7 +11,7 @@ const RawScore = ({ activity, rawScoreOptions, handleRawScoreChange, gradeBands,
   }, [rawScoreEnabled])
 
   function onChangeRawScore(e) {
-    handleRawScoreChange(e.target.value)
+    handleRawScoreChange(e.target.value || null)
   }
 
   function toggleRawScoreEnabled(e) {
@@ -29,7 +29,7 @@ const RawScore = ({ activity, rawScoreOptions, handleRawScoreChange, gradeBands,
       </section>
       <section>
         <label>Readability</label>
-        <select disabled={!rawScoreEnabled} onChange={onChangeRawScore} value={activity.raw_score_id || ''}>{rawScoreOptionElements}</select>
+        <select disabled={!rawScoreEnabled} onChange={onChangeRawScore} value={activity.raw_score_id || null}>{rawScoreOptionElements}</select>
       </section>
       <section>
         <label>Readability Grade Level</label>
