@@ -24,7 +24,8 @@ RSpec.describe Utils::Numeric do
     end
 
     it 'should handle string input gracefully' do
-      expect(Utils::Numeric.to_human_string("5700000")).to eq "5700000"
+      expect(Utils::Numeric.to_human_string("100")).to eq "100.0"
+      expect(Utils::Numeric.to_human_string("5700000")).to eq "6 Million"
     end
   end
 
