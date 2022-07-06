@@ -66,7 +66,7 @@ describe Activity, type: :model, redis: true do
 
   it { is_expected.to callback(:flag_as_beta).before(:create).unless(:flags?) }
 
-  it { is_expected.to callback(:set_minimum_and_maximum_grade_levels).before(:save).unless(:minimum_grade_level) }
+  it { is_expected.to callback(:set_minimum_and_maximum_grade_levels_to_default_values).before(:save).unless(:minimum_grade_level) }
 
   it do
     expect(subject).to callback(:clear_activity_search_cache).after(:commit)
