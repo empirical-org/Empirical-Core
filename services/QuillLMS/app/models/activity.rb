@@ -68,7 +68,7 @@ class Activity < ApplicationRecord
   has_many :activity_topics, dependent: :destroy
   has_many :topics, through: :activity_topics
   before_create :flag_as_beta, unless: :flags?
-  before_save :set_minimum_and_maximum_grade_levels
+  before_save :set_minimum_and_maximum_grade_levels_to_default_values, unless: :minimum_grade_level
   after_commit :clear_activity_search_cache
   after_save :update_evidence_child_title, if: :update_evidence_title?
 
@@ -111,6 +111,8 @@ class Activity < ApplicationRecord
     RawScore::EIGHTH_THROUGH_NINTH => 8,
     RawScore::TENTH_THROUGH_TWELFTH => 10
   }
+
+  DEFAULT_MAX_GRADE_LEVEL = 12
 
   def self.diagnostic_activity_ids
     ActivityClassification.find_by_key('diagnostic')&.activities&.pluck(:id) || []
@@ -238,9 +240,7 @@ class Activity < ApplicationRecord
   end
 
   def readability_grade_level
-    return nil unless raw_score_id && raw_score
-
-    raw_score.readability_grade_level(activity_classification_id)
+    raw_score&.readability_grade_level(activity_classification_id)
   end
 
   def default_minimum_grade_level
@@ -250,12 +250,12 @@ class Activity < ApplicationRecord
   end
 
   def default_maximum_grade_level
-    12
+    return nil if readability_grade_level.nil?
+
+    DEFAULT_MAX_GRADE_LEVEL
   end
 
-  def set_minimum_and_maximum_grade_levels
-    return if minimum_grade_level
-
+  def set_minimum_and_maximum_grade_levels_to_default_values
     self.minimum_grade_level = default_minimum_grade_level
     self.maximum_grade_level = default_minimum_grade_level ? default_maximum_grade_level : nil
   end
