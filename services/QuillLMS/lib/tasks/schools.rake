@@ -119,17 +119,15 @@ namespace :schools do
   desc 'Clean up duplicate schools based on 0-left-padded NCES ID'
   task :clean_up_duplicates => :environment do
 
-    # First we want to retrieve a list of all `schools_users` and
-    # `schools_admins` records where someone is assigned to a duplicate
-    # school and re-assign them to the correct school
     teachers_assigned_to_duplicates = <<-SQL
       SELECT original.id AS original_school_id,
+            duplicate.id AS duplicate_school_id,
             schools_users.id AS schools_users_id,
             schools_admins.id AS schools_admins_id
           FROM schools AS original
           JOIN schools AS duplicate
-              ON CONCAT('0', original.nces_id) = duplicate.nces_id
-                  OR CONCAT('00', original.nces_id) = duplicate.nces_id
+              ON original.nces_id = CONCAT('0', duplicate.nces_id)
+                  OR original.nces_id = CONCAT('0', duplicate.nces_id)
           LEFT OUTER JOIN schools_admins
               ON duplicate.id = schools_admins.school_id
           LEFT OUTER JOIN schools_users
@@ -138,40 +136,32 @@ namespace :schools do
 
     users_updated = 0
     admins_updated = 0
+    duplicate_schools_deleted = 0
     ActiveRecord::Base.connection.execute(teachers_assigned_to_duplicates).each do |row|
-      if row['schools_users_id']
-        update_me = SchoolsUsers.find(row['schools_users_id'])
-        update_me.update(school_id: row['original_school_id'])
-        users_updated += 1
-      end
+      ActiveRecord::Base.transaction do
+        if row['schools_users_id']
+          update_me = SchoolsUsers.find(row['schools_users_id'])
+          update_me.update(school_id: row['original_school_id'])
+          users_updated += 1
+        end
 
-      if row['schools_admins_id']
-        update_me = SchoolsAdmins.find(row['schools_admins_id'])
-        update_me.update(school_id: row['original_school_id'])
-        admins_updated += 1
+        if row['schools_admins_id']
+          update_me = SchoolsAdmins.find(row['schools_admins_id'])
+          update_me.update(school_id: row['original_school_id'])
+          admins_updated += 1
+        end
+
+        duplicate = School.find(row['duplicate_school_id'])
+        update_hash = duplicate.as_json.except('id', 'nces_id').select { |_,v| v.present? }
+        School.update(row['original_school_id'], update_hash)
+
+        duplicate.destroy!
+        duplicate_schools_deleted += 1
       end
     end
 
     puts "Moved #{users_updated} users to the correct school."
     puts "Moved #{admins_updated} admins to the correct school."
-
-    # Now we want to remove any schools that are duplicates
-    duplicate_schools = <<-SQL
-      SELECT duplicate.id AS duplicate_id
-          FROM schools AS original
-          JOIN schools AS duplicate
-              ON CONCAT('0', original.nces_id) = duplicate.nces_id
-                  OR CONCAT('00', original.nces_id) = duplicate.nces_id
-    SQL
-
-    duplicate_schools_deleted = 0
-    ActiveRecord::Base.connection.execute(duplicate_schools).each do |row|
-      next unless row['duplicate_id']
-
-      School.find(row['duplicate_id']).destroy!
-      duplicate_schools_deleted += 1
-    end
-
     puts "Deleted #{duplicate_schools_deleted} duplicate schools."
   end
 end
