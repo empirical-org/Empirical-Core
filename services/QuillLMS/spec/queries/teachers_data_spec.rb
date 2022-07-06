@@ -40,8 +40,8 @@ describe 'TeachersData' do
 
   let!(:concept1) { create(:concept) }
   let!(:concept2) { create(:concept) }
-  let!(:concept_result1) { create(:concept_result, concept: concept1, activity_session: activity_session1) }
-  let!(:concept_result2) { create(:concept_result, concept: concept2, activity_session: activity_session2) }
+  let!(:concept_result1) { create(:old_concept_result, concept: concept1, activity_session: activity_session1) }
+  let!(:concept_result2) { create(:old_concept_result, concept: concept2, activity_session: activity_session2) }
 
   before do
     @results = teachers_data_module.run(teacher_ids)

@@ -13,7 +13,7 @@ describe DiagnosticReports do
     let!(:incorrect_concept_result) { create(:concept_result_with_incorrect_answer, concept: concept, activity_session: activity_session) }
 
     it 'should return data with the name of the skill, number of correct concept results, number of incorrect concept results, and a summary' do
-      expect(data_for_skill_by_activity_session(activity_session.concept_results, skill_concept.skill)).to eq({
+      expect(data_for_skill_by_activity_session(activity_session.old_concept_results, skill_concept.skill)).to eq({
         id: skill_concept.skill.id,
         skill: skill_concept.skill.name,
         number_correct: 1,
