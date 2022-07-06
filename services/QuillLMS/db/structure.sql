@@ -1204,7 +1204,7 @@ CREATE TABLE public.classrooms_teachers (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     "order" integer,
-    CONSTRAINT check_role_is_valid CHECK ((((role)::text = ANY (ARRAY[('owner'::character varying)::text, ('coteacher'::character varying)::text])) AND (role IS NOT NULL)))
+    CONSTRAINT check_role_is_valid CHECK ((((role)::text = ANY ((ARRAY['owner'::character varying, 'coteacher'::character varying])::text[])) AND (role IS NOT NULL)))
 );
 
 
@@ -1588,8 +1588,8 @@ ALTER SEQUENCE public.comprehension_prompts_rules_id_seq OWNED BY public.compreh
 
 CREATE TABLE public.comprehension_regex_rules (
     id integer NOT NULL,
-    regex_text character varying(200) NOT NULL,
-    case_sensitive boolean NOT NULL,
+    regex_text character varying(200),
+    case_sensitive boolean,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     rule_id integer,
@@ -2708,6 +2708,40 @@ ALTER SEQUENCE public.objectives_id_seq OWNED BY public.objectives.id;
 
 
 --
+-- Name: old_concept_results; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.old_concept_results (
+    id integer NOT NULL,
+    activity_session_id integer,
+    concept_id integer NOT NULL,
+    metadata json,
+    activity_classification_id integer,
+    question_type character varying
+);
+
+
+--
+-- Name: old_concept_results_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.old_concept_results_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: old_concept_results_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.old_concept_results_id_seq OWNED BY public.old_concept_results.id;
+
+
+--
 -- Name: page_areas; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3381,6 +3415,7 @@ CREATE TABLE public.schools_users (
 --
 
 CREATE SEQUENCE public.schools_users_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4593,13 +4628,6 @@ ALTER TABLE ONLY public.concept_feedbacks ALTER COLUMN id SET DEFAULT nextval('p
 
 
 --
--- Name: concept_results id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.concept_results ALTER COLUMN id SET DEFAULT nextval('public.concept_results_id_seq'::regclass);
-
-
---
 -- Name: concepts id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -4779,6 +4807,13 @@ ALTER TABLE ONLY public.oauth_applications ALTER COLUMN id SET DEFAULT nextval('
 --
 
 ALTER TABLE ONLY public.objectives ALTER COLUMN id SET DEFAULT nextval('public.objectives_id_seq'::regclass);
+
+
+--
+-- Name: old_concept_results id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.old_concept_results ALTER COLUMN id SET DEFAULT nextval('public.old_concept_results_id_seq'::regclass);
 
 
 --
@@ -5433,14 +5468,6 @@ ALTER TABLE ONLY public.concept_feedbacks
 
 
 --
--- Name: concept_results concept_results_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.concept_results
-    ADD CONSTRAINT concept_results_pkey PRIMARY KEY (id);
-
-
---
 -- Name: concepts concepts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5662,6 +5689,14 @@ ALTER TABLE ONLY public.oauth_applications
 
 ALTER TABLE ONLY public.objectives
     ADD CONSTRAINT objectives_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: old_concept_results old_concept_results_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.old_concept_results
+    ADD CONSTRAINT old_concept_results_pkey PRIMARY KEY (id);
 
 
 --
@@ -6487,20 +6522,6 @@ CREATE UNIQUE INDEX index_concept_feedbacks_on_uid_and_activity_type ON public.c
 
 
 --
--- Name: index_concept_results_on_activity_session_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_concept_results_on_activity_session_id ON public.concept_results USING btree (activity_session_id);
-
-
---
--- Name: index_concept_results_on_concept_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_concept_results_on_concept_id ON public.concept_results USING btree (concept_id);
-
-
---
 -- Name: index_content_partner_activities_on_activity_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -6739,6 +6760,20 @@ CREATE UNIQUE INDEX index_oauth_applications_on_uid ON public.oauth_applications
 
 
 --
+-- Name: index_old_concept_results_on_activity_session_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_old_concept_results_on_activity_session_id ON public.old_concept_results USING btree (activity_session_id);
+
+
+--
+-- Name: index_old_concept_results_on_concept_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_old_concept_results_on_concept_id ON public.old_concept_results USING btree (concept_id);
+
+
+--
 -- Name: index_partner_contents_on_content_type_and_content_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -6827,6 +6862,48 @@ CREATE UNIQUE INDEX index_referrer_users_on_referral_code ON public.referrer_use
 --
 
 CREATE UNIQUE INDEX index_referrer_users_on_user_id ON public.referrer_users USING btree (user_id);
+
+
+--
+-- Name: index_response_directions_on_text; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_response_directions_on_text ON public.response_directions USING btree (text);
+
+
+--
+-- Name: index_response_instructions_on_text; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_response_instructions_on_text ON public.response_instructions USING btree (text);
+
+
+--
+-- Name: index_response_previous_feedbacks_on_text; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_response_previous_feedbacks_on_text ON public.response_previous_feedbacks USING btree (text);
+
+
+--
+-- Name: index_response_prompts_on_text; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_response_prompts_on_text ON public.response_prompts USING btree (text);
+
+
+--
+-- Name: index_response_question_types_on_text; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_response_question_types_on_text ON public.response_question_types USING btree (text);
+
+
+--
+-- Name: index_responses_on_concept_result_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_responses_on_concept_result_id ON public.responses USING btree (concept_result_id);
 
 
 --
@@ -7428,7 +7505,7 @@ CREATE UNIQUE INDEX unique_schema_migrations ON public.schema_migrations USING b
 -- Name: user_activity_classification_unique_index; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX user_activity_classification_unique_index ON public.user_activity_classifications USING btree (user_id, activity_classification_id);
+CREATE INDEX user_activity_classification_unique_index ON public.user_activity_classifications USING btree (user_id, activity_classification_id);
 
 
 --
@@ -7825,10 +7902,10 @@ ALTER TABLE ONLY public.standards
 
 
 --
--- Name: concept_results fk_rails_cebe4a6023; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: old_concept_results fk_rails_cebe4a6023; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.concept_results
+ALTER TABLE ONLY public.old_concept_results
     ADD CONSTRAINT fk_rails_cebe4a6023 FOREIGN KEY (activity_classification_id) REFERENCES public.activity_classifications(id);
 
 
@@ -8373,6 +8450,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211019143514'),
 ('20211026160939'),
 ('20211108171529'),
+('20211202235402'),
 ('20220105145446'),
 ('20220106193721'),
 ('20220128175405'),

@@ -2,7 +2,7 @@
 
 # == Schema Information
 #
-# Table name: concept_results
+# Table name: old_concept_results
 #
 #  id                         :integer          not null, primary key
 #  metadata                   :json
@@ -13,8 +13,8 @@
 #
 # Indexes
 #
-#  index_concept_results_on_activity_session_id  (activity_session_id)
-#  index_concept_results_on_concept_id           (concept_id)
+#  index_old_concept_results_on_activity_session_id  (activity_session_id)
+#  index_old_concept_results_on_concept_id           (concept_id)
 #
 # Foreign Keys
 #
@@ -22,11 +22,11 @@
 #
 require 'rails_helper'
 
-describe ConceptResult, type: :model do
+describe OldConceptResult, type: :model do
 
-  let(:concept_result) { build(:concept_result, concept: nil) }
+  let(:concept_result) { build(:old_concept_result, concept: nil) }
   let!(:concept) { create(:concept) }
-  let(:concept_result_with_concept) { build(:concept_result, concept: concept) }
+  let(:concept_result_with_concept) { build(:old_concept_result, concept: concept) }
 
   describe '#concept_uid=' do
     it 'assigns the concept with that UID' do
@@ -42,27 +42,27 @@ describe ConceptResult, type: :model do
     end
 
     it "can equal passage-proofreader" do
-      concept_result_with_concept.update(question_type:'passage-proofreader')
+      concept_result_with_concept.update(question_type: 'passage-proofreader')
       expect(concept_result_with_concept).to be_valid
     end
 
     it "can equal sentence-writing" do
-      concept_result_with_concept.update(question_type:'sentence-writing')
+      concept_result_with_concept.update(question_type: 'sentence-writing')
       expect(concept_result_with_concept).to be_valid
     end
 
     it "can equal sentence-fragment-identification" do
-      concept_result_with_concept.update(question_type:'sentence-fragment-identification')
+      concept_result_with_concept.update(question_type: 'sentence-fragment-identification')
       expect(concept_result_with_concept).to be_valid
     end
 
     it "can equal sentence-fragment-expansion" do
-      concept_result_with_concept.update(question_type:'sentence-fragment-expansion')
+      concept_result_with_concept.update(question_type: 'sentence-fragment-expansion')
       expect(concept_result_with_concept).to be_valid
     end
 
     it "can equal sentence-combining" do
-      concept_result_with_concept.update(question_type:'sentence-combining')
+      concept_result_with_concept.update(question_type: 'sentence-combining')
       expect(concept_result_with_concept).to be_valid
     end
 

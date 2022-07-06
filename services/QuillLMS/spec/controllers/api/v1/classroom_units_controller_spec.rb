@@ -92,7 +92,7 @@ describe Api::V1::ClassroomUnitsController, type: :controller do
 
     it 'authenticates a teacher who does own the classroom activity' do
       session[:user_id] = teacher.id
-      concept_result = create(:concept_result)
+      concept_result = create(:old_concept_result)
 
       put :finish_lesson,
         params: {
