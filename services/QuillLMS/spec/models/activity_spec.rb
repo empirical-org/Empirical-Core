@@ -527,7 +527,13 @@ describe Activity, type: :model, redis: true do
   end
 
   describe '#set_minimum_and_maximum_grade_levels' do
-    it 'should set the activity minimum and maximum grade level to the default values'
+    it 'should set the activity minimum and maximum grade level to the default values' do
+      raw_score = create(:raw_score, :eight_hundred_to_nine_hundred)
+      activity = create(:activity, raw_score_id: raw_score.id)
+      activity.set_minimum_and_maximum_grade_levels_to_default_values
+      expect(activity.minimum_grade_level).to eq(activity.default_minimum_grade_level)
+      expect(activity.maximum_grade_level).to eq(activity.default_maximum_grade_level)
+    end
   end
 
   describe '#is_diagnostic' do
