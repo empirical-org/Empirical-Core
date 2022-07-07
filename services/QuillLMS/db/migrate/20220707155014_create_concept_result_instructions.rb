@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-class CreateResponsePreviousFeedback < ActiveRecord::Migration[5.1]
+class CreateConceptResultInstructions < ActiveRecord::Migration[5.1]
   def change
-    create_table :response_previous_feedbacks, id: false do |t|
+    create_table :concept_result_instructions, id: false do |t|
       t.serial :id, limit: 4, primary_key: true
 
       t.text :text, null: false

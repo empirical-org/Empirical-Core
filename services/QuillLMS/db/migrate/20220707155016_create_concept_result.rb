@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-class CreateResponse < ActiveRecord::Migration[5.1]
+class CreateConceptResult < ActiveRecord::Migration[5.1]
   def change
-    create_table :responses do |t|
+    create_table :concept_results do |t|
       t.references :activity_session, type: :int, null: false, index: false
       t.jsonb :answer
       t.integer :attempt_number

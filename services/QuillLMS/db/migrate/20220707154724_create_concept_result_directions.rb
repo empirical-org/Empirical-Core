@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-class CreateResponseDirections < ActiveRecord::Migration[5.1]
+class CreateConceptResultDirections < ActiveRecord::Migration[5.1]
   def change
-    create_table :response_directions, id: false do |t|
+    create_table :concept_result_directions, id: false do |t|
       t.serial :id, limit: 4, primary_key: true
 
       t.text :text, null: false
