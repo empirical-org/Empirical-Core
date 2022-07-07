@@ -8,11 +8,11 @@ class EnqueueConceptResultsMigrationWorker
 
   def perform(start, finish)
     start ||= 1
-    finish ||= ConceptResult.maximum(:id)
+    finish ||= OldConceptResult.maximum(:id)
 
     while start < finish
       end_of_batch = [start + BATCH_SIZE - 1, finish].min
-      CopyConceptResultsToResponsesWorker.perform_async(start, end_of_batch)
+      CopyOldConceptResultsToConceptResultsWorker.perform_async(start, end_of_batch)
       start += BATCH_SIZE
     end
   end
