@@ -175,6 +175,7 @@ namespace :schools do
         update_hash = duplicate.as_json.except('id', 'nces_id', 'created_at').select { |_,v| v.present? }
         School.update(row['original_school_id'], update_hash)
 
+        puts duplicate.as_json
         duplicate.destroy!
         duplicate_schools_deleted += 1
       end
