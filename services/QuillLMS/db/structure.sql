@@ -281,7 +281,9 @@ CREATE TABLE public.activities (
     follow_up_activity_id integer,
     supporting_info character varying,
     standard_id integer,
-    raw_score_id integer
+    raw_score_id integer,
+    minimum_grade_level smallint,
+    maximum_grade_level smallint
 );
 
 
@@ -8615,6 +8617,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220608144739'),
 ('20220609173524'),
 ('20220614152118'),
-('20220628174900');
+('20220628174900'),
+('20220705143703');
 
 
