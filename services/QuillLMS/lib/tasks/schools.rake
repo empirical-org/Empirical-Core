@@ -172,7 +172,7 @@ namespace :schools do
     ActiveRecord::Base.connection.execute(schools_with_duplicates).each do |row|
       ActiveRecord::Base.transaction do
         duplicate = School.find(row['duplicate_school_id'])
-        update_hash = duplicate.as_json.except('id', 'nces_id').select { |_,v| v.present? }
+        update_hash = duplicate.as_json.except('id', 'nces_id', 'created_at').select { |_,v| v.present? }
         School.update(row['original_school_id'], update_hash)
 
         duplicate.destroy!
