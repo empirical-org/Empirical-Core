@@ -244,7 +244,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                             >
                               <span
                                 aria-hidden={false}
-                                className="quill-tooltip-trigger"
+                                className="quill-tooltip-trigger "
                                 role="tooltip"
                               >
                                 <span
@@ -514,7 +514,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                   >
                     <span
                       aria-hidden={false}
-                      className="quill-tooltip-trigger"
+                      className="quill-tooltip-trigger "
                       role="tooltip"
                     >
                       <span
@@ -946,7 +946,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                   >
                     <span
                       aria-hidden={false}
-                      className="quill-tooltip-trigger"
+                      className="quill-tooltip-trigger "
                       role="tooltip"
                     >
                       <span
@@ -1361,7 +1361,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                             >
                               <span
                                 aria-hidden={false}
-                                className="quill-tooltip-trigger"
+                                className="quill-tooltip-trigger "
                                 role="tooltip"
                               >
                                 <span
@@ -1461,7 +1461,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                             >
                               <span
                                 aria-hidden={false}
-                                className="quill-tooltip-trigger"
+                                className="quill-tooltip-trigger "
                                 role="tooltip"
                               >
                                 <span
@@ -1695,7 +1695,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                   >
                     <span
                       aria-hidden={false}
-                      className="quill-tooltip-trigger"
+                      className="quill-tooltip-trigger "
                       role="tooltip"
                     >
                       <span
@@ -2116,7 +2116,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                   >
                     <span
                       aria-hidden={false}
-                      className="quill-tooltip-trigger"
+                      className="quill-tooltip-trigger "
                       role="tooltip"
                     >
                       <span
@@ -2531,7 +2531,7 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
                             >
                               <span
                                 aria-hidden={false}
-                                className="quill-tooltip-trigger"
+                                className="quill-tooltip-trigger "
                                 role="tooltip"
                               >
                                 <span
@@ -2786,7 +2786,7 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
                   >
                     <span
                       aria-hidden={false}
-                      className="quill-tooltip-trigger"
+                      className="quill-tooltip-trigger "
                       role="tooltip"
                     >
                       <span
@@ -3218,7 +3218,7 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
                   >
                     <span
                       aria-hidden={false}
-                      className="quill-tooltip-trigger"
+                      className="quill-tooltip-trigger "
                       role="tooltip"
                     >
                       <span
@@ -3633,7 +3633,7 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
                             >
                               <span
                                 aria-hidden={false}
-                                className="quill-tooltip-trigger"
+                                className="quill-tooltip-trigger "
                                 role="tooltip"
                               >
                                 <span
@@ -3888,7 +3888,7 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
                   >
                     <span
                       aria-hidden={false}
-                      className="quill-tooltip-trigger"
+                      className="quill-tooltip-trigger "
                       role="tooltip"
                     >
                       <span
@@ -4320,7 +4320,7 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
                   >
                     <span
                       aria-hidden={false}
-                      className="quill-tooltip-trigger"
+                      className="quill-tooltip-trigger "
                       role="tooltip"
                     >
                       <span
@@ -4735,7 +4735,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
                             >
                               <span
                                 aria-hidden={false}
-                                className="quill-tooltip-trigger"
+                                className="quill-tooltip-trigger "
                                 role="tooltip"
                               >
                                 <span
@@ -5005,7 +5005,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
                   >
                     <span
                       aria-hidden={false}
-                      className="quill-tooltip-trigger"
+                      className="quill-tooltip-trigger "
                       role="tooltip"
                     >
                       <span
@@ -5446,7 +5446,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
                   >
                     <span
                       aria-hidden={false}
-                      className="quill-tooltip-trigger"
+                      className="quill-tooltip-trigger "
                       role="tooltip"
                     >
                       <span
@@ -5861,7 +5861,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
                             >
                               <span
                                 aria-hidden={false}
-                                className="quill-tooltip-trigger"
+                                className="quill-tooltip-trigger "
                                 role="tooltip"
                               >
                                 <span
@@ -5961,7 +5961,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
                             >
                               <span
                                 aria-hidden={false}
-                                className="quill-tooltip-trigger"
+                                className="quill-tooltip-trigger "
                                 role="tooltip"
                               >
                                 <span
@@ -6195,7 +6195,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
                   >
                     <span
                       aria-hidden={false}
-                      className="quill-tooltip-trigger"
+                      className="quill-tooltip-trigger "
                       role="tooltip"
                     >
                       <span
@@ -6625,7 +6625,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
                   >
                     <span
                       aria-hidden={false}
-                      className="quill-tooltip-trigger"
+                      className="quill-tooltip-trigger "
                       role="tooltip"
                     >
                       <span
@@ -7040,7 +7040,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                             >
                               <span
                                 aria-hidden={false}
-                                className="quill-tooltip-trigger"
+                                className="quill-tooltip-trigger "
                                 role="tooltip"
                               >
                                 <span
@@ -7304,7 +7304,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                   >
                     <span
                       aria-hidden={false}
-                      className="quill-tooltip-trigger"
+                      className="quill-tooltip-trigger "
                       role="tooltip"
                     >
                       <span
@@ -7719,7 +7719,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                             >
                               <span
                                 aria-hidden={false}
-                                className="quill-tooltip-trigger"
+                                className="quill-tooltip-trigger "
                                 role="tooltip"
                               >
                                 <span
@@ -7995,7 +7995,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                   >
                     <span
                       aria-hidden={false}
-                      className="quill-tooltip-trigger"
+                      className="quill-tooltip-trigger "
                       role="tooltip"
                     >
                       <span
@@ -8436,7 +8436,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                   >
                     <span
                       aria-hidden={false}
-                      className="quill-tooltip-trigger"
+                      className="quill-tooltip-trigger "
                       role="tooltip"
                     >
                       <span
@@ -8851,7 +8851,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                             >
                               <span
                                 aria-hidden={false}
-                                className="quill-tooltip-trigger"
+                                className="quill-tooltip-trigger "
                                 role="tooltip"
                               >
                                 <span
@@ -9128,7 +9128,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                   >
                     <span
                       aria-hidden={false}
-                      className="quill-tooltip-trigger"
+                      className="quill-tooltip-trigger "
                       role="tooltip"
                     >
                       <span
@@ -9543,7 +9543,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                             >
                               <span
                                 aria-hidden={false}
-                                className="quill-tooltip-trigger"
+                                className="quill-tooltip-trigger "
                                 role="tooltip"
                               >
                                 <span
@@ -9841,7 +9841,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                   >
                     <span
                       aria-hidden={false}
-                      className="quill-tooltip-trigger"
+                      className="quill-tooltip-trigger "
                       role="tooltip"
                     >
                       <span
@@ -10271,7 +10271,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                   >
                     <span
                       aria-hidden={false}
-                      className="quill-tooltip-trigger"
+                      className="quill-tooltip-trigger "
                       role="tooltip"
                     >
                       <span
@@ -10686,7 +10686,7 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
                             >
                               <span
                                 aria-hidden={false}
-                                className="quill-tooltip-trigger"
+                                className="quill-tooltip-trigger "
                                 role="tooltip"
                               >
                                 <span
@@ -10941,7 +10941,7 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
                   >
                     <span
                       aria-hidden={false}
-                      className="quill-tooltip-trigger"
+                      className="quill-tooltip-trigger "
                       role="tooltip"
                     >
                       <span
@@ -11373,7 +11373,7 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
                   >
                     <span
                       aria-hidden={false}
-                      className="quill-tooltip-trigger"
+                      className="quill-tooltip-trigger "
                       role="tooltip"
                     >
                       <span
@@ -11788,7 +11788,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
                             >
                               <span
                                 aria-hidden={false}
-                                className="quill-tooltip-trigger"
+                                className="quill-tooltip-trigger "
                                 role="tooltip"
                               >
                                 <span
@@ -12065,7 +12065,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
                   >
                     <span
                       aria-hidden={false}
-                      className="quill-tooltip-trigger"
+                      className="quill-tooltip-trigger "
                       role="tooltip"
                     >
                       <span
@@ -12480,7 +12480,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
                             >
                               <span
                                 aria-hidden={false}
-                                className="quill-tooltip-trigger"
+                                className="quill-tooltip-trigger "
                                 role="tooltip"
                               >
                                 <span
@@ -12778,7 +12778,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
                   >
                     <span
                       aria-hidden={false}
-                      className="quill-tooltip-trigger"
+                      className="quill-tooltip-trigger "
                       role="tooltip"
                     >
                       <span
@@ -13219,7 +13219,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
                   >
                     <span
                       aria-hidden={false}
-                      className="quill-tooltip-trigger"
+                      className="quill-tooltip-trigger "
                       role="tooltip"
                     >
                       <span
@@ -13634,7 +13634,7 @@ exports[`Subscriptions UI state iterations trial renders when there is an active
                             >
                               <span
                                 aria-hidden={false}
-                                className="quill-tooltip-trigger"
+                                className="quill-tooltip-trigger "
                                 role="tooltip"
                               >
                                 <span
@@ -13889,7 +13889,7 @@ exports[`Subscriptions UI state iterations trial renders when there is an active
                   >
                     <span
                       aria-hidden={false}
-                      className="quill-tooltip-trigger"
+                      className="quill-tooltip-trigger "
                       role="tooltip"
                     >
                       <span
@@ -14321,7 +14321,7 @@ exports[`Subscriptions UI state iterations trial renders when there is an expire
                   >
                     <span
                       aria-hidden={false}
-                      className="quill-tooltip-trigger"
+                      className="quill-tooltip-trigger "
                       role="tooltip"
                     >
                       <span

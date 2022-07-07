@@ -155,35 +155,45 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
           type="button"
         >
           <h2>
-            Hernan Cortes
+            <img
+              alt="Target representing Quill Connect"
+              src="undefined/images/icons/description-connect.svg"
+            />
+            <span>
+              Hernan Cortes
+            </span>
           </h2>
         </button>
       </div>
       <div
         className="buttons-wrapper"
       >
-        <button
-          className="interactive-wrapper focus-on-light remove-button"
-          onClick={[Function]}
-          type="button"
+        <div
+          className="non-toggle-buttons"
         >
-          <img
-            alt="Remove icon"
-            src="undefined/images/icons/remove-in-circle.svg"
-          />
-          Remove
-        </button>
-        <button
-          className="interactive-wrapper focus-on-light save-button"
-          onClick={[Function]}
-          type="button"
-        >
-          <img
-            alt="Arrow pointing down"
-            src="undefined/images/icons/icons-bookmark-outline.svg"
-          />
-          Save
-        </button>
+          <button
+            className="interactive-wrapper focus-on-light remove-button"
+            onClick={[Function]}
+            type="button"
+          >
+            <img
+              alt="Remove icon"
+              src="undefined/images/icons/remove-in-circle.svg"
+            />
+            Remove
+          </button>
+          <button
+            className="interactive-wrapper focus-on-light save-button"
+            onClick={[Function]}
+            type="button"
+          >
+            <img
+              alt="Arrow pointing down"
+              src="undefined/images/icons/icons-bookmark-outline.svg"
+            />
+            Save
+          </button>
+        </div>
         <button
           className="interactive-wrapper focus-on-light expand-button"
           onClick={[Function]}
@@ -202,28 +212,6 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
       <div
         className="classification-concept-topic-wrapper"
       >
-        <ActivityRowClassification
-          classification={
-            Object {
-              "alias": "Quill Connect",
-              "description": "Combine Sentences",
-              "id": 5,
-              "key": "connect",
-            }
-          }
-        >
-          <span
-            className="attribute-section classification"
-          >
-            <img
-              alt="Target representing Quill Connect"
-              src="undefined/images/icons/description-connect.svg"
-            />
-            <span>
-              Quill Connect
-            </span>
-          </span>
-        </ActivityRowClassification>
         <ActivityRowConcept
           conceptName="History: Maya, Aztec, Inca"
         >
@@ -240,7 +228,9 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
           </span>
         </ActivityRowConcept>
         <ActivityRowTopics
+          inExpandedView={false}
           maxAllowedLength={0}
+          onTertiaryLine={false}
           topics={
             Array [
               Object {
@@ -270,30 +260,12 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
             ]
           }
         >
-          <span
-            className="attribute-section topic"
-          />
+          <span />
         </ActivityRowTopics>
       </div>
       <div
         className="grade-range-and-standard-level-wrapper"
       >
-        <ActivityRowReadabilityGradeLevel
-          readabilityGradeLevel="8th-9th"
-        >
-          <span
-            className="attribute-section grade-range"
-          >
-            <img
-              alt="Book icon"
-              src="undefined/images/icons/description-readability.svg"
-            />
-            <span>
-              Readability: Grades 
-              8th-9th
-            </span>
-          </span>
-        </ActivityRowReadabilityGradeLevel>
         <ActivityRowStandardLevel
           standardLevelName="7th Grade CCSS"
         >
@@ -309,7 +281,119 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
             </span>
           </span>
         </ActivityRowStandardLevel>
+        <ActivityRowGradeRange>
+          <span
+            className="attribute-section grade-range"
+          >
+            <img
+              alt="Book icon"
+              src="undefined/images/icons/description-readability.svg"
+            />
+            <span>
+              Grades: 
+              <span
+                className="grade-level"
+              >
+                4 - 5
+              </span>
+              <span
+                className="grade-level"
+              >
+                6 - 7
+              </span>
+              <span
+                className="grade-level"
+              >
+                8 - 9
+              </span>
+              <span
+                className="grade-level"
+              >
+                10 - 12
+              </span>
+            </span>
+          </span>
+        </ActivityRowGradeRange>
       </div>
+    </div>
+    <div
+      className="third-line mobile-only"
+    >
+      <div
+        className="non-toggle-buttons"
+      >
+        <button
+          className="interactive-wrapper focus-on-light remove-button"
+          onClick={[Function]}
+          type="button"
+        >
+          <img
+            alt="Remove icon"
+            src="undefined/images/icons/remove-in-circle.svg"
+          />
+          Remove
+        </button>
+        <button
+          className="interactive-wrapper focus-on-light save-button"
+          onClick={[Function]}
+          type="button"
+        >
+          <img
+            alt="Arrow pointing down"
+            src="undefined/images/icons/icons-bookmark-outline.svg"
+          />
+          Save
+        </button>
+      </div>
+    </div>
+    <div
+      className="third-line"
+    >
+      <ActivityRowTopics
+        inExpandedView={false}
+        maxAllowedLength={0}
+        onTertiaryLine={true}
+        topics={
+          Array [
+            Object {
+              "id": 16,
+              "level": 3,
+              "name": "History",
+              "parent_id": null,
+            },
+            Object {
+              "id": 93,
+              "level": 2,
+              "name": "World Historical Figures",
+              "parent_id": 16,
+            },
+            Object {
+              "id": 171,
+              "level": 0,
+              "name": "Hernan Cortes & the Aztec Empire",
+              "parent_id": null,
+            },
+            Object {
+              "id": 172,
+              "level": 1,
+              "name": "Maya, Aztec, & Inca Civilizations",
+              "parent_id": null,
+            },
+          ]
+        }
+      >
+        <span
+          className="attribute-section topic"
+        >
+          <img
+            alt="Globe icon"
+            src="undefined/images/icons/icons-description-topic.svg"
+          />
+          <span>
+            Maya, Aztec, & Inca Civilizations: Hernan Cortes & the Aztec Empire
+          </span>
+        </span>
+      </ActivityRowTopics>
     </div>
     <ActivityRowExpandedSection
       activity={
@@ -378,21 +462,6 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
     >
       <span />
     </ActivityRowExpandedSection>
-    <div
-      className="mobile-only"
-    >
-      <button
-        className="interactive-wrapper focus-on-light remove-button"
-        onClick={[Function]}
-        type="button"
-      >
-        <img
-          alt="Remove icon"
-          src="undefined/images/icons/remove-in-circle.svg"
-        />
-        Remove
-      </button>
-    </div>
   </section>
 </ActivityRow>
 `;
@@ -552,35 +621,45 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
           type="button"
         >
           <h2>
-            Hernan Cortes
+            <img
+              alt="Target representing Quill Connect"
+              src="undefined/images/icons/description-connect.svg"
+            />
+            <span>
+              Hernan Cortes
+            </span>
           </h2>
         </button>
       </div>
       <div
         className="buttons-wrapper"
       >
-        <button
-          className="interactive-wrapper focus-on-light remove-button"
-          onClick={[Function]}
-          type="button"
+        <div
+          className="non-toggle-buttons"
         >
-          <img
-            alt="Remove icon"
-            src="undefined/images/icons/remove-in-circle.svg"
-          />
-          Remove
-        </button>
-        <button
-          className="interactive-wrapper focus-on-light save-button"
-          onClick={[Function]}
-          type="button"
-        >
-          <img
-            alt="Arrow pointing down"
-            src="undefined/images/icons/icons-bookmark-outline.svg"
-          />
-          Save
-        </button>
+          <button
+            className="interactive-wrapper focus-on-light remove-button"
+            onClick={[Function]}
+            type="button"
+          >
+            <img
+              alt="Remove icon"
+              src="undefined/images/icons/remove-in-circle.svg"
+            />
+            Remove
+          </button>
+          <button
+            className="interactive-wrapper focus-on-light save-button"
+            onClick={[Function]}
+            type="button"
+          >
+            <img
+              alt="Arrow pointing down"
+              src="undefined/images/icons/icons-bookmark-outline.svg"
+            />
+            Save
+          </button>
+        </div>
         <button
           className="interactive-wrapper focus-on-light expand-button"
           onClick={[Function]}
@@ -599,28 +678,6 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
       <div
         className="classification-concept-topic-wrapper"
       >
-        <ActivityRowClassification
-          classification={
-            Object {
-              "alias": "Quill Connect",
-              "description": "Combine Sentences",
-              "id": 5,
-              "key": "connect",
-            }
-          }
-        >
-          <span
-            className="attribute-section classification"
-          >
-            <img
-              alt="Target representing Quill Connect"
-              src="undefined/images/icons/description-connect.svg"
-            />
-            <span>
-              Quill Connect
-            </span>
-          </span>
-        </ActivityRowClassification>
         <ActivityRowConcept
           conceptName="History: Maya, Aztec, Inca"
         >
@@ -637,7 +694,9 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
           </span>
         </ActivityRowConcept>
         <ActivityRowTopics
+          inExpandedView={false}
           maxAllowedLength={0}
+          onTertiaryLine={false}
           topics={
             Array [
               Object {
@@ -667,30 +726,12 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
             ]
           }
         >
-          <span
-            className="attribute-section topic"
-          />
+          <span />
         </ActivityRowTopics>
       </div>
       <div
         className="grade-range-and-standard-level-wrapper"
       >
-        <ActivityRowReadabilityGradeLevel
-          readabilityGradeLevel="8th-9th"
-        >
-          <span
-            className="attribute-section grade-range"
-          >
-            <img
-              alt="Book icon"
-              src="undefined/images/icons/description-readability.svg"
-            />
-            <span>
-              Readability: Grades 
-              8th-9th
-            </span>
-          </span>
-        </ActivityRowReadabilityGradeLevel>
         <ActivityRowStandardLevel
           standardLevelName="7th Grade CCSS"
         >
@@ -706,7 +747,119 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
             </span>
           </span>
         </ActivityRowStandardLevel>
+        <ActivityRowGradeRange>
+          <span
+            className="attribute-section grade-range"
+          >
+            <img
+              alt="Book icon"
+              src="undefined/images/icons/description-readability.svg"
+            />
+            <span>
+              Grades: 
+              <span
+                className="grade-level"
+              >
+                4 - 5
+              </span>
+              <span
+                className="grade-level"
+              >
+                6 - 7
+              </span>
+              <span
+                className="grade-level"
+              >
+                8 - 9
+              </span>
+              <span
+                className="grade-level"
+              >
+                10 - 12
+              </span>
+            </span>
+          </span>
+        </ActivityRowGradeRange>
       </div>
+    </div>
+    <div
+      className="third-line mobile-only"
+    >
+      <div
+        className="non-toggle-buttons"
+      >
+        <button
+          className="interactive-wrapper focus-on-light remove-button"
+          onClick={[Function]}
+          type="button"
+        >
+          <img
+            alt="Remove icon"
+            src="undefined/images/icons/remove-in-circle.svg"
+          />
+          Remove
+        </button>
+        <button
+          className="interactive-wrapper focus-on-light save-button"
+          onClick={[Function]}
+          type="button"
+        >
+          <img
+            alt="Arrow pointing down"
+            src="undefined/images/icons/icons-bookmark-outline.svg"
+          />
+          Save
+        </button>
+      </div>
+    </div>
+    <div
+      className="third-line"
+    >
+      <ActivityRowTopics
+        inExpandedView={false}
+        maxAllowedLength={0}
+        onTertiaryLine={true}
+        topics={
+          Array [
+            Object {
+              "id": 16,
+              "level": 3,
+              "name": "History",
+              "parent_id": null,
+            },
+            Object {
+              "id": 93,
+              "level": 2,
+              "name": "World Historical Figures",
+              "parent_id": 16,
+            },
+            Object {
+              "id": 171,
+              "level": 0,
+              "name": "Hernan Cortes & the Aztec Empire",
+              "parent_id": null,
+            },
+            Object {
+              "id": 172,
+              "level": 1,
+              "name": "Maya, Aztec, & Inca Civilizations",
+              "parent_id": null,
+            },
+          ]
+        }
+      >
+        <span
+          className="attribute-section topic"
+        >
+          <img
+            alt="Globe icon"
+            src="undefined/images/icons/icons-description-topic.svg"
+          />
+          <span>
+            Maya, Aztec, & Inca Civilizations: Hernan Cortes & the Aztec Empire
+          </span>
+        </span>
+      </ActivityRowTopics>
     </div>
     <ActivityRowExpandedSection
       activity={
@@ -775,21 +928,6 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
     >
       <span />
     </ActivityRowExpandedSection>
-    <div
-      className="mobile-only"
-    >
-      <button
-        className="interactive-wrapper focus-on-light remove-button"
-        onClick={[Function]}
-        type="button"
-      >
-        <img
-          alt="Remove icon"
-          src="undefined/images/icons/remove-in-circle.svg"
-        />
-        Remove
-      </button>
-    </div>
   </section>
 </ActivityRow>
 `;
@@ -1022,36 +1160,46 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
           type="button"
         >
           <h2>
-            Hernan Cortes
+            <img
+              alt="Target representing Quill Connect"
+              src="undefined/images/icons/description-connect.svg"
+            />
+            <span>
+              Hernan Cortes
+            </span>
           </h2>
         </button>
       </div>
       <div
         className="buttons-wrapper"
       >
-        <a
-          className="interactive-wrapper focus-on-light preview-link"
-          href="/activity_sessions/anonymous?activity_id=627"
-          rel="noopener noreferrer"
-          target="_blank"
+        <div
+          className="non-toggle-buttons"
         >
-          <img
-            alt="Preview eye icon"
-            src="undefined/images/icons/preview.svg"
-          />
-          Preview
-        </a>
-        <button
-          className="interactive-wrapper focus-on-light save-button"
-          onClick={[Function]}
-          type="button"
-        >
-          <img
-            alt="Arrow pointing down"
-            src="undefined/images/icons/icons-bookmark-outline.svg"
-          />
-          Save
-        </button>
+          <a
+            className="interactive-wrapper focus-on-light preview-link"
+            href="/activity_sessions/anonymous?activity_id=627"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Preview eye icon"
+              src="undefined/images/icons/preview.svg"
+            />
+            Preview
+          </a>
+          <button
+            className="interactive-wrapper focus-on-light save-button"
+            onClick={[Function]}
+            type="button"
+          >
+            <img
+              alt="Arrow pointing down"
+              src="undefined/images/icons/icons-bookmark-outline.svg"
+            />
+            Save
+          </button>
+        </div>
         <button
           className="interactive-wrapper focus-on-light expand-button"
           onClick={[Function]}
@@ -1070,28 +1218,6 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
       <div
         className="classification-concept-topic-wrapper"
       >
-        <ActivityRowClassification
-          classification={
-            Object {
-              "alias": "Quill Connect",
-              "description": "Combine Sentences",
-              "id": 5,
-              "key": "connect",
-            }
-          }
-        >
-          <span
-            className="attribute-section classification"
-          >
-            <img
-              alt="Target representing Quill Connect"
-              src="undefined/images/icons/description-connect.svg"
-            />
-            <span>
-              Quill Connect
-            </span>
-          </span>
-        </ActivityRowClassification>
         <ActivityRowConcept
           conceptName="History: Maya, Aztec, Inca"
         >
@@ -1108,7 +1234,9 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
           </span>
         </ActivityRowConcept>
         <ActivityRowTopics
+          inExpandedView={false}
           maxAllowedLength={0}
+          onTertiaryLine={false}
           topics={
             Array [
               Object {
@@ -1138,30 +1266,12 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
             ]
           }
         >
-          <span
-            className="attribute-section topic"
-          />
+          <span />
         </ActivityRowTopics>
       </div>
       <div
         className="grade-range-and-standard-level-wrapper"
       >
-        <ActivityRowReadabilityGradeLevel
-          readabilityGradeLevel="8th-9th"
-        >
-          <span
-            className="attribute-section grade-range"
-          >
-            <img
-              alt="Book icon"
-              src="undefined/images/icons/description-readability.svg"
-            />
-            <span>
-              Readability: Grades 
-              8th-9th
-            </span>
-          </span>
-        </ActivityRowReadabilityGradeLevel>
         <ActivityRowStandardLevel
           standardLevelName="7th Grade CCSS"
         >
@@ -1177,7 +1287,120 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
             </span>
           </span>
         </ActivityRowStandardLevel>
+        <ActivityRowGradeRange>
+          <span
+            className="attribute-section grade-range"
+          >
+            <img
+              alt="Book icon"
+              src="undefined/images/icons/description-readability.svg"
+            />
+            <span>
+              Grades: 
+              <span
+                className="grade-level"
+              >
+                4 - 5
+              </span>
+              <span
+                className="grade-level"
+              >
+                6 - 7
+              </span>
+              <span
+                className="grade-level"
+              >
+                8 - 9
+              </span>
+              <span
+                className="grade-level"
+              >
+                10 - 12
+              </span>
+            </span>
+          </span>
+        </ActivityRowGradeRange>
       </div>
+    </div>
+    <div
+      className="third-line mobile-only"
+    >
+      <div
+        className="non-toggle-buttons"
+      >
+        <a
+          className="interactive-wrapper focus-on-light preview-link"
+          href="/activity_sessions/anonymous?activity_id=627"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <img
+            alt="Preview eye icon"
+            src="undefined/images/icons/preview.svg"
+          />
+          Preview
+        </a>
+        <button
+          className="interactive-wrapper focus-on-light save-button"
+          onClick={[Function]}
+          type="button"
+        >
+          <img
+            alt="Arrow pointing down"
+            src="undefined/images/icons/icons-bookmark-outline.svg"
+          />
+          Save
+        </button>
+      </div>
+    </div>
+    <div
+      className="third-line"
+    >
+      <ActivityRowTopics
+        inExpandedView={false}
+        maxAllowedLength={0}
+        onTertiaryLine={true}
+        topics={
+          Array [
+            Object {
+              "id": 16,
+              "level": 3,
+              "name": "History",
+              "parent_id": null,
+            },
+            Object {
+              "id": 93,
+              "level": 2,
+              "name": "World Historical Figures",
+              "parent_id": 16,
+            },
+            Object {
+              "id": 171,
+              "level": 0,
+              "name": "Hernan Cortes & the Aztec Empire",
+              "parent_id": null,
+            },
+            Object {
+              "id": 172,
+              "level": 1,
+              "name": "Maya, Aztec, & Inca Civilizations",
+              "parent_id": null,
+            },
+          ]
+        }
+      >
+        <span
+          className="attribute-section topic"
+        >
+          <img
+            alt="Globe icon"
+            src="undefined/images/icons/icons-description-topic.svg"
+          />
+          <span>
+            Maya, Aztec, & Inca Civilizations: Hernan Cortes & the Aztec Empire
+          </span>
+        </span>
+      </ActivityRowTopics>
     </div>
     <ActivityRowExpandedSection
       activity={
@@ -1482,36 +1705,46 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
           type="button"
         >
           <h2>
-            Hernan Cortes
+            <img
+              alt="Target representing Quill Connect"
+              src="undefined/images/icons/description-connect.svg"
+            />
+            <span>
+              Hernan Cortes
+            </span>
           </h2>
         </button>
       </div>
       <div
         className="buttons-wrapper"
       >
-        <a
-          className="interactive-wrapper focus-on-light preview-link"
-          href="/activity_sessions/anonymous?activity_id=627"
-          rel="noopener noreferrer"
-          target="_blank"
+        <div
+          className="non-toggle-buttons"
         >
-          <img
-            alt="Preview eye icon"
-            src="undefined/images/icons/preview.svg"
-          />
-          Preview
-        </a>
-        <button
-          className="interactive-wrapper focus-on-light save-button"
-          onClick={[Function]}
-          type="button"
-        >
-          <img
-            alt="Arrow pointing down"
-            src="undefined/images/icons/icons-bookmark-outline.svg"
-          />
-          Save
-        </button>
+          <a
+            className="interactive-wrapper focus-on-light preview-link"
+            href="/activity_sessions/anonymous?activity_id=627"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Preview eye icon"
+              src="undefined/images/icons/preview.svg"
+            />
+            Preview
+          </a>
+          <button
+            className="interactive-wrapper focus-on-light save-button"
+            onClick={[Function]}
+            type="button"
+          >
+            <img
+              alt="Arrow pointing down"
+              src="undefined/images/icons/icons-bookmark-outline.svg"
+            />
+            Save
+          </button>
+        </div>
         <button
           className="interactive-wrapper focus-on-light expand-button"
           onClick={[Function]}
@@ -1530,28 +1763,6 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
       <div
         className="classification-concept-topic-wrapper"
       >
-        <ActivityRowClassification
-          classification={
-            Object {
-              "alias": "Quill Connect",
-              "description": "Combine Sentences",
-              "id": 5,
-              "key": "connect",
-            }
-          }
-        >
-          <span
-            className="attribute-section classification"
-          >
-            <img
-              alt="Target representing Quill Connect"
-              src="undefined/images/icons/description-connect.svg"
-            />
-            <span>
-              Quill Connect
-            </span>
-          </span>
-        </ActivityRowClassification>
         <ActivityRowConcept
           conceptName="History: Maya, Aztec, Inca"
         >
@@ -1568,7 +1779,9 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
           </span>
         </ActivityRowConcept>
         <ActivityRowTopics
+          inExpandedView={false}
           maxAllowedLength={0}
+          onTertiaryLine={false}
           topics={
             Array [
               Object {
@@ -1598,30 +1811,12 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
             ]
           }
         >
-          <span
-            className="attribute-section topic"
-          />
+          <span />
         </ActivityRowTopics>
       </div>
       <div
         className="grade-range-and-standard-level-wrapper"
       >
-        <ActivityRowReadabilityGradeLevel
-          readabilityGradeLevel="8th-9th"
-        >
-          <span
-            className="attribute-section grade-range"
-          >
-            <img
-              alt="Book icon"
-              src="undefined/images/icons/description-readability.svg"
-            />
-            <span>
-              Readability: Grades 
-              8th-9th
-            </span>
-          </span>
-        </ActivityRowReadabilityGradeLevel>
         <ActivityRowStandardLevel
           standardLevelName="7th Grade CCSS"
         >
@@ -1637,7 +1832,120 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
             </span>
           </span>
         </ActivityRowStandardLevel>
+        <ActivityRowGradeRange>
+          <span
+            className="attribute-section grade-range"
+          >
+            <img
+              alt="Book icon"
+              src="undefined/images/icons/description-readability.svg"
+            />
+            <span>
+              Grades: 
+              <span
+                className="grade-level"
+              >
+                4 - 5
+              </span>
+              <span
+                className="grade-level"
+              >
+                6 - 7
+              </span>
+              <span
+                className="grade-level"
+              >
+                8 - 9
+              </span>
+              <span
+                className="grade-level"
+              >
+                10 - 12
+              </span>
+            </span>
+          </span>
+        </ActivityRowGradeRange>
       </div>
+    </div>
+    <div
+      className="third-line mobile-only"
+    >
+      <div
+        className="non-toggle-buttons"
+      >
+        <a
+          className="interactive-wrapper focus-on-light preview-link"
+          href="/activity_sessions/anonymous?activity_id=627"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <img
+            alt="Preview eye icon"
+            src="undefined/images/icons/preview.svg"
+          />
+          Preview
+        </a>
+        <button
+          className="interactive-wrapper focus-on-light save-button"
+          onClick={[Function]}
+          type="button"
+        >
+          <img
+            alt="Arrow pointing down"
+            src="undefined/images/icons/icons-bookmark-outline.svg"
+          />
+          Save
+        </button>
+      </div>
+    </div>
+    <div
+      className="third-line"
+    >
+      <ActivityRowTopics
+        inExpandedView={false}
+        maxAllowedLength={0}
+        onTertiaryLine={true}
+        topics={
+          Array [
+            Object {
+              "id": 16,
+              "level": 3,
+              "name": "History",
+              "parent_id": null,
+            },
+            Object {
+              "id": 93,
+              "level": 2,
+              "name": "World Historical Figures",
+              "parent_id": 16,
+            },
+            Object {
+              "id": 171,
+              "level": 0,
+              "name": "Hernan Cortes & the Aztec Empire",
+              "parent_id": null,
+            },
+            Object {
+              "id": 172,
+              "level": 1,
+              "name": "Maya, Aztec, & Inca Civilizations",
+              "parent_id": null,
+            },
+          ]
+        }
+      >
+        <span
+          className="attribute-section topic"
+        >
+          <img
+            alt="Globe icon"
+            src="undefined/images/icons/icons-description-topic.svg"
+          />
+          <span>
+            Maya, Aztec, & Inca Civilizations: Hernan Cortes & the Aztec Empire
+          </span>
+        </span>
+      </ActivityRowTopics>
     </div>
     <ActivityRowExpandedSection
       activity={

@@ -126,7 +126,7 @@ exports[`StudentResultsTable component should render when there is no student da
                 >
                   <span
                     aria-hidden={false}
-                    className="quill-tooltip-trigger"
+                    className="quill-tooltip-trigger "
                     role="tooltip"
                   >
                     <span
@@ -186,7 +186,7 @@ exports[`StudentResultsTable component should render when there is no student da
                 >
                   <span
                     aria-hidden={false}
-                    className="quill-tooltip-trigger"
+                    className="quill-tooltip-trigger "
                     role="tooltip"
                   >
                     <span
@@ -246,7 +246,7 @@ exports[`StudentResultsTable component should render when there is no student da
                 >
                   <span
                     aria-hidden={false}
-                    className="quill-tooltip-trigger"
+                    className="quill-tooltip-trigger "
                     role="tooltip"
                   >
                     <span
@@ -306,7 +306,7 @@ exports[`StudentResultsTable component should render when there is no student da
                 >
                   <span
                     aria-hidden={false}
-                    className="quill-tooltip-trigger"
+                    className="quill-tooltip-trigger "
                     role="tooltip"
                   >
                     <span
@@ -366,7 +366,7 @@ exports[`StudentResultsTable component should render when there is no student da
                 >
                   <span
                     aria-hidden={false}
-                    className="quill-tooltip-trigger"
+                    className="quill-tooltip-trigger "
                     role="tooltip"
                   >
                     <span
@@ -426,7 +426,7 @@ exports[`StudentResultsTable component should render when there is no student da
                 >
                   <span
                     aria-hidden={false}
-                    className="quill-tooltip-trigger"
+                    className="quill-tooltip-trigger "
                     role="tooltip"
                   >
                     <span
@@ -486,7 +486,7 @@ exports[`StudentResultsTable component should render when there is no student da
                 >
                   <span
                     aria-hidden={false}
-                    className="quill-tooltip-trigger"
+                    className="quill-tooltip-trigger "
                     role="tooltip"
                   >
                     <span
@@ -546,7 +546,7 @@ exports[`StudentResultsTable component should render when there is no student da
                 >
                   <span
                     aria-hidden={false}
-                    className="quill-tooltip-trigger"
+                    className="quill-tooltip-trigger "
                     role="tooltip"
                   >
                     <span
@@ -1629,7 +1629,7 @@ exports[`StudentResultsTable component should render when there is student data 
                 >
                   <span
                     aria-hidden={false}
-                    className="quill-tooltip-trigger"
+                    className="quill-tooltip-trigger "
                     role="tooltip"
                   >
                     <span
@@ -1697,7 +1697,7 @@ exports[`StudentResultsTable component should render when there is student data 
                 >
                   <span
                     aria-hidden={false}
-                    className="quill-tooltip-trigger"
+                    className="quill-tooltip-trigger "
                     role="tooltip"
                   >
                     <span
@@ -1766,7 +1766,7 @@ exports[`StudentResultsTable component should render when there is student data 
                 >
                   <span
                     aria-hidden={false}
-                    className="quill-tooltip-trigger"
+                    className="quill-tooltip-trigger "
                     role="tooltip"
                   >
                     <span
@@ -1835,7 +1835,7 @@ exports[`StudentResultsTable component should render when there is student data 
                 >
                   <span
                     aria-hidden={false}
-                    className="quill-tooltip-trigger"
+                    className="quill-tooltip-trigger "
                     role="tooltip"
                   >
                     <span
@@ -1904,7 +1904,7 @@ exports[`StudentResultsTable component should render when there is student data 
                 >
                   <span
                     aria-hidden={false}
-                    className="quill-tooltip-trigger"
+                    className="quill-tooltip-trigger "
                     role="tooltip"
                   >
                     <span
@@ -1972,7 +1972,7 @@ exports[`StudentResultsTable component should render when there is student data 
                 >
                   <span
                     aria-hidden={false}
-                    className="quill-tooltip-trigger"
+                    className="quill-tooltip-trigger "
                     role="tooltip"
                   >
                     <span

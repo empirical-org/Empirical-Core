@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Activity, Topic } from './interfaces'
-import { ELL_FILTERS, } from './shared'
+import { STANDARDS_FILTERS, } from './shared'
 
 const dropdownIconSrc = `${process.env.CDN_URL}/images/icons/dropdown.svg`
 const indeterminateSrc = `${process.env.CDN_URL}/images/icons/indeterminate.svg`
@@ -155,7 +155,7 @@ const ELLToggle = ({filteredActivities, grouping, ellFilters, handleELLFilterCha
 const ELLFilters = ({ filterActivities, ellFilters, handleELLFilterChange, }: ELLFiltersProps) => {
   function clearAllELLFilters() { handleELLFilterChange([]) }
 
-  const filteredActivities = filterActivities(ELL_FILTERS)
+  const filteredActivities = filterActivities(STANDARDS_FILTERS)
 
   const grouping = {
     group: 'Activities - All WIDA Levels',

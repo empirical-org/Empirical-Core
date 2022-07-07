@@ -40,7 +40,7 @@ exports[`OverrideWarningModal component should render 1`] = `
           >
             <span
               aria-hidden={false}
-              className="quill-tooltip-trigger"
+              className="quill-tooltip-trigger "
               role="tooltip"
             >
               <span
