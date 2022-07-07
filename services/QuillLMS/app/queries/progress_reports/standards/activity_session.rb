@@ -5,15 +5,14 @@ class ProgressReports::Standards::ActivitySession
     @teacher = teacher
   end
 
-  def results(filters)
-    # for some reason indicating the root namespace is necessary in this first assignment
-    query = ::ActivitySession.select(<<-SELECT
-      activity_sessions.*,
-      activities.standard_id as standard_id
-    SELECT
-    ).completed
-      .with_best_scores
-      .by_teacher(@teacher)
+  def results(filters = {})
+    query =
+      ::ActivitySession
+        .select('activity_sessions.*, activities.standard_id as standard_id')
+        .completed
+        .with_best_scores
+        .by_teacher(@teacher)
+
     ActivitySession.with_filters(query, filters)
   end
 end
