@@ -159,7 +159,7 @@ namespace :schools do
   desc 'Clean up duplicate schools based on 0-left-padded NCES ID'
   task :clean_up_duplicates => :environment do
 
-    teachers_assigned_to_duplicates = <<-SQL
+    schools_with_duplicates = <<-SQL
       SELECT original.id AS original_school_id,
             duplicate.id AS duplicate_school_id
           FROM schools AS original
@@ -169,7 +169,7 @@ namespace :schools do
     SQL
 
     duplicate_schools_deleted = 0
-    ActiveRecord::Base.connection.execute(teachers_assigned_to_duplicates).each do |row|
+    ActiveRecord::Base.connection.execute(schools_with_duplicates).each do |row|
       ActiveRecord::Base.transaction do
         duplicate = School.find(row['duplicate_school_id'])
         update_hash = duplicate.as_json.except('id', 'nces_id').select { |_,v| v.present? }
