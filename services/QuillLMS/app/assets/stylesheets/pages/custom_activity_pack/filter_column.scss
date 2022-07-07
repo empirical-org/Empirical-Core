@@ -1,12 +1,39 @@
 .custom-activity-pack-page {
+  .filter-column-wrapper {
+    border-right: #e0e0e0 1px solid;
+    padding-right: 24px;
+  }
   .filter-column {
-    padding: 10px 24px 32px 0px;
+    padding: 10px 400px 32px 0px;
+    margin-right: -400px;
+    z-index: 1;
     .filter-section {
       padding-top: 24px;
       margin-bottom: 8px;
+      &.readability, &.ccss-grade-level {
+        .quill-tooltip-wrapper {
+          left: 302px;
+          transform: unset;
+          top: -20px;
+        }
+      }
+      .tooltip-trigger-filter-section-content:hover, .quill-tooltip-trigger.active {
+        .hoverbox {
+          background-color: rgba(6, 127, 107, 0.06);
+          height: 124px;
+          width: 288px;
+          position: absolute;
+          border-radius: 10px;
+          top: -12px;
+          left: 8px;
+        }
+      }
       h2 {
         padding-left: 24px;
         font-weight: 700;
+        img {
+          margin-left: 8px;
+        }
       }
       .clear-filter {
         font-weight: 700;
@@ -56,7 +83,7 @@
           color: #06806b;
         }
         .two-thumb-slider-container {
-          width: 248px;
+          width: 256px;
           padding-left: 8px;
           padding-bottom: 20px;
         }
@@ -212,9 +239,6 @@
   }
   @media (min-width: 1051px) {
     .filter-column {
-      max-width: 312px;
-      width: 100%;
-      border-right: #e0e0e0 1px solid;
       position: sticky;
       top: 70;
       height: calc(100vh - 70px);

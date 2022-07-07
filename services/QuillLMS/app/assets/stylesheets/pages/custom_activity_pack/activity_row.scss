@@ -224,7 +224,6 @@
         margin: 8px 0px;
       }
       .non-toggle-buttons {
-        padding-left: 32px;
         .interactive-wrapper {
           margin-right: 24px;
           img {
@@ -235,6 +234,14 @@
       &.not-expanded {
         .third-line:not(.mobile-only) {
           display: none;
+        }
+      }
+      &.expanded {
+        .second-line {
+          border-bottom: none;
+        }
+        .third-line {
+          margin-top: 0px;
         }
       }
     }

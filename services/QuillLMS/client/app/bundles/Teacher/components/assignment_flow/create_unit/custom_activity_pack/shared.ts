@@ -57,6 +57,8 @@ export const TOPIC_FILTERS = 'topicFilters'
 
 export const SAVED_ACTIVITY_FILTERS = 'savedActivityFilters'
 
+export const ELL_FILTERS = 'ellFilters'
+
 export function arrayFromNumbers(lowerValue: number, upperValue: number) {
   const array = []
   for (let i = lowerValue; i <= upperValue; i++) {
@@ -82,8 +84,20 @@ function filterByActivityCategory(activityCategoryFilters: number[], activity: A
 
 function filterByCCSSGradeLevel(ccssGradeLevelFilters: number[], activity: Activity) {
   if (!ccssGradeLevelFilters.length) { return true }
+
+  if (!activity.standard_level_name?.includes('CCSS')) { return }
+
   const numberFromStandardLevel = getNumberFromString(activity.standard_level_name)
   return ccssGradeLevelFilters.includes(numberFromStandardLevel)
+}
+
+function filterByELL(ellLevelFilters: number[], activity: Activity) {
+  if (!ellLevelFilters.length) { return true }
+
+  if (!activity.standard_level_name?.includes('ELL')) { return }
+
+  const numberFromStandardLevel = getNumberFromString(activity.standard_level_name)
+  return ellLevelFilters.includes(numberFromStandardLevel)
 }
 
 const READABILITY_GRADE_LEVEL_OPTIONS = ['2nd-3rd', '4th-5th', '6th-7th', '8th-9th', '10th-12th']
@@ -119,6 +133,7 @@ export const filters = {
   search: filterBySearch,
   [ACTIVITY_CLASSIFICATION_FILTERS]: filterByActivityClassification,
   ccssGradeLevelFilters: filterByCCSSGradeLevel,
+  [ELL_FILTERS]: filterByELL,
   readabilityGradeLevelFilters: filterByReadabilityGradeLevel,
   [ACTIVITY_CATEGORY_FILTERS]: filterByActivityCategory,
   [CONTENT_PARTNER_FILTERS]: filterByContentPartners,

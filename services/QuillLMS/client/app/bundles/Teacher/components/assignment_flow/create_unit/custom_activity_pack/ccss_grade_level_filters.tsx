@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { arrayFromNumbers, } from './shared'
 
-import { TwoThumbSlider, } from '../../../../../Shared/index'
+import { TwoThumbSlider, Tooltip, helpIcon, } from '../../../../../Shared/index'
 
 interface CCSSGradeLevelFiltersProps {
   ccssGradeLevelFilters: number[],
@@ -11,6 +11,8 @@ interface CCSSGradeLevelFiltersProps {
 
 const MIN_LEVEL = 1
 const MAX_LEVEL = 11
+
+const tooltipText = "Each activity is aligned to a Common Core standard and the grade level associated with that standard.<br/><br/>Use this filter to see activities that are aligned to a standard within the selected grade level. For example, filter by 6-7 to see all activities aligned to a 6th or 7th grade CCSS.<br/><br/>Since CCSS are often overlapping and span multiple grades, we recommend setting a wide range so you don’t miss out on activities that may still be right for your students!<br/><br/>Click the “?” to learn more about CCSS grade levels and for helpful filtering tips."
 
 const CCSSGradeLevelFilters = ({ ccssGradeLevelFilters, handleCCSSGradeLevelFilterChange, }: CCSSGradeLevelFiltersProps) => {
   function onChange(valuesArray: number[]) {
@@ -25,10 +27,14 @@ const CCSSGradeLevelFilters = ({ ccssGradeLevelFilters, handleCCSSGradeLevelFilt
   const lowerValue = ccssGradeLevelFilters[0] || MIN_LEVEL
   const upperValue = ccssGradeLevelFilters[ccssGradeLevelFilters.length - 1] || MAX_LEVEL
 
-  return (
-    <section className="filter-section">
+  const filterSectionContent = (
+    <div className="tooltip-trigger-filter-section-content">
+      <div className="hoverbox" />
       <div className="name-and-clear-wrapper">
-        <h2>CCSS Grade Level</h2>
+        <h2>
+          <span>CCSS Grade Level</span>
+          <a className="focus-on-light interactive-wrapper" href=""><img alt={helpIcon.alt} src={helpIcon.src} /></a>
+        </h2>
         {clearButton}
       </div>
       <div className="slider-wrapper">
@@ -44,6 +50,15 @@ const CCSSGradeLevelFilters = ({ ccssGradeLevelFilters, handleCCSSGradeLevelFilt
           upperValue={upperValue}
         />
       </div>
+    </div>
+  )
+
+  return (
+    <section className="filter-section ccss-grade-level">
+      <Tooltip
+        tooltipText={tooltipText}
+        tooltipTriggerText={filterSectionContent}
+      />
     </section>
   )
 }
