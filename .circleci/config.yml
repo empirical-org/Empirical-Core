@@ -290,8 +290,8 @@ jobs:
           name: Set up DB
           command: |
             cd services/QuillLMS/engines/evidence
-            bundle exec rake db:create
-            bundle exec rake db:migrate
+            bundle exec rake db:create RAILS_ENV=test
+            bundle exec rake db:schema:load RAILS_ENV=test
           environment:
             DATABASE_URL: "postgres://ubuntu@localhost:5432/quill_evidence_test_db"
       - run:
