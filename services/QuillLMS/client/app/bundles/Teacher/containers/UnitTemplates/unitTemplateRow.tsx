@@ -2,7 +2,8 @@ import * as React from 'react'
 
 import UnitTemplateActivityRow from './unitTemplateActivityRow';
 
-import { FlagDropdown } from '../../../Shared/index';
+import { FlagDropdown, NOT_APPLICABLE } from '../../../Shared/index';
+import { editActivityPackLink } from '../../helpers/unitTemplates';
 
 
 const UnitTemplateRow = ({
@@ -51,14 +52,13 @@ const UnitTemplateRow = ({
 
   function renderDiagnostics() {
     const { diagnostic_names } = unitTemplate;
-    if(!diagnostic_names.length) { return 'N/A' }
+    if((!diagnostic_names || !diagnostic_names.length)) { return NOT_APPLICABLE }
     return diagnostic_names.map(diagnostic => (
       <p key={diagnostic}>{diagnostic}</p>
     ));
   }
 
   const previewLink = `${process.env.DEFAULT_URL}/assign/featured-activity-packs/${unitTemplate.id}`;
-  const editLink = `${process.env.DEFAULT_URL}/cms/unit_templates/${unitTemplate.id}/edit`;
 
   return (
     <div>
@@ -67,12 +67,12 @@ const UnitTemplateRow = ({
         <td className="name-col">{unitTemplate.name}</td>
         <td className="flag-col"><FlagDropdown flag={unitTemplate.flag} handleFlagChange={handleSelectFlag} isLessons={false} /></td>
         <td className="diagnostics-col">{renderDiagnostics()}</td>
-        <td className="category-col">{unitTemplate.unit_template_category && unitTemplate.unit_template_category.name}</td>
+        <td className="category-col">{unitTemplate.unit_template_category && unitTemplate.unit_template_category.name || NOT_APPLICABLE}</td>
         <td>
           <a className="action-button focus-on-light" href={previewLink} rel="noopener noreferrer" target="_blank">preview</a>
         </td>
         <td className="edit-col">
-          <a className="action-button focus-on-light" href={editLink} rel="noopener noreferrer" target="_blank">edit</a>
+          <a className="action-button focus-on-light" href={editActivityPackLink(unitTemplate.id)} rel="noopener noreferrer" target="_blank">edit</a>
         </td>
         <td className="delete-col">
           <button className="action-button interactive-wrapper focus-on-light" onClick={deleteUnitTemplate} type="button">delete</button>

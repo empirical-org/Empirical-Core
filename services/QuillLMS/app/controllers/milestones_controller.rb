@@ -22,6 +22,10 @@ class MilestonesController < ApplicationController
     complete_milestone(Milestone::TYPES[:acknowledge_lessons_banner])
   end
 
+  def complete_dismiss_grade_level_warning
+    complete_milestone(Milestone::TYPES[:dismiss_grade_level_warning])
+  end
+
   private def complete_milestone(milestone_name)
     if current_user
       milestone = Milestone.find_by_name(milestone_name)

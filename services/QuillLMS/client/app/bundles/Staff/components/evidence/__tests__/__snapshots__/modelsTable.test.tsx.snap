@@ -1,84 +1,43 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`LabelsTable component should render ModelsTable 1`] = `
-<section
-  className="models-container"
+<ContextProvider
+  value={true}
 >
-  <section
-    className="header-container"
-  >
-    <h2>
-       Model (Prompt ID: 1)
-    </h2>
-  </section>
-  <DataTable
-    averageFontWidth={7}
-    className="models-table"
-    defaultSortAttribute="name"
-    headers={
-      Array [
-        Object {
-          "attribute": "created_at",
-          "name": "Created At",
-          "noTooltip": true,
-          "width": "100px",
+  <ContextProvider
+    value={
+      DefaultReactQueryClient {
+        "defaultOptions": Object {
+          "queries": Object {
+            "cacheTime": Infinity,
+            "staleTime": Infinity,
+          },
         },
-        Object {
-          "attribute": "version",
-          "name": "Version",
-          "noTooltip": true,
-          "width": "50px",
+        "mutationCache": MutationCache {
+          "config": Object {},
+          "listeners": Array [],
+          "mutationId": 0,
+          "mutations": Array [],
         },
-        Object {
-          "attribute": "name",
-          "name": "Model Name",
-          "width": "150px",
+        "mutationDefaults": Array [],
+        "queryCache": QueryCache {
+          "config": Object {},
+          "listeners": Array [],
+          "queries": Array [],
+          "queriesMap": Object {},
         },
-        Object {
-          "attribute": "notes",
-          "name": "Model Notes",
-          "width": "350px",
-        },
-        Object {
-          "attribute": "label_count",
-          "name": "Label Count",
-          "noTooltip": true,
-          "width": "70px",
-        },
-        Object {
-          "attribute": "status",
-          "name": "Status",
-          "noTooltip": true,
-          "width": "70px",
-        },
-        Object {
-          "attribute": "view",
-          "name": "",
-          "noTooltip": true,
-          "width": "50px",
-        },
-        Object {
-          "attribute": "activate",
-          "name": "",
-          "noTooltip": true,
-          "width": "70px",
-        },
-      ]
-    }
-    rows={Array []}
-  />
-  <Link
-    className="quill-button fun primary contained"
-    to={
-      Object {
-        "pathname": "/activities/17/semantic-labels/1/add-model",
-        "state": Object {
-          "conjunction": undefined,
-        },
+        "queryDefaults": Array [],
       }
     }
   >
-    Add Model
-  </Link>
-</section>
+    <ModelsTable
+      activityId="17"
+      prompt={
+        Object {
+          "id": 1,
+        }
+      }
+    />
+  </ContextProvider>
+</ContextProvider>
 `;

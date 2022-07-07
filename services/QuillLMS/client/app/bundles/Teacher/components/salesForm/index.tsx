@@ -4,7 +4,6 @@ import LowerFormFields from './lowerFormFields';
 import SchoolAndDistrictFields from './schoolAndDistrictFields';
 import UpperFormFields from './upperFormFields';
 
-import { Snackbar, defaultSnackbarTimeout } from '../../../Shared';
 import { getSchoolsAndDistricts, validateSalesForm, submitSalesForm } from '../../helpers/salesForms';
 import { DropdownObjectInterface, InputEvent } from '../../../Staff/interfaces/evidenceInterfaces';
 import {
@@ -32,7 +31,7 @@ export const SalesForm = ({ type }) => {
   const [districtSearchQuery, setDistrictSearchQuery] = React.useState<any>('');
   const [districtNotListed, setDistrictNotListed] = React.useState<boolean>(false);
   const [schoolOrDistrict, setSchoolOrDistrict] = React.useState<any>('');
-  const [showSnackbar, setShowSnackbar] = React.useState(false)
+  const [showSubmissionConfirmation, setShowSubmissionConfirmation] = React.useState(false)
 
   React.useEffect(() => {
     getSchoolsAndDistricts('school', schoolSearchQuery).then((response) => {
@@ -50,12 +49,6 @@ export const SalesForm = ({ type }) => {
     });
   }, [districtSearchQuery]);
 
-  React.useEffect(() => {
-    if (showSnackbar) {
-      setTimeout(() => setShowSnackbar(false), defaultSnackbarTimeout);
-    }
-  }, [showSnackbar]);
-
   const stateSetters = {
     [FIRST_NAME]: setFirstName,
     [LAST_NAME]: setLastName,
@@ -72,6 +65,7 @@ export const SalesForm = ({ type }) => {
   }
   const schoolIsSelected = schoolOrDistrict === SCHOOL;
   const districtIsSelected = schoolOrDistrict === DISTRICT;
+  const buttonClass = "submit-button quill-button contained primary medium focus-on-light";
 
   function handleUpdateField(e: InputEvent | React.ChangeEvent<HTMLTextAreaElement>) {
     const { target } = e;
@@ -139,14 +133,18 @@ export const SalesForm = ({ type }) => {
           const submissionError = { [SUBMISSION_ERROR]: response.error };
           setErrors(submissionError)
         } else {
-          setShowSnackbar(true);
+          setShowSubmissionConfirmation(true);
         }
       });
     }
   }
 
-  return(
-    <div className="sales-form-container">
+  function handleClick() {
+    window.location.href = `${process.env.DEFAULT_URL}/premium`;
+  }
+
+  function renderForm() {
+    return(
       <form className="container">
         <UpperFormFields
           email={email}
@@ -183,9 +181,25 @@ export const SalesForm = ({ type }) => {
           teacherPremiumEstimate={teacherPremiumEstimate}
         />
         {errors[SUBMISSION_ERROR] && <p className="error-text">{errors[SUBMISSION_ERROR]}</p>}
-        <button className="submit-button quill-button contained primary medium focus-on-light" onClick={handleFormSubmission}>Submit</button>
+        <button className={buttonClass} onClick={handleFormSubmission}>Submit</button>
       </form>
-      <Snackbar text="Request successfully submitted!" visible={showSnackbar} />
+    );
+  }
+
+  function renderSuccessMessage() {
+    return(
+      <section className="container success-message-container">
+        <h3>Thanks for contacting us!</h3>
+        <p>A Quill team member will be in touch with you as soon as possible.</p>
+        <button className={buttonClass} onClick={handleClick}>Done</button>
+      </section>
+    )
+  }
+
+  return(
+    <div className="sales-form-container">
+      {!showSubmissionConfirmation && renderForm()}
+      {showSubmissionConfirmation && renderSuccessMessage()}
     </div>
   )
 }

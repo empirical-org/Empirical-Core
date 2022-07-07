@@ -1,19 +1,13 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { MemoryRouter } from 'react-router-dom';
+import { QueryClientProvider } from 'react-query'
 
 import SemanticLabelsIndex from '../semanticRules/semanticLabelsIndex';
+import { DefaultReactQueryClient } from '../../../../Shared/index';
 
-const mockActivity = [{ id: 1, title: 'First' }]
-jest.mock("react-query", () => ({
-  useQuery: jest.fn(() => ({
-    data: { activity: mockActivity},
-    error: null,
-    status: "success",
-    isFetching: true,
-  })),
-  useQueryClient: jest.fn(() => ({})),
-}));
+const queryClient = new DefaultReactQueryClient();
+
 
 const mockProps = {
   match: {
@@ -31,7 +25,9 @@ const mockProps = {
 describe('SemanticLabelsIndex component', () => {
   const container = mount(
     <MemoryRouter>
-      <SemanticLabelsIndex {...mockProps} />
+      <QueryClientProvider client={queryClient} contextSharing={true}>
+        <SemanticLabelsIndex {...mockProps} />
+      </QueryClientProvider>
     </MemoryRouter>
   );
   it('should render SemanticLabelsIndex', () => {

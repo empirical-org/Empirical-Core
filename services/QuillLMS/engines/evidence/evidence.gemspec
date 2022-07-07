@@ -25,7 +25,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'google-cloud-automl-v1', '~> 0.3.0'
   s.add_dependency 'hotwater', '0.1.2'
   s.add_dependency 'pragmatic_segmenter', '~> 0.3.23'
-  s.add_dependency 'rails', '5.1.7'
+  s.add_dependency 'rails', '5.2.8'
 
   # Gems needed for the test environment
   s.add_development_dependency 'factory_bot_rails'

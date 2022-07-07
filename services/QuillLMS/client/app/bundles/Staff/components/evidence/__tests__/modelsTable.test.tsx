@@ -1,21 +1,11 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
+import { QueryClientProvider } from 'react-query'
 
+import { DefaultReactQueryClient } from '../../../../Shared/index';
 import ModelsTable from '../semanticRules/modelsTable';
-import { DataTable } from '../../../../Shared/index';
 
-const mockModels = [
-  { id: 1, name: 'model_1', state: 'inactive', created_at: '', older_models: 0, labels: [{ id: 1, name: 'label_1' }] },
-  { id: 2, name: 'model_2', state: 'active', created_at: '', older_models: 1, labels: [{ id: 2, name: 'label_2' }] },
-]
-jest.mock("react-query", () => ({
-  useQuery: jest.fn(() => ({
-    data: { rules: mockModels},
-    error: null,
-    status: "success",
-    isFetching: true,
-  })),
-}));
+const queryClient = new DefaultReactQueryClient();
 
 jest.mock('../../../helpers/evidence/miscHelpers', () => ({
   titleCase: jest.fn().mockImplementation(() => {
@@ -30,13 +20,12 @@ describe('LabelsTable component', () => {
     prompt: { id: 1 }
   }
   const container = shallow(
-    <ModelsTable {...mockProps} />
+    <QueryClientProvider client={queryClient} contextSharing={true}>
+      <ModelsTable {...mockProps} />
+    </QueryClientProvider>
   );
 
   it('should render ModelsTable', () => {
     expect(container).toMatchSnapshot();
-  });
-  it('should render a DataTable', () => {
-    expect(container.find(DataTable).length).toEqual(1)
   });
 });

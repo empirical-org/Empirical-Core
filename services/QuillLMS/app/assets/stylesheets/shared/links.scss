@@ -3,3 +3,10 @@
 }
 
 .disabled { pointer-events:none; }
+
+.return-link, .data-link {
+  color: #00c2a2;
+}
+.return-link:hover, .data-link:hover {
+  color: #29d8bc;
+}

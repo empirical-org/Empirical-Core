@@ -15,17 +15,13 @@ class BonusDaysCalculator < ApplicationService
   end
 
   def run
-    return 0 if user.nil? || school.nil? || school_has_paid_before?
+    return 0 if user.nil? || school.nil? || school.ever_paid_for_subscription?
 
     (plan_ends - start).to_i
   end
 
   private def plan_ends
     start.month < JULY ? start.change(month: JUNE, day: 30) : start.change(month: DECEMBER, day: 31)
-  end
-
-  private def school_has_paid_before?
-    ::Subscription.school_or_user_has_ever_paid?(school)
   end
 end
 

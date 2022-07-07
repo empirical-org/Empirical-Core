@@ -84,7 +84,7 @@ describe Cms::SchoolsController do
     it 'should assign the school and editable attributes' do
       get :edit, params: { id: school.id }
       expect(assigns(:school)).to eq school
-      expect(assigns(:editable_attributes)).to eq({
+      expect(assigns(:editable_text_attributes)).to eq({
           'School Name' => :name,
           'School City' => :city,
           'School State' => :state,

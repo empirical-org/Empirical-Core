@@ -30,7 +30,7 @@
 #
 # Indexes
 #
-#  email_idx                          (email gin_trgm_ops) USING gin
+#  email_idx                          (email) USING gin
 #  index_users_on_active              (active)
 #  index_users_on_classcode           (classcode)
 #  index_users_on_clever_id           (clever_id)
@@ -41,12 +41,12 @@
 #  index_users_on_time_zone           (time_zone)
 #  index_users_on_token               (token)
 #  index_users_on_username            (username)
-#  name_idx                           (name gin_trgm_ops) USING gin
+#  name_idx                           (name) USING gin
 #  unique_index_users_on_clever_id    (clever_id) UNIQUE WHERE ((clever_id IS NOT NULL) AND ((clever_id)::text <> ''::text) AND ((id > 5593155) OR ((role)::text = 'student'::text)))
 #  unique_index_users_on_email        (email) UNIQUE WHERE ((id > 1641954) AND (email IS NOT NULL) AND ((email)::text <> ''::text))
 #  unique_index_users_on_google_id    (google_id) UNIQUE WHERE ((id > 1641954) AND (google_id IS NOT NULL) AND ((google_id)::text <> ''::text))
 #  unique_index_users_on_username     (username) UNIQUE WHERE ((id > 1641954) AND (username IS NOT NULL) AND ((username)::text <> ''::text))
-#  username_idx                       (username gin_trgm_ops) USING gin
+#  username_idx                       (username) USING gin
 #  users_to_tsvector_idx              (to_tsvector('english'::regconfig, (name)::text)) USING gin
 #  users_to_tsvector_idx1             (to_tsvector('english'::regconfig, (email)::text)) USING gin
 #  users_to_tsvector_idx2             (to_tsvector('english'::regconfig, (role)::text)) USING gin
@@ -59,6 +59,7 @@ class User < ApplicationRecord
   include Teacher
   include CheckboxCallback
   include UserCacheable
+  include Subscriber
 
   attr_accessor :validate_username, :require_password_confirmation_when_password_present, :newsletter
 
@@ -221,15 +222,15 @@ class User < ApplicationRecord
     return if balance <= 0
 
     new_sub =
-      Subscription.create_with_user_join(
-        id,
+      Subscription.create_and_attach_subscriber(
         {
           account_type: 'Premium Credit',
           payment_method: 'Premium Credit',
           expiration: Subscription.redemption_start_date(self) + balance,
           start_date: Subscription.redemption_start_date(self),
           purchaser_id: id
-        }
+        },
+        self
       )
 
     CreditTransaction.create!(user: self, amount: 0 - balance, source: new_sub) if new_sub
@@ -251,24 +252,6 @@ class User < ApplicationRecord
 
   def eligible_for_new_subscription?
     subscription.nil? || Subscription::TRIAL_TYPES.include?(subscription.account_type)
-  end
-
-  def last_expired_subscription
-    subscriptions
-      .expired
-      .order(expiration: :desc)
-      .limit(1)
-      .first
-  end
-
-  def subscription
-    subscriptions
-      .started
-      .not_expired
-      .not_de_activated
-      .order(expiration: :desc)
-      .limit(1)
-      .first
   end
 
   def last_four
@@ -513,6 +496,10 @@ class User < ApplicationRecord
     UserMailer.lesson_plan_email(self, lessons, unit).deliver_now! if email.present?
   end
 
+  def attach_subscription(subscription)
+    user_subscriptions.create(subscription: subscription)
+  end
+
   def send_premium_user_subscription_email
     UserMailer.premium_user_subscription_email(self).deliver_now! if email.present?
   end
@@ -539,10 +526,6 @@ class User < ApplicationRecord
     return unless role.teacher?
 
     UnsubscribeFromNewsletterWorker.perform_async(id)
-  end
-
-  ransacker :created_at_date, type: :date do |parent|
-    Arel::Nodes::SqlLiteral.new "date(items.created_at)"
   end
 
   # Create the user from a Clever info hash
@@ -628,8 +611,8 @@ class User < ApplicationRecord
     user_activity_classifications.sum(:count)
   end
 
-  def subscription_status
-    subscription&.subscription_status || last_expired_subscription&.subscription_status
+  def associated_schools
+    [school].concat(administered_schools).uniq.select { |s| s.present? && School::ALTERNATIVE_SCHOOL_NAMES.exclude?(s.name) }
   end
 
   private def validate_flags

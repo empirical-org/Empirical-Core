@@ -5,6 +5,10 @@ exports[`PremiumPricingGuide container should render 1`] = `
   <div
     className="container premium-page"
   >
+    <Snackbar
+      text="Sorry, you need to select a school to purchase School Premium."
+      visible={false}
+    />
     <div
       className="overview text-center"
     >
@@ -12,7 +16,7 @@ exports[`PremiumPricingGuide container should render 1`] = `
         diagnosticActivityCount={9}
         independentPracticeActivityCount={400}
         lessonsActivityCount={50}
-        schoolBuyNowButton={[Function]}
+        onClickPurchasingOptions={[Function]}
         teacherBuyNowButton={[Function]}
       />
       <PremiumFeaturesTable

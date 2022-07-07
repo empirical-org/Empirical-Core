@@ -1,121 +1,78 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ActivityStats component should render ActivityStats 1`] = `
-<div
-  className="activity-stats-container"
+<ContextProvider
+  value={true}
 >
-  <section
-    className="comprehension-page-header-container"
+  <ContextProvider
+    value={
+      DefaultReactQueryClient {
+        "defaultOptions": Object {
+          "queries": Object {
+            "cacheTime": Infinity,
+            "staleTime": Infinity,
+          },
+        },
+        "mutationCache": MutationCache {
+          "config": Object {},
+          "listeners": Array [],
+          "mutationId": 0,
+          "mutations": Array [],
+        },
+        "mutationDefaults": Array [],
+        "queryCache": QueryCache {
+          "config": Object {},
+          "listeners": Array [],
+          "queries": Array [],
+          "queriesMap": Object {},
+        },
+        "queryDefaults": Array [],
+      }
+    }
   >
-    <h2>
-      Activity Stats
-    </h2>
-    <h3>
-      Could Capybaras Create Chaos?
-    </h3>
-    <h4>
-      Could Capybaras Create Chaos? [student testing]
-    </h4>
-  </section>
-  <FilterWidget
-    endDate={null}
-    handleFilterClick={[Function]}
-    handleSetTurkSessionID={[Function]}
-    onEndDateChange={[Function]}
-    onStartDateChange={[Function]}
-    showError={false}
-    startDate={null}
-    turkSessionID=""
-  />
-  <ReactTable
-    className="activity-stats-table"
-    columns={
-      Array [
+    <ActivityStats
+      history={
         Object {
-          "Cell": [Function],
-          "Header": "",
-          "accessor": "promptText",
-          "key": "promptText",
-        },
+          "createHref": [Function],
+          "createKey": [Function],
+          "createLocation": [Function],
+          "createPath": [Function],
+          "go": [Function],
+          "goBack": [Function],
+          "goForward": [Function],
+          "listen": [Function],
+          "listenBefore": [Function],
+          "push": [Function],
+          "pushState": [Function],
+          "registerTransitionHook": [Function],
+          "replace": [Function],
+          "replaceState": [Function],
+          "setState": [Function],
+          "transitionTo": [Function],
+          "unregisterTransitionHook": [Function],
+        }
+      }
+      location={
         Object {
-          "Header": "Total Responses",
-          "accessor": "totalResponses",
-          "key": "totalResponses",
-          "width": 80,
-        },
+          "action": "POP",
+          "hash": "",
+          "key": null,
+          "pathname": "/",
+          "search": "",
+          "state": null,
+        }
+      }
+      match={
         Object {
-          "Header": "Sessions",
-          "accessor": "sessionCount",
-          "key": "sessionCount",
-          "width": 70,
-        },
-        Object {
-          "Header": "Final Attempt: Optimal | Sub-Optimal",
-          "accessor": "finalAttemptData",
-          "key": "finalAttemptData",
-          "width": 160,
-        },
-        Object {
-          "Header": "Average Attempts",
-          "accessor": "averageAttempts",
-          "key": "averageAttempts",
-          "width": 120,
-        },
-        Object {
-          "Header": "Rule Repeated: Consecutive Attempt",
-          "accessor": "ruleRepeatedConsecutiveData",
-          "key": "ruleRepeatedConsecutiveData",
-          "width": 150,
-        },
-        Object {
-          "Header": "Rule Repeated: Non-consecutive Attempt",
-          "accessor": "ruleRepeatedNotConsecutiveData",
-          "key": "ruleRepeatedNotConsecutiveData",
-          "width": 150,
-        },
-        Object {
-          "Header": "First Attempt: Optimal | Sub-Optimal",
-          "accessor": "firstAttemptData",
-          "key": "firstAttemptData",
-          "width": 160,
-        },
-      ]
-    }
-    data={
-      Array [
-        Object {
-          "averageAttempts": 2.73,
-          "finalAttemptData": "100% (224) | 0% (0)",
-          "firstAttemptData": "80.36% (180) | 19.64% (44)",
-          "promptText": "A surge barrier in New York City could harm the local ecosystem because",
-          "ruleRepeatedConsecutiveData": "92.86% (208)",
-          "ruleRepeatedNotConsecutiveData": "98.21% (220)",
-          "sessionCount": 224,
-          "totalResponses": 4720,
-        },
-        Object {
-          "averageAttempts": 2.61,
-          "finalAttemptData": "100% (155) | 0% (0)",
-          "firstAttemptData": "87.1% (135) | 12.9% (20)",
-          "promptText": "A surge barrier in New York City could harm the local ecosystem, but",
-          "ruleRepeatedConsecutiveData": "89.68% (139)",
-          "ruleRepeatedNotConsecutiveData": "96.77% (150)",
-          "sessionCount": 155,
-          "totalResponses": 3176,
-        },
-        Object {
-          "averageAttempts": 2.22,
-          "finalAttemptData": "100% (195) | 0% (0)",
-          "firstAttemptData": "82.56% (161) | 17.44% (34)",
-          "promptText": "A surge barrier in New York City could harm the local ecosystem, so",
-          "ruleRepeatedConsecutiveData": "93.33% (182)",
-          "ruleRepeatedNotConsecutiveData": "97.44% (190)",
-          "sessionCount": 195,
-          "totalResponses": 3291,
-        },
-      ]
-    }
-    defaultPageSize={3}
-  />
-</div>
+          "isExact": true,
+          "params": Object {
+            "activityId": "1",
+          },
+          "path": "",
+          "url": "",
+        }
+      }
+    />
+  </ContextProvider>
+</ContextProvider>
 `;

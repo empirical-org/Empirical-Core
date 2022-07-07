@@ -1722,40 +1722,6 @@ ALTER SEQUENCE public.concept_feedbacks_id_seq OWNED BY public.concept_feedbacks
 
 
 --
--- Name: concept_results; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.concept_results (
-    id integer NOT NULL,
-    activity_session_id integer,
-    concept_id integer NOT NULL,
-    metadata json,
-    activity_classification_id integer,
-    question_type character varying
-);
-
-
---
--- Name: concept_results_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.concept_results_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: concept_results_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.concept_results_id_seq OWNED BY public.concept_results.id;
-
-
---
 -- Name: concepts; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -2027,6 +1993,38 @@ CREATE SEQUENCE public.district_admins_id_seq
 --
 
 ALTER SEQUENCE public.district_admins_id_seq OWNED BY public.district_admins.id;
+
+
+--
+-- Name: district_subscriptions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.district_subscriptions (
+    id bigint NOT NULL,
+    district_id bigint,
+    subscription_id bigint,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: district_subscriptions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.district_subscriptions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: district_subscriptions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.district_subscriptions_id_seq OWNED BY public.district_subscriptions.id;
 
 
 --
@@ -2652,6 +2650,40 @@ ALTER SEQUENCE public.objectives_id_seq OWNED BY public.objectives.id;
 
 
 --
+-- Name: old_concept_results; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.old_concept_results (
+    id integer NOT NULL,
+    activity_session_id integer,
+    concept_id integer NOT NULL,
+    metadata json,
+    activity_classification_id integer,
+    question_type character varying
+);
+
+
+--
+-- Name: old_concept_results_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.old_concept_results_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: old_concept_results_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.old_concept_results_id_seq OWNED BY public.old_concept_results.id;
+
+
+--
 -- Name: page_areas; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3239,8 +3271,8 @@ CREATE TABLE public.sales_form_submissions (
     phone_number character varying NOT NULL,
     zipcode character varying NOT NULL,
     collection_type character varying NOT NULL,
-    school_name character varying NOT NULL,
-    district_name character varying NOT NULL,
+    school_name character varying,
+    district_name character varying,
     school_premium_count_estimate integer DEFAULT 0 NOT NULL,
     teacher_premium_count_estimate integer DEFAULT 0 NOT NULL,
     student_premium_count_estimate integer DEFAULT 0 NOT NULL,
@@ -3735,6 +3767,41 @@ CREATE SEQUENCE public.standards_id_seq
 --
 
 ALTER SEQUENCE public.standards_id_seq OWNED BY public.standards.id;
+
+
+--
+-- Name: stripe_checkout_sessions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.stripe_checkout_sessions (
+    id bigint NOT NULL,
+    external_checkout_session_id character varying NOT NULL,
+    stripe_price_id character varying NOT NULL,
+    url character varying NOT NULL,
+    user_id bigint,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    school_ids integer[] DEFAULT '{}'::integer[]
+);
+
+
+--
+-- Name: stripe_checkout_sessions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.stripe_checkout_sessions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: stripe_checkout_sessions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.stripe_checkout_sessions_id_seq OWNED BY public.stripe_checkout_sessions.id;
 
 
 --
@@ -4671,13 +4738,6 @@ ALTER TABLE ONLY public.concept_feedbacks ALTER COLUMN id SET DEFAULT nextval('p
 
 
 --
--- Name: concept_results id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.concept_results ALTER COLUMN id SET DEFAULT nextval('public.concept_results_id_seq'::regclass);
-
-
---
 -- Name: concepts id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -4731,6 +4791,13 @@ ALTER TABLE ONLY public.csv_exports ALTER COLUMN id SET DEFAULT nextval('public.
 --
 
 ALTER TABLE ONLY public.district_admins ALTER COLUMN id SET DEFAULT nextval('public.district_admins_id_seq'::regclass);
+
+
+--
+-- Name: district_subscriptions id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.district_subscriptions ALTER COLUMN id SET DEFAULT nextval('public.district_subscriptions_id_seq'::regclass);
 
 
 --
@@ -4850,6 +4917,13 @@ ALTER TABLE ONLY public.oauth_applications ALTER COLUMN id SET DEFAULT nextval('
 --
 
 ALTER TABLE ONLY public.objectives ALTER COLUMN id SET DEFAULT nextval('public.objectives_id_seq'::regclass);
+
+
+--
+-- Name: old_concept_results id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.old_concept_results ALTER COLUMN id SET DEFAULT nextval('public.old_concept_results_id_seq'::regclass);
 
 
 --
@@ -5067,6 +5141,13 @@ ALTER TABLE ONLY public.standard_levels ALTER COLUMN id SET DEFAULT nextval('pub
 --
 
 ALTER TABLE ONLY public.standards ALTER COLUMN id SET DEFAULT nextval('public.standards_id_seq'::regclass);
+
+
+--
+-- Name: stripe_checkout_sessions id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.stripe_checkout_sessions ALTER COLUMN id SET DEFAULT nextval('public.stripe_checkout_sessions_id_seq'::regclass);
 
 
 --
@@ -5532,14 +5613,6 @@ ALTER TABLE ONLY public.concept_feedbacks
 
 
 --
--- Name: concept_results concept_results_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.concept_results
-    ADD CONSTRAINT concept_results_pkey PRIMARY KEY (id);
-
-
---
 -- Name: concepts concepts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5601,6 +5674,14 @@ ALTER TABLE ONLY public.csv_exports
 
 ALTER TABLE ONLY public.district_admins
     ADD CONSTRAINT district_admins_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: district_subscriptions district_subscriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.district_subscriptions
+    ADD CONSTRAINT district_subscriptions_pkey PRIMARY KEY (id);
 
 
 --
@@ -5737,6 +5818,14 @@ ALTER TABLE ONLY public.oauth_applications
 
 ALTER TABLE ONLY public.objectives
     ADD CONSTRAINT objectives_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: old_concept_results old_concept_results_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.old_concept_results
+    ADD CONSTRAINT old_concept_results_pkey PRIMARY KEY (id);
 
 
 --
@@ -5985,6 +6074,14 @@ ALTER TABLE ONLY public.standard_levels
 
 ALTER TABLE ONLY public.standards
     ADD CONSTRAINT standards_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: stripe_checkout_sessions stripe_checkout_sessions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.stripe_checkout_sessions
+    ADD CONSTRAINT stripe_checkout_sessions_pkey PRIMARY KEY (id);
 
 
 --
@@ -6650,20 +6747,6 @@ CREATE UNIQUE INDEX index_concept_feedbacks_on_uid_and_activity_type ON public.c
 
 
 --
--- Name: index_concept_results_on_activity_session_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_concept_results_on_activity_session_id ON public.concept_results USING btree (activity_session_id);
-
-
---
--- Name: index_concept_results_on_concept_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_concept_results_on_concept_id ON public.concept_results USING btree (concept_id);
-
-
---
 -- Name: index_content_partner_activities_on_activity_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -6731,6 +6814,20 @@ CREATE INDEX index_district_admins_on_district_id ON public.district_admins USIN
 --
 
 CREATE INDEX index_district_admins_on_user_id ON public.district_admins USING btree (user_id);
+
+
+--
+-- Name: index_district_subscriptions_on_district_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_district_subscriptions_on_district_id ON public.district_subscriptions USING btree (district_id);
+
+
+--
+-- Name: index_district_subscriptions_on_subscription_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_district_subscriptions_on_subscription_id ON public.district_subscriptions USING btree (subscription_id);
 
 
 --
@@ -6885,6 +6982,20 @@ CREATE UNIQUE INDEX index_oauth_access_tokens_on_token ON public.oauth_access_to
 --
 
 CREATE UNIQUE INDEX index_oauth_applications_on_uid ON public.oauth_applications USING btree (uid);
+
+
+--
+-- Name: index_old_concept_results_on_activity_session_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_old_concept_results_on_activity_session_id ON public.old_concept_results USING btree (activity_session_id);
+
+
+--
+-- Name: index_old_concept_results_on_concept_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_old_concept_results_on_concept_id ON public.old_concept_results USING btree (concept_id);
 
 
 --
@@ -7186,6 +7297,20 @@ CREATE INDEX index_skill_group_activities_on_skill_group_id ON public.skill_grou
 --
 
 CREATE INDEX index_skills_on_skill_group_id ON public.skills USING btree (skill_group_id);
+
+
+--
+-- Name: index_stripe_checkout_sessions_on_external_checkout_session_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_stripe_checkout_sessions_on_external_checkout_session_id ON public.stripe_checkout_sessions USING btree (external_checkout_session_id);
+
+
+--
+-- Name: index_stripe_checkout_sessions_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_stripe_checkout_sessions_on_user_id ON public.stripe_checkout_sessions USING btree (user_id);
 
 
 --
@@ -7645,6 +7770,14 @@ ALTER TABLE ONLY public.skills
 
 
 --
+-- Name: district_subscriptions fk_rails_0494854b11; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.district_subscriptions
+    ADD CONSTRAINT fk_rails_0494854b11 FOREIGN KEY (district_id) REFERENCES public.districts(id);
+
+
+--
 -- Name: teacher_saved_activities fk_rails_08453fa16b; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -7693,6 +7826,14 @@ ALTER TABLE ONLY public.comprehension_automl_models
 
 
 --
+-- Name: district_subscriptions fk_rails_38a73665c2; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.district_subscriptions
+    ADD CONSTRAINT fk_rails_38a73665c2 FOREIGN KEY (subscription_id) REFERENCES public.subscriptions(id);
+
+
+--
 -- Name: classroom_units fk_rails_3e1ff09783; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -7714,6 +7855,14 @@ ALTER TABLE ONLY public.user_activity_classifications
 
 ALTER TABLE ONLY public.sales_stages
     ADD CONSTRAINT fk_rails_41082adef9 FOREIGN KEY (sales_contact_id) REFERENCES public.sales_contacts(id);
+
+
+--
+-- Name: stripe_checkout_sessions fk_rails_428a7d5f1b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.stripe_checkout_sessions
+    ADD CONSTRAINT fk_rails_428a7d5f1b FOREIGN KEY (user_id) REFERENCES public.users(id);
 
 
 --
@@ -7901,10 +8050,10 @@ ALTER TABLE ONLY public.standards
 
 
 --
--- Name: concept_results fk_rails_cebe4a6023; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: old_concept_results fk_rails_cebe4a6023; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.concept_results
+ALTER TABLE ONLY public.old_concept_results
     ADD CONSTRAINT fk_rails_cebe4a6023 FOREIGN KEY (activity_classification_id) REFERENCES public.activity_classifications(id);
 
 
@@ -8469,6 +8618,11 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220505155013'),
 ('20220505155014'),
 ('20220505155015'),
-('20220505155016');
+('20220505155016'),
+('20220607120432'),
+('20220608144739'),
+('20220609173524'),
+('20220614152118'),
+('20220628174900');
 
 

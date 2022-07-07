@@ -13,7 +13,7 @@
 #
 # Indexes
 #
-#  index_announcements_on_start_and_end  (start,end)
+#  index_announcements_on_start_and_end  (start,end DESC)
 #
 FactoryBot.define do
   factory :announcement do

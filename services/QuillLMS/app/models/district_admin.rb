@@ -20,30 +20,31 @@ class DistrictAdmin < ApplicationRecord
   belongs_to :user
   validates :user_id, uniqueness: { scope: :district_id }
 
-  after_create :attach_to_subscribed_schools
-  after_destroy :detach_from_schools
+  after_create :attach_schools
+  after_destroy :detach_schools
 
   def admin
     user
   end
 
-  def attach_to_subscribed_schools
-    current_schools = admin.administered_schools
-    schools_with_subscriptions.each do |school|
-      NewAdminEmailWorker.perform_async(admin.id, school.id) if !current_schools.include?(school)
-    end
-
-    admin.administered_schools += schools_with_subscriptions
-    admin.save
+  def attach_schools
+    admin
+      .schools_admins
+      .create!(unattached_district_schools.map { |school| { school_id: school.id } } )
   end
 
-  def detach_from_schools
-    schools_with_subscriptions.each do |school|
-      SchoolsAdmins.where(school: schools_with_subscriptions, user: admin).destroy_all
-    end
+  def detach_schools
+    admin
+      .schools_admins
+      .where(school: district_schools)
+      .destroy_all
   end
 
-  def schools_with_subscriptions
-    district.schools.filter{ |s| s.subscription.present?}
+  private def unattached_district_schools
+    district_schools - admin.reload.administered_schools
+  end
+
+  private def district_schools
+    district.reload.schools
   end
 end
