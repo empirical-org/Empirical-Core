@@ -2,7 +2,7 @@
 
 class CreateConceptResultPreviousFeedback < ActiveRecord::Migration[5.1]
   def change
-    create_table :concept_result_feedbacks, id: false do |t|
+    create_table :concept_result_previous_feedbacks, id: false do |t|
       t.serial :id, limit: 4, primary_key: true
 
       t.text :text, null: false

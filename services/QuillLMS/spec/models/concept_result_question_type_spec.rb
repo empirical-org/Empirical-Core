@@ -2,7 +2,7 @@
 
 # == Schema Information
 #
-# Table name: response_question_types
+# Table name: concept_result_question_types
 #
 #  id         :integer          not null, primary key
 #  text       :text             not null
@@ -10,17 +10,17 @@
 #
 # Indexes
 #
-#  index_response_question_types_on_text  (text) UNIQUE
+#  index_concept_result_question_types_on_text  (text) UNIQUE
 #
 require 'rails_helper'
 
-RSpec.describe ResponseQuestionType, type: :model do
+RSpec.describe ConceptResultQuestionType, type: :model do
   before do
-    create(:response_question_type)
+    create(:concept_result_question_type)
   end
 
   context 'associations' do
-    it { should have_many(:responses) }
+    it { should have_many(:concept_results) }
   end
 
   context 'validations' do

@@ -1753,37 +1753,6 @@ ALTER SEQUENCE public.concept_result_directions_id_seq OWNED BY public.concept_r
 
 
 --
--- Name: concept_result_feedbacks; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.concept_result_feedbacks (
-    id integer NOT NULL,
-    text text NOT NULL,
-    created_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: concept_result_feedbacks_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.concept_result_feedbacks_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: concept_result_feedbacks_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.concept_result_feedbacks_id_seq OWNED BY public.concept_result_feedbacks.id;
-
-
---
 -- Name: concept_result_instructions; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1812,6 +1781,37 @@ CREATE SEQUENCE public.concept_result_instructions_id_seq
 --
 
 ALTER SEQUENCE public.concept_result_instructions_id_seq OWNED BY public.concept_result_instructions.id;
+
+
+--
+-- Name: concept_result_previous_feedbacks; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.concept_result_previous_feedbacks (
+    id integer NOT NULL,
+    text text NOT NULL,
+    created_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: concept_result_previous_feedbacks_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.concept_result_previous_feedbacks_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: concept_result_previous_feedbacks_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.concept_result_previous_feedbacks_id_seq OWNED BY public.concept_result_previous_feedbacks.id;
 
 
 --
@@ -1886,16 +1886,16 @@ CREATE TABLE public.concept_results (
     answer jsonb,
     attempt_number integer,
     concept_id integer,
-    concept_result_id integer,
+    old_concept_result_id integer,
     correct boolean NOT NULL,
     extra_metadata jsonb,
     question_number integer,
     question_score double precision,
-    response_directions_id integer,
-    response_instructions_id integer,
-    response_previous_feedback_id integer,
-    response_prompt_id integer,
-    response_question_type_id integer,
+    concept_result_directions_id integer,
+    concept_result_instructions_id integer,
+    concept_result_previous_feedback_id integer,
+    concept_result_prompt_id integer,
+    concept_result_question_type_id integer,
     created_at timestamp without time zone NOT NULL
 );
 
@@ -4745,17 +4745,17 @@ ALTER TABLE ONLY public.concept_result_directions ALTER COLUMN id SET DEFAULT ne
 
 
 --
--- Name: concept_result_feedbacks id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.concept_result_feedbacks ALTER COLUMN id SET DEFAULT nextval('public.concept_result_feedbacks_id_seq'::regclass);
-
-
---
 -- Name: concept_result_instructions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.concept_result_instructions ALTER COLUMN id SET DEFAULT nextval('public.concept_result_instructions_id_seq'::regclass);
+
+
+--
+-- Name: concept_result_previous_feedbacks id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.concept_result_previous_feedbacks ALTER COLUMN id SET DEFAULT nextval('public.concept_result_previous_feedbacks_id_seq'::regclass);
 
 
 --
@@ -5621,19 +5621,19 @@ ALTER TABLE ONLY public.concept_result_directions
 
 
 --
--- Name: concept_result_feedbacks concept_result_feedbacks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.concept_result_feedbacks
-    ADD CONSTRAINT concept_result_feedbacks_pkey PRIMARY KEY (id);
-
-
---
 -- Name: concept_result_instructions concept_result_instructions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.concept_result_instructions
     ADD CONSTRAINT concept_result_instructions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: concept_result_previous_feedbacks concept_result_previous_feedbacks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.concept_result_previous_feedbacks
+    ADD CONSTRAINT concept_result_previous_feedbacks_pkey PRIMARY KEY (id);
 
 
 --
@@ -6754,17 +6754,17 @@ CREATE UNIQUE INDEX index_concept_result_directions_on_text ON public.concept_re
 
 
 --
--- Name: index_concept_result_feedbacks_on_text; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_concept_result_feedbacks_on_text ON public.concept_result_feedbacks USING btree (text);
-
-
---
 -- Name: index_concept_result_instructions_on_text; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX index_concept_result_instructions_on_text ON public.concept_result_instructions USING btree (text);
+
+
+--
+-- Name: index_concept_result_previous_feedbacks_on_text; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_concept_result_previous_feedbacks_on_text ON public.concept_result_previous_feedbacks USING btree (text);
 
 
 --
@@ -6782,10 +6782,10 @@ CREATE UNIQUE INDEX index_concept_result_question_types_on_text ON public.concep
 
 
 --
--- Name: index_concept_results_on_concept_result_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_concept_results_on_old_concept_result_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_concept_results_on_concept_result_id ON public.concept_results USING btree (concept_result_id);
+CREATE UNIQUE INDEX index_concept_results_on_old_concept_result_id ON public.concept_results USING btree (old_concept_result_id);
 
 
 --

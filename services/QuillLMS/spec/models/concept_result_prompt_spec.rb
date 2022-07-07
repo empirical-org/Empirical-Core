@@ -2,7 +2,7 @@
 
 # == Schema Information
 #
-# Table name: response_prompts
+# Table name: concept_result_prompts
 #
 #  id         :integer          not null, primary key
 #  text       :text             not null
@@ -10,17 +10,17 @@
 #
 # Indexes
 #
-#  index_response_prompts_on_text  (text) UNIQUE
+#  index_concept_result_prompts_on_text  (text) UNIQUE
 #
 require 'rails_helper'
 
-RSpec.describe ResponsePrompt, type: :model do
+RSpec.describe ConceptResultPrompt, type: :model do
   before do
-    create(:response_prompt)
+    create(:concept_result_prompt)
   end
 
   context 'associations' do
-    it { should have_many(:responses) }
+    it { should have_many(:concept_results) }
   end
 
   context 'validations' do

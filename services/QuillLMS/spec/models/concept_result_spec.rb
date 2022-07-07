@@ -2,45 +2,45 @@
 
 # == Schema Information
 #
-# Table name: responses
+# Table name: concept_results
 #
-#  id                            :bigint           not null, primary key
-#  answer                        :jsonb
-#  attempt_number                :integer
-#  correct                       :boolean          not null
-#  extra_metadata                :jsonb
-#  question_number               :integer
-#  question_score                :float
-#  created_at                    :datetime         not null
-#  activity_session_id           :integer          not null
-#  concept_id                    :integer
-#  concept_result_id             :integer
-#  response_directions_id        :integer
-#  response_instructions_id      :integer
-#  response_previous_feedback_id :integer
-#  response_prompt_id            :integer
-#  response_question_type_id     :integer
+#  id                                  :bigint           not null, primary key
+#  answer                              :jsonb
+#  attempt_number                      :integer
+#  correct                             :boolean          not null
+#  extra_metadata                      :jsonb
+#  question_number                     :integer
+#  question_score                      :float
+#  created_at                          :datetime         not null
+#  activity_session_id                 :integer          not null
+#  concept_id                          :integer
+#  concept_result_directions_id        :integer
+#  concept_result_instructions_id      :integer
+#  concept_result_previous_feedback_id :integer
+#  concept_result_prompt_id            :integer
+#  concept_result_question_type_id     :integer
+#  old_concept_result_id               :integer
 #
 # Indexes
 #
-#  index_responses_on_concept_result_id  (concept_result_id) UNIQUE
+#  index_concept_results_on_old_concept_result_id  (old_concept_result_id) UNIQUE
 #
 require 'rails_helper'
 
-RSpec.describe Response, type: :model do
+RSpec.describe ConceptResult, type: :model do
   before do
-    create(:response)
+    create(:concept_result)
   end
 
   context 'associations' do
     it { should belong_to(:activity_session) }
     it { should belong_to(:concept) }
-    it { should belong_to(:concept_result) }
-    it { should belong_to(:response_directions) }
-    it { should belong_to(:response_instructions) }
-    it { should belong_to(:response_previous_feedback) }
-    it { should belong_to(:response_prompt) }
-    it { should belong_to(:response_question_type) }
+    it { should belong_to(:old_concept_result) }
+    it { should belong_to(:concept_result_directions) }
+    it { should belong_to(:concept_result_instructions) }
+    it { should belong_to(:concept_result_previous_feedback) }
+    it { should belong_to(:concept_result_prompt) }
+    it { should belong_to(:concept_result_question_type) }
   end
 
   context 'validations' do
@@ -75,15 +75,15 @@ RSpec.describe Response, type: :model do
         }
       end
 
-      it 'should create a new Response record' do
+      it 'should create a new ConceptResult record' do
         expect do
-          response = Response.create_from_json(json)
-          expect(response.valid?).to be(true)
-        end.to change(Response, :count).by(1)
+          concept_result = ConceptResult.create_from_json(json)
+          expect(concept_result.valid?).to be(true)
+        end.to change(ConceptResult, :count).by(1)
       end
 
       it 'should store all input in the appropriate place' do
-        response = Response.create_from_json(json)
+        response = ConceptResult.create_from_json(json)
 
         expect(response.activity_session).to eq(activity_session)
         expect(response.attempt_number).to eq(metadata[:attemptNumber])
@@ -92,55 +92,55 @@ RSpec.describe Response, type: :model do
         expect(response.question_number).to eq(metadata[:questionNumber])
         expect(response.question_score).to eq(metadata[:questionScore])
         expect(response.answer).to eq(metadata[:answer])
-        expect(response.response_directions.text).to eq(metadata[:directions])
-        expect(response.response_prompt.text).to eq(metadata[:prompt])
-        expect(response.response_previous_feedback.text).to eq(metadata[:lastFeedback])
-        expect(response.response_question_type.text).to eq(json[:question_type])
+        expect(response.concept_result_directions.text).to eq(metadata[:directions])
+        expect(response.concept_result_prompt.text).to eq(metadata[:prompt])
+        expect(response.concept_result_previous_feedback.text).to eq(metadata[:lastFeedback])
+        expect(response.concept_result_question_type.text).to eq(json[:question_type])
       end
 
       it 'should create NormalizedText records when new text is provided' do
-        expect { Response.create_from_json(json) }
-          .to change(ResponseDirections, :count).by(1)
-          .and change(ResponsePreviousFeedback, :count).by(1)
-          .and change(ResponsePrompt, :count).by(1)
-          .and change(ResponseQuestionType, :count).by(1)
-          .and not_change(ResponseInstructions, :count)
+        expect { ConceptResult.create_from_json(json) }
+          .to change(ConceptResultDirections, :count).by(1)
+          .and change(ConceptResultPreviousFeedback, :count).by(1)
+          .and change(ConceptResultPrompt, :count).by(1)
+          .and change(ConceptResultQuestionType, :count).by(1)
+          .and not_change(ConceptResultInstructions, :count)
         # No change expected above when "instructions" aren't in the payload
       end
 
       it 'should not link to records when the appropriate keys are not provided' do
-        response = Response.create_from_json(json)
+        concept_result = ConceptResult.create_from_json(json)
 
-        expect(response.reload.response_instructions).to be_nil
+        expect(concept_result.reload.concept_result_instructions).to be_nil
       end
 
       it 'should not link to records when the value in the key is an empty string' do
-        response = Response.create_from_json(json.merge({question_type: nil}))
+        concept_result = ConceptResult.create_from_json(json.merge({question_type: nil}))
 
-        expect(response.reload.response_question_type).to be_nil
+        expect(concept_result.reload.concept_result_question_type).to be_nil
       end
 
       it 'should find existing NormalizedText records when existing text is provided' do
-        create(:response_directions, text: metadata[:directions])
-        expect { Response.create_from_json(json) }
-          .to not_change(ResponseDirections, :count)
+        create(:concept_result_directions, text: metadata[:directions])
+        expect { ConceptResult.create_from_json(json) }
+          .to not_change(ConceptResultDirections, :count)
       end
 
       it 'should extra_metadata containing any keys not part of the normalization process' do
         extra_metadata = {'foo' => 'bar', 'baz' => 'qux'}
         metadata.merge!(extra_metadata)
 
-        response = Response.create_from_json(json)
-        expect(response.extra_metadata).to eq(extra_metadata)
+        concept_result = ConceptResult.create_from_json(json)
+        expect(concept_result.extra_metadata).to eq(extra_metadata)
       end
 
       it 'should leave extra_metadat nil if no unknown keys are provided' do
-        response = Response.create_from_json(json)
-        expect(response.extra_metadata).to be(nil)
+        concept_result = ConceptResult.create_from_json(json)
+        expect(concept_result.extra_metadata).to be(nil)
       end
     end
 
-    context 'self.find_or_create_from_concept_result' do
+    context 'self.find_or_create_from_old_concept_result' do
       let(:question) { create(:question) }
       let(:activity) { create(:activity, data: {questions: [{key: question.uid}]}) }
       let(:activity_session) { create(:activity_session, activity: activity) }
@@ -156,20 +156,20 @@ RSpec.describe Response, type: :model do
           "questionScore": 0.8
         }
       end
-      let(:concept_result) { create(:sentence_combining, activity_session: activity_session, metadata: metadata) }
+      let(:old_concept_result) { create(:sentence_combining, activity_session: activity_session, metadata: metadata) }
 
-      it 'should create a new Response if none exists for the activity_session-attempt_number-question_number combination of the source ConceptResult' do
+      it 'should create a new ConceptResult if none exists for the activity_session-attempt_number-question_number combination of the source ConceptResult' do
         expect do
-          response = Response.find_or_create_from_concept_result(concept_result)
-          expect(response.valid?).to be(true)
-        end.to change(Response, :count).by(1)
+          concept_result = ConceptResult.find_or_create_from_old_concept_result(old_concept_result)
+          expect(concept_result.valid?).to be(true)
+        end.to change(ConceptResult, :count).by(1)
       end
 
-      it 'should return early if the concept_result is already in a response_concept_results record' do
-        create(:response, concept_result: concept_result)
+      it 'should return early if the old_concept_result is already in a concept_results record' do
+        create(:concept_result, old_concept_result: old_concept_result)
 
-        expect(Response).not_to receive(:create_from_json)
-        Response.find_or_create_from_concept_result(concept_result)
+        expect(ConceptResult).not_to receive(:create_from_json)
+        ConceptResult.find_or_create_from_old_concept_result(old_concept_result)
       end
     end
 
@@ -206,9 +206,9 @@ RSpec.describe Response, type: :model do
         json2[:metadata][:questionNumber] = 2
 
         expect do
-          response = Response.bulk_create_from_json([json, json2])
-          expect(response.all?(&:valid?)).to be(true)
-        end.to change(Response, :count).by(2)
+          concept_result = ConceptResult.bulk_create_from_json([json, json2])
+          expect(concept_result.all?(&:valid?)).to be(true)
+        end.to change(ConceptResult, :count).by(2)
       end
     end
 
@@ -229,12 +229,12 @@ RSpec.describe Response, type: :model do
           "questionScore": 0.8
         }
       end
-      let(:concept_result) { create(:sentence_combining, concept: concept, activity_session: activity_session, concept_uid: concept.uid, metadata: metadata, activity_classification_id: activity.activity_classification_id) }
+      let(:old_concept_result) { create(:sentence_combining, concept: concept, activity_session: activity_session, concept_uid: concept.uid, metadata: metadata, activity_classification_id: activity.activity_classification_id) }
 
       it 'should return data in the same shape as a ConceptResult' do
-        response = Response.find_or_create_from_concept_result(concept_result)
+        concept_result = ConceptResult.find_or_create_from_old_concept_result(old_concept_result)
 
-        expect(response.legacy_format.except(:id)).to eq(concept_result.as_json.deep_symbolize_keys.except(:id))
+        expect(concept_result.legacy_format.except(:id)).to eq(old_concept_result.as_json.deep_symbolize_keys.except(:id))
       end
     end
   end
@@ -243,7 +243,7 @@ RSpec.describe Response, type: :model do
     let(:question) { create(:question) }
     let(:activity) { create(:activity, data: {questions: [{key: question.uid}]}) }
     let(:samples) { 100 }
-    let!(:concept_results) do
+    let!(:old_concept_results) do
       samples.times do |i|
         metadata = {
           "correct": 1,
@@ -262,12 +262,12 @@ RSpec.describe Response, type: :model do
 
     it 'performance migration from ConceptResults' do
       runtime = Benchmark.realtime do
-        ConceptResult.all.each do |cr|
-          Response.find_or_create_from_concept_result(cr)
+        OldConceptResult.all.each do |cr|
+          ConceptResult.find_or_create_from_old_concept_result(cr)
         end
       end
       puts format('Average ConceptResult migration runtime for %<count> items: %<runtime>.3f seconds', {runtime: (runtime / ConceptResult.count), count: ConceptResult.count})
-      expect(ResponseConceptResult.count).to eq(ConceptResult.count)
+      expect(ConceptResult.count).to eq(OldConceptResult.count)
     end
   end
 end

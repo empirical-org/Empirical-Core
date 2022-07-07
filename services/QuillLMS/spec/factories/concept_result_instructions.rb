@@ -2,7 +2,7 @@
 
 # == Schema Information
 #
-# Table name: response_instructions
+# Table name: concept_result_instructions
 #
 #  id         :integer          not null, primary key
 #  text       :text             not null
@@ -10,10 +10,10 @@
 #
 # Indexes
 #
-#  index_response_instructions_on_text  (text) UNIQUE
+#  index_concept_result_instructions_on_text  (text) UNIQUE
 #
 FactoryBot.define do
-  factory :response_instructions, class: 'ResponseInstructions' do
+  factory :concept_result_instructions, class: 'ConceptResultInstructions' do
     sequence(:text) { |n| "This a student response directions #{n}." }
   end
 end

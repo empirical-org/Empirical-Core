@@ -2,7 +2,7 @@
 
 # == Schema Information
 #
-# Table name: response_directions
+# Table name: concept_result_instructions
 #
 #  id         :integer          not null, primary key
 #  text       :text             not null
@@ -10,17 +10,17 @@
 #
 # Indexes
 #
-#  index_response_directions_on_text  (text) UNIQUE
+#  index_concept_result_instructions_on_text  (text) UNIQUE
 #
 require 'rails_helper'
 
-RSpec.describe ResponseDirections, type: :model do
+RSpec.describe ConceptResultInstructions, type: :model do
   before do
-    create(:response_directions)
+    create(:concept_result_instructions)
   end
 
   context 'associations' do
-    it { should have_many(:responses) }
+    it { should have_many(:concept_results) }
   end
 
   context 'validations' do

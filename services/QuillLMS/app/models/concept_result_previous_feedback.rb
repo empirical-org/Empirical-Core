@@ -2,7 +2,7 @@
 
 # == Schema Information
 #
-# Table name: response_previous_feedbacks
+# Table name: concept_result_previous_feedbacks
 #
 #  id         :integer          not null, primary key
 #  text       :text             not null
@@ -10,10 +10,10 @@
 #
 # Indexes
 #
-#  index_response_previous_feedbacks_on_text  (text) UNIQUE
+#  index_concept_result_previous_feedbacks_on_text  (text) UNIQUE
 #
-class ResponsePreviousFeedback < ApplicationRecord
-  has_many :responses
+class ConceptResultPreviousFeedback < ApplicationRecord
+  has_many :concept_results
 
   validates :text, uniqueness: true, presence: true
 end

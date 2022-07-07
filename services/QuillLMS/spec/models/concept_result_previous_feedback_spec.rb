@@ -2,7 +2,7 @@
 
 # == Schema Information
 #
-# Table name: response_instructions
+# Table name: concept_result_previous_feedbacks
 #
 #  id         :integer          not null, primary key
 #  text       :text             not null
@@ -10,17 +10,17 @@
 #
 # Indexes
 #
-#  index_response_instructions_on_text  (text) UNIQUE
+#  index_concept_result_previous_feedbacks_on_text  (text) UNIQUE
 #
 require 'rails_helper'
 
-RSpec.describe ResponseInstructions, type: :model do
+RSpec.describe ConceptResultPreviousFeedback, type: :model do
   before do
-    create(:response_instructions)
+    create(:concept_result_previous_feedback)
   end
 
   context 'associations' do
-    it { should have_many(:responses) }
+    it { should have_many(:concept_results) }
   end
 
   context 'validations' do

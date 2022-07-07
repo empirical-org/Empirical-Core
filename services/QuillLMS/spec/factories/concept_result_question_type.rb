@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :response_question_type, class: 'ResponseQuestionType' do
+  factory :concept_result_question_type, class: 'ConceptResultQuestionType' do
     sequence(:text) { |n| "question-type-#{n}." }
   end
 end

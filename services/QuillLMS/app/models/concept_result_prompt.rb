@@ -2,7 +2,7 @@
 
 # == Schema Information
 #
-# Table name: response_instructions
+# Table name: concept_result_prompts
 #
 #  id         :integer          not null, primary key
 #  text       :text             not null
@@ -10,10 +10,10 @@
 #
 # Indexes
 #
-#  index_response_instructions_on_text  (text) UNIQUE
+#  index_concept_result_prompts_on_text  (text) UNIQUE
 #
-class ResponseInstructions < ApplicationRecord
-  has_many :responses
+class ConceptResultPrompt < ApplicationRecord
+  has_many :concept_results
 
   validates :text, uniqueness: true, presence: true
 end
