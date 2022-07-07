@@ -12,7 +12,7 @@ exports[`StudentNameOrTooltip component should render if the name is long enough
   >
     <span
       aria-hidden={false}
-      className="quill-tooltip-trigger"
+      className="quill-tooltip-trigger "
       role="tooltip"
     >
       <span

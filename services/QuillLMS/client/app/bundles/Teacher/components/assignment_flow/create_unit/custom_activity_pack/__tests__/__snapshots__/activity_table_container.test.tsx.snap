@@ -4747,36 +4747,46 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               type="button"
             >
               <h2>
-                Hernan Cortes
+                <img
+                  alt="Target representing Quill Connect"
+                  src="undefined/images/icons/description-connect.svg"
+                />
+                <span>
+                  Hernan Cortes
+                </span>
               </h2>
             </button>
           </div>
           <div
             className="buttons-wrapper"
           >
-            <a
-              className="interactive-wrapper focus-on-light preview-link"
-              href="/activity_sessions/anonymous?activity_id=627"
-              rel="noopener noreferrer"
-              target="_blank"
+            <div
+              className="non-toggle-buttons"
             >
-              <img
-                alt="Preview eye icon"
-                src="undefined/images/icons/preview.svg"
-              />
-              Preview
-            </a>
-            <button
-              className="interactive-wrapper focus-on-light save-button"
-              onClick={[Function]}
-              type="button"
-            >
-              <img
-                alt="Arrow pointing down"
-                src="undefined/images/icons/icons-bookmark-outline.svg"
-              />
-              Save
-            </button>
+              <a
+                className="interactive-wrapper focus-on-light preview-link"
+                href="/activity_sessions/anonymous?activity_id=627"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt="Preview eye icon"
+                  src="undefined/images/icons/preview.svg"
+                />
+                Preview
+              </a>
+              <button
+                className="interactive-wrapper focus-on-light save-button"
+                onClick={[Function]}
+                type="button"
+              >
+                <img
+                  alt="Arrow pointing down"
+                  src="undefined/images/icons/icons-bookmark-outline.svg"
+                />
+                Save
+              </button>
+            </div>
             <button
               className="interactive-wrapper focus-on-light expand-button"
               onClick={[Function]}
@@ -4795,28 +4805,6 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           <div
             className="classification-concept-topic-wrapper"
           >
-            <ActivityRowClassification
-              classification={
-                Object {
-                  "alias": "Quill Connect",
-                  "description": "Combine Sentences",
-                  "id": 5,
-                  "key": "connect",
-                }
-              }
-            >
-              <span
-                className="attribute-section classification"
-              >
-                <img
-                  alt="Target representing Quill Connect"
-                  src="undefined/images/icons/description-connect.svg"
-                />
-                <span>
-                  Quill Connect
-                </span>
-              </span>
-            </ActivityRowClassification>
             <ActivityRowConcept
               conceptName="History: Maya, Aztec, Inca"
             >
@@ -4833,7 +4821,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               </span>
             </ActivityRowConcept>
             <ActivityRowTopics
+              inExpandedView={false}
               maxAllowedLength={0}
+              onTertiaryLine={false}
               topics={
                 Array [
                   Object {
@@ -4863,30 +4853,12 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 ]
               }
             >
-              <span
-                className="attribute-section topic"
-              />
+              <span />
             </ActivityRowTopics>
           </div>
           <div
             className="grade-range-and-standard-level-wrapper"
           >
-            <ActivityRowReadabilityGradeLevel
-              readabilityGradeLevel="8th-9th"
-            >
-              <span
-                className="attribute-section grade-range"
-              >
-                <img
-                  alt="Book icon"
-                  src="undefined/images/icons/description-readability.svg"
-                />
-                <span>
-                  Readability: Grades 
-                  8th-9th
-                </span>
-              </span>
-            </ActivityRowReadabilityGradeLevel>
             <ActivityRowStandardLevel
               standardLevelName="7th Grade CCSS"
             >
@@ -4902,7 +4874,120 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 </span>
               </span>
             </ActivityRowStandardLevel>
+            <ActivityRowGradeRange>
+              <span
+                className="attribute-section grade-range"
+              >
+                <img
+                  alt="Book icon"
+                  src="undefined/images/icons/description-readability.svg"
+                />
+                <span>
+                  Grades: 
+                  <span
+                    className="grade-level"
+                  >
+                    4 - 5
+                  </span>
+                  <span
+                    className="grade-level"
+                  >
+                    6 - 7
+                  </span>
+                  <span
+                    className="grade-level"
+                  >
+                    8 - 9
+                  </span>
+                  <span
+                    className="grade-level"
+                  >
+                    10 - 12
+                  </span>
+                </span>
+              </span>
+            </ActivityRowGradeRange>
           </div>
+        </div>
+        <div
+          className="third-line mobile-only"
+        >
+          <div
+            className="non-toggle-buttons"
+          >
+            <a
+              className="interactive-wrapper focus-on-light preview-link"
+              href="/activity_sessions/anonymous?activity_id=627"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt="Preview eye icon"
+                src="undefined/images/icons/preview.svg"
+              />
+              Preview
+            </a>
+            <button
+              className="interactive-wrapper focus-on-light save-button"
+              onClick={[Function]}
+              type="button"
+            >
+              <img
+                alt="Arrow pointing down"
+                src="undefined/images/icons/icons-bookmark-outline.svg"
+              />
+              Save
+            </button>
+          </div>
+        </div>
+        <div
+          className="third-line"
+        >
+          <ActivityRowTopics
+            inExpandedView={false}
+            maxAllowedLength={0}
+            onTertiaryLine={true}
+            topics={
+              Array [
+                Object {
+                  "id": 16,
+                  "level": 3,
+                  "name": "History",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": 93,
+                  "level": 2,
+                  "name": "World Historical Figures",
+                  "parent_id": 16,
+                },
+                Object {
+                  "id": 171,
+                  "level": 0,
+                  "name": "Hernan Cortes & the Aztec Empire",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": 172,
+                  "level": 1,
+                  "name": "Maya, Aztec, & Inca Civilizations",
+                  "parent_id": null,
+                },
+              ]
+            }
+          >
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                Maya, Aztec, & Inca Civilizations: Hernan Cortes & the Aztec Empire
+              </span>
+            </span>
+          </ActivityRowTopics>
         </div>
         <ActivityRowExpandedSection
           activity={
@@ -5199,36 +5284,46 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               type="button"
             >
               <h2>
-                Maya Mystery
+                <img
+                  alt="Target representing Quill Connect"
+                  src="undefined/images/icons/description-connect.svg"
+                />
+                <span>
+                  Maya Mystery
+                </span>
               </h2>
             </button>
           </div>
           <div
             className="buttons-wrapper"
           >
-            <a
-              className="interactive-wrapper focus-on-light preview-link"
-              href="/activity_sessions/anonymous?activity_id=628"
-              rel="noopener noreferrer"
-              target="_blank"
+            <div
+              className="non-toggle-buttons"
             >
-              <img
-                alt="Preview eye icon"
-                src="undefined/images/icons/preview.svg"
-              />
-              Preview
-            </a>
-            <button
-              className="interactive-wrapper focus-on-light save-button"
-              onClick={[Function]}
-              type="button"
-            >
-              <img
-                alt="Arrow pointing down"
-                src="undefined/images/icons/icons-bookmark-outline.svg"
-              />
-              Save
-            </button>
+              <a
+                className="interactive-wrapper focus-on-light preview-link"
+                href="/activity_sessions/anonymous?activity_id=628"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt="Preview eye icon"
+                  src="undefined/images/icons/preview.svg"
+                />
+                Preview
+              </a>
+              <button
+                className="interactive-wrapper focus-on-light save-button"
+                onClick={[Function]}
+                type="button"
+              >
+                <img
+                  alt="Arrow pointing down"
+                  src="undefined/images/icons/icons-bookmark-outline.svg"
+                />
+                Save
+              </button>
+            </div>
             <button
               className="interactive-wrapper focus-on-light expand-button"
               onClick={[Function]}
@@ -5247,28 +5342,6 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           <div
             className="classification-concept-topic-wrapper"
           >
-            <ActivityRowClassification
-              classification={
-                Object {
-                  "alias": "Quill Connect",
-                  "description": "Combine Sentences",
-                  "id": 5,
-                  "key": "connect",
-                }
-              }
-            >
-              <span
-                className="attribute-section classification"
-              >
-                <img
-                  alt="Target representing Quill Connect"
-                  src="undefined/images/icons/description-connect.svg"
-                />
-                <span>
-                  Quill Connect
-                </span>
-              </span>
-            </ActivityRowClassification>
             <ActivityRowConcept
               conceptName="History: Maya, Aztec, Inca"
             >
@@ -5285,7 +5358,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               </span>
             </ActivityRowConcept>
             <ActivityRowTopics
+              inExpandedView={false}
               maxAllowedLength={0}
+              onTertiaryLine={false}
               topics={
                 Array [
                   Object {
@@ -5315,30 +5390,12 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 ]
               }
             >
-              <span
-                className="attribute-section topic"
-              />
+              <span />
             </ActivityRowTopics>
           </div>
           <div
             className="grade-range-and-standard-level-wrapper"
           >
-            <ActivityRowReadabilityGradeLevel
-              readabilityGradeLevel="6th-7th"
-            >
-              <span
-                className="attribute-section grade-range"
-              >
-                <img
-                  alt="Book icon"
-                  src="undefined/images/icons/description-readability.svg"
-                />
-                <span>
-                  Readability: Grades 
-                  6th-7th
-                </span>
-              </span>
-            </ActivityRowReadabilityGradeLevel>
             <ActivityRowStandardLevel
               standardLevelName="7th Grade CCSS"
             >
@@ -5354,7 +5411,120 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 </span>
               </span>
             </ActivityRowStandardLevel>
+            <ActivityRowGradeRange>
+              <span
+                className="attribute-section grade-range"
+              >
+                <img
+                  alt="Book icon"
+                  src="undefined/images/icons/description-readability.svg"
+                />
+                <span>
+                  Grades: 
+                  <span
+                    className="grade-level"
+                  >
+                    4 - 5
+                  </span>
+                  <span
+                    className="grade-level"
+                  >
+                    6 - 7
+                  </span>
+                  <span
+                    className="grade-level"
+                  >
+                    8 - 9
+                  </span>
+                  <span
+                    className="grade-level"
+                  >
+                    10 - 12
+                  </span>
+                </span>
+              </span>
+            </ActivityRowGradeRange>
           </div>
+        </div>
+        <div
+          className="third-line mobile-only"
+        >
+          <div
+            className="non-toggle-buttons"
+          >
+            <a
+              className="interactive-wrapper focus-on-light preview-link"
+              href="/activity_sessions/anonymous?activity_id=628"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt="Preview eye icon"
+                src="undefined/images/icons/preview.svg"
+              />
+              Preview
+            </a>
+            <button
+              className="interactive-wrapper focus-on-light save-button"
+              onClick={[Function]}
+              type="button"
+            >
+              <img
+                alt="Arrow pointing down"
+                src="undefined/images/icons/icons-bookmark-outline.svg"
+              />
+              Save
+            </button>
+          </div>
+        </div>
+        <div
+          className="third-line"
+        >
+          <ActivityRowTopics
+            inExpandedView={false}
+            maxAllowedLength={0}
+            onTertiaryLine={true}
+            topics={
+              Array [
+                Object {
+                  "id": 16,
+                  "level": 3,
+                  "name": "History",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": 48,
+                  "level": 2,
+                  "name": "World History",
+                  "parent_id": 16,
+                },
+                Object {
+                  "id": 172,
+                  "level": 1,
+                  "name": "Maya, Aztec, & Inca Civilizations",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": 218,
+                  "level": 0,
+                  "name": "Maya Civilization",
+                  "parent_id": null,
+                },
+              ]
+            }
+          >
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                Maya, Aztec, & Inca Civilizations: Maya Civilization
+              </span>
+            </span>
+          </ActivityRowTopics>
         </div>
         <ActivityRowExpandedSection
           activity={
@@ -5651,36 +5821,46 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               type="button"
             >
               <h2>
-                Tenochtitlan Origin Myth
+                <img
+                  alt="Target representing Quill Connect"
+                  src="undefined/images/icons/description-connect.svg"
+                />
+                <span>
+                  Tenochtitlan Origin Myth
+                </span>
               </h2>
             </button>
           </div>
           <div
             className="buttons-wrapper"
           >
-            <a
-              className="interactive-wrapper focus-on-light preview-link"
-              href="/activity_sessions/anonymous?activity_id=629"
-              rel="noopener noreferrer"
-              target="_blank"
+            <div
+              className="non-toggle-buttons"
             >
-              <img
-                alt="Preview eye icon"
-                src="undefined/images/icons/preview.svg"
-              />
-              Preview
-            </a>
-            <button
-              className="interactive-wrapper focus-on-light save-button"
-              onClick={[Function]}
-              type="button"
-            >
-              <img
-                alt="Arrow pointing down"
-                src="undefined/images/icons/icons-bookmark-outline.svg"
-              />
-              Save
-            </button>
+              <a
+                className="interactive-wrapper focus-on-light preview-link"
+                href="/activity_sessions/anonymous?activity_id=629"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt="Preview eye icon"
+                  src="undefined/images/icons/preview.svg"
+                />
+                Preview
+              </a>
+              <button
+                className="interactive-wrapper focus-on-light save-button"
+                onClick={[Function]}
+                type="button"
+              >
+                <img
+                  alt="Arrow pointing down"
+                  src="undefined/images/icons/icons-bookmark-outline.svg"
+                />
+                Save
+              </button>
+            </div>
             <button
               className="interactive-wrapper focus-on-light expand-button"
               onClick={[Function]}
@@ -5699,28 +5879,6 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           <div
             className="classification-concept-topic-wrapper"
           >
-            <ActivityRowClassification
-              classification={
-                Object {
-                  "alias": "Quill Connect",
-                  "description": "Combine Sentences",
-                  "id": 5,
-                  "key": "connect",
-                }
-              }
-            >
-              <span
-                className="attribute-section classification"
-              >
-                <img
-                  alt="Target representing Quill Connect"
-                  src="undefined/images/icons/description-connect.svg"
-                />
-                <span>
-                  Quill Connect
-                </span>
-              </span>
-            </ActivityRowClassification>
             <ActivityRowConcept
               conceptName="History: Maya, Aztec, Inca"
             >
@@ -5737,7 +5895,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               </span>
             </ActivityRowConcept>
             <ActivityRowTopics
+              inExpandedView={false}
               maxAllowedLength={0}
+              onTertiaryLine={false}
               topics={
                 Array [
                   Object {
@@ -5767,30 +5927,12 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 ]
               }
             >
-              <span
-                className="attribute-section topic"
-              />
+              <span />
             </ActivityRowTopics>
           </div>
           <div
             className="grade-range-and-standard-level-wrapper"
           >
-            <ActivityRowReadabilityGradeLevel
-              readabilityGradeLevel="6th-7th"
-            >
-              <span
-                className="attribute-section grade-range"
-              >
-                <img
-                  alt="Book icon"
-                  src="undefined/images/icons/description-readability.svg"
-                />
-                <span>
-                  Readability: Grades 
-                  6th-7th
-                </span>
-              </span>
-            </ActivityRowReadabilityGradeLevel>
             <ActivityRowStandardLevel
               standardLevelName="7th Grade CCSS"
             >
@@ -5806,7 +5948,120 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 </span>
               </span>
             </ActivityRowStandardLevel>
+            <ActivityRowGradeRange>
+              <span
+                className="attribute-section grade-range"
+              >
+                <img
+                  alt="Book icon"
+                  src="undefined/images/icons/description-readability.svg"
+                />
+                <span>
+                  Grades: 
+                  <span
+                    className="grade-level"
+                  >
+                    4 - 5
+                  </span>
+                  <span
+                    className="grade-level"
+                  >
+                    6 - 7
+                  </span>
+                  <span
+                    className="grade-level"
+                  >
+                    8 - 9
+                  </span>
+                  <span
+                    className="grade-level"
+                  >
+                    10 - 12
+                  </span>
+                </span>
+              </span>
+            </ActivityRowGradeRange>
           </div>
+        </div>
+        <div
+          className="third-line mobile-only"
+        >
+          <div
+            className="non-toggle-buttons"
+          >
+            <a
+              className="interactive-wrapper focus-on-light preview-link"
+              href="/activity_sessions/anonymous?activity_id=629"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt="Preview eye icon"
+                src="undefined/images/icons/preview.svg"
+              />
+              Preview
+            </a>
+            <button
+              className="interactive-wrapper focus-on-light save-button"
+              onClick={[Function]}
+              type="button"
+            >
+              <img
+                alt="Arrow pointing down"
+                src="undefined/images/icons/icons-bookmark-outline.svg"
+              />
+              Save
+            </button>
+          </div>
+        </div>
+        <div
+          className="third-line"
+        >
+          <ActivityRowTopics
+            inExpandedView={false}
+            maxAllowedLength={0}
+            onTertiaryLine={true}
+            topics={
+              Array [
+                Object {
+                  "id": 3,
+                  "level": 3,
+                  "name": "Culture",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": 28,
+                  "level": 2,
+                  "name": "Stories & Myths",
+                  "parent_id": 3,
+                },
+                Object {
+                  "id": 172,
+                  "level": 1,
+                  "name": "Maya, Aztec, & Inca Civilizations",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": 315,
+                  "level": 0,
+                  "name": "Tenochtitlán Origin Myth",
+                  "parent_id": null,
+                },
+              ]
+            }
+          >
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                Maya, Aztec, & Inca Civilizations: Tenochtitlán Origin Myth
+              </span>
+            </span>
+          </ActivityRowTopics>
         </div>
         <ActivityRowExpandedSection
           activity={
@@ -6103,36 +6358,46 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               type="button"
             >
               <h2>
-                The Royal Road
+                <img
+                  alt="Target representing Quill Connect"
+                  src="undefined/images/icons/description-connect.svg"
+                />
+                <span>
+                  The Royal Road
+                </span>
               </h2>
             </button>
           </div>
           <div
             className="buttons-wrapper"
           >
-            <a
-              className="interactive-wrapper focus-on-light preview-link"
-              href="/activity_sessions/anonymous?activity_id=630"
-              rel="noopener noreferrer"
-              target="_blank"
+            <div
+              className="non-toggle-buttons"
             >
-              <img
-                alt="Preview eye icon"
-                src="undefined/images/icons/preview.svg"
-              />
-              Preview
-            </a>
-            <button
-              className="interactive-wrapper focus-on-light save-button"
-              onClick={[Function]}
-              type="button"
-            >
-              <img
-                alt="Arrow pointing down"
-                src="undefined/images/icons/icons-bookmark-outline.svg"
-              />
-              Save
-            </button>
+              <a
+                className="interactive-wrapper focus-on-light preview-link"
+                href="/activity_sessions/anonymous?activity_id=630"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt="Preview eye icon"
+                  src="undefined/images/icons/preview.svg"
+                />
+                Preview
+              </a>
+              <button
+                className="interactive-wrapper focus-on-light save-button"
+                onClick={[Function]}
+                type="button"
+              >
+                <img
+                  alt="Arrow pointing down"
+                  src="undefined/images/icons/icons-bookmark-outline.svg"
+                />
+                Save
+              </button>
+            </div>
             <button
               className="interactive-wrapper focus-on-light expand-button"
               onClick={[Function]}
@@ -6151,28 +6416,6 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           <div
             className="classification-concept-topic-wrapper"
           >
-            <ActivityRowClassification
-              classification={
-                Object {
-                  "alias": "Quill Connect",
-                  "description": "Combine Sentences",
-                  "id": 5,
-                  "key": "connect",
-                }
-              }
-            >
-              <span
-                className="attribute-section classification"
-              >
-                <img
-                  alt="Target representing Quill Connect"
-                  src="undefined/images/icons/description-connect.svg"
-                />
-                <span>
-                  Quill Connect
-                </span>
-              </span>
-            </ActivityRowClassification>
             <ActivityRowConcept
               conceptName="History: Maya, Aztec, Inca"
             >
@@ -6189,7 +6432,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               </span>
             </ActivityRowConcept>
             <ActivityRowTopics
+              inExpandedView={false}
               maxAllowedLength={0}
+              onTertiaryLine={false}
               topics={
                 Array [
                   Object {
@@ -6219,30 +6464,12 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 ]
               }
             >
-              <span
-                className="attribute-section topic"
-              />
+              <span />
             </ActivityRowTopics>
           </div>
           <div
             className="grade-range-and-standard-level-wrapper"
           >
-            <ActivityRowReadabilityGradeLevel
-              readabilityGradeLevel="8th-9th"
-            >
-              <span
-                className="attribute-section grade-range"
-              >
-                <img
-                  alt="Book icon"
-                  src="undefined/images/icons/description-readability.svg"
-                />
-                <span>
-                  Readability: Grades 
-                  8th-9th
-                </span>
-              </span>
-            </ActivityRowReadabilityGradeLevel>
             <ActivityRowStandardLevel
               standardLevelName="7th Grade CCSS"
             >
@@ -6258,7 +6485,120 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 </span>
               </span>
             </ActivityRowStandardLevel>
+            <ActivityRowGradeRange>
+              <span
+                className="attribute-section grade-range"
+              >
+                <img
+                  alt="Book icon"
+                  src="undefined/images/icons/description-readability.svg"
+                />
+                <span>
+                  Grades: 
+                  <span
+                    className="grade-level"
+                  >
+                    4 - 5
+                  </span>
+                  <span
+                    className="grade-level"
+                  >
+                    6 - 7
+                  </span>
+                  <span
+                    className="grade-level"
+                  >
+                    8 - 9
+                  </span>
+                  <span
+                    className="grade-level"
+                  >
+                    10 - 12
+                  </span>
+                </span>
+              </span>
+            </ActivityRowGradeRange>
           </div>
+        </div>
+        <div
+          className="third-line mobile-only"
+        >
+          <div
+            className="non-toggle-buttons"
+          >
+            <a
+              className="interactive-wrapper focus-on-light preview-link"
+              href="/activity_sessions/anonymous?activity_id=630"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt="Preview eye icon"
+                src="undefined/images/icons/preview.svg"
+              />
+              Preview
+            </a>
+            <button
+              className="interactive-wrapper focus-on-light save-button"
+              onClick={[Function]}
+              type="button"
+            >
+              <img
+                alt="Arrow pointing down"
+                src="undefined/images/icons/icons-bookmark-outline.svg"
+              />
+              Save
+            </button>
+          </div>
+        </div>
+        <div
+          className="third-line"
+        >
+          <ActivityRowTopics
+            inExpandedView={false}
+            maxAllowedLength={0}
+            onTertiaryLine={true}
+            topics={
+              Array [
+                Object {
+                  "id": 16,
+                  "level": 3,
+                  "name": "History",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": 48,
+                  "level": 2,
+                  "name": "World History",
+                  "parent_id": 16,
+                },
+                Object {
+                  "id": 172,
+                  "level": 1,
+                  "name": "Maya, Aztec, & Inca Civilizations",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": 358,
+                  "level": 0,
+                  "name": "The Inca",
+                  "parent_id": null,
+                },
+              ]
+            }
+          >
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                Maya, Aztec, & Inca Civilizations: The Inca
+              </span>
+            </span>
+          </ActivityRowTopics>
         </div>
         <ActivityRowExpandedSection
           activity={
@@ -6555,36 +6895,46 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               type="button"
             >
               <h2>
-                Hui Zong's Defeat
+                <img
+                  alt="Target representing Quill Connect"
+                  src="undefined/images/icons/description-connect.svg"
+                />
+                <span>
+                  Hui Zong's Defeat
+                </span>
               </h2>
             </button>
           </div>
           <div
             className="buttons-wrapper"
           >
-            <a
-              className="interactive-wrapper focus-on-light preview-link"
-              href="/activity_sessions/anonymous?activity_id=617"
-              rel="noopener noreferrer"
-              target="_blank"
+            <div
+              className="non-toggle-buttons"
             >
-              <img
-                alt="Preview eye icon"
-                src="undefined/images/icons/preview.svg"
-              />
-              Preview
-            </a>
-            <button
-              className="interactive-wrapper focus-on-light save-button"
-              onClick={[Function]}
-              type="button"
-            >
-              <img
-                alt="Arrow pointing down"
-                src="undefined/images/icons/icons-bookmark-outline.svg"
-              />
-              Save
-            </button>
+              <a
+                className="interactive-wrapper focus-on-light preview-link"
+                href="/activity_sessions/anonymous?activity_id=617"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt="Preview eye icon"
+                  src="undefined/images/icons/preview.svg"
+                />
+                Preview
+              </a>
+              <button
+                className="interactive-wrapper focus-on-light save-button"
+                onClick={[Function]}
+                type="button"
+              >
+                <img
+                  alt="Arrow pointing down"
+                  src="undefined/images/icons/icons-bookmark-outline.svg"
+                />
+                Save
+              </button>
+            </div>
             <button
               className="interactive-wrapper focus-on-light expand-button"
               onClick={[Function]}
@@ -6603,28 +6953,6 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           <div
             className="classification-concept-topic-wrapper"
           >
-            <ActivityRowClassification
-              classification={
-                Object {
-                  "alias": "Quill Connect",
-                  "description": "Combine Sentences",
-                  "id": 5,
-                  "key": "connect",
-                }
-              }
-            >
-              <span
-                className="attribute-section classification"
-              >
-                <img
-                  alt="Target representing Quill Connect"
-                  src="undefined/images/icons/description-connect.svg"
-                />
-                <span>
-                  Quill Connect
-                </span>
-              </span>
-            </ActivityRowClassification>
             <ActivityRowConcept
               conceptName="History: Chinese Dynasties"
             >
@@ -6641,7 +6969,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               </span>
             </ActivityRowConcept>
             <ActivityRowTopics
+              inExpandedView={false}
               maxAllowedLength={0}
+              onTertiaryLine={false}
               topics={
                 Array [
                   Object {
@@ -6671,30 +7001,12 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 ]
               }
             >
-              <span
-                className="attribute-section topic"
-              />
+              <span />
             </ActivityRowTopics>
           </div>
           <div
             className="grade-range-and-standard-level-wrapper"
           >
-            <ActivityRowReadabilityGradeLevel
-              readabilityGradeLevel="8th-9th"
-            >
-              <span
-                className="attribute-section grade-range"
-              >
-                <img
-                  alt="Book icon"
-                  src="undefined/images/icons/description-readability.svg"
-                />
-                <span>
-                  Readability: Grades 
-                  8th-9th
-                </span>
-              </span>
-            </ActivityRowReadabilityGradeLevel>
             <ActivityRowStandardLevel
               standardLevelName="7th Grade CCSS"
             >
@@ -6710,7 +7022,120 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 </span>
               </span>
             </ActivityRowStandardLevel>
+            <ActivityRowGradeRange>
+              <span
+                className="attribute-section grade-range"
+              >
+                <img
+                  alt="Book icon"
+                  src="undefined/images/icons/description-readability.svg"
+                />
+                <span>
+                  Grades: 
+                  <span
+                    className="grade-level"
+                  >
+                    4 - 5
+                  </span>
+                  <span
+                    className="grade-level"
+                  >
+                    6 - 7
+                  </span>
+                  <span
+                    className="grade-level"
+                  >
+                    8 - 9
+                  </span>
+                  <span
+                    className="grade-level"
+                  >
+                    10 - 12
+                  </span>
+                </span>
+              </span>
+            </ActivityRowGradeRange>
           </div>
+        </div>
+        <div
+          className="third-line mobile-only"
+        >
+          <div
+            className="non-toggle-buttons"
+          >
+            <a
+              className="interactive-wrapper focus-on-light preview-link"
+              href="/activity_sessions/anonymous?activity_id=617"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt="Preview eye icon"
+                src="undefined/images/icons/preview.svg"
+              />
+              Preview
+            </a>
+            <button
+              className="interactive-wrapper focus-on-light save-button"
+              onClick={[Function]}
+              type="button"
+            >
+              <img
+                alt="Arrow pointing down"
+                src="undefined/images/icons/icons-bookmark-outline.svg"
+              />
+              Save
+            </button>
+          </div>
+        </div>
+        <div
+          className="third-line"
+        >
+          <ActivityRowTopics
+            inExpandedView={false}
+            maxAllowedLength={0}
+            onTertiaryLine={true}
+            topics={
+              Array [
+                Object {
+                  "id": 16,
+                  "level": 3,
+                  "name": "History",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": 93,
+                  "level": 2,
+                  "name": "World Historical Figures",
+                  "parent_id": 16,
+                },
+                Object {
+                  "id": 184,
+                  "level": 0,
+                  "name": "Hui Zong's Defeat",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": 185,
+                  "level": 1,
+                  "name": "Chinese Dynasties",
+                  "parent_id": null,
+                },
+              ]
+            }
+          >
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                Chinese Dynasties: Hui Zong's Defeat
+              </span>
+            </span>
+          </ActivityRowTopics>
         </div>
         <ActivityRowExpandedSection
           activity={
@@ -7007,36 +7432,46 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               type="button"
             >
               <h2>
-                Shihuangdi Unifies China
+                <img
+                  alt="Target representing Quill Connect"
+                  src="undefined/images/icons/description-connect.svg"
+                />
+                <span>
+                  Shihuangdi Unifies China
+                </span>
               </h2>
             </button>
           </div>
           <div
             className="buttons-wrapper"
           >
-            <a
-              className="interactive-wrapper focus-on-light preview-link"
-              href="/activity_sessions/anonymous?activity_id=619"
-              rel="noopener noreferrer"
-              target="_blank"
+            <div
+              className="non-toggle-buttons"
             >
-              <img
-                alt="Preview eye icon"
-                src="undefined/images/icons/preview.svg"
-              />
-              Preview
-            </a>
-            <button
-              className="interactive-wrapper focus-on-light save-button"
-              onClick={[Function]}
-              type="button"
-            >
-              <img
-                alt="Arrow pointing down"
-                src="undefined/images/icons/icons-bookmark-outline.svg"
-              />
-              Save
-            </button>
+              <a
+                className="interactive-wrapper focus-on-light preview-link"
+                href="/activity_sessions/anonymous?activity_id=619"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt="Preview eye icon"
+                  src="undefined/images/icons/preview.svg"
+                />
+                Preview
+              </a>
+              <button
+                className="interactive-wrapper focus-on-light save-button"
+                onClick={[Function]}
+                type="button"
+              >
+                <img
+                  alt="Arrow pointing down"
+                  src="undefined/images/icons/icons-bookmark-outline.svg"
+                />
+                Save
+              </button>
+            </div>
             <button
               className="interactive-wrapper focus-on-light expand-button"
               onClick={[Function]}
@@ -7055,28 +7490,6 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           <div
             className="classification-concept-topic-wrapper"
           >
-            <ActivityRowClassification
-              classification={
-                Object {
-                  "alias": "Quill Connect",
-                  "description": "Combine Sentences",
-                  "id": 5,
-                  "key": "connect",
-                }
-              }
-            >
-              <span
-                className="attribute-section classification"
-              >
-                <img
-                  alt="Target representing Quill Connect"
-                  src="undefined/images/icons/description-connect.svg"
-                />
-                <span>
-                  Quill Connect
-                </span>
-              </span>
-            </ActivityRowClassification>
             <ActivityRowConcept
               conceptName="History: Chinese Dynasties"
             >
@@ -7093,7 +7506,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               </span>
             </ActivityRowConcept>
             <ActivityRowTopics
+              inExpandedView={false}
               maxAllowedLength={0}
+              onTertiaryLine={false}
               topics={
                 Array [
                   Object {
@@ -7123,30 +7538,12 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 ]
               }
             >
-              <span
-                className="attribute-section topic"
-              />
+              <span />
             </ActivityRowTopics>
           </div>
           <div
             className="grade-range-and-standard-level-wrapper"
           >
-            <ActivityRowReadabilityGradeLevel
-              readabilityGradeLevel="8th-9th"
-            >
-              <span
-                className="attribute-section grade-range"
-              >
-                <img
-                  alt="Book icon"
-                  src="undefined/images/icons/description-readability.svg"
-                />
-                <span>
-                  Readability: Grades 
-                  8th-9th
-                </span>
-              </span>
-            </ActivityRowReadabilityGradeLevel>
             <ActivityRowStandardLevel
               standardLevelName="7th Grade CCSS"
             >
@@ -7162,7 +7559,120 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 </span>
               </span>
             </ActivityRowStandardLevel>
+            <ActivityRowGradeRange>
+              <span
+                className="attribute-section grade-range"
+              >
+                <img
+                  alt="Book icon"
+                  src="undefined/images/icons/description-readability.svg"
+                />
+                <span>
+                  Grades: 
+                  <span
+                    className="grade-level"
+                  >
+                    4 - 5
+                  </span>
+                  <span
+                    className="grade-level"
+                  >
+                    6 - 7
+                  </span>
+                  <span
+                    className="grade-level"
+                  >
+                    8 - 9
+                  </span>
+                  <span
+                    className="grade-level"
+                  >
+                    10 - 12
+                  </span>
+                </span>
+              </span>
+            </ActivityRowGradeRange>
           </div>
+        </div>
+        <div
+          className="third-line mobile-only"
+        >
+          <div
+            className="non-toggle-buttons"
+          >
+            <a
+              className="interactive-wrapper focus-on-light preview-link"
+              href="/activity_sessions/anonymous?activity_id=619"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt="Preview eye icon"
+                src="undefined/images/icons/preview.svg"
+              />
+              Preview
+            </a>
+            <button
+              className="interactive-wrapper focus-on-light save-button"
+              onClick={[Function]}
+              type="button"
+            >
+              <img
+                alt="Arrow pointing down"
+                src="undefined/images/icons/icons-bookmark-outline.svg"
+              />
+              Save
+            </button>
+          </div>
+        </div>
+        <div
+          className="third-line"
+        >
+          <ActivityRowTopics
+            inExpandedView={false}
+            maxAllowedLength={0}
+            onTertiaryLine={true}
+            topics={
+              Array [
+                Object {
+                  "id": 16,
+                  "level": 3,
+                  "name": "History",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": 93,
+                  "level": 2,
+                  "name": "World Historical Figures",
+                  "parent_id": 16,
+                },
+                Object {
+                  "id": 185,
+                  "level": 1,
+                  "name": "Chinese Dynasties",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": 283,
+                  "level": 0,
+                  "name": "Shihuangdi Unifies China",
+                  "parent_id": null,
+                },
+              ]
+            }
+          >
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                Chinese Dynasties: Shihuangdi Unifies China
+              </span>
+            </span>
+          </ActivityRowTopics>
         </div>
         <ActivityRowExpandedSection
           activity={
@@ -7459,36 +7969,46 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               type="button"
             >
               <h2>
-                Tang Dynasty Inventions
+                <img
+                  alt="Target representing Quill Connect"
+                  src="undefined/images/icons/description-connect.svg"
+                />
+                <span>
+                  Tang Dynasty Inventions
+                </span>
               </h2>
             </button>
           </div>
           <div
             className="buttons-wrapper"
           >
-            <a
-              className="interactive-wrapper focus-on-light preview-link"
-              href="/activity_sessions/anonymous?activity_id=616"
-              rel="noopener noreferrer"
-              target="_blank"
+            <div
+              className="non-toggle-buttons"
             >
-              <img
-                alt="Preview eye icon"
-                src="undefined/images/icons/preview.svg"
-              />
-              Preview
-            </a>
-            <button
-              className="interactive-wrapper focus-on-light save-button"
-              onClick={[Function]}
-              type="button"
-            >
-              <img
-                alt="Arrow pointing down"
-                src="undefined/images/icons/icons-bookmark-outline.svg"
-              />
-              Save
-            </button>
+              <a
+                className="interactive-wrapper focus-on-light preview-link"
+                href="/activity_sessions/anonymous?activity_id=616"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt="Preview eye icon"
+                  src="undefined/images/icons/preview.svg"
+                />
+                Preview
+              </a>
+              <button
+                className="interactive-wrapper focus-on-light save-button"
+                onClick={[Function]}
+                type="button"
+              >
+                <img
+                  alt="Arrow pointing down"
+                  src="undefined/images/icons/icons-bookmark-outline.svg"
+                />
+                Save
+              </button>
+            </div>
             <button
               className="interactive-wrapper focus-on-light expand-button"
               onClick={[Function]}
@@ -7507,28 +8027,6 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           <div
             className="classification-concept-topic-wrapper"
           >
-            <ActivityRowClassification
-              classification={
-                Object {
-                  "alias": "Quill Connect",
-                  "description": "Combine Sentences",
-                  "id": 5,
-                  "key": "connect",
-                }
-              }
-            >
-              <span
-                className="attribute-section classification"
-              >
-                <img
-                  alt="Target representing Quill Connect"
-                  src="undefined/images/icons/description-connect.svg"
-                />
-                <span>
-                  Quill Connect
-                </span>
-              </span>
-            </ActivityRowClassification>
             <ActivityRowConcept
               conceptName="History: Chinese Dynasties"
             >
@@ -7545,7 +8043,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               </span>
             </ActivityRowConcept>
             <ActivityRowTopics
+              inExpandedView={false}
               maxAllowedLength={0}
+              onTertiaryLine={false}
               topics={
                 Array [
                   Object {
@@ -7575,30 +8075,12 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 ]
               }
             >
-              <span
-                className="attribute-section topic"
-              />
+              <span />
             </ActivityRowTopics>
           </div>
           <div
             className="grade-range-and-standard-level-wrapper"
           >
-            <ActivityRowReadabilityGradeLevel
-              readabilityGradeLevel="6th-7th"
-            >
-              <span
-                className="attribute-section grade-range"
-              >
-                <img
-                  alt="Book icon"
-                  src="undefined/images/icons/description-readability.svg"
-                />
-                <span>
-                  Readability: Grades 
-                  6th-7th
-                </span>
-              </span>
-            </ActivityRowReadabilityGradeLevel>
             <ActivityRowStandardLevel
               standardLevelName="7th Grade CCSS"
             >
@@ -7614,7 +8096,120 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 </span>
               </span>
             </ActivityRowStandardLevel>
+            <ActivityRowGradeRange>
+              <span
+                className="attribute-section grade-range"
+              >
+                <img
+                  alt="Book icon"
+                  src="undefined/images/icons/description-readability.svg"
+                />
+                <span>
+                  Grades: 
+                  <span
+                    className="grade-level"
+                  >
+                    4 - 5
+                  </span>
+                  <span
+                    className="grade-level"
+                  >
+                    6 - 7
+                  </span>
+                  <span
+                    className="grade-level"
+                  >
+                    8 - 9
+                  </span>
+                  <span
+                    className="grade-level"
+                  >
+                    10 - 12
+                  </span>
+                </span>
+              </span>
+            </ActivityRowGradeRange>
           </div>
+        </div>
+        <div
+          className="third-line mobile-only"
+        >
+          <div
+            className="non-toggle-buttons"
+          >
+            <a
+              className="interactive-wrapper focus-on-light preview-link"
+              href="/activity_sessions/anonymous?activity_id=616"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt="Preview eye icon"
+                src="undefined/images/icons/preview.svg"
+              />
+              Preview
+            </a>
+            <button
+              className="interactive-wrapper focus-on-light save-button"
+              onClick={[Function]}
+              type="button"
+            >
+              <img
+                alt="Arrow pointing down"
+                src="undefined/images/icons/icons-bookmark-outline.svg"
+              />
+              Save
+            </button>
+          </div>
+        </div>
+        <div
+          className="third-line"
+        >
+          <ActivityRowTopics
+            inExpandedView={false}
+            maxAllowedLength={0}
+            onTertiaryLine={true}
+            topics={
+              Array [
+                Object {
+                  "id": 16,
+                  "level": 3,
+                  "name": "History",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": 48,
+                  "level": 2,
+                  "name": "World History",
+                  "parent_id": 16,
+                },
+                Object {
+                  "id": 185,
+                  "level": 1,
+                  "name": "Chinese Dynasties",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": 313,
+                  "level": 0,
+                  "name": "Tang Dynasty Inventions",
+                  "parent_id": null,
+                },
+              ]
+            }
+          >
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                Chinese Dynasties: Tang Dynasty Inventions
+              </span>
+            </span>
+          </ActivityRowTopics>
         </div>
         <ActivityRowExpandedSection
           activity={
@@ -7911,36 +8506,46 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               type="button"
             >
               <h2>
-                The Mongol Invasion of China
+                <img
+                  alt="Target representing Quill Connect"
+                  src="undefined/images/icons/description-connect.svg"
+                />
+                <span>
+                  The Mongol Invasion of China
+                </span>
               </h2>
             </button>
           </div>
           <div
             className="buttons-wrapper"
           >
-            <a
-              className="interactive-wrapper focus-on-light preview-link"
-              href="/activity_sessions/anonymous?activity_id=618"
-              rel="noopener noreferrer"
-              target="_blank"
+            <div
+              className="non-toggle-buttons"
             >
-              <img
-                alt="Preview eye icon"
-                src="undefined/images/icons/preview.svg"
-              />
-              Preview
-            </a>
-            <button
-              className="interactive-wrapper focus-on-light save-button"
-              onClick={[Function]}
-              type="button"
-            >
-              <img
-                alt="Arrow pointing down"
-                src="undefined/images/icons/icons-bookmark-outline.svg"
-              />
-              Save
-            </button>
+              <a
+                className="interactive-wrapper focus-on-light preview-link"
+                href="/activity_sessions/anonymous?activity_id=618"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt="Preview eye icon"
+                  src="undefined/images/icons/preview.svg"
+                />
+                Preview
+              </a>
+              <button
+                className="interactive-wrapper focus-on-light save-button"
+                onClick={[Function]}
+                type="button"
+              >
+                <img
+                  alt="Arrow pointing down"
+                  src="undefined/images/icons/icons-bookmark-outline.svg"
+                />
+                Save
+              </button>
+            </div>
             <button
               className="interactive-wrapper focus-on-light expand-button"
               onClick={[Function]}
@@ -7959,28 +8564,6 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           <div
             className="classification-concept-topic-wrapper"
           >
-            <ActivityRowClassification
-              classification={
-                Object {
-                  "alias": "Quill Connect",
-                  "description": "Combine Sentences",
-                  "id": 5,
-                  "key": "connect",
-                }
-              }
-            >
-              <span
-                className="attribute-section classification"
-              >
-                <img
-                  alt="Target representing Quill Connect"
-                  src="undefined/images/icons/description-connect.svg"
-                />
-                <span>
-                  Quill Connect
-                </span>
-              </span>
-            </ActivityRowClassification>
             <ActivityRowConcept
               conceptName="History: Chinese Dynasties"
             >
@@ -7997,7 +8580,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               </span>
             </ActivityRowConcept>
             <ActivityRowTopics
+              inExpandedView={false}
               maxAllowedLength={0}
+              onTertiaryLine={false}
               topics={
                 Array [
                   Object {
@@ -8027,30 +8612,12 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 ]
               }
             >
-              <span
-                className="attribute-section topic"
-              />
+              <span />
             </ActivityRowTopics>
           </div>
           <div
             className="grade-range-and-standard-level-wrapper"
           >
-            <ActivityRowReadabilityGradeLevel
-              readabilityGradeLevel="8th-9th"
-            >
-              <span
-                className="attribute-section grade-range"
-              >
-                <img
-                  alt="Book icon"
-                  src="undefined/images/icons/description-readability.svg"
-                />
-                <span>
-                  Readability: Grades 
-                  8th-9th
-                </span>
-              </span>
-            </ActivityRowReadabilityGradeLevel>
             <ActivityRowStandardLevel
               standardLevelName="7th Grade CCSS"
             >
@@ -8066,7 +8633,120 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 </span>
               </span>
             </ActivityRowStandardLevel>
+            <ActivityRowGradeRange>
+              <span
+                className="attribute-section grade-range"
+              >
+                <img
+                  alt="Book icon"
+                  src="undefined/images/icons/description-readability.svg"
+                />
+                <span>
+                  Grades: 
+                  <span
+                    className="grade-level"
+                  >
+                    4 - 5
+                  </span>
+                  <span
+                    className="grade-level"
+                  >
+                    6 - 7
+                  </span>
+                  <span
+                    className="grade-level"
+                  >
+                    8 - 9
+                  </span>
+                  <span
+                    className="grade-level"
+                  >
+                    10 - 12
+                  </span>
+                </span>
+              </span>
+            </ActivityRowGradeRange>
           </div>
+        </div>
+        <div
+          className="third-line mobile-only"
+        >
+          <div
+            className="non-toggle-buttons"
+          >
+            <a
+              className="interactive-wrapper focus-on-light preview-link"
+              href="/activity_sessions/anonymous?activity_id=618"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt="Preview eye icon"
+                src="undefined/images/icons/preview.svg"
+              />
+              Preview
+            </a>
+            <button
+              className="interactive-wrapper focus-on-light save-button"
+              onClick={[Function]}
+              type="button"
+            >
+              <img
+                alt="Arrow pointing down"
+                src="undefined/images/icons/icons-bookmark-outline.svg"
+              />
+              Save
+            </button>
+          </div>
+        </div>
+        <div
+          className="third-line"
+        >
+          <ActivityRowTopics
+            inExpandedView={false}
+            maxAllowedLength={0}
+            onTertiaryLine={true}
+            topics={
+              Array [
+                Object {
+                  "id": 16,
+                  "level": 3,
+                  "name": "History",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": 48,
+                  "level": 2,
+                  "name": "World History",
+                  "parent_id": 16,
+                },
+                Object {
+                  "id": 185,
+                  "level": 1,
+                  "name": "Chinese Dynasties",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": 352,
+                  "level": 0,
+                  "name": "The Mongol Invasion of China",
+                  "parent_id": null,
+                },
+              ]
+            }
+          >
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                Chinese Dynasties: The Mongol Invasion of China
+              </span>
+            </span>
+          </ActivityRowTopics>
         </div>
         <ActivityRowExpandedSection
           activity={
@@ -8363,36 +9043,46 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               type="button"
             >
               <h2>
-                The Travels of Marco Polo
+                <img
+                  alt="Target representing Quill Connect"
+                  src="undefined/images/icons/description-connect.svg"
+                />
+                <span>
+                  The Travels of Marco Polo
+                </span>
               </h2>
             </button>
           </div>
           <div
             className="buttons-wrapper"
           >
-            <a
-              className="interactive-wrapper focus-on-light preview-link"
-              href="/activity_sessions/anonymous?activity_id=608"
-              rel="noopener noreferrer"
-              target="_blank"
+            <div
+              className="non-toggle-buttons"
             >
-              <img
-                alt="Preview eye icon"
-                src="undefined/images/icons/preview.svg"
-              />
-              Preview
-            </a>
-            <button
-              className="interactive-wrapper focus-on-light save-button"
-              onClick={[Function]}
-              type="button"
-            >
-              <img
-                alt="Arrow pointing down"
-                src="undefined/images/icons/icons-bookmark-outline.svg"
-              />
-              Save
-            </button>
+              <a
+                className="interactive-wrapper focus-on-light preview-link"
+                href="/activity_sessions/anonymous?activity_id=608"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt="Preview eye icon"
+                  src="undefined/images/icons/preview.svg"
+                />
+                Preview
+              </a>
+              <button
+                className="interactive-wrapper focus-on-light save-button"
+                onClick={[Function]}
+                type="button"
+              >
+                <img
+                  alt="Arrow pointing down"
+                  src="undefined/images/icons/icons-bookmark-outline.svg"
+                />
+                Save
+              </button>
+            </div>
             <button
               className="interactive-wrapper focus-on-light expand-button"
               onClick={[Function]}
@@ -8411,28 +9101,6 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           <div
             className="classification-concept-topic-wrapper"
           >
-            <ActivityRowClassification
-              classification={
-                Object {
-                  "alias": "Quill Connect",
-                  "description": "Combine Sentences",
-                  "id": 5,
-                  "key": "connect",
-                }
-              }
-            >
-              <span
-                className="attribute-section classification"
-              >
-                <img
-                  alt="Target representing Quill Connect"
-                  src="undefined/images/icons/description-connect.svg"
-                />
-                <span>
-                  Quill Connect
-                </span>
-              </span>
-            </ActivityRowClassification>
             <ActivityRowConcept
               conceptName="History: Age of Exploration"
             >
@@ -8449,7 +9117,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               </span>
             </ActivityRowConcept>
             <ActivityRowTopics
+              inExpandedView={false}
               maxAllowedLength={0}
+              onTertiaryLine={false}
               topics={
                 Array [
                   Object {
@@ -8479,30 +9149,12 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 ]
               }
             >
-              <span
-                className="attribute-section topic"
-              />
+              <span />
             </ActivityRowTopics>
           </div>
           <div
             className="grade-range-and-standard-level-wrapper"
           >
-            <ActivityRowReadabilityGradeLevel
-              readabilityGradeLevel="8th-9th"
-            >
-              <span
-                className="attribute-section grade-range"
-              >
-                <img
-                  alt="Book icon"
-                  src="undefined/images/icons/description-readability.svg"
-                />
-                <span>
-                  Readability: Grades 
-                  8th-9th
-                </span>
-              </span>
-            </ActivityRowReadabilityGradeLevel>
             <ActivityRowStandardLevel
               standardLevelName="7th Grade CCSS"
             >
@@ -8518,7 +9170,120 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 </span>
               </span>
             </ActivityRowStandardLevel>
+            <ActivityRowGradeRange>
+              <span
+                className="attribute-section grade-range"
+              >
+                <img
+                  alt="Book icon"
+                  src="undefined/images/icons/description-readability.svg"
+                />
+                <span>
+                  Grades: 
+                  <span
+                    className="grade-level"
+                  >
+                    4 - 5
+                  </span>
+                  <span
+                    className="grade-level"
+                  >
+                    6 - 7
+                  </span>
+                  <span
+                    className="grade-level"
+                  >
+                    8 - 9
+                  </span>
+                  <span
+                    className="grade-level"
+                  >
+                    10 - 12
+                  </span>
+                </span>
+              </span>
+            </ActivityRowGradeRange>
           </div>
+        </div>
+        <div
+          className="third-line mobile-only"
+        >
+          <div
+            className="non-toggle-buttons"
+          >
+            <a
+              className="interactive-wrapper focus-on-light preview-link"
+              href="/activity_sessions/anonymous?activity_id=608"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt="Preview eye icon"
+                src="undefined/images/icons/preview.svg"
+              />
+              Preview
+            </a>
+            <button
+              className="interactive-wrapper focus-on-light save-button"
+              onClick={[Function]}
+              type="button"
+            >
+              <img
+                alt="Arrow pointing down"
+                src="undefined/images/icons/icons-bookmark-outline.svg"
+              />
+              Save
+            </button>
+          </div>
+        </div>
+        <div
+          className="third-line"
+        >
+          <ActivityRowTopics
+            inExpandedView={false}
+            maxAllowedLength={0}
+            onTertiaryLine={true}
+            topics={
+              Array [
+                Object {
+                  "id": 16,
+                  "level": 3,
+                  "name": "History",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": 93,
+                  "level": 2,
+                  "name": "World Historical Figures",
+                  "parent_id": 16,
+                },
+                Object {
+                  "id": 117,
+                  "level": 1,
+                  "name": "The Age of Exploration",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": 368,
+                  "level": 0,
+                  "name": "Marco Polo",
+                  "parent_id": null,
+                },
+              ]
+            }
+          >
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                The Age of Exploration: Marco Polo
+              </span>
+            </span>
+          </ActivityRowTopics>
         </div>
         <ActivityRowExpandedSection
           activity={
@@ -8815,36 +9580,46 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               type="button"
             >
               <h2>
-                Hernando de Soto
+                <img
+                  alt="Target representing Quill Connect"
+                  src="undefined/images/icons/description-connect.svg"
+                />
+                <span>
+                  Hernando de Soto
+                </span>
               </h2>
             </button>
           </div>
           <div
             className="buttons-wrapper"
           >
-            <a
-              className="interactive-wrapper focus-on-light preview-link"
-              href="/activity_sessions/anonymous?activity_id=860"
-              rel="noopener noreferrer"
-              target="_blank"
+            <div
+              className="non-toggle-buttons"
             >
-              <img
-                alt="Preview eye icon"
-                src="undefined/images/icons/preview.svg"
-              />
-              Preview
-            </a>
-            <button
-              className="interactive-wrapper focus-on-light save-button"
-              onClick={[Function]}
-              type="button"
-            >
-              <img
-                alt="Arrow pointing down"
-                src="undefined/images/icons/icons-bookmark-outline.svg"
-              />
-              Save
-            </button>
+              <a
+                className="interactive-wrapper focus-on-light preview-link"
+                href="/activity_sessions/anonymous?activity_id=860"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt="Preview eye icon"
+                  src="undefined/images/icons/preview.svg"
+                />
+                Preview
+              </a>
+              <button
+                className="interactive-wrapper focus-on-light save-button"
+                onClick={[Function]}
+                type="button"
+              >
+                <img
+                  alt="Arrow pointing down"
+                  src="undefined/images/icons/icons-bookmark-outline.svg"
+                />
+                Save
+              </button>
+            </div>
             <button
               className="interactive-wrapper focus-on-light expand-button"
               onClick={[Function]}
@@ -8863,28 +9638,6 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           <div
             className="classification-concept-topic-wrapper"
           >
-            <ActivityRowClassification
-              classification={
-                Object {
-                  "alias": "Quill Connect",
-                  "description": "Combine Sentences",
-                  "id": 5,
-                  "key": "connect",
-                }
-              }
-            >
-              <span
-                className="attribute-section classification"
-              >
-                <img
-                  alt="Target representing Quill Connect"
-                  src="undefined/images/icons/description-connect.svg"
-                />
-                <span>
-                  Quill Connect
-                </span>
-              </span>
-            </ActivityRowClassification>
             <ActivityRowConcept
               conceptName="History: Age of Exploration"
             >
@@ -8901,7 +9654,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               </span>
             </ActivityRowConcept>
             <ActivityRowTopics
+              inExpandedView={false}
               maxAllowedLength={0}
+              onTertiaryLine={false}
               topics={
                 Array [
                   Object {
@@ -8931,30 +9686,12 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 ]
               }
             >
-              <span
-                className="attribute-section topic"
-              />
+              <span />
             </ActivityRowTopics>
           </div>
           <div
             className="grade-range-and-standard-level-wrapper"
           >
-            <ActivityRowReadabilityGradeLevel
-              readabilityGradeLevel="8th-9th"
-            >
-              <span
-                className="attribute-section grade-range"
-              >
-                <img
-                  alt="Book icon"
-                  src="undefined/images/icons/description-readability.svg"
-                />
-                <span>
-                  Readability: Grades 
-                  8th-9th
-                </span>
-              </span>
-            </ActivityRowReadabilityGradeLevel>
             <ActivityRowStandardLevel
               standardLevelName="7th Grade CCSS"
             >
@@ -8970,7 +9707,120 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 </span>
               </span>
             </ActivityRowStandardLevel>
+            <ActivityRowGradeRange>
+              <span
+                className="attribute-section grade-range"
+              >
+                <img
+                  alt="Book icon"
+                  src="undefined/images/icons/description-readability.svg"
+                />
+                <span>
+                  Grades: 
+                  <span
+                    className="grade-level"
+                  >
+                    4 - 5
+                  </span>
+                  <span
+                    className="grade-level"
+                  >
+                    6 - 7
+                  </span>
+                  <span
+                    className="grade-level"
+                  >
+                    8 - 9
+                  </span>
+                  <span
+                    className="grade-level"
+                  >
+                    10 - 12
+                  </span>
+                </span>
+              </span>
+            </ActivityRowGradeRange>
           </div>
+        </div>
+        <div
+          className="third-line mobile-only"
+        >
+          <div
+            className="non-toggle-buttons"
+          >
+            <a
+              className="interactive-wrapper focus-on-light preview-link"
+              href="/activity_sessions/anonymous?activity_id=860"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt="Preview eye icon"
+                src="undefined/images/icons/preview.svg"
+              />
+              Preview
+            </a>
+            <button
+              className="interactive-wrapper focus-on-light save-button"
+              onClick={[Function]}
+              type="button"
+            >
+              <img
+                alt="Arrow pointing down"
+                src="undefined/images/icons/icons-bookmark-outline.svg"
+              />
+              Save
+            </button>
+          </div>
+        </div>
+        <div
+          className="third-line"
+        >
+          <ActivityRowTopics
+            inExpandedView={false}
+            maxAllowedLength={0}
+            onTertiaryLine={true}
+            topics={
+              Array [
+                Object {
+                  "id": 16,
+                  "level": 3,
+                  "name": "History",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": 17,
+                  "level": 2,
+                  "name": "U.S. Historical Figures",
+                  "parent_id": 16,
+                },
+                Object {
+                  "id": 117,
+                  "level": 1,
+                  "name": "The Age of Exploration",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": 173,
+                  "level": 0,
+                  "name": "Hernando de Soto",
+                  "parent_id": null,
+                },
+              ]
+            }
+          >
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                The Age of Exploration: Hernando de Soto
+              </span>
+            </span>
+          </ActivityRowTopics>
         </div>
         <ActivityRowExpandedSection
           activity={
@@ -9267,36 +10117,46 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               type="button"
             >
               <h2>
-                Magellan
+                <img
+                  alt="Target representing Quill Connect"
+                  src="undefined/images/icons/description-connect.svg"
+                />
+                <span>
+                  Magellan
+                </span>
               </h2>
             </button>
           </div>
           <div
             className="buttons-wrapper"
           >
-            <a
-              className="interactive-wrapper focus-on-light preview-link"
-              href="/activity_sessions/anonymous?activity_id=605"
-              rel="noopener noreferrer"
-              target="_blank"
+            <div
+              className="non-toggle-buttons"
             >
-              <img
-                alt="Preview eye icon"
-                src="undefined/images/icons/preview.svg"
-              />
-              Preview
-            </a>
-            <button
-              className="interactive-wrapper focus-on-light save-button"
-              onClick={[Function]}
-              type="button"
-            >
-              <img
-                alt="Arrow pointing down"
-                src="undefined/images/icons/icons-bookmark-outline.svg"
-              />
-              Save
-            </button>
+              <a
+                className="interactive-wrapper focus-on-light preview-link"
+                href="/activity_sessions/anonymous?activity_id=605"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt="Preview eye icon"
+                  src="undefined/images/icons/preview.svg"
+                />
+                Preview
+              </a>
+              <button
+                className="interactive-wrapper focus-on-light save-button"
+                onClick={[Function]}
+                type="button"
+              >
+                <img
+                  alt="Arrow pointing down"
+                  src="undefined/images/icons/icons-bookmark-outline.svg"
+                />
+                Save
+              </button>
+            </div>
             <button
               className="interactive-wrapper focus-on-light expand-button"
               onClick={[Function]}
@@ -9315,28 +10175,6 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           <div
             className="classification-concept-topic-wrapper"
           >
-            <ActivityRowClassification
-              classification={
-                Object {
-                  "alias": "Quill Connect",
-                  "description": "Combine Sentences",
-                  "id": 5,
-                  "key": "connect",
-                }
-              }
-            >
-              <span
-                className="attribute-section classification"
-              >
-                <img
-                  alt="Target representing Quill Connect"
-                  src="undefined/images/icons/description-connect.svg"
-                />
-                <span>
-                  Quill Connect
-                </span>
-              </span>
-            </ActivityRowClassification>
             <ActivityRowConcept
               conceptName="History: Age of Exploration"
             >
@@ -9353,7 +10191,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               </span>
             </ActivityRowConcept>
             <ActivityRowTopics
+              inExpandedView={false}
               maxAllowedLength={0}
+              onTertiaryLine={false}
               topics={
                 Array [
                   Object {
@@ -9383,30 +10223,12 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 ]
               }
             >
-              <span
-                className="attribute-section topic"
-              />
+              <span />
             </ActivityRowTopics>
           </div>
           <div
             className="grade-range-and-standard-level-wrapper"
           >
-            <ActivityRowReadabilityGradeLevel
-              readabilityGradeLevel="8th-9th"
-            >
-              <span
-                className="attribute-section grade-range"
-              >
-                <img
-                  alt="Book icon"
-                  src="undefined/images/icons/description-readability.svg"
-                />
-                <span>
-                  Readability: Grades 
-                  8th-9th
-                </span>
-              </span>
-            </ActivityRowReadabilityGradeLevel>
             <ActivityRowStandardLevel
               standardLevelName="7th Grade CCSS"
             >
@@ -9422,7 +10244,120 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 </span>
               </span>
             </ActivityRowStandardLevel>
+            <ActivityRowGradeRange>
+              <span
+                className="attribute-section grade-range"
+              >
+                <img
+                  alt="Book icon"
+                  src="undefined/images/icons/description-readability.svg"
+                />
+                <span>
+                  Grades: 
+                  <span
+                    className="grade-level"
+                  >
+                    4 - 5
+                  </span>
+                  <span
+                    className="grade-level"
+                  >
+                    6 - 7
+                  </span>
+                  <span
+                    className="grade-level"
+                  >
+                    8 - 9
+                  </span>
+                  <span
+                    className="grade-level"
+                  >
+                    10 - 12
+                  </span>
+                </span>
+              </span>
+            </ActivityRowGradeRange>
           </div>
+        </div>
+        <div
+          className="third-line mobile-only"
+        >
+          <div
+            className="non-toggle-buttons"
+          >
+            <a
+              className="interactive-wrapper focus-on-light preview-link"
+              href="/activity_sessions/anonymous?activity_id=605"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt="Preview eye icon"
+                src="undefined/images/icons/preview.svg"
+              />
+              Preview
+            </a>
+            <button
+              className="interactive-wrapper focus-on-light save-button"
+              onClick={[Function]}
+              type="button"
+            >
+              <img
+                alt="Arrow pointing down"
+                src="undefined/images/icons/icons-bookmark-outline.svg"
+              />
+              Save
+            </button>
+          </div>
+        </div>
+        <div
+          className="third-line"
+        >
+          <ActivityRowTopics
+            inExpandedView={false}
+            maxAllowedLength={0}
+            onTertiaryLine={true}
+            topics={
+              Array [
+                Object {
+                  "id": 16,
+                  "level": 3,
+                  "name": "History",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": 93,
+                  "level": 2,
+                  "name": "World Historical Figures",
+                  "parent_id": 16,
+                },
+                Object {
+                  "id": 116,
+                  "level": 0,
+                  "name": "Magellan",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": 117,
+                  "level": 1,
+                  "name": "The Age of Exploration",
+                  "parent_id": null,
+                },
+              ]
+            }
+          >
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                The Age of Exploration: Magellan
+              </span>
+            </span>
+          </ActivityRowTopics>
         </div>
         <ActivityRowExpandedSection
           activity={
@@ -9719,36 +10654,46 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               type="button"
             >
               <h2>
-                Jamestown
+                <img
+                  alt="Target representing Quill Connect"
+                  src="undefined/images/icons/description-connect.svg"
+                />
+                <span>
+                  Jamestown
+                </span>
               </h2>
             </button>
           </div>
           <div
             className="buttons-wrapper"
           >
-            <a
-              className="interactive-wrapper focus-on-light preview-link"
-              href="/activity_sessions/anonymous?activity_id=606"
-              rel="noopener noreferrer"
-              target="_blank"
+            <div
+              className="non-toggle-buttons"
             >
-              <img
-                alt="Preview eye icon"
-                src="undefined/images/icons/preview.svg"
-              />
-              Preview
-            </a>
-            <button
-              className="interactive-wrapper focus-on-light save-button"
-              onClick={[Function]}
-              type="button"
-            >
-              <img
-                alt="Arrow pointing down"
-                src="undefined/images/icons/icons-bookmark-outline.svg"
-              />
-              Save
-            </button>
+              <a
+                className="interactive-wrapper focus-on-light preview-link"
+                href="/activity_sessions/anonymous?activity_id=606"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt="Preview eye icon"
+                  src="undefined/images/icons/preview.svg"
+                />
+                Preview
+              </a>
+              <button
+                className="interactive-wrapper focus-on-light save-button"
+                onClick={[Function]}
+                type="button"
+              >
+                <img
+                  alt="Arrow pointing down"
+                  src="undefined/images/icons/icons-bookmark-outline.svg"
+                />
+                Save
+              </button>
+            </div>
             <button
               className="interactive-wrapper focus-on-light expand-button"
               onClick={[Function]}
@@ -9767,28 +10712,6 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           <div
             className="classification-concept-topic-wrapper"
           >
-            <ActivityRowClassification
-              classification={
-                Object {
-                  "alias": "Quill Connect",
-                  "description": "Combine Sentences",
-                  "id": 5,
-                  "key": "connect",
-                }
-              }
-            >
-              <span
-                className="attribute-section classification"
-              >
-                <img
-                  alt="Target representing Quill Connect"
-                  src="undefined/images/icons/description-connect.svg"
-                />
-                <span>
-                  Quill Connect
-                </span>
-              </span>
-            </ActivityRowClassification>
             <ActivityRowConcept
               conceptName="History: Age of Exploration"
             >
@@ -9805,7 +10728,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               </span>
             </ActivityRowConcept>
             <ActivityRowTopics
+              inExpandedView={false}
               maxAllowedLength={0}
+              onTertiaryLine={false}
               topics={
                 Array [
                   Object {
@@ -9835,30 +10760,12 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 ]
               }
             >
-              <span
-                className="attribute-section topic"
-              />
+              <span />
             </ActivityRowTopics>
           </div>
           <div
             className="grade-range-and-standard-level-wrapper"
           >
-            <ActivityRowReadabilityGradeLevel
-              readabilityGradeLevel="8th-9th"
-            >
-              <span
-                className="attribute-section grade-range"
-              >
-                <img
-                  alt="Book icon"
-                  src="undefined/images/icons/description-readability.svg"
-                />
-                <span>
-                  Readability: Grades 
-                  8th-9th
-                </span>
-              </span>
-            </ActivityRowReadabilityGradeLevel>
             <ActivityRowStandardLevel
               standardLevelName="7th Grade CCSS"
             >
@@ -9874,7 +10781,120 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 </span>
               </span>
             </ActivityRowStandardLevel>
+            <ActivityRowGradeRange>
+              <span
+                className="attribute-section grade-range"
+              >
+                <img
+                  alt="Book icon"
+                  src="undefined/images/icons/description-readability.svg"
+                />
+                <span>
+                  Grades: 
+                  <span
+                    className="grade-level"
+                  >
+                    4 - 5
+                  </span>
+                  <span
+                    className="grade-level"
+                  >
+                    6 - 7
+                  </span>
+                  <span
+                    className="grade-level"
+                  >
+                    8 - 9
+                  </span>
+                  <span
+                    className="grade-level"
+                  >
+                    10 - 12
+                  </span>
+                </span>
+              </span>
+            </ActivityRowGradeRange>
           </div>
+        </div>
+        <div
+          className="third-line mobile-only"
+        >
+          <div
+            className="non-toggle-buttons"
+          >
+            <a
+              className="interactive-wrapper focus-on-light preview-link"
+              href="/activity_sessions/anonymous?activity_id=606"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt="Preview eye icon"
+                src="undefined/images/icons/preview.svg"
+              />
+              Preview
+            </a>
+            <button
+              className="interactive-wrapper focus-on-light save-button"
+              onClick={[Function]}
+              type="button"
+            >
+              <img
+                alt="Arrow pointing down"
+                src="undefined/images/icons/icons-bookmark-outline.svg"
+              />
+              Save
+            </button>
+          </div>
+        </div>
+        <div
+          className="third-line"
+        >
+          <ActivityRowTopics
+            inExpandedView={false}
+            maxAllowedLength={0}
+            onTertiaryLine={true}
+            topics={
+              Array [
+                Object {
+                  "id": 16,
+                  "level": 3,
+                  "name": "History",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": 45,
+                  "level": 2,
+                  "name": "U.S. History",
+                  "parent_id": 16,
+                },
+                Object {
+                  "id": 117,
+                  "level": 1,
+                  "name": "The Age of Exploration",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": 200,
+                  "level": 0,
+                  "name": "Jamestown Settlement",
+                  "parent_id": null,
+                },
+              ]
+            }
+          >
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                The Age of Exploration: Jamestown Settlement
+              </span>
+            </span>
+          </ActivityRowTopics>
         </div>
         <ActivityRowExpandedSection
           activity={
@@ -10171,36 +11191,46 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               type="button"
             >
               <h2>
-                Humanism
+                <img
+                  alt="Target representing Quill Connect"
+                  src="undefined/images/icons/description-connect.svg"
+                />
+                <span>
+                  Humanism
+                </span>
               </h2>
             </button>
           </div>
           <div
             className="buttons-wrapper"
           >
-            <a
-              className="interactive-wrapper focus-on-light preview-link"
-              href="/activity_sessions/anonymous?activity_id=642"
-              rel="noopener noreferrer"
-              target="_blank"
+            <div
+              className="non-toggle-buttons"
             >
-              <img
-                alt="Preview eye icon"
-                src="undefined/images/icons/preview.svg"
-              />
-              Preview
-            </a>
-            <button
-              className="interactive-wrapper focus-on-light save-button"
-              onClick={[Function]}
-              type="button"
-            >
-              <img
-                alt="Arrow pointing down"
-                src="undefined/images/icons/icons-bookmark-outline.svg"
-              />
-              Save
-            </button>
+              <a
+                className="interactive-wrapper focus-on-light preview-link"
+                href="/activity_sessions/anonymous?activity_id=642"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt="Preview eye icon"
+                  src="undefined/images/icons/preview.svg"
+                />
+                Preview
+              </a>
+              <button
+                className="interactive-wrapper focus-on-light save-button"
+                onClick={[Function]}
+                type="button"
+              >
+                <img
+                  alt="Arrow pointing down"
+                  src="undefined/images/icons/icons-bookmark-outline.svg"
+                />
+                Save
+              </button>
+            </div>
             <button
               className="interactive-wrapper focus-on-light expand-button"
               onClick={[Function]}
@@ -10219,28 +11249,6 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           <div
             className="classification-concept-topic-wrapper"
           >
-            <ActivityRowClassification
-              classification={
-                Object {
-                  "alias": "Quill Connect",
-                  "description": "Combine Sentences",
-                  "id": 5,
-                  "key": "connect",
-                }
-              }
-            >
-              <span
-                className="attribute-section classification"
-              >
-                <img
-                  alt="Target representing Quill Connect"
-                  src="undefined/images/icons/description-connect.svg"
-                />
-                <span>
-                  Quill Connect
-                </span>
-              </span>
-            </ActivityRowClassification>
             <ActivityRowConcept
               conceptName="History: The Renaissance"
             >
@@ -10257,7 +11265,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               </span>
             </ActivityRowConcept>
             <ActivityRowTopics
+              inExpandedView={false}
               maxAllowedLength={0}
+              onTertiaryLine={false}
               topics={
                 Array [
                   Object {
@@ -10287,30 +11297,12 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 ]
               }
             >
-              <span
-                className="attribute-section topic"
-              />
+              <span />
             </ActivityRowTopics>
           </div>
           <div
             className="grade-range-and-standard-level-wrapper"
           >
-            <ActivityRowReadabilityGradeLevel
-              readabilityGradeLevel="8th-9th"
-            >
-              <span
-                className="attribute-section grade-range"
-              >
-                <img
-                  alt="Book icon"
-                  src="undefined/images/icons/description-readability.svg"
-                />
-                <span>
-                  Readability: Grades 
-                  8th-9th
-                </span>
-              </span>
-            </ActivityRowReadabilityGradeLevel>
             <ActivityRowStandardLevel
               standardLevelName="7th Grade CCSS"
             >
@@ -10326,7 +11318,120 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 </span>
               </span>
             </ActivityRowStandardLevel>
+            <ActivityRowGradeRange>
+              <span
+                className="attribute-section grade-range"
+              >
+                <img
+                  alt="Book icon"
+                  src="undefined/images/icons/description-readability.svg"
+                />
+                <span>
+                  Grades: 
+                  <span
+                    className="grade-level"
+                  >
+                    4 - 5
+                  </span>
+                  <span
+                    className="grade-level"
+                  >
+                    6 - 7
+                  </span>
+                  <span
+                    className="grade-level"
+                  >
+                    8 - 9
+                  </span>
+                  <span
+                    className="grade-level"
+                  >
+                    10 - 12
+                  </span>
+                </span>
+              </span>
+            </ActivityRowGradeRange>
           </div>
+        </div>
+        <div
+          className="third-line mobile-only"
+        >
+          <div
+            className="non-toggle-buttons"
+          >
+            <a
+              className="interactive-wrapper focus-on-light preview-link"
+              href="/activity_sessions/anonymous?activity_id=642"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt="Preview eye icon"
+                src="undefined/images/icons/preview.svg"
+              />
+              Preview
+            </a>
+            <button
+              className="interactive-wrapper focus-on-light save-button"
+              onClick={[Function]}
+              type="button"
+            >
+              <img
+                alt="Arrow pointing down"
+                src="undefined/images/icons/icons-bookmark-outline.svg"
+              />
+              Save
+            </button>
+          </div>
+        </div>
+        <div
+          className="third-line"
+        >
+          <ActivityRowTopics
+            inExpandedView={false}
+            maxAllowedLength={0}
+            onTertiaryLine={true}
+            topics={
+              Array [
+                Object {
+                  "id": 16,
+                  "level": 3,
+                  "name": "History",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": 48,
+                  "level": 2,
+                  "name": "World History",
+                  "parent_id": 16,
+                },
+                Object {
+                  "id": 186,
+                  "level": 0,
+                  "name": "Humanism",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": 187,
+                  "level": 1,
+                  "name": "The Renaissance",
+                  "parent_id": null,
+                },
+              ]
+            }
+          >
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                The Renaissance: Humanism
+              </span>
+            </span>
+          </ActivityRowTopics>
         </div>
         <ActivityRowExpandedSection
           activity={
@@ -10623,36 +11728,46 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               type="button"
             >
               <h2>
-                Renaissance Beginnings in Italy
+                <img
+                  alt="Target representing Quill Connect"
+                  src="undefined/images/icons/description-connect.svg"
+                />
+                <span>
+                  Renaissance Beginnings in Italy
+                </span>
               </h2>
             </button>
           </div>
           <div
             className="buttons-wrapper"
           >
-            <a
-              className="interactive-wrapper focus-on-light preview-link"
-              href="/activity_sessions/anonymous?activity_id=640"
-              rel="noopener noreferrer"
-              target="_blank"
+            <div
+              className="non-toggle-buttons"
             >
-              <img
-                alt="Preview eye icon"
-                src="undefined/images/icons/preview.svg"
-              />
-              Preview
-            </a>
-            <button
-              className="interactive-wrapper focus-on-light save-button"
-              onClick={[Function]}
-              type="button"
-            >
-              <img
-                alt="Arrow pointing down"
-                src="undefined/images/icons/icons-bookmark-outline.svg"
-              />
-              Save
-            </button>
+              <a
+                className="interactive-wrapper focus-on-light preview-link"
+                href="/activity_sessions/anonymous?activity_id=640"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt="Preview eye icon"
+                  src="undefined/images/icons/preview.svg"
+                />
+                Preview
+              </a>
+              <button
+                className="interactive-wrapper focus-on-light save-button"
+                onClick={[Function]}
+                type="button"
+              >
+                <img
+                  alt="Arrow pointing down"
+                  src="undefined/images/icons/icons-bookmark-outline.svg"
+                />
+                Save
+              </button>
+            </div>
             <button
               className="interactive-wrapper focus-on-light expand-button"
               onClick={[Function]}
@@ -10671,28 +11786,6 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           <div
             className="classification-concept-topic-wrapper"
           >
-            <ActivityRowClassification
-              classification={
-                Object {
-                  "alias": "Quill Connect",
-                  "description": "Combine Sentences",
-                  "id": 5,
-                  "key": "connect",
-                }
-              }
-            >
-              <span
-                className="attribute-section classification"
-              >
-                <img
-                  alt="Target representing Quill Connect"
-                  src="undefined/images/icons/description-connect.svg"
-                />
-                <span>
-                  Quill Connect
-                </span>
-              </span>
-            </ActivityRowClassification>
             <ActivityRowConcept
               conceptName="History: The Renaissance"
             >
@@ -10709,7 +11802,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               </span>
             </ActivityRowConcept>
             <ActivityRowTopics
+              inExpandedView={false}
               maxAllowedLength={0}
+              onTertiaryLine={false}
               topics={
                 Array [
                   Object {
@@ -10739,30 +11834,12 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 ]
               }
             >
-              <span
-                className="attribute-section topic"
-              />
+              <span />
             </ActivityRowTopics>
           </div>
           <div
             className="grade-range-and-standard-level-wrapper"
           >
-            <ActivityRowReadabilityGradeLevel
-              readabilityGradeLevel="8th-9th"
-            >
-              <span
-                className="attribute-section grade-range"
-              >
-                <img
-                  alt="Book icon"
-                  src="undefined/images/icons/description-readability.svg"
-                />
-                <span>
-                  Readability: Grades 
-                  8th-9th
-                </span>
-              </span>
-            </ActivityRowReadabilityGradeLevel>
             <ActivityRowStandardLevel
               standardLevelName="7th Grade CCSS"
             >
@@ -10778,7 +11855,120 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 </span>
               </span>
             </ActivityRowStandardLevel>
+            <ActivityRowGradeRange>
+              <span
+                className="attribute-section grade-range"
+              >
+                <img
+                  alt="Book icon"
+                  src="undefined/images/icons/description-readability.svg"
+                />
+                <span>
+                  Grades: 
+                  <span
+                    className="grade-level"
+                  >
+                    4 - 5
+                  </span>
+                  <span
+                    className="grade-level"
+                  >
+                    6 - 7
+                  </span>
+                  <span
+                    className="grade-level"
+                  >
+                    8 - 9
+                  </span>
+                  <span
+                    className="grade-level"
+                  >
+                    10 - 12
+                  </span>
+                </span>
+              </span>
+            </ActivityRowGradeRange>
           </div>
+        </div>
+        <div
+          className="third-line mobile-only"
+        >
+          <div
+            className="non-toggle-buttons"
+          >
+            <a
+              className="interactive-wrapper focus-on-light preview-link"
+              href="/activity_sessions/anonymous?activity_id=640"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt="Preview eye icon"
+                src="undefined/images/icons/preview.svg"
+              />
+              Preview
+            </a>
+            <button
+              className="interactive-wrapper focus-on-light save-button"
+              onClick={[Function]}
+              type="button"
+            >
+              <img
+                alt="Arrow pointing down"
+                src="undefined/images/icons/icons-bookmark-outline.svg"
+              />
+              Save
+            </button>
+          </div>
+        </div>
+        <div
+          className="third-line"
+        >
+          <ActivityRowTopics
+            inExpandedView={false}
+            maxAllowedLength={0}
+            onTertiaryLine={true}
+            topics={
+              Array [
+                Object {
+                  "id": 16,
+                  "level": 3,
+                  "name": "History",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": 48,
+                  "level": 2,
+                  "name": "World History",
+                  "parent_id": 16,
+                },
+                Object {
+                  "id": 187,
+                  "level": 1,
+                  "name": "The Renaissance",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": 269,
+                  "level": 0,
+                  "name": "The Renaissance in Italy",
+                  "parent_id": null,
+                },
+              ]
+            }
+          >
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                The Renaissance: The Renaissance in Italy
+              </span>
+            </span>
+          </ActivityRowTopics>
         </div>
         <ActivityRowExpandedSection
           activity={
@@ -11075,36 +12265,46 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               type="button"
             >
               <h2>
-                The Medici Family
+                <img
+                  alt="Target representing Quill Connect"
+                  src="undefined/images/icons/description-connect.svg"
+                />
+                <span>
+                  The Medici Family
+                </span>
               </h2>
             </button>
           </div>
           <div
             className="buttons-wrapper"
           >
-            <a
-              className="interactive-wrapper focus-on-light preview-link"
-              href="/activity_sessions/anonymous?activity_id=641"
-              rel="noopener noreferrer"
-              target="_blank"
+            <div
+              className="non-toggle-buttons"
             >
-              <img
-                alt="Preview eye icon"
-                src="undefined/images/icons/preview.svg"
-              />
-              Preview
-            </a>
-            <button
-              className="interactive-wrapper focus-on-light save-button"
-              onClick={[Function]}
-              type="button"
-            >
-              <img
-                alt="Arrow pointing down"
-                src="undefined/images/icons/icons-bookmark-outline.svg"
-              />
-              Save
-            </button>
+              <a
+                className="interactive-wrapper focus-on-light preview-link"
+                href="/activity_sessions/anonymous?activity_id=641"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt="Preview eye icon"
+                  src="undefined/images/icons/preview.svg"
+                />
+                Preview
+              </a>
+              <button
+                className="interactive-wrapper focus-on-light save-button"
+                onClick={[Function]}
+                type="button"
+              >
+                <img
+                  alt="Arrow pointing down"
+                  src="undefined/images/icons/icons-bookmark-outline.svg"
+                />
+                Save
+              </button>
+            </div>
             <button
               className="interactive-wrapper focus-on-light expand-button"
               onClick={[Function]}
@@ -11123,28 +12323,6 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           <div
             className="classification-concept-topic-wrapper"
           >
-            <ActivityRowClassification
-              classification={
-                Object {
-                  "alias": "Quill Connect",
-                  "description": "Combine Sentences",
-                  "id": 5,
-                  "key": "connect",
-                }
-              }
-            >
-              <span
-                className="attribute-section classification"
-              >
-                <img
-                  alt="Target representing Quill Connect"
-                  src="undefined/images/icons/description-connect.svg"
-                />
-                <span>
-                  Quill Connect
-                </span>
-              </span>
-            </ActivityRowClassification>
             <ActivityRowConcept
               conceptName="History: The Renaissance"
             >
@@ -11161,7 +12339,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               </span>
             </ActivityRowConcept>
             <ActivityRowTopics
+              inExpandedView={false}
               maxAllowedLength={0}
+              onTertiaryLine={false}
               topics={
                 Array [
                   Object {
@@ -11191,30 +12371,12 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 ]
               }
             >
-              <span
-                className="attribute-section topic"
-              />
+              <span />
             </ActivityRowTopics>
           </div>
           <div
             className="grade-range-and-standard-level-wrapper"
           >
-            <ActivityRowReadabilityGradeLevel
-              readabilityGradeLevel="8th-9th"
-            >
-              <span
-                className="attribute-section grade-range"
-              >
-                <img
-                  alt="Book icon"
-                  src="undefined/images/icons/description-readability.svg"
-                />
-                <span>
-                  Readability: Grades 
-                  8th-9th
-                </span>
-              </span>
-            </ActivityRowReadabilityGradeLevel>
             <ActivityRowStandardLevel
               standardLevelName="7th Grade CCSS"
             >
@@ -11230,7 +12392,120 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 </span>
               </span>
             </ActivityRowStandardLevel>
+            <ActivityRowGradeRange>
+              <span
+                className="attribute-section grade-range"
+              >
+                <img
+                  alt="Book icon"
+                  src="undefined/images/icons/description-readability.svg"
+                />
+                <span>
+                  Grades: 
+                  <span
+                    className="grade-level"
+                  >
+                    4 - 5
+                  </span>
+                  <span
+                    className="grade-level"
+                  >
+                    6 - 7
+                  </span>
+                  <span
+                    className="grade-level"
+                  >
+                    8 - 9
+                  </span>
+                  <span
+                    className="grade-level"
+                  >
+                    10 - 12
+                  </span>
+                </span>
+              </span>
+            </ActivityRowGradeRange>
           </div>
+        </div>
+        <div
+          className="third-line mobile-only"
+        >
+          <div
+            className="non-toggle-buttons"
+          >
+            <a
+              className="interactive-wrapper focus-on-light preview-link"
+              href="/activity_sessions/anonymous?activity_id=641"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt="Preview eye icon"
+                src="undefined/images/icons/preview.svg"
+              />
+              Preview
+            </a>
+            <button
+              className="interactive-wrapper focus-on-light save-button"
+              onClick={[Function]}
+              type="button"
+            >
+              <img
+                alt="Arrow pointing down"
+                src="undefined/images/icons/icons-bookmark-outline.svg"
+              />
+              Save
+            </button>
+          </div>
+        </div>
+        <div
+          className="third-line"
+        >
+          <ActivityRowTopics
+            inExpandedView={false}
+            maxAllowedLength={0}
+            onTertiaryLine={true}
+            topics={
+              Array [
+                Object {
+                  "id": 16,
+                  "level": 3,
+                  "name": "History",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": 93,
+                  "level": 2,
+                  "name": "World Historical Figures",
+                  "parent_id": 16,
+                },
+                Object {
+                  "id": 187,
+                  "level": 1,
+                  "name": "The Renaissance",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": 350,
+                  "level": 0,
+                  "name": "The Medici Family",
+                  "parent_id": null,
+                },
+              ]
+            }
+          >
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                The Renaissance: The Medici Family
+              </span>
+            </span>
+          </ActivityRowTopics>
         </div>
         <ActivityRowExpandedSection
           activity={
@@ -11527,36 +12802,46 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               type="button"
             >
               <h2>
-                The Northern Renaissance
+                <img
+                  alt="Target representing Quill Connect"
+                  src="undefined/images/icons/description-connect.svg"
+                />
+                <span>
+                  The Northern Renaissance
+                </span>
               </h2>
             </button>
           </div>
           <div
             className="buttons-wrapper"
           >
-            <a
-              className="interactive-wrapper focus-on-light preview-link"
-              href="/activity_sessions/anonymous?activity_id=643"
-              rel="noopener noreferrer"
-              target="_blank"
+            <div
+              className="non-toggle-buttons"
             >
-              <img
-                alt="Preview eye icon"
-                src="undefined/images/icons/preview.svg"
-              />
-              Preview
-            </a>
-            <button
-              className="interactive-wrapper focus-on-light save-button"
-              onClick={[Function]}
-              type="button"
-            >
-              <img
-                alt="Arrow pointing down"
-                src="undefined/images/icons/icons-bookmark-outline.svg"
-              />
-              Save
-            </button>
+              <a
+                className="interactive-wrapper focus-on-light preview-link"
+                href="/activity_sessions/anonymous?activity_id=643"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt="Preview eye icon"
+                  src="undefined/images/icons/preview.svg"
+                />
+                Preview
+              </a>
+              <button
+                className="interactive-wrapper focus-on-light save-button"
+                onClick={[Function]}
+                type="button"
+              >
+                <img
+                  alt="Arrow pointing down"
+                  src="undefined/images/icons/icons-bookmark-outline.svg"
+                />
+                Save
+              </button>
+            </div>
             <button
               className="interactive-wrapper focus-on-light expand-button"
               onClick={[Function]}
@@ -11575,28 +12860,6 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           <div
             className="classification-concept-topic-wrapper"
           >
-            <ActivityRowClassification
-              classification={
-                Object {
-                  "alias": "Quill Connect",
-                  "description": "Combine Sentences",
-                  "id": 5,
-                  "key": "connect",
-                }
-              }
-            >
-              <span
-                className="attribute-section classification"
-              >
-                <img
-                  alt="Target representing Quill Connect"
-                  src="undefined/images/icons/description-connect.svg"
-                />
-                <span>
-                  Quill Connect
-                </span>
-              </span>
-            </ActivityRowClassification>
             <ActivityRowConcept
               conceptName="History: The Renaissance"
             >
@@ -11613,7 +12876,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               </span>
             </ActivityRowConcept>
             <ActivityRowTopics
+              inExpandedView={false}
               maxAllowedLength={0}
+              onTertiaryLine={false}
               topics={
                 Array [
                   Object {
@@ -11643,30 +12908,12 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 ]
               }
             >
-              <span
-                className="attribute-section topic"
-              />
+              <span />
             </ActivityRowTopics>
           </div>
           <div
             className="grade-range-and-standard-level-wrapper"
           >
-            <ActivityRowReadabilityGradeLevel
-              readabilityGradeLevel="8th-9th"
-            >
-              <span
-                className="attribute-section grade-range"
-              >
-                <img
-                  alt="Book icon"
-                  src="undefined/images/icons/description-readability.svg"
-                />
-                <span>
-                  Readability: Grades 
-                  8th-9th
-                </span>
-              </span>
-            </ActivityRowReadabilityGradeLevel>
             <ActivityRowStandardLevel
               standardLevelName="7th Grade CCSS"
             >
@@ -11682,7 +12929,120 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 </span>
               </span>
             </ActivityRowStandardLevel>
+            <ActivityRowGradeRange>
+              <span
+                className="attribute-section grade-range"
+              >
+                <img
+                  alt="Book icon"
+                  src="undefined/images/icons/description-readability.svg"
+                />
+                <span>
+                  Grades: 
+                  <span
+                    className="grade-level"
+                  >
+                    4 - 5
+                  </span>
+                  <span
+                    className="grade-level"
+                  >
+                    6 - 7
+                  </span>
+                  <span
+                    className="grade-level"
+                  >
+                    8 - 9
+                  </span>
+                  <span
+                    className="grade-level"
+                  >
+                    10 - 12
+                  </span>
+                </span>
+              </span>
+            </ActivityRowGradeRange>
           </div>
+        </div>
+        <div
+          className="third-line mobile-only"
+        >
+          <div
+            className="non-toggle-buttons"
+          >
+            <a
+              className="interactive-wrapper focus-on-light preview-link"
+              href="/activity_sessions/anonymous?activity_id=643"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt="Preview eye icon"
+                src="undefined/images/icons/preview.svg"
+              />
+              Preview
+            </a>
+            <button
+              className="interactive-wrapper focus-on-light save-button"
+              onClick={[Function]}
+              type="button"
+            >
+              <img
+                alt="Arrow pointing down"
+                src="undefined/images/icons/icons-bookmark-outline.svg"
+              />
+              Save
+            </button>
+          </div>
+        </div>
+        <div
+          className="third-line"
+        >
+          <ActivityRowTopics
+            inExpandedView={false}
+            maxAllowedLength={0}
+            onTertiaryLine={true}
+            topics={
+              Array [
+                Object {
+                  "id": 16,
+                  "level": 3,
+                  "name": "History",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": 48,
+                  "level": 2,
+                  "name": "World History",
+                  "parent_id": 16,
+                },
+                Object {
+                  "id": 187,
+                  "level": 1,
+                  "name": "The Renaissance",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": 355,
+                  "level": 0,
+                  "name": "The Northern Renaissance",
+                  "parent_id": null,
+                },
+              ]
+            }
+          >
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                The Renaissance: The Northern Renaissance
+              </span>
+            </span>
+          </ActivityRowTopics>
         </div>
         <ActivityRowExpandedSection
           activity={
@@ -11979,36 +13339,46 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               type="button"
             >
               <h2>
-                The War Begins at Lexington and Concord
+                <img
+                  alt="Target representing Quill Connect"
+                  src="undefined/images/icons/description-connect.svg"
+                />
+                <span>
+                  The War Begins at Lexington and Concord
+                </span>
               </h2>
             </button>
           </div>
           <div
             className="buttons-wrapper"
           >
-            <a
-              className="interactive-wrapper focus-on-light preview-link"
-              href="/activity_sessions/anonymous?activity_id=728"
-              rel="noopener noreferrer"
-              target="_blank"
+            <div
+              className="non-toggle-buttons"
             >
-              <img
-                alt="Preview eye icon"
-                src="undefined/images/icons/preview.svg"
-              />
-              Preview
-            </a>
-            <button
-              className="interactive-wrapper focus-on-light save-button"
-              onClick={[Function]}
-              type="button"
-            >
-              <img
-                alt="Arrow pointing down"
-                src="undefined/images/icons/icons-bookmark-outline.svg"
-              />
-              Save
-            </button>
+              <a
+                className="interactive-wrapper focus-on-light preview-link"
+                href="/activity_sessions/anonymous?activity_id=728"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt="Preview eye icon"
+                  src="undefined/images/icons/preview.svg"
+                />
+                Preview
+              </a>
+              <button
+                className="interactive-wrapper focus-on-light save-button"
+                onClick={[Function]}
+                type="button"
+              >
+                <img
+                  alt="Arrow pointing down"
+                  src="undefined/images/icons/icons-bookmark-outline.svg"
+                />
+                Save
+              </button>
+            </div>
             <button
               className="interactive-wrapper focus-on-light expand-button"
               onClick={[Function]}
@@ -12027,28 +13397,6 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           <div
             className="classification-concept-topic-wrapper"
           >
-            <ActivityRowClassification
-              classification={
-                Object {
-                  "alias": "Quill Connect",
-                  "description": "Combine Sentences",
-                  "id": 5,
-                  "key": "connect",
-                }
-              }
-            >
-              <span
-                className="attribute-section classification"
-              >
-                <img
-                  alt="Target representing Quill Connect"
-                  src="undefined/images/icons/description-connect.svg"
-                />
-                <span>
-                  Quill Connect
-                </span>
-              </span>
-            </ActivityRowClassification>
             <ActivityRowConcept
               conceptName="History: American Revolution"
             >
@@ -12065,7 +13413,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               </span>
             </ActivityRowConcept>
             <ActivityRowTopics
+              inExpandedView={false}
               maxAllowedLength={0}
+              onTertiaryLine={false}
               topics={
                 Array [
                   Object {
@@ -12095,30 +13445,12 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 ]
               }
             >
-              <span
-                className="attribute-section topic"
-              />
+              <span />
             </ActivityRowTopics>
           </div>
           <div
             className="grade-range-and-standard-level-wrapper"
           >
-            <ActivityRowReadabilityGradeLevel
-              readabilityGradeLevel="6th-7th"
-            >
-              <span
-                className="attribute-section grade-range"
-              >
-                <img
-                  alt="Book icon"
-                  src="undefined/images/icons/description-readability.svg"
-                />
-                <span>
-                  Readability: Grades 
-                  6th-7th
-                </span>
-              </span>
-            </ActivityRowReadabilityGradeLevel>
             <ActivityRowStandardLevel
               standardLevelName="7th Grade CCSS"
             >
@@ -12134,7 +13466,120 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 </span>
               </span>
             </ActivityRowStandardLevel>
+            <ActivityRowGradeRange>
+              <span
+                className="attribute-section grade-range"
+              >
+                <img
+                  alt="Book icon"
+                  src="undefined/images/icons/description-readability.svg"
+                />
+                <span>
+                  Grades: 
+                  <span
+                    className="grade-level"
+                  >
+                    4 - 5
+                  </span>
+                  <span
+                    className="grade-level"
+                  >
+                    6 - 7
+                  </span>
+                  <span
+                    className="grade-level"
+                  >
+                    8 - 9
+                  </span>
+                  <span
+                    className="grade-level"
+                  >
+                    10 - 12
+                  </span>
+                </span>
+              </span>
+            </ActivityRowGradeRange>
           </div>
+        </div>
+        <div
+          className="third-line mobile-only"
+        >
+          <div
+            className="non-toggle-buttons"
+          >
+            <a
+              className="interactive-wrapper focus-on-light preview-link"
+              href="/activity_sessions/anonymous?activity_id=728"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt="Preview eye icon"
+                src="undefined/images/icons/preview.svg"
+              />
+              Preview
+            </a>
+            <button
+              className="interactive-wrapper focus-on-light save-button"
+              onClick={[Function]}
+              type="button"
+            >
+              <img
+                alt="Arrow pointing down"
+                src="undefined/images/icons/icons-bookmark-outline.svg"
+              />
+              Save
+            </button>
+          </div>
+        </div>
+        <div
+          className="third-line"
+        >
+          <ActivityRowTopics
+            inExpandedView={false}
+            maxAllowedLength={0}
+            onTertiaryLine={true}
+            topics={
+              Array [
+                Object {
+                  "id": 16,
+                  "level": 3,
+                  "name": "History",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": 45,
+                  "level": 2,
+                  "name": "U.S. History",
+                  "parent_id": 16,
+                },
+                Object {
+                  "id": 119,
+                  "level": 1,
+                  "name": "The American Revolution",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": 373,
+                  "level": 0,
+                  "name": "The Battles of Lexington & Concord",
+                  "parent_id": null,
+                },
+              ]
+            }
+          >
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                The American Revolution: The Battles of Lexington & Concord
+              </span>
+            </span>
+          </ActivityRowTopics>
         </div>
         <ActivityRowExpandedSection
           activity={
@@ -12431,36 +13876,46 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               type="button"
             >
               <h2>
-                The War Ends at Yorktown
+                <img
+                  alt="Target representing Quill Connect"
+                  src="undefined/images/icons/description-connect.svg"
+                />
+                <span>
+                  The War Ends at Yorktown
+                </span>
               </h2>
             </button>
           </div>
           <div
             className="buttons-wrapper"
           >
-            <a
-              className="interactive-wrapper focus-on-light preview-link"
-              href="/activity_sessions/anonymous?activity_id=731"
-              rel="noopener noreferrer"
-              target="_blank"
+            <div
+              className="non-toggle-buttons"
             >
-              <img
-                alt="Preview eye icon"
-                src="undefined/images/icons/preview.svg"
-              />
-              Preview
-            </a>
-            <button
-              className="interactive-wrapper focus-on-light save-button"
-              onClick={[Function]}
-              type="button"
-            >
-              <img
-                alt="Arrow pointing down"
-                src="undefined/images/icons/icons-bookmark-outline.svg"
-              />
-              Save
-            </button>
+              <a
+                className="interactive-wrapper focus-on-light preview-link"
+                href="/activity_sessions/anonymous?activity_id=731"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt="Preview eye icon"
+                  src="undefined/images/icons/preview.svg"
+                />
+                Preview
+              </a>
+              <button
+                className="interactive-wrapper focus-on-light save-button"
+                onClick={[Function]}
+                type="button"
+              >
+                <img
+                  alt="Arrow pointing down"
+                  src="undefined/images/icons/icons-bookmark-outline.svg"
+                />
+                Save
+              </button>
+            </div>
             <button
               className="interactive-wrapper focus-on-light expand-button"
               onClick={[Function]}
@@ -12479,28 +13934,6 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           <div
             className="classification-concept-topic-wrapper"
           >
-            <ActivityRowClassification
-              classification={
-                Object {
-                  "alias": "Quill Connect",
-                  "description": "Combine Sentences",
-                  "id": 5,
-                  "key": "connect",
-                }
-              }
-            >
-              <span
-                className="attribute-section classification"
-              >
-                <img
-                  alt="Target representing Quill Connect"
-                  src="undefined/images/icons/description-connect.svg"
-                />
-                <span>
-                  Quill Connect
-                </span>
-              </span>
-            </ActivityRowClassification>
             <ActivityRowConcept
               conceptName="History: American Revolution"
             >
@@ -12517,7 +13950,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               </span>
             </ActivityRowConcept>
             <ActivityRowTopics
+              inExpandedView={false}
               maxAllowedLength={0}
+              onTertiaryLine={false}
               topics={
                 Array [
                   Object {
@@ -12547,30 +13982,12 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 ]
               }
             >
-              <span
-                className="attribute-section topic"
-              />
+              <span />
             </ActivityRowTopics>
           </div>
           <div
             className="grade-range-and-standard-level-wrapper"
           >
-            <ActivityRowReadabilityGradeLevel
-              readabilityGradeLevel="6th-7th"
-            >
-              <span
-                className="attribute-section grade-range"
-              >
-                <img
-                  alt="Book icon"
-                  src="undefined/images/icons/description-readability.svg"
-                />
-                <span>
-                  Readability: Grades 
-                  6th-7th
-                </span>
-              </span>
-            </ActivityRowReadabilityGradeLevel>
             <ActivityRowStandardLevel
               standardLevelName="7th Grade CCSS"
             >
@@ -12586,7 +14003,120 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 </span>
               </span>
             </ActivityRowStandardLevel>
+            <ActivityRowGradeRange>
+              <span
+                className="attribute-section grade-range"
+              >
+                <img
+                  alt="Book icon"
+                  src="undefined/images/icons/description-readability.svg"
+                />
+                <span>
+                  Grades: 
+                  <span
+                    className="grade-level"
+                  >
+                    4 - 5
+                  </span>
+                  <span
+                    className="grade-level"
+                  >
+                    6 - 7
+                  </span>
+                  <span
+                    className="grade-level"
+                  >
+                    8 - 9
+                  </span>
+                  <span
+                    className="grade-level"
+                  >
+                    10 - 12
+                  </span>
+                </span>
+              </span>
+            </ActivityRowGradeRange>
           </div>
+        </div>
+        <div
+          className="third-line mobile-only"
+        >
+          <div
+            className="non-toggle-buttons"
+          >
+            <a
+              className="interactive-wrapper focus-on-light preview-link"
+              href="/activity_sessions/anonymous?activity_id=731"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt="Preview eye icon"
+                src="undefined/images/icons/preview.svg"
+              />
+              Preview
+            </a>
+            <button
+              className="interactive-wrapper focus-on-light save-button"
+              onClick={[Function]}
+              type="button"
+            >
+              <img
+                alt="Arrow pointing down"
+                src="undefined/images/icons/icons-bookmark-outline.svg"
+              />
+              Save
+            </button>
+          </div>
+        </div>
+        <div
+          className="third-line"
+        >
+          <ActivityRowTopics
+            inExpandedView={false}
+            maxAllowedLength={0}
+            onTertiaryLine={true}
+            topics={
+              Array [
+                Object {
+                  "id": 16,
+                  "level": 3,
+                  "name": "History",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": 45,
+                  "level": 2,
+                  "name": "U.S. History",
+                  "parent_id": 16,
+                },
+                Object {
+                  "id": 119,
+                  "level": 1,
+                  "name": "The American Revolution",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": 374,
+                  "level": 0,
+                  "name": "The Battle at Yorktown",
+                  "parent_id": null,
+                },
+              ]
+            }
+          >
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                The American Revolution: The Battle at Yorktown
+              </span>
+            </span>
+          </ActivityRowTopics>
         </div>
         <ActivityRowExpandedSection
           activity={
@@ -12883,36 +14413,46 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               type="button"
             >
               <h2>
-                Turning Point: Bunker Hill
+                <img
+                  alt="Target representing Quill Connect"
+                  src="undefined/images/icons/description-connect.svg"
+                />
+                <span>
+                  Turning Point: Bunker Hill
+                </span>
               </h2>
             </button>
           </div>
           <div
             className="buttons-wrapper"
           >
-            <a
-              className="interactive-wrapper focus-on-light preview-link"
-              href="/activity_sessions/anonymous?activity_id=729"
-              rel="noopener noreferrer"
-              target="_blank"
+            <div
+              className="non-toggle-buttons"
             >
-              <img
-                alt="Preview eye icon"
-                src="undefined/images/icons/preview.svg"
-              />
-              Preview
-            </a>
-            <button
-              className="interactive-wrapper focus-on-light save-button"
-              onClick={[Function]}
-              type="button"
-            >
-              <img
-                alt="Arrow pointing down"
-                src="undefined/images/icons/icons-bookmark-outline.svg"
-              />
-              Save
-            </button>
+              <a
+                className="interactive-wrapper focus-on-light preview-link"
+                href="/activity_sessions/anonymous?activity_id=729"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt="Preview eye icon"
+                  src="undefined/images/icons/preview.svg"
+                />
+                Preview
+              </a>
+              <button
+                className="interactive-wrapper focus-on-light save-button"
+                onClick={[Function]}
+                type="button"
+              >
+                <img
+                  alt="Arrow pointing down"
+                  src="undefined/images/icons/icons-bookmark-outline.svg"
+                />
+                Save
+              </button>
+            </div>
             <button
               className="interactive-wrapper focus-on-light expand-button"
               onClick={[Function]}
@@ -12931,28 +14471,6 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           <div
             className="classification-concept-topic-wrapper"
           >
-            <ActivityRowClassification
-              classification={
-                Object {
-                  "alias": "Quill Connect",
-                  "description": "Combine Sentences",
-                  "id": 5,
-                  "key": "connect",
-                }
-              }
-            >
-              <span
-                className="attribute-section classification"
-              >
-                <img
-                  alt="Target representing Quill Connect"
-                  src="undefined/images/icons/description-connect.svg"
-                />
-                <span>
-                  Quill Connect
-                </span>
-              </span>
-            </ActivityRowClassification>
             <ActivityRowConcept
               conceptName="History: American Revolution"
             >
@@ -12969,7 +14487,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               </span>
             </ActivityRowConcept>
             <ActivityRowTopics
+              inExpandedView={false}
               maxAllowedLength={0}
+              onTertiaryLine={false}
               topics={
                 Array [
                   Object {
@@ -12999,30 +14519,12 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 ]
               }
             >
-              <span
-                className="attribute-section topic"
-              />
+              <span />
             </ActivityRowTopics>
           </div>
           <div
             className="grade-range-and-standard-level-wrapper"
           >
-            <ActivityRowReadabilityGradeLevel
-              readabilityGradeLevel="6th-7th"
-            >
-              <span
-                className="attribute-section grade-range"
-              >
-                <img
-                  alt="Book icon"
-                  src="undefined/images/icons/description-readability.svg"
-                />
-                <span>
-                  Readability: Grades 
-                  6th-7th
-                </span>
-              </span>
-            </ActivityRowReadabilityGradeLevel>
             <ActivityRowStandardLevel
               standardLevelName="7th Grade CCSS"
             >
@@ -13038,7 +14540,120 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 </span>
               </span>
             </ActivityRowStandardLevel>
+            <ActivityRowGradeRange>
+              <span
+                className="attribute-section grade-range"
+              >
+                <img
+                  alt="Book icon"
+                  src="undefined/images/icons/description-readability.svg"
+                />
+                <span>
+                  Grades: 
+                  <span
+                    className="grade-level"
+                  >
+                    4 - 5
+                  </span>
+                  <span
+                    className="grade-level"
+                  >
+                    6 - 7
+                  </span>
+                  <span
+                    className="grade-level"
+                  >
+                    8 - 9
+                  </span>
+                  <span
+                    className="grade-level"
+                  >
+                    10 - 12
+                  </span>
+                </span>
+              </span>
+            </ActivityRowGradeRange>
           </div>
+        </div>
+        <div
+          className="third-line mobile-only"
+        >
+          <div
+            className="non-toggle-buttons"
+          >
+            <a
+              className="interactive-wrapper focus-on-light preview-link"
+              href="/activity_sessions/anonymous?activity_id=729"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt="Preview eye icon"
+                src="undefined/images/icons/preview.svg"
+              />
+              Preview
+            </a>
+            <button
+              className="interactive-wrapper focus-on-light save-button"
+              onClick={[Function]}
+              type="button"
+            >
+              <img
+                alt="Arrow pointing down"
+                src="undefined/images/icons/icons-bookmark-outline.svg"
+              />
+              Save
+            </button>
+          </div>
+        </div>
+        <div
+          className="third-line"
+        >
+          <ActivityRowTopics
+            inExpandedView={false}
+            maxAllowedLength={0}
+            onTertiaryLine={true}
+            topics={
+              Array [
+                Object {
+                  "id": 16,
+                  "level": 3,
+                  "name": "History",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": 45,
+                  "level": 2,
+                  "name": "U.S. History",
+                  "parent_id": 16,
+                },
+                Object {
+                  "id": 119,
+                  "level": 1,
+                  "name": "The American Revolution",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": 385,
+                  "level": 0,
+                  "name": "The Battle of Bunker Hill",
+                  "parent_id": null,
+                },
+              ]
+            }
+          >
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                The American Revolution: The Battle of Bunker Hill
+              </span>
+            </span>
+          </ActivityRowTopics>
         </div>
         <ActivityRowExpandedSection
           activity={
@@ -13335,36 +14950,46 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               type="button"
             >
               <h2>
-                Turning Point: Saratoga
+                <img
+                  alt="Target representing Quill Connect"
+                  src="undefined/images/icons/description-connect.svg"
+                />
+                <span>
+                  Turning Point: Saratoga
+                </span>
               </h2>
             </button>
           </div>
           <div
             className="buttons-wrapper"
           >
-            <a
-              className="interactive-wrapper focus-on-light preview-link"
-              href="/activity_sessions/anonymous?activity_id=730"
-              rel="noopener noreferrer"
-              target="_blank"
+            <div
+              className="non-toggle-buttons"
             >
-              <img
-                alt="Preview eye icon"
-                src="undefined/images/icons/preview.svg"
-              />
-              Preview
-            </a>
-            <button
-              className="interactive-wrapper focus-on-light save-button"
-              onClick={[Function]}
-              type="button"
-            >
-              <img
-                alt="Arrow pointing down"
-                src="undefined/images/icons/icons-bookmark-outline.svg"
-              />
-              Save
-            </button>
+              <a
+                className="interactive-wrapper focus-on-light preview-link"
+                href="/activity_sessions/anonymous?activity_id=730"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt="Preview eye icon"
+                  src="undefined/images/icons/preview.svg"
+                />
+                Preview
+              </a>
+              <button
+                className="interactive-wrapper focus-on-light save-button"
+                onClick={[Function]}
+                type="button"
+              >
+                <img
+                  alt="Arrow pointing down"
+                  src="undefined/images/icons/icons-bookmark-outline.svg"
+                />
+                Save
+              </button>
+            </div>
             <button
               className="interactive-wrapper focus-on-light expand-button"
               onClick={[Function]}
@@ -13383,28 +15008,6 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           <div
             className="classification-concept-topic-wrapper"
           >
-            <ActivityRowClassification
-              classification={
-                Object {
-                  "alias": "Quill Connect",
-                  "description": "Combine Sentences",
-                  "id": 5,
-                  "key": "connect",
-                }
-              }
-            >
-              <span
-                className="attribute-section classification"
-              >
-                <img
-                  alt="Target representing Quill Connect"
-                  src="undefined/images/icons/description-connect.svg"
-                />
-                <span>
-                  Quill Connect
-                </span>
-              </span>
-            </ActivityRowClassification>
             <ActivityRowConcept
               conceptName="History: American Revolution"
             >
@@ -13421,7 +15024,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               </span>
             </ActivityRowConcept>
             <ActivityRowTopics
+              inExpandedView={false}
               maxAllowedLength={0}
+              onTertiaryLine={false}
               topics={
                 Array [
                   Object {
@@ -13451,30 +15056,12 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 ]
               }
             >
-              <span
-                className="attribute-section topic"
-              />
+              <span />
             </ActivityRowTopics>
           </div>
           <div
             className="grade-range-and-standard-level-wrapper"
           >
-            <ActivityRowReadabilityGradeLevel
-              readabilityGradeLevel="6th-7th"
-            >
-              <span
-                className="attribute-section grade-range"
-              >
-                <img
-                  alt="Book icon"
-                  src="undefined/images/icons/description-readability.svg"
-                />
-                <span>
-                  Readability: Grades 
-                  6th-7th
-                </span>
-              </span>
-            </ActivityRowReadabilityGradeLevel>
             <ActivityRowStandardLevel
               standardLevelName="7th Grade CCSS"
             >
@@ -13490,7 +15077,120 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 </span>
               </span>
             </ActivityRowStandardLevel>
+            <ActivityRowGradeRange>
+              <span
+                className="attribute-section grade-range"
+              >
+                <img
+                  alt="Book icon"
+                  src="undefined/images/icons/description-readability.svg"
+                />
+                <span>
+                  Grades: 
+                  <span
+                    className="grade-level"
+                  >
+                    4 - 5
+                  </span>
+                  <span
+                    className="grade-level"
+                  >
+                    6 - 7
+                  </span>
+                  <span
+                    className="grade-level"
+                  >
+                    8 - 9
+                  </span>
+                  <span
+                    className="grade-level"
+                  >
+                    10 - 12
+                  </span>
+                </span>
+              </span>
+            </ActivityRowGradeRange>
           </div>
+        </div>
+        <div
+          className="third-line mobile-only"
+        >
+          <div
+            className="non-toggle-buttons"
+          >
+            <a
+              className="interactive-wrapper focus-on-light preview-link"
+              href="/activity_sessions/anonymous?activity_id=730"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt="Preview eye icon"
+                src="undefined/images/icons/preview.svg"
+              />
+              Preview
+            </a>
+            <button
+              className="interactive-wrapper focus-on-light save-button"
+              onClick={[Function]}
+              type="button"
+            >
+              <img
+                alt="Arrow pointing down"
+                src="undefined/images/icons/icons-bookmark-outline.svg"
+              />
+              Save
+            </button>
+          </div>
+        </div>
+        <div
+          className="third-line"
+        >
+          <ActivityRowTopics
+            inExpandedView={false}
+            maxAllowedLength={0}
+            onTertiaryLine={true}
+            topics={
+              Array [
+                Object {
+                  "id": 16,
+                  "level": 3,
+                  "name": "History",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": 45,
+                  "level": 2,
+                  "name": "U.S. History",
+                  "parent_id": 16,
+                },
+                Object {
+                  "id": 119,
+                  "level": 1,
+                  "name": "The American Revolution",
+                  "parent_id": null,
+                },
+                Object {
+                  "id": 386,
+                  "level": 0,
+                  "name": "The Battle of Saratoga",
+                  "parent_id": null,
+                },
+              ]
+            }
+          >
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                The American Revolution: The Battle of Saratoga
+              </span>
+            </span>
+          </ActivityRowTopics>
         </div>
         <ActivityRowExpandedSection
           activity={

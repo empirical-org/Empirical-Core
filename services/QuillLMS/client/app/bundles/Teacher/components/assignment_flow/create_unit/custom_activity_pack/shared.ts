@@ -57,7 +57,7 @@ export const TOPIC_FILTERS = 'topicFilters'
 
 export const SAVED_ACTIVITY_FILTERS = 'savedActivityFilters'
 
-export const ELL_FILTERS = 'ellFilters'
+export const STANDARDS_FILTERS = 'standardsFilters'
 
 export function arrayFromNumbers(lowerValue: number, upperValue: number) {
   const array = []
@@ -80,6 +80,12 @@ function filterByActivityClassification(activityClassificationFilters: string[],
 function filterByActivityCategory(activityCategoryFilters: number[], activity: Activity) {
   if (!activityCategoryFilters.length) { return true }
   return activityCategoryFilters.includes(activity.activity_category.id)
+}
+
+function filterByStandards(standardsFilters: { ccssGradeLevelFilters: number[], ellFilters: number[]}, activity: Activity) {
+  const { ccssGradeLevelFilters, ellFilters, } = standardsFilters
+
+  return filterByCCSSGradeLevel(ccssGradeLevelFilters, activity) || filterByELL(ellFilters, activity)
 }
 
 function filterByCCSSGradeLevel(ccssGradeLevelFilters: number[], activity: Activity) {
@@ -132,8 +138,7 @@ export function filterByFlag(flagFilters: string[], activity:Activity) {
 export const filters = {
   search: filterBySearch,
   [ACTIVITY_CLASSIFICATION_FILTERS]: filterByActivityClassification,
-  ccssGradeLevelFilters: filterByCCSSGradeLevel,
-  [ELL_FILTERS]: filterByELL,
+  [STANDARDS_FILTERS]: filterByStandards,
   readabilityGradeLevelFilters: filterByReadabilityGradeLevel,
   [ACTIVITY_CATEGORY_FILTERS]: filterByActivityCategory,
   [CONTENT_PARTNER_FILTERS]: filterByContentPartners,

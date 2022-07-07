@@ -52,6 +52,7 @@ const CustomActivityPack = ({
   const [activityClassificationFilters, setActivityClassificationFilters] = React.useState(url.activityClassificationFilters || [])
   const [ccssGradeLevelFilters, setCCSSGradeLevelFilters] = React.useState(url.ccssGradeLevelFilters || [])
   const [ellFilters, setELLFilters] = React.useState(url.ellFilters || [])
+  const [standardsFilters, setStandardsFilters] = React.useState({})
   const [readabilityGradeLevelFilters, setReadabilityGradeLevelFilters] = React.useState(url.readabilityGradeLevelFilters || [])
   const [activityCategoryFilters, setActivityCategoryFilters] = React.useState(url.activityCategoryFilters || [])
   const [contentPartnerFilters, setContentPartnerFilters] = React.useState(url.contentPartnerFilters || [])
@@ -89,6 +90,14 @@ const CustomActivityPack = ({
       setActivities(passedActivities)
     }
   }, [passedActivities])
+
+  React.useEffect(() => {
+    const newStandardsFilters = {
+      ellFilters,
+      ccssGradeLevelFilters
+    }
+    setStandardsFilters(newStandardsFilters)
+  }, [ellFilters, ccssGradeLevelFilters])
 
   React.useEffect(() => {
     if (showSnackbar) {
@@ -195,7 +204,7 @@ const CustomActivityPack = ({
 
   function handleELLFilterChange(newELLFilters: number[]) {
     setFilterHistory(prevFilterHistory => prevFilterHistory.concat([{ function: setELLFilters, argument: ellFilters }]))
-    setCCSSGradeLevelFilters(newELLFilters)
+    setELLFilters(newELLFilters)
   }
 
   function handleReadabilityGradeLevelFilterChange(newReadabilityGradeLevelFilters: number[]) {
