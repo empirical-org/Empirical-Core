@@ -248,10 +248,10 @@ const ActivityRow = ({ activity, isSelected, toggleActivitySelection, showCheckb
   const isSelectedClassName = isSelected ? 'selected' : 'not-selected'
   const isFirstClassName = isFirst ? 'is-first' : ''
 
-  let thirdLine
+  let topicLine
 
   if (topics && topics.length) {
-    thirdLine = (
+    topicLine = (
       <div className="third-line">
         <ActivityRowTopics
           inExpandedView={isExpanded}
@@ -279,7 +279,6 @@ const ActivityRow = ({ activity, isSelected, toggleActivitySelection, showCheckb
       <div className="second-line">
         <div className="classification-concept-topic-wrapper">
           <ActivityRowConcept conceptName={activity_category_name} />
-          {activity_category_name && topics && topics.length && <span className="vertical-divider" />}
           <ActivityRowTopics
             inExpandedView={isExpanded}
             maxAllowedLength={calculateMaxAllowedLengthForTopicSection({ activity_classification, activity_category_name, readability_grade_level, standard_level_name})}
@@ -293,7 +292,8 @@ const ActivityRow = ({ activity, isSelected, toggleActivitySelection, showCheckb
           <ActivityRowGradeRange gradeRange={grade_range} />
         </div>
       </div>
-      {thirdLine}
+      <div className="third-line mobile-only">{nonToggleButtons}</div>
+      {topicLine}
       <ActivityRowExpandedSection activity={activity} isExpanded={isExpanded} />
     </section>
   )
