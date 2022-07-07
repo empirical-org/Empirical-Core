@@ -74,6 +74,9 @@ class Activity < ApplicationRecord
 
   delegate :form_url, to: :classification, prefix: true
 
+  validates :minimum_grade_level, numericality: { greater_than_or_equal_to: 4, less_than_or_equal_to: 12 }
+  validates :maximum_grade_level, numericality: { greater_than_or_equal_to: 4, less_than_or_equal_to: 12 }
+
   scope :production, lambda {
     where(<<-SQL, :production)
       activities.flags = '{}' OR ? = ANY (activities.flags)

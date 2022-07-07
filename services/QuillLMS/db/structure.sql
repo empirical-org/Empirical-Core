@@ -296,8 +296,8 @@ CREATE TABLE public.activities (
     supporting_info character varying,
     standard_id integer,
     raw_score_id integer,
-    minimum_grade_level integer,
-    maximum_grade_level integer
+    minimum_grade_level smallint,
+    maximum_grade_level smallint
 );
 
 
