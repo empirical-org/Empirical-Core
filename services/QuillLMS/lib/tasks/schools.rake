@@ -114,20 +114,18 @@ namespace :schools do
   # data in 2022 from the same federal sources, the NCES IDs were no longer
   # left-padded in the data set, so we ended up creating duplicate schools.
   # One set with leading "0"s and one without.  This task is intended to
-  # move any users from the duplicates to the original schools, and then to
-  # remove the duplicates from our database.
-  desc 'Clean up duplicate schools based on 0-left-padded NCES ID'
-  task :clean_up_duplicates => :environment do
+  # move any users from the duplicates to the original schools.
+  desc 'Move users assigned to duplicate schools to the original schools in prep for cleanup'
+  task :reassign_users_from_duplicates => :environment do
 
     teachers_assigned_to_duplicates = <<-SQL
       SELECT original.id AS original_school_id,
-            duplicate.id AS duplicate_school_id,
             schools_users.id AS schools_users_id,
             schools_admins.id AS schools_admins_id
           FROM schools AS original
           JOIN schools AS duplicate
               ON original.nces_id = CONCAT('0', duplicate.nces_id)
-                  OR original.nces_id = CONCAT('0', duplicate.nces_id)
+                  OR original.nces_id = CONCAT('00', duplicate.nces_id)
           LEFT OUTER JOIN schools_admins
               ON duplicate.id = schools_admins.school_id
           LEFT OUTER JOIN schools_users
@@ -136,21 +134,43 @@ namespace :schools do
 
     users_updated = 0
     admins_updated = 0
-    duplicate_schools_deleted = 0
     ActiveRecord::Base.connection.execute(teachers_assigned_to_duplicates).each do |row|
       ActiveRecord::Base.transaction do
         if row['schools_users_id']
-          update_me = SchoolsUsers.find(row['schools_users_id'])
-          update_me.update(school_id: row['original_school_id'])
+          school_user = SchoolsUsers.find(row['schools_users_id'])
+          school_user.update(school_id: row['original_school_id'])
           users_updated += 1
         end
 
         if row['schools_admins_id']
-          update_me = SchoolsAdmins.find(row['schools_admins_id'])
-          update_me.update(school_id: row['original_school_id'])
+          school_admin = SchoolsAdmins.find(row['schools_admins_id'])
+          school_admin.update(school_id: row['original_school_id'])
           admins_updated += 1
         end
+      end
+    end
 
+    puts "Moved #{users_updated} users to the correct school."
+    puts "Moved #{admins_updated} admins to the correct school."
+  end
+
+  # See not on :reassign_users_from_duplicates.  This task is intended
+  # to actually remove the duplicate schools
+  desc 'Clean up duplicate schools based on 0-left-padded NCES ID'
+  task :clean_up_duplicates => :environment do
+
+    teachers_assigned_to_duplicates = <<-SQL
+      SELECT original.id AS original_school_id,
+            duplicate.id AS duplicate_school_id
+          FROM schools AS original
+          JOIN schools AS duplicate
+              ON original.nces_id = CONCAT('0', duplicate.nces_id)
+                  OR original.nces_id = CONCAT('00', duplicate.nces_id)
+    SQL
+
+    duplicate_schools_deleted = 0
+    ActiveRecord::Base.connection.execute(teachers_assigned_to_duplicates).each do |row|
+      ActiveRecord::Base.transaction do
         duplicate = School.find(row['duplicate_school_id'])
         update_hash = duplicate.as_json.except('id', 'nces_id').select { |_,v| v.present? }
         School.update(row['original_school_id'], update_hash)
@@ -160,8 +180,6 @@ namespace :schools do
       end
     end
 
-    puts "Moved #{users_updated} users to the correct school."
-    puts "Moved #{admins_updated} admins to the correct school."
     puts "Deleted #{duplicate_schools_deleted} duplicate schools."
   end
 end
