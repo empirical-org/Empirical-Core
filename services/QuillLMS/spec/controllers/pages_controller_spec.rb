@@ -28,16 +28,6 @@ describe PagesController do
       end
     end
 
-    context 'when user is not signed in, weird format' do
-      it 'should render page' do
-        headers = { Accept: "RandomGobbledyguck"}
-        request.headers.merge! headers
-        get :home_new
-
-        expect(response).to render_template 'pages/home_new'
-      end
-    end
-
     context 'when a user has just signed out' do
       before do
         allow(controller).to receive(:check_should_clear_segment_identity) { true }
