@@ -85,12 +85,12 @@ function filterByActivityCategory(activityCategoryFilters: number[], activity: A
 function filterByStandards(standardsFilters: { ccssGradeLevelFilters: number[], ellFilters: number[]}, activity: Activity) {
   const { ccssGradeLevelFilters, ellFilters, } = standardsFilters
 
+  if (!ccssGradeLevelFilters.length && !ellFilters.length) { return true }
+
   return filterByCCSSGradeLevel(ccssGradeLevelFilters, activity) || filterByELL(ellFilters, activity)
 }
 
 function filterByCCSSGradeLevel(ccssGradeLevelFilters: number[], activity: Activity) {
-  if (!ccssGradeLevelFilters.length) { return true }
-
   if (!activity.standard_level_name?.includes('CCSS')) { return }
 
   const numberFromStandardLevel = getNumberFromString(activity.standard_level_name)
@@ -98,8 +98,6 @@ function filterByCCSSGradeLevel(ccssGradeLevelFilters: number[], activity: Activ
 }
 
 function filterByELL(ellLevelFilters: number[], activity: Activity) {
-  if (!ellLevelFilters.length) { return true }
-
   if (!activity.standard_level_name?.includes('ELL')) { return }
 
   const numberFromStandardLevel = getNumberFromString(activity.standard_level_name)

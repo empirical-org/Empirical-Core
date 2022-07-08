@@ -56,6 +56,7 @@ const CCSSGradeLevelFilters = ({ ccssGradeLevelFilters, handleCCSSGradeLevelFilt
   return (
     <section className="filter-section ccss-grade-level">
       <Tooltip
+        isTabbable={false}
         tooltipText={tooltipText}
         tooltipTriggerText={filterSectionContent}
       />
