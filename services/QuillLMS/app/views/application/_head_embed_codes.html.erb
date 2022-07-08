@@ -7,11 +7,11 @@
         integrations: {
           all: true
 
-          <%#= We're using load_intercom? as a proxy for Vitally
+          <%#= We're using user_is_trackable_teacher? as a proxy for Vitally
                since the conditions are basically the same (teachers only).
                If we shouldn't load Intercom, then we shouldn't send any
                events to Vitally, either. %>
-          <% unless load_intercom? %>
+          <% unless user_is_trackable_teacher? %>
           , Intercom: false
           , Vitally: false
           , Heap: false
@@ -24,7 +24,7 @@
       #   2) the user literally just logged out, and the controller let us know
       #   3) this is an anonymous user, in which case we don't do anything special at all
     %>
-    <% if load_intercom? %>
+    <% if user_is_trackable_teacher? %>
       analytics.identify(<%= raw(generate_segment_identify_arguments(current_user)) %>);
       <% if current_user.school %>
         analytics.group("<%= raw(current_user.school.id) %>", {
@@ -39,7 +39,7 @@
       analytics.page();
     <% end %>
 
-    <% if load_intercom? %>
+    <% if user_is_trackable_teacher? %>
 
       setInterval(function() {
         if (typeof Intercom !== 'undefined') {
@@ -47,7 +47,7 @@
         }
       }, 30000)
 
-      // In addition to loading Intercom, we're using "load_intercom?" as a proxy for
+      // In addition to loading Intercom, we're using "user_is_trackable_teacher?" as a proxy for
       // "this is a teacher user". Our integration with Vitally suppresses .page()
       // calls.  This means that we need to track pageviews for Vitally with explicit
       // calls to `analytics.track()`.  But we only need to send this data to Vitally.
@@ -71,6 +71,6 @@
   }}();
   </script>
   <!-- end Segment.io -->
-  <%= render partial: 'application/coview' if load_intercom? %>
-  <%= render partial: 'application/ortto' if load_intercom? %>
+  <%= render partial: 'application/coview' if user_is_trackable_teacher? %>
+  <%= render partial: 'application/ortto' if user_is_trackable_teacher? %>
 <% end %>
