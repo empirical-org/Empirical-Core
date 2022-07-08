@@ -1,17 +1,17 @@
 default: &default
   pool: <%= ENV.fetch("MAX_THREADS") { 5 } %>
   prepared_statements: false
+  adapter: postgresql
   timeout: 5000
 
-development_env: &development_env
-  adapter: postgresql
+development_shared: &development_shared
   encoding: unicode
   database: emp_gr_development
   host:     localhost
   port: 5432
 
 test_env: &test_env
-  <<: *development_env
+  <<: *development_shared
   database: emp_gr_test
 
 # While we don't actually connect to any follower DBs, they
@@ -24,7 +24,7 @@ leader_db_env: &leader_db_env
 
 development: &development
   <<: *default
-  adapter: postgresql
+  <<: *development_shared
   <<: *leader_db_env
 
 # Warning: The database defined as "test" will be erased and
@@ -32,12 +32,10 @@ development: &development
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  adapter: postgresql
   <<: *test_env
 
 staging: &staging
   <<: *default
-  adapter: postgresql
   <<: *leader_db_env
 
 sprint:
@@ -45,5 +43,4 @@ sprint:
 
 production:
   <<: *default
-  adapter: postgresql
   <<: *leader_db_env
