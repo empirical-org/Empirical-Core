@@ -9,18 +9,14 @@ module Evidence
       subject { FactoryBot.build(:evidence_rule) }
 
       it { should validate_uniqueness_of(:uid) }
-
       it { should validate_presence_of(:name) }
-
       it { should validate_length_of(:name).is_at_most(250) }
-
-      it { should validate_inclusion_of(:universal).in_array(Rule::ALLOWED_BOOLEANS) }
-
       it { should validate_inclusion_of(:rule_type).in_array(Rule::TYPES) }
-
       it { should validate_inclusion_of(:state).in_array(Rule::STATES) }
 
-      it { should validate_inclusion_of(:optimal).in_array(Rule::ALLOWED_BOOLEANS) }
+      it { should allow_value(true).for(:optimal) }
+      it { should allow_value(false).for(:universal) }
+      it { should_not allow_value(nil).for(:universal) }
 
       it { should validate_numericality_of(:suborder).only_integer.is_greater_than_or_equal_to(0).allow_nil }
     end
@@ -28,15 +24,10 @@ module Evidence
     context 'should relationships' do
 
       it { should have_one(:label) }
-
       it { should have_many(:plagiarism_texts) }
-
       it { should have_many(:feedbacks) }
-
       it { should have_many(:prompts_rules) }
-
       it { should have_many(:prompts).through(:prompts_rules) }
-
       it { should have_many(:regex_rules).dependent(:destroy) }
     end
 
