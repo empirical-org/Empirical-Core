@@ -8,7 +8,7 @@ import { requestGet, requestPost, requestPut } from '../../../modules/request/in
 
 const DEFAULT_MAXIMUM_GRADE_LEVEL = 12
 
-const ActivityForm = ({ activity, activityClassification, contentPartnerOptions, activityCategoryOptions, standardOptions, rawScoreOptions, passedTopicOptions, flagOptions, followUpActivityOptions, gradeBands, readabilityGradeBandToMinimumGradeLevelMap, }) => {
+const ActivityForm = ({ activity, activityClassification, contentPartnerOptions, activityCategoryOptions, standardOptions, rawScoreOptions, passedTopicOptions, flagOptions, followUpActivityOptions, rawScoreToReadabilityGradeBands, readabilityGradeBandToMinimumGradeLevel, }) => {
   const [editedActivity, setEditedActivity] = React.useState(activity);
   const [topicOptions, setTopicOptions] = React.useState(passedTopicOptions);
   const [showSnackbar, setShowSnackbar] = React.useState(false)
@@ -22,8 +22,8 @@ const ActivityForm = ({ activity, activityClassification, contentPartnerOptions,
   React.useEffect(() => {
     if (editedActivity.raw_score_id && !editedActivity.minimum_grade_level) {
       const selectedRawScoreOption = rawScoreOptions.find(rawScore => rawScore.id === editedActivity.raw_score_id)
-      const readabilityGradeBand = gradeBands[selectedRawScoreOption?.name]
-      const minimumGradeLevel = readabilityGradeBandToMinimumGradeLevelMap[readabilityGradeBand]
+      const readabilityGradeBand = rawScoreToReadabilityGradeBands[selectedRawScoreOption?.name]
+      const minimumGradeLevel = readabilityGradeBandToMinimumGradeLevel[readabilityGradeBand]
       handleAttributeChange('minimum_grade_level', minimumGradeLevel)
     }
   }, [editedActivity.raw_score_id])
@@ -178,7 +178,7 @@ const ActivityForm = ({ activity, activityClassification, contentPartnerOptions,
           <select className="activity-categories" multiple onChange={handleActivityCategoryChange} value={editedActivity.activity_category_ids}>{activityCategoryOptionElements}</select>
         </section>
         <ContentPartners activity={editedActivity} contentPartnerOptions={contentPartnerOptions} handleContentPartnerChange={handleContentPartnerChange} />
-        <RawScore activity={editedActivity} gradeBands={gradeBands} handleRawScoreChange={handleRawScoreChange} rawScoreOptions={rawScoreOptions} />
+        <RawScore activity={editedActivity} handleRawScoreChange={handleRawScoreChange} rawScoreOptions={rawScoreOptions} rawScoreToReadabilityGradeBands={rawScoreToReadabilityGradeBands} />
         <section>
           <label>Minimum grade level</label>
           <input onChange={handleMinimumGradeLevelChange} value={editedActivity.minimum_grade_level} />

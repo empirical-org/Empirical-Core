@@ -8,6 +8,6 @@
   passedTopicOptions: Topic.all.sort_by(&:name),
   flagOptions: Activity::FLAGS,
   followUpActivityOptions: Activity.all.sort_by { |a| a.name || '' },
-  gradeBands: @grade_band_hash,
-  readabilityGradeBandToMinimumGradeLevelMap: @readability_grade_band_to_minimum_grade_level_map
+  rawScoreToReadabilityGradeBands: @raw_score_to_readability_grade_band,
+  readabilityGradeBandToMinimumGradeLevel: @readability_grade_band_to_minimum_grade_level
 }) %>
