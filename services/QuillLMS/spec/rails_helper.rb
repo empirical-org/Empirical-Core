@@ -92,6 +92,11 @@ RSpec.configure do |config|
     example.run
     ActionController::Base.perform_caching = caching
   end
+
+  config.before do
+    allow($stdout).to receive(:puts)
+    allow($stdout).to receive(:write)
+  end
 end
 
 if defined?(Coveralls)
