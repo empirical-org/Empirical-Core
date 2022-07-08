@@ -40,7 +40,7 @@ class Cms::UnitTemplatesController < Cms::CmsController
     params = unit_template_params
     @unit_template.activities = []
     @unit_template.save
-    if @unit_template.update_attributes(params)
+    if @unit_template.update(params)
       @unit_template.activities_unit_templates.each do |aut|
         order_number = params["activity_ids"].index(aut.activity_id)
         aut.update(order_number: order_number)

@@ -718,28 +718,28 @@ end
     let(:student) {create(:student)}
     let(:activity) {create(:activity)}
 
-    let(:classroom_unit)   {create(:classroom_unit, classroom: classroom, assigned_student_ids: [student.id])}
-    let(:previous_final_score) {create(:activity_session, completed_at: Time.current, percentage: 0.9, is_final_score: true, user: student, classroom_unit: classroom_unit, activity: activity)}
+    let(:classroom_unit)   { create(:classroom_unit, classroom: classroom, assigned_student_ids: [student.id])}
+    let(:previous_final_score) { create(:activity_session, completed_at: Time.current, percentage: 0.9, is_final_score: true, user: student, classroom_unit: classroom_unit, activity: activity)}
 
     it 'updates when new activity session has higher percentage' do
       previous_final_score
-      new_activity_session =  create(:activity_session, is_final_score: false, user: student, classroom_unit: classroom_unit, activity: activity)
-      new_activity_session.update_attributes completed_at: Time.current, state: 'finished', percentage: 0.95
+      new_activity_session = create(:activity_session, is_final_score: false, user: student, classroom_unit: classroom_unit, activity: activity)
+      new_activity_session.update(completed_at: Time.current, state: 'finished', percentage: 0.95)
       expect([ActivitySession.find(previous_final_score.id).reload.is_final_score, ActivitySession.find(new_activity_session.id).reload.is_final_score]).to eq([false, true])
     end
 
     it 'updates when new activity session has equal percentage' do
       previous_final_score
-      new_activity_session =  create(:activity_session, is_final_score: false, user: student, classroom_unit: classroom_unit, activity: activity)
-      new_activity_session.update_attributes completed_at: Time.current, state: 'finished', percentage: previous_final_score.percentage
+      new_activity_session = create(:activity_session, is_final_score: false, user: student, classroom_unit: classroom_unit, activity: activity)
+      new_activity_session.update(completed_at: Time.current, state: 'finished', percentage: previous_final_score.percentage)
       expect([ActivitySession.find(previous_final_score.id).reload.is_final_score, ActivitySession.find(new_activity_session.id).reload.is_final_score]).to eq([false, true])
     end
 
     it 'updates when new and old session percentages are nil' do
       previous_final_score
       previous_final_score.update(percentage: nil)
-      new_activity_session =  create(:activity_session, is_final_score: false, user: student, classroom_unit: classroom_unit, activity: activity)
-      new_activity_session.update_attributes completed_at: Time.current, state: 'finished', percentage: nil
+      new_activity_session = create(:activity_session, is_final_score: false, user: student, classroom_unit: classroom_unit, activity: activity)
+      new_activity_session.update(completed_at: Time.current, state: 'finished', percentage: nil)
       expect([ActivitySession.find(previous_final_score.id).reload.is_final_score, ActivitySession.find(new_activity_session.id).reload.is_final_score]).to eq([false, true])
     end
 
@@ -749,19 +749,19 @@ end
       activity.update(classification: classification)
       previous_final_score
       previous_final_score.update(percentage: nil)
-      new_activity_session =  create(:activity_session, is_final_score: false, user: student, classroom_unit: classroom_unit, activity: activity)
-      new_activity_session.update_attributes completed_at: Time.current, state: 'finished', percentage: nil
+      new_activity_session = create(:activity_session, is_final_score: false, user: student, classroom_unit: classroom_unit, activity: activity)
+      new_activity_session.update(completed_at: Time.current, state: 'finished', percentage: nil)
       expect([ActivitySession.find(previous_final_score.id).reload.is_final_score, ActivitySession.find(new_activity_session.id).reload.is_final_score]).to eq([false, true])
     end
 
     it 'doesnt update when new activity session has lower percentage' do
       previous_final_score
-      new_activity_session =  create(:activity_session, completed_at: Time.current, state: 'finished', percentage: 0.5, is_final_score: false, user: student, classroom_unit: classroom_unit, activity: activity)
+      new_activity_session = create(:activity_session, completed_at: Time.current, state: 'finished', percentage: 0.5, is_final_score: false, user: student, classroom_unit: classroom_unit, activity: activity)
       expect([ActivitySession.find(previous_final_score.id).is_final_score, ActivitySession.find(new_activity_session.id).is_final_score]).to eq([true, false])
     end
 
     it 'mark finished anonymous sessions as final' do
-      new_activity_session =  create(:activity_session, completed_at: Time.current, state: 'finished', percentage: 0.5, is_final_score: false, user: nil, classroom_unit: nil, activity: activity)
+      new_activity_session = create(:activity_session, completed_at: Time.current, state: 'finished', percentage: 0.5, is_final_score: false, user: nil, classroom_unit: nil, activity: activity)
       expect(new_activity_session.is_final_score).to eq(true)
     end
   end
@@ -825,7 +825,7 @@ end
       }]
     end
 
-    before { activity_session.update_attributes(visible: true) }
+    before { activity_session.update(visible: true) }
 
     it 'should create a concept result with the hash given' do
       expect(OldConceptResult).to receive(:create).with({
