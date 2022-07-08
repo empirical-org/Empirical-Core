@@ -72,5 +72,5 @@
   </script>
   <!-- end Segment.io -->
   <%= render partial: 'application/coview' if load_intercom? %>
-  <%= render partial: 'application/ortto' %>
+  <%= render partial: 'application/ortto' if load_intercom? %>
 <% end %>
