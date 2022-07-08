@@ -21,7 +21,10 @@ const ReadabilityGradeLevelFilters = ({ readabilityGradeLevelFilters, handleRead
     handleReadabilityGradeLevelFilterChange(readabilityGradeLevelArray)
   }
 
-  function clearAllReadabilityGradeLevelFilters() { handleReadabilityGradeLevelFilterChange([]) }
+  function clearAllReadabilityGradeLevelFilters() {
+    console.log('am i getting called or what')
+    handleReadabilityGradeLevelFilterChange([])
+  }
 
   const clearButton = readabilityGradeLevelFilters.length ? <button className="interactive-wrapper clear-filter focus-on-light" onClick={clearAllReadabilityGradeLevelFilters} type="button">Clear</button> : <span />
 
@@ -60,6 +63,7 @@ const ReadabilityGradeLevelFilters = ({ readabilityGradeLevelFilters, handleRead
   return (
     <section className="filter-section readability">
       <Tooltip
+        isTabbable={false}
         tooltipText={tooltipText}
         tooltipTriggerText={filterSectionContent}
       />
