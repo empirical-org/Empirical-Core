@@ -245,7 +245,7 @@ jobs:
             go test
   evidence_rails_build:
     working_directory: ~/Empirical-Core
-    parallelism: 4
+    parallelism: 1
     docker:
       - image: cimg/ruby:2.7.6
         environment:
