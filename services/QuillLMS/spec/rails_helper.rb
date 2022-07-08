@@ -93,9 +93,11 @@ RSpec.configure do |config|
     ActionController::Base.perform_caching = caching
   end
 
-  config.before do
-    allow($stdout).to receive(:puts)
-    allow($stdout).to receive(:write)
+  if ENV.fetch('SUPPRESS_PUTS', false) == 'true'
+    config.before do
+      allow($stdout).to receive(:puts)
+      allow($stdout).to receive(:write)
+    end
   end
 end
 
