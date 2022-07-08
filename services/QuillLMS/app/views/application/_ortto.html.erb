@@ -5,7 +5,7 @@
     ap3c.cmd = ap3c.cmd || [];
 
     ap3c.cmd.push(function() {
-        ap3c.init("<%= ENV["ORTTO_KEY"] %>", 'https://capture-api.autopilotapp.com/');
+        ap3c.init('<%= ENV["ORTTO_KEY"] %>', 'https://capture-api.autopilotapp.com/');
         ap3c.track({"v":0,"ei":"<%= raw(current_user&.id) %>","first":"<%= raw(current_user&.first_name) %>","last":"<%= raw(current_user&.last_name) %>"});
     });
     ap3c.activity = function(act) { ap3c.act = (ap3c.act || []); ap3c.act.push(act); };
