@@ -33,7 +33,15 @@ module Evidence
 
       it "should call Check.run_all, save history, and return feedback.response" do
         expect(Check).to receive(:get_feedback).with(entry, prompt, []).and_return(feedback.response)
-        expect(Evidence.feedback_history_class).to receive(:save_feedback).with(feedback.response.except(:api), entry, prompt.id, session_id, attempt, feedback.response[:api])
+        expect(Evidence.feedback_history_class).to receive(:save_feedback).with(
+          feedback_hash_raw: feedback.response.except(:api),
+          entry: entry,
+          prompt_id: prompt.id,
+          activity_session_uid: session_id,
+          attempt: attempt,
+          activity_version: 0,
+          api_metadata: feedback.response[:api]
+        )
 
         post :create, params: {entry: entry, prompt_id: prompt.id, session_id: session_id, previous_feedback: ([]), attempt: attempt }, as: :json
 

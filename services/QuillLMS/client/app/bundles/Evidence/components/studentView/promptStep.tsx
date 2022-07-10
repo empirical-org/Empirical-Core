@@ -9,6 +9,7 @@ import ButtonLoadingSpinner from '../shared/buttonLoadingSpinner'
 import { highlightGrammar, highlightSpelling, stripEvidenceHtml } from '../../libs/stringFormatting'
 
 interface PromptStepProps {
+  currentActivity: object,
   activityIsComplete: Boolean;
   className: string,
   completionButtonCallback: () => void;
@@ -280,7 +281,7 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
   }
 
   handleGetFeedbackClick = (entry: string, promptId: string, promptText: string) => {
-    const { submitResponse, } = this.props
+    const { submitResponse, currentActivity} = this.props
 
     this.setState(prevState => ({
       numberOfSubmissions: prevState.numberOfSubmissions + 1,
@@ -290,7 +291,8 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
       customFeedbackKey: null
     }), () => {
       const { numberOfSubmissions, } = this.state
-      submitResponse(entry, promptId, promptText, numberOfSubmissions)
+      console.log("promptStep#submitResponse, currentActivity: ", currentActivity)
+      submitResponse(entry, promptId, promptText, numberOfSubmissions, currentActivity?.version)
       this.interval = setInterval(() => this.setState({ timeAtLastFeedbackSubmissionCheck: (new Date()).getTime() }), 1000);
     })
   }
