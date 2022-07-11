@@ -7,11 +7,13 @@
 #  id                         :integer          not null, primary key
 #  data                       :jsonb
 #  description                :text
-#  flags                      :string           default([]), not null, is an Array
-#  name                       :string
+#  flags                      :string(255)      default([]), not null, is an Array
+#  maximum_grade_level        :integer
+#  minimum_grade_level        :integer
+#  name                       :string(255)
 #  repeatable                 :boolean          default(TRUE)
 #  supporting_info            :string
-#  uid                        :string           not null
+#  uid                        :string(255)      not null
 #  created_at                 :datetime
 #  updated_at                 :datetime
 #  activity_classification_id :integer
@@ -63,6 +65,8 @@ describe Activity, type: :model, redis: true do
   it { should have_many(:topics).through(:activity_topics)}
 
   it { is_expected.to callback(:flag_as_beta).before(:create).unless(:flags?) }
+
+  it { is_expected.to callback(:set_minimum_and_maximum_grade_levels_to_default_values).before(:save).unless(:minimum_grade_level) }
 
   it do
     expect(subject).to callback(:clear_activity_search_cache).after(:commit)
@@ -494,6 +498,49 @@ describe Activity, type: :model, redis: true do
       activity = create(:activity, raw_score_id: nil)
       expect(activity.readability_grade_level).to eq(nil)
     end
+
+  end
+
+  describe '#default_minimum_grade_level' do
+
+    it 'should return the corresponding number' do
+      raw_score = create(:raw_score, :eight_hundred_to_nine_hundred)
+      activity = create(:activity, raw_score_id: raw_score.id)
+      expect(activity.default_minimum_grade_level).to eq(6)
+    end
+
+    it 'should return nil if there is no raw_score' do
+      activity = create(:activity, raw_score_id: nil)
+      expect(activity.default_minimum_grade_level).to eq(nil)
+    end
+
+  end
+
+  describe '#default_maximum_grade_level' do
+
+    it 'should return the default maximum' do
+      raw_score = create(:raw_score, :eight_hundred_to_nine_hundred)
+      activity = create(:activity, raw_score_id: raw_score.id)
+      expect(activity.default_maximum_grade_level).to eq(Activity::DEFAULT_MAX_GRADE_LEVEL)
+    end
+
+    it 'should return nil if there is no raw_score' do
+      activity = create(:activity, raw_score_id: nil)
+      expect(activity.default_maximum_grade_level).to eq(nil)
+    end
+
+  end
+
+  describe '#set_minimum_and_maximum_grade_levels' do
+
+    it 'should set the activity minimum and maximum grade level to the default values' do
+      raw_score = create(:raw_score, :eight_hundred_to_nine_hundred)
+      activity = create(:activity, raw_score_id: raw_score.id)
+      activity.set_minimum_and_maximum_grade_levels_to_default_values
+      expect(activity.minimum_grade_level).to eq(activity.default_minimum_grade_level)
+      expect(activity.maximum_grade_level).to eq(activity.default_maximum_grade_level)
+    end
+
   end
 
   describe '#is_diagnostic' do
