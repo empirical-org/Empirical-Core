@@ -9,7 +9,7 @@ exports[`ccssGradeLevelFilters component should render 1`] = `
     className="filter-section ccss-grade-level"
   >
     <Tooltip
-      isTabbable={true}
+      isTabbable={false}
       tooltipText="Each activity is aligned to a Common Core standard and the grade level associated with that standard.<br/><br/>Use this filter to see activities that are aligned to a standard within the selected grade level. For example, filter by 6-7 to see all activities aligned to a 6th or 7th grade CCSS.<br/><br/>Since CCSS are often overlapping and span multiple grades, we recommend setting a wide range so you don’t miss out on activities that may still be right for your students!<br/><br/>Click the “?” to learn more about CCSS grade levels and for helpful filtering tips."
       tooltipTriggerText={
         <div
@@ -45,7 +45,7 @@ exports[`ccssGradeLevelFilters component should render 1`] = `
             >
               Standard: 
               1
-              -
+               - 
               11
                Grade Level
             </label>
@@ -78,7 +78,7 @@ exports[`ccssGradeLevelFilters component should render 1`] = `
       }
     >
       <span
-        aria-hidden={false}
+        aria-hidden={true}
         className="quill-tooltip-trigger "
         role="tooltip"
       >
@@ -91,7 +91,7 @@ exports[`ccssGradeLevelFilters component should render 1`] = `
           onMouseEnter={[Function]}
           onMouseLeave={[Function]}
           role="button"
-          tabIndex={0}
+          tabIndex={null}
         >
           <div
             className="tooltip-trigger-filter-section-content"
@@ -126,7 +126,7 @@ exports[`ccssGradeLevelFilters component should render 1`] = `
               >
                 Standard: 
                 1
-                -
+                 - 
                 11
                  Grade Level
               </label>

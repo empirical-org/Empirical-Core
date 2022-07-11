@@ -9,7 +9,7 @@ exports[`readabilityGradeLevelFilters component should render 1`] = `
     className="filter-section readability"
   >
     <Tooltip
-      isTabbable={true}
+      isTabbable={false}
       tooltipText="The readability level is based on the Lexile level of the activity’s prompts and text.<br/><br/>We recommend assigning activities with a readability at or below your students’ reading level so that your students can focus on building the target writing skill. Students never see the readability level of the activities they’re assigned.<br/><br/>Click the “?” Icon to learn more about our readability levels."
       tooltipTriggerText={
         <div
@@ -43,9 +43,9 @@ exports[`readabilityGradeLevelFilters component should render 1`] = `
             <label
               htmlFor="readability-grade-level-slider"
             >
-              Readability: 
+              Grade Level: 
               2
-              -
+               - 
               12
                Grade Text
             </label>
@@ -72,7 +72,7 @@ exports[`readabilityGradeLevelFilters component should render 1`] = `
       }
     >
       <span
-        aria-hidden={false}
+        aria-hidden={true}
         className="quill-tooltip-trigger "
         role="tooltip"
       >
@@ -85,7 +85,7 @@ exports[`readabilityGradeLevelFilters component should render 1`] = `
           onMouseEnter={[Function]}
           onMouseLeave={[Function]}
           role="button"
-          tabIndex={0}
+          tabIndex={null}
         >
           <div
             className="tooltip-trigger-filter-section-content"
@@ -118,9 +118,9 @@ exports[`readabilityGradeLevelFilters component should render 1`] = `
               <label
                 htmlFor="readability-grade-level-slider"
               >
-                Readability: 
+                Grade Level: 
                 2
-                -
+                 - 
                 12
                  Grade Text
               </label>
