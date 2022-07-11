@@ -5,6 +5,7 @@ import ActivityClassificationFilters from './activity_classification_filters'
 import ActivityCategoryFilters from './activity_category_filters'
 import StaffActivityCategoryFilters from './staff_activity_category_filters'
 import CCSSGradeLevelFilters from './ccss_grade_level_filters'
+import GradeLevelFilters from './grade_level_filters'
 import ELLFilters from './ell_filters'
 import ReadabilityGradeLevelFilters from './readability_grade_level_filters'
 import ContentPartnerFilters from './content_partner_filters'
@@ -22,6 +23,8 @@ interface FilterColumnProps {
   ellFilters: number[],
   handleCCSSGradeLevelFilterChange: (ccssGradeLevelFilters: number[]) => void,
   handleELLFilterChange: (ellFilters: number[]) => void,
+  gradeLevelFilters: number[],
+  handleGradeLevelFilterChange: (gradeLevelFilters: number[]) => void,
   activityCategoryFilters: number[],
   handleActivityCategoryFilterChange: (activityCategoryFilters: number[]) => void,
   filterActivities: (ignoredKey?: string) => Activity[],
@@ -53,6 +56,8 @@ const FilterColumn = ({
   ccssGradeLevelFilters,
   ellFilters,
   handleELLFilterChange,
+  gradeLevelFilters,
+  handleGradeLevelFilterChange,
   handleActivityCategoryFilterChange,
   activityCategoryFilters,
   contentPartnerFilters,
@@ -115,6 +120,10 @@ const FilterColumn = ({
           savedActivityFilters={savedActivityFilters}
           savedActivityIds={savedActivityIds}
           showComprehension={showComprehension}
+        />
+        <GradeLevelFilters
+          gradeLevelFilters={gradeLevelFilters}
+          handleGradeLevelFilterChange={handleGradeLevelFilterChange}
         />
         <ReadabilityGradeLevelFilters
           handleReadabilityGradeLevelFilterChange={handleReadabilityGradeLevelFilterChange}

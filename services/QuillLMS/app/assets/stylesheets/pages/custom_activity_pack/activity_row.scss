@@ -89,8 +89,15 @@
           font-weight: 700;
           font-size: 12px;
           line-height: 22px;
+          &.filtered {
+            background: #00C2A2;
+          }
           &:first-of-type {
             margin-left: 8px;
+          }
+          &.not-recommended {
+            background: #E0E0E0;
+            color: rgba(55, 55, 55, 0.3);
           }
         }
       }

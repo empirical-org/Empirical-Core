@@ -1,20 +1,10 @@
 .custom-activity-pack-page {
-  .filter-column-wrapper {
-    border-right: #e0e0e0 1px solid;
-    padding-right: 24px;
-  }
-  .filter-column::-webkit-scrollbar {
-    display: none;
-  }
   .filter-column {
-    padding: 10px 400px 32px 0px;
-    margin-right: -400px;
-    z-index: 1;
-    scrollbar-width: none;
+    padding: 10px 24px 32px 0px;
     .filter-section {
       padding-top: 24px;
       margin-bottom: 8px;
-      &.readability, &.ccss-grade-level {
+      &.readability, &.ccss-grade-level, &.grade-level {
         .quill-tooltip-wrapper {
           left: 302px;
           transform: unset;
@@ -43,6 +33,7 @@
         font-weight: 700;
         line-height: normal;
         color: #06806b;
+        z-index: 2;
       }
       .name-and-clear-wrapper {
         display: flex;
@@ -92,7 +83,7 @@
           padding-bottom: 20px;
         }
       }
-      #readability-grade-level-slider {
+      #readability-grade-level-slider, #grade-level-slider {
         .last-mark {
           left: 217px !important;
         }
@@ -243,10 +234,10 @@
   }
   @media (min-width: 1051px) {
     .filter-column {
-      position: sticky;
       top: 70;
-      height: calc(100vh - 70px);
-      overflow: scroll;
+    }
+    .filter-column-wrapper {
+      border-right: #e0e0e0 1px solid;
     }
   }
   @media (max-width: 1050px) {

@@ -113,6 +113,12 @@ function filterByReadabilityGradeLevel(readabilityGradeLevelFilters: number[], a
   return readabilityGradeLevelFilters.includes(indexOfOption)
 }
 
+function filterByGradeLevel(gradeLevelFilters: number[], activity: Activity) {
+  if (!gradeLevelFilters.length) { return true }
+
+  return activity.minimum_grade_level >= gradeLevelFilters[0]
+}
+
 function filterByContentPartners(contentPartnerFilters: number[], activity: Activity) {
   if (!contentPartnerFilters.length) { return true }
   return contentPartnerFilters.some(id => activity.content_partners.some(cp => cp.id === id))
@@ -137,6 +143,7 @@ export const filters = {
   search: filterBySearch,
   [ACTIVITY_CLASSIFICATION_FILTERS]: filterByActivityClassification,
   [STANDARDS_FILTERS]: filterByStandards,
+  gradeLevelFilters: filterByGradeLevel,
   readabilityGradeLevelFilters: filterByReadabilityGradeLevel,
   [ACTIVITY_CATEGORY_FILTERS]: filterByActivityCategory,
   [CONTENT_PARTNER_FILTERS]: filterByContentPartners,

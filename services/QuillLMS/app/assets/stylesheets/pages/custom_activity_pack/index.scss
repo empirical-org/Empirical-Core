@@ -1,7 +1,6 @@
 .custom-activity-pack-page {
   background-color: white;
   display: flex;
-  height: calc(100vh - 70px);
   &.loading {
     justify-content: center;
   }
@@ -15,8 +14,6 @@
   }
   .main-content-container {
     flex: 1;
-    height: calc(100vh - 70px);
-    overflow: scroll;
     padding-bottom: 40px;
     header {
       height: min-content;

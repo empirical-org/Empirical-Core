@@ -38,7 +38,7 @@ const CCSSGradeLevelFilters = ({ ccssGradeLevelFilters, handleCCSSGradeLevelFilt
         {clearButton}
       </div>
       <div className="slider-wrapper">
-        <label htmlFor="ccss-grade-level-slider">Standard: {lowerValue}-{upperValue} Grade Level</label>
+        <label htmlFor="ccss-grade-level-slider">Standard: {lowerValue} - {upperValue} Grade Level</label>
         <TwoThumbSlider
           handleChange={onChange}
           id="ccss-grade-level-slider"

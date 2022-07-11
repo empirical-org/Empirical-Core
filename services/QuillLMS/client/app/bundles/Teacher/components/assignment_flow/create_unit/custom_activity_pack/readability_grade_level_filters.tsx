@@ -22,7 +22,6 @@ const ReadabilityGradeLevelFilters = ({ readabilityGradeLevelFilters, handleRead
   }
 
   function clearAllReadabilityGradeLevelFilters() {
-    console.log('am i getting called or what')
     handleReadabilityGradeLevelFilterChange([])
   }
 
@@ -45,7 +44,7 @@ const ReadabilityGradeLevelFilters = ({ readabilityGradeLevelFilters, handleRead
         {clearButton}
       </div>
       <div className="slider-wrapper">
-        <label htmlFor="readability-grade-level-slider">Readability: {lowestGrade}-{highestGrade} Grade Text</label>
+        <label htmlFor="readability-grade-level-slider">Grade Level: {lowestGrade} - {highestGrade} Grade Text</label>
         <TwoThumbSlider
           handleChange={onChange}
           id="readability-grade-level-slider"

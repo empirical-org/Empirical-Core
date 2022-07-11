@@ -4,6 +4,7 @@ import { Activity, ActivityClassification, Topic, } from './interfaces'
 import { stringifyLowerLevelTopics, AVERAGE_FONT_WIDTH, } from './shared'
 
 import { imageTagForClassification, } from '../../assignmentFlowConstants'
+import NumberSuffixBuilder from '../../../modules/NumberSuffixBuilder'
 import { Tooltip } from '../../../../../Shared/index'
 import useWindowSize from '../../../../../Shared/hooks/useWindowSize'
 
@@ -25,6 +26,16 @@ const MARGIN = 16
 
 const readabilityCopy = "Quill recommends using activities where the text readability level is the same or lower than the student’s reading level so that the student can focus on building their writing skills."
 
+const readabilityContent = (activity) => (
+  <div>
+    {activity.minimum_grade_level ? <span>Grade Range: {NumberSuffixBuilder(activity.minimum_grade_level)}-{NumberSuffixBuilder(activity.maximum_grade_level)}<br /></span> : null}
+    <span>Text Readability Level: {activity.readability_grade_level}</span>
+    <br />
+    <br />
+    <span>{readabilityCopy}</span>
+  </div>
+)
+
 interface ActivityRowCheckboxProps {
   activity: Activity,
   isSelected: boolean,
@@ -41,7 +52,8 @@ interface ActivityRowProps {
   setShowSnackbar?: (show: boolean) => void,
   saveActivity: (activityId: number) => void,
   unsaveActivity: (activityId: number) => void,
-  savedActivityIds: number[]
+  savedActivityIds: number[],
+  gradeLevelFilters: number[]
 }
 
 // the following method is a pretty hacky solution for helping to determine whether or not to show a truncated string and tooltip or the whole topic string in the <TopicSection />
@@ -123,15 +135,34 @@ const ActivityRowTopics = ({ topics, maxAllowedLength, onTertiaryLine, inExpande
 }
 
 
-const ActivityRowGradeRange = ({ gradeRange, }: { gradeRange?: string }) => {
+const ActivityRowGradeRange = ({ minimumGradeLevel, maximumGradeLevel, gradeLevelFilters, }: { minimumGradeLevel?: number, maximumGradeLevel?: number, gradeLevelFilters: number[] }) => {
   const className = "attribute-section grade-range"
 
-  const gradeLevels = ["4 - 5", "6 - 7", "8 - 9", "10 - 12"].map(gradeLevel => <span className="grade-level">{gradeLevel}</span>)
+  const lowestGradeLevelFilter = gradeLevelFilters[0]
+  const highestGradeLevelFilter = gradeLevelFilters[gradeLevelFilters.length - 1]
+
+  const gradeBands = ["4 - 5", "6 - 7", "8 - 9", "10 - 12"].map(gradeBand => {
+    let className = "grade-level"
+
+    const splitGradeBand = gradeBand.split(' - ')
+    const lowestGradeInGradeBand = Number(splitGradeBand[0])
+    const highestGradeInGradeBand = Number(splitGradeBand[1])
+
+    if (lowestGradeLevelFilter && highestGradeLevelFilter && lowestGradeInGradeBand >= lowestGradeLevelFilter && highestGradeInGradeBand <= highestGradeLevelFilter) {
+      className += ' filtered'
+    }
+
+    if (minimumGradeLevel >= highestGradeInGradeBand) {
+      className += ' not-recommended'
+    }
+
+    return <span className={className}>{gradeBand}</span>
+  })
 
   return (
     <span className={className}>
       <img alt="Book icon" src={gradeSrc} />
-      <span>Grades: {gradeLevels}</span>
+      <span>Grades: {gradeBands}</span>
     </span>
   )
 }
@@ -160,9 +191,7 @@ const ActivityRowExpandedSection = ({ activity, isExpanded}: { activity: Activit
 
   const readabilityLine = activity.readability_grade_level && (<div className="expanded-line">
     <img alt="Book icon" src={gradeSrc} />
-    <div>
-      <span>{readabilityCopy}</span>
-    </div>
+    {readabilityContent(activity)}
   </div>)
 
   const contentPartnersArray = activity.content_partners.map(cp => (
@@ -197,7 +226,7 @@ const ActivityRowTooltip = ({ activity, showTooltip}: { activity: Activity, show
 
   const readabilityLine = activity.readability_grade_level && (<div className="tooltip-line">
     <img alt="Book icon" src={gradeSrc} />
-    <span>{readabilityCopy}</span>
+    {readabilityContent(activity)}
   </div>)
 
   const contentPartnerLines = activity.content_partners && activity.content_partners.map(cp => (
@@ -216,7 +245,7 @@ const ActivityRowTooltip = ({ activity, showTooltip}: { activity: Activity, show
   )
 }
 
-const ActivityRow = ({ activity, isSelected, toggleActivitySelection, showCheckbox, showRemoveButton, isFirst, setShowSnackbar, saveActivity, unsaveActivity, savedActivityIds, }: ActivityRowProps) => {
+const ActivityRow = ({ activity, isSelected, toggleActivitySelection, showCheckbox, showRemoveButton, isFirst, setShowSnackbar, saveActivity, unsaveActivity, savedActivityIds, gradeLevelFilters, }: ActivityRowProps) => {
   const size = useWindowSize();
   const [isExpanded, setIsExpanded] = React.useState(false)
   const [showTooltip, setShowTooltip] = React.useState(false)
@@ -228,7 +257,7 @@ const ActivityRow = ({ activity, isSelected, toggleActivitySelection, showCheckb
     setShowSnackbar && setShowSnackbar(true)
   }
 
-  const { activity_classification, name, activity_category_name, standard_level_name, anonymous_path, readability_grade_level, topics, id, grade_range, } = activity
+  const { activity_classification, name, activity_category_name, standard_level_name, anonymous_path, readability_grade_level, topics, id, minimum_grade_level, maximum_grade_level, } = activity
 
   function handleClickSaveButton() { saveActivity(id) }
   function handleClickSavedButton() { unsaveActivity(id) }
@@ -288,8 +317,8 @@ const ActivityRow = ({ activity, isSelected, toggleActivitySelection, showCheckb
         </div>
         <div className="grade-range-and-standard-level-wrapper">
           <ActivityRowStandardLevel standardLevelName={standard_level_name} />
-          {standard_level_name && grade_range && <span className="vertical-divider" />}
-          <ActivityRowGradeRange gradeRange={grade_range} />
+          {standard_level_name && minimum_grade_level && <span className="vertical-divider" />}
+          <ActivityRowGradeRange gradeLevelFilters={gradeLevelFilters} maximumGradeLevel={maximum_grade_level} minimumGradeLevel={minimum_grade_level} />
         </div>
       </div>
       <div className="third-line mobile-only">{nonToggleButtons}</div>
