@@ -8,7 +8,13 @@ class Cms::UnitTemplatesController < Cms::CmsController
     respond_to do |format|
       format.html
       format.json do
-        render json: UnitTemplate.includes(activities: [:classification, :standard]).includes(:unit_template_category).order(order_number: :asc).map{|u| Cms::UnitTemplateSerializer.new(u).as_json(root: false)}
+        unit_templates =
+          UnitTemplate
+            .includes(activities: [:classification, :standard])
+            .includes(:unit_template_category)
+            .order(order_number: :asc)
+
+        render json: { unit_templates: unit_templates, each_serializer: Cms::UnitTemplateSerializer }
       end
     end
   end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ProviderClassroomsWithUnsyncedStudentsFinder
+class ProviderClassroomsWithUnsyncedStudentsFinder < ApplicationService
   attr_reader :teacher_id
 
   def initialize(teacher_id)

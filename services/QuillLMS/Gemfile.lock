@@ -47,9 +47,11 @@ GEM
     active_link_to (1.0.5)
       actionpack
       addressable
-    active_model_serializers (0.9.7)
-      activemodel (>= 3.2)
-      concurrent-ruby (~> 1.0)
+    active_model_serializers (0.10.13)
+      actionpack (>= 4.1, < 7.1)
+      activemodel (>= 4.1, < 7.1)
+      case_transform (>= 0.2)
+      jsonapi-renderer (>= 0.1.1.beta1, < 0.3)
     activejob (5.2.8)
       activesupport (= 5.2.8)
       globalid (>= 0.3.6)
@@ -143,6 +145,8 @@ GEM
       activesupport (>= 4.0.0)
       mime-types (>= 1.16)
       ssrf_filter (~> 1.0)
+    case_transform (0.2)
+      activesupport
     childprocess (3.0.0)
     clever-ruby (2.0.2)
       json (>= 1.8, < 3)
@@ -336,6 +340,7 @@ GEM
     jquery-ui-rails (5.0.5)
       railties (>= 3.2.16)
     json (2.3.1)
+    jsonapi-renderer (0.2.2)
     jwt (2.2.2)
     kaminari (1.2.1)
       activesupport (>= 4.1.0)
@@ -764,7 +769,7 @@ PLATFORMS
 DEPENDENCIES
   actionpack-action_caching
   active_link_to
-  active_model_serializers (~> 0.9.0)
+  active_model_serializers (~> 0.10.13)
   addressable
   analytics-ruby (~> 2.0.0)
   ancestry (~> 3.0.5)

@@ -5,7 +5,7 @@ class Cms::ActivityClassificationsController < Cms::CmsController
     respond_to do |format|
       format.html
       format.json do
-        render json: ActivityClassification.order(order_number: :asc)
+        render json: { activity_classifications: ActivityClassification.order(order_number: :asc) }
       end
     end
   end
