@@ -375,12 +375,6 @@ GEM
     listen (3.7.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
-    livingstyleguide (2.1.0)
-      minisyntax (>= 0.2.5)
-      redcarpet
-      sassc
-      thor
-      tilt
     lograge (0.10.0)
       actionpack (>= 4)
       activesupport (>= 4)
@@ -405,7 +399,6 @@ GEM
     mini_portile2 (2.8.0)
     mini_racer (0.4.0)
       libv8-node (~> 15.14.0.0)
-    minisyntax (0.2.5)
     minitest (5.16.2)
     multi_json (1.15.0)
     multi_xml (0.6.0)
@@ -831,7 +824,6 @@ DEPENDENCIES
   jquery-ui-rails
   kaminari (~> 1.2.1)
   letter_opener
-  livingstyleguide
   lograge
   mini_racer (= 0.4.0)
   newrelic_rpm (~> 6.0)
