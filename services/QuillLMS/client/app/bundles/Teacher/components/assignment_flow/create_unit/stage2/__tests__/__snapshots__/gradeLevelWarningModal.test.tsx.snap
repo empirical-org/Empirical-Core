@@ -283,7 +283,7 @@ exports[`GradeLevelWarningModal component should render 1`] = `
                 >
                   SpringBoard® Writing Skills Survey
                 </a>,
-                "suggestedGrades": undefined,
+                "suggestedGrades": null,
               },
               Object {
                 "id": 897,
@@ -294,7 +294,7 @@ exports[`GradeLevelWarningModal component should render 1`] = `
                 >
                   And, Because, Or (Intermediate)
                 </a>,
-                "suggestedGrades": "8, 9",
+                "suggestedGrades": null,
               },
               Object {
                 "id": 1001,
@@ -305,7 +305,7 @@ exports[`GradeLevelWarningModal component should render 1`] = `
                 >
                   Compound-Complex Sentences (Intermediate)
                 </a>,
-                "suggestedGrades": "10, 11, 12",
+                "suggestedGrades": null,
               },
             ]
           }
@@ -335,7 +335,7 @@ exports[`GradeLevelWarningModal component should render 1`] = `
                 style={
                   Object {
                     "minWidth": "117px",
-                    "textAlign": "left",
+                    "textAlign": "right",
                     "width": "117px",
                   }
                 }
@@ -375,7 +375,7 @@ exports[`GradeLevelWarningModal component should render 1`] = `
                   style={
                     Object {
                       "minWidth": "117px",
-                      "textAlign": "left",
+                      "textAlign": "right",
                       "width": "117px",
                     }
                   }
@@ -410,13 +410,11 @@ exports[`GradeLevelWarningModal component should render 1`] = `
                   style={
                     Object {
                       "minWidth": "117px",
-                      "textAlign": "left",
+                      "textAlign": "right",
                       "width": "117px",
                     }
                   }
-                >
-                  8, 9
-                </td>
+                />
               </tr>
               <tr
                 className="data-table-row  "
@@ -447,13 +445,11 @@ exports[`GradeLevelWarningModal component should render 1`] = `
                   style={
                     Object {
                       "minWidth": "117px",
-                      "textAlign": "left",
+                      "textAlign": "right",
                       "width": "117px",
                     }
                   }
-                >
-                  10, 11, 12
-                </td>
+                />
               </tr>
             </tbody>
           </table>
@@ -482,18 +478,7 @@ exports[`GradeLevelWarningModal component should render 1`] = `
                 "name": "University",
               },
               Object {
-                "assignedGrade": <span
-                  className="warning"
-                >
-                  <img
-                    alt="Warning icon"
-                    src="undefined/images/icons/warning-icon.svg"
-                  />
-                  <span>
-                    Grade 
-                    4
-                  </span>
-                </span>,
+                "assignedGrade": "Grade 4",
                 "id": 1202562,
                 "name": "Fourth Grade",
               },
@@ -600,18 +585,7 @@ exports[`GradeLevelWarningModal component should render 1`] = `
                     }
                   }
                 >
-                  <span
-                    className="warning"
-                  >
-                    <img
-                      alt="Warning icon"
-                      src="undefined/images/icons/warning-icon.svg"
-                    />
-                    <span>
-                      Grade 
-                      4
-                    </span>
-                  </span>
+                  Grade 4
                 </td>
               </tr>
               <tr

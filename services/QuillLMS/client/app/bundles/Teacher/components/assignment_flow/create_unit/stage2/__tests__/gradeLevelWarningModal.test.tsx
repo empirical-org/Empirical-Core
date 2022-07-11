@@ -38,7 +38,9 @@ const props = {
         }
       ],
       "topics": [],
-      "readability_grade_level": null
+      "readability_grade_level": null,
+      "minimum_grade_level": null,
+      "maximum_grade_level": null
     },
     {
       "name": "And, Because, Or (Intermediate)",
@@ -86,7 +88,9 @@ const props = {
           "parent_id": 7
         }
       ],
-      "readability_grade_level": "8th-9th"
+      "readability_grade_level": "8th-9th",
+      "minimum_grade_level": 8,
+      "maximum_grade_level": 12
     },
     {
       "name": "Compound-Complex Sentences (Intermediate)",
@@ -140,7 +144,9 @@ const props = {
           "parent_id": 0
         }
       ],
-      "readability_grade_level": "10th-12th"
+      "readability_grade_level": "10th-12th",
+      "minimum_grade_level": 10,
+      "maximum_grade_level": 12
     }
   ],
   "selectedClassrooms": [

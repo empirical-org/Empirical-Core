@@ -1,6 +1,16 @@
 .custom-activity-pack-page {
+  .filter-column-wrapper {
+    border-right: #e0e0e0 1px solid;
+    padding-right: 24px;
+  }
+  .filter-column::-webkit-scrollbar {
+    display: none;
+  }
   .filter-column {
-    padding: 10px 24px 32px 0px;
+    padding: 10px 400px 32px 0px;
+    margin-right: -400px;
+    z-index: 1;
+    scrollbar-width: none;
     .filter-section {
       padding-top: 24px;
       margin-bottom: 8px;
