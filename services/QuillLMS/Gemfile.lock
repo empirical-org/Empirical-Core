@@ -6,7 +6,7 @@ PATH
       google-cloud-automl-v1 (~> 0.3.0)
       hotwater (= 0.1.2)
       pragmatic_segmenter (~> 0.3.23)
-      rails (~> 6.0.5)
+      rails (= 6.0.5)
 
 GEM
   remote: https://gems.contribsys.com/
@@ -857,7 +857,7 @@ DEPENDENCIES
   rack-heartbeat
   rack-host-redirect
   rack-test (~> 0.6.3)
-  rails (~> 6.0.5)
+  rails (= 6.0.5)
   rails-controller-testing
   rails_12factor
   rails_admin (~> 2.2)

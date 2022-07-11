@@ -6,7 +6,7 @@ PATH
       google-cloud-automl-v1 (~> 0.3.0)
       hotwater (= 0.1.2)
       pragmatic_segmenter (~> 0.3.23)
-      rails (~> 6.0.5)
+      rails (= 6.0.5)
 
 GEM
   remote: https://rubygems.org/
