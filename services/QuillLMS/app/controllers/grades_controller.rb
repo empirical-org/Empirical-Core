@@ -5,7 +5,7 @@ class GradesController < ApplicationController
   before_action :authorize!, only: [:tooltip]
 
   def index
-    render json: Classroom::GRADES
+    render json: { grades: Classroom::GRADES }
   end
 
   def tooltip

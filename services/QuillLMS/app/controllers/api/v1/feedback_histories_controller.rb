@@ -7,7 +7,7 @@ class Api::V1::FeedbackHistoriesController < Api::ApiController
   def index
     @feedback_histories = FeedbackHistory.all
 
-    render json: @feedback_histories
+    render json: { feedback_histories: @feedback_histories }
   end
 
   # GET /feedback_histories/1.json

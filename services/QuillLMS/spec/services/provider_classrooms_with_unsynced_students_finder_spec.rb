@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe ProviderClassroomsWithUnsyncedStudentsFinder do
   let(:teacher) { create(:teacher) }
 
-  subject { described_class.new(teacher.id) }
+  subject { described_class.run(teacher.id) }
 
   context 'teacher has no provider classrooms' do
     let(:classroom_i_own) { create(:classroom_with_a_couple_students, :with_no_teacher) }
@@ -16,7 +16,7 @@ RSpec.describe ProviderClassroomsWithUnsyncedStudentsFinder do
       create(:coteacher_classrooms_teacher, user: teacher, classroom: classroom_i_coteach)
     end
 
-    it { expect(subject.run).to match_array [] }
+    it { expect(subject).to match_array [] }
   end
 
   context 'teacher has google classrooms' do
@@ -62,7 +62,7 @@ RSpec.describe ProviderClassroomsWithUnsyncedStudentsFinder do
     end
 
     it 'returns only owned provider classrooms that have unsynced students' do
-      expect(subject.run).to eq [classroom_i_own]
+      expect(subject).to eq [classroom_i_own]
     end
   end
 
@@ -109,7 +109,7 @@ RSpec.describe ProviderClassroomsWithUnsyncedStudentsFinder do
     end
 
     it 'returns only owned provider classrooms that have unsynced students' do
-      expect(subject.run).to eq [classroom_i_own]
+      expect(subject).to eq [classroom_i_own]
     end
   end
 end

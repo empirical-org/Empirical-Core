@@ -5,7 +5,11 @@ class FeedbackHistoryRatingsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def create_or_update
-    rating = create_or_update_feedback_history_rating(feedback_history_rating_params["feedback_history_id"], feedback_history_rating_params["rating"])
+    rating =
+      create_or_update_feedback_history_rating(
+        feedback_history_rating_params["feedback_history_id"],
+        feedback_history_rating_params["rating"]
+      )
 
     if rating.valid?
       rating.save!
