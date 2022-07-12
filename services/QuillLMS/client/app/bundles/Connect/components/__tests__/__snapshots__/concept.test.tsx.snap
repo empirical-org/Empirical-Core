@@ -1,0 +1,107 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Concept component should render Concept 1`] = `
+<Provider
+  store={
+    Object {
+      "dispatch": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+      Symbol(observable): [Function],
+    }
+  }
+>
+  <Connect(Concept)
+    concepts={
+      Object {
+        "data": Array [],
+        "hasreceiveddata": false,
+      }
+    }
+    fillInBlank={
+      Object {
+        "data": Array [],
+        "hasreceiveddata": false,
+      }
+    }
+    match={
+      Object {
+        "params": Object {
+          "conceptID": "abc-123",
+        },
+      }
+    }
+    questions={
+      Object {
+        "data": Array [],
+        "hasreceiveddata": false,
+      }
+    }
+  >
+    <Concept
+      concepts={
+        Object {
+          "data": Object {},
+          "hasreceiveddata": false,
+          "states": Object {},
+          "submittingnew": false,
+        }
+      }
+      dispatch={[Function]}
+      fillInBlank={
+        Object {
+          "data": Object {},
+          "hasreceiveddata": false,
+          "states": Object {},
+          "submittingnew": false,
+        }
+      }
+      itemLevels={
+        Object {
+          "data": Object {},
+          "hasreceiveddata": false,
+          "states": Object {},
+          "submittingnew": false,
+        }
+      }
+      match={
+        Object {
+          "params": Object {
+            "conceptID": "abc-123",
+          },
+        }
+      }
+      questions={
+        Object {
+          "data": Object {},
+          "hasreceiveddata": false,
+          "states": Object {},
+          "submittingnew": false,
+        }
+      }
+      routing={
+        Object {
+          "locationBeforeTransitions": null,
+        }
+      }
+    >
+      <Spinner>
+        <div
+          className="loading-spinner"
+        >
+          <div
+            className="spinner-container"
+          >
+            <img
+              alt=""
+              className="spinner"
+              src="https://assets.quill.org/images/icons/loader_still.svg"
+            />
+          </div>
+        </div>
+      </Spinner>
+    </Concept>
+  </Connect(Concept)>
+</Provider>
+`;
