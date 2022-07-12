@@ -4,7 +4,7 @@ import { Activity, ActivityClassification, Topic, } from './interfaces'
 import { stringifyLowerLevelTopics, AVERAGE_FONT_WIDTH, } from './shared'
 
 import { imageTagForClassification, } from '../../assignmentFlowConstants'
-import NumberSuffixBuilder from '../../../modules/NumberSuffixBuilder'
+import NumberSuffixBuilder from '../../../modules/numberSuffixBuilder'
 import useWindowSize from '../../../../../Shared/hooks/useWindowSize'
 
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
