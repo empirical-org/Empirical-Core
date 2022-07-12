@@ -92,6 +92,13 @@ RSpec.configure do |config|
     example.run
     ActionController::Base.perform_caching = caching
   end
+
+  if ENV.fetch('SUPPRESS_PUTS', false) == 'true'
+    config.before do
+      allow($stdout).to receive(:puts)
+      allow($stdout).to receive(:write)
+    end
+  end
 end
 
 if defined?(Coveralls)

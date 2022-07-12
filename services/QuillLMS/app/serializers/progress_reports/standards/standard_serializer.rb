@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ProgressReports::Standards::StandardSerializer < ActiveModel::Serializer
+class ProgressReports::Standards::StandardSerializer < ApplicationSerializer
   include Rails.application.routes.url_helpers
 
   attr_accessor :classroom_id

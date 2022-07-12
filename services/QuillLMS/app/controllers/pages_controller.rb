@@ -23,7 +23,6 @@ class PagesController < ApplicationController
 
     @body_class = 'home-page'
     @activity = Activity.with_classification.find_by_uid(ENVr.fetch('HOMEPAGE_ACTIVITY_UID', ''))
-    self.formats = ['html']
   end
 
   # rubocop:disable Metrics/CyclomaticComplexity
@@ -41,10 +40,8 @@ class PagesController < ApplicationController
       name = ReferrerUser.find_by(referral_code: request.env['affiliate.tag'])&.user&.name
       flash.now[:info] = "<strong>#{name}</strong> invited you to help your students become better writers with Quill!" if name
     end
-    if check_should_clear_segment_identity
-      set_just_logged_out_flag
-    end
-    self.formats = ['html']
+
+    set_just_logged_out_flag if check_should_clear_segment_identity
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 

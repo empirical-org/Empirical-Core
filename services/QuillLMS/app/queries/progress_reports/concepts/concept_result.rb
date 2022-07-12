@@ -3,10 +3,10 @@
 class ProgressReports::Concepts::ConceptResult
 
   def self.results(teacher, filters)
-    query = ::ConceptResult.select(<<-SELECT
-      cast(concept_results.metadata->>'correct' as int) as is_correct,
+    query = ::OldConceptResult.select(<<-SELECT
+      cast(old_concept_results.metadata->>'correct' as int) as is_correct,
       activity_sessions.user_id,
-      concept_results.concept_id
+      old_concept_results.concept_id
     SELECT
   ).joins({activity_session: {classroom_unit: :classroom}})
      .joins("INNER JOIN classrooms_teachers ON classrooms.id = classrooms_teachers.classroom_id")

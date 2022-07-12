@@ -53,7 +53,9 @@ SecureHeaders::Configuration.default do |config|
       "https://*.intercomcdn.com",
       "https://*.coview.com",
       "https://*.sentry.io",
-      "https://*.heapanalytics.com"
+      "https://*.heapanalytics.com",
+      "https://cdn3l.ink/app.js",
+      "https://capture-api.ap3prod.com"
     ],
 
     font_src: [
@@ -117,7 +119,8 @@ SecureHeaders::Configuration.default do |config|
       "http://localhost:8080/",
       "http://localhost:3200",
       "ws://localhost:3200",
-      "https://checkout.stripe.com"
+      "https://checkout.stripe.com",
+      "https://capture-api.ap3prod.com"
     ]
   }
 

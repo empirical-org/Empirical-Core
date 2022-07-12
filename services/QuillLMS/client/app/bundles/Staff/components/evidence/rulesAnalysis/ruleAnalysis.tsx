@@ -376,7 +376,7 @@ const RuleAnalysis = ({ match }) => {
         className="responses-table"
         columns={responseHeaders}
         data={responses}
-        defaultPageSize={responses.length < 100 ? responses.length : 100}
+        defaultPageSize={Math.min(responses.length, 100) || 100}
         manualSortBy
         onSortedChange={handleDataUpdate}
       />

@@ -129,12 +129,13 @@ RSpec.describe FeedbackHistory, type: :model do
       expect(json_hash['used']).to eq(@feedback_history.used)
       expect(json_hash['feedback_text']).to eq(@feedback_history.feedback_text)
       expect(json_hash['feedback_type']).to eq(@feedback_history.feedback_type)
-      expect(json_hash['time']).to eq(@feedback_history.time)
       expect(json_hash['metadata']).to eq(@feedback_history.metadata)
       expect(json_hash['rule_uid']).to eq(@feedback_history.rule_uid)
 
       expect(json_hash['prompt']).to eq(@feedback_history.prompt.as_json)
       expect(json_hash['prompt']['text']).to eq(@prompt.text)
+
+      expect(Time.iso8601(json_hash['time'])).to be_within(1.second).of @feedback_history.time
     end
   end
 

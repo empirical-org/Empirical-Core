@@ -18,7 +18,7 @@
 #  fk_rails_...  (standard_category_id => standard_categories.id)
 #  fk_rails_...  (standard_level_id => standard_levels.id)
 #
-class StandardSerializer < ActiveModel::Serializer
+class StandardSerializer < ApplicationSerializer
   attributes :id, :name, :created_at, :updated_at
 
   has_one :standard_level
