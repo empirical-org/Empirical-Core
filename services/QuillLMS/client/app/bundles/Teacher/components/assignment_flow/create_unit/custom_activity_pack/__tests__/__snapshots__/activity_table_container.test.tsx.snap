@@ -4396,6 +4396,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       },
     ]
   }
+  gradeLevelFilters={Array []}
   handleSearch={[Function]}
   resetAllFilters={[Function]}
   search=""
@@ -4584,6 +4585,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           "uid": "-KqcjgL00W0ro-Wr4Bts",
         }
       }
+      gradeLevelFilters={Array []}
       isFirst={true}
       isSelected={false}
       key="627"
@@ -4874,7 +4876,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 </span>
               </span>
             </ActivityRowStandardLevel>
-            <ActivityRowGradeRange>
+            <ActivityRowGradeRange
+              gradeLevelFilters={Array []}
+            >
               <span
                 className="attribute-section grade-range"
               >
@@ -5121,6 +5125,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           "uid": "-KqcdV5JA9uUSY09VvOP",
         }
       }
+      gradeLevelFilters={Array []}
       isFirst={false}
       isSelected={false}
       key="628"
@@ -5411,7 +5416,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 </span>
               </span>
             </ActivityRowStandardLevel>
-            <ActivityRowGradeRange>
+            <ActivityRowGradeRange
+              gradeLevelFilters={Array []}
+            >
               <span
                 className="attribute-section grade-range"
               >
@@ -5658,6 +5665,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           "uid": "-KqcY9ZUJ7gdReZw7C93",
         }
       }
+      gradeLevelFilters={Array []}
       isFirst={false}
       isSelected={false}
       key="629"
@@ -5948,7 +5956,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 </span>
               </span>
             </ActivityRowStandardLevel>
-            <ActivityRowGradeRange>
+            <ActivityRowGradeRange
+              gradeLevelFilters={Array []}
+            >
               <span
                 className="attribute-section grade-range"
               >
@@ -6195,6 +6205,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           "uid": "-KqcTJxEiuq07PJzbDIc",
         }
       }
+      gradeLevelFilters={Array []}
       isFirst={false}
       isSelected={false}
       key="630"
@@ -6485,7 +6496,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 </span>
               </span>
             </ActivityRowStandardLevel>
-            <ActivityRowGradeRange>
+            <ActivityRowGradeRange
+              gradeLevelFilters={Array []}
+            >
               <span
                 className="attribute-section grade-range"
               >
@@ -6732,6 +6745,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           "uid": "-KqilM2xWovC-Hudmvjn",
         }
       }
+      gradeLevelFilters={Array []}
       isFirst={false}
       isSelected={false}
       key="617"
@@ -7022,7 +7036,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 </span>
               </span>
             </ActivityRowStandardLevel>
-            <ActivityRowGradeRange>
+            <ActivityRowGradeRange
+              gradeLevelFilters={Array []}
+            >
               <span
                 className="attribute-section grade-range"
               >
@@ -7269,6 +7285,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           "uid": "-KqigC-G1kUp_pEeQJjl",
         }
       }
+      gradeLevelFilters={Array []}
       isFirst={false}
       isSelected={false}
       key="619"
@@ -7559,7 +7576,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 </span>
               </span>
             </ActivityRowStandardLevel>
-            <ActivityRowGradeRange>
+            <ActivityRowGradeRange
+              gradeLevelFilters={Array []}
+            >
               <span
                 className="attribute-section grade-range"
               >
@@ -7806,6 +7825,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           "uid": "-KqiiQTci2gs9zhx2tIA",
         }
       }
+      gradeLevelFilters={Array []}
       isFirst={false}
       isSelected={false}
       key="616"
@@ -8096,7 +8116,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 </span>
               </span>
             </ActivityRowStandardLevel>
-            <ActivityRowGradeRange>
+            <ActivityRowGradeRange
+              gradeLevelFilters={Array []}
+            >
               <span
                 className="attribute-section grade-range"
               >
@@ -8343,6 +8365,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           "uid": "-Kqisu7eUfGfGvjRvT2W",
         }
       }
+      gradeLevelFilters={Array []}
       isFirst={false}
       isSelected={false}
       key="618"
@@ -8633,7 +8656,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 </span>
               </span>
             </ActivityRowStandardLevel>
-            <ActivityRowGradeRange>
+            <ActivityRowGradeRange
+              gradeLevelFilters={Array []}
+            >
               <span
                 className="attribute-section grade-range"
               >
@@ -8880,6 +8905,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           "uid": "-KqZ_8tESejeyBmj-_pO",
         }
       }
+      gradeLevelFilters={Array []}
       isFirst={false}
       isSelected={false}
       key="608"
@@ -9170,7 +9196,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 </span>
               </span>
             </ActivityRowStandardLevel>
-            <ActivityRowGradeRange>
+            <ActivityRowGradeRange
+              gradeLevelFilters={Array []}
+            >
               <span
                 className="attribute-section grade-range"
               >
@@ -9417,6 +9445,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           "uid": "-KhO2hv2Wl8rVCHp1B1G",
         }
       }
+      gradeLevelFilters={Array []}
       isFirst={false}
       isSelected={false}
       key="860"
@@ -9707,7 +9736,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 </span>
               </span>
             </ActivityRowStandardLevel>
-            <ActivityRowGradeRange>
+            <ActivityRowGradeRange
+              gradeLevelFilters={Array []}
+            >
               <span
                 className="attribute-section grade-range"
               >
@@ -9954,6 +9985,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           "uid": "-KqZiV1bnPe48h6gyYss",
         }
       }
+      gradeLevelFilters={Array []}
       isFirst={false}
       isSelected={false}
       key="605"
@@ -10244,7 +10276,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 </span>
               </span>
             </ActivityRowStandardLevel>
-            <ActivityRowGradeRange>
+            <ActivityRowGradeRange
+              gradeLevelFilters={Array []}
+            >
               <span
                 className="attribute-section grade-range"
               >
@@ -10491,6 +10525,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           "uid": "-KqcJOzHDYUrioJ6fPlR",
         }
       }
+      gradeLevelFilters={Array []}
       isFirst={false}
       isSelected={false}
       key="606"
@@ -10781,7 +10816,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 </span>
               </span>
             </ActivityRowStandardLevel>
-            <ActivityRowGradeRange>
+            <ActivityRowGradeRange
+              gradeLevelFilters={Array []}
+            >
               <span
                 className="attribute-section grade-range"
               >
@@ -11028,6 +11065,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           "uid": "-KqZldiOXNWbJNFvIRY-",
         }
       }
+      gradeLevelFilters={Array []}
       isFirst={false}
       isSelected={false}
       key="642"
@@ -11318,7 +11356,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 </span>
               </span>
             </ActivityRowStandardLevel>
-            <ActivityRowGradeRange>
+            <ActivityRowGradeRange
+              gradeLevelFilters={Array []}
+            >
               <span
                 className="attribute-section grade-range"
               >
@@ -11565,6 +11605,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           "uid": "-KqZpAZ8UMhwZp_3ezqw",
         }
       }
+      gradeLevelFilters={Array []}
       isFirst={false}
       isSelected={false}
       key="640"
@@ -11855,7 +11896,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 </span>
               </span>
             </ActivityRowStandardLevel>
-            <ActivityRowGradeRange>
+            <ActivityRowGradeRange
+              gradeLevelFilters={Array []}
+            >
               <span
                 className="attribute-section grade-range"
               >
@@ -12102,6 +12145,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           "uid": "-KqZvArG8422vhwB7rIo",
         }
       }
+      gradeLevelFilters={Array []}
       isFirst={false}
       isSelected={false}
       key="641"
@@ -12392,7 +12436,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 </span>
               </span>
             </ActivityRowStandardLevel>
-            <ActivityRowGradeRange>
+            <ActivityRowGradeRange
+              gradeLevelFilters={Array []}
+            >
               <span
                 className="attribute-section grade-range"
               >
@@ -12639,6 +12685,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           "uid": "-KqdGWI1rgvtQBg2vIb0",
         }
       }
+      gradeLevelFilters={Array []}
       isFirst={false}
       isSelected={false}
       key="643"
@@ -12929,7 +12976,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 </span>
               </span>
             </ActivityRowStandardLevel>
-            <ActivityRowGradeRange>
+            <ActivityRowGradeRange
+              gradeLevelFilters={Array []}
+            >
               <span
                 className="attribute-section grade-range"
               >
@@ -13176,6 +13225,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           "uid": "-KqY7BQmhDn71y-E-s3C",
         }
       }
+      gradeLevelFilters={Array []}
       isFirst={false}
       isSelected={false}
       key="728"
@@ -13466,7 +13516,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 </span>
               </span>
             </ActivityRowStandardLevel>
-            <ActivityRowGradeRange>
+            <ActivityRowGradeRange
+              gradeLevelFilters={Array []}
+            >
               <span
                 className="attribute-section grade-range"
               >
@@ -13713,6 +13765,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           "uid": "-KqYK5A0fNos0ZbUjjOu",
         }
       }
+      gradeLevelFilters={Array []}
       isFirst={false}
       isSelected={false}
       key="731"
@@ -14003,7 +14056,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 </span>
               </span>
             </ActivityRowStandardLevel>
-            <ActivityRowGradeRange>
+            <ActivityRowGradeRange
+              gradeLevelFilters={Array []}
+            >
               <span
                 className="attribute-section grade-range"
               >
@@ -14250,6 +14305,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           "uid": "-KqYNoENpFXSttDu-xPf",
         }
       }
+      gradeLevelFilters={Array []}
       isFirst={false}
       isSelected={false}
       key="729"
@@ -14540,7 +14596,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 </span>
               </span>
             </ActivityRowStandardLevel>
-            <ActivityRowGradeRange>
+            <ActivityRowGradeRange
+              gradeLevelFilters={Array []}
+            >
               <span
                 className="attribute-section grade-range"
               >
@@ -14787,6 +14845,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
           "uid": "-KqYPpC3o3JeeuhQadBF",
         }
       }
+      gradeLevelFilters={Array []}
       isFirst={false}
       isSelected={false}
       key="730"
@@ -15077,7 +15136,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 </span>
               </span>
             </ActivityRowStandardLevel>
-            <ActivityRowGradeRange>
+            <ActivityRowGradeRange
+              gradeLevelFilters={Array []}
+            >
               <span
                 className="attribute-section grade-range"
               >

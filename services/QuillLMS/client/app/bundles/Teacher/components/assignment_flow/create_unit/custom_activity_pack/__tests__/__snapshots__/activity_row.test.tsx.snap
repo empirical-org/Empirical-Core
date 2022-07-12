@@ -64,6 +64,7 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
       "uid": "-KqcjgL00W0ro-Wr4Bts",
     }
   }
+  gradeLevelFilters={Array []}
   isFirst={false}
   isSelected={false}
   setShowSnackbar={[Function]}
@@ -281,7 +282,9 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
             </span>
           </span>
         </ActivityRowStandardLevel>
-        <ActivityRowGradeRange>
+        <ActivityRowGradeRange
+          gradeLevelFilters={Array []}
+        >
           <span
             className="attribute-section grade-range"
           >
@@ -530,6 +533,7 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
       "uid": "-KqcjgL00W0ro-Wr4Bts",
     }
   }
+  gradeLevelFilters={Array []}
   isFirst={false}
   isSelected={true}
   setShowSnackbar={[Function]}
@@ -747,7 +751,9 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
             </span>
           </span>
         </ActivityRowStandardLevel>
-        <ActivityRowGradeRange>
+        <ActivityRowGradeRange
+          gradeLevelFilters={Array []}
+        >
           <span
             className="attribute-section grade-range"
           >
@@ -996,6 +1002,7 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
       "uid": "-KqcjgL00W0ro-Wr4Bts",
     }
   }
+  gradeLevelFilters={Array []}
   isFirst={false}
   isSelected={false}
   setShowSnackbar={[Function]}
@@ -1287,7 +1294,9 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
             </span>
           </span>
         </ActivityRowStandardLevel>
-        <ActivityRowGradeRange>
+        <ActivityRowGradeRange
+          gradeLevelFilters={Array []}
+        >
           <span
             className="attribute-section grade-range"
           >
@@ -1537,6 +1546,7 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
       "uid": "-KqcjgL00W0ro-Wr4Bts",
     }
   }
+  gradeLevelFilters={Array []}
   isFirst={false}
   isSelected={true}
   setShowSnackbar={[Function]}
@@ -1832,7 +1842,9 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
             </span>
           </span>
         </ActivityRowStandardLevel>
-        <ActivityRowGradeRange>
+        <ActivityRowGradeRange
+          gradeLevelFilters={Array []}
+        >
           <span
             className="attribute-section grade-range"
           >

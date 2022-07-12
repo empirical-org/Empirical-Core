@@ -22,6 +22,8 @@ describe ActivitySearch do
           "activity_description" => activity.description ,
           "activity_flag" => "{beta,production}",
           "activity_id" => activity.id,
+          "activity_maximum_grade_level" => activity.maximum_grade_level,
+          "activity_minimum_grade_level" => activity.minimum_grade_level,
           "activity_uid" => activity.uid,
           "activity_category_id" => activity_category.id,
           "activity_category_name" => activity_category.name,

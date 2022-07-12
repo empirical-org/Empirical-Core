@@ -5,7 +5,6 @@ import { stringifyLowerLevelTopics, AVERAGE_FONT_WIDTH, } from './shared'
 
 import { imageTagForClassification, } from '../../assignmentFlowConstants'
 import NumberSuffixBuilder from '../../../modules/NumberSuffixBuilder'
-import { Tooltip } from '../../../../../Shared/index'
 import useWindowSize from '../../../../../Shared/hooks/useWindowSize'
 
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`

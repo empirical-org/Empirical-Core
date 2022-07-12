@@ -21,6 +21,7 @@ describe("ActivityTableContainer component", () => {
     setShowMobileSortMenu: () => {},
     sort: DEFAULT,
     setSort: () => {},
+    gradeLevelFilters: []
   }
 
   describe("default", () => {
