@@ -121,7 +121,7 @@ class TitleCardForm extends React.Component<TitleCardFormProps, TitleCardFormSta
     return(
       <Modal>
         <div className="box confirmation-modal-container">
-          <p>Making this change will break the translation mapping because this new title does not yet exist on the mappings. If this change is intended, <a className="data-link" href="https://www.notion.so/quill/Support-requests-for-ELL-translation-updates-1d53a9b3babc441885194400c7fbda26" rel="noopener noreferrer" target="_blank">please make a request on the support board</a> to change the translation mapping before making this change. Are you sure you want to proceed?</p>
+          <p>Making this change will break the translation mapping because this new title does not yet exist in the mappings. If this change is intended, <a className="data-link" href="https://www.notion.so/quill/Support-requests-for-ELL-translation-updates-1d53a9b3babc441885194400c7fbda26" rel="noopener noreferrer" target="_blank">please make a request on the support board</a> to have the translation mapping updated before making this change. Are you sure you want to proceed?</p>
           <section className="button-container">
             <button className="quill-button fun primary contained" onClick={this.handleConfirm}>Confirm</button>
             <button className="quill-button fun primary contained" onClick={this.handleCancel}>Cancel</button>
