@@ -300,6 +300,10 @@
       .second-line, .expanded-line {
         padding-left: 0px;
       }
+      .expanded-section {
+        margin-left: 0px;
+        margin-top: 16px;
+      }
     }
     &.is-last {
       border-bottom: none;

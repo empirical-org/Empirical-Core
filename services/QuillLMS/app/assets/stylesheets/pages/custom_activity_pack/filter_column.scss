@@ -1,16 +1,13 @@
 .custom-activity-pack-page {
-  .filter-column-wrapper {
-    border-right: #e0e0e0 1px solid;
-    padding-right: 24px;
-  }
   .filter-column::-webkit-scrollbar {
     display: none;
   }
   .filter-column {
     padding: 10px 400px 32px 0px;
     margin-right: -400px;
-    z-index: 1;
+    overflow-y: scroll;
     scrollbar-width: none;
+    max-height: calc(100vh - 70px);
     .filter-section {
       padding-top: 24px;
       margin-bottom: 8px;
@@ -248,6 +245,7 @@
     }
     .filter-column-wrapper {
       border-right: #e0e0e0 1px solid;
+      padding-right: 24px;
     }
   }
   @media (max-width: 1050px) {
