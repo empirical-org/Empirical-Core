@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe StripeIntegration::Webhooks::HandleEventWorker do
-  let(:event_handler_factory) { described_class.parent::EventHandlerFactory }
+  let(:event_handler_factory) { described_class.module_parent::EventHandlerFactory }
 
   subject { described_class.new.perform(stripe_webhook_event_id) }
 
