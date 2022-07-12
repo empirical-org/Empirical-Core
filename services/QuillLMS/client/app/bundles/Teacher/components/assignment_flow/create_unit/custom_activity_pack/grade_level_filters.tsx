@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { arrayFromNumbers, } from './shared'
 
-import NumberSuffixBuilder from '../../../modules/NumberSuffixBuilder'
+import NumberSuffixBuilder from '../../../modules/NumberSuffixBuilder.js'
 import { TwoThumbSlider, Tooltip, helpIcon, } from '../../../../../Shared/index'
 
 interface GradeLevelFiltersProps {
