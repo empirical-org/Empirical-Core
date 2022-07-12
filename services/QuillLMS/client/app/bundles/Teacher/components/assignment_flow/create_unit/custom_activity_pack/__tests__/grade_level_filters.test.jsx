@@ -9,7 +9,7 @@ import NumberSuffixBuilder from '../../../../modules/NumberSuffixBuilder.js'
 describe('gradeLevelFilters component', () => {
   const props = {
     gradeLevelFilters: [],
-    handleGradeLevelFilterChange: (gradeLevelFilters: number[]) => {}
+    handleGradeLevelFilterChange: (gradeLevelFilters) => {}
   }
 
   it('should render', () => {
