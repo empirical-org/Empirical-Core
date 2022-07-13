@@ -420,8 +420,8 @@ class User < ApplicationRecord
   end
 
   def refresh_token!
-    update_attributes token: SecureRandom.urlsafe_base64
-    save validate: false
+    update(token: SecureRandom.urlsafe_base64)
+    save(validate: false)
   end
 
   def serialized
@@ -532,7 +532,7 @@ class User < ApplicationRecord
   def self.create_from_clever(hash, role_override = nil)
     user = User.where(email: hash[:info][:email]).first_or_initialize
     user = User.new if user.email.nil?
-    user.update_attributes(
+    user.update(
       clever_id: hash[:info][:id],
       token: (hash[:credentials] ? hash[:credentials][:token] : nil),
       role: role_override || hash[:info][:user_type],

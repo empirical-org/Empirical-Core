@@ -39,8 +39,8 @@ class PasswordResetController < ApplicationController
 
   def update
     @user = User.find_by_token!(params[:id])
-    @user.update_attributes params[:user].permit(:password)
-    @user.save validate: false
+    @user.update(params[:user].permit(:password))
+    @user.save(validate: false)
     @user.update!(token: nil)
     sign_in @user
     flash[:notice] = 'Your password has been updated.'

@@ -36,7 +36,7 @@ class Teachers::StudentsController < ApplicationController
           validate_username = true
         end
         user_params.merge!(validate_username: validate_username)
-        if @student.update_attributes(user_params)
+        if @student.update(user_params)
           #head :ok
           redirect_to teachers_classroom_students_path(@classroom)
         else

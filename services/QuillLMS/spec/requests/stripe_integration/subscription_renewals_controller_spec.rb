@@ -20,7 +20,7 @@ RSpec.describe StripeIntegration::SubscriptionRenewalsController, type: :request
     it 'returns 200 if the request to Stripe is successful' do
       post url, params: params, as: :json
 
-      expect(response.content_type).to eq 'application/json'
+      expect(response.media_type).to eq 'application/json'
       expect(response).to have_http_status :ok
     end
   end
@@ -35,7 +35,7 @@ RSpec.describe StripeIntegration::SubscriptionRenewalsController, type: :request
 
       post url, params: params, as: :json
 
-      expect(response.content_type).to eq 'application/json'
+      expect(response.media_type).to eq 'application/json'
       expect(response).to have_http_status :internal_server_error
     end
   end
@@ -52,7 +52,7 @@ RSpec.describe StripeIntegration::SubscriptionRenewalsController, type: :request
 
       post url, params: params, as: :json
 
-      expect(response.content_type).to eq 'application/json'
+      expect(response.media_type).to eq 'application/json'
       expect(response).to have_http_status :internal_server_error
     end
   end

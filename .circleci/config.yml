@@ -56,10 +56,11 @@ jobs:
       - run:
           name: Run tests
           command: |
-            SUPPRESS_PUTS="true"
             cd services/QuillLMS
             TESTFILES=$(circleci tests glob "spec/**/*_spec.rb" | grep -v "spec/system/" | grep -v "/skip_ci/" | circleci tests split)
             bundle exec rspec -- ${TESTFILES}
+          environment:
+            SUPPRESS_PUTS: "true"
   lms_integration_build:
     working_directory: ~/Empirical-Core
     parallelism: 1
@@ -245,7 +246,7 @@ jobs:
             go test
   evidence_rails_build:
     working_directory: ~/Empirical-Core
-    parallelism: 4
+    parallelism: 1
     docker:
       - image: cimg/ruby:2.7.6
         environment:

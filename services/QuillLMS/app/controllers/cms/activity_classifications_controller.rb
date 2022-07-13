@@ -25,7 +25,7 @@ class Cms::ActivityClassificationsController < Cms::CmsController
 
   def update
     activity_classification = ActivityClassification.find(params[:id])
-    if activity_classification.update_attributes(filtered_activity_classification_params)
+    if activity_classification.update(filtered_activity_classification_params)
       render json: activity_classification
     else
       render json: {errors: activity_classification.errors}, status: 422

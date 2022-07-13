@@ -24,24 +24,27 @@
 class UniqueNameWhenVisible < ActiveModel::Validator
   def validate(record)
     return unless record.visible
-    return if Unit.where(name: record.name, user_id: record.user_id, visible: true).where.not(id: record.id).none?
+    return if Unit.default_scoped.where(name: record.name, user_id: record.user_id, visible: true).where.not(id: record.id).none?
 
     record.errors[:name] << 'must be unique.'
   end
 end
 
-
 class Unit < ApplicationRecord
   include ActiveModel::Validations
+
   validates_with UniqueNameWhenVisible
+
   belongs_to :user
+  belongs_to :unit_template
   has_many :unit_activities, dependent: :destroy
   has_many :classroom_units, dependent: :destroy
   has_many :classrooms, through: :classroom_units
   has_many :activities, through: :unit_activities
   has_many :standards, through: :activities
+
   default_scope { where(visible: true)}
-  belongs_to :unit_template
+
   after_save :hide_classroom_units_and_unit_activities_if_visible_false
   after_save :create_any_new_classroom_unit_activity_states
   # Using an after_commit hook here because we want to trigger the callback
