@@ -13,7 +13,7 @@
 #  index_concept_result_directions_on_text  (text) UNIQUE
 #
 FactoryBot.define do
-  factory :concept_result_directions, class: 'ConceptResultDirections' do
+  factory :concept_result_directions do
     sequence(:text) { |n| "This a student response directions #{n}." }
   end
 end

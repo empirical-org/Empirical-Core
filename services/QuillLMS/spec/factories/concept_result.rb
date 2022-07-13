@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :concept_result, class: 'ConceptResult' do
+  factory :concept_result do
     attempt_number { 1 }
     correct { true }
     question_number { 1 }
