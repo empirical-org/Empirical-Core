@@ -6,7 +6,6 @@ default: &default
 
 development_shared: &development_shared
   encoding: unicode
-  database: emp_gr_development
   host:     localhost
   port: 5432
 
@@ -26,6 +25,7 @@ development: &development
   <<: *default
   <<: *development_shared
   <<: *leader_db_env
+  database: emp_gr_development
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
