@@ -52,7 +52,7 @@ class CopyOldConceptResultsToConceptResultsWorker
       end
     end
   rescue ActiveRecord::Deadlocked => e
-    raise ConceptResultMigrationDeadlocked.new e.message
+    raise(ConceptResultMigrationDeadlocked.new, e.message)
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 end
