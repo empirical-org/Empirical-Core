@@ -116,6 +116,7 @@ module Evidence
     private def version_monotonically_increases
       current_persisted_version = self.class.find(id).version
       return if version == current_persisted_version + 1
+
       errors.add(:version, 'does not monotonically increase.')
     end
   end

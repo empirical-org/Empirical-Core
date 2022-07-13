@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This migration comes from evidence (originally 20220623205532)
 class AddVersionToEvidenceActivity < ActiveRecord::Migration[5.1]
   def change
