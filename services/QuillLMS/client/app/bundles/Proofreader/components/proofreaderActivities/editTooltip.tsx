@@ -111,7 +111,7 @@ const EditTooltip = ({ state, id, tooltipHeight, back, numberOfEdits, next, inde
       <div className="middle-section">
         {renderNotNecessaryExplanation(state)}
         <p className="sr-only">The correct text was {displayText}. {incorrectText && `You submitted ${incorrectText === ' ' ? 'An empty space.' : incorrectText}.`}</p>
-        {renderCorrectAnswers(displayText)}å
+        {renderCorrectAnswers(displayText)}
         {renderConceptExplanation(concept)}
       </div>
       <div className="button-section">
