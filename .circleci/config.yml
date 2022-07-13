@@ -59,6 +59,8 @@ jobs:
             cd services/QuillLMS
             TESTFILES=$(circleci tests glob "spec/**/*_spec.rb" | grep -v "spec/system/" | grep -v "/skip_ci/" | circleci tests split)
             bundle exec rspec -- ${TESTFILES}
+          environment:
+            SUPPRESS_PUTS: "true"
   lms_integration_build:
     working_directory: ~/Empirical-Core
     parallelism: 1
@@ -244,7 +246,7 @@ jobs:
             go test
   evidence_rails_build:
     working_directory: ~/Empirical-Core
-    parallelism: 4
+    parallelism: 1
     docker:
       - image: cimg/ruby:2.7.6
         environment:
@@ -290,8 +292,8 @@ jobs:
           name: Set up DB
           command: |
             cd services/QuillLMS/engines/evidence
-            bundle exec rake db:create
-            bundle exec rake db:migrate
+            bundle exec rake db:create RAILS_ENV=test
+            bundle exec rake db:schema:load RAILS_ENV=test
           environment:
             DATABASE_URL: "postgres://ubuntu@localhost:5432/quill_evidence_test_db"
       - run:

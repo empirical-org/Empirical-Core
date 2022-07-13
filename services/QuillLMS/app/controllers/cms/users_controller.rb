@@ -100,7 +100,7 @@ class Cms::UsersController < Cms::CmsController
   end
 
   def update
-    if @user.update_attributes(user_params)
+    if @user.update(user_params)
       redirect_to cms_users_path, notice: 'User was successfully updated.'
     else
       flash[:error] = 'Did not save.'

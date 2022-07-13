@@ -54,7 +54,7 @@
 #  users_to_tsvector_idx4             (to_tsvector('english'::regconfig, (username)::text)) USING gin
 #  users_to_tsvector_idx5             (to_tsvector('english'::regconfig, split_part((ip_address)::text, '/'::text, 1))) USING gin
 #
-class UserSerializer < ActiveModel::Serializer
+class UserSerializer < ApplicationSerializer
   attributes :id, :name, :role, :active, :classcode, :username, :ip_address, :email
   has_one :subscription
   has_one :school

@@ -7,11 +7,13 @@
 #  id                         :integer          not null, primary key
 #  data                       :jsonb
 #  description                :text
-#  flags                      :string           default([]), not null, is an Array
-#  name                       :string
+#  flags                      :string(255)      default([]), not null, is an Array
+#  maximum_grade_level        :integer
+#  minimum_grade_level        :integer
+#  name                       :string(255)
 #  repeatable                 :boolean          default(TRUE)
 #  supporting_info            :string
-#  uid                        :string           not null
+#  uid                        :string(255)      not null
 #  created_at                 :datetime
 #  updated_at                 :datetime
 #  activity_classification_id :integer

@@ -7,7 +7,6 @@ describe SegmentAnalyticsUserSerializer do
     let(:record_instance) { create(:user) }
     let(:result_key) { "segment_analytics_user" }
 
-
     let(:expected_serialized_keys) do
       %w{
         email

@@ -65,7 +65,7 @@ module ApplicationHelper
     current_path.include?('sign-up')
   end
 
-  def load_intercom?
+  def user_is_trackable_teacher?
     current_user&.teacher? && !staff_member? && !demo_account? && !on_sign_up?
   end
 

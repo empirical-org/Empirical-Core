@@ -34,11 +34,10 @@ namespace :test do
 
     a_datas = [a1_data, a2_data, a3_data]
 
-
     a_datas.each do |a_data|
       a = Activity.find_or_create_by uid: a_data[:uid]
-      a.update_attributes(a_data)
-      a.update_attributes flags: ["production"]
+      a.update(a_data)
+      a.update(flags: ["production"])
     end
   end
 end

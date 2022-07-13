@@ -18,7 +18,7 @@
 #
 #  index_plans_on_name  (name) UNIQUE
 #
-class PlanSerializer < ActiveModel::Serializer
+class PlanSerializer < ApplicationSerializer
   attributes :display_name, :price_in_dollars, :stripe_price_id
 
   def price_in_dollars
