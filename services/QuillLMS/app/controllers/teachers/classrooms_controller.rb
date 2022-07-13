@@ -31,7 +31,7 @@ class Teachers::ClassroomsController < ApplicationController
   end
 
   def classrooms_i_teach
-    render json: fetch_classrooms_i_teach_cache, each_serializer: ClassroomSerializer
+    render json: fetch_classrooms_i_teach_cache, root: 'classrooms'
   end
 
   def regenerate_code
