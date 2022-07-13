@@ -15,6 +15,11 @@ common: &default_settings
   # Relic.  For more details, see https://docs.newrelic.com/docs/apm/new-relic-apm/maintenance/renaming-applications
   app_name: Quill LMS
 
+  # Per the upgrade guide, sidekiq (and potentially some other gems) need to specify a non-default instrumentation strategy
+  # https://docs.newrelic.com/docs/apm/agents/ruby-agent/getting-started/migration-7x-guide/
+  instrumentation:
+    sidekiq: chain
+
   # To disable the agent regardless of other settings, uncomment the following:
   # agent_enabled: false
 
