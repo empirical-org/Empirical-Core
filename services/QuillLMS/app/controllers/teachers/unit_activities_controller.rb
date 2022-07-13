@@ -10,7 +10,7 @@ class Teachers::UnitActivitiesController < ApplicationController
   before_action :set_activity_session, only: :hide
 
   def update
-    @unit_activities.each{ |unit_activity| unit_activity.try(:update_attributes, unit_activity_params)}
+    @unit_activities.each { |unit_activity| unit_activity&.update(unit_activity_params) }
     render json: @unit_activities.to_json
   end
 

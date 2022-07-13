@@ -35,7 +35,7 @@ class Cms::ActivitiesController < Cms::CmsController
   end
 
   def update
-    if @activity.update_attributes!(activity_params)
+    if @activity.update!(activity_params)
       render json: { activity: @activity }
     else
       render json: { }

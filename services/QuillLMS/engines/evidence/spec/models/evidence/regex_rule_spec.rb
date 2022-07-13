@@ -10,16 +10,12 @@ module Evidence
     end
 
     context 'should validations' do
-
       it { should validate_presence_of(:rule) }
-
       it { should validate_presence_of(:regex_text) }
-
       it { should validate_length_of(:regex_text).is_at_most(200) }
-
-      it { should validate_inclusion_of(:case_sensitive).in_array(RegexRule::CASE_SENSITIVE_ALLOWED_VALUES) }
-
       it { should validate_inclusion_of(:sequence_type).in_array(RegexRule::SEQUENCE_TYPES) }
+
+      it { should allow_value(described_class::CASE_SENSITIVE_ALLOWED_VALUES).for(:case_sensitive) }
     end
 
     context 'should custom validations' do
