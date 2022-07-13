@@ -91,8 +91,25 @@
         }
       }
       #readability-grade-level-slider, #grade-level-slider {
+        .first-mark {
+          left: -8px !important;
+        }
         .last-mark {
-          left: 217px !important;
+          left: 220px !important;
+        }
+      }
+      #ccss-grade-level-slider {
+        .first-mark {
+          left: -6px !important;
+        }
+        .mark:nth-of-type(2) {
+          left: 20px !important;
+        }
+        .mark:nth-of-type(3) {
+          left: 45px !important;
+        }
+        .mark:nth-of-type(4) {
+          left: 69px !important;
         }
       }
       .create-activity-category-form {
