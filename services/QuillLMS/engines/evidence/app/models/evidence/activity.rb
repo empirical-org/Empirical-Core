@@ -18,7 +18,6 @@ module Evidence
 
     before_destroy :expire_turking_rounds
     before_validation :set_parent_activity, on: :create
-    before_validation :increment_version, on: :update
     after_save :update_parent_activity_name, if: :saved_change_to_title?
 
     has_many :passages, inverse_of: :activity, dependent: :destroy
@@ -116,6 +115,7 @@ module Evidence
     private def version_monotonically_increases
       current_persisted_version = self.class.find(id).version
       return if version == current_persisted_version + 1
+      return if version == current_persisted_version
 
       errors.add(:version, 'does not monotonically increase.')
     end
