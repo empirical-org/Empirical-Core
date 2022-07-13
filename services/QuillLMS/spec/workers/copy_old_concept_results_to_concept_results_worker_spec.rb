@@ -86,5 +86,11 @@ describe CopyOldConceptResultsToConceptResultsWorker, type: :worker do
 
       subject.perform(old_concept_result.id, old_concept_result.id)
     end
+
+    it 'should raise custom ConceptResultMigrationDeadlocked error when it triggers and ActiveRecord::Deadlocked error' do
+      expect(ConceptResult).to receive(:bulk_insert).and_raise(ActiveRecord::Deadlocked)
+
+      expect { subject.perform(1,1) }.to raise_error(CopyOldConceptResultsToConceptResultsWorker::ConceptResultMigrationDeadlocked)
+    end
   end
 end

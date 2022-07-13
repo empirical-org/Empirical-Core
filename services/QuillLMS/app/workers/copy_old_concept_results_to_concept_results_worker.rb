@@ -4,6 +4,8 @@ class CopyOldConceptResultsToConceptResultsWorker
   include Sidekiq::Worker
   sidekiq_options queue: SidekiqQueue::MIGRATION
 
+  class ConceptResultMigrationDeadlocked < StandardError; end
+
   BATCH_SIZE = 1_000
 
   # rubocop:disable Metrics/CyclomaticComplexity
@@ -49,6 +51,8 @@ class CopyOldConceptResultsToConceptResultsWorker
         })
       end
     end
+  rescue ActiveRecord::Deadlocked => e
+    raise ConceptResultMigrationDeadlocked.new e.message
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 end
