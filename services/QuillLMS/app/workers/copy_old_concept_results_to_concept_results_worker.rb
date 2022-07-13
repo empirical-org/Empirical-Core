@@ -23,11 +23,11 @@ class CopyOldConceptResultsToConceptResultsWorker
         prompt = old_concept_result.metadata['prompt']
         question_type = old_concept_result.question_type
 
-        directions_cache[directions] ||= ConceptResultDirections.find_or_create_by!(text: directions)&.id if directions
-        instructions_cache[instructions] ||= ConceptResultInstructions.find_or_create_by!(text: instructions)&.id if instructions
-        previous_feedbacks_cache[previous_feedback] ||= ConceptResultPreviousFeedback.find_or_create_by!(text: previous_feedback)&.id if previous_feedback
-        prompts_cache[prompt] ||= ConceptResultPrompt.find_or_create_by!(text: prompt)&.id if prompt
-        question_types_cache[question_type] ||= ConceptResultQuestionType.find_or_create_by!(text: question_type)&.id if question_type
+        directions_cache[directions] ||= ConceptResultDirections.find_or_create_by(text: directions)&.id if directions
+        instructions_cache[instructions] ||= ConceptResultInstructions.find_or_create_by(text: instructions)&.id if instructions
+        previous_feedbacks_cache[previous_feedback] ||= ConceptResultPreviousFeedback.find_or_create_by(text: previous_feedback)&.id if previous_feedback
+        prompts_cache[prompt] ||= ConceptResultPrompt.find_or_create_by(text: prompt)&.id if prompt
+        question_types_cache[question_type] ||= ConceptResultQuestionType.find_or_create_by(text: question_type)&.id if question_type
 
         extra_metadata = ConceptResult.parse_extra_metadata(old_concept_result.metadata)
 

@@ -41,6 +41,17 @@ describe CopyOldConceptResultsToConceptResultsWorker, type: :worker do
       expect(concept_result.concept_result_question_type.text).to eq(old_concept_result.question_type)
     end
 
+    it 'should normalize empty string values as nil references to normalized tables' do
+      new_metadata = metadata.merge({'instructions': ''})
+      old_concept_result.update(metadata: new_metadata)
+
+      expect { subject.perform(old_concept_result.id, old_concept_result.id) }.to change(ConceptResult, :count).by(1)
+
+      concept_result = old_concept_result.concept_result
+
+      expect(concept_result.concept_result_instructions).to eq(nil)
+    end
+
     it 'should be idempotent so that if the same ID is present twice, only one new record is created' do
       expect do
         subject.perform(old_concept_result.id, old_concept_result.id)
