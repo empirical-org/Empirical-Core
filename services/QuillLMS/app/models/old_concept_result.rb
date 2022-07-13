@@ -28,6 +28,7 @@ class OldConceptResult < ApplicationRecord
   validates :concept, presence: true
   validates :activity_session_id, presence: true
 
+  has_one :concept_result
 
   validates :question_type, inclusion: { in: %w(passage-proofreader sentence-writing sentence-fragment-expansion sentence-fragment-identification sentence-combining fill-in-the-blanks lessons-slide comprehension),
                    message: "%<value>s is not a valid question_type" }, :allow_nil => true
