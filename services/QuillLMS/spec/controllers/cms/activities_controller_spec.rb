@@ -45,6 +45,8 @@ describe Cms::ActivitiesController, type: :controller do
       get :edit, params: { activity_classification_id: classification.id, id: activity.id }
       activity_hash = {
         'id' => activity.id,
+        'maximum_grade_level' => activity.maximum_grade_level,
+        'minimum_grade_level' => activity.minimum_grade_level,
         'name' => activity.name,
         'description' => activity.description,
         'supporting_info' => activity.supporting_info,

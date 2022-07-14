@@ -2,19 +2,12 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { MemoryRouter } from 'react-router-dom';
 import * as _ from 'lodash'
+import { QueryClientProvider } from 'react-query'
 
 import ActivitySettingsWrapper from '../configureSettings/activitySettingsWrapper';
+import { DefaultReactQueryClient } from '../../../../Shared/index';
 
-const mockActivity = [{ id: 1, title: 'First' }]
-jest.mock("react-query", () => ({
-  useQuery: jest.fn(() => ({
-    data: { activity: mockActivity},
-    error: null,
-    status: "success",
-    isFetching: true,
-  })),
-  useQueryClient: jest.fn(() => ({})),
-}));
+const queryClient = new DefaultReactQueryClient();
 
 const mockProps = {
   match: {
@@ -30,7 +23,9 @@ const mockProps = {
 describe('ActivitySettingsWrapper component', () => {
   const container = mount(
     <MemoryRouter>
-      <ActivitySettingsWrapper {...mockProps} />
+      <QueryClientProvider client={queryClient} contextSharing={true}>
+        <ActivitySettingsWrapper {...mockProps} />
+      </QueryClientProvider>
     </MemoryRouter>
   );
   it('should render ActivitySettingsWrapper', () => {

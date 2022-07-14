@@ -35301,7 +35301,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               }
               grouping={
                 Object {
-                  "group": "Independent Practice",
+                  "group": "Independent: Language Skills",
                   "keys": Array [
                     "connect",
                     "sentence",
@@ -35310,7 +35310,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 }
               }
               handleActivityClassificationFilterChange={[Function]}
-              key="Independent Practice"
+              key="Independent: Language Skills"
               uniqueActivityClassifications={
                 Array [
                   Object {
@@ -35354,7 +35354,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                       type="button"
                     />
                     <span>
-                      Independent Practice
+                      Independent: Language Skills
                     </span>
                   </div>
                   <span>

@@ -12,6 +12,10 @@ module StripeIntegration
         stripe_webhook_event.log_error(e)
       end
 
+      private def metadata
+        stripe_setup_intent&.metadata
+      end
+
       private def stripe_setup_intent
         stripe_event.data.object
       end
@@ -21,7 +25,9 @@ module StripeIntegration
       end
 
       private def stripe_subscription_id
-        stripe_setup_intent&.metadata&.subscription_id
+        return nil unless metadata.respond_to?(:subscription_id)
+
+        metadata.subscription_id
       end
 
       private def update_default_payment_method

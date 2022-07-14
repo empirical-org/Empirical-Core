@@ -29,7 +29,7 @@ module Auth
 
     private def user_success(user, redirect=nil)
       CompleteAccountCreation.new(user, request.remote_ip).call if user.previous_changes["id"]
-      user.update_attributes(ip_address: request.remote_ip)
+      user.update(ip_address: request.remote_ip)
       if session[ApplicationController::CLEVER_REDIRECT]
         redirect_route = session[ApplicationController::CLEVER_REDIRECT]
         session[ApplicationController::CLEVER_REDIRECT] = nil

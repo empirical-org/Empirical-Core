@@ -246,7 +246,7 @@ describe Classroom, type: :model do
     it "does not generate a code twice" do
       classroom = create(:classroom)
       old_code = classroom.code
-      classroom.update_attributes(name: 'Testy Westy')
+      classroom.update(name: 'Testy Westy')
       expect(classroom.code).to eq(old_code)
     end
   end
@@ -261,7 +261,6 @@ describe Classroom, type: :model do
       expect(classroom).to receive(:find_or_create_checkbox)
       classroom.classrooms_teachers.build(user_id: teacher.id, role: 'owner')
       classroom.save
-      classroom.run_callbacks(:commit)
     end
   end
 

@@ -26,7 +26,7 @@ class Cms::UnitTemplateCategoriesController < Cms::CmsController
   end
 
   def update
-    if @unit_template_category.update_attributes(unit_template_category_params)
+    if @unit_template_category.update(unit_template_category_params)
       render json: @unit_template_category
     else
       render json: {errors: @unit_template_category.errors}, status: 422

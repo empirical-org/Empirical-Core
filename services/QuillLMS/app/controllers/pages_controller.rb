@@ -23,7 +23,6 @@ class PagesController < ApplicationController
 
     @body_class = 'home-page'
     @activity = Activity.with_classification.find_by_uid(ENVr.fetch('HOMEPAGE_ACTIVITY_UID', ''))
-    self.formats = ['html']
   end
 
   # rubocop:disable Metrics/CyclomaticComplexity
@@ -41,10 +40,8 @@ class PagesController < ApplicationController
       name = ReferrerUser.find_by(referral_code: request.env['affiliate.tag'])&.user&.name
       flash.now[:info] = "<strong>#{name}</strong> invited you to help your students become better writers with Quill!" if name
     end
-    if check_should_clear_segment_identity
-      set_just_logged_out_flag
-    end
-    self.formats = ['html']
+
+    set_just_logged_out_flag if check_should_clear_segment_identity
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 
@@ -404,9 +401,8 @@ class PagesController < ApplicationController
   def premium
     @user_is_eligible_for_new_subscription= current_user&.eligible_for_new_subscription?
     @user_is_eligible_for_trial = current_user&.subscriptions&.none?
-
-    @user_has_school = !!current_user&.school && ['home school', 'us higher ed', 'international', 'other', 'not listed'].exclude?(current_user&.school&.name)
-    @user_belongs_to_school_that_has_paid = current_user&.school ? Subscription.school_or_user_has_ever_paid?(current_user&.school) : false
+    @user_has_school = !!current_user&.school && !current_user.school.alternative?
+    @user_belongs_to_school_that_has_paid = !!current_user&.school&.ever_paid_for_subscription?
     @customer_email = current_user&.email
     @associated_schools = current_user&.associated_schools || []
     @eligible_schools = @associated_schools.filter { |s| s.subscription.nil? }

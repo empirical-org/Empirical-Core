@@ -9,18 +9,14 @@ module Evidence
       subject { FactoryBot.build(:evidence_rule) }
 
       it { should validate_uniqueness_of(:uid) }
-
       it { should validate_presence_of(:name) }
-
       it { should validate_length_of(:name).is_at_most(250) }
-
-      it { should validate_inclusion_of(:universal).in_array(Rule::ALLOWED_BOOLEANS) }
-
       it { should validate_inclusion_of(:rule_type).in_array(Rule::TYPES) }
-
       it { should validate_inclusion_of(:state).in_array(Rule::STATES) }
 
-      it { should validate_inclusion_of(:optimal).in_array(Rule::ALLOWED_BOOLEANS) }
+      it { should allow_value(true).for(:optimal) }
+      it { should allow_value(false).for(:universal) }
+      it { should_not allow_value(nil).for(:universal) }
 
       it { should validate_numericality_of(:suborder).only_integer.is_greater_than_or_equal_to(0).allow_nil }
     end
@@ -28,15 +24,10 @@ module Evidence
     context 'should relationships' do
 
       it { should have_one(:label) }
-
       it { should have_many(:plagiarism_texts) }
-
       it { should have_many(:feedbacks) }
-
       it { should have_many(:prompts_rules) }
-
       it { should have_many(:prompts).through(:prompts_rules) }
-
       it { should have_many(:regex_rules).dependent(:destroy) }
     end
 
@@ -236,22 +227,22 @@ module Evidence
         it 'should assign newly created rule to all prompts if the rule is universal' do
           prompt = create(:evidence_prompt)
           rule = create(:evidence_rule, :universal => true)
-          expect(prompt.rules.length).to(eq(1))
-          expect(rule.prompts.include?(prompt)).to(eq(true))
+          expect(prompt.reload.rules.length).to eq 1
+          expect(rule.reload.prompts).to include prompt
         end
 
         it 'should not assign newly created rule to all prompts if the rule is not universal' do
           prompt = create(:evidence_prompt)
           rule = create(:evidence_rule, :universal => false)
-          expect(prompt.rules.length).to(eq(0))
-          expect(rule.prompts.include?(prompt)).to(eq(false))
+          expect(prompt.reload.rules.length).to eq 0
+          expect(rule.reload.prompts).not_to include prompt
         end
 
         it 'should not assign newly created rules to prompts that somehow already have them assigned' do
           prompt = create(:evidence_prompt)
           rule = create(:evidence_rule, :universal => true, :prompts => ([prompt]))
-          expect(prompt.rules.length).to(eq(1))
-          expect(rule.prompts.include?(prompt)).to(eq(true))
+          expect(prompt.reload.rules.length).to eq 1
+          expect(rule.reload.prompts).to include prompt
         end
       end
     end

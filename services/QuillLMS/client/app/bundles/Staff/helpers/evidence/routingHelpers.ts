@@ -4,7 +4,7 @@ const fetchDefaults = require("fetch-defaults");
 
 const headerHash = {
   headers: {
-    "Accept": "application/JSON",
+    "Accept": "application/json",
     "Content-Type": "application/json"
   }
 }

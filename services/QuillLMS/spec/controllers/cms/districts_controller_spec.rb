@@ -41,9 +41,7 @@ describe Cms::DistrictsController do
     let!(:district) { create(:district) }
 
     it 'should assign the correct values' do
-
       get :show, params: { id: district.id }
-
       expect(assigns(:district)).to eq(district)
       expect(assigns(:school_data)).to eq([])
       expect(assigns(:admins)).to eq(DistrictAdmin.includes(:user).where(district_id: district.id).map do |admin|
@@ -98,4 +96,36 @@ describe Cms::DistrictsController do
     end
   end
 
+  describe '#edit_subscription' do
+    let!(:district) { create(:district_subscription).district }
+
+    it 'should assign the subscription' do
+      get :edit_subscription, params: { id: district.id }
+
+      expect(assigns(:subscription)).to eq district.subscription
+    end
+  end
+
+  describe '#new_subscription' do
+    let!(:district) { create(:district) }
+    let!(:subscription) { create(:subscription)}
+    let!(:district_subscription) { create(:district_subscription, district: district, subscription: subscription) }
+    let!(:district_with_no_subscription) { create(:district) }
+
+    describe 'when there is no existing subscription' do
+      it 'should create a new subscription that starts today and ends at the promotional expiration date' do
+        get :new_subscription, params: { id: district_with_no_subscription.id }
+        expect(assigns(:subscription).start_date).to eq Date.current
+        expect(assigns(:subscription).expiration).to eq Subscription.promotional_dates[:expiration]
+      end
+    end
+
+    describe 'when there is an existing subscription' do
+      it 'should create a new subscription with starting after the current subscription ends' do
+        get :new_subscription, params: { id: district.id }
+        expect(assigns(:subscription).start_date).to eq subscription.expiration
+        expect(assigns(:subscription).expiration).to eq subscription.expiration + 1.year
+      end
+    end
+  end
 end

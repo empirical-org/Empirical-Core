@@ -373,7 +373,7 @@ module Teacher
       end
     end
     if !are_there_school_related_errors
-      if update_attributes(
+      if update(
         username: params.key?(:username) ? params[:username] : username,
         email: params.key?(:email) ? params[:email] : email,
         name: params.key?(:name) ? params[:name] : name,
@@ -411,7 +411,8 @@ module Teacher
   # rubocop:disable Metrics/CyclomaticComplexity
   def updated_school(school_id)
     school = School.find_by(id: school_id)
-    if subscription && subscription.school_subscriptions.any? && !has_matching_subscription?(id, school&.subscription&.id)
+
+    if subscription&.school_subscriptions&.any? && !has_matching_subscription?(self, school&.subscription)
       # then they were previously in a school with a subscription, so we destroy the relationship
       UserSubscription.find_by(user_id: id, subscription_id: subscription.id).destroy
     end
@@ -419,12 +420,12 @@ module Teacher
     return unless school && school.subscription
 
     # then we let the user subscription handle everything else
-    UserSubscription.create_user_sub_from_school_sub_if_they_do_not_have_that_school_sub(id, school.subscription.id)
+    UserSubscription.create_user_sub_from_school_sub_if_they_do_not_have_that_school_sub(self, school.subscription)
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 
-  def has_matching_subscription?(user_id, subscription_id)
-    UserSubscription.where(user_id: user_id, subscription_id: subscription_id).exists?
+  def has_matching_subscription?(user, subscription)
+    UserSubscription.exists?(user: user, subscription: subscription)
   end
 
   def is_premium?

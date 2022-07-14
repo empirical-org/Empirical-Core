@@ -481,3 +481,11 @@ label.css-label {
     color: rgb(153, 153, 153);
   }
 }
+.all-errors-message {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: normal;
+  color: #ff0000;
+  display: flex;
+  text-align: left;
+}

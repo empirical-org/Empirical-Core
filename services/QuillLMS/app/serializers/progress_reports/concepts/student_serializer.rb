@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ProgressReports::Concepts::StudentSerializer  < ActiveModel::Serializer
+class ProgressReports::Concepts::StudentSerializer  < ApplicationSerializer
   include Rails.application.routes.url_helpers
 
   attributes :name,
@@ -10,6 +10,8 @@ class ProgressReports::Concepts::StudentSerializer  < ActiveModel::Serializer
              :incorrect_result_count,
              :percentage,
              :id
+
+  type :student
 
   def concepts_href
     teachers_progress_reports_concepts_student_concepts_path(student_id: object.id)

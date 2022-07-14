@@ -134,37 +134,44 @@ class ActivitySearchWrapper
       h = {
         alias: 'Quill Proofreader',
         description: 'Fix Errors in Passages',
+        gradeText: '2nd - 12th Grade',
         key: ActivityClassification::PROOFREADER_KEY
       }
     when ActivityClassification::GRAMMAR_KEY
       h = {
         alias: 'Quill Grammar',
         description: 'Practice Mechanics',
+        gradeText: '2nd - 12th Grade',
         key: ActivityClassification::GRAMMAR_KEY
       }
     when ActivityClassification::DIAGNOSTIC_KEY
       h = {
         alias: 'Quill Diagnostic',
         description: 'Identify Learning Gaps',
+        gradeText: '2nd - 12th Grade',
         key: ActivityClassification::DIAGNOSTIC_KEY
       }
     when ActivityClassification::CONNECT_KEY
       h = {
         alias: 'Quill Connect',
         description: 'Combine Sentences',
+        gradeText: '2nd - 12th Grade',
         key: ActivityClassification::CONNECT_KEY
       }
     when ActivityClassification::LESSONS_KEY
       h = {
         alias: 'Quill Lessons',
         description: 'Lead Group Lessons',
+        gradeText: '4th - 12th Grade',
         key: ActivityClassification::LESSONS_KEY
       }
     when ActivityClassification::EVIDENCE_KEY
       h = {
         alias: 'Quill Reading for Evidence',
         description: 'Use a Text to Write with Evidence',
-        key: ActivityClassification::EVIDENCE_KEY
+        key: ActivityClassification::EVIDENCE_KEY,
+        gradeText: '8th - 12th Grade',
+        new: true
       }
     else
       h = {}

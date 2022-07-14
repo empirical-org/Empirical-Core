@@ -27,7 +27,7 @@ describe DummyController, type: :request do
 
   it 'should set cache control headers' do
     get '/dummy'
-    expect(response.header['Cache-Control']).to match('no-cache, no-store, max-age=0, must-revalidate')
+    expect(response.header['Cache-Control']).to match('no-cache, no-store')
     expect(response.header['Pragma']).to match('no-cache')
   end
 

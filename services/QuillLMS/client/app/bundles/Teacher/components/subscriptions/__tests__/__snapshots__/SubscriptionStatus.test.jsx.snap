@@ -2,7 +2,6 @@
 
 exports[`SubscriptionStatus container should render when the subscription is expired 1`] = `
 <SubscriptionStatus
-  showPurchaseModal={[Function]}
   subscriptionStatus={
     Object {
       "account_type": "Teacher Paid",
@@ -88,7 +87,6 @@ exports[`SubscriptionStatus container should render when the subscription is exp
 
 exports[`SubscriptionStatus container should render when there is no subscription 1`] = `
 <SubscriptionStatus
-  showPurchaseModal={[Function]}
   subscriptionType="Basic"
   userIsContact={false}
 >

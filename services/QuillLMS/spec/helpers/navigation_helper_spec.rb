@@ -34,7 +34,7 @@ describe NavigationHelper do
     end
 
     context 'when invite_students action and not in concepts controller' do
-      let(:class_double) { double(:klass, parent: "something") }
+      let(:class_double) { double(:klass, module_parent: "something") }
 
       before do
         allow(helper).to receive(:controller) { double(:controller, class: class_double) }

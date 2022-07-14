@@ -9,7 +9,7 @@ module NavigationHelper
     (controller.class == Teachers::ClassroomsController ||
     controller_name == 'students' ||
     action_name == 'invite_students') &&
-    controller.class.parent != Teachers::ProgressReports::Concepts
+    controller.class.module_parent != Teachers::ProgressReports::Concepts
   end
 
   def assign_activity_page_should_be_active?
@@ -22,10 +22,10 @@ module NavigationHelper
 
   def student_reports_page_should_be_active?
     controller.class == Teachers::ProgressReportsController ||
-    controller.class.parent == Teachers::ProgressReports ||
-    controller.class.parent == Teachers::ProgressReports::Standards ||
-    controller.class.parent == Teachers::ProgressReports::Concepts ||
-    action_name == 'scorebook'
+      controller.class.module_parent == Teachers::ProgressReports ||
+      controller.class.module_parent == Teachers::ProgressReports::Standards ||
+      controller.class.module_parent == Teachers::ProgressReports::Concepts ||
+      action_name == 'scorebook'
   end
 
   def admin_page_should_be_active?

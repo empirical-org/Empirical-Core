@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 import { createMemoryHistory, createLocation } from 'history';
-import { QueryClient, QueryClientProvider } from 'react-query'
+import { QueryClientProvider } from 'react-query'
 import 'whatwg-fetch';
 
+import { DefaultReactQueryClient } from '../../../../Shared';
 import RulesAnalysis from '../rulesAnalysis/rulesAnalysis';
 
 jest.mock('qs', () => ({
@@ -26,7 +27,8 @@ const mockProps = {
   location: createLocation('')
 }
 
-const queryClient = new QueryClient()
+
+const queryClient = new DefaultReactQueryClient();
 
 describe('RulesAnalysis component', () => {
   const container = shallow(

@@ -100,7 +100,7 @@ class Cms::UsersController < Cms::CmsController
   end
 
   def update
-    if @user.update_attributes(user_params)
+    if @user.update(user_params)
       redirect_to cms_users_path, notice: 'User was successfully updated.'
     else
       flash[:error] = 'Did not save.'
@@ -346,4 +346,8 @@ class Cms::UsersController < Cms::CmsController
     ChangeLog.create(change_log)
   end
 
+  private def subscription_data
+    @premium_types = Subscription::OFFICIAL_TEACHER_TYPES
+    @subscription_payment_methods = Subscription::CMS_PAYMENT_METHODS
+  end
 end

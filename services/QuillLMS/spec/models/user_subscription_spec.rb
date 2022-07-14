@@ -30,7 +30,7 @@ describe UserSubscription, type: :model do
   let!(:user2) { create(:user) }
   let!(:new_sub) { create(:subscription) }
   let!(:old_sub) { create(:subscription) }
-  let!(:user_sub) { create(:user_subscription, user_id: user1.id, subscription_id: old_sub.id) }
+  let!(:user_sub) { create(:user_subscription, user: user1, subscription: old_sub) }
 
   context 'validates' do
     describe 'presence of' do
@@ -80,13 +80,13 @@ describe UserSubscription, type: :model do
     describe 'when the user does have the passed subscription' do
       it "does not call #self.create_user_sub_from_school_sub" do
         expect(UserSubscription).not_to receive(:create_user_sub_from_school_sub)
-        UserSubscription.create_user_sub_from_school_sub_if_they_do_not_have_that_school_sub(user.id, subscription.id)
+        UserSubscription.create_user_sub_from_school_sub_if_they_do_not_have_that_school_sub(user, subscription)
       end
 
       it "does call #self.create_user_sub_from_school_sub" do
         expect(UserSubscription).to receive(:create_user_sub_from_school_sub)
         user_subscription.destroy
-        UserSubscription.create_user_sub_from_school_sub_if_they_do_not_have_that_school_sub(user.id, subscription.id)
+        UserSubscription.create_user_sub_from_school_sub_if_they_do_not_have_that_school_sub(user, subscription)
       end
     end
   end
@@ -94,28 +94,28 @@ describe UserSubscription, type: :model do
   context '#self.create_user_sub_from_school_sub' do
     it 'creates a new UserSubscription' do
       old_user_sub_count = user1.user_subscriptions.count
-      UserSubscription.create_user_sub_from_school_sub(user1.id, new_sub.id)
+      UserSubscription.create_user_sub_from_school_sub(user1, new_sub)
       expect(user1.reload.user_subscriptions.count).to eq(old_user_sub_count + 1)
     end
 
     it 'associates the user with the passed subscription' do
       expect(user1.subscription).to eq(old_sub)
-      UserSubscription.create_user_sub_from_school_sub(user1.id, new_sub.id)
+      UserSubscription.create_user_sub_from_school_sub(user1, new_sub)
       expect(user1.reload.subscription).to eq(new_sub)
     end
 
     it 'calls #self.redeem_present_and_future_subscriptions_for_credit with the user_id' do
-      expect(UserSubscription).to receive(:redeem_present_and_future_subscriptions_for_credit).with(user1.id)
-      UserSubscription.create_user_sub_from_school_sub(user1.id, new_sub.id)
+      expect(UserSubscription).to receive(:redeem_present_and_future_subscriptions_for_credit).with(user1)
+      UserSubscription.create_user_sub_from_school_sub(user1, new_sub)
     end
   end
 
   context '#self.redeem_present_and_future_subscriptions_for_credit' do
-    let!(:new_user_sub) { create(:user_subscription, user_id: user1.id, subscription_id: new_sub.id) }
+    let!(:new_user_sub) { create(:user_subscription, user: user1, subscription: new_sub) }
 
     it "sets existing present and future subscription's de_activated_date to today" do
       expect(user1.subscriptions.map(&:de_activated_date)).not_to include(Date.current)
-      UserSubscription.redeem_present_and_future_subscriptions_for_credit(user1.id)
+      UserSubscription.redeem_present_and_future_subscriptions_for_credit(user1)
       expect(user1.subscriptions.reload.map(&:de_activated_date)).to include(Date.current)
     end
   end

@@ -94,12 +94,7 @@ class Classroom < ApplicationRecord
   end
 
   def unique_standard_count
-    if unique_standard_count_array.any?
-      val = unique_standard_count_array.first.standard_count
-    else
-      val = nil
-    end
-    val
+    unique_standard_count_array&.first&.standard_count
   end
 
   def owner
@@ -111,18 +106,16 @@ class Classroom < ApplicationRecord
   end
 
   def unique_standard_count_array
-    filters = {}
-    best_activity_sessions_query = ProgressReports::Standards::ActivitySession.new(owner).results(filters).to_sql
-    best_activity_sessions = "( #{best_activity_sessions_query} ) AS best_activity_sessions"
+    best_activity_sessions = ProgressReports::Standards::ActivitySession.new(owner).results.to_sql
 
     ActivitySession
       .select("COUNT(DISTINCT(activities.standard_id)) as standard_count")
-      .joins("JOIN #{best_activity_sessions} ON activity_sessions.id = best_activity_sessions.id")
+      .joins("JOIN (#{best_activity_sessions}) AS best_activity_sessions ON activity_sessions.id = best_activity_sessions.id")
       .joins('JOIN activities ON activities.id = best_activity_sessions.activity_id')
       .joins('JOIN classroom_units ON classroom_units.id = best_activity_sessions.classroom_unit_id')
       .where('classroom_units.classroom_id = ?', id)
       .group('classroom_units.classroom_id')
-      .order('')
+      .order(standard_count: :desc)
   end
 
   def archived_classrooms_manager

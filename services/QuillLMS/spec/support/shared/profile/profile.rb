@@ -117,15 +117,15 @@ shared_context 'profile' do
   let!(:as3_finished) { classroom_activity3.session_for(student) }
 
   before do
-    as1.update_attributes(percentage: 0.8, state: 'finished')
-    as_1a.update_attributes(percentage: 0.5, state: 'finished')
-    as_1aa.update_attributes(percentage: 0.5, state: 'finished')
-    as_1b.update_attributes(percentage: 1, state: 'finished')
+    as1.update(percentage: 0.8, state: 'finished')
+    as_1a.update(percentage: 0.5, state: 'finished')
+    as_1aa.update(percentage: 0.5, state: 'finished')
+    as_1b.update(percentage: 1, state: 'finished')
   end
 
   before do
-    as3_unstarted.update_attributes(state: 'unstarted')
-    as3_started.update_attributes(percentage: 0.5, state: 'started')
-    as3_finished.update_attributes(percentage: 0.5, state: 'finished')
+    as3_unstarted.update(state: 'unstarted')
+    as3_started.update(percentage: 0.5, state: 'started')
+    as3_finished.update(percentage: 0.5, state: 'finished')
   end
 end

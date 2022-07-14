@@ -431,16 +431,6 @@ exports[`SalesForm Component should match snapshot 1`] = `
         Submit
       </button>
     </form>
-    <Snackbar
-      text="Request successfully submitted!"
-      visible={false}
-    >
-      <div
-        className="quill-snackbar "
-      >
-        Request successfully submitted!
-      </div>
-    </Snackbar>
   </div>
 </SalesForm>
 `;

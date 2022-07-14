@@ -14,7 +14,8 @@ interface GetFeedbackArguments {
   promptText: string,
   attempt: number,
   previousFeedback: FeedbackObject[],
-  callback: Function
+  callback: Function,
+  activityVersion: number
 }
 
 interface CompleteActivitySessionArguments {
@@ -170,7 +171,7 @@ export const reportAProblem = ({ sessionID, entry, report, callback, isOptimal }
 }
 
 export const getFeedback = (args: GetFeedbackArguments) => {
-  const { sessionID, activityUID, entry, promptID, promptText, attempt, previousFeedback, callback, } = args
+  const { sessionID, activityUID, entry, promptID, promptText, attempt, previousFeedback, callback, activityVersion} = args
   return (dispatch: Function) => {
     const feedbackURL = `${process.env.GOLANG_FANOUT_URL}`
 
@@ -186,7 +187,8 @@ export const getFeedback = (args: GetFeedbackArguments) => {
         entry: entryWithoutStem,
         previous_feedback: previousFeedback,
         prompt_text: promptText,
-        attempt
+        attempt,
+        activity_version: activityVersion
       },
       json: true,
     }

@@ -8,22 +8,21 @@ exports[`UnitTemplates container should match snapshot 1`] = `
     className="unit-template-inputs"
   >
     <UnitTemplateFilterInputs
-      diagnostic="All Diagnostics"
+      diagnostic="all diagnostics"
       diagnostics={Array []}
-      flag="All Flags"
+      flag="all flags"
       handleRadioChange={[Function]}
       handleSearch={[Function]}
-      newUnitTemplate={[Function]}
       options={
         Array [
-          "All Flags",
-          "Not Archived",
-          "Archived",
-          "Alpha",
-          "Beta",
-          "Gamma",
-          "Production",
-          "Private",
+          "all flags",
+          "not archived",
+          "archived",
+          "alpha",
+          "beta",
+          "gamma",
+          "production",
+          "private",
         ]
       }
       searchByActivityPack={true}

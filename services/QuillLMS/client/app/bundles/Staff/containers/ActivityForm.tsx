@@ -6,7 +6,9 @@ import ContentPartners from '../components/activityForm/contentPartners'
 import { defaultSnackbarTimeout, Snackbar } from '../../Shared/index'
 import { requestGet, requestPost, requestPut } from '../../../modules/request/index'
 
-const ActivityForm = ({ activity, activityClassification, contentPartnerOptions, activityCategoryOptions, standardOptions, rawScoreOptions, passedTopicOptions, flagOptions, followUpActivityOptions, gradeBands, }) => {
+const DEFAULT_MAXIMUM_GRADE_LEVEL = 12
+
+const ActivityForm = ({ activity, activityClassification, contentPartnerOptions, activityCategoryOptions, standardOptions, rawScoreOptions, passedTopicOptions, flagOptions, followUpActivityOptions, rawScoreToReadabilityGradeBands, readabilityGradeBandToMinimumGradeLevel, }) => {
   const [editedActivity, setEditedActivity] = React.useState(activity);
   const [topicOptions, setTopicOptions] = React.useState(passedTopicOptions);
   const [showSnackbar, setShowSnackbar] = React.useState(false)
@@ -16,6 +18,21 @@ const ActivityForm = ({ activity, activityClassification, contentPartnerOptions,
       setTimeout(() => setShowSnackbar(false), defaultSnackbarTimeout)
     }
   }, [showSnackbar])
+
+  React.useEffect(() => {
+    if (editedActivity.raw_score_id && !editedActivity.minimum_grade_level) {
+      const selectedRawScoreOption = rawScoreOptions.find(rawScore => rawScore.id === editedActivity.raw_score_id)
+      const readabilityGradeBand = rawScoreToReadabilityGradeBands[selectedRawScoreOption?.name]
+      const minimumGradeLevel = readabilityGradeBandToMinimumGradeLevel[readabilityGradeBand]
+      handleAttributeChange('minimum_grade_level', minimumGradeLevel)
+    }
+  }, [editedActivity.raw_score_id])
+
+  React.useEffect(() => {
+    if (editedActivity.minimum_grade_level && !editedActivity.maximum_grade_level) {
+      handleAttributeChange('maximum_grade_level', DEFAULT_MAXIMUM_GRADE_LEVEL)
+    }
+  }, [editedActivity.minimum_grade_level])
 
   function submitClassName() {
     let className = "quill-button primary contained large"
@@ -82,6 +99,10 @@ const ActivityForm = ({ activity, activityClassification, contentPartnerOptions,
 
   function handleStandardChange(e) { handleAttributeChange('standard_id', e.target.value)}
 
+  function handleMinimumGradeLevelChange(e) { handleAttributeChange('minimum_grade_level', e.target.value && Number(e.target.value))}
+
+  function handleMaximumGradeLevelChange(e) { handleAttributeChange('maximum_grade_level', e.target.value && Number(e.target.value))}
+
   function handleActivityCategoryChange(e) {
     const selectedOptions = Array.from(e.target.selectedOptions, option => option.value)
     handleAttributeChange('activity_category_ids', selectedOptions)
@@ -92,7 +113,7 @@ const ActivityForm = ({ activity, activityClassification, contentPartnerOptions,
   }
 
   function handleRawScoreChange(value) {
-    handleAttributeChange('raw_score_id', value)
+    handleAttributeChange('raw_score_id', value && Number(value))
   }
 
   function handleTopicsChange(options) {
@@ -157,7 +178,15 @@ const ActivityForm = ({ activity, activityClassification, contentPartnerOptions,
           <select className="activity-categories" multiple onChange={handleActivityCategoryChange} value={editedActivity.activity_category_ids}>{activityCategoryOptionElements}</select>
         </section>
         <ContentPartners activity={editedActivity} contentPartnerOptions={contentPartnerOptions} handleContentPartnerChange={handleContentPartnerChange} />
-        <RawScore activity={editedActivity} gradeBands={gradeBands} handleRawScoreChange={handleRawScoreChange} rawScoreOptions={rawScoreOptions} />
+        <RawScore activity={editedActivity} handleRawScoreChange={handleRawScoreChange} rawScoreOptions={rawScoreOptions} rawScoreToReadabilityGradeBands={rawScoreToReadabilityGradeBands} />
+        <section>
+          <label>Minimum grade level</label>
+          <input onChange={handleMinimumGradeLevelChange} value={editedActivity.minimum_grade_level} />
+        </section>
+        <section>
+          <label>Maximum grade level</label>
+          <input onChange={handleMaximumGradeLevelChange} value={editedActivity.maximum_grade_level} />
+        </section>
         <Topics activity={editedActivity} createNewTopic={createNewTopic} handleTopicsChange={handleTopicsChange} topicOptions={topicOptions} />
         <input className={submitClassName()} disabled={!editedActivity.name.length} type="submit" value="Save" />
         <p>When you&apos;ve saved the activity, please head over to the <a href='/assign/activity-library'>Activity Library</a> to make sure the activity metadata looks right in production.</p>

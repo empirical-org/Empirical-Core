@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Profile::ActivitySessionSerializer < ActiveModel::Serializer
+class Profile::ActivitySessionSerializer < ApplicationSerializer
   include Rails.application.routes.url_helpers
 
   attributes :id, :percentage, :link, :due_date_or_completed_at_date, :due_date, :state
