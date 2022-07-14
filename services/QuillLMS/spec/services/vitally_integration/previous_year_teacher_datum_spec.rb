@@ -86,15 +86,15 @@ RSpec.describe PreviousYearTeacherDatum, type: :model do
       expected_data = {
         total_students: 3,
         active_students: 2,
-        activities_assigned: 3,
-        completed_activities: 3,
-        completed_activities_per_student: 1.5,
+        activities_assigned: 4,
+        completed_activities: 4,
+        completed_activities_per_student: 2.0,
+        completed_evidence_activities_per_student: 0.5,
         percent_completed_activities: 1.0,
         diagnostics_assigned: 2,
         diagnostics_finished: 2,
-        evidence_activities_assigned: 4,
+        evidence_activities_assigned: 1,
         evidence_activities_completed: 1,
-        completed_evidence_activities_per_student: 0.25,
         percent_completed_diagnostics: 1.0
       }
       teacher_data = PreviousYearTeacherDatum.new(teacher, year).calculate_data
