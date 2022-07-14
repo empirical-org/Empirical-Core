@@ -341,7 +341,7 @@ describe 'SerializeVitallySalesUser' do
     expect(teacher_data[:traits]).to include(
       total_students_last_year: 3,
       active_students_last_year: 2,
-      activities_assigned_last_year: 3,
+      activities_assigned_last_year: 4,
       completed_activities_last_year: 3,
       completed_activities_per_student_last_year: 1.5,
       percent_completed_activities_last_year: 1.0,
