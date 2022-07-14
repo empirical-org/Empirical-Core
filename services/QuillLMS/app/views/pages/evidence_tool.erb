@@ -6,19 +6,73 @@
 </section>
 <div class="tool-container evidence-tool-page">
 
-    <section class='bg-quillteal tool-hero text-center tool-section'>
-      <h1 class="q-h1">
-          <img class="tool-page-icon lazyload" data-src='https://assets.quill.org/images/icons/tool-evidence-white.svg'>Quill Reading for Evidence
-      </h1>
-      <p class='description'>
-        With Quill's new Reading For Evidence tool, students engage with high-interest texts by constructing sentences that synthesize evidence from the text, with Quill's feedback engine automatically grading and providing hundreds of custom, targeted feedback for each prompt designed to enable students to continually revise and improve their writing.
-      </p>
-      <section class="tool-ctas evidence-tool">
-        <a href='/activity_sessions/anonymous?activity_id=244' target="_blank" class="q-button cta-button text-quillteal bg-white">Try a sample activity</a>
-      </section>
+  <section class='bg-quillteal tool-hero text-center tool-section'>
+    <h1 class="q-h1">
+        <img class="tool-page-icon lazyload" data-src='https://assets.quill.org/images/icons/tool-evidence-white.svg'>Quill Reading for Evidence
+    </h1>
+    <p class='description'>
+      With Quill's new Reading For Evidence tool, students engage with high-interest texts by constructing sentences that synthesize evidence from the text, with Quill's feedback engine automatically grading and providing hundreds of custom, targeted feedback for each prompt designed to enable students to continually revise and improve their writing.
+    </p>
+    <section class="tool-ctas evidence-tool">
+      <a href='/activity_sessions/anonymous?activity_id=244' target="_blank" class="q-button cta-button text-quillteal bg-white">Try a sample activity</a>
+    </section>
+  </section>
+
+  <section id="instructions-container">
+    <div class="instruction-container">
+      <div class="step-number">1</div>
+      <p class="step-text">Read and highlight text</p>
+      <img alt="A sample article about volcanoes showing a sentence highlighted with the cursor over the highlighted sentence" class="step-image" src='https://assets.quill.org/images/evidence/article-highlighted.svg' />
+    </div>
+    <div class="instruction-container">
+      <div class="step-number">2</div>
+      <p class="step-text">Write sentences using what you read</p>
+      <img alt="A sample question asking a student to fill in the rest of a sentence" class="step-image" src='https://assets.quill.org/images/evidence/sentence-prompt.svg' />
+    </div>
+    <div class="instruction-container">
+      <div class="step-number">3</div>
+      <p class="step-text">Revise based on feedback</p>
+      <img alt="A sample feedback asking a student to add more detail to their sentence" class="step-image" src='https://assets.quill.org/images/evidence/sentence-feedback.svg' />
+    </div>
+  </section>
+
+  <%= react_component('QuestionsAndAnswersApp', props: {questionsAndAnswersFile: 'evidence', supportLink: "https://support.quill.org/en/collections/64417-using-quill-tools"})%>
+
+  <section class="tool-try-it bg-connect-yellow bg-image-connect-pattern-bullseye">
+    <h2 class='q-h1'>Try It Out for Yourself</h2>
+    <a href=<%= "https://www.quill.org/evidence/#/play?uid=87" %> target="_blank" class="q-button cta-button bg-white text-quillteal">Preview Quill Reading for Evidence</a>
+  </section>
+
+  <section class="tool-testimonial" id="testimonial">
+    <p class='quote'>
+        "I’ve seen tremendous improvement in the proficiency of my students and the quality of their writing."
+    </p>
+    <h4 class="q-h4 author">
+        <span>Daniel Scibienski,</span> Princeton Public Schools
+    </h4>
+    <a href="/activities/packs/20" class='q-button text-black'>
+        <span>View My Story</span>
+    </a>
+  </section>
+
+  <% if !current_user %>
+    <section class="tool-sign-up">
+        <h1 class='q-h1'>
+            Sign up to start Quill Reading for Evidence in your class today!
+        </h1>
+        <a href='/account/new' class="q-button cta-button bg-quillgreen text-white">Sign Up</a>
     </section>
 
+  <% else %>
+    <section class="tool-sign-up">
+        <h1 class='q-h1'>
+            Get started now! Assign Quill Reading for Evidence.
+        </h1>
+        <a href='/assign/activity-library?activityClassificationFilters[]=evidence' class="q-button cta-button bg-quillgreen text-white">Assign</a>
+    </section>
+  <% end %>
 </div>
+
 
 <% if current_user %>
   <%= render partial: 'footer' %>
