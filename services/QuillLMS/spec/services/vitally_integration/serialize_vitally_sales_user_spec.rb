@@ -312,7 +312,7 @@ describe 'SerializeVitallySalesUser' do
     expect(teacher_data[:traits]).to include(
       evidence_activities_assigned_this_year: 2,
       evidence_activities_completed_this_year: 2,
-      completed_evidence_activities_per_student_this_year: 1,
+      completed_evidence_activities_per_student_this_year: 2.0,
       date_of_last_completed_evidence_activity: (middle_of_school_year - 3.days).strftime("%F")
     )
   end
@@ -344,9 +344,9 @@ describe 'SerializeVitallySalesUser' do
       percent_completed_activities_last_year: 1.0,
       diagnostics_assigned_last_year: 2,
       diagnostics_finished_last_year: 2,
-      evidence_activities_assigned: 0,
-      evidence_activities_completed: 0,
-      completed_evidence_activities_per_student: 0,
+      evidence_activities_assigned_last_year: 0,
+      evidence_activities_completed_last_year: 0,
+      completed_evidence_activities_per_student_last_year: 0,
       percent_completed_diagnostics_last_year: 1.0
     )
   end
