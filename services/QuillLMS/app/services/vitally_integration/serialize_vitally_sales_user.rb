@@ -10,6 +10,7 @@ class SerializeVitallySalesUser
   end
 
   # rubocop:disable Metrics/CyclomaticComplexity
+  # rubocop:disable Metrics/AbcSize
   def data
     current_time = Time.current
     school_year_start = School.school_year_start(current_time)
@@ -94,6 +95,7 @@ class SerializeVitallySalesUser
     }
   end
   # rubocop:enable Metrics/CyclomaticComplexity
+  # rubocop:disable Metrics/AbcSize
 
   def account_data
     return if account_uid.blank? || account_data_params.blank?
