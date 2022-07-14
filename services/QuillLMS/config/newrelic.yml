@@ -18,6 +18,12 @@ common: &default_settings
   # To disable the agent regardless of other settings, uncomment the following:
   # agent_enabled: false
 
+  # Override NewRelic default instrumentation mode for gems that NewRelic can't
+  # successfully auto-determine mode for
+  # https://docs.newrelic.com/docs/apm/agents/ruby-agent/troubleshooting/systemstackerror-stack-level-too-deep/
+  instrumentation:
+    redis: chain
+
   # Logging level for log/newrelic_agent.log
   log_level: info
 
