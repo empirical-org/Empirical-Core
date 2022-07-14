@@ -291,7 +291,6 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
       customFeedbackKey: null
     }), () => {
       const { numberOfSubmissions, } = this.state
-      console.log("promptStep#submitResponse, currentActivity: ", currentActivity)
       submitResponse(entry, promptId, promptText, numberOfSubmissions, currentActivity?.version)
       this.interval = setInterval(() => this.setState({ timeAtLastFeedbackSubmissionCheck: (new Date()).getTime() }), 1000);
     })
