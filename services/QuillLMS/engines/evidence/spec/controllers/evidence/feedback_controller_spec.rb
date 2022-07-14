@@ -32,7 +32,7 @@ module Evidence
       let(:attempt) { 3 }
 
       it "should call Check.run_all, save history, and return feedback.response" do
-        expect(Check).to receive(:get_feedback).with(entry, prompt, []).and_return(feedback.response)
+        expect(Check).to receive(:get_feedback).with(entry, prompt, [], nil).and_return(feedback.response)
         expect(Evidence.feedback_history_class).to receive(:save_feedback).with(
           feedback_hash_raw: feedback.response.except(:api),
           entry: entry,
@@ -55,11 +55,30 @@ module Evidence
         expect(response.status).to eq 404
       end
 
+      context "only run specified Check types" do
+        it "should only call checks for specified checks when provided" do
+          mock_check = double
+          allow(mock_check).to receive(:success?).and_return(false)
+
+          expect(Check::Prefilter).to receive(:run).and_return(mock_check)
+          expect(Check::RegexSentence).not_to receive(:run)
+          expect(Check::Opinion).not_to receive(:run)
+          expect(Check::Plagiarism).to receive(:run).and_return(mock_check)
+          expect(Check::AutoML).not_to receive(:run)
+          expect(Check::RegexPostTopic).not_to receive(:run)
+          expect(Check::Grammar).not_to receive(:run)
+          expect(Check::Spelling).not_to receive(:run)
+          expect(Check::RegexTypo).not_to receive(:run)
+
+          post :create, params: {entry: entry, prompt_id: prompt.id, session_id: session_id, previous_feedback: ([]), attempt: attempt, feedback_types: ['Prefilter', 'Plagiarism'] }, as: :json
+        end
+      end
+
       context "fallback response" do
         let(:fallback_feedback) { Check::FALLBACK_RESPONSE }
 
         it "should return an empty json response if check_all returns nil" do
-          expect(Check).to receive(:get_feedback).with(entry, prompt, []).and_return(fallback_feedback)
+          expect(Check).to receive(:get_feedback).with(entry, prompt, [], nil).and_return(fallback_feedback)
 
           post :create, params: {entry: entry, prompt_id: prompt.id, session_id: session_id, previous_feedback: ([]), attempt: attempt }, as: :json
 
