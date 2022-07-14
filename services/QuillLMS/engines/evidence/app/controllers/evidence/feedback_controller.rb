@@ -84,6 +84,8 @@ module Evidence
       end
       @session_id = params[:session_id]
       @previous_feedback = params[:previous_feedback]
+
+      @activity_version = params[:activity_version] || 0
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity
@@ -101,7 +103,15 @@ module Evidence
       feedback = feedback.except(:api)
       attempt = params[:attempt] || 0
 
-      Evidence.feedback_history_class.save_feedback(feedback, @entry, @prompt.id, @session_id, attempt, api_metadata)
+      Evidence.feedback_history_class.save_feedback(**{
+        feedback_hash_raw: feedback,
+        entry: @entry,
+        prompt_id: @prompt.id,
+        activity_session_uid: @session_id,
+        attempt: attempt,
+        activity_version: @activity_version,
+        api_metadata: api_metadata
+      })
     end
 
   end

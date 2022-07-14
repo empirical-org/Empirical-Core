@@ -43,6 +43,7 @@ const PromptStepContainer = ({
         className="step active"
         completeStep={completeStep}
         completionButtonCallback={completionButtonCallback}
+        currentActivity={currentActivity}
         key={activeStep}
         prompt={prompt}
         reportAProblem={reportAProblem}
