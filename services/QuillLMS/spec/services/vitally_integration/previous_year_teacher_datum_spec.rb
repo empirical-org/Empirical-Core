@@ -28,7 +28,7 @@ RSpec.describe PreviousYearTeacherDatum, type: :model do
     let!(:unit_activity) { create(:unit_activity, unit: unit, activity: diagnostic, created_at: Date.new(year, 10, 1)) }
     let!(:unit_activity2) { create(:unit_activity, unit: unit2, activity: diagnostic, created_at: Date.new(2021, 10, 1)) }
     let!(:unit_activity3) { create(:unit_activity, unit: unit3, activity: connect, created_at: Date.new(year, 10, 1)) }
-    let!(:unit_activity_4) { create(:unit_activity, unit: unit4, activity: evidence, created_at: Date.new(year, 10, 1)) }
+    let!(:unit_activity4) { create(:unit_activity, unit: unit4, activity: evidence, created_at: Date.new(year, 10, 1)) }
 
     before do
       create(:classrooms_teacher, user: teacher, classroom: active_classroom)

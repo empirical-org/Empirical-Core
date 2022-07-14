@@ -95,7 +95,7 @@ class SerializeVitallySalesUser
     }
   end
   # rubocop:enable Metrics/CyclomaticComplexity
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:enable Metrics/AbcSize
 
   def account_data
     return if account_uid.blank? || account_data_params.blank?
