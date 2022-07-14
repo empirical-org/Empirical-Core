@@ -405,7 +405,7 @@ GEM
     multipart-post (2.1.1)
     nenv (0.3.0)
     nested_form (0.3.2)
-    newrelic_rpm (6.15.0)
+    newrelic_rpm (7.2.0)
     nio4r (2.5.8)
     nokogiri (1.13.6)
       mini_portile2 (~> 2.8.0)
@@ -828,7 +828,7 @@ DEPENDENCIES
   letter_opener
   lograge
   mini_racer (= 0.4.0)
-  newrelic_rpm (~> 6.0)
+  newrelic_rpm (~> 7.2)
   nokogiri (>= 1.13.2)
   omniauth (~> 1.9)
   omniauth-clever (~> 1.2)
