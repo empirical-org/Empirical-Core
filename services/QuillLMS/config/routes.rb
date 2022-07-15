@@ -405,9 +405,7 @@ EmpiricalGrammar::Application.routes.draw do
       resources :activities,              except: [:index, :new, :edit]
       resources :activity_flags,          only: [:index]
       resources :activity_sessions,       except: [:index, :new, :edit]
-      resources :feedback_histories,      only: [:index, :show, :create] do
-        post :batch, on: :collection
-      end
+      resources :feedback_histories,      only: [:index, :show, :create]
       resources :lessons_tokens,          only: [:create]
       resources :session_feedback_histories, only: [:index, :show]
       resources :standard_levels,                only: [:index]

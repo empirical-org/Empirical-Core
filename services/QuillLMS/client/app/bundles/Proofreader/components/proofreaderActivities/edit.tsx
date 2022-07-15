@@ -56,12 +56,13 @@ export default class Edit extends React.Component<EditProps, {mounting: boolean,
 
   renderTooltip() {
     const { mounting, tooltipHeight, } = this.state
-    const { activeIndex, index, state, numberOfEdits, next, back, id, displayText, incorrectText, } = this.props
+    const { activeIndex, index, state, numberOfEdits, next, back, id, displayText, incorrectText, concept, } = this.props
     if (mounting || activeIndex !== index) { return }
 
     return (
       <EditTooltip
         back={back}
+        concept={concept}
         displayText={displayText}
         id={id}
         incorrectText={incorrectText}

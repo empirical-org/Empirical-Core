@@ -32,6 +32,15 @@ module Evidence
 
       it { should validate_length_of(:scored_level).is_at_most(100) }
 
+      context 'version' do
+        it 'a non-monotonically increasing version should be invalid' do
+          activity = create(:evidence_activity)
+          expect do
+            activity.update!({ version: activity.version + 2 })
+          end.to raise_error(ActiveRecord::RecordInvalid)
+        end
+      end
+
       context 'should parent_activity_id' do
         let!(:parent_activity) { ::Activity.create }
         before do

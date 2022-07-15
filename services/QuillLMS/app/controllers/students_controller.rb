@@ -46,7 +46,7 @@ class StudentsController < ApplicationController
   end
 
   def update_account
-    if current_user.update_attributes(student_params.slice(:email, :name, :username))
+    if current_user.update(student_params.slice(:email, :name, :username))
       render json: current_user, serializer: UserSerializer
     else
       render json: {errors: current_user.errors.messages}, status: 422

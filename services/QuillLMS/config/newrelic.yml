@@ -18,8 +18,21 @@ common: &default_settings
   # To disable the agent regardless of other settings, uncomment the following:
   # agent_enabled: false
 
+  # Override NewRelic default instrumentation mode for gems that NewRelic can't
+  # successfully auto-determine mode for
+  # https://docs.newrelic.com/docs/apm/agents/ruby-agent/troubleshooting/systemstackerror-stack-level-too-deep/
+  instrumentation:
+    redis: chain
+
   # Logging level for log/newrelic_agent.log
   log_level: info
+
+  # Expecting errors prevents the specified exception classes or codes
+  # from affecting your application's error rate and Apdex score.
+  # This allows you to retain the error information for troubleshooting purposes
+  # while avoiding alerts based on error rate or Apdex score.
+  error_collector.expected_classes:
+    - 'CopyOldConceptResultsToConceptResultsWorker::ConceptResultMigrationDeadlocked'
 
   # https://docs.newrelic.com/docs/apm/agents/ruby-agent/background-jobs/sidekiq-instrumentation/
   sidekiq.capture_params: true

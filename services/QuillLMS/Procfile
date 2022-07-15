@@ -11,3 +11,6 @@ reportworker: MALLOC_ARENA_MAX=2 bundle exec sidekiq -q default -q low -q critic
 externalworker: MALLOC_ARENA_MAX=2 bundle exec sidekiq -q critical_external
 
 internalworker: MALLOC_ARENA_MAX=2 bundle exec sidekiq -q critical -q default
+
+# Migration workers to be turned on only in cases where we have complex migration jobs to process
+migrationworker: MALLOC_ARENA_MAX=2 bundle exec sidekiq -q migration
