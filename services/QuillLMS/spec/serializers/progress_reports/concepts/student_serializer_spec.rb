@@ -8,6 +8,7 @@ describe ProgressReports::Concepts::StudentSerializer, type: :serializer do
   let!(:student) { create(:user, role: 'student', classrooms: [classroom])}
   let(:activity) { create(:activity) }
   let(:unit) { create(:unit) }
+
   let(:classroom_unit) do
     create(:classroom_unit,
       unit: unit,
@@ -15,6 +16,7 @@ describe ProgressReports::Concepts::StudentSerializer, type: :serializer do
       assigned_student_ids: [student.id]
     )
   end
+
   let(:student_for_report) { ProgressReports::Concepts::User.results(teacher, {}).first }
   let(:concept) { create(:concept) }
   let(:serializer) { described_class.new(student_for_report) }

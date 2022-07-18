@@ -12,10 +12,9 @@ module Evidence
 
     context "get_feedback" do
       let(:response) { {key: 'value'} }
-      let(:check) {double('check', response: response)}
 
       it "should return trigger_check's response if there is one" do
-        expect(Check).to receive(:find_triggered_check).once.and_return(check)
+        expect(Check).to receive(:find_triggered_check).once.and_return(response)
 
         feedback = Check.get_feedback(entry, prompt, previous_feedback)
 
@@ -32,16 +31,18 @@ module Evidence
     end
 
     context "find_triggered_check" do
+
       context 'all optimal' do
         it "should return autoML feedback" do
           Evidence::Check::ALL_CHECKS.each do |check_class|
             expect_any_instance_of(check_class).to receive(:run).once
             expect_any_instance_of(check_class).to receive(:optimal?).once.and_return(true)
+            allow_any_instance_of(check_class).to receive(:response).and_return(check_class)
           end
 
           feedback = Check.find_triggered_check(entry, prompt, previous_feedback)
 
-          expect(feedback.class).to be(Check::AutoML)
+          expect(feedback).to be(Check::AutoML)
         end
       end
 
@@ -50,12 +51,14 @@ module Evidence
           Evidence::Check::ALL_CHECKS.slice(0..2).each do |check_class|
             expect_any_instance_of(check_class).to receive(:run).once
             expect_any_instance_of(check_class).to receive(:optimal?).once.and_return(true)
+            allow_any_instance_of(check_class).to receive(:response).and_return(check_class)
           end
 
           non_optimal_check_class = Evidence::Check::ALL_CHECKS.slice(3)
 
           expect_any_instance_of(non_optimal_check_class).to receive(:run).once
           expect_any_instance_of(non_optimal_check_class).to receive(:optimal?).once.and_return(false)
+          allow_any_instance_of(non_optimal_check_class).to receive(:response).and_return(non_optimal_check_class)
 
           Evidence::Check::ALL_CHECKS.slice(4..-1).each do |check_class|
             expect_any_instance_of(check_class).not_to receive(:run)
@@ -63,7 +66,7 @@ module Evidence
 
           feedback = Check.find_triggered_check(entry, prompt, previous_feedback)
 
-          expect(feedback.class).to be(non_optimal_check_class)
+          expect(feedback).to be(non_optimal_check_class)
         end
       end
 
@@ -74,8 +77,11 @@ module Evidence
 
           expect(Evidence.error_notifier).to receive(:report).with(error, error_context).once
           expect_any_instance_of(first_check_class).to receive(:run).once.and_raise(error)
+          expect_any_instance_of(first_check_class).to receive(:optimal?).once.and_return(true)
+          allow_any_instance_of(first_check_class).to receive(:response).and_return(first_check_class)
           expect_any_instance_of(second_check_class).to receive(:run).once
           expect_any_instance_of(second_check_class).to receive(:optimal?).once.and_return(false)
+          allow_any_instance_of(second_check_class).to receive(:response).and_return(second_check_class)
 
           Evidence::Check::ALL_CHECKS.slice(2..-1).each do |check_class|
             expect_any_instance_of(check_class).not_to receive(:run)
@@ -83,7 +89,18 @@ module Evidence
 
           feedback = Check.find_triggered_check(entry, prompt, previous_feedback)
 
-          expect(feedback.class).to be(second_check_class)
+          expect(feedback).to be(second_check_class)
+        end
+      end
+
+      context "exception handling" do
+        it "should return fallback feedback with the raised error assigned to a 'debug' key" do
+          error = Check::NoMatchedFeedbackTypesError.new('Test error')
+          expect(Check).to receive(:checks_to_run).and_raise(error)
+
+          feedback = Check.find_triggered_check(entry, prompt, previous_feedback)
+
+          expect(feedback[:debug]).to eq(error.message)
         end
       end
     end
@@ -141,6 +158,37 @@ module Evidence
         result = Check.get_feedback(entry, prompt, previous_feedback)
 
         expect(result).to eq(Check::FALLBACK_RESPONSE)
+      end
+
+      it 'attaches a "debug" key to the feedback if one is passed in' do
+        debug = 'This is a debug message'
+
+        feedback = Check.fallback_feedback(debug)
+
+        expect(feedback[:debug]).to eq(debug)
+      end
+    end
+
+    context 'checks_to_run' do
+      it 'should return ALL_CHECKS unmodified if the value is nil' do
+        checks = Check.checks_to_run(nil)
+        expect(checks).to eq(Check::ALL_CHECKS)
+      end
+
+      it 'should return ALL_CHECKS unmodified if the value is empty' do
+        checks = Check.checks_to_run([])
+        expect(checks).to eq(Check::ALL_CHECKS)
+      end
+
+      it 'should return an array containing only specified checks' do
+        checks = Check.checks_to_run(['Prefilter', 'Plagiarism'])
+        expect(checks).to eq([Check::Prefilter, Check::Plagiarism])
+      end
+
+      it 'should raise a NoMatchedFeedbackTypes exception if filters are provided but no matches are generated' do
+        expect do
+          Check.checks_to_run(['NotARealCheck'])
+        end.to raise_error(Check::NoMatchedFeedbackTypesError)
       end
     end
   end

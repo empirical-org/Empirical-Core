@@ -13,15 +13,7 @@ Evidence::Engine.routes.draw do
       put :activate
     end
   end
-  resource :feedback, only: [:create], controller: :feedback do
-    post :prefilter
-    post :opinion
-    post :grammar
-    post :automl
-    post :plagiarism
-    post 'regex/:rule_type' => :regex
-    post :spelling
-  end
+  resource :feedback, only: [:create], controller: :feedback
 
   put 'rules/update_rule_order' => 'rules#update_rule_order'
 

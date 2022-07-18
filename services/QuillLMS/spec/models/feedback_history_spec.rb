@@ -129,12 +129,13 @@ RSpec.describe FeedbackHistory, type: :model do
       expect(json_hash['used']).to eq(@feedback_history.used)
       expect(json_hash['feedback_text']).to eq(@feedback_history.feedback_text)
       expect(json_hash['feedback_type']).to eq(@feedback_history.feedback_type)
-      expect(json_hash['time']).to eq(@feedback_history.time)
       expect(json_hash['metadata']).to eq(@feedback_history.metadata)
       expect(json_hash['rule_uid']).to eq(@feedback_history.rule_uid)
 
       expect(json_hash['prompt']).to eq(@feedback_history.prompt.as_json)
       expect(json_hash['prompt']['text']).to eq(@prompt.text)
+
+      expect(Time.iso8601(json_hash['time'])).to be_within(1.second).of @feedback_history.time
     end
   end
 
@@ -172,7 +173,14 @@ RSpec.describe FeedbackHistory, type: :model do
     let(:highlight) {'some highlight'}
 
     it 'should store the data properly' do
-      feedback = FeedbackHistory.save_feedback(feedback_hash, entry, prompt_id, activity_session_uid, attempt)
+      feedback = FeedbackHistory.save_feedback(**{
+        feedback_hash_raw: feedback_hash,
+        entry: entry,
+        prompt_id: prompt_id,
+        activity_session_uid: activity_session_uid,
+        attempt: attempt,
+        activity_version: 0
+      })
 
       feedback_session = FeedbackSession.find_by(activity_session_uid: activity_session_uid)
 
@@ -191,7 +199,14 @@ RSpec.describe FeedbackHistory, type: :model do
     end
 
     it 'should store the metadata properly for all blank_values' do
-      feedback = FeedbackHistory.save_feedback(feedback_hash_with_blank_metadata, entry, prompt_id, activity_session_uid, attempt)
+      feedback = FeedbackHistory.save_feedback(**{
+        feedback_hash_raw: feedback_hash_with_blank_metadata,
+        entry: entry,
+        prompt_id: prompt_id,
+        activity_session_uid: activity_session_uid,
+        attempt: attempt,
+        activity_version: 0
+      })
 
       expect(feedback.valid?).to be true
       expect(feedback.metadata).to eq({})
@@ -199,7 +214,14 @@ RSpec.describe FeedbackHistory, type: :model do
 
     it 'should store the metadata properly for one non blank value' do
       feedback_hash = feedback_hash_with_blank_metadata.merge(highlight: [highlight])
-      feedback = FeedbackHistory.save_feedback(feedback_hash, entry, prompt_id, activity_session_uid, attempt)
+      feedback = FeedbackHistory.save_feedback(**{
+        feedback_hash_raw: feedback_hash,
+        entry: entry,
+        prompt_id: prompt_id,
+        activity_session_uid: activity_session_uid,
+        attempt: attempt,
+        activity_version: 0
+      })
 
       expect(feedback.valid?).to be true
       expect(feedback.metadata['highlight'].first).to eq(highlight)
@@ -207,7 +229,15 @@ RSpec.describe FeedbackHistory, type: :model do
 
     it 'should save special "api" key to metadata if passed an api_metadata argument' do
       api_metadata = {'confidence' => 1}
-      feedback = FeedbackHistory.save_feedback(feedback_hash, entry, prompt_id, activity_session_uid, attempt, api_metadata)
+      feedback = FeedbackHistory.save_feedback(**{
+        feedback_hash_raw: feedback_hash,
+        entry: entry,
+        prompt_id: prompt_id,
+        activity_session_uid: activity_session_uid,
+        attempt: attempt,
+        activity_version: 0,
+        api_metadata: api_metadata
+      })
 
       expect(feedback.valid?).to be true
       expect(feedback.metadata['api']).to eq(api_metadata)

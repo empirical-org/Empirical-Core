@@ -1,0 +1,1127 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Edit /> correct edit should render when active 1`] = `
+<Edit
+  activeIndex={1}
+  concept={
+    Object {
+      "description": null,
+      "displayName": "Commonly Confused Words | Loose, Lose | Lose",
+      "explanation": "<p>Use <em>lose </em>to talk about something you can&#x27;t find. Use <em>loose </em>to talk about something that is not tight.</p>",
+      "id": 197,
+      "level": 0,
+      "name": "Lose",
+      "parent_id": 195,
+      "uid": "xwFpK_RoONouHKOVHzloXQ",
+    }
+  }
+  displayText="lose"
+  id="10"
+  incorrectText={null}
+  index={1}
+  numberOfEdits={10}
+  state="correct"
+>
+  <div
+    className="edit active correct"
+    id="10"
+  >
+    <span
+      className="displayed-text"
+    >
+      lose
+    </span>
+    <EditTooltip
+      concept={
+        Object {
+          "description": null,
+          "displayName": "Commonly Confused Words | Loose, Lose | Lose",
+          "explanation": "<p>Use <em>lose </em>to talk about something you can&#x27;t find. Use <em>loose </em>to talk about something that is not tight.</p>",
+          "id": 197,
+          "level": 0,
+          "name": "Lose",
+          "parent_id": 195,
+          "uid": "xwFpK_RoONouHKOVHzloXQ",
+        }
+      }
+      displayText="lose"
+      id="10"
+      incorrectText={null}
+      index={1}
+      numberOfEdits={10}
+      state="correct"
+      tooltipHeight="400px"
+    >
+      <div
+        aria-live="polite"
+        className="edit-tooltip"
+        style={Object {}}
+        tabIndex={-1}
+      >
+        <div
+          className="top-section"
+        >
+          <img
+            alt=""
+            src="undefined/images/icons/review-correct.svg"
+          />
+          <h2>
+            Correct
+          </h2>
+        </div>
+        <div
+          className="middle-section"
+        >
+          <p
+            className="sr-only"
+          >
+            The correct text was 
+            lose
+            . 
+          </p>
+          <div
+            aria-hidden={true}
+          >
+            <p
+              className="label"
+            >
+              Correct
+            </p>
+            <p>
+              <span
+                className="correct-answer"
+                key="lose"
+              >
+                lose
+              </span>
+            </p>
+          </div>
+          <div
+            className="explanation"
+          >
+            <p
+              className="label"
+            >
+              Explanation
+            </p>
+            <p
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "<p>Use <em>lose </em>to talk about something you can&#x27;t find. Use <em>loose </em>to talk about something that is not tight.</p>",
+                }
+              }
+            />
+          </div>
+        </div>
+        <div
+          className="button-section"
+        >
+          <div
+            className="placeholder"
+          />
+          <div
+            className="counter"
+          >
+            2
+             of 
+            10
+          </div>
+          <button
+            className="quill-button medium primary contained focus-on-light"
+            type="button"
+          >
+            Next
+          </button>
+        </div>
+      </div>
+    </EditTooltip>
+  </div>
+</Edit>
+`;
+
+exports[`<Edit /> correct edit should render when inactive 1`] = `
+<Edit
+  activeIndex={0}
+  concept={
+    Object {
+      "description": null,
+      "displayName": "Commonly Confused Words | Loose, Lose | Lose",
+      "explanation": "<p>Use <em>lose </em>to talk about something you can&#x27;t find. Use <em>loose </em>to talk about something that is not tight.</p>",
+      "id": 197,
+      "level": 0,
+      "name": "Lose",
+      "parent_id": 195,
+      "uid": "xwFpK_RoONouHKOVHzloXQ",
+    }
+  }
+  displayText="lose"
+  id="10"
+  incorrectText={null}
+  index={1}
+  numberOfEdits={10}
+  state="correct"
+>
+  <div
+    className="edit  correct"
+    id="10"
+  >
+    <span
+      className="displayed-text"
+    >
+      lose
+    </span>
+  </div>
+</Edit>
+`;
+
+exports[`<Edit /> incorrect edit should render when active 1`] = `
+<Edit
+  activeIndex={1}
+  concept={
+    Object {
+      "description": null,
+      "displayName": "Commonly Confused Words | Than, Then | Then",
+      "explanation": "<p>Use <em>then</em> to talk about a time period or something that happens after something else.</p>",
+      "id": 309,
+      "level": 0,
+      "name": "Then",
+      "parent_id": 307,
+      "uid": "VuTHlr5mg3wudXOOJQXuNw",
+    }
+  }
+  displayText="then"
+  id="8"
+  incorrectText="than"
+  index={1}
+  numberOfEdits={10}
+  state="incorrect"
+>
+  <div
+    className="edit active incorrect"
+    id="8"
+  >
+    <span
+      className="displayed-text"
+    >
+      than
+    </span>
+    <EditTooltip
+      concept={
+        Object {
+          "description": null,
+          "displayName": "Commonly Confused Words | Than, Then | Then",
+          "explanation": "<p>Use <em>then</em> to talk about a time period or something that happens after something else.</p>",
+          "id": 309,
+          "level": 0,
+          "name": "Then",
+          "parent_id": 307,
+          "uid": "VuTHlr5mg3wudXOOJQXuNw",
+        }
+      }
+      displayText="then"
+      id="8"
+      incorrectText="than"
+      index={1}
+      numberOfEdits={10}
+      state="incorrect"
+      tooltipHeight="400px"
+    >
+      <div
+        aria-live="polite"
+        className="edit-tooltip"
+        style={Object {}}
+        tabIndex={-1}
+      >
+        <div
+          className="top-section"
+        >
+          <img
+            alt=""
+            src="undefined/images/icons/review-incorrect.svg"
+          />
+          <h2>
+            Incorrect
+          </h2>
+        </div>
+        <div
+          className="middle-section"
+        >
+          <p
+            className="sr-only"
+          >
+            The correct text was 
+            then
+            . 
+            You submitted than.
+          </p>
+          <div
+            aria-hidden={true}
+          >
+            <p
+              className="label"
+            >
+              Correct
+            </p>
+            <p>
+              <span
+                className="correct-answer"
+                key="then"
+              >
+                then
+              </span>
+            </p>
+          </div>
+          <div
+            className="explanation"
+          >
+            <p
+              className="label"
+            >
+              Explanation
+            </p>
+            <p
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "<p>Use <em>then</em> to talk about a time period or something that happens after something else.</p>",
+                }
+              }
+            />
+          </div>
+        </div>
+        <div
+          className="button-section"
+        >
+          <div
+            className="placeholder"
+          />
+          <div
+            className="counter"
+          >
+            2
+             of 
+            10
+          </div>
+          <button
+            className="quill-button medium primary contained focus-on-light"
+            type="button"
+          >
+            Next
+          </button>
+        </div>
+      </div>
+    </EditTooltip>
+  </div>
+</Edit>
+`;
+
+exports[`<Edit /> incorrect edit should render when inactive 1`] = `
+<Edit
+  activeIndex={0}
+  concept={
+    Object {
+      "description": null,
+      "displayName": "Commonly Confused Words | Than, Then | Then",
+      "explanation": "<p>Use <em>then</em> to talk about a time period or something that happens after something else.</p>",
+      "id": 309,
+      "level": 0,
+      "name": "Then",
+      "parent_id": 307,
+      "uid": "VuTHlr5mg3wudXOOJQXuNw",
+    }
+  }
+  displayText="then"
+  id="8"
+  incorrectText="than"
+  index={1}
+  numberOfEdits={10}
+  state="incorrect"
+>
+  <div
+    className="edit  incorrect"
+    id="8"
+  >
+    <span
+      className="displayed-text"
+    >
+      than
+    </span>
+  </div>
+</Edit>
+`;
+
+exports[`<Edit /> multiple unnecessary addition edit should render when active 1`] = `
+<Edit
+  activeIndex={1}
+  displayText="crew"
+  id="4"
+  incorrectText="the crew was"
+  index={1}
+  numberOfEdits={10}
+  state="multipleUnnecessaryAddition"
+>
+  <div
+    className="edit active unnecessary"
+    id="4"
+  >
+    <span
+      className="displayed-text"
+    >
+      the crew was
+    </span>
+    <EditTooltip
+      displayText="crew"
+      id="4"
+      incorrectText="the crew was"
+      index={1}
+      numberOfEdits={10}
+      state="multipleUnnecessaryAddition"
+      tooltipHeight="400px"
+    >
+      <div
+        aria-live="polite"
+        className="edit-tooltip"
+        style={Object {}}
+        tabIndex={-1}
+      >
+        <div
+          className="top-section"
+        >
+          <img
+            alt=""
+            src="undefined/images/icons/review-not-necessary.svg"
+          />
+          <h2>
+            Not necessary
+          </h2>
+        </div>
+        <div
+          className="middle-section"
+        >
+          <p
+            className="unnecessary-explanation"
+          >
+            You added unnecessary words.
+          </p>
+          <p
+            className="sr-only"
+          >
+            The correct text was 
+            crew
+            . 
+            You submitted the crew was.
+          </p>
+          <div
+            aria-hidden={true}
+          >
+            <p
+              className="label"
+            >
+              Correct
+            </p>
+            <p>
+              <span
+                className="correct-answer"
+                key="crew"
+              >
+                crew
+              </span>
+            </p>
+          </div>
+          <span />
+        </div>
+        <div
+          className="button-section"
+        >
+          <div
+            className="placeholder"
+          />
+          <div
+            className="counter"
+          >
+            2
+             of 
+            10
+          </div>
+          <button
+            className="quill-button medium primary contained focus-on-light"
+            type="button"
+          >
+            Next
+          </button>
+        </div>
+      </div>
+    </EditTooltip>
+  </div>
+</Edit>
+`;
+
+exports[`<Edit /> multiple unnecessary addition edit should render when inactive 1`] = `
+<Edit
+  activeIndex={0}
+  displayText="crew"
+  id="4"
+  incorrectText="the crew was"
+  index={1}
+  numberOfEdits={10}
+  state="multipleUnnecessaryAddition"
+>
+  <div
+    className="edit  unnecessary"
+    id="4"
+  >
+    <span
+      className="displayed-text"
+    >
+      the crew was
+    </span>
+  </div>
+</Edit>
+`;
+
+exports[`<Edit /> multiple unnecessary deletion edit should render when active 1`] = `
+<Edit
+  activeIndex={1}
+  displayText="crew was"
+  id="4"
+  incorrectText=" "
+  index={1}
+  numberOfEdits={10}
+  state="multipleUnnecessaryDeletion"
+>
+  <div
+    className="edit active unnecessary"
+    id="4"
+  >
+    <span
+      className="displayed-text"
+    >
+       
+    </span>
+    <EditTooltip
+      displayText="crew was"
+      id="4"
+      incorrectText=" "
+      index={1}
+      numberOfEdits={10}
+      state="multipleUnnecessaryDeletion"
+      tooltipHeight="400px"
+    >
+      <div
+        aria-live="polite"
+        className="edit-tooltip"
+        style={Object {}}
+        tabIndex={-1}
+      >
+        <div
+          className="top-section"
+        >
+          <img
+            alt=""
+            src="undefined/images/icons/review-not-necessary.svg"
+          />
+          <h2>
+            Not necessary
+          </h2>
+        </div>
+        <div
+          className="middle-section"
+        >
+          <p
+            className="unnecessary-explanation"
+          >
+            You took out words that weren't part of an error.
+          </p>
+          <p
+            className="sr-only"
+          >
+            The correct text was 
+            crew was
+            . 
+            You submitted An empty space..
+          </p>
+          <div
+            aria-hidden={true}
+          >
+            <p
+              className="label"
+            >
+              Correct
+            </p>
+            <p>
+              <span
+                className="correct-answer"
+                key="crew was"
+              >
+                crew was
+              </span>
+            </p>
+          </div>
+          <span />
+        </div>
+        <div
+          className="button-section"
+        >
+          <div
+            className="placeholder"
+          />
+          <div
+            className="counter"
+          >
+            2
+             of 
+            10
+          </div>
+          <button
+            className="quill-button medium primary contained focus-on-light"
+            type="button"
+          >
+            Next
+          </button>
+        </div>
+      </div>
+    </EditTooltip>
+  </div>
+</Edit>
+`;
+
+exports[`<Edit /> multiple unnecessary deletion edit should render when inactive 1`] = `
+<Edit
+  activeIndex={0}
+  displayText="crew was"
+  id="4"
+  incorrectText=" "
+  index={1}
+  numberOfEdits={10}
+  state="multipleUnnecessaryDeletion"
+>
+  <div
+    className="edit  unnecessary"
+    id="4"
+  >
+    <span
+      className="displayed-text"
+    >
+       
+    </span>
+  </div>
+</Edit>
+`;
+
+exports[`<Edit /> single unnecessary addition edit should render when active 1`] = `
+<Edit
+  activeIndex={1}
+  displayText="crew"
+  id="4"
+  incorrectText="the crew"
+  index={1}
+  numberOfEdits={10}
+  state="singleUnnecessaryAddition"
+>
+  <div
+    className="edit active unnecessary"
+    id="4"
+  >
+    <span
+      className="displayed-text"
+    >
+      the crew
+    </span>
+    <EditTooltip
+      displayText="crew"
+      id="4"
+      incorrectText="the crew"
+      index={1}
+      numberOfEdits={10}
+      state="singleUnnecessaryAddition"
+      tooltipHeight="400px"
+    >
+      <div
+        aria-live="polite"
+        className="edit-tooltip"
+        style={Object {}}
+        tabIndex={-1}
+      >
+        <div
+          className="top-section"
+        >
+          <img
+            alt=""
+            src="undefined/images/icons/review-not-necessary.svg"
+          />
+          <h2>
+            Not necessary
+          </h2>
+        </div>
+        <div
+          className="middle-section"
+        >
+          <p
+            className="unnecessary-explanation"
+          >
+            You added an unnecessary word.
+          </p>
+          <p
+            className="sr-only"
+          >
+            The correct text was 
+            crew
+            . 
+            You submitted the crew.
+          </p>
+          <div
+            aria-hidden={true}
+          >
+            <p
+              className="label"
+            >
+              Correct
+            </p>
+            <p>
+              <span
+                className="correct-answer"
+                key="crew"
+              >
+                crew
+              </span>
+            </p>
+          </div>
+          <span />
+        </div>
+        <div
+          className="button-section"
+        >
+          <div
+            className="placeholder"
+          />
+          <div
+            className="counter"
+          >
+            2
+             of 
+            10
+          </div>
+          <button
+            className="quill-button medium primary contained focus-on-light"
+            type="button"
+          >
+            Next
+          </button>
+        </div>
+      </div>
+    </EditTooltip>
+  </div>
+</Edit>
+`;
+
+exports[`<Edit /> single unnecessary addition edit should render when inactive 1`] = `
+<Edit
+  activeIndex={0}
+  displayText="crew"
+  id="4"
+  incorrectText="the crew"
+  index={1}
+  numberOfEdits={10}
+  state="singleUnnecessaryAddition"
+>
+  <div
+    className="edit  unnecessary"
+    id="4"
+  >
+    <span
+      className="displayed-text"
+    >
+      the crew
+    </span>
+  </div>
+</Edit>
+`;
+
+exports[`<Edit /> single unnecessary deletion edit should render when active 1`] = `
+<Edit
+  activeIndex={1}
+  displayText="crew"
+  id="4"
+  incorrectText=" "
+  index={1}
+  numberOfEdits={10}
+  state="singleUnnecessaryDeletion"
+>
+  <div
+    className="edit active unnecessary"
+    id="4"
+  >
+    <span
+      className="displayed-text"
+    >
+       
+    </span>
+    <EditTooltip
+      displayText="crew"
+      id="4"
+      incorrectText=" "
+      index={1}
+      numberOfEdits={10}
+      state="singleUnnecessaryDeletion"
+      tooltipHeight="400px"
+    >
+      <div
+        aria-live="polite"
+        className="edit-tooltip"
+        style={Object {}}
+        tabIndex={-1}
+      >
+        <div
+          className="top-section"
+        >
+          <img
+            alt=""
+            src="undefined/images/icons/review-not-necessary.svg"
+          />
+          <h2>
+            Not necessary
+          </h2>
+        </div>
+        <div
+          className="middle-section"
+        >
+          <p
+            className="unnecessary-explanation"
+          >
+            You took out a word that wasn't part of an error.
+          </p>
+          <p
+            className="sr-only"
+          >
+            The correct text was 
+            crew
+            . 
+            You submitted An empty space..
+          </p>
+          <div
+            aria-hidden={true}
+          >
+            <p
+              className="label"
+            >
+              Correct
+            </p>
+            <p>
+              <span
+                className="correct-answer"
+                key="crew"
+              >
+                crew
+              </span>
+            </p>
+          </div>
+          <span />
+        </div>
+        <div
+          className="button-section"
+        >
+          <div
+            className="placeholder"
+          />
+          <div
+            className="counter"
+          >
+            2
+             of 
+            10
+          </div>
+          <button
+            className="quill-button medium primary contained focus-on-light"
+            type="button"
+          >
+            Next
+          </button>
+        </div>
+      </div>
+    </EditTooltip>
+  </div>
+</Edit>
+`;
+
+exports[`<Edit /> single unnecessary deletion edit should render when inactive 1`] = `
+<Edit
+  activeIndex={0}
+  displayText="crew"
+  id="4"
+  incorrectText=" "
+  index={1}
+  numberOfEdits={10}
+  state="singleUnnecessaryDeletion"
+>
+  <div
+    className="edit  unnecessary"
+    id="4"
+  >
+    <span
+      className="displayed-text"
+    >
+       
+    </span>
+  </div>
+</Edit>
+`;
+
+exports[`<Edit /> unnecessary change edit should render when active 1`] = `
+<Edit
+  activeIndex={1}
+  back={null}
+  displayText="1914,"
+  id="0"
+  incorrectText="1914"
+  index={1}
+  numberOfEdits={10}
+  state="unnecessaryChange"
+>
+  <div
+    className="edit active unnecessary"
+    id="0"
+  >
+    <span
+      className="displayed-text"
+    >
+      1914
+    </span>
+    <EditTooltip
+      back={null}
+      displayText="1914,"
+      id="0"
+      incorrectText="1914"
+      index={1}
+      numberOfEdits={10}
+      state="unnecessaryChange"
+      tooltipHeight="400px"
+    >
+      <div
+        aria-live="polite"
+        className="edit-tooltip"
+        style={Object {}}
+        tabIndex={-1}
+      >
+        <div
+          className="top-section"
+        >
+          <img
+            alt=""
+            src="undefined/images/icons/review-not-necessary.svg"
+          />
+          <h2>
+            Not necessary
+          </h2>
+        </div>
+        <div
+          className="middle-section"
+        >
+          <p
+            className="unnecessary-explanation"
+          >
+            You made an unnecessary change.
+          </p>
+          <p
+            className="sr-only"
+          >
+            The correct text was 
+            1914,
+            . 
+            You submitted 1914.
+          </p>
+          <div
+            aria-hidden={true}
+          >
+            <p
+              className="label"
+            >
+              Correct
+            </p>
+            <p>
+              <span
+                className="correct-answer"
+                key="1914,"
+              >
+                1914,
+              </span>
+            </p>
+          </div>
+          <span />
+        </div>
+        <div
+          className="button-section"
+        >
+          <div
+            className="placeholder"
+          />
+          <div
+            className="counter"
+          >
+            2
+             of 
+            10
+          </div>
+          <button
+            className="quill-button medium primary contained focus-on-light"
+            type="button"
+          >
+            Next
+          </button>
+        </div>
+      </div>
+    </EditTooltip>
+  </div>
+</Edit>
+`;
+
+exports[`<Edit /> unnecessary change edit should render when inactive 1`] = `
+<Edit
+  activeIndex={0}
+  back={null}
+  displayText="1914,"
+  id="0"
+  incorrectText="1914"
+  index={1}
+  numberOfEdits={10}
+  state="unnecessaryChange"
+>
+  <div
+    className="edit  unnecessary"
+    id="0"
+  >
+    <span
+      className="displayed-text"
+    >
+      1914
+    </span>
+  </div>
+</Edit>
+`;
+
+exports[`<Edit /> unnecessary space edit should render when active 1`] = `
+<Edit
+  activeIndex={1}
+  displayText="crew"
+  id="4"
+  incorrectText="cr ew"
+  index={1}
+  numberOfEdits={10}
+  state="unnecessarySpace"
+>
+  <div
+    className="edit active unnecessary"
+    id="4"
+  >
+    <span
+      className="displayed-text"
+    >
+      cr ew
+    </span>
+    <EditTooltip
+      displayText="crew"
+      id="4"
+      incorrectText="cr ew"
+      index={1}
+      numberOfEdits={10}
+      state="unnecessarySpace"
+      tooltipHeight="400px"
+    >
+      <div
+        aria-live="polite"
+        className="edit-tooltip"
+        style={Object {}}
+        tabIndex={-1}
+      >
+        <div
+          className="top-section"
+        >
+          <img
+            alt=""
+            src="undefined/images/icons/review-not-necessary.svg"
+          />
+          <h2>
+            Not necessary
+          </h2>
+        </div>
+        <div
+          className="middle-section"
+        >
+          <p
+            className="unnecessary-explanation"
+          >
+            You added an unnecessary space.
+          </p>
+          <p
+            className="sr-only"
+          >
+            The correct text was 
+            crew
+            . 
+            You submitted cr ew.
+          </p>
+          <div
+            aria-hidden={true}
+          >
+            <p
+              className="label"
+            >
+              Correct
+            </p>
+            <p>
+              <span
+                className="correct-answer"
+                key="crew"
+              >
+                crew
+              </span>
+            </p>
+          </div>
+          <span />
+        </div>
+        <div
+          className="button-section"
+        >
+          <div
+            className="placeholder"
+          />
+          <div
+            className="counter"
+          >
+            2
+             of 
+            10
+          </div>
+          <button
+            className="quill-button medium primary contained focus-on-light"
+            type="button"
+          >
+            Next
+          </button>
+        </div>
+      </div>
+    </EditTooltip>
+  </div>
+</Edit>
+`;
+
+exports[`<Edit /> unnecessary space edit should render when inactive 1`] = `
+<Edit
+  activeIndex={0}
+  displayText="crew"
+  id="4"
+  incorrectText="cr ew"
+  index={1}
+  numberOfEdits={10}
+  state="unnecessarySpace"
+>
+  <div
+    className="edit  unnecessary"
+    id="4"
+  >
+    <span
+      className="displayed-text"
+    >
+      cr ew
+    </span>
+  </div>
+</Edit>
+`;

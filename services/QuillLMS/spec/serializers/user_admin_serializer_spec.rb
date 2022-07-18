@@ -11,7 +11,6 @@ describe UserAdminSerializer do
     let!(:school_users) { create(:schools_users, school: school, user: student) }
     let!(:schools_admins) { create(:schools_admins, school: school, user: record_instance) }
 
-
     let(:expected_serialized_keys) do
       %w{
         id
@@ -31,7 +30,7 @@ describe UserAdminSerializer do
     let!(:schools_admins) { create(:schools_admins, school: school, user: record_instance) }
 
     it 'the #teachers method returns an empty array' do
-      expect(UserAdminSerializer.new(record_instance, root: false).teachers.length).to be 0
+      expect(UserAdminSerializer.new(record_instance).teachers.length).to be 0
     end
   end
 
@@ -39,7 +38,7 @@ describe UserAdminSerializer do
     let!(:record_instance) { create(:teacher)}
 
     it 'the #teachers method returns an empty array' do
-      expect(UserAdminSerializer.new(record_instance, root: false).teachers.length).to be 0
+      expect(UserAdminSerializer.new(record_instance).teachers.length).to be 0
     end
   end
 end

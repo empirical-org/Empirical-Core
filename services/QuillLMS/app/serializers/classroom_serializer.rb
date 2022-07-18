@@ -26,7 +26,7 @@
 #  index_classrooms_on_grade_level          (grade_level)
 #  index_classrooms_on_teacher_id           (teacher_id)
 #
-class ClassroomSerializer < ActiveModel::Serializer
+class ClassroomSerializer < ApplicationSerializer
   attributes :id, :name, :code, :grade, :updated_at
 
 end

@@ -16,7 +16,7 @@ RSpec.describe StripeIntegration::SubscriptionPaymentMethodsController, type: :r
   it 'returns payload with redirect_url' do
     post url, params: params, as: :json
 
-    expect(response.content_type).to eq 'application/json'
+    expect(response.media_type).to eq 'application/json'
     expect(response).to have_http_status :ok
     expect(JSON.parse(response.body).symbolize_keys).to eq(redirect_url: redirect_url)
   end

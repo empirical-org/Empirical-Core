@@ -373,7 +373,7 @@ module Teacher
       end
     end
     if !are_there_school_related_errors
-      if update_attributes(
+      if update(
         username: params.key?(:username) ? params[:username] : username,
         email: params.key?(:email) ? params[:email] : email,
         name: params.key?(:name) ? params[:name] : name,

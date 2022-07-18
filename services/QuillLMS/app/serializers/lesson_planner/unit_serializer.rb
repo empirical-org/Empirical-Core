@@ -1,15 +1,21 @@
 # frozen_string_literal: true
 
-class LessonPlanner::UnitSerializer < ActiveModel::Serializer
+class LessonPlanner::UnitSerializer < ApplicationSerializer
   attributes :id, :name, :selectedActivities, :classrooms, :dueDates
 
-  private def selectedActivities
-    object.activities.uniq.map do |activity|
-      ActivitySerializer.new(activity, root: false).as_json
+  def dueDates
+    object.unit_activities.uniq(&:activity).each_with_object({}) do |unit_activity, acc|
+      acc[unit_activity.activity.id] = unit_activity.formatted_due_date
     end
   end
 
-  private def classrooms
+  def selectedActivities
+    object.activities.uniq.map do |activity|
+      ActivitySerializer.new(activity).as_json(root: false)
+    end
+  end
+
+  def classrooms
     first_classroom_unit = object.classroom_units.first
     if first_classroom_unit.nil?
       c = []
@@ -69,12 +75,6 @@ class LessonPlanner::UnitSerializer < ActiveModel::Serializer
     students.map do |student|
       is_selected = assigned_student_ids.include?(student.id)
       {id: student.id, name: student.name, isSelected: is_selected}
-    end
-  end
-
-  private def dueDates
-    object.unit_activities.uniq(&:activity).each_with_object({}) do |unit_activity, acc|
-      acc[unit_activity.activity.id] = unit_activity.formatted_due_date
     end
   end
 end

@@ -1724,6 +1724,204 @@ ALTER SEQUENCE public.concept_feedbacks_id_seq OWNED BY public.concept_feedbacks
 
 
 --
+-- Name: concept_result_directions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.concept_result_directions (
+    id integer NOT NULL,
+    text text NOT NULL,
+    created_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: concept_result_directions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.concept_result_directions_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: concept_result_directions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.concept_result_directions_id_seq OWNED BY public.concept_result_directions.id;
+
+
+--
+-- Name: concept_result_instructions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.concept_result_instructions (
+    id integer NOT NULL,
+    text text NOT NULL,
+    created_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: concept_result_instructions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.concept_result_instructions_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: concept_result_instructions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.concept_result_instructions_id_seq OWNED BY public.concept_result_instructions.id;
+
+
+--
+-- Name: concept_result_previous_feedbacks; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.concept_result_previous_feedbacks (
+    id integer NOT NULL,
+    text text NOT NULL,
+    created_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: concept_result_previous_feedbacks_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.concept_result_previous_feedbacks_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: concept_result_previous_feedbacks_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.concept_result_previous_feedbacks_id_seq OWNED BY public.concept_result_previous_feedbacks.id;
+
+
+--
+-- Name: concept_result_prompts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.concept_result_prompts (
+    id integer NOT NULL,
+    text text NOT NULL,
+    created_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: concept_result_prompts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.concept_result_prompts_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: concept_result_prompts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.concept_result_prompts_id_seq OWNED BY public.concept_result_prompts.id;
+
+
+--
+-- Name: concept_result_question_types; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.concept_result_question_types (
+    id integer NOT NULL,
+    text text NOT NULL,
+    created_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: concept_result_question_types_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.concept_result_question_types_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: concept_result_question_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.concept_result_question_types_id_seq OWNED BY public.concept_result_question_types.id;
+
+
+--
+-- Name: concept_results; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.concept_results (
+    id bigint NOT NULL,
+    activity_session_id integer NOT NULL,
+    answer jsonb,
+    attempt_number integer,
+    concept_id integer,
+    old_concept_result_id integer,
+    correct boolean NOT NULL,
+    extra_metadata jsonb,
+    question_number integer,
+    question_score double precision,
+    concept_result_directions_id integer,
+    concept_result_instructions_id integer,
+    concept_result_previous_feedback_id integer,
+    concept_result_prompt_id integer,
+    concept_result_question_type_id integer,
+    created_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: concept_results_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.concept_results_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: concept_results_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.concept_results_id_seq OWNED BY public.concept_results.id;
+
+
+--
 -- Name: concepts; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3029,204 +3227,6 @@ CREATE SEQUENCE public.referrer_users_id_seq
 --
 
 ALTER SEQUENCE public.referrer_users_id_seq OWNED BY public.referrer_users.id;
-
-
---
--- Name: response_directions; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.response_directions (
-    id integer NOT NULL,
-    text text NOT NULL,
-    created_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: response_directions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.response_directions_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: response_directions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.response_directions_id_seq OWNED BY public.response_directions.id;
-
-
---
--- Name: response_instructions; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.response_instructions (
-    id integer NOT NULL,
-    text text NOT NULL,
-    created_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: response_instructions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.response_instructions_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: response_instructions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.response_instructions_id_seq OWNED BY public.response_instructions.id;
-
-
---
--- Name: response_previous_feedbacks; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.response_previous_feedbacks (
-    id integer NOT NULL,
-    text text NOT NULL,
-    created_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: response_previous_feedbacks_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.response_previous_feedbacks_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: response_previous_feedbacks_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.response_previous_feedbacks_id_seq OWNED BY public.response_previous_feedbacks.id;
-
-
---
--- Name: response_prompts; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.response_prompts (
-    id integer NOT NULL,
-    text text NOT NULL,
-    created_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: response_prompts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.response_prompts_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: response_prompts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.response_prompts_id_seq OWNED BY public.response_prompts.id;
-
-
---
--- Name: response_question_types; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.response_question_types (
-    id integer NOT NULL,
-    text text NOT NULL,
-    created_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: response_question_types_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.response_question_types_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: response_question_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.response_question_types_id_seq OWNED BY public.response_question_types.id;
-
-
---
--- Name: responses; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.responses (
-    id bigint NOT NULL,
-    activity_session_id integer NOT NULL,
-    answer jsonb,
-    attempt_number integer,
-    concept_id integer,
-    concept_result_id integer,
-    correct boolean NOT NULL,
-    extra_metadata jsonb,
-    question_number integer,
-    question_score double precision,
-    response_directions_id integer,
-    response_instructions_id integer,
-    response_previous_feedback_id integer,
-    response_prompt_id integer,
-    response_question_type_id integer,
-    created_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: responses_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.responses_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: responses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.responses_id_seq OWNED BY public.responses.id;
 
 
 --
@@ -4740,6 +4740,48 @@ ALTER TABLE ONLY public.concept_feedbacks ALTER COLUMN id SET DEFAULT nextval('p
 
 
 --
+-- Name: concept_result_directions id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.concept_result_directions ALTER COLUMN id SET DEFAULT nextval('public.concept_result_directions_id_seq'::regclass);
+
+
+--
+-- Name: concept_result_instructions id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.concept_result_instructions ALTER COLUMN id SET DEFAULT nextval('public.concept_result_instructions_id_seq'::regclass);
+
+
+--
+-- Name: concept_result_previous_feedbacks id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.concept_result_previous_feedbacks ALTER COLUMN id SET DEFAULT nextval('public.concept_result_previous_feedbacks_id_seq'::regclass);
+
+
+--
+-- Name: concept_result_prompts id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.concept_result_prompts ALTER COLUMN id SET DEFAULT nextval('public.concept_result_prompts_id_seq'::regclass);
+
+
+--
+-- Name: concept_result_question_types id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.concept_result_question_types ALTER COLUMN id SET DEFAULT nextval('public.concept_result_question_types_id_seq'::regclass);
+
+
+--
+-- Name: concept_results id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.concept_results ALTER COLUMN id SET DEFAULT nextval('public.concept_results_id_seq'::regclass);
+
+
+--
 -- Name: concepts id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -4996,48 +5038,6 @@ ALTER TABLE ONLY public.referrals_users ALTER COLUMN id SET DEFAULT nextval('pub
 --
 
 ALTER TABLE ONLY public.referrer_users ALTER COLUMN id SET DEFAULT nextval('public.referrer_users_id_seq'::regclass);
-
-
---
--- Name: response_directions id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.response_directions ALTER COLUMN id SET DEFAULT nextval('public.response_directions_id_seq'::regclass);
-
-
---
--- Name: response_instructions id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.response_instructions ALTER COLUMN id SET DEFAULT nextval('public.response_instructions_id_seq'::regclass);
-
-
---
--- Name: response_previous_feedbacks id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.response_previous_feedbacks ALTER COLUMN id SET DEFAULT nextval('public.response_previous_feedbacks_id_seq'::regclass);
-
-
---
--- Name: response_prompts id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.response_prompts ALTER COLUMN id SET DEFAULT nextval('public.response_prompts_id_seq'::regclass);
-
-
---
--- Name: response_question_types id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.response_question_types ALTER COLUMN id SET DEFAULT nextval('public.response_question_types_id_seq'::regclass);
-
-
---
--- Name: responses id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.responses ALTER COLUMN id SET DEFAULT nextval('public.responses_id_seq'::regclass);
 
 
 --
@@ -5612,6 +5612,54 @@ ALTER TABLE ONLY public.comprehension_turking_rounds
 
 ALTER TABLE ONLY public.concept_feedbacks
     ADD CONSTRAINT concept_feedbacks_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: concept_result_directions concept_result_directions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.concept_result_directions
+    ADD CONSTRAINT concept_result_directions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: concept_result_instructions concept_result_instructions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.concept_result_instructions
+    ADD CONSTRAINT concept_result_instructions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: concept_result_previous_feedbacks concept_result_previous_feedbacks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.concept_result_previous_feedbacks
+    ADD CONSTRAINT concept_result_previous_feedbacks_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: concept_result_prompts concept_result_prompts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.concept_result_prompts
+    ADD CONSTRAINT concept_result_prompts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: concept_result_question_types concept_result_question_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.concept_result_question_types
+    ADD CONSTRAINT concept_result_question_types_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: concept_results concept_results_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.concept_results
+    ADD CONSTRAINT concept_results_pkey PRIMARY KEY (id);
 
 
 --
@@ -6741,6 +6789,48 @@ CREATE UNIQUE INDEX index_concept_feedbacks_on_uid_and_activity_type ON public.c
 
 
 --
+-- Name: index_concept_result_directions_on_text; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_concept_result_directions_on_text ON public.concept_result_directions USING btree (text);
+
+
+--
+-- Name: index_concept_result_instructions_on_text; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_concept_result_instructions_on_text ON public.concept_result_instructions USING btree (text);
+
+
+--
+-- Name: index_concept_result_previous_feedbacks_on_text; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_concept_result_previous_feedbacks_on_text ON public.concept_result_previous_feedbacks USING btree (text);
+
+
+--
+-- Name: index_concept_result_prompts_on_text; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_concept_result_prompts_on_text ON public.concept_result_prompts USING btree (text);
+
+
+--
+-- Name: index_concept_result_question_types_on_text; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_concept_result_question_types_on_text ON public.concept_result_question_types USING btree (text);
+
+
+--
+-- Name: index_concept_results_on_old_concept_result_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_concept_results_on_old_concept_result_id ON public.concept_results USING btree (old_concept_result_id);
+
+
+--
 -- Name: index_content_partner_activities_on_activity_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -7081,48 +7171,6 @@ CREATE UNIQUE INDEX index_referrer_users_on_referral_code ON public.referrer_use
 --
 
 CREATE UNIQUE INDEX index_referrer_users_on_user_id ON public.referrer_users USING btree (user_id);
-
-
---
--- Name: index_response_directions_on_text; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_response_directions_on_text ON public.response_directions USING btree (text);
-
-
---
--- Name: index_response_instructions_on_text; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_response_instructions_on_text ON public.response_instructions USING btree (text);
-
-
---
--- Name: index_response_previous_feedbacks_on_text; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_response_previous_feedbacks_on_text ON public.response_previous_feedbacks USING btree (text);
-
-
---
--- Name: index_response_prompts_on_text; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_response_prompts_on_text ON public.response_prompts USING btree (text);
-
-
---
--- Name: index_response_question_types_on_text; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_response_question_types_on_text ON public.response_question_types USING btree (text);
-
-
---
--- Name: index_responses_on_concept_result_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_responses_on_concept_result_id ON public.responses USING btree (concept_result_id);
 
 
 --
@@ -8607,17 +8655,17 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220428171629'),
 ('20220503133521'),
 ('20220503155835'),
-('20220505154724'),
-('20220505154951'),
-('20220505155013'),
-('20220505155014'),
-('20220505155015'),
-('20220505155016'),
 ('20220607120432'),
 ('20220608144739'),
 ('20220609173524'),
 ('20220614152118'),
 ('20220628174900'),
-('20220705143703');
+('20220705143703'),
+('20220707154724'),
+('20220707154951'),
+('20220707155013'),
+('20220707155014'),
+('20220707155015'),
+('20220707155016');
 
 

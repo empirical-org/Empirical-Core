@@ -15,4 +15,8 @@ module SidekiqQueue
   # Critical Jobs that rely on outside APIs, e.g. Google Classroom APIs
   # Giving them their own queue in case we need to isolate them during an API provider issue
   CRITICAL_EXTERNAL = 'critical_external'
+  # Migration jobs are intended to backfill large, complicated model changes
+  # Giving them their own queue lets us turn migrations entirely off rather
+  # than risking normal workers getting tied up on complex migration work
+  MIGRATION = 'migration'
 end

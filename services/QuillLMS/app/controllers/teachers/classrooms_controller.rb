@@ -31,7 +31,7 @@ class Teachers::ClassroomsController < ApplicationController
   end
 
   def classrooms_i_teach
-    render json: fetch_classrooms_i_teach_cache, each_serializer: ClassroomSerializer
+    render json: fetch_classrooms_i_teach_cache, root: 'classrooms'
   end
 
   def regenerate_code
@@ -69,7 +69,7 @@ class Teachers::ClassroomsController < ApplicationController
 
   def update
     @classroom = Classroom.find(params[:id])
-    @classroom.update_attributes(classroom_params)
+    @classroom.update(classroom_params)
     # this is updated from the students tab of the scorebook, so will make sure we keep user there
     respond_to do |format|
       format.html { redirect_to teachers_classroom_students_path(@classroom.id) }
