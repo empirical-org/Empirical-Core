@@ -5954,48 +5954,8 @@ ALTER TABLE ONLY public.referrals_users
 -- Name: referrer_users referrer_users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.response_directions
-    ADD CONSTRAINT response_directions_pkey PRIMARY KEY (id);
-
-
---
--- Name: response_instructions response_instructions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.response_instructions
-    ADD CONSTRAINT response_instructions_pkey PRIMARY KEY (id);
-
-
---
--- Name: response_previous_feedbacks response_previous_feedbacks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.response_previous_feedbacks
-    ADD CONSTRAINT response_previous_feedbacks_pkey PRIMARY KEY (id);
-
-
---
--- Name: response_prompts response_prompts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.response_prompts
-    ADD CONSTRAINT response_prompts_pkey PRIMARY KEY (id);
-
-
---
--- Name: response_question_types response_question_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.response_question_types
-    ADD CONSTRAINT response_question_types_pkey PRIMARY KEY (id);
-
-
---
--- Name: responses responses_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.responses
-    ADD CONSTRAINT responses_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.referrer_users
+    ADD CONSTRAINT referrer_users_pkey PRIMARY KEY (id);
 
 
 --
