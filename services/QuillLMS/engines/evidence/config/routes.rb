@@ -5,6 +5,7 @@ Evidence::Engine.routes.draw do
     member do
       get :rules
       get :change_logs
+      put :increment_activity
     end
   end
 

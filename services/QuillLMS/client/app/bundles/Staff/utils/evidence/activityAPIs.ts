@@ -38,6 +38,21 @@ export const createActivity = async (activity: object) => {
   return { errors: [], activityId: newActivity.id };
 }
 
+export const updateActivityVersion = async (activityNote: string, activityId: string) => {
+  const response = await apiFetch(`activities/${activityId}/increment-version`, {
+    method: 'PUT',
+    body: JSON.stringify({note: activityNote})
+  });
+  const { status } = response;
+
+  if(requestFailed(status)) {
+    const errors = await response.json();
+    const returnedErrors = await handleRequestErrors(errors);
+    return { errors: returnedErrors };
+  }
+  return { errors: [] };
+}
+
 export const updateActivity = async (activity: object, activityId: string) => {
   const response = await apiFetch(`activities/${activityId}`, {
     method: 'PUT',

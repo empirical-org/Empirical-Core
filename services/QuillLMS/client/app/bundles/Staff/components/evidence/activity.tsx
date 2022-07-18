@@ -40,6 +40,7 @@ const Activity: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match, lo
           <Route component={RegexRulesRouter} path='/activities/:activityId/regex-rules' />
           <Route component={PlagiarismRulesRouter} path='/activities/:activityId/plagiarism-rules' />
           <Route component={ChangeLog} path='/activities/:activityId/change-log' />
+          <Route component={VersionHistory} path='/activities/:activityId/version-history' />
         </Switch>
       </div>
     </React.Fragment>
