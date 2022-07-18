@@ -39,7 +39,7 @@ export const createActivity = async (activity: object) => {
 }
 
 export const updateActivityVersion = async (activityNote: string, activityId: string) => {
-  const response = await apiFetch(`activities/${activityId}/increment-version`, {
+  const response = await apiFetch(`activities/${activityId}/increment_version`, {
     method: 'PUT',
     body: JSON.stringify({note: activityNote})
   });

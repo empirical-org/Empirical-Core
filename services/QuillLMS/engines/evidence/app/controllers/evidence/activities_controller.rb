@@ -89,7 +89,7 @@ module Evidence
     end
 
     private def increment_version_params
-      params.require([:id, :note, :user_id])
+      params.require([:id, :note])
     end
 
     private def activity_params

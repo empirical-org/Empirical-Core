@@ -17,6 +17,7 @@ import PlagiarismRulesRouter from './plagiarismRules/plagiarismRulesRouter';
 import ChangeLog from './changeLog/changeLog';
 
 import { ActivityRouteProps } from '../../interfaces/evidenceInterfaces';
+import VersionHistory from "./versionHistory/versionHistory";
 
 const Activity: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match, location, }) => {
   return(

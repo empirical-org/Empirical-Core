@@ -10,22 +10,23 @@ import { renderHeader } from "../../../helpers/evidence/renderHelpers";
 import { Input, Spinner } from '../../../../Shared/index';
 import { TITLE } from "../../../../../constants/evidence";
 
-const VersionHistory = ({ activity, history }: {activity: ActivityInterface, history: any}) => {
-  const { id } = activity;
+const VersionHistory = ({ history, match }) => {
+  const { params } = match;
+  const { activityId } = params;
   const [errorOrSuccessMessage, setErrorOrSuccessMessage] = React.useState<string>(null);
   const [showSubmissionModal, setShowSubmissionModal] = React.useState<boolean>(false);
   const [errors, setErrors] = React.useState<string[]>([]);
   const queryClient = useQueryClient()
 
-  const [activityNote, setActivityNote] = React.useState<string>('');
+  const [activityVersionNote, setActivityVersionNote] = React.useState<string>('');
 
   function handleUpdateActivity () {
-    updateActivityVersion(activityNote, id).then((response) => {
+    updateActivityVersion(activityVersionNote, activityId).then((response) => {
       const { errors } = response;
       if(errors && errors.length) {
         setErrors(errors);
       } else {
-        queryClient.refetchQueries(`activity-${id}`)
+        queryClient.refetchQueries(`activity-${activityId}`)
         queryClient.removeQueries('activities')
         setErrors([]);
         // reset errorOrSuccessMessage in case of subsequent submission
@@ -34,22 +35,6 @@ const VersionHistory = ({ activity, history }: {activity: ActivityInterface, his
       }
     });
   }
-
-  // function handleSubmitActivity(activity: ActivityInterface) {
-  //   createActivity(activity).then((response) => {
-  //     const { errors, activityId } = response;
-  //     if(errors && errors.length) {
-  //       setErrors(errors);
-  //     } else {
-  //       // update activities cache to display newly created activity
-  //       queryClient.refetchQueries('activities');
-  //       setErrors([]);
-  //       setErrorOrSuccessMessage('Activity successfully created!');
-  //       toggleSubmissionModal();
-  //       history.push(`/activities/${activityId}/settings`)
-  //     }
-  //   });
-  // }
 
   function toggleSubmissionModal() {
     setShowSubmissionModal(!showSubmissionModal);
@@ -60,8 +45,10 @@ const VersionHistory = ({ activity, history }: {activity: ActivityInterface, his
     return <SubmissionModal close={toggleSubmissionModal} message={message} />;
   }
 
+  function handleSetActivityVersionNote(e: InputEvent){ setActivityVersionNote(e.target.value) };
 
-  if(!activity) {
+
+  if(!activityId) {
     return(
       <div className="loading-spinner-container">
         <Spinner />
@@ -72,13 +59,13 @@ const VersionHistory = ({ activity, history }: {activity: ActivityInterface, his
   return(
     <div className="version-history-container">
       {showSubmissionModal && renderSubmissionModal()}
-      {false && renderHeader({activity: activity}, 'Version History', true)}
+      <p> Current Version: 0</p>
       <Input
         className="notes-input"
         error={errors[TITLE]}
-        handleChange={setActivityNote}
+        handleChange={handleSetActivityVersionNote}
         label="version notes"
-        value={activityNote}
+        value={activityVersionNote}
       />
       <div className="button-and-id-container">
         <button className="quill-button fun primary contained focus-on-light" id="activity-submit-button" onClick={handleUpdateActivity} type="submit">Save</button>
