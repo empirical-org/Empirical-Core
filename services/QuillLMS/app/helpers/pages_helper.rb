@@ -84,7 +84,7 @@ module PagesHelper
           },
           {
             name: 'Hannah Monk',
-            title: 'Curriculum Director',
+            title: 'Managing Director of Curriculum',
             img: 'team-hannah-monk@2x.png'
           },
           {
@@ -100,7 +100,7 @@ module PagesHelper
         members: [
           {
             name: 'Eric Adams',
-            title: 'Software Developer',
+            title: 'Software Engineer II',
             img: 'team-eric-adams@2x.png'
           },
           {
@@ -115,62 +115,62 @@ module PagesHelper
           },
           {
             name: 'Devin Kawailani Barricklow',
-            title: 'Curriculum Developer',
+            title: 'Senior Curriculum Developer',
             img: 'team-devin-barricklow@2x.png'
           },
           {
             name: 'Shannon Browne',
-            title: 'Senior Instructional Coach',
+            title: 'Professional Learning Manager',
             img: 'team-shannon-browne@2x.png'
           },
           {
             name: 'Rachel Dantzler',
-            title: 'Curriculum Developer',
+            title: 'Senior Curriculum Developer',
             img: 'team-rachel-dantzler@2x.png'
           },
           {
             name: 'Emilia Friedberg',
-            title: 'Senior Software Developer',
+            title: 'Senior Software Engineer I',
             img: 'team-emilia-friedberg@2x.png'
           },
           {
             name: 'Daniel Giovanniello',
-            title: 'Partnerships Specialist',
+            title: 'Senior Partnerships Specialist ',
             img: 'team-daniel-giovanniello@2x.png'
           },
           {
             name: 'Peter Kong',
-            title: 'Senior Software Developer',
+            title: 'Senior Software Engineer II',
             img: 'team-peter-kong@2x.png'
           },
           {
             name: 'Sherry Lewkowicz',
-            title: 'Senior Instructional Coach',
+            title: 'Professional Learning Manager',
             img: 'team-sherry-lewkowicz@2x.png'
           },
           {
             name: 'Stephanee McCadney',
-            title: 'Curriculum Developer	',
+            title: 'Curriculum Developer II',
             img: 'team-stephanee-mccadney@2x.png'
           },
           {
             name: 'Scarlet Melo',
-            title: 'Partnerships Associate',
+            title: 'Partnerships Specialist II',
             img: 'team-scarlet-melo@2x.png'
           },
           {
             name: 'Robert Morgan',
-            title: 'Partnerships Associate',
+            title: 'Partnerships Specialist I',
             img: 'team-robert-morgan@2x.png'
           },
           {
             name: 'Katie Moylan',
-            title: 'Curriculum Developer',
+            title: 'Curriculum Developer II',
             img: 'team-katie-moylan@2x.png'
           },
           {
             name: 'Erika Parker-Havens',
-            title: 'Senior Instructional Coach',
+            title: 'Professional Learning Manager',
             img: 'team-erika-parker-havens@2x.png'
           },
           {
@@ -180,7 +180,7 @@ module PagesHelper
           },
           {
             name: 'Thomas Robertson',
-            title: 'Senior Software Developer',
+            title: 'Senior Software Engineer II',
             img: 'team-thomas-robertson@2x.png'
           },
           {
@@ -190,17 +190,17 @@ module PagesHelper
           },
           {
             name: 'Brendan Shean',
-            title: 'Senior Software Developer',
+            title: 'Staff Software Engineer',
             img: 'team-brendan-shean@2x.png'
           },
           {
             name: 'Emma Volk',
-            title: 'Curriculum & Product Manager',
+            title: 'Lead Curriculum Developer',
             img: 'team-emma-volk@2x.png'
           },
           {
             name: 'Anna Waterman',
-            title: 'Curriculum Associate',
+            title: 'Curriculum Developer II',
             img: 'team-anna-waterman@2x.png'
           },
           {
@@ -210,7 +210,7 @@ module PagesHelper
           },
           {
             name: 'Cissy Yu',
-            title: 'Software Developer',
+            title: 'Software Engineer II',
             img: 'team-cissy-yu@2x.png'
           }
         ]
@@ -224,19 +224,19 @@ module PagesHelper
         team: 'Board of Directors',
         members: [
           {
-            name: 'Stephanie Cohen',
-            title: 'Co-Head of Consumer Wealth Management at Goldman',
-            img: 'board-stephanie-cohen@2x.png'
+            name: 'Paul Walker',
+            title: 'Quill Board Chair, Retired Partner at Goldman Sachs',
+            img: 'board-paul-walker@2x.png'
           },
           {
-            name: 'Michael Conner',
-            title: 'Superintendent of Schools at Middletown Public Schools',
-            img: 'board-michael-conner@2x.png'
+            name: 'Tony Sebro',
+            title: 'General Counsel at Change.org',
+            img: 'board-tony-sebro@2x.png'
           },
           {
-            name: 'Jane Parver',
-            title: 'Partner at Kaye Scholer',
-            img: 'board-jane-parver@2x.png'
+            name: 'Peg Tyre',
+            title: 'VP of Strategy at the Edwin Gould Foundation',
+            img: 'board-peg-tyre@2x.png'
           },
           {
             name: 'Matthew Rodriguez',
@@ -244,24 +244,14 @@ module PagesHelper
             img: 'board-matthew-rodriguez@2x.png'
           },
           {
-            name: 'Tony Sebro',
-            title: 'Deputy General Counsel at Wikimedia Foundation',
-            img: 'board-tony-sebro@2x.png'
+            name: 'Stephanie Cohen',
+            title: 'Co-Head of Consumer Wealth Management at Goldman',
+            img: 'board-stephanie-cohen@2x.png'
           },
           {
             name: 'Ben Sussman',
-            title: 'Engineer at Spell',
+            title: 'Engineer at Stripe',
             img: 'board-ben-sussman@2x.png'
-          },
-          {
-            name: 'Peg Tyre',
-            title: 'Director of Strategy at The Edwin Gould Foundation',
-            img: 'board-peg-tyre@2x.png'
-          },
-          {
-            name: 'Paul Walker',
-            title: 'Quill Board Chair, Retired Partner at Goldman Sachs',
-            img: 'board-paul-walker@2x.png'
           }
         ]
       },

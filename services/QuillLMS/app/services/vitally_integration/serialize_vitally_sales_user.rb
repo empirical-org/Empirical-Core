@@ -10,6 +10,7 @@ class SerializeVitallySalesUser
   end
 
   # rubocop:disable Metrics/CyclomaticComplexity
+  # rubocop:disable Metrics/AbcSize
   def data
     current_time = Time.current
     school_year_start = School.school_year_start(current_time)
@@ -24,8 +25,8 @@ class SerializeVitallySalesUser
     diagnostics_assigned_this_year = diagnostics_assigned_in_year_count(@user, school_year_start, school_year_end)
     diagnostics_finished = diagnostics_finished(@user).count
     diagnostics_finished_this_year = diagnostics_finished(@user).where("activity_sessions.completed_at >=?", school_year_start).count
-    evidence_assigned_this_year = evidence_assigned_in_year_count(@user, school_year_start, school_year_end)
-    evidence_finished_this_year = evidence_finished(@user).where("activity_sessions.completed_at >=?", school_year_start).count
+    evidence_activities_assigned_this_year = evidence_assigned_in_year_count(@user, school_year_start, school_year_end)
+    evidence_activities_completed_this_year = evidence_completed_in_year_count(@user, school_year_start, school_year_end)
     date_of_last_completed_evidence_activity = evidence_finished(@user).order("activity_sessions.completed_at DESC").select("activity_sessions.completed_at").first&.completed_at&.strftime("%F") || 'N/A'
     {
       accountId: @user.school&.id&.to_s,
@@ -81,8 +82,12 @@ class SerializeVitallySalesUser
         diagnostics_finished_last_year: get_from_cache("diagnostics_finished"),
         percent_completed_diagnostics_this_year: diagnostics_assigned_this_year > 0 ? (diagnostics_finished_this_year.to_f / diagnostics_assigned_this_year).round(2) : 'N/A',
         percent_completed_diagnostics_last_year: get_from_cache("percent_completed_diagnostics"),
-        evidence_activities_assigned_this_year: evidence_assigned_this_year,
-        evidence_activities_completed_this_year: evidence_finished_this_year,
+        evidence_activities_assigned_this_year: evidence_activities_assigned_this_year,
+        evidence_activities_completed_this_year: evidence_activities_completed_this_year,
+        evidence_activities_assigned_last_year: get_from_cache('evidence_activities_assigned'),
+        evidence_activities_completed_last_year: get_from_cache('evidence_activities_completed'),
+        completed_evidence_activities_per_student_this_year: activities_per_student(active_students_this_year, evidence_activities_completed_this_year),
+        completed_evidence_activities_per_student_last_year: get_from_cache("completed_evidence_activities_per_student"),
         date_of_last_completed_evidence_activity: date_of_last_completed_evidence_activity,
         premium_state: @user.premium_state,
         premium_type: @user.subscription&.account_type
@@ -90,10 +95,7 @@ class SerializeVitallySalesUser
     }
   end
   # rubocop:enable Metrics/CyclomaticComplexity
-
-  def evidence_id
-    ActivityClassification.evidence.id
-  end
+  # rubocop:enable Metrics/AbcSize
 
   def account_data
     return if account_uid.blank? || account_data_params.blank?
@@ -151,23 +153,6 @@ class SerializeVitallySalesUser
 
   private def diagnostics_assigned_count(user)
     sum_students(filter_diagnostics(activities_assigned_query(user)))
-  end
-
-  def filter_evidence(activities)
-    evidence_ids = Activity.where(activity_classification_id: evidence_id).pluck(:id)
-    activities.select {|r| evidence_ids.include?(r.id) }
-  end
-
-  def evidence_assigned_in_year_count(user, school_year_start, school_year_end)
-    sum_students(filter_evidence(in_school_year(activities_assigned_query(user), school_year_start, school_year_end)))
-  end
-
-  private def evidence_assigned_count(user)
-    sum_students(filter_evidence(activities_assigned_query(user)))
-  end
-
-  private def evidence_finished(user)
-    activities_finished_query(user).where("activities.activity_classification_id=?", evidence_id)
   end
 
   private def premium_status
