@@ -18,6 +18,14 @@
     </section>
   </section>
 
+  <section class="prompt-example-container">
+    <section class="inner-container">
+      <section class="prompt-explanation first">Quill’s feedback bot provides custom feedback for every prompt that mirrors the feedback a teacher would provide to a student in a 1:1 context.</section>
+      <img alt="A screenshot of an example Reading for Evidence prompt" id="image" src='https://assets.quill.org/images/evidence/evidence_example_prompt.svg' />
+      <section class="prompt-explanation second">When beneficial, the feedback also provides mini lessons as hints that explain key writing skills.</section>
+    </section>
+  </section>
+
   <section id="instructions-container">
     <div class="instruction-container">
       <div class="step-number">1</div>
@@ -33,6 +41,55 @@
       <div class="step-number">3</div>
       <p class="step-text">Revise based on feedback</p>
       <img alt="A sample feedback asking a student to add more detail to their sentence" class="step-image" src='https://assets.quill.org/images/evidence/sentence-feedback.svg' />
+    </div>
+  </section>
+
+  <section class="tool-carousel" id="walkthrough">
+    <div id="evidenceCarousel" class="carousel slide" data-ride="carousel">
+
+        <a class="left carousel-control" href="#evidenceCarousel" role="button" data-slide="prev">
+            <i class="fas fa-chevron-left"></i>
+            <span class="sr-only">Previous</span>
+        </a>
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner" role="listbox">
+            <div class="item active">
+              <div class="wrapper">
+                <img src=<%= "#{ENV['CDN_URL']}/images/tools/connect/visual_overview_screenshot.png" %> alt="Chania">
+              </div>
+              <p>Students receive instant feedback on the quality of their writing.</p>
+            </div>
+
+            <div class="item">
+              <div class="wrapper">
+                <img src=<%= "#{ENV['CDN_URL']}/images/tools/connect/analysis_screenshot.png" %> alt="Chania">
+              </div>
+              <p>Teachers see reports that state exactly which errors the student made and which concepts the student mastered.</p>
+            </div>
+
+            <div class="item">
+              <div class="wrapper">
+                <img src=<%= "#{ENV['CDN_URL']}/images/tools/connect/activities_screenshot.png" %> alt="Chania">
+              </div>
+              <p>Teachers have access to over 200 exercises aligned with the Common Core language standards.</p>
+            </div>
+        </div>
+
+        <!-- Left and right controls -->
+
+        <a class="right carousel-control" href="#evidenceCarousel" role="button" data-slide="next">
+            <i class="fas fa-chevron-right" aria-hidden="true"></i>
+            <span class="sr-only">Next</span>
+        </a>
+
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#evidenceCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#evidenceCarousel" data-slide-to="1"></li>
+            <li data-target="#evidenceCarousel" data-slide-to="2"></li>
+        </ol>
+
     </div>
   </section>
 
