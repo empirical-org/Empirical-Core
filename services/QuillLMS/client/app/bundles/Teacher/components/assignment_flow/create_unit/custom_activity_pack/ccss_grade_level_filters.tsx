@@ -33,7 +33,7 @@ const CCSSGradeLevelFilters = ({ ccssGradeLevelFilters, handleCCSSGradeLevelFilt
       <div className="name-and-clear-wrapper">
         <h2>
           <span>CCSS Grade Level</span>
-          <a className="focus-on-light interactive-wrapper" href="https://support.quill.org/en/articles/1804176-ccss-vs-readability-how-does-quill-sort-activities"><img alt={helpIcon.alt} src={helpIcon.src} /></a>
+          <a className="focus-on-light interactive-wrapper" href="https://support.quill.org/en/articles/1804176-ccss-vs-readability-how-does-quill-sort-activities" rel="noopener noreferrer" target="_blank"><img alt={helpIcon.alt} src={helpIcon.src} /></a>
         </h2>
         {clearButton}
       </div>

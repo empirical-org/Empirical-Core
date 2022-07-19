@@ -28,6 +28,8 @@ exports[`ccssGradeLevelFilters component should render 1`] = `
               <a
                 className="focus-on-light interactive-wrapper"
                 href="https://support.quill.org/en/articles/1804176-ccss-vs-readability-how-does-quill-sort-activities"
+                rel="noopener noreferrer"
+                target="_blank"
               >
                 <img
                   alt="Question mark icon"
@@ -109,6 +111,8 @@ exports[`ccssGradeLevelFilters component should render 1`] = `
                 <a
                   className="focus-on-light interactive-wrapper"
                   href="https://support.quill.org/en/articles/1804176-ccss-vs-readability-how-does-quill-sort-activities"
+                  rel="noopener noreferrer"
+                  target="_blank"
                 >
                   <img
                     alt="Question mark icon"

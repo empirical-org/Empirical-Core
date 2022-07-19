@@ -229,6 +229,7 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
           </span>
         </ActivityRowConcept>
         <ActivityRowTopics
+          hasConcept={true}
           inExpandedView={false}
           maxAllowedLength={0}
           onTertiaryLine={false}
@@ -356,6 +357,7 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
       className="third-line"
     >
       <ActivityRowTopics
+        hasConcept={true}
         inExpandedView={false}
         maxAllowedLength={0}
         onTertiaryLine={true}
@@ -701,6 +703,7 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
           </span>
         </ActivityRowConcept>
         <ActivityRowTopics
+          hasConcept={true}
           inExpandedView={false}
           maxAllowedLength={0}
           onTertiaryLine={false}
@@ -828,6 +831,7 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
       className="third-line"
     >
       <ActivityRowTopics
+        hasConcept={true}
         inExpandedView={false}
         maxAllowedLength={0}
         onTertiaryLine={true}
@@ -1247,6 +1251,7 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
           </span>
         </ActivityRowConcept>
         <ActivityRowTopics
+          hasConcept={true}
           inExpandedView={false}
           maxAllowedLength={0}
           onTertiaryLine={false}
@@ -1375,6 +1380,7 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
       className="third-line"
     >
       <ActivityRowTopics
+        hasConcept={true}
         inExpandedView={false}
         maxAllowedLength={0}
         onTertiaryLine={true}
@@ -1798,6 +1804,7 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
           </span>
         </ActivityRowConcept>
         <ActivityRowTopics
+          hasConcept={true}
           inExpandedView={false}
           maxAllowedLength={0}
           onTertiaryLine={false}
@@ -1926,6 +1933,7 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
       className="third-line"
     >
       <ActivityRowTopics
+        hasConcept={true}
         inExpandedView={false}
         maxAllowedLength={0}
         onTertiaryLine={true}
