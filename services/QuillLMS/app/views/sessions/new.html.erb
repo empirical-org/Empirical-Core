@@ -1,2 +1,7 @@
-<%= react_component('LoginFormApp', props: { cleverLink: @clever_link, googleLink: @google_link } ) %>
-<%= javascript_include_tag('cookie_warning.js') %>
+<%= react_component('LoginFormApp', props: {
+      cleverLink: @clever_link,
+      googleOfflineAccessExpired: @google_offline_access_expired
+    })
+%>
+
+<%= javascript_include_tag 'cookie_warning.js' %>

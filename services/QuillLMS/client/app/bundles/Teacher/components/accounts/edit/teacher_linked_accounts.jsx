@@ -1,6 +1,7 @@
 import React from 'react';
 
 import UnlinkModal from './unlink_modal'
+import AuthGoogleAccessForm from '../AuthGoogleAccessForm';
 
 export default class TeacherLinkedAccounts extends React.Component {
   constructor(props) {
@@ -55,15 +56,30 @@ export default class TeacherLinkedAccounts extends React.Component {
       copy = 'Clever is not linked. Unlink Google to link your Clever account.'
     } else if (!this.isLinkedToClever()) {
       copy = 'Clever is not linked'
-      actionElement = <a className="google-or-clever-action" href={cleverLink}>Link your account</a>
+      actionElement = (
+        <a
+          className='google-or-clever-action'
+          href={cleverLink}
+        >
+          Link your account
+        </a>
+      )
     } else {
       copy = 'Clever account is linked'
-      actionElement = <button className="google-or-clever-action" onClick={this.handleClickUnlinkClever} type="button">Unlink</button>
+      actionElement = (
+        <button
+          className='google-or-clever-action'
+          onClick={this.handleClickUnlinkClever}
+          type='button'
+        >
+          Unlink
+        </button>
+      )
     }
     return (
-      <div className="clever-row">
-        <div className="first-half">
-          <img alt="Clever icon" src={`${process.env.CDN_URL}/images/shared/clever_icon.svg`} />
+      <div className='clever-row'>
+        <div className='first-half'>
+          <img alt='Clever icon' src={`${process.env.CDN_URL}/images/shared/clever_icon.svg`} />
           <span>{copy}</span>
         </div>
         {actionElement}
@@ -72,21 +88,39 @@ export default class TeacherLinkedAccounts extends React.Component {
   }
 
   renderGoogleSection = () => {
-    let actionElement, copy, checkboxRow
+    let actionElement, copy
+
     if (this.isLinkedToClever() && !this.isLinkedToGoogle()) {
       copy = 'Google is not linked. Unlink Clever to link your Google account.'
     } else if (!this.isLinkedToGoogle()) {
       copy = 'Google is not linked'
-      actionElement = <a className="google-or-clever-action" href="/auth/google_oauth2?prompt=consent">Link your account</a>
+
+      actionElement = (
+        <AuthGoogleAccessForm
+          buttonClass='interactive-wrapper'
+          offlineAccess={true}
+          showIcon={false}
+          spanClass='google-or-clever-action'
+          text='Link your account'
+        />
+      )
     } else {
       copy = 'Google account is linked'
-      actionElement = <button className="google-or-clever-action" onClick={this.handleClickUnlinkGoogle} type="button">Unlink</button>
+      actionElement = (
+        <button
+          className='google-or-clever-action'
+          onClick={this.handleClickUnlinkGoogle}
+          type='button'
+        >
+          Unlink
+        </button>
+      )
     }
     return (
       <div>
-        <div className="google-row">
-          <div className="first-half">
-            <img alt="Google icon" src={`${process.env.CDN_URL}/images/shared/google_icon.svg`} />
+        <div className='google-row'>
+          <div className='first-half'>
+            <img alt='Google icon' src={`${process.env.CDN_URL}/images/shared/google_icon.svg`} />
             <span>{copy}</span>
           </div>
           {actionElement}
@@ -104,7 +138,7 @@ export default class TeacherLinkedAccounts extends React.Component {
           cancel={this.hideGoogleModal}
           email={email}
           errors={errors}
-          googleOrClever="Google"
+          googleOrClever='Google'
           timesSubmitted={timesSubmitted}
           updateUser={updateUser}
         />
@@ -115,7 +149,7 @@ export default class TeacherLinkedAccounts extends React.Component {
           cancel={this.hideCleverModal}
           email={email}
           errors={errors}
-          googleOrClever="Clever"
+          googleOrClever='Clever'
           timesSubmitted={timesSubmitted}
           updateUser={updateUser}
         />
@@ -125,7 +159,7 @@ export default class TeacherLinkedAccounts extends React.Component {
 
   render() {
     return (
-      <div className="user-linked-accounts user-account-section">
+      <div className='user-linked-accounts user-account-section'>
         {this.renderModal()}
         <h1>Linked accounts</h1>
         {this.renderGoogleSection()}

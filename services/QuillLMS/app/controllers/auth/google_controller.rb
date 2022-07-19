@@ -1,25 +1,28 @@
 # frozen_string_literal: true
 
 class Auth::GoogleController < ApplicationController
-  before_action :set_profile, only: [:authorization_and_authentication, :authentication]
-  before_action :verify_authorization_for_offline_access, only: :authentication
+  before_action :set_profile, only: [:offline_access_callback, :online_access_callback]
+  before_action :check_for_authorization, only: :online_access_callback
   before_action :set_user,
     :save_teacher_from_google_signup,
     :save_student_from_google_signup,
     :follow_google_redirect,
-    only: [:authorization_and_authentication, :authentication]
+    only: [:offline_access_callback, :online_access_callback]
 
-  # The reason for the separate 'authentication' and`authorization_and_authentication` methods lies in the
-  # before_action hook :verify_credentials.  This is only called with the authentication flow and if it fails
-  # will redirect to `google_oauth2` for reauthorization.
 
-  def authorization_and_authentication
+  # Control flow arrives at :offline_access_callback after the user authorized Quill access to their Google account via
+  # a prompt. :run_background_jobs can now run since a refresh_token will exist jin the user's auth_credential.
+  def offline_access_callback
     run_background_jobs
     sign_in(@user)
     redirect_to_profile_or_post_auth
   end
 
-  def authentication
+  # Control flow arrives at :online_access_callback when the user skips the prompt for authorization.  If the user
+  # already has a valid refresh_token, the :check_for_authorization should pass and :run_background_jobs should be able
+  # to run. Otherwise, the user is redirected to a prompt for authorization so that the eventual :run_background_jobs
+  # will be able to run.
+  def online_access_callback
     run_background_jobs
     sign_in(@user)
     redirect_to_profile_or_post_auth
@@ -37,11 +40,11 @@ class Auth::GoogleController < ApplicationController
     end
   end
 
-  private def verify_authorization_for_offline_access
-    user = User.where('google_id = ? OR email = ?', @profile.google_id&.to_s, @profile.email&.downcase).first
+  private def check_for_authorization
+    user = User.find_by('google_id = ? OR email = ?', @profile.google_id&.to_s, @profile.email&.downcase)
     return if user.nil?
 
-    redirect_to GoogleIntegration::AUTHORIZATION_AND_AUTHENTICATION_PATH unless user.google_authorized?
+    redirect_to new_session_path(google_offline_access_expired: true) unless user.google_authorized?
   end
 
   private def run_background_jobs

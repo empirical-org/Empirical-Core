@@ -111,7 +111,7 @@ class SessionsController < ApplicationController
     @user = User.new
     @title = 'Log In'
     @clever_link = clever_link
-    @google_link = GoogleIntegration::AUTHENTICATION_ONLY_PATH
+    @google_offline_access_expired = (params[:google_offline_access_expired] == 'true')
     session[:role] = nil
     session[ApplicationController::POST_AUTH_REDIRECT] = params[:redirect] if params[:redirect]
   end
