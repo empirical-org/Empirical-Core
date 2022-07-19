@@ -8,7 +8,7 @@ module Synthetic
   class Data
     include Synthetic::ManualTypes
 
-    Result = Struct.new(:text, :label, :translations, :spellings, :type, keyword_init: true) do
+    Result = Struct.new(:text, :label, :translations, :spellings, :type, :generated, keyword_init: true) do
       def to_training_rows
         [
           [type, text, label],
@@ -53,15 +53,23 @@ module Synthetic
     # Throttling to 100 sentences at a time.
     BATCH_SIZE = 100
 
-    attr_reader :results, :languages, :labels
+
+    GENERATORS = {
+      translations: Synthetic::Generators::Translation
+    }
+
+    FREE_GENERATORS = GENRATORS.except(:translations)
+
+    attr_reader :results, :languages, :labels, :generators
 
     # params:
     # texts_and_labels: [['text', 'label_5'],['text', 'label_1'],...]
     # languages: [:es, :ja, ...]
     # manual_types: bool, whether to assign TEXT,VALIDATION,TRAIN to each row
-    def initialize(texts_and_labels, languages: TRAIN_LANGUAGES.keys, manual_types: false)
+    def initialize(texts_and_labels, languages: TRAIN_LANGUAGES.keys, generators: GENERATORS, manual_types: false)
       @languages = languages
       @manual_types = manual_types
+      @generators = generators
 
       clean_text_and_labels = texts_and_labels
         .keep_if(&:last) # remove blank labels
@@ -72,14 +80,26 @@ module Synthetic
       # assign results with no TEST,VALIDATION,TRAIN type
       @results = clean_text_and_labels.map do |text_and_label|
         Result.new(
-          text: text_and_label.first,
+          text: text_and_label.first, # text is a unique ID
           label: text_and_label.last,
+          type: nil,
           translations: {},
-          spellings: {}
+          spellings: {},
+          generated: {},
         )
       end
 
       assign_types if manual_types
+    end
+
+    def run
+      generators.each do |type, generator|
+        results_hash = generator.run(results.map(&:text), languages: languages)
+
+        results.each do |result|
+          result.generated[type] = results_hash[result.text]
+        end
+      end
     end
 
     def fetch_synthetic_translations

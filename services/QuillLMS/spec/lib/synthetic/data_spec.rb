@@ -3,7 +3,9 @@
 require 'rails_helper'
 
 describe Synthetic::Data do
-  let(:labeled_data) { [['text string', 'label_5'], ['other text', 'label_11']] }
+  let(:text1) {'text string'}
+  let(:text2) {'other text'}
+  let(:labeled_data) { [[text1, 'label_5'], [text2, 'label_11']] }
   let(:mock_translator) { double }
 
   describe '#new' do
@@ -43,6 +45,33 @@ describe Synthetic::Data do
       expect(first_result.text).to eq 'text string'
       expect(first_result.label).to eq 'label_5'
       expect(first_result.translations[:es]).to eq 'goodbye'
+    end
+  end
+
+  describe '#fetch_synthetic_translations refactor' do
+    let(:synthetics) { Synthetic::Data.new(labeled_data, languages: [:es])}
+    let(:translation_response) do
+      {
+        text1 => {'es' => 'goodbye', 'ko' => 'korean'},
+        text2 => {'es' => 'goodbye 2', 'ko' => 'korean 2'}
+      }
+    end
+
+    before do
+      expect(Synthetic::Generators::Translation).to receive(:run).with([text1, text2], {:languages=>[:es]}).and_return(translation_response)
+    end
+
+    it 'fetch and store translations' do
+
+      synthetics.run
+
+      expect(synthetics.results.count).to eq 2
+
+      first_result = synthetics.results.first
+
+      expect(first_result.text).to eq 'text string'
+      expect(first_result.label).to eq 'label_5'
+      expect(first_result.generated[:translations]['es']).to eq 'goodbye'
     end
   end
 
