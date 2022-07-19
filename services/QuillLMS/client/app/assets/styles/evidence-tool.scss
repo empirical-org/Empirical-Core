@@ -1,4 +1,18 @@
 .evidence-tool-page {
+  .tool-hero {
+    .header-and-icon-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 8px;
+      h1 {
+        margin: 0;
+      }
+    }
+    .tool-ctas {
+      margin-top: 24px;
+    }
+  }
   #q-and-a {
     background-color: #ffffff;
     color: #000000;
@@ -158,8 +172,15 @@
     }
     .prompt-example-container {
       .inner-container {
-        .prompt-explanation {
+        display: flex;
+        flex-direction: column;
+        .first, .second {
           display: none;
+        }
+        .mobile {
+          min-height: 136px;
+          margin-top: 16px;
+          border-radius: 12px;
         }
         #image {
           max-width: 352px;

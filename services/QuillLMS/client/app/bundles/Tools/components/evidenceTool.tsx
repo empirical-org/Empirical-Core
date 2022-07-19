@@ -1,8 +1,35 @@
 import * as React from 'react';
 
 import QuestionsAndAnswers from '../../Teacher/containers/QuestionsAndAnswers';
+import { onMobile } from '../../Shared';
+
+const EVIDENCE_TIPS = [
+  "Quill’s feedback bot provides custom feedback for every prompt that mirrors the feedback a teacher would provide to a student in a 1:1 context.",
+  "When needed, the feedback offers extra support with mini lessons that explain key writing skills like paraphrasing or using a conjunction to join ideas."
+]
 
 export const EvidenceTool = ({ loggedInUser }) => {
+  let tipIndex = 0;
+  const [evidenceTip, setEvidenceTip] = React.useState<string>(EVIDENCE_TIPS[0])
+
+  React.useEffect(() => {
+    if(onMobile()) {
+      setInterval(() => {
+        handleSetTip();
+      }, 7000);
+    }
+  }, [])
+
+  function handleSetTip() {
+    if(tipIndex === EVIDENCE_TIPS.length - 1) {
+      tipIndex = 0;
+      setEvidenceTip(EVIDENCE_TIPS[tipIndex])
+    } else {
+      tipIndex += 1;
+      setEvidenceTip(EVIDENCE_TIPS[tipIndex])
+    }
+  }
+
   function renderBottomSection() {
     if(loggedInUser) {
       return(
@@ -20,15 +47,25 @@ export const EvidenceTool = ({ loggedInUser }) => {
     );
   }
 
+  function renderHeaderText() {
+    if(onMobile()) {
+      return "Quill provides free writing and grammar activities for elementary, middle, and high school students."
+    }
+    return "With Quill's new Reading For Evidence tool, students engage with high-interest texts by constructing sentences that synthesize evidence from the text, with Quill's feedback engine automatically grading and providing hundreds of custom, targeted feedback for each prompt designed to enable students to continually revise and improve their writing."
+  }
+
+  function renderTip() {
+    return <section className="prompt-explanation mobile">{evidenceTip}</section>
+  }
+
   return(
     <div className="tool-container evidence-tool-page">
       <section className='bg-quillteal tool-hero text-center tool-section'>
-        <h1 className="q-h1">
-          <img className="tool-page-icon lazyload" data-src='https://assets.quill.org/images/icons/tool-evidence-white.svg' />Quill Reading for Evidence
-        </h1>
-        <p className='description'>
-          With Quill's new Reading For Evidence tool, students engage with high-interest texts by constructing sentences that synthesize evidence from the text, with Quill's feedback engine automatically grading and providing hundreds of custom, targeted feedback for each prompt designed to enable students to continually revise and improve their writing.
-        </p>
+        <section className="header-and-icon-container">
+          <img className="tool-page-icon lazyload" data-src='https://assets.quill.org/images/icons/tool-evidence-white.svg' />
+          <h1 className="q-h1">Quill Reading for Evidence</h1>
+        </section>
+        <p className='description'>{renderHeaderText()}</p>
         <section className="tool-ctas evidence-tool">
           <a href='/activity_sessions/anonymous?activity_id=244' target="_blank" className="q-button cta-button text-quillteal bg-white">Try a sample activity</a>
         </section>
@@ -39,6 +76,7 @@ export const EvidenceTool = ({ loggedInUser }) => {
           <section className="prompt-explanation first">Quill's feedback bot provides custom feedback for every prompt that mirrors the feedback a teacher would provide to a student in a 1:1 context.</section>
           <img alt="A screenshot of an example Reading for Evidence prompt" id="image" src='https://assets.quill.org/images/evidence/evidence_example_prompt.svg' />
           <section className="prompt-explanation second">When beneficial, the feedback also provides mini lessons as hints that explain key writing skills.</section>
+          {onMobile() && renderTip()}
         </section>
       </section>
 
