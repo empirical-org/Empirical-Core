@@ -169,8 +169,8 @@ class Demo::CreateAdminReport
               state: the_activity_session_should_be_marked_as_in_progress ? 'started' : 'finished',
               percentage: exemplar_activity_session.percentage,
             )
-            exemplar_activity_session.concept_results.each do |cr|
-              ConceptResult.create!(
+            exemplar_activity_session.old_concept_results.each do |cr|
+              OldConceptResult.create!(
                 activity_session_id: activity_session.id,
                 concept_id: cr.concept_id,
                 metadata: cr.metadata,

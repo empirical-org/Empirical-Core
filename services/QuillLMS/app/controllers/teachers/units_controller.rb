@@ -44,7 +44,7 @@ class Teachers::UnitsController < ApplicationController
       render json: {errors: { name: 'Unit must have a name'} }, status: 422
     elsif unit_template_names.include?(unit_params[:name].downcase)
       render json: {errors: { name: "Each activity pack needs a unique name. You're already using that name for another activity pack. Please choose a different name."} }, status: 422
-    elsif Unit.find(params[:id]).try(:update_attributes, unit_params)
+    elsif Unit.find(params[:id])&.update(unit_params)
       render json: {}
     else
       render json: {errors: { name: "Each activity pack needs a unique name. You're already using that name for another activity pack. Please choose a different name."} }, status: 422
@@ -349,7 +349,8 @@ class Teachers::UnitsController < ApplicationController
     .joins("JOIN unit_activities ON unit_activities.unit_id = classroom_units.unit_id AND unit_activities.activity_id IN (#{diagnostic_activity_ids.join(',')}) AND unit_activities.visible")
     .joins("JOIN activities ON unit_activities.activity_id = activities.id")
     .group("classrooms.name, activities.name, activities.id, classroom_units.unit_id, classroom_units.id, units.name, classrooms.id, classroom_units.assigned_student_ids, unit_activities.created_at, classroom_units.created_at")
-    .order("classrooms.name, greatest(classroom_units.created_at, unit_activities.created_at) DESC")
+    .order(Arel.sql("classrooms.name, greatest(classroom_units.created_at, unit_activities.created_at) DESC"))
+
     records.map do |r|
       {
         "assigned_student_ids" => r['assigned_student_ids'] || [],

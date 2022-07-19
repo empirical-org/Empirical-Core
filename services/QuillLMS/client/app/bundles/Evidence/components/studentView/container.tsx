@@ -271,7 +271,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
 
   function activateStep(step) { dispatch(setActiveStepForSession(step)) }
 
-  function submitResponse(entry: string, promptID: string, promptText: string, attempt: number) {
+  function submitResponse(entry: string, promptID: string, promptText: string, attempt: number, currentActivity: object) {
     const { sessionID, } = session
     const activityUID = getUrlParam('uid', location, isTurk)
     const previousFeedback = session.submittedResponses[promptID] || [];
@@ -286,7 +286,8 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
         promptText,
         attempt,
         previousFeedback,
-        callback: submitResponseCallback
+        callback: submitResponseCallback,
+        activityVersion: currentActivity?.version
       }
       dispatch(getFeedback(args))
     }

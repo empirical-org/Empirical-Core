@@ -21,45 +21,44 @@ describe DistrictAdmin, type: :model, redis: true do
   it { should belong_to(:district) }
   it { should belong_to(:user) }
 
-  it { is_expected.to callback(:attach_to_subscribed_schools).after(:create) }
-  it { is_expected.to callback(:detach_from_schools).after(:destroy) }
+  it { is_expected.to callback(:attach_schools).after(:create) }
+  it { is_expected.to callback(:detach_schools).after(:destroy) }
 
-  let(:user) { create(:user, email: 'test@quill.org') }
-  let(:district) { create(:district) }
-  let(:school) { create(:school, district: district) }
-  let(:subscription) { create(:subscription, account_type: 'School Paid') }
-  let(:admins) { create(:district_admin, user: user, district: district) }
+  let!(:user) { create(:user, email: 'test@quill.org') }
+  let!(:district) { create(:district) }
+  let!(:district_admin) { create(:district_admin, user: user, district: district) }
 
   describe '#admin' do
     it 'should return the user associated' do
-      expect(admins.admin).to eq(admins.user)
+      expect(district_admin.admin).to eq(district_admin.user)
     end
   end
 
-  describe '#attach_to_subscribed_schools' do
-    it 'should kick off background job to send email' do
-      create(:school_subscription, school_id: school.id, subscription_id: subscription.id)
-      expect{ admins.attach_to_subscribed_schools }.to change(NewAdminEmailWorker.jobs, :size)
-      expect(SchoolsAdmins.find_by(user: user, school: school)).to be
-    end
+  describe '#attach_schools' do
+    let(:attach_school_to_district) { create(:school, district: district) }
 
-    it 'should not create another record if user is already an admin' do
-      create(:school_subscription, school_id: school.id, subscription_id: subscription.id)
-      admins.attach_to_subscribed_schools
-      expect(SchoolsAdmins.where(user: user, school: school).count).to eq(1)
+    it { expect { attach_school_to_district }.to change(SchoolsAdmins, :count).from(0).to(1) }
+    it { expect { attach_school_to_district }.to change(NewAdminEmailWorker.jobs, :size).by(1) }
 
-      expect{ admins.attach_to_subscribed_schools }.not_to change(NewAdminEmailWorker.jobs, :size)
-      expect(SchoolsAdmins.where(user: user, school: school).count).to eq(1)
+    context 'school is already attached' do
+      before { attach_school_to_district }
+
+      it { expect { district_admin.attach_schools }.to not_change(SchoolsAdmins, :count) }
+      it { expect { district_admin.attach_schools }.to not_change(NewAdminEmailWorker.jobs, :size) }
     end
   end
 
-  describe '#detach_from_schools' do
-    it 'should remove existing schools admins relationships' do
-      create(:school_subscription, school_id: school.id, subscription_id: subscription.id)
-      admins.attach_to_subscribed_schools
-      expect(SchoolsAdmins.find_by(user: user, school: school)).to be
-      admins.detach_from_schools
-      expect(SchoolsAdmins.find_by(user: user, school: school)).not_to be
+  describe '#detach_schools' do
+    subject { district_admin.detach_schools }
+
+    before { create(:school, district: district) }
+
+    it { expect { subject }.to change(SchoolsAdmins, :count).from(1).to(0) }
+
+    context 'school is already detached' do
+      before { subject }
+
+      it { expect { subject }.to not_change(SchoolsAdmins, :count) }
     end
   end
 end

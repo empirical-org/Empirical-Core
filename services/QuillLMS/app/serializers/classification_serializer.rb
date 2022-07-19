@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-class ClassificationSerializer < ActiveModel::Serializer
+class ClassificationSerializer < ApplicationSerializer
   attributes :uid, :id, :name, :key, :form_url, :module_url, :created_at, :updated_at, :green_image_class, :alias, :scorebook_icon_class
-
+  type :classification
 
   def alias
     case object.id

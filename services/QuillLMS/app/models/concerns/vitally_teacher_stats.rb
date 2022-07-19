@@ -69,4 +69,29 @@ module VitallyTeacherStats
     ActivityClassification.diagnostic.id
   end
 
+  def filter_evidence(activities)
+    evidence_ids = Activity.where(activity_classification_id: evidence_id).pluck(:id)
+    activities.select {|r| evidence_ids.include?(r.id) }
+  end
+
+  def evidence_id
+    ActivityClassification.evidence.id
+  end
+
+  def evidence_assigned_in_year_count(user, school_year_start, school_year_end)
+    sum_students(filter_evidence(in_school_year(activities_assigned_query(user), school_year_start, school_year_end)))
+  end
+
+  private def evidence_assigned_count(user)
+    sum_students(filter_evidence(activities_assigned_query(user)))
+  end
+
+  private def evidence_finished(user)
+    activities_finished_query(user).where("activities.activity_classification_id=?", evidence_id)
+  end
+
+  private def evidence_completed_in_year_count(user, school_year_start, school_year_end)
+    evidence_finished(@user).where("activity_sessions.completed_at >=? AND activity_sessions.completed_at < ?", school_year_start, school_year_end).count
+  end
+
 end

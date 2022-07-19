@@ -32,10 +32,11 @@ class ClassroomUnitActivityState < ApplicationRecord
   belongs_to :classroom_unit, touch: true
   belongs_to :unit_activity
 
+  before_validation :handle_pinning
+
+  after_create :lock_if_lesson
   after_save :update_lessons_cache_with_data
 
-  before_validation :handle_pinning
-  after_create :lock_if_lesson
   validate :not_duplicate, :only_one_pinned
 
   def visible
@@ -54,10 +55,11 @@ class ClassroomUnitActivityState < ApplicationRecord
   end
 
   private def not_duplicate
-    cua = ClassroomUnitActivityState.find_by(
+    cua = ClassroomUnitActivityState.unscoped.find_by(
       classroom_unit_id: classroom_unit_id,
       unit_activity_id: unit_activity_id
     )
+
     if cua && (cua.id != id)
       begin
         raise 'This classroom unit activity state is a duplicate'

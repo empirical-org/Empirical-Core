@@ -50,8 +50,10 @@
 #  unique_index_schools_on_ppin     (ppin) UNIQUE WHERE ((ppin)::text <> ''::text)
 #
 class School < ApplicationRecord
-  has_many :school_subscription
-  has_many :subscriptions, through: :school_subscription
+  include Subscriber
+
+  has_many :school_subscriptions
+  has_many :subscriptions, through: :school_subscriptions
   has_many :schools_users,  class_name: 'SchoolsUsers'
   has_many :users, through: :schools_users
   has_many :schools_admins, class_name: 'SchoolsAdmins'
@@ -60,7 +62,9 @@ class School < ApplicationRecord
   belongs_to :coordinator, class_name: 'User'
   belongs_to :district
 
-  before_save :update_district_admins, if: :will_save_change_to_district_id?
+  before_save :detach_old_district_school_admins, if: :will_save_change_to_district_id?
+  after_save :attach_new_district_school_admins, if: :saved_change_to_district_id?
+
   validate :lower_grade_within_bounds, :upper_grade_within_bounds,
            :lower_grade_greater_than_upper_grade
 
@@ -90,26 +94,16 @@ class School < ApplicationRecord
   SCHOOL_YEAR_START_MONTH = 7
   HALF_A_YEAR = 6.months
 
-  def subscription
-    subscriptions
-      .started
-      .not_expired
-      .not_de_activated
-      .order(expiration: :desc)
-      .limit(1)
-      .first
+  def self.school_year_start(time)
+    time.month >= SCHOOL_YEAR_START_MONTH ? time.beginning_of_year + HALF_A_YEAR : time.beginning_of_year - HALF_A_YEAR
   end
 
-  def last_expired_subscription
-    subscriptions
-      .expired
-      .order(expiration: :desc)
-      .limit(1)
-      .first
+  def attach_subscription(subscription)
+    school_subscriptions.create(subscription: subscription)
   end
 
-  def present_and_future_subscriptions
-    subscriptions.active
+  def alternative?
+    ALTERNATIVE_SCHOOL_NAMES.include?(name)
   end
 
   def ulocal_to_school_type
@@ -145,10 +139,6 @@ class School < ApplicationRecord
 
   def students
     User.joins(student_in_classroom: {teachers: :school}).where(schools: {id: id}).distinct
-  end
-
-  def self.school_year_start(time)
-    time.month >= SCHOOL_YEAR_START_MONTH ? time.beginning_of_year + HALF_A_YEAR : time.beginning_of_year - HALF_A_YEAR
   end
 
   def detach_from_existing_district_admins(district)
@@ -199,16 +189,21 @@ class School < ApplicationRecord
     errors.add(:lower_grade, 'must be less than or equal to upper grade') if lower_grade.to_i > upper_grade.to_i
   end
 
-  private def update_district_admins
-    # destroy all SchoolsAdmins records that are also DistrictAdmin records from the previous district
-    if district_id_was.present?
-      previous_district = District.find_by(id: district_id_was)
-      detach_from_existing_district_admins(previous_district)
-    end
-
-    return unless district_id.present?
+  private def attach_new_district_school_admins
+    return if district_id.nil?
 
     new_district = District.find(district_id)
-    self.admins = (admins || []) + new_district.admins
+    new_admins = new_district.admins - admins
+    schools_admins.create!(new_admins.map { |admin| { user: admin } })
+  end
+
+  private def detach_old_district_school_admins
+    return if district_id_was.nil?
+
+    old_district_admins = District.find(district_id_was).admins
+
+    schools_admins
+      .where(user: old_district_admins)
+      .destroy_all
   end
 end

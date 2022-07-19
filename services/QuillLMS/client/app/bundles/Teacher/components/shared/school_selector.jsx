@@ -8,6 +8,8 @@ import { Input, } from '../../../Shared/index'
 
 const mapSearchSrc = `${process.env.CDN_URL}/images/onboarding/map-search.svg`
 
+export const NOT_LISTED = 'not listed'
+
 export default class SchoolSelector extends React.Component {
   constructor(props) {
     super(props);
@@ -22,7 +24,7 @@ export default class SchoolSelector extends React.Component {
 
   handleSkipClick = () => {
     const { selectSchool, } = this.props
-    selectSchool('not listed')
+    selectSchool(NOT_LISTED)
   }
 
   search = () => {

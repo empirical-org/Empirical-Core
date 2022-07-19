@@ -77,7 +77,7 @@ class Types::UserType < Types::BaseObject
 
   private def concept_results_by_count activity_session
     hash = Hash.new { |h, k| h[k] = Hash.new { |j, l| j[l] = 0 } }
-    activity_session.concept_results.each do |concept_result|
+    activity_session.old_concept_results.each do |concept_result|
       hash[concept_result.concept.uid]["correct"] += concept_result["metadata"]["correct"]
       hash[concept_result.concept.uid]["total"] += 1
     end

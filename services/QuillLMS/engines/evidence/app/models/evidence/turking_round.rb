@@ -25,7 +25,7 @@ module Evidence
     end
 
     def expire!
-      update_attributes(expires_at: Time.current)
+      update(expires_at: Time.current)
     end
 
     private def expires_at_in_future

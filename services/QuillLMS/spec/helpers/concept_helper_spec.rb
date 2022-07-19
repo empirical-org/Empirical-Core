@@ -9,13 +9,13 @@ describe ConceptHelper, type: :helper do
 
   describe "#all_concept_stats" do
     before do
-      activity_session.concept_results.create!(
+      activity_session.old_concept_results.create!(
         concept: punctuation_concept,
         metadata: {
           correct: 0
         }
       )
-      activity_session.concept_results.create!(
+      activity_session.old_concept_results.create!(
         concept: prepositions_concept,
         metadata: {
           correct: 1

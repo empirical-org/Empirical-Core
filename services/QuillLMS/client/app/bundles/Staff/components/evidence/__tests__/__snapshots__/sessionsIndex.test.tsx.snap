@@ -1,346 +1,78 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SessionsIndex component should render SessionsIndex 1`] = `
-<div
-  className="sessions-index-container"
+<ContextProvider
+  value={true}
 >
-  <section
-    className="comprehension-page-header-container"
-  >
-    <h2>
-      View Sessions
-    </h2>
-    <h3>
-      merp
-    </h3>
-    <h4 />
-  </section>
-  <section>
-    <p
-      className="link-info-blurb"
-    >
-      Use 
-      <a
-        href="https://data.quill.org/question/615?activity_id=1"
-      >
-        <strong>
-          this Metabase
-        </strong>
-      </a>
-       query to display feedback sessions on a single page.
-    </p>
-    <p
-      className="link-info-blurb"
-    >
-      If you want to look up an individual activity session, plug the activity session ID into this url and it will load: https://www.quill.org/cms/evidence#/activities/
-      <strong>
-        activityID
-      </strong>
-      /
-      <strong>
-        sessionID
-      </strong>
-    </p>
-    <section
-      className="top-section"
-    >
-      <section
-        className="total-container"
-      >
-        <p
-          className="total-label"
-        >
-          Total
-        </p>
-        <p
-          className="total-value"
-        >
-          2
-        </p>
-      </section>
-      <DropdownInput
-        className="page-number-dropdown"
-        handleChange={[Function]}
-        isSearchable={false}
-        label=""
-        options={null}
-        value={null}
-      />
-    </section>
-    <section
-      className="top-section"
-    >
-      <DropdownInput
-        className="session-filters-dropdown"
-        handleChange={[Function]}
-        isSearchable={false}
-        label=""
-        options={
-          Array [
-            Object {
-              "label": "Show all sessions",
-              "value": "all",
-            },
-            Object {
-              "label": "Show only scored sessions",
-              "value": "scored",
-            },
-            Object {
-              "label": "Show only unscored sessions",
-              "value": "unscored",
-            },
-            Object {
-              "label": "Show sessions with weak responses",
-              "value": "weak",
-            },
-            Object {
-              "label": "Show complete sessions",
-              "value": "complete",
-            },
-            Object {
-              "label": "Show incomplete sessions",
-              "value": "incomplete",
-            },
-          ]
-        }
-        value={
-          Object {
-            "label": "Show all sessions",
-            "value": "all",
-          }
-        }
-      />
-      <p
-        className="date-picker-label"
-      >
-        Start Date:
-      </p>
-      <DateTimePicker
-        ampm={false}
-        calendarIcon={
-          <svg
-            className="react-datetime-picker__calendar-button__icon react-datetime-picker__button__icon"
-            height={19}
-            stroke="black"
-            strokeWidth={2}
-            viewBox="0 0 19 19"
-            width={19}
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <rect
-              fill="none"
-              height="15"
-              width="15"
-              x="2"
-              y="2"
-            />
-            <line
-              x1="6"
-              x2="6"
-              y1="0"
-              y2="4"
-            />
-            <line
-              x1="13"
-              x2="13"
-              y1="0"
-              y2="4"
-            />
-          </svg>
-        }
-        clearIcon={
-          <svg
-            className="react-datetime-picker__clear-button__icon react-datetime-picker__button__icon"
-            height={19}
-            stroke="black"
-            strokeWidth={2}
-            viewBox="0 0 19 19"
-            width={19}
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <line
-              x1="4"
-              x2="15"
-              y1="4"
-              y2="15"
-            />
-            <line
-              x1="15"
-              x2="4"
-              y1="4"
-              y2="15"
-            />
-          </svg>
-        }
-        closeWidgets={true}
-        format="y-MM-dd HH:mm"
-        isCalendarOpen={null}
-        isClockOpen={null}
-        maxDetail="minute"
-        onChange={[Function]}
-        openWidgetsOnFocus={true}
-        value={null}
-      />
-      <p
-        className="date-picker-label"
-      >
-        End Date (optional):
-      </p>
-      <DateTimePicker
-        ampm={false}
-        calendarIcon={
-          <svg
-            className="react-datetime-picker__calendar-button__icon react-datetime-picker__button__icon"
-            height={19}
-            stroke="black"
-            strokeWidth={2}
-            viewBox="0 0 19 19"
-            width={19}
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <rect
-              fill="none"
-              height="15"
-              width="15"
-              x="2"
-              y="2"
-            />
-            <line
-              x1="6"
-              x2="6"
-              y1="0"
-              y2="4"
-            />
-            <line
-              x1="13"
-              x2="13"
-              y1="0"
-              y2="4"
-            />
-          </svg>
-        }
-        clearIcon={
-          <svg
-            className="react-datetime-picker__clear-button__icon react-datetime-picker__button__icon"
-            height={19}
-            stroke="black"
-            strokeWidth={2}
-            viewBox="0 0 19 19"
-            width={19}
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <line
-              x1="4"
-              x2="15"
-              y1="4"
-              y2="15"
-            />
-            <line
-              x1="15"
-              x2="4"
-              y1="4"
-              y2="15"
-            />
-          </svg>
-        }
-        closeWidgets={true}
-        format="y-MM-dd HH:mm"
-        isCalendarOpen={null}
-        isClockOpen={null}
-        maxDetail="minute"
-        onChange={[Function]}
-        openWidgetsOnFocus={true}
-        value={null}
-      />
-      <p
-        className="date-picker-label"
-      >
-        Turk Session ID (optional):
-      </p>
-      <Input
-        autoComplete="on"
-        className="turk-session-id-input"
-        handleChange={[Function]}
-        label=""
-        value=""
-      />
-      <button
-        className="quill-button fun primary contained"
-        onClick={[Function]}
-        type="submit"
-      >
-        Filter
-      </button>
-    </section>
-    <div
-      className="error-container"
-    />
-    <ReactTable
-      className="activity-sessions-table"
-      columns={
-        Array [
-          Object {
-            "Header": "Date | Time",
-            "accessor": "datetime",
-            "width": 150,
+  <ContextProvider
+    value={
+      DefaultReactQueryClient {
+        "defaultOptions": Object {
+          "queries": Object {
+            "cacheTime": Infinity,
+            "staleTime": Infinity,
           },
-          Object {
-            "Header": "Session ID",
-            "accessor": "session_uid",
-            "width": 100,
-          },
-          Object {
-            "Header": "Total Responses",
-            "accessor": "total_attempts",
-            "width": 150,
-          },
-          Object {
-            "Header": "Because",
-            "accessor": "because_attempts",
-            "width": 100,
-          },
-          Object {
-            "Header": "But",
-            "accessor": "but_attempts",
-            "width": 100,
-          },
-          Object {
-            "Header": "So",
-            "accessor": "so_attempts",
-            "width": 100,
-          },
-          Object {
-            "Header": "Scored",
-            "accessor": "scored_count",
-            "width": 100,
-          },
-          Object {
-            "Header": "Weak",
-            "accessor": "weak_count",
-            "width": 100,
-          },
-          Object {
-            "Header": "Strong",
-            "accessor": "strong_count",
-            "width": 100,
-          },
-          Object {
-            "Header": "Completed?",
-            "accessor": "completed",
-            "width": 100,
-          },
-          Object {
-            "Header": "",
-            "accessor": "view_link",
-            "width": 100,
-          },
-        ]
+        },
+        "mutationCache": MutationCache {
+          "config": Object {},
+          "listeners": Array [],
+          "mutationId": 0,
+          "mutations": Array [],
+        },
+        "mutationDefaults": Array [],
+        "queryCache": QueryCache {
+          "config": Object {},
+          "listeners": Array [],
+          "queries": Array [],
+          "queriesMap": Object {},
+        },
+        "queryDefaults": Array [],
       }
-      data={Array []}
-      defaultPageSize={0}
-      manualSortBy={true}
-      onSortedChange={[Function]}
+    }
+  >
+    <SessionsIndex
+      history={
+        Object {
+          "createHref": [Function],
+          "createKey": [Function],
+          "createLocation": [Function],
+          "createPath": [Function],
+          "go": [Function],
+          "goBack": [Function],
+          "goForward": [Function],
+          "listen": [Function],
+          "listenBefore": [Function],
+          "push": [Function],
+          "pushState": [Function],
+          "registerTransitionHook": [Function],
+          "replace": [Function],
+          "replaceState": [Function],
+          "setState": [Function],
+          "transitionTo": [Function],
+          "unregisterTransitionHook": [Function],
+        }
+      }
+      location={
+        Object {
+          "action": "POP",
+          "hash": "",
+          "key": null,
+          "pathname": "/",
+          "search": "",
+          "state": null,
+        }
+      }
+      match={
+        Object {
+          "isExact": true,
+          "params": Object {
+            "activityId": "1",
+          },
+          "path": "",
+          "url": "",
+        }
+      }
     />
-  </section>
-</div>
+  </ContextProvider>
+</ContextProvider>
 `;

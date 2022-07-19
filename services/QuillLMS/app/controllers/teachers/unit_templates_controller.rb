@@ -19,7 +19,7 @@ class Teachers::UnitTemplatesController < ApplicationController
         redirect_to "/assign/featured-activity-packs/#{params[:id]}" if @is_teacher
       end
       format.json do
-        render json: cached_formatted_unit_templates
+        render json: { unit_templates: cached_formatted_unit_templates }
       end
     end
   end

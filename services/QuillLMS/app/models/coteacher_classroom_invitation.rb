@@ -64,7 +64,7 @@ class CoteacherClassroomInvitation < ApplicationRecord
     # In order to avoid letting people use our platform to spam folks,
     # we want to put some limits on the number of invitations a user can issue.
     # One of those limits is a cap on invitations per classroom
-    current_count = CoteacherClassroomInvitation.where(classroom_id: classroom_id).count
+    current_count = CoteacherClassroomInvitation.unscoped.where(classroom_id: classroom_id).count
     return if current_count < MAX_COTEACHER_INVITATIONS_PER_CLASS
 
     errors.add(:base, "The maximum limit of #{MAX_COTEACHER_INVITATIONS_PER_CLASS} coteacher invitations have already been issued for class #{classroom_id}")

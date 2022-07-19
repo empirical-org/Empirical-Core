@@ -2,7 +2,6 @@
 
 class Cms::SchoolsController < Cms::CmsController
   before_action :signed_in!
-
   before_action :text_search_inputs, only: [:index, :search]
   before_action :set_school, only: [:new_subscription, :edit_subscription, :show, :complete_sales_stage]
   before_action :subscription_data, only: [:new_subscription, :edit_subscription]
@@ -61,7 +60,7 @@ class Cms::SchoolsController < Cms::CmsController
   # This allows staff members to edit certain details about a school.
   def edit
     @school = School.find(params[:id])
-    @editable_attributes = editable_school_attributes
+    @editable_text_attributes = editable_school_text_attributes
   end
 
   def update
@@ -73,7 +72,11 @@ class Cms::SchoolsController < Cms::CmsController
   end
 
   def new_subscription
-    @subscription = Subscription.new(start_date: Subscription.redemption_start_date(@school), expiration: Subscription.default_expiration_date(@school))
+    @subscription = Subscription.new(
+      account_type: Subscription::SCHOOL_PAID,
+      start_date: Subscription.redemption_start_date(@school),
+      expiration: Subscription.default_expiration_date(@school)
+    )
   end
 
   def edit_subscription
@@ -83,7 +86,7 @@ class Cms::SchoolsController < Cms::CmsController
   # This allows staff members to create a new school.
   def new
     @school = School.new
-    @editable_attributes = editable_school_attributes
+    @editable_text_attributes = editable_school_text_attributes
   end
 
   def create
@@ -331,7 +334,7 @@ class Cms::SchoolsController < Cms::CmsController
     params.require(:school).permit(:id, editable_school_attributes.values)
   end
 
-  private def editable_school_attributes
+  private def editable_school_text_attributes
     {
       'School Name' => :name,
       'School City' => :city,
@@ -341,6 +344,12 @@ class Cms::SchoolsController < Cms::CmsController
       'NCES ID' => :nces_id,
       'Clever ID' => :clever_id
     }
+  end
+
+  private def editable_school_attributes
+    editable_school_text_attributes.merge({
+      'District' => :district_id
+    })
   end
 
   private def subscription_params
@@ -353,5 +362,14 @@ class Cms::SchoolsController < Cms::CmsController
 
   def fallback_location
     cms_school_path(params[:id].to_i)
+  end
+
+  private def subscription_data
+    @premium_types = Subscription::OFFICIAL_SCHOOL_TYPES
+    @subscription_payment_methods = Subscription::CMS_PAYMENT_METHODS
+
+    return if @school.nil? || @school.alternative?
+
+    @school_users = @school.users.select(:id, :email, :name)
   end
 end

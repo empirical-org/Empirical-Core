@@ -1,358 +1,78 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`RegexRulesIndex component should render RegexRulesIndex 1`] = `
-<div
-  className="rules-container"
+<ContextProvider
+  value={true}
 >
-  <a
-    className="quill-button fun secondary outlined focus-on-light play-activity-button"
-    href="/evidence/#/play?uid=1&skipToPrompts=true"
-    rel="noopener noreferrer"
-    target="_blank"
-  >
-    Play Test Activity
-  </a>
-  <section
-    className="rules-based-section"
-  >
-    <button
-      className="quill-button fun primary contained add-rule-button"
-      type="submit"
-    >
-      <Link
-        to={
-          Object {
-            "pathname": "/activities/1/regex-rules/new",
-            "state": Object {
-              "ruleType": "rules-based-1",
-            },
-          }
-        }
-      >
-        Add Sentence Structure Regex Rule
-      </Link>
-    </button>
-    <DataTable
-      averageFontWidth={7}
-      className="rules-table regex-index-table"
-      defaultSortAttribute="name"
-      headers={
-        Array [
-          Object {
-            "attribute": "priority",
-            "name": "Priority",
-            "width": "50px",
+  <ContextProvider
+    value={
+      DefaultReactQueryClient {
+        "defaultOptions": Object {
+          "queries": Object {
+            "cacheTime": Infinity,
+            "staleTime": Infinity,
           },
-          Object {
-            "attribute": "name",
-            "name": "Rule Name",
-            "width": "300px",
-          },
-          Object {
-            "attribute": "required_sequence",
-            "name": "Required Sequence",
-            "width": "250px",
-          },
-          Object {
-            "attribute": "incorrect_sequence",
-            "name": "Incorrect Sequence",
-            "width": "250px",
-          },
-          Object {
-            "attribute": "because_prompt",
-            "name": "Because",
-            "width": "50px",
-          },
-          Object {
-            "attribute": "but_prompt",
-            "name": "But",
-            "width": "50px",
-          },
-          Object {
-            "attribute": "so_prompt",
-            "name": "So",
-            "width": "50px",
-          },
-          Object {
-            "attribute": "view",
-            "name": "",
-            "width": "50px",
-          },
-        ]
+        },
+        "mutationCache": MutationCache {
+          "config": Object {},
+          "listeners": Array [],
+          "mutationId": 0,
+          "mutations": Array [],
+        },
+        "mutationDefaults": Array [],
+        "queryCache": QueryCache {
+          "config": Object {},
+          "listeners": Array [],
+          "queries": Array [],
+          "queriesMap": Object {},
+        },
+        "queryDefaults": Array [],
       }
-      isReorderable={true}
-      reorderCallback={[Function]}
-      rows={
-        Array [
-          Object {
-            "because_prompt": undefined,
-            "but_prompt": undefined,
-            "id": 1,
-            "incorrect_sequence": <div
-              className="regex-text-container"
-            />,
-            "name": "rule_1",
-            "priority": undefined,
-            "required_sequence": <div
-              className="regex-text-container"
-            />,
-            "so_prompt": undefined,
-            "view": <Link
-              to="/activities/1/regex-rules/1"
-            >
-              View
-            </Link>,
+    }
+  >
+    <RegexRulesIndex
+      history={
+        Object {
+          "createHref": [Function],
+          "createKey": [Function],
+          "createLocation": [Function],
+          "createPath": [Function],
+          "go": [Function],
+          "goBack": [Function],
+          "goForward": [Function],
+          "listen": [Function],
+          "listenBefore": [Function],
+          "push": [Function],
+          "pushState": [Function],
+          "registerTransitionHook": [Function],
+          "replace": [Function],
+          "replaceState": [Function],
+          "setState": [Function],
+          "transitionTo": [Function],
+          "unregisterTransitionHook": [Function],
+        }
+      }
+      location={
+        Object {
+          "action": "POP",
+          "hash": "",
+          "key": null,
+          "pathname": "/",
+          "search": "",
+          "state": null,
+        }
+      }
+      match={
+        Object {
+          "isExact": true,
+          "params": Object {
+            "activityId": "1",
           },
-          Object {
-            "because_prompt": undefined,
-            "but_prompt": undefined,
-            "id": 2,
-            "incorrect_sequence": <div
-              className="regex-text-container"
-            />,
-            "name": "rule_2",
-            "priority": undefined,
-            "required_sequence": <div
-              className="regex-text-container"
-            />,
-            "so_prompt": undefined,
-            "view": <Link
-              to="/activities/1/regex-rules/2"
-            >
-              View
-            </Link>,
-          },
-        ]
+          "path": "",
+          "url": "",
+        }
       }
     />
-  </section>
-  <section
-    className="rules-based-section"
-  >
-    <button
-      className="quill-button fun primary contained add-rule-button"
-      type="submit"
-    >
-      <Link
-        to={
-          Object {
-            "pathname": "/activities/1/regex-rules/new",
-            "state": Object {
-              "ruleType": "rules-based-2",
-            },
-          }
-        }
-      >
-        Add Post-Topic Regex Rule
-      </Link>
-    </button>
-    <DataTable
-      averageFontWidth={7}
-      className="rules-table regex-index-table"
-      defaultSortAttribute="name"
-      headers={
-        Array [
-          Object {
-            "attribute": "priority",
-            "name": "Priority",
-            "width": "50px",
-          },
-          Object {
-            "attribute": "name",
-            "name": "Rule Name",
-            "width": "300px",
-          },
-          Object {
-            "attribute": "required_sequence",
-            "name": "Required Sequence",
-            "width": "250px",
-          },
-          Object {
-            "attribute": "incorrect_sequence",
-            "name": "Incorrect Sequence",
-            "width": "250px",
-          },
-          Object {
-            "attribute": "because_prompt",
-            "name": "Because",
-            "width": "50px",
-          },
-          Object {
-            "attribute": "but_prompt",
-            "name": "But",
-            "width": "50px",
-          },
-          Object {
-            "attribute": "so_prompt",
-            "name": "So",
-            "width": "50px",
-          },
-          Object {
-            "attribute": "view",
-            "name": "",
-            "width": "50px",
-          },
-        ]
-      }
-      isReorderable={true}
-      reorderCallback={[Function]}
-      rows={
-        Array [
-          Object {
-            "because_prompt": undefined,
-            "but_prompt": undefined,
-            "id": 1,
-            "incorrect_sequence": <div
-              className="regex-text-container"
-            />,
-            "name": "rule_1",
-            "priority": undefined,
-            "required_sequence": <div
-              className="regex-text-container"
-            />,
-            "so_prompt": undefined,
-            "view": <Link
-              to="/activities/1/regex-rules/1"
-            >
-              View
-            </Link>,
-          },
-          Object {
-            "because_prompt": undefined,
-            "but_prompt": undefined,
-            "id": 2,
-            "incorrect_sequence": <div
-              className="regex-text-container"
-            />,
-            "name": "rule_2",
-            "priority": undefined,
-            "required_sequence": <div
-              className="regex-text-container"
-            />,
-            "so_prompt": undefined,
-            "view": <Link
-              to="/activities/1/regex-rules/2"
-            >
-              View
-            </Link>,
-          },
-        ]
-      }
-    />
-  </section>
-  <section
-    className="rules-based-section"
-  >
-    <button
-      className="quill-button fun primary contained add-rule-button"
-      type="submit"
-    >
-      <Link
-        to={
-          Object {
-            "pathname": "/activities/1/regex-rules/new",
-            "state": Object {
-              "ruleType": "rules-based-3",
-            },
-          }
-        }
-      >
-        Add Typo Regex Rule
-      </Link>
-    </button>
-    <DataTable
-      averageFontWidth={7}
-      className="rules-table regex-index-table"
-      defaultSortAttribute="name"
-      headers={
-        Array [
-          Object {
-            "attribute": "priority",
-            "name": "Priority",
-            "width": "50px",
-          },
-          Object {
-            "attribute": "name",
-            "name": "Rule Name",
-            "width": "300px",
-          },
-          Object {
-            "attribute": "required_sequence",
-            "name": "Required Sequence",
-            "width": "250px",
-          },
-          Object {
-            "attribute": "incorrect_sequence",
-            "name": "Incorrect Sequence",
-            "width": "250px",
-          },
-          Object {
-            "attribute": "because_prompt",
-            "name": "Because",
-            "width": "50px",
-          },
-          Object {
-            "attribute": "but_prompt",
-            "name": "But",
-            "width": "50px",
-          },
-          Object {
-            "attribute": "so_prompt",
-            "name": "So",
-            "width": "50px",
-          },
-          Object {
-            "attribute": "view",
-            "name": "",
-            "width": "50px",
-          },
-        ]
-      }
-      isReorderable={true}
-      reorderCallback={[Function]}
-      rows={
-        Array [
-          Object {
-            "because_prompt": undefined,
-            "but_prompt": undefined,
-            "id": 1,
-            "incorrect_sequence": <div
-              className="regex-text-container"
-            />,
-            "name": "rule_1",
-            "priority": undefined,
-            "required_sequence": <div
-              className="regex-text-container"
-            />,
-            "so_prompt": undefined,
-            "view": <Link
-              to="/activities/1/regex-rules/1"
-            >
-              View
-            </Link>,
-          },
-          Object {
-            "because_prompt": undefined,
-            "but_prompt": undefined,
-            "id": 2,
-            "incorrect_sequence": <div
-              className="regex-text-container"
-            />,
-            "name": "rule_2",
-            "priority": undefined,
-            "required_sequence": <div
-              className="regex-text-container"
-            />,
-            "so_prompt": undefined,
-            "view": <Link
-              to="/activities/1/regex-rules/2"
-            >
-              View
-            </Link>,
-          },
-        ]
-      }
-    />
-  </section>
-</div>
+  </ContextProvider>
+</ContextProvider>
 `;

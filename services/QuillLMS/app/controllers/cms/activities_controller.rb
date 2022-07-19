@@ -4,7 +4,7 @@ class Cms::ActivitiesController < Cms::CmsController
   before_action :find_classification
   before_action :set_activity, only: [:update, :destroy, :edit]
   before_action :set_style_and_javascript_file, only: [:new, :edit]
-  before_action :set_raw_score_options_and_grade_band_hash, only: [:new, :edit]
+  before_action :set_raw_score_options_and_raw_score_to_readability_grade_band, only: [:new, :edit]
 
   def index
     @flag = params[:flag].to_s.to_sym.presence || :production
@@ -35,7 +35,7 @@ class Cms::ActivitiesController < Cms::CmsController
   end
 
   def update
-    if @activity.update_attributes!(activity_params)
+    if @activity.update!(activity_params)
       render json: { activity: @activity }
     else
       render json: { }
@@ -63,7 +63,9 @@ class Cms::ActivitiesController < Cms::CmsController
       'flags',
       'standard_id',
       'raw_score_id',
-      'follow_up_activity_id'
+      'follow_up_activity_id',
+      'minimum_grade_level',
+      'maximum_grade_level'
     )
     formatted_activity['content_partner_ids'] = activity.content_partner_ids
     formatted_activity['topic_ids'] = activity.topic_ids
@@ -79,10 +81,11 @@ class Cms::ActivitiesController < Cms::CmsController
     @activity_classification = ActivityClassification.find_by_id!(params[:activity_classification_id])
   end
 
-  protected def set_raw_score_options_and_grade_band_hash
+  protected def set_raw_score_options_and_raw_score_to_readability_grade_band
     @raw_score_options = RawScore.order_by_name
-    @grade_band_hash = {}
-    @raw_score_options.each { |rs| @grade_band_hash[rs.name] = rs.readability_grade_level(@activity_classification.id) }
+    @raw_score_to_readability_grade_band = {}
+    @raw_score_options.each { |rs| @raw_score_to_readability_grade_band[rs.name] = rs.readability_grade_level(@activity_classification.id) }
+    @readability_grade_band_to_minimum_grade_level = Activity::READABILITY_GRADE_LEVEL_TO_MINIMUM_GRADE_LEVEL
   end
 
   protected def set_style_and_javascript_file
@@ -102,6 +105,8 @@ class Cms::ActivitiesController < Cms::CmsController
                                      :follow_up_activity_id,
                                      :supporting_info,
                                      :raw_score_id,
+                                     :minimum_grade_level,
+                                     :maximum_grade_level,
                                      topic_ids: [],
                                      activity_category_ids: [],
                                      content_partner_ids: [],

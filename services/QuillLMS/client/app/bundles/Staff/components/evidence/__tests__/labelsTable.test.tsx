@@ -2,20 +2,11 @@ import * as React from 'react';
 import { shallow } from 'enzyme';
 
 import LabelsTable from '../semanticRules/labelsTable';
-import { DataTable } from '../../../../Shared/index';
+import { QueryClientProvider } from 'react-query'
 
-const mockRules = [
-  { id: 1, name: 'rule_1', state: 'active', optimal: false, label: { id: 1, name: 'label_1' } },
-  { id: 2, name: 'rule_2', state: 'active', optimal: false, label: { id: 2, name: 'label_2' } },
-]
-jest.mock("react-query", () => ({
-  useQuery: jest.fn(() => ({
-    data: { rules: mockRules},
-    error: null,
-    status: "success",
-    isFetching: true,
-  })),
-}));
+import { DefaultReactQueryClient } from '../../../../Shared/index';
+
+const queryClient = new DefaultReactQueryClient();
 
 describe('LabelsTable component', () => {
   const mockProps = {
@@ -23,13 +14,12 @@ describe('LabelsTable component', () => {
     prompt: { id: 1, conjunction: 'because' }
   }
   const container = shallow(
-    <LabelsTable {...mockProps} />
+    <QueryClientProvider client={queryClient} contextSharing={true}>
+      <LabelsTable {...mockProps} />
+    </QueryClientProvider>
   );
 
   it('should render LabelsTable', () => {
     expect(container).toMatchSnapshot();
-  });
-  it('should render a DataTable', () => {
-    expect(container.find(DataTable).length).toEqual(1)
   });
 });

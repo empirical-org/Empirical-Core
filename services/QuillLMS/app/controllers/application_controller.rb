@@ -121,7 +121,7 @@ class ApplicationController < ActionController::Base
   end
 
   protected def set_default_cache_security_headers
-    response.headers['Cache-Control'] = 'no-cache, no-store, max-age=0, must-revalidate'
+    response.headers['Cache-Control'] = 'no-cache, no-store'
     response.headers['Pragma'] = 'no-cache'
     response.headers['Expires'] = 'Fri, 01 Jan 1990 00:00:00 GMT'
   end

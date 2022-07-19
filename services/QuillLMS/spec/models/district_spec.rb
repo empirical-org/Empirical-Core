@@ -30,6 +30,8 @@ describe District, type: :model do
   it { should have_many(:district_admins) }
   it { should have_many(:admins).through(:district_admins) }
 
+  it_behaves_like 'a subscriber'
+
   context '#total_invoice' do
     let!(:district) { create(:district)}
     let!(:school) { create(:school)}
@@ -72,5 +74,4 @@ describe District, type: :model do
       })
     end
   end
-
 end

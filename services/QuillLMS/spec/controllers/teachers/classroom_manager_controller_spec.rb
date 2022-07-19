@@ -117,6 +117,20 @@ describe Teachers::ClassroomManagerController, type: :controller do
         end
       end
 
+      describe 'show grade level warning' do
+        it 'should be true if the user does not have the milestone' do
+          get :assign
+          expect(assigns(:show_grade_level_warning)).to eq true
+        end
+
+        it 'should be false if the user already has the dismiss grade level warning milestone' do
+          milestone = create(:dismiss_grade_level_warning)
+          user_milestone = create(:user_milestone, milestone: milestone, user: user)
+          get :assign
+          expect(assigns(:show_grade_level_warning)).to eq false
+        end
+      end
+
       describe 'assigned_pre_tests' do
         let!(:starter_post_test) { create(:diagnostic_activity) }
         let!(:intermediate_post_test) { create(:diagnostic_activity) }
@@ -445,7 +459,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
       get :students_list, params: { id: classroom.id }, as: :json
       expect(assigns(:classroom)).to eq classroom
       expect(response.body).to eq({
-        students: classroom.students.order("substring(users.name, '(?=\s).*') asc, users.name asc"),
+        students: classroom.students.order(Arel.sql("substring(users.name, '(?=\s).*') asc, users.name asc"))
       }.to_json)
     end
   end

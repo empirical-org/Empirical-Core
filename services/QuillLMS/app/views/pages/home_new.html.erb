@@ -20,7 +20,7 @@
   </div>
   <div class="q-hero-footer">
     <p class="text-white">
-      <span class="hero-footer-underline"><%= number_to_human(@number_of_students).downcase %></span> students have written <span class="hero-footer-underline"><%= number_to_human(@number_of_sentences).downcase %></span> sentences on Quill.
+      <span class="hero-footer-underline"><%= Utils::Numeric.to_human_string(@number_of_students).downcase %></span> students have written <span class="hero-footer-underline"><%= Utils::Numeric.to_human_string(@number_of_sentences).downcase %></span> sentences on Quill.
     </p>
   </div>
 </section>

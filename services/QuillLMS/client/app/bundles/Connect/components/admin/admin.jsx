@@ -15,7 +15,7 @@ import AdminMainSidebar from '../../components/admin/adminMainSidebar.jsx'
 import ConceptsFeedback from '../feedback/concepts-feedback.jsx';
 import ConceptFeedback from '../feedback/concept-feedback.jsx';
 import Concepts from '../concepts/concepts.jsx';
-import Concept from '../concepts/concept.jsx';
+import Concept from '../concepts/concept';
 import Lessons from '../lessons/lessons.jsx';
 import Lesson from '../lessons/lesson.jsx';
 import Questions from '../questions/questions.jsx';

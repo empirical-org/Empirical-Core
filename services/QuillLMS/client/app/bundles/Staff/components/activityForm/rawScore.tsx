@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-const RawScore = ({ activity, rawScoreOptions, handleRawScoreChange, gradeBands, }) => {
+const RawScore = ({ activity, rawScoreOptions, handleRawScoreChange, rawScoreToReadabilityGradeBands, }) => {
   const [rawScoreEnabled, setRawScoreEnabled] = React.useState(!!activity.raw_score_id)
   const rawScoreOptionElements = [<option value={null} />].concat(rawScoreOptions.map(cpo => (<option value={cpo.id}>{cpo.name}</option>)))
 
@@ -11,7 +11,7 @@ const RawScore = ({ activity, rawScoreOptions, handleRawScoreChange, gradeBands,
   }, [rawScoreEnabled])
 
   function onChangeRawScore(e) {
-    handleRawScoreChange(e.target.value)
+    handleRawScoreChange(e.target.value || null)
   }
 
   function toggleRawScoreEnabled(e) {
@@ -19,7 +19,7 @@ const RawScore = ({ activity, rawScoreOptions, handleRawScoreChange, gradeBands,
   }
 
   const selectedRawScoreOption = rawScoreOptions.find(rs => rs.id === activity.raw_score_id)
-  const gradeLevel = selectedRawScoreOption ? gradeBands[selectedRawScoreOption.name] : null
+  const gradeLevel = selectedRawScoreOption ? rawScoreToReadabilityGradeBands[selectedRawScoreOption.name] : null
 
   return (
     <section className="raw-score-container enabled-attribute-container">
@@ -29,7 +29,7 @@ const RawScore = ({ activity, rawScoreOptions, handleRawScoreChange, gradeBands,
       </section>
       <section>
         <label>Readability</label>
-        <select disabled={!rawScoreEnabled} onChange={onChangeRawScore} value={activity.raw_score_id || ''}>{rawScoreOptionElements}</select>
+        <select disabled={!rawScoreEnabled} onChange={onChangeRawScore} value={activity.raw_score_id || null}>{rawScoreOptionElements}</select>
       </section>
       <section>
         <label>Readability Grade Level</label>

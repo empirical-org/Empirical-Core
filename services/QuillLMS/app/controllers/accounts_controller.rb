@@ -59,7 +59,7 @@ class AccountsController < ApplicationController
     end
 
     user_params.merge! validate_username: validate_username
-    if @user.update_attributes user_params
+    if @user.update(user_params)
       redirect_to updated_account_path
     else
       render 'accounts/edit'

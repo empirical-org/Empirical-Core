@@ -4,6 +4,13 @@
     <br /><br />
     <h2><%= @district.name %></h2>
     <br />
+    <h2>District Subscription</h2>
+    <br />
+    <% if @subscription %>
+      <%= link_to 'Edit Subscription', edit_cms_subscription_path(@subscription), class: 'btn button-green' %>
+    <% end %>
+    <%= link_to 'New Subscription', new_subscription_cms_district_path(params[:id]), class: 'btn button-green' %>
+    <br /> <br />
     <h2>District Info</h2>
     <br />
     <%= link_to 'Edit District Info', edit_cms_district_path(params[:id]), class: 'btn button-green' %>

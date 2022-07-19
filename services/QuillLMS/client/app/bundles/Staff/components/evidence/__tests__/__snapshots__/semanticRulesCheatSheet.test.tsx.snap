@@ -1,158 +1,45 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SemanticRulesCheatSheet component should render SemanticRulesCheatSheet 1`] = `
-<section
-  className="semantic-labels-container"
+<ContextProvider
+  value={true}
 >
-  <section
-    className="comprehension-page-header-container"
-  >
-    <h2>
-      Semantic Rules Cheat Sheet
-    </h2>
-    <h3>
-      Could Capybaras Create Chaos?
-    </h3>
-    <h4 />
-  </section>
-  <h4
-    dangerouslySetInnerHTML={
-      Object {
-        "__html": "Prompt: 1",
+  <ContextProvider
+    value={
+      DefaultReactQueryClient {
+        "defaultOptions": Object {
+          "queries": Object {
+            "cacheTime": Infinity,
+            "staleTime": Infinity,
+          },
+        },
+        "mutationCache": MutationCache {
+          "config": Object {},
+          "listeners": Array [],
+          "mutationId": 0,
+          "mutations": Array [],
+        },
+        "mutationDefaults": Array [],
+        "queryCache": QueryCache {
+          "config": Object {},
+          "listeners": Array [],
+          "queries": Array [],
+          "queriesMap": Object {},
+        },
+        "queryDefaults": Array [],
       }
     }
-  />
-  <DataTable
-    averageFontWidth={7}
-    className="semantic-rules-cheat-sheet"
-    headers={
-      Array [
+  >
+    <SemanticRulesCheatSheet
+      match={
         Object {
-          "attribute": "name",
-          "name": "Rule Name",
-          "noTooltip": true,
-          "width": "200px",
-        },
-        Object {
-          "attribute": "note",
-          "name": "Rule Notes",
-          "noTooltip": true,
-          "width": "300px",
-        },
-        Object {
-          "attribute": "firstLayerFeedback",
-          "name": "Rule Feedback - 1st Layer",
-          "noTooltip": true,
-          "width": "300px",
-        },
-        Object {
-          "attribute": "edit",
-          "name": "",
-          "noTooltip": true,
-          "width": "70px",
-        },
-      ]
-    }
-    rows={
-      Array [
-        Object {
-          "edit": <Link
-            className="quill-button fun contained primary"
-            rel="noopener noreferrer"
-            target="_blank"
-            to={
-              Object {
-                "pathname": "/activities/1/semantic-labels/1/1",
-                "state": Object {
-                  "rule": Object {
-                    "feedbacks": Array [
-                      Object {
-                        "text": "Here is some feedback",
-                      },
-                    ],
-                    "id": 1,
-                    "name": "rule_1",
-                    "note": "Here is a note",
-                  },
-                },
-              }
-            }
-          >
-            Edit Rule
-          </Link>,
-          "firstLayerFeedback": <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "Here is some feedback",
-              }
-            }
-          />,
-          "id": 1,
-          "name": <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "rule_1",
-              }
-            }
-          />,
-          "note": <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "Here is a note",
-              }
-            }
-          />,
-        },
-        Object {
-          "edit": <Link
-            className="quill-button fun contained primary"
-            rel="noopener noreferrer"
-            target="_blank"
-            to={
-              Object {
-                "pathname": "/activities/1/semantic-labels/1/2",
-                "state": Object {
-                  "rule": Object {
-                    "feedbacks": Array [
-                      Object {
-                        "text": "Here is some other feedback",
-                      },
-                    ],
-                    "id": 2,
-                    "name": "rule_2",
-                    "note": "Here is another note",
-                  },
-                },
-              }
-            }
-          >
-            Edit Rule
-          </Link>,
-          "firstLayerFeedback": <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "Here is some other feedback",
-              }
-            }
-          />,
-          "id": 2,
-          "name": <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "rule_2",
-              }
-            }
-          />,
-          "note": <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "Here is another note",
-              }
-            }
-          />,
-        },
-      ]
-    }
-  />
-</section>
+          "params": Object {
+            "activityId": "1",
+            "promptId": "1",
+          },
+        }
+      }
+    />
+  </ContextProvider>
+</ContextProvider>
 `;

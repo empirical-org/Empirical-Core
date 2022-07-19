@@ -5,7 +5,7 @@ class Cms::ActivityClassificationsController < Cms::CmsController
     respond_to do |format|
       format.html
       format.json do
-        render json: ActivityClassification.order(order_number: :asc)
+        render json: { activity_classifications: ActivityClassification.order(order_number: :asc) }
       end
     end
   end
@@ -25,7 +25,7 @@ class Cms::ActivityClassificationsController < Cms::CmsController
 
   def update
     activity_classification = ActivityClassification.find(params[:id])
-    if activity_classification.update_attributes(filtered_activity_classification_params)
+    if activity_classification.update(filtered_activity_classification_params)
       render json: activity_classification
     else
       render json: {errors: activity_classification.errors}, status: 422

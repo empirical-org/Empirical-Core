@@ -188,12 +188,9 @@ module Evidence
     end
 
     private def assign_to_all_prompts
-      Prompt.all.each do |prompt|
-        unless prompts.include?(prompt)
-          prompts.append(prompt)
-        end
-      end
-      save!
+      unassigned_prompts = Prompt.all - prompts
+
+      prompts_rules.create!(unassigned_prompts.map { |prompt| { prompt: prompt } })
     end
 
     private def one_plagiarism_per_prompt

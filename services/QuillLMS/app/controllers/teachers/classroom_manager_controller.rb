@@ -93,7 +93,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   def students_list
     @classroom = current_user.classrooms_i_teach.find {|classroom| classroom.id == params[:id]&.to_i}
     last_name = "substring(users.name, '(?=\s).*')"
-    render json: {students: @classroom&.students&.order("#{last_name} asc, users.name asc")}
+    render json: { students: @classroom&.students&.order(Arel.sql("#{last_name} asc, users.name asc")) }
   end
 
   def premium
@@ -302,10 +302,12 @@ class Teachers::ClassroomManagerController < ApplicationController
     acknowledge_diagnostic_banner_milestone = Milestone.find_by_name(Milestone::TYPES[:acknowledge_diagnostic_banner])
     acknowledge_evidence_banner_milestone = Milestone.find_by_name(Milestone::TYPES[:acknowledge_evidence_banner])
     acknowledge_lessons_banner_milestone = Milestone.find_by_name(Milestone::TYPES[:acknowledge_lessons_banner])
+    dismiss_grade_level_warning_milestone = Milestone.find_by_name(Milestone::TYPES[:dismiss_grade_level_warning])
     diagnostic_ids = Activity.diagnostic_activity_ids
     @show_diagnostic_banner = !UserMilestone.find_by(milestone_id: acknowledge_diagnostic_banner_milestone&.id, user_id: current_user&.id) && current_user&.unit_activities&.where(activity_id: diagnostic_ids)&.none?
     @show_evidence_banner = !UserMilestone.find_by(milestone_id: acknowledge_evidence_banner_milestone&.id, user_id: current_user&.id) && current_user&.classroom_unit_activity_states&.where(completed: true)&.none?
     @show_lessons_banner = !UserMilestone.find_by(milestone_id: acknowledge_lessons_banner_milestone&.id, user_id: current_user&.id) && current_user&.classroom_unit_activity_states&.where(completed: true)&.none?
+    @show_grade_level_warning = !UserMilestone.find_by(milestone_id: dismiss_grade_level_warning_milestone&.id, user_id: current_user&.id)
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 

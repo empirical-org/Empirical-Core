@@ -14,6 +14,12 @@ class RawScore < ApplicationRecord
   validates :name, presence: true
   validates :order, presence: true
 
+  SECOND_THROUGH_THIRD = "2nd-3rd"
+  FOURTH_THROUGH_FIFTH = "4th-5th"
+  SIXTH_THROUGH_SEVENTH = "6th-7th"
+  EIGHTH_THROUGH_NINTH = "8th-9th"
+  TENTH_THROUGH_TWELFTH = "10th-12th"
+
   def self.order_by_name
     RawScore.all.sort_by do |rs|
       if rs.name.include?('BR')
@@ -30,32 +36,32 @@ class RawScore < ApplicationRecord
     case name
     when "1200-1300"
       if ActivityClassification::EVIDENCE_KEY == activity_classification.key
-        "8th-9th"
+        EIGHTH_THROUGH_NINTH
       else
-        "10th-12th"
+        TENTH_THROUGH_TWELFTH
       end
     when "1300-1400", "1400-1500"
-      "10th-12th"
+      TENTH_THROUGH_TWELFTH
     when "900-1000", "1000-1100", "1100-1200"
-      "8th-9th"
+      EIGHTH_THROUGH_NINTH
     when "600-700", "700-800", "800-900"
-      "6th-7th"
+      SIXTH_THROUGH_SEVENTH
     when "500-600"
       if [ActivityClassification::PROOFREADER_KEY, ActivityClassification::EVIDENCE_KEY].include?(activity_classification.key)
-        "4th-5th"
+        FOURTH_THROUGH_FIFTH
       else
-        "6th-7th"
+        SIXTH_THROUGH_SEVENTH
       end
     when "400-500"
-      "4th-5th"
+      FOURTH_THROUGH_FIFTH
     when "300-400"
       if [ActivityClassification::PROOFREADER_KEY, ActivityClassification::EVIDENCE_KEY].include?(activity_classification.key)
-        "2nd-3rd"
+        SECOND_THROUGH_THIRD
       else
-        "4th-5th"
+        FOURTH_THROUGH_FIFTH
       end
     when "BR100-0", "0-100", "100-200", "200-300"
-      "2nd-3rd"
+      SECOND_THROUGH_THIRD
     else
       ""
     end

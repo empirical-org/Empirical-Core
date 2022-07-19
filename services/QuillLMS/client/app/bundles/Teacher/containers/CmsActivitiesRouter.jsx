@@ -6,8 +6,8 @@ import ActivityClassifications from './ActivityClassifications';
 import UnitTemplateCategories from './UnitTemplateCategories';
 
 import UnitTemplateCategory from '../components/unit_template_categories/unit_template_category';
-import UnitTemplate from '../components/unit_templates/unit_template.jsx'
-import ActivityClassification from '../components/activity_classifications/activity_classification.jsx'
+import UnitTemplate from '../components/unitTemplate';
+import ActivityClassification from '../components/activity_classifications/activity_classification'
 
 function CmsActivitiesRouter(props) {
   return (

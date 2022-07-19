@@ -66,9 +66,9 @@ class ActivitySession < ApplicationRecord
   has_many :user_activity_classifications, through: :classification
   has_one :classroom, through: :classroom_unit
   has_one :unit, through: :classroom_unit
-  has_many :concept_results
+  has_many :old_concept_results
   has_many :teachers, through: :classroom
-  has_many :concepts, -> { distinct }, through: :concept_results
+  has_many :concepts, -> { distinct }, through: :old_concept_results
   has_one :active_activity_session, foreign_key: :uid, primary_key: :uid
   has_one :activity_survey_response
 
@@ -335,7 +335,7 @@ class ActivitySession < ApplicationRecord
 
   # rubocop:disable Metrics/CyclomaticComplexity
   def parse_for_results
-    concept_results_by_concept = concept_results.group_by { |c| c.concept_id }
+    concept_results_by_concept = old_concept_results.group_by { |c| c.concept_id }
 
     results = {
       PROFICIENT => [],
@@ -396,7 +396,7 @@ class ActivitySession < ApplicationRecord
       concept_result[:activity_session_id] = activity_session_id
       concept_result.delete(:activity_session_uid)
 
-      ConceptResult.create(
+      OldConceptResult.create(
         concept_id: concept_result[:concept_id],
         question_type: concept_result[:question_type],
         activity_session_id: concept_result[:activity_session_id],
@@ -408,7 +408,7 @@ class ActivitySession < ApplicationRecord
   def self.delete_activity_sessions_with_no_concept_results(activity_sessions)
     incomplete_activity_session_ids = []
     activity_sessions.each do |as|
-      if as.concept_result_ids.empty?
+      if as.old_concept_result_ids.empty?
         incomplete_activity_session_ids.push(as.id)
       end
     end
@@ -440,7 +440,7 @@ class ActivitySession < ApplicationRecord
 
   def self.activity_session_metadata(activity_sessions)
     activity_sessions.map do |activity_session|
-      activity_session.concept_results.map do |concept_result|
+      activity_session.old_concept_results.map do |concept_result|
         concept_result.metadata
       end
     end.flatten
@@ -516,11 +516,11 @@ class ActivitySession < ApplicationRecord
   end
 
   # when using this method, you should eager load ass
-  # e.g. .includes(:concept_results, activity: {skills: :concepts})
+  # e.g. .includes(:old_concept_results, activity: {skills: :concepts})
   def correct_skills
     @correct_skills ||= begin
       skills.select do |skill|
-        results = concept_results.select {|cr| cr.concept_id.in?(skill.concept_ids)}
+        results = old_concept_results.select {|cr| cr.concept_id.in?(skill.concept_ids)}
 
         results.length && results.all?(&:correct?)
       end
@@ -561,9 +561,9 @@ class ActivitySession < ApplicationRecord
 
     case sort[:field]
     when 'activity_classification_name'
-      "activity_classifications.name #{order}, #{last_name} #{order}"
+      Arel.sql("activity_classifications.name #{order}, #{last_name} #{order}")
     when 'student_name'
-      "#{last_name} #{order}, users.name #{order}"
+      Arel.sql("#{last_name} #{order}, users.name #{order}")
     when 'completed_at'
       "activity_sessions.completed_at #{order}"
     when 'activity_name'
