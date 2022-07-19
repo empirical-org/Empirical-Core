@@ -21,15 +21,19 @@
       margin-bottom: 13px;
       .name-and-checkbox-wrapper {
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         .quill-checkbox {
           margin-right: 16px;
+          margin-top: 2px;
         }
       }
       .buttons-wrapper {
         display: flex;
         .non-toggle-buttons {
           display: flex;
+          .interactive-wrapper {
+            height: min-content;
+          }
         }
       }
       .preview-link, .remove-button {
@@ -243,6 +247,9 @@
       }
       .grade-range-and-standard-level-wrapper {
         flex-direction: column !important;
+        .vertical-divider {
+          display: none;
+        }
       }
       .grade-range {
         margin: 8px 0px;

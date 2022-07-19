@@ -98,7 +98,7 @@ const ActivityRowConcept = ({ conceptName, }: { conceptName?: string }) => {
   return <span className={className} />
 }
 
-const ActivityRowTopics = ({ topics, maxAllowedLength, onTertiaryLine, inExpandedView, }: { topics?: Topic[], maxAllowedLength: number, onTertiaryLine: boolean, inExpandedView, }) => {
+const ActivityRowTopics = ({ topics, maxAllowedLength, onTertiaryLine, inExpandedView, hasConcept, }: { topics?: Topic[], maxAllowedLength: number, onTertiaryLine: boolean, inExpandedView: boolean, hasConcept: boolean, }) => {
   const className = "attribute-section topic"
 
   if (!(topics && topics.length)) { return <span /> }
@@ -125,7 +125,7 @@ const ActivityRowTopics = ({ topics, maxAllowedLength, onTertiaryLine, inExpande
   } else if ((widthExceedsAllottedSpaceOnSecondLine && onTertiaryLine) || (!widthExceedsAllottedSpaceOnSecondLine && !onTertiaryLine)) {
     return (
       <span className={className}>
-        {!onTertiaryLine && <span className="vertical-divider" />}
+        {!onTertiaryLine && hasConcept && <span className="vertical-divider" />}
         <img alt="Globe icon" src={topicSrc} />
         <span>{topicString}</span>
       </span>
@@ -287,6 +287,7 @@ const ActivityRow = ({ activity, isSelected, toggleActivitySelection, showCheckb
     topicLine = (
       <div className="third-line">
         <ActivityRowTopics
+          hasConcept={!!activity_category_name}
           inExpandedView={isExpanded}
           maxAllowedLength={calculateMaxAllowedLengthForTopicSection({ activity_classification, activity_category_name, readability_grade_level, standard_level_name})}
           onTertiaryLine={true}
@@ -313,6 +314,7 @@ const ActivityRow = ({ activity, isSelected, toggleActivitySelection, showCheckb
         <div className="classification-concept-topic-wrapper">
           <ActivityRowConcept conceptName={activity_category_name} />
           <ActivityRowTopics
+            hasConcept={!!activity_category_name}
             inExpandedView={isExpanded}
             maxAllowedLength={calculateMaxAllowedLengthForTopicSection({ activity_classification, activity_category_name, readability_grade_level, standard_level_name})}
             onTertiaryLine={false}
