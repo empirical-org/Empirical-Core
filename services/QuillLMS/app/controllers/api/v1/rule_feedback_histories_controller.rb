@@ -6,7 +6,7 @@ class Api::V1::RuleFeedbackHistoriesController < Api::ApiController
 
     options = params.permit(:conjunction, :activity_id, :start_date, :end_date, :turk_session_id).to_h.symbolize_keys
     report = RuleFeedbackHistory.generate_report(**options)
-    render json: report
+    render json: { rule_feedback_histories: report }
   end
 
   def rule_detail

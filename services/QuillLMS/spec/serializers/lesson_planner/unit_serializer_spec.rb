@@ -3,33 +3,15 @@
 require 'rails_helper'
 
 describe LessonPlanner::UnitSerializer, type: :serializer do
-  before do
-    Timecop.freeze(Time.utc(2015, 1, 1, 12, 0, 0))
-  end
+  before { Timecop.freeze(Time.utc(2015, 1, 1, 12, 0, 0)) }
 
-  after do
-    Timecop.return
-  end
+  after { Timecop.return }
 
   it_behaves_like 'serializer' do
     let!(:record_instance) { create(:unit) }
-
-    let!(:expected_serialized_keys) do
-      %w(id
-         name
-         selectedActivities
-         classrooms
-         dueDates)
-    end
-
-    let!(:nested_hash_keys) do
-      %w(dueDates)
-    end
-
-    let!(:neseted_array_keys) do
-      %w(selectedActivities
-         classrooms)
-    end
+    let!(:expected_serialized_keys) { %w(id name selectedActivities classrooms dueDates) }
+    let!(:nested_hash_keys) { %w(dueDates) }
+    let!(:neseted_array_keys) { %w(selectedActivities classrooms) }
   end
 
   context 'unit with nontrivial data' do
@@ -39,6 +21,7 @@ describe LessonPlanner::UnitSerializer, type: :serializer do
     let(:activity) { create(:activity) }
     let(:due_date) { Date.current }
     let(:unit) { create(:unit) }
+
     let!(:classroom_unit) do
       create(:classroom_unit,
         classroom: classroom,
@@ -46,6 +29,7 @@ describe LessonPlanner::UnitSerializer, type: :serializer do
         unit: unit,
       )
     end
+
     let!(:unit_activity) do
       create(:unit_activity,
         unit: unit,
@@ -54,6 +38,7 @@ describe LessonPlanner::UnitSerializer, type: :serializer do
         visible: true
       )
     end
+
     let!(:expected_classrooms) do
       [
         {
@@ -69,9 +54,7 @@ describe LessonPlanner::UnitSerializer, type: :serializer do
       ]
     end
 
-    subject do
-      LessonPlanner::UnitSerializer.new(unit.reload, root: false).as_json
-    end
+    subject { LessonPlanner::UnitSerializer.new(unit.reload).as_json(root: false) }
 
     context 'assigned_student_ids = []' do
       it 'has correct classrooms' do
@@ -80,9 +63,7 @@ describe LessonPlanner::UnitSerializer, type: :serializer do
     end
 
     context 'assigned_student_ids includes student.id' do
-      let!(:updated_classroom_unit) do
-        classroom_unit.update(assigned_student_ids: [student.id])
-      end
+      let!(:updated_classroom_unit) { classroom_unit.update(assigned_student_ids: [student.id]) }
 
       it 'has correct classrooms' do
         expect(subject[:classrooms]).to eq(expected_classrooms)
@@ -90,8 +71,7 @@ describe LessonPlanner::UnitSerializer, type: :serializer do
     end
 
     it 'has correct selected_activities' do
-      expect(subject[:selectedActivities])
-        .to eq([ActivitySerializer.new(activity, root: false).as_json])
+      expect(subject[:selectedActivities]).to eq [ActivitySerializer.new(activity).as_json(root: false)]
     end
 
     it 'has correct dueDates' do

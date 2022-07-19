@@ -8,6 +8,7 @@ describe ProgressReports::Concepts::StudentSerializer, type: :serializer do
   let!(:student) { create(:user, role: 'student', classrooms: [classroom])}
   let(:activity) { create(:activity) }
   let(:unit) { create(:unit) }
+
   let(:classroom_unit) do
     create(:classroom_unit,
       unit: unit,
@@ -15,6 +16,7 @@ describe ProgressReports::Concepts::StudentSerializer, type: :serializer do
       assigned_student_ids: [student.id]
     )
   end
+
   let(:student_for_report) { ProgressReports::Concepts::User.results(teacher, {}).first }
   let(:concept) { create(:concept) }
   let(:serializer) { described_class.new(student_for_report) }
@@ -26,8 +28,8 @@ describe ProgressReports::Concepts::StudentSerializer, type: :serializer do
       state: 'finished',
       completed_at: 5.minutes.ago,
     )
-    activity_session.concept_results.create!(concept: concept, metadata: {'correct' => 1})
-    activity_session.concept_results.create!(concept: concept, metadata: {'correct' => 0})
+    activity_session.old_concept_results.create!(concept: concept, metadata: {'correct' => 1})
+    activity_session.old_concept_results.create!(concept: concept, metadata: {'correct' => 0})
   end
 
   describe '#to_json' do

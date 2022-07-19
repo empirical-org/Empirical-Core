@@ -7,11 +7,13 @@
 #  id                         :integer          not null, primary key
 #  data                       :jsonb
 #  description                :text
-#  flags                      :string           default([]), not null, is an Array
-#  name                       :string
+#  flags                      :string(255)      default([]), not null, is an Array
+#  maximum_grade_level        :integer
+#  minimum_grade_level        :integer
+#  name                       :string(255)
 #  repeatable                 :boolean          default(TRUE)
 #  supporting_info            :string
-#  uid                        :string           not null
+#  uid                        :string(255)      not null
 #  created_at                 :datetime
 #  updated_at                 :datetime
 #  activity_classification_id :integer
@@ -66,10 +68,14 @@ class Activity < ApplicationRecord
   has_many :activity_topics, dependent: :destroy
   has_many :topics, through: :activity_topics
   before_create :flag_as_beta, unless: :flags?
+  before_save :set_minimum_and_maximum_grade_levels_to_default_values, unless: :minimum_grade_level
   after_commit :clear_activity_search_cache
   after_save :update_evidence_child_title, if: :update_evidence_title?
 
   delegate :form_url, to: :classification, prefix: true
+
+  validates :minimum_grade_level, numericality: { greater_than_or_equal_to: 4, less_than_or_equal_to: 12, allow_nil: true }
+  validates :maximum_grade_level, numericality: { greater_than_or_equal_to: 4, less_than_or_equal_to: 12, allow_nil: true }
 
   scope :production, lambda {
     where(<<-SQL, :production)
@@ -100,6 +106,16 @@ class Activity < ApplicationRecord
   ELL_INTERMEDIATE_DIAGNOSTIC_ACTIVITY_ID = 1568
   ELL_ADVANCED_DIAGNOSTIC_ACTIVITY_ID = 1590
   PRE_TEST_DIAGNOSTIC_IDS = [STARTER_DIAGNOSTIC_ACTIVITY_ID, INTERMEDIATE_DIAGNOSTIC_ACTIVITY_ID, ADVANCED_DIAGNOSTIC_ACTIVITY_ID, ELL_STARTER_DIAGNOSTIC_ACTIVITY_ID, ELL_INTERMEDIATE_DIAGNOSTIC_ACTIVITY_ID, ELL_ADVANCED_DIAGNOSTIC_ACTIVITY_ID]
+
+  READABILITY_GRADE_LEVEL_TO_MINIMUM_GRADE_LEVEL = {
+    RawScore::SECOND_THROUGH_THIRD => 4,
+    RawScore::FOURTH_THROUGH_FIFTH => 4,
+    RawScore::SIXTH_THROUGH_SEVENTH => 6,
+    RawScore::EIGHTH_THROUGH_NINTH => 8,
+    RawScore::TENTH_THROUGH_TWELFTH => 10
+  }
+
+  DEFAULT_MAX_GRADE_LEVEL = 12
 
   def self.diagnostic_activity_ids
     ActivityClassification.find_by_key('diagnostic')&.activities&.pluck(:id) || []
@@ -227,9 +243,24 @@ class Activity < ApplicationRecord
   end
 
   def readability_grade_level
-    return nil unless raw_score_id
+    raw_score&.readability_grade_level(activity_classification_id)
+  end
 
-    raw_score.readability_grade_level(activity_classification_id)
+  def default_minimum_grade_level
+    return nil if readability_grade_level.nil?
+
+    READABILITY_GRADE_LEVEL_TO_MINIMUM_GRADE_LEVEL[readability_grade_level]
+  end
+
+  def default_maximum_grade_level
+    return nil if readability_grade_level.nil?
+
+    DEFAULT_MAX_GRADE_LEVEL
+  end
+
+  def set_minimum_and_maximum_grade_levels_to_default_values
+    self.minimum_grade_level = default_minimum_grade_level
+    self.maximum_grade_level = default_minimum_grade_level ? default_maximum_grade_level : nil
   end
 
   def is_diagnostic?

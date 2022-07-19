@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Cms::ActivitySerializer < ActiveModel::Serializer
+class Cms::ActivitySerializer < ApplicationSerializer
   attributes :uid, :id, :name, :description, :flags, :data, :created_at, :updated_at, :supporting_info, :activity_category, :readability_grade_level, :unit_templates
 
   has_one :classification, serializer: ClassificationSerializer

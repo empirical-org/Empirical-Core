@@ -26,7 +26,7 @@ describe ProviderClassroomWithUnsyncedStudentsSerializer, type: :serializer do
 
   subject { described_class.new(provider_classroom) }
 
-  let(:results) { JSON.parse(subject.to_json, symbolize_names: true) }
+  let(:results) { subject.as_json }
 
   it 'serializes' do
     expect(results).to eq(

@@ -37,7 +37,7 @@ shared_context 'Concept Progress Report' do
 
 
   let!(:correct_writing_result1) do
-    create(:concept_result,
+    create(:old_concept_result,
       activity_session: activity_session,
       concept: writing_concept,
       metadata: {
@@ -47,7 +47,7 @@ shared_context 'Concept Progress Report' do
   end
 
   let!(:correct_writing_result2) do
-    create(:concept_result,
+    create(:old_concept_result,
       activity_session: activity_session,
       concept: writing_concept,
       metadata: {
@@ -57,7 +57,7 @@ shared_context 'Concept Progress Report' do
   end
 
   let!(:incorrect_writing_result) do
-    create(:concept_result,
+    create(:old_concept_result,
       activity_session: activity_session,
       concept: writing_concept,
       metadata: {
@@ -67,7 +67,7 @@ shared_context 'Concept Progress Report' do
   end
 
   let!(:correct_grammar_result) do
-    create(:concept_result,
+    create(:old_concept_result,
       activity_session: activity_session,
       concept: grammar_tag,
       metadata: {
@@ -77,7 +77,7 @@ shared_context 'Concept Progress Report' do
   end
 
   let!(:incorrect_grammar_result) do
-    create(:concept_result,
+    create(:old_concept_result,
       activity_session: activity_session,
       concept: grammar_tag,
       metadata: {
@@ -115,7 +115,7 @@ shared_context 'Concept Progress Report' do
   end
 
   let!(:other_grammar_result) do
-    create(:concept_result,
+    create(:old_concept_result,
       activity_session: other_activity_session,
       concept: writing_concept,
       metadata: {

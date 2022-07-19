@@ -2,6 +2,7 @@
 
 class SegmentAnalyticsUserSerializer < UserSerializer
   attributes :email, :created_at
+  type :segment_analytics_user
 
   def render
     {

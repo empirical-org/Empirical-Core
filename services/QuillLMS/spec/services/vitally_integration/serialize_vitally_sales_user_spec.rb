@@ -29,13 +29,16 @@ describe 'SerializeVitallySalesUser' do
     previous_year_data = {
       total_students: 3,
       active_students: 2,
-      activities_assigned: 3,
+      activities_assigned: 4,
       completed_activities: 3,
       completed_activities_per_student: 1.5,
       percent_completed_activities: 1.0,
       diagnostics_assigned: 2,
       diagnostics_finished: 2,
-      percent_completed_diagnostics: 1.0
+      percent_completed_diagnostics: 1.0,
+      evidence_activities_assigned: 2,
+      evidence_activities_completed: 1,
+      completed_evidence_activities_per_student: 0.5,
     }
     year = School.school_year_start(1.year.ago).year
     CacheVitallyTeacherData.set(teacher.id, year, previous_year_data.to_json)
@@ -283,27 +286,28 @@ describe 'SerializeVitallySalesUser' do
     classroom_unit.save!
 
     evidence_unit_activity = create(:unit_activity, :evidence_unit_activity, unit: unit)
+    middle_of_school_year = School.school_year_start(current_time) + 6.months
     create(:activity_session,
       classroom_unit: classroom_unit,
       activity: evidence_unit_activity.activity,
       user: student,
       state: 'finished',
-      completed_at: current_time - 10.days
+      completed_at: middle_of_school_year - 10.days
     )
     create(:activity_session,
       classroom_unit: classroom_unit,
       activity: evidence_unit_activity.activity,
       user: student,
       state: 'finished',
-      completed_at: current_time - 3.days
+      completed_at: middle_of_school_year - 3.days
     )
     create(:activity_session,
       classroom_unit: classroom_unit,
       activity: evidence_unit_activity.activity,
       user: new_student,
       state: 'started',
-      created_at: current_time - 1.year,
-      completed_at: current_time - 1.year
+      created_at: middle_of_school_year - 1.year,
+      completed_at: middle_of_school_year - 1.year
     )
 
     teacher_data = SerializeVitallySalesUser.new(teacher).data
@@ -311,7 +315,8 @@ describe 'SerializeVitallySalesUser' do
     expect(teacher_data[:traits]).to include(
       evidence_activities_assigned_this_year: 2,
       evidence_activities_completed_this_year: 2,
-      date_of_last_completed_evidence_activity: (current_time - 3.days).strftime("%F")
+      completed_evidence_activities_per_student_this_year: 2.0,
+      date_of_last_completed_evidence_activity: (middle_of_school_year - 3.days).strftime("%F")
     )
   end
 
@@ -336,12 +341,15 @@ describe 'SerializeVitallySalesUser' do
     expect(teacher_data[:traits]).to include(
       total_students_last_year: 3,
       active_students_last_year: 2,
-      activities_assigned_last_year: 3,
+      activities_assigned_last_year: 4,
       completed_activities_last_year: 3,
       completed_activities_per_student_last_year: 1.5,
       percent_completed_activities_last_year: 1.0,
       diagnostics_assigned_last_year: 2,
       diagnostics_finished_last_year: 2,
+      evidence_activities_assigned_last_year: 2,
+      evidence_activities_completed_last_year: 1,
+      completed_evidence_activities_per_student_last_year: 0.5,
       percent_completed_diagnostics_last_year: 1.0
     )
   end

@@ -23,7 +23,7 @@ export const commonText = {
     header: "Fill in the Blank",
     text: "Good work so far! In this section, each sentence will have one, two, three, or four blanks. When there are multiple blanks, only type each word once. Let’s get started!"
   },
-  "ELL Starter Halfway": {
+  "ELL Halfway": {
     header: "You're halfway there!",
     text: "Keep up the great work!"
   },

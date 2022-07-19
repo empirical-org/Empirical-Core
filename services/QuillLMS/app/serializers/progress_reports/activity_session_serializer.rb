@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ProgressReports::ActivitySessionSerializer  < ActiveModel::Serializer
+class ProgressReports::ActivitySessionSerializer  < ApplicationSerializer
   attributes :id,
              :activity_classification_name,
              :activity_classification_id,

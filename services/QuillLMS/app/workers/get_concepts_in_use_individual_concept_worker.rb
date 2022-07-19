@@ -91,10 +91,10 @@ class GetConceptsInUseIndividualConceptWorker
             ON concepts.parent_id = parent_concepts.id
           LEFT JOIN concepts AS grandparent_concepts
             ON parent_concepts.parent_id = grandparent_concepts.id
-          LEFT JOIN concept_results
-            ON concept_results.concept_id = concepts.id
+          LEFT JOIN old_concept_results
+            ON old_concept_results.concept_id = concepts.id
           LEFT JOIN activity_sessions
-            ON concept_results.activity_session_id = activity_sessions.id
+            ON old_concept_results.activity_session_id = activity_sessions.id
           LEFT JOIN activities
             ON activity_sessions.activity_id = activities.id
           LEFT JOIN activity_classifications

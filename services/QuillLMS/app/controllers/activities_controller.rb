@@ -15,7 +15,12 @@ class ActivitiesController < ApplicationController
   end
 
   def index_with_unit_templates
-    render json: Activity.includes(:standard, :raw_score, :classification, :unit_templates, :activities_unit_templates).all.map{|a| Cms::ActivitySerializer.new(a).as_json(root: false)}
+    json = Activity
+      .includes(:standard, :raw_score, :classification, :unit_templates, :activities_unit_templates)
+      .all
+      .map { |activity| Cms::ActivitySerializer.new(activity).as_json(root: false) }
+
+    render json: json
   end
 
   def count
