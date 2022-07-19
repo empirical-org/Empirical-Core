@@ -222,6 +222,7 @@ class SegmentAnalytics
         premium_state: user.premium_state,
         premium_type: user.subscription&.account_type,
         auditor: user.auditor?,
+        school: user.school&.name,
         district: user.school&.district&.name
       },
       integrations: integration_rules(user.id)
