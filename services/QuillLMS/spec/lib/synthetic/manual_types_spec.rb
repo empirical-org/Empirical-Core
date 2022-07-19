@@ -6,7 +6,7 @@ describe Synthetic::ManualTypes do
   let(:label1) { 'label1'}
   let(:label2) { 'label2'}
   let(:enough_labeled_data) do
-    6.times.map {|i| ["text string #{i}", label1]} +
+    7.times.map {|i| ["text string #{i}", label1]} +
       7.times.map {|i| ["other string #{i}", label2]}
   end
 
