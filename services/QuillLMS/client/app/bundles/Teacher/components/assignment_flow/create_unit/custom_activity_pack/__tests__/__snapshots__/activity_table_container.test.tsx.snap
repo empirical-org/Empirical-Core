@@ -4593,7 +4593,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       toggleActivitySelection={[Function]}
     >
       <section
-        className="activity-row not-expanded not-selected is-first"
+        className="activity-row not-expanded not-selected is-first "
       >
         <ActivityRowTooltip
           activity={
@@ -4876,6 +4876,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 </span>
               </span>
             </ActivityRowStandardLevel>
+            <span
+              className="vertical-divider"
+            />
             <ActivityRowGradeRange
               gradeLevelFilters={Array []}
             >
@@ -5133,7 +5136,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       toggleActivitySelection={[Function]}
     >
       <section
-        className="activity-row not-expanded not-selected "
+        className="activity-row not-expanded not-selected  "
       >
         <ActivityRowTooltip
           activity={
@@ -5416,6 +5419,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 </span>
               </span>
             </ActivityRowStandardLevel>
+            <span
+              className="vertical-divider"
+            />
             <ActivityRowGradeRange
               gradeLevelFilters={Array []}
             >
@@ -5673,7 +5679,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       toggleActivitySelection={[Function]}
     >
       <section
-        className="activity-row not-expanded not-selected "
+        className="activity-row not-expanded not-selected  "
       >
         <ActivityRowTooltip
           activity={
@@ -5956,6 +5962,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 </span>
               </span>
             </ActivityRowStandardLevel>
+            <span
+              className="vertical-divider"
+            />
             <ActivityRowGradeRange
               gradeLevelFilters={Array []}
             >
@@ -6213,7 +6222,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       toggleActivitySelection={[Function]}
     >
       <section
-        className="activity-row not-expanded not-selected "
+        className="activity-row not-expanded not-selected  "
       >
         <ActivityRowTooltip
           activity={
@@ -6496,6 +6505,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 </span>
               </span>
             </ActivityRowStandardLevel>
+            <span
+              className="vertical-divider"
+            />
             <ActivityRowGradeRange
               gradeLevelFilters={Array []}
             >
@@ -6753,7 +6765,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       toggleActivitySelection={[Function]}
     >
       <section
-        className="activity-row not-expanded not-selected "
+        className="activity-row not-expanded not-selected  "
       >
         <ActivityRowTooltip
           activity={
@@ -7036,6 +7048,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 </span>
               </span>
             </ActivityRowStandardLevel>
+            <span
+              className="vertical-divider"
+            />
             <ActivityRowGradeRange
               gradeLevelFilters={Array []}
             >
@@ -7293,7 +7308,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       toggleActivitySelection={[Function]}
     >
       <section
-        className="activity-row not-expanded not-selected "
+        className="activity-row not-expanded not-selected  "
       >
         <ActivityRowTooltip
           activity={
@@ -7576,6 +7591,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 </span>
               </span>
             </ActivityRowStandardLevel>
+            <span
+              className="vertical-divider"
+            />
             <ActivityRowGradeRange
               gradeLevelFilters={Array []}
             >
@@ -7833,7 +7851,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       toggleActivitySelection={[Function]}
     >
       <section
-        className="activity-row not-expanded not-selected "
+        className="activity-row not-expanded not-selected  "
       >
         <ActivityRowTooltip
           activity={
@@ -8116,6 +8134,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 </span>
               </span>
             </ActivityRowStandardLevel>
+            <span
+              className="vertical-divider"
+            />
             <ActivityRowGradeRange
               gradeLevelFilters={Array []}
             >
@@ -8373,7 +8394,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       toggleActivitySelection={[Function]}
     >
       <section
-        className="activity-row not-expanded not-selected "
+        className="activity-row not-expanded not-selected  "
       >
         <ActivityRowTooltip
           activity={
@@ -8656,6 +8677,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 </span>
               </span>
             </ActivityRowStandardLevel>
+            <span
+              className="vertical-divider"
+            />
             <ActivityRowGradeRange
               gradeLevelFilters={Array []}
             >
@@ -8913,7 +8937,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       toggleActivitySelection={[Function]}
     >
       <section
-        className="activity-row not-expanded not-selected "
+        className="activity-row not-expanded not-selected  "
       >
         <ActivityRowTooltip
           activity={
@@ -9196,6 +9220,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 </span>
               </span>
             </ActivityRowStandardLevel>
+            <span
+              className="vertical-divider"
+            />
             <ActivityRowGradeRange
               gradeLevelFilters={Array []}
             >
@@ -9453,7 +9480,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       toggleActivitySelection={[Function]}
     >
       <section
-        className="activity-row not-expanded not-selected "
+        className="activity-row not-expanded not-selected  "
       >
         <ActivityRowTooltip
           activity={
@@ -9736,6 +9763,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 </span>
               </span>
             </ActivityRowStandardLevel>
+            <span
+              className="vertical-divider"
+            />
             <ActivityRowGradeRange
               gradeLevelFilters={Array []}
             >
@@ -9993,7 +10023,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       toggleActivitySelection={[Function]}
     >
       <section
-        className="activity-row not-expanded not-selected "
+        className="activity-row not-expanded not-selected  "
       >
         <ActivityRowTooltip
           activity={
@@ -10276,6 +10306,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 </span>
               </span>
             </ActivityRowStandardLevel>
+            <span
+              className="vertical-divider"
+            />
             <ActivityRowGradeRange
               gradeLevelFilters={Array []}
             >
@@ -10533,7 +10566,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       toggleActivitySelection={[Function]}
     >
       <section
-        className="activity-row not-expanded not-selected "
+        className="activity-row not-expanded not-selected  "
       >
         <ActivityRowTooltip
           activity={
@@ -10816,6 +10849,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 </span>
               </span>
             </ActivityRowStandardLevel>
+            <span
+              className="vertical-divider"
+            />
             <ActivityRowGradeRange
               gradeLevelFilters={Array []}
             >
@@ -11073,7 +11109,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       toggleActivitySelection={[Function]}
     >
       <section
-        className="activity-row not-expanded not-selected "
+        className="activity-row not-expanded not-selected  "
       >
         <ActivityRowTooltip
           activity={
@@ -11356,6 +11392,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 </span>
               </span>
             </ActivityRowStandardLevel>
+            <span
+              className="vertical-divider"
+            />
             <ActivityRowGradeRange
               gradeLevelFilters={Array []}
             >
@@ -11613,7 +11652,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       toggleActivitySelection={[Function]}
     >
       <section
-        className="activity-row not-expanded not-selected "
+        className="activity-row not-expanded not-selected  "
       >
         <ActivityRowTooltip
           activity={
@@ -11896,6 +11935,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 </span>
               </span>
             </ActivityRowStandardLevel>
+            <span
+              className="vertical-divider"
+            />
             <ActivityRowGradeRange
               gradeLevelFilters={Array []}
             >
@@ -12153,7 +12195,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       toggleActivitySelection={[Function]}
     >
       <section
-        className="activity-row not-expanded not-selected "
+        className="activity-row not-expanded not-selected  "
       >
         <ActivityRowTooltip
           activity={
@@ -12436,6 +12478,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 </span>
               </span>
             </ActivityRowStandardLevel>
+            <span
+              className="vertical-divider"
+            />
             <ActivityRowGradeRange
               gradeLevelFilters={Array []}
             >
@@ -12693,7 +12738,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       toggleActivitySelection={[Function]}
     >
       <section
-        className="activity-row not-expanded not-selected "
+        className="activity-row not-expanded not-selected  "
       >
         <ActivityRowTooltip
           activity={
@@ -12976,6 +13021,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 </span>
               </span>
             </ActivityRowStandardLevel>
+            <span
+              className="vertical-divider"
+            />
             <ActivityRowGradeRange
               gradeLevelFilters={Array []}
             >
@@ -13233,7 +13281,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       toggleActivitySelection={[Function]}
     >
       <section
-        className="activity-row not-expanded not-selected "
+        className="activity-row not-expanded not-selected  "
       >
         <ActivityRowTooltip
           activity={
@@ -13516,6 +13564,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 </span>
               </span>
             </ActivityRowStandardLevel>
+            <span
+              className="vertical-divider"
+            />
             <ActivityRowGradeRange
               gradeLevelFilters={Array []}
             >
@@ -13773,7 +13824,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       toggleActivitySelection={[Function]}
     >
       <section
-        className="activity-row not-expanded not-selected "
+        className="activity-row not-expanded not-selected  "
       >
         <ActivityRowTooltip
           activity={
@@ -14056,6 +14107,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 </span>
               </span>
             </ActivityRowStandardLevel>
+            <span
+              className="vertical-divider"
+            />
             <ActivityRowGradeRange
               gradeLevelFilters={Array []}
             >
@@ -14313,7 +14367,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       toggleActivitySelection={[Function]}
     >
       <section
-        className="activity-row not-expanded not-selected "
+        className="activity-row not-expanded not-selected  "
       >
         <ActivityRowTooltip
           activity={
@@ -14596,6 +14650,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 </span>
               </span>
             </ActivityRowStandardLevel>
+            <span
+              className="vertical-divider"
+            />
             <ActivityRowGradeRange
               gradeLevelFilters={Array []}
             >
@@ -14853,7 +14910,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       toggleActivitySelection={[Function]}
     >
       <section
-        className="activity-row not-expanded not-selected "
+        className="activity-row not-expanded not-selected  "
       >
         <ActivityRowTooltip
           activity={
@@ -15136,6 +15193,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 </span>
               </span>
             </ActivityRowStandardLevel>
+            <span
+              className="vertical-divider"
+            />
             <ActivityRowGradeRange
               gradeLevelFilters={Array []}
             >

@@ -111,7 +111,7 @@
         }
       }
       .standard-level {
-        width: 130px;
+        width: 120px;
       }
     }
     .second-line, .third-line, .expanded-line, .tooltip-line {
@@ -163,13 +163,21 @@
       .expand-button img {
         transform: rotate(180deg);
       }
+      .second-line {
+        padding-bottom: 16px;
+      }
       .third-line {
-        margin-top: 16px;
         border-top: 1px solid #D3D3D3;
-        margin-left: 32px;
         padding: 16px 0px;
-        margin-right: -16px;
-        margin: 16px -16px 0px 32px;
+        margin: 0px -16px 0px 32px;
+      }
+      &.no-expanded-content {
+        .expanded-section {
+          display: none;
+        }
+        .second-line {
+          padding-bottom: 0px;
+        }
       }
     }
     &.expanded {
@@ -193,6 +201,14 @@
         .classification {
           margin-bottom: 5px;
         }
+        .vertical-divider {
+          display: none;
+        }
+      }
+      .grade-range-and-standard-level-wrapper {
+        .vertical-divider {
+          height: 24px;
+        }
       }
       &.is-first {
         border-top: 1px solid #e0e0e0;
@@ -200,6 +216,7 @@
       .expanded-section {
         flex-direction: column;
         margin-right: -16px;
+        padding-right: 0px;
         .expanded-line {
           border-right: none;
           max-width: 100%;
@@ -302,7 +319,11 @@
       }
       .expanded-section {
         margin-left: 0px;
-        margin-top: 16px;
+      }
+      &.expanded {
+        .third-line {
+          margin: 0px -16px 0px 0px;
+        }
       }
     }
     &.is-last {

@@ -103,6 +103,8 @@ const ActivityRowTopics = ({ topics, maxAllowedLength, onTertiaryLine, inExpande
 
   if (!(topics && topics.length)) { return <span /> }
 
+  if (inExpandedView && !onTertiaryLine) { return <span /> }
+
   const topicString = stringifyLowerLevelTopics(topics)
   const widthOfTopicSectionInPixels = (topicString.length * AVERAGE_FONT_WIDTH) + IMAGE_WIDTH + MARGIN
   const widthExceedsAllottedSpaceOnSecondLine = widthOfTopicSectionInPixels >= maxAllowedLength
@@ -256,7 +258,7 @@ const ActivityRow = ({ activity, isSelected, toggleActivitySelection, showCheckb
     setShowSnackbar && setShowSnackbar(true)
   }
 
-  const { activity_classification, name, activity_category_name, standard_level_name, anonymous_path, readability_grade_level, topics, id, minimum_grade_level, maximum_grade_level, } = activity
+  const { activity_classification, name, activity_category_name, standard_level_name, anonymous_path, readability_grade_level, topics, id, minimum_grade_level, maximum_grade_level, description, content_partners, } = activity
 
   function handleClickSaveButton() { saveActivity(id) }
   function handleClickSavedButton() { unsaveActivity(id) }
@@ -276,6 +278,9 @@ const ActivityRow = ({ activity, isSelected, toggleActivitySelection, showCheckb
   const isSelectedClassName = isSelected ? 'selected' : 'not-selected'
   const isFirstClassName = isFirst ? 'is-first' : ''
 
+  const noContentForExpandedSection = !readability_grade_level && !description && !content_partners?.length
+  const expandedButEmptyClassName = isExpanded && noContentForExpandedSection ? 'no-expanded-content' : ''
+
   let topicLine
 
   if (topics && topics.length) {
@@ -292,7 +297,7 @@ const ActivityRow = ({ activity, isSelected, toggleActivitySelection, showCheckb
   }
 
   return (
-    <section className={`activity-row ${expandClassName} ${isSelectedClassName} ${isFirstClassName}`}>
+    <section className={`activity-row ${expandClassName} ${isSelectedClassName} ${isFirstClassName} ${expandedButEmptyClassName}`}>
       <ActivityRowTooltip activity={activity} showTooltip={showTooltip} />
       <div className="first-line">
         <div className="name-and-checkbox-wrapper">
@@ -316,7 +321,7 @@ const ActivityRow = ({ activity, isSelected, toggleActivitySelection, showCheckb
         </div>
         <div className="grade-range-and-standard-level-wrapper">
           <ActivityRowStandardLevel standardLevelName={standard_level_name} />
-          {standard_level_name && minimum_grade_level && <span className="vertical-divider" />}
+          {standard_level_name && <span className="vertical-divider" />}
           <ActivityRowGradeRange gradeLevelFilters={gradeLevelFilters} maximumGradeLevel={maximum_grade_level} minimumGradeLevel={minimum_grade_level} />
         </div>
       </div>

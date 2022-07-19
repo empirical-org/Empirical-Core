@@ -73,7 +73,7 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
   toggleActivitySelection={[Function]}
 >
   <section
-    className="activity-row not-expanded not-selected "
+    className="activity-row not-expanded not-selected  "
   >
     <ActivityRowTooltip
       activity={
@@ -282,6 +282,9 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
             </span>
           </span>
         </ActivityRowStandardLevel>
+        <span
+          className="vertical-divider"
+        />
         <ActivityRowGradeRange
           gradeLevelFilters={Array []}
         >
@@ -542,7 +545,7 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
   toggleActivitySelection={[Function]}
 >
   <section
-    className="activity-row not-expanded selected "
+    className="activity-row not-expanded selected  "
   >
     <ActivityRowTooltip
       activity={
@@ -751,6 +754,9 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
             </span>
           </span>
         </ActivityRowStandardLevel>
+        <span
+          className="vertical-divider"
+        />
         <ActivityRowGradeRange
           gradeLevelFilters={Array []}
         >
@@ -1011,7 +1017,7 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
   toggleActivitySelection={[Function]}
 >
   <section
-    className="activity-row not-expanded not-selected "
+    className="activity-row not-expanded not-selected  "
   >
     <ActivityRowTooltip
       activity={
@@ -1294,6 +1300,9 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
             </span>
           </span>
         </ActivityRowStandardLevel>
+        <span
+          className="vertical-divider"
+        />
         <ActivityRowGradeRange
           gradeLevelFilters={Array []}
         >
@@ -1555,7 +1564,7 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
   toggleActivitySelection={[Function]}
 >
   <section
-    className="activity-row not-expanded selected "
+    className="activity-row not-expanded selected  "
   >
     <ActivityRowTooltip
       activity={
@@ -1842,6 +1851,9 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
             </span>
           </span>
         </ActivityRowStandardLevel>
+        <span
+          className="vertical-divider"
+        />
         <ActivityRowGradeRange
           gradeLevelFilters={Array []}
         >
