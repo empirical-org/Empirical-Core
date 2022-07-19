@@ -53,9 +53,9 @@ module Synthetic
     # Throttling to 100 sentences at a time.
     BATCH_SIZE = 100
 
-
     GENERATORS = {
-      translations: Synthetic::Generators::Translation
+      translation: Synthetic::Generators::Translation
+      spelling: Synthetic::Generators::Spelling
     }
 
     FREE_GENERATORS = GENRATORS.except(:translations)

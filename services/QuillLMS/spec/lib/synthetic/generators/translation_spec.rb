@@ -8,7 +8,7 @@ describe Synthetic::Generators::Translation do
   let(:mock_translator) { double }
 
 
-  describe '#run' do
+  describe '#generate' do
     let(:translation) { Synthetic::Generators::Translation.new([text1, text2], languages: [:es])}
 
     it 'fetch and store translations' do

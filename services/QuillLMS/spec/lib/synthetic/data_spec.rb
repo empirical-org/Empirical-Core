@@ -71,7 +71,7 @@ describe Synthetic::Data do
 
       expect(first_result.text).to eq 'text string'
       expect(first_result.label).to eq 'label_5'
-      expect(first_result.generated[:translations]['es']).to eq 'goodbye'
+      expect(first_result.generated[:translation]['es']).to eq 'goodbye'
     end
   end
 
