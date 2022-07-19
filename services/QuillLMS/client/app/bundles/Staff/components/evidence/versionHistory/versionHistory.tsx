@@ -1,14 +1,31 @@
 import * as React from "react";
-import { useQueryClient, } from 'react-query';
+import { useQuery, useQueryClient, } from 'react-query';
 import { withRouter } from 'react-router-dom';
 
-
+import { sort } from '../../../../../modules/sortingMethods.js';
 import { ActivityInterface } from '../../../interfaces/evidenceInterfaces';
 import SubmissionModal from '../shared/submissionModal';
-import { createActivity, updateActivity, updateActivityVersion } from '../../../utils/evidence/activityAPIs';
+import { createActivity, fetchActivity, fetchActivityVersions, fetchChangeLogs, updateActivity, updateActivityVersion } from '../../../utils/evidence/activityAPIs';
 import { renderHeader } from "../../../helpers/evidence/renderHelpers";
-import { Input, Spinner } from '../../../../Shared/index';
+import { Input, ReactTable, Spinner } from '../../../../Shared/index';
 import { TITLE } from "../../../../../constants/evidence";
+
+const formatChangeLogRows = (activityVersionData) => {
+  if (!activityVersionData?.changeLogs) return []
+  return activityVersionData.changeLogs.map(row => {
+    const {
+      note,
+      updated_at,
+      new_value
+    } = row
+
+    return {
+      updatedAt: updated_at,
+      note,
+      version: new_value
+    }
+  })
+}
 
 const VersionHistory = ({ history, match }) => {
   const { params } = match;
@@ -19,6 +36,16 @@ const VersionHistory = ({ history, match }) => {
   const queryClient = useQueryClient()
 
   const [activityVersionNote, setActivityVersionNote] = React.useState<string>('');
+
+  const { data: activityData } = useQuery({
+    queryKey: [`activity-${activityId}`, activityId],
+    queryFn: fetchActivity
+  });
+
+  const { data: activityVersionData, status: status } = useQuery({
+    queryKey: [`change-logs-for-activity-versions-${activityId}`, activityId],
+    queryFn: fetchActivityVersions
+  });
 
   function handleUpdateActivity () {
     updateActivityVersion(activityVersionNote, activityId).then((response) => {
@@ -47,7 +74,6 @@ const VersionHistory = ({ history, match }) => {
 
   function handleSetActivityVersionNote(e: InputEvent){ setActivityVersionNote(e.target.value) };
 
-
   if(!activityId) {
     return(
       <div className="loading-spinner-container">
@@ -56,10 +82,42 @@ const VersionHistory = ({ history, match }) => {
     );
   }
 
+  const activityVersionDisplayValue = (activity): string => {
+    const version = activity?.version
+    if (version == 0) return 'Initial Version'
+    return version
+  }
+
+  const formattedRows = formatChangeLogRows(activityVersionData)
+
+  const dataTableFields = [
+    {
+      Header: 'Date/Time',
+      accessor: "updatedAt",
+      key: "updatedAt",
+      sortMethod: sort,
+      width: 160,
+    },
+    {
+      Header: 'Version',
+      accessor: "version",
+      key: 'version',
+      sortMethod: sort,
+      width: 160
+    },
+    {
+      Header: 'Note',
+      accessor: "note",
+      key: "note",
+      sortMethod: sort,
+      width: 251,
+    }
+  ];
+
   return(
     <div className="version-history-container">
       {showSubmissionModal && renderSubmissionModal()}
-      <p> Current Version: 0</p>
+      <p> Current Version: {activityVersionDisplayValue(activityData?.activity)} </p>
       <Input
         className="notes-input"
         error={errors[TITLE]}
@@ -70,6 +128,14 @@ const VersionHistory = ({ history, match }) => {
       <div className="button-and-id-container">
         <button className="quill-button fun primary contained focus-on-light" id="activity-submit-button" onClick={handleUpdateActivity} type="submit">Save</button>
       </div>
+      {formattedRows && (<ReactTable
+        className="activity-versions-table"
+        columns={dataTableFields}
+        data={formattedRows}
+        defaultSorted={[{id: 'updatedAt', desc: true}]}
+        defaultPageSize={100}
+      />)}
+
     </div>
   );
 }

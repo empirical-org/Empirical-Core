@@ -4,7 +4,7 @@ require_dependency 'evidence/application_controller'
 
 module Evidence
   class ActivitiesController < ApiController
-    before_action :set_activity, only: [:create, :show, :update, :destroy, :change_logs]
+    before_action :set_activity, only: [:activity_versions, :create, :show, :update, :destroy, :change_logs]
     append_before_action :set_lms_user_id, only: [:create, :destroy]
 
     # GET /activities.json
@@ -38,21 +38,20 @@ module Evidence
     end
 
     def increment_version
-      @activity = Evidence::Activity.find(increment_version_params[:id])
+      @activity = Evidence::Activity.find(params[:id])
       old_version = @activity.version
-      @activity.increment_version
+      @activity.increment_version!
 
       changelog_params = {
-        user_id: increment_version_params[:user_id],
         action: 'updated',
         changed_record_type: 'Evidence::Activity',
         changed_record_id: @activity.id,
-        explanation: increment_version_params[:note],
+        explanation: increment_version_params,
         changed_attribute: 'version',
         previous_value: old_version,
-        new_value: @activity.version # TODO
+        new_value: @activity.version
       }
-      ChangeLog.create(changelog_params)
+      Evidence.change_log_class.create!(changelog_params)
       head :no_content
     end
 
@@ -76,6 +75,10 @@ module Evidence
       render json: @activity&.change_logs_for_activity || []
     end
 
+    def activity_versions
+      render json: @activity&.activity_versions
+    end
+
     private def set_activity
       if params[:id].present?
         @activity = Evidence::Activity.find(params[:id])
@@ -89,7 +92,7 @@ module Evidence
     end
 
     private def increment_version_params
-      params.require([:id, :note])
+      params.require(:note)
     end
 
     private def activity_params

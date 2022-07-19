@@ -59,6 +59,16 @@ module Evidence
       Evidence.change_log_class.create(change_log)
     end
 
+    def activity_versions
+      Evidence.change_log_class.where(changed_record_id: id, changed_attribute: 'version', changed_record_type: 'Evidence::Activity').map do |row|
+        {
+          note: row.explanation,
+          updated_at: row.updated_at,
+          new_value: row.new_value
+        }
+      end
+    end
+
     def change_logs_for_activity
       @activity = Evidence::Activity.includes(
                       :change_logs,
