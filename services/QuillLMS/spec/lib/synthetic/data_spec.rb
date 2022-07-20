@@ -39,13 +39,10 @@ describe Synthetic::Data do
   end
 
   describe '#run translation' do
-    let(:synthetics) { Synthetic::Data.new(labeled_data, languages: [:es], generators: [:translation])}
+    let(:synthetics) { Synthetic::Data.run(labeled_data, languages: [:es], generators: [:translation])}
 
     it 'fetch and store translations' do
       expect(Synthetic::Generators::Translation).to receive(:run).with([text1, text2], {:languages=>[:es]}).and_return(translation_response)
-
-      synthetics.run
-
       expect(synthetics.results.count).to eq 2
 
       first_result = synthetics.results.first
@@ -57,13 +54,10 @@ describe Synthetic::Data do
   end
 
   describe '#run spelling errors' do
-    let(:synthetics) { Synthetic::Data.new(labeled_data, languages: [:es], generators: [:spelling])}
+    let(:synthetics) { Synthetic::Data.run(labeled_data, languages: [:es], generators: [:spelling])}
 
     it 'fetch and store translations' do
       expect(Synthetic::Generators::Spelling).to receive(:run).with([text1, text2], {:languages=>[:es]}).and_return(spelling_response)
-
-      synthetics.run
-
       expect(synthetics.results.count).to eq 2
 
       first_result = synthetics.results.first
@@ -75,13 +69,11 @@ describe Synthetic::Data do
   end
 
   describe 'data exports' do
-    let(:synthetics) { Synthetic::Data.new(labeled_data, languages: [:es], generators: [:translation, :spelling])}
+    let(:synthetics) { Synthetic::Data.run(labeled_data, languages: [:es], generators: [:translation, :spelling])}
 
     before do
       allow(Synthetic::Generators::Translation).to receive(:run).with([text1, text2], {:languages=>[:es]}).and_return(translation_response)
       allow(Synthetic::Generators::Spelling).to receive(:run).with([text1, text2], {:languages=>[:es]}).and_return(spelling_response)
-
-      synthetics.run
     end
 
     describe "#training_data_rows" do

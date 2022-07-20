@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Synthetic
-  class Data
+  class Data < ApplicationService
     include Synthetic::ManualTypes
 
     CSV_END_MATCH = /\.csv\z/
@@ -56,6 +56,8 @@ module Synthetic
           result.generated[type] = results_hash[result.text] || {}
         end
       end
+
+      self
     end
 
     # input file is a csv with two columns and no header: text, label
