@@ -107,7 +107,7 @@ module Evidence
     # We use update_columns to avoid triggering callbacks, specifically,
     # ChangeLog's 'after_update: log_update'
     def increment_version!
-      self.update_columns(version: self.version + 1)
+      update_columns(version: version + 1)
     end
 
     private def expire_turking_rounds

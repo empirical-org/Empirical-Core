@@ -59,8 +59,9 @@ module Evidence
 
     context '#increment_version!' do
       let!(:activity) { create(:evidence_activity)}
+
       it 'should not trigger a changelog' do
-        expect { activity.increment_version! }.to_not change{ Evidence.change_log_class.count }
+        expect { activity.increment_version! }.to_not(change{ Evidence.change_log_class.count })
       end
     end
 
