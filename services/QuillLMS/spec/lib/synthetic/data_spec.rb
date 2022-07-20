@@ -4,9 +4,23 @@ require 'rails_helper'
 
 describe Synthetic::Data do
   let(:text1) {'text string'}
+  let(:label1) {'label_5'}
   let(:text2) {'other text'}
-  let(:labeled_data) { [[text1, 'label_5'], [text2, 'label_11']] }
+  let(:labeled_data) { [[text1, label1], [text2, 'label_11']] }
   let(:mock_translator) { double }
+
+  let(:translation_response) do
+    {
+      text1 => {'es' => 'goodbye', 'ko' => 'korean'},
+      text2 => {'es' => 'goodbye 2', 'ko' => 'korean 2'}
+    }
+  end
+
+  let(:spelling_response) do
+    {
+      text1 => {'their' => 'ther response'}
+    }
+  end
 
   describe '#new' do
     let(:synthetics) { Synthetic::Data.new(labeled_data, languages: [:es])}
@@ -20,42 +34,13 @@ describe Synthetic::Data do
 
       expect(first_result.text).to eq 'text string'
       expect(first_result.label).to eq 'label_5'
-      expect(first_result.translations).to eq({})
-      expect(first_result.spellings).to eq({})
+      expect(first_result.generated).to eq({})
     end
   end
 
-  describe '#fetch_synthetic_translations' do
-    let(:synthetics) { Synthetic::Data.new(labeled_data, languages: [:es])}
-
-    it 'fetch and store translations' do
-
-      synthetics.stub(:translator).and_return(mock_translator)
-      # translate to spanish mock
-      expect(mock_translator).to receive(:translate).with(labeled_data.map(&:first), from: :en, to: :es).and_return([double(text: 'adios'), double(text: 'hola')])
-      # translate to english mock
-      expect(mock_translator).to receive(:translate).with(['adios', 'hola'], from: :es, to: :en).and_return([double(text: 'goodbye'), double(text: 'hello')])
-
-      synthetics.fetch_synthetic_translations
-
-      expect(synthetics.results.count).to eq 2
-
-      first_result = synthetics.results.first
-
-      expect(first_result.text).to eq 'text string'
-      expect(first_result.label).to eq 'label_5'
-      expect(first_result.translations[:es]).to eq 'goodbye'
-    end
-  end
-
-  describe '#fetch_synthetic_translations refactor' do
-    let(:synthetics) { Synthetic::Data.new(labeled_data, languages: [:es])}
-    let(:translation_response) do
-      {
-        text1 => {'es' => 'goodbye', 'ko' => 'korean'},
-        text2 => {'es' => 'goodbye 2', 'ko' => 'korean 2'}
-      }
-    end
+  describe '#run translation' do
+    let(:generators) { Synthetic::Data::GENERATORS.slice(:translation) }
+    let(:synthetics) { Synthetic::Data.new(labeled_data, languages: [:es], generators: generators)}
 
     before do
       expect(Synthetic::Generators::Translation).to receive(:run).with([text1, text2], {:languages=>[:es]}).and_return(translation_response)
@@ -69,42 +54,43 @@ describe Synthetic::Data do
 
       first_result = synthetics.results.first
 
-      expect(first_result.text).to eq 'text string'
-      expect(first_result.label).to eq 'label_5'
+      expect(first_result.text).to eq text1
+      expect(first_result.label).to eq label1
       expect(first_result.generated[:translation]['es']).to eq 'goodbye'
     end
   end
 
-  describe '#fetch_synthetic_spelling_errors' do
-    let(:labeled_with_spelling) {[['their text', 'label_1'], ['no spelling', 'label_2']]}
-    let(:synthetics) { Synthetic::Data.new(labeled_with_spelling)}
+  describe '#run spelling errors' do
+    let(:generators) { Synthetic::Data::GENERATORS.slice(:spelling) }
+    let(:synthetics) { Synthetic::Data.new(labeled_data, languages: [:es], generators: generators)}
+
+    before do
+      expect(Synthetic::Generators::Spelling).to receive(:run).with([text1, text2], {:languages=>[:es]}).and_return(spelling_response)
+    end
 
     it 'fetch and store translations' do
-      synthetics.fetch_synthetic_spelling_errors
+
+      synthetics.run
 
       expect(synthetics.results.count).to eq 2
 
       first_result = synthetics.results.first
 
-      expect(first_result.text).to eq 'their text'
-      expect(first_result.label).to eq 'label_1'
-      expect(first_result.spellings['their']).to eq 'ther text'
+      expect(first_result.text).to eq text1
+      expect(first_result.label).to eq label1
+      expect(first_result.generated[:spelling]['their']).to eq 'ther response'
     end
   end
 
   describe 'data exports' do
-    let(:labeled_with_spelling) {[['their text', 'label_1'], ['no spelling', 'label_2']]}
-    let(:synthetics) { Synthetic::Data.new(labeled_with_spelling, languages: [:es])}
+    let(:generators) { Synthetic::Data::GENERATORS.slice(:translation, :spelling) }
+    let(:synthetics) { Synthetic::Data.new(labeled_data, languages: [:es], generators: generators)}
 
     before do
-      synthetics.stub(:translator).and_return(mock_translator)
-      # translate to spanish mock
-      allow(mock_translator).to receive(:translate).with(labeled_with_spelling.map(&:first), from: :en, to: :es).and_return([double(text: 'adios'), double(text: 'hola')])
-      # translate to english mock
-      allow(mock_translator).to receive(:translate).with(['adios', 'hola'], from: :es, to: :en).and_return([double(text: 'goodbye'), double(text: 'hello')])
+      expect(Synthetic::Generators::Translation).to receive(:run).with([text1, text2], {:languages=>[:es]}).and_return(translation_response)
+      expect(Synthetic::Generators::Spelling).to receive(:run).with([text1, text2], {:languages=>[:es]}).and_return(spelling_response)
 
-      synthetics.fetch_synthetic_translations
-      synthetics.fetch_synthetic_spelling_errors
+      synthetics.run
     end
 
     describe "#training_data_rows" do
@@ -112,12 +98,13 @@ describe Synthetic::Data do
         training_data = synthetics.training_data_rows
         first_row = training_data.first
 
-        # 2 original, 2 translations, 1 spelling error
-        expect(training_data.size).to eq 5
-        expect(first_row.size).to eq 3
+        # 2 original, 4 translations, 1 spelling error
+        expect(training_data.size).to eq 7
+        # every row should have 3 columns
+        expect(training_data.map(&:size).uniq).to eq [3]
         expect(first_row[0]).to be nil
-        expect(first_row[1]).to eq 'their text'
-        expect(first_row[2]).to eq 'label_1'
+        expect(first_row[1]).to eq text1
+        expect(first_row[2]).to eq label1
       end
     end
 
@@ -125,11 +112,14 @@ describe Synthetic::Data do
       it 'should produce an array of arrays to make a csv used for analyzing synthetic data' do
         data = synthetics.detail_data_rows
 
-        # 2 original, 2 translations, 1 spelling error
-        expect(data.size).to eq 5
-        expect(data.first).to eq(['their text','label_1','','','original', nil])
-        expect(data.second).to eq(['goodbye','label_1','their text','','spanish', nil])
-        expect(data.third).to eq(['ther text','label_1','their text','','spelling-their', nil])
+        # 2 original, 4 translations, 1 spelling error
+        expect(data.size).to eq 7
+        # every row should have 6 columns
+        expect(data.map(&:size).uniq).to eq [6]
+        expect(data[0]).to eq([text1,label1,'','','original', nil])
+        expect(data[1]).to eq(['goodbye',label1, text1,'','translation-es', nil])
+        expect(data[2]).to eq(['korean',label1,text1,'','translation-ko', nil])
+        expect(data[3]).to eq(['ther response',label1, text1,'','spelling-their', nil])
       end
     end
   end

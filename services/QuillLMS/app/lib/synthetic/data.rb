@@ -1,64 +1,19 @@
 # frozen_string_literal: true
 
-require "google/cloud/translate"
-# This API authenticates automagically, by setting the ENV vars for:
-# TRANSLATE_PROJECT (project id)
-# TRANSLATE_CREDENTIALS (service account json object created in cloud console)
 module Synthetic
   class Data
     include Synthetic::ManualTypes
-
-    Result = Struct.new(:text, :label, :translations, :spellings, :type, :generated, keyword_init: true) do
-      def to_training_rows
-        [
-          [type, text, label],
-          translations.map {|_, new_text| [type, new_text, label]}.flatten(1),
-          spellings.map {|_, new_text| [type, new_text, label]}.flatten(1)
-        ]
-      end
-
-      def to_detail_rows
-        [
-          [text, label,'','', 'original', type],
-          translations.map {|language, new_text| [new_text, label, text, new_text == text ? 'no_change' : '', LANGUAGES[language] || language, type]}.flatten(1),
-          spellings.map {|misspelled_word, new_text| [new_text, label, text, new_text == text ? 'no_change' : '', "spelling-#{misspelled_word}", type]}.flatten(1)
-        ]
-      end
-    end
-
-    SPELLING_SUBSTITUTES = Configs[:spelling_substitutes]
-    WORD_BOUNDARY = '\b'
 
     CSV_END_MATCH = /\.csv\z/
     SYNTHETIC_CSV = '_with_synthetic_detail.csv'
     TRAIN_CSV = '_training.csv'
 
-    # Use this https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
-    LANGUAGES = {
-      es: 'spanish',
-      ja:  'japanese',
-      pt:  'portugese',
-      fi:  'finnish',
-      da:  'danish',
-      pl:  'polish',
-      ar:  'arabic',
-      zh:  'chinese',
-      he:  'hebrew',
-      ko:  'korean',
-    }
-    TRAIN_LANGUAGES = LANGUAGES.slice(:ko, :he, :ar, :zh, :da)
-
-    ENGLISH = :en
-    # the translation API with throw an error if you send too many text strings at a time.
-    # Throttling to 100 sentences at a time.
-    BATCH_SIZE = 100
-
     GENERATORS = {
-      translation: Synthetic::Generators::Translation
+      translation: Synthetic::Generators::Translation,
       spelling: Synthetic::Generators::Spelling
     }
 
-    FREE_GENERATORS = GENRATORS.except(:translations)
+    FREE_GENERATORS = GENERATORS.except(:translations)
 
     attr_reader :results, :languages, :labels, :generators
 
@@ -79,12 +34,9 @@ module Synthetic
 
       # assign results with no TEST,VALIDATION,TRAIN type
       @results = clean_text_and_labels.map do |text_and_label|
-        Result.new(
+        Synthetic::Result.new(
           text: text_and_label.first, # text is a unique ID
           label: text_and_label.last,
-          type: nil,
-          translations: {},
-          spellings: {},
           generated: {},
         )
       end
@@ -97,44 +49,7 @@ module Synthetic
         results_hash = generator.run(results.map(&:text), languages: languages)
 
         results.each do |result|
-          result.generated[type] = results_hash[result.text]
-        end
-      end
-    end
-
-    def fetch_synthetic_translations
-      languages.each do |language|
-        fetch_synthetic_translations_for(language: language)
-      end
-
-      results
-    end
-
-    def fetch_synthetic_spelling_errors
-      spelling_keys = SPELLING_SUBSTITUTES.keys
-
-      results.each do |result|
-        spelling_keys.each do |key|
-          padded_key = WORD_BOUNDARY + key + WORD_BOUNDARY
-          next unless result.text.match?(padded_key)
-
-          # TODO: add randomness to spelling substitutions
-          text_with_misspell = result.text.gsub(Regexp.new(padded_key), SPELLING_SUBSTITUTES[key]&.first)
-          result.spellings[key] = text_with_misspell
-        end
-      end
-
-      results
-    end
-
-    # only fetch results for items with type 'TRAIN' if using manual_types
-    private def fetch_synthetic_translations_for(language: )
-      results.select {|r| !manual_types || r.type == TYPE_TRAIN}.each_slice(BATCH_SIZE).each do |results_slice|
-        translations = translator.translate(results_slice.map(&:text), from: ENGLISH, to: language)
-        english_texts = translator.translate(translations.map(&:text), from: language, to: ENGLISH)
-
-        results_slice.each.with_index do |result, index|
-          result.translations[language] = english_texts[index].text
+          result.generated[type] = results_hash[result.text] || {}
         end
       end
     end
@@ -146,8 +61,7 @@ module Synthetic
 
       synthetics = Synthetic::Data.new(texts_and_labels, languages: languages)
 
-      synthetics.fetch_synthetic_translations
-      synthetics.fetch_synthetic_spelling_errors
+      synthetics.run
 
       synthetics.results_to_csv(output_file_path)
     end
@@ -162,24 +76,25 @@ module Synthetic
 
       texts_and_labels = CSV.open(input_file_path).to_a
 
-      synthetics = Synthetic::Data.new(texts_and_labels, languages: languages, manual_types: manual_types)
+      generators = paid ? GENERATORS : FREE_GENERATORS
+
+      synthetics = Synthetic::Data.new(
+        texts_and_labels,
+        languages: languages,
+        manual_types: manual_types,
+        generators: generators
+      )
 
       if manual_types
         synthetics.validate_minimum_per_label!
         synthetics.validate_language_count_and_percent!
       end
 
-      synthetics.fetch_synthetic_spelling_errors
-      synthetics.fetch_synthetic_translations if paid
+      synthetics.run
 
       synthetics.results_to_csv(output_csv)
       synthetics.results_to_training_csv(output_training_csv)
       synthetics
-    end
-
-    # NB, there is a V3, but that throws errors with our current Google Integration
-    private def translator
-      @translator ||= ::Google::Cloud::Translate.new(version: :v2)
     end
 
     def results_to_training_csv(file_path)

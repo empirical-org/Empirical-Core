@@ -42,10 +42,11 @@ module Synthetic
         end
       end
 
+      # NB, there is a V3, but that throws errors with our current Google Integration
       private def translator
         @translator ||= ::Google::Cloud::Translate.new(version: :v2)
       end
-    end # end class
+    end
   end
 end
 

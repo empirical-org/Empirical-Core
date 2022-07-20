@@ -6,9 +6,12 @@ module Synthetic
 
       attr_reader :results_hash, :languages
 
-      # takes an array of unique strings ['string1 data sample', 'sample 2']
+      # takes an array of unique strings ['original string', 'sample 2']
       # returns a hash of the form:
-      # {'string1 data sample' => {'es' => 'hola, amigo', 'ko' => 'translated to korean'}, 'sample 2' =>...}
+      # {'original string' => {'transform_key' => 'generated string', 'transform_key2' => 'generated string2'}, 'sample 2' =>...}
+      # examples:
+      # {'hello' => {'es' => 'greetings', 'ko' => 'hi'}, 'sample 2' =>...}
+      # {'their happy' => {'their' => 'ther happy'}, 'sample 2' =>...}
       def initialize(string_array, options = {})
         # create and hash with each string  to an empty hash, e.g.
         # {'string' => {}, 'string 2' => {}
