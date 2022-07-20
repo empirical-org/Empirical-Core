@@ -1,11 +1,9 @@
 import * as React from "react";
 import { useQuery, useQueryClient, } from 'react-query';
-import { withRouter } from 'react-router-dom';
 
 import { sort } from '../../../../../modules/sortingMethods.js';
-import { ActivityInterface } from '../../../interfaces/evidenceInterfaces';
 import SubmissionModal from '../shared/submissionModal';
-import { createActivity, fetchActivity, fetchActivityVersions, fetchChangeLogs, updateActivity, updateActivityVersion } from '../../../utils/evidence/activityAPIs';
+import { fetchActivity, fetchActivityVersions, updateActivityVersion } from '../../../utils/evidence/activityAPIs';
 import { renderHeader } from "../../../helpers/evidence/renderHelpers";
 import { Input, ReactTable, Spinner } from '../../../../Shared/index';
 import { TITLE } from "../../../../../constants/evidence";
