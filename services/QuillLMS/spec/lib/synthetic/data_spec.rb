@@ -87,8 +87,8 @@ describe Synthetic::Data do
     let(:synthetics) { Synthetic::Data.new(labeled_data, languages: [:es], generators: generators)}
 
     before do
-      expect(Synthetic::Generators::Translation).to receive(:run).with([text1, text2], {:languages=>[:es]}).and_return(translation_response)
-      expect(Synthetic::Generators::Spelling).to receive(:run).with([text1, text2], {:languages=>[:es]}).and_return(spelling_response)
+      allow(Synthetic::Generators::Translation).to receive(:run).with([text1, text2], {:languages=>[:es]}).and_return(translation_response)
+      allow(Synthetic::Generators::Spelling).to receive(:run).with([text1, text2], {:languages=>[:es]}).and_return(spelling_response)
 
       synthetics.run
     end

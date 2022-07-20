@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Synthetic
   module Generators
     class Spelling < Synthetic::Generators::Base

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Synthetic
   module Generators
     # This API authenticates automagically, by setting the ENV vars for:

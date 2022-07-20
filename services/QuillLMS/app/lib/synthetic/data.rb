@@ -8,6 +8,10 @@ module Synthetic
     SYNTHETIC_CSV = '_with_synthetic_detail.csv'
     TRAIN_CSV = '_training.csv'
 
+    # To add a generator:
+    # 1) Subclass Synthetic::Generators::Base
+    # 2) Write a 'generate' function
+    # 3) Add type and class to this mapping
     GENERATORS = {
       translation: Synthetic::Generators::Translation,
       spelling: Synthetic::Generators::Spelling
@@ -37,7 +41,7 @@ module Synthetic
         Synthetic::Result.new(
           text: text_and_label.first, # text is a unique ID
           label: text_and_label.last,
-          generated: {},
+          generated: {}
         )
       end
 
