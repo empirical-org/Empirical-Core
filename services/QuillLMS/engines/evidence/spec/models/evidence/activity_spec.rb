@@ -20,7 +20,7 @@ module Evidence
     end
 
 
-    context 'should validations' do
+    context 'validations' do
 
       it { should validate_numericality_of(:target_level).only_integer.is_greater_than_or_equal_to(1).is_less_than_or_equal_to(12) }
 
@@ -57,6 +57,12 @@ module Evidence
       end
     end
 
+    context '#increment_version!' do
+      let!(:activity) { create(:evidence_activity)}
+      it 'should not trigger a changelog' do
+        expect { activity.increment_version! }.to_not change{ Evidence.change_log_class.count }
+      end
+    end
 
     context 'should serializable_hash' do
       let!(:activity) { create(:evidence_activity, :title => "First Activity", :notes => "First Activity - Notes", :target_level => 8, :scored_level => "4th grade") }
