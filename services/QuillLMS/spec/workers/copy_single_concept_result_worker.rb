@@ -41,5 +41,12 @@ describe CopySingleConceptResultWorker, type: :worker do
       expect(concept_result.concept_result_prompt.text).to eq(metadata[:prompt])
       expect(concept_result.concept_result_question_type.text).to eq(old_concept_result.question_type)
     end
+
+    it 'should return early if the old_concept_result_id has already been migrated' do
+      create(:concept_result, old_concept_result_id: old_concept_result.id)
+      expect do
+        subject.perform(old_concept_result.id)
+      end.to change(ConceptResult, :count).by(0)
+    end
   end
 end
