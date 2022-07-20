@@ -42,11 +42,8 @@ describe Synthetic::Data do
     let(:generators) { Synthetic::Data::GENERATORS.slice(:translation) }
     let(:synthetics) { Synthetic::Data.new(labeled_data, languages: [:es], generators: generators)}
 
-    before do
-      expect(Synthetic::Generators::Translation).to receive(:run).with([text1, text2], {:languages=>[:es]}).and_return(translation_response)
-    end
-
     it 'fetch and store translations' do
+      expect(Synthetic::Generators::Translation).to receive(:run).with([text1, text2], {:languages=>[:es]}).and_return(translation_response)
 
       synthetics.run
 
@@ -64,11 +61,8 @@ describe Synthetic::Data do
     let(:generators) { Synthetic::Data::GENERATORS.slice(:spelling) }
     let(:synthetics) { Synthetic::Data.new(labeled_data, languages: [:es], generators: generators)}
 
-    before do
-      expect(Synthetic::Generators::Spelling).to receive(:run).with([text1, text2], {:languages=>[:es]}).and_return(spelling_response)
-    end
-
     it 'fetch and store translations' do
+      expect(Synthetic::Generators::Spelling).to receive(:run).with([text1, text2], {:languages=>[:es]}).and_return(spelling_response)
 
       synthetics.run
 
