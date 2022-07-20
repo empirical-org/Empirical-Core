@@ -8,7 +8,7 @@ module Synthetic
 
       attr_reader :results_hash, :languages
 
-       # takes an array of unique strings, e.g. ['original string', 'sample 2']
+      # takes an array of unique strings, e.g. ['original string', 'sample 2']
       def initialize(string_array, options = {})
         # create and hash with each string  to an empty hash, e.g.
         # {'string' => {}, 'string 2' => {}
