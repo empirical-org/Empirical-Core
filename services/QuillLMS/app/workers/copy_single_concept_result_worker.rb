@@ -16,7 +16,7 @@ class CopySingleConceptResultWorker
 
     ActiveRecord::Base.transaction do
       directions = ConceptResultDirections.find_or_create_by(text: directions)&.id if directions
-      instructions ConceptResultInstructions.find_or_create_by(text: instructions)&.id if instructions
+      instructions = ConceptResultInstructions.find_or_create_by(text: instructions)&.id if instructions
       previous_feedbacks = ConceptResultPreviousFeedback.find_or_create_by(text: previous_feedback)&.id if previous_feedback
       prompts = ConceptResultPrompt.find_or_create_by(text: prompt)&.id if prompt
       question_types = ConceptResultQuestionType.find_or_create_by(text: question_type)&.id if question_type
