@@ -3,9 +3,11 @@
 module Synthetic
   Result = Struct.new(:text, :label, :type, :generated, keyword_init: true) do
     def to_training_rows
-      original_row = [type, text, label]
+      [training_row].concat(generated_training_rows)
+    end
 
-      [original_row].concat(generated_training_rows)
+    private def training_row
+      [type, text, label]
     end
 
     private def generated_training_rows
@@ -14,9 +16,11 @@ module Synthetic
     end
 
     def to_detail_rows
-      original_row = [text, label,'','', 'original', type]
+      [detail_row].concat(generated_detail_rows)
+    end
 
-      [original_row].concat(generated_detail_rows)
+    private def detail_row
+      [text, label,'','', 'original', type]
     end
 
     private def generated_detail_rows
