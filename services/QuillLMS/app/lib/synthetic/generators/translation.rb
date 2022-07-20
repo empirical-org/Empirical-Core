@@ -32,7 +32,7 @@ module Synthetic
         end
       end
 
-      # only fetch results for items with type 'TRAIN' if using manual_types
+      # TODO: only fetch results for items with type 'TRAIN' if using manual_types
       private def fetch_synthetic_translations_for(language: )
         strings.each_slice(BATCH_SIZE).each do |strings_slice|
           translations = translator.translate(strings_slice, from: ENGLISH, to: language)
