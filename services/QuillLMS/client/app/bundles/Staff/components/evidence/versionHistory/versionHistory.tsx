@@ -53,8 +53,8 @@ const VersionHistory = ({ history, match }) => {
       if(errors && errors.length) {
         setErrors(errors);
       } else {
-        queryClient.refetchQueries()
-        queryClient.removeQueries('activities')
+        queryClient.refetchQueries(`activity-${activityId}`)
+        queryClient.refetchQueries(`change-logs-for-activity-versions-${activityId}`)
         setErrors([]);
         setErrorOrSuccessMessage('Activity Version successfully updated!');
         toggleSubmissionModal();
@@ -67,13 +67,13 @@ const VersionHistory = ({ history, match }) => {
   }
 
   function renderSubmissionModal() {
-    const message = errorOrSuccessMessage ? errorOrSuccessMessage : 'Activity successfully updated!';
+    const message = errorOrSuccessMessage || 'Activity successfully updated!';
     return <SubmissionModal close={toggleSubmissionModal} message={message} />;
   }
 
   function handleSetActivityVersionNote(e: InputEvent){ setActivityVersionNote(e.target.value) };
 
-  if(!activityId) {
+  if(!activityId || !activityData) {
     return(
       <div className="loading-spinner-container">
         <Spinner />
@@ -81,8 +81,7 @@ const VersionHistory = ({ history, match }) => {
     );
   }
 
-  const activityVersionDisplayValue = (activity): string => {
-    const version = activity?.version
+  const activityVersionDisplayValue = ({version}): string => {
     if (version === 0) return 'Initial Version'
     return version
   }
@@ -113,15 +112,15 @@ const VersionHistory = ({ history, match }) => {
     }
   ];
 
-  const activity = activityData?.activity
+  const { activity } = activityData
 
   return(
     <div className="version-history-container">
       {showSubmissionModal && renderSubmissionModal()}
       {activity && renderHeader({activity: activity}, 'Version History', true)}
-      <p> Activity id: {activity?.id}   Activity title: {activity?.title}</p>
-      <p> Current version: {activityVersionDisplayValue(activity)} </p>
-      <p> Notes for new version: </p>
+      <p><b>Activity id:</b> {activity?.id}   <b>Activity title:</b> {activity?.title}</p>
+      <p><b>Current version:</b> {activityVersionDisplayValue(activity)}</p>
+      <p><b>Notes for new version:</b></p>
       <Input
         className="notes-input"
         error={errors[TITLE]}

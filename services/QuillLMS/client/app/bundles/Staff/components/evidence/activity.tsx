@@ -15,9 +15,9 @@ import SemanticLabelsIndex from './semanticRules/semanticLabelsIndex';
 import RegexRulesRouter from './regexRules/regexRulesRouter';
 import PlagiarismRulesRouter from './plagiarismRules/plagiarismRulesRouter';
 import ChangeLog from './changeLog/changeLog';
+import VersionHistory from "./versionHistory/versionHistory";
 
 import { ActivityRouteProps } from '../../interfaces/evidenceInterfaces';
-import VersionHistory from "./versionHistory/versionHistory";
 
 const Activity: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match, location, }) => {
   return(
