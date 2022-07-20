@@ -8,7 +8,7 @@ import TeacherNavbar from './navbar/teacherNavbar';
 import { routes } from "../routes";
 import { getParameterByName } from '../libs/getParameterByName';
 import { TeacherPreviewMenu, ScreenreaderInstructions, } from '../../Shared/index';
-import { fetchUserRole } from '../../Shared/utils/userAPIs';
+import { fetchUserRole, fetchUserIdsForSession } from '../../Shared/utils/userAPIs';
 import { addKeyDownListener } from '../../Shared/hooks/addKeyDownListener';
 
 export const Home = () => {
@@ -16,8 +16,12 @@ export const Home = () => {
   const turkSession = window.location.href.includes('turk');
   const studentOrTurk = studentSession || turkSession;
   const isPlaying = window.location.href.includes('play');
-  const { data } = useQuery("user-role", fetchUserRole);
-  const isTeacherOrAdmin = data && data.role && data.role !== 'student';
+  const { data: roleData } = useQuery("user-role", fetchUserRole);
+  const { data: idData } = useQuery({
+    queryKey: [`session-user-ids-${studentSession}`, studentSession],
+    queryFn: fetchUserIdsForSession
+  });
+  const isTeacherOrAdmin = roleData && roleData.role && roleData.role !== 'student';
 
   const [showFocusState, setShowFocusState] = React.useState<boolean>(false);
   const [previewShowing, setPreviewShowing] = React.useState<boolean>(!studentOrTurk);
@@ -90,7 +94,8 @@ export const Home = () => {
             handleToggleQuestion: handleToggleQuestion,
             previewMode: showPreview,
             questionToPreview: questionToPreview,
-            skippedToQuestionFromIntro: skippedToQuestionFromIntro
+            skippedToQuestionFromIntro: skippedToQuestionFromIntro,
+            idData: idData
           })}</div>
         </main>
       </div>

@@ -472,7 +472,7 @@ export class ELLStudentDiagnostic extends React.Component {
 
   render() {
     const { error, saved, } = this.state
-    const { dispatch, match, playDiagnostic, t, previewMode, isOnMobile, handleTogglePreview } = this.props;
+    const { dispatch, match, playDiagnostic, t, previewMode, isOnMobile, handleTogglePreview, idData } = this.props;
     const { params } = match;
     const { diagnosticID } = params;
 
@@ -506,6 +506,7 @@ export class ELLStudentDiagnostic extends React.Component {
       component = (<LanguagePage
         begin={this.startActivity}
         dispatch={dispatch}
+        idData={idData}
         previewMode={previewMode}
         questionCount={playDiagnostic.questionSet && playDiagnostic.questionSet.length}
         setLanguage={this.updateLanguage}

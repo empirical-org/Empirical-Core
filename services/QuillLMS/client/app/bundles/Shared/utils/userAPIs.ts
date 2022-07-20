@@ -3,3 +3,10 @@ export const fetchUserRole = async () => {
   const role = await response.json();
   return role;
 }
+
+export const fetchUserIdsForSession = async ({ queryKey }) => {
+  const [key, activitySessionId] = queryKey
+  const response = await fetch(`${process.env.DEFAULT_URL}/api/v1/users/student_and_teacher_ids_for_session/${activitySessionId}`);
+  const userIds = await response.json();
+  return { teacherId: userIds.teacher_id, studentId: userIds.student_id };
+}
