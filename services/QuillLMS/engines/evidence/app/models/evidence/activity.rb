@@ -62,7 +62,7 @@ module Evidence
     def serializable_hash(options = nil)
       options ||= {}
       super(options.reverse_merge(
-        only: [:id, :parent_activity_id, :title, :notes, :target_level, :scored_level],
+        only: [:id, :parent_activity_id, :title, :version, :notes, :target_level, :scored_level],
         include: [:passages, :prompts],
         methods: [:invalid_highlights, :flag]
       ))
@@ -104,12 +104,14 @@ module Evidence
       end
     end
 
-    private def expire_turking_rounds
-      turking_rounds.each(&:expire!)
+    # We use update_columns to avoid triggering callbacks, specifically,
+    # ChangeLog's 'after_update: log_update'
+    def increment_version!
+      update_columns(version: version + 1)
     end
 
-    private def increment_version
-      self.version += 1
+    private def expire_turking_rounds
+      turking_rounds.each(&:expire!)
     end
 
     private def version_monotonically_increases

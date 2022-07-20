@@ -18,6 +18,7 @@ export interface ActivityInterface {
   notes: string,
   scored_level?: string,
   target_level?: number,
+  version: number,
   passages?: PassagesInterface[],
   prompts?: PromptInterface[],
   passage_attributes?: PassagesInterface[],
