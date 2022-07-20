@@ -74,7 +74,12 @@ describe Api::V1::ActivitySessionsController, type: :controller do
         results
       end
 
-      before { put :update, params: { id: activity_session.uid, concept_results: concept_results }, as: :json }
+      before do
+        # Run Sidekiq jobs immediately instead of queuing them
+        Sidekiq::Testing.inline! do
+          put :update, params: { id: activity_session.uid, concept_results: concept_results }, as: :json
+        end
+      end
 
       it 'succeeds' do
         expect(response.status).to eq(200)
@@ -83,6 +88,7 @@ describe Api::V1::ActivitySessionsController, type: :controller do
       it 'stores the concept results' do
         activity_session.reload
         expect(activity_session.old_concept_results.size).to eq 7
+        expect(activity_session.concept_results.size).to eq(7)
       end
 
       it 'saves the arbitrary metadata for the results' do
