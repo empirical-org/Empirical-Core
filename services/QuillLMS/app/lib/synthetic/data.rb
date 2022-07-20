@@ -25,10 +25,10 @@ module Synthetic
     # texts_and_labels: [['text', 'label_5'],['text', 'label_1'],...]
     # languages: [:es, :ja, ...]
     # manual_types: bool, whether to assign TEXT,VALIDATION,TRAIN to each row
-    def initialize(texts_and_labels, languages: TRAIN_LANGUAGES.keys, generators: GENERATORS, manual_types: false)
+    def initialize(texts_and_labels, languages: TRAIN_LANGUAGES.keys, generators: GENERATORS.keys, manual_types: false)
       @languages = languages
       @manual_types = manual_types
-      @generators = generators
+      @generators = GENERATORS.slice(*generators)
 
       clean_text_and_labels = texts_and_labels
         .keep_if(&:last) # remove blank labels
@@ -80,7 +80,7 @@ module Synthetic
 
       texts_and_labels = CSV.open(input_file_path).to_a
 
-      generators = paid ? GENERATORS : FREE_GENERATORS
+      generators = paid ? GENERATORS.keys : FREE_GENERATORS.keys
 
       synthetics = Synthetic::Data.new(
         texts_and_labels,
