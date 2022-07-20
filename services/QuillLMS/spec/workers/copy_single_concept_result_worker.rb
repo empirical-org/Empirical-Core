@@ -14,6 +14,7 @@ describe CopySingleConceptResultWorker, type: :worker do
         "directions": "Combine the sentences. (And)",
         "lastFeedback": "Proofread your work. Check your spelling.",
         "prompt": "Deserts are very dry. Years go by without rain.",
+        "instructions": "Instructions go here.",
         "attemptNumber": 2,
         "answer": "Deserts are very dry, and years go by without rain.",
         "questionNumber": 1,
@@ -35,7 +36,7 @@ describe CopySingleConceptResultWorker, type: :worker do
       expect(concept_result.question_score).to eq(metadata[:questionScore])
       expect(concept_result.answer).to eq(metadata[:answer])
       expect(concept_result.concept_result_directions.text).to eq(metadata[:directions])
-      expect(concept_result.concept_result_instructions).to be(nil)
+      expect(concept_result.concept_result_instructions.text).to eq(metadata[:instructions])
       expect(concept_result.concept_result_previous_feedback.text).to eq(metadata[:lastFeedback])
       expect(concept_result.concept_result_prompt.text).to eq(metadata[:prompt])
       expect(concept_result.concept_result_question_type.text).to eq(old_concept_result.question_type)
