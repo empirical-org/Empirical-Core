@@ -51,6 +51,3 @@ module Synthetic
     end
   end
 end
-
-
-

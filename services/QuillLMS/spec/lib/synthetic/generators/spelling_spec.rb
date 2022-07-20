@@ -6,7 +6,6 @@ describe Synthetic::Generators::Spelling do
   let(:text1) {'their text'}
   let(:text2) {'no spelling'}
 
-
   describe '#generate' do
     let(:spelling) { Synthetic::Generators::Spelling.new([text1, text2])}
 
