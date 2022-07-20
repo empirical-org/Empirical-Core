@@ -48,16 +48,19 @@ const VersionHistory = ({ history, match }) => {
   });
 
   function handleUpdateActivity () {
+    if (!confirm('⚠️ Are you sure you want to increment the activity version?')) return
+
     updateActivityVersion(activityVersionNote, activityId).then((response) => {
       const { errors } = response;
       if(errors && errors.length) {
         setErrors(errors);
       } else {
-        queryClient.refetchQueries(`activity-${activityId}`)
+        //queryClient.refetchQueries(`activity-${activityId}`)
+        queryClient.refetchQueries()
         queryClient.removeQueries('activities')
         setErrors([]);
         // reset errorOrSuccessMessage in case of subsequent submission
-        setErrorOrSuccessMessage('Activity successfully updated!');
+        setErrorOrSuccessMessage('Activity Version successfully updated!');
         toggleSubmissionModal();
       }
     });
@@ -114,10 +117,15 @@ const VersionHistory = ({ history, match }) => {
     }
   ];
 
+  const activity = activityData?.activity
+
   return(
     <div className="version-history-container">
       {showSubmissionModal && renderSubmissionModal()}
-      <p> Current Version: {activityVersionDisplayValue(activityData?.activity)} </p>
+      {activity && renderHeader({activity: activity}, 'Version History', true)}
+      <p> Activity id: {activity?.id}   Activity title: {activity?.title}</p>
+      <p> Current version: {activityVersionDisplayValue(activity)} </p>
+      <p> Notes for new version: </p>
       <Input
         className="notes-input"
         error={errors[TITLE]}
@@ -125,9 +133,12 @@ const VersionHistory = ({ history, match }) => {
         label="version notes"
         value={activityVersionNote}
       />
+
       <div className="button-and-id-container">
         <button className="quill-button fun primary contained focus-on-light" id="activity-submit-button" onClick={handleUpdateActivity} type="submit">Save</button>
       </div>
+      <br />
+
       {formattedRows && (<ReactTable
         className="activity-versions-table"
         columns={dataTableFields}
