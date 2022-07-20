@@ -55,11 +55,9 @@ const VersionHistory = ({ history, match }) => {
       if(errors && errors.length) {
         setErrors(errors);
       } else {
-        //queryClient.refetchQueries(`activity-${activityId}`)
         queryClient.refetchQueries()
         queryClient.removeQueries('activities')
         setErrors([]);
-        // reset errorOrSuccessMessage in case of subsequent submission
         setErrorOrSuccessMessage('Activity Version successfully updated!');
         toggleSubmissionModal();
       }
@@ -87,7 +85,7 @@ const VersionHistory = ({ history, match }) => {
 
   const activityVersionDisplayValue = (activity): string => {
     const version = activity?.version
-    if (version == 0) return 'Initial Version'
+    if (version === 0) return 'Initial Version'
     return version
   }
 
@@ -135,7 +133,7 @@ const VersionHistory = ({ history, match }) => {
       />
 
       <div className="button-and-id-container">
-        <button className="quill-button fun primary contained focus-on-light" id="activity-submit-button" onClick={handleUpdateActivity} type="submit">Save</button>
+        <button className="quill-button fun primary contained focus-on-light" id="activity-submit-button" onClick={handleUpdateActivity} type="submit">Increment version to {activity?.version + 1}</button>
       </div>
       <br />
 
@@ -143,8 +141,8 @@ const VersionHistory = ({ history, match }) => {
         className="activity-versions-table"
         columns={dataTableFields}
         data={formattedRows}
-        defaultSorted={[{id: 'updatedAt', desc: true}]}
         defaultPageSize={100}
+        defaultSorted={[{id: 'updatedAt', desc: true}]}
       />)}
 
     </div>
