@@ -34,7 +34,8 @@ interface ActivityTableContainerProps {
   unsaveActivity: (activityId: number) => void,
   savedActivityIds: number[],
   showEvidenceBanner: boolean,
-  showLessonsBanner: boolean
+  showLessonsBanner: boolean,
+  gradeLevelFilters: number[]
 }
 
 const FilterAndSort = ({ setShowMobileFilterMenu, setShowMobileSortMenu, }) => {
@@ -116,7 +117,8 @@ const ActivityTableContainer = ({
   unsaveActivity,
   savedActivityIds,
   showEvidenceBanner,
-  showLessonsBanner
+  showLessonsBanner,
+  gradeLevelFilters,
 }: ActivityTableContainerProps) => {
   const [lessonsBannerShowing, setLessonsBannerShowing] = React.useState(showLessonsBanner)
   const [evidenceBannerShowing, setEvidenceBannerShowing] = React.useState(showEvidenceBanner)
@@ -139,6 +141,7 @@ const ActivityTableContainer = ({
     return (
       <ActivityRow
         activity={act}
+        gradeLevelFilters={gradeLevelFilters}
         isFirst={i === 0}
         isSelected={isSelected}
         key={act.id}

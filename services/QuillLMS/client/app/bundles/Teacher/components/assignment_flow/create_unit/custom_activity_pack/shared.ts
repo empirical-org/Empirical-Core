@@ -57,6 +57,8 @@ export const TOPIC_FILTERS = 'topicFilters'
 
 export const SAVED_ACTIVITY_FILTERS = 'savedActivityFilters'
 
+export const STANDARDS_FILTERS = 'standardsFilters'
+
 export function arrayFromNumbers(lowerValue: number, upperValue: number) {
   const array = []
   for (let i = lowerValue; i <= upperValue; i++) {
@@ -80,10 +82,26 @@ function filterByActivityCategory(activityCategoryFilters: number[], activity: A
   return activityCategoryFilters.includes(activity.activity_category.id)
 }
 
+function filterByStandards(standardsFilters: { ccssGradeLevelFilters: number[], ellFilters: number[]}, activity: Activity) {
+  const { ccssGradeLevelFilters, ellFilters, } = standardsFilters
+
+  if (!ccssGradeLevelFilters.length && !ellFilters.length) { return true }
+
+  return filterByCCSSGradeLevel(ccssGradeLevelFilters, activity) || filterByELL(ellFilters, activity)
+}
+
 function filterByCCSSGradeLevel(ccssGradeLevelFilters: number[], activity: Activity) {
-  if (!ccssGradeLevelFilters.length) { return true }
+  if (!activity.standard_level_name?.includes('CCSS')) { return }
+
   const numberFromStandardLevel = getNumberFromString(activity.standard_level_name)
   return ccssGradeLevelFilters.includes(numberFromStandardLevel)
+}
+
+function filterByELL(ellLevelFilters: number[], activity: Activity) {
+  if (!activity.standard_level_name?.includes('ELL')) { return }
+
+  const numberFromStandardLevel = getNumberFromString(activity.standard_level_name)
+  return ellLevelFilters.includes(numberFromStandardLevel)
 }
 
 const READABILITY_GRADE_LEVEL_OPTIONS = ['2nd-3rd', '4th-5th', '6th-7th', '8th-9th', '10th-12th']
@@ -93,6 +111,12 @@ function filterByReadabilityGradeLevel(readabilityGradeLevelFilters: number[], a
 
   const indexOfOption = READABILITY_GRADE_LEVEL_OPTIONS.findIndex(opt => opt === activity.readability_grade_level)
   return readabilityGradeLevelFilters.includes(indexOfOption)
+}
+
+function filterByGradeLevel(gradeLevelFilters: number[], activity: Activity) {
+  if (!gradeLevelFilters.length) { return true }
+
+  return activity.minimum_grade_level >= gradeLevelFilters[0]
 }
 
 function filterByContentPartners(contentPartnerFilters: number[], activity: Activity) {
@@ -118,7 +142,8 @@ export function filterByFlag(flagFilters: string[], activity:Activity) {
 export const filters = {
   search: filterBySearch,
   [ACTIVITY_CLASSIFICATION_FILTERS]: filterByActivityClassification,
-  ccssGradeLevelFilters: filterByCCSSGradeLevel,
+  [STANDARDS_FILTERS]: filterByStandards,
+  gradeLevelFilters: filterByGradeLevel,
   readabilityGradeLevelFilters: filterByReadabilityGradeLevel,
   [ACTIVITY_CATEGORY_FILTERS]: filterByActivityCategory,
   [CONTENT_PARTNER_FILTERS]: filterByContentPartners,
