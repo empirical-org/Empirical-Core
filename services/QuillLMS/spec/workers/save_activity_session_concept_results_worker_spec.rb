@@ -12,5 +12,11 @@ describe SaveActivitySessionConceptResultsWorker, type: :worker do
         .to change(ConceptResult, :count).by(1)
       expect(old_concept_result.reload.concept_result).to be
     end
+
+    it 'should create new ConceptResults that are related to the same ActivitySession as the original OldConceptResult' do
+      subject.perform(old_concept_result.id)
+
+      expect(old_concept_result.concept_result.activity_session).to eq(old_concept_result.activity_session)
+    end
   end
 end
