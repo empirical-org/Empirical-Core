@@ -29,7 +29,7 @@ module Evidence
         end
         {
           feedback: feedback.text,
-          feedback_type: Rule::TYPE_AUTOML,
+          feedback_type: Rule::TYPE_LOW_CONFIDENCE,
           optimal: matched_low_confidence_rule.optimal,
           entry: @entry,
           concept_uid: matched_low_confidence_rule&.concept_uid || '',

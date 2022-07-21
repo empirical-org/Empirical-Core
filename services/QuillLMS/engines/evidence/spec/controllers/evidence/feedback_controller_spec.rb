@@ -19,11 +19,14 @@ module Evidence
     let!(:prompt) { create(:evidence_prompt) }
     let!(:rule) { create(:evidence_rule, :rule_type => "plagiarism") }
     let!(:rule_regex) { create(:evidence_rule, :rule_type => "rules-based-1") }
+    let!(:low_confidence_rule) { create(:evidence_rule, :rule_type => "low-confidence") }
     let(:plagiarized_text1) { "do not plagiarize this text please there will be consequences" }
     let(:plagiarized_text2) { "this is completely different text that you also should not plagiarize or else" }
     let!(:hint) { create(:evidence_hint, :rule => (rule)) }
     let!(:first_feedback) { create(:evidence_feedback, :text => "here is our first feedback", :rule => (rule), :order => 0) }
     let!(:second_feedback) { create(:evidence_feedback, :text => "here is our second feedback", :rule => (rule), :order => 1) }
+    let!(:low_confidence_feedback) { create(:evidence_feedback, :text => "here is low confidence feedback", :rule => (low_confidence_rule), :order => 0) }
+    let!(:low_confidence_hint) { create(:evidence_hint, :rule => (low_confidence_rule)) }
 
     describe '#create' do
 
@@ -84,31 +87,6 @@ module Evidence
 
           parsed_response = JSON.parse(response.body)
           expect(parsed_response).to eq(fallback_feedback.stringify_keys)
-        end
-      end
-
-      context "autoML test" do
-        it 'should return feedback payloads based on the lib matched_automl_rule value' do
-          stub_const("Evidence::Check::ALL_CHECKS", [Check::AutoML])
-
-          entry = "entry"
-          AutomlCheck.stub_any_instance(:matched_automl_rule, rule) do
-            Rule.stub_any_instance(:determine_feedback_from_history, first_feedback) do
-              post :create, params: {entry: entry, prompt_id: prompt.id, session_id: 1, previous_feedback: ([]) }, as: :json
-
-              parsed_response = JSON.parse(response.body)
-              expect({
-                :feedback => first_feedback.text,
-                :feedback_type => "autoML",
-                :optimal => rule.optimal,
-                :entry => entry,
-                :concept_uid => rule.concept_uid,
-                :rule_uid => rule.uid,
-                :highlight => ([]),
-                :hint => rule.hint.serializable_hash
-              }.stringify_keys).to(eq(parsed_response))
-            end
-          end
         end
       end
 
@@ -655,25 +633,50 @@ module Evidence
         expect(parsed_response["feedback_type"]).to eq(Rule::TYPE_ERROR)
       end
 
-      it 'should return feedback payloads based on the lib matched_automl_rule value' do
+      it 'should return feedback payloads based on the lib matched_automl_rule value if there is no matched_low_confidence_rule' do
         entry = "entry"
         AutomlCheck.stub_any_instance(:matched_automl_rule, rule) do
-          Rule.stub_any_instance(:determine_feedback_from_history, first_feedback) do
-            post :create, :params => ({ :entry => entry, :prompt_id => prompt.id, :session_id => 1, :previous_feedback => ([]) }), :as => :json
-            parsed_response = JSON.parse(response.body)
-            expect(parsed_response).to eq({
-              :feedback => first_feedback.text,
-              :feedback_type => "autoML",
-              :optimal => rule.optimal,
-              :entry => entry,
-              :concept_uid => rule.concept_uid,
-              :rule_uid => rule.uid,
-              :highlight => ([]),
-              :hint => rule.hint.serializable_hash
-            }.deep_stringify_keys)
+          AutomlCheck.stub_any_instance(:matched_low_confidence_rule, nil) do
+            Rule.stub_any_instance(:determine_feedback_from_history, first_feedback) do
+              post :create, :params => ({ :entry => entry, :prompt_id => prompt.id, :session_id => 1, :previous_feedback => ([]) }), :as => :json
+              parsed_response = JSON.parse(response.body)
+              expect(parsed_response).to eq({
+                :feedback => first_feedback.text,
+                :feedback_type => "autoML",
+                :optimal => rule.optimal,
+                :entry => entry,
+                :concept_uid => rule.concept_uid,
+                :rule_uid => rule.uid,
+                :highlight => ([]),
+                :hint => rule.hint.serializable_hash
+              }.deep_stringify_keys)
+            end
           end
         end
       end
+
+      it 'should return feedback payloads based on the lib matched_low_confidence_rule value' do
+        entry = "entry"
+        AutomlCheck.stub_any_instance(:matched_automl_rule, rule) do
+          AutomlCheck.stub_any_instance(:matched_low_confidence_rule, low_confidence_rule) do
+            Rule.stub_any_instance(:determine_feedback_from_history, low_confidence_feedback) do
+              post :create, :params => ({ :entry => entry, :prompt_id => prompt.id, :session_id => 1, :previous_feedback => ([]) }), :as => :json
+              parsed_response = JSON.parse(response.body)
+              expect(parsed_response).to eq({
+                :feedback => low_confidence_feedback.text,
+                :feedback_type => "low-confidence",
+                :optimal => low_confidence_rule.optimal,
+                :entry => entry,
+                :concept_uid => low_confidence_rule.concept_uid,
+                :rule_uid => low_confidence_rule.uid,
+                :highlight => ([]),
+                :hint => low_confidence_rule.hint.serializable_hash
+              }.deep_stringify_keys)
+            end
+          end
+        end
+      end
+
     end
 
     context 'should #spelling' do
