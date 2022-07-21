@@ -55,7 +55,6 @@ class ConceptResult < ApplicationRecord
 
   def self.create_from_json(data_hash)
     response = init_from_json(data_hash)
-    puts response.as_json
     response.save!
     response
   end
@@ -71,6 +70,7 @@ class ConceptResult < ApplicationRecord
       concept_id: data_hash[:concept_id],
       attempt_number: metadata[:attemptNumber],
       correct: ActiveModel::Type::Boolean.new.cast(metadata[:correct]),
+      old_concept_result_id: data_hash[:old_concept_result_id],
       question_number: metadata[:questionNumber],
       question_score: metadata[:questionScore]
     )
