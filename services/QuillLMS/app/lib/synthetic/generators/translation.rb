@@ -26,6 +26,14 @@ module Synthetic
       # Throttling to 100 sentences at a time.
       BATCH_SIZE = 100
 
+      attr_reader :languages
+
+      def initialize(string_array, options = {})
+        super
+
+        @languages = options[:languages] || TRAIN_LANGUAGES
+      end
+
       def generate
         languages.each do |language|
           fetch_synthetic_translations_for(language: language)

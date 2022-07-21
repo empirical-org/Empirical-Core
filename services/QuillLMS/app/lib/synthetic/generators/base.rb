@@ -6,14 +6,13 @@ module Synthetic
 
       class NotImplementedError < StandardError; end
 
-      attr_reader :results_hash, :languages
+      attr_reader :results_hash
 
       # takes an array of unique strings, e.g. ['original string', 'sample 2']
       def initialize(string_array, options = {})
         # create and hash with each string  to an empty hash, e.g.
         # {'string' => {}, 'string 2' => {}
         @results_hash = string_array.map {|string| [string,{}] }.to_h
-        @languages = options[:languages] || Synthetic::Generators::Translation::TRAIN_LANGUAGES
       end
 
       # returns a hash of the form:
