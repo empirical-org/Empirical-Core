@@ -10,7 +10,7 @@ module Synthetic
 
     # To add a generator:
     # 1) Subclass Synthetic::Generators::Base
-    # 2) Write a 'generate' function
+    # 2) Write a 'generate' function (overwrite initialize if you need passed-in options)
     # 3) Add type and class to this mapping
     GENERATORS = {
       translation: Synthetic::Generators::Translation,
