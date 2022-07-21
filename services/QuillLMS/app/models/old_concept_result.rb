@@ -44,7 +44,7 @@ class OldConceptResult < ApplicationRecord
   # Over-riding the `bulk_insert` classmethod from the bulk_insert gem because the
   # behavior documented in the gem doesn't actually work.  This change makes it behave
   # as documented when passed `return_primary_keys: true`.  Minimal modifications from
-  # the original code found here:
+  # the original code found here, specifically around return values in if blocks:
   # https://github.com/jamis/bulk_insert/blob/master/lib/bulk_insert.rb
   def self.bulk_insert(*columns, values: nil, set_size:500, ignore: false, update_duplicates: false, return_primary_keys: false)
     columns = default_bulk_columns if columns.empty?
