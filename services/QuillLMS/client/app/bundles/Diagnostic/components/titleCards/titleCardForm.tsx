@@ -6,17 +6,15 @@ import {
   submitTitleCardEdit
 } from '../../actions/titleCards'
 import { commonText } from '../../modules/translation/commonText';
-import {
-  hashToCollection,
-  TextEditor
-} from '../../../Shared/index'
+import { TextEditor, Modal } from '../../../Shared/index'
 
 import _ from 'lodash'
 
 interface TitleCardFormState {
   title: string,
   content: string,
-  titleChanged: boolean
+  titleChanged: boolean,
+  showModal: boolean
 }
 
 export interface TitleCardFormProps {
@@ -39,12 +37,14 @@ class TitleCardForm extends React.Component<TitleCardFormProps, TitleCardFormSta
         content: titleCard && titleCard.content ? titleCard.content : '',
         title: titleCard && titleCard.title ? titleCard.title : '',
         titleChanged: false,
+        showModal: false
       }
     } else {
       this.state = {
         title: '',
         content: '',
         titleChanged: false,
+        showModal: false
       }
     }
   }
@@ -66,9 +66,9 @@ class TitleCardForm extends React.Component<TitleCardFormProps, TitleCardFormSta
     const { dispatch, history, match } = this.props
     const { params } = match
     const { titleCardID } = params
-    const { title, titleChanged } = this.state
+    const { titleChanged } = this.state
     // TODO: fix add/edit title card action to show new/updated title card without refreshing
-    if (this.warnTitleChange(title, titleChanged)) {
+    if (this.warnTitleChange(titleChanged)) {
       if (titleCardID) {
         dispatch(submitTitleCardEdit(titleCardID, this.state))
       } else {
@@ -78,13 +78,15 @@ class TitleCardForm extends React.Component<TitleCardFormProps, TitleCardFormSta
     }
   }
 
-  warnTitleChange = (title, titleChanged) => {
+  warnTitleChange = (titleChanged: boolean) => {
+    const { title, showModal } = this.state
     const { match } = this.props
     const { params } = match
     const { titleCardID } = params
-    const translationMappingMissing = commonText[title] == undefined
-    if (titleCardID && titleChanged && translationMappingMissing) {
-      return confirm(`Making this change will break the translation mapping because "${title}" does not yet exist on the mappings. Make a request on the support board to change the translation mapping before making this change. Are you sure you want to proceed?`)
+    const translationMappingMissing = commonText[title] === undefined
+    if (titleCardID && titleChanged && translationMappingMissing && !showModal) {
+      this.setState({ showModal: true })
+      return false;
     }
     return true
   }
@@ -107,20 +109,44 @@ class TitleCardForm extends React.Component<TitleCardFormProps, TitleCardFormSta
     }
   }
 
+  handleConfirm = () => {
+    this.submit()
+  }
+
+  handleCancel= () => {
+    this.setState({ showModal: false })
+  }
+
+  renderModal = () => {
+    return(
+      <Modal>
+        <div className="box confirmation-modal-container">
+          <p>Making this change will break the translation mapping because this new title does not yet exist in the mappings. If this change is intended, <a className="data-link" href="https://www.notion.so/quill/Support-requests-for-ELL-translation-updates-1d53a9b3babc441885194400c7fbda26" rel="noopener noreferrer" target="_blank">please make a request on the support board</a> to have the translation mapping updated before making this change. Are you sure you want to proceed?</p>
+          <section className="button-container">
+            <button className="quill-button fun primary contained" onClick={this.handleConfirm}>Confirm</button>
+            <button className="quill-button fun primary contained" onClick={this.handleCancel}>Cancel</button>
+          </section>
+        </div>
+      </Modal>
+    )
+  }
+
   render() {
+    const { showModal, title, content } = this.state;
     return (
       <div className="box">
+        {showModal && this.renderModal()}
         <h6 className="control subtitle">{this.renderHeaderText()}</h6>
         <br />
         <label className="label">Title</label>
-        <textarea className="input" onChange={this.handleTitleChange} value={this.state.title || ""} />
+        <textarea className="input" onChange={this.handleTitleChange} value={title || ""} />
         <br />
         <label className="label">Content</label>
         <TextEditor
           ContentState={ContentState}
           EditorState={EditorState}
           handleTextChange={this.handleContentChange}
-          text={this.state.content || ""}
+          text={content || ""}
         />
         <br />
         <button className="button is-primary" onClick={this.submit}>Save Question</button>
