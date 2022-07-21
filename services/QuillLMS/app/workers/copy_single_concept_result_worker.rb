@@ -6,7 +6,8 @@ class CopySingleConceptResultWorker
 
   # rubocop:disable Metrics/CyclomaticComplexity
   def perform(old_concept_result_id)
-    old_concept_result = OldConceptResult.find(old_concept_result_id)
+    old_concept_result = OldConceptResult.find_by(id: old_concept_result_id)
+    return unless old_concept_result
     return if old_concept_result.concept_result.present?
 
     directions = old_concept_result.metadata['directions']

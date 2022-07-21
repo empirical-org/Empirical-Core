@@ -48,5 +48,9 @@ describe CopySingleConceptResultWorker, type: :worker do
         subject.perform(old_concept_result.id)
       end.to change(ConceptResult, :count).by(0)
     end
+
+    it 'should return early if the specified OldConceptResult id does not reference a real object' do
+      expect(subject.perform(old_concept_result.id + 1000)).to be(nil)
+    end
   end
 end
