@@ -80,7 +80,9 @@ class ActivitySearchWrapper
           standard_name: a['standard_name'],
           content_partners: content_partners,
           topics: topics,
-          readability_grade_level: Activity.find(activity_id).readability_grade_level
+          readability_grade_level: Activity.find(activity_id).readability_grade_level,
+          minimum_grade_level: a['activity_minimum_grade_level'],
+          maximum_grade_level: a['activity_maximum_grade_level']
         }
         unique_activities_array.push(act)
       end

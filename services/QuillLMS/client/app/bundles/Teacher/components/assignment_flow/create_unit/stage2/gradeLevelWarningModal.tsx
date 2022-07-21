@@ -1,8 +1,8 @@
 import * as React from 'react'
 
+import { arrayFromNumbers, } from '../custom_activity_pack/shared'
 import { requestPost, } from '../../../../../../modules/request'
 import { DataTable, warningIcon, smallWhiteCheckIcon, } from '../../../../../Shared/index'
-import { readabilityGradeLevelToArrayOfGrades, } from '../../assignmentFlowConstants'
 
 const activityTableHeaders = [
   {
@@ -57,16 +57,13 @@ const GradeLevelWarningModal = ({ handleClickAssign, handleCloseModal, selectedA
   }
 
   // we want to compare the classroom grades to the lower end of the range for each of the activities
-  const lowestOfEachActivityReadabilityGradeLevel = selectedActivities.map(a => {
-    if (!a.readability_grade_level) { return 0 }
-    return (readabilityGradeLevelToArrayOfGrades[a.readability_grade_level])[0]
-  })
+  const lowestOfEachActivityReadabilityGradeLevel = selectedActivities.map(a => a.minimum_grade_level || 0)
   const highestGradeLevelBeingAssigned = Math.max(...lowestOfEachActivityReadabilityGradeLevel)
 
   const activityTableRows = selectedActivities.map(a => ({
     id: a.id,
     name: <a href={a.anonymous_path} rel="noopener noreferrer" target="_blank">{a.name}</a>,
-    suggestedGrades: readabilityGradeLevelToArrayOfGrades[a.readability_grade_level]?.join(', ')
+    suggestedGrades: a.minimum_grade_level ? arrayFromNumbers(a.minimum_grade_level, a.maximum_grade_level).join(', ') : null
   }))
 
   const classroomTableRows = selectedClassrooms.map(c => {

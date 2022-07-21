@@ -8,7 +8,7 @@ exports[`Tooltip component should render when it is not searchable 1`] = `
 >
   <span
     aria-hidden={false}
-    className="quill-tooltip-trigger"
+    className="quill-tooltip-trigger "
     role="tooltip"
   >
     <span
