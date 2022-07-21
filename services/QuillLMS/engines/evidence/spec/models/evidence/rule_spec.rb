@@ -220,6 +220,31 @@ module Evidence
       end
     end
 
+    context 'should one_low_confidence_per_prompt' do
+      let!(:prompt1) { create(:evidence_prompt) }
+      let!(:prompt2) { create(:evidence_prompt) }
+      let!(:low_confidence_rule) { create(:evidence_rule, :rule_type => (Rule::TYPE_LOW_CONFIDENCE), :prompt_ids => ([prompt1.id])) }
+
+      it 'should creates low_confidence rule if first rule for prompt' do
+        expect(low_confidence_rule.valid?).to(eq(true))
+      end
+
+      it 'should does not create low_confidence rule if low_confidence rule already exists for prompt' do
+        invalid_low_confidence_rule = build(:evidence_rule, :rule_type => (Rule::TYPE_LOW_CONFIDENCE), :prompt_ids => ([prompt1.id]))
+        expect((!invalid_low_confidence_rule.valid?)).to(be_truthy)
+      end
+
+      it 'should creates subsequent low_confidence rule for different prompt' do
+        second_low_confidence_rule = build(:evidence_rule, :rule_type => (Rule::TYPE_LOW_CONFIDENCE), :prompt_ids => ([prompt2.id]))
+        expect(second_low_confidence_rule.valid?).to(eq(true))
+      end
+
+      it 'should create a different type of rule if it is not low_confidence' do
+        valid_automl_rule = build(:evidence_rule, :rule_type => (Rule::TYPE_AUTOML), :prompt_ids => ([prompt1.id]))
+        expect(valid_automl_rule.valid?).to(eq(true))
+      end
+    end
+
     context 'should #after_create' do
 
       context 'should #assign_to_all_prompts' do
