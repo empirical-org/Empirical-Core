@@ -18,6 +18,7 @@ export const STRONG =  'strong';
 export const RULES_BASED_1 = 'rules-based-1';
 export const RULES_BASED_2 = 'rules-based-2';
 export const RULES_BASED_3 = 'rules-based-3';
+export const LOW_CONFIDENCE = 'low-confidence';
 export const SESSION_INDEX = 'sessionIndex';
 export const RULES_ANALYSIS = 'rulesAnalysis';
 export const RULE_ANALYSIS = 'ruleAnalysis';
@@ -125,6 +126,7 @@ export const ruleTypeOptions = [
   {"value":"rules-based-3","label":"Typo Regex"},
   {"value":"plagiarism","label":"Plagiarism"},
   {"value":"autoML","label":"AutoML"},
+  {"value":LOW_CONFIDENCE,"label":"Low Confidence"}
 ];
 
 export const universalRuleTypeOptions = [

@@ -32,6 +32,7 @@ const apiOrderLookup = {
   'grammar': 6,
   'spelling': 7,
   'rules-based-3': 8,
+  'low-confidence': 9
 }
 
 function strongTextClassName(percentage) {

@@ -23,14 +23,19 @@ const RuleViewFormWrapper = ({ activityData, isSemantic, isUniversal, location, 
   let rule: RuleInterface;
 
   if(!ruleId) {
-    const ruleType = state && state.ruleType;
-    const promptIds = state && state.promptIds;
+    const { ruleType, promptIds, conceptUid, name, } = state || {}
     const ruleToBeCreated = {...blankRule};
     if(ruleType) {
       ruleToBeCreated.rule_type = ruleType;
     }
     if(promptIds) {
       ruleToBeCreated.prompt_ids = promptIds;
+    }
+    if(conceptUid) {
+      ruleToBeCreated.concept_uid = conceptUid
+    }
+    if(name) {
+      ruleToBeCreated.name = name
     }
     rule = ruleToBeCreated
   } else {
