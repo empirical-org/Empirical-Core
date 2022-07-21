@@ -42,13 +42,24 @@ class RuleFeedbackHistory
   end
 
   def self.feedback_history_to_json(f_h)
+    if f_h.metadata.instance_of?(Hash) && f_h.metadata['api']
+      low_confidence_predicted_rule = {
+        name: f_h.metadata['api']['original_rule_name'],
+        uid: f_h.metadata['api']['original_rule_uid'],
+        confidence: f_h.metadata['api']['original_rule_confidence']
+      }
+    else
+     low_confidence_predicted_rule = {}
+    end
+    
     {
         response_id: f_h.id,
         datetime: f_h.updated_at,
         entry: f_h.entry,
         highlight: f_h.metadata.instance_of?(Hash) ? f_h.metadata['highlight'] : '',
         session_uid: f_h.feedback_session_uid,
-        strength: f_h.feedback_history_ratings.max_by(&:updated_at)&.rating
+        strength: f_h.feedback_history_ratings.max_by(&:updated_at)&.rating,
+        low_confidence_predicted_rule: low_confidence_predicted_rule
     }
   end
 
