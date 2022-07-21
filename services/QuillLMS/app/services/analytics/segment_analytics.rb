@@ -222,6 +222,7 @@ class SegmentAnalytics
         premium_state: user.premium_state,
         premium_type: user.subscription&.account_type,
         auditor: user.auditor?,
+        is_admin: user.admin?,
         school_name: user.school&.name,
         school_id: user.school&.id,
         district: user.school&.district&.name
