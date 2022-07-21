@@ -231,17 +231,20 @@ describe 'SegmentAnalytics' do
     let(:district) { create(:district) }
     let(:school) { create(:school, district: district) }
     let(:teacher) { create(:teacher, school: school) }
-    let(:admin) { create(:admin, school: school) }
+    let(:admin) { create(:admin) }
+    let!(:schools_admins) { create(:schools_admins, school: school, user: admin) }
 
     it 'sends events to Intercom when the user is a teacher' do
       analytics.identify(teacher)
       expect(identify_calls.size).to eq(1)
       expect(track_calls.size).to eq(0)
       expect(identify_calls[0][:traits][:is_admin]).to eq(false)
+      expect(identify_calls[0][:traits][:email]).to eq(teacher.email)
       expect(identify_calls[0][:traits][:school_name]).to eq(school.name)
       expect(identify_calls[0][:traits][:school_id]).to eq(school.id)
       expect(identify_calls[0][:traits][:district]).to eq(district.name)
     end
+
     it 'sends events to Intercom when the user is an admin' do
       analytics.identify(admin)
       expect(identify_calls.size).to eq(1)
