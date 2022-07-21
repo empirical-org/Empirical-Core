@@ -23,6 +23,7 @@
 #
 # Indexes
 #
+#  index_concept_results_on_activity_session_id    (activity_session_id)
 #  index_concept_results_on_old_concept_result_id  (old_concept_result_id) UNIQUE
 #
 require 'rails_helper'
