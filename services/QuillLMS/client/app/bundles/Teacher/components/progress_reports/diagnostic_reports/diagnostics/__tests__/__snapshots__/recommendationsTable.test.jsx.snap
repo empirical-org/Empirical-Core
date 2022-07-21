@@ -349,7 +349,7 @@ exports[`RecommendationsTable component should render when no students have comp
                   >
                     <span
                       aria-hidden={false}
-                      className="quill-tooltip-trigger"
+                      className="quill-tooltip-trigger "
                       role="tooltip"
                     >
                       <span
@@ -408,7 +408,7 @@ exports[`RecommendationsTable component should render when no students have comp
                   >
                     <span
                       aria-hidden={false}
-                      className="quill-tooltip-trigger"
+                      className="quill-tooltip-trigger "
                       role="tooltip"
                     >
                       <span
@@ -467,7 +467,7 @@ exports[`RecommendationsTable component should render when no students have comp
                   >
                     <span
                       aria-hidden={false}
-                      className="quill-tooltip-trigger"
+                      className="quill-tooltip-trigger "
                       role="tooltip"
                     >
                       <span
@@ -526,7 +526,7 @@ exports[`RecommendationsTable component should render when no students have comp
                   >
                     <span
                       aria-hidden={false}
-                      className="quill-tooltip-trigger"
+                      className="quill-tooltip-trigger "
                       role="tooltip"
                     >
                       <span
@@ -585,7 +585,7 @@ exports[`RecommendationsTable component should render when no students have comp
                   >
                     <span
                       aria-hidden={false}
-                      className="quill-tooltip-trigger"
+                      className="quill-tooltip-trigger "
                       role="tooltip"
                     >
                       <span
@@ -644,7 +644,7 @@ exports[`RecommendationsTable component should render when no students have comp
                   >
                     <span
                       aria-hidden={false}
-                      className="quill-tooltip-trigger"
+                      className="quill-tooltip-trigger "
                       role="tooltip"
                     >
                       <span
@@ -5076,7 +5076,7 @@ exports[`RecommendationsTable component should render when no students have comp
                       >
                         <span
                           aria-hidden={false}
-                          className="quill-tooltip-trigger"
+                          className="quill-tooltip-trigger "
                           role="tooltip"
                         >
                           <span
@@ -7448,7 +7448,7 @@ exports[`RecommendationsTable component should render when no students have comp
                       >
                         <span
                           aria-hidden={false}
-                          className="quill-tooltip-trigger"
+                          className="quill-tooltip-trigger "
                           role="tooltip"
                         >
                           <span
@@ -8608,7 +8608,7 @@ exports[`RecommendationsTable component should render when no students have comp
                       >
                         <span
                           aria-hidden={false}
-                          className="quill-tooltip-trigger"
+                          className="quill-tooltip-trigger "
                           role="tooltip"
                         >
                           <span
@@ -10737,7 +10737,7 @@ exports[`RecommendationsTable component should render when no students have comp
                       >
                         <span
                           aria-hidden={false}
-                          className="quill-tooltip-trigger"
+                          className="quill-tooltip-trigger "
                           role="tooltip"
                         >
                           <span
@@ -11434,7 +11434,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                   >
                     <span
                       aria-hidden={false}
-                      className="quill-tooltip-trigger"
+                      className="quill-tooltip-trigger "
                       role="tooltip"
                     >
                       <span
@@ -11493,7 +11493,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                   >
                     <span
                       aria-hidden={false}
-                      className="quill-tooltip-trigger"
+                      className="quill-tooltip-trigger "
                       role="tooltip"
                     >
                       <span
@@ -11552,7 +11552,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                   >
                     <span
                       aria-hidden={false}
-                      className="quill-tooltip-trigger"
+                      className="quill-tooltip-trigger "
                       role="tooltip"
                     >
                       <span
@@ -11611,7 +11611,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                   >
                     <span
                       aria-hidden={false}
-                      className="quill-tooltip-trigger"
+                      className="quill-tooltip-trigger "
                       role="tooltip"
                     >
                       <span
@@ -11670,7 +11670,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                   >
                     <span
                       aria-hidden={false}
-                      className="quill-tooltip-trigger"
+                      className="quill-tooltip-trigger "
                       role="tooltip"
                     >
                       <span
@@ -11729,7 +11729,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                   >
                     <span
                       aria-hidden={false}
-                      className="quill-tooltip-trigger"
+                      className="quill-tooltip-trigger "
                       role="tooltip"
                     >
                       <span
@@ -19383,7 +19383,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                       >
                         <span
                           aria-hidden={false}
-                          className="quill-tooltip-trigger"
+                          className="quill-tooltip-trigger "
                           role="tooltip"
                         >
                           <span
@@ -23465,7 +23465,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                       >
                         <span
                           aria-hidden={false}
-                          className="quill-tooltip-trigger"
+                          className="quill-tooltip-trigger "
                           role="tooltip"
                         >
                           <span
@@ -25414,7 +25414,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                       >
                         <span
                           aria-hidden={false}
-                          className="quill-tooltip-trigger"
+                          className="quill-tooltip-trigger "
                           role="tooltip"
                         >
                           <span
@@ -28875,7 +28875,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                       >
                         <span
                           aria-hidden={false}
-                          className="quill-tooltip-trigger"
+                          className="quill-tooltip-trigger "
                           role="tooltip"
                         >
                           <span

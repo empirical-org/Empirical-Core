@@ -14,7 +14,9 @@ export interface Activity {
   standard_level_name: string
   content_partners: ContentPartner[]
   topics: Topic[]
-  readability_grade_level?: string
+  readability_grade_level?: string,
+  maximum_grade_level?: number,
+  minimum_grade_level?: number
 }
 
 export interface ActivityClassification {

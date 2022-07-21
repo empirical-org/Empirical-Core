@@ -28,6 +28,8 @@ exports[`GradeLevelWarningModal component should render 1`] = `
         "description": "Students answer questions on 7 areas of sentence structure aligned to the grammar instruction featured in the SpringBoard Language and Writer’s Craft and Language Checkpoint lesson components. These skills include subject-verb agreement, compound sentences, and subordinating conjunctions. This diagnostic is intended for grades 6-8.",
         "flags": "{production}",
         "id": 1432,
+        "maximum_grade_level": null,
+        "minimum_grade_level": null,
         "name": "SpringBoard® Writing Skills Survey",
         "readability_grade_level": null,
         "standard_level": Object {
@@ -57,6 +59,8 @@ exports[`GradeLevelWarningModal component should render 1`] = `
         "description": "Students practice writing compound and complex sentences by combining two sentences using one of the three provided joining words. Students must choose the joining word that best connects the ideas.",
         "flags": "{production}",
         "id": 897,
+        "maximum_grade_level": 12,
+        "minimum_grade_level": 8,
         "name": "And, Because, Or (Intermediate)",
         "readability_grade_level": "8th-9th",
         "standard_level": Object {
@@ -105,6 +109,8 @@ exports[`GradeLevelWarningModal component should render 1`] = `
         "description": "Students practice writing compound-complex sentences by combining three sentences. Students are provided four joining words and must choose the two that best connect the ideas.",
         "flags": "{production}",
         "id": 1001,
+        "maximum_grade_level": 12,
+        "minimum_grade_level": 10,
         "name": "Compound-Complex Sentences (Intermediate)",
         "readability_grade_level": "10th-12th",
         "standard_level": Object {
@@ -283,7 +289,7 @@ exports[`GradeLevelWarningModal component should render 1`] = `
                 >
                   SpringBoard® Writing Skills Survey
                 </a>,
-                "suggestedGrades": undefined,
+                "suggestedGrades": null,
               },
               Object {
                 "id": 897,
@@ -294,7 +300,7 @@ exports[`GradeLevelWarningModal component should render 1`] = `
                 >
                   And, Because, Or (Intermediate)
                 </a>,
-                "suggestedGrades": "8, 9",
+                "suggestedGrades": "8, 9, 10, 11, 12",
               },
               Object {
                 "id": 1001,
@@ -415,7 +421,7 @@ exports[`GradeLevelWarningModal component should render 1`] = `
                     }
                   }
                 >
-                  8, 9
+                  8, 9, 10, 11, 12
                 </td>
               </tr>
               <tr
