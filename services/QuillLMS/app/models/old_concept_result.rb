@@ -40,4 +40,30 @@ class OldConceptResult < ApplicationRecord
   def concept_uid=(concept_uid)
     self.concept = Concept.where(uid: concept_uid).first
   end
+
+  # Over-riding the `bulk_insert` classmethod from the bulk_insert gem because the
+  # behavior documented in the gem doesn't actually work.  This change makes it behave
+  # as documented when passed `return_primary_keys: true`.  Minimal modifications from
+  # the original code found here:
+  # https://github.com/jamis/bulk_insert/blob/master/lib/bulk_insert.rb
+  def self.bulk_insert(*columns, values: nil, set_size:500, ignore: false, update_duplicates: false, return_primary_keys: false)
+    columns = default_bulk_columns if columns.empty?
+    worker = BulkInsert::Worker.new(connection, table_name, primary_key, columns, set_size, ignore, update_duplicates, return_primary_keys)
+
+    if values.present?
+      transaction do
+        worker.add_all(values)
+        worker.save!
+      end
+      worker
+    elsif block_given?
+      transaction do
+        yield worker
+        worker.save!
+      end
+      worker
+    else
+      worker
+    end
+  end
 end

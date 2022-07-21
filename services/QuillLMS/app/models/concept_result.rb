@@ -55,6 +55,7 @@ class ConceptResult < ApplicationRecord
 
   def self.create_from_json(data_hash)
     response = init_from_json(data_hash)
+    puts response.as_json
     response.save!
     response
   end
@@ -81,13 +82,16 @@ class ConceptResult < ApplicationRecord
   end
 
   def self.bulk_create_from_json(data_hash_array)
-    data_hash_array.map { |data_hash| create_from_json(data_hash) }
+    data_hash_array.map { |data_hash| create_from_json(data_hash.clone) }
   end
 
   def self.find_or_create_from_old_concept_result(old_concept_result)
     return old_concept_result.concept_result if old_concept_result.concept_result
 
-    create_from_json(old_concept_result.as_json)
+    json = old_concept_result.as_json
+    json['old_concept_result_id'] = old_concept_result.id
+
+    create_from_json(json)
   end
 
   def self.parse_extra_metadata(metadata)

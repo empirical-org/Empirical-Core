@@ -4,7 +4,9 @@ class SaveActivitySessionConceptResultsWorker
   include Sidekiq::Worker
   sidekiq_options queue: SidekiqQueue::MIGRATION
 
-  def perform(concept_results_hashes)
-    ConceptResult.bulk_create_from_json(concept_results_hashes)
+  def perform(old_concept_result_ids)
+    OldConceptResult.where(id: old_concept_result_ids).each do |old_concept_result|
+      ConceptResult.find_or_create_from_old_concept_result(old_concept_result)
+    end
   end
 end
