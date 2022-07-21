@@ -37,7 +37,7 @@ module Evidence
           hint: matched_low_confidence_rule&.hint,
           highlight: highlight,
           api: {
-            confidence: @confidence_score,
+            original_rule_confidence: @confidence_score,
             original_rule_uid: matched_automl_rule&.uid,
             original_rule_name: matched_automl_rule&.name
           }
