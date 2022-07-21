@@ -38,7 +38,7 @@ module Evidence
       it 'should return the feedback payload when there is a label match' do
         AutomlModel.stub_any_instance(:fetch_automl_label, [label.name, automl_confidence]) do
           entry = "entry"
-          automl_check = Evidence::AutomlCheck.new(entry, prompt)
+          automl_check = Evidence::AutomlCheck.new(entrxy, prompt)
           expect(:feedback => feedback.text, :feedback_type => "autoML", :optimal => rule.optimal,  :entry => entry, :concept_uid => ((rule&.concept_uid or "")), :rule_uid => (rule&.uid), :highlight => ([]), :hint => nil, :api => {:confidence => automl_confidence}).to(eq(automl_check.feedback_object))
         end
       end

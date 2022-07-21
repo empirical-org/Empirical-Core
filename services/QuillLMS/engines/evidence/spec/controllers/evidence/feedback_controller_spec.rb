@@ -88,11 +88,11 @@ module Evidence
       end
 
       context "autoML test" do
-        it 'should return feedback payloads based on the lib matched_rule value' do
+        it 'should return feedback payloads based on the lib matched_automl_rule value' do
           stub_const("Evidence::Check::ALL_CHECKS", [Check::AutoML])
 
           entry = "entry"
-          AutomlCheck.stub_any_instance(:matched_rule, rule) do
+          AutomlCheck.stub_any_instance(:matched_automl_rule, rule) do
             Rule.stub_any_instance(:determine_feedback_from_history, first_feedback) do
               post :create, params: {entry: entry, prompt_id: prompt.id, session_id: 1, previous_feedback: ([]) }, as: :json
 
@@ -655,9 +655,9 @@ module Evidence
         expect(parsed_response["feedback_type"]).to eq(Rule::TYPE_ERROR)
       end
 
-      it 'should return feedback payloads based on the lib matched_rule value' do
+      it 'should return feedback payloads based on the lib matched_automl_rule value' do
         entry = "entry"
-        AutomlCheck.stub_any_instance(:matched_rule, rule) do
+        AutomlCheck.stub_any_instance(:matched_automl_rule, rule) do
           Rule.stub_any_instance(:determine_feedback_from_history, first_feedback) do
             post :create, :params => ({ :entry => entry, :prompt_id => prompt.id, :session_id => 1, :previous_feedback => ([]) }), :as => :json
             parsed_response = JSON.parse(response.body)

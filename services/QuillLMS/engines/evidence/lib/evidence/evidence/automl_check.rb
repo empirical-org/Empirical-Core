@@ -70,7 +70,12 @@ module Evidence
 
     private def matched_low_confidence_rule
       return unless matched_automl_rule && !matched_automl_rule.optimal && @confidence_score < LOW_CONFIDENCE_THRESHOLD
+
       @matched_low_confidence_rule ||= fetch_matched_low_confidence_rule
+    end
+
+    private def fetch_matched_low_confidence_rule
+      @prompt.rules&.find_by(rule_type: Evidence::Rule::TYPE_LOW_CONFIDENCE)
     end
 
     private def matched_automl_rule
