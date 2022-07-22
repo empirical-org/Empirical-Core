@@ -88,10 +88,10 @@ class ConceptResult < ApplicationRecord
   def self.find_or_create_from_old_concept_result(old_concept_result)
     return old_concept_result.concept_result if old_concept_result.concept_result
 
-    json = old_concept_result.as_json
-    json['old_concept_result_id'] = old_concept_result.id
+    data_hash = old_concept_result.as_json
+    data_hash['old_concept_result_id'] = old_concept_result.id
 
-    create_from_json(json)
+    create_from_json(data_hash)
   end
 
   def self.parse_extra_metadata(metadata)

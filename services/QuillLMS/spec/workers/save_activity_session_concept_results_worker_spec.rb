@@ -10,7 +10,7 @@ describe SaveActivitySessionConceptResultsWorker, type: :worker do
     it 'should save new ConceptResult records based on an array of OldConceptResult ids' do
       expect { subject.perform(old_concept_result.id) }
         .to change(ConceptResult, :count).by(1)
-      expect(old_concept_result.reload.concept_result).to be
+      expect(old_concept_result.concept_result).to be
     end
 
     it 'should create new ConceptResults that are related to the same ActivitySession as the original OldConceptResult' do
