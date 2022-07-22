@@ -1239,7 +1239,8 @@ CREATE TABLE public.comprehension_activities (
     scored_level character varying(100),
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    notes character varying
+    notes character varying,
+    version smallint DEFAULT 0 NOT NULL
 );
 
 
@@ -2333,7 +2334,8 @@ CREATE TABLE public.feedback_histories (
     metadata jsonb,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    rule_uid character varying
+    rule_uid character varying,
+    activity_version smallint DEFAULT 0 NOT NULL
 );
 
 
@@ -6784,6 +6786,13 @@ CREATE UNIQUE INDEX index_concept_result_question_types_on_text ON public.concep
 
 
 --
+-- Name: index_concept_results_on_activity_session_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_concept_results_on_activity_session_id ON public.concept_results USING btree (activity_session_id);
+
+
+--
 -- Name: index_concept_results_on_old_concept_result_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -8619,6 +8628,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220608144739'),
 ('20220609173524'),
 ('20220614152118'),
+('20220623214342'),
 ('20220628174900'),
 ('20220705143703'),
 ('20220707154724'),
@@ -8626,6 +8636,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220707155013'),
 ('20220707155014'),
 ('20220707155015'),
-('20220707155016');
+('20220707155016'),
+('20220708201219'),
+('20220721183005');
 
 
