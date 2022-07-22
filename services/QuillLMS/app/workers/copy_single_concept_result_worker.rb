@@ -10,10 +10,13 @@ class CopySingleConceptResultWorker
     return unless old_concept_result
     return if old_concept_result.concept_result.present?
 
-    directions = old_concept_result.metadata['directions']
-    instructions = old_concept_result.metadata['instructions']
-    previous_feedback = old_concept_result.metadata['lastFeedback']
-    prompt = old_concept_result.metadata['prompt']
+    metadata = old_concept_result.metadata
+    metadata = JSON.parse(metadata) if metadata.is_a? String
+
+    directions = metadata['directions']
+    instructions = metadata['instructions']
+    previous_feedback = metadata['lastFeedback']
+    prompt = metadata['prompt']
     question_type = old_concept_result.question_type
 
     ActiveRecord::Base.transaction do
@@ -23,16 +26,19 @@ class CopySingleConceptResultWorker
       prompts = ConceptResultPrompt.find_or_create_by(text: prompt)&.id if prompt
       question_types = ConceptResultQuestionType.find_or_create_by(text: question_type)&.id if question_type
 
-      extra_metadata = ConceptResult.parse_extra_metadata(old_concept_result.metadata)
+      extra_metadata = ConceptResult.parse_extra_metadata(metadata)
+
+      answer = metadata['answer']
+      answer = answer.gsub(/\u0000/,'')
 
       ConceptResult.create!({
-        answer: old_concept_result.metadata['answer'],
-        attempt_number: old_concept_result.metadata['attemptNumber'],
+        answer: answer,
+        attempt_number: metadata['attemptNumber'],
         concept_id: old_concept_result.concept_id,
-        correct: old_concept_result.metadata['correct'] == 1,
+        correct: metadata['correct'] == 1,
         extra_metadata: extra_metadata,
-        question_number: old_concept_result.metadata['questionNumber'],
-        question_score: old_concept_result.metadata['questionScore'],
+        question_number: metadata['questionNumber'],
+        question_score: metadata['questionScore'],
         activity_session_id: old_concept_result.activity_session_id,
         old_concept_result_id: old_concept_result.id,
         concept_result_directions_id: directions,

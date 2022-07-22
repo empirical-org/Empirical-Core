@@ -52,5 +52,22 @@ describe CopySingleConceptResultWorker, type: :worker do
     it 'should return early if the specified OldConceptResult id does not reference a real object' do
       expect(subject.perform(old_concept_result.id + 1000)).to be(nil)
     end
+
+    it 'should successfully migrate even if the "answer" has a Postgres-invalid character like \u0000' do
+      old_concept_result.metadata['answer'] = "\u0000Test"
+      old_concept_result.save
+
+      subject.perform(old_concept_result.id)
+
+      expect(old_concept_result.reload.concept_result.answer).to eq('Test')
+    end
+
+    it 'should handle cases where, for some reason, the data in "metadata" is a JSON string instead of a JSON object, and needs to be parsed' do
+      old_concept_result.metadata = metadata.to_json
+      old_concept_result.save
+
+      subject.perform(old_concept_result.id)
+      expect(old_concept_result.reload.concept_result.answer).to eq(metadata[:answer])
+    end
   end
 end
