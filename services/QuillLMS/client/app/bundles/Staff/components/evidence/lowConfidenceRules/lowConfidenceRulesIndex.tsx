@@ -120,19 +120,19 @@ const LowConfidenceRulesIndex: React.FC<RouteComponentProps<ActivityRouteProps>>
     return '';
   }
 
-  function getAddRuleLink(conjunction: string) {
+  function getAddRuleLink(conjunction: string, className: string) {
     const props: any = { pathname: `/activities/${activityId}/low-confidence-rules/new`, state: { ruleType: LOW_CONFIDENCE }};
     if(!rulePrompts) {
-      return <Link to={props}>Add Low Confidence Rule</Link>;
+      return <Link className={className} to={props}>Add Low Confidence Rule</Link>;
     }
     if(rulePrompts[conjunction]) {
       const { id } = rulePrompts[conjunction];
       props.state.promptIds = [id];
       props.state.conceptUid = DEFAULT_CONCEPT_UIDS[conjunction]
       props.state.name = `Low Confidence Evidence - ${titleCase(conjunction)}`
-      return <Link to={props}>{`Add ${titleCase(conjunction)} Low Confidence Rule`}</Link>;
+      return <Link className={className} to={props}>{`Add ${titleCase(conjunction)} Low Confidence Rule`}</Link>;
     }
-    return <Link to={props}>Add Low Confidence Rule</Link>;
+    return <Link className={className} to={props}>Add Low Confidence Rule</Link>;
   }
 
   if(!lowConfidenceRulesData) {
@@ -156,32 +156,32 @@ const LowConfidenceRulesIndex: React.FC<RouteComponentProps<ActivityRouteProps>>
     { name: "", attribute:"field", width: "200px" },
     { name: "", attribute:"value", width: "800px" }
   ];
-  const becauseRuleLink = getAddRuleLink(BECAUSE);
-  const butRuleLink = getAddRuleLink(BUT);
-  const soRuleLink = getAddRuleLink(SO);
   const becauseLowConfidenceRule = getFormattedRows(lowConfidenceRulesData, BECAUSE);
   const butLowConfidenceRule = getFormattedRows(lowConfidenceRulesData, BUT);
   const soLowConfidenceRule = getFormattedRows(lowConfidenceRulesData, SO);
   const becauseDisabled = getButtonClass(BECAUSE);
   const butDisabled = getButtonClass(BUT);
   const soDisabled = getButtonClass(SO);
+  const becauseRuleLink = getAddRuleLink(BECAUSE, `quill-button fun primary contained add-rule-button ${becauseDisabled}`);
+  const butRuleLink = getAddRuleLink(BUT, `quill-button fun primary contained add-rule-button ${butDisabled}`);
+  const soRuleLink = getAddRuleLink(SO, `quill-button fun primary contained add-rule-button ${soDisabled}`);
   const oneRuleWarning = 'There can only be one low confidence rule per conjunction. Please click "View" below if you would like to update the feedback.'
 
   return(
     <div className="rules-container">
-      {renderHeader(activityData, 'LowConfidence Rules')}
+      {renderHeader(activityData, 'Low Confidence Rules')}
       <section className="low-confidence-section" id="first-low-confidence-section">
-        <button className={`quill-button fun primary contained add-rule-button ${becauseDisabled}`} type="submit">{becauseRuleLink}</button>
+        {becauseRuleLink}
         {becauseDisabled && <p className="one-rule-warning">{oneRuleWarning}</p>}
         {renderTable(becauseLowConfidenceRule)}
       </section>
       <section className="low-confidence-section">
-        <button className={`quill-button fun primary contained add-rule-button ${butDisabled}`} type="submit">{butRuleLink}</button>
+        {butRuleLink}
         {butDisabled && <p className="one-rule-warning">{oneRuleWarning}</p>}
         {renderTable(butLowConfidenceRule)}
       </section>
       <section className="low-confidence-section">
-        <button className={`quill-button fun primary contained add-rule-button ${soDisabled}`} type="submit">{soRuleLink}</button>
+        {soRuleLink}
         {soDisabled && <p className="one-rule-warning">{oneRuleWarning}</p>}
         {renderTable(soLowConfidenceRule)}
       </section>
