@@ -49,9 +49,9 @@ class RuleFeedbackHistory
         confidence: f_h.metadata['api']['original_rule_confidence']
       }
     else
-     low_confidence_predicted_rule = {}
+      low_confidence_predicted_rule = {}
     end
-    
+
     {
         response_id: f_h.id,
         datetime: f_h.updated_at,
