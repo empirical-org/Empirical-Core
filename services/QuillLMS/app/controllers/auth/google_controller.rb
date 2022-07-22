@@ -42,9 +42,9 @@ class Auth::GoogleController < ApplicationController
 
   private def check_for_authorization
     user = User.find_by('google_id = ? OR email = ?', @profile.google_id&.to_s, @profile.email&.downcase)
-    return if user.nil?
+    return if user.nil? || user.google_authorized?
 
-    redirect_to new_session_path(google_offline_access_expired: true) unless user.google_authorized?
+    redirect_to new_session_path(google_offline_access_expired: true)
   end
 
   private def run_background_jobs
