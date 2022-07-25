@@ -151,7 +151,6 @@ gem 'awesome_print'
 
 group :production, :staging do
   gem 'rails_autoscale_agent'
-  gem 'rails_12factor'
   gem 'lograge'
   gem 'sqreen'
 end
