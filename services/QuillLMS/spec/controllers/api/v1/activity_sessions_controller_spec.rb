@@ -47,24 +47,25 @@ describe Api::V1::ActivitySessionsController, type: :controller do
         create(:old_concept_result,
           activity_session_id: activity_session.id,
           concept: writing_concept,
-          metadata: { foo: 'bar' }
+          metadata: { foo: 'bar', correct: true }
         )
       end
 
       let(:concept_result2) do
         create(:old_concept_result,
           activity_session_id: activity_session.id,
-          metadata: { baz: 'foo' }
+          metadata: { baz: 'foo', correct: true }
         )
       end
 
       let(:concept_result3) do
         create(:old_concept_result,
-          activity_session_id: activity_session.id
+          activity_session_id: activity_session.id,
+          metadata: { correct: true }
         )
       end
 
-      let(:concept_results) do
+      let!(:concept_results) do
         results = JSON.parse([concept_result1, concept_result2, concept_result3].to_json)
 
         results[0] = results[0].merge('concept_uid' => concept_result1.concept.uid)
@@ -74,23 +75,29 @@ describe Api::V1::ActivitySessionsController, type: :controller do
         results
       end
 
-      before { put :update, params: { id: activity_session.uid, concept_results: concept_results }, as: :json }
-
       it 'succeeds' do
+        put :update, params: { id: activity_session.uid, concept_results: concept_results }, as: :json
         expect(response.status).to eq(200)
       end
 
       it 'stores the concept results' do
-        activity_session.reload
-        expect(activity_session.old_concept_results.size).to eq 7
+        # Run Sidekiq jobs immediately instead of queuing them
+        Sidekiq::Testing.inline! do
+          expect do
+            put :update, params: { id: activity_session.uid, concept_results: concept_results }, as: :json
+          end.to change { activity_session.reload.old_concept_results.size }.by(3)
+             .and change { activity_session.reload.concept_results.size }.by(3)
+        end
       end
 
       it 'saves the arbitrary metadata for the results' do
+        put :update, params: { id: activity_session.uid, concept_results: concept_results }, as: :json
         activity_session.reload
-        expect(activity_session.old_concept_results.find{|x| x.metadata == {"foo"=>"bar"}}).to be
+        expect(activity_session.old_concept_results.find{|x| x.metadata['foo'] == "bar"}).to be
       end
 
       it 'saves the concept tag relationship (ID) in the result' do
+        put :update, params: { id: activity_session.uid, concept_results: concept_results }, as: :json
         expect(OldConceptResult.where(activity_session_id: activity_session, concept_id: writing_concept.id).count).to eq 2
       end
     end
