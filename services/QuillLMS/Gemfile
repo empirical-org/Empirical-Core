@@ -6,10 +6,10 @@ ruby '2.7.6'
 
 # CORE DEPS
 gem 'rails', '6.0.5'
-gem 'puma', '>= 4.3.11'
+gem 'puma', '~> 5.6.4'
 
 # EARLY TO APPLY TO OTHER GEMS
-gem 'dotenv-rails', '~>2.6'
+gem 'dotenv-rails', '~> 2.6'
 
 # DB/MODEL
 gem 'pg', '0.18.4'
@@ -140,7 +140,7 @@ gem 'rack-heartbeat'
 gem 'clever-ruby', '~> 2.0.1'
 
 # Memory profiling
-gem 'puma_worker_killer', '~> 0.1.0'
+gem 'puma_worker_killer'
 
 # temp for migrations
 gem 'paperclip'
