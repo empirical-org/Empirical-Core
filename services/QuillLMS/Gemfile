@@ -5,7 +5,7 @@ source 'https://rubygems.org'
 ruby '2.7.6'
 
 # CORE DEPS
-gem 'rails', '6.0.5'
+gem 'rails', '6.1.6'
 gem 'puma', '~> 5.6.4'
 
 # EARLY TO APPLY TO OTHER GEMS
@@ -125,6 +125,7 @@ gem 'webpacker', '~> 3.0.0'
 # ASSET/UI
 gem 'uglifier', require: false
 gem 'kaminari', '~> 1.2.1'
+gem 'sprockets', '~> 3.7.2'
 
 # MIDDLEWARE
 gem 'rack-cache', '~> 1.6.1', require: 'rack/cache'
