@@ -49,7 +49,21 @@ module Evidence
         AutomlModel.stub_any_instance(:fetch_automl_label, [label.name, 0.5]) do
           entry = "entry"
           automl_check = Evidence::AutomlCheck.new(entry, prompt)
-          expect(:feedback => low_confidence_feedback.text, :feedback_type => "low-confidence", :optimal => low_confidence_rule.optimal,  :entry => entry, :concept_uid => ((low_confidence_rule&.concept_uid or "")), :rule_uid => (low_confidence_rule&.uid), :highlight => ([]), :hint => nil, :api => {:original_rule_confidence => 0.5, :original_rule_name => rule.name, :original_rule_uid => rule.uid}).to(eq(automl_check.feedback_object))
+          expected_payload = {
+            :feedback => low_confidence_feedback.text,
+            :feedback_type => "low-confidence",
+            :optimal => low_confidence_rule.optimal,  :entry => entry,
+            :concept_uid => ((low_confidence_rule&.concept_uid or "")),
+            :rule_uid => (low_confidence_rule&.uid),
+            :highlight => ([]),
+            :hint => nil,
+            :api => {
+              :confidence => 0.5,
+              :original_rule_name => rule.name,
+              :original_rule_uid => rule.uid
+            }
+          }
+          expect(automl_check.feedback_object).to(eq(expected_payload))
         end
       end
 

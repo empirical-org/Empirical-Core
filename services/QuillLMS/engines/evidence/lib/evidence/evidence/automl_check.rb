@@ -18,53 +18,37 @@ module Evidence
     def feedback_object
       return unless matched_automl_rule
 
-      if matched_low_confidence_rule
-        feedback = matched_low_confidence_rule.determine_feedback_from_history(@previous_feedback)
-        highlight = feedback.highlights.map do |h|
-          {
-            type: h.highlight_type,
-            text: h.text,
-            category: ''
-          }
-        end
+      matched_rule = matched_low_confidence_rule || matched_automl_rule
+
+      feedback = matched_rule.determine_feedback_from_history(@previous_feedback)
+      highlight = feedback.highlights.map do |h|
         {
-          feedback: feedback.text,
-          feedback_type: Rule::TYPE_LOW_CONFIDENCE,
-          optimal: matched_low_confidence_rule.optimal,
-          entry: @entry,
-          concept_uid: matched_low_confidence_rule&.concept_uid || '',
-          rule_uid: matched_low_confidence_rule&.uid || '',
-          hint: matched_low_confidence_rule&.hint,
-          highlight: highlight,
-          api: {
-            original_rule_confidence: @confidence_score,
-            original_rule_uid: matched_automl_rule&.uid,
-            original_rule_name: matched_automl_rule&.name
-          }
-        }
-      else
-        feedback = matched_automl_rule.determine_feedback_from_history(@previous_feedback)
-        highlight = feedback.highlights.map do |h|
-          {
-            type: h.highlight_type,
-            text: h.text,
-            category: ''
-          }
-        end
-        {
-          feedback: feedback.text,
-          feedback_type: Rule::TYPE_AUTOML,
-          optimal: matched_automl_rule.optimal,
-          entry: @entry,
-          concept_uid: matched_automl_rule&.concept_uid || '',
-          rule_uid: matched_automl_rule&.uid || '',
-          hint: matched_automl_rule&.hint,
-          highlight: highlight,
-          api: {
-            confidence: @confidence_score
-          }
+          type: h.highlight_type,
+          text: h.text,
+          category: ''
         }
       end
+
+      api = {
+        confidence: @confidence_score
+      }
+
+      if matched_rule.rule_type === Rule::TYPE_LOW_CONFIDENCE
+        api['original_rule_uid'] = matched_automl_rule&.uid
+        api['original_rule_name'] = matched_automl_rule&.name
+      end
+
+      {
+        feedback: feedback.text,
+        feedback_type: matched_rule.rule_type,
+        optimal: matched_rule.optimal,
+        entry: @entry,
+        concept_uid: matched_rule&.concept_uid || '',
+        rule_uid: matched_rule&.uid || '',
+        hint: matched_rule&.hint,
+        highlight: highlight,
+        api: api
+      }
     end
     # rubocop:enable Metrics/CyclomaticComplexity
 

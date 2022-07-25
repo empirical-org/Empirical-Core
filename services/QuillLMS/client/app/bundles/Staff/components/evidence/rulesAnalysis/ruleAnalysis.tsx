@@ -158,7 +158,7 @@ const RuleAnalysis = ({ match }) => {
   function filterResponsesBySearch(r) {
     if (search.length) {
       try {
-        return new RegExp(search, 'i').test(r.entry) || new RegExp(search, 'i').test(r.low_confidence_predicted_rule?.name)
+        return new RegExp(search, 'i').test(r.entry) || new RegExp(search, 'i').test(r.api?.original_rule_name)
       } catch (e) {
         return false
       }
@@ -294,9 +294,9 @@ const RuleAnalysis = ({ match }) => {
       } else {
         formattedResponse.selected = <button aria-label="Unchecked checkbox" className="quill-checkbox unselected" onClick={() => selectRow(r.response_id)} type="button" />
       }
-      
-      formattedResponse.originalRuleConfidence = Math.round(r.low_confidence_predicted_rule.confidence * 100) / 100
-      formattedResponse.lowConfidenceLabelPrediction = <Link className="data-link" rel="noopener noreferrer" target="_blank" to={`/activities/${activityId}/rules-analysis/${promptConjunction}/rule/${r.low_confidence_predicted_rule.uid}/prompt/${promptId}`}>{r.low_confidence_predicted_rule.name}</Link>
+
+      formattedResponse.originalRuleConfidence = Math.round(r.api.confidence * 100) / 100
+      formattedResponse.lowConfidenceLabelPrediction = <Link className="data-link" rel="noopener noreferrer" target="_blank" to={`/activities/${activityId}/rules-analysis/${promptConjunction}/rule/${r.api.original_rule_uid}/prompt/${promptId}`}>{r.api.original_rule_name}</Link>
       formattedResponse.response = r.entry
       formattedResponse.datetime = moment(r.datetime).format('MM/DD/YYYY')
       formattedResponse.strengthButtons = (<div className="strength-buttons">{strongButton}{weakButton}</div>)
