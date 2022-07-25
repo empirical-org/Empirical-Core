@@ -115,13 +115,14 @@ class LoginFormApp extends React.Component {
 
   renderKeepMeSignedIn = () => {
     const { keepMeSignedIn, } = this.state
+    const keepMeSignedInId = "keep-me-signed-in"
     let checkbox
     if (keepMeSignedIn) {
-      checkbox = <button aria-checked={true} className="quill-checkbox selected focus-on-light" onClick={this.handleToggleKeepMeSignedIn} onKeyDown={this.handleKeyDownOnToggleNewsletter} role="checkbox" type="button"><img alt="check" src={smallWhiteCheckSrc} /></button>
+      checkbox = <button aria-checked={true} aria-labelledby={keepMeSignedInId} className="quill-checkbox selected focus-on-light" onClick={this.handleToggleKeepMeSignedIn} onKeyDown={this.handleKeyDownOnToggleNewsletter} role="checkbox" type="button"><img alt="check" src={smallWhiteCheckSrc} /></button>
     } else {
-      checkbox = <button aria-checked={false} aria-label="Unchecked" className="quill-checkbox unselected focus-on-light" onClick={this.handleToggleKeepMeSignedIn} role="checkbox" type="button" />
+      checkbox = <button aria-checked={false} aria-labelledby={keepMeSignedInId} className="quill-checkbox unselected focus-on-light" onClick={this.handleToggleKeepMeSignedIn} role="checkbox" type="button" />
     }
-    return <div className="keep-me-signed-in-row">{checkbox} <p>Keep me signed in</p></div>
+    return <div className="keep-me-signed-in-row" id={keepMeSignedInId}>{checkbox} <p>Keep me signed in</p></div>
   }
 
   render() {

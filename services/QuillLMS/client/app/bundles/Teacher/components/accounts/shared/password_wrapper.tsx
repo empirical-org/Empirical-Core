@@ -4,8 +4,6 @@ import { Input, } from '../../../../Shared/index'
 
 const passwordVisibleSrc = `${process.env.CDN_URL}/images/icons/icons-visibility-on.svg`
 const passwordNotVisibleSrc = `${process.env.CDN_URL}/images/icons/icons-visibility-off.svg`
-const passwordVisibleAltText = 'Eye icon'
-const passwordNotVisibleAltText = 'Eye with slash icon'
 
 const PasswordWrapper = ({ autoComplete, className, error, onChange, id, label, timesSubmitted, value, }) => {
   const [showPassword, setShowPassword] = React.useState(false)
@@ -25,7 +23,7 @@ const PasswordWrapper = ({ autoComplete, className, error, onChange, id, label, 
         type={showPassword ? 'text' : 'password'}
         value={value}
       />
-      <button className="interactive-wrapper focus-on-light" onClick={toggleShowPassword} type="button"><img alt={showPassword ? passwordNotVisibleAltText : passwordVisibleAltText} src={showPassword ? passwordNotVisibleSrc : passwordVisibleSrc} /></button>
+      <button aria-label={showPassword ? 'Hide password' : 'Show password'} className="interactive-wrapper focus-on-light" onClick={toggleShowPassword} type="button"><img alt="" src={showPassword ? passwordNotVisibleSrc : passwordVisibleSrc} /></button>
     </div>
   )
 }
