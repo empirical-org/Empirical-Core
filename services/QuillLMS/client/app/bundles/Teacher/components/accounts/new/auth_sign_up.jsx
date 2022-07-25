@@ -1,15 +1,15 @@
 'use strict';
 import React from 'react'
-import GoogleSignUp from './google_sign_up'
+import AuthGoogleAccessForm from '../AuthGoogleAccessForm';
 import CleverSignUp from './clever_sign_up'
 
 const AuthSignUp = () => {
   return (
     <div className='text-center auth-section'>
-      <GoogleSignUp />
+      <AuthGoogleAccessForm formClass="google-sign-up" offlineAccess={true} text="Sign up with Google" />
       <CleverSignUp />
     </div>
   );
-};
+}
 
 export default AuthSignUp;
