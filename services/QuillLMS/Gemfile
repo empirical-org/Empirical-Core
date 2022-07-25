@@ -97,7 +97,6 @@ gem 'actionpack-action_caching'
 # JS/APP/UI
 gem 'turbolinks'
 gem 'jquery-turbolinks'
-gem 'select2-rails'
 gem 'jbuilder'
 gem 'active_link_to'
 
@@ -152,7 +151,6 @@ gem 'awesome_print'
 
 group :production, :staging do
   gem 'rails_autoscale_agent'
-  gem 'rails_12factor'
   gem 'lograge'
   gem 'sqreen'
 end
