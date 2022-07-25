@@ -617,6 +617,7 @@ module Evidence
     context 'should #automl' do
       before do
         stub_const("Evidence::Check::ALL_CHECKS", [Check::AutoML])
+        rule.update(rule_type: Rule::TYPE_AUTOML)
       end
 
       it 'should return 404 if prompt id does not exist' do

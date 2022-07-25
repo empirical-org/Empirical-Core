@@ -49,7 +49,7 @@ class RuleFeedbackHistory
         highlight: f_h.metadata.instance_of?(Hash) ? f_h.metadata['highlight'] : '',
         session_uid: f_h.feedback_session_uid,
         strength: f_h.feedback_history_ratings.max_by(&:updated_at)&.rating,
-        api: f_h.metadata.instance_of?(Hash) ? f_h.metadata['api'] : {}
+        api: f_h.metadata.instance_of?(Hash) ? f_h.metadata['api'] || {} : {}
     }
   end
 

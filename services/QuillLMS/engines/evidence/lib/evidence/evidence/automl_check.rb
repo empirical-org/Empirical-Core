@@ -16,9 +16,9 @@ module Evidence
 
     # rubocop:disable Metrics/CyclomaticComplexity
     def feedback_object
-      return unless matched_automl_rule
-
       matched_rule = matched_low_confidence_rule || matched_automl_rule
+
+      return unless matched_rule
 
       feedback = matched_rule.determine_feedback_from_history(@previous_feedback)
       highlight = feedback.highlights.map do |h|
@@ -33,9 +33,9 @@ module Evidence
         confidence: @confidence_score
       }
 
-      if matched_rule.rule_type === Rule::TYPE_LOW_CONFIDENCE
-        api['original_rule_uid'] = matched_automl_rule&.uid
-        api['original_rule_name'] = matched_automl_rule&.name
+      if matched_rule.rule_type == Rule::TYPE_LOW_CONFIDENCE
+        api[:original_rule_uid] = matched_automl_rule&.uid
+        api[:original_rule_name] = matched_automl_rule&.name
       end
 
       {
