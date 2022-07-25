@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class SendAttachmentMailer < ActionMailer::Base
+class SendAttachmentMailer < ApplicationMailer
   default from: 'hello@quill.org'
 
   def send_attached_file(recipient, subject, file_name, file_stream)

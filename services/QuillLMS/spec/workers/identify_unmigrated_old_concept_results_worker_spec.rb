@@ -26,19 +26,20 @@ describe IdentifyUnmigratedOldConceptResultsWorker, type: :worker do
     let(:old_concept_results) { (1..10).map { create(:old_concept_result, activity_session: activity_session) } }
     let!(:concept_result) { create(:concept_result, old_concept_result_id: old_concept_results[5].id, activity_session_id: activity_session.id) }
 
-    let(:unmigrated_ranges) { [
-      [old_concept_results[0].id, old_concept_results[4].id],
-      [old_concept_results[6].id, old_concept_results[-1].id]
-    ] }
+    let(:unmigrated_ranges) {
+      [
+        [old_concept_results[0].id, old_concept_results[4].id],
+        [old_concept_results[6].id, old_concept_results[-1].id]
+      ]
+    }
 
     it 'should identify OldConceptResult records with no corresponding ConceptResult' do
       csv_data = unmigrated_ranges.map { |range| CSV.generate_line(range) }.join
 
-      expect(subject).to receive(:send_report).with(csv_data)
+      expect_any_instance_of(IdentifyUnmigratedOldConceptResultsWorker).to receive(:send_report).with(csv_data)
 
       subject.perform
     end
-    
   end
 end
 
