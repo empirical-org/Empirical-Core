@@ -40,7 +40,7 @@ describe Concept, type: :model do
     end
 
     it 'finds the right concepts' do
-      expect(subject.map(&:name)).to match(['leaf1', 'leaf2'])
+      expect(subject.pluck(:name)).to match_array ['leaf1', 'leaf2']
     end
   end
 

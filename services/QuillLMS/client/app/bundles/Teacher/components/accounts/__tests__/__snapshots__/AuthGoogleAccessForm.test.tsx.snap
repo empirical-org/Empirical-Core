@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AuthGoogleAccessForm component should render 1`] = `
+<form
+  action="/auth/google/online_access"
+  className=""
+  method="post"
+>
+  <input
+    name="authenticity_token"
+    type="hidden"
+    value={0}
+  />
+  <button
+    className=""
+    type="submit"
+  >
+    <img
+      alt="Google icon"
+      src="undefined/images/shared/google_icon.svg"
+    />
+    <span
+      className=""
+    >
+      Sign me up
+    </span>
+  </button>
+</form>
+`;

@@ -409,6 +409,22 @@ textarea.submission {
   }
 }
 
+.confirmation-modal-container {
+  a {
+    color: #00c2a2;
+  }
+  a:hover {
+    color: #29d8bc;
+  }
+  .button-container {
+    display: flex;
+    margin-top: 16px;
+    button {
+      margin-right: 16px;
+    }
+  }
+}
+
 .sider-container {
   background-color: white;
   width: 360px;
