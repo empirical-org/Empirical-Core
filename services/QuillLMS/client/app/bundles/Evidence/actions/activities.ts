@@ -5,11 +5,15 @@ import { TrackAnalyticsEvent } from './analytics'
 
 import { Events } from '../modules/analytics'
 
-export const getActivity = (sessionID: string, activityUID: string) => {
+export const getActivity = (sessionID: string, activityUID: string, idData: { studentId: string, teacherId: string }) => {
   return async (dispatch: Function) => {
     dispatch(TrackAnalyticsEvent(Events.COMPREHENSION_ACTIVITY_STARTED, {
       activityID: activityUID,
-      sessionID: sessionID
+      sessionID: sessionID,
+      user_id: idData && idData.teacherId,
+      properties: {
+        student_id: idData && idData.studentId
+      }
     }));
 
     const activityUrl = `${process.env.DEFAULT_URL}/api/v1/evidence/activities/${activityUID}`

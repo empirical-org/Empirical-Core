@@ -2,6 +2,7 @@ import * as React from "react";
 import { connect } from "react-redux";
 import stripHtml from "string-strip-html";
 import { convertNodeToElement } from 'react-html-parser'
+import { useQuery } from 'react-query';
 
 import RightPanel from './rightPanel'
 import ActivityFollowUp from './activityFollowUp';
@@ -23,6 +24,7 @@ import { getUrlParam, onMobile, outOfAttemptsForActivePrompt, getCurrentStepData
 import { renderDirections} from '../../helpers/containerRenderHelpers';
 import { postTurkSession } from '../../utils/turkAPI';
 import { roundMillisecondsToSeconds, KEYDOWN, MOUSEMOVE, MOUSEDOWN, CLICK, KEYPRESS, VISIBILITYCHANGE, READ_PASSAGE_STEP_NUMBER, SO_PASSAGE_STEP_NUMBER } from '../../../Shared/index'
+import { fetchUserIdsForSession } from '../../../Shared/utils/userAPIs';
 
 interface StudentViewContainerProps {
   dispatch: Function;
@@ -56,6 +58,7 @@ const MINIMUM_STUDENT_HIGHLIGHT_COUNT = 2
 export const StudentViewContainer = ({ dispatch, session, isTurk, location, activities, handleFinishActivity, user, }: StudentViewContainerProps) => {
   const shouldSkipToPrompts = window.location.href.includes('turk') || window.location.href.includes('skipToPrompts')
   const defaultCompletedSteps = shouldSkipToPrompts ? [READ_PASSAGE_STEP_NUMBER] : []
+  const sessionFromUrl = getUrlParam('session', location, isTurk)
 
   const refs = {
     step1: React.useRef(),
@@ -87,6 +90,11 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
     4: 0
   })
 
+  const { data: idData } = useQuery({
+    queryKey: [`session-user-ids-${sessionFromUrl}`, sessionFromUrl],
+    queryFn: fetchUserIdsForSession
+  });
+
   React.useEffect(() => {
     const el = document.getElementById('end-of-passage')
     const observer = new IntersectionObserver(([entry]) => { entry.isIntersecting ? setScrolledToEndOfPassage(entry.isIntersecting) : null; });
@@ -96,21 +104,20 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
 
   React.useEffect(() => {
     const activityUID = getUrlParam('uid', location, isTurk)
-    const sessionFromUrl = getUrlParam('session', location, isTurk)
     if (sessionFromUrl) {
       const fetchActiveActivitySessionArgs = {
         sessionID: sessionFromUrl,
         activityUID: activityUID,
         callback: loadPreviousSession
       }
-      dispatch(getActivity(sessionFromUrl, activityUID))
+      dispatch(getActivity(sessionFromUrl, activityUID, idData))
         .then(() => {
           dispatch(fetchActiveActivitySession(fetchActiveActivitySessionArgs))
         })
     } else {
       if (activityUID) {
         const { sessionID, } = session
-        dispatch(getActivity(sessionID, activityUID))
+        dispatch(getActivity(sessionID, activityUID, idData))
         dispatch(processUnfetchableSession(sessionID));
         isTurk && handlePostTurkSession(sessionID);
       }
@@ -299,13 +306,17 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
 
     dispatch(TrackAnalyticsEvent(Events.COMPREHENSION_PASSAGE_READ, {
       activityID: activityUID,
-      sessionID: sessionID
+      sessionID: sessionID,
+      user_id: idData && idData.teacherId,
+      properties: {
+        student_id: idData && idData.studentId
+      }
     }));
   }
 
   function trackCurrentPromptStartedEvent() {
     const { activeStep } = session;
-    const trackingParams = getCurrentStepDataForEventTracking(activeStep, activities, session, isTurk)
+    const trackingParams = getCurrentStepDataForEventTracking({ activeStep, activities, session, isTurk, idData })
     if (!trackingParams) return; // Bail if there's no data to track
 
     dispatch(TrackAnalyticsEvent(Events.COMPREHENSION_PROMPT_STARTED, trackingParams))
@@ -313,7 +324,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
 
   function trackCurrentPromptCompletedEvent() {
     const { activeStep } = session;
-    const trackingParams = getCurrentStepDataForEventTracking(activeStep, activities, session, isTurk)
+    const trackingParams = getCurrentStepDataForEventTracking({ activeStep, activities, session, isTurk, idData })
     if (!trackingParams) return; // Bail if there's no data to track
 
     dispatch(TrackAnalyticsEvent(Events.COMPREHENSION_PROMPT_COMPLETED, trackingParams))
@@ -326,6 +337,10 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
     dispatch(TrackAnalyticsEvent(Events.COMPREHENSION_ACTIVITY_COMPLETED, {
       activityID,
       sessionID,
+      user_id: idData && idData.teacherId,
+      properties: {
+        student_id: idData && idData.studentId
+      }
     }));
 
     dispatch(setActivityIsCompleteForSession(true));

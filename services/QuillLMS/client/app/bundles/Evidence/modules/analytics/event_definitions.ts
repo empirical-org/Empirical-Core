@@ -20,7 +20,9 @@ const EventDefinitions = [
     'sessionID'])},
   {COMPREHENSION_PASSAGE_READ: new Event('comprehensionPassageRead', [
     'activityID',
-    'sessionID'])},
+    'sessionID',
+    'user_id',
+    'properties'])},
   {COMPREHENSION_PROMPT_STARTED: new Event('comprehensionPromptStarted', [
     'activityID',
     'promptID',
@@ -44,14 +46,20 @@ const EventDefinitions = [
     'sessionID',
     'startingFeedback',
     'startingFeedbackID',
-    'submittedEntry'])},
+    'submittedEntry',
+    'user_id',
+    'properties'])},
   {COMPREHENSION_PROMPT_COMPLETED: new Event('comprehensionPromptCompleted', [
     'activityID',
     'promptID',
-    'sessionID'])},
+    'sessionID',
+    'user_id',
+    'properties'])},
   {COMPREHENSION_ACTIVITY_COMPLETED: new Event('comprehensionActivityCompleted', [
     'activityID',
-    'sessionID'])},
+    'sessionID',
+    'user_id',
+    'properties'])},
   {COMPREHENSION_ACTIVITY_SAVED: new Event('comprehensionActivitySaved', [
     'activityID',
     'sessionID'])}

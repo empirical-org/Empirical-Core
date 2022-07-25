@@ -170,7 +170,7 @@ export const reportAProblem = ({ sessionID, entry, report, callback, isOptimal }
   })
 }
 
-export const getFeedback = (args: GetFeedbackArguments) => {
+export const getFeedback = (args: GetFeedbackArguments, idData: { studentId: string, teacherId: string }) => {
   const { sessionID, activityUID, entry, promptID, promptText, attempt, previousFeedback, callback, activityVersion} = args
   return (dispatch: Function) => {
     const feedbackURL = `${process.env.GOLANG_FANOUT_URL}`
@@ -225,7 +225,11 @@ export const getFeedback = (args: GetFeedbackArguments) => {
         returnedFeedback: feedbackObj.feedback,
         sessionID,
         startingFeedback: mostRecentFeedback.feedback,
-        submittedEntry: entry
+        submittedEntry: entry,
+        user_id: idData && idData.teacherId,
+        properties: {
+          student_id: idData && idData.studentId
+        }
       }));
       callback()
     })

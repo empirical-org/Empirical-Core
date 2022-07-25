@@ -26,7 +26,7 @@ class SegmentAnalytics {
       return false;
     }
 
-    const eventProperties = Object.assign(this.formatCustomProperties(properties), this.getDefaultProperties());
+    const eventProperties = Object.assign(properties, this.getDefaultProperties());
 
     this.analytics().track(event.name, eventProperties);
     return true;
@@ -44,17 +44,6 @@ class SegmentAnalytics {
         }
       });
     }
-  }
-
-  formatCustomProperties(properties: object): object {
-    if (typeof properties != 'object') {
-      properties = {};
-    }
-    return Object.keys(properties).reduce((accumulator, key) => {
-      let customKeyName = `custom_${key}`;
-      accumulator[customKeyName] = properties[key];
-      return accumulator;
-    }, {});
   }
 
   getDefaultProperties(): object {
