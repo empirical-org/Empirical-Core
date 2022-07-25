@@ -6,7 +6,7 @@ import { Events } from '../modules/analytics';
 import '../styles/headerStyling.scss'
 
 import getParameterByName from '../helpers/getParameterByName';
-import { Tooltip, READ_PASSAGE_STEP_NUMBER, BECAUSE_PASSAGE_STEP_NUMBER, BUT_PASSAGE_STEP_NUMBER, SO_PASSAGE_STEP_NUMBER, whiteCheckGreenBackgroundIcon } from '../../Shared/index'
+import { Tooltip, READ_PASSAGE_STEP_NUMBER, BECAUSE_PASSAGE_STEP_NUMBER, BUT_PASSAGE_STEP_NUMBER, SO_PASSAGE_STEP_NUMBER, whiteCheckGreenBackgroundIcon, isTrackableEvent } from '../../Shared/index'
 import { onMobile } from '../helpers/containerActionHelpers';
 
 const logoSrc = `${process.env.CDN_URL}/images/logos/quill-logo-white.svg`
@@ -28,13 +28,20 @@ export class Header extends React.Component<any, any> {
   }
 
   trackSaveAndExitEvent = () => {
-    const { dispatch, } = this.props
+    const { dispatch, idData } = this.props
     const { sessionID, } = this.state
     const activityID = getParameterByName('uid', window.location.href)
-    dispatch(TrackAnalyticsEvent(Events.COMPREHENSION_ACTIVITY_SAVED, {
-      activityID: activityID,
-      sessionID,
-    }))
+    if(isTrackableEvent(idData)) {
+      const { studentId, teacherId } = idData;
+      dispatch(TrackAnalyticsEvent(Events.COMPREHENSION_ACTIVITY_SAVED, {
+        activityID: activityID,
+        sessionID,
+        user_id: teacherId,
+        properties: {
+          student_id: studentId
+        }
+      }))
+    }
   }
 
   saveAndExit = () => {

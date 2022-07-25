@@ -4,6 +4,7 @@ import stripHtml from "string-strip-html"
 import getParameterByName from './getParameterByName'
 
 import { Passage } from '../interfaces/activities'
+import { isTrackableEvent } from '../../Shared'
 
 export const READ_PASSAGE_STEP = 1
 
@@ -41,6 +42,7 @@ export const outOfAttemptsForActivePrompt = (activeStep, session, activities) =>
 }
 
 export const getCurrentStepDataForEventTracking = ({ activeStep, activities, session, isTurk, idData }) => {
+  const { studentId, teacherId } = idData;
   const { currentActivity, } = activities
   const { sessionID, } = session
   const activityID = getUrlParam('uid', location, isTurk)
@@ -54,9 +56,9 @@ export const getCurrentStepDataForEventTracking = ({ activeStep, activities, ses
     activityID,
     sessionID,
     promptID,
-    user_id: idData && idData.teacherId,
+    user_id: teacherId,
     properties: {
-      student_id: idData && idData.studentId
+      student_id: studentId
     }
   }
 }

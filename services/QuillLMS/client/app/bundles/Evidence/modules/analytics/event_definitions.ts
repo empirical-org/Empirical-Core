@@ -17,16 +17,22 @@ class Event {
 const EventDefinitions = [
   {COMPREHENSION_ACTIVITY_STARTED: new Event('comprehensionActivityStarted', [
     'activityID',
-    'sessionID'])},
+    'sessionID',
+    'user_id',
+    'properties'])},
   {COMPREHENSION_PASSAGE_READ: new Event('comprehensionPassageRead', [
     'activityID',
     'sessionID',
+    'user_id',
+    'properties',
     'user_id',
     'properties'])},
   {COMPREHENSION_PROMPT_STARTED: new Event('comprehensionPromptStarted', [
     'activityID',
     'promptID',
-    'sessionID'])},
+    'sessionID',
+    'user_id',
+    'properties'])},
   {COMPREHENSION_ENTRY_SUBMITTED: new Event('comprehensionEntrySubmitted', [
     'activityID',
     'attemptNumber',
@@ -35,7 +41,9 @@ const EventDefinitions = [
     'sessionID',
     'startingFeedback',
     'startingFeedbackID',
-    'submittedEntry'])},
+    'submittedEntry',
+    'user_id',
+    'properties'])},
   {COMPREHENSION_FEEDBACK_RECEIVED: new Event('comprehensionFeedbackReceived', [
     'activityID',
     'attemptNumber',
@@ -62,7 +70,9 @@ const EventDefinitions = [
     'properties'])},
   {COMPREHENSION_ACTIVITY_SAVED: new Event('comprehensionActivitySaved', [
     'activityID',
-    'sessionID'])}
+    'sessionID',
+    'user_id',
+    'properties'])}
 ];
 
 

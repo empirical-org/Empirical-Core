@@ -101,7 +101,8 @@ export {
   titleCase,
   onMobile,
   fillInBlankInputLabel,
-  getIconForActivityClassification
+  getIconForActivityClassification,
+  isTrackableEvent
 } from './libs/index'
 
 export {

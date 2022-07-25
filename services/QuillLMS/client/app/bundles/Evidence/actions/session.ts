@@ -5,6 +5,7 @@ import { TrackAnalyticsEvent } from './analytics'
 
 import { Events } from '../modules/analytics'
 import { FeedbackObject } from '../interfaces/feedback'
+import { isTrackableEvent } from '../../Shared'
 
 interface GetFeedbackArguments {
   sessionID: string,
@@ -193,15 +194,23 @@ export const getFeedback = (args: GetFeedbackArguments, idData: { studentId: str
       json: true,
     }
 
-    dispatch(TrackAnalyticsEvent(Events.COMPREHENSION_ENTRY_SUBMITTED, {
-      activityID: activityUID,
-      attemptNumber: attempt,
-      promptID,
-      promptStemText: promptText,
-      sessionID,
-      startingFeedback: mostRecentFeedback.feedback,
-      submittedEntry: entry
-    }));
+    if(isTrackableEvent(idData)) {
+      const { studentId, teacherId } = idData;
+      dispatch(TrackAnalyticsEvent(Events.COMPREHENSION_ENTRY_SUBMITTED, {
+        activityID: activityUID,
+        attemptNumber: attempt,
+        promptID,
+        promptStemText: promptText,
+        sessionID,
+        startingFeedback: mostRecentFeedback.feedback,
+        submittedEntry: entry,
+        user_id: teacherId,
+        properties: {
+          student_id: studentId
+        }
+      }));
+    }
+
 
     request.post(requestObject, (e, r, body) => {
       const { concept_uid, feedback, feedback_type, optimal, highlight, labels, hint, } = body
@@ -216,21 +225,25 @@ export const getFeedback = (args: GetFeedbackArguments, idData: { studentId: str
         hint,
       }
       dispatch({ type: ActionTypes.RECORD_FEEDBACK, promptID, feedbackObj });
-      dispatch(TrackAnalyticsEvent(Events.COMPREHENSION_FEEDBACK_RECEIVED, {
-        activityID: activityUID,
-        attemptNumber: attempt,
-        promptID,
-        hint,
-        promptStemText: promptText,
-        returnedFeedback: feedbackObj.feedback,
-        sessionID,
-        startingFeedback: mostRecentFeedback.feedback,
-        submittedEntry: entry,
-        user_id: idData && idData.teacherId,
-        properties: {
-          student_id: idData && idData.studentId
-        }
-      }));
+
+      if(isTrackableEvent(idData)) {
+        const { studentId, teacherId } = idData;
+        dispatch(TrackAnalyticsEvent(Events.COMPREHENSION_FEEDBACK_RECEIVED, {
+          activityID: activityUID,
+          attemptNumber: attempt,
+          promptID,
+          hint,
+          promptStemText: promptText,
+          returnedFeedback: feedbackObj.feedback,
+          sessionID,
+          startingFeedback: mostRecentFeedback.feedback,
+          submittedEntry: entry,
+          user_id: teacherId,
+          properties: {
+            student_id: studentId
+          }
+        }));
+      }
       callback()
     })
   }

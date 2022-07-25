@@ -2,7 +2,6 @@ import * as React from "react";
 import { connect } from "react-redux";
 import stripHtml from "string-strip-html";
 import { convertNodeToElement } from 'react-html-parser'
-import { useQuery } from 'react-query';
 
 import RightPanel from './rightPanel'
 import ActivityFollowUp from './activityFollowUp';
@@ -23,8 +22,7 @@ import getParameterByName from '../../helpers/getParameterByName';
 import { getUrlParam, onMobile, outOfAttemptsForActivePrompt, getCurrentStepDataForEventTracking, everyOtherStepCompleted, getStrippedPassageHighlights, getLastSubmittedResponse } from '../../helpers/containerActionHelpers';
 import { renderDirections} from '../../helpers/containerRenderHelpers';
 import { postTurkSession } from '../../utils/turkAPI';
-import { roundMillisecondsToSeconds, KEYDOWN, MOUSEMOVE, MOUSEDOWN, CLICK, KEYPRESS, VISIBILITYCHANGE, READ_PASSAGE_STEP_NUMBER, SO_PASSAGE_STEP_NUMBER } from '../../../Shared/index'
-import { fetchUserIdsForSession } from '../../../Shared/utils/userAPIs';
+import { roundMillisecondsToSeconds, KEYDOWN, MOUSEMOVE, MOUSEDOWN, CLICK, KEYPRESS, VISIBILITYCHANGE, READ_PASSAGE_STEP_NUMBER, SO_PASSAGE_STEP_NUMBER, isTrackableEvent } from '../../../Shared/index'
 
 interface StudentViewContainerProps {
   dispatch: Function;
@@ -55,7 +53,7 @@ const ONBOARDING = 'onboarding'
 const ALL_STEPS = [READ_PASSAGE_STEP_NUMBER, 2, 3, 4]
 const MINIMUM_STUDENT_HIGHLIGHT_COUNT = 2
 
-export const StudentViewContainer = ({ dispatch, session, isTurk, location, activities, handleFinishActivity, user, }: StudentViewContainerProps) => {
+export const StudentViewContainer = ({ dispatch, session, isTurk, location, activities, handleFinishActivity, user, idData }: StudentViewContainerProps) => {
   const shouldSkipToPrompts = window.location.href.includes('turk') || window.location.href.includes('skipToPrompts')
   const defaultCompletedSteps = shouldSkipToPrompts ? [READ_PASSAGE_STEP_NUMBER] : []
   const sessionFromUrl = getUrlParam('session', location, isTurk)
@@ -89,11 +87,6 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
     3: 0,
     4: 0
   })
-
-  const { data: idData } = useQuery({
-    queryKey: [`session-user-ids-${sessionFromUrl}`, sessionFromUrl],
-    queryFn: fetchUserIdsForSession
-  });
 
   React.useEffect(() => {
     const el = document.getElementById('end-of-passage')
@@ -180,7 +173,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
 
       dispatch(setActiveStepForSession(nextStep))
       setStartTime(Date.now())
-      trackCurrentPromptStartedEvent()
+      isTrackableEvent(idData) && trackCurrentPromptStartedEvent()
       callSaveActiveActivitySession()
     } else {
       trackActivityCompletedEvent(); // If there is no next step, the activity is done
@@ -302,14 +295,15 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
 
   function trackPassageReadEvent() {
     const { sessionID, } = session
+    const { teacherId, studentId } = idData;
     const activityUID = getUrlParam('uid', location, isTurk)
 
     dispatch(TrackAnalyticsEvent(Events.COMPREHENSION_PASSAGE_READ, {
       activityID: activityUID,
       sessionID: sessionID,
-      user_id: idData && idData.teacherId,
+      user_id: teacherId,
       properties: {
-        student_id: idData && idData.studentId
+        student_id: studentId
       }
     }));
   }
@@ -334,14 +328,17 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
     const { sessionID, } = session
     const activityID = getUrlParam('uid', location, isTurk)
 
-    dispatch(TrackAnalyticsEvent(Events.COMPREHENSION_ACTIVITY_COMPLETED, {
-      activityID,
-      sessionID,
-      user_id: idData && idData.teacherId,
-      properties: {
-        student_id: idData && idData.studentId
-      }
-    }));
+    if(isTrackableEvent(idData)) {
+      const { studentId, teacherId } = idData;
+      dispatch(TrackAnalyticsEvent(Events.COMPREHENSION_ACTIVITY_COMPLETED, {
+        activityID,
+        sessionID,
+        user_id: teacherId,
+        properties: {
+          student_id: studentId
+        }
+      }));
+    }
 
     dispatch(setActivityIsCompleteForSession(true));
     defaultHandleFinishActivity()
@@ -350,7 +347,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
   function completeStep(stepNumber: number) {
     const newCompletedSteps = completedSteps.concat(stepNumber)
     const uniqueCompletedSteps = Array.from(new Set(newCompletedSteps))
-    trackCurrentPromptCompletedEvent()
+    isTrackableEvent(idData) && trackCurrentPromptCompletedEvent()
     setCompletedSteps(uniqueCompletedSteps)
     // we only want to render the step summary list again after completing the because and but prompts
     if(stepNumber > READ_PASSAGE_STEP_NUMBER && stepNumber < SO_PASSAGE_STEP_NUMBER) {
@@ -376,7 +373,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
     completeStep(READ_PASSAGE_STEP_NUMBER)
     const scrollContainer = document.getElementsByClassName("read-passage-container")[0]
     scrollContainer.scrollTo(0, 0)
-    trackPassageReadEvent();
+    isTrackableEvent(idData) && trackPassageReadEvent();
   }
 
   function onStartReadPassage(e) {
