@@ -5,6 +5,7 @@ require 'new_relic/agent'
 
 class SessionsController < ApplicationController
   include CleverAuthable
+  include InvalidAuthenticityTokenHandler
 
   CLEAR_ANALYTICS_SESSION_KEY = "clear_analytics_session"
 
