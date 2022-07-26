@@ -200,6 +200,7 @@ const RuleViewForm = ({
   const requestErrorsPresent = !!(requestErrors && requestErrors.length);
   const showErrorsContainer = formErrorsPresent || requestErrorsPresent;
   const header = `${rule.id ? 'View Individual Rule - ' : 'Add'} ${ruleType && ruleType.label} ${rule.id ? '' : 'Rule'}`;
+  const showUniversalAttributes = isUniversal || isSemantic || isLowConfidence
 
   return(
     <div className="rule-form-container">
@@ -270,7 +271,7 @@ const RuleViewForm = ({
           rulePromptsDisabled={rulePromptsDisabled}
           setRulePrompts={setRulePrompts}
         />}
-        {(isUniversal || isSemantic || isLowConfidence) && <RuleUniversalAttributes
+        {showUniversalAttributes && <RuleUniversalAttributes
           errors={errors}
           setUniversalFeedback={setRuleFeedbacks}
           universalFeedback={ruleFeedbacks}

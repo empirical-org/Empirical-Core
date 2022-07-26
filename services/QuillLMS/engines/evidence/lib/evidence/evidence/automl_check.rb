@@ -55,7 +55,7 @@ module Evidence
     private def matched_low_confidence_rule
       return unless matched_automl_rule && !matched_automl_rule.optimal && @confidence_score < LOW_CONFIDENCE_THRESHOLD
 
-      @matched_low_confidence_rule ||= fetch_matched_low_confidence_rule
+      fetch_matched_low_confidence_rule
     end
 
     private def fetch_matched_low_confidence_rule
