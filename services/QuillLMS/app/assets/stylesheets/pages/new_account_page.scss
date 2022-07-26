@@ -27,25 +27,6 @@
     font-weight: bold;
   }
 
-  .form-school-select {
-    #zip {
-      // width: 150px;
-    }
-    .school_ids {
-      margin-left: 0; width: 400px; float: left; clear: right;
-      .controls {margin-left: 0;}
-      .select2-container .select2-choice {
-        height: 42px;
-        .select2-chosen {line-height: 42px;}
-        .select2-arrow b {position: absolute; top: 7px;}
-        abbr {top: 14px;}
-      }
-    }
-    .school_select {
-      height: 50px;
-    }
-  }
-
   .form-explanation-text {
     position: absolute;
     bottom: 0;

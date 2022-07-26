@@ -1,5 +1,7 @@
 import * as React from 'react'
 
+import AuthGoogleAccessForm from '../accounts/AuthGoogleAccessForm'
+
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
 
 interface LinkGoogleAccountModalProps {
@@ -28,7 +30,7 @@ export default class LinkGoogleAccountModal
     const { checkboxOne, } = this.state
     let buttonClass = 'quill-button contained primary medium';
     if (checkboxOne) {
-      return <a className={buttonClass} href="/auth/google_oauth2?prompt=consent">Link account</a>
+      return <AuthGoogleAccessForm offlineAccess={true} text="Link Account" />
     } else {
       buttonClass += ' disabled';
       return <button className={buttonClass} type="button">Link account</button>

@@ -3,6 +3,8 @@ import { useTable, useSortBy, usePagination, useFilters, useExpanded, useGroupBy
 
 import ReactTablePagination from './reactTablePagination'
 
+const DEFAULT_PAGE_SIZE = 100
+
 function columnClassName(isSorted, isSortedDesc) {
   const defaultClassName = 'rt-th -cursor-pointer'
   if (!isSorted) { return defaultClassName }
@@ -102,7 +104,12 @@ export const ReactTable = ({
       columns,
       autoResetSortBy: false,
       pageCount: manualPageCount,
-      initialState: { pageIndex: currentPage || 0, pageSize: defaultPageSize || data.length || 0, sortBy: defaultSorted || [], groupBy: defaultGroupBy || [], }
+      initialState: {
+        pageIndex: currentPage || 0,
+        pageSize: defaultPageSize || data.length || DEFAULT_PAGE_SIZE,
+        sortBy: defaultSorted || [],
+        groupBy: defaultGroupBy || [],
+      }
     },
     useFilters,
     useGroupBy,

@@ -118,6 +118,9 @@ const Navigation = ({ location, match }) => {
         <NavLink activeClassName="is-active" to={`/activities/${activityId}/change-log`}>
           Change Log
         </NavLink>
+        <NavLink activeClassName="is-active" to={`/activities/${activityId}/version-history`}>
+          Version History
+        </NavLink>
       </ul>
     </React.Fragment>)
   }

@@ -6,6 +6,7 @@
     .mobile-filter-menu {
       .filter-column {
         display: inherit;
+        padding-right: 24px;
         .filter-section.filtered-results {
           padding-top: 16px;
         }
@@ -54,6 +55,11 @@
           img {
             margin-right: 4px;
           }
+        }
+      }
+      .readability, .ccss-grade-level, .grade-level {
+        .quill-tooltip-wrapper {
+          display: none;
         }
       }
     }

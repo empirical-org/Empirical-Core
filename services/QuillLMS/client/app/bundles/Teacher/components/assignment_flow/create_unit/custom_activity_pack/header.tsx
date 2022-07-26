@@ -21,7 +21,8 @@ interface HeaderProps {
   setSelectedActivities: (selectedActivities: Activity[]) => void,
   toggleActivitySelection: (activity: Activity, isSelected: boolean) => void,
   saveButtonEnabled: boolean,
-  isStaff: boolean
+  isStaff: boolean,
+  gradeLevelFilters: number[]
 }
 
 const AssignButton = ({ selectedActivities, handleClickContinue, saveButtonEnabled, isStaff, }: AssignButtonProps) => {
@@ -40,7 +41,7 @@ const AssignButton = ({ selectedActivities, handleClickContinue, saveButtonEnabl
   return <button className={buttonClass} onClick={action} type="button">{buttonCopy}</button>
 }
 
-const Header = ({ handleClickContinue, selectedActivities, setSelectedActivities, toggleActivitySelection, saveButtonEnabled, isStaff, }: HeaderProps) => {
+const Header = ({ handleClickContinue, selectedActivities, setSelectedActivities, toggleActivitySelection, saveButtonEnabled, isStaff, gradeLevelFilters, }: HeaderProps) => {
   const [showActivities, setShowActivities] = React.useState(false)
   const [showSnackbar, setShowSnackbar] = React.useState(false)
 
@@ -89,7 +90,15 @@ const Header = ({ handleClickContinue, selectedActivities, setSelectedActivities
       return (
         <section className={className} key={a.id}>
           <DragHandle />
-          <ActivityRow activity={a} isSelected={true} setShowSnackbar={setShowSnackbar} showCheckbox={false} showRemoveButton={true} toggleActivitySelection={toggleActivitySelection} />
+          <ActivityRow
+            activity={a}
+            gradeLevelFilters={gradeLevelFilters}
+            isSelected={true}
+            setShowSnackbar={setShowSnackbar}
+            showCheckbox={false}
+            showRemoveButton={true}
+            toggleActivitySelection={toggleActivitySelection}
+          />
         </section>
       )
     })

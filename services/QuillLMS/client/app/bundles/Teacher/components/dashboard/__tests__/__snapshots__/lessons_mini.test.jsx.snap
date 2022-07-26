@@ -712,7 +712,7 @@ exports[`LessonsMini component not on mobile should render when there are lesson
               >
                 <span
                   aria-hidden={false}
-                  className="quill-tooltip-trigger"
+                  className="quill-tooltip-trigger "
                   role="tooltip"
                   style={
                     Object {
@@ -971,7 +971,7 @@ exports[`LessonsMini component not on mobile should render when there are lesson
               >
                 <span
                   aria-hidden={false}
-                  className="quill-tooltip-trigger"
+                  className="quill-tooltip-trigger "
                   role="tooltip"
                   style={
                     Object {

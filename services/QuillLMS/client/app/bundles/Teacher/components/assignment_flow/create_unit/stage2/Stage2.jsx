@@ -10,7 +10,7 @@ import GradeLevelWarningModal from './gradeLevelWarningModal'
 import ButtonLoadingIndicator from '../../../shared/button_loading_indicator';
 import AssignmentFlowNavigation from '../../assignment_flow_navigation.tsx'
 import ScrollToTop from '../../../shared/scroll_to_top'
-import { postTestClassAssignmentLockedMessages, readabilityGradeLevelToArrayOfGrades, } from '../../assignmentFlowConstants'
+import { postTestClassAssignmentLockedMessages, } from '../../assignmentFlowConstants'
 
 export default class Stage2 extends React.Component {
   constructor(props) {
@@ -57,9 +57,9 @@ export default class Stage2 extends React.Component {
     const selectedClassrooms = this.selectedClassrooms()
     const lowestSelectedClassroomGrade = Math.min(...selectedClassrooms.map(c => Number(c.classroom.grade) || 12))
     const aboveGradeLevelContentBeingAssigned = selectedActivities.find(a => {
-      if (!(a.readability_grade_level && readabilityGradeLevelToArrayOfGrades[a.readability_grade_level])) { return }
-      
-      return Math.min(...readabilityGradeLevelToArrayOfGrades[a.readability_grade_level]) > lowestSelectedClassroomGrade
+      if (!a.minimum_grade_level) { return }
+
+      return a.minimum_grade_level > lowestSelectedClassroomGrade
     })
 
     if (alreadyCompletedDiagnosticStudentNames.length) {

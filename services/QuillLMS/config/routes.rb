@@ -518,9 +518,10 @@ EmpiricalGrammar::Application.routes.draw do
   get '/sign-up/add-k12', to: 'accounts#new'
   get '/sign-up/add-non-k12', to: 'accounts#new'
 
+  get Auth::Google::OFFLINE_ACCESS_CALLBACK_PATH => 'auth/google#offline_access_callback'
+  get Auth::Google::ONLINE_ACCESS_CALLBACK_PATH => 'auth/google#online_access_callback'
+
   namespace :auth do
-    get '/google_oauth2/callback' => 'google#authorization_and_authentication'
-    get '/google_oauth2_authentication_only/callback' => 'google#authentication'
     get '/clever/callback', to: 'clever#clever'
   end
 

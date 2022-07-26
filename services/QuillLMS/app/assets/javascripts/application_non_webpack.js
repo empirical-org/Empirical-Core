@@ -6,7 +6,6 @@
 
 //= require es5-shim/es5-shim
 
-//= require select2
 //= require custom
 
 //= require tabslet.js
