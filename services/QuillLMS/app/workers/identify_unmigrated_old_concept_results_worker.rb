@@ -45,5 +45,6 @@ class IdentifyUnmigratedOldConceptResultsWorker
       .left_outer_joins(:concept_result)
       .where(concept_results: {id: nil})
       .where(id: (start_id..stop_id))
+      .order(:id)
   end
 end
