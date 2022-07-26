@@ -5,7 +5,7 @@ import { TrackAnalyticsEvent } from './analytics'
 
 import { Events } from '../modules/analytics'
 import { FeedbackObject } from '../interfaces/feedback'
-import { isTrackableStudentEvent } from '../../Shared'
+import { isTrackableStudentEvent, UserIdsForEvent } from '../../Shared'
 
 interface GetFeedbackArguments {
   sessionID: string,
@@ -16,7 +16,8 @@ interface GetFeedbackArguments {
   attempt: number,
   previousFeedback: FeedbackObject[],
   callback: Function,
-  activityVersion: number
+  activityVersion: number,
+  idData: UserIdsForEvent
 }
 
 interface CompleteActivitySessionArguments {
@@ -171,8 +172,8 @@ export const reportAProblem = ({ sessionID, entry, report, callback, isOptimal }
   })
 }
 
-export const getFeedback = (args: GetFeedbackArguments, idData: { studentId: string, teacherId: string }) => {
-  const { sessionID, activityUID, entry, promptID, promptText, attempt, previousFeedback, callback, activityVersion} = args
+export const getFeedback = (args: GetFeedbackArguments) => {
+  const { sessionID, activityUID, entry, promptID, promptText, attempt, previousFeedback, callback, activityVersion, idData } = args
   return (dispatch: Function) => {
     const feedbackURL = `${process.env.GOLANG_FANOUT_URL}`
 
@@ -196,7 +197,7 @@ export const getFeedback = (args: GetFeedbackArguments, idData: { studentId: str
 
     if(isTrackableStudentEvent(idData)) {
       const { studentId, teacherId } = idData;
-      dispatch(TrackAnalyticsEvent(Events.COMPREHENSION_ENTRY_SUBMITTED, {
+      dispatch(TrackAnalyticsEvent(Events.EVIDENCE_ENTRY_SUBMITTED, {
         activityID: activityUID,
         attemptNumber: attempt,
         promptID,
@@ -228,7 +229,7 @@ export const getFeedback = (args: GetFeedbackArguments, idData: { studentId: str
 
       if(isTrackableStudentEvent(idData)) {
         const { studentId, teacherId } = idData;
-        dispatch(TrackAnalyticsEvent(Events.COMPREHENSION_FEEDBACK_RECEIVED, {
+        dispatch(TrackAnalyticsEvent(Events.EVIDENCE_FEEDBACK_RECEIVED, {
           activityID: activityUID,
           attemptNumber: attempt,
           promptID,

@@ -120,9 +120,8 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
 
   React.useEffect(() => {
     if(activities.hasReceivedData && isTrackableStudentEvent(idData)) {
-      console.log('in here')
       const { studentId, teacherId } = idData;
-      dispatch(TrackAnalyticsEvent(Events.COMPREHENSION_ACTIVITY_STARTED, {
+      dispatch(TrackAnalyticsEvent(Events.EVIDENCE_ACTIVITY_STARTED, {
         activityID: activityUID,
         sessionID: sessionID,
         user_id: teacherId,
@@ -303,7 +302,8 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
         attempt,
         previousFeedback,
         callback: submitResponseCallback,
-        activityVersion: currentActivity?.version
+        activityVersion: currentActivity?.version,
+        idData
       }
       dispatch(getFeedback(args))
     }
@@ -314,7 +314,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
     const { teacherId, studentId } = idData;
     const activityUID = getUrlParam('uid', location, isTurk)
 
-    dispatch(TrackAnalyticsEvent(Events.COMPREHENSION_PASSAGE_READ, {
+    dispatch(TrackAnalyticsEvent(Events.EVIDENCE_PASSAGE_READ, {
       activityID: activityUID,
       sessionID: sessionID,
       user_id: teacherId,
@@ -329,7 +329,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
     const trackingParams = getCurrentStepDataForEventTracking({ activeStep, activities, session, isTurk, idData })
     if (!trackingParams) return; // Bail if there's no data to track
 
-    dispatch(TrackAnalyticsEvent(Events.COMPREHENSION_PROMPT_STARTED, trackingParams))
+    dispatch(TrackAnalyticsEvent(Events.EVIDENCE_PROMPT_STARTED, trackingParams))
   }
 
   function trackCurrentPromptCompletedEvent() {
@@ -337,7 +337,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
     const trackingParams = getCurrentStepDataForEventTracking({ activeStep, activities, session, isTurk, idData })
     if (!trackingParams) return; // Bail if there's no data to track
 
-    dispatch(TrackAnalyticsEvent(Events.COMPREHENSION_PROMPT_COMPLETED, trackingParams))
+    dispatch(TrackAnalyticsEvent(Events.EVIDENCE_PROMPT_COMPLETED, trackingParams))
   }
 
   function trackActivityCompletedEvent() {
@@ -346,7 +346,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
 
     if(isTrackableStudentEvent(idData)) {
       const { studentId, teacherId } = idData;
-      dispatch(TrackAnalyticsEvent(Events.COMPREHENSION_ACTIVITY_COMPLETED, {
+      dispatch(TrackAnalyticsEvent(Events.EVIDENCE_ACTIVITY_COMPLETED, {
         activityID,
         sessionID,
         user_id: teacherId,
@@ -389,7 +389,6 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
     completeStep(READ_PASSAGE_STEP_NUMBER)
     const scrollContainer = document.getElementsByClassName("read-passage-container")[0]
     scrollContainer.scrollTo(0, 0)
-    console.log("🚀 ~ file: container.tsx ~ line 378 ~ handleDoneReadingClick ~ isTrackableStudentEvent(idData)", isTrackableStudentEvent(idData))
     isTrackableStudentEvent(idData) && trackPassageReadEvent();
   }
 

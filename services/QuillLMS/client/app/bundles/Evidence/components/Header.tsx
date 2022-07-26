@@ -33,7 +33,7 @@ export class Header extends React.Component<any, any> {
     const activityID = getParameterByName('uid', window.location.href)
     if(isTrackableStudentEvent(idData)) {
       const { studentId, teacherId } = idData;
-      dispatch(TrackAnalyticsEvent(Events.COMPREHENSION_ACTIVITY_SAVED, {
+      dispatch(TrackAnalyticsEvent(Events.EVIDENCE_ACTIVITY_SAVED, {
         activityID: activityID,
         sessionID,
         user_id: teacherId,

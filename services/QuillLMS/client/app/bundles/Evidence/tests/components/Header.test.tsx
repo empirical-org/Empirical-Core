@@ -9,11 +9,16 @@ jest.mock('../../actions/analytics', () => ({
 
 const MockSessionID = 'MockSessionId'
 const MockActivityID = 1
+const mockIdData = { teacherId: 1, studentId: 2 }
 const mockGetParameterByName = jest.fn()
   .mockReturnValueOnce(MockSessionID)
   .mockReturnValue(MockActivityID)
 jest.mock('../../helpers/getParameterByName', () => ({
   default: mockGetParameterByName
+}))
+const mockIsTrackableStudentEvent = jest.fn().mockReturnValueOnce(true)
+jest.mock('../../../Shared/libs/isTrackableStudentEvent', () => ({
+  isTrackableStudentEvent: mockIsTrackableStudentEvent
 }))
 
 import { Header } from '../../components/Header'
@@ -26,6 +31,7 @@ describe('StudentViewContainer component', () => {
     const wrapper = mount(<Header
       dispatch={dispatch}
       session={{}}
+      idData={mockIdData}
     />)
 
     it('renders', () => {
@@ -33,12 +39,16 @@ describe('StudentViewContainer component', () => {
     })
 
     describe('when a user clicks "Save and exit"', () => {
-      it('should track a COMPREHENSION_ACTIVITY_SAVED event', () => {
+      it('should track a EVIDENCE_ACTIVITY_SAVED event', () => {
         wrapper.find('.save-and-exit').simulate('click')
 
-        expect(mockTrackAnalyticsEvent).toHaveBeenCalledWith(Events.COMPREHENSION_ACTIVITY_SAVED, {
+        expect(mockTrackAnalyticsEvent).toHaveBeenCalledWith(Events.EVIDENCE_ACTIVITY_SAVED, {
           activityID: MockActivityID,
-          sessionID: MockSessionID
+          sessionID: MockSessionID,
+          user_id: mockIdData.teacherId,
+          properties: {
+            student_id: mockIdData.studentId
+          }
         })
       })
     })

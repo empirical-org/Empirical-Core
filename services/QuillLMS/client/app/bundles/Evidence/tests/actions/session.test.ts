@@ -26,6 +26,7 @@ describe('Session actions', () => {
       feedback: mockStartingFeedback
     }]
     const mockCallback = jest.fn()
+    const mockIdData = { teacherId: 1, studentId: 2}
 
     const mockArgs = {
       sessionID: mockSessionID,
@@ -35,20 +36,25 @@ describe('Session actions', () => {
       promptText: mockPromptText,
       attempt: mockAttempt,
       previousFeedback: mockPreviousFeedback,
-      callback: mockCallback
+      callback: mockCallback,
+      idData: mockIdData
     }
 
     dispatch(getFeedback(mockArgs))
 
-    it('sends a COMPREHENSION_ENTRY_SUBMITTED analytics event', () => {
-      expect(mockTrackAnalyticsEvent).toBeCalledWith(Events.COMPREHENSION_ENTRY_SUBMITTED, {
+    it('sends a EVIDENCE_ENTRY_SUBMITTED analytics event', () => {
+      expect(mockTrackAnalyticsEvent).toBeCalledWith(Events.EVIDENCE_ENTRY_SUBMITTED, {
         activityID: mockActivityID,
         attemptNumber: mockAttempt,
         promptID: mockPromptID,
         promptStemText: mockPromptText,
         sessionID: mockSessionID,
         startingFeedback: mockStartingFeedback,
-        submittedEntry: mockEntry
+        submittedEntry: mockEntry,
+        user_id: mockIdData.teacherId,
+        properties: {
+          student_id: mockIdData.studentId
+        }
       })
     })
 

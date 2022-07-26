@@ -15,25 +15,25 @@ class Event {
 // as the list gets longer we don't accidentally end up with a
 // name collision (see validation in the 'events.ts' file).
 const EventDefinitions = [
-  {COMPREHENSION_ACTIVITY_STARTED: new Event('comprehensionActivityStarted', [
+  {EVIDENCE_ACTIVITY_STARTED: new Event('evidenceActivityStarted', [
     'activityID',
     'sessionID',
     'user_id',
     'properties'])},
-  {COMPREHENSION_PASSAGE_READ: new Event('comprehensionPassageRead', [
+  {EVIDENCE_PASSAGE_READ: new Event('evidencePassageRead', [
     'activityID',
     'sessionID',
     'user_id',
     'properties',
     'user_id',
     'properties'])},
-  {COMPREHENSION_PROMPT_STARTED: new Event('comprehensionPromptStarted', [
+  {EVIDENCE_PROMPT_STARTED: new Event('evidencePromptStarted', [
     'activityID',
     'promptID',
     'sessionID',
     'user_id',
     'properties'])},
-  {COMPREHENSION_ENTRY_SUBMITTED: new Event('comprehensionEntrySubmitted', [
+  {EVIDENCE_ENTRY_SUBMITTED: new Event('evidenceEntrySubmitted', [
     'activityID',
     'attemptNumber',
     'promptID',
@@ -44,7 +44,7 @@ const EventDefinitions = [
     'submittedEntry',
     'user_id',
     'properties'])},
-  {COMPREHENSION_FEEDBACK_RECEIVED: new Event('comprehensionFeedbackReceived', [
+  {EVIDENCE_FEEDBACK_RECEIVED: new Event('evidenceFeedbackReceived', [
     'activityID',
     'attemptNumber',
     'promptID',
@@ -57,18 +57,18 @@ const EventDefinitions = [
     'submittedEntry',
     'user_id',
     'properties'])},
-  {COMPREHENSION_PROMPT_COMPLETED: new Event('comprehensionPromptCompleted', [
+  {EVIDENCE_PROMPT_COMPLETED: new Event('evidencePromptCompleted', [
     'activityID',
     'promptID',
     'sessionID',
     'user_id',
     'properties'])},
-  {COMPREHENSION_ACTIVITY_COMPLETED: new Event('comprehensionActivityCompleted', [
+  {EVIDENCE_ACTIVITY_COMPLETED: new Event('evidenceActivityCompleted', [
     'activityID',
     'sessionID',
     'user_id',
     'properties'])},
-  {COMPREHENSION_ACTIVITY_SAVED: new Event('comprehensionActivitySaved', [
+  {EVIDENCE_ACTIVITY_SAVED: new Event('evidenceActivitySaved', [
     'activityID',
     'sessionID',
     'user_id',
