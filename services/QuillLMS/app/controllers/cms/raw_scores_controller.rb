@@ -17,7 +17,7 @@ class Cms::RawScoresController < Cms::CmsController
       conversion_table = raw_scores.map do |rs|
         {
           raw_score: rs.name,
-          grade_band: rs.readability_grade_level(ac.id),
+          grade_band: rs.readability_grade_level,
           activity_count: Activity.where(raw_score_id: rs.id, activity_classification_id: ac.id).count
         }
       end
