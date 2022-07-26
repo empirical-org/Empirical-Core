@@ -1,4 +1,4 @@
 export interface UserIdsForEvent {
-  studentId: string,
-  teacherId: string
+  studentId: number,
+  teacherId: number
 }

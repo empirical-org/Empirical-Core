@@ -22,7 +22,7 @@ import getParameterByName from '../../helpers/getParameterByName';
 import { getUrlParam, onMobile, outOfAttemptsForActivePrompt, getCurrentStepDataForEventTracking, everyOtherStepCompleted, getStrippedPassageHighlights, getLastSubmittedResponse } from '../../helpers/containerActionHelpers';
 import { renderDirections} from '../../helpers/containerRenderHelpers';
 import { postTurkSession } from '../../utils/turkAPI';
-import { roundMillisecondsToSeconds, KEYDOWN, MOUSEMOVE, MOUSEDOWN, CLICK, KEYPRESS, VISIBILITYCHANGE, READ_PASSAGE_STEP_NUMBER, SO_PASSAGE_STEP_NUMBER, isTrackableStudentEvent } from '../../../Shared/index'
+import { roundMillisecondsToSeconds, KEYDOWN, MOUSEMOVE, MOUSEDOWN, CLICK, KEYPRESS, VISIBILITYCHANGE, READ_PASSAGE_STEP_NUMBER, SO_PASSAGE_STEP_NUMBER, isTrackableStudentEvent, UserIdsForEvent } from '../../../Shared/index'
 
 interface StudentViewContainerProps {
   dispatch: Function;
@@ -117,6 +117,8 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
       }
     }
   }, [])
+
+  // this event call had to be moved here because the idData isn't fetched in time for getActivity call
 
   React.useEffect(() => {
     if(activities.hasReceivedData && isTrackableStudentEvent(idData)) {

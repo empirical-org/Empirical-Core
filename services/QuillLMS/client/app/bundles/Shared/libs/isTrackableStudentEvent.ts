@@ -1,1 +1,3 @@
-export const isTrackableStudentEvent = (idData) => !!(idData && idData.studentId && idData.teacherId);
+import { UserIdsForEvent } from "../interfaces";
+
+export const isTrackableStudentEvent = (idData: UserIdsForEvent) => !!(idData && idData.studentId && idData.teacherId);
