@@ -30,7 +30,6 @@ class RawScore < ApplicationRecord
     end
   end
 
-  # rubocop:disable Metrics/CyclomaticComplexity
   def readability_grade_level
     case name
     when "1200-1300", "1300-1400", "1400-1500"
@@ -47,5 +46,5 @@ class RawScore < ApplicationRecord
       ""
     end
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
+
 end
