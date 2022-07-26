@@ -102,7 +102,7 @@ export {
   onMobile,
   fillInBlankInputLabel,
   getIconForActivityClassification,
-  isTrackableEvent
+  isTrackableStudentEvent
 } from './libs/index'
 
 export {
@@ -181,5 +181,10 @@ export {
   PRIVATE_FLAG,
   NOT_APPLICABLE
 } from './utils/constants'
+
+export {
+  UserIdsForEvent,
+  Question,
+  QuestionObject } from './interfaces'
 
 export { DefaultReactQueryClient } from './utils/defaultReactQueryClient'

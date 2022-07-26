@@ -4,7 +4,6 @@ import stripHtml from "string-strip-html"
 import getParameterByName from './getParameterByName'
 
 import { Passage } from '../interfaces/activities'
-import { isTrackableEvent } from '../../Shared'
 
 export const READ_PASSAGE_STEP = 1
 

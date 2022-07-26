@@ -5,7 +5,7 @@ import { TrackAnalyticsEvent } from './analytics'
 
 import { Events } from '../modules/analytics'
 import { FeedbackObject } from '../interfaces/feedback'
-import { isTrackableEvent } from '../../Shared'
+import { isTrackableStudentEvent } from '../../Shared'
 
 interface GetFeedbackArguments {
   sessionID: string,
@@ -194,7 +194,7 @@ export const getFeedback = (args: GetFeedbackArguments, idData: { studentId: str
       json: true,
     }
 
-    if(isTrackableEvent(idData)) {
+    if(isTrackableStudentEvent(idData)) {
       const { studentId, teacherId } = idData;
       dispatch(TrackAnalyticsEvent(Events.COMPREHENSION_ENTRY_SUBMITTED, {
         activityID: activityUID,
@@ -226,7 +226,7 @@ export const getFeedback = (args: GetFeedbackArguments, idData: { studentId: str
       }
       dispatch({ type: ActionTypes.RECORD_FEEDBACK, promptID, feedbackObj });
 
-      if(isTrackableEvent(idData)) {
+      if(isTrackableStudentEvent(idData)) {
         const { studentId, teacherId } = idData;
         dispatch(TrackAnalyticsEvent(Events.COMPREHENSION_FEEDBACK_RECEIVED, {
           activityID: activityUID,
