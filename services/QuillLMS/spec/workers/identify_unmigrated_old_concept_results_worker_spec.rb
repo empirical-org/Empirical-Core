@@ -38,7 +38,23 @@ describe IdentifyUnmigratedOldConceptResultsWorker, type: :worker do
 
       expect_any_instance_of(IdentifyUnmigratedOldConceptResultsWorker).to receive(:send_report).with(csv_data)
 
-      subject.perform
+      subject.perform(nil, nil)
+    end
+
+    it 'should allow specification of the OldConceptResult ID to start with' do
+      csv_data = CSV.generate_line(unmigrated_ranges.last)
+
+      expect_any_instance_of(IdentifyUnmigratedOldConceptResultsWorker).to receive(:send_report).with(csv_data)
+
+      subject.perform(unmigrated_ranges.last.first, nil)
+    end
+
+    it 'should allow specification of the OldConceptResult ID to stop with' do
+      csv_data = CSV.generate_line(unmigrated_ranges.first)
+
+      expect_any_instance_of(IdentifyUnmigratedOldConceptResultsWorker).to receive(:send_report).with(csv_data)
+
+      subject.perform(nil, unmigrated_ranges.first.last)
     end
   end
 end
