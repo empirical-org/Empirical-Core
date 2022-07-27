@@ -10,6 +10,7 @@ class CopyOldConceptResultsToConceptResultsWorker
 
   def perform(start, finish, batch_inserts)
     return bulk_insert(start, finish) if batch_inserts
+
     enqueue_individual_inserts(start, finish)
   end
 
