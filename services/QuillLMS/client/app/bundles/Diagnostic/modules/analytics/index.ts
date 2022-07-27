@@ -27,9 +27,17 @@ class SegmentAnalytics {
   async track(event: Event, properties?: object) {
     const sessionID = getParameterByName('student', window.location.href)
     const idData = await fetchUserIdsForSession(sessionID)
-    console.log("🚀 ~ file: index.ts ~ line 30 ~ SegmentAnalytics ~ track ~ idData", idData)
+
     if(!isTrackableStudentEvent(idData)) { return }
-    console.log("🚀 ~ file: index.ts ~ line 32 ~ SegmentAnalytics ~ track ~ isTrackableStudentEvent(idData)", isTrackableStudentEvent(idData))
+
+    const { teacherId, studentId } = idData
+    const customProperties = {
+      ...properties,
+      user_id: teacherId,
+      properties: {
+        student_id: studentId
+      }
+    }
 
     try {
       // Make sure that the event reference is one that's defined
@@ -38,8 +46,7 @@ class SegmentAnalytics {
       }
 
       // Validate that required properties are present
-      this.validateEvent(event, properties);
-      console.log("🚀 ~ file: index.ts ~ line 42 ~ SegmentAnalytics ~ track ~ this.validateEvent(event, properties)", this.validateEvent(event, properties))
+      this.validateEvent(event, customProperties);
 
       // Check to make sure that we have access to the analytics global
       if (!this.analytics) {
@@ -50,9 +57,7 @@ class SegmentAnalytics {
       return false;
     }
 
-    const eventProperties = Object.assign(this.formatProperties(properties, idData), this.getDefaultProperties());
-    console.log("🚀 ~ file: index.ts ~ line 54 ~ SegmentAnalytics ~ track ~ eventProperties", eventProperties)
-
+    const eventProperties = Object.assign({...customProperties}, this.getDefaultProperties());
     this.analytics['track'](event.name, eventProperties);
     return true;
   }
