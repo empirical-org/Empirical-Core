@@ -1,13 +1,21 @@
 import { Event } from './event_definitions';
 import Events from './events';
 
+import getParameterByName from '../../helpers/getParameterByName';
+import { fetchUserIdsForSession } from '../../../Shared/utils/userAPIs';
+import { isTrackableStudentEvent, UserIdsForEvent } from '../../../Shared';
 
 class SegmentAnalytics {
   analytics(): object {
     return window.analytics
   }
 
-  track(event: Event, properties?: object): boolean {
+  async track(event: Event, properties?: object) {
+    const sessionID = getParameterByName('session', window.location.href)
+    const idData = await fetchUserIdsForSession(sessionID)
+
+    if(!isTrackableStudentEvent(idData)) { return }
+
     try {
       // Make sure that the event reference is one that's defined
       if (!event) {
@@ -26,8 +34,7 @@ class SegmentAnalytics {
       return false;
     }
 
-    const eventProperties = Object.assign(properties, this.getDefaultProperties());
-
+    const eventProperties = Object.assign(this.formatProperties(properties, idData), this.getDefaultProperties());
     this.analytics().track(event.name, eventProperties);
     return true;
   }
@@ -51,6 +58,17 @@ class SegmentAnalytics {
       path: `${window.location.pathname}${window.location.search}${window.location.hash}`,
       referrer: document.referrer,
     };
+  }
+
+  formatProperties(properties, idData: UserIdsForEvent) {
+    const { teacherId, studentId } = idData
+    return {
+      ...properties,
+      user_id: teacherId,
+      properties: {
+        student_id: studentId
+      }
+    }
   }
 
   reportError(e: Error): void {

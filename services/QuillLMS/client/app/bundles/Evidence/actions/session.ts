@@ -5,7 +5,7 @@ import { TrackAnalyticsEvent } from './analytics'
 
 import { Events } from '../modules/analytics'
 import { FeedbackObject } from '../interfaces/feedback'
-import { isTrackableStudentEvent, UserIdsForEvent } from '../../Shared'
+import { isTrackableStudentEvent } from '../../Shared'
 
 interface GetFeedbackArguments {
   sessionID: string,
@@ -16,8 +16,7 @@ interface GetFeedbackArguments {
   attempt: number,
   previousFeedback: FeedbackObject[],
   callback: Function,
-  activityVersion: number,
-  idData: UserIdsForEvent
+  activityVersion: number
 }
 
 interface CompleteActivitySessionArguments {
@@ -173,7 +172,7 @@ export const reportAProblem = ({ sessionID, entry, report, callback, isOptimal }
 }
 
 export const getFeedback = (args: GetFeedbackArguments) => {
-  const { sessionID, activityUID, entry, promptID, promptText, attempt, previousFeedback, callback, activityVersion, idData } = args
+  const { sessionID, activityUID, entry, promptID, promptText, attempt, previousFeedback, callback, activityVersion } = args
   return (dispatch: Function) => {
     const feedbackURL = `${process.env.GOLANG_FANOUT_URL}`
 
@@ -195,23 +194,15 @@ export const getFeedback = (args: GetFeedbackArguments) => {
       json: true,
     }
 
-    if(isTrackableStudentEvent(idData)) {
-      const { studentId, teacherId } = idData;
-      dispatch(TrackAnalyticsEvent(Events.EVIDENCE_ENTRY_SUBMITTED, {
-        activityID: activityUID,
-        attemptNumber: attempt,
-        promptID,
-        promptStemText: promptText,
-        sessionID,
-        startingFeedback: mostRecentFeedback.feedback,
-        submittedEntry: entry,
-        user_id: teacherId,
-        properties: {
-          student_id: studentId
-        }
-      }));
-    }
-
+    dispatch(TrackAnalyticsEvent(Events.EVIDENCE_ENTRY_SUBMITTED, {
+      activityID: activityUID,
+      attemptNumber: attempt,
+      promptID,
+      promptStemText: promptText,
+      sessionID,
+      startingFeedback: mostRecentFeedback.feedback,
+      submittedEntry: entry
+    }));
 
     request.post(requestObject, (e, r, body) => {
       const { concept_uid, feedback, feedback_type, optimal, highlight, labels, hint, } = body
@@ -226,25 +217,17 @@ export const getFeedback = (args: GetFeedbackArguments) => {
         hint,
       }
       dispatch({ type: ActionTypes.RECORD_FEEDBACK, promptID, feedbackObj });
-
-      if(isTrackableStudentEvent(idData)) {
-        const { studentId, teacherId } = idData;
-        dispatch(TrackAnalyticsEvent(Events.EVIDENCE_FEEDBACK_RECEIVED, {
-          activityID: activityUID,
-          attemptNumber: attempt,
-          promptID,
-          hint,
-          promptStemText: promptText,
-          returnedFeedback: feedbackObj.feedback,
-          sessionID,
-          startingFeedback: mostRecentFeedback.feedback,
-          submittedEntry: entry,
-          user_id: teacherId,
-          properties: {
-            student_id: studentId
-          }
-        }));
-      }
+      dispatch(TrackAnalyticsEvent(Events.EVIDENCE_FEEDBACK_RECEIVED, {
+        activityID: activityUID,
+        attemptNumber: attempt,
+        promptID,
+        hint,
+        promptStemText: promptText,
+        returnedFeedback: feedbackObj.feedback,
+        sessionID,
+        startingFeedback: mostRecentFeedback.feedback,
+        submittedEntry: entry
+      }));
       callback()
     })
   }

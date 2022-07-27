@@ -21,12 +21,10 @@ describe('Session actions', () => {
     const mockPromptText = 'This is great because'
     const mockAttempt = 1
     const mockStartingFeedback = 'Starting feedback'
-    const mockStartingFeedbackID = 'STARTING_FEEDBACK_ID'
     const mockPreviousFeedback = [{
       feedback: mockStartingFeedback
     }]
     const mockCallback = jest.fn()
-    const mockIdData = { teacherId: 1, studentId: 2}
 
     const mockArgs = {
       sessionID: mockSessionID,
@@ -36,8 +34,7 @@ describe('Session actions', () => {
       promptText: mockPromptText,
       attempt: mockAttempt,
       previousFeedback: mockPreviousFeedback,
-      callback: mockCallback,
-      idData: mockIdData
+      callback: mockCallback
     }
 
     dispatch(getFeedback(mockArgs))
@@ -50,11 +47,7 @@ describe('Session actions', () => {
         promptStemText: mockPromptText,
         sessionID: mockSessionID,
         startingFeedback: mockStartingFeedback,
-        submittedEntry: mockEntry,
-        user_id: mockIdData.teacherId,
-        properties: {
-          student_id: mockIdData.studentId
-        }
+        submittedEntry: mockEntry
       })
     })
 

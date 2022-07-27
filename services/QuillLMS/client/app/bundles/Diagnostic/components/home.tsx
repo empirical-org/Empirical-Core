@@ -8,7 +8,7 @@ import TeacherNavbar from './navbar/teacherNavbar';
 import { routes } from "../routes";
 import { getParameterByName } from '../libs/getParameterByName';
 import { TeacherPreviewMenu, ScreenreaderInstructions, } from '../../Shared/index';
-import { fetchUserRole, fetchUserIdsForSession } from '../../Shared/utils/userAPIs';
+import { fetchUserRole } from '../../Shared/utils/userAPIs';
 import { addKeyDownListener } from '../../Shared/hooks/addKeyDownListener';
 
 export const Home = () => {
@@ -17,10 +17,6 @@ export const Home = () => {
   const studentOrTurk = studentSession || turkSession;
   const isPlaying = window.location.href.includes('play');
   const { data: roleData } = useQuery("user-role", fetchUserRole);
-  const { data: idData } = useQuery({
-    queryKey: [`session-user-ids-${studentSession}`, studentSession],
-    queryFn: fetchUserIdsForSession
-  });
   const isTeacherOrAdmin = roleData && roleData.role && roleData.role !== 'student';
 
   const [showFocusState, setShowFocusState] = React.useState<boolean>(false);
@@ -94,8 +90,7 @@ export const Home = () => {
             handleToggleQuestion: handleToggleQuestion,
             previewMode: showPreview,
             questionToPreview: questionToPreview,
-            skippedToQuestionFromIntro: skippedToQuestionFromIntro,
-            idData: idData
+            skippedToQuestionFromIntro: skippedToQuestionFromIntro
           })}</div>
         </main>
       </div>

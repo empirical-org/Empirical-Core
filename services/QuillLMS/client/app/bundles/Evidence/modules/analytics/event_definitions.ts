@@ -24,8 +24,6 @@ const EventDefinitions = [
     'activityID',
     'sessionID',
     'user_id',
-    'properties',
-    'user_id',
     'properties'])},
   {EVIDENCE_PROMPT_STARTED: new Event('evidencePromptStarted', [
     'activityID',

@@ -18,6 +18,14 @@ export const getUrlParam = (paramName: string, location, isTurk) => {
   return queryString.parse(search)[paramName]
 }
 
+export const getUrlParamForEvent = (paramName: string, location) => {
+  const { hash, } = location
+  if (!hash) { return }
+  // we don't have access to search param from window.location so we need to cut the hash string to isolate the search params string
+  const searchString = hash.slice(6, hash.length)
+  return queryString.parse(searchString)[paramName]
+}
+
 export const onMobile = () => window.innerWidth < 1100
 
 export const orderedSteps = (activities) => {
@@ -40,8 +48,7 @@ export const outOfAttemptsForActivePrompt = (activeStep, session, activities) =>
   return (responsesForPrompt.length === activePrompt.max_attempts) || lastAttempt.optimal
 }
 
-export const getCurrentStepDataForEventTracking = ({ activeStep, activities, session, isTurk, idData }) => {
-  const { studentId, teacherId } = idData;
+export const getCurrentStepDataForEventTracking = ({ activeStep, activities, session, isTurk }) => {
   const { currentActivity, } = activities
   const { sessionID, } = session
   const activityID = getUrlParam('uid', location, isTurk)
@@ -54,11 +61,7 @@ export const getCurrentStepDataForEventTracking = ({ activeStep, activities, ses
   return {
     activityID,
     sessionID,
-    promptID,
-    user_id: teacherId,
-    properties: {
-      student_id: studentId
-    }
+    promptID
   }
 }
 

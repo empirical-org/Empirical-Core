@@ -3,16 +3,14 @@ import React from 'react';
 import { ENGLISH, languages, languageData } from '../../modules/translation/languagePageInfo';
 import { TrackAnalyticsEvent} from '../../actions/analytics'
 import { Events } from '../../modules/analytics'
-import { isTrackableStudentEvent } from '../../../Shared';
 
 export class LanguagePage extends React.Component {
 
   handleClickLanguage = (e) => {
     const language = e.currentTarget.value;
-    const { dispatch, setLanguage, previewMode, begin, idData } = this.props;
-    if(process.env.NODE_ENV === 'production' && language !== ENGLISH && isTrackableStudentEvent(idData)) {
-      const { teacherId, studentId } = idData;
-      dispatch(TrackAnalyticsEvent(Events.DIAGNOSTIC_LANGUAGE_SELECTED, { language, user_id: teacherId, properties: { student_id: studentId } }));
+    const { dispatch, setLanguage, previewMode, begin } = this.props;
+    if(process.env.NODE_ENV === 'staging' && language !== ENGLISH) {
+      dispatch(TrackAnalyticsEvent(Events.DIAGNOSTIC_LANGUAGE_SELECTED, { language }));
     }
     setLanguage(language);
     if(previewMode) {

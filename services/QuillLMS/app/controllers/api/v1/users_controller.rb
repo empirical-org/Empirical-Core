@@ -19,9 +19,8 @@ class Api::V1::UsersController < Api::ApiController
 
   def student_and_teacher_ids_for_session
     uid = params[:activity_session_uid]
-    student_id = nil
-    student_id = current_user.id if current_user&.student?
-    teacher_id = ActivitySession.where(uid: uid).first&.classroom&.teachers&.first&.id
+    student_id = current_user&.student? ? current_user.id : nil
+    teacher_id = ActivitySession.find_by(uid: uid)&.classroom&.owner&.id
     render json: { student_id: student_id, teacher_id: teacher_id }
   end
 
