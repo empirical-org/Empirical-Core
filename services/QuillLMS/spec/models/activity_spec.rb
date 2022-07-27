@@ -486,14 +486,6 @@ describe Activity, type: :model, redis: true do
       expect(activity.readability_grade_level).to eq('6th-7th')
     end
 
-    it 'should behave differently based on activity classification' do
-      raw_score = create(:raw_score, :five_hundred_to_six_hundred)
-      connect_activity = create(:connect_activity, raw_score_id: raw_score.id)
-      proofreader_activity = create(:proofreader_activity, raw_score_id: raw_score.id)
-      expect(proofreader_activity.readability_grade_level).to eq('4th-5th')
-      expect(connect_activity.readability_grade_level).to eq('6th-7th')
-    end
-
     it 'should return nil if there is no raw_score_id' do
       activity = create(:activity, raw_score_id: nil)
       expect(activity.readability_grade_level).to eq(nil)
