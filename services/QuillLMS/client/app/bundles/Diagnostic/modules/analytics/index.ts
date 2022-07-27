@@ -83,17 +83,6 @@ class SegmentAnalytics {
     };
   }
 
-  formatProperties(properties, idData: UserIdsForEvent) {
-    const { teacherId, studentId } = idData
-    return {
-      ...properties,
-      user_id: teacherId,
-      properties: {
-        student_id: studentId
-      }
-    }
-  }
-
   reportError(e: Error): void {
     // placeholder for actual error reporting
     // to do - do something with this error
