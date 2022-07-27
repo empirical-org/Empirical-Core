@@ -4,7 +4,7 @@ export const fetchUserRole = async () => {
   return role;
 }
 
-export const fetchUserIdsForSession = async (activitySessionId:) => {
+export const fetchUserIdsForSession = async (activitySessionId) => {
   const response = await fetch(`${process.env.DEFAULT_URL}/api/v1/users/student_and_teacher_ids_for_session/${activitySessionId}`);
   const userIds = await response.json();
   return { teacherId: userIds.teacher_id, studentId: userIds.student_id };

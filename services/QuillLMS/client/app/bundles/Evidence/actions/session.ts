@@ -5,7 +5,6 @@ import { TrackAnalyticsEvent } from './analytics'
 
 import { Events } from '../modules/analytics'
 import { FeedbackObject } from '../interfaces/feedback'
-import { isTrackableStudentEvent } from '../../Shared'
 
 interface GetFeedbackArguments {
   sessionID: string,

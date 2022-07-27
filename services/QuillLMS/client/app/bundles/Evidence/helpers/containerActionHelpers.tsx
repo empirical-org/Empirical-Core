@@ -18,14 +18,6 @@ export const getUrlParam = (paramName: string, location, isTurk) => {
   return queryString.parse(search)[paramName]
 }
 
-export const getUrlParamForEvent = (paramName: string, location) => {
-  const { hash, } = location
-  if (!hash) { return }
-  // we don't have access to search param from window.location so we need to cut the hash string to isolate the search params string
-  const searchString = hash.slice(6, hash.length)
-  return queryString.parse(searchString)[paramName]
-}
-
 export const onMobile = () => window.innerWidth < 1100
 
 export const orderedSteps = (activities) => {
