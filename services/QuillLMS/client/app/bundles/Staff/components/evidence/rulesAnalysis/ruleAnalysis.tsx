@@ -14,7 +14,57 @@ import { InputEvent } from '../../../interfaces/evidenceInterfaces';
 import { DataTable, Error, Spinner, Input, smallWhiteCheckIcon, ReactTable, } from '../../../../Shared/index';
 import { handlePageFilterClick } from "../../../helpers/evidence/miscHelpers";
 import { renderHeader } from "../../../helpers/evidence/renderHelpers";
-import { ALL, SCORED, UNSCORED, STRONG, WEAK, RULE_ANALYSIS, RULES_ANALYSIS } from '../../../../../constants/evidence';
+import { ALL, SCORED, UNSCORED, STRONG, WEAK, RULE_ANALYSIS, RULES_ANALYSIS, LOW_CONFIDENCE } from '../../../../../constants/evidence';
+
+const responseHeaders = (isLowConfidenceRule) => {
+  const highlightedOutput = {
+    Header: "Highlighted Output",
+    accessor: "highlight",
+    maxWidth: 280
+  }
+  const confidenceAttributes = [
+    {
+      Header: "Low Confidence Label Prediction",
+      accessor: "lowConfidenceLabelPrediction",
+      maxWidth: 200
+    },
+    {
+      Header: "Confidence Value",
+      accessor: "originalRuleConfidence",
+      maxWidth: 80
+    }
+  ]
+  const highlightedOutputOrConfidenceAttributes = isLowConfidenceRule ? confidenceAttributes : highlightedOutput
+  return [
+    {
+      Header: '',
+      accessor: "selected",
+      maxWidth: 50
+    },
+    {
+      Header: "Time",
+      accessor: "datetime",
+      maxWidth: 100
+    },
+    {
+      Header: prompt && prompt.text ? <b className="prompt-text" dangerouslySetInnerHTML={{ __html: prompt.text.replace(prompt.conjunction, `<span>${prompt.conjunction}</span>`)}} /> : '',
+      accessor: "response",
+      width: 700,
+      sortType: (a, b) => (a.original.key.localeCompare(b.original.key))
+    },
+    highlightedOutputOrConfidenceAttributes,
+    {
+      Header: "",
+      accessor: "strengthButtons",
+      maxWidth: 150
+    },
+    {
+      Header: "",
+      accessor: "viewSessionLink",
+      maxWidth: 80
+    }
+  ].flat()
+}
 
 const extractHighlight = (highlightObject) => {
   if (!highlightObject || !highlightObject.length || !highlightObject[0].text) return '';
@@ -108,7 +158,7 @@ const RuleAnalysis = ({ match }) => {
   function filterResponsesBySearch(r) {
     if (search.length) {
       try {
-        return new RegExp(search, 'i').test(r.entry)
+        return new RegExp(search, 'i').test(r.entry) || new RegExp(search, 'i').test(r.api?.original_rule_name)
       } catch (e) {
         return false
       }
@@ -245,6 +295,8 @@ const RuleAnalysis = ({ match }) => {
         formattedResponse.selected = <button aria-label="Unchecked checkbox" className="quill-checkbox unselected" onClick={() => selectRow(r.response_id)} type="button" />
       }
 
+      formattedResponse.originalRuleConfidence = Math.round(r.api.confidence * 100) / 100
+      formattedResponse.lowConfidenceLabelPrediction = <Link className="data-link" rel="noopener noreferrer" target="_blank" to={`/activities/${activityId}/rules-analysis/${promptConjunction}/rule/${r.api.original_rule_uid}/prompt/${promptId}`}>{r.api.original_rule_name}</Link>
       formattedResponse.response = r.entry
       formattedResponse.datetime = moment(r.datetime).format('MM/DD/YYYY')
       formattedResponse.strengthButtons = (<div className="strength-buttons">{strongButton}{weakButton}</div>)
@@ -253,40 +305,6 @@ const RuleAnalysis = ({ match }) => {
       return formattedResponse
     })
   }
-
-  const responseHeaders = [
-    {
-      Header: '',
-      accessor: "selected",
-      maxWidth: 50
-    },
-    {
-      Header: "Time",
-      accessor: "datetime",
-      maxWidth: 100
-    },
-    {
-      Header: prompt && prompt.text ? <b className="prompt-text" dangerouslySetInnerHTML={{ __html: prompt.text.replace(prompt.conjunction, `<span>${prompt.conjunction}</span>`)}} /> : '',
-      accessor: "response",
-      maxWidth: 600,
-      sortType: (a, b) => (a.original.key.localeCompare(b.original.key))
-    },
-    {
-      Header: "Highlighted Output",
-      accessor: "highlight",
-      maxWidth: 100
-    },
-    {
-      Header: "",
-      accessor: "strengthButtons",
-      maxWidth: 300
-    },
-    {
-      Header: "",
-      accessor: "viewSessionLink",
-      width: 100
-    }
-  ]
 
   if(!ruleData || !activityData || !responses || !conceptsData) {
     return(
@@ -306,6 +324,8 @@ const RuleAnalysis = ({ match }) => {
 
   const massMarkButtonDisabled = !selectedIds.length
   const massMarkButtonClassName = massMarkButtonDisabled ? "quill-button secondary fun outlined disabled" : "quill-button secondary fun outlined"
+
+  const isLowConfidenceRule = ruleData.rule.rule_type === LOW_CONFIDENCE
 
   return(
     <div className="rule-analysis-container">
@@ -372,9 +392,10 @@ const RuleAnalysis = ({ match }) => {
         type='text'
         value={search}
       />
+      {isLowConfidenceRule ? <p>To filter to one predicted label, search by the label name in the search box.</p> : ''}
       <ReactTable
         className="responses-table"
-        columns={responseHeaders}
+        columns={responseHeaders(isLowConfidenceRule)}
         data={responses}
         defaultPageSize={Math.min(responses.length, 100) || 100}
         manualSortBy

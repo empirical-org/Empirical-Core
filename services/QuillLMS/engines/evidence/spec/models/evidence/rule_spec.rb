@@ -133,13 +133,13 @@ module Evidence
         end
 
         it 'should be false if sequence_type is incorrect and entry matches regex text' do
-          expect((!rule.regex_is_passing?("Hello!!!"))).to(be_truthy)
+          expect(rule.regex_is_passing?("Hello!!!")).to(eq(false))
         end
 
         it 'should be false if sequence_type is required and entry does not match regex text' do
           required_rule = create(:evidence_rule)
           regex_rule_three = create(:evidence_regex_rule, :rule => required_rule, :regex_text => "you need this sequence", :sequence_type => "required")
-          expect((!required_rule.regex_is_passing?("I do not have the right sequence"))).to(be_truthy)
+          expect(required_rule.regex_is_passing?("I do not have the right sequence")).to(eq(false))
         end
 
         it 'should be true if sequence_type is required and entry matches regex text' do
@@ -164,7 +164,7 @@ module Evidence
         it 'should be false if rule IS case sensitive and entry does not match casing' do
           required_rule = create(:evidence_rule)
           regex_rule_three = create(:evidence_regex_rule, :rule => required_rule, :regex_text => "you need this sequence", :sequence_type => "required", :case_sensitive => true)
-          expect((!required_rule.regex_is_passing?("YOU NEED THIS SEQUENCE AND I do not HAVE IT in the right casing"))).to(be_truthy)
+          expect(required_rule.regex_is_passing?("YOU NEED THIS SEQUENCE AND I do not HAVE IT in the right casing")).to(eq(false))
         end
 
         it 'should grade both incorrect sequence and required sequence in the same rule' do
@@ -206,7 +206,7 @@ module Evidence
 
       it 'should does not create plagiarism rule if plagiarism rule already exists for prompt' do
         invalid_plagiarism_rule = build(:evidence_rule, :rule_type => (Rule::TYPE_PLAGIARISM), :prompt_ids => ([prompt1.id]))
-        expect((!invalid_plagiarism_rule.valid?)).to(be_truthy)
+        expect((invalid_plagiarism_rule.valid?)).to(eq(false))
       end
 
       it 'should creates subsequent plagiarism rule for different prompt' do
@@ -215,6 +215,31 @@ module Evidence
       end
 
       it 'should create a different type of rule if it is not plagiarism' do
+        valid_automl_rule = build(:evidence_rule, :rule_type => (Rule::TYPE_AUTOML), :prompt_ids => ([prompt1.id]))
+        expect(valid_automl_rule.valid?).to(eq(true))
+      end
+    end
+
+    context 'should one_low_confidence_per_prompt' do
+      let!(:prompt1) { create(:evidence_prompt) }
+      let!(:prompt2) { create(:evidence_prompt) }
+      let!(:low_confidence_rule) { create(:evidence_rule, :rule_type => (Rule::TYPE_LOW_CONFIDENCE), :prompt_ids => ([prompt1.id])) }
+
+      it 'should creates low_confidence rule if first rule for prompt' do
+        expect(low_confidence_rule.valid?).to(eq(true))
+      end
+
+      it 'should does not create low_confidence rule if low_confidence rule already exists for prompt' do
+        invalid_low_confidence_rule = build(:evidence_rule, :rule_type => (Rule::TYPE_LOW_CONFIDENCE), :prompt_ids => ([prompt1.id]))
+        expect(invalid_low_confidence_rule.valid?).to(eq(false))
+      end
+
+      it 'should creates subsequent low_confidence rule for different prompt' do
+        second_low_confidence_rule = build(:evidence_rule, :rule_type => (Rule::TYPE_LOW_CONFIDENCE), :prompt_ids => ([prompt2.id]))
+        expect(second_low_confidence_rule.valid?).to(eq(true))
+      end
+
+      it 'should create a different type of rule if it is not low_confidence' do
         valid_automl_rule = build(:evidence_rule, :rule_type => (Rule::TYPE_AUTOML), :prompt_ids => ([prompt1.id]))
         expect(valid_automl_rule.valid?).to(eq(true))
       end
