@@ -26,6 +26,10 @@ exports[`RuleGenericAttributes component should render RuleGenericAttributes 1`]
           "label": "Plagiarism",
           "value": "plagiarism",
         },
+        Object {
+          "label": "Low Confidence",
+          "value": "low-confidence",
+        },
       ]
     }
     value={

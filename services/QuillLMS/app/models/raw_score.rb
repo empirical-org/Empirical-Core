@@ -30,41 +30,21 @@ class RawScore < ApplicationRecord
     end
   end
 
-  # rubocop:disable Metrics/CyclomaticComplexity
-  def readability_grade_level(activity_classification_id=nil)
-    activity_classification = ActivityClassification.find_by_id(activity_classification_id)
+  def readability_grade_level
     case name
-    when "1200-1300"
-      if ActivityClassification::EVIDENCE_KEY == activity_classification.key
-        EIGHTH_THROUGH_NINTH
-      else
-        TENTH_THROUGH_TWELFTH
-      end
-    when "1300-1400", "1400-1500"
+    when "1200-1300", "1300-1400", "1400-1500"
       TENTH_THROUGH_TWELFTH
-    when "900-1000", "1000-1100", "1100-1200"
+    when "1000-1100", "1100-1200"
       EIGHTH_THROUGH_NINTH
-    when "600-700", "700-800", "800-900"
+    when "800-900", "900-1000"
       SIXTH_THROUGH_SEVENTH
-    when "500-600"
-      if [ActivityClassification::PROOFREADER_KEY, ActivityClassification::EVIDENCE_KEY].include?(activity_classification.key)
-        FOURTH_THROUGH_FIFTH
-      else
-        SIXTH_THROUGH_SEVENTH
-      end
-    when "400-500"
+    when "500-600", "600-700", "700-800"
       FOURTH_THROUGH_FIFTH
-    when "300-400"
-      if [ActivityClassification::PROOFREADER_KEY, ActivityClassification::EVIDENCE_KEY].include?(activity_classification.key)
-        SECOND_THROUGH_THIRD
-      else
-        FOURTH_THROUGH_FIFTH
-      end
-    when "BR100-0", "0-100", "100-200", "200-300"
+    when "BR100-0", "0-100", "100-200", "200-300", "300-400", "400-500"
       SECOND_THROUGH_THIRD
     else
       ""
     end
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
+
 end

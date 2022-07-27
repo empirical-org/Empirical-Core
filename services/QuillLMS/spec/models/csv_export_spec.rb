@@ -46,7 +46,7 @@ describe CsvExport, type: :model do
 
       it 'should add error to the object' do
         expect(csv_export1.save).to eq false
-        expect(csv_export1.errors.messages).to include(:export_type=>["is not included in the list"])
+        expect(csv_export1.errors.messages.to_h).to include(export_type: ["is not included in the list"])
       end
     end
 
