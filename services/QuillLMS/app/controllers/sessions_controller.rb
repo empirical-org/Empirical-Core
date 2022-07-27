@@ -5,7 +5,15 @@ require 'new_relic/agent'
 
 class SessionsController < ApplicationController
   include CleverAuthable
-  include InvalidAuthenticityTokenHandler
+
+  rescue_from ActionController::InvalidAuthenticityToken do |_exception|
+    flash[:error] = t('actioncontroller.errors.invalid_authenticity_token')
+
+    respond_to do |format|
+      format.html { redirect_back(fallback_location: root_path) }
+      format.json { render json: { redirect: URI.parse(request.referer).path } }
+    end
+  end
 
   CLEAR_ANALYTICS_SESSION_KEY = "clear_analytics_session"
 

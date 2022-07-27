@@ -34,7 +34,7 @@ en:
     account_conflict: "This Clever account is already associated with another Quill account. Contact support@quill.org for further assistance."
   actioncontroller:
     errors:
-      invalid_authenticity_token: 'The session has been reset. Please try again. If this issue persists, please contact support@quill.org for further assistance.'
+      invalid_authenticity_token: 'Whoops, something went wrong. Please try your request again.'
   activerecord:
     errors:
       models:
