@@ -6,6 +6,15 @@ require 'new_relic/agent'
 class SessionsController < ApplicationController
   include CleverAuthable
 
+  rescue_from ActionController::InvalidAuthenticityToken do |_exception|
+    flash[:error] = t('actioncontroller.errors.invalid_authenticity_token')
+
+    respond_to do |format|
+      format.html { redirect_back(fallback_location: root_path) }
+      format.json { render json: { redirect: URI.parse(request.referer).path } }
+    end
+  end
+
   CLEAR_ANALYTICS_SESSION_KEY = "clear_analytics_session"
 
   before_action :signed_in!, only: [:destroy]
@@ -111,7 +120,7 @@ class SessionsController < ApplicationController
     @user = User.new
     @title = 'Log In'
     @clever_link = clever_link
-    @google_link = GoogleIntegration::AUTHENTICATION_ONLY_PATH
+    @google_offline_access_expired = (params[:google_offline_access_expired] == 'true')
     session[:role] = nil
     session[ApplicationController::POST_AUTH_REDIRECT] = params[:redirect] if params[:redirect]
   end

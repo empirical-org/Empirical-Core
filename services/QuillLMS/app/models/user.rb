@@ -269,21 +269,21 @@ class User < ApplicationRecord
   def create(*args)
     super
   rescue ActiveRecord::RecordNotUnique => e
-    errors[:db_level] << e
+    errors.add(:db_level, e)
     false
   end
 
   def update(*args)
     super
   rescue ActiveRecord::RecordNotUnique => e
-    errors[:db_level] << e
+    errors.add(:db_level, e)
     false
   end
 
   def create_or_update(*args)
     super
   rescue ActiveRecord::RecordNotUnique => e
-    errors[:db_level] << e
+    errors.add(:db_level, e)
     false
   end
 

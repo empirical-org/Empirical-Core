@@ -6,10 +6,10 @@ ruby '2.7.6'
 
 # CORE DEPS
 gem 'rails', '6.0.5'
-gem 'puma', '>= 4.3.11'
+gem 'puma', '~> 5.6.4'
 
 # EARLY TO APPLY TO OTHER GEMS
-gem 'dotenv-rails', '~>2.6'
+gem 'dotenv-rails', '~> 2.6'
 
 # DB/MODEL
 gem 'pg', '0.18.4'
@@ -25,6 +25,7 @@ gem "doorkeeper", "5.0.3"
 gem 'omniauth', '~> 1.9'
 gem 'omniauth-google-oauth2', '0.6.0'
 gem 'omniauth-clever', '~> 1.2'
+gem 'omniauth-rails_csrf_protection'
 gem 'cancancan', '~> 2.3'
 gem 'firebase_token_generator'
 gem 'rack-attack', '~> 6.3'
@@ -96,7 +97,6 @@ gem 'actionpack-action_caching'
 # JS/APP/UI
 gem 'turbolinks'
 gem 'jquery-turbolinks'
-gem 'select2-rails'
 gem 'jbuilder'
 gem 'active_link_to'
 
@@ -140,7 +140,7 @@ gem 'rack-heartbeat'
 gem 'clever-ruby', '~> 2.0.1'
 
 # Memory profiling
-gem 'puma_worker_killer', '~> 0.1.0'
+gem 'puma_worker_killer'
 
 # temp for migrations
 gem 'paperclip'
@@ -151,7 +151,6 @@ gem 'awesome_print'
 
 group :production, :staging do
   gem 'rails_autoscale_agent'
-  gem 'rails_12factor'
   gem 'lograge'
   gem 'sqreen'
 end

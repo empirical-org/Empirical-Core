@@ -91,6 +91,9 @@ const Navigation = ({ location, match }) => {
         <NavLink activeClassName="is-active" to={`/activities/${activityId}/plagiarism-rules`}>
           Plagiarism Rules
         </NavLink>
+        <NavLink activeClassName="is-active" to={`/activities/${activityId}/low-confidence-rules`}>
+          Low Confidence Rules
+        </NavLink>
         <NavLink activeClassName="is-active" to={`/activities/${activityId}/rules-index`}>
           View All Rules
         </NavLink>

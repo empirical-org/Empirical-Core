@@ -243,7 +243,7 @@ class Activity < ApplicationRecord
   end
 
   def readability_grade_level
-    raw_score&.readability_grade_level(activity_classification_id)
+    raw_score&.readability_grade_level
   end
 
   def default_minimum_grade_level

@@ -15,7 +15,7 @@ import { fetchConcepts, } from '../../../utils/evidence/conceptAPIs';
 import { renderErrorsContainer, renderHeader } from '../../../helpers/evidence/renderHelpers';
 import { formatPrompts } from '../../../helpers/evidence/promptHelpers';
 import { handleSubmitRule, getInitialRuleType, formatInitialFeedbacks, returnInitialFeedback, formatRegexRules, getReturnLinkRuleType, getReturnLinkLabel, renderDeleteRuleModal } from '../../../helpers/evidence/ruleHelpers';
-import { ruleOptimalOptions, regexRuleTypes, PLAGIARISM } from '../../../../../constants/evidence';
+import { ruleOptimalOptions, regexRuleTypes, PLAGIARISM, LOW_CONFIDENCE } from '../../../../../constants/evidence';
 import { RuleInterface, DropdownObjectInterface } from '../../../interfaces/evidenceInterfaces';
 
 interface RuleViewFormProps {
@@ -86,6 +86,8 @@ const RuleViewForm = ({
   const [ruleType, setRuleType] = React.useState<DropdownObjectInterface>(initialRuleType);
   const [showDeleteRuleModal, setShowDeleteRuleModal] = React.useState<boolean>(false);
   const [universalRulesCount, setUniversalRulesCount] = React.useState<number>(null);
+
+  const isLowConfidence = rule_type === LOW_CONFIDENCE
 
   const queryClient = useQueryClient()
 
@@ -198,6 +200,7 @@ const RuleViewForm = ({
   const requestErrorsPresent = !!(requestErrors && requestErrors.length);
   const showErrorsContainer = formErrorsPresent || requestErrorsPresent;
   const header = `${rule.id ? 'View Individual Rule - ' : 'Add'} ${ruleType && ruleType.label} ${rule.id ? '' : 'Rule'}`;
+  const showUniversalAttributes = isUniversal || isSemantic || isLowConfidence
 
   return(
     <div className="rule-form-container">
@@ -268,7 +271,7 @@ const RuleViewForm = ({
           rulePromptsDisabled={rulePromptsDisabled}
           setRulePrompts={setRulePrompts}
         />}
-        {(isUniversal || isSemantic) && <RuleUniversalAttributes
+        {showUniversalAttributes && <RuleUniversalAttributes
           errors={errors}
           setUniversalFeedback={setRuleFeedbacks}
           universalFeedback={ruleFeedbacks}

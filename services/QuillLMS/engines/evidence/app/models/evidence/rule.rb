@@ -24,18 +24,21 @@ module Evidence
       TYPE_REGEX_ONE    = 'rules-based-1',
       TYPE_REGEX_TWO    = 'rules-based-2',
       TYPE_REGEX_THREE  = 'rules-based-3',
-      TYPE_SPELLING     = 'spelling'
+      TYPE_SPELLING     = 'spelling',
+      TYPE_LOW_CONFIDENCE = 'low-confidence'
     ]
     DISPLAY_NAMES = {
       'rules-based-1': 'Sentence Structure Regex',
       'rules-based-2': 'Post-Topic Regex',
       'rules-based-3': 'Typo Regex',
-      'plagiarism': 'Plagiarism'
+      'plagiarism': 'Plagiarism',
+      'low-confidence': 'Low Confidence'
     }
 
     after_create :assign_to_all_prompts, if: :universal
     before_validation :assign_uid_if_missing
     validate :one_plagiarism_per_prompt, on: :create, if: :plagiarism?
+    validate :one_low_confidence_per_prompt, on: :create, if: :low_confidence?
 
     has_many :feedbacks, inverse_of: :rule, dependent: :destroy
     has_many :plagiarism_texts, inverse_of: :rule, dependent: :destroy
@@ -101,6 +104,10 @@ module Evidence
       rule_type == TYPE_PLAGIARISM
     end
 
+    def low_confidence?
+      rule_type == TYPE_LOW_CONFIDENCE
+    end
+
     def regex?
       rule_type == TYPE_REGEX_ONE || rule_type == TYPE_REGEX_TWO || rule_type == TYPE_REGEX_THREE
     end
@@ -126,6 +133,8 @@ module Evidence
         "Semantic Label"
       elsif universal_rule_type?
         "Universal Rule"
+      elsif low_confidence?
+        "Low Confidence Rule"
       else
         "Rule"
       end
@@ -138,6 +147,8 @@ module Evidence
         "evidence/#/universal-rules/#{id}"
       elsif plagiarism?
         "evidence/#/activities/#{activity_id}/plagiarism-rules/#{id}"
+      elsif low_confidence?
+        "evidence/#/activities/#{activity_id}/low-confidence-rules/#{id}"
       elsif automl?
         "evidence/#/activities/#{activity_id}/semantic-labels/#{prompt_id}/#{id}"
       else
@@ -196,6 +207,12 @@ module Evidence
     private def one_plagiarism_per_prompt
       prompts.each do |prompt|
         errors.add(:prompts, "prompt #{prompt.id} already has a plagiarism rule") if prompt.rules.where(rule_type: TYPE_PLAGIARISM).first&.id
+      end
+    end
+
+    private def one_low_confidence_per_prompt
+      prompts.each do |prompt|
+        errors.add(:prompts, "prompt #{prompt.id} already has a low confidence rule") if prompt.rules.where(rule_type: TYPE_LOW_CONFIDENCE).first&.id
       end
     end
 
