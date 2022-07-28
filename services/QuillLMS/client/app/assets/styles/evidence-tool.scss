@@ -16,6 +16,52 @@
       margin-top: 24px;
     }
   }
+  .topics-section {
+    padding-top: 24px;
+    .inner-section {
+      display: flex;
+      justify-content: space-between;
+      margin: 0px 56px 0px 56px;
+      border-top: 1px solid #D9D9D9;
+      padding-top: 64px;
+      .topic-section {
+        background-color: white;
+        color: #2C7F9B;
+        max-width: 355px;
+        border-radius: 4px;
+        .topic {
+          font-weight: 700;
+          font-size: 22px;
+          margin: 12px 0px 12px 0px;
+        }
+        img {
+          width: 355px;
+          height: 239px;
+        }
+        .activity-title {
+          font-size: 20px;
+          margin: 18px 8px 10px 8px;
+          max-width: 335px;
+        }
+        #first-title-topic {
+          margin-bottom: 0 !important;
+        }
+        #second-title-topic {
+          margin-top: 0 !important;
+        }
+        #under-development {
+          margin-top: 24px;
+        }
+        .q-button {
+          margin-bottom: 18px;
+          border: 1px solid #2C7F9B;
+          border-radius: 4px;
+          font-size: 14px;
+          padding: 13px 16px 13px 16px;
+        }
+      }
+    }
+  }
   #q-and-a {
     background-color: #ffffff;
     color: #000000;
@@ -142,7 +188,12 @@
       justify-content: center;
       background-image: url("https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_BackgroundPattern1.png");
       background-size: contain;
+      background-position: center;
       background-repeat: no-repeat;
+      #image {
+        width: 450px;
+        height: 410px;
+      }
     }
   }
   .bg-book-pattern {

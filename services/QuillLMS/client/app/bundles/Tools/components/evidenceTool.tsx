@@ -62,20 +62,41 @@ export const EvidenceTool = ({ loggedInUser }) => {
 
   return(
     <div className="tool-container evidence-tool-page">
-      <section className='bg-quillteal tool-hero text-center tool-section'>
+      <section className='bg-quillteal tool-hero text-center'>
         <section className="header-and-icon-container">
           <img className="tool-page-icon lazyload" data-src='https://assets.quill.org/images/icons/tool-evidence-white.svg' />
           <h1 className="q-h1">Quill Reading for Evidence</h1>
         </section>
         <section className="description">{renderHeaderText()}</section>
       </section>
-
-      <section className="prompt-example-container">
-        <section className="inner-container">
-          <img alt="A screenshot of an example Reading for Evidence prompt" id="image" src='https://assets.quill.org/images/evidence/evidence_example_prompt.svg' />
+      <section className="bg-quillteal tool-hero topics-section">
+        <section className="inner-section">
+          <div className="topic-section">
+            <p className="topic">Culture & Society Topics</p>
+            <img alt="photograph of a football" src="https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Image_Football.png"/>
+            <p className="activity-title">"Should Schools Have Grade Requirements for Student Athletes?"</p>
+            <a href='https://www.quill.org/evidence/#/play?uid=180&skipToPrompts=true' target="_blank" className="q-button text-quillteal bg-white">View a Sample Activity</a>
+          </div>
+          <div className="topic-section">
+            <p className="topic">Science Topics</p>
+            <img alt="photograph of a cow" src="https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Image_Cow.png"/>
+            <p className="activity-title">"How Does Eating Meat Impact Global Warming?"</p>
+            <a href='https://www.quill.org/evidence/#/play?uid=176&skipToPrompts=true' target="_blank" className="q-button text-quillteal bg-white">View a Sample Activity</a>
+          </div>
+          <div className="topic-section">
+            <p className="topic">Social Studies Topics</p>
+            <img alt="photograph of the Statue of Liberty" src="https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Image_StatueOfLiberty.png"/>
+            <p className="activity-title" id="first-title-topic">US History</p>
+            <p className="activity-title" id="second-title-topic">World History</p>
+            <p id="under-development">Under Development, Coming 2023</p>
+          </div>
         </section>
       </section>
-
+      <section className="prompt-example-container">
+        <section className="inner-container">
+          <img alt="A screenshot of an example Reading for Evidence prompt" id="image" src='https://assets.quill.org/images/evidence/home_page/Hero_Evidence_Widget.png' />
+        </section>
+      </section>
       <section id="instructions-container">
         <div className="instruction-container">
           <div className="step-number">1</div>
@@ -93,12 +114,10 @@ export const EvidenceTool = ({ loggedInUser }) => {
           <img alt="A sample feedback asking a student to add more detail to their sentence" className="step-image" src='https://assets.quill.org/images/evidence/sentence-feedback.svg' />
         </div>
       </section>
-
       <section className="screenshot-container">
         <img src="https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Screenshot1.png" alt="screenshot of example Reading for Evidence activity" />
         <p>Students receive instant feedback on the quality of their writing.</p>
       </section>
-
       <section className="evidence-feature-container">
         <section className="inner-container">
           <section id="information-section">
@@ -124,7 +143,7 @@ export const EvidenceTool = ({ loggedInUser }) => {
           </section>
         </section>
       </section>
-      <QuestionsAndAnswers questionsAndAnswersFile="evidence" supportLink="https://support.quill.org/en/collections/64417-using-quill-tools" />
+      <QuestionsAndAnswers questionsAndAnswersFile="evidence" supportLink="https://www.quill.org/teacher-center/quill-reading-for-evidence-resources" />
       <section className="tool-try-it bg-connect-teal bg-book-pattern">
         <h2 className='q-h1'>Try It Out for Yourself</h2>
         <section className="tool-ctas evidence-tool">
