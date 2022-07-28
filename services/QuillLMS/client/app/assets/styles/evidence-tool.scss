@@ -9,6 +9,9 @@
         margin: 0;
       }
     }
+    .description {
+      max-width: 1070px !important;
+    }
     .tool-ctas {
       margin-top: 24px;
     }
@@ -28,6 +31,26 @@
         .answer {
           color: #000000;
           margin: 0px 0px 32px 0px;
+          p {
+            a {
+              color:#000000;
+            }
+            .header-link {
+              font-weight: 600;
+            }
+          }
+          ul {
+            li {
+              a {
+                text-decoration: underline !important;
+              }
+            }
+          }
+          ol, ul {
+            li {
+              padding: 8px;
+            }
+          }
         }
       }
       .support-link {
@@ -75,7 +98,7 @@
     padding: 72px 56px 72px 56px;
     .inner-container {
       display: flex;
-      background-image: url("../../../../public/images/feature_background_pattern.svg");
+      background-image: url("https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_BackgroundPattern3.png");
       background-position-y: -32px;
       background-size: cover;
       background-repeat: no-repeat;
@@ -96,6 +119,8 @@
         }
         #image {
           margin: 34px 0px 34px 0px;
+          max-width: 200px;
+          max-height: 200px;
         }
         .subtext {
           font-size: 16px;
@@ -113,53 +138,25 @@
     .inner-container {
       display: flex;
       align-items: center;
-      background-image: url("https://assets.quill.org/images/evidence/evidence_prompt_background.svg");
+      width: 100%;
+      justify-content: center;
+      background-image: url("https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_BackgroundPattern1.png");
       background-size: contain;
       background-repeat: no-repeat;
-      .prompt-explanation {
-        padding: 16px;
-        width: 264px;
-        background-color: #2C7F9B;
-        color: #ffffff;
-        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
-        text-align: left;
-        &.first {
-          border-radius: 12px 12px 0px 12px;
-          margin-right: -24px;
-          z-index: 1;
-          margin-bottom: 152px;
-        }
-        &.second {
-          border-radius: 12px 12px 12px 0px;
-          margin-left: -24px;
-          z-index: 1;
-          margin-top: 152px;
-        }
-      }
-
     }
   }
   .bg-book-pattern {
-    background-image: url("https://assets.quill.org/images/evidence/evidence_icon pattern.svg");
+    background-image: url("https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_BackgroundPattern4.png");
     background-repeat: no-repeat;
+    background-size: cover;
   }
-  .carousel {
-    .item {
-      padding-bottom: 64px;
-    }
-    .carousel-indicators {
-      margin-bottom: 28px;
-      li {
-        margin: 0px 4px;
-        &.active {
-            background-color: #000000;
-            width: 10px;
-            height: 10px;
-        }
-      }
-    }
-    .carousel-control {
-      color: #000000 !important;
+  .screenshot-container {
+    padding: 64px 0px 80px 0px;
+    background-color: #F8F9F9;
+    img {
+      margin-bottom: 32px;
+      width: 818px;
+      height: 564px;
     }
   }
 }

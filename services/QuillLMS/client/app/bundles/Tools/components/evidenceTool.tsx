@@ -49,9 +49,11 @@ export const EvidenceTool = ({ loggedInUser }) => {
 
   function renderHeaderText() {
     if(onMobile()) {
-      return "Quill provides free writing and grammar activities for elementary, middle, and high school students."
+      return <p>Quill provides free writing and grammar activities for elementary, middle, and high school students.</p>
     }
-    return "With Quill's new Reading For Evidence tool, students engage with high-interest texts by constructing sentences that synthesize evidence from the text, with Quill's feedback engine automatically grading and providing hundreds of custom, targeted feedback for each prompt designed to enable students to continually revise and improve their writing."
+    return(
+      <p>Provide your students with nonfiction texts paired with AI-powered writing prompts, instead of multiple-choice questions, to enable deeper thinking. Students read a nonfiction text and build their comprehension through writing prompts, supporting a series of claims with evidence sourced from the text. Quill challenges students to write responses that are precise, logical, and based on textual evidence, with Quill coaching the student through custom, targeted feedback on each revision so that students strengthen their reading comprehension and hone their writing skills.<br/><br/> Designed for 8th-12th grade students, each activity takes 15-20 minutes to complete. Quill is developing activities for ELA, social studies, and science classrooms, with a particular focus on texts that examine 21st-century issues.</p>
+    )
   }
 
   function renderTip() {
@@ -65,18 +67,12 @@ export const EvidenceTool = ({ loggedInUser }) => {
           <img className="tool-page-icon lazyload" data-src='https://assets.quill.org/images/icons/tool-evidence-white.svg' />
           <h1 className="q-h1">Quill Reading for Evidence</h1>
         </section>
-        <p className='description'>{renderHeaderText()}</p>
-        <section className="tool-ctas evidence-tool">
-          <a href='/activity_sessions/anonymous?activity_id=244' target="_blank" className="q-button cta-button text-quillteal bg-white">Try a sample activity</a>
-        </section>
+        <section className="description">{renderHeaderText()}</section>
       </section>
 
       <section className="prompt-example-container">
         <section className="inner-container">
-          <section className="prompt-explanation first">Quill's feedback bot provides custom feedback for every prompt that mirrors the feedback a teacher would provide to a student in a 1:1 context.</section>
           <img alt="A screenshot of an example Reading for Evidence prompt" id="image" src='https://assets.quill.org/images/evidence/evidence_example_prompt.svg' />
-          <section className="prompt-explanation second">When beneficial, the feedback also provides mini lessons as hints that explain key writing skills.</section>
-          {onMobile() && renderTip()}
         </section>
       </section>
 
@@ -98,42 +94,9 @@ export const EvidenceTool = ({ loggedInUser }) => {
         </div>
       </section>
 
-      <section className="tool-carousel" id="walkthrough">
-        <div id="evidenceCarousel" className="carousel slide" data-ride="carousel">
-          <a className="left carousel-control" href="#evidenceCarousel" role="button" data-slide="prev">
-              <i className="fas fa-chevron-left"></i>
-              <span className="sr-only">Previous</span>
-          </a>
-          <div className="carousel-inner" role="listbox">
-            <div className="item active">
-              <div className="wrapper">
-                <img src={`${process.env.DEFAULT_URL}/images/tools/connect/visual_overview_screenshot.png`} alt="Chania" />
-              </div>
-              <p>Students receive instant feedback on the quality of their writing.</p>
-            </div>
-            <div className="item">
-              <div className="wrapper">
-                <img src={`${process.env.DEFAULT_URL}/images/tools/connect/analysis_screenshot.png`} alt="Chania" />
-              </div>
-              <p>Teachers see reports that state exactly which errors the student made and which concepts the student mastered.</p>
-            </div>
-            <div className="item">
-              <div className="wrapper">
-                <img src={`${process.env.DEFAULT_URL}/images/tools/connect/activities_screenshot.png`} alt="Chania" />
-              </div>
-              <p>Teachers have access to over 200 exercises aligned with the Common Core language standards.</p>
-            </div>
-          </div>
-          <a className="right carousel-control" href="#evidenceCarousel" role="button" data-slide="next">
-            <i className="fas fa-chevron-right" aria-hidden="true"></i>
-            <span className="sr-only">Next</span>
-          </a>
-          <ol className="carousel-indicators">
-            <li data-target="#evidenceCarousel" data-slide-to="0" className="active"></li>
-            <li data-target="#evidenceCarousel" data-slide-to="1"></li>
-            <li data-target="#evidenceCarousel" data-slide-to="2"></li>
-          </ol>
-        </div>
+      <section className="screenshot-container">
+        <img src="https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Screenshot1.png" alt="screenshot of example Reading for Evidence activity" />
+        <p>Students receive instant feedback on the quality of their writing.</p>
       </section>
 
       <section className="evidence-feature-container">
@@ -142,21 +105,21 @@ export const EvidenceTool = ({ loggedInUser }) => {
             <section id="header-container">
               <p id="header">Activities are not graded</p>
             </section>
-            <img alt="An illustration of an A+ that is crossed out" id="image" src='/images/landing_no_grade.svg' />
+            <img alt="An illustration of an A+ that is crossed out" id="image" src='https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Feature1.png' />
             <p className="subtext">"This is a safe space to practice your writing, so it won't be graded. Your teacher will see your revisions, but there are no scores or points."</p>
           </section>
           <section id="information-section">
             <section id="header-container">
               <p id="header">We use a feedback bot</p>
             </section>
-            <img alt="An illustration of a smiling robot head" id="image" src='/images/landing_feedback_bot.svg' />
+            <img alt="An illustration of a smiling robot head" id="image" src='https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Feature2.png' />
             <p className="subtext">"We use artificial intelligence (AI) to help us give you feedback on your writing. You should know that AI isn't always correct."</p>
           </section>
           <section id="information-section">
             <section id="header-container">
               <p id="header">All writers revise</p>
             </section>
-            <img alt="An illustration of a pencil circled with a revision" id="image" src='/images/landing_revising_pencil.svg' />
+            <img alt="An illustration of a pencil circled with a revision" id="image" src='https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Feature3.png' />
             <p className="subtext">"You'll be able to revise each sentence up to five times. We give you feedback because we want to help you write a stronger sentence."</p>
           </section>
         </section>
@@ -164,17 +127,9 @@ export const EvidenceTool = ({ loggedInUser }) => {
       <QuestionsAndAnswers questionsAndAnswersFile="evidence" supportLink="https://support.quill.org/en/collections/64417-using-quill-tools" />
       <section className="tool-try-it bg-connect-teal bg-book-pattern">
         <h2 className='q-h1'>Try It Out for Yourself</h2>
-        <a href="https://www.quill.org/evidence/#/play?uid=87" target="_blank" className="q-button cta-button bg-white text-quillteal">Preview Quill Reading for Evidence</a>
-      </section>
-
-      <section className="tool-testimonial" id="testimonial">
-        <p className='quote'>"I've seen tremendous improvement in the proficiency of my students and the quality of their writing."</p>
-        <h4 className="q-h4 author">
-          <span>Daniel Scibienski,</span> Princeton Public Schools
-        </h4>
-        <a href="/activities/packs/20" className='q-button text-black'>
-          <span>View My Story</span>
-        </a>
+        <section className="tool-ctas evidence-tool">
+          <a href='/activity_sessions/anonymous?activity_id=244' target="_blank" className="q-button cta-button text-quillteal bg-white">Try a sample activity</a>
+        </section>
       </section>
       {renderBottomSection()}
     </div>
