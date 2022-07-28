@@ -75,7 +75,6 @@ const IndividualActivityClassificationFilterRow = ({ activityClassificationFilte
           <span>{activityClassification.alias}</span>
           <span className="description">{activityClassification.description}</span>
           <span className="grade-text">{activityClassification.gradeText}</span>
-          {activityClassification.new && <div className="activity-classification-new-tag">NEW</div>}
         </div>
       </div>
       <span>({activityCount})</span>
