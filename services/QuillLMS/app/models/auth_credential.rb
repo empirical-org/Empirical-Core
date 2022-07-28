@@ -34,6 +34,10 @@ class AuthCredential < ApplicationRecord
   CLEVER_LIBRARY_PROVIDER = 'clever_library'
   CLEVER_EXPIRATION_DURATION = 23.hours
 
+  def google_access_expired?
+    google_provider? && !refresh_token_valid?
+  end
+
   def google_authorized?
     google_provider? && refresh_token_valid?
   end

@@ -92,3 +92,4 @@ describe AuthCredential, type: :model do
     expect(auth_credential.clever_authorized?).to be false
   end
 end
+
