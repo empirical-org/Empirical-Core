@@ -27,7 +27,7 @@ module Evidence
 
     attr_accessor :response, :prompt, :temperature, :count, :model_key, :options_hash
 
-    def initialize(prompt:, temperature: 1, count: 1, model_key: :babbage, options_hash: {})
+    def initialize(prompt:, temperature: 0.5, count: 1, model_key: :babbage, options_hash: {})
       @prompt = prompt
       @temperature = temperature
       @count = count
@@ -63,6 +63,7 @@ module Evidence
         .map{|r| r.gsub(/^-/,'')} # strip leading dash
         .map{|r| r.gsub(/\d\)/,'')} # strip 1), 2), 3)
         .map{|r| r.gsub(/^\s/,'')} # strip leading spaces
+        .map{|r| r.gsub(/(\]|\[|\=)/,'')} # strip brackets and equal signs
         .map{|r| r.split(/\n/).first } # drop anything after a \n
         .compact
         .select {|r| r.length >= 10}
@@ -98,6 +99,5 @@ module Evidence
     def reset_request
       @response = nil
     end
-
   end
 end
