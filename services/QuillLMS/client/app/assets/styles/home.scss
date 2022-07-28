@@ -298,24 +298,140 @@ section.q-hero {
   .navbar {
     background-color: initial;
   }
-  .header {
-    .q-h1 {
-      margin-bottom: 0px;
-    }
-    p.text-white {
-      margin-top: 10px;
-      margin-bottom: 30px;
+  .header-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .header {
+      .q-h1 {
+        margin-bottom: 0px;
+      }
+      p.text-white {
+        margin-top: 10px;
+        margin-bottom: 30px;
+      }
+    }.new-tag {
+      margin-bottom: 48px !important;
     }
   }
 }
 
+.evidence-explanation-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 56px;
+  padding-right: 56px;
+  background-image: url("https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_BackgroundPattern1.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  .left-side-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    max-width: 622px;
+    .header-and-icon-container {
+      display: flex;
+      align-items: center;
+      margin-bottom: 8px;
+      h1 {
+        margin: 0;
+      }
+      .new-tag {
+        margin-left: 16px !important;
+      }
+    }
+    .description {
+      font-size: 18px;
+      margin: 0;
+    }
+    .divider-tab {
+      background-color: #FFFFFF;
+      width: 29px;
+      height: 6px;
+      opacity: 0.2;
+      margin: 16px 0px 16px 0px;
+    }
+    .q-button {
+      margin-top: 16px;
+    }
+  }
+  #image {
+    width: 430px;
+    height: 410px;
+  }
+}
+
+.topics-section {
+  padding-top: 24px;
+  padding-bottom: 56px;
+  text-align: center;
+  .inner-section {
+    display: flex;
+    justify-content: space-between;
+    margin: 0px 56px 0px 56px;
+    border-top: 1px solid #D9D9D9;
+    padding-top: 64px;
+    .topic-section {
+      background-color: white;
+      color: #2C7F9B;
+      max-width: 355px;
+      border-radius: 4px;
+      .topic {
+        font-weight: 700;
+        font-size: 22px;
+        margin: 12px 0px 12px 0px;
+      }
+      img {
+        width: 355px;
+        height: 239px;
+      }
+      .activity-title {
+        font-size: 20px;
+        margin: 18px 8px 10px 8px;
+        max-width: 335px;
+      }
+      #first-title-topic {
+        margin-bottom: 0 !important;
+      }
+      #second-title-topic {
+        margin-top: 0 !important;
+      }
+      #under-development {
+        margin-top: 24px;
+      }
+      .q-button {
+        margin-bottom: 18px;
+        border: 1px solid #2C7F9B;
+        border-radius: 4px;
+        font-size: 14px;
+        padding: 13px 16px 13px 16px;
+      }
+    }
+  }
+}
+
+.new-tag {
+  background-color:#F3AC4E;
+  color: #ffffff;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 16px !important;
+  margin: 0 !important;
+  padding: 2px 4px 2px 4px;
+}
 .q-hero-text {
   /* bring your own prefixes */
   text-align: center;
   p {
     font-size: 20px;
-    max-width: 460px;
+    max-width: 838px;
     margin: auto;
+  }
+  #mission {
+    margin-top: 64px;
+    margin-bottom: 80px;
   }
   .text-quillgreen:hover {
     color: #ffffff;
@@ -356,6 +472,35 @@ section.q-hero {
       text-align: left;
       font-size: 16px;
       padding: 24px 16px 24px 16px;
+    }
+  }
+}
+
+@media only screen and (max-width : 600px) {
+  .evidence-explanation-section, .topics-section {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .evidence-explanation-section {
+    flex-direction: column;
+    .header-and-icon-container {
+      text-align: center;
+    }
+    #image {
+      max-width: 404px;
+      height: auto;
+    }
+  }
+  .topics-section {
+    .inner-section {
+      flex-direction: column;
+      margin: 0;
+      .topic-section {
+        #image {
+          max-width: 343px;
+          height: auto;
+        }
+      }
     }
   }
 }

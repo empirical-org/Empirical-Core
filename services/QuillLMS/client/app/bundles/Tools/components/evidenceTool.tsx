@@ -9,26 +9,6 @@ const EVIDENCE_TIPS = [
 ]
 
 export const EvidenceTool = ({ loggedInUser }) => {
-  let tipIndex = 0;
-  const [evidenceTip, setEvidenceTip] = React.useState<string>(EVIDENCE_TIPS[0])
-
-  React.useEffect(() => {
-    if(onMobile()) {
-      setInterval(() => {
-        handleSetTip();
-      }, 7000);
-    }
-  }, [])
-
-  function handleSetTip() {
-    if(tipIndex === EVIDENCE_TIPS.length - 1) {
-      tipIndex = 0;
-      setEvidenceTip(EVIDENCE_TIPS[tipIndex])
-    } else {
-      tipIndex += 1;
-      setEvidenceTip(EVIDENCE_TIPS[tipIndex])
-    }
-  }
 
   function renderBottomSection() {
     if(loggedInUser) {
@@ -56,16 +36,13 @@ export const EvidenceTool = ({ loggedInUser }) => {
     )
   }
 
-  function renderTip() {
-    return <section className="prompt-explanation mobile">{evidenceTip}</section>
-  }
-
   return(
     <div className="tool-container evidence-tool-page">
       <section className='bg-quillteal tool-hero text-center'>
         <section className="header-and-icon-container">
           <img className="tool-page-icon lazyload" data-src='https://assets.quill.org/images/icons/tool-evidence-white.svg' />
           <h1 className="q-h1">Quill Reading for Evidence</h1>
+          <p className="new-tag">NEW</p>
         </section>
         <section className="description">{renderHeaderText()}</section>
       </section>
