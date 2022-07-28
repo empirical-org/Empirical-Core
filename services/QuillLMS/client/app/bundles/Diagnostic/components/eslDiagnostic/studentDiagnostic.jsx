@@ -529,6 +529,7 @@ export class ELLStudentDiagnostic extends React.Component {
 }
 
 function select(state) {
+  console.log("🚀 ~ file: studentDiagnostic.jsx ~ line 532 ~ select ~ state", state)
   return {
     routing: state.routing,
     questions: state.questions,

@@ -1,0 +1,218 @@
+.evidence-tool-page {
+  .tool-hero {
+    .header-and-icon-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 8px;
+      h1 {
+        margin: 0;
+      }
+    }
+    .tool-ctas {
+      margin-top: 24px;
+    }
+  }
+  #q-and-a {
+    background-color: #ffffff;
+    color: #000000;
+    .q-and-a-inner-wrapper {
+      .qa-section {
+        border-bottom: solid 1px #C1C1C1;
+        .question, .expand-collapse-button {
+          background-color: #ffffff;
+        }
+        .question {
+          padding-left: 0;
+        }
+        .answer {
+          color: #000000;
+          margin: 0px 0px 32px 0px;
+        }
+      }
+      .support-link {
+        color: #000000;
+      }
+    }
+  }
+  #instructions-container {
+    display: flex;
+    justify-content: center;
+    background-color: #2C7F9B;
+    padding: 48px 0px 30px 0px;
+    .instruction-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #5899b0;
+      border-radius: 8px;
+      margin: 0px 24px 0px 24px;
+      .step-number {
+        width: 48px;
+        height: 48px;
+        padding: 11px 18px;
+        border-radius: 24px;
+        margin-top: -24px;
+        background-color: #194E60;
+        font-size: 20px;
+        font-weight: 700;
+        color: #ffffff;
+      }
+      .step-text {
+        font-size: 24px;
+        max-width: 280px;
+        margin-top: 12px;
+        padding: 0px 16px;
+        font-weight: bold;
+        color: #ffffff;
+        margin-bottom: 24px;
+      }
+    }
+  }
+  .evidence-feature-container {
+    background-color: #2C7F9B;
+    padding: 72px 56px 72px 56px;
+    .inner-container {
+      display: flex;
+      background-image: url("../../../../public/images/feature_background_pattern.svg");
+      background-position-y: -32px;
+      background-size: cover;
+      background-repeat: no-repeat;
+      #information-section {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        #header-container {
+          display: flex;
+          align-items: center;
+          #header {
+            font-size: 24px;
+            font-weight: 700;
+            color: #ffffff;
+            margin: 0px;
+          }
+        }
+        #image {
+          margin: 34px 0px 34px 0px;
+        }
+        .subtext {
+          font-size: 16px;
+          font-weight: 600;
+          color: #ffffff;
+          max-width: 264px;
+        }
+      }
+    }
+  }
+  .prompt-example-container {
+    display: flex;
+    justify-content: center;
+    padding: 36px 0px;
+    .inner-container {
+      display: flex;
+      align-items: center;
+      background-image: url("https://assets.quill.org/images/evidence/evidence_prompt_background.svg");
+      background-size: contain;
+      background-repeat: no-repeat;
+      .prompt-explanation {
+        padding: 16px;
+        width: 264px;
+        background-color: #2C7F9B;
+        color: #ffffff;
+        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+        text-align: left;
+        &.first {
+          border-radius: 12px 12px 0px 12px;
+          margin-right: -24px;
+          z-index: 1;
+          margin-bottom: 152px;
+        }
+        &.second {
+          border-radius: 12px 12px 12px 0px;
+          margin-left: -24px;
+          z-index: 1;
+          margin-top: 152px;
+        }
+      }
+
+    }
+  }
+  .bg-book-pattern {
+    background-image: url("https://assets.quill.org/images/evidence/evidence_icon pattern.svg");
+    background-repeat: no-repeat;
+  }
+  .carousel {
+    .item {
+      padding-bottom: 64px;
+    }
+    .carousel-indicators {
+      margin-bottom: 28px;
+      li {
+        margin: 0px 4px;
+        &.active {
+            background-color: #000000;
+            width: 10px;
+            height: 10px;
+        }
+      }
+    }
+    .carousel-control {
+      color: #000000 !important;
+    }
+  }
+}
+
+@media (max-width: 1099px) {
+  .evidence-tool-page {
+    .tool-hero {
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+    .prompt-example-container {
+      .inner-container {
+        display: flex;
+        flex-direction: column;
+        .first, .second {
+          display: none;
+        }
+        .mobile {
+          min-height: 136px;
+          margin-top: 16px;
+          border-radius: 12px;
+        }
+        #image {
+          max-width: 352px;
+        }
+      }
+    }
+    #instructions-container {
+      flex-direction: column;
+      .instruction-container {
+        margin: 24px;
+      }
+    }
+    .evidence-feature-container {
+      padding: 0px 24px;
+      .inner-container {
+        flex-direction: column;
+        background-image: none;
+        #information-section {
+          padding: 24px 0px 24px 0px;
+          border-bottom: 1px solid #ffffff;
+          .subtext {
+            max-width: none;
+          }
+        }
+        #information-section:last-of-type {
+          border-bottom: none;
+        }
+      }
+    }
+    #q-and-a {
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+  }
+}
