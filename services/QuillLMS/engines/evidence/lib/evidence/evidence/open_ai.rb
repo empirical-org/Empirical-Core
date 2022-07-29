@@ -48,16 +48,21 @@ module Evidence
       }.merge(options_hash)
     end
 
-    def cleaned_results
+    private def result_texts
       response
         .parsed_response['choices']
         .map{|r| r['text']}
+    end
+
+    def cleaned_results
+      result_texts
+        .map{|r| r.strip } # remove leading/ending spaces
         .map{|r| r.gsub(/^(\n)+/, BLANK)} # strip all leading \n
         .map{|r| r.gsub(/^-/, BLANK)} # strip leading dash
         .map{|r| r.gsub(/\d\)/, BLANK)} # strip 1), 2), 3)
-        .map{|r| r.gsub(/^\s/, BLANK)} # strip leading spaces
         .map{|r| r.gsub(/(\]|\[|\=)/, BLANK)} # strip brackets and equal signs
         .map{|r| r.split(/\n/).first } # drop anything after a \n
+        .map{|r| r.strip } # remove leading/ending spaces again
         .compact
         .select {|r| r.length >= 10}
         .uniq
