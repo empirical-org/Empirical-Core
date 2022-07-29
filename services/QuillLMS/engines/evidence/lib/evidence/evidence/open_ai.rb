@@ -10,19 +10,12 @@ module Evidence
     API_KEY = ENV['OPENAI_API_KEY']
     MAX_TOKENS = 24
     COMPLETION_ENDPOINT = '/completions'
-    EDITS_ENDPOINT = '/edits'
     # A-D, (A)Least -> (D)Most Complex/Expensive
     COMPLETION_MODELS = {
       ada: 'text-ada-001',
       babbage: 'text-babbage-001',
       curie: 'text-curie-001',
       davinci: 'text-davinci-002'
-    }
-    EDIT_MODELS = {
-      ada: 'text-ada-edit-001',
-      babbage: 'text-babbage-edit-001',
-      curie: 'text-curie-edit-001',
-      davinci: 'text-davinci-edit-001'
     }
     BLANK = ''
     STOP_TOKENS = [". ", ", "]
@@ -37,7 +30,7 @@ module Evidence
       @options_hash = options_hash
     end
 
-    def self.header_options
+    def headers
       {
         "Content-Type" => "application/json",
         "Authorization" => "Bearer #{API_KEY}"
@@ -73,10 +66,23 @@ module Evidence
     def request
       return response if response.present?
 
-      @response = self.class.post(COMPLETION_ENDPOINT, body: request_body.to_json, headers: self.class.header_options)
+      @response = self.class.post(COMPLETION_ENDPOINT, body: request_body.to_json, headers: headers)
 
       cleaned_results
     end
+
+    def reset_request
+      @response = nil
+    end
+
+    # Edit endpoint code still in experimentation phase
+    EDITS_ENDPOINT = '/edits'
+    EDIT_MODELS = {
+      ada: 'text-ada-edit-001',
+      babbage: 'text-babbage-edit-001',
+      curie: 'text-curie-edit-001',
+      davinci: 'text-davinci-edit-001'
+    }
 
     def edits_request_body
       {
@@ -94,10 +100,6 @@ module Evidence
       @response = self.class.post(EDITS_ENDPOINT, body: edits_request_body.to_json, headers: self.class.header_options)
 
       cleaned_results
-    end
-
-    def reset_request
-      @response = nil
     end
   end
 end
