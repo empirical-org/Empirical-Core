@@ -218,6 +218,64 @@
   }
 }
 
+.prompts-walkthrough-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-image: url("https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_BackgroundPattern2.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  .header-section {
+    margin-top: 24px;
+    margin-bottom: 36px;
+    p:first-of-type {
+      font-size: 17px;
+      opacity: 0.5;
+      font-style: italic;
+    }
+    p:last-of-type {
+      font-style: italic;
+      font-weight: 700;
+      font-size: 26px;
+    }
+  }
+  .attempt {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-height: 300px;
+    margin: 48px 0px 48px 0px;
+    .left-side-container {
+      max-width: 448px;
+      text-align: left;
+      p:nth-of-type(1) {
+        font-size: 26px;
+      }
+      p:nth-of-type(2), p:nth-of-type(3) {
+        font-size: 14px;
+      }
+    }
+    .right-side-container {
+      display: flex;
+      #prompt-screenshot {
+        width: 450px;
+        height: 414px;
+      }
+      #arrow {
+        top: 272px;
+        position: relative;
+      }
+      #prompt-screenshot:last-of-type {
+        margin-right: 44px;
+      }
+    }
+    &.gray-background {
+      background-color: #F8F9F9;
+    }
+  }
+}
+
 @media (max-width: 1099px) {
   .evidence-tool-page {
     .tool-hero {
@@ -238,6 +296,7 @@
         }
         #image {
           max-width: 352px;
+          height: auto;
         }
       }
     }
@@ -261,6 +320,34 @@
         }
         #information-section:last-of-type {
           border-bottom: none;
+        }
+      }
+    }
+    .screenshot-container {
+      padding-bottom: 24px;
+      img {
+        max-width: 352px;
+        height: auto;
+      }
+    }
+    .topics-section {
+      display: none;
+    }
+    .prompts-walkthrough-container {
+      .attempt {
+        flex-direction: column-reverse;
+        .left-side-container {
+          padding: 0px 24px;
+        }
+        .right-side-container {
+          // display: flex;
+          #prompt-screenshot {
+            max-width: 327px;
+            height: auto;
+          }
+          #arrow {
+            display: none;
+          }
         }
       }
     }

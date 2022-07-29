@@ -36,6 +36,43 @@ export const EvidenceTool = ({ loggedInUser }) => {
     )
   }
 
+  function renderFirstAttemptText() {
+    if(onMobile()) {
+      return <p>This response uses the wrong type of evidence to demonstrate a relationship of contrast. The feedback and mini lesson explain how to use because to show a relationship of causation between two ideas.</p>
+    } else {
+      return(
+        <React.Fragment>
+          <p>Quill&apos;s feedback bot provides custom feedback for every response that mirrors the feedback a teacher would provide to a student in a 1:1 context. </p>
+          <p>In this response, it&apos;s true that seaweed benefits cows by reducing their methane emissions, but the student has not specified *why* seaweed is beneficial. Quill asks the student to go back to the text and examine it more carefully to provide a reason why seaweed benefits cows and the environment. Students must use precise evidence in their response to be able to successfully complete it.</p>
+        </React.Fragment>
+      )
+    }
+  }
+
+  function renderSecondAttemptText() {
+    if(onMobile()) {
+      return <p>The student identified that methane is harmful to the environment but did not support their response with a key statistic from the text. Quill encourages them to be as specific as possible.</p>
+    } else {
+      return <p>The student identified that methane is harmful to the environment but did not support their response with a key statistic from the text. Quill encourages them to be as specific as possible to stregthen their response and more accurately respond to the claim.</p>
+    }
+  }
+
+  function renderThirdAttemptText() {
+    if(onMobile()) {
+      return <p>The student strengthened their evidence by adding a precise statistic from the text that explains how significantly seaweed impacts methane.</p>
+    } else {
+      return <p>The student strengthened their evidence by adding a precise statistic from the text that explains how significantly seaweed impacts methane. Since the key ideas are in place, Quill now provides a mini-lesson on the grammar errors in their response. Quill only provides grammar and spelling feedback once the student has written a strong response with the key ideas from the text.</p>
+    }
+  }
+
+  function renderFourthAttemptText() {
+    if(onMobile()) {
+      return <p>The student wrote a precise, textually-supported sentence. Quill provides additional feedback to reinforce what they learned.</p>
+    } else {
+      return <p>At this point the student has now written a precise, textually-supported sentence. Students often come into the tool writing vague or inaccurate statements, and through multiple rounds of practice, feedback, and revision, students gain the ability to utilize precise evidence in their responses.</p>
+    }
+  }
+
   return(
     <div className="tool-container evidence-tool-page">
       <section className='bg-quillteal tool-hero text-center'>
@@ -90,6 +127,51 @@ export const EvidenceTool = ({ loggedInUser }) => {
           <p className="step-text">Revise based on feedback</p>
           <img alt="A sample feedback asking a student to add more detail to their sentence" className="step-image" src='https://assets.quill.org/images/evidence/sentence-feedback.svg' />
         </div>
+      </section>
+      <section className="prompts-walkthrough-container">
+        <section className="header-section">
+          <p>Example Prompt:</p>
+          <p>“How Does Eating Meat Impact Global Warming?”</p>
+        </section>
+        <section className="attempt gray-background">
+          <section className="left-side-container">
+            <p><strong>1st</strong> Attempt</p>
+            {renderFirstAttemptText()}
+          </section>
+          <section className="right-side-container">
+            <img id="prompt-screenshot" src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/Hero_Evidence_Widget_3.png" alt="screenshot of example first attempt Reading for Evidence activity prompt" />
+            <img id="arrow" src="https://assets.quill.org/images/evidence/home_page/evidence_arrow.svg" alt="dotted line arrow" />
+          </section>
+        </section>
+        <section className="attempt">
+          <section className="left-side-container">
+            <p><strong>2nd</strong> Attempt</p>
+            {renderSecondAttemptText()}
+          </section>
+          <section className="right-side-container">
+            <img id="prompt-screenshot" src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/Hero_Evidence_Widget_6.png" alt="screenshot of example first attempt Reading for Evidence activity prompt" />
+            <img id="arrow" src="https://assets.quill.org/images/evidence/home_page/evidence_arrow.svg" alt="dotted line arrow" />
+          </section>
+        </section>
+        <section className="attempt gray-background">
+          <section className="left-side-container">
+            <p><strong>3rd</strong> Attempt</p>
+            {renderThirdAttemptText()}
+          </section>
+          <section className="right-side-container">
+            <img id="prompt-screenshot" src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/Hero_Evidence_Widget_10.png" alt="screenshot of example first attempt Reading for Evidence activity prompt" />
+            <img id="arrow" src="https://assets.quill.org/images/evidence/home_page/evidence_arrow.svg" alt="dotted line arrow" />
+          </section>
+        </section>
+        <section className="attempt">
+          <section className="left-side-container">
+            <p><strong>4th</strong> Attempt</p>
+            {renderFourthAttemptText()}
+          </section>
+          <section className="right-side-container">
+            <img id="prompt-screenshot" src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/Hero_Evidence_Widget_12.png" alt="screenshot of example first attempt Reading for Evidence activity prompt" />
+          </section>
+        </section>
       </section>
       <section className="screenshot-container">
         <img src="https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Screenshot1.png" alt="screenshot of example Reading for Evidence activity" />

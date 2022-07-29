@@ -322,9 +322,9 @@ section.q-hero {
   align-items: center;
   padding-left: 56px;
   padding-right: 56px;
-  background-image: url("https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_BackgroundPattern1.png");
+  background-image: url("https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_BackgroundPattern5.png");
   background-size: contain;
-  background-position: center;
+  background-position: right;
   background-repeat: no-repeat;
   .left-side-container {
     display: flex;
@@ -358,8 +358,8 @@ section.q-hero {
     }
   }
   #image {
-    width: 430px;
-    height: 410px;
+    width: 380px;
+    height: 360px;
   }
 }
 
@@ -527,7 +527,7 @@ section.q-hero {
   }
 }
 
-@media only screen and (max-width : 600px) {
+@media only screen and (max-width : 1099px) {
   .evidence-explanation-section, .topics-section {
     padding-left: 16px;
     padding-right: 16px;
@@ -548,7 +548,9 @@ section.q-hero {
     .inner-section {
       flex-direction: column;
       margin: 0;
+      align-items: center;
       .topic-section {
+        margin-bottom: 24px;
         #image {
           max-width: 343px;
           height: auto;
