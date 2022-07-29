@@ -64,7 +64,7 @@ const evidence = () => [
     ),
   },
   {
-    question: 'What do students need to know about the new tool?',
+    question: 'What do students need to know about Quill Reading for Evidence?',
     answer: (
       <div>
         <p>First, it&apos;s very important students know this is a NEW tool (that&apos;s why each activity has the word “beta” at the end of its name). This means the feedback will sometimes be off or unhelpful. Each activity&apos;s feedback gets more accurate and precise as more students complete it, allowing us to retrain its algorithms based on those authentic student responses. However, this is a new tool, and the AI will make mistakes! </p>
@@ -97,7 +97,7 @@ const evidence = () => [
     question: 'For whom are these activities most appropriate? How does the tool support students who may need more scaffolding, like multilingual learners and students with IEPs?',
     answer: (
       <div>
-        <p>This first iteration of the Reading for Evidence tool is most appropriate for general education students in grades 8-12. However, the tool can provide valuable practice for non-general education students or younger students. If you plan to use Reading for Evidence with students below grade 8, students with IEPs, or multilingual learners students, we suggest the following to maximize students&apos; access to the activities:</p>
+        <p>This first iteration of the Reading for Evidence tool is most appropriate for general education students in grades 8-12. However, the tool can provide valuable practice for students who don&apos;t fall into this category. Here are some ways you can support students who may need additional scaffolds:</p>
         <ul>
           <li><strong>Introduce the main idea of the text and front-load vocabulary.</strong> For example, images/illustrations, videos, magazine/newspaper articles, realia, etc. can be used to help students access an activity text and activate relevant schema. </li>
           <li><strong>Use browser extensions to provide read aloud and language support.</strong> Over the next several months and years, we will embed more scaffolds within the tool. For example, students will be able to hover over challenging vocabulary to see a student-friendly definition, etc. However, in the meantime, Reading for Evidence integrates with a variety of extensions that can provide important support. </li>

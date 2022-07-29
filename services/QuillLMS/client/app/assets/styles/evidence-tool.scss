@@ -334,10 +334,16 @@
       display: none;
     }
     .prompts-walkthrough-container {
+      .header-section {
+        margin-bottom: 0;
+      }
       .attempt {
         flex-direction: column-reverse;
+        max-height: inherit;
+        margin-bottom: 0;
         .left-side-container {
           padding: 0px 24px;
+          margin-bottom: 24px;
         }
         .right-side-container {
           // display: flex;
