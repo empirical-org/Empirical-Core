@@ -60,8 +60,7 @@ module Evidence
       end
     end
 
-
-     describe "#self.generate_csvs" do
+    describe "#self.generate_csvs" do
       let!(:activity) { create(:evidence_activity, title: 'Some Activity Name')}
       let!(:passage) { create(:evidence_passage, activity: activity) }
       let!(:prompt) { create(:evidence_prompt, activity: activity, conjunction: "because") }
