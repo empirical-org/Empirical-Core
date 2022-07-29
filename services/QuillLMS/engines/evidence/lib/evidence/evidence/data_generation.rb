@@ -38,7 +38,6 @@ For players like Jones, instant replays can lead to heartbreak—but at the end 
 
     attr_reader :passage, :stem, :nouns, :results
 
-
     # passage = Evidence::DataGeneration::NFL_PASSAGE
     # stem = Evidence::DataGeneration::NFL_BECAUSE
     # nouns = Evidence::DataGeneration::NFL_NOUNS
@@ -75,7 +74,7 @@ For players like Jones, instant replays can lead to heartbreak—but at the end 
       results
     end
 
-    def run_prompt(prompt:, count:, seed:, noun: nil, temperature: TEMP_PASSAGE)
+    private def run_prompt(prompt:, count:, seed:, noun: nil, temperature: TEMP_PASSAGE)
       output = Evidence::OpenAI.new(prompt: prompt, count: count, temperature: temperature).request
       current_result_texts = results.map(&:text)
 
@@ -87,13 +86,13 @@ For players like Jones, instant replays can lead to heartbreak—but at the end 
       @results += new_results
     end
 
-    def prompt_text(context: BLANK, noun: BLANK)
+    private def prompt_text(context: BLANK, noun: BLANK)
       context + SPACE + stem + SPACE + noun + SPACE
     end
 
     # split passage into words, split words in X-word-length chunks
     # e.g. chunks of 50 words
-    def split_passage(size: WORD_SPLIT_COUNT)
+    private def split_passage(size: WORD_SPLIT_COUNT)
       passage
         .split(SPACE)
         .each_slice(size)
@@ -114,6 +113,5 @@ For players like Jones, instant replays can lead to heartbreak—but at the end 
         split_passage.each.with_index {|s,i| csv << [i + 1, s]}
       end
     end
-
   end
 end
