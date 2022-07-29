@@ -307,7 +307,7 @@ describe Activity, type: :model, redis: true do
 
     context 'the production scope' do
       it 'must show only production flagged activities' do
-        expect(all_types - Activity.production.all).to eq [gamma_activity, beta_activity, alpha_activity, archived_activity]
+        expect(Activity.production.map(&:flags).flatten.uniq).to contain_exactly(:production)
       end
 
       it 'must return the same thing as Activity.user_scope(nil)' do
@@ -316,8 +316,8 @@ describe Activity, type: :model, redis: true do
     end
 
     context 'the gamma scope' do
-      it 'must show only production and gamma flagged activities' do
-        expect(all_types - Activity.gamma_user).to eq [beta_activity, alpha_activity, archived_activity]
+      it 'must show only production, beta, and gamma flagged activities' do
+        expect(Activity.gamma_user.map(&:flags).flatten.uniq).to contain_exactly(:production, :beta, :gamma)
       end
 
       it 'must return the same thing as Activity.user_scope(gamma)' do
@@ -326,8 +326,8 @@ describe Activity, type: :model, redis: true do
     end
 
     context 'the beta scope' do
-      it 'must show only production, beta, and gamma flagged activities' do
-        expect(all_types - Activity.beta_user).to eq [alpha_activity, archived_activity]
+      it 'must show only production, and beta flagged activities' do
+        expect(Activity.beta_user.map(&:flags).flatten.uniq).to contain_exactly(:production, :beta)
       end
 
       it 'must return the same thing as Activity.user_scope(beta)' do
@@ -337,7 +337,7 @@ describe Activity, type: :model, redis: true do
 
     context 'the alpha scope' do
       it 'must show all types of flags except for archived with alpha_user scope' do
-        expect(all_types - Activity.alpha_user).to eq [archived_activity]
+        expect(Activity.alpha_user.map(&:flags).flatten.uniq).to contain_exactly(:production, :beta, :gamma, :alpha)
       end
 
       it 'must return the same thing as Activity.user_scope(alpha)' do
