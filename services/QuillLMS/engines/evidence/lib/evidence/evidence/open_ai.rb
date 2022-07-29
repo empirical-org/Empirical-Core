@@ -24,6 +24,8 @@ module Evidence
       curie: 'text-curie-edit-001',
       davinci: 'text-davinci-edit-001'
     }
+    BLANK = ''
+    STOP_TOKENS = [". ", ", "]
 
     attr_accessor :response, :prompt, :temperature, :count, :model_key, :options_hash
 
@@ -49,7 +51,7 @@ module Evidence
         prompt: prompt,
         n: count,
         max_tokens: MAX_TOKENS,
-        stop: [". ", ', ', "/\n/\n"]
+        stop: STOP_TOKENS
       }.merge(options_hash)
     end
 
@@ -57,13 +59,11 @@ module Evidence
       response
         .parsed_response['choices']
         .map{|r| r['text']}
-        .map{|r| r.gsub(/^\n/,'')} # strip leading \n
-        .map{|r| r.gsub(/^\n/,'')} # strip leading \n again
-        .map{|r| r.gsub(/^\n/,'')} # strip leading \n a third time
-        .map{|r| r.gsub(/^-/,'')} # strip leading dash
-        .map{|r| r.gsub(/\d\)/,'')} # strip 1), 2), 3)
-        .map{|r| r.gsub(/^\s/,'')} # strip leading spaces
-        .map{|r| r.gsub(/(\]|\[|\=)/,'')} # strip brackets and equal signs
+        .map{|r| r.gsub(/^(\n)+/, BLANK)} # strip all leading \n
+        .map{|r| r.gsub(/^-/, BLANK)} # strip leading dash
+        .map{|r| r.gsub(/\d\)/, BLANK)} # strip 1), 2), 3)
+        .map{|r| r.gsub(/^\s/, BLANK)} # strip leading spaces
+        .map{|r| r.gsub(/(\]|\[|\=)/, BLANK)} # strip brackets and equal signs
         .map{|r| r.split(/\n/).first } # drop anything after a \n
         .compact
         .select {|r| r.length >= 10}

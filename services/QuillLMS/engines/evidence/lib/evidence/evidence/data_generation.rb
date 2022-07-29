@@ -59,6 +59,7 @@ For players like Jones, instant replays can lead to heartbreak—but at the end 
       # whole passage plus prompt
       prompt = prompt_text(context: passage)
       run_prompt(prompt: prompt, count: FULL_COUNT, seed: 'full_passage')
+
       # whole passage plus prompt for each noun
       nouns.each do |noun|
         prompt = prompt_text(context: passage, noun: noun)
