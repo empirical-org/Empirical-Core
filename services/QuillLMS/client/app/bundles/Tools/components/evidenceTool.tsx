@@ -124,7 +124,7 @@ export const EvidenceTool = ({ loggedInUser }) => {
       <section className="tool-try-it bg-connect-teal bg-book-pattern">
         <h2 className='q-h1'>Try It Out for Yourself</h2>
         <section className="tool-ctas evidence-tool">
-          <a href='/activity_sessions/anonymous?activity_id=244' target="_blank" className="q-button cta-button text-quillteal bg-white">Try a sample activity</a>
+          <a href='https://www.quill.org/evidence/#/play?uid=176&skipToPrompts=true' target="_blank" className="q-button cta-button text-quillteal bg-white">Try a sample activity</a>
         </section>
       </section>
       {renderBottomSection()}

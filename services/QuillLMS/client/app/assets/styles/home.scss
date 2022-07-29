@@ -412,6 +412,56 @@ section.q-hero {
   }
 }
 
+.tool-carousel {
+  padding-top: 0;
+  text-align: center;
+  .item {
+    &.active {
+      padding-bottom: 48px !important;
+    }
+    .topic-section {
+      margin: 0px 16px 0px 16px;
+      background-color: white;
+      border-radius: 4px;
+      p, a {
+        color: #2C7F9B !important;
+        height: auto !important;
+      }
+      .topic {
+        padding-top: 8px !important;
+        padding-bottom: 8px;
+        font-weight: 700;
+        font-size: 22px !important;
+      }
+      .activity-title,  #under-development {
+        padding-top: 8px !important;
+      }
+      #under-development {
+        padding-bottom: 8px;
+      }
+      .q-button {
+        font-size: 14px;
+        border: 1px solid #2C7F9B;
+        margin-top: 16px;
+        margin-bottom: 16px;
+      }
+    }
+  }
+  .carousel-indicators {
+    li {
+      margin: 0px 2px 0px 2px;
+      height: 8px;
+      width: 8px;
+      &.active {
+        margin: 0px 2px 0px 2px;
+        background-color: #FFFFFF !important;
+        height: 8px;
+        width: 8px;
+      }
+    }
+  }
+}
+
 .new-tag {
   background-color:#F3AC4E;
   color: #ffffff;
@@ -421,6 +471,7 @@ section.q-hero {
   margin: 0 !important;
   padding: 2px 4px 2px 4px;
 }
+
 .q-hero-text {
   /* bring your own prefixes */
   text-align: center;
@@ -483,11 +534,13 @@ section.q-hero {
   }
   .evidence-explanation-section {
     flex-direction: column;
+    padding-bottom: 24px;
     .header-and-icon-container {
       text-align: center;
     }
     #image {
-      max-width: 404px;
+      margin-top: 16px;
+      max-width: 368px;
       height: auto;
     }
   }

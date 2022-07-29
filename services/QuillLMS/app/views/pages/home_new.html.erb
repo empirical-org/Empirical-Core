@@ -4,6 +4,7 @@
 <% end %>
 <% @device = device %>
 <% @is_mobile = device == "mobile" %>
+<% evidence_landing_url = "#{ENV['DEFAULT_URL']}/tools/evidence" %>
 
 <section class="q-hero bg-quillgreen flex-column space-between">
   <%= render partial: 'pages/shared/navbar' %>
@@ -36,35 +37,43 @@
     <p class="description">Provide your students with nonfiction texts paired with AI-powered writing prompts, instead of multiple-choice questions, to enable deeper thinking.</p>
     <div class="divider-tab"></div>
     <p class="description">Students read a nonfiction text and build their comprehension through writing prompts, supporting a series of claims with evidence sourced from the text. Quill challenges students to write responses that are precise, logical, and based on textual evidence, with Quill coaching the student through custom, targeted feedback on each revision so that students strengthen their reading comprehension and hone their writing skills.</p>
-    <a class="q-button bg-white text-quillteal">Learn more about Quill Reading for Evidence</a>
+    <a class="q-button bg-white text-quillteal" href=<%=evidence_landing_url%> target="_blank">Learn more about Quill Reading for Evidence</a>
     </div>
   </div>
   <img alt="A screenshot of an example Reading for Evidence prompt" id="image" src="https://assets.quill.org/images/evidence/home_page/Hero_Evidence_Widget.png" />
 </section>
 
-<section class="bg-quillteal tool-hero topics-section">
-  <section class="inner-section">
-    <div class="topic-section">
-      <p class="topic">Culture & Society Topics</p>
-      <img alt="photograph of a football" src="https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Image_Football.png"/>
-      <p class="activity-title">"Should Schools Have Grade Requirements for Student Athletes?"</p>
-      <a href='https://www.quill.org/evidence/#/play?uid=180&skipToPrompts=true' target="_blank" class="q-button text-quillteal bg-white">View a Sample Activity</a>
-    </div>
-    <div class="topic-section">
-      <p class="topic">Science Topics</p>
-      <img alt="photograph of a cow" src="https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Image_Cow.png"/>
-      <p class="activity-title">"How Does Eating Meat Impact Global Warming?"</p>
-      <a href='https://www.quill.org/evidence/#/play?uid=176&skipToPrompts=true' target="_blank" class="q-button text-quillteal bg-white">View a Sample Activity</a>
-    </div>
-    <div class="topic-section">
-      <p class="topic">Social Studies Topics</p>
-      <img alt="photograph of the Statue of Liberty" src="https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Image_StatueOfLiberty.png"/>
-      <p class="activity-title" id="first-title-topic">US History</p>
-      <p class="activity-title" id="second-title-topic">World History</p>
-      <p id="under-development">Under Development, Coming 2023</p>
+<% if @is_mobile %>
+  <section class="bg-quillteal tool-carousel" id="walkthrough">
+    <div id="diagnosticCarousel" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner" role="listbox">
+        <div class="item active">
+          <%= render partial: 'evidence/first_topic' %>
+        </div>
+        <div class="item">
+          <%= render partial: 'evidence/second_topic' %>
+        </div>
+        <div class="item">
+          <%= render partial: 'evidence/third_topic' %>
+        </div>
+      </div>
+      <ol class="carousel-indicators">
+        <li data-target="#diagnosticCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#diagnosticCarousel" data-slide-to="1"></li>
+        <li data-target="#diagnosticCarousel" data-slide-to="2"></li>
+      </ol>
     </div>
   </section>
-</section>
+<% else %>
+  <section class="bg-quillteal tool-hero topics-section">
+    <section class="inner-section">
+      <%= render partial: 'evidence/first_topic' %>
+      <%= render partial: 'evidence/second_topic' %>
+      <%= render partial: 'evidence/third_topic' %>
+    </section>
+  </section>
+<% end %>
+
 <section class='tool-section bg-tool-orange'>
   <div class="tool connect-tool">
     <div class='info-section'>
