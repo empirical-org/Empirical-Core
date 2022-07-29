@@ -159,11 +159,6 @@ export const premiumFeatures = ({ independentPracticeActivityCount, diagnosticAc
         tooltipText: "Assigned Senior Instructional Coach delivers PDs tailored to the needs of teachers.",
       },
       {
-        label: "Three one-on-one coaching sessions per teacher",
-        school: true,
-        tooltipText: "Assigned Senior Instructional Coach provides individualized support on Quill implementation and best practices.",
-      },
-      {
         label: "Priority technical support",
         school: true,
         tooltipText: "Support tickets identified with priority user status to resolve tech issues swiftly.",
