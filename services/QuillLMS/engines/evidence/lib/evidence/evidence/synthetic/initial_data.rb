@@ -19,6 +19,31 @@ module Evidence
 
       attr_reader :passage, :stem, :nouns, :results
 
+      # returns a hash of the form {'csv name' => CSVFile, 'csv name2' =>...}
+      def self.generate_csvs(activity_id:, nouns: [])
+        activity = Activity.find(activity_id)
+        passage = activity.passages.first.text
+        prompts = activity.prompts
+        short_name = activity.title.first(20).gsub(' ', '_')
+
+        csvs = {}
+
+        prompts.each.with_index do |prompt, index|
+          csv_name = "#{short_name}_#{prompt.conjunction}"
+
+          data = new(passage: passage, stem: prompt.text, nouns: nouns)
+          data.run
+
+          csvs[csv_name] = data.generate_csv
+          if index == 0
+            passage_csv_name = "#{short_name}_passage_chunks"
+            csvs[passage_csv_name] = data.generate_passages_csv
+          end
+        end
+
+        csvs
+      end
+
       # passage = Evidence::Synthetic::TestConstants::NFL_PASSAGE
       # stem = Evidence::Synthetic::TestConstants::NFL_BECAUSE
       # nouns = Evidence::Synthetic::TestConstants::NFL_NOUNS
@@ -89,8 +114,22 @@ module Evidence
         end
       end
 
+      def generate_csv
+        CSV.generate do |csv|
+          csv << ['Text', 'Seed']
+          results.each {|r| csv << [r.text, r.seed]}
+        end
+      end
+
       def passages_to_csv(file_path)
         CSV.open(file_path, "w") do |csv|
+          csv << ['Index', 'Passage Chunk']
+          split_passage.each.with_index {|s,i| csv << [i + 1, s]}
+        end
+      end
+
+      def generate_passages_csv
+        CSV.generate do |csv|
           csv << ['Index', 'Passage Chunk']
           split_passage.each.with_index {|s,i| csv << [i + 1, s]}
         end
