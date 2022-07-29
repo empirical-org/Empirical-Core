@@ -50,11 +50,11 @@ module Evidence
       end
     end
 
-    describe "#request" do
+    describe "#run" do
       it "should post to OpenAI, populate response, and return a cleaned_response" do
         stub_request(:post, endpoint).to_return(sample_response)
 
-        response = openAI.request
+        response = openAI.run
         expect(response.count).to be(3)
         expect(response.class).to be(Array)
         expect(response[0]).to eq("a text response")

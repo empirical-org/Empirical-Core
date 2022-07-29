@@ -28,6 +28,7 @@ module Evidence
       # file_path = "/Users/danieldrabik/Dropbox/quill/synthetic/test_generation_#{Time.current.strftime('%Y-%m-%d-%T')}.csv"
       # generator.to_csv(file_path)
 
+
       def initialize(passage:, stem:, nouns: [])
         @passage = passage
         @stem = stem
@@ -56,7 +57,7 @@ module Evidence
       end
 
       private def run_prompt(prompt:, count:, seed:, noun: nil, temperature: TEMP_PASSAGE)
-        output = Evidence::OpenAI.new(prompt: prompt, count: count, temperature: temperature).request
+        output = Evidence::OpenAI.run(prompt: prompt, count: count, temperature: temperature)
         current_result_texts = results.map(&:text)
 
         new_results = output
@@ -68,7 +69,7 @@ module Evidence
       end
 
       private def prompt_text(context: BLANK, noun: BLANK)
-        context + SPACE + stem + SPACE + noun + SPACE
+        (context + (context.last == PERIOD ? '' : PERIOD) + SPACE + stem + SPACE + noun + SPACE).gsub(SPACE + SPACE, SPACE)
       end
 
       # split passage into words, split words in X-word-length chunks

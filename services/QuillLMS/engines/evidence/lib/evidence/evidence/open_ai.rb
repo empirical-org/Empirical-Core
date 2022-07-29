@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Evidence
-  class OpenAI
+  class OpenAI < Evidence::ApplicationService
     include HTTParty
     base_uri 'https://api.openai.com/v1'
 
@@ -68,7 +68,7 @@ module Evidence
         .uniq
     end
 
-    def request
+    def run
       return response if response.present?
 
       @response = self.class.post(COMPLETION_ENDPOINT, body: request_body.to_json, headers: headers)
@@ -76,7 +76,7 @@ module Evidence
       cleaned_results
     end
 
-    def reset_request
+    def reset_response
       @response = nil
     end
 
