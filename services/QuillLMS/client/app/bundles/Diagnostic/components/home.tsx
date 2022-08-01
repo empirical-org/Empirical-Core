@@ -16,8 +16,8 @@ export const Home = () => {
   const turkSession = window.location.href.includes('turk');
   const studentOrTurk = studentSession || turkSession;
   const isPlaying = window.location.href.includes('play');
-  const { data } = useQuery("user-role", fetchUserRole);
-  const isTeacherOrAdmin = data && data.role && data.role !== 'student';
+  const { data: roleData } = useQuery("user-role", fetchUserRole);
+  const isTeacherOrAdmin = roleData && roleData.role && roleData.role !== 'student';
 
   const [showFocusState, setShowFocusState] = React.useState<boolean>(false);
   const [previewShowing, setPreviewShowing] = React.useState<boolean>(!studentOrTurk);

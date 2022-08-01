@@ -449,6 +449,7 @@ EmpiricalGrammar::Application.routes.draw do
       get 'users/profile', to: 'users#profile'
       get 'users/current_user_and_coteachers', to: 'users#current_user_and_coteachers'
       get 'users/current_user_role', to: 'users#current_user_role'
+      get 'users/student_and_teacher_ids_for_session/:activity_session_uid', to: 'users#student_and_teacher_ids_for_session'
       post 'published_edition' => 'activities#published_edition'
       get 'progress_reports/activities_scores_by_classroom_data' => 'progress_reports#activities_scores_by_classroom_data'
       get 'progress_reports/district_activity_scores' => 'progress_reports#district_activity_scores'
