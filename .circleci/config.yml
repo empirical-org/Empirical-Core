@@ -335,7 +335,8 @@ jobs:
       - run:
           name: Pip Install
           command: |
-            pip install --user flake8
+            pip install --user flake8==4.0.1
+
       - run:
           name: Run Flake8
           command: |
