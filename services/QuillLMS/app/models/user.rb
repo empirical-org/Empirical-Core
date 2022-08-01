@@ -54,6 +54,8 @@
 #  users_to_tsvector_idx4             (to_tsvector('english'::regconfig, (username)::text)) USING gin
 #  users_to_tsvector_idx5             (to_tsvector('english'::regconfig, split_part((ip_address)::text, '/'::text, 1))) USING gin
 #
+
+# rubocop:disable Metrics/ClassLength
 class User < ApplicationRecord
   include Student
   include Teacher
@@ -61,16 +63,31 @@ class User < ApplicationRecord
   include UserCacheable
   include Subscriber
 
-  attr_accessor :validate_username, :require_password_confirmation_when_password_present, :newsletter
-
   CHAR_FIELD_MAX_LENGTH = 255
+  STAFF_SESSION_DURATION= 4.hours
+  USER_INACTIVITY_DURATION = 30.days
+  USER_SESSION_DURATION = 30.days
 
-  before_validation :generate_student_username_if_absent
-  before_validation :prep_authentication_terms
-  before_save :capitalize_name
-  after_save  :update_invitee_email_address, if: proc { saved_change_to_email? }
-  after_save :check_for_school
-  after_create :generate_referrer_id, if: proc { teacher? }
+  TEACHER = 'teacher'
+  STUDENT = 'student'
+  STAFF = 'staff'
+  ROLES      = [TEACHER, STUDENT, STAFF]
+  SAFE_ROLES = [STUDENT, TEACHER]
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
+
+  ALPHA = 'alpha'
+  BETA = 'beta'
+  GAMMA = 'gamma'
+  PRIVATE = 'private'
+  ARCHIVED = 'archived'
+  TESTING_FLAGS = [ALPHA, BETA, GAMMA, PRIVATE, ARCHIVED]
+  PERMISSIONS_FLAGS = %w(auditor purchaser school_point_of_contact)
+  VALID_FLAGS = TESTING_FLAGS.dup.concat(PERMISSIONS_FLAGS)
+
+  GOOGLE_CLASSROOM_ACCOUNT = 'Google Classroom'
+  CLEVER_ACCOUNT = 'Clever'
+
+  attr_accessor :validate_username, :require_password_confirmation_when_password_present, :newsletter
 
   has_secure_password validations: false
   has_one :auth_credential, dependent: :destroy
@@ -118,55 +135,53 @@ class User < ApplicationRecord
 
   accepts_nested_attributes_for :auth_credential
 
-  delegate :name, :mail_city, :mail_state, to: :school, allow_nil: true, prefix: :school
+  delegate :name, :mail_city, :mail_state,
+    to: :school,
+    allow_nil: true,
+    prefix: :school
 
-  validates :name,                  presence: true,
-                                    format:       {without: /\t/, message: 'cannot contain tabs'},
-                                    length:       { maximum:  CHAR_FIELD_MAX_LENGTH}
+  validates :name,
+    presence: true,
+    format: { without: /\t/, message: 'cannot contain tabs' },
+    length: { maximum:  CHAR_FIELD_MAX_LENGTH}
 
   validates_with ::FullnameValidator
 
-  validates :password,              presence:     { if: :requires_password? },
-                                    length:       { maximum: CHAR_FIELD_MAX_LENGTH}
+  validates :password,
+    presence: { if: :requires_password? },
+    length: { maximum: CHAR_FIELD_MAX_LENGTH}
 
-  validates :email,                 presence:     { if: :email_required? },
-                                    uniqueness:   { message: :taken, if: :email_required_or_present?},
-                                    length:       { maximum: CHAR_FIELD_MAX_LENGTH}
+  validates :email,
+    presence: { if: :email_required? },
+    uniqueness:  { message: :taken, if: :email_required_or_present? },
+    length: { maximum: CHAR_FIELD_MAX_LENGTH }
 
   validate :username_cannot_be_an_email
 
-  validates :clever_id,             uniqueness:   { if: :clever_id_present_and_has_changed? }
+  validates :clever_id,
+    uniqueness:   { if: :clever_id_present_and_has_changed? }
 
-  validates :google_id, uniqueness:   { if: ->(u) { u.google_id.present? && u.student? }}
+  validates :google_id,
+    uniqueness: { if: ->(u) { u.google_id.present? && u.student? } }
 
-  # gem validates_email_format_of
-  validates_email_format_of :email, if: :email_required_or_present?, message: :invalid
+  validates_email_format_of :email,
+    if: :email_required_or_present?,
+    message: :invalid
 
-  validates :username,              presence:     { if: ->(m) { m.email.blank? && m.permanent? } },
-                                    uniqueness:   { allow_blank: true, message: :taken },
-                                    format:       { without: /\s/, message: :no_spaces_allowed, if: :validate_username? },
-                                    length:       { maximum: CHAR_FIELD_MAX_LENGTH}
+  validates :username,
+    presence: { if: ->(m) { m.email.blank? && m.permanent? } },
+    uniqueness: { allow_blank: true, message: :taken },
+    format: { without: /\s/, message: :no_spaces_allowed, if: :validate_username? },
+    length: { maximum: CHAR_FIELD_MAX_LENGTH }
 
   validate :validate_flags
 
-  TEACHER = 'teacher'
-  STUDENT = 'student'
-  STAFF = 'staff'
-  ROLES      = [TEACHER, STUDENT, STAFF]
-  SAFE_ROLES = [STUDENT, TEACHER]
-  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
-
-  ALPHA = 'alpha'
-  BETA = 'beta'
-  GAMMA = 'gamma'
-  PRIVATE = 'private'
-  ARCHIVED = 'archived'
-  TESTING_FLAGS = [ALPHA, BETA, GAMMA, PRIVATE, ARCHIVED]
-  PERMISSIONS_FLAGS = %w(auditor purchaser school_point_of_contact)
-  VALID_FLAGS = TESTING_FLAGS.dup.concat(PERMISSIONS_FLAGS)
-
-  GOOGLE_CLASSROOM_ACCOUNT = 'Google Classroom'
-  CLEVER_ACCOUNT = 'Clever'
+  before_validation :generate_student_username_if_absent
+  before_validation :prep_authentication_terms
+  before_save :capitalize_name
+  after_save  :update_invitee_email_address, if: proc { saved_change_to_email? }
+  after_save :check_for_school
+  after_create :generate_referrer_id, if: proc { teacher? }
 
   scope :teacher, -> { where(role: TEACHER) }
   scope :student, -> { where(role: STUDENT) }
@@ -181,10 +196,10 @@ class User < ApplicationRecord
     )
   end
 
-  def self.find_by_stripe_customer_id_or_email(stripe_customer_id, email)
+  def self.find_by_stripe_customer_id_or_email!(stripe_customer_id, email)
     return User.find_by(stripe_customer_id: stripe_customer_id) if stripe_customer_id.present?
 
-    User.find_by(email: email)
+    User.find_by!(email: email)
   end
 
   def self.valid_email?(email)
@@ -528,7 +543,6 @@ class User < ApplicationRecord
     UnsubscribeFromNewsletterWorker.perform_async(id)
   end
 
-  # Create the user from a Clever info hash
   def self.create_from_clever(hash, role_override = nil)
     user = User.where(email: hash[:info][:email]).first_or_initialize
     user = User.new if user.email.nil?
@@ -606,6 +620,10 @@ class User < ApplicationRecord
     google_id && auth_credential&.google_authorized?
   end
 
+  def google_access_expired?
+    google_id && auth_credential&.google_access_expired?
+  end
+
   # Note this is an incremented count, so could be off.
   def completed_activity_count
     user_activity_classifications.sum(:count)
@@ -615,8 +633,30 @@ class User < ApplicationRecord
     [school].concat(administered_schools).uniq.select { |s| s.present? && School::ALTERNATIVE_SCHOOL_NAMES.exclude?(s.name) }
   end
 
+  def staff_session_duration_exceeded?
+    return false unless staff?
+    return false if last_sign_in.nil?
+
+    last_sign_in < STAFF_SESSION_DURATION.ago
+  end
+
+  def inactive_too_long?
+    last_sign_in_too_long_ago? && last_active_too_long_ago?
+  end
+
+  def last_sign_in_too_long_ago?
+    return false if last_sign_in.nil?
+
+    last_sign_in < USER_SESSION_DURATION.ago
+  end
+
+  def last_active_too_long_ago?
+    return true if last_active.nil?
+
+    last_active < USER_INACTIVITY_DURATION.ago
+  end
+
   private def validate_flags
-    # ensures there are no items in the flags array that are not in the VALID_FLAGS const
     invalid_flags = flags - VALID_FLAGS
 
     return if invalid_flags.none?
@@ -635,7 +675,6 @@ class User < ApplicationRecord
     find_or_create_checkbox('Add School', self)
   end
 
-  # validation filters
   private def email_required_or_present?
     email_required? or email.present?
   end
@@ -663,11 +702,6 @@ class User < ApplicationRecord
     permanent? && new_record?
   end
 
-  # FIXME: may not be being called anywhere
-  private def password?
-    password.present?
-  end
-
   private def get_class_code(classroom_id)
     return 'student' if classroom_id.nil?
 
@@ -678,3 +712,4 @@ class User < ApplicationRecord
     Invitation.where(invitee_email: email_before_last_save).update_all(invitee_email: email)
   end
 end
+# rubocop:enable Metrics/ClassLength

@@ -15,17 +15,23 @@ class Event {
 // as the list gets longer we don't accidentally end up with a
 // name collision (see validation in the 'events.ts' file).
 const EventDefinitions = [
-  {COMPREHENSION_ACTIVITY_STARTED: new Event('comprehensionActivityStarted', [
+  {EVIDENCE_ACTIVITY_STARTED: new Event('evidenceActivityStarted', [
     'activityID',
-    'sessionID'])},
-  {COMPREHENSION_PASSAGE_READ: new Event('comprehensionPassageRead', [
+    'sessionID',
+    'user_id',
+    'properties'])},
+  {EVIDENCE_PASSAGE_READ: new Event('evidencePassageRead', [
     'activityID',
-    'sessionID'])},
-  {COMPREHENSION_PROMPT_STARTED: new Event('comprehensionPromptStarted', [
+    'sessionID',
+    'user_id',
+    'properties'])},
+  {EVIDENCE_PROMPT_STARTED: new Event('evidencePromptStarted', [
     'activityID',
     'promptID',
-    'sessionID'])},
-  {COMPREHENSION_ENTRY_SUBMITTED: new Event('comprehensionEntrySubmitted', [
+    'sessionID',
+    'user_id',
+    'properties'])},
+  {EVIDENCE_ENTRY_SUBMITTED: new Event('evidenceEntrySubmitted', [
     'activityID',
     'attemptNumber',
     'promptID',
@@ -33,8 +39,10 @@ const EventDefinitions = [
     'sessionID',
     'startingFeedback',
     'startingFeedbackID',
-    'submittedEntry'])},
-  {COMPREHENSION_FEEDBACK_RECEIVED: new Event('comprehensionFeedbackReceived', [
+    'submittedEntry',
+    'user_id',
+    'properties'])},
+  {EVIDENCE_FEEDBACK_RECEIVED: new Event('evidenceFeedbackReceived', [
     'activityID',
     'attemptNumber',
     'promptID',
@@ -44,17 +52,25 @@ const EventDefinitions = [
     'sessionID',
     'startingFeedback',
     'startingFeedbackID',
-    'submittedEntry'])},
-  {COMPREHENSION_PROMPT_COMPLETED: new Event('comprehensionPromptCompleted', [
+    'submittedEntry',
+    'user_id',
+    'properties'])},
+  {EVIDENCE_PROMPT_COMPLETED: new Event('evidencePromptCompleted', [
     'activityID',
     'promptID',
-    'sessionID'])},
-  {COMPREHENSION_ACTIVITY_COMPLETED: new Event('comprehensionActivityCompleted', [
+    'sessionID',
+    'user_id',
+    'properties'])},
+  {EVIDENCE_ACTIVITY_COMPLETED: new Event('evidenceActivityCompleted', [
     'activityID',
-    'sessionID'])},
-  {COMPREHENSION_ACTIVITY_SAVED: new Event('comprehensionActivitySaved', [
+    'sessionID',
+    'user_id',
+    'properties'])},
+  {EVIDENCE_ACTIVITY_SAVED: new Event('evidenceActivitySaved', [
     'activityID',
-    'sessionID'])}
+    'sessionID',
+    'user_id',
+    'properties'])}
 ];
 
 

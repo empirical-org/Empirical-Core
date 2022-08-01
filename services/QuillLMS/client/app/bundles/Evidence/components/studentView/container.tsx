@@ -53,9 +53,11 @@ const ONBOARDING = 'onboarding'
 const ALL_STEPS = [READ_PASSAGE_STEP_NUMBER, 2, 3, 4]
 const MINIMUM_STUDENT_HIGHLIGHT_COUNT = 2
 
-export const StudentViewContainer = ({ dispatch, session, isTurk, location, activities, handleFinishActivity, user, }: StudentViewContainerProps) => {
+export const StudentViewContainer = ({ dispatch, session, isTurk, location, activities, handleFinishActivity, user }: StudentViewContainerProps) => {
   const shouldSkipToPrompts = window.location.href.includes('turk') || window.location.href.includes('skipToPrompts')
   const defaultCompletedSteps = shouldSkipToPrompts ? [READ_PASSAGE_STEP_NUMBER] : []
+  const sessionFromUrl = getUrlParam('session', location, isTurk)
+  const activityUID = getUrlParam('uid', location, isTurk)
 
   const refs = {
     step1: React.useRef(),
@@ -95,8 +97,6 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
   }, [hasStartedReadPassageStep]);
 
   React.useEffect(() => {
-    const activityUID = getUrlParam('uid', location, isTurk)
-    const sessionFromUrl = getUrlParam('session', location, isTurk)
     if (sessionFromUrl) {
       const fetchActiveActivitySessionArgs = {
         sessionID: sessionFromUrl,
@@ -287,7 +287,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
         attempt,
         previousFeedback,
         callback: submitResponseCallback,
-        activityVersion: currentActivity?.version
+        activityVersion: currentActivity?.version,
       }
       dispatch(getFeedback(args))
     }
@@ -297,7 +297,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
     const { sessionID, } = session
     const activityUID = getUrlParam('uid', location, isTurk)
 
-    dispatch(TrackAnalyticsEvent(Events.COMPREHENSION_PASSAGE_READ, {
+    dispatch(TrackAnalyticsEvent(Events.EVIDENCE_PASSAGE_READ, {
       activityID: activityUID,
       sessionID: sessionID
     }));
@@ -305,29 +305,28 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
 
   function trackCurrentPromptStartedEvent() {
     const { activeStep } = session;
-    const trackingParams = getCurrentStepDataForEventTracking(activeStep, activities, session, isTurk)
+    const trackingParams = getCurrentStepDataForEventTracking({ activeStep, activities, session, isTurk })
     if (!trackingParams) return; // Bail if there's no data to track
 
-    dispatch(TrackAnalyticsEvent(Events.COMPREHENSION_PROMPT_STARTED, trackingParams))
+    dispatch(TrackAnalyticsEvent(Events.EVIDENCE_PROMPT_STARTED, trackingParams))
   }
 
   function trackCurrentPromptCompletedEvent() {
     const { activeStep } = session;
-    const trackingParams = getCurrentStepDataForEventTracking(activeStep, activities, session, isTurk)
+    const trackingParams = getCurrentStepDataForEventTracking({ activeStep, activities, session, isTurk })
     if (!trackingParams) return; // Bail if there's no data to track
 
-    dispatch(TrackAnalyticsEvent(Events.COMPREHENSION_PROMPT_COMPLETED, trackingParams))
+    dispatch(TrackAnalyticsEvent(Events.EVIDENCE_PROMPT_COMPLETED, trackingParams))
   }
 
   function trackActivityCompletedEvent() {
     const { sessionID, } = session
     const activityID = getUrlParam('uid', location, isTurk)
 
-    dispatch(TrackAnalyticsEvent(Events.COMPREHENSION_ACTIVITY_COMPLETED, {
+    dispatch(TrackAnalyticsEvent(Events.EVIDENCE_ACTIVITY_COMPLETED, {
       activityID,
-      sessionID,
+      sessionID
     }));
-
     dispatch(setActivityIsCompleteForSession(true));
     defaultHandleFinishActivity()
   }

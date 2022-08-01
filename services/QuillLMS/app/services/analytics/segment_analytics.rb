@@ -227,7 +227,7 @@ class SegmentAnalytics
         school_name: user.school&.name,
         school_id: user.school&.id,
         district: user.school&.district&.name
-      },
+      }.reject {|_,v| v.nil? },
       integrations: integration_rules(user.id)
     }
   end

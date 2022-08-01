@@ -9,6 +9,7 @@ import { ScreenreaderInstructions, } from '../../Shared/index'
 const PageLayout: React.StatelessComponent<{}> = (props: any) => {
   const { user } = props;
 
+
   function handleSkipToMainContentClick () {
     const element = document.getElementById("main-content")
     if (!element) { return }
