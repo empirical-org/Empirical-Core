@@ -3,7 +3,7 @@ import Events from './events';
 
 import { getParameterByName } from '../../libs/getParameterByName';
 import { fetchUserIdsForSession } from '../../../Shared/utils/userAPIs';
-import { isTrackableStudentEvent, UserIdsForEvent } from '../../../Shared';
+import { isTrackableStudentEvent } from '../../../Shared';
 class SegmentAnalytics {
   analytics: Object;
 
@@ -74,6 +74,18 @@ class SegmentAnalytics {
         }
       });
     }
+  }
+
+  formatCustomProperties(properties: object): object {
+    if (typeof properties !== 'object') {
+      properties = {};
+    }
+    return Object.keys(properties).reduce((accumulator, key) => {
+      const keysToSkip = ['user_id', 'properties'];
+      let customKeyName = keysToSkip.includes(key) ? key : `custom_${key}`;
+      accumulator[customKeyName] = properties[key];
+      return accumulator;
+    }, {});
   }
 
   getDefaultProperties(): object {

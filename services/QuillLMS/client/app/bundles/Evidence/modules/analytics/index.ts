@@ -42,7 +42,7 @@ class SegmentAnalytics {
       return false;
     }
 
-    const eventProperties = Object.assign({...customProperties}, this.getDefaultProperties());
+    const eventProperties = Object.assign(this.formatCustomProperties(customProperties), this.getDefaultProperties());
     this.analytics().track(event.name, eventProperties);
     return true;
   }
@@ -59,6 +59,18 @@ class SegmentAnalytics {
         }
       });
     }
+  }
+
+  formatCustomProperties(properties: object): object {
+    if (typeof properties !== 'object') {
+      properties = {};
+    }
+    return Object.keys(properties).reduce((accumulator, key) => {
+      const keysToSkip = ['user_id', 'properties'];
+      let customKeyName = keysToSkip.includes(key) ? key : `custom_${key}`;
+      accumulator[customKeyName] = properties[key];
+      return accumulator;
+    }, {});
   }
 
   getDefaultProperties(): object {
