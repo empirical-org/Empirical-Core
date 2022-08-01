@@ -391,7 +391,7 @@ section.q-hero {
     justify-content: space-between;
     max-width: 1175px;
     width: 100%;
-    border-top: 1px solid #D9D9D9;
+    border-top: 1px solid rgba(217, 217, 217, 0.3);
     padding-top: 64px;
     .topic-section {
       background-color: white;
@@ -427,6 +427,10 @@ section.q-hero {
         border-radius: 4px;
         font-size: 14px;
         padding: 13px 16px 13px 16px;
+      }
+      .q-button:hover {
+        background-color: #2C7F9B;
+        color: #FFFFFF;
       }
     }
   }
