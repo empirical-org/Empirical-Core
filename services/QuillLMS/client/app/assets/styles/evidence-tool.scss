@@ -223,9 +223,10 @@
   flex-direction: column;
   justify-content: center;
   background-image: url("https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_BackgroundPattern2.png");
-  background-size: cover;
+  background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
+  background-position-y: 24px;
   .header-section {
     margin-top: 24px;
     margin-bottom: 36px;
