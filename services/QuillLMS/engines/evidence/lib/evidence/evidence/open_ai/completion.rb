@@ -49,10 +49,12 @@ module Evidence
         }.merge(options_hash)
       end
 
-      private def result_texts
-        response
-          .parsed_response['choices']
-          .map{|r| r['text']}
+      def run
+        return response if response.present?
+
+        @response = self.class.post(ENDPOINT, body: request_body.to_json, headers: headers)
+
+        cleaned_results
       end
 
       def cleaned_results
@@ -66,12 +68,10 @@ module Evidence
           .uniq
       end
 
-      def run
-        return response if response.present?
-
-        @response = self.class.post(ENDPOINT, body: request_body.to_json, headers: headers)
-
-        cleaned_results
+      private def result_texts
+        response
+          .parsed_response['choices']
+          .map{|r| r['text']}
       end
 
       def reset_response
