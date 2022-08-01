@@ -6,8 +6,6 @@ module Evidence
       include HTTParty
       base_uri 'https://api.openai.com/v1'
 
-      class NoResultsError < StandardError; end
-
       API_KEY = ENV['OPENAI_API_KEY']
       MAX_TOKENS = 24
       ENDPOINT = '/completions'
