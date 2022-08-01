@@ -552,8 +552,8 @@ section.q-hero {
       .topic-section {
         margin-bottom: 24px;
         #image {
-          max-width: 343px;
-          height: auto;
+          max-width: 343px !important;
+          height: auto !important;
         }
       }
     }
