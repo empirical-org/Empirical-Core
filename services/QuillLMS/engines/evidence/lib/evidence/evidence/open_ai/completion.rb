@@ -10,9 +10,9 @@ module Evidence
 
       API_KEY = ENV['OPENAI_API_KEY']
       MAX_TOKENS = 24
-      COMPLETION_ENDPOINT = '/completions'
+      ENDPOINT = '/completions'
       # A-D, (A)Least -> (D)Most Complex/Expensive
-      COMPLETION_MODELS = {
+      MODELS = {
         ada: 'text-ada-001',
         babbage: 'text-babbage-001',
         curie: 'text-curie-001',
@@ -40,7 +40,7 @@ module Evidence
 
       def request_body
         {
-          model: COMPLETION_MODELS[model_key],
+          model: MODELS[model_key],
           temperature: temperature,
           prompt: prompt,
           n: count,
@@ -69,7 +69,7 @@ module Evidence
       def run
         return response if response.present?
 
-        @response = self.class.post(COMPLETION_ENDPOINT, body: request_body.to_json, headers: headers)
+        @response = self.class.post(ENDPOINT, body: request_body.to_json, headers: headers)
 
         cleaned_results
       end
