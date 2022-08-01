@@ -29,7 +29,7 @@ module StripeIntegration
     end
 
     private def customer
-      User.find_by_stripe_customer_id_or_email(stripe_customer_id, customer_email)
+      User.find_by_stripe_customer_id_or_email!(stripe_customer_id, customer_email)
     end
 
     private def customer_arg
