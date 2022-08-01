@@ -76,32 +76,5 @@ module Evidence
     def reset_response
       @response = nil
     end
-
-    # Edit endpoint code still in experimentation phase
-    EDITS_ENDPOINT = '/edits'
-    EDIT_MODELS = {
-      ada: 'text-ada-edit-001',
-      babbage: 'text-babbage-edit-001',
-      curie: 'text-curie-edit-001',
-      davinci: 'text-davinci-edit-001'
-    }
-
-    def edits_request_body
-      {
-        model: EDIT_MODELS[model_key],
-        temperature: temperature,
-        input: prompt,
-        instruction: PARAPHRASE_INSTRUCTION,
-        n: count,
-      }.merge(options_hash)
-    end
-
-    def edit_request
-      return response if response.present?
-
-      @response = self.class.post(EDITS_ENDPOINT, body: edits_request_body.to_json, headers: self.class.header_options)
-
-      cleaned_results
-    end
   end
 end
