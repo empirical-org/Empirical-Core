@@ -72,7 +72,7 @@ module Evidence
     end
 
     describe "#cleaned_results" do
-      let(:response_with_chars) {["  \n\n\n 1) Hello there[] you 2) person = \n other stuff to drop"]}
+      let(:response_with_chars) {["  -\n\n\n 1) Hello there[] you 2) person = \n other stuff to drop"]}
 
 
       it "should strip out special characters and drop after middle newline" do
