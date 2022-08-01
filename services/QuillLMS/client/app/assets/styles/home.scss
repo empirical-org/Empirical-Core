@@ -302,75 +302,95 @@ section.q-hero {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 128px;
     .header {
       .q-h1 {
+        margin-top: 0px;
         margin-bottom: 0px;
       }
-      p.text-white {
-        margin-top: 10px;
-        margin-bottom: 30px;
-      }
-    }.new-tag {
-      margin-bottom: 48px !important;
     }
+    p.text-white {
+      margin-top: 10px;
+      margin-bottom: 30px;
+    }
+  }
+  #first {
+    margin-bottom: 64px !important;
+  }
+  .q-button {
+    margin-top: 0px !important;
+  }
+  .new-tag {
+    position: relative;
+    right: 16px;
+    margin-bottom: 48px !important;
   }
 }
 
 .evidence-explanation-section {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-left: 56px;
-  padding-right: 56px;
+  justify-content: center;
   background-image: url("https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_BackgroundPattern5.png");
   background-size: contain;
-  background-position: right;
+  background-position-x: 168px;
   background-repeat: no-repeat;
-  .left-side-container {
+  padding-top: 100px;
+  padding-bottom: 130px;
+  .inner-section {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    max-width: 622px;
-    .header-and-icon-container {
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1175px;
+    width: 100%;
+    .left-side-container {
       display: flex;
-      align-items: center;
-      margin-bottom: 8px;
-      h1 {
+      flex-direction: column;
+      align-items: flex-start;
+      max-width: 622px;
+      .header-and-icon-container {
+        display: flex;
+        align-items: center;
+        margin-bottom: 8px;
+        h1 {
+          margin: 0;
+        }
+        .new-tag {
+          margin-left: 16px !important;
+        }
+      }
+      .description {
+        font-size: 18px;
         margin: 0;
       }
-      .new-tag {
-        margin-left: 16px !important;
+      .divider-tab {
+        background-color: #FFFFFF;
+        width: 29px;
+        height: 6px;
+        opacity: 0.2;
+        margin: 16px 0px 16px 0px;
+      }
+      .q-button {
+        margin-top: 16px;
       }
     }
-    .description {
-      font-size: 18px;
-      margin: 0;
+    #image {
+      width: 380px;
+      height: 360px;
     }
-    .divider-tab {
-      background-color: #FFFFFF;
-      width: 29px;
-      height: 6px;
-      opacity: 0.2;
-      margin: 16px 0px 16px 0px;
-    }
-    .q-button {
-      margin-top: 16px;
-    }
-  }
-  #image {
-    width: 380px;
-    height: 360px;
   }
 }
 
 .topics-section {
+  display: flex;
+  justify-content: center;
+  text-align: center;
   padding-top: 24px;
   padding-bottom: 56px;
-  text-align: center;
   .inner-section {
     display: flex;
     justify-content: space-between;
-    margin: 0px 56px 0px 56px;
+    max-width: 1175px;
+    width: 100%;
     border-top: 1px solid #D9D9D9;
     padding-top: 64px;
     .topic-section {
@@ -469,7 +489,7 @@ section.q-hero {
   font-weight: 600;
   font-size: 16px !important;
   margin: 0 !important;
-  padding: 2px 4px 2px 4px;
+  padding: 4px 8px 4px 8px;
 }
 
 .q-hero-text {
@@ -482,7 +502,7 @@ section.q-hero {
   }
   #mission {
     margin-top: 64px;
-    margin-bottom: 80px;
+    margin-bottom: 128px;
   }
   .text-quillgreen:hover {
     color: #ffffff;
@@ -533,15 +553,17 @@ section.q-hero {
     padding-right: 16px;
   }
   .evidence-explanation-section {
-    flex-direction: column;
-    padding-bottom: 24px;
-    .header-and-icon-container {
-      text-align: center;
-    }
-    #image {
-      margin-top: 16px;
-      max-width: 368px;
-      height: auto;
+    .inner-section {
+      flex-direction: column;
+      padding-bottom: 24px;
+      .header-and-icon-container {
+        text-align: center;
+      }
+      #image {
+        margin-top: 16px;
+        max-width: 368px;
+        height: auto;
+      }
     }
   }
   .topics-section {

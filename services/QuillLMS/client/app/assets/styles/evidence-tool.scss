@@ -147,9 +147,14 @@
   }
   .evidence-feature-container {
     background-color: #2C7F9B;
-    padding: 72px 56px 72px 56px;
+    padding: 72px 0px 72px 0px;
+    justify-content: center;
+    display: flex;
     .inner-container {
       display: flex;
+      max-width: 1175px;
+      justify-content: space-between;
+      width: 100%;
       background-image: url("https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_BackgroundPattern3.png");
       background-position-y: -32px;
       background-size: cover;
