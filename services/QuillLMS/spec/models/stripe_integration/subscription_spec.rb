@@ -20,10 +20,41 @@ RSpec.describe StripeIntegration::Subscription do
     end
 
     context 'stripe_invoice_id present' do
-      before { allow(Stripe::Invoice).to receive(:retrieve).with(stripe_invoice_id).and_return(stripe_invoice) }
+      before do
+        allow(Stripe::Invoice).to receive(:retrieve).with(stripe_invoice_id).and_return(stripe_invoice)
+        allow(Stripe::Subscription).to receive(:retrieve).with(stripe_subscription_id).and_return(stripe_subscription)
+      end
 
       it 'should set the cancel_at_period_end to true' do
         expect(Stripe::Subscription).to receive(:update).with(stripe_subscription_id, cancel_at_period_end: true)
+        subject
+      end
+    end
+
+    context 'stripe subscription is already canceled' do
+      before do
+        allow(Stripe::Invoice).to receive(:retrieve).with(stripe_invoice_id).and_return(stripe_invoice)
+        allow(Stripe::Subscription).to receive(:retrieve).with(stripe_subscription_id).and_return(stripe_subscription)
+      end
+
+      let(:stripe_subscription_status) { described_class::CANCELED }
+
+      it 'should return before attempting to update the subscription' do
+        expect(Stripe::Subscription).not_to receive(:update)
+        subject
+      end
+    end
+
+    context 'stripe subscription is already incomplete expired' do
+      before do
+        allow(Stripe::Invoice).to receive(:retrieve).with(stripe_invoice_id).and_return(stripe_invoice)
+        allow(Stripe::Subscription).to receive(:retrieve).with(stripe_subscription_id).and_return(stripe_subscription)
+      end
+
+      let(:stripe_subscription_status) { described_class::INCOMPLETE_EXPIRED }
+
+      it 'should return before attempting to update the subscription' do
+        expect(Stripe::Subscription).not_to receive(:update)
         subject
       end
     end
