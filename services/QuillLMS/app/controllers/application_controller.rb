@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   include QuillAuthentication
 
+  rescue_from ActionController::InvalidAuthenticityToken, with: :handle_invalid_authenticity_token
+
   CLEVER_REDIRECT = :clever_redirect
   GOOGLE_REDIRECT = :google_redirect
   POST_AUTH_REDIRECT = :post_auth_redirect
@@ -114,6 +116,15 @@ class ApplicationController < ActionController::Base
       route_redirects_to_classrooms_index?(route) ||
       route_redirects_to_diagnostic?(route)
     )
+  end
+
+  private def handle_invalid_authenticity_token
+    flash[:error] = t('actioncontroller.errors.invalid_authenticity_token')
+
+    respond_to do |format|
+      format.html { redirect_back(fallback_location: root_path) }
+      format.json { render json: { redirect: URI.parse(request.referer).path } }
+    end
   end
 
   protected def set_vary_header

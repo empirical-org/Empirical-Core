@@ -24,11 +24,11 @@ Gem::Specification.new do |s|
   s.add_dependency 'google-cloud-automl-v1', '~> 0.3.0'
   s.add_dependency 'hotwater', '0.1.2'
   s.add_dependency 'pragmatic_segmenter', '~> 0.3.23'
-  s.add_dependency 'rails', '6.0.5'
+  s.add_dependency 'rails', '6.1.6'
 
   # Gems needed for the test environment
   s.add_development_dependency 'factory_bot_rails'
-  s.add_development_dependency 'pg', '0.18.4'
+  s.add_development_dependency 'pg', '1.4.2'
   s.add_development_dependency 'rspec-rails'
   s.add_development_dependency 'shoulda', '~> 4.0'
 end

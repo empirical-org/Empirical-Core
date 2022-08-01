@@ -12,9 +12,9 @@ class ActivitySearch
     when 'alpha'
       flags = "'alpha', 'beta', 'gamma', 'production'"
     when 'beta'
-      flags = "'beta', 'gamma', 'production'"
+      flags = "'beta', 'production'"
     when 'gamma'
-      flags = "'gamma', 'production'"
+      flags = "'gamma', 'production', 'beta'"
     else
       flags = "'production'"
     end
