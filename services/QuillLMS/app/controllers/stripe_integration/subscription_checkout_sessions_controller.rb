@@ -2,6 +2,8 @@
 
 module StripeIntegration
   class SubscriptionCheckoutSessionsController < ApplicationController
+    class CustomerNotFoundError < StandardError; end
+
     SUBSCRIPTION_MODE = 'subscription'
 
     def create
@@ -30,6 +32,8 @@ module StripeIntegration
 
     private def customer
       User.find_by_stripe_customer_id_or_email!(stripe_customer_id, customer_email)
+    rescue ActiveRecord::RecordNotFound
+      raise CustomerNotFoundError
     end
 
     private def customer_arg
