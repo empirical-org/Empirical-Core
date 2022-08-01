@@ -40,16 +40,16 @@ module Evidence
 
     describe "#run" do
       it "should hit open AI for each item and store results" do
-        expect(Evidence::OpenAI).to receive(:run)
+        expect(Evidence::OpenAI::Completion).to receive(:run)
           .with(prompt: full_passage_prompt, count: 1, temperature: 1)
           .and_return(full_passage_response)
-        expect(Evidence::OpenAI).to receive(:run)
+        expect(Evidence::OpenAI::Completion).to receive(:run)
           .with(prompt: full_noun_prompt, count: 1, temperature: 1)
           .and_return(full_noun_response)
-        expect(Evidence::OpenAI).to receive(:run)
+        expect(Evidence::OpenAI::Completion).to receive(:run)
           .with(prompt: chunk1_prompt, count: 1, temperature: 0.5)
           .and_return(chunk1_response)
-        expect(Evidence::OpenAI).to receive(:run)
+        expect(Evidence::OpenAI::Completion).to receive(:run)
           .with(prompt: chunk2_prompt, count: 1, temperature: 0.5)
           .and_return(chunk2_response)
 
@@ -66,7 +66,7 @@ module Evidence
       let!(:prompt) { create(:evidence_prompt, activity: activity, conjunction: "because") }
 
       before do
-        allow(Evidence::OpenAI).to receive(:run).and_return(full_passage_response)
+        allow(Evidence::OpenAI::Completion).to receive(:run).and_return(full_passage_response)
       end
 
       it "should generate a hash" do

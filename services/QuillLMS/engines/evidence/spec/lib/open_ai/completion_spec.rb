@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 module Evidence
-  RSpec.describe(OpenAI, type: :model) do
+  RSpec.describe(OpenAI::Completion, type: :model) do
     let(:prompt) { 'some prompt' }
     let(:temperature) { 0.9 }
     let(:count) { 10 }
@@ -31,8 +31,8 @@ module Evidence
     # include headers in response for proper parsing by HTTParty
     let(:sample_response) { {body: sample_response_body.to_json, headers: {content_type: 'application/json'}} }
 
-    let(:open_AI) do
-      Evidence::OpenAI.new(
+    let(:completion) do
+      Evidence::OpenAI::Completion.new(
           prompt: prompt,
           temperature: temperature,
           count: count,
@@ -42,11 +42,11 @@ module Evidence
 
     describe "#new" do
       it "should initialize as expected" do
-        expect(open_AI.prompt).to eq(prompt)
-        expect(open_AI.temperature).to eq(temperature)
-        expect(open_AI.count).to eq(count)
-        expect(open_AI.model_key).to eq(model_key)
-        expect(open_AI.options_hash).to eq(options_hash)
+        expect(completion.prompt).to eq(prompt)
+        expect(completion.temperature).to eq(temperature)
+        expect(completion.count).to eq(count)
+        expect(completion.model_key).to eq(model_key)
+        expect(completion.options_hash).to eq(options_hash)
       end
     end
 
@@ -54,20 +54,20 @@ module Evidence
       it "should post to OpenAI, populate response, and return a cleaned_response" do
         stub_request(:post, endpoint).to_return(sample_response)
 
-        response = open_AI.run
+        response = completion.run
         expect(response.count).to be(3)
         expect(response.class).to be(Array)
         expect(response[0]).to eq("a text response")
-        expect(open_AI.response.class).to be(HTTParty::Response)
+        expect(completion.response.class).to be(HTTParty::Response)
 
-        request_body = JSON.parse(open_AI.response.request.options[:body])
+        request_body = JSON.parse(completion.response.request.options[:body])
         # ensure correct body was sent
         expect(request_body['model']).to eq('text-curie-001')
         expect(request_body['temperature']).to eq(temperature)
         expect(request_body['prompt']).to eq(prompt)
         expect(request_body['n']).to eq(count)
-        expect(request_body['max_tokens']).to eq(Evidence::OpenAI::MAX_TOKENS)
-        expect(request_body['stop']).to eq(Evidence::OpenAI::STOP_TOKENS)
+        expect(request_body['max_tokens']).to eq(Evidence::OpenAI::Completion::MAX_TOKENS)
+        expect(request_body['stop']).to eq(Evidence::OpenAI::Completion::STOP_TOKENS)
       end
     end
 
@@ -76,9 +76,9 @@ module Evidence
 
 
       it "should strip out special characters and drop after middle newline" do
-        expect(open_AI).to receive(:result_texts).and_return(response_with_chars)
+        expect(completion).to receive(:result_texts).and_return(response_with_chars)
 
-        expect(open_AI.cleaned_results.first).to eq("Hello there you  person")
+        expect(completion.cleaned_results.first).to eq("Hello there you  person")
       end
     end
   end

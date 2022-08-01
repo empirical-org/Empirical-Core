@@ -19,7 +19,7 @@ module Evidence
 
       attr_reader :passage, :stem, :nouns, :results
 
-      # returns a hash of the form {'csv name' => CSVFile, 'csv name2' =>...}
+      # returns a hash of the form {'csv name' => CSVString, 'csv name2' =>...}
       def self.generate_csvs(activity_id:, nouns: [])
         activity = Activity.find(activity_id)
         passage = activity.passages.first.text
@@ -82,7 +82,7 @@ module Evidence
       end
 
       private def run_prompt(prompt:, count:, seed:, noun: nil, temperature: TEMP_PASSAGE)
-        output = Evidence::OpenAI.run(prompt: prompt, count: count, temperature: temperature)
+        output = Evidence::OpenAI::Completion.run(prompt: prompt, count: count, temperature: temperature)
         current_result_texts = results.map(&:text)
 
         new_results = output
