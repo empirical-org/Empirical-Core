@@ -3,7 +3,7 @@
 class SaveActivitySessionConceptResultsWorker
   include Sidekiq::Worker
 
-  class ConceptResultCopyFailedException < StandardError;end
+  class ConceptResultCopyFailedException < StandardError; end
 
   def perform(old_concept_result_ids)
     OldConceptResult.where(id: old_concept_result_ids).each do |old_concept_result|
