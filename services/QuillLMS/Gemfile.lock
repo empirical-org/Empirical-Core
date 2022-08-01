@@ -733,8 +733,6 @@ GEM
       climate_control (>= 0.0.3, < 1.0)
     thor (1.2.1)
     tilt (2.0.10)
-    time_difference (0.5.0)
-      activesupport
     timecop (0.9.1)
     ttfunk (1.5.1)
     turbolinks (5.2.1)
@@ -899,7 +897,6 @@ DEPENDENCIES
   stripe (~> 5.30)
   super_diff
   terminal-notifier-guard
-  time_difference
   timecop
   ttfunk
   turbolinks

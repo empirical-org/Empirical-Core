@@ -21,7 +21,6 @@ describe('Session actions', () => {
     const mockPromptText = 'This is great because'
     const mockAttempt = 1
     const mockStartingFeedback = 'Starting feedback'
-    const mockStartingFeedbackID = 'STARTING_FEEDBACK_ID'
     const mockPreviousFeedback = [{
       feedback: mockStartingFeedback
     }]
@@ -40,8 +39,8 @@ describe('Session actions', () => {
 
     dispatch(getFeedback(mockArgs))
 
-    it('sends a COMPREHENSION_ENTRY_SUBMITTED analytics event', () => {
-      expect(mockTrackAnalyticsEvent).toBeCalledWith(Events.COMPREHENSION_ENTRY_SUBMITTED, {
+    it('sends a EVIDENCE_ENTRY_SUBMITTED analytics event', () => {
+      expect(mockTrackAnalyticsEvent).toBeCalledWith(Events.EVIDENCE_ENTRY_SUBMITTED, {
         activityID: mockActivityID,
         attemptNumber: mockAttempt,
         promptID: mockPromptID,
