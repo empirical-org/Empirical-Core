@@ -31,7 +31,7 @@ module Evidence
     # include headers in response for proper parsing by HTTParty
     let(:sample_response) { {body: sample_response_body.to_json, headers: {content_type: 'application/json'}} }
 
-    let(:openAI) do
+    let(:open_AI) do
       Evidence::OpenAI.new(
           prompt: prompt,
           temperature: temperature,
@@ -42,11 +42,11 @@ module Evidence
 
     describe "#new" do
       it "should initialize as expected" do
-        expect(openAI.prompt).to eq(prompt)
-        expect(openAI.temperature).to eq(temperature)
-        expect(openAI.count).to eq(count)
-        expect(openAI.model_key).to eq(model_key)
-        expect(openAI.options_hash).to eq(options_hash)
+        expect(open_AI.prompt).to eq(prompt)
+        expect(open_AI.temperature).to eq(temperature)
+        expect(open_AI.count).to eq(count)
+        expect(open_AI.model_key).to eq(model_key)
+        expect(open_AI.options_hash).to eq(options_hash)
       end
     end
 
@@ -54,13 +54,13 @@ module Evidence
       it "should post to OpenAI, populate response, and return a cleaned_response" do
         stub_request(:post, endpoint).to_return(sample_response)
 
-        response = openAI.run
+        response = open_AI.run
         expect(response.count).to be(3)
         expect(response.class).to be(Array)
         expect(response[0]).to eq("a text response")
-        expect(openAI.response.class).to be(HTTParty::Response)
+        expect(open_AI.response.class).to be(HTTParty::Response)
 
-        request_body = JSON.parse(openAI.response.request.options[:body])
+        request_body = JSON.parse(open_AI.response.request.options[:body])
         # ensure correct body was sent
         expect(request_body['model']).to eq('text-curie-001')
         expect(request_body['temperature']).to eq(temperature)
@@ -76,9 +76,9 @@ module Evidence
 
 
       it "should strip out special characters and drop after middle newline" do
-        expect(openAI).to receive(:result_texts).and_return(response_with_chars)
+        expect(open_AI).to receive(:result_texts).and_return(response_with_chars)
 
-        expect(openAI.cleaned_results.first).to eq("Hello there you  person")
+        expect(open_AI.cleaned_results.first).to eq("Hello there you  person")
       end
     end
   end

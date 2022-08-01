@@ -7,15 +7,15 @@ module Evidence
     let(:passage) { 'one two three four five six' }
     let(:stem) { 'This is because'}
     let(:nouns) { ['noun1']}
-    let(:full_passage_prompt) {passage + '. ' + stem + ' '}
+    let(:full_passage_prompt) {"#{passage}. #{stem} "}
     let(:full_passage_response) {['one response']}
-    let(:full_noun_prompt) {passage + '. ' + stem + ' ' + nouns.first + ' '}
+    let(:full_noun_prompt) {"#{passage}. #{stem} #{nouns.first} "}
     let(:full_noun_response) {['two response']}
 
-    let(:chunk1_prompt) {'one two three four' + '. ' + stem + ' '}
+    let(:chunk1_prompt) {"one two three four. #{stem} "}
     let(:chunk1_response) {['three response']}
 
-    let(:chunk2_prompt) {'five six' + '. ' + stem + ' '}
+    let(:chunk2_prompt) {"five six. #{stem} "}
     let(:chunk2_response) {['four response']}
     let(:seed_labels) {['full_passage', 'full_passage_noun_noun1', 'text_chunk_1', 'text_chunk_2']}
 
@@ -69,7 +69,7 @@ module Evidence
         allow(Evidence::OpenAI).to receive(:run).and_return(full_passage_response)
       end
 
-      it "should generate a hash " do
+      it "should generate a hash" do
         output = Evidence::Synthetic::InitialData.generate_csvs(activity_id: activity.id, nouns: ['hello'])
 
         expect(output.class).to be Hash
