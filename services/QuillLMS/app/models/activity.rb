@@ -89,8 +89,8 @@ class Activity < ApplicationRecord
   ALPHA = 'alpha'
   ARCHIVED = 'archived'
 
-  scope :gamma_user, -> { where("'#{GAMMA}' = ANY(activities.flags) OR '#{PRODUCTION}' = ANY(activities.flags)")}
-  scope :beta_user, -> { where("'#{BETA}' = ANY(activities.flags) OR '#{GAMMA}' = ANY(activities.flags) OR '#{PRODUCTION}' = ANY(activities.flags)")}
+  scope :gamma_user, -> { where("'#{GAMMA}' = ANY(activities.flags) OR '#{BETA}' = ANY(activities.flags) OR '#{PRODUCTION}' = ANY(activities.flags)")}
+  scope :beta_user, -> { where("'#{BETA}' = ANY(activities.flags) OR '#{PRODUCTION}' = ANY(activities.flags)")}
   scope :alpha_user, -> { where("'#{ALPHA}' = ANY(activities.flags) OR '#{BETA}' = ANY(activities.flags) OR '#{GAMMA}' = ANY(activities.flags) OR '#{PRODUCTION}' = ANY(activities.flags)")}
 
   scope :with_classification, -> { includes(:classification).joins(:classification) }
@@ -243,7 +243,7 @@ class Activity < ApplicationRecord
   end
 
   def readability_grade_level
-    raw_score&.readability_grade_level(activity_classification_id)
+    raw_score&.readability_grade_level
   end
 
   def default_minimum_grade_level

@@ -58,7 +58,7 @@ describe UnitTemplate, redis: true, type: :model do
 
       unit_template = create(:unit_template, activity_ids: [activity_one.id, activity_two.id])
 
-      expect(unit_template.readability).to eq("4th-7th")
+      expect(unit_template.readability).to eq("2nd-7th")
     end
 
     it 'calculates readability as nil if the activities do not have readability' do
@@ -78,7 +78,7 @@ describe UnitTemplate, redis: true, type: :model do
 
       unit_template = create(:unit_template, activity_ids: [activity_one.id, activity_two.id])
 
-      expect(unit_template.readability).to eq("4th-5th")
+      expect(unit_template.readability).to eq("2nd-3rd")
     end
   end
 

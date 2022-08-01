@@ -7,10 +7,10 @@ class IdentifyUnmigratedOldConceptResultsWorker
   REPORT_RECIPIENT = 'thomas@quill.org'
   BATCH_SIZE = 10_000_000
 
-  def perform
-    max_id = OldConceptResult.maximum(:id)
+  def perform(start_id, max_id)
+    max_id ||= OldConceptResult.maximum(:id)
 
-    start_id = 1
+    start_id ||= 1
 
     missing_id_ranges = []
 
