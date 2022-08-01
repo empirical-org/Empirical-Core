@@ -76,12 +76,14 @@ export const EvidenceTool = ({ loggedInUser }) => {
   return(
     <div className="tool-container evidence-tool-page">
       <section className='bg-quillteal tool-hero text-center'>
-        <section className="header-and-icon-container">
-          <img className="tool-page-icon lazyload" data-src='https://assets.quill.org/images/icons/tool-evidence-white.svg' />
-          <h1 className="q-h1">Quill Reading for Evidence</h1>
-          <p className="new-tag">NEW</p>
+        <section className="inner-section">
+          <section className="header-and-icon-container">
+            <img className="tool-page-icon lazyload" data-src='https://assets.quill.org/images/icons/tool-evidence-white.svg' />
+            <h1 className="q-h1">Quill Reading for Evidence</h1>
+            <p className="new-tag">NEW</p>
+          </section>
+          <section className="description">{renderHeaderText()}</section>
         </section>
-        <section className="description">{renderHeaderText()}</section>
       </section>
       <section className="bg-quillteal tool-hero topics-section">
         <section className="inner-section">
