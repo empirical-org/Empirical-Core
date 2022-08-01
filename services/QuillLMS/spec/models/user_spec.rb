@@ -750,18 +750,6 @@ describe User, type: :model do
     end
   end
 
-  describe '#password?' do
-    it 'returns false if password is not present' do
-      user = build(:user, password: nil)
-      expect(user.send(:password?)).to be false
-    end
-
-    it 'returns true if password is present' do
-      user = build(:user, password: 'something')
-      expect(user.send(:password?)).to be true
-    end
-  end
-
   describe '#role=' do
     it 'return role name' do
       user = build(:user)
@@ -1334,6 +1322,110 @@ describe User, type: :model do
       let(:clever_user) { create(:clever_library_auth_credential).user }
 
       it { expect(clever_user.clever_authorized?).to be true }
+    end
+  end
+
+  describe '#staff_session_duration_exceeded' do
+    let(:user) { create(:user, role: role) }
+
+    subject { user.staff_session_duration_exceeded? }
+
+    context 'user is not staff' do
+      let(:role) { :teacher }
+
+      it { expect(subject).to eq false }
+    end
+
+    context 'user is staff' do
+      let(:role) { :staff}
+
+      context 'nil last_sign_in' do
+        before { user.update(last_sign_in: nil) }
+
+        it { expect(subject).to eq false }
+      end
+
+      context 'last_sign_in happened too long ago' do
+        before { user.update(last_sign_in: described_class::STAFF_SESSION_DURATION.ago + 1.hour) }
+
+        it { expect(subject).to eq false }
+      end
+
+      context 'last_sign_in happened within acceptable interval' do
+        before { user.update(last_sign_in: described_class::STAFF_SESSION_DURATION.ago - 1.hour) }
+
+        it { expect(subject).to eq true }
+      end
+    end
+  end
+
+  describe '#inactive_too_long?' do
+    subject { user.inactive_too_long? }
+
+    context 'last_sign_in_too_long_ago? is false' do
+      before { allow(user).to receive(:last_sign_in_too_long_ago?).and_return(false) }
+
+      it { expect(subject).to eq false }
+    end
+
+    context 'last_sign_in_too_long_ago? is true' do
+      before { allow(user).to receive(:last_sign_in_too_long_ago?).and_return(true) }
+
+      context 'last_active_too_long_ago? is false' do
+        before { allow(user).to receive(:last_active_too_long_ago?).and_return(false) }
+
+        it { expect(subject).to eq false }
+      end
+
+      context 'last_active_too_long_ago? is true' do
+        before { allow(user).to receive(:last_active_too_long_ago?).and_return(true) }
+
+        it { expect(subject).to eq true }
+      end
+    end
+  end
+
+  describe '#last_sign_in_too_long_ago' do
+    subject { user.last_sign_in_too_long_ago? }
+
+    context 'nil last_sign_in' do
+      before { user.update(last_sign_in: nil) }
+
+      it { expect(subject).to eq false }
+    end
+
+    context 'last_sign_in happened too long ago' do
+      before { user.update(last_sign_in: described_class::USER_SESSION_DURATION.ago + 1.day) }
+
+      it { expect(subject).to eq false }
+    end
+
+    context 'last_sign_in happened within acceptable interval' do
+      before { user.update(last_sign_in: described_class::USER_SESSION_DURATION.ago - 1.day) }
+
+      it { expect(subject).to eq true }
+    end
+  end
+
+  describe '#last_active_too_long_ago?' do
+    subject { user.last_active_too_long_ago? }
+
+    context 'nil last_active' do
+      before { user.update(last_active: nil) }
+
+      it { expect(subject).to eq true }
+    end
+
+    context 'last_active happened too long ago' do
+      before { user.update(last_active: described_class::USER_INACTIVITY_DURATION.ago + 1.day) }
+
+      it { expect(subject).to eq false }
+    end
+
+    context 'last_active happened within acceptable interval' do
+      before { user.update(last_active: described_class::USER_INACTIVITY_DURATION.ago - 1.day) }
+
+      it { expect(subject).to eq true }
     end
   end
 end
