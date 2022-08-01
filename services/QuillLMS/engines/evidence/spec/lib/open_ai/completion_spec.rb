@@ -74,7 +74,6 @@ module Evidence
     describe "#cleaned_results" do
       let(:response_with_chars) {["  -\n\n\n 1) Hello there[] you 2) person = \n other stuff to drop"]}
 
-
       it "should strip out special characters and drop after middle newline" do
         expect(completion).to receive(:result_texts).and_return(response_with_chars)
 

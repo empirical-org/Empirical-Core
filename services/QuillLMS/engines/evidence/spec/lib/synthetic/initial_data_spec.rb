@@ -19,7 +19,6 @@ module Evidence
     let(:chunk2_response) {['four response']}
     let(:seed_labels) {['full_passage', 'full_passage_noun_noun1', 'text_chunk_1', 'text_chunk_2']}
 
-
     let(:data) { Evidence::Synthetic::InitialData.new(passage: passage, stem: stem, nouns: nouns)}
 
     before do

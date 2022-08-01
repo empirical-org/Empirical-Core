@@ -53,7 +53,6 @@ module Evidence
       # file_path = "/Users/danieldrabik/Dropbox/quill/synthetic/test_generation_#{Time.current.strftime('%Y-%m-%d-%T')}.csv"
       # generator.to_csv(file_path)
 
-
       def initialize(passage:, stem:, nouns: [])
         @passage = passage
         @stem = stem
