@@ -17,6 +17,7 @@ exports[`EvidenceTool Component should match snapshot 1`] = `
           className="header-and-icon-container"
         >
           <img
+            alt="Reading for Evidence icon"
             className="tool-page-icon lazyload"
             data-src="https://assets.quill.org/images/icons/tool-evidence-white.svg"
           />
@@ -66,6 +67,7 @@ exports[`EvidenceTool Component should match snapshot 1`] = `
           <a
             className="q-button text-quillteal bg-white"
             href="https://www.quill.org/evidence/#/play?uid=180&skipToPrompts=true"
+            rel="noopener noreferrer"
             target="_blank"
           >
             View a Sample Activity
@@ -91,6 +93,7 @@ exports[`EvidenceTool Component should match snapshot 1`] = `
           <a
             className="q-button text-quillteal bg-white"
             href="https://www.quill.org/evidence/#/play?uid=176&skipToPrompts=true"
+            rel="noopener noreferrer"
             target="_blank"
           >
             View a Sample Activity
@@ -962,7 +965,6 @@ exports[`EvidenceTool Component should match snapshot 1`] = `
                       <strong>
                         Walk students through the student onboarding section of a Reading for Evidence activity.
                       </strong>
-                       
                       These pages summarize the steps of the activity and then emphasize that 1) the activity is not graded, 2) the feedback may not always be correct, and 3) all writers revise.
                     </li>
                     <li>
@@ -1247,6 +1249,7 @@ exports[`EvidenceTool Component should match snapshot 1`] = `
         <a
           className="q-button cta-button text-quillteal bg-white"
           href="https://www.quill.org/evidence/#/play?uid=176&skipToPrompts=true"
+          rel="noopener noreferrer"
           target="_blank"
         >
           Try a sample activity

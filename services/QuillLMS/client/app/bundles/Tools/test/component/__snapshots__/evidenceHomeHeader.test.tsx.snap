@@ -15,6 +15,7 @@ exports[`EvidenceHomeSection Component should match snapshot 1`] = `
           className="header-and-icon-container"
         >
           <img
+            alt="Reading for Evidence icon"
             className="tool-page-icon lazyload"
             data-src="https://assets.quill.org/images/icons/tool-evidence-white.svg"
           />
