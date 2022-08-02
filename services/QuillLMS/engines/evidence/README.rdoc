@@ -49,4 +49,8 @@ You run migrations in the parent app, not in the engine. So if you add a migrati
 
 `rake evidence:install:migrations`
 
+If you are hitting an issue in which running `rspec` keeps telling you have a pending migration (and you've run the LMS migrations), run the following in the evidence directory:
+
+`rake db:schema:load RAILS_ENV=test`
+
 See the Rails guide for more details.
