@@ -392,7 +392,7 @@ class PagesController < ApplicationController
 
   def evidence_tool
     @title = 'Quill Reading for Evidence | Use a text to write with evidence'
-    @description = ''
+    @description = 'Provide your students with nonfiction texts paired with AI-powered writing prompts, instead of multiple-choice questions, to enable deeper thinking.'
   end
 
   def activities
@@ -521,7 +521,7 @@ class PagesController < ApplicationController
     case action_name
     when 'partners', 'mission', 'faq', 'impact', 'team', 'tos', 'media_kit', 'media', 'privacy', 'map', 'teacher-center', 'news', 'stats', 'activities'
       @js_file = 'public'
-    when 'grammar_tool', 'connect_tool', 'diagnostic_tool', 'proofreader_tool', 'lessons_tool', 'evidence_tool'
+    when 'grammar_tool', 'connect_tool', 'diagnostic_tool', 'proofreader_tool', 'lessons_tool', 'evidence_tool', 'home_new'
       @js_file = 'tools'
     when 'backpack' || 'locker'
       @js_file = 'staff'

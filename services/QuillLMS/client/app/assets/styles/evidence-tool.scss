@@ -41,7 +41,7 @@
         background-color: white;
         color: #2C7F9B;
         max-width: 355px;
-        border-radius: 4px;
+        border-radius: 8px;
         .topic {
           font-weight: 700;
           font-size: 22px;
@@ -157,15 +157,15 @@
     padding: 72px 0px 72px 0px;
     justify-content: center;
     display: flex;
+    background-image: url("https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_BackgroundPattern3.png");
+    background-position-y: -32px;
+    background-size: cover;
+    background-repeat: no-repeat;
     .inner-container {
       display: flex;
       max-width: 1175px;
       justify-content: space-between;
       width: 100%;
-      background-image: url("https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_BackgroundPattern3.png");
-      background-position-y: -32px;
-      background-size: cover;
-      background-repeat: no-repeat;
       #information-section {
         flex: 1;
         display: flex;

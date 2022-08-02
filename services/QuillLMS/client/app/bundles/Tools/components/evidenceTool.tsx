@@ -3,11 +3,6 @@ import * as React from 'react';
 import QuestionsAndAnswers from '../../Teacher/containers/QuestionsAndAnswers';
 import { onMobile } from '../../Shared';
 
-const EVIDENCE_TIPS = [
-  "Quill’s feedback bot provides custom feedback for every prompt that mirrors the feedback a teacher would provide to a student in a 1:1 context.",
-  "When needed, the feedback offers extra support with mini lessons that explain key writing skills like paraphrasing or using a conjunction to join ideas."
-]
-
 export const EvidenceTool = ({ loggedInUser }) => {
 
   function renderBottomSection() {
@@ -102,7 +97,7 @@ export const EvidenceTool = ({ loggedInUser }) => {
           <div className="topic-section">
             <p className="topic">Social Studies Topics</p>
             <img alt="photograph of the Statue of Liberty" src="https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Image_StatueOfLiberty.png"/>
-            <p className="activity-title" id="first-title-topic">US History</p>
+            <p className="activity-title" id="first-title-topic">U.S. History</p>
             <p className="activity-title" id="second-title-topic">World History</p>
             <p id="under-development">Under Development, Coming 2023</p>
           </div>
