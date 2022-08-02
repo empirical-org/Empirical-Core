@@ -4,9 +4,9 @@ import 'lazysizes/plugins/parent-fit/ls.parent-fit';
 
 import QuestionsAndAnswersApp from './questionsAndAnswersAppClient.jsx'
 import EvidenceToolApp from './evidenceToolAppClient'
-import EvidenceHomeHeaderApp from './evidenceHomeHeaderAppClient'
+import EvidenceHomeSectionApp from './evidenceHomeSectionAppClient'
 
 require('../../../assets/styles/home.scss');
 require('../../Home/bootstrap_carousel.js');
 
-ReactOnRails.register({ QuestionsAndAnswersApp, EvidenceToolApp, EvidenceHomeHeaderApp });
+ReactOnRails.register({ QuestionsAndAnswersApp, EvidenceToolApp, EvidenceHomeSectionApp });
