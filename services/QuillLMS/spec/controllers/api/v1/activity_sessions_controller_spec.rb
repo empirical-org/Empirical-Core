@@ -97,7 +97,9 @@ describe Api::V1::ActivitySessionsController, type: :controller do
       end
 
       it 'saves the concept tag relationship (ID) in the result' do
-        put :update, params: { id: activity_session.uid, concept_results: concept_results }, as: :json
+        Sidekiq::Testing.inline! do
+          put :update, params: { id: activity_session.uid, concept_results: concept_results }, as: :json
+        end
         expect(OldConceptResult.where(activity_session_id: activity_session, concept_id: writing_concept.id).count).to eq 2
       end
     end

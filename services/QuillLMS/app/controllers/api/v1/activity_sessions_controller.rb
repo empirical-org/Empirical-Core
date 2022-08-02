@@ -85,12 +85,7 @@ class Api::V1::ActivitySessionsController < Api::ApiController
     concept_results_to_save = @concept_results.map { |c| concept_results_hash(c) }.reject(&:empty?)
     return if concept_results_to_save.empty?
 
-    bulk_inserter = OldConceptResult.custom_bulk_insert(values: concept_results_to_save, return_primary_keys: true)
-    old_concept_result_ids = bulk_inserter.result_sets.first.map { |result| result['id'] }
-    # Note that this will need to be overhauled when we stop writing OldConceptResult
-    # records, but we have to have this here now because we have to have the id value
-    # from the OldConceptResult to record the new ConceptResult
-    SaveActivitySessionConceptResultsWorker.perform_async(old_concept_result_ids)
+    SaveActivitySessionOldConceptResultsWorker.perform_async(concept_results_to_save)
   end
 
   private def concept_results_hash(concept_result)
