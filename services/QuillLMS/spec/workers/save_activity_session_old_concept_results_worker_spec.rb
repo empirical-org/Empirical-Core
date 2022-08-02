@@ -44,8 +44,8 @@ describe SaveActivitySessionOldConceptResultsWorker, type: :worker do
     it 'should save OldConceptResult records' do
       Sidekiq::Testing.inline! do
         expect { subject.perform(concept_results) }
-          .to change { OldConceptResult.count }.by(3)
-          .and change { ConceptResult.count }.by(3)
+          .to change(OldConceptResult, :count).by(3)
+          .and change(ConceptResult, :count).by(3)
       end
     end
 
