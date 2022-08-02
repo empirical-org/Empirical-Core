@@ -42,8 +42,11 @@ describe SaveActivitySessionOldConceptResultsWorker, type: :worker do
     end
 
     it 'should save OldConceptResult records' do
-      expect { subject.perform(concept_results) }
-        .to change { OldConceptResult.count }.by(3)
+      Sidekiq::Testing.inline! do
+        expect { subject.perform(concept_results) }
+          .to change { OldConceptResult.count }.by(3)
+          .and change { ConceptResult.count }.by(3)
+      end
     end
 
     it 'should pass on an array of IDs for the created OldConceptResults to the next worker' do
