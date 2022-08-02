@@ -108,7 +108,7 @@ describe PagesController do
   describe '#evidence_tool' do
     it 'should set the title and description' do
       get :evidence_tool
-      expect(assigns(:title)).to eq '[DEV] Quill Reading for Evidence | Use a text to write with evidence'
+      expect(assigns(:title)).to eq 'Quill Reading for Evidence | Use a text to write with evidence'
       expect(assigns(:description)).to eq 'Provide your students with nonfiction texts paired with AI-powered writing prompts, instead of multiple-choice questions, to enable deeper thinking.'
     end
   end

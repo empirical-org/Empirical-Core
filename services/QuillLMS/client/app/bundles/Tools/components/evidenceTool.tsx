@@ -10,14 +10,14 @@ export const EvidenceTool = ({ loggedInUser }) => {
       return(
         <section className="tool-sign-up">
           <h1 className='q-h1'>Get started now! Assign Quill Reading for Evidence.</h1>
-          <a href='/assign/activity-library?activityClassificationFilters[]=evidence' className="q-button cta-button bg-quillgreen text-white">Assign</a>
+          <a className="q-button cta-button bg-quillgreen text-white" href='/assign/activity-library?activityClassificationFilters[]=evidence'>Assign</a>
         </section>
       );
     }
     return(
       <section className="tool-sign-up">
         <h1 className='q-h1'>Sign up to start Quill Reading for Evidence in your class today!</h1>
-        <a href='/account/new' className="q-button cta-button bg-quillgreen text-white">Sign Up</a>
+        <a className="q-button cta-button bg-quillgreen text-white" href='/account/new'>Sign Up</a>
       </section>
     );
   }
@@ -26,46 +26,40 @@ export const EvidenceTool = ({ loggedInUser }) => {
     if(onMobile()) {
       return <p>Quill provides free writing and grammar activities for elementary, middle, and high school students.</p>
     }
-    return(
-      <p>Provide your students with nonfiction texts paired with AI-powered writing prompts, instead of multiple-choice questions, to enable deeper thinking. Students read a nonfiction text and build their comprehension through writing prompts, supporting a series of claims with evidence sourced from the text. Quill challenges students to write responses that are precise, logical, and based on textual evidence, with Quill coaching the student through custom, targeted feedback on each revision so that students strengthen their reading comprehension and hone their writing skills.<br/><br/> Designed for 8th-12th grade students, each activity takes 15-20 minutes to complete. Quill is developing activities for ELA, social studies, and science classrooms, with a particular focus on texts that examine 21st-century issues.</p>
-    )
+    return <p>Provide your students with nonfiction texts paired with AI-powered writing prompts, instead of multiple-choice questions, to enable deeper thinking. Students read a nonfiction text and build their comprehension through writing prompts, supporting a series of claims with evidence sourced from the text. Quill challenges students to write responses that are precise, logical, and based on textual evidence, with Quill coaching the student through custom, targeted feedback on each revision so that students strengthen their reading comprehension and hone their writing skills.<br /><br /> Designed for 8th-12th grade students, each activity takes 15-20 minutes to complete. Quill is developing activities for ELA, social studies, and science classrooms, with a particular focus on texts that examine 21st-century issues.</p>
   }
 
   function renderFirstAttemptText() {
     if(onMobile()) {
       return <p>This response uses the wrong type of evidence to demonstrate a relationship of contrast. The feedback and mini lesson explain how to use because to show a relationship of causation between two ideas.</p>
-    } else {
-      return(
-        <React.Fragment>
-          <p>Quill&apos;s feedback bot provides custom feedback for every response that mirrors the feedback a teacher would provide to a student in a 1:1 context. </p>
-          <p>In this response, it&apos;s true that seaweed benefits cows by reducing their methane emissions, but the student has not specified *why* seaweed is beneficial. Quill asks the student to go back to the text and examine it more carefully to provide a reason why seaweed benefits cows and the environment. Students must use precise evidence in their response to be able to successfully complete it.</p>
-        </React.Fragment>
-      )
     }
+    return(
+      <React.Fragment>
+        <p>Quill&apos;s feedback bot provides custom feedback for every response that mirrors the feedback a teacher would provide to a student in a 1:1 context. </p>
+        <p>In this response, it&apos;s true that seaweed benefits cows by reducing their methane emissions, but the student has not specified *why* seaweed is beneficial. Quill asks the student to go back to the text and examine it more carefully to provide a reason why seaweed benefits cows and the environment. Students must use precise evidence in their response to be able to successfully complete it.</p>
+      </React.Fragment>
+    )
   }
 
   function renderSecondAttemptText() {
     if(onMobile()) {
       return <p>The student identified that methane is harmful to the environment but did not support their response with a key statistic from the text. Quill encourages them to be as specific as possible.</p>
-    } else {
-      return <p>The student identified that methane is harmful to the environment but did not support their response with a key statistic from the text. Quill encourages them to be as specific as possible to stregthen their response and more accurately respond to the claim.</p>
     }
+    return <p>The student identified that methane is harmful to the environment but did not support their response with a key statistic from the text. Quill encourages them to be as specific as possible to stregthen their response and more accurately respond to the claim.</p>
   }
 
   function renderThirdAttemptText() {
     if(onMobile()) {
       return <p>The student strengthened their evidence by adding a precise statistic from the text that explains how significantly seaweed impacts methane.</p>
-    } else {
-      return <p>The student strengthened their evidence by adding a precise statistic from the text that explains how significantly seaweed impacts methane. Since the key ideas are in place, Quill now provides a mini-lesson on the grammar errors in their response. Quill only provides grammar and spelling feedback once the student has written a strong response with the key ideas from the text.</p>
     }
+    return <p>The student strengthened their evidence by adding a precise statistic from the text that explains how significantly seaweed impacts methane. Since the key ideas are in place, Quill now provides a mini-lesson on the grammar errors in their response. Quill only provides grammar and spelling feedback once the student has written a strong response with the key ideas from the text.</p>
   }
 
   function renderFourthAttemptText() {
     if(onMobile()) {
       return <p>The student wrote a precise, textually-supported sentence. Quill provides additional feedback to reinforce what they learned.</p>
-    } else {
-      return <p>At this point the student has now written a precise, textually-supported sentence. Students often come into the tool writing vague or inaccurate statements, and through multiple rounds of practice, feedback, and revision, students gain the ability to utilize precise evidence in their responses.</p>
     }
+    return <p>At this point the student has now written a precise, textually-supported sentence. Students often come into the tool writing vague or inaccurate statements, and through multiple rounds of practice, feedback, and revision, students gain the ability to utilize precise evidence in their responses.</p>
   }
 
   return(
@@ -73,7 +67,7 @@ export const EvidenceTool = ({ loggedInUser }) => {
       <section className='bg-quillteal tool-hero text-center'>
         <section className="inner-section">
           <section className="header-and-icon-container">
-            <img className="tool-page-icon lazyload" data-src='https://assets.quill.org/images/icons/tool-evidence-white.svg' />
+            <img alt="Reading for Evidence icon" className="tool-page-icon lazyload" data-src='https://assets.quill.org/images/icons/tool-evidence-white.svg' />
             <h1 className="q-h1">Quill Reading for Evidence</h1>
             <p className="new-tag">NEW</p>
           </section>
@@ -84,19 +78,19 @@ export const EvidenceTool = ({ loggedInUser }) => {
         <section className="inner-section">
           <div className="topic-section">
             <p className="topic">Culture & Society Topics</p>
-            <img alt="photograph of a football" src="https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Image_Football.png"/>
+            <img alt="photograph of a football" src="https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Image_Football.png" />
             <p className="activity-title">"Should Schools Have Grade Requirements for Student Athletes?"</p>
-            <a href='https://www.quill.org/evidence/#/play?uid=180&skipToPrompts=true' target="_blank" className="q-button text-quillteal bg-white">View a Sample Activity</a>
+            <a className="q-button text-quillteal bg-white" href='https://www.quill.org/evidence/#/play?uid=180&skipToPrompts=true' target="_blank" rel="noopener noreferrer">View a Sample Activity</a>
           </div>
           <div className="topic-section">
             <p className="topic">Science Topics</p>
-            <img alt="photograph of a cow" src="https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Image_Cow.png"/>
+            <img alt="photograph of a cow" src="https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Image_Cow.png" />
             <p className="activity-title">"How Does Eating Meat Impact Global Warming?"</p>
-            <a href='https://www.quill.org/evidence/#/play?uid=176&skipToPrompts=true' target="_blank" className="q-button text-quillteal bg-white">View a Sample Activity</a>
+            <a className="q-button text-quillteal bg-white" href='https://www.quill.org/evidence/#/play?uid=176&skipToPrompts=true' target="_blank" rel="noopener noreferrer">View a Sample Activity</a>
           </div>
           <div className="topic-section">
             <p className="topic">Social Studies Topics</p>
-            <img alt="photograph of the Statue of Liberty" src="https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Image_StatueOfLiberty.png"/>
+            <img alt="photograph of the Statue of Liberty" src="https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Image_StatueOfLiberty.png" />
             <p className="activity-title" id="first-title-topic">U.S. History</p>
             <p className="activity-title" id="second-title-topic">World History</p>
             <p id="under-development">Under Development, Coming 2023</p>
@@ -136,8 +130,8 @@ export const EvidenceTool = ({ loggedInUser }) => {
             {renderFirstAttemptText()}
           </section>
           <section className="right-side-container">
-            <img id="prompt-screenshot" src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/Hero_Evidence_Widget_3.png" alt="screenshot of example first attempt Reading for Evidence activity prompt" />
-            <img id="arrow" src="https://assets.quill.org/images/evidence/home_page/evidence_arrow.svg" alt="dotted line arrow" />
+            <img alt="screenshot of example first attempt Reading for Evidence activity prompt" id="prompt-screenshot" src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/Hero_Evidence_Widget_3.png" />
+            <img alt="dotted line arrow" id="arrow" src="https://assets.quill.org/images/evidence/home_page/evidence_arrow.svg" />
           </section>
         </section>
         <section className="attempt">
@@ -146,8 +140,8 @@ export const EvidenceTool = ({ loggedInUser }) => {
             {renderSecondAttemptText()}
           </section>
           <section className="right-side-container">
-            <img id="prompt-screenshot" src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/Hero_Evidence_Widget_6.png" alt="screenshot of example first attempt Reading for Evidence activity prompt" />
-            <img id="arrow" src="https://assets.quill.org/images/evidence/home_page/evidence_arrow.svg" alt="dotted line arrow" />
+            <img alt="screenshot of example first attempt Reading for Evidence activity prompt" id="prompt-screenshot" src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/Hero_Evidence_Widget_6.png" />
+            <img alt="dotted line arrow" id="arrow" src="https://assets.quill.org/images/evidence/home_page/evidence_arrow.svg" />
           </section>
         </section>
         <section className="attempt gray-background">
@@ -156,8 +150,8 @@ export const EvidenceTool = ({ loggedInUser }) => {
             {renderThirdAttemptText()}
           </section>
           <section className="right-side-container">
-            <img id="prompt-screenshot" src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/Hero_Evidence_Widget_10.png" alt="screenshot of example first attempt Reading for Evidence activity prompt" />
-            <img id="arrow" src="https://assets.quill.org/images/evidence/home_page/evidence_arrow.svg" alt="dotted line arrow" />
+            <img alt="screenshot of example first attempt Reading for Evidence activity prompt" id="prompt-screenshot" src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/Hero_Evidence_Widget_10.png" />
+            <img alt="dotted line arrow" id="arrow" src="https://assets.quill.org/images/evidence/home_page/evidence_arrow.svg" />
           </section>
         </section>
         <section className="attempt">
@@ -166,12 +160,12 @@ export const EvidenceTool = ({ loggedInUser }) => {
             {renderFourthAttemptText()}
           </section>
           <section className="right-side-container">
-            <img id="prompt-screenshot" src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/Hero_Evidence_Widget_12.png" alt="screenshot of example first attempt Reading for Evidence activity prompt" />
+            <img alt="screenshot of example first attempt Reading for Evidence activity prompt" id="prompt-screenshot" src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/Hero_Evidence_Widget_12.png" />
           </section>
         </section>
       </section>
       <section className="screenshot-container">
-        <img src="https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Screenshot1.png" alt="screenshot of example Reading for Evidence activity" />
+        <img alt="screenshot of example Reading for Evidence activity" src="https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Screenshot1.png" />
         <p>Students receive instant feedback on the quality of their writing.</p>
       </section>
       <section className="evidence-feature-container">
@@ -203,7 +197,7 @@ export const EvidenceTool = ({ loggedInUser }) => {
       <section className="tool-try-it bg-connect-teal bg-book-pattern">
         <h2 className='q-h1'>Try It Out for Yourself</h2>
         <section className="tool-ctas evidence-tool">
-          <a href='https://www.quill.org/evidence/#/play?uid=176&skipToPrompts=true' target="_blank" className="q-button cta-button text-quillteal bg-white">Try a sample activity</a>
+          <a className="q-button cta-button text-quillteal bg-white" href='https://www.quill.org/evidence/#/play?uid=176&skipToPrompts=true' target="_blank" rel="noopener noreferrer">Try a sample activity</a>
         </section>
       </section>
       {renderBottomSection()}
