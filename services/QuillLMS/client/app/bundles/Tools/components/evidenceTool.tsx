@@ -80,13 +80,13 @@ export const EvidenceTool = ({ loggedInUser }) => {
             <p className="topic">Culture & Society Topics</p>
             <img alt="photograph of a football" src="https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Image_Football.png" />
             <p className="activity-title">"Should Schools Have Grade Requirements for Student Athletes?"</p>
-            <a className="q-button text-quillteal bg-white" href='https://www.quill.org/evidence/#/play?uid=180&skipToPrompts=true' target="_blank" rel="noopener noreferrer">View a Sample Activity</a>
+            <a className="q-button text-quillteal bg-white" href='https://www.quill.org/evidence/#/play?uid=180&skipToPrompts=true' rel="noopener noreferrer" target="_blank">View a Sample Activity</a>
           </div>
           <div className="topic-section">
             <p className="topic">Science Topics</p>
             <img alt="photograph of a cow" src="https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Image_Cow.png" />
             <p className="activity-title">"How Does Eating Meat Impact Global Warming?"</p>
-            <a className="q-button text-quillteal bg-white" href='https://www.quill.org/evidence/#/play?uid=176&skipToPrompts=true' target="_blank" rel="noopener noreferrer">View a Sample Activity</a>
+            <a className="q-button text-quillteal bg-white" href='https://www.quill.org/evidence/#/play?uid=176&skipToPrompts=true' rel="noopener noreferrer" target="_blank">View a Sample Activity</a>
           </div>
           <div className="topic-section">
             <p className="topic">Social Studies Topics</p>
@@ -197,7 +197,7 @@ export const EvidenceTool = ({ loggedInUser }) => {
       <section className="tool-try-it bg-connect-teal bg-book-pattern">
         <h2 className='q-h1'>Try It Out for Yourself</h2>
         <section className="tool-ctas evidence-tool">
-          <a className="q-button cta-button text-quillteal bg-white" href='https://www.quill.org/evidence/#/play?uid=176&skipToPrompts=true' target="_blank" rel="noopener noreferrer">Try a sample activity</a>
+          <a className="q-button cta-button text-quillteal bg-white" href='https://www.quill.org/evidence/#/play?uid=176&skipToPrompts=true' rel="noopener noreferrer" target="_blank">Try a sample activity</a>
         </section>
       </section>
       {renderBottomSection()}
