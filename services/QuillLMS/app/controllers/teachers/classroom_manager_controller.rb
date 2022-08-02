@@ -244,6 +244,10 @@ class Teachers::ClassroomManagerController < ApplicationController
     redirect_to '/profile'
   end
 
+  def is_demo
+    render json: { current_user_demo_id: session[:demo_id] }
+  end
+
   def preview_as_student
     student = User.find_by_id(params[:student_id])
     if student && (student&.classrooms&.to_a & current_user&.classrooms_i_teach)&.any?
