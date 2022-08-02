@@ -4,7 +4,15 @@ import ReactJoyride, { CallBackProps, STATUS, Step } from 'react-joyride';
 import { requestGet } from '../../../../modules/request/index';
 
 export const DASHBOARD = 'demo-onboarding-dashboard'
+export const STUDENT_REPORTS_LANDING_PAGE = 'demo-onboarding-student-reports-landing-page'
 const COMPLETED = 'completed'
+
+const sharedStepAttributes = {
+  disableBeacon: true,
+  hideCloseButton: true,
+  hideFooter: true,
+  spotlightClicks: true
+}
 
 const dashboardSteps = [
   {
@@ -15,20 +23,32 @@ const dashboardSteps = [
     </div>),
     placement: 'bottom',
     target: '#student-reports-link',
-    disableBeacon: true,
-    hideCloseButton: true,
-    hideFooter: true,
-    spotlightClicks: true
+    ...sharedStepAttributes
+  }
+]
+
+const studentReportsLandingPageSteps = [
+  {
+    content: (<div>
+      <p><strong>Click on the &#34;Diagnostics&#34; section to view the sample results of the diagnostic.</strong></p>
+      <br />
+      <p>The Student Reports page lets you access all results. For example, Activity Analysis lets you see each student&#39;s writing for each activity.</p>
+    </div>),
+    placement: 'top',
+    target: '#diagnostic-reports-card',
+    ...sharedStepAttributes
   }
 ]
 
 const joyrideSteps = {
-  [DASHBOARD]: dashboardSteps
+  [DASHBOARD]: dashboardSteps,
+  [STUDENT_REPORTS_LANDING_PAGE]: studentReportsLandingPageSteps
 }
 
 const DemoOnboardingTour = ({ pageKey, }) => {
   const [isDemo, setIsDemo] = React.useState<boolean>(false)
-  const [showTour, setShowTour] = React.useState<boolean>(false)
+  // TODO set showTour to false by default
+  const [showTour, setShowTour] = React.useState<boolean>(true)
   const [{ run, steps }, setJoyrideState] = React.useState({
     run: true,
     steps: joyrideSteps[pageKey] || []
