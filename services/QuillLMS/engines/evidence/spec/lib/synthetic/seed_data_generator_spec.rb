@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 module Evidence
-  RSpec.describe(Synthetic::InitialData, type: :model) do
+  RSpec.describe(Synthetic::SeedDataGenerator, type: :model) do
     let(:passage) { 'one two three four five six' }
     let(:stem) { 'This is because'}
     let(:nouns) { ['noun1']}
@@ -19,13 +19,13 @@ module Evidence
     let(:chunk2_response) {['four response']}
     let(:seed_labels) {['full_passage', 'full_passage_noun_noun1', 'text_chunk_1', 'text_chunk_2']}
 
-    let(:data) { Evidence::Synthetic::InitialData.new(passage: passage, stem: stem, nouns: nouns)}
+    let(:data) { Evidence::Synthetic::SeedDataGenerator.new(passage: passage, stem: stem, nouns: nouns)}
 
     before do
-      stub_const("Evidence::Synthetic::InitialData::WORD_SPLIT_COUNT", 4)
-      stub_const("Evidence::Synthetic::InitialData::FULL_COUNT", 1)
-      stub_const("Evidence::Synthetic::InitialData::FULL_NOUN_COUNT", 1)
-      stub_const("Evidence::Synthetic::InitialData::SECTION_COUNT", 1)
+      stub_const("Evidence::Synthetic::SeedDataGenerator::WORD_SPLIT_COUNT", 4)
+      stub_const("Evidence::Synthetic::SeedDataGenerator::FULL_COUNT", 1)
+      stub_const("Evidence::Synthetic::SeedDataGenerator::FULL_NOUN_COUNT", 1)
+      stub_const("Evidence::Synthetic::SeedDataGenerator::SECTION_COUNT", 1)
     end
 
     describe "#new" do
@@ -59,7 +59,7 @@ module Evidence
       end
     end
 
-    describe "#self.generate_csvs" do
+    describe "#self.csvs_for_activity" do
       let!(:activity) { create(:evidence_activity, title: 'Some Activity Name')}
       let!(:passage) { create(:evidence_passage, activity: activity) }
       let!(:prompt) { create(:evidence_prompt, activity: activity, conjunction: "because") }
@@ -69,7 +69,7 @@ module Evidence
       end
 
       it "should generate a hash" do
-        output = Evidence::Synthetic::InitialData.generate_csvs(activity_id: activity.id, nouns: ['hello'])
+        output = Evidence::Synthetic::SeedDataGenerator.csvs_for_activity(activity_id: activity.id, nouns: ['hello'])
 
         expect(output.class).to be Hash
         expect(output.keys).to eq(['Some_Activity_Name_because', 'Some_Activity_Name_passage_chunks'])

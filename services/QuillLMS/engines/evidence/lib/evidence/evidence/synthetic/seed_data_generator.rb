@@ -2,7 +2,7 @@
 
 module Evidence
   module Synthetic
-    class InitialData
+    class SeedDataGenerator
       Result = Struct.new(:text, :seed, keyword_init: true)
 
       WORD_SPLIT_COUNT = 70
@@ -20,38 +20,30 @@ module Evidence
       attr_reader :passage, :stem, :nouns, :results
 
       # returns a hash of the form {'csv name' => CSVString, 'csv name2' =>...}
-      def self.generate_csvs(activity_id:, nouns: [])
+      def self.csvs_for_activity(activity_id:, nouns: [])
         activity = Activity.find(activity_id)
         passage = activity.passages.first.text
         prompts = activity.prompts
         short_name = activity.title.first(20).gsub(' ', '_')
+        passage_csv_name = "#{short_name}_passage_chunks"
 
         csvs = {}
 
         prompts.each.with_index do |prompt, index|
           csv_name = "#{short_name}_#{prompt.conjunction}"
 
-          data = new(passage: passage, stem: prompt.text, nouns: nouns)
-          data.run
+          generator = new(passage: passage, stem: prompt.text, nouns: nouns)
+          generator.run
 
-          csvs[csv_name] = data.generate_csv
-          if index == 0
-            passage_csv_name = "#{short_name}_passage_chunks"
-            csvs[passage_csv_name] = data.generate_passages_csv
-          end
+          csvs[csv_name] = generator.results_csv_string
         end
+
+        # include a csv with a text guide to the passage chunks
+        csvs[passage_csv_name] = new(passage: passage, stem: '').text_guide_csv_string
 
         csvs
       end
 
-      # passage = Evidence::Synthetic::TestConstants::NFL_PASSAGE
-      # stem = Evidence::Synthetic::TestConstants::NFL_BECAUSE
-      # nouns = Evidence::Synthetic::TestConstants::NFL_NOUNS
-      # generator = Evidence::Synthetic::InitialData.new(passage: passage, stem: stem, nouns: nouns)
-      # generator.run
-
-      # file_path = "/Users/danieldrabik/Dropbox/quill/synthetic/test_generation_#{Time.current.strftime('%Y-%m-%d-%T')}.csv"
-      # generator.to_csv(file_path)
 
       def initialize(passage:, stem:, nouns: [])
         @passage = passage
@@ -106,28 +98,28 @@ module Evidence
           .map{|s| s.last == PERIOD ? s : (s + PERIOD)} # end it in a period, so stem is new sentence.
       end
 
-      def to_csv(file_path)
+      def results_csv(file_path)
         CSV.open(file_path, "w") do |csv|
           csv << ['Text', 'Seed']
           results.each {|r| csv << [r.text, r.seed]}
         end
       end
 
-      def generate_csv
+      def results_csv_string
         CSV.generate do |csv|
           csv << ['Text', 'Seed']
           results.each {|r| csv << [r.text, r.seed]}
         end
       end
 
-      def passages_to_csv(file_path)
+      def text_guide_csv(file_path)
         CSV.open(file_path, "w") do |csv|
           csv << ['Index', 'Passage Chunk']
           split_passage.each.with_index {|s,i| csv << [i + 1, s]}
         end
       end
 
-      def generate_passages_csv
+      def text_guide_csv_string
         CSV.generate do |csv|
           csv << ['Index', 'Passage Chunk']
           split_passage.each.with_index {|s,i| csv << [i + 1, s]}
