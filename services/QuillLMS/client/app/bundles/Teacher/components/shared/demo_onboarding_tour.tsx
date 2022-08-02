@@ -83,7 +83,7 @@ const diagnosticRecommendationsSteps = [
     hideFooter: false,
     spotlightClicks: false,
     placement: 'top',
-    target: '.recommendations-table-content',
+    target: '.recommendations-table',
   },
   {
     ...sharedStepAttributes,
