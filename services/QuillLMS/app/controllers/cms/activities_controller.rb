@@ -84,7 +84,7 @@ class Cms::ActivitiesController < Cms::CmsController
   protected def set_raw_score_options_and_raw_score_to_readability_grade_band
     @raw_score_options = RawScore.order_by_name
     @raw_score_to_readability_grade_band = {}
-    @raw_score_options.each { |rs| @raw_score_to_readability_grade_band[rs.name] = rs.readability_grade_level(@activity_classification.id) }
+    @raw_score_options.each { |rs| @raw_score_to_readability_grade_band[rs.name] = rs.readability_grade_level }
     @readability_grade_band_to_minimum_grade_level = Activity::READABILITY_GRADE_LEVEL_TO_MINIMUM_GRADE_LEVEL
   end
 

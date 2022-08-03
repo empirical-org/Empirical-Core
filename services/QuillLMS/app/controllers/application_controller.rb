@@ -1,8 +1,14 @@
 # frozen_string_literal: true
 
+
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
+
+  include NewRelicAttributable
   include QuillAuthentication
+
+  rescue_from ActionController::InvalidAuthenticityToken,
+    with: :handle_invalid_authenticity_token
 
   CLEVER_REDIRECT = :clever_redirect
   GOOGLE_REDIRECT = :google_redirect
@@ -16,11 +22,10 @@ class ApplicationController < ActionController::Base
   DIAGNOSTIC = 'diagnostic'
   LESSONS = 'lessons'
 
-  #helper CMS::Helper
   helper SegmentioHelper
 
-  include NewRelicAttributable
   before_action :set_raven_context
+  before_action :check_staff_for_extended_session
   before_action :confirm_valid_session
   before_action :set_default_cache_security_headers
 
@@ -116,6 +121,21 @@ class ApplicationController < ActionController::Base
     )
   end
 
+  private def handle_invalid_authenticity_token
+    flash[:error] = t('actioncontroller.errors.invalid_authenticity_token')
+
+    respond_to do |format|
+      format.html { redirect_back(fallback_location: root_path) }
+      format.json { render json: { redirect: URI.parse(request.referer).path } }
+    end
+  end
+
+  protected def check_staff_for_extended_session
+    return unless current_user&.staff_session_duration_exceeded?
+
+    sign_out
+  end
+
   protected def set_vary_header
     response.headers['Vary'] = 'Accept'
   end
@@ -131,53 +151,16 @@ class ApplicationController < ActionController::Base
     Raven.extra_context(params: params.to_unsafe_h, url: request.url)
   end
 
-  # rubocop:disable Metrics/CyclomaticComplexity
   protected def confirm_valid_session
-    # Don't do anything if there's no authorized user or session
-    return if !current_user || !session
+    return if current_user.nil? || session.nil? || session[:staff_id]
+    return unless reset_session? || current_user.google_access_expired?
 
-    # if user is staff, logout if last_sign_in was more than 4 hours ago
-    if current_user && current_user.role == 'staff' && current_user.last_sign_in
-      hours = time_diff(current_user.last_sign_in) / 3600
-      if hours > 4
-        user_id = current_user.id
-        auth_credential = AuthCredential.where(user_id: user_id).first
-        if auth_credential.present?
-          auth_credential.destroy!
-        end
-        return if !current_user || !session
-      end
-    end
-
-    return reset_session if user_inactive_for_too_long?
-
-    # If the user is google authed, but doesn't have a valid refresh
-    # token, then we need to invalidate their session
-    return reset_session if current_user.google_id && current_user.auth_credential && !current_user.auth_credential&.refresh_token
-
-    # Assuming that the refresh_token expires at (current_user.auth_credential.created_at  + 6 months),
-    # we can reset the session whenever (Time.current > (current_user.auth_credential.created_at + 5 months))
-    return reset_session if current_user.google_id && current_user.auth_credential && Time.current > (current_user.auth_credential.created_at + 5.months)
+    reset_session
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
 
-  protected def user_inactive_for_too_long?
+  protected def reset_session?
     return false if session[KEEP_ME_SIGNED_IN] || current_user.google_id || current_user.clever_id
 
-    seconds_in_day = 86400
-    max_inactivity = 30
-
-    days_since_last_sign_in = current_user.last_sign_in ? time_diff(current_user.last_sign_in)/seconds_in_day : 0
-    days_since_last_active = current_user.last_active ? time_diff(current_user.last_active)/seconds_in_day : max_inactivity
-
-    [days_since_last_active, days_since_last_sign_in].min >= max_inactivity
+    current_user.inactive_too_long?
   end
-
-  protected def time_diff(timestamp)
-    now = Time.current.utc
-
-    diff = now - timestamp
-    diff.round.abs
-  end
-
 end

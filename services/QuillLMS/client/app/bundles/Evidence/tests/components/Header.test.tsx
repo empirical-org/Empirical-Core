@@ -33,10 +33,10 @@ describe('StudentViewContainer component', () => {
     })
 
     describe('when a user clicks "Save and exit"', () => {
-      it('should track a COMPREHENSION_ACTIVITY_SAVED event', () => {
+      it('should track a EVIDENCE_ACTIVITY_SAVED event', () => {
         wrapper.find('.save-and-exit').simulate('click')
 
-        expect(mockTrackAnalyticsEvent).toHaveBeenCalledWith(Events.COMPREHENSION_ACTIVITY_SAVED, {
+        expect(mockTrackAnalyticsEvent).toHaveBeenCalledWith(Events.EVIDENCE_ACTIVITY_SAVED, {
           activityID: MockActivityID,
           sessionID: MockSessionID
         })

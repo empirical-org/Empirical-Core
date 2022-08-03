@@ -1,7 +1,9 @@
 import { Event } from './event_definitions';
 import Events from './events';
 
-
+import { getParameterByName } from '../../libs/getParameterByName';
+import { fetchUserIdsForSession } from '../../../Shared/utils/userAPIs';
+import { isTrackableStudentEvent } from '../../../Shared';
 class SegmentAnalytics {
   analytics: Object;
 
@@ -22,7 +24,21 @@ class SegmentAnalytics {
     }
   }
 
-  track(event: Event, properties?: object): boolean {
+  async track(event: Event, properties?: object) {
+    const sessionID = getParameterByName('student', window.location.href)
+    const idData = await fetchUserIdsForSession(sessionID)
+
+    if(!isTrackableStudentEvent(idData)) { return }
+
+    const { teacherId, studentId } = idData
+    const customProperties = {
+      ...properties,
+      user_id: teacherId,
+      properties: {
+        student_id: studentId
+      }
+    }
+
     try {
       // Make sure that the event reference is one that's defined
       if (!event) {
@@ -30,7 +46,7 @@ class SegmentAnalytics {
       }
 
       // Validate that required properties are present
-      this.validateEvent(event, properties);
+      this.validateEvent(event, customProperties);
 
       // Check to make sure that we have access to the analytics global
       if (!this.analytics) {
@@ -41,8 +57,7 @@ class SegmentAnalytics {
       return false;
     }
 
-    const eventProperties = Object.assign(this.formatCustomProperties(properties), this.getDefaultProperties());
-
+    const eventProperties = Object.assign({...customProperties}, this.getDefaultProperties());
     this.analytics['track'](event.name, eventProperties);
     return true;
   }
@@ -62,11 +77,12 @@ class SegmentAnalytics {
   }
 
   formatCustomProperties(properties: object): object {
-    if (typeof properties != 'object') {
+    if (typeof properties !== 'object') {
       properties = {};
     }
     return Object.keys(properties).reduce((accumulator, key) => {
-      let customKeyName = `custom_${key}`;
+      const keysToSkip = ['user_id', 'properties'];
+      let customKeyName = keysToSkip.includes(key) ? key : `custom_${key}`;
       accumulator[customKeyName] = properties[key];
       return accumulator;
     }, {});

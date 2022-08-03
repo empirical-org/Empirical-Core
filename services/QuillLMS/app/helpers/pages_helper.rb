@@ -185,7 +185,7 @@ module PagesHelper
           },
           {
             name: 'Peter Sharkey',
-            title: 'Senior Product Manager',
+            title: 'Principal Product Manager',
             img: 'team-peter-sharkey@2x.png'
           },
           {
@@ -205,7 +205,7 @@ module PagesHelper
           },
           {
             name: 'Jack Yi',
-            title: 'Product Designer',
+            title: 'Staff Product Designer',
             img: 'team-jack-yi@2x.png'
           },
           {

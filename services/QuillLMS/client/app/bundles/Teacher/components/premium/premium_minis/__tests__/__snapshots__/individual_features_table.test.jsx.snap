@@ -163,11 +163,6 @@ exports[`IndividualFeaturesTable container should render for each type 1`] = `
             "tooltipText": "Assigned Senior Instructional Coach delivers PDs tailored to the needs of teachers.",
           },
           Object {
-            "label": "Three one-on-one coaching sessions per teacher",
-            "school": true,
-            "tooltipText": "Assigned Senior Instructional Coach provides individualized support on Quill implementation and best practices.",
-          },
-          Object {
             "label": "Priority technical support",
             "school": true,
             "tooltipText": "Support tickets identified with priority user status to resolve tech issues swiftly.",
@@ -360,11 +355,6 @@ exports[`IndividualFeaturesTable container should render for each type 2`] = `
             "tooltipText": "Assigned Senior Instructional Coach delivers PDs tailored to the needs of teachers.",
           },
           Object {
-            "label": "Three one-on-one coaching sessions per teacher",
-            "school": true,
-            "tooltipText": "Assigned Senior Instructional Coach provides individualized support on Quill implementation and best practices.",
-          },
-          Object {
             "label": "Priority technical support",
             "school": true,
             "tooltipText": "Support tickets identified with priority user status to resolve tech issues swiftly.",
@@ -555,11 +545,6 @@ exports[`IndividualFeaturesTable container should render for each type 3`] = `
             "label": "Two professional development sessions",
             "school": true,
             "tooltipText": "Assigned Senior Instructional Coach delivers PDs tailored to the needs of teachers.",
-          },
-          Object {
-            "label": "Three one-on-one coaching sessions per teacher",
-            "school": true,
-            "tooltipText": "Assigned Senior Instructional Coach provides individualized support on Quill implementation and best practices.",
           },
           Object {
             "label": "Priority technical support",

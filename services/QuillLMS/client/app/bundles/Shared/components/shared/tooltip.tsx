@@ -13,7 +13,6 @@ interface TooltipProps {
 }
 
 class Tooltip extends React.Component<TooltipProps, { clickedFromMobile: boolean, tooltipVisible: boolean }> {
-  private timer: any // eslint-disable-line react/sort-comp
   private tooltip: any // eslint-disable-line react/sort-comp
   private tooltipTrigger: any // eslint-disable-line react/sort-comp
 
@@ -24,10 +23,7 @@ class Tooltip extends React.Component<TooltipProps, { clickedFromMobile: boolean
 
     this.state = { clickedFromMobile: false, tooltipVisible: false }
 
-    this.timer = null
-
     this.showTooltip = this.showTooltip.bind(this)
-    this.startTimer = this.startTimer.bind(this)
     this.hideTooltip = this.hideTooltip.bind(this)
   }
 
@@ -39,7 +35,6 @@ class Tooltip extends React.Component<TooltipProps, { clickedFromMobile: boolean
     const { tooltipText } = this.props
     const activeTooltips = document.getElementsByClassName('visible quill-tooltip')
     Array.from(activeTooltips).forEach(tooltip => tooltip.classList.remove('visible'))
-    clearTimeout(this.timer)
     this.tooltip.innerHTML = tooltipText
     this.tooltip.classList.add('visible')
   }
@@ -47,12 +42,7 @@ class Tooltip extends React.Component<TooltipProps, { clickedFromMobile: boolean
   hideTooltip() {
     this.tooltip.classList.remove('visible')
     this.tooltip.innerHTML = ''
-    // we need to reset tooltipVisible to false in the case that the user has clicked once and the the tooltip is hidden after startTimer calls hideTooltip
     this.setState({ tooltipVisible: false });
-  }
-
-  startTimer() {
-    this.timer = setTimeout(this.hideTooltip, 1500)
   }
 
   handlePageClick = (e) => {
@@ -81,7 +71,7 @@ class Tooltip extends React.Component<TooltipProps, { clickedFromMobile: boolean
       } else {
         this.setState({ tooltipVisible: true })
         this.showTooltip()
-        this.startTimer()
+        this.hideTooltip()
       }
     }
   }
@@ -112,7 +102,7 @@ class Tooltip extends React.Component<TooltipProps, { clickedFromMobile: boolean
           onFocus={this.showTooltip}
           onKeyDown={this.handleTooltipKeyDown}
           onMouseEnter={this.showTooltip}
-          onMouseLeave={this.startTimer}
+          onMouseLeave={this.hideTooltip}
           role="button"
           style={tooltipTriggerTextStyle}
           tabIndex={tabIndex}

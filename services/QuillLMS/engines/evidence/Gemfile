@@ -30,7 +30,7 @@ end
 group :test, :development do
   gem 'factory_bot_rails', '~> 4.8.2', require: false
   gem 'pry'
-  gem 'rspec-rails', '~> 3.9.1'
+  gem 'rspec-rails', '~> 5.0'
   gem 'simplecov'
   gem 'simplecov-json', require: false
 end

@@ -250,16 +250,6 @@ describe Cms::UsersController do
     end
   end
 
-  # no route for this action
-  # describe '#destroy' do
-  #   let!(:another_user) { create(:user) }
-  #
-  #   it 'should destroy the given user' do
-  #     delete :destoy, id: another_user.id
-  #     expect{User.find another_user.id}.to raise_exception ActiveRecord::RecordNotFound
-  #   end
-  # end
-
   describe '#complete_sales_stage' do
     let!(:another_user) { create(:user) }
     let(:updater) { double(:updater, call: true) }

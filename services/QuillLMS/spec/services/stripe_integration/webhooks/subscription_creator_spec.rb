@@ -120,7 +120,7 @@ RSpec.describe StripeIntegration::Webhooks::SubscriptionCreator do
   end
 
   context 'purchaser does not exist' do
-    before { allow(User).to receive(:find_by!).and_raise(ActiveRecord::RecordNotFound) }
+    before { allow(User).to receive(:find_by_stripe_customer_id_or_email!).and_raise(ActiveRecord::RecordNotFound) }
 
     it { expect { subject }.to raise_error described_class::PurchaserNotFoundError }
   end

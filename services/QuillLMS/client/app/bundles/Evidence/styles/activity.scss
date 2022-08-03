@@ -361,3 +361,20 @@
     }
   }
 }
+
+@media (forced-colors: active) {
+  .read-passage-container .passage {
+    mark {
+      color: CanvasText;
+      background-color: Canvas;
+      &:focus, &:hover {
+        color: MarkText;
+        background-color: Mark;
+      }
+      &.highlighted {
+        color: HighlightText;
+        background-color: Highlight;
+      }
+    }
+  }
+}
