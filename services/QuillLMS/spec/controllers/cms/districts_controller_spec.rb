@@ -98,7 +98,11 @@ describe Cms::DistrictsController do
 
   describe '#create' do
     it 'does not create, returns an error message if district NCES ID is not unique' do
-      raise "test not written"
+      existing_district = create(:district)
+
+      post :create, params: { district: existing_district.as_json }
+      expect(response).to redirect_to cms_districts_path
+      expect(flash[:error]).to eq("A district with this NCES ID already exists.") 
     end
   end
 
