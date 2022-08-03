@@ -197,9 +197,9 @@ class SalesFormSubmission < ApplicationRecord
   private def district_array_for_existing_user
     previous_district = find_or_create_user&.school&.district
     if previous_district.present? && previous_district != district
-      user_payload[:organizationIds] = [api.get(VITALLY_DISTRICTS_TYPE, previous_district.id)["id"], district_vitally_id]
+      [api.get(VITALLY_DISTRICTS_TYPE, previous_district.id)["id"], district_vitally_id]
     else
-      user_payload[:organizationIds] = [district_vitally_id]
+      [district_vitally_id]
     end
   end
 
