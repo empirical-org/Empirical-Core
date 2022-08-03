@@ -1,6 +1,7 @@
 import * as React from 'react'
 import ReactJoyride, { CallBackProps, STATUS, Step } from 'react-joyride';
 
+import useWindowSize from '../../../Shared/hooks/useWindowSize'
 import { requestGet } from '../../../../modules/request/index';
 
 export const DASHBOARD = 'demo-onboarding-dashboard'
@@ -83,7 +84,7 @@ const diagnosticRecommendationsSteps = [
     hideFooter: false,
     spotlightClicks: false,
     placement: 'top',
-    target: '.recommendations-table',
+    target: '#demo-onboarding-tour-spotlight-element',
   },
   {
     ...sharedStepAttributes,
@@ -122,9 +123,10 @@ const joyrideSteps = {
 }
 
 const DemoOnboardingTour = ({ pageKey, }) => {
+  const size = useWindowSize();
+
   const [isDemo, setIsDemo] = React.useState<boolean>(false)
-  // TODO set showTour to false by default
-  const [showTour, setShowTour] = React.useState<boolean>(true)
+  const [showTour, setShowTour] = React.useState<boolean>(false)
   const [{ run, steps }, setJoyrideState] = React.useState({
     run: true,
     steps: joyrideSteps[pageKey] || []
