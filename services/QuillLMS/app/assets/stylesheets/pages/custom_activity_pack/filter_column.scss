@@ -11,6 +11,7 @@
     .filter-section {
       padding-top: 24px;
       margin-bottom: 8px;
+      min-width: 288px;
       &.readability, &.ccss-grade-level, &.grade-level {
         .quill-tooltip-wrapper {
           left: 302px;
