@@ -44,7 +44,7 @@ export const EvidenceHomeSection = () => {
       <section className="inner-section">
         <div className="left-side-container">
           <div className="header-and-icon-container">
-            <img alt="Reading for Evidence icon" className="tool-page-icon lazyload" data-src="https://assets.quill.org/images/icons/tool-evidence-white.svg" />
+            <img alt="Reading for Evidence icon" className="tool-page-icon lazyload" data-src="https://assets.quill.org/images/evidence/home_page/tool-evidence-white.svg" />
             <h1 className="q-h1">Quill Reading for Evidence</h1>
             <p className="new-tag">NEW</p>
           </div>

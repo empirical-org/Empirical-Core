@@ -67,7 +67,7 @@ export const EvidenceTool = ({ loggedInUser }) => {
       <section className='bg-quillteal tool-hero text-center'>
         <section className="inner-section">
           <section className="header-and-icon-container">
-            <img alt="Reading for Evidence icon" className="tool-page-icon lazyload" data-src='https://assets.quill.org/images/icons/tool-evidence-white.svg' />
+            <img alt="Reading for Evidence icon" className="tool-page-icon lazyload" data-src='https://assets.quill.org/images/evidence/home_page/tool-evidence-white.svg' />
             <h1 className="q-h1">Quill Reading for Evidence</h1>
             <p className="new-tag">NEW</p>
           </section>
@@ -150,7 +150,7 @@ export const EvidenceTool = ({ loggedInUser }) => {
             {renderThirdAttemptText()}
           </section>
           <section className="right-side-container">
-            <img alt="screenshot of example first attempt Reading for Evidence activity prompt" id="prompt-screenshot" src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/Hero_Evidence_Widget_10.png" />
+            <img alt="screenshot of example first attempt Reading for Evidence activity prompt" id="prompt-screenshot" src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/Hero_Evidence_Widget_9.png" />
             <img alt="dotted line arrow" id="arrow" src="https://assets.quill.org/images/evidence/home_page/evidence_arrow.svg" />
           </section>
         </section>
