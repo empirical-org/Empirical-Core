@@ -44,11 +44,18 @@ describe VitallyRestApi do
 
   describe '#exists?' do
     it 'should return true if the Vitally REST API returns an object without an error' do
-      raise 'test not written'
+      api_get = double
+      expect(api).to receive(:get).and_return(api_get)
+
+      expect(api.exists?('type', 1)).to eq(true)
     end
 
     it 'should return false if the Vitally REST API returns an object with an error' do
-      raise 'test not written'
+      api_get = double
+      expect(api_get).to receive(:error).and_return(true)
+      expect(api).to receive(:get).and_return(api_get)
+
+      expect(api.exists?('type', 1)).to eq(false)
     end
 
     it 'should make a GET call to the Vitally API with the specified ID and payload' do
