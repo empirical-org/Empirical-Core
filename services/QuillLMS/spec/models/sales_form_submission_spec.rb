@@ -34,6 +34,12 @@
 require 'rails_helper'
 
 RSpec.describe SalesFormSubmission, type: :model do
+  let(:api_double) { double }
+
+  before do
+    allow(VitallyRestApi).to receive(:new).and_return(api_double)
+  end
+
   context 'validations' do
     let(:sales_form_submission) { build(:sales_form_submission) }
 
@@ -48,12 +54,6 @@ RSpec.describe SalesFormSubmission, type: :model do
     it { should validate_presence_of(:submission_type) }
   end
 
-  let(:api_double) { double }
-
-  before do
-    allow(VitallyRestApi).to receive(:new).and_return(api_double)
-  end
-
   context 'after_save, should perform this behavior on internal User records' do
     let(:school) { create(:school)}
 
@@ -63,8 +63,8 @@ RSpec.describe SalesFormSubmission, type: :model do
       allow_any_instance_of(SalesFormSubmission).to receive(:send_opportunity_to_vitally)
       allow_any_instance_of(SalesFormSubmission).to receive(:create_school_or_district_if_none_exist)
       allow_any_instance_of(SalesFormSubmission).to receive(:vitally_user_create_data)
-      expect(api_double).to receive(:exists?).and_return(false)
-      expect(api_double).to receive(:create)
+      allow(api_double).to receive(:exists?).and_return(false)
+      allow(api_double).to receive(:create)
     end
 
     it 'creates a new user record if a User does not already exist' do

@@ -7,22 +7,26 @@ RSpec.describe IntercomIntegration::WebhooksController, type: :controller do
   describe '#create' do
     context 'authentication is valid, and payload is valid' do
       let(:user) { create(:user) }
-      let(:user_payload) { {
-        'id' => user.id,
-        'email' => user.email,
-        'name' => user.name,
-        'phone' => '555-5555',
-        'location_data' => {
-          'postal_code' => '11111'
+      let(:user_payload) {
+        {
+          'id' => user.id,
+          'email' => user.email,
+          'name' => user.name,
+          'phone' => '555-5555',
+          'location_data' => {
+            'postal_code' => '11111'
+          }
         }
-      } }
-      let!(:parsed_payload) { {
-        'topic' => 'user.tag.created',
-        'data' => { 'item' => {
-          'tag' => { 'name' => 'Quote Request School' },
-          'user' => user_payload
-        } }
-      } }
+      }
+      let!(:parsed_payload) {
+        {
+          'topic' => 'user.tag.created',
+          'data' => { 'item' => {
+            'tag' => { 'name' => 'Quote Request School' },
+            'user' => user_payload
+          } }
+        }
+      }
 
       before do
         # We don't have signed headers for this test, so skip verification
