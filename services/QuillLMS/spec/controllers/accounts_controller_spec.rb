@@ -122,7 +122,9 @@ describe AccountsController, type: :controller do
         it 'should use that same user record but update all the fields' do
           name = "Test Name"
           password = "test123"
-          post :create, params: { user: { name: name, email: user.email, password: password, role: User::TEACHER } }
+          expect do
+            post :create, params: { user: { name: name, email: user.email, password: password, role: User::TEACHER } }
+          end.to change(User, :count).by(0)
           expect(response.status).to eq 200
 
           updated_user = User.find(user.id)
@@ -142,13 +144,6 @@ describe AccountsController, type: :controller do
           expect(response.status).to eq 422
           expect(response.body).to eq({errors: {email: ["That email is taken. Try another."]}}.to_json)
         end
-      end
-    end
-
-
-    context 'when user already exists in the DB as a sales contact' do
-      it 'saves updates to that user instead of creating a new user' do
-        raise "test not written"
       end
     end
   end
