@@ -1433,14 +1433,15 @@ describe User, type: :model do
     let(:teacher)  { build(:teacher) }
 
     it 'returns the expected traits' do
-      expect(teacher.segment_identify_traits).to eq ({
+      traits = {
         auditor: user.auditor?,
         is_admin: user.admin?,
         premium_state: user.premium_state,
         email: teacher.email,
         first_name: teacher.first_name,
         last_name: teacher.last_name,
-      })
+      }
+      expect(teacher.segment_identify_traits).to eq traits
     end
   end
 
@@ -1448,10 +1449,8 @@ describe User, type: :model do
     let(:teacher)  { build(:teacher) }
 
     it 'returns the expected rules' do
-      expect(teacher.segment_integration_rules).to eq ({
-        all: true,
-        Intercom: (true)
-      })
+      rules = { all: true, Intercom: (true) }
+      expect(teacher.segment_integration_rules).to eq rules
     end
   end
 end
