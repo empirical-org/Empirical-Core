@@ -314,7 +314,7 @@ section.q-hero {
       margin-bottom: 30px;
     }
   }
-  #first {
+  .main-text {
     margin-bottom: 64px !important;
   }
   .q-button {
@@ -359,9 +359,9 @@ section.q-hero {
           margin-left: 16px !important;
         }
         .tool-page-icon {
-          height: 48px;
-          width: 48px;
-          margin-right: 8px;
+          height: 30px;
+          width: 26.25px;
+          padding: 3px 5.25px 3px 4.5px;
         }
       }
       .description {

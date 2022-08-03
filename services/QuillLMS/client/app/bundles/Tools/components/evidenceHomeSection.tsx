@@ -18,7 +18,8 @@ const INACTIVE = 'inactive';
 
 export const EvidenceHomeSection = () => {
   let imageUrlIndex = 0;
-  const [evidenceImageUrl, setEvidenceImageUrl] = React.useState<any>(IMG_URLS[0])
+  const [evidenceImageUrl, setEvidenceImageUrl] = React.useState<any>(IMG_URLS[0]);
+  const reversedUrls = [...IMG_URLS].reverse();
 
   React.useEffect(() => {
     setInterval(() => {
@@ -53,18 +54,9 @@ export const EvidenceHomeSection = () => {
           <a className="q-button bg-white text-quillteal" href={`${process.env.DEFAULT_URL}/tools/evidence`} rel="noopener noreferrer" target="_blank">Learn more about Quill Reading for Evidence</a>
         </div>
         <div className="image-container">
-          <img alt="A screenshot of an example Reading for Evidence prompt" className={`evidence-image ${evidenceImageUrl === IMG_URLS[11] ? '' : INACTIVE}`} src={IMG_URLS[11]} />
-          <img alt="A screenshot of an example Reading for Evidence prompt" className={`evidence-image ${evidenceImageUrl === IMG_URLS[10] ? '' : INACTIVE}`} src={IMG_URLS[10]} />
-          <img alt="A screenshot of an example Reading for Evidence prompt" className={`evidence-image ${evidenceImageUrl === IMG_URLS[9] ? '' : INACTIVE}`} src={IMG_URLS[9]} />
-          <img alt="A screenshot of an example Reading for Evidence prompt" className={`evidence-image ${evidenceImageUrl === IMG_URLS[8] ? '' : INACTIVE}`} src={IMG_URLS[8]} />
-          <img alt="A screenshot of an example Reading for Evidence prompt" className={`evidence-image ${evidenceImageUrl === IMG_URLS[7] ? '' : INACTIVE}`} src={IMG_URLS[7]} />
-          <img alt="A screenshot of an example Reading for Evidence prompt" className={`evidence-image ${evidenceImageUrl === IMG_URLS[6] ? '' : INACTIVE}`} src={IMG_URLS[6]} />
-          <img alt="A screenshot of an example Reading for Evidence prompt" className={`evidence-image ${evidenceImageUrl === IMG_URLS[5] ? '' : INACTIVE}`} src={IMG_URLS[5]} />
-          <img alt="A screenshot of an example Reading for Evidence prompt" className={`evidence-image ${evidenceImageUrl === IMG_URLS[4] ? '' : INACTIVE}`} src={IMG_URLS[4]} />
-          <img alt="A screenshot of an example Reading for Evidence prompt" className={`evidence-image ${evidenceImageUrl === IMG_URLS[3] ? '' : INACTIVE}`} src={IMG_URLS[3]} />
-          <img alt="A screenshot of an example Reading for Evidence prompt" className={`evidence-image ${evidenceImageUrl === IMG_URLS[2] ? '' : INACTIVE}`} src={IMG_URLS[2]} />
-          <img alt="A screenshot of an example Reading for Evidence prompt" className={`evidence-image ${evidenceImageUrl === IMG_URLS[1] ? '' : INACTIVE}`} src={IMG_URLS[1]} />
-          <img alt="A screenshot of an example Reading for Evidence prompt" className={`evidence-image ${evidenceImageUrl === IMG_URLS[0] ? '' : INACTIVE}`} src={IMG_URLS[0]} />
+          {reversedUrls.map(url => (
+            <img alt="" className={`evidence-image ${evidenceImageUrl === url ? '' : INACTIVE}`} src={url} />
+          ))}
         </div>
       </section>
     </section>
