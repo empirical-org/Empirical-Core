@@ -1266,7 +1266,7 @@ exports[`EvidenceTool Component should match snapshot 1`] = `
       </h1>
       <a
         className="q-button cta-button bg-quillgreen text-white"
-        href="/assign/activity-library?activityClassificationFilters[]=evidence"
+        href="undefined/assign/activity-library?activityClassificationFilters[]=evidence"
       >
         Assign
       </a>

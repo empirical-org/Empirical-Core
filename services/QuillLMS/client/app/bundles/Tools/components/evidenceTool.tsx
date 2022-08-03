@@ -10,14 +10,14 @@ export const EvidenceTool = ({ loggedInUser }) => {
       return(
         <section className="tool-sign-up">
           <h1 className='q-h1'>Get started now! Assign Quill Reading for Evidence.</h1>
-          <a className="q-button cta-button bg-quillgreen text-white" href='/assign/activity-library?activityClassificationFilters[]=evidence'>Assign</a>
+          <a className="q-button cta-button bg-quillgreen text-white" href={`${process.env.DEFAULT_URL}/assign/activity-library?activityClassificationFilters[]=evidence`}>Assign</a>
         </section>
       );
     }
     return(
       <section className="tool-sign-up">
         <h1 className='q-h1'>Sign up to start Quill Reading for Evidence in your class today!</h1>
-        <a className="q-button cta-button bg-quillgreen text-white" href='/account/new'>Sign Up</a>
+        <a className="q-button cta-button bg-quillgreen text-white" href={`${process.env.DEFAULT_URL}/account/new`}>Sign Up</a>
       </section>
     );
   }
