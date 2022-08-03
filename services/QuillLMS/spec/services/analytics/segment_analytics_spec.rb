@@ -240,12 +240,15 @@ describe 'SegmentAnalytics' do
       analytics.identify(teacher1)
       expect(identify_calls.size).to eq(1)
       expect(track_calls.size).to eq(0)
+      binding.pry
       expect(identify_calls[0][:traits][:is_admin]).to eq(false)
+      expect(identify_calls[0][:traits][:first_name]).to eq(teacher1.first_name)
+      expect(identify_calls[0][:traits][:last_name]).to eq(teacher1.last_name)
       expect(identify_calls[0][:traits][:email]).to eq(teacher1.email)
       expect(identify_calls[0][:traits][:school_name]).to eq(school.name)
       expect(identify_calls[0][:traits][:school_id]).to eq(school.id)
       expect(identify_calls[0][:traits][:district]).to eq(district.name)
-      expect(identify_calls[0][:traits].length).to eq(7)
+      expect(identify_calls[0][:traits].length).to eq(9)
     end
 
     it 'sends events to Intercom when the user is an admin' do
@@ -253,18 +256,20 @@ describe 'SegmentAnalytics' do
       expect(identify_calls.size).to eq(1)
       expect(track_calls.size).to eq(0)
       expect(identify_calls[0][:traits][:is_admin]).to eq(true)
+      expect(identify_calls[0][:traits][:first_name]).to eq(teacher2.first_name)
+      expect(identify_calls[0][:traits][:last_name]).to eq(teacher2.last_name)
       expect(identify_calls[0][:traits][:email]).to eq(teacher2.email)
       expect(identify_calls[0][:traits][:school_name]).to eq(school.name)
       expect(identify_calls[0][:traits][:school_id]).to eq(school.id)
       expect(identify_calls[0][:traits][:district]).to eq(district.name)
-      expect(identify_calls[0][:traits].length).to eq(7)
+      expect(identify_calls[0][:traits].length).to eq(9)
     end
 
     it 'omits trait properties that have nil values' do
       analytics.identify(teacher3)
       expect(identify_calls.size).to eq(1)
       expect(track_calls.size).to eq(0)
-      expect(identify_calls[0][:traits].length).to eq(6)
+      expect(identify_calls[0][:traits].length).to eq(8)
     end
   end
 end

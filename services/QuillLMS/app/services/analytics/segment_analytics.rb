@@ -223,6 +223,8 @@ class SegmentAnalytics
         premium_type: user.subscription&.account_type,
         auditor: user.auditor?,
         is_admin: user.admin?,
+        first_name: user.first_name,
+        last_name: user.last_name,
         email: user.email,
         school_name: user.school&.name,
         school_id: user.school&.id,

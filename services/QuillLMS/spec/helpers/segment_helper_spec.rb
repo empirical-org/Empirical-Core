@@ -52,7 +52,7 @@ describe SegmentioHelper do
   describe '#intercom_properties' do
     it 'should include Intercom-specific PII and nothing else' do
       properties = intercom_properties(user)
-      expect(properties.keys).to eq([:name, :email])
+      expect(properties.keys).to eq([:first_name, :adams_name, :email])
     end
   end
 
