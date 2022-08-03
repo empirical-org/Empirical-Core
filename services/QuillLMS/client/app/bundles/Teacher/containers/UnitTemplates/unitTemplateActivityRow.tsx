@@ -63,7 +63,7 @@ export const UnitTemplateActivityRow = ({
         ccss: showStandardData(standard),
         concept: activity_category && activity_category.name ? activity_category.name : NOT_APPLICABLE,
         tool: classification && classification.id ? getIconForActivityClassification(classification.id) : NOT_APPLICABLE,
-        edit: <a className="action-button focus-on-light" href={editActivityLink(classification.id, id)} rel="noopener noreferrer" target="_blank">edit</a>,
+        edit: classification && classification.id ? <a className="action-button focus-on-light" href={editActivityLink(classification.id, id)} rel="noopener noreferrer" target="_blank">edit</a> : NOT_APPLICABLE,
         remove: <button className="action-button interactive-wrapper focus-on-light" onClick={handleRemoveClick} type="button" value={id}>remove</button>
       }
     });

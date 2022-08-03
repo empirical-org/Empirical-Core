@@ -4595,73 +4595,6 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       <section
         className="activity-row not-expanded not-selected is-first "
       >
-        <ActivityRowTooltip
-          activity={
-            Object {
-              "activity_category": Object {
-                "id": 20,
-                "name": "History: Maya, Aztec, Inca",
-              },
-              "activity_category_id": 20,
-              "activity_category_name": "History: Maya, Aztec, Inca",
-              "activity_classification": Object {
-                "alias": "Quill Connect",
-                "description": "Combine Sentences",
-                "id": 5,
-                "key": "connect",
-              },
-              "anonymous_path": "/activity_sessions/anonymous?activity_id=627",
-              "content_partners": Array [
-                Object {
-                  "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
-                  "id": 1,
-                  "name": "Core Knowledge",
-                },
-              ],
-              "description": "Combine sentences to create 6 sentences about Hernan Cortes. This is an advanced, un-cued sentence combining activity.",
-              "flags": "{production}",
-              "id": 627,
-              "name": "Hernan Cortes",
-              "readability_grade_level": "8th-9th",
-              "standard_level": Object {
-                "id": 13,
-                "name": "7th Grade CCSS",
-              },
-              "standard_level_name": "7th Grade CCSS",
-              "standard_name": "87",
-              "topics": Array [
-                Object {
-                  "id": 16,
-                  "level": 3,
-                  "name": "History",
-                  "parent_id": null,
-                },
-                Object {
-                  "id": 93,
-                  "level": 2,
-                  "name": "World Historical Figures",
-                  "parent_id": 16,
-                },
-                Object {
-                  "id": 171,
-                  "level": 0,
-                  "name": "Hernan Cortes & the Aztec Empire",
-                  "parent_id": null,
-                },
-                Object {
-                  "id": 172,
-                  "level": 1,
-                  "name": "Maya, Aztec, & Inca Civilizations",
-                  "parent_id": null,
-                },
-              ],
-              "uid": "-KqcjgL00W0ro-Wr4Bts",
-            }
-          }
-          showTooltip={false}
-        >
-          <span />
-        </ActivityRowTooltip>
         <div
           className="first-line"
         >
@@ -4741,23 +4674,57 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 type="button"
               />
             </ActivityRowCheckbox>
-            <button
-              className="interactive-wrapper"
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              tabIndex={-1}
-              type="button"
+            <Tooltip
+              isTabbable={true}
+              tooltipText="<div class=\\"tooltip-line\\"><img alt=\\"Book icon\\" src=\\"undefined/images/icons/description-readability.svg\\"/><div><span><span class=\\"grade-range\\">8th-9th</span><span>Text Readability Level</span></span><br/><br/><span>Quill recommends using activities where the text readability level is the same or lower than the student’s reading level so that the student can focus on building their writing skills.</span></div></div><div class=\\"tooltip-line\\"><img alt=\\"Information icon\\" src=\\"undefined/images/icons/description-information.svg\\"/><span>Combine sentences to create 6 sentences about Hernan Cortes. This is an advanced, un-cued sentence combining activity.</span></div><div class=\\"tooltip-line\\"><img alt=\\"Copyright icon\\" src=\\"undefined/images/icons/description-copyright.svg\\"/><span>Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.</span></div>"
+              tooltipTriggerText={
+                <h2>
+                  <img
+                    alt="Target representing Quill Connect"
+                    src="undefined/images/icons/description-connect.svg"
+                  />
+                  <span>
+                    Hernan Cortes
+                  </span>
+                </h2>
+              }
             >
-              <h2>
-                <img
-                  alt="Target representing Quill Connect"
-                  src="undefined/images/icons/description-connect.svg"
-                />
-                <span>
-                  Hernan Cortes
+              <span
+                aria-hidden={false}
+                className="quill-tooltip-trigger "
+                role="tooltip"
+              >
+                <span
+                  className="undefined"
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  role="button"
+                  tabIndex={0}
+                >
+                  <h2>
+                    <img
+                      alt="Target representing Quill Connect"
+                      src="undefined/images/icons/description-connect.svg"
+                    />
+                    <span>
+                      Hernan Cortes
+                    </span>
+                  </h2>
                 </span>
-              </h2>
-            </button>
+                <span
+                  className="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    className="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </Tooltip>
           </div>
           <div
             className="buttons-wrapper"
@@ -5140,73 +5107,6 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       <section
         className="activity-row not-expanded not-selected  "
       >
-        <ActivityRowTooltip
-          activity={
-            Object {
-              "activity_category": Object {
-                "id": 20,
-                "name": "History: Maya, Aztec, Inca",
-              },
-              "activity_category_id": 20,
-              "activity_category_name": "History: Maya, Aztec, Inca",
-              "activity_classification": Object {
-                "alias": "Quill Connect",
-                "description": "Combine Sentences",
-                "id": 5,
-                "key": "connect",
-              },
-              "anonymous_path": "/activity_sessions/anonymous?activity_id=628",
-              "content_partners": Array [
-                Object {
-                  "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
-                  "id": 1,
-                  "name": "Core Knowledge",
-                },
-              ],
-              "description": "Combine sentences to create 7 sentences about the Maya civilization. This is an advanced, un-cued sentence combining activity.",
-              "flags": "{production}",
-              "id": 628,
-              "name": "Maya Mystery",
-              "readability_grade_level": "6th-7th",
-              "standard_level": Object {
-                "id": 13,
-                "name": "7th Grade CCSS",
-              },
-              "standard_level_name": "7th Grade CCSS",
-              "standard_name": "87",
-              "topics": Array [
-                Object {
-                  "id": 16,
-                  "level": 3,
-                  "name": "History",
-                  "parent_id": null,
-                },
-                Object {
-                  "id": 48,
-                  "level": 2,
-                  "name": "World History",
-                  "parent_id": 16,
-                },
-                Object {
-                  "id": 172,
-                  "level": 1,
-                  "name": "Maya, Aztec, & Inca Civilizations",
-                  "parent_id": null,
-                },
-                Object {
-                  "id": 218,
-                  "level": 0,
-                  "name": "Maya Civilization",
-                  "parent_id": null,
-                },
-              ],
-              "uid": "-KqcdV5JA9uUSY09VvOP",
-            }
-          }
-          showTooltip={false}
-        >
-          <span />
-        </ActivityRowTooltip>
         <div
           className="first-line"
         >
@@ -5286,23 +5186,57 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 type="button"
               />
             </ActivityRowCheckbox>
-            <button
-              className="interactive-wrapper"
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              tabIndex={-1}
-              type="button"
+            <Tooltip
+              isTabbable={true}
+              tooltipText="<div class=\\"tooltip-line\\"><img alt=\\"Book icon\\" src=\\"undefined/images/icons/description-readability.svg\\"/><div><span><span class=\\"grade-range\\">6th-7th</span><span>Text Readability Level</span></span><br/><br/><span>Quill recommends using activities where the text readability level is the same or lower than the student’s reading level so that the student can focus on building their writing skills.</span></div></div><div class=\\"tooltip-line\\"><img alt=\\"Information icon\\" src=\\"undefined/images/icons/description-information.svg\\"/><span>Combine sentences to create 7 sentences about the Maya civilization. This is an advanced, un-cued sentence combining activity.</span></div><div class=\\"tooltip-line\\"><img alt=\\"Copyright icon\\" src=\\"undefined/images/icons/description-copyright.svg\\"/><span>Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.</span></div>"
+              tooltipTriggerText={
+                <h2>
+                  <img
+                    alt="Target representing Quill Connect"
+                    src="undefined/images/icons/description-connect.svg"
+                  />
+                  <span>
+                    Maya Mystery
+                  </span>
+                </h2>
+              }
             >
-              <h2>
-                <img
-                  alt="Target representing Quill Connect"
-                  src="undefined/images/icons/description-connect.svg"
-                />
-                <span>
-                  Maya Mystery
+              <span
+                aria-hidden={false}
+                className="quill-tooltip-trigger "
+                role="tooltip"
+              >
+                <span
+                  className="undefined"
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  role="button"
+                  tabIndex={0}
+                >
+                  <h2>
+                    <img
+                      alt="Target representing Quill Connect"
+                      src="undefined/images/icons/description-connect.svg"
+                    />
+                    <span>
+                      Maya Mystery
+                    </span>
+                  </h2>
                 </span>
-              </h2>
-            </button>
+                <span
+                  className="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    className="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </Tooltip>
           </div>
           <div
             className="buttons-wrapper"
@@ -5685,73 +5619,6 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       <section
         className="activity-row not-expanded not-selected  "
       >
-        <ActivityRowTooltip
-          activity={
-            Object {
-              "activity_category": Object {
-                "id": 20,
-                "name": "History: Maya, Aztec, Inca",
-              },
-              "activity_category_id": 20,
-              "activity_category_name": "History: Maya, Aztec, Inca",
-              "activity_classification": Object {
-                "alias": "Quill Connect",
-                "description": "Combine Sentences",
-                "id": 5,
-                "key": "connect",
-              },
-              "anonymous_path": "/activity_sessions/anonymous?activity_id=629",
-              "content_partners": Array [
-                Object {
-                  "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
-                  "id": 1,
-                  "name": "Core Knowledge",
-                },
-              ],
-              "description": "Combine sentences to create 6 sentences about the Tenochtitlan Origin Myth. This is an advanced, un-cued sentence combining activity.",
-              "flags": "{production}",
-              "id": 629,
-              "name": "Tenochtitlan Origin Myth",
-              "readability_grade_level": "6th-7th",
-              "standard_level": Object {
-                "id": 13,
-                "name": "7th Grade CCSS",
-              },
-              "standard_level_name": "7th Grade CCSS",
-              "standard_name": "87",
-              "topics": Array [
-                Object {
-                  "id": 3,
-                  "level": 3,
-                  "name": "Culture",
-                  "parent_id": null,
-                },
-                Object {
-                  "id": 28,
-                  "level": 2,
-                  "name": "Stories & Myths",
-                  "parent_id": 3,
-                },
-                Object {
-                  "id": 172,
-                  "level": 1,
-                  "name": "Maya, Aztec, & Inca Civilizations",
-                  "parent_id": null,
-                },
-                Object {
-                  "id": 315,
-                  "level": 0,
-                  "name": "Tenochtitlán Origin Myth",
-                  "parent_id": null,
-                },
-              ],
-              "uid": "-KqcY9ZUJ7gdReZw7C93",
-            }
-          }
-          showTooltip={false}
-        >
-          <span />
-        </ActivityRowTooltip>
         <div
           className="first-line"
         >
@@ -5831,23 +5698,57 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 type="button"
               />
             </ActivityRowCheckbox>
-            <button
-              className="interactive-wrapper"
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              tabIndex={-1}
-              type="button"
+            <Tooltip
+              isTabbable={true}
+              tooltipText="<div class=\\"tooltip-line\\"><img alt=\\"Book icon\\" src=\\"undefined/images/icons/description-readability.svg\\"/><div><span><span class=\\"grade-range\\">6th-7th</span><span>Text Readability Level</span></span><br/><br/><span>Quill recommends using activities where the text readability level is the same or lower than the student’s reading level so that the student can focus on building their writing skills.</span></div></div><div class=\\"tooltip-line\\"><img alt=\\"Information icon\\" src=\\"undefined/images/icons/description-information.svg\\"/><span>Combine sentences to create 6 sentences about the Tenochtitlan Origin Myth. This is an advanced, un-cued sentence combining activity.</span></div><div class=\\"tooltip-line\\"><img alt=\\"Copyright icon\\" src=\\"undefined/images/icons/description-copyright.svg\\"/><span>Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.</span></div>"
+              tooltipTriggerText={
+                <h2>
+                  <img
+                    alt="Target representing Quill Connect"
+                    src="undefined/images/icons/description-connect.svg"
+                  />
+                  <span>
+                    Tenochtitlan Origin Myth
+                  </span>
+                </h2>
+              }
             >
-              <h2>
-                <img
-                  alt="Target representing Quill Connect"
-                  src="undefined/images/icons/description-connect.svg"
-                />
-                <span>
-                  Tenochtitlan Origin Myth
+              <span
+                aria-hidden={false}
+                className="quill-tooltip-trigger "
+                role="tooltip"
+              >
+                <span
+                  className="undefined"
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  role="button"
+                  tabIndex={0}
+                >
+                  <h2>
+                    <img
+                      alt="Target representing Quill Connect"
+                      src="undefined/images/icons/description-connect.svg"
+                    />
+                    <span>
+                      Tenochtitlan Origin Myth
+                    </span>
+                  </h2>
                 </span>
-              </h2>
-            </button>
+                <span
+                  className="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    className="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </Tooltip>
           </div>
           <div
             className="buttons-wrapper"
@@ -6230,73 +6131,6 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       <section
         className="activity-row not-expanded not-selected  "
       >
-        <ActivityRowTooltip
-          activity={
-            Object {
-              "activity_category": Object {
-                "id": 20,
-                "name": "History: Maya, Aztec, Inca",
-              },
-              "activity_category_id": 20,
-              "activity_category_name": "History: Maya, Aztec, Inca",
-              "activity_classification": Object {
-                "alias": "Quill Connect",
-                "description": "Combine Sentences",
-                "id": 5,
-                "key": "connect",
-              },
-              "anonymous_path": "/activity_sessions/anonymous?activity_id=630",
-              "content_partners": Array [
-                Object {
-                  "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
-                  "id": 1,
-                  "name": "Core Knowledge",
-                },
-              ],
-              "description": "Combine sentences to create 6 sentences about the Royal Road. This is an advanced, un-cued sentence combining activity.",
-              "flags": "{production}",
-              "id": 630,
-              "name": "The Royal Road",
-              "readability_grade_level": "8th-9th",
-              "standard_level": Object {
-                "id": 13,
-                "name": "7th Grade CCSS",
-              },
-              "standard_level_name": "7th Grade CCSS",
-              "standard_name": "87",
-              "topics": Array [
-                Object {
-                  "id": 16,
-                  "level": 3,
-                  "name": "History",
-                  "parent_id": null,
-                },
-                Object {
-                  "id": 48,
-                  "level": 2,
-                  "name": "World History",
-                  "parent_id": 16,
-                },
-                Object {
-                  "id": 172,
-                  "level": 1,
-                  "name": "Maya, Aztec, & Inca Civilizations",
-                  "parent_id": null,
-                },
-                Object {
-                  "id": 358,
-                  "level": 0,
-                  "name": "The Inca",
-                  "parent_id": null,
-                },
-              ],
-              "uid": "-KqcTJxEiuq07PJzbDIc",
-            }
-          }
-          showTooltip={false}
-        >
-          <span />
-        </ActivityRowTooltip>
         <div
           className="first-line"
         >
@@ -6376,23 +6210,57 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 type="button"
               />
             </ActivityRowCheckbox>
-            <button
-              className="interactive-wrapper"
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              tabIndex={-1}
-              type="button"
+            <Tooltip
+              isTabbable={true}
+              tooltipText="<div class=\\"tooltip-line\\"><img alt=\\"Book icon\\" src=\\"undefined/images/icons/description-readability.svg\\"/><div><span><span class=\\"grade-range\\">8th-9th</span><span>Text Readability Level</span></span><br/><br/><span>Quill recommends using activities where the text readability level is the same or lower than the student’s reading level so that the student can focus on building their writing skills.</span></div></div><div class=\\"tooltip-line\\"><img alt=\\"Information icon\\" src=\\"undefined/images/icons/description-information.svg\\"/><span>Combine sentences to create 6 sentences about the Royal Road. This is an advanced, un-cued sentence combining activity.</span></div><div class=\\"tooltip-line\\"><img alt=\\"Copyright icon\\" src=\\"undefined/images/icons/description-copyright.svg\\"/><span>Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.</span></div>"
+              tooltipTriggerText={
+                <h2>
+                  <img
+                    alt="Target representing Quill Connect"
+                    src="undefined/images/icons/description-connect.svg"
+                  />
+                  <span>
+                    The Royal Road
+                  </span>
+                </h2>
+              }
             >
-              <h2>
-                <img
-                  alt="Target representing Quill Connect"
-                  src="undefined/images/icons/description-connect.svg"
-                />
-                <span>
-                  The Royal Road
+              <span
+                aria-hidden={false}
+                className="quill-tooltip-trigger "
+                role="tooltip"
+              >
+                <span
+                  className="undefined"
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  role="button"
+                  tabIndex={0}
+                >
+                  <h2>
+                    <img
+                      alt="Target representing Quill Connect"
+                      src="undefined/images/icons/description-connect.svg"
+                    />
+                    <span>
+                      The Royal Road
+                    </span>
+                  </h2>
                 </span>
-              </h2>
-            </button>
+                <span
+                  className="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    className="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </Tooltip>
           </div>
           <div
             className="buttons-wrapper"
@@ -6775,73 +6643,6 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       <section
         className="activity-row not-expanded not-selected  "
       >
-        <ActivityRowTooltip
-          activity={
-            Object {
-              "activity_category": Object {
-                "id": 19,
-                "name": "History: Chinese Dynasties",
-              },
-              "activity_category_id": 19,
-              "activity_category_name": "History: Chinese Dynasties",
-              "activity_classification": Object {
-                "alias": "Quill Connect",
-                "description": "Combine Sentences",
-                "id": 5,
-                "key": "connect",
-              },
-              "anonymous_path": "/activity_sessions/anonymous?activity_id=617",
-              "content_partners": Array [
-                Object {
-                  "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
-                  "id": 1,
-                  "name": "Core Knowledge",
-                },
-              ],
-              "description": "Combine sentences to create 6 sentences about Emperor Hui Zong's defeat. This is an advanced, un-cued sentence combining activity.",
-              "flags": "{production}",
-              "id": 617,
-              "name": "Hui Zong's Defeat",
-              "readability_grade_level": "8th-9th",
-              "standard_level": Object {
-                "id": 13,
-                "name": "7th Grade CCSS",
-              },
-              "standard_level_name": "7th Grade CCSS",
-              "standard_name": "87",
-              "topics": Array [
-                Object {
-                  "id": 16,
-                  "level": 3,
-                  "name": "History",
-                  "parent_id": null,
-                },
-                Object {
-                  "id": 93,
-                  "level": 2,
-                  "name": "World Historical Figures",
-                  "parent_id": 16,
-                },
-                Object {
-                  "id": 184,
-                  "level": 0,
-                  "name": "Hui Zong's Defeat",
-                  "parent_id": null,
-                },
-                Object {
-                  "id": 185,
-                  "level": 1,
-                  "name": "Chinese Dynasties",
-                  "parent_id": null,
-                },
-              ],
-              "uid": "-KqilM2xWovC-Hudmvjn",
-            }
-          }
-          showTooltip={false}
-        >
-          <span />
-        </ActivityRowTooltip>
         <div
           className="first-line"
         >
@@ -6921,23 +6722,57 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 type="button"
               />
             </ActivityRowCheckbox>
-            <button
-              className="interactive-wrapper"
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              tabIndex={-1}
-              type="button"
+            <Tooltip
+              isTabbable={true}
+              tooltipText="<div class=\\"tooltip-line\\"><img alt=\\"Book icon\\" src=\\"undefined/images/icons/description-readability.svg\\"/><div><span><span class=\\"grade-range\\">8th-9th</span><span>Text Readability Level</span></span><br/><br/><span>Quill recommends using activities where the text readability level is the same or lower than the student’s reading level so that the student can focus on building their writing skills.</span></div></div><div class=\\"tooltip-line\\"><img alt=\\"Information icon\\" src=\\"undefined/images/icons/description-information.svg\\"/><span>Combine sentences to create 6 sentences about Emperor Hui Zong&#x27;s defeat. This is an advanced, un-cued sentence combining activity.</span></div><div class=\\"tooltip-line\\"><img alt=\\"Copyright icon\\" src=\\"undefined/images/icons/description-copyright.svg\\"/><span>Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.</span></div>"
+              tooltipTriggerText={
+                <h2>
+                  <img
+                    alt="Target representing Quill Connect"
+                    src="undefined/images/icons/description-connect.svg"
+                  />
+                  <span>
+                    Hui Zong's Defeat
+                  </span>
+                </h2>
+              }
             >
-              <h2>
-                <img
-                  alt="Target representing Quill Connect"
-                  src="undefined/images/icons/description-connect.svg"
-                />
-                <span>
-                  Hui Zong's Defeat
+              <span
+                aria-hidden={false}
+                className="quill-tooltip-trigger "
+                role="tooltip"
+              >
+                <span
+                  className="undefined"
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  role="button"
+                  tabIndex={0}
+                >
+                  <h2>
+                    <img
+                      alt="Target representing Quill Connect"
+                      src="undefined/images/icons/description-connect.svg"
+                    />
+                    <span>
+                      Hui Zong's Defeat
+                    </span>
+                  </h2>
                 </span>
-              </h2>
-            </button>
+                <span
+                  className="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    className="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </Tooltip>
           </div>
           <div
             className="buttons-wrapper"
@@ -7320,73 +7155,6 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       <section
         className="activity-row not-expanded not-selected  "
       >
-        <ActivityRowTooltip
-          activity={
-            Object {
-              "activity_category": Object {
-                "id": 19,
-                "name": "History: Chinese Dynasties",
-              },
-              "activity_category_id": 19,
-              "activity_category_name": "History: Chinese Dynasties",
-              "activity_classification": Object {
-                "alias": "Quill Connect",
-                "description": "Combine Sentences",
-                "id": 5,
-                "key": "connect",
-              },
-              "anonymous_path": "/activity_sessions/anonymous?activity_id=619",
-              "content_partners": Array [
-                Object {
-                  "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
-                  "id": 1,
-                  "name": "Core Knowledge",
-                },
-              ],
-              "description": "Combine sentences to create 6 sentences about the unification of China under Shihuangdi. This is an advanced, un-cued sentence combining activity.",
-              "flags": "{production}",
-              "id": 619,
-              "name": "Shihuangdi Unifies China",
-              "readability_grade_level": "8th-9th",
-              "standard_level": Object {
-                "id": 13,
-                "name": "7th Grade CCSS",
-              },
-              "standard_level_name": "7th Grade CCSS",
-              "standard_name": "87",
-              "topics": Array [
-                Object {
-                  "id": 16,
-                  "level": 3,
-                  "name": "History",
-                  "parent_id": null,
-                },
-                Object {
-                  "id": 93,
-                  "level": 2,
-                  "name": "World Historical Figures",
-                  "parent_id": 16,
-                },
-                Object {
-                  "id": 185,
-                  "level": 1,
-                  "name": "Chinese Dynasties",
-                  "parent_id": null,
-                },
-                Object {
-                  "id": 283,
-                  "level": 0,
-                  "name": "Shihuangdi Unifies China",
-                  "parent_id": null,
-                },
-              ],
-              "uid": "-KqigC-G1kUp_pEeQJjl",
-            }
-          }
-          showTooltip={false}
-        >
-          <span />
-        </ActivityRowTooltip>
         <div
           className="first-line"
         >
@@ -7466,23 +7234,57 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 type="button"
               />
             </ActivityRowCheckbox>
-            <button
-              className="interactive-wrapper"
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              tabIndex={-1}
-              type="button"
+            <Tooltip
+              isTabbable={true}
+              tooltipText="<div class=\\"tooltip-line\\"><img alt=\\"Book icon\\" src=\\"undefined/images/icons/description-readability.svg\\"/><div><span><span class=\\"grade-range\\">8th-9th</span><span>Text Readability Level</span></span><br/><br/><span>Quill recommends using activities where the text readability level is the same or lower than the student’s reading level so that the student can focus on building their writing skills.</span></div></div><div class=\\"tooltip-line\\"><img alt=\\"Information icon\\" src=\\"undefined/images/icons/description-information.svg\\"/><span>Combine sentences to create 6 sentences about the unification of China under Shihuangdi. This is an advanced, un-cued sentence combining activity.</span></div><div class=\\"tooltip-line\\"><img alt=\\"Copyright icon\\" src=\\"undefined/images/icons/description-copyright.svg\\"/><span>Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.</span></div>"
+              tooltipTriggerText={
+                <h2>
+                  <img
+                    alt="Target representing Quill Connect"
+                    src="undefined/images/icons/description-connect.svg"
+                  />
+                  <span>
+                    Shihuangdi Unifies China
+                  </span>
+                </h2>
+              }
             >
-              <h2>
-                <img
-                  alt="Target representing Quill Connect"
-                  src="undefined/images/icons/description-connect.svg"
-                />
-                <span>
-                  Shihuangdi Unifies China
+              <span
+                aria-hidden={false}
+                className="quill-tooltip-trigger "
+                role="tooltip"
+              >
+                <span
+                  className="undefined"
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  role="button"
+                  tabIndex={0}
+                >
+                  <h2>
+                    <img
+                      alt="Target representing Quill Connect"
+                      src="undefined/images/icons/description-connect.svg"
+                    />
+                    <span>
+                      Shihuangdi Unifies China
+                    </span>
+                  </h2>
                 </span>
-              </h2>
-            </button>
+                <span
+                  className="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    className="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </Tooltip>
           </div>
           <div
             className="buttons-wrapper"
@@ -7865,73 +7667,6 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       <section
         className="activity-row not-expanded not-selected  "
       >
-        <ActivityRowTooltip
-          activity={
-            Object {
-              "activity_category": Object {
-                "id": 19,
-                "name": "History: Chinese Dynasties",
-              },
-              "activity_category_id": 19,
-              "activity_category_name": "History: Chinese Dynasties",
-              "activity_classification": Object {
-                "alias": "Quill Connect",
-                "description": "Combine Sentences",
-                "id": 5,
-                "key": "connect",
-              },
-              "anonymous_path": "/activity_sessions/anonymous?activity_id=616",
-              "content_partners": Array [
-                Object {
-                  "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
-                  "id": 1,
-                  "name": "Core Knowledge",
-                },
-              ],
-              "description": "Combine sentences to create 6 sentences about the inventions during the Tang Dynasty. This is an advanced, un-cued sentence combining activity.",
-              "flags": "{production}",
-              "id": 616,
-              "name": "Tang Dynasty Inventions",
-              "readability_grade_level": "6th-7th",
-              "standard_level": Object {
-                "id": 13,
-                "name": "7th Grade CCSS",
-              },
-              "standard_level_name": "7th Grade CCSS",
-              "standard_name": "87",
-              "topics": Array [
-                Object {
-                  "id": 16,
-                  "level": 3,
-                  "name": "History",
-                  "parent_id": null,
-                },
-                Object {
-                  "id": 48,
-                  "level": 2,
-                  "name": "World History",
-                  "parent_id": 16,
-                },
-                Object {
-                  "id": 185,
-                  "level": 1,
-                  "name": "Chinese Dynasties",
-                  "parent_id": null,
-                },
-                Object {
-                  "id": 313,
-                  "level": 0,
-                  "name": "Tang Dynasty Inventions",
-                  "parent_id": null,
-                },
-              ],
-              "uid": "-KqiiQTci2gs9zhx2tIA",
-            }
-          }
-          showTooltip={false}
-        >
-          <span />
-        </ActivityRowTooltip>
         <div
           className="first-line"
         >
@@ -8011,23 +7746,57 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 type="button"
               />
             </ActivityRowCheckbox>
-            <button
-              className="interactive-wrapper"
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              tabIndex={-1}
-              type="button"
+            <Tooltip
+              isTabbable={true}
+              tooltipText="<div class=\\"tooltip-line\\"><img alt=\\"Book icon\\" src=\\"undefined/images/icons/description-readability.svg\\"/><div><span><span class=\\"grade-range\\">6th-7th</span><span>Text Readability Level</span></span><br/><br/><span>Quill recommends using activities where the text readability level is the same or lower than the student’s reading level so that the student can focus on building their writing skills.</span></div></div><div class=\\"tooltip-line\\"><img alt=\\"Information icon\\" src=\\"undefined/images/icons/description-information.svg\\"/><span>Combine sentences to create 6 sentences about the inventions during the Tang Dynasty. This is an advanced, un-cued sentence combining activity.</span></div><div class=\\"tooltip-line\\"><img alt=\\"Copyright icon\\" src=\\"undefined/images/icons/description-copyright.svg\\"/><span>Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.</span></div>"
+              tooltipTriggerText={
+                <h2>
+                  <img
+                    alt="Target representing Quill Connect"
+                    src="undefined/images/icons/description-connect.svg"
+                  />
+                  <span>
+                    Tang Dynasty Inventions
+                  </span>
+                </h2>
+              }
             >
-              <h2>
-                <img
-                  alt="Target representing Quill Connect"
-                  src="undefined/images/icons/description-connect.svg"
-                />
-                <span>
-                  Tang Dynasty Inventions
+              <span
+                aria-hidden={false}
+                className="quill-tooltip-trigger "
+                role="tooltip"
+              >
+                <span
+                  className="undefined"
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  role="button"
+                  tabIndex={0}
+                >
+                  <h2>
+                    <img
+                      alt="Target representing Quill Connect"
+                      src="undefined/images/icons/description-connect.svg"
+                    />
+                    <span>
+                      Tang Dynasty Inventions
+                    </span>
+                  </h2>
                 </span>
-              </h2>
-            </button>
+                <span
+                  className="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    className="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </Tooltip>
           </div>
           <div
             className="buttons-wrapper"
@@ -8410,73 +8179,6 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       <section
         className="activity-row not-expanded not-selected  "
       >
-        <ActivityRowTooltip
-          activity={
-            Object {
-              "activity_category": Object {
-                "id": 19,
-                "name": "History: Chinese Dynasties",
-              },
-              "activity_category_id": 19,
-              "activity_category_name": "History: Chinese Dynasties",
-              "activity_classification": Object {
-                "alias": "Quill Connect",
-                "description": "Combine Sentences",
-                "id": 5,
-                "key": "connect",
-              },
-              "anonymous_path": "/activity_sessions/anonymous?activity_id=618",
-              "content_partners": Array [
-                Object {
-                  "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
-                  "id": 1,
-                  "name": "Core Knowledge",
-                },
-              ],
-              "description": "Combine sentences to create 6 sentences about the Mongol invasion of China. This is an advanced, un-cued sentence combining activity.",
-              "flags": "{production}",
-              "id": 618,
-              "name": "The Mongol Invasion of China",
-              "readability_grade_level": "8th-9th",
-              "standard_level": Object {
-                "id": 13,
-                "name": "7th Grade CCSS",
-              },
-              "standard_level_name": "7th Grade CCSS",
-              "standard_name": "87",
-              "topics": Array [
-                Object {
-                  "id": 16,
-                  "level": 3,
-                  "name": "History",
-                  "parent_id": null,
-                },
-                Object {
-                  "id": 48,
-                  "level": 2,
-                  "name": "World History",
-                  "parent_id": 16,
-                },
-                Object {
-                  "id": 185,
-                  "level": 1,
-                  "name": "Chinese Dynasties",
-                  "parent_id": null,
-                },
-                Object {
-                  "id": 352,
-                  "level": 0,
-                  "name": "The Mongol Invasion of China",
-                  "parent_id": null,
-                },
-              ],
-              "uid": "-Kqisu7eUfGfGvjRvT2W",
-            }
-          }
-          showTooltip={false}
-        >
-          <span />
-        </ActivityRowTooltip>
         <div
           className="first-line"
         >
@@ -8556,23 +8258,57 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 type="button"
               />
             </ActivityRowCheckbox>
-            <button
-              className="interactive-wrapper"
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              tabIndex={-1}
-              type="button"
+            <Tooltip
+              isTabbable={true}
+              tooltipText="<div class=\\"tooltip-line\\"><img alt=\\"Book icon\\" src=\\"undefined/images/icons/description-readability.svg\\"/><div><span><span class=\\"grade-range\\">8th-9th</span><span>Text Readability Level</span></span><br/><br/><span>Quill recommends using activities where the text readability level is the same or lower than the student’s reading level so that the student can focus on building their writing skills.</span></div></div><div class=\\"tooltip-line\\"><img alt=\\"Information icon\\" src=\\"undefined/images/icons/description-information.svg\\"/><span>Combine sentences to create 6 sentences about the Mongol invasion of China. This is an advanced, un-cued sentence combining activity.</span></div><div class=\\"tooltip-line\\"><img alt=\\"Copyright icon\\" src=\\"undefined/images/icons/description-copyright.svg\\"/><span>Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.</span></div>"
+              tooltipTriggerText={
+                <h2>
+                  <img
+                    alt="Target representing Quill Connect"
+                    src="undefined/images/icons/description-connect.svg"
+                  />
+                  <span>
+                    The Mongol Invasion of China
+                  </span>
+                </h2>
+              }
             >
-              <h2>
-                <img
-                  alt="Target representing Quill Connect"
-                  src="undefined/images/icons/description-connect.svg"
-                />
-                <span>
-                  The Mongol Invasion of China
+              <span
+                aria-hidden={false}
+                className="quill-tooltip-trigger "
+                role="tooltip"
+              >
+                <span
+                  className="undefined"
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  role="button"
+                  tabIndex={0}
+                >
+                  <h2>
+                    <img
+                      alt="Target representing Quill Connect"
+                      src="undefined/images/icons/description-connect.svg"
+                    />
+                    <span>
+                      The Mongol Invasion of China
+                    </span>
+                  </h2>
                 </span>
-              </h2>
-            </button>
+                <span
+                  className="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    className="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </Tooltip>
           </div>
           <div
             className="buttons-wrapper"
@@ -8955,73 +8691,6 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       <section
         className="activity-row not-expanded not-selected  "
       >
-        <ActivityRowTooltip
-          activity={
-            Object {
-              "activity_category": Object {
-                "id": 23,
-                "name": "History: Age of Exploration",
-              },
-              "activity_category_id": 23,
-              "activity_category_name": "History: Age of Exploration",
-              "activity_classification": Object {
-                "alias": "Quill Connect",
-                "description": "Combine Sentences",
-                "id": 5,
-                "key": "connect",
-              },
-              "anonymous_path": "/activity_sessions/anonymous?activity_id=608",
-              "content_partners": Array [
-                Object {
-                  "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
-                  "id": 1,
-                  "name": "Core Knowledge",
-                },
-              ],
-              "description": "Students combine sentences to create 6 sentences about Marco Polo. This is an advanced, un-cued sentence combining activity.",
-              "flags": "{production}",
-              "id": 608,
-              "name": "The Travels of Marco Polo",
-              "readability_grade_level": "8th-9th",
-              "standard_level": Object {
-                "id": 13,
-                "name": "7th Grade CCSS",
-              },
-              "standard_level_name": "7th Grade CCSS",
-              "standard_name": "87",
-              "topics": Array [
-                Object {
-                  "id": 16,
-                  "level": 3,
-                  "name": "History",
-                  "parent_id": null,
-                },
-                Object {
-                  "id": 93,
-                  "level": 2,
-                  "name": "World Historical Figures",
-                  "parent_id": 16,
-                },
-                Object {
-                  "id": 117,
-                  "level": 1,
-                  "name": "The Age of Exploration",
-                  "parent_id": null,
-                },
-                Object {
-                  "id": 368,
-                  "level": 0,
-                  "name": "Marco Polo",
-                  "parent_id": null,
-                },
-              ],
-              "uid": "-KqZ_8tESejeyBmj-_pO",
-            }
-          }
-          showTooltip={false}
-        >
-          <span />
-        </ActivityRowTooltip>
         <div
           className="first-line"
         >
@@ -9101,23 +8770,57 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 type="button"
               />
             </ActivityRowCheckbox>
-            <button
-              className="interactive-wrapper"
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              tabIndex={-1}
-              type="button"
+            <Tooltip
+              isTabbable={true}
+              tooltipText="<div class=\\"tooltip-line\\"><img alt=\\"Book icon\\" src=\\"undefined/images/icons/description-readability.svg\\"/><div><span><span class=\\"grade-range\\">8th-9th</span><span>Text Readability Level</span></span><br/><br/><span>Quill recommends using activities where the text readability level is the same or lower than the student’s reading level so that the student can focus on building their writing skills.</span></div></div><div class=\\"tooltip-line\\"><img alt=\\"Information icon\\" src=\\"undefined/images/icons/description-information.svg\\"/><span>Students combine sentences to create 6 sentences about Marco Polo. This is an advanced, un-cued sentence combining activity.</span></div><div class=\\"tooltip-line\\"><img alt=\\"Copyright icon\\" src=\\"undefined/images/icons/description-copyright.svg\\"/><span>Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.</span></div>"
+              tooltipTriggerText={
+                <h2>
+                  <img
+                    alt="Target representing Quill Connect"
+                    src="undefined/images/icons/description-connect.svg"
+                  />
+                  <span>
+                    The Travels of Marco Polo
+                  </span>
+                </h2>
+              }
             >
-              <h2>
-                <img
-                  alt="Target representing Quill Connect"
-                  src="undefined/images/icons/description-connect.svg"
-                />
-                <span>
-                  The Travels of Marco Polo
+              <span
+                aria-hidden={false}
+                className="quill-tooltip-trigger "
+                role="tooltip"
+              >
+                <span
+                  className="undefined"
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  role="button"
+                  tabIndex={0}
+                >
+                  <h2>
+                    <img
+                      alt="Target representing Quill Connect"
+                      src="undefined/images/icons/description-connect.svg"
+                    />
+                    <span>
+                      The Travels of Marco Polo
+                    </span>
+                  </h2>
                 </span>
-              </h2>
-            </button>
+                <span
+                  className="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    className="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </Tooltip>
           </div>
           <div
             className="buttons-wrapper"
@@ -9500,73 +9203,6 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       <section
         className="activity-row not-expanded not-selected  "
       >
-        <ActivityRowTooltip
-          activity={
-            Object {
-              "activity_category": Object {
-                "id": 23,
-                "name": "History: Age of Exploration",
-              },
-              "activity_category_id": 23,
-              "activity_category_name": "History: Age of Exploration",
-              "activity_classification": Object {
-                "alias": "Quill Connect",
-                "description": "Combine Sentences",
-                "id": 5,
-                "key": "connect",
-              },
-              "anonymous_path": "/activity_sessions/anonymous?activity_id=860",
-              "content_partners": Array [
-                Object {
-                  "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
-                  "id": 1,
-                  "name": "Core Knowledge",
-                },
-              ],
-              "description": "Students combine sentences to create 5 sentences about Hernando de Soto. This is an advanced, un-cued sentence combining activity.",
-              "flags": "{production}",
-              "id": 860,
-              "name": "Hernando de Soto",
-              "readability_grade_level": "8th-9th",
-              "standard_level": Object {
-                "id": 13,
-                "name": "7th Grade CCSS",
-              },
-              "standard_level_name": "7th Grade CCSS",
-              "standard_name": "87",
-              "topics": Array [
-                Object {
-                  "id": 16,
-                  "level": 3,
-                  "name": "History",
-                  "parent_id": null,
-                },
-                Object {
-                  "id": 17,
-                  "level": 2,
-                  "name": "U.S. Historical Figures",
-                  "parent_id": 16,
-                },
-                Object {
-                  "id": 117,
-                  "level": 1,
-                  "name": "The Age of Exploration",
-                  "parent_id": null,
-                },
-                Object {
-                  "id": 173,
-                  "level": 0,
-                  "name": "Hernando de Soto",
-                  "parent_id": null,
-                },
-              ],
-              "uid": "-KhO2hv2Wl8rVCHp1B1G",
-            }
-          }
-          showTooltip={false}
-        >
-          <span />
-        </ActivityRowTooltip>
         <div
           className="first-line"
         >
@@ -9646,23 +9282,57 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 type="button"
               />
             </ActivityRowCheckbox>
-            <button
-              className="interactive-wrapper"
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              tabIndex={-1}
-              type="button"
+            <Tooltip
+              isTabbable={true}
+              tooltipText="<div class=\\"tooltip-line\\"><img alt=\\"Book icon\\" src=\\"undefined/images/icons/description-readability.svg\\"/><div><span><span class=\\"grade-range\\">8th-9th</span><span>Text Readability Level</span></span><br/><br/><span>Quill recommends using activities where the text readability level is the same or lower than the student’s reading level so that the student can focus on building their writing skills.</span></div></div><div class=\\"tooltip-line\\"><img alt=\\"Information icon\\" src=\\"undefined/images/icons/description-information.svg\\"/><span>Students combine sentences to create 5 sentences about Hernando de Soto. This is an advanced, un-cued sentence combining activity.</span></div><div class=\\"tooltip-line\\"><img alt=\\"Copyright icon\\" src=\\"undefined/images/icons/description-copyright.svg\\"/><span>Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.</span></div>"
+              tooltipTriggerText={
+                <h2>
+                  <img
+                    alt="Target representing Quill Connect"
+                    src="undefined/images/icons/description-connect.svg"
+                  />
+                  <span>
+                    Hernando de Soto
+                  </span>
+                </h2>
+              }
             >
-              <h2>
-                <img
-                  alt="Target representing Quill Connect"
-                  src="undefined/images/icons/description-connect.svg"
-                />
-                <span>
-                  Hernando de Soto
+              <span
+                aria-hidden={false}
+                className="quill-tooltip-trigger "
+                role="tooltip"
+              >
+                <span
+                  className="undefined"
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  role="button"
+                  tabIndex={0}
+                >
+                  <h2>
+                    <img
+                      alt="Target representing Quill Connect"
+                      src="undefined/images/icons/description-connect.svg"
+                    />
+                    <span>
+                      Hernando de Soto
+                    </span>
+                  </h2>
                 </span>
-              </h2>
-            </button>
+                <span
+                  className="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    className="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </Tooltip>
           </div>
           <div
             className="buttons-wrapper"
@@ -10045,73 +9715,6 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       <section
         className="activity-row not-expanded not-selected  "
       >
-        <ActivityRowTooltip
-          activity={
-            Object {
-              "activity_category": Object {
-                "id": 23,
-                "name": "History: Age of Exploration",
-              },
-              "activity_category_id": 23,
-              "activity_category_name": "History: Age of Exploration",
-              "activity_classification": Object {
-                "alias": "Quill Connect",
-                "description": "Combine Sentences",
-                "id": 5,
-                "key": "connect",
-              },
-              "anonymous_path": "/activity_sessions/anonymous?activity_id=605",
-              "content_partners": Array [
-                Object {
-                  "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
-                  "id": 1,
-                  "name": "Core Knowledge",
-                },
-              ],
-              "description": "Combine sentences to create 7 sentences about Magellan's trip around the globe. This is an advanced, un-cued sentence combining activity.",
-              "flags": "{production}",
-              "id": 605,
-              "name": "Magellan",
-              "readability_grade_level": "8th-9th",
-              "standard_level": Object {
-                "id": 13,
-                "name": "7th Grade CCSS",
-              },
-              "standard_level_name": "7th Grade CCSS",
-              "standard_name": "87",
-              "topics": Array [
-                Object {
-                  "id": 16,
-                  "level": 3,
-                  "name": "History",
-                  "parent_id": null,
-                },
-                Object {
-                  "id": 93,
-                  "level": 2,
-                  "name": "World Historical Figures",
-                  "parent_id": 16,
-                },
-                Object {
-                  "id": 116,
-                  "level": 0,
-                  "name": "Magellan",
-                  "parent_id": null,
-                },
-                Object {
-                  "id": 117,
-                  "level": 1,
-                  "name": "The Age of Exploration",
-                  "parent_id": null,
-                },
-              ],
-              "uid": "-KqZiV1bnPe48h6gyYss",
-            }
-          }
-          showTooltip={false}
-        >
-          <span />
-        </ActivityRowTooltip>
         <div
           className="first-line"
         >
@@ -10191,23 +9794,57 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 type="button"
               />
             </ActivityRowCheckbox>
-            <button
-              className="interactive-wrapper"
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              tabIndex={-1}
-              type="button"
+            <Tooltip
+              isTabbable={true}
+              tooltipText="<div class=\\"tooltip-line\\"><img alt=\\"Book icon\\" src=\\"undefined/images/icons/description-readability.svg\\"/><div><span><span class=\\"grade-range\\">8th-9th</span><span>Text Readability Level</span></span><br/><br/><span>Quill recommends using activities where the text readability level is the same or lower than the student’s reading level so that the student can focus on building their writing skills.</span></div></div><div class=\\"tooltip-line\\"><img alt=\\"Information icon\\" src=\\"undefined/images/icons/description-information.svg\\"/><span>Combine sentences to create 7 sentences about Magellan&#x27;s trip around the globe. This is an advanced, un-cued sentence combining activity.</span></div><div class=\\"tooltip-line\\"><img alt=\\"Copyright icon\\" src=\\"undefined/images/icons/description-copyright.svg\\"/><span>Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.</span></div>"
+              tooltipTriggerText={
+                <h2>
+                  <img
+                    alt="Target representing Quill Connect"
+                    src="undefined/images/icons/description-connect.svg"
+                  />
+                  <span>
+                    Magellan
+                  </span>
+                </h2>
+              }
             >
-              <h2>
-                <img
-                  alt="Target representing Quill Connect"
-                  src="undefined/images/icons/description-connect.svg"
-                />
-                <span>
-                  Magellan
+              <span
+                aria-hidden={false}
+                className="quill-tooltip-trigger "
+                role="tooltip"
+              >
+                <span
+                  className="undefined"
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  role="button"
+                  tabIndex={0}
+                >
+                  <h2>
+                    <img
+                      alt="Target representing Quill Connect"
+                      src="undefined/images/icons/description-connect.svg"
+                    />
+                    <span>
+                      Magellan
+                    </span>
+                  </h2>
                 </span>
-              </h2>
-            </button>
+                <span
+                  className="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    className="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </Tooltip>
           </div>
           <div
             className="buttons-wrapper"
@@ -10590,73 +10227,6 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       <section
         className="activity-row not-expanded not-selected  "
       >
-        <ActivityRowTooltip
-          activity={
-            Object {
-              "activity_category": Object {
-                "id": 23,
-                "name": "History: Age of Exploration",
-              },
-              "activity_category_id": 23,
-              "activity_category_name": "History: Age of Exploration",
-              "activity_classification": Object {
-                "alias": "Quill Connect",
-                "description": "Combine Sentences",
-                "id": 5,
-                "key": "connect",
-              },
-              "anonymous_path": "/activity_sessions/anonymous?activity_id=606",
-              "content_partners": Array [
-                Object {
-                  "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
-                  "id": 1,
-                  "name": "Core Knowledge",
-                },
-              ],
-              "description": "Students combine sentences to create 5 sentences about the Jamestown settlement. This is an advanced, un-cued sentence combining activity.",
-              "flags": "{production}",
-              "id": 606,
-              "name": "Jamestown",
-              "readability_grade_level": "8th-9th",
-              "standard_level": Object {
-                "id": 13,
-                "name": "7th Grade CCSS",
-              },
-              "standard_level_name": "7th Grade CCSS",
-              "standard_name": "87",
-              "topics": Array [
-                Object {
-                  "id": 16,
-                  "level": 3,
-                  "name": "History",
-                  "parent_id": null,
-                },
-                Object {
-                  "id": 45,
-                  "level": 2,
-                  "name": "U.S. History",
-                  "parent_id": 16,
-                },
-                Object {
-                  "id": 117,
-                  "level": 1,
-                  "name": "The Age of Exploration",
-                  "parent_id": null,
-                },
-                Object {
-                  "id": 200,
-                  "level": 0,
-                  "name": "Jamestown Settlement",
-                  "parent_id": null,
-                },
-              ],
-              "uid": "-KqcJOzHDYUrioJ6fPlR",
-            }
-          }
-          showTooltip={false}
-        >
-          <span />
-        </ActivityRowTooltip>
         <div
           className="first-line"
         >
@@ -10736,23 +10306,57 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 type="button"
               />
             </ActivityRowCheckbox>
-            <button
-              className="interactive-wrapper"
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              tabIndex={-1}
-              type="button"
+            <Tooltip
+              isTabbable={true}
+              tooltipText="<div class=\\"tooltip-line\\"><img alt=\\"Book icon\\" src=\\"undefined/images/icons/description-readability.svg\\"/><div><span><span class=\\"grade-range\\">8th-9th</span><span>Text Readability Level</span></span><br/><br/><span>Quill recommends using activities where the text readability level is the same or lower than the student’s reading level so that the student can focus on building their writing skills.</span></div></div><div class=\\"tooltip-line\\"><img alt=\\"Information icon\\" src=\\"undefined/images/icons/description-information.svg\\"/><span>Students combine sentences to create 5 sentences about the Jamestown settlement. This is an advanced, un-cued sentence combining activity.</span></div><div class=\\"tooltip-line\\"><img alt=\\"Copyright icon\\" src=\\"undefined/images/icons/description-copyright.svg\\"/><span>Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.</span></div>"
+              tooltipTriggerText={
+                <h2>
+                  <img
+                    alt="Target representing Quill Connect"
+                    src="undefined/images/icons/description-connect.svg"
+                  />
+                  <span>
+                    Jamestown
+                  </span>
+                </h2>
+              }
             >
-              <h2>
-                <img
-                  alt="Target representing Quill Connect"
-                  src="undefined/images/icons/description-connect.svg"
-                />
-                <span>
-                  Jamestown
+              <span
+                aria-hidden={false}
+                className="quill-tooltip-trigger "
+                role="tooltip"
+              >
+                <span
+                  className="undefined"
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  role="button"
+                  tabIndex={0}
+                >
+                  <h2>
+                    <img
+                      alt="Target representing Quill Connect"
+                      src="undefined/images/icons/description-connect.svg"
+                    />
+                    <span>
+                      Jamestown
+                    </span>
+                  </h2>
                 </span>
-              </h2>
-            </button>
+                <span
+                  className="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    className="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </Tooltip>
           </div>
           <div
             className="buttons-wrapper"
@@ -11135,73 +10739,6 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       <section
         className="activity-row not-expanded not-selected  "
       >
-        <ActivityRowTooltip
-          activity={
-            Object {
-              "activity_category": Object {
-                "id": 22,
-                "name": "History: The Renaissance",
-              },
-              "activity_category_id": 22,
-              "activity_category_name": "History: The Renaissance",
-              "activity_classification": Object {
-                "alias": "Quill Connect",
-                "description": "Combine Sentences",
-                "id": 5,
-                "key": "connect",
-              },
-              "anonymous_path": "/activity_sessions/anonymous?activity_id=642",
-              "content_partners": Array [
-                Object {
-                  "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
-                  "id": 1,
-                  "name": "Core Knowledge",
-                },
-              ],
-              "description": "Combine sentences to create 6 sentences about humanism. This is an advanced, un-cued sentence combining activity.",
-              "flags": "{production}",
-              "id": 642,
-              "name": "Humanism",
-              "readability_grade_level": "8th-9th",
-              "standard_level": Object {
-                "id": 13,
-                "name": "7th Grade CCSS",
-              },
-              "standard_level_name": "7th Grade CCSS",
-              "standard_name": "87",
-              "topics": Array [
-                Object {
-                  "id": 16,
-                  "level": 3,
-                  "name": "History",
-                  "parent_id": null,
-                },
-                Object {
-                  "id": 48,
-                  "level": 2,
-                  "name": "World History",
-                  "parent_id": 16,
-                },
-                Object {
-                  "id": 186,
-                  "level": 0,
-                  "name": "Humanism",
-                  "parent_id": null,
-                },
-                Object {
-                  "id": 187,
-                  "level": 1,
-                  "name": "The Renaissance",
-                  "parent_id": null,
-                },
-              ],
-              "uid": "-KqZldiOXNWbJNFvIRY-",
-            }
-          }
-          showTooltip={false}
-        >
-          <span />
-        </ActivityRowTooltip>
         <div
           className="first-line"
         >
@@ -11281,23 +10818,57 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 type="button"
               />
             </ActivityRowCheckbox>
-            <button
-              className="interactive-wrapper"
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              tabIndex={-1}
-              type="button"
+            <Tooltip
+              isTabbable={true}
+              tooltipText="<div class=\\"tooltip-line\\"><img alt=\\"Book icon\\" src=\\"undefined/images/icons/description-readability.svg\\"/><div><span><span class=\\"grade-range\\">8th-9th</span><span>Text Readability Level</span></span><br/><br/><span>Quill recommends using activities where the text readability level is the same or lower than the student’s reading level so that the student can focus on building their writing skills.</span></div></div><div class=\\"tooltip-line\\"><img alt=\\"Information icon\\" src=\\"undefined/images/icons/description-information.svg\\"/><span>Combine sentences to create 6 sentences about humanism. This is an advanced, un-cued sentence combining activity.</span></div><div class=\\"tooltip-line\\"><img alt=\\"Copyright icon\\" src=\\"undefined/images/icons/description-copyright.svg\\"/><span>Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.</span></div>"
+              tooltipTriggerText={
+                <h2>
+                  <img
+                    alt="Target representing Quill Connect"
+                    src="undefined/images/icons/description-connect.svg"
+                  />
+                  <span>
+                    Humanism
+                  </span>
+                </h2>
+              }
             >
-              <h2>
-                <img
-                  alt="Target representing Quill Connect"
-                  src="undefined/images/icons/description-connect.svg"
-                />
-                <span>
-                  Humanism
+              <span
+                aria-hidden={false}
+                className="quill-tooltip-trigger "
+                role="tooltip"
+              >
+                <span
+                  className="undefined"
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  role="button"
+                  tabIndex={0}
+                >
+                  <h2>
+                    <img
+                      alt="Target representing Quill Connect"
+                      src="undefined/images/icons/description-connect.svg"
+                    />
+                    <span>
+                      Humanism
+                    </span>
+                  </h2>
                 </span>
-              </h2>
-            </button>
+                <span
+                  className="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    className="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </Tooltip>
           </div>
           <div
             className="buttons-wrapper"
@@ -11680,73 +11251,6 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       <section
         className="activity-row not-expanded not-selected  "
       >
-        <ActivityRowTooltip
-          activity={
-            Object {
-              "activity_category": Object {
-                "id": 22,
-                "name": "History: The Renaissance",
-              },
-              "activity_category_id": 22,
-              "activity_category_name": "History: The Renaissance",
-              "activity_classification": Object {
-                "alias": "Quill Connect",
-                "description": "Combine Sentences",
-                "id": 5,
-                "key": "connect",
-              },
-              "anonymous_path": "/activity_sessions/anonymous?activity_id=640",
-              "content_partners": Array [
-                Object {
-                  "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
-                  "id": 1,
-                  "name": "Core Knowledge",
-                },
-              ],
-              "description": "Combine sentences to create 6 sentences about the beginnings of the Renaissance in Italy. This is an advanced, un-cued sentence combining activity.",
-              "flags": "{production}",
-              "id": 640,
-              "name": "Renaissance Beginnings in Italy",
-              "readability_grade_level": "8th-9th",
-              "standard_level": Object {
-                "id": 13,
-                "name": "7th Grade CCSS",
-              },
-              "standard_level_name": "7th Grade CCSS",
-              "standard_name": "87",
-              "topics": Array [
-                Object {
-                  "id": 16,
-                  "level": 3,
-                  "name": "History",
-                  "parent_id": null,
-                },
-                Object {
-                  "id": 48,
-                  "level": 2,
-                  "name": "World History",
-                  "parent_id": 16,
-                },
-                Object {
-                  "id": 187,
-                  "level": 1,
-                  "name": "The Renaissance",
-                  "parent_id": null,
-                },
-                Object {
-                  "id": 269,
-                  "level": 0,
-                  "name": "The Renaissance in Italy",
-                  "parent_id": null,
-                },
-              ],
-              "uid": "-KqZpAZ8UMhwZp_3ezqw",
-            }
-          }
-          showTooltip={false}
-        >
-          <span />
-        </ActivityRowTooltip>
         <div
           className="first-line"
         >
@@ -11826,23 +11330,57 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 type="button"
               />
             </ActivityRowCheckbox>
-            <button
-              className="interactive-wrapper"
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              tabIndex={-1}
-              type="button"
+            <Tooltip
+              isTabbable={true}
+              tooltipText="<div class=\\"tooltip-line\\"><img alt=\\"Book icon\\" src=\\"undefined/images/icons/description-readability.svg\\"/><div><span><span class=\\"grade-range\\">8th-9th</span><span>Text Readability Level</span></span><br/><br/><span>Quill recommends using activities where the text readability level is the same or lower than the student’s reading level so that the student can focus on building their writing skills.</span></div></div><div class=\\"tooltip-line\\"><img alt=\\"Information icon\\" src=\\"undefined/images/icons/description-information.svg\\"/><span>Combine sentences to create 6 sentences about the beginnings of the Renaissance in Italy. This is an advanced, un-cued sentence combining activity.</span></div><div class=\\"tooltip-line\\"><img alt=\\"Copyright icon\\" src=\\"undefined/images/icons/description-copyright.svg\\"/><span>Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.</span></div>"
+              tooltipTriggerText={
+                <h2>
+                  <img
+                    alt="Target representing Quill Connect"
+                    src="undefined/images/icons/description-connect.svg"
+                  />
+                  <span>
+                    Renaissance Beginnings in Italy
+                  </span>
+                </h2>
+              }
             >
-              <h2>
-                <img
-                  alt="Target representing Quill Connect"
-                  src="undefined/images/icons/description-connect.svg"
-                />
-                <span>
-                  Renaissance Beginnings in Italy
+              <span
+                aria-hidden={false}
+                className="quill-tooltip-trigger "
+                role="tooltip"
+              >
+                <span
+                  className="undefined"
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  role="button"
+                  tabIndex={0}
+                >
+                  <h2>
+                    <img
+                      alt="Target representing Quill Connect"
+                      src="undefined/images/icons/description-connect.svg"
+                    />
+                    <span>
+                      Renaissance Beginnings in Italy
+                    </span>
+                  </h2>
                 </span>
-              </h2>
-            </button>
+                <span
+                  className="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    className="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </Tooltip>
           </div>
           <div
             className="buttons-wrapper"
@@ -12225,73 +11763,6 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       <section
         className="activity-row not-expanded not-selected  "
       >
-        <ActivityRowTooltip
-          activity={
-            Object {
-              "activity_category": Object {
-                "id": 22,
-                "name": "History: The Renaissance",
-              },
-              "activity_category_id": 22,
-              "activity_category_name": "History: The Renaissance",
-              "activity_classification": Object {
-                "alias": "Quill Connect",
-                "description": "Combine Sentences",
-                "id": 5,
-                "key": "connect",
-              },
-              "anonymous_path": "/activity_sessions/anonymous?activity_id=641",
-              "content_partners": Array [
-                Object {
-                  "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
-                  "id": 1,
-                  "name": "Core Knowledge",
-                },
-              ],
-              "description": "Combine sentences to create 7 sentences about the Medici family. This is an advanced, un-cued sentence combining activity.",
-              "flags": "{production}",
-              "id": 641,
-              "name": "The Medici Family",
-              "readability_grade_level": "8th-9th",
-              "standard_level": Object {
-                "id": 13,
-                "name": "7th Grade CCSS",
-              },
-              "standard_level_name": "7th Grade CCSS",
-              "standard_name": "87",
-              "topics": Array [
-                Object {
-                  "id": 16,
-                  "level": 3,
-                  "name": "History",
-                  "parent_id": null,
-                },
-                Object {
-                  "id": 93,
-                  "level": 2,
-                  "name": "World Historical Figures",
-                  "parent_id": 16,
-                },
-                Object {
-                  "id": 187,
-                  "level": 1,
-                  "name": "The Renaissance",
-                  "parent_id": null,
-                },
-                Object {
-                  "id": 350,
-                  "level": 0,
-                  "name": "The Medici Family",
-                  "parent_id": null,
-                },
-              ],
-              "uid": "-KqZvArG8422vhwB7rIo",
-            }
-          }
-          showTooltip={false}
-        >
-          <span />
-        </ActivityRowTooltip>
         <div
           className="first-line"
         >
@@ -12371,23 +11842,57 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 type="button"
               />
             </ActivityRowCheckbox>
-            <button
-              className="interactive-wrapper"
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              tabIndex={-1}
-              type="button"
+            <Tooltip
+              isTabbable={true}
+              tooltipText="<div class=\\"tooltip-line\\"><img alt=\\"Book icon\\" src=\\"undefined/images/icons/description-readability.svg\\"/><div><span><span class=\\"grade-range\\">8th-9th</span><span>Text Readability Level</span></span><br/><br/><span>Quill recommends using activities where the text readability level is the same or lower than the student’s reading level so that the student can focus on building their writing skills.</span></div></div><div class=\\"tooltip-line\\"><img alt=\\"Information icon\\" src=\\"undefined/images/icons/description-information.svg\\"/><span>Combine sentences to create 7 sentences about the Medici family. This is an advanced, un-cued sentence combining activity.</span></div><div class=\\"tooltip-line\\"><img alt=\\"Copyright icon\\" src=\\"undefined/images/icons/description-copyright.svg\\"/><span>Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.</span></div>"
+              tooltipTriggerText={
+                <h2>
+                  <img
+                    alt="Target representing Quill Connect"
+                    src="undefined/images/icons/description-connect.svg"
+                  />
+                  <span>
+                    The Medici Family
+                  </span>
+                </h2>
+              }
             >
-              <h2>
-                <img
-                  alt="Target representing Quill Connect"
-                  src="undefined/images/icons/description-connect.svg"
-                />
-                <span>
-                  The Medici Family
+              <span
+                aria-hidden={false}
+                className="quill-tooltip-trigger "
+                role="tooltip"
+              >
+                <span
+                  className="undefined"
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  role="button"
+                  tabIndex={0}
+                >
+                  <h2>
+                    <img
+                      alt="Target representing Quill Connect"
+                      src="undefined/images/icons/description-connect.svg"
+                    />
+                    <span>
+                      The Medici Family
+                    </span>
+                  </h2>
                 </span>
-              </h2>
-            </button>
+                <span
+                  className="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    className="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </Tooltip>
           </div>
           <div
             className="buttons-wrapper"
@@ -12770,73 +12275,6 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       <section
         className="activity-row not-expanded not-selected  "
       >
-        <ActivityRowTooltip
-          activity={
-            Object {
-              "activity_category": Object {
-                "id": 22,
-                "name": "History: The Renaissance",
-              },
-              "activity_category_id": 22,
-              "activity_category_name": "History: The Renaissance",
-              "activity_classification": Object {
-                "alias": "Quill Connect",
-                "description": "Combine Sentences",
-                "id": 5,
-                "key": "connect",
-              },
-              "anonymous_path": "/activity_sessions/anonymous?activity_id=643",
-              "content_partners": Array [
-                Object {
-                  "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
-                  "id": 1,
-                  "name": "Core Knowledge",
-                },
-              ],
-              "description": "Combine sentences to create 6 sentences about the Northern Renaissance. This is an advanced, un-cued sentence combining activity.",
-              "flags": "{production}",
-              "id": 643,
-              "name": "The Northern Renaissance",
-              "readability_grade_level": "8th-9th",
-              "standard_level": Object {
-                "id": 13,
-                "name": "7th Grade CCSS",
-              },
-              "standard_level_name": "7th Grade CCSS",
-              "standard_name": "87",
-              "topics": Array [
-                Object {
-                  "id": 16,
-                  "level": 3,
-                  "name": "History",
-                  "parent_id": null,
-                },
-                Object {
-                  "id": 48,
-                  "level": 2,
-                  "name": "World History",
-                  "parent_id": 16,
-                },
-                Object {
-                  "id": 187,
-                  "level": 1,
-                  "name": "The Renaissance",
-                  "parent_id": null,
-                },
-                Object {
-                  "id": 355,
-                  "level": 0,
-                  "name": "The Northern Renaissance",
-                  "parent_id": null,
-                },
-              ],
-              "uid": "-KqdGWI1rgvtQBg2vIb0",
-            }
-          }
-          showTooltip={false}
-        >
-          <span />
-        </ActivityRowTooltip>
         <div
           className="first-line"
         >
@@ -12916,23 +12354,57 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 type="button"
               />
             </ActivityRowCheckbox>
-            <button
-              className="interactive-wrapper"
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              tabIndex={-1}
-              type="button"
+            <Tooltip
+              isTabbable={true}
+              tooltipText="<div class=\\"tooltip-line\\"><img alt=\\"Book icon\\" src=\\"undefined/images/icons/description-readability.svg\\"/><div><span><span class=\\"grade-range\\">8th-9th</span><span>Text Readability Level</span></span><br/><br/><span>Quill recommends using activities where the text readability level is the same or lower than the student’s reading level so that the student can focus on building their writing skills.</span></div></div><div class=\\"tooltip-line\\"><img alt=\\"Information icon\\" src=\\"undefined/images/icons/description-information.svg\\"/><span>Combine sentences to create 6 sentences about the Northern Renaissance. This is an advanced, un-cued sentence combining activity.</span></div><div class=\\"tooltip-line\\"><img alt=\\"Copyright icon\\" src=\\"undefined/images/icons/description-copyright.svg\\"/><span>Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.</span></div>"
+              tooltipTriggerText={
+                <h2>
+                  <img
+                    alt="Target representing Quill Connect"
+                    src="undefined/images/icons/description-connect.svg"
+                  />
+                  <span>
+                    The Northern Renaissance
+                  </span>
+                </h2>
+              }
             >
-              <h2>
-                <img
-                  alt="Target representing Quill Connect"
-                  src="undefined/images/icons/description-connect.svg"
-                />
-                <span>
-                  The Northern Renaissance
+              <span
+                aria-hidden={false}
+                className="quill-tooltip-trigger "
+                role="tooltip"
+              >
+                <span
+                  className="undefined"
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  role="button"
+                  tabIndex={0}
+                >
+                  <h2>
+                    <img
+                      alt="Target representing Quill Connect"
+                      src="undefined/images/icons/description-connect.svg"
+                    />
+                    <span>
+                      The Northern Renaissance
+                    </span>
+                  </h2>
                 </span>
-              </h2>
-            </button>
+                <span
+                  className="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    className="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </Tooltip>
           </div>
           <div
             className="buttons-wrapper"
@@ -13315,73 +12787,6 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       <section
         className="activity-row not-expanded not-selected  "
       >
-        <ActivityRowTooltip
-          activity={
-            Object {
-              "activity_category": Object {
-                "id": 25,
-                "name": "History: American Revolution",
-              },
-              "activity_category_id": 25,
-              "activity_category_name": "History: American Revolution",
-              "activity_classification": Object {
-                "alias": "Quill Connect",
-                "description": "Combine Sentences",
-                "id": 5,
-                "key": "connect",
-              },
-              "anonymous_path": "/activity_sessions/anonymous?activity_id=728",
-              "content_partners": Array [
-                Object {
-                  "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
-                  "id": 1,
-                  "name": "Core Knowledge",
-                },
-              ],
-              "description": "Combine sentences to create 7 sentences about the beginning of the American Revolution. This is an advanced, un-cued sentence combining activity.",
-              "flags": "{production}",
-              "id": 728,
-              "name": "The War Begins at Lexington and Concord",
-              "readability_grade_level": "6th-7th",
-              "standard_level": Object {
-                "id": 13,
-                "name": "7th Grade CCSS",
-              },
-              "standard_level_name": "7th Grade CCSS",
-              "standard_name": "87",
-              "topics": Array [
-                Object {
-                  "id": 16,
-                  "level": 3,
-                  "name": "History",
-                  "parent_id": null,
-                },
-                Object {
-                  "id": 45,
-                  "level": 2,
-                  "name": "U.S. History",
-                  "parent_id": 16,
-                },
-                Object {
-                  "id": 119,
-                  "level": 1,
-                  "name": "The American Revolution",
-                  "parent_id": null,
-                },
-                Object {
-                  "id": 373,
-                  "level": 0,
-                  "name": "The Battles of Lexington & Concord",
-                  "parent_id": null,
-                },
-              ],
-              "uid": "-KqY7BQmhDn71y-E-s3C",
-            }
-          }
-          showTooltip={false}
-        >
-          <span />
-        </ActivityRowTooltip>
         <div
           className="first-line"
         >
@@ -13461,23 +12866,57 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 type="button"
               />
             </ActivityRowCheckbox>
-            <button
-              className="interactive-wrapper"
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              tabIndex={-1}
-              type="button"
+            <Tooltip
+              isTabbable={true}
+              tooltipText="<div class=\\"tooltip-line\\"><img alt=\\"Book icon\\" src=\\"undefined/images/icons/description-readability.svg\\"/><div><span><span class=\\"grade-range\\">6th-7th</span><span>Text Readability Level</span></span><br/><br/><span>Quill recommends using activities where the text readability level is the same or lower than the student’s reading level so that the student can focus on building their writing skills.</span></div></div><div class=\\"tooltip-line\\"><img alt=\\"Information icon\\" src=\\"undefined/images/icons/description-information.svg\\"/><span>Combine sentences to create 7 sentences about the beginning of the American Revolution. This is an advanced, un-cued sentence combining activity.</span></div><div class=\\"tooltip-line\\"><img alt=\\"Copyright icon\\" src=\\"undefined/images/icons/description-copyright.svg\\"/><span>Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.</span></div>"
+              tooltipTriggerText={
+                <h2>
+                  <img
+                    alt="Target representing Quill Connect"
+                    src="undefined/images/icons/description-connect.svg"
+                  />
+                  <span>
+                    The War Begins at Lexington and Concord
+                  </span>
+                </h2>
+              }
             >
-              <h2>
-                <img
-                  alt="Target representing Quill Connect"
-                  src="undefined/images/icons/description-connect.svg"
-                />
-                <span>
-                  The War Begins at Lexington and Concord
+              <span
+                aria-hidden={false}
+                className="quill-tooltip-trigger "
+                role="tooltip"
+              >
+                <span
+                  className="undefined"
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  role="button"
+                  tabIndex={0}
+                >
+                  <h2>
+                    <img
+                      alt="Target representing Quill Connect"
+                      src="undefined/images/icons/description-connect.svg"
+                    />
+                    <span>
+                      The War Begins at Lexington and Concord
+                    </span>
+                  </h2>
                 </span>
-              </h2>
-            </button>
+                <span
+                  className="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    className="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </Tooltip>
           </div>
           <div
             className="buttons-wrapper"
@@ -13860,73 +13299,6 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       <section
         className="activity-row not-expanded not-selected  "
       >
-        <ActivityRowTooltip
-          activity={
-            Object {
-              "activity_category": Object {
-                "id": 25,
-                "name": "History: American Revolution",
-              },
-              "activity_category_id": 25,
-              "activity_category_name": "History: American Revolution",
-              "activity_classification": Object {
-                "alias": "Quill Connect",
-                "description": "Combine Sentences",
-                "id": 5,
-                "key": "connect",
-              },
-              "anonymous_path": "/activity_sessions/anonymous?activity_id=731",
-              "content_partners": Array [
-                Object {
-                  "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
-                  "id": 1,
-                  "name": "Core Knowledge",
-                },
-              ],
-              "description": "Combine sentences to create 6 sentences about the final battle of the American Revolution. This is an advanced, un-cued sentence combining activity.",
-              "flags": "{production}",
-              "id": 731,
-              "name": "The War Ends at Yorktown",
-              "readability_grade_level": "6th-7th",
-              "standard_level": Object {
-                "id": 13,
-                "name": "7th Grade CCSS",
-              },
-              "standard_level_name": "7th Grade CCSS",
-              "standard_name": "87",
-              "topics": Array [
-                Object {
-                  "id": 16,
-                  "level": 3,
-                  "name": "History",
-                  "parent_id": null,
-                },
-                Object {
-                  "id": 45,
-                  "level": 2,
-                  "name": "U.S. History",
-                  "parent_id": 16,
-                },
-                Object {
-                  "id": 119,
-                  "level": 1,
-                  "name": "The American Revolution",
-                  "parent_id": null,
-                },
-                Object {
-                  "id": 374,
-                  "level": 0,
-                  "name": "The Battle at Yorktown",
-                  "parent_id": null,
-                },
-              ],
-              "uid": "-KqYK5A0fNos0ZbUjjOu",
-            }
-          }
-          showTooltip={false}
-        >
-          <span />
-        </ActivityRowTooltip>
         <div
           className="first-line"
         >
@@ -14006,23 +13378,57 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 type="button"
               />
             </ActivityRowCheckbox>
-            <button
-              className="interactive-wrapper"
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              tabIndex={-1}
-              type="button"
+            <Tooltip
+              isTabbable={true}
+              tooltipText="<div class=\\"tooltip-line\\"><img alt=\\"Book icon\\" src=\\"undefined/images/icons/description-readability.svg\\"/><div><span><span class=\\"grade-range\\">6th-7th</span><span>Text Readability Level</span></span><br/><br/><span>Quill recommends using activities where the text readability level is the same or lower than the student’s reading level so that the student can focus on building their writing skills.</span></div></div><div class=\\"tooltip-line\\"><img alt=\\"Information icon\\" src=\\"undefined/images/icons/description-information.svg\\"/><span>Combine sentences to create 6 sentences about the final battle of the American Revolution. This is an advanced, un-cued sentence combining activity.</span></div><div class=\\"tooltip-line\\"><img alt=\\"Copyright icon\\" src=\\"undefined/images/icons/description-copyright.svg\\"/><span>Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.</span></div>"
+              tooltipTriggerText={
+                <h2>
+                  <img
+                    alt="Target representing Quill Connect"
+                    src="undefined/images/icons/description-connect.svg"
+                  />
+                  <span>
+                    The War Ends at Yorktown
+                  </span>
+                </h2>
+              }
             >
-              <h2>
-                <img
-                  alt="Target representing Quill Connect"
-                  src="undefined/images/icons/description-connect.svg"
-                />
-                <span>
-                  The War Ends at Yorktown
+              <span
+                aria-hidden={false}
+                className="quill-tooltip-trigger "
+                role="tooltip"
+              >
+                <span
+                  className="undefined"
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  role="button"
+                  tabIndex={0}
+                >
+                  <h2>
+                    <img
+                      alt="Target representing Quill Connect"
+                      src="undefined/images/icons/description-connect.svg"
+                    />
+                    <span>
+                      The War Ends at Yorktown
+                    </span>
+                  </h2>
                 </span>
-              </h2>
-            </button>
+                <span
+                  className="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    className="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </Tooltip>
           </div>
           <div
             className="buttons-wrapper"
@@ -14405,73 +13811,6 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       <section
         className="activity-row not-expanded not-selected  "
       >
-        <ActivityRowTooltip
-          activity={
-            Object {
-              "activity_category": Object {
-                "id": 25,
-                "name": "History: American Revolution",
-              },
-              "activity_category_id": 25,
-              "activity_category_name": "History: American Revolution",
-              "activity_classification": Object {
-                "alias": "Quill Connect",
-                "description": "Combine Sentences",
-                "id": 5,
-                "key": "connect",
-              },
-              "anonymous_path": "/activity_sessions/anonymous?activity_id=729",
-              "content_partners": Array [
-                Object {
-                  "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
-                  "id": 1,
-                  "name": "Core Knowledge",
-                },
-              ],
-              "description": "Combine sentences to create 7 sentences about the Battle of Bunker Hill. This is an advanced, un-cued sentence combining activity.",
-              "flags": "{production}",
-              "id": 729,
-              "name": "Turning Point: Bunker Hill",
-              "readability_grade_level": "6th-7th",
-              "standard_level": Object {
-                "id": 13,
-                "name": "7th Grade CCSS",
-              },
-              "standard_level_name": "7th Grade CCSS",
-              "standard_name": "87",
-              "topics": Array [
-                Object {
-                  "id": 16,
-                  "level": 3,
-                  "name": "History",
-                  "parent_id": null,
-                },
-                Object {
-                  "id": 45,
-                  "level": 2,
-                  "name": "U.S. History",
-                  "parent_id": 16,
-                },
-                Object {
-                  "id": 119,
-                  "level": 1,
-                  "name": "The American Revolution",
-                  "parent_id": null,
-                },
-                Object {
-                  "id": 385,
-                  "level": 0,
-                  "name": "The Battle of Bunker Hill",
-                  "parent_id": null,
-                },
-              ],
-              "uid": "-KqYNoENpFXSttDu-xPf",
-            }
-          }
-          showTooltip={false}
-        >
-          <span />
-        </ActivityRowTooltip>
         <div
           className="first-line"
         >
@@ -14551,23 +13890,57 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 type="button"
               />
             </ActivityRowCheckbox>
-            <button
-              className="interactive-wrapper"
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              tabIndex={-1}
-              type="button"
+            <Tooltip
+              isTabbable={true}
+              tooltipText="<div class=\\"tooltip-line\\"><img alt=\\"Book icon\\" src=\\"undefined/images/icons/description-readability.svg\\"/><div><span><span class=\\"grade-range\\">6th-7th</span><span>Text Readability Level</span></span><br/><br/><span>Quill recommends using activities where the text readability level is the same or lower than the student’s reading level so that the student can focus on building their writing skills.</span></div></div><div class=\\"tooltip-line\\"><img alt=\\"Information icon\\" src=\\"undefined/images/icons/description-information.svg\\"/><span>Combine sentences to create 7 sentences about the Battle of Bunker Hill. This is an advanced, un-cued sentence combining activity.</span></div><div class=\\"tooltip-line\\"><img alt=\\"Copyright icon\\" src=\\"undefined/images/icons/description-copyright.svg\\"/><span>Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.</span></div>"
+              tooltipTriggerText={
+                <h2>
+                  <img
+                    alt="Target representing Quill Connect"
+                    src="undefined/images/icons/description-connect.svg"
+                  />
+                  <span>
+                    Turning Point: Bunker Hill
+                  </span>
+                </h2>
+              }
             >
-              <h2>
-                <img
-                  alt="Target representing Quill Connect"
-                  src="undefined/images/icons/description-connect.svg"
-                />
-                <span>
-                  Turning Point: Bunker Hill
+              <span
+                aria-hidden={false}
+                className="quill-tooltip-trigger "
+                role="tooltip"
+              >
+                <span
+                  className="undefined"
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  role="button"
+                  tabIndex={0}
+                >
+                  <h2>
+                    <img
+                      alt="Target representing Quill Connect"
+                      src="undefined/images/icons/description-connect.svg"
+                    />
+                    <span>
+                      Turning Point: Bunker Hill
+                    </span>
+                  </h2>
                 </span>
-              </h2>
-            </button>
+                <span
+                  className="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    className="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </Tooltip>
           </div>
           <div
             className="buttons-wrapper"
@@ -14950,73 +14323,6 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       <section
         className="activity-row not-expanded not-selected  "
       >
-        <ActivityRowTooltip
-          activity={
-            Object {
-              "activity_category": Object {
-                "id": 25,
-                "name": "History: American Revolution",
-              },
-              "activity_category_id": 25,
-              "activity_category_name": "History: American Revolution",
-              "activity_classification": Object {
-                "alias": "Quill Connect",
-                "description": "Combine Sentences",
-                "id": 5,
-                "key": "connect",
-              },
-              "anonymous_path": "/activity_sessions/anonymous?activity_id=730",
-              "content_partners": Array [
-                Object {
-                  "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
-                  "id": 1,
-                  "name": "Core Knowledge",
-                },
-              ],
-              "description": "Combine sentences to create 6 sentences about the Battle of Saratoga. This is an advanced, un-cued sentence combining activity.",
-              "flags": "{production}",
-              "id": 730,
-              "name": "Turning Point: Saratoga",
-              "readability_grade_level": "6th-7th",
-              "standard_level": Object {
-                "id": 13,
-                "name": "7th Grade CCSS",
-              },
-              "standard_level_name": "7th Grade CCSS",
-              "standard_name": "87",
-              "topics": Array [
-                Object {
-                  "id": 16,
-                  "level": 3,
-                  "name": "History",
-                  "parent_id": null,
-                },
-                Object {
-                  "id": 45,
-                  "level": 2,
-                  "name": "U.S. History",
-                  "parent_id": 16,
-                },
-                Object {
-                  "id": 119,
-                  "level": 1,
-                  "name": "The American Revolution",
-                  "parent_id": null,
-                },
-                Object {
-                  "id": 386,
-                  "level": 0,
-                  "name": "The Battle of Saratoga",
-                  "parent_id": null,
-                },
-              ],
-              "uid": "-KqYPpC3o3JeeuhQadBF",
-            }
-          }
-          showTooltip={false}
-        >
-          <span />
-        </ActivityRowTooltip>
         <div
           className="first-line"
         >
@@ -15096,23 +14402,57 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 type="button"
               />
             </ActivityRowCheckbox>
-            <button
-              className="interactive-wrapper"
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              tabIndex={-1}
-              type="button"
+            <Tooltip
+              isTabbable={true}
+              tooltipText="<div class=\\"tooltip-line\\"><img alt=\\"Book icon\\" src=\\"undefined/images/icons/description-readability.svg\\"/><div><span><span class=\\"grade-range\\">6th-7th</span><span>Text Readability Level</span></span><br/><br/><span>Quill recommends using activities where the text readability level is the same or lower than the student’s reading level so that the student can focus on building their writing skills.</span></div></div><div class=\\"tooltip-line\\"><img alt=\\"Information icon\\" src=\\"undefined/images/icons/description-information.svg\\"/><span>Combine sentences to create 6 sentences about the Battle of Saratoga. This is an advanced, un-cued sentence combining activity.</span></div><div class=\\"tooltip-line\\"><img alt=\\"Copyright icon\\" src=\\"undefined/images/icons/description-copyright.svg\\"/><span>Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.</span></div>"
+              tooltipTriggerText={
+                <h2>
+                  <img
+                    alt="Target representing Quill Connect"
+                    src="undefined/images/icons/description-connect.svg"
+                  />
+                  <span>
+                    Turning Point: Saratoga
+                  </span>
+                </h2>
+              }
             >
-              <h2>
-                <img
-                  alt="Target representing Quill Connect"
-                  src="undefined/images/icons/description-connect.svg"
-                />
-                <span>
-                  Turning Point: Saratoga
+              <span
+                aria-hidden={false}
+                className="quill-tooltip-trigger "
+                role="tooltip"
+              >
+                <span
+                  className="undefined"
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  role="button"
+                  tabIndex={0}
+                >
+                  <h2>
+                    <img
+                      alt="Target representing Quill Connect"
+                      src="undefined/images/icons/description-connect.svg"
+                    />
+                    <span>
+                      Turning Point: Saratoga
+                    </span>
+                  </h2>
                 </span>
-              </h2>
-            </button>
+                <span
+                  className="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    className="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </Tooltip>
           </div>
           <div
             className="buttons-wrapper"
