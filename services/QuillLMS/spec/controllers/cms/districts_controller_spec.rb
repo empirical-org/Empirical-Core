@@ -102,7 +102,7 @@ describe Cms::DistrictsController do
 
       post :create, params: { district: existing_district.as_json }
       expect(response).to redirect_to cms_districts_path
-      expect(flash[:error]).to eq("A district with this NCES ID already exists.") 
+      expect(flash[:error]).to eq("A district with this NCES ID already exists.")
     end
   end
 
