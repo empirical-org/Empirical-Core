@@ -333,7 +333,7 @@ section.q-hero {
   justify-content: center;
   background-image: url("https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_BackgroundPattern5.png");
   background-size: contain;
-  background-position-x: 124px;
+  background-position-x: 96px;
   background-repeat: no-repeat;
   padding-top: 100px;
   padding-bottom: 130px;
@@ -353,7 +353,7 @@ section.q-hero {
         align-items: center;
         margin-bottom: 8px;
         h1 {
-          margin-left: 9.75px;
+          margin-left: 9.75px !important;
           margin: 0;
         }
         .new-tag {
@@ -382,11 +382,14 @@ section.q-hero {
     }
     .image-container {
       position: relative;
-      width: 430px;
+      width: 450px;
       height: 410px;
+      background: #FFFFFF !important;
+      box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.15) !important;
+      border-radius: 8px;
       .evidence-image {
         position: absolute;
-        width: 430px;
+        width: 450px;
         height: 410px;
         &.inactive {
           -webkit-animation: fadeOut 0.5s forwards;
