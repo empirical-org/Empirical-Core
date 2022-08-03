@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import { requestGet } from '../../../modules/request';
 import WelcomeModal from '../components/dashboard/welcome_modal'
