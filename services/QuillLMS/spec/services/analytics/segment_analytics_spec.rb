@@ -240,7 +240,6 @@ describe 'SegmentAnalytics' do
       analytics.identify(teacher1)
       expect(identify_calls.size).to eq(1)
       expect(track_calls.size).to eq(0)
-      binding.pry
       expect(identify_calls[0][:traits][:is_admin]).to eq(false)
       expect(identify_calls[0][:traits][:first_name]).to eq(teacher1.first_name)
       expect(identify_calls[0][:traits][:last_name]).to eq(teacher1.last_name)
