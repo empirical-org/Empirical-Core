@@ -58,11 +58,11 @@
       height: 100%;
       border-left: 1px solid #D3D3D3;
       padding-left: 8px;
-      margin-left: 4px;
+      margin-left: 8px;
     }
 
     .diagonal-divider {
-      margin: 0px 12px 0px 4px;
+      margin: 0px 8px;
     }
 
     .extended-topic {
@@ -159,6 +159,11 @@
       span {
         max-width: 584px;
       }
+      .grade-range {
+        width: 58px;
+        margin-right: 16px;
+        display: inline-block;
+      }
     }
     &.not-selected:hover {
       background-color: #f2f2f2;
@@ -185,7 +190,7 @@
       }
     }
     &.expanded {
-      .activity-row-tooltip {
+      .activity-row .quill-tooltip {
         display: none;
       }
     }
@@ -285,15 +290,16 @@
       margin-top: 16px;
     }
   }
-  .activity-row-tooltip {
-    max-width: 634px;
-    border-radius: 6px;
-    box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.2), 0 3px 3px -2px rgba(0, 0, 0, 0.12), 0 3px 4px 0 rgba(0, 0, 0, 0.14);
-    position: absolute;
-    z-index: 1;
-    padding: 16px;
-    top: 80px;
-    background-color: #5C5C5C;
+  .activity-row .quill-tooltip-wrapper {
+    width: 634px;
+    left: initial;
+    transform: none;
+    .quill-tooltip {
+      background-color: #5C5C5C;
+      padding: 16px;
+      font-size: 14px;
+      font-weight: normal;
+    }
     .tooltip-line:not(:last-of-type) {
       padding-bottom: 16px;
       border-bottom: 1px solid white;

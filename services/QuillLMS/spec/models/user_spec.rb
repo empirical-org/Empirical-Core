@@ -1429,6 +1429,48 @@ describe User, type: :model do
     end
   end
 
+  describe '.find_by_stripe_customer_id_or_email!' do
+    subject { User.find_by_stripe_customer_id_or_email!(stripe_customer_id, email) }
+
+    let(:email) { 'text@example.com' }
+
+    context 'stripe_customer_id nil' do
+      let(:stripe_customer_id) { nil }
+
+      context 'user does not exist with email' do
+        it { expect { subject }.to raise_error(ActiveRecord::RecordNotFound) }
+      end
+
+      context 'user exists with email' do
+        let!(:user) { create(:user, email: email) }
+
+        it { expect(subject).to eq user }
+      end
+    end
+
+    context 'stripe_customer_id present' do
+      let(:stripe_customer_id) { "cus_#{SecureRandom.hex}" }
+
+      context 'user exists with stripe_customer_id' do
+        let!(:user) { create(:user, stripe_customer_id: stripe_customer_id) }
+
+        it { expect(subject).to eq user }
+      end
+
+      context 'user does not exist with stripe_customer_id' do
+        context 'user exists with email' do
+          let!(:user) { create(:user, email: email) }
+
+          it { expect(subject).to eq user }
+        end
+
+        context 'user does not exist with email' do
+          it { expect { subject }.to raise_error(ActiveRecord::RecordNotFound) }
+        end
+      end
+    end
+  end
+
   describe '#segment_identify_traits' do
     let(:teacher)  { build(:teacher) }
 
