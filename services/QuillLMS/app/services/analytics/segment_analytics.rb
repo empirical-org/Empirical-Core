@@ -205,32 +205,11 @@ class SegmentAnalytics
     SecureRandom.urlsafe_base64
   end
 
-  private def integration_rules(user_id)
-    user = User.find_by_id(user_id)
-
-    {
-     all: true,
-     Intercom: (user&.role == 'teacher')
-    }
-  end
-
-
   private def identify_params(user)
     {
-      user_id: user.id,
-      traits: {
-        premium_state: user.premium_state,
-        premium_type: user.subscription&.account_type,
-        auditor: user.auditor?,
-        is_admin: user.admin?,
-        first_name: user.first_name,
-        last_name: user.last_name,
-        email: user.email,
-        school_name: user.school&.name,
-        school_id: user.school&.id,
-        district: user.school&.district&.name
-      }.reject {|_,v| v.nil? },
-      integrations: integration_rules(user.id)
+      user_id: user&.id,
+      traits: user&.segment_identify_traits,
+      integrations: user&.segment_integration_rules
     }
   end
 
