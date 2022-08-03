@@ -9,7 +9,9 @@ export class LanguagePage extends React.Component {
   handleClickLanguage = (e) => {
     const language = e.currentTarget.value;
     const { dispatch, setLanguage, previewMode, begin } = this.props;
-    dispatch(TrackAnalyticsEvent(Events.DIAGNOSTIC_LANGUAGE_SELECTED, { language }));
+    if(language !== ENGLISH) {
+      dispatch(TrackAnalyticsEvent(Events.DIAGNOSTIC_LANGUAGE_SELECTED, { language }));
+    }
     setLanguage(language);
     if(previewMode) {
       begin();
