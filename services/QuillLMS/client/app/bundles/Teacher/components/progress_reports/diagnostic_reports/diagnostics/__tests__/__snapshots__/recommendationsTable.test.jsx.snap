@@ -308,6 +308,18 @@ exports[`RecommendationsTable component should render when no students have comp
       }
     >
       <div
+        id="demo-onboarding-tour-spotlight-element"
+        style={
+          Object {
+            "height": 0,
+            "marginLeft": 32,
+            "position": "absolute",
+            "top": 8,
+            "width": -32,
+          }
+        }
+      />
+      <div
         className="recommendations-table-container"
         onScroll={[Function]}
       >
@@ -11392,6 +11404,18 @@ exports[`RecommendationsTable component should render when there are recommendat
         ]
       }
     >
+      <div
+        id="demo-onboarding-tour-spotlight-element"
+        style={
+          Object {
+            "height": 0,
+            "marginLeft": 32,
+            "position": "absolute",
+            "top": 8,
+            "width": -32,
+          }
+        }
+      />
       <div
         className="recommendations-table-container"
         onScroll={[Function]}
