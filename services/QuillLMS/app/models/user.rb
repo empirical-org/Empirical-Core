@@ -676,7 +676,7 @@ class User < ApplicationRecord
   def segment_integration_rules
     {
      all: true,
-     Intercom: (role == 'teacher')
+     Intercom: (teacher?)
     }
   end
 
