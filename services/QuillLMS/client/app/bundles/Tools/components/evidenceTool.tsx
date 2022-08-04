@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import QuestionsAndAnswers from '../../Teacher/containers/QuestionsAndAnswers';
 import { onMobile } from '../../Shared';
+import EvidenceWidget from './evidenceWidget';
 
 export const EvidenceTool = ({ loggedInUser }) => {
 
@@ -17,7 +18,7 @@ export const EvidenceTool = ({ loggedInUser }) => {
     return(
       <section className="tool-sign-up">
         <h1 className='q-h1'>Sign up to start Quill Reading for Evidence in your class today!</h1>
-        <a className="q-button cta-button bg-quillgreen text-white" href={`${process.env.DEFAULT_URL}/account/new`}>Sign Up</a>
+        <a className="q-button cta-button bg-quillgreen text-white" href={`${process.env.DEFAULT_URL}/account/new`}>Sign up</a>
       </section>
     );
   }
@@ -67,7 +68,7 @@ export const EvidenceTool = ({ loggedInUser }) => {
       <section className='bg-quillteal tool-hero text-center'>
         <section className="inner-section">
           <section className="header-and-icon-container">
-            <img alt="Reading for Evidence icon" className="tool-page-icon lazyload" data-src='https://assets.quill.org/images/evidence/home_page/tool-evidence-white.svg' />
+            <img alt="Reading for Evidence icon" className="tool-page-icon lazyload" data-src='https://assets.quill.org/images/icons/tool-evidence-white.svg' />
             <h1 className="q-h1">Quill Reading for Evidence</h1>
             <p className="new-tag">NEW</p>
           </section>
@@ -80,13 +81,13 @@ export const EvidenceTool = ({ loggedInUser }) => {
             <p className="topic">Culture & Society Topics</p>
             <img alt="photograph of a football" src="https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Image_Football.png" />
             <p className="activity-title">"Should Schools Have Grade Requirements for Student Athletes?"</p>
-            <a className="q-button text-quillteal bg-white" href='https://www.quill.org/evidence/#/play?uid=180&skipToPrompts=true' rel="noopener noreferrer" target="_blank">View a Sample Activity</a>
+            <a className="q-button text-quillteal bg-white" href='https://www.quill.org/evidence/#/play?uid=180&skipToPrompts=true' rel="noopener noreferrer" target="_blank">View a sample activity</a>
           </div>
           <div className="topic-section">
             <p className="topic">Science Topics</p>
             <img alt="photograph of a cow" src="https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Image_Cow.png" />
             <p className="activity-title">"How Does Eating Meat Impact Global Warming?"</p>
-            <a className="q-button text-quillteal bg-white" href='https://www.quill.org/evidence/#/play?uid=176&skipToPrompts=true' rel="noopener noreferrer" target="_blank">View a Sample Activity</a>
+            <a className="q-button text-quillteal bg-white" href='https://www.quill.org/evidence/#/play?uid=176&skipToPrompts=true' rel="noopener noreferrer" target="_blank">View a sample activity</a>
           </div>
           <div className="topic-section">
             <p className="topic">Social Studies Topics</p>
@@ -98,9 +99,7 @@ export const EvidenceTool = ({ loggedInUser }) => {
         </section>
       </section>
       <section className="prompt-example-container">
-        <section className="inner-container">
-          <img alt="A screenshot of an example Reading for Evidence prompt" id="image" src='https://assets.quill.org/images/evidence/home_page/Hero_Evidence_Widget.png' />
-        </section>
+        <EvidenceWidget />
       </section>
       <section id="instructions-container">
         <div className="instruction-container">

@@ -18,8 +18,8 @@
           margin-left: 16px !important;
         }
         .tool-page-icon {
-          height: 30px;
-          width: 26.25px;
+          height: 48px;
+          width: 48px;
           padding: 3px 5.25px 3px 4.5px;
         }
       }
@@ -202,21 +202,32 @@
     display: flex;
     justify-content: center;
     padding: 36px 0px;
-    .inner-container {
-      display: flex;
-      align-items: center;
-      width: 100%;
-      justify-content: center;
-      background-image: url("https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_BackgroundPattern1.png");
-      background-size: contain;
-      background-position: center;
-      background-repeat: no-repeat;
-      #image {
+    background-image: url("https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_BackgroundPattern1.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    .image-container {
+      position: relative;
+      width: 450px;
+      height: 410px;
+      background: #FFFFFF !important;
+      box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.15) !important;
+      border-radius: 8px;
+      .evidence-image {
+        position: absolute;
         width: 450px;
         height: 410px;
+        right: 0px;
+        &.inactive {
+          -webkit-animation: fadeOut 0.5s forwards;
+          -webkit-animation-delay: 0.5s;
+          animation: fadeOut 0.5s forwards;
+          animation-delay: 0.5s;
+        }
       }
     }
   }
+
   .bg-book-pattern {
     background-image: url("https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_BackgroundPattern4.png");
     background-repeat: no-repeat;
@@ -261,26 +272,27 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    max-height: 300px;
-    margin: 48px 0px 48px 0px;
+    max-height: 366px;
+    margin: 64px 0px 64px 0px;
     .left-side-container {
       max-width: 448px;
       text-align: left;
       p:nth-of-type(1) {
-        font-size: 26px;
+        font-size: 28px;
       }
       p:nth-of-type(2), p:nth-of-type(3) {
-        font-size: 14px;
+        font-size: 16px;
       }
     }
     .right-side-container {
       display: flex;
+      margin-left: 64px;
       #prompt-screenshot {
         width: 450px;
         height: 414px;
       }
       #arrow {
-        top: 272px;
+        top: 300px;
         position: relative;
       }
       #prompt-screenshot:last-of-type {
