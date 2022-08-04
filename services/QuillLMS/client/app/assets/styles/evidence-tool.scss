@@ -2,6 +2,7 @@
   .tool-hero {
     display: flex;
     justify-content: center;
+    padding-top: 64px;
     .inner-section {
       max-width: 1175px;
       width: 100%;
@@ -241,6 +242,7 @@
       margin-bottom: 32px;
       width: 818px;
       height: 564px;
+      box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.15) !important;
     }
   }
 }
@@ -255,7 +257,7 @@
   background-position: center;
   background-position-y: 24px;
   .header-section {
-    margin-top: 24px;
+    margin-top: 40px;
     margin-bottom: 36px;
     p:first-of-type {
       font-size: 17px;
@@ -290,6 +292,8 @@
       #prompt-screenshot {
         width: 450px;
         height: 414px;
+        box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.15) !important;
+        border-radius: 8px;
       }
       #arrow {
         top: 300px;
