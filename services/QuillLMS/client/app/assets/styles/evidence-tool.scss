@@ -312,20 +312,12 @@
       padding-right: 24px;
     }
     .prompt-example-container {
-      .inner-container {
-        display: flex;
-        flex-direction: column;
-        .first, .second {
-          display: none;
-        }
-        .mobile {
-          min-height: 136px;
-          margin-top: 16px;
-          border-radius: 12px;
-        }
-        #image {
-          max-width: 352px;
-          height: auto;
+      .image-container {
+        max-width: 344px;
+        height: 312px;
+        .evidence-image {
+          max-width: 344px;
+          height: 312px;
         }
       }
     }
@@ -375,10 +367,14 @@
           margin-bottom: 24px;
         }
         .right-side-container {
-          // display: flex;
+          margin-left: 0px;
           #prompt-screenshot {
             max-width: 327px;
             height: auto;
+            padding: 16px 0px 16px 0px;
+          }
+          #prompt-screenshot:last-of-type {
+            margin-right: 0px;
           }
           #arrow {
             display: none;

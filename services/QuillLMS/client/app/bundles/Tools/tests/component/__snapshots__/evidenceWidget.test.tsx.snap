@@ -18,7 +18,7 @@ exports[`EvidenceWidget Component should match snapshot 1`] = `
     <img
       alt=""
       className="evidence-image inactive"
-      src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/Hero_Evidence_Widget_10.png"
+      src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidence_Widget_10.png"
     />
     <img
       alt=""
