@@ -186,11 +186,15 @@ class SegmentAnalytics
     end
   end
 
+  def default_integration_rules
+    { all: true, Intercom: false }
+  end
+
   def track(options)
     return unless backend.present?
 
     user = User.find(options[:user_id])
-    options[:integrations] = user&.segment_integration_rules
+    options[:integrations] = user&.segment_integration_rules || default_integration_rules
     backend.track(options)
   end
 
