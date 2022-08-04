@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
@@ -10,11 +9,15 @@ class ApplicationController < ActionController::Base
   rescue_from ActionController::InvalidAuthenticityToken,
     with: :handle_invalid_authenticity_token
 
+  # session keys
   CLEVER_REDIRECT = :clever_redirect
+  EXPIRED_SESSION_REDIRECT = :expired_session_redirect
+  GOOGLE_OFFLINE_ACCESS_EXPIRED = :google_offline_access_expired
   GOOGLE_REDIRECT = :google_redirect
-  POST_AUTH_REDIRECT = :post_auth_redirect
   GOOGLE_OR_CLEVER_JUST_SET = :google_or_clever_just_set
   KEEP_ME_SIGNED_IN = :keep_me_signed_in
+  POST_AUTH_REDIRECT = :post_auth_redirect
+
   EVIDENCE = 'evidence'
   PROOFREADER = 'proofreader'
   GRAMMAR = 'grammar'
@@ -126,14 +129,14 @@ class ApplicationController < ActionController::Base
 
     respond_to do |format|
       format.html { redirect_back(fallback_location: root_path) }
-      format.json { render json: { redirect: URI.parse(request.referer).path } }
+      format.json { render json: { redirect: URI.parse(request.referer).path }, status: 303 }
     end
   end
 
   protected def check_staff_for_extended_session
     return unless current_user&.staff_session_duration_exceeded?
 
-    sign_out
+    reset_session_and_redirect_to_sign_in
   end
 
   protected def set_vary_header
@@ -155,7 +158,17 @@ class ApplicationController < ActionController::Base
     return if current_user.nil? || session.nil? || session[:staff_id]
     return unless reset_session? || current_user.google_access_expired?
 
+    reset_session_and_redirect_to_sign_in
+  end
+
+  protected def reset_session_and_redirect_to_sign_in
     reset_session
+    session[EXPIRED_SESSION_REDIRECT] = true
+
+    respond_to do |format|
+      format.html { redirect_to new_session_path }
+      format.json { render json: { redirect: new_session_path }, status: 303 }
+    end
   end
 
   protected def reset_session?

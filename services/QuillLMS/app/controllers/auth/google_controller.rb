@@ -30,9 +30,7 @@ class Auth::GoogleController < ApplicationController
 
   private def redirect_to_profile_or_post_auth
     if session[ApplicationController::POST_AUTH_REDIRECT].present?
-      url = session[ApplicationController::POST_AUTH_REDIRECT]
-      session.delete(ApplicationController::POST_AUTH_REDIRECT)
-      redirect_to url
+      redirect_to session.delete(ApplicationController::POST_AUTH_REDIRECT)
     elsif staff?
       redirect_to locker_path
     else
@@ -44,7 +42,8 @@ class Auth::GoogleController < ApplicationController
     user = User.find_by('google_id = ? OR email = ?', @profile.google_id&.to_s, @profile.email&.downcase)
     return if user.nil? || user.google_authorized?
 
-    redirect_to new_session_path(google_offline_access_expired: true)
+    session[ApplicationController::GOOGLE_OFFLINE_ACCESS_EXPIRED] = true
+    redirect_to new_session_path
   end
 
   private def run_background_jobs
