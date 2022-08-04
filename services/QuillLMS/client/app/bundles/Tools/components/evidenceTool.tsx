@@ -173,21 +173,21 @@ export const EvidenceTool = ({ loggedInUser }) => {
             <section id="header-container">
               <p id="header">Activities are not graded</p>
             </section>
-            <img alt="An illustration of an A+ that is crossed out" id="image" src='https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Feature1.png' />
+            <img alt="An illustration of an A+ that is crossed out" id="image" src='https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Feature_1.png' />
             <p className="subtext">"This is a safe space to practice your writing, so it won't be graded. Your teacher will see your revisions, but there are no scores or points."</p>
           </section>
           <section id="information-section">
             <section id="header-container">
               <p id="header">We use a feedback bot</p>
             </section>
-            <img alt="An illustration of a smiling robot head" id="image" src='https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Feature2.png' />
+            <img alt="An illustration of a smiling robot head" id="image" src='https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Feature_2.png' />
             <p className="subtext">"We use artificial intelligence (AI) to help us give you feedback on your writing. You should know that AI isn't always correct."</p>
           </section>
           <section id="information-section">
             <section id="header-container">
               <p id="header">All writers revise</p>
             </section>
-            <img alt="An illustration of a pencil circled with a revision" id="image" src='https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Feature3.png' />
+            <img alt="An illustration of a pencil circled with a revision" id="image" src='https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Feature_3.png' />
             <p className="subtext">"You'll be able to revise each sentence up to five times. We give you feedback because we want to help you write a stronger sentence."</p>
           </section>
         </section>

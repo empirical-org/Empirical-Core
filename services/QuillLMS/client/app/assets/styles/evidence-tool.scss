@@ -186,7 +186,7 @@
           }
         }
         #image {
-          margin: 34px 0px 34px 0px;
+          margin: 16px 0px 16px 0px;
           max-width: 200px;
           max-height: 200px;
         }
@@ -333,6 +333,7 @@
     }
     .evidence-feature-container {
       padding: 0px 24px;
+      background-image: none;
       .inner-container {
         flex-direction: column;
         background-image: none;
