@@ -55,5 +55,14 @@ describe SaveActivitySessionOldConceptResultsWorker, type: :worker do
 
       subject.perform(concept_results)
     end
+
+    it 'should bubble up an exception and no data should be persisted if an OldConceptResult fails to save (we rely on exceptions to trigger Sidekiq retries)' do
+      allow_any_instance_of(OldConceptResult).to receive(:save!).and_raise(ActiveRecord::RecordInvalid)
+      expect(SaveActivitySessionConceptResultsWorker).not_to receive(:perform_async)
+
+      expect { subject.perform(concept_results) }
+        .to raise_error(ActiveRecord::RecordInvalid)
+        .and not_change(OldConceptResult, :count)
+    end
   end
 end
