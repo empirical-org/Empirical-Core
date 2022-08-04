@@ -10,7 +10,7 @@ const IMG_URLS = [
   "https://assets.quill.org/images/evidence/home_page/widget_images/2x/Hero_Evidence_Widget_7.png",
   "https://assets.quill.org/images/evidence/home_page/widget_images/2x/Hero_Evidence_Widget_8.png",
   "https://assets.quill.org/images/evidence/home_page/widget_images/2x/Hero_Evidence_Widget_9.png",
-  "https://assets.quill.org/images/evidence/home_page/widget_images/2x/Hero_Evidence_Widget_10.png",
+  "https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidence_Widget_10.png",
   "https://assets.quill.org/images/evidence/home_page/widget_images/2x/Hero_Evidence_Widget_11.png",
   "https://assets.quill.org/images/evidence/home_page/widget_images/2x/Hero_Evidence_Widget_12.png"
 ]
