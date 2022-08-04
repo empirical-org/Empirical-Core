@@ -6,10 +6,10 @@ namespace :concept_results_migration do
 
     unless pipe_data
       puts 'No data detected on STDIN.  You must pass data to the task for it to run.  Example:'
-      puts '  rake users:refresh_school_subscriptions < path/to/local/file.csv'
+      puts '  rake concept_results_migration:migrate_from_csv < path/to/local/file.csv'
       puts ''
       puts 'If you are piping data into Heroku, you need to include the --no-tty flag:'
-      puts '  heroku run rake users:refresh_school_subscriptions -a empirical-grammar --no-tty < path/to/local/file.csv'
+      puts '  heroku run rake concept_results_migration:migrate_from_csv -a empirical-grammar --no-tty < path/to/local/file.csv'
       exit 1
     end
 
