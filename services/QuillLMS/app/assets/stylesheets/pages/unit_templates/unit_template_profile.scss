@@ -24,6 +24,45 @@
       margin: 4px 0px 20px;
     }
 
+    .ReactTable.unit-template-profile-activities {
+      tbody tr {
+        min-height: 46.5px;
+        td {
+          overflow: visible;
+        }
+        .quill-tooltip-wrapper {
+          width: 595px;
+          background-color: #5C5C5C;
+        }
+        .quill-tooltip-trigger {
+          white-space: normal;
+          width: 100%;
+          display: inline-block;
+          button {
+            width: 100%;
+            text-align: left;
+            height: 100%;
+          }
+        }
+        .quill-tooltip {
+          .horizontal-divider {
+            border-bottom: 1px solid white;
+            padding-top: 16px;
+            margin-bottom: 16px;
+          }
+          p {
+            margin-top: 16px;
+            &:first-of-type {
+              margin-top: 8px;
+            }
+            &:last-of-type {
+              margin-bottom: 8px;
+            }
+          }
+        }
+      }
+    }
+
     .ReactTable.unit-template-profile-activities .rt-table a img {
       padding: 8px 0px 8px 20px;
     }
@@ -43,14 +82,6 @@
       }
     }
 
-    .row-link-disguise {
-      width: 100%;
-      display: inline-block;
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-    }
-
     .ReactTable .rt-thead {
       border-bottom: solid 1px rgba(0, 0, 0, 0.05);
     }
@@ -68,15 +99,19 @@
     .description {
       max-width: 500px;
       .unit-template-profile-description {
+        line-height: 22px;
+        p, h3, ul, li {
+          margin-top: 12px;
+        }
         h3 {
           border-bottom: 1px solid #cecece;
           padding-bottom: 8px;
+          &:first-of-type {
+            margin-top: 0px;
+          }
         }
         ul {
-          padding: 8px 0px 16px 16px;
-          li {
-            padding: 8px 0px 8px;
-          }
+          padding: 0px 16px;
         }
       }
       dl {
