@@ -427,7 +427,7 @@ exports[`EvidenceTool Component should match snapshot 1`] = `
           <img
             alt="An illustration of an A+ that is crossed out"
             id="image"
-            src="https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Feature1.png"
+            src="https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Feature_1.png"
           />
           <p
             className="subtext"
@@ -450,7 +450,7 @@ exports[`EvidenceTool Component should match snapshot 1`] = `
           <img
             alt="An illustration of a smiling robot head"
             id="image"
-            src="https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Feature2.png"
+            src="https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Feature_2.png"
           />
           <p
             className="subtext"
@@ -473,7 +473,7 @@ exports[`EvidenceTool Component should match snapshot 1`] = `
           <img
             alt="An illustration of a pencil circled with a revision"
             id="image"
-            src="https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Feature3.png"
+            src="https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Feature_3.png"
           />
           <p
             className="subtext"
