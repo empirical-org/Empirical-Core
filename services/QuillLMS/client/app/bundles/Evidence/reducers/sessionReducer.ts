@@ -24,7 +24,7 @@ type SessionAction = Action & {
   activityIsComplete: boolean
 }
 
-const shouldSkipToPrompts = window.location.href.includes('turk') || window.location.href.includes('skipToPrompts')
+const shouldSkipToPrompts = window.location.href.includes('turk') || window.location.href.includes('skipToPrompts') || window.location.href.includes('skipToStep')
 const activityCompletionCount = parseInt(getParameterByName('activities', window.location.href)) || 0;
 const ACTIVITY_COMPLETION_MAXIMUM_FOR_ONBOARDING = 3;
 
@@ -34,7 +34,7 @@ export default (
     // page load
     sessionID: uuid4(),
     submittedResponses: {},
-    activeStep: shouldSkipToPrompts ? READ_PASSAGE_STEP_NUMBER + 1 : READ_PASSAGE_STEP_NUMBER,
+    activeStep: shouldSkipToPrompts ? parseInt(getParameterByName('skipToStep', window.location.href)) || READ_PASSAGE_STEP_NUMBER + 1 : READ_PASSAGE_STEP_NUMBER,
     explanationSlidesCompleted: shouldSkipToPrompts || (activityCompletionCount > ACTIVITY_COMPLETION_MAXIMUM_FOR_ONBOARDING),
     activityIsComplete: false
   },
