@@ -391,6 +391,7 @@ section.q-hero {
         position: absolute;
         width: 450px;
         height: 410px;
+        right: 0px;
         &.inactive {
           -webkit-animation: fadeOut 0.5s forwards;
           -webkit-animation-delay: 0.5s;
@@ -595,11 +596,12 @@ section.q-hero {
         text-align: center;
       }
       .image-container {
-        max-width: 368px;
-        height: 344px;
-        #image {
-          max-width: 368px;
-          height: auto;
+        margin: 32px 0px;
+        width: 340px;
+        height: 330px;
+        .evidence-image {
+          width: 340px;
+          height: 330px;
         }
       }
     }

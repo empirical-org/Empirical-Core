@@ -129,7 +129,7 @@ export const EvidenceTool = ({ loggedInUser }) => {
             {renderFirstAttemptText()}
           </section>
           <section className="right-side-container">
-            <img alt="screenshot of example first attempt Reading for Evidence activity prompt" id="prompt-screenshot" src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/Hero_Evidence_Widget_3.png" />
+            <img alt="screenshot of example first attempt Reading for Evidence activity prompt" id="prompt-screenshot" src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_3.png" />
             <img alt="dotted line arrow" id="arrow" src="https://assets.quill.org/images/evidence/home_page/evidence_arrow.svg" />
           </section>
         </section>
@@ -139,7 +139,7 @@ export const EvidenceTool = ({ loggedInUser }) => {
             {renderSecondAttemptText()}
           </section>
           <section className="right-side-container">
-            <img alt="screenshot of example first attempt Reading for Evidence activity prompt" id="prompt-screenshot" src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/Hero_Evidence_Widget_6.png" />
+            <img alt="screenshot of example first attempt Reading for Evidence activity prompt" id="prompt-screenshot" src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_6.png" />
             <img alt="dotted line arrow" id="arrow" src="https://assets.quill.org/images/evidence/home_page/evidence_arrow.svg" />
           </section>
         </section>
@@ -149,7 +149,7 @@ export const EvidenceTool = ({ loggedInUser }) => {
             {renderThirdAttemptText()}
           </section>
           <section className="right-side-container">
-            <img alt="screenshot of example first attempt Reading for Evidence activity prompt" id="prompt-screenshot" src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/Hero_Evidence_Widget_9.png" />
+            <img alt="screenshot of example first attempt Reading for Evidence activity prompt" id="prompt-screenshot" src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_9.png" />
             <img alt="dotted line arrow" id="arrow" src="https://assets.quill.org/images/evidence/home_page/evidence_arrow.svg" />
           </section>
         </section>
@@ -159,7 +159,7 @@ export const EvidenceTool = ({ loggedInUser }) => {
             {renderFourthAttemptText()}
           </section>
           <section className="right-side-container">
-            <img alt="screenshot of example first attempt Reading for Evidence activity prompt" id="prompt-screenshot" src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/Hero_Evidence_Widget_12.png" />
+            <img alt="screenshot of example first attempt Reading for Evidence activity prompt" id="prompt-screenshot" src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_12.png" />
           </section>
         </section>
       </section>
