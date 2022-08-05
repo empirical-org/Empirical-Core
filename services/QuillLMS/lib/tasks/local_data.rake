@@ -10,6 +10,8 @@ namespace :local_data do
     ActiveRecord::Base.connection.execute(truncate_command)
   end
 
+  # Note, before running, populate:
+  # ENV['PROD_FOLLOWER_DB'], ENV['PROD_FOLLOWER_DB_HOST'], ENV['PROD_FOLLOWER_DB_USER']
   # bundle exec rake local_data:reset_nonuser_data_from_follower
   desc "import non-user tables"
   task reset_nonuser_data_from_follower: :environment do
@@ -18,7 +20,7 @@ namespace :local_data do
     pretty_print("Truncating non-user tables")
     ActiveRecord::Base.connection.execute(truncate_command)
 
-    pretty_print("Downloading data from follower (takes a few minutes)\nIgnore circular key warning")
+    pretty_print("Downloading data from follower\n(Ignore circular key warning)")
     run_cmd(dump_command)
 
     database = Rails.configuration.database_configuration["development"]["database"]
@@ -31,6 +33,7 @@ namespace :local_data do
 
   module LocalSeedCommands
     # Get these from Heroku, use a user marked 'read-only'
+    # You will be prompted for the password in the console when run
     DB_NAME = ENV['PROD_FOLLOWER_DB']
     DB_HOST = ENV['PROD_FOLLOWER_DB_HOST']
     DB_USER = ENV['PROD_FOLLOWER_DB_USER']
@@ -57,7 +60,7 @@ namespace :local_data do
     def dump_command(tables: TABLES, file: FILE_NAME)
       table_flags = tables.map {|table| "--table=#{table} "}.join(' ')
 
-      "pg_dump -h #{DB_HOST} -p 5432 -U #{DB_USER} -W #{table_flags} --data-only --disable-triggers #{DB_NAME} > #{file}"
+      "pg_dump -h #{DB_HOST} -p 5432 -U #{DB_USER} -W #{table_flags} --data-only #{DB_NAME} > #{file}"
     end
 
     def truncate_command(tables: TABLES)
@@ -99,7 +102,6 @@ namespace :local_data do
       authors
       blog_posts
       categories
-      checkboxes
       comprehension_activities
       comprehension_automl_models
       comprehension_highlights
@@ -131,12 +133,10 @@ namespace :local_data do
       questions
       recommendations
       sales_stage_types
-      sales_stages
       schools
       skill_concepts
       skill_group_activities
       title_cards
-      unit_activities
       unit_template_categories
       unit_templates
       zipcode_infos
