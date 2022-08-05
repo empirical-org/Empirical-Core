@@ -834,7 +834,12 @@ end
         concept_id: concept.id,
         metadata: metadata,
         question_type: 'lessons-slide'
-      })
+      }).and_call_original
+      ActivitySession.save_concept_results([activity_session], concept_results)
+    end
+
+    it 'should enqueue the creation of new concept results based on the OldConceptResult created' do
+      expect(SaveActivitySessionConceptResultsWorker).to receive(:perform_async)
       ActivitySession.save_concept_results([activity_session], concept_results)
     end
   end
