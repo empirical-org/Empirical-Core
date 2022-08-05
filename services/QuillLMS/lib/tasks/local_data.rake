@@ -47,16 +47,16 @@ namespace :local_data do
     def run_cmd(command)
       stdout_str, stderr_str, status = Open3.capture3(command)
 
-      if !stderr_str.squish.empty?
-        puts "Errors: #{stderr_str}"
-      end
+      return if stderr_str.squish.empty?
+
+      puts "Errors: #{stderr_str}"
     end
 
     def rm_file_command(file: FILE_NAME)
       "rm #{file}"
     end
 
-    def load_command(file: FILE_NAME, database:)
+    def load_command(database:, file: FILE_NAME)
       "psql -h localhost -p 5432 #{database} -f #{file}"
     end
 
