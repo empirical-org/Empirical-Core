@@ -60,13 +60,13 @@ namespace :local_data do
       "psql -h localhost -p 5432 #{database} -f #{file}"
     end
 
-    def dump_command(tables: TABLES, file: FILE_NAME)
+    def dump_command(tables: NONUSER_TABLES, file: FILE_NAME)
       table_flags = tables.map {|table| "--table=#{table} "}.join(' ')
 
       "pg_dump -h #{DB_HOST} -p 5432 -U #{DB_USER} -W #{table_flags} --data-only #{DB_NAME} > #{file}"
     end
 
-    def truncate_command(tables: TABLES)
+    def truncate_command(tables: NONUSER_TABLES)
       "TRUNCATE #{tables.compact.join(',')} RESTART IDENTITY CASCADE;"
     end
 
@@ -80,7 +80,7 @@ namespace :local_data do
     # Tables that other tables have foreign keys to are loaded first
     # Or else they will raise FK errors
     # Then the rest alphabetically
-    TABLES = %w(
+    NONUSER_TABLES = %w(
       standard_categories
       standard_levels
       standards
