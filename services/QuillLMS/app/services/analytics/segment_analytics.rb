@@ -193,7 +193,7 @@ class SegmentAnalytics
   def track(options)
     return unless backend.present?
 
-    user = User.find(options[:user_id])
+    user = options[:user_id] && User.find(options[:user_id])
     options[:integrations] = user&.segment_integration_rules || default_integration_rules
     backend.track(options)
   end
