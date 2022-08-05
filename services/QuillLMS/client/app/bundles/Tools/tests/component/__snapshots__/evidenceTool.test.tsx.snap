@@ -27,7 +27,7 @@ exports[`EvidenceTool Component should match snapshot 1`] = `
             Quill Reading for Evidence
           </h1>
           <p
-            className="new-tag"
+            className="evidence-new-tag"
           >
             NEW
           </p>

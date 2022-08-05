@@ -11,7 +11,7 @@ export const EvidenceHomeSection = () => {
           <div className="header-and-icon-container">
             <img alt="Reading for Evidence icon" className="tool-page-icon lazyload" data-src="https://assets.quill.org/images/icons/tool-evidence-white.svg" />
             <h1 className="q-h1">Quill Reading for Evidence</h1>
-            <p className="new-tag">NEW</p>
+            <p className="evidence-new-tag">NEW</p>
           </div>
           <p className="description">Provide your students with nonfiction texts paired with AI-powered writing prompts, instead of multiple-choice questions, to enable deeper thinking.</p>
           <div className="divider-tab" />
