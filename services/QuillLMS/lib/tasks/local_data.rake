@@ -10,9 +10,12 @@ namespace :local_data do
     ActiveRecord::Base.connection.execute(truncate_command)
   end
 
-  # Note, before running, populate:
-  # ENV['PROD_FOLLOWER_DB'], ENV['PROD_FOLLOWER_DB_HOST'], ENV['PROD_FOLLOWER_DB_USER']
-  # bundle exec rake local_data:reset_nonuser_data_from_follower
+  # Note, before running, populate these ENV vars with a 'read-only' user from Heroku:
+  # PROD_FOLLOWER_DB
+  # PROD_FOLLOWER_DB_HOST
+  # PROD_FOLLOWER_DB_USER
+  # You will be prompted for the password in the console when run
+  # To Run: bundle exec rake local_data:reset_nonuser_data_from_follower
   desc "import non-user tables"
   task reset_nonuser_data_from_follower: :environment do
     include LocalSeedCommands
