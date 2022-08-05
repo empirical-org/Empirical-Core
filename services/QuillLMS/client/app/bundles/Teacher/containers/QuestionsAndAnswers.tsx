@@ -7,8 +7,10 @@ import admin from '../components/modules/questionsAndAnswers/admin'
 import premium from '../components/modules/questionsAndAnswers/premium'
 import preap from '../components/modules/questionsAndAnswers/preap'
 import ap from '../components/modules/questionsAndAnswers/ap'
+import evidence from '../components/modules/questionsAndAnswers/evidence'
 import springboard from '../components/modules/questionsAndAnswers/springboard'
 import { QUESTIONS_AND_ANSWERS, AP, PRE_AP, SPRINGBOARD } from '../components/college_board/collegeBoardConstants';
+import { EVIDENCE, LESSONS } from '../../Shared'
 
 export interface QuestionsAndAnswersProps {
   questionsAndAnswersFile: string;
@@ -29,7 +31,7 @@ export default class QuestionsAndAnswers extends React.Component<QuestionsAndAns
       case 'admin':
         questionsAndAnswers = admin
         break
-      case 'lessons':
+      case LESSONS:
         questionsAndAnswers = lessons
         break
       case 'premium':
@@ -43,6 +45,9 @@ export default class QuestionsAndAnswers extends React.Component<QuestionsAndAns
         break
       case SPRINGBOARD:
         questionsAndAnswers = springboard
+        break
+      case EVIDENCE:
+        questionsAndAnswers = evidence
         break
       default:
         questionsAndAnswers = []
