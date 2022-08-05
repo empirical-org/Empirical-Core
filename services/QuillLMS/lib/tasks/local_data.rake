@@ -142,5 +142,4 @@ namespace :local_data do
       zipcode_infos
     )
   end
-
 end
