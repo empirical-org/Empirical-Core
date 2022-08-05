@@ -1,0 +1,395 @@
+.evidence-tool-page {
+  .tool-hero {
+    display: flex;
+    justify-content: center;
+    padding-top: 64px;
+    .inner-section {
+      max-width: 1175px;
+      width: 100%;
+      .header-and-icon-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 8px;
+        h1 {
+          margin: 0;
+          margin-left: 9.75px
+        }
+        .new-tag {
+          margin-left: 16px !important;
+        }
+        .tool-page-icon {
+          height: 48px;
+          width: 48px;
+          padding: 3px 5.25px 3px 4.5px;
+        }
+      }
+      .description {
+        max-width: 1070px !important;
+      }
+      .tool-ctas {
+        margin-top: 24px;
+      }
+    }
+  }
+  .topics-section {
+    padding-top: 24px;
+    .inner-section {
+      display: flex;
+      justify-content: space-between;
+      max-width: 1175px;
+      width: 100%;
+      border-top: 1px solid rgba(217, 217, 217, 0.3);
+      padding-top: 64px;
+      .topic-section {
+        background-color: white;
+        color: #2C7F9B;
+        max-width: 355px;
+        border-radius: 8px;
+        .topic {
+          font-weight: 700;
+          font-size: 22px;
+          margin: 12px 0px 12px 0px;
+        }
+        img {
+          width: 355px;
+          height: 239px;
+        }
+        .activity-title {
+          font-size: 20px;
+          margin: 18px 8px 10px 8px;
+          max-width: 335px;
+        }
+        #first-title-topic {
+          margin-bottom: 0 !important;
+        }
+        #second-title-topic {
+          margin-top: 0 !important;
+        }
+        #under-development {
+          margin-top: 24px;
+        }
+        .q-button {
+          margin-bottom: 18px;
+          border: 1px solid #2C7F9B;
+          border-radius: 4px;
+          font-size: 14px;
+          padding: 13px 16px 13px 16px;
+        }
+      }
+    }
+  }
+  #q-and-a {
+    background-color: #ffffff;
+    color: #000000;
+    .q-and-a-inner-wrapper {
+      .qa-section {
+        border-bottom: solid 1px #C1C1C1;
+        .question, .expand-collapse-button {
+          background-color: #ffffff;
+        }
+        .question {
+          padding-left: 0;
+        }
+        .answer {
+          color: #000000;
+          margin: 0px 0px 32px 0px;
+          p {
+            a {
+              color:#000000;
+            }
+            .header-link {
+              font-weight: 600;
+            }
+          }
+          ul {
+            li {
+              a {
+                text-decoration: underline !important;
+              }
+            }
+          }
+          ol, ul {
+            li {
+              padding: 8px;
+            }
+          }
+        }
+      }
+      .support-link {
+        color: #000000;
+      }
+    }
+  }
+  #instructions-container {
+    display: flex;
+    justify-content: center;
+    background-color: #2C7F9B;
+    padding: 48px 0px 30px 0px;
+    .instruction-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #5899b0;
+      border-radius: 8px;
+      margin: 0px 24px 0px 24px;
+      .step-number {
+        width: 48px;
+        height: 48px;
+        padding: 11px 18px;
+        border-radius: 24px;
+        margin-top: -24px;
+        background-color: #194E60;
+        font-size: 20px;
+        font-weight: 700;
+        color: #ffffff;
+      }
+      .step-text {
+        font-size: 24px;
+        max-width: 280px;
+        margin-top: 12px;
+        padding: 0px 16px;
+        font-weight: bold;
+        color: #ffffff;
+        margin-bottom: 24px;
+      }
+    }
+  }
+  .evidence-feature-container {
+    background-color: #2C7F9B;
+    padding: 72px 0px 72px 0px;
+    justify-content: center;
+    display: flex;
+    background-image: url("https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_BackgroundPattern3.png");
+    background-position-y: -32px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    .inner-container {
+      display: flex;
+      max-width: 1175px;
+      justify-content: space-between;
+      width: 100%;
+      #information-section {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        #header-container {
+          display: flex;
+          align-items: center;
+          #header {
+            font-size: 24px;
+            font-weight: 700;
+            color: #ffffff;
+            margin: 0px;
+          }
+        }
+        #image {
+          margin: 16px 0px 16px 0px;
+          max-width: 200px;
+          max-height: 200px;
+        }
+        .subtext {
+          font-size: 16px;
+          font-weight: 600;
+          color: #ffffff;
+          max-width: 264px;
+        }
+      }
+    }
+  }
+  .prompt-example-container {
+    display: flex;
+    justify-content: center;
+    padding: 36px 0px;
+    background-image: url("https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_BackgroundPattern1.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    .image-container {
+      position: relative;
+      width: 450px;
+      height: 410px;
+      background: #FFFFFF !important;
+      box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.15) !important;
+      border-radius: 8px;
+      .evidence-image {
+        position: absolute;
+        width: 450px;
+        height: 410px;
+        right: 0px;
+        &.inactive {
+          -webkit-animation: fadeOut 0.5s forwards;
+          -webkit-animation-delay: 0.5s;
+          animation: fadeOut 0.5s forwards;
+          animation-delay: 0.5s;
+        }
+      }
+    }
+  }
+
+  .bg-book-pattern {
+    background-image: url("https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_BackgroundPattern4.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-y: 26px;
+  }
+  .screenshot-container {
+    padding: 64px 0px 80px 0px;
+    background-color: #F8F9F9;
+    img {
+      margin-bottom: 32px;
+      width: 818px;
+      height: 564px;
+      box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.15) !important;
+    }
+  }
+}
+
+.prompts-walkthrough-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-image: url("https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_BackgroundPattern2.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-position-y: 24px;
+  .header-section {
+    margin-top: 40px;
+    margin-bottom: 36px;
+    p:first-of-type {
+      font-size: 17px;
+      opacity: 0.5;
+      font-style: italic;
+    }
+    p:last-of-type {
+      font-style: italic;
+      font-weight: 700;
+      font-size: 26px;
+    }
+  }
+  .attempt {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-height: 366px;
+    margin: 64px 0px 64px 0px;
+    .left-side-container {
+      max-width: 448px;
+      text-align: left;
+      p:nth-of-type(1) {
+        font-size: 28px;
+      }
+      p:nth-of-type(2), p:nth-of-type(3) {
+        font-size: 16px;
+      }
+    }
+    .right-side-container {
+      display: flex;
+      margin-left: 64px;
+      #prompt-screenshot {
+        width: 450px;
+        height: 414px;
+        box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.15) !important;
+        border-radius: 8px;
+      }
+      #arrow {
+        top: 300px;
+        position: relative;
+      }
+      #prompt-screenshot:last-of-type {
+        margin-right: 44px;
+      }
+    }
+    &.gray-background {
+      background-color: #F8F9F9;
+    }
+  }
+}
+
+@media (max-width: 1099px) {
+  .evidence-tool-page {
+    .tool-hero {
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+    .prompt-example-container {
+      .image-container {
+        width: 340px;
+        height: 330px;
+        .evidence-image {
+          width: 340px;
+          height: 330px;
+        }
+      }
+    }
+    #instructions-container {
+      flex-direction: column;
+      .instruction-container {
+        margin: 24px;
+      }
+    }
+    .evidence-feature-container {
+      padding: 0px 24px;
+      background-image: none;
+      .inner-container {
+        flex-direction: column;
+        background-image: none;
+        #information-section {
+          padding: 24px 0px 24px 0px;
+          border-bottom: 1px solid #ffffff;
+          .subtext {
+            max-width: none;
+          }
+        }
+        #information-section:last-of-type {
+          border-bottom: none;
+        }
+      }
+    }
+    .screenshot-container {
+      padding-bottom: 24px;
+      img {
+        max-width: 352px;
+        height: auto;
+      }
+    }
+    .topics-section {
+      display: none;
+    }
+    .prompts-walkthrough-container {
+      .header-section {
+        margin-bottom: 0;
+      }
+      .attempt {
+        flex-direction: column-reverse;
+        max-height: inherit;
+        margin: 0px 0px 16px 0px;
+        .left-side-container {
+          padding: 0px 24px;
+          margin-bottom: 24px;
+        }
+        .right-side-container {
+          margin-left: 0px;
+          #prompt-screenshot {
+            max-width: 330px;
+            height: auto;
+            padding: 16px 0px 16px 0px;
+          }
+          #prompt-screenshot:last-of-type {
+            margin-right: 0px;
+          }
+          #arrow {
+            display: none;
+          }
+        }
+      }
+    }
+    #q-and-a {
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+  }
+}
