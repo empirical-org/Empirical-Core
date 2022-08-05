@@ -70,7 +70,7 @@ export const EvidenceTool = ({ loggedInUser }) => {
           <section className="header-and-icon-container">
             <img alt="Reading for Evidence icon" className="tool-page-icon lazyload" data-src='https://assets.quill.org/images/icons/tool-evidence-white.svg' />
             <h1 className="q-h1">Quill Reading for Evidence</h1>
-            <p className="new-tag">NEW</p>
+            <p className="evidence-new-tag">NEW</p>
           </section>
           <section className="description">{renderHeaderText()}</section>
         </section>
