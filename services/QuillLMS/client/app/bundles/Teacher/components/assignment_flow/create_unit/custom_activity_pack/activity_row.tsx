@@ -80,7 +80,10 @@ const calculateMaxAllowedLengthForTopicSection = ({
 }
 
 const ActivityRowCheckbox = ({ activity, isSelected, toggleActivitySelection, }: ActivityRowCheckboxProps) => {
-  const handleCheckboxClick = () => toggleActivitySelection(activity, isSelected)
+  const handleCheckboxClick = (e) => {
+    e.stopPropagation()
+    toggleActivitySelection(activity, isSelected)
+  }
   if (isSelected) {
     return <button className="quill-checkbox focus-on-light selected" onClick={handleCheckboxClick} type="button"><img alt="check" src={smallWhiteCheckSrc} /></button>
   }
@@ -153,7 +156,7 @@ const ActivityRowGradeRange = ({ minimumGradeLevel, maximumGradeLevel, gradeLeve
     const lowestGradeInGradeBand = Number(splitGradeBand[0])
     const highestGradeInGradeBand = Number(splitGradeBand[1])
 
-    if (lowestGradeLevelFilter && highestGradeLevelFilter && lowestGradeInGradeBand >= lowestGradeLevelFilter && highestGradeInGradeBand <= highestGradeLevelFilter) {
+    if (!gradeLevelFilters.length || (lowestGradeInGradeBand >= lowestGradeLevelFilter && highestGradeInGradeBand <= highestGradeLevelFilter)) {
       className += ' filtered'
     }
 
@@ -252,13 +255,25 @@ const ActivityRow = ({ activity, isSelected, toggleActivitySelection, showCheckb
   const size = useWindowSize();
   const [isExpanded, setIsExpanded] = React.useState(false)
 
-  function toggleIsExpanded() { setIsExpanded(!isExpanded) }
+  function toggleIsExpanded(e) {
+    if (e.target.tagName !== 'a') {
+      setIsExpanded(!isExpanded)
+    }
+  }
+
   const { activity_classification, name, activity_category_name, standard_level_name, anonymous_path, readability_grade_level, topics, id, minimum_grade_level, maximum_grade_level, description, content_partners, } = activity
 
-  function handleClickSaveButton() { saveActivity(id) }
-  function handleClickSavedButton() { unsaveActivity(id) }
+  function handleClickSaveButton(e) {
+    e.stopPropagation()
+    saveActivity(id)
+  }
+  function handleClickSavedButton(e) {
+    e.stopPropagation()
+    unsaveActivity(id)
+  }
 
-  function removeActivity() {
+  function removeActivity(e) {
+    e.stopPropagation()
     toggleActivitySelection(activity, isSelected)
     setShowSnackbar && setShowSnackbar(true)
   }
@@ -300,13 +315,20 @@ const ActivityRow = ({ activity, isSelected, toggleActivitySelection, showCheckb
   const tooltipContent = renderToString(<ActivityRowTooltip activity={activity} />)
 
   return (
-    <section className={`activity-row ${expandClassName} ${isSelectedClassName} ${isFirstClassName} ${expandedButEmptyClassName}`}>
+    // disabling jsx-a11y rules for section onclick because the toggle interaction already exists as its own button for keyboard users
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
+    <section className={`activity-row ${expandClassName} ${isSelectedClassName} ${isFirstClassName} ${expandedButEmptyClassName}`} onClick={toggleIsExpanded}>
       <div className="first-line">
         <div className="name-and-checkbox-wrapper">
           {showCheckbox && <ActivityRowCheckbox activity={activity} isSelected={isSelected} toggleActivitySelection={toggleActivitySelection} />}
           <Tooltip
             tooltipText={tooltipContent}
-            tooltipTriggerText={<h2>{imageTagForClassification(activity_classification.key)}<span>{name}</span></h2>}
+            tooltipTriggerText={(
+              <h2>
+                {imageTagForClassification(activity_classification.key)}
+                <a href={anonymous_path} rel="noopener noreferrer" target="_blank">{name}</a>
+              </h2>
+            )}
           />
         </div>
         <div className="buttons-wrapper">
