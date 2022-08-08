@@ -18,7 +18,7 @@ exports[`TwoThumbSlider component should render 1`] = `
   upperValue={3}
 >
   <div
-    className="slider-container"
+    className="slider-container two-thumb-slider-container"
     style={
       Object {
         "display": "flex",
@@ -119,6 +119,8 @@ exports[`TwoThumbSlider component should render 1`] = `
       >
         <div
           className="track-container"
+          onMouseDown={[Function]}
+          onTouchStart={[Function]}
           style={
             Object {
               "cursor": "inherit",
