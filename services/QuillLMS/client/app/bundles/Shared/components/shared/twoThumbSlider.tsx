@@ -13,7 +13,7 @@ interface TwoThumbSliderProps {
 }
 
 const Track = ({ props, children, values, minValue, maxValue, }) => {
-  const { style, ref, } = props
+  const { style, ref, onMouseDown, onTouchStart, } = props
   const background = getTrackBackground({
     values,
     colors: ['#dbdbdb', '#06806b', '#dbdbdb'],
@@ -24,6 +24,8 @@ const Track = ({ props, children, values, minValue, maxValue, }) => {
   return (
     <div
       className="track-container"
+      onMouseDown={onMouseDown}
+      onTouchStart={onTouchStart}
       style={style}
     >
       <div

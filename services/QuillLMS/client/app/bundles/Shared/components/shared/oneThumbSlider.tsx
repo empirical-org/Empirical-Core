@@ -12,7 +12,7 @@ interface OneThumbSliderProps {
 }
 
 const Track = ({ props, children, displayAsDisabled, values, minValue, maxValue, }) => {
-  const { style, ref, } = props
+  const { style, ref, onMouseDown, onTouchStart, } = props
   const background = getTrackBackground({
     values,
     colors: displayAsDisabled ? ['#dbdbdb', '#dbdbdb'] : ['#dbdbdb', '#06806b'],
@@ -23,6 +23,8 @@ const Track = ({ props, children, displayAsDisabled, values, minValue, maxValue,
   return (
     <div
       className="track-container"
+      onMouseDown={onMouseDown}
+      onTouchStart={onTouchStart}
       style={style}
     >
       <div
