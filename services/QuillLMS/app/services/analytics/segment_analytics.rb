@@ -186,15 +186,11 @@ class SegmentAnalytics
     end
   end
 
-  def default_integration_rules
-    { all: true, Intercom: false }
-  end
-
   def track(options)
     return unless backend.present?
 
     user = User.find(options[:user_id]) if options[:user_id] && options[:user_id] != 0
-    options[:integrations] = user&.segment_integration_rules || default_integration_rules
+    options[:integrations] = user&.segment_properties&.integration_rules
     backend.track(options)
   end
 
@@ -202,20 +198,13 @@ class SegmentAnalytics
   def identify(user)
     return unless backend.present?
     return unless user&.teacher?
-
-    backend.identify(identify_params(user))
+    identify_params = user&.segment_properties&.identify_params
+    binding.pry
+    backend.identify(identify_params) if identify_params
   end
 
   private def anonymous_uid
     SecureRandom.urlsafe_base64
-  end
-
-  private def identify_params(user)
-    {
-      user_id: user&.id,
-      traits: user&.segment_identify_traits,
-      integrations: user&.segment_integration_rules
-    }
   end
 
   private def user_traits(user)
