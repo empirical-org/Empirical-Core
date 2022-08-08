@@ -196,7 +196,29 @@ const numberFromStringDescendingSort = (activities, attributeKey) => activities.
   return numberMatchB - numberMatchA
 })
 
+const numberAscendingSort = (activities, attributeKey) => activities.sort((a, b) => {
+  const numberMatchA = a[attributeKey]
+  const numberMatchB = b[attributeKey]
+
+  if (!numberMatchA) { return 1 }
+  if (!numberMatchB) { return -1 }
+
+  return numberMatchA - numberMatchB
+})
+
+const numberDescendingSort = (activities, attributeKey) => activities.sort((a, b) => {
+  const numberMatchA = a[attributeKey]
+  const numberMatchB = b[attributeKey]
+
+  if (!numberMatchA) { return 1 }
+  if (!numberMatchB) { return -1 }
+
+  return numberMatchB - numberMatchA
+})
+
 export const DEFAULT = 'default'
+const GRADE_LEVEL_ASCENDING = 'grade-level-asc'
+const GRADE_LEVEL_DESCENDING = 'grade-level-desc'
 const CCSS_ASCENDING = 'ccss-asc'
 const CCSS_DESCENDING = 'ccss-desc'
 const READABILITY_ASCENDING = 'readability-asc'
@@ -206,6 +228,8 @@ const TOPIC = 'topic'
 
 export const sortFunctions = {
   [DEFAULT]: (activities) => activities,
+  [GRADE_LEVEL_ASCENDING]: (activities) => numberAscendingSort(activities, 'minimum_grade_level'),
+  [GRADE_LEVEL_DESCENDING]: (activities) => numberDescendingSort(activities, 'minimum_grade_level'),
   [CCSS_ASCENDING]: (activities) => numberFromStringAscendingSort(activities, 'standard_level_name'),
   [CCSS_DESCENDING]: (activities) => numberFromStringDescendingSort(activities, 'standard_level_name'),
   [READABILITY_ASCENDING]: (activities) => numberFromStringAscendingSort(activities, 'readability_grade_level'),
@@ -219,6 +243,16 @@ export const sortOptions = [
     label: 'Default',
     key: DEFAULT,
     value: DEFAULT
+  },
+  {
+    label: 'Grade Level Range (Low to High)',
+    key: GRADE_LEVEL_ASCENDING,
+    value: GRADE_LEVEL_ASCENDING
+  },
+  {
+    label: 'Grade Level Range (High to Low)',
+    key: GRADE_LEVEL_DESCENDING,
+    value: GRADE_LEVEL_DESCENDING
   },
   {
     label: 'Readability Level (Low to High)',
