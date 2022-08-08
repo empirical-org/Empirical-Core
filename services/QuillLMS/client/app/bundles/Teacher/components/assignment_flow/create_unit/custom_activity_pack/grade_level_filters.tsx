@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import { arrayFromNumbers, } from './shared'
 
-import NumberSuffixBuilder from '../../../../components/modules/numberSuffixBuilder'
 import { OneThumbSlider, Tooltip, helpIcon, smallWhiteCheckIcon, } from '../../../../../Shared/index'
 
 interface GradeLevelFiltersProps {
@@ -41,7 +40,7 @@ const GradeLevelFilters = ({ gradeLevelFilters, handleGradeLevelFilterChange, }:
 
     const lowerValue = GRADE_LEVEL_LABELS.findIndex(label => label.includes(String(gradeLevelFilters[0])))
     const lowestGrade = GRADE_LEVEL_LABELS[lowerValue].split('-')[0]
-    gradeLevelRangeText = `${NumberSuffixBuilder(lowestGrade)} - 12th`
+    gradeLevelRangeText = `${lowestGrade} - 12`
   }
 
   const filterSectionContent = (
