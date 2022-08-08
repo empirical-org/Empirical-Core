@@ -21,16 +21,6 @@
 #  created_at                     :datetime         not null
 #  updated_at                     :datetime         not null
 #
-#  phone_number                   :string
-#  school_name                    :string
-#  school_premium_count_estimate  :integer          default(0), not null
-#  student_premium_count_estimate :integer          default(0), not null
-#  submission_type                :string           not null
-#  teacher_premium_count_estimate :integer          default(0), not null
-#  zipcode                        :string
-#  created_at                     :datetime         not null
-#  updated_at                     :datetime         not null
-#
 require 'rails_helper'
 
 RSpec.describe SalesFormSubmission, type: :model do

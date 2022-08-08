@@ -4,6 +4,8 @@ module IntercomIntegration
   class WebhooksController < ApplicationController
     UNKNOWN_NAME = "Unknown User"
 
+    class UnauthorizedIntercomWebhookCallError < StandardError; end
+
     skip_before_action :verify_authenticity_token
     before_action :verify_signature, only: [:create]
 
@@ -51,11 +53,11 @@ module IntercomIntegration
       hexdigest = OpenSSL::HMAC.hexdigest('sha1', client_secret, payload)
       return if request.headers['X-Hub-Signature'] == "sha1=#{hexdigest}"
 
-      raise "unauthorized call of Intercom webhook"
+      raise(UnauthorizedIntercomWebhookCallError, "unauthorized call of Intercom webhook")
     end
 
     private def find_or_create_user
-      user = User.find_by(id: user_payload["user_id"]) if !user_payload["anonymous"]
+      user = User.find_by(id: user_payload["user_id"]) unless user_payload["anonymous"]
       return user if user.present?
 
       user = User.find_by(email: user_payload["email"])

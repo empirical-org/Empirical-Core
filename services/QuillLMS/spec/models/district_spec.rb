@@ -26,6 +26,10 @@
 require 'rails_helper'
 
 describe District, type: :model do
+  let!(:district) { create(:district) }
+
+  it { should validate_uniqueness_of(:nces_id) }
+
   it { should have_many(:schools) }
   it { should have_many(:district_admins) }
   it { should have_many(:admins).through(:district_admins) }

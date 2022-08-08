@@ -8,39 +8,33 @@ class VitallyRestApi
   end
 
   def create(type, payload)
-    post(type, payload)
+    HTTParty.post("#{VITALLY_REST_API_BASE_URL}/#{type}",
+      headers: headers,
+      body: payload.to_json
+    )
   end
 
   def exists?(type, id)
-    get(type, id).try(:error).blank?
+    get(type, id)&.parsed_response['error'].blank?
   end
 
   def get(type, id)
     HTTParty.get("#{VITALLY_REST_API_BASE_URL}/#{type}/#{id}",
-      headers: {
-        Authorization: "Basic #{@api_key}",
-        "Content-Type": "application/json"
-      }
+      headers: headers
     )
   end
 
   def update(type, id, payload)
     HTTParty.put("#{VITALLY_REST_API_BASE_URL}/#{type}/#{id}",
-      headers: {
-        Authorization: "Basic #{@api_key}",
-        "Content-Type": "application/json"
-      },
+      headers: headers,
       body: payload.to_json
     )
   end
 
-  private def post(type, payload)
-    HTTParty.post("#{VITALLY_REST_API_BASE_URL}/#{type}",
-      headers: {
-        Authorization: "Basic #{@api_key}",
-        "Content-Type": "application/json"
-      },
-      body: payload.to_json
-    )
+  private def headers
+    {
+      Authorization: "Basic #{@api_key}",
+      "Content-Type": "application/json"
+    }
   end
 end

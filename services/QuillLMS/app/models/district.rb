@@ -27,6 +27,7 @@ class District < ApplicationRecord
   include Subscriber
 
   validates :name, presence: true
+  validates :nces_id, uniqueness: true
 
   has_many :schools
   has_many :district_admins, dependent: :destroy
