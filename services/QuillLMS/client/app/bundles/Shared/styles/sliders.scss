@@ -1,5 +1,5 @@
 .slider-container {
-  &.disabled {
+  &.display-as-disabled {
     .thumb {
       background-color: #989898;
     }
@@ -12,7 +12,7 @@
     .track::after {
       margin-left: 0px;
     }
-    &:not(.disabled) {
+    &:not(.display-as-disabled) {
       .track::after {
         background-color: #06806b;
       }

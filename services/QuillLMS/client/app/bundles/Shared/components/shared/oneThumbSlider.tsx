@@ -62,7 +62,7 @@ export const OneThumbSlider = ({ value, minValue, maxValue, step, handleChange, 
   let className = "slider-container one-thumb-slider-container"
 
   if (disabled) {
-    className += ' disabled'
+    className += ' display-as-disabled'
   }
 
   return (
