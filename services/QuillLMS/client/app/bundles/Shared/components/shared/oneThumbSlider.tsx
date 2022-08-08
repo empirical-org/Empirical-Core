@@ -11,11 +11,11 @@ interface OneThumbSliderProps {
   id?: string,
 }
 
-const Track = ({ props, children, disabled, values, minValue, maxValue, }) => {
+const Track = ({ props, children, displayAsDisabled, values, minValue, maxValue, }) => {
   const { style, ref, } = props
   const background = getTrackBackground({
     values,
-    colors: disabled ? ['#dbdbdb', '#dbdbdb'] : ['#dbdbdb', '#06806b'],
+    colors: displayAsDisabled ? ['#dbdbdb', '#dbdbdb'] : ['#dbdbdb', '#06806b'],
     min: minValue,
     max: maxValue
   })
@@ -59,12 +59,6 @@ export const OneThumbSlider = ({ value, minValue, maxValue, step, handleChange, 
   const values = value ? [value] : [minValue]
   const disabled = value === undefined
 
-  function handleContainerClick() {
-    if (!value) {
-      handleChange([minValue])
-    }
-  }
-
   let className = "slider-container one-thumb-slider-container"
 
   if (disabled) {
@@ -77,7 +71,6 @@ export const OneThumbSlider = ({ value, minValue, maxValue, step, handleChange, 
     <div
       className={className}
       id={id}
-      onClick={handleContainerClick}
       style={{
         display: 'flex',
         justifyContent: 'center',
@@ -85,13 +78,12 @@ export const OneThumbSlider = ({ value, minValue, maxValue, step, handleChange, 
       }}
     >
       <Range
-        disabled={disabled}
         max={maxValue}
         min={minValue}
         onChange={handleChange}
         renderMark={({ props, index, }) => <Mark index={index} markLabels={markLabels} props={props} />}
         renderThumb={({ props, }) => <Thumb props={props} />}
-        renderTrack={({ props, children, disabled, }) => <Track disabled={disabled} maxValue={maxValue} minValue={minValue} props={props} values={values}>{children}</Track>}
+        renderTrack={({ props, children, }) => <Track displayAsDisabled={disabled} maxValue={maxValue} minValue={minValue} props={props} values={values}>{children}</Track>}
         step={step}
         values={values}
       />
