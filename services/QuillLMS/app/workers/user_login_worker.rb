@@ -3,13 +3,9 @@
 class UserLoginWorker
   include Sidekiq::Worker
 
-  def perform(id, ip_address)
-
+  def perform(id)
     @user = User.find_by(id: id)
     return unless @user
-
-    @user.update(ip_address: ip_address, last_sign_in: Time.current)
-    @user.save
 
     analytics = Analyzer.new
     case @user.role
