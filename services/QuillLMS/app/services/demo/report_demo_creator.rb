@@ -385,7 +385,8 @@ module Demo::ReportDemoCreator
         metadata: cr.metadata,
         question_type: cr.question_type
       }
-      OldConceptResult.create(values)
+      old_concept_result = OldConceptResult.create(values)
+      SaveActivitySessionConceptResultsWorker.perform_async([old_concept_result.id]) if old_concept_result
     end
   end
 
@@ -409,7 +410,8 @@ module Demo::ReportDemoCreator
               metadata: cr.metadata,
               question_type: cr.question_type
             }
-            OldConceptResult.create(values)
+            old_concept_result = OldConceptResult.create(values)
+            SaveActivitySessionConceptResultsWorker.perform_async([old_concept_result.id]) if old_concept_result
           end
         end
       end

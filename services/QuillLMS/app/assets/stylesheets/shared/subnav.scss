@@ -97,6 +97,12 @@
         color: #348fdf;
       }
     }
+    &#evidence.active {
+      a {
+        border-bottom: 3px solid #2C7F9B;
+        color: #2C7F9B;
+      }
+    }
   }
   .small-screen {
       display: none;

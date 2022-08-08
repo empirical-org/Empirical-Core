@@ -60,7 +60,11 @@ module QuillAuthentication
 
   def sign_in(user)
     TestForEarnedCheckboxesWorker.perform_async(user.id) if user.teacher?
-    UserLoginWorker.perform_async(user.id, request&.remote_ip) unless staff_impersonating_user?(user)
+
+    unless staff_impersonating_user?(user)
+      user.update(ip_address: request&.remote_ip, last_sign_in: Time.current)
+      UserLoginWorker.perform_async(user.id)
+    end
 
     session[:user_id] = user.id
     session[:admin_id] = user.id if user.admin?
