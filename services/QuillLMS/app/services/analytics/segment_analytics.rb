@@ -199,7 +199,6 @@ class SegmentAnalytics
     return unless backend.present?
     return unless user&.teacher?
     identify_params = user&.segment_properties&.identify_params
-    binding.pry
     backend.identify(identify_params) if identify_params
   end
 
