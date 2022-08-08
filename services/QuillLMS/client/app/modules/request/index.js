@@ -18,7 +18,10 @@ function buildRequestCallback(success, error) {
       if (success) {
         success(body);
       }
-    } else {
+    } else if (httpStatus && httpStatus.statusCode === 303 && body.redirect) {
+      window.location.href = body.redirect
+    }
+    else {
       if (error) {
         error(body);
       } else {
