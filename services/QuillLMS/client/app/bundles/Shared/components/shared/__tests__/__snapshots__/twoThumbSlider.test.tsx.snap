@@ -18,7 +18,7 @@ exports[`TwoThumbSlider component should render 1`] = `
   upperValue={3}
 >
   <div
-    className="two-thumb-slider-container"
+    className="slider-container"
     style={
       Object {
         "display": "flex",

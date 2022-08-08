@@ -23,6 +23,10 @@ export {
 } from './dataTable'
 
 export {
+  OneThumbSlider
+} from './oneThumbSlider'
+
+export {
   ProgressBar
 } from './progressBar'
 

@@ -1,4 +1,24 @@
-.two-thumb-slider-container {
+.slider-container {
+  &.disabled {
+    .thumb {
+      background-color: #989898;
+    }
+  }
+
+  &.one-thumb-slider-container {
+    .track::before, .track::after {
+      width: calc(100% + 5px);
+    }
+    .track::after {
+      margin-left: 0px;
+    }
+    &:not(.disabled) {
+      .track::after {
+        background-color: #06806b;
+      }
+    }
+  }
+
   .track-container {
     width: 100%;
   }
@@ -7,8 +27,8 @@
     border-radius: 3px;
     align-items: center;
     width: 100%;
-    // this slightly extends the track so that the mark text for the first and last steps looks centered whether the thumbs are over it or not
-    &::before {
+    &::before, &::after {
+      // this slightly extends the track so that the mark text for the first and last steps looks centered whether the thumbs are over it or not
       content: " ";
       position: absolute;
       z-index: -1;

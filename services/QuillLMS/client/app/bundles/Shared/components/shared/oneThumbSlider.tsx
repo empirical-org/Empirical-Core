@@ -1,22 +1,21 @@
 import * as React from 'react'
 import { Range, getTrackBackground, } from 'react-range'
 
-interface TwoThumbSliderProps {
-  lowerValue: number,
-  upperValue: number,
+interface OneThumbSliderProps {
+  value: number,
   minValue: number,
   maxValue: number,
   step: number,
   handleChange: (values: number[]) => void,
   markLabels?: string[]|number[],
-  id?: string
+  id?: string,
 }
 
-const Track = ({ props, children, values, minValue, maxValue, }) => {
+const Track = ({ props, children, disabled, values, minValue, maxValue, }) => {
   const { style, ref, } = props
   const background = getTrackBackground({
     values,
-    colors: ['#dbdbdb', '#06806b', '#dbdbdb'],
+    colors: disabled ? ['#dbdbdb', '#dbdbdb'] : ['#dbdbdb', '#06806b'],
     min: minValue,
     max: maxValue
   })
@@ -39,6 +38,7 @@ const Track = ({ props, children, values, minValue, maxValue, }) => {
 
 const Thumb = ({ props, }) => {
   const { style, } = props
+
   return (
     <div
       {...props}
@@ -55,13 +55,29 @@ const Mark = ({ props, index, markLabels, }) => {
   return <div {...props} className={className}>{markLabels && markLabels[index]}</div>
 }
 
-export const TwoThumbSlider = (props: TwoThumbSliderProps) => {
-  const { lowerValue, upperValue, minValue, maxValue, step, handleChange, markLabels, id, } = props
-  const values = [lowerValue, upperValue]
+export const OneThumbSlider = ({ value, minValue, maxValue, step, handleChange, markLabels, id, }: OneThumbSliderProps) => {
+  const values = value ? [value] : [minValue]
+  const disabled = value === undefined
+
+  function handleContainerClick() {
+    if (!value) {
+      handleChange([minValue])
+    }
+  }
+
+  let className = "slider-container one-thumb-slider-container"
+
+  if (disabled) {
+    className += ' disabled'
+  }
+
   return (
+    // disabling jsx-a11y rules for onclick because we shouldn't be using this as the only way to enable it for keyboard users
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
     <div
-      className="slider-container two-thumb-slider-container"
+      className={className}
       id={id}
+      onClick={handleContainerClick}
       style={{
         display: 'flex',
         justifyContent: 'center',
@@ -69,12 +85,13 @@ export const TwoThumbSlider = (props: TwoThumbSliderProps) => {
       }}
     >
       <Range
+        disabled={disabled}
         max={maxValue}
         min={minValue}
         onChange={handleChange}
         renderMark={({ props, index, }) => <Mark index={index} markLabels={markLabels} props={props} />}
-        renderThumb={({ props, isDragged }) => <Thumb props={props} />}
-        renderTrack={({ props, children, }) => <Track maxValue={maxValue} minValue={minValue} props={props} values={values}>{children}</Track>}
+        renderThumb={({ props, }) => <Thumb props={props} />}
+        renderTrack={({ props, children, disabled, }) => <Track disabled={disabled} maxValue={maxValue} minValue={minValue} props={props} values={values}>{children}</Track>}
         step={step}
         values={values}
       />
