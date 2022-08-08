@@ -15,7 +15,7 @@ class VitallyRestApi
   end
 
   def exists?(type, id)
-    !get(type, id).parsed_response.has_key?('error')
+    !get(type, id).parsed_response.key?('error')
   end
 
   def get(type, id)
