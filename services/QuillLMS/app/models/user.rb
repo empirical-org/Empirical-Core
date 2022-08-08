@@ -178,18 +178,6 @@ class User < ApplicationRecord
 
   validate :validate_flags
 
-  ALPHA = 'alpha'
-  BETA = 'beta'
-  GAMMA = 'gamma'
-  PRIVATE = 'private'
-  ARCHIVED = 'archived'
-  TESTING_FLAGS = [ALPHA, BETA, GAMMA, PRIVATE, ARCHIVED]
-  PERMISSIONS_FLAGS = %w(auditor purchaser school_point_of_contact)
-  VALID_FLAGS = TESTING_FLAGS.dup.concat(PERMISSIONS_FLAGS)
-
-  GOOGLE_CLASSROOM_ACCOUNT = 'Google Classroom'
-  CLEVER_ACCOUNT = 'Clever'
-
   before_validation :generate_student_username_if_absent
   before_validation :prep_authentication_terms
   before_save :capitalize_name
