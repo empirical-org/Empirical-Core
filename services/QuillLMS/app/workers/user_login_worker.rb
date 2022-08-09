@@ -11,7 +11,11 @@ class UserLoginWorker
     case @user.role
     when 'teacher'
       TeacherActivityFeedRefillWorker.perform_async(@user.id)
-      analytics.track(@user, SegmentIo::BackgroundEvents::TEACHER_SIGNIN)
+      analytics.track_with_attributes(
+        @user,
+        SegmentIo::BackgroundEvents::TEACHER_SIGNIN,
+        properties: @user&.segment_properties&.common_params
+      )
     when 'student'
       # keep these in the following order so the student is the last one identified
       teacher = @user.teacher_of_student

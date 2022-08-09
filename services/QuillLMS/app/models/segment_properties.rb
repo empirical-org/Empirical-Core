@@ -6,28 +6,30 @@ module SegmentProperties
       {
         user_id: id,
         traits: {
-          premium_state: premium_state,
-          premium_type: subscription&.account_type,
+          **common_params,
           auditor: auditor?,
-          is_admin: admin?,
           first_name: first_name,
           last_name: last_name,
-          email: email,
-          school_name: school&.name,
-          school_id: school&.id,
-          district: school&.district&.name
+          email: email
         }.reject {|_,v| v.nil? },
         integrations: integration_rules
       }
     end
 
+    def common_params
+      {
+        district: school&.district&.name,
+        school_name: school&.name,
+        premium_state: premium_state,
+        premium_type: subscription&.account_type,
+        is_admin: admin?
+      }.reject {|_,v| v.nil? }
+    end
+
     def integration_rules
       return { all: true, Intercom: false } if self.nil?
 
-      {
-       all: true,
-       Intercom: (teacher?)
-      }
+      { all: true, Intercom: (teacher?) }
     end
   end
 end
