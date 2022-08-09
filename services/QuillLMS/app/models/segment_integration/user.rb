@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module SegmentProperties
+module SegmentIntegration
   class User < SimpleDelegator
     def identify_params
       {
@@ -19,6 +19,7 @@ module SegmentProperties
     def common_params
       {
         district: school&.district&.name,
+        school_id: school&.id,
         school_name: school&.name,
         premium_state: premium_state,
         premium_type: subscription&.account_type,
@@ -27,7 +28,7 @@ module SegmentProperties
     end
 
     def integration_rules
-      return { all: true, Intercom: false } if self.nil?
+      return { all: true, Intercom: false } if nil?
 
       { all: true, Intercom: (teacher?) }
     end

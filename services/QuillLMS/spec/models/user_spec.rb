@@ -1470,29 +1470,4 @@ describe User, type: :model do
       end
     end
   end
-
-  describe '#segment_identify_traits' do
-    let(:teacher)  { build(:teacher) }
-
-    it 'returns the expected traits' do
-      traits = {
-        auditor: user.auditor?,
-        is_admin: user.admin?,
-        premium_state: user.premium_state,
-        email: teacher.email,
-        first_name: teacher.first_name,
-        last_name: teacher.last_name,
-      }
-      expect(teacher.segment_identify_traits).to eq traits
-    end
-  end
-
-  describe '#segment_integration_rules' do
-    let(:teacher)  { build(:teacher) }
-
-    it 'returns the expected rules' do
-      rules = { all: true, Intercom: (true) }
-      expect(teacher.segment_integration_rules).to eq rules
-    end
-  end
 end

@@ -190,7 +190,7 @@ class SegmentAnalytics
     return unless backend.present?
 
     user = User.find(options[:user_id]) if options[:user_id] && options[:user_id] != 0
-    options[:integrations] = user&.segment_properties&.integration_rules
+    options[:integrations] = user&.segment_integration&.integration_rules
     backend.track(options)
   end
 
@@ -198,7 +198,8 @@ class SegmentAnalytics
   def identify(user)
     return unless backend.present?
     return unless user&.teacher?
-    identify_params = user&.segment_properties&.identify_params
+
+    identify_params = user&.segment_integration&.identify_params
     backend.identify(identify_params) if identify_params
   end
 
