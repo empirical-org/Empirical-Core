@@ -1,0 +1,1272 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OneThumbSlider component should render when there is a value 1`] = `
+<OneThumbSlider
+  handleChange={[Function]}
+  markLabels={
+    Array [
+      1,
+      2,
+      3,
+      4,
+    ]
+  }
+  maxValue={4}
+  minValue={1}
+  step={1}
+  value={2}
+>
+  <Slider
+    className="slider-container one-thumb-slider-container"
+    handleChange={[Function]}
+    markLabels={
+      Array [
+        1,
+        2,
+        3,
+        4,
+      ]
+    }
+    maxValue={4}
+    minValue={1}
+    step={1}
+    trackColors={
+      Array [
+        "#dbdbdb",
+        "#06806b",
+      ]
+    }
+    values={
+      Array [
+        2,
+      ]
+    }
+  >
+    <div
+      className="slider-container one-thumb-slider-container"
+      style={
+        Object {
+          "display": "flex",
+          "flexWrap": "wrap",
+          "justifyContent": "center",
+        }
+      }
+    >
+      <Range
+        allowOverlap={false}
+        direction="to right"
+        disabled={false}
+        draggableTrack={false}
+        max={4}
+        min={1}
+        onChange={[Function]}
+        renderMark={[Function]}
+        renderThumb={[Function]}
+        renderTrack={[Function]}
+        rtl={false}
+        step={1}
+        values={
+          Array [
+            2,
+          ]
+        }
+      >
+        <Track
+          colors={
+            Array [
+              "#dbdbdb",
+              "#06806b",
+            ]
+          }
+          maxValue={4}
+          minValue={1}
+          props={
+            Object {
+              "onMouseDown": [Function],
+              "onTouchStart": [Function],
+              "ref": Object {
+                "current": <div
+                  class="track"
+                >
+                  <div
+                    class="mark first-mark"
+                    style="position: absolute;"
+                  >
+                    1
+                  </div>
+                  <div
+                    class="mark"
+                    style="position: absolute;"
+                  >
+                    2
+                  </div>
+                  <div
+                    class="mark"
+                    style="position: absolute;"
+                  >
+                    3
+                  </div>
+                  <div
+                    class="mark last-mark"
+                    style="position: absolute;"
+                  >
+                    4
+                  </div>
+                  <div
+                    aria-valuemax="4"
+                    aria-valuemin="1"
+                    aria-valuenow="2"
+                    class="thumb"
+                    draggable="false"
+                    role="slider"
+                    style="position: absolute; z-index: 0; cursor: grab; user-select: none; transform: translate(NaNpx, NaNpx);"
+                    tabindex="0"
+                  />
+                </div>,
+              },
+              "style": Object {
+                "cursor": "pointer",
+                "transform": "scale(1)",
+              },
+            }
+          }
+          values={
+            Array [
+              2,
+            ]
+          }
+        >
+          <div
+            className="track-container"
+            onMouseDown={[Function]}
+            onTouchStart={[Function]}
+            style={
+              Object {
+                "cursor": "pointer",
+                "transform": "scale(1)",
+              }
+            }
+          >
+            <div
+              className="track"
+              style={
+                Object {
+                  "background": "linear-gradient(to right, #dbdbdb 0%, #dbdbdb 33.33333333333333%, #06806b 33.33333333333333%, #06806b 100%)",
+                }
+              }
+            >
+              <Mark
+                index={0}
+                markLabels={
+                  Array [
+                    1,
+                    2,
+                    3,
+                    4,
+                  ]
+                }
+                props={
+                  Object {
+                    "key": "mark0",
+                    "ref": Object {
+                      "current": <div
+                        class="mark first-mark"
+                        style="position: absolute;"
+                      >
+                        1
+                      </div>,
+                    },
+                    "style": Object {
+                      "left": "NaNpx",
+                      "marginTop": "NaNpx",
+                      "position": "absolute",
+                    },
+                  }
+                }
+              >
+                <div
+                  className="mark first-mark"
+                  key="mark0"
+                  style={
+                    Object {
+                      "left": "NaNpx",
+                      "marginTop": "NaNpx",
+                      "position": "absolute",
+                    }
+                  }
+                >
+                  1
+                </div>
+              </Mark>
+              <Mark
+                index={1}
+                markLabels={
+                  Array [
+                    1,
+                    2,
+                    3,
+                    4,
+                  ]
+                }
+                props={
+                  Object {
+                    "key": "mark1",
+                    "ref": Object {
+                      "current": <div
+                        class="mark"
+                        style="position: absolute;"
+                      >
+                        2
+                      </div>,
+                    },
+                    "style": Object {
+                      "left": "NaNpx",
+                      "marginTop": "NaNpx",
+                      "position": "absolute",
+                    },
+                  }
+                }
+              >
+                <div
+                  className="mark"
+                  key="mark1"
+                  style={
+                    Object {
+                      "left": "NaNpx",
+                      "marginTop": "NaNpx",
+                      "position": "absolute",
+                    }
+                  }
+                >
+                  2
+                </div>
+              </Mark>
+              <Mark
+                index={2}
+                markLabels={
+                  Array [
+                    1,
+                    2,
+                    3,
+                    4,
+                  ]
+                }
+                props={
+                  Object {
+                    "key": "mark2",
+                    "ref": Object {
+                      "current": <div
+                        class="mark"
+                        style="position: absolute;"
+                      >
+                        3
+                      </div>,
+                    },
+                    "style": Object {
+                      "left": "NaNpx",
+                      "marginTop": "NaNpx",
+                      "position": "absolute",
+                    },
+                  }
+                }
+              >
+                <div
+                  className="mark"
+                  key="mark2"
+                  style={
+                    Object {
+                      "left": "NaNpx",
+                      "marginTop": "NaNpx",
+                      "position": "absolute",
+                    }
+                  }
+                >
+                  3
+                </div>
+              </Mark>
+              <Mark
+                index={3}
+                markLabels={
+                  Array [
+                    1,
+                    2,
+                    3,
+                    4,
+                  ]
+                }
+                props={
+                  Object {
+                    "key": "mark3",
+                    "ref": Object {
+                      "current": <div
+                        class="mark last-mark"
+                        style="position: absolute;"
+                      >
+                        4
+                      </div>,
+                    },
+                    "style": Object {
+                      "left": "NaNpx",
+                      "marginTop": "NaNpx",
+                      "position": "absolute",
+                    },
+                  }
+                }
+              >
+                <div
+                  className="mark last-mark"
+                  key="mark3"
+                  style={
+                    Object {
+                      "left": "NaNpx",
+                      "marginTop": "NaNpx",
+                      "position": "absolute",
+                    }
+                  }
+                >
+                  4
+                </div>
+              </Mark>
+              <Thumb
+                props={
+                  Object {
+                    "aria-valuemax": 4,
+                    "aria-valuemin": 1,
+                    "aria-valuenow": 2,
+                    "draggable": false,
+                    "key": 0,
+                    "onKeyDown": [Function],
+                    "onKeyUp": [Function],
+                    "ref": Object {
+                      "current": <div
+                        aria-valuemax="4"
+                        aria-valuemin="1"
+                        aria-valuenow="2"
+                        class="thumb"
+                        draggable="false"
+                        role="slider"
+                        style="position: absolute; z-index: 0; cursor: grab; user-select: none; transform: translate(NaNpx, NaNpx);"
+                        tabindex="0"
+                      />,
+                    },
+                    "role": "slider",
+                    "style": Object {
+                      "MozUserSelect": "none",
+                      "WebkitUserSelect": "none",
+                      "cursor": "grab",
+                      "msUserSelect": "none",
+                      "position": "absolute",
+                      "touchAction": "none",
+                      "userSelect": "none",
+                      "zIndex": 0,
+                    },
+                    "tabIndex": 0,
+                  }
+                }
+              >
+                <div
+                  aria-valuemax={4}
+                  aria-valuemin={1}
+                  aria-valuenow={2}
+                  className="thumb"
+                  draggable={false}
+                  key="0"
+                  onKeyDown={[Function]}
+                  onKeyUp={[Function]}
+                  role="slider"
+                  style={
+                    Object {
+                      "MozUserSelect": "none",
+                      "WebkitUserSelect": "none",
+                      "cursor": "grab",
+                      "msUserSelect": "none",
+                      "position": "absolute",
+                      "touchAction": "none",
+                      "userSelect": "none",
+                      "zIndex": 0,
+                    }
+                  }
+                  tabIndex={0}
+                />
+              </Thumb>
+            </div>
+          </div>
+        </Track>
+      </Range>
+    </div>
+  </Slider>
+</OneThumbSlider>
+`;
+
+exports[`OneThumbSlider component should render when there is no value 1`] = `
+<OneThumbSlider
+  handleChange={[Function]}
+  markLabels={
+    Array [
+      1,
+      2,
+      3,
+      4,
+    ]
+  }
+  maxValue={4}
+  minValue={1}
+  step={1}
+>
+  <Slider
+    className="slider-container one-thumb-slider-container display-as-disabled"
+    handleChange={[Function]}
+    markLabels={
+      Array [
+        1,
+        2,
+        3,
+        4,
+      ]
+    }
+    maxValue={4}
+    minValue={1}
+    step={1}
+    trackColors={
+      Array [
+        "#dbdbdb",
+        "#dbdbdb",
+      ]
+    }
+    values={
+      Array [
+        1,
+      ]
+    }
+  >
+    <div
+      className="slider-container one-thumb-slider-container display-as-disabled"
+      style={
+        Object {
+          "display": "flex",
+          "flexWrap": "wrap",
+          "justifyContent": "center",
+        }
+      }
+    >
+      <Range
+        allowOverlap={false}
+        direction="to right"
+        disabled={false}
+        draggableTrack={false}
+        max={4}
+        min={1}
+        onChange={[Function]}
+        renderMark={[Function]}
+        renderThumb={[Function]}
+        renderTrack={[Function]}
+        rtl={false}
+        step={1}
+        values={
+          Array [
+            1,
+          ]
+        }
+      >
+        <Track
+          colors={
+            Array [
+              "#dbdbdb",
+              "#dbdbdb",
+            ]
+          }
+          maxValue={4}
+          minValue={1}
+          props={
+            Object {
+              "onMouseDown": [Function],
+              "onTouchStart": [Function],
+              "ref": Object {
+                "current": <div
+                  class="track"
+                >
+                  <div
+                    class="mark first-mark"
+                    style="position: absolute;"
+                  >
+                    1
+                  </div>
+                  <div
+                    class="mark"
+                    style="position: absolute;"
+                  >
+                    2
+                  </div>
+                  <div
+                    class="mark"
+                    style="position: absolute;"
+                  >
+                    3
+                  </div>
+                  <div
+                    class="mark last-mark"
+                    style="position: absolute;"
+                  >
+                    4
+                  </div>
+                  <div
+                    aria-valuemax="4"
+                    aria-valuemin="1"
+                    aria-valuenow="1"
+                    class="thumb"
+                    draggable="false"
+                    role="slider"
+                    style="position: absolute; z-index: 0; cursor: grab; user-select: none; transform: translate(NaNpx, NaNpx);"
+                    tabindex="0"
+                  />
+                </div>,
+              },
+              "style": Object {
+                "cursor": "pointer",
+                "transform": "scale(1)",
+              },
+            }
+          }
+          values={
+            Array [
+              1,
+            ]
+          }
+        >
+          <div
+            className="track-container"
+            onMouseDown={[Function]}
+            onTouchStart={[Function]}
+            style={
+              Object {
+                "cursor": "pointer",
+                "transform": "scale(1)",
+              }
+            }
+          >
+            <div
+              className="track"
+              style={
+                Object {
+                  "background": "linear-gradient(to right, #dbdbdb 0%, #dbdbdb 0%, #dbdbdb 0%, #dbdbdb 100%)",
+                }
+              }
+            >
+              <Mark
+                index={0}
+                markLabels={
+                  Array [
+                    1,
+                    2,
+                    3,
+                    4,
+                  ]
+                }
+                props={
+                  Object {
+                    "key": "mark0",
+                    "ref": Object {
+                      "current": <div
+                        class="mark first-mark"
+                        style="position: absolute;"
+                      >
+                        1
+                      </div>,
+                    },
+                    "style": Object {
+                      "left": "NaNpx",
+                      "marginTop": "NaNpx",
+                      "position": "absolute",
+                    },
+                  }
+                }
+              >
+                <div
+                  className="mark first-mark"
+                  key="mark0"
+                  style={
+                    Object {
+                      "left": "NaNpx",
+                      "marginTop": "NaNpx",
+                      "position": "absolute",
+                    }
+                  }
+                >
+                  1
+                </div>
+              </Mark>
+              <Mark
+                index={1}
+                markLabels={
+                  Array [
+                    1,
+                    2,
+                    3,
+                    4,
+                  ]
+                }
+                props={
+                  Object {
+                    "key": "mark1",
+                    "ref": Object {
+                      "current": <div
+                        class="mark"
+                        style="position: absolute;"
+                      >
+                        2
+                      </div>,
+                    },
+                    "style": Object {
+                      "left": "NaNpx",
+                      "marginTop": "NaNpx",
+                      "position": "absolute",
+                    },
+                  }
+                }
+              >
+                <div
+                  className="mark"
+                  key="mark1"
+                  style={
+                    Object {
+                      "left": "NaNpx",
+                      "marginTop": "NaNpx",
+                      "position": "absolute",
+                    }
+                  }
+                >
+                  2
+                </div>
+              </Mark>
+              <Mark
+                index={2}
+                markLabels={
+                  Array [
+                    1,
+                    2,
+                    3,
+                    4,
+                  ]
+                }
+                props={
+                  Object {
+                    "key": "mark2",
+                    "ref": Object {
+                      "current": <div
+                        class="mark"
+                        style="position: absolute;"
+                      >
+                        3
+                      </div>,
+                    },
+                    "style": Object {
+                      "left": "NaNpx",
+                      "marginTop": "NaNpx",
+                      "position": "absolute",
+                    },
+                  }
+                }
+              >
+                <div
+                  className="mark"
+                  key="mark2"
+                  style={
+                    Object {
+                      "left": "NaNpx",
+                      "marginTop": "NaNpx",
+                      "position": "absolute",
+                    }
+                  }
+                >
+                  3
+                </div>
+              </Mark>
+              <Mark
+                index={3}
+                markLabels={
+                  Array [
+                    1,
+                    2,
+                    3,
+                    4,
+                  ]
+                }
+                props={
+                  Object {
+                    "key": "mark3",
+                    "ref": Object {
+                      "current": <div
+                        class="mark last-mark"
+                        style="position: absolute;"
+                      >
+                        4
+                      </div>,
+                    },
+                    "style": Object {
+                      "left": "NaNpx",
+                      "marginTop": "NaNpx",
+                      "position": "absolute",
+                    },
+                  }
+                }
+              >
+                <div
+                  className="mark last-mark"
+                  key="mark3"
+                  style={
+                    Object {
+                      "left": "NaNpx",
+                      "marginTop": "NaNpx",
+                      "position": "absolute",
+                    }
+                  }
+                >
+                  4
+                </div>
+              </Mark>
+              <Thumb
+                props={
+                  Object {
+                    "aria-valuemax": 4,
+                    "aria-valuemin": 1,
+                    "aria-valuenow": 1,
+                    "draggable": false,
+                    "key": 0,
+                    "onKeyDown": [Function],
+                    "onKeyUp": [Function],
+                    "ref": Object {
+                      "current": <div
+                        aria-valuemax="4"
+                        aria-valuemin="1"
+                        aria-valuenow="1"
+                        class="thumb"
+                        draggable="false"
+                        role="slider"
+                        style="position: absolute; z-index: 0; cursor: grab; user-select: none; transform: translate(NaNpx, NaNpx);"
+                        tabindex="0"
+                      />,
+                    },
+                    "role": "slider",
+                    "style": Object {
+                      "MozUserSelect": "none",
+                      "WebkitUserSelect": "none",
+                      "cursor": "grab",
+                      "msUserSelect": "none",
+                      "position": "absolute",
+                      "touchAction": "none",
+                      "userSelect": "none",
+                      "zIndex": 0,
+                    },
+                    "tabIndex": 0,
+                  }
+                }
+              >
+                <div
+                  aria-valuemax={4}
+                  aria-valuemin={1}
+                  aria-valuenow={1}
+                  className="thumb"
+                  draggable={false}
+                  key="0"
+                  onKeyDown={[Function]}
+                  onKeyUp={[Function]}
+                  role="slider"
+                  style={
+                    Object {
+                      "MozUserSelect": "none",
+                      "WebkitUserSelect": "none",
+                      "cursor": "grab",
+                      "msUserSelect": "none",
+                      "position": "absolute",
+                      "touchAction": "none",
+                      "userSelect": "none",
+                      "zIndex": 0,
+                    }
+                  }
+                  tabIndex={0}
+                />
+              </Thumb>
+            </div>
+          </div>
+        </Track>
+      </Range>
+    </div>
+  </Slider>
+</OneThumbSlider>
+`;
+
+exports[`TwoThumbSlider component should render 1`] = `
+<TwoThumbSlider
+  handleChange={[Function]}
+  lowerValue={1}
+  markLabels={
+    Array [
+      1,
+      2,
+      3,
+      4,
+    ]
+  }
+  maxValue={4}
+  minValue={1}
+  step={1}
+  upperValue={3}
+>
+  <Slider
+    className="slider-container two-thumb-slider-container"
+    handleChange={[Function]}
+    markLabels={
+      Array [
+        1,
+        2,
+        3,
+        4,
+      ]
+    }
+    maxValue={4}
+    minValue={1}
+    step={1}
+    trackColors={
+      Array [
+        "#dbdbdb",
+        "#06806b",
+        "#dbdbdb",
+      ]
+    }
+    values={
+      Array [
+        1,
+        3,
+      ]
+    }
+  >
+    <div
+      className="slider-container two-thumb-slider-container"
+      style={
+        Object {
+          "display": "flex",
+          "flexWrap": "wrap",
+          "justifyContent": "center",
+        }
+      }
+    >
+      <Range
+        allowOverlap={false}
+        direction="to right"
+        disabled={false}
+        draggableTrack={false}
+        max={4}
+        min={1}
+        onChange={[Function]}
+        renderMark={[Function]}
+        renderThumb={[Function]}
+        renderTrack={[Function]}
+        rtl={false}
+        step={1}
+        values={
+          Array [
+            1,
+            3,
+          ]
+        }
+      >
+        <Track
+          colors={
+            Array [
+              "#dbdbdb",
+              "#06806b",
+              "#dbdbdb",
+            ]
+          }
+          maxValue={4}
+          minValue={1}
+          props={
+            Object {
+              "onMouseDown": [Function],
+              "onTouchStart": [Function],
+              "ref": Object {
+                "current": <div
+                  class="track"
+                >
+                  <div
+                    class="mark first-mark"
+                    style="position: absolute;"
+                  >
+                    1
+                  </div>
+                  <div
+                    class="mark"
+                    style="position: absolute;"
+                  >
+                    2
+                  </div>
+                  <div
+                    class="mark"
+                    style="position: absolute;"
+                  >
+                    3
+                  </div>
+                  <div
+                    class="mark last-mark"
+                    style="position: absolute;"
+                  >
+                    4
+                  </div>
+                  <div
+                    aria-valuemax="3"
+                    aria-valuemin="1"
+                    aria-valuenow="1"
+                    class="thumb"
+                    draggable="false"
+                    role="slider"
+                    style="position: absolute; z-index: 0; cursor: grab; user-select: none; transform: translate(NaNpx, NaNpx);"
+                    tabindex="0"
+                  />
+                  <div
+                    aria-valuemax="4"
+                    aria-valuemin="1"
+                    aria-valuenow="3"
+                    class="thumb"
+                    draggable="false"
+                    role="slider"
+                    style="position: absolute; z-index: 1; cursor: grab; user-select: none; transform: translate(NaNpx, NaNpx);"
+                    tabindex="0"
+                  />
+                </div>,
+              },
+              "style": Object {
+                "cursor": "inherit",
+                "transform": "scale(1)",
+              },
+            }
+          }
+          values={
+            Array [
+              1,
+              3,
+            ]
+          }
+        >
+          <div
+            className="track-container"
+            onMouseDown={[Function]}
+            onTouchStart={[Function]}
+            style={
+              Object {
+                "cursor": "inherit",
+                "transform": "scale(1)",
+              }
+            }
+          >
+            <div
+              className="track"
+              style={
+                Object {
+                  "background": "linear-gradient(to right, #dbdbdb 0%, #dbdbdb 0%, #06806b 0%, #06806b 66.66666666666666%, #dbdbdb 66.66666666666666%, #dbdbdb 100%)",
+                }
+              }
+            >
+              <Mark
+                index={0}
+                markLabels={
+                  Array [
+                    1,
+                    2,
+                    3,
+                    4,
+                  ]
+                }
+                props={
+                  Object {
+                    "key": "mark0",
+                    "ref": Object {
+                      "current": <div
+                        class="mark first-mark"
+                        style="position: absolute;"
+                      >
+                        1
+                      </div>,
+                    },
+                    "style": Object {
+                      "left": "NaNpx",
+                      "marginTop": "NaNpx",
+                      "position": "absolute",
+                    },
+                  }
+                }
+              >
+                <div
+                  className="mark first-mark"
+                  key="mark0"
+                  style={
+                    Object {
+                      "left": "NaNpx",
+                      "marginTop": "NaNpx",
+                      "position": "absolute",
+                    }
+                  }
+                >
+                  1
+                </div>
+              </Mark>
+              <Mark
+                index={1}
+                markLabels={
+                  Array [
+                    1,
+                    2,
+                    3,
+                    4,
+                  ]
+                }
+                props={
+                  Object {
+                    "key": "mark1",
+                    "ref": Object {
+                      "current": <div
+                        class="mark"
+                        style="position: absolute;"
+                      >
+                        2
+                      </div>,
+                    },
+                    "style": Object {
+                      "left": "NaNpx",
+                      "marginTop": "NaNpx",
+                      "position": "absolute",
+                    },
+                  }
+                }
+              >
+                <div
+                  className="mark"
+                  key="mark1"
+                  style={
+                    Object {
+                      "left": "NaNpx",
+                      "marginTop": "NaNpx",
+                      "position": "absolute",
+                    }
+                  }
+                >
+                  2
+                </div>
+              </Mark>
+              <Mark
+                index={2}
+                markLabels={
+                  Array [
+                    1,
+                    2,
+                    3,
+                    4,
+                  ]
+                }
+                props={
+                  Object {
+                    "key": "mark2",
+                    "ref": Object {
+                      "current": <div
+                        class="mark"
+                        style="position: absolute;"
+                      >
+                        3
+                      </div>,
+                    },
+                    "style": Object {
+                      "left": "NaNpx",
+                      "marginTop": "NaNpx",
+                      "position": "absolute",
+                    },
+                  }
+                }
+              >
+                <div
+                  className="mark"
+                  key="mark2"
+                  style={
+                    Object {
+                      "left": "NaNpx",
+                      "marginTop": "NaNpx",
+                      "position": "absolute",
+                    }
+                  }
+                >
+                  3
+                </div>
+              </Mark>
+              <Mark
+                index={3}
+                markLabels={
+                  Array [
+                    1,
+                    2,
+                    3,
+                    4,
+                  ]
+                }
+                props={
+                  Object {
+                    "key": "mark3",
+                    "ref": Object {
+                      "current": <div
+                        class="mark last-mark"
+                        style="position: absolute;"
+                      >
+                        4
+                      </div>,
+                    },
+                    "style": Object {
+                      "left": "NaNpx",
+                      "marginTop": "NaNpx",
+                      "position": "absolute",
+                    },
+                  }
+                }
+              >
+                <div
+                  className="mark last-mark"
+                  key="mark3"
+                  style={
+                    Object {
+                      "left": "NaNpx",
+                      "marginTop": "NaNpx",
+                      "position": "absolute",
+                    }
+                  }
+                >
+                  4
+                </div>
+              </Mark>
+              <Thumb
+                props={
+                  Object {
+                    "aria-valuemax": 3,
+                    "aria-valuemin": 1,
+                    "aria-valuenow": 1,
+                    "draggable": false,
+                    "key": 0,
+                    "onKeyDown": [Function],
+                    "onKeyUp": [Function],
+                    "ref": Object {
+                      "current": <div
+                        aria-valuemax="3"
+                        aria-valuemin="1"
+                        aria-valuenow="1"
+                        class="thumb"
+                        draggable="false"
+                        role="slider"
+                        style="position: absolute; z-index: 0; cursor: grab; user-select: none; transform: translate(NaNpx, NaNpx);"
+                        tabindex="0"
+                      />,
+                    },
+                    "role": "slider",
+                    "style": Object {
+                      "MozUserSelect": "none",
+                      "WebkitUserSelect": "none",
+                      "cursor": "grab",
+                      "msUserSelect": "none",
+                      "position": "absolute",
+                      "touchAction": "none",
+                      "userSelect": "none",
+                      "zIndex": 0,
+                    },
+                    "tabIndex": 0,
+                  }
+                }
+              >
+                <div
+                  aria-valuemax={3}
+                  aria-valuemin={1}
+                  aria-valuenow={1}
+                  className="thumb"
+                  draggable={false}
+                  key="0"
+                  onKeyDown={[Function]}
+                  onKeyUp={[Function]}
+                  role="slider"
+                  style={
+                    Object {
+                      "MozUserSelect": "none",
+                      "WebkitUserSelect": "none",
+                      "cursor": "grab",
+                      "msUserSelect": "none",
+                      "position": "absolute",
+                      "touchAction": "none",
+                      "userSelect": "none",
+                      "zIndex": 0,
+                    }
+                  }
+                  tabIndex={0}
+                />
+              </Thumb>
+              <Thumb
+                props={
+                  Object {
+                    "aria-valuemax": 4,
+                    "aria-valuemin": 1,
+                    "aria-valuenow": 3,
+                    "draggable": false,
+                    "key": 1,
+                    "onKeyDown": [Function],
+                    "onKeyUp": [Function],
+                    "ref": Object {
+                      "current": <div
+                        aria-valuemax="4"
+                        aria-valuemin="1"
+                        aria-valuenow="3"
+                        class="thumb"
+                        draggable="false"
+                        role="slider"
+                        style="position: absolute; z-index: 1; cursor: grab; user-select: none; transform: translate(NaNpx, NaNpx);"
+                        tabindex="0"
+                      />,
+                    },
+                    "role": "slider",
+                    "style": Object {
+                      "MozUserSelect": "none",
+                      "WebkitUserSelect": "none",
+                      "cursor": "grab",
+                      "msUserSelect": "none",
+                      "position": "absolute",
+                      "touchAction": "none",
+                      "userSelect": "none",
+                      "zIndex": 1,
+                    },
+                    "tabIndex": 0,
+                  }
+                }
+              >
+                <div
+                  aria-valuemax={4}
+                  aria-valuemin={1}
+                  aria-valuenow={3}
+                  className="thumb"
+                  draggable={false}
+                  key="1"
+                  onKeyDown={[Function]}
+                  onKeyUp={[Function]}
+                  role="slider"
+                  style={
+                    Object {
+                      "MozUserSelect": "none",
+                      "WebkitUserSelect": "none",
+                      "cursor": "grab",
+                      "msUserSelect": "none",
+                      "position": "absolute",
+                      "touchAction": "none",
+                      "userSelect": "none",
+                      "zIndex": 1,
+                    }
+                  }
+                  tabIndex={0}
+                />
+              </Thumb>
+            </div>
+          </div>
+        </Track>
+      </Range>
+    </div>
+  </Slider>
+</TwoThumbSlider>
+`;

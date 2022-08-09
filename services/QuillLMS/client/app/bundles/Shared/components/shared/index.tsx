@@ -23,10 +23,6 @@ export {
 } from './dataTable'
 
 export {
-  OneThumbSlider
-} from './oneThumbSlider'
-
-export {
   ProgressBar
 } from './progressBar'
 
@@ -57,6 +53,11 @@ export {
 export {
   ScreenreaderInstructions
 } from './screenreaderInstructions'
+
+export {
+  OneThumbSlider,
+  TwoThumbSlider,
+} from './slider'
 
 export {
   SmartSpinner
@@ -94,10 +95,6 @@ export {
 export {
   Tooltip
 } from './tooltip'
-
-export {
-  TwoThumbSlider
-} from './twoThumbSlider'
 
 export {
   UploadOptimalResponses
