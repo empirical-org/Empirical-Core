@@ -2,8 +2,7 @@ import * as React from 'react';
 
 import { arrayFromNumbers, } from './shared'
 
-import NumberSuffixBuilder from '../../../../components/modules/numberSuffixBuilder'
-import { TwoThumbSlider, Tooltip, helpIcon, } from '../../../../../Shared/index'
+import { OneThumbSlider, Tooltip, helpIcon, smallWhiteCheckIcon, } from '../../../../../Shared/index'
 
 interface GradeLevelFiltersProps {
   gradeLevelFilters: number[],
@@ -19,26 +18,30 @@ const tooltipText = "The grade level range helps you see which activities are a
 const GradeLevelFilters = ({ gradeLevelFilters, handleGradeLevelFilterChange, }: GradeLevelFiltersProps) => {
   function onChange(valuesArray: number[]) {
     const lowerValue = valuesArray[0]
-    const upperValue = valuesArray[1]
-    if (lowerValue === MIN_LEVEL && upperValue === MAX_LEVEL) {
-      handleGradeLevelFilterChange([]) // don't treat default as a filter
-    } else {
-      const lowestGrade = GRADE_LEVEL_LABELS[lowerValue].split('-')[0]
-      const highestGrade = GRADE_LEVEL_LABELS[upperValue].split('-')[1]
+    const lowestGrade = GRADE_LEVEL_LABELS[lowerValue].split('-')[0]
+    handleGradeLevelFilterChange(arrayFromNumbers(Number(lowestGrade), 12))
+  }
 
-      handleGradeLevelFilterChange(arrayFromNumbers(Number(lowestGrade), Number(highestGrade)))
-    }
+  function handleEnableGradeLevelFilters() {
+    onChange([0])
   }
 
   function clearAllGradeLevelFilters() { handleGradeLevelFilterChange([]) }
 
   const clearButton = gradeLevelFilters.length ? <button className="interactive-wrapper clear-filter focus-on-light" onClick={clearAllGradeLevelFilters} type="button">Clear</button> : <span />
 
-  const lowerValue = gradeLevelFilters[0] ? GRADE_LEVEL_LABELS.findIndex(label => label.includes(String(gradeLevelFilters[0]))) : MIN_LEVEL
-  const upperFilter = gradeLevelFilters[gradeLevelFilters.length - 1]
-  const upperValue = upperFilter ? GRADE_LEVEL_LABELS.findIndex(label => label.includes(String(upperFilter))) : MAX_LEVEL
-  const lowestGrade = GRADE_LEVEL_LABELS[lowerValue].split('-')[0]
-  const highestGrade = GRADE_LEVEL_LABELS[upperValue].split('-')[1]
+  let gradeLevelRangeText = 'All Grades'
+  let checkbox = <button aria-label="Enable Grade Level Range filters" className="focus-on-light quill-checkbox unselected" onClick={handleEnableGradeLevelFilters} type="button" />
+
+  if (gradeLevelFilters.length) {
+    checkbox = (<button aria-label="Disable GradeLevel Range filters" className="focus-on-light quill-checkbox selected" onClick={clearAllGradeLevelFilters} type="button">
+      <img alt="Checked checkbox" src={smallWhiteCheckIcon.src} />
+    </button>)
+
+    const lowerValue = GRADE_LEVEL_LABELS.findIndex(label => label.includes(String(gradeLevelFilters[0])))
+    const lowestGrade = GRADE_LEVEL_LABELS[lowerValue].split('-')[0]
+    gradeLevelRangeText = `${lowestGrade} - 12`
+  }
 
   const filterSectionContent = (
     <div className="tooltip-trigger-filter-section-content">
@@ -51,17 +54,19 @@ const GradeLevelFilters = ({ gradeLevelFilters, handleGradeLevelFilterChange, }:
         {clearButton}
       </div>
       <div className="slider-wrapper">
-        <label htmlFor="grade-level-slider">Grade Level Range: {NumberSuffixBuilder(lowestGrade)} - {NumberSuffixBuilder(highestGrade)}</label>
-        <TwoThumbSlider
-          handleChange={onChange}
-          id="grade-level-slider"
-          lowerValue={lowerValue}
-          markLabels={GRADE_LEVEL_LABELS}
-          maxValue={MAX_LEVEL}
-          minValue={MIN_LEVEL}
-          step={1}
-          upperValue={upperValue}
-        />
+        <label htmlFor="grade-level-slider">Grade Level Range: {gradeLevelRangeText}</label>
+        <div className="checkbox-and-slider">
+          {checkbox}
+          <OneThumbSlider
+            handleChange={onChange}
+            id="grade-level-slider"
+            markLabels={GRADE_LEVEL_LABELS}
+            maxValue={MAX_LEVEL}
+            minValue={MIN_LEVEL}
+            step={1}
+            value={lowerValue}
+          />
+        </div>
       </div>
     </div>
   )

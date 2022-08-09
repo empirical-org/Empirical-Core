@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Activity, ActivityCategory } from './interfaces'
-import { ACTIVITY_CATEGORY_FILTERS, AVERAGE_FONT_WIDTH, INDIVIDUAL_FILTER_MAX_WIDTH, } from './shared'
+import { ACTIVITY_CATEGORY_FILTERS, AVERAGE_FONT_WIDTH, } from './shared'
 
 import { Tooltip } from '../../../../../Shared/index'
 
