@@ -89,7 +89,7 @@ RSpec.describe IntercomIntegration::WebhooksController, type: :controller do
       # by default
       it 'raises error' do
         expect { post :create }
-          .to raise_error("unauthorized call of Intercom webhook")
+          .to raise_error(described_class::UnauthorizedIntercomWebhookCallError)
       end
     end
   end

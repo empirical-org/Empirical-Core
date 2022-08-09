@@ -7,12 +7,6 @@ describe SalesFormSubmissionController, type: :controller do
   describe '#create' do
     let!(:school) { create(:school) }
 
-    before do
-      allow(HTTParty).to receive(:get)
-      allow(HTTParty).to receive(:put)
-      allow(HTTParty).to receive(:post)
-    end
-
     it 'should create sales_form_submission entry' do
       expect do
         post :create, params: {
