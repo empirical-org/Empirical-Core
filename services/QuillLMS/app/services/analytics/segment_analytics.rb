@@ -48,7 +48,6 @@ class SegmentAnalytics
     })
   end
 
-  # rubocop:disable Metrics/CyclomaticComplexity
   def track_activity_pack_assignment(teacher_id, unit_id)
     unit = Unit.find_by_id(unit_id)
 
@@ -71,7 +70,6 @@ class SegmentAnalytics
       }
     })
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
 
   def track_activity_completion(user, student_id, activity)
     track({
