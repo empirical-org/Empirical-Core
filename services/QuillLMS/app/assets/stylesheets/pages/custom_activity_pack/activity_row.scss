@@ -85,7 +85,7 @@
           margin-right: 4px;
           display: inline-flex;
           padding: 0px 5px;
-          background: #06806B;
+          background: #00C2A2;
           border-radius: 4px;
           color: white;
           align-items: center;
@@ -94,7 +94,7 @@
           font-size: 12px;
           line-height: 22px;
           &.filtered {
-            background: #00C2A2;
+            background: #06806B;
           }
           &:first-of-type {
             margin-left: 8px;
@@ -135,7 +135,7 @@
       margin-top: 16px;
     }
     .expanded-line {
-      max-width: 33%;
+      flex: 1;
       margin-top: 16px;
       &:not(:last-of-type) {
         padding-right: 16px;
@@ -155,9 +155,6 @@
       align-items: flex-start;
       img {
         margin-top: 3px;
-      }
-      span {
-        max-width: 584px;
       }
       .grade-range {
         width: 58px;

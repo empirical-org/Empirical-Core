@@ -6,7 +6,7 @@ const UnitTemplateProfileStandards = ({ data, }) => {
   const concepts = _.uniq(data.activities.map(act => act.standard && act.standard.standard_category && act.standard.standard_category.name)).filter(Boolean)
   const productionActivitiesRecommendedBy = data.diagnostics_recommended_by.filter(act => act.flags.includes("production") && act.name.length)
 
-  if (!standards.length && !concepts.length && !data.readability && !productionActivitiesRecommendedBy.length) { return <span />}
+  if (!standards.length && !concepts.length && !data.readability && !data.grade_range && !productionActivitiesRecommendedBy.length) { return <span />}
 
   const renderStandards = () => {
     if (!standards.length) { return <span /> }
@@ -26,6 +26,17 @@ const UnitTemplateProfileStandards = ({ data, }) => {
       <React.Fragment>
         <dt><strong>Concepts</strong></dt>
         {concepts.map(s => <dd className="concept" key={s}>{s}</dd>)}
+      </React.Fragment>
+    )
+  };
+
+  const renderGradeRange = () => {
+    if (!data.grade_level_range) { return <span /> }
+
+    return (
+      <React.Fragment>
+        <dt><strong>Grade Level Range</strong></dt>
+        <dd>{data.grade_level_range}</dd>
       </React.Fragment>
     )
   };
@@ -58,6 +69,7 @@ const UnitTemplateProfileStandards = ({ data, }) => {
       <dl>
         {renderStandards()}
         {renderConcepts()}
+        {renderGradeRange()}
         {renderReadability()}
         {renderRecommendedBy()}
       </dl>
