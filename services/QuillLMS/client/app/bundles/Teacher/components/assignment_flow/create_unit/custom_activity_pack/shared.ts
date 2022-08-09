@@ -116,7 +116,7 @@ function filterByReadabilityGradeLevel(readabilityGradeLevelFilters: number[], a
 function filterByGradeLevel(gradeLevelFilters: number[], activity: Activity) {
   if (!gradeLevelFilters.length) { return true }
 
-  return activity.minimum_grade_level >= gradeLevelFilters[0]
+  return activity.minimum_grade_level <= gradeLevelFilters[0]
 }
 
 function filterByContentPartners(contentPartnerFilters: number[], activity: Activity) {
