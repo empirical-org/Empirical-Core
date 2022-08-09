@@ -28,8 +28,6 @@ module SegmentIntegration
     end
 
     def integration_rules
-      return { all: true, Intercom: false } if nil?
-
       { all: true, Intercom: (teacher?) }
     end
   end

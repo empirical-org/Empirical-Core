@@ -215,14 +215,11 @@ describe 'SegmentAnalytics' do
       })
     end
 
-    it 'does not send events to Intercom when user_id is not present' do
+    it 'does not send events to Intercom when user_id is not present and includes the default integration rules' do
       analytics.track({})
       expect(identify_calls.size).to eq(0)
       expect(track_calls.size).to eq(1)
-      expect(track_calls[0][:integrations]).to eq({
-        all: true,
-        Intercom: false
-      })
+      expect(track_calls[0][:integrations]).to eq analytics.default_integration_rules
     end
   end
 
