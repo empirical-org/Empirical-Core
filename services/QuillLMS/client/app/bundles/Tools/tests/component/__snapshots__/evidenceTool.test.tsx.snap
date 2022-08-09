@@ -689,7 +689,7 @@ exports[`EvidenceTool Component should match snapshot 1`] = `
               Object {
                 "answer": <div>
                   <p>
-                    In a Reading for Evidence activity, students read a nonfiction text relevant to multiple content areas, particularly ELA, social studies, and science. Texts are 500-700 words long and are written at an eighth or ninth grade reading level and explore compelling, complex questions like: “Should schools have grade requirements for student athletes?” and “Should medical testing be done on animals?” There are currently 18 activities available, organized into the following thematic packs:
+                    In a Reading for Evidence activity, students read a nonfiction text relevant to multiple content areas, particularly ELA, social studies, and science. Texts are 500-700 words long and are written at an eighth or ninth grade reading level and explore compelling, complex questions like: “Should schools have grade requirements for student athletes?” and “Should medical testing be done on animals?” There are currently 16 activities available, organized into the following thematic packs:
                   </p>
                   <p>
                     <a
@@ -702,9 +702,9 @@ exports[`EvidenceTool Component should match snapshot 1`] = `
                   <ul>
                     <li>
                       <a
-                        href="https://www.quill.org/evidence/#/play?uid=219&skipToPrompts=true"
+                        href="https://www.quill.org/evidence/#/play?uid=221&skipToPrompts=true"
                       >
-                        Should Schools Have Extended School Days?
+                        Should Food Sold in Schools Be Regulated By Law?
                       </a>
                     </li>
                     <li>
@@ -716,9 +716,9 @@ exports[`EvidenceTool Component should match snapshot 1`] = `
                     </li>
                     <li>
                       <a
-                        href="https://www.quill.org/evidence/#/play?uid=221&skipToPrompts=true"
+                        href="https://www.quill.org/evidence/#/play?uid=219&skipToPrompts=true"
                       >
-                        Should Food Sold in Schools Be Regulated By Law?
+                        Should Schools Have Extended School Days?
                       </a>
                     </li>
                   </ul>
@@ -758,7 +758,7 @@ exports[`EvidenceTool Component should match snapshot 1`] = `
                       className="header-link"
                       href="https://www.quill.org/activities/packs/451"
                     >
-                      Environmental Protection & Civic Action
+                      Environmental Protection
                     </a>
                   </p>
                   <ul>
@@ -789,7 +789,7 @@ exports[`EvidenceTool Component should match snapshot 1`] = `
                       className="header-link"
                       href="https://www.quill.org/activities/packs/455"
                     >
-                      Sports & Society
+                      Sports & Recreation
                     </a>
                   </p>
                   <ul>
@@ -833,16 +833,16 @@ exports[`EvidenceTool Component should match snapshot 1`] = `
                     </li>
                     <li>
                       <a
-                        href="https://www.quill.org/evidence/#/play?uid=174&skipToPrompts=true"
+                        href="https://www.quill.org/evidence/#/play?uid=173&skipToPrompts=true"
                       >
-                        Can Nuclear Power Fuel Our Future?
+                        Does Florida's SolarTogether Program Offer a Good Energy Alternative for Local Communities?
                       </a>
                     </li>
                     <li>
                       <a
-                        href="https://www.quill.org/evidence/#/play?uid=173&skipToPrompts=true"
+                        href="https://www.quill.org/evidence/#/play?uid=174&skipToPrompts=true"
                       >
-                        Does Florida's SolarTogether Program Offer a Good Energy Alternative for Local Communities?
+                        Can Nuclear Power Fuel Our Future?
                       </a>
                     </li>
                     <li>
