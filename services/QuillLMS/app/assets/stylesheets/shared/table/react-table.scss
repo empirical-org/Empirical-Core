@@ -128,9 +128,6 @@
     .rt-th {
       border-right: none;
       padding-left: 10px;
-      &:first-of-type {
-        padding-left: 20px;
-      }
     }
     a {
       color: #027360;
@@ -140,7 +137,6 @@
     }
 
     .rt-td {
-      padding-right: 14px;
       &:hover .highlight-on-hover{
         color: #00c2a2;
       }

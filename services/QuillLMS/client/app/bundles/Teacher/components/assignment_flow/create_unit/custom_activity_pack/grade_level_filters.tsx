@@ -46,7 +46,7 @@ const GradeLevelFilters = ({ gradeLevelFilters, handleGradeLevelFilterChange, }:
       <div className="name-and-clear-wrapper">
         <h2>
           <span>Grade Level Range</span>
-          <a className="focus-on-light interactive-wrapper" href="https://support.quill.org/en/articles/1804176-ccss-vs-readability-how-does-quill-sort-activities" rel="noopener noreferrer" target="_blank"><img alt={helpIcon.alt} src={helpIcon.src} /></a>
+          <a className="focus-on-light interactive-wrapper" href="https://support.quill.org/en/articles/6445559-how-quill-determines-the-grade-range-for-quill-activities" rel="noopener noreferrer" target="_blank"><img alt={helpIcon.alt} src={helpIcon.src} /></a>
         </h2>
         {clearButton}
       </div>
