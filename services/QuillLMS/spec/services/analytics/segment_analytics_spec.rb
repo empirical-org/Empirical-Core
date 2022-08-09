@@ -10,80 +10,80 @@ describe 'SegmentAnalytics' do
   let(:track_calls) { analytics.backend.track_calls }
   let(:identify_calls) { analytics.backend.identify_calls }
 
-  # context 'tracking classroom creation' do
-  #   let(:classroom) { create(:classroom) }
-  #   let(:classroom_with_no_teacher) { create(:classroom, :with_no_teacher) }
+  context 'tracking classroom creation' do
+    let(:classroom) { create(:classroom) }
+    let(:classroom_with_no_teacher) { create(:classroom, :with_no_teacher) }
 
-  #   it 'sends two events' do
-  #     analytics.track_classroom_creation(classroom)
-  #     expect(identify_calls.size).to eq(0)
-  #     expect(track_calls.size).to eq(2)
-  #     expect(track_calls[0][:event]).to eq("#{SegmentIo::BackgroundEvents::CLASSROOM_CREATION} | #{classroom.classroom_type_for_segment}")
-  #     expect(track_calls[0][:user_id]).to eq(classroom.owner.id)
-  #     expect(track_calls[1][:event]).to eq(SegmentIo::BackgroundEvents::CLASSROOM_CREATION)
-  #     expect(track_calls[1][:user_id]).to eq(classroom.owner.id)
-  #     expect(track_calls[1][:properties][:classroom_type]).to eq(classroom.classroom_type_for_segment)
-  #     expect(track_calls[1][:properties][:classroom_grade]).to eq(classroom.grade_as_integer)
-  #   end
+    it 'sends two events' do
+      analytics.track_classroom_creation(classroom)
+      expect(identify_calls.size).to eq(0)
+      expect(track_calls.size).to eq(2)
+      expect(track_calls[0][:event]).to eq("#{SegmentIo::BackgroundEvents::CLASSROOM_CREATION} | #{classroom.classroom_type_for_segment}")
+      expect(track_calls[0][:user_id]).to eq(classroom.owner.id)
+      expect(track_calls[1][:event]).to eq(SegmentIo::BackgroundEvents::CLASSROOM_CREATION)
+      expect(track_calls[1][:user_id]).to eq(classroom.owner.id)
+      expect(track_calls[1][:properties][:classroom_type]).to eq(classroom.classroom_type_for_segment)
+      expect(track_calls[1][:properties][:classroom_grade]).to eq(classroom.grade_as_integer)
+    end
 
-  #   it 'should not send event if there is no owner' do
-  #     analytics.track_classroom_creation(classroom_with_no_teacher)
-  #     expect(identify_calls.size).to eq(0)
-  #     expect(track_calls.size).to eq(0)
-  #   end
-  # end
+    it 'should not send event if there is no owner' do
+      analytics.track_classroom_creation(classroom_with_no_teacher)
+      expect(identify_calls.size).to eq(0)
+      expect(track_calls.size).to eq(0)
+    end
+  end
 
-  # context 'tracking activity assignment' do
-  #   let(:teacher) { create(:teacher) }
+  context 'tracking activity assignment' do
+    let(:teacher) { create(:teacher) }
 
-  #   context 'when the activity is a diagnostic activity' do
-  #     let(:activity) { create(:diagnostic_activity) }
+    context 'when the activity is a diagnostic activity' do
+      let(:activity) { create(:diagnostic_activity) }
 
-  #     it 'sends two events with information about the activity' do
-  #       analytics.track_activity_assignment(teacher.id, activity.id)
-  #       expect(identify_calls.size).to eq(0)
-  #       expect(track_calls.size).to eq(2)
-  #       expect(track_calls[0][:event]).to eq(SegmentIo::BackgroundEvents::ACTIVITY_ASSIGNMENT)
-  #       expect(track_calls[0][:user_id]).to eq(teacher.id)
-  #       expect(track_calls[0][:properties][:activity_name]).to eq(activity.name)
-  #       expect(track_calls[0][:properties][:tool_name]).to eq('Diagnostic')
-  #       expect(track_calls[1][:event]).to eq("#{SegmentIo::BackgroundEvents::DIAGNOSTIC_ASSIGNMENT} | #{activity.name}")
-  #       expect(track_calls[1][:user_id]).to eq(teacher.id)
-  #     end
-  #   end
+      it 'sends two events with information about the activity' do
+        analytics.track_activity_assignment(teacher.id, activity.id)
+        expect(identify_calls.size).to eq(0)
+        expect(track_calls.size).to eq(2)
+        expect(track_calls[0][:event]).to eq(SegmentIo::BackgroundEvents::ACTIVITY_ASSIGNMENT)
+        expect(track_calls[0][:user_id]).to eq(teacher.id)
+        expect(track_calls[0][:properties][:activity_name]).to eq(activity.name)
+        expect(track_calls[0][:properties][:tool_name]).to eq('Diagnostic')
+        expect(track_calls[1][:event]).to eq("#{SegmentIo::BackgroundEvents::DIAGNOSTIC_ASSIGNMENT} | #{activity.name}")
+        expect(track_calls[1][:user_id]).to eq(teacher.id)
+      end
+    end
 
-  #   context 'when the activity is not a diagnostic activity' do
-  #     let(:activity) { create(:connect_activity) }
+    context 'when the activity is not a diagnostic activity' do
+      let(:activity) { create(:connect_activity) }
 
-  #     it 'sends one events with information about the activity' do
-  #       analytics.track_activity_assignment(teacher.id, activity.id)
-  #       expect(identify_calls.size).to eq(0)
-  #       expect(track_calls.size).to eq(1)
-  #       expect(track_calls[0][:event]).to eq(SegmentIo::BackgroundEvents::ACTIVITY_ASSIGNMENT)
-  #       expect(track_calls[0][:user_id]).to eq(teacher.id)
-  #       expect(track_calls[0][:properties][:activity_name]).to eq(activity.name)
-  #       expect(track_calls[0][:properties][:tool_name]).to eq('Connect')
-  #     end
-  #   end
+      it 'sends one events with information about the activity' do
+        analytics.track_activity_assignment(teacher.id, activity.id)
+        expect(identify_calls.size).to eq(0)
+        expect(track_calls.size).to eq(1)
+        expect(track_calls[0][:event]).to eq(SegmentIo::BackgroundEvents::ACTIVITY_ASSIGNMENT)
+        expect(track_calls[0][:user_id]).to eq(teacher.id)
+        expect(track_calls[0][:properties][:activity_name]).to eq(activity.name)
+        expect(track_calls[0][:properties][:tool_name]).to eq('Connect')
+      end
+    end
 
-  # end
+  end
 
-  # context 'tracking activity completion' do
-  #   let(:teacher) { create(:teacher) }
-  #   let(:activity) { create(:diagnostic_activity) }
-  #   let(:student) { create(:student) }
+  context 'tracking activity completion' do
+    let(:teacher) { create(:teacher) }
+    let(:activity) { create(:diagnostic_activity) }
+    let(:student) { create(:student) }
 
-  #   it 'sends an event with information about the activity' do
-  #     analytics.track_activity_completion(teacher, student.id, activity)
-  #     expect(identify_calls.size).to eq(0)
-  #     expect(track_calls.size).to eq(1)
-  #     expect(track_calls[0][:event]).to eq(SegmentIo::BackgroundEvents::ACTIVITY_COMPLETION)
-  #     expect(track_calls[0][:user_id]).to eq(teacher.id)
-  #     expect(track_calls[0][:properties][:activity_name]).to eq(activity.name)
-  #     expect(track_calls[0][:properties][:tool_name]).to eq('Diagnostic')
-  #     expect(track_calls[0][:properties][:student_id]).to eq(student.id)
-  #   end
-  # end
+    it 'sends an event with information about the activity' do
+      analytics.track_activity_completion(teacher, student.id, activity)
+      expect(identify_calls.size).to eq(0)
+      expect(track_calls.size).to eq(1)
+      expect(track_calls[0][:event]).to eq(SegmentIo::BackgroundEvents::ACTIVITY_COMPLETION)
+      expect(track_calls[0][:user_id]).to eq(teacher.id)
+      expect(track_calls[0][:properties][:activity_name]).to eq(activity.name)
+      expect(track_calls[0][:properties][:tool_name]).to eq('Diagnostic')
+      expect(track_calls[0][:properties][:student_id]).to eq(student.id)
+    end
+  end
 
   context 'tracking activity pack assignment' do
     let(:teacher) { create(:teacher) }
