@@ -14,31 +14,26 @@ describe SalesFormSubmissionController, type: :controller do
     end
 
     it 'should create sales_form_submission entry' do
-      sales_form_submission = double
-      allow(SalesFormSubmission).to receive(:new).and_return(sales_form_submission)
-      allow(sales_form_submission).to receive(:save!).and_return(true)
-      allow(sales_form_submission).to receive(:send_opportunituy_to_vitally)
-
-      expect(sales_form_submission).to receive(:save!)
-      post :create, params: {
-        sales_form_submission: {
-          first_name: 'Bianca',
-          last_name: 'Del Rio',
-          email: 'test@gmail.com',
-          phone_number: '3334445555',
-          zipcode: '10009',
-          collection_type: 'school',
-          school_name: school.name,
-          district_name: 'NYPS',
-          school_premium_count_estimate: 1,
-          teacher_premium_count_estimate: 20,
-          student_premium_count_estimate: 400,
-          submission_type: 'renewal request',
-          comment: ''
+      expect do
+        post :create, params: {
+          sales_form_submission: {
+            first_name: 'Bianca',
+            last_name: 'Del Rio',
+            email: 'test@gmail.com',
+            phone_number: '3334445555',
+            zipcode: '10009',
+            collection_type: 'school',
+            school_name: school.name,
+            district_name: 'NYPS',
+            school_premium_count_estimate: 1,
+            teacher_premium_count_estimate: 20,
+            student_premium_count_estimate: 400,
+            submission_type: 'renewal request',
+            comment: ''
+          }
         }
-      }
+      end.to change(SalesFormSubmission, :count).by(1)
       expect(response).to have_http_status(:no_content)
-
     end
   end
 
