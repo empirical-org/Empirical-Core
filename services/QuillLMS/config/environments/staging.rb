@@ -35,8 +35,6 @@ EmpiricalGrammar::Application.configure do
   # Generate digests for assets URLs.
   config.assets.digest = true
 
-
-
   # Version of your assets, change this if you want to expire all your assets.
   config.assets.version = '1.0'
 
@@ -117,4 +115,8 @@ EmpiricalGrammar::Application.configure do
   config.middleware.use Rack::HostRedirect, {
     'staging.quill.org.' => 'staging.quill.org'
   }
+
+  config.active_record.database_selector = { delay: 0.seconds }
+  config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
+  config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
 end
