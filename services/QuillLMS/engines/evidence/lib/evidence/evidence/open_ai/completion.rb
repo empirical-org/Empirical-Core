@@ -57,14 +57,18 @@ module Evidence
       end
 
       def cleaned_results
-        result_texts
-          .map{|r| r&.gsub(/^(\n|-|\s)+/, BLANK)} # strip all leading \n, -, or whitespace
-          .map{|r| r&.gsub(/(\]|\[|=|\d\))/, BLANK)} # strip brackets, equal signs, and 1), 2)
+        result_texts_removed_characters
           .map{|r| r&.split(/\n/)&.first } # drop anything after a \n
           .map{|r| r&.strip } # remove leading/ending spaces
           .compact
           .select {|r| r.length >= 10}
           .uniq
+      end
+
+      def result_texts_removed_characters
+        result_texts
+          .map{|r| r&.gsub(/^(\n|-|\s)+/, BLANK)} # strip all leading \n, -, or whitespace
+          .map{|r| r&.gsub(/(\]|\[|=|\d\))/, BLANK)} # strip brackets, equal signs, and 1), 2)
       end
 
       private def result_texts

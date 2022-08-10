@@ -67,7 +67,7 @@ const SeedDataForm = ({ history, match }) => {
       </ul>
       <details>
         <summary className="quill-button fun secondary outlined focus-on-light">Toggle Passage</summary>
-        <br/>
+        <br />
         <div className="passage">{ReactHtmlParser(activity && activity.passages[0].text)}</div>
       </details>
       <Input
@@ -79,10 +79,13 @@ const SeedDataForm = ({ history, match }) => {
       />
       <div className="button-and-id-container">
         <button className="quill-button fun large primary contained focus-on-light" id="activity-submit-button" onClick={handleCreateSeedData} type="submit">
-          🤖🌻 Create Seed Data
+          <span role="img" aria-label="robot">🤖</span>
+          <span role="img" aria-label="sunflower">🌻</span>
+
+          Create Seed Data
         </button>
       </div>
-      <br/>
+      <br />
     </div>
   );
 }
