@@ -47,10 +47,10 @@ test:
     replica: true
 
 staging:
-  <<: &heroku_env
+  <<: *heroku_env
 
 sprint:
-  <<: &heroku_env
+  <<: *heroku_env
 
 production:
-  <<: &heroku_env
+  <<: *heroku_env
