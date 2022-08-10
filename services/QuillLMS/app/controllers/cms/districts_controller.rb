@@ -48,11 +48,10 @@ class Cms::DistrictsController < Cms::CmsController
 
   def create
     new_district = District.new(district_params)
-    if new_district.valid?
-      new_district.save!
+    if new_district.save
       redirect_to cms_district_path(new_district)
     else
-      redirect_to cms_districts_path, flash: { error: "A district with this NCES ID already exists." }
+      redirect_to cms_districts_path, error: new_district.errors, flash: { error: new_district.errors.full_messages }
     end
   end
 

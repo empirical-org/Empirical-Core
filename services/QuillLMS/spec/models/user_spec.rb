@@ -345,7 +345,7 @@ describe User, type: :model do
   end
 
   describe 'constants' do
-    it "should give the correct value for all the contstants" do
+    it "should give the correct value for all the constants" do
       expect(User::ROLES).to eq(%w(teacher student staff sales-contact))
       expect(User::SAFE_ROLES).to eq(%w(student teacher sales-contact))
       expect(User::VALID_EMAIL_REGEX).to eq(/\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i)
