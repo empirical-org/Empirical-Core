@@ -33,7 +33,7 @@ describe SendAttachmentMailer, type: :mailer do
     let(:file_contents2) {'the contents of the file as a string 2'}
     let(:file_hash) { {file_name1 => file_contents1, file_name2 => file_contents2} }
 
-    let(:subject) { described_class.send_multiple_files(recipient, email_subject, file_hash) }
+    subject { described_class.send_multiple_files(recipient, email_subject, file_hash) }
 
     it 'sets the attachments and calls mail' do
       expect(subject.attachments[file_name1].body).to eq(file_contents1)
