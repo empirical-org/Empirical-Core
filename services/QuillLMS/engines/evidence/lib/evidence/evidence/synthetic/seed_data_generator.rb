@@ -11,9 +11,9 @@ module Evidence
       PERIOD = '.'
       CSV_SUFFIX = '.csv'
 
-      FULL_COUNT = ENV['SYNTHETIC_SEED_PASSAGE_COUNT'] || 128
-      FULL_NOUN_COUNT = ENV['SYNTHETIC_SEED_NOUN_COUNT'] || 50
-      SECTION_COUNT = ENV['SYNTHETIC_SEED_SECTION_COUNT'] || 70
+      FULL_COUNT = ENV.fetch('SYNTHETIC_SEED_PASSAGE_COUNT', 128)
+      FULL_NOUN_COUNT = ENV.fetch('SYNTHETIC_SEED_NOUN_COUNT', 50)
+      SECTION_COUNT = ENV.fetch('SYNTHETIC_SEED_SECTION_COUNT', 70)
 
       TEMPS_PASSAGE = [1, 0.9, 0.7, 0.5]
       TEMP_SECTION = 0.5 # give a lower temp (creativity) when it has less info
