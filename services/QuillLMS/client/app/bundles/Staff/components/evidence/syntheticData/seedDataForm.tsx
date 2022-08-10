@@ -1,5 +1,8 @@
 import * as React from "react";
 import { useQuery, useQueryClient, } from 'react-query';
+import ReactHtmlParser from 'react-html-parser'
+
+import SubmissionModal from '../shared/submissionModal';
 import { fetchActivity, createSeedData } from '../../../utils/evidence/activityAPIs';
 import { renderHeader } from "../../../helpers/evidence/renderHelpers";
 import { Input, Spinner } from '../../../../Shared/index';
@@ -10,6 +13,7 @@ const SeedDataForm = ({ history, match }) => {
   const { activityId } = params;
   const [errorOrSuccessMessage, setErrorOrSuccessMessage] = React.useState<string>(null);
   const [errors, setErrors] = React.useState<string[]>([]);
+  const [showSubmissionModal, setShowSubmissionModal] = React.useState<boolean>(false);
   const queryClient = useQueryClient()
 
   const [activityNouns, setActivityNouns] = React.useState<string>('');
@@ -29,8 +33,17 @@ const SeedDataForm = ({ history, match }) => {
       } else {
         setErrors([]);
         setErrorOrSuccessMessage('Seed Data started! You will receive an email with the csv files');
+        setActivityNouns('');
+        toggleSubmissionModal();
       }
     });
+  }
+
+  const toggleSubmissionModal = () => setShowSubmissionModal(!showSubmissionModal);
+
+  function renderSubmissionModal() {
+    const message = errorOrSuccessMessage || 'Seed Data started!';
+    return <SubmissionModal close={toggleSubmissionModal} message={message} />;
   }
 
   if(!activityId || !activityData) {
@@ -45,17 +58,18 @@ const SeedDataForm = ({ history, match }) => {
 
   return(
     <div className="seed-data-form-container">
+      {showSubmissionModal && renderSubmissionModal()}
       {activity && renderHeader({activity: activity}, 'Create Seed Data', true)}
-      <p>
-        <b>Activity Title:</b> {activity && activity.title}
-      </p>
-      <p>
-        <b>Seed Data will be generated for each of these prompts:</b>
-      </p>
+      <h4>{activity && activity.title}</h4>
+      <p><b>Seed Data will be generated for each of these prompts:</b></p>
       <ul>
-        {activity.prompts.map((prompt) => <li>{prompt.text}</li>)}
+        {activity && activity.prompts.map((prompt, i) => <li key={i}>{prompt.text}</li>)}
       </ul>
-
+      <details>
+        <summary className="quill-button fun secondary outlined focus-on-light">Toggle Passage</summary>
+        <br/>
+        <div className="passage">{ReactHtmlParser(activity && activity.passages[0].text)}</div>
+      </details>
       <Input
         className="notes-input"
         error={errors[TITLE]}
@@ -63,12 +77,12 @@ const SeedDataForm = ({ history, match }) => {
         label="Optional: Noun list comma separated"
         value={activityNouns}
       />
-
       <div className="button-and-id-container">
-        <button className="quill-button fun primary contained focus-on-light" id="activity-submit-button" onClick={handleCreateSeedData} type="submit">
-          Create Seed Data
+        <button className="quill-button fun large primary contained focus-on-light" id="activity-submit-button" onClick={handleCreateSeedData} type="submit">
+          🤖🌻 Create Seed Data
         </button>
       </div>
+      <br/>
     </div>
   );
 }
