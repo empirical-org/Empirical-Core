@@ -658,7 +658,7 @@ class User < ApplicationRecord
     last_active < USER_INACTIVITY_DURATION.ago
   end
 
-  def segment_integration
+  def segment_user
     SegmentIntegration::User.new(self)
   end
 

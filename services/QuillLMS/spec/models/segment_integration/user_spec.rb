@@ -11,15 +11,15 @@ RSpec.describe SegmentIntegration::User do
       params = {
         user_id: teacher.id,
         traits: {
-          **teacher.segment_integration.common_params,
+          **teacher.segment_user.common_params,
           auditor: teacher.auditor?,
           first_name: teacher.first_name,
           last_name: teacher.last_name,
           email: teacher.email
         }.reject {|_,v| v.nil? },
-        integrations: teacher.segment_integration.integration_rules
+        integrations: teacher.segment_user.integration_rules
       }
-      expect(teacher.segment_integration.identify_params).to eq params
+      expect(teacher.segment_user.identify_params).to eq params
     end
   end
 
@@ -34,14 +34,14 @@ RSpec.describe SegmentIntegration::User do
         premium_type: teacher.subscription&.account_type,
         is_admin: teacher.admin?
       }.reject {|_,v| v.nil? }
-      expect(teacher.segment_integration.common_params).to eq params
+      expect(teacher.segment_user.common_params).to eq params
     end
   end
 
   context '#integration_rules' do
 
     it 'returns the expected params hash for no user' do
-      expect(teacher.segment_integration.integration_rules).to eq({ all: true, Intercom: true })
+      expect(teacher.segment_user.integration_rules).to eq({ all: true, Intercom: true })
     end
   end
 end
