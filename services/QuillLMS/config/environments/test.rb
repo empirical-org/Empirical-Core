@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require_relative 'test/multi_db/custom_resolver'
+require_relative 'test/multi_db/custom_session'
+
 EmpiricalGrammar::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -35,8 +38,13 @@ EmpiricalGrammar::Application.configure do
   config.action_mailer.delivery_method = :test
   config.action_mailer.default_url_options = { :host => "test.yourhost.com" }
 
+
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
 
   config.cache_store = :memory_store, {size: 64.megabytes}
+
+  config.active_record.database_selector = { delay: 0.seconds }
+  config.active_record.database_resolver = Test::MultiDb::CustomResolver
+  config.active_record.database_resolver_context = Test::MultiDb::CustomSession
 end

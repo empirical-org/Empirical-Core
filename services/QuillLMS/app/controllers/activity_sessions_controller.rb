@@ -2,7 +2,11 @@
 
 class ActivitySessionsController < ApplicationController
   include HTTParty
+
   layout :determine_layout
+
+  around_action :force_writer_db_role, only: [:activity_session_from_classroom_unit_and_activity]
+
   before_action :activity_session_from_id, only: [:play, :concept_results]
   before_action :activity_session_from_uid, only: [:result]
   before_action :activity_session_for_update, only: [:update]
@@ -11,6 +15,7 @@ class ActivitySessionsController < ApplicationController
   before_action :activity_session_authorize_teacher!, only: [:concept_results]
   before_action :authorize_student_belongs_to_classroom_unit!, only: [:activity_session_from_classroom_unit_and_activity]
   before_action :redirect_if_student_has_not_completed_pre_test, only: [:play]
+
   after_action  :update_student_last_active, only: [:play, :result]
 
   def play

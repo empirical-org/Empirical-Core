@@ -29,28 +29,28 @@ test:
     database: quill_cms_test
     replica: true
 
-elastic_beanstalk_primary_env: &elastic_beanstalk_primary_env
+aws_rds_primary_env: &aws_rds_primary_env
+  <<: *default
   database: <%= ENV['RDS_DB_NAME'] %>
   user: <%= ENV['RDS_DB_USERNAME'] %>
   password: <%= ENV['RDS_DB_PASSWORD'] %>
   host: <%= ENV['RDS_HOSTNAME'] %>
   port: <%= ENV['RDS_PORT'] %>
 
-elastic_beanstalk_replica_env: &elastic_beanstalk_replica_env
+aws_rds_replica_env: &aws_rds_replica_env
+  <<: *default
   database: <%= ENV['RDS_REPLICA_NAME'] %>
   user: <%= ENV['RDS_REPLICA_USERNAME'] %>
   password: <%= ENV['RDS_REPLICA_PASSWORD'] %>
   host: <%= ENV['RDS_REPLICA_HOSTNAME'] %>
   port: <%= ENV['RDS_REPLICA_PORT'] %>
+  replica: true
 
 production_env: &production_env
   primary:
-    <<: *default
-    <<: *elastic_beanstalk_primary_env
+    <<: *aws_rds_primary_env
   replica:
-    <<: *default
-    <<: *elastic_beanstalk_replica_env
-    replica: true
+    <<: *aws_rds_replica_env
 
 staging:
   <<: *production_env
