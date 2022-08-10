@@ -4,7 +4,11 @@ class Teachers::ClassroomsController < ApplicationController
   include CleverAuthable
 
   respond_to :json, :html, :pdf
+
+  around_action :force_writer_db_role, only: :hide
+
   before_action :teacher!
+
   # The excepted/only methods below are ones that should be accessible to coteachers.
   # TODO This authing could probably be refactored.
   before_action :authorize_owner!, only: [:update,  :transfer_ownership]

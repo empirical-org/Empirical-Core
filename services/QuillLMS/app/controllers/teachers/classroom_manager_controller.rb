@@ -4,15 +4,18 @@ class Teachers::ClassroomManagerController < ApplicationController
   include CheckboxCallback
   include CleverAuthable
   include DiagnosticReports
+  include QuillAuthentication
+  include ScorebookHelper
 
   respond_to :json, :html
+
+  around_action :force_writer_db_role, only: :dashboard
+
   before_action :teacher_or_public_activity_packs, except: [:unset_preview_as_student, :unset_view_demo]
   # WARNING: these filter methods check against classroom_id, not id.
   before_action :authorize_owner!, except: [:scores, :scorebook, :lesson_planner, :preview_as_student, :unset_preview_as_student, :view_demo, :unset_view_demo, :activity_feed]
   before_action :authorize_teacher!, only: [:scores, :scorebook, :lesson_planner]
   before_action :set_alternative_schools, only: [:my_account, :update_my_account, :update_my_password]
-  include ScorebookHelper
-  include QuillAuthentication
 
   MY_ACCOUNT = 'my_account'
   ASSIGN = 'assign'

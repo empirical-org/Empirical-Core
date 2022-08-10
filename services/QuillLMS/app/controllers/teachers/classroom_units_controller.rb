@@ -1,13 +1,17 @@
 # frozen_string_literal: true
 
+require 'pusher'
+
 class Teachers::ClassroomUnitsController < ApplicationController
   include QuillAuthentication
-  require 'pusher'
+
   respond_to :json
+
+  around_action :force_writer_db_role, only: :launch_lesson
+
   before_action :authorize!, except: [
     :lessons_activities_cache,
-    :lessons_units_and_activities,
-    :update_multiple_due_dates
+    :lessons_units_and_activities
   ]
   before_action :teacher!
   before_action :lesson, only: :launch_lesson
@@ -104,7 +108,6 @@ class Teachers::ClassroomUnitsController < ApplicationController
     @classroom_unit = ClassroomUnit.find_by(id: params[:id])
     if !current_user || @classroom_unit.classroom.teacher_ids.exclude?(current_user.id) then auth_failed end
   end
-
 
   private def lessons_units_and_activities_data
     # collapses lessons cache into unique array of activity ids

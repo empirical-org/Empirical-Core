@@ -1,12 +1,14 @@
 # frozen_string_literal: true
 
 class BlogPostsController < ApplicationController
+  around_action :force_writer_db_role, only: :show
+
   before_action :redirect_legacy_topic_urls, only: [:show_topic]
   before_action :redirect_invalid_topics, only: [:show_topic]
   before_action :redirect_unauthorized_topics, only: [:show_topic]
-
   before_action :set_announcement, only: [:index, :show, :show_topic]
   before_action :set_root_url
+
 
   def index
     topic_names = BlogPost::TEACHER_TOPICS
@@ -20,6 +22,7 @@ class BlogPostsController < ApplicationController
   def student_center_index
     @title = 'Resources'
     topic_names = BlogPost::STUDENT_TOPICS
+
     @topics = []
     topic_names.each do |name|
       @topics.push({ name: name, slug: CGI::escape(name.downcase.gsub(' ','-'))})
