@@ -50,10 +50,10 @@ const SeedDataForm = ({ history, match }) => {
         <b>Activity Title:</b> {activity && activity.title}
       </p>
       <p>
-        <b>Prompts:</b>
+        <b>Seed Data will be generated for each of these prompts:</b>
       </p>
       <ul>
-        {activity.prompts.map((prompt) => {return <li>{prompt.text}</li>;}}
+        {activity.prompts.map((prompt) => <li>{prompt.text}</li>)}
       </ul>
 
       <Input
