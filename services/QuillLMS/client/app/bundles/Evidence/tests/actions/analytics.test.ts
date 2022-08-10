@@ -14,8 +14,9 @@ describe('Analytics action', () => {
     it('makes a call to SegmentAnalytics.track', () => {
       const mockEvent = 'MOCK_EVENT'
       const mockParams = {foo: 'bar'}
-      dispatch(TrackAnalyticsEvent(mockEvent, mockParams))
-      expect(mockTrack).toBeCalledWith(mockEvent, mockParams)
+      const mockProperties = {test: 'test'}
+      dispatch(TrackAnalyticsEvent(mockEvent, mockParams, mockProperties))
+      expect(mockTrack).toBeCalledWith(mockEvent, mockParams, mockProperties)
     })
   })
 })
