@@ -9,6 +9,7 @@ module Evidence
       SPACE = ' '
       BLANK = ''
       PERIOD = '.'
+      CSV_SUFFIX = '.csv'
 
       FULL_COUNT = 100
       FULL_NOUN_COUNT = 50
@@ -21,16 +22,16 @@ module Evidence
 
       # returns a hash of the form {'csv name' => CSVString, 'csv name2' =>...}
       def self.csvs_for_activity(activity_id:, nouns: [])
-        activity = Activity.find(activity_id)
+        activity = Evidence::Activity.find(activity_id)
         passage = activity.passages.first.text
         prompts = activity.prompts
         short_name = activity.title.first(20).gsub(' ', '_')
-        passage_csv_name = "#{short_name}_passage_chunks"
+        passage_csv_name = "#{short_name}_passage_chunks#{CSV_SUFFIX}"
 
         csvs = {}
 
         prompts.each.with_index do |prompt, index|
-          csv_name = "#{short_name}_#{prompt.conjunction}"
+          csv_name = "#{short_name}_#{prompt.conjunction}#{CSV_SUFFIX}"
 
           generator = new(passage: passage, stem: prompt.text, nouns: nouns)
           generator.run

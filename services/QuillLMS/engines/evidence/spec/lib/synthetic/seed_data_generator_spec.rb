@@ -72,7 +72,7 @@ module Evidence
         output = Evidence::Synthetic::SeedDataGenerator.csvs_for_activity(activity_id: activity.id, nouns: ['hello'])
 
         expect(output.class).to be Hash
-        expect(output.keys).to eq(['Some_Activity_Name_because', 'Some_Activity_Name_passage_chunks'])
+        expect(output.keys).to eq(['Some_Activity_Name_because.csv', 'Some_Activity_Name_passage_chunks.csv'])
 
         # values should be a multi-line valid CSV
         csv = CSV.parse(output.values.first)

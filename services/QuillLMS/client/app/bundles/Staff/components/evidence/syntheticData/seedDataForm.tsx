@@ -20,7 +20,6 @@ const SeedDataForm = ({ history, match }) => {
   });
 
   const handleCreateSeedData = () => {
-    console.log('handle create')
     if (!confirm('⚠️ Are you sure you want to generate seed data?')) return
 
     createSeedData(activityNouns, activityId).then((response) => {
@@ -47,7 +46,15 @@ const SeedDataForm = ({ history, match }) => {
   return(
     <div className="seed-data-form-container">
       {activity && renderHeader({activity: activity}, 'Create Seed Data', true)}
-
+      <p>
+        <b>Activity Title:</b> {activity && activity.title}
+      </p>
+      <p>
+        <b>Prompts:</b>
+      </p>
+      <ul>
+        {activity.prompts.map((prompt) => {return <li>{prompt.text}</li>;}}
+      </ul>
 
       <Input
         className="notes-input"

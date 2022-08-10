@@ -4,12 +4,13 @@ require_dependency 'evidence/application_controller'
 
 module Evidence
   class ActivitiesController < ApiController
-    before_action :set_activity, only: [:activity_versions, :create, :show, :update, :destroy, :change_logs]
+    before_action :set_activity, only: [:activity_versions, :create, :show, :update, :destroy, :change_logs, :seed_data]
     append_before_action :set_lms_user_id, only: [:create, :destroy]
 
     # GET /activities.json
     def index
-      @activities = Evidence::Activity.order(:title).map { |a| a.serializable_hash(include: []) }
+      @activities = Evidence::Activity
+        .order(:title).map { |a| a.serializable_hash(include: [], methods: [:flag]) }
 
       render json: @activities
     end
@@ -77,6 +78,19 @@ module Evidence
 
     def activity_versions
       render json: @activity&.activity_versions
+    end
+
+    # params [:id, nouns:]
+    def seed_data
+      nouns_array = params[:nouns]
+        .split(',')
+        .select(&:present?)
+        .map(&:strip)
+        .uniq
+
+      Evidence::ActivitySeedDataWorker.perform_async(@activity.id, nouns_array)
+
+      head :no_content
     end
 
     private def set_activity
