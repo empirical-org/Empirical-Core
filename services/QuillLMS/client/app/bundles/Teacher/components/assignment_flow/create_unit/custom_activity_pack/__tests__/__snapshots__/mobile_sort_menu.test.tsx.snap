@@ -50,6 +50,24 @@ exports[`MobileSortMenu component with showMobileSortMenu true should render 1`]
         Default
       </button>
       <button
+        id="grade-level-asc"
+        key="grade-level-asc"
+        onClick={[Function]}
+        type="button"
+        value="grade-level-asc"
+      >
+        Grade Level Range (Low to High)
+      </button>
+      <button
+        id="grade-level-desc"
+        key="grade-level-desc"
+        onClick={[Function]}
+        type="button"
+        value="grade-level-desc"
+      >
+        Grade Level Range (High to Low)
+      </button>
+      <button
         id="readability-asc"
         key="readability-asc"
         onClick={[Function]}

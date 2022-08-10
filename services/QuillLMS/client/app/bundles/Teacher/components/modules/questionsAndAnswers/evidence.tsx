@@ -27,12 +27,12 @@ const evidence = () => [
     question: 'What kind of content will students engage with in Quill Reading for Evidence activities?',
     answer: (
       <div>
-        <p>In a Reading for Evidence activity, students read a nonfiction text relevant to multiple content areas, particularly ELA, social studies, and science. Texts are 500-700 words long and are written at an eighth or ninth grade reading level and explore compelling, complex questions like: “Should schools have grade requirements for student athletes?” and “Should medical testing be done on animals?” There are currently 18 activities available, organized into the following thematic packs:</p>
+        <p>In a Reading for Evidence activity, students read a nonfiction text relevant to multiple content areas, particularly ELA, social studies, and science. Texts are 500-700 words long and are written at an eighth or ninth grade reading level and explore compelling, complex questions like: “Should schools have grade requirements for student athletes?” and “Should medical testing be done on animals?” There are currently 16 activities available, organized into the following thematic packs:</p>
         <p><a className="header-link" href="https://www.quill.org/assign/featured-activity-packs/459">School Policies & Student Life</a></p>
         <ul>
-          <li><a href="https://www.quill.org/evidence/#/play?uid=219&skipToPrompts=true">Should Schools Have Extended School Days?</a></li>
-          <li><a href="https://www.quill.org/evidence/#/play?uid=186&skipToPrompts=true">Should Schools Have Strict Dress Codes?</a></li>
           <li><a href="https://www.quill.org/evidence/#/play?uid=221&skipToPrompts=true">Should Food Sold in Schools Be Regulated By Law?</a></li>
+          <li><a href="https://www.quill.org/evidence/#/play?uid=186&skipToPrompts=true">Should Schools Have Strict Dress Codes?</a></li>
+          <li><a href="https://www.quill.org/evidence/#/play?uid=219&skipToPrompts=true">Should Schools Have Extended School Days?</a></li>
         </ul>
         <p><a className="header-link" href="https://www.quill.org/assign/featured-activity-packs/450">Ethics in Science</a></p>
         <ul>
@@ -40,13 +40,13 @@ const evidence = () => [
           <li><a href="https://www.quill.org/evidence/#/play?uid=171&skipToPrompts=true">Is Cloning Mammals Ethical?</a></li>
           <li><a href="https://www.quill.org/evidence/#/play?uid=220&skipToPrompts=true">Should Companies Be Required to Label Foods that Contain GMOs?</a></li>
         </ul>
-        <p><a className="header-link" href="https://www.quill.org/activities/packs/451">Environmental Protection & Civic Action</a></p>
+        <p><a className="header-link" href="https://www.quill.org/activities/packs/451">Environmental Protection</a></p>
         <ul>
           <li><a href="https://www.quill.org/evidence/#/play?uid=177&skipToPrompts=true">Do Plastic Bag Bans Help or Harm Local Communities?</a></li>
           <li><a href="https://www.quill.org/evidence/#/play?uid=87&skipToPrompts=true">Are Surge Barriers Worth the Ecological Cost?</a></li>
           <li><a href="https://www.quill.org/evidence/#/play?uid=176&skipToPrompts=true">How Does Eating Meat Impact Global Warming?</a></li>
         </ul>
-        <p><a className="header-link" href="https://www.quill.org/activities/packs/455">Sports & Society</a></p>
+        <p><a className="header-link" href="https://www.quill.org/activities/packs/455">Sports & Recreation</a></p>
         <ul>
           <li><a href="https://www.quill.org/evidence/#/play?uid=185&skipToPrompts=true">Should Colleges Be Responsible for Maintaining Gender Equity in Sports?</a></li>
           <li><a href="https://www.quill.org/evidence/#/play?uid=181&skipToPrompts=true">Should Minor League Baseball Players Make More Money?</a></li>
@@ -55,8 +55,8 @@ const evidence = () => [
         <p><a className="header-link" href="https://www.quill.org/assign/featured-activity-packs/448">Alternative Energy & Sustainability </a></p>
         <ul>
           <li><a href="https://www.quill.org/evidence/#/play?uid=175&skipToPrompts=true">How Does Drought Affect Hydroelectricity Generation?</a></li>
-          <li><a href="https://www.quill.org/evidence/#/play?uid=174&skipToPrompts=true">Can Nuclear Power Fuel Our Future?</a></li>
           <li><a href="https://www.quill.org/evidence/#/play?uid=173&skipToPrompts=true">Does Florida&apos;s SolarTogether Program Offer a Good Energy Alternative for Local Communities?</a></li>
+          <li><a href="https://www.quill.org/evidence/#/play?uid=174&skipToPrompts=true">Can Nuclear Power Fuel Our Future?</a></li>
           <li><a href="https://www.quill.org/evidence/#/play?uid=89&skipToPrompts=true">Are Wind Farms a Good Alternative Energy Source?</a></li>
         </ul>
         <p>If you have any <a href="https://quillorg.canny.io/content-feedback">topics you would like us to cover, please let us know here</a>!</p>

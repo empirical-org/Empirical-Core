@@ -82,6 +82,37 @@ describe UnitTemplate, redis: true, type: :model do
     end
   end
 
+  describe '#grade_level_range' do
+
+    it 'calculates grade_level_range range across activities as the highest included grade level' do
+
+      activity_one = create(:activity, minimum_grade_level: 4, maximum_grade_level: 12)
+      activity_two = create(:activity, minimum_grade_level: 10, maximum_grade_level: 12)
+
+      unit_template = create(:unit_template, activity_ids: [activity_one.id, activity_two.id])
+
+      expect(unit_template.grade_level_range).to eq("10th-12th")
+    end
+
+    it 'calculates grade_level_range as nil if the activities do not have minimum grade levels' do
+      activity_one = create(:activity)
+      activity_two = create(:activity)
+
+      unit_template = create(:unit_template, activity_ids: [activity_one.id, activity_two.id])
+
+      expect(unit_template.grade_level_range).to eq(nil)
+    end
+
+    it 'calculates grade_level_range correctly if the activities all have the same grade_level_range' do
+      activity_one = create(:activity, minimum_grade_level: 6, maximum_grade_level: 12)
+      activity_two = create(:activity, minimum_grade_level: 6, maximum_grade_level: 12)
+
+      unit_template = create(:unit_template, activity_ids: [activity_one.id, activity_two.id])
+
+      expect(unit_template.grade_level_range).to eq("6th-12th")
+    end
+  end
+
   describe '#related_models' do
     let!(:unit_template1) { create(:unit_template, unit_template_category_id: unit_template.unit_template_category_id) }
     let!(:unit_template2) { create(:unit_template) }

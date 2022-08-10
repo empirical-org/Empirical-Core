@@ -4594,6 +4594,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
     >
       <section
         className="activity-row not-expanded not-selected is-first "
+        onClick={[Function]}
       >
         <div
           className="first-line"
@@ -4683,9 +4684,13 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                     alt="Target representing Quill Connect"
                     src="undefined/images/icons/description-connect.svg"
                   />
-                  <span>
+                  <a
+                    href="/activity_sessions/anonymous?activity_id=627"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
                     Hernan Cortes
-                  </span>
+                  </a>
                 </h2>
               }
             >
@@ -4710,9 +4715,13 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                       alt="Target representing Quill Connect"
                       src="undefined/images/icons/description-connect.svg"
                     />
-                    <span>
+                    <a
+                      href="/activity_sessions/anonymous?activity_id=627"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
                       Hernan Cortes
-                    </span>
+                    </a>
                   </h2>
                 </span>
                 <span
@@ -4860,22 +4869,22 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 <span>
                   Grades: 
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     4 - 5
                   </span>
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     6 - 7
                   </span>
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     8 - 9
                   </span>
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     10 - 12
                   </span>
@@ -5106,6 +5115,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
     >
       <section
         className="activity-row not-expanded not-selected  "
+        onClick={[Function]}
       >
         <div
           className="first-line"
@@ -5195,9 +5205,13 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                     alt="Target representing Quill Connect"
                     src="undefined/images/icons/description-connect.svg"
                   />
-                  <span>
+                  <a
+                    href="/activity_sessions/anonymous?activity_id=628"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
                     Maya Mystery
-                  </span>
+                  </a>
                 </h2>
               }
             >
@@ -5222,9 +5236,13 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                       alt="Target representing Quill Connect"
                       src="undefined/images/icons/description-connect.svg"
                     />
-                    <span>
+                    <a
+                      href="/activity_sessions/anonymous?activity_id=628"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
                       Maya Mystery
-                    </span>
+                    </a>
                   </h2>
                 </span>
                 <span
@@ -5372,22 +5390,22 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 <span>
                   Grades: 
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     4 - 5
                   </span>
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     6 - 7
                   </span>
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     8 - 9
                   </span>
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     10 - 12
                   </span>
@@ -5618,6 +5636,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
     >
       <section
         className="activity-row not-expanded not-selected  "
+        onClick={[Function]}
       >
         <div
           className="first-line"
@@ -5707,9 +5726,13 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                     alt="Target representing Quill Connect"
                     src="undefined/images/icons/description-connect.svg"
                   />
-                  <span>
+                  <a
+                    href="/activity_sessions/anonymous?activity_id=629"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
                     Tenochtitlan Origin Myth
-                  </span>
+                  </a>
                 </h2>
               }
             >
@@ -5734,9 +5757,13 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                       alt="Target representing Quill Connect"
                       src="undefined/images/icons/description-connect.svg"
                     />
-                    <span>
+                    <a
+                      href="/activity_sessions/anonymous?activity_id=629"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
                       Tenochtitlan Origin Myth
-                    </span>
+                    </a>
                   </h2>
                 </span>
                 <span
@@ -5884,22 +5911,22 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 <span>
                   Grades: 
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     4 - 5
                   </span>
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     6 - 7
                   </span>
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     8 - 9
                   </span>
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     10 - 12
                   </span>
@@ -6130,6 +6157,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
     >
       <section
         className="activity-row not-expanded not-selected  "
+        onClick={[Function]}
       >
         <div
           className="first-line"
@@ -6219,9 +6247,13 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                     alt="Target representing Quill Connect"
                     src="undefined/images/icons/description-connect.svg"
                   />
-                  <span>
+                  <a
+                    href="/activity_sessions/anonymous?activity_id=630"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
                     The Royal Road
-                  </span>
+                  </a>
                 </h2>
               }
             >
@@ -6246,9 +6278,13 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                       alt="Target representing Quill Connect"
                       src="undefined/images/icons/description-connect.svg"
                     />
-                    <span>
+                    <a
+                      href="/activity_sessions/anonymous?activity_id=630"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
                       The Royal Road
-                    </span>
+                    </a>
                   </h2>
                 </span>
                 <span
@@ -6396,22 +6432,22 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 <span>
                   Grades: 
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     4 - 5
                   </span>
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     6 - 7
                   </span>
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     8 - 9
                   </span>
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     10 - 12
                   </span>
@@ -6642,6 +6678,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
     >
       <section
         className="activity-row not-expanded not-selected  "
+        onClick={[Function]}
       >
         <div
           className="first-line"
@@ -6731,9 +6768,13 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                     alt="Target representing Quill Connect"
                     src="undefined/images/icons/description-connect.svg"
                   />
-                  <span>
+                  <a
+                    href="/activity_sessions/anonymous?activity_id=617"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
                     Hui Zong's Defeat
-                  </span>
+                  </a>
                 </h2>
               }
             >
@@ -6758,9 +6799,13 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                       alt="Target representing Quill Connect"
                       src="undefined/images/icons/description-connect.svg"
                     />
-                    <span>
+                    <a
+                      href="/activity_sessions/anonymous?activity_id=617"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
                       Hui Zong's Defeat
-                    </span>
+                    </a>
                   </h2>
                 </span>
                 <span
@@ -6908,22 +6953,22 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 <span>
                   Grades: 
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     4 - 5
                   </span>
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     6 - 7
                   </span>
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     8 - 9
                   </span>
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     10 - 12
                   </span>
@@ -7154,6 +7199,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
     >
       <section
         className="activity-row not-expanded not-selected  "
+        onClick={[Function]}
       >
         <div
           className="first-line"
@@ -7243,9 +7289,13 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                     alt="Target representing Quill Connect"
                     src="undefined/images/icons/description-connect.svg"
                   />
-                  <span>
+                  <a
+                    href="/activity_sessions/anonymous?activity_id=619"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
                     Shihuangdi Unifies China
-                  </span>
+                  </a>
                 </h2>
               }
             >
@@ -7270,9 +7320,13 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                       alt="Target representing Quill Connect"
                       src="undefined/images/icons/description-connect.svg"
                     />
-                    <span>
+                    <a
+                      href="/activity_sessions/anonymous?activity_id=619"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
                       Shihuangdi Unifies China
-                    </span>
+                    </a>
                   </h2>
                 </span>
                 <span
@@ -7420,22 +7474,22 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 <span>
                   Grades: 
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     4 - 5
                   </span>
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     6 - 7
                   </span>
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     8 - 9
                   </span>
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     10 - 12
                   </span>
@@ -7666,6 +7720,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
     >
       <section
         className="activity-row not-expanded not-selected  "
+        onClick={[Function]}
       >
         <div
           className="first-line"
@@ -7755,9 +7810,13 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                     alt="Target representing Quill Connect"
                     src="undefined/images/icons/description-connect.svg"
                   />
-                  <span>
+                  <a
+                    href="/activity_sessions/anonymous?activity_id=616"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
                     Tang Dynasty Inventions
-                  </span>
+                  </a>
                 </h2>
               }
             >
@@ -7782,9 +7841,13 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                       alt="Target representing Quill Connect"
                       src="undefined/images/icons/description-connect.svg"
                     />
-                    <span>
+                    <a
+                      href="/activity_sessions/anonymous?activity_id=616"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
                       Tang Dynasty Inventions
-                    </span>
+                    </a>
                   </h2>
                 </span>
                 <span
@@ -7932,22 +7995,22 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 <span>
                   Grades: 
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     4 - 5
                   </span>
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     6 - 7
                   </span>
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     8 - 9
                   </span>
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     10 - 12
                   </span>
@@ -8178,6 +8241,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
     >
       <section
         className="activity-row not-expanded not-selected  "
+        onClick={[Function]}
       >
         <div
           className="first-line"
@@ -8267,9 +8331,13 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                     alt="Target representing Quill Connect"
                     src="undefined/images/icons/description-connect.svg"
                   />
-                  <span>
+                  <a
+                    href="/activity_sessions/anonymous?activity_id=618"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
                     The Mongol Invasion of China
-                  </span>
+                  </a>
                 </h2>
               }
             >
@@ -8294,9 +8362,13 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                       alt="Target representing Quill Connect"
                       src="undefined/images/icons/description-connect.svg"
                     />
-                    <span>
+                    <a
+                      href="/activity_sessions/anonymous?activity_id=618"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
                       The Mongol Invasion of China
-                    </span>
+                    </a>
                   </h2>
                 </span>
                 <span
@@ -8444,22 +8516,22 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 <span>
                   Grades: 
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     4 - 5
                   </span>
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     6 - 7
                   </span>
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     8 - 9
                   </span>
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     10 - 12
                   </span>
@@ -8690,6 +8762,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
     >
       <section
         className="activity-row not-expanded not-selected  "
+        onClick={[Function]}
       >
         <div
           className="first-line"
@@ -8779,9 +8852,13 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                     alt="Target representing Quill Connect"
                     src="undefined/images/icons/description-connect.svg"
                   />
-                  <span>
+                  <a
+                    href="/activity_sessions/anonymous?activity_id=608"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
                     The Travels of Marco Polo
-                  </span>
+                  </a>
                 </h2>
               }
             >
@@ -8806,9 +8883,13 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                       alt="Target representing Quill Connect"
                       src="undefined/images/icons/description-connect.svg"
                     />
-                    <span>
+                    <a
+                      href="/activity_sessions/anonymous?activity_id=608"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
                       The Travels of Marco Polo
-                    </span>
+                    </a>
                   </h2>
                 </span>
                 <span
@@ -8956,22 +9037,22 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 <span>
                   Grades: 
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     4 - 5
                   </span>
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     6 - 7
                   </span>
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     8 - 9
                   </span>
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     10 - 12
                   </span>
@@ -9202,6 +9283,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
     >
       <section
         className="activity-row not-expanded not-selected  "
+        onClick={[Function]}
       >
         <div
           className="first-line"
@@ -9291,9 +9373,13 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                     alt="Target representing Quill Connect"
                     src="undefined/images/icons/description-connect.svg"
                   />
-                  <span>
+                  <a
+                    href="/activity_sessions/anonymous?activity_id=860"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
                     Hernando de Soto
-                  </span>
+                  </a>
                 </h2>
               }
             >
@@ -9318,9 +9404,13 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                       alt="Target representing Quill Connect"
                       src="undefined/images/icons/description-connect.svg"
                     />
-                    <span>
+                    <a
+                      href="/activity_sessions/anonymous?activity_id=860"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
                       Hernando de Soto
-                    </span>
+                    </a>
                   </h2>
                 </span>
                 <span
@@ -9468,22 +9558,22 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 <span>
                   Grades: 
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     4 - 5
                   </span>
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     6 - 7
                   </span>
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     8 - 9
                   </span>
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     10 - 12
                   </span>
@@ -9714,6 +9804,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
     >
       <section
         className="activity-row not-expanded not-selected  "
+        onClick={[Function]}
       >
         <div
           className="first-line"
@@ -9803,9 +9894,13 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                     alt="Target representing Quill Connect"
                     src="undefined/images/icons/description-connect.svg"
                   />
-                  <span>
+                  <a
+                    href="/activity_sessions/anonymous?activity_id=605"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
                     Magellan
-                  </span>
+                  </a>
                 </h2>
               }
             >
@@ -9830,9 +9925,13 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                       alt="Target representing Quill Connect"
                       src="undefined/images/icons/description-connect.svg"
                     />
-                    <span>
+                    <a
+                      href="/activity_sessions/anonymous?activity_id=605"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
                       Magellan
-                    </span>
+                    </a>
                   </h2>
                 </span>
                 <span
@@ -9980,22 +10079,22 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 <span>
                   Grades: 
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     4 - 5
                   </span>
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     6 - 7
                   </span>
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     8 - 9
                   </span>
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     10 - 12
                   </span>
@@ -10226,6 +10325,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
     >
       <section
         className="activity-row not-expanded not-selected  "
+        onClick={[Function]}
       >
         <div
           className="first-line"
@@ -10315,9 +10415,13 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                     alt="Target representing Quill Connect"
                     src="undefined/images/icons/description-connect.svg"
                   />
-                  <span>
+                  <a
+                    href="/activity_sessions/anonymous?activity_id=606"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
                     Jamestown
-                  </span>
+                  </a>
                 </h2>
               }
             >
@@ -10342,9 +10446,13 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                       alt="Target representing Quill Connect"
                       src="undefined/images/icons/description-connect.svg"
                     />
-                    <span>
+                    <a
+                      href="/activity_sessions/anonymous?activity_id=606"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
                       Jamestown
-                    </span>
+                    </a>
                   </h2>
                 </span>
                 <span
@@ -10492,22 +10600,22 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 <span>
                   Grades: 
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     4 - 5
                   </span>
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     6 - 7
                   </span>
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     8 - 9
                   </span>
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     10 - 12
                   </span>
@@ -10738,6 +10846,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
     >
       <section
         className="activity-row not-expanded not-selected  "
+        onClick={[Function]}
       >
         <div
           className="first-line"
@@ -10827,9 +10936,13 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                     alt="Target representing Quill Connect"
                     src="undefined/images/icons/description-connect.svg"
                   />
-                  <span>
+                  <a
+                    href="/activity_sessions/anonymous?activity_id=642"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
                     Humanism
-                  </span>
+                  </a>
                 </h2>
               }
             >
@@ -10854,9 +10967,13 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                       alt="Target representing Quill Connect"
                       src="undefined/images/icons/description-connect.svg"
                     />
-                    <span>
+                    <a
+                      href="/activity_sessions/anonymous?activity_id=642"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
                       Humanism
-                    </span>
+                    </a>
                   </h2>
                 </span>
                 <span
@@ -11004,22 +11121,22 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 <span>
                   Grades: 
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     4 - 5
                   </span>
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     6 - 7
                   </span>
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     8 - 9
                   </span>
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     10 - 12
                   </span>
@@ -11250,6 +11367,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
     >
       <section
         className="activity-row not-expanded not-selected  "
+        onClick={[Function]}
       >
         <div
           className="first-line"
@@ -11339,9 +11457,13 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                     alt="Target representing Quill Connect"
                     src="undefined/images/icons/description-connect.svg"
                   />
-                  <span>
+                  <a
+                    href="/activity_sessions/anonymous?activity_id=640"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
                     Renaissance Beginnings in Italy
-                  </span>
+                  </a>
                 </h2>
               }
             >
@@ -11366,9 +11488,13 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                       alt="Target representing Quill Connect"
                       src="undefined/images/icons/description-connect.svg"
                     />
-                    <span>
+                    <a
+                      href="/activity_sessions/anonymous?activity_id=640"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
                       Renaissance Beginnings in Italy
-                    </span>
+                    </a>
                   </h2>
                 </span>
                 <span
@@ -11516,22 +11642,22 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 <span>
                   Grades: 
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     4 - 5
                   </span>
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     6 - 7
                   </span>
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     8 - 9
                   </span>
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     10 - 12
                   </span>
@@ -11762,6 +11888,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
     >
       <section
         className="activity-row not-expanded not-selected  "
+        onClick={[Function]}
       >
         <div
           className="first-line"
@@ -11851,9 +11978,13 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                     alt="Target representing Quill Connect"
                     src="undefined/images/icons/description-connect.svg"
                   />
-                  <span>
+                  <a
+                    href="/activity_sessions/anonymous?activity_id=641"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
                     The Medici Family
-                  </span>
+                  </a>
                 </h2>
               }
             >
@@ -11878,9 +12009,13 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                       alt="Target representing Quill Connect"
                       src="undefined/images/icons/description-connect.svg"
                     />
-                    <span>
+                    <a
+                      href="/activity_sessions/anonymous?activity_id=641"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
                       The Medici Family
-                    </span>
+                    </a>
                   </h2>
                 </span>
                 <span
@@ -12028,22 +12163,22 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 <span>
                   Grades: 
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     4 - 5
                   </span>
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     6 - 7
                   </span>
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     8 - 9
                   </span>
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     10 - 12
                   </span>
@@ -12274,6 +12409,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
     >
       <section
         className="activity-row not-expanded not-selected  "
+        onClick={[Function]}
       >
         <div
           className="first-line"
@@ -12363,9 +12499,13 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                     alt="Target representing Quill Connect"
                     src="undefined/images/icons/description-connect.svg"
                   />
-                  <span>
+                  <a
+                    href="/activity_sessions/anonymous?activity_id=643"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
                     The Northern Renaissance
-                  </span>
+                  </a>
                 </h2>
               }
             >
@@ -12390,9 +12530,13 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                       alt="Target representing Quill Connect"
                       src="undefined/images/icons/description-connect.svg"
                     />
-                    <span>
+                    <a
+                      href="/activity_sessions/anonymous?activity_id=643"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
                       The Northern Renaissance
-                    </span>
+                    </a>
                   </h2>
                 </span>
                 <span
@@ -12540,22 +12684,22 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 <span>
                   Grades: 
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     4 - 5
                   </span>
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     6 - 7
                   </span>
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     8 - 9
                   </span>
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     10 - 12
                   </span>
@@ -12786,6 +12930,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
     >
       <section
         className="activity-row not-expanded not-selected  "
+        onClick={[Function]}
       >
         <div
           className="first-line"
@@ -12875,9 +13020,13 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                     alt="Target representing Quill Connect"
                     src="undefined/images/icons/description-connect.svg"
                   />
-                  <span>
+                  <a
+                    href="/activity_sessions/anonymous?activity_id=728"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
                     The War Begins at Lexington and Concord
-                  </span>
+                  </a>
                 </h2>
               }
             >
@@ -12902,9 +13051,13 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                       alt="Target representing Quill Connect"
                       src="undefined/images/icons/description-connect.svg"
                     />
-                    <span>
+                    <a
+                      href="/activity_sessions/anonymous?activity_id=728"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
                       The War Begins at Lexington and Concord
-                    </span>
+                    </a>
                   </h2>
                 </span>
                 <span
@@ -13052,22 +13205,22 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 <span>
                   Grades: 
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     4 - 5
                   </span>
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     6 - 7
                   </span>
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     8 - 9
                   </span>
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     10 - 12
                   </span>
@@ -13298,6 +13451,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
     >
       <section
         className="activity-row not-expanded not-selected  "
+        onClick={[Function]}
       >
         <div
           className="first-line"
@@ -13387,9 +13541,13 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                     alt="Target representing Quill Connect"
                     src="undefined/images/icons/description-connect.svg"
                   />
-                  <span>
+                  <a
+                    href="/activity_sessions/anonymous?activity_id=731"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
                     The War Ends at Yorktown
-                  </span>
+                  </a>
                 </h2>
               }
             >
@@ -13414,9 +13572,13 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                       alt="Target representing Quill Connect"
                       src="undefined/images/icons/description-connect.svg"
                     />
-                    <span>
+                    <a
+                      href="/activity_sessions/anonymous?activity_id=731"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
                       The War Ends at Yorktown
-                    </span>
+                    </a>
                   </h2>
                 </span>
                 <span
@@ -13564,22 +13726,22 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 <span>
                   Grades: 
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     4 - 5
                   </span>
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     6 - 7
                   </span>
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     8 - 9
                   </span>
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     10 - 12
                   </span>
@@ -13810,6 +13972,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
     >
       <section
         className="activity-row not-expanded not-selected  "
+        onClick={[Function]}
       >
         <div
           className="first-line"
@@ -13899,9 +14062,13 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                     alt="Target representing Quill Connect"
                     src="undefined/images/icons/description-connect.svg"
                   />
-                  <span>
+                  <a
+                    href="/activity_sessions/anonymous?activity_id=729"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
                     Turning Point: Bunker Hill
-                  </span>
+                  </a>
                 </h2>
               }
             >
@@ -13926,9 +14093,13 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                       alt="Target representing Quill Connect"
                       src="undefined/images/icons/description-connect.svg"
                     />
-                    <span>
+                    <a
+                      href="/activity_sessions/anonymous?activity_id=729"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
                       Turning Point: Bunker Hill
-                    </span>
+                    </a>
                   </h2>
                 </span>
                 <span
@@ -14076,22 +14247,22 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 <span>
                   Grades: 
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     4 - 5
                   </span>
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     6 - 7
                   </span>
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     8 - 9
                   </span>
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     10 - 12
                   </span>
@@ -14322,6 +14493,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
     >
       <section
         className="activity-row not-expanded not-selected  "
+        onClick={[Function]}
       >
         <div
           className="first-line"
@@ -14411,9 +14583,13 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                     alt="Target representing Quill Connect"
                     src="undefined/images/icons/description-connect.svg"
                   />
-                  <span>
+                  <a
+                    href="/activity_sessions/anonymous?activity_id=730"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
                     Turning Point: Saratoga
-                  </span>
+                  </a>
                 </h2>
               }
             >
@@ -14438,9 +14614,13 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                       alt="Target representing Quill Connect"
                       src="undefined/images/icons/description-connect.svg"
                     />
-                    <span>
+                    <a
+                      href="/activity_sessions/anonymous?activity_id=730"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
                       Turning Point: Saratoga
-                    </span>
+                    </a>
                   </h2>
                 </span>
                 <span
@@ -14588,22 +14768,22 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 <span>
                   Grades: 
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     4 - 5
                   </span>
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     6 - 7
                   </span>
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     8 - 9
                   </span>
                   <span
-                    className="grade-level"
+                    className="grade-level filtered"
                   >
                     10 - 12
                   </span>
