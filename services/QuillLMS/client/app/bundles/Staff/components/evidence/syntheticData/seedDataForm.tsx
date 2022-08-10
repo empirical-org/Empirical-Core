@@ -65,12 +65,8 @@ const SeedDataForm = ({ history, match }) => {
       />
 
       <div className="button-and-id-container">
-        <button
-          className="quill-button fun primary contained focus-on-light"
-          id="activity-submit-button"
-          onClick={handleCreateSeedData}
-          type="submit">
-            Create Seed Data
+        <button className="quill-button fun primary contained focus-on-light" id="activity-submit-button" onClick={handleCreateSeedData} type="submit">
+          Create Seed Data
         </button>
       </div>
     </div>
