@@ -78,17 +78,19 @@ const Slider = ({ values, minValue, maxValue, step, handleChange, markLabels, id
 
   const renderMark = ({ props, index, }) => { return <Mark index={index} markLabels={markLabels} props={props} /> }
 
-  const renderTrack = ({ props, children, }) => {(
-    <Track
-      colors={trackColors}
-      maxValue={maxValue}
-      minValue={minValue}
-      props={props}
-      values={values}
-    >
-      {children}
-    </Track>
-  )}
+  const renderTrack = ({ props, children, }) => {
+    return (
+      <Track
+        colors={trackColors}
+        maxValue={maxValue}
+        minValue={minValue}
+        props={props}
+        values={values}
+      >
+        {children}
+      </Track>
+    )
+  }
 
   return (
     <div
