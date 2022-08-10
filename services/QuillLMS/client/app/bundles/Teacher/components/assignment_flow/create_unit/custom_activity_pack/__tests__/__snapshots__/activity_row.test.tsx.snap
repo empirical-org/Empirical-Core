@@ -74,6 +74,7 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
 >
   <section
     className="activity-row not-expanded not-selected  "
+    onClick={[Function]}
   >
     <div
       className="first-line"
@@ -90,9 +91,13 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
                 alt="Target representing Quill Connect"
                 src="undefined/images/icons/description-connect.svg"
               />
-              <span>
+              <a
+                href="/activity_sessions/anonymous?activity_id=627"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
                 Hernan Cortes
-              </span>
+              </a>
             </h2>
           }
         >
@@ -117,9 +122,13 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
                   alt="Target representing Quill Connect"
                   src="undefined/images/icons/description-connect.svg"
                 />
-                <span>
+                <a
+                  href="/activity_sessions/anonymous?activity_id=627"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
                   Hernan Cortes
-                </span>
+                </a>
               </h2>
             </span>
             <span
@@ -266,22 +275,22 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
             <span>
               Grades: 
               <span
-                className="grade-level"
+                className="grade-level filtered"
               >
                 4 - 5
               </span>
               <span
-                className="grade-level"
+                className="grade-level filtered"
               >
                 6 - 7
               </span>
               <span
-                className="grade-level"
+                className="grade-level filtered"
               >
                 8 - 9
               </span>
               <span
-                className="grade-level"
+                className="grade-level filtered"
               >
                 10 - 12
               </span>
@@ -515,6 +524,7 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
 >
   <section
     className="activity-row not-expanded selected  "
+    onClick={[Function]}
   >
     <div
       className="first-line"
@@ -531,9 +541,13 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
                 alt="Target representing Quill Connect"
                 src="undefined/images/icons/description-connect.svg"
               />
-              <span>
+              <a
+                href="/activity_sessions/anonymous?activity_id=627"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
                 Hernan Cortes
-              </span>
+              </a>
             </h2>
           }
         >
@@ -558,9 +572,13 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
                   alt="Target representing Quill Connect"
                   src="undefined/images/icons/description-connect.svg"
                 />
-                <span>
+                <a
+                  href="/activity_sessions/anonymous?activity_id=627"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
                   Hernan Cortes
-                </span>
+                </a>
               </h2>
             </span>
             <span
@@ -707,22 +725,22 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
             <span>
               Grades: 
               <span
-                className="grade-level"
+                className="grade-level filtered"
               >
                 4 - 5
               </span>
               <span
-                className="grade-level"
+                className="grade-level filtered"
               >
                 6 - 7
               </span>
               <span
-                className="grade-level"
+                className="grade-level filtered"
               >
                 8 - 9
               </span>
               <span
-                className="grade-level"
+                className="grade-level filtered"
               >
                 10 - 12
               </span>
@@ -956,6 +974,7 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
 >
   <section
     className="activity-row not-expanded not-selected  "
+    onClick={[Function]}
   >
     <div
       className="first-line"
@@ -1045,9 +1064,13 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
                 alt="Target representing Quill Connect"
                 src="undefined/images/icons/description-connect.svg"
               />
-              <span>
+              <a
+                href="/activity_sessions/anonymous?activity_id=627"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
                 Hernan Cortes
-              </span>
+              </a>
             </h2>
           }
         >
@@ -1072,9 +1095,13 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
                   alt="Target representing Quill Connect"
                   src="undefined/images/icons/description-connect.svg"
                 />
-                <span>
+                <a
+                  href="/activity_sessions/anonymous?activity_id=627"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
                   Hernan Cortes
-                </span>
+                </a>
               </h2>
             </span>
             <span
@@ -1222,22 +1249,22 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
             <span>
               Grades: 
               <span
-                className="grade-level"
+                className="grade-level filtered"
               >
                 4 - 5
               </span>
               <span
-                className="grade-level"
+                className="grade-level filtered"
               >
                 6 - 7
               </span>
               <span
-                className="grade-level"
+                className="grade-level filtered"
               >
                 8 - 9
               </span>
               <span
-                className="grade-level"
+                className="grade-level filtered"
               >
                 10 - 12
               </span>
@@ -1472,6 +1499,7 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
 >
   <section
     className="activity-row not-expanded selected  "
+    onClick={[Function]}
   >
     <div
       className="first-line"
@@ -1565,9 +1593,13 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
                 alt="Target representing Quill Connect"
                 src="undefined/images/icons/description-connect.svg"
               />
-              <span>
+              <a
+                href="/activity_sessions/anonymous?activity_id=627"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
                 Hernan Cortes
-              </span>
+              </a>
             </h2>
           }
         >
@@ -1592,9 +1624,13 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
                   alt="Target representing Quill Connect"
                   src="undefined/images/icons/description-connect.svg"
                 />
-                <span>
+                <a
+                  href="/activity_sessions/anonymous?activity_id=627"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
                   Hernan Cortes
-                </span>
+                </a>
               </h2>
             </span>
             <span
@@ -1742,22 +1778,22 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
             <span>
               Grades: 
               <span
-                className="grade-level"
+                className="grade-level filtered"
               >
                 4 - 5
               </span>
               <span
-                className="grade-level"
+                className="grade-level filtered"
               >
                 6 - 7
               </span>
               <span
-                className="grade-level"
+                className="grade-level filtered"
               >
                 8 - 9
               </span>
               <span
-                className="grade-level"
+                className="grade-level filtered"
               >
                 10 - 12
               </span>

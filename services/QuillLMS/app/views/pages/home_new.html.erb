@@ -8,15 +8,16 @@
 <section class="q-hero bg-quillgreen flex-column space-between">
   <%= render partial: 'pages/shared/navbar' %>
   <div class="q-hero-text header">
-    <h1 class="q-h1 text-white">Free tools to make your students better writers.</h1>
-    <p class="text-white">
-      Quill provides free writing and grammar activities
-      for elementary, middle, and high school students.
-    </p>
+    <section class="header-section">
+      <h1 class="q-h1 text-white">Free tools to make your students better <u>writers</u> and <u>readers</u>.</h1>
+      <p class="evidence-new-tag">NEW</p>
+    </section>
+    <p class="text-white main-text">Quill.org, a non-profit, provides free literacy activities that build reading comprehension, writing, and language skills for elementary, middle, and high school students.</p>
     <a class="q-button cta-button cta-home  bg-white" href="/sign-up/student">Student</a>
     <a class="q-button cta-button cta-home  bg-white" href="/sign-up/teacher">Teacher</a>
-    <a class="q-button cta-button cta-home  bg-white" href="/sign-up/teacher">Guardian</a>
     <a class="q-button cta-button cta-home  bg-white" href="/administrator">Administrator</a>
+    <a class="q-button cta-button cta-home  bg-white" href="/sign-up/teacher">Guardian</a>
+    <p class="text-white" id="mission"><strong><u>New</u> for 2022-2023 School Year:</strong> Quill's nonprofit mission is to now build both ﻿reading and writing skills through free, OER content across the curriculum.  Over the coming years, we will be building a library of free ELA, social studies, and science activities that engage students in deeper thinking through writing prompts that provide immediate feedback.</p>
   </div>
   <div class="q-hero-footer">
     <p class="text-white">
@@ -24,6 +25,39 @@
     </p>
   </div>
 </section>
+
+<%= react_component('EvidenceHomeSectionApp')%>
+
+<% if @is_mobile %>
+  <section class="bg-quillteal tool-carousel" id="walkthrough">
+    <div id="diagnosticCarousel" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner" role="listbox">
+        <div class="item active">
+          <%= render partial: 'evidence/first_topic' %>
+        </div>
+        <div class="item">
+          <%= render partial: 'evidence/second_topic' %>
+        </div>
+        <div class="item">
+          <%= render partial: 'evidence/third_topic' %>
+        </div>
+      </div>
+      <ol class="carousel-indicators">
+        <li data-target="#diagnosticCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#diagnosticCarousel" data-slide-to="1"></li>
+        <li data-target="#diagnosticCarousel" data-slide-to="2"></li>
+      </ol>
+    </div>
+  </section>
+<% else %>
+  <section class="bg-quillteal tool-hero topics-section">
+    <section class="inner-section">
+      <%= render partial: 'evidence/first_topic' %>
+      <%= render partial: 'evidence/second_topic' %>
+      <%= render partial: 'evidence/third_topic' %>
+    </section>
+  </section>
+<% end %>
 
 <section class='tool-section bg-tool-orange'>
   <div class="tool connect-tool">

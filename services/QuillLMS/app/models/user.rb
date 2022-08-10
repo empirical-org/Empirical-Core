@@ -658,6 +658,10 @@ class User < ApplicationRecord
     last_active < USER_INACTIVITY_DURATION.ago
   end
 
+  def segment_user
+    SegmentIntegration::User.new(self)
+  end
+
   private def validate_flags
     invalid_flags = flags - VALID_FLAGS
 

@@ -31,6 +31,7 @@ export {
   ExpandableCard,
   FlagDropdown,
   Input,
+  OneThumbSlider,
   Passthrough,
   ResumeOrBeginButton,
   ScreenreaderInstructions,

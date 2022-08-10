@@ -21,6 +21,10 @@ $tool-grey: #f8f9f9;
     background-color: #6cb3ed;
     color: #ffffff;
   }
+  &.text-quillteal:hover {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.38)
+  }
 }
 
 .tool-header {
@@ -263,6 +267,10 @@ $tool-grey: #f8f9f9;
     .bg-connect-yellow {
         background-color: #ea9a1a;
     }
+
+    .bg-connect-teal {
+      background-color: #2a91b4;
+  }
 
     .text-connect-yellow {
         color: #ea9a1a;

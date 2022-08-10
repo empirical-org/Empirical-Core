@@ -27,6 +27,10 @@ class WebinarBanner
     values&.dig(:title)
   end
 
+  def custom_length
+    values&.dig(:custom_length)
+  end
+
   def subscription_only?
     values&.dig(:subscription_only)
   end
@@ -36,8 +40,13 @@ class WebinarBanner
   end
 
   def show?(account_type = nil)
-    (link.present? && title.present? && link_display_text.present? && !skipped_day? &&
-     show_with_subscription?(account_type) && show_with_month_restrictions)
+    link.present? &&
+      title.present? &&
+      link_display_text.present? &&
+      !skipped_day? &&
+      show_with_subscription?(account_type) &&
+      show_with_month_restrictions &&
+      still_live?
   end
 
   def show_with_subscription?(account_type)
@@ -46,6 +55,12 @@ class WebinarBanner
 
   def show_with_month_restrictions
     !second_or_fourth_only || second_or_fourth_week_of_month?(time)
+  end
+
+  private def still_live?
+    return true unless custom_length
+
+    time.min <= custom_length
   end
 
   private def skipped_day?

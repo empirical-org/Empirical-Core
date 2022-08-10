@@ -54,7 +54,8 @@ const ALL_STEPS = [READ_PASSAGE_STEP_NUMBER, 2, 3, 4]
 const MINIMUM_STUDENT_HIGHLIGHT_COUNT = 2
 
 export const StudentViewContainer = ({ dispatch, session, isTurk, location, activities, handleFinishActivity, user }: StudentViewContainerProps) => {
-  const shouldSkipToPrompts = window.location.href.includes('turk') || window.location.href.includes('skipToPrompts')
+  const skipToSpecificStep = window.location.href.includes('skipToStep')
+  const shouldSkipToPrompts = window.location.href.includes('turk') || window.location.href.includes('skipToPrompts') || skipToSpecificStep
   const defaultCompletedSteps = shouldSkipToPrompts ? [READ_PASSAGE_STEP_NUMBER] : []
   const sessionFromUrl = getUrlParam('session', location, isTurk)
   const activityUID = getUrlParam('uid', location, isTurk)
@@ -78,7 +79,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
   const [studentHighlights, setStudentHighlights] = React.useState([])
   const [scrolledToEndOfPassage, setScrolledToEndOfPassage] = React.useState(shouldSkipToPrompts)
   const [hasStartedReadPassageStep, setHasStartedReadPassageStep] = React.useState(shouldSkipToPrompts)
-  const [hasStartedPromptSteps, setHasStartedPromptsSteps] = React.useState(shouldSkipToPrompts)
+  const [hasStartedPromptSteps, setHasStartedPromptsSteps] = React.useState(skipToSpecificStep)
   const [doneHighlighting, setDoneHighlighting] = React.useState(shouldSkipToPrompts)
   const [showReadTheDirectionsButton, setShowReadTheDirectionsButton] = React.useState(false)
   const [timeTracking, setTimeTracking] = React.useState({

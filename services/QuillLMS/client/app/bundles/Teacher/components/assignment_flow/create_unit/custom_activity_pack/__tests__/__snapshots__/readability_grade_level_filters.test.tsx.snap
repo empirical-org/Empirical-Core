@@ -147,7 +147,7 @@ exports[`readabilityGradeLevelFilters component should render 1`] = `
                 upperValue={4}
               >
                 <div
-                  className="two-thumb-slider-container"
+                  className="slider-container two-thumb-slider-container"
                   id="readability-grade-level-slider"
                   style={
                     Object {
@@ -255,6 +255,8 @@ exports[`readabilityGradeLevelFilters component should render 1`] = `
                     >
                       <div
                         className="track-container"
+                        onMouseDown={[Function]}
+                        onTouchStart={[Function]}
                         style={
                           Object {
                             "cursor": "inherit",
