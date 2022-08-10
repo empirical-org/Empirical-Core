@@ -52,6 +52,11 @@
     "react-csv": "^1.1.2",
     "react-select": "^1.1.0"
   },
+  "overrides": {
+    "foreman": {
+      "shell-quote": "^1.7.3"
+    }
+  },
   "devDependencies": {
     "qs": "^6.9.0",
     "redux-test-utils": "^0.2.2"
