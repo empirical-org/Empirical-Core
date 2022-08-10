@@ -11,9 +11,9 @@ module Evidence
       PERIOD = '.'
       CSV_SUFFIX = '.csv'
 
-      FULL_COUNT = 100
+      FULL_COUNT = 500
       FULL_NOUN_COUNT = 50
-      SECTION_COUNT = 50
+      SECTION_COUNT = 70
 
       TEMP_PASSAGE = 1
       TEMP_SECTION = 0.5 # give a lower temp (creativity) when it has less info
