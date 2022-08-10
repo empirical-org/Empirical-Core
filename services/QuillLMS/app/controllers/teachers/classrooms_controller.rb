@@ -5,7 +5,7 @@ class Teachers::ClassroomsController < ApplicationController
 
   respond_to :json, :html, :pdf
 
-  around_action :force_writer_db_role, only: :hide
+  around_action :force_writer_db_role, only: [:hide]
 
   before_action :teacher!
 

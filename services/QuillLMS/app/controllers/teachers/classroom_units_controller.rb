@@ -7,7 +7,7 @@ class Teachers::ClassroomUnitsController < ApplicationController
 
   respond_to :json
 
-  around_action :force_writer_db_role, only: :launch_lesson
+  around_action :force_writer_db_role, only: [:launch_lesson]
 
   before_action :authorize!, except: [
     :lessons_activities_cache,

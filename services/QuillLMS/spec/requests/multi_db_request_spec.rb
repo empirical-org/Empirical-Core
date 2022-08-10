@@ -39,7 +39,7 @@ RSpec.describe WidgetsController, type: :request do
 
   after { Rails.application.reload_routes! }
 
-  subject { http_request}
+  subject { http_request }
 
   context 'GET' do
     let(:http_request) { get url }

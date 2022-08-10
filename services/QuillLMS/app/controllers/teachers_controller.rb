@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class TeachersController < ApplicationController
-  around_action :force_writer_db_role, only: :add_school
+  around_action :force_writer_db_role, only: [:add_school]
 
   before_action :require_user, only: [:classrooms_i_teach_with_students, :classrooms_i_own_with_students]
 

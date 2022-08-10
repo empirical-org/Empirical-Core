@@ -3,7 +3,7 @@
 class StatusesController < ApplicationController
   protect_from_forgery with: :null_session
 
-  around_action :force_writer_db_role, only: :database_write
+  around_action :force_writer_db_role, only: [:database_write]
 
   def index
     render plain: 'OK'

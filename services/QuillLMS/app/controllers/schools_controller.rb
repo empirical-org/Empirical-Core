@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class SchoolsController < ApplicationController
-  around_action :force_writer_db_role, only: :select_school
+  around_action :force_writer_db_role, only: [:select_school]
 
   before_action :require_user, only: [:select_school]
 
