@@ -18,6 +18,7 @@ module Evidence
       }
       BLANK = ''
       STOP_TOKENS = [". ", ", "]
+      MAX_COUNT = 128 # API has an undocument max of 128 for 'n'
 
       attr_accessor :response, :prompt, :temperature, :count, :model_key, :options_hash
 
@@ -41,7 +42,7 @@ module Evidence
           model: MODELS[model_key],
           temperature: temperature,
           prompt: prompt,
-          n: count,
+          n: [count, MAX_COUNT].min,
           max_tokens: MAX_TOKENS,
           stop: STOP_TOKENS
         }.merge(options_hash)

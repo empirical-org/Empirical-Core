@@ -11,11 +11,11 @@ module Evidence
       PERIOD = '.'
       CSV_SUFFIX = '.csv'
 
-      FULL_COUNT = 500
+      FULL_COUNT = 128
       FULL_NOUN_COUNT = 50
       SECTION_COUNT = 70
 
-      TEMP_PASSAGE = 1
+      TEMPS_PASSAGE = [1, 0.9, 0.7, 0.5]
       TEMP_SECTION = 0.5 # give a lower temp (creativity) when it has less info
 
       attr_reader :passage, :stem, :nouns, :results
@@ -56,7 +56,9 @@ module Evidence
       def run
         # whole passage plus prompt
         prompt = prompt_text(context: passage)
-        run_prompt(prompt: prompt, count: FULL_COUNT, seed: 'full_passage')
+        TEMPS_PASSAGE.each do |temp|
+          run_prompt(prompt: prompt, count: FULL_COUNT, seed: "full_passage_temp#{temp}", temperature: temp)
+        end
 
         # whole passage plus prompt for each noun
         nouns.each do |noun|
@@ -73,7 +75,7 @@ module Evidence
         results
       end
 
-      private def run_prompt(prompt:, count:, seed:, noun: nil, temperature: TEMP_PASSAGE)
+      private def run_prompt(prompt:, count:, seed:, noun: nil, temperature: 1)
         output = Evidence::OpenAI::Completion.run(prompt: prompt, count: count, temperature: temperature)
         current_result_texts = results.map(&:text)
 

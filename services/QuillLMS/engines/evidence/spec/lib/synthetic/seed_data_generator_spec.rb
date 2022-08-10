@@ -9,6 +9,7 @@ module Evidence
     let(:nouns) { ['noun1']}
     let(:full_passage_prompt) {"#{passage}. #{stem} "}
     let(:full_passage_response) {['one response']}
+    let(:full_passage_response2) {['one response 2']}
     let(:full_noun_prompt) {"#{passage}. #{stem} #{nouns.first} "}
     let(:full_noun_response) {['two response']}
 
@@ -17,7 +18,7 @@ module Evidence
 
     let(:chunk2_prompt) {"five six. #{stem} "}
     let(:chunk2_response) {['four response']}
-    let(:seed_labels) {['full_passage', 'full_passage_noun_noun1', 'text_chunk_1', 'text_chunk_2']}
+    let(:seed_labels) {['full_passage_temp1','full_passage_temp0.9', 'full_passage_noun_noun1', 'text_chunk_1', 'text_chunk_2']}
 
     let(:data) { Evidence::Synthetic::SeedDataGenerator.new(passage: passage, stem: stem, nouns: nouns)}
 
@@ -26,6 +27,7 @@ module Evidence
       stub_const("Evidence::Synthetic::SeedDataGenerator::FULL_COUNT", 1)
       stub_const("Evidence::Synthetic::SeedDataGenerator::FULL_NOUN_COUNT", 1)
       stub_const("Evidence::Synthetic::SeedDataGenerator::SECTION_COUNT", 1)
+      stub_const("Evidence::Synthetic::SeedDataGenerator::TEMPS_PASSAGE", [1,0.9])
     end
 
     describe "#new" do
@@ -43,6 +45,9 @@ module Evidence
           .with(prompt: full_passage_prompt, count: 1, temperature: 1)
           .and_return(full_passage_response)
         expect(Evidence::OpenAI::Completion).to receive(:run)
+          .with(prompt: full_passage_prompt, count: 1, temperature: 0.9)
+          .and_return(full_passage_response2)
+        expect(Evidence::OpenAI::Completion).to receive(:run)
           .with(prompt: full_noun_prompt, count: 1, temperature: 1)
           .and_return(full_noun_response)
         expect(Evidence::OpenAI::Completion).to receive(:run)
@@ -54,7 +59,7 @@ module Evidence
 
         data.run
 
-        expect(data.results.count).to be(4)
+        expect(data.results.count).to be(5)
         expect(data.results.map(&:seed)).to eq(seed_labels)
       end
     end
