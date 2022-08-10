@@ -3,14 +3,12 @@
 class SyncSalesFormSubmissionToVitallyWorker
   include Sidekiq::Worker
 
+  attr_accessor :sales_form_submission
+
   def perform(sales_form_submission_id)
-    set_sales_form_submission(SalesFormSubmission.find(sales_form_submission_id))
+    @sales_form_submission = SalesFormSubmission.find(sales_form_submission_id)
 
     create_records_in_vitally
-  end
-
-  def set_sales_form_submission(sales_form_submission)
-    @sales_form_submission = sales_form_submission
   end
 
   def create_records_in_vitally
@@ -20,14 +18,10 @@ class SyncSalesFormSubmissionToVitallyWorker
   end
 
   def create_school_or_district_if_none_exist
-    if (@sales_form_submission.district_collection? &&
-        @sales_form_submission.district.present? &&
-        !api.exists?(SalesFormSubmission::VITALLY_DISTRICTS_TYPE, @sales_form_submission.district.id))
-      api.create(SalesFormSubmission::VITALLY_DISTRICTS_TYPE, @sales_form_submission.district.vitally_data)
-    elsif (@sales_form_submission.school_collection? &&
-        @sales_form_submission.school.present? &&
-        !api.exists?(SalesFormSubmission::VITALLY_SCHOOLS_TYPE, @sales_form_submission.school.id))
-      api.create(SalesFormSubmission::VITALLY_SCHOOLS_TYPE, @sales_form_submission.school.vitally_data)
+    if @sales_form_submission.district_collection? && @sales_form_submission.district.present?
+      api.create_unless_exists(SalesFormSubmission::VITALLY_DISTRICTS_TYPE, @sales_form_submission.district.id, @sales_form_submission.district.vitally_data)
+    elsif @sales_form_submission.school_collection? && @sales_form_submission.school.present?
+      api.create_unless_exists(SalesFormSubmission::VITALLY_SCHOOLS_TYPE, @sales_form_submission.school.id, @sales_form_submission.school.vitally_data)
     end
   end
 

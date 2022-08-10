@@ -11,34 +11,38 @@ describe SyncSalesFormSubmissionToVitallyWorker do
   before do
     allow(VitallyRestApi).to receive(:new).and_return(stub_api)
 
-    subject.set_sales_form_submission(sales_form_submission)
+    subject.sales_form_submission=(sales_form_submission)
   end
 
   describe '#perform' do
     it 'should run all three steps: create school/district in vitally, create user in vitally, send opportunity to vitally' do
-      fake_id = 1
-      stub_form = double
+      create(:school, name: sales_form_submission.school_name)
 
-      expect(SalesFormSubmission).to receive(:find).with(fake_id).and_return(stub_form)
-      expect(subject).to receive(:set_sales_form_submission).with(stub_form)
-      expect(subject).to receive(:create_school_or_district_if_none_exist)
-      expect(subject).to receive(:create_vitally_user_if_none_exists)
-      expect(subject).to receive(:send_opportunity_to_vitally)
-    
+      fake_id = 1
+
+      expect(SalesFormSubmission).to receive(:find).with(fake_id).and_return(sales_form_submission)
+
+      # Test expected call through create_school_or_district_if_none_exist
+      expect(stub_api).to receive(:create_unless_exists).with(SalesFormSubmission::VITALLY_SCHOOLS_TYPE, sales_form_submission.school.id, sales_form_submission.school.vitally_data)
+
+      # Test expected call through create_vitally_user_if_non_exists
+      allow(stub_api).to receive(:get).with(SalesFormSubmission::VITALLY_SCHOOLS_TYPE, anything).and_return({})
+      expect(stub_api).to receive(:exists?).with(SalesFormSubmission::VITALLY_USERS_TYPE, anything).and_return(false)
+      expect(stub_api).to receive(:create).with(SalesFormSubmission::VITALLY_USERS_TYPE, anything)
+
+      # Test expected call through send_opportunity_to_vitally
+      expect(stub_api).to receive(:create).with(SalesFormSubmission::VITALLY_SALES_FORMS_TYPE, sales_form_submission.vitally_sales_form_data)
+
       subject.perform(fake_id)
     end
   end
 
   context '#create_school_or_district_if_none_exist' do
-    before do
-      allow(stub_api).to receive(:exists?).and_return(false)
-    end
-
     it 'should create a Vitally district if none exists' do
       district = create(:district)
       sales_form_submission.update(collection_type: SalesFormSubmission::DISTRICT_COLLECTION_TYPE, district_name: district.name)
 
-      expect(stub_api).to receive(:create).with(SalesFormSubmission::VITALLY_DISTRICTS_TYPE, district.vitally_data)
+      expect(stub_api).to receive(:create_unless_exists).with(SalesFormSubmission::VITALLY_DISTRICTS_TYPE, district.id, district.vitally_data)
 
       subject.create_school_or_district_if_none_exist
     end
@@ -47,7 +51,7 @@ describe SyncSalesFormSubmissionToVitallyWorker do
       school = create(:school)
       sales_form_submission.update(collection_type: SalesFormSubmission::SCHOOL_COLLECTION_TYPE, school_name: school.name)
 
-      expect(stub_api).to receive(:create).with(SalesFormSubmission::VITALLY_SCHOOLS_TYPE, school.vitally_data)
+      expect(stub_api).to receive(:create_unless_exists).with(SalesFormSubmission::VITALLY_SCHOOLS_TYPE, school.id, school.vitally_data)
 
       subject.create_school_or_district_if_none_exist
     end
@@ -56,9 +60,10 @@ describe SyncSalesFormSubmissionToVitallyWorker do
   context '#create_vitally_user_if_none_exists' do
     let(:district) { create(:district) }
     let(:user) { create(:user) }
+    let(:clean_sales_form_submission) { create(:sales_form_submission, collection_type: SalesFormSubmission::DISTRICT_COLLECTION_TYPE, district_name: district.name, email: user.email) }
 
     before do
-      sales_form_submission.update(collection_type: SalesFormSubmission::DISTRICT_COLLECTION_TYPE, district_name: district.name, email: user.email)
+      subject.sales_form_submission = clean_sales_form_submission
     end
 
     it 'should create a Vitally user if none exists' do
