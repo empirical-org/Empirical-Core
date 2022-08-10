@@ -93,6 +93,14 @@ const ActivitySurvey = ({ activity, dispatch, sessionID, saveActivitySurveyRespo
 
   React.useEffect(() => { setSelectedMultipleChoiceOptions([]) }, [selectedEmoji])
 
+  function mapMultipleChoiceOptionsForEventParams() {
+    const options = {}
+    positiveMultipleChoiceOptions.forEach(option => options[option] = false)
+    negativeMultipleChoiceOptions.forEach(option => options[option] = false)
+    selectedMultipleChoiceOptions.forEach(option => options[option] = true);
+    return options
+  }
+
   function handleSend() {
     if (!selectedMultipleChoiceOptions.length) { return }
     const activitySurveyResponse = {
@@ -103,10 +111,11 @@ const ActivitySurvey = ({ activity, dispatch, sessionID, saveActivitySurveyRespo
     const trackingParams = {
       activity_name: activity?.title,
       tool_name: "Reading",
-      rating: selectedEmoji
+      rating: selectedEmoji,
+      ...mapMultipleChoiceOptionsForEventParams()
     }
     const callback = () => setSubmittedActivitySurvey(true)
-    dispatch(TrackAnalyticsEvent(Events.STUDENT_RATED_AN_ACTIVITY, trackingParams))
+    dispatch(TrackAnalyticsEvent(Events.STUDENT_RATED_AN_ACTIVITY, {}, trackingParams))
     saveActivitySurveyResponse({ sessionID, activitySurveyResponse, callback, })
   }
 
