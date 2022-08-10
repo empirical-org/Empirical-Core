@@ -42,7 +42,7 @@ module Evidence
           model: MODELS[model_key],
           temperature: temperature,
           prompt: prompt,
-          n: [count, MAX_COUNT].min,
+          n: [count.to_i, MAX_COUNT].min,
           max_tokens: MAX_TOKENS,
           stop: STOP_TOKENS
         }.merge(options_hash)
