@@ -48,7 +48,6 @@ class SegmentAnalytics
     })
   end
 
-  # rubocop:disable Metrics/CyclomaticComplexity
   def track_activity_pack_assignment(teacher_id, unit_id)
     unit = Unit.find_by_id(unit_id)
 
@@ -62,15 +61,6 @@ class SegmentAnalytics
       activity_pack_type = 'Custom'
     end
 
-    # we don't want to have a unique event for teacher-named packs because that would be a potentially infinite number of unique events
-    activity_pack_name_string = unit&.unit_template&.name ? " | #{unit&.unit_template&.name}" : ''
-
-    # first event is for Vitally, which does not show properties
-    track({
-      user_id: teacher_id,
-      event: "#{SegmentIo::BackgroundEvents::ACTIVITY_PACK_ASSIGNMENT} | #{activity_pack_type}#{activity_pack_name_string}"
-    })
-    # second event is for Heap, which does
     track({
       user_id: teacher_id,
       event: SegmentIo::BackgroundEvents::ACTIVITY_PACK_ASSIGNMENT,
@@ -80,7 +70,6 @@ class SegmentAnalytics
       }
     })
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
 
   def track_activity_completion(user, student_id, activity)
     track({
