@@ -80,9 +80,6 @@ const EventDefinitions = [
     'properties'
   ])},
   {STUDENT_RATED_AN_ACTIVITY: new Event('Student rated an activity', [
-    'activity_name',
-    'tool_name',
-    'rating',
     'user_id',
     'properties'
   ])}
