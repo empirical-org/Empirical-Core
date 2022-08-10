@@ -1,6 +1,13 @@
 # frozen_string_literal: true
 
 class AdminsController < ApplicationController
+  around_action :force_writer_db_role,
+    only: [
+      :sign_in_classroom_manager,
+      :sign_in_progress_reports,
+      :sign_in_account_settings
+    ]
+
   before_action :admin!
   before_action :set_teacher,
     :admin_of_this_teacher!,
