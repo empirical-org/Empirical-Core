@@ -1585,6 +1585,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                        To renew your subscription for next year, 
                       <a
                         href="https://quill.org/request_renewal"
+                        rel="noopener noreferrer"
                       >
                         contact us
                       </a>
@@ -6085,6 +6086,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
                        To renew your subscription for next year, 
                       <a
                         href="https://quill.org/request_renewal"
+                        rel="noopener noreferrer"
                       >
                         contact us
                       </a>
