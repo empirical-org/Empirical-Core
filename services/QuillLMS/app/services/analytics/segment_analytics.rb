@@ -48,7 +48,6 @@ class SegmentAnalytics
     })
   end
 
-  # rubocop:disable Metrics/CyclomaticComplexity
   def track_activity_pack_assignment(teacher_id, unit_id)
     unit = Unit.find_by_id(unit_id)
 
@@ -62,15 +61,6 @@ class SegmentAnalytics
       activity_pack_type = 'Custom'
     end
 
-    # we don't want to have a unique event for teacher-named packs because that would be a potentially infinite number of unique events
-    activity_pack_name_string = unit&.unit_template&.name ? " | #{unit&.unit_template&.name}" : ''
-
-    # first event is for Vitally, which does not show properties
-    track({
-      user_id: teacher_id,
-      event: "#{SegmentIo::BackgroundEvents::ACTIVITY_PACK_ASSIGNMENT} | #{activity_pack_type}#{activity_pack_name_string}"
-    })
-    # second event is for Heap, which does
     track({
       user_id: teacher_id,
       event: SegmentIo::BackgroundEvents::ACTIVITY_PACK_ASSIGNMENT,
@@ -80,7 +70,6 @@ class SegmentAnalytics
       }
     })
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
 
   def track_activity_completion(user, student_id, activity)
     track({
@@ -194,7 +183,7 @@ class SegmentAnalytics
     return unless backend.present?
 
     user = User.find(options[:user_id]) if options[:user_id] && options[:user_id] != 0
-    options[:integrations] = user&.segment_integration_rules || default_integration_rules
+    options[:integrations] = user&.segment_user&.integration_rules || default_integration_rules
     backend.track(options)
   end
 
@@ -203,19 +192,12 @@ class SegmentAnalytics
     return unless backend.present?
     return unless user&.teacher?
 
-    backend.identify(identify_params(user))
+    identify_params = user&.segment_user&.identify_params
+    backend.identify(identify_params) if identify_params
   end
 
   private def anonymous_uid
     SecureRandom.urlsafe_base64
-  end
-
-  private def identify_params(user)
-    {
-      user_id: user&.id,
-      traits: user&.segment_identify_traits,
-      integrations: user&.segment_integration_rules
-    }
   end
 
   private def user_traits(user)
