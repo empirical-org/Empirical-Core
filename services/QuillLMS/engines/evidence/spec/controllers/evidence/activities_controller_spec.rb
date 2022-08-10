@@ -334,14 +334,14 @@ module Evidence
         expect(Evidence::ActivitySeedDataWorker).to receive(:perform_async).with(activity.id, [])
         post :seed_data, params: { id: activity.id, nouns: "" }
 
-        expect(response).to  have_http_status(:success)
+        expect(response).to have_http_status(:success)
       end
 
       it "should call background worker with noun string converted to array" do
         expect(Evidence::ActivitySeedDataWorker).to receive(:perform_async).with(activity.id, ['noun1','noun two','noun3'])
         post :seed_data, params: { id: activity.id, nouns: "noun1, noun two,,noun3" }
 
-        expect(response).to  have_http_status(:success)
+        expect(response).to have_http_status(:success)
       end
     end
   end
