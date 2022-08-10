@@ -1,9 +1,12 @@
 # frozen_string_literal: true
 
 class Teachers::ProgressReportsController < ApplicationController
+  layout 'progress_reports'
+
+  around_action :force_writer_db_role, only: [:admin_demo, :coach_demo, :staff_demo, :demo]
+
   before_action :authorize!, except: [:demo, :admin_demo, :coach_demo, :staff_demo]
   before_action :set_vary_header, if: -> { request.xhr? || request.format == :json }
-  layout 'progress_reports'
 
   def demo
     set_user

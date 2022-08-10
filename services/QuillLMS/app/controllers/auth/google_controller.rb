@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Auth::GoogleController < ApplicationController
+  around_action :force_writer_db_role, only: [:offline_access_callback, :online_access_callback]
+
   before_action :set_profile, only: [:offline_access_callback, :online_access_callback]
   before_action :check_for_authorization, only: :online_access_callback
   before_action :set_user,
@@ -8,7 +10,6 @@ class Auth::GoogleController < ApplicationController
     :save_student_from_google_signup,
     :follow_google_redirect,
     only: [:offline_access_callback, :online_access_callback]
-
 
   # Control flow arrives at :offline_access_callback after the user authorized Quill access to their Google account via
   # a prompt. :run_background_jobs can now run since a refresh_token will exist jin the user's auth_credential.

@@ -47,9 +47,6 @@ EmpiricalGrammar::Application.configure do
   # number of complex assets.
   config.assets.debug = true
 
-
-
-
   config.sass.line_comments = true
   config.sass.line_numbers = true
   config.sass.debug_info = true
@@ -75,4 +72,8 @@ EmpiricalGrammar::Application.configure do
   end
 
   config.reload_plugins = true if Rails.env.development?
+
+  config.active_record.database_selector = { delay: 0.seconds }
+  config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
+  config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
 end
