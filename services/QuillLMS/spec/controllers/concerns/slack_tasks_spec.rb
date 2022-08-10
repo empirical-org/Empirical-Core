@@ -8,7 +8,8 @@ describe SlackTasks do
   let(:sales_form_submission) { build(:sales_form_submission) }
 
   before do
-    stub_const('ENV', {'RAILS_ENV' => 'production', 'SLACK_API_WEBHOOK_SALES' => 'slack-test.com'})
+    stub_const('ENV', {'SLACK_API_WEBHOOK_SALES' => 'slack-test.com'})
+    stub_const('SlackTasks::LIVE', true)
 
     # We don't actually want to trigger Vitally callbacks during tests
     allow(sales_form_submission).to receive(:vitally_callbacks)

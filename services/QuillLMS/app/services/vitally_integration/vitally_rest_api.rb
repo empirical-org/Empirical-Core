@@ -2,10 +2,7 @@
 
 class VitallyRestApi
   VITALLY_REST_API_BASE_URL = 'https://rest.vitally.io/resources'
-
-  def initialize
-    @api_key = ENV['VITALLY_REST_API_KEY']
-  end
+  API_KEY = ENV['VITALLY_REST_API_KEY']
 
   def create(type, payload)
     HTTParty.post("#{VITALLY_REST_API_BASE_URL}/#{type}",
@@ -16,6 +13,12 @@ class VitallyRestApi
 
   def exists?(type, id)
     !get(type, id).parsed_response.key?('error')
+  end
+
+  def create_unless_exists(type, id, payload)
+    return if exists?(type, id)
+
+    create(type, payload)
   end
 
   def get(type, id)
@@ -33,7 +36,7 @@ class VitallyRestApi
 
   private def headers
     {
-      Authorization: "Basic #{@api_key}",
+      Authorization: "Basic #{API_KEY}",
       "Content-Type": "application/json"
     }
   end

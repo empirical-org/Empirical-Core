@@ -36,13 +36,13 @@ RSpec.describe IntercomIntegration::WebhooksController, type: :controller do
       end
 
       it 'creates a new sales form submission record' do
-        post :create, body: parsed_payload.to_json
+        post :create, body: parsed_payload.to_json, as: :json
 
         expect(response.status).to eq(200)
       end
 
       it 'creates a new sales form submission record with data from existing user record if user already exists' do
-        expect(SalesFormSubmission).to receive(:new).with(
+        expect(SalesFormSubmission).to receive(:create!).with(
           first_name: user.name.split[0],
           last_name: user.name.split[1],
           email: user.email,
@@ -51,10 +51,12 @@ RSpec.describe IntercomIntegration::WebhooksController, type: :controller do
           school_name: user&.school&.name,
           district_name: user&.school&.district&.name,
           source: SalesFormSubmission::INTERCOM_SOURCE,
-          intercom_link: "https://app.intercom.com/a/apps/v2ms5bl3/users/#{user.id}/all-conversations"
+          intercom_link: "https://app.intercom.com/a/apps/v2ms5bl3/users/#{user.id}/all-conversations",
+          collection_type: SalesFormSubmission::SCHOOL_COLLECTION_TYPE,
+          submission_type: SalesFormSubmission::QUOTE_REQUEST_TYPE
         ).and_call_original
 
-        expect { post :create, body: parsed_payload.to_json }
+        expect { post :create, body: parsed_payload.to_json, as: :json }
           .to change(User, :count).by(0)
 
         expect(response.status).to eq(200)
@@ -63,7 +65,7 @@ RSpec.describe IntercomIntegration::WebhooksController, type: :controller do
       it 'creates a new sales form submission record with data from a newly created user record if user does not exist' do
         user.destroy!
 
-        expect(SalesFormSubmission).to receive(:new).with(
+        expect(SalesFormSubmission).to receive(:create!).with(
           first_name: user.name.split[0],
           last_name: user.name.split[1],
           email: user.email,
@@ -72,10 +74,12 @@ RSpec.describe IntercomIntegration::WebhooksController, type: :controller do
           school_name: user&.school&.name,
           district_name: user&.school&.district&.name,
           source: SalesFormSubmission::INTERCOM_SOURCE,
-          intercom_link: "https://app.intercom.com/a/apps/v2ms5bl3/users/#{user.id}/all-conversations"
+          intercom_link: "https://app.intercom.com/a/apps/v2ms5bl3/users/#{user.id}/all-conversations",
+          collection_type: SalesFormSubmission::SCHOOL_COLLECTION_TYPE,
+          submission_type: SalesFormSubmission::QUOTE_REQUEST_TYPE
         ).and_call_original
 
-        expect { post :create, body: parsed_payload.to_json }
+        expect { post :create, body: parsed_payload.to_json, as: :json }
           .to change(User, :count).by(1)
 
         expect(response.status).to eq(200)

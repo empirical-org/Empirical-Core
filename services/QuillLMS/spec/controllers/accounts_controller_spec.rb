@@ -43,6 +43,8 @@ describe AccountsController, type: :controller do
   describe '#create' do
     context 'when user found' do
       let!(:another_user) { create(:user) }
+      let(:name) { 'Test Name' }
+      let(:password) { 'test123' }
 
       before { session[:temporary_user_id] = another_user.id }
 
@@ -120,8 +122,6 @@ describe AccountsController, type: :controller do
         let!(:user) { create(:user, role: User::SALES_CONTACT) }
 
         it 'should use that same user record but update all the fields' do
-          name = "Test Name"
-          password = "test123"
           expect do
             post :create, params: { user: { name: name, email: user.email, password: password, role: User::TEACHER } }
           end.to change(User, :count).by(0)
@@ -138,8 +138,6 @@ describe AccountsController, type: :controller do
         let(:user) { create(:user, role: User::TEACHER) }
 
         it 'should render a duplicate email error' do
-          name = "Test Name"
-          password = "test123"
           post :create, params: { user: { name: name, email: user.email, password: password, role: User::TEACHER } }
           expect(response.status).to eq 422
           expect(response.body).to eq({errors: {email: ["That email is taken. Try another."]}}.to_json)
