@@ -62,8 +62,14 @@ module StripeIntegration
       stripe_subscription.default_payment_method || stripe_customer.invoice_settings.default_payment_method
     end
 
+    private def stripe_default_source
+      stripe_customer&.default_source
+    end
+
     private def stripe_source
-      Stripe::Customer.retrieve_source(stripe_customer_id, stripe_customer&.default_source)
+      return nil if stripe_default_source.nil?
+
+      Stripe::Customer.retrieve_source(stripe_customer_id, stripe_default_source)
     rescue Stripe::InvalidRequestError
       nil
     end
