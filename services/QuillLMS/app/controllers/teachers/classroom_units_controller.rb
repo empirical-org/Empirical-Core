@@ -3,8 +3,6 @@
 require 'pusher'
 
 class Teachers::ClassroomUnitsController < ApplicationController
-  include QuillAuthentication
-
   respond_to :json
 
   around_action :force_writer_db_role, only: [:launch_lesson]
