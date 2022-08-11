@@ -78,6 +78,8 @@ EmpiricalGrammar::Application.routes.draw do
   # Temporarily disabling this route to prevent creation of SalesFormSubmission
   # records until we resolve how we want to handle 'sales-contact' User roles
   # TODO: re-enable these after we figure that out
+  # Note, when this happens, we'll need to un-comment out all the tests in
+  # spec/controllers/intercom_integration/webhooks_controller_spec.rb
   #namespace :intercom_integration do
   #  post '/webhooks', to: 'webhooks#create'
   #end
