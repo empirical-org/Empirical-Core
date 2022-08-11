@@ -10,6 +10,7 @@ module Evidence
       BLANK = ''
       PERIOD = '.'
       CSV_SUFFIX = '.csv'
+      HTML_TAG_REGEX = /<("[^"]*"|'[^']*'|[^'">])*>/
 
       FULL_COUNT = ENV.fetch('SYNTHETIC_SEED_PASSAGE_COUNT', 128).to_i
       FULL_NOUN_COUNT = ENV.fetch('SYNTHETIC_SEED_NOUN_COUNT', 50).to_i
@@ -48,7 +49,7 @@ module Evidence
 
       def initialize(passage:, stem:, nouns: [])
         @passage = passage
-          .gsub(/<("[^"]*"|'[^']*'|[^'">])*>/, " ") # remove html tags
+          .gsub(HTML_TAG_REGEX, " ") # remove html tags
           .gsub("&#x27;", "'") # replace html single quotes
           .gsub("&quot;","\"") # replace html double quotes
           .gsub(/\s+/," ")
