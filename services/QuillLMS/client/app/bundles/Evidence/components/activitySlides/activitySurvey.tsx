@@ -95,9 +95,18 @@ const ActivitySurvey = ({ activity, dispatch, sessionID, saveActivitySurveyRespo
 
   function mapMultipleChoiceOptionsForEventParams() {
     const options = {}
-    positiveMultipleChoiceOptions.forEach(option => options[option] = false)
-    negativeMultipleChoiceOptions.forEach(option => options[option] = false)
-    selectedMultipleChoiceOptions.forEach(option => options[option] = true);
+    positiveMultipleChoiceOptions.forEach(option => {
+      const key = option.split(' ').join('_')
+      options[key] = false
+    })
+    negativeMultipleChoiceOptions.forEach(option => {
+      const key = option.split(' ').join('_')
+      options[key] = false
+    })
+    selectedMultipleChoiceOptions.forEach(option => {
+      const key = option.split(' ').join('_')
+      options[key] = true
+    });
     return options
   }
 
