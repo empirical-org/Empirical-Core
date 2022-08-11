@@ -25,6 +25,8 @@ class SyncSalesFormSubmissionToVitallyWorker
     end
   end
 
+  # TODO: Reaxamine the logic we use here after we figure out what we want to do
+  # regarding 'sales-contact' User roles.
   def create_vitally_user_if_none_exists
     user = @sales_form_submission.find_or_create_user
 

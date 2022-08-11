@@ -93,6 +93,8 @@ class SalesFormSubmission < ApplicationRecord
     collection_type == SCHOOL_COLLECTION_TYPE
   end
 
+  # TODO: Reaxamine the logic we use here after we figure out what we want to do
+  # regarding 'sales-contact' User roles.
   def find_or_create_user
     @user ||= User.find_by(email: email)
     return @user if @user.present?

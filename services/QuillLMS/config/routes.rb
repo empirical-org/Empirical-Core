@@ -75,9 +75,12 @@ EmpiricalGrammar::Application.routes.draw do
     post '/webhooks', to: 'webhooks#create'
   end
 
-  namespace :intercom_integration do
-    post '/webhooks', to: 'webhooks#create'
-  end
+  # Temporarily disabling this route to prevent creation of SalesFormSubmission
+  # records until we resolve how we want to handle 'sales-contact' User roles
+  # TODO: re-enable these after we figure that out
+  #namespace :intercom_integration do
+  #  post '/webhooks', to: 'webhooks#create'
+  #end
 
   get 'subscriptions/retrieve_stripe_subscription/:stripe_invoice_id',
     to: 'subscriptions#retrieve_stripe_subscription',

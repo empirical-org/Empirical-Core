@@ -74,6 +74,8 @@ module IntercomIntegration
       raise(UnauthorizedIntercomWebhookCallError, "unauthorized call of Intercom webhook")
     end
 
+    # TODO: Reaxamine the logic we use here after we figure out what we want to do
+    # regarding 'sales-contact' User roles.
     private def find_or_create_user
       user = User.find_by(id: user_params["user_id"]) unless user_params["anonymous"]
       return user if user.present?
