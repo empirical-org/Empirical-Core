@@ -79,8 +79,8 @@ const SeedDataForm = ({ history, match }) => {
       />
       <div className="button-and-id-container">
         <button className="quill-button fun large primary contained focus-on-light" id="activity-submit-button" onClick={handleCreateSeedData} type="submit">
-          <span role="img" aria-label="robot">🤖</span>
-          <span role="img" aria-label="sunflower">🌻</span>
+          <span aria-label="robot" role="img">🤖</span>
+          <span aria-label="sunflower" role="img">🌻</span>
 
           Create Seed Data
         </button>
