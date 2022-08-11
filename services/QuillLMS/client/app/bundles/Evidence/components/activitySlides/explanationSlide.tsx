@@ -2,16 +2,24 @@ import * as React from "react";
 
 import Footer from './footer';
 
+import useFocus from '../../../Shared/hooks/useFocus'
+
 export const ExplanationSlide = ({ slideData, onHandleClick }) => {
   const { buttonText, header, imageData, isBeta, step, subtext } = slideData;
   const { imageAlt, imageUrl } = imageData;
 
+  const [containerRef, setContainerFocus] = useFocus()
+
+  React.useEffect(() => {
+    setContainerFocus()
+  }, [slideData])
+
   return(
-    <div aria-live="polite" className="explanation-slide-container">
-      <section id="information-section">
-        <p className="subtext">Good to know</p>
+    <div className="explanation-slide-container">
+      <section id="information-section" ref={containerRef} tabIndex={-1}>
+        <p aria-hidden={true} className="subtext">Good to know</p>
         <section id="header-container">
-          <p id="header">{header}</p>
+          <h1>{header}</h1>
           {isBeta && <div id="beta-tag">BETA</div>}
         </section>
         <img alt={imageAlt} id="image" src={`${process.env.CDN_URL}/${imageUrl}`} />
