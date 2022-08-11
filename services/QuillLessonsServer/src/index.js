@@ -36,7 +36,7 @@ dotenv.config();
 
 const app = http.createServer(requestHandler);
 const io = socketio(app);
-io.adapter(redis(process.env.REDISTOGO_URL));
+io.adapter(redis(process.env.REDISCLOUD_URL));
 const port = process.env.PORT;
 
 import {
@@ -130,7 +130,7 @@ function disconnect({
   connection,
 }) {
   if (!currentConnections[client.id]) { return }
-  
+
   if (currentConnections[client.id].role === 'teacher') {
     let session = {
       id: currentConnections[client.id].classroomSessionId,

@@ -349,47 +349,17 @@ exports[`RecommendationsTable component should render when no students have comp
                   <span>
                     Compound-Complex Sentences
                   </span>
-                  <Tooltip
-                    isTabbable={true}
-                    tooltipText="<a href='/activities/packs/320' target=\\"_blank\\">Preview the activity pack</a>"
-                    tooltipTriggerText={
-                      <img
-                        alt="Question mark icon"
-                        src="undefined/images/icons/icons-help.svg"
-                      />
-                    }
+                  <a
+                    aria-label="Preview the activity pack"
+                    href="/activities/packs/320"
+                    rel="noopener noreferrer"
+                    target="_blank"
                   >
-                    <span
-                      aria-hidden={false}
-                      className="quill-tooltip-trigger "
-                      role="tooltip"
-                    >
-                      <span
-                        className="undefined"
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onMouseEnter={[Function]}
-                        onMouseLeave={[Function]}
-                        role="button"
-                        tabIndex={0}
-                      >
-                        <img
-                          alt="Question mark icon"
-                          src="undefined/images/icons/icons-help.svg"
-                        />
-                      </span>
-                      <span
-                        className="quill-tooltip-wrapper"
-                      >
-                        <span
-                          aria-live="polite"
-                          className="quill-tooltip"
-                        />
-                      </span>
-                    </span>
-                  </Tooltip>
+                    <img
+                      alt=""
+                      src="undefined/images/icons/icons-help.svg"
+                    />
+                  </a>
                 </div>
                 <span
                   className="activity-count"
@@ -408,47 +378,17 @@ exports[`RecommendationsTable component should render when no students have comp
                   <span>
                     Appositive Phrases
                   </span>
-                  <Tooltip
-                    isTabbable={true}
-                    tooltipText="<a href='/activities/packs/322' target=\\"_blank\\">Preview the activity pack</a>"
-                    tooltipTriggerText={
-                      <img
-                        alt="Question mark icon"
-                        src="undefined/images/icons/icons-help.svg"
-                      />
-                    }
+                  <a
+                    aria-label="Preview the activity pack"
+                    href="/activities/packs/322"
+                    rel="noopener noreferrer"
+                    target="_blank"
                   >
-                    <span
-                      aria-hidden={false}
-                      className="quill-tooltip-trigger "
-                      role="tooltip"
-                    >
-                      <span
-                        className="undefined"
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onMouseEnter={[Function]}
-                        onMouseLeave={[Function]}
-                        role="button"
-                        tabIndex={0}
-                      >
-                        <img
-                          alt="Question mark icon"
-                          src="undefined/images/icons/icons-help.svg"
-                        />
-                      </span>
-                      <span
-                        className="quill-tooltip-wrapper"
-                      >
-                        <span
-                          aria-live="polite"
-                          className="quill-tooltip"
-                        />
-                      </span>
-                    </span>
-                  </Tooltip>
+                    <img
+                      alt=""
+                      src="undefined/images/icons/icons-help.svg"
+                    />
+                  </a>
                 </div>
                 <span
                   className="activity-count"
@@ -467,47 +407,17 @@ exports[`RecommendationsTable component should render when no students have comp
                   <span>
                     Relative Clauses
                   </span>
-                  <Tooltip
-                    isTabbable={true}
-                    tooltipText="<a href='/activities/packs/324' target=\\"_blank\\">Preview the activity pack</a>"
-                    tooltipTriggerText={
-                      <img
-                        alt="Question mark icon"
-                        src="undefined/images/icons/icons-help.svg"
-                      />
-                    }
+                  <a
+                    aria-label="Preview the activity pack"
+                    href="/activities/packs/324"
+                    rel="noopener noreferrer"
+                    target="_blank"
                   >
-                    <span
-                      aria-hidden={false}
-                      className="quill-tooltip-trigger "
-                      role="tooltip"
-                    >
-                      <span
-                        className="undefined"
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onMouseEnter={[Function]}
-                        onMouseLeave={[Function]}
-                        role="button"
-                        tabIndex={0}
-                      >
-                        <img
-                          alt="Question mark icon"
-                          src="undefined/images/icons/icons-help.svg"
-                        />
-                      </span>
-                      <span
-                        className="quill-tooltip-wrapper"
-                      >
-                        <span
-                          aria-live="polite"
-                          className="quill-tooltip"
-                        />
-                      </span>
-                    </span>
-                  </Tooltip>
+                    <img
+                      alt=""
+                      src="undefined/images/icons/icons-help.svg"
+                    />
+                  </a>
                 </div>
                 <span
                   className="activity-count"
@@ -526,47 +436,17 @@ exports[`RecommendationsTable component should render when no students have comp
                   <span>
                     Participial Phrases
                   </span>
-                  <Tooltip
-                    isTabbable={true}
-                    tooltipText="<a href='/activities/packs/327' target=\\"_blank\\">Preview the activity pack</a>"
-                    tooltipTriggerText={
-                      <img
-                        alt="Question mark icon"
-                        src="undefined/images/icons/icons-help.svg"
-                      />
-                    }
+                  <a
+                    aria-label="Preview the activity pack"
+                    href="/activities/packs/327"
+                    rel="noopener noreferrer"
+                    target="_blank"
                   >
-                    <span
-                      aria-hidden={false}
-                      className="quill-tooltip-trigger "
-                      role="tooltip"
-                    >
-                      <span
-                        className="undefined"
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onMouseEnter={[Function]}
-                        onMouseLeave={[Function]}
-                        role="button"
-                        tabIndex={0}
-                      >
-                        <img
-                          alt="Question mark icon"
-                          src="undefined/images/icons/icons-help.svg"
-                        />
-                      </span>
-                      <span
-                        className="quill-tooltip-wrapper"
-                      >
-                        <span
-                          aria-live="polite"
-                          className="quill-tooltip"
-                        />
-                      </span>
-                    </span>
-                  </Tooltip>
+                    <img
+                      alt=""
+                      src="undefined/images/icons/icons-help.svg"
+                    />
+                  </a>
                 </div>
                 <span
                   className="activity-count"
@@ -585,47 +465,17 @@ exports[`RecommendationsTable component should render when no students have comp
                   <span>
                     Parallel Structure
                   </span>
-                  <Tooltip
-                    isTabbable={true}
-                    tooltipText="<a href='/activities/packs/329' target=\\"_blank\\">Preview the activity pack</a>"
-                    tooltipTriggerText={
-                      <img
-                        alt="Question mark icon"
-                        src="undefined/images/icons/icons-help.svg"
-                      />
-                    }
+                  <a
+                    aria-label="Preview the activity pack"
+                    href="/activities/packs/329"
+                    rel="noopener noreferrer"
+                    target="_blank"
                   >
-                    <span
-                      aria-hidden={false}
-                      className="quill-tooltip-trigger "
-                      role="tooltip"
-                    >
-                      <span
-                        className="undefined"
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onMouseEnter={[Function]}
-                        onMouseLeave={[Function]}
-                        role="button"
-                        tabIndex={0}
-                      >
-                        <img
-                          alt="Question mark icon"
-                          src="undefined/images/icons/icons-help.svg"
-                        />
-                      </span>
-                      <span
-                        className="quill-tooltip-wrapper"
-                      >
-                        <span
-                          aria-live="polite"
-                          className="quill-tooltip"
-                        />
-                      </span>
-                    </span>
-                  </Tooltip>
+                    <img
+                      alt=""
+                      src="undefined/images/icons/icons-help.svg"
+                    />
+                  </a>
                 </div>
                 <span
                   className="activity-count"
@@ -644,47 +494,17 @@ exports[`RecommendationsTable component should render when no students have comp
                   <span>
                     Advanced Combining
                   </span>
-                  <Tooltip
-                    isTabbable={true}
-                    tooltipText="<a href='/activities/packs/331' target=\\"_blank\\">Preview the activity pack</a>"
-                    tooltipTriggerText={
-                      <img
-                        alt="Question mark icon"
-                        src="undefined/images/icons/icons-help.svg"
-                      />
-                    }
+                  <a
+                    aria-label="Preview the activity pack"
+                    href="/activities/packs/331"
+                    rel="noopener noreferrer"
+                    target="_blank"
                   >
-                    <span
-                      aria-hidden={false}
-                      className="quill-tooltip-trigger "
-                      role="tooltip"
-                    >
-                      <span
-                        className="undefined"
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onMouseEnter={[Function]}
-                        onMouseLeave={[Function]}
-                        role="button"
-                        tabIndex={0}
-                      >
-                        <img
-                          alt="Question mark icon"
-                          src="undefined/images/icons/icons-help.svg"
-                        />
-                      </span>
-                      <span
-                        className="quill-tooltip-wrapper"
-                      >
-                        <span
-                          aria-live="polite"
-                          className="quill-tooltip"
-                        />
-                      </span>
-                    </span>
-                  </Tooltip>
+                    <img
+                      alt=""
+                      src="undefined/images/icons/icons-help.svg"
+                    />
+                  </a>
                 </div>
                 <span
                   className="activity-count"
@@ -11446,47 +11266,17 @@ exports[`RecommendationsTable component should render when there are recommendat
                   <span>
                     Capitalization
                   </span>
-                  <Tooltip
-                    isTabbable={true}
-                    tooltipText="<a href='/activities/packs/308' target=\\"_blank\\">Preview the activity pack</a>"
-                    tooltipTriggerText={
-                      <img
-                        alt="Question mark icon"
-                        src="undefined/images/icons/icons-help.svg"
-                      />
-                    }
+                  <a
+                    aria-label="Preview the activity pack"
+                    href="/activities/packs/308"
+                    rel="noopener noreferrer"
+                    target="_blank"
                   >
-                    <span
-                      aria-hidden={false}
-                      className="quill-tooltip-trigger "
-                      role="tooltip"
-                    >
-                      <span
-                        className="undefined"
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onMouseEnter={[Function]}
-                        onMouseLeave={[Function]}
-                        role="button"
-                        tabIndex={0}
-                      >
-                        <img
-                          alt="Question mark icon"
-                          src="undefined/images/icons/icons-help.svg"
-                        />
-                      </span>
-                      <span
-                        className="quill-tooltip-wrapper"
-                      >
-                        <span
-                          aria-live="polite"
-                          className="quill-tooltip"
-                        />
-                      </span>
-                    </span>
-                  </Tooltip>
+                    <img
+                      alt=""
+                      src="undefined/images/icons/icons-help.svg"
+                    />
+                  </a>
                 </div>
                 <span
                   className="activity-count"
@@ -11505,47 +11295,17 @@ exports[`RecommendationsTable component should render when there are recommendat
                   <span>
                     Plural and Possessive Nouns
                   </span>
-                  <Tooltip
-                    isTabbable={true}
-                    tooltipText="<a href='/activities/packs/310' target=\\"_blank\\">Preview the activity pack</a>"
-                    tooltipTriggerText={
-                      <img
-                        alt="Question mark icon"
-                        src="undefined/images/icons/icons-help.svg"
-                      />
-                    }
+                  <a
+                    aria-label="Preview the activity pack"
+                    href="/activities/packs/310"
+                    rel="noopener noreferrer"
+                    target="_blank"
                   >
-                    <span
-                      aria-hidden={false}
-                      className="quill-tooltip-trigger "
-                      role="tooltip"
-                    >
-                      <span
-                        className="undefined"
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onMouseEnter={[Function]}
-                        onMouseLeave={[Function]}
-                        role="button"
-                        tabIndex={0}
-                      >
-                        <img
-                          alt="Question mark icon"
-                          src="undefined/images/icons/icons-help.svg"
-                        />
-                      </span>
-                      <span
-                        className="quill-tooltip-wrapper"
-                      >
-                        <span
-                          aria-live="polite"
-                          className="quill-tooltip"
-                        />
-                      </span>
-                    </span>
-                  </Tooltip>
+                    <img
+                      alt=""
+                      src="undefined/images/icons/icons-help.svg"
+                    />
+                  </a>
                 </div>
                 <span
                   className="activity-count"
@@ -11564,47 +11324,17 @@ exports[`RecommendationsTable component should render when there are recommendat
                   <span>
                     Adjectives and Adverbs
                   </span>
-                  <Tooltip
-                    isTabbable={true}
-                    tooltipText="<a href='/activities/packs/312' target=\\"_blank\\">Preview the activity pack</a>"
-                    tooltipTriggerText={
-                      <img
-                        alt="Question mark icon"
-                        src="undefined/images/icons/icons-help.svg"
-                      />
-                    }
+                  <a
+                    aria-label="Preview the activity pack"
+                    href="/activities/packs/312"
+                    rel="noopener noreferrer"
+                    target="_blank"
                   >
-                    <span
-                      aria-hidden={false}
-                      className="quill-tooltip-trigger "
-                      role="tooltip"
-                    >
-                      <span
-                        className="undefined"
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onMouseEnter={[Function]}
-                        onMouseLeave={[Function]}
-                        role="button"
-                        tabIndex={0}
-                      >
-                        <img
-                          alt="Question mark icon"
-                          src="undefined/images/icons/icons-help.svg"
-                        />
-                      </span>
-                      <span
-                        className="quill-tooltip-wrapper"
-                      >
-                        <span
-                          aria-live="polite"
-                          className="quill-tooltip"
-                        />
-                      </span>
-                    </span>
-                  </Tooltip>
+                    <img
+                      alt=""
+                      src="undefined/images/icons/icons-help.svg"
+                    />
+                  </a>
                 </div>
                 <span
                   className="activity-count"
@@ -11623,47 +11353,17 @@ exports[`RecommendationsTable component should render when there are recommendat
                   <span>
                     Prepositional Phrases
                   </span>
-                  <Tooltip
-                    isTabbable={true}
-                    tooltipText="<a href='/activities/packs/314' target=\\"_blank\\">Preview the activity pack</a>"
-                    tooltipTriggerText={
-                      <img
-                        alt="Question mark icon"
-                        src="undefined/images/icons/icons-help.svg"
-                      />
-                    }
+                  <a
+                    aria-label="Preview the activity pack"
+                    href="/activities/packs/314"
+                    rel="noopener noreferrer"
+                    target="_blank"
                   >
-                    <span
-                      aria-hidden={false}
-                      className="quill-tooltip-trigger "
-                      role="tooltip"
-                    >
-                      <span
-                        className="undefined"
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onMouseEnter={[Function]}
-                        onMouseLeave={[Function]}
-                        role="button"
-                        tabIndex={0}
-                      >
-                        <img
-                          alt="Question mark icon"
-                          src="undefined/images/icons/icons-help.svg"
-                        />
-                      </span>
-                      <span
-                        className="quill-tooltip-wrapper"
-                      >
-                        <span
-                          aria-live="polite"
-                          className="quill-tooltip"
-                        />
-                      </span>
-                    </span>
-                  </Tooltip>
+                    <img
+                      alt=""
+                      src="undefined/images/icons/icons-help.svg"
+                    />
+                  </a>
                 </div>
                 <span
                   className="activity-count"
@@ -11682,47 +11382,17 @@ exports[`RecommendationsTable component should render when there are recommendat
                   <span>
                     Compound Subjects, Objects, and Predicates
                   </span>
-                  <Tooltip
-                    isTabbable={true}
-                    tooltipText="<a href='/activities/packs/316' target=\\"_blank\\">Preview the activity pack</a>"
-                    tooltipTriggerText={
-                      <img
-                        alt="Question mark icon"
-                        src="undefined/images/icons/icons-help.svg"
-                      />
-                    }
+                  <a
+                    aria-label="Preview the activity pack"
+                    href="/activities/packs/316"
+                    rel="noopener noreferrer"
+                    target="_blank"
                   >
-                    <span
-                      aria-hidden={false}
-                      className="quill-tooltip-trigger "
-                      role="tooltip"
-                    >
-                      <span
-                        className="undefined"
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onMouseEnter={[Function]}
-                        onMouseLeave={[Function]}
-                        role="button"
-                        tabIndex={0}
-                      >
-                        <img
-                          alt="Question mark icon"
-                          src="undefined/images/icons/icons-help.svg"
-                        />
-                      </span>
-                      <span
-                        className="quill-tooltip-wrapper"
-                      >
-                        <span
-                          aria-live="polite"
-                          className="quill-tooltip"
-                        />
-                      </span>
-                    </span>
-                  </Tooltip>
+                    <img
+                      alt=""
+                      src="undefined/images/icons/icons-help.svg"
+                    />
+                  </a>
                 </div>
                 <span
                   className="activity-count"
@@ -11741,47 +11411,17 @@ exports[`RecommendationsTable component should render when there are recommendat
                   <span>
                     Commonly Confused Words
                   </span>
-                  <Tooltip
-                    isTabbable={true}
-                    tooltipText="<a href='/activities/packs/318' target=\\"_blank\\">Preview the activity pack</a>"
-                    tooltipTriggerText={
-                      <img
-                        alt="Question mark icon"
-                        src="undefined/images/icons/icons-help.svg"
-                      />
-                    }
+                  <a
+                    aria-label="Preview the activity pack"
+                    href="/activities/packs/318"
+                    rel="noopener noreferrer"
+                    target="_blank"
                   >
-                    <span
-                      aria-hidden={false}
-                      className="quill-tooltip-trigger "
-                      role="tooltip"
-                    >
-                      <span
-                        className="undefined"
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onMouseEnter={[Function]}
-                        onMouseLeave={[Function]}
-                        role="button"
-                        tabIndex={0}
-                      >
-                        <img
-                          alt="Question mark icon"
-                          src="undefined/images/icons/icons-help.svg"
-                        />
-                      </span>
-                      <span
-                        className="quill-tooltip-wrapper"
-                      >
-                        <span
-                          aria-live="polite"
-                          className="quill-tooltip"
-                        />
-                      </span>
-                    </span>
-                  </Tooltip>
+                    <img
+                      alt=""
+                      src="undefined/images/icons/icons-help.svg"
+                    />
+                  </a>
                 </div>
                 <span
                   className="activity-count"

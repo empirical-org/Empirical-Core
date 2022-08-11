@@ -11,11 +11,29 @@
     .filter-section {
       padding-top: 24px;
       margin-bottom: 8px;
+      min-width: 288px;
       &.readability, &.ccss-grade-level, &.grade-level {
         .quill-tooltip-wrapper {
           left: 302px;
           transform: unset;
           top: -20px;
+        }
+      }
+      &.grade-level {
+        label {
+          margin-bottom: 20px;
+        }
+        .checkbox-and-slider {
+          display: flex;
+          align-items: flex-start;
+        }
+        .quill-checkbox {
+          z-index: 2;
+          margin-top: -7px;
+          margin-right: 8px;
+        }
+        .slider-wrapper .slider-container {
+          width: 234px;
         }
       }
       .tooltip-trigger-filter-section-content:hover, .quill-tooltip-trigger.active {
@@ -86,18 +104,26 @@
           line-height: 1;
           color: #06806b;
         }
-        .two-thumb-slider-container {
+        .slider-container {
           width: 256px;
           padding-left: 8px;
           padding-bottom: 20px;
         }
       }
-      #readability-grade-level-slider, #grade-level-slider {
+      #readability-grade-level-slider {
         .first-mark {
           left: -8px !important;
         }
         .last-mark {
           left: 220px !important;
+        }
+      }
+      #grade-level-slider {
+        .first-mark {
+          left: -8px !important;
+        }
+        .last-mark {
+          left: 197px !important;
         }
       }
       #ccss-grade-level-slider {

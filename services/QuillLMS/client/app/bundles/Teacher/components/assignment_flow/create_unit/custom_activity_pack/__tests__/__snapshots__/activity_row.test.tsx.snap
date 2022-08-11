@@ -74,97 +74,73 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
 >
   <section
     className="activity-row not-expanded not-selected  "
+    onClick={[Function]}
   >
-    <ActivityRowTooltip
-      activity={
-        Object {
-          "activity_category": Object {
-            "id": 20,
-            "name": "History: Maya, Aztec, Inca",
-          },
-          "activity_category_id": 20,
-          "activity_category_name": "History: Maya, Aztec, Inca",
-          "activity_classification": Object {
-            "alias": "Quill Connect",
-            "description": "Combine Sentences",
-            "id": 5,
-            "key": "connect",
-          },
-          "anonymous_path": "/activity_sessions/anonymous?activity_id=627",
-          "content_partners": Array [
-            Object {
-              "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
-              "id": 1,
-              "name": "Core Knowledge",
-            },
-          ],
-          "description": "Combine sentences to create 6 sentences about Hernan Cortes. This is an advanced, un-cued sentence combining activity.",
-          "flags": "{production}",
-          "id": 627,
-          "name": "Hernan Cortes",
-          "readability_grade_level": "8th-9th",
-          "standard_level": Object {
-            "id": 13,
-            "name": "7th Grade CCSS",
-          },
-          "standard_level_name": "7th Grade CCSS",
-          "standard_name": "87",
-          "topics": Array [
-            Object {
-              "id": 16,
-              "level": 3,
-              "name": "History",
-              "parent_id": null,
-            },
-            Object {
-              "id": 93,
-              "level": 2,
-              "name": "World Historical Figures",
-              "parent_id": 16,
-            },
-            Object {
-              "id": 171,
-              "level": 0,
-              "name": "Hernan Cortes & the Aztec Empire",
-              "parent_id": null,
-            },
-            Object {
-              "id": 172,
-              "level": 1,
-              "name": "Maya, Aztec, & Inca Civilizations",
-              "parent_id": null,
-            },
-          ],
-          "uid": "-KqcjgL00W0ro-Wr4Bts",
-        }
-      }
-      showTooltip={false}
-    >
-      <span />
-    </ActivityRowTooltip>
     <div
       className="first-line"
     >
       <div
         className="name-and-checkbox-wrapper"
       >
-        <button
-          className="interactive-wrapper"
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-          tabIndex={-1}
-          type="button"
+        <Tooltip
+          isTabbable={true}
+          tooltipText="<div class=\\"tooltip-line\\"><img alt=\\"Book icon\\" src=\\"undefined/images/icons/description-readability.svg\\"/><div><span><span class=\\"grade-range\\">8th-9th</span><span>Text Readability Level</span></span><br/><br/><span>Quill recommends using activities where the text readability level is the same or lower than the student’s reading level so that the student can focus on building their writing skills.</span></div></div><div class=\\"tooltip-line\\"><img alt=\\"Information icon\\" src=\\"undefined/images/icons/description-information.svg\\"/><span>Combine sentences to create 6 sentences about Hernan Cortes. This is an advanced, un-cued sentence combining activity.</span></div><div class=\\"tooltip-line\\"><img alt=\\"Copyright icon\\" src=\\"undefined/images/icons/description-copyright.svg\\"/><span>Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.</span></div>"
+          tooltipTriggerText={
+            <h2>
+              <img
+                alt="Target representing Quill Connect"
+                src="undefined/images/icons/description-connect.svg"
+              />
+              <a
+                href="/activity_sessions/anonymous?activity_id=627"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Hernan Cortes
+              </a>
+            </h2>
+          }
         >
-          <h2>
-            <img
-              alt="Target representing Quill Connect"
-              src="undefined/images/icons/description-connect.svg"
-            />
-            <span>
-              Hernan Cortes
+          <span
+            aria-hidden={false}
+            className="quill-tooltip-trigger "
+            role="tooltip"
+          >
+            <span
+              className="undefined"
+              onBlur={[Function]}
+              onClick={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              role="button"
+              tabIndex={0}
+            >
+              <h2>
+                <img
+                  alt="Target representing Quill Connect"
+                  src="undefined/images/icons/description-connect.svg"
+                />
+                <a
+                  href="/activity_sessions/anonymous?activity_id=627"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  Hernan Cortes
+                </a>
+              </h2>
             </span>
-          </h2>
-        </button>
+            <span
+              className="quill-tooltip-wrapper"
+            >
+              <span
+                aria-live="polite"
+                className="quill-tooltip"
+              />
+            </span>
+          </span>
+        </Tooltip>
       </div>
       <div
         className="buttons-wrapper"
@@ -299,22 +275,22 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
             <span>
               Grades: 
               <span
-                className="grade-level"
+                className="grade-level filtered"
               >
                 4 - 5
               </span>
               <span
-                className="grade-level"
+                className="grade-level filtered"
               >
                 6 - 7
               </span>
               <span
-                className="grade-level"
+                className="grade-level filtered"
               >
                 8 - 9
               </span>
               <span
-                className="grade-level"
+                className="grade-level filtered"
               >
                 10 - 12
               </span>
@@ -548,97 +524,73 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
 >
   <section
     className="activity-row not-expanded selected  "
+    onClick={[Function]}
   >
-    <ActivityRowTooltip
-      activity={
-        Object {
-          "activity_category": Object {
-            "id": 20,
-            "name": "History: Maya, Aztec, Inca",
-          },
-          "activity_category_id": 20,
-          "activity_category_name": "History: Maya, Aztec, Inca",
-          "activity_classification": Object {
-            "alias": "Quill Connect",
-            "description": "Combine Sentences",
-            "id": 5,
-            "key": "connect",
-          },
-          "anonymous_path": "/activity_sessions/anonymous?activity_id=627",
-          "content_partners": Array [
-            Object {
-              "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
-              "id": 1,
-              "name": "Core Knowledge",
-            },
-          ],
-          "description": "Combine sentences to create 6 sentences about Hernan Cortes. This is an advanced, un-cued sentence combining activity.",
-          "flags": "{production}",
-          "id": 627,
-          "name": "Hernan Cortes",
-          "readability_grade_level": "8th-9th",
-          "standard_level": Object {
-            "id": 13,
-            "name": "7th Grade CCSS",
-          },
-          "standard_level_name": "7th Grade CCSS",
-          "standard_name": "87",
-          "topics": Array [
-            Object {
-              "id": 16,
-              "level": 3,
-              "name": "History",
-              "parent_id": null,
-            },
-            Object {
-              "id": 93,
-              "level": 2,
-              "name": "World Historical Figures",
-              "parent_id": 16,
-            },
-            Object {
-              "id": 171,
-              "level": 0,
-              "name": "Hernan Cortes & the Aztec Empire",
-              "parent_id": null,
-            },
-            Object {
-              "id": 172,
-              "level": 1,
-              "name": "Maya, Aztec, & Inca Civilizations",
-              "parent_id": null,
-            },
-          ],
-          "uid": "-KqcjgL00W0ro-Wr4Bts",
-        }
-      }
-      showTooltip={false}
-    >
-      <span />
-    </ActivityRowTooltip>
     <div
       className="first-line"
     >
       <div
         className="name-and-checkbox-wrapper"
       >
-        <button
-          className="interactive-wrapper"
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-          tabIndex={-1}
-          type="button"
+        <Tooltip
+          isTabbable={true}
+          tooltipText="<div class=\\"tooltip-line\\"><img alt=\\"Book icon\\" src=\\"undefined/images/icons/description-readability.svg\\"/><div><span><span class=\\"grade-range\\">8th-9th</span><span>Text Readability Level</span></span><br/><br/><span>Quill recommends using activities where the text readability level is the same or lower than the student’s reading level so that the student can focus on building their writing skills.</span></div></div><div class=\\"tooltip-line\\"><img alt=\\"Information icon\\" src=\\"undefined/images/icons/description-information.svg\\"/><span>Combine sentences to create 6 sentences about Hernan Cortes. This is an advanced, un-cued sentence combining activity.</span></div><div class=\\"tooltip-line\\"><img alt=\\"Copyright icon\\" src=\\"undefined/images/icons/description-copyright.svg\\"/><span>Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.</span></div>"
+          tooltipTriggerText={
+            <h2>
+              <img
+                alt="Target representing Quill Connect"
+                src="undefined/images/icons/description-connect.svg"
+              />
+              <a
+                href="/activity_sessions/anonymous?activity_id=627"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Hernan Cortes
+              </a>
+            </h2>
+          }
         >
-          <h2>
-            <img
-              alt="Target representing Quill Connect"
-              src="undefined/images/icons/description-connect.svg"
-            />
-            <span>
-              Hernan Cortes
+          <span
+            aria-hidden={false}
+            className="quill-tooltip-trigger "
+            role="tooltip"
+          >
+            <span
+              className="undefined"
+              onBlur={[Function]}
+              onClick={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              role="button"
+              tabIndex={0}
+            >
+              <h2>
+                <img
+                  alt="Target representing Quill Connect"
+                  src="undefined/images/icons/description-connect.svg"
+                />
+                <a
+                  href="/activity_sessions/anonymous?activity_id=627"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  Hernan Cortes
+                </a>
+              </h2>
             </span>
-          </h2>
-        </button>
+            <span
+              className="quill-tooltip-wrapper"
+            >
+              <span
+                aria-live="polite"
+                className="quill-tooltip"
+              />
+            </span>
+          </span>
+        </Tooltip>
       </div>
       <div
         className="buttons-wrapper"
@@ -773,22 +725,22 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
             <span>
               Grades: 
               <span
-                className="grade-level"
+                className="grade-level filtered"
               >
                 4 - 5
               </span>
               <span
-                className="grade-level"
+                className="grade-level filtered"
               >
                 6 - 7
               </span>
               <span
-                className="grade-level"
+                className="grade-level filtered"
               >
                 8 - 9
               </span>
               <span
-                className="grade-level"
+                className="grade-level filtered"
               >
                 10 - 12
               </span>
@@ -1022,74 +974,8 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
 >
   <section
     className="activity-row not-expanded not-selected  "
+    onClick={[Function]}
   >
-    <ActivityRowTooltip
-      activity={
-        Object {
-          "activity_category": Object {
-            "id": 20,
-            "name": "History: Maya, Aztec, Inca",
-          },
-          "activity_category_id": 20,
-          "activity_category_name": "History: Maya, Aztec, Inca",
-          "activity_classification": Object {
-            "alias": "Quill Connect",
-            "description": "Combine Sentences",
-            "id": 5,
-            "key": "connect",
-          },
-          "anonymous_path": "/activity_sessions/anonymous?activity_id=627",
-          "content_partners": Array [
-            Object {
-              "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
-              "id": 1,
-              "name": "Core Knowledge",
-            },
-          ],
-          "description": "Combine sentences to create 6 sentences about Hernan Cortes. This is an advanced, un-cued sentence combining activity.",
-          "flags": "{production}",
-          "id": 627,
-          "name": "Hernan Cortes",
-          "readability_grade_level": "8th-9th",
-          "standard_level": Object {
-            "id": 13,
-            "name": "7th Grade CCSS",
-          },
-          "standard_level_name": "7th Grade CCSS",
-          "standard_name": "87",
-          "topics": Array [
-            Object {
-              "id": 16,
-              "level": 3,
-              "name": "History",
-              "parent_id": null,
-            },
-            Object {
-              "id": 93,
-              "level": 2,
-              "name": "World Historical Figures",
-              "parent_id": 16,
-            },
-            Object {
-              "id": 171,
-              "level": 0,
-              "name": "Hernan Cortes & the Aztec Empire",
-              "parent_id": null,
-            },
-            Object {
-              "id": 172,
-              "level": 1,
-              "name": "Maya, Aztec, & Inca Civilizations",
-              "parent_id": null,
-            },
-          ],
-          "uid": "-KqcjgL00W0ro-Wr4Bts",
-        }
-      }
-      showTooltip={false}
-    >
-      <span />
-    </ActivityRowTooltip>
     <div
       className="first-line"
     >
@@ -1169,23 +1055,65 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
             type="button"
           />
         </ActivityRowCheckbox>
-        <button
-          className="interactive-wrapper"
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-          tabIndex={-1}
-          type="button"
+        <Tooltip
+          isTabbable={true}
+          tooltipText="<div class=\\"tooltip-line\\"><img alt=\\"Book icon\\" src=\\"undefined/images/icons/description-readability.svg\\"/><div><span><span class=\\"grade-range\\">8th-9th</span><span>Text Readability Level</span></span><br/><br/><span>Quill recommends using activities where the text readability level is the same or lower than the student’s reading level so that the student can focus on building their writing skills.</span></div></div><div class=\\"tooltip-line\\"><img alt=\\"Information icon\\" src=\\"undefined/images/icons/description-information.svg\\"/><span>Combine sentences to create 6 sentences about Hernan Cortes. This is an advanced, un-cued sentence combining activity.</span></div><div class=\\"tooltip-line\\"><img alt=\\"Copyright icon\\" src=\\"undefined/images/icons/description-copyright.svg\\"/><span>Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.</span></div>"
+          tooltipTriggerText={
+            <h2>
+              <img
+                alt="Target representing Quill Connect"
+                src="undefined/images/icons/description-connect.svg"
+              />
+              <a
+                href="/activity_sessions/anonymous?activity_id=627"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Hernan Cortes
+              </a>
+            </h2>
+          }
         >
-          <h2>
-            <img
-              alt="Target representing Quill Connect"
-              src="undefined/images/icons/description-connect.svg"
-            />
-            <span>
-              Hernan Cortes
+          <span
+            aria-hidden={false}
+            className="quill-tooltip-trigger "
+            role="tooltip"
+          >
+            <span
+              className="undefined"
+              onBlur={[Function]}
+              onClick={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              role="button"
+              tabIndex={0}
+            >
+              <h2>
+                <img
+                  alt="Target representing Quill Connect"
+                  src="undefined/images/icons/description-connect.svg"
+                />
+                <a
+                  href="/activity_sessions/anonymous?activity_id=627"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  Hernan Cortes
+                </a>
+              </h2>
             </span>
-          </h2>
-        </button>
+            <span
+              className="quill-tooltip-wrapper"
+            >
+              <span
+                aria-live="polite"
+                className="quill-tooltip"
+              />
+            </span>
+          </span>
+        </Tooltip>
       </div>
       <div
         className="buttons-wrapper"
@@ -1321,22 +1249,22 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
             <span>
               Grades: 
               <span
-                className="grade-level"
+                className="grade-level filtered"
               >
                 4 - 5
               </span>
               <span
-                className="grade-level"
+                className="grade-level filtered"
               >
                 6 - 7
               </span>
               <span
-                className="grade-level"
+                className="grade-level filtered"
               >
                 8 - 9
               </span>
               <span
-                className="grade-level"
+                className="grade-level filtered"
               >
                 10 - 12
               </span>
@@ -1571,74 +1499,8 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
 >
   <section
     className="activity-row not-expanded selected  "
+    onClick={[Function]}
   >
-    <ActivityRowTooltip
-      activity={
-        Object {
-          "activity_category": Object {
-            "id": 20,
-            "name": "History: Maya, Aztec, Inca",
-          },
-          "activity_category_id": 20,
-          "activity_category_name": "History: Maya, Aztec, Inca",
-          "activity_classification": Object {
-            "alias": "Quill Connect",
-            "description": "Combine Sentences",
-            "id": 5,
-            "key": "connect",
-          },
-          "anonymous_path": "/activity_sessions/anonymous?activity_id=627",
-          "content_partners": Array [
-            Object {
-              "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
-              "id": 1,
-              "name": "Core Knowledge",
-            },
-          ],
-          "description": "Combine sentences to create 6 sentences about Hernan Cortes. This is an advanced, un-cued sentence combining activity.",
-          "flags": "{production}",
-          "id": 627,
-          "name": "Hernan Cortes",
-          "readability_grade_level": "8th-9th",
-          "standard_level": Object {
-            "id": 13,
-            "name": "7th Grade CCSS",
-          },
-          "standard_level_name": "7th Grade CCSS",
-          "standard_name": "87",
-          "topics": Array [
-            Object {
-              "id": 16,
-              "level": 3,
-              "name": "History",
-              "parent_id": null,
-            },
-            Object {
-              "id": 93,
-              "level": 2,
-              "name": "World Historical Figures",
-              "parent_id": 16,
-            },
-            Object {
-              "id": 171,
-              "level": 0,
-              "name": "Hernan Cortes & the Aztec Empire",
-              "parent_id": null,
-            },
-            Object {
-              "id": 172,
-              "level": 1,
-              "name": "Maya, Aztec, & Inca Civilizations",
-              "parent_id": null,
-            },
-          ],
-          "uid": "-KqcjgL00W0ro-Wr4Bts",
-        }
-      }
-      showTooltip={false}
-    >
-      <span />
-    </ActivityRowTooltip>
     <div
       className="first-line"
     >
@@ -1722,23 +1584,65 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
             />
           </button>
         </ActivityRowCheckbox>
-        <button
-          className="interactive-wrapper"
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-          tabIndex={-1}
-          type="button"
+        <Tooltip
+          isTabbable={true}
+          tooltipText="<div class=\\"tooltip-line\\"><img alt=\\"Book icon\\" src=\\"undefined/images/icons/description-readability.svg\\"/><div><span><span class=\\"grade-range\\">8th-9th</span><span>Text Readability Level</span></span><br/><br/><span>Quill recommends using activities where the text readability level is the same or lower than the student’s reading level so that the student can focus on building their writing skills.</span></div></div><div class=\\"tooltip-line\\"><img alt=\\"Information icon\\" src=\\"undefined/images/icons/description-information.svg\\"/><span>Combine sentences to create 6 sentences about Hernan Cortes. This is an advanced, un-cued sentence combining activity.</span></div><div class=\\"tooltip-line\\"><img alt=\\"Copyright icon\\" src=\\"undefined/images/icons/description-copyright.svg\\"/><span>Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.</span></div>"
+          tooltipTriggerText={
+            <h2>
+              <img
+                alt="Target representing Quill Connect"
+                src="undefined/images/icons/description-connect.svg"
+              />
+              <a
+                href="/activity_sessions/anonymous?activity_id=627"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Hernan Cortes
+              </a>
+            </h2>
+          }
         >
-          <h2>
-            <img
-              alt="Target representing Quill Connect"
-              src="undefined/images/icons/description-connect.svg"
-            />
-            <span>
-              Hernan Cortes
+          <span
+            aria-hidden={false}
+            className="quill-tooltip-trigger "
+            role="tooltip"
+          >
+            <span
+              className="undefined"
+              onBlur={[Function]}
+              onClick={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              role="button"
+              tabIndex={0}
+            >
+              <h2>
+                <img
+                  alt="Target representing Quill Connect"
+                  src="undefined/images/icons/description-connect.svg"
+                />
+                <a
+                  href="/activity_sessions/anonymous?activity_id=627"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  Hernan Cortes
+                </a>
+              </h2>
             </span>
-          </h2>
-        </button>
+            <span
+              className="quill-tooltip-wrapper"
+            >
+              <span
+                aria-live="polite"
+                className="quill-tooltip"
+              />
+            </span>
+          </span>
+        </Tooltip>
       </div>
       <div
         className="buttons-wrapper"
@@ -1874,22 +1778,22 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
             <span>
               Grades: 
               <span
-                className="grade-level"
+                className="grade-level filtered"
               >
                 4 - 5
               </span>
               <span
-                className="grade-level"
+                className="grade-level filtered"
               >
                 6 - 7
               </span>
               <span
-                className="grade-level"
+                className="grade-level filtered"
               >
                 8 - 9
               </span>
               <span
-                className="grade-level"
+                className="grade-level filtered"
               >
                 10 - 12
               </span>

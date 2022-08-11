@@ -3,19 +3,19 @@
 class UserLoginWorker
   include Sidekiq::Worker
 
-  def perform(id, ip_address)
-
+  def perform(id)
     @user = User.find_by(id: id)
     return unless @user
-
-    @user.update(ip_address: ip_address, last_sign_in: Time.current)
-    @user.save
 
     analytics = Analyzer.new
     case @user.role
     when 'teacher'
       TeacherActivityFeedRefillWorker.perform_async(@user.id)
-      analytics.track(@user, SegmentIo::BackgroundEvents::TEACHER_SIGNIN)
+      analytics.track_with_attributes(
+        @user,
+        SegmentIo::BackgroundEvents::TEACHER_SIGNIN,
+        properties: @user&.segment_user&.common_params
+      )
     when 'student'
       # keep these in the following order so the student is the last one identified
       teacher = @user.teacher_of_student

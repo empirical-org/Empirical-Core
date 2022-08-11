@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Cms::UsersController < Cms::CmsController
+  around_action :force_writer_db_role, only: [:index, :edit, :show, :sign_in]
+
   before_action :signed_in!
   before_action :set_flags
   before_action :set_user, only: [:show, :edit, :show_json, :update, :destroy, :new_subscription, :edit_subscription, :complete_sales_stage]

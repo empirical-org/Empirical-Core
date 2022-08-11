@@ -10,11 +10,17 @@ jobs:
           PG_USER: ubuntu
           RAILS_ENV: test
           RACK_ENV: test
-      - image: postgres:10.5-alpine
+      - image: postgres:13.7-alpine
         environment:
-          POSTGRES_USER: ubuntu
           POSTGRES_DB: quill_test_db
-          POSTGRES_PASSWORD: ""
+          POSTGRES_USER: ubuntu
+          POSTGRES_PASSWORD: password
+      - image: postgres:13.7-alpine
+        name: test_replica
+        environment:
+          POSTGRES_DB: quill_test_db
+          POSTGRES_USER: ubuntu
+          POSTGRES_PASSWORD: password
     steps:
       - checkout
       - restore_cache:
@@ -73,7 +79,7 @@ jobs:
           RACK_ENV: test
           SELENIUM_DRIVER_URL: http://127.0.0.1:4444/wd/hub
           DEFAULT_URL: http://127.0.0.1:3000
-      - image: postgres:10.5-alpine
+      - image: postgres:13.7-alpine
         environment:
           POSTGRES_USER: ubuntu
           POSTGRES_DB: quill_test_db
@@ -176,11 +182,11 @@ jobs:
           PG_USER: ubuntu
           RAILS_ENV: test
           RACK_ENV: test
-      - image: postgres:10.5-alpine
+      - image: postgres:13.7-alpine
         environment:
           POSTGRES_USER: ubuntu
           POSTGRES_DB: quill_cms_test_db
-          POSTGRES_PASSWORD: ""
+          POSTGRES_PASSWORD: password
       - image: docker.elastic.co/elasticsearch/elasticsearch:5.6.2
         environment:
           - xpack.security.enabled: false

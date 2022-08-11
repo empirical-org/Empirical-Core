@@ -693,7 +693,7 @@ EmpiricalGrammar::Application.routes.draw do
   get 'partners', to: redirect('/about')
   # End legacy route redirects.
 
-  tools = %w(diagnostic_tool connect_tool grammar_tool proofreader_tool lessons_tool)
+  tools = %w(diagnostic_tool connect_tool grammar_tool proofreader_tool lessons_tool evidence_tool)
   tools.each do |tool|
     get "tools/#{tool.chomp('_tool')}" => "pages##{tool}"
   end

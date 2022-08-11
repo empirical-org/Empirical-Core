@@ -27,15 +27,15 @@ export default class UnitTemplateSecondRow extends React.Component {
     return [data.time, 'mins'].join(' ');
   };
 
-  renderReadability = () => {
+  renderGradeLevelRange = () => {
     const { data, } = this.props
 
-    if (!data.readability) { return <span />}
+    if (!data.grade_level_range) { return <span />}
 
     return (
-      <div className="readability">
+      <div className="grade-level-range">
         <i className='fas fa-book-open' />
-        <span>Readability: {data.readability} Grades</span>
+        <span>Grade Level Range: {data.grade_level_range}</span>
       </div>
     )
   }
@@ -44,7 +44,7 @@ export default class UnitTemplateSecondRow extends React.Component {
     return (
       <div className='white-row'>
         <div className='info-row'>
-          {this.renderReadability()}
+          {this.renderGradeLevelRange()}
           <div>
             <div className='activities-count'>
               <i className='fas fa-th-list' />

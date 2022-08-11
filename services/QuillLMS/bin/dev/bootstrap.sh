@@ -115,7 +115,6 @@ cd client && npm rebuild node-sass && cd ..
 
 echo 'Copy config files'
 # Note, -n is for 'no clobber', it won't overwrite if the file exists
-cp -n config/database.yml.example config/database.yml
 cp -n .env-sample .env
 
 ### homebrew postgres installation. ###################

@@ -22,6 +22,7 @@ class UnitTemplatePseudoSerializer
       activities: activities,
       type: type,
       readability: ut.readability,
+      grade_level_range: ut.grade_level_range,
       diagnostics_recommended_by: ut.diagnostics_recommended_by
     }
   end

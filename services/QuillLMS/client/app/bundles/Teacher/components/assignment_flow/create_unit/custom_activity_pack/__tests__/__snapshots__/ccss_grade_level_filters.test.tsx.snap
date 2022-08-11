@@ -159,7 +159,7 @@ exports[`ccssGradeLevelFilters component should render 1`] = `
                 upperValue={11}
               >
                 <div
-                  className="two-thumb-slider-container"
+                  className="slider-container two-thumb-slider-container"
                   id="ccss-grade-level-slider"
                   style={
                     Object {
@@ -303,6 +303,8 @@ exports[`ccssGradeLevelFilters component should render 1`] = `
                     >
                       <div
                         className="track-container"
+                        onMouseDown={[Function]}
+                        onTouchStart={[Function]}
                         style={
                           Object {
                             "cursor": "inherit",

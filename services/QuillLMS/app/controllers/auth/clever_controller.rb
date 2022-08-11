@@ -2,6 +2,8 @@
 
 module Auth
   class CleverController < ApplicationController
+    around_action :force_writer_db_role, only: [:clever]
+
     def clever
       update_current_user_email
       result = CleverIntegration::SignUp::Main.run(auth_hash)

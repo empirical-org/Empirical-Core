@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Auth::GoogleController < ApplicationController
+  around_action :force_writer_db_role, only: [:offline_access_callback, :online_access_callback]
+
   before_action :set_profile, only: [:offline_access_callback, :online_access_callback]
   before_action :check_for_authorization, only: :online_access_callback
   before_action :set_user,
@@ -8,7 +10,6 @@ class Auth::GoogleController < ApplicationController
     :save_student_from_google_signup,
     :follow_google_redirect,
     only: [:offline_access_callback, :online_access_callback]
-
 
   # Control flow arrives at :offline_access_callback after the user authorized Quill access to their Google account via
   # a prompt. :run_background_jobs can now run since a refresh_token will exist jin the user's auth_credential.
@@ -30,9 +31,7 @@ class Auth::GoogleController < ApplicationController
 
   private def redirect_to_profile_or_post_auth
     if session[ApplicationController::POST_AUTH_REDIRECT].present?
-      url = session[ApplicationController::POST_AUTH_REDIRECT]
-      session.delete(ApplicationController::POST_AUTH_REDIRECT)
-      redirect_to url
+      redirect_to session.delete(ApplicationController::POST_AUTH_REDIRECT)
     elsif staff?
       redirect_to locker_path
     else
@@ -44,7 +43,8 @@ class Auth::GoogleController < ApplicationController
     user = User.find_by('google_id = ? OR email = ?', @profile.google_id&.to_s, @profile.email&.downcase)
     return if user.nil? || user.google_authorized?
 
-    redirect_to new_session_path(google_offline_access_expired: true)
+    session[ApplicationController::GOOGLE_OFFLINE_ACCESS_EXPIRED] = true
+    redirect_to new_session_path
   end
 
   private def run_background_jobs

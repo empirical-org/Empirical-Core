@@ -7,6 +7,7 @@ import PasswordWrapper from '../shared/password_wrapper'
 import AssignActivityPackBanner from '../assignActivityPackBanner'
 import getAuthToken from '../../modules/get_auth_token'
 import { Input, } from '../../../../Shared/index'
+import { Snackbar } from '../../../../Shared/index'
 
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
 
@@ -136,13 +137,14 @@ class LoginFormApp extends React.Component {
   }
 
   render() {
-    const { googleOfflineAccessExpired } = this.props
+    const { googleOfflineAccessExpired, expiredSessionRedirect } = this.props
     const { errors, email, password, timesSubmitted, authToken, } = this.state;
 
     if (googleOfflineAccessExpired) { return this.renderGoogleOfflineAccessConsent() }
 
     return (
       <div>
+        {expiredSessionRedirect && <Snackbar text="Your session has expired. Please re-authenticate." visible={true} />}
         <AssignActivityPackBanner login={true} />
         <div className="container account-form">
           <h1>Good to see you again!</h1>

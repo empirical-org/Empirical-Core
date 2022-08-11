@@ -17,7 +17,7 @@ describe ApplicationController, type: :controller do
         let(:user) { nil }
 
         it do
-          expect(controller).to_not receive(:sign_out)
+          expect(controller).to_not receive(:reset_session_and_redirect_to_sign_in)
           subject
         end
       end
@@ -26,7 +26,7 @@ describe ApplicationController, type: :controller do
         before { allow(user).to receive(:staff_session_duration_exceeded?).and_return(false) }
 
         it do
-          expect(controller).to_not receive(:sign_out)
+          expect(controller).to_not receive(:reset_session_and_redirect_to_sign_in)
           subject
         end
       end
@@ -35,7 +35,7 @@ describe ApplicationController, type: :controller do
         before { allow(user).to receive(:staff_session_duration_exceeded?).and_return(true) }
 
         it do
-          expect(controller).to receive(:sign_out)
+          expect(controller).to receive(:reset_session_and_redirect_to_sign_in)
           subject
         end
       end
@@ -89,7 +89,7 @@ describe ApplicationController, type: :controller do
         before { allow(controller).to receive(:reset_session?).and_return(true) }
 
         it do
-          expect(controller).to receive(:reset_session)
+          expect(controller).to receive(:reset_session_and_redirect_to_sign_in)
           subject
         end
       end
@@ -98,7 +98,7 @@ describe ApplicationController, type: :controller do
         before { allow(user).to receive(:google_access_expired?).and_return(true) }
 
         it do
-          expect(controller).to receive(:reset_session)
+          expect(controller).to receive(:reset_session_and_redirect_to_sign_in)
           subject
         end
       end
@@ -140,6 +140,45 @@ describe ApplicationController, type: :controller do
           before { allow(user).to receive(:clever_id).and_return('123') }
 
           it { expect(controller.reset_session?).to be false }
+        end
+      end
+    end
+
+    describe '#reset_session_and_redirect_to_sign_in' do
+      controller { def custom; end }
+
+      before do
+        routes.draw { get 'custom' => "anonymous#custom", format: [:html, :json] }
+        allow(user).to receive(:staff_session_duration_exceeded?).and_return(true)
+      end
+
+      context 'html request' do
+        subject { get :custom }
+
+        it 'resets the session' do
+          expect(controller).to receive(:reset_session)
+          subject
+        end
+
+        it { expect { subject }.to change { session[described_class::EXPIRED_SESSION_REDIRECT] }.from(nil).to(true) }
+        it { expect(subject).to redirect_to new_session_path }
+      end
+
+      context 'json request' do
+        subject { get :custom, as: :json }
+
+        it 'resets the session' do
+          expect(controller).to receive(:reset_session)
+          subject
+        end
+
+        it { expect { subject }.to change { session[described_class::EXPIRED_SESSION_REDIRECT] }.from(nil).to(true) }
+
+        it 'redirects 303' do
+          subject
+          expect(response).to have_http_status(:see_other)
+          expect(response.content_type).to eq('application/json; charset=utf-8')
+          expect(response.body).to eq({ redirect: new_session_path }.to_json )
         end
       end
     end

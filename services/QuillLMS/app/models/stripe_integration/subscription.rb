@@ -2,8 +2,12 @@
 
 module StripeIntegration
   class Subscription < SimpleDelegator
+    CANCELED = 'canceled'
+    INCOMPLETE_EXPIRED = 'incomplete_expired'
+
     def stripe_cancel_at_period_end
       return if stripe_invoice_id.nil?
+      return if already_canceled_or_incomplete_expired?
 
       Stripe::Subscription.update(stripe_subscription_id, cancel_at_period_end: true)
     end
@@ -24,6 +28,10 @@ module StripeIntegration
 
     def stripe_subscription_url
       "#{STRIPE_DASHBOARD_URL}/subscriptions/#{stripe_subscription_id}"
+    end
+
+    private def already_canceled_or_incomplete_expired?
+      stripe_subscription.respond_to?(:status) && stripe_subscription.status.in?([CANCELED, INCOMPLETE_EXPIRED])
     end
 
     private def stripe_card

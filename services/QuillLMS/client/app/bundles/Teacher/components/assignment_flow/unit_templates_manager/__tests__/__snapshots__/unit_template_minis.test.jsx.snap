@@ -42,8 +42,8 @@ exports[`UnitTemplateMinis component should render dropdowns when on mobile 1`] 
             className="dropdowns"
           >
             <DropdownInput
-              className="readability-dropdown"
-              label="Readability grade level"
+              className="grade-level-dropdown"
+              label="Grade level range"
               options={
                 Array [
                   Object {
@@ -52,28 +52,23 @@ exports[`UnitTemplateMinis component should render dropdowns when on mobile 1`] 
                     "value": null,
                   },
                   Object {
-                    "label": "2nd-3rd",
-                    "link": "/assign/featured-activity-packs?readability=2nd-3rd",
-                    "value": "2nd-3rd",
+                    "label": "4th-12th",
+                    "link": "/assign/featured-activity-packs?gradeLevel=4th-12th",
+                    "value": "4th-12th",
                   },
                   Object {
-                    "label": "4th-5th",
-                    "link": "/assign/featured-activity-packs?readability=4th-5th",
-                    "value": "4th-5th",
+                    "label": "6th-12th",
+                    "link": "/assign/featured-activity-packs?gradeLevel=6th-12th",
+                    "value": "6th-12th",
                   },
                   Object {
-                    "label": "6th-7th",
-                    "link": "/assign/featured-activity-packs?readability=6th-7th",
-                    "value": "6th-7th",
-                  },
-                  Object {
-                    "label": "8th-9th",
-                    "link": "/assign/featured-activity-packs?readability=8th-9th",
-                    "value": "8th-9th",
+                    "label": "8th-12th",
+                    "link": "/assign/featured-activity-packs?gradeLevel=8th-12th",
+                    "value": "8th-12th",
                   },
                   Object {
                     "label": "10th-12th",
-                    "link": "/assign/featured-activity-packs?readability=10th-12th",
+                    "link": "/assign/featured-activity-packs?gradeLevel=10th-12th",
                     "value": "10th-12th",
                   },
                 ]
@@ -237,8 +232,8 @@ exports[`UnitTemplateMinis component should render without createYourOwn mini wh
             className="dropdowns"
           >
             <DropdownInput
-              className="readability-dropdown"
-              label="Readability grade level"
+              className="grade-level-dropdown"
+              label="Grade level range"
               options={
                 Array [
                   Object {
@@ -247,28 +242,23 @@ exports[`UnitTemplateMinis component should render without createYourOwn mini wh
                     "value": null,
                   },
                   Object {
-                    "label": "2nd-3rd",
-                    "link": "/activities/packs?readability=2nd-3rd",
-                    "value": "2nd-3rd",
+                    "label": "4th-12th",
+                    "link": "/activities/packs?gradeLevel=4th-12th",
+                    "value": "4th-12th",
                   },
                   Object {
-                    "label": "4th-5th",
-                    "link": "/activities/packs?readability=4th-5th",
-                    "value": "4th-5th",
+                    "label": "6th-12th",
+                    "link": "/activities/packs?gradeLevel=6th-12th",
+                    "value": "6th-12th",
                   },
                   Object {
-                    "label": "6th-7th",
-                    "link": "/activities/packs?readability=6th-7th",
-                    "value": "6th-7th",
-                  },
-                  Object {
-                    "label": "8th-9th",
-                    "link": "/activities/packs?readability=8th-9th",
-                    "value": "8th-9th",
+                    "label": "8th-12th",
+                    "link": "/activities/packs?gradeLevel=8th-12th",
+                    "value": "8th-12th",
                   },
                   Object {
                     "label": "10th-12th",
-                    "link": "/activities/packs?readability=10th-12th",
+                    "link": "/activities/packs?gradeLevel=10th-12th",
                     "value": "10th-12th",
                   },
                 ]
