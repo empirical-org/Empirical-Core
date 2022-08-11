@@ -50,12 +50,11 @@ const EventDefinitions = [
     'activityID',
     'attemptNumber',
     'promptID',
+    'hint',
     'promptStemText',
     'returnedFeedback',
-    'returnedFeedbackID',
     'sessionID',
     'startingFeedback',
-    'startingFeedbackID',
     'submittedEntry',
     'user_id',
     'properties'
