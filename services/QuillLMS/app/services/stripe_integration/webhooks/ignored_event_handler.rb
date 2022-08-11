@@ -6,11 +6,13 @@ module StripeIntegration
       IGNORED_EVENT_NAMES = [
         'balance.available',
         'charge.captured',
+        'charge.dispute.funds_withdrawn',
         'charge.failed',
         'charge.refunded',
         'charge.succeeded',
         'customer.created',
         'customer.source.created',
+        'customer.source.deleted',
         'customer.source.expiring',
         'customer.source.updated',
         'customer.subscription.created',
