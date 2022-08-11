@@ -13,7 +13,7 @@ import TeacherCenterHighlights from '../components/dashboard/teacher_center_high
 import CollegeBoard from '../components/dashboard/college_board'
 import KeyMetrics from '../components/dashboard/key_metrics'
 import GrowthDiagnosticsPromotionCard from '../components/dashboard/growth_diagnostics_promotion_card'
-import DemoOnboardingTour, { DASHBOARD, } from '../components/shared/demo_onboarding_tour'
+import DemoOnboardingTour, { DEMO_ONBOARDING_DASHBOARD, } from '../components/shared/demo_onboarding_tour'
 import useWindowSize from '../../Shared/hooks/useWindowSize'
 import { Spinner, } from '../../Shared/index'
 
@@ -104,7 +104,7 @@ const Dashboard = ({ onboardingChecklist, firstName, mustSeeModal, linkedToCleve
     <div className="dashboard">
       <div className="post-checklist-container">
         <DemoOnboardingTour
-          pageKey={DASHBOARD}
+          pageKey={DEMO_ONBOARDING_DASHBOARD}
         />
         {showDemoModal && <DemoModal close={closeDemoModal} size={size} />}
         <main>

@@ -19,7 +19,7 @@ import {
   Student,
 } from './interfaces'
 
-import DemoOnboardingTour, { DIAGNOSTIC_RECOMMENDATIONS,  } from '../../../shared/demo_onboarding_tour'
+import DemoOnboardingTour, { DEMO_ONBOARDING_DIAGNOSTIC_RECOMMENDATIONS,  } from '../../../shared/demo_onboarding_tour'
 import ActivityDisclaimerBanner from '../../../shared/activityDisclaimerBanner'
 import LoadingSpinner from '../../../shared/loading_indicator.jsx'
 import { requestGet, requestPost, } from '../../../../../../modules/request/index';
@@ -415,7 +415,7 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
 
   return (
     <main className="diagnostic-recommendations-container">
-      <DemoOnboardingTour pageKey={DIAGNOSTIC_RECOMMENDATIONS} />
+      <DemoOnboardingTour pageKey={DEMO_ONBOARDING_DIAGNOSTIC_RECOMMENDATIONS} />
       <Snackbar text={snackbarText} visible={showSnackbar} />
       <header>
         <h1>Practice recommendations</h1>

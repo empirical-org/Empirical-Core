@@ -6,7 +6,7 @@ import EmptyDiagnosticProgressReport from './empty_diagnostic_progress_report.js
 import { Classroom, Activity, Diagnostic, } from './interfaces'
 import { goToAssign, baseDiagnosticImageSrc, } from './shared'
 
-import DemoOnboardingTour, { DIAGNOSTIC_ACTIVITY_PACKS_INDEX,  } from '../../../shared/demo_onboarding_tour'
+import DemoOnboardingTour, { DEMO_ONBOARDING_DIAGNOSTIC_ACTIVITY_PACKS_INDEX,  } from '../../../shared/demo_onboarding_tour'
 import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from '../../progress_report_constants'
 import { DropdownInput, Tooltip, } from '../../../../../Shared/index'
 import { requestGet } from '../../../../../../modules/request/index';
@@ -164,7 +164,7 @@ const DiagnosticActivityPacks = ({ classrooms, }) => {
 
   return (
     <div className="diagnostic-activity-packs-container">
-      <DemoOnboardingTour pageKey={DIAGNOSTIC_ACTIVITY_PACKS_INDEX} />
+      <DemoOnboardingTour pageKey={DEMO_ONBOARDING_DIAGNOSTIC_ACTIVITY_PACKS_INDEX} />
       <div className="container diagnostic-activity-packs">
         <h1>Diagnostic Reports</h1>
         <DropdownInput

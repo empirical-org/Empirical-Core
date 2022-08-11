@@ -2,7 +2,7 @@ import React from 'react';
 
 import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from './progress_report_constants'
 
-import DemoOnboardingTour, { STUDENT_REPORTS_LANDING_PAGE, } from '../shared/demo_onboarding_tour'
+import DemoOnboardingTour, { DEMO_ONBOARDING_STUDENT_REPORTS_LANDING_PAGE, } from '../shared/demo_onboarding_tour'
 import { DropdownInput, } from '../../../Shared/index'
 
 const ALL = 'ALL'
@@ -111,7 +111,7 @@ const LandingPage = ({ classrooms, flag, }) => {
 
   return (
     <div className="progress-reports-landing-page">
-      <DemoOnboardingTour pageKey={STUDENT_REPORTS_LANDING_PAGE} />
+      <DemoOnboardingTour pageKey={DEMO_ONBOARDING_STUDENT_REPORTS_LANDING_PAGE} />
       <div className="generic-mini-container">
         <div className="header">
           <h1>Choose which type of report you’d like to see:</h1>

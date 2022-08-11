@@ -4,12 +4,12 @@ import ReactJoyride, { CallBackProps, STATUS, Step } from 'react-joyride';
 import useWindowSize from '../../../Shared/hooks/useWindowSize'
 import { requestGet } from '../../../../modules/request/index';
 
-export const DASHBOARD = 'demo-onboarding-dashboard'
-export const STUDENT_REPORTS_LANDING_PAGE = 'demo-onboarding-student-reports-landing-page'
-export const DIAGNOSTIC_ACTIVITY_PACKS_INDEX = 'demo-onboarding-diagnostic-activity-packs-index'
-export const DIAGNOSTIC_RESULTS_SUMMARY = 'demo-onboarding-diagnostic-results-summary'
-export const DIAGNOSTIC_RECOMMENDATIONS = 'demo-onboarding-diagnostic-recommendations'
-export const DIAGNOSTIC_GROWTH_SUMMARY = 'demo-onboarding-diagnostic-growth-summary'
+export const DEMO_ONBOARDING_DASHBOARD = 'demo-onboarding-dashboard'
+export const DEMO_ONBOARDING_STUDENT_REPORTS_LANDING_PAGE = 'demo-onboarding-student-reports-landing-page'
+export const DEMO_ONBOARDING_DIAGNOSTIC_ACTIVITY_PACKS_INDEX = 'demo-onboarding-diagnostic-activity-packs-index'
+export const DEMO_ONBOARDING_DIAGNOSTIC_RESULTS_SUMMARY = 'demo-onboarding-diagnostic-results-summary'
+export const DEMO_ONBOARDING_DIAGNOSTIC_RECOMMENDATIONS = 'demo-onboarding-diagnostic-recommendations'
+export const DEMO_ONBOARDING_DIAGNOSTIC_GROWTH_SUMMARY = 'demo-onboarding-diagnostic-growth-summary'
 const COMPLETED = 'completed'
 
 const sharedStepAttributes = {
@@ -114,12 +114,12 @@ const diagnosticGrowthSummarySteps = [
 ]
 
 const joyrideSteps = {
-  [DASHBOARD]: dashboardSteps,
-  [STUDENT_REPORTS_LANDING_PAGE]: studentReportsLandingPageSteps,
-  [DIAGNOSTIC_ACTIVITY_PACKS_INDEX]: diagnosticActivityPacksIndexSteps,
-  [DIAGNOSTIC_RESULTS_SUMMARY]: diagnosticResultsSummarySteps,
-  [DIAGNOSTIC_RECOMMENDATIONS]: diagnosticRecommendationsSteps,
-  [DIAGNOSTIC_GROWTH_SUMMARY]: diagnosticGrowthSummarySteps
+  [DEMO_ONBOARDING_DASHBOARD]: dashboardSteps,
+  [DEMO_ONBOARDING_STUDENT_REPORTS_LANDING_PAGE]: studentReportsLandingPageSteps,
+  [DEMO_ONBOARDING_DIAGNOSTIC_ACTIVITY_PACKS_INDEX]: diagnosticActivityPacksIndexSteps,
+  [DEMO_ONBOARDING_DIAGNOSTIC_RESULTS_SUMMARY]: diagnosticResultsSummarySteps,
+  [DEMO_ONBOARDING_DIAGNOSTIC_RECOMMENDATIONS]: diagnosticRecommendationsSteps,
+  [DEMO_ONBOARDING_DIAGNOSTIC_GROWTH_SUMMARY]: diagnosticGrowthSummarySteps
 }
 
 const DemoOnboardingTour = ({ pageKey, }) => {

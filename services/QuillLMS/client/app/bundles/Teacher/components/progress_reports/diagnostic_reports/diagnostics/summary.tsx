@@ -14,7 +14,7 @@ import {
   StudentResult,
 } from './interfaces'
 
-import DemoOnboardingTour, { DIAGNOSTIC_RESULTS_SUMMARY, } from '../../../shared/demo_onboarding_tour'
+import DemoOnboardingTour, { DEMO_ONBOARDING_DIAGNOSTIC_RESULTS_SUMMARY, } from '../../../shared/demo_onboarding_tour'
 import LoadingSpinner from '../../../shared/loading_indicator.jsx'
 import { requestGet } from '../../../../../../modules/request/index';
 import {
@@ -111,7 +111,7 @@ export const Summary = ({ passedStudentResults, passedSkillGroupSummaries, match
 
   return (
     <main className="results-summary-container">
-      <DemoOnboardingTour pageKey={DIAGNOSTIC_RESULTS_SUMMARY} />
+      <DemoOnboardingTour pageKey={DEMO_ONBOARDING_DIAGNOSTIC_RESULTS_SUMMARY} />
       <header>
         <h1>Class summary</h1>
         {!!skillGroupSummaries.length && <a className="focus-on-light" href="https://support.quill.org/en/articles/5698112-how-do-i-read-the-results-summary-report" rel="noopener noreferrer" target="_blank">{fileDocumentIcon}<span>Guide</span></a>}
