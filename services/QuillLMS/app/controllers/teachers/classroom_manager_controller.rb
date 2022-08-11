@@ -247,11 +247,9 @@ class Teachers::ClassroomManagerController < ApplicationController
     redirect_to '/profile'
   end
 
-  # rubocop:disable Naming/PredicateName
-  def is_demo
+  def demo_id
     render json: { current_user_demo_id: session[:demo_id] }
   end
-  # rubocop:enable Naming/PredicateName
 
   def preview_as_student
     student = User.find_by_id(params[:student_id])

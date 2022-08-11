@@ -692,7 +692,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
     end
   end
 
-  describe '#is_demo' do
+  describe '#demo_id' do
     let!(:teacher) { create(:teacher) }
     let!(:demo_teacher) { create(:teacher, email: 'hello+demoteacher@quill.org')}
 
@@ -702,7 +702,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
 
     it 'will return the value of session[:demo_id]' do
       session[:demo_id] = demo_teacher.id
-      get :is_demo
+      get :demo_id
       expect(JSON.parse(response.body)['current_user_demo_id']).to eq(demo_teacher.id)
     end
   end

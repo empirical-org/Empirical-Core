@@ -142,7 +142,7 @@ const DemoOnboardingTour = ({ pageKey, }) => {
   }, [isDemo])
 
   function getDemo() {
-    requestGet('/teachers/is_demo',
+    requestGet('/teachers/demo_id',
       (data) => {
         setIsDemo(!!data.current_user_demo_id);
       }
