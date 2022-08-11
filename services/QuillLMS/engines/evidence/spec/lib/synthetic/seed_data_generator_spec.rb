@@ -4,13 +4,14 @@ require 'rails_helper'
 
 module Evidence
   RSpec.describe(Synthetic::SeedDataGenerator, type: :model) do
-    let(:passage) { 'one two three four five six' }
+    let(:passage) { '<p>one two <strong>three four five six</p>' }
+    let(:passage_clean) { 'one two three four five six' }
     let(:stem) { 'This is because'}
     let(:nouns) { ['noun1']}
-    let(:full_passage_prompt) {"#{passage}. #{stem} "}
+    let(:full_passage_prompt) {"#{passage_clean}. #{stem} "}
     let(:full_passage_response) {['one response']}
     let(:full_passage_response2) {['one response 2']}
-    let(:full_noun_prompt) {"#{passage}. #{stem} #{nouns.first} "}
+    let(:full_noun_prompt) {"#{passage_clean}. #{stem} #{nouns.first} "}
     let(:full_noun_response) {['two response']}
 
     let(:chunk1_prompt) {"one two three four. #{stem} "}
@@ -31,11 +32,18 @@ module Evidence
     end
 
     describe "#new" do
-      it "should initialize as expected" do
-        expect(data.passage).to eq(passage)
+      it "should initialize and clean" do
+        expect(data.passage).to eq(passage_clean)
         expect(data.stem).to eq(stem)
         expect(data.nouns).to eq(nouns)
         expect(data.results).to eq([])
+      end
+
+      let(:passage_dirty) {' <p><strong>&quot;It&#x27;s</strong> a good day&quot;, he said.</p>  '}
+      let(:data_dirty) { Evidence::Synthetic::SeedDataGenerator.new(passage: passage_dirty, stem: stem, nouns: nouns)}
+
+      it "should clean passage of all special characters" do
+        expect(data_dirty.passage).to eq("\"It's a good day\", he said.")
       end
     end
 

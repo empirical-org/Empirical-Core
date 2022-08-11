@@ -48,6 +48,11 @@ module Evidence
 
       def initialize(passage:, stem:, nouns: [])
         @passage = passage
+          .gsub(/<("[^"]*"|'[^']*'|[^'">])*>/, " ") # remove html tags
+          .gsub("&#x27;", "'") # replace html single quotes
+          .gsub("&quot;","\"") # replace html double quotes
+          .gsub(/\s+/," ")
+          .strip
         @stem = stem
         @nouns = nouns
         @results = []
