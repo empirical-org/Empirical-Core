@@ -90,7 +90,8 @@ export const ShareActivityPackModal = ({ activityPackData, closeModal, selectabl
     const { classroom } = classroomObject;
     if(singleActivity) {
       const { id } = classroomUnitObject;
-      return `${process.env.DEFAULT_URL}/classroom_units/${id}/activities/${singleActivity.id}`;
+      const activityId = singleActivity.activityId || singleActivity.id
+      return `${process.env.DEFAULT_URL}/classroom_units/${id}/activities/${activityId}`;
     }
     if(!singleActivity) {
       const { id } = classroom;
@@ -128,7 +129,8 @@ export const ShareActivityPackModal = ({ activityPackData, closeModal, selectabl
     setSelectedClass(classOption);
     if(singleActivity) {
       const classroomUnit = classroomUnits.filter(unit => unit.classroom_id === parseInt(value))[0];
-      setLink(`${process.env.DEFAULT_URL}/classroom_units/${classroomUnit.id}/activities/${singleActivity.id}`);
+      const activityId = singleActivity.activityId || singleActivity.id
+      setLink(`${process.env.DEFAULT_URL}/classroom_units/${classroomUnit.id}/activities/${activityId}`);
     } else {
       setLink(`${process.env.DEFAULT_URL}/classrooms/${value}?unit_id=${unitId}`);
     }
@@ -155,7 +157,7 @@ export const ShareActivityPackModal = ({ activityPackData, closeModal, selectabl
     const showContainerStyle = !showActivityLink ? 'hide-modal-element' : '';
     return(
       <div className={`activity-pack-data-container ${showContainerStyle}`}>
-        <p className="link-label">Activity pack link</p>
+        <p className="link-label">{singleActivity ? 'Activity link' : 'Activity pack link'}</p>
         <p className="activity-pack-link">{link}</p>
       </div>
     )
