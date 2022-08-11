@@ -150,6 +150,7 @@ exports[`LockerIndex component should render LockerIndex 1`] = `
             "user management": Array [
               "users",
               "schools",
+              "districts",
               "upload rosters",
             ],
           },

@@ -27,6 +27,7 @@ class District < ApplicationRecord
   include Subscriber
 
   validates :name, presence: true
+  validates_uniqueness_of :nces_id, message: "A district with this NCES ID already exists."
 
   has_many :schools
   has_many :district_admins, dependent: :destroy
@@ -46,5 +47,23 @@ class District < ApplicationRecord
 
   def total_invoice
     schools.sum { |s| s&.subscription&.payment_amount || 0 } / 100.0
+  end
+
+  def vitally_data
+    {
+      externalId: id.to_s,
+      name: name,
+      traits: {
+        name: name,
+        nces_id: nces_id,
+        clever_id: clever_id,
+        city: city,
+        state: state,
+        zipcode: zipcode,
+        phone: phone,
+        total_students: total_students,
+        total_schools: total_schools
+      }
+    }
   end
 end

@@ -141,6 +141,23 @@ class School < ApplicationRecord
     User.joins(student_in_classroom: {teachers: :school}).where(schools: {id: id}).distinct
   end
 
+  def detach_from_existing_district_admins(district)
+    return unless district.present? && district.admins.count > 0
+
+    schools_admins.where(user_id: district.admins.map(&:id)).destroy_all
+  end
+
+  def vitally_data
+    {
+      externalId: id.to_s,
+      name: name
+    }
+  end
+
+  def subscription_status
+    subscription&.subscription_status || last_expired_subscription&.subscription_status
+  end
+
   private def generate_leap_csv_row(student, teacher, classroom, activity_session)
     [
       student.id,

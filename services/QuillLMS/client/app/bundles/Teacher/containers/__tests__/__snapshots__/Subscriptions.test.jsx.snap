@@ -1420,7 +1420,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                           Off
                           <Tooltip
                             isTabbable={true}
-                            tooltipText="To renew your subscription for next year, contact us at sales@quill.org."
+                            tooltipText="To renew your subscription for next year, contact us at https://quill.org/request_renewal."
                             tooltipTriggerText={
                               <span>
                                 <img
@@ -1448,7 +1448,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                             Off
                             <Tooltip
                               isTabbable={true}
-                              tooltipText="To renew your subscription for next year, contact us at sales@quill.org."
+                              tooltipText="To renew your subscription for next year, contact us at https://quill.org/request_renewal."
                               tooltipTriggerText={
                                 <span>
                                   <img
@@ -1584,7 +1584,8 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                       Once your current District Premium subscription expires, you will be downgraded to Quill Basic.
                        To renew your subscription for next year, 
                       <a
-                        href="mailto:sales@quill.org"
+                        href="https://quill.org/request_renewal"
+                        rel="noopener noreferrer"
                       >
                         contact us
                       </a>
@@ -5920,7 +5921,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
                           Off
                           <Tooltip
                             isTabbable={true}
-                            tooltipText="To renew your subscription for next year, contact us at sales@quill.org."
+                            tooltipText="To renew your subscription for next year, contact us at https://quill.org/request_renewal."
                             tooltipTriggerText={
                               <span>
                                 <img
@@ -5948,7 +5949,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
                             Off
                             <Tooltip
                               isTabbable={true}
-                              tooltipText="To renew your subscription for next year, contact us at sales@quill.org."
+                              tooltipText="To renew your subscription for next year, contact us at https://quill.org/request_renewal."
                               tooltipTriggerText={
                                 <span>
                                   <img
@@ -6084,7 +6085,8 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
                       Once your current School Premium subscription expires, you will be downgraded to Quill Basic.
                        To renew your subscription for next year, 
                       <a
-                        href="mailto:sales@quill.org"
+                        href="https://quill.org/request_renewal"
+                        rel="noopener noreferrer"
                       >
                         contact us
                       </a>
