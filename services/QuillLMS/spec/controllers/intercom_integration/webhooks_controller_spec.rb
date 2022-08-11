@@ -2,10 +2,10 @@
 
 require 'rails_helper'
 
+# rubocop:disable RSpec/EmptyExampleGroup
 RSpec.describe IntercomIntegration::WebhooksController, type: :controller do
 
   # TODO: Re-enable this spec when we re-enable the route for this controller
-  # rubocop:disable RSpec/EmptyExampleGroup
   # describe '#create' do
   #   context 'authentication is valid, and payload is valid' do
   #     let(:user) { create(:user) }
@@ -99,5 +99,5 @@ RSpec.describe IntercomIntegration::WebhooksController, type: :controller do
   #     end
   #   end
   # end
-  # rubocop:enable RSpec/EmptyExampleGroup
 end
+# rubocop:enable RSpec/EmptyExampleGroup
