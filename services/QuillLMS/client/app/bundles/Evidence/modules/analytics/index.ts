@@ -10,7 +10,7 @@ class SegmentAnalytics {
     return window.analytics
   }
 
-  async track(event: Event, properties?: object) {
+  async track(event: Event, params?: object, properties?: object) {
     const sessionID = getParameterByName('session', window.location.href)
     const idData = await fetchUserIdsForSession(sessionID)
 
@@ -18,10 +18,11 @@ class SegmentAnalytics {
 
     const { teacherId, studentId } = idData
     const customProperties = {
-      ...properties,
+      ...params,
       user_id: teacherId,
       properties: {
-        student_id: studentId
+        student_id: studentId,
+        ...properties
       }
     }
     try {

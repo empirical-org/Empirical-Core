@@ -19,18 +19,21 @@ const EventDefinitions = [
     'activityID',
     'sessionID',
     'user_id',
-    'properties'])},
+    'properties'
+  ])},
   {EVIDENCE_PASSAGE_READ: new Event('evidencePassageRead', [
     'activityID',
     'sessionID',
     'user_id',
-    'properties'])},
+    'properties'
+  ])},
   {EVIDENCE_PROMPT_STARTED: new Event('evidencePromptStarted', [
     'activityID',
     'promptID',
     'sessionID',
     'user_id',
-    'properties'])},
+    'properties'
+  ])},
   {EVIDENCE_ENTRY_SUBMITTED: new Event('evidenceEntrySubmitted', [
     'activityID',
     'attemptNumber',
@@ -41,7 +44,8 @@ const EventDefinitions = [
     'startingFeedbackID',
     'submittedEntry',
     'user_id',
-    'properties'])},
+    'properties'
+  ])},
   {EVIDENCE_FEEDBACK_RECEIVED: new Event('evidenceFeedbackReceived', [
     'activityID',
     'attemptNumber',
@@ -54,23 +58,31 @@ const EventDefinitions = [
     'startingFeedbackID',
     'submittedEntry',
     'user_id',
-    'properties'])},
+    'properties'
+  ])},
   {EVIDENCE_PROMPT_COMPLETED: new Event('evidencePromptCompleted', [
     'activityID',
     'promptID',
     'sessionID',
     'user_id',
-    'properties'])},
+    'properties'
+  ])},
   {EVIDENCE_ACTIVITY_COMPLETED: new Event('evidenceActivityCompleted', [
     'activityID',
     'sessionID',
     'user_id',
-    'properties'])},
+    'properties'
+  ])},
   {EVIDENCE_ACTIVITY_SAVED: new Event('evidenceActivitySaved', [
     'activityID',
     'sessionID',
     'user_id',
-    'properties'])}
+    'properties'
+  ])},
+  {STUDENT_RATED_AN_ACTIVITY: new Event('Student rated an activity', [
+    'user_id',
+    'properties'
+  ])}
 ];
 
 
