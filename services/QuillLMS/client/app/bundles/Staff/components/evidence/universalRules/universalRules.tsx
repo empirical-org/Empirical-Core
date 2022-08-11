@@ -59,10 +59,12 @@ const UniversalRulesIndex = ({ location, match }) => {
   function handleSetRuleType(ruleType: any) { setRuleType(ruleType) };
 
   function sortCallback(sortInfo) {
+    console.log("🚀 ~ file: universalRules.tsx ~ line 62 ~ sortCallback ~ sortInfo", sortInfo)
     const newRulesList = sortInfo.map(item => {
       const { key } = item;
       return rulesHash[key];
     });
+    console.log("🚀 ~ file: universalRules.tsx ~ line 67 ~ sortCallback ~ newRulesList", newRulesList)
     setRulesList(newRulesList);
     setRuleOrderUpdated(true);
   }
@@ -73,7 +75,6 @@ const UniversalRulesIndex = ({ location, match }) => {
       const universalRuleLink = (<Link to={`/universal-rules/${id}`}>View</Link>);
       return {
         id: uid,
-        api_order: ruleOrder[rule_type],
         type: rule_type,
         name,
         order: suborder,
@@ -140,7 +141,6 @@ const UniversalRulesIndex = ({ location, match }) => {
   }
 
   const dataTableFields = [
-    { name: "API Order", attribute:"api_order", width: "100px" },
     { name: "Type", attribute:"type", width: "100px" },
     { name: "Name", attribute:"name", width: "400px" },
     { name: "Rule Order Note", attribute:"order", width: "100px" },
@@ -154,18 +154,20 @@ const UniversalRulesIndex = ({ location, match }) => {
       <Navigation location={location} match={match} />
       <div className="universal-rules-index-container">
         {showAddRuleModal && renderRuleForm()}
-        <h2>Universal Rules Index</h2>
-        <section className="top-section">
-          <DropdownInput
-            className="rule-type-input"
-            handleChange={handleSetRuleType}
-            isSearchable={true}
-            label="Select Rule Type"
-            options={universalRuleTypeOptions}
-            value={ruleType}
-          />
-          <button className={`quill-button small primary contained ${disabledStatus}`} disabled={!!disabledStatus} type="button">Update Rule Order</button>
-          <button className="quill-button small primary contained" onClick={toggleAddRuleModal} type="button">{`Create New ${ruleType.label} Rule (Danger Zone!)`}</button>
+        <section className="header-section">
+          <h2>Universal Rules Index</h2>
+          <section className="top-section">
+            <DropdownInput
+              className="rule-type-input"
+              handleChange={handleSetRuleType}
+              isSearchable={true}
+              label="Select Rule Type"
+              options={universalRuleTypeOptions}
+              value={ruleType}
+            />
+            <button className={`quill-button small primary contained ${disabledStatus}`} disabled={!!disabledStatus} type="button">Update Rule Order</button>
+            <button className="quill-button small primary contained" onClick={toggleAddRuleModal} type="button">{`Create New ${ruleType.label} Rule (Danger Zone!)`}</button>
+          </section>
         </section>
         <p className="sortable-instructions">Change the rule order note by drag and drop</p>
         <DataTable
