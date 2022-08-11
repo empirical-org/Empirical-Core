@@ -15,7 +15,7 @@ const premium = () => [
   },
   {
     question: 'How much does premium cost?',
-    answer: <p>Quill Premium is provided as a teacher license, school license, or district license. The teacher license covers all of the students for one teacher and costs $80 per year. The school license is a site-wide license that covers all teachers and students in the school. For districts, we provide custom pricing, on-site training, and district dashboards. <a href="https://quillpremium.wufoo.com/forms/quill-premium-quote/">Contact us to receive a demo.</a></p>
+    answer: <p>Quill Premium is provided as a teacher license, school license, or district license. The teacher license covers all of the students for one teacher and costs $80 per year. The school license is a site-wide license that covers all teachers and students in the school. For districts, we provide custom pricing, on-site training, and district dashboards. <a href="https://quill.org/request_quote">Contact us to receive a demo.</a></p>
   },
   {
     question: 'Do you accept purchase orders?',

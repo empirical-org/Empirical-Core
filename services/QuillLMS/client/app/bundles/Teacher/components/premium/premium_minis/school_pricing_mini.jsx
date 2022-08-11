@@ -16,6 +16,7 @@ const SchoolPricingMini = ({ plan, premiumFeatureData, showBadges, handleClickPu
       <div className="premium-button-container">
         <button
           className="quill-button contained medium primary focus-on-light"
+          href="https://quill.org/request_quote"
           onClick={handleClickPurchasingOptions}
           type="button"
         >

@@ -5,10 +5,15 @@ require 'rails_helper'
 describe SlackTasks do
   include SlackTasks
 
-  let(:sales_form_submission) { create(:sales_form_submission) }
+  let(:sales_form_submission) { build(:sales_form_submission) }
 
   before do
-    stub_const('ENV', {'RAILS_ENV' => 'production', 'SLACK_API_WEBHOOK_SALES' => 'slack-test.com'})
+    stub_const('ENV', {'SLACK_API_WEBHOOK_SALES' => 'slack-test.com'})
+    stub_const('SlackTasks::LIVE', true)
+
+    # We don't actually want to trigger Vitally callbacks during tests
+    allow(sales_form_submission).to receive(:vitally_callbacks)
+    sales_form_submission.save!
   end
 
   describe '#post_sales_form_submission' do
