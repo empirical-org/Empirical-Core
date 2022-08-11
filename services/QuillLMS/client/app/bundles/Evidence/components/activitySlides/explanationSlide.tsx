@@ -16,7 +16,7 @@ export const ExplanationSlide = ({ slideData, onHandleClick }) => {
 
   return(
     <div className="explanation-slide-container">
-      <section id="information-section" ref={containerRef} tabIndex={-1}>
+      <section className="no-focus-outline" id="information-section" ref={containerRef} tabIndex={-1}>
         <p aria-hidden={true} className="subtext">Good to know</p>
         <section id="header-container">
           <h1>{header}</h1>

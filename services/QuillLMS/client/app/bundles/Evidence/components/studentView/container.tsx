@@ -436,6 +436,11 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
     refs[ref].current ? refs[ref].current.scrollIntoView(false) : null
   }
 
+  function handleHighlightKeyDown(e) {
+    if (e.key !== 'Enter') { return }
+    toggleStudentHighlight(e.target.textContent)
+  }
+
   function handleHighlightClick(e) {
     toggleStudentHighlight(e.target.textContent)
   }
@@ -511,8 +516,8 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
       }
       className += shouldBeHighlightable  ? ' highlightable' : ''
       if (!shouldBeHighlightable) { return <mark className={className}>{innerElements}</mark>}
-      /* eslint-disable-next-line jsx-a11y/no-noninteractive-element-to-interactive-role, jsx-a11y/click-events-have-key-events*/
-      return <mark aria-pressed={highlighted} className={className} onClick={handleHighlightClick} role="button" tabIndex={0}>{innerElements}</mark>
+      /* eslint-disable-next-line jsx-a11y/no-noninteractive-element-to-interactive-role */
+      return <mark aria-pressed={highlighted} className={className} onClick={handleHighlightClick} onKeyDown={handleHighlightKeyDown} role="button" tabIndex={0}>{innerElements}</mark>
     }
   }
 

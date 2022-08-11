@@ -80,7 +80,7 @@ const StepOverview = ({ activeStep, handleClick, }) => {
   if (activeStep === READ_PASSAGE_STEP_NUMBER) {
     return (
       <div className="step-overview">
-        <h1 ref={containerRef} tabIndex={-1}>Here’s what you’ll do</h1>
+        <h1 className="no-focus-outline" ref={containerRef} tabIndex={-1}>Here’s what you’ll do</h1>
         <Step
           active={true}
           handleClick={handleClick}

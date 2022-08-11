@@ -29,7 +29,8 @@ exports[`ReadAndHighlightInstructions component when the student has not started
       }
     >
       <div
-        className="hide-on-mobile"
+        className="no-focus-outline hide-on-mobile"
+        tabIndex={-1}
       >
         <section
           className="directions-section"
@@ -47,7 +48,7 @@ exports[`ReadAndHighlightInstructions component when the student has not started
             <li
               className="sr-only"
             >
-              Screenreader users, please use your tab keys to navigate through the passage. Use the Enter key on a focused sentence to add it to your highlights or to remove it once it has already been highlighted.
+              Screenreader users, please use your tab keys to navigate through the passage. Highlightable sentences are toggle-able buttons. Use the Enter key on a focused sentence to add it to your highlights or to remove it once it has already been highlighted.
             </li>
           </ul>
         </section>
@@ -160,7 +161,8 @@ exports[`ReadAndHighlightInstructions component when the student has started mak
       }
     >
       <div
-        className="hide-on-mobile"
+        className="no-focus-outline hide-on-mobile"
+        tabIndex={-1}
       >
         <section
           className="directions-section"
@@ -178,7 +180,7 @@ exports[`ReadAndHighlightInstructions component when the student has started mak
             <li
               className="sr-only"
             >
-              Screenreader users, please use your tab keys to navigate through the passage. Use the Enter key on a focused sentence to add it to your highlights or to remove it once it has already been highlighted.
+              Screenreader users, please use your tab keys to navigate through the passage. Highlightable sentences are toggle-able buttons. Use the Enter key on a focused sentence to add it to your highlights or to remove it once it has already been highlighted.
             </li>
           </ul>
         </section>
@@ -259,7 +261,7 @@ exports[`ReadAndHighlightInstructions component when the student has started mak
             This is a highlight made by a student.
           </span>
           <button
-            aria-label="Remove highlight"
+            aria-label="Remove highlight from the following sentence: This is a highlight made by a student."
             className="interactive-wrapper focus-on-light"
             onClick={[Function]}
             type="button"

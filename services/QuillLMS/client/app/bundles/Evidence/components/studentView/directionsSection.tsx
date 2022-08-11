@@ -41,7 +41,7 @@ const DirectionsSection = ({ className, passage, inReflection, activeStep, }) =>
   const uniquePartOfHighlightPrompt = passage.highlight_prompt ? passage.highlight_prompt.replace(DEFAULT_HIGHLIGHT_PROMPT, '') : ''
   if (inReflection) {
     return (
-      <div className={className} ref={containerRef} tabIndex={-1}>
+      <div className={`no-focus-outline ${className}`} ref={containerRef} tabIndex={-1}>
         <section className="reflection-section">
           <h3>Directions</h3>
           <p>Great! Now take a moment to reflect on the sentences you highlighted. The ideas you highlighted may be helpful as you complete the writing prompts in the next section.</p>
@@ -55,7 +55,7 @@ const DirectionsSection = ({ className, passage, inReflection, activeStep, }) =>
   }
 
   return (
-    <div className={className} ref={containerRef} tabIndex={-1}>
+    <div className={`no-focus-outline ${className}`} ref={containerRef} tabIndex={-1}>
       {renderDirections(highlightDirections)}
       <section className="task-section">
         <h3>Task</h3>
