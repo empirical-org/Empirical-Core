@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
+require 'pusher'
+
 class Teachers::UnitActivitiesController < ApplicationController
-  include QuillAuthentication
-  require 'pusher'
   respond_to :json
+
   before_action :authorize!, :except => ["update_multiple_due_dates"]
   before_action :teacher!
   before_action :set_unit_activities, only: [:update, :hide]
