@@ -6,10 +6,6 @@ import { DefaultReactQueryClient } from '../../../../Shared/index';
 import UniversalRulesIndex from '../universalRules/universalRules';
 
 const queryClient = new DefaultReactQueryClient();
-const mockUpdateRuleOrders = jest.fn().mockImplementation(() => Promise.resolve({}))
-jest.mock('../../../utils/evidence/ruleAPIs', () => ({
-  updateRuleOrders: mockUpdateRuleOrders
-}));
 
 describe('UniversalRulesIndex component', () => {
   const mockProps = {

@@ -38,7 +38,7 @@ const UniversalRulesIndex = ({ location, match }) => {
 
   function handleUpdateRulesList(rule=null) {
     if(rules && rules.universalRules && rules.universalRules.length) {
-      let updatedRulesList = rules.universalRules.filter(rule => rule.rule_type === ruleType.value);
+      const updatedRulesList = rules.universalRules.filter(rule => rule.rule_type === ruleType.value);
       if(rule) {
         updatedRulesList.push(rule);
       }
