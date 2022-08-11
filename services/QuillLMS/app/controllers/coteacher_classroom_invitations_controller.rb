@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class CoteacherClassroomInvitationsController < ApplicationController
+  around_action :force_writer_db_role,
+    only: [:accept_pending_coteacher_invitations, :reject_pending_coteacher_invitations]
+
   before_action :signed_in!
 
   def accept_pending_coteacher_invitations

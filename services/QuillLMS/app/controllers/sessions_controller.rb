@@ -8,6 +8,8 @@ class SessionsController < ApplicationController
 
   CLEAR_ANALYTICS_SESSION_KEY = "clear_analytics_session"
 
+  around_action :force_writer_db_role, only: [:destroy]
+
   before_action :signed_in!, only: [:destroy]
 
   # rubocop:disable Metrics/CyclomaticComplexity

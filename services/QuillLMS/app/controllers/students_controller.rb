@@ -3,6 +3,8 @@
 class StudentsController < ApplicationController
   include QuillAuthentication
 
+  around_action :force_writer_db_role, only: [:demo_ap, :join_classroom, :student_demo]
+
   before_action :authorize!, except: [:student_demo, :demo_ap, :join_classroom]
   before_action :redirect_to_profile, only: [:index]
 

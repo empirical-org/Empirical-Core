@@ -88,49 +88,43 @@ describe 'SegmentAnalytics' do
   context 'tracking activity pack assignment' do
     let(:teacher) { create(:teacher) }
 
-    it 'sends two events with information about the activity pack when it is a diagnostic activity pack' do
+    it 'sends one event with information about the activity pack when it is a diagnostic activity pack' do
       diagnostic_activity = create(:diagnostic_activity)
       diagnostic_unit_template = create(:unit_template)
       diagnostic_unit = create(:unit, unit_template_id: diagnostic_unit_template.id )
       unit_activity = create(:unit_activity, unit: diagnostic_unit, activity: diagnostic_activity)
       analytics.track_activity_pack_assignment(teacher.id, diagnostic_unit.id)
       expect(identify_calls.size).to eq(0)
-      expect(track_calls.size).to eq(2)
-      expect(track_calls[0][:event]).to eq("#{SegmentIo::BackgroundEvents::ACTIVITY_PACK_ASSIGNMENT} | Diagnostic | #{diagnostic_unit_template.name}")
+      expect(track_calls.size).to eq(1)
+      expect(track_calls[0][:event]).to eq(SegmentIo::BackgroundEvents::ACTIVITY_PACK_ASSIGNMENT)
       expect(track_calls[0][:user_id]).to eq(teacher.id)
-      expect(track_calls[1][:event]).to eq(SegmentIo::BackgroundEvents::ACTIVITY_PACK_ASSIGNMENT)
-      expect(track_calls[1][:user_id]).to eq(teacher.id)
-      expect(track_calls[1][:properties][:activity_pack_type]).to eq("Diagnostic")
-      expect(track_calls[1][:properties][:activity_pack_name]).to eq(diagnostic_unit_template.name)
+      expect(track_calls[0][:properties][:activity_pack_type]).to eq("Diagnostic")
+      expect(track_calls[0][:properties][:activity_pack_name]).to eq(diagnostic_unit_template.name)
     end
 
-    it 'sends two events with information about the activity pack when it is a custom activity pack' do
+    it 'sends one event with information about the activity pack when it is a custom activity pack' do
       unit = create(:unit)
       analytics.track_activity_pack_assignment(teacher.id, unit.id)
       expect(identify_calls.size).to eq(0)
-      expect(track_calls.size).to eq(2)
-      expect(track_calls[0][:event]).to eq("#{SegmentIo::BackgroundEvents::ACTIVITY_PACK_ASSIGNMENT} | Custom")
+      expect(track_calls.size).to eq(1)
+      expect(track_calls[0][:event]).to eq(SegmentIo::BackgroundEvents::ACTIVITY_PACK_ASSIGNMENT)
       expect(track_calls[0][:user_id]).to eq(teacher.id)
-      expect(track_calls[1][:event]).to eq(SegmentIo::BackgroundEvents::ACTIVITY_PACK_ASSIGNMENT)
-      expect(track_calls[1][:user_id]).to eq(teacher.id)
-      expect(track_calls[1][:properties][:activity_pack_type]).to eq("Custom")
-      expect(track_calls[1][:properties][:activity_pack_name]).to eq(unit.name)
+      expect(track_calls[0][:properties][:activity_pack_type]).to eq("Custom")
+      expect(track_calls[0][:properties][:activity_pack_name]).to eq(unit.name)
     end
 
-    it 'sends two events with information about the activity pack when it is a pre made activity pack' do
+    it 'sends one event with information about the activity pack when it is a pre made activity pack' do
       unit_template = create(:unit_template)
       unit = create(:unit, unit_template_id: unit_template.id)
       activity = create(:connect_activity)
       unit_activity = create(:unit_activity, activity: activity, unit: unit)
       analytics.track_activity_pack_assignment(teacher.id, unit.id)
       expect(identify_calls.size).to eq(0)
-      expect(track_calls.size).to eq(2)
-      expect(track_calls[0][:event]).to eq("#{SegmentIo::BackgroundEvents::ACTIVITY_PACK_ASSIGNMENT} | Pre-made | #{unit_template.name}")
+      expect(track_calls.size).to eq(1)
+      expect(track_calls[0][:event]).to eq(SegmentIo::BackgroundEvents::ACTIVITY_PACK_ASSIGNMENT)
       expect(track_calls[0][:user_id]).to eq(teacher.id)
-      expect(track_calls[1][:event]).to eq(SegmentIo::BackgroundEvents::ACTIVITY_PACK_ASSIGNMENT)
-      expect(track_calls[1][:user_id]).to eq(teacher.id)
-      expect(track_calls[1][:properties][:activity_pack_type]).to eq("Pre-made")
-      expect(track_calls[1][:properties][:activity_pack_name]).to eq(unit_template.name)
+      expect(track_calls[0][:properties][:activity_pack_type]).to eq("Pre-made")
+      expect(track_calls[0][:properties][:activity_pack_name]).to eq(unit_template.name)
     end
 
   end
@@ -215,14 +209,11 @@ describe 'SegmentAnalytics' do
       })
     end
 
-    it 'does not send events to Intercom when user_id is not present' do
+    it 'does not send events to Intercom when user_id is not present and includes the default integration rules' do
       analytics.track({})
       expect(identify_calls.size).to eq(0)
       expect(track_calls.size).to eq(1)
-      expect(track_calls[0][:integrations]).to eq({
-        all: true,
-        Intercom: false
-      })
+      expect(track_calls[0][:integrations]).to eq analytics.default_integration_rules
     end
   end
 
