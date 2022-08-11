@@ -23,8 +23,8 @@ class ProgressReports::DistrictConceptReports
           classrooms.name AS classroom_name,
           students.name AS student_name,
           students.id AS student_id,
-          SUM(CAST(old_concept_results.metadata->>'correct' as INT)) AS correct,
-          COUNT(old_concept_results) AS old_concept_results_count
+          SUM(CAST(concept_results.correct as INT)) AS correct,
+          COUNT(concept_results) AS concept_results_count
         FROM schools_admins
         JOIN schools
           ON schools.id = schools_admins.school_id
@@ -43,8 +43,8 @@ class ProgressReports::DistrictConceptReports
           ON activity_sessions.classroom_unit_id = classroom_units.id
         JOIN users AS students
           ON students.id = activity_sessions.user_id
-        JOIN old_concept_results
-          ON old_concept_results.activity_session_id = activity_sessions.id
+        JOIN concept_results
+          ON concept_results.activity_session_id = activity_sessions.id
         WHERE schools_admins.user_id = #{@admin_id}
         GROUP BY
           student_id,
@@ -59,8 +59,8 @@ class ProgressReports::DistrictConceptReports
         classroom_name,
         student_name,
         correct,
-        (old_concept_results_count - correct) as incorrect,
-        FLOOR(( correct/old_concept_results_count::float ) * 100 ) as percentage
+        (concept_results_count - correct) as incorrect,
+        FLOOR(( correct/concept_results_count::float ) * 100 ) as percentage
       FROM results;
     SQL
   end

@@ -14,14 +14,14 @@ describe ProgressReports::DistrictConceptReports do
     let!(:classrooms_teacher) { create(:classrooms_teacher, user: teacher, role: "owner", classroom: classroom) }
     let!(:classroom_unit) { create(:classroom_unit, classroom: classroom, assigned_student_ids: [student.id]) }
     let!(:activity_session) { create(:activity_session_without_concept_results, classroom_unit: classroom_unit, user_id: student.id) }
-    let!(:concept_result) { create(:old_concept_result, activity_session: activity_session) }
+    let!(:concept_result) { create(:concept_result, activity_session: activity_session) }
 
     subject { described_class.new(admin.id) }
 
     it 'should return the correct results' do
-      correct = concept_result.metadata["correct"]
-      incorrect = OldConceptResult.count - correct
-      percentage = (100 * correct.to_f / OldConceptResult.count).floor
+      correct = concept_result.correct ? 1 : 0
+      incorrect = ConceptResult.count - correct
+      percentage = (100 * correct.to_f / ConceptResult.count).floor
 
       expect(subject.results).to eq(
         [{
