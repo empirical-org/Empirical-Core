@@ -108,14 +108,14 @@ const ActivitySurvey = ({ activity, dispatch, sessionID, saveActivitySurveyRespo
       multiple_choice_selections: selectedMultipleChoiceOptions,
       survey_question: SURVEY_QUESTION,
     }
-    const trackingParams = {
+    const trackingProperties = {
       activity_name: activity?.title,
       tool_name: "Reading",
       rating: selectedEmoji,
       ...mapMultipleChoiceOptionsForEventParams()
     }
     const callback = () => setSubmittedActivitySurvey(true)
-    dispatch(TrackAnalyticsEvent(Events.STUDENT_RATED_AN_ACTIVITY, {}, trackingParams))
+    dispatch(TrackAnalyticsEvent(Events.STUDENT_RATED_AN_ACTIVITY, {}, trackingProperties))
     saveActivitySurveyResponse({ sessionID, activitySurveyResponse, callback, })
   }
 
