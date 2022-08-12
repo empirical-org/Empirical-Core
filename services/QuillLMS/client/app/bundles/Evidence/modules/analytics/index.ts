@@ -67,7 +67,7 @@ class SegmentAnalytics {
       properties = {};
     }
     return Object.keys(properties).reduce((accumulator, key) => {
-      const keysToSkip = ['user_id', 'properties'];
+      const keysToSkip = ['event', 'user_id', 'properties'];
       let customKeyName = keysToSkip.includes(key) ? key : `custom_${key}`;
       accumulator[customKeyName] = properties[key];
       return accumulator;
