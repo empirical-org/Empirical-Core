@@ -3,10 +3,10 @@
 require 'rails_helper'
 
 describe SendAttachmentMailer, type: :mailer do
+  let(:recipient) { 'test@email.com' }
+  let(:email_subject) { 'Test Subject' }
 
   describe '#send_attached_file' do
-    let(:recipient) { 'test@email.com' }
-    let(:email_subject) { 'Test Subject' }
     let(:file_name) { 'file_name.csv' }
     let(:file_stream) { 'the contents of the file as a string' }
 
@@ -22,6 +22,24 @@ describe SendAttachmentMailer, type: :mailer do
       expect_any_instance_of(SendAttachmentMailer).to receive(:mail).with(to: recipient, subject: email_subject)
 
       subject.send_attached_file(recipient, email_subject, file_name, file_stream)
+    end
+  end
+
+
+  describe '#send_multiple_files' do
+    let(:file_name1) {'file_name1.csv'}
+    let(:file_name2) {'file_name2.csv'}
+    let(:file_contents1) {'the contents of the file as a string'}
+    let(:file_contents2) {'the contents of the file as a string 2'}
+    let(:file_hash) { {file_name1 => file_contents1, file_name2 => file_contents2} }
+
+    subject { described_class.send_multiple_files(recipient, email_subject, file_hash) }
+
+    it 'sets the attachments and calls mail' do
+      expect(subject.attachments[file_name1].body).to eq(file_contents1)
+      expect(subject.attachments[file_name2].body).to eq(file_contents2)
+      expect(subject.to).to eq([recipient])
+      expect(subject.subject).to eq(email_subject)
     end
   end
 end

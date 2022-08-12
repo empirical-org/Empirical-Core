@@ -7,7 +7,7 @@ Evidence::Engine.routes.draw do
       get :change_logs
       get :rules
       put :increment_version
-
+      post :seed_data
     end
   end
 

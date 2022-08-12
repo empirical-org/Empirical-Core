@@ -53,6 +53,21 @@ export const updateActivityVersion = async (activityNote: string, activityId: st
   return { errors: [] };
 }
 
+export const createSeedData = async (nouns: string, activityId: string) => {
+  const response = await apiFetch(`activities/${activityId}/seed_data`, {
+    method: 'POST',
+    body: JSON.stringify({nouns: nouns})
+  });
+  const { status } = response;
+
+  if(requestFailed(status)) {
+    const errors = await response.json();
+    const returnedErrors = await handleRequestErrors(errors);
+    return { errors: returnedErrors };
+  }
+  return { errors: [] };
+}
+
 export const updateActivity = async (activity: object, activityId: string) => {
   const response = await apiFetch(`activities/${activityId}`, {
     method: 'PUT',

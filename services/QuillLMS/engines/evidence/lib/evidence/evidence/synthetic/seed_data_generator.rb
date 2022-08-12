@@ -9,28 +9,30 @@ module Evidence
       SPACE = ' '
       BLANK = ''
       PERIOD = '.'
+      CSV_SUFFIX = '.csv'
+      HTML_TAG_REGEX = /<("[^"]*"|'[^']*'|[^'">])*>/
 
-      FULL_COUNT = 100
-      FULL_NOUN_COUNT = 50
-      SECTION_COUNT = 50
+      FULL_COUNT = ENV.fetch('SYNTHETIC_SEED_PASSAGE_COUNT', 128).to_i
+      FULL_NOUN_COUNT = ENV.fetch('SYNTHETIC_SEED_NOUN_COUNT', 50).to_i
+      SECTION_COUNT = ENV.fetch('SYNTHETIC_SEED_SECTION_COUNT', 70).to_i
 
-      TEMP_PASSAGE = 1
+      TEMPS_PASSAGE = [1, 0.9, 0.7, 0.5]
       TEMP_SECTION = 0.5 # give a lower temp (creativity) when it has less info
 
       attr_reader :passage, :stem, :nouns, :results
 
       # returns a hash of the form {'csv name' => CSVString, 'csv name2' =>...}
       def self.csvs_for_activity(activity_id:, nouns: [])
-        activity = Activity.find(activity_id)
+        activity = Evidence::Activity.find(activity_id)
         passage = activity.passages.first.text
         prompts = activity.prompts
         short_name = activity.title.first(20).gsub(' ', '_')
-        passage_csv_name = "#{short_name}_passage_chunks"
+        passage_csv_name = "#{short_name}_passage_chunks#{CSV_SUFFIX}"
 
         csvs = {}
 
         prompts.each.with_index do |prompt, index|
-          csv_name = "#{short_name}_#{prompt.conjunction}"
+          csv_name = "#{short_name}_#{prompt.conjunction}#{CSV_SUFFIX}"
 
           generator = new(passage: passage, stem: prompt.text, nouns: nouns)
           generator.run
@@ -47,6 +49,11 @@ module Evidence
 
       def initialize(passage:, stem:, nouns: [])
         @passage = passage
+          .gsub(HTML_TAG_REGEX, " ") # remove html tags
+          .gsub("&#x27;", "'") # replace html single quotes
+          .gsub("&quot;","\"") # replace html double quotes
+          .gsub(/\s+/," ") # replace multiple spaces with single space
+          .strip
         @stem = stem
         @nouns = nouns
         @results = []
@@ -55,7 +62,9 @@ module Evidence
       def run
         # whole passage plus prompt
         prompt = prompt_text(context: passage)
-        run_prompt(prompt: prompt, count: FULL_COUNT, seed: 'full_passage')
+        TEMPS_PASSAGE.each do |temp|
+          run_prompt(prompt: prompt, count: FULL_COUNT, seed: "full_passage_temp#{temp}", temperature: temp)
+        end
 
         # whole passage plus prompt for each noun
         nouns.each do |noun|
@@ -72,7 +81,7 @@ module Evidence
         results
       end
 
-      private def run_prompt(prompt:, count:, seed:, noun: nil, temperature: TEMP_PASSAGE)
+      private def run_prompt(prompt:, count:, seed:, noun: nil, temperature: 1)
         output = Evidence::OpenAI::Completion.run(prompt: prompt, count: count, temperature: temperature)
         current_result_texts = results.map(&:text)
 
