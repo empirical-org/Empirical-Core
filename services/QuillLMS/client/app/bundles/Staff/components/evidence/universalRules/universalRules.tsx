@@ -33,6 +33,10 @@ const UniversalRulesIndex = ({ location, match }) => {
 
   React.useEffect(() => {
     handleUpdateRulesList();
+  }, [rules]);
+
+  React.useEffect(() => {
+    handleUpdateRulesList();
     setRuleOrderUpdated(false);
   }, [ruleType]);
 
@@ -102,9 +106,7 @@ const UniversalRulesIndex = ({ location, match }) => {
       } else {
         setErrors([]);
         toggleAddRuleModal();
-        queryClient.refetchQueries(`universal-rules`).then(() => {
-          handleUpdateRulesList(rule);
-        });
+        queryClient.refetchQueries(`universal-rules`);
       }
     });
   }

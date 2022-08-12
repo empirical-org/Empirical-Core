@@ -186,7 +186,7 @@ const UniversalRule = ({ history, location, match }) => {
           headers={dataTableFields}
           rows={ruleRows(ruleData)}
         />
-        <div className="button-container">
+        <div className="buttons-container">
           <button className="quill-button fun primary contained" id="edit-rule-button" onClick={toggleShowEditRuleModal} type="button">
             Configure
           </button>

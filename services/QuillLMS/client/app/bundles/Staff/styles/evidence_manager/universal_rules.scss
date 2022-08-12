@@ -40,15 +40,18 @@
       overflow: auto;
       .data-table-row {
         min-height: auto;
-        span {
-          span {
-            a {
-              color: #00c2a2;
-            }
-            .a:hover {
-              cursor: pointer;
-              color: #29d8bc
-            }
+        td {
+          a {
+            color: #00c2a2;
+          }
+          .a:hover {
+            cursor: pointer;
+            color: #29d8bc
+          }
+        }
+        .reorder-section {
+          div:hover {
+            cursor: pointer;
           }
         }
       }
