@@ -9,6 +9,7 @@ export const getActivity = (sessionID: string, activityUID: string) => {
   return async (dispatch: Function) => {
 
     dispatch(TrackAnalyticsEvent(Events.EVIDENCE_ACTIVITY_STARTED, {
+      event: Events.EVIDENCE_ACTIVITY_STARTED,
       activityID: activityUID,
       sessionID: sessionID
     }));

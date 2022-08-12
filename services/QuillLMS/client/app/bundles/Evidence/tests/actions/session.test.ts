@@ -41,6 +41,7 @@ describe('Session actions', () => {
 
     it('sends a EVIDENCE_ENTRY_SUBMITTED analytics event', () => {
       expect(mockTrackAnalyticsEvent).toBeCalledWith(Events.EVIDENCE_ENTRY_SUBMITTED, {
+        event: Events.EVIDENCE_ENTRY_SUBMITTED,
         activityID: mockActivityID,
         attemptNumber: mockAttempt,
         promptID: mockPromptID,

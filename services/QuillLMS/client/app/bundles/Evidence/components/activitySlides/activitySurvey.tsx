@@ -118,6 +118,7 @@ const ActivitySurvey = ({ activity, dispatch, sessionID, saveActivitySurveyRespo
       survey_question: SURVEY_QUESTION,
     }
     const trackingProperties = {
+      event: Events.STUDENT_RATED_AN_ACTIVITY,
       activity_name: activity?.title,
       tool_name: "Reading",
       rating: selectedEmoji,

@@ -37,6 +37,7 @@ describe('StudentViewContainer component', () => {
         wrapper.find('.save-and-exit').simulate('click')
 
         expect(mockTrackAnalyticsEvent).toHaveBeenCalledWith(Events.EVIDENCE_ACTIVITY_SAVED, {
+          event: Events.EVIDENCE_ACTIVITY_SAVED,
           activityID: MockActivityID,
           sessionID: MockSessionID
         })

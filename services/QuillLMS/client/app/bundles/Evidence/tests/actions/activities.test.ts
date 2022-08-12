@@ -21,6 +21,7 @@ describe('Activities actions', () => {
 
     it('sends an EVIDENCE_ACTIVITY_STARTED analytics event', () => {
       expect(TrackAnalyticsEvent).toBeCalledWith(Events.EVIDENCE_ACTIVITY_STARTED, {
+        event: Events.EVIDENCE_ACTIVITY_STARTED,
         activityID: mockActivityID,
         sessionID: mockSessionID
       })

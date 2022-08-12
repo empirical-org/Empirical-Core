@@ -194,6 +194,7 @@ export const getFeedback = (args: GetFeedbackArguments) => {
     }
 
     dispatch(TrackAnalyticsEvent(Events.EVIDENCE_ENTRY_SUBMITTED, {
+      event: Events.EVIDENCE_ENTRY_SUBMITTED,
       activityID: activityUID,
       attemptNumber: attempt,
       promptID,
@@ -217,6 +218,7 @@ export const getFeedback = (args: GetFeedbackArguments) => {
       }
       dispatch({ type: ActionTypes.RECORD_FEEDBACK, promptID, feedbackObj });
       dispatch(TrackAnalyticsEvent(Events.EVIDENCE_FEEDBACK_RECEIVED, {
+        event: Events.EVIDENCE_FEEDBACK_RECEIVED,
         activityID: activityUID,
         attemptNumber: attempt,
         promptID,
