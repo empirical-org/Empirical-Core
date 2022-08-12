@@ -16,14 +16,15 @@ RSpec.describe GoogleIntegration::ClassroomStudentImporter do
     }
   end
 
-  subject { described_class.new(data) }
+  subject { described_class.run(data) }
 
   context 'no email given' do
     let(:email) { nil }
+    let(:importer) { described_class.new(data) }
 
     it 'does not run import' do
-      expect(subject).not_to receive(:import_student)
-      subject.run
+      expect(importer).not_to receive(:update_student_with_google_id_and_different_email)
+      importer.run
     end
   end
 
@@ -31,14 +32,14 @@ RSpec.describe GoogleIntegration::ClassroomStudentImporter do
     let(:email) { 'student@gmail.com' }
 
     it 'associates students to classrooms' do
-      expect { subject.run }.to change(StudentsClassrooms, :count).from(0).to(1)
+      expect { subject }.to change(StudentsClassrooms, :count).from(0).to(1)
     end
 
     context 'user exists with email' do
       context 'with role student' do
         before { create(:student, email: email) }
 
-        it { expect { subject.run }.to_not change(User.student, :count) }
+        it { expect { subject }.to_not change(User.student, :count) }
       end
 
       context 'role is teacher' do
@@ -47,12 +48,12 @@ RSpec.describe GoogleIntegration::ClassroomStudentImporter do
         context 'teacher has classrooms' do
           before { create(:classrooms_teacher, user: student) }
 
-          it { expect { subject.run }.to_not change(User.student, :count) }
-          it { expect { subject.run }.to change(ChangeLog, :count).by(1) }
+          it { expect { subject }.to_not change(User.student, :count) }
+          it { expect { subject }.to change(ChangeLog, :count).by(1) }
         end
 
         context 'teacher has no classrooms' do
-          it { expect { subject.run }.to change(User.student, :count).by(1) }
+          it { expect { subject }.to change(User.student, :count).by(1) }
         end
       end
     end
@@ -64,13 +65,13 @@ RSpec.describe GoogleIntegration::ClassroomStudentImporter do
         before { create(:student, email: another_email, google_id: google_id) }
 
         it 'updates the students email first then calls updater' do
-          expect { subject.run }.to_not change(User.student, :count)
+          expect { subject }.to_not change(User.student, :count)
         end
       end
 
       context 'no student exists with google_id' do
         it 'creates a new student' do
-          expect { subject.run }.to change(User.student, :count).from(0).to(1)
+          expect { subject }.to change(User.student, :count).from(0).to(1)
         end
       end
     end

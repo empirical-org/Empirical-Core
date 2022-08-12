@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module GoogleIntegration
-  class ClassroomStudentUpdater
+  class ClassroomStudentUpdater < ApplicationService
     ACCOUNT_TYPE = ::User::GOOGLE_CLASSROOM_ACCOUNT
     ROLE = ::User::STUDENT
 
