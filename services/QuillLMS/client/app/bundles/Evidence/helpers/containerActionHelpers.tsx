@@ -40,7 +40,7 @@ export const outOfAttemptsForActivePrompt = (activeStep, session, activities) =>
   return (responsesForPrompt.length === activePrompt.max_attempts) || lastAttempt.optimal
 }
 
-export const getCurrentStepDataForEventTracking = ({ event, activeStep, activities, session, isTurk }) => {
+export const getCurrentStepDataForEventTracking = ({ activeStep, activities, session, isTurk }) => {
   const { currentActivity, } = activities
   const { sessionID, } = session
   const activityID = getUrlParam('uid', location, isTurk)

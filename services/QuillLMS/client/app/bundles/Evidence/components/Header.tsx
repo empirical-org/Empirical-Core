@@ -32,7 +32,6 @@ export class Header extends React.Component<any, any> {
     const { sessionID, } = this.state
     const activityID = getParameterByName('uid', window.location.href)
     dispatch(TrackAnalyticsEvent(Events.EVIDENCE_ACTIVITY_SAVED, {
-      event: Events.EVIDENCE_ACTIVITY_SAVED,
       activityID: activityID,
       sessionID
     }))

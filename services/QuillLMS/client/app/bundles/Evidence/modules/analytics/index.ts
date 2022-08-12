@@ -19,6 +19,7 @@ class SegmentAnalytics {
     const { teacherId, studentId } = idData
     const customProperties = {
       ...params,
+      event: event.name,
       user_id: teacherId,
       properties: {
         student_id: studentId,
