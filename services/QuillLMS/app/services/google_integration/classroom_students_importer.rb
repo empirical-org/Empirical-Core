@@ -16,11 +16,11 @@ module GoogleIntegration
     end
 
     private def import_classroom_students
-      classroom_students_data.each { |classroom_student_data| ClassroomStudentImporter.new(classroom_student_data).run }
+      classroom_students_data.each { |classroom_student_data| ClassroomStudentImporter.run(classroom_student_data) }
     end
 
     private def update_provider_classroom_users
-      ProviderClassroomUsersUpdater.new(google_classroom_id, google_ids, GoogleClassroomUser).run
+      ProviderClassroomUsersUpdater.run(google_classroom_id, google_ids, GoogleClassroomUser)
     end
   end
 end

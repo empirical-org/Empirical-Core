@@ -147,8 +147,6 @@ class User < ApplicationRecord
     format: { without: /\t/, message: 'cannot contain tabs' },
     length: { maximum:  CHAR_FIELD_MAX_LENGTH}
 
-  validates_with ::FullnameValidator
-
   validates :password,
     presence: { if: :requires_password? },
     length: { maximum: CHAR_FIELD_MAX_LENGTH}
