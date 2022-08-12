@@ -8,7 +8,7 @@ namespace :fullnames do
 
   def generate_fullnames
     User.find_each do |user|
-      new_name = GenerateFullname.new(user.name).call
+      new_name = GenerateFullname.run(user.name)
       user.name = new_name
       user.save(validate: false)
     end

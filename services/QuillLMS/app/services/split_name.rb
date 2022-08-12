@@ -1,12 +1,11 @@
 # frozen_string_literal: true
 
-class SplitName
-
+class SplitName < ApplicationService
   def initialize(name)
     @name = name
   end
 
-  def call
+  def run
     split_name
   end
 
@@ -14,12 +13,9 @@ class SplitName
   private :name
 
   private def split_name
-    if name.nil?
-      first_name = nil
-      last_name = nil
-    else
-      first_name, last_name = name.strip.try(:split, /\s+/, 2)
-    end
+    return [nil, nil] if name.nil?
+
+    first_name, last_name = name.strip.try(:split, /\s+/, 2)
     [first_name, last_name]
   end
 end

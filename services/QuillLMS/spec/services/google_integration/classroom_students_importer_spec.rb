@@ -10,13 +10,13 @@ RSpec.describe GoogleIntegration::ClassroomStudentsImporter do
 
   before { allow(classroom_students_data).to receive(:students_data).and_return(students_data) }
 
-  subject { described_class.new(classroom_students_data) }
+  subject { described_class.run(classroom_students_data) }
 
   context "no student data imported" do
     let(:students_data) { [] }
 
-    it { expect { subject.run }.not_to change(User.student, :count) }
-    it { expect { subject.run }.not_to change(GoogleClassroomUser, :count) }
+    it { expect { subject }.not_to change(User.student, :count) }
+    it { expect { subject }.not_to change(GoogleClassroomUser, :count) }
   end
 
   context "existing student and one new student" do
@@ -33,8 +33,8 @@ RSpec.describe GoogleIntegration::ClassroomStudentsImporter do
       ]
     end
 
-    it { expect { subject.run }.to change(User.student, :count).from(1).to(2) }
-    it { expect { subject.run }.to change(GoogleClassroomUser, :count).from(1).to(2) }
+    it { expect { subject }.to change(User.student, :count).from(1).to(2) }
+    it { expect { subject }.to change(GoogleClassroomUser, :count).from(1).to(2) }
   end
 
   context "two new students" do
@@ -45,7 +45,7 @@ RSpec.describe GoogleIntegration::ClassroomStudentsImporter do
       ]
     end
 
-    it { expect { subject.run }.to change(User.student, :count).from(0).to(2) }
-    it { expect { subject.run }.to change(GoogleClassroomUser, :count).from(0).to(2) }
+    it { expect { subject }.to change(User.student, :count).from(0).to(2) }
+    it { expect { subject }.to change(GoogleClassroomUser, :count).from(0).to(2) }
   end
 end

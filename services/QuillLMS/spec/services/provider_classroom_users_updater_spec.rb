@@ -8,25 +8,25 @@ RSpec.describe ProviderClassroomUsersUpdater do
   let(:klass) { type.constantize }
   let(:factory) { type.underscore }
 
-  subject { described_class.new(factory, provider_user_ids, klass) }
+  subject { described_class.run(factory, provider_user_ids, klass) }
 
   context 'no provider_classroom_users exist' do
     context 'create zero records' do
       let(:provider_user_ids) { [] }
 
-      it { expect { subject.run }.not_to change(klass, :count) }
+      it { expect { subject }.not_to change(klass, :count) }
     end
 
     context 'create one record' do
       let(:provider_user_ids) { ['some-provider-user-id'] }
 
-      it { expect { subject.run }.to change(klass, :count).from(0).to(1) }
+      it { expect { subject }.to change(klass, :count).from(0).to(1) }
     end
 
     context 'creates two records' do
       let(:provider_user_ids) { ['some-provider-user-id', 'another-provider-user-id'] }
 
-      it { expect { subject.run }.to change(klass, :count).from(0).to(2) }
+      it { expect { subject }.to change(klass, :count).from(0).to(2) }
     end
   end
 
@@ -35,7 +35,7 @@ RSpec.describe ProviderClassroomUsersUpdater do
 
     let(:provider_user_ids) { ['some-provider-user-id'] }
 
-    it { expect { subject.run }.to change(klass, :count).from(1).to(2) }
+    it { expect { subject }.to change(klass, :count).from(1).to(2) }
   end
 
   context 'two provider_classroom_users exist' do
