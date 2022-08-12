@@ -11,7 +11,7 @@ module Evidence
       csv_hash = Evidence::Synthetic::SeedDataGenerator.csvs_for_activity(activity_id: activity_id, nouns: nouns)
 
       activity = Evidence::Activity.find(activity_id)
-      subject = "Seed Data Activity: #{activity_id} - #{activity.title}"
+      subject = "Evidence Seed Data: Activity #{activity_id} - #{activity.title}"
 
       Evidence.file_mailer.send_multiple_files(EMAIL, subject, csv_hash).deliver_now!
     end

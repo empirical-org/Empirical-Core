@@ -10,7 +10,7 @@ module Evidence
       let(:activity) { create(:evidence_activity) }
       let(:nouns) {['noun1']}
       let(:generator_response) { double }
-      let(:email_subject) {"Seed Data Activity: #{activity.id} - #{activity.title}"}
+      let(:email_subject) {"Evidence Seed Data: Activity #{activity.id} - #{activity.title}"}
       let(:mailer) { double('mailer', deliver_now!: true) }
 
       it 'call generate and call file_mailer' do

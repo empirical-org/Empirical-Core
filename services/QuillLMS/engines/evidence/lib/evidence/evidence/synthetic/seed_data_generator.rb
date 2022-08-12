@@ -52,7 +52,7 @@ module Evidence
           .gsub(HTML_TAG_REGEX, " ") # remove html tags
           .gsub("&#x27;", "'") # replace html single quotes
           .gsub("&quot;","\"") # replace html double quotes
-          .gsub(/\s+/," ")
+          .gsub(/\s+/," ") # replace multiple spaces with single space
           .strip
         @stem = stem
         @nouns = nouns
