@@ -51,7 +51,6 @@ export const getCurrentStepDataForEventTracking = ({ activeStep, activities, ses
   const promptID = currentActivity.prompts[promptIndex].id
 
   return {
-    event,
     activityID,
     sessionID,
     promptID
