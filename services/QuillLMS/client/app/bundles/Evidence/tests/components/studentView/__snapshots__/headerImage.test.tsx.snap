@@ -16,7 +16,7 @@ exports[`Header Image component should render Header Image 1`] = `
       />
       <Tooltip
         handleClick={[Function]}
-        isTabbable={true}
+        isTabbable={false}
         tooltipTriggerText="Image credit"
         tooltipTriggerTextClass="image-attribution-tooltip"
       />

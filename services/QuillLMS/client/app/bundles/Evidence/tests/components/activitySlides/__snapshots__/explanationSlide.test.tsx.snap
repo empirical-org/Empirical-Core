@@ -2,13 +2,15 @@
 
 exports[`ExplanationSlide Component should match snapshot 1`] = `
 <div
-  aria-live="polite"
   className="explanation-slide-container"
 >
   <section
+    className="no-focus-outline"
     id="information-section"
+    tabIndex={-1}
   >
     <p
+      aria-hidden={true}
       className="subtext"
     >
       Good to know
@@ -16,11 +18,9 @@ exports[`ExplanationSlide Component should match snapshot 1`] = `
     <section
       id="header-container"
     >
-      <p
-        id="header"
-      >
+      <h1>
         Test Header
-      </p>
+      </h1>
     </section>
     <img
       alt="test alt text"
