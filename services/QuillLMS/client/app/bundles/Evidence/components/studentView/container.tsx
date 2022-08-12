@@ -325,7 +325,6 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
     const activityID = getUrlParam('uid', location, isTurk)
 
     dispatch(TrackAnalyticsEvent(Events.EVIDENCE_ACTIVITY_COMPLETED, {
-      event: Events.EVIDENCE_ACTIVITY_COMPLETED,
       activityID,
       sessionID
     }));
