@@ -16,9 +16,8 @@ class GenerateFullname < ApplicationService
   private def generate_fullname
     first_name, last_name = SplitName.run(name)
 
-    return "#{first_name} #{first_name}" if last_name.nil? && first_name.present?
-    return DEFAULT_NAME if last_name.nil? && first_name.nil?
+    return name unless last_name.nil?
 
-    name
+    first_name.present? ? "#{first_name} #{first_name}" : DEFAULT_NAME
   end
 end
