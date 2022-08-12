@@ -18,6 +18,7 @@ module Evidence
       }
       BLANK = ''
       STOP_TOKENS = [". ", ", "]
+      MAX_COUNT = 128 # API has an undocument max of 128 for 'n'
 
       attr_accessor :response, :prompt, :temperature, :count, :model_key, :options_hash
 
@@ -41,7 +42,7 @@ module Evidence
           model: MODELS[model_key],
           temperature: temperature,
           prompt: prompt,
-          n: count,
+          n: [count.to_i, MAX_COUNT].min,
           max_tokens: MAX_TOKENS,
           stop: STOP_TOKENS
         }.merge(options_hash)
@@ -56,14 +57,18 @@ module Evidence
       end
 
       def cleaned_results
-        result_texts
-          .map{|r| r.gsub(/^(\n|-|\s)+/, BLANK)} # strip all leading \n, -, or whitespace
-          .map{|r| r.gsub(/(\]|\[|=|\d\))/, BLANK)} # strip brackets, equal signs, and 1), 2)
-          .map{|r| r.split(/\n/).first } # drop anything after a \n
-          .map{|r| r.strip } # remove leading/ending spaces
+        result_texts_removed_characters
+          .map{|r| r&.split(/\n/)&.first } # drop anything after a \n
+          .map{|r| r&.strip } # remove leading/ending spaces
           .compact
           .select {|r| r.length >= 10}
           .uniq
+      end
+
+      def result_texts_removed_characters
+        result_texts
+          .map{|r| r&.gsub(/^(\n|-|\s)+/, BLANK)} # strip all leading \n, -, or whitespace
+          .map{|r| r&.gsub(/(\]|\[|=|\d\))/, BLANK)} # strip brackets, equal signs, and 1), 2)
       end
 
       private def result_texts

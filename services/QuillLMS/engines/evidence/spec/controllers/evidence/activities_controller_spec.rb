@@ -326,5 +326,23 @@ module Evidence
         expect { get(:rules, :params => ({ :id => 99999 })) }.to(raise_error(ActiveRecord::RecordNotFound))
       end
     end
+
+    context "#seed_data" do
+      let(:activity) { create(:evidence_activity) }
+
+      it "should call background worker" do
+        expect(Evidence::ActivitySeedDataWorker).to receive(:perform_async).with(activity.id, [])
+        post :seed_data, params: { id: activity.id, nouns: "" }
+
+        expect(response).to have_http_status(:success)
+      end
+
+      it "should call background worker with noun string converted to array" do
+        expect(Evidence::ActivitySeedDataWorker).to receive(:perform_async).with(activity.id, ['noun1','noun two','noun3'])
+        post :seed_data, params: { id: activity.id, nouns: "noun1, noun two,,noun3" }
+
+        expect(response).to have_http_status(:success)
+      end
+    end
   end
 end
