@@ -50,7 +50,7 @@ describe ActivitySession, type: :model, redis: true do
   it { should have_one(:classroom).through(:classroom_unit) }
   it { should have_one(:unit).through(:classroom_unit) }
   it { should have_many(:concept_results) }
-  it { should have_many(:concepts).through(:old_concept_results) }
+  it { should have_many(:concepts).through(:concept_results) }
   it { should have_many(:teachers).through(:classroom) }
   it { should belong_to(:user) }
 
