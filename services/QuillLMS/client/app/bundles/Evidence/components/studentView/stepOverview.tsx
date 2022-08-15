@@ -1,6 +1,7 @@
 import * as React from 'react'
 
 import { whiteCheckGreenBackgroundIcon, READ_PASSAGE_STEP_NUMBER, BECAUSE_PASSAGE_STEP_NUMBER, BUT_PASSAGE_STEP_NUMBER, SO_PASSAGE_STEP_NUMBER } from '../../../Shared/index'
+import useFocus from '../../../Shared/hooks/useFocus'
 
 const steps = {
   [READ_PASSAGE_STEP_NUMBER]: {
@@ -70,10 +71,16 @@ const Step = ({ active, completed, handleClick, step }: StepProps) => {
 }
 
 const StepOverview = ({ activeStep, handleClick, }) => {
+  const [containerRef, setContainerFocus] = useFocus()
+
+  React.useEffect(() => {
+    setContainerFocus()
+  }, [activeStep])
+
   if (activeStep === READ_PASSAGE_STEP_NUMBER) {
     return (
       <div className="step-overview">
-        <h1>Here’s what you’ll do</h1>
+        <h1 className="no-focus-outline" ref={containerRef} tabIndex={-1}>Here’s what you’ll do</h1>
         <Step
           active={true}
           handleClick={handleClick}
@@ -97,7 +104,7 @@ const StepOverview = ({ activeStep, handleClick, }) => {
 
   return (
     <div className="step-overview">
-      <h1>Nice! Keep going!</h1>
+      <h1 ref={containerRef} tabIndex={-1}>Nice! Keep going!</h1>
       <Step
         active={false}
         completed={activeStep > READ_PASSAGE_STEP_NUMBER}

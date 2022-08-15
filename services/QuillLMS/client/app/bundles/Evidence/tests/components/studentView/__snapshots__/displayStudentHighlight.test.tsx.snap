@@ -30,7 +30,7 @@ exports[`DisplayStudentHighlight component when the student is on the read passa
       This is a sentence I chose to highlight.
     </span>
     <button
-      aria-label="Remove highlight"
+      aria-label="Remove highlight from the following sentence: This is a sentence I chose to highlight."
       className="interactive-wrapper focus-on-light"
       onClick={[Function]}
       type="button"

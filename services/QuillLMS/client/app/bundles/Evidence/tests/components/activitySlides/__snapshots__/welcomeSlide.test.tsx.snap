@@ -2,7 +2,6 @@
 
 exports[`WelcomeSlide Component should match snapshot 1`] = `
 <div
-  aria-live="polite"
   className="explanation-slide-container"
   id="welcome-slide-container"
 >
@@ -17,11 +16,9 @@ exports[`WelcomeSlide Component should match snapshot 1`] = `
     <section
       id="header-container"
     >
-      <p
-        id="header"
-      >
+      <h1>
         Welcome to Quill Reading for Evidence
-      </p>
+      </h1>
     </section>
     <section
       id="instructions-container"
