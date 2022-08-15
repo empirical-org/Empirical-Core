@@ -55,31 +55,23 @@ shared_context 'Student Concept Progress Report' do
 
   before do
     # Incorrect result for Alice
-    alice_session.old_concept_results.create!(
+    alice_session.concept_results.create!(
       concept: create(:concept_with_grandparent),
-      metadata: {
-        "correct" => 0
-      })
+      correct: false)
 
     # Correct result for Alice
-    alice_session.old_concept_results.create!(
+    alice_session.concept_results.create!(
       concept: concept,
-      metadata: {
-        "correct" => 1
-      })
+      correct: true)
 
     # Incorrect result for Fred
-    fred_session.old_concept_results.create!(
+    fred_session.concept_results.create!(
       concept: concept,
-      metadata: {
-        "correct" => 0
-      })
+      correct: true)
 
     # Correct result for Fred for hidden tag (not displayed)
-    fred_session.old_concept_results.create!(
+    fred_session.concept_results.create!(
       concept: hidden_concept,
-      metadata: {
-        "correct" => 1
-      })
+      correct: true)
   end
 end

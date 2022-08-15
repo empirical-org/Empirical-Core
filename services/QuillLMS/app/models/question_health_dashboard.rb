@@ -18,7 +18,7 @@ class QuestionHealthDashboard
   end
 
   def percent_reached_optimal_for_question
-    failed_attempts = attempt_data.select { |a| a["score"] == '0' }.count.to_f
+    failed_attempts = attempt_data.select { |a| a["score"] == 0 }.count.to_f
     all_attempts = attempt_data.count.to_f
 
     successful_attempts = all_attempts - failed_attempts
@@ -43,18 +43,18 @@ class QuestionHealthDashboard
   private def attempt_data
     query = <<-SQL
       SELECT
-      cr.metadata::json->>'questionScore' AS score,
+      cr.question_score AS score,
       cr.activity_session_id
-      FROM old_concept_results cr
+      FROM concept_results cr
       INNER JOIN (
         SELECT *
         FROM activity_sessions
         WHERE activity_id=#{@activity_id} LIMIT #{MAX_SESSIONS_VIEWED}
       ) act_s
       ON cr.activity_session_id = act_s.id
-      WHERE cr.metadata::json->>'questionNumber' = '#{@question_number}'
+      WHERE cr.question_number = '#{@question_number}'
       GROUP BY
-        cr.metadata::json->>'questionScore',
+        cr.question_score,
         cr.activity_session_id
     SQL
     @attempt_data ||= RawSqlRunner.execute(query).to_a
