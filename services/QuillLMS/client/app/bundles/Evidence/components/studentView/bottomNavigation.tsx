@@ -19,7 +19,7 @@ const ReadAndHighlightTracker = ({
   if(showReadTheDirectionsButton) {
     return(
       <div className="read-and-highlight-tracker bottom-navigation read-instructions">
-        <button className="quill-button contained primary large focus-on-light" onClick={handleReadTheDirectionsButtonClick} type="button">Got it</button>
+        <button aria-label="Next" className="quill-button contained primary large focus-on-light" onClick={handleReadTheDirectionsButtonClick} type="button">Got it</button>
       </div>
     )
   }

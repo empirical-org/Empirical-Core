@@ -442,7 +442,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
   }
 
   function handleHighlightClick(e) {
-    toggleStudentHighlight(e.target.textContent, () => document.activeElement.blur())
+    toggleStudentHighlight(e.target.textContent)
   }
 
   function toggleStudentHighlight(text, callback=null) {
@@ -500,20 +500,24 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
 
     if (node.name === 'mark') {
       const shouldBeHighlightable = !doneHighlighting && !showReadTheDirectionsButton && hasStartedReadPassageStep
-      const innerElements = node.children.map((n, i) => convertNodeToElement(n, i, transformMarkTags))
+      let innerElements = node.children.map((n, i) => convertNodeToElement(n, i, transformMarkTags))
       const stringifiedInnerElements = node.children.map(n => {
         if (n.data) { return n.data }
         if (n.children[0]) { return n.children[0].data}
         return ''
       }).join('')
       let className = ''
-      if(activeStep === 1) {
-        className += studentHighlights.includes(stringifiedInnerElements) ? ' highlighted' : ''
+      const highlighted = studentHighlights.includes(stringifiedInnerElements)
+      if(activeStep === 1 && highlighted) {
+        className += ' highlighted'
+        const firstElement = <span className="sr-only">(highlighted text begins here)</span>
+        const lastElement = <span className="sr-only">(highlighted text ends here)</span>
+        innerElements = [firstElement, ...innerElements, lastElement]
       }
       className += shouldBeHighlightable  ? ' highlightable' : ''
       if (!shouldBeHighlightable) { return <mark className={className}>{innerElements}</mark>}
-      /* eslint-disable jsx-a11y/no-noninteractive-element-to-interactive-role */
-      return <mark className={className} onClick={handleHighlightClick} onKeyDown={handleHighlightKeyDown} role="button" tabIndex={0}>{innerElements}</mark>
+      /* eslint-disable-next-line jsx-a11y/no-noninteractive-element-to-interactive-role */
+      return <mark aria-pressed={highlighted} className={className} onClick={handleHighlightClick} onKeyDown={handleHighlightKeyDown} role="button" tabIndex={0}>{innerElements}</mark>
     }
   }
 
