@@ -9,7 +9,7 @@ describe StripeIntegration::Mailer, type: :mailer do
 
     let(:to_email) { 'stripe_notifications@example.com' }
 
-    before { stub_const('ENV', {'STRIPE_NOTIFICATIONS_EMAIL' => 'stripe_notifications@example.com' }) }
+    before { stub_const('StripeIntegration::Mailer::STRIPE_NOTIFICATIONS_EMAIL', to_email) }
 
     it 'mails a notification email to Quill Team email address' do
       expect(subject.subject).to eq 'Charge Dispute Created'
