@@ -23,8 +23,12 @@ RSpec.configure do |config|
     )
   end
 
-  Capybara.app_host = 'http://localhost'
-  Capybara.server_port = 3000
+  Capybara.configure do |capybara_config|
+    capybara_config.app_host = 'http://localhost'
+    capybara_config.server_port = 3000
+    capybara_config.default_driver = :selenium
+    capybara_config.default_max_wait_time = 10
+  end
 
   config.around(type: :system) do |example|
     WebMock.allow_net_connect!

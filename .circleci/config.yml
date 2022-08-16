@@ -77,8 +77,8 @@ jobs:
           PG_USER: ubuntu
           RAILS_ENV: test
           RACK_ENV: test
-          SELENIUM_DRIVER_URL: http://127.0.0.1:4444/wd/hub
-          DEFAULT_URL: http://127.0.0.1:3000
+          SELENIUM_DRIVER_URL: http://localhost:4444/wd/hub
+          DEFAULT_URL: http://localhost:3000
       - image: postgres:13.7-alpine
         environment:
           POSTGRES_DB: quill_test_db
