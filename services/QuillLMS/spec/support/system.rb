@@ -23,6 +23,7 @@ RSpec.configure do |config|
     )
   end
 
+  Capybara.app_host = 'http://localhost'
   Capybara.server_port = 3000
 
   config.around(type: :system) do |example|

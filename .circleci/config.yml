@@ -81,9 +81,9 @@ jobs:
           DEFAULT_URL: http://127.0.0.1:3000
       - image: postgres:13.7-alpine
         environment:
-          POSTGRES_USER: ubuntu
           POSTGRES_DB: quill_test_db
-          POSTGRES_PASSWORD: ""
+          POSTGRES_USER: ubuntu
+          POSTGRES_PASSWORD: password
       - image: selenium/standalone-chrome:3.5.3
     steps:
       - checkout
@@ -355,9 +355,8 @@ workflows:
           filters:
             branches:
               ignore: /^deploy-.*/
-      # Turning this off for now due to spurious failures
-      # - lms_integration_build:
-      #     <<: *default_filter
+      - lms_integration_build:
+          <<: *default_filter
       - lms_node_build:
           <<: *default_filter
       - marking_logic_node_build:
