@@ -243,7 +243,7 @@ export default class EditOrCreateSubscription extends React.Component {
       <React.Fragment>
         <label>Premium Status</label>
         <ItemDropdown
-          callback={this.changeAccountType}
+          callback={this.handleChangeAccountType}
           className="subscription-dropdown"
           items={premiumTypes}
           selectedItem={subscription.account_type || ''}
