@@ -112,9 +112,11 @@ exports[`PromptStep component active state before any responses have been submit
           >
             <span />
             <button
+              aria-label="Get feedback"
               className="quill-button focus-on-light disabled"
+              disabled={true}
               onClick={[Function]}
-              type="button"
+              type="submit"
             >
               <span>
                 Get feedback
@@ -122,6 +124,13 @@ exports[`PromptStep component active state before any responses have been submit
             </button>
           </div>
         </div>
+        <button
+          className="skip-main"
+          onClick={[Function]}
+          type="button"
+        >
+          Return to editor
+        </button>
       </div>
     </div>
   </div>
@@ -249,9 +258,11 @@ exports[`PromptStep component active state when a suboptimal response has been s
           >
             <span />
             <button
+              aria-label="You already submitted this response. You must edit it before you can submit it again."
               className="quill-button focus-on-light disabled"
+              disabled={true}
               onClick={[Function]}
-              type="button"
+              type="submit"
             >
               <span>
                 Get feedback
@@ -293,9 +304,7 @@ exports[`PromptStep component active state when a suboptimal response has been s
           }
         >
           <div
-            aria-live="polite"
             className="feedback-section "
-            role="status"
           >
             <ReactCSSTransitionReplace
               changeWidth={false}
@@ -340,14 +349,19 @@ exports[`PromptStep component active state when a suboptimal response has been s
                           Feedback
                         </p>
                       </div>
-                      <p
-                        className="feedback-text"
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
+                      <div
+                        className="feedback-wrapper"
+                        tabIndex={-1}
+                      >
+                        <p
+                          className="feedback-text"
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
+                            }
                           }
-                        }
-                      />
+                        />
+                      </div>
                       <div
                         className="report-a-problem-button-container"
                       >
@@ -367,6 +381,13 @@ exports[`PromptStep component active state when a suboptimal response has been s
             </ReactCSSTransitionReplace>
           </div>
         </Feedback>
+        <button
+          className="skip-main"
+          onClick={[Function]}
+          type="button"
+        >
+          Return to editor
+        </button>
       </div>
     </div>
   </div>
@@ -494,9 +515,11 @@ exports[`PromptStep component active state when an optimal response has been sub
           >
             <span />
             <button
+              aria-label="Get feedback"
               className="quill-button focus-on-light"
+              disabled={false}
               onClick={[Function]}
-              type="button"
+              type="submit"
             >
               <span>
                 Next
@@ -538,9 +561,7 @@ exports[`PromptStep component active state when an optimal response has been sub
           }
         >
           <div
-            aria-live="polite"
             className="feedback-section "
-            role="status"
           >
             <ReactCSSTransitionReplace
               changeWidth={false}
@@ -585,14 +606,19 @@ exports[`PromptStep component active state when an optimal response has been sub
                           Feedback
                         </p>
                       </div>
-                      <p
-                        className="feedback-text"
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "That's a really strong sentence! You used evidence from the text to identify why governments should make voting compulsory.",
+                      <div
+                        className="feedback-wrapper"
+                        tabIndex={-1}
+                      >
+                        <p
+                          className="feedback-text"
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "That's a really strong sentence! You used evidence from the text to identify why governments should make voting compulsory.",
+                            }
                           }
-                        }
-                      />
+                        />
+                      </div>
                       <div
                         className="report-a-problem-button-container"
                       >
@@ -612,6 +638,13 @@ exports[`PromptStep component active state when an optimal response has been sub
             </ReactCSSTransitionReplace>
           </div>
         </Feedback>
+        <button
+          className="skip-main"
+          onClick={[Function]}
+          type="button"
+        >
+          Return to editor
+        </button>
       </div>
     </div>
   </div>
@@ -763,9 +796,11 @@ exports[`PromptStep component active state when the max attempts have been reach
           >
             <span />
             <button
+              aria-label="Get feedback"
               className="quill-button focus-on-light"
+              disabled={false}
               onClick={[Function]}
-              type="button"
+              type="submit"
             >
               <span>
                 Next
@@ -831,9 +866,7 @@ exports[`PromptStep component active state when the max attempts have been reach
           }
         >
           <div
-            aria-live="polite"
             className="feedback-section "
-            role="status"
           >
             <ReactCSSTransitionReplace
               changeWidth={false}
@@ -878,16 +911,21 @@ exports[`PromptStep component active state when the max attempts have been reach
                           Feedback
                         </p>
                       </div>
-                      <p
-                        className="feedback-text"
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+                      <div
+                        className="feedback-wrapper"
+                        tabIndex={-1}
+                      >
+                        <p
+                          className="feedback-text"
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
+                            }
                           }
-                        }
-                      />
+                        />
+                      </div>
                       <div
                         className="report-a-problem-button-container"
                       >
@@ -929,6 +967,13 @@ exports[`PromptStep component active state when the max attempts have been reach
             </div>
           </div>
         </Feedback>
+        <button
+          className="skip-main"
+          onClick={[Function]}
+          type="button"
+        >
+          Return to editor
+        </button>
       </div>
     </div>
   </div>
@@ -1056,8 +1101,10 @@ exports[`PromptStep component active state when the max attempts have been reach
           >
             <span />
             <button
+              aria-label="Get feedback"
               className="quill-button focus-on-light"
-              type="button"
+              disabled={false}
+              type="submit"
             >
               <span>
                 Done
@@ -1099,9 +1146,7 @@ exports[`PromptStep component active state when the max attempts have been reach
           }
         >
           <div
-            aria-live="polite"
             className="feedback-section "
-            role="status"
           >
             <ReactCSSTransitionReplace
               changeWidth={false}
@@ -1146,14 +1191,19 @@ exports[`PromptStep component active state when the max attempts have been reach
                           Feedback
                         </p>
                       </div>
-                      <p
-                        className="feedback-text"
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "That's a really strong sentence! You used evidence from the text to identify why governments should make voting compulsory.",
+                      <div
+                        className="feedback-wrapper"
+                        tabIndex={-1}
+                      >
+                        <p
+                          className="feedback-text"
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "That's a really strong sentence! You used evidence from the text to identify why governments should make voting compulsory.",
+                            }
                           }
-                        }
-                      />
+                        />
+                      </div>
                       <div
                         className="report-a-problem-button-container"
                       >
@@ -1173,6 +1223,13 @@ exports[`PromptStep component active state when the max attempts have been reach
             </ReactCSSTransitionReplace>
           </div>
         </Feedback>
+        <button
+          className="skip-main"
+          onClick={[Function]}
+          type="button"
+        >
+          Return to editor
+        </button>
       </div>
     </div>
   </div>
@@ -1290,9 +1347,11 @@ exports[`PromptStep component inactive state renders 1`] = `
           >
             <span />
             <button
+              aria-label="Get feedback"
               className="quill-button focus-on-light disabled"
+              disabled={true}
               onClick={[Function]}
-              type="button"
+              type="submit"
             >
               <span>
                 Get feedback
@@ -1300,6 +1359,13 @@ exports[`PromptStep component inactive state renders 1`] = `
             </button>
           </div>
         </div>
+        <button
+          className="skip-main"
+          onClick={[Function]}
+          type="button"
+        >
+          Return to editor
+        </button>
       </div>
     </div>
   </div>

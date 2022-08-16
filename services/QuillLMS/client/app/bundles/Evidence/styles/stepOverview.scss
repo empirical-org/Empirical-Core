@@ -13,6 +13,9 @@
       line-height: 1.2;
       color: #ffffff;
       margin-bottom: 36px;
+      &:focus-visible {
+        outline: none;
+      }
     }
     .step-overview-step-container {
       .step-overview-step {
