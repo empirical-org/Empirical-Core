@@ -30,6 +30,7 @@ RSpec.describe 'Activity Pack Assignment' do
     login_user(student.username, student.password)
     click_on classroom_name
     click_on 'Start'
+    click_on 'Fred'
   end
 
   def login_user(email_or_username, password)
