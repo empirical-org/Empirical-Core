@@ -102,7 +102,7 @@ RSpec.describe ReferralsUser, type: :model do
       referrer.update(email: 'referrer@quill.org')
       referral.update(email: 'referral@quill.org')
       expect { referrals_user.send_activation_email }.to change { ActionMailer::Base.deliveries.count }.by(1)
-      expect(ActionMailer::Base.deliveries.last.subject).to eq("#{referral.name} just activated their account on Quill!")
+      expect(ActionMailer::Base.deliveries.map(&:subject)).to include("#{referral.name} just activated their account on Quill!")
       expect(ActionMailer::Base.deliveries.last.to).to eq([referrer.email])
     end
   end
