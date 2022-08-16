@@ -37,7 +37,9 @@ RSpec.describe 'Activity Pack Assignment' do
     click_link 'Log In'
     fill_in 'email-or-username', with: email_or_username
     fill_in 'password', with: password
+    sleep 0.5
     click_on 'Log in'
+    sleep 0.5
   end
 
   def logout_user
