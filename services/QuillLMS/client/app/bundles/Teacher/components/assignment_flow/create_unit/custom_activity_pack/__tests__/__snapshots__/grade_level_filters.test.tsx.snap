@@ -58,6 +58,7 @@ exports[`gradeLevelFilters component should render 1`] = `
                 type="button"
               />
               <OneThumbSlider
+                defaultValue={2}
                 handleChange={[Function]}
                 id="grade-level-slider"
                 markLabels={
@@ -139,6 +140,7 @@ exports[`gradeLevelFilters component should render 1`] = `
                   type="button"
                 />
                 <OneThumbSlider
+                  defaultValue={2}
                   handleChange={[Function]}
                   id="grade-level-slider"
                   markLabels={
@@ -176,7 +178,7 @@ exports[`gradeLevelFilters component should render 1`] = `
                     }
                     values={
                       Array [
-                        0,
+                        2,
                       ]
                     }
                   >
@@ -206,7 +208,7 @@ exports[`gradeLevelFilters component should render 1`] = `
                         step={1}
                         values={
                           Array [
-                            0,
+                            2,
                           ]
                         }
                       >
@@ -254,7 +256,7 @@ exports[`gradeLevelFilters component should render 1`] = `
                                   <div
                                     aria-valuemax="3"
                                     aria-valuemin="0"
-                                    aria-valuenow="0"
+                                    aria-valuenow="2"
                                     class="thumb"
                                     draggable="false"
                                     role="slider"
@@ -271,7 +273,7 @@ exports[`gradeLevelFilters component should render 1`] = `
                           }
                           values={
                             Array [
-                              0,
+                              2,
                             ]
                           }
                         >
@@ -290,7 +292,7 @@ exports[`gradeLevelFilters component should render 1`] = `
                               className="track"
                               style={
                                 Object {
-                                  "background": "linear-gradient(to right, #dbdbdb 0%, #dbdbdb 0%, #dbdbdb 0%, #dbdbdb 100%)",
+                                  "background": "linear-gradient(to right, #dbdbdb 0%, #dbdbdb 66.66666666666666%, #dbdbdb 66.66666666666666%, #dbdbdb 100%)",
                                 }
                               }
                             >
@@ -471,7 +473,7 @@ exports[`gradeLevelFilters component should render 1`] = `
                                   Object {
                                     "aria-valuemax": 3,
                                     "aria-valuemin": 0,
-                                    "aria-valuenow": 0,
+                                    "aria-valuenow": 2,
                                     "draggable": false,
                                     "key": 0,
                                     "onKeyDown": [Function],
@@ -480,7 +482,7 @@ exports[`gradeLevelFilters component should render 1`] = `
                                       "current": <div
                                         aria-valuemax="3"
                                         aria-valuemin="0"
-                                        aria-valuenow="0"
+                                        aria-valuenow="2"
                                         class="thumb"
                                         draggable="false"
                                         role="slider"
@@ -506,7 +508,7 @@ exports[`gradeLevelFilters component should render 1`] = `
                                 <div
                                   aria-valuemax={3}
                                   aria-valuemin={0}
-                                  aria-valuenow={0}
+                                  aria-valuenow={2}
                                   className="thumb"
                                   draggable={false}
                                   key="0"

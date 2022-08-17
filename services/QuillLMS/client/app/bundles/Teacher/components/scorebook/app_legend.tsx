@@ -1,18 +1,9 @@
 "use strict";
 import * as React from 'react'
 
-import { handleHasAppSetting } from "../../../Shared/utils/appSettingAPIs";
-
 const EVIDENCE_ICON_SRC = `${process.env.CDN_URL}/images/icons/tool-evidence-light-gray.svg`
 
 export const AppLegend = () => {
-  const [showEvidence, setShowEvidence] = React.useState<boolean>(false);
-
-  React.useEffect(() => {
-    handleHasAppSetting({appSettingSetter: setShowEvidence, key: 'comprehension', errorSetter: () => {}})
-  }, []);
-
-
   const diagnostic = (
     <a className="icon focus-on-light" href={`${process.env.DEFAULT_URL}/tools/diagnostic`} rel="noopener noreferrer" target="_blank">
       <div className="icon-wrapper icon-diagnostic-embossed" />
@@ -63,22 +54,16 @@ export const AppLegend = () => {
     </a>
   )
 
-  let evidence = <span className="icon" />
+  const evidence = (<div className="icon">
+    <img alt="Book representing Quill Reading for Evidence" className="icon-wrapper evidence-icon" src={EVIDENCE_ICON_SRC} />
+    <div className="icons-description-wrapper">
+      <p className="title">Quill Reading for Evidence</p>
+      <p className="description">Use a text to write with evidence</p>
+    </div>
+  </div>)
 
-  let icons = [diagnostic, lessons, connect, proofreader, grammar, evidence]
 
-  if (showEvidence) {
-    evidence = (<div className="icon">
-      <img alt="Book representing Quill Reading for Evidence" className="icon-wrapper evidence-icon" src={EVIDENCE_ICON_SRC} />
-      <div className="icons-description-wrapper">
-        <p className="title">Quill Reading for Evidence</p>
-        <p className="description">Use a text to write with evidence</p>
-      </div>
-    </div>)
-
-    icons = [evidence, diagnostic, lessons, connect, proofreader, grammar]
-  }
-
+  const icons = [evidence, diagnostic, lessons, connect, proofreader, grammar]
 
   return(
     <div className="icons-wrapper icon-legend app-legend">

@@ -10,6 +10,29 @@ exports[`AppLegend component should render 1`] = `
     <div
       className="first-row"
     >
+      <div
+        className="icon"
+      >
+        <img
+          alt="Book representing Quill Reading for Evidence"
+          className="icon-wrapper evidence-icon"
+          src="undefined/images/icons/tool-evidence-light-gray.svg"
+        />
+        <div
+          className="icons-description-wrapper"
+        >
+          <p
+            className="title"
+          >
+            Quill Reading for Evidence
+          </p>
+          <p
+            className="description"
+          >
+            Use a text to write with evidence
+          </p>
+        </div>
+      </div>
       <a
         className="icon focus-on-light"
         href="undefined/tools/diagnostic"
@@ -58,6 +81,10 @@ exports[`AppLegend component should render 1`] = `
           </p>
         </div>
       </a>
+    </div>
+    <div
+      className="second-row"
+    >
       <a
         className="icon focus-on-light"
         href="undefined/tools/connect"
@@ -82,10 +109,6 @@ exports[`AppLegend component should render 1`] = `
           </p>
         </div>
       </a>
-    </div>
-    <div
-      className="second-row"
-    >
       <a
         className="icon focus-on-light"
         href="undefined/tools/proofreader"
@@ -134,9 +157,6 @@ exports[`AppLegend component should render 1`] = `
           </p>
         </div>
       </a>
-      <span
-        className="icon"
-      />
     </div>
   </div>
 </div>

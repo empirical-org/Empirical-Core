@@ -12,6 +12,7 @@ interface GradeLevelFiltersProps {
 const GRADE_LEVEL_LABELS = ['4-5', '6-7', '8-9', '10-12']
 const MIN_LEVEL = 0
 const MAX_LEVEL = GRADE_LEVEL_LABELS.length - 1
+const DEFAULT_VALUE = 2 // corresponds to '8-9'
 
 const tooltipText = "The grade level range helps you see which activities are accessible to your students, considering things like readability and the topic of the activity. Students never see the grade level range of the activities they’re assigned.<br/><br/>We recommend filtering by the grade you teach, and then using the readability and the concepts filters to narrow down which activities are right for your students. Grades are always presented as a range, rather than as a level, because students in later grades can also benefit from more basic activities.<br/><br/>Click the “?” icon to learn more about how we determine grade ranges and for helpful filtering tips."
 
@@ -23,7 +24,7 @@ const GradeLevelFilters = ({ gradeLevelFilters, handleGradeLevelFilterChange, }:
   }
 
   function handleEnableGradeLevelFilters() {
-    onChange([0])
+    onChange([DEFAULT_VALUE])
   }
 
   function clearAllGradeLevelFilters() { handleGradeLevelFilterChange([]) }
@@ -58,6 +59,7 @@ const GradeLevelFilters = ({ gradeLevelFilters, handleGradeLevelFilterChange, }:
         <div className="checkbox-and-slider">
           {checkbox}
           <OneThumbSlider
+            defaultValue={DEFAULT_VALUE}
             handleChange={onChange}
             id="grade-level-slider"
             markLabels={GRADE_LEVEL_LABELS}
