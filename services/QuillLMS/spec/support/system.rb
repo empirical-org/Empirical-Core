@@ -13,10 +13,13 @@ RSpec.configure do |config|
   end
 
   Capybara.register_driver :remote_selenium_chrome do |app|
+    capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(loggingPrefs: { browser: 'ALL'} )
+
     Capybara::Selenium::Driver.new(
       app,
       browser: :remote,
-      url: ENV.fetch('SELENIUM_DRIVER_URL')
+      url: ENV.fetch('SELENIUM_DRIVER_URL'),
+      desired_capabilities: capabilities
     )
   end
 

@@ -84,7 +84,7 @@ jobs:
           POSTGRES_DB: quill_test_db
           POSTGRES_USER: ubuntu
           POSTGRES_PASSWORD: password
-      - image: selenium/standalone-chrome:4.4.0
+      - image: selenium/standalone-chrome:3.141.59
     steps:
       - checkout
       - restore_cache:

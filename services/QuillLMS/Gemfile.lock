@@ -165,7 +165,7 @@ GEM
       ssrf_filter (~> 1.0)
     case_transform (0.2)
       activesupport
-    childprocess (4.1.0)
+    childprocess (3.0.0)
     clever-ruby (2.0.2)
       json (>= 1.8, < 3)
       typhoeus (~> 1.0, >= 1.0.1)
@@ -618,7 +618,6 @@ GEM
       actionpack (>= 5.0)
       railties (>= 5.0)
     retriable (1.4.1)
-    rexml (3.2.5)
     rspec (3.11.0)
       rspec-core (~> 3.11.0)
       rspec-expectations (~> 3.11.0)
@@ -664,11 +663,9 @@ GEM
       tilt
     scout_apm (2.4.21)
     secure_headers (6.3.2)
-    selenium-webdriver (4.4.0)
-      childprocess (>= 0.5, < 5.0)
-      rexml (~> 3.2, >= 3.2.5)
-      rubyzip (>= 1.2.2, < 3.0)
-      websocket (~> 1.0)
+    selenium-webdriver (3.142.7)
+      childprocess (>= 0.5, < 4.0)
+      rubyzip (>= 1.2.2)
     sentry-raven (2.9.0)
       faraday (>= 0.7.6, < 1.0)
     shellany (0.0.1)
@@ -763,7 +760,6 @@ GEM
       activesupport (>= 4.2)
       rack-proxy (>= 0.6.1)
       railties (>= 4.2)
-    websocket (1.2.9)
     websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -884,7 +880,7 @@ DEPENDENCIES
   sass-rails
   scout_apm
   secure_headers (= 6.3.2)
-  selenium-webdriver
+  selenium-webdriver (~> 3)
   sentry-raven (>= 0.12.2)
   shoulda-callback-matchers (~> 1.1.1)
   shoulda-matchers (~> 4)

@@ -76,8 +76,6 @@ RSpec.describe 'Activity Pack Assignment' do
     click_on 'Begin'
     expect(page).to have_content question_instructions
     click_on 'Save and exit'
-    logout_user(student)
-    expect(page).to have_current_path root_path
   end
 
   def login_user(email_or_username, password)
