@@ -30,7 +30,10 @@ export default class UnitTemplateMinis extends React.Component {
 
   generateCategoryOptions(gradeLevel, selectedTypeId) {
     const { data, } = this.props
-    const categoryOrder = [ALL, 'Starter', 'Intermediate', 'Advanced', 'ELL', 'Diagnostic', 'Themed', 'Skill Practice']
+    const usedCategories = Object.values(data.displayedModels).map(dm => dm.unit_template_category.name)
+    const usedUniqueCategories = usedCategories.filter((v, i, a) => a.indexOf(v) === i)
+    const sortedUsedCategories = usedUniqueCategories.sort((a,b) => (a && b) ? a.localeCompare(b) : (a < b) ? -1 : 1)
+    const categoryOrder = [ALL].concat(sortedUsedCategories)
     return categoryOrder.map((name) => {
       const category = data.categories.find(cat => cat.name === name)
       if (category) {
