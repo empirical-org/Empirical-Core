@@ -31,7 +31,8 @@ class Question < ApplicationRecord
     FLAG_PRODUCTION = 'production',
     FLAG_ALPHA = 'alpha',
     FLAG_BETA = 'beta',
-    FLAG_ARCHIVED = 'archived'
+    FLAG_ARCHIVED = 'archived',
+    FLAG_TEST = 'test'
   ]
   LIVE_FLAGS = [FLAG_PRODUCTION, FLAG_ALPHA, FLAG_BETA]
 

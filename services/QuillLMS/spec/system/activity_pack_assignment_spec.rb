@@ -3,16 +3,63 @@
 require 'rails_helper'
 
 RSpec.describe 'Activity Pack Assignment' do
-  let!(:teacher) { create(:teacher_with_a_couple_classrooms_with_one_student_each, name: 'Integration Teacher') }
-  let!(:student) { User.student.last }
+  let!(:teacher) { create(:teacher_with_a_couple_classrooms_with_one_student_each) }
+  let!(:student) { teacher.students.first }
+  let!(:classroom) { student.classrooms.first }
 
-  let!(:classroom_name) { student.classrooms.first.name }
-
-  before do
-    student.update(password: 'password')
-    create(:unit_template, id: 99, name: 'Starter Baseline Diagnostic (Pre)')
-    create(:activity, classification: create(:diagnostic), id: Activity::STARTER_DIAGNOSTIC_ACTIVITY_ID)
+  let!(:activity_landing_page_instructions) { 'You’re about to answer 1 questions on writing sentences.' }
+  let!(:activity_landing_page_html) do
+    <<-HTML
+      <h3><strong>Baseline Diagnostic</strong></h3>
+      <p>#{activity_landing_page_instructions}</p>
+      <p>
+        <br/>
+        Some of the questions might be about things you haven’t learned yet—that’s okay!
+        Just answer them as best as you can.  Don’t forget to read the instructions carefully for each question!
+      </p>
+      <p>
+        <br/>
+        Once you’re finished, Quill will create a learning plan just for you.
+      </p>
+    HTML
   end
+
+  let!(:activity_data) do
+    {
+      "flag" => "test",
+      "name" => activity_name,
+      "questions" => [{"key"=>question_uid, "questionType"=> "fillInBlank"}],
+      "landingPageHtml"=> activity_landing_page_html
+    }
+  end
+  let!(:activity_name) { 'Starter Baseline Diagnostic (Pre)' }
+  let!(:activity) { create(:diagnostic_activity, id: Activity::STARTER_DIAGNOSTIC_ACTIVITY_ID, data: activity_data) }
+
+  let!(:question_uid) { 'CIxOvSep_iXq1pzQ5QnENA' }
+  let!(:question_type) { Question::TYPE_DIAGNOSTIC_FILL_IN_BLANKS }
+  let!(:question_data) do
+    {
+      "cues"=>["don't", "doesn't"],
+      "flag"=> Question::FLAG_TEST,
+      "prompt"=>"He ___ like to wake up early.",
+      "conceptID"=> nil,
+      "cuesLabel"=>"action words",
+      "blankAllowed"=>false,
+      "instructions"=> question_instructions,
+      "caseInsensitive"=>true
+    }
+  end
+  let!(:question_instructions) { 'Fill in the blank with the action word that matches the rest of the sentence.' }
+  let!(:question) { create(:question, uid: question_uid, question_type: question_type, data: question_data) }
+
+  let!(:unit_template) { create(:unit_template, id: 99, name: activity_name) }
+
+  let!(:question_response_url) { "http://localhost:3100/questions/#{question_uid}/responses" }
+  let!(:question_responses) { [] }
+
+  before { student.update(password: 'password') }
+
+  before { Billy.proxy.stub(question_response_url).and_return(status: 200, body: question_responses.to_json) }
 
   it 'teachers can assign an activity packs to their students', :js do
     login_user(teacher.email, teacher.password)
@@ -25,12 +72,17 @@ RSpec.describe 'Activity Pack Assignment' do
     click_on 'Assign pack to classes'
     click_on 'Next'
     click_on 'Take me to my dashboard'
-    logout_user
+    logout_user(teacher)
 
     login_user(student.username, student.password)
-    click_on classroom_name
+    click_on classroom.name
     click_on 'Start'
-    click_on 'Fred'
+    expect(page).to have_content activity_landing_page_instructions
+    click_on 'Begin'
+    expect(page).to have_content question_instructions
+    click_on 'Save and exit'
+    logout_user(student)
+    expect(page).to have_current_path root_path
   end
 
   def login_user(email_or_username, password)
@@ -41,8 +93,8 @@ RSpec.describe 'Activity Pack Assignment' do
     click_on 'Log in'
   end
 
-  def logout_user
-    find('img.user-dropdown-button-img').click
+  def logout_user(user)
+    find('span', text: user.name).click
     click_on 'Logout'
   end
 end

@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require 'billy/capybara/rspec'
+
+# https://thecodest.co/blog/testing-your-javascript-with-ruby
 RSpec.configure do |config|
   Capybara.register_driver :local_selenium_chrome_headless do |app|
     options = Selenium::WebDriver::Chrome::Options.new(
@@ -42,9 +45,17 @@ RSpec.configure do |config|
     if ENV["SELENIUM_DRIVER_URL"].present?
       driven_by :remote_selenium_chrome
     else
-      driven_by :local_selenium_chrome_headless
+      # driven_by :local_selenium_chrome_headless
+      driven_by :selenium_chrome_billy
     end
   end
 
   config.after(type: :system) { warn(page.driver.browser.manage.logs.get(:browser)) }
+
+  Billy.configure do |c|
+    c.cache = false
+    c.cache_request_headers = false
+    c.persist_cache = false
+    c.record_stub_requests = true
+  end
 end
