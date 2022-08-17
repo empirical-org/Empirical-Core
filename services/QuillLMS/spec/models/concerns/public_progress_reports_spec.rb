@@ -194,6 +194,14 @@ describe PublicProgressReports, type: :model do
       expect(recommendations[:students].find { |s| s[:id] == student3.id}).not_to be
       expect(recommendations[:students].find { |s| s[:id] == student_not_in_class.id}).not_to be
     end
+
+    it 'will not crash when a relevant student has only one name' do
+      student2.update(name: 'First-only')
+      instance = FakeReports.new
+      expect do
+        instance.generate_recommendations_for_classroom(unit1.user, unit1.id, classroom.id, diagnostic_activity.id)
+      end.not_to raise_error
+    end
   end
 
   describe '#get_previously_assigned_recommendations_by_classroom' do
