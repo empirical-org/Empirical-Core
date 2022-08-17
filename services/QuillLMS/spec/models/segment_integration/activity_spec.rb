@@ -30,12 +30,12 @@ RSpec.describe SegmentIntegration::Activity do
       activity.save
       params = {
         **activity.segment_activity.common_params,
-        concepts: activity.activity_categories&.pluck(:name).join(", "),
-        content_partners: activity.content_partners&.pluck(:name).join(", "),
-        topic_level_three: activity.topics&.select { |topic| topic.level == 3 }[0],
-        topic_level_two: activity.topics&.select { |topic| topic.level == 2 }[0],
-        topic_level_one: activity.topics&.select { |topic| topic.level == 1 }[0],
-        topic_level_zero: activity.topics&.select { |topic| topic.level == 0 }[0],
+        concepts: activity.activity_categories.pluck(:name).join(", "),
+        content_partners: activity.content_partners.pluck(:name).join(", "),
+        topic_level_three: activity.topics.select { |topic| topic.level == 3 }[0],
+        topic_level_two: activity.topics.select { |topic| topic.level == 2 }[0],
+        topic_level_one: activity.topics.select { |topic| topic.level == 1 }[0],
+        topic_level_zero: activity.topics.select { |topic| topic.level == 0 }[0],
       }.reject {|_,v| v.nil? }
       expect(activity.segment_activity.content_params).to eq params
     end

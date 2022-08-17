@@ -36,7 +36,7 @@ class SegmentAnalytics
     track({
       user_id: teacher_id,
       event: SegmentIo::BackgroundEvents::ACTIVITY_ASSIGNMENT,
-      properties: activity&.segment_activity.content_params
+      properties: activity.segment_activity.content_params
     })
 
     # this event is for Vitally, which does not show properties
@@ -75,7 +75,7 @@ class SegmentAnalytics
     track({
       user_id: user&.id,
       event: SegmentIo::BackgroundEvents::ACTIVITY_COMPLETION,
-      properties: activity&.segment_activity.content_params.merge({student_id: student_id})
+      properties: activity.segment_activity.content_params.merge({student_id: student_id})
     })
   end
 
@@ -129,7 +129,7 @@ class SegmentAnalytics
     track({
       user_id: user_id,
       event: SegmentIo::BackgroundEvents::PREVIEWED_ACTIVITY,
-      properties: activity&.segment_activity.common_params
+      properties: activity.segment_activity.common_params
     })
 
   end
