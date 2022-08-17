@@ -46,7 +46,6 @@ FactoryBot.define do
         break possible_name unless Activity.exists?(name: possible_name)
       end
     end
-
     description             { "This is the description for the '#{name}' activity." }
     uid                     { SecureRandom.urlsafe_base64 }
     standard                   { Standard.first || create(:standard) }

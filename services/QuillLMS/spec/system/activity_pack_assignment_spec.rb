@@ -26,7 +26,7 @@ RSpec.describe 'Activity Pack Assignment' do
 
   let!(:activity_data) do
     {
-      "flag" => "test",
+      "flag" => "archived",
       "name" => activity_name,
       "questions" => [{"key"=>question_uid, "questionType"=> "fillInBlank"}],
       "landingPageHtml"=> activity_landing_page_html
@@ -40,7 +40,7 @@ RSpec.describe 'Activity Pack Assignment' do
   let!(:question_data) do
     {
       "cues"=>["don't", "doesn't"],
-      "flag"=> Question::FLAG_TEST,
+      "flag"=> "archived",
       "prompt"=>"He ___ like to wake up early.",
       "conceptID"=> nil,
       "cuesLabel"=>"action words",
@@ -54,12 +54,7 @@ RSpec.describe 'Activity Pack Assignment' do
 
   let!(:unit_template) { create(:unit_template, id: 99, name: activity_name) }
 
-  let!(:question_response_url) { "http://localhost:3100/questions/#{question_uid}/responses" }
-  let!(:question_responses) { [] }
-
   before { student.update(password: 'password') }
-
-  before { Billy.proxy.stub(question_response_url).and_return(status: 200, body: question_responses.to_json) }
 
   it 'teachers can assign an activity packs to their students', :js do
     login_user(teacher.email, teacher.password)

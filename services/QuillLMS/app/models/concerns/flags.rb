@@ -2,7 +2,7 @@
 
 module Flags
   extend ActiveSupport::Concern
-  FLAGS = %w(production archived alpha beta gamma private test)
+  FLAGS = %w(production archived alpha beta gamma private)
 
   module ClassMethods
     def flag_all(flag)
