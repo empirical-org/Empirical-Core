@@ -282,7 +282,7 @@ module PublicProgressReports
       {id: s&.id, name: s&.name || "Unknown Student", completed: completed }
     end
 
-    sorted_students = students.compact.sort_by {|stud| stud[:name].split()[1] || ''}
+    sorted_students = students.compact.sort_by {|stud| stud[:name].split().second || ''}
 
     recommendations = RecommendationsQuery.new(diagnostic.id).activity_recommendations.map do |activity_pack_recommendation|
       students = []
