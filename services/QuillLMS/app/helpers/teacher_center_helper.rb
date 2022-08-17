@@ -8,17 +8,17 @@ module TeacherCenterHelper
   ALL = 'All'
 
   def teacher_center_tabs(large: true)
-    comprehension_tab = {
-      id: BlogPost::USING_QUILL_FOR_READING_COMPREHENSION,
-      name: COMPREHENSION,
-      url: 'teacher-center/topic/using-quill-for-reading-comprehension'
-    }
     premium_tab = {
       id: PREMIUM,
       name: PREMIUM,
       url: 'premium'
     }
     tabs = [
+      {
+        id: BlogPost::USING_QUILL_FOR_READING_COMPREHENSION,
+        name: COMPREHENSION,
+        url: 'teacher-center/topic/using-quill-for-reading-comprehension'
+      },
       {
         id: BlogPost::ALL_RESOURCES,
         name: ALL,
@@ -45,7 +45,6 @@ module TeacherCenterHelper
         url: 'faq'
       }
     ]
-    tabs.insert(1, comprehension_tab)
     tabs << premium_tab if !current_user
     tabs
   end
