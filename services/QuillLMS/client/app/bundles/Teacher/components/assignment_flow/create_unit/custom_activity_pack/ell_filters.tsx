@@ -75,12 +75,12 @@ const IndividualELLFilterRow = ({ ellFilters, level, handleELLFilterChange, filt
   const activityCount = filteredActivities.filter(act => act.standard_level_name === standardLevelName).length
   let checkbox = <button aria-label={`Check ${displayName}`} className="focus-on-light quill-checkbox unselected" onClick={checkIndividualFilter} type="button" />
 
-  if (activityCount === 0) {
-    checkbox = <div aria-label={`Check ${displayName}`} className="focus-on-light quill-checkbox disabled" />
-  } else if (ellFilters.includes(filterNumber)) {
+  if (ellFilters.includes(filterNumber)) {
     checkbox = (<button aria-label={`Uncheck ${displayName}`} className="focus-on-light quill-checkbox selected" onClick={uncheckIndividualFilter} type="button">
       <img alt="Checked checkbox" src={smallWhiteCheckSrc} />
     </button>)
+  } else if (activityCount === 0) {
+    checkbox = <div aria-label={`Check ${displayName}`} className="focus-on-light quill-checkbox disabled" />
   }
 
   return (
