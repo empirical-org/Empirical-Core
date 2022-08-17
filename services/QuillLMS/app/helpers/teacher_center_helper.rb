@@ -15,14 +15,14 @@ module TeacherCenterHelper
     }
     tabs = [
       {
-        id: BlogPost::USING_QUILL_FOR_READING_COMPREHENSION,
-        name: COMPREHENSION,
-        url: 'teacher-center/topic/using-quill-for-reading-comprehension'
-      },
-      {
         id: BlogPost::ALL_RESOURCES,
         name: ALL,
         url: 'teacher-center'
+      },
+      {
+        id: BlogPost::USING_QUILL_FOR_READING_COMPREHENSION,
+        name: COMPREHENSION,
+        url: 'teacher-center/topic/using-quill-for-reading-comprehension'
       },
       {
         id: BlogPost::GETTING_STARTED,
