@@ -5,7 +5,6 @@ class BlogPostsController < ApplicationController
 
   before_action :redirect_legacy_topic_urls, only: [:show_topic]
   before_action :redirect_invalid_topics, only: [:show_topic]
-  before_action :redirect_unauthorized_topics, only: [:show_topic]
   before_action :set_announcement, only: [:index, :show, :show_topic]
   before_action :set_root_url
 
@@ -100,14 +99,6 @@ class BlogPostsController < ApplicationController
 
   private def set_root_url
     @root_url = root_url
-  end
-
-  private def redirect_unauthorized_topics
-    return if params[:topic] != "using-quill-for-reading-comprehension"
-    return if AppSetting.enabled?(name: AppSetting::COMPREHENSION, user: current_user)
-
-    flash[:error] = "You are unauthorized to view that topic"
-    redirect_to center_home_url and return
   end
 
   private def redirect_invalid_topics

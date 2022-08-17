@@ -10,16 +10,14 @@
       link: '/teacher-center',
       text: 'All Resources'
     %>
-    <% if current_user && AppSetting.enabled?(name: AppSetting::COMPREHENSION, user: current_user) %>
-      <%= render 'navbar/tooltip_link',
-        text: 'Reading Comprehension',
-        subtext: "Learn all about Quill's new reading and writing tool",
-        hover_image_src: 'https://assets.quill.org/images/icons/teacher-center-comprehension.svg',
-        image_src: 'https://assets.quill.org/images/icons/teacher-center-comprehension-hover.svg',
-        image_id: 'comprehension-img',
-        link: '/teacher-center/topic/using-quill-for-reading-comprehension'
-      %>
-    <% end %>
+    <%= render 'navbar/tooltip_link',
+      text: 'Reading Comprehension',
+      subtext: "Learn all about Quill's new reading and writing tool",
+      hover_image_src: 'https://assets.quill.org/images/icons/teacher-center-comprehension.svg',
+      image_src: 'https://assets.quill.org/images/icons/teacher-center-comprehension-hover.svg',
+      image_id: 'comprehension-img',
+      link: '/teacher-center/topic/using-quill-for-reading-comprehension'
+    %>
     <%= render 'navbar/tooltip_link',
       text: 'Getting Started',
       subtext: 'Set up your classroom on Quill with guides, videos, and presentations',
