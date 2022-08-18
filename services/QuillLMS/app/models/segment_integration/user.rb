@@ -10,7 +10,8 @@ module SegmentIntegration
           auditor: auditor?,
           first_name: first_name,
           last_name: last_name,
-          email: email
+          email: email,
+          flags: flags&.join(", ")
         }.reject {|_,v| v.nil? },
         integrations: integration_rules
       }

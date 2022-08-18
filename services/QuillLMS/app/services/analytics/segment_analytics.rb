@@ -36,7 +36,7 @@ class SegmentAnalytics
     track({
       user_id: teacher_id,
       event: SegmentIo::BackgroundEvents::ACTIVITY_ASSIGNMENT,
-      properties: activity_info_for_tracking(activity)
+      properties: activity.segment_activity.content_params
     })
 
     # this event is for Vitally, which does not show properties
@@ -75,7 +75,7 @@ class SegmentAnalytics
     track({
       user_id: user&.id,
       event: SegmentIo::BackgroundEvents::ACTIVITY_COMPLETION,
-      properties: activity_info_for_tracking(activity).merge({student_id: student_id})
+      properties: activity.segment_activity.content_params.merge({student_id: student_id})
     })
   end
 
@@ -129,10 +129,7 @@ class SegmentAnalytics
     track({
       user_id: user_id,
       event: SegmentIo::BackgroundEvents::PREVIEWED_ACTIVITY,
-      properties: {
-        activity_name: activity&.name,
-        tool_name: activity&.classification&.name
-      }
+      properties: activity.segment_activity.common_params
     })
 
   end
@@ -202,12 +199,5 @@ class SegmentAnalytics
 
   private def user_traits(user)
     SegmentAnalyticsUserSerializer.new(user).as_json(root: false)
-  end
-
-  private def activity_info_for_tracking(activity)
-    {
-      activity_name: activity.name,
-      tool_name: activity.classification.name.split[1]
-    }
   end
 end
