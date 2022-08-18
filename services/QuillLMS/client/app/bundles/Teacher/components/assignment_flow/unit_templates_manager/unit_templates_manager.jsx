@@ -111,7 +111,7 @@ export default class UnitTemplatesManager extends React.Component {
       displayedModels = this.modelsInGrade(grade)
     }
     if (category) {
-      const categoryName = category.toUpperCase() === 'ELL' ? category.toUpperCase() : _l.capitalize(category)
+      const categoryName = category.toUpperCase() === 'ELL' ? category.toUpperCase() : category
       selectedCategoryId = unitTemplatesManager.categories.find(cat => cat.name === categoryName).id
       displayedModels = displayedModels.filter(ut =>
         ut.unit_template_category.name === categoryName
