@@ -125,6 +125,7 @@ const ActivitySurvey = ({ activity, dispatch, sessionID, saveActivitySurveyRespo
     }
     const callback = () => setSubmittedActivitySurvey(true)
     dispatch(TrackAnalyticsEvent(Events.STUDENT_RATED_AN_ACTIVITY, {}, trackingProperties))
+    dispatch(TrackAnalyticsEvent(Events.STUDENT_RATED_ACTIVITY, {}, { rating: selectedEmoji }))
     saveActivitySurveyResponse({ sessionID, activitySurveyResponse, callback, })
   }
 
