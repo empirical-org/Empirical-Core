@@ -281,6 +281,10 @@ class Activity < ApplicationRecord
     Evidence::Activity.find_by(parent_activity_id: id)
   end
 
+  def segment_activity
+    SegmentIntegration::Activity.new(self)
+  end
+
   private def update_evidence_title?
     is_evidence? && saved_change_to_name?
   end
