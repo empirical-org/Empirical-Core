@@ -21,7 +21,7 @@ module SegmentIntegration
         topic_level_zero: topics.find(&:level_zero?)&.name
       }.reject {|_,v| v.nil? }
     end
-    # rubocop:disable Metrics/CyclomaticComplexity
+    # rubocop:enable Metrics/CyclomaticComplexity
 
   end
 end
