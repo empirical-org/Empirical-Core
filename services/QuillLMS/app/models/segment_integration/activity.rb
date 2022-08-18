@@ -14,10 +14,10 @@ module SegmentIntegration
         **common_params,
         concepts: activity_categories.pluck(:name).join(", "),
         content_partners: content_partners.pluck(:name).join(", "),
-        topic_level_three: topics.find { |topic| topic.level == 3 }.pluck(:name),
-        topic_level_two: topics.find { |topic| topic.level == 2 }.pluck(:name),
-        topic_level_one: topics.find { |topic| topic.level == 1 }.pluck(:name),
-        topic_level_zero: topics.find { |topic| topic.level == 0 }.pluck(:name),
+        topic_level_three: topics.find(&:level_three?)&.name,
+        topic_level_two: topics.find(&:level_two?)&.name,
+        topic_level_one: topics.find(&:level_one?)&.name,
+        topic_level_zero: topics.find(&:level_zero?)&.name
       }.reject {|_,v| v.nil? }
     end
   end

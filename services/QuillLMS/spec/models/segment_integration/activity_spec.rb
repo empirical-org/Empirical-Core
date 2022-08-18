@@ -32,10 +32,10 @@ RSpec.describe SegmentIntegration::Activity do
         **activity.segment_activity.common_params,
         concepts: activity.activity_categories.pluck(:name).join(", "),
         content_partners: activity.content_partners.pluck(:name).join(", "),
-        topic_level_three: activity.topics.find { |topic| topic.level == 3 }.pluck(:name),
-        topic_level_two: activity.topics.find { |topic| topic.level == 2 }.pluck(:name),
-        topic_level_one: activity.topics.find { |topic| topic.level == 1 }.pluck(:name),
-        topic_level_zero: activity.topics.find { |topic| topic.level == 0 }.pluck(:name),
+        topic_level_three: activity.topics.find(&:level_three?)&.name,
+        topic_level_two: activity.topics.find(&:level_two?)&.name,
+        topic_level_one: activity.topics.find(&:level_one?)&.name,
+        topic_level_zero: activity.topics.find(&:level_zero?)&.name
       }.reject {|_,v| v.nil? }
       expect(activity.segment_activity.content_params).to eq params
     end
