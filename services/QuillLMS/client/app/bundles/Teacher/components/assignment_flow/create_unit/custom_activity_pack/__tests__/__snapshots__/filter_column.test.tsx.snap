@@ -17669,6 +17669,4469 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
             }
             grouping={
               Object {
+                "group": "Independent: Reading Texts",
+                "keys": Array [
+                  "evidence",
+                ],
+                "new": true,
+              }
+            }
+            handleActivityClassificationFilterChange={[Function]}
+            key="Independent: Reading Texts"
+            uniqueActivityClassifications={
+              Array [
+                Object {
+                  "alias": "Quill Connect",
+                  "description": "Combine Sentences",
+                  "id": 5,
+                  "key": "connect",
+                },
+                Object {
+                  "alias": "Quill Proofreader",
+                  "description": "Fix Errors in Passages",
+                  "id": 1,
+                  "key": "passage",
+                },
+              ]
+            }
+          >
+            <section
+              className="toggle-section activity-classification-toggle"
+            >
+              <div
+                className="top-level filter-row"
+              >
+                <div>
+                  <button
+                    aria-label="Toggle menu"
+                    className="interactive-wrapper focus-on-light filter-toggle-button"
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    <img
+                      alt=""
+                      className="is-closed"
+                      src="undefined/images/icons/dropdown.svg"
+                    />
+                  </button>
+                  <div
+                    className="focus-on-light quill-checkbox disabled"
+                  />
+                  <span>
+                    Independent: Reading Texts
+                  </span>
+                </div>
+                <span>
+                  (
+                  0
+                  )
+                </span>
+              </div>
+              <div
+                className="activity-classification-new-tag"
+              >
+                NEW
+              </div>
+              <span />
+            </section>
+          </ActivityClassificationToggle>
+          <ActivityClassificationToggle
+            activityClassificationFilters={Array []}
+            filteredActivities={
+              Array [
+                Object {
+                  "activity_category": Object {
+                    "id": 20,
+                    "name": "History: Maya, Aztec, Inca",
+                  },
+                  "activity_category_id": 20,
+                  "activity_category_name": "History: Maya, Aztec, Inca",
+                  "activity_classification": Object {
+                    "alias": "Quill Connect",
+                    "description": "Combine Sentences",
+                    "id": 5,
+                    "key": "connect",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=627",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Combine sentences to create 6 sentences about Hernan Cortes. This is an advanced, un-cued sentence combining activity.",
+                  "flags": "{production}",
+                  "id": 627,
+                  "name": "Hernan Cortes",
+                  "readability_grade_level": "8th-9th",
+                  "standard_level": Object {
+                    "id": 13,
+                    "name": "7th Grade CCSS",
+                  },
+                  "standard_level_name": "7th Grade CCSS",
+                  "standard_name": "87",
+                  "topics": Array [
+                    Object {
+                      "id": 16,
+                      "level": 3,
+                      "name": "History",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 93,
+                      "level": 2,
+                      "name": "World Historical Figures",
+                      "parent_id": 16,
+                    },
+                    Object {
+                      "id": 171,
+                      "level": 0,
+                      "name": "Hernan Cortes & the Aztec Empire",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 172,
+                      "level": 1,
+                      "name": "Maya, Aztec, & Inca Civilizations",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-KqcjgL00W0ro-Wr4Bts",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 20,
+                    "name": "History: Maya, Aztec, Inca",
+                  },
+                  "activity_category_id": 20,
+                  "activity_category_name": "History: Maya, Aztec, Inca",
+                  "activity_classification": Object {
+                    "alias": "Quill Connect",
+                    "description": "Combine Sentences",
+                    "id": 5,
+                    "key": "connect",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=628",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Combine sentences to create 7 sentences about the Maya civilization. This is an advanced, un-cued sentence combining activity.",
+                  "flags": "{production}",
+                  "id": 628,
+                  "name": "Maya Mystery",
+                  "readability_grade_level": "6th-7th",
+                  "standard_level": Object {
+                    "id": 13,
+                    "name": "7th Grade CCSS",
+                  },
+                  "standard_level_name": "7th Grade CCSS",
+                  "standard_name": "87",
+                  "topics": Array [
+                    Object {
+                      "id": 16,
+                      "level": 3,
+                      "name": "History",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 48,
+                      "level": 2,
+                      "name": "World History",
+                      "parent_id": 16,
+                    },
+                    Object {
+                      "id": 172,
+                      "level": 1,
+                      "name": "Maya, Aztec, & Inca Civilizations",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 218,
+                      "level": 0,
+                      "name": "Maya Civilization",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-KqcdV5JA9uUSY09VvOP",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 20,
+                    "name": "History: Maya, Aztec, Inca",
+                  },
+                  "activity_category_id": 20,
+                  "activity_category_name": "History: Maya, Aztec, Inca",
+                  "activity_classification": Object {
+                    "alias": "Quill Connect",
+                    "description": "Combine Sentences",
+                    "id": 5,
+                    "key": "connect",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=629",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Combine sentences to create 6 sentences about the Tenochtitlan Origin Myth. This is an advanced, un-cued sentence combining activity.",
+                  "flags": "{production}",
+                  "id": 629,
+                  "name": "Tenochtitlan Origin Myth",
+                  "readability_grade_level": "6th-7th",
+                  "standard_level": Object {
+                    "id": 13,
+                    "name": "7th Grade CCSS",
+                  },
+                  "standard_level_name": "7th Grade CCSS",
+                  "standard_name": "87",
+                  "topics": Array [
+                    Object {
+                      "id": 3,
+                      "level": 3,
+                      "name": "Culture",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 28,
+                      "level": 2,
+                      "name": "Stories & Myths",
+                      "parent_id": 3,
+                    },
+                    Object {
+                      "id": 172,
+                      "level": 1,
+                      "name": "Maya, Aztec, & Inca Civilizations",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 315,
+                      "level": 0,
+                      "name": "Tenochtitlán Origin Myth",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-KqcY9ZUJ7gdReZw7C93",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 20,
+                    "name": "History: Maya, Aztec, Inca",
+                  },
+                  "activity_category_id": 20,
+                  "activity_category_name": "History: Maya, Aztec, Inca",
+                  "activity_classification": Object {
+                    "alias": "Quill Connect",
+                    "description": "Combine Sentences",
+                    "id": 5,
+                    "key": "connect",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=630",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Combine sentences to create 6 sentences about the Royal Road. This is an advanced, un-cued sentence combining activity.",
+                  "flags": "{production}",
+                  "id": 630,
+                  "name": "The Royal Road",
+                  "readability_grade_level": "8th-9th",
+                  "standard_level": Object {
+                    "id": 13,
+                    "name": "7th Grade CCSS",
+                  },
+                  "standard_level_name": "7th Grade CCSS",
+                  "standard_name": "87",
+                  "topics": Array [
+                    Object {
+                      "id": 16,
+                      "level": 3,
+                      "name": "History",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 48,
+                      "level": 2,
+                      "name": "World History",
+                      "parent_id": 16,
+                    },
+                    Object {
+                      "id": 172,
+                      "level": 1,
+                      "name": "Maya, Aztec, & Inca Civilizations",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 358,
+                      "level": 0,
+                      "name": "The Inca",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-KqcTJxEiuq07PJzbDIc",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 19,
+                    "name": "History: Chinese Dynasties",
+                  },
+                  "activity_category_id": 19,
+                  "activity_category_name": "History: Chinese Dynasties",
+                  "activity_classification": Object {
+                    "alias": "Quill Connect",
+                    "description": "Combine Sentences",
+                    "id": 5,
+                    "key": "connect",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=617",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Combine sentences to create 6 sentences about Emperor Hui Zong's defeat. This is an advanced, un-cued sentence combining activity.",
+                  "flags": "{production}",
+                  "id": 617,
+                  "name": "Hui Zong's Defeat",
+                  "readability_grade_level": "8th-9th",
+                  "standard_level": Object {
+                    "id": 13,
+                    "name": "7th Grade CCSS",
+                  },
+                  "standard_level_name": "7th Grade CCSS",
+                  "standard_name": "87",
+                  "topics": Array [
+                    Object {
+                      "id": 16,
+                      "level": 3,
+                      "name": "History",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 93,
+                      "level": 2,
+                      "name": "World Historical Figures",
+                      "parent_id": 16,
+                    },
+                    Object {
+                      "id": 184,
+                      "level": 0,
+                      "name": "Hui Zong's Defeat",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 185,
+                      "level": 1,
+                      "name": "Chinese Dynasties",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-KqilM2xWovC-Hudmvjn",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 19,
+                    "name": "History: Chinese Dynasties",
+                  },
+                  "activity_category_id": 19,
+                  "activity_category_name": "History: Chinese Dynasties",
+                  "activity_classification": Object {
+                    "alias": "Quill Connect",
+                    "description": "Combine Sentences",
+                    "id": 5,
+                    "key": "connect",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=619",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Combine sentences to create 6 sentences about the unification of China under Shihuangdi. This is an advanced, un-cued sentence combining activity.",
+                  "flags": "{production}",
+                  "id": 619,
+                  "name": "Shihuangdi Unifies China",
+                  "readability_grade_level": "8th-9th",
+                  "standard_level": Object {
+                    "id": 13,
+                    "name": "7th Grade CCSS",
+                  },
+                  "standard_level_name": "7th Grade CCSS",
+                  "standard_name": "87",
+                  "topics": Array [
+                    Object {
+                      "id": 16,
+                      "level": 3,
+                      "name": "History",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 93,
+                      "level": 2,
+                      "name": "World Historical Figures",
+                      "parent_id": 16,
+                    },
+                    Object {
+                      "id": 185,
+                      "level": 1,
+                      "name": "Chinese Dynasties",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 283,
+                      "level": 0,
+                      "name": "Shihuangdi Unifies China",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-KqigC-G1kUp_pEeQJjl",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 19,
+                    "name": "History: Chinese Dynasties",
+                  },
+                  "activity_category_id": 19,
+                  "activity_category_name": "History: Chinese Dynasties",
+                  "activity_classification": Object {
+                    "alias": "Quill Connect",
+                    "description": "Combine Sentences",
+                    "id": 5,
+                    "key": "connect",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=616",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Combine sentences to create 6 sentences about the inventions during the Tang Dynasty. This is an advanced, un-cued sentence combining activity.",
+                  "flags": "{production}",
+                  "id": 616,
+                  "name": "Tang Dynasty Inventions",
+                  "readability_grade_level": "6th-7th",
+                  "standard_level": Object {
+                    "id": 13,
+                    "name": "7th Grade CCSS",
+                  },
+                  "standard_level_name": "7th Grade CCSS",
+                  "standard_name": "87",
+                  "topics": Array [
+                    Object {
+                      "id": 16,
+                      "level": 3,
+                      "name": "History",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 48,
+                      "level": 2,
+                      "name": "World History",
+                      "parent_id": 16,
+                    },
+                    Object {
+                      "id": 185,
+                      "level": 1,
+                      "name": "Chinese Dynasties",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 313,
+                      "level": 0,
+                      "name": "Tang Dynasty Inventions",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-KqiiQTci2gs9zhx2tIA",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 19,
+                    "name": "History: Chinese Dynasties",
+                  },
+                  "activity_category_id": 19,
+                  "activity_category_name": "History: Chinese Dynasties",
+                  "activity_classification": Object {
+                    "alias": "Quill Connect",
+                    "description": "Combine Sentences",
+                    "id": 5,
+                    "key": "connect",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=618",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Combine sentences to create 6 sentences about the Mongol invasion of China. This is an advanced, un-cued sentence combining activity.",
+                  "flags": "{production}",
+                  "id": 618,
+                  "name": "The Mongol Invasion of China",
+                  "readability_grade_level": "8th-9th",
+                  "standard_level": Object {
+                    "id": 13,
+                    "name": "7th Grade CCSS",
+                  },
+                  "standard_level_name": "7th Grade CCSS",
+                  "standard_name": "87",
+                  "topics": Array [
+                    Object {
+                      "id": 16,
+                      "level": 3,
+                      "name": "History",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 48,
+                      "level": 2,
+                      "name": "World History",
+                      "parent_id": 16,
+                    },
+                    Object {
+                      "id": 185,
+                      "level": 1,
+                      "name": "Chinese Dynasties",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 352,
+                      "level": 0,
+                      "name": "The Mongol Invasion of China",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-Kqisu7eUfGfGvjRvT2W",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 23,
+                    "name": "History: Age of Exploration",
+                  },
+                  "activity_category_id": 23,
+                  "activity_category_name": "History: Age of Exploration",
+                  "activity_classification": Object {
+                    "alias": "Quill Connect",
+                    "description": "Combine Sentences",
+                    "id": 5,
+                    "key": "connect",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=608",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Students combine sentences to create 6 sentences about Marco Polo. This is an advanced, un-cued sentence combining activity.",
+                  "flags": "{production}",
+                  "id": 608,
+                  "name": "The Travels of Marco Polo",
+                  "readability_grade_level": "8th-9th",
+                  "standard_level": Object {
+                    "id": 13,
+                    "name": "7th Grade CCSS",
+                  },
+                  "standard_level_name": "7th Grade CCSS",
+                  "standard_name": "87",
+                  "topics": Array [
+                    Object {
+                      "id": 16,
+                      "level": 3,
+                      "name": "History",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 93,
+                      "level": 2,
+                      "name": "World Historical Figures",
+                      "parent_id": 16,
+                    },
+                    Object {
+                      "id": 117,
+                      "level": 1,
+                      "name": "The Age of Exploration",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 368,
+                      "level": 0,
+                      "name": "Marco Polo",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-KqZ_8tESejeyBmj-_pO",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 23,
+                    "name": "History: Age of Exploration",
+                  },
+                  "activity_category_id": 23,
+                  "activity_category_name": "History: Age of Exploration",
+                  "activity_classification": Object {
+                    "alias": "Quill Connect",
+                    "description": "Combine Sentences",
+                    "id": 5,
+                    "key": "connect",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=860",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Students combine sentences to create 5 sentences about Hernando de Soto. This is an advanced, un-cued sentence combining activity.",
+                  "flags": "{production}",
+                  "id": 860,
+                  "name": "Hernando de Soto",
+                  "readability_grade_level": "8th-9th",
+                  "standard_level": Object {
+                    "id": 13,
+                    "name": "7th Grade CCSS",
+                  },
+                  "standard_level_name": "7th Grade CCSS",
+                  "standard_name": "87",
+                  "topics": Array [
+                    Object {
+                      "id": 16,
+                      "level": 3,
+                      "name": "History",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 17,
+                      "level": 2,
+                      "name": "U.S. Historical Figures",
+                      "parent_id": 16,
+                    },
+                    Object {
+                      "id": 117,
+                      "level": 1,
+                      "name": "The Age of Exploration",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 173,
+                      "level": 0,
+                      "name": "Hernando de Soto",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-KhO2hv2Wl8rVCHp1B1G",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 23,
+                    "name": "History: Age of Exploration",
+                  },
+                  "activity_category_id": 23,
+                  "activity_category_name": "History: Age of Exploration",
+                  "activity_classification": Object {
+                    "alias": "Quill Connect",
+                    "description": "Combine Sentences",
+                    "id": 5,
+                    "key": "connect",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=605",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Combine sentences to create 7 sentences about Magellan's trip around the globe. This is an advanced, un-cued sentence combining activity.",
+                  "flags": "{production}",
+                  "id": 605,
+                  "name": "Magellan",
+                  "readability_grade_level": "8th-9th",
+                  "standard_level": Object {
+                    "id": 13,
+                    "name": "7th Grade CCSS",
+                  },
+                  "standard_level_name": "7th Grade CCSS",
+                  "standard_name": "87",
+                  "topics": Array [
+                    Object {
+                      "id": 16,
+                      "level": 3,
+                      "name": "History",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 93,
+                      "level": 2,
+                      "name": "World Historical Figures",
+                      "parent_id": 16,
+                    },
+                    Object {
+                      "id": 116,
+                      "level": 0,
+                      "name": "Magellan",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 117,
+                      "level": 1,
+                      "name": "The Age of Exploration",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-KqZiV1bnPe48h6gyYss",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 23,
+                    "name": "History: Age of Exploration",
+                  },
+                  "activity_category_id": 23,
+                  "activity_category_name": "History: Age of Exploration",
+                  "activity_classification": Object {
+                    "alias": "Quill Connect",
+                    "description": "Combine Sentences",
+                    "id": 5,
+                    "key": "connect",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=606",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Students combine sentences to create 5 sentences about the Jamestown settlement. This is an advanced, un-cued sentence combining activity.",
+                  "flags": "{production}",
+                  "id": 606,
+                  "name": "Jamestown",
+                  "readability_grade_level": "8th-9th",
+                  "standard_level": Object {
+                    "id": 13,
+                    "name": "7th Grade CCSS",
+                  },
+                  "standard_level_name": "7th Grade CCSS",
+                  "standard_name": "87",
+                  "topics": Array [
+                    Object {
+                      "id": 16,
+                      "level": 3,
+                      "name": "History",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 45,
+                      "level": 2,
+                      "name": "U.S. History",
+                      "parent_id": 16,
+                    },
+                    Object {
+                      "id": 117,
+                      "level": 1,
+                      "name": "The Age of Exploration",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 200,
+                      "level": 0,
+                      "name": "Jamestown Settlement",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-KqcJOzHDYUrioJ6fPlR",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 22,
+                    "name": "History: The Renaissance",
+                  },
+                  "activity_category_id": 22,
+                  "activity_category_name": "History: The Renaissance",
+                  "activity_classification": Object {
+                    "alias": "Quill Connect",
+                    "description": "Combine Sentences",
+                    "id": 5,
+                    "key": "connect",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=642",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Combine sentences to create 6 sentences about humanism. This is an advanced, un-cued sentence combining activity.",
+                  "flags": "{production}",
+                  "id": 642,
+                  "name": "Humanism",
+                  "readability_grade_level": "8th-9th",
+                  "standard_level": Object {
+                    "id": 13,
+                    "name": "7th Grade CCSS",
+                  },
+                  "standard_level_name": "7th Grade CCSS",
+                  "standard_name": "87",
+                  "topics": Array [
+                    Object {
+                      "id": 16,
+                      "level": 3,
+                      "name": "History",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 48,
+                      "level": 2,
+                      "name": "World History",
+                      "parent_id": 16,
+                    },
+                    Object {
+                      "id": 186,
+                      "level": 0,
+                      "name": "Humanism",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 187,
+                      "level": 1,
+                      "name": "The Renaissance",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-KqZldiOXNWbJNFvIRY-",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 22,
+                    "name": "History: The Renaissance",
+                  },
+                  "activity_category_id": 22,
+                  "activity_category_name": "History: The Renaissance",
+                  "activity_classification": Object {
+                    "alias": "Quill Connect",
+                    "description": "Combine Sentences",
+                    "id": 5,
+                    "key": "connect",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=640",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Combine sentences to create 6 sentences about the beginnings of the Renaissance in Italy. This is an advanced, un-cued sentence combining activity.",
+                  "flags": "{production}",
+                  "id": 640,
+                  "name": "Renaissance Beginnings in Italy",
+                  "readability_grade_level": "8th-9th",
+                  "standard_level": Object {
+                    "id": 13,
+                    "name": "7th Grade CCSS",
+                  },
+                  "standard_level_name": "7th Grade CCSS",
+                  "standard_name": "87",
+                  "topics": Array [
+                    Object {
+                      "id": 16,
+                      "level": 3,
+                      "name": "History",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 48,
+                      "level": 2,
+                      "name": "World History",
+                      "parent_id": 16,
+                    },
+                    Object {
+                      "id": 187,
+                      "level": 1,
+                      "name": "The Renaissance",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 269,
+                      "level": 0,
+                      "name": "The Renaissance in Italy",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-KqZpAZ8UMhwZp_3ezqw",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 22,
+                    "name": "History: The Renaissance",
+                  },
+                  "activity_category_id": 22,
+                  "activity_category_name": "History: The Renaissance",
+                  "activity_classification": Object {
+                    "alias": "Quill Connect",
+                    "description": "Combine Sentences",
+                    "id": 5,
+                    "key": "connect",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=641",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Combine sentences to create 7 sentences about the Medici family. This is an advanced, un-cued sentence combining activity.",
+                  "flags": "{production}",
+                  "id": 641,
+                  "name": "The Medici Family",
+                  "readability_grade_level": "8th-9th",
+                  "standard_level": Object {
+                    "id": 13,
+                    "name": "7th Grade CCSS",
+                  },
+                  "standard_level_name": "7th Grade CCSS",
+                  "standard_name": "87",
+                  "topics": Array [
+                    Object {
+                      "id": 16,
+                      "level": 3,
+                      "name": "History",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 93,
+                      "level": 2,
+                      "name": "World Historical Figures",
+                      "parent_id": 16,
+                    },
+                    Object {
+                      "id": 187,
+                      "level": 1,
+                      "name": "The Renaissance",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 350,
+                      "level": 0,
+                      "name": "The Medici Family",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-KqZvArG8422vhwB7rIo",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 22,
+                    "name": "History: The Renaissance",
+                  },
+                  "activity_category_id": 22,
+                  "activity_category_name": "History: The Renaissance",
+                  "activity_classification": Object {
+                    "alias": "Quill Connect",
+                    "description": "Combine Sentences",
+                    "id": 5,
+                    "key": "connect",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=643",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Combine sentences to create 6 sentences about the Northern Renaissance. This is an advanced, un-cued sentence combining activity.",
+                  "flags": "{production}",
+                  "id": 643,
+                  "name": "The Northern Renaissance",
+                  "readability_grade_level": "8th-9th",
+                  "standard_level": Object {
+                    "id": 13,
+                    "name": "7th Grade CCSS",
+                  },
+                  "standard_level_name": "7th Grade CCSS",
+                  "standard_name": "87",
+                  "topics": Array [
+                    Object {
+                      "id": 16,
+                      "level": 3,
+                      "name": "History",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 48,
+                      "level": 2,
+                      "name": "World History",
+                      "parent_id": 16,
+                    },
+                    Object {
+                      "id": 187,
+                      "level": 1,
+                      "name": "The Renaissance",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 355,
+                      "level": 0,
+                      "name": "The Northern Renaissance",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-KqdGWI1rgvtQBg2vIb0",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 25,
+                    "name": "History: American Revolution",
+                  },
+                  "activity_category_id": 25,
+                  "activity_category_name": "History: American Revolution",
+                  "activity_classification": Object {
+                    "alias": "Quill Connect",
+                    "description": "Combine Sentences",
+                    "id": 5,
+                    "key": "connect",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=728",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Combine sentences to create 7 sentences about the beginning of the American Revolution. This is an advanced, un-cued sentence combining activity.",
+                  "flags": "{production}",
+                  "id": 728,
+                  "name": "The War Begins at Lexington and Concord",
+                  "readability_grade_level": "6th-7th",
+                  "standard_level": Object {
+                    "id": 13,
+                    "name": "7th Grade CCSS",
+                  },
+                  "standard_level_name": "7th Grade CCSS",
+                  "standard_name": "87",
+                  "topics": Array [
+                    Object {
+                      "id": 16,
+                      "level": 3,
+                      "name": "History",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 45,
+                      "level": 2,
+                      "name": "U.S. History",
+                      "parent_id": 16,
+                    },
+                    Object {
+                      "id": 119,
+                      "level": 1,
+                      "name": "The American Revolution",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 373,
+                      "level": 0,
+                      "name": "The Battles of Lexington & Concord",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-KqY7BQmhDn71y-E-s3C",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 25,
+                    "name": "History: American Revolution",
+                  },
+                  "activity_category_id": 25,
+                  "activity_category_name": "History: American Revolution",
+                  "activity_classification": Object {
+                    "alias": "Quill Connect",
+                    "description": "Combine Sentences",
+                    "id": 5,
+                    "key": "connect",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=731",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Combine sentences to create 6 sentences about the final battle of the American Revolution. This is an advanced, un-cued sentence combining activity.",
+                  "flags": "{production}",
+                  "id": 731,
+                  "name": "The War Ends at Yorktown",
+                  "readability_grade_level": "6th-7th",
+                  "standard_level": Object {
+                    "id": 13,
+                    "name": "7th Grade CCSS",
+                  },
+                  "standard_level_name": "7th Grade CCSS",
+                  "standard_name": "87",
+                  "topics": Array [
+                    Object {
+                      "id": 16,
+                      "level": 3,
+                      "name": "History",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 45,
+                      "level": 2,
+                      "name": "U.S. History",
+                      "parent_id": 16,
+                    },
+                    Object {
+                      "id": 119,
+                      "level": 1,
+                      "name": "The American Revolution",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 374,
+                      "level": 0,
+                      "name": "The Battle at Yorktown",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-KqYK5A0fNos0ZbUjjOu",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 25,
+                    "name": "History: American Revolution",
+                  },
+                  "activity_category_id": 25,
+                  "activity_category_name": "History: American Revolution",
+                  "activity_classification": Object {
+                    "alias": "Quill Connect",
+                    "description": "Combine Sentences",
+                    "id": 5,
+                    "key": "connect",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=729",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Combine sentences to create 7 sentences about the Battle of Bunker Hill. This is an advanced, un-cued sentence combining activity.",
+                  "flags": "{production}",
+                  "id": 729,
+                  "name": "Turning Point: Bunker Hill",
+                  "readability_grade_level": "6th-7th",
+                  "standard_level": Object {
+                    "id": 13,
+                    "name": "7th Grade CCSS",
+                  },
+                  "standard_level_name": "7th Grade CCSS",
+                  "standard_name": "87",
+                  "topics": Array [
+                    Object {
+                      "id": 16,
+                      "level": 3,
+                      "name": "History",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 45,
+                      "level": 2,
+                      "name": "U.S. History",
+                      "parent_id": 16,
+                    },
+                    Object {
+                      "id": 119,
+                      "level": 1,
+                      "name": "The American Revolution",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 385,
+                      "level": 0,
+                      "name": "The Battle of Bunker Hill",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-KqYNoENpFXSttDu-xPf",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 25,
+                    "name": "History: American Revolution",
+                  },
+                  "activity_category_id": 25,
+                  "activity_category_name": "History: American Revolution",
+                  "activity_classification": Object {
+                    "alias": "Quill Connect",
+                    "description": "Combine Sentences",
+                    "id": 5,
+                    "key": "connect",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=730",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Combine sentences to create 6 sentences about the Battle of Saratoga. This is an advanced, un-cued sentence combining activity.",
+                  "flags": "{production}",
+                  "id": 730,
+                  "name": "Turning Point: Saratoga",
+                  "readability_grade_level": "6th-7th",
+                  "standard_level": Object {
+                    "id": 13,
+                    "name": "7th Grade CCSS",
+                  },
+                  "standard_level_name": "7th Grade CCSS",
+                  "standard_name": "87",
+                  "topics": Array [
+                    Object {
+                      "id": 16,
+                      "level": 3,
+                      "name": "History",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 45,
+                      "level": 2,
+                      "name": "U.S. History",
+                      "parent_id": 16,
+                    },
+                    Object {
+                      "id": 119,
+                      "level": 1,
+                      "name": "The American Revolution",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 386,
+                      "level": 0,
+                      "name": "The Battle of Saratoga",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-KqYPpC3o3JeeuhQadBF",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 24,
+                    "name": "History: Causes of the American Revolution",
+                  },
+                  "activity_category_id": 24,
+                  "activity_category_name": "History: Causes of the American Revolution",
+                  "activity_classification": Object {
+                    "alias": "Quill Connect",
+                    "description": "Combine Sentences",
+                    "id": 5,
+                    "key": "connect",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=477",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Content: The American Revolution
+Level: Advanced - no joining words provided
+
+Combine simple sentences to create 4 new compound or complex sentences that include modifying phrases and compound predicates.",
+                  "flags": "{production}",
+                  "id": 477,
+                  "name": "The Stamp Act",
+                  "readability_grade_level": "6th-7th",
+                  "standard_level": Object {
+                    "id": 13,
+                    "name": "7th Grade CCSS",
+                  },
+                  "standard_level_name": "7th Grade CCSS",
+                  "standard_name": "87",
+                  "topics": Array [
+                    Object {
+                      "id": 16,
+                      "level": 3,
+                      "name": "History",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 45,
+                      "level": 2,
+                      "name": "U.S. History",
+                      "parent_id": 16,
+                    },
+                    Object {
+                      "id": 119,
+                      "level": 1,
+                      "name": "The American Revolution",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 363,
+                      "level": 0,
+                      "name": "The Stamp Act",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-KbvuSGyq6ANjB6cSzpQ",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 24,
+                    "name": "History: Causes of the American Revolution",
+                  },
+                  "activity_category_id": 24,
+                  "activity_category_name": "History: Causes of the American Revolution",
+                  "activity_classification": Object {
+                    "alias": "Quill Connect",
+                    "description": "Combine Sentences",
+                    "id": 5,
+                    "key": "connect",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=476",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Content: The American Revolution
+Level: Advanced - no joining words provided
+
+Combine simple sentences to create 6 new compound or complex sentences that include modifying phrases and compound predicates.",
+                  "flags": "{production}",
+                  "id": 476,
+                  "name": "The Boston Massacre",
+                  "readability_grade_level": "8th-9th",
+                  "standard_level": Object {
+                    "id": 13,
+                    "name": "7th Grade CCSS",
+                  },
+                  "standard_level_name": "7th Grade CCSS",
+                  "standard_name": "87",
+                  "topics": Array [
+                    Object {
+                      "id": 16,
+                      "level": 3,
+                      "name": "History",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 45,
+                      "level": 2,
+                      "name": "U.S. History",
+                      "parent_id": 16,
+                    },
+                    Object {
+                      "id": 119,
+                      "level": 1,
+                      "name": "The American Revolution",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 321,
+                      "level": 0,
+                      "name": "The Boston Massacre",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-Kbk-mjzTNeqWbvVG9zI",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 24,
+                    "name": "History: Causes of the American Revolution",
+                  },
+                  "activity_category_id": 24,
+                  "activity_category_name": "History: Causes of the American Revolution",
+                  "activity_classification": Object {
+                    "alias": "Quill Connect",
+                    "description": "Combine Sentences",
+                    "id": 5,
+                    "key": "connect",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=478",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Content: The American Revolution
+Level: Advanced - no joining words provided
+
+Combine simple sentences to create 5 new compound or complex sentences that include modifying phrases and compound predicates.",
+                  "flags": "{production}",
+                  "id": 478,
+                  "name": "The Boston Tea Party",
+                  "readability_grade_level": "8th-9th",
+                  "standard_level": Object {
+                    "id": 13,
+                    "name": "7th Grade CCSS",
+                  },
+                  "standard_level_name": "7th Grade CCSS",
+                  "standard_name": "87",
+                  "topics": Array [
+                    Object {
+                      "id": 16,
+                      "level": 3,
+                      "name": "History",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 45,
+                      "level": 2,
+                      "name": "U.S. History",
+                      "parent_id": 16,
+                    },
+                    Object {
+                      "id": 119,
+                      "level": 1,
+                      "name": "The American Revolution",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 322,
+                      "level": 0,
+                      "name": "The Boston Tea Party",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-Kbvv3WS6vGNkeW7d6dt",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 21,
+                    "name": "History: Native Americans",
+                  },
+                  "activity_category_id": 21,
+                  "activity_category_name": "History: Native Americans",
+                  "activity_classification": Object {
+                    "alias": "Quill Connect",
+                    "description": "Combine Sentences",
+                    "id": 5,
+                    "key": "connect",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=584",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Combine sentences to create 5 sentences about the Iroquois Confederacy. This is an advanced, un-cued sentence combining activity.",
+                  "flags": "{production}",
+                  "id": 584,
+                  "name": "The Iroquois Confederacy",
+                  "readability_grade_level": "8th-9th",
+                  "standard_level": Object {
+                    "id": 13,
+                    "name": "7th Grade CCSS",
+                  },
+                  "standard_level_name": "7th Grade CCSS",
+                  "standard_name": "87",
+                  "topics": Array [
+                    Object {
+                      "id": 16,
+                      "level": 3,
+                      "name": "History",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 45,
+                      "level": 2,
+                      "name": "U.S. History",
+                      "parent_id": 16,
+                    },
+                    Object {
+                      "id": 65,
+                      "level": 1,
+                      "name": "Native Americans",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 346,
+                      "level": 0,
+                      "name": "The Iroquois Confederacy",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-KqZdYHq5N9O1OYfzZbl",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 21,
+                    "name": "History: Native Americans",
+                  },
+                  "activity_category_id": 21,
+                  "activity_category_name": "History: Native Americans",
+                  "activity_classification": Object {
+                    "alias": "Quill Connect",
+                    "description": "Combine Sentences",
+                    "id": 5,
+                    "key": "connect",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=585",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Combine sentences to create 6 sentences about the importance of the buffalo to the Native American tribes living on the Great Plains. This is an advanced, un-cued sentence combining activity.",
+                  "flags": "{production}",
+                  "id": 585,
+                  "name": "The Importance of the Buffalo",
+                  "readability_grade_level": "8th-9th",
+                  "standard_level": Object {
+                    "id": 13,
+                    "name": "7th Grade CCSS",
+                  },
+                  "standard_level_name": "7th Grade CCSS",
+                  "standard_name": "87",
+                  "topics": Array [
+                    Object {
+                      "id": 7,
+                      "level": 3,
+                      "name": "Science",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 13,
+                      "level": 2,
+                      "name": "Animals",
+                      "parent_id": 7,
+                    },
+                    Object {
+                      "id": 65,
+                      "level": 1,
+                      "name": "Native Americans",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 345,
+                      "level": 0,
+                      "name": "Buffalo",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-KqZWcwJndWJBU-U3ehj",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 21,
+                    "name": "History: Native Americans",
+                  },
+                  "activity_category_id": 21,
+                  "activity_category_name": "History: Native Americans",
+                  "activity_classification": Object {
+                    "alias": "Quill Connect",
+                    "description": "Combine Sentences",
+                    "id": 5,
+                    "key": "connect",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=586",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Combine sentences to create 7 sentences about Ishi of the Yahi people. This is an advanced, un-cued sentence combining activity.",
+                  "flags": "{production}",
+                  "id": 586,
+                  "name": "Ishi",
+                  "readability_grade_level": "8th-9th",
+                  "standard_level": Object {
+                    "id": 13,
+                    "name": "7th Grade CCSS",
+                  },
+                  "standard_level_name": "7th Grade CCSS",
+                  "standard_name": "87",
+                  "topics": Array [
+                    Object {
+                      "id": 16,
+                      "level": 3,
+                      "name": "History",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 17,
+                      "level": 2,
+                      "name": "U.S. Historical Figures",
+                      "parent_id": 16,
+                    },
+                    Object {
+                      "id": 65,
+                      "level": 1,
+                      "name": "Native Americans",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 195,
+                      "level": 0,
+                      "name": "Ishi & the Yahi People",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-KqZh2mwDeSPLCxp2UAT",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 21,
+                    "name": "History: Native Americans",
+                  },
+                  "activity_category_id": 21,
+                  "activity_category_name": "History: Native Americans",
+                  "activity_classification": Object {
+                    "alias": "Quill Connect",
+                    "description": "Combine Sentences",
+                    "id": 5,
+                    "key": "connect",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=587",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Students combine sentences 5 times to create sentences about the Dawes Act. This is an advanced, un-cued sentence combining activity.",
+                  "flags": "{production}",
+                  "id": 587,
+                  "name": "The Dawes Act",
+                  "readability_grade_level": "8th-9th",
+                  "standard_level": Object {
+                    "id": 13,
+                    "name": "7th Grade CCSS",
+                  },
+                  "standard_level_name": "7th Grade CCSS",
+                  "standard_name": "87",
+                  "topics": Array [
+                    Object {
+                      "id": 16,
+                      "level": 3,
+                      "name": "History",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 45,
+                      "level": 2,
+                      "name": "U.S. History",
+                      "parent_id": 16,
+                    },
+                    Object {
+                      "id": 65,
+                      "level": 1,
+                      "name": "Native Americans",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 325,
+                      "level": 0,
+                      "name": "The Dawes Act",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-KqZaKPdDL_-tnCUDIlX",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 26,
+                    "name": "Science: What's in Our Universe?",
+                  },
+                  "activity_category_id": 26,
+                  "activity_category_name": "Science: What's in Our Universe?",
+                  "activity_classification": Object {
+                    "alias": "Quill Connect",
+                    "description": "Combine Sentences",
+                    "id": 5,
+                    "key": "connect",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=613",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Combine sentences to create 5 sentences about asteroids. This is an advanced, un-cued sentence combining activity.",
+                  "flags": "{production}",
+                  "id": 613,
+                  "name": "Asteroids",
+                  "readability_grade_level": "6th-7th",
+                  "standard_level": Object {
+                    "id": 13,
+                    "name": "7th Grade CCSS",
+                  },
+                  "standard_level_name": "7th Grade CCSS",
+                  "standard_name": "87",
+                  "topics": Array [
+                    Object {
+                      "id": 7,
+                      "level": 3,
+                      "name": "Science",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 88,
+                      "level": 0,
+                      "name": "Asteroids",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 89,
+                      "level": 1,
+                      "name": "Astronomy",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 90,
+                      "level": 2,
+                      "name": "Outer Space",
+                      "parent_id": 7,
+                    },
+                  ],
+                  "uid": "-KqZUaz7rINZ8fNssJ6r",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 26,
+                    "name": "Science: What's in Our Universe?",
+                  },
+                  "activity_category_id": 26,
+                  "activity_category_name": "Science: What's in Our Universe?",
+                  "activity_classification": Object {
+                    "alias": "Quill Connect",
+                    "description": "Combine Sentences",
+                    "id": 5,
+                    "key": "connect",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=614",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Combine sentences to create 5 sentences about Ham and Alan Shepard of the NASA space program. This is an advanced, un-cued sentence combining activity.",
+                  "flags": "{production}",
+                  "id": 614,
+                  "name": "Ham and Alan Shepard",
+                  "readability_grade_level": "8th-9th",
+                  "standard_level": Object {
+                    "id": 13,
+                    "name": "7th Grade CCSS",
+                  },
+                  "standard_level_name": "7th Grade CCSS",
+                  "standard_name": "87",
+                  "topics": Array [
+                    Object {
+                      "id": 16,
+                      "level": 3,
+                      "name": "History",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 17,
+                      "level": 2,
+                      "name": "U.S. Historical Figures",
+                      "parent_id": 16,
+                    },
+                    Object {
+                      "id": 78,
+                      "level": 1,
+                      "name": "Space Exploration",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 168,
+                      "level": 0,
+                      "name": "Ham & Alan Shepard",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-KqZR__u2hpJ2z8cIch-",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 26,
+                    "name": "Science: What's in Our Universe?",
+                  },
+                  "activity_category_id": 26,
+                  "activity_category_name": "Science: What's in Our Universe?",
+                  "activity_classification": Object {
+                    "alias": "Quill Connect",
+                    "description": "Combine Sentences",
+                    "id": 5,
+                    "key": "connect",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=615",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Combine sentences to create 6 sentences about eclipses. This is an advanced, un-cued sentence combining activity.",
+                  "flags": "{production}",
+                  "id": 615,
+                  "name": "Eclipses",
+                  "readability_grade_level": "6th-7th",
+                  "standard_level": Object {
+                    "id": 13,
+                    "name": "7th Grade CCSS",
+                  },
+                  "standard_level_name": "7th Grade CCSS",
+                  "standard_name": "87",
+                  "topics": Array [
+                    Object {
+                      "id": 7,
+                      "level": 3,
+                      "name": "Science",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 89,
+                      "level": 1,
+                      "name": "Astronomy",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 90,
+                      "level": 2,
+                      "name": "Outer Space",
+                      "parent_id": 7,
+                    },
+                    Object {
+                      "id": 153,
+                      "level": 0,
+                      "name": "Eclipses",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-KqZFTXwQ5MCZMH9-bUN",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 26,
+                    "name": "Science: What's in Our Universe?",
+                  },
+                  "activity_category_id": 26,
+                  "activity_category_name": "Science: What's in Our Universe?",
+                  "activity_classification": Object {
+                    "alias": "Quill Connect",
+                    "description": "Combine Sentences",
+                    "id": 5,
+                    "key": "connect",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=756",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Combine sentences to create 5 sentences about the International Space Station. This is an advanced, un-cued sentence combining activity.",
+                  "flags": "{production}",
+                  "id": 756,
+                  "name": "International Space Station",
+                  "readability_grade_level": "6th-7th",
+                  "standard_level": Object {
+                    "id": 13,
+                    "name": "7th Grade CCSS",
+                  },
+                  "standard_level_name": "7th Grade CCSS",
+                  "standard_name": "87",
+                  "topics": Array [
+                    Object {
+                      "id": 7,
+                      "level": 3,
+                      "name": "Science",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 78,
+                      "level": 1,
+                      "name": "Space Exploration",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 90,
+                      "level": 2,
+                      "name": "Outer Space",
+                      "parent_id": 7,
+                    },
+                    Object {
+                      "id": 193,
+                      "level": 0,
+                      "name": "The International Space Station",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-LAo-erEroO6r6XV1tAV",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 27,
+                    "name": "Science: Geology",
+                  },
+                  "activity_category_id": 27,
+                  "activity_category_name": "Science: Geology",
+                  "activity_classification": Object {
+                    "alias": "Quill Connect",
+                    "description": "Combine Sentences",
+                    "id": 5,
+                    "key": "connect",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=622",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Combine sentences to create 5 sentences about fold mountains. This is an advanced, un-cued sentence combining activity.",
+                  "flags": "{production}",
+                  "id": 622,
+                  "name": "Fold Mountains",
+                  "readability_grade_level": "6th-7th",
+                  "standard_level": Object {
+                    "id": 13,
+                    "name": "7th Grade CCSS",
+                  },
+                  "standard_level_name": "7th Grade CCSS",
+                  "standard_name": "87",
+                  "topics": Array [
+                    Object {
+                      "id": 7,
+                      "level": 3,
+                      "name": "Science",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 8,
+                      "level": 2,
+                      "name": "The Earth & Nature",
+                      "parent_id": 7,
+                    },
+                    Object {
+                      "id": 123,
+                      "level": 1,
+                      "name": "Geology",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 158,
+                      "level": 0,
+                      "name": "Fold Mountains",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-KqYgUp3xAAJYxZtX2yr",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 27,
+                    "name": "Science: Geology",
+                  },
+                  "activity_category_id": 27,
+                  "activity_category_name": "Science: Geology",
+                  "activity_classification": Object {
+                    "alias": "Quill Connect",
+                    "description": "Combine Sentences",
+                    "id": 5,
+                    "key": "connect",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=623",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Combine sentences to create 5 sentences about hydrothermal vents. This is an advanced, un-cued sentence combining activity.",
+                  "flags": "{production}",
+                  "id": 623,
+                  "name": "Hydrothermal Vents",
+                  "readability_grade_level": "8th-9th",
+                  "standard_level": Object {
+                    "id": 13,
+                    "name": "7th Grade CCSS",
+                  },
+                  "standard_level_name": "7th Grade CCSS",
+                  "standard_name": "87",
+                  "topics": Array [
+                    Object {
+                      "id": 7,
+                      "level": 3,
+                      "name": "Science",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 8,
+                      "level": 2,
+                      "name": "The Earth & Nature",
+                      "parent_id": 7,
+                    },
+                    Object {
+                      "id": 123,
+                      "level": 1,
+                      "name": "Geology",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 188,
+                      "level": 0,
+                      "name": "Hydrothermal Vents",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-KqYd2Nk25H2e3fdkwcs",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 27,
+                    "name": "Science: Geology",
+                  },
+                  "activity_category_id": 27,
+                  "activity_category_name": "Science: Geology",
+                  "activity_classification": Object {
+                    "alias": "Quill Connect",
+                    "description": "Combine Sentences",
+                    "id": 5,
+                    "key": "connect",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=621",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Combine sentences to create 6 sentences about the rock cycle. This is an advanced, un-cued sentence combining activity.",
+                  "flags": "{production}",
+                  "id": 621,
+                  "name": "The Rock Cycle",
+                  "readability_grade_level": "6th-7th",
+                  "standard_level": Object {
+                    "id": 13,
+                    "name": "7th Grade CCSS",
+                  },
+                  "standard_level_name": "7th Grade CCSS",
+                  "standard_name": "87",
+                  "topics": Array [
+                    Object {
+                      "id": 7,
+                      "level": 3,
+                      "name": "Science",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 8,
+                      "level": 2,
+                      "name": "The Earth & Nature",
+                      "parent_id": 7,
+                    },
+                    Object {
+                      "id": 123,
+                      "level": 1,
+                      "name": "Geology",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 357,
+                      "level": 0,
+                      "name": "The Rock Cycle",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-KqYkktoWRhHby2187G8",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 28,
+                    "name": "Science: Plants",
+                  },
+                  "activity_category_id": 28,
+                  "activity_category_name": "Science: Plants",
+                  "activity_classification": Object {
+                    "alias": "Quill Connect",
+                    "description": "Combine Sentences",
+                    "id": 5,
+                    "key": "connect",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=635",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Combine sentences to create 7 sentences about the parts of vascular plants. This is an advanced, un-cued sentence combining activity.",
+                  "flags": "{production}",
+                  "id": 635,
+                  "name": "Parts of Vascular Plants",
+                  "readability_grade_level": "6th-7th",
+                  "standard_level": Object {
+                    "id": 13,
+                    "name": "7th Grade CCSS",
+                  },
+                  "standard_level_name": "7th Grade CCSS",
+                  "standard_name": "87",
+                  "topics": Array [
+                    Object {
+                      "id": 6,
+                      "level": 1,
+                      "name": "Plants",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 7,
+                      "level": 3,
+                      "name": "Science",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 8,
+                      "level": 2,
+                      "name": "The Earth & Nature",
+                      "parent_id": 7,
+                    },
+                    Object {
+                      "id": 243,
+                      "level": 0,
+                      "name": "Vascular Plants",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-KqZECh5ZxntzLDB-xQK",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 28,
+                    "name": "Science: Plants",
+                  },
+                  "activity_category_id": 28,
+                  "activity_category_name": "Science: Plants",
+                  "activity_classification": Object {
+                    "alias": "Quill Connect",
+                    "description": "Combine Sentences",
+                    "id": 5,
+                    "key": "connect",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=634",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Combine sentences to create 7 sentences about plant and animal cells. This is an advanced, un-cued sentence combining activity.",
+                  "flags": "{production}",
+                  "id": 634,
+                  "name": "Plant Cells and Animal Cells",
+                  "readability_grade_level": "6th-7th",
+                  "standard_level": Object {
+                    "id": 13,
+                    "name": "7th Grade CCSS",
+                  },
+                  "standard_level_name": "7th Grade CCSS",
+                  "standard_name": "87",
+                  "topics": Array [
+                    Object {
+                      "id": 6,
+                      "level": 1,
+                      "name": "Plants",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 7,
+                      "level": 3,
+                      "name": "Science",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 8,
+                      "level": 2,
+                      "name": "The Earth & Nature",
+                      "parent_id": 7,
+                    },
+                    Object {
+                      "id": 249,
+                      "level": 0,
+                      "name": "Plant & Animal Cells",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-KqZIkV8V3_92A2ajc4u",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 28,
+                    "name": "Science: Plants",
+                  },
+                  "activity_category_id": 28,
+                  "activity_category_name": "Science: Plants",
+                  "activity_classification": Object {
+                    "alias": "Quill Connect",
+                    "description": "Combine Sentences",
+                    "id": 5,
+                    "key": "connect",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=633",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Combine sentences to create 5 sentences about the role of plants in the food chain. This is an advanced, un-cued sentence combining activity.",
+                  "flags": "{production}",
+                  "id": 633,
+                  "name": "Plants in the Food Chain",
+                  "readability_grade_level": "6th-7th",
+                  "standard_level": Object {
+                    "id": 13,
+                    "name": "7th Grade CCSS",
+                  },
+                  "standard_level_name": "7th Grade CCSS",
+                  "standard_name": "87",
+                  "topics": Array [
+                    Object {
+                      "id": 6,
+                      "level": 1,
+                      "name": "Plants",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 7,
+                      "level": 3,
+                      "name": "Science",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 8,
+                      "level": 2,
+                      "name": "The Earth & Nature",
+                      "parent_id": 7,
+                    },
+                    Object {
+                      "id": 250,
+                      "level": 0,
+                      "name": "Plants in the Food Chain",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-KqZLtzic921c7eDVc1D",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 28,
+                    "name": "Science: Plants",
+                  },
+                  "activity_category_id": 28,
+                  "activity_category_name": "Science: Plants",
+                  "activity_classification": Object {
+                    "alias": "Quill Connect",
+                    "description": "Combine Sentences",
+                    "id": 5,
+                    "key": "connect",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=632",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Combine sentences to create 5 sentences about the differences between vascular and non-vascular plants. This is an advanced, un-cued sentence combining activity.",
+                  "flags": "{production}",
+                  "id": 632,
+                  "name": "Vascular and Non-vascular Plants",
+                  "readability_grade_level": "6th-7th",
+                  "standard_level": Object {
+                    "id": 13,
+                    "name": "7th Grade CCSS",
+                  },
+                  "standard_level_name": "7th Grade CCSS",
+                  "standard_name": "87",
+                  "topics": Array [
+                    Object {
+                      "id": 6,
+                      "level": 1,
+                      "name": "Plants",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 7,
+                      "level": 3,
+                      "name": "Science",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 8,
+                      "level": 2,
+                      "name": "The Earth & Nature",
+                      "parent_id": 7,
+                    },
+                    Object {
+                      "id": 389,
+                      "level": 0,
+                      "name": "Vascular & Non-Vascular Plants",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-KqZQ1fZyO-Lz5UwooN2",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 20,
+                    "name": "History: Maya, Aztec, Inca",
+                  },
+                  "activity_category_id": 20,
+                  "activity_category_name": "History: Maya, Aztec, Inca",
+                  "activity_classification": Object {
+                    "alias": "Quill Proofreader",
+                    "description": "Fix Errors in Passages",
+                    "id": 1,
+                    "key": "passage",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=535",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Find and correct the errors in this passage. To edit a word, click on it and re-type it.",
+                  "flags": "{production}",
+                  "id": 535,
+                  "name": "Maya Calendar",
+                  "readability_grade_level": "8th-9th",
+                  "standard_level": Object {
+                    "id": 18,
+                    "name": "9th Grade CCSS",
+                  },
+                  "standard_level_name": "9th Grade CCSS",
+                  "standard_name": "82",
+                  "topics": Array [
+                    Object {
+                      "id": 16,
+                      "level": 3,
+                      "name": "History",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 48,
+                      "level": 2,
+                      "name": "World History",
+                      "parent_id": 16,
+                    },
+                    Object {
+                      "id": 172,
+                      "level": 1,
+                      "name": "Maya, Aztec, & Inca Civilizations",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 217,
+                      "level": 0,
+                      "name": "Maya Calendar",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-Kqdo2aBDw7bJ4YIXynn",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 20,
+                    "name": "History: Maya, Aztec, Inca",
+                  },
+                  "activity_category_id": 20,
+                  "activity_category_name": "History: Maya, Aztec, Inca",
+                  "activity_classification": Object {
+                    "alias": "Quill Proofreader",
+                    "description": "Fix Errors in Passages",
+                    "id": 1,
+                    "key": "passage",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=531",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Find and correct the errors in this passage. To edit a word, click on it and re-type it.",
+                  "flags": "{production}",
+                  "id": 531,
+                  "name": "Tenochtitlán",
+                  "readability_grade_level": "8th-9th",
+                  "standard_level": Object {
+                    "id": 18,
+                    "name": "9th Grade CCSS",
+                  },
+                  "standard_level_name": "9th Grade CCSS",
+                  "standard_name": "82",
+                  "topics": Array [
+                    Object {
+                      "id": 16,
+                      "level": 3,
+                      "name": "History",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 48,
+                      "level": 2,
+                      "name": "World History",
+                      "parent_id": 16,
+                    },
+                    Object {
+                      "id": 172,
+                      "level": 1,
+                      "name": "Maya, Aztec, & Inca Civilizations",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 314,
+                      "level": 0,
+                      "name": "Tenochtitlán",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-KqZ1GcvRyn-0x5ph2KS",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 20,
+                    "name": "History: Maya, Aztec, Inca",
+                  },
+                  "activity_category_id": 20,
+                  "activity_category_name": "History: Maya, Aztec, Inca",
+                  "activity_classification": Object {
+                    "alias": "Quill Proofreader",
+                    "description": "Fix Errors in Passages",
+                    "id": 1,
+                    "key": "passage",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=523",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Find and correct the errors in this passage.",
+                  "flags": "{production}",
+                  "id": 523,
+                  "name": "Maya, Aztec, and Inca Civilizations: Sapa Inca",
+                  "readability_grade_level": "8th-9th",
+                  "standard_level": Object {
+                    "id": 18,
+                    "name": "9th Grade CCSS",
+                  },
+                  "standard_level_name": "9th Grade CCSS",
+                  "standard_name": "82",
+                  "topics": Array [
+                    Object {
+                      "id": 16,
+                      "level": 3,
+                      "name": "History",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 48,
+                      "level": 2,
+                      "name": "World History",
+                      "parent_id": 16,
+                    },
+                    Object {
+                      "id": 172,
+                      "level": 1,
+                      "name": "Maya, Aztec, & Inca Civilizations",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 358,
+                      "level": 0,
+                      "name": "The Inca",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-KqYHrOHtQSIQ4B2T-wa",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 19,
+                    "name": "History: Chinese Dynasties",
+                  },
+                  "activity_category_id": 19,
+                  "activity_category_name": "History: Chinese Dynasties",
+                  "activity_classification": Object {
+                    "alias": "Quill Proofreader",
+                    "description": "Fix Errors in Passages",
+                    "id": 1,
+                    "key": "passage",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=549",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Find and correct the 8 errors in this passage.",
+                  "flags": "{production}",
+                  "id": 549,
+                  "name": "Dynasties of China: Shihuangdi's Search for Immortality",
+                  "readability_grade_level": "6th-7th",
+                  "standard_level": Object {
+                    "id": 18,
+                    "name": "9th Grade CCSS",
+                  },
+                  "standard_level_name": "9th Grade CCSS",
+                  "standard_name": "82",
+                  "topics": Array [
+                    Object {
+                      "id": 16,
+                      "level": 3,
+                      "name": "History",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 48,
+                      "level": 2,
+                      "name": "World History",
+                      "parent_id": 16,
+                    },
+                    Object {
+                      "id": 185,
+                      "level": 1,
+                      "name": "Chinese Dynasties",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 284,
+                      "level": 0,
+                      "name": "First Emperor of China",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-Kr24ZZ6uu51bYXhADhG",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 19,
+                    "name": "History: Chinese Dynasties",
+                  },
+                  "activity_category_id": 19,
+                  "activity_category_name": "History: Chinese Dynasties",
+                  "activity_classification": Object {
+                    "alias": "Quill Proofreader",
+                    "description": "Fix Errors in Passages",
+                    "id": 1,
+                    "key": "passage",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=547",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Find and correct the 8 errors in this passage.",
+                  "flags": "{production}",
+                  "id": 547,
+                  "name": "Dynasties of China: Silk Road",
+                  "readability_grade_level": "8th-9th",
+                  "standard_level": Object {
+                    "id": 18,
+                    "name": "9th Grade CCSS",
+                  },
+                  "standard_level_name": "9th Grade CCSS",
+                  "standard_name": "82",
+                  "topics": Array [
+                    Object {
+                      "id": 16,
+                      "level": 3,
+                      "name": "History",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 48,
+                      "level": 2,
+                      "name": "World History",
+                      "parent_id": 16,
+                    },
+                    Object {
+                      "id": 185,
+                      "level": 1,
+                      "name": "Chinese Dynasties",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 361,
+                      "level": 0,
+                      "name": "The Silk Road",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-Kr23P_QLluLsDOeT7MB",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 19,
+                    "name": "History: Chinese Dynasties",
+                  },
+                  "activity_category_id": 19,
+                  "activity_category_name": "History: Chinese Dynasties",
+                  "activity_classification": Object {
+                    "alias": "Quill Proofreader",
+                    "description": "Fix Errors in Passages",
+                    "id": 1,
+                    "key": "passage",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=550",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Find and correct the 10 errors in this passage.",
+                  "flags": "{production}",
+                  "id": 550,
+                  "name": "Dynasties of China: Zheng He and the Pirate",
+                  "readability_grade_level": "6th-7th",
+                  "standard_level": Object {
+                    "id": 18,
+                    "name": "9th Grade CCSS",
+                  },
+                  "standard_level_name": "9th Grade CCSS",
+                  "standard_name": "82",
+                  "topics": Array [
+                    Object {
+                      "id": 16,
+                      "level": 3,
+                      "name": "History",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 48,
+                      "level": 2,
+                      "name": "World History",
+                      "parent_id": 16,
+                    },
+                    Object {
+                      "id": 185,
+                      "level": 1,
+                      "name": "Chinese Dynasties",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 407,
+                      "level": 0,
+                      "name": "Zheng He",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-Kr26YEA35YGuXWE0jzb",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 23,
+                    "name": "History: Age of Exploration",
+                  },
+                  "activity_category_id": 23,
+                  "activity_category_name": "History: Age of Exploration",
+                  "activity_classification": Object {
+                    "alias": "Quill Proofreader",
+                    "description": "Fix Errors in Passages",
+                    "id": 1,
+                    "key": "passage",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=516",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Find and correct the errors in this passage.",
+                  "flags": "{production}",
+                  "id": 516,
+                  "name": "Age of Exploration: Spices",
+                  "readability_grade_level": "8th-9th",
+                  "standard_level": Object {
+                    "id": 18,
+                    "name": "9th Grade CCSS",
+                  },
+                  "standard_level_name": "9th Grade CCSS",
+                  "standard_name": "82",
+                  "topics": Array [
+                    Object {
+                      "id": 16,
+                      "level": 3,
+                      "name": "History",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 48,
+                      "level": 2,
+                      "name": "World History",
+                      "parent_id": 16,
+                    },
+                    Object {
+                      "id": 117,
+                      "level": 1,
+                      "name": "The Age of Exploration",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 293,
+                      "level": 0,
+                      "name": "The Spice Trade",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-KqUMM-Akp6DDQlVlAbq",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 23,
+                    "name": "History: Age of Exploration",
+                  },
+                  "activity_category_id": 23,
+                  "activity_category_name": "History: Age of Exploration",
+                  "activity_classification": Object {
+                    "alias": "Quill Proofreader",
+                    "description": "Fix Errors in Passages",
+                    "id": 1,
+                    "key": "passage",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=503",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Find and correct the eight errors in this passage.",
+                  "flags": "{production}",
+                  "id": 503,
+                  "name": "Age of Exploration: Sailing with the Stars",
+                  "readability_grade_level": "6th-7th",
+                  "standard_level": Object {
+                    "id": 18,
+                    "name": "9th Grade CCSS",
+                  },
+                  "standard_level_name": "9th Grade CCSS",
+                  "standard_name": "82",
+                  "topics": Array [
+                    Object {
+                      "id": 16,
+                      "level": 3,
+                      "name": "History",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 48,
+                      "level": 2,
+                      "name": "World History",
+                      "parent_id": 16,
+                    },
+                    Object {
+                      "id": 117,
+                      "level": 1,
+                      "name": "The Age of Exploration",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 277,
+                      "level": 0,
+                      "name": "Sailing in the Age of Exploration",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-KoJ9Lrs-pUNFrzjFTz6",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 23,
+                    "name": "History: Age of Exploration",
+                  },
+                  "activity_category_id": 23,
+                  "activity_category_name": "History: Age of Exploration",
+                  "activity_classification": Object {
+                    "alias": "Quill Proofreader",
+                    "description": "Fix Errors in Passages",
+                    "id": 1,
+                    "key": "passage",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=517",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Find and correct the eight errors in this passage.",
+                  "flags": "{production}",
+                  "id": 517,
+                  "name": "Age of Exploration: Roanoke",
+                  "readability_grade_level": "6th-7th",
+                  "standard_level": Object {
+                    "id": 18,
+                    "name": "9th Grade CCSS",
+                  },
+                  "standard_level_name": "9th Grade CCSS",
+                  "standard_name": "82",
+                  "topics": Array [
+                    Object {
+                      "id": 16,
+                      "level": 3,
+                      "name": "History",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 45,
+                      "level": 2,
+                      "name": "U.S. History",
+                      "parent_id": 16,
+                    },
+                    Object {
+                      "id": 117,
+                      "level": 1,
+                      "name": "The Age of Exploration",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 271,
+                      "level": 0,
+                      "name": "Colony of Roanoke",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-KqUQCCoHDkIggc6BMtU",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 23,
+                    "name": "History: Age of Exploration",
+                  },
+                  "activity_category_id": 23,
+                  "activity_category_name": "History: Age of Exploration",
+                  "activity_classification": Object {
+                    "alias": "Quill Proofreader",
+                    "description": "Fix Errors in Passages",
+                    "id": 1,
+                    "key": "passage",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=504",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Find and correct the eight errors in this passage.",
+                  "flags": "{production}",
+                  "id": 504,
+                  "name": "Age of Exploration: The Cape of Good Hope",
+                  "readability_grade_level": "8th-9th",
+                  "standard_level": Object {
+                    "id": 18,
+                    "name": "9th Grade CCSS",
+                  },
+                  "standard_level_name": "9th Grade CCSS",
+                  "standard_name": "82",
+                  "topics": Array [
+                    Object {
+                      "id": 16,
+                      "level": 3,
+                      "name": "History",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 48,
+                      "level": 2,
+                      "name": "World History",
+                      "parent_id": 16,
+                    },
+                    Object {
+                      "id": 117,
+                      "level": 1,
+                      "name": "The Age of Exploration",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 323,
+                      "level": 0,
+                      "name": "The Cape of Good Hope",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-KoJB86Hm3C2_OOo9zA6",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 22,
+                    "name": "History: The Renaissance",
+                  },
+                  "activity_category_id": 22,
+                  "activity_category_name": "History: The Renaissance",
+                  "activity_classification": Object {
+                    "alias": "Quill Proofreader",
+                    "description": "Fix Errors in Passages",
+                    "id": 1,
+                    "key": "passage",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=533",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Find and correct the 8 errors in this passage.",
+                  "flags": "{production}",
+                  "id": 533,
+                  "name": "Renaissance: Isabella I of Castile",
+                  "readability_grade_level": "6th-7th",
+                  "standard_level": Object {
+                    "id": 18,
+                    "name": "9th Grade CCSS",
+                  },
+                  "standard_level_name": "9th Grade CCSS",
+                  "standard_name": "82",
+                  "topics": Array [
+                    Object {
+                      "id": 16,
+                      "level": 3,
+                      "name": "History",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 93,
+                      "level": 2,
+                      "name": "World Historical Figures",
+                      "parent_id": 16,
+                    },
+                    Object {
+                      "id": 187,
+                      "level": 1,
+                      "name": "The Renaissance",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 194,
+                      "level": 0,
+                      "name": "Isabella I of Castile",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-KqdMzxI9fqItxVh_Vgy",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 22,
+                    "name": "History: The Renaissance",
+                  },
+                  "activity_category_id": 22,
+                  "activity_category_name": "History: The Renaissance",
+                  "activity_classification": Object {
+                    "alias": "Quill Proofreader",
+                    "description": "Fix Errors in Passages",
+                    "id": 1,
+                    "key": "passage",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=518",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Find and correct the 9 errors in this passage.",
+                  "flags": "{production}",
+                  "id": 518,
+                  "name": "Renaissance: Santa Maria del Fiore",
+                  "readability_grade_level": "6th-7th",
+                  "standard_level": Object {
+                    "id": 18,
+                    "name": "9th Grade CCSS",
+                  },
+                  "standard_level_name": "9th Grade CCSS",
+                  "standard_name": "82",
+                  "topics": Array [
+                    Object {
+                      "id": 16,
+                      "level": 3,
+                      "name": "History",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 48,
+                      "level": 2,
+                      "name": "World History",
+                      "parent_id": 16,
+                    },
+                    Object {
+                      "id": 187,
+                      "level": 1,
+                      "name": "The Renaissance",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 278,
+                      "level": 0,
+                      "name": "The Santa Maria del Fiore Cathedral",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-KqUS2G2QYq3KWYPHazn",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 22,
+                    "name": "History: The Renaissance",
+                  },
+                  "activity_category_id": 22,
+                  "activity_category_name": "History: The Renaissance",
+                  "activity_classification": Object {
+                    "alias": "Quill Proofreader",
+                    "description": "Fix Errors in Passages",
+                    "id": 1,
+                    "key": "passage",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=520",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Find and correct the 8 errors in this passage.",
+                  "flags": "{production}",
+                  "id": 520,
+                  "name": "Renaissance: The School of Athens",
+                  "readability_grade_level": "6th-7th",
+                  "standard_level": Object {
+                    "id": 14,
+                    "name": "8th Grade CCSS",
+                  },
+                  "standard_level_name": "8th Grade CCSS",
+                  "standard_name": "79",
+                  "topics": Array [
+                    Object {
+                      "id": 16,
+                      "level": 3,
+                      "name": "History",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 48,
+                      "level": 2,
+                      "name": "World History",
+                      "parent_id": 16,
+                    },
+                    Object {
+                      "id": 187,
+                      "level": 1,
+                      "name": "The Renaissance",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 360,
+                      "level": 0,
+                      "name": "The School of Athens",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-KqUXZEm8IdwvR2frMfO",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 22,
+                    "name": "History: The Renaissance",
+                  },
+                  "activity_category_id": 22,
+                  "activity_category_name": "History: The Renaissance",
+                  "activity_classification": Object {
+                    "alias": "Quill Proofreader",
+                    "description": "Fix Errors in Passages",
+                    "id": 1,
+                    "key": "passage",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=521",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Find and correct the 8 errors in this passage.",
+                  "flags": "{production}",
+                  "id": 521,
+                  "name": "Renaissance: Who was Cervantes?",
+                  "readability_grade_level": "6th-7th",
+                  "standard_level": Object {
+                    "id": 18,
+                    "name": "9th Grade CCSS",
+                  },
+                  "standard_level_name": "9th Grade CCSS",
+                  "standard_name": "82",
+                  "topics": Array [
+                    Object {
+                      "id": 16,
+                      "level": 3,
+                      "name": "History",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 93,
+                      "level": 2,
+                      "name": "World Historical Figures",
+                      "parent_id": 16,
+                    },
+                    Object {
+                      "id": 187,
+                      "level": 1,
+                      "name": "The Renaissance",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 399,
+                      "level": 0,
+                      "name": "Miguel de Cervantes",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-KqYDjR0nWR2gNhyOwWY",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 25,
+                    "name": "History: American Revolution",
+                  },
+                  "activity_category_id": 25,
+                  "activity_category_name": "History: American Revolution",
+                  "activity_classification": Object {
+                    "alias": "Quill Proofreader",
+                    "description": "Fix Errors in Passages",
+                    "id": 1,
+                    "key": "passage",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=540",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Correct the errors in this passage. To edit a word, click on it and re-type it.",
+                  "flags": "{production}",
+                  "id": 540,
+                  "name": "Colonial Life in the American Revolution",
+                  "readability_grade_level": "8th-9th",
+                  "standard_level": Object {
+                    "id": 18,
+                    "name": "9th Grade CCSS",
+                  },
+                  "standard_level_name": "9th Grade CCSS",
+                  "standard_name": "82",
+                  "topics": Array [
+                    Object {
+                      "id": 16,
+                      "level": 3,
+                      "name": "History",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 45,
+                      "level": 2,
+                      "name": "U.S. History",
+                      "parent_id": 16,
+                    },
+                    Object {
+                      "id": 118,
+                      "level": 0,
+                      "name": "Colonial Life",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 119,
+                      "level": 1,
+                      "name": "The American Revolution",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-KqixRPyWpTzXtBmZtmm",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 25,
+                    "name": "History: American Revolution",
+                  },
+                  "activity_category_id": 25,
+                  "activity_category_name": "History: American Revolution",
+                  "activity_classification": Object {
+                    "alias": "Quill Proofreader",
+                    "description": "Fix Errors in Passages",
+                    "id": 1,
+                    "key": "passage",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=539",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Correct the errors in this passage. To edit a word, click on it and re-type it.",
+                  "flags": "{production}",
+                  "id": 539,
+                  "name": "Paul Revere's Ride",
+                  "readability_grade_level": "10th-12th",
+                  "standard_level": Object {
+                    "id": 18,
+                    "name": "9th Grade CCSS",
+                  },
+                  "standard_level_name": "9th Grade CCSS",
+                  "standard_name": "82",
+                  "topics": Array [
+                    Object {
+                      "id": 16,
+                      "level": 3,
+                      "name": "History",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 45,
+                      "level": 2,
+                      "name": "U.S. History",
+                      "parent_id": 16,
+                    },
+                    Object {
+                      "id": 119,
+                      "level": 1,
+                      "name": "The American Revolution",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 246,
+                      "level": 0,
+                      "name": "Paul Revere",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-Kqir7E9_3JftVmWhm7z",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 25,
+                    "name": "History: American Revolution",
+                  },
+                  "activity_category_id": 25,
+                  "activity_category_name": "History: American Revolution",
+                  "activity_classification": Object {
+                    "alias": "Quill Proofreader",
+                    "description": "Fix Errors in Passages",
+                    "id": 1,
+                    "key": "passage",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=499",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Correct the errors in this passage. To edit a word, click on it and re-type it.",
+                  "flags": "{production}",
+                  "id": 499,
+                  "name": "George Washington",
+                  "readability_grade_level": "8th-9th",
+                  "standard_level": Object {
+                    "id": 18,
+                    "name": "9th Grade CCSS",
+                  },
+                  "standard_level_name": "9th Grade CCSS",
+                  "standard_name": "82",
+                  "topics": Array [
+                    Object {
+                      "id": 16,
+                      "level": 3,
+                      "name": "History",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 17,
+                      "level": 2,
+                      "name": "U.S. Historical Figures",
+                      "parent_id": 16,
+                    },
+                    Object {
+                      "id": 119,
+                      "level": 1,
+                      "name": "The American Revolution",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 160,
+                      "level": 0,
+                      "name": "George Washington",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-KoJ1PFy2DNaRhEtlWex",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 25,
+                    "name": "History: American Revolution",
+                  },
+                  "activity_category_id": 25,
+                  "activity_category_name": "History: American Revolution",
+                  "activity_classification": Object {
+                    "alias": "Quill Proofreader",
+                    "description": "Fix Errors in Passages",
+                    "id": 1,
+                    "key": "passage",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=541",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Correct the errors in this passage. To edit a word, click on it and re-type it.",
+                  "flags": "{production}",
+                  "id": 541,
+                  "name": "Women in the American Revolution",
+                  "readability_grade_level": "6th-7th",
+                  "standard_level": Object {
+                    "id": 18,
+                    "name": "9th Grade CCSS",
+                  },
+                  "standard_level_name": "9th Grade CCSS",
+                  "standard_name": "82",
+                  "topics": Array [
+                    Object {
+                      "id": 16,
+                      "level": 3,
+                      "name": "History",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 45,
+                      "level": 2,
+                      "name": "U.S. History",
+                      "parent_id": 16,
+                    },
+                    Object {
+                      "id": 119,
+                      "level": 1,
+                      "name": "The American Revolution",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 403,
+                      "level": 0,
+                      "name": "Women's Roles",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-Kr1Tc2R9sunf8yHM5xh",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 24,
+                    "name": "History: Causes of the American Revolution",
+                  },
+                  "activity_category_id": 24,
+                  "activity_category_name": "History: Causes of the American Revolution",
+                  "activity_classification": Object {
+                    "alias": "Quill Proofreader",
+                    "description": "Fix Errors in Passages",
+                    "id": 1,
+                    "key": "passage",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=481",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "In the passage below, find and correct the errors. Click on the error to correct it.",
+                  "flags": "{production}",
+                  "id": 481,
+                  "name": "The Sons of Liberty",
+                  "readability_grade_level": "8th-9th",
+                  "standard_level": Object {
+                    "id": 18,
+                    "name": "9th Grade CCSS",
+                  },
+                  "standard_level_name": "9th Grade CCSS",
+                  "standard_name": "82",
+                  "topics": Array [
+                    Object {
+                      "id": 16,
+                      "level": 3,
+                      "name": "History",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 45,
+                      "level": 2,
+                      "name": "U.S. History",
+                      "parent_id": 16,
+                    },
+                    Object {
+                      "id": 119,
+                      "level": 1,
+                      "name": "The American Revolution",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 362,
+                      "level": 0,
+                      "name": "The Sons of Liberty",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-Kc-iJqt0TsWgfwYkT6m",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 21,
+                    "name": "History: Native Americans",
+                  },
+                  "activity_category_id": 21,
+                  "activity_category_name": "History: Native Americans",
+                  "activity_classification": Object {
+                    "alias": "Quill Proofreader",
+                    "description": "Fix Errors in Passages",
+                    "id": 1,
+                    "key": "passage",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=524",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Find and correct the 11 errors in this passage.",
+                  "flags": "{production}",
+                  "id": 524,
+                  "name": "Native Americans: Horses",
+                  "readability_grade_level": "8th-9th",
+                  "standard_level": Object {
+                    "id": 18,
+                    "name": "9th Grade CCSS",
+                  },
+                  "standard_level_name": "9th Grade CCSS",
+                  "standard_name": "82",
+                  "topics": Array [
+                    Object {
+                      "id": 16,
+                      "level": 3,
+                      "name": "History",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 45,
+                      "level": 2,
+                      "name": "U.S. History",
+                      "parent_id": 16,
+                    },
+                    Object {
+                      "id": 65,
+                      "level": 1,
+                      "name": "Native Americans",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 226,
+                      "level": 0,
+                      "name": "Native Americans & Horses",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-KqYJAxtdM6HVQi7vHpj",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 21,
+                    "name": "History: Native Americans",
+                  },
+                  "activity_category_id": 21,
+                  "activity_category_name": "History: Native Americans",
+                  "activity_classification": Object {
+                    "alias": "Quill Proofreader",
+                    "description": "Fix Errors in Passages",
+                    "id": 1,
+                    "key": "passage",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=528",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Find and correct the 9 errors in this passage.",
+                  "flags": "{production}",
+                  "id": 528,
+                  "name": "Native Americans: Vision Quests",
+                  "readability_grade_level": "8th-9th",
+                  "standard_level": Object {
+                    "id": 18,
+                    "name": "9th Grade CCSS",
+                  },
+                  "standard_level_name": "9th Grade CCSS",
+                  "standard_name": "82",
+                  "topics": Array [
+                    Object {
+                      "id": 16,
+                      "level": 3,
+                      "name": "History",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 45,
+                      "level": 2,
+                      "name": "U.S. History",
+                      "parent_id": 16,
+                    },
+                    Object {
+                      "id": 65,
+                      "level": 1,
+                      "name": "Native Americans",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 392,
+                      "level": 0,
+                      "name": "Native American Vision Quests",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-KqYRDChl1VQ_QB7rEUL",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 21,
+                    "name": "History: Native Americans",
+                  },
+                  "activity_category_id": 21,
+                  "activity_category_name": "History: Native Americans",
+                  "activity_classification": Object {
+                    "alias": "Quill Proofreader",
+                    "description": "Fix Errors in Passages",
+                    "id": 1,
+                    "key": "passage",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=505",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Find and correct the errors in this passage.",
+                  "flags": "{production}",
+                  "id": 505,
+                  "name": "Native Americans: How are Totem Poles made?",
+                  "readability_grade_level": "8th-9th",
+                  "standard_level": Object {
+                    "id": 18,
+                    "name": "9th Grade CCSS",
+                  },
+                  "standard_level_name": "9th Grade CCSS",
+                  "standard_name": "82",
+                  "topics": Array [
+                    Object {
+                      "id": 16,
+                      "level": 3,
+                      "name": "History",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 45,
+                      "level": 2,
+                      "name": "U.S. History",
+                      "parent_id": 16,
+                    },
+                    Object {
+                      "id": 65,
+                      "level": 1,
+                      "name": "Native Americans",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 381,
+                      "level": 0,
+                      "name": "Native Americans & Totem Poles",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-KoJCM7vJTVowwUG_NpH",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 21,
+                    "name": "History: Native Americans",
+                  },
+                  "activity_category_id": 21,
+                  "activity_category_name": "History: Native Americans",
+                  "activity_classification": Object {
+                    "alias": "Quill Proofreader",
+                    "description": "Fix Errors in Passages",
+                    "id": 1,
+                    "key": "passage",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=527",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Find and correct the errors in this passage",
+                  "flags": "{production}",
+                  "id": 527,
+                  "name": "Native Americans: Navajo Code Talkers",
+                  "readability_grade_level": "8th-9th",
+                  "standard_level": Object {
+                    "id": 18,
+                    "name": "9th Grade CCSS",
+                  },
+                  "standard_level_name": "9th Grade CCSS",
+                  "standard_name": "82",
+                  "topics": Array [
+                    Object {
+                      "id": 16,
+                      "level": 3,
+                      "name": "History",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 45,
+                      "level": 2,
+                      "name": "U.S. History",
+                      "parent_id": 16,
+                    },
+                    Object {
+                      "id": 65,
+                      "level": 1,
+                      "name": "Native Americans",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 227,
+                      "level": 0,
+                      "name": "Navajo Code Talkers",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-KqYOlcdRBPIkG6Fe-oc",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 21,
+                    "name": "History: Native Americans",
+                  },
+                  "activity_category_id": 21,
+                  "activity_category_name": "History: Native Americans",
+                  "activity_classification": Object {
+                    "alias": "Quill Proofreader",
+                    "description": "Fix Errors in Passages",
+                    "id": 1,
+                    "key": "passage",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=525",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Find and correct the 9 errors in this passage.",
+                  "flags": "{production}",
+                  "id": 525,
+                  "name": "Godasiyo the Woman Chief",
+                  "readability_grade_level": "6th-7th",
+                  "standard_level": Object {
+                    "id": 18,
+                    "name": "9th Grade CCSS",
+                  },
+                  "standard_level_name": "9th Grade CCSS",
+                  "standard_name": "82",
+                  "topics": Array [
+                    Object {
+                      "id": 3,
+                      "level": 3,
+                      "name": "Culture",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 28,
+                      "level": 2,
+                      "name": "Stories & Myths",
+                      "parent_id": 3,
+                    },
+                    Object {
+                      "id": 65,
+                      "level": 1,
+                      "name": "Native Americans",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 164,
+                      "level": 0,
+                      "name": "Myth of Godasiyo",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-KqYKnytOMErPTLZAgUl",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 26,
+                    "name": "Science: What's in Our Universe?",
+                  },
+                  "activity_category_id": 26,
+                  "activity_category_name": "Science: What's in Our Universe?",
+                  "activity_classification": Object {
+                    "alias": "Quill Proofreader",
+                    "description": "Fix Errors in Passages",
+                    "id": 1,
+                    "key": "passage",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=544",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "There are nine errors in this passage. To edit a word, click on it and re-type it.",
+                  "flags": "{production}",
+                  "id": 544,
+                  "name": "Mars",
+                  "readability_grade_level": "8th-9th",
+                  "standard_level": Object {
+                    "id": 18,
+                    "name": "9th Grade CCSS",
+                  },
+                  "standard_level_name": "9th Grade CCSS",
+                  "standard_name": "82",
+                  "topics": Array [
+                    Object {
+                      "id": 7,
+                      "level": 3,
+                      "name": "Science",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 89,
+                      "level": 1,
+                      "name": "Astronomy",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 90,
+                      "level": 2,
+                      "name": "Outer Space",
+                      "parent_id": 7,
+                    },
+                    Object {
+                      "id": 215,
+                      "level": 0,
+                      "name": "Mars",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-Kr1cS7S74s-RHF28y9H",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 26,
+                    "name": "Science: What's in Our Universe?",
+                  },
+                  "activity_category_id": 26,
+                  "activity_category_name": "Science: What's in Our Universe?",
+                  "activity_classification": Object {
+                    "alias": "Quill Proofreader",
+                    "description": "Fix Errors in Passages",
+                    "id": 1,
+                    "key": "passage",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=545",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "There are nine errors in this passage. To edit a word, click on it and re-type it.",
+                  "flags": "{production}",
+                  "id": 545,
+                  "name": "Mae Jemison",
+                  "readability_grade_level": "6th-7th",
+                  "standard_level": Object {
+                    "id": 18,
+                    "name": "9th Grade CCSS",
+                  },
+                  "standard_level_name": "9th Grade CCSS",
+                  "standard_name": "82",
+                  "topics": Array [
+                    Object {
+                      "id": 16,
+                      "level": 3,
+                      "name": "History",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 17,
+                      "level": 2,
+                      "name": "U.S. Historical Figures",
+                      "parent_id": 16,
+                    },
+                    Object {
+                      "id": 78,
+                      "level": 1,
+                      "name": "Space Exploration",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 211,
+                      "level": 0,
+                      "name": "Mae Jemison",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-Kr20EDdSpxQm93BJrco",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 26,
+                    "name": "Science: What's in Our Universe?",
+                  },
+                  "activity_category_id": 26,
+                  "activity_category_name": "Science: What's in Our Universe?",
+                  "activity_classification": Object {
+                    "alias": "Quill Proofreader",
+                    "description": "Fix Errors in Passages",
+                    "id": 1,
+                    "key": "passage",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=542",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Correct the errors in the passage. To edit a word, click on it and re-type it.",
+                  "flags": "{production}",
+                  "id": 542,
+                  "name": "Man on the Moon",
+                  "readability_grade_level": "6th-7th",
+                  "standard_level": Object {
+                    "id": 18,
+                    "name": "9th Grade CCSS",
+                  },
+                  "standard_level_name": "9th Grade CCSS",
+                  "standard_name": "82",
+                  "topics": Array [
+                    Object {
+                      "id": 16,
+                      "level": 3,
+                      "name": "History",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 45,
+                      "level": 2,
+                      "name": "U.S. History",
+                      "parent_id": 16,
+                    },
+                    Object {
+                      "id": 78,
+                      "level": 1,
+                      "name": "Space Exploration",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 214,
+                      "level": 0,
+                      "name": "The Moon Landing",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-Kr1VzAFLsATQbuRJlHd",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 26,
+                    "name": "Science: What's in Our Universe?",
+                  },
+                  "activity_category_id": 26,
+                  "activity_category_name": "Science: What's in Our Universe?",
+                  "activity_classification": Object {
+                    "alias": "Quill Proofreader",
+                    "description": "Fix Errors in Passages",
+                    "id": 1,
+                    "key": "passage",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=747",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "There are errors in this passage. To edit a word, click on it and re-type it.",
+                  "flags": "{production}",
+                  "id": 747,
+                  "name": "Sputnik 1",
+                  "readability_grade_level": "8th-9th",
+                  "standard_level": Object {
+                    "id": 18,
+                    "name": "9th Grade CCSS",
+                  },
+                  "standard_level_name": "9th Grade CCSS",
+                  "standard_name": "82",
+                  "topics": Array [
+                    Object {
+                      "id": 16,
+                      "level": 3,
+                      "name": "History",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 48,
+                      "level": 2,
+                      "name": "World History",
+                      "parent_id": 16,
+                    },
+                    Object {
+                      "id": 78,
+                      "level": 1,
+                      "name": "Space Exploration",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 294,
+                      "level": 0,
+                      "name": "Sputnik 1",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-L8ZGcyIM49GOsX_uOPN",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 27,
+                    "name": "Science: Geology",
+                  },
+                  "activity_category_id": 27,
+                  "activity_category_name": "Science: Geology",
+                  "activity_classification": Object {
+                    "alias": "Quill Proofreader",
+                    "description": "Fix Errors in Passages",
+                    "id": 1,
+                    "key": "passage",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=532",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Find and correct the errors in this passage. To edit a word, click on it and re-type it.",
+                  "flags": "{production}",
+                  "id": 532,
+                  "name": "Fossils",
+                  "readability_grade_level": "8th-9th",
+                  "standard_level": Object {
+                    "id": 18,
+                    "name": "9th Grade CCSS",
+                  },
+                  "standard_level_name": "9th Grade CCSS",
+                  "standard_name": "82",
+                  "topics": Array [
+                    Object {
+                      "id": 7,
+                      "level": 3,
+                      "name": "Science",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 8,
+                      "level": 2,
+                      "name": "The Earth & Nature",
+                      "parent_id": 7,
+                    },
+                    Object {
+                      "id": 122,
+                      "level": 0,
+                      "name": "Fossils",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 123,
+                      "level": 1,
+                      "name": "Geology",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-KqdKIZmtEyLE5TTfmwp",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 27,
+                    "name": "Science: Geology",
+                  },
+                  "activity_category_id": 27,
+                  "activity_category_name": "Science: Geology",
+                  "activity_classification": Object {
+                    "alias": "Quill Proofreader",
+                    "description": "Fix Errors in Passages",
+                    "id": 1,
+                    "key": "passage",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=536",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Find and correct the errors in this passage. To edit a word, click on it and re-type it.",
+                  "flags": "{production}",
+                  "id": 536,
+                  "name": "Plate Tectonics",
+                  "readability_grade_level": "8th-9th",
+                  "standard_level": Object {
+                    "id": 18,
+                    "name": "9th Grade CCSS",
+                  },
+                  "standard_level_name": "9th Grade CCSS",
+                  "standard_name": "82",
+                  "topics": Array [
+                    Object {
+                      "id": 7,
+                      "level": 3,
+                      "name": "Science",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 8,
+                      "level": 2,
+                      "name": "The Earth & Nature",
+                      "parent_id": 7,
+                    },
+                    Object {
+                      "id": 123,
+                      "level": 1,
+                      "name": "Geology",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 252,
+                      "level": 0,
+                      "name": "Plate Tectonics",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-KqhXp64K1DKX5EtaSYG",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 27,
+                    "name": "Science: Geology",
+                  },
+                  "activity_category_id": 27,
+                  "activity_category_name": "Science: Geology",
+                  "activity_classification": Object {
+                    "alias": "Quill Proofreader",
+                    "description": "Fix Errors in Passages",
+                    "id": 1,
+                    "key": "passage",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=537",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Find and correct the errors in this passage. To edit a word, click on it and re-type it.",
+                  "flags": "{production}",
+                  "id": 537,
+                  "name": "Rocks",
+                  "readability_grade_level": "6th-7th",
+                  "standard_level": Object {
+                    "id": 18,
+                    "name": "9th Grade CCSS",
+                  },
+                  "standard_level_name": "9th Grade CCSS",
+                  "standard_name": "82",
+                  "topics": Array [
+                    Object {
+                      "id": 7,
+                      "level": 3,
+                      "name": "Science",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 8,
+                      "level": 2,
+                      "name": "The Earth & Nature",
+                      "parent_id": 7,
+                    },
+                    Object {
+                      "id": 123,
+                      "level": 1,
+                      "name": "Geology",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 272,
+                      "level": 0,
+                      "name": "Rocks",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-KqhpFWpVQubJhqWrkFb",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 28,
+                    "name": "Science: Plants",
+                  },
+                  "activity_category_id": 28,
+                  "activity_category_name": "Science: Plants",
+                  "activity_classification": Object {
+                    "alias": "Quill Proofreader",
+                    "description": "Fix Errors in Passages",
+                    "id": 1,
+                    "key": "passage",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=530",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Find and correct the errors in this passage. Click on a word to change it.",
+                  "flags": "{production}",
+                  "id": 530,
+                  "name": "Plants: Fruit or Vegetable?",
+                  "readability_grade_level": "4th-5th",
+                  "standard_level": Object {
+                    "id": 13,
+                    "name": "7th Grade CCSS",
+                  },
+                  "standard_level_name": "7th Grade CCSS",
+                  "standard_name": "80",
+                  "topics": Array [
+                    Object {
+                      "id": 6,
+                      "level": 1,
+                      "name": "Plants",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 7,
+                      "level": 3,
+                      "name": "Science",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 8,
+                      "level": 2,
+                      "name": "The Earth & Nature",
+                      "parent_id": 7,
+                    },
+                    Object {
+                      "id": 159,
+                      "level": 0,
+                      "name": "Fruits & Vegetables",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-KqYXnbNX5-yKYBF0MHF",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 28,
+                    "name": "Science: Plants",
+                  },
+                  "activity_category_id": 28,
+                  "activity_category_name": "Science: Plants",
+                  "activity_classification": Object {
+                    "alias": "Quill Proofreader",
+                    "description": "Fix Errors in Passages",
+                    "id": 1,
+                    "key": "passage",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=529",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Find and correct the errors in this passage. Click on a word to edit it.",
+                  "flags": "{production}",
+                  "id": 529,
+                  "name": "Plants: What's in a Bean?",
+                  "readability_grade_level": "4th-5th",
+                  "standard_level": Object {
+                    "id": 12,
+                    "name": "6th Grade CCSS",
+                  },
+                  "standard_level_name": "6th Grade CCSS",
+                  "standard_name": "81",
+                  "topics": Array [
+                    Object {
+                      "id": 6,
+                      "level": 1,
+                      "name": "Plants",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 7,
+                      "level": 3,
+                      "name": "Science",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 8,
+                      "level": 2,
+                      "name": "The Earth & Nature",
+                      "parent_id": 7,
+                    },
+                    Object {
+                      "id": 395,
+                      "level": 0,
+                      "name": "Beans",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-KqYSjSUSSUnLNETJEzg",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 28,
+                    "name": "Science: Plants",
+                  },
+                  "activity_category_id": 28,
+                  "activity_category_name": "Science: Plants",
+                  "activity_classification": Object {
+                    "alias": "Quill Proofreader",
+                    "description": "Fix Errors in Passages",
+                    "id": 1,
+                    "key": "passage",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=534",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Find and correct the errors in this passage.",
+                  "flags": "{production}",
+                  "id": 534,
+                  "name": "Plants: Bee Gardens",
+                  "readability_grade_level": "8th-9th",
+                  "standard_level": Object {
+                    "id": 14,
+                    "name": "8th Grade CCSS",
+                  },
+                  "standard_level_name": "8th Grade CCSS",
+                  "standard_name": "79",
+                  "topics": Array [
+                    Object {
+                      "id": 6,
+                      "level": 1,
+                      "name": "Plants",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 7,
+                      "level": 3,
+                      "name": "Science",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 8,
+                      "level": 2,
+                      "name": "The Earth & Nature",
+                      "parent_id": 7,
+                    },
+                    Object {
+                      "id": 251,
+                      "level": 0,
+                      "name": "Bee Gardens",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-KqdjKv54k5iifw2FzDk",
+                },
+                Object {
+                  "activity_category": Object {
+                    "id": 28,
+                    "name": "Science: Plants",
+                  },
+                  "activity_category_id": 28,
+                  "activity_category_name": "Science: Plants",
+                  "activity_classification": Object {
+                    "alias": "Quill Proofreader",
+                    "description": "Fix Errors in Passages",
+                    "id": 1,
+                    "key": "passage",
+                  },
+                  "anonymous_path": "/activity_sessions/anonymous?activity_id=538",
+                  "content_partners": Array [
+                    Object {
+                      "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
+                      "id": 1,
+                      "name": "Core Knowledge",
+                    },
+                  ],
+                  "description": "Find and correct the errors in this passage. Click on a word to edit it.",
+                  "flags": "{production}",
+                  "id": 538,
+                  "name": "Plants: Cactus Photosynthesis",
+                  "readability_grade_level": "6th-7th",
+                  "standard_level": Object {
+                    "id": 14,
+                    "name": "8th Grade CCSS",
+                  },
+                  "standard_level_name": "8th Grade CCSS",
+                  "standard_name": "79",
+                  "topics": Array [
+                    Object {
+                      "id": 6,
+                      "level": 1,
+                      "name": "Plants",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 7,
+                      "level": 3,
+                      "name": "Science",
+                      "parent_id": null,
+                    },
+                    Object {
+                      "id": 8,
+                      "level": 2,
+                      "name": "The Earth & Nature",
+                      "parent_id": 7,
+                    },
+                    Object {
+                      "id": 111,
+                      "level": 0,
+                      "name": "Cactus Photosynthesis",
+                      "parent_id": null,
+                    },
+                  ],
+                  "uid": "-Kqipm5LV2GUkQYGQ8Lh",
+                },
+              ]
+            }
+            grouping={
+              Object {
                 "group": "Independent: Language Skills",
                 "keys": Array [
                   "connect",
@@ -26707,6 +31170,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                       type="button"
                     />
                     <OneThumbSlider
+                      defaultValue={2}
                       handleChange={[Function]}
                       id="grade-level-slider"
                       markLabels={
@@ -26788,6 +31252,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                         type="button"
                       />
                       <OneThumbSlider
+                        defaultValue={2}
                         handleChange={[Function]}
                         id="grade-level-slider"
                         markLabels={
@@ -26825,7 +31290,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                           }
                           values={
                             Array [
-                              0,
+                              2,
                             ]
                           }
                         >
@@ -26855,7 +31320,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                               step={1}
                               values={
                                 Array [
-                                  0,
+                                  2,
                                 ]
                               }
                             >
@@ -26903,7 +31368,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                         <div
                                           aria-valuemax="3"
                                           aria-valuemin="0"
-                                          aria-valuenow="0"
+                                          aria-valuenow="2"
                                           class="thumb"
                                           draggable="false"
                                           role="slider"
@@ -26920,7 +31385,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                 }
                                 values={
                                   Array [
-                                    0,
+                                    2,
                                   ]
                                 }
                               >
@@ -26939,7 +31404,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                     className="track"
                                     style={
                                       Object {
-                                        "background": "linear-gradient(to right, #dbdbdb 0%, #dbdbdb 0%, #dbdbdb 0%, #dbdbdb 100%)",
+                                        "background": "linear-gradient(to right, #dbdbdb 0%, #dbdbdb 66.66666666666666%, #dbdbdb 66.66666666666666%, #dbdbdb 100%)",
                                       }
                                     }
                                   >
@@ -27120,7 +31585,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                         Object {
                                           "aria-valuemax": 3,
                                           "aria-valuemin": 0,
-                                          "aria-valuenow": 0,
+                                          "aria-valuenow": 2,
                                           "draggable": false,
                                           "key": 0,
                                           "onKeyDown": [Function],
@@ -27129,7 +31594,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                             "current": <div
                                               aria-valuemax="3"
                                               aria-valuemin="0"
-                                              aria-valuenow="0"
+                                              aria-valuenow="2"
                                               class="thumb"
                                               draggable="false"
                                               role="slider"
@@ -27155,7 +31620,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                                       <div
                                         aria-valuemax={3}
                                         aria-valuemin={0}
-                                        aria-valuenow={0}
+                                        aria-valuenow={2}
                                         className="thumb"
                                         draggable={false}
                                         key="0"
