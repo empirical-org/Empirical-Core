@@ -26,7 +26,7 @@ const SchoolPricingMini = ({ plan, premiumFeatureData, showBadges, handleClickPu
       </div>
       {showBadges && <div className="school-premium-badge-container">
         <div className="school-premium-badge"><img alt="Check icon" src={greenCheckSrc} /> 2 PD sessions</div>
-        <div className="school-premium-badge"><img alt="Check icon" src={greenCheckSrc} /> 3 coaching sessions</div>
+        <div className="school-premium-badge"><img alt="Check icon" src={greenCheckSrc} /> onboarding training</div>
         <div className="school-premium-badge"><img alt="Check icon" src={greenCheckSrc} /> Custom reports</div>
       </div>}
     </section>
