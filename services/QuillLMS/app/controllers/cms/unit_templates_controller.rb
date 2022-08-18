@@ -10,7 +10,7 @@ class Cms::UnitTemplatesController < Cms::CmsController
       format.json do
         unit_templates =
           UnitTemplate
-            .includes(activities: [:raw_score])
+            .includes(activities: [:raw_score, {standard: :standard_category}])
             .includes(:unit_template_category)
             .order(order_number: :asc)
 
