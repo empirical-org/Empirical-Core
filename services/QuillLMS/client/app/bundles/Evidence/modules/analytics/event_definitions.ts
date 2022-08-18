@@ -90,11 +90,6 @@ const EventDefinitions = [
     'event',
     'user_id',
     'properties'
-  ])},
-  {STUDENT_RATED_ACTIVITY: new Event('Student rated activity', [
-    'event',
-    'user_id',
-    'properties'
   ])}
 ];
 
