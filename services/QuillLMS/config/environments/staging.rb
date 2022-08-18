@@ -116,9 +116,7 @@ EmpiricalGrammar::Application.configure do
     'staging.quill.org.' => 'staging.quill.org'
   }
 
-  if ENV.fetch('USE_MULTI_DB_CONFIGURATION', false) == 'true'
-    config.active_record.database_selector = { delay: 2.seconds }
-    config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
-    config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
-  end
+  config.active_record.database_selector = { delay: 2.seconds }
+  config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
+  config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
 end

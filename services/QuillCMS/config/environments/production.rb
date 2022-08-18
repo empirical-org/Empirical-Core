@@ -110,9 +110,7 @@ Rails.application.configure do
   # DatabaseSelector middleware is designed as such you can define your own
   # strategy for connection switching and pass that into the middleware through
   # these configuration options.
-  if ENV.fetch('USE_MULTI_DB_CONFIGURATION', false) == 'true'
-    config.active_record.database_selector = { delay: 0.seconds }
-    config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
-    config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
-  end
+  config.active_record.database_selector = { delay: 0.seconds }
+  config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
+  config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
 end
