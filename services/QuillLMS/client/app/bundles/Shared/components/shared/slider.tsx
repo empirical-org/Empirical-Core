@@ -23,6 +23,7 @@ interface TwoThumbSliderProps extends SharedSliderProps {
 
 interface OneThumbSliderProps extends SharedSliderProps {
   value: number,
+  defaultValue: number
 }
 
 const Track = ({ props, children, colors, values, minValue, maxValue, }) => {
@@ -116,9 +117,9 @@ const Slider = ({ values, minValue, maxValue, step, handleChange, markLabels, id
   );
 }
 
-export const OneThumbSlider = ({ value, minValue, maxValue, step, handleChange, markLabels, id, }: OneThumbSliderProps) => {
-  const values = value ? [value] : [minValue]
+export const OneThumbSlider = ({ value, defaultValue, minValue, maxValue, step, handleChange, markLabels, id, }: OneThumbSliderProps) => {
   const disabled = !value && value !== 0
+  const values = disabled ? [defaultValue || minValue] : [value]
 
   let className = "slider-container one-thumb-slider-container"
 

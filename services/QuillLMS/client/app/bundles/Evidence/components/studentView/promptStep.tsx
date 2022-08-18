@@ -37,7 +37,7 @@ const RESPONSE = 'response'
 const PROMPT = 'prompt'
 export const DIRECTIONS = 'Use information from the text to finish the sentence:'
 const APPROACHING_LIMIT_MESSAGE = 'Your response is getting close to the maximum length';
-const OVER_LIMIT_MESSSAGE = 'Your response is too long for our feedback bot to understand';
+const OVER_LIMIT_MESSAGE = 'Your response is too long for our feedback bot to understand';
 const WARNING_THRESHOLD = 160;
 const LIMIT_THRESHOLD = 200;
 const MAX_ATTEMPTS = 5;
@@ -256,12 +256,15 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
 
   resetText = () => {
     const html = this.formattedStem()
-    this.setState({ html }, () => this.editor.innerHTML = html)
+    this.setState({ html }, () => {
+      this.editor.innerHTML = html
+      this.placeCaretAtEnd()
+    })
   }
 
   setEditorRef = (node: JSX.Element) => this.editor = node
 
-  onFocus = () => {
+  placeCaretAtEnd = () => {
     // following code ensures tabbing into editor always puts cursor at the end of the text
     const el = this.editor
     // retrieved from https://stackoverflow.com/a/4238971
@@ -280,7 +283,13 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     }
   }
 
-  handleGetFeedbackClick = (entry: string, promptId: string, promptText: string) => {
+  handleClickReturnToEditor = () => {
+    this.editor.focus()
+    this.editor.scrollIntoView()
+  }
+
+  handleGetFeedbackClick = (e, entry: string, promptId: string, promptText: string) => {
+    e.preventDefault()
     const { submitResponse, currentActivity} = this.props
 
     this.setState(prevState => ({
@@ -349,7 +358,9 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     const buttonLoadingSpinner = awaitingFeedback ? <ButtonLoadingSpinner /> : null
     let buttonCopy = 'Get feedback'
     let className = 'quill-button focus-on-light'
-    let onClick = () => this.handleGetFeedbackClick(entry, id, text)
+    let onClick = (e) => this.handleGetFeedbackClick(e, entry, id, text)
+    let disabled = false
+    let ariaLabel = buttonCopy
 
     if (activityIsComplete) {
       onClick = completionButtonCallback
@@ -357,19 +368,38 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     } else if (submittedResponses.length === max_attempts || this.lastSubmittedResponse().optimal) {
       onClick = this.completeStep
       buttonCopy = 'Next'
-    } else if (this.unsubmittableResponses().includes(entry) || awaitingFeedback || responseOverCharacterLimit) {
+    } else if (this.unsubmittableResponses().includes(entry)) {
       className += ' disabled'
+      disabled = true
       onClick = () => {}
-    }
-
-    if(awaitingFeedback) {
+      ariaLabel = submittedResponses.length ? "You already submitted this response. You must edit it before you can submit it again." : buttonCopy
+    } else if (awaitingFeedback) {
+      className += ' disabled'
+      disabled = true
+      onClick = () => {}
       buttonCopy = ''
+      ariaLabel = "Waiting for feedback"
+    } else if (responseOverCharacterLimit) {
+      className += ' disabled'
+      disabled = true
+      onClick = () => {}
+      ariaLabel = OVER_LIMIT_MESSAGE
     }
 
     return(
       <div className="feedback-details-section">
         {this.getFeedbackLoadingDetails()}
-        <button className={className} onClick={onClick} ref={this.button} type="button">{buttonLoadingSpinner}<span>{buttonCopy}</span></button>
+        <button
+          aria-label={ariaLabel}
+          className={className}
+          disabled={disabled}
+          onClick={onClick}
+          ref={this.button}
+          type="submit"
+        >
+          {buttonLoadingSpinner}
+          <span>{buttonCopy}</span>
+        </button>
       </div>
     )
   }
@@ -377,6 +407,7 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
   renderFeedbackSection = () => {
     const { customFeedback, customFeedbackKey, } = this.state
     const { submittedResponses, prompt, reportAProblem, } = this.props
+
     if (submittedResponses.length === 0 && !(customFeedback && customFeedbackKey)) { return }
 
     return (
@@ -393,7 +424,7 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
 
   renderCharacterLimitWarning = (characterCount: number, characterCountClassName: string) => {
     if(characterCount < WARNING_THRESHOLD) { return }
-    const message = characterCount < LIMIT_THRESHOLD ? APPROACHING_LIMIT_MESSAGE : OVER_LIMIT_MESSSAGE;
+    const message = characterCount < LIMIT_THRESHOLD ? APPROACHING_LIMIT_MESSAGE : OVER_LIMIT_MESSAGE;
     return(
       <div className="character-counter-container">
         <p className={characterCountClassName}>{message}</p>
@@ -442,7 +473,7 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
         <EditorContainer
           className={className}
           disabled={disabled}
-          handleFocus={this.onFocus}
+          handleFocus={this.placeCaretAtEnd}
           handleKeyDown={this.onStepInteraction}
           handleTextChange={this.onTextChange}
           html={htmlWithBolding}
@@ -472,6 +503,7 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
           {this.renderFeedbackButtonAndDetails()}
         </div>
         {this.renderFeedbackSection()}
+        <button className="skip-main" onClick={this.handleClickReturnToEditor} type="button">Return to editor</button>
       </div>
     )
   }

@@ -208,6 +208,11 @@ exports[`StepOverview component when the student is past step one renders 1`] = 
             alt="White check with green background icon"
             src="undefined/images/icons/icons-check-circle-dark.svg"
           />
+          <span
+            className="sr-only"
+          >
+            Completed step:
+          </span>
           <p>
             Read a text and highlight sentences.
           </p>
