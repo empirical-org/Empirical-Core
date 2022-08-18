@@ -59,6 +59,7 @@ class SegmentAnalytics {
     }
 
     const eventProperties = Object.assign({...customProperties}, this.getDefaultProperties());
+    this.analytics['identify'](teacherId, { event: event.name });
     this.analytics['track'](event.name, eventProperties);
     return true;
   }
