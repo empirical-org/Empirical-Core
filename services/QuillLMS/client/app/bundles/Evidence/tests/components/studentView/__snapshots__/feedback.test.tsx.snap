@@ -2,9 +2,7 @@
 
 exports[`Feedback component should render Feedback 1`] = `
 <div
-  aria-live="polite"
   className="feedback-section "
-  role="status"
 >
   <ReactCSSTransitionReplace
     changeWidth={false}
@@ -34,14 +32,19 @@ exports[`Feedback component should render Feedback 1`] = `
           Feedback
         </p>
       </div>
-      <p
-        className="feedback-text"
-        dangerouslySetInnerHTML={
-          Object {
-            "__html": undefined,
+      <div
+        className="feedback-wrapper"
+        tabIndex={-1}
+      >
+        <p
+          className="feedback-text"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": undefined,
+            }
           }
-        }
-      />
+        />
+      </div>
       <div
         className="report-a-problem-button-container"
       >
