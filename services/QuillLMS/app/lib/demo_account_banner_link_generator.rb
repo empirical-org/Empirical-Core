@@ -3,6 +3,7 @@
 module DemoAccountBannerLinkGenerator
   extend ActiveSupport::Concern
   include ActionController::Helpers
+  include QuillAuthentication
 
   DEMO_ACCOUNT_CLASSROOM_NAME = "Quill Classroom"
 

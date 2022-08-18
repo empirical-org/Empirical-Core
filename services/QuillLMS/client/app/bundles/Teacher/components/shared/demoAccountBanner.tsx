@@ -2,8 +2,15 @@ import * as React from 'react'
 
 import { disclosureIcon, } from '../../../Shared/index'
 
-const DemoAccountBanner = ({ signedInOutsideDemo, recommendationsLink, growthSummaryLink, }) => {
-  const [isExpanded, setIsExpanded] = React.useState(false)
+interface DemoAccountBannerProps {
+  signedInOutsideDemo: boolean,
+  recommendationsLink: string,
+  growthSummaryLink: string,
+  defaultIsExpanded?: boolean
+}
+
+const DemoAccountBanner = ({ signedInOutsideDemo, recommendationsLink, growthSummaryLink, defaultIsExpanded, }: DemoAccountBannerProps) => {
+  const [isExpanded, setIsExpanded] = React.useState(defaultIsExpanded || false)
 
   const exitHref = signedInOutsideDemo ? "/teachers/unset_view_demo" : "/session"
 
@@ -26,7 +33,8 @@ const DemoAccountBanner = ({ signedInOutsideDemo, recommendationsLink, growthSum
   return (
     <div className="banner-with-button demo-account-banner">
       <div className={`content-container ${isExpanded ? 'expanded' : ''}`}>
-        <div className="first-line">
+        {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
+        <div className="first-line" onClick={toggleExpansion}>
           <div>
             <button aria-label="Toggle expand link menu" className="interactive-wrapper" onClick={toggleExpansion} type="button"><img alt="" src={disclosureIcon.src} /></button>
             <span>You’re in a demo account to explore sample student data. Changes will not be saved.</span>
