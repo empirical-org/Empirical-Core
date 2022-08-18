@@ -125,7 +125,34 @@ const professionalDevelopmentSessions = (
   </section>
 )
 
-const professionalLearningTeam = (
+const testimonials = (
+  <section>
+    <div className="premium-features-row">
+      <div className="testimonial long">
+        <p>Totally personalized! I told the Quill coach my background and what my familiarity with Quill was, and she was able to walk me through exactly what I needed. Also appreciate that she could show me with her screen, walking through my classes with me.</p>
+        <span>Teacher, Glacier View Junior High School</span>
+      </div>
+      <div className="testimonial">
+        <p>I appreciated the time given to analyze our own data while in the training.</p>
+        <span>Teacher, Meeting Street Elementary at Burns</span>
+      </div>
+      <div className="testimonial">
+        <p>Our Quill coach is a really engaging facilitator! I appreciated her expertise and the built-in work time.</p>
+        <span>Director of Academics, Thurgood Marshall</span>
+      </div>
+      <div className="testimonial">
+        <p>I appreciated the facilitator&#39;s responsiveness to the needs specific to our network. I also appreciate the thoughtfulness of applying Quill remotely.</p>
+        <span>Administrator, Mastery Charter Schools</span>
+      </div>
+      <div className="testimonial">
+        <p>Our Quill coach was very knowledgeable and friendly. I felt as though I could ask her anything and there would be no judgement!!</p>
+        <span>Teacher, Union High School</span>
+      </div>
+    </div>
+  </section>
+)
+
+const coachingTeam = (
   <section>
     <h3>Meet the professional learning team</h3>
     <div className="premium-features-row">
@@ -167,7 +194,8 @@ const SchoolPremium = () => {
       <div className='premium-features-body'>
         {actionableFeaturesAndSupport}
         {professionalDevelopmentSessions}
-        {professionalLearningTeam}
+        {testimonials}
+        {coachingTeam}
       </div>
     </div>
   );
