@@ -35,6 +35,14 @@ class Topic < ApplicationRecord
     throw(:abort) unless valid_parent_structure?
   end
 
+  def level_zero?
+    level == 0
+  end
+
+  def level_one?
+    level == 1
+  end
+
   def level_two?
     level == 2
   end
