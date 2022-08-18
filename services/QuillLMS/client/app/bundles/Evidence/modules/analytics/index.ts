@@ -10,7 +10,7 @@ class SegmentAnalytics {
     return window.analytics
   }
 
-  async track(event: Event, params?: object, properties?: object) {
+  async track(event: Event, params?: object) {
     const sessionID = getParameterByName('session', window.location.href)
     const idData = await fetchUserIdsForSession(sessionID)
 
@@ -22,8 +22,7 @@ class SegmentAnalytics {
       event: event.name,
       user_id: teacherId,
       properties: {
-        student_id: studentId,
-        ...properties
+        student_id: studentId
       }
     }
     try {
@@ -44,7 +43,7 @@ class SegmentAnalytics {
       return false;
     }
 
-    const eventProperties = Object.assign(this.formatCustomProperties(customProperties), this.getDefaultProperties());
+    const eventProperties = Object.assign({...customProperties}, this.getDefaultProperties());
     this.analytics().identify(teacherId, { event: event.name });
     this.analytics().track(event.name, eventProperties);
     return true;
