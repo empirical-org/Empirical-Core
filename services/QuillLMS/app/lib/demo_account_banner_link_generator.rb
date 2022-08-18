@@ -40,14 +40,14 @@ module DemoAccountBannerLinkGenerator
   end
 
   private def classroom_id
-    @classroom_id ||= current_user&.classrooms_i_own&.find { |c| c.name == DEMO_ACCOUNT_CLASSROOM_NAME }&.id
+    @classroom_id ||= current_user.classrooms_i_own.find { |c| c.name == DEMO_ACCOUNT_CLASSROOM_NAME }&.id
   end
 
   private def recommendations_link_is_valid
     return if classroom_id.nil?
     return if starter_diagnostic_pre_test.nil?
 
-    unit_activities = current_user&.unit_activities.where(activity_id: pre_diagnostic_id)
+    unit_activities = current_user.unit_activities.where(activity_id: pre_diagnostic_id)
 
     return if unit_activities.none?
     return if ClassroomUnit.find_by(unit_id: unit_activities.map(&:unit_id), classroom_id: classroom_id).nil?
@@ -59,7 +59,7 @@ module DemoAccountBannerLinkGenerator
     return if classroom_id.nil?
     return if Activity.find_by(id: post_diagnostic_id).nil?
 
-    unit_activities = current_user&.unit_activities.where(activity_id: post_diagnostic_id)
+    unit_activities = current_user.unit_activities.where(activity_id: post_diagnostic_id)
 
     return if unit_activities.none?
     return if ClassroomUnit.find_by(unit_id: unit_activities.map(&:unit_id), classroom_id: classroom_id).nil?
