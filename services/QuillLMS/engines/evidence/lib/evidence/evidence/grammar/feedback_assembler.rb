@@ -79,12 +79,15 @@ module Evidence
 
       def self.contains_exception?(client_response)
         highlights = client_response[Evidence::Grammar::Client::HIGHLIGHT_KEY]
-        highlight_texts = highlights
+
+        highlight_texts(highlights).any?{|h| EXCEPTIONS.any? {|e| h.match(e)}}
+      end
+
+      def self.highlight_texts(highlights)
+        highlights
           &.map {|hash| hash[:text]}
           &.compact
           &.map(&:downcase)
-
-        highlight_texts.any?{|h| EXCEPTIONS.any? {|e| h.match(e)}}
       end
 
       def self.error_to_rule_uid
