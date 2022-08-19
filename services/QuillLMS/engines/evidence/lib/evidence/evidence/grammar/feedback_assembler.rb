@@ -65,10 +65,11 @@ module Evidence
         'who_s_vs_whose' => 'b4d8997f-736b-41fc-92c5-b410981b43cb'
       }
 
+
       EXCEPTIONS = [
         "cloning mammals",
-        "United States",
-        "Texas"
+        "united states",
+        "texas"
       ]
 
       def self.run(client_response)
@@ -80,7 +81,7 @@ module Evidence
       def self.contains_exception?(client_response)
         highlights = client_response[Evidence::Grammar::Client::HIGHLIGHT_KEY]
 
-        highlight_texts(highlights).any?{|h| EXCEPTIONS.any? {|e| h.match(e)}}
+        highlight_texts(highlights).any?{|h| EXCEPTIONS.any? {|e| h.match(e.downcase)}}
       end
 
       def self.highlight_texts(highlights)
