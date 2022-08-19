@@ -90,7 +90,7 @@ module Evidence
               {
                 'highlight' => [{
                 'type': 'response',
-                'text': exceptions.first.split(' ').first,
+                'text': exceptions.first.split.first,
                 'character': 0
                 }]
               }

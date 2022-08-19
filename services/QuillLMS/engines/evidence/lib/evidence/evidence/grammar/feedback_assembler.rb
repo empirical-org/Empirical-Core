@@ -72,12 +72,12 @@ module Evidence
       ]
 
       def self.run(client_response)
-        return default_payload if has_exception(client_response)
+        return default_payload if contains_exception?(client_response)
 
         super(client_response)
       end
 
-      def self.has_exception(client_response)
+      def self.contains_exception?(client_response)
         highlights = client_response[Evidence::Grammar::Client::HIGHLIGHT_KEY]
         highlight_texts = highlights
           &.map {|hash| hash[:text]}
