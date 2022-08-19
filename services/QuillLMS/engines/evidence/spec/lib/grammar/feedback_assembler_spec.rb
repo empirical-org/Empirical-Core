@@ -100,9 +100,25 @@ module Evidence
               expect(subject[:optimal]).to be false
             end
           end
+
+          context 'capitalization in exception' do
+            let(:exceptions) { ['Some Phrase']}
+            let(:client_response) do
+              {
+                'highlight' => [{
+                'type' => 'response',
+                'text' => exceptions.first,
+                'character' => 0
+                }]
+              }
+            end
+
+            it 'should return optimal=true' do
+              expect(subject[:optimal]).to be true
+            end
+          end
         end
       end
     end
-
   end
 end
