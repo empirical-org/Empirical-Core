@@ -9,9 +9,9 @@ module Evidence
         let(:client_response) do
           {
             'highlight' => [{
-              'type': 'response',
-              'text': 'someText',
-              'character': 0
+              'type' => 'response',
+              'text' => 'someText',
+              'character' => 0
             }]
           }
         end
@@ -57,9 +57,9 @@ module Evidence
             let(:client_response) do
               {
                 'highlight' => [{
-                'type': 'response',
-                'text': exceptions.first,
-                'character': 0
+                'type' => 'response',
+                'text' => exceptions.first,
+                'character' => 0
                 }]
               }
             end
@@ -73,9 +73,9 @@ module Evidence
             let(:client_response) do
               {
                 'highlight' => [{
-                'type': 'response',
-                'text': exceptions.first.upcase,
-                'character': 0
+                'type' => 'response',
+                'text' => exceptions.first.upcase,
+                'character' => 0
                 }]
               }
             end
@@ -89,9 +89,9 @@ module Evidence
             let(:client_response) do
               {
                 'highlight' => [{
-                'type': 'response',
-                'text': exceptions.first.split.first,
-                'character': 0
+                'type' => 'response',
+                'text' => exceptions.first.split.first,
+                'character' => 0
                 }]
               }
             end
