@@ -4,8 +4,7 @@ require 'rails_helper'
 
 RSpec.describe SegmentIntegration::User do
   let(:teacher) { create(:teacher, flags: ["private", "beta"]) }
-  let(:subscription) { create(:subscription, expiration: Date.tomorrow) }
-  let(:user_subscription) { create(:user_subscription, user: teacher, subscription: subscription) }
+  before { create(:user_subscription, user: teacher) }
 
   context '#identify_params' do
 
