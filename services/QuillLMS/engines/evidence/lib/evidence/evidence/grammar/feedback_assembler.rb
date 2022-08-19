@@ -85,7 +85,7 @@ module Evidence
 
       def self.highlight_texts(highlights)
         highlights
-          &.map {|hash| hash[:text]}
+          &.map {|hash| hash['text']}
           &.compact
           &.map(&:downcase)
       end
