@@ -65,6 +65,31 @@ module Evidence
         'who_s_vs_whose' => 'b4d8997f-736b-41fc-92c5-b410981b43cb'
       }
 
+      EXCEPTIONS = [
+        "cloning mammals",
+        "United States",
+        "Texas"
+      ]
+
+      def self.run(client_response)
+        return default_payload if contains_exception?(client_response)
+
+        super(client_response)
+      end
+
+      def self.contains_exception?(client_response)
+        highlights = client_response[Evidence::Grammar::Client::HIGHLIGHT_KEY]
+
+        highlight_texts(highlights).any?{|h| EXCEPTIONS.any? {|e| h.match(e)}}
+      end
+
+      def self.highlight_texts(highlights)
+        highlights
+          &.map {|hash| hash[:text]}
+          &.compact
+          &.map(&:downcase)
+      end
+
       def self.error_to_rule_uid
         RULE_MAPPING
       end
@@ -74,9 +99,8 @@ module Evidence
       end
 
       def self.error_name
-        'gapi_error'
+        Evidence::Grammar::Client::ERROR_KEY
       end
     end
-
   end
 end
