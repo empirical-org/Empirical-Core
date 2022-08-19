@@ -28,6 +28,14 @@ module SegmentIntegration
       }.reject {|_,v| v.nil? }
     end
 
+    def premium_params
+      {
+        email: email,
+        premium_state: premium_state,
+        premium_type: subscription&.account_type,
+      }.reject {|_,v| v.nil? }
+    end
+
     def integration_rules
       { all: true, Intercom: (teacher?) }
     end

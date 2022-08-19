@@ -13,22 +13,22 @@ describe PremiumAnalyticsWorker do
     let!(:user) { create(:user) }
 
     context 'when account type is a teacher premium type' do
-      it 'should track began teacher premium' do
-        expect(analyzer).to receive(:track).with(user, SegmentIo::BackgroundEvents::BEGAN_TEACHER_PREMIUM)
+      it 'should track teacher began premium' do
+        expect(analyzer).to receive(:track_with_attributes).with(user, SegmentIo::BackgroundEvents::TEACHER_BEGAN_PREMIUM, properties: user.segment_user.premium_params)
         subject.perform(user.id, Subscription::OFFICIAL_TEACHER_TYPES[0])
       end
     end
 
     context 'when account type is a school premium type' do
-      it 'should track began school premium' do
-        expect(analyzer).to receive(:track).with(user, SegmentIo::BackgroundEvents::BEGAN_SCHOOL_PREMIUM)
+      it 'should track teacher began premium' do
+        expect(analyzer).to receive(:track_with_attributes).with(user, SegmentIo::BackgroundEvents::TEACHER_BEGAN_PREMIUM, properties: user.segment_user.premium_params)
         subject.perform(user.id, Subscription::OFFICIAL_SCHOOL_TYPES[0])
       end
     end
 
     context 'when account type is a trial premium type' do
-      it 'should track began trial premium' do
-        expect(analyzer).to receive(:track).with(user, SegmentIo::BackgroundEvents::BEGAN_PREMIUM_TRIAL)
+      it 'should track teacher began premium' do
+        expect(analyzer).to receive(:track_with_attributes).with(user, SegmentIo::BackgroundEvents::TEACHER_BEGAN_PREMIUM, properties: user.segment_user.premium_params)
         subject.perform(user.id, Subscription::OFFICIAL_FREE_TYPES[0])
       end
     end
@@ -36,7 +36,7 @@ describe PremiumAnalyticsWorker do
     context 'when passed an id for a non-existent user' do
       it 'should return without doing anything' do
         bad_user_id = user.id * 9
-        expect(analyzer).not_to receive(:track)
+        expect(analyzer).not_to receive(:track_with_attributes)
         subject.perform(bad_user_id, Subscription::OFFICIAL_FREE_TYPES[0])
       end
     end
