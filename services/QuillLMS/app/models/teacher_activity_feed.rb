@@ -47,11 +47,11 @@ class TeacherActivityFeed < RedisFeed
   end
 
   private def text_for_score(key, percentage)
-    return '' unless percentage
-
     if ActivityClassification.unscored?(key)
       return ActivitySession::COMPLETED
     end
+
+    return '' unless percentage
 
     if percentage >= ProficiencyEvaluator.proficiency_cutoff
       ActivitySession::PROFICIENT
