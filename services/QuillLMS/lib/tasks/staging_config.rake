@@ -41,6 +41,8 @@ namespace :staging_config do
     end
   end
 
+  # Add basic wrapper around heroku commands:
+  # Reference: https://devcenter.heroku.com/articles/config-vars
   module StagingConfigCommands
     def get_config(config, app)
       # returns a newline, so chomp it
