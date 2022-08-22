@@ -20,39 +20,8 @@ const WelcomeModalWithoutDemo = ({close}) => (
   </div>
 )
 
-const WelcomeModalWithDemo = ({close}) => (
-  <div className="welcome-modal quill-modal">
-    <div className="modal-body">
-
-      <div className="welcome-modal-image-box">
-        <div className="text">
-          <h1>Welcome to Quill!</h1>
-          <p>Our mission as a non-profit is to help students become strong writers, so all our content is completely free to use with an unlimited number of students.</p>
-        </div>
-        <img alt="Teacher at projector in classroom" src={classroomActivitiesSrc} />
-      </div>
-
-      <div className="welcome-modal-option-boxes">
-        <div className="welcome-modal-option-box">
-          <h2>Try a Demo</h2>
-          <p>Play around with a fully loaded demo to see sample student data and reports.</p>
-          <a className="quill-button contained primary medium focus-on-light" href={exploreDemoLink}>Start exploring</a>
-        </div>
-
-        <div className="welcome-modal-option-box">
-          <h2>Start Setting Up</h2>
-          <p>Ready to set up your own classes? Jump right into your account.</p>
-          <button className="quill-button outlined secondary medium focus-on-light" onClick={close} type="button">Let&#39;s go!</button>
-        </div>
-      </div>
-
-    </div>
-  </div>
-)
-
 const WelcomeModal = ({ close, size }) => {
   const { width, height } = size;
-  const [errors, setErrors] = React.useState<string[]>([])
 
   return (
     <div className="modal-container welcome-modal-container">
@@ -63,7 +32,33 @@ const WelcomeModal = ({ close, size }) => {
         recycle={false}
         width={width}
       />
-      <WelcomeModalWithDemo close={close} />
+      <div className="welcome-modal quill-modal">
+        <div className="modal-body">
+
+          <div className="welcome-modal-image-box">
+            <div className="text">
+              <h1>Welcome to Quill!</h1>
+              <p>Our mission as a non-profit is to help students become strong writers, so all our content is completely free to use with an unlimited number of students.</p>
+            </div>
+            <img alt="Teacher at projector in classroom" src={classroomActivitiesSrc} />
+          </div>
+
+          <div className="welcome-modal-option-boxes">
+            <div className="welcome-modal-option-box">
+              <h2>Try a Demo</h2>
+              <p>Play around with a fully loaded demo to see sample student data and reports.</p>
+              <a className="quill-button contained primary medium focus-on-light" href={exploreDemoLink}>Start exploring</a>
+            </div>
+
+            <div className="welcome-modal-option-box">
+              <h2>Start Setting Up</h2>
+              <p>Ready to set up your own classes? Jump right into your account.</p>
+              <button className="quill-button outlined secondary medium focus-on-light" onClick={close} type="button">Let&#39;s go!</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
     </div>
   )
 }
