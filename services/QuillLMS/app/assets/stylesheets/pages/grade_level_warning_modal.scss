@@ -8,9 +8,10 @@
   }
 
   .modal-body::-webkit-scrollbar-thumb {
-    border-radius: 4px;
-    background-color: rgba(0, 0, 0, .5);
-    box-shadow: 0 0 1px rgba(255, 255, 255, .5);
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: #7f7f7f;
+    -webkit-box-shadow: inset 0 0 6px #7f7f7f;
   }
 
   .quill-modal.grade-level-warning-modal {
