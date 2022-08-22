@@ -6,7 +6,7 @@ namespace :staging_config do
 
   # bundle exec rake staging_config:copy_from_staging_to_personals\[SOME_KEY\]
   desc "copy a config from main staging to all other staging envs"
-  task :copy_from_staging_to_personals, [:config] do |t,args|
+  task :copy_from_staging_to_personals, [:config] => :environment do |t,args|
     include StagingConfigCommands
 
     config = args[:config]
@@ -21,7 +21,7 @@ namespace :staging_config do
 
   # bundle exec rake staging_config:set_all\[TEST_KEY='some_value'\]
   desc "set a config key/value on all staging envs"
-  task :set_all, [:config_setting] do |t,args|
+  task :set_all, [:config_setting] => :environment do |t,args|
     include StagingConfigCommands
     config_setting = args[:config_setting]
 
@@ -32,7 +32,7 @@ namespace :staging_config do
 
   # bundle exec rake staging_config:remove_all\[TEST_KEY\]
   desc "delete a config from all staging envs"
-  task :remove_all, [:config] do |t,args|
+  task :remove_all, [:config] => :environment do |t,args|
     include StagingConfigCommands
     config = args[:config]
 
@@ -58,10 +58,10 @@ namespace :staging_config do
     end
 
     def run_cmd(command)
-      stdout_str, stderr_str, _ = Open3.capture3(command)
+      stdout_str, stderr_str, = Open3.capture3(command)
 
-      puts "#{stdout_str}"
-      puts "#{stderr_str}"
+      puts stdout_str
+      puts stderr_str
 
       stdout_str
     end
