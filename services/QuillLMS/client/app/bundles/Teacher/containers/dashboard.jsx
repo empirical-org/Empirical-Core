@@ -22,7 +22,7 @@ const Dashboard = ({ onboardingChecklist, firstName, mustSeeModal, linkedToCleve
   const size = useWindowSize();
   const onMobile = () => size.width <= MAX_VIEW_WIDTH_FOR_MOBILE
 
-  const [showWelcomeModal, setShowWelcomeModal] = React.useState(mustSeeModal)
+  const [showWelcomeModal, setShowWelcomeModal] = React.useState(true)
   const [showDemoModal, setShowDemoModal] = React.useState(false)
 
   function closeWelcomeModal() { setShowWelcomeModal(false) }

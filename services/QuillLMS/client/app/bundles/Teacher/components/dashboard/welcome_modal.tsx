@@ -21,28 +21,31 @@ const WelcomeModalWithoutDemo = ({close}) => (
 )
 
 const WelcomeModalWithDemo = ({close}) => (
-  <div className="welcome-modal-with-demo quill-modal">
-    <div className="modal-head">
-      <button className="close-welcome-modal" onClick={close} type="button"><img alt="Close the modal" src={`${process.env.CDN_URL}/images/shared/close_x.svg`} /></button>
-    </div>
-
+  <div className="welcome-modal quill-modal">
     <div className="modal-body">
 
       <div className="welcome-modal-image-box">
-        <h1>Welcome to Quill!</h1>
+        <div className="text">
+          <h1>Welcome to Quill!</h1>
+          <p>Our mission as a non-profit is to help students become strong writers, so all our content is completely free to use with an unlimited number of students.</p>
+        </div>
         <img alt="Teacher at projector in classroom" src={classroomActivitiesSrc} />
       </div>
-      <div>
-        <div className="welcome-modal-text">
-          <p className="welcome-modal-header">Want to see Quill&apos;s full potential?</p>
-          <p>Play around with a demo account to see sample student data and reports.</p>
+
+      <div className="welcome-modal-option-boxes">
+        <div className="welcome-modal-option-box">
+          <h2>Try a Demo</h2>
+          <p>Play around with a fully loaded demo to see sample student data and reports.</p>
+          <a className="quill-button contained primary medium focus-on-light" href={exploreDemoLink}>Start exploring</a>
         </div>
-        <br />
-        <div className="welcome-modal-buttons">
-          <a className="quill-button contained focus-on-light secondary medium outlined welcome-modal-demo" href={exploreDemoLink}>Explore demo</a>
-          <button className="quill-button contained focus-on-light primary medium welcome-modal-skip" onClick={close} type="button">Maybe later, skip</button>
+
+        <div className="welcome-modal-option-box">
+          <h2>Start Setting Up</h2>
+          <p>Ready to set up your own classes? Jump right into your account.</p>
+          <button className="quill-button outlined secondary medium focus-on-light" onClick={close} type="button">Let&#39;s go!</button>
         </div>
       </div>
+
     </div>
   </div>
 )
@@ -50,10 +53,6 @@ const WelcomeModalWithDemo = ({close}) => (
 const WelcomeModal = ({ close, size }) => {
   const { width, height } = size;
   const [errors, setErrors] = React.useState<string[]>([])
-  const [hasAppSetting, setHasAppSetting] = React.useState<boolean>(false);
-  React.useEffect(() => {
-    handleHasAppSetting({appSettingSetter: setHasAppSetting, errorSetter: setErrors, key: 'demo-welcome-modal', })
-  }, []);
 
   return (
     <div className="modal-container welcome-modal-container">
@@ -64,7 +63,7 @@ const WelcomeModal = ({ close, size }) => {
         recycle={false}
         width={width}
       />
-      {hasAppSetting ? <WelcomeModalWithDemo close={close} /> : <WelcomeModalWithoutDemo close={close} />}
+      <WelcomeModalWithDemo close={close} />
     </div>
   )
 }
