@@ -125,10 +125,8 @@ const professionalDevelopmentSessions = (
   </section>
 )
 
-const oneOnOneCoaching = (
+const testimonials = (
   <section>
-    <h3>One-on-one coaching sessions with our Senior Instructional Coaches</h3>
-    <p>Once per quarter, teachers are invited to schedule 1:1 coaching sessions to work directly with a senior instructional coach on Quill&#39;s team. Our sessions empower teachers to solve issues, learn how to analyze reports, and support curriculum implementation. By reviewing their Quill dashboard with the coach, teachers will leave the session with more confidence in our tool.</p>
     <div className="premium-features-row">
       <div className="testimonial long">
         <p>Totally personalized! I told the Quill coach my background and what my familiarity with Quill was, and she was able to walk me through exactly what I needed. Also appreciate that she could show me with her screen, walking through my classes with me.</p>
@@ -156,27 +154,27 @@ const oneOnOneCoaching = (
 
 const coachingTeam = (
   <section>
-    <h3>Meet the coaching team</h3>
+    <h3>Meet the professional learning team</h3>
     <div className="premium-features-row">
       <PremiumFeature
         header="Erika Parker-Havens"
         imageAlt="Photograph of Quill's coach, Erika"
         imageSrc={erikaSrc}
-        subheader={[<span key="years">13 years in Education</span>, <span key="title">Former MS English teacher and Academic Dean</span>]}
+        subheader={[<span key="years">15+ years in Education</span>, <span key="title">Former MS English teacher and Academic Dean</span>]}
         text="Expert in culturally responsive teaching practices, writing in the content areas and helping teachers practically use tools to facilitate learning through writing"
       />
       <PremiumFeature
         header="Shannon Browne"
         imageAlt="Photograph of Quill's coach, Shannon"
         imageSrc={shannonSrc}
-        subheader={[<span key="years">13 years in Education</span>, <span key="title">Former HS English Teacher and Director of Instruction</span>]}
+        subheader={[<span key="years">15+ years in Education</span>, <span key="title">Former HS English Teacher and Director of Instruction</span>]}
         text="Expert in data-informed instructional strategies and prioritizing the needs of special populations in writing practice routines"
       />
       <PremiumFeature
         header="Sherry Lewkowicz"
         imageAlt="Photograph of Quill's coach, Sherry"
         imageSrc={sherrySrc}
-        subheader={[<span key="years">14 years in Education</span>, <span key="title">Former AP English Literature teacher</span>]}
+        subheader={[<span key="years">15+ years in Education</span>, <span key="title">Former AP English Literature teacher</span>]}
         text="Expert in writing instruction best practices and helping teachers incorporate those best practices into their teaching"
       />
     </div>
@@ -196,7 +194,7 @@ const SchoolPremium = () => {
       <div className='premium-features-body'>
         {actionableFeaturesAndSupport}
         {professionalDevelopmentSessions}
-        {oneOnOneCoaching}
+        {testimonials}
         {coachingTeam}
       </div>
     </div>

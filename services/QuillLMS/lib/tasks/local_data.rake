@@ -7,11 +7,16 @@ namespace :local_data do
   task truncate_nonuser_tables: :environment do
     include LocalSeedCommands
 
-    ActiveRecord::Base.connection.execute(truncate_command)
+    db_config = Rails.configuration.database_configuration["development"]["primary"]
+    ActiveRecord::Base.connection.execute(truncate_command(host: db_config["host"]))
   end
 
   # Note, before running, populate these ENV vars with a 'read-only' user from Heroku:
-  # PROD_FOLLOWER_DB
+  # 1) Go to Resources: https://dashboard.heroku.com/apps/empirical-grammar/resources
+  # 2) Go to Follower Postgres DB (says "Attached as..", confirm says Primary 'No')
+  # 3) Go Credentials -> use 'dan-readonly'
+  # Current link (this will change): https://data.heroku.com/datastores/fd15e308-d56a-4d8d-8cba-78f9c2b43dac#credentials
+  # PROD_FOLLOWER_DB_NAME
   # PROD_FOLLOWER_DB_HOST
   # PROD_FOLLOWER_DB_USER
   # You will be prompted for the password in the console when run
@@ -19,14 +24,15 @@ namespace :local_data do
   desc "import non-user tables"
   task reset_nonuser_data_from_follower: :environment do
     include LocalSeedCommands
+    db_config = Rails.configuration.database_configuration["development"]["primary"]
 
     pretty_print("Truncating non-user tables")
-    ActiveRecord::Base.connection.execute(truncate_command)
+    ActiveRecord::Base.connection.execute(truncate_command(host: db_config["host"]))
 
     pretty_print("Downloading data from follower\n(Ignore circular key warning)")
     run_cmd(dump_command)
 
-    database = Rails.configuration.database_configuration["development"]["database"]
+    database = db_config["database"]
     pretty_print("Loading data to #{database}")
     run_cmd(load_command(database: database))
 
@@ -37,12 +43,14 @@ namespace :local_data do
   module LocalSeedCommands
     # Get these from Heroku, use a user marked 'read-only'
     # You will be prompted for the password in the console when run
-    DB_NAME = ENV['PROD_FOLLOWER_DB']
+    DB_NAME = ENV['PROD_FOLLOWER_DB_NAME']
     DB_HOST = ENV['PROD_FOLLOWER_DB_HOST']
     DB_USER = ENV['PROD_FOLLOWER_DB_USER']
     FILE_NAME = 'output.sql'
 
     LINE = '*' * 20
+
+    class NonLocalDBError < StandardError; end
 
     def run_cmd(command)
       stdout_str, stderr_str, status = Open3.capture3(command)
@@ -66,7 +74,9 @@ namespace :local_data do
       "pg_dump -h #{DB_HOST} -p 5432 -U #{DB_USER} -W #{table_flags} --data-only #{DB_NAME} > #{file}"
     end
 
-    def truncate_command(tables: NONUSER_TABLES)
+    def truncate_command(host:, tables: NONUSER_TABLES)
+      raise NonLocalDBError if host != "localhost"
+
       "TRUNCATE #{tables.compact.join(',')} RESTART IDENTITY CASCADE;"
     end
 

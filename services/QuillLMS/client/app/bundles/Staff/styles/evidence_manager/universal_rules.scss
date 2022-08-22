@@ -1,25 +1,24 @@
 .universal-rules-index-container {
   padding: 20px;
   width: 80vw;
-  .top-section {
+  .header-section {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
-    margin: 30px 0px 0px 3px;
-    .rule-type-input, button {
-      margin-right: 32px;
+    justify-content: space-between;
+    h2 {
+      margin-top: 0px
     }
-  }
-  .header-container {
-    a {
-      color: #00c2a2
-    }
-    a:hover {
-      color: #29d8bc;
+    .top-section {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      .rule-type-input, button {
+        margin-right: 32px;
+      }
     }
   }
   .sortable-instructions {
-    margin: 10px 0px 10px 3px;
+    margin-left: 4px;
     font-style: italic;
   }
   .universal-rules-table {
@@ -33,19 +32,26 @@
         margin: 0px
       }
     }
+    .data-table-headers {
+      min-height: auto;
+      padding-bottom: 8px;
+    }
     .data-table-body{
-      max-height: 500px;
       overflow: auto;
       .data-table-row {
-        span {
-          span {
-            a {
-              color: #00c2a2;
-            }
-            .a:hover {
-              cursor: pointer;
-              color: #29d8bc
-            }
+        min-height: auto;
+        td {
+          a {
+            color: #00c2a2;
+          }
+          .a:hover {
+            cursor: pointer;
+            color: #29d8bc
+          }
+        }
+        .reorder-section {
+          div:hover {
+            cursor: pointer;
           }
         }
       }

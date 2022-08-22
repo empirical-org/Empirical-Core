@@ -10,24 +10,24 @@ RSpec.describe GoogleIntegration::ClassroomStudentUpdater do
   let(:account_type) { described_class::ACCOUNT_TYPE }
   let(:role) { described_class::ROLE }
 
-  subject { described_class.new(student, data) }
+  subject { described_class.run(student, data) }
 
   context 'student has role student' do
     let(:student) { create(:student, email: email )}
 
     it { updates_student_attributes }
-    it { expect { subject.run }.not_to change(ChangeLog, :count) }
+    it { expect { subject }.not_to change(ChangeLog, :count) }
   end
 
   context 'student has role teacher' do
     let(:student) { create(:teacher, email: email )}
 
     it { updates_student_attributes }
-    it { expect { subject.run }.to change(ChangeLog, :count).by(1) }
+    it { expect { subject }.to change(ChangeLog, :count).by(1) }
   end
 
   def updates_student_attributes
-    subject.run
+    subject
     student.reload
 
     expect(student.email).to eq email

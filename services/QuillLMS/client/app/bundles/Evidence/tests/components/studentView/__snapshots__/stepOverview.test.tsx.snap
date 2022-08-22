@@ -8,7 +8,10 @@ exports[`StepOverview component when the student is on step one renders 1`] = `
   <div
     className="step-overview"
   >
-    <h1>
+    <h1
+      className="no-focus-outline"
+      tabIndex={-1}
+    >
       Here’s what you’ll do
     </h1>
     <Step
@@ -177,7 +180,9 @@ exports[`StepOverview component when the student is past step one renders 1`] = 
   <div
     className="step-overview"
   >
-    <h1>
+    <h1
+      tabIndex={-1}
+    >
       Nice! Keep going!
     </h1>
     <Step
@@ -203,6 +208,11 @@ exports[`StepOverview component when the student is past step one renders 1`] = 
             alt="White check with green background icon"
             src="undefined/images/icons/icons-check-circle-dark.svg"
           />
+          <span
+            className="sr-only"
+          >
+            Completed step:
+          </span>
           <p>
             Read a text and highlight sentences.
           </p>

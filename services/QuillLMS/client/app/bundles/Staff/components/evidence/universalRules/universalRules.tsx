@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import { useQueryClient, useQuery } from 'react-query';
 
 import Navigation from '../navigation'
-import { createRule, fetchUniversalRules } from '../../../utils/evidence/ruleAPIs';
+import { createRule, fetchUniversalRules, updateRuleOrders } from '../../../utils/evidence/ruleAPIs';
 import RuleForm from '../configureRules/ruleForm';
-import { blankUniversalRule, universalRuleTypeOptions, ruleOrder} from '../../../../../constants/evidence';
+import { blankUniversalRule, universalRuleTypeOptions } from '../../../../../constants/evidence';
 import { RuleInterface } from '../../../interfaces/evidenceInterfaces';
 import { Error, Spinner, DropdownInput, DataTable, Modal } from '../../../../Shared/index';
 import populateRulesState from '../../../../Shared/hooks/evidence/populateRulesState'
@@ -13,6 +13,7 @@ import handleRulesListUpdate from '../../../../Shared/hooks/evidence/handleRules
 
 const UniversalRulesIndex = ({ location, match }) => {
 
+  const [loading, setLoading] = React.useState<boolean>(false)
   const [ruleType, setRuleType] = React.useState<any>(universalRuleTypeOptions[0]);
   const [rulesHash, setRulesHash] = React.useState<object>({});
   const [rulesList, setRulesList] = React.useState<any[]>([]);
@@ -32,6 +33,10 @@ const UniversalRulesIndex = ({ location, match }) => {
 
   React.useEffect(() => {
     handleUpdateRulesList();
+  }, [rules]);
+
+  React.useEffect(() => {
+    handleUpdateRulesList();
     setRuleOrderUpdated(false);
   }, [ruleType]);
 
@@ -41,8 +46,10 @@ const UniversalRulesIndex = ({ location, match }) => {
       if(rule) {
         updatedRulesList.push(rule);
       }
+      updatedRulesList.sort((ruleA, ruleB) => ruleA.suborder - ruleB.suborder);
       setRulesUpdated(true);
       setRulesList(updatedRulesList);
+      setLoading(false)
     }
   }
 
@@ -57,6 +64,15 @@ const UniversalRulesIndex = ({ location, match }) => {
   }
 
   function handleSetRuleType(ruleType: any) { setRuleType(ruleType) };
+
+  function handleUpdateRuleOrder() {
+    setLoading(true)
+    const idsInOrder = rulesList.map(rule => rule.id);
+    updateRuleOrders(idsInOrder).then((response) => {
+      queryClient.refetchQueries("universal-rules");
+      handleUpdateRulesList();
+    });
+  }
 
   function sortCallback(sortInfo) {
     const newRulesList = sortInfo.map(item => {
@@ -73,7 +89,6 @@ const UniversalRulesIndex = ({ location, match }) => {
       const universalRuleLink = (<Link to={`/universal-rules/${id}`}>View</Link>);
       return {
         id: uid,
-        api_order: ruleOrder[rule_type],
         type: rule_type,
         name,
         order: suborder,
@@ -91,9 +106,7 @@ const UniversalRulesIndex = ({ location, match }) => {
       } else {
         setErrors([]);
         toggleAddRuleModal();
-        queryClient.refetchQueries(`universal-rules`).then(() => {
-          handleUpdateRulesList(rule);
-        });
+        queryClient.refetchQueries(`universal-rules`);
       }
     });
   }
@@ -140,7 +153,6 @@ const UniversalRulesIndex = ({ location, match }) => {
   }
 
   const dataTableFields = [
-    { name: "API Order", attribute:"api_order", width: "100px" },
     { name: "Type", attribute:"type", width: "100px" },
     { name: "Name", attribute:"name", width: "400px" },
     { name: "Rule Order Note", attribute:"order", width: "100px" },
@@ -154,28 +166,31 @@ const UniversalRulesIndex = ({ location, match }) => {
       <Navigation location={location} match={match} />
       <div className="universal-rules-index-container">
         {showAddRuleModal && renderRuleForm()}
-        <h2>Universal Rules Index</h2>
-        <section className="top-section">
-          <DropdownInput
-            className="rule-type-input"
-            handleChange={handleSetRuleType}
-            isSearchable={true}
-            label="Select Rule Type"
-            options={universalRuleTypeOptions}
-            value={ruleType}
-          />
-          <button className={`quill-button small primary contained ${disabledStatus}`} disabled={!!disabledStatus} type="button">Update Rule Order</button>
-          <button className="quill-button small primary contained" onClick={toggleAddRuleModal} type="button">{`Create New ${ruleType.label} Rule (Danger Zone!)`}</button>
+        <section className="header-section">
+          <h2>Universal Rules Index</h2>
+          <section className="top-section">
+            <DropdownInput
+              className="rule-type-input"
+              handleChange={handleSetRuleType}
+              isSearchable={true}
+              label="Select Rule Type"
+              options={universalRuleTypeOptions}
+              value={ruleType}
+            />
+            <button className={`quill-button small primary contained ${disabledStatus}`} disabled={!!disabledStatus} onClick={handleUpdateRuleOrder} type="button">Update Rule Order</button>
+            <button className="quill-button small primary contained" onClick={toggleAddRuleModal} type="button">{`Create New ${ruleType.label} Rule (Danger Zone!)`}</button>
+          </section>
         </section>
         <p className="sortable-instructions">Change the rule order note by drag and drop</p>
-        <DataTable
+        {!loading && <DataTable
           className="universal-rules-table"
           defaultSortAttribute="title"
           headers={dataTableFields}
           isReorderable={true}
           reorderCallback={sortCallback}
           rows={renderUniversalRules()}
-        />
+        />}
+        {loading && <Spinner />}
       </div>
     </React.Fragment>
   );

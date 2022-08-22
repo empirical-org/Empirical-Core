@@ -1,6 +1,8 @@
 import * as React from 'react'
 
 import useFocus from '../../../Shared/hooks/useFocus'
+import { Events } from '../../modules/analytics'
+import { TrackAnalyticsEvent } from "../../actions/analytics";
 
 const baseImgSrc = `${process.env.CDN_URL}/images/pages/evidence`
 const checkMarkSrc = `${baseImgSrc}/components-selection-controls-dark-enabled-selected.svg`
@@ -79,7 +81,7 @@ const MultipleChoiceOption = ({ text, selectedMultipleChoiceOptions, setSelected
   )
 }
 
-const ActivitySurvey = ({ sessionID, saveActivitySurveyResponse, setSubmittedActivitySurvey, }) => {
+const ActivitySurvey = ({ activity, dispatch, sessionID, saveActivitySurveyResponse, setSubmittedActivitySurvey, }) => {
   const [selectedEmoji, setSelectedEmoji] = React.useState(null)
   const [selectedMultipleChoiceOptions, setSelectedMultipleChoiceOptions] = React.useState([])
 
@@ -91,6 +93,23 @@ const ActivitySurvey = ({ sessionID, saveActivitySurveyResponse, setSubmittedAct
 
   React.useEffect(() => { setSelectedMultipleChoiceOptions([]) }, [selectedEmoji])
 
+  function mapMultipleChoiceOptionsForEventParams() {
+    const options = {}
+    positiveMultipleChoiceOptions.forEach(option => {
+      const key = option.split(' ').join('_')
+      options[key] = false
+    })
+    negativeMultipleChoiceOptions.forEach(option => {
+      const key = option.split(' ').join('_')
+      options[key] = false
+    })
+    selectedMultipleChoiceOptions.forEach(option => {
+      const key = option.split(' ').join('_')
+      options[key] = true
+    });
+    return options
+  }
+
   function handleSend() {
     if (!selectedMultipleChoiceOptions.length) { return }
     const activitySurveyResponse = {
@@ -98,7 +117,14 @@ const ActivitySurvey = ({ sessionID, saveActivitySurveyResponse, setSubmittedAct
       multiple_choice_selections: selectedMultipleChoiceOptions,
       survey_question: SURVEY_QUESTION,
     }
+    const trackingParams = {
+      activity_name: activity?.title,
+      tool_name: "Reading",
+      rating: selectedEmoji,
+      ...mapMultipleChoiceOptionsForEventParams()
+    }
     const callback = () => setSubmittedActivitySurvey(true)
+    dispatch(TrackAnalyticsEvent(Events.STUDENT_RATED_AN_ACTIVITY, trackingParams))
     saveActivitySurveyResponse({ sessionID, activitySurveyResponse, callback, })
   }
 

@@ -5,6 +5,7 @@
 # Table name: feedback_histories
 #
 #  id                   :integer          not null, primary key
+#  activity_version     :integer          default(0), not null
 #  attempt              :integer          not null
 #  concept_uid          :text
 #  entry                :text             not null

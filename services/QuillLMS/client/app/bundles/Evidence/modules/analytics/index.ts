@@ -10,7 +10,7 @@ class SegmentAnalytics {
     return window.analytics
   }
 
-  async track(event: Event, properties?: object) {
+  async track(event: Event, params?: object) {
     const sessionID = getParameterByName('session', window.location.href)
     const idData = await fetchUserIdsForSession(sessionID)
 
@@ -18,7 +18,8 @@ class SegmentAnalytics {
 
     const { teacherId, studentId } = idData
     const customProperties = {
-      ...properties,
+      ...params,
+      event: event.name,
       user_id: teacherId,
       properties: {
         student_id: studentId
@@ -42,7 +43,8 @@ class SegmentAnalytics {
       return false;
     }
 
-    const eventProperties = Object.assign(this.formatCustomProperties(customProperties), this.getDefaultProperties());
+    const eventProperties = Object.assign({...customProperties}, this.getDefaultProperties());
+    this.analytics().identify(teacherId, { event: event.name });
     this.analytics().track(event.name, eventProperties);
     return true;
   }
@@ -66,7 +68,7 @@ class SegmentAnalytics {
       properties = {};
     }
     return Object.keys(properties).reduce((accumulator, key) => {
-      const keysToSkip = ['user_id', 'properties'];
+      const keysToSkip = ['event', 'user_id', 'properties'];
       let customKeyName = keysToSkip.includes(key) ? key : `custom_${key}`;
       accumulator[customKeyName] = properties[key];
       return accumulator;

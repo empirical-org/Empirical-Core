@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-class GenerateFullname
-
+class GenerateFullname < ApplicationService
+  DEFAULT_NAME = 'Firstname Lastname'
   def initialize(name)
     @name = name
   end
 
-  def call
+  def run
     generate_fullname
   end
 
@@ -14,16 +14,10 @@ class GenerateFullname
   private :name
 
   private def generate_fullname
-    first_name, last_name = SplitName.new(name).call
+    first_name, last_name = SplitName.run(name)
 
-    if last_name.nil? && first_name.present?
-      return "#{first_name} #{first_name}"
-    end
+    return name unless last_name.nil?
 
-    if last_name.nil? && first_name.nil?
-      return 'Firstname Lastname'
-    end
-
-    name
+    first_name.present? ? "#{first_name} #{first_name}" : DEFAULT_NAME
   end
 end

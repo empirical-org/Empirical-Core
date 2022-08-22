@@ -9,13 +9,9 @@ import useFocus from '../../../Shared/hooks/useFocus'
 const ReadAndHighlightInstructions = ({ passage, activeStep, studentHighlights, removeHighlight, inReflection, }) => {
   const [containerRef, setContainerFocus] = useFocus()
 
-  React.useEffect(() => {
-    setContainerFocus()
-  }, [])
-
-  React.useEffect(() => {
-    setContainerFocus()
-  }, [inReflection])
+  function handleRemoveHighlightClick(highlightText) {
+    removeHighlight(highlightText, setContainerFocus)
+  }
 
   let studentHighlightsOrHighlightInstructions = (
     <div className="highlight-instructions">
@@ -31,7 +27,7 @@ const ReadAndHighlightInstructions = ({ passage, activeStep, studentHighlights, 
       <DisplayStudentHighlight
         inReflection={inReflection}
         key={sh}
-        removeHighlight={removeHighlight}
+        removeHighlight={handleRemoveHighlightClick}
         studentHighlight={sh}
       />)
     )

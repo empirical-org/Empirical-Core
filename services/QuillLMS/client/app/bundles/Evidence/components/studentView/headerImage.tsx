@@ -57,7 +57,7 @@ export const HeaderImage = ({ headerImage, passage }) => {
         {headerImage}
         <section className="header-image-information">
           {passage.image_caption && <p className="header-image-caption">{stripHtml(passage.image_caption)}</p>}
-          {passage.image_attribution && <Tooltip handleClick={handleImageAttributionClick} tooltipText={tooltipText} tooltipTriggerText="Image credit" tooltipTriggerTextClass="image-attribution-tooltip" />}
+          {passage.image_attribution && <Tooltip handleClick={handleImageAttributionClick} isTabbable={false} tooltipText={tooltipText} tooltipTriggerText="Image credit" tooltipTriggerTextClass="image-attribution-tooltip" />}
         </section>
       </section>
     </React.Fragment>

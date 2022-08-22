@@ -7,13 +7,13 @@
 #  id                         :integer          not null, primary key
 #  data                       :jsonb
 #  description                :text
-#  flags                      :string(255)      default([]), not null, is an Array
+#  flags                      :string           default([]), not null, is an Array
 #  maximum_grade_level        :integer
 #  minimum_grade_level        :integer
-#  name                       :string(255)
+#  name                       :string
 #  repeatable                 :boolean          default(TRUE)
 #  supporting_info            :string
-#  uid                        :string(255)      not null
+#  uid                        :string           not null
 #  created_at                 :datetime
 #  updated_at                 :datetime
 #  activity_classification_id :integer
@@ -56,5 +56,13 @@ describe ActivitySerializer, type: :serializer do
          activity_category
          supporting_info)
     end
+  end
+
+  it 'deep serializes relationships' do
+    activity = create(:activity)
+
+    serialization = ActivitySerializer.new(activity)
+
+    expect(serialization.as_json[:activity][:standard][:standard_category][:id]).to eq(activity.standard.standard_category.id)
   end
 end

@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe SegmentIntegration::User do
-  let(:teacher) { create(:teacher) }
+  let(:teacher) { create(:teacher, flags: ["private", "beta"]) }
 
   context '#identify_params' do
 
@@ -15,7 +15,8 @@ RSpec.describe SegmentIntegration::User do
           auditor: teacher.auditor?,
           first_name: teacher.first_name,
           last_name: teacher.last_name,
-          email: teacher.email
+          email: teacher.email,
+          flags: teacher.flags&.join(", ")
         }.reject {|_,v| v.nil? },
         integrations: teacher.segment_user.integration_rules
       }

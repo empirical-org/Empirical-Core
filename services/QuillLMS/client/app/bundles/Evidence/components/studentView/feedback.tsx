@@ -3,6 +3,7 @@ import ReactCSSTransitionReplace from 'react-css-transition-replace'
 import stripHtml from "string-strip-html";
 
 import { GRAMMAR, SPELLING, RULES_BASED_3, } from '../../../../constants/evidence'
+import useFocus from '../../../Shared/hooks/useFocus'
 
 const loopSrc = `${process.env.CDN_URL}/images/icons/loop.svg`
 const smallCheckCircleSrc = `${process.env.CDN_URL}/images/icons/check-circle-small.svg`
@@ -48,10 +49,12 @@ const Feedback: React.SFC = ({ lastSubmittedResponse, prompt, submittedResponses
   const { entry, optimal, hint, highlight, } = lastSubmittedResponse
   const [reportAProblemExpanded, setReportAProblemExpanded] = React.useState(false)
   const [reportSubmitted, setReportSubmitted] = React.useState(false)
+  const [containerRef, setContainerFocus] = useFocus()
 
   React.useEffect(() => {
     setReportAProblemExpanded(false)
     setReportSubmitted(false)
+    setContainerFocus()
   }, [lastSubmittedResponse])
 
   React.useEffect(() => {
@@ -156,7 +159,7 @@ const Feedback: React.SFC = ({ lastSubmittedResponse, prompt, submittedResponses
   }
 
   return (
-    <div aria-live="polite" className={`feedback-section ${reportAProblemExpanded ? 'expanded' : ''}`} role="status">
+    <div className={`feedback-section ${reportAProblemExpanded ? 'expanded' : ''}`}>
       <ReactCSSTransitionReplace
         transitionEnterTimeout={1000}
         transitionLeaveTimeout={400}
@@ -168,9 +171,11 @@ const Feedback: React.SFC = ({ lastSubmittedResponse, prompt, submittedResponses
               <img alt={imageAlt} src={imageSrc} />
               <p>Feedback</p>
             </div>
-            <p className="feedback-text" dangerouslySetInnerHTML={feedbackForInnerHTML(feedback)} />
-            {screenreaderPassageHighlightText}
-            {screenreaderResponseHighlightText}
+            <div className="feedback-wrapper" ref={containerRef} tabIndex={-1}>
+              <p className="feedback-text" dangerouslySetInnerHTML={feedbackForInnerHTML(feedback)} />
+              {screenreaderPassageHighlightText}
+              {screenreaderResponseHighlightText}
+            </div>
             <div className="report-a-problem-button-container">{reportAProblemButton}</div>
           </div>
           {reportAProblemSection}

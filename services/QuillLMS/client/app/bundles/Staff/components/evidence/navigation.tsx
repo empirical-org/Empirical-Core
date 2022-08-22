@@ -81,6 +81,9 @@ const Navigation = ({ location, match }) => {
         <NavLink activeClassName="is-active" to={`/activities/${activityId}/turk-sessions`}>
           Collect Turk Responses
         </NavLink>
+        <NavLink activeClassName="is-active" to={`/activities/${activityId}/seed-data`}>
+          Create Seed Data
+        </NavLink>
         <NavLink activeClassName="is-active" to={`/activities/${activityId}/semantic-labels`}>
           Semantic Labels
         </NavLink>

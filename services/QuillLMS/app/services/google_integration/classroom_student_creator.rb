@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module GoogleIntegration
-  class ClassroomStudentCreator
+  class ClassroomStudentCreator < ApplicationService
     ACCOUNT_TYPE = ::User::GOOGLE_CLASSROOM_ACCOUNT
     ROLE = ::User::STUDENT
     SIGNED_UP_WITH_GOOGLE = true
@@ -14,7 +14,7 @@ module GoogleIntegration
       @google_id = data[:google_id]
       @name = data[:name]
       @first_name = data[:first_name]
-      @last_name = data[:last_name]
+      @last_name = data[:last_name] || ''
     end
 
     def run
@@ -22,7 +22,9 @@ module GoogleIntegration
     end
 
     private def password
-      last_name
+      return last_name if last_name.present?
+
+      first_name
     end
 
     private def student

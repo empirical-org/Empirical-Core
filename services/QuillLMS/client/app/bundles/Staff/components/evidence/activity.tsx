@@ -17,6 +17,7 @@ import PlagiarismRulesRouter from './plagiarismRules/plagiarismRulesRouter';
 import LowConfidenceRulesRouter from './lowConfidenceRules/lowConfidenceRulesRouter';
 import ChangeLog from './changeLog/changeLog';
 import VersionHistory from "./versionHistory/versionHistory";
+import SeedDataForm from "./syntheticData/seedDataForm";
 
 import { ActivityRouteProps } from '../../interfaces/evidenceInterfaces';
 
@@ -44,6 +45,7 @@ const Activity: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match, lo
           <Route component={LowConfidenceRulesRouter} path='/activities/:activityId/low-confidence-rules' />
           <Route component={ChangeLog} path='/activities/:activityId/change-log' />
           <Route component={VersionHistory} path='/activities/:activityId/version-history' />
+          <Route component={SeedDataForm} path='/activities/:activityId/seed-data' />
         </Switch>
       </div>
     </React.Fragment>
