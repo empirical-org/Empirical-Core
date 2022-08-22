@@ -54,8 +54,6 @@ namespace :staging_config do
     end
 
     def remove_config(config, app)
-      puts "Removing config for #{app}: #{config}"
-
       run_cmd("heroku config:unset #{config} --app=#{app}")
     end
 
