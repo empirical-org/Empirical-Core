@@ -57,4 +57,12 @@ describe ActivitySerializer, type: :serializer do
          supporting_info)
     end
   end
+
+  it 'deep serializes relationships' do
+    activity = create(:activity)
+
+    serialization = ActivitySerializer.new(activity)
+
+    expect(serialization.as_json[:activity][:standard][:standard_category][:id]).to eq(activity.standard.standard_category.id)
+  end
 end
