@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import { requestGet } from '../../../modules/request';
 import WelcomeModal from '../components/dashboard/welcome_modal'
@@ -13,6 +13,7 @@ import TeacherCenterHighlights from '../components/dashboard/teacher_center_high
 import CollegeBoard from '../components/dashboard/college_board'
 import KeyMetrics from '../components/dashboard/key_metrics'
 import GrowthDiagnosticsPromotionCard from '../components/dashboard/growth_diagnostics_promotion_card'
+import DemoOnboardingTour, { DEMO_ONBOARDING_DASHBOARD, } from '../components/shared/demo_onboarding_tour'
 import useWindowSize from '../../Shared/hooks/useWindowSize'
 import { Spinner, } from '../../Shared/index'
 
@@ -102,6 +103,9 @@ const Dashboard = ({ onboardingChecklist, firstName, mustSeeModal, linkedToCleve
   return (
     <div className="dashboard">
       <div className="post-checklist-container">
+        <DemoOnboardingTour
+          pageKey={DEMO_ONBOARDING_DASHBOARD}
+        />
         {showDemoModal && <DemoModal close={closeDemoModal} size={size} />}
         <main>
           {showDiagnosticPromotionCard && <GrowthDiagnosticsPromotionCard />}
