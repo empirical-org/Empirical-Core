@@ -249,6 +249,7 @@ EmpiricalGrammar::Application.routes.draw do
     get 'unset_preview_as_student', to: 'classroom_manager#unset_preview_as_student'
     get 'preview_as_student/:student_id', to: 'classroom_manager#preview_as_student'
     get 'view_demo', to: 'classroom_manager#view_demo'
+    get 'demo_id', to: 'classroom_manager#demo_id'
     get 'unset_view_demo', to: 'classroom_manager#unset_view_demo'
     get 'getting_started' => 'classroom_manager#getting_started'
     get 'add_students' => 'classroom_manager#generic_add_students'
