@@ -141,6 +141,7 @@ export {
   proofreaderToolIcon,
   evidenceToolIcon,
   warningIcon,
+  disclosureIcon,
 } from './images/index'
 
 export {

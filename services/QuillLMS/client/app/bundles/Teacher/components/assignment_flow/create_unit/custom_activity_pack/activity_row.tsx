@@ -29,16 +29,15 @@ const readabilityCopy = "Quill recommends using activities where the text readab
 
 const readabilityContent = (activity) => (
   <div>
-    {activity.minimum_grade_level ? (<span>
+    {activity.minimum_grade_level ? (<span className="grade-range-and-label">
       <span className="grade-range">{NumberSuffixBuilder(activity.minimum_grade_level)}-{NumberSuffixBuilder(activity.maximum_grade_level)}</span>
-      Grade Range
+      <span className="grade-range-label">Grade Range</span>
       <br />
     </span>) : null}
-    <span>
+    <span className="grade-range-and-label">
       <span className="grade-range">{activity.readability_grade_level}</span>
-      <span>Text Readability Level</span>
+      <span className="grade-range-label">Text Readability Level</span>
     </span>
-    <br />
     <br />
     <span>{readabilityCopy}</span>
   </div>

@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   include ForceDbWriterRole
   include NewRelicAttributable
   include QuillAuthentication
+  include DemoAccountBannerLinkGenerator
 
   rescue_from ActionController::InvalidAuthenticityToken,
     with: :handle_invalid_authenticity_token
