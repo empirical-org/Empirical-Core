@@ -19,7 +19,7 @@ describe SyncVitallyWorker, type: :worker do
 
       expect(SyncVitallyAccountsWorker).to receive(:perform_async).with([school.id])
       expect(SyncVitallyUsersWorker).to receive(:perform_async).with([user.id])
-      expect(SyncVitallyOrganizationWorker).to receive(:perform_async).with(district.id)
+      expect(SyncVitallyOrganizationWorker).to receive(:perform_in).with(0.minutes, district.id)
       worker.perform
     end
 
@@ -42,6 +42,23 @@ describe SyncVitallyWorker, type: :worker do
       school = create(:school, district: district)
 
       expect(SyncVitallyOrganizationWorker).not_to receive(:perform_async).with([district.id])
+      worker.perform
+    end
+
+    it 'spaces out organization sync in batches of ORGANIZATION_RATE_LIMIT_PER_MINUTE' do
+      stub_const('SyncVitallyWorker::ORGANIZATION_RATE_LIMIT_PER_MINUTE', 1)
+
+      (SyncVitallyWorker::ORGANIZATION_RATE_LIMIT_PER_MINUTE * 3).times do
+        district = create(:district)
+        school = create(:school, district: district)
+        user = create(:user, role: 'teacher')
+        SchoolsUsers.create(school: school, user: user)
+      end
+
+      expect(SyncVitallyOrganizationWorker).to receive(:perform_in).with(0.minutes, anything).exactly(SyncVitallyWorker::ORGANIZATION_RATE_LIMIT_PER_MINUTE).times
+      expect(SyncVitallyOrganizationWorker).to receive(:perform_in).with(2.minutes, anything).exactly(SyncVitallyWorker::ORGANIZATION_RATE_LIMIT_PER_MINUTE).times
+      expect(SyncVitallyOrganizationWorker).to receive(:perform_in).with(4.minutes, anything).exactly(SyncVitallyWorker::ORGANIZATION_RATE_LIMIT_PER_MINUTE).times
+
       worker.perform
     end
 
