@@ -219,7 +219,7 @@ const RecommendationsTable = ({ recommendations, responsesLink, students, select
   }
 
   return (
-    <div className="recommendations-table-container" onScroll={handleScroll}>
+    <div className="recommendations-table-container" id="demo-onboarding-tour-spotlight-element" onScroll={handleScroll}>
       {isSticky && tableHasContent && (
         <table
           className={`${tableClassName} sticky`}
