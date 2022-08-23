@@ -218,31 +218,24 @@ const RecommendationsTable = ({ recommendations, responsesLink, students, select
     )
   }
 
-  const calculateDemoOnboardingTourSpotlightElementStyle = () => {
-    return { marginLeft: paddingLeft(), width: tableRef.current?.clientWidth - paddingLeft(), height: tableRef.current?.clientHeight, top: tableRef.current?.getBoundingClientRect()?.top + 8, position: 'absolute' }
-  }
-
   return (
-    <React.Fragment>
-      <div id="demo-onboarding-tour-spotlight-element" style={calculateDemoOnboardingTourSpotlightElementStyle()} />
-      <div className="recommendations-table-container" onScroll={handleScroll}>
-        {isSticky && tableHasContent && (
-          <table
-            className={`${tableClassName} sticky`}
-            style={stickyTableStyle}
-          >
-            {renderHeader(true)}
-          </table>
-        )}
-        <table className={tableClassName} ref={tableRef} style={tableHasContent ? { paddingLeft: paddingLeft() } : { marginLeft: paddingLeft() }}>
-          {renderHeader(false)}
-          {tableHasContent ? null : noDataYet}
-          <tbody>
-            {studentRows}
-          </tbody>
+    <div className="recommendations-table-container" onScroll={handleScroll}>
+      {isSticky && tableHasContent && (
+        <table
+          className={`${tableClassName} sticky`}
+          style={stickyTableStyle}
+        >
+          {renderHeader(true)}
         </table>
-      </div>
-    </React.Fragment>
+      )}
+      <table className={tableClassName} id="demo-onboarding-tour-spotlight-element" ref={tableRef} style={tableHasContent ? { paddingLeft: paddingLeft() } : { marginLeft: paddingLeft() }}>
+        {renderHeader(false)}
+        {tableHasContent ? null : noDataYet}
+        <tbody>
+          {studentRows}
+        </tbody>
+      </table>
+    </div>
   )
 }
 
