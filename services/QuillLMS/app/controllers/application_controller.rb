@@ -8,9 +8,6 @@ class ApplicationController < ActionController::Base
   include QuillAuthentication
   include DemoAccountBannerLinkGenerator
 
-  rescue_from ActionController::InvalidAuthenticityToken,
-    with: :handle_invalid_authenticity_token
-
   # session keys
   CLEVER_REDIRECT = :clever_redirect
   EXPIRED_SESSION_REDIRECT = :expired_session_redirect
@@ -124,15 +121,6 @@ class ApplicationController < ActionController::Base
       route_redirects_to_classrooms_index?(route) ||
       route_redirects_to_diagnostic?(route)
     )
-  end
-
-  private def handle_invalid_authenticity_token
-    flash[:error] = t('actioncontroller.errors.invalid_authenticity_token')
-
-    respond_to do |format|
-      format.html { redirect_back(fallback_location: root_path) }
-      format.json { render json: { redirect: URI.parse(request.referer).path }, status: 303 }
-    end
   end
 
   protected def check_staff_for_extended_session
