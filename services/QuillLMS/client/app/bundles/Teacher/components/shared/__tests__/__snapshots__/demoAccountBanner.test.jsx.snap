@@ -1,0 +1,127 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DemoAccountBanner component expanded should render 1`] = `
+<DemoAccountBanner
+  defaultIsExpanded={true}
+  growthSummaryLink=""
+  recommendationsLink=""
+  signedInOutsideDemo={true}
+>
+  <div
+    className="banner-with-button demo-account-banner"
+  >
+    <div
+      className="content-container expanded"
+    >
+      <div
+        className="first-line"
+        onClick={[Function]}
+      >
+        <div>
+          <button
+            aria-label="Toggle expand link menu"
+            className="interactive-wrapper"
+            onClick={[Function]}
+            type="button"
+          >
+            <img
+              alt=""
+              src="undefined/images/icons/disclosure.svg"
+            />
+          </button>
+          <span>
+            You’re in a demo account to explore sample student data. Changes will not be saved.
+          </span>
+        </div>
+        <a
+          className="quill-button primary contained medium focus-on-light"
+          href="/teachers/unset_view_demo"
+        >
+          Exit demo account
+        </a>
+      </div>
+      <div
+        className="expanded-content"
+      >
+        <span>
+          <b>
+            1. 
+          </b>
+          <a
+            href=""
+          >
+            Diagnostic Recommendations Report
+          </a>
+          : Identify areas of growth for your students and learn how to assign recommended practice activities.
+        </span>
+        <span>
+          <b>
+            2. 
+          </b>
+          <a
+            href="/teachers/classrooms/scorebook"
+          >
+            Activity Summary
+          </a>
+          : See all of the completed activities for your students. Drill down to view what they wrote and the feedback they received.
+        </span>
+        <span>
+          <b>
+            3. 
+          </b>
+          <a
+            href=""
+          >
+            Growth Report
+          </a>
+          : Assign a post-test diagnostic to measure their learning gains. See the growth and learning gains for each student.
+        </span>
+      </div>
+    </div>
+  </div>
+</DemoAccountBanner>
+`;
+
+exports[`DemoAccountBanner component not expanded should render 1`] = `
+<DemoAccountBanner
+  growthSummaryLink=""
+  recommendationsLink=""
+  signedInOutsideDemo={true}
+>
+  <div
+    className="banner-with-button demo-account-banner"
+  >
+    <div
+      className="content-container "
+    >
+      <div
+        className="first-line"
+        onClick={[Function]}
+      >
+        <div>
+          <button
+            aria-label="Toggle expand link menu"
+            className="interactive-wrapper"
+            onClick={[Function]}
+            type="button"
+          >
+            <img
+              alt=""
+              src="undefined/images/icons/disclosure.svg"
+            />
+          </button>
+          <span>
+            You’re in a demo account to explore sample student data. Changes will not be saved.
+          </span>
+        </div>
+        <a
+          className="quill-button primary contained medium focus-on-light"
+          href="/teachers/unset_view_demo"
+        >
+          Exit demo account
+        </a>
+      </div>
+    </div>
+  </div>
+</DemoAccountBanner>
+`;

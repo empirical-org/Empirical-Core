@@ -1,15 +1,9 @@
 <% current_path = request.env['PATH_INFO'] %>
 
 <% if viewing_demo_account? && !previewing_student_dashboard? %>
-  <div class="preview-student-banner">
-    <div class="content-container">
-      <span>Viewing a demo account - feel free to poke around! Changes will not be saved.</span>
-      <% if signed_in_outside_demo? %>
-        <a class="quill-button primary contained medium focus-on-light" href="/teachers/unset_view_demo">Exit demo account</a>
-      <% else %>
-        <a class="quill-button primary contained medium focus-on-light" href="/session">Exit demo account</a>
-      <% end %>
-    </div>
-  </div>
-
+<%= react_component('DemoAccountBanner', props: {
+  signedInOutsideDemo: signed_in_outside_demo?,
+  recommendationsLink: demo_account_recommendations_link,
+  growthSummaryLink: demo_account_growth_summary_link
+})%>
 <% end %>

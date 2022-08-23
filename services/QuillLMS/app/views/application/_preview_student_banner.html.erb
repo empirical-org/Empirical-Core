@@ -1,7 +1,7 @@
 <% current_path = request.env['PATH_INFO'] %>
 
 <% if previewing_student_dashboard? %>
-  <div class="preview-student-banner">
+  <div class="banner-with-button preview-student-banner">
     <div class="content-container">
       <% if current_path.include?('account_settings') %>
         <span>Viewing as a student. <strong>Only a student can edit their account information from this page.</strong></span>
