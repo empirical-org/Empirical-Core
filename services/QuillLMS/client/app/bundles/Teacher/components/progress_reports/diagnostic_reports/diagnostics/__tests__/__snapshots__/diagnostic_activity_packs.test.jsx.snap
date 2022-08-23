@@ -139,6 +139,11 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
   <div
     className="diagnostic-activity-packs-container"
   >
+    <DemoOnboardingTour
+      pageKey="demo-onboarding-diagnostic-activity-packs-index"
+    >
+      <span />
+    </DemoOnboardingTour>
     <div
       className="container diagnostic-activity-packs"
     >

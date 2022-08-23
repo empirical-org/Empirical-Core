@@ -100,6 +100,7 @@
     "react-dropzone": "^4.2.8",
     "react-html-parser": "^2.0.2",
     "react-i18next": "^11.11.4",
+    "react-joyride": "^2.5.0",
     "react-markdown": "^2.5.1",
     "react-on-rails": "11.3.0",
     "react-query": "^3.34.16",

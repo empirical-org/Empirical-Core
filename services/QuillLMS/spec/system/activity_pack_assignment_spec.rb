@@ -56,7 +56,7 @@ RSpec.describe 'Activity Pack Assignment' do
 
   before { student.update(password: 'password') }
 
-  it 'teachers can assign an activity packs to their students', :js do
+  it 'teachers can assign an activity packs to their students', :js, retry: 3 do
     login_user(teacher.email, teacher.password)
     click_button "Let's go!"
     click_on 'Student Reports'
