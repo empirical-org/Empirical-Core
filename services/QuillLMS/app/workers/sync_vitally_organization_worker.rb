@@ -3,6 +3,8 @@
 class SyncVitallyOrganizationWorker
   include Sidekiq::Worker
 
+  class VitallyApiRateLimitException < StandardError; end
+
   MINIMUM_REQUEUE_WAIT_MINUTES = 2
   MAXIMUM_REQUEUE_WAIT_MINUTES = 20
 
@@ -21,6 +23,7 @@ class SyncVitallyOrganizationWorker
   end
 
   private def requeue_after_rate_limit(district_id)
+    ErrorNotifier.report(VitallyApiRateLimitException.new("Hit the Vitally REST API rate limit trying to sync District ##{district_id}.  Automatically enqueueing to retry."))
     delay = rand(MINIMUM_REQUEUE_WAIT_MINUTES..MAXIMUM_REQUEUE_WAIT_MINUTES)
     SyncVitallyOrganizationWorker.perform_in(delay.minutes, district_id)
   end

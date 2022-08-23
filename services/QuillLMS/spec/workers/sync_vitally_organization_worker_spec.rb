@@ -17,14 +17,25 @@ describe SyncVitallyOrganizationWorker do
       subject.perform(district.id)
     end
 
-    it 'should re-queue via perform_in when the Vitally API call rate limits us' do
-      expect(response_double).to receive(:code).and_return(429)
-      expect(vitally_api_double).to receive(:create).and_return(response_double)
-      expect(VitallyRestApi).to receive(:new).and_return(vitally_api_double)
+    context 'hitting API rate limit' do
+      before do
+        expect(response_double).to receive(:code).and_return(429)
+        expect(vitally_api_double).to receive(:create).and_return(response_double)
+        expect(VitallyRestApi).to receive(:new).and_return(vitally_api_double)
+      end
 
-      expect(SyncVitallyOrganizationWorker).to receive(:perform_in).with(anything, district.id)
+      it 'should re-queue via perform_in when the Vitally API call rate limits us' do
+        expect(SyncVitallyOrganizationWorker).to receive(:perform_in).with(anything, district.id)
 
-      subject.perform(district.id)
+        subject.perform(district.id)
+      end
+
+      it 'should report an error to Sentry and NewRelic whenever we hit an API rate limit' do
+        expected_error = SyncVitallyOrganizationWorker::VitallyApiRateLimitException.new("Hit the Vitally REST API rate limit trying to sync District ##{district.id}.  Automatically enqueueing to retry.")
+        expect(ErrorNotifier).to receive(:report).with(expected_error)
+
+        subject.perform(district.id)
+      end
     end
   end
 end
