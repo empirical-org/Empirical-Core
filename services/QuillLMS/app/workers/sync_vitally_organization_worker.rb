@@ -10,9 +10,10 @@ class SyncVitallyOrganizationWorker
     district = District.find(district_id)
     api = VitallyRestApi.new
     response = api.create("organizations", district.vitally_data)
-    if request_rate_limited?(response)
-      requeue_after_rate_limit(district_id)
-    end
+
+    return unless request_rate_limited?(response)
+
+    requeue_after_rate_limit(district_id)
   end
 
   private def request_rate_limited?(response)
