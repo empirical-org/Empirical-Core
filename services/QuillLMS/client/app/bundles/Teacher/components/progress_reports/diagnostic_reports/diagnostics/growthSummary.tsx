@@ -13,6 +13,7 @@ import {
   StudentResult,
 } from './interfaces'
 
+import DemoOnboardingTour, { DEMO_ONBOARDING_DIAGNOSTIC_GROWTH_SUMMARY,  } from '../../../shared/demo_onboarding_tour'
 import LoadingSpinner from '../../../shared/loading_indicator.jsx'
 import { requestGet } from '../../../../../../modules/request/index';
 import {
@@ -122,6 +123,7 @@ export const GrowthResults = ({ passedStudentResults, passedSkillGroupSummaries,
 
   return (
     <main className="results-summary-container growth-results-summary-container">
+      <DemoOnboardingTour pageKey={DEMO_ONBOARDING_DIAGNOSTIC_GROWTH_SUMMARY} />
       <header>
         <h1>Class summary</h1>
         <a className="focus-on-light" href="https://support.quill.org/en/articles/5698227-how-do-i-read-the-growth-results-summary-report" rel="noopener noreferrer" target="_blank">{fileDocumentIcon}<span>Guide</span></a>

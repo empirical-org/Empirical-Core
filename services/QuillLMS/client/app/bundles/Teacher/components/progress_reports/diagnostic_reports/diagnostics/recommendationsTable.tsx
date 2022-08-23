@@ -218,6 +218,10 @@ const RecommendationsTable = ({ recommendations, responsesLink, students, select
     )
   }
 
+  const calculateDemoOnboardingTourSpotlightElementStyle = () => {
+    return { marginLeft: paddingLeft(), width: tableRef.current?.clientWidth - paddingLeft(), height: tableRef.current?.clientHeight, top: tableRef.current?.getBoundingClientRect()?.top + 8, position: 'absolute' }
+  }
+
   return (
     <div className="recommendations-table-container" id="demo-onboarding-tour-spotlight-element" onScroll={handleScroll}>
       {isSticky && tableHasContent && (
@@ -227,15 +231,8 @@ const RecommendationsTable = ({ recommendations, responsesLink, students, select
         >
           {renderHeader(true)}
         </table>
-      )}
-      <table className={tableClassName} ref={tableRef} style={tableHasContent ? { paddingLeft: paddingLeft() } : { marginLeft: paddingLeft() }}>
-        {renderHeader(false)}
-        {tableHasContent ? null : noDataYet}
-        <tbody>
-          {studentRows}
-        </tbody>
-      </table>
-    </div>
+      </div>
+    </React.Fragment>
   )
 }
 

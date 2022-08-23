@@ -1,8 +1,8 @@
 import 'isomorphic-fetch'
-import React from 'react';
+import * as React from 'react';
 import { mount } from 'enzyme';
 
-import Dashboard from '../dashboard.jsx';
+import Dashboard from '../dashboard';
 
 jest.spyOn(global.Date, 'now').mockImplementation(() =>
   new Date('2020-04-08T11:01:58.135Z').valueOf()
