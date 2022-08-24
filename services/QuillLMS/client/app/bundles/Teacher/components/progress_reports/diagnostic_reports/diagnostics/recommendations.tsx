@@ -112,7 +112,7 @@ const LessonsRecommendations = ({ assigningLessonsBanner, previouslyAssignedReco
   )
 }
 
-const RecommendationsButtons = ({numberSelected, assigning, assigned, assignActivityPacks, deselectAll, selectAll, selectAllRecommended}) => {
+const RecommendationsButtons = ({numberSelected, assigning, assigned, handleClickAssignActivityPacks, deselectAll, selectAll, selectAllRecommended}) => {
   let assignButton = <button className="quill-button primary contained small disabled focus-on-light" type="button">Assign activity packs</button>
 
   if (assigning) {
@@ -120,7 +120,7 @@ const RecommendationsButtons = ({numberSelected, assigning, assigned, assignActi
   } else if (assigned) {
     assignButton = <button className="quill-button primary contained small disabled focus-on-light" type="button">Assigned</button>
   } else if (numberSelected) {
-    assignButton = <button className="quill-button primary contained small focus-on-light" onClick={assignActivityPacks} type="button">Assign activity packs</button>
+    assignButton = <button className="quill-button primary contained small focus-on-light" onClick={handleClickAssignActivityPacks} type="button">Assign activity packs</button>
   }
 
   return (
@@ -139,7 +139,7 @@ const RecommendationsButtons = ({numberSelected, assigning, assigned, assignActi
   )
 }
 
-const IndependentRecommendationsButtons = ({ assignActivityPacks, independentSelections, setIndependentSelections, recommendations, students, assigned, assigning, previouslyAssignedRecommendations, }) => {
+const IndependentRecommendationsButtons = ({ handleClickAssignActivityPacks, independentSelections, setIndependentSelections, recommendations, students, assigned, assigning, previouslyAssignedRecommendations, }) => {
   function handleSelectAllClick() {
     const newSelections = independentSelections.map((selection, index) => {
       selection.students = students.filter(s => s.completed).map(s => s.id)
@@ -169,7 +169,18 @@ const IndependentRecommendationsButtons = ({ assignActivityPacks, independentSel
     const selectedStudents = selection.students.filter(id => !previouslyAssignedActivity.students.includes(id))
     return previousValue += selectedStudents.length
   }, 0)
-  return <RecommendationsButtons assignActivityPacks={assignActivityPacks} assigned={assigned} assigning={assigning} deselectAll={handleDeselectAllClick} numberSelected={numberSelected} selectAll={handleSelectAllClick} selectAllRecommended={handleSelectAllRecommendedClick} />
+
+  return (
+    <RecommendationsButtons
+      assigned={assigned}
+      assigning={assigning}
+      deselectAll={handleDeselectAllClick}
+      handleClickAssignActivityPacks={handleClickAssignActivityPacks}
+      numberSelected={numberSelected}
+      selectAll={handleSelectAllClick}
+      selectAllRecommended={handleSelectAllRecommendedClick}
+    />
+  )
 }
 
 const LessonsRecommendationsButtons = ({ lessonsSelections, assignLessonsActivityPacks, setLessonsSelections, lessonsRecommendations, assigned, assigning, }) => {
@@ -187,7 +198,17 @@ const LessonsRecommendationsButtons = ({ lessonsSelections, assignLessonsActivit
     setLessonsSelections([])
   }
 
-  return <RecommendationsButtons assignActivityPacks={assignLessonsActivityPacks} assigned={assigned} assigning={assigning} deselectAll={handleDeselectAllClick} numberSelected={lessonsSelections.length} selectAll={handleSelectAllClick} selectAllRecommended={handleSelectAllRecommendedClick} />
+  return (
+    <RecommendationsButtons
+      assigned={assigned}
+      assigning={assigning}
+      deselectAll={handleDeselectAllClick}
+      handleClickAssignActivityPacks={assignLessonsActivityPacks}
+      numberSelected={lessonsSelections.length}
+      selectAll={handleSelectAllClick}
+      selectAllRecommended={handleSelectAllRecommendedClick}
+    />
+  )
 }
 
 export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passedPreviouslyAssignedLessonRecommendations, passedIndependentRecommendations, passedLessonRecommendations, match, mobileNavigation, activityName, location, lessonsBannerIsShowable, }) => {
@@ -206,6 +227,8 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
   const [showSnackbar, setShowSnackbar] = React.useState(false)
   const [snackbarText, setSnackbarText] = React.useState('')
   const [lessonsBannerEnabled, setLessonsBannerEnabled] = React.useState(lessonsBannerIsShowable)
+  const [releaseMethod, setReleaseMethod] = React.useState(null)
+  const [showReleaseMethodModal, setShowReleaseMethodModal] = React.useState(false)
 
   useSnackbarMonitor(showSnackbar, setShowSnackbar, defaultSnackbarTimeout)
 
@@ -289,6 +312,11 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
     requestGet(`/teachers/progress_reports/previously_assigned_recommendations/${classroomId}/activity/${activityId}${unitQueryString}`, ((data) => {
       setPreviouslyAssignedIndependentRecommendations(data.previouslyAssignedIndependentRecommendations)
       setPreviouslyAssignedLessonsRecommendations(data.previouslyAssignedLessonsRecommendations)
+
+      // TODO: this may or may not be necessary depending on how the data comes up from the backend (may just be able to always set it)
+      if (data.previouslyAssignedIndependentRecommendations) {
+        setReleaseMethod(data.releaseMethod)
+      }
     }));
   }
 
@@ -346,7 +374,8 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
   function assignIndependentActivityPacks() {
     const dataToPass = {
       ...formatSelectionsForAssignment(),
-      assigning_all_recommended_packs: _.isEqual(independentSelections, independentRecommendations)
+      assigning_all_recommended_packs: _.isEqual(independentSelections, independentRecommendations),
+      release_method: releaseMethod
     }
     setIndependentAssigning(true)
     initializePusher()
@@ -354,6 +383,14 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
       alert('We had trouble processing your request. Please check your network connection and try again.');
       setIndependentAssigning(false)
     })
+  }
+
+  function handleClickAssignIndependentActivityPacks() {
+    if (releaseMethod) {
+      assignIndependentActivityPacks()
+    } else {
+      setShowReleaseMethodModal(true)
+    }
   }
 
   const responsesLink = (studentId: number) => unitId ? `/diagnostics/${activityId}/classroom/${classroomId}/responses/${studentId}?unit=${unitId}` : `/diagnostics/${activityId}/classroom/${classroomId}/responses/${studentId}`
@@ -372,7 +409,7 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
       <p className="explanation">Based on the results of the diagnostic, we created a personalized learning plan for each student. Customize your learning plan by selecting the activity packs you would like to assign.</p>
       <section className="independent-practice">
         <div className="section-header"><h2>Independent practice</h2>{recommendedKey}</div>
-        <IndependentRecommendationsButtons assignActivityPacks={assignIndependentActivityPacks} assigned={independentAssigned} assigning={independentAssigning} independentSelections={independentSelections} previouslyAssignedRecommendations={previouslyAssignedIndependentRecommendations} recommendations={independentRecommendations} setIndependentSelections={setIndependentSelections} students={students} />
+        <IndependentRecommendationsButtons assigned={independentAssigned} assigning={independentAssigning} handleClickAssignActivityPacks={handleClickAssignIndependentActivityPacks} independentSelections={independentSelections} previouslyAssignedRecommendations={previouslyAssignedIndependentRecommendations} recommendations={independentRecommendations} setIndependentSelections={setIndependentSelections} students={students} />
         <RecommendationsTable previouslyAssignedRecommendations={previouslyAssignedIndependentRecommendations} recommendations={independentRecommendations} responsesLink={responsesLink} selections={independentSelections} setSelections={setIndependentSelections} students={students} />
       </section>
     </React.Fragment>)
