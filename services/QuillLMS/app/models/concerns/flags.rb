@@ -2,7 +2,7 @@
 
 module Flags
   extend ActiveSupport::Concern
-  FLAGS = %w(production archived alpha beta gamma private)
+  FLAGS = %w(production archived alpha beta gamma private college_board)
 
   module ClassMethods
     def flag_all(flag)
