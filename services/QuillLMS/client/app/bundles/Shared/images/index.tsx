@@ -172,3 +172,18 @@ export const disclosureIcon = {
   alt: '',
   src: `${process.env.CDN_URL}/images/icons/disclosure.svg`
 }
+
+export const infoIcon = {
+  alt: '',
+  src: `${process.env.CDN_URL}/images/icons/info.svg`
+}
+
+export const closedLockIcon = {
+  alt: 'Closed lock',
+  src: `${process.env.CDN_URL}/images/icons/locked.svg`
+}
+
+export const openLockIcon = {
+  alt: 'Open lock',
+  src: `${process.env.CDN_URL}/images/icons/unlocked.svg`
+}
