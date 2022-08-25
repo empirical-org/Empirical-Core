@@ -11,20 +11,6 @@ SET row_security = off;
 
 
 --
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: -
---
-
-CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
-
-
---
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
-
-
---
 -- Name: hstore; Type: EXTENSION; Schema: -; Owner: -
 --
 
@@ -240,7 +226,7 @@ CREATE FUNCTION public.timespent_teacher(teacher integer) RETURNS bigint
 
 SET default_tablespace = '';
 
-SET default_with_oids = false;
+SET default_table_access_method = heap;
 
 --
 -- Name: active_activity_sessions; Type: TABLE; Schema: public; Owner: -
@@ -1216,7 +1202,7 @@ CREATE TABLE public.classrooms_teachers (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     "order" integer,
-    CONSTRAINT check_role_is_valid CHECK ((((role)::text = ANY ((ARRAY['owner'::character varying, 'coteacher'::character varying])::text[])) AND (role IS NOT NULL)))
+    CONSTRAINT check_role_is_valid CHECK ((((role)::text = ANY (ARRAY[('owner'::character varying)::text, ('coteacher'::character varying)::text])) AND (role IS NOT NULL)))
 );
 
 
@@ -2252,7 +2238,7 @@ CREATE TABLE public.districts (
     token character varying,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    nces_id integer,
+    nces_id bigint,
     city character varying,
     state character varying,
     zipcode character varying,
@@ -7784,7 +7770,7 @@ CREATE INDEX uta ON public.activities_unit_templates USING btree (unit_template_
 -- Name: blog_posts tsvectorupdate; Type: TRIGGER; Schema: public; Owner: -
 --
 
-CREATE TRIGGER tsvectorupdate BEFORE INSERT OR UPDATE ON public.blog_posts FOR EACH ROW EXECUTE PROCEDURE public.blog_posts_search_trigger();
+CREATE TRIGGER tsvectorupdate BEFORE INSERT OR UPDATE ON public.blog_posts FOR EACH ROW EXECUTE FUNCTION public.blog_posts_search_trigger();
 
 
 --
@@ -8655,6 +8641,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220708201219'),
 ('20220721183005'),
 ('20220819175814'),
+('20220825144048'),
 ('20220824192650');
 
 
