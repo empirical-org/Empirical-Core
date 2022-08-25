@@ -79,29 +79,6 @@ describe UserMailer, type: :mailer do
     end
   end
 
-  describe 'premium_user_subscription_email' do
-    let(:user) { build(:user) }
-    let(:mail) { described_class.premium_user_subscription_email(user) }
-
-    it 'should set the subject, receiver and the sender' do
-      expect(mail.subject).to eq("#{user.first_name}, your Quill account has been upgraded to Premium! ⭐️")
-      expect(mail.to).to eq([user.email])
-      expect(mail.from).to eq(["hello@quill.org"])
-    end
-  end
-
-  describe 'premium_school_subscription_email' do
-    let(:admin) { build(:admin) }
-    let(:school) { build(:school) }
-    let(:user) { build(:admin) }
-    let(:mail) { described_class.premium_school_subscription_email(user, school, admin) }
-
-    it 'should set the subject, receiver and the sender' do
-      expect(mail.to).to eq([user.email])
-      expect(mail.from).to eq(["hello@quill.org"])
-    end
-  end
-
   describe 'new_admin_email' do
     let(:user) { build(:user) }
     let(:school) { build(:school) }
