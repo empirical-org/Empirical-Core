@@ -480,34 +480,6 @@ describe User, type: :model do
     end
   end
 
-  describe '#send_premium_user_subscription_email' do
-    let(:user) { create(:user) }
-
-    before do
-      allow(UserMailer).to receive(:premium_user_subscription_email).and_return(double(:email, deliver_now!: true))
-    end
-
-    it 'should send the premium user subscription email' do
-      expect(UserMailer).to receive(:premium_user_subscription_email).with(user)
-      user.send_premium_user_subscription_email
-    end
-  end
-
-  describe '#send_premium_school_subscription_email' do
-    let(:user)  { create(:user) }
-    let(:school) { double(:school) }
-    let(:admin) { double(:admin) }
-
-    before do
-      allow(UserMailer).to receive(:premium_school_subscription_email).and_return(double(:email, deliver_now!: true))
-    end
-
-    it 'should send the premium school subscription email' do
-      expect(UserMailer).to receive(:premium_school_subscription_email).with(user, school, admin)
-      user.send_premium_school_subscription_email(school, admin)
-    end
-  end
-
   describe '#send_new_admin_email' do
     let(:user) { create(:user) }
     let(:school) { double(:school) }

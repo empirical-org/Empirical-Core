@@ -518,14 +518,6 @@ class User < ApplicationRecord
     user_subscriptions.create(subscription: subscription)
   end
 
-  def send_premium_user_subscription_email
-    UserMailer.premium_user_subscription_email(self).deliver_now! if email.present?
-  end
-
-  def send_premium_school_subscription_email(school, admin)
-    UserMailer.premium_school_subscription_email(self, school, admin).deliver_now! if email.present?
-  end
-
   def send_new_admin_email(school)
     UserMailer.new_admin_email(self, school).deliver_now! if email.present?
   end
