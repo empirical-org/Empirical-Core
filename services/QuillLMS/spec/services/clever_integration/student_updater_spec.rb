@@ -81,6 +81,12 @@ describe CleverIntegration::StudentUpdater do
         it { updates_student_with_data_except_username }
       end
     end
+
+    context 'student also has a google_id' do
+      before { student.update(google_id: '12345678') }
+
+      it { updates_student_with_data }
+    end
   end
 
   def updates_student_with_data
@@ -91,6 +97,7 @@ describe CleverIntegration::StudentUpdater do
     expect(student.email).to eq email
     expect(student.name).to eq name
     expect(student.username).to eq username
+    expect(student.google_id).to eq nil
   end
 
   def updates_student_with_data_except_username
@@ -101,5 +108,6 @@ describe CleverIntegration::StudentUpdater do
     expect(student.email).to eq email
     expect(student.name).to eq name
     expect(student.username).not_to eq username
+    expect(student.google_id).to eq nil
   end
 end
