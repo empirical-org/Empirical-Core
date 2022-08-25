@@ -10,6 +10,7 @@
 #  classcode             :string
 #  email                 :string
 #  flags                 :string           default([]), not null, is an Array
+#  flagset               :string           default("production"), not null
 #  ip_address            :inet
 #  last_active           :datetime
 #  last_sign_in          :datetime
@@ -62,6 +63,7 @@ class User < ApplicationRecord
   include CheckboxCallback
   include UserCacheable
   include Subscriber
+  include UserFlagset
 
   CHAR_FIELD_MAX_LENGTH = 255
   STAFF_SESSION_DURATION= 4.hours

@@ -2,7 +2,16 @@
 
 module Flags
   extend ActiveSupport::Concern
-  FLAGS = %w(production archived alpha beta gamma private college_board)
+  FLAGS = [
+    PRODUCTION = 'production',
+    ARCHIVED = 'archived',
+    ALPHA = 'alpha',
+    EVIDENCE_BETA1 = 'evidence_beta1',
+    EVIDENCE_BETA2 = 'evidence_beta2',
+    BETA = 'beta',
+    GAMMA = 'gamma',
+    COLLEGE_BOARD = 'college_board'
+  ]
 
   module ClassMethods
     def flag_all(flag)
