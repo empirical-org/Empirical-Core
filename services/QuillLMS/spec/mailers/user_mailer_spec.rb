@@ -114,17 +114,6 @@ describe UserMailer, type: :mailer do
     end
   end
 
-  describe 'premium_missing_school_email' do
-    let(:user) { build(:user) }
-    let(:mail) { described_class.premium_missing_school_email(user) }
-
-    it 'should set the subject, receiver and the sender' do
-      expect(mail.subject).to eq("#{user.name} has purchased School Premium for a missing school")
-      expect(mail.to).to eq(["hello@quill.org", "emilia@quill.org"])
-      expect(mail.from).to eq(['hello@quill.org'])
-    end
-  end
-
   describe 'declined_renewal_email' do
     let(:user) { build(:user) }
     let(:mail) { described_class.declined_renewal_email(user) }
