@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 # This concern is only intended to be included in the User model
-module Flagset
-  #FLAGS = %w(production archived alpha beta gamma private)
+module UserFlagset
   extend ActiveSupport::Concern
 
 
@@ -12,52 +11,52 @@ module Flagset
       production: {
         display_name: 'production',
         flags: {
-          'production' =>        { display_name: 'Production' }
+          Flags::PRODUCTION =>        { display_name: 'Production' }
         }
       },
 
       alpha: {
         display_name: 'Alpha',
         flags: {
-          'alpha' =>             { display_name: 'Alpha' },
-          'evidence_beta1' =>   { display_name: 'Evidence Beta 1' },
-          'evidence_beta2' =>   { display_name: 'Evidence Beta 2' },
-          'beta' =>              { display_name: 'Beta' },
-          'college_board' =>     { display_name: 'College Board' },
-          'production' =>        { display_name: 'Production' }
+          Flags::ALPHA =>             { display_name: 'Alpha' },
+          Flags::EVIDENCE_BETA1 =>    { display_name: 'Evidence Beta 1' },
+          Flags::EVIDENCE_BETA2 =>    { display_name: 'Evidence Beta 2' },
+          Flags::BETA =>              { display_name: 'Beta' },
+          Flags::COLLEGE_BOARD =>     { display_name: 'College Board' },
+          Flags::PRODUCTION =>        { display_name: 'Production' }
         }
       },
 
       evidence_beta1: {
         display_name: 'Evidence Beta 1',
         flags: {
-          'evidence_beta1' =>   { display_name: 'Evidence Beta 1' },
-          'evidence_beta2' =>   { display_name: 'Evidence Beta 2' },
-          'production' =>        { display_name: 'Production' }
+          Flags::EVIDENCE_BETA1 =>    { display_name: 'Evidence Beta 1' },
+          Flags::EVIDENCE_BETA2 =>    { display_name: 'Evidence Beta 2' },
+          Flags::PRODUCTION =>        { display_name: 'Production' }
         }
       },
 
       evidence_beta2: {
         display_name: 'Evidence Beta 2',
         flags: {
-          'evidence_beta1' =>   { display_name: 'Evidence Beta 1' },
-          'production' =>        { display_name: 'Production' }
+          Flags::EVIDENCE_BETA1 =>    { display_name: 'Evidence Beta 1' },
+          Flags::PRODUCTION =>        { display_name: 'Production' }
         }
       },
 
       beta: {
         display_name: 'Beta',
         flags: {
-          'beta' =>              { display_name: 'Beta' },
-          'production' =>        { display_name: 'Production' }
+          Flags::BETA =>              { display_name: 'Beta' },
+          Flags::PRODUCTION =>        { display_name: 'Production' }
         }
       },
 
       college_board: {
         display_name: 'College Board',
         flags: {
-          'college_board' =>     { display_name: 'College Board' },
-          'production' =>        { display_name: 'Production' }
+          Flags::COLLEGE_BOARD  =>    { display_name: 'College Board' },
+          Flags::PRODUCTION=>         { display_name: 'Production' }
         }
       }
     }

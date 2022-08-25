@@ -63,7 +63,7 @@ class User < ApplicationRecord
   include CheckboxCallback
   include UserCacheable
   include Subscriber
-  include Flagset
+  include UserFlagset
 
   CHAR_FIELD_MAX_LENGTH = 255
   STAFF_SESSION_DURATION= 4.hours

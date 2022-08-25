@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Flagset, type: :model do
+RSpec.describe UserFlagset, type: :model do
 
   context 'validations' do
     it 'should validate flagset is a member of FLAGSETS' do
