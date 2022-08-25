@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class IncraseDistrictNcesIdSize < ActiveRecord::Migration[6.1]
   def up
     change_column :districts, :nces_id, :bigint
