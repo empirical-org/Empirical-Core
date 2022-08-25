@@ -39,7 +39,7 @@ module UserFlagset
       evidence_beta2: {
         display_name: 'Evidence Beta 2',
         flags: {
-          Flags::EVIDENCE_BETA1 =>    { display_name: 'Evidence Beta 1' },
+          Flags::EVIDENCE_BETA2 =>    { display_name: 'Evidence Beta 2' },
           Flags::PRODUCTION =>        { display_name: 'Production' }
         }
       },
