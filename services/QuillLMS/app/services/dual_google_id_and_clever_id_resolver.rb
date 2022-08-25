@@ -15,7 +15,7 @@ class DualGoogleIdAndCleverIdResolver < ApplicationService
   end
 
   def run
-    RESOLVERS.detect { |resolver| send(resolver) }
+    RESOLVERS.find { |resolver| send(resolver) }
   end
 
   private def log_account_type_change(changed_attribute, previous_value, action)
@@ -27,6 +27,7 @@ class DualGoogleIdAndCleverIdResolver < ApplicationService
       previous_value: previous_value
     )
   end
+
   private def resolve_by_account_type
     case user.account_type
     when User::GOOGLE_CLASSROOM_ACCOUNT then set_user_account_type_google
