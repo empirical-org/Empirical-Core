@@ -20,27 +20,27 @@ module Flagset
         display_name: 'Alpha',
         flags: {
           'alpha' =>             { display_name: 'Alpha' },
-          'evidence_beta_1' =>   { display_name: 'Evidence Beta 1' },
-          'evidence_beta_2' =>   { display_name: 'Evidence Beta 2' },
+          'evidence_beta1' =>   { display_name: 'Evidence Beta 1' },
+          'evidence_beta2' =>   { display_name: 'Evidence Beta 2' },
           'beta' =>              { display_name: 'Beta' },
           'college_board' =>     { display_name: 'College Board' },
           'production' =>        { display_name: 'Production' }
         }
       },
 
-      evidence_beta_1: {
+      evidence_beta1: {
         display_name: 'Evidence Beta 1',
         flags: {
-          'evidence_beta_1' =>   { display_name: 'Evidence Beta 1' },
-          'evidence_beta_2' =>   { display_name: 'Evidence Beta 2' },
+          'evidence_beta1' =>   { display_name: 'Evidence Beta 1' },
+          'evidence_beta2' =>   { display_name: 'Evidence Beta 2' },
           'production' =>        { display_name: 'Production' }
         }
       },
 
-      evidence_beta_2: {
+      evidence_beta2: {
         display_name: 'Evidence Beta 2',
         flags: {
-          'evidence_beta_1' =>   { display_name: 'Evidence Beta 1' },
+          'evidence_beta1' =>   { display_name: 'Evidence Beta 1' },
           'production' =>        { display_name: 'Production' }
         }
       },
@@ -65,12 +65,12 @@ module Flagset
     validates :flagset, inclusion: { in: FLAGSETS.keys.map(&:to_s) }
   end
 
-  def is_activity_viewable?(activity)
+  def activity_viewable?(activity)
     return false unless activity.is_a?(::Activity)
 
     user_flagset = FLAGSETS.fetch(flagset.to_sym){ return false }
 
-    # Note: We coerce activity.flags to strings here, even though they are
+    # NOTE: We coerce activity.flags to strings here, even though they are
     # persisted as strings, because Activity.rb coerces them to symbols at the moment.
     intersections = user_flagset[:flags].keys.intersection(activity.flags.map(&:to_s))
     intersections.count > 0

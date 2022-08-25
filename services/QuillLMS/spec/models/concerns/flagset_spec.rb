@@ -11,7 +11,7 @@ RSpec.describe Flagset, type: :model do
     end
   end
 
-  context '#is_activity_viewable?' do
+  context '#activity_viewable?' do
     let(:normal_user) { create(:user, flagset: 'production' ) }
     let(:alpha_user) { create(:user, flagset: 'alpha' ) }
 
@@ -19,11 +19,11 @@ RSpec.describe Flagset, type: :model do
     let(:normal_activity) { create(:activity, flags: ['production']) }
 
     it 'should return correct values' do
-      expect(normal_user.is_activity_viewable?('bad input')).to eq false
-      expect(normal_user.is_activity_viewable?(normal_activity)).to eq true
-      expect(normal_user.is_activity_viewable?(alpha_activity)).to eq false
-      expect(alpha_user.is_activity_viewable?(alpha_activity)).to eq true
-      expect(alpha_user.is_activity_viewable?(normal_activity)).to eq true
+      expect(normal_user.activity_viewable?('bad input')).to eq false
+      expect(normal_user.activity_viewable?(normal_activity)).to eq true
+      expect(normal_user.activity_viewable?(alpha_activity)).to eq false
+      expect(alpha_user.activity_viewable?(alpha_activity)).to eq true
+      expect(alpha_user.activity_viewable?(normal_activity)).to eq true
     end
 
   end
