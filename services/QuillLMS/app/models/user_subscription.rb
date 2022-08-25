@@ -19,7 +19,6 @@ class UserSubscription < ApplicationRecord
   validates :user_id, :subscription_id, presence: true
   belongs_to :user
   belongs_to :subscription
-  after_create :send_premium_emails
   after_create :send_analytics
 
   def self.create_user_sub_from_school_sub(user, subscription)
@@ -35,17 +34,6 @@ class UserSubscription < ApplicationRecord
 
   def self.redeem_present_and_future_subscriptions_for_credit(user)
     user.present_and_future_subscriptions.each { |subscription| subscription.credit_user_and_de_activate }
-  end
-
-  def send_premium_emails
-    return unless Rails.env.production? || user.email&.match('quill.org')
-
-    if subscription.account_type != Subscription::TEACHER_TRIAL && subscription.school_subscriptions.empty?
-      PremiumUserSubscriptionEmailWorker.perform_async(user_id)
-    elsif subscription.account_type.downcase != 'teacher trial'
-      logger.info("A premium school subscription email is being sent for Subscription #{subscription_id} and User #{user_id}")
-      PremiumSchoolSubscriptionEmailWorker.perform_async(user_id)
-    end
   end
 
   def send_analytics

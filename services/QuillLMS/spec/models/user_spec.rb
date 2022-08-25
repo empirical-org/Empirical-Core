@@ -10,6 +10,7 @@
 #  classcode             :string
 #  email                 :string
 #  flags                 :string           default([]), not null, is an Array
+#  flagset               :string           default("production"), not null
 #  ip_address            :inet
 #  last_active           :datetime
 #  last_sign_in          :datetime
@@ -477,34 +478,6 @@ describe User, type: :model do
     it 'should send the lesson plan email' do
       expect(UserMailer).to receive(:lesson_plan_email).with(user, lessons, unit)
       user.send_lesson_plan_email(lessons, unit)
-    end
-  end
-
-  describe '#send_premium_user_subscription_email' do
-    let(:user) { create(:user) }
-
-    before do
-      allow(UserMailer).to receive(:premium_user_subscription_email).and_return(double(:email, deliver_now!: true))
-    end
-
-    it 'should send the premium user subscription email' do
-      expect(UserMailer).to receive(:premium_user_subscription_email).with(user)
-      user.send_premium_user_subscription_email
-    end
-  end
-
-  describe '#send_premium_school_subscription_email' do
-    let(:user)  { create(:user) }
-    let(:school) { double(:school) }
-    let(:admin) { double(:admin) }
-
-    before do
-      allow(UserMailer).to receive(:premium_school_subscription_email).and_return(double(:email, deliver_now!: true))
-    end
-
-    it 'should send the premium school subscription email' do
-      expect(UserMailer).to receive(:premium_school_subscription_email).with(user, school, admin)
-      user.send_premium_school_subscription_email(school, admin)
     end
   end
 

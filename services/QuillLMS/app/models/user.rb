@@ -10,6 +10,7 @@
 #  classcode             :string
 #  email                 :string
 #  flags                 :string           default([]), not null, is an Array
+#  flagset               :string           default("production"), not null
 #  ip_address            :inet
 #  last_active           :datetime
 #  last_sign_in          :datetime
@@ -62,6 +63,7 @@ class User < ApplicationRecord
   include CheckboxCallback
   include UserCacheable
   include Subscriber
+  include UserFlagset
 
   CHAR_FIELD_MAX_LENGTH = 255
   STAFF_SESSION_DURATION= 4.hours
@@ -516,14 +518,6 @@ class User < ApplicationRecord
 
   def attach_subscription(subscription)
     user_subscriptions.create(subscription: subscription)
-  end
-
-  def send_premium_user_subscription_email
-    UserMailer.premium_user_subscription_email(self).deliver_now! if email.present?
-  end
-
-  def send_premium_school_subscription_email(school, admin)
-    UserMailer.premium_school_subscription_email(self, school, admin).deliver_now! if email.present?
   end
 
   def send_new_admin_email(school)
