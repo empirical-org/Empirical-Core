@@ -38,7 +38,7 @@ module CleverIntegration
     end
 
     private def student_attrs
-      data.merge(account_type: ACCOUNT_TYPE, role: ROLE, signed_up_with_google: false)
+      data.merge(account_type: ACCOUNT_TYPE, google_id: nil, role: ROLE, signed_up_with_google: false)
     end
 
     private def update

@@ -27,7 +27,7 @@ module GoogleIntegration
     end
 
     private def update
-      student.update!(account_type: ACCOUNT_TYPE, google_id: google_id)
+      student.update!(account_type: ACCOUNT_TYPE, clever_id: nil, google_id: google_id)
     end
 
     private def log_role_change
