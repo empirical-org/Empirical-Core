@@ -19,6 +19,12 @@ RSpec.describe GoogleIntegration::ClassroomStudentUpdater do
     it { expect { subject }.not_to change(ChangeLog, :count) }
   end
 
+  context 'student has a clever_id' do
+    let(:student) { create(:student, :signed_up_with_clever, email: email) }
+
+    it { updates_student_attributes }
+  end
+
   context 'student has role teacher' do
     let(:student) { create(:teacher, email: email )}
 
@@ -34,5 +40,6 @@ RSpec.describe GoogleIntegration::ClassroomStudentUpdater do
     expect(student.role).to eq role
     expect(student.account_type).to eq account_type
     expect(student.google_id).to eq google_id
+    expect(student.clever_id).to eq nil
   end
 end
