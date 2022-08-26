@@ -20,7 +20,7 @@ describe TeacherActivityFeedRefillWorker, type: :worker do
     let(:teacher) { create(:teacher) }
 
     it 'should not reset and refill activity feed' do
-      expect(TeacherActivityFeed).to_not receive(:reset!)
+      expect(TeacherActivityFeed).to receive(:reset!)
       expect(TeacherActivityFeed).to_not receive(:add)
 
       worker.perform(teacher.id)
@@ -32,7 +32,7 @@ describe TeacherActivityFeedRefillWorker, type: :worker do
     let(:teacher) { classroom.owner}
 
     it 'should not reset and refill activity feed' do
-      expect(TeacherActivityFeed).to_not receive(:reset!)
+      expect(TeacherActivityFeed).to receive(:reset!)
       expect(TeacherActivityFeed).to_not receive(:add)
 
       worker.perform(teacher.id)
