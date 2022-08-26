@@ -302,4 +302,52 @@ describe Classroom, type: :model do
 
   end
 
+  describe '#reset_teacher_activity_feed' do
+    it 'should trigger a reset of the feed for the owner teacher' do
+      classroom.save
+      create(:classrooms_teacher, user_id: teacher.id, classroom_id: classroom.id, role: 'owner')
+
+      expect(TeacherActivityFeedRefillWorker).to receive(:perform_async).with(teacher.id).once
+
+      classroom.visible = false
+      classroom.save
+    end
+
+    it 'should trigger a reset of the feed for any coteachers' do
+      classroom.save
+      create(:classrooms_teacher, user_id: teacher.id, classroom_id: classroom.id, role: 'coteacher')
+
+      expect(TeacherActivityFeedRefillWorker).to receive(:perform_async).with(teacher.id).once
+
+      classroom.visible = false
+      classroom.save
+    end
+
+    it 'should be called when a classroom goes from visible to invisible' do
+      classroom.visible = true
+      classroom.save
+
+      expect(classroom).to receive(:reset_teacher_activity_feed).once
+
+      classroom.visible = false
+      classroom.save
+    end
+
+    it 'should be called when a classroom goes from invisible to visible' do
+      classroom.visible = false
+      classroom.save
+
+      expect(classroom).to receive(:reset_teacher_activity_feed).once
+
+      classroom.visible = true
+      classroom.save
+    end
+
+    it 'should not be called on classroom creation' do
+      expect(classroom).not_to receive(:reset_teacher_activity_feed)
+
+      classroom.save
+    end
+  end
+
 end
