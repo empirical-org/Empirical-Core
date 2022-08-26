@@ -1,0 +1,97 @@
+.diagnostic-individual-pack main .release-method-modal-container {
+  .modal-background {
+    z-index: 4;
+  }
+  .release-method-modal {
+    z-index: 5;
+    height: min-content;
+    width: 1020px;
+    h1 {
+      font-weight: 700;
+      font-size: 24px;
+      line-height: 32px;
+    }
+    .release-method-options {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 24px;
+    }
+    .release-method-option {
+      flex-direction: column;
+      padding: 28px;
+      max-width: 466px;
+      width: 100%;
+      background: #F8F8F8;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      border: 4px solid #F8F8F8;
+      &.selected {
+        border: 4px solid #06806B;
+      }
+      .illustration {
+        height: 253px;
+      }
+      .quill-tooltip-wrapper {
+        transform: translateX(-100%);
+      }
+      h2 {
+        margin: 32px 0px 8px;
+        display: flex;
+        justify-content: space-between;
+        button {
+          font-weight: 700;
+          font-size: 20px;
+          line-height: 22px;
+          color: #000000;
+        }
+      }
+      .subheader {
+        font-size: 16px;
+        line-height: 22px;
+      }
+      .description {
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 22px;
+        color: #373737;
+        margin-top: 16px;
+      }
+    }
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 24px;
+      align-items: center;
+      .footer-note {
+        font-weight: 700;
+        line-height: 22px;
+      }
+      .buttons-wrapper {
+        display: flex;
+        .quill-button {
+          margin-left: 16px;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 1060px) {
+    .release-method-modal {
+      width: 100vw;
+      height: 100vh;
+      overflow: scroll;
+      top: 0;
+      left: 0;
+      transform: none;
+      border-radius: 0px;
+    }
+    .release-method-options {
+      flex-direction: column;
+      align-items: center;
+    }
+    .release-method-option:first-of-type {
+      margin-bottom: 24px;
+    }
+  }
+}

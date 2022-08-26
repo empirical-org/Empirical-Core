@@ -75,6 +75,11 @@ export const DEFAULT_LEFT_PADDING = 32
 export const MOBILE_WIDTH = 930
 export const DEFAULT_LEFT_PADDING_FOR_MOBILE = 0
 
-// released methods
+// release methods
 export const IMMEDIATE = 'immediate'
 export const STAGGERED = 'staggered'
+
+export const releaseMethodToDisplayName = {
+  [IMMEDIATE]: 'Immediate',
+  [STAGGERED]: 'Staggered'
+}
