@@ -69,6 +69,8 @@ class Auth::GoogleController < ApplicationController
   end
 
   private def set_user
+    puts 'set_user'
+
     if non_standard_route_redirect?(session[GOOGLE_REDIRECT])
       if current_user
         user = current_user.update(email: @profile.email)
@@ -85,7 +87,9 @@ class Auth::GoogleController < ApplicationController
     end
     @user = GoogleIntegration::User.new(@profile).update_or_initialize
 
-    return unless @user.new_record? && session[:role].blank?
+    puts @user
+
+    return unless (@user.non_authenticating? || @user.new_record?) && session[:role].blank?
 
     flash[:error] = user_not_found_error_message
     flash.keep(:error)

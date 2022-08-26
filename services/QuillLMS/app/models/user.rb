@@ -74,6 +74,7 @@ class User < ApplicationRecord
   SALES_CONTACT = 'sales-contact'
   ROLES      = [TEACHER, STUDENT, STAFF, SALES_CONTACT]
   SAFE_ROLES = [STUDENT, TEACHER, SALES_CONTACT]
+  NON_AUTHENTICATING_ROLES = [SALES_CONTACT]
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
 
 
@@ -660,6 +661,16 @@ class User < ApplicationRecord
 
   def segment_user
     SegmentIntegration::User.new(self)
+  end
+
+  # With the introduction of the SALES_CONTACT we now have a sort of
+  # "prospective user" type of user.  These people haven't signed up
+  # through our onboarding flow, but are given a User record so that we
+  # can sync their data to Vitally.  We need to treat these users specially
+  # during auth flows because they haven't actually signed up.
+  def non_authenticating?
+    return false
+    NON_AUTHENTICATING_ROLES.include?(role)
   end
 
   private def validate_flags
