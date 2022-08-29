@@ -404,7 +404,7 @@ class PagesController < ApplicationController
   # for link to premium within 'about' (discover) pages
   # rubocop:disable Metrics/CyclomaticComplexity
   def premium
-    @user_is_eligible_for_new_subscription= current_user&.eligible_for_new_subscription?
+    @user_is_eligible_for_new_subscription = current_user&.eligible_for_new_subscription? && session[:demo_id].nil?
     @user_is_eligible_for_trial = current_user&.subscriptions&.none?
     @user_has_school = !!current_user&.school && !current_user.school.alternative?
     @user_belongs_to_school_that_has_paid = !!current_user&.school&.ever_paid_for_subscription?

@@ -269,9 +269,9 @@
         .vertical-divider {
           display: none;
         }
-      }
-      .grade-range {
-        margin: 0px 0px 8px;
+        .grade-range, .standard-level {
+          margin: 0px 0px 8px;
+        }
       }
       .non-toggle-buttons {
         .interactive-wrapper {
