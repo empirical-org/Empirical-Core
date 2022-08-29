@@ -85,13 +85,19 @@ module TeachersData
         email: hash_value[:email],
         school: hash_value[:school]
       )
+
       user.define_singleton_method(:number_of_students) do
         hash_value[:number_of_students]
       end
+
       user.define_singleton_method(:number_of_activities_completed) do
         hash_value[:number_of_activities_completed]
       end
+
       user.define_singleton_method(:time_spent) { hash_value[:time_spent] }
+
+      user.define_singleton_method(:has_valid_subscription) { User.find_by_id(key)&.subscription_is_valid? }
+
       user
     end
 

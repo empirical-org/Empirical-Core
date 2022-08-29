@@ -6,7 +6,6 @@ import { ReactTable, DropdownInput, } from '../../Shared/index'
 
 interface AdminsTeachersProps {
   data: Array<Object>;
-  isValid: boolean;
   refreshData(): void;
 }
 
@@ -14,7 +13,6 @@ const ALL_SCHOOLS_OPTION = 'All Schools'
 
 const AdminsTeachers: React.SFC<AdminsTeachersProps> = ({
   data,
-  isValid,
   refreshData,
 }) => {
   const [selectedSchool, setSelectedSchool] = React.useState(ALL_SCHOOLS_OPTION)
@@ -54,7 +52,7 @@ const AdminsTeachers: React.SFC<AdminsTeachersProps> = ({
       Header: 'Log In As Teacher',
       accessor: 'link_components',
       Cell: ({row}) => {
-        return <TeacherLinks isValid={isValid} links={row.original.links} />;
+        return <TeacherLinks isValid={row.original.has_valid_subscription} links={row.original.links} />;
       },
       resizable: false,
     },
