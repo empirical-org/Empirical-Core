@@ -72,9 +72,10 @@ describe 'SegmentAnalytics' do
     let(:teacher) { create(:teacher) }
     let(:activity) { create(:diagnostic_activity) }
     let(:student) { create(:student) }
+    let(:session) { create(:activity_session) }
 
     it 'sends an event with information about the activity' do
-      analytics.track_activity_completion(teacher, student.id, activity)
+      analytics.track_activity_completion(teacher, student.id, activity, session)
       expect(identify_calls.size).to eq(0)
       expect(track_calls.size).to eq(1)
       expect(track_calls[0][:event]).to eq(SegmentIo::BackgroundEvents::ACTIVITY_COMPLETION)
@@ -226,21 +227,21 @@ describe 'SegmentAnalytics' do
     let(:classroom_unit) { create(:classroom_unit, unit: unit, classroom: classroom, assigned_student_ids: [student.id]) }
     let(:unit_activity1) { create(:unit_activity, unit: unit) }
     let(:unit_activity2) { create(:unit_activity, unit: unit) }
-    let(:unrelated_unit_activity) { create(:unit_activity) }
-
-    let(:activity_session1) { create(:activity_session, :finished, user: student1, classroom_unit: classroom_unit, activity: unit_activity1.activity) }
+    let!(:activity_session1) { create(:activity_session, :finished, user: student1, classroom_unit: classroom_unit, activity: unit_activity1.activity) }
+    let!(:activity_session2) { create(:activity_session, :started, user: student, classroom_unit: classroom_unit, activity: unit_activity2.activity) }
 
     it '#activity_pack_completed? returns false if activity pack has not been completed' do
       expect(analytics.activity_pack_completed?(student.id, activity_session1)).to eq false
     end
 
     it '#activity_pack_completed? returns true if activity pack has been completed' do
-      let(:activity_session2) { create(:activity_session, :finished, user: student1, classroom_unit: classroom_unit, activity: unit_activity2.activity) }
+      activity_session2.state = "finished"
+      activity_session2.save!
       expect(analytics.activity_pack_completed?(student.id, activity_session2)).to eq true
     end
 
     it '#track_activity_pack_completion sends the expected data' do
-      analytics.track_activity_completion(teacher, student.id, unit_activity2.activity)
+      analytics.track_activity_completion(teacher, student.id, unit_activity2.activity, activity_session2)
       expect(identify_calls.size).to eq(0)
       expect(track_calls.size).to eq(2)
       expect(track_calls[1][:event]).to eq(SegmentIo::BackgroundEvents::ACTIVITY_PACK_COMPLETION)
