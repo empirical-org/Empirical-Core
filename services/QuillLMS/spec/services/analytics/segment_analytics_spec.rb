@@ -243,7 +243,7 @@ describe 'SegmentAnalytics' do
     it '#track_activity_pack_completion sends the expected data' do
       analytics.track_activity_completion(teacher, student.id, unit_activity2.activity, activity_session2)
       expect(identify_calls.size).to eq(0)
-      expect(track_calls.size).to eq(2)
+      expect(track_calls.size).to eq(1)
       expect(track_calls[1][:event]).to eq(SegmentIo::BackgroundEvents::ACTIVITY_PACK_COMPLETION)
       expect(track_calls[1][:user_id]).to eq(teacher.id)
       expect(track_calls[1][:properties][:activity_pack_name]).to eq(unit.name)
