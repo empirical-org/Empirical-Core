@@ -98,7 +98,7 @@ export default class StudentProfileUnits extends React.Component {
     if (loading) { return <LoadingIndicator /> }
 
     const content = this.displayedUnits().map(unit => {
-      const { unit_id, unit_name, } = unit[Object.keys(unit)[0]][0]
+      const { unit_id, unit_name, staggered_release_unit_status, } = unit[Object.keys(unit)[0]][0]
       return (
         <StudentProfileUnit
           data={unit}
@@ -108,6 +108,7 @@ export default class StudentProfileUnits extends React.Component {
           key={unit_id}
           nextActivitySession={nextActivitySession}
           onShowPreviewModal={this.handleShowPreviewModal}
+          staggeredReleaseStatus={staggered_release_unit_status}
           unitName={unit_name}
         />
       )

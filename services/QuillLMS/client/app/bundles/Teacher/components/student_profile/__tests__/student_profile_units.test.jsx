@@ -4,7 +4,7 @@ import { mount, } from 'enzyme';
 import { activities } from './test_data'
 
 import StudentProfileUnits from '../student_profile_units';
-import StudentProfileUnit from '../student_profile_unit';
+import StudentProfileUnit, { LOCKED, UNLOCKED, } from '../student_profile_unit';
 import { TO_DO_ACTIVITIES, COMPLETED_ACTIVITIES, } from '../../../../../constants/student_profile'
 
 describe('StudentProfileUnits component', () => {
@@ -13,16 +13,23 @@ describe('StudentProfileUnits component', () => {
     const wrapper = mount(
       <StudentProfileUnits
         data={[
-          {unit_id: 1, unit_name: 'Same ID'},
-          {unit_id: 1, unit_name: 'Same ID'},
-          {unit_id: 2, unit_name: 'Different'},
+          {unit_id: 1, unit_name: 'Same ID', staggered_release_unit_status: UNLOCKED, },
+          {unit_id: 1, unit_name: 'Same ID', staggered_release_unit_status: UNLOCKED, },
+          {unit_id: 2, unit_name: 'Different', staggered_release_unit_status: LOCKED,},
         ]}
       />
     );
     expect(wrapper.find(StudentProfileUnit).length).toBe(2);
     expect(wrapper.find(StudentProfileUnit).at(0).props().data.incomplete[0].unit_name).toBe('Same ID');
     expect(wrapper.find(StudentProfileUnit).at(0).props().data.incomplete[1].unit_name).toBe('Same ID');
+    expect(wrapper.find(StudentProfileUnit).at(0).props().unitName).toBe('Same ID');
+    expect(wrapper.find(StudentProfileUnit).at(0).props().data.incomplete[0].staggered_release_unit_status).toBe(UNLOCKED);
+    expect(wrapper.find(StudentProfileUnit).at(0).props().data.incomplete[1].staggered_release_unit_status).toBe(UNLOCKED);
+    expect(wrapper.find(StudentProfileUnit).at(0).props().staggeredReleaseStatus).toBe(UNLOCKED);
     expect(wrapper.find(StudentProfileUnit).at(1).props().data.incomplete[0].unit_name).toBe('Different');
+    expect(wrapper.find(StudentProfileUnit).at(1).props().unitName).toBe(LOCKED);
+    expect(wrapper.find(StudentProfileUnit).at(1).props().data.incomplete[0].staggered_release_unit_status).toBe(LOCKED);
+    expect(wrapper.find(StudentProfileUnit).at(1).props().staggeredReleaseStatus).toBe(LOCKED);
   });
 
   it('should render only incomplete activities if the active tab is to-do activities', () => {

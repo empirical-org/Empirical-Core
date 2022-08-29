@@ -378,15 +378,16 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
       unitName="Basic Fragments Group Lessons"
     >
       <div
-        className="student-profile-unit"
+        className="student-profile-unit undefined"
         id={16}
       >
         <div
-          className="unit-name"
+          className="unit-name-and-staggered-release-status"
         >
           <h2>
             Basic Fragments Group Lessons
           </h2>
+          <span />
         </div>
         <div
           className="activities-container incomplete-activities"
@@ -894,15 +895,16 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
       unitName="History: Age of Exploration"
     >
       <div
-        className="student-profile-unit"
+        className="student-profile-unit undefined"
         id={7}
       >
         <div
-          className="unit-name"
+          className="unit-name-and-staggered-release-status"
         >
           <h2>
             History: Age of Exploration
           </h2>
+          <span />
         </div>
         <div
           className="activities-container incomplete-activities"
@@ -1990,15 +1992,16 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
       unitName="Basic Fragments Group Lessons"
     >
       <div
-        className="student-profile-unit"
+        className="student-profile-unit undefined"
         id={16}
       >
         <div
-          className="unit-name"
+          className="unit-name-and-staggered-release-status"
         >
           <h2>
             Basic Fragments Group Lessons
           </h2>
+          <span />
         </div>
         <div
           className="activities-container incomplete-activities"
@@ -2506,15 +2509,16 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
       unitName="History: Age of Exploration"
     >
       <div
-        className="student-profile-unit"
+        className="student-profile-unit undefined"
         id={7}
       >
         <div
-          className="unit-name"
+          className="unit-name-and-staggered-release-status"
         >
           <h2>
             History: Age of Exploration
           </h2>
+          <span />
         </div>
         <div
           className="activities-container incomplete-activities"
@@ -3676,15 +3680,16 @@ exports[`StudentProfileUnits component should render only completed activities i
       unitName="History: Age of Exploration"
     >
       <div
-        className="student-profile-unit"
+        className="student-profile-unit undefined"
         id={7}
       >
         <div
-          className="unit-name"
+          className="unit-name-and-staggered-release-status"
         >
           <h2>
             History: Age of Exploration
           </h2>
+          <span />
         </div>
         <div
           className="activities-container completed-activities"
@@ -4530,15 +4535,16 @@ exports[`StudentProfileUnits component should render only incomplete activities 
       unitName="Basic Fragments Group Lessons"
     >
       <div
-        className="student-profile-unit"
+        className="student-profile-unit undefined"
         id={16}
       >
         <div
-          className="unit-name"
+          className="unit-name-and-staggered-release-status"
         >
           <h2>
             Basic Fragments Group Lessons
           </h2>
+          <span />
         </div>
         <div
           className="activities-container incomplete-activities"
@@ -5118,15 +5124,16 @@ exports[`StudentProfileUnits component should render only incomplete activities 
       unitName="History: Age of Exploration"
     >
       <div
-        className="student-profile-unit"
+        className="student-profile-unit undefined"
         id={7}
       >
         <div
-          className="unit-name"
+          className="unit-name-and-staggered-release-status"
         >
           <h2>
             History: Age of Exploration
           </h2>
+          <span />
         </div>
         <div
           className="activities-container incomplete-activities"
@@ -6332,15 +6339,16 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
       unitName="Basic Fragments Group Lessons"
     >
       <div
-        className="student-profile-unit"
+        className="student-profile-unit undefined"
         id={16}
       >
         <div
-          className="unit-name"
+          className="unit-name-and-staggered-release-status"
         >
           <h2>
             Basic Fragments Group Lessons
           </h2>
+          <span />
         </div>
         <div
           className="activities-container incomplete-activities"
@@ -6920,15 +6928,16 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
       unitName="History: Age of Exploration"
     >
       <div
-        className="student-profile-unit"
+        className="student-profile-unit undefined"
         id={7}
       >
         <div
-          className="unit-name"
+          className="unit-name-and-staggered-release-status"
         >
           <h2>
             History: Age of Exploration
           </h2>
+          <span />
         </div>
         <div
           className="activities-container incomplete-activities"
@@ -8134,15 +8143,16 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
       unitName="Basic Fragments Group Lessons"
     >
       <div
-        className="student-profile-unit"
+        className="student-profile-unit undefined"
         id={16}
       >
         <div
-          className="unit-name"
+          className="unit-name-and-staggered-release-status"
         >
           <h2>
             Basic Fragments Group Lessons
           </h2>
+          <span />
         </div>
         <div
           className="activities-container incomplete-activities"
@@ -8722,15 +8732,16 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
       unitName="History: Age of Exploration"
     >
       <div
-        className="student-profile-unit"
+        className="student-profile-unit undefined"
         id={7}
       >
         <div
-          className="unit-name"
+          className="unit-name-and-staggered-release-status"
         >
           <h2>
             History: Age of Exploration
           </h2>
+          <span />
         </div>
         <div
           className="activities-container incomplete-activities"
