@@ -582,7 +582,9 @@ module Teacher
     ).to_a
   end
 
-  def ids_and_names_of_affiliated_students
+  def ids_and_names_of_affiliated_students(classroom_id=nil)
+    students_classrooms_filter = classroom_id.blank? ? '' : " AND students_classrooms.classroom_id = #{classroom_id.to_i}"
+
     RawSqlRunner.execute(
       <<-SQL
         SELECT DISTINCT
@@ -596,6 +598,7 @@ module Teacher
         JOIN students_classrooms
           ON students_classrooms.classroom_id = classrooms.id
           AND students_classrooms.visible = TRUE
+          #{students_classrooms_filter}
         JOIN users
           ON users.id = students_classrooms.student_id
         WHERE classrooms_teachers.user_id = #{id}
