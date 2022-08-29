@@ -10,6 +10,7 @@
 #  classcode             :string
 #  email                 :string
 #  flags                 :string           default([]), not null, is an Array
+#  flagset               :string           default("production"), not null
 #  ip_address            :inet
 #  last_active           :datetime
 #  last_sign_in          :datetime
@@ -67,6 +68,7 @@ FactoryBot.define do
     password   { "password" }
     email      { "#{name.gsub(' ', '.').downcase}@fake-email.com" }
     ip_address { "192.168.0.0" }
+    flagset    { 'production' }
 
     factory :staff do
       role 'staff'

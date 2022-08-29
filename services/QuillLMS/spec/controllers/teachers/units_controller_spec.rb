@@ -151,6 +151,18 @@ describe Teachers::UnitsController, type: :controller do
         expect(response.body).to eq(expected_response.to_json)
       end
     end
+
+    it 'should not double-count a user for completed_count if they completed the activity twice' do
+      create(:activity_session,
+        user: student,
+        activity: diagnostic_activity,
+        classroom_unit: classroom_unit
+      )
+
+      get :diagnostic_units
+
+      expect(response.body).to eq(expected_response.to_json)
+    end
   end
 
   describe '#hide' do

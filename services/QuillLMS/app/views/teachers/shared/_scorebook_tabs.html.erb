@@ -27,7 +27,7 @@
           <%= link_to raw("<span class='hide-on-mobile'>My </span>Activities"), lesson_planner_teachers_classrooms_path %>
         </li>
 
-        <li class="<%= 'active' if student_reports_page_should_be_active? %>">
+        <li class="<%= 'active' if student_reports_page_should_be_active? %>" id="student-reports-link">
           <%= link_to raw("<span class='hide-on-mobile'>Student </span>Reports"), teachers_progress_reports_landing_page_path %>
         </li>
 

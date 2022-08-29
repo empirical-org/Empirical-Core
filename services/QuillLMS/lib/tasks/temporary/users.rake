@@ -20,4 +20,10 @@ namespace :users do
 
     puts "\nUpdated #{num_updates} user emails"
   end
+
+  task resolve_dual_google_id_and_clever_id: :environment do
+    User.where.not(clever_id: nil).where.not(google_id: nil).find_each do |user|
+      DualGoogleIdAndCleverIdResolver.run(user)
+    end
+  end
 end

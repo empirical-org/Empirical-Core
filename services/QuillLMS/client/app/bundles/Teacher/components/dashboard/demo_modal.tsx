@@ -7,8 +7,6 @@ function goToDemo() {
 }
 
 const DemoModal = ({ close, size }) => {
-  const { width, height } = size;
-
   return (
     <div className="modal-container welcome-modal-container">
       <div className="modal-background" />

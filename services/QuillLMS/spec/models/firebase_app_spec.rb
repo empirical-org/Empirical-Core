@@ -8,6 +8,7 @@
 #  name       :string
 #  pkey       :text
 #  secret     :string
+#  throwaway  :text             default("lorem")
 #  created_at :datetime
 #  updated_at :datetime
 #

@@ -1,0 +1,98 @@
+.banner-with-button {
+  padding: 16px 0px;
+  .content-container {
+    max-width: 980px;
+    width: 100%;
+    margin: 0px auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
+    padding: 0 15px;
+    @media (max-width: 410px) {
+      flex-direction: column;
+      align-items: flex-start;
+      .quill-button {
+        margin-top: 8px;
+      }
+      span {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.preview-student-banner {
+  background-color: #e1f3f1;
+  .content-container {
+    span {
+      width: calc(100% - 180px);
+    }
+  }
+}
+
+.demo-account-banner {
+  background-color: #FFEFC7;
+  color: #9B5F05;
+  .content-container {
+    flex-direction: column;
+    &.expanded {
+      .first-line {
+        padding-bottom: 16px;
+        border-bottom: 1px solid #EBD2A0;
+        margin-bottom: 16px;
+        .interactive-wrapper img {
+          transform: rotate(90deg);
+        }
+      }
+    }
+  }
+  .first-line {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    span {
+      font-weight: bold;
+    }
+    div {
+      display: flex;
+      align-items: center;
+      margin-right: 20px;
+    }
+    .interactive-wrapper {
+      margin-right: 8px;
+    }
+  }
+  .quill-button.primary.contained {
+    color: #975E07;
+    background-color: #EECE87;
+    min-width: min-content;
+    &:hover {
+      background-color: #EECE87;
+    }
+  }
+  .expanded-content {
+    font-size: 14px;
+    max-width: 894px;
+    span {
+      display: inline-block;
+      width: 100%;
+      &:not(:last-of-type) {
+        padding-bottom: 16px;
+      }
+    }
+    a {
+      text-decoration: underline;
+      font-weight: bold;
+      color: #9B5F05;
+    }
+  }
+
+  @media (max-width: 410px) {
+    .first-line {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+}
