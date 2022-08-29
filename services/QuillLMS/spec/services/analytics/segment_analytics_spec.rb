@@ -217,6 +217,39 @@ describe 'SegmentAnalytics' do
     end
   end
 
+  context 'track activity pack completion' do
+    let(:teacher) { create(:teacher) }
+    let(:student) { create(:student) }
+    let(:unit) { create(:unit) }
+    let(:classroom) { create(:classroom) }
+    let(:students_classroom1) { create(:students_classrooms, classroom: classroom, student: student)}
+    let(:classroom_unit) { create(:classroom_unit, unit: unit, classroom: classroom, assigned_student_ids: [student.id]) }
+    let(:unit_activity1) { create(:unit_activity, unit: unit) }
+    let(:unit_activity2) { create(:unit_activity, unit: unit) }
+    let(:unrelated_unit_activity) { create(:unit_activity) }
+
+    let(:activity_session1) { create(:activity_session, :finished, user: student1, classroom_unit: classroom_unit, activity: unit_activity1.activity) }
+
+    it '#activity_pack_completed? returns false if activity pack has not been completed' do
+      expect(analytics.activity_pack_completed?(student.id, activity_session1)).to eq false
+    end
+
+    it '#activity_pack_completed? returns true if activity pack has been completed' do
+      let(:activity_session2) { create(:activity_session, :finished, user: student1, classroom_unit: classroom_unit, activity: unit_activity2.activity) }
+      expect(analytics.activity_pack_completed?(student.id, activity_session2)).to eq true
+    end
+
+    it '#track_activity_pack_completion sends the expected data' do
+      analytics.track_activity_completion(teacher, student.id, unit_activity2.activity)
+      expect(identify_calls.size).to eq(0)
+      expect(track_calls.size).to eq(2)
+      expect(track_calls[1][:event]).to eq(SegmentIo::BackgroundEvents::ACTIVITY_PACK_COMPLETION)
+      expect(track_calls[1][:user_id]).to eq(teacher.id)
+      expect(track_calls[1][:properties][:activity_pack_name]).to eq(unit.name)
+      expect(track_calls[1][:properties][:student_id]).to eq(student.id)
+    end
+  end
+
   context '#identify' do
 
     let(:district) { create(:district) }
