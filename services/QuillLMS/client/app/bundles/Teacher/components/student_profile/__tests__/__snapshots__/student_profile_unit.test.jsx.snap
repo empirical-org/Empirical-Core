@@ -1,0 +1,1294 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StudentProfileUnit component should render 1`] = `
+<StudentProfileUnit
+  data={
+    Object {
+      "complete": Array [
+        Object {
+          "act_sesh_updated_at": "2020-01-16 18:04:02.957825",
+          "activity_classification_id": 2,
+          "activity_id": 138,
+          "classroom_unit_id": 1,
+          "description": "Write ten sentences using the articles a or an.",
+          "due_date": "2020-02-29 05:00:00",
+          "finished": true,
+          "locked": false,
+          "marked_complete": false,
+          "max_percentage": 1,
+          "name": "A, An",
+          "order_number": 1,
+          "pinned": false,
+          "repeatable": true,
+          "resume_link": 0,
+          "ua_id": 9,
+          "unit_activity_created_at": "2020-01-16 17:57:24.712361",
+          "unit_created_at": "2020-01-16 17:57:24.518561",
+          "unit_id": 7,
+          "unit_name": "History: Age of Exploration",
+        },
+        Object {
+          "act_sesh_updated_at": "2020-01-16 18:07:57.261188",
+          "activity_classification_id": 1,
+          "activity_id": 516,
+          "classroom_unit_id": 1,
+          "description": "Find and correct the 9 errors in this passage.",
+          "due_date": "2020-02-29 05:00:00",
+          "finished": true,
+          "locked": false,
+          "marked_complete": false,
+          "max_percentage": 0.764705882352941,
+          "name": "Age of Exploration: Spices",
+          "order_number": 5,
+          "pinned": false,
+          "repeatable": true,
+          "resume_link": 0,
+          "ua_id": 5,
+          "unit_activity_created_at": "2020-01-16 17:57:24.712361",
+          "unit_created_at": "2020-01-16 17:57:24.518561",
+          "unit_id": 7,
+          "unit_name": "History: Age of Exploration",
+        },
+      ],
+      "incomplete": Array [
+        Object {
+          "act_sesh_updated_at": null,
+          "activity_classification_id": 5,
+          "activity_id": 608,
+          "classroom_unit_id": 1,
+          "description": "",
+          "due_date": "2020-02-29 05:00:00",
+          "finished": false,
+          "locked": false,
+          "marked_complete": false,
+          "max_percentage": null,
+          "name": "The Travels of Marco Polo",
+          "order_number": 1,
+          "pinned": false,
+          "repeatable": true,
+          "resume_link": 0,
+          "staggered_release_unit_status": "unlocked",
+          "ua_id": 1,
+          "unit_activity_created_at": "2020-01-16 17:57:24.712361",
+          "unit_created_at": "2020-01-16 17:57:24.518561",
+          "unit_id": 7,
+          "unit_name": "History: Age of Exploration",
+        },
+        Object {
+          "act_sesh_updated_at": null,
+          "activity_classification_id": 5,
+          "activity_id": 607,
+          "classroom_unit_id": 1,
+          "description": "",
+          "due_date": "2020-02-29 05:00:00",
+          "finished": false,
+          "locked": false,
+          "marked_complete": false,
+          "max_percentage": null,
+          "name": "Christopher Columbus",
+          "order_number": 2,
+          "pinned": false,
+          "repeatable": true,
+          "resume_link": 0,
+          "staggered_release_unit_status": "locked",
+          "ua_id": 2,
+          "unit_activity_created_at": "2020-01-16 17:57:24.712361",
+          "unit_created_at": "2020-01-16 17:57:24.518561",
+          "unit_id": 7,
+          "unit_name": "History: Age of Exploration",
+        },
+        Object {
+          "act_sesh_updated_at": null,
+          "activity_classification_id": 2,
+          "activity_id": 140,
+          "classroom_unit_id": 1,
+          "description": "Write ten sentences using the determiners a, an, or the.",
+          "due_date": "2020-02-29 05:00:00",
+          "finished": false,
+          "locked": false,
+          "marked_complete": false,
+          "max_percentage": null,
+          "name": "A, An, The",
+          "order_number": 2,
+          "pinned": false,
+          "repeatable": true,
+          "resume_link": 0,
+          "ua_id": 10,
+          "unit_activity_created_at": "2020-01-16 17:57:24.712361",
+          "unit_created_at": "2020-01-16 17:57:24.518561",
+          "unit_id": 7,
+          "unit_name": "History: Age of Exploration",
+        },
+        Object {
+          "act_sesh_updated_at": null,
+          "activity_classification_id": 5,
+          "activity_id": 605,
+          "classroom_unit_id": 1,
+          "description": "",
+          "due_date": "2020-02-29 05:00:00",
+          "finished": false,
+          "locked": false,
+          "marked_complete": false,
+          "max_percentage": null,
+          "name": "Magellan",
+          "order_number": 3,
+          "pinned": false,
+          "repeatable": true,
+          "resume_link": 0,
+          "ua_id": 3,
+          "unit_activity_created_at": "2020-01-16 17:57:24.712361",
+          "unit_created_at": "2020-01-16 17:57:24.518561",
+          "unit_id": 7,
+          "unit_name": "History: Age of Exploration",
+        },
+        Object {
+          "act_sesh_updated_at": null,
+          "activity_classification_id": 5,
+          "activity_id": 606,
+          "classroom_unit_id": 1,
+          "description": "",
+          "due_date": "2020-02-29 05:00:00",
+          "finished": false,
+          "locked": false,
+          "marked_complete": false,
+          "max_percentage": null,
+          "name": "Jamestown",
+          "order_number": 4,
+          "pinned": false,
+          "repeatable": true,
+          "resume_link": 0,
+          "ua_id": 4,
+          "unit_activity_created_at": "2020-01-16 17:57:24.712361",
+          "unit_created_at": "2020-01-16 17:57:24.518561",
+          "unit_id": 7,
+          "unit_name": "History: Age of Exploration",
+        },
+        Object {
+          "act_sesh_updated_at": null,
+          "activity_classification_id": 1,
+          "activity_id": 503,
+          "classroom_unit_id": 1,
+          "description": "Find and correct the ten errors in this passage.",
+          "due_date": "2020-02-29 05:00:00",
+          "finished": false,
+          "locked": false,
+          "marked_complete": false,
+          "max_percentage": null,
+          "name": "Age of Exploration: Sailing with the Stars",
+          "order_number": 6,
+          "pinned": false,
+          "repeatable": true,
+          "resume_link": 0,
+          "ua_id": 6,
+          "unit_activity_created_at": "2020-01-16 17:57:24.712361",
+          "unit_created_at": "2020-01-16 17:57:24.518561",
+          "unit_id": 7,
+          "unit_name": "History: Age of Exploration",
+        },
+        Object {
+          "act_sesh_updated_at": null,
+          "activity_classification_id": 1,
+          "activity_id": 504,
+          "classroom_unit_id": 1,
+          "description": "Find and correct the nine errors in this passage.",
+          "due_date": "2020-02-29 05:00:00",
+          "finished": false,
+          "locked": false,
+          "marked_complete": false,
+          "max_percentage": null,
+          "name": "Age of Exploration: The Cape of Good Hope",
+          "order_number": 7,
+          "pinned": false,
+          "repeatable": true,
+          "resume_link": 0,
+          "ua_id": 7,
+          "unit_activity_created_at": "2020-01-16 17:57:24.712361",
+          "unit_created_at": "2020-01-16 17:57:24.518561",
+          "unit_id": 7,
+          "unit_name": "History: Age of Exploration",
+        },
+        Object {
+          "act_sesh_updated_at": null,
+          "activity_classification_id": 1,
+          "activity_id": 517,
+          "classroom_unit_id": 1,
+          "description": "Find and correct the 6 errors in this passage.",
+          "due_date": "2020-02-29 05:00:00",
+          "finished": false,
+          "locked": false,
+          "marked_complete": false,
+          "max_percentage": null,
+          "name": "Age of Exploration: Roanoke",
+          "order_number": 8,
+          "pinned": false,
+          "repeatable": true,
+          "resume_link": 0,
+          "ua_id": 8,
+          "unit_activity_created_at": "2020-01-16 17:57:24.712361",
+          "unit_created_at": "2020-01-16 17:57:24.518561",
+          "unit_id": 7,
+          "unit_name": "History: Age of Exploration",
+        },
+      ],
+    }
+  }
+  unitName="Unit"
+>
+  <div
+    className="student-profile-unit undefined"
+  >
+    <div
+      className="unit-name-and-staggered-release-status"
+    >
+      <h2>
+        Unit
+      </h2>
+      <span />
+    </div>
+    <div
+      className="activities-container incomplete-activities"
+    >
+      <DataTable
+        averageFontWidth={7}
+        headers={
+          Array [
+            Object {
+              "attribute": "name",
+              "headerClassName": "name-section",
+              "name": "Activity",
+              "noTooltip": true,
+              "rowSectionClassName": "name-section",
+              "width": "633px",
+            },
+            Object {
+              "attribute": "tool",
+              "headerClassName": "tool-icon-section",
+              "name": "Tool",
+              "noTooltip": true,
+              "rowSectionClassName": "tool-icon-section",
+              "width": "24px",
+            },
+            Object {
+              "attribute": "dueDate",
+              "headerClassName": "due-date-section",
+              "name": "Due date",
+              "noTooltip": true,
+              "rowSectionClassName": "due-date-section",
+              "width": "85px",
+            },
+            Object {
+              "attribute": "actionButton",
+              "headerClassName": "action-button-section",
+              "name": "",
+              "noTooltip": true,
+              "rowSectionClassName": "action-button-section",
+              "width": "88px",
+            },
+          ]
+        }
+        rows={
+          Array [
+            Object {
+              "actionButton": <a
+                aria-label="Start The Travels of Marco Polo"
+                className="quill-button medium focus-on-light secondary outlined"
+                href="/activity_sessions/classroom_units/1/activities/608"
+              >
+                Start
+              </a>,
+              "dueDate": "Feb 29, 2020",
+              "id": 1,
+              "name": "The Travels of Marco Polo",
+              "tool": undefined,
+            },
+            Object {
+              "actionButton": <a
+                aria-label="Start Christopher Columbus"
+                className="quill-button medium focus-on-light secondary outlined"
+                href="/activity_sessions/classroom_units/1/activities/607"
+              >
+                Start
+              </a>,
+              "dueDate": "Feb 29, 2020",
+              "id": 2,
+              "name": "Christopher Columbus",
+              "tool": undefined,
+            },
+            Object {
+              "actionButton": <a
+                aria-label="Start A, An, The"
+                className="quill-button medium focus-on-light secondary outlined"
+                href="/activity_sessions/classroom_units/1/activities/140"
+              >
+                Start
+              </a>,
+              "dueDate": "Feb 29, 2020",
+              "id": 10,
+              "name": "A, An, The",
+              "tool": undefined,
+            },
+            Object {
+              "actionButton": <a
+                aria-label="Start Magellan"
+                className="quill-button medium focus-on-light secondary outlined"
+                href="/activity_sessions/classroom_units/1/activities/605"
+              >
+                Start
+              </a>,
+              "dueDate": "Feb 29, 2020",
+              "id": 3,
+              "name": "Magellan",
+              "tool": undefined,
+            },
+            Object {
+              "actionButton": <a
+                aria-label="Start Jamestown"
+                className="quill-button medium focus-on-light secondary outlined"
+                href="/activity_sessions/classroom_units/1/activities/606"
+              >
+                Start
+              </a>,
+              "dueDate": "Feb 29, 2020",
+              "id": 4,
+              "name": "Jamestown",
+              "tool": undefined,
+            },
+            Object {
+              "actionButton": <a
+                aria-label="Start Age of Exploration: Sailing with the Stars"
+                className="quill-button medium focus-on-light secondary outlined"
+                href="/activity_sessions/classroom_units/1/activities/503"
+              >
+                Start
+              </a>,
+              "dueDate": "Feb 29, 2020",
+              "id": 6,
+              "name": "Age of Exploration: Sailing with the Stars",
+              "tool": undefined,
+            },
+            Object {
+              "actionButton": <a
+                aria-label="Start Age of Exploration: The Cape of Good Hope"
+                className="quill-button medium focus-on-light secondary outlined"
+                href="/activity_sessions/classroom_units/1/activities/504"
+              >
+                Start
+              </a>,
+              "dueDate": "Feb 29, 2020",
+              "id": 7,
+              "name": "Age of Exploration: The Cape of Good Hope",
+              "tool": undefined,
+            },
+            Object {
+              "actionButton": <a
+                aria-label="Start Age of Exploration: Roanoke"
+                className="quill-button medium focus-on-light secondary outlined"
+                href="/activity_sessions/classroom_units/1/activities/517"
+              >
+                Start
+              </a>,
+              "dueDate": "Feb 29, 2020",
+              "id": 8,
+              "name": "Age of Exploration: Roanoke",
+              "tool": undefined,
+            },
+          ]
+        }
+      >
+        <table
+          className="data-table undefined"
+        >
+          <tr
+            className="data-table-headers"
+          >
+            <th
+              className="data-table-header name-section"
+              scope="col"
+              style={
+                Object {
+                  "minWidth": "633px",
+                  "textAlign": "left",
+                  "width": "633px",
+                }
+              }
+            >
+              Activity
+            </th>
+            <th
+              className="data-table-header tool-icon-section"
+              scope="col"
+              style={
+                Object {
+                  "minWidth": "24px",
+                  "textAlign": "right",
+                  "width": "24px",
+                }
+              }
+            >
+              Tool
+            </th>
+            <th
+              className="data-table-header due-date-section"
+              scope="col"
+              style={
+                Object {
+                  "minWidth": "85px",
+                  "textAlign": "left",
+                  "width": "85px",
+                }
+              }
+            >
+              Due date
+            </th>
+            <th
+              className="data-table-header action-button-section"
+              scope="col"
+              style={
+                Object {
+                  "minWidth": "88px",
+                  "textAlign": "left",
+                  "width": "88px",
+                }
+              }
+            />
+          </tr>
+          <tbody
+            className="data-table-body"
+          >
+            <tr
+              className="data-table-row  "
+              key="1"
+            >
+              <td
+                className="data-table-row-section name-section"
+                key="name-1"
+                style={
+                  Object {
+                    "minWidth": "633px",
+                    "textAlign": "left",
+                    "width": "633px",
+                  }
+                }
+              >
+                The Travels of Marco Polo
+              </td>
+              <td
+                className="data-table-row-section tool-icon-section"
+                key="tool-1"
+                style={
+                  Object {
+                    "minWidth": "24px",
+                    "textAlign": "right",
+                    "width": "24px",
+                  }
+                }
+              />
+              <td
+                className="data-table-row-section due-date-section"
+                key="dueDate-1"
+                style={
+                  Object {
+                    "minWidth": "85px",
+                    "textAlign": "left",
+                    "width": "85px",
+                  }
+                }
+              >
+                Feb 29, 2020
+              </td>
+              <td
+                className="data-table-row-section action-button-section"
+                key="actionButton-1"
+                style={
+                  Object {
+                    "minWidth": "88px",
+                    "textAlign": "left",
+                    "width": "88px",
+                  }
+                }
+              >
+                <a
+                  aria-label="Start The Travels of Marco Polo"
+                  className="quill-button medium focus-on-light secondary outlined"
+                  href="/activity_sessions/classroom_units/1/activities/608"
+                >
+                  Start
+                </a>
+              </td>
+            </tr>
+            <tr
+              className="data-table-row  "
+              key="2"
+            >
+              <td
+                className="data-table-row-section name-section"
+                key="name-2"
+                style={
+                  Object {
+                    "minWidth": "633px",
+                    "textAlign": "left",
+                    "width": "633px",
+                  }
+                }
+              >
+                Christopher Columbus
+              </td>
+              <td
+                className="data-table-row-section tool-icon-section"
+                key="tool-2"
+                style={
+                  Object {
+                    "minWidth": "24px",
+                    "textAlign": "right",
+                    "width": "24px",
+                  }
+                }
+              />
+              <td
+                className="data-table-row-section due-date-section"
+                key="dueDate-2"
+                style={
+                  Object {
+                    "minWidth": "85px",
+                    "textAlign": "left",
+                    "width": "85px",
+                  }
+                }
+              >
+                Feb 29, 2020
+              </td>
+              <td
+                className="data-table-row-section action-button-section"
+                key="actionButton-2"
+                style={
+                  Object {
+                    "minWidth": "88px",
+                    "textAlign": "left",
+                    "width": "88px",
+                  }
+                }
+              >
+                <a
+                  aria-label="Start Christopher Columbus"
+                  className="quill-button medium focus-on-light secondary outlined"
+                  href="/activity_sessions/classroom_units/1/activities/607"
+                >
+                  Start
+                </a>
+              </td>
+            </tr>
+            <tr
+              className="data-table-row  "
+              key="10"
+            >
+              <td
+                className="data-table-row-section name-section"
+                key="name-10"
+                style={
+                  Object {
+                    "minWidth": "633px",
+                    "textAlign": "left",
+                    "width": "633px",
+                  }
+                }
+              >
+                A, An, The
+              </td>
+              <td
+                className="data-table-row-section tool-icon-section"
+                key="tool-10"
+                style={
+                  Object {
+                    "minWidth": "24px",
+                    "textAlign": "right",
+                    "width": "24px",
+                  }
+                }
+              />
+              <td
+                className="data-table-row-section due-date-section"
+                key="dueDate-10"
+                style={
+                  Object {
+                    "minWidth": "85px",
+                    "textAlign": "left",
+                    "width": "85px",
+                  }
+                }
+              >
+                Feb 29, 2020
+              </td>
+              <td
+                className="data-table-row-section action-button-section"
+                key="actionButton-10"
+                style={
+                  Object {
+                    "minWidth": "88px",
+                    "textAlign": "left",
+                    "width": "88px",
+                  }
+                }
+              >
+                <a
+                  aria-label="Start A, An, The"
+                  className="quill-button medium focus-on-light secondary outlined"
+                  href="/activity_sessions/classroom_units/1/activities/140"
+                >
+                  Start
+                </a>
+              </td>
+            </tr>
+            <tr
+              className="data-table-row  "
+              key="3"
+            >
+              <td
+                className="data-table-row-section name-section"
+                key="name-3"
+                style={
+                  Object {
+                    "minWidth": "633px",
+                    "textAlign": "left",
+                    "width": "633px",
+                  }
+                }
+              >
+                Magellan
+              </td>
+              <td
+                className="data-table-row-section tool-icon-section"
+                key="tool-3"
+                style={
+                  Object {
+                    "minWidth": "24px",
+                    "textAlign": "right",
+                    "width": "24px",
+                  }
+                }
+              />
+              <td
+                className="data-table-row-section due-date-section"
+                key="dueDate-3"
+                style={
+                  Object {
+                    "minWidth": "85px",
+                    "textAlign": "left",
+                    "width": "85px",
+                  }
+                }
+              >
+                Feb 29, 2020
+              </td>
+              <td
+                className="data-table-row-section action-button-section"
+                key="actionButton-3"
+                style={
+                  Object {
+                    "minWidth": "88px",
+                    "textAlign": "left",
+                    "width": "88px",
+                  }
+                }
+              >
+                <a
+                  aria-label="Start Magellan"
+                  className="quill-button medium focus-on-light secondary outlined"
+                  href="/activity_sessions/classroom_units/1/activities/605"
+                >
+                  Start
+                </a>
+              </td>
+            </tr>
+            <tr
+              className="data-table-row  "
+              key="4"
+            >
+              <td
+                className="data-table-row-section name-section"
+                key="name-4"
+                style={
+                  Object {
+                    "minWidth": "633px",
+                    "textAlign": "left",
+                    "width": "633px",
+                  }
+                }
+              >
+                Jamestown
+              </td>
+              <td
+                className="data-table-row-section tool-icon-section"
+                key="tool-4"
+                style={
+                  Object {
+                    "minWidth": "24px",
+                    "textAlign": "right",
+                    "width": "24px",
+                  }
+                }
+              />
+              <td
+                className="data-table-row-section due-date-section"
+                key="dueDate-4"
+                style={
+                  Object {
+                    "minWidth": "85px",
+                    "textAlign": "left",
+                    "width": "85px",
+                  }
+                }
+              >
+                Feb 29, 2020
+              </td>
+              <td
+                className="data-table-row-section action-button-section"
+                key="actionButton-4"
+                style={
+                  Object {
+                    "minWidth": "88px",
+                    "textAlign": "left",
+                    "width": "88px",
+                  }
+                }
+              >
+                <a
+                  aria-label="Start Jamestown"
+                  className="quill-button medium focus-on-light secondary outlined"
+                  href="/activity_sessions/classroom_units/1/activities/606"
+                >
+                  Start
+                </a>
+              </td>
+            </tr>
+            <tr
+              className="data-table-row  "
+              key="6"
+            >
+              <td
+                className="data-table-row-section name-section"
+                key="name-6"
+                style={
+                  Object {
+                    "minWidth": "633px",
+                    "textAlign": "left",
+                    "width": "633px",
+                  }
+                }
+              >
+                Age of Exploration: Sailing with the Stars
+              </td>
+              <td
+                className="data-table-row-section tool-icon-section"
+                key="tool-6"
+                style={
+                  Object {
+                    "minWidth": "24px",
+                    "textAlign": "right",
+                    "width": "24px",
+                  }
+                }
+              />
+              <td
+                className="data-table-row-section due-date-section"
+                key="dueDate-6"
+                style={
+                  Object {
+                    "minWidth": "85px",
+                    "textAlign": "left",
+                    "width": "85px",
+                  }
+                }
+              >
+                Feb 29, 2020
+              </td>
+              <td
+                className="data-table-row-section action-button-section"
+                key="actionButton-6"
+                style={
+                  Object {
+                    "minWidth": "88px",
+                    "textAlign": "left",
+                    "width": "88px",
+                  }
+                }
+              >
+                <a
+                  aria-label="Start Age of Exploration: Sailing with the Stars"
+                  className="quill-button medium focus-on-light secondary outlined"
+                  href="/activity_sessions/classroom_units/1/activities/503"
+                >
+                  Start
+                </a>
+              </td>
+            </tr>
+            <tr
+              className="data-table-row  "
+              key="7"
+            >
+              <td
+                className="data-table-row-section name-section"
+                key="name-7"
+                style={
+                  Object {
+                    "minWidth": "633px",
+                    "textAlign": "left",
+                    "width": "633px",
+                  }
+                }
+              >
+                Age of Exploration: The Cape of Good Hope
+              </td>
+              <td
+                className="data-table-row-section tool-icon-section"
+                key="tool-7"
+                style={
+                  Object {
+                    "minWidth": "24px",
+                    "textAlign": "right",
+                    "width": "24px",
+                  }
+                }
+              />
+              <td
+                className="data-table-row-section due-date-section"
+                key="dueDate-7"
+                style={
+                  Object {
+                    "minWidth": "85px",
+                    "textAlign": "left",
+                    "width": "85px",
+                  }
+                }
+              >
+                Feb 29, 2020
+              </td>
+              <td
+                className="data-table-row-section action-button-section"
+                key="actionButton-7"
+                style={
+                  Object {
+                    "minWidth": "88px",
+                    "textAlign": "left",
+                    "width": "88px",
+                  }
+                }
+              >
+                <a
+                  aria-label="Start Age of Exploration: The Cape of Good Hope"
+                  className="quill-button medium focus-on-light secondary outlined"
+                  href="/activity_sessions/classroom_units/1/activities/504"
+                >
+                  Start
+                </a>
+              </td>
+            </tr>
+            <tr
+              className="data-table-row  "
+              key="8"
+            >
+              <td
+                className="data-table-row-section name-section"
+                key="name-8"
+                style={
+                  Object {
+                    "minWidth": "633px",
+                    "textAlign": "left",
+                    "width": "633px",
+                  }
+                }
+              >
+                Age of Exploration: Roanoke
+              </td>
+              <td
+                className="data-table-row-section tool-icon-section"
+                key="tool-8"
+                style={
+                  Object {
+                    "minWidth": "24px",
+                    "textAlign": "right",
+                    "width": "24px",
+                  }
+                }
+              />
+              <td
+                className="data-table-row-section due-date-section"
+                key="dueDate-8"
+                style={
+                  Object {
+                    "minWidth": "85px",
+                    "textAlign": "left",
+                    "width": "85px",
+                  }
+                }
+              >
+                Feb 29, 2020
+              </td>
+              <td
+                className="data-table-row-section action-button-section"
+                key="actionButton-8"
+                style={
+                  Object {
+                    "minWidth": "88px",
+                    "textAlign": "left",
+                    "width": "88px",
+                  }
+                }
+              >
+                <a
+                  aria-label="Start Age of Exploration: Roanoke"
+                  className="quill-button medium focus-on-light secondary outlined"
+                  href="/activity_sessions/classroom_units/1/activities/517"
+                >
+                  Start
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </DataTable>
+    </div>
+    <div
+      className="activities-container completed-activities"
+    >
+      <DataTable
+        averageFontWidth={7}
+        headers={
+          Array [
+            Object {
+              "attribute": "name",
+              "headerClassName": "name-section",
+              "name": "Activity",
+              "rowSectionClassName": "name-section",
+              "width": "465px",
+            },
+            Object {
+              "attribute": "score",
+              "headerClassName": "score-section tooltip-section",
+              "name": "Score",
+              "noTooltip": true,
+              "rowSectionClassName": "score-section tooltip-section",
+              "width": "144px",
+            },
+            Object {
+              "attribute": "tool",
+              "headerClassName": "tool-icon-section",
+              "name": "Tool",
+              "noTooltip": true,
+              "rowSectionClassName": "tool-icon-section",
+              "width": "24px",
+            },
+            Object {
+              "attribute": "dueDate",
+              "headerClassName": "completed-due-date-section",
+              "name": "Due date",
+              "noTooltip": true,
+              "rowSectionClassName": "completed-due-date-section",
+              "width": "85px",
+            },
+            Object {
+              "attribute": "actionButton",
+              "headerClassName": "action-button-section",
+              "name": "",
+              "noTooltip": true,
+              "rowSectionClassName": "action-button-section",
+              "width": "88px",
+            },
+          ]
+        }
+        rows={
+          Array [
+            Object {
+              "actionButton": <a
+                aria-label="Replay A, An"
+                className="quill-button medium focus-on-light secondary outlined"
+                href="/activity_sessions/classroom_units/1/activities/138"
+              >
+                Replay
+              </a>,
+              "dueDate": "Feb 29, 2020",
+              "id": 9,
+              "name": "A, An",
+              "score": <div
+                className="score"
+              >
+                <div
+                  className="proficient"
+                />
+                <span>
+                  Proficient
+                </span>
+              </div>,
+              "tool": undefined,
+            },
+            Object {
+              "actionButton": <a
+                aria-label="Replay Age of Exploration: Spices"
+                className="quill-button medium focus-on-light secondary outlined"
+                href="/activity_sessions/classroom_units/1/activities/516"
+              >
+                Replay
+              </a>,
+              "dueDate": "Feb 29, 2020",
+              "id": 5,
+              "name": "Age of Exploration: Spices",
+              "score": <div
+                className="score"
+              >
+                <div
+                  className="nearly-proficient"
+                />
+                <span>
+                  Nearly proficient
+                </span>
+              </div>,
+              "tool": undefined,
+            },
+          ]
+        }
+      >
+        <table
+          className="data-table undefined"
+        >
+          <tr
+            className="data-table-headers"
+          >
+            <th
+              className="data-table-header name-section"
+              scope="col"
+              style={
+                Object {
+                  "minWidth": "465px",
+                  "textAlign": "left",
+                  "width": "465px",
+                }
+              }
+            >
+              Activity
+            </th>
+            <th
+              className="data-table-header score-section tooltip-section"
+              scope="col"
+              style={
+                Object {
+                  "minWidth": "144px",
+                  "textAlign": "left",
+                  "width": "144px",
+                }
+              }
+            >
+              Score
+            </th>
+            <th
+              className="data-table-header tool-icon-section"
+              scope="col"
+              style={
+                Object {
+                  "minWidth": "24px",
+                  "textAlign": "right",
+                  "width": "24px",
+                }
+              }
+            >
+              Tool
+            </th>
+            <th
+              className="data-table-header completed-due-date-section"
+              scope="col"
+              style={
+                Object {
+                  "minWidth": "85px",
+                  "textAlign": "left",
+                  "width": "85px",
+                }
+              }
+            >
+              Due date
+            </th>
+            <th
+              className="data-table-header action-button-section"
+              scope="col"
+              style={
+                Object {
+                  "minWidth": "88px",
+                  "textAlign": "left",
+                  "width": "88px",
+                }
+              }
+            />
+          </tr>
+          <tbody
+            className="data-table-body"
+          >
+            <tr
+              className="data-table-row  "
+              key="9"
+            >
+              <td
+                className="data-table-row-section name-section"
+                key="name-9"
+                style={
+                  Object {
+                    "minWidth": "465px",
+                    "textAlign": "left",
+                    "width": "465px",
+                  }
+                }
+              >
+                A, An
+              </td>
+              <td
+                className="data-table-row-section score-section tooltip-section"
+                key="score-9"
+                style={
+                  Object {
+                    "minWidth": "144px",
+                    "textAlign": "left",
+                    "width": "144px",
+                  }
+                }
+              >
+                <div
+                  className="score"
+                >
+                  <div
+                    className="proficient"
+                  />
+                  <span>
+                    Proficient
+                  </span>
+                </div>
+              </td>
+              <td
+                className="data-table-row-section tool-icon-section"
+                key="tool-9"
+                style={
+                  Object {
+                    "minWidth": "24px",
+                    "textAlign": "right",
+                    "width": "24px",
+                  }
+                }
+              />
+              <td
+                className="data-table-row-section completed-due-date-section"
+                key="dueDate-9"
+                style={
+                  Object {
+                    "minWidth": "85px",
+                    "textAlign": "left",
+                    "width": "85px",
+                  }
+                }
+              >
+                Feb 29, 2020
+              </td>
+              <td
+                className="data-table-row-section action-button-section"
+                key="actionButton-9"
+                style={
+                  Object {
+                    "minWidth": "88px",
+                    "textAlign": "left",
+                    "width": "88px",
+                  }
+                }
+              >
+                <a
+                  aria-label="Replay A, An"
+                  className="quill-button medium focus-on-light secondary outlined"
+                  href="/activity_sessions/classroom_units/1/activities/138"
+                >
+                  Replay
+                </a>
+              </td>
+            </tr>
+            <tr
+              className="data-table-row  "
+              key="5"
+            >
+              <td
+                className="data-table-row-section name-section"
+                key="name-5"
+                style={
+                  Object {
+                    "minWidth": "465px",
+                    "textAlign": "left",
+                    "width": "465px",
+                  }
+                }
+              >
+                Age of Exploration: Spices
+              </td>
+              <td
+                className="data-table-row-section score-section tooltip-section"
+                key="score-5"
+                style={
+                  Object {
+                    "minWidth": "144px",
+                    "textAlign": "left",
+                    "width": "144px",
+                  }
+                }
+              >
+                <div
+                  className="score"
+                >
+                  <div
+                    className="nearly-proficient"
+                  />
+                  <span>
+                    Nearly proficient
+                  </span>
+                </div>
+              </td>
+              <td
+                className="data-table-row-section tool-icon-section"
+                key="tool-5"
+                style={
+                  Object {
+                    "minWidth": "24px",
+                    "textAlign": "right",
+                    "width": "24px",
+                  }
+                }
+              />
+              <td
+                className="data-table-row-section completed-due-date-section"
+                key="dueDate-5"
+                style={
+                  Object {
+                    "minWidth": "85px",
+                    "textAlign": "left",
+                    "width": "85px",
+                  }
+                }
+              >
+                Feb 29, 2020
+              </td>
+              <td
+                className="data-table-row-section action-button-section"
+                key="actionButton-5"
+                style={
+                  Object {
+                    "minWidth": "88px",
+                    "textAlign": "left",
+                    "width": "88px",
+                  }
+                }
+              >
+                <a
+                  aria-label="Replay Age of Exploration: Spices"
+                  className="quill-button medium focus-on-light secondary outlined"
+                  href="/activity_sessions/classroom_units/1/activities/516"
+                >
+                  Replay
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </DataTable>
+    </div>
+  </div>
+</StudentProfileUnit>
+`;

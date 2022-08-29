@@ -1,7 +1,13 @@
 import * as React from 'react'
 import moment from 'moment'
 
-import { onMobile, DataTable, Tooltip } from '../../../Shared/index'
+import {
+  onMobile,
+  DataTable,
+  Tooltip,
+  closedLockIcon,
+  openLockIcon,
+} from '../../../Shared/index'
 import activityLaunchLink from '../modules/generate_activity_launch_link.js';
 import { formatDateTimeForDisplay, } from '../../helpers/unitActivityDates'
 
@@ -21,6 +27,8 @@ const EVIDENCE_ACTIVITY_CLASSIFICATION_KEY = "evidence"
 const UNGRADED_ACTIVITY_CLASSIFICATIONS = [LESSONS_ACTIVITY_CLASSIFICATION_KEY, DIAGNOSTIC_ACTIVITY_CLASSIFICATION_KEY, EVIDENCE_ACTIVITY_CLASSIFICATION_KEY]
 const PROFICIENT_CUTOFF = 0.8
 const NEARLY_PROFICIENT_CUTOFF = 0.6
+export const LOCKED = 'locked'
+export const UNLOCKED = 'unlocked'
 
 const incompleteHeaders = [
   {
@@ -248,15 +256,42 @@ export default class StudentProfileUnit extends React.Component {
   }
 
   render() {
-    const { unitName, id, isSelectedUnit, } = this.props
-    const className = isSelectedUnit ? "student-profile-unit selected-unit" : "student-profile-unit"
-    return (
-      <div className={className} id={id}>
-        <div className="unit-name">
-          <h2>{unitName}</h2>
-        </div>
+    const { unitName, id, isSelectedUnit, staggeredReleaseStatus, } = this.props
+    const className = isSelectedUnit ? `student-profile-unit selected-unit ${staggeredReleaseStatus}` : `student-profile-unit ${staggeredReleaseStatus}`
+
+    let activityContent = (
+      <React.Fragment>
         {this.renderIncompleteActivities()}
         {this.renderCompletedActivities()}
+      </React.Fragment>
+    )
+
+    let staggeredReleaseElement = <span />
+
+    if (staggeredReleaseStatus === LOCKED) {
+      activityContent = null
+      staggeredReleaseElement = (
+        <Tooltip
+          tooltipText="The activity pack is locked because your teacher selected staggered release.<br/><br/>When you complete the unlocked activity pack, the next activity pack will unlock."
+          tooltipTriggerText={<img alt={closedLockIcon.alt} src={closedLockIcon.src} />}
+        />
+      )
+    } else if (staggeredReleaseStatus === UNLOCKED) {
+      staggeredReleaseElement = (
+        <Tooltip
+          tooltipText="This activity pack is unlocked."
+          tooltipTriggerText={<img alt={openLockIcon.alt} src={openLockIcon.src} />}
+        />
+      )
+    }
+
+    return (
+      <div className={className} id={id}>
+        <div className="unit-name-and-staggered-release-status">
+          <h2>{unitName}</h2>
+          {staggeredReleaseElement}
+        </div>
+        {activityContent}
       </div>
     )
   }
