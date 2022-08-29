@@ -17,7 +17,7 @@
 #  created_at     :datetime
 #  updated_at     :datetime
 #  clever_id      :string
-#  nces_id        :integer
+#  nces_id        :bigint
 #
 # Indexes
 #

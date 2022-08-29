@@ -24,8 +24,6 @@ describe UserSubscription, type: :model do
   it { should belong_to(:user) }
   it { should belong_to(:subscription) }
 
-  it { is_expected.to callback(:send_premium_emails).after(:create) }
-
   let!(:user1) { create(:user) }
   let!(:user2) { create(:user) }
   let!(:new_sub) { create(:subscription) }
@@ -40,34 +38,6 @@ describe UserSubscription, type: :model do
 
       it 'user_id' do
         expect { user_sub.update!(subscription_id: nil) }.to raise_error(ActiveRecord::RecordInvalid)
-      end
-    end
-  end
-
-  describe '#send_premium_emails' do
-    let(:user) { create(:user, email: 'test@quill.org') }
-    let(:subscription) { create(:subscription) }
-    let!(:user_subscription) { create(:user_subscription, user: user, subscription: subscription) }
-
-    context 'when account type is not teacher trial and the school subscriptions are not empty' do
-      before do
-        allow(subscription).to receive(:school_subscriptions).and_return([])
-        allow(subscription).to receive(:account_type).and_return('anything but teacher trial')
-      end
-
-      it 'should send the premium email' do
-        expect { user_subscription.send_premium_emails }.to change(PremiumUserSubscriptionEmailWorker.jobs, :size).by(1)
-      end
-    end
-
-    context 'when account type is not teacher trial' do
-      before do
-        allow(subscription).to receive(:school_subscriptions).and_return(['filled_array'])
-        allow(subscription).to receive(:account_type).and_return('anything but teacher trial')
-      end
-
-      it 'should send the premium email' do
-        expect { user_subscription.send_premium_emails }.to change(PremiumSchoolSubscriptionEmailWorker.jobs, :size).by(1)
       end
     end
   end

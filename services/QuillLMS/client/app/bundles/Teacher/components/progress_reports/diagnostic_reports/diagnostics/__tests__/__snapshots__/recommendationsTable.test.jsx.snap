@@ -313,6 +313,7 @@ exports[`RecommendationsTable component should render when no students have comp
       >
         <table
           className="recommendations-table"
+          id="demo-onboarding-tour-spotlight-element"
           style={
             Object {
               "paddingLeft": 32,
@@ -11218,6 +11219,7 @@ exports[`RecommendationsTable component should render when there are recommendat
       >
         <table
           className="recommendations-table"
+          id="demo-onboarding-tour-spotlight-element"
           style={
             Object {
               "paddingLeft": 32,

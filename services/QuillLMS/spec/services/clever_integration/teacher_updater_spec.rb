@@ -29,6 +29,7 @@ RSpec.describe CleverIntegration::TeacherUpdater do
 
     it { expect { subject }.to change(teacher, :clever_id).from(nil).to(data_clever_id) }
     it { expect { subject }.to change(teacher, :name).from(name).to(data_name) }
+    it { expect { subject }.to change(teacher, :google_id).to(nil) }
     it { expect { subject}.not_to change(teacher, :email) }
   end
 

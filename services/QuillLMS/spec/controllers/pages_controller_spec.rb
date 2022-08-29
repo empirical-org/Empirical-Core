@@ -136,6 +136,12 @@ describe PagesController do
       expect(assigns(:user_has_school)).to eq false
       expect(assigns(:user_belongs_to_school_that_has_paid)).to eq false
     end
+
+    it 'should set :user_is_eligible_for_new_subscription to false if there is a demo account' do
+      allow(controller).to receive(:session) { { demo_id: 'something' } }
+      get :premium
+      expect(assigns(:user_is_eligible_for_new_subscription)).to eq false
+    end
   end
 
   describe '#locker' do

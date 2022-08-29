@@ -16,7 +16,7 @@ primary_db_env: &primary_db_env
 
 replica_db_env: &replica_db_env
   <<: *default
-  url: <%= ENV['REPLICA_DATABASE_URL'] || ENV['DATABASE_URL'] %>
+  url: <%= ENV['REPLICA_DATABASE_CONNECTION_POOL_URL'] || ENV['REPLICA_DATABASE_URL'] || ENV['DATABASE_URL'] %>
   replica: true
 
 heroku_env: &heroku_env

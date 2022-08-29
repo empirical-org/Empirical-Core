@@ -20,7 +20,6 @@ class SchoolSubscription < ApplicationRecord
   belongs_to :school
   belongs_to :subscription
   after_commit :update_schools_users
-  after_create :send_premium_emails
 
   def update_schools_users
     return unless school&.users
@@ -30,19 +29,4 @@ class SchoolSubscription < ApplicationRecord
     end
   end
 
-  # rubocop:disable Metrics/CyclomaticComplexity
-  def send_premium_emails
-    return unless school&.users
-
-    if Rails.env.production?
-      school.users.each do |user|
-        PremiumSchoolSubscriptionEmailWorker.perform_async(user.id)
-      end
-    else
-      school.users.each do |user|
-        PremiumSchoolSubscriptionEmailWorker.perform_async(user.id) if user.email&.match('quill.org')
-      end
-    end
-  end
-  # rubocop:enable Metrics/CyclomaticComplexity
 end

@@ -4,7 +4,9 @@ module Evidence
   module Grammar
     class Client
       API_TIMEOUT = 5
-      ALLOWED_PAYLOAD_KEYS = ['gapi_error', 'highlight']
+      HIGHLIGHT_KEY = 'highlight'
+      ERROR_KEY = 'gapi_error'
+      ALLOWED_PAYLOAD_KEYS = [ERROR_KEY, HIGHLIGHT_KEY]
       API_ENDPOINT = ENV['GRAMMAR_API_DOMAIN']
 
       class APIError < StandardError; end

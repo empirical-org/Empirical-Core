@@ -48,6 +48,7 @@ class ConceptResult < ApplicationRecord
     :attemptNumber,
     :correct,
     :directions,
+    :instructions,
     :lastFeedback,
     :prompt,
     :questionNumber,
