@@ -227,7 +227,7 @@ describe 'SegmentAnalytics' do
     let(:classroom_unit) { create(:classroom_unit, unit: unit, classroom: classroom, assigned_student_ids: [student.id]) }
     let(:unit_activity1) { create(:unit_activity, unit: unit) }
     let(:unit_activity2) { create(:unit_activity, unit: unit) }
-    let!(:activity_session1) { create(:activity_session, :finished, user: student1, classroom_unit: classroom_unit, activity: unit_activity1.activity) }
+    let!(:activity_session1) { create(:activity_session, :finished, user: student, classroom_unit: classroom_unit, activity: unit_activity1.activity) }
     let!(:activity_session2) { create(:activity_session, :started, user: student, classroom_unit: classroom_unit, activity: unit_activity2.activity) }
 
     it '#activity_pack_completed? returns false if activity pack has not been completed' do
