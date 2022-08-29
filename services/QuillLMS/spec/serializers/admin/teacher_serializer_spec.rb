@@ -4,7 +4,8 @@ require 'rails_helper'
 
 describe Admin::TeacherSerializer do
   it_behaves_like 'serializer' do
-    let(:record_instance) { create(:teacher) }
+    let(:teacher) { create(:teacher) }
+    let(:record_instance) { TeachersData.run(teacher.id) }
     let(:result_key) { "teacher" }
 
     let(:expected_serialized_keys) do

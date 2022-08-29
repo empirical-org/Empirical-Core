@@ -96,7 +96,7 @@ module TeachersData
 
       user.define_singleton_method(:time_spent) { hash_value[:time_spent] }
 
-      user.define_singleton_method(:has_valid_subscription) { User.find_by_id(key)&.subscription_is_valid? }
+      user.define_singleton_method(:has_valid_subscription) { User.find_by_id(key).subscription_is_valid? }
 
       user
     end
