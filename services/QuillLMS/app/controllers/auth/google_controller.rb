@@ -41,7 +41,7 @@ class Auth::GoogleController < ApplicationController
 
   private def check_for_authorization
     user = User.find_by('google_id = ? OR email = ?', @profile.google_id&.to_s, @profile.email&.downcase)
-    return if user.nil? || user.google_authorized?
+    return if user.nil? || user.non_authenticating? || user.google_authorized?
 
     session[ApplicationController::GOOGLE_OFFLINE_ACCESS_EXPIRED] = true
     redirect_to new_session_path
@@ -69,8 +69,6 @@ class Auth::GoogleController < ApplicationController
   end
 
   private def set_user
-    puts 'set_user'
-
     if non_standard_route_redirect?(session[GOOGLE_REDIRECT])
       if current_user
         user = current_user.update(email: @profile.email)
@@ -87,13 +85,17 @@ class Auth::GoogleController < ApplicationController
     end
     @user = GoogleIntegration::User.new(@profile).update_or_initialize
 
-    puts @user
-
-    return unless (@user.non_authenticating? || @user.new_record?) && session[:role].blank?
-
-    flash[:error] = user_not_found_error_message
-    flash.keep(:error)
-    redirect_to(new_session_path, status: :see_other)
+    # session[:role] is only set during the account creation workflow, checking for it
+    # lets us differentiate between sign in and sign up
+    if session[:role]
+      @user.update(role: session[:role]) if @user.non_authenticating?
+    elsif @user.new_record? || @user.non_authenticating?
+      flash[:error] = user_not_found_error_message
+      flash.keep(:error)
+      redirect_to(new_session_path, status: :see_other)
+    end
+    # if neither special condition above is true, then setting @user is the last
+    # thing we need to do, just return nil
   end
 
   private def user_not_found_error_message

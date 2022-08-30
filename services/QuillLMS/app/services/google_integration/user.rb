@@ -30,7 +30,7 @@ class GoogleIntegration::User
       params[:name]      = profile.name      if profile.name.present?
       params[:email]     = profile.email     if profile.email.present?
       params[:google_id] = profile.google_id if profile.google_id.present?
-      params[:role]      = profile.role      if profile.role.present? && (user.new_record? || user.non_authenticating?)
+      params[:role]      = profile.role      if profile.role.present? && user.new_record?
       params[:clever_id] = nil
 
       params

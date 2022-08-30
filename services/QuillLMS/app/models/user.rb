@@ -669,7 +669,6 @@ class User < ApplicationRecord
   # can sync their data to Vitally.  We need to treat these users specially
   # during auth flows because they haven't actually signed up.
   def non_authenticating?
-    return false
     NON_AUTHENTICATING_ROLES.include?(role)
   end
 

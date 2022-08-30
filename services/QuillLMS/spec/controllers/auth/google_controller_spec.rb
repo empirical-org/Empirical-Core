@@ -13,13 +13,25 @@ describe Auth::GoogleController, type: :controller do
   it 'shows error message for non_authenticating? accounts with no role' do
     user = create(:user, role: User::SALES_CONTACT)
 
-    omniauth_info_double = double
-    expect(omniauth_info_double).to receive(:email).and_return(user.email)
-    expect_any_instance_of(GoogleIntegration::Profile).to receive(:info).and_return(omniauth_info_double)
+    google_user_double = double
+    expect(GoogleIntegration::User).to receive(:new).and_return(google_user_double)
+    expect(google_user_double).to receive(:update_or_initialize).and_return(user)
 
     get 'online_access_callback', params: { email: user.email, role: nil }
     expect(flash[:error]).to include("We could not find your account. Is this your first time logging in?")
     expect(response).to redirect_to "/session/new"
   end
 
+  it 'updates role non_authenticating? accounts when session[:role] is set' do
+    session_role = 'teacher'
+    user = create(:user, role: User::SALES_CONTACT)
+
+    google_user_double = double
+    expect(GoogleIntegration::User).to receive(:new).and_return(google_user_double)
+    expect(google_user_double).to receive(:update_or_initialize).and_return(user)
+
+    get 'online_access_callback', params: { email: user.email, role: nil }, session: { role: session_role }
+    expect(flash[:error]).to be(nil)
+    expect(user.reload.role).to eq(session_role)
+  end
 end
