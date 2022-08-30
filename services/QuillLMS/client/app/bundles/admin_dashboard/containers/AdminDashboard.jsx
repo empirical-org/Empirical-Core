@@ -88,7 +88,6 @@ export default class AdminDashboard extends React.Component {
             <PremiumFeatures />
             <AdminsTeachers
               data={this.state.model.teachers}
-              isValid={!!this.state.model.valid_subscription}
               refreshData={this.getData}
             />
             <CreateNewAccounts
