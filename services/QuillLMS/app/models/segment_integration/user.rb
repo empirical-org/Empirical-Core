@@ -11,7 +11,8 @@ module SegmentIntegration
           first_name: first_name,
           last_name: last_name,
           email: email,
-          flags: flags&.join(", ")
+          flags: flags&.join(", "),
+          flagset: flagset
         }.reject {|_,v| v.nil? },
         integrations: integration_rules
       }
