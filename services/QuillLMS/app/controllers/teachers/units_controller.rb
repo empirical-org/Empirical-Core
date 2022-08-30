@@ -27,7 +27,7 @@ class Teachers::UnitsController < ApplicationController
   end
 
   def prohibited_unit_names
-    unit_names = current_user.units.pluck(:name).map(&:downcase)
+    unit_names = current_user.units.joins(:classrooms).where(classrooms: {visible: true}).pluck(:name).map(&:downcase)
     render json: { prohibitedUnitNames: unit_names }.to_json
   end
 
