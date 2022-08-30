@@ -102,7 +102,11 @@ class Auth::GoogleController < ApplicationController
   end
 
   private def show_user_not_found_if_necessary
-    return unless (@user.new_record? || @user.non_authenticating?) && !in_sign_up_flow?
+    # If we're in the sign up flow we never show this error
+    return if in_sign_up_flow?
+    # We only need to show this error if the the sign in process can't find an
+    # existing record, or finds a non-authenticating record.  Otherwise, skip it.
+    return unless @user.new_record? || @user.non_authenticating?
 
     flash[:error] = user_not_found_error_message
     flash.keep(:error)
