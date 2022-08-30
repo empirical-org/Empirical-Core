@@ -85,17 +85,28 @@ class Auth::GoogleController < ApplicationController
     end
     @user = GoogleIntegration::User.new(@profile).update_or_initialize
 
+    update_role_if_necessary
+    show_user_not_found_if_necessary
+  end
+
+  private def in_sign_up_flow?
     # session[:role] is only set during the account creation workflow, checking for it
     # lets us differentiate between sign in and sign up
-    if session[:role]
-      @user.update(role: session[:role]) if @user.non_authenticating?
-    elsif @user.new_record? || @user.non_authenticating?
-      flash[:error] = user_not_found_error_message
-      flash.keep(:error)
-      redirect_to(new_session_path, status: :see_other)
-    end
-    # if neither special condition above is true, then setting @user is the last
-    # thing we need to do, just return nil
+    session[:role].present?
+  end
+
+  private def update_role_if_necessary
+    return unless in_sign_up_flow? && @user.non_authenticating?
+
+    @user.update(role: session[:role])
+  end
+
+  private def show_user_not_found_if_necessary
+    return unless (@user.new_record? || @user.non_authenticating?) && !in_sign_up_flow?
+
+    flash[:error] = user_not_found_error_message
+    flash.keep(:error)
+    redirect_to(new_session_path, status: :see_other)
   end
 
   private def user_not_found_error_message
