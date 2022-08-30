@@ -21,8 +21,8 @@ namespace :flags do
       college_board_ids = User.find_by_sql(
         "select id from users where email LIKE '%quill.org'"
       ).pluck(:id)
-      puts ids
-      ids.each do |id|
+      puts college_board_ids
+      college_board_ids.each do |id|
         user = User.find(id)
         user.update!(flagset: 'alpha')
       end
