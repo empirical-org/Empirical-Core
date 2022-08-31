@@ -39,7 +39,7 @@ module Evidence
 
         # assign results with no TEST,VALIDATION,TRAIN type
         @results = clean_text_and_labels.map do |text_and_label|
-          Synthetic::Result.new(
+          Synthetic::LabeledResult.new(
             text: text_and_label.first, # text is a unique ID
             label: text_and_label.last,
             generated: {}

@@ -2,7 +2,7 @@
 
 module Evidence
   module Synthetic
-    Result = Struct.new(:text, :label, :type, :generated, keyword_init: true) do
+    LabeledResult = Struct.new(:text, :label, :type, :generated, keyword_init: true) do
       def to_training_rows
         [training_row].concat(generated_training_rows)
       end
