@@ -2,7 +2,7 @@
 
 module Evidence
   module Synthetic
-    class Data < ApplicationService
+    class LabeledDataGenerator < ApplicationService
       include Synthetic::ManualTypes
 
       CSV_END_MATCH = /\.csv\z/
@@ -66,7 +66,7 @@ module Evidence
       def self.generate_from_file(input_file_path, output_file_path, languages: LANGUAGES.keys)
         texts_and_labels = CSV.open(input_file_path).to_a
 
-        synthetics = Synthetic::Data.new(texts_and_labels, languages: languages)
+        synthetics = Synthetic::LabeledDataGenerator.new(texts_and_labels, languages: languages)
 
         synthetics.run
 
@@ -85,7 +85,7 @@ module Evidence
 
         generators = paid ? GENERATORS.keys : FREE_GENERATORS.keys
 
-        synthetics = Synthetic::Data.new(
+        synthetics = Synthetic::LabeledDataGenerator.new(
           texts_and_labels,
           languages: languages,
           manual_types: manual_types,

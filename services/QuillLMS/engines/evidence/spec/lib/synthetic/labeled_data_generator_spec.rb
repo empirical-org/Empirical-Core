@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe Evidence::Synthetic::Data do
+describe Evidence::Synthetic::LabeledDataGenerator do
   let(:text1) {'text string'}
   let(:label1) {'label_5'}
   let(:text2) {'other text'}
@@ -23,7 +23,7 @@ describe Evidence::Synthetic::Data do
   end
 
   describe '#new' do
-    let(:synthetics) { Evidence::Synthetic::Data.new(labeled_data, languages: [:es])}
+    let(:synthetics) { Evidence::Synthetic::LabeledDataGenerator.new(labeled_data, languages: [:es])}
 
     it 'should setup properly with empty translations' do
       expect(synthetics.languages.count).to eq 1
@@ -39,7 +39,7 @@ describe Evidence::Synthetic::Data do
   end
 
   describe '#run translation' do
-    let(:synthetics) { Evidence::Synthetic::Data.run(labeled_data, languages: [:es], generators: [:translation])}
+    let(:synthetics) { Evidence::Synthetic::LabeledDataGenerator.run(labeled_data, languages: [:es], generators: [:translation])}
 
     it 'fetch and store translations' do
       expect(Evidence::Synthetic::Generators::Translation).to receive(:run).with([text1, text2], {:languages=>[:es]}).and_return(translation_response)
@@ -54,7 +54,7 @@ describe Evidence::Synthetic::Data do
   end
 
   describe '#run spelling errors' do
-    let(:synthetics) { Evidence::Synthetic::Data.run(labeled_data, languages: [:es], generators: [:spelling])}
+    let(:synthetics) { Evidence::Synthetic::LabeledDataGenerator.run(labeled_data, languages: [:es], generators: [:spelling])}
 
     it 'fetch and store translations' do
       expect(Evidence::Synthetic::Generators::Spelling).to receive(:run).with([text1, text2], {:languages=>[:es]}).and_return(spelling_response)
@@ -69,7 +69,7 @@ describe Evidence::Synthetic::Data do
   end
 
   describe 'data exports' do
-    let(:synthetics) { Evidence::Synthetic::Data.run(labeled_data, languages: [:es], generators: [:translation, :spelling])}
+    let(:synthetics) { Evidence::Synthetic::LabeledDataGenerator.run(labeled_data, languages: [:es], generators: [:translation, :spelling])}
 
     before do
       allow(Evidence::Synthetic::Generators::Translation).to receive(:run).with([text1, text2], {:languages=>[:es]}).and_return(translation_response)

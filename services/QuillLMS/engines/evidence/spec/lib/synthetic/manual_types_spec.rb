@@ -13,9 +13,9 @@ describe Evidence::Synthetic::ManualTypes do
   let(:not_enough_labeled_data) { [['text string', label1], ['other text', label2]] }
 
   describe '#new' do
-    let(:synthetics) { Evidence::Synthetic::Data.new(enough_labeled_data, languages: [:es], manual_types: true)}
+    let(:synthetics) { Evidence::Synthetic::LabeledDataGenerator.new(enough_labeled_data, languages: [:es], manual_types: true)}
 
-    let(:invalid_synthetics) { Evidence::Synthetic::Data.new(not_enough_labeled_data, languages: [:es], manual_types: true)}
+    let(:invalid_synthetics) { Evidence::Synthetic::LabeledDataGenerator.new(not_enough_labeled_data, languages: [:es], manual_types: true)}
 
     it 'should assign types without raising an error' do
       stub_const("Evidence::Synthetic::ManualTypes::MIN_TRAIN_PER_LABEL", 5)
