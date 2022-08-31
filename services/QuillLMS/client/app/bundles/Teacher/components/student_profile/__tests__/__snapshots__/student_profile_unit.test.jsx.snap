@@ -240,7 +240,9 @@ exports[`StudentProfileUnit component should render 1`] = `
     <div
       className="unit-name-and-staggered-release-status"
     >
-      <h2>
+      <h2
+        className="unit-name"
+      >
         Unit
       </h2>
       <span />

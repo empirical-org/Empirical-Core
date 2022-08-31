@@ -417,6 +417,9 @@
       .lessons-recommendation {
         margin: 16px 16px 0px;
         max-width: calc(100vw - 32px);
+        .quill-tooltip-trigger {
+          transform: translateX(-100%);
+        }
         .top-row {
           padding: 24px 16px;
           > div:last-of-type {

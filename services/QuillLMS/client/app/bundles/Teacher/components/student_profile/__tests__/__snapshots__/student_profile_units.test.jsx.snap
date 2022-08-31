@@ -384,7 +384,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
         <div
           className="unit-name-and-staggered-release-status"
         >
-          <h2>
+          <h2
+            className="unit-name"
+          >
             Basic Fragments Group Lessons
           </h2>
           <span />
@@ -433,33 +435,51 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
             rows={
               Array [
                 Object {
-                  "actionButton": <span
-                    className="needs-teacher"
-                  >
-                    Needs teacher
-                  </span>,
+                  "actionButton": <Tooltip
+                    isTabbable={true}
+                    tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
+                    tooltipTriggerText={
+                      <span
+                        className="needs-teacher"
+                      >
+                        Needs teacher
+                      </span>
+                    }
+                  />,
                   "dueDate": null,
                   "id": 41,
                   "name": "Lesson 2: Dependent Clause Fragments",
                   "tool": undefined,
                 },
                 Object {
-                  "actionButton": <span
-                    className="needs-teacher"
-                  >
-                    Needs teacher
-                  </span>,
+                  "actionButton": <Tooltip
+                    isTabbable={true}
+                    tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
+                    tooltipTriggerText={
+                      <span
+                        className="needs-teacher"
+                      >
+                        Needs teacher
+                      </span>
+                    }
+                  />,
                   "dueDate": null,
                   "id": 42,
                   "name": "Lesson 3: -ing Fragments",
                   "tool": undefined,
                 },
                 Object {
-                  "actionButton": <span
-                    className="needs-teacher"
-                  >
-                    Needs teacher
-                  </span>,
+                  "actionButton": <Tooltip
+                    isTabbable={true}
+                    tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
+                    tooltipTriggerText={
+                      <span
+                        className="needs-teacher"
+                      >
+                        Needs teacher
+                      </span>
+                    }
+                  />,
                   "dueDate": null,
                   "id": 43,
                   "name": "Lesson 4: Fragments Review",
@@ -578,11 +598,49 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span
-                      className="needs-teacher"
+                    <Tooltip
+                      isTabbable={true}
+                      tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
+                      tooltipTriggerText={
+                        <span
+                          className="needs-teacher"
+                        >
+                          Needs teacher
+                        </span>
+                      }
                     >
-                      Needs teacher
-                    </span>
+                      <span
+                        aria-hidden={false}
+                        className="quill-tooltip-trigger "
+                        role="tooltip"
+                      >
+                        <span
+                          className="undefined"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
+                        >
+                          <span
+                            className="needs-teacher"
+                          >
+                            Needs teacher
+                          </span>
+                        </span>
+                        <span
+                          className="quill-tooltip-wrapper"
+                        >
+                          <span
+                            aria-live="polite"
+                            className="quill-tooltip"
+                          />
+                        </span>
+                      </span>
+                    </Tooltip>
                   </td>
                 </tr>
                 <tr
@@ -635,11 +693,49 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span
-                      className="needs-teacher"
+                    <Tooltip
+                      isTabbable={true}
+                      tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
+                      tooltipTriggerText={
+                        <span
+                          className="needs-teacher"
+                        >
+                          Needs teacher
+                        </span>
+                      }
                     >
-                      Needs teacher
-                    </span>
+                      <span
+                        aria-hidden={false}
+                        className="quill-tooltip-trigger "
+                        role="tooltip"
+                      >
+                        <span
+                          className="undefined"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
+                        >
+                          <span
+                            className="needs-teacher"
+                          >
+                            Needs teacher
+                          </span>
+                        </span>
+                        <span
+                          className="quill-tooltip-wrapper"
+                        >
+                          <span
+                            aria-live="polite"
+                            className="quill-tooltip"
+                          />
+                        </span>
+                      </span>
+                    </Tooltip>
                   </td>
                 </tr>
                 <tr
@@ -692,11 +788,49 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span
-                      className="needs-teacher"
+                    <Tooltip
+                      isTabbable={true}
+                      tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
+                      tooltipTriggerText={
+                        <span
+                          className="needs-teacher"
+                        >
+                          Needs teacher
+                        </span>
+                      }
                     >
-                      Needs teacher
-                    </span>
+                      <span
+                        aria-hidden={false}
+                        className="quill-tooltip-trigger "
+                        role="tooltip"
+                      >
+                        <span
+                          className="undefined"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
+                        >
+                          <span
+                            className="needs-teacher"
+                          >
+                            Needs teacher
+                          </span>
+                        </span>
+                        <span
+                          className="quill-tooltip-wrapper"
+                        >
+                          <span
+                            aria-live="polite"
+                            className="quill-tooltip"
+                          />
+                        </span>
+                      </span>
+                    </Tooltip>
                   </td>
                 </tr>
               </tbody>
@@ -901,7 +1035,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
         <div
           className="unit-name-and-staggered-release-status"
         >
-          <h2>
+          <h2
+            className="unit-name"
+          >
             History: Age of Exploration
           </h2>
           <span />
@@ -1998,7 +2134,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
         <div
           className="unit-name-and-staggered-release-status"
         >
-          <h2>
+          <h2
+            className="unit-name"
+          >
             Basic Fragments Group Lessons
           </h2>
           <span />
@@ -2047,33 +2185,51 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
             rows={
               Array [
                 Object {
-                  "actionButton": <span
-                    className="needs-teacher"
-                  >
-                    Needs teacher
-                  </span>,
+                  "actionButton": <Tooltip
+                    isTabbable={true}
+                    tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
+                    tooltipTriggerText={
+                      <span
+                        className="needs-teacher"
+                      >
+                        Needs teacher
+                      </span>
+                    }
+                  />,
                   "dueDate": null,
                   "id": 41,
                   "name": "Lesson 2: Dependent Clause Fragments",
                   "tool": undefined,
                 },
                 Object {
-                  "actionButton": <span
-                    className="needs-teacher"
-                  >
-                    Needs teacher
-                  </span>,
+                  "actionButton": <Tooltip
+                    isTabbable={true}
+                    tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
+                    tooltipTriggerText={
+                      <span
+                        className="needs-teacher"
+                      >
+                        Needs teacher
+                      </span>
+                    }
+                  />,
                   "dueDate": null,
                   "id": 42,
                   "name": "Lesson 3: -ing Fragments",
                   "tool": undefined,
                 },
                 Object {
-                  "actionButton": <span
-                    className="needs-teacher"
-                  >
-                    Needs teacher
-                  </span>,
+                  "actionButton": <Tooltip
+                    isTabbable={true}
+                    tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
+                    tooltipTriggerText={
+                      <span
+                        className="needs-teacher"
+                      >
+                        Needs teacher
+                      </span>
+                    }
+                  />,
                   "dueDate": null,
                   "id": 43,
                   "name": "Lesson 4: Fragments Review",
@@ -2192,11 +2348,49 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span
-                      className="needs-teacher"
+                    <Tooltip
+                      isTabbable={true}
+                      tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
+                      tooltipTriggerText={
+                        <span
+                          className="needs-teacher"
+                        >
+                          Needs teacher
+                        </span>
+                      }
                     >
-                      Needs teacher
-                    </span>
+                      <span
+                        aria-hidden={false}
+                        className="quill-tooltip-trigger "
+                        role="tooltip"
+                      >
+                        <span
+                          className="undefined"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
+                        >
+                          <span
+                            className="needs-teacher"
+                          >
+                            Needs teacher
+                          </span>
+                        </span>
+                        <span
+                          className="quill-tooltip-wrapper"
+                        >
+                          <span
+                            aria-live="polite"
+                            className="quill-tooltip"
+                          />
+                        </span>
+                      </span>
+                    </Tooltip>
                   </td>
                 </tr>
                 <tr
@@ -2249,11 +2443,49 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span
-                      className="needs-teacher"
+                    <Tooltip
+                      isTabbable={true}
+                      tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
+                      tooltipTriggerText={
+                        <span
+                          className="needs-teacher"
+                        >
+                          Needs teacher
+                        </span>
+                      }
                     >
-                      Needs teacher
-                    </span>
+                      <span
+                        aria-hidden={false}
+                        className="quill-tooltip-trigger "
+                        role="tooltip"
+                      >
+                        <span
+                          className="undefined"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
+                        >
+                          <span
+                            className="needs-teacher"
+                          >
+                            Needs teacher
+                          </span>
+                        </span>
+                        <span
+                          className="quill-tooltip-wrapper"
+                        >
+                          <span
+                            aria-live="polite"
+                            className="quill-tooltip"
+                          />
+                        </span>
+                      </span>
+                    </Tooltip>
                   </td>
                 </tr>
                 <tr
@@ -2306,11 +2538,49 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                       }
                     }
                   >
-                    <span
-                      className="needs-teacher"
+                    <Tooltip
+                      isTabbable={true}
+                      tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
+                      tooltipTriggerText={
+                        <span
+                          className="needs-teacher"
+                        >
+                          Needs teacher
+                        </span>
+                      }
                     >
-                      Needs teacher
-                    </span>
+                      <span
+                        aria-hidden={false}
+                        className="quill-tooltip-trigger "
+                        role="tooltip"
+                      >
+                        <span
+                          className="undefined"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
+                        >
+                          <span
+                            className="needs-teacher"
+                          >
+                            Needs teacher
+                          </span>
+                        </span>
+                        <span
+                          className="quill-tooltip-wrapper"
+                        >
+                          <span
+                            aria-live="polite"
+                            className="quill-tooltip"
+                          />
+                        </span>
+                      </span>
+                    </Tooltip>
                   </td>
                 </tr>
               </tbody>
@@ -2515,7 +2785,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
         <div
           className="unit-name-and-staggered-release-status"
         >
-          <h2>
+          <h2
+            className="unit-name"
+          >
             History: Age of Exploration
           </h2>
           <span />
@@ -3686,7 +3958,9 @@ exports[`StudentProfileUnits component should render only completed activities i
         <div
           className="unit-name-and-staggered-release-status"
         >
-          <h2>
+          <h2
+            className="unit-name"
+          >
             History: Age of Exploration
           </h2>
           <span />
@@ -4541,7 +4815,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
         <div
           className="unit-name-and-staggered-release-status"
         >
-          <h2>
+          <h2
+            className="unit-name"
+          >
             Basic Fragments Group Lessons
           </h2>
           <span />
@@ -4603,33 +4879,51 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   "tool": undefined,
                 },
                 Object {
-                  "actionButton": <span
-                    className="needs-teacher"
-                  >
-                    Needs teacher
-                  </span>,
+                  "actionButton": <Tooltip
+                    isTabbable={true}
+                    tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
+                    tooltipTriggerText={
+                      <span
+                        className="needs-teacher"
+                      >
+                        Needs teacher
+                      </span>
+                    }
+                  />,
                   "dueDate": null,
                   "id": 41,
                   "name": "Lesson 2: Dependent Clause Fragments",
                   "tool": undefined,
                 },
                 Object {
-                  "actionButton": <span
-                    className="needs-teacher"
-                  >
-                    Needs teacher
-                  </span>,
+                  "actionButton": <Tooltip
+                    isTabbable={true}
+                    tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
+                    tooltipTriggerText={
+                      <span
+                        className="needs-teacher"
+                      >
+                        Needs teacher
+                      </span>
+                    }
+                  />,
                   "dueDate": null,
                   "id": 42,
                   "name": "Lesson 3: -ing Fragments",
                   "tool": undefined,
                 },
                 Object {
-                  "actionButton": <span
-                    className="needs-teacher"
-                  >
-                    Needs teacher
-                  </span>,
+                  "actionButton": <Tooltip
+                    isTabbable={true}
+                    tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
+                    tooltipTriggerText={
+                      <span
+                        className="needs-teacher"
+                      >
+                        Needs teacher
+                      </span>
+                    }
+                  />,
                   "dueDate": null,
                   "id": 43,
                   "name": "Lesson 4: Fragments Review",
@@ -4807,11 +5101,49 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    <span
-                      className="needs-teacher"
+                    <Tooltip
+                      isTabbable={true}
+                      tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
+                      tooltipTriggerText={
+                        <span
+                          className="needs-teacher"
+                        >
+                          Needs teacher
+                        </span>
+                      }
                     >
-                      Needs teacher
-                    </span>
+                      <span
+                        aria-hidden={false}
+                        className="quill-tooltip-trigger "
+                        role="tooltip"
+                      >
+                        <span
+                          className="undefined"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
+                        >
+                          <span
+                            className="needs-teacher"
+                          >
+                            Needs teacher
+                          </span>
+                        </span>
+                        <span
+                          className="quill-tooltip-wrapper"
+                        >
+                          <span
+                            aria-live="polite"
+                            className="quill-tooltip"
+                          />
+                        </span>
+                      </span>
+                    </Tooltip>
                   </td>
                 </tr>
                 <tr
@@ -4864,11 +5196,49 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    <span
-                      className="needs-teacher"
+                    <Tooltip
+                      isTabbable={true}
+                      tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
+                      tooltipTriggerText={
+                        <span
+                          className="needs-teacher"
+                        >
+                          Needs teacher
+                        </span>
+                      }
                     >
-                      Needs teacher
-                    </span>
+                      <span
+                        aria-hidden={false}
+                        className="quill-tooltip-trigger "
+                        role="tooltip"
+                      >
+                        <span
+                          className="undefined"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
+                        >
+                          <span
+                            className="needs-teacher"
+                          >
+                            Needs teacher
+                          </span>
+                        </span>
+                        <span
+                          className="quill-tooltip-wrapper"
+                        >
+                          <span
+                            aria-live="polite"
+                            className="quill-tooltip"
+                          />
+                        </span>
+                      </span>
+                    </Tooltip>
                   </td>
                 </tr>
                 <tr
@@ -4921,11 +5291,49 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                       }
                     }
                   >
-                    <span
-                      className="needs-teacher"
+                    <Tooltip
+                      isTabbable={true}
+                      tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
+                      tooltipTriggerText={
+                        <span
+                          className="needs-teacher"
+                        >
+                          Needs teacher
+                        </span>
+                      }
                     >
-                      Needs teacher
-                    </span>
+                      <span
+                        aria-hidden={false}
+                        className="quill-tooltip-trigger "
+                        role="tooltip"
+                      >
+                        <span
+                          className="undefined"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
+                        >
+                          <span
+                            className="needs-teacher"
+                          >
+                            Needs teacher
+                          </span>
+                        </span>
+                        <span
+                          className="quill-tooltip-wrapper"
+                        >
+                          <span
+                            aria-live="polite"
+                            className="quill-tooltip"
+                          />
+                        </span>
+                      </span>
+                    </Tooltip>
                   </td>
                 </tr>
               </tbody>
@@ -5130,7 +5538,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
         <div
           className="unit-name-and-staggered-release-status"
         >
-          <h2>
+          <h2
+            className="unit-name"
+          >
             History: Age of Exploration
           </h2>
           <span />
@@ -6345,7 +6755,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
         <div
           className="unit-name-and-staggered-release-status"
         >
-          <h2>
+          <h2
+            className="unit-name"
+          >
             Basic Fragments Group Lessons
           </h2>
           <span />
@@ -6407,33 +6819,51 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   "tool": undefined,
                 },
                 Object {
-                  "actionButton": <span
-                    className="needs-teacher"
-                  >
-                    Needs teacher
-                  </span>,
+                  "actionButton": <Tooltip
+                    isTabbable={true}
+                    tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
+                    tooltipTriggerText={
+                      <span
+                        className="needs-teacher"
+                      >
+                        Needs teacher
+                      </span>
+                    }
+                  />,
                   "dueDate": null,
                   "id": 41,
                   "name": "Lesson 2: Dependent Clause Fragments",
                   "tool": undefined,
                 },
                 Object {
-                  "actionButton": <span
-                    className="needs-teacher"
-                  >
-                    Needs teacher
-                  </span>,
+                  "actionButton": <Tooltip
+                    isTabbable={true}
+                    tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
+                    tooltipTriggerText={
+                      <span
+                        className="needs-teacher"
+                      >
+                        Needs teacher
+                      </span>
+                    }
+                  />,
                   "dueDate": null,
                   "id": 42,
                   "name": "Lesson 3: -ing Fragments",
                   "tool": undefined,
                 },
                 Object {
-                  "actionButton": <span
-                    className="needs-teacher"
-                  >
-                    Needs teacher
-                  </span>,
+                  "actionButton": <Tooltip
+                    isTabbable={true}
+                    tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
+                    tooltipTriggerText={
+                      <span
+                        className="needs-teacher"
+                      >
+                        Needs teacher
+                      </span>
+                    }
+                  />,
                   "dueDate": null,
                   "id": 43,
                   "name": "Lesson 4: Fragments Review",
@@ -6611,11 +7041,49 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    <span
-                      className="needs-teacher"
+                    <Tooltip
+                      isTabbable={true}
+                      tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
+                      tooltipTriggerText={
+                        <span
+                          className="needs-teacher"
+                        >
+                          Needs teacher
+                        </span>
+                      }
                     >
-                      Needs teacher
-                    </span>
+                      <span
+                        aria-hidden={false}
+                        className="quill-tooltip-trigger "
+                        role="tooltip"
+                      >
+                        <span
+                          className="undefined"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
+                        >
+                          <span
+                            className="needs-teacher"
+                          >
+                            Needs teacher
+                          </span>
+                        </span>
+                        <span
+                          className="quill-tooltip-wrapper"
+                        >
+                          <span
+                            aria-live="polite"
+                            className="quill-tooltip"
+                          />
+                        </span>
+                      </span>
+                    </Tooltip>
                   </td>
                 </tr>
                 <tr
@@ -6668,11 +7136,49 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    <span
-                      className="needs-teacher"
+                    <Tooltip
+                      isTabbable={true}
+                      tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
+                      tooltipTriggerText={
+                        <span
+                          className="needs-teacher"
+                        >
+                          Needs teacher
+                        </span>
+                      }
                     >
-                      Needs teacher
-                    </span>
+                      <span
+                        aria-hidden={false}
+                        className="quill-tooltip-trigger "
+                        role="tooltip"
+                      >
+                        <span
+                          className="undefined"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
+                        >
+                          <span
+                            className="needs-teacher"
+                          >
+                            Needs teacher
+                          </span>
+                        </span>
+                        <span
+                          className="quill-tooltip-wrapper"
+                        >
+                          <span
+                            aria-live="polite"
+                            className="quill-tooltip"
+                          />
+                        </span>
+                      </span>
+                    </Tooltip>
                   </td>
                 </tr>
                 <tr
@@ -6725,11 +7231,49 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                       }
                     }
                   >
-                    <span
-                      className="needs-teacher"
+                    <Tooltip
+                      isTabbable={true}
+                      tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
+                      tooltipTriggerText={
+                        <span
+                          className="needs-teacher"
+                        >
+                          Needs teacher
+                        </span>
+                      }
                     >
-                      Needs teacher
-                    </span>
+                      <span
+                        aria-hidden={false}
+                        className="quill-tooltip-trigger "
+                        role="tooltip"
+                      >
+                        <span
+                          className="undefined"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
+                        >
+                          <span
+                            className="needs-teacher"
+                          >
+                            Needs teacher
+                          </span>
+                        </span>
+                        <span
+                          className="quill-tooltip-wrapper"
+                        >
+                          <span
+                            aria-live="polite"
+                            className="quill-tooltip"
+                          />
+                        </span>
+                      </span>
+                    </Tooltip>
                   </td>
                 </tr>
               </tbody>
@@ -6934,7 +7478,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
         <div
           className="unit-name-and-staggered-release-status"
         >
-          <h2>
+          <h2
+            className="unit-name"
+          >
             History: Age of Exploration
           </h2>
           <span />
@@ -8149,7 +8695,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
         <div
           className="unit-name-and-staggered-release-status"
         >
-          <h2>
+          <h2
+            className="unit-name"
+          >
             Basic Fragments Group Lessons
           </h2>
           <span />
@@ -8211,33 +8759,51 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   "tool": undefined,
                 },
                 Object {
-                  "actionButton": <span
-                    className="needs-teacher"
-                  >
-                    Needs teacher
-                  </span>,
+                  "actionButton": <Tooltip
+                    isTabbable={true}
+                    tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
+                    tooltipTriggerText={
+                      <span
+                        className="needs-teacher"
+                      >
+                        Needs teacher
+                      </span>
+                    }
+                  />,
                   "dueDate": null,
                   "id": 41,
                   "name": "Lesson 2: Dependent Clause Fragments",
                   "tool": undefined,
                 },
                 Object {
-                  "actionButton": <span
-                    className="needs-teacher"
-                  >
-                    Needs teacher
-                  </span>,
+                  "actionButton": <Tooltip
+                    isTabbable={true}
+                    tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
+                    tooltipTriggerText={
+                      <span
+                        className="needs-teacher"
+                      >
+                        Needs teacher
+                      </span>
+                    }
+                  />,
                   "dueDate": null,
                   "id": 42,
                   "name": "Lesson 3: -ing Fragments",
                   "tool": undefined,
                 },
                 Object {
-                  "actionButton": <span
-                    className="needs-teacher"
-                  >
-                    Needs teacher
-                  </span>,
+                  "actionButton": <Tooltip
+                    isTabbable={true}
+                    tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
+                    tooltipTriggerText={
+                      <span
+                        className="needs-teacher"
+                      >
+                        Needs teacher
+                      </span>
+                    }
+                  />,
                   "dueDate": null,
                   "id": 43,
                   "name": "Lesson 4: Fragments Review",
@@ -8415,11 +8981,49 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    <span
-                      className="needs-teacher"
+                    <Tooltip
+                      isTabbable={true}
+                      tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
+                      tooltipTriggerText={
+                        <span
+                          className="needs-teacher"
+                        >
+                          Needs teacher
+                        </span>
+                      }
                     >
-                      Needs teacher
-                    </span>
+                      <span
+                        aria-hidden={false}
+                        className="quill-tooltip-trigger "
+                        role="tooltip"
+                      >
+                        <span
+                          className="undefined"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
+                        >
+                          <span
+                            className="needs-teacher"
+                          >
+                            Needs teacher
+                          </span>
+                        </span>
+                        <span
+                          className="quill-tooltip-wrapper"
+                        >
+                          <span
+                            aria-live="polite"
+                            className="quill-tooltip"
+                          />
+                        </span>
+                      </span>
+                    </Tooltip>
                   </td>
                 </tr>
                 <tr
@@ -8472,11 +9076,49 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    <span
-                      className="needs-teacher"
+                    <Tooltip
+                      isTabbable={true}
+                      tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
+                      tooltipTriggerText={
+                        <span
+                          className="needs-teacher"
+                        >
+                          Needs teacher
+                        </span>
+                      }
                     >
-                      Needs teacher
-                    </span>
+                      <span
+                        aria-hidden={false}
+                        className="quill-tooltip-trigger "
+                        role="tooltip"
+                      >
+                        <span
+                          className="undefined"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
+                        >
+                          <span
+                            className="needs-teacher"
+                          >
+                            Needs teacher
+                          </span>
+                        </span>
+                        <span
+                          className="quill-tooltip-wrapper"
+                        >
+                          <span
+                            aria-live="polite"
+                            className="quill-tooltip"
+                          />
+                        </span>
+                      </span>
+                    </Tooltip>
                   </td>
                 </tr>
                 <tr
@@ -8529,11 +9171,49 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                       }
                     }
                   >
-                    <span
-                      className="needs-teacher"
+                    <Tooltip
+                      isTabbable={true}
+                      tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
+                      tooltipTriggerText={
+                        <span
+                          className="needs-teacher"
+                        >
+                          Needs teacher
+                        </span>
+                      }
                     >
-                      Needs teacher
-                    </span>
+                      <span
+                        aria-hidden={false}
+                        className="quill-tooltip-trigger "
+                        role="tooltip"
+                      >
+                        <span
+                          className="undefined"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
+                        >
+                          <span
+                            className="needs-teacher"
+                          >
+                            Needs teacher
+                          </span>
+                        </span>
+                        <span
+                          className="quill-tooltip-wrapper"
+                        >
+                          <span
+                            aria-live="polite"
+                            className="quill-tooltip"
+                          />
+                        </span>
+                      </span>
+                    </Tooltip>
                   </td>
                 </tr>
               </tbody>
@@ -8738,7 +9418,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
         <div
           className="unit-name-and-staggered-release-status"
         >
-          <h2>
+          <h2
+            className="unit-name"
+          >
             History: Age of Exploration
           </h2>
           <span />
