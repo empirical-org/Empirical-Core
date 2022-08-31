@@ -138,9 +138,6 @@ gem 'rack-heartbeat'
 
 # INTEGRATIONS
 gem 'clever-ruby', '~> 2.0.1'
-# Note, there is a version 3 of this gem, but we'd need to update our google-api-client
-# google-cloud-translate-v3
-gem 'google-cloud-translate'
 
 # Memory profiling
 gem 'puma_worker_killer'
