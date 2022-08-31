@@ -15,14 +15,15 @@ exports[`UnitTemplates container should match snapshot 1`] = `
       handleSearch={[Function]}
       options={
         Array [
-          "all flags",
-          "not archived",
-          "archived",
           "alpha",
+          "private",
           "beta",
           "gamma",
+          "evidence_beta1",
+          "evidence_beta2",
+          "college_board",
           "production",
-          "private",
+          "archived",
         ]
       }
       searchByActivityPack={true}

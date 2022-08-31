@@ -43,32 +43,6 @@ export const TEXT = 'text';
 export const FIRST_STRONG_EXAMPLE = 'first_strong_example';
 export const SECOND_STRONG_EXAMPLE = 'second_strong_example';
 
-export const flagOptions = [
-  {
-    label: 'alpha',
-    value: 'alpha'
-  },
-  {
-    label: 'private',
-    value: 'private'
-  },
-  {
-    label: 'beta',
-    value: 'beta'
-  },
-  {
-    label: 'gamma',
-    value: 'gamma'
-  },
-  {
-    label: 'production',
-    value: 'production'
-  },
-  {
-    label: 'archived',
-    value: 'archived'
-  },
-];
 
 export const courseOptions = [
   {
