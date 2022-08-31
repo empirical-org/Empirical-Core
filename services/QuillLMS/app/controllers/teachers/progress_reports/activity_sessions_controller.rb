@@ -143,20 +143,13 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
 
       page_count = (count.to_f / PAGE_SIZE).ceil
 
-      if params[:without_filters]
-        {
-          activity_sessions: activity_sessions,
-          page_count: page_count,
-        }
-      else
-        {
-          classrooms: current_user.ids_and_names_of_affiliated_classrooms,
-          students: current_user.ids_and_names_of_affiliated_students,
-          units: current_user.ids_and_names_of_affiliated_units,
-          activity_sessions: activity_sessions,
-          page_count: page_count,
-        }
-      end
+      {
+        classrooms: current_user.ids_and_names_of_affiliated_classrooms,
+        students: current_user.ids_and_names_of_affiliated_students(params[:classroom_id]),
+        units: current_user.ids_and_names_of_affiliated_units,
+        activity_sessions: activity_sessions,
+        page_count: page_count,
+      }
     else
       csv_string(activity_sessions)
     end

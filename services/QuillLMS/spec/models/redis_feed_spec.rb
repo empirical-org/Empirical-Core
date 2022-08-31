@@ -61,6 +61,15 @@ describe RedisFeed, type: :model do
         expect(test_feed_class.get(1)).to eq([{id: "17"}])
         expect(test_feed_class.get(2)).to eq([{id: "18"}])
       end
+
+      it 'should empty the data set on reset!' do
+        test_feed_class.add(1, 17)
+        test_feed_class.add(1, "19")
+        test_feed_class.add(1, "word")
+        test_feed_class.reset!(1)
+
+        expect(test_feed_class.get(1)).to eq([])
+      end
     end
   end
 

@@ -17,7 +17,6 @@ describe UserAdminSerializer do
         name
         email
         teachers
-        valid_subscription
         schools
       }
     end

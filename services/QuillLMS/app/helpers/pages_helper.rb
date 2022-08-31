@@ -86,11 +86,6 @@ module PagesHelper
             name: 'Hannah Monk',
             title: 'Managing Director of Curriculum',
             img: 'team-hannah-monk@2x.png'
-          },
-          {
-            name: 'Phil Weinberg',
-            title: 'Senior Partner',
-            img: 'team-phil-weinberg@2x.png'
           }
         ]
       },
@@ -102,16 +97,6 @@ module PagesHelper
             name: 'Eric Adams',
             title: 'Software Engineer II',
             img: 'team-eric-adams@2x.png'
-          },
-          {
-            name: 'Taha Adib',
-            title: 'Associate Data Product Manager',
-            img: 'team-taha-adib@2x.png'
-          },
-          {
-            name: 'Jessica Azani',
-            title: 'Director of Research & Instruction',
-            img: 'team-jessica-azani@2x.png'
           },
           {
             name: 'Devin Kawailani Barricklow',
@@ -157,11 +142,6 @@ module PagesHelper
             name: 'Scarlet Melo',
             title: 'Partnerships Specialist II',
             img: 'team-scarlet-melo@2x.png'
-          },
-          {
-            name: 'Robert Morgan',
-            title: 'Partnerships Specialist I',
-            img: 'team-robert-morgan@2x.png'
           },
           {
             name: 'Katie Moylan',
