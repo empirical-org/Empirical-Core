@@ -3,7 +3,7 @@ import _  from 'lodash';
 
 import { Activity } from './interfaces'
 import { FLAG_FILTERS } from './shared'
-import { flagOptions } from '../../../../../../constants/evidence';
+import { flagOptions } from '../../../../../../constants/flagOptions';
 
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
 

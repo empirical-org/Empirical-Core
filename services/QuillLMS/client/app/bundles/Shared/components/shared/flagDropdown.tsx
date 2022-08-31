@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { flagOptions } from '../../../../constants/evidence'
+import { flagOptions } from '../../../../constants/flagOptions'
 
 const flagOptionList = () => {
   return ( flagOptions.map((flagOption) => (

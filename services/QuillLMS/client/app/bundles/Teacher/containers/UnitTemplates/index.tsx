@@ -8,7 +8,7 @@ import LoadingSpinner from '../../../Connect/components/shared/loading_indicator
 import { SortableList, Tooltip } from  '../../../Shared/index'
 import getAuthToken from '../../components/modules/get_auth_token'
 import { orderedUnitTemplates, sortUnitTemplates, ALL_FLAGS, ALL_DIAGNOSTICS, NOT_ARCHIVED_FLAG, ARCHIVED_FLAG } from '../../helpers/unitTemplates'
-import { flagOptions } from '../../../../constants/evidence'
+import { flagOptions } from '../../../../constants/flagOptions'
 
 const UNIT_TEMPLATES_URL = `${process.env.DEFAULT_URL}/cms/unit_templates.json`
 const DIAGNOSTICS_URL = `${process.env.DEFAULT_URL}/api/v1/activities/diagnostic_activities.json`
