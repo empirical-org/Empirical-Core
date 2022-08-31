@@ -5,39 +5,39 @@ import LoadingIndicator from './loading_indicator.jsx';
 import SchoolOption from './school_option'
 
 import { Input, } from '../../../Shared/index'
+import useDebounce from '../../hooks/useDebounce'
 
 const mapSearchSrc = `${process.env.CDN_URL}/images/onboarding/map-search.svg`
 
 export const NOT_LISTED = 'not listed'
+const DEBOUNCE_LENGTH = 500
+const MINIMUM_SEARCH_LENGTH = 3
 
-export default class SchoolSelector extends React.Component {
-  constructor(props) {
-    super(props);
+const SchoolSelector = ({ selectSchool, }) => {
+  const [search, setSearch] = React.useState('')
+  const [schools, setSchools] = React.useState([])
+  const [errors, setErrors] = React.useState({})
+  const [loading, setLoading] = React.useState(false)
 
-    this.state = {
-      search: '',
-      schools: [],
-      errors: {},
-      loading: false
+  const debouncedSearch = useDebounce(search, DEBOUNCE_LENGTH);
+
+  React.useEffect(() => {
+    if (search.length) {
+      setLoading(true)
     }
-  }
+  }, [search])
 
-  handleSkipClick = () => {
-    const { selectSchool, } = this.props
-    selectSchool(NOT_LISTED)
-  }
+  React.useEffect(() => {
+    searchForSchool()
+  }, [debouncedSearch])
 
-  search = () => {
-    const { search } = this.state
+  function handleSkipClick() { selectSchool(NOT_LISTED) }
 
+  function searchForSchool() {
     const wholeSearchIsNumbersRegex = /^\d+$/
 
     // if they're typing a zip code, don't search until the full zip code is entered
-    if (search.match(wholeSearchIsNumbersRegex) && search.length < 5) {
-      return null
-    }
-
-    this.setState({ loading: true, })
+    if (search.match(wholeSearchIsNumbersRegex) && search.length < 5) { return }
 
     request({
       url: `${process.env.DEFAULT_URL}/schools`,
@@ -47,24 +47,19 @@ export default class SchoolSelector extends React.Component {
     (err, httpResponse, body) => {
       if (httpResponse.statusCode === 200) {
         const schools = JSON.parse(body).data
-        this.setState({ schools, loading: false})
+        setSchools(schools)
+        setLoading(false)
       } else {
         // to do, use Sentry to capture error
       }
     });
   }
 
-  update = (e) => {
-    this.updateKeyValue(e.target.id, e.target.value)
+  function updateSearch(e) {
+    setSearch(e.target.value)
   }
 
-  updateKeyValue = (key, value) => {
-    const newState = Object.assign({}, this.state);
-    newState[key] = value;
-    this.setState(newState, this.search);
-  }
-
-  renderLoading() {
+  const renderLoading = () => {
     return (
       <div className="loading">
         <LoadingIndicator />
@@ -72,7 +67,7 @@ export default class SchoolSelector extends React.Component {
     )
   }
 
-  renderDefault() {
+  const renderDefault = () => {
     return (
       <div className="default-school-search">
         <img alt="Map with a magnifying glass over it" src={mapSearchSrc} />
@@ -81,7 +76,7 @@ export default class SchoolSelector extends React.Component {
     )
   }
 
-  renderNoSchoolFound() {
+  const renderNoSchoolFound = () => {
     return (
       <div className="no-school-found">
         <img alt="Map with a magnifying glass over it" src={mapSearchSrc} />
@@ -91,8 +86,7 @@ export default class SchoolSelector extends React.Component {
     )
   }
 
-  renderSchoolsList = (schools) => {
-    const { selectSchool, } = this.props
+  const renderSchoolsList = (schools) => {
     const schoolItems = schools.map(school => {
       const { city, number_of_teachers, state, street, text, zipcode } = school.attributes
       const numberOfTeachers = number_of_teachers
@@ -127,43 +121,41 @@ export default class SchoolSelector extends React.Component {
     return <ul className="list quill-list double-line">{schoolItems}</ul>
   }
 
-  renderSchoolsListSection = () => {
-    const { schools, search, loading } = this.state
+  const renderSchoolsListSection = () => {
     let title
     let schoolsListOrEmptyState
     if (loading) {
-      schoolsListOrEmptyState = this.renderLoading()
-    } else if (search.length < 5) {
-      schoolsListOrEmptyState = this.renderDefault()
+      schoolsListOrEmptyState = renderLoading()
+    } else if (search.length && schools.length >= MINIMUM_SEARCH_LENGTH) {
+      schoolsListOrEmptyState = renderNoSchoolFound()
     } else if (schools && schools.length) {
-      schoolsListOrEmptyState = this.renderSchoolsList(schools)
+      schoolsListOrEmptyState = renderSchoolsList(schools)
     } else {
-      schoolsListOrEmptyState = this.renderNoSchoolFound()
+      schoolsListOrEmptyState = renderDefault()
     }
     return (
       <div className="schools-list-section">
         <div className="title">Results</div>
         {schoolsListOrEmptyState}
-        <div className="school-not-listed">School not listed? <button className="interactive-wrapper" onClick={this.handleSkipClick} type="button">Skip for now</button></div>
+        <div className="school-not-listed">School not listed? <button className="interactive-wrapper" onClick={handleSkipClick} type="button">Skip for now</button></div>
       </div>
     )
   }
 
-  render () {
-    const { errors, search, } = this.state
-    return (
-      <div className="school-search-container">
-        <Input
-          className="search"
-          error={errors.search}
-          handleChange={this.update}
-          id="search"
-          label="Search by school name or zip code"
-          type="text"
-          value={search}
-        />
-        {this.renderSchoolsListSection()}
-      </div>
-    )
-  }
+  return (
+    <div className="school-search-container">
+      <Input
+        className="search"
+        error={errors.search}
+        handleChange={updateSearch}
+        id="search"
+        label="Search by school name or zip code"
+        type="text"
+        value={search}
+      />
+      {renderSchoolsListSection()}
+    </div>
+  )
 }
+
+export default SchoolSelector
