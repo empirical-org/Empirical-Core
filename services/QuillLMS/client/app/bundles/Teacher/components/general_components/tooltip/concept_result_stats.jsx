@@ -70,8 +70,7 @@ export default class ConceptResultStats extends React.Component {
         incorrect: 0,
       };
       memo[conceptResult.name] = statsRow;
-      const correct = parseInt(conceptResult.correct);
-      if (correct) {
+      if (conceptResult.correct) {
         statsRow.correct += 1;
       } else {
         statsRow.incorrect += 1;
