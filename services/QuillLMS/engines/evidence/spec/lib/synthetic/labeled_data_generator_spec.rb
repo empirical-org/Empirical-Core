@@ -23,14 +23,14 @@ describe Evidence::Synthetic::LabeledDataGenerator do
   end
 
   describe '#new' do
-    let(:synthetics) { Evidence::Synthetic::LabeledDataGenerator.new(labeled_data, languages: [:es])}
+    let(:generator) { described_class.new(labeled_data, languages: [:es])}
 
     it 'should setup properly with empty translations' do
-      expect(synthetics.languages.count).to eq 1
-      expect(synthetics.results.count).to eq 2
-      expect(synthetics.manual_types).to be false
+      expect(generator.languages.count).to eq 1
+      expect(generator.results.count).to eq 2
+      expect(generator.manual_types).to be false
 
-      first_result = synthetics.results.first
+      first_result = generator.results.first
 
       expect(first_result.text).to eq 'text string'
       expect(first_result.label).to eq 'label_5'
@@ -39,13 +39,13 @@ describe Evidence::Synthetic::LabeledDataGenerator do
   end
 
   describe '#run translation' do
-    let(:synthetics) { Evidence::Synthetic::LabeledDataGenerator.run(labeled_data, languages: [:es], generators: [:translation])}
+    let(:generator) { described_class.run(labeled_data, languages: [:es], generators: [:translation])}
 
     it 'fetch and store translations' do
       expect(Evidence::Synthetic::Generators::Translation).to receive(:run).with([text1, text2], {:languages=>[:es]}).and_return(translation_response)
-      expect(synthetics.results.count).to eq 2
+      expect(generator.results.count).to eq 2
 
-      first_result = synthetics.results.first
+      first_result = generator.results.first
 
       expect(first_result.text).to eq text1
       expect(first_result.label).to eq label1
@@ -54,13 +54,13 @@ describe Evidence::Synthetic::LabeledDataGenerator do
   end
 
   describe '#run spelling errors' do
-    let(:synthetics) { Evidence::Synthetic::LabeledDataGenerator.run(labeled_data, languages: [:es], generators: [:spelling])}
+    let(:generator) { described_class.run(labeled_data, languages: [:es], generators: [:spelling])}
 
     it 'fetch and store translations' do
       expect(Evidence::Synthetic::Generators::Spelling).to receive(:run).with([text1, text2], {:languages=>[:es]}).and_return(spelling_response)
-      expect(synthetics.results.count).to eq 2
+      expect(generator.results.count).to eq 2
 
-      first_result = synthetics.results.first
+      first_result = generator.results.first
 
       expect(first_result.text).to eq text1
       expect(first_result.label).to eq label1
@@ -69,7 +69,7 @@ describe Evidence::Synthetic::LabeledDataGenerator do
   end
 
   describe 'data exports' do
-    let(:synthetics) { Evidence::Synthetic::LabeledDataGenerator.run(labeled_data, languages: [:es], generators: [:translation, :spelling])}
+    let(:generator) { described_class.run(labeled_data, languages: [:es], generators: [:translation, :spelling])}
 
     before do
       allow(Evidence::Synthetic::Generators::Translation).to receive(:run).with([text1, text2], {:languages=>[:es]}).and_return(translation_response)
@@ -78,7 +78,7 @@ describe Evidence::Synthetic::LabeledDataGenerator do
 
     describe "#training_data_rows" do
       it 'should produce an array of arrays to make a csv used for training' do
-        training_data = synthetics.training_data_rows
+        training_data = generator.training_data_rows
         first_row = training_data.first
 
         # 2 original, 4 translations, 1 spelling error
@@ -93,7 +93,7 @@ describe Evidence::Synthetic::LabeledDataGenerator do
 
     describe "#detail_data_rows" do
       it 'should produce an array of arrays to make a csv used for analyzing synthetic data' do
-        data = synthetics.detail_data_rows
+        data = generator.detail_data_rows
 
         # 2 original, 4 translations, 1 spelling error
         expect(data.size).to eq 7

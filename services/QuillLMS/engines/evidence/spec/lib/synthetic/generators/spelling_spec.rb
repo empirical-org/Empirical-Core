@@ -7,7 +7,7 @@ describe Evidence::Synthetic::Generators::Spelling do
   let(:text2) {'no spelling'}
 
   describe '#generate' do
-    let(:spelling) { Evidence::Synthetic::Generators::Spelling.new([text1, text2])}
+    let(:spelling) { described_class.new([text1, text2])}
 
     it 'should return spelling results_hash' do
       result = spelling.run

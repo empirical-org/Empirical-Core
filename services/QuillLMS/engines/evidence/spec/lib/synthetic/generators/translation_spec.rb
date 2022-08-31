@@ -8,7 +8,7 @@ describe Evidence::Synthetic::Generators::Translation do
   let(:mock_translator) { double }
 
   describe '#generate' do
-    let(:translation) { Evidence::Synthetic::Generators::Translation.new([text1, text2], languages: [:es])}
+    let(:translation) { described_class.new([text1, text2], languages: [:es])}
 
     it 'fetch and store translations' do
 
