@@ -14,7 +14,6 @@ import {
   FLAG,
   TEXT,
   BUILDING_ESSENTIAL_KNOWLEDGE,
-  ESSENTIAL_KNOWLEDGE_TEXT_FILLER,
   MAX_ATTEMPTS_FEEDBACK,
   HIGHLIGHTING_PROMPT,
   IMAGE,
@@ -186,7 +185,6 @@ export function validateFormSection({
       const essentialKnowledgePresent = (
         activityPassages && activityPassages[0] &&
         !!activityPassages[0].essential_knowledge_text &&
-        activityPassages[0].essential_knowledge_text !== ESSENTIAL_KNOWLEDGE_TEXT_FILLER &&
         activityPassages[0].essential_knowledge_text !== BREAK_TAG
       );
       return getCheckIcon(essentialKnowledgePresent);
