@@ -52,12 +52,12 @@ const IndividualTopicFilterRow = ({ topicFilters, topicKey, handleTopicFilterCha
   const activityCount = filteredActivities.filter(act => act.topics && act.topics.find(t => t.id === topicKey)).length
   let checkbox = <button aria-label={`Check ${topic.name}`} className="focus-on-light quill-checkbox unselected" onClick={checkIndividualFilter} type="button" />
 
-  if (activityCount === 0) {
-    checkbox = <div aria-label={`Check ${topic.name}`} className="focus-on-light quill-checkbox disabled" />
-  } else if (topicFilters.includes(topicKey)) {
+  if (topicFilters.includes(topicKey)) {
     checkbox = (<button aria-label={`Uncheck ${topic.name}`} className="focus-on-light quill-checkbox selected" onClick={uncheckIndividualFilter} type="button">
       <img alt="Checked checkbox" src={smallWhiteCheckSrc} />
     </button>)
+  } else if (activityCount === 0) {
+    checkbox = <div aria-label={`Check ${topic.name}`} className="focus-on-light quill-checkbox disabled" />
   }
 
   const topicNameElement = topic.name.length * AVERAGE_FONT_WIDTH >= 182 ? <Tooltip tooltipText={topic.name} tooltipTriggerText={topic.name} tooltipTriggerTextClass="tooltip-trigger-text" /> : <span>{topic.name}</span>
@@ -93,9 +93,7 @@ const TopicToggle = ({filteredActivities, grouping, uniqueLevelTwoTopics, topicF
 
   const topLevelActivityCount = filteredActivities.filter(act => act.topics && act.topics.some(t => grouping.levelTwoIds.includes(t.id))).length
 
-  if (topLevelActivityCount === 0) {
-    topLevelCheckbox = <div className="focus-on-light quill-checkbox disabled" />
-  } else if (grouping.levelTwoIds.every(levelTwoId => topicFilters.includes(levelTwoId))) {
+  if (grouping.levelTwoIds.every(levelTwoId => topicFilters.includes(levelTwoId))) {
     topLevelCheckbox = (<button aria-label="Uncheck all nested filters" className="focus-on-light quill-checkbox selected" onClick={uncheckAllFilters} type="button">
       <img alt="Checked checkbox" src={smallWhiteCheckSrc} />
     </button>)
@@ -103,6 +101,8 @@ const TopicToggle = ({filteredActivities, grouping, uniqueLevelTwoTopics, topicF
     topLevelCheckbox = (<button aria-label="Uncheck all nested filters" className="focus-on-light quill-checkbox selected" onClick={uncheckAllFilters} type="button">
       <img alt="Indeterminate checkbox" src={indeterminateSrc} />
     </button>)
+  } else if (topLevelActivityCount === 0) {
+    topLevelCheckbox = <div className="focus-on-light quill-checkbox disabled" />
   }
 
   let individualFilters = <span />

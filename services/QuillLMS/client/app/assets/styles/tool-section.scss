@@ -21,6 +21,10 @@ $tool-grey: #f8f9f9;
     background-color: #6cb3ed;
     color: #ffffff;
   }
+  &.text-quillteal:hover {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.38)
+  }
 }
 
 .tool-header {
@@ -263,6 +267,10 @@ $tool-grey: #f8f9f9;
     .bg-connect-yellow {
         background-color: #ea9a1a;
     }
+
+    .bg-connect-teal {
+      background-color: #2a91b4;
+  }
 
     .text-connect-yellow {
         color: #ea9a1a;
@@ -1134,33 +1142,5 @@ $tool-grey: #f8f9f9;
     justify-content: center;
     text-decoration: underline;
     margin-top: 30px;
-  }
-}
-
-.preview-student-banner {
-  background-color: #e1f3f1;
-  padding: 16px 0px;
-  .content-container {
-    max-width: 980px;
-    width: 100%;
-    margin: 0px auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 16px;
-    padding: 0 15px;
-    span {
-      width: calc(100% - 180px);
-    }
-    @media (max-width: 410px) {
-      flex-direction: column;
-      align-items: flex-start;
-      .quill-button {
-        margin-top: 8px;
-      }
-      span {
-        width: 100%;
-      }
-    }
   }
 }

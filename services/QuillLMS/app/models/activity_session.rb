@@ -66,9 +66,10 @@ class ActivitySession < ApplicationRecord
   has_many :user_activity_classifications, through: :classification
   has_one :classroom, through: :classroom_unit
   has_one :unit, through: :classroom_unit
+  has_many :concept_results
   has_many :old_concept_results
   has_many :teachers, through: :classroom
-  has_many :concepts, -> { distinct }, through: :old_concept_results
+  has_many :concepts, -> { distinct }, through: :concept_results
   has_one :active_activity_session, foreign_key: :uid, primary_key: :uid
   has_one :activity_survey_response
 
@@ -396,12 +397,13 @@ class ActivitySession < ApplicationRecord
       concept_result[:activity_session_id] = activity_session_id
       concept_result.delete(:activity_session_uid)
 
-      OldConceptResult.create(
+      old_concept_result = OldConceptResult.create(
         concept_id: concept_result[:concept_id],
         question_type: concept_result[:question_type],
         activity_session_id: concept_result[:activity_session_id],
         metadata: concept_result[:metadata],
       )
+      SaveActivitySessionConceptResultsWorker.perform_async([old_concept_result.id]) if old_concept_result
     end
   end
 

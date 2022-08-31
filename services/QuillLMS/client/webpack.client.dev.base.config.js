@@ -8,8 +8,8 @@ const railsEnv = process.env.RAILS_ENV || process.env.NODE_ENV
 
 const goFanoutUrl = process.env.GOLANG_FANOUT_URL;
 const pusherKey = process.env.PUSHER_KEY;
-const defaultUrl = process.env.DEFAULT_URL;
-const cdnUrl = process.env.CDN_URL;
+const defaultUrl = process.env.DEFAULT_URL || 'http://localhost:3000'
+const cdnUrl = process.env.CDN_URL || 'https://assets.quill.org'
 const grammarUrl = process.env.QUILL_GRAMMAR_URL || 'http://localhost:3000/grammar/#';
 const lessonsWebsocketsUrl = process.env.LESSONS_WEBSOCKETS_URL || 'http://localhost:3200';
 const quillCmsUrl = process.env.QUILL_CMS || 'http://localhost:3100';

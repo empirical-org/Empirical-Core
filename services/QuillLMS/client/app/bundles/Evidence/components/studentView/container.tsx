@@ -53,9 +53,12 @@ const ONBOARDING = 'onboarding'
 const ALL_STEPS = [READ_PASSAGE_STEP_NUMBER, 2, 3, 4]
 const MINIMUM_STUDENT_HIGHLIGHT_COUNT = 2
 
-export const StudentViewContainer = ({ dispatch, session, isTurk, location, activities, handleFinishActivity, user, }: StudentViewContainerProps) => {
-  const shouldSkipToPrompts = window.location.href.includes('turk') || window.location.href.includes('skipToPrompts')
+export const StudentViewContainer = ({ dispatch, session, isTurk, location, activities, handleFinishActivity, user }: StudentViewContainerProps) => {
+  const skipToSpecificStep = window.location.href.includes('skipToStep')
+  const shouldSkipToPrompts = window.location.href.includes('turk') || window.location.href.includes('skipToPrompts') || skipToSpecificStep
   const defaultCompletedSteps = shouldSkipToPrompts ? [READ_PASSAGE_STEP_NUMBER] : []
+  const sessionFromUrl = getUrlParam('session', location, isTurk)
+  const activityUID = getUrlParam('uid', location, isTurk)
 
   const refs = {
     step1: React.useRef(),
@@ -76,7 +79,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
   const [studentHighlights, setStudentHighlights] = React.useState([])
   const [scrolledToEndOfPassage, setScrolledToEndOfPassage] = React.useState(shouldSkipToPrompts)
   const [hasStartedReadPassageStep, setHasStartedReadPassageStep] = React.useState(shouldSkipToPrompts)
-  const [hasStartedPromptSteps, setHasStartedPromptsSteps] = React.useState(shouldSkipToPrompts)
+  const [hasStartedPromptSteps, setHasStartedPromptsSteps] = React.useState(skipToSpecificStep)
   const [doneHighlighting, setDoneHighlighting] = React.useState(shouldSkipToPrompts)
   const [showReadTheDirectionsButton, setShowReadTheDirectionsButton] = React.useState(false)
   const [timeTracking, setTimeTracking] = React.useState({
@@ -95,8 +98,6 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
   }, [hasStartedReadPassageStep]);
 
   React.useEffect(() => {
-    const activityUID = getUrlParam('uid', location, isTurk)
-    const sessionFromUrl = getUrlParam('session', location, isTurk)
     if (sessionFromUrl) {
       const fetchActiveActivitySessionArgs = {
         sessionID: sessionFromUrl,
@@ -287,7 +288,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
         attempt,
         previousFeedback,
         callback: submitResponseCallback,
-        activityVersion: currentActivity?.version
+        activityVersion: currentActivity?.version,
       }
       dispatch(getFeedback(args))
     }
@@ -297,7 +298,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
     const { sessionID, } = session
     const activityUID = getUrlParam('uid', location, isTurk)
 
-    dispatch(TrackAnalyticsEvent(Events.COMPREHENSION_PASSAGE_READ, {
+    dispatch(TrackAnalyticsEvent(Events.EVIDENCE_PASSAGE_READ, {
       activityID: activityUID,
       sessionID: sessionID
     }));
@@ -305,29 +306,28 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
 
   function trackCurrentPromptStartedEvent() {
     const { activeStep } = session;
-    const trackingParams = getCurrentStepDataForEventTracking(activeStep, activities, session, isTurk)
+    const trackingParams = getCurrentStepDataForEventTracking({ activeStep, activities, session, isTurk })
     if (!trackingParams) return; // Bail if there's no data to track
 
-    dispatch(TrackAnalyticsEvent(Events.COMPREHENSION_PROMPT_STARTED, trackingParams))
+    dispatch(TrackAnalyticsEvent(Events.EVIDENCE_PROMPT_STARTED, trackingParams))
   }
 
   function trackCurrentPromptCompletedEvent() {
     const { activeStep } = session;
-    const trackingParams = getCurrentStepDataForEventTracking(activeStep, activities, session, isTurk)
+    const trackingParams = getCurrentStepDataForEventTracking({ activeStep, activities, session, isTurk })
     if (!trackingParams) return; // Bail if there's no data to track
 
-    dispatch(TrackAnalyticsEvent(Events.COMPREHENSION_PROMPT_COMPLETED, trackingParams))
+    dispatch(TrackAnalyticsEvent(Events.EVIDENCE_PROMPT_COMPLETED, trackingParams))
   }
 
   function trackActivityCompletedEvent() {
     const { sessionID, } = session
     const activityID = getUrlParam('uid', location, isTurk)
 
-    dispatch(TrackAnalyticsEvent(Events.COMPREHENSION_ACTIVITY_COMPLETED, {
+    dispatch(TrackAnalyticsEvent(Events.EVIDENCE_ACTIVITY_COMPLETED, {
       activityID,
-      sessionID,
+      sessionID
     }));
-
     dispatch(setActivityIsCompleteForSession(true));
     defaultHandleFinishActivity()
   }
@@ -442,7 +442,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
   }
 
   function handleHighlightClick(e) {
-    toggleStudentHighlight(e.target.textContent, () => document.activeElement.blur())
+    toggleStudentHighlight(e.target.textContent)
   }
 
   function toggleStudentHighlight(text, callback=null) {
@@ -500,20 +500,24 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
 
     if (node.name === 'mark') {
       const shouldBeHighlightable = !doneHighlighting && !showReadTheDirectionsButton && hasStartedReadPassageStep
-      const innerElements = node.children.map((n, i) => convertNodeToElement(n, i, transformMarkTags))
+      let innerElements = node.children.map((n, i) => convertNodeToElement(n, i, transformMarkTags))
       const stringifiedInnerElements = node.children.map(n => {
         if (n.data) { return n.data }
         if (n.children[0]) { return n.children[0].data}
         return ''
       }).join('')
       let className = ''
-      if(activeStep === 1) {
-        className += studentHighlights.includes(stringifiedInnerElements) ? ' highlighted' : ''
+      const highlighted = studentHighlights.includes(stringifiedInnerElements)
+      if(activeStep === 1 && highlighted) {
+        className += ' highlighted'
+        const firstElement = <span className="sr-only">(highlighted text begins here)</span>
+        const lastElement = <span className="sr-only">(highlighted text ends here)</span>
+        innerElements = [firstElement, ...innerElements, lastElement]
       }
       className += shouldBeHighlightable  ? ' highlightable' : ''
       if (!shouldBeHighlightable) { return <mark className={className}>{innerElements}</mark>}
-      /* eslint-disable jsx-a11y/no-noninteractive-element-to-interactive-role */
-      return <mark className={className} onClick={handleHighlightClick} onKeyDown={handleHighlightKeyDown} role="button" tabIndex={0}>{innerElements}</mark>
+      /* eslint-disable-next-line jsx-a11y/no-noninteractive-element-to-interactive-role */
+      return <mark aria-pressed={highlighted} className={className} onClick={handleHighlightClick} onKeyDown={handleHighlightKeyDown} role="button" tabIndex={0}>{innerElements}</mark>
     }
   }
 
@@ -543,7 +547,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
 
   if(completeButtonClicked && !window.location.href.includes('turk')) {
     return(
-      <ActivityFollowUp activity={activities.currentActivity} responses={submittedResponses} saveActivitySurveyResponse={saveActivitySurveyResponse} sessionID={sessionID} />
+      <ActivityFollowUp activity={activities.currentActivity} dispatch={dispatch} responses={submittedResponses} saveActivitySurveyResponse={saveActivitySurveyResponse} sessionID={sessionID} />
     );
   }
 

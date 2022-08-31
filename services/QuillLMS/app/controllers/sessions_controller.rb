@@ -8,6 +8,8 @@ class SessionsController < ApplicationController
 
   CLEAR_ANALYTICS_SESSION_KEY = "clear_analytics_session"
 
+  around_action :force_writer_db_role, only: [:destroy]
+
   before_action :signed_in!, only: [:destroy]
 
   # rubocop:disable Metrics/CyclomaticComplexity
@@ -111,7 +113,8 @@ class SessionsController < ApplicationController
     @user = User.new
     @title = 'Log In'
     @clever_link = clever_link
-    @google_link = GoogleIntegration::AUTHENTICATION_ONLY_PATH
+    @google_offline_access_expired = session.delete(ApplicationController::GOOGLE_OFFLINE_ACCESS_EXPIRED)
+    @expired_session_redirect = session.delete(ApplicationController::EXPIRED_SESSION_REDIRECT)
     session[:role] = nil
     session[ApplicationController::POST_AUTH_REDIRECT] = params[:redirect] if params[:redirect]
   end

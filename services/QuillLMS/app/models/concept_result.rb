@@ -23,6 +23,7 @@
 #
 # Indexes
 #
+#  index_concept_results_on_activity_session_id    (activity_session_id)
 #  index_concept_results_on_old_concept_result_id  (old_concept_result_id) UNIQUE
 #
 class ConceptResult < ApplicationRecord
@@ -47,6 +48,7 @@ class ConceptResult < ApplicationRecord
     :attemptNumber,
     :correct,
     :directions,
+    :instructions,
     :lastFeedback,
     :prompt,
     :questionNumber,
@@ -70,6 +72,7 @@ class ConceptResult < ApplicationRecord
       concept_id: data_hash[:concept_id],
       attempt_number: metadata[:attemptNumber],
       correct: ActiveModel::Type::Boolean.new.cast(metadata[:correct]),
+      old_concept_result_id: data_hash[:old_concept_result_id],
       question_number: metadata[:questionNumber],
       question_score: metadata[:questionScore]
     )
@@ -87,7 +90,10 @@ class ConceptResult < ApplicationRecord
   def self.find_or_create_from_old_concept_result(old_concept_result)
     return old_concept_result.concept_result if old_concept_result.concept_result
 
-    create_from_json(old_concept_result.as_json)
+    data_hash = old_concept_result.as_json
+    data_hash['old_concept_result_id'] = old_concept_result.id
+
+    create_from_json(data_hash)
   end
 
   def self.parse_extra_metadata(metadata)

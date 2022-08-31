@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Activity, ActivityCategory } from './interfaces'
-import { ACTIVITY_CATEGORY_FILTERS, AVERAGE_FONT_WIDTH, INDIVIDUAL_FILTER_MAX_WIDTH, } from './shared'
+import { ACTIVITY_CATEGORY_FILTERS, AVERAGE_FONT_WIDTH, } from './shared'
 
 import { Tooltip } from '../../../../../Shared/index'
 
@@ -36,12 +36,12 @@ const ActivityCategoryFilterRow = ({ activityCategoryFilters, activityCategory, 
   const activityCount = filteredActivities.filter(act => activityCategory.id === act.activity_category.id).length
   let checkbox = <button aria-label={`Check ${activityCategory.name}`} className="focus-on-light quill-checkbox unselected" onClick={checkIndividualFilter} type="button" />
 
-  if (activityCount === 0) {
-    checkbox = <div aria-label={`Check ${activityCategory.name}`} className="focus-on-light quill-checkbox disabled" />
-  } else if (activityCategoryFilters.includes(activityCategory.id)) {
+  if (activityCategoryFilters.includes(activityCategory.id)) {
     checkbox = (<button aria-label={`Uncheck ${activityCategory.name}`} className="focus-on-light quill-checkbox selected" onClick={uncheckIndividualFilter} type="button">
       <img alt="Checked checkbox" src={smallWhiteCheckSrc} />
     </button>)
+  } else if (activityCount === 0) {
+    checkbox = <div aria-label={`Check ${activityCategory.name}`} className="focus-on-light quill-checkbox disabled" />
   }
 
   const activityCategoryNameElement = activityCategory.name.length * AVERAGE_FONT_WIDTH >= 200 ? <Tooltip tooltipText={activityCategory.name} tooltipTriggerText={activityCategory.name} tooltipTriggerTextClass="tooltip-trigger-text" /> : <span>{activityCategory.name}</span>

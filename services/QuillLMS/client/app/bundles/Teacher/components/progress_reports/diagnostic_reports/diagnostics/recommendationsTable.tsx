@@ -171,15 +171,12 @@ const RecommendationsTable = ({ recommendations, responsesLink, students, select
   }, [handleScroll]);
 
   const tableHeaders = recommendations && recommendations.map(recommendation => {
-    const { activity_pack_id, name, activity_count, students, } = recommendation
+    const { activity_pack_id, name, activity_count, } = recommendation
     return (
       <th className="recommendation-header" key={name}>
         <div className="name-and-tooltip">
           <span>{name}</span>
-          <Tooltip
-            tooltipText={`<a href='/activities/packs/${activity_pack_id}' target="_blank">Preview the activity pack</a>`}
-            tooltipTriggerText={<img alt={helpIcon.alt} src={helpIcon.src} />}
-          />
+          <a aria-label="Preview the activity pack" href={`/activities/packs/${activity_pack_id}`} rel="noopener noreferrer" target="_blank"><img alt="" src={helpIcon.src} /></a>
         </div>
         <span className="activity-count">{activity_count} activities</span>
       </th>
@@ -231,7 +228,7 @@ const RecommendationsTable = ({ recommendations, responsesLink, students, select
           {renderHeader(true)}
         </table>
       )}
-      <table className={tableClassName} ref={tableRef} style={tableHasContent ? { paddingLeft: paddingLeft() } : { marginLeft: paddingLeft() }}>
+      <table className={tableClassName} id="demo-onboarding-tour-spotlight-element" ref={tableRef} style={tableHasContent ? { paddingLeft: paddingLeft() } : { marginLeft: paddingLeft() }}>
         {renderHeader(false)}
         {tableHasContent ? null : noDataYet}
         <tbody>

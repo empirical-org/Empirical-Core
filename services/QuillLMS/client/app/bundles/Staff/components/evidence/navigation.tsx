@@ -81,6 +81,9 @@ const Navigation = ({ location, match }) => {
         <NavLink activeClassName="is-active" to={`/activities/${activityId}/turk-sessions`}>
           Collect Turk Responses
         </NavLink>
+        <NavLink activeClassName="is-active" to={`/activities/${activityId}/seed-data`}>
+          Create Seed Data
+        </NavLink>
         <NavLink activeClassName="is-active" to={`/activities/${activityId}/semantic-labels`}>
           Semantic Labels
         </NavLink>
@@ -90,6 +93,9 @@ const Navigation = ({ location, match }) => {
         </NavLink>
         <NavLink activeClassName="is-active" to={`/activities/${activityId}/plagiarism-rules`}>
           Plagiarism Rules
+        </NavLink>
+        <NavLink activeClassName="is-active" to={`/activities/${activityId}/low-confidence-rules`}>
+          Low Confidence Rules
         </NavLink>
         <NavLink activeClassName="is-active" to={`/activities/${activityId}/rules-index`}>
           View All Rules
@@ -117,6 +123,9 @@ const Navigation = ({ location, match }) => {
       <ul className="menu-list">
         <NavLink activeClassName="is-active" to={`/activities/${activityId}/change-log`}>
           Change Log
+        </NavLink>
+        <NavLink activeClassName="is-active" to={`/activities/${activityId}/version-history`}>
+          Version History
         </NavLink>
       </ul>
     </React.Fragment>)

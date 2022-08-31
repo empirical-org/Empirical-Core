@@ -2,7 +2,7 @@ import React from 'react';
 
 import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from './progress_report_constants'
 
-import GenericMini from '../shared/generic_mini.jsx';
+import DemoOnboardingTour, { DEMO_ONBOARDING_STUDENT_REPORTS_LANDING_PAGE, } from '../shared/demo_onboarding_tour'
 import { DropdownInput, } from '../../../Shared/index'
 
 const ALL = 'ALL'
@@ -26,6 +26,7 @@ const miniList = () => {
     }, {
       title: 'Diagnostics',
       href: '/teachers/progress_reports/diagnostic_reports/#/diagnostics',
+      id: 'diagnostic-reports-card',
       img: `${process.env.CDN_URL}/images/shared/diagnostic.svg`,
       bodyText: 'View the results of the diagnostics, and get a personalized learning plan with recommended activities.',
       flag: null,
@@ -66,7 +67,7 @@ const miniList = () => {
 const miniBuilder = (mini) => {
   const premium = mini.premium ? <h4 className="premium">Premium<i aria-hidden="true" className="fas fa-star" /></h4> : null;
   return (
-    <GenericMini key={mini.title}>
+    <div className="generic-mini" id={mini.id} key={mini.title}>
       <a href={mini.href}>
         <h3>{mini.title}</h3>
         {premium}
@@ -75,7 +76,7 @@ const miniBuilder = (mini) => {
         </div>
         <p style={mini.pStyle ? mini.pStyle : {}}>{mini.bodyText}</p>
       </a>
-    </GenericMini>
+    </div>
   );
 };
 
@@ -110,6 +111,7 @@ const LandingPage = ({ classrooms, flag, }) => {
 
   return (
     <div className="progress-reports-landing-page">
+      <DemoOnboardingTour pageKey={DEMO_ONBOARDING_STUDENT_REPORTS_LANDING_PAGE} />
       <div className="generic-mini-container">
         <div className="header">
           <h1>Choose which type of report you’d like to see:</h1>

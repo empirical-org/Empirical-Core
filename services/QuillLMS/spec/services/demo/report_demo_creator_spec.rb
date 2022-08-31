@@ -73,31 +73,34 @@ RSpec.describe Demo::ReportDemoCreator do
   end
 
   it 'creates activity sessions' do
-    Demo::ReportDemoCreator::ACTIVITY_PACKS_TEMPLATES.each do |ap|
-      ap[:activity_sessions][0].each do |act_id, user_id|
-        user = build(:user, id: user_id)
-        user.save
-        activity_session = create(:activity_session, state: 'finished', activity_id: act_id, user_id: user_id, is_final_score: true)
-        create(:old_concept_result, activity_session: activity_session)
+    Sidekiq::Testing.inline! do
+      Demo::ReportDemoCreator::ACTIVITY_PACKS_TEMPLATES.each do |ap|
+        ap[:activity_sessions][0].each do |act_id, user_id|
+          user = build(:user, id: user_id)
+          user.save
+          activity_session = create(:activity_session, state: 'finished', activity_id: act_id, user_id: user_id, is_final_score: true)
+          create(:old_concept_result, activity_session: activity_session)
+        end
       end
+
+      temp = ActivitySession.last
+      student = create(:student)
+      classroom = create(:classroom)
+      create(:students_classrooms, student: student, classroom: classroom)
+      units = Demo::ReportDemoCreator.create_units(teacher)
+
+      Demo::ReportDemoCreator.create_classroom_units(classroom, units)
+      total_act_sesh_count = Demo::ReportDemoCreator::ACTIVITY_PACKS_TEMPLATES.map {|ap| ap[:activity_sessions][0].keys.count}.sum
+      expect {Demo::ReportDemoCreator.create_activity_sessions([student], classroom)}.to change {ActivitySession.count}.by(total_act_sesh_count)
+      act_sesh = ActivitySession.last
+
+      last_template = Demo::ReportDemoCreator::ACTIVITY_PACKS_TEMPLATES.last
+      expect(act_sesh.activity_id).to eq(last_template[:activity_sessions][0].keys.last)
+      expect(act_sesh.user_id).to eq(student.id)
+      expect(act_sesh.state).to eq('finished')
+      expect(act_sesh.percentage).to eq(temp.percentage)
+      expect(act_sesh.old_concept_results.first.metadata).to eq(temp.old_concept_results.first.metadata)
+      expect(act_sesh.concept_results.first.answer).to eq(temp.old_concept_results.first.metadata['answer'])
     end
-
-    temp = ActivitySession.last
-    student = create(:student)
-    classroom = create(:classroom)
-    create(:students_classrooms, student: student, classroom: classroom)
-    units = Demo::ReportDemoCreator.create_units(teacher)
-
-    Demo::ReportDemoCreator.create_classroom_units(classroom, units)
-    total_act_sesh_count = Demo::ReportDemoCreator::ACTIVITY_PACKS_TEMPLATES.map {|ap| ap[:activity_sessions][0].keys.count}.sum
-    expect {Demo::ReportDemoCreator.create_activity_sessions([student], classroom)}.to change {ActivitySession.count}.by(total_act_sesh_count)
-    act_sesh = ActivitySession.last
-
-    last_template = Demo::ReportDemoCreator::ACTIVITY_PACKS_TEMPLATES.last
-    expect(act_sesh.activity_id).to eq(last_template[:activity_sessions][0].keys.last)
-    expect(act_sesh.user_id).to eq(student.id)
-    expect(act_sesh.state).to eq('finished')
-    expect(act_sesh.percentage).to eq(temp.percentage)
-    expect(act_sesh.old_concept_results.first.metadata).to eq(temp.old_concept_results.first.metadata)
   end
 end

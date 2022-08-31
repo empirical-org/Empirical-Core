@@ -9,7 +9,7 @@ import AssignmentFlowNavigation from '../assignment_flow_navigation.tsx'
 import { DropdownInput } from '../../../../Shared/index'
 
 const ALL = 'All'
-const READABILITY_GRADE_LEVEL_LABELS = ['2nd-3rd', '4th-5th', '6th-7th', '8th-9th', '10th-12th']
+const GRADE_LEVEL_LABELS = ['4th-12th', '6th-12th', '8th-12th', '10th-12th']
 
 export default class UnitTemplateMinis extends React.Component {
   state =  { onMobile: window.innerWidth < 770 }
@@ -28,9 +28,12 @@ export default class UnitTemplateMinis extends React.Component {
     return _l.uniqBy(models, 'id');
   }
 
-  generateCategoryOptions(readabilityLevel, selectedTypeId) {
+  generateCategoryOptions(gradeLevel, selectedTypeId) {
     const { data, } = this.props
-    const categoryOrder = [ALL, 'Starter', 'Intermediate', 'Advanced', 'ELL', 'Diagnostic', 'Themed', 'Skill Practice']
+    const usedCategories = Object.values(data.displayedModels).map(dm => dm.unit_template_category.name)
+    const usedUniqueCategories = usedCategories.filter((v, i, a) => a.indexOf(v) === i)
+    const sortedUsedCategories = usedUniqueCategories.sort((a,b) => (a && b) ? a.localeCompare(b) : (a < b) ? -1 : 1)
+    const categoryOrder = [ALL].concat(sortedUsedCategories)
     return categoryOrder.map((name) => {
       const category = data.categories.find(cat => cat.name === name)
       if (category) {
@@ -38,20 +41,20 @@ export default class UnitTemplateMinis extends React.Component {
         return {
           label: category.name,
           value: category.id,
-          link: `${this.getIndexLink()}${this.generateQueryString(category, readabilityLevel, selectedTypeId)}`
+          link: `${this.getIndexLink()}${this.generateQueryString(category, gradeLevel, selectedTypeId)}`
         }
       } else {
         return {
           label: name,
           value: null,
-          link: `${this.getIndexLink()}${this.generateQueryString(category, readabilityLevel, selectedTypeId)}`
+          link: `${this.getIndexLink()}${this.generateQueryString(category, gradeLevel, selectedTypeId)}`
         }
       }
     })
   }
 
-  generateReadabilityOptions(currentCategory, selectedTypeId) {
-    return [ALL].concat(READABILITY_GRADE_LEVEL_LABELS).map((level) => {
+  generateGradeLevelOptions(currentCategory, selectedTypeId) {
+    return [ALL].concat(GRADE_LEVEL_LABELS).map((level) => {
       if (level === ALL) {
         return {
           label: level,
@@ -148,16 +151,16 @@ export default class UnitTemplateMinis extends React.Component {
     }
   }
 
-  generateQueryString(category, readabilityLabel, typeId=null) {
+  generateQueryString(category, gradeLevel, typeId=null) {
     let qs = ''
 
     if (category) {
       qs = `?category=${category.label}`
     }
 
-    if (readabilityLabel) {
-      const readabilityQuery = `readability=${readabilityLabel}`
-      qs+= qs.length ? `&${readabilityQuery}` : `?${readabilityQuery}`
+    if (gradeLevel) {
+      const gradeLevelQuery = `gradeLevel=${gradeLevel}`
+      qs+= qs.length ? `&${gradeLevelQuery}` : `?${gradeLevelQuery}`
     }
 
     if (typeId) {
@@ -170,18 +173,18 @@ export default class UnitTemplateMinis extends React.Component {
 
   renderFilterOptions() {
     const { onMobile } = this.state
-    const { types, selectedTypeId, data, selectCategory, selectReadability, } = this.props
-    const categoryOptions = this.generateCategoryOptions(data.selectedReadabilityLevel, selectedTypeId)
+    const { types, selectedTypeId, data, selectCategory, selectGradeLevel, } = this.props
+    const categoryOptions = this.generateCategoryOptions(data.selectedGradeLevel, selectedTypeId)
     const currentCategory = categoryOptions.find(cat => cat.value && cat.value === data.selectedCategoryId)
 
-    const readabilityOptions = this.generateReadabilityOptions(currentCategory, selectedTypeId)
-    const currentReadability = readabilityOptions.find(cat => cat.value && cat.value === data.selectedReadabilityLevel)
+    const gradeLevelOptions = this.generateGradeLevelOptions(currentCategory, selectedTypeId)
+    const currentGradeLevel = gradeLevelOptions.find(cat => cat.value && cat.value === data.selectedGradeLevel)
 
     const baseLink = this.getIndexLink()
 
     const typeOptions = types.map(type => {
       const { id, name, } = type
-      const qs = this.generateQueryString(currentCategory, data.selectedReadabilityLevel, id)
+      const qs = this.generateQueryString(currentCategory, data.selectedGradeLevel, id)
       return (
         <Link
           className={selectedTypeId === id ? 'active' : null}
@@ -193,7 +196,7 @@ export default class UnitTemplateMinis extends React.Component {
 
     const typeOptionsForDropdown = types.map(type => {
       const { id, name } = type;
-      const qs = this.generateQueryString(currentCategory, data.selectedReadabilityLevel, id)
+      const qs = this.generateQueryString(currentCategory, data.selectedGradeLevel, id)
       return {
         label: this.getLabelName(name),
         value: `${baseLink}${qs}`
@@ -204,7 +207,7 @@ export default class UnitTemplateMinis extends React.Component {
     const allPacksLink = (
       <Link
         className={!selectedTypeId ? 'active' : null}
-        to={`${baseLink}${this.generateQueryString(currentCategory, data.selectedReadabilityLevel)}`}
+        to={`${baseLink}${this.generateQueryString(currentCategory, data.selectedGradeLevel)}`}
       >All packs</Link>
     );
 
@@ -226,11 +229,11 @@ export default class UnitTemplateMinis extends React.Component {
         {typeOptionsWidget}
         <div className="dropdowns">
           <DropdownInput
-            className="readability-dropdown"
-            handleChange={selectReadability}
-            label="Readability grade level"
-            options={readabilityOptions}
-            value={currentReadability || readabilityOptions[0]}
+            className="grade-level-dropdown"
+            handleChange={selectGradeLevel}
+            label="Grade level range"
+            options={gradeLevelOptions}
+            value={currentGradeLevel || gradeLevelOptions[0]}
           />
           <DropdownInput
             className="category-dropdown"

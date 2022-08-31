@@ -35,7 +35,7 @@ class UnitTemplate < ApplicationRecord
   serialize :grades, Array
 
   validates :flag,
-    inclusion: { in: %w(archived alpha beta gamma production private) },
+    inclusion: { in: Flags::FLAGS },
     allow_nil: true
 
   PRODUCTION = 'production'
@@ -74,6 +74,15 @@ class UnitTemplate < ApplicationRecord
     highest_readability_range = highest_raw_score_activity.readability_grade_level
 
     "#{lowest_readability_range.split('-')[0]}-#{highest_readability_range.split('-')[1]}"
+  end
+
+  def grade_level_range
+    activities_with_minimum_grade_levels = activities.where.not(minimum_grade_level: nil).reorder("minimum_grade_level ASC")
+    return nil if activities_with_minimum_grade_levels.empty?
+
+    highest_grade_range_activity = activities_with_minimum_grade_levels.last
+
+    "#{highest_grade_range_activity.minimum_grade_level.ordinalize}-#{highest_grade_range_activity.maximum_grade_level.ordinalize}"
   end
 
   def diagnostic_names

@@ -27,7 +27,7 @@ class Teachers::UnitsController < ApplicationController
   end
 
   def prohibited_unit_names
-    unit_names = current_user.units.pluck(:name).map(&:downcase)
+    unit_names = current_user.units.joins(:classrooms).where(classrooms: {visible: true}).pluck(:name).map(&:downcase)
     render json: { prohibitedUnitNames: unit_names }.to_json
   end
 
@@ -396,7 +396,7 @@ class Teachers::UnitsController < ApplicationController
         grouped_record[:post] = post_test || { activity_name: Activity.find_by_id(record['post_test_id'])&.name, unit_template_id: ActivitiesUnitTemplate.find_by_activity_id(record['post_test_id'])&.unit_template_id }
         grouped_record[:pre] = record_with_aggregated_activity_sessions(diagnostic_records, record['activity_id'], record['classroom_id'], nil)
       else
-        grouped_record[:pre]['completed_count'] = ActivitySession.where(activity_id: record['activity_id'], classroom_unit_id: record['classroom_unit_id'], state: 'finished', user_id: record['assigned_student_ids']).size
+        grouped_record[:pre]['completed_count'] = ActivitySession.select(:user_id).distinct.where(activity_id: record['activity_id'], classroom_unit_id: record['classroom_unit_id'], state: 'finished', user_id: record['assigned_student_ids']).size
         grouped_record[:pre]['assigned_count'] = record['assigned_student_ids'].size
       end
       if index_of_existing_classroom

@@ -10,11 +10,11 @@ class Cms::UnitTemplatesController < Cms::CmsController
       format.json do
         unit_templates =
           UnitTemplate
-            .includes(activities: [:classification, :standard])
+            .includes(activities: [:raw_score, {standard: :standard_category}])
             .includes(:unit_template_category)
             .order(order_number: :asc)
 
-        render json: { unit_templates: unit_templates, each_serializer: Cms::UnitTemplateSerializer }
+        render json: unit_templates, each_serializer: Cms::UnitTemplateSerializer
       end
     end
   end

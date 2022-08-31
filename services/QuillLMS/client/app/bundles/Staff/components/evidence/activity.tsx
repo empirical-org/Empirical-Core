@@ -14,7 +14,10 @@ import SessionView from './activitySessions/sessionView';
 import SemanticLabelsIndex from './semanticRules/semanticLabelsIndex';
 import RegexRulesRouter from './regexRules/regexRulesRouter';
 import PlagiarismRulesRouter from './plagiarismRules/plagiarismRulesRouter';
+import LowConfidenceRulesRouter from './lowConfidenceRules/lowConfidenceRulesRouter';
 import ChangeLog from './changeLog/changeLog';
+import VersionHistory from "./versionHistory/versionHistory";
+import SeedDataForm from "./syntheticData/seedDataForm";
 
 import { ActivityRouteProps } from '../../interfaces/evidenceInterfaces';
 
@@ -39,7 +42,10 @@ const Activity: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match, lo
           <Route component={SemanticLabelsIndex} path='/activities/:activityId/semantic-labels' />
           <Route component={RegexRulesRouter} path='/activities/:activityId/regex-rules' />
           <Route component={PlagiarismRulesRouter} path='/activities/:activityId/plagiarism-rules' />
+          <Route component={LowConfidenceRulesRouter} path='/activities/:activityId/low-confidence-rules' />
           <Route component={ChangeLog} path='/activities/:activityId/change-log' />
+          <Route component={VersionHistory} path='/activities/:activityId/version-history' />
+          <Route component={SeedDataForm} path='/activities/:activityId/seed-data' />
         </Switch>
       </div>
     </React.Fragment>

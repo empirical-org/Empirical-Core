@@ -38,7 +38,6 @@ interface ActivityClassificationFiltersProps {
   handleSavedActivityFilterChange: () => void,
   savedActivityFilters: number[],
   savedActivityIds: number[],
-  showComprehension: boolean
 }
 
 const IndividualActivityClassificationFilterRow = ({ activityClassificationFilters, activityClassificationKey, handleActivityClassificationFilterChange, uniqueActivityClassifications, filteredActivities, }: IndividualActivityClassificationFilterRowProps) => {
@@ -59,12 +58,12 @@ const IndividualActivityClassificationFilterRow = ({ activityClassificationFilte
   const activityCount = filteredActivities.filter(act => activityClassificationKey === act.activity_classification.key).length
   let checkbox = <button aria-label={`Check ${activityClassification.alias}`} className="focus-on-light quill-checkbox unselected" onClick={checkIndividualFilter} type="button" />
 
-  if (activityCount === 0) {
-    checkbox = <div aria-label={`Check ${activityClassification.alias}`} className="focus-on-light quill-checkbox disabled" />
-  } else if (activityClassificationFilters.includes(activityClassificationKey)) {
+  if (activityClassificationFilters.includes(activityClassificationKey)) {
     checkbox = (<button aria-label={`Uncheck ${activityClassification.alias}`} className="focus-on-light quill-checkbox selected" onClick={uncheckIndividualFilter} type="button">
       <img alt="Checked checkbox" src={smallWhiteCheckSrc} />
     </button>)
+  } else if (activityCount === 0) {
+    checkbox = <div aria-label={`Check ${activityClassification.alias}`} className="focus-on-light quill-checkbox disabled" />
   }
 
   return (
@@ -75,7 +74,6 @@ const IndividualActivityClassificationFilterRow = ({ activityClassificationFilte
           <span>{activityClassification.alias}</span>
           <span className="description">{activityClassification.description}</span>
           <span className="grade-text">{activityClassification.gradeText}</span>
-          {activityClassification.new && <div className="activity-classification-new-tag">NEW</div>}
         </div>
       </div>
       <span>({activityCount})</span>
@@ -104,9 +102,7 @@ const ActivityClassificationToggle = ({filteredActivities, grouping, uniqueActiv
 
   const topLevelActivityCount = filteredActivities.filter(act => grouping.keys.includes(act.activity_classification.key)).length
 
-  if (topLevelActivityCount === 0) {
-    topLevelCheckbox = <div className="focus-on-light quill-checkbox disabled" />
-  } else if (grouping.keys.every(key => activityClassificationFilters.includes(key))) {
+  if (grouping.keys.every(key => activityClassificationFilters.includes(key))) {
     topLevelCheckbox = (<button aria-label="Uncheck all nested filters" className="focus-on-light quill-checkbox selected" onClick={uncheckAllFilters} type="button">
       <img alt="Checked checkbox" src={smallWhiteCheckSrc} />
     </button>)
@@ -114,6 +110,8 @@ const ActivityClassificationToggle = ({filteredActivities, grouping, uniqueActiv
     topLevelCheckbox = (<button aria-label="Uncheck all nested filters" className="focus-on-light quill-checkbox selected" onClick={uncheckAllFilters} type="button">
       <img alt="Indeterminate checkbox" src={indeterminateSrc} />
     </button>)
+  } else if (topLevelActivityCount === 0) {
+    topLevelCheckbox = <div className="focus-on-light quill-checkbox disabled" />
   }
 
   let individualFilters = <span />
@@ -152,12 +150,12 @@ const SavedRow = ({ savedActivityFilters, handleSavedActivityFilterChange, saved
 
   let checkbox = <button aria-label="Check Saved" className="focus-on-light quill-checkbox unselected" onClick={handleSavedActivityFilterChange} type="button" />
 
-  if (activityCount === 0) {
-    checkbox = <div aria-label="Check Saved" className="focus-on-light quill-checkbox disabled" />
-  } else if (savedActivityFilters.length) {
+  if (savedActivityFilters.length) {
     checkbox = (<button aria-label="Uncheck Saved" className="focus-on-light quill-checkbox selected" onClick={handleSavedActivityFilterChange} type="button">
       <img alt="Checked checkbox" src={smallWhiteCheckSrc} />
     </button>)
+  } else if (activityCount === 0) {
+    checkbox = <div aria-label="Check Saved" className="focus-on-light quill-checkbox disabled" />
   }
 
   return (
@@ -179,7 +177,6 @@ const ActivityClassificationFilters = ({
   handleSavedActivityFilterChange,
   savedActivityFilters,
   savedActivityIds,
-  showComprehension
 }: ActivityClassificationFiltersProps) => {
 
   const allActivityClassifications = activities.map(a => a.activity_classification)
@@ -190,7 +187,7 @@ const ActivityClassificationFilters = ({
 
   const filteredActivities = filterActivities(ACTIVITY_CLASSIFICATION_FILTERS)
 
-  const activityClassificationToggles = activityClassificationGroupings(showComprehension).map(grouping =>
+  const activityClassificationToggles = activityClassificationGroupings.map(grouping =>
     (<ActivityClassificationToggle
       activityClassificationFilters={activityClassificationFilters}
       filteredActivities={filteredActivities}

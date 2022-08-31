@@ -10,6 +10,7 @@
 #  classcode             :string
 #  email                 :string
 #  flags                 :string           default([]), not null, is an Array
+#  flagset               :string           default("production"), not null
 #  ip_address            :inet
 #  last_active           :datetime
 #  last_sign_in          :datetime
@@ -345,9 +346,9 @@ describe User, type: :model do
   end
 
   describe 'constants' do
-    it "should give the correct value for all the contstants" do
-      expect(User::ROLES).to eq(%w(teacher student staff))
-      expect(User::SAFE_ROLES).to eq(%w(student teacher))
+    it "should give the correct value for all the constants" do
+      expect(User::ROLES).to eq(%w(teacher student staff sales-contact))
+      expect(User::SAFE_ROLES).to eq(%w(student teacher sales-contact))
       expect(User::VALID_EMAIL_REGEX).to eq(/\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i)
     end
   end
@@ -477,34 +478,6 @@ describe User, type: :model do
     it 'should send the lesson plan email' do
       expect(UserMailer).to receive(:lesson_plan_email).with(user, lessons, unit)
       user.send_lesson_plan_email(lessons, unit)
-    end
-  end
-
-  describe '#send_premium_user_subscription_email' do
-    let(:user) { create(:user) }
-
-    before do
-      allow(UserMailer).to receive(:premium_user_subscription_email).and_return(double(:email, deliver_now!: true))
-    end
-
-    it 'should send the premium user subscription email' do
-      expect(UserMailer).to receive(:premium_user_subscription_email).with(user)
-      user.send_premium_user_subscription_email
-    end
-  end
-
-  describe '#send_premium_school_subscription_email' do
-    let(:user)  { create(:user) }
-    let(:school) { double(:school) }
-    let(:admin) { double(:admin) }
-
-    before do
-      allow(UserMailer).to receive(:premium_school_subscription_email).and_return(double(:email, deliver_now!: true))
-    end
-
-    it 'should send the premium school subscription email' do
-      expect(UserMailer).to receive(:premium_school_subscription_email).with(user, school, admin)
-      user.send_premium_school_subscription_email(school, admin)
     end
   end
 
@@ -747,18 +720,6 @@ describe User, type: :model do
         user.redeem_credit
         expect(user.subscriptions.count).to eq(original_subscription_count)
       end
-    end
-  end
-
-  describe '#password?' do
-    it 'returns false if password is not present' do
-      user = build(:user, password: nil)
-      expect(user.send(:password?)).to be false
-    end
-
-    it 'returns true if password is present' do
-      user = build(:user, password: 'something')
-      expect(user.send(:password?)).to be true
     end
   end
 
@@ -1334,6 +1295,152 @@ describe User, type: :model do
       let(:clever_user) { create(:clever_library_auth_credential).user }
 
       it { expect(clever_user.clever_authorized?).to be true }
+    end
+  end
+
+  describe '#staff_session_duration_exceeded' do
+    let(:user) { create(:user, role: role) }
+
+    subject { user.staff_session_duration_exceeded? }
+
+    context 'user is not staff' do
+      let(:role) { :teacher }
+
+      it { expect(subject).to eq false }
+    end
+
+    context 'user is staff' do
+      let(:role) { :staff}
+
+      context 'nil last_sign_in' do
+        before { user.update(last_sign_in: nil) }
+
+        it { expect(subject).to eq false }
+      end
+
+      context 'last_sign_in happened too long ago' do
+        before { user.update(last_sign_in: described_class::STAFF_SESSION_DURATION.ago + 1.hour) }
+
+        it { expect(subject).to eq false }
+      end
+
+      context 'last_sign_in happened within acceptable interval' do
+        before { user.update(last_sign_in: described_class::STAFF_SESSION_DURATION.ago - 1.hour) }
+
+        it { expect(subject).to eq true }
+      end
+    end
+  end
+
+  describe '#inactive_too_long?' do
+    subject { user.inactive_too_long? }
+
+    context 'last_sign_in_too_long_ago? is false' do
+      before { allow(user).to receive(:last_sign_in_too_long_ago?).and_return(false) }
+
+      it { expect(subject).to eq false }
+    end
+
+    context 'last_sign_in_too_long_ago? is true' do
+      before { allow(user).to receive(:last_sign_in_too_long_ago?).and_return(true) }
+
+      context 'last_active_too_long_ago? is false' do
+        before { allow(user).to receive(:last_active_too_long_ago?).and_return(false) }
+
+        it { expect(subject).to eq false }
+      end
+
+      context 'last_active_too_long_ago? is true' do
+        before { allow(user).to receive(:last_active_too_long_ago?).and_return(true) }
+
+        it { expect(subject).to eq true }
+      end
+    end
+  end
+
+  describe '#last_sign_in_too_long_ago' do
+    subject { user.last_sign_in_too_long_ago? }
+
+    context 'nil last_sign_in' do
+      before { user.update(last_sign_in: nil) }
+
+      it { expect(subject).to eq false }
+    end
+
+    context 'last_sign_in happened too long ago' do
+      before { user.update(last_sign_in: described_class::USER_SESSION_DURATION.ago + 1.day) }
+
+      it { expect(subject).to eq false }
+    end
+
+    context 'last_sign_in happened within acceptable interval' do
+      before { user.update(last_sign_in: described_class::USER_SESSION_DURATION.ago - 1.day) }
+
+      it { expect(subject).to eq true }
+    end
+  end
+
+  describe '#last_active_too_long_ago?' do
+    subject { user.last_active_too_long_ago? }
+
+    context 'nil last_active' do
+      before { user.update(last_active: nil) }
+
+      it { expect(subject).to eq true }
+    end
+
+    context 'last_active happened too long ago' do
+      before { user.update(last_active: described_class::USER_INACTIVITY_DURATION.ago + 1.day) }
+
+      it { expect(subject).to eq false }
+    end
+
+    context 'last_active happened within acceptable interval' do
+      before { user.update(last_active: described_class::USER_INACTIVITY_DURATION.ago - 1.day) }
+
+      it { expect(subject).to eq true }
+    end
+  end
+
+  describe '.find_by_stripe_customer_id_or_email!' do
+    subject { User.find_by_stripe_customer_id_or_email!(stripe_customer_id, email) }
+
+    let(:email) { 'text@example.com' }
+
+    context 'stripe_customer_id nil' do
+      let(:stripe_customer_id) { nil }
+
+      context 'user does not exist with email' do
+        it { expect { subject }.to raise_error(ActiveRecord::RecordNotFound) }
+      end
+
+      context 'user exists with email' do
+        let!(:user) { create(:user, email: email) }
+
+        it { expect(subject).to eq user }
+      end
+    end
+
+    context 'stripe_customer_id present' do
+      let(:stripe_customer_id) { "cus_#{SecureRandom.hex}" }
+
+      context 'user exists with stripe_customer_id' do
+        let!(:user) { create(:user, stripe_customer_id: stripe_customer_id) }
+
+        it { expect(subject).to eq user }
+      end
+
+      context 'user does not exist with stripe_customer_id' do
+        context 'user exists with email' do
+          let!(:user) { create(:user, email: email) }
+
+          it { expect(subject).to eq user }
+        end
+
+        context 'user does not exist with email' do
+          it { expect { subject }.to raise_error(ActiveRecord::RecordNotFound) }
+        end
+      end
     end
   end
 end

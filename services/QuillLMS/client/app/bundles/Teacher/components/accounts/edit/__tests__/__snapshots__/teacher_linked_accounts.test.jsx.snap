@@ -22,12 +22,13 @@ exports[`TeacherLinkedAccounts component should render when the user is linked t
           Google is not linked
         </span>
       </div>
-      <a
-        className="google-or-clever-action"
-        href="/auth/google_oauth2?prompt=consent"
-      >
-        Link your account
-      </a>
+      <AuthGoogleAccessForm
+        buttonClass="interactive-wrapper"
+        offlineAccess={true}
+        showIcon={false}
+        spanClass="google-or-clever-action"
+        text="Link your account"
+      />
     </div>
   </div>
   <hr />
@@ -77,12 +78,13 @@ exports[`TeacherLinkedAccounts component should render when the user is linked t
           Google is not linked
         </span>
       </div>
-      <a
-        className="google-or-clever-action"
-        href="/auth/google_oauth2?prompt=consent"
-      >
-        Link your account
-      </a>
+      <AuthGoogleAccessForm
+        buttonClass="interactive-wrapper"
+        offlineAccess={true}
+        showIcon={false}
+        spanClass="google-or-clever-action"
+        text="Link your account"
+      />
     </div>
   </div>
   <hr />
@@ -132,12 +134,13 @@ exports[`TeacherLinkedAccounts component should render when the user is linked t
           Google is not linked
         </span>
       </div>
-      <a
-        className="google-or-clever-action"
-        href="/auth/google_oauth2?prompt=consent"
-      >
-        Link your account
-      </a>
+      <AuthGoogleAccessForm
+        buttonClass="interactive-wrapper"
+        offlineAccess={true}
+        showIcon={false}
+        spanClass="google-or-clever-action"
+        text="Link your account"
+      />
     </div>
   </div>
   <hr />
@@ -187,12 +190,13 @@ exports[`TeacherLinkedAccounts component should render when the user is linked t
           Google is not linked
         </span>
       </div>
-      <a
-        className="google-or-clever-action"
-        href="/auth/google_oauth2?prompt=consent"
-      >
-        Link your account
-      </a>
+      <AuthGoogleAccessForm
+        buttonClass="interactive-wrapper"
+        offlineAccess={true}
+        showIcon={false}
+        spanClass="google-or-clever-action"
+        text="Link your account"
+      />
     </div>
   </div>
   <hr />
@@ -242,12 +246,13 @@ exports[`TeacherLinkedAccounts component should render when the user is not link
           Google is not linked
         </span>
       </div>
-      <a
-        className="google-or-clever-action"
-        href="/auth/google_oauth2?prompt=consent"
-      >
-        Link your account
-      </a>
+      <AuthGoogleAccessForm
+        buttonClass="interactive-wrapper"
+        offlineAccess={true}
+        showIcon={false}
+        spanClass="google-or-clever-action"
+        text="Link your account"
+      />
     </div>
   </div>
   <hr />

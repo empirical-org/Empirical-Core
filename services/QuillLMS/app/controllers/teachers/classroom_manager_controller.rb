@@ -4,15 +4,17 @@ class Teachers::ClassroomManagerController < ApplicationController
   include CheckboxCallback
   include CleverAuthable
   include DiagnosticReports
+  include ScorebookHelper
 
   respond_to :json, :html
+
+  around_action :force_writer_db_role, only: [:assign, :dashboard, :lesson_planner]
+
   before_action :teacher_or_public_activity_packs, except: [:unset_preview_as_student, :unset_view_demo]
   # WARNING: these filter methods check against classroom_id, not id.
   before_action :authorize_owner!, except: [:scores, :scorebook, :lesson_planner, :preview_as_student, :unset_preview_as_student, :view_demo, :unset_view_demo, :activity_feed]
   before_action :authorize_teacher!, only: [:scores, :scorebook, :lesson_planner]
   before_action :set_alternative_schools, only: [:my_account, :update_my_account, :update_my_password]
-  include ScorebookHelper
-  include QuillAuthentication
 
   MY_ACCOUNT = 'my_account'
   ASSIGN = 'assign'
@@ -242,6 +244,10 @@ class Teachers::ClassroomManagerController < ApplicationController
     return redirect_to params[:redirect] if params[:redirect]
 
     redirect_to '/profile'
+  end
+
+  def demo_id
+    render json: { current_user_demo_id: session[:demo_id] }
   end
 
   def preview_as_student

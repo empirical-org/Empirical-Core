@@ -223,11 +223,3 @@ export const imageTagForClassification = (classificationKey: string): JSX.Elemen
 
   return <img alt={imgAlt} src={imgSrc} />
 }
-
-export const readabilityGradeLevelToArrayOfGrades = {
-  '2nd-3rd': [2, 3],
-  '4th-5th': [4, 5],
-  '6th-7th': [6, 7],
-  '8th-9th': [8, 9],
-  '10th-12th': [10, 11, 12]
-}

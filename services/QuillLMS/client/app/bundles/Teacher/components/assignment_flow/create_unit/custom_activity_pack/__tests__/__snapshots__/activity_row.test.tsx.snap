@@ -64,6 +64,7 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
       "uid": "-KqcjgL00W0ro-Wr4Bts",
     }
   }
+  gradeLevelFilters={Array []}
   isFirst={false}
   isSelected={false}
   setShowSnackbar={[Function]}
@@ -72,118 +73,104 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
   toggleActivitySelection={[Function]}
 >
   <section
-    className="activity-row not-expanded not-selected "
+    className="activity-row not-expanded not-selected  "
+    onClick={[Function]}
   >
-    <ActivityRowTooltip
-      activity={
-        Object {
-          "activity_category": Object {
-            "id": 20,
-            "name": "History: Maya, Aztec, Inca",
-          },
-          "activity_category_id": 20,
-          "activity_category_name": "History: Maya, Aztec, Inca",
-          "activity_classification": Object {
-            "alias": "Quill Connect",
-            "description": "Combine Sentences",
-            "id": 5,
-            "key": "connect",
-          },
-          "anonymous_path": "/activity_sessions/anonymous?activity_id=627",
-          "content_partners": Array [
-            Object {
-              "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
-              "id": 1,
-              "name": "Core Knowledge",
-            },
-          ],
-          "description": "Combine sentences to create 6 sentences about Hernan Cortes. This is an advanced, un-cued sentence combining activity.",
-          "flags": "{production}",
-          "id": 627,
-          "name": "Hernan Cortes",
-          "readability_grade_level": "8th-9th",
-          "standard_level": Object {
-            "id": 13,
-            "name": "7th Grade CCSS",
-          },
-          "standard_level_name": "7th Grade CCSS",
-          "standard_name": "87",
-          "topics": Array [
-            Object {
-              "id": 16,
-              "level": 3,
-              "name": "History",
-              "parent_id": null,
-            },
-            Object {
-              "id": 93,
-              "level": 2,
-              "name": "World Historical Figures",
-              "parent_id": 16,
-            },
-            Object {
-              "id": 171,
-              "level": 0,
-              "name": "Hernan Cortes & the Aztec Empire",
-              "parent_id": null,
-            },
-            Object {
-              "id": 172,
-              "level": 1,
-              "name": "Maya, Aztec, & Inca Civilizations",
-              "parent_id": null,
-            },
-          ],
-          "uid": "-KqcjgL00W0ro-Wr4Bts",
-        }
-      }
-      showTooltip={false}
-    >
-      <span />
-    </ActivityRowTooltip>
     <div
       className="first-line"
     >
       <div
         className="name-and-checkbox-wrapper"
       >
-        <button
-          className="interactive-wrapper"
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-          tabIndex={-1}
-          type="button"
+        <Tooltip
+          isTabbable={true}
+          tooltipText="<div class=\\"tooltip-line\\"><img alt=\\"Book icon\\" src=\\"undefined/images/icons/description-readability.svg\\"/><div><span class=\\"grade-range-and-label\\"><span class=\\"grade-range\\">8th-9th</span><span class=\\"grade-range-label\\">Text Readability Level</span></span><br/><span>Quill recommends using activities where the text readability level is the same or lower than the student’s reading level so that the student can focus on building their writing skills.</span></div></div><div class=\\"tooltip-line\\"><img alt=\\"Information icon\\" src=\\"undefined/images/icons/description-information.svg\\"/><span>Combine sentences to create 6 sentences about Hernan Cortes. This is an advanced, un-cued sentence combining activity.</span></div><div class=\\"tooltip-line\\"><img alt=\\"Copyright icon\\" src=\\"undefined/images/icons/description-copyright.svg\\"/><span>Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.</span></div>"
+          tooltipTriggerText={
+            <h2>
+              <img
+                alt="Target representing Quill Connect"
+                src="undefined/images/icons/description-connect.svg"
+              />
+              <a
+                href="/activity_sessions/anonymous?activity_id=627"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Hernan Cortes
+              </a>
+            </h2>
+          }
         >
-          <h2>
-            Hernan Cortes
-          </h2>
-        </button>
+          <span
+            aria-hidden={false}
+            className="quill-tooltip-trigger "
+            role="tooltip"
+          >
+            <span
+              className="undefined"
+              onBlur={[Function]}
+              onClick={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              role="button"
+              tabIndex={0}
+            >
+              <h2>
+                <img
+                  alt="Target representing Quill Connect"
+                  src="undefined/images/icons/description-connect.svg"
+                />
+                <a
+                  href="/activity_sessions/anonymous?activity_id=627"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  Hernan Cortes
+                </a>
+              </h2>
+            </span>
+            <span
+              className="quill-tooltip-wrapper"
+            >
+              <span
+                aria-live="polite"
+                className="quill-tooltip"
+              />
+            </span>
+          </span>
+        </Tooltip>
       </div>
       <div
         className="buttons-wrapper"
       >
-        <button
-          className="interactive-wrapper focus-on-light remove-button"
-          onClick={[Function]}
-          type="button"
+        <div
+          className="non-toggle-buttons"
         >
-          <img
-            alt="Remove icon"
-            src="undefined/images/icons/remove-in-circle.svg"
-          />
-          Remove
-        </button>
-        <button
-          className="interactive-wrapper focus-on-light save-button"
-          onClick={[Function]}
-          type="button"
-        >
-          <img
-            alt="Arrow pointing down"
-            src="undefined/images/icons/icons-bookmark-outline.svg"
-          />
-          Save
-        </button>
+          <button
+            className="interactive-wrapper focus-on-light remove-button"
+            onClick={[Function]}
+            type="button"
+          >
+            <img
+              alt="Remove icon"
+              src="undefined/images/icons/remove-in-circle.svg"
+            />
+            Remove
+          </button>
+          <button
+            className="interactive-wrapper focus-on-light save-button"
+            onClick={[Function]}
+            type="button"
+          >
+            <img
+              alt="Arrow pointing down"
+              src="undefined/images/icons/icons-bookmark-outline.svg"
+            />
+            Save
+          </button>
+        </div>
         <button
           className="interactive-wrapper focus-on-light expand-button"
           onClick={[Function]}
@@ -202,33 +189,11 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
       <div
         className="classification-concept-topic-wrapper"
       >
-        <ActivityRowClassification
-          classification={
-            Object {
-              "alias": "Quill Connect",
-              "description": "Combine Sentences",
-              "id": 5,
-              "key": "connect",
-            }
-          }
-        >
-          <span
-            className="second-line-section classification"
-          >
-            <img
-              alt="Target representing Quill Connect"
-              src="undefined/images/icons/description-connect.svg"
-            />
-            <span>
-              Quill Connect
-            </span>
-          </span>
-        </ActivityRowClassification>
         <ActivityRowConcept
           conceptName="History: Maya, Aztec, Inca"
         >
           <span
-            className="second-line-section concept"
+            className="attribute-section concept"
           >
             <img
               alt="Pencil writing icon"
@@ -240,7 +205,10 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
           </span>
         </ActivityRowConcept>
         <ActivityRowTopics
+          hasConcept={true}
+          inExpandedView={false}
           maxAllowedLength={0}
+          onTertiaryLine={false}
           topics={
             Array [
               Object {
@@ -270,35 +238,17 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
             ]
           }
         >
-          <span
-            className="second-line-section topic"
-          />
+          <span />
         </ActivityRowTopics>
       </div>
       <div
-        className="readability-and-standard-level-wrapper"
+        className="grade-range-and-standard-level-wrapper"
       >
-        <ActivityRowReadabilityGradeLevel
-          readabilityGradeLevel="8th-9th"
-        >
-          <span
-            className="second-line-section readability-level"
-          >
-            <img
-              alt="Book icon"
-              src="undefined/images/icons/description-readability.svg"
-            />
-            <span>
-              Readability: Grades 
-              8th-9th
-            </span>
-          </span>
-        </ActivityRowReadabilityGradeLevel>
         <ActivityRowStandardLevel
           standardLevelName="7th Grade CCSS"
         >
           <span
-            className="second-line-section standard-level"
+            className="attribute-section standard-level"
           >
             <img
               alt="Common Core State Standards icon"
@@ -309,7 +259,125 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
             </span>
           </span>
         </ActivityRowStandardLevel>
+        <span
+          className="vertical-divider"
+        />
+        <ActivityRowGradeRange
+          gradeLevelFilters={Array []}
+        >
+          <span
+            className="attribute-section grade-range"
+          >
+            <img
+              alt="Book icon"
+              src="undefined/images/icons/description-readability.svg"
+            />
+            <span>
+              Grades: 
+              <span
+                className="grade-level filtered"
+              >
+                4 - 5
+              </span>
+              <span
+                className="grade-level filtered"
+              >
+                6 - 7
+              </span>
+              <span
+                className="grade-level filtered"
+              >
+                8 - 9
+              </span>
+              <span
+                className="grade-level filtered"
+              >
+                10 - 12
+              </span>
+            </span>
+          </span>
+        </ActivityRowGradeRange>
       </div>
+    </div>
+    <div
+      className="third-line mobile-only"
+    >
+      <div
+        className="non-toggle-buttons"
+      >
+        <button
+          className="interactive-wrapper focus-on-light remove-button"
+          onClick={[Function]}
+          type="button"
+        >
+          <img
+            alt="Remove icon"
+            src="undefined/images/icons/remove-in-circle.svg"
+          />
+          Remove
+        </button>
+        <button
+          className="interactive-wrapper focus-on-light save-button"
+          onClick={[Function]}
+          type="button"
+        >
+          <img
+            alt="Arrow pointing down"
+            src="undefined/images/icons/icons-bookmark-outline.svg"
+          />
+          Save
+        </button>
+      </div>
+    </div>
+    <div
+      className="third-line"
+    >
+      <ActivityRowTopics
+        hasConcept={true}
+        inExpandedView={false}
+        maxAllowedLength={0}
+        onTertiaryLine={true}
+        topics={
+          Array [
+            Object {
+              "id": 16,
+              "level": 3,
+              "name": "History",
+              "parent_id": null,
+            },
+            Object {
+              "id": 93,
+              "level": 2,
+              "name": "World Historical Figures",
+              "parent_id": 16,
+            },
+            Object {
+              "id": 171,
+              "level": 0,
+              "name": "Hernan Cortes & the Aztec Empire",
+              "parent_id": null,
+            },
+            Object {
+              "id": 172,
+              "level": 1,
+              "name": "Maya, Aztec, & Inca Civilizations",
+              "parent_id": null,
+            },
+          ]
+        }
+      >
+        <span
+          className="attribute-section topic"
+        >
+          <img
+            alt="Globe icon"
+            src="undefined/images/icons/icons-description-topic.svg"
+          />
+          <span>
+            Maya, Aztec, & Inca Civilizations: Hernan Cortes & the Aztec Empire
+          </span>
+        </span>
+      </ActivityRowTopics>
     </div>
     <ActivityRowExpandedSection
       activity={
@@ -378,21 +446,6 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
     >
       <span />
     </ActivityRowExpandedSection>
-    <div
-      className="mobile-only"
-    >
-      <button
-        className="interactive-wrapper focus-on-light remove-button"
-        onClick={[Function]}
-        type="button"
-      >
-        <img
-          alt="Remove icon"
-          src="undefined/images/icons/remove-in-circle.svg"
-        />
-        Remove
-      </button>
-    </div>
   </section>
 </ActivityRow>
 `;
@@ -461,6 +514,7 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
       "uid": "-KqcjgL00W0ro-Wr4Bts",
     }
   }
+  gradeLevelFilters={Array []}
   isFirst={false}
   isSelected={true}
   setShowSnackbar={[Function]}
@@ -469,118 +523,104 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
   toggleActivitySelection={[Function]}
 >
   <section
-    className="activity-row not-expanded selected "
+    className="activity-row not-expanded selected  "
+    onClick={[Function]}
   >
-    <ActivityRowTooltip
-      activity={
-        Object {
-          "activity_category": Object {
-            "id": 20,
-            "name": "History: Maya, Aztec, Inca",
-          },
-          "activity_category_id": 20,
-          "activity_category_name": "History: Maya, Aztec, Inca",
-          "activity_classification": Object {
-            "alias": "Quill Connect",
-            "description": "Combine Sentences",
-            "id": 5,
-            "key": "connect",
-          },
-          "anonymous_path": "/activity_sessions/anonymous?activity_id=627",
-          "content_partners": Array [
-            Object {
-              "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
-              "id": 1,
-              "name": "Core Knowledge",
-            },
-          ],
-          "description": "Combine sentences to create 6 sentences about Hernan Cortes. This is an advanced, un-cued sentence combining activity.",
-          "flags": "{production}",
-          "id": 627,
-          "name": "Hernan Cortes",
-          "readability_grade_level": "8th-9th",
-          "standard_level": Object {
-            "id": 13,
-            "name": "7th Grade CCSS",
-          },
-          "standard_level_name": "7th Grade CCSS",
-          "standard_name": "87",
-          "topics": Array [
-            Object {
-              "id": 16,
-              "level": 3,
-              "name": "History",
-              "parent_id": null,
-            },
-            Object {
-              "id": 93,
-              "level": 2,
-              "name": "World Historical Figures",
-              "parent_id": 16,
-            },
-            Object {
-              "id": 171,
-              "level": 0,
-              "name": "Hernan Cortes & the Aztec Empire",
-              "parent_id": null,
-            },
-            Object {
-              "id": 172,
-              "level": 1,
-              "name": "Maya, Aztec, & Inca Civilizations",
-              "parent_id": null,
-            },
-          ],
-          "uid": "-KqcjgL00W0ro-Wr4Bts",
-        }
-      }
-      showTooltip={false}
-    >
-      <span />
-    </ActivityRowTooltip>
     <div
       className="first-line"
     >
       <div
         className="name-and-checkbox-wrapper"
       >
-        <button
-          className="interactive-wrapper"
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-          tabIndex={-1}
-          type="button"
+        <Tooltip
+          isTabbable={true}
+          tooltipText="<div class=\\"tooltip-line\\"><img alt=\\"Book icon\\" src=\\"undefined/images/icons/description-readability.svg\\"/><div><span class=\\"grade-range-and-label\\"><span class=\\"grade-range\\">8th-9th</span><span class=\\"grade-range-label\\">Text Readability Level</span></span><br/><span>Quill recommends using activities where the text readability level is the same or lower than the student’s reading level so that the student can focus on building their writing skills.</span></div></div><div class=\\"tooltip-line\\"><img alt=\\"Information icon\\" src=\\"undefined/images/icons/description-information.svg\\"/><span>Combine sentences to create 6 sentences about Hernan Cortes. This is an advanced, un-cued sentence combining activity.</span></div><div class=\\"tooltip-line\\"><img alt=\\"Copyright icon\\" src=\\"undefined/images/icons/description-copyright.svg\\"/><span>Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.</span></div>"
+          tooltipTriggerText={
+            <h2>
+              <img
+                alt="Target representing Quill Connect"
+                src="undefined/images/icons/description-connect.svg"
+              />
+              <a
+                href="/activity_sessions/anonymous?activity_id=627"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Hernan Cortes
+              </a>
+            </h2>
+          }
         >
-          <h2>
-            Hernan Cortes
-          </h2>
-        </button>
+          <span
+            aria-hidden={false}
+            className="quill-tooltip-trigger "
+            role="tooltip"
+          >
+            <span
+              className="undefined"
+              onBlur={[Function]}
+              onClick={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              role="button"
+              tabIndex={0}
+            >
+              <h2>
+                <img
+                  alt="Target representing Quill Connect"
+                  src="undefined/images/icons/description-connect.svg"
+                />
+                <a
+                  href="/activity_sessions/anonymous?activity_id=627"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  Hernan Cortes
+                </a>
+              </h2>
+            </span>
+            <span
+              className="quill-tooltip-wrapper"
+            >
+              <span
+                aria-live="polite"
+                className="quill-tooltip"
+              />
+            </span>
+          </span>
+        </Tooltip>
       </div>
       <div
         className="buttons-wrapper"
       >
-        <button
-          className="interactive-wrapper focus-on-light remove-button"
-          onClick={[Function]}
-          type="button"
+        <div
+          className="non-toggle-buttons"
         >
-          <img
-            alt="Remove icon"
-            src="undefined/images/icons/remove-in-circle.svg"
-          />
-          Remove
-        </button>
-        <button
-          className="interactive-wrapper focus-on-light save-button"
-          onClick={[Function]}
-          type="button"
-        >
-          <img
-            alt="Arrow pointing down"
-            src="undefined/images/icons/icons-bookmark-outline.svg"
-          />
-          Save
-        </button>
+          <button
+            className="interactive-wrapper focus-on-light remove-button"
+            onClick={[Function]}
+            type="button"
+          >
+            <img
+              alt="Remove icon"
+              src="undefined/images/icons/remove-in-circle.svg"
+            />
+            Remove
+          </button>
+          <button
+            className="interactive-wrapper focus-on-light save-button"
+            onClick={[Function]}
+            type="button"
+          >
+            <img
+              alt="Arrow pointing down"
+              src="undefined/images/icons/icons-bookmark-outline.svg"
+            />
+            Save
+          </button>
+        </div>
         <button
           className="interactive-wrapper focus-on-light expand-button"
           onClick={[Function]}
@@ -599,33 +639,11 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
       <div
         className="classification-concept-topic-wrapper"
       >
-        <ActivityRowClassification
-          classification={
-            Object {
-              "alias": "Quill Connect",
-              "description": "Combine Sentences",
-              "id": 5,
-              "key": "connect",
-            }
-          }
-        >
-          <span
-            className="second-line-section classification"
-          >
-            <img
-              alt="Target representing Quill Connect"
-              src="undefined/images/icons/description-connect.svg"
-            />
-            <span>
-              Quill Connect
-            </span>
-          </span>
-        </ActivityRowClassification>
         <ActivityRowConcept
           conceptName="History: Maya, Aztec, Inca"
         >
           <span
-            className="second-line-section concept"
+            className="attribute-section concept"
           >
             <img
               alt="Pencil writing icon"
@@ -637,7 +655,10 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
           </span>
         </ActivityRowConcept>
         <ActivityRowTopics
+          hasConcept={true}
+          inExpandedView={false}
           maxAllowedLength={0}
+          onTertiaryLine={false}
           topics={
             Array [
               Object {
@@ -667,35 +688,17 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
             ]
           }
         >
-          <span
-            className="second-line-section topic"
-          />
+          <span />
         </ActivityRowTopics>
       </div>
       <div
-        className="readability-and-standard-level-wrapper"
+        className="grade-range-and-standard-level-wrapper"
       >
-        <ActivityRowReadabilityGradeLevel
-          readabilityGradeLevel="8th-9th"
-        >
-          <span
-            className="second-line-section readability-level"
-          >
-            <img
-              alt="Book icon"
-              src="undefined/images/icons/description-readability.svg"
-            />
-            <span>
-              Readability: Grades 
-              8th-9th
-            </span>
-          </span>
-        </ActivityRowReadabilityGradeLevel>
         <ActivityRowStandardLevel
           standardLevelName="7th Grade CCSS"
         >
           <span
-            className="second-line-section standard-level"
+            className="attribute-section standard-level"
           >
             <img
               alt="Common Core State Standards icon"
@@ -706,7 +709,125 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
             </span>
           </span>
         </ActivityRowStandardLevel>
+        <span
+          className="vertical-divider"
+        />
+        <ActivityRowGradeRange
+          gradeLevelFilters={Array []}
+        >
+          <span
+            className="attribute-section grade-range"
+          >
+            <img
+              alt="Book icon"
+              src="undefined/images/icons/description-readability.svg"
+            />
+            <span>
+              Grades: 
+              <span
+                className="grade-level filtered"
+              >
+                4 - 5
+              </span>
+              <span
+                className="grade-level filtered"
+              >
+                6 - 7
+              </span>
+              <span
+                className="grade-level filtered"
+              >
+                8 - 9
+              </span>
+              <span
+                className="grade-level filtered"
+              >
+                10 - 12
+              </span>
+            </span>
+          </span>
+        </ActivityRowGradeRange>
       </div>
+    </div>
+    <div
+      className="third-line mobile-only"
+    >
+      <div
+        className="non-toggle-buttons"
+      >
+        <button
+          className="interactive-wrapper focus-on-light remove-button"
+          onClick={[Function]}
+          type="button"
+        >
+          <img
+            alt="Remove icon"
+            src="undefined/images/icons/remove-in-circle.svg"
+          />
+          Remove
+        </button>
+        <button
+          className="interactive-wrapper focus-on-light save-button"
+          onClick={[Function]}
+          type="button"
+        >
+          <img
+            alt="Arrow pointing down"
+            src="undefined/images/icons/icons-bookmark-outline.svg"
+          />
+          Save
+        </button>
+      </div>
+    </div>
+    <div
+      className="third-line"
+    >
+      <ActivityRowTopics
+        hasConcept={true}
+        inExpandedView={false}
+        maxAllowedLength={0}
+        onTertiaryLine={true}
+        topics={
+          Array [
+            Object {
+              "id": 16,
+              "level": 3,
+              "name": "History",
+              "parent_id": null,
+            },
+            Object {
+              "id": 93,
+              "level": 2,
+              "name": "World Historical Figures",
+              "parent_id": 16,
+            },
+            Object {
+              "id": 171,
+              "level": 0,
+              "name": "Hernan Cortes & the Aztec Empire",
+              "parent_id": null,
+            },
+            Object {
+              "id": 172,
+              "level": 1,
+              "name": "Maya, Aztec, & Inca Civilizations",
+              "parent_id": null,
+            },
+          ]
+        }
+      >
+        <span
+          className="attribute-section topic"
+        >
+          <img
+            alt="Globe icon"
+            src="undefined/images/icons/icons-description-topic.svg"
+          />
+          <span>
+            Maya, Aztec, & Inca Civilizations: Hernan Cortes & the Aztec Empire
+          </span>
+        </span>
+      </ActivityRowTopics>
     </div>
     <ActivityRowExpandedSection
       activity={
@@ -775,21 +896,6 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
     >
       <span />
     </ActivityRowExpandedSection>
-    <div
-      className="mobile-only"
-    >
-      <button
-        className="interactive-wrapper focus-on-light remove-button"
-        onClick={[Function]}
-        type="button"
-      >
-        <img
-          alt="Remove icon"
-          src="undefined/images/icons/remove-in-circle.svg"
-        />
-        Remove
-      </button>
-    </div>
   </section>
 </ActivityRow>
 `;
@@ -858,6 +964,7 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
       "uid": "-KqcjgL00W0ro-Wr4Bts",
     }
   }
+  gradeLevelFilters={Array []}
   isFirst={false}
   isSelected={false}
   setShowSnackbar={[Function]}
@@ -866,75 +973,9 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
   toggleActivitySelection={[Function]}
 >
   <section
-    className="activity-row not-expanded not-selected "
+    className="activity-row not-expanded not-selected  "
+    onClick={[Function]}
   >
-    <ActivityRowTooltip
-      activity={
-        Object {
-          "activity_category": Object {
-            "id": 20,
-            "name": "History: Maya, Aztec, Inca",
-          },
-          "activity_category_id": 20,
-          "activity_category_name": "History: Maya, Aztec, Inca",
-          "activity_classification": Object {
-            "alias": "Quill Connect",
-            "description": "Combine Sentences",
-            "id": 5,
-            "key": "connect",
-          },
-          "anonymous_path": "/activity_sessions/anonymous?activity_id=627",
-          "content_partners": Array [
-            Object {
-              "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
-              "id": 1,
-              "name": "Core Knowledge",
-            },
-          ],
-          "description": "Combine sentences to create 6 sentences about Hernan Cortes. This is an advanced, un-cued sentence combining activity.",
-          "flags": "{production}",
-          "id": 627,
-          "name": "Hernan Cortes",
-          "readability_grade_level": "8th-9th",
-          "standard_level": Object {
-            "id": 13,
-            "name": "7th Grade CCSS",
-          },
-          "standard_level_name": "7th Grade CCSS",
-          "standard_name": "87",
-          "topics": Array [
-            Object {
-              "id": 16,
-              "level": 3,
-              "name": "History",
-              "parent_id": null,
-            },
-            Object {
-              "id": 93,
-              "level": 2,
-              "name": "World Historical Figures",
-              "parent_id": 16,
-            },
-            Object {
-              "id": 171,
-              "level": 0,
-              "name": "Hernan Cortes & the Aztec Empire",
-              "parent_id": null,
-            },
-            Object {
-              "id": 172,
-              "level": 1,
-              "name": "Maya, Aztec, & Inca Civilizations",
-              "parent_id": null,
-            },
-          ],
-          "uid": "-KqcjgL00W0ro-Wr4Bts",
-        }
-      }
-      showTooltip={false}
-    >
-      <span />
-    </ActivityRowTooltip>
     <div
       className="first-line"
     >
@@ -1014,44 +1055,96 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
             type="button"
           />
         </ActivityRowCheckbox>
-        <button
-          className="interactive-wrapper"
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-          tabIndex={-1}
-          type="button"
+        <Tooltip
+          isTabbable={true}
+          tooltipText="<div class=\\"tooltip-line\\"><img alt=\\"Book icon\\" src=\\"undefined/images/icons/description-readability.svg\\"/><div><span class=\\"grade-range-and-label\\"><span class=\\"grade-range\\">8th-9th</span><span class=\\"grade-range-label\\">Text Readability Level</span></span><br/><span>Quill recommends using activities where the text readability level is the same or lower than the student’s reading level so that the student can focus on building their writing skills.</span></div></div><div class=\\"tooltip-line\\"><img alt=\\"Information icon\\" src=\\"undefined/images/icons/description-information.svg\\"/><span>Combine sentences to create 6 sentences about Hernan Cortes. This is an advanced, un-cued sentence combining activity.</span></div><div class=\\"tooltip-line\\"><img alt=\\"Copyright icon\\" src=\\"undefined/images/icons/description-copyright.svg\\"/><span>Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.</span></div>"
+          tooltipTriggerText={
+            <h2>
+              <img
+                alt="Target representing Quill Connect"
+                src="undefined/images/icons/description-connect.svg"
+              />
+              <a
+                href="/activity_sessions/anonymous?activity_id=627"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Hernan Cortes
+              </a>
+            </h2>
+          }
         >
-          <h2>
-            Hernan Cortes
-          </h2>
-        </button>
+          <span
+            aria-hidden={false}
+            className="quill-tooltip-trigger "
+            role="tooltip"
+          >
+            <span
+              className="undefined"
+              onBlur={[Function]}
+              onClick={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              role="button"
+              tabIndex={0}
+            >
+              <h2>
+                <img
+                  alt="Target representing Quill Connect"
+                  src="undefined/images/icons/description-connect.svg"
+                />
+                <a
+                  href="/activity_sessions/anonymous?activity_id=627"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  Hernan Cortes
+                </a>
+              </h2>
+            </span>
+            <span
+              className="quill-tooltip-wrapper"
+            >
+              <span
+                aria-live="polite"
+                className="quill-tooltip"
+              />
+            </span>
+          </span>
+        </Tooltip>
       </div>
       <div
         className="buttons-wrapper"
       >
-        <a
-          className="interactive-wrapper focus-on-light preview-link"
-          href="/activity_sessions/anonymous?activity_id=627"
-          rel="noopener noreferrer"
-          target="_blank"
+        <div
+          className="non-toggle-buttons"
         >
-          <img
-            alt="Preview eye icon"
-            src="undefined/images/icons/preview.svg"
-          />
-          Preview
-        </a>
-        <button
-          className="interactive-wrapper focus-on-light save-button"
-          onClick={[Function]}
-          type="button"
-        >
-          <img
-            alt="Arrow pointing down"
-            src="undefined/images/icons/icons-bookmark-outline.svg"
-          />
-          Save
-        </button>
+          <a
+            className="interactive-wrapper focus-on-light preview-link"
+            href="/activity_sessions/anonymous?activity_id=627"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Preview eye icon"
+              src="undefined/images/icons/preview.svg"
+            />
+            Preview
+          </a>
+          <button
+            className="interactive-wrapper focus-on-light save-button"
+            onClick={[Function]}
+            type="button"
+          >
+            <img
+              alt="Arrow pointing down"
+              src="undefined/images/icons/icons-bookmark-outline.svg"
+            />
+            Save
+          </button>
+        </div>
         <button
           className="interactive-wrapper focus-on-light expand-button"
           onClick={[Function]}
@@ -1070,33 +1163,11 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
       <div
         className="classification-concept-topic-wrapper"
       >
-        <ActivityRowClassification
-          classification={
-            Object {
-              "alias": "Quill Connect",
-              "description": "Combine Sentences",
-              "id": 5,
-              "key": "connect",
-            }
-          }
-        >
-          <span
-            className="second-line-section classification"
-          >
-            <img
-              alt="Target representing Quill Connect"
-              src="undefined/images/icons/description-connect.svg"
-            />
-            <span>
-              Quill Connect
-            </span>
-          </span>
-        </ActivityRowClassification>
         <ActivityRowConcept
           conceptName="History: Maya, Aztec, Inca"
         >
           <span
-            className="second-line-section concept"
+            className="attribute-section concept"
           >
             <img
               alt="Pencil writing icon"
@@ -1108,7 +1179,10 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
           </span>
         </ActivityRowConcept>
         <ActivityRowTopics
+          hasConcept={true}
+          inExpandedView={false}
           maxAllowedLength={0}
+          onTertiaryLine={false}
           topics={
             Array [
               Object {
@@ -1138,35 +1212,17 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
             ]
           }
         >
-          <span
-            className="second-line-section topic"
-          />
+          <span />
         </ActivityRowTopics>
       </div>
       <div
-        className="readability-and-standard-level-wrapper"
+        className="grade-range-and-standard-level-wrapper"
       >
-        <ActivityRowReadabilityGradeLevel
-          readabilityGradeLevel="8th-9th"
-        >
-          <span
-            className="second-line-section readability-level"
-          >
-            <img
-              alt="Book icon"
-              src="undefined/images/icons/description-readability.svg"
-            />
-            <span>
-              Readability: Grades 
-              8th-9th
-            </span>
-          </span>
-        </ActivityRowReadabilityGradeLevel>
         <ActivityRowStandardLevel
           standardLevelName="7th Grade CCSS"
         >
           <span
-            className="second-line-section standard-level"
+            className="attribute-section standard-level"
           >
             <img
               alt="Common Core State Standards icon"
@@ -1177,7 +1233,126 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
             </span>
           </span>
         </ActivityRowStandardLevel>
+        <span
+          className="vertical-divider"
+        />
+        <ActivityRowGradeRange
+          gradeLevelFilters={Array []}
+        >
+          <span
+            className="attribute-section grade-range"
+          >
+            <img
+              alt="Book icon"
+              src="undefined/images/icons/description-readability.svg"
+            />
+            <span>
+              Grades: 
+              <span
+                className="grade-level filtered"
+              >
+                4 - 5
+              </span>
+              <span
+                className="grade-level filtered"
+              >
+                6 - 7
+              </span>
+              <span
+                className="grade-level filtered"
+              >
+                8 - 9
+              </span>
+              <span
+                className="grade-level filtered"
+              >
+                10 - 12
+              </span>
+            </span>
+          </span>
+        </ActivityRowGradeRange>
       </div>
+    </div>
+    <div
+      className="third-line mobile-only"
+    >
+      <div
+        className="non-toggle-buttons"
+      >
+        <a
+          className="interactive-wrapper focus-on-light preview-link"
+          href="/activity_sessions/anonymous?activity_id=627"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <img
+            alt="Preview eye icon"
+            src="undefined/images/icons/preview.svg"
+          />
+          Preview
+        </a>
+        <button
+          className="interactive-wrapper focus-on-light save-button"
+          onClick={[Function]}
+          type="button"
+        >
+          <img
+            alt="Arrow pointing down"
+            src="undefined/images/icons/icons-bookmark-outline.svg"
+          />
+          Save
+        </button>
+      </div>
+    </div>
+    <div
+      className="third-line"
+    >
+      <ActivityRowTopics
+        hasConcept={true}
+        inExpandedView={false}
+        maxAllowedLength={0}
+        onTertiaryLine={true}
+        topics={
+          Array [
+            Object {
+              "id": 16,
+              "level": 3,
+              "name": "History",
+              "parent_id": null,
+            },
+            Object {
+              "id": 93,
+              "level": 2,
+              "name": "World Historical Figures",
+              "parent_id": 16,
+            },
+            Object {
+              "id": 171,
+              "level": 0,
+              "name": "Hernan Cortes & the Aztec Empire",
+              "parent_id": null,
+            },
+            Object {
+              "id": 172,
+              "level": 1,
+              "name": "Maya, Aztec, & Inca Civilizations",
+              "parent_id": null,
+            },
+          ]
+        }
+      >
+        <span
+          className="attribute-section topic"
+        >
+          <img
+            alt="Globe icon"
+            src="undefined/images/icons/icons-description-topic.svg"
+          />
+          <span>
+            Maya, Aztec, & Inca Civilizations: Hernan Cortes & the Aztec Empire
+          </span>
+        </span>
+      </ActivityRowTopics>
     </div>
     <ActivityRowExpandedSection
       activity={
@@ -1314,6 +1489,7 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
       "uid": "-KqcjgL00W0ro-Wr4Bts",
     }
   }
+  gradeLevelFilters={Array []}
   isFirst={false}
   isSelected={true}
   setShowSnackbar={[Function]}
@@ -1322,75 +1498,9 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
   toggleActivitySelection={[Function]}
 >
   <section
-    className="activity-row not-expanded selected "
+    className="activity-row not-expanded selected  "
+    onClick={[Function]}
   >
-    <ActivityRowTooltip
-      activity={
-        Object {
-          "activity_category": Object {
-            "id": 20,
-            "name": "History: Maya, Aztec, Inca",
-          },
-          "activity_category_id": 20,
-          "activity_category_name": "History: Maya, Aztec, Inca",
-          "activity_classification": Object {
-            "alias": "Quill Connect",
-            "description": "Combine Sentences",
-            "id": 5,
-            "key": "connect",
-          },
-          "anonymous_path": "/activity_sessions/anonymous?activity_id=627",
-          "content_partners": Array [
-            Object {
-              "description": "Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.",
-              "id": 1,
-              "name": "Core Knowledge",
-            },
-          ],
-          "description": "Combine sentences to create 6 sentences about Hernan Cortes. This is an advanced, un-cued sentence combining activity.",
-          "flags": "{production}",
-          "id": 627,
-          "name": "Hernan Cortes",
-          "readability_grade_level": "8th-9th",
-          "standard_level": Object {
-            "id": 13,
-            "name": "7th Grade CCSS",
-          },
-          "standard_level_name": "7th Grade CCSS",
-          "standard_name": "87",
-          "topics": Array [
-            Object {
-              "id": 16,
-              "level": 3,
-              "name": "History",
-              "parent_id": null,
-            },
-            Object {
-              "id": 93,
-              "level": 2,
-              "name": "World Historical Figures",
-              "parent_id": 16,
-            },
-            Object {
-              "id": 171,
-              "level": 0,
-              "name": "Hernan Cortes & the Aztec Empire",
-              "parent_id": null,
-            },
-            Object {
-              "id": 172,
-              "level": 1,
-              "name": "Maya, Aztec, & Inca Civilizations",
-              "parent_id": null,
-            },
-          ],
-          "uid": "-KqcjgL00W0ro-Wr4Bts",
-        }
-      }
-      showTooltip={false}
-    >
-      <span />
-    </ActivityRowTooltip>
     <div
       className="first-line"
     >
@@ -1474,44 +1584,96 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
             />
           </button>
         </ActivityRowCheckbox>
-        <button
-          className="interactive-wrapper"
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-          tabIndex={-1}
-          type="button"
+        <Tooltip
+          isTabbable={true}
+          tooltipText="<div class=\\"tooltip-line\\"><img alt=\\"Book icon\\" src=\\"undefined/images/icons/description-readability.svg\\"/><div><span class=\\"grade-range-and-label\\"><span class=\\"grade-range\\">8th-9th</span><span class=\\"grade-range-label\\">Text Readability Level</span></span><br/><span>Quill recommends using activities where the text readability level is the same or lower than the student’s reading level so that the student can focus on building their writing skills.</span></div></div><div class=\\"tooltip-line\\"><img alt=\\"Information icon\\" src=\\"undefined/images/icons/description-information.svg\\"/><span>Combine sentences to create 6 sentences about Hernan Cortes. This is an advanced, un-cued sentence combining activity.</span></div><div class=\\"tooltip-line\\"><img alt=\\"Copyright icon\\" src=\\"undefined/images/icons/description-copyright.svg\\"/><span>Core Knowledge is a free and open-source curriculum. Quill provides activities aligned with their language arts, social studies, and science books.</span></div>"
+          tooltipTriggerText={
+            <h2>
+              <img
+                alt="Target representing Quill Connect"
+                src="undefined/images/icons/description-connect.svg"
+              />
+              <a
+                href="/activity_sessions/anonymous?activity_id=627"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Hernan Cortes
+              </a>
+            </h2>
+          }
         >
-          <h2>
-            Hernan Cortes
-          </h2>
-        </button>
+          <span
+            aria-hidden={false}
+            className="quill-tooltip-trigger "
+            role="tooltip"
+          >
+            <span
+              className="undefined"
+              onBlur={[Function]}
+              onClick={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              role="button"
+              tabIndex={0}
+            >
+              <h2>
+                <img
+                  alt="Target representing Quill Connect"
+                  src="undefined/images/icons/description-connect.svg"
+                />
+                <a
+                  href="/activity_sessions/anonymous?activity_id=627"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  Hernan Cortes
+                </a>
+              </h2>
+            </span>
+            <span
+              className="quill-tooltip-wrapper"
+            >
+              <span
+                aria-live="polite"
+                className="quill-tooltip"
+              />
+            </span>
+          </span>
+        </Tooltip>
       </div>
       <div
         className="buttons-wrapper"
       >
-        <a
-          className="interactive-wrapper focus-on-light preview-link"
-          href="/activity_sessions/anonymous?activity_id=627"
-          rel="noopener noreferrer"
-          target="_blank"
+        <div
+          className="non-toggle-buttons"
         >
-          <img
-            alt="Preview eye icon"
-            src="undefined/images/icons/preview.svg"
-          />
-          Preview
-        </a>
-        <button
-          className="interactive-wrapper focus-on-light save-button"
-          onClick={[Function]}
-          type="button"
-        >
-          <img
-            alt="Arrow pointing down"
-            src="undefined/images/icons/icons-bookmark-outline.svg"
-          />
-          Save
-        </button>
+          <a
+            className="interactive-wrapper focus-on-light preview-link"
+            href="/activity_sessions/anonymous?activity_id=627"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Preview eye icon"
+              src="undefined/images/icons/preview.svg"
+            />
+            Preview
+          </a>
+          <button
+            className="interactive-wrapper focus-on-light save-button"
+            onClick={[Function]}
+            type="button"
+          >
+            <img
+              alt="Arrow pointing down"
+              src="undefined/images/icons/icons-bookmark-outline.svg"
+            />
+            Save
+          </button>
+        </div>
         <button
           className="interactive-wrapper focus-on-light expand-button"
           onClick={[Function]}
@@ -1530,33 +1692,11 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
       <div
         className="classification-concept-topic-wrapper"
       >
-        <ActivityRowClassification
-          classification={
-            Object {
-              "alias": "Quill Connect",
-              "description": "Combine Sentences",
-              "id": 5,
-              "key": "connect",
-            }
-          }
-        >
-          <span
-            className="second-line-section classification"
-          >
-            <img
-              alt="Target representing Quill Connect"
-              src="undefined/images/icons/description-connect.svg"
-            />
-            <span>
-              Quill Connect
-            </span>
-          </span>
-        </ActivityRowClassification>
         <ActivityRowConcept
           conceptName="History: Maya, Aztec, Inca"
         >
           <span
-            className="second-line-section concept"
+            className="attribute-section concept"
           >
             <img
               alt="Pencil writing icon"
@@ -1568,7 +1708,10 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
           </span>
         </ActivityRowConcept>
         <ActivityRowTopics
+          hasConcept={true}
+          inExpandedView={false}
           maxAllowedLength={0}
+          onTertiaryLine={false}
           topics={
             Array [
               Object {
@@ -1598,35 +1741,17 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
             ]
           }
         >
-          <span
-            className="second-line-section topic"
-          />
+          <span />
         </ActivityRowTopics>
       </div>
       <div
-        className="readability-and-standard-level-wrapper"
+        className="grade-range-and-standard-level-wrapper"
       >
-        <ActivityRowReadabilityGradeLevel
-          readabilityGradeLevel="8th-9th"
-        >
-          <span
-            className="second-line-section readability-level"
-          >
-            <img
-              alt="Book icon"
-              src="undefined/images/icons/description-readability.svg"
-            />
-            <span>
-              Readability: Grades 
-              8th-9th
-            </span>
-          </span>
-        </ActivityRowReadabilityGradeLevel>
         <ActivityRowStandardLevel
           standardLevelName="7th Grade CCSS"
         >
           <span
-            className="second-line-section standard-level"
+            className="attribute-section standard-level"
           >
             <img
               alt="Common Core State Standards icon"
@@ -1637,7 +1762,126 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
             </span>
           </span>
         </ActivityRowStandardLevel>
+        <span
+          className="vertical-divider"
+        />
+        <ActivityRowGradeRange
+          gradeLevelFilters={Array []}
+        >
+          <span
+            className="attribute-section grade-range"
+          >
+            <img
+              alt="Book icon"
+              src="undefined/images/icons/description-readability.svg"
+            />
+            <span>
+              Grades: 
+              <span
+                className="grade-level filtered"
+              >
+                4 - 5
+              </span>
+              <span
+                className="grade-level filtered"
+              >
+                6 - 7
+              </span>
+              <span
+                className="grade-level filtered"
+              >
+                8 - 9
+              </span>
+              <span
+                className="grade-level filtered"
+              >
+                10 - 12
+              </span>
+            </span>
+          </span>
+        </ActivityRowGradeRange>
       </div>
+    </div>
+    <div
+      className="third-line mobile-only"
+    >
+      <div
+        className="non-toggle-buttons"
+      >
+        <a
+          className="interactive-wrapper focus-on-light preview-link"
+          href="/activity_sessions/anonymous?activity_id=627"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <img
+            alt="Preview eye icon"
+            src="undefined/images/icons/preview.svg"
+          />
+          Preview
+        </a>
+        <button
+          className="interactive-wrapper focus-on-light save-button"
+          onClick={[Function]}
+          type="button"
+        >
+          <img
+            alt="Arrow pointing down"
+            src="undefined/images/icons/icons-bookmark-outline.svg"
+          />
+          Save
+        </button>
+      </div>
+    </div>
+    <div
+      className="third-line"
+    >
+      <ActivityRowTopics
+        hasConcept={true}
+        inExpandedView={false}
+        maxAllowedLength={0}
+        onTertiaryLine={true}
+        topics={
+          Array [
+            Object {
+              "id": 16,
+              "level": 3,
+              "name": "History",
+              "parent_id": null,
+            },
+            Object {
+              "id": 93,
+              "level": 2,
+              "name": "World Historical Figures",
+              "parent_id": 16,
+            },
+            Object {
+              "id": 171,
+              "level": 0,
+              "name": "Hernan Cortes & the Aztec Empire",
+              "parent_id": null,
+            },
+            Object {
+              "id": 172,
+              "level": 1,
+              "name": "Maya, Aztec, & Inca Civilizations",
+              "parent_id": null,
+            },
+          ]
+        }
+      >
+        <span
+          className="attribute-section topic"
+        >
+          <img
+            alt="Globe icon"
+            src="undefined/images/icons/icons-description-topic.svg"
+          />
+          <span>
+            Maya, Aztec, & Inca Civilizations: Hernan Cortes & the Aztec Empire
+          </span>
+        </span>
+      </ActivityRowTopics>
     </div>
     <ActivityRowExpandedSection
       activity={

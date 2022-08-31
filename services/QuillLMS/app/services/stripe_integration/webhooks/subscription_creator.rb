@@ -22,7 +22,6 @@ module StripeIntegration
       end
 
       def run
-        raise NilPurchaserEmailError if purchaser_email.nil?
         raise NilStripePriceIdError if stripe_price_id.nil?
         raise NilStripeInvoiceIdError if stripe_invoice.id.nil?
         raise DuplicateSubscriptionError if duplicate_subscription?
@@ -61,7 +60,7 @@ module StripeIntegration
       end
 
       private def purchaser
-        @purchaser ||= User.find_by!(email: purchaser_email)
+        @purchaser ||= User.find_by_stripe_customer_id_or_email!(stripe_customer_id, purchaser_email)
       rescue ActiveRecord::RecordNotFound
         raise PurchaserNotFoundError
       end

@@ -34,12 +34,12 @@ const ContentPartnerFilterRow = ({ contentPartnerFilters, contentPartner, handle
   const activityCount = filteredActivities.filter(act => act.content_partners.some(cp => cp.id === contentPartner.id)).length
   let checkbox = <button aria-label={`Check ${contentPartner.name}`} className="focus-on-light quill-checkbox unselected" onClick={checkIndividualFilter} type="button" />
 
-  if (activityCount === 0) {
-    checkbox = <div aria-label={`Check ${contentPartner.name}`} className="focus-on-light quill-checkbox disabled" />
-  } else if (contentPartnerFilters.includes(contentPartner.id)) {
+  if (contentPartnerFilters.includes(contentPartner.id)) {
     checkbox = (<button aria-label={`Uncheck ${contentPartner.name}`} className="focus-on-light quill-checkbox selected" onClick={uncheckIndividualFilter} type="button">
       <img alt="Checked checkbox" src={smallWhiteCheckSrc} />
     </button>)
+  } else if (activityCount === 0) {
+    checkbox = <div aria-label={`Check ${contentPartner.name}`} className="focus-on-light quill-checkbox disabled" />
   }
 
   return (

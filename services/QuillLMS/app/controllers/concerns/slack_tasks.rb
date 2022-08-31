@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module SlackTasks
+  LIVE = Rails.env.production?
 
   def post_sales_form_submission(sales_form_submission)
     return if !should_post_to_slack?
@@ -22,6 +23,6 @@ module SlackTasks
   end
 
   private def should_post_to_slack?
-    ENV.fetch('RAILS_ENV', '') == 'production'
+    LIVE
   end
 end

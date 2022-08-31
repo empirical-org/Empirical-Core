@@ -16,6 +16,7 @@ class SerializeVitallySalesAccount
     activities_finished_this_year = activities_finished_query(@school).where("activity_sessions.updated_at >= ?", school_year_start).count("DISTINCT activity_sessions.id")
     {
       accountId: @school.id.to_s,
+      organizationId: @school.district&.id&.to_s || "",
       # Type is used by Vitally to determine which data type the payload contains in batches
       type: 'account',
       # Vitally requires a unique messageId for dedupication purposes

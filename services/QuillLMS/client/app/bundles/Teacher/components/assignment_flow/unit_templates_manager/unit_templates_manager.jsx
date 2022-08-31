@@ -51,7 +51,7 @@ export default class UnitTemplatesManager extends React.Component {
         model_id: null,
         relatedModels: [],
         selectedCategoryId: null,
-        selectedReadabilityLevel: null,
+        selectedGradeLevel: null,
         lastActivityAssigned: null,
         grade: getParameterByName('grade'),
       }
@@ -103,7 +103,7 @@ export default class UnitTemplatesManager extends React.Component {
     })
   }
 
-  filterModels = (category, grade, typeId, readability) => {
+  filterModels = (category, grade, typeId, gradeLevelRange) => {
     const { unitTemplatesManager, } = this.state
     let displayedModels = unitTemplatesManager.models
     let selectedCategoryId
@@ -111,7 +111,7 @@ export default class UnitTemplatesManager extends React.Component {
       displayedModels = this.modelsInGrade(grade)
     }
     if (category) {
-      const categoryName = category.toUpperCase() === 'ELL' ? category.toUpperCase() : _l.capitalize(category)
+      const categoryName = category.toUpperCase() === 'ELL' ? category.toUpperCase() : category
       selectedCategoryId = unitTemplatesManager.categories.find(cat => cat.name === categoryName).id
       displayedModels = displayedModels.filter(ut =>
         ut.unit_template_category.name === categoryName
@@ -121,8 +121,8 @@ export default class UnitTemplatesManager extends React.Component {
       const selectedTypeName = types.find(t => t.id === typeId).name
       displayedModels = displayedModels.filter(ut => ut.type.name === selectedTypeName)
     }
-    if (readability) {
-      displayedModels = displayedModels.filter(ut => ut.activities.find(act => act.readability === readability))
+    if (gradeLevelRange) {
+      displayedModels = displayedModels.filter(ut => ut.grade_level_range === gradeLevelRange)
     }
     return displayedModels
   };
@@ -149,14 +149,14 @@ export default class UnitTemplatesManager extends React.Component {
     history.push(category.link)
   };
 
-  selectReadability = readabilityLevel => {
+  selectGradeLevel = gradeLevel => {
     const { history, } = this.props
     const { unitTemplatesManager, } = this.state
     const newUnitTemplatesManager = unitTemplatesManager
-    newUnitTemplatesManager.selectedReadabilityLevel = readabilityLevel.value
+    newUnitTemplatesManager.selectedGradeLevel = gradeLevel.value
     this.setState({ unitTemplatesManager: newUnitTemplatesManager })
 
-    history.push(readabilityLevel.link)
+    history.push(gradeLevel.link)
   };
 
   showAllGrades() {
@@ -170,8 +170,8 @@ export default class UnitTemplatesManager extends React.Component {
       return <LoadingIndicator />
     }
 
-    const { category, grade, type, readability, } = this.parsedQueryParams()
-    const displayedModels = this.filterModels(category, grade, type, readability)
+    const { category, grade, type, gradeLevel, } = this.parsedQueryParams()
+    const displayedModels = this.filterModels(category, grade, type, gradeLevel)
     return (
       <UnitTemplateMinis
         actions={this.unitTemplatesManagerActions()}
@@ -179,7 +179,7 @@ export default class UnitTemplatesManager extends React.Component {
         displayedModels={displayedModels}
         selectCategory={this.selectCategory}
         selectedTypeId={type}
-        selectReadability={this.selectReadability}
+        selectGradeLevel={this.selectGradeLevel}
         signedInTeacher={signedInTeacher}
         types={types}
       />
@@ -228,10 +228,10 @@ export default class UnitTemplatesManager extends React.Component {
     }
     this.updateUnitTemplatesManager(newHash)
 
-    const { category, grade, type, readability, } = this.parsedQueryParams()
+    const { category, grade, type, gradeLevel, } = this.parsedQueryParams()
 
-    if (category || grade || type || readability) {
-      this.filterModels(category, grade, type, readability)
+    if (category || grade || type || gradeLevel) {
+      this.filterModels(category, grade, type, gradeLevel)
     }
   };
 

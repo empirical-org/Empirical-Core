@@ -5,26 +5,28 @@ require 'rails_helper'
 describe SalesFormSubmissionController, type: :controller do
 
   describe '#create' do
-    let!(:sales_form_submission) { create(:sales_form_submission) }
+    let!(:school) { create(:school) }
 
     it 'should create sales_form_submission entry' do
-      post :create, params: {
-        sales_form_submission: {
-          first_name: 'Bianca',
-          last_name: 'Del Rio',
-          email: 'test@gmail.com',
-          phone_number: '3334445555',
-          zipcode: '10009',
-          collection_type: 'school',
-          school_name: 'Academy of the Arts',
-          district_name: 'NYPS',
-          school_premium_count_estimate: 1,
-          teacher_premium_count_estimate: 20,
-          student_premium_count_estimate: 400,
-          submission_type: 'renewal request',
-          comment: ''
+      expect do
+        post :create, params: {
+          sales_form_submission: {
+            first_name: 'Bianca',
+            last_name: 'Del Rio',
+            email: 'test@gmail.com',
+            phone_number: '3334445555',
+            zipcode: '10009',
+            collection_type: 'school',
+            school_name: school.name,
+            district_name: 'NYPS',
+            school_premium_count_estimate: 1,
+            teacher_premium_count_estimate: 20,
+            student_premium_count_estimate: 400,
+            submission_type: 'renewal request',
+            comment: ''
+          }
         }
-      }
+      end.to change(SalesFormSubmission, :count).by(1)
       expect(response).to have_http_status(:no_content)
     end
   end
@@ -44,7 +46,6 @@ describe SalesFormSubmissionController, type: :controller do
   end
 
   describe '#options_for_sales_form' do
-    let!(:sales_form_submission) { create(:sales_form_submission) }
     let!(:first_school) { create(:school) }
     let!(:second_school) { create(:school) }
     let!(:third_school) { create(:school) }

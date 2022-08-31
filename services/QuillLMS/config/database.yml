@@ -1,46 +1,56 @@
 default: &default
+  adapter: postgresql
+  encoding: unicode
   pool: <%= ENV.fetch("MAX_THREADS") { 5 } %>
   prepared_statements: false
-  adapter: postgresql
   timeout: 5000
 
-development_shared: &development_shared
-  encoding: unicode
-  host:     localhost
+local_shared: &local_shared
+  <<: *default
+  host: localhost
   port: 5432
 
-test_env: &test_env
-  <<: *development_shared
-  database: emp_gr_test
-
-# While we don't actually connect to any follower DBs, they
-# do exist within our infrastructure, so naming conventions
-# here are intended to simplify later decision to use followers
-# as well as disambiguate similarly-named ENV variables.
-leader_db_env: &leader_db_env
+primary_db_env: &primary_db_env
+  <<: *default
   url: <%= ENV['DATABASE_CONNECTION_POOL_URL'] || ENV['DATABASE_URL'] %>
 
-
-development: &development
+replica_db_env: &replica_db_env
   <<: *default
-  <<: *development_shared
-  <<: *leader_db_env
-  database: emp_gr_development
+  url: <%= ENV['REPLICA_DATABASE_CONNECTION_POOL_URL'] || ENV['REPLICA_DATABASE_URL'] || ENV['DATABASE_URL'] %>
+  replica: true
+
+heroku_env: &heroku_env
+  primary:
+    <<: *primary_db_env
+  replica:
+    <<: *replica_db_env
+
+development:
+  primary:
+    <<: *local_shared
+    database: emp_gr_development
+  replica:
+    <<: *local_shared
+    database: emp_gr_development
+    replica: true
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
-  <<: *default
-  <<: *test_env
+  primary:
+    <<: *local_shared
+    database: emp_gr_test
+  replica:
+    <<: *local_shared
+    database: emp_gr_test
+    replica: true
 
-staging: &staging
-  <<: *default
-  <<: *leader_db_env
+staging:
+  <<: *heroku_env
 
 sprint:
-  <<: *staging
+  <<: *heroku_env
 
 production:
-  <<: *default
-  <<: *leader_db_env
+  <<: *heroku_env

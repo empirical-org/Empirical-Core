@@ -5,6 +5,7 @@
 # Table name: feedback_histories
 #
 #  id                   :integer          not null, primary key
+#  activity_version     :integer          default(0), not null
 #  attempt              :integer          not null
 #  concept_uid          :text
 #  entry                :text             not null
@@ -46,7 +47,8 @@ class FeedbackHistory < ApplicationRecord
     AUTO_ML = "autoML",
     SPELLING = "spelling",
     OPINION = "opinion",
-    PREFILTER = "prefilter"
+    PREFILTER = "prefilter",
+    LOW_CONFIDENCE = 'low-confidence'
   ]
   FILTER_TYPES = [
     FILTER_ALL = "all",

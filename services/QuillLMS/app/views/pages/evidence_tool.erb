@@ -1,0 +1,14 @@
+<section class="tool-header">
+  <%= render partial: 'pages/shared/navbar' %>
+  <% @active_tab = 'Quill Reading for Evidence' %>
+  <% @tool = 'evidence' %>
+  <%= render partial: "pages/shared/tools_anchor_navbar", active_tab: @active_tab, tool: @tool%>
+</section>
+
+<%= react_component('EvidenceToolApp', props: { loggedInUser: current_user && signed_in? })%>
+
+<% if current_user %>
+  <%= render partial: 'footer' %>
+<% else %>
+  <%= render partial: 'pages/shared/footer' %>
+<% end %>

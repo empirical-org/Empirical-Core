@@ -245,7 +245,7 @@ describe Teachers::ClassroomsController, type: :controller do
             end
           end
 
-          it 'should return classrooms in order of creation date if only some classrooms_teacher entries have order property' do
+          it 'should return classrooms in order of order with a fallback to creation date if only some classrooms_teacher entries have order property' do
             ct1 = ClassroomsTeacher.where(classroom_id: classroom1.id).first
             ct1.order = 1
             ct1.save!
@@ -253,9 +253,9 @@ describe Teachers::ClassroomsController, type: :controller do
             get :index, as: :json
 
             parsed_response = JSON.parse(response.body)
-            expect(parsed_response["classrooms"][0]["id"]).to eq(classroom3.id)
-            expect(parsed_response["classrooms"][1]["id"]).to eq(classroom2.id)
-            expect(parsed_response["classrooms"][2]["id"]).to eq(classroom1.id)
+            expect(parsed_response["classrooms"][0]["id"]).to eq(classroom1.id)
+            expect(parsed_response["classrooms"][1]["id"]).to eq(classroom3.id)
+            expect(parsed_response["classrooms"][2]["id"]).to eq(classroom2.id)
           end
 
           it 'should return classrooms ordered by order properity if all classrooms_teacher entries have order property' do

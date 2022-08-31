@@ -12,7 +12,6 @@ import MobileSortMenu from './mobile_sort_menu'
 import useDebounce from '../../../../hooks/useDebounce'
 import { requestGet, requestPost, requestDelete } from '../../../../../../modules/request/index'
 import { Spinner, Snackbar, defaultSnackbarTimeout } from '../../../../../Shared/index'
-import { handleHasAppSetting } from "../../../../../Shared/utils/appSettingAPIs";
 
 const DEBOUNCE_LENGTH = 500
 
@@ -51,6 +50,9 @@ const CustomActivityPack = ({
   const [filterHistory, setFilterHistory] = React.useState([])
   const [activityClassificationFilters, setActivityClassificationFilters] = React.useState(url.activityClassificationFilters || [])
   const [ccssGradeLevelFilters, setCCSSGradeLevelFilters] = React.useState(url.ccssGradeLevelFilters || [])
+  const [gradeLevelFilters, setGradeLevelFilters] = React.useState(url.gradeLevelFilters || [])
+  const [ellFilters, setELLFilters] = React.useState(url.ellFilters || [])
+  const [standardsFilters, setStandardsFilters] = React.useState({ ccssGradeLevelFilters: ccssGradeLevelFilters, ellFilters: ellFilters })
   const [readabilityGradeLevelFilters, setReadabilityGradeLevelFilters] = React.useState(url.readabilityGradeLevelFilters || [])
   const [activityCategoryFilters, setActivityCategoryFilters] = React.useState(url.activityCategoryFilters || [])
   const [contentPartnerFilters, setContentPartnerFilters] = React.useState(url.contentPartnerFilters || [])
@@ -63,11 +65,12 @@ const CustomActivityPack = ({
   const [savedActivityIds, setSavedActivityIds] = React.useState([])
   const [showSnackbar, setShowSnackbar] = React.useState(false)
   const [snackbarText, setSnackbarText] = React.useState('')
-  const [showComprehension, setShowComprehension] = React.useState<boolean>(false);
 
   const debouncedSearch = useDebounce(search, DEBOUNCE_LENGTH);
   const debouncedActivityClassificationFilters = useDebounce(activityClassificationFilters, DEBOUNCE_LENGTH);
   const debouncedCCSSGradeLevelFilters = useDebounce(ccssGradeLevelFilters, DEBOUNCE_LENGTH);
+  const debouncedGradeLevelFilters = useDebounce(gradeLevelFilters, DEBOUNCE_LENGTH);
+  const debouncedELLFilters = useDebounce(ellFilters, DEBOUNCE_LENGTH);
   const debouncedReadabilityGradeLevelFilters = useDebounce(readabilityGradeLevelFilters, DEBOUNCE_LENGTH);
   const debouncedActivityCategoryFilters = useDebounce(activityCategoryFilters, DEBOUNCE_LENGTH);
   const debouncedContentPartnerFilters = useDebounce(contentPartnerFilters, DEBOUNCE_LENGTH);
@@ -78,7 +81,6 @@ const CustomActivityPack = ({
   React.useEffect(() => {
     if (loading) { getActivities() }
     getSavedActivities();
-    handleHasAppSetting({appSettingSetter: setShowComprehension, key: 'comprehension', errorSetter: () => {}})
   }, []);
 
   React.useEffect(() => {
@@ -87,6 +89,14 @@ const CustomActivityPack = ({
       setActivities(passedActivities)
     }
   }, [passedActivities])
+
+  React.useEffect(() => {
+    const newStandardsFilters = {
+      ellFilters,
+      ccssGradeLevelFilters
+    }
+    setStandardsFilters(newStandardsFilters)
+  }, [ellFilters, ccssGradeLevelFilters])
 
   React.useEffect(() => {
     if (showSnackbar) {
@@ -101,7 +111,7 @@ const CustomActivityPack = ({
     }
   }, [activities])
 
-  React.useEffect(handleFilterChange, [debouncedSearch, debouncedActivityClassificationFilters, debouncedCCSSGradeLevelFilters, debouncedActivityCategoryFilters, debouncedContentPartnerFilters, debouncedReadabilityGradeLevelFilters, debouncedTopicFilters, debouncedSavedActivityFilters, debouncedFlagFilters])
+  React.useEffect(handleFilterChange, [debouncedSearch, debouncedActivityClassificationFilters, debouncedCCSSGradeLevelFilters, debouncedGradeLevelFilters, debouncedELLFilters, debouncedActivityCategoryFilters, debouncedContentPartnerFilters, debouncedReadabilityGradeLevelFilters, debouncedTopicFilters, debouncedSavedActivityFilters, debouncedFlagFilters])
 
   function handleFilterChange() {
     updateQueryString()
@@ -112,6 +122,8 @@ const CustomActivityPack = ({
     let number = 0
     number += search.length ? 1 : 0
     number += ccssGradeLevelFilters.length ? 1 : 0
+    number += gradeLevelFilters.length ? 1 : 0
+    number += ellFilters.length ? 1 : 0
     number += readabilityGradeLevelFilters.length ? 1 : 0
     number += activityCategoryFilters.length
     number += contentPartnerFilters.length
@@ -119,7 +131,7 @@ const CustomActivityPack = ({
     number += savedActivityFilters.length ? 1 : 0
     number += flagFilters.length
 
-    activityClassificationGroupings(true).forEach((g) => {
+    activityClassificationGroupings.forEach((g) => {
       if (g.keys.every(key => activityClassificationFilters.includes(key))) {
         number += 1
       } else {
@@ -190,6 +202,16 @@ const CustomActivityPack = ({
     setCCSSGradeLevelFilters(newCCSSGradeLevelFilters)
   }
 
+  function handleGradeLevelFilterChange(newGradeLevelFilters: number[]) {
+    setFilterHistory(prevFilterHistory => prevFilterHistory.concat([{ function: setGradeLevelFilters, argument: gradeLevelFilters }]))
+    setGradeLevelFilters(newGradeLevelFilters)
+  }
+
+  function handleELLFilterChange(newELLFilters: number[]) {
+    setFilterHistory(prevFilterHistory => prevFilterHistory.concat([{ function: setELLFilters, argument: ellFilters }]))
+    setELLFilters(newELLFilters)
+  }
+
   function handleReadabilityGradeLevelFilterChange(newReadabilityGradeLevelFilters: number[]) {
     setFilterHistory(prevFilterHistory => prevFilterHistory.concat([{ function: setReadabilityGradeLevelFilters, argument: readabilityGradeLevelFilters }]))
     setReadabilityGradeLevelFilters(newReadabilityGradeLevelFilters)
@@ -225,6 +247,8 @@ const CustomActivityPack = ({
     setSearch('')
     setActivityClassificationFilters([])
     setCCSSGradeLevelFilters([])
+    setGradeLevelFilters([])
+    setELLFilters([])
     setReadabilityGradeLevelFilters([])
     setActivityCategoryFilters([])
     setContentPartnerFilters([])
@@ -284,10 +308,14 @@ const CustomActivityPack = ({
     filterActivities,
     filteredActivities,
     ccssGradeLevelFilters,
+    ellFilters,
+    gradeLevelFilters,
     handleActivityCategoryFilterChange,
     handleActivityClassificationFilterChange,
     handleContentPartnerFilterChange,
     handleCCSSGradeLevelFilterChange,
+    handleELLFilterChange,
+    handleGradeLevelFilterChange,
     resetAllFilters,
     readabilityGradeLevelFilters,
     handleReadabilityGradeLevelFilterChange,
@@ -300,7 +328,6 @@ const CustomActivityPack = ({
     flagFilters,
     isStaff,
     activityCategoryEditor,
-    showComprehension
   }
 
   const selectedActivitiesFilteredByFlag =  isStaff && !flagFilters.length ? [] : selectedActivities.filter(a => filterByFlag(flagFilters, a))
@@ -313,6 +340,7 @@ const CustomActivityPack = ({
       <FilterColumn {...filterColumnProps} />
       <section className="main-content-container">
         <Header
+          gradeLevelFilters={gradeLevelFilters}
           handleClickContinue={clickContinue}
           isStaff={isStaff}
           saveButtonEnabled={saveButtonEnabled}
@@ -323,6 +351,7 @@ const CustomActivityPack = ({
         <ActivityTableContainer
           currentPage={currentPage}
           filteredActivities={filteredActivities}
+          gradeLevelFilters={gradeLevelFilters}
           handleSearch={handleSearch}
           resetAllFilters={resetAllFilters}
           saveActivity={saveActivity}

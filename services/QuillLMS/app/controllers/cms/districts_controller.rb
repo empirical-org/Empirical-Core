@@ -51,7 +51,7 @@ class Cms::DistrictsController < Cms::CmsController
     if new_district.save
       redirect_to cms_district_path(new_district)
     else
-      redirect_to cms_districts_path, error: new_district.errors, flash: { error: new_district.errors }
+      redirect_to cms_districts_path, error: new_district.errors, flash: { error: new_district.errors.full_messages }
     end
   end
 

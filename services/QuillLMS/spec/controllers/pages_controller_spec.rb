@@ -105,6 +105,14 @@ describe PagesController do
     end
   end
 
+  describe '#evidence_tool' do
+    it 'should set the title and description' do
+      get :evidence_tool
+      expect(assigns(:title)).to eq 'Quill Reading for Evidence | Use a text to write with evidence'
+      expect(assigns(:description)).to eq 'Provide your students with nonfiction texts paired with AI-powered writing prompts, instead of multiple-choice questions, to enable deeper thinking.'
+    end
+  end
+
   describe '#activities' do
     let!(:standard_level) { create(:standard_level) }
 
@@ -127,6 +135,12 @@ describe PagesController do
       expect(assigns(:user_is_eligible_for_trial)).to eq true
       expect(assigns(:user_has_school)).to eq false
       expect(assigns(:user_belongs_to_school_that_has_paid)).to eq false
+    end
+
+    it 'should set :user_is_eligible_for_new_subscription to false if there is a demo account' do
+      allow(controller).to receive(:session) { { demo_id: 'something' } }
+      get :premium
+      expect(assigns(:user_is_eligible_for_new_subscription)).to eq false
     end
   end
 

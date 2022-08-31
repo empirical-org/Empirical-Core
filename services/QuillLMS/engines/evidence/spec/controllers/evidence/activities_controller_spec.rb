@@ -6,8 +6,20 @@ module Evidence
   RSpec.describe(ActivitiesController, :type => :controller) do
     before { @routes = Engine.routes }
 
-    context 'should index' do
+    context '#increment_version' do
+      it 'should increment version and persist new changelog with note' do
+        changelog_note_text = 'a note'
+        activity = create(:evidence_activity, version: 1)
+        put :increment_version, params: {note: changelog_note_text, id: activity.id }
+        expect(response.status).to eq(204)
+        expect(Evidence::Activity.find(activity.id).version).to eq 2
 
+        created_changelog = Evidence.change_log_class.where(changed_record_id: activity.id).order(created_at: :desc).first
+        expect(created_changelog.explanation).to eq changelog_note_text
+      end
+    end
+
+    context 'should index' do
       it 'should return successfully - no activities' do
         get(:index)
         parsed_response = JSON.parse(response.body)
@@ -312,6 +324,24 @@ module Evidence
 
       it 'should 404 if activity is invalid' do
         expect { get(:rules, :params => ({ :id => 99999 })) }.to(raise_error(ActiveRecord::RecordNotFound))
+      end
+    end
+
+    context "#seed_data" do
+      let(:activity) { create(:evidence_activity) }
+
+      it "should call background worker" do
+        expect(Evidence::ActivitySeedDataWorker).to receive(:perform_async).with(activity.id, [])
+        post :seed_data, params: { id: activity.id, nouns: "" }
+
+        expect(response).to have_http_status(:success)
+      end
+
+      it "should call background worker with noun string converted to array" do
+        expect(Evidence::ActivitySeedDataWorker).to receive(:perform_async).with(activity.id, ['noun1','noun two','noun3'])
+        post :seed_data, params: { id: activity.id, nouns: "noun1, noun two,,noun3" }
+
+        expect(response).to have_http_status(:success)
       end
     end
   end

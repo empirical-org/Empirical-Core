@@ -79,7 +79,7 @@ export const UnitTemplateProfileAssignButton = ({ data }: UnitTemplateProfileAss
       {propsSpecificComponent()}
       {showWarning && <section className="evidence-warning">
         <p className="header">Activity Difficulty: Designed for 8th-12th Grade</p>
-        <p className="text">Quill Reading for Evidence activities are designed for 8th-12 grade students or students reading at a Lexile level between 950-1250.</p>
+        <p className="text">Quill Reading for Evidence activities are designed for 8th-12th grade students or students reading at a Lexile level between 950-1250.</p>
       </section>}
       <p className="time"><i className="far fa-clock" />Estimated Time: {data.time} mins</p>
     </section>

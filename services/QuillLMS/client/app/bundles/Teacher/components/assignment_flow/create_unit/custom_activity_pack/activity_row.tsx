@@ -1,17 +1,19 @@
 import * as React from 'react';
+import { renderToString } from 'react-dom/server'
 
-import { Activity, ActivityClassification, Topic, } from './interfaces'
+import { Activity, Topic, } from './interfaces'
 import { stringifyLowerLevelTopics, AVERAGE_FONT_WIDTH, } from './shared'
 
 import { imageTagForClassification, } from '../../assignmentFlowConstants'
-import { Tooltip } from '../../../../../Shared/index'
+import NumberSuffixBuilder from '../../../modules/numberSuffixBuilder'
 import useWindowSize from '../../../../../Shared/hooks/useWindowSize'
+import { Tooltip, } from '../../../../../Shared/index'
 
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
 const expandSrc = `${process.env.CDN_URL}/images/shared/expand.svg`
 const conceptSrc = `${process.env.CDN_URL}/images/icons/description-concept.svg`
 const ccssSrc = `${process.env.CDN_URL}/images/icons/description-ccss.svg`
-const readabilitySrc = `${process.env.CDN_URL}/images/icons/description-readability.svg`
+const gradeSrc = `${process.env.CDN_URL}/images/icons/description-readability.svg`
 const informationSrc = `${process.env.CDN_URL}/images/icons/description-information.svg`
 const copyrightSrc = `${process.env.CDN_URL}/images/icons/description-copyright.svg`
 const topicSrc = `${process.env.CDN_URL}/images/icons/icons-description-topic.svg`
@@ -22,9 +24,24 @@ const removeSrc = `${process.env.CDN_URL}/images/icons/remove-in-circle.svg`
 
 const IMAGE_WIDTH = 18
 const MARGIN = 16
-const ELLIPSES_LENGTH = 3
 
-const readabilityCopy = "Since Quill activities focus on building writing skills, using a text with a lower readability level is sometimes beneficial as it enables students to practice the writing skill."
+const readabilityCopy = "Quill recommends using activities where the text readability level is the same or lower than the student’s reading level so that the student can focus on building their writing skills."
+
+const readabilityContent = (activity) => (
+  <div>
+    {activity.minimum_grade_level ? (<span className="grade-range-and-label">
+      <span className="grade-range">{NumberSuffixBuilder(activity.minimum_grade_level)}-{NumberSuffixBuilder(activity.maximum_grade_level)}</span>
+      <span className="grade-range-label">Grade Range</span>
+      <br />
+    </span>) : null}
+    <span className="grade-range-and-label">
+      <span className="grade-range">{activity.readability_grade_level}</span>
+      <span className="grade-range-label">Text Readability Level</span>
+    </span>
+    <br />
+    <span>{readabilityCopy}</span>
+  </div>
+)
 
 interface ActivityRowCheckboxProps {
   activity: Activity,
@@ -42,31 +59,30 @@ interface ActivityRowProps {
   setShowSnackbar?: (show: boolean) => void,
   saveActivity: (activityId: number) => void,
   unsaveActivity: (activityId: number) => void,
-  savedActivityIds: number[]
+  savedActivityIds: number[],
+  gradeLevelFilters: number[]
 }
 
 // the following method is a pretty hacky solution for helping to determine whether or not to show a truncated string and tooltip or the whole topic string in the <TopicSection />
 // we can't rely on pure CSS for this because the max width is so dependent on the presence and length of other elements in the row
 const calculateMaxAllowedLengthForTopicSection = ({
   activity_classification,
-  activity_category_name,
-  readability_grade_level,
-  standard_level_name
 }): number => {
   let maxAllowedLength = 0
   const container = document.getElementsByClassName('activity-table-container')[0]
   if (container) {
-    maxAllowedLength = container.offsetWidth - 152 // 128 is the amount of padding in total that makes up the difference between the width of the container and the width of the second line
+    maxAllowedLength = container.offsetWidth - 128 // 128 is the amount of padding in total that makes up the difference between the width of the container and the width of the second line
     maxAllowedLength -= activity_classification && activity_classification.alias ? (activity_classification.alias.length * AVERAGE_FONT_WIDTH) + IMAGE_WIDTH + MARGIN : 0
-    maxAllowedLength -= activity_category_name ? (activity_category_name.length * AVERAGE_FONT_WIDTH) + IMAGE_WIDTH + MARGIN : 0
-    maxAllowedLength -= readability_grade_level ? (`Readability: Grades ${readability_grade_level}`.length * AVERAGE_FONT_WIDTH) + IMAGE_WIDTH : 0 // the readability section is the only section that does not have a margin
-    maxAllowedLength -= standard_level_name ? (standard_level_name.length * AVERAGE_FONT_WIDTH) + IMAGE_WIDTH + MARGIN : 0
+    maxAllowedLength -= 374 // 374 is the standardized width for the ccss grade + grade levels
   }
   return maxAllowedLength
 }
 
 const ActivityRowCheckbox = ({ activity, isSelected, toggleActivitySelection, }: ActivityRowCheckboxProps) => {
-  const handleCheckboxClick = () => toggleActivitySelection(activity, isSelected)
+  const handleCheckboxClick = (e) => {
+    e.stopPropagation()
+    toggleActivitySelection(activity, isSelected)
+  }
   if (isSelected) {
     return <button className="quill-checkbox focus-on-light selected" onClick={handleCheckboxClick} type="button"><img alt="check" src={smallWhiteCheckSrc} /></button>
   }
@@ -74,22 +90,8 @@ const ActivityRowCheckbox = ({ activity, isSelected, toggleActivitySelection, }:
   return <button aria-label="unchecked checkbox" className="quill-checkbox focus-on-light unselected" onClick={handleCheckboxClick} type="button" />
 }
 
-const ActivityRowClassification = ({ classification, }: { classification?: ActivityClassification }) => {
-  const className = "second-line-section classification"
-  if (classification) {
-    return (
-      <span className={className}>
-        {imageTagForClassification(classification.key)}
-        <span>{classification.alias}</span>
-      </span>
-    )
-  }
-
-  return <span className={className} />
-}
-
 const ActivityRowConcept = ({ conceptName, }: { conceptName?: string }) => {
-  const className = "second-line-section concept"
+  const className = "attribute-section concept"
   if (conceptName) {
     return (
       <span className={className}>
@@ -102,49 +104,78 @@ const ActivityRowConcept = ({ conceptName, }: { conceptName?: string }) => {
   return <span className={className} />
 }
 
-const ActivityRowTopics = ({ topics, maxAllowedLength, }: { topics?: Topic[], maxAllowedLength: number }) => {
-  const className = "second-line-section topic"
-  if (topics && topics.length && maxAllowedLength >= (IMAGE_WIDTH + MARGIN + ELLIPSES_LENGTH)) {
-    const topicString = stringifyLowerLevelTopics(topics)
-    let topicElement = <span>{topicString}</span>
-    const widthOfTopicSectionInPixels = (topicString.length * AVERAGE_FONT_WIDTH) + IMAGE_WIDTH + MARGIN
-    if (widthOfTopicSectionInPixels >= maxAllowedLength) {
-      const abbreviatedTopicStringLength = ((maxAllowedLength - IMAGE_WIDTH - MARGIN) / AVERAGE_FONT_WIDTH) - ELLIPSES_LENGTH
-      const abbreviatedTopicString = `${topicString.substring(0, abbreviatedTopicStringLength)}...`
-      topicElement = (<Tooltip
-        tooltipText={topicString}
-        tooltipTriggerText={abbreviatedTopicString}
-      />)
-    }
+const ActivityRowTopics = ({ topics, maxAllowedLength, onTertiaryLine, inExpandedView, hasConcept, }: { topics?: Topic[], maxAllowedLength: number, onTertiaryLine: boolean, inExpandedView: boolean, hasConcept: boolean, }) => {
+  const className = "attribute-section topic"
 
+  if (!(topics && topics.length)) { return <span /> }
+
+  if (inExpandedView && !onTertiaryLine) { return <span /> }
+
+  const topicString = stringifyLowerLevelTopics(topics)
+  const widthOfTopicSectionInPixels = (topicString.length * AVERAGE_FONT_WIDTH) + IMAGE_WIDTH + MARGIN
+  const widthExceedsAllottedSpaceOnSecondLine = widthOfTopicSectionInPixels >= maxAllowedLength
+
+  if (inExpandedView && onTertiaryLine) {
+    const thirdLevelTopic = topics.find(t => Number(t.level) === 3)
+    const secondLevelTopic = topics.find(t => Number(t.level) === 2)
+    const diagonalDivider = <span className="diagonal-divider">/</span>
+    return (
+      <span className="attribute-section extended-topic">
+        <span><img alt="Globe icon" src={topicSrc} />{thirdLevelTopic?.name}</span>
+        {diagonalDivider}
+        <span>{secondLevelTopic?.name}</span>
+        {diagonalDivider}
+        <span className="lowest-level">{topicString}</span>
+      </span>
+    )
+  } else if ((widthExceedsAllottedSpaceOnSecondLine && onTertiaryLine) || (!widthExceedsAllottedSpaceOnSecondLine && !onTertiaryLine)) {
     return (
       <span className={className}>
+        {!onTertiaryLine && hasConcept && <span className="vertical-divider" />}
         <img alt="Globe icon" src={topicSrc} />
-        {topicElement}
+        <span>{topicString}</span>
       </span>
     )
   }
 
-  return <span className={className} />
+  return <span />
 }
 
 
-const ActivityRowReadabilityGradeLevel = ({ readabilityGradeLevel, }: { readabilityGradeLevel?: string }) => {
-  const className = "second-line-section readability-level"
-  if (readabilityGradeLevel) {
-    return (
-      <span className={className}>
-        <img alt="Book icon" src={readabilitySrc} />
-        <span>Readability: Grades {readabilityGradeLevel}</span>
-      </span>
-    )
-  }
+const ActivityRowGradeRange = ({ minimumGradeLevel, maximumGradeLevel, gradeLevelFilters, }: { minimumGradeLevel?: number, maximumGradeLevel?: number, gradeLevelFilters: number[] }) => {
+  const className = "attribute-section grade-range"
 
-  return <span className={className} />
+  const lowestGradeLevelFilter = gradeLevelFilters[0]
+  const highestGradeLevelFilter = gradeLevelFilters[gradeLevelFilters.length - 1]
+
+  const gradeBands = ["4 - 5", "6 - 7", "8 - 9", "10 - 12"].map(gradeBand => {
+    let className = "grade-level"
+
+    const splitGradeBand = gradeBand.split(' - ')
+    const lowestGradeInGradeBand = Number(splitGradeBand[0])
+    const highestGradeInGradeBand = Number(splitGradeBand[1])
+
+    if (!gradeLevelFilters.length || (lowestGradeInGradeBand >= lowestGradeLevelFilter && highestGradeInGradeBand <= highestGradeLevelFilter)) {
+      className += ' filtered'
+    }
+
+    if (minimumGradeLevel >= highestGradeInGradeBand) {
+      className += ' not-recommended'
+    }
+
+    return <span className={className}>{gradeBand}</span>
+  })
+
+  return (
+    <span className={className}>
+      <img alt="Book icon" src={gradeSrc} />
+      <span>Grades: {gradeBands}</span>
+    </span>
+  )
 }
 
 const ActivityRowStandardLevel = ({ standardLevelName, }: { standardLevelName?: string }) => {
-  const className = "second-line-section standard-level"
+  const className = "attribute-section standard-level"
   if (standardLevelName) {
     return (
       <span className={className}>
@@ -166,37 +197,41 @@ const ActivityRowExpandedSection = ({ activity, isExpanded}: { activity: Activit
   </div>)
 
   const readabilityLine = activity.readability_grade_level && (<div className="expanded-line">
-    <img alt="Book icon" src={readabilitySrc} />
-    <span>{readabilityCopy}</span>
+    <img alt="Book icon" src={gradeSrc} />
+    {readabilityContent(activity)}
   </div>)
 
-  const contentPartnerLines = activity.content_partners && activity.content_partners.map(cp => (
-    <div className="expanded-line" key={cp.id}>
+  const contentPartnersArray = activity.content_partners.map(cp => (
+    <React.Fragment>
       <img alt="Copyright icon" src={copyrightSrc} />
       <span>{cp.description}</span>
-    </div>)
-  )
+    </React.Fragment>
+  ))
+
+  const contentPartnerLines = contentPartnersArray.length ? (
+    <div className="expanded-line" key="content-partners">
+      {contentPartnersArray}
+    </div>
+  ) : null
 
   return (
-    <React.Fragment>
-      {descriptionLine}
+    <div className="expanded-section">
       {readabilityLine}
+      {descriptionLine}
       {contentPartnerLines}
-    </React.Fragment>
+    </div>
   )
 }
 
-const ActivityRowTooltip = ({ activity, showTooltip}: { activity: Activity, showTooltip: boolean }) => {
-  if (!showTooltip) { return <span />}
-
+const ActivityRowTooltip = ({ activity, }: { activity: Activity }) => {
   const descriptionLine = activity.description && (<div className="tooltip-line">
     <img alt="Information icon" src={informationSrc} />
     <span>{activity.description}</span>
   </div>)
 
   const readabilityLine = activity.readability_grade_level && (<div className="tooltip-line">
-    <img alt="Book icon" src={readabilitySrc} />
-    <span>{readabilityCopy}</span>
+    <img alt="Book icon" src={gradeSrc} />
+    {readabilityContent(activity)}
   </div>)
 
   const contentPartnerLines = activity.content_partners && activity.content_partners.map(cp => (
@@ -207,30 +242,40 @@ const ActivityRowTooltip = ({ activity, showTooltip}: { activity: Activity, show
   )
 
   return (
-    <div className="activity-row-tooltip">
-      {descriptionLine}
+    <React.Fragment>
       {readabilityLine}
+      {descriptionLine}
       {contentPartnerLines}
-    </div>
+    </React.Fragment>
   )
 }
 
-const ActivityRow = ({ activity, isSelected, toggleActivitySelection, showCheckbox, showRemoveButton, isFirst, setShowSnackbar, saveActivity, unsaveActivity, savedActivityIds, }: ActivityRowProps) => {
+const ActivityRow = ({ activity, isSelected, toggleActivitySelection, showCheckbox, showRemoveButton, isFirst, setShowSnackbar, saveActivity, unsaveActivity, savedActivityIds, gradeLevelFilters, }: ActivityRowProps) => {
   const size = useWindowSize();
   const [isExpanded, setIsExpanded] = React.useState(false)
-  const [showTooltip, setShowTooltip] = React.useState(false)
 
-  function toggleIsExpanded() { setIsExpanded(!isExpanded) }
-  function toggleShowTooltip() { setShowTooltip(!showTooltip)}
-  function removeActivity() {
+  function toggleIsExpanded(e) {
+    if (e.target.tagName !== 'a') {
+      setIsExpanded(!isExpanded)
+    }
+  }
+
+  const { activity_classification, name, activity_category_name, standard_level_name, anonymous_path, readability_grade_level, topics, id, minimum_grade_level, maximum_grade_level, description, content_partners, } = activity
+
+  function handleClickSaveButton(e) {
+    e.stopPropagation()
+    saveActivity(id)
+  }
+  function handleClickSavedButton(e) {
+    e.stopPropagation()
+    unsaveActivity(id)
+  }
+
+  function removeActivity(e) {
+    e.stopPropagation()
     toggleActivitySelection(activity, isSelected)
     setShowSnackbar && setShowSnackbar(true)
   }
-
-  const { activity_classification, name, activity_category_name, standard_level_name, anonymous_path, readability_grade_level, topics, id, } = activity
-
-  function handleClickSaveButton() { saveActivity(id) }
-  function handleClickSavedButton() { unsaveActivity(id) }
 
   const expandImgAltText = `Arrow pointing ${isExpanded ? 'up' : 'down'}`
 
@@ -241,43 +286,75 @@ const ActivityRow = ({ activity, isSelected, toggleActivitySelection, showCheckb
   const removeButton = <button className="interactive-wrapper focus-on-light remove-button" onClick={removeActivity} type="button"><img alt="Remove icon" src={removeSrc} />Remove</button>
   const removeOrPreviewButton = showRemoveButton ? removeButton : previewButton
   const saveOrSavedButton = savedActivityIds && savedActivityIds.includes(id) ? savedButton : saveButton
+  const nonToggleButtons = <div className="non-toggle-buttons">{removeOrPreviewButton}{saveOrSavedButton}</div>
 
   const expandClassName = isExpanded ? 'expanded' : 'not-expanded'
   const isSelectedClassName = isSelected ? 'selected' : 'not-selected'
   const isFirstClassName = isFirst ? 'is-first' : ''
 
-  const mobileOnly = showRemoveButton ? <div className="mobile-only">{removeButton}</div> : null
+  const noContentForExpandedSection = !readability_grade_level && !description && !content_partners?.length
+  const expandedButEmptyClassName = isExpanded && noContentForExpandedSection ? 'no-expanded-content' : ''
+
+  let topicLine
+
+  if (topics && topics.length) {
+    topicLine = (
+      <div className="third-line">
+        <ActivityRowTopics
+          hasConcept={!!activity_category_name}
+          inExpandedView={isExpanded}
+          maxAllowedLength={calculateMaxAllowedLengthForTopicSection({ activity_classification, })}
+          onTertiaryLine={true}
+          topics={topics}
+        />
+      </div>
+    )
+  }
+
+  const tooltipContent = renderToString(<ActivityRowTooltip activity={activity} />)
 
   return (
-    <section className={`activity-row ${expandClassName} ${isSelectedClassName} ${isFirstClassName}`}>
-      <ActivityRowTooltip activity={activity} showTooltip={showTooltip} />
+    // disabling jsx-a11y rules for section onclick because the toggle interaction already exists as its own button for keyboard users
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
+    <section className={`activity-row ${expandClassName} ${isSelectedClassName} ${isFirstClassName} ${expandedButEmptyClassName}`} onClick={toggleIsExpanded}>
       <div className="first-line">
         <div className="name-and-checkbox-wrapper">
           {showCheckbox && <ActivityRowCheckbox activity={activity} isSelected={isSelected} toggleActivitySelection={toggleActivitySelection} />}
-          <button className="interactive-wrapper" onMouseEnter={toggleShowTooltip} onMouseLeave={toggleShowTooltip} tabIndex={-1} type="button"><h2>{name}</h2></button>
+          <Tooltip
+            tooltipText={tooltipContent}
+            tooltipTriggerText={(
+              <h2>
+                {imageTagForClassification(activity_classification.key)}
+                <a href={anonymous_path} rel="noopener noreferrer" target="_blank">{name}</a>
+              </h2>
+            )}
+          />
         </div>
         <div className="buttons-wrapper">
-          {removeOrPreviewButton}
-          {saveOrSavedButton}
+          {nonToggleButtons}
           {expandButton}
         </div>
       </div>
       <div className="second-line">
         <div className="classification-concept-topic-wrapper">
-          <ActivityRowClassification classification={activity_classification} />
           <ActivityRowConcept conceptName={activity_category_name} />
           <ActivityRowTopics
-            maxAllowedLength={calculateMaxAllowedLengthForTopicSection({ activity_classification, activity_category_name, readability_grade_level, standard_level_name})}
+            hasConcept={!!activity_category_name}
+            inExpandedView={isExpanded}
+            maxAllowedLength={calculateMaxAllowedLengthForTopicSection({ activity_classification, })}
+            onTertiaryLine={false}
             topics={topics}
           />
         </div>
-        <div className="readability-and-standard-level-wrapper">
-          <ActivityRowReadabilityGradeLevel readabilityGradeLevel={readability_grade_level} />
+        <div className="grade-range-and-standard-level-wrapper">
           <ActivityRowStandardLevel standardLevelName={standard_level_name} />
+          {standard_level_name && <span className="vertical-divider" />}
+          <ActivityRowGradeRange gradeLevelFilters={gradeLevelFilters} maximumGradeLevel={maximum_grade_level} minimumGradeLevel={minimum_grade_level} />
         </div>
       </div>
+      <div className="third-line mobile-only">{nonToggleButtons}</div>
+      {topicLine}
       <ActivityRowExpandedSection activity={activity} isExpanded={isExpanded} />
-      {mobileOnly}
     </section>
   )
 }

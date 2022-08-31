@@ -5,6 +5,8 @@ import ActivityClassificationFilters from './activity_classification_filters'
 import ActivityCategoryFilters from './activity_category_filters'
 import StaffActivityCategoryFilters from './staff_activity_category_filters'
 import CCSSGradeLevelFilters from './ccss_grade_level_filters'
+import GradeLevelFilters from './grade_level_filters'
+import ELLFilters from './ell_filters'
 import ReadabilityGradeLevelFilters from './readability_grade_level_filters'
 import ContentPartnerFilters from './content_partner_filters'
 import TopicFilters from './topic_filters'
@@ -18,7 +20,11 @@ interface FilterColumnProps {
   activityClassificationFilters: string[],
   handleActivityClassificationFilterChange: (activityClassificationFilters: string[]) => void,
   ccssGradeLevelFilters: number[],
+  ellFilters: number[],
   handleCCSSGradeLevelFilterChange: (ccssGradeLevelFilters: number[]) => void,
+  handleELLFilterChange: (ellFilters: number[]) => void,
+  gradeLevelFilters: number[],
+  handleGradeLevelFilterChange: (gradeLevelFilters: number[]) => void,
   activityCategoryFilters: number[],
   handleActivityCategoryFilterChange: (activityCategoryFilters: number[]) => void,
   filterActivities: (ignoredKey?: string) => Activity[],
@@ -33,7 +39,6 @@ interface FilterColumnProps {
   savedActivityIds: number[],
   flagFilters: string[],
   handleFlagFilterChange: () => void,
-  showComprehension: boolean,
   isStaff?: boolean,
   activityCategoryEditor?: ActivityCategoryEditor
 }
@@ -48,6 +53,10 @@ const FilterColumn = ({
   handleActivityClassificationFilterChange,
   handleCCSSGradeLevelFilterChange,
   ccssGradeLevelFilters,
+  ellFilters,
+  handleELLFilterChange,
+  gradeLevelFilters,
+  handleGradeLevelFilterChange,
   handleActivityCategoryFilterChange,
   activityCategoryFilters,
   contentPartnerFilters,
@@ -60,7 +69,6 @@ const FilterColumn = ({
   handleSavedActivityFilterChange,
   savedActivityIds,
   isStaff,
-  showComprehension,
   flagFilters,
   handleFlagFilterChange,
   activityCategoryEditor
@@ -91,47 +99,58 @@ const FilterColumn = ({
   }
 
   return (
-    <section className="filter-column">
-      <section className="filter-section filtered-results">
-        <div className="name-and-clear-wrapper">
-          <h2>Filtered Results</h2>
-          {clearAllButton}
-        </div>
-        <p>{filterCount}{filteredActivities.length} of {activities.length} activities</p>
+    <div className="filter-column-wrapper">
+      <section className="filter-column">
+        <section className="filter-section filtered-results">
+          <div className="name-and-clear-wrapper">
+            <h2>Filtered Results</h2>
+            {clearAllButton}
+          </div>
+          <p>{filterCount}{filteredActivities.length} of {activities.length} activities</p>
+        </section>
+        {flagFilterSection}
+        <ActivityClassificationFilters
+          activities={activities}
+          activityClassificationFilters={activityClassificationFilters}
+          filterActivities={filterActivities}
+          handleActivityClassificationFilterChange={handleActivityClassificationFilterChange}
+          handleSavedActivityFilterChange={handleSavedActivityFilterChange}
+          savedActivityFilters={savedActivityFilters}
+          savedActivityIds={savedActivityIds}
+        />
+        <GradeLevelFilters
+          gradeLevelFilters={gradeLevelFilters}
+          handleGradeLevelFilterChange={handleGradeLevelFilterChange}
+        />
+        <ReadabilityGradeLevelFilters
+          handleReadabilityGradeLevelFilterChange={handleReadabilityGradeLevelFilterChange}
+          readabilityGradeLevelFilters={readabilityGradeLevelFilters}
+        />
+        <CCSSGradeLevelFilters
+          ccssGradeLevelFilters={ccssGradeLevelFilters}
+          handleCCSSGradeLevelFilterChange={handleCCSSGradeLevelFilterChange}
+        />
+        <ELLFilters
+          activities={activities}
+          ellFilters={ellFilters}
+          filterActivities={filterActivities}
+          handleELLFilterChange={handleELLFilterChange}
+        />
+        {activityCategoryFilterSection}
+        <TopicFilters
+          activities={activities}
+          filterActivities={filterActivities}
+          handleTopicFilterChange={handleTopicFilterChange}
+          topicFilters={topicFilters}
+        />
+        <ContentPartnerFilters
+          activities={activities}
+          contentPartnerFilters={contentPartnerFilters}
+          filterActivities={filterActivities}
+          handleContentPartnerFilterChange={handleContentPartnerFilterChange}
+        />
       </section>
-      {flagFilterSection}
-      <ActivityClassificationFilters
-        activities={activities}
-        activityClassificationFilters={activityClassificationFilters}
-        filterActivities={filterActivities}
-        handleActivityClassificationFilterChange={handleActivityClassificationFilterChange}
-        handleSavedActivityFilterChange={handleSavedActivityFilterChange}
-        savedActivityFilters={savedActivityFilters}
-        savedActivityIds={savedActivityIds}
-        showComprehension={showComprehension}
-      />
-      <ReadabilityGradeLevelFilters
-        handleReadabilityGradeLevelFilterChange={handleReadabilityGradeLevelFilterChange}
-        readabilityGradeLevelFilters={readabilityGradeLevelFilters}
-      />
-      <CCSSGradeLevelFilters
-        ccssGradeLevelFilters={ccssGradeLevelFilters}
-        handleCCSSGradeLevelFilterChange={handleCCSSGradeLevelFilterChange}
-      />
-      {activityCategoryFilterSection}
-      <TopicFilters
-        activities={activities}
-        filterActivities={filterActivities}
-        handleTopicFilterChange={handleTopicFilterChange}
-        topicFilters={topicFilters}
-      />
-      <ContentPartnerFilters
-        activities={activities}
-        contentPartnerFilters={contentPartnerFilters}
-        filterActivities={filterActivities}
-        handleContentPartnerFilterChange={handleContentPartnerFilterChange}
-      />
-    </section>
+    </div>
   )
 }
 

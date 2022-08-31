@@ -18,6 +18,7 @@ export const STRONG =  'strong';
 export const RULES_BASED_1 = 'rules-based-1';
 export const RULES_BASED_2 = 'rules-based-2';
 export const RULES_BASED_3 = 'rules-based-3';
+export const LOW_CONFIDENCE = 'low-confidence';
 export const SESSION_INDEX = 'sessionIndex';
 export const RULES_ANALYSIS = 'rulesAnalysis';
 export const RULE_ANALYSIS = 'ruleAnalysis';
@@ -42,32 +43,6 @@ export const TEXT = 'text';
 export const FIRST_STRONG_EXAMPLE = 'first_strong_example';
 export const SECOND_STRONG_EXAMPLE = 'second_strong_example';
 
-export const flagOptions = [
-  {
-    label: 'alpha',
-    value: 'alpha'
-  },
-  {
-    label: 'private',
-    value: 'private'
-  },
-  {
-    label: 'beta',
-    value: 'beta'
-  },
-  {
-    label: 'gamma',
-    value: 'gamma'
-  },
-  {
-    label: 'production',
-    value: 'production'
-  },
-  {
-    label: 'archived',
-    value: 'archived'
-  },
-];
 
 export const courseOptions = [
   {
@@ -115,7 +90,7 @@ export const readingLevelOptions = [
   },
 ];
 
-export const ruleApiOrder = [RULES_BASED_1, OPINION, PLAGIARISM, AUTO_ML, RULES_BASED_2, GRAMMAR,  SPELLING, RULES_BASED_3];
+export const ruleApiOrder = [RULES_BASED_1, OPINION, PLAGIARISM, LOW_CONFIDENCE, AUTO_ML, RULES_BASED_2, GRAMMAR,  SPELLING, RULES_BASED_3];
 
 export const regexRuleTypes = ["rules-based-1", "rules-based-2", "rules-based-3"];
 
@@ -125,6 +100,7 @@ export const ruleTypeOptions = [
   {"value":"rules-based-3","label":"Typo Regex"},
   {"value":"plagiarism","label":"Plagiarism"},
   {"value":"autoML","label":"AutoML"},
+  {"value":LOW_CONFIDENCE,"label":"Low Confidence"}
 ];
 
 export const universalRuleTypeOptions = [
@@ -159,21 +135,13 @@ export const activitySessionFilterOptions = [
   {"value":INCOMPLETE,"label":"Show incomplete sessions"}
 ];
 
-export const ruleOrder = {
-  'AutoML': 1,
-  'Grammar': 2,
-  'Opinion': 3,
-  'Plagiarism': 4,
-  'Regex': 5,
-  'Spelling': 6
-}
-
 export const RULE_TYPE_TO_ROUTE_PART = {
   autoML: 'semantic-labels',
   plagiarism: 'plagiarism-rules',
   'rules-based-1': 'regex-rules',
   'rules-based-2': 'regex-rules',
-  'rules-based-3': 'regex-rules'
+  'rules-based-3': 'regex-rules',
+  'low-confidence': 'low-confidence-rules'
 }
 
 export const RULE_TYPE_TO_NAME = {
@@ -181,7 +149,8 @@ export const RULE_TYPE_TO_NAME = {
   plagiarism: 'Plagiarism',
   'rules-based-1': 'Sentence Structure Regex',
   'rules-based-2': 'Post-topic Regex',
-  'rules-based-3': 'Typo Regex'
+  'rules-based-3': 'Typo Regex',
+  'low-confidence': 'Low Confidence'
 }
 
 export const PROMPT_ATTEMPTS_FEEDBACK_LABELS = {

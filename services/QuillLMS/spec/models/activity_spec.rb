@@ -7,13 +7,13 @@
 #  id                         :integer          not null, primary key
 #  data                       :jsonb
 #  description                :text
-#  flags                      :string(255)      default([]), not null, is an Array
+#  flags                      :string           default([]), not null, is an Array
 #  maximum_grade_level        :integer
 #  minimum_grade_level        :integer
-#  name                       :string(255)
+#  name                       :string
 #  repeatable                 :boolean          default(TRUE)
 #  supporting_info            :string
-#  uid                        :string(255)      not null
+#  uid                        :string           not null
 #  created_at                 :datetime
 #  updated_at                 :datetime
 #  activity_classification_id :integer
@@ -307,7 +307,7 @@ describe Activity, type: :model, redis: true do
 
     context 'the production scope' do
       it 'must show only production flagged activities' do
-        expect(all_types - Activity.production.all).to eq [gamma_activity, beta_activity, alpha_activity, archived_activity]
+        expect(Activity.production.map(&:flags).flatten.uniq).to contain_exactly(:production)
       end
 
       it 'must return the same thing as Activity.user_scope(nil)' do
@@ -316,8 +316,8 @@ describe Activity, type: :model, redis: true do
     end
 
     context 'the gamma scope' do
-      it 'must show only production and gamma flagged activities' do
-        expect(all_types - Activity.gamma_user).to eq [beta_activity, alpha_activity, archived_activity]
+      it 'must show only production, beta, and gamma flagged activities' do
+        expect(Activity.gamma_user.map(&:flags).flatten.uniq).to contain_exactly(:production, :beta, :gamma)
       end
 
       it 'must return the same thing as Activity.user_scope(gamma)' do
@@ -326,8 +326,8 @@ describe Activity, type: :model, redis: true do
     end
 
     context 'the beta scope' do
-      it 'must show only production, beta, and gamma flagged activities' do
-        expect(all_types - Activity.beta_user).to eq [alpha_activity, archived_activity]
+      it 'must show only production, and beta flagged activities' do
+        expect(Activity.beta_user.map(&:flags).flatten.uniq).to contain_exactly(:production, :beta)
       end
 
       it 'must return the same thing as Activity.user_scope(beta)' do
@@ -337,7 +337,7 @@ describe Activity, type: :model, redis: true do
 
     context 'the alpha scope' do
       it 'must show all types of flags except for archived with alpha_user scope' do
-        expect(all_types - Activity.alpha_user).to eq [archived_activity]
+        expect(Activity.alpha_user.map(&:flags).flatten.uniq).to contain_exactly(:production, :beta, :gamma, :alpha)
       end
 
       it 'must return the same thing as Activity.user_scope(alpha)' do
@@ -484,14 +484,6 @@ describe Activity, type: :model, redis: true do
       raw_score = create(:raw_score, :eight_hundred_to_nine_hundred)
       activity = create(:activity, raw_score_id: raw_score.id)
       expect(activity.readability_grade_level).to eq('6th-7th')
-    end
-
-    it 'should behave differently based on activity classification' do
-      raw_score = create(:raw_score, :five_hundred_to_six_hundred)
-      connect_activity = create(:connect_activity, raw_score_id: raw_score.id)
-      proofreader_activity = create(:proofreader_activity, raw_score_id: raw_score.id)
-      expect(proofreader_activity.readability_grade_level).to eq('4th-5th')
-      expect(connect_activity.readability_grade_level).to eq('6th-7th')
     end
 
     it 'should return nil if there is no raw_score_id' do

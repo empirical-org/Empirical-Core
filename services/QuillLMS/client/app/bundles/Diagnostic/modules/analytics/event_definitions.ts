@@ -14,7 +14,7 @@ class Event {
 // as the list gets longer we don't accidentally end up with a
 // name collision (see validation in the 'events.ts' file).
 const EventDefinitions = [
-  {DIAGNOSTIC_LANGUAGE_SELECTED: new Event('diagnosticLanguageSelected', ['language'])}
+  {DIAGNOSTIC_LANGUAGE_SELECTED: new Event('diagnosticLanguageSelected', ['event', 'language', 'user_id', 'properties'])}
 ];
 
 export {

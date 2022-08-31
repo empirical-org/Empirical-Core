@@ -12,9 +12,9 @@ class ActivitySearch
     when 'alpha'
       flags = "'alpha', 'beta', 'gamma', 'production'"
     when 'beta'
-      flags = "'beta', 'gamma', 'production'"
+      flags = "'beta', 'production'"
     when 'gamma'
-      flags = "'gamma', 'production'"
+      flags = "'gamma', 'production', 'beta'"
     else
       flags = "'production'"
     end
@@ -27,6 +27,8 @@ class ActivitySearch
           activities.flags AS activity_flag,
           activities.id AS activity_id,
           activities.uid AS activity_uid,
+          activities.maximum_grade_level AS activity_maximum_grade_level,
+          activities.minimum_grade_level AS activity_minimum_grade_level,
           activity_categories.id AS activity_category_id,
           activity_categories.name AS activity_category_name,
           standard_levels.id AS standard_level_id,

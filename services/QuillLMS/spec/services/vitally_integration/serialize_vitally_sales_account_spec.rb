@@ -37,6 +37,12 @@ describe 'SerializeVitallySalesAccount' do
     expect(school_data).to include(accountId: school.id.to_s)
   end
 
+  it 'includes the organizationId' do
+    school_data = SerializeVitallySalesAccount.new(school).data
+
+    expect(school_data).to include(organizationId: school.district_id.to_s)
+  end
+
   it 'generates basic school params' do
 
     school_data = SerializeVitallySalesAccount.new(school).data

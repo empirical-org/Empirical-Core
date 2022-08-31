@@ -28,10 +28,10 @@ describe ProgressReports::Concepts::ConceptSerializer, type: :serializer do
       completed_at: 5.minutes.ago,
       classroom_unit: classroom_unit
     )
-    activity_session.old_concept_results
-      .create!(concept: concept, metadata: {'correct' => 1})
-    activity_session.old_concept_results
-      .create!(concept: concept, metadata: {'correct' => 0})
+    activity_session.concept_results
+      .create!(concept: concept, correct: true)
+    activity_session.concept_results
+      .create!(concept: concept, correct: false)
   end
 
   describe '#to_json' do

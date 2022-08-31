@@ -10,31 +10,25 @@ export const lowerBound = (currentPage: number): number => (currentPage - 1) * R
 
 export const upperBound = (currentPage: number): number => currentPage * RESULTS_PER_PAGE;
 
-export const activityClassificationGroupings = (showEvidence: boolean) => {
-  let independentReadingTextsGroup
-  if (showEvidence) {
-    independentReadingTextsGroup = {
-      group: 'Independent: Reading Texts',
-      keys: ['evidence'],
-      new: true
-    }
+export const activityClassificationGroupings = [
+  {
+    group: 'Independent: Reading Texts',
+    keys: ['evidence'],
+    new: true
+  },
+  {
+    group: 'Independent: Language Skills',
+    keys: ['connect', 'sentence', 'passage']
+  },
+  {
+    group: 'Whole Class Instruction',
+    keys: ['lessons']
+  },
+  {
+    group: 'Diagnostics',
+    keys: ['diagnostic']
   }
-  return ([
-    independentReadingTextsGroup,
-    {
-      group: 'Independent: Language Skills',
-      keys: ['connect', 'sentence', 'passage']
-    },
-    {
-      group: 'Whole Class Instruction',
-      keys: ['lessons']
-    },
-    {
-      group: 'Diagnostics',
-      keys: ['diagnostic']
-    }
-  ].filter(Boolean))
-}
+]
 
 export const getNumberFromString = (string) => {
   if (!string) { return null }
@@ -56,6 +50,8 @@ export const FLAG_FILTERS = 'flagFilters'
 export const TOPIC_FILTERS = 'topicFilters'
 
 export const SAVED_ACTIVITY_FILTERS = 'savedActivityFilters'
+
+export const STANDARDS_FILTERS = 'standardsFilters'
 
 export function arrayFromNumbers(lowerValue: number, upperValue: number) {
   const array = []
@@ -80,10 +76,26 @@ function filterByActivityCategory(activityCategoryFilters: number[], activity: A
   return activityCategoryFilters.includes(activity.activity_category.id)
 }
 
+function filterByStandards(standardsFilters: { ccssGradeLevelFilters: number[], ellFilters: number[]}, activity: Activity) {
+  const { ccssGradeLevelFilters, ellFilters, } = standardsFilters
+
+  if (!ccssGradeLevelFilters.length && !ellFilters.length) { return true }
+
+  return filterByCCSSGradeLevel(ccssGradeLevelFilters, activity) || filterByELL(ellFilters, activity)
+}
+
 function filterByCCSSGradeLevel(ccssGradeLevelFilters: number[], activity: Activity) {
-  if (!ccssGradeLevelFilters.length) { return true }
+  if (!activity.standard_level_name?.includes('CCSS')) { return }
+
   const numberFromStandardLevel = getNumberFromString(activity.standard_level_name)
   return ccssGradeLevelFilters.includes(numberFromStandardLevel)
+}
+
+function filterByELL(ellLevelFilters: number[], activity: Activity) {
+  if (!activity.standard_level_name?.includes('ELL')) { return }
+
+  const numberFromStandardLevel = getNumberFromString(activity.standard_level_name)
+  return ellLevelFilters.includes(numberFromStandardLevel)
 }
 
 const READABILITY_GRADE_LEVEL_OPTIONS = ['2nd-3rd', '4th-5th', '6th-7th', '8th-9th', '10th-12th']
@@ -93,6 +105,12 @@ function filterByReadabilityGradeLevel(readabilityGradeLevelFilters: number[], a
 
   const indexOfOption = READABILITY_GRADE_LEVEL_OPTIONS.findIndex(opt => opt === activity.readability_grade_level)
   return readabilityGradeLevelFilters.includes(indexOfOption)
+}
+
+function filterByGradeLevel(gradeLevelFilters: number[], activity: Activity) {
+  if (!gradeLevelFilters.length) { return true }
+
+  return activity.minimum_grade_level <= gradeLevelFilters[0]
 }
 
 function filterByContentPartners(contentPartnerFilters: number[], activity: Activity) {
@@ -118,7 +136,8 @@ export function filterByFlag(flagFilters: string[], activity:Activity) {
 export const filters = {
   search: filterBySearch,
   [ACTIVITY_CLASSIFICATION_FILTERS]: filterByActivityClassification,
-  ccssGradeLevelFilters: filterByCCSSGradeLevel,
+  [STANDARDS_FILTERS]: filterByStandards,
+  gradeLevelFilters: filterByGradeLevel,
   readabilityGradeLevelFilters: filterByReadabilityGradeLevel,
   [ACTIVITY_CATEGORY_FILTERS]: filterByActivityCategory,
   [CONTENT_PARTNER_FILTERS]: filterByContentPartners,
@@ -171,7 +190,29 @@ const numberFromStringDescendingSort = (activities, attributeKey) => activities.
   return numberMatchB - numberMatchA
 })
 
+const numberAscendingSort = (activities, attributeKey) => activities.sort((a, b) => {
+  const numberMatchA = a[attributeKey]
+  const numberMatchB = b[attributeKey]
+
+  if (!numberMatchA) { return 1 }
+  if (!numberMatchB) { return -1 }
+
+  return numberMatchA - numberMatchB
+})
+
+const numberDescendingSort = (activities, attributeKey) => activities.sort((a, b) => {
+  const numberMatchA = a[attributeKey]
+  const numberMatchB = b[attributeKey]
+
+  if (!numberMatchA) { return 1 }
+  if (!numberMatchB) { return -1 }
+
+  return numberMatchB - numberMatchA
+})
+
 export const DEFAULT = 'default'
+const GRADE_LEVEL_ASCENDING = 'grade-level-asc'
+const GRADE_LEVEL_DESCENDING = 'grade-level-desc'
 const CCSS_ASCENDING = 'ccss-asc'
 const CCSS_DESCENDING = 'ccss-desc'
 const READABILITY_ASCENDING = 'readability-asc'
@@ -181,6 +222,8 @@ const TOPIC = 'topic'
 
 export const sortFunctions = {
   [DEFAULT]: (activities) => activities,
+  [GRADE_LEVEL_ASCENDING]: (activities) => numberAscendingSort(activities, 'minimum_grade_level'),
+  [GRADE_LEVEL_DESCENDING]: (activities) => numberDescendingSort(activities, 'minimum_grade_level'),
   [CCSS_ASCENDING]: (activities) => numberFromStringAscendingSort(activities, 'standard_level_name'),
   [CCSS_DESCENDING]: (activities) => numberFromStringDescendingSort(activities, 'standard_level_name'),
   [READABILITY_ASCENDING]: (activities) => numberFromStringAscendingSort(activities, 'readability_grade_level'),
@@ -194,6 +237,16 @@ export const sortOptions = [
     label: 'Default',
     key: DEFAULT,
     value: DEFAULT
+  },
+  {
+    label: 'Grade Level Range (Low to High)',
+    key: GRADE_LEVEL_ASCENDING,
+    value: GRADE_LEVEL_ASCENDING
+  },
+  {
+    label: 'Grade Level Range (High to Low)',
+    key: GRADE_LEVEL_DESCENDING,
+    value: GRADE_LEVEL_DESCENDING
   },
   {
     label: 'Readability Level (Low to High)',

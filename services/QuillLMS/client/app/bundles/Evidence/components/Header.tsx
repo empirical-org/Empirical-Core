@@ -28,12 +28,12 @@ export class Header extends React.Component<any, any> {
   }
 
   trackSaveAndExitEvent = () => {
-    const { dispatch, } = this.props
+    const { dispatch } = this.props
     const { sessionID, } = this.state
     const activityID = getParameterByName('uid', window.location.href)
-    dispatch(TrackAnalyticsEvent(Events.COMPREHENSION_ACTIVITY_SAVED, {
+    dispatch(TrackAnalyticsEvent(Events.EVIDENCE_ACTIVITY_SAVED, {
       activityID: activityID,
-      sessionID,
+      sessionID
     }))
   }
 

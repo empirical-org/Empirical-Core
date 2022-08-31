@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module GoogleIntegration
-  class ClassroomStudentImporter
+  class ClassroomStudentImporter < ApplicationService
     ROLE = ::User::STUDENT
 
     attr_reader :data, :classroom, :email
@@ -30,7 +30,7 @@ module GoogleIntegration
     end
 
     private def import_student
-      student ? ClassroomStudentUpdater.new(student, data).run : ClassroomStudentCreator.new(data).run
+      student ? ClassroomStudentUpdater.run(student, data) : ClassroomStudentCreator.run(data)
     end
 
     private def log_skipped_import

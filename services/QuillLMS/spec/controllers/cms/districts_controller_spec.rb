@@ -29,11 +29,24 @@ describe Cms::DistrictsController do
 
   describe '#search' do
     let!(:district) { create(:district, name: "Test District") }
-    let(:district_hash) { {id: district.id, name: district.name, nces_id: district.nces_id, city: district.city, state: district.state, zipcode: district.zipcode, phone: district.phone, total_students: district.total_students, total_schools: district.total_schools } }
+    let(:district_hash) do
+      {
+        id: district.id,
+        name: district.name,
+        nces_id: district.nces_id,
+        city: district.city,
+        state: district.state,
+        zipcode: district.zipcode,
+        phone: district.phone,
+        total_students: district.total_students,
+        total_schools: district.total_schools
+      }
+    end
 
     it 'should search for the district and give the results' do
       get :search, params: {:district_name => 'test'}
-      expect(response.body).to eq({numberOfPages: 1, districtSearchQueryResults: [district_hash]}.to_json)
+      expect(JSON.parse(response.body).deep_symbolize_keys)
+        .to eq({numberOfPages: 1, districtSearchQueryResults: [district_hash]})
     end
   end
 
@@ -93,6 +106,16 @@ describe Cms::DistrictsController do
     it 'should assign the district' do
       get :new_admin, params: { id: district.id }
       expect(assigns(:district)).to eq district
+    end
+  end
+
+  describe '#create' do
+    it 'does not create, returns an error message if district NCES ID is not unique' do
+      existing_district = create(:district)
+
+      post :create, params: { district: existing_district.as_json }
+      expect(response).to redirect_to cms_districts_path
+      expect(flash[:error].first).to include("A district with this NCES ID already exists.")
     end
   end
 

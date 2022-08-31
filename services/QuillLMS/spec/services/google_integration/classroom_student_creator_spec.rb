@@ -40,4 +40,21 @@ RSpec.describe GoogleIntegration::ClassroomStudentCreator do
     expect(student.signed_up_with_google).to eq signed_up_with_google
     expect(student.username).to eq username
   end
+
+  context 'nil last name' do
+    let(:name) { 'First' }
+    let(:first_name) { 'First' }
+    let(:last_name) { nil }
+
+    it 'creates a new student with various attributes' do
+      expect(student.account_type).to eq account_type
+      expect(student.email).to eq email
+      expect(student.google_id).to eq google_id
+      expect(student.name).to eq name
+      expect(student.password).to eq first_name
+      expect(student.role).to eq role
+      expect(student.signed_up_with_google).to eq signed_up_with_google
+      expect(student.username).to eq username
+    end
+  end
 end

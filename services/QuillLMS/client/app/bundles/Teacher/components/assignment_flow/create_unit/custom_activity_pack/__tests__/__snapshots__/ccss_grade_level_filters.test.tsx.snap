@@ -6,893 +6,1057 @@ exports[`ccssGradeLevelFilters component should render 1`] = `
   handleCCSSGradeLevelFilterChange={[Function]}
 >
   <section
-    className="filter-section"
+    className="filter-section ccss-grade-level"
   >
-    <div
-      className="name-and-clear-wrapper"
-    >
-      <h2>
-        CCSS Grade Level
-      </h2>
-      <span />
-    </div>
-    <div
-      className="slider-wrapper"
-    >
-      <label
-        htmlFor="ccss-grade-level-slider"
-      >
-        Standard: 
-        1
-        -
-        11
-         Grade Level
-      </label>
-      <TwoThumbSlider
-        handleChange={[Function]}
-        id="ccss-grade-level-slider"
-        lowerValue={1}
-        markLabels={
-          Array [
-            1,
-            2,
-            3,
-            4,
-            5,
-            6,
-            7,
-            8,
-            9,
-            10,
-            11,
-          ]
-        }
-        maxValue={11}
-        minValue={1}
-        step={1}
-        upperValue={11}
-      >
+    <Tooltip
+      isTabbable={false}
+      tooltipText="Each activity is aligned to a Common Core standard and the grade level associated with that standard.<br/><br/>Use this filter to see activities that are aligned to a standard within the selected grade level. For example, filter by 6-7 to see all activities aligned to a 6th or 7th grade CCSS.<br/><br/>Since CCSS are often overlapping and span multiple grades, we recommend setting a wide range so you don’t miss out on activities that may still be right for your students!<br/><br/>Click the “?” to learn more about CCSS grade levels and for helpful filtering tips."
+      tooltipTriggerText={
         <div
-          className="two-thumb-slider-container"
-          id="ccss-grade-level-slider"
-          style={
-            Object {
-              "display": "flex",
-              "flexWrap": "wrap",
-              "justifyContent": "center",
-            }
-          }
+          className="tooltip-trigger-filter-section-content"
         >
-          <Range
-            allowOverlap={false}
-            direction="to right"
-            disabled={false}
-            draggableTrack={false}
-            max={11}
-            min={1}
-            onChange={[Function]}
-            renderMark={[Function]}
-            renderThumb={[Function]}
-            renderTrack={[Function]}
-            rtl={false}
-            step={1}
-            values={
-              Array [
-                1,
-                11,
-              ]
-            }
+          <div
+            className="hoverbox"
+          />
+          <div
+            className="name-and-clear-wrapper"
           >
-            <Track
-              maxValue={11}
-              minValue={1}
-              props={
-                Object {
-                  "onMouseDown": [Function],
-                  "onTouchStart": [Function],
-                  "ref": Object {
-                    "current": <div
-                      class="track"
-                    >
-                      <div
-                        class="mark first-mark"
-                        style="position: absolute;"
-                      >
-                        1
-                      </div>
-                      <div
-                        class="mark"
-                        style="position: absolute;"
-                      >
-                        2
-                      </div>
-                      <div
-                        class="mark"
-                        style="position: absolute;"
-                      >
-                        3
-                      </div>
-                      <div
-                        class="mark"
-                        style="position: absolute;"
-                      >
-                        4
-                      </div>
-                      <div
-                        class="mark"
-                        style="position: absolute;"
-                      >
-                        5
-                      </div>
-                      <div
-                        class="mark"
-                        style="position: absolute;"
-                      >
-                        6
-                      </div>
-                      <div
-                        class="mark"
-                        style="position: absolute;"
-                      >
-                        7
-                      </div>
-                      <div
-                        class="mark"
-                        style="position: absolute;"
-                      >
-                        8
-                      </div>
-                      <div
-                        class="mark"
-                        style="position: absolute;"
-                      >
-                        9
-                      </div>
-                      <div
-                        class="mark"
-                        style="position: absolute;"
-                      >
-                        10
-                      </div>
-                      <div
-                        class="mark last-mark"
-                        style="position: absolute;"
-                      >
-                        11
-                      </div>
-                      <div
-                        aria-valuemax="11"
-                        aria-valuemin="1"
-                        aria-valuenow="1"
-                        class="thumb"
-                        draggable="false"
-                        role="slider"
-                        style="position: absolute; z-index: 0; cursor: grab; user-select: none; transform: translate(NaNpx, NaNpx);"
-                        tabindex="0"
-                      />
-                      <div
-                        aria-valuemax="11"
-                        aria-valuemin="1"
-                        aria-valuenow="11"
-                        class="thumb"
-                        draggable="false"
-                        role="slider"
-                        style="position: absolute; z-index: 1; cursor: grab; user-select: none; transform: translate(NaNpx, NaNpx);"
-                        tabindex="0"
-                      />
-                    </div>,
-                  },
-                  "style": Object {
-                    "cursor": "inherit",
-                    "transform": "scale(1)",
-                  },
-                }
-              }
-              values={
+            <h2>
+              <span>
+                CCSS Grade Level
+              </span>
+              <a
+                className="focus-on-light interactive-wrapper"
+                href="https://support.quill.org/en/articles/1804176-ccss-vs-readability-how-does-quill-sort-activities"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt="Question mark icon"
+                  src="undefined/images/icons/icons-help.svg"
+                />
+              </a>
+            </h2>
+            <span />
+          </div>
+          <div
+            className="slider-wrapper"
+          >
+            <label
+              htmlFor="ccss-grade-level-slider"
+            >
+              Standard: 
+              1
+               - 
+              11
+               Grade Level
+            </label>
+            <TwoThumbSlider
+              handleChange={[Function]}
+              id="ccss-grade-level-slider"
+              lowerValue={1}
+              markLabels={
                 Array [
                   1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
                   11,
                 ]
               }
+              maxValue={11}
+              minValue={1}
+              step={1}
+              upperValue={11}
+            />
+          </div>
+        </div>
+      }
+    >
+      <span
+        aria-hidden={true}
+        className="quill-tooltip-trigger "
+        role="tooltip"
+      >
+        <span
+          className="undefined"
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          role="button"
+          tabIndex={null}
+        >
+          <div
+            className="tooltip-trigger-filter-section-content"
+          >
+            <div
+              className="hoverbox"
+            />
+            <div
+              className="name-and-clear-wrapper"
             >
-              <div
-                className="track-container"
-                style={
-                  Object {
-                    "cursor": "inherit",
-                    "transform": "scale(1)",
-                  }
-                }
+              <h2>
+                <span>
+                  CCSS Grade Level
+                </span>
+                <a
+                  className="focus-on-light interactive-wrapper"
+                  href="https://support.quill.org/en/articles/1804176-ccss-vs-readability-how-does-quill-sort-activities"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt="Question mark icon"
+                    src="undefined/images/icons/icons-help.svg"
+                  />
+                </a>
+              </h2>
+              <span />
+            </div>
+            <div
+              className="slider-wrapper"
+            >
+              <label
+                htmlFor="ccss-grade-level-slider"
               >
-                <div
-                  className="track"
-                  style={
-                    Object {
-                      "background": "linear-gradient(to right, #dbdbdb 0%, #dbdbdb 0%, #06806b 0%, #06806b 100%, #dbdbdb 100%, #dbdbdb 100%)",
-                    }
+                Standard: 
+                1
+                 - 
+                11
+                 Grade Level
+              </label>
+              <TwoThumbSlider
+                handleChange={[Function]}
+                id="ccss-grade-level-slider"
+                lowerValue={1}
+                markLabels={
+                  Array [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    8,
+                    9,
+                    10,
+                    11,
+                  ]
+                }
+                maxValue={11}
+                minValue={1}
+                step={1}
+                upperValue={11}
+              >
+                <Slider
+                  className="slider-container two-thumb-slider-container"
+                  handleChange={[Function]}
+                  id="ccss-grade-level-slider"
+                  markLabels={
+                    Array [
+                      1,
+                      2,
+                      3,
+                      4,
+                      5,
+                      6,
+                      7,
+                      8,
+                      9,
+                      10,
+                      11,
+                    ]
+                  }
+                  maxValue={11}
+                  minValue={1}
+                  step={1}
+                  trackColors={
+                    Array [
+                      "#dbdbdb",
+                      "#06806b",
+                      "#dbdbdb",
+                    ]
+                  }
+                  values={
+                    Array [
+                      1,
+                      11,
+                    ]
                   }
                 >
-                  <Mark
-                    index={0}
-                    markLabels={
-                      Array [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5,
-                        6,
-                        7,
-                        8,
-                        9,
-                        10,
-                        11,
-                      ]
-                    }
-                    props={
+                  <div
+                    className="slider-container two-thumb-slider-container"
+                    id="ccss-grade-level-slider"
+                    style={
                       Object {
-                        "key": "mark0",
-                        "ref": Object {
-                          "current": <div
-                            class="mark first-mark"
-                            style="position: absolute;"
-                          >
-                            1
-                          </div>,
-                        },
-                        "style": Object {
-                          "left": "NaNpx",
-                          "marginTop": "NaNpx",
-                          "position": "absolute",
-                        },
+                        "display": "flex",
+                        "flexWrap": "wrap",
+                        "justifyContent": "center",
                       }
                     }
                   >
-                    <div
-                      className="mark first-mark"
-                      key="mark0"
-                      style={
-                        Object {
-                          "left": "NaNpx",
-                          "marginTop": "NaNpx",
-                          "position": "absolute",
-                        }
+                    <Range
+                      allowOverlap={false}
+                      direction="to right"
+                      disabled={false}
+                      draggableTrack={false}
+                      max={11}
+                      min={1}
+                      onChange={[Function]}
+                      renderMark={[Function]}
+                      renderThumb={[Function]}
+                      renderTrack={[Function]}
+                      rtl={false}
+                      step={1}
+                      values={
+                        Array [
+                          1,
+                          11,
+                        ]
                       }
                     >
-                      1
-                    </div>
-                  </Mark>
-                  <Mark
-                    index={1}
-                    markLabels={
-                      Array [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5,
-                        6,
-                        7,
-                        8,
-                        9,
-                        10,
-                        11,
-                      ]
-                    }
-                    props={
-                      Object {
-                        "key": "mark1",
-                        "ref": Object {
-                          "current": <div
-                            class="mark"
-                            style="position: absolute;"
+                      <Track
+                        colors={
+                          Array [
+                            "#dbdbdb",
+                            "#06806b",
+                            "#dbdbdb",
+                          ]
+                        }
+                        maxValue={11}
+                        minValue={1}
+                        props={
+                          Object {
+                            "onMouseDown": [Function],
+                            "onTouchStart": [Function],
+                            "ref": Object {
+                              "current": <div
+                                class="track"
+                              >
+                                <div
+                                  class="mark first-mark"
+                                  style="position: absolute;"
+                                >
+                                  1
+                                </div>
+                                <div
+                                  class="mark"
+                                  style="position: absolute;"
+                                >
+                                  2
+                                </div>
+                                <div
+                                  class="mark"
+                                  style="position: absolute;"
+                                >
+                                  3
+                                </div>
+                                <div
+                                  class="mark"
+                                  style="position: absolute;"
+                                >
+                                  4
+                                </div>
+                                <div
+                                  class="mark"
+                                  style="position: absolute;"
+                                >
+                                  5
+                                </div>
+                                <div
+                                  class="mark"
+                                  style="position: absolute;"
+                                >
+                                  6
+                                </div>
+                                <div
+                                  class="mark"
+                                  style="position: absolute;"
+                                >
+                                  7
+                                </div>
+                                <div
+                                  class="mark"
+                                  style="position: absolute;"
+                                >
+                                  8
+                                </div>
+                                <div
+                                  class="mark"
+                                  style="position: absolute;"
+                                >
+                                  9
+                                </div>
+                                <div
+                                  class="mark"
+                                  style="position: absolute;"
+                                >
+                                  10
+                                </div>
+                                <div
+                                  class="mark last-mark"
+                                  style="position: absolute;"
+                                >
+                                  11
+                                </div>
+                                <div
+                                  aria-valuemax="11"
+                                  aria-valuemin="1"
+                                  aria-valuenow="1"
+                                  class="thumb"
+                                  draggable="false"
+                                  role="slider"
+                                  style="position: absolute; z-index: 0; cursor: grab; user-select: none; transform: translate(NaNpx, NaNpx);"
+                                  tabindex="0"
+                                />
+                                <div
+                                  aria-valuemax="11"
+                                  aria-valuemin="1"
+                                  aria-valuenow="11"
+                                  class="thumb"
+                                  draggable="false"
+                                  role="slider"
+                                  style="position: absolute; z-index: 1; cursor: grab; user-select: none; transform: translate(NaNpx, NaNpx);"
+                                  tabindex="0"
+                                />
+                              </div>,
+                            },
+                            "style": Object {
+                              "cursor": "inherit",
+                              "transform": "scale(1)",
+                            },
+                          }
+                        }
+                        values={
+                          Array [
+                            1,
+                            11,
+                          ]
+                        }
+                      >
+                        <div
+                          className="track-container"
+                          onMouseDown={[Function]}
+                          onTouchStart={[Function]}
+                          style={
+                            Object {
+                              "cursor": "inherit",
+                              "transform": "scale(1)",
+                            }
+                          }
+                        >
+                          <div
+                            className="track"
+                            style={
+                              Object {
+                                "background": "linear-gradient(to right, #dbdbdb 0%, #dbdbdb 0%, #06806b 0%, #06806b 100%, #dbdbdb 100%, #dbdbdb 100%)",
+                              }
+                            }
                           >
-                            2
-                          </div>,
-                        },
-                        "style": Object {
-                          "left": "NaNpx",
-                          "marginTop": "NaNpx",
-                          "position": "absolute",
-                        },
-                      }
-                    }
-                  >
-                    <div
-                      className="mark"
-                      key="mark1"
-                      style={
-                        Object {
-                          "left": "NaNpx",
-                          "marginTop": "NaNpx",
-                          "position": "absolute",
-                        }
-                      }
-                    >
-                      2
-                    </div>
-                  </Mark>
-                  <Mark
-                    index={2}
-                    markLabels={
-                      Array [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5,
-                        6,
-                        7,
-                        8,
-                        9,
-                        10,
-                        11,
-                      ]
-                    }
-                    props={
-                      Object {
-                        "key": "mark2",
-                        "ref": Object {
-                          "current": <div
-                            class="mark"
-                            style="position: absolute;"
-                          >
-                            3
-                          </div>,
-                        },
-                        "style": Object {
-                          "left": "NaNpx",
-                          "marginTop": "NaNpx",
-                          "position": "absolute",
-                        },
-                      }
-                    }
-                  >
-                    <div
-                      className="mark"
-                      key="mark2"
-                      style={
-                        Object {
-                          "left": "NaNpx",
-                          "marginTop": "NaNpx",
-                          "position": "absolute",
-                        }
-                      }
-                    >
-                      3
-                    </div>
-                  </Mark>
-                  <Mark
-                    index={3}
-                    markLabels={
-                      Array [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5,
-                        6,
-                        7,
-                        8,
-                        9,
-                        10,
-                        11,
-                      ]
-                    }
-                    props={
-                      Object {
-                        "key": "mark3",
-                        "ref": Object {
-                          "current": <div
-                            class="mark"
-                            style="position: absolute;"
-                          >
-                            4
-                          </div>,
-                        },
-                        "style": Object {
-                          "left": "NaNpx",
-                          "marginTop": "NaNpx",
-                          "position": "absolute",
-                        },
-                      }
-                    }
-                  >
-                    <div
-                      className="mark"
-                      key="mark3"
-                      style={
-                        Object {
-                          "left": "NaNpx",
-                          "marginTop": "NaNpx",
-                          "position": "absolute",
-                        }
-                      }
-                    >
-                      4
-                    </div>
-                  </Mark>
-                  <Mark
-                    index={4}
-                    markLabels={
-                      Array [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5,
-                        6,
-                        7,
-                        8,
-                        9,
-                        10,
-                        11,
-                      ]
-                    }
-                    props={
-                      Object {
-                        "key": "mark4",
-                        "ref": Object {
-                          "current": <div
-                            class="mark"
-                            style="position: absolute;"
-                          >
-                            5
-                          </div>,
-                        },
-                        "style": Object {
-                          "left": "NaNpx",
-                          "marginTop": "NaNpx",
-                          "position": "absolute",
-                        },
-                      }
-                    }
-                  >
-                    <div
-                      className="mark"
-                      key="mark4"
-                      style={
-                        Object {
-                          "left": "NaNpx",
-                          "marginTop": "NaNpx",
-                          "position": "absolute",
-                        }
-                      }
-                    >
-                      5
-                    </div>
-                  </Mark>
-                  <Mark
-                    index={5}
-                    markLabels={
-                      Array [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5,
-                        6,
-                        7,
-                        8,
-                        9,
-                        10,
-                        11,
-                      ]
-                    }
-                    props={
-                      Object {
-                        "key": "mark5",
-                        "ref": Object {
-                          "current": <div
-                            class="mark"
-                            style="position: absolute;"
-                          >
-                            6
-                          </div>,
-                        },
-                        "style": Object {
-                          "left": "NaNpx",
-                          "marginTop": "NaNpx",
-                          "position": "absolute",
-                        },
-                      }
-                    }
-                  >
-                    <div
-                      className="mark"
-                      key="mark5"
-                      style={
-                        Object {
-                          "left": "NaNpx",
-                          "marginTop": "NaNpx",
-                          "position": "absolute",
-                        }
-                      }
-                    >
-                      6
-                    </div>
-                  </Mark>
-                  <Mark
-                    index={6}
-                    markLabels={
-                      Array [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5,
-                        6,
-                        7,
-                        8,
-                        9,
-                        10,
-                        11,
-                      ]
-                    }
-                    props={
-                      Object {
-                        "key": "mark6",
-                        "ref": Object {
-                          "current": <div
-                            class="mark"
-                            style="position: absolute;"
-                          >
-                            7
-                          </div>,
-                        },
-                        "style": Object {
-                          "left": "NaNpx",
-                          "marginTop": "NaNpx",
-                          "position": "absolute",
-                        },
-                      }
-                    }
-                  >
-                    <div
-                      className="mark"
-                      key="mark6"
-                      style={
-                        Object {
-                          "left": "NaNpx",
-                          "marginTop": "NaNpx",
-                          "position": "absolute",
-                        }
-                      }
-                    >
-                      7
-                    </div>
-                  </Mark>
-                  <Mark
-                    index={7}
-                    markLabels={
-                      Array [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5,
-                        6,
-                        7,
-                        8,
-                        9,
-                        10,
-                        11,
-                      ]
-                    }
-                    props={
-                      Object {
-                        "key": "mark7",
-                        "ref": Object {
-                          "current": <div
-                            class="mark"
-                            style="position: absolute;"
-                          >
-                            8
-                          </div>,
-                        },
-                        "style": Object {
-                          "left": "NaNpx",
-                          "marginTop": "NaNpx",
-                          "position": "absolute",
-                        },
-                      }
-                    }
-                  >
-                    <div
-                      className="mark"
-                      key="mark7"
-                      style={
-                        Object {
-                          "left": "NaNpx",
-                          "marginTop": "NaNpx",
-                          "position": "absolute",
-                        }
-                      }
-                    >
-                      8
-                    </div>
-                  </Mark>
-                  <Mark
-                    index={8}
-                    markLabels={
-                      Array [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5,
-                        6,
-                        7,
-                        8,
-                        9,
-                        10,
-                        11,
-                      ]
-                    }
-                    props={
-                      Object {
-                        "key": "mark8",
-                        "ref": Object {
-                          "current": <div
-                            class="mark"
-                            style="position: absolute;"
-                          >
-                            9
-                          </div>,
-                        },
-                        "style": Object {
-                          "left": "NaNpx",
-                          "marginTop": "NaNpx",
-                          "position": "absolute",
-                        },
-                      }
-                    }
-                  >
-                    <div
-                      className="mark"
-                      key="mark8"
-                      style={
-                        Object {
-                          "left": "NaNpx",
-                          "marginTop": "NaNpx",
-                          "position": "absolute",
-                        }
-                      }
-                    >
-                      9
-                    </div>
-                  </Mark>
-                  <Mark
-                    index={9}
-                    markLabels={
-                      Array [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5,
-                        6,
-                        7,
-                        8,
-                        9,
-                        10,
-                        11,
-                      ]
-                    }
-                    props={
-                      Object {
-                        "key": "mark9",
-                        "ref": Object {
-                          "current": <div
-                            class="mark"
-                            style="position: absolute;"
-                          >
-                            10
-                          </div>,
-                        },
-                        "style": Object {
-                          "left": "NaNpx",
-                          "marginTop": "NaNpx",
-                          "position": "absolute",
-                        },
-                      }
-                    }
-                  >
-                    <div
-                      className="mark"
-                      key="mark9"
-                      style={
-                        Object {
-                          "left": "NaNpx",
-                          "marginTop": "NaNpx",
-                          "position": "absolute",
-                        }
-                      }
-                    >
-                      10
-                    </div>
-                  </Mark>
-                  <Mark
-                    index={10}
-                    markLabels={
-                      Array [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5,
-                        6,
-                        7,
-                        8,
-                        9,
-                        10,
-                        11,
-                      ]
-                    }
-                    props={
-                      Object {
-                        "key": "mark10",
-                        "ref": Object {
-                          "current": <div
-                            class="mark last-mark"
-                            style="position: absolute;"
-                          >
-                            11
-                          </div>,
-                        },
-                        "style": Object {
-                          "left": "NaNpx",
-                          "marginTop": "NaNpx",
-                          "position": "absolute",
-                        },
-                      }
-                    }
-                  >
-                    <div
-                      className="mark last-mark"
-                      key="mark10"
-                      style={
-                        Object {
-                          "left": "NaNpx",
-                          "marginTop": "NaNpx",
-                          "position": "absolute",
-                        }
-                      }
-                    >
-                      11
-                    </div>
-                  </Mark>
-                  <Thumb
-                    props={
-                      Object {
-                        "aria-valuemax": 11,
-                        "aria-valuemin": 1,
-                        "aria-valuenow": 1,
-                        "draggable": false,
-                        "key": 0,
-                        "onKeyDown": [Function],
-                        "onKeyUp": [Function],
-                        "ref": Object {
-                          "current": <div
-                            aria-valuemax="11"
-                            aria-valuemin="1"
-                            aria-valuenow="1"
-                            class="thumb"
-                            draggable="false"
-                            role="slider"
-                            style="position: absolute; z-index: 0; cursor: grab; user-select: none; transform: translate(NaNpx, NaNpx);"
-                            tabindex="0"
-                          />,
-                        },
-                        "role": "slider",
-                        "style": Object {
-                          "MozUserSelect": "none",
-                          "WebkitUserSelect": "none",
-                          "cursor": "grab",
-                          "msUserSelect": "none",
-                          "position": "absolute",
-                          "touchAction": "none",
-                          "userSelect": "none",
-                          "zIndex": 0,
-                        },
-                        "tabIndex": 0,
-                      }
-                    }
-                  >
-                    <div
-                      aria-valuemax={11}
-                      aria-valuemin={1}
-                      aria-valuenow={1}
-                      className="thumb"
-                      draggable={false}
-                      key="0"
-                      onKeyDown={[Function]}
-                      onKeyUp={[Function]}
-                      role="slider"
-                      style={
-                        Object {
-                          "MozUserSelect": "none",
-                          "WebkitUserSelect": "none",
-                          "cursor": "grab",
-                          "msUserSelect": "none",
-                          "position": "absolute",
-                          "touchAction": "none",
-                          "userSelect": "none",
-                          "zIndex": 0,
-                        }
-                      }
-                      tabIndex={0}
-                    />
-                  </Thumb>
-                  <Thumb
-                    props={
-                      Object {
-                        "aria-valuemax": 11,
-                        "aria-valuemin": 1,
-                        "aria-valuenow": 11,
-                        "draggable": false,
-                        "key": 1,
-                        "onKeyDown": [Function],
-                        "onKeyUp": [Function],
-                        "ref": Object {
-                          "current": <div
-                            aria-valuemax="11"
-                            aria-valuemin="1"
-                            aria-valuenow="11"
-                            class="thumb"
-                            draggable="false"
-                            role="slider"
-                            style="position: absolute; z-index: 1; cursor: grab; user-select: none; transform: translate(NaNpx, NaNpx);"
-                            tabindex="0"
-                          />,
-                        },
-                        "role": "slider",
-                        "style": Object {
-                          "MozUserSelect": "none",
-                          "WebkitUserSelect": "none",
-                          "cursor": "grab",
-                          "msUserSelect": "none",
-                          "position": "absolute",
-                          "touchAction": "none",
-                          "userSelect": "none",
-                          "zIndex": 1,
-                        },
-                        "tabIndex": 0,
-                      }
-                    }
-                  >
-                    <div
-                      aria-valuemax={11}
-                      aria-valuemin={1}
-                      aria-valuenow={11}
-                      className="thumb"
-                      draggable={false}
-                      key="1"
-                      onKeyDown={[Function]}
-                      onKeyUp={[Function]}
-                      role="slider"
-                      style={
-                        Object {
-                          "MozUserSelect": "none",
-                          "WebkitUserSelect": "none",
-                          "cursor": "grab",
-                          "msUserSelect": "none",
-                          "position": "absolute",
-                          "touchAction": "none",
-                          "userSelect": "none",
-                          "zIndex": 1,
-                        }
-                      }
-                      tabIndex={0}
-                    />
-                  </Thumb>
-                </div>
-              </div>
-            </Track>
-          </Range>
-        </div>
-      </TwoThumbSlider>
-    </div>
+                            <Mark
+                              index={0}
+                              markLabels={
+                                Array [
+                                  1,
+                                  2,
+                                  3,
+                                  4,
+                                  5,
+                                  6,
+                                  7,
+                                  8,
+                                  9,
+                                  10,
+                                  11,
+                                ]
+                              }
+                              props={
+                                Object {
+                                  "key": "mark0",
+                                  "ref": Object {
+                                    "current": <div
+                                      class="mark first-mark"
+                                      style="position: absolute;"
+                                    >
+                                      1
+                                    </div>,
+                                  },
+                                  "style": Object {
+                                    "left": "NaNpx",
+                                    "marginTop": "NaNpx",
+                                    "position": "absolute",
+                                  },
+                                }
+                              }
+                            >
+                              <div
+                                className="mark first-mark"
+                                key="mark0"
+                                style={
+                                  Object {
+                                    "left": "NaNpx",
+                                    "marginTop": "NaNpx",
+                                    "position": "absolute",
+                                  }
+                                }
+                              >
+                                1
+                              </div>
+                            </Mark>
+                            <Mark
+                              index={1}
+                              markLabels={
+                                Array [
+                                  1,
+                                  2,
+                                  3,
+                                  4,
+                                  5,
+                                  6,
+                                  7,
+                                  8,
+                                  9,
+                                  10,
+                                  11,
+                                ]
+                              }
+                              props={
+                                Object {
+                                  "key": "mark1",
+                                  "ref": Object {
+                                    "current": <div
+                                      class="mark"
+                                      style="position: absolute;"
+                                    >
+                                      2
+                                    </div>,
+                                  },
+                                  "style": Object {
+                                    "left": "NaNpx",
+                                    "marginTop": "NaNpx",
+                                    "position": "absolute",
+                                  },
+                                }
+                              }
+                            >
+                              <div
+                                className="mark"
+                                key="mark1"
+                                style={
+                                  Object {
+                                    "left": "NaNpx",
+                                    "marginTop": "NaNpx",
+                                    "position": "absolute",
+                                  }
+                                }
+                              >
+                                2
+                              </div>
+                            </Mark>
+                            <Mark
+                              index={2}
+                              markLabels={
+                                Array [
+                                  1,
+                                  2,
+                                  3,
+                                  4,
+                                  5,
+                                  6,
+                                  7,
+                                  8,
+                                  9,
+                                  10,
+                                  11,
+                                ]
+                              }
+                              props={
+                                Object {
+                                  "key": "mark2",
+                                  "ref": Object {
+                                    "current": <div
+                                      class="mark"
+                                      style="position: absolute;"
+                                    >
+                                      3
+                                    </div>,
+                                  },
+                                  "style": Object {
+                                    "left": "NaNpx",
+                                    "marginTop": "NaNpx",
+                                    "position": "absolute",
+                                  },
+                                }
+                              }
+                            >
+                              <div
+                                className="mark"
+                                key="mark2"
+                                style={
+                                  Object {
+                                    "left": "NaNpx",
+                                    "marginTop": "NaNpx",
+                                    "position": "absolute",
+                                  }
+                                }
+                              >
+                                3
+                              </div>
+                            </Mark>
+                            <Mark
+                              index={3}
+                              markLabels={
+                                Array [
+                                  1,
+                                  2,
+                                  3,
+                                  4,
+                                  5,
+                                  6,
+                                  7,
+                                  8,
+                                  9,
+                                  10,
+                                  11,
+                                ]
+                              }
+                              props={
+                                Object {
+                                  "key": "mark3",
+                                  "ref": Object {
+                                    "current": <div
+                                      class="mark"
+                                      style="position: absolute;"
+                                    >
+                                      4
+                                    </div>,
+                                  },
+                                  "style": Object {
+                                    "left": "NaNpx",
+                                    "marginTop": "NaNpx",
+                                    "position": "absolute",
+                                  },
+                                }
+                              }
+                            >
+                              <div
+                                className="mark"
+                                key="mark3"
+                                style={
+                                  Object {
+                                    "left": "NaNpx",
+                                    "marginTop": "NaNpx",
+                                    "position": "absolute",
+                                  }
+                                }
+                              >
+                                4
+                              </div>
+                            </Mark>
+                            <Mark
+                              index={4}
+                              markLabels={
+                                Array [
+                                  1,
+                                  2,
+                                  3,
+                                  4,
+                                  5,
+                                  6,
+                                  7,
+                                  8,
+                                  9,
+                                  10,
+                                  11,
+                                ]
+                              }
+                              props={
+                                Object {
+                                  "key": "mark4",
+                                  "ref": Object {
+                                    "current": <div
+                                      class="mark"
+                                      style="position: absolute;"
+                                    >
+                                      5
+                                    </div>,
+                                  },
+                                  "style": Object {
+                                    "left": "NaNpx",
+                                    "marginTop": "NaNpx",
+                                    "position": "absolute",
+                                  },
+                                }
+                              }
+                            >
+                              <div
+                                className="mark"
+                                key="mark4"
+                                style={
+                                  Object {
+                                    "left": "NaNpx",
+                                    "marginTop": "NaNpx",
+                                    "position": "absolute",
+                                  }
+                                }
+                              >
+                                5
+                              </div>
+                            </Mark>
+                            <Mark
+                              index={5}
+                              markLabels={
+                                Array [
+                                  1,
+                                  2,
+                                  3,
+                                  4,
+                                  5,
+                                  6,
+                                  7,
+                                  8,
+                                  9,
+                                  10,
+                                  11,
+                                ]
+                              }
+                              props={
+                                Object {
+                                  "key": "mark5",
+                                  "ref": Object {
+                                    "current": <div
+                                      class="mark"
+                                      style="position: absolute;"
+                                    >
+                                      6
+                                    </div>,
+                                  },
+                                  "style": Object {
+                                    "left": "NaNpx",
+                                    "marginTop": "NaNpx",
+                                    "position": "absolute",
+                                  },
+                                }
+                              }
+                            >
+                              <div
+                                className="mark"
+                                key="mark5"
+                                style={
+                                  Object {
+                                    "left": "NaNpx",
+                                    "marginTop": "NaNpx",
+                                    "position": "absolute",
+                                  }
+                                }
+                              >
+                                6
+                              </div>
+                            </Mark>
+                            <Mark
+                              index={6}
+                              markLabels={
+                                Array [
+                                  1,
+                                  2,
+                                  3,
+                                  4,
+                                  5,
+                                  6,
+                                  7,
+                                  8,
+                                  9,
+                                  10,
+                                  11,
+                                ]
+                              }
+                              props={
+                                Object {
+                                  "key": "mark6",
+                                  "ref": Object {
+                                    "current": <div
+                                      class="mark"
+                                      style="position: absolute;"
+                                    >
+                                      7
+                                    </div>,
+                                  },
+                                  "style": Object {
+                                    "left": "NaNpx",
+                                    "marginTop": "NaNpx",
+                                    "position": "absolute",
+                                  },
+                                }
+                              }
+                            >
+                              <div
+                                className="mark"
+                                key="mark6"
+                                style={
+                                  Object {
+                                    "left": "NaNpx",
+                                    "marginTop": "NaNpx",
+                                    "position": "absolute",
+                                  }
+                                }
+                              >
+                                7
+                              </div>
+                            </Mark>
+                            <Mark
+                              index={7}
+                              markLabels={
+                                Array [
+                                  1,
+                                  2,
+                                  3,
+                                  4,
+                                  5,
+                                  6,
+                                  7,
+                                  8,
+                                  9,
+                                  10,
+                                  11,
+                                ]
+                              }
+                              props={
+                                Object {
+                                  "key": "mark7",
+                                  "ref": Object {
+                                    "current": <div
+                                      class="mark"
+                                      style="position: absolute;"
+                                    >
+                                      8
+                                    </div>,
+                                  },
+                                  "style": Object {
+                                    "left": "NaNpx",
+                                    "marginTop": "NaNpx",
+                                    "position": "absolute",
+                                  },
+                                }
+                              }
+                            >
+                              <div
+                                className="mark"
+                                key="mark7"
+                                style={
+                                  Object {
+                                    "left": "NaNpx",
+                                    "marginTop": "NaNpx",
+                                    "position": "absolute",
+                                  }
+                                }
+                              >
+                                8
+                              </div>
+                            </Mark>
+                            <Mark
+                              index={8}
+                              markLabels={
+                                Array [
+                                  1,
+                                  2,
+                                  3,
+                                  4,
+                                  5,
+                                  6,
+                                  7,
+                                  8,
+                                  9,
+                                  10,
+                                  11,
+                                ]
+                              }
+                              props={
+                                Object {
+                                  "key": "mark8",
+                                  "ref": Object {
+                                    "current": <div
+                                      class="mark"
+                                      style="position: absolute;"
+                                    >
+                                      9
+                                    </div>,
+                                  },
+                                  "style": Object {
+                                    "left": "NaNpx",
+                                    "marginTop": "NaNpx",
+                                    "position": "absolute",
+                                  },
+                                }
+                              }
+                            >
+                              <div
+                                className="mark"
+                                key="mark8"
+                                style={
+                                  Object {
+                                    "left": "NaNpx",
+                                    "marginTop": "NaNpx",
+                                    "position": "absolute",
+                                  }
+                                }
+                              >
+                                9
+                              </div>
+                            </Mark>
+                            <Mark
+                              index={9}
+                              markLabels={
+                                Array [
+                                  1,
+                                  2,
+                                  3,
+                                  4,
+                                  5,
+                                  6,
+                                  7,
+                                  8,
+                                  9,
+                                  10,
+                                  11,
+                                ]
+                              }
+                              props={
+                                Object {
+                                  "key": "mark9",
+                                  "ref": Object {
+                                    "current": <div
+                                      class="mark"
+                                      style="position: absolute;"
+                                    >
+                                      10
+                                    </div>,
+                                  },
+                                  "style": Object {
+                                    "left": "NaNpx",
+                                    "marginTop": "NaNpx",
+                                    "position": "absolute",
+                                  },
+                                }
+                              }
+                            >
+                              <div
+                                className="mark"
+                                key="mark9"
+                                style={
+                                  Object {
+                                    "left": "NaNpx",
+                                    "marginTop": "NaNpx",
+                                    "position": "absolute",
+                                  }
+                                }
+                              >
+                                10
+                              </div>
+                            </Mark>
+                            <Mark
+                              index={10}
+                              markLabels={
+                                Array [
+                                  1,
+                                  2,
+                                  3,
+                                  4,
+                                  5,
+                                  6,
+                                  7,
+                                  8,
+                                  9,
+                                  10,
+                                  11,
+                                ]
+                              }
+                              props={
+                                Object {
+                                  "key": "mark10",
+                                  "ref": Object {
+                                    "current": <div
+                                      class="mark last-mark"
+                                      style="position: absolute;"
+                                    >
+                                      11
+                                    </div>,
+                                  },
+                                  "style": Object {
+                                    "left": "NaNpx",
+                                    "marginTop": "NaNpx",
+                                    "position": "absolute",
+                                  },
+                                }
+                              }
+                            >
+                              <div
+                                className="mark last-mark"
+                                key="mark10"
+                                style={
+                                  Object {
+                                    "left": "NaNpx",
+                                    "marginTop": "NaNpx",
+                                    "position": "absolute",
+                                  }
+                                }
+                              >
+                                11
+                              </div>
+                            </Mark>
+                            <Thumb
+                              props={
+                                Object {
+                                  "aria-valuemax": 11,
+                                  "aria-valuemin": 1,
+                                  "aria-valuenow": 1,
+                                  "draggable": false,
+                                  "key": 0,
+                                  "onKeyDown": [Function],
+                                  "onKeyUp": [Function],
+                                  "ref": Object {
+                                    "current": <div
+                                      aria-valuemax="11"
+                                      aria-valuemin="1"
+                                      aria-valuenow="1"
+                                      class="thumb"
+                                      draggable="false"
+                                      role="slider"
+                                      style="position: absolute; z-index: 0; cursor: grab; user-select: none; transform: translate(NaNpx, NaNpx);"
+                                      tabindex="0"
+                                    />,
+                                  },
+                                  "role": "slider",
+                                  "style": Object {
+                                    "MozUserSelect": "none",
+                                    "WebkitUserSelect": "none",
+                                    "cursor": "grab",
+                                    "msUserSelect": "none",
+                                    "position": "absolute",
+                                    "touchAction": "none",
+                                    "userSelect": "none",
+                                    "zIndex": 0,
+                                  },
+                                  "tabIndex": 0,
+                                }
+                              }
+                            >
+                              <div
+                                aria-valuemax={11}
+                                aria-valuemin={1}
+                                aria-valuenow={1}
+                                className="thumb"
+                                draggable={false}
+                                key="0"
+                                onKeyDown={[Function]}
+                                onKeyUp={[Function]}
+                                role="slider"
+                                style={
+                                  Object {
+                                    "MozUserSelect": "none",
+                                    "WebkitUserSelect": "none",
+                                    "cursor": "grab",
+                                    "msUserSelect": "none",
+                                    "position": "absolute",
+                                    "touchAction": "none",
+                                    "userSelect": "none",
+                                    "zIndex": 0,
+                                  }
+                                }
+                                tabIndex={0}
+                              />
+                            </Thumb>
+                            <Thumb
+                              props={
+                                Object {
+                                  "aria-valuemax": 11,
+                                  "aria-valuemin": 1,
+                                  "aria-valuenow": 11,
+                                  "draggable": false,
+                                  "key": 1,
+                                  "onKeyDown": [Function],
+                                  "onKeyUp": [Function],
+                                  "ref": Object {
+                                    "current": <div
+                                      aria-valuemax="11"
+                                      aria-valuemin="1"
+                                      aria-valuenow="11"
+                                      class="thumb"
+                                      draggable="false"
+                                      role="slider"
+                                      style="position: absolute; z-index: 1; cursor: grab; user-select: none; transform: translate(NaNpx, NaNpx);"
+                                      tabindex="0"
+                                    />,
+                                  },
+                                  "role": "slider",
+                                  "style": Object {
+                                    "MozUserSelect": "none",
+                                    "WebkitUserSelect": "none",
+                                    "cursor": "grab",
+                                    "msUserSelect": "none",
+                                    "position": "absolute",
+                                    "touchAction": "none",
+                                    "userSelect": "none",
+                                    "zIndex": 1,
+                                  },
+                                  "tabIndex": 0,
+                                }
+                              }
+                            >
+                              <div
+                                aria-valuemax={11}
+                                aria-valuemin={1}
+                                aria-valuenow={11}
+                                className="thumb"
+                                draggable={false}
+                                key="1"
+                                onKeyDown={[Function]}
+                                onKeyUp={[Function]}
+                                role="slider"
+                                style={
+                                  Object {
+                                    "MozUserSelect": "none",
+                                    "WebkitUserSelect": "none",
+                                    "cursor": "grab",
+                                    "msUserSelect": "none",
+                                    "position": "absolute",
+                                    "touchAction": "none",
+                                    "userSelect": "none",
+                                    "zIndex": 1,
+                                  }
+                                }
+                                tabIndex={0}
+                              />
+                            </Thumb>
+                          </div>
+                        </div>
+                      </Track>
+                    </Range>
+                  </div>
+                </Slider>
+              </TwoThumbSlider>
+            </div>
+          </div>
+        </span>
+        <span
+          className="quill-tooltip-wrapper"
+        >
+          <span
+            aria-live="polite"
+            className="quill-tooltip"
+          />
+        </span>
+      </span>
+    </Tooltip>
   </section>
 </CCSSGradeLevelFilters>
 `;

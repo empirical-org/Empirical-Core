@@ -102,11 +102,18 @@ class ChangeLog < ApplicationRecord
     update: 'Edited User',
     skipped_import: 'Skipped User import'
   }
+
   GENERIC_USER_ACTIONS = [
     'Visited User Directory',
     'Searched Users'
   ]
-  ALL_ACTIONS = USER_ACTIONS.values + CONCEPT_ACTIONS + TOPIC_ACTIONS + STANDARD_ACTIONS + STANDARD_CATEGORY_ACTIONS + STANDARD_LEVEL_ACTIONS + EVIDENCE_ACTIONS.values
+
+  RAKE_ACTIONS = [
+    SET_USER_ACCOUNT_TYPE_CLEVER = 'Set user account type clever',
+    SET_USER_ACCOUNT_TYPE_GOOGLE = 'Set user account type google'
+  ]
+
+  ALL_ACTIONS = USER_ACTIONS.values + CONCEPT_ACTIONS + TOPIC_ACTIONS + STANDARD_ACTIONS + STANDARD_CATEGORY_ACTIONS + STANDARD_LEVEL_ACTIONS + EVIDENCE_ACTIONS.values + RAKE_ACTIONS
 
   belongs_to :changed_record, polymorphic: true
   belongs_to :user

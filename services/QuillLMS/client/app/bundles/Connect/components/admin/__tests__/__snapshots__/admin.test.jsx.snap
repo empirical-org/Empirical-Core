@@ -1510,6 +1510,11 @@ exports[`adminContainer component should render with main sidebar when url does 
                                       alpha
                                     </option>
                                     <option
+                                      value="private"
+                                    >
+                                      private
+                                    </option>
+                                    <option
                                       value="beta"
                                     >
                                       beta
@@ -1520,6 +1525,21 @@ exports[`adminContainer component should render with main sidebar when url does 
                                       gamma
                                     </option>
                                     <option
+                                      value="evidence_beta1"
+                                    >
+                                      Evidence Beta 1
+                                    </option>
+                                    <option
+                                      value="evidence_beta2"
+                                    >
+                                      Evidence Beta 2
+                                    </option>
+                                    <option
+                                      value="college_board"
+                                    >
+                                      College Board
+                                    </option>
+                                    <option
                                       value="production"
                                     >
                                       production
@@ -1528,11 +1548,6 @@ exports[`adminContainer component should render with main sidebar when url does 
                                       value="archived"
                                     >
                                       archived
-                                    </option>
-                                    <option
-                                      value="private"
-                                    >
-                                      private
                                     </option>
                                   </select>
                                 </span>

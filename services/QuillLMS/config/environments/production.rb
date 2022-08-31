@@ -115,4 +115,18 @@ EmpiricalGrammar::Application.configure do
     'www.quill.org.' => 'www.quill.org',
     'quill.org' => 'www.quill.org'
   }
+
+  # Disable serving static files from the `/public` folder by default since
+  # Apache or NGINX already handles this.
+  config.public_file_server.enabled = ENV.fetch('RAILS_SERVE_STATIC_FILES', 'false') == 'true'
+
+  if ENV.fetch("RAILS_LOG_TO_STDOUT", 'false') == 'true'
+    logger = ActiveSupport::Logger.new($stdout)
+    logger.formatter = config.log_formatter
+    config.logger = ActiveSupport::TaggedLogging.new(logger)
+  end
+
+  config.active_record.database_selector = { delay: 2.seconds }
+  config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
+  config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
 end

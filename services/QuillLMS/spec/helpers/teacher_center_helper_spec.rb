@@ -20,11 +20,6 @@ describe TeacherCenterHelper do
       allow(helper).to receive(:current_user) { current_user }
     end
 
-    it 'should return the tabs without comprehension if app setting is false' do
-      create(:app_setting, name: "comprehension")
-      expect(helper.teacher_center_tabs).to eq tabs
-    end
-
     it 'should return the tabs with comprehension if app setting is true' do
       comprehension_tab = { id: "Using quill for reading comprehension", name: "Reading comprehension", url: "teacher-center/topic/using-quill-for-reading-comprehension" }
       app_setting.enabled = true
@@ -39,6 +34,7 @@ describe TeacherCenterHelper do
     let(:tabs) {
       [
         { id: "All resources", name: "All", url: "teacher-center" },
+        { id: BlogPost::USING_QUILL_FOR_READING_COMPREHENSION, name: 'Reading comprehension', url: 'teacher-center/topic/using-quill-for-reading-comprehension' },
         { id: "Getting started", name: "Getting started", url: "teacher-center/topic/getting-started" },
         { id: "Best practices", name: "Best practices", url: "teacher-center/topic/best-practices" },
         { id: "Writing instruction research", name: "Research", url: "teacher-center/topic/writing-instruction-research" },

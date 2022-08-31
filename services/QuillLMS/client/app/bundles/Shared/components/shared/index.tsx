@@ -55,6 +55,11 @@ export {
 } from './screenreaderInstructions'
 
 export {
+  OneThumbSlider,
+  TwoThumbSlider,
+} from './slider'
+
+export {
   SmartSpinner
 } from './smartSpinner'
 
@@ -90,10 +95,6 @@ export {
 export {
   Tooltip
 } from './tooltip'
-
-export {
-  TwoThumbSlider
-} from './twoThumbSlider'
 
 export {
   UploadOptimalResponses

@@ -16,6 +16,7 @@ const SchoolPricingMini = ({ plan, premiumFeatureData, showBadges, handleClickPu
       <div className="premium-button-container">
         <button
           className="quill-button contained medium primary focus-on-light"
+          href="https://quill.org/request_quote"
           onClick={handleClickPurchasingOptions}
           type="button"
         >
@@ -24,8 +25,8 @@ const SchoolPricingMini = ({ plan, premiumFeatureData, showBadges, handleClickPu
         <p>Request Quote or Buy Now</p>
       </div>
       {showBadges && <div className="school-premium-badge-container">
-        <div className="school-premium-badge"><img alt="Check icon" src={greenCheckSrc} /> 2 PD sessions</div>
-        <div className="school-premium-badge"><img alt="Check icon" src={greenCheckSrc} /> 3 coaching sessions</div>
+        <div className="school-premium-badge"><img alt="Check icon" src={greenCheckSrc} /> Onboarding training</div>
+        <div className="school-premium-badge"><img alt="Check icon" src={greenCheckSrc} /> 2 PD workshops</div>
         <div className="school-premium-badge"><img alt="Check icon" src={greenCheckSrc} /> Custom reports</div>
       </div>}
     </section>

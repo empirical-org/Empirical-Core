@@ -4,7 +4,11 @@ class Teachers::ClassroomsController < ApplicationController
   include CleverAuthable
 
   respond_to :json, :html, :pdf
+
+  around_action :force_writer_db_role, only: [:hide]
+
   before_action :teacher!
+
   # The excepted/only methods below are ones that should be accessible to coteachers.
   # TODO This authing could probably be refactored.
   before_action :authorize_owner!, only: [:update,  :transfer_ownership]
@@ -178,8 +182,6 @@ class Teachers::ClassroomsController < ApplicationController
   # rubocop:enable Metrics/CyclomaticComplexity
 
   private def format_classrooms_for_index
-    has_classroom_order = ClassroomsTeacher.where(user_id: current_user.id).all? { |classroom| classroom.order }
-
     classrooms = Classroom.unscoped
       .joins(:classrooms_teachers)
       .where(classrooms_teachers: {user_id: current_user.id})
@@ -188,7 +190,7 @@ class Teachers::ClassroomsController < ApplicationController
         coteacher_classroom_invitations: :invitation,
         classrooms_teachers: :user
       )
-      .order(has_classroom_order ? 'classrooms_teachers.order' : 'created_at DESC')
+      .order('classrooms_teachers.order ASC, created_at DESC')
 
     student_ids = classrooms.flat_map(&:students).map(&:id)
 

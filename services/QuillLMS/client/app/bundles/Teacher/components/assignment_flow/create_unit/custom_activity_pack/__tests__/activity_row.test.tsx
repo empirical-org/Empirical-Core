@@ -2,6 +2,7 @@ import * as React from 'react'
 import { mount } from 'enzyme';
 
 import { activities } from './data'
+
 import ActivityRow from '../activity_row'
 
 describe('ActivityRow component', () => {
@@ -12,7 +13,8 @@ describe('ActivityRow component', () => {
     toggleActivitySelection: () => {},
     showCheckbox: true,
     showRemoveButton: false,
-    setShowSnackbar: () => {}
+    setShowSnackbar: () => {},
+    gradeLevelFilters: []
   }
 
   describe('with showCheckbox true and showRemoveButton false', () => {

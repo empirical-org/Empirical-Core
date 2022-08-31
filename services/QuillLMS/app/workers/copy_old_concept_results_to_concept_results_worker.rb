@@ -8,8 +8,20 @@ class CopyOldConceptResultsToConceptResultsWorker
 
   BATCH_SIZE = 1_000
 
+  def perform(start, finish, batch_inserts)
+    return bulk_insert(start, finish) if batch_inserts
+
+    enqueue_individual_inserts(start, finish)
+  end
+
+  def enqueue_individual_inserts(start, finish)
+    (start..finish).each do |old_concept_result_id|
+      CopySingleConceptResultWorker.perform_async(old_concept_result_id)
+    end
+  end
+
   # rubocop:disable Metrics/CyclomaticComplexity
-  def perform(start, finish)
+  def bulk_insert(start, finish)
     directions_cache = {}
     instructions_cache = {}
     previous_feedbacks_cache = {}

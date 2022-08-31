@@ -75,6 +75,15 @@ EmpiricalGrammar::Application.routes.draw do
     post '/webhooks', to: 'webhooks#create'
   end
 
+  # Temporarily disabling this route to prevent creation of SalesFormSubmission
+  # records until we resolve how we want to handle 'sales-contact' User roles
+  # TODO: re-enable these after we figure that out
+  # Note, when this happens, we'll need to un-comment out all the tests in
+  # spec/controllers/intercom_integration/webhooks_controller_spec.rb
+  #namespace :intercom_integration do
+  #  post '/webhooks', to: 'webhooks#create'
+  #end
+
   get 'subscriptions/retrieve_stripe_subscription/:stripe_invoice_id',
     to: 'subscriptions#retrieve_stripe_subscription',
     stripe_invoice_id: /in_[A-Za-z0-9]{8,}/
@@ -240,6 +249,7 @@ EmpiricalGrammar::Application.routes.draw do
     get 'unset_preview_as_student', to: 'classroom_manager#unset_preview_as_student'
     get 'preview_as_student/:student_id', to: 'classroom_manager#preview_as_student'
     get 'view_demo', to: 'classroom_manager#view_demo'
+    get 'demo_id', to: 'classroom_manager#demo_id'
     get 'unset_view_demo', to: 'classroom_manager#unset_view_demo'
     get 'getting_started' => 'classroom_manager#getting_started'
     get 'add_students' => 'classroom_manager#generic_add_students'
@@ -449,6 +459,7 @@ EmpiricalGrammar::Application.routes.draw do
       get 'users/profile', to: 'users#profile'
       get 'users/current_user_and_coteachers', to: 'users#current_user_and_coteachers'
       get 'users/current_user_role', to: 'users#current_user_role'
+      get 'users/student_and_teacher_ids_for_session/:activity_session_uid', to: 'users#student_and_teacher_ids_for_session'
       post 'published_edition' => 'activities#published_edition'
       get 'progress_reports/activities_scores_by_classroom_data' => 'progress_reports#activities_scores_by_classroom_data'
       get 'progress_reports/district_activity_scores' => 'progress_reports#district_activity_scores'
@@ -514,9 +525,10 @@ EmpiricalGrammar::Application.routes.draw do
   get '/sign-up/add-k12', to: 'accounts#new'
   get '/sign-up/add-non-k12', to: 'accounts#new'
 
+  get Auth::Google::OFFLINE_ACCESS_CALLBACK_PATH => 'auth/google#offline_access_callback'
+  get Auth::Google::ONLINE_ACCESS_CALLBACK_PATH => 'auth/google#online_access_callback'
+
   namespace :auth do
-    get '/google_oauth2/callback' => 'google#authorization_and_authentication'
-    get '/google_oauth2_authentication_only/callback' => 'google#authentication'
     get '/clever/callback', to: 'clever#clever'
   end
 
@@ -690,7 +702,7 @@ EmpiricalGrammar::Application.routes.draw do
   get 'partners', to: redirect('/about')
   # End legacy route redirects.
 
-  tools = %w(diagnostic_tool connect_tool grammar_tool proofreader_tool lessons_tool)
+  tools = %w(diagnostic_tool connect_tool grammar_tool proofreader_tool lessons_tool evidence_tool)
   tools.each do |tool|
     get "tools/#{tool.chomp('_tool')}" => "pages##{tool}"
   end

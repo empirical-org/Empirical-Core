@@ -1,12 +1,13 @@
 import React from 'react';
 import request from 'request';
 
-import PasswordInfo from './password_info.jsx';
-
+import PasswordInfo from './password_info.jsx'
+import AuthGoogleAccessForm from '../AuthGoogleAccessForm';
 import PasswordWrapper from '../shared/password_wrapper'
 import AssignActivityPackBanner from '../assignActivityPackBanner'
-import getAuthToken from '../../modules/get_auth_token';
+import getAuthToken from '../../modules/get_auth_token'
 import { Input, } from '../../../../Shared/index'
+import { Snackbar } from '../../../../Shared/index'
 
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
 
@@ -47,11 +48,6 @@ class LoginFormApp extends React.Component {
   handleCleverClick = (e) => {
     const { cleverLink, } = this.props
     window.location.href = cleverLink
-  }
-
-  handleGoogleClick = (e) => {
-    const { googleLink, } = this.props
-    window.location.href = googleLink
   }
 
   handleKeyEnterOnSignUpLink = (e) => {
@@ -115,28 +111,46 @@ class LoginFormApp extends React.Component {
 
   renderKeepMeSignedIn = () => {
     const { keepMeSignedIn, } = this.state
+    const keepMeSignedInId = "keep-me-signed-in"
     let checkbox
     if (keepMeSignedIn) {
-      checkbox = <button aria-checked={true} className="quill-checkbox selected focus-on-light" onClick={this.handleToggleKeepMeSignedIn} onKeyDown={this.handleKeyDownOnToggleNewsletter} role="checkbox" type="button"><img alt="check" src={smallWhiteCheckSrc} /></button>
+      checkbox = <button aria-checked={true} aria-labelledby={keepMeSignedInId} className="quill-checkbox selected focus-on-light" onClick={this.handleToggleKeepMeSignedIn} onKeyDown={this.handleKeyDownOnToggleNewsletter} role="checkbox" type="button"><img alt="check" src={smallWhiteCheckSrc} /></button>
     } else {
-      checkbox = <button aria-checked={false} aria-label="Unchecked" className="quill-checkbox unselected focus-on-light" onClick={this.handleToggleKeepMeSignedIn} role="checkbox" type="button" />
+      checkbox = <button aria-checked={false} aria-labelledby={keepMeSignedInId} className="quill-checkbox unselected focus-on-light" onClick={this.handleToggleKeepMeSignedIn} role="checkbox" type="button" />
     }
-    return <div className="keep-me-signed-in-row">{checkbox} <p>Keep me signed in</p></div>
+    return <div className="keep-me-signed-in-row" id={keepMeSignedInId}>{checkbox} <p>Keep me signed in</p></div>
+  }
+
+  renderGoogleOfflineAccessConsent = () => {
+    return (
+      <div>
+        <div className="container account-form">
+          <h1>Sorry, Quill's access to your Google Account has expired. Please re-authorize access to continue.</h1>
+          <div className="account-container text-center" style={{minHeight: 0}}>
+            <div className="auth-section" style={{paddingBottom: 0}}>
+              <AuthGoogleAccessForm offlineAccess={true} text='Re-authorize Google' />
+            </div>
+          </div>
+        </div>
+      </div>
+    )
   }
 
   render() {
+    const { googleOfflineAccessExpired, expiredSessionRedirect } = this.props
     const { errors, email, password, timesSubmitted, authToken, } = this.state;
+
+    if (googleOfflineAccessExpired) { return this.renderGoogleOfflineAccessConsent() }
+
     return (
       <div>
+        {expiredSessionRedirect && <Snackbar text="Your session has expired. Please re-authenticate." visible={true} />}
         <AssignActivityPackBanner login={true} />
         <div className="container account-form">
           <h1>Good to see you again!</h1>
           <div className="account-container text-center">
             <div className="auth-section">
-              <button onClick={this.handleGoogleClick} type="button">
-                <img alt="Google icon" src={`${process.env.CDN_URL}/images/shared/google_icon.svg`} />
-                <span>Log in with Google</span>
-              </button>
+              <AuthGoogleAccessForm text='Log in with Google' />
               <button onClick={this.handleCleverClick} type="button">
                 <img alt="Clever icon" src={`${process.env.CDN_URL}/images/shared/clever_icon.svg`} />
                 <span>Log in with Clever</span>
@@ -188,7 +202,7 @@ class LoginFormApp extends React.Component {
           <PasswordInfo showHintBox={Object.keys(errors).length} />
         </div>
       </div>
-    );
+    )
   }
 }
 

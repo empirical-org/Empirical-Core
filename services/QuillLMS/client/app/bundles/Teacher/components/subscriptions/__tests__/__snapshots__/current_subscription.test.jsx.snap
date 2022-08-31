@@ -137,7 +137,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
                         >
                           <span
                             aria-hidden={false}
-                            className="quill-tooltip-trigger"
+                            className="quill-tooltip-trigger "
                             role="tooltip"
                           >
                             <span
@@ -405,7 +405,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
                         >
                           <span
                             aria-hidden={false}
-                            className="quill-tooltip-trigger"
+                            className="quill-tooltip-trigger "
                             role="tooltip"
                           >
                             <span
@@ -688,7 +688,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
                         >
                           <span
                             aria-hidden={false}
-                            className="quill-tooltip-trigger"
+                            className="quill-tooltip-trigger "
                             role="tooltip"
                           >
                             <span

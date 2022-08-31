@@ -49,7 +49,8 @@ describe ActivitySession, type: :model, redis: true do
   it { should have_many(:feedback_histories).through(:feedback_sessions) }
   it { should have_one(:classroom).through(:classroom_unit) }
   it { should have_one(:unit).through(:classroom_unit) }
-  it { should have_many(:concepts).through(:old_concept_results) }
+  it { should have_many(:concept_results) }
+  it { should have_many(:concepts).through(:concept_results) }
   it { should have_many(:teachers).through(:classroom) }
   it { should belong_to(:user) }
 
@@ -833,7 +834,12 @@ end
         concept_id: concept.id,
         metadata: metadata,
         question_type: 'lessons-slide'
-      })
+      }).and_call_original
+      ActivitySession.save_concept_results([activity_session], concept_results)
+    end
+
+    it 'should enqueue the creation of new concept results based on the OldConceptResult created' do
+      expect(SaveActivitySessionConceptResultsWorker).to receive(:perform_async)
       ActivitySession.save_concept_results([activity_session], concept_results)
     end
   end

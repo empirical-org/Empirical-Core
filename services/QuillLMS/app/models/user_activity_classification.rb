@@ -13,7 +13,7 @@
 #
 #  index_user_activity_classifications_on_classifications  (activity_classification_id)
 #  index_user_activity_classifications_on_user_id          (user_id)
-#  user_activity_classification_unique_index               (user_id,activity_classification_id)
+#  user_activity_classification_unique_index               (user_id,activity_classification_id) UNIQUE
 #
 # Foreign Keys
 #

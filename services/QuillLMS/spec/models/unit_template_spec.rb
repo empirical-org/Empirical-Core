@@ -58,7 +58,7 @@ describe UnitTemplate, redis: true, type: :model do
 
       unit_template = create(:unit_template, activity_ids: [activity_one.id, activity_two.id])
 
-      expect(unit_template.readability).to eq("4th-7th")
+      expect(unit_template.readability).to eq("2nd-7th")
     end
 
     it 'calculates readability as nil if the activities do not have readability' do
@@ -78,7 +78,38 @@ describe UnitTemplate, redis: true, type: :model do
 
       unit_template = create(:unit_template, activity_ids: [activity_one.id, activity_two.id])
 
-      expect(unit_template.readability).to eq("4th-5th")
+      expect(unit_template.readability).to eq("2nd-3rd")
+    end
+  end
+
+  describe '#grade_level_range' do
+
+    it 'calculates grade_level_range range across activities as the highest included grade level' do
+
+      activity_one = create(:activity, minimum_grade_level: 4, maximum_grade_level: 12)
+      activity_two = create(:activity, minimum_grade_level: 10, maximum_grade_level: 12)
+
+      unit_template = create(:unit_template, activity_ids: [activity_one.id, activity_two.id])
+
+      expect(unit_template.grade_level_range).to eq("10th-12th")
+    end
+
+    it 'calculates grade_level_range as nil if the activities do not have minimum grade levels' do
+      activity_one = create(:activity)
+      activity_two = create(:activity)
+
+      unit_template = create(:unit_template, activity_ids: [activity_one.id, activity_two.id])
+
+      expect(unit_template.grade_level_range).to eq(nil)
+    end
+
+    it 'calculates grade_level_range correctly if the activities all have the same grade_level_range' do
+      activity_one = create(:activity, minimum_grade_level: 6, maximum_grade_level: 12)
+      activity_two = create(:activity, minimum_grade_level: 6, maximum_grade_level: 12)
+
+      unit_template = create(:unit_template, activity_ids: [activity_one.id, activity_two.id])
+
+      expect(unit_template.grade_level_range).to eq("6th-12th")
     end
   end
 
@@ -225,27 +256,17 @@ describe UnitTemplate, redis: true, type: :model do
       expect(unit_template).to be_valid
     end
 
-    it "can equal gamma" do
-      unit_template.update(flag:'gamma')
+    it 'can equal the first value of Flags::FLAGS' do
+      unit_template.update(flag: Flags::FLAGS.first)
       expect(unit_template).to be_valid
     end
 
-    it "can equal beta" do
-      unit_template.update(flag:'beta')
+    it 'can equal the last value of Flags::FLAGS' do
+      unit_template.update(flag: Flags::FLAGS.last)
       expect(unit_template).to be_valid
     end
 
-    it "can equal alpha" do
-      unit_template.update(flag:'alpha')
-      expect(unit_template).to be_valid
-    end
-
-    it "can equal nil" do
-      unit_template.update(flag: nil)
-      expect(unit_template).to be_valid
-    end
-
-    it "cannot equal anything other than alpha, beta, gamma, production or nil" do
+    it "cannot equal gibberish" do
       unit_template.update(flag: 'sunglasses')
       expect(unit_template).to_not be_valid
     end

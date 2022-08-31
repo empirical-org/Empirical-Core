@@ -9,19 +9,6 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
---
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: -
---
-
-CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
-
-
---
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
-
 
 --
 -- Name: hstore; Type: EXTENSION; Schema: -; Owner: -
@@ -67,6 +54,18 @@ CREATE FUNCTION public.blog_posts_search_trigger() RETURNS trigger
         return new;
       end
       $$;
+
+
+--
+-- Name: my_jsonb_to_hstore(jsonb); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.my_jsonb_to_hstore(jsonb) RETURNS public.hstore
+    LANGUAGE sql IMMUTABLE STRICT
+    AS $_$
+            SELECT hstore(array_agg(key), array_agg(value))
+            FROM   jsonb_each_text($1)
+          $_$;
 
 
 --
@@ -124,7 +123,7 @@ CREATE FUNCTION public.timespent_question(act_sess integer, question character v
           item timestamp;
         BEGIN
           SELECT created_at INTO as_created_at FROM activity_sessions WHERE id = act_sess;
-          
+
           -- backward compatibility block
           IF as_created_at IS NULL OR as_created_at < timestamp '2013-08-25 00:00:00.000000' THEN
             SELECT SUM(
@@ -139,11 +138,11 @@ CREATE FUNCTION public.timespent_question(act_sess integer, question character v
                       'epoch' FROM (activity_sessions.completed_at - activity_sessions.started_at)
                     )
                 END) INTO time_spent FROM activity_sessions WHERE id = act_sess AND state='finished';
-                
+
                 RETURN COALESCE(time_spent,0);
           END IF;
-          
-          
+
+
           first_item := NULL;
           last_item := NULL;
           max_item := NULL;
@@ -167,11 +166,11 @@ CREATE FUNCTION public.timespent_question(act_sess integer, question character v
 
             END IF;
           END LOOP;
-          
+
           IF max_item IS NOT NULL AND first_item IS NOT NULL THEN
             time_spent := time_spent + EXTRACT( EPOCH FROM max_item - first_item );
           END IF;
-          
+
           RETURN time_spent;
         END;
       $$;
@@ -186,7 +185,7 @@ CREATE FUNCTION public.timespent_student(student integer) RETURNS bigint
     AS $$
         SELECT COALESCE(SUM(time_spent),0) FROM (
           SELECT id,timespent_activity_session(id) AS time_spent FROM activity_sessions
-          WHERE activity_sessions.user_id = student 
+          WHERE activity_sessions.user_id = student
           GROUP BY id) as as_ids;
 
       $$;
@@ -227,7 +226,7 @@ CREATE FUNCTION public.timespent_teacher(teacher integer) RETURNS bigint
 
 SET default_tablespace = '';
 
-SET default_with_oids = false;
+SET default_table_access_method = heap;
 
 --
 -- Name: active_activity_sessions; Type: TABLE; Schema: public; Owner: -
@@ -1203,7 +1202,7 @@ CREATE TABLE public.classrooms_teachers (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     "order" integer,
-    CONSTRAINT check_role_is_valid CHECK ((((role)::text = ANY ((ARRAY['owner'::character varying, 'coteacher'::character varying])::text[])) AND (role IS NOT NULL)))
+    CONSTRAINT check_role_is_valid CHECK ((((role)::text = ANY (ARRAY[('owner'::character varying)::text, ('coteacher'::character varying)::text])) AND (role IS NOT NULL)))
 );
 
 
@@ -1239,7 +1238,8 @@ CREATE TABLE public.comprehension_activities (
     scored_level character varying(100),
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    notes character varying
+    notes character varying,
+    version smallint DEFAULT 0 NOT NULL
 );
 
 
@@ -1552,8 +1552,8 @@ ALTER SEQUENCE public.comprehension_prompts_rules_id_seq OWNED BY public.compreh
 
 CREATE TABLE public.comprehension_regex_rules (
     id integer NOT NULL,
-    regex_text character varying(200),
-    case_sensitive boolean,
+    regex_text character varying(200) NOT NULL,
+    case_sensitive boolean NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     rule_id integer,
@@ -2238,7 +2238,7 @@ CREATE TABLE public.districts (
     token character varying,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    nces_id integer,
+    nces_id bigint,
     city character varying,
     state character varying,
     zipcode character varying,
@@ -2333,7 +2333,8 @@ CREATE TABLE public.feedback_histories (
     metadata jsonb,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    rule_uid character varying
+    rule_uid character varying,
+    activity_version smallint DEFAULT 0 NOT NULL
 );
 
 
@@ -2511,7 +2512,8 @@ CREATE TABLE public.firebase_apps (
     secret character varying,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    pkey text
+    pkey text,
+    throwaway text DEFAULT 'lorem'::text
 );
 
 
@@ -3270,8 +3272,8 @@ CREATE TABLE public.sales_form_submissions (
     first_name character varying NOT NULL,
     last_name character varying NOT NULL,
     email character varying NOT NULL,
-    phone_number character varying NOT NULL,
-    zipcode character varying NOT NULL,
+    phone_number character varying,
+    zipcode character varying,
     collection_type character varying NOT NULL,
     school_name character varying,
     district_name character varying,
@@ -4387,7 +4389,8 @@ CREATE TABLE public.users (
     flags character varying[] DEFAULT '{}'::character varying[] NOT NULL,
     time_zone character varying,
     title character varying,
-    account_type character varying DEFAULT 'unknown'::character varying
+    account_type character varying DEFAULT 'unknown'::character varying,
+    flagset character varying DEFAULT 'production'::character varying NOT NULL
 );
 
 
@@ -6784,6 +6787,13 @@ CREATE UNIQUE INDEX index_concept_result_question_types_on_text ON public.concep
 
 
 --
+-- Name: index_concept_results_on_activity_session_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_concept_results_on_activity_session_id ON public.concept_results USING btree (activity_session_id);
+
+
+--
 -- Name: index_concept_results_on_old_concept_result_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -7697,7 +7707,7 @@ CREATE UNIQUE INDEX unique_schema_migrations ON public.schema_migrations USING b
 -- Name: user_activity_classification_unique_index; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX user_activity_classification_unique_index ON public.user_activity_classifications USING btree (user_id, activity_classification_id);
+CREATE UNIQUE INDEX user_activity_classification_unique_index ON public.user_activity_classifications USING btree (user_id, activity_classification_id);
 
 
 --
@@ -7760,7 +7770,7 @@ CREATE INDEX uta ON public.activities_unit_templates USING btree (unit_template_
 -- Name: blog_posts tsvectorupdate; Type: TRIGGER; Schema: public; Owner: -
 --
 
-CREATE TRIGGER tsvectorupdate BEFORE INSERT OR UPDATE ON public.blog_posts FOR EACH ROW EXECUTE PROCEDURE public.blog_posts_search_trigger();
+CREATE TRIGGER tsvectorupdate BEFORE INSERT OR UPDATE ON public.blog_posts FOR EACH ROW EXECUTE FUNCTION public.blog_posts_search_trigger();
 
 
 --
@@ -8595,7 +8605,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211019143514'),
 ('20211026160939'),
 ('20211108171529'),
-('20211202235402'),
 ('20220105145446'),
 ('20220106193721'),
 ('20220128175405'),
@@ -8618,7 +8627,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220607120432'),
 ('20220608144739'),
 ('20220609173524'),
+('20220609175032'),
 ('20220614152118'),
+('20220623214342'),
 ('20220628174900'),
 ('20220705143703'),
 ('20220707154724'),
@@ -8626,6 +8637,11 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220707155013'),
 ('20220707155014'),
 ('20220707155015'),
-('20220707155016');
+('20220707155016'),
+('20220708201219'),
+('20220721183005'),
+('20220819175814'),
+('20220825144048'),
+('20220824192650');
 
 

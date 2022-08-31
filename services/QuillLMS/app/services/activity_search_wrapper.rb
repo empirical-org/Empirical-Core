@@ -80,7 +80,9 @@ class ActivitySearchWrapper
           standard_name: a['standard_name'],
           content_partners: content_partners,
           topics: topics,
-          readability_grade_level: Activity.find(activity_id).readability_grade_level
+          readability_grade_level: Activity.find(activity_id).readability_grade_level,
+          minimum_grade_level: a['activity_minimum_grade_level'],
+          maximum_grade_level: a['activity_maximum_grade_level']
         }
         unique_activities_array.push(act)
       end
@@ -134,28 +136,28 @@ class ActivitySearchWrapper
       h = {
         alias: 'Quill Proofreader',
         description: 'Fix Errors in Passages',
-        gradeText: '2nd - 12th Grade',
+        gradeText: '4th - 12th Grade',
         key: ActivityClassification::PROOFREADER_KEY
       }
     when ActivityClassification::GRAMMAR_KEY
       h = {
         alias: 'Quill Grammar',
         description: 'Practice Mechanics',
-        gradeText: '2nd - 12th Grade',
+        gradeText: '4th - 12th Grade',
         key: ActivityClassification::GRAMMAR_KEY
       }
     when ActivityClassification::DIAGNOSTIC_KEY
       h = {
         alias: 'Quill Diagnostic',
         description: 'Identify Learning Gaps',
-        gradeText: '2nd - 12th Grade',
+        gradeText: '4th - 12th Grade',
         key: ActivityClassification::DIAGNOSTIC_KEY
       }
     when ActivityClassification::CONNECT_KEY
       h = {
         alias: 'Quill Connect',
         description: 'Combine Sentences',
-        gradeText: '2nd - 12th Grade',
+        gradeText: '4th - 12th Grade',
         key: ActivityClassification::CONNECT_KEY
       }
     when ActivityClassification::LESSONS_KEY

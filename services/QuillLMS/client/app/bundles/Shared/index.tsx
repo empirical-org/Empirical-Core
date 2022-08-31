@@ -31,6 +31,7 @@ export {
   ExpandableCard,
   FlagDropdown,
   Input,
+  OneThumbSlider,
   Passthrough,
   ResumeOrBeginButton,
   ScreenreaderInstructions,
@@ -101,7 +102,8 @@ export {
   titleCase,
   onMobile,
   fillInBlankInputLabel,
-  getIconForActivityClassification
+  getIconForActivityClassification,
+  isTrackableStudentEvent
 } from './libs/index'
 
 export {
@@ -139,6 +141,7 @@ export {
   proofreaderToolIcon,
   evidenceToolIcon,
   warningIcon,
+  disclosureIcon,
 } from './images/index'
 
 export {
@@ -180,5 +183,10 @@ export {
   PRIVATE_FLAG,
   NOT_APPLICABLE
 } from './utils/constants'
+
+export {
+  UserIdsForEvent,
+  Question,
+  QuestionObject } from './interfaces'
 
 export { DefaultReactQueryClient } from './utils/defaultReactQueryClient'

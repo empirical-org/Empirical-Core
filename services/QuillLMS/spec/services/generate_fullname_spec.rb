@@ -3,51 +3,41 @@
 require 'rails_helper'
 
 describe GenerateFullname do
-  it 'does not change fullnames' do
-    name = 'John Smith'
+  subject { described_class.run(name) }
 
-    new_name = GenerateFullname.new(name).call
+  context 'fullnames' do
+    let(:name) { 'John Smith' }
 
-    expect(new_name).to eq(name)
+    it { expect(subject).to eq name }
   end
 
-  it 'handles mononymous names' do
-    name = 'John'
+  context 'mononymous names' do
+    let(:name) { 'John' }
 
-    new_name = GenerateFullname.new(name).call
-
-    expect(new_name).to eq('John John')
+    it { expect(subject).to eq 'John John' }
   end
 
-  it 'removes leading spaces from mononymous names' do
-    name = '  John'
+  context 'mononymous names with leading spaces' do
+    let(:name) { '  John' }
 
-    new_name = GenerateFullname.new(name).call
-
-    expect(new_name).to eq('John John')
+    it { expect(subject).to eq 'John John' }
   end
 
-  it 'removes trailing spaces from from mononymous names' do
-    name = 'John  '
+  context 'mononymous names with trailing spaces' do
+    let(:name) { 'John  ' }
 
-    new_name = GenerateFullname.new(name).call
-
-    expect(new_name).to eq('John John')
+    it { expect(subject).to eq 'John John' }
   end
 
-  it 'returns default name for empty names' do
-    name = '  '
+  context 'empty names' do
+    let(:name) { '  ' }
 
-    new_name = GenerateFullname.new(name).call
-
-    expect(new_name).to eq('Firstname Lastname')
+    it { expect(subject).to eq described_class::DEFAULT_NAME }
   end
 
-  it 'returns default name for nil names' do
-    name = nil
+  context 'nil names' do
+    let(:name) { nil }
 
-    new_name = GenerateFullname.new(name).call
-
-    expect(new_name).to eq('Firstname Lastname')
+    it { expect(subject).to eq described_class::DEFAULT_NAME }
   end
 end

@@ -38,6 +38,36 @@ export const createActivity = async (activity: object) => {
   return { errors: [], activityId: newActivity.id };
 }
 
+export const updateActivityVersion = async (activityNote: string, activityId: string) => {
+  const response = await apiFetch(`activities/${activityId}/increment_version`, {
+    method: 'PUT',
+    body: JSON.stringify({note: activityNote})
+  });
+  const { status } = response;
+
+  if(requestFailed(status)) {
+    const errors = await response.json();
+    const returnedErrors = await handleRequestErrors(errors);
+    return { errors: returnedErrors };
+  }
+  return { errors: [] };
+}
+
+export const createSeedData = async (nouns: string, activityId: string) => {
+  const response = await apiFetch(`activities/${activityId}/seed_data`, {
+    method: 'POST',
+    body: JSON.stringify({nouns: nouns})
+  });
+  const { status } = response;
+
+  if(requestFailed(status)) {
+    const errors = await response.json();
+    const returnedErrors = await handleRequestErrors(errors);
+    return { errors: returnedErrors };
+  }
+  return { errors: [] };
+}
+
 export const updateActivity = async (activity: object, activityId: string) => {
   const response = await apiFetch(`activities/${activityId}`, {
     method: 'PUT',
@@ -88,6 +118,17 @@ export const fetchActivitySession = async ({ queryKey, }) => {
 export const fetchChangeLogs = async ({ queryKey, }) => {
   const [key, activityId]: [string, string] = queryKey
   const response = await apiFetch(`activities/${activityId}/change_logs`);
+  const changeLogs = await response.json();
+
+  return {
+    changeLogs,
+    error: handleApiError('Failed to fetch change log, please refresh the page.', response)
+  };
+}
+
+export const fetchActivityVersions = async ({ queryKey, }) => {
+  const [key, activityId]: [string, string] = queryKey
+  const response = await apiFetch(`activities/${activityId}/activity_versions`);
   const changeLogs = await response.json();
 
   return {

@@ -3,8 +3,11 @@
 Evidence::Engine.routes.draw do
   resources :activities, only: [:index, :show, :create, :update, :destroy] do
     member do
-      get :rules
+      get :activity_versions
       get :change_logs
+      get :rules
+      put :increment_version
+      post :seed_data
     end
   end
 

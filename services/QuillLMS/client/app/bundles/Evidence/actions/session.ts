@@ -171,7 +171,7 @@ export const reportAProblem = ({ sessionID, entry, report, callback, isOptimal }
 }
 
 export const getFeedback = (args: GetFeedbackArguments) => {
-  const { sessionID, activityUID, entry, promptID, promptText, attempt, previousFeedback, callback, activityVersion} = args
+  const { sessionID, activityUID, entry, promptID, promptText, attempt, previousFeedback, callback, activityVersion } = args
   return (dispatch: Function) => {
     const feedbackURL = `${process.env.GOLANG_FANOUT_URL}`
 
@@ -193,7 +193,7 @@ export const getFeedback = (args: GetFeedbackArguments) => {
       json: true,
     }
 
-    dispatch(TrackAnalyticsEvent(Events.COMPREHENSION_ENTRY_SUBMITTED, {
+    dispatch(TrackAnalyticsEvent(Events.EVIDENCE_ENTRY_SUBMITTED, {
       activityID: activityUID,
       attemptNumber: attempt,
       promptID,
@@ -216,7 +216,7 @@ export const getFeedback = (args: GetFeedbackArguments) => {
         hint,
       }
       dispatch({ type: ActionTypes.RECORD_FEEDBACK, promptID, feedbackObj });
-      dispatch(TrackAnalyticsEvent(Events.COMPREHENSION_FEEDBACK_RECEIVED, {
+      dispatch(TrackAnalyticsEvent(Events.EVIDENCE_FEEDBACK_RECEIVED, {
         activityID: activityUID,
         attemptNumber: attempt,
         promptID,

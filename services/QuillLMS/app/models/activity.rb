@@ -7,13 +7,13 @@
 #  id                         :integer          not null, primary key
 #  data                       :jsonb
 #  description                :text
-#  flags                      :string(255)      default([]), not null, is an Array
+#  flags                      :string           default([]), not null, is an Array
 #  maximum_grade_level        :integer
 #  minimum_grade_level        :integer
-#  name                       :string(255)
+#  name                       :string
 #  repeatable                 :boolean          default(TRUE)
 #  supporting_info            :string
-#  uid                        :string(255)      not null
+#  uid                        :string           not null
 #  created_at                 :datetime
 #  updated_at                 :datetime
 #  activity_classification_id :integer
@@ -89,8 +89,8 @@ class Activity < ApplicationRecord
   ALPHA = 'alpha'
   ARCHIVED = 'archived'
 
-  scope :gamma_user, -> { where("'#{GAMMA}' = ANY(activities.flags) OR '#{PRODUCTION}' = ANY(activities.flags)")}
-  scope :beta_user, -> { where("'#{BETA}' = ANY(activities.flags) OR '#{GAMMA}' = ANY(activities.flags) OR '#{PRODUCTION}' = ANY(activities.flags)")}
+  scope :gamma_user, -> { where("'#{GAMMA}' = ANY(activities.flags) OR '#{BETA}' = ANY(activities.flags) OR '#{PRODUCTION}' = ANY(activities.flags)")}
+  scope :beta_user, -> { where("'#{BETA}' = ANY(activities.flags) OR '#{PRODUCTION}' = ANY(activities.flags)")}
   scope :alpha_user, -> { where("'#{ALPHA}' = ANY(activities.flags) OR '#{BETA}' = ANY(activities.flags) OR '#{GAMMA}' = ANY(activities.flags) OR '#{PRODUCTION}' = ANY(activities.flags)")}
 
   scope :with_classification, -> { includes(:classification).joins(:classification) }
@@ -243,7 +243,7 @@ class Activity < ApplicationRecord
   end
 
   def readability_grade_level
-    raw_score&.readability_grade_level(activity_classification_id)
+    raw_score&.readability_grade_level
   end
 
   def default_minimum_grade_level
@@ -279,6 +279,10 @@ class Activity < ApplicationRecord
     return unless is_evidence?
 
     Evidence::Activity.find_by(parent_activity_id: id)
+  end
+
+  def segment_activity
+    SegmentIntegration::Activity.new(self)
   end
 
   private def update_evidence_title?

@@ -18,24 +18,22 @@ module QuillAuthentication
 
   # rubocop:disable Metrics/CyclomaticComplexity
   def current_user
-    begin
-      if session[:preview_student_id]
-        @current_user ||= User.find(session[:preview_student_id])
-      elsif session[:demo_id]
-        @current_user ||= User.find(session[:demo_id])
-      elsif session[:user_id]
-        @current_user ||= User.find(session[:user_id])
-      elsif doorkeeper_token
-        User.find_by_id(doorkeeper_token.resource_owner_id)
-      else
-        authenticate_with_http_basic do |username, password|
-          return @current_user ||= User.find_by_token!(username) if username.present?
-        end
+    if session[:preview_student_id]
+      @current_user ||= User.find(session[:preview_student_id])
+    elsif session[:demo_id]
+      @current_user ||= User.find(session[:demo_id])
+    elsif session[:user_id]
+      @current_user ||= User.find(session[:user_id])
+    elsif doorkeeper_token
+      User.find_by_id(doorkeeper_token.resource_owner_id)
+    else
+      authenticate_with_http_basic do |username, password|
+        return @current_user ||= User.find_by_token!(username) if username.present?
       end
-    rescue ActiveRecord::RecordNotFound
-      sign_out
-      nil
     end
+  rescue ActiveRecord::RecordNotFound
+    sign_out
+    nil
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 
@@ -60,24 +58,18 @@ module QuillAuthentication
     auth_failed
   end
 
-  # rubocop:disable Metrics/CyclomaticComplexity
   def sign_in(user)
-    remote_ip = (request.present? ? request.remote_ip : nil)
+    TestForEarnedCheckboxesWorker.perform_async(user.id) if user.teacher?
 
-    if user.role == 'teacher'
-      TestForEarnedCheckboxesWorker.perform_async(user.id)
+    unless staff_impersonating_user?(user)
+      user.update(ip_address: request&.remote_ip, last_sign_in: Time.current)
+      UserLoginWorker.perform_async(user.id)
     end
 
-    if (!session[:staff_id] || session[:staff_id] == user.id) && user&.id
-      # only kick off login worker if there is no staff id,
-      # or if the user getting logged into is staff
-      UserLoginWorker.perform_async(user.id, remote_ip)
-    end
     session[:user_id] = user.id
     session[:admin_id] = user.id if user.admin?
     @current_user = user
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
 
   def current_user_demo_id=(demo_id)
     session[:demo_id] = demo_id
@@ -176,5 +168,9 @@ module QuillAuthentication
 
     methods = Doorkeeper.configuration.access_token_methods
     @token = Doorkeeper::OAuth::Token.authenticate(request, *methods)
+  end
+
+  private def staff_impersonating_user?(user)
+    session[:staff_id].present? && session[:staff_id] != user.id
   end
 end

@@ -8,7 +8,6 @@ import { Events } from '../../modules/analytics'
 jest.mock('request', () => ({
   get: jest.fn()
 }))
-
 jest.mock('../../actions/analytics', () => ({
   TrackAnalyticsEvent: jest.fn()
 }))
@@ -20,8 +19,8 @@ describe('Activities actions', () => {
 
     dispatch(getActivity(mockSessionID, mockActivityID))
 
-    it('sends a COMPREHENSION_ACTIVITY_STARTED analytics event', () => {
-      expect(TrackAnalyticsEvent).toBeCalledWith(Events.COMPREHENSION_ACTIVITY_STARTED, {
+    it('sends an EVIDENCE_ACTIVITY_STARTED analytics event', () => {
+      expect(TrackAnalyticsEvent).toBeCalledWith(Events.EVIDENCE_ACTIVITY_STARTED, {
         activityID: mockActivityID,
         sessionID: mockSessionID
       })
