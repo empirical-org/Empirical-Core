@@ -89,7 +89,7 @@ class SegmentAnalytics
         activity_id: activity_id,
         classroom_unit: classroom_unit,
         state: ActivitySession::STATE_FINISHED,
-        user_id: student_id,
+        user_id: student_id
       )
     end
   end

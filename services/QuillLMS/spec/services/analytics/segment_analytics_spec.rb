@@ -235,15 +235,17 @@ describe 'SegmentAnalytics' do
     end
 
     it '#activity_pack_completed? returns true if activity pack has been completed' do
-      activity_session2.state = "finished"
+      activity_session2.state = ActivitySession::STATE_FINISHED
       activity_session2.save!
       expect(analytics.activity_pack_completed?(student.id, activity_session2)).to eq true
     end
 
     it '#track_activity_pack_completion sends the expected data' do
+      activity_session2.state = ActivitySession::STATE_FINISHED
+      activity_session2.save!
       analytics.track_activity_completion(teacher, student.id, unit_activity2.activity, activity_session2)
       expect(identify_calls.size).to eq(0)
-      expect(track_calls.size).to eq(1)
+      expect(track_calls.size).to eq(2)
       expect(track_calls[1][:event]).to eq(SegmentIo::BackgroundEvents::ACTIVITY_PACK_COMPLETION)
       expect(track_calls[1][:user_id]).to eq(teacher.id)
       expect(track_calls[1][:properties][:activity_pack_name]).to eq(unit.name)
