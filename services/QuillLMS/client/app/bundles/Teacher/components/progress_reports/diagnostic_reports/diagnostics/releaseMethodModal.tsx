@@ -17,9 +17,20 @@ const staggeredReleaseIllustrationGreen = <img alt="" className="illustration" s
 const immediateReleaseIllustrationGray = <img alt="" className="illustration" src={`${baseStaggeredReleaseSrc}/immediate_release_illustration_gray.svg`} />
 const immediateReleaseIllustrationGreen = <img alt="" className="illustration" src={`${baseStaggeredReleaseSrc}/immediate_release_illustration_green.svg`} />
 
+type ReleaseMethodOptions = 'staggered'|'immediate'
+
+interface ReleaseMethodModalProps {
+  visible: boolean,
+  handleClickAssign: () => {},
+  handleClickCancel: () => {},
+  setReleaseMethod: (releaseMethod: ReleaseMethodOptions) => {},
+  releaseMethod?: ReleaseMethodOptions,
+  originalReleaseMethod?: ReleaseMethodOptions
+}
+
 const ReleaseMethodOption = ({ isSelected, illustration, tooltipText, headerText, subheaderText, descriptionText, onClick, }) => {
   // disabling these rules for the div container because the behavior is handled by the button for keyboard users
-  // eslint-disable jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+  /* eslint-disable jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */
   return (
     <div className={`release-method-option ${isSelected ? 'selected' : ''}`} onClick={onClick}>
       {illustration}
@@ -34,10 +45,10 @@ const ReleaseMethodOption = ({ isSelected, illustration, tooltipText, headerText
       <p className="description">{descriptionText}</p>
     </div>
   )
-  // eslint-enable jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+  /* eslint-enable jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */
 }
 
-const ReleaseMethodModal = ({ visible, handleClickAssign, handleClickCancel, setReleaseMethod, releaseMethod, originalReleaseMethod, }) => {
+const ReleaseMethodModal = ({ visible, handleClickAssign, handleClickCancel, setReleaseMethod, releaseMethod, originalReleaseMethod, }: ReleaseMethodModalProps) => {
   function setReleaseMethodToStaggered() { setReleaseMethod(STAGGERED)}
   function setReleaseMethodToImmediate() { setReleaseMethod(IMMEDIATE)}
 

@@ -27,7 +27,7 @@ describe('StudentProfileUnits component', () => {
     expect(wrapper.find(StudentProfileUnit).at(0).props().data.incomplete[1].staggered_release_unit_status).toBe(UNLOCKED);
     expect(wrapper.find(StudentProfileUnit).at(0).props().staggeredReleaseStatus).toBe(UNLOCKED);
     expect(wrapper.find(StudentProfileUnit).at(1).props().data.incomplete[0].unit_name).toBe('Different');
-    expect(wrapper.find(StudentProfileUnit).at(1).props().unitName).toBe(LOCKED);
+    expect(wrapper.find(StudentProfileUnit).at(1).props().unitName).toBe('Different');
     expect(wrapper.find(StudentProfileUnit).at(1).props().data.incomplete[0].staggered_release_unit_status).toBe(LOCKED);
     expect(wrapper.find(StudentProfileUnit).at(1).props().staggeredReleaseStatus).toBe(LOCKED);
   });

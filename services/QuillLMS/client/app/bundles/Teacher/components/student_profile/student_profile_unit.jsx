@@ -119,7 +119,14 @@ export default class StudentProfileUnit extends React.Component {
 
     if (!finished && marked_complete) { return <span>Missed</span> }
 
-    if (locked) { return <span className="needs-teacher">Needs teacher</span> }
+    if (locked) {
+      return (
+        <Tooltip
+          tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
+          tooltipTriggerText={<span className="needs-teacher">Needs teacher</span>}
+        />
+      )
+    }
 
     if (finished) {
       linkText = `Replay`;
@@ -288,7 +295,7 @@ export default class StudentProfileUnit extends React.Component {
     return (
       <div className={className} id={id}>
         <div className="unit-name-and-staggered-release-status">
-          <h2>{unitName}</h2>
+          <h2 className="unit-name">{unitName}</h2>
           {staggeredReleaseElement}
         </div>
         {activityContent}
