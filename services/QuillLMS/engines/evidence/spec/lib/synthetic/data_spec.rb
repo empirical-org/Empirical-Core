@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe Synthetic::Data do
+describe Evidence::Synthetic::Data do
   let(:text1) {'text string'}
   let(:label1) {'label_5'}
   let(:text2) {'other text'}
@@ -23,7 +23,7 @@ describe Synthetic::Data do
   end
 
   describe '#new' do
-    let(:synthetics) { Synthetic::Data.new(labeled_data, languages: [:es])}
+    let(:synthetics) { Evidence::Synthetic::Data.new(labeled_data, languages: [:es])}
 
     it 'should setup properly with empty translations' do
       expect(synthetics.languages.count).to eq 1
@@ -39,10 +39,10 @@ describe Synthetic::Data do
   end
 
   describe '#run translation' do
-    let(:synthetics) { Synthetic::Data.run(labeled_data, languages: [:es], generators: [:translation])}
+    let(:synthetics) { Evidence::Synthetic::Data.run(labeled_data, languages: [:es], generators: [:translation])}
 
     it 'fetch and store translations' do
-      expect(Synthetic::Generators::Translation).to receive(:run).with([text1, text2], {:languages=>[:es]}).and_return(translation_response)
+      expect(Evidence::Synthetic::Generators::Translation).to receive(:run).with([text1, text2], {:languages=>[:es]}).and_return(translation_response)
       expect(synthetics.results.count).to eq 2
 
       first_result = synthetics.results.first
@@ -54,10 +54,10 @@ describe Synthetic::Data do
   end
 
   describe '#run spelling errors' do
-    let(:synthetics) { Synthetic::Data.run(labeled_data, languages: [:es], generators: [:spelling])}
+    let(:synthetics) { Evidence::Synthetic::Data.run(labeled_data, languages: [:es], generators: [:spelling])}
 
     it 'fetch and store translations' do
-      expect(Synthetic::Generators::Spelling).to receive(:run).with([text1, text2], {:languages=>[:es]}).and_return(spelling_response)
+      expect(Evidence::Synthetic::Generators::Spelling).to receive(:run).with([text1, text2], {:languages=>[:es]}).and_return(spelling_response)
       expect(synthetics.results.count).to eq 2
 
       first_result = synthetics.results.first
@@ -69,11 +69,11 @@ describe Synthetic::Data do
   end
 
   describe 'data exports' do
-    let(:synthetics) { Synthetic::Data.run(labeled_data, languages: [:es], generators: [:translation, :spelling])}
+    let(:synthetics) { Evidence::Synthetic::Data.run(labeled_data, languages: [:es], generators: [:translation, :spelling])}
 
     before do
-      allow(Synthetic::Generators::Translation).to receive(:run).with([text1, text2], {:languages=>[:es]}).and_return(translation_response)
-      allow(Synthetic::Generators::Spelling).to receive(:run).with([text1, text2], {:languages=>[:es]}).and_return(spelling_response)
+      allow(Evidence::Synthetic::Generators::Translation).to receive(:run).with([text1, text2], {:languages=>[:es]}).and_return(translation_response)
+      allow(Evidence::Synthetic::Generators::Spelling).to receive(:run).with([text1, text2], {:languages=>[:es]}).and_return(spelling_response)
     end
 
     describe "#training_data_rows" do

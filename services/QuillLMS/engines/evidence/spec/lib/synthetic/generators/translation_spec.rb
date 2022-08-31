@@ -2,13 +2,13 @@
 
 require 'rails_helper'
 
-describe Synthetic::Generators::Translation do
+describe Evidence::Synthetic::Generators::Translation do
   let(:text1) {'text string'}
   let(:text2) {'other text'}
   let(:mock_translator) { double }
 
   describe '#generate' do
-    let(:translation) { Synthetic::Generators::Translation.new([text1, text2], languages: [:es])}
+    let(:translation) { Evidence::Synthetic::Generators::Translation.new([text1, text2], languages: [:es])}
 
     it 'fetch and store translations' do
 
