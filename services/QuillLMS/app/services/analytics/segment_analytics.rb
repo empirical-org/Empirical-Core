@@ -83,15 +83,18 @@ class SegmentAnalytics
   def activity_pack_completed?(student_id, activity_session)
     classroom_unit = ClassroomUnit.find_by(id: activity_session.classroom_unit_id)
     activity_ids = classroom_unit&.unit_activities&.pluck(:activity_id)
-    incomplete_session = activity_ids.find do |activity_id|
-      completed_activity_session = ActivitySession.find_by(user_id: student_id, activity_id: activity_id, state: "finished", classroom_unit: classroom_unit)
-      completed_activity_session.nil?
-    end
-    incomplete_session.nil?
+
+    activity_ids.all? do |activity_id|
+      ActivitySession.exists?(
+        activity_id: activity_id,
+        classroom_unit: classroom_unit,
+        state: ActivitySession::STATE_FINISHED,
+        user_id: student_id,
+      )
   end
 
   def track_activity_pack_completion(user, student_id, activity_session)
-    unit = ClassroomUnit.find(activity_session.classroom_unit_id)&.unit
+    unit = activity_session.unit
     activity_pack_name = unit&.unit_template&.name || unit&.name
     track({
       user_id: user&.id,
