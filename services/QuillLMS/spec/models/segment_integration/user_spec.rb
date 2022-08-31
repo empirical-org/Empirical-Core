@@ -16,7 +16,8 @@ RSpec.describe SegmentIntegration::User do
           first_name: teacher.first_name,
           last_name: teacher.last_name,
           email: teacher.email,
-          flags: teacher.flags&.join(", ")
+          flags: teacher.flags&.join(", "),
+          flagset: teacher.flagset
         }.reject {|_,v| v.nil? },
         integrations: teacher.segment_user.integration_rules
       }
