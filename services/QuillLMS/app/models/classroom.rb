@@ -41,6 +41,8 @@ class Classroom < ApplicationRecord
   after_commit :hide_appropriate_classroom_units
   after_commit :trigger_analytics_for_classroom_creation, on: :create
 
+  after_save :reset_teacher_activity_feed, if: :saved_change_to_visible?
+
   has_many :classroom_units, dependent: :destroy
   has_many :units, through: :classroom_units
   has_many :unit_activities, through: :units
@@ -209,6 +211,12 @@ class Classroom < ApplicationRecord
   private def trigger_analytics_for_classroom_creation
     classrooms_teachers.each { |ct| find_or_create_checkbox(Objective::CREATE_A_CLASSROOM, ct.user) }
     ClassroomCreationWorker.perform_async(id)
+  end
+
+  private def reset_teacher_activity_feed
+    teachers.each do |teacher|
+      TeacherActivityFeedRefillWorker.perform_async(teacher.id)
+    end
   end
 
 end
