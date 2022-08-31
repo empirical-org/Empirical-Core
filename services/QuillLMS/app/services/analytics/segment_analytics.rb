@@ -91,6 +91,7 @@ class SegmentAnalytics
         state: ActivitySession::STATE_FINISHED,
         user_id: student_id,
       )
+    end
   end
 
   def track_activity_pack_completion(user, student_id, activity_session)
