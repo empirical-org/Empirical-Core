@@ -18,11 +18,11 @@ namespace :flags do
   namespace :users do
     desc 'add custom flagsets for quill.org emails'
     task :add_custom_flagsets => :environment do
-      college_board_ids = User.find_by_sql(
+      ids = User.find_by_sql(
         "select id from users where email LIKE '%quill.org'"
       ).pluck(:id)
-      puts college_board_ids
-      college_board_ids.each do |id|
+      puts ids
+      ids.each do |id|
         user = User.find(id)
         user.update!(flagset: 'alpha')
       end
