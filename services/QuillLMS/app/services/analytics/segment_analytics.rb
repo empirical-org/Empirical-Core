@@ -71,11 +71,39 @@ class SegmentAnalytics
     })
   end
 
-  def track_activity_completion(user, student_id, activity)
+  def track_activity_completion(user, student_id, activity, activity_session)
     track({
       user_id: user&.id,
       event: SegmentIo::BackgroundEvents::ACTIVITY_COMPLETION,
       properties: activity.segment_activity.content_params.merge({student_id: student_id})
+    })
+    track_activity_pack_completion(user, student_id, activity_session) if activity_pack_completed?(student_id, activity_session)
+  end
+
+  def activity_pack_completed?(student_id, activity_session)
+    classroom_unit = ClassroomUnit.find_by(id: activity_session.classroom_unit_id)
+    activity_ids = classroom_unit&.unit_activities&.pluck(:activity_id)
+
+    activity_ids.all? do |activity_id|
+      ActivitySession.exists?(
+        activity_id: activity_id,
+        classroom_unit: classroom_unit,
+        state: ActivitySession::STATE_FINISHED,
+        user_id: student_id
+      )
+    end
+  end
+
+  def track_activity_pack_completion(user, student_id, activity_session)
+    unit = activity_session.unit
+    activity_pack_name = unit&.unit_template&.name || unit&.name
+    track({
+      user_id: user&.id,
+      event: SegmentIo::BackgroundEvents::ACTIVITY_PACK_COMPLETION,
+      properties: {
+        activity_pack_name: activity_pack_name,
+        student_id: student_id
+      }
     })
   end
 
