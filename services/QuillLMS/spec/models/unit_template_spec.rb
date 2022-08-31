@@ -256,27 +256,17 @@ describe UnitTemplate, redis: true, type: :model do
       expect(unit_template).to be_valid
     end
 
-    it "can equal gamma" do
-      unit_template.update(flag:'gamma')
+    it 'can equal the first value of Flags::FLAGS' do
+      unit_template.update(flag: Flags::FLAGS.first)
       expect(unit_template).to be_valid
     end
 
-    it "can equal beta" do
-      unit_template.update(flag:'beta')
+    it 'can equal the last value of Flags::FLAGS' do
+      unit_template.update(flag: Flags::FLAGS.last)
       expect(unit_template).to be_valid
     end
 
-    it "can equal alpha" do
-      unit_template.update(flag:'alpha')
-      expect(unit_template).to be_valid
-    end
-
-    it "can equal nil" do
-      unit_template.update(flag: nil)
-      expect(unit_template).to be_valid
-    end
-
-    it "cannot equal anything other than alpha, beta, gamma, production or nil" do
+    it "cannot equal gibberish" do
       unit_template.update(flag: 'sunglasses')
       expect(unit_template).to_not be_valid
     end

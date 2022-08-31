@@ -3,6 +3,7 @@ import _  from 'lodash';
 
 import { Activity } from './interfaces'
 import { FLAG_FILTERS } from './shared'
+import { flagOptions } from '../../../../../../constants/flagOptions';
 
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
 
@@ -58,13 +59,14 @@ const FlagFilters = ({ activities, filterActivities, flagFilters, handleFlagFilt
 
   const filteredActivities = filterActivities(FLAG_FILTERS)
 
-  const flagRows = ['alpha', 'beta', 'gamma', 'production', 'archived', 'private'].map(ac =>
+  // TODO: flag display
+  const flagRows = flagOptions.map(ac =>
     (<FlagFilterRow
       filteredActivities={filteredActivities}
-      flag={ac}
+      flag={ac.value}
       flagFilters={flagFilters}
       handleFlagFilterChange={handleFlagFilterChange}
-      key={ac}
+      key={ac.value}
     />)
   )
   const clearButton = flagFilters.length ? <button className="interactive-wrapper clear-filter focus-on-light" onClick={clearAllFlagFilters} type="button">Clear</button> : <span />
