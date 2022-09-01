@@ -65,6 +65,18 @@ exports[`UpperFormSection component should render UpperFormSection 1`] = `
           "value": "gamma",
         },
         Object {
+          "label": "Evidence Beta 1",
+          "value": "evidence_beta1",
+        },
+        Object {
+          "label": "Evidence Beta 2",
+          "value": "evidence_beta2",
+        },
+        Object {
+          "label": "College Board",
+          "value": "college_board",
+        },
+        Object {
           "label": "production",
           "value": "production",
         },

@@ -2,7 +2,8 @@ import * as React from 'react';
 
 import { Input, DropdownInput } from '../../../../Shared';
 import { renderErrorsContainer, renderIDorUID } from '../../../helpers/evidence/renderHelpers';
-import { PARENT_ACTIVITY_ID, TITLE, NOTES, flagOptions } from '../../../../../constants/evidence';
+import { PARENT_ACTIVITY_ID, TITLE, NOTES } from '../../../../../constants/evidence';
+import { flagOptions } from '../../../../../constants/flagOptions';
 
 export const UpperFormSection = ({
   activity,
