@@ -8,17 +8,17 @@ import ConceptResultStat from '../concept_result_stat.jsx'
 describe('ConceptResultStats component', () => {
 
   const moreThanTenConcepts = [
-    { name: 'A', metadata: { correct: 1, incorrect: 0 } },
-    { name: 'B', metadata: { correct: 1, incorrect: 0 } },
-    { name: 'C', metadata: { correct: 1, incorrect: 0 } },
-    { name: 'D', metadata: { correct: 1, incorrect: 0 } },
-    { name: 'E', metadata: { correct: 1, incorrect: 0 } },
-    { name: 'F', metadata: { correct: 1, incorrect: 0 } },
-    { name: 'G', metadata: { correct: 1, incorrect: 0 } },
-    { name: 'H', metadata: { correct: 1, incorrect: 0 } },
-    { name: 'I', metadata: { correct: 1, incorrect: 0 } },
-    { name: 'J', metadata: { correct: 1, incorrect: 0 } },
-    { name: 'K', metadata: { correct: 1, incorrect: 0 } }
+    { name: 'A', correct: true },
+    { name: 'B', correct: true },
+    { name: 'C', correct: true },
+    { name: 'D', correct: true },
+    { name: 'E', correct: true },
+    { name: 'F', correct: true },
+    { name: 'G', correct: true },
+    { name: 'H', correct: true },
+    { name: 'I', correct: true },
+    { name: 'J', correct: true },
+    { name: 'K', correct: true }
   ];
 
   it('should render only up to 10 ConceptResultStat components + an information row', () => {
@@ -33,11 +33,11 @@ describe('ConceptResultStats component', () => {
     const wrapper = shallow(
       <ConceptResultStats
         results={[
-          { name: 'B', metadata: { correct: 1, incorrect: 0 } },
-          { name: 'B', metadata: { correct: 0, incorrect: 1 } },
-          { name: 'B', metadata: { correct: 1, incorrect: 0 } },
-          { name: 'B', metadata: { correct: 1, incorrect: 0 } },
-          { name: 'B', metadata: { correct: 0, incorrect: 1 } },
+          { name: 'B', correct: true },
+          { name: 'B', correct: false },
+          { name: 'B', correct: true },
+          { name: 'B', correct: true },
+          { name: 'B', correct: false },
         ]}
       />
     );
@@ -50,7 +50,7 @@ describe('ConceptResultStats component', () => {
     const wrapper = shallow(
       <ConceptResultStats
         results={[
-          { name: 'B', metadata: { correct: 1, incorrect: 0 } }
+          { name: 'B', correct: true }
         ]}
       />
     );
@@ -67,17 +67,17 @@ describe('ConceptResultStats component', () => {
   it('should sort results properly by total, then percentage, then name', () => {
     const wrapper = shallow(
       <ConceptResultStats results={[
-        { name: 'B', metadata: { correct: 1, incorrect: 0 } },
-        { name: 'B', metadata: { correct: 1, incorrect: 0 } },
-        { name: 'B', metadata: { correct: 0, incorrect: 1 } },
-        { name: 'A', metadata: { correct: 1, incorrect: 0 } },
-        { name: 'A', metadata: { correct: 1, incorrect: 0 } },
-        { name: 'A', metadata: { correct: 1, incorrect: 0 } },
-        { name: 'A', metadata: { correct: 0, incorrect: 1 } },
-        { name: 'Y', metadata: { correct: 1, incorrect: 0 } },
-        { name: 'Y', metadata: { correct: 1, incorrect: 0 } },
-        { name: 'X', metadata: { correct: 1, incorrect: 0 } },
-        { name: 'X', metadata: { correct: 0, incorrect: 1 } },
+        { name: 'B', correct: true },
+        { name: 'B', correct: true },
+        { name: 'B', correct: false },
+        { name: 'A', correct: true },
+        { name: 'A', correct: true },
+        { name: 'A', correct: true },
+        { name: 'A', correct: false },
+        { name: 'Y', correct: true },
+        { name: 'Y', correct: true },
+        { name: 'X', correct: true },
+        { name: 'X', correct: false },
       ]}
       />
     );

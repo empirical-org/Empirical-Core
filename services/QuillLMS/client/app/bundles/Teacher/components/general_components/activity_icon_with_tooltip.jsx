@@ -80,12 +80,7 @@ export default class ActivityIconWithTooltip extends React.Component {
   loadTooltipTitle(crData) {
     let data;
     data = _.merge(this.props.data, { premium_state: this.props.premium_state, });
-    data.concept_results = crData.concept_results.map(cr => {
-      if (cr.metadata) {
-        cr.metadata = JSON.parse(cr.metadata)
-      }
-      return cr
-    })
+    data.concept_results = crData.concept_results
     data.scores = crData.scores;
     setTimeout(() => {this.setState({tooltipData: data})}, 200);
   }
