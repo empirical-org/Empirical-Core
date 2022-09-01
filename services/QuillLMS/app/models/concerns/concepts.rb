@@ -22,7 +22,7 @@ module Concepts
     @concepts.map do |concept|
       @concept_results_by_question_type.map do |cr|
         if cr.any?
-          type = human_readable_question_type(cr.first['question_type'])
+          type = human_readable_question_type(cr.first.question_type)
           hash_object[type].push(stats_for_concept(concept, cr))
         end
       end
