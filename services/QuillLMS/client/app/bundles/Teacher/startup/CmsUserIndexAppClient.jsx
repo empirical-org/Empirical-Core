@@ -210,10 +210,10 @@ export default class CmsUserIndex extends React.Component {
 
   }
 
-  renderUserFlagSelect() {
-    const options = [<option value />].concat(this.props.userFlags.map(o => <option value={o}>{o}</option>))
+  renderUserFlagsetSelect() {
+    const options = this.props.flagsets.map(pair => <option value={pair.value}>{pair.label}</option>)
     return (
-      <select onChange={e => this.updateField(e, 'user_flag')}>
+      <select onChange={e => this.updateField(e, 'flagset')}>
         {options}
       </select>
     )
@@ -269,8 +269,8 @@ export default class CmsUserIndex extends React.Component {
               </div>
 
               <div className='cms-form-row'>
-                <label>Flags Contain</label>
-                {this.renderUserFlagSelect()}
+                <label>Flagset</label>
+                {this.renderUserFlagsetSelect()}
               </div>
               <div className='cms-form-row'>
                 <label>Role</label>
