@@ -68,6 +68,7 @@ module UserFlagset
   end
 
   def self.flags_for_flagset(flagset)
+    return nil unless flagset
     FLAGSETS[flagset.to_sym][:flags].keys.map{|k| "'#{k}'"}.join(',')
   end
 

@@ -3,7 +3,7 @@
 class ActivitySearchWrapper
   RESULTS_PER_PAGE = 12
 
-  def initialize(flag=nil, user_id=nil)
+  def initialize(flagset=nil, user_id=nil)
     @activities = nil
     @activity_classifications = []
     @standards = []
