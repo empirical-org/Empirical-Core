@@ -64,11 +64,7 @@ module UserFlagset
   end
 
   def self.decorated(type:)
-    if type == :label_value_hash
-      FLAGSETS.map{|key, value| {value: key.to_s, label: value[:display_name]}}
-    else
-      raise NotImplementedError('Type #{type} not implemented.')
-    end
+    FLAGSETS.map{|key, value| {value: key.to_s, label: value[:display_name]}}
   end
 
 

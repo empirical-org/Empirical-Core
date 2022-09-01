@@ -214,7 +214,7 @@ export default class CmsUserIndex extends React.Component {
     const options = this.props.flagsets.map(pair => <option value={pair.value}>{pair.label}</option>)
     console.log("options: ", options)
     return (
-      <select onChange={e => this.updateField(e, 'user_flagset')}>
+      <select onChange={e => this.updateField(e, 'flagset')}>
         {options}
       </select>
     )
