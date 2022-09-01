@@ -92,6 +92,19 @@ module Evidence
       head :no_content
     end
 
+    # params [:id, :filenames]
+    def labeled_synthetic_data
+      puts(params[:filenames])
+      puts("Activity ID: #{params[:id]}")
+
+      puts(params[:filenames].class)
+      params[:filenames].each do |filename|
+        Evidence::SyntheticLabeledDataWorker.perform_async(filename, params[:id])
+      end
+
+      head :no_content
+    end
+
     private def set_activity
       if params[:id].present?
         @activity = Evidence::Activity.find(params[:id])
