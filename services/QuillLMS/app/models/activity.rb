@@ -208,7 +208,7 @@ class Activity < ApplicationRecord
   end
 
   def self.set_activity_search_cache
-    $redis.set('default_activity_search', ActivitySearchWrapper.new.search.to_json)
+    $redis.set('default_activity_search', ActivitySearchWrapper.new('production').search.to_json)
   end
 
   def is_lesson?
