@@ -440,14 +440,6 @@ class ActivitySession < ApplicationRecord
     end
   end
 
-  def self.activity_session_metadata(activity_sessions)
-    activity_sessions.map do |activity_session|
-      activity_session.old_concept_results.map do |concept_result|
-        concept_result.metadata
-      end
-    end.flatten
-  end
-
   def self.assign_follow_up_lesson(classroom_unit_id, activity_uid)
     activity = Activity.find_by_id_or_uid(activity_uid)
     classroom_unit = ClassroomUnit.find(classroom_unit_id)

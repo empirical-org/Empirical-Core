@@ -36,8 +36,11 @@ describe PublicProgressReports, type: :model do
 
       last_feedback = "This is the last feedback the student received."
       directions = "Combine the sentences."
-      create(:old_concept_result, activity_session: activity_session_two, metadata: { "attemptNumber": 1, "answer": 'Arbitrary sample incorrect answer.', "correct": 0, "directions": directions, "prompt": "prompt", "questionNumber": 1, "questionScore": 0.75})
-      create(:old_concept_result, activity_session: activity_session_two, metadata: { "attemptNumber": 2, "answer": 'Arbitrary sample correct answer.', "correct": 1, "lastFeedback": last_feedback, "directions": directions, "prompt": "prompt", "questionNumber": 1, "questionScore": 0.75})
+      cr_directions = create(:concept_result_directions, text: directions)
+      cr_prompt = create(:concept_result_prompt, text: 'prompt')
+      cr_previous_feedback = create(:concept_result_previous_feedback, text: last_feedback)
+      create(:concept_result, activity_session: activity_session_two, attempt_number: 1, answer: 'Arbitrary sample incorrect answer.', correct: false, concept_result_directions: cr_directions, concept_result_prompt: cr_prompt, question_number: 1, question_score: 0.75)
+      create(:concept_result, activity_session: activity_session_two, attempt_number: 2, answer: 'Arbitrary sample correct answer.', correct: true, concept_result_previous_feedback: cr_previous_feedback, concept_result_directions: cr_directions, concept_result_prompt: cr_prompt, question_number: 1, question_score: 0.75)
       report = FakeReports.new.results_for_classroom(classroom_unit.unit_id, activity.id, classroom.id)
 
       expect(report[:students].count).to eq 1
@@ -56,8 +59,11 @@ describe PublicProgressReports, type: :model do
 
       last_feedback = "This is the last feedback the student received."
       directions = "Combine the sentences."
-      create(:old_concept_result, activity_session: activity_session_two, metadata: { "attemptNumber": 1, "answer": 'Arbitrary sample incorrect answer.', "correct": 0, "directions": directions, "prompt": "prompt text", "questionNumber": 1, "questionScore": 0.75})
-      create(:old_concept_result, activity_session: activity_session_two, metadata: { "attemptNumber": 2, "answer": 'Arbitrary sample correct answer.', "correct": 1, "lastFeedback": last_feedback, "directions": directions, "prompt": "prompt text", "questionNumber": 1, "questionScore": 0.75})
+      cr_directions = create(:concept_result_directions, text: directions)
+      cr_prompt = create(:concept_result_prompt, text: prompt.text)
+      cr_previous_feedback = create(:concept_result_previous_feedback, text: last_feedback)
+      create(:concept_result, activity_session: activity_session_two, attempt_number: 1, answer: 'Arbitrary sample incorrect answer.', correct: false, concept_result_directions: cr_directions, concept_result_prompt: cr_prompt, question_number: 1, question_score: 0.75)
+      create(:concept_result, activity_session: activity_session_two, attempt_number: 2, answer: 'Arbitrary sample correct answer.', correct: true, concept_result_previous_feedback: cr_previous_feedback, concept_result_directions: cr_directions, concept_result_prompt: cr_prompt, question_number: 1, question_score: 0.75)
       report = FakeReports.new.results_for_classroom(classroom_unit.unit_id, activity.id, classroom.id)
 
       expect(report[:students].count).to eq 1
