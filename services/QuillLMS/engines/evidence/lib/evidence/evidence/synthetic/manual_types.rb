@@ -9,7 +9,7 @@ module Evidence
 
       MIN_AUTOML_TEST_PERCENT = 0.05
       MIN_TEST_PER_LABEL = 10
-      MIN_TRAIN_PER_LABEL = 50
+      MIN_TRAIN_PER_LABEL = 10
 
       TYPE_TRAIN = 'TRAIN'
       TYPE_VALIDATION = 'VALIDATION'
@@ -62,6 +62,9 @@ module Evidence
           # TODO: There's some bug with this counting logic, so default to TRAIN
           result.type = remaining_types[index] || TYPE_TRAIN
         end
+
+        validate_minimum_per_label!
+        validate_language_count_and_percent!
       end
       # rubocop:enable Metrics/CyclomaticComplexity
 
