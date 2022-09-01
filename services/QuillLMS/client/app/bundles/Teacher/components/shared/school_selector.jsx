@@ -11,7 +11,8 @@ const mapSearchSrc = `${process.env.CDN_URL}/images/onboarding/map-search.svg`
 
 export const NOT_LISTED = 'not listed'
 const DEBOUNCE_LENGTH = 500
-const MINIMUM_SEARCH_LENGTH = 3
+const MINIMUM_SEARCH_LENGTH = 2
+const WHOLE_SEARCH_IS_NUMBERS_REGEX = /^\d+$/
 
 const SchoolSelector = ({ selectSchool, }) => {
   const [search, setSearch] = React.useState('')
@@ -22,23 +23,22 @@ const SchoolSelector = ({ selectSchool, }) => {
   const debouncedSearch = useDebounce(search, DEBOUNCE_LENGTH);
 
   React.useEffect(() => {
-    if (search.length) {
+    if (search.length >= MINIMUM_SEARCH_LENGTH) {
       setLoading(true)
     }
   }, [search])
 
   React.useEffect(() => {
+    if (search.length < MINIMUM_SEARCH_LENGTH) { return }
+    // if they're typing a zip code, don't search until the full zip code is entered
+    if (search.match(WHOLE_SEARCH_IS_NUMBERS_REGEX) && search.length < 5) { return }
+
     searchForSchool()
   }, [debouncedSearch])
 
   function handleSkipClick() { selectSchool(NOT_LISTED) }
 
   function searchForSchool() {
-    const wholeSearchIsNumbersRegex = /^\d+$/
-
-    // if they're typing a zip code, don't search until the full zip code is entered
-    if (search.match(wholeSearchIsNumbersRegex) && search.length < 5) { return }
-
     request({
       url: `${process.env.DEFAULT_URL}/schools`,
       qs: { search },
@@ -126,9 +126,9 @@ const SchoolSelector = ({ selectSchool, }) => {
     let schoolsListOrEmptyState
     if (loading) {
       schoolsListOrEmptyState = renderLoading()
-    } else if (search.length && schools.length >= MINIMUM_SEARCH_LENGTH) {
+    } else if (!schools.length && search.length >= MINIMUM_SEARCH_LENGTH) {
       schoolsListOrEmptyState = renderNoSchoolFound()
-    } else if (schools && schools.length) {
+    } else if (schools.length && search.length >= MINIMUM_SEARCH_LENGTH) {
       schoolsListOrEmptyState = renderSchoolsList(schools)
     } else {
       schoolsListOrEmptyState = renderDefault()
