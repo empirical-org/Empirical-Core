@@ -4,7 +4,6 @@
 module UserFlagset
   extend ActiveSupport::Concern
 
-
   included do
     FLAGSETS = {
 
@@ -63,6 +62,15 @@ module UserFlagset
 
     validates :flagset, inclusion: { in: FLAGSETS.keys.map(&:to_s) }
   end
+
+  def self.decorated(type:)
+    if type == :label_value_hash
+      FLAGSETS.map{|key, value| {value: key.to_s, label: value[:display_name]}}
+    else
+      raise NotImplementedError('Type #{type} not implemented.')
+    end
+  end
+
 
   def activity_viewable?(activity)
     return false unless activity.is_a?(::Activity)

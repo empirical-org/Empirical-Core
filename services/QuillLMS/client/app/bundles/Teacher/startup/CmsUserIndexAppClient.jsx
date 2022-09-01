@@ -3,7 +3,7 @@ import React from 'react';
 import { sortTableByLastName, sortTableFromSQLTimeStamp } from 'modules/sortingMethods';
 import getAuthToken from '../components/modules/get_auth_token';
 import LoadingIndicator from '../components/shared/loading_indicator'
-import { ReactTable, } from '../../Shared/index'
+import { FlagDropdown, ReactTable, } from '../../Shared/index'
 
 export default class CmsUserIndex extends React.Component {
   constructor(props) {
@@ -210,10 +210,11 @@ export default class CmsUserIndex extends React.Component {
 
   }
 
-  renderUserFlagSelect() {
-    const options = [<option value />].concat(this.props.userFlags.map(o => <option value={o}>{o}</option>))
+  renderUserFlagsetSelect() {
+    const options = this.props.flagsets.map(pair => <option value={pair.value}>{pair.label}</option>)
+    console.log("options: ", options)
     return (
-      <select onChange={e => this.updateField(e, 'user_flag')}>
+      <select onChange={e => this.updateField(e, 'user_flagset')}>
         {options}
       </select>
     )
@@ -269,8 +270,8 @@ export default class CmsUserIndex extends React.Component {
               </div>
 
               <div className='cms-form-row'>
-                <label>Flags Contain</label>
-                {this.renderUserFlagSelect()}
+                <label>Flagset</label>
+                {this.renderUserFlagsetSelect()}
               </div>
               <div className='cms-form-row'>
                 <label>Role</label>

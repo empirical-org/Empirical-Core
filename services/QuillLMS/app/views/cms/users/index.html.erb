@@ -6,7 +6,7 @@
       </h1>
     </div>
     <div class='cms-container-meta'>
-      <%= react_component('CmsUserIndexApp', props: {queryResults: @user_search_query_results, userFlags: @user_flags, query: @user_search_query, userRoleTypes: @user_role_types, schoolPremiumTypes: @school_premium_types}) %>
+      <%= react_component('CmsUserIndexApp', props: {flagsets: UserFlagset.decorated(type: :label_value_hash), queryResults: @user_search_query_results, userFlags: @user_flags, query: @user_search_query, userRoleTypes: @user_role_types, schoolPremiumTypes: @school_premium_types}) %>
     </div>
   </article>
 </div>
