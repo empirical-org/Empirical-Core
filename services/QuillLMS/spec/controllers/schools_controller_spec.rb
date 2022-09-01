@@ -26,12 +26,21 @@ describe SchoolsController, type: :controller do
   end
 
   it 'fetches schools based on text string' do
-    get :index, params: { search: 'Max A' }, as: :json
+    get :index, params: { search: 'Max' }, as: :json
 
     expect(response.status).to eq(200)
 
     json = JSON.parse(response.body)
     expect(json['data'].first['id']).to eq(@school2.id)
+  end
+
+  it 'will return an empty array if the search length is less than the minimum' do
+    get :index, params: { search: 'M' }, as: :json
+
+    expect(response.status).to eq(200)
+
+    json = JSON.parse(response.body)
+    expect(json['data']).to eq([])
   end
 
 
