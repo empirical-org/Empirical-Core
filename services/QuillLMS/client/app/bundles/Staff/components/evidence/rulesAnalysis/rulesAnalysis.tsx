@@ -150,7 +150,7 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
   }, [selectedPrompt, selectedRuleType])
 
   React.useEffect(() => {
-    if(!totalResponsesByConjunction && dataForTotalResponseCount && dataForTotalResponseCount.ruleFeedbackHistories) {
+    if(dataForTotalResponseCount && dataForTotalResponseCount.ruleFeedbackHistories) {
       let count = 0;
       const { ruleFeedbackHistories } = dataForTotalResponseCount;
       ruleFeedbackHistories.map(feedbackHistory => {
@@ -161,7 +161,7 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       count = count * 1.0;
       setTotalResponsesByConjunction(count);
     }
-  });
+  }, [dataForTotalResponseCount, startDate, endDate, startDateForQuery, endDateForQuery]);
 
   React.useEffect(() => {
     if(selectedPrompt && ruleFeedbackHistory && ruleFeedbackHistory.ruleFeedbackHistories && ruleFeedbackHistory.ruleFeedbackHistories) {

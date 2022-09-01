@@ -10,10 +10,7 @@ import ImageSection from "./imageSection";
 import { validateForm, buildActivity, validateFormSection } from '../../../helpers/evidence/miscHelpers';
 import { renderInvalidHighlightLinks} from '../../../helpers/evidence/renderHelpers';
 import { getActivityPrompt, promptsByConjunction, buildBlankPrompt, getActivityPromptSetter, trimmedPrompt  } from '../../../helpers/evidence/promptHelpers';
-import {
-  BECAUSE, BUT, SO, activityFormKeys, PASSAGE, HIGHLIGHT_PROMPT, ESSENTIAL_KNOWLEDGE_TEXT_FILLER,
-  BUILDING_ESSENTIAL_KNOWLEDGE, HIGHLIGHTING_PROMPT, IMAGE, MAX_ATTEMPTS_FEEDBACK, BREAK_TAG, TEXT, PROMPTS
-} from '../../../../../constants/evidence';
+import { BECAUSE, BUT, SO, activityFormKeys, PASSAGE, HIGHLIGHT_PROMPT, BUILDING_ESSENTIAL_KNOWLEDGE, HIGHLIGHTING_PROMPT, IMAGE, MAX_ATTEMPTS_FEEDBACK, BREAK_TAG, TEXT, PROMPTS } from '../../../../../constants/evidence';
 import { ActivityInterface, PromptInterface, PassagesInterface, InputEvent, ClickEvent,  TextAreaEvent } from '../../../interfaces/evidenceInterfaces';
 import { Input, TextEditor, ToggleComponentSection, DataTable, titleCase } from '../../../../Shared/index'
 import { DEFAULT_HIGHLIGHT_PROMPT } from '../../../../Shared/utils/constants'
@@ -26,7 +23,7 @@ interface ActivityFormProps {
 
 const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormProps) => {
   const { id, parent_activity_id, invalid_highlights, passages, prompts, title, notes, flag, } = activity;
-  const formattedPassage = passages && passages.length ? passages : [{ text: '', highlight_prompt: DEFAULT_HIGHLIGHT_PROMPT, essential_knowledge_text: ESSENTIAL_KNOWLEDGE_TEXT_FILLER }];
+  const formattedPassage = passages && passages.length ? passages : [{ text: '', highlight_prompt: DEFAULT_HIGHLIGHT_PROMPT, essential_knowledge_text: '' }];
   const formattedPrompts = promptsByConjunction(prompts);
   const becausePrompt = formattedPrompts && formattedPrompts[BECAUSE] ? formattedPrompts[BECAUSE] : buildBlankPrompt(BECAUSE);
   const butPrompt = formattedPrompts && formattedPrompts[BUT] ? formattedPrompts[BUT] : buildBlankPrompt(BUT);

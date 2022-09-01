@@ -77,13 +77,13 @@ export default createReactClass({
           loadingNewTableData: false,
           results: data.activity_sessions,
           numPages: data.page_count,
+          classroomFilters,
+          studentFilters,
+          unitFilters,
         };
 
         if (!filtersLoaded) {
           newState = Object.assign(newState, {
-            classroomFilters,
-            studentFilters,
-            unitFilters,
             filtersLoaded: true
           })
         }
@@ -115,7 +115,7 @@ export default createReactClass({
         Header: 'Student',
         accessor: 'student_id',
         resizeable: false,
-        Cell: ({row}) => studentFilters.find(student => student.value == row.original.student_id).name,
+        Cell: ({row}) => studentFilters.find(student => student.value == row.original.student_id)?.name,
         className: this.nonPremiumBlur(),
         maxWidth: 200
       },

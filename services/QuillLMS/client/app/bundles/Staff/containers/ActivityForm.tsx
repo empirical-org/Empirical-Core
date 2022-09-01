@@ -36,7 +36,8 @@ const ActivityForm = ({ activity, activityClassification, contentPartnerOptions,
 
   function submitClassName() {
     let className = "quill-button primary contained large"
-    if (!editedActivity.name.length) {
+
+    if (!editedActivity.name?.length) {
       className+= ' disabled'
     }
     return className
@@ -188,7 +189,7 @@ const ActivityForm = ({ activity, activityClassification, contentPartnerOptions,
           <input onChange={handleMaximumGradeLevelChange} value={editedActivity.maximum_grade_level} />
         </section>
         <Topics activity={editedActivity} createNewTopic={createNewTopic} handleTopicsChange={handleTopicsChange} topicOptions={topicOptions} />
-        <input className={submitClassName()} disabled={!editedActivity.name.length} type="submit" value="Save" />
+        <input className={submitClassName()} disabled={!editedActivity.name?.length} type="submit" value="Save" />
         <p>When you&apos;ve saved the activity, please head over to the <a href='/assign/activity-library'>Activity Library</a> to make sure the activity metadata looks right in production.</p>
       </form>
     </section>

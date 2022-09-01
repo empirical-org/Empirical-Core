@@ -5,6 +5,8 @@ require 'rails_helper'
 RSpec.describe SegmentIntegration::User do
   let(:teacher) { create(:teacher, flags: ["private", "beta"]) }
 
+  before { create(:user_subscription, user: teacher) }
+
   context '#identify_params' do
 
     it 'returns the expected params hash' do
@@ -16,7 +18,8 @@ RSpec.describe SegmentIntegration::User do
           first_name: teacher.first_name,
           last_name: teacher.last_name,
           email: teacher.email,
-          flags: teacher.flags&.join(", ")
+          flags: teacher.flags&.join(", "),
+          flagset: teacher.flagset
         }.reject {|_,v| v.nil? },
         integrations: teacher.segment_user.integration_rules
       }
@@ -36,6 +39,18 @@ RSpec.describe SegmentIntegration::User do
         is_admin: teacher.admin?
       }.reject {|_,v| v.nil? }
       expect(teacher.segment_user.common_params).to eq params
+    end
+  end
+
+  context '#premium_params' do
+
+    it 'returns the expected params hash' do
+      params = {
+        email: teacher.email,
+        premium_state: teacher.premium_state,
+        premium_type: teacher.subscription&.account_type
+      }.reject {|_,v| v.nil? }
+      expect(teacher.segment_user.premium_params).to eq params
     end
   end
 

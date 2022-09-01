@@ -1,5 +1,11 @@
 import * as React from 'react'
+import { flagOptions } from '../../../../constants/flagOptions'
 
+const flagOptionList = () => {
+  return ( flagOptions.map((flagOption) => (
+    <option value={flagOption.value}>{flagOption.label}</option>
+  )) )
+}
 const FlagDropdown = (props) => {
   const label = props.isLessons ? undefined : (<label className="label">Flag</label>)
   const allFlags = props.isLessons ? (<option value="All Flags">All Flags</option>) : undefined
@@ -9,12 +15,7 @@ const FlagDropdown = (props) => {
       <span className="select">
         <select defaultValue={props.flag} onChange={props.handleFlagChange}>
           {allFlags}
-          <option value="alpha">alpha</option>
-          <option value="beta">beta</option>
-          <option value="gamma">gamma</option>
-          <option value="production">production</option>
-          <option value="archived">archived</option>
-          <option value="private">private</option>
+          {flagOptionList()}
         </select>
       </span>
     </p>
