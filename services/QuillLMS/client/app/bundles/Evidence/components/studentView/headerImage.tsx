@@ -1,6 +1,6 @@
 import * as React from "react";
 import stripHtml from "string-strip-html";
-import marked from 'marked';
+import { marked } from 'marked';
 
 import {  Tooltip, Modal } from '../../../Shared/index'
 
