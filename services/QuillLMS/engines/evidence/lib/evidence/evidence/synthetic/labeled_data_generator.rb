@@ -19,6 +19,7 @@ module Evidence
       }
 
       FREE_GENERATORS = GENERATORS.except(:translations)
+      DEFAULT_LANGUAGES = Evidence::Synthetic::Generators::Translation::TRAIN_LANGUAGES.keys
 
       attr_reader :results, :languages, :labels, :generators
 
@@ -26,7 +27,7 @@ module Evidence
       # texts_and_labels: [['text', 'label_5'],['text', 'label_1'],...]
       # languages: [:es, :ja, ...]
       # manual_types: bool, whether to assign TEXT,VALIDATION,TRAIN to each row
-      def initialize(texts_and_labels, languages: TRAIN_LANGUAGES.keys, generators: GENERATORS.keys, manual_types: false)
+      def initialize(texts_and_labels, languages: DEFAULT_LANGUAGES, generators: GENERATORS.keys, manual_types: false)
         @languages = languages
         @manual_types = manual_types
         @generators = GENERATORS.slice(*generators)
@@ -61,7 +62,7 @@ module Evidence
         self
       end
 
-      LABEL_FILE = 'synthetic_labeled'
+      LABEL_FILE = 'synthetic'
       LABEL_ORIGINAL = 'original.csv'
       LABEL_TRAINING = 'automl_upload.csv'
       LABEL_ANALYSIS = 'analysis.csv'
@@ -74,17 +75,18 @@ module Evidence
 
         generator.run
 
-        generator.csv_file_hash(filename, file)
+        generator.csv_file_hash(filename, texts_and_labels)
       end
 
-      def self.csv_file_hash(filename, file)
+      def csv_file_hash(filename, texts_and_labels)
         {
-          file_name(filename, LABEL_TRAINING) => generator.training_csv_string,
-          file_name(filename, LABEL_ANALYSIS) => generator.analysis_csv_string
+          file_name(filename, LABEL_TRAINING) => training_csv_string,
+          file_name(filename, LABEL_ANALYSIS) => analysis_csv_string,
+          file_name(filename, LABEL_ORIGINAL) => texts_and_labels.to_csv
         }
       end
 
-      def self.file_name(filename, file_ending)
+      def file_name(filename, file_ending)
         [filename.gsub('.csv',''), LABEL_FILE, file_ending].join('_')
       end
 

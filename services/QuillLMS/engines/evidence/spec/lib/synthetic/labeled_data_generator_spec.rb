@@ -106,4 +106,37 @@ describe Evidence::Synthetic::LabeledDataGenerator do
       end
     end
   end
+
+  describe "#self.csvs_from_run" do
+    let(:filename) { 'some_activity_but.csv' }
+    let(:automl_name) {'some_activity_but_synthetic_automl_upload.csv'}
+
+    before do
+      stub_const("Evidence::Synthetic::LabeledDataGenerator::DEFAULT_LANGUAGES", [:es])
+      stub_const("Evidence::Synthetic::ManualTypes::MIN_TEST_PER_LABEL", 0)
+      stub_const("Evidence::Synthetic::ManualTypes::MIN_TRAIN_PER_LABEL", 0)
+
+      allow(Evidence::Synthetic::Generators::Translation).to receive(:run).with([text1, text2], {:languages=>[:es]}).and_return(translation_response)
+      allow(Evidence::Synthetic::Generators::Spelling).to receive(:run).with([text1, text2], {:languages=>[:es]}).and_return(spelling_response)
+    end
+
+    it "should generate a hash of csv_strings" do
+      output = described_class.csvs_from_run(labeled_data, filename)
+
+      expect(output.class).to be Hash
+      expect(output.keys).to eq([
+        automl_name,
+        'some_activity_but_synthetic_analysis.csv',
+        'some_activity_but_synthetic_original.csv'
+      ])
+
+      # values should be a multi-line valid CSV
+      csv = CSV.parse(output[automl_name])
+      expect(csv.size).to be 7
+      first_row = csv.first
+      expect(first_row.first).to satisfy {|v| v.in?(["TRAIN", "TEST", "VALIDATION"])}
+      expect(first_row.second).to eq text1
+      expect(first_row.last).to eq label1
+    end
+  end
 end
