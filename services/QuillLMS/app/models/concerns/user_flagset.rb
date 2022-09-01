@@ -67,6 +67,9 @@ module UserFlagset
     FLAGSETS.map{|key, value| {value: key.to_s, label: value[:display_name]}}
   end
 
+  def self.flags_for_flagset(flagset)
+    FLAGSETS[flagset.to_sym][:flags].keys.map{|k| "'#{k}'"}.join(',')
+  end
 
   def activity_viewable?(activity)
     return false unless activity.is_a?(::Activity)
