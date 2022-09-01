@@ -61,52 +61,43 @@ module Evidence
         self
       end
 
-      # input file is a csv with two columns and no header: text, label
-      # pass in file paths, e.g. /Users/yourname/Desktop/
-      def self.generate_from_file(input_file_path, output_file_path, languages: LANGUAGES.keys)
-        texts_and_labels = CSV.open(input_file_path).to_a
+      LABEL_FILE = 'synthetic_labeled'
+      LABEL_ORIGINAL = 'original.csv'
+      LABEL_TRAINING = 'automl_upload.csv'
+      LABEL_ANALYSIS = 'analysis.csv'
 
-        synthetics = Synthetic::LabeledDataGenerator.new(texts_and_labels, languages: languages)
-
-        synthetics.run
-
-        synthetics.results_to_csv(output_file_path)
-      end
-
-      # input file is a csv with two columns and no header: text, label
-      # pass in file paths, e.g. /Users/yourname/Desktop/
-      # defaults to a dry run (doesn't hit paid translations endpoint)
-      # r = Synthetic::Data.generate_training_export('/Users/danieldrabik/Documents/quill/synthetic/Responses_Translation_Nuclear_Because_Dec13.csv')
-      def self.generate_training_export(input_file_path, paid: false, languages: TRAIN_LANGUAGES.keys, manual_types: false)
-        output_csv = input_file_path.gsub(CSV_END_MATCH, SYNTHETIC_CSV)
-        output_training_csv = input_file_path.gsub(CSV_END_MATCH, TRAIN_CSV)
-
-        texts_and_labels = CSV.open(input_file_path).to_a
-
-        generators = paid ? GENERATORS.keys : FREE_GENERATORS.keys
-
-        synthetics = Synthetic::LabeledDataGenerator.new(
+      def self.csvs_from_run(texts_and_labels, filename)
+        generator = Evidence::Synthetic::LabeledDataGenerator.new(
           texts_and_labels,
-          languages: languages,
-          manual_types: manual_types,
-          generators: generators
+          manual_types: true,
         )
 
-        if manual_types
-          synthetics.validate_minimum_per_label!
-          synthetics.validate_language_count_and_percent!
-        end
+        generator.run
 
-        synthetics.run
-
-        synthetics.results_to_csv(output_csv)
-        synthetics.results_to_training_csv(output_training_csv)
-        synthetics
+        generator.csv_file_hash(filename, file)
       end
 
-      def results_to_training_csv(file_path)
-        CSV.open(file_path, "w") do |csv|
+      def self.csv_file_hash(filename, file)
+        {
+          file_name(filename, LABEL_TRAINING) => generator.training_csv_string,
+          file_name(filename, LABEL_ANALYSIS) => generator.analysis_csv_string
+        }
+      end
+
+      def self.file_name(filename, file_ending)
+        [filename.gsub('.csv',''), LABEL_FILE, file_ending].join('_')
+      end
+
+      def training_csv_string
+        CSV.generate do |csv|
           training_data_rows.uniq.each {|row| csv << row }
+        end
+      end
+
+      def analysis_csv_string
+        CSV.generate do |csv|
+          csv << ['Text', 'Label', 'Original', 'Changed?', 'Language/Spelling', 'Type']
+          detail_data_rows.each {|row| csv << row }
         end
       end
 
@@ -122,13 +113,6 @@ module Evidence
           .map(&:to_detail_rows)
           .flatten(1)
           .reject(&:empty?)
-      end
-
-      def results_to_csv(file_path)
-        CSV.open(file_path, "w") do |csv|
-          csv << ['Text', 'Label', 'Original', 'Changed?', 'Language/Spelling', 'Type']
-          detail_data_rows.each {|row| csv << row }
-        end
       end
     end
   end
