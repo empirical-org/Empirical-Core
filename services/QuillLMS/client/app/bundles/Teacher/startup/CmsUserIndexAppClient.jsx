@@ -3,7 +3,7 @@ import React from 'react';
 import { sortTableByLastName, sortTableFromSQLTimeStamp } from 'modules/sortingMethods';
 import getAuthToken from '../components/modules/get_auth_token';
 import LoadingIndicator from '../components/shared/loading_indicator'
-import { FlagDropdown, ReactTable, } from '../../Shared/index'
+import { ReactTable, } from '../../Shared/index'
 
 export default class CmsUserIndex extends React.Component {
   constructor(props) {

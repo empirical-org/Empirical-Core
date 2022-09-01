@@ -63,7 +63,7 @@ module UserFlagset
     validates :flagset, inclusion: { in: FLAGSETS.keys.map(&:to_s) }
   end
 
-  def self.decorated(type:)
+  def self.decorated
     FLAGSETS.map{|key, value| {value: key.to_s, label: value[:display_name]}}
   end
 

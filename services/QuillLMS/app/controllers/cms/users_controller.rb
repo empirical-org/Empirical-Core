@@ -246,7 +246,6 @@ class Cms::UsersController < Cms::CmsController
       "users.email ILIKE #{(sanitized_fuzzy_param_value)}"
     when 'flagset'
       "users.flagset = #{(sanitized_param_value)}"
-      #"#{(sanitized_param_value)} = ANY (users.flags::text[])"
     when 'user_ip'
       "users.ip_address = #{(sanitized_param_value)}"
     when 'school_name'
