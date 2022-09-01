@@ -219,10 +219,10 @@ class Activity < ApplicationRecord
     is_evidence?
   end
 
-  def self.search_results(flag)
-    substring = flag ? "#{flag}_" : ""
+  def self.search_results(flagset)
+    substring = flagset ? "#{flagset}_" : ""
     activity_search_results = $redis.get("default_#{substring}activity_search")
-    activity_search_results ||= ActivitySearchWrapper.search_cache_data(flag)
+    activity_search_results ||= ActivitySearchWrapper.search_cache_data(flagset)
     JSON.parse(activity_search_results)
   end
 
