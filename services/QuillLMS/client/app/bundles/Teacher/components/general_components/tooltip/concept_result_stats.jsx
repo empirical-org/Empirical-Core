@@ -64,21 +64,18 @@ export default class ConceptResultStats extends React.Component {
 
   calculateStats = () => {
     const stats = this.props.results.reduce((memo, conceptResult) => {
-      if (conceptResult.metadata) {
-        const statsRow = memo[conceptResult.name] || {
-          name: conceptResult.name,
-          correct: 0,
-          incorrect: 0,
-        };
-        memo[conceptResult.name] = statsRow;
-        const correct = parseInt(conceptResult.metadata.correct);
-        if (correct) {
-          statsRow.correct += 1;
-        } else {
-          statsRow.incorrect += 1;
-        }
-        return memo;
+      const statsRow = memo[conceptResult.name] || {
+        name: conceptResult.name,
+        correct: 0,
+        incorrect: 0,
+      };
+      memo[conceptResult.name] = statsRow;
+      if (conceptResult.correct) {
+        statsRow.correct += 1;
+      } else {
+        statsRow.incorrect += 1;
       }
+      return memo;
     }, {});
     const statsAsArr = this.objectToArray(stats);
     const sortedStats = this.sortedStats(statsAsArr);
