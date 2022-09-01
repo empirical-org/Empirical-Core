@@ -11,6 +11,13 @@ RSpec.describe UserFlagset, type: :model do
     end
   end
 
+  context '#flags_for_flagset' do
+    it 'should return an string array of flags' do
+      result = UserFlagset.flags_for_flagset('college_board')
+      expect(result).to eq "'#{Flags::COLLEGE_BOARD}','#{Flags::PRODUCTION}'"
+    end
+  end
+
   context '#activity_viewable?' do
     let(:normal_user) { create(:user, flagset: 'production' ) }
     let(:alpha_user) { create(:user, flagset: 'alpha' ) }

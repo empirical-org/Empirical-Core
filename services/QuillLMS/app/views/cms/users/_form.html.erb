@@ -34,10 +34,8 @@
       <%= f.select :role, [['student', 'student'], ['teacher', 'teacher'], ['staff', 'staff']], autocomplete: 'off' %>
     </div>
     <div class='cms-form-row'>
-      <% @valid_flags.each do |flag| -%>
-        <%= f.label flag.to_sym %>
-        <%=check_box('user', "flags", {multiple: true, checked: @user.flags.include?(flag) || nil}, flag.to_sym, )%>
-      <% end -%>
+      <%= f.label :flagset %>
+      <%= f.select :flagset, UserFlagset::FLAGSETS.keys.map(&:to_s) %>
     </div>
     <div class='cms-form-row'>
       <%= f.label :classcode %>

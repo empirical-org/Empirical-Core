@@ -4,7 +4,6 @@
 module UserFlagset
   extend ActiveSupport::Concern
 
-
   included do
     FLAGSETS = {
 
@@ -62,6 +61,16 @@ module UserFlagset
     }
 
     validates :flagset, inclusion: { in: FLAGSETS.keys.map(&:to_s) }
+  end
+
+  def self.decorated
+    FLAGSETS.map{|key, value| {value: key.to_s, label: value[:display_name]}}
+  end
+
+  def self.flags_for_flagset(flagset)
+    return nil unless flagset
+
+    FLAGSETS[flagset.to_sym][:flags].keys.map{|k| "'#{k}'"}.join(',')
   end
 
   def activity_viewable?(activity)
