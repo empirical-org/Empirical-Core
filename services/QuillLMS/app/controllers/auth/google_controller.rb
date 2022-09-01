@@ -41,7 +41,7 @@ class Auth::GoogleController < ApplicationController
 
   private def check_for_authorization
     user = User.find_by('google_id = ? OR email = ?', @profile.google_id&.to_s, @profile.email&.downcase)
-    return if user.nil? || user.non_authenticating? || user.google_authorized?
+    return if user.nil? || user.sales_contact? || user.google_authorized?
 
     session[ApplicationController::GOOGLE_OFFLINE_ACCESS_EXPIRED] = true
     redirect_to new_session_path
@@ -85,7 +85,7 @@ class Auth::GoogleController < ApplicationController
     end
     @user = GoogleIntegration::User.new(@profile).update_or_initialize
 
-    update_role_if_necessary
+    update_role_from_sales_contact
     show_user_not_found_if_necessary
   end
 
@@ -95,8 +95,8 @@ class Auth::GoogleController < ApplicationController
     session[:role].present?
   end
 
-  private def update_role_if_necessary
-    return unless in_sign_up_flow? && @user.non_authenticating?
+  private def update_role_from_sales_contact
+    return unless @user.sales_contact? && in_sign_up_flow?
 
     @user.update(role: session[:role])
   end
@@ -106,7 +106,7 @@ class Auth::GoogleController < ApplicationController
     return if in_sign_up_flow?
     # We only need to show this error if the the sign in process can't find an
     # existing record, or finds a non-authenticating record.  Otherwise, skip it.
-    return unless @user.new_record? || @user.non_authenticating?
+    return unless @user.new_record? || @user.sales_contact?
 
     flash[:error] = user_not_found_error_message
     flash.keep(:error)

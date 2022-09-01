@@ -10,7 +10,7 @@ describe Auth::GoogleController, type: :controller do
     expect(response).to redirect_to "/session/new"
   end
 
-  it 'shows error message for non_authenticating? accounts with no role' do
+  it 'shows error message for sales-contact accounts' do
     user = create(:user, role: User::SALES_CONTACT)
 
     google_user_double = double
@@ -22,7 +22,7 @@ describe Auth::GoogleController, type: :controller do
     expect(response).to redirect_to "/session/new"
   end
 
-  it 'updates role non_authenticating? accounts when session[:role] is set' do
+  it 'updates role for sales-contact accounts when session[:role] is set' do
     session_role = 'teacher'
     user = create(:user, role: User::SALES_CONTACT)
 

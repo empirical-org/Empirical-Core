@@ -42,7 +42,7 @@ describe PasswordResetController do
       end
     end
 
-    context 'when user exists, but is a non_authenticating type' do
+    context 'when user exists, but is a sales_contact type' do
       let!(:user) { create(:user, role: User::SALES_CONTACT) }
 
       it 'should refresh the token, send the password reset mailer and redirect to index path' do

@@ -74,7 +74,6 @@ class User < ApplicationRecord
   SALES_CONTACT = 'sales-contact'
   ROLES      = [TEACHER, STUDENT, STAFF, SALES_CONTACT]
   SAFE_ROLES = [STUDENT, TEACHER, SALES_CONTACT]
-  NON_AUTHENTICATING_ROLES = [SALES_CONTACT]
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
 
 
@@ -668,8 +667,8 @@ class User < ApplicationRecord
   # through our onboarding flow, but are given a User record so that we
   # can sync their data to Vitally.  We need to treat these users specially
   # during auth flows because they haven't actually signed up.
-  def non_authenticating?
-    NON_AUTHENTICATING_ROLES.include?(role)
+  def sales_contact?
+    role == SALES_CONTACT
   end
 
   private def validate_flags
