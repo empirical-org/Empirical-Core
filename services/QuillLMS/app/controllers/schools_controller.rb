@@ -6,7 +6,7 @@ class SchoolsController < ApplicationController
   before_action :require_user, only: [:select_school]
 
   include CheckboxCallback
-  MIN_PREFIX_LENGTH_WHEN_LAT_LON_NOT_PRESENT = 2
+  MIN_PREFIX_LENGTH = 2
 
   # rubocop:disable Metrics/CyclomaticComplexity
   def index
@@ -70,7 +70,7 @@ class SchoolsController < ApplicationController
       end
     end
 
-    if @schools.empty? and @prefix.length < MIN_PREFIX_LENGTH_WHEN_LAT_LON_NOT_PRESENT
+    if @schools.empty? and @prefix.length < MIN_PREFIX_LENGTH
       @schools = []
     elsif @schools.empty?
       @schools = School.select("schools.id, name, zipcode, mail_zipcode, street, mail_street, city, mail_city, state, mail_state, COUNT(schools_users.id) AS number_of_teachers")
