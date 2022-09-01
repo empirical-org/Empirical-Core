@@ -5,7 +5,7 @@ module Evidence
     include Evidence.sidekiq_module
     sidekiq_options retry: 0
 
-    EMAIL = 'synthetic-data-exports@quill.org'
+    EMAIL = Evidence::Synthetic::EMAIL
 
     def perform(activity_id, nouns)
       csv_hash = Evidence::Synthetic::SeedDataGenerator.csvs_for_activity(activity_id: activity_id, nouns: nouns)
