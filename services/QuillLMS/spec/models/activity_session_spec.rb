@@ -829,13 +829,17 @@ end
     before { activity_session.update(visible: true) }
 
     it 'should create a concept result with the hash given' do
-      expect(OldConceptResult).to receive(:create).with({
-        activity_session_id: activity_session.id,
-        concept_id: concept.id,
-        metadata: metadata,
-        question_type: 'lessons-slide'
-      }).and_call_original
-      ActivitySession.save_concept_results([activity_session], concept_results)
+      Sidekiq::Testing.inline! do
+        expect do
+          expect(ConceptResult).to receive(:create_from_json).with({
+            activity_session_id: activity_session.id,
+            concept_id: concept.id,
+            metadata: metadata,
+            question_type: 'lessons-slide'
+          }.deep_stringify_keys).and_call_original
+          ActivitySession.save_concept_results([activity_session], concept_results)
+        end.to change(ConceptResult, :count).by(1)
+      end
     end
 
     it 'should enqueue the creation of new concept results based on the OldConceptResult created' do

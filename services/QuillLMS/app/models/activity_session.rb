@@ -397,13 +397,12 @@ class ActivitySession < ApplicationRecord
       concept_result[:activity_session_id] = activity_session_id
       concept_result.delete(:activity_session_uid)
 
-      old_concept_result = OldConceptResult.create(
+      SaveActivitySessionConceptResultsWorker.perform_async({
         concept_id: concept_result[:concept_id],
         question_type: concept_result[:question_type],
         activity_session_id: concept_result[:activity_session_id],
         metadata: concept_result[:metadata],
-      )
-      SaveActivitySessionConceptResultsWorker.perform_async([old_concept_result.id]) if old_concept_result
+      })
     end
   end
 
