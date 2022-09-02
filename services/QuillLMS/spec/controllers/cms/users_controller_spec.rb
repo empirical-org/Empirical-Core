@@ -246,11 +246,11 @@ describe Cms::UsersController do
     end
 
     it 'should update the attributes for the given user and update change_log when the attribute is the account_type' do
-      post :update, params: { id: another_user.id, user: { account_type: User::CLEVER } }
-      expect(another_user.reload.account_type).to eq User::CLEVER
+      post :update, params: { id: another_user.id, user: { account_type: User::CLEVER_ACCOUNT } }
+      expect(another_user.reload.account_type).to eq User::CLEVER_ACCOUNT
       expect(response).to redirect_to cms_users_path
       expect(ChangeLog.last.action).to eq(ChangeLog::USER_ACTIONS[:update])
-      expect(ChangeLog.last.new_value).to include(User::CLEVER)
+      expect(ChangeLog.last.new_value).to include(User::CLEVER_ACCOUNT)
     end
 
   end
