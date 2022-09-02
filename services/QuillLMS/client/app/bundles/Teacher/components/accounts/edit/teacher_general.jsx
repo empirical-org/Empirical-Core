@@ -10,6 +10,14 @@ const timeZoneOptions = timezones.map((tz) => {
   return newTz
 }).concat({ label: 'None selected', value: null, name: null, })
 
+const HOME_SCHOOL_SCHOOL_NAME = 'home school'
+const US_HIGHER_ED_SCHOOL_NAME = 'us higher ed'
+const INTERNATIONAL_SCHOOL_NAME = 'international'
+const NOT_LISTED_SCHOOL_NAME = 'not listed'
+const NO_SCHOOL_SELECTED_SCHOOL_NAME = 'no school selected'
+const OTHER_SCHOOL_NAME = 'other'
+const US_K12_SCHOOL = 'U.S. K-12 school'
+
 export default class TeacherGeneralAccountInfo extends React.Component {
   constructor(props) {
     super(props)
@@ -70,8 +78,8 @@ export default class TeacherGeneralAccountInfo extends React.Component {
     const { school } = this.state
     if (id != school.id) {
       this.setState({ changedSchools: true, })
-      if (id === 'not listed') {
-        const notListedSchool = this.props.alternativeSchools.find(school => school.name === 'not listed')
+      if (id === NOT_LISTED_SCHOOL_NAME) {
+        const notListedSchool = this.props.alternativeSchools.find(school => school.name === NOT_LISTED_SCHOOL_NAME)
         this.setState({ school: notListedSchool, showSchoolSelector: false, })
       } else {
         const school = { name: schoolObj.attributes.text, id, }
@@ -82,7 +90,7 @@ export default class TeacherGeneralAccountInfo extends React.Component {
 
   handleSchoolTypeChange = schoolType => {
     // we don't want teachers to set their school as "not-listed" if they already have a school selected
-    if (schoolType.value !== 'U.S. K-12 school' || this.state.schoolType !== 'U.S. K-12 school') {
+    if (schoolType.value !== US_K12_SCHOOL || this.state.schoolType !== US_K12_SCHOOL) {
       this.setState({ schoolType: schoolType.value, school: schoolType, changedSchools: true});
     }
   };
@@ -123,13 +131,8 @@ export default class TeacherGeneralAccountInfo extends React.Component {
   };
 
   schoolTypeOptions = () => {
-    const { alternativeSchools, alternativeSchoolsNameMap, } = this.props
-    return alternativeSchools.map((school) => {
-      const schoolOption = school
-      schoolOption.label = alternativeSchoolsNameMap[school.name]
-      schoolOption.value = alternativeSchoolsNameMap[school.name]
-      return schoolOption
-    })
+    const { alternativeSchoolsNameMap, } = this.props
+    return [...new Set(Object.values(alternativeSchoolsNameMap))].map(schoolType => ({ label: schoolType, value: schoolType, }))
   };
 
   showSchoolSelector = () => {
@@ -208,8 +211,12 @@ export default class TeacherGeneralAccountInfo extends React.Component {
       if (showSchoolSelector) {
         return <SchoolSelector selectSchool={this.handleSchoolChange} />
       } else {
-        const schoolName = school && school.name ? school.name : ''
-        const schoolNameValue = ['home school', 'us higher ed', 'international', 'other', 'not listed'].includes(schoolName) ? 'Not listed' : schoolName
+        let schoolNameValue = school && school.name ? school.name : ''
+        if (schoolNameValue === NOT_LISTED_SCHOOL_NAME) {
+          schoolNameValue = 'Not listed'
+        } else if ([HOME_SCHOOL_SCHOOL_NAME, US_HIGHER_ED_SCHOOL_NAME, INTERNATIONAL_SCHOOL_NAME, OTHER_SCHOOL_NAME, NO_SCHOOL_SELECTED_SCHOOL_NAME].includes(schoolNameValue)) {
+          schoolNameValue = 'No school selected'
+        }
         return (
           <div className="school-container">
             <Input

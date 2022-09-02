@@ -200,6 +200,20 @@ class SegmentAnalytics
     end
   end
 
+  def track_teacher_school_not_listed(user, school_name, zipcode)
+    track({
+      # Segment requires us to send a unique User ID or Anonymous ID for every event
+      # generate a random UUID here because we don't want the School Subscription event to be associated to any real user
+      user_id: user.id,
+      event: SegmentIo::BackgroundEvents::TEACHER_SCHOOL_NOT_LISTED,
+      properties: {
+        email: user.email,
+        school_name: school_name,
+        zipcode: zipcode
+      }
+    })
+  end
+
   def default_integration_rules
     { all: true, Intercom: false }
   end

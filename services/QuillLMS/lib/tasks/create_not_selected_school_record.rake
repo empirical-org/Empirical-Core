@@ -5,6 +5,6 @@ namespace :not_selected_school_record do
   task :create => :environment do
     no_school_selected_school = School.find_or_create_by(name: School::NO_SCHOOL_SELECTED_SCHOOL_NAME)
     not_listed_school = School.find_by(name: School::NOT_LISTED_SCHOOL_NAME)
-    SchoolsUsers.where(school_id: not_listed_school).update(school_id: no_school_selected_school)
+    SchoolsUsers.where(school: not_listed_school).update(school: no_school_selected_school)
   end
 end

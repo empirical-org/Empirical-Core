@@ -479,6 +479,7 @@
 .unarchive-class-modal,
 .edit-student-account-modal,
 .reset-student-password-modal,
+.school-not-listed-modal,
 .merge-student-accounts-modal,
 .move-students-modal,
 .remove-students-modal,
@@ -830,6 +831,13 @@
     input {
       border-bottom: none;
     }
+  }
+}
+
+.school-not-listed-modal {
+  height: min-content;
+  .input-container {
+    margin-bottom: 36px;
   }
 }
 

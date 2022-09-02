@@ -539,6 +539,7 @@ EmpiricalGrammar::Application.routes.draw do
 
   put '/select_school', to: 'schools#select_school'
   get '/select_school', to: 'schools#select_school'
+  post '/submit_unlisted_school_information', to: 'schools#submit_unlisted_school_information'
 
   namespace :cms do
     resources :images, only: [:index, :destroy, :create]
