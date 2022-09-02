@@ -236,6 +236,23 @@ describe Cms::UsersController do
       expect(ChangeLog.last.action).to eq(ChangeLog::USER_ACTIONS[:update])
       expect(ChangeLog.last.new_value).to include('new@test.com')
     end
+
+    it 'should update the attributes for the given user and update change_log when the attribute is the clever id' do
+      post :update, params: { id: another_user.id, user: { clever_id: 'abc' } }
+      expect(another_user.reload.clever_id).to eq 'abc'
+      expect(response).to redirect_to cms_users_path
+      expect(ChangeLog.last.action).to eq(ChangeLog::USER_ACTIONS[:update])
+      expect(ChangeLog.last.new_value).to include('abc')
+    end
+
+    it 'should update the attributes for the given user and update change_log when the attribute is the account_type' do
+      post :update, params: { id: another_user.id, user: { account_type: User::CLEVER } }
+      expect(another_user.reload.account_type).to eq User::CLEVER
+      expect(response).to redirect_to cms_users_path
+      expect(ChangeLog.last.action).to eq(ChangeLog::USER_ACTIONS[:update])
+      expect(ChangeLog.last.new_value).to include(User::CLEVER)
+    end
+
   end
 
   describe '#clear_data' do
