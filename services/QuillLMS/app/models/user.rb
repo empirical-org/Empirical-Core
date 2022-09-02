@@ -91,6 +91,10 @@ class User < ApplicationRecord
 
   GOOGLE_CLASSROOM_ACCOUNT = 'Google Classroom'
   CLEVER_ACCOUNT = 'Clever'
+  TEACHER_CREATED_ACCOUNT = 'Teacher Created Account'
+  STUDENT_CREATED_ACCOUNT = 'Student Created Account'
+  UNKNOWN = 'unknown'
+  ACCOUNT_TYPES = [GOOGLE_CLASSROOM_ACCOUNT, CLEVER_ACCOUNT, TEACHER_CREATED_ACCOUNT, STUDENT_CREATED_ACCOUNT, UNKNOWN]
 
   attr_accessor :validate_username, :require_password_confirmation_when_password_present, :newsletter
 

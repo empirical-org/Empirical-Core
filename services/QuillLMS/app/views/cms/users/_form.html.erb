@@ -38,6 +38,14 @@
       <%= f.select :flagset, UserFlagset::FLAGSETS.keys.map(&:to_s) %>
     </div>
     <div class='cms-form-row'>
+      <%= f.label :account_type %>
+      <%= f.select :account_type, User::ACCOUNT_TYPES %>
+    </div>
+    <div class='cms-form-row'>
+      <%= f.label :clever_id %>
+      <%= f.text_field :clever_id, autocomplete: 'off' %>
+    </div>
+    <div class='cms-form-row'>
       <%= f.label :classcode %>
       <%= f.text_field :classcode, autocomplete: 'off' %>
     </div>
