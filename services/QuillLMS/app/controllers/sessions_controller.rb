@@ -46,7 +46,7 @@ class SessionsController < ApplicationController
   def login_through_ajax
     email_or_username = params[:user][:email].downcase.strip unless params[:user][:email].nil?
     @user =  User.find_by_username_or_email(email_or_username)
-    if @user.nil?
+    if @user.nil? || @user.sales_contact?
       render json: {message: 'An account with this email or username does not exist. Try again.', type: 'email'}, status: :unauthorized
     elsif @user.signed_up_with_google
       render json: {message: 'Oops! You have a Google account. Log in that way instead.', type: 'email'}, status: :unauthorized
