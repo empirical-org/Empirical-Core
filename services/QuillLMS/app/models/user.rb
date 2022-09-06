@@ -657,6 +657,15 @@ class User < ApplicationRecord
     SegmentIntegration::User.new(self)
   end
 
+  # With the introduction of the SALES_CONTACT we now have a sort of
+  # "prospective user" type of user.  These people haven't signed up
+  # through our onboarding flow, but are given a User record so that we
+  # can sync their data to Vitally.  We need to treat these users specially
+  # during auth flows because they haven't actually signed up.
+  def sales_contact?
+    role == SALES_CONTACT
+  end
+
   private def validate_flags
     invalid_flags = flags - VALID_FLAGS
 

@@ -80,6 +80,14 @@ describe SessionsController, type: :controller do
       end
     end
 
+    context 'when user has a non-authenticating role' do
+      it 'should report login failiure' do
+        user.update(role: User::SALES_CONTACT)
+        post :login_through_ajax, params: { user: { email: user.email } }, as: :json
+        expect(response.body).to eq({message: 'An account with this email or username does not exist. Try again.', type: 'email'}.to_json)
+      end
+    end
+
     context 'when user has signed up with google' do
       before do
         allow_any_instance_of(User).to receive(:signed_up_with_google) { true }
