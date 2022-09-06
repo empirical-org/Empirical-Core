@@ -336,7 +336,7 @@ class ActivitySession < ApplicationRecord
 
   # rubocop:disable Metrics/CyclomaticComplexity
   def parse_for_results
-    concept_results_by_concept = old_concept_results.group_by { |c| c.concept_id }
+    concept_results_by_concept = concept_results.group_by { |c| c.concept_id }
 
     results = {
       PROFICIENT => [],
@@ -350,7 +350,7 @@ class ActivitySession < ApplicationRecord
         next
       end
 
-      number_correct = arr.inject(0) { |sum, cr| sum + cr.metadata['correct'] }
+      number_correct = arr.inject(0) { |sum, cr| sum + (cr.correct ? 1 : 0) }
       average_correct = number_correct.to_f / arr.length
 
       if average_correct >= ProficiencyEvaluator.proficiency_cutoff
@@ -410,7 +410,7 @@ class ActivitySession < ApplicationRecord
   def self.delete_activity_sessions_with_no_concept_results(activity_sessions)
     incomplete_activity_session_ids = []
     activity_sessions.each do |as|
-      if as.old_concept_result_ids.empty?
+      if as.concept_result_ids.empty?
         incomplete_activity_session_ids.push(as.id)
       end
     end
@@ -510,13 +510,13 @@ class ActivitySession < ApplicationRecord
   end
 
   # when using this method, you should eager load ass
-  # e.g. .includes(:old_concept_results, activity: {skills: :concepts})
+  # e.g. .includes(:concept_results, activity: {skills: :concepts})
   def correct_skills
     @correct_skills ||= begin
       skills.select do |skill|
-        results = old_concept_results.select {|cr| cr.concept_id.in?(skill.concept_ids)}
+        results = concept_results.select {|cr| cr.concept_id.in?(skill.concept_ids)}
 
-        results.length && results.all?(&:correct?)
+        results.length && results.all?(&:correct)
       end
     end
   end
