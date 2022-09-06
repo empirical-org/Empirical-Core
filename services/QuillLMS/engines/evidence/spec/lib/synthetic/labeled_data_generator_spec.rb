@@ -134,7 +134,7 @@ describe Evidence::Synthetic::LabeledDataGenerator do
       csv = CSV.parse(output[automl_name])
       expect(csv.size).to be 7
       first_row = csv.first
-      expect(first_row.first).to satisfy({|v| v.in?(["TRAIN", "TEST", "VALIDATION"])})
+      expect(first_row.first).to(satisfy {|v| v.in?(["TRAIN", "TEST", "VALIDATION"])})
       expect(first_row.second).to eq text1
       expect(first_row.last).to eq label1
     end

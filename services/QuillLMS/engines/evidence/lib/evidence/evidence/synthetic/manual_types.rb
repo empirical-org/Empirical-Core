@@ -21,7 +21,7 @@ module Evidence
       TYPE_ALLOCATION = [
          Array.new(8, TYPE_TRAIN),
          Array.new(1, TYPE_TEST),
-         Array.new(1, TYPE_VALIDATION),
+         Array.new(1, TYPE_VALIDATION)
       ].flatten
 
       included do
@@ -45,26 +45,19 @@ module Evidence
       end
 
       def assign_minimum_per_label
-        # Assign minimum tags per label
         labels.each do |label|
-          testing_sample = results
-            .select {|r| r.label == label }
-            .sample(MIN_TEST_PER_LABEL * 2)
-
-          # ensure minimum-sized TEST and VALIDATION sets per label
-          testing_sample.each.with_index do |result, index|
-            result.type = index.odd? ? TYPE_TEST : TYPE_VALIDATION
-          end
-
-          training_sample = results
-            .select {|r| r.label == label && r.type.nil? }
-            .sample(MIN_TRAIN_PER_LABEL)
-
-          # ensure minimum-sized TRAIN set per label
-          training_sample.each do |result|
-            result.type = TYPE_TRAIN
-          end
+          assign_type_to_results_sample_for_label(label, MIN_TEST_PER_LABEL, TYPE_TEST)
+          assign_type_to_results_sample_for_label(label, MIN_TEST_PER_LABEL, TYPE_VALIDATION)
+          assign_type_to_results_sample_for_label(label, MIN_TRAIN_PER_LABEL, TYPE_TRAIN)
         end
+      end
+
+      def assign_type_to_results_sample_for_label(label, number, type)
+        results
+          .select {|r| r.type.nil?}
+          .select {|r| r.label == label}
+          .sample(number)
+          .each {|r| r.type = type}
       end
 
       def test_count_needed
