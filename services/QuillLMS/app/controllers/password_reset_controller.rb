@@ -11,7 +11,7 @@ class PasswordResetController < ApplicationController
   def create
     user = User.find_by_email(params[:user][:email])
 
-    if user && params[:user][:email].present?
+    if user && !user.sales_contact? && params[:user][:email].present?
       if user.google_id
         render json: { message: 'Oops! You have a Google account. Log in that way instead.', type: 'email' }, status: 401
       elsif user.clever_id
