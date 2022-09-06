@@ -64,7 +64,7 @@ RSpec.describe 'Activity Pack Assignment' do
     click_on 'Assign a diagnostic'
     first(:button, 'Select').click
     find('span.all-classes-text', text: 'All classes and students').sibling('span').click
-    # the following line checks for the presence of an element that only loads once activity data has loaded, ensuring that the assign click will be successful 
+    # the following line checks for the presence of an element that only loads once activity data has loaded, ensuring that the assign click will be successful
     first('.review-activities-data-table-section').click
     click_on 'Assign pack to classes'
     click_on 'Next'
