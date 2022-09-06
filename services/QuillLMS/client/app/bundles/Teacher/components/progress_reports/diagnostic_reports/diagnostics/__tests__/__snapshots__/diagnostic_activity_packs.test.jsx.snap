@@ -1644,12 +1644,12 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                       </p>
                     </div>
                     <div>
-                      <button
+                      <a
                         className="diagnostic-reports-button quill-button fun secondary outlined unbolded focus-on-light"
-                        onClick={[Function]}
+                        href="/teachers/progress_reports/diagnostic_reports/#/diagnostics/992/classroom/6/summary?unit=110"
                       >
                         View results and recommendations
-                      </button>
+                      </a>
                     </div>
                   </section>
                 </AssignedSection>
@@ -1903,12 +1903,12 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                       </p>
                     </div>
                     <div>
-                      <button
+                      <a
                         className="diagnostic-reports-button quill-button fun secondary outlined unbolded focus-on-light"
-                        onClick={[Function]}
+                        href="/teachers/progress_reports/diagnostic_reports/#/diagnostics/992/classroom/1/summary?unit=110"
                       >
                         View results and recommendations
-                      </button>
+                      </a>
                     </div>
                   </section>
                 </AssignedSection>
@@ -2029,12 +2029,12 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                       </p>
                     </div>
                     <div>
-                      <button
+                      <a
                         className="diagnostic-reports-button quill-button fun secondary outlined unbolded focus-on-light"
-                        onClick={[Function]}
+                        href="/teachers/progress_reports/diagnostic_reports/#/diagnostics/1678/classroom/1/summary"
                       >
                         View results and recommendations
-                      </button>
+                      </a>
                     </div>
                   </section>
                 </AssignedSection>
@@ -2101,12 +2101,12 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                         </p>
                       </div>
                       <div>
-                        <button
+                        <a
                           className="diagnostic-reports-button quill-button fun secondary outlined unbolded focus-on-light"
-                          onClick={[Function]}
+                          href="/teachers/progress_reports/diagnostic_reports/#/diagnostics/1680/classroom/1/growth_summary"
                         >
                           View results and recommendations
-                        </button>
+                        </a>
                       </div>
                     </section>
                   </AssignedSection>
@@ -2125,12 +2125,12 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                       </h4>
                     </div>
                     <div>
-                      <button
+                      <a
                         className="diagnostic-reports-button quill-button fun secondary outlined unbolded focus-on-light"
-                        onClick={[Function]}
+                        href="/teachers/progress_reports/diagnostic_reports/#/diagnostics/1680/classroom/1/growth_summary"
                       >
                         View growth
-                      </button>
+                      </a>
                     </div>
                   </section>
                 </GrowthSummarySection>
@@ -2227,12 +2227,12 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                       </p>
                     </div>
                     <div>
-                      <button
+                      <a
                         className="diagnostic-reports-button quill-button fun secondary outlined unbolded focus-on-light"
-                        onClick={[Function]}
+                        href="/teachers/progress_reports/diagnostic_reports/#/diagnostics/1668/classroom/1/summary"
                       >
                         View results and recommendations
-                      </button>
+                      </a>
                     </div>
                   </section>
                 </AssignedSection>
@@ -2299,12 +2299,12 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                         </p>
                       </div>
                       <div>
-                        <button
+                        <a
                           className="diagnostic-reports-button quill-button fun secondary outlined unbolded focus-on-light"
-                          onClick={[Function]}
+                          href="/teachers/progress_reports/diagnostic_reports/#/diagnostics/1669/classroom/1/growth_summary"
                         >
                           View results and recommendations
-                        </button>
+                        </a>
                       </div>
                     </section>
                   </AssignedSection>
@@ -2323,12 +2323,12 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                       </h4>
                     </div>
                     <div>
-                      <button
+                      <a
                         className="diagnostic-reports-button quill-button fun secondary outlined unbolded focus-on-light"
-                        onClick={[Function]}
+                        href="/teachers/progress_reports/diagnostic_reports/#/diagnostics/1669/classroom/1/growth_summary"
                       >
                         View growth
-                      </button>
+                      </a>
                     </div>
                   </section>
                 </GrowthSummarySection>
@@ -2425,12 +2425,12 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                       </p>
                     </div>
                     <div>
-                      <button
+                      <a
                         className="diagnostic-reports-button quill-button fun secondary outlined unbolded focus-on-light"
-                        onClick={[Function]}
+                        href="/teachers/progress_reports/diagnostic_reports/#/diagnostics/1663/classroom/1/summary"
                       >
                         View results and recommendations
-                      </button>
+                      </a>
                     </div>
                   </section>
                 </AssignedSection>
@@ -2497,12 +2497,12 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                         </p>
                       </div>
                       <div>
-                        <button
+                        <a
                           className="diagnostic-reports-button quill-button fun secondary outlined unbolded focus-on-light"
-                          onClick={[Function]}
+                          href="/teachers/progress_reports/diagnostic_reports/#/diagnostics/1664/classroom/1/growth_summary"
                         >
                           View results and recommendations
-                        </button>
+                        </a>
                       </div>
                     </section>
                   </AssignedSection>
@@ -2521,12 +2521,12 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                       </h4>
                     </div>
                     <div>
-                      <button
+                      <a
                         className="diagnostic-reports-button quill-button fun secondary outlined unbolded focus-on-light"
-                        onClick={[Function]}
+                        href="/teachers/progress_reports/diagnostic_reports/#/diagnostics/1664/classroom/1/growth_summary"
                       >
                         View growth
-                      </button>
+                      </a>
                     </div>
                   </section>
                 </GrowthSummarySection>

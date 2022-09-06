@@ -13,10 +13,6 @@ interface GrowthSummaryProps {
 
 const GrowthSummarySection = ({ showGrowthSummary, skillsGrowth, name, growthSummaryLink, }: GrowthSummaryProps) => {
 
-  function handleClick() {
-    window.location.href = growthSummaryLink;
-  }
-
   if (showGrowthSummary) {
     const growth = skillsGrowth > 0 ? <span className="growth">{triangleUpIcon}{skillsGrowth}</span> : <span className="no-growth">No growth yet</span>
     return (
@@ -26,7 +22,7 @@ const GrowthSummarySection = ({ showGrowthSummary, skillsGrowth, name, growthSum
           {skillsGrowth !== null && <p>{barGraphIncreasingIcon}<span>Skills growth: {growth}</span></p>}
         </div>
         <div>
-          <button className="diagnostic-reports-button quill-button fun secondary outlined unbolded focus-on-light" onClick={handleClick}>View growth</button>
+          <a className="diagnostic-reports-button quill-button fun secondary outlined unbolded focus-on-light" href={growthSummaryLink}>View growth</a>
         </div>
       </section>
     )

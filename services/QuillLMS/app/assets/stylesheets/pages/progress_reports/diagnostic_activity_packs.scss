@@ -131,13 +131,20 @@
         .post {
           .post-buttons-container {
             display: flex;
-            button:first-of-type {
+            a:first-of-type {
               margin-right: 8px;
             }
-            button:focus {
+            a:focus, button:focus {
               outline-offset: 4px;
             }
           }
+        }
+        .diagnostic-reports-button {
+          color: #000000;
+          font-size: 13px;
+        }
+        .diagnostic-reports-button:hover, .diagnostic-reports-button:focus {
+          background-color: #f5f5f5;
         }
       }
     }
@@ -162,6 +169,20 @@
         }
         &.pre, &.post {
           max-width: 100%;
+        }
+      }
+      .post {
+        .post-buttons-container {
+          align-items: baseline;
+          a {
+            text-align: left;
+            margin-right: 8px;
+            padding-right: 0;
+            min-width: auto;
+          }
+          button {
+            margin-top: 0px;
+          }
         }
       }
       .diagnostic-reports-button {
