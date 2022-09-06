@@ -71,7 +71,7 @@ module Evidence
       def self.csvs_from_run(texts_and_labels, filename)
         generator = Evidence::Synthetic::LabeledDataGenerator.new(
           texts_and_labels,
-          manual_types: true,
+          manual_types: true
         )
 
         generator.run
