@@ -85,7 +85,7 @@ const LabeledDataUploadForm = ({ history, match }) => {
       <p>
         <i>The file should be a <b>.csv</b> with <b>two columns</b>: (text, label) and <b>no header row</b>.</i>
       </p>
-      <Dropzone onDrop={handleDrop}/>
+      <Dropzone onDrop={handleDrop} />
       <h4> Uploaded Files To Process</h4>
       {filenames.map(name => <li>{name}</li>)}
 
