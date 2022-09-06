@@ -183,7 +183,8 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     elsif Activity.diagnostic_activity_ids.include?(activity_id.to_i)
       activity_is_a_post_test = Activity.find_by(follow_up_activity_id: activity_id).present?
       summary_or_growth_summary = activity_is_a_post_test ? 'growth_summary' : 'summary'
-      render json: { url: "/teachers/progress_reports/diagnostic_reports#/diagnostics/#{activity_id}/classroom/#{classroom_id}/#{summary_or_growth_summary}" }
+      unit_query_string = "?unit=#{unit_id}"
+      render json: { url: "/teachers/progress_reports/diagnostic_reports#/diagnostics/#{activity_id}/classroom/#{classroom_id}/#{summary_or_growth_summary}#{unit_query_string}" }
     else
       render json: { url: "/teachers/progress_reports/diagnostic_reports#/u/#{unit_id}/a/#{activity_id}/c/#{classroom_id}/students" }
     end
