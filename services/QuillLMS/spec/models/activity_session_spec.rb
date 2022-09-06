@@ -831,7 +831,7 @@ end
     it 'should create a concept result with the hash given' do
       Sidekiq::Testing.inline! do
         expect do
-          expect(ConceptResult).to receive(:create_from_json).with({
+          expect(ConceptResult).to receive(:init_from_json).with({
             activity_session_id: activity_session.id,
             concept_id: concept.id,
             metadata: metadata,
@@ -851,8 +851,8 @@ end
   describe '#delete_activity_sessions_with_no_concept_results' do
     let!(:activity) { create(:activity)}
     let(:classroom_unit) { create(:classroom_unit) }
-    let!(:activity_session) { create(:activity_session, activity: activity, classroom_unit: classroom_unit) }
-    let!(:activity_session1) { create(:activity_session, activity: activity, classroom_unit: classroom_unit) }
+    let!(:activity_session) { create(:activity_session_without_concept_results, activity: activity, classroom_unit: classroom_unit) }
+    let!(:activity_session1) { create(:activity_session_without_concept_results, activity: activity, classroom_unit: classroom_unit) }
 
     it 'should delete the activity sessions without the concept results' do
       create(:concept_result, activity_session: activity_session)
