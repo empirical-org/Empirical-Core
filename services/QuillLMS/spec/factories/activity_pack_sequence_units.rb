@@ -22,7 +22,7 @@
 #  fk_rails_...  (unit_id => units.id)
 #
 FactoryBot.define do
-  factory :activity_pack_sequence do
+  factory :activity_pack_sequence_unit do
     activity_pack_sequence
     unit
   end
