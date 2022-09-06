@@ -842,7 +842,7 @@ end
       end
     end
 
-    it 'should enqueue the creation of new concept results based on the OldConceptResult created' do
+    it 'should enqueue the creation of new concept results when handling concept results' do
       expect(SaveActivitySessionConceptResultsWorker).to receive(:perform_async)
       ActivitySession.save_concept_results([activity_session], concept_results)
     end
