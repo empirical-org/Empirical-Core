@@ -5,8 +5,6 @@ module Evidence
     include Evidence.sidekiq_module
     sidekiq_options retry: 0
 
-    EMAIL = Evidence::Synthetic::EMAIL
-
     def perform(filename, activity_id)
       uploader = Evidence.file_uploader.new
       uploader.retrieve_from_store!(filename)
@@ -18,7 +16,7 @@ module Evidence
 
       subject = "Evidence Labeled Synthetic Data: #{activity_id} - #{activity.title}"
 
-      Evidence.file_mailer.send_multiple_files(EMAIL, subject, csv_hash).deliver_now!
+      Evidence.file_mailer.send_multiple_files(Evidence::Synthetic::EMAIL, subject, csv_hash).deliver_now!
     end
   end
 end

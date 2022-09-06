@@ -2,6 +2,6 @@
 
 module Evidence
   module Synthetic
-    EMAIL = 'synthetic-data-exports@quill.org'
+    EMAIL = ENV.fetch('SYNTHETIC_DATA_EMAIL', '')
   end
 end
