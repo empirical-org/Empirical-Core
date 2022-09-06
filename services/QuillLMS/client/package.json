@@ -7,7 +7,7 @@
   },
   "license": "AGPL-3.0",
   "engines": {
-    "node": "12.x"
+    "node": "16.x"
   },
   "main": "js/app.js",
   "dependencies": {
@@ -70,7 +70,7 @@
     "mini-css-extract-plugin": "^2.3.0",
     "mockdate": "^2.0.1",
     "moment": "^2.29.4",
-    "node-polyfill-webpack-plugin": "^1.1.4",
+    "node-polyfill-webpack-plugin": "^2.0.1",
     "node-sass": "^6.0.1",
     "pluralize": "^3.0.0",
     "pos": "^0.4.2",
