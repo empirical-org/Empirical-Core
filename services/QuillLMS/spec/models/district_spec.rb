@@ -29,6 +29,7 @@ describe District, type: :model do
   let!(:district) { create(:district) }
 
   it { should validate_uniqueness_of(:nces_id).with_message("A district with this NCES ID already exists.") }
+  it { should allow_value("", nil).for(:nces_id) }
 
   it { should have_many(:schools) }
   it { should have_many(:district_admins) }
