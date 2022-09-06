@@ -4,6 +4,7 @@ module Evidence
   module Synthetic
     module ManualTypes
       extend ActiveSupport::Concern
+      include ActiveModel::Validations
 
       class NotEnoughData < StandardError; end
 
@@ -14,15 +15,37 @@ module Evidence
       TYPE_TRAIN = 'TRAIN'
       TYPE_VALIDATION = 'VALIDATION'
       TYPE_TEST = 'TEST'
+      TRAIN_PERCENT = 0.8
+
+      # After hitting minimums, assign 80% of data to TRAIN, 10% to TEST, 10% to VALIDATION
+      TYPE_ALLOCATION = [
+         Array.new(8, TYPE_TRAIN),
+         Array.new(1, TYPE_TEST),
+         Array.new(1, TYPE_VALIDATION),
+      ].flatten
 
       included do
         attr_reader :manual_types
+
+        validate :validate_estimated_test_percent_for_automl, if: :manual_types
+        validate :validate_minimum_per_label, if: :manual_types
       end
 
-      # TODO: This could use refactoring, but might be removed entirely.
-      # rubocop:disable Metrics/CyclomaticComplexity
       def assign_types
-        # assign TEST and VALIDATION types to each label to ensure minimum per label
+        assign_minimum_per_label
+
+        # assign rest of empty types
+        results.select {|r| r.type.nil?}.each.with_index do |result, index|
+          result.type = allocated_type(index)
+        end
+      end
+
+      def allocated_type(index)
+        TYPE_ALLOCATION[index % TYPE_ALLOCATION.length] || TYPE_TRAIN
+      end
+
+      def assign_minimum_per_label
+        # Assign minimum tags per label
         labels.each do |label|
           testing_sample = results
             .select {|r| r.label == label }
@@ -42,31 +65,7 @@ module Evidence
             result.type = TYPE_TRAIN
           end
         end
-
-        if test_count_needed > test_count_allocated
-          raise NotEnoughData, "Test Needed: #{test_count_needed}, allocated: #{test_count_allocated}"
-        end
-
-        if train_count_needed > train_count_allocated
-          raise NotEnoughData, "Train Needed: #{train_count_needed}, allocated: #{train_count_allocated}"
-        end
-
-        remaining_types = [
-          Array.new(test_count_allocated - test_count_needed, TYPE_TEST),
-          Array.new(test_count_allocated - test_count_needed, TYPE_VALIDATION),
-          Array.new(train_count_allocated - train_count_needed, TYPE_TRAIN)
-        ].flatten.shuffle
-
-        # assign rest of empty types
-        @results.select {|r| r.type.nil?}.each.with_index do |result, index|
-          # TODO: There's some bug with this counting logic, so default to TRAIN
-          result.type = remaining_types[index] || TYPE_TRAIN
-        end
-
-        validate_minimum_per_label!
-        validate_language_count_and_percent!
       end
-      # rubocop:enable Metrics/CyclomaticComplexity
 
       def test_count_needed
         MIN_TEST_PER_LABEL * labels.size
@@ -80,17 +79,6 @@ module Evidence
         data_count - (test_count_needed * 2)
       end
 
-      def test_count_allocated
-        (data_count * test_percent).ceil
-      end
-
-      # TODO: If we start using this code again, make this a variable
-      # test_percent: float. What percent should be used for both the test and validation set
-      # Passing 0.2 will use 20% for testing, 20% for validation and 60% for training
-      def test_percent
-        0.2
-      end
-
       def data_count
         results.size
       end
@@ -99,29 +87,41 @@ module Evidence
         results.select {|r| r.type == TYPE_TRAIN}
       end
 
+      def train_size
+        train_data.size
+      end
+
       def test_data
         results.select {|r| r.type == TYPE_TEST}
+      end
+
+      def test_size
+        test_data.size
       end
 
       def validation_data
         results.select {|r| r.type == TYPE_VALIDATION}
       end
 
-      # We need the test and validation sets to be above 5%
-      def validate_language_count_and_percent!
-        training_percent = 1 - (test_percent * 2)
-
-        training_size = (training_percent * (languages.count + 1)) * results.size
-        test_size = test_percent * results.size
-
-        total_size = (test_size * 2) + training_size
-
-        return if (test_size / total_size) >= MIN_AUTOML_TEST_PERCENT
-
-        raise NotEnoughData, "Training Size: #{training_size}, Total Size: #{total_size}, Test Percent #{(test_percent / total_size)}, Misspell Size: #{misspelling_size}"
+      def validation_size
+        validation_data.size
       end
 
-      def validate_minimum_per_label!
+      # We need the test and validation sets to be above 5% for AutoML
+      def validate_estimated_test_percent_for_automl
+        expanded_train_size = train_size * (1 + languages.count)
+        expanded_total_size = (expanded_train_size + test_size + validation_size)
+
+        test_percent = (test_size.to_f / expanded_total_size).round(4)
+        validation_percent = (validation_size.to_f / expanded_total_size).round(4)
+
+        return if test_percent >= MIN_AUTOML_TEST_PERCENT
+        return if validation_percent >= MIN_AUTOML_TEST_PERCENT
+
+        errors.add(:manual_types, "AutoML needs 5\% of the data to be TEST and VALIDATION, currently VALIDATION: \%#{validation_percent * 100}, TEST: \%#{test_percent * 100}")
+      end
+
+      def validate_minimum_per_label
         invalid_labels = labels.select do |label|
           label_count_invalid(label, TYPE_VALIDATION, MIN_TEST_PER_LABEL) ||
             label_count_invalid(label, TYPE_TEST, MIN_TEST_PER_LABEL) ||
@@ -130,7 +130,7 @@ module Evidence
 
         return if invalid_labels.empty?
 
-        raise NotEnoughData, "There is not enough data for labels: #{invalid_labels.join(',')}"
+        errors.add(:manual_types, "There is not enough data for labels: #{invalid_labels.join(',')}")
       end
 
       private def label_count_invalid(label, type, minimum)

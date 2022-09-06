@@ -3,6 +3,7 @@
 module Evidence
   module Synthetic
     class LabeledDataGenerator < ApplicationService
+      include ActiveModel::Validations
       include Synthetic::ManualTypes
 
       CSV_END_MATCH = /\.csv\z/
