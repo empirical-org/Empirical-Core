@@ -146,6 +146,7 @@ EmpiricalGrammar::Application.routes.draw do
     post :complete_acknowledge_evidence_banner, on: :collection
     post :complete_acknowledge_growth_diagnostic_promotion_card, on: :collection
     post :complete_dismiss_grade_level_warning, on: :collection
+    post :complete_dismiss_school_selection_reminder, on: :collection
   end
 
   resources :grades, only: [:index]

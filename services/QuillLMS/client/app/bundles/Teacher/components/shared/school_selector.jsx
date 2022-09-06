@@ -4,7 +4,7 @@ import request from 'request'
 import LoadingIndicator from './loading_indicator.jsx';
 import SchoolOption from './school_option'
 
-import { Input, } from '../../../Shared/index'
+import { Input, smallWhiteCheckIcon, } from '../../../Shared/index'
 import useDebounce from '../../hooks/useDebounce'
 import { requestPost, } from '../../../../modules/request'
 
@@ -17,7 +17,7 @@ const DEBOUNCE_LENGTH = 500
 const MINIMUM_SEARCH_LENGTH = 2
 const WHOLE_SEARCH_IS_NUMBERS_REGEX = /^\d+$/
 
-const SchoolSelector = ({ selectSchool, }) => {
+const SchoolSelector = ({ selectSchool, showDismissSchoolSelectionReminderCheckbox, }) => {
   const [search, setSearch] = React.useState('')
   const [schools, setSchools] = React.useState([])
   const [errors, setErrors] = React.useState({})
@@ -25,6 +25,7 @@ const SchoolSelector = ({ selectSchool, }) => {
   const [showNotListedModal, setShowNotListedModal] = React.useState(false)
   const [unlistedSchoolName, setUnlistedSchoolName] = React.useState('')
   const [unlistedSchoolZipcode, setUnlistedSchoolZipcode] = React.useState('')
+  const [dismissSchoolSelectionReminder, setDismissSchoolSelectionReminder] = React.useState(showDismissSchoolSelectionReminderCheckbox)
 
   const debouncedSearch = useDebounce(search, DEBOUNCE_LENGTH);
 
@@ -42,7 +43,14 @@ const SchoolSelector = ({ selectSchool, }) => {
     searchForSchool()
   }, [debouncedSearch])
 
-  function handleSkipClick() { selectSchool(NO_SCHOOL_SELECTED) }
+  function toggleDismissReminderCheckbox() { setDismissSchoolSelectionReminder(!dismissSchoolSelectionReminder) }
+
+  function handleSkipClick() {
+    if (dismissSchoolSelectionReminder) {
+      requestPost('/milestones/complete_dismiss_school_selection_reminder')
+    }
+    selectSchool(NO_SCHOOL_SELECTED)
+  }
 
   function handleNotListedClick() {
     setShowNotListedModal(true)
@@ -118,7 +126,7 @@ const SchoolSelector = ({ selectSchool, }) => {
             value={unlistedSchoolZipcode}
           />
           <div className="form-buttons">
-            <button className="quill-button primary contained medium" onClick={submitSchoolNotListedInformation}>Done</button>
+            <button className="quill-button primary contained medium" onClick={submitSchoolNotListedInformation} type="button">Done</button>
           </div>
         </div>
       </div>
@@ -181,11 +189,20 @@ const SchoolSelector = ({ selectSchool, }) => {
     } else {
       schoolsListOrEmptyState = renderDefault()
     }
+    let checkbox = <button aria-checked={false} aria-label="Unchecked" className="quill-checkbox unselected focus-on-light" onClick={toggleDismissReminderCheckbox} role="checkbox" type="button" />
+    if (dismissSchoolSelectionReminder) {
+      checkbox = <button aria-checked={true} className="quill-checkbox selected focus-on-light" onClick={toggleDismissReminderCheckbox} role="checkbox" type="button"><img alt={smallWhiteCheckIcon.alt} src={smallWhiteCheckIcon.src} /></button>
+    }
+    const checkboxWrapper = showDismissSchoolSelectionReminderCheckbox ? <div className="checkbox-wrapper">{checkbox} <span>Don&#39;t remind me again to select a school</span></div> : <span />
+
     return (
       <div className="schools-list-section">
         <div className="title">Results</div>
         {schoolsListOrEmptyState}
-        <div className="school-not-listed"><button className="interactive-wrapper" onClick={handleSkipClick} type="button">Skip for now</button></div>
+        <div className="school-not-listed">
+          <button className="interactive-wrapper" onClick={handleSkipClick} type="button">Skip for now</button>
+          {checkboxWrapper}
+        </div>
       </div>
     )
   }

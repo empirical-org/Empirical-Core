@@ -207,9 +207,10 @@ export default class TeacherGeneralAccountInfo extends React.Component {
 
   renderSchool() {
     const { schoolType, showSchoolSelector, school, } = this.state
+    const { showDismissSchoolSelectionReminderCheckbox, } = this.props
     if (schoolType === "U.S. K-12 school") {
       if (showSchoolSelector) {
-        return <SchoolSelector selectSchool={this.handleSchoolChange} />
+        return <SchoolSelector selectSchool={this.handleSchoolChange} showDismissSchoolSelectionReminderCheckbox={showDismissSchoolSelectionReminderCheckbox} />
       } else {
         let schoolNameValue = school && school.name ? school.name : ''
         if (schoolNameValue === NOT_LISTED_SCHOOL_NAME) {
