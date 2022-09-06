@@ -39,6 +39,12 @@ class SyncSalesFormSubmissionToVitallyWorker
 
   def send_opportunity_to_vitally
     api.create(SalesFormSubmission::VITALLY_SALES_FORMS_TYPE, @sales_form_submission.vitally_sales_form_data)
+
+    if @sales_form_submission.district_collection? && @sales_form_submission.district.present?
+      api.update(SalesFormSubmission::VITALLY_DISTRICTS_TYPE, @sales_form_submission.district.id, vitallyHasOpportunityTrait)
+    elsif @sales_form_submission.school_collection? && @sales_form_submission.school.present?
+      api.update(SalesFormSubmission::VITALLY_SCHOOLS_TYPE, @sales_form_submission.school.id, vitallyHasOpportunityTrait)
+    end
   end
 
   private def api
@@ -99,5 +105,13 @@ class SyncSalesFormSubmissionToVitallyWorker
     else
       [district_vitally_id]
     end
+  end
+
+  private def vitallyHasOpportunityTrait
+    {
+      traits: {
+        "vitally.custom.hasOpportunity": true
+      }
+    }
   end
 end
