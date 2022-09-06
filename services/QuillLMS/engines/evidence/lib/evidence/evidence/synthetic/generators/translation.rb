@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "google/cloud/translate"
+
 module Evidence
   module Synthetic
     module Generators
