@@ -57,7 +57,21 @@ module UserFlagset
           Flags::COLLEGE_BOARD  =>    { display_name: 'College Board' },
           Flags::PRODUCTION =>        { display_name: 'Production' }
         }
-      }
+      },
+
+      private: {
+        display_name: 'Private',
+        flags: {
+          Flags::ALPHA =>             { display_name: 'Alpha' },
+          Flags::EVIDENCE_BETA1 =>    { display_name: 'Evidence Beta 1' },
+          Flags::EVIDENCE_BETA2 =>    { display_name: 'Evidence Beta 2' },
+          Flags::BETA =>              { display_name: 'Beta' },
+          Flags::COLLEGE_BOARD =>     { display_name: 'College Board' },
+          Flags::PRODUCTION =>        { display_name: 'Production' },
+          Flags::PRIVATE =>           { display_name: 'Private' }
+        }
+      },
+
     }
 
     validates :flagset, inclusion: { in: FLAGSETS.keys.map(&:to_s) }

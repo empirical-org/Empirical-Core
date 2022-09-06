@@ -10,7 +10,8 @@ module Flags
     EVIDENCE_BETA2 = 'evidence_beta2',
     BETA = 'beta',
     GAMMA = 'gamma',
-    COLLEGE_BOARD = 'college_board'
+    COLLEGE_BOARD = 'college_board',
+    PRIVATE = 'private'
   ]
 
   module ClassMethods
