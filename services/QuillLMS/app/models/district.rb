@@ -27,7 +27,7 @@ class District < ApplicationRecord
   include Subscriber
 
   validates :name, presence: true
-  validates_uniqueness_of :nces_id, message: "A district with this NCES ID already exists."
+  validates_uniqueness_of :nces_id, allow_blank: true, message: "A district with this NCES ID already exists."
 
   has_many :schools
   has_many :district_admins, dependent: :destroy
