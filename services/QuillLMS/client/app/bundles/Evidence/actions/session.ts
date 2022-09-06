@@ -34,9 +34,6 @@ interface FetchActiveActivitySessionArguments {
 }
 
 interface SaveActiveActivitySessionArguments {
-  sessionID: string,
-  submittedResponses: { [key: string]: FeedbackObject[] }|{},
-  activeStep: number,
   completedSteps: number[],
   timeTracking: { [key: number]: number },
   callback: Function
@@ -110,8 +107,9 @@ export const fetchActiveActivitySession = ({ sessionID, activityUID, callback, }
   }
 }
 
-export const saveActiveActivitySession = ({ sessionID, submittedResponses, activeStep, completedSteps, timeTracking, studentHighlights, callback, }: SaveActiveActivitySessionArguments) => {
-  return (dispatch: Function) => {
+export const saveActiveActivitySession = ({ completedSteps, timeTracking, studentHighlights, callback, }: SaveActiveActivitySessionArguments) => {
+  return (dispatch: Function, getState: Function) => {
+    const { sessionID, submittedResponses, activeStep, } = getState().session
     const activeActivitySessionUrl = `${process.env.DEFAULT_URL}/api/v1/active_activity_sessions/${sessionID}`
 
     const requestObject = {
