@@ -169,13 +169,13 @@ class Demo::CreateAdminReport
               state: the_activity_session_should_be_marked_as_in_progress ? 'started' : 'finished',
               percentage: exemplar_activity_session.percentage,
             )
-            exemplar_activity_session.old_concept_results.each do |cr|
-              OldConceptResult.create!(
+            exemplar_activity_session.concept_results.each do |cr|
+              SaveActivitySessionConceptResultsWorker.perform_async(
                 activity_session_id: activity_session.id,
                 concept_id: cr.concept_id,
-                metadata: cr.metadata,
+                metadata: cr.legacy_format[:metadata],
                 question_type: cr.question_type
-              )
+              })
             end
             we_want_to_create_another_activity_session_for_this_student_and_unit_activity = false
             # diagnostics and lessons cannot be repeated
