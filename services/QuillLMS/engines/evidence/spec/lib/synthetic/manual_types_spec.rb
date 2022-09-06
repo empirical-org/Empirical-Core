@@ -13,23 +13,23 @@ describe Evidence::Synthetic::ManualTypes do
   let(:not_enough_labeled_data) { [['text string', label1], ['other text', label2]] }
 
   describe '#new' do
-    let(:synthetics) { Evidence::Synthetic::LabeledDataGenerator.new(enough_labeled_data, languages: [:es], manual_types: true)}
+    let(:generator) { Evidence::Synthetic::LabeledDataGenerator.new(enough_labeled_data, languages: [:es], manual_types: true)}
 
-    let(:invalid_synthetics) { Evidence::Synthetic::LabeledDataGenerator.new(not_enough_labeled_data, languages: [:es], manual_types: true)}
+    let(:invalid_generator) { Evidence::Synthetic::LabeledDataGenerator.new(not_enough_labeled_data, languages: [:es], manual_types: true)}
 
     it 'should assign types without raising an error' do
       stub_const("Evidence::Synthetic::ManualTypes::MIN_TRAIN_PER_LABEL", 5)
       stub_const("Evidence::Synthetic::ManualTypes::MIN_TEST_PER_LABEL", 1)
 
-      expect {synthetics}.to_not raise_error
+      expect {generator}.to_not raise_error
 
-      expect(synthetics.train_data.count).to eq(10)
-      expect(synthetics.test_data.count).to eq(2)
-      expect(synthetics.validation_data.count).to eq(2)
+      expect(generator.train_data.count).to eq(10)
+      expect(generator.test_data.count).to eq(2)
+      expect(generator.validation_data.count).to eq(2)
     end
 
     it 'should raise error if not enough data' do
-      expect {invalid_synthetics}.to raise_error(Evidence::Synthetic::ManualTypes::NotEnoughData)
+      expect {invalid_generator}.to raise_error(Evidence::Synthetic::ManualTypes::NotEnoughData)
     end
   end
 end
