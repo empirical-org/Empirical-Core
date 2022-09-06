@@ -23,7 +23,6 @@
 #
 class ActivityPackSequence < ApplicationRecord
   RELEASE_METHODS = [
-    IMMEDIATE_RELEASE = 'immediate',
     STAGGERED_RELEASE = 'staggered'
   ]
 
