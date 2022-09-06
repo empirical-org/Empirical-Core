@@ -58,12 +58,12 @@ exports[`GrowthSummarySection component should render showGrowthSummarySection i
       </p>
     </div>
     <div>
-      <a
-        className="focus-on-light"
-        href=""
+      <button
+        className="diagnostic-reports-button quill-button fun secondary outlined unbolded focus-on-light"
+        onClick={[Function]}
       >
         View growth
-      </a>
+      </button>
     </div>
   </section>
 </GrowthSummarySection>
@@ -103,12 +103,12 @@ exports[`GrowthSummarySection component should render showGrowthSummarySection i
       </p>
     </div>
     <div>
-      <a
-        className="focus-on-light"
-        href=""
+      <button
+        className="diagnostic-reports-button quill-button fun secondary outlined unbolded focus-on-light"
+        onClick={[Function]}
       >
         View growth
-      </a>
+      </button>
     </div>
   </section>
 </GrowthSummarySection>
@@ -130,12 +130,12 @@ exports[`GrowthSummarySection component should render showGrowthSummarySection i
       </h4>
     </div>
     <div>
-      <a
-        className="focus-on-light"
-        href=""
+      <button
+        className="diagnostic-reports-button quill-button fun secondary outlined unbolded focus-on-light"
+        onClick={[Function]}
       >
         View growth
-      </a>
+      </button>
     </div>
   </section>
 </GrowthSummarySection>
