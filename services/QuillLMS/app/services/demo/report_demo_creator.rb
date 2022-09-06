@@ -378,11 +378,11 @@ module Demo::ReportDemoCreator
     replayed_session = ActivitySession.unscoped.where({activity_id: REPLAYED_ACTIVITY_ID, user_id: REPLAYED_SAMPLE_USER_ID, is_final_score: true}).first
     student_id = student.id
     act_session = ActivitySession.create({activity_id: REPLAYED_ACTIVITY_ID, classroom_unit_id: classroom_unit.id, user_id: student.id, state: "finished", percentage: replayed_session&.percentage})
-    replayed_session&.old_concept_results&.each do |cr|
+    replayed_session&.concept_results&.each do |cr|
       values = {
         activity_session_id: act_session.id,
         concept_id: cr.concept_id,
-        metadata: cr.metadata,
+        metadata: cr.legacy_format[:metadata],
         question_type: cr.question_type
       }
       SaveActivitySessionConceptResultsWorker.perform_async(values)
@@ -402,11 +402,11 @@ module Demo::ReportDemoCreator
           cu = ClassroomUnit.find_by(classroom_id: classroom.id, unit_id: unit.id)
           act_session = ActivitySession.create({activity_id: act_id, classroom_unit_id: cu.id, user_id: student.id, state: "finished", percentage: temp.percentage})
 
-          temp.old_concept_results.each do |cr|
+          temp.concept_results.each do |cr|
             values = {
               activity_session_id: act_session.id,
               concept_id: cr.concept_id,
-              metadata: cr.metadata,
+              metadata: cr.legacy_format[:metadata],
               question_type: cr.question_type
             }
             SaveActivitySessionConceptResultsWorker.perform_async(values)

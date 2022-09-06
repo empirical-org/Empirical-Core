@@ -209,11 +209,11 @@ module Demo::ReportDemoAPCreator
 
         cu = ClassroomUnit.where("#{student.id} = ANY (assigned_student_ids) AND classroom_id=#{classroom.id}").first
         act_session = ActivitySession.create({activity_id: act_id, classroom_unit_id: cu.id, user_id: student.id, state: "finished", percentage: temp.percentage})
-        temp.old_concept_results.each do |cr|
+        temp.concept_results.each do |cr|
           values = {
             activity_session_id: act_session.id,
             concept_id: cr.concept_id,
-            metadata: cr.metadata,
+            metadata: cr.legacy_format[:metadata],
             question_type: cr.question_type
           }
           SaveActivitySessionConceptResultsWorker.perform_async(values)
