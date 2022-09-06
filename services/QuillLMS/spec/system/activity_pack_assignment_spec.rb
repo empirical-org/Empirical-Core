@@ -64,7 +64,7 @@ RSpec.describe 'Activity Pack Assignment' do
     click_on 'Assign a diagnostic'
     first(:button, 'Select').click
     find('span.all-classes-text', text: 'All classes and students').sibling('span').click
-    find('.review-activities-data-table-section').click
+    first('.review-activities-data-table-section').click
     click_on 'Assign pack to classes'
     click_on 'Next'
     click_on 'Take me to my dashboard'
