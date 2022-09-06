@@ -67,7 +67,6 @@ class ActivitySession < ApplicationRecord
   has_one :classroom, through: :classroom_unit
   has_one :unit, through: :classroom_unit
   has_many :concept_results
-  has_many :old_concept_results
   has_many :teachers, through: :classroom
   has_many :concepts, -> { distinct }, through: :concept_results
   has_one :active_activity_session, foreign_key: :uid, primary_key: :uid
