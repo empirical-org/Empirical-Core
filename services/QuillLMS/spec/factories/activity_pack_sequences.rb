@@ -5,7 +5,7 @@
 # Table name: activity_pack_sequences
 #
 #  id                     :bigint           not null, primary key
-#  release_method         :string           default("immediate")
+#  release_method         :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  classroom_id           :bigint
@@ -24,9 +24,7 @@
 FactoryBot.define do
   factory :activity_pack_sequence do
     classroom
-    association :source, factory: :diagnostic_activity
-
-    trait(:staggered) { release_method ActivityPackSequence::STAGGERED_RELEASE }
-    trait(:immediate) { release_method ActivityPackSequence::IMMEDIATE_RELEASE}
+    association :diagnostic_activity, factory: :diagnostic_activity
+    release_method ActivityPackSequence::STAGGERED_RELEASE
   end
 end

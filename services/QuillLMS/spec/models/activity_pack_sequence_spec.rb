@@ -5,7 +5,7 @@
 # Table name: activity_pack_sequences
 #
 #  id                     :bigint           not null, primary key
-#  release_method         :string           default("immediate")
+#  release_method         :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  classroom_id           :bigint
@@ -27,9 +27,9 @@ RSpec.describe ActivityPackSequence, type: :model do
   subject { create(:activity_pack_sequence) }
 
   it { should belong_to(:classroom) }
-  it { should belong_to(:source) }
+  it { should belong_to(:diagnostic_activity) }
 
   it { expect(subject).to be_valid }
 
-  it { expect(subject.release_method).to eq described_class::IMMEDIATE_RELEASE }
+  it { expect(subject.release_method).to eq ActivityPackSequence::STAGGERED_RELEASE }
 end

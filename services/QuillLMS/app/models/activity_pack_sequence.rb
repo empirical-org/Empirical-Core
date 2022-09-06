@@ -5,7 +5,7 @@
 # Table name: activity_pack_sequences
 #
 #  id                     :bigint           not null, primary key
-#  release_method         :string           default("immediate")
+#  release_method         :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  classroom_id           :bigint
@@ -27,7 +27,7 @@ class ActivityPackSequence < ApplicationRecord
   ]
 
   belongs_to :classroom
-  belongs_to :diagnostic_activity, class_name: 'Activity', foreign_key: 'activity_id'
+  belongs_to :diagnostic_activity, class_name: 'Activity'
 
   validates :release_method, inclusion: { in: RELEASE_METHODS }
 end

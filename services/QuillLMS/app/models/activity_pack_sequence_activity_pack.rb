@@ -23,5 +23,5 @@
 #
 class ActivityPackSequenceActivityPack < ApplicationRecord
   belongs_to :activity_pack_sequence
-  belongs_to :activity_pack
+  belongs_to :unit
 end
