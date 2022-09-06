@@ -9,6 +9,12 @@
 	<% user_dropdown_img = 'https://assets.quill.org/images/navbar/navbar-dashboard-white.svg' %>
 <% end %>
 
+<% if show_school_selection_reminders %>
+  <% show_notification_badges_class = 'show-notification-badges' %>
+<% else %>
+  <% show_notification_badges_class = '' %>
+<% end %>
+
 <% if current_path.include?('tools') %>
 	<% active_tab = 'Learning Tools' %>
 <% elsif ['announcements', 'mission', 'impact', 'press', 'team', 'pathways', 'careers'].any? { |str| current_path.include?(str)} %>
@@ -54,8 +60,11 @@
 				<a class="text-white nav-element sign-up-button" href="/account/new">Sign Up</a>
   		<%- elsif current_user.role == 'teacher' %>
   			<div class='navigation-vertical-rule hide-on-mobile nav-element'></div>
-  			<div id="nav-user-dropdown" class="dropdown-closed hide-on-mobile nav-element <%= user_dropdown_class %>">
-  				<span onclick="toggleDropdown()" class='user-dropdown-button'><img class='user-dropdown-button-img' src=<%="#{user_dropdown_img}"%>></img><%="#{current_user.name}"%></span>
+  			<div id="nav-user-dropdown" class="dropdown-closed hide-on-mobile nav-element <%= show_notification_badges_class %> <%= user_dropdown_class %>">
+  				<span onclick="toggleDropdown()" class='user-dropdown-button notification-badge-relative'>
+            <img class='user-dropdown-button-img' src=<%="#{user_dropdown_img}"%>></img>
+            <%="#{current_user.name}"%>
+          </span>
   				<div>
   					<i class="fas fa-caret-up"></i>
   					<%= link_to raw(
@@ -66,10 +75,12 @@
   						dashboard_teachers_classrooms_path
    					%>
   					<%= link_to raw(
-  						"<span class='image-container'><img class='static' src='https://assets.quill.org/images/navbar/navbar-account-gradient-1.svg'></img>
-  						<img class='hover' src='https://assets.quill.org/images/navbar/navbar-account-solid-1.svg'></img></span>
-  						My Account"
-  					),
+  						"<span class='image-container'>
+                <img class='static' src='https://assets.quill.org/images/navbar/navbar-account-gradient-1.svg'></img>
+  						  <img class='hover' src='https://assets.quill.org/images/navbar/navbar-account-solid-1.svg'></img>
+              </span>
+  						<span class='notification-badge-relative'>My Account</span>"
+            ),
   						teachers_my_account_path
   					%>
   					<%= link_to raw(
@@ -165,7 +176,7 @@
 
 	function closeDropdownIfOpen(e) {
 		const dropdown = document.querySelector('#nav-user-dropdown');
-		if (e.target.classList.value !== 'user-dropdown-button' && e.target.classList.value !== 'user-dropdown-button-img' && e.target.parentElement.classList.value !== 'user-dropdown-button' && dropdown && dropdown.classList.contains('dropdown-open')) {
+		if (!e.target.classList.contains('user-dropdown-button') && e.target.classList.value !== 'user-dropdown-button-img' && e.target.parentElement.classList.value !== 'user-dropdown-button' && dropdown && dropdown.classList.contains('dropdown-open')) {
 				dropdown.classList.remove('dropdown-open');
 				dropdown.classList.add('dropdown-closed');
 		}

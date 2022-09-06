@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
   include NewRelicAttributable
   include QuillAuthentication
   include DemoAccountBannerLinkGenerator
+  include SchoolSelectionReminderMilestone
 
   # session keys
   CLEVER_REDIRECT = :clever_redirect

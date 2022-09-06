@@ -162,8 +162,7 @@ class Teachers::ClassroomManagerController < ApplicationController
     @google_or_clever_just_set = session[ApplicationController::GOOGLE_OR_CLEVER_JUST_SET]
     session[ApplicationController::GOOGLE_OR_CLEVER_JUST_SET] = nil
     @account_info = current_user.generate_teacher_account_info
-    dismiss_school_selection_reminder_milestone = Milestone.find_by_name(Milestone::TYPES[:dismiss_school_selection_reminder])
-    @show_dismiss_school_selection_reminder_checkbox = !UserMilestone.find_by(milestone_id: dismiss_school_selection_reminder_milestone&.id, user_id: current_user&.id) && [nil, School::NO_SCHOOL_SELECTED_SCHOOL_NAME].include?(current_user.school&.name)
+    @show_dismiss_school_selection_reminder_checkbox = show_school_selection_reminders
   end
 
   def update_my_account
