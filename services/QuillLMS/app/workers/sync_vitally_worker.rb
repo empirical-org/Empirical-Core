@@ -7,7 +7,7 @@ class SyncVitallyWorker
   FIRST_DAY_OF_SCHOOL_YEAR_MONTH = 7
   FIRST_DAY_OF_SCHOOL_YEAR_DAY = 1
   # We actually have a 1000/minute rate limit, but we can play it safe
-  ORGANIZATION_RATE_LIMIT_PER_MINUTE = 950
+  ORGANIZATION_RATE_LIMIT_PER_MINUTE = 500
 
   # rubocop:disable Metrics/CyclomaticComplexity
   def perform
