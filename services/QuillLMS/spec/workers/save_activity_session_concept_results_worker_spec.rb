@@ -7,21 +7,23 @@ describe SaveActivitySessionConceptResultsWorker, type: :worker do
   context '#perform' do
     let(:activity_session) { create(:activity_session_without_concept_results) }
     let(:concept) { create(:concept) }
-    let(:json_payload) { {
-      activity_session_id: activity_session.id,
-      concept_id: concept.id,
-      question_type: "sentence-writing",
-      metadata: {
-        answer: "This is a response answer",
-        attemptNumber: 1,
-        correct: 1,
-        directions: "This a student response directions 2.",
-        instructions: "This a student response directions 2.",
-        lastFeedback: "This a student response answer 2.",
-        prompt: "This a student response prompt 2.",
-        questionNumber: 1
+    let(:json_payload) {
+      {
+        activity_session_id: activity_session.id,
+        concept_id: concept.id,
+        question_type: "sentence-writing",
+        metadata: {
+          answer: "This is a response answer",
+          attemptNumber: 1,
+          correct: 1,
+          directions: "This a student response directions 2.",
+          instructions: "This a student response directions 2.",
+          lastFeedback: "This a student response answer 2.",
+          prompt: "This a student response prompt 2.",
+          questionNumber: 1
+        }
       }
-    } }
+    }
 
     it 'should save new ConceptResult records' do
       expect { subject.perform(json_payload) }
