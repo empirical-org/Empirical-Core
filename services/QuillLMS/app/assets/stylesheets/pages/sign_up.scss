@@ -33,6 +33,16 @@
   flex-direction: column;
 }
 
+.account-form.select-k12 {
+  h1 {
+    margin-bottom: 12px;
+  }
+  .subheader {
+    text-align: center;
+    margin-bottom: 24px;
+  }
+}
+
 .account-form.student-sign-up, .account-form.teacher-sign-up {
   h1 {
     margin-bottom: 4px !important;

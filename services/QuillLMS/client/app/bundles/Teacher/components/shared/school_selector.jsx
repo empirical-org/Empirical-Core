@@ -17,7 +17,7 @@ const DEBOUNCE_LENGTH = 500
 const MINIMUM_SEARCH_LENGTH = 2
 const WHOLE_SEARCH_IS_NUMBERS_REGEX = /^\d+$/
 
-const SchoolSelector = ({ selectSchool, showDismissSchoolSelectionReminderCheckbox, }) => {
+const SchoolSelector = ({ selectSchool, showDismissSchoolSelectionReminderCheckbox, handleDismissSchoolSelectionReminder, }) => {
   const [search, setSearch] = React.useState('')
   const [schools, setSchools] = React.useState([])
   const [errors, setErrors] = React.useState({})
@@ -47,7 +47,7 @@ const SchoolSelector = ({ selectSchool, showDismissSchoolSelectionReminderCheckb
 
   function handleSkipClick() {
     if (dismissSchoolSelectionReminder) {
-      requestPost('/milestones/complete_dismiss_school_selection_reminder')
+      handleDismissSchoolSelectionReminder()
     }
     selectSchool(NO_SCHOOL_SELECTED)
   }
@@ -126,7 +126,7 @@ const SchoolSelector = ({ selectSchool, showDismissSchoolSelectionReminderCheckb
             value={unlistedSchoolZipcode}
           />
           <div className="form-buttons">
-            <button className="quill-button primary contained medium" onClick={submitSchoolNotListedInformation} type="button">Done</button>
+            <button className="quill-button primary contained medium focus-on-light" onClick={submitSchoolNotListedInformation} type="button">Done</button>
           </div>
         </div>
       </div>

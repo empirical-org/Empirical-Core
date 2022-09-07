@@ -3,6 +3,7 @@ import React from 'react';
 import SchoolSelector from '../../shared/school_selector'
 import timezones from '../../../../../modules/timezones'
 import { Input, DropdownInput, } from '../../../../Shared/index'
+import { requestPost, } from '../../../../../modules/request'
 
 const timeZoneOptions = timezones.map((tz) => {
   const newTz = tz
@@ -22,7 +23,7 @@ export default class TeacherGeneralAccountInfo extends React.Component {
   constructor(props) {
     super(props)
 
-    const { name, email, timeZone, school, schoolType, } = props
+    const { name, email, timeZone, school, schoolType, showDismissSchoolSelectionReminderCheckbox, } = props
 
     this.state = {
       name,
@@ -33,6 +34,7 @@ export default class TeacherGeneralAccountInfo extends React.Component {
       showSchoolSelector: false,
       showButtonSection: false,
       changedSchools: false,
+      schoolSelectionReminderVisible: showDismissSchoolSelectionReminderCheckbox
     }
   }
 
@@ -73,6 +75,11 @@ export default class TeacherGeneralAccountInfo extends React.Component {
   handleNameChange = e => {
     this.setState({ name: e.target.value, });
   };
+
+  handleDismissSchoolSelectionReminder = () => {
+    requestPost('/milestones/complete_dismiss_school_selection_reminder')
+    this.setState({ schoolSelectionReminderVisible: false, })
+  }
 
   handleSchoolChange = (id, schoolObj) => {
     const { school } = this.state
@@ -207,11 +214,16 @@ export default class TeacherGeneralAccountInfo extends React.Component {
   }
 
   renderSchool() {
-    const { schoolType, showSchoolSelector, school, } = this.state
-    const { showDismissSchoolSelectionReminderCheckbox, } = this.props
+    const { schoolType, showSchoolSelector, school, schoolSelectionReminderVisible, } = this.state
     if (schoolType === "U.S. K-12 school") {
       if (showSchoolSelector) {
-        return <SchoolSelector selectSchool={this.handleSchoolChange} showDismissSchoolSelectionReminderCheckbox={showDismissSchoolSelectionReminderCheckbox} />
+        return (
+          <SchoolSelector
+            handleDismissSchoolSelectionReminder={this.handleDismissSchoolSelectionReminder}
+            selectSchool={this.handleSchoolChange}
+            showDismissSchoolSelectionReminderCheckbox={schoolSelectionReminderVisible}
+          />
+        )
       } else {
         let schoolNameValue = school && school.name ? school.name : ''
         let buttonCopy = 'Change school'
@@ -222,7 +234,7 @@ export default class TeacherGeneralAccountInfo extends React.Component {
           buttonCopy = 'Select school'
         }
         let schoolContainerClass = "school-container"
-        schoolContainerClass += showDismissSchoolSelectionReminderCheckbox && (!school || school.name === NO_SCHOOL_SELECTED_SCHOOL_NAME) ? ' show-notification-badges' : ''
+        schoolContainerClass += schoolSelectionReminderVisible && (!school || school.name === NO_SCHOOL_SELECTED_SCHOOL_NAME) ? ' show-notification-badges' : ''
         return (
           <div className={schoolContainerClass}>
             <Input
