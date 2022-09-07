@@ -101,9 +101,10 @@ const LabeledDataUploadForm = ({ history, match }) => {
         <i>The file should be a <b>.csv</b> with <b>two columns</b>: (text, label) and <b>no header row</b>.</i>
       </p>
       <Dropzone onDrop={handleDrop} />
-      <h4> Uploaded Files To Process</h4>
-      {filenames.map(name => <li>{name}</li>)}
-
+      {filenames.length !== 0 && <h4>Files Uploaded</h4>}
+      <ul>
+      {filenames.map((name, index) => <li key={index}>{name}</li>)}
+      </ul>
       <div className="button-and-id-container">
         <button className="quill-button fun large primary contained focus-on-light" id="activity-submit-button" onClick={handleSubmit} type="submit">
           <span aria-label="robot" role="img">🤖</span>
