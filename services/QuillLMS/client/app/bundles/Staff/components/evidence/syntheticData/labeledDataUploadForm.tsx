@@ -103,7 +103,7 @@ const LabeledDataUploadForm = ({ history, match }) => {
       <Dropzone onDrop={handleDrop} />
       {filenames.length !== 0 && <h4>Files Uploaded</h4>}
       <ul>
-      {filenames.map((name, index) => <li key={index}>{name}</li>)}
+        {filenames.map((name, index) => <li key={index}>{name}</li>)}
       </ul>
       <div className="button-and-id-container">
         <button className="quill-button fun large primary contained focus-on-light" id="activity-submit-button" onClick={handleSubmit} type="submit">
