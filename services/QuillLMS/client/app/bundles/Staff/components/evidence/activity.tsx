@@ -18,6 +18,7 @@ import LowConfidenceRulesRouter from './lowConfidenceRules/lowConfidenceRulesRou
 import ChangeLog from './changeLog/changeLog';
 import VersionHistory from "./versionHistory/versionHistory";
 import SeedDataForm from "./syntheticData/seedDataForm";
+import LabeledDataUploadForm from "./syntheticData/labeledDataUploadForm";
 
 import { ActivityRouteProps } from '../../interfaces/evidenceInterfaces';
 
@@ -45,7 +46,8 @@ const Activity: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match, lo
           <Route component={LowConfidenceRulesRouter} path='/activities/:activityId/low-confidence-rules' />
           <Route component={ChangeLog} path='/activities/:activityId/change-log' />
           <Route component={VersionHistory} path='/activities/:activityId/version-history' />
-          <Route component={SeedDataForm} path='/activities/:activityId/seed-data' />
+          <Route component={SeedDataForm} path='/activities/:activityId/synthetic/seed-data' />
+          <Route component={LabeledDataUploadForm} path='/activities/:activityId/synthetic/labeled-data-upload' />
         </Switch>
       </div>
     </React.Fragment>

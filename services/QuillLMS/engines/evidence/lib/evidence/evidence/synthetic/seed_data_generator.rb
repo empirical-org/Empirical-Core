@@ -107,24 +107,10 @@ module Evidence
           .map{|s| s.last == PERIOD ? s : (s + PERIOD)} # end it in a period, so stem is new sentence.
       end
 
-      def results_csv(file_path)
-        CSV.open(file_path, "w") do |csv|
-          csv << ['Text', 'Seed']
-          results.each {|r| csv << [r.text, r.seed]}
-        end
-      end
-
       def results_csv_string
         CSV.generate do |csv|
           csv << ['Text', 'Seed']
           results.each {|r| csv << [r.text, r.seed]}
-        end
-      end
-
-      def text_guide_csv(file_path)
-        CSV.open(file_path, "w") do |csv|
-          csv << ['Index', 'Passage Chunk']
-          split_passage.each.with_index {|s,i| csv << [i + 1, s]}
         end
       end
 

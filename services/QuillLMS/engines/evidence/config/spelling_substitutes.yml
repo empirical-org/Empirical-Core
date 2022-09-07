@@ -1,0 +1,245 @@
+default:
+  'their':
+    - 'ther'
+    - 'there'
+    - 'thier'
+    - "they're"
+  'government':
+    - 'goverment'
+  'paid':
+    - 'payed'
+  'communities':
+    - 'communites'
+  'levees':
+    - 'leeves'
+  'a lot':
+    - 'alot'
+  'athletes':
+    - 'atheletes'
+  'college':
+    - 'collage'
+  'were':
+    - 'where'
+  'because':
+    - 'becuase'
+  'environment':
+    - 'enviroment'
+  'spawing':
+    - 'spawning'
+  'gases':
+    - 'gasses'
+  'release':
+    - 'realease'
+  'rural':
+    - 'rual'
+  'than':
+    - 'then'
+  'communities':
+    - 'communties'
+  'interrupt':
+    - 'interupt'
+  'trees':
+    - 'tress'
+  'substitute':
+    - 'subsitute'
+  'environment':
+    - 'enviorment'
+  'the':
+    - 'th'
+  'endorsement':
+    - 'endorsment'
+  'ecosystem':
+    - 'ecosytem'
+  'restaurants':
+    - 'resturants'
+  'receiv':
+    - 'reciev'
+  'billion':
+    - 'billon'
+  'the':
+    - 'te'
+  'to':
+    - 'too'
+  'believe':
+    - 'belive'
+    - 'belive'
+  'which':
+    - 'wich'
+  'pulse':
+    - 'pluse'
+  'wildlife':
+    - 'wild life'
+  'greenhouse':
+    - 'green house'
+  'village':
+    - 'villiage'
+  'environment':
+    - 'enviorment'
+  'athletes' :
+    - 'athlets'
+  'solution':
+    - 'soulution'
+  'their':
+    - 'ther'
+  'affect':
+    - 'effect'
+  'from':
+    - 'form'
+  'the':
+    - 'he'
+  'species':
+    - 'speices'
+  'prevent':
+    - 'pervent'
+  'Hawaiian':
+    - 'Hawaiin'
+  'benefit':
+    - 'benifit'
+  'homeland':
+    - 'home land'
+  'scholarship':
+    - 'scholorship'
+  'they':
+    - 'thye'
+  'environment':
+    - 'enviornment'
+  'without':
+    - 'with out'
+  'paid':
+    - 'paied'
+  'success':
+    - 'suces'
+  'success':
+    - 'succes'
+  'infrastructure':
+    - 'infastructure'
+  'permanently':
+    - 'permantly'
+  'business':
+    - 'buisness'
+  'rainforest':
+    - 'rain forest'
+  'desertification':
+    - 'desertfication'
+  'cities':
+    - 'citys'
+  'parliament':
+    - 'parliment'
+  'families':
+    - 'familys'
+  'support':
+    - 'suport'
+  'meant':
+    - 'ment'
+  'permanently':
+    - 'permanetly'
+  'enough':
+    - 'enought'
+  'release':
+    - 'realese'
+  'governor':
+    - 'governer'
+  'people':
+    - 'poeple'
+  'Vegas':
+    - 'Vagas'
+  'permanent':
+    - 'permanant'
+  'dried':
+    - 'dryed'
+  'scholarship':
+    - 'scolarship'
+  'release':
+    - 'relase'
+  'Governor':
+    - 'Govenor'
+  'barriers':
+    - 'barries'
+  'activities':
+    - 'activites'
+  'completely':
+    - 'completly'
+  'pursue':
+    - 'persue'
+  'as well':
+    - 'aswell'
+  'Hawaii':
+    - 'Hawii'
+  'flood wall':
+    - 'floodwall'
+  'going to':
+    - 'gonna'
+  'farmer':
+    - 'famer'
+  'improvement':
+    - 'improvment'
+  'wind farm':
+    - 'windfarm'
+  'opportunities':
+    - 'oppertunities'
+  'release':
+    - 'realse'
+  'billion':
+    - 'bilion'
+  'instead':
+    - 'insted'
+  'athlete':
+    - 'athelte'
+  'through':
+    - 'throught'
+  'themselves':
+    - 'themselfs'
+  'dying':
+    - 'dieing'
+  'restaurant':
+    - 'restraunt'
+  'opportunities':
+    - 'opportunites'
+  'immediately':
+    - 'immediatly'
+  'they':
+    - 'tey'
+  'community':
+    - 'communtiy'
+  'alternative':
+    - 'alternate'
+  'better':
+    - 'beter'
+  'releas':
+    - 'reles'
+  'because':
+    - 'becase'
+  'again':
+    - 'agian'
+  'Hawaii':
+    - 'hawai'
+  'housing':
+    - 'houseing'
+  'invasive':
+    - 'inasive'
+  'forest':
+    - 'forrest'
+  'scholarships':
+    - 'schoolarship'
+  'conversation':
+    - 'conservation'
+  'athlet':
+    - 'athleat'
+  'emission':
+    - 'emision'
+  'fertile':
+    - 'fetile'
+  'certain':
+    - 'certian'
+  'because':
+    - 'becuse'
+  'College':
+    - 'Collage'
+  'want':
+    - "wan't"
+  'and':
+    - 'adn'
+  'getting':
+    - 'geting'
+  'Hawaiians':
+    - 'Hawiians'

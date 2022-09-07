@@ -68,6 +68,21 @@ export const createSeedData = async (nouns: string, activityId: string) => {
   return { errors: [] };
 }
 
+export const createLabeledSyntheticData = async (filenames: string[], activityId: string) => {
+  const response = await apiFetch(`activities/${activityId}/labeled_synthetic_data`, {
+    method: 'POST',
+    body: JSON.stringify({filenames})
+  });
+  const { status } = response;
+
+  if(requestFailed(status)) {
+    const errors = await response.json();
+    const returnedErrors = await handleRequestErrors(errors);
+    return { errors: returnedErrors };
+  }
+  return { errors: [] };
+}
+
 export const updateActivity = async (activity: object, activityId: string) => {
   const response = await apiFetch(`activities/${activityId}`, {
     method: 'PUT',
