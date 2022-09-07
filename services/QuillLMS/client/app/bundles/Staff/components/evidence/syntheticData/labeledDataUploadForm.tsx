@@ -24,6 +24,18 @@ const LabeledDataUploadForm = ({ history, match }) => {
     queryFn: fetchActivity
   });
 
+  const raiseResponseErrors = (response) => {
+    if (!response.ok) {
+        throw Error(response.statusText);
+    }
+    return response;
+  }
+
+  const displayError = (error) => {
+    setErrorOrSuccessMessage(`Error: ${error.message}`);
+    toggleSubmissionModal();
+  }
+
   const handleDrop = (acceptedFiles) => {
     acceptedFiles.forEach(file => {
       const data = new FormData()
@@ -37,8 +49,10 @@ const LabeledDataUploadForm = ({ history, match }) => {
         },
         body: data
       })
+        .then(raiseResponseErrors)
         .then(response => response.json()) // if the response is a JSON object
-        .then(response => setFilenames(filenames.concat(response.filename))); // Handle the success response object
+        .then(response => setFilenames(filenames.concat(response.filename)))
+        .catch(displayError)
     });
   }
 
@@ -47,12 +61,13 @@ const LabeledDataUploadForm = ({ history, match }) => {
       const { errors } = response;
       if(errors && errors.length) {
         setErrors(errors);
+        setErrorOrSuccessMessage(errors.first.message);
       } else {
         setErrors([]);
         setFilenames([]);
         setErrorOrSuccessMessage('Synthetic Data started! You will receive an email with the csv files');
-        toggleSubmissionModal();
       }
+      toggleSubmissionModal();
     });
   }
 
