@@ -17,7 +17,6 @@ exports[`ActivityHealth component should render ActivityHealth 1`] = `
         "handleChangeWrapper": [Function],
         "isSubscribed": [Function],
         "notifyNestedSubs": [Function],
-        "onStateChange": [Function],
         "trySubscribe": [Function],
         "tryUnsubscribe": [Function],
       },
