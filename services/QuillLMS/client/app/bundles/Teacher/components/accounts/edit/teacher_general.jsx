@@ -76,11 +76,12 @@ export default class TeacherGeneralAccountInfo extends React.Component {
 
   handleSchoolChange = (id, schoolObj) => {
     const { school } = this.state
-    if (id != school.id) {
+    const { alternativeSchools, } = this.props
+    if (id !== school.id) {
       this.setState({ changedSchools: true, })
-      if (id === NOT_LISTED_SCHOOL_NAME) {
-        const notListedSchool = this.props.alternativeSchools.find(school => school.name === NOT_LISTED_SCHOOL_NAME)
-        this.setState({ school: notListedSchool, showSchoolSelector: false, })
+      if ([NOT_LISTED_SCHOOL_NAME, NO_SCHOOL_SELECTED_SCHOOL_NAME].includes(id)) {
+        const alternativeSchool = alternativeSchools.find(school => school.name === id)
+        this.setState({ school: alternativeSchool, showSchoolSelector: false, })
       } else {
         const school = { name: schoolObj.attributes.text, id, }
         this.setState({ school, showSchoolSelector: false, })
@@ -213,13 +214,17 @@ export default class TeacherGeneralAccountInfo extends React.Component {
         return <SchoolSelector selectSchool={this.handleSchoolChange} showDismissSchoolSelectionReminderCheckbox={showDismissSchoolSelectionReminderCheckbox} />
       } else {
         let schoolNameValue = school && school.name ? school.name : ''
+        let buttonCopy = 'Change school'
         if (schoolNameValue === NOT_LISTED_SCHOOL_NAME) {
           schoolNameValue = 'Not listed'
         } else if ([HOME_SCHOOL_SCHOOL_NAME, US_HIGHER_ED_SCHOOL_NAME, INTERNATIONAL_SCHOOL_NAME, OTHER_SCHOOL_NAME, NO_SCHOOL_SELECTED_SCHOOL_NAME].includes(schoolNameValue)) {
           schoolNameValue = 'No school selected'
+          buttonCopy = 'Select school'
         }
+        let schoolContainerClass = "school-container"
+        schoolContainerClass += showDismissSchoolSelectionReminderCheckbox && (!school || school.name === NO_SCHOOL_SELECTED_SCHOOL_NAME) ? ' show-notification-badges' : ''
         return (
-          <div className="school-container">
+          <div className={schoolContainerClass}>
             <Input
               className="school"
               disabled={true}
@@ -227,7 +232,7 @@ export default class TeacherGeneralAccountInfo extends React.Component {
               type="text"
               value={schoolNameValue}
             />
-            <span className="change-school" onClick={this.showSchoolSelector}>Change school</span>
+            <button className="change-school notification-badge-relative interactive-wrapper" onClick={this.showSchoolSelector} type="button">{buttonCopy}</button>
           </div>
         )
       }

@@ -114,6 +114,7 @@ class SchoolsController < ApplicationController
 
   def submit_unlisted_school_information
     TrackUnlistedSchoolInformationWorker.perform_async(current_user.id, params[:school_name], params[:school_zipcode])
+    render json: {}
   end
 
   def array_to_postgres_array_helper(ruby_array)
