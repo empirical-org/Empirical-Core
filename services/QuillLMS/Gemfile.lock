@@ -10,8 +10,14 @@ PATH
       rails (= 6.1.6)
 
 GEM
-  remote: https://rubygems.org/
   remote: https://gems.contribsys.com/
+  specs:
+    sidekiq-pro (4.0.5)
+      concurrent-ruby (>= 1.0.5)
+      sidekiq (>= 5.2.1)
+
+GEM
+  remote: https://rubygems.org/
   specs:
     Ascii85 (1.0.3)
     actioncable (6.1.6)
@@ -335,7 +341,7 @@ GEM
       tilt
     hashdiff (0.3.8)
     hashery (2.1.2)
-    hashie (3.6.0)
+    hashie (5.0.0)
     haversine (0.3.2)
     hotwater (0.1.2)
       ffi
@@ -433,8 +439,8 @@ GEM
       multi_json (~> 1.3)
       multi_xml (~> 0.5)
       rack (>= 1.2, < 3)
-    omniauth (1.9.0)
-      hashie (>= 3.4.6, < 3.7.0)
+    omniauth (1.9.2)
+      hashie (>= 3.4.6)
       rack (>= 1.6.2, < 3)
     omniauth-clever (1.2.2)
       omniauth-oauth2 (>= 1.1, <= 1.5)
@@ -687,9 +693,6 @@ GEM
       rack (~> 2.0)
       rack-protection (>= 1.5.0)
       redis (~> 4.5, < 4.6.0)
-    sidekiq-pro (4.0.5)
-      concurrent-ruby (>= 1.0.5)
-      sidekiq (>= 5.2.1)
     sidekiq-retries (0.4.0)
       sidekiq (>= 3.2.4)
     signet (0.12.0)
