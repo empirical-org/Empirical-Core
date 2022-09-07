@@ -383,7 +383,7 @@ module Demo::ReportDemoCreator
         activity_session_id: act_session.id,
         concept_id: cr.concept_id,
         metadata: cr.legacy_format[:metadata],
-        question_type: cr.question_type
+        question_type: cr.concept_result_question_type&.text
       }
       SaveActivitySessionConceptResultsWorker.perform_async(values)
     end
@@ -407,7 +407,7 @@ module Demo::ReportDemoCreator
               activity_session_id: act_session.id,
               concept_id: cr.concept_id,
               metadata: cr.legacy_format[:metadata],
-              question_type: cr.question_type
+              question_type: cr.concept_result_question_type&.text
             }
             SaveActivitySessionConceptResultsWorker.perform_async(values)
           end

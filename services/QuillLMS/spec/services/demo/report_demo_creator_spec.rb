@@ -78,8 +78,9 @@ RSpec.describe Demo::ReportDemoCreator do
         ap[:activity_sessions][0].each do |act_id, user_id|
           user = build(:user, id: user_id)
           user.save
-          activity_session = create(:activity_session, state: 'finished', activity_id: act_id, user_id: user_id, is_final_score: true)
-          create(:concept_result, activity_session: activity_session)
+          activity_session = create(:activity_session_without_concept_results, state: 'finished', activity_id: act_id, user_id: user_id, is_final_score: true)
+          concept_result_question_type = ConceptResultQuestionType.find_or_create_by(text: 'sentence-combining')
+          create(:concept_result, activity_session: activity_session, concept_result_question_type: concept_result_question_type)
         end
       end
 
@@ -99,8 +100,8 @@ RSpec.describe Demo::ReportDemoCreator do
       expect(act_sesh.user_id).to eq(student.id)
       expect(act_sesh.state).to eq('finished')
       expect(act_sesh.percentage).to eq(temp.percentage)
-      expect(act_sesh.concept_results.first.metadata).to eq(temp.concept_results.first.metadata)
-      expect(act_sesh.concept_results.first.answer).to eq(temp.concept_results.first.metadata['answer'])
+      expect(act_sesh.concept_results.first.extra_metadata).to eq(temp.concept_results.first.extra_metadata)
+      expect(act_sesh.concept_results.first.answer).to eq(temp.concept_results.first.answer)
     end
   end
 end
