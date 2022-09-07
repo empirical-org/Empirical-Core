@@ -43,7 +43,7 @@ class SyncSalesFormSubmissionToVitallyWorker
     if @sales_form_submission.district_collection? && @sales_form_submission.district.present?
       api.update(SalesFormSubmission::VITALLY_DISTRICTS_TYPE, @sales_form_submission.district.id, vitally_has_opportunity_trait)
     elsif @sales_form_submission.school_collection? && @sales_form_submission.school.present?
-      api.update(SalesFormSubmission::VITALLY_SCHOOLS_TYPE, @sales_form_submission.school.id, vitallyHasOpportunityTrait)
+      api.update(SalesFormSubmission::VITALLY_SCHOOLS_TYPE, @sales_form_submission.school.id, vitally_has_opportunity_trait)
     end
   end
 
