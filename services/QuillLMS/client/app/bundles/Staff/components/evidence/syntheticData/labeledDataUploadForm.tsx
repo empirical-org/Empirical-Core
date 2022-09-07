@@ -26,7 +26,7 @@ const LabeledDataUploadForm = ({ history, match }) => {
 
   const raiseResponseErrors = (response) => {
     if (!response.ok) {
-        throw Error(response.statusText);
+      throw Error(response.statusText);
     }
     return response;
   }
