@@ -344,5 +344,26 @@ module Evidence
         expect(response).to have_http_status(:success)
       end
     end
+
+    context "#labeled_synthetic_data" do
+      let(:activity) { create(:evidence_activity) }
+
+      it "should NOT call background worker if no filenames" do
+        expect(Evidence::SyntheticLabeledDataWorker).to_not receive(:perform_async)
+
+        post :labeled_synthetic_data, params: { id: activity.id, filenames: [] }
+
+        expect(response).to have_http_status(:success)
+      end
+
+      it "should call background worker for each filename" do
+        expect(Evidence::SyntheticLabeledDataWorker).to receive(:perform_async).with('one', activity.id)
+        expect(Evidence::SyntheticLabeledDataWorker).to receive(:perform_async).with('two', activity.id)
+
+        post :labeled_synthetic_data, params: { id: activity.id, filenames: ['one', 'two'] }
+
+        expect(response).to have_http_status(:success)
+      end
+    end
   end
 end

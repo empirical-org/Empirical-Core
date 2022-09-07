@@ -8,6 +8,7 @@ Evidence::Engine.routes.draw do
       get :rules
       put :increment_version
       post :seed_data
+      post :labeled_synthetic_data
     end
   end
 
