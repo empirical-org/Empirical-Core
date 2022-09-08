@@ -82,12 +82,10 @@ class Api::V1::ActivitySessionsController < Api::ApiController
   private def handle_concept_results
     return if !@concept_results
 
-    concept_results_to_save = @concept_results.map { |c| concept_results_hash(c) }.reject(&:empty?)
-    return if concept_results_to_save.empty?
-
-    concept_results_to_save.each do |concept_result|
-      SaveActivitySessionConceptResultsWorker.perform_async(concept_result)
-    end
+    @concept_results
+      .map { |cr| concept_results_hash(cr) }
+      .reject(&:empty?)
+      .each { |crh| SaveActivitySessionConceptResultsWorker.perform_async(crh) }
   end
 
   private def concept_results_hash(concept_result)
