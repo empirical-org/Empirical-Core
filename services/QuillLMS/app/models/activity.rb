@@ -202,7 +202,7 @@ class Activity < ApplicationRecord
   end
 
   def self.clear_activity_search_cache
-    UserFlagset::FLAGSETS.keys.map{|x| "#{x.to_s}_"}.push("").each do |flagset|
+    UserFlagset::FLAGSETS.keys.map{|x| "#{x}_"}.push("").each do |flagset|
       $redis.del("default_#{flagset}activity_search")
     end
   end

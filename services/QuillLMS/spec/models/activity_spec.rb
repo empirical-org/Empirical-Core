@@ -362,13 +362,13 @@ describe Activity, type: :model, redis: true do
     end
 
     it 'deletes all redis keys as defined in UserFlagset' do
-      UserFlagset::FLAGSETS.keys.map{|x| "#{x.to_s}_"}.push("").each do |flagset|
+      UserFlagset::FLAGSETS.keys.map{|x| "#{x}_"}.push("").each do |flagset|
         $redis.set("default_#{flagset}activity_search", {a_key: 'a_value'} )
       end
 
       Activity.clear_activity_search_cache
 
-      UserFlagset::FLAGSETS.keys.map{|x| "#{x.to_s}_"}.push("").each do |flagset|
+      UserFlagset::FLAGSETS.keys.map{|x| "#{x}_"}.push("").each do |flagset|
         expect(
           $redis.del("default_#{flagset}activity_search")
         ).to eq 0
