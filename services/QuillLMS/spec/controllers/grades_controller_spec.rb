@@ -18,7 +18,7 @@ describe GradesController do
 
   describe '#tooltip' do
     let(:student_user) { create(:user) }
-    let(:activity_session) { create(:activity_session, user: student_user) }
+    let(:activity_session) { create(:activity_session_without_concept_results, user: student_user) }
     let(:concept) { create(:concept) }
     let!(:concept_result) { create(:concept_result, activity_session: activity_session, concept: concept) }
     let(:due_date) { Time.current }

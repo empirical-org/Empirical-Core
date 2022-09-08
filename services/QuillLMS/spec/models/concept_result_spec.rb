@@ -67,7 +67,7 @@ RSpec.describe ConceptResult, type: :model do
           "questionScore": 0.8
         }
       end
-      let(:json) do
+      let!(:json) do
         {
           "concept_uid": concept.uid,
           "question_type": "sentence-combining",
@@ -160,7 +160,7 @@ RSpec.describe ConceptResult, type: :model do
           "questionScore": 0.8
         }
       end
-      let(:old_concept_result) { create(:sentence_combining, activity_session: activity_session, metadata: metadata) }
+      let!(:old_concept_result) { create(:sentence_combining, activity_session: activity_session, metadata: metadata) }
 
       it 'should create a new ConceptResult if none exists for the activity_session-attempt_number-question_number combination of the source ConceptResult' do
         expect do
