@@ -65,7 +65,7 @@ class ConceptResult < ApplicationRecord
     data_hash = data_hash.deep_symbolize_keys
 
     metadata = data_hash[:metadata]
-    if metadata.kind_of?(String)
+    if metadata.is_a?(String)
       metadata = JSON.parse(metadata).deep_symbolize_keys if metadata.kind_of?(String)
       data_hash[:metadata] = metadata
     end

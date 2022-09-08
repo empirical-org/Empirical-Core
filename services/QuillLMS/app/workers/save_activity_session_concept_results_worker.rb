@@ -7,7 +7,7 @@ class SaveActivitySessionConceptResultsWorker
 
   def perform(json_payload)
     ActiveRecord::Base.transaction do
-      return create_records(json_payload) unless json_payload.kind_of?(Array)
+      return create_records(json_payload) unless json_payload.is_a?(Array)
 
       json_payload.each { |payload| create_records(payload) }
     end
