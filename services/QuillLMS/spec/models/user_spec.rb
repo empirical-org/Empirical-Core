@@ -901,6 +901,11 @@ describe User, type: :model do
         expect(user).to be_valid
       end
 
+      it 'is invalid when there is a space in it' do
+        user = build(:user,  email: 'test@test.lan ')
+        expect(user).to_not be_valid
+      end
+
       context 'when role requires email' do
         it 'is invalid without email' do
           user.safe_role_assignment 'teacher'
