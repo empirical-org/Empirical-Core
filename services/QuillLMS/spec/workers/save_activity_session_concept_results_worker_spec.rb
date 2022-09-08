@@ -36,5 +36,11 @@ describe SaveActivitySessionConceptResultsWorker, type: :worker do
         .to change(OldConceptResult, :count).by(1)
       expect(activity_session.reload.concept_results.first.old_concept_result).to be
     end
+
+    it 'should handle creating multiple records if an array is passed in' do
+      expect { subject.perform([json_payload, json_payload]) }
+        .to change(ConceptResult, :count).by(2)
+      expect(activity_session.reload.concept_results.count).to eq(2)
+    end
   end
 end
