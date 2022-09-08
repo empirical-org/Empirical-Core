@@ -8,7 +8,7 @@ class TrackUnlistedSchoolInformationWorker
     analytics = SegmentAnalytics.new
     user = User.find_by_id(user_id)
 
-    return if user.nil? || school.name.nil?
+    return if user.nil? || school_name.nil?
 
     analytics.track_teacher_school_not_listed(user, school_name, school_zipcode)
   end
