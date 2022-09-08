@@ -62,6 +62,7 @@
     form {
       display: flex;
       flex-direction: column;
+      margin-bottom: 0px;
     }
 
     .password-wrapper {
@@ -72,7 +73,6 @@
     }
 
     .auth-section {
-      padding-bottom: 29px;
       button, a {
         max-width: 380px;
         width: 100%;
