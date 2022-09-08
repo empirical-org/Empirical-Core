@@ -174,7 +174,7 @@ class Demo::CreateAdminReport
                 activity_session_id: activity_session.id,
                 concept_id: cr.concept_id,
                 metadata: cr.legacy_format[:metadata],
-                question_type: cr.question_type
+                question_type: cr.concept_result_question_type&.text
               })
             end
             we_want_to_create_another_activity_session_for_this_student_and_unit_activity = false

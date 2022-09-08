@@ -830,13 +830,13 @@ end
 
     it 'should create a concept result with the hash given' do
       Sidekiq::Testing.inline! do
+        expect(ConceptResult).to receive(:init_from_json).with({
+          activity_session_id: activity_session.id,
+          concept_id: concept.id,
+          metadata: metadata,
+          question_type: 'lessons-slide'
+        }.deep_stringify_keys).and_call_original
         expect do
-          expect(ConceptResult).to receive(:init_from_json).with({
-            activity_session_id: activity_session.id,
-            concept_id: concept.id,
-            metadata: metadata,
-            question_type: 'lessons-slide'
-          }.deep_stringify_keys).and_call_original
           ActivitySession.save_concept_results([activity_session], concept_results)
         end.to change(ConceptResult, :count).by(1)
       end
