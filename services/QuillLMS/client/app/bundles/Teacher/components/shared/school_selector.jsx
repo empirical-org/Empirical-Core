@@ -25,7 +25,7 @@ const SchoolSelector = ({ selectSchool, showDismissSchoolSelectionReminderCheckb
   const [showNotListedModal, setShowNotListedModal] = React.useState(false)
   const [unlistedSchoolName, setUnlistedSchoolName] = React.useState('')
   const [unlistedSchoolZipcode, setUnlistedSchoolZipcode] = React.useState('')
-  const [dismissSchoolSelectionReminder, setDismissSchoolSelectionReminder] = React.useState(showDismissSchoolSelectionReminderCheckbox)
+  const [dismissSchoolSelectionReminder, setDismissSchoolSelectionReminder] = React.useState(false)
 
   const debouncedSearch = useDebounce(search, DEBOUNCE_LENGTH);
 

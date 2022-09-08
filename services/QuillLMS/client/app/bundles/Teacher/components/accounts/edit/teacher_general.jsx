@@ -88,7 +88,7 @@ export default class TeacherGeneralAccountInfo extends React.Component {
       this.setState({ changedSchools: true, })
       if ([NOT_LISTED_SCHOOL_NAME, NO_SCHOOL_SELECTED_SCHOOL_NAME].includes(id)) {
         const alternativeSchool = alternativeSchools.find(school => school.name === id)
-        this.setState({ school: alternativeSchool, showSchoolSelector: false, })
+        this.setState({ school: alternativeSchool, showSchoolSelector: false, }, () => this.handleSubmit())
       } else {
         const school = { name: schoolObj.attributes.text, id, }
         this.setState({ school, showSchoolSelector: false, })
@@ -103,9 +103,9 @@ export default class TeacherGeneralAccountInfo extends React.Component {
     }
   };
 
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     const { name, email, timeZone, school, changedSchools } = this.state
-    e.preventDefault()
+    e?.preventDefault()
     const data = {
       name,
       email,
