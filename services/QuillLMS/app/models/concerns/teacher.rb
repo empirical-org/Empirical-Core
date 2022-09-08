@@ -16,6 +16,8 @@ module Teacher
     has_one :referrer_user
     has_many :referrals_users
     has_one :referrals_user, class_name: 'ReferralsUser', foreign_key: :referred_user_id
+
+    after_update :ortto_newsletter_callback
   end
 
   class << self
@@ -24,6 +26,11 @@ module Teacher
     def scope
       User.where(role: 'teacher')
     end
+  end
+
+  def ortto_newsletter_callback
+    return unless saved_changes['send_newsletter']
+    OrttoIntegration::NewsletterWorker.perform_async(user_email: email, subscribe: send_newsletter)
   end
 
   # Occasionally teachers are populated in the view with

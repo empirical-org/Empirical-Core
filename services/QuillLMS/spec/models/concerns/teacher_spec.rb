@@ -551,6 +551,21 @@ describe User, type: :model do
     end
   end
 
+  context 'callbacks' do
+    describe '#ortto_newsletter_callback' do
+      let!(:teacher) { create(:teacher, send_newsletter: false) }
+      it 'should call NewsletterWorker when User.send_newsletter is changed' do
+        expect(OrttoIntegration::NewsletterWorker).to receive(:perform_async).once
+        teacher.update!(send_newsletter: true)
+      end
+
+      it 'should not call NewsletterWorker called when User.send_newsletter is unchanged' do
+        expect(OrttoIntegration::NewsletterWorker).not_to receive(:perform_async)
+        teacher.update!(role: 'staff')
+      end
+    end
+  end
+
   describe '#assigned_students_per_activity_assigned' do
     context 'assigned students' do
       let!(:teacher) { create(:teacher, :with_classrooms_students_and_activities) }
