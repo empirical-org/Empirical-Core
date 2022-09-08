@@ -52,12 +52,6 @@ class AccountsController < ApplicationController
       validate_username = true
     end
 
-    if @user.send_newsletter
-      @user.subscribe_to_newsletter
-    else
-      @user.unsubscribe_from_newsletter
-    end
-
     user_params.merge! validate_username: validate_username
     if @user.update(user_params)
       redirect_to updated_account_path
