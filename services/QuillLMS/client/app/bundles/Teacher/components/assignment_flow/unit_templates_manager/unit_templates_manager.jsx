@@ -13,21 +13,7 @@ import WindowPosition from '../../modules/windowPosition'
 import AnalyticsWrapper from '../../shared/analytics_wrapper'
 import LoadingIndicator from '../../shared/loading_indicator'
 import { requestGet } from '../../../../../modules/request';
-
-const types = [
-  {
-    name: 'Diagnostic',
-    id: 'diagnostic'
-  },
-  {
-    name: 'Whole class lessons',
-    id: 'whole-class'
-  },
-  {
-    name: 'Independent practice',
-    id: 'independent-practice'
-  }
-]
+import { ACTIVITY_PACK_TYPES } from '../assignmentFlowConstants'
 
 export default class UnitTemplatesManager extends React.Component {
   constructor(props) {
@@ -118,7 +104,7 @@ export default class UnitTemplatesManager extends React.Component {
       )
     }
     if (typeId) {
-      const selectedTypeName = types.find(t => t.id === typeId).name
+      const selectedTypeName = ACTIVITY_PACK_TYPES.find(t => t.id === typeId).name
       displayedModels = displayedModels.filter(ut => ut.type.name === selectedTypeName)
     }
     if (gradeLevelRange) {
@@ -181,7 +167,7 @@ export default class UnitTemplatesManager extends React.Component {
         selectedTypeId={type}
         selectGradeLevel={this.selectGradeLevel}
         signedInTeacher={signedInTeacher}
-        types={types}
+        types={ACTIVITY_PACK_TYPES}
       />
     )
   }

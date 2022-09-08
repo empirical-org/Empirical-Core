@@ -80,7 +80,7 @@ export default class UnitTemplateMini extends React.Component {
     }
     // else it is a normal mini
     else {
-      const innerContent = (<div id={id} ref={this.miniRef}>
+      const innerContent = (<div className="unit-template-mini-inner-container" id={id} ref={this.miniRef}>
         <UnitTemplateFirstRow
           data={data}
           modules={{string: this.modules.string}}

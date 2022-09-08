@@ -223,3 +223,24 @@ export const imageTagForClassification = (classificationKey: string): JSX.Elemen
 
   return <img alt={imgAlt} src={imgSrc} />
 }
+
+export const READING_TEXTS = 'Reading Texts'
+
+export const ACTIVITY_PACK_TYPES = [
+  {
+    name: 'Reading Texts',
+    id: 'evidence'
+  },
+  {
+    name: 'Diagnostic',
+    id: 'diagnostic'
+  },
+  {
+    name: 'Language Skills',
+    id: 'independent-practice'
+  },
+  {
+    name: 'Whole Class Lessons',
+    id: 'whole-class'
+  },
+]

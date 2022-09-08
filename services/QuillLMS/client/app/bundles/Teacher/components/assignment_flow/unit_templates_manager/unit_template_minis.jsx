@@ -7,12 +7,15 @@ import UnitTemplateMini from './unit_template_mini'
 
 import AssignmentFlowNavigation from '../assignment_flow_navigation.tsx'
 import { DropdownInput } from '../../../../Shared/index'
+import { ACTIVITY_PACK_TYPES } from '../assignmentFlowConstants'
 
 const ALL = 'All'
 const GRADE_LEVEL_LABELS = ['4th-12th', '6th-12th', '8th-12th', '10th-12th']
 
 export default class UnitTemplateMinis extends React.Component {
-  state =  { onMobile: window.innerWidth < 770 }
+
+  state =  { onMobile: window.innerWidth < 770, currentView: { label: "Grid", value: "grid"} }
+
   getIndexLink() {
     const { signedInTeacher } = this.props;
     return signedInTeacher ? '/assign/featured-activity-packs' : '/activities/packs'
@@ -171,14 +174,20 @@ export default class UnitTemplateMinis extends React.Component {
     return qs
   }
 
+  selectView(option) {
+    this.setState({ currentView: option })
+  }
+
   renderFilterOptions() {
-    const { onMobile } = this.state
+    const { onMobile, currentView } = this.state
     const { types, selectedTypeId, data, selectCategory, selectGradeLevel, } = this.props
     const categoryOptions = this.generateCategoryOptions(data.selectedGradeLevel, selectedTypeId)
     const currentCategory = categoryOptions.find(cat => cat.value && cat.value === data.selectedCategoryId)
 
     const gradeLevelOptions = this.generateGradeLevelOptions(currentCategory, selectedTypeId)
     const currentGradeLevel = gradeLevelOptions.find(cat => cat.value && cat.value === data.selectedGradeLevel)
+
+    const viewOptions = [{ label: "Grid", value: "grid"}, { label: "List", value: "list"}]
 
     const baseLink = this.getIndexLink()
 
@@ -202,17 +211,18 @@ export default class UnitTemplateMinis extends React.Component {
         value: `${baseLink}${qs}`
       }
     });
-    typeOptionsForDropdown.unshift({ label: 'All packs', value: '/activities/packs' });
+    typeOptionsForDropdown.unshift({ label: 'All Packs', value: '/activities/packs' });
 
     const allPacksLink = (
       <Link
         className={!selectedTypeId ? 'active' : null}
         to={`${baseLink}${this.generateQueryString(currentCategory, data.selectedGradeLevel)}`}
-      >All packs</Link>
+      >All Packs</Link>
     );
 
     const typeOptionsWidget = onMobile ? (
       <DropdownInput
+        className="pack-type-dropdown"
         handleChange={this.handleTypeDropdownChange}
         options={typeOptionsForDropdown}
         value={this.getDropdownValue(typeOptionsForDropdown)}
@@ -226,7 +236,6 @@ export default class UnitTemplateMinis extends React.Component {
 
     return (
       <div className="filter-options">
-        {typeOptionsWidget}
         <div className="dropdowns">
           <DropdownInput
             className="grade-level-dropdown"
@@ -242,9 +251,25 @@ export default class UnitTemplateMinis extends React.Component {
             options={categoryOptions}
             value={currentCategory || categoryOptions[0]}
           />
+          <DropdownInput
+            className="category-dropdown"
+            handleChange={(option) => this.selectView(option)}
+            label="View"
+            options={viewOptions}
+            value={currentView || viewOptions[0]}
+          />
         </div>
+        {typeOptionsWidget}
       </div>
     )
+  }
+
+  renderPackTypeLabel() {
+    const { selectedTypeId } = this.props
+    if(!selectedTypeId) {
+      return <p className="pack-type-header">All Packs</p>
+    }
+    return <p className="pack-type-header">{ACTIVITY_PACK_TYPES.filter(type => type.id === selectedTypeId)[0].name}</p>
   }
 
   render() {
@@ -253,10 +278,11 @@ export default class UnitTemplateMinis extends React.Component {
         {this.userLoggedIn() ? <AssignmentFlowNavigation /> : null}
         <div className="container">
           <div>
-            <h1>Select an activity pack for your students</h1>
+            <h1>Select an activity pack for your students.</h1>
             <div>
               {this.renderFilterOptions()}
               {this.generateShowAllGradesView()}
+              {this.renderPackTypeLabel()}
               <div className="unit-template-minis">
                 {this.generateUnitTemplateViews()}
               </div>

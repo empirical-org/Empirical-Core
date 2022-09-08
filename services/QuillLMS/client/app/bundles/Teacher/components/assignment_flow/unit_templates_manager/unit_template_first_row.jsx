@@ -3,7 +3,7 @@ import moment from 'moment'
 import * as _ from 'lodash'
 
 import CategoryLabel from '../category_label'
-import { imageTagForClassification, } from '../assignmentFlowConstants'
+import { imageTagForClassification, READING_TEXTS } from '../assignmentFlowConstants'
 
 const cutOffTimeForNew = moment().subtract('months', 1).unix()
 
@@ -13,10 +13,13 @@ export default class UnitTemplateFirstRow extends React.Component {
     return data.type.primary_color;
   }
 
-  newFlag() {
+  renderFlag(renderEvidenceTag) {
     const { data, } = this.props
+    if(renderEvidenceTag) {
+      return <p className="new-beta-tag">BETA</p>
+    }
     if (cutOffTimeForNew < data.created_at) {
-      return <span className='new-flag category-label'>NEW</span>
+      return <p className='new-beta-tag'>NEW</p>
     }
   }
 
@@ -45,24 +48,24 @@ export default class UnitTemplateFirstRow extends React.Component {
 
   render() {
     const { data, } = this.props
+    const { unit_template_category, name } = data
+    const renderEvidenceTag = unit_template_category.name === "Themed"
     return (
       <div className='first-row' style={{backgroundColor: this.getBackgroundColor()}}>
         <div className="name-and-label">
           <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
-            <div className='unit-template-type'>
-              {data.type.name}
-            </div>
             <CategoryLabel
-              data={data.unit_template_category}
+              data={unit_template_category}
               extraClassName='float-right'
             />
+            {renderEvidenceTag && <span className="evidence-new-tag">NEW</span>}
           </div>
           <div>
             <div>
               <div className='unit-template-name'>
-                {data.name}
-                {this.newFlag()}
+                {name}
               </div>
+              {this.renderFlag(renderEvidenceTag)}
             </div>
           </div>
         </div>
