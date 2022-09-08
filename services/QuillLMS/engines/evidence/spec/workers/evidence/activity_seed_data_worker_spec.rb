@@ -4,7 +4,13 @@ require 'rails_helper'
 
 module Evidence
   describe ActivitySeedDataWorker, type: :worker do
-    let(:worker) { described_class.new }
+    let(:email) { 'test@quill.org' }
+
+    before do
+      stub_const("Evidence::Synthetic::EMAIL", email)
+    end
+
+    subject { described_class.new }
 
     context 'perform' do
       let(:activity) { create(:evidence_activity) }
@@ -19,10 +25,10 @@ module Evidence
           .and_return(generator_response)
 
         expect(FileMailer).to receive(:send_multiple_files)
-          .with('synthetic-data-exports@quill.org', email_subject, generator_response)
+          .with(email, email_subject, generator_response)
           .and_return(mailer)
 
-        worker.perform(activity.id, nouns)
+        subject.perform(activity.id, nouns)
       end
     end
   end

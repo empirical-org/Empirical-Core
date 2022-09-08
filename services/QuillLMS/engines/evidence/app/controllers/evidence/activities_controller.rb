@@ -4,7 +4,7 @@ require_dependency 'evidence/application_controller'
 
 module Evidence
   class ActivitiesController < ApiController
-    before_action :set_activity, only: [:activity_versions, :create, :show, :update, :destroy, :change_logs, :seed_data]
+    before_action :set_activity, only: [:activity_versions, :create, :show, :update, :destroy, :change_logs, :seed_data, :labeled_synthetic_data]
     append_before_action :set_lms_user_id, only: [:create, :destroy]
 
     # GET /activities.json
@@ -88,6 +88,15 @@ module Evidence
         .uniq
 
       Evidence::ActivitySeedDataWorker.perform_async(@activity.id, nouns_array)
+
+      head :no_content
+    end
+
+    # params [:id, :filenames]
+    def labeled_synthetic_data
+      (params[:filenames] || []).each do |filename|
+        Evidence::SyntheticLabeledDataWorker.perform_async(filename, @activity.id)
+      end
 
       head :no_content
     end

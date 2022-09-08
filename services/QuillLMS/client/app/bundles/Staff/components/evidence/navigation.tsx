@@ -78,12 +78,6 @@ const Navigation = ({ location, match }) => {
         <NavLink activeClassName="is-active" to={`/activities/${activityId}/settings`}>
           Activity Settings
         </NavLink>
-        <NavLink activeClassName="is-active" to={`/activities/${activityId}/turk-sessions`}>
-          Collect Turk Responses
-        </NavLink>
-        <NavLink activeClassName="is-active" to={`/activities/${activityId}/seed-data`}>
-          Create Seed Data
-        </NavLink>
         <NavLink activeClassName="is-active" to={`/activities/${activityId}/semantic-labels`}>
           Semantic Labels
         </NavLink>
@@ -101,6 +95,20 @@ const Navigation = ({ location, match }) => {
           View All Rules
         </NavLink>
         {rulesIndexSubLinks}
+      </ul>
+      <p className="menu-label">
+        Data Generation
+      </p>
+      <ul className="menu-list">
+        <NavLink activeClassName="is-active" to={`/activities/${activityId}/turk-sessions`}>
+          Collect Turk Responses
+        </NavLink>
+        <NavLink activeClassName="is-active" to={`/activities/${activityId}/synthetic/seed-data`}>
+          Create Seed Data
+        </NavLink>
+        <NavLink activeClassName="is-active" to={`/activities/${activityId}/synthetic/labeled-data-upload`}>
+          Generate Labeled Synthetic Data
+        </NavLink>
       </ul>
       <p className="menu-label">
         Activity Results

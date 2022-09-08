@@ -544,6 +544,7 @@ EmpiricalGrammar::Application.routes.draw do
 
   namespace :cms do
     resources :images, only: [:index, :destroy, :create]
+    resources :csv_uploads, only: [:create]
     put '/activity_categories/mass_update', to: 'activity_categories#mass_update'
     resources :activity_categories, only: [:index, :create]
     resources :activity_classifications do
