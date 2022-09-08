@@ -44,7 +44,7 @@ describe Api::V1::ActivitySessionsController, type: :controller do
       let(:writing_concept) { create(:concept, name: 'Creative Writing') }
       let(:another_concept) { create(:concept, name: 'Creative Writing') }
 
-      let(:concept_result1) do
+      let(:concept_result_frontend_json1) do
         {
           "activity_session_id" => activity_session.id,
           "concept_id" => writing_concept.id,
@@ -56,7 +56,7 @@ describe Api::V1::ActivitySessionsController, type: :controller do
         }
       end
 
-      let(:concept_result2) do
+      let(:concept_result_frontend_json2) do
         {
           "activity_session_id" => activity_session.id,
           "concept_id" => writing_concept.id,
@@ -68,7 +68,7 @@ describe Api::V1::ActivitySessionsController, type: :controller do
         }
       end
 
-      let(:concept_result3) do
+      let(:concept_result_frontend_json3) do
         {
           "activity_session_id" => activity_session.id,
           "concept_id" => another_concept.id,
@@ -79,12 +79,12 @@ describe Api::V1::ActivitySessionsController, type: :controller do
         }
       end
 
-      let!(:concept_results) do
-        [concept_result1, concept_result2, concept_result3]
+      let!(:concept_results_frontend_json) do
+        [concept_result_frontend_json1, concept_result_frontend_json2, concept_result_frontend_json3]
       end
 
       it 'succeeds' do
-        put :update, params: { id: activity_session.uid, concept_results: concept_results }, as: :json
+        put :update, params: { id: activity_session.uid, concept_results: concept_results_frontend_json }, as: :json
         expect(response.status).to eq(200)
       end
 
@@ -92,14 +92,14 @@ describe Api::V1::ActivitySessionsController, type: :controller do
         # Run Sidekiq jobs immediately instead of queuing them
         Sidekiq::Testing.inline! do
           expect do
-            put :update, params: { id: activity_session.uid, concept_results: concept_results }, as: :json
+            put :update, params: { id: activity_session.uid, concept_results: concept_results_frontend_json }, as: :json
           end.to change { activity_session.reload.concept_results.size }.by(3)
         end
       end
 
       it 'saves the arbitrary metadata for the results' do
         Sidekiq::Testing.inline! do
-          put :update, params: { id: activity_session.uid, concept_results: concept_results }, as: :json
+          put :update, params: { id: activity_session.uid, concept_results: concept_results_frontend_json }, as: :json
           activity_session.reload
           expect(activity_session.concept_results.find{|x| x.extra_metadata&.dig('foo') == "bar"}).to be
         end
@@ -107,7 +107,7 @@ describe Api::V1::ActivitySessionsController, type: :controller do
 
       it 'saves the concept tag relationship (ID) in the result' do
         Sidekiq::Testing.inline! do
-          put :update, params: { id: activity_session.uid, concept_results: concept_results }, as: :json
+          put :update, params: { id: activity_session.uid, concept_results: concept_results_frontend_json }, as: :json
         end
         expect(ConceptResult.where(activity_session_id: activity_session, concept_id: writing_concept.id).count).to eq 2
       end
