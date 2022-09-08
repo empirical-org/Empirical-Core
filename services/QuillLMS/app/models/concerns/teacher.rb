@@ -30,6 +30,7 @@ module Teacher
 
   def ortto_newsletter_callback
     return unless saved_changes['send_newsletter']
+
     OrttoIntegration::NewsletterWorker.perform_async(user_email: email, subscribe: send_newsletter)
   end
 

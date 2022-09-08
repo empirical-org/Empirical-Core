@@ -554,6 +554,7 @@ describe User, type: :model do
   context 'callbacks' do
     describe '#ortto_newsletter_callback' do
       let!(:teacher) { create(:teacher, send_newsletter: false) }
+
       it 'should call NewsletterWorker when User.send_newsletter is changed' do
         expect(OrttoIntegration::NewsletterWorker).to receive(:perform_async).once
         teacher.update!(send_newsletter: true)

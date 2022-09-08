@@ -23,13 +23,14 @@ module OrttoIntegration
       user = User.find_by_email(params[:email])
       return unless user
 
-      user.update!(send_newsletter: params[:action_name] == SUBSCRIBE ? true: false)
+      user.update!(send_newsletter: params[:action_name] == SUBSCRIBE)
       head :no_content
     end
 
     private def valid_params?
       return false unless params[:email]
       return false unless params[:action_name] && VALID_ACTIONS.include?(params[:action_name])
+
       true
     end
 
