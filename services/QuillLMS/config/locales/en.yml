@@ -45,6 +45,7 @@ en:
             email:
               invalid: "Enter a valid email"
               taken: "That email is taken. Try another."
+              no_spaces_allowed: "That email is not valid because it has a space. Try another."
             username:
               invalid: "Enter a valid username"
               taken: "That username is taken. Try another."
