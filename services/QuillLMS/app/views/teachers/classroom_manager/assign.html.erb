@@ -1,3 +1,9 @@
+<style>
+  body {
+    background-color: white;
+  }
+</style>
+
 <%= render partial: 'teachers/shared/scorebook_tabs' %>
 <%= react_component('AssignActivitiesApp', props: {
   grade: @grade.to_s,
