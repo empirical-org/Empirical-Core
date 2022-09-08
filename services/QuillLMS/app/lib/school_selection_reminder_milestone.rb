@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SchoolSelectionReminderMilestone
   extend ActiveSupport::Concern
   include ActionController::Helpers
