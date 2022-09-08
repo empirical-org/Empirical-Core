@@ -34,9 +34,9 @@ describe 'SerializeActivityHealth' do
 
   let!(:content_partner) { create(:content_partner, activities: [activity])}
   let!(:start_time) { 1.day.ago }
-  let!(:activity_session1) { create(:activity_session, activity: activity, state: "finished", started_at: DateTime.new(2021,1,1,4,0,0), completed_at: DateTime.new(2021,1,1,4,5,0)) }
-  let!(:activity_session2) { create(:activity_session, activity: activity, state: "finished", started_at: start_time, completed_at: start_time + 10.minutes) }
-  let!(:activity_session3) { create(:activity_session, activity: activity, state: "finished", started_at: start_time, completed_at: start_time + 20.minutes) }
+  let!(:activity_session1) { create(:activity_session_without_concept_results, activity: activity, state: "finished", started_at: DateTime.new(2021,1,1,4,0,0), completed_at: DateTime.new(2021,1,1,4,5,0)) }
+  let!(:activity_session2) { create(:activity_session_without_concept_results, activity: activity, state: "finished", started_at: start_time, completed_at: start_time + 10.minutes) }
+  let!(:activity_session3) { create(:activity_session_without_concept_results, activity: activity, state: "finished", started_at: start_time, completed_at: start_time + 20.minutes) }
   let!(:diagnostic) { create(:diagnostic_activity)}
   let!(:unit_template) { create(:unit_template, flag: "production")}
   let!(:activities_unit_template) { create(:activities_unit_template, unit_template: unit_template, activity: activity)}

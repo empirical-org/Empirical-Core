@@ -26,7 +26,6 @@ require 'rails_helper'
 
 describe ActivityClassification, type: :model, redis: true do
   it { should have_many(:activities) }
-  it { should have_many(:old_concept_results) }
   it { should have_many(:user_activity_classifications).dependent(:destroy) }
 
   it_behaves_like "uid"
