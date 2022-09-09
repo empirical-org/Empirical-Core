@@ -10,8 +10,14 @@ PATH
       rails (= 6.1.6)
 
 GEM
-  remote: https://rubygems.org/
   remote: https://gems.contribsys.com/
+  specs:
+    sidekiq-pro (4.0.5)
+      concurrent-ruby (>= 1.0.5)
+      sidekiq (>= 5.2.1)
+
+GEM
+  remote: https://rubygems.org/
   specs:
     Ascii85 (1.0.3)
     actioncable (6.1.6)
@@ -687,9 +693,6 @@ GEM
       rack (~> 2.0)
       rack-protection (>= 1.5.0)
       redis (~> 4.5, < 4.6.0)
-    sidekiq-pro (4.0.5)
-      concurrent-ruby (>= 1.0.5)
-      sidekiq (>= 5.2.1)
     sidekiq-retries (0.4.0)
       sidekiq (>= 3.2.4)
     signet (0.12.0)

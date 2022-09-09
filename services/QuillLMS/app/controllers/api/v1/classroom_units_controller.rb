@@ -45,7 +45,7 @@ class Api::V1::ClassroomUnitsController < Api::ApiController
 
     ActivitySession.save_concept_results(
       activity_sessions,
-      params[:concept_results]
+      concept_result_params[:concept_results].map(&:to_h)
     )
 
     ActivitySession.delete_activity_sessions_with_no_concept_results(
@@ -135,5 +135,24 @@ class Api::V1::ClassroomUnitsController < Api::ApiController
       activity_sessions_and_names: assigned_student_hash,
       student_ids: assigned_student_ids_hash
     }
+  end
+
+  private def concept_result_params
+    params.permit(
+      concept_results: [
+        :activity_session_uid,
+        :concept_id,
+        :question_type,
+        metadata: [
+          :activity_session_uid,
+          :answer,
+          :attemptNumber,
+          :correct,
+          :directions,
+          :prompt,
+          :questionNumber
+        ]
+      ]
+    )
   end
 end
