@@ -529,18 +529,6 @@ class User < ApplicationRecord
     UserMailer.premium_missing_school_email(self).deliver_now! if email.present?
   end
 
-  def subscribe_to_newsletter
-    return unless role.teacher?
-
-    SubscribeToNewsletterWorker.perform_async(id)
-  end
-
-  def unsubscribe_from_newsletter
-    return unless role.teacher?
-
-    UnsubscribeFromNewsletterWorker.perform_async(id)
-  end
-
   def self.create_from_clever(hash, role_override = nil)
     user = User.where(email: hash[:info][:email]).first_or_initialize
     user = User.new if user.email.nil?

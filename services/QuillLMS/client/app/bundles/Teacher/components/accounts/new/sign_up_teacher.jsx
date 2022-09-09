@@ -110,17 +110,6 @@ class SignUpTeacher extends React.Component {
     this.setState(newState);
   }
 
-  renderNewsletterRow = () => {
-    const { sendNewsletter, } = this.state
-    let checkbox
-    if (sendNewsletter) {
-      checkbox = <div aria-checked={true} className="quill-checkbox selected focus-on-light" onClick={this.handleToggleNewsletter} onKeyDown={this.handleKeyDownOnToggleNewsletter} role="checkbox" tabIndex={0}><img alt="check" src={smallWhiteCheckSrc} /></div>
-    } else {
-      checkbox = <div aria-checked={false} aria-label="Unchecked" className="quill-checkbox unselected focus-on-light" onClick={this.handleToggleNewsletter} onKeyDown={this.handleKeyDownOnToggleNewsletter} role="checkbox" tabIndex={0} />
-    }
-    return <div className="newsletter-row">{checkbox} <p>Send me a monthly update on new&nbsp;content</p></div>
-  }
-
   render() {
     const { authToken, timesSubmitted, firstName, errors, lastName, email, password, } = this.state
     return (
@@ -191,7 +180,6 @@ class SignUpTeacher extends React.Component {
                       timesSubmitted={timesSubmitted}
                       value={password}
                     />
-                    {this.renderNewsletterRow()}
                     <input aria-label="Sign up" className={this.submitClass()} name="commit" type="submit" value="Sign up" />
                   </form>
                 </div>

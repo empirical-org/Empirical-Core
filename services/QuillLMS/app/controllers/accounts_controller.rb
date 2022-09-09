@@ -31,9 +31,6 @@ class AccountsController < ApplicationController
     if @user.save
       sign_in @user
       trigger_account_creation_callbacks
-      if @user.send_newsletter
-        @user.subscribe_to_newsletter
-      end
       create_referral_if_teacher_and_referrer
       render json: creation_json
     else
@@ -50,12 +47,6 @@ class AccountsController < ApplicationController
       validate_username = false
     else
       validate_username = true
-    end
-
-    if @user.send_newsletter
-      @user.subscribe_to_newsletter
-    else
-      @user.unsubscribe_from_newsletter
     end
 
     user_params.merge! validate_username: validate_username
