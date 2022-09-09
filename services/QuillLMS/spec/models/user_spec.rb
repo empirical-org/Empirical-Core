@@ -1109,50 +1109,6 @@ describe User, type: :model do
     end
   end
 
-  describe '#subscribe_to_newsletter' do
-    let(:user) { build(:user, role: role, send_newsletter: newsletter) }
-
-    context 'role = teacher and send_newsletter = false' do
-      let(:newsletter) { false }
-      let(:role) { 'teacher' }
-
-      it 'does call the newsletter worker' do
-        expect(SubscribeToNewsletterWorker).to receive(:perform_async)
-        user.subscribe_to_newsletter
-      end
-    end
-
-    context 'role = teacher and send_newsletter = true' do
-      let(:newsletter) { true }
-      let(:role) { 'teacher' }
-
-      it 'does call the newsletter worker' do
-        expect(SubscribeToNewsletterWorker).to receive(:perform_async)
-        user.subscribe_to_newsletter
-      end
-    end
-
-    context 'role = student and send_newsletter = false' do
-      let(:newsletter) { false }
-      let(:role) { 'student' }
-
-      it 'does not call the newsletter worker' do
-        expect(SubscribeToNewsletterWorker).to_not receive(:perform_async)
-        user.subscribe_to_newsletter
-      end
-    end
-
-    context 'role = student and send_newsletter = true' do
-      let(:newsletter) { true }
-      let(:role) { 'student' }
-
-      it 'does not call the newsletter worker' do
-        expect(SubscribeToNewsletterWorker).to_not receive(:perform_async)
-        user.subscribe_to_newsletter
-      end
-    end
-  end
-
   describe 'can behave as either a student or teacher' do
     context 'when behaves like student' do
       it_behaves_like 'student'

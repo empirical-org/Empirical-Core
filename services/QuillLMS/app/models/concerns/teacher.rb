@@ -16,6 +16,8 @@ module Teacher
     has_one :referrer_user
     has_many :referrals_users
     has_one :referrals_user, class_name: 'ReferralsUser', foreign_key: :referred_user_id
+
+    after_update :update_ortto_newsletter_subscription_status
   end
 
   class << self
@@ -24,6 +26,12 @@ module Teacher
     def scope
       User.where(role: 'teacher')
     end
+  end
+
+  def update_ortto_newsletter_subscription_status
+    return unless saved_changes['send_newsletter']
+
+    OrttoIntegration::UpdateNewsletterSubscriptionStatusWorker.perform_async(email, send_newsletter)
   end
 
   # Occasionally teachers are populated in the view with
@@ -389,12 +397,6 @@ module Teacher
       else
         are_there_non_school_related_errors = true
       end
-    end
-
-    if send_newsletter
-      subscribe_to_newsletter
-    else
-      unsubscribe_from_newsletter
     end
 
     if are_there_school_related_errors
