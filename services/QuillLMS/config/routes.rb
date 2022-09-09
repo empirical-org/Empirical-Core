@@ -79,6 +79,10 @@ EmpiricalGrammar::Application.routes.draw do
     post '/webhooks', to: 'webhooks#create'
   end
 
+  namespace :ortto_integration do
+    post '/webhooks', to: 'webhooks#create'
+  end
+
   get 'subscriptions/retrieve_stripe_subscription/:stripe_invoice_id',
     to: 'subscriptions#retrieve_stripe_subscription',
     stripe_invoice_id: /in_[A-Za-z0-9]{8,}/
