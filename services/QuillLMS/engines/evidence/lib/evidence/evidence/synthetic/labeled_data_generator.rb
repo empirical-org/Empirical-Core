@@ -92,7 +92,7 @@ module Evidence
         {
           file_name(filename, LABEL_TRAINING) => training_csv_string,
           file_name(filename, LABEL_ANALYSIS) => analysis_csv_string,
-          file_name(filename, LABEL_ORIGINAL) => texts_and_labels.to_csv
+          file_name(filename, LABEL_ORIGINAL) => CSV.generate {|csv| texts_and_labels.each {|row| csv << row }}
         }
       end
 
