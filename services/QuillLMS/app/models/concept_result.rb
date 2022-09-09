@@ -98,6 +98,7 @@ class ConceptResult < ApplicationRecord
 
   def self.parse_metadata(metadata)
     return metadata unless metadata.is_a?(String)
+
     begin
       JSON.parse(metadata).deep_symbolize_keys
     # A number of items got into the Sidekiq queue with their metadata
