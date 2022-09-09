@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module OrttoIntegration
-  class NewsletterWorker
+  class UpdateNewsletterSubscriptionStatusWorker
     include Sidekiq::Worker
     sidekiq_options queue: SidekiqQueue::LOW
     ORTTO_URL = 'https://api.ap3api.com/v1/person/merge'

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe OrttoIntegration::NewsletterWorker do
+describe OrttoIntegration::UpdateNewsletterSubscriptionStatusWorker do
   let!(:user) { create(:user, email: 'a@b.com') }
   let(:valid_params) do
     [
