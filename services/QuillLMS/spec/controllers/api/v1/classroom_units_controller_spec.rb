@@ -183,7 +183,7 @@ describe Api::V1::ClassroomUnitsController, type: :controller do
         concept_id: concept.id,
         question_type: concept_result_payload[:question_type],
         activity_session_id: activity_sessions.first.id,
-        metadata: concept_result_payload[:metadata],
+        metadata: concept_result_payload[:metadata]
       ).twice.and_call_original
 
       Sidekiq::Testing.inline! do
