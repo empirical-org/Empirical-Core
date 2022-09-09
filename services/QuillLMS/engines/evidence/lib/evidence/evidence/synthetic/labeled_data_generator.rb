@@ -22,16 +22,17 @@ module Evidence
       FREE_GENERATORS = GENERATORS.except(:translations)
       DEFAULT_LANGUAGES = Evidence::Synthetic::Generators::Translation::TRAIN_LANGUAGES.keys
 
-      attr_reader :results, :languages, :labels, :generators
+      attr_reader :results, :languages, :labels, :generators, :passage
 
       # params:
       # texts_and_labels: [['text', 'label_5'],['text', 'label_1'],...]
       # languages: [:es, :ja, ...]
       # manual_types: bool, whether to assign TEXT,VALIDATION,TRAIN to each row
-      def initialize(texts_and_labels, languages: DEFAULT_LANGUAGES, generators: GENERATORS.keys, manual_types: false)
+      def initialize(texts_and_labels, languages: DEFAULT_LANGUAGES, generators: GENERATORS.keys, passage: nil, manual_types: false)
         @languages = languages
         @manual_types = manual_types
         @generators = GENERATORS.slice(*generators)
+        @passage = HTMLTagRemover.run(passage) if passage
 
         clean_text_and_labels = texts_and_labels
           .keep_if(&:last) # remove blank labels

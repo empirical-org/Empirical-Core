@@ -14,8 +14,8 @@ module Evidence
       end
 
       it "should replace quotes" do
-        expect(described_class.run(' <p>&quot;hello&quot;</p>')).to eq('"hello"')
-        expect(described_class.run(' <p>&quot;It&#x27;s&quot;</p>')).to eq('"It\'s"')
+        expect(described_class.run(' ‘<p>&quot;hello&quot;</p>’')).to eq('\' "hello" \'')
+        expect(described_class.run(' “He said <p>&quot;It&#x27;s&quot;</p>”')).to eq('"He said "It\'s" "')
       end
 
       it "should remove start and end space" do
