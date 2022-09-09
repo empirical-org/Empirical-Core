@@ -422,7 +422,7 @@ GEM
     minitest (5.16.2)
     multi_json (1.15.0)
     multi_xml (0.6.0)
-    multipart-post (2.2.3)
+    multipart-post (2.1.1)
     nenv (0.3.0)
     nested_form (0.3.2)
     newrelic_rpm (7.2.0)
