@@ -5,7 +5,7 @@ module Evidence
     module Generators
       class SpellingPassageSpecific < Synthetic::Generators::Base
 
-        LONG_WORD_LENGTH = 10
+        LONG_WORD_LENGTH = ENV.fetch('SYNTHETIC_LONG_WORD_SIZE', 10)
         REGEX_PUNCTUATION = /(,|\.|;|\?|!|"|'|:)/
         REGEX_QUOTES = /('|")/
         REGEX_BRACKETS = /(\(|\)|\[|\])/
