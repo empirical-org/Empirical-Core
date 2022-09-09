@@ -130,9 +130,17 @@ RSpec.describe ConceptResult, type: :model do
           .to not_change(ConceptResultDirections, :count)
       end
 
-      it 'should parse metadata into an object if it is provided as a raw string' do
+      it 'should parse metadata into an object if it is provided as a JSON string' do
         temp_json = json.clone
         temp_json[:metadata] = json[:metadata].to_json
+
+        concept_result = ConceptResult.create_from_json(temp_json)
+        expect(concept_result.answer).to eq(json[:metadata][:answer])
+      end
+
+      it 'should parse metadata into an object if it is provided as a to_s serialized string' do
+        temp_json = json.clone
+        temp_json[:metadata] = json[:metadata].stringify_keys.to_s
 
         concept_result = ConceptResult.create_from_json(temp_json)
         expect(concept_result.answer).to eq(json[:metadata][:answer])

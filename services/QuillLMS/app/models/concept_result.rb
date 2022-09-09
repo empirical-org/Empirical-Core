@@ -64,11 +64,7 @@ class ConceptResult < ApplicationRecord
   def self.init_from_json(data_hash)
     data_hash = data_hash.deep_symbolize_keys
 
-    metadata = data_hash[:metadata]
-    if metadata.is_a?(String)
-      metadata = JSON.parse(metadata).deep_symbolize_keys if metadata.is_a?(String)
-      data_hash[:metadata] = metadata
-    end
+    metadata = parse_metadata(data_hash[:metadata])
 
     response = new(
       activity_session_id: data_hash[:activity_session_id],
@@ -81,7 +77,7 @@ class ConceptResult < ApplicationRecord
       question_score: metadata[:questionScore]
     )
 
-    response.assign_normalized_text(data_hash)
+    response.assign_normalized_text(metadata, data_hash[:question_type])
     response.assign_extra_metadata(metadata)
 
     response
@@ -98,6 +94,19 @@ class ConceptResult < ApplicationRecord
     data_hash['old_concept_result_id'] = old_concept_result.id
 
     create_from_json(data_hash)
+  end
+
+  def self.parse_metadata(metadata)
+    return metadata unless metadata.is_a?(String)
+    begin
+      JSON.parse(metadata).deep_symbolize_keys
+    # A number of items got into the Sidekiq queue with their metadata
+    # serialized using Ruby .to_s instead of .to_json.  The bug causing
+    # that should be fixed, but we want to clear the queue of the weirdly
+    # serialized data.
+    rescue JSON::ParserError
+      JSON.parse(metadata.gsub('=>', ':')).deep_symbolize_keys
+    end
   end
 
   def self.parse_extra_metadata(metadata)
@@ -118,14 +127,12 @@ class ConceptResult < ApplicationRecord
     }
   end
 
-  def assign_normalized_text(data_hash)
-    metadata = data_hash[:metadata]
-
+  def assign_normalized_text(metadata, question_type)
     self.concept_result_directions = ConceptResultDirections.find_or_create_by(text: metadata[:directions])
     self.concept_result_instructions = ConceptResultInstructions.find_or_create_by(text: metadata[:instructions])
     self.concept_result_previous_feedback = ConceptResultPreviousFeedback.find_or_create_by(text: metadata[:lastFeedback])
     self.concept_result_prompt = ConceptResultPrompt.find_or_create_by(text: metadata[:prompt])
-    self.concept_result_question_type = ConceptResultQuestionType.find_or_create_by(text: data_hash[:question_type])
+    self.concept_result_question_type = ConceptResultQuestionType.find_or_create_by(text: question_type)
   end
 
   def assign_extra_metadata(metadata)
