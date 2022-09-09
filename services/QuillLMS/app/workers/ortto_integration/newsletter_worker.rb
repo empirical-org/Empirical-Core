@@ -6,7 +6,7 @@ module OrttoIntegration
     sidekiq_options queue: SidekiqQueue::LOW
     ORTTO_URL = 'https://api.ap3api.com/v1/person/merge'
 
-    def perform(user_email:, subscribe:)
+    def perform(user_email, subscribe)
       user = User.find_by_email(user_email)
       return unless user
 

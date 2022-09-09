@@ -138,7 +138,6 @@ class Auth::GoogleController < ApplicationController
 
     if @user.save
       CompleteAccountCreation.new(@user, request.remote_ip).call
-      @user.subscribe_to_newsletter
       @teacher_from_google_signup = true
 
       sign_in(@user)
