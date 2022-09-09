@@ -552,15 +552,22 @@ describe User, type: :model do
   end
 
   context 'callbacks' do
-    describe '#ortto_newsletter_callback' do
-      let!(:teacher) { create(:teacher, send_newsletter: false) }
+    describe '#update_ortto_newsletter_subscription_status' do
 
-      it 'should call UpdateNewsletterSubscriptionStatusWorker when User.send_newsletter is changed' do
-        expect(OrttoIntegration::UpdateNewsletterSubscriptionStatusWorker).to receive(:perform_async).once
+      it 'should call UpdateNewsletterSubscriptionStatusWorker when User.send_newsletter is changed false -> true' do
+        teacher = create(:teacher, send_newsletter: false)
+        expect(OrttoIntegration::UpdateNewsletterSubscriptionStatusWorker).to receive(:perform_async).with(teacher.email, true).once
         teacher.update!(send_newsletter: true)
       end
 
+      it 'should call UpdateNewsletterSubscriptionStatusWorker when User.send_newsletter is changed true -> false' do
+        teacher = create(:teacher, send_newsletter: true)
+        expect(OrttoIntegration::UpdateNewsletterSubscriptionStatusWorker).to receive(:perform_async).with(teacher.email, false).once
+        teacher.update!(send_newsletter: false)
+      end
+
       it 'should not call UpdateNewsletterSubscriptionStatusWorker called when User.send_newsletter is unchanged' do
+        teacher = create(:teacher, send_newsletter: true)
         expect(OrttoIntegration::UpdateNewsletterSubscriptionStatusWorker).not_to receive(:perform_async)
         teacher.update!(role: 'staff')
       end

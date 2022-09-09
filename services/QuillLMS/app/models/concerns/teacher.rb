@@ -17,7 +17,7 @@ module Teacher
     has_many :referrals_users
     has_one :referrals_user, class_name: 'ReferralsUser', foreign_key: :referred_user_id
 
-    after_update :ortto_newsletter_callback
+    after_update :update_ortto_newsletter_subscription_status
   end
 
   class << self
@@ -28,7 +28,7 @@ module Teacher
     end
   end
 
-  def ortto_newsletter_callback
+  def update_ortto_newsletter_subscription_status
     return unless saved_changes['send_newsletter']
 
     OrttoIntegration::UpdateNewsletterSubscriptionStatusWorker.perform_async(email, send_newsletter)
