@@ -42,7 +42,7 @@ describe Evidence::Synthetic::LabeledDataGenerator do
     let(:generator) { described_class.run(labeled_data, languages: [:es], generators: [:translation])}
 
     it 'fetch and store translations' do
-      expect(Evidence::Synthetic::Generators::Translation).to receive(:run).with([text1, text2], {:languages=>[:es]}).and_return(translation_response)
+      expect(Evidence::Synthetic::Generators::Translation).to receive(:run).with([text1, text2], {:languages=>[:es], passage: nil}).and_return(translation_response)
       expect(generator.results.count).to eq 2
 
       first_result = generator.results.first
@@ -56,8 +56,8 @@ describe Evidence::Synthetic::LabeledDataGenerator do
   describe '#run spelling errors' do
     let(:generator) { described_class.run(labeled_data, languages: [:es], generators: [:spelling])}
 
-    it 'fetch and store translations' do
-      expect(Evidence::Synthetic::Generators::Spelling).to receive(:run).with([text1, text2], {:languages=>[:es]}).and_return(spelling_response)
+    it 'fetch and store spelling errors' do
+      expect(Evidence::Synthetic::Generators::Spelling).to receive(:run).with([text1, text2], {:languages=>[:es], passage: nil}).and_return(spelling_response)
       expect(generator.results.count).to eq 2
 
       first_result = generator.results.first
@@ -68,12 +68,30 @@ describe Evidence::Synthetic::LabeledDataGenerator do
     end
   end
 
+  describe '#run spelling-passage-specific errors' do
+    let(:text1) {'the hypothetical reason'}
+    let(:passage) {'the hypothetical part of the longwordsecond'}
+
+    let(:generator) { described_class.run([[text1,label1]], languages: [:es], generators: [:spelling_passage_specific], passage: passage)}
+
+    it 'fetch and store spelling changes' do
+      expect(generator.results.count).to eq 1
+
+      first_result = generator.results.first
+
+      expect(first_result.text).to eq text1
+      expect(first_result.label).to eq label1
+      expect(first_result.generated[:spelling_passage_specific]['hypothetical']).to be_present
+    end
+  end
+
+
   describe 'data exports' do
     let(:generator) { described_class.run(labeled_data, languages: [:es], generators: [:translation, :spelling])}
 
     before do
-      allow(Evidence::Synthetic::Generators::Translation).to receive(:run).with([text1, text2], {:languages=>[:es]}).and_return(translation_response)
-      allow(Evidence::Synthetic::Generators::Spelling).to receive(:run).with([text1, text2], {:languages=>[:es]}).and_return(spelling_response)
+      allow(Evidence::Synthetic::Generators::Translation).to receive(:run).with([text1, text2], {:languages=>[:es], passage: nil}).and_return(translation_response)
+      allow(Evidence::Synthetic::Generators::Spelling).to receive(:run).with([text1, text2], {:languages=>[:es], passage: nil}).and_return(spelling_response)
     end
 
     describe "#training_data_rows" do
@@ -116,8 +134,8 @@ describe Evidence::Synthetic::LabeledDataGenerator do
       stub_const("Evidence::Synthetic::ManualTypes::MIN_TEST_PER_LABEL", 0)
       stub_const("Evidence::Synthetic::ManualTypes::MIN_TRAIN_PER_LABEL", 0)
 
-      allow(Evidence::Synthetic::Generators::Translation).to receive(:run).with([text1, text2], {:languages=>[:es]}).and_return(translation_response)
-      allow(Evidence::Synthetic::Generators::Spelling).to receive(:run).with([text1, text2], {:languages=>[:es]}).and_return(spelling_response)
+      allow(Evidence::Synthetic::Generators::Translation).to receive(:run).with([text1, text2], {:languages=>[:es], passage: nil}).and_return(translation_response)
+      allow(Evidence::Synthetic::Generators::Spelling).to receive(:run).with([text1, text2], {:languages=>[:es], passage: nil}).and_return(spelling_response)
     end
 
     it "should generate a hash of csv_strings" do

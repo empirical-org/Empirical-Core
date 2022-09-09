@@ -16,7 +16,8 @@ module Evidence
       # 3) Add type and class to this mapping
       GENERATORS = {
         translation: Synthetic::Generators::Translation,
-        spelling: Synthetic::Generators::Spelling
+        spelling: Synthetic::Generators::Spelling,
+        spelling_passage_specific: Synthetic::Generators::SpellingPassageSpecific
       }
 
       FREE_GENERATORS = GENERATORS.except(:translations)
@@ -54,7 +55,7 @@ module Evidence
 
       def run
         generators.each do |type, generator|
-          results_hash = generator.run(results.map(&:text), languages: languages)
+          results_hash = generator.run(results.map(&:text), languages: languages, passage: passage)
 
           results.each do |result|
             result.generated[type] = results_hash[result.text] || {}
