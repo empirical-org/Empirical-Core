@@ -43,10 +43,9 @@ class Api::V1::ClassroomUnitsController < Api::ApiController
 
     states.update_all(locked: true, pinned: false, completed: true)
 
-    concept_results = concept_result_params[:concept_results].map(&:to_h)
     ActivitySession.save_concept_results(
       activity_sessions,
-      concept_results
+      concept_result_params[:concept_results].map(&:to_h)
     )
 
     ActivitySession.delete_activity_sessions_with_no_concept_results(
