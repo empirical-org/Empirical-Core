@@ -130,6 +130,14 @@ RSpec.describe ConceptResult, type: :model do
           .to not_change(ConceptResultDirections, :count)
       end
 
+      it 'should parse metadata into an object if it is provided as a raw string' do
+        temp_json = json.clone
+        temp_json[:metadata] = json[:metadata].to_json
+
+        concept_result = ConceptResult.create_from_json(temp_json)
+        expect(concept_result.answer).to eq(json[:metadata][:answer])
+      end
+
       it 'should extra_metadata containing any keys not part of the normalization process' do
         extra_metadata = {'foo' => 'bar', 'baz' => 'qux'}
         metadata.merge!(extra_metadata)
