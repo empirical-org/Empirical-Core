@@ -55,14 +55,20 @@ module Evidence
 
       def run
         generators.each do |type, generator|
-          results_hash = generator.run(results.map(&:text), languages: languages, passage: passage)
+          results_hash = generator.run(results_to_train.map(&:text), languages: languages, passage: passage)
 
-          results.each do |result|
+          results_to_train.each do |result|
             result.generated[type] = results_hash[result.text] || {}
           end
         end
 
         self
+      end
+
+      def results_to_train
+        return results unless manual_types
+
+        results.select {|r| r.type == TYPE_TRAIN}
       end
 
       LABEL_FILE = 'synthetic'
