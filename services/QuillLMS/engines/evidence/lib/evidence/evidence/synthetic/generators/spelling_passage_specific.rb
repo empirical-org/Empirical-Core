@@ -6,8 +6,8 @@ module Evidence
       class SpellingPassageSpecific < Synthetic::Generators::Base
 
         LONG_WORD_LENGTH = 10
-        REGEX_PUNCTUATION = /(\,|\.|\;|\?|\!|\"|\'|\:)/
-        REGEX_QUOTES = /(\'|\")/
+        REGEX_PUNCTUATION = /(,|\.|;|\?|!|"|'|:)/
+        REGEX_QUOTES = /('|")/
         REGEX_BRACKETS = /(\(|\)|\[|\])/
         WORD_BOUNDARY = '\b'
         BLANK = ''
