@@ -184,16 +184,20 @@ describe Api::V1::ClassroomUnitsController, type: :controller do
         question_type: concept_result_payload[:question_type],
         activity_session_id: activity_sessions.first.id,
         metadata: concept_result_payload[:metadata],
-      ).twice
+      ).twice.and_call_original
 
-      put :finish_lesson,
-        params: {
-          activity_id: activity.uid,
-          classroom_unit_id: classroom_unit.id,
-          concept_results: concept_results_payload,
-          follow_up: false
-        },
-        as: :json
+      Sidekiq::Testing.inline! do
+        expect do
+          put :finish_lesson,
+            params: {
+              activity_id: activity.uid,
+              classroom_unit_id: classroom_unit.id,
+              concept_results: concept_results_payload,
+              follow_up: false
+            },
+            as: :json
+        end.to change(ConceptResult, :count).by(2)
+      end
     end
   end
 
