@@ -33,7 +33,7 @@ module Evidence
         @languages = languages
         @manual_types = manual_types
         @generators = GENERATORS.slice(*generators)
-        @passage = HTMLTagRemover.run(passage) if passage
+        @passage = passage if passage
 
         clean_text_and_labels = texts_and_labels
           .keep_if(&:last) # remove blank labels

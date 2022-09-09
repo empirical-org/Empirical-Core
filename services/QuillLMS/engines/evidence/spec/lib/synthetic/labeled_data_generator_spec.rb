@@ -69,8 +69,8 @@ describe Evidence::Synthetic::LabeledDataGenerator do
   end
 
   describe '#run spelling-passage-specific errors' do
-    let(:text1) {'the hypothetical reason'}
-    let(:passage) {'the hypothetical part of the longwordsecond'}
+    let(:text1) {'the dancing step'}
+    let(:passage) {"passage text #{'dancing '* 5}"}
 
     let(:generator) { described_class.run([[text1,label1]], languages: [:es], generators: [:spelling_passage_specific], passage: passage)}
 
@@ -81,7 +81,7 @@ describe Evidence::Synthetic::LabeledDataGenerator do
 
       expect(first_result.text).to eq text1
       expect(first_result.label).to eq label1
-      expect(first_result.generated[:spelling_passage_specific]['hypothetical']).to be_present
+      expect(first_result.generated[:spelling_passage_specific]['dancing']).to be_present
     end
   end
 

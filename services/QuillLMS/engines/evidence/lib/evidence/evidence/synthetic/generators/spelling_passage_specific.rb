@@ -5,7 +5,8 @@ module Evidence
     module Generators
       class SpellingPassageSpecific < Synthetic::Generators::Base
 
-        LONG_WORD_LENGTH = ENV.fetch('SYNTHETIC_LONG_WORD_SIZE', 10)
+        REPEATED_WORD_COUNT = 5
+        REPEATED_WORD_MIN_LENGTH = 5
         REGEX_PUNCTUATION = /(,|\.|;|\?|!|"|'|:)/
         REGEX_QUOTES = /('|")/
         REGEX_BRACKETS = /(\(|\)|\[|\])/
@@ -18,7 +19,7 @@ module Evidence
         def initialize(string_array, options = {})
           super
 
-          @passage = options[:passage] || ""
+          @passage = HTMLTagRemover.run(options[:passage] || "")
           @random_seed = options[:random_seed]
         end
 
@@ -27,7 +28,7 @@ module Evidence
           return if passage.empty?
 
           strings.each do |string|
-            long_words.each do |word|
+            repeated_words.each do |word|
               padded_word = WORD_BOUNDARY + word + WORD_BOUNDARY
               next unless string.match?(padded_word)
 
@@ -37,20 +38,26 @@ module Evidence
           end
         end
 
-        def long_words
-          @long_words ||= passage
+        def repeated_words
+          @repeated_words ||= passage_words
+            .tally
+            .select {|_,count| count >= REPEATED_WORD_COUNT}
+            .keys
+            .select {|w| w.length >= REPEATED_WORD_MIN_LENGTH}
+        end
+
+        def passage_words
+          passage
             .gsub(REGEX_PUNCTUATION, BLANK)
             .gsub(REGEX_QUOTES, BLANK)
             .gsub(REGEX_BRACKETS, BLANK)
             .split(SPACE)
-            .select{|w| w.length >= LONG_WORD_LENGTH}
-            .uniq
         end
 
         # drop a random middle character
         # use a seed for sampling to make testing consistent
         def misspell(word)
-          random_middle_index = (1...LONG_WORD_LENGTH).to_a.sample(random: random_seed || Random.new)
+          random_middle_index = (1...word.length).to_a.sample(random: random_seed || Random.new)
           word_array = word.split(BLANK)
           word_array.delete_at(random_middle_index)
 
