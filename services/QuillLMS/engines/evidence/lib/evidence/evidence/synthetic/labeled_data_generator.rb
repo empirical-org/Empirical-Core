@@ -70,10 +70,11 @@ module Evidence
       LABEL_TRAINING = 'automl_upload.csv'
       LABEL_ANALYSIS = 'analysis.csv'
 
-      def self.csvs_from_run(texts_and_labels, filename)
+      def self.csvs_from_run(texts_and_labels, filename, passage = nil)
         generator = Evidence::Synthetic::LabeledDataGenerator.new(
           texts_and_labels,
-          manual_types: true
+          manual_types: true,
+          passage: passage
         )
 
         generator.run

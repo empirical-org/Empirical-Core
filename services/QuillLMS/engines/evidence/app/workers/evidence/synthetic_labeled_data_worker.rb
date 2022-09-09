@@ -9,8 +9,11 @@ module Evidence
       uploader = Evidence.file_uploader.new
       uploader.retrieve_from_store!(filename)
 
+      activity = Evidence::Activity.find(activity_id)
+      passage = activity.passages.first&.text
+
       csv_array = CSV.parse(uploader.file.read)
-      csv_hash = Evidence::Synthetic::LabeledDataGenerator.csvs_from_run(csv_array, filename)
+      csv_hash = Evidence::Synthetic::LabeledDataGenerator.csvs_from_run(csv_array, filename, passage)
 
       activity = Evidence::Activity.find(activity_id)
       subject = "Evidence Labeled Synthetic Data: #{activity_id} - #{activity.title}"
