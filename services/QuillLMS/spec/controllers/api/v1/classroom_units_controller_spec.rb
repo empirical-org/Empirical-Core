@@ -153,6 +153,52 @@ describe Api::V1::ClassroomUnitsController, type: :controller do
 
       expect(JSON.parse(response.body)).to eq({"follow_up_url"=> (ENV['DEFAULT_URL']).to_s})
     end
+
+    it 'saves ConceptResults related to the ActivitySession' do
+      concept = create(:concept)
+
+      session[:user_id] = teacher.id
+
+      concept_result_payload = {
+        "concept_id": concept.uid,
+        "question_type": "lessons-slide",
+        "metadata": {
+          "activity_session_uid": activity_sessions.first.uid,
+          "correct": 1,
+          "directions": "",
+          "prompt": "<p>What is one reason to use time order joining words in your writing instead of using two shorter sentences?</p>",
+          "answer": "It makes causal relationships more obvious.",
+          "attemptNumber": 1,
+          "questionNumber": 1
+        },
+        "activity_session_uid": activity_sessions.first.uid
+      }
+      concept_results_payload = [concept_result_payload, concept_result_payload]
+
+      # The "twice" here is a convenience because we're passing two identical concept_result payloads to the controller.
+      # In normal operation, these would be different payloads, so we'd expect this worker
+      # to receive multiple calls with different payloads.  But this is shorter to write,
+      # and less cluttered to read
+      expect(SaveActivitySessionConceptResultsWorker).to receive(:perform_async).with(
+        concept_id: concept.id,
+        question_type: concept_result_payload[:question_type],
+        activity_session_id: activity_sessions.first.id,
+        metadata: concept_result_payload[:metadata]
+      ).twice.and_call_original
+
+      Sidekiq::Testing.inline! do
+        expect do
+          put :finish_lesson,
+            params: {
+              activity_id: activity.uid,
+              classroom_unit_id: classroom_unit.id,
+              concept_results: concept_results_payload,
+              follow_up: false
+            },
+            as: :json
+        end.to change(ConceptResult, :count).by(2)
+      end
+    end
   end
 
   describe '#unpin_and_lock_activity' do
