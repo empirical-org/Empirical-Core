@@ -33,6 +33,16 @@
   flex-direction: column;
 }
 
+.account-form.select-k12 {
+  h1 {
+    margin-bottom: 12px;
+  }
+  .subheader {
+    text-align: center;
+    margin-bottom: 24px;
+  }
+}
+
 .account-form.student-sign-up, .account-form.teacher-sign-up {
   h1 {
     margin-bottom: 4px !important;
@@ -164,10 +174,19 @@
       font-size: 14px;
       padding: 16px 16px 18px;
       line-height: 1;
+      display: flex;
+      justify-content: space-between;
       .interactive-wrapper {
         cursor: pointer;
         color: #009a80;
         font-weight: 600;
+      }
+      .checkbox-wrapper {
+        display: flex;
+        align-items: center;
+        .quill-checkbox {
+          margin-right: 8px;
+        }
       }
     }
     .no-school-found, .default-school-search {
