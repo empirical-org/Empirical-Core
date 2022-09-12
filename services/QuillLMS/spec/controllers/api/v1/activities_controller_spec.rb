@@ -213,9 +213,9 @@ describe Api::V1::ActivitiesController, type: :controller do
     let!(:connect) { create(:activity_classification, key: ActivityClassification::CONNECT_KEY) }
     let!(:question) { create(:question)}
     let!(:activity) { create(:activity, activity_classification_id: connect.id) }
-    let!(:activity_session1) { create(:activity_session, activity: activity) }
-    let!(:activity_session2) { create(:activity_session, activity: activity) }
-    let!(:activity_session3) { create(:activity_session, activity: activity) }
+    let!(:activity_session1) { create(:activity_session_without_concept_results, activity: activity) }
+    let!(:activity_session2) { create(:activity_session_without_concept_results, activity: activity) }
+    let!(:activity_session3) { create(:activity_session_without_concept_results, activity: activity) }
     let!(:concept_result1) do
       create(:concept_result, activity_session: activity_session1, question_number: 1, question_score: 1)
     end

@@ -27,7 +27,7 @@ export default class TeacherEmailNotifications extends React.Component {
         <div className="checkboxes">
           <div className="checkbox-row">
             {this.renderCheckbox('checkboxOne')}
-            <span>Receive updates on new content</span>
+            <span>Receive bi-weekly newsletter (every two weeks)</span>
           </div>
         </div>
       </div>

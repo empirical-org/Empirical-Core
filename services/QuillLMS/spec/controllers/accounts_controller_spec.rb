@@ -58,11 +58,6 @@ describe AccountsController, type: :controller do
           post :create, params: { user: { classcode: "code", email: "test@test.com", password: "test123", role: "student" } }
         end
 
-        it 'should subscribe the user to the newsletter' do
-          expect_any_instance_of(User).to receive(:subscribe_to_newsletter)
-          post :create, params: { user: { classcode: "code", email: "test@test.com", password: "test123", role: "teacher", send_newsletter: true } }
-        end
-
         context 'when user is a teacher and affliate tag present' do
           context 'when referrer user id found' do
             let!(:referrer) { ReferrerUser.create(referral_code: "some code", user: user) }

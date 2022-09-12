@@ -202,8 +202,8 @@ class Activity < ApplicationRecord
   end
 
   def self.clear_activity_search_cache
-    %w(private_ production_ gamma_ beta_ alpha_ archived_).push('').each do |flag|
-      $redis.del("default_#{flag}activity_search")
+    UserFlagset::FLAGSETS.keys.map{|x| "#{x}_"}.push("").each do |flagset|
+      $redis.del("default_#{flagset}activity_search")
     end
   end
 
