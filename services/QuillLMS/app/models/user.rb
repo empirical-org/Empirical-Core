@@ -562,7 +562,7 @@ class User < ApplicationRecord
       user_attributes[:school] = school
       user_attributes[:school_type] = School::ALTERNATIVE_SCHOOLS_DISPLAY_NAME_MAP[school.name] || School::US_K12_SCHOOL_DISPLAY_NAME
     else
-      user_attributes[:school] = School.find_by_name(School::NOT_LISTED_SCHOOL_NAME)
+      user_attributes[:school] = School.find_by_name(School::NO_SCHOOL_SELECTED_SCHOOL_NAME)
       user_attributes[:school_type] = School::US_K12_SCHOOL_DISPLAY_NAME
     end
     user_attributes

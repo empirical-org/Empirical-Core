@@ -538,22 +538,31 @@ describe User, type: :model do
   describe '#generate_teacher_account_info' do
     let(:user) { create(:user) }
     let(:premium_state) { double(:premium_state) }
-    let(:school) { create(:school) }
-    let(:hash) {
-      user.attributes.merge!({
-        subscription: {'subscriptionType' => premium_state},
-        school: school,
-        school_type: School::US_K12_SCHOOL_DISPLAY_NAME
-        })
-    }
 
     before do
-      allow(user).to receive(:school).and_return(school)
-      allow(user).to receive(:subscription).and_return(false)
+      allow(user).to receive(:subscription).and_return(nil)
       allow(user).to receive(:premium_state).and_return(premium_state)
     end
 
     it 'should give the correct hash' do
+      school = create(:school)
+      SchoolsUsers.create(school: school, user: user)
+      user.reload
+      hash = user.attributes.merge!({
+        subscription: {'subscriptionType' => premium_state},
+        school: school,
+        school_type: School::US_K12_SCHOOL_DISPLAY_NAME
+      })
+      expect(user.generate_teacher_account_info).to eq(hash)
+    end
+
+    it 'should have the no school selected school if the user has no school' do
+      school = create(:school, name: School::NO_SCHOOL_SELECTED_SCHOOL_NAME)
+      hash = user.attributes.merge!({
+        subscription: {'subscriptionType' => premium_state},
+        school: school,
+        school_type: School::US_K12_SCHOOL_DISPLAY_NAME
+      })
       expect(user.generate_teacher_account_info).to eq(hash)
     end
   end
