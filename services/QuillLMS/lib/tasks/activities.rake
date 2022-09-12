@@ -61,7 +61,6 @@ namespace :activities do
     CSV.parse(pipe_data, headers: true) do |row|
       activity = Activity.find(row['Activity ID'])
       activity.update!(name: row['New Name'])
- 
     rescue
       puts "Failed to update for activity with id '#{row['Activity ID']}'"
     else
