@@ -34,7 +34,7 @@ module Evidence
       private def generated_flattened
         generated
           .map {|generator, hash| hash.transform_keys {|key| [generator,key].join('-')}}
-          &.reduce(&:merge)
+          &.reduce(&:merge) || {}
       end
     end
   end
