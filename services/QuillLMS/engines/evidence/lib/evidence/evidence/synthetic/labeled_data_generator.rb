@@ -16,22 +16,24 @@ module Evidence
       # 3) Add type and class to this mapping
       GENERATORS = {
         translation: Synthetic::Generators::Translation,
-        spelling: Synthetic::Generators::Spelling
+        spelling: Synthetic::Generators::Spelling,
+        spelling_passage_specific: Synthetic::Generators::SpellingPassageSpecific
       }
 
       FREE_GENERATORS = GENERATORS.except(:translations)
       DEFAULT_LANGUAGES = Evidence::Synthetic::Generators::Translation::TRAIN_LANGUAGES.keys
 
-      attr_reader :results, :languages, :labels, :generators
+      attr_reader :results, :languages, :labels, :generators, :passage
 
       # params:
       # texts_and_labels: [['text', 'label_5'],['text', 'label_1'],...]
       # languages: [:es, :ja, ...]
       # manual_types: bool, whether to assign TEXT,VALIDATION,TRAIN to each row
-      def initialize(texts_and_labels, languages: DEFAULT_LANGUAGES, generators: GENERATORS.keys, manual_types: false)
+      def initialize(texts_and_labels, languages: DEFAULT_LANGUAGES, generators: GENERATORS.keys, passage: nil, manual_types: false)
         @languages = languages
         @manual_types = manual_types
         @generators = GENERATORS.slice(*generators)
+        @passage = passage if passage
 
         clean_text_and_labels = texts_and_labels
           .keep_if(&:last) # remove blank labels
@@ -53,9 +55,9 @@ module Evidence
 
       def run
         generators.each do |type, generator|
-          results_hash = generator.run(results.map(&:text), languages: languages)
+          results_hash = generator.run(results_to_train.map(&:text), languages: languages, passage: passage)
 
-          results.each do |result|
+          results_to_train.each do |result|
             result.generated[type] = results_hash[result.text] || {}
           end
         end
@@ -63,15 +65,22 @@ module Evidence
         self
       end
 
+      def results_to_train
+        return results unless manual_types
+
+        results.select {|r| r.type == TYPE_TRAIN}
+      end
+
       LABEL_FILE = 'synthetic'
       LABEL_ORIGINAL = 'original.csv'
       LABEL_TRAINING = 'automl_upload.csv'
       LABEL_ANALYSIS = 'analysis.csv'
 
-      def self.csvs_from_run(texts_and_labels, filename)
+      def self.csvs_from_run(texts_and_labels, filename, passage = nil)
         generator = Evidence::Synthetic::LabeledDataGenerator.new(
           texts_and_labels,
-          manual_types: true
+          manual_types: true,
+          passage: passage
         )
 
         generator.run
@@ -83,7 +92,7 @@ module Evidence
         {
           file_name(filename, LABEL_TRAINING) => training_csv_string,
           file_name(filename, LABEL_ANALYSIS) => analysis_csv_string,
-          file_name(filename, LABEL_ORIGINAL) => texts_and_labels.to_csv
+          file_name(filename, LABEL_ORIGINAL) => CSV.generate {|csv| texts_and_labels.each {|row| csv << row }}
         }
       end
 

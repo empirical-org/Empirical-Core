@@ -19,6 +19,8 @@ module Evidence
       let(:file) { fixture_file_upload(filename) }
       let(:file_as_array) {[['hello', 'world'], ['data','here']]}
       let(:activity) { create(:evidence_activity) }
+      let(:passage_text) {"some passage text" * 20}
+      let!(:passage) { create(:evidence_passage, activity: activity, text: passage_text) }
 
       let(:generator_response) { double }
 
@@ -32,7 +34,7 @@ module Evidence
         expect(mock_uploader).to receive(:retrieve_from_store!).with(filename)
 
         expect(Evidence::Synthetic::LabeledDataGenerator).to receive(:csvs_from_run)
-          .with(file_as_array, filename)
+          .with(file_as_array, filename, passage_text)
           .and_return(generator_response)
 
         expect(FileMailer).to receive(:send_multiple_files)

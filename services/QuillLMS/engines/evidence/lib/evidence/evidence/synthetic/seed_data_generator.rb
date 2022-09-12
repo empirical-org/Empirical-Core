@@ -10,7 +10,6 @@ module Evidence
       BLANK = ''
       PERIOD = '.'
       CSV_SUFFIX = '.csv'
-      HTML_TAG_REGEX = /<("[^"]*"|'[^']*'|[^'">])*>/
 
       FULL_COUNT = ENV.fetch('SYNTHETIC_SEED_PASSAGE_COUNT', 128).to_i
       FULL_NOUN_COUNT = ENV.fetch('SYNTHETIC_SEED_NOUN_COUNT', 50).to_i
@@ -46,14 +45,8 @@ module Evidence
         csvs
       end
 
-
       def initialize(passage:, stem:, nouns: [])
-        @passage = passage
-          .gsub(HTML_TAG_REGEX, " ") # remove html tags
-          .gsub("&#x27;", "'") # replace html single quotes
-          .gsub("&quot;","\"") # replace html double quotes
-          .gsub(/\s+/," ") # replace multiple spaces with single space
-          .strip
+        @passage = Evidence::HTMLTagRemover.run(passage)
         @stem = stem
         @nouns = nouns
         @results = []
