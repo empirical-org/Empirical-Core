@@ -150,6 +150,7 @@ EmpiricalGrammar::Application.routes.draw do
     post :complete_acknowledge_evidence_banner, on: :collection
     post :complete_acknowledge_growth_diagnostic_promotion_card, on: :collection
     post :complete_dismiss_grade_level_warning, on: :collection
+    post :complete_dismiss_school_selection_reminder, on: :collection
   end
 
   resources :grades, only: [:index]
@@ -543,6 +544,7 @@ EmpiricalGrammar::Application.routes.draw do
 
   put '/select_school', to: 'schools#select_school'
   get '/select_school', to: 'schools#select_school'
+  post '/submit_unlisted_school_information', to: 'schools#submit_unlisted_school_information'
 
   namespace :cms do
     resources :images, only: [:index, :destroy, :create]

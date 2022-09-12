@@ -73,6 +73,7 @@ class School < ApplicationRecord
     US_HIGHER_ED_SCHOOL_NAME = 'us higher ed',
     INTERNATIONAL_SCHOOL_NAME = 'international',
     NOT_LISTED_SCHOOL_NAME = 'not listed',
+    NO_SCHOOL_SELECTED_SCHOOL_NAME = 'no school selected',
     OTHER_SCHOOL_NAME = 'other'
   ]
 
@@ -81,6 +82,7 @@ class School < ApplicationRecord
   OTHER_SCHOOL_DISPLAY_NAME = 'Other'
   HOME_SCHOOL_SCHOOL_DISPLAY_NAME = 'Home school'
   US_HIGHER_ED_SCHOOL_DISPLAY_NAME = 'U.S. higher education institution'
+  NO_SCHOOL_SELECTED_DISPLAY_NAME = 'No school selected'
 
   # have to stringify keys because rails will convert them to symbols otherwise
   ALTERNATIVE_SCHOOLS_DISPLAY_NAME_MAP = {
@@ -88,7 +90,8 @@ class School < ApplicationRecord
     US_HIGHER_ED_SCHOOL_NAME => US_HIGHER_ED_SCHOOL_DISPLAY_NAME,
     OTHER_SCHOOL_NAME => OTHER_SCHOOL_DISPLAY_NAME,
     INTERNATIONAL_SCHOOL_NAME => INTERNATIONAL_SCHOOL_DISPLAY_NAME,
-    NOT_LISTED_SCHOOL_NAME => US_K12_SCHOOL_DISPLAY_NAME
+    NOT_LISTED_SCHOOL_NAME => US_K12_SCHOOL_DISPLAY_NAME,
+    NO_SCHOOL_SELECTED_SCHOOL_NAME => US_K12_SCHOOL_DISPLAY_NAME
   }
 
   SCHOOL_YEAR_START_MONTH = 7

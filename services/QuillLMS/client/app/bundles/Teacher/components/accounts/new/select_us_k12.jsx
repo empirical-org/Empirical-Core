@@ -41,6 +41,7 @@ class SelectUSK12 extends React.Component {
         <AssignActivityPackBanner />
         <div className="container account-form select-k12">
           <h1>Let&#39;s find your school</h1>
+          <p className="subheader">Select a school so that if your school has Quill Premium, your account will have access to it.</p>
           <SchoolSelector selectSchool={this.selectSchool} />
           <button
             className="non-k12-link focus-on-light"

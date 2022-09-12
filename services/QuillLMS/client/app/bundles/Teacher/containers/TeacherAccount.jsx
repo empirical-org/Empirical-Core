@@ -141,7 +141,7 @@ export default class TeacherAccount extends React.Component {
       sendNewsletter,
       postGoogleClassroomAssignments,
     } = this.state
-    const { accountInfo, alternativeSchools, alternativeSchoolsNameMap, cleverLink } = this.props
+    const { accountInfo, alternativeSchools, alternativeSchoolsNameMap, cleverLink, showDismissSchoolSelectionReminderCheckbox, } = this.props
     return (
       <div className="user-account">
         <TeacherGeneralAccountInfo
@@ -157,6 +157,7 @@ export default class TeacherAccount extends React.Component {
           name={name}
           school={school}
           schoolType={schoolType}
+          showDismissSchoolSelectionReminderCheckbox={showDismissSchoolSelectionReminderCheckbox}
           timesSubmitted={timesSubmitted}
           timeZone={timeZone}
           updateUser={this.updateUser}
