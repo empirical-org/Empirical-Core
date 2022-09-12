@@ -405,16 +405,6 @@ class ActivitySession < ApplicationRecord
     end
   end
 
-  def self.delete_activity_sessions_with_no_concept_results(activity_sessions)
-    incomplete_activity_session_ids = []
-    activity_sessions.each do |as|
-      if as.concept_result_ids.empty?
-        incomplete_activity_session_ids.push(as.id)
-      end
-    end
-    ActivitySession.where(id: incomplete_activity_session_ids).destroy_all
-  end
-
   # this function is only for use by Lesson activities, which are not individually saved when the activity ends
   # other activity types make a call directly to the api/v1/activity_sessions controller with timetracking data included
   def self.save_timetracking_data_from_active_activity_session(activity_sessions)
