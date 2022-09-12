@@ -5,6 +5,7 @@ module Evidence
     module Generators
       class SpellingPassageSpecific < Synthetic::Generators::Base
 
+        LONG_WORDS_LENGTH = 10
         REPEATED_WORD_COUNT = 5
         REPEATED_WORD_MIN_LENGTH = 5
         REGEX_PUNCTUATION = /(,|\.|;|\?|!|"|'|:)/
@@ -28,7 +29,7 @@ module Evidence
           return if passage.empty?
 
           strings.each do |string|
-            repeated_words.each do |word|
+            important_words.each do |word|
               padded_word = WORD_BOUNDARY + word + WORD_BOUNDARY
               next unless string.match?(padded_word)
 
@@ -36,6 +37,16 @@ module Evidence
               results_hash[string][word] = text_with_misspell
             end
           end
+        end
+
+        def important_words
+          (repeated_words + long_words).uniq
+        end
+
+        def long_words
+          @long_words ||= passage_words
+            .select {|w| w.length >= LONG_WORDS_LENGTH}
+            .uniq
         end
 
         def repeated_words
