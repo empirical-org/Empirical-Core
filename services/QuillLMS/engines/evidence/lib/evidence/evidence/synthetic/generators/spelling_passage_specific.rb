@@ -8,7 +8,7 @@ module Evidence
         LONG_WORDS_LENGTH = 10
         REPEATED_WORD_COUNT = 5
         REPEATED_WORD_MIN_LENGTH = 5
-        REGEX_PUNCTUATION = /(,|\.|;|\?|!|"|'|:)/
+        REGEX_PUNCTUATION = /(,|\.|;|\?|!|"|'|:|-|—|–|…)/
         REGEX_QUOTES = /('|")/
         REGEX_BRACKETS = /(\(|\)|\[|\])/
         WORD_BOUNDARY = '\b'
@@ -59,10 +59,11 @@ module Evidence
 
         def passage_words
           passage
-            .gsub(REGEX_PUNCTUATION, BLANK)
-            .gsub(REGEX_QUOTES, BLANK)
-            .gsub(REGEX_BRACKETS, BLANK)
+            .gsub(REGEX_PUNCTUATION, SPACE)
+            .gsub(REGEX_QUOTES, SPACE)
+            .gsub(REGEX_BRACKETS, SPACE)
             .split(SPACE)
+            .reject(&:empty?)
         end
 
         # drop a random middle character
