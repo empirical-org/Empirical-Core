@@ -50,52 +50,22 @@ module Units::Updater
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 
-  def self.matching_or_new_unit_activity(activity_data, existing_unit_activities, new_uas, hidden_ua_ids, unit_id, order_number)
-    activity_data_id = activity_data[:id].to_i || activity_data['id'].to_i
-    activity_data_due_date = activity_data[:due_date] || activity_data['due_date']
-    matching_ua = existing_unit_activities.find{|ua| (ua.activity_id == activity_data_id )}
-    if matching_ua
-      matching_ua.update!(visible: true,
-        due_date: activity_data_due_date || matching_ua.due_date,
-        order_number: order_number)
-    elsif activity_data_id
-      # making an array of hashes to create in one bulk option
-      new_uas.push({activity_id: activity_data_id,
-         unit_id: unit_id,
-         due_date: activity_data_due_date,
-         order_number: order_number})
-    end
-  end
-
-  # rubocop:disable Metrics/CyclomaticComplexity
   def self.update_helper(unit_id, activities_data, classrooms_data, current_user_id, concatenate_existing_student_ids: false)
-    existing_classroom_units = ClassroomUnit.where(unit_id: unit_id)
     new_cus = []
+    existing_classroom_units = ClassroomUnit.where(unit_id: unit_id)
     hidden_cus_ids = []
-    existing_unit_activities = UnitActivity.where(unit_id: unit_id)
-    new_uas = []
-    hidden_ua_ids = []
     classrooms_data.each do |classroom|
       matching_or_new_classroom_unit(classroom, existing_classroom_units, new_cus, hidden_cus_ids, unit_id, concatenate_existing_student_ids)
     end
-    activities_data.each_with_index do |activity, index|
-      order_number = index + 1
-      matching_or_new_unit_activity(activity, existing_unit_activities, new_uas, hidden_ua_ids, unit_id, order_number)
-    end
     new_cus = new_cus.uniq { |cu| cu['classroom_id'] || cu[:classroom_id] }
-    new_uas = new_uas.uniq { |ua| ua['activity_id'] || ua[:activity_id] }
     new_cus.each { |cu| ClassroomUnit.create(cu) }
-
     ClassroomUnit.where(id: hidden_cus_ids).update_all(visible: false)
-    UnitActivity.create(new_uas)
-    UnitActivity.where(id: hidden_ua_ids).update_all(visible: false)
+
+    UnitActivitiesSaver.run(activities_data, unit_id)
+
     unit = Unit.find(unit_id)
     unit.save
-    if (hidden_ua_ids.any?) && (new_uas.none?)
-      unit.hide_if_no_visible_unit_activities
-    end
+    unit.hide_if_no_visible_unit_activities
     AssignActivityWorker.perform_async(current_user_id, unit_id)
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
-
 end
