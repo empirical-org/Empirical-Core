@@ -66,7 +66,9 @@ namespace :activities do
       new_name = row['New Name'].gsub(/\s/, ' ')
       raise "New name column is empty" if new_name.blank?
 
-      activity.update!(name: new_name)
+      activity.name = new_name
+      activity.data['name'] = new_name
+      activity.save!
     rescue
       puts "Failed to update for activity with id '#{activity_id}'"
     else
