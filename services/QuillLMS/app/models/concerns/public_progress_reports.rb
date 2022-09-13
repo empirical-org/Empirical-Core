@@ -72,7 +72,7 @@ module PublicProgressReports
     end
 
     if questions_arr.empty?
-      questions_arr = generic_questions_for_report(params[:activity_id])
+      questions_arr = generic_questions_for_report(activity)
     end
     questions_arr
   end
@@ -365,9 +365,12 @@ module PublicProgressReports
     hash
   end
 
-  def generic_questions_for_report(activity_id)
-    questions = Activity.find_by_id(activity_id).data['questions'].map { |q| Question.find_by_uid(q['key']) }
+  def generic_questions_for_report(activity)
     question_array = []
+    return question_array unless activity.data['questions']&.respond_to?(:map)
+
+    questions = activity.data['questions'].map { |q| Question.find_by_uid(q['key']) }
+
     questions.compact.each do |q|
       next if !q.data['prompt']
 
