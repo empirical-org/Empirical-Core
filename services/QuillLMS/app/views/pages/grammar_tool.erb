@@ -4,145 +4,147 @@
   <% @tool = 'grammar' %>
   <%= render partial: "pages/shared/tools_anchor_navbar", active_tab: @active_tab, tool: @tool%>
 </section>
-<div class="tool-container grammar-tool-page">
+<main>
+  <div class="tool-container grammar-tool-page">
 
-    <section class='bg-purple tool-hero text-center tool-section'>
-      <h1 class="q-h1">
-          <img class="tool-page-icon lazyload" data-src='/images/quill_grammar_white.svg'>Quill Grammar
-      </h1>
-      <p class='description'>
-        Quill Grammar has over 150 sentence writing activities to help your students practice basic grammar skills, from comma placement to parallel structure. Our activities are designed to be completed in 10 minutes so you have the freedom to use them in the way that works best for your classroom.
-      </p>
-      <section class="tool-ctas grammar-tool">
-        <a href='/activity_sessions/anonymous?activity_id=110' target="_blank" class="q-button cta-button bg-white text-purple">Try a sample activity</a>
-        <% if current_user&.teacher? %>
-          <a href='/assign/activity-library?activityClassificationFilters[]=sentence' class="q-button text-white learn-more-button">Assign</a>
-        <% end %>
+      <section class='bg-purple tool-hero text-center tool-section'>
+        <h1 class="q-h1">
+            <img class="tool-page-icon lazyload" data-src='/images/quill_grammar_white.svg'>Quill Grammar
+        </h1>
+        <p class='description'>
+          Quill Grammar has over 150 sentence writing activities to help your students practice basic grammar skills, from comma placement to parallel structure. Our activities are designed to be completed in 10 minutes so you have the freedom to use them in the way that works best for your classroom.
+        </p>
+        <section class="tool-ctas grammar-tool">
+          <a href='/activity_sessions/anonymous?activity_id=110' target="_blank" class="q-button cta-button bg-white text-purple">Try a sample activity</a>
+          <% if current_user&.teacher? %>
+            <a href='/assign/activity-library?activityClassificationFilters[]=sentence' class="q-button text-white learn-more-button">Assign</a>
+          <% end %>
+        </section>
       </section>
+
+      <section class="tool-animation-section " id="overview">
+            <video class='tool-animation lazyload' data-src="/videos/grammar.mp4" autoplay loop/>
+      </section>
+
+    <section class="tool-carousel" id="walkthrough">
+        <div id="diagnosticCarousel" class="carousel slide" data-ride="carousel">
+
+            <a class="left carousel-control" href="#diagnosticCarousel" role="button" data-slide="prev">
+                <i class="fas fa-chevron-left" aria-hidden="true"></i>
+                <span class="sr-only">Previous</span>
+            </a>
+
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner" role="listbox">
+                <div class="item active">
+                  <div class="wrapper">
+                    <img class="lazyload" data-src="/images/tools/Grammar1.png" alt="Chania">
+                  </div>
+                  <p>Students are tasked with writing a complete sentence by incorporating proper grammar, punctuation, and spelling.</p>
+                </div>
+
+                <div class="item">
+                  <div class="wrapper">
+                    <img class="lazyload" data-src="/images/tools/Grammar2.png" alt="Chania">
+                  </div>
+                  <p>Students receive instant feedback on the quality of their writing.</p>
+                </div>
+
+                <div class="item">
+                  <div class="wrapper">
+                    <img class="lazyload" data-src="/images/tools/Grammar3.png" alt="Flower">
+                  </div>
+                  <p>Students are provided with an opportunity to try again if they make a mistake. If, on the second attempt, a student does not write a complete sentence, the program shows the student where the student’s error is.</p>
+                </div>
+
+                <div class="item">
+                  <div class="wrapper">
+                    <img class="lazyload" data-src="/images/tools/Grammar4.png" alt="Flower">
+                  </div>
+                  <p>Teachers access in-depth reports that show them how the students have performed on all of the materials over the course of the year.</p>
+                </div>
+
+                <div class="item">
+                  <div class="wrapper">
+                    <img class="lazyload" data-src="/images/tools/Grammar5.png" alt="Flower">
+                  </div>
+                  <p>Teachers have access to over 200 exercises aligned with the Common Core language standards.</p>
+                </div>
+
+            </div>
+
+            <!-- Left and right controls -->
+
+            <a class="right carousel-control" href="#diagnosticCarousel" role="button" data-slide="next">
+                <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                <span class="sr-only">Next</span>
+            </a>
+
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#diagnosticCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#diagnosticCarousel" data-slide-to="1"></li>
+                <li data-target="#diagnosticCarousel" data-slide-to="2"></li>
+                <li data-target="#diagnosticCarousel" data-slide-to="3"></li>
+                <li data-target="#diagnosticCarousel" data-slide-to="4"></li>
+            </ol>
+
+        </div>
     </section>
 
-    <section class="tool-animation-section " id="overview">
-          <video class='tool-animation lazyload' data-src="/videos/grammar.mp4" autoplay loop/>
+    <section class="tool-try-it bg-purple bg-image-grammar-pattern-puzzle">
+      <h2 class='q-h1'>Try It Out for Yourself</h2>
+      <a href='/activity_sessions/anonymous?activity_id=110' target="_blank" class="q-button cta-button bg-white text-purple">Preview Quill Grammar</a>
     </section>
 
-  <section class="tool-carousel" id="walkthrough">
-      <div id="diagnosticCarousel" class="carousel slide" data-ride="carousel">
+    <!-- <section class="tool-testimonial" id="testimonial"> -->
+        <!-- <img class='q-headshot' class="lazyload" data-src=<%="#{ENV['CDN_URL']}/images/shared/daniel_90.png"%> alt="Daniel Scibienski"> -->
+        <!-- <p class='quote'>
+            "It was very useful to see which concepts students needed more help with. It is extremely beneficial if I want to work on grouping students based on skill."
+        </p>
+        <h4 class="q-h4 author">
+            <span>Norma Bonilla,</span> Downtown College Prep
+        </h4>
+        <a href="/activities/packs/20" class='q-button text-black'>
+            <span>View My Story</span>
+        </a>
+    </section> -->
 
-          <a class="left carousel-control" href="#diagnosticCarousel" role="button" data-slide="prev">
-              <i class="fas fa-chevron-left" aria-hidden="true"></i>
-              <span class="sr-only">Previous</span>
-          </a>
-
-          <!-- Wrapper for slides -->
-          <div class="carousel-inner" role="listbox">
-              <div class="item active">
-                <div class="wrapper">
-                  <img class="lazyload" data-src="/images/tools/Grammar1.png" alt="Chania">
-                </div>
-                <p>Students are tasked with writing a complete sentence by incorporating proper grammar, punctuation, and spelling.</p>
-              </div>
-
-              <div class="item">
-                <div class="wrapper">
-                  <img class="lazyload" data-src="/images/tools/Grammar2.png" alt="Chania">
-                </div>
-                <p>Students receive instant feedback on the quality of their writing.</p>
-              </div>
-
-              <div class="item">
-                <div class="wrapper">
-                  <img class="lazyload" data-src="/images/tools/Grammar3.png" alt="Flower">
-                </div>
-                <p>Students are provided with an opportunity to try again if they make a mistake. If, on the second attempt, a student does not write a complete sentence, the program shows the student where the student’s error is.</p>
-              </div>
-
-              <div class="item">
-                <div class="wrapper">
-                  <img class="lazyload" data-src="/images/tools/Grammar4.png" alt="Flower">
-                </div>
-                <p>Teachers access in-depth reports that show them how the students have performed on all of the materials over the course of the year.</p>
-              </div>
-
-              <div class="item">
-                <div class="wrapper">
-                  <img class="lazyload" data-src="/images/tools/Grammar5.png" alt="Flower">
-                </div>
-                <p>Teachers have access to over 200 exercises aligned with the Common Core language standards.</p>
-              </div>
-
-          </div>
-
-          <!-- Left and right controls -->
-
-          <a class="right carousel-control" href="#diagnosticCarousel" role="button" data-slide="next">
-              <i class="fas fa-chevron-right" aria-hidden="true"></i>
-              <span class="sr-only">Next</span>
-          </a>
-
-          <!-- Indicators -->
-          <ol class="carousel-indicators">
-              <li data-target="#diagnosticCarousel" data-slide-to="0" class="active"></li>
-              <li data-target="#diagnosticCarousel" data-slide-to="1"></li>
-              <li data-target="#diagnosticCarousel" data-slide-to="2"></li>
-              <li data-target="#diagnosticCarousel" data-slide-to="3"></li>
-              <li data-target="#diagnosticCarousel" data-slide-to="4"></li>
-          </ol>
-
-      </div>
-  </section>
-
-  <section class="tool-try-it bg-purple bg-image-grammar-pattern-puzzle">
-    <h2 class='q-h1'>Try It Out for Yourself</h2>
-    <a href='/activity_sessions/anonymous?activity_id=110' target="_blank" class="q-button cta-button bg-white text-purple">Preview Quill Grammar</a>
-  </section>
-
-  <!-- <section class="tool-testimonial" id="testimonial"> -->
-      <!-- <img class='q-headshot' class="lazyload" data-src=<%="#{ENV['CDN_URL']}/images/shared/daniel_90.png"%> alt="Daniel Scibienski"> -->
-      <!-- <p class='quote'>
-          "It was very useful to see which concepts students needed more help with. It is extremely beneficial if I want to work on grouping students based on skill."
+    <section class="tool-testimonial" id="testimonial">
+      <!-- <img class='q-headshot' class="lazyload" data-src=<%="#{ENV['CDN_URL']}/images/shared/daniel_90.png"%> alt="DANIEL SCIBIENSKI"> -->
+      <p class='quote'>
+        "I've seen tremendous improvement in the proficiency of my students and the quality of their writing."
       </p>
       <h4 class="q-h4 author">
-          <span>Norma Bonilla,</span> Downtown College Prep
+        <span>Daniel Scibienski</span>, Princeton Public Schools
       </h4>
-      <a href="/activities/packs/20" class='q-button text-black'>
-          <span>View My Story</span>
+      <a href="/activities/packs/6" class='q-button text-black'>
+        <span>View My Story</span>
       </a>
-  </section> -->
-
-  <section class="tool-testimonial" id="testimonial">
-    <!-- <img class='q-headshot' class="lazyload" data-src=<%="#{ENV['CDN_URL']}/images/shared/daniel_90.png"%> alt="DANIEL SCIBIENSKI"> -->
-    <p class='quote'>
-      "I've seen tremendous improvement in the proficiency of my students and the quality of their writing."
-    </p>
-    <h4 class="q-h4 author">
-      <span>Daniel Scibienski</span>, Princeton Public Schools
-    </h4>
-    <a href="/activities/packs/6" class='q-button text-black'>
-      <span>View My Story</span>
-    </a>
-  </section>
+    </section>
 
 
-  <!-- Only show if user is not logged in  -->
-    <% if !current_user %>
+    <!-- Only show if user is not logged in  -->
+      <% if !current_user %>
+        <section class="tool-sign-up">
+            <h1 class='q-h1'>
+                Sign up to start Quill Grammar in your class today!
+            </h1>
+            <a href='/account/new' class="q-button cta-button bg-quillgreen text-white">Sign Up</a>
+        </section>
+
+      <% else %>
       <section class="tool-sign-up">
           <h1 class='q-h1'>
-              Sign up to start Quill Grammar in your class today!
+              Get started now! Assign Quill Grammar.
           </h1>
-          <a href='/account/new' class="q-button cta-button bg-quillgreen text-white">Sign Up</a>
+          <a href='/assign/activity-library?activityClassificationFilters[]=sentence' class="q-button cta-button bg-quillgreen text-white">Assign</a>
       </section>
-
-    <% else %>
-    <section class="tool-sign-up">
-        <h1 class='q-h1'>
-            Get started now! Assign Quill Grammar.
-        </h1>
-        <a href='/assign/activity-library?activityClassificationFilters[]=sentence' class="q-button cta-button bg-quillgreen text-white">Assign</a>
-    </section>
-    <% end %>
+      <% end %>
 
 
-</div>
+  </div>
+</main>
 
 <% if current_user %>
   <%= render partial: 'footer' %>

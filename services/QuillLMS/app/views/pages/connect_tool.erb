@@ -4,87 +4,156 @@
   <% @tool = 'connect' %>
   <%= render partial: "pages/shared/tools_anchor_navbar", active_tab: @active_tab, tool: @tool%>
 </section>
-<div class="tool-container connect-tool-page">
+<main>
+  <div class="tool-container connect-tool-page">
 
-    <section class='bg-connect-yellow tool-hero text-center tool-section'>
-      <h1 class="q-h1">
-          <img class="tool-page-icon lazyload" data-src=<%= "#{ENV['CDN_URL']}/images/shared/quill_connect_white.svg"%>>Quill Connect
-      </h1>
-      <p class='description'>
-      Help your students advance from writing fragments and run-ons to composing complex, well-structured sentences with Quill Connect. By combining sentences, students learn how to demonstrate relationships between ideas. Then, they receive instant, custom feedback designed to help them improve the clarity and precision of their sentences.
-      </p>
-      <section class="tool-ctas connect-tool">
-        <a href=<%= "#{ENV['QUILL_CONNECT_URL']}/#/play/lesson/-KnoWhUWhtxvet4_bi4r" %> target="_blank" class="q-button cta-button bg-white text-connect-yellow">Try a sample activity</a>
-        <% if current_user&.teacher? %>
-          <a href='/assign/activity-library?activityClassificationFilters[]=connect' class="q-button text-white learn-more-button">Assign</a>
-        <% end %>
+      <section class='bg-connect-yellow tool-hero text-center tool-section'>
+        <h1 class="q-h1">
+            <img class="tool-page-icon lazyload" data-src=<%= "#{ENV['CDN_URL']}/images/shared/quill_connect_white.svg"%>>Quill Connect
+        </h1>
+        <p class='description'>
+        Help your students advance from writing fragments and run-ons to composing complex, well-structured sentences with Quill Connect. By combining sentences, students learn how to demonstrate relationships between ideas. Then, they receive instant, custom feedback designed to help them improve the clarity and precision of their sentences.
+        </p>
+        <section class="tool-ctas connect-tool">
+          <a href=<%= "#{ENV['QUILL_CONNECT_URL']}/#/play/lesson/-KnoWhUWhtxvet4_bi4r" %> target="_blank" class="q-button cta-button bg-white text-connect-yellow">Try a sample activity</a>
+          <% if current_user&.teacher? %>
+            <a href='/assign/activity-library?activityClassificationFilters[]=connect' class="q-button text-white learn-more-button">Assign</a>
+          <% end %>
+        </section>
       </section>
-    </section>
 
-    <section class="tool-animation-section " id="overview">
-          <video class='tool-animation' src=<%= "#{ENV['CDN_URL']}/videos/tools/connect.mp4" %> autoplay loop/>
-    </section>
+      <section class="tool-animation-section " id="overview">
+            <video class='tool-animation' src=<%= "#{ENV['CDN_URL']}/videos/tools/connect.mp4" %> autoplay loop/>
+      </section>
 
-    <section class="walk-thru-wrapper desktop" id="how-it-works">
-      <div class="walk-thru-step flex-row vertically-centered">
-          <div class="content-wrapper flex-row space-between vertically-centered">
-              <div class="prompt">
-                <p class="prompt-header">
-                  PROMPT
-                </p>
-                <p class="prompt-text">Patrick Henry opposed new British taxes.</p>
-                <p class="prompt-text">He gave a speech.</p>
-                <p class="prompt-text">The speech was powerful.</p>
-                <p class="prompt-text">The speech was to inspire the colonists.</p>
-              </div>
-              <div class="blurb introduction">
-                  <h2>How Quill Connect Gives Feedback</h2>
-                  <p>
-                  Students are prompted with four ideas and asked to join them together. There are many different ways of combining them, and Quill serves feedback on hundreds of potential answers. Here is a student&apos;s progression from their first attempt to a strong sentence.
-                  </p>
-              </div>
-          </div>
-      </div>
+      <section class="walk-thru-wrapper desktop" id="how-it-works">
         <div class="walk-thru-step flex-row vertically-centered">
             <div class="content-wrapper flex-row space-between vertically-centered">
-                <img class="arrow arrow-1 lazyload" data-src=<%= "#{ENV['CDN_URL']}/images/tools/connect/arrow_1.png" %>>
-                <img class="negative-left-margin lazyload" data-src=<%= "#{ENV['CDN_URL']}/images/tools/connect/attempt_1.png" %> alt="connect image">
-                <div class="blurb blurb-attempt-1">
+                <div class="prompt">
+                  <p class="prompt-header">
+                    PROMPT
+                  </p>
+                  <p class="prompt-text">Patrick Henry opposed new British taxes.</p>
+                  <p class="prompt-text">He gave a speech.</p>
+                  <p class="prompt-text">The speech was powerful.</p>
+                  <p class="prompt-text">The speech was to inspire the colonists.</p>
+                </div>
+                <div class="blurb introduction">
+                    <h2>How Quill Connect Gives Feedback</h2>
+                    <p>
+                    Students are prompted with four ideas and asked to join them together. There are many different ways of combining them, and Quill serves feedback on hundreds of potential answers. Here is a student&apos;s progression from their first attempt to a strong sentence.
+                    </p>
+                </div>
+            </div>
+        </div>
+          <div class="walk-thru-step flex-row vertically-centered">
+              <div class="content-wrapper flex-row space-between vertically-centered">
+                  <img class="arrow arrow-1 lazyload" data-src=<%= "#{ENV['CDN_URL']}/images/tools/connect/arrow_1.png" %>>
+                  <img class="negative-left-margin lazyload" data-src=<%= "#{ENV['CDN_URL']}/images/tools/connect/attempt_1.png" %> alt="connect image">
+                  <div class="blurb blurb-attempt-1">
+                      <h2><span>1st Attempt:</span> Write Concisely</h2>
+                      <p>
+                      The student used <span>and</span> to join multiple ideas together. This is a very common pattern for emerging writers. Quill breaks this pattern by challenging students to revise their work.
+                      </p>
+                  </div>
+              </div>
+          </div>
+          <div class="walk-thru-step flex-row vertically-centered">
+              <div class="content-wrapper flex-row space-between vertically-centered">
+                <img class="negative-left-margin lazyload" data-src=<%= "#{ENV['CDN_URL']}/images/tools/connect/attempt_2.png"%> alt="connect image">
+                  <div class="blurb blurb-attempt-2">
+                      <h2><span>2nd Attempt:</span> Show Relationships</h2>
+                      <p>
+                      While using <span>and</span> to join the two main ideas is grammatically correct, it is not the strongest way of conveying the relationship between these ideas. Students are prompted to use a conjunction that expresses a cause and effect relationship. This is an important step towards conveying complex ideas.
+                      </p>
+                  </div>
+                  <img class="arrow arrow-2 lazyload" data-src=<%= "#{ENV['CDN_URL']}/images/tools/connect/arrow_2.png" %>>
+              </div>
+          </div>
+          <div class="walk-thru-step flex-row vertically-centered">
+              <div class="content-wrapper flex-row space-between vertically-centered">
+                <img class="arrow arrow-3 lazyload" data-src=<%= "#{ENV['CDN_URL']}/images/tools/connect/arrow_3.png" %>>
+                <img class="negative-left-margin img-attempt-3 lazyload" data-src=<%= "#{ENV['CDN_URL']}/images/tools/connect/attempt_3.png" %> alt="connect image">
+                  <div class="blurb blurb-attempt-3">
+                      <h2><span>3rd Attempt:</span> Use Punctuation</h2>
+                      <p>
+                        The student showed the correct relationship but left out the comma. Quill provides feedback and shows a model sentence to help guide the student.
+                      </p>
+                  </div>
+              </div>
+          </div>
+          <div class="walk-thru-step flex-row vertically-centered">
+              <div class="content-wrapper flex-row space-between vertically-centered">
+                <img class="negative-left-margin img-attempt-4 lazyload" data-src=<%= "#{ENV['CDN_URL']}/images/tools/connect/attempt_4.png" %> alt="connect image">
+                  <div class="blurb blurb-attempt-4">
+                      <h2><span>4th Attempt:</span> Strong Sentence!</h2>
+                      <p>
+                        The student wrote a clear and concise sentence!
+                      </p>
+                      <p>
+                        Quill provides additional feedback to reinforce what the student learned.
+                      </p>
+                  </div>
+              </div>
+          </div>
+      </section>
+      <section class="walk-thru-wrapper mobile">
+          <div class="walk-thru-step">
+              <div class="content-wrapper">
+                <div class="prompt">
+                  <p class="prompt-header">
+                    PROMPT
+                  </p>
+                  <p class="prompt-text">Patrick Henry opposed new British taxes.</p>
+                  <p class="prompt-text">He gave a speech.</p>
+                  <p class="prompt-text">The speech was powerful.</p>
+                  <p class="prompt-text">The speech was to inspire the colonists.</p>
+                </div>
+                <div class="blurb">
+                    <h2>How Quill Connect Gives Feedback</h2>
+                    <p>
+                    Students are prompted with four ideas and asked to join them together. There are many different ways of combining them, and Quill serves feedback on hundreds of potential answers. Here is a student&apos;s progression from their first attempt to a strong sentence.
+                    </p>
+              </div>
+          </div>
+        </div>
+          <div class="walk-thru-step">
+              <div class="content-wrapper">
+                <img src=<%= "#{ENV['CDN_URL']}/images/tools/connect/attempt_1.png" %> alt="connect image">
+                <div class="blurb">
                     <h2><span>1st Attempt:</span> Write Concisely</h2>
                     <p>
                     The student used <span>and</span> to join multiple ideas together. This is a very common pattern for emerging writers. Quill breaks this pattern by challenging students to revise their work.
                     </p>
                 </div>
-            </div>
-        </div>
-        <div class="walk-thru-step flex-row vertically-centered">
-            <div class="content-wrapper flex-row space-between vertically-centered">
-              <img class="negative-left-margin lazyload" data-src=<%= "#{ENV['CDN_URL']}/images/tools/connect/attempt_2.png"%> alt="connect image">
-                <div class="blurb blurb-attempt-2">
-                    <h2><span>2nd Attempt:</span> Show Relationships</h2>
-                    <p>
-                    While using <span>and</span> to join the two main ideas is grammatically correct, it is not the strongest way of conveying the relationship between these ideas. Students are prompted to use a conjunction that expresses a cause and effect relationship. This is an important step towards conveying complex ideas.
-                    </p>
-                </div>
-                <img class="arrow arrow-2 lazyload" data-src=<%= "#{ENV['CDN_URL']}/images/tools/connect/arrow_2.png" %>>
-            </div>
-        </div>
-        <div class="walk-thru-step flex-row vertically-centered">
-            <div class="content-wrapper flex-row space-between vertically-centered">
-              <img class="arrow arrow-3 lazyload" data-src=<%= "#{ENV['CDN_URL']}/images/tools/connect/arrow_3.png" %>>
-              <img class="negative-left-margin img-attempt-3 lazyload" data-src=<%= "#{ENV['CDN_URL']}/images/tools/connect/attempt_3.png" %> alt="connect image">
-                <div class="blurb blurb-attempt-3">
+              </div>
+          </div>
+          <div class="walk-thru-step">
+              <div class="content-wrapper">
+                <img src=<%= "#{ENV['CDN_URL']}/images/tools/connect/attempt_2.png" %> alt="connect image">
+                  <div class="blurb">
+                      <h2><span>2nd Attempt:</span> Show Relationships</h2>
+                      <p>
+                      While using <span>and</span> to join the two main ideas is grammatically correct, it is not the strongest way of conveying the relationship between these ideas. Students are prompted to use a conjunction that expresses a cause and effect relationship. This is an important step towards conveying complex ideas.
+                      </p>
+                  </div>
+              </div>
+          </div>
+          <div class="walk-thru-step">
+            <div class="content-wrapper">
+              <img class="img-attempt-3 lazyload" data-src=<%= "#{ENV['CDN_URL']}/images/tools/connect/attempt_3.png" %> alt="connect image">
+                <div class="blurb">
                     <h2><span>3rd Attempt:</span> Use Punctuation</h2>
                     <p>
                       The student showed the correct relationship but left out the comma. Quill provides feedback and shows a model sentence to help guide the student.
                     </p>
                 </div>
             </div>
-        </div>
-        <div class="walk-thru-step flex-row vertically-centered">
-            <div class="content-wrapper flex-row space-between vertically-centered">
-              <img class="negative-left-margin img-attempt-4 lazyload" data-src=<%= "#{ENV['CDN_URL']}/images/tools/connect/attempt_4.png" %> alt="connect image">
-                <div class="blurb blurb-attempt-4">
+          </div>
+          <div class="walk-thru-step">
+            <div class="content-wrapper">
+              <img class="img-attempt-4 lazyload" data-src=<%= "#{ENV['CDN_URL']}/images/tools/connect/attempt_4.png" %> alt="connect image">
+                <div class="blurb">
                     <h2><span>4th Attempt:</span> Strong Sentence!</h2>
                     <p>
                       The student wrote a clear and concise sentence!
@@ -94,168 +163,101 @@
                     </p>
                 </div>
             </div>
-        </div>
-    </section>
-    <section class="walk-thru-wrapper mobile">
-        <div class="walk-thru-step">
-            <div class="content-wrapper">
-              <div class="prompt">
-                <p class="prompt-header">
-                  PROMPT
-                </p>
-                <p class="prompt-text">Patrick Henry opposed new British taxes.</p>
-                <p class="prompt-text">He gave a speech.</p>
-                <p class="prompt-text">The speech was powerful.</p>
-                <p class="prompt-text">The speech was to inspire the colonists.</p>
-              </div>
-              <div class="blurb">
-                  <h2>How Quill Connect Gives Feedback</h2>
-                  <p>
-                  Students are prompted with four ideas and asked to join them together. There are many different ways of combining them, and Quill serves feedback on hundreds of potential answers. Here is a student&apos;s progression from their first attempt to a strong sentence.
-                  </p>
-            </div>
-        </div>
-      </div>
-        <div class="walk-thru-step">
-            <div class="content-wrapper">
-              <img src=<%= "#{ENV['CDN_URL']}/images/tools/connect/attempt_1.png" %> alt="connect image">
-              <div class="blurb">
-                  <h2><span>1st Attempt:</span> Write Concisely</h2>
-                  <p>
-                  The student used <span>and</span> to join multiple ideas together. This is a very common pattern for emerging writers. Quill breaks this pattern by challenging students to revise their work.
-                  </p>
-              </div>
-            </div>
-        </div>
-        <div class="walk-thru-step">
-            <div class="content-wrapper">
-              <img src=<%= "#{ENV['CDN_URL']}/images/tools/connect/attempt_2.png" %> alt="connect image">
-                <div class="blurb">
-                    <h2><span>2nd Attempt:</span> Show Relationships</h2>
-                    <p>
-                    While using <span>and</span> to join the two main ideas is grammatically correct, it is not the strongest way of conveying the relationship between these ideas. Students are prompted to use a conjunction that expresses a cause and effect relationship. This is an important step towards conveying complex ideas.
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="walk-thru-step">
-          <div class="content-wrapper">
-            <img class="img-attempt-3 lazyload" data-src=<%= "#{ENV['CDN_URL']}/images/tools/connect/attempt_3.png" %> alt="connect image">
-              <div class="blurb">
-                  <h2><span>3rd Attempt:</span> Use Punctuation</h2>
-                  <p>
-                    The student showed the correct relationship but left out the comma. Quill provides feedback and shows a model sentence to help guide the student.
-                  </p>
-              </div>
           </div>
-        </div>
-        <div class="walk-thru-step">
-          <div class="content-wrapper">
-            <img class="img-attempt-4 lazyload" data-src=<%= "#{ENV['CDN_URL']}/images/tools/connect/attempt_4.png" %> alt="connect image">
-              <div class="blurb">
-                  <h2><span>4th Attempt:</span> Strong Sentence!</h2>
-                  <p>
-                    The student wrote a clear and concise sentence!
-                  </p>
-                  <p>
-                    Quill provides additional feedback to reinforce what the student learned.
-                  </p>
-              </div>
-          </div>
-        </div>
-    </section>
-
-  <section class="tool-carousel" id="walkthrough">
-      <div id="diagnosticCarousel" class="carousel slide" data-ride="carousel">
-
-          <a class="left carousel-control" href="#diagnosticCarousel" role="button" data-slide="prev">
-              <i class="fas fa-chevron-left"></i>
-              <span class="sr-only">Previous</span>
-          </a>
-
-          <!-- Wrapper for slides -->
-          <div class="carousel-inner" role="listbox">
-              <div class="item active">
-                <div class="wrapper">
-                  <img src=<%= "#{ENV['CDN_URL']}/images/tools/connect/visual_overview_screenshot.png" %> alt="Chania">
-                </div>
-                <p>Teachers can use their activity summary report to see which concepts the student has mastered and which ones they need to practice.</p>
-              </div>
-
-              <div class="item">
-                <div class="wrapper">
-                  <img src=<%= "#{ENV['CDN_URL']}/images/tools/connect/analysis_screenshot.png" %> alt="Chania">
-                </div>
-                <p>Teachers see reports that state exactly which errors the student made and which concepts the student mastered.</p>
-              </div>
-
-              <div class="item">
-                <div class="wrapper">
-                  <img src=<%= "#{ENV['CDN_URL']}/images/tools/connect/activities_screenshot.png" %> alt="Chania">
-                </div>
-                <p>Teachers have access to over 200 exercises aligned with the Common Core language standards.</p>
-              </div>
-          </div>
-
-          <!-- Left and right controls -->
-
-          <a class="right carousel-control" href="#diagnosticCarousel" role="button" data-slide="next">
-              <i class="fas fa-chevron-right" aria-hidden="true"></i>
-              <span class="sr-only">Next</span>
-          </a>
-
-          <!-- Indicators -->
-          <ol class="carousel-indicators">
-              <li data-target="#diagnosticCarousel" data-slide-to="0" class="active"></li>
-              <li data-target="#diagnosticCarousel" data-slide-to="1"></li>
-              <li data-target="#diagnosticCarousel" data-slide-to="2"></li>
-          </ol>
-
-      </div>
-  </section>
-
-  <section class="tool-try-it bg-connect-yellow bg-image-connect-pattern-bullseye">
-    <h2 class='q-h1'>Try It Out for Yourself</h2>
-    <a href=<%= "#{ENV['QUILL_CONNECT_URL']}/#/play/lesson/-KnoWhUWhtxvet4_bi4r" %> target="_blank" class="q-button cta-button bg-white text-connect-yellow">Preview Quill Connect</a>
-  </section>
-
-  <section>
-    <div class="boy-playing-quill">
-      <img src=<%= "#{ENV['CDN_URL']}/images/tools/connect/laura_marshall_student.png" %> alt="boy playing quill">
-    </div>
-  </section>
-
-  <section class="tool-testimonial" id="testimonial">
-    <p class='quote' id="connect-testimonial-quote">
-      "Quill has been a wonderful tool for my third graders, many of whom are second language learners. We especially love the immediate feedback provided after each practice; it has definitely made us pay closer attention to detail. Quill has greatly contributed to our growth mindsets this year!"
-    </p>
-    <h4 class="q-h4 author">
-      <span>Laura Marshall,</span> Caswell Elementary School
-    </h4>
-    <!-- <a href="/activities/packs/21" class='q-button text-black'>
-      <span>View My Story</span>
-    </a> -->
-  </section>
-
-  <!-- Only show if user is not logged in  -->
-    <% if !current_user %>
-      <section class="tool-sign-up">
-          <h1 class='q-h1'>
-              Sign up to start Quill Connect in your class today!
-          </h1>
-          <a href='/account/new' class="q-button cta-button bg-quillgreen text-white">Sign Up</a>
       </section>
 
-    <% else %>
-    <section class="tool-sign-up">
-        <h1 class='q-h1'>
-            Get started now! Assign Quill Connect.
-        </h1>
-        <a href='/assign/activity-library?activityClassificationFilters[]=connect' class="q-button cta-button bg-quillgreen text-white">Assign</a>
-    </section>
-    <% end %>
+    <section class="tool-carousel" id="walkthrough">
+        <div id="diagnosticCarousel" class="carousel slide" data-ride="carousel">
 
-</div>
+            <a class="left carousel-control" href="#diagnosticCarousel" role="button" data-slide="prev">
+                <i class="fas fa-chevron-left"></i>
+                <span class="sr-only">Previous</span>
+            </a>
+
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner" role="listbox">
+                <div class="item active">
+                  <div class="wrapper">
+                    <img src=<%= "#{ENV['CDN_URL']}/images/tools/connect/visual_overview_screenshot.png" %> alt="Chania">
+                  </div>
+                  <p>Teachers can use their activity summary report to see which concepts the student has mastered and which ones they need to practice.</p>
+                </div>
+
+                <div class="item">
+                  <div class="wrapper">
+                    <img src=<%= "#{ENV['CDN_URL']}/images/tools/connect/analysis_screenshot.png" %> alt="Chania">
+                  </div>
+                  <p>Teachers see reports that state exactly which errors the student made and which concepts the student mastered.</p>
+                </div>
+
+                <div class="item">
+                  <div class="wrapper">
+                    <img src=<%= "#{ENV['CDN_URL']}/images/tools/connect/activities_screenshot.png" %> alt="Chania">
+                  </div>
+                  <p>Teachers have access to over 200 exercises aligned with the Common Core language standards.</p>
+                </div>
+            </div>
+
+            <!-- Left and right controls -->
+
+            <a class="right carousel-control" href="#diagnosticCarousel" role="button" data-slide="next">
+                <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                <span class="sr-only">Next</span>
+            </a>
+
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#diagnosticCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#diagnosticCarousel" data-slide-to="1"></li>
+                <li data-target="#diagnosticCarousel" data-slide-to="2"></li>
+            </ol>
+
+        </div>
+    </section>
+
+    <section class="tool-try-it bg-connect-yellow bg-image-connect-pattern-bullseye">
+      <h2 class='q-h1'>Try It Out for Yourself</h2>
+      <a href=<%= "#{ENV['QUILL_CONNECT_URL']}/#/play/lesson/-KnoWhUWhtxvet4_bi4r" %> target="_blank" class="q-button cta-button bg-white text-connect-yellow">Preview Quill Connect</a>
+    </section>
+
+    <section>
+      <div class="boy-playing-quill">
+        <img src=<%= "#{ENV['CDN_URL']}/images/tools/connect/laura_marshall_student.png" %> alt="boy playing quill">
+      </div>
+    </section>
+
+    <section class="tool-testimonial" id="testimonial">
+      <p class='quote' id="connect-testimonial-quote">
+        "Quill has been a wonderful tool for my third graders, many of whom are second language learners. We especially love the immediate feedback provided after each practice; it has definitely made us pay closer attention to detail. Quill has greatly contributed to our growth mindsets this year!"
+      </p>
+      <h4 class="q-h4 author">
+        <span>Laura Marshall,</span> Caswell Elementary School
+      </h4>
+      <!-- <a href="/activities/packs/21" class='q-button text-black'>
+        <span>View My Story</span>
+      </a> -->
+    </section>
+
+    <!-- Only show if user is not logged in  -->
+      <% if !current_user %>
+        <section class="tool-sign-up">
+            <h1 class='q-h1'>
+                Sign up to start Quill Connect in your class today!
+            </h1>
+            <a href='/account/new' class="q-button cta-button bg-quillgreen text-white">Sign Up</a>
+        </section>
+
+      <% else %>
+      <section class="tool-sign-up">
+          <h1 class='q-h1'>
+              Get started now! Assign Quill Connect.
+          </h1>
+          <a href='/assign/activity-library?activityClassificationFilters[]=connect' class="q-button cta-button bg-quillgreen text-white">Assign</a>
+      </section>
+      <% end %>
+
+  </div>
+</main>
 
 
 <% if current_user %>
