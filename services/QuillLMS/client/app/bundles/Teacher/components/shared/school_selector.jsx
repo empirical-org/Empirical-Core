@@ -4,21 +4,28 @@ import request from 'request'
 import LoadingIndicator from './loading_indicator.jsx';
 import SchoolOption from './school_option'
 
-import { Input, } from '../../../Shared/index'
+import { Input, smallWhiteCheckIcon, } from '../../../Shared/index'
 import useDebounce from '../../hooks/useDebounce'
+import { requestPost, } from '../../../../modules/request'
 
 const mapSearchSrc = `${process.env.CDN_URL}/images/onboarding/map-search.svg`
 
 export const NOT_LISTED = 'not listed'
+export const NO_SCHOOL_SELECTED = 'no school selected'
+
 const DEBOUNCE_LENGTH = 500
 const MINIMUM_SEARCH_LENGTH = 2
 const WHOLE_SEARCH_IS_NUMBERS_REGEX = /^\d+$/
 
-const SchoolSelector = ({ selectSchool, }) => {
+const SchoolSelector = ({ selectSchool, showDismissSchoolSelectionReminderCheckbox, handleDismissSchoolSelectionReminder, }) => {
   const [search, setSearch] = React.useState('')
   const [schools, setSchools] = React.useState([])
   const [errors, setErrors] = React.useState({})
   const [loading, setLoading] = React.useState(false)
+  const [showNotListedModal, setShowNotListedModal] = React.useState(false)
+  const [unlistedSchoolName, setUnlistedSchoolName] = React.useState('')
+  const [unlistedSchoolZipcode, setUnlistedSchoolZipcode] = React.useState('')
+  const [dismissSchoolSelectionReminder, setDismissSchoolSelectionReminder] = React.useState(false)
 
   const debouncedSearch = useDebounce(search, DEBOUNCE_LENGTH);
 
@@ -36,7 +43,27 @@ const SchoolSelector = ({ selectSchool, }) => {
     searchForSchool()
   }, [debouncedSearch])
 
-  function handleSkipClick() { selectSchool(NOT_LISTED) }
+  function toggleDismissReminderCheckbox() { setDismissSchoolSelectionReminder(!dismissSchoolSelectionReminder) }
+
+  function handleSkipClick() {
+    if (dismissSchoolSelectionReminder) {
+      handleDismissSchoolSelectionReminder()
+    }
+    selectSchool(NO_SCHOOL_SELECTED)
+  }
+
+  function handleNotListedClick() {
+    setShowNotListedModal(true)
+  }
+
+  function onChangeUnlistedSchoolName(e) { setUnlistedSchoolName(e.target.value) }
+  function onChangeUnlistedSchoolZipcode(e) { setUnlistedSchoolZipcode(e.target.value) }
+
+  function submitSchoolNotListedInformation() {
+    requestPost('/submit_unlisted_school_information', { school_name: unlistedSchoolName, school_zipcode: unlistedSchoolZipcode }, () => {
+      selectSchool(NOT_LISTED)
+    })
+  }
 
   function searchForSchool() {
     request({
@@ -76,15 +103,46 @@ const SchoolSelector = ({ selectSchool, }) => {
     )
   }
 
-  const renderNoSchoolFound = () => {
+  const renderSchoolNotListedModal = () => {
+    if (!showNotListedModal) { return <span /> }
     return (
-      <div className="no-school-found">
-        <img alt="Map with a magnifying glass over it" src={mapSearchSrc} />
-        <p className="message">We couldn&#39;t find your school</p>
-        <p className="sub-text">Try another search or click skip for now below.</p>
+      <div className="modal-container school-not-listed-modal-container">
+        <div className="modal-background" />
+        <div className="school-not-listed-modal quill-modal modal-body">
+          <div>
+            <h3 className="title">School not listed?</h3>
+          </div>
+          <p>Please share your school name and ZIP code below. Quill will review and update our database.</p>
+          <Input
+            handleChange={onChangeUnlistedSchoolName}
+            label="School name"
+            type="text"
+            value={unlistedSchoolName}
+          />
+          <Input
+            handleChange={onChangeUnlistedSchoolZipcode}
+            label="ZIP code"
+            type="text"
+            value={unlistedSchoolZipcode}
+          />
+          <div className="form-buttons">
+            <button className="quill-button primary contained medium focus-on-light" onClick={submitSchoolNotListedInformation} type="button">Done</button>
+          </div>
+        </div>
       </div>
     )
   }
+
+  const noSchoolSelectedSchoolOption = (
+    <SchoolOption
+      key={NOT_LISTED}
+      numberOfTeachersText=''
+      school={{id: NOT_LISTED}}
+      secondaryText="Please select this if you can't find your school"
+      selectSchool={handleNotListedClick}
+      text="Not listed"
+    />
+  )
 
   const renderSchoolsList = (schools) => {
     const schoolItems = schools.map(school => {
@@ -118,7 +176,7 @@ const SchoolSelector = ({ selectSchool, }) => {
         />
       )
     })
-    return <ul className="list quill-list double-line">{schoolItems}</ul>
+    return <ul className="list quill-list double-line">{schoolItems}{noSchoolSelectedSchoolOption}</ul>
   }
 
   const renderSchoolsListSection = () => {
@@ -126,24 +184,32 @@ const SchoolSelector = ({ selectSchool, }) => {
     let schoolsListOrEmptyState
     if (loading) {
       schoolsListOrEmptyState = renderLoading()
-    } else if (!schools.length && search.length >= MINIMUM_SEARCH_LENGTH) {
-      schoolsListOrEmptyState = renderNoSchoolFound()
-    } else if (schools.length && search.length >= MINIMUM_SEARCH_LENGTH) {
+    } else if (search.length >= MINIMUM_SEARCH_LENGTH) {
       schoolsListOrEmptyState = renderSchoolsList(schools)
     } else {
       schoolsListOrEmptyState = renderDefault()
     }
+    let checkbox = <button aria-checked={false} aria-label="Unchecked" className="quill-checkbox unselected focus-on-light" onClick={toggleDismissReminderCheckbox} role="checkbox" type="button" />
+    if (dismissSchoolSelectionReminder) {
+      checkbox = <button aria-checked={true} className="quill-checkbox selected focus-on-light" onClick={toggleDismissReminderCheckbox} role="checkbox" type="button"><img alt={smallWhiteCheckIcon.alt} src={smallWhiteCheckIcon.src} /></button>
+    }
+    const checkboxWrapper = showDismissSchoolSelectionReminderCheckbox ? <div className="checkbox-wrapper">{checkbox} <span>Don&#39;t remind me again to select a school</span></div> : <span />
+
     return (
       <div className="schools-list-section">
         <div className="title">Results</div>
         {schoolsListOrEmptyState}
-        <div className="school-not-listed">School not listed? <button className="interactive-wrapper" onClick={handleSkipClick} type="button">Skip for now</button></div>
+        <div className="school-not-listed">
+          <button className="interactive-wrapper" onClick={handleSkipClick} type="button">Skip for now</button>
+          {checkboxWrapper}
+        </div>
       </div>
     )
   }
 
   return (
     <div className="school-search-container">
+      {renderSchoolNotListedModal()}
       <Input
         className="search"
         error={errors.search}

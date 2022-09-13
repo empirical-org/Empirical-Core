@@ -68,4 +68,15 @@ describe MilestonesController do
       expect(user.milestones).to include milestone
     end
   end
+
+  describe '#complete_dismiss_school_selection_reminder' do
+    let!(:milestone) { create(:dismiss_school_selection_reminder) }
+
+    it 'should push the milestone into users milestones' do
+      expect(user.milestones).to_not include milestone
+      post :complete_dismiss_school_selection_reminder
+      expect(user.milestones).to include milestone
+    end
+  end
+
 end

@@ -106,6 +106,9 @@
     &:focus, &:hover {
       text-decoration: none;
     }
+    &::before {
+      right: -6px;
+    }
   }
   div {
     padding: 0;

@@ -157,6 +157,7 @@ class User < ApplicationRecord
   validates :email,
     presence: { if: :email_required? },
     uniqueness:  { message: :taken, if: :email_required_or_present? },
+    format: { without: /\s/, message: :no_spaces_allowed },
     length: { maximum: CHAR_FIELD_MAX_LENGTH }
 
   validate :username_cannot_be_an_email
@@ -528,18 +529,6 @@ class User < ApplicationRecord
     UserMailer.premium_missing_school_email(self).deliver_now! if email.present?
   end
 
-  def subscribe_to_newsletter
-    return unless role.teacher?
-
-    SubscribeToNewsletterWorker.perform_async(id)
-  end
-
-  def unsubscribe_from_newsletter
-    return unless role.teacher?
-
-    UnsubscribeFromNewsletterWorker.perform_async(id)
-  end
-
   def self.create_from_clever(hash, role_override = nil)
     user = User.where(email: hash[:info][:email]).first_or_initialize
     user = User.new if user.email.nil?
@@ -573,7 +562,7 @@ class User < ApplicationRecord
       user_attributes[:school] = school
       user_attributes[:school_type] = School::ALTERNATIVE_SCHOOLS_DISPLAY_NAME_MAP[school.name] || School::US_K12_SCHOOL_DISPLAY_NAME
     else
-      user_attributes[:school] = School.find_by_name(School::NOT_LISTED_SCHOOL_NAME)
+      user_attributes[:school] = School.find_by_name(School::NO_SCHOOL_SELECTED_SCHOOL_NAME)
       user_attributes[:school_type] = School::US_K12_SCHOOL_DISPLAY_NAME
     end
     user_attributes

@@ -178,8 +178,10 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
       ['Standard Level', 'Standard Name', 'Students', 'Proficient', 'Activities', 'Time Spent']
     ]
     standardsData.forEach((row) => {
+      const profiencyRow = row.is_evidence ? NOT_SCORED_DISPLAY_TEXT : `${row.proficient_count} of ${row.total_student_count}`
+
       csvData.push([
-        row['standard_level_name'], row['name'], row['total_student_count'], `${row['proficient_count']} of ${row['total_student_count']}`, row['total_activity_count'], getTimeSpent(row['timespent'])
+        row['standard_level_name'], row['name'], row['total_student_count'], profiencyRow, row['total_activity_count'], getTimeSpent(row['timespent'])
       ])
     })
     return csvData

@@ -79,6 +79,10 @@ EmpiricalGrammar::Application.routes.draw do
     post '/webhooks', to: 'webhooks#create'
   end
 
+  namespace :ortto_integration do
+    post '/webhooks', to: 'webhooks#create'
+  end
+
   get 'subscriptions/retrieve_stripe_subscription/:stripe_invoice_id',
     to: 'subscriptions#retrieve_stripe_subscription',
     stripe_invoice_id: /in_[A-Za-z0-9]{8,}/
@@ -146,6 +150,7 @@ EmpiricalGrammar::Application.routes.draw do
     post :complete_acknowledge_evidence_banner, on: :collection
     post :complete_acknowledge_growth_diagnostic_promotion_card, on: :collection
     post :complete_dismiss_grade_level_warning, on: :collection
+    post :complete_dismiss_school_selection_reminder, on: :collection
   end
 
   resources :grades, only: [:index]
@@ -539,9 +544,11 @@ EmpiricalGrammar::Application.routes.draw do
 
   put '/select_school', to: 'schools#select_school'
   get '/select_school', to: 'schools#select_school'
+  post '/submit_unlisted_school_information', to: 'schools#submit_unlisted_school_information'
 
   namespace :cms do
     resources :images, only: [:index, :destroy, :create]
+    resources :csv_uploads, only: [:create]
     put '/activity_categories/mass_update', to: 'activity_categories#mass_update'
     resources :activity_categories, only: [:index, :create]
     resources :activity_classifications do

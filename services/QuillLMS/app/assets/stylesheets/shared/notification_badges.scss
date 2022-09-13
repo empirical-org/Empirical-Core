@@ -1,0 +1,21 @@
+.show-notification-badges {
+  .notification-badge-relative {
+    position: relative;
+    &::before {
+      content: url('https://assets.quill.org/images/icons/notification_badge_icon.svg');
+      position: absolute;
+      right: -16px;
+      top: -6px;
+      height: 14px;
+      width: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #EB4F47;
+      color: white;
+      border-radius: 8px;
+      box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.15);
+      border: 1px solid white;
+    }
+  }
+}

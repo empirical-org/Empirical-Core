@@ -4,9 +4,9 @@ require 'rails_helper'
 
 describe QuestionHealthDashboard, type: :model do
   let!(:activity) { create(:activity) }
-  let!(:activity_session1) { create(:activity_session, activity: activity) }
-  let!(:activity_session2) { create(:activity_session, activity: activity) }
-  let!(:activity_session3) { create(:activity_session, activity: activity) }
+  let!(:activity_session1) { create(:activity_session_without_concept_results, activity: activity) }
+  let!(:activity_session2) { create(:activity_session_without_concept_results, activity: activity) }
+  let!(:activity_session3) { create(:activity_session_without_concept_results, activity: activity) }
 
   let!(:concept_result1) do
     create(:concept_result,

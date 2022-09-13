@@ -26,6 +26,10 @@ class MilestonesController < ApplicationController
     complete_milestone(Milestone::TYPES[:dismiss_grade_level_warning])
   end
 
+  def complete_dismiss_school_selection_reminder
+    complete_milestone(Milestone::TYPES[:dismiss_school_selection_reminder])
+  end
+
   private def complete_milestone(milestone_name)
     if current_user
       milestone = Milestone.find_by_name(milestone_name)

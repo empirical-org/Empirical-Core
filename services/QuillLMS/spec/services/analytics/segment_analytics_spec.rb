@@ -186,6 +186,22 @@ describe 'SegmentAnalytics' do
     end
   end
 
+  context 'track teacher school not listed' do
+    let(:teacher) { create(:teacher) }
+
+    it 'sends an event with information about the teacher and the missing school' do
+      school_name = 'Nonexistent'
+      zipcode = 55555
+      analytics.track_teacher_school_not_listed(teacher, 'Nonexistent', 55555)
+      expect(track_calls.size).to eq(1)
+      expect(track_calls[0][:event]).to eq(SegmentIo::BackgroundEvents::TEACHER_SCHOOL_NOT_LISTED)
+      expect(track_calls[0][:user_id]).to eq(teacher.id)
+      expect(track_calls[0][:properties][:school_name]).to eq(school_name)
+      expect(track_calls[0][:properties][:zipcode]).to eq(zipcode)
+    end
+  end
+
+
   context '#track' do
     let(:teacher) { create(:teacher) }
     let(:student) { create(:student) }
