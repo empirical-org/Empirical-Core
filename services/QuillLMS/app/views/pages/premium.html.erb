@@ -1,9 +1,3 @@
-<style>
-  body {
-    background-color: white;
-  }
-</style>
-
 <% if (current_user && current_user.role == 'teacher') %>
   <%= render 'teachers/shared/scorebook_tabs' %>
 <% else %>

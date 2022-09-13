@@ -1,9 +1,3 @@
-<style>
-  body {
-    background-color: white;
-  }
-</style>
-
 <%= render partial: 'teachers/shared/scorebook_tabs' %>
 
 <%= react_component('DashboardApp', props: { linkedToClever: current_user.clever_id.present?, mustSeeModal: @must_see_modal, featuredBlogPosts: @featured_blog_posts, onboardingChecklist: @objective_checklist, firstName: @first_name, showDiagnosticPromotionCard: @show_diagnostic_promotion_card }) %>
