@@ -367,7 +367,7 @@ module PublicProgressReports
 
   def generic_questions_for_report(activity)
     question_array = []
-    return question_array unless activity.data['questions']&.respond_to?(:map)
+    return question_array unless activity.data['questions']&.map
 
     questions = activity.data['questions'].map { |q| Question.find_by_uid(q['key']) }
 
