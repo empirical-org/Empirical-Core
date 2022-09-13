@@ -9,8 +9,11 @@ import GradeLevelFilters from './grade_level_filters'
 import ELLFilters from './ell_filters'
 import ReadabilityGradeLevelFilters from './readability_grade_level_filters'
 import ContentPartnerFilters from './content_partner_filters'
+import EarlyAccessFilters from './early_access_filters'
 import TopicFilters from './topic_filters'
 import FlagFilters from './flag_filters'
+
+import { EVIDENCE_BETA1, EVIDENCE_BETA2, } from '../../../../../../constants/flagOptions'
 
 interface FilterColumnProps {
   activities: Activity[],
@@ -39,6 +42,9 @@ interface FilterColumnProps {
   savedActivityIds: number[],
   flagFilters: string[],
   handleFlagFilterChange: () => void,
+  earlyAccessFilters: string[],
+  handleEarlyAccessFilterChange: (earlyAccessFilters: string[]) => void,
+  flagset: string,
   isStaff?: boolean,
   activityCategoryEditor?: ActivityCategoryEditor
 }
@@ -71,12 +77,16 @@ const FilterColumn = ({
   isStaff,
   flagFilters,
   handleFlagFilterChange,
-  activityCategoryEditor
+  activityCategoryEditor,
+  handleEarlyAccessFilterChange,
+  earlyAccessFilters,
+  flagset,
 }: FilterColumnProps) => {
   const numberOfFilters = calculateNumberOfFilters()
   const clearAllButton = numberOfFilters ? <button className="interactive-wrapper clear-filter focus-on-light" onClick={resetAllFilters} type="button">Clear all filters</button> : <span />
   const filterCount = numberOfFilters ? `${numberOfFilters} filter${numberOfFilters === 1 ? '' : 's'} • ` : ''
 
+  let earlyAccessFilterSection
   let flagFilterSection
   let activityCategoryFilterSection = (<ActivityCategoryFilters
     activities={activities}
@@ -96,6 +106,18 @@ const FilterColumn = ({
       activityCategoryEditor={activityCategoryEditor}
       filterActivities={filterActivities}
     />)
+  }
+
+  if ([EVIDENCE_BETA1, EVIDENCE_BETA2].includes(flagset)) {
+    earlyAccessFilterSection = (
+      <EarlyAccessFilters
+        activities={activities}
+        earlyAccessFilters={earlyAccessFilters}
+        filterActivities={filterActivities}
+        flagset={flagset}
+        handleEarlyAccessFilterChange={handleEarlyAccessFilterChange}
+      />
+    )
   }
 
   return (
@@ -118,6 +140,7 @@ const FilterColumn = ({
           savedActivityFilters={savedActivityFilters}
           savedActivityIds={savedActivityIds}
         />
+        {earlyAccessFilterSection}
         <GradeLevelFilters
           gradeLevelFilters={gradeLevelFilters}
           handleGradeLevelFilterChange={handleGradeLevelFilterChange}

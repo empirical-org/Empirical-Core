@@ -1,38 +1,48 @@
+export const ALPHA = 'alpha'
+export const PRIVATE = 'private'
+export const BETA = 'beta'
+export const GAMMA = 'gamma'
+export const EVIDENCE_BETA1 = 'evidence_beta1'
+export const EVIDENCE_BETA2 = 'evidence_beta2'
+export const COLLEGE_BOARD = 'college_board'
+export const PRODUCTION = 'production'
+export const ARCHIVED = 'archived'
+
 export const flagOptions = [
   {
-    label: 'alpha',
-    value: 'alpha'
+    label: ALPHA,
+    value: ALPHA
   },
   {
-    label: 'private',
-    value: 'private'
+    label: PRIVATE,
+    value: PRIVATE
   },
   {
-    label: 'beta',
-    value: 'beta'
+    label: BETA,
+    value: BETA
   },
   {
-    label: 'gamma',
-    value: 'gamma'
+    label: GAMMA,
+    value: GAMMA
   },
   {
     label: 'Evidence Beta 1',
-    value: 'evidence_beta1'
+    value: EVIDENCE_BETA1
   },
   {
     label: 'Evidence Beta 2',
-    value: 'evidence_beta2'
+    value: EVIDENCE_BETA2
   },
   {
     label: 'College Board',
-    value: 'college_board'
+    value: COLLEGE_BOARD
   },
   {
     label: 'production',
-    value: 'production'
+    value: PRODUCTION
   },
   {
     label: 'archived',
-    value: 'archived'
+    value: ARCHIVED
   },
 ];
