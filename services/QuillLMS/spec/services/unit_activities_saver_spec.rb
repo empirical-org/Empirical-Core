@@ -5,12 +5,12 @@ require 'rails_helper'
 RSpec.describe UnitActivitiesSaver do
   let(:due_date) { 1.day.from_now }
 
-  let(:activity_id1) { create(:activity).id }
-  let(:activity_id2) { create(:activity).id }
+  let(:activity1) { create(:activity) }
+  let(:activity2) { create(:activity) }
 
-  let(:activity_data1) { { id: activity_id1, due_date: due_date } }
-  let(:activity_data2) { { "id" => activity_id2, "due_date" => due_date } }
-  let(:activity_data3) { activity_data1 }
+  let(:activity_data1) { { "id" => activity1.id.to_s, "due_date" => due_date } }
+  let(:activity_data2) { { id: activity2.id, due_date: due_date } }
+  let(:activity_data3) { activity_data2 }
   let(:activity_data4) { { id: nil, due_date: due_date }}
   let(:activity_data5) { { due_date: due_date }}
 
@@ -23,19 +23,17 @@ RSpec.describe UnitActivitiesSaver do
   it { expect { subject }.not_to change { unit.reload.visible }.from(true) }
 
   context 'unit activity already exists' do
-    let!(:unit_activity) { create(:unit_activity, unit: unit, visible: false) }
+    let!(:unit_activity) { create(:unit_activity, activity: activity1, unit: unit, visible: false) }
     let!(:orig_due_date) { unit_activity.due_date }
-    let(:activity_id1) { unit_activity.activity_id }
 
     it { expect { subject }.to change(UnitActivity, :count).from(1).to(2) }
-
     it { expect { subject }.to change { unit_activity.reload.visible }.from(false).to(true) }
-    it { expect { subject }.to change { unit_activity.reload.due_date}.from(orig_due_date).to(due_date) }
+    it { expect { subject }.to change { unit_activity.reload.due_date}.from(orig_due_date) }
 
-    context 'due date is set in activities data' do
-      let(:due_date) { 1.day.from_now }
+    context 'no due date is set' do
+      let(:due_date) { nil }
 
-      it { expect { subject }.to change { unit_activity.reload.due_date }.from(orig_due_date).to(due_date) }
+      it { expect { subject }.not_to change { unit_activity.reload.due_date }.from(orig_due_date) }
     end
   end
 end

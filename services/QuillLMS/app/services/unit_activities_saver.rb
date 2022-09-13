@@ -26,18 +26,20 @@ class UnitActivitiesSaver < ApplicationService
 
   private def update_existing_unit_activities_and_aggregate_new_unit_activities_data
     activities_data.each.with_index(1) do |activity_data, order_number|
-      unit_activity = unit_activities.find { |ua| ua.activity_id == activity_data[:id] }
+      activity_id = activity_data[:id].to_i
+      due_date = activity_data[:due_date]
+      unit_activity = unit_activities.find { |ua| ua.activity_id == activity_id}
 
       if unit_activity
         unit_activity.update!(
-          due_date: activity_data[:due_date] || unit_activity.due_date,
+          due_date: due_date || unit_activity.due_date,
           order_number: order_number,
           visible: true
         )
       else
         new_unit_activities_data.push(
-          activity_id: activity_data[:id],
-          due_date: activity_data[:due_date],
+          activity_id: activity_id,
+          due_date: due_date,
           order_number: order_number,
           unit_id: unit_id
         )
