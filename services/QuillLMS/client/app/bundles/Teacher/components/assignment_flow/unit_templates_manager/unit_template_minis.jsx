@@ -4,6 +4,7 @@ import _l from 'lodash'
 import { Link } from 'react-router-dom'
 
 import UnitTemplateMini from './unit_template_mini'
+import UnitTemplateMinisTable from './unitTemplateMinisTable'
 
 import AssignmentFlowNavigation from '../assignment_flow_navigation.tsx'
 import { DropdownInput } from '../../../../Shared/index'
@@ -11,10 +12,12 @@ import { ACTIVITY_PACK_TYPES } from '../assignmentFlowConstants'
 
 const ALL = 'All'
 const GRADE_LEVEL_LABELS = ['4th-12th', '6th-12th', '8th-12th', '10th-12th']
+const GRID_VIEW_OPTION = { label: "Grid", value: "grid"}
+const LIST_VIEW_OPTION = { label: "List", value: "list"}
 
 export default class UnitTemplateMinis extends React.Component {
 
-  state =  { onMobile: window.innerWidth < 770, currentView: { label: "Grid", value: "grid"} }
+  state =  { onMobile: window.innerWidth < 770, currentView: GRID_VIEW_OPTION }
 
   getIndexLink() {
     const { signedInTeacher } = this.props;
@@ -187,7 +190,7 @@ export default class UnitTemplateMinis extends React.Component {
     const gradeLevelOptions = this.generateGradeLevelOptions(currentCategory, selectedTypeId)
     const currentGradeLevel = gradeLevelOptions.find(cat => cat.value && cat.value === data.selectedGradeLevel)
 
-    const viewOptions = [{ label: "Grid", value: "grid"}, { label: "List", value: "list"}]
+    const viewOptions = [GRID_VIEW_OPTION, LIST_VIEW_OPTION]
 
     const baseLink = this.getIndexLink()
 
@@ -272,6 +275,34 @@ export default class UnitTemplateMinis extends React.Component {
     return <p className="pack-type-header">{ACTIVITY_PACK_TYPES.filter(type => type.id === selectedTypeId)[0].name}</p>
   }
 
+  renderActivityPacks() {
+    const { displayedModels } = this.props;
+    const { currentView } = this.state;
+    const { value } = currentView;
+    if(value === GRID_VIEW_OPTION.value) {
+      return(
+        <React.Fragment>
+          <div className="unit-template-minis">
+            {this.generateUnitTemplateViews()}
+          </div>
+          <div>
+            {this.generateShowAllGradesView()}
+          </div>
+        </React.Fragment>
+      )
+    }
+    if(value === LIST_VIEW_OPTION.value) {
+      return(
+        <React.Fragment>
+          <UnitTemplateMinisTable unitTemplates={displayedModels}/>
+          <div>
+            {this.generateShowAllGradesView()}
+          </div>
+        </React.Fragment>
+      )
+    }
+  }
+
   render() {
     return (
       <div className='unit-template-minis-container' key='always-display'>
@@ -283,12 +314,7 @@ export default class UnitTemplateMinis extends React.Component {
               {this.renderFilterOptions()}
               {this.generateShowAllGradesView()}
               {this.renderPackTypeLabel()}
-              <div className="unit-template-minis">
-                {this.generateUnitTemplateViews()}
-              </div>
-              <div>
-                {this.generateShowAllGradesView()}
-              </div>
+              {this.renderActivityPacks()}
             </div>
           </div>
         </div>

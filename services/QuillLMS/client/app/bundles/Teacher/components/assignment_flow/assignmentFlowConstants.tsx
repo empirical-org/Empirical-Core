@@ -237,7 +237,7 @@ export const ACTIVITY_PACK_TYPES = [
   },
   {
     name: 'Language Skills',
-    id: 'independent-practice'
+    id: 'language-skills'
   },
   {
     name: 'Whole Class Lessons',
