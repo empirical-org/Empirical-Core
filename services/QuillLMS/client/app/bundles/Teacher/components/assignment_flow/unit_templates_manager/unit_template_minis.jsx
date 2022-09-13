@@ -269,6 +269,9 @@ export default class UnitTemplateMinis extends React.Component {
 
   renderPackTypeLabel() {
     const { selectedTypeId } = this.props
+    const { currentView } = this.state;
+    const { value } = currentView;
+    if(value === LIST_VIEW_OPTION.value) { return }
     if(!selectedTypeId) {
       return <p className="pack-type-header">All Packs</p>
     }

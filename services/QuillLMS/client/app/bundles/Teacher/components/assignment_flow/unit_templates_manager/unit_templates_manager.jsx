@@ -85,6 +85,7 @@ export default class UnitTemplatesManager extends React.Component {
 
   fetchUnitTemplateModels() {
     requestGet('/teachers/unit_templates', (data) => {
+      console.log("🚀 ~ file: unit_templates_manager.jsx ~ line 88 ~ UnitTemplatesManager ~ requestGet ~ data", data)
       this.updateUnitTemplateModels(data.unit_templates)
     })
   }

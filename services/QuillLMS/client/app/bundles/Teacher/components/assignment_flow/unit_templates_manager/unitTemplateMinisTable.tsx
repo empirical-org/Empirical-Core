@@ -2,21 +2,22 @@ import * as React from 'react'
 import { DataTable } from '../../../../Shared';
 
 export const UnitTemplateMinisTable = ({ unitTemplates }) => {
+  console.log("🚀 ~ file: unitTemplateMinisTable.tsx ~ line 5 ~ UnitTemplateMinisTable ~ unitTemplates", unitTemplates)
   const dataTableFields = [
-    { name: "Pack type", attribute:"packType", width: "200px", rowSectionClassName: '', noTooltip: true },
-    { name: "Pack name", attribute:"packName", width: "200px", rowSectionClassName: '', noTooltip: true },
-    { name: "Tools", attribute:"tools", width: "200px", rowSectionClassName: '', noTooltip: true },
-    { name: "Grade Level", attribute:"gradeLevel", width: "200px", rowSectionClassName: '', noTooltip: true },
-    { name: "Activities", attribute:"activities", width: "200px", rowSectionClassName: '', noTooltip: true },
+    { name: "Pack type", attribute:"packType", width: "100px", rowSectionClassName: '', noTooltip: true },
+    { name: "Pack name", attribute:"packName", width: "300px", rowSectionClassName: '', noTooltip: true },
+    { name: "Tools", attribute:"tools", width: "100px", rowSectionClassName: '', noTooltip: true },
+    { name: "Grade Level", attribute:"gradeLevel", width: "50px", rowSectionClassName: '', noTooltip: true },
+    { name: "Activities", attribute:"activities", width: "50px", rowSectionClassName: '', noTooltip: true },
     { name: "Duration", attribute:"duration", width: "200px", rowSectionClassName: '', noTooltip: true },
   ];
 
   function unitTemplateRows() {
     return unitTemplates.map(unitTemplate => {
-      const { id, type, name, readability, activities, time } = unitTemplate;
+      const { id, type, name, readability, activities, time, unit_template_category } = unitTemplate;
       return {
         id,
-        packType: type.name,
+        packType: unit_template_category.label,
         packName: name,
         tools: '',
         gradeLevel: readability,
@@ -28,9 +29,9 @@ export const UnitTemplateMinisTable = ({ unitTemplates }) => {
 
   return(
     <DataTable
-      className="unit-template-activity-row-table"
+      className="unit-templates-table"
       headers={dataTableFields}
-      rows={unitTemplateRows()}
+      rows={unitTemplates && unitTemplateRows()}
     />
   )
 }
