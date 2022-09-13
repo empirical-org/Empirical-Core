@@ -13,7 +13,7 @@ import EarlyAccessFilters from './early_access_filters'
 import TopicFilters from './topic_filters'
 import FlagFilters from './flag_filters'
 
-import { EVIDENCE_BETA1, EVIDENCE_BETA2, } from '../../../../../../constants/flagOptions'
+import { EVIDENCE_BETA_FLAGS, } from '../../../../../../constants/flagOptions'
 
 interface FilterColumnProps {
   activities: Activity[],
@@ -108,7 +108,7 @@ const FilterColumn = ({
     />)
   }
 
-  if ([EVIDENCE_BETA1, EVIDENCE_BETA2].includes(flagset)) {
+  if (EVIDENCE_BETA_FLAGS.includes(flagset)) {
     earlyAccessFilterSection = (
       <EarlyAccessFilters
         activities={activities}

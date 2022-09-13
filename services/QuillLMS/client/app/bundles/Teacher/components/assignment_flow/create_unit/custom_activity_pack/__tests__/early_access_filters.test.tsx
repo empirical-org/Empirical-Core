@@ -8,7 +8,7 @@ import { EVIDENCE_BETA1, EVIDENCE_BETA2, } from '../../../../../../../constants/
 
 function filterActivities(ignoredKey=null) { return activities }
 
-describe('AarlyAccessFilters component', () => {
+describe('EarlyAccessFilters component', () => {
   const props = {
     activities,
     earlyAccessFilters: [],

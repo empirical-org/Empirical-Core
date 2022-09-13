@@ -8,6 +8,8 @@ export const COLLEGE_BOARD = 'college_board'
 export const PRODUCTION = 'production'
 export const ARCHIVED = 'archived'
 
+export const EVIDENCE_BETA_FLAGS = [EVIDENCE_BETA1, EVIDENCE_BETA2]
+
 export const flagOptions = [
   {
     label: ALPHA,

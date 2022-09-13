@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`AarlyAccessFilters component should render when the flagset is evidence beta 1 1`] = `
+exports[`EarlyAccessFilters component should render when the flagset is evidence beta 1 1`] = `
 <EarlyAccessFilters
   activities={
     Array [
@@ -13395,7 +13395,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
 </EarlyAccessFilters>
 `;
 
-exports[`AarlyAccessFilters component should render when the flagset is evidence beta 2 1`] = `
+exports[`EarlyAccessFilters component should render when the flagset is evidence beta 2 1`] = `
 <EarlyAccessFilters
   activities={
     Array [
