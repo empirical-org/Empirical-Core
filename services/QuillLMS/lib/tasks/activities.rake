@@ -59,12 +59,18 @@ namespace :activities do
     end
 
     CSV.parse(pipe_data, headers: true) do |row|
-      activity = Activity.find(row['Activity ID'])
-      activity.update!(name: row['New Name'])
+      activity_id = row['Activity ID']
+      activity = Activity.find(activity_id)
+
+      # Normalize any whitespace from the spreadsheet
+      new_name = row['New Name'].gsub(/\s/, ' ')
+      raise "New name column is empty" if new_name.blank?
+
+      activity.update!(name: new_name)
     rescue
-      puts "Failed to update for activity with id '#{row['Activity ID']}'"
+      puts "Failed to update for activity with id '#{activity_id}'"
     else
-      puts "Updated activity with id '#{row['Activity ID']}' to '#{row['New Name']}'"
+      puts "Updated activity with id '#{activity_id}' to '#{new_name}'"
     end
   end
 end
