@@ -36,7 +36,7 @@ class ClassroomUnitsSaver < ApplicationService
 
       if classroom_unit
         ClassroomUnitUpdater.run(classroom_data, classroom_unit, concatenate_existing_student_ids)
-      else
+      elsif classroom_data[:student_ids] || classroom_data[:assign_on_join]
         new_classroom_units_data.push(
           assign_on_join: classroom_data[:assign_on_join],
           assigned_student_ids: classroom_data[:student_ids],

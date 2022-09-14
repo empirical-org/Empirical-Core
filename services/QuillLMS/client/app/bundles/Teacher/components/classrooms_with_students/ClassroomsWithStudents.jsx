@@ -17,35 +17,31 @@ export default class ClassroomsWithStudents extends React.Component {
 
   classroomUpdates = () => {
     const classroomsData = []
-    let classroomsWithNoAssignedStudents = 0
 
     this.props.classrooms.forEach((classroom) => {
       if (classroom.edited) {
         const classroomData = { id: classroom.id, }
 
         if (classroom.allSelected) {
-          classroomData.student_ids = classroom.students.map(student => student.id)
+          classroomData.student_ids = classroom.students.map(s => s.id)
           classroomData.assign_on_join = true
         } else {
           const studentIds = []
 
           classroomData.assign_on_join = false
+          classroom.students.forEach((student) => { if (student.isSelected) { studentIds.push(student.id) } })
 
-          classroom.students.forEach((student) => {
-            if (student.isSelected) { studentIds.push(student.id) }
-          })
-
-          classroomData.student_ids = studentIds
-
-          if (studentIds.length == 0) { classroomsWithNoAssignedStudents += 1 }
+          if (studentIds.length > 0) {
+            classroomData.student_ids = studentIds
+          } else {
+            classroomData.student_ids = false
+          }
         }
+
         classroomsData.push(classroomData)
-
-      }	else if (classroom.noneSelected) {
-        classroomsWithNoAssignedStudents += 1
       }
-    })
-
+    }
+    )
     return classroomsData
   }
 

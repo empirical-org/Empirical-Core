@@ -3,12 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe ClassroomUnitUpdater do
-  let!(:classroom) { create(:classroom) }
-  let!(:student1) { create(:students_classrooms, classroom: classroom).student }
-  let!(:student2) { create(:students_classrooms, classroom: classroom).student }
-  let!(:student3) { create(:students_classrooms, classroom: classroom).student }
-
-  let(:assigned_student_ids) { [student1.id] }
+  let(:classroom) { create(:classroom) }
+  let(:assigned_student_ids) { [] }
   let(:classroom_unit) { create(:classroom_unit, assigned_student_ids: assigned_student_ids, classroom: classroom) }
 
   let(:student_ids) { assigned_student_ids }
@@ -19,8 +15,8 @@ RSpec.describe ClassroomUnitUpdater do
 
   subject { described_class.run(classroom_data, classroom_unit, concatenate_existing_student_ids) }
 
-  context 'student_ids is empty' do
-    let(:student_ids) { [] }
+  context 'student_ids is false' do
+    let(:student_ids) { false }
 
     it { expect { subject }.to change { classroom_unit.reload.visible }.from(true).to(false) }
 
@@ -32,21 +28,20 @@ RSpec.describe ClassroomUnitUpdater do
   end
 
   context 'student_ids different than assigned_student_ids' do
-    let(:assigned_student_ids) { [student1.id, student2.id] }
-    let(:student_ids) { [student1.id, student3.id] }
-    let(:concatenated_students_ids) { [student1.id, student2.id, student3.id] }
+    let(:student1) { create(:students_classrooms, classroom: classroom).student }
+    let(:student2) { create(:students_classrooms, classroom: classroom).student }
     let(:concatenate_existing_student_ids) { true }
+    let(:assigned_student_ids) { [student1.id] }
+    let(:student_ids) { [student2.id] }
 
-    before { classroom_unit.update(assigned_student_ids: assigned_student_ids) }
-
-    it { expect { subject }.to change { classroom_unit.reload.assigned_student_ids }.to(concatenated_students_ids) }
+    it { expect { subject }.to change { classroom_unit.reload.assigned_student_ids }.to [student1.id, student2.id] }
     it { expect { subject }.not_to change { classroom_unit.reload.visible}.from(true) }
     it { unarchives_an_archived_classroom_unit }
 
     context 'concatenate_existing_student_ids is false' do
       let(:concatenate_existing_student_ids) { false }
 
-      it { expect { subject }.to change { classroom_unit.reload.assigned_student_ids }.to(student_ids) }
+      it { expect { subject }.to change { classroom_unit.reload.assigned_student_ids }.to [student2.id] }
       it { unarchives_an_archived_classroom_unit }
     end
   end

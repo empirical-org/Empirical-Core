@@ -11,7 +11,7 @@ class ClassroomUnitUpdater < ApplicationService
   end
 
   def run
-    if student_ids.empty?
+    if student_ids == false
       classroom_unit.archive!
     elsif classroom_unit.assigned_student_ids != student_ids
       classroom_unit.update!(
