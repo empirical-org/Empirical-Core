@@ -404,6 +404,10 @@ class ActivitySession < ApplicationRecord
         metadata: concept_result[:metadata],
       })
     end
+    report_invalid_concept_results(concept_results)
+  end
+
+  def self.report_invalid_concept_results(concept_results)
     ErrorNotifier.report(ConceptResultSubmittedWithoutActivitySessionError.new("Received a request to record a ConceptResult with no related ActivitySession.")) if concept_results.any? { |cr| cr[:activity_session_id].blank? }
   end
 

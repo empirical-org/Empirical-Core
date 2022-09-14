@@ -45,15 +45,7 @@ class Api::V1::ClassroomUnitsController < Api::ApiController
 
     concept_results = concept_result_params[:concept_results].map(&:to_h)
 
-    # The incoming ActivitySession payload that reaches this controller from the
-    # front-end includes ActivitySessions for students assigned to take the Lesson
-    # who didn't show up.  For students who "miss" a Lesson in this manner, we mark
-    # that by deleting their related ActivitySession.  So if a student submitted no
-    # ConceptResults, we delete their ActivitySession for reporting purposes.
-    activity_session_uids = activity_sessions.map(&:uid)
-    activity_session_uids_with_concept_results = concept_results.map{ |cr| cr[:activity_session_uid] }.uniq
-    activity_session_uids_without_concept_results = activity_session_uids - activity_session_uids_with_concept_results
-    ActivitySession.where(uid: activity_session_uids_without_concept_results).destroy_all
+    delete_activity_sessions_for_absent_students(activity_sessions, concept_results)
 
     ActivitySession.save_concept_results(
       activity_sessions,
@@ -162,5 +154,17 @@ class Api::V1::ClassroomUnitsController < Api::ApiController
         ]
       ]
     )
+  end
+
+  private def delete_activity_sessions_for_absent_students(activity_sessions, concept_results)
+    # The incoming ActivitySession payload that reaches this controller from the
+    # front-end includes ActivitySessions for students assigned to take the Lesson
+    # who didn't show up.  For students who "miss" a Lesson in this manner, we mark
+    # that by deleting their related ActivitySession.  So if a student submitted no
+    # ConceptResults, we delete their ActivitySession for reporting purposes.
+    activity_session_uids = activity_sessions.map(&:uid)
+    activity_session_uids_with_concept_results = concept_results.map{ |cr| cr[:activity_session_uid] }.uniq
+    activity_session_uids_without_concept_results = activity_session_uids - activity_session_uids_with_concept_results
+    ActivitySession.where(uid: activity_session_uids_without_concept_results).destroy_all
   end
 end
