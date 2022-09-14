@@ -25,7 +25,6 @@ class StudentsController < ApplicationController
   def student_demo
     @user = User.find_by_email 'angie_thomas_demo@quill.org'
     if @user.nil?
-      Demo::ReportDemoDestroyer.destroy_demo(nil)
       Demo::ReportDemoCreator.create_demo(nil)
       redirect_to "/student_demo"
     else

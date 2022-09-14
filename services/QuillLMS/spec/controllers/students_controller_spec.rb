@@ -67,7 +67,6 @@ describe StudentsController do
 
     context 'when angie thomas does not exist' do
       it 'should destroy recreate the demo and redirect to student demo' do
-        expect(Demo::ReportDemoDestroyer).to receive(:destroy_demo).with(nil)
         expect(Demo::ReportDemoCreator).to receive(:create_demo).with(nil)
         get :student_demo
         expect(response).to redirect_to "/student_demo"

@@ -31,12 +31,10 @@ describe Teachers::ProgressReportsController do
 
       context 'when demo account does not exist' do
         before do
-          allow(Demo::ReportDemoDestroyer).to receive(:destroy_demo) { true }
           allow(Demo::ReportDemoCreator).to receive(:create_demo) {|email| create(:user, email: email) }
         end
 
         it 'should destroy the current demo and create a new demo' do
-          expect(Demo::ReportDemoDestroyer).to receive(:destroy_demo).with(Demo::ReportDemoCreator::EMAIL)
           expect(Demo::ReportDemoCreator).to receive(:create_demo).with(Demo::ReportDemoCreator::EMAIL)
           get :demo
         end
@@ -74,12 +72,10 @@ describe Teachers::ProgressReportsController do
 
       context 'when demo account does not exist' do
         before do
-          allow(Demo::ReportDemoDestroyer).to receive(:destroy_demo) { true }
           allow(Demo::ReportDemoCreator).to receive(:create_demo) {|email| create(:user, email: email) }
         end
 
         it 'should destroy the current demo and create a new demo' do
-          expect(Demo::ReportDemoDestroyer).to receive(:destroy_demo).with("hello+test@quill.org")
           expect(Demo::ReportDemoCreator).to receive(:create_demo).with("hello+test@quill.org")
           get :demo, params: { name: "test" }
         end
