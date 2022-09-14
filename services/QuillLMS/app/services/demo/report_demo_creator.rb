@@ -286,10 +286,14 @@ module Demo::ReportDemoCreator
   def self.create_classroom(teacher)
     values = {
       name: "Quill Classroom",
-      code: "demo-#{teacher.id}",
+      code: classcode(teacher.id),
       grade: '9'
     }
     classroom = Classroom.create_with_join(values, teacher.id)
+  end
+
+  def self.classcode(teacher_id)
+    "demo-#{teacher_id}"
   end
 
   def self.create_units(teacher)
