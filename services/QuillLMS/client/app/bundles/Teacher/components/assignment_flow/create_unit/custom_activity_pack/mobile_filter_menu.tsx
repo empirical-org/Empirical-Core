@@ -25,6 +25,8 @@ interface MobileFilterMenuProps {
   showMobileFilterMenu: boolean,
   contentPartnerFilters: number[],
   handleContentPartnerFilterChange: (contentPartnerFilters: number[]) => void,
+  earlyAccessFilters: string[],
+  handleEarlyAccessFilterChange: (earlyAccessFilters: string[]) => void,
   readabilityGradeLevelFilters: number[],
   handleReadabilityGradeLevelFilterChange: (readabilityGradeLevelFilters: number[]) => void,
   topicFilters: number[],
@@ -34,8 +36,9 @@ interface MobileFilterMenuProps {
   savedActivityIds: number[],
   flagFilters: string[],
   handleFlagFilterChange: () => void,
+  flagset: string,
   isStaff?: boolean,
-  activityCategoryEditor?: ActivityCategoryEditor
+  activityCategoryEditor?: ActivityCategoryEditor,
 }
 
 const MobileFilterMenu = ({
@@ -68,7 +71,10 @@ const MobileFilterMenu = ({
   isStaff,
   flagFilters,
   handleFlagFilterChange,
-  activityCategoryEditor
+  activityCategoryEditor,
+  earlyAccessFilters,
+  handleEarlyAccessFilterChange,
+  flagset,
 }: MobileFilterMenuProps) => {
   if (!showMobileFilterMenu) { return <span /> }
 
@@ -102,7 +108,10 @@ const MobileFilterMenu = ({
     handleFlagFilterChange,
     flagFilters,
     isStaff,
-    activityCategoryEditor
+    activityCategoryEditor,
+    earlyAccessFilters,
+    handleEarlyAccessFilterChange,
+    flagset,
   }
 
   return (
