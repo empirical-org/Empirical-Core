@@ -26,7 +26,7 @@ module OrttoIntegration
       # return unless user
 
       # user.update!(send_newsletter: params[:action_name] == SUBSCRIBE)
-      head :no_content
+      head :ok
     end
 
     private def valid_params?
