@@ -4,7 +4,6 @@
   <% @tool = 'diagnostic' %>
   <%= render partial: "pages/shared/tools_anchor_navbar", active_tab: @active_tab, tool: @tool%>
 </section>
-
 <div class="tool-container diagnostic-tool-page">
 
     <section class='tool-hero text-center bg-darkred tool-section'>
@@ -15,15 +14,15 @@
         Quickly determine which skills your students need to work on with our diagnostic activities. The diagnostics cover vital sentence construction skills and generate personalized learning plans based on your students&lsquo; performance.
         </p>
         <section class="tool-ctas diagnostic-tool">
-        <a href=<%= "/activity_sessions/anonymous?activity_id=-LKbzH_Er916zGjgHk5U" %> target="_blank" class="q-button cta-button bg-white text-darkred">Try a sample activity</a>
-        <% if current_user&.teacher? %>
+          <a href=<%= "/activity_sessions/anonymous?activity_id=-LKbzH_Er916zGjgHk5U" %> target="_blank" class="q-button cta-button bg-white text-darkred">Try a sample activity</a>
+          <% if current_user&.teacher? %>
             <a href='/assign/activity-library?activityClassificationFilters[]=diagnostic' class="q-button text-white learn-more-button">Assign</a>
-        <% end %>
+          <% end %>
         </section>
     </section>
 
     <section class="tool-animation-section " id="overview">
-        <video class='tool-animation lazyload' data-src="/videos/diagnostic.mp4" autoplay loop/>
+          <video class='tool-animation lazyload' data-src="/videos/diagnostic.mp4" autoplay loop/>
     </section>
 
     <section class="walk-thru-wrapper desktop" id="how-it-works">
@@ -107,7 +106,7 @@
             <div class="content-wrapper">
                 <img id='shrink-me' class="lazyload" data-src="/images/tools/diagnostic/diagnostic_intro_slide_2.svg" alt="diagnostic image">
                 <div class="blurb">
-                <h2>ELL Diagnostic<img class="lazyload" data-src="/images/tools/diagnostic/new_tag.svg"></h2>
+                  <h2>ELL Diagnostic<img class="lazyload" data-src="/images/tools/diagnostic/new_tag.svg"></h2>
                     <p>
                         Our new ELL Diagnostic assesses your students’ knowledge of 10 different concepts specifically chosen for English language learners. The diagnostic also offers directions in
                         <img class="lazyload" data-src="/images/flags/spain.png">Spanish,
@@ -168,28 +167,28 @@
             <!-- Wrapper for slides -->
             <div class="carousel-inner" role="listbox">
                 <div class="item active">
-                <div class="wrapper">
+                  <div class="wrapper">
                     <img class="lazyload" data-src="/images/tools/Diagnostic1.png" alt="Chania">
-                </div>
-                <p>The diagnostics assess students and then automatically builds a personalized learning plan for each student.</p>
+                  </div>
+                  <p>The diagnostics assess students and then automatically builds a personalized learning plan for each student.</p>
                 </div>
                 <div class="item">
-                <div class="wrapper">
+                  <div class="wrapper">
                     <img class="lazyload" data-src="/images/tools/Diagnostic2.png" alt="Chania">
-                </div>
-                <p>The diagnostics cover a number of critical sentence structure skills, such as fragments and run-on sentences. In this exercise, students use the dependent clause to write a complete sentence.</p>
+                  </div>
+                  <p>The diagnostics cover a number of critical sentence structure skills, such as fragments and run-on sentences. In this exercise, students use the dependent clause to write a complete sentence.</p>
                 </div>
                 <div class="item">
-                <div class="wrapper">
+                  <div class="wrapper">
                     <img class="lazyload" data-src="/images/tools/Diagnostic3.png" alt="Chania">
-                </div>
-                <p>In this exercise, students transform a run-on sentence into a complete sentence.</p>
+                  </div>
+                  <p>In this exercise, students transform a run-on sentence into a complete sentence.</p>
                 </div>
                 <div class="item">
-                <div class="wrapper">
+                  <div class="wrapper">
                     <img class="lazyload" data-src="/images/tools/Diagnostic4.png" alt="Chania">
-                </div>
-                <p>Teachers see reports that state exactly which errors the students made.</p>
+                  </div>
+                  <p>Teachers see reports that state exactly which errors the students made.</p>
                 </div>
             </div>
 
@@ -230,7 +229,7 @@
     </section>
 
     <!-- Only show if user is not logged in  -->
-    <% if !current_user %>
+      <% if !current_user %>
         <section class="tool-sign-up">
             <h1 class='q-h1'>
                 Sign up to start using a Quill Diagnostic in your class today!
@@ -238,14 +237,14 @@
             <a href='/account/new' class="q-button cta-button bg-quillgreen text-white">Sign Up</a>
         </section>
 
-    <% else %>
-    <section class="tool-sign-up">
-        <h1 class='q-h1'>
-            Get started now! Assign a Quill Diagnostic.
-        </h1>
-        <a href='/assign/diagnostic' class="q-button cta-button bg-quillgreen text-white">Assign</a>
-    </section>
-    <% end %>
+      <% else %>
+      <section class="tool-sign-up">
+          <h1 class='q-h1'>
+              Get started now! Assign a Quill Diagnostic.
+          </h1>
+          <a href='/assign/diagnostic' class="q-button cta-button bg-quillgreen text-white">Assign</a>
+      </section>
+      <% end %>
 
 </div>
 
