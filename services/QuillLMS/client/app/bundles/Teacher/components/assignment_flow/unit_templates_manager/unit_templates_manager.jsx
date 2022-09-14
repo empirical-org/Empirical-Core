@@ -85,7 +85,6 @@ export default class UnitTemplatesManager extends React.Component {
 
   fetchUnitTemplateModels() {
     requestGet('/teachers/unit_templates', (data) => {
-      console.log("🚀 ~ file: unit_templates_manager.jsx ~ line 88 ~ UnitTemplatesManager ~ requestGet ~ data", data)
       this.updateUnitTemplateModels(data.unit_templates)
     })
   }
@@ -105,8 +104,18 @@ export default class UnitTemplatesManager extends React.Component {
       )
     }
     if (typeId) {
-      const selectedTypeName = ACTIVITY_PACK_TYPES.find(t => t.id === typeId).name
-      displayedModels = displayedModels.filter(ut => ut.type.name === selectedTypeName)
+      const selectedType = ACTIVITY_PACK_TYPES.find(t => t.id === typeId)
+      const { name } = selectedType
+      displayedModels = displayedModels.filter(ut => {
+        const { type, unit_template_category } = ut
+        if(selectedType.types || typeId === 'independent-practice') {
+          return selectedType.types.includes(unit_template_category.name)
+        } else if(unit_template_category) {
+          return unit_template_category.name === name
+        } else if(type) {
+          return type.name === name
+        }
+      })
     }
     if (gradeLevelRange) {
       displayedModels = displayedModels.filter(ut => ut.grade_level_range === gradeLevelRange)

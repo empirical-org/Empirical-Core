@@ -37,7 +37,10 @@ export default class UnitTemplateMinis extends React.Component {
   generateCategoryOptions(gradeLevel, selectedTypeId) {
     const { data, } = this.props
     const usedCategories = Object.values(data.displayedModels).map(dm => dm.unit_template_category.name)
-    const usedUniqueCategories = usedCategories.filter((v, i, a) => a.indexOf(v) === i)
+    const usedUniqueCategories = usedCategories.filter((v, i, a) => {
+      if(!v) { return }
+      return a.indexOf(v) === i
+    })
     const sortedUsedCategories = usedUniqueCategories.sort((a,b) => (a && b) ? a.localeCompare(b) : (a < b) ? -1 : 1)
     const categoryOrder = [ALL].concat(sortedUsedCategories)
     return categoryOrder.map((name) => {
@@ -139,9 +142,9 @@ export default class UnitTemplateMinis extends React.Component {
     if(href.includes('diagnostic')) {
       return typeOptionsForDropdown[1];
     } else if(href.includes('whole-class')) {
-      return typeOptionsForDropdown[2];
-    } else if(href.includes('independent')) {
       return typeOptionsForDropdown[3];
+    } else if(href.includes('independent')) {
+      return typeOptionsForDropdown[2];
     }
     return typeOptionsForDropdown[0];
   }

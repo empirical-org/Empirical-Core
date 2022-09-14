@@ -229,7 +229,7 @@ export const READING_TEXTS = 'Reading Texts'
 export const ACTIVITY_PACK_TYPES = [
   {
     name: 'Reading Texts',
-    id: 'evidence'
+    id: 'reading-texts'
   },
   {
     name: 'Diagnostic',
@@ -237,11 +237,8 @@ export const ACTIVITY_PACK_TYPES = [
   },
   {
     name: 'Language Skills',
-    id: 'language-skills'
-  },
-  {
-    name: 'All Packs',
-    id: 'independent-practice'
+    id: 'independent-practice',
+    types: ['Language Skill Review', 'Language Skills for Writing Genres', 'Language Skills Themed Practice']
   },
   {
     name: 'Whole Class Lessons',
