@@ -137,7 +137,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
   }
 >
   <div
-    className="diagnostic-activity-packs-container"
+    className="diagnostic-activity-packs-container white-background-accommodate-footer"
   >
     <DemoOnboardingTour
       pageKey="demo-onboarding-diagnostic-activity-packs-index"
@@ -1618,7 +1618,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                         />
                         <span>
                           Assigned: 
-                          Nov 12, 2021
+                          Nov 13, 2021
                         </span>
                       </p>
                       <p>
@@ -1877,7 +1877,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                         />
                         <span>
                           Assigned: 
-                          Nov 12, 2021
+                          Nov 13, 2021
                         </span>
                       </p>
                       <p>
@@ -2084,7 +2084,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                           />
                           <span>
                             Assigned: 
-                            Nov 11, 2021
+                            Nov 12, 2021
                           </span>
                         </p>
                         <p>
@@ -2408,7 +2408,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                         />
                         <span>
                           Assigned: 
-                          Oct 8, 2021
+                          Oct 9, 2021
                         </span>
                       </p>
                       <p>
