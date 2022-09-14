@@ -12,7 +12,7 @@ class UnitActivitiesSaver < ApplicationService
         .map(&:symbolize_keys)
         .select { |activity_data| activity_data.key?(:id) }
         .reject { |activity_data| activity_data[:id].nil? }
-        .uniq { |activity_data| activity_data[:id] }
+        .uniq { |activity_data| activity_data[:id].to_i }
   end
 
   def run
@@ -21,14 +21,14 @@ class UnitActivitiesSaver < ApplicationService
   end
 
   private def bulk_create_unit_activities
-    UnitActivity.create(new_unit_activities_data)
+    UnitActivity.create!(new_unit_activities_data)
   end
 
   private def update_existing_unit_activities_and_aggregate_new_unit_activities_data
     activities_data.each.with_index(1) do |activity_data, order_number|
       activity_id = activity_data[:id].to_i
       due_date = activity_data[:due_date]
-      unit_activity = unit_activities.find { |ua| ua.activity_id == activity_id}
+      unit_activity = unit_activities.find { |ua| ua.activity_id == activity_id }
 
       if unit_activity
         unit_activity.update!(
