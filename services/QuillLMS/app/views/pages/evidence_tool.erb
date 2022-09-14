@@ -5,9 +5,7 @@
   <%= render partial: "pages/shared/tools_anchor_navbar", active_tab: @active_tab, tool: @tool%>
 </section>
 
-<main>
-  <%= react_component('EvidenceToolApp', props: { loggedInUser: current_user && signed_in? })%>
-</main>
+<%= react_component('EvidenceToolApp', props: { loggedInUser: current_user && signed_in? })%>
 
 <% if current_user %>
   <%= render partial: 'footer' %>

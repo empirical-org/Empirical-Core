@@ -1,18 +1,17 @@
 <html lang='en'>
   <%= render partial: 'head' %>
   <body>
-    <main>
-      <%= render partial: 'application/webinar_banner' %>
-      <%= render partial: 'application/demo_account_banner' %>
-      <%= render partial: 'header', media: 'all', 'data-turbolinks-track' => true %>
-      <%= render partial: 'admin_dashboard_header' %>
-      <%= render partial: 'teachers/shared/scorebook_tabs' %>
-      <%= react_component('ProgressReportApp', props: { currentUser: current_user, premiumStatus: current_user.premium_state, classrooms: current_user.classrooms_i_teach })%>
+    <%= render partial: 'application/webinar_banner' %>
+    <%= render partial: 'application/demo_account_banner' %>
+    <%= render partial: 'header', media: 'all', 'data-turbolinks-track' => true %>
+    <%= render partial: 'admin_dashboard_header' %>
+    <%= render partial: 'teachers/shared/scorebook_tabs' %>
+    <%= react_component('ProgressReportApp', props: { currentUser: current_user, premiumStatus: current_user.premium_state, classrooms: current_user.classrooms_i_teach })%>
 
 
 
-      <%= yield %>
-    </main>
+    <%= yield %>
+
 
     <%= render partial: 'footer', media: 'all', 'data-turbolinks-track' => true %>
 

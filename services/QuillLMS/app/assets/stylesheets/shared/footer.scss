@@ -6,7 +6,7 @@
   display: flex;
   justify-content: center;
   box-shadow: 0 100vh 0 100vh #fff;
-  margin: auto;
+  margin: 300px auto auto auto;
   .footer-content {
     display: flex;
     flex-direction: column;
@@ -228,4 +228,9 @@
       }
     }
   }
+}
+
+.white-background-accommodate-footer {
+  margin-bottom: -300px;
+  padding-bottom: 300px;
 }

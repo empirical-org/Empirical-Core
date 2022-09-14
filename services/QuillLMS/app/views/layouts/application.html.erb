@@ -17,26 +17,24 @@
     }
   </script>
   <body class="hide-focus-outline" id="body" onkeydown="handleTabNavigation(event)">
-    <main>
-      <% flash.each do |key, value| %>
-        <%= content_tag(:div, "<p>#{value}</p><i class='fas fa-times-circle' aria-hidden='true'></i>".html_safe, {class: "flash #{key}", onClick: "$(this).slideUp(300)"}) %>
-      <% end %>
-      <%= render partial: 'application/preview_student_banner' %>
-      <%= render partial: 'application/demo_account_banner' %>
-      <%= render partial: 'application/webinar_banner' %>
-      <% if ENV['UPGRADE'] && ENV['UPGRADE_END_TIME'] && Time.current < Time.parse(ENV['UPGRADE_END_TIME'])%>
-        <%= render partial: 'application/upgraded_bar' %>
-      <% else %>
-        <%= render partial: 'application/notification_bar' %>
-      <% end %>
-      <div id='application_nav_bar'>
-        <%= render partial: 'header', media: 'all', 'data-turbolinks-track' => true %>
-      </div>
-      <%= render partial: 'admin_dashboard_header' %>
-      <div id="main-content" class="page">
-        <%= yield %>
-      </div>
-    </main>
+    <% flash.each do |key, value| %>
+      <%= content_tag(:div, "<p>#{value}</p><i class='fas fa-times-circle' aria-hidden='true'></i>".html_safe, {class: "flash #{key}", onClick: "$(this).slideUp(300)"}) %>
+    <% end %>
+    <%= render partial: 'application/preview_student_banner' %>
+    <%= render partial: 'application/demo_account_banner' %>
+    <%= render partial: 'application/webinar_banner' %>
+    <% if ENV['UPGRADE'] && ENV['UPGRADE_END_TIME'] && Time.current < Time.parse(ENV['UPGRADE_END_TIME'])%>
+      <%= render partial: 'application/upgraded_bar' %>
+    <% else %>
+      <%= render partial: 'application/notification_bar' %>
+    <% end %>
+    <div id='application_nav_bar'>
+      <%= render partial: 'header', media: 'all', 'data-turbolinks-track' => true %>
+    </div>
+    <%= render partial: 'admin_dashboard_header' %>
+    <div id="main-content" class="page">
+      <%= yield %>
+    </div>
     <!-- This is a placeholder for ReactOnRails to know where to render the store props for
      client side hydration -->
     <%= redux_store_hydration_data %>

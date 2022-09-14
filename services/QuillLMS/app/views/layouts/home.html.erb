@@ -3,11 +3,10 @@
   <%= render partial: 'head' %>
 
   <body id="new-home-page">
-    <main>
-      <%= render partial: 'home_nav' %>
+    <%= render partial: 'home_nav' %>
 
-      <%= yield %>
-    </main>
+    <%= yield %>
+
 
     <%= render partial: 'footer' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
