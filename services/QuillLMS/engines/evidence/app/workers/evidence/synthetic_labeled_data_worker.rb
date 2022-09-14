@@ -12,7 +12,7 @@ module Evidence
       activity = Evidence::Activity.find(activity_id)
       passage = activity.passages.first&.text
 
-      csv_array = CSV.parse(uploader.file.read)
+      csv_array = CSV.parse(uploader.file.read, encoding: 'utf-8')
       csv_hash = Evidence::Synthetic::LabeledDataGenerator.csvs_from_run(csv_array, filename, passage)
 
       subject = "Evidence Labeled Synthetic Data: #{activity_id} - #{activity.title}"
