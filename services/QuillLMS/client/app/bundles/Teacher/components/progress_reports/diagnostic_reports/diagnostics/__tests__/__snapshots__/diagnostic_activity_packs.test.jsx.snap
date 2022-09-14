@@ -1617,8 +1617,8 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                           src="undefined/images/pages/diagnostic_reports/icons-calendar-date.svg"
                         />
                         <span>
-                          Assigned: 
-                          Nov 13, 2021
+                          Assigned:
+                          Nov 12, 2021
                         </span>
                       </p>
                       <p>
@@ -1636,9 +1636,9 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                           src="undefined/images/pages/diagnostic_reports/icons-user-multiple.svg"
                         />
                         <span>
-                          Completed: 
+                          Completed:
                           0
-                           of 
+                           of
                           1
                         </span>
                       </p>
@@ -1669,7 +1669,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                           src="undefined/images/pages/diagnostic_reports/icons-wrench.svg"
                         />
                         <span>
-                          We’re working on building the 
+                          We’re working on building the
                           AP® Writing Skills Survey
                            (Post). We’ll let you know when it’s available.
                         </span>
@@ -1876,8 +1876,8 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                           src="undefined/images/pages/diagnostic_reports/icons-calendar-date.svg"
                         />
                         <span>
-                          Assigned: 
-                          Nov 13, 2021
+                          Assigned:
+                          Nov 12, 2021
                         </span>
                       </p>
                       <p>
@@ -1895,9 +1895,9 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                           src="undefined/images/pages/diagnostic_reports/icons-user-multiple.svg"
                         />
                         <span>
-                          Completed: 
+                          Completed:
                           0
-                           of 
+                           of
                           5
                         </span>
                       </p>
@@ -1928,7 +1928,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                           src="undefined/images/pages/diagnostic_reports/icons-wrench.svg"
                         />
                         <span>
-                          We’re working on building the 
+                          We’re working on building the
                           AP® Writing Skills Survey
                            (Post). We’ll let you know when it’s available.
                         </span>
@@ -2011,7 +2011,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                           src="undefined/images/pages/diagnostic_reports/icons-calendar-date.svg"
                         />
                         <span>
-                          Assigned: 
+                          Assigned:
                           Oct 18, 2021
                         </span>
                       </p>
@@ -2021,9 +2021,9 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                           src="undefined/images/pages/diagnostic_reports/icons-user-multiple.svg"
                         />
                         <span>
-                          Completed: 
+                          Completed:
                           0
-                           of 
+                           of
                           5
                         </span>
                       </p>
@@ -2083,8 +2083,8 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                             src="undefined/images/pages/diagnostic_reports/icons-calendar-date.svg"
                           />
                           <span>
-                            Assigned: 
-                            Nov 12, 2021
+                            Assigned:
+                            Nov 11, 2021
                           </span>
                         </p>
                         <p>
@@ -2093,9 +2093,9 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                             src="undefined/images/pages/diagnostic_reports/icons-user-multiple.svg"
                           />
                           <span>
-                            Completed: 
+                            Completed:
                             0
-                             of 
+                             of
                             5
                           </span>
                         </p>
@@ -2209,7 +2209,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                           src="undefined/images/pages/diagnostic_reports/icons-calendar-date.svg"
                         />
                         <span>
-                          Assigned: 
+                          Assigned:
                           Oct 13, 2021
                         </span>
                       </p>
@@ -2219,9 +2219,9 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                           src="undefined/images/pages/diagnostic_reports/icons-user-multiple.svg"
                         />
                         <span>
-                          Completed: 
+                          Completed:
                           1
-                           of 
+                           of
                           5
                         </span>
                       </p>
@@ -2281,7 +2281,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                             src="undefined/images/pages/diagnostic_reports/icons-calendar-date.svg"
                           />
                           <span>
-                            Assigned: 
+                            Assigned:
                             Oct 13, 2021
                           </span>
                         </p>
@@ -2291,9 +2291,9 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                             src="undefined/images/pages/diagnostic_reports/icons-user-multiple.svg"
                           />
                           <span>
-                            Completed: 
+                            Completed:
                             1
-                             of 
+                             of
                             5
                           </span>
                         </p>
@@ -2407,8 +2407,8 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                           src="undefined/images/pages/diagnostic_reports/icons-calendar-date.svg"
                         />
                         <span>
-                          Assigned: 
-                          Oct 9, 2021
+                          Assigned:
+                          Oct 8, 2021
                         </span>
                       </p>
                       <p>
@@ -2417,9 +2417,9 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                           src="undefined/images/pages/diagnostic_reports/icons-user-multiple.svg"
                         />
                         <span>
-                          Completed: 
+                          Completed:
                           1
-                           of 
+                           of
                           5
                         </span>
                       </p>
@@ -2479,7 +2479,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                             src="undefined/images/pages/diagnostic_reports/icons-calendar-date.svg"
                           />
                           <span>
-                            Assigned: 
+                            Assigned:
                             Oct 14, 2021
                           </span>
                         </p>
@@ -2489,9 +2489,9 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                             src="undefined/images/pages/diagnostic_reports/icons-user-multiple.svg"
                           />
                           <span>
-                            Completed: 
+                            Completed:
                             1
-                             of 
+                             of
                             5
                           </span>
                         </p>
