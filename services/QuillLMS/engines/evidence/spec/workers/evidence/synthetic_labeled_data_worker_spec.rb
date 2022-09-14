@@ -43,6 +43,26 @@ module Evidence
 
         subject.perform(filename, activity.id)
       end
+
+      context 'utf-8 encoding' do
+        let(:filename) {'test_with_utf8.csv'}
+        let(:file_as_array) {[['hello’s', 'world']]}
+
+        it 'call generate and call file_mailer' do
+          expect(FileUploader).to receive(:new).and_return(mock_uploader)
+          expect(mock_uploader).to receive(:retrieve_from_store!).with(filename)
+
+          expect(Evidence::Synthetic::LabeledDataGenerator).to receive(:csvs_from_run)
+            .with(file_as_array, filename, passage_text)
+            .and_return(generator_response)
+
+          expect(FileMailer).to receive(:send_multiple_files)
+            .with(email, email_subject, generator_response)
+            .and_return(mailer)
+
+          subject.perform(filename, activity.id)
+        end
+      end
     end
   end
 end
