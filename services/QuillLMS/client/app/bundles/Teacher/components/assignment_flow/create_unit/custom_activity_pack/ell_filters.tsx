@@ -3,9 +3,13 @@ import * as React from 'react';
 import { Activity, Topic } from './interfaces'
 import { STANDARDS_FILTERS, } from './shared'
 
+import { Tooltip, helpIcon, } from '../../../../../Shared/index'
+
 const dropdownIconSrc = `${process.env.CDN_URL}/images/icons/dropdown.svg`
 const indeterminateSrc = `${process.env.CDN_URL}/images/icons/indeterminate.svg`
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
+
+const tooltipText = 'Quill’s ELL activities are designed based on ELL standards from WIDA, CEFR, and ELA21.<br/><br/>Quill’s Starter ELL activities generally align to WIDA PL1 & ELPA Level 1.<br/><br/>Quill’s Intermediate ELL activities generally align to WIDA PL2 & ELPA Level 2.<br/><br/>Quill’s Advanced ELL activities generally align to WIDA PL3 & ELPA Level 3.<br/><br/>Click on the "?" to learn more about the alignment of Quill ELL Skill levels to common ELL frameworks.'
 
 interface ELLLevel {
   standardLevelName: string,
@@ -30,6 +34,8 @@ interface ELLToggleProps {
   grouping: Grouping,
   ellFilters: number[],
   handleELLFilterChange: (ellFilters: number[]) => void,
+  isOpen: boolean,
+  setIsOpen: (isOpen: boolean) => void
 }
 
 interface ELLFiltersProps {
@@ -41,19 +47,19 @@ interface ELLFiltersProps {
 
 const levelOne = {
   standardLevelName: 'ELL Level 1',
-  displayName: 'Level 1 WIDA',
+  displayName: 'ELL Starter',
   filterNumber: 1
 }
 
 const levelTwo = {
   standardLevelName: 'ELL Level 2',
-  displayName: 'Level 2 WIDA',
+  displayName: 'ELL Intermediate',
   filterNumber: 2
 }
 
 const levelThree = {
   standardLevelName: 'ELL Level 3',
-  displayName: 'Level 3 WIDA',
+  displayName: 'ELL Advanced',
   filterNumber: 3
 }
 
@@ -94,9 +100,7 @@ const IndividualELLFilterRow = ({ ellFilters, level, handleELLFilterChange, filt
   )
 }
 
-const ELLToggle = ({filteredActivities, grouping, ellFilters, handleELLFilterChange, }: ELLToggleProps) => {
-  const [isOpen, setIsOpen] = React.useState(false)
-
+const ELLToggle = ({filteredActivities, grouping, ellFilters, handleELLFilterChange, isOpen, setIsOpen, }: ELLToggleProps) => {
   function toggleIsOpen() { setIsOpen(!isOpen) }
 
   function uncheckAllFilters() {
@@ -153,20 +157,27 @@ const ELLToggle = ({filteredActivities, grouping, ellFilters, handleELLFilterCha
 }
 
 const ELLFilters = ({ filterActivities, ellFilters, handleELLFilterChange, }: ELLFiltersProps) => {
+  const [isOpen, setIsOpen] = React.useState(false)
+
   function clearAllELLFilters() { handleELLFilterChange([]) }
 
   const filteredActivities = filterActivities(STANDARDS_FILTERS)
 
   const grouping = {
-    group: 'Activities - All WIDA Levels',
+    group: 'Activities by Skill Level',
     ellOptions: allELLOptions
   }
 
   const clearButton = ellFilters.length ? <button className="interactive-wrapper clear-filter focus-on-light" onClick={clearAllELLFilters} type="button">Clear</button> : <span />
-  return (
-    <section className="filter-section">
+
+  const filterSectionContent = (
+    <div className="tooltip-trigger-filter-section-content">
+      <div className="hoverbox" />
       <div className="name-and-clear-wrapper">
-        <h2>ELL Activities</h2>
+        <h2>
+          <span>ELL Activities</span>
+          <a className="focus-on-light interactive-wrapper" href="https://support.quill.org/en/articles/6437903-what-are-the-ell-levels-on-quill" rel="noopener noreferrer" target="_blank"><img alt={helpIcon.alt} src={helpIcon.src} /></a>
+        </h2>
         {clearButton}
       </div>
       <ELLToggle
@@ -174,9 +185,22 @@ const ELLFilters = ({ filterActivities, ellFilters, handleELLFilterChange, }: EL
         filteredActivities={filteredActivities}
         grouping={grouping}
         handleELLFilterChange={handleELLFilterChange}
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+      />
+    </div>
+  )
+
+  return (
+    <section className={`filter-section ell-filters ${isOpen ? 'toggle-expanded' : ''}`}>
+      <Tooltip
+        isTabbable={false}
+        tooltipText={tooltipText}
+        tooltipTriggerText={filterSectionContent}
       />
     </section>
   )
+
 }
 
 export default ELLFilters

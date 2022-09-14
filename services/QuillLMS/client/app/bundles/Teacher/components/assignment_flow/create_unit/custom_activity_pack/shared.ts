@@ -45,6 +45,8 @@ export const ACTIVITY_CATEGORY_FILTERS = 'activityCategoryFilters'
 
 export const CONTENT_PARTNER_FILTERS = 'contentPartnerFilters'
 
+export const EARLY_ACCESS_FILTERS = 'earlyAccessFilters'
+
 export const FLAG_FILTERS = 'flagFilters'
 
 export const TOPIC_FILTERS = 'topicFilters'
@@ -118,6 +120,11 @@ function filterByContentPartners(contentPartnerFilters: number[], activity: Acti
   return contentPartnerFilters.some(id => activity.content_partners.some(cp => cp.id === id))
 }
 
+function filterByEarlyAccess(earlyAccessFilters: string[], activity: Activity) {
+  if (!earlyAccessFilters.length) { return true }
+  return earlyAccessFilters.some(flag => activity.flags.includes(flag))
+}
+
 function filterByTopic(topicFilters: number[], activity: Activity) {
   if (!topicFilters.length) { return true }
   return topicFilters.some(id => activity.topics.some(cp => cp.id === id))
@@ -141,6 +148,7 @@ export const filters = {
   readabilityGradeLevelFilters: filterByReadabilityGradeLevel,
   [ACTIVITY_CATEGORY_FILTERS]: filterByActivityCategory,
   [CONTENT_PARTNER_FILTERS]: filterByContentPartners,
+  [EARLY_ACCESS_FILTERS]: filterByEarlyAccess,
   [TOPIC_FILTERS]: filterByTopic,
   [SAVED_ACTIVITY_FILTERS]: filterBySavedActivityIds,
   [FLAG_FILTERS]: filterByFlag
