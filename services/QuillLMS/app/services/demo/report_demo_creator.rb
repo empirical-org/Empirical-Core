@@ -2,6 +2,7 @@
 
 module Demo::ReportDemoCreator
 
+  EMAIL = "hello+demoteacher@quill.org"
   EVIDENCE_APP_SETTING = "comprehension"
   REPLAYED_ACTIVITY_ID = 434
   REPLAYED_SAMPLE_USER_ID = 312664
@@ -258,7 +259,7 @@ module Demo::ReportDemoCreator
   end
 
   def self.create_teacher(email)
-    email ||= "hello+demoteacher@quill.org"
+    email ||= EMAIL
 
     existing_teacher = User.find_by_email(email)
     existing_teacher.destroy if existing_teacher

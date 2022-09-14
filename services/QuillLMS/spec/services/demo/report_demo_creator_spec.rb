@@ -4,6 +4,7 @@ require 'rails_helper'
 
 RSpec.describe Demo::ReportDemoCreator do
   let!(:teacher) {create(:teacher)}
+  let(:email) { Demo::ReportDemoCreator::EMAIL }
 
   before do
     Demo::ReportDemoCreator::ACTIVITY_PACKS_TEMPLATES.each do |ap|
@@ -14,7 +15,6 @@ RSpec.describe Demo::ReportDemoCreator do
 
 
   it 'creates a teacher with name' do
-    email = "hello+demoteacher@quill.org"
     Demo::ReportDemoCreator.create_teacher(email)
     teacher = User.find_by(name: "Demo Teacher")
     expect(teacher.name).to eq("Demo Teacher")

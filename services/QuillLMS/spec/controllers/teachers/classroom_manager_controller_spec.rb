@@ -661,7 +661,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
 
   describe '#view_demo' do
     let!(:teacher) { create(:teacher) }
-    let!(:demo_teacher) { create(:teacher, email: 'hello+demoteacher@quill.org')}
+    let!(:demo_teacher) { create(:teacher, email: Demo::ReportDemoCreator::EMAIL)}
     let!(:analyzer) { double(:analyzer, track: true) }
 
     before do
@@ -694,7 +694,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
 
   describe '#demo_id' do
     let!(:teacher) { create(:teacher) }
-    let!(:demo_teacher) { create(:teacher, email: 'hello+demoteacher@quill.org')}
+    let!(:demo_teacher) { create(:teacher, email: Demo::ReportDemoCreator::EMAIL)}
 
     before do
       controller.sign_in(teacher)
@@ -709,7 +709,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
 
   describe '#unset_view_demo' do
     let!(:teacher) { create(:teacher) }
-    let!(:demo_teacher) { create(:teacher, email: 'hello+demoteacher@quill.org')}
+    let!(:demo_teacher) { create(:teacher, email: Demo::ReportDemoCreator::EMAIL)}
 
     before do
       controller.sign_in(teacher)
