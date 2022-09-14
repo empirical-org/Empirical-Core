@@ -2093,9 +2093,9 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                             src="undefined/images/pages/diagnostic_reports/icons-user-multiple.svg"
                           />
                           <span>
-                            Completed:
+                            Completed: 
                             0
-                             of
+                             of 
                             5
                           </span>
                         </p>
@@ -2209,7 +2209,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                           src="undefined/images/pages/diagnostic_reports/icons-calendar-date.svg"
                         />
                         <span>
-                          Assigned:
+                          Assigned: 
                           Oct 13, 2021
                         </span>
                       </p>
@@ -2219,9 +2219,9 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                           src="undefined/images/pages/diagnostic_reports/icons-user-multiple.svg"
                         />
                         <span>
-                          Completed:
+                          Completed: 
                           1
-                           of
+                           of 
                           5
                         </span>
                       </p>
@@ -2281,7 +2281,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                             src="undefined/images/pages/diagnostic_reports/icons-calendar-date.svg"
                           />
                           <span>
-                            Assigned:
+                            Assigned: 
                             Oct 13, 2021
                           </span>
                         </p>
@@ -2291,9 +2291,9 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                             src="undefined/images/pages/diagnostic_reports/icons-user-multiple.svg"
                           />
                           <span>
-                            Completed:
+                            Completed: 
                             1
-                             of
+                             of 
                             5
                           </span>
                         </p>
@@ -2407,7 +2407,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                           src="undefined/images/pages/diagnostic_reports/icons-calendar-date.svg"
                         />
                         <span>
-                          Assigned:
+                          Assigned: 
                           Oct 8, 2021
                         </span>
                       </p>
@@ -2417,9 +2417,9 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                           src="undefined/images/pages/diagnostic_reports/icons-user-multiple.svg"
                         />
                         <span>
-                          Completed:
+                          Completed: 
                           1
-                           of
+                           of 
                           5
                         </span>
                       </p>
@@ -2479,7 +2479,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                             src="undefined/images/pages/diagnostic_reports/icons-calendar-date.svg"
                           />
                           <span>
-                            Assigned:
+                            Assigned: 
                             Oct 14, 2021
                           </span>
                         </p>
@@ -2489,9 +2489,9 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                             src="undefined/images/pages/diagnostic_reports/icons-user-multiple.svg"
                           />
                           <span>
-                            Completed:
+                            Completed: 
                             1
-                             of
+                             of 
                             5
                           </span>
                         </p>
