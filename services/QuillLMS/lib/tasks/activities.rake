@@ -67,7 +67,10 @@ namespace :activities do
       raise "New name column is empty" if new_name.blank?
 
       activity.name = new_name
-      activity.data['name'] = new_name
+      if activity.data
+        activity.data['name'] = new_name
+        activity.data['title'] = new_name
+      end
       activity.save!
     rescue
       puts "Failed to update for activity with id '#{activity_id}'"
