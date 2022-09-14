@@ -6,6 +6,7 @@ module Demo::ReportDemoCreator
   EVIDENCE_APP_SETTING = "comprehension"
   REPLAYED_ACTIVITY_ID = 434
   REPLAYED_SAMPLE_USER_ID = 312664
+
   ACTIVITY_PACKS_TEMPLATES = [
     {
       name: "Quill Activity Pack",
@@ -245,17 +246,69 @@ module Demo::ReportDemoCreator
     }
   ]
 
-  def self.create_demo(email)
+  STUDENT_COUNT = 5
+  UNITS_COUNT = ACTIVITY_PACKS_TEMPLATES.count
+  SESSIONS_COUNT = ACTIVITY_PACKS_TEMPLATES
+    .map {|hash| hash[:activity_sessions].map(&:keys)}
+    .flatten
+    .count
+
+
+  def self.create_demo(email, teacher_demo: false)
     teacher = create_teacher(email)
-    classroom = create_classroom(teacher)
-    students = create_students(classroom, !email) # using the presence of a passed email to determine whether this is the standard /demo account or not
-    units = create_units(teacher)
-    classroom_units = create_classroom_units(classroom, units)
-    activity_sessions = create_activity_sessions(students, classroom)
     subscription = create_subscription(teacher)
+
+    create_demo_classroom_data(teacher, teacher_demo: teacher_demo)
+  end
+
+  def self.create_demo_classroom_data(teacher, teacher_demo: false)
+    units = reset_units(teacher)
+
+    classroom = create_classroom(teacher)
+    students = create_students(classroom, teacher_demo)
+
+    classroom_units = create_classroom_units(classroom, units)
+
+    create_activity_sessions(students, classroom)
     create_replayed_activity_session(students.first, classroom_units.first)
 
     TeacherActivityFeedRefillWorker.perform_async(teacher.id)
+  end
+
+  def self.reset_units(teacher)
+    return teacher.units if teacher.units.count == UNITS_COUNT
+
+    teacher.units&.destroy_all
+
+    create_units(teacher)
+  end
+
+  def self.reset_account_changes(teacher)
+    if demo_classroom_edited?(teacher)
+      demo_classroom&.destroy
+
+      create_demo_classroom_data(teacher, teacher_demo: true)
+    end
+
+    # delete any other classes
+    non_demo_classrooms(teacher).each(&:destroy)
+    # reset any provider integrations
+    teacher.auth_credential&.destroy
+    teacher.update(google_id: nil, clever_id: nil)
+  end
+
+  def demo_classroom_has_original_counts?(teacher)
+    classroom = demo_classroom(teacher)
+
+    return false if classroom.nil?
+
+    classroom.students.count == STUDENT_COUNT &&
+      classroom.units.count == UNITS_COUNT &&
+      classroom.activity_sessions.count == SESSIONS_COUNT
+  end
+
+  def demo_classroom_edited?(teacher)
+    !demo_class_has_original_counts?(teacher)
   end
 
   def self.create_teacher(email)
@@ -273,14 +326,7 @@ module Demo::ReportDemoCreator
       flags: ["beta"]
     }
 
-    teacher = User.create(values)
-    app_setting = AppSetting.find_by(name: EVIDENCE_APP_SETTING)
-
-    return teacher if app_setting.blank?
-
-    app_setting.user_ids_allow_list << teacher.id
-    app_setting.save
-    teacher
+    User.create(values)
   end
 
   def self.create_classroom(teacher)
@@ -295,6 +341,15 @@ module Demo::ReportDemoCreator
   def self.classcode(teacher_id)
     "demo-#{teacher_id}"
   end
+
+  def self.demo_classroom(teacher)
+    teacher.classrooms_i_teach.first {|c| c.code == classcode(teacher.id) }
+  end
+
+  def self.non_demo_classrooms(teacher)
+    teacher.classrooms_i_teach.select {|c| c.code != classcode(teacher.id) }
+  end
+
 
   def self.create_units(teacher)
     units = []

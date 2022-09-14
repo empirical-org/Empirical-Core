@@ -25,7 +25,7 @@ class StudentsController < ApplicationController
   def student_demo
     @user = User.find_by_email 'angie_thomas_demo@quill.org'
     if @user.nil?
-      Demo::ReportDemoCreator.create_demo(nil)
+      Demo::ReportDemoCreator.create_demo(nil, teacher_demo: true)
       redirect_to "/student_demo"
     else
       sign_in @user
