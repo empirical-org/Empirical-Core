@@ -8,7 +8,7 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   respond_to :json, :html
 
-  around_action :force_writer_db_role, only: [:assign, :dashboard, :lesson_planner]
+  around_action :force_writer_db_role, only: [:assign, :dashboard, :lesson_planner, :view_demo]
 
   before_action :teacher_or_public_activity_packs, except: [:unset_preview_as_student, :unset_view_demo]
   # WARNING: these filter methods check against classroom_id, not id.
