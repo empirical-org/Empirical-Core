@@ -37,7 +37,6 @@ describe GradesController do
       expect(json_response[:scores].first[:completed_at].to_datetime.to_i)
         .to eq(activity_session.reload.completed_at.to_i)
 
-      puts json_response
       expect(json_response[:concept_results].first).to include(
         correct: concept_result.correct,
         description: activity_session.activity.description,
