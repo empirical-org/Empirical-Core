@@ -285,7 +285,7 @@ module Demo::ReportDemoCreator
 
   def self.reset_account_changes(teacher)
     if demo_classroom_edited?(teacher)
-      demo_classroom&.destroy
+      demo_classroom(teacher)&.destroy
 
       create_demo_classroom_data(teacher, teacher_demo: true)
     end
@@ -297,7 +297,7 @@ module Demo::ReportDemoCreator
     teacher.update(google_id: nil, clever_id: nil)
   end
 
-  def demo_classroom_has_original_counts?(teacher)
+  def self.demo_classroom_has_original_counts?(teacher)
     classroom = demo_classroom(teacher)
 
     return false if classroom.nil?
@@ -307,8 +307,8 @@ module Demo::ReportDemoCreator
       classroom.activity_sessions.count == SESSIONS_COUNT
   end
 
-  def demo_classroom_edited?(teacher)
-    !demo_class_has_original_counts?(teacher)
+  def self.demo_classroom_edited?(teacher)
+    !demo_classroom_has_original_counts?(teacher)
   end
 
   def self.create_teacher(email)

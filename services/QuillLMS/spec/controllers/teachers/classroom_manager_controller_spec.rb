@@ -663,10 +663,32 @@ describe Teachers::ClassroomManagerController, type: :controller do
     let!(:teacher) { create(:teacher) }
     let!(:demo_teacher) { create(:teacher, email: Demo::ReportDemoCreator::EMAIL)}
     let!(:analyzer) { double(:analyzer, track: true) }
+    let(:activity) { create(:activity, follow_up_activity: nil) }
+    let(:activity_session) { create(:activity_session, activity: activity) }
+    let(:concept_result) {create(:concept_result, activity_session: activity_session)}
+
+    let(:activity_pack_config) do
+      {
+        name: "Test Activity Pack",
+        activity_ids: [activity.id],
+        activity_sessions: [
+          {activity.id => activity_session.id},
+          {activity.id => activity_session.id},
+          {activity.id => activity_session.id},
+          {activity.id => activity_session.id},
+          {activity.id => activity_session.id},
+        ]
+      }
+    end
+
+    let(:demo_config) { [activity_pack_config] }
 
     before do
       allow(controller).to receive(:current_user) { teacher }
       allow(Analyzer).to receive(:new) { analyzer }
+
+      stub_const("Demo::ReportDemoCreator::ACTIVITY_PACKS_TEMPLATES", demo_config)
+      stub_const("Demo::ReportDemoCreator::REPLAYED_ACTIVITY_ID", activity.id)
     end
 
     it 'will call current_user_demo_id= if the demo account exists' do
