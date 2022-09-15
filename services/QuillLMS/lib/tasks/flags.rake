@@ -16,18 +16,6 @@ namespace :flags do
   end
 
   namespace :users do
-    desc 'add custom flagsets for quill.org emails'
-    task :add_custom_flagsets => :environment do
-      ids = User.find_by_sql(
-        "select id from users where email LIKE '%quill.org'"
-      ).pluck(:id)
-      puts ids
-      ids.each do |id|
-        user = User.find(id)
-        user.update!(flagset: 'alpha')
-      end
-    end
-
     desc 'Add college_board flag to all holders of gamma flag'
     task :add_college_board_flag_to_gamma_users => :environment do
       ids = User.find_by_sql("select id from users where flags::text[] @> ARRAY['gamma']").pluck(:id)
