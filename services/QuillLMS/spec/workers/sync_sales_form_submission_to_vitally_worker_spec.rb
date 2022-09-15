@@ -17,7 +17,8 @@ describe SyncSalesFormSubmissionToVitallyWorker do
 
   describe '#perform' do
     it 'should run all three steps: create school/district in vitally, create user in vitally, send opportunity to vitally' do
-      create(:school, name: sales_form_submission.school_name)
+      district = create(:district)
+      create(:school, name: sales_form_submission.school_name, district: district)
 
       fake_id = 1
 
@@ -88,7 +89,8 @@ describe SyncSalesFormSubmissionToVitallyWorker do
 
   context '#send_opportunity_to_vitally' do
     it 'should send the appropriate payload for forms with a school collection type' do
-      school = create(:school)
+      district = create(:district)
+      school = create(:school, district: district)
       vitally_school_id = '123'
       expect(stub_api).to receive(:get).with(SalesFormSubmission::VITALLY_SCHOOLS_TYPE, school.id).and_return({'id' => vitally_school_id})
 
@@ -153,7 +155,8 @@ describe SyncSalesFormSubmissionToVitallyWorker do
     end
 
     it 'should send a payload with the id for Unknown School if the school does not exist in the db' do
-      school = create(:school, name: 'Unknown School')
+      district = create(:district)
+      school = create(:school, name: 'Unknown School', district: district)
       sales_form_submission.update(collection_type: SalesFormSubmission::SCHOOL_COLLECTION_TYPE, submission_type: 'quote request', school_name: 'nonexistent school name', source: SalesFormSubmission::FORM_SOURCE)
 
       vitally_school_id = '123'
@@ -187,7 +190,8 @@ describe SyncSalesFormSubmissionToVitallyWorker do
     end
 
     it 'should send update call to update school with custom hasOpportunity trait' do
-      school = create(:school)
+      district = create(:district)
+      school = create(:school, district: district)
       vitally_school_id = '123'
       sales_form_submission.update(collection_type: SalesFormSubmission::SCHOOL_COLLECTION_TYPE, source: SalesFormSubmission::FORM_SOURCE, submission_type: 'quote request', school_name: school.name)
 
