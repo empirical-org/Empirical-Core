@@ -92,7 +92,7 @@ const AssignANewActivity = ({ numberOfActivitiesAssigned, showDiagnosticBanner }
   }
 
   return (
-    <div className="assign-a-new-activity-container">
+    <div className="assign-a-new-activity-container white-background-accommodate-footer">
       <div className="assign-a-new-activity container">
         <h1>Find the perfect writing activities for your students.</h1>
         {diagnosticBanner}

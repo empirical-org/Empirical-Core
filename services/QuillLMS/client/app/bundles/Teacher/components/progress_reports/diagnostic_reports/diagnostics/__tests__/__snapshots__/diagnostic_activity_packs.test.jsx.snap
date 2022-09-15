@@ -137,7 +137,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
   }
 >
   <div
-    className="diagnostic-activity-packs-container"
+    className="diagnostic-activity-packs-container white-background-accommodate-footer"
   >
     <DemoOnboardingTour
       pageKey="demo-onboarding-diagnostic-activity-packs-index"
