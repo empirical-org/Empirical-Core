@@ -116,8 +116,7 @@ describe SyncSalesFormSubmissionToVitallyWorker do
 
   context '#send_opportunity_to_vitally' do
     it 'should send the appropriate payload for forms with a school collection type' do
-      district = create(:district)
-      school = create(:school, district: district)
+      school = create(:school)
       vitally_school_id = '123'
       expect(stub_api).to receive(:get).with(SalesFormSubmission::VITALLY_SCHOOLS_TYPE, school.id).and_return({'id' => vitally_school_id})
 
