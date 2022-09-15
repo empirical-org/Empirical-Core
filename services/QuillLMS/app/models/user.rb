@@ -658,13 +658,14 @@ class User < ApplicationRecord
 
   def set_time_zone
     z = ::Ziptz.new
-
     school_timezone = z.time_zone_name(school&.zipcode || school&.mail_zipcode)
 
-    return school_timezone if school_timezone.present?
-
-    geocoder_results = Geocoder.search(ip_address)
-    z.time_zone_name(geocoder_results.first.postal_code)
+    if school_timezone.present?
+      self.time_zone = school_timezone
+    elsif ip_address.present?
+      geocoder_results = Geocoder.search(ip_address)
+      self.time_zone = geocoder_results&.first&.timezone
+    end
   end
 
   private def validate_flags

@@ -56,6 +56,7 @@
 #  users_to_tsvector_idx5             (to_tsvector('english'::regconfig, split_part((ip_address)::text, '/'::text, 1))) USING gin
 #
 require 'rails_helper'
+require("webmock/minitest")
 
 describe User, type: :model do
 
@@ -1370,6 +1371,42 @@ describe User, type: :model do
       before { user.update(last_active: described_class::USER_INACTIVITY_DURATION.ago - 1.day) }
 
       it { expect(subject).to eq true }
+    end
+  end
+
+  describe '#set_time_zone' do
+    describe 'if the user has a school' do
+      it 'sets the timezone to the school timezone if the school has a zipcode' do
+        school = create(:school, zipcode: 87505)
+        user.school = school
+        user.set_time_zone
+        user.save
+        expect(user.reload.time_zone).to eq('America/Denver')
+      end
+
+      it 'sets the timezone to the school timezone if the school has a mail_zipcode' do
+        school = create(:school, mail_zipcode: 19130)
+        user.school = school
+        user.set_time_zone
+        user.save
+        expect(user.reload.time_zone).to eq('America/New_York')
+      end
+
+      it 'sets the timezone based on the ip address if the school does not have a zipcode or a mail_zipcode' do
+        school = create(:school, mail_zipcode: nil, zipcode: nil)
+        user.school = school
+        user.update(ip_address: "179.61.239.7")
+        user.set_time_zone
+        expect(user.time_zone).to eq('America/New_York')
+      end
+    end
+
+    describe 'if the user does not have a school' do
+      it 'sets the timezone based on the ip address' do
+        user.update(ip_address: "73.9.149.0")
+        user.set_time_zone
+        expect(user.time_zone).to eq('America/New_York')
+      end
     end
   end
 
