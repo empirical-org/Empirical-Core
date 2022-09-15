@@ -284,17 +284,21 @@ module Demo::ReportDemoCreator
   end
 
   def self.reset_account_changes(teacher)
-    if demo_classroom_edited?(teacher)
-      demo_classroom(teacher)&.destroy
+    ActiveRecord::Base.transaction do
+      if demo_classroom_edited?(teacher)
+        demo_classroom(teacher)&.destroy
 
-      create_demo_classroom_data(teacher, teacher_demo: true)
+        create_demo_classroom_data(teacher, teacher_demo: true)
+      end
+
+      non_demo_classrooms(teacher).each(&:destroy)
+      teacher.auth_credential&.destroy
+      teacher.update(google_id: nil, clever_id: nil)
     end
-
-    # delete any other classes
-    non_demo_classrooms(teacher).each(&:destroy)
-    # reset any provider integrations
-    teacher.auth_credential&.destroy
-    teacher.update(google_id: nil, clever_id: nil)
+  # because of the ID-specific demo setup,
+  # swallow FK errors in case an activity doesn't exist
+  rescue ActiveRecord::InvalidForeignKey => e
+    ErrorNotifier.report(e)
   end
 
   def self.demo_classroom_has_original_counts?(teacher)
