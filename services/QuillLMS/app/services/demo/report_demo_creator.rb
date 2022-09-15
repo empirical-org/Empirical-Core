@@ -3,7 +3,6 @@
 module Demo::ReportDemoCreator
 
   EMAIL = "hello+demoteacher@quill.org"
-  EVIDENCE_APP_SETTING = "comprehension"
   REPLAYED_ACTIVITY_ID = 434
   REPLAYED_SAMPLE_USER_ID = 312664
 
@@ -358,8 +357,8 @@ module Demo::ReportDemoCreator
   def self.create_units(teacher)
     units = []
     ACTIVITY_PACKS_TEMPLATES.each do |ap|
-      unit = Unit.create({name: ap[:name], user: teacher})
-      ap[:activity_ids].each { |act_id| UnitActivity.create({activity_id: act_id, unit: unit}) }
+      unit = Unit.find_or_create_by(name: ap[:name], user: teacher)
+      ap[:activity_ids].each { |act_id| UnitActivity.find_or_create_by(activity_id: act_id, unit: unit) }
       units.push(unit)
     end
     units
@@ -431,7 +430,7 @@ module Demo::ReportDemoCreator
 
   def self.create_classroom_units(classroom, units)
     units.map do |unit|
-      ClassroomUnit.create(
+      ClassroomUnit.find_or_create_by(
         classroom: classroom,
         unit: unit,
         assign_on_join: true)
@@ -441,7 +440,13 @@ module Demo::ReportDemoCreator
   def self.create_replayed_activity_session(student, classroom_unit)
     replayed_session = ActivitySession.unscoped.where({activity_id: REPLAYED_ACTIVITY_ID, user_id: REPLAYED_SAMPLE_USER_ID, is_final_score: true}).first
     student_id = student.id
-    act_session = ActivitySession.create({activity_id: REPLAYED_ACTIVITY_ID, classroom_unit_id: classroom_unit.id, user_id: student.id, state: "finished", percentage: replayed_session&.percentage})
+    act_session = ActivitySession.create(
+      activity_id: REPLAYED_ACTIVITY_ID,
+      classroom_unit_id: classroom_unit&.id,
+      user_id: student.id,
+      state: "finished",
+      percentage: replayed_session&.percentage
+    )
     replayed_session&.concept_results&.each do |cr|
       values = {
         activity_session_id: act_session.id,
