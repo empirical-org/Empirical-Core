@@ -7,11 +7,11 @@ module Archivable
     !visible
   end
 
-  def archive
-    update(visible: false)
+  def archive!
+    update!(visible: false)
   end
 
-  def unarchive
-    update(visible: true)
+  def unarchive!
+    update!(visible: true)
   end
 end

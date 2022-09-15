@@ -26,6 +26,7 @@
 #
 class ClassroomUnit < ApplicationRecord
   include ::NewRelic::Agent
+  include Archivable
   include AtomicArrays
 
   belongs_to :unit # Note, there is a touch in the unit -> classroom_unit direction, so don't add one here.
@@ -103,6 +104,7 @@ class ClassroomUnit < ApplicationRecord
 
   private def check_for_assign_on_join_and_update_students_array_if_true
     student_ids = StudentsClassrooms.where(classroom_id: classroom_id).pluck(:student_id)
+
     if assigned_student_ids&.any? &&
        !assign_on_join &&
        assigned_student_ids.length >= student_ids.length &&
