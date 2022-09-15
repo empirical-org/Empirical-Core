@@ -286,10 +286,15 @@ describe Teachers::UnitsController, type: :controller do
 
     it "sends a 200 status code when it is passed valid data" do
       activity = unit_activity.activity
-      put :update_activities, params: { id: unit.id.to_s, data: {
+      put :update_activities,
+        params: {
+          id: unit.id,
+          data: {
             unit_id: unit.id,
-            activities_data: [{id: activity.id, due_date: nil}]
-          } }
+            activities_data: [{ id: activity.id, due_date: nil }]
+          }
+        }
+
       expect(response.status).to eq(200)
     end
 

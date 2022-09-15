@@ -64,10 +64,11 @@ class Teachers::UnitsController < ApplicationController
   end
 
   def update_activities
-    data = params[:data]
+    activities_data = params[:data].permit(activities_data: [:id, :due_date])[:activities_data].map(&:to_h)
     classrooms_data = formatted_classrooms_data(params[:id])
+
     if classrooms_data.any?
-      Units::Updater.run(params[:id], data[:activities_data], classrooms_data, current_user.id)
+      Units::Updater.run(params[:id], activities_data, classrooms_data, current_user.id)
       render json: {}
     else
       render json: {errors: 'Unit can not be found'}, status: 422
