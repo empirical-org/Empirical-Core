@@ -183,7 +183,7 @@ class User < ApplicationRecord
   before_validation :generate_student_username_if_absent
   before_validation :prep_authentication_terms
   before_save :capitalize_name
-  before_save :set_time_zone, if: time_zone.nil?
+  before_save :set_time_zone, { if: ->(u) { u.time_zone.nil? } }
   after_save  :update_invitee_email_address, if: proc { saved_change_to_email? }
   after_save :check_for_school
   after_create :generate_referrer_id, if: proc { teacher? }
