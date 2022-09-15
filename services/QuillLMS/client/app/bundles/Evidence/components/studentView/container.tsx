@@ -113,7 +113,11 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
         const { sessionID, } = session
         dispatch(getActivity(sessionID, activityUID))
         dispatch(processUnfetchableSession(sessionID));
-        isTurk && handlePostTurkSession(sessionID);
+        if (isTurk) {
+          isTurk && handlePostTurkSession(sessionID);
+        } else if (!skipToSpecificStep) {
+          window.location.href = `${window.location.href}&session=${sessionID}`
+        }
       }
     }
   }, [])
@@ -260,14 +264,14 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
     const highlights = data.studentHighlights || studentHighlights
     // if the student hasn't gotten to the highlighting stage yet,
     // we don't want them to skip seeing the directions modal and reading the passage again
-    const studentHasAtLeastStartedHighlighting = highlights && highlights.length
+    const studentHasAtLeastStartedHighlighting = (highlights && highlights.length) || shouldSkipToPrompts
     dispatch(setActiveStepForSession(data.activeStep || activeStep))
     setCompletedSteps(data.completedSteps || completedSteps)
     setTimeTracking(data.timeTracking || timeTracking)
     setStudentHighlights(highlights)
     setHasStartedReadPassageStep(studentHasAtLeastStartedHighlighting)
     setScrolledToEndOfPassage(studentHasAtLeastStartedHighlighting)
-    setDoneHighlighting(studentHasAtLeastStartedHighlighting && highlights.length >= MINIMUM_STUDENT_HIGHLIGHT_COUNT)
+    setDoneHighlighting((studentHasAtLeastStartedHighlighting && highlights.length >= MINIMUM_STUDENT_HIGHLIGHT_COUNT) || shouldSkipToPrompts)
   }
 
   function activateStep(step) { dispatch(setActiveStepForSession(step)) }
@@ -415,11 +419,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
   }
 
   function callSaveActiveActivitySession() {
-    const { sessionID, submittedResponses, activeStep } = session
     const args = {
-      sessionID,
-      submittedResponses,
-      activeStep,
       completedSteps,
       timeTracking,
       studentHighlights,

@@ -28,6 +28,6 @@ class FinishActivityWorker
     return unless activity_session.eligible_for_tracking?
 
     analytics = SegmentAnalytics.new
-    analytics.track_activity_completion(activity_session.classroom_owner, activity_session.user_id, activity_session.activity)
+    analytics.track_activity_completion(activity_session.classroom_owner, activity_session.user_id, activity_session.activity, activity_session)
   end
 end

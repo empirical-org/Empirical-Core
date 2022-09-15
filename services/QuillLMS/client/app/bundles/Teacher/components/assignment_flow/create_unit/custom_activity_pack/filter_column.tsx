@@ -9,8 +9,11 @@ import GradeLevelFilters from './grade_level_filters'
 import ELLFilters from './ell_filters'
 import ReadabilityGradeLevelFilters from './readability_grade_level_filters'
 import ContentPartnerFilters from './content_partner_filters'
+import EarlyAccessFilters from './early_access_filters'
 import TopicFilters from './topic_filters'
 import FlagFilters from './flag_filters'
+
+import { EVIDENCE_BETA_FLAGS, } from '../../../../../../constants/flagOptions'
 
 interface FilterColumnProps {
   activities: Activity[],
@@ -39,7 +42,9 @@ interface FilterColumnProps {
   savedActivityIds: number[],
   flagFilters: string[],
   handleFlagFilterChange: () => void,
-  showComprehension: boolean,
+  earlyAccessFilters: string[],
+  handleEarlyAccessFilterChange: (earlyAccessFilters: string[]) => void,
+  flagset: string,
   isStaff?: boolean,
   activityCategoryEditor?: ActivityCategoryEditor
 }
@@ -70,15 +75,18 @@ const FilterColumn = ({
   handleSavedActivityFilterChange,
   savedActivityIds,
   isStaff,
-  showComprehension,
   flagFilters,
   handleFlagFilterChange,
-  activityCategoryEditor
+  activityCategoryEditor,
+  handleEarlyAccessFilterChange,
+  earlyAccessFilters,
+  flagset,
 }: FilterColumnProps) => {
   const numberOfFilters = calculateNumberOfFilters()
   const clearAllButton = numberOfFilters ? <button className="interactive-wrapper clear-filter focus-on-light" onClick={resetAllFilters} type="button">Clear all filters</button> : <span />
   const filterCount = numberOfFilters ? `${numberOfFilters} filter${numberOfFilters === 1 ? '' : 's'} • ` : ''
 
+  let earlyAccessFilterSection
   let flagFilterSection
   let activityCategoryFilterSection = (<ActivityCategoryFilters
     activities={activities}
@@ -100,6 +108,18 @@ const FilterColumn = ({
     />)
   }
 
+  if (EVIDENCE_BETA_FLAGS.includes(flagset)) {
+    earlyAccessFilterSection = (
+      <EarlyAccessFilters
+        activities={activities}
+        earlyAccessFilters={earlyAccessFilters}
+        filterActivities={filterActivities}
+        flagset={flagset}
+        handleEarlyAccessFilterChange={handleEarlyAccessFilterChange}
+      />
+    )
+  }
+
   return (
     <div className="filter-column-wrapper">
       <section className="filter-column">
@@ -119,8 +139,8 @@ const FilterColumn = ({
           handleSavedActivityFilterChange={handleSavedActivityFilterChange}
           savedActivityFilters={savedActivityFilters}
           savedActivityIds={savedActivityIds}
-          showComprehension={showComprehension}
         />
+        {earlyAccessFilterSection}
         <GradeLevelFilters
           gradeLevelFilters={gradeLevelFilters}
           handleGradeLevelFilterChange={handleGradeLevelFilterChange}

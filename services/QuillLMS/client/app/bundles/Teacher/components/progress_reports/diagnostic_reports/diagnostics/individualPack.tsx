@@ -43,9 +43,9 @@ const DiagnosticSection = ({ activity, isPostDiagnostic, isDisabled, search, }) 
   return (
     <section className={`diagnostic-section ${isDisabled ? 'disabled' : ''}`}>
       <h6><span>{activity_name}</span> <a className="focus-on-light preview-link" href={`/activity_sessions/anonymous?activity_id=${activity_id}`} rel="noopener noreferrer" target="_blank">{eyeIcon}</a></h6>
-      {isDisabled ? <span className='disabled-link'>{summaryLinkContent}</span> : <NavLink activeClassName="selected" to={`${baseLinkPath}/${summaryPath}${queryString}`}>{summaryLinkContent}</NavLink>}
+      {isDisabled ? <span className='disabled-link'>{summaryLinkContent}</span> : <NavLink activeClassName="selected" className="summary-link" to={`${baseLinkPath}/${summaryPath}${queryString}`}>{summaryLinkContent}</NavLink>}
       {isDisabled ? <span className='disabled-link'>{resultLinkContent}</span> : <NavLink activeClassName="selected" to={`${baseLinkPath}/${resultsPath}${queryString}`}>{resultLinkContent}</NavLink>}
-      {isDisabled ? <span className='disabled-link'>{recommendationsLinkContent}</span> : <NavLink activeClassName="selected" to={`${baseLinkPath}/recommendations${queryString}`}>{recommendationsLinkContent}</NavLink>}
+      {isDisabled ? <span className='disabled-link'>{recommendationsLinkContent}</span> : <NavLink activeClassName="selected" className="recommendations-link" to={`${baseLinkPath}/recommendations${queryString}`}>{recommendationsLinkContent}</NavLink>}
       {isDisabled ? <span className='disabled-link'>{responsesLinkContent}</span> : <NavLink activeClassName="selected" to={`${baseLinkPath}/responses${queryString}`}>{responsesLinkContent}</NavLink>}
       {isDisabled ? <span className='disabled-link'>{questionsLinkContent}</span> : <NavLink activeClassName="selected" to={`${baseLinkPath}/questions${queryString}`}>{questionsLinkContent}</NavLink>}
     </section>
@@ -164,7 +164,7 @@ const IndividualPack = ({ classrooms, history, match, location, lessonsBannerIsS
     // the following line handles the case where we are currently viewing a post-diagnostic page, but the parallel classroom hasn't yet been assigned the post diagnostic
     const newActivityId = parallelDiagnostic.post && parallelDiagnostic.post.activity_id === activityId ? activityId : parallelDiagnostic.pre.activity_id
     window.localStorage.setItem(PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, e.value)
-    history.push(`/diagnostics/${newActivityId}/classroom/${e.value}/${subPage}${location.search}`)
+    history.push(`/diagnostics/${newActivityId}/classroom/${e.value}/${subPage}`)
   }
 
   function onLinkDropdownChange(e) {
@@ -208,7 +208,7 @@ const IndividualPack = ({ classrooms, history, match, location, lessonsBannerIsS
   }
 
   return (
-    <div className="diagnostic-individual-pack">
+    <div className="diagnostic-individual-pack white-background-accommodate-footer">
       <nav className="diagnostic-report-navigation hide-on-mobile">
         {classroomDropdown}
         <DiagnosticSection activity={activeDiagnostic.pre} search={location.search} />

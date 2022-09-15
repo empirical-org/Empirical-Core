@@ -72,7 +72,7 @@ FactoryBot.define do
       classroom_unit = activity_session.classroom_unit
       UnitActivity.find_or_create_by(activity: activity_session.activity, unit_id: classroom_unit.unit_id)
       StudentsClassrooms.find_or_create_by(student_id: activity_session.user_id, classroom_id: classroom_unit.classroom_id )
-      create(:old_concept_result, activity_session: activity_session)
+      create(:concept_result, activity_session: activity_session)
     end
 
     trait :retry do
@@ -106,6 +106,8 @@ FactoryBot.define do
 
     factory :evidence_activity_session do
       activity { create(:evidence_activity) }
+      # We explicitly don't record percentages for Evidence sessions
+      percentage { nil }
     end
 
     factory :proofreader_activity_session do
@@ -126,7 +128,7 @@ FactoryBot.define do
 
     factory :activity_session_without_concept_results do
       after(:create) do |activity_session|
-        OldConceptResult.where(activity_session: activity_session).destroy_all
+        ConceptResult.where(activity_session: activity_session).destroy_all
       end
     end
   end

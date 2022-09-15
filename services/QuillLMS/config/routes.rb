@@ -75,14 +75,13 @@ EmpiricalGrammar::Application.routes.draw do
     post '/webhooks', to: 'webhooks#create'
   end
 
-  # Temporarily disabling this route to prevent creation of SalesFormSubmission
-  # records until we resolve how we want to handle 'sales-contact' User roles
-  # TODO: re-enable these after we figure that out
-  # Note, when this happens, we'll need to un-comment out all the tests in
-  # spec/controllers/intercom_integration/webhooks_controller_spec.rb
-  #namespace :intercom_integration do
-  #  post '/webhooks', to: 'webhooks#create'
-  #end
+  namespace :intercom_integration do
+    post '/webhooks', to: 'webhooks#create'
+  end
+
+  namespace :ortto_integration do
+    post '/webhooks', to: 'webhooks#create'
+  end
 
   get 'subscriptions/retrieve_stripe_subscription/:stripe_invoice_id',
     to: 'subscriptions#retrieve_stripe_subscription',
@@ -151,6 +150,7 @@ EmpiricalGrammar::Application.routes.draw do
     post :complete_acknowledge_evidence_banner, on: :collection
     post :complete_acknowledge_growth_diagnostic_promotion_card, on: :collection
     post :complete_dismiss_grade_level_warning, on: :collection
+    post :complete_dismiss_school_selection_reminder, on: :collection
   end
 
   resources :grades, only: [:index]
@@ -249,6 +249,7 @@ EmpiricalGrammar::Application.routes.draw do
     get 'unset_preview_as_student', to: 'classroom_manager#unset_preview_as_student'
     get 'preview_as_student/:student_id', to: 'classroom_manager#preview_as_student'
     get 'view_demo', to: 'classroom_manager#view_demo'
+    get 'demo_id', to: 'classroom_manager#demo_id'
     get 'unset_view_demo', to: 'classroom_manager#unset_view_demo'
     get 'getting_started' => 'classroom_manager#getting_started'
     get 'add_students' => 'classroom_manager#generic_add_students'
@@ -543,9 +544,11 @@ EmpiricalGrammar::Application.routes.draw do
 
   put '/select_school', to: 'schools#select_school'
   get '/select_school', to: 'schools#select_school'
+  post '/submit_unlisted_school_information', to: 'schools#submit_unlisted_school_information'
 
   namespace :cms do
     resources :images, only: [:index, :destroy, :create]
+    resources :csv_uploads, only: [:create]
     put '/activity_categories/mass_update', to: 'activity_categories#mass_update'
     resources :activity_categories, only: [:index, :create]
     resources :activity_classifications do

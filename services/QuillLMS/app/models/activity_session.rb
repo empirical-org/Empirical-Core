@@ -41,6 +41,7 @@ require 'new_relic/agent'
 
 class ActivitySession < ApplicationRecord
 
+  class ConceptResultSubmittedWithoutActivitySessionError < StandardError; end
   class LongTimeTrackingError < StandardError; end
 
   include ::NewRelic::Agent
@@ -67,7 +68,6 @@ class ActivitySession < ApplicationRecord
   has_one :classroom, through: :classroom_unit
   has_one :unit, through: :classroom_unit
   has_many :concept_results
-  has_many :old_concept_results
   has_many :teachers, through: :classroom
   has_many :concepts, -> { distinct }, through: :concept_results
   has_one :active_activity_session, foreign_key: :uid, primary_key: :uid
@@ -336,7 +336,7 @@ class ActivitySession < ApplicationRecord
 
   # rubocop:disable Metrics/CyclomaticComplexity
   def parse_for_results
-    concept_results_by_concept = old_concept_results.group_by { |c| c.concept_id }
+    concept_results_by_concept = concept_results.group_by { |c| c.concept_id }
 
     results = {
       PROFICIENT => [],
@@ -350,7 +350,7 @@ class ActivitySession < ApplicationRecord
         next
       end
 
-      number_correct = arr.inject(0) { |sum, cr| sum + cr.metadata['correct'] }
+      number_correct = arr.inject(0) { |sum, cr| sum + (cr.correct ? 1 : 0) }
       average_correct = number_correct.to_f / arr.length
 
       if average_correct >= ProficiencyEvaluator.proficiency_cutoff
@@ -397,24 +397,18 @@ class ActivitySession < ApplicationRecord
       concept_result[:activity_session_id] = activity_session_id
       concept_result.delete(:activity_session_uid)
 
-      old_concept_result = OldConceptResult.create(
+      SaveActivitySessionConceptResultsWorker.perform_async({
         concept_id: concept_result[:concept_id],
         question_type: concept_result[:question_type],
         activity_session_id: concept_result[:activity_session_id],
         metadata: concept_result[:metadata],
-      )
-      SaveActivitySessionConceptResultsWorker.perform_async([old_concept_result.id]) if old_concept_result
+      })
     end
+    report_invalid_concept_results(concept_results)
   end
 
-  def self.delete_activity_sessions_with_no_concept_results(activity_sessions)
-    incomplete_activity_session_ids = []
-    activity_sessions.each do |as|
-      if as.old_concept_result_ids.empty?
-        incomplete_activity_session_ids.push(as.id)
-      end
-    end
-    ActivitySession.where(id: incomplete_activity_session_ids).destroy_all
+  def self.report_invalid_concept_results(concept_results)
+    ErrorNotifier.report(ConceptResultSubmittedWithoutActivitySessionError.new("Received a request to record a ConceptResult with no related ActivitySession.")) if concept_results.any? { |cr| cr[:activity_session_id].blank? }
   end
 
   # this function is only for use by Lesson activities, which are not individually saved when the activity ends
@@ -438,14 +432,6 @@ class ActivitySession < ApplicationRecord
         is_final_score: true
       )
     end
-  end
-
-  def self.activity_session_metadata(activity_sessions)
-    activity_sessions.map do |activity_session|
-      activity_session.old_concept_results.map do |concept_result|
-        concept_result.metadata
-      end
-    end.flatten
   end
 
   def self.assign_follow_up_lesson(classroom_unit_id, activity_uid)
@@ -518,13 +504,13 @@ class ActivitySession < ApplicationRecord
   end
 
   # when using this method, you should eager load ass
-  # e.g. .includes(:old_concept_results, activity: {skills: :concepts})
+  # e.g. .includes(:concept_results, activity: {skills: :concepts})
   def correct_skills
     @correct_skills ||= begin
       skills.select do |skill|
-        results = old_concept_results.select {|cr| cr.concept_id.in?(skill.concept_ids)}
+        results = concept_results.select {|cr| cr.concept_id.in?(skill.concept_ids)}
 
-        results.length && results.all?(&:correct?)
+        results.length && results.all?(&:correct)
       end
     end
   end

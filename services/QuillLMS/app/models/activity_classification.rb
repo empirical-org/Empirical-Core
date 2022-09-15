@@ -27,7 +27,6 @@ class ActivityClassification < ApplicationRecord
   include Uid
 
   has_many :activities, dependent: :destroy
-  has_many :old_concept_results
   has_many :user_activity_classifications, dependent: :destroy
 
   validates :key, presence: true

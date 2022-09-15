@@ -10,6 +10,7 @@
 #  classcode             :string
 #  email                 :string
 #  flags                 :string           default([]), not null, is an Array
+#  flagset               :string           default("production"), not null
 #  ip_address            :inet
 #  last_active           :datetime
 #  last_sign_in          :datetime
@@ -62,6 +63,7 @@ class User < ApplicationRecord
   include CheckboxCallback
   include UserCacheable
   include Subscriber
+  include UserFlagset
 
   CHAR_FIELD_MAX_LENGTH = 255
   STAFF_SESSION_DURATION= 4.hours
@@ -82,7 +84,8 @@ class User < ApplicationRecord
   GAMMA = 'gamma'
   PRIVATE = 'private'
   ARCHIVED = 'archived'
-  TESTING_FLAGS = [ALPHA, BETA, GAMMA, PRIVATE, ARCHIVED]
+  COLLEGE_BOARD = 'college_board'
+  TESTING_FLAGS = [ALPHA, BETA, GAMMA, PRIVATE, ARCHIVED, COLLEGE_BOARD]
   PERMISSIONS_FLAGS = %w(auditor purchaser school_point_of_contact)
   VALID_FLAGS = TESTING_FLAGS.dup.concat(PERMISSIONS_FLAGS)
 
@@ -154,6 +157,7 @@ class User < ApplicationRecord
   validates :email,
     presence: { if: :email_required? },
     uniqueness:  { message: :taken, if: :email_required_or_present? },
+    format: { without: /\s/, message: :no_spaces_allowed },
     length: { maximum: CHAR_FIELD_MAX_LENGTH }
 
   validate :username_cannot_be_an_email
@@ -517,32 +521,12 @@ class User < ApplicationRecord
     user_subscriptions.create(subscription: subscription)
   end
 
-  def send_premium_user_subscription_email
-    UserMailer.premium_user_subscription_email(self).deliver_now! if email.present?
-  end
-
-  def send_premium_school_subscription_email(school, admin)
-    UserMailer.premium_school_subscription_email(self, school, admin).deliver_now! if email.present?
-  end
-
   def send_new_admin_email(school)
     UserMailer.new_admin_email(self, school).deliver_now! if email.present?
   end
 
   def send_premium_school_missing_email
     UserMailer.premium_missing_school_email(self).deliver_now! if email.present?
-  end
-
-  def subscribe_to_newsletter
-    return unless role.teacher?
-
-    SubscribeToNewsletterWorker.perform_async(id)
-  end
-
-  def unsubscribe_from_newsletter
-    return unless role.teacher?
-
-    UnsubscribeFromNewsletterWorker.perform_async(id)
   end
 
   def self.create_from_clever(hash, role_override = nil)
@@ -578,7 +562,7 @@ class User < ApplicationRecord
       user_attributes[:school] = school
       user_attributes[:school_type] = School::ALTERNATIVE_SCHOOLS_DISPLAY_NAME_MAP[school.name] || School::US_K12_SCHOOL_DISPLAY_NAME
     else
-      user_attributes[:school] = School.find_by_name(School::NOT_LISTED_SCHOOL_NAME)
+      user_attributes[:school] = School.find_by_name(School::NO_SCHOOL_SELECTED_SCHOOL_NAME)
       user_attributes[:school_type] = School::US_K12_SCHOOL_DISPLAY_NAME
     end
     user_attributes
@@ -660,6 +644,15 @@ class User < ApplicationRecord
 
   def segment_user
     SegmentIntegration::User.new(self)
+  end
+
+  # With the introduction of the SALES_CONTACT we now have a sort of
+  # "prospective user" type of user.  These people haven't signed up
+  # through our onboarding flow, but are given a User record so that we
+  # can sync their data to Vitally.  We need to treat these users specially
+  # during auth flows because they haven't actually signed up.
+  def sales_contact?
+    role == SALES_CONTACT
   end
 
   private def validate_flags

@@ -118,8 +118,9 @@ describe('PromptStep component', () => {
         describe('when a prompt with only one sentence, but containing a known abbreviation is submitted', () => {
           it('should not set custom feedback or a custom feedback key', () => {
             const entry = "Governments should make voting compulsory because the U.S.A. is a democracy."
+            const e = { preventDefault: () => {}, }
             wrapper.setState({ customFeedback: null, customFeedbackKey: null, })
-            wrapper.instance().handleGetFeedbackClick(entry, prompt.prompt_id, prompt.text)
+            wrapper.instance().handleGetFeedbackClick(e, entry, prompt.prompt_id, prompt.text)
             expect(wrapper.state('customFeedback')).toBe(null)
             expect(wrapper.state('customFeedbackKey')).toBe(null)
           })

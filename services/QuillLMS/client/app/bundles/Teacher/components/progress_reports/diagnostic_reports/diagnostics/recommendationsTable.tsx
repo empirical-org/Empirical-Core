@@ -228,7 +228,7 @@ const RecommendationsTable = ({ recommendations, responsesLink, students, select
           {renderHeader(true)}
         </table>
       )}
-      <table className={tableClassName} ref={tableRef} style={tableHasContent ? { paddingLeft: paddingLeft() } : { marginLeft: paddingLeft() }}>
+      <table className={tableClassName} id="demo-onboarding-tour-spotlight-element" ref={tableRef} style={tableHasContent ? { paddingLeft: paddingLeft() } : { marginLeft: paddingLeft() }}>
         {renderHeader(false)}
         {tableHasContent ? null : noDataYet}
         <tbody>

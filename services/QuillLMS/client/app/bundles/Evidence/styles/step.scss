@@ -113,6 +113,9 @@
       color: #808080;
       font-size: 14px;
     }
+    .feedback-wrapper:focus-visible {
+      outline: none;
+    }
     .report-a-problem-section {
       padding: 9px 16px 16px;
       border-radius: 0px 0px 6px 6px;

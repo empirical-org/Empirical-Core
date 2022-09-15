@@ -202,13 +202,13 @@ class Activity < ApplicationRecord
   end
 
   def self.clear_activity_search_cache
-    %w(private_ production_ gamma_ beta_ alpha_ archived_).push('').each do |flag|
-      $redis.del("default_#{flag}activity_search")
+    UserFlagset::FLAGSETS.keys.map{|x| "#{x}_"}.push("").each do |flagset|
+      $redis.del("default_#{flagset}activity_search")
     end
   end
 
   def self.set_activity_search_cache
-    $redis.set('default_activity_search', ActivitySearchWrapper.new.search.to_json)
+    $redis.set('default_activity_search', ActivitySearchWrapper.new('production').search.to_json)
   end
 
   def is_lesson?
@@ -219,10 +219,10 @@ class Activity < ApplicationRecord
     is_evidence?
   end
 
-  def self.search_results(flag)
-    substring = flag ? "#{flag}_" : ""
+  def self.search_results(flagset)
+    substring = flagset ? "#{flagset}_" : ""
     activity_search_results = $redis.get("default_#{substring}activity_search")
-    activity_search_results ||= ActivitySearchWrapper.search_cache_data(flag)
+    activity_search_results ||= ActivitySearchWrapper.search_cache_data(flagset)
     JSON.parse(activity_search_results)
   end
 
@@ -279,6 +279,10 @@ class Activity < ApplicationRecord
     return unless is_evidence?
 
     Evidence::Activity.find_by(parent_activity_id: id)
+  end
+
+  def segment_activity
+    SegmentIntegration::Activity.new(self)
   end
 
   private def update_evidence_title?

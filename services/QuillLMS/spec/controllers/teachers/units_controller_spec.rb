@@ -18,6 +18,14 @@ describe Teachers::UnitsController, type: :controller do
    )
   end
 
+  let!(:classroom_unit2) do
+    create(:classroom_unit,
+     unit: unit2,
+     classroom: classroom,
+     assigned_student_ids: [student.id]
+   )
+  end
+
   let!(:diagnostic) { create(:diagnostic) }
   let!(:diagnostic_activity) { create(:diagnostic_activity)}
   let!(:unit_activity) { create(:unit_activity, unit: unit, activity: diagnostic_activity, due_date: Time.current )}
@@ -61,9 +69,21 @@ describe Teachers::UnitsController, type: :controller do
 
     it 'should render the correct json' do
       get :prohibited_unit_names, as: :json
-      expect(response.body).to eq({
-          prohibitedUnitNames: unit_names.concat(unit_template_names)
-      }.to_json)
+      expect(JSON.parse(response.body)['prohibitedUnitNames']).to match_array(unit_names.concat(unit_template_names))
+    end
+
+    it 'should not include unit names from archived classrooms' do
+      classroom2 = create(:classroom, visible: false)
+      create(:classrooms_teacher, classroom: classroom2, user: teacher, role: 'owner')
+      unit3 = create(:unit, user: teacher)
+      create(:classroom_unit,
+        unit: unit3,
+        classroom: classroom2,
+        assigned_student_ids: [student.id]
+      )
+
+      get :prohibited_unit_names, as: :json
+      expect(JSON.parse(response.body)['prohibitedUnitNames']).not_to include(unit3.name.downcase)
     end
   end
 
@@ -150,6 +170,18 @@ describe Teachers::UnitsController, type: :controller do
         expect(response.status).to eq(200)
         expect(response.body).to eq(expected_response.to_json)
       end
+    end
+
+    it 'should not double-count a user for completed_count if they completed the activity twice' do
+      create(:activity_session,
+        user: student,
+        activity: diagnostic_activity,
+        classroom_unit: classroom_unit
+      )
+
+      get :diagnostic_units
+
+      expect(response.body).to eq(expected_response.to_json)
     end
   end
 
@@ -254,10 +286,15 @@ describe Teachers::UnitsController, type: :controller do
 
     it "sends a 200 status code when it is passed valid data" do
       activity = unit_activity.activity
-      put :update_activities, params: { id: unit.id.to_s, data: {
+      put :update_activities,
+        params: {
+          id: unit.id,
+          data: {
             unit_id: unit.id,
-            activities_data: [{id: activity.id, due_date: nil}]
-          } }
+            activities_data: [{ id: activity.id, due_date: nil }]
+          }
+        }
+
       expect(response.status).to eq(200)
     end
 

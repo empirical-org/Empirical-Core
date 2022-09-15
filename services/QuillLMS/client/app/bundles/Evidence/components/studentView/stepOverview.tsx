@@ -54,6 +54,7 @@ const Step = ({ active, completed, handleClick, step }: StepProps) => {
       <section className="step-overview-step-container">
         <div className="step-overview-step completed">
           <img alt={whiteCheckGreenBackgroundIcon.alt} src={whiteCheckGreenBackgroundIcon.src} />
+          <span className="sr-only">Completed step:</span>
           {html}
         </div>
       </section>

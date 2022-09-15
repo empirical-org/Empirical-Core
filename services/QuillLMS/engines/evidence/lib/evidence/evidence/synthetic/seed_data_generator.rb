@@ -10,7 +10,6 @@ module Evidence
       BLANK = ''
       PERIOD = '.'
       CSV_SUFFIX = '.csv'
-      HTML_TAG_REGEX = /<("[^"]*"|'[^']*'|[^'">])*>/
 
       FULL_COUNT = ENV.fetch('SYNTHETIC_SEED_PASSAGE_COUNT', 128).to_i
       FULL_NOUN_COUNT = ENV.fetch('SYNTHETIC_SEED_NOUN_COUNT', 50).to_i
@@ -46,14 +45,8 @@ module Evidence
         csvs
       end
 
-
       def initialize(passage:, stem:, nouns: [])
-        @passage = passage
-          .gsub(HTML_TAG_REGEX, " ") # remove html tags
-          .gsub("&#x27;", "'") # replace html single quotes
-          .gsub("&quot;","\"") # replace html double quotes
-          .gsub(/\s+/," ") # replace multiple spaces with single space
-          .strip
+        @passage = Evidence::HTMLTagRemover.run(passage)
         @stem = stem
         @nouns = nouns
         @results = []
@@ -107,24 +100,10 @@ module Evidence
           .map{|s| s.last == PERIOD ? s : (s + PERIOD)} # end it in a period, so stem is new sentence.
       end
 
-      def results_csv(file_path)
-        CSV.open(file_path, "w") do |csv|
-          csv << ['Text', 'Seed']
-          results.each {|r| csv << [r.text, r.seed]}
-        end
-      end
-
       def results_csv_string
         CSV.generate do |csv|
           csv << ['Text', 'Seed']
           results.each {|r| csv << [r.text, r.seed]}
-        end
-      end
-
-      def text_guide_csv(file_path)
-        CSV.open(file_path, "w") do |csv|
-          csv << ['Index', 'Passage Chunk']
-          split_passage.each.with_index {|s,i| csv << [i + 1, s]}
         end
       end
 

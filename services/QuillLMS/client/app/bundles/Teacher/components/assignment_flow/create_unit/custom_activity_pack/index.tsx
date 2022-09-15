@@ -12,7 +12,6 @@ import MobileSortMenu from './mobile_sort_menu'
 import useDebounce from '../../../../hooks/useDebounce'
 import { requestGet, requestPost, requestDelete } from '../../../../../../modules/request/index'
 import { Spinner, Snackbar, defaultSnackbarTimeout } from '../../../../../Shared/index'
-import { handleHasAppSetting } from "../../../../../Shared/utils/appSettingAPIs";
 
 const DEBOUNCE_LENGTH = 500
 
@@ -23,6 +22,7 @@ interface CustomActivityPackProps {
   selectedActivities: Activity[],
   setSelectedActivities: (selectedActivities: Activity[]) => void,
   toggleActivitySelection: (activity: Activity) => void,
+  flagset: string,
   activityCategoryEditor?: ActivityCategoryEditor,
   showEvidenceBanner?: boolean,
   showLessonsBanner?: boolean,
@@ -39,7 +39,8 @@ const CustomActivityPack = ({
   activityCategoryEditor,
   showEvidenceBanner,
   showLessonsBanner,
-  saveButtonEnabled
+  saveButtonEnabled,
+  flagset,
 }: CustomActivityPackProps) => {
   const url = queryString.parseUrl(window.location.href, { arrayFormat: 'bracket', parseNumbers: true }).query;
 
@@ -57,6 +58,7 @@ const CustomActivityPack = ({
   const [readabilityGradeLevelFilters, setReadabilityGradeLevelFilters] = React.useState(url.readabilityGradeLevelFilters || [])
   const [activityCategoryFilters, setActivityCategoryFilters] = React.useState(url.activityCategoryFilters || [])
   const [contentPartnerFilters, setContentPartnerFilters] = React.useState(url.contentPartnerFilters || [])
+  const [earlyAccessFilters, setEarlyAccessFilters] = React.useState(url.earlyAccessFilters || [])
   const [topicFilters, setTopicFilters] = React.useState(url.topicFilters || [])
   const [flagFilters, setFlagFilters] = React.useState(url.flagFilters || isStaff ? ['production'] : [])
   const [savedActivityFilters, setSavedActivityFilters] = React.useState([])
@@ -66,7 +68,6 @@ const CustomActivityPack = ({
   const [savedActivityIds, setSavedActivityIds] = React.useState([])
   const [showSnackbar, setShowSnackbar] = React.useState(false)
   const [snackbarText, setSnackbarText] = React.useState('')
-  const [showComprehension, setShowComprehension] = React.useState<boolean>(false);
 
   const debouncedSearch = useDebounce(search, DEBOUNCE_LENGTH);
   const debouncedActivityClassificationFilters = useDebounce(activityClassificationFilters, DEBOUNCE_LENGTH);
@@ -76,6 +77,7 @@ const CustomActivityPack = ({
   const debouncedReadabilityGradeLevelFilters = useDebounce(readabilityGradeLevelFilters, DEBOUNCE_LENGTH);
   const debouncedActivityCategoryFilters = useDebounce(activityCategoryFilters, DEBOUNCE_LENGTH);
   const debouncedContentPartnerFilters = useDebounce(contentPartnerFilters, DEBOUNCE_LENGTH);
+  const debouncedEarlyAccessActivityFilters = useDebounce(earlyAccessFilters, DEBOUNCE_LENGTH);
   const debouncedTopicFilters = useDebounce(topicFilters, DEBOUNCE_LENGTH);
   const debouncedSavedActivityFilters = useDebounce(savedActivityFilters, DEBOUNCE_LENGTH);
   const debouncedFlagFilters = useDebounce(flagFilters, DEBOUNCE_LENGTH);
@@ -83,7 +85,6 @@ const CustomActivityPack = ({
   React.useEffect(() => {
     if (loading) { getActivities() }
     getSavedActivities();
-    handleHasAppSetting({appSettingSetter: setShowComprehension, key: 'comprehension', errorSetter: () => {}})
   }, []);
 
   React.useEffect(() => {
@@ -114,7 +115,7 @@ const CustomActivityPack = ({
     }
   }, [activities])
 
-  React.useEffect(handleFilterChange, [debouncedSearch, debouncedActivityClassificationFilters, debouncedCCSSGradeLevelFilters, debouncedGradeLevelFilters, debouncedELLFilters, debouncedActivityCategoryFilters, debouncedContentPartnerFilters, debouncedReadabilityGradeLevelFilters, debouncedTopicFilters, debouncedSavedActivityFilters, debouncedFlagFilters])
+  React.useEffect(handleFilterChange, [debouncedSearch, debouncedActivityClassificationFilters, debouncedCCSSGradeLevelFilters, debouncedGradeLevelFilters, debouncedELLFilters, debouncedActivityCategoryFilters, debouncedContentPartnerFilters, debouncedEarlyAccessActivityFilters, debouncedReadabilityGradeLevelFilters, debouncedTopicFilters, debouncedSavedActivityFilters, debouncedFlagFilters])
 
   function handleFilterChange() {
     updateQueryString()
@@ -130,11 +131,12 @@ const CustomActivityPack = ({
     number += readabilityGradeLevelFilters.length ? 1 : 0
     number += activityCategoryFilters.length
     number += contentPartnerFilters.length
+    number += earlyAccessFilters.length
     number += topicFilters.length
     number += savedActivityFilters.length ? 1 : 0
     number += flagFilters.length
 
-    activityClassificationGroupings(true).forEach((g) => {
+    activityClassificationGroupings.forEach((g) => {
       if (g.keys.every(key => activityClassificationFilters.includes(key))) {
         number += 1
       } else {
@@ -230,6 +232,11 @@ const CustomActivityPack = ({
     setContentPartnerFilters(newContentPartnerFilters)
   }
 
+  function handleEarlyAccessFilterChange(newEarlyAccessFilters: string[]) {
+    setFilterHistory(prevFilterHistory => prevFilterHistory.concat([{ function: setEarlyAccessFilters, argument: earlyAccessFilters }]))
+    setEarlyAccessFilters(newEarlyAccessFilters)
+  }
+
   function handleTopicFilterChange(newTopicFilters: number[]) {
     setFilterHistory(prevFilterHistory => prevFilterHistory.concat([{ function: setTopicFilters, argument: topicFilters }]))
     setTopicFilters(newTopicFilters)
@@ -308,6 +315,7 @@ const CustomActivityPack = ({
     activityClassificationFilters,
     calculateNumberOfFilters,
     contentPartnerFilters,
+    earlyAccessFilters,
     filterActivities,
     filteredActivities,
     ccssGradeLevelFilters,
@@ -316,6 +324,7 @@ const CustomActivityPack = ({
     handleActivityCategoryFilterChange,
     handleActivityClassificationFilterChange,
     handleContentPartnerFilterChange,
+    handleEarlyAccessFilterChange,
     handleCCSSGradeLevelFilterChange,
     handleELLFilterChange,
     handleGradeLevelFilterChange,
@@ -331,7 +340,7 @@ const CustomActivityPack = ({
     flagFilters,
     isStaff,
     activityCategoryEditor,
-    showComprehension
+    flagset,
   }
 
   const selectedActivitiesFilteredByFlag =  isStaff && !flagFilters.length ? [] : selectedActivities.filter(a => filterByFlag(flagFilters, a))

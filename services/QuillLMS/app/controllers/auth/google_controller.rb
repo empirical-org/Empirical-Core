@@ -41,7 +41,7 @@ class Auth::GoogleController < ApplicationController
 
   private def check_for_authorization
     user = User.find_by('google_id = ? OR email = ?', @profile.google_id&.to_s, @profile.email&.downcase)
-    return if user.nil? || user.google_authorized?
+    return if user.nil? || user.sales_contact? || user.google_authorized?
 
     session[ApplicationController::GOOGLE_OFFLINE_ACCESS_EXPIRED] = true
     redirect_to new_session_path
@@ -85,7 +85,28 @@ class Auth::GoogleController < ApplicationController
     end
     @user = GoogleIntegration::User.new(@profile).update_or_initialize
 
-    return unless @user.new_record? && session[:role].blank?
+    update_role_from_sales_contact
+    show_user_not_found_if_necessary
+  end
+
+  private def in_sign_up_flow?
+    # session[:role] is only set during the account creation workflow, checking for it
+    # lets us differentiate between sign in and sign up
+    session[:role].present?
+  end
+
+  private def update_role_from_sales_contact
+    return unless @user.sales_contact? && in_sign_up_flow?
+
+    @user.update(role: session[:role])
+  end
+
+  private def show_user_not_found_if_necessary
+    # If we're in the sign up flow we never show this error
+    return if in_sign_up_flow?
+    # We only need to show this error if the the sign in process can't find an
+    # existing record, or finds a non-authenticating record.  Otherwise, skip it.
+    return unless @user.new_record? || @user.sales_contact?
 
     flash[:error] = user_not_found_error_message
     flash.keep(:error)
@@ -117,7 +138,6 @@ class Auth::GoogleController < ApplicationController
 
     if @user.save
       CompleteAccountCreation.new(@user, request.remote_ip).call
-      @user.subscribe_to_newsletter
       @teacher_from_google_signup = true
 
       sign_in(@user)

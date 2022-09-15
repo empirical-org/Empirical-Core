@@ -5,13 +5,11 @@ const clickInvalidLink = () => alert('Your Premium Subscription has expired. Ple
 const TeacherLink = ({ name, path, isValid, }) => {
   let linkClass = 'green-link teacher-link';
   if (isValid) {
-    /* eslint-disable react/jsx-no-target-blank */
     return(
       <div>
-        <a className={linkClass} href={path} target="_blank">{name}</a>
+        <a className={linkClass} href={path}>{name}</a>
       </div>
     );
-    /* eslint-enable react/jsx-no-target-blank */
   }
   return(
     <div>

@@ -6,6 +6,7 @@ import EmptyDiagnosticProgressReport from './empty_diagnostic_progress_report.js
 import { Classroom, Activity, Diagnostic, } from './interfaces'
 import { goToAssign, baseDiagnosticImageSrc, } from './shared'
 
+import DemoOnboardingTour, { DEMO_ONBOARDING_DIAGNOSTIC_ACTIVITY_PACKS_INDEX,  } from '../../../shared/demo_onboarding_tour'
 import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from '../../progress_report_constants'
 import { DropdownInput, Tooltip, } from '../../../../../Shared/index'
 import { requestGet } from '../../../../../../modules/request/index';
@@ -48,7 +49,7 @@ const AssignedSection = ({ activity, sectionTitle, isPostDiagnostic, }) => {
         <p>{multipleUsersIcon}<span>Completed: {completed_count} of {assigned_count}</span></p>
       </div>
       <div>
-        <a className="focus-on-light" href={summaryLink(isPostDiagnostic, activity_id, classroom_id, unit_id)}>View results and recommendations</a>
+        <a className="diagnostic-reports-button quill-button fun secondary outlined unbolded focus-on-light" href={summaryLink(isPostDiagnostic, activity_id, classroom_id, unit_id)}>View results and recommendations</a>
       </div>
     </section>
   )
@@ -80,9 +81,9 @@ const PostSection = ({ post, activityId, unitTemplateId, name, }) => {
         <h4>Post</h4>
         <p>{calendarDateIcon}<span>Not assigned</span></p>
       </div>
-      <div>
-        <a className="focus-on-light" href={`/activity_sessions/anonymous?activity_id=${activityId}`} rel="noopener noreferrer" target="_blank">Preview</a>
-        <button className="focus-on-light fake-link" onClick={handleAssignClick} type="button">Assign</button>
+      <div className="post-buttons-container">
+        <a className="diagnostic-reports-button quill-button fun secondary outlined unbolded focus-on-light" href={`/activity_sessions/anonymous?activity_id=${activityId}`} rel="noopener noreferrer" target="_blank">Preview</a>
+        <button className="diagnostic-reports-button quill-button fun secondary outlined unbolded focus-on-light" onClick={handleAssignClick} type="button">Assign</button>
       </div>
     </section>
   )
@@ -162,7 +163,8 @@ const DiagnosticActivityPacks = ({ classrooms, }) => {
   const classroomElements = selectedClassroomId === ALL ? classrooms.map(c => <Classroom classroom={c} key={c.id} />) : <Classroom classroom={classrooms.find(c => c.id === selectedClassroomId)} />
 
   return (
-    <div className="diagnostic-activity-packs-container">
+    <div className="diagnostic-activity-packs-container white-background-accommodate-footer">
+      <DemoOnboardingTour pageKey={DEMO_ONBOARDING_DIAGNOSTIC_ACTIVITY_PACKS_INDEX} />
       <div className="container diagnostic-activity-packs">
         <h1>Diagnostic Reports</h1>
         <DropdownInput

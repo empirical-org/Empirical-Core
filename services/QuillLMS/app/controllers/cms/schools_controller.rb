@@ -274,7 +274,7 @@ class Cms::SchoolsController < Cms::CmsController
     when 'school_name'
       "schools.name ILIKE #{sanitized_fuzzy_param_value}"
     when 'school_city'
-      "schools.city ILIKE #{sanitized_fuzzy_param_value} OR schools.mail_city ILIKE #{sanitized_fuzzy_param_value}"
+      "(schools.city ILIKE #{sanitized_fuzzy_param_value} OR schools.mail_city ILIKE #{sanitized_fuzzy_param_value})"
     when 'school_state'
       "(UPPER(schools.state) = UPPER(#{sanitized_param_value}) OR UPPER(schools.mail_state) = UPPER(#{sanitized_param_value}))"
     when 'school_zip'

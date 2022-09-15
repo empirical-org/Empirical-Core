@@ -6,6 +6,8 @@ class SyncVitallyWorker
   USER_ROLES_TO_SYNC = ['teacher', 'admin', 'auditor']
   FIRST_DAY_OF_SCHOOL_YEAR_MONTH = 7
   FIRST_DAY_OF_SCHOOL_YEAR_DAY = 1
+  # We actually have a 1000/minute rate limit, but we can play it safe
+  ORGANIZATION_RATE_LIMIT_PER_MINUTE = 500
 
   # rubocop:disable Metrics/CyclomaticComplexity
   def perform
@@ -16,8 +18,14 @@ class SyncVitallyWorker
     # Don't synchronize non-production data
     return unless ENV['SYNC_TO_VITALLY'] == 'true'
 
-    districts_to_sync.each do |district|
-      SyncVitallyOrganizationWorker.perform_async(district.id)
+    districts_to_sync.each_slice(ORGANIZATION_RATE_LIMIT_PER_MINUTE).with_index do |slice, index|
+      slice.each do |district|
+        # Our rate limit resets every 60 seconds, but we use a two minute
+        # delay to ensure that we don't run into clock differences between
+        # our servers and Vitally's
+        delay = (2 * index)
+        SyncVitallyOrganizationWorker.perform_in(delay.minutes, district.id)
+      end
     end
     schools_to_sync.each_slice(100) do |school_batch|
       school_ids = school_batch.map { |school| school.id }

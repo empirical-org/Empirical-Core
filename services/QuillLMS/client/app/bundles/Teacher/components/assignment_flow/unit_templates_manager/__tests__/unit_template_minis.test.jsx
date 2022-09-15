@@ -5,8 +5,8 @@ import UnitTemplateMinis from '../unit_template_minis';
 
 const sharedProps = {
   types: [{name: "Diagnostic", id: "diagnostic"}],
-  displayedModels: [
-    {
+  displayedModels: {
+    20: {
       id: 20,
       name: "Sentence Structure Diagnostic",
       time: 30,
@@ -31,7 +31,7 @@ const sharedProps = {
       },
       grades: ['1','2']
     }
-  ],
+  },
   data: {
     categories: [
       { primary_color: "#00c2a2",
@@ -40,8 +40,8 @@ const sharedProps = {
         id: 9}
     ],
     stage: "index",
-    models: [
-      {
+    displayedModels: {
+      20: {
         id: 20,
         name: "Sentence Structure Diagnostic",
         time: 30,
@@ -66,7 +66,7 @@ const sharedProps = {
         },
         grades: ['1','2']
       }
-    ]
+    }
   }
 }
 

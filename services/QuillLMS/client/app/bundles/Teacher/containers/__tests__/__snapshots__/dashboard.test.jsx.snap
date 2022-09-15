@@ -54,7 +54,7 @@ exports[`Dashboard container when all the onboarding items have been checked sho
   user="{\\"name\\":\\"George Costanza\\",\\"flag\\":\\"bosco\\"}"
 >
   <div
-    className="dashboard"
+    className="dashboard white-background-accommodate-footer"
   >
     <div
       className="post-checklist-container loading"
@@ -133,7 +133,7 @@ exports[`Dashboard container when none of the onboarding items have been checked
   user="{\\"name\\":\\"George Costanza\\",\\"flag\\":\\"bosco\\"}"
 >
   <div
-    className="dashboard"
+    className="dashboard white-background-accommodate-footer"
   >
     <div
       className="post-checklist-container loading"

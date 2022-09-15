@@ -41,6 +41,15 @@ describe PasswordResetController do
         expect(response.body).to eq ({ message: 'An account with this email does not exist. Try again.', type: 'email' }.to_json)
       end
     end
+
+    context 'when user exists, but is a sales_contact type' do
+      let!(:user) { create(:user, role: User::SALES_CONTACT) }
+
+      it 'should refresh the token, send the password reset mailer and redirect to index path' do
+        post :create, params: { user: { email: user.email } }
+        expect(response.body).to eq ({ message: 'An account with this email does not exist. Try again.', type: 'email' }.to_json)
+      end
+    end
   end
 
   describe '#show' do

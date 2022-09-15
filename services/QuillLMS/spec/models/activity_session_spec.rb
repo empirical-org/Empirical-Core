@@ -506,15 +506,15 @@ end
   describe '#parse_for_results' do
     let!(:activity_session) { create(:activity_session) }
     let!(:proficient_concept) { create(:concept)}
-    let!(:proficient_concept_result) { create(:concept_result_with_correct_answer, concept: proficient_concept, activity_session: activity_session)}
+    let!(:proficient_concept_result) { create(:concept_result, concept: proficient_concept, activity_session: activity_session, correct: true)}
     let!(:nearly_proficient_concept) { create(:concept)}
-    let!(:nearly_proficient_concept_result_positive1) { create(:concept_result_with_correct_answer, concept: nearly_proficient_concept, activity_session: activity_session)}
-    let!(:nearly_proficient_concept_result_positive2) { create(:concept_result_with_correct_answer, concept: nearly_proficient_concept, activity_session: activity_session)}
-    let!(:nearly_proficient_concept_result_negative) { create(:concept_result_with_incorrect_answer, concept: nearly_proficient_concept, activity_session: activity_session)}
+    let!(:nearly_proficient_concept_result_positive1) { create(:concept_result, concept: nearly_proficient_concept, activity_session: activity_session, correct: true)}
+    let!(:nearly_proficient_concept_result_positive2) { create(:concept_result, concept: nearly_proficient_concept, activity_session: activity_session, correct: true)}
+    let!(:nearly_proficient_concept_result_negative) { create(:concept_result, concept: nearly_proficient_concept, activity_session: activity_session, correct: false)}
     let!(:not_yet_proficient_concept) { create(:concept)}
-    let!(:not_yet_proficient_concept_result) { create(:concept_result_with_incorrect_answer, concept: not_yet_proficient_concept, activity_session: activity_session)}
+    let!(:not_yet_proficient_concept_result) { create(:concept_result, concept: not_yet_proficient_concept, activity_session: activity_session, correct: false)}
     let!(:ignored_concept) { create(:concept, uid: ActivitySession::CONCEPT_UIDS_TO_EXCLUDE_FROM_REPORT[0])}
-    let!(:ignored_concept_result) { create(:concept_result_with_incorrect_answer, concept: ignored_concept, activity_session: activity_session)}
+    let!(:ignored_concept_result) { create(:concept_result, concept: ignored_concept, activity_session: activity_session, correct: false)}
 
     it 'should return an object with concept results organized by category' do
       expect(activity_session.parse_for_results[ActivitySession::PROFICIENT]).to be_present
@@ -543,7 +543,7 @@ end
     it 'should return the ignored concept result if there are at least four concept results for it' do
       3.times do |i|
         ignored_concept_result.id = nil
-        OldConceptResult.create(ignored_concept_result.attributes)
+        ConceptResult.create(ignored_concept_result.attributes)
       end
       expect(activity_session.parse_for_results[ActivitySession::NOT_YET_PROFICIENT]).to include(ignored_concept.name)
     end
@@ -829,30 +829,36 @@ end
     before { activity_session.update(visible: true) }
 
     it 'should create a concept result with the hash given' do
-      expect(OldConceptResult).to receive(:create).with({
-        activity_session_id: activity_session.id,
-        concept_id: concept.id,
-        metadata: metadata,
-        question_type: 'lessons-slide'
-      }).and_call_original
-      ActivitySession.save_concept_results([activity_session], concept_results)
+      Sidekiq::Testing.inline! do
+        expect(ConceptResult).to receive(:init_from_json).with({
+          activity_session_id: activity_session.id,
+          concept_id: concept.id,
+          metadata: metadata,
+          question_type: 'lessons-slide'
+        }.deep_stringify_keys).and_call_original
+        expect do
+          ActivitySession.save_concept_results([activity_session], concept_results)
+        end.to change(ConceptResult, :count).by(1)
+      end
     end
 
-    it 'should enqueue the creation of new concept results based on the OldConceptResult created' do
+    it 'should enqueue the creation of new concept results when handling concept results' do
       expect(SaveActivitySessionConceptResultsWorker).to receive(:perform_async)
       ActivitySession.save_concept_results([activity_session], concept_results)
     end
-  end
 
-  describe '#delete_activity_sessions_with_no_concept_results' do
-    let!(:activity) { create(:activity)}
-    let(:classroom_unit) { create(:classroom_unit) }
-    let!(:activity_session) { create(:activity_session, activity: activity, classroom_unit: classroom_unit) }
-    let!(:activity_session1) { create(:activity_session, activity: activity, classroom_unit: classroom_unit) }
+    it 'should call ErrorNotifier.report with a ConceptResultSubmittedWithoutActivitySessionError if any ConceptResults do not have valid ActivitySessions' do
+      expect(ErrorNotifier).to receive(:report).with(an_instance_of(ActivitySession::ConceptResultSubmittedWithoutActivitySessionError))
 
-    it 'should delete the activity sessions without the concept results' do
-      activity_session.old_concept_results.destroy_all
-      expect{ ActivitySession.delete_activity_sessions_with_no_concept_results([activity_session, activity_session1]) }.to change(ActivitySession, :count).by(-1)
+      concept_results.first[:activity_session_uid] = nil
+
+      ActivitySession.save_concept_results([activity_session], concept_results)
+    end
+
+    it 'should not call ErrorNotifier.report if ConceptResults have all necessary data' do
+      expect(ErrorNotifier).not_to receive(:report).with(an_instance_of(ActivitySession::ConceptResultSubmittedWithoutActivitySessionError))
+
+      ActivitySession.save_concept_results([activity_session], concept_results)
     end
   end
 

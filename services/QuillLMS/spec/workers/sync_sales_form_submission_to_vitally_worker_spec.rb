@@ -10,6 +10,7 @@ describe SyncSalesFormSubmissionToVitallyWorker do
 
   before do
     allow(VitallyRestApi).to receive(:new).and_return(stub_api)
+    allow(stub_api).to receive(:update)
 
     subject.sales_form_submission=(sales_form_submission)
   end
@@ -182,6 +183,34 @@ describe SyncSalesFormSubmissionToVitallyWorker do
 
       expect(stub_api).to receive(:create).with(SalesFormSubmission::VITALLY_SALES_FORMS_TYPE, payload)
 
+      subject.send_opportunity_to_vitally
+    end
+
+    it 'should send update call to update school with custom hasOpportunity trait' do
+      school = create(:school)
+      vitally_school_id = '123'
+      sales_form_submission.update(collection_type: SalesFormSubmission::SCHOOL_COLLECTION_TYPE, source: SalesFormSubmission::FORM_SOURCE, submission_type: 'quote request', school_name: school.name)
+
+      allow(stub_api).to receive(:get).with(SalesFormSubmission::VITALLY_SCHOOLS_TYPE, school.id).and_return({"id": vitally_school_id})
+      allow(stub_api).to receive(:create)
+
+      has_opportunity_payload = { traits: { "vitally.custom.hasOpportunity": true } }
+      expect(stub_api).to receive(:update).with(SalesFormSubmission::VITALLY_SCHOOLS_TYPE, school.id, has_opportunity_payload)
+      subject.send_opportunity_to_vitally
+    end
+
+    it 'should send update call to update a schools district with custom hasOpportunity trait' do
+      district = create(:district)
+      school = create(:school, district: district)
+      vitally_school_id = '123'
+      sales_form_submission.update(collection_type: SalesFormSubmission::SCHOOL_COLLECTION_TYPE, source: SalesFormSubmission::FORM_SOURCE, submission_type: 'quote request', school_name: school.name)
+
+      allow(stub_api).to receive(:get).with(SalesFormSubmission::VITALLY_SCHOOLS_TYPE, school.id).and_return({"id": vitally_school_id})
+      allow(stub_api).to receive(:create)
+
+      has_opportunity_payload = { traits: { "vitally.custom.hasOpportunity": true } }
+      expect(stub_api).to receive(:update).with(SalesFormSubmission::VITALLY_SCHOOLS_TYPE, school.id, has_opportunity_payload)
+      expect(stub_api).to receive(:update).with(SalesFormSubmission::VITALLY_DISTRICTS_TYPE, district.id, has_opportunity_payload)
       subject.send_opportunity_to_vitally
     end
   end

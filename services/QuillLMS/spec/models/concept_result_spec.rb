@@ -58,6 +58,7 @@ RSpec.describe ConceptResult, type: :model do
         {
           "correct": 1,
           "directions": "Combine the sentences. (And)",
+          "instructions": "Combine the sentences. (And)",
           "lastFeedback": "Proofread your work. Check your spelling.",
           "prompt": "Deserts are very dry. Years go by without rain.",
           "attemptNumber": 2,
@@ -66,7 +67,7 @@ RSpec.describe ConceptResult, type: :model do
           "questionScore": 0.8
         }
       end
-      let(:json) do
+      let!(:json) do
         {
           "concept_uid": concept.uid,
           "question_type": "sentence-combining",
@@ -100,16 +101,18 @@ RSpec.describe ConceptResult, type: :model do
       end
 
       it 'should create NormalizedText records when new text is provided' do
-        expect { ConceptResult.create_from_json(json) }
-          .to change(ConceptResultDirections, :count).by(1)
+        expect do
+          cr =  ConceptResult.create_from_json(json)
+          expect(cr.extra_metadata).to be(nil)
+        end.to change(ConceptResultDirections, :count).by(1)
           .and change(ConceptResultPreviousFeedback, :count).by(1)
           .and change(ConceptResultPrompt, :count).by(1)
           .and change(ConceptResultQuestionType, :count).by(1)
-          .and not_change(ConceptResultInstructions, :count)
-        # No change expected above when "instructions" aren't in the payload
+          .and change(ConceptResultInstructions, :count).by(1)
       end
 
       it 'should not link to records when the appropriate keys are not provided' do
+        json[:metadata].delete(:instructions)
         concept_result = ConceptResult.create_from_json(json)
 
         expect(concept_result.reload.concept_result_instructions).to be_nil
@@ -125,6 +128,22 @@ RSpec.describe ConceptResult, type: :model do
         create(:concept_result_directions, text: metadata[:directions])
         expect { ConceptResult.create_from_json(json) }
           .to not_change(ConceptResultDirections, :count)
+      end
+
+      it 'should parse metadata into an object if it is provided as a JSON string' do
+        temp_json = json.clone
+        temp_json[:metadata] = json[:metadata].to_json
+
+        concept_result = ConceptResult.create_from_json(temp_json)
+        expect(concept_result.answer).to eq(json[:metadata][:answer])
+      end
+
+      it 'should parse metadata into an object if it is provided as a to_s serialized string' do
+        temp_json = json.clone
+        temp_json[:metadata] = json[:metadata].stringify_keys.to_s
+
+        concept_result = ConceptResult.create_from_json(temp_json)
+        expect(concept_result.answer).to eq(json[:metadata][:answer])
       end
 
       it 'should extra_metadata containing any keys not part of the normalization process' do
@@ -157,7 +176,7 @@ RSpec.describe ConceptResult, type: :model do
           "questionScore": 0.8
         }
       end
-      let(:old_concept_result) { create(:sentence_combining, activity_session: activity_session, metadata: metadata) }
+      let!(:old_concept_result) { create(:sentence_combining, activity_session: activity_session, metadata: metadata) }
 
       it 'should create a new ConceptResult if none exists for the activity_session-attempt_number-question_number combination of the source ConceptResult' do
         expect do

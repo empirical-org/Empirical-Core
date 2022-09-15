@@ -3,9 +3,6 @@ import { shallow } from 'enzyme';
 
 import HeaderImage from '../../../components/studentView/headerImage';
 
-jest.mock('marked', () => ({
-  default: jest.fn()
-}));
 jest.mock('string-strip-html', () => ({
   default: jest.fn()
 }));

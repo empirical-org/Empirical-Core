@@ -10,31 +10,25 @@ export const lowerBound = (currentPage: number): number => (currentPage - 1) * R
 
 export const upperBound = (currentPage: number): number => currentPage * RESULTS_PER_PAGE;
 
-export const activityClassificationGroupings = (showEvidence: boolean) => {
-  let independentReadingTextsGroup
-  if (showEvidence) {
-    independentReadingTextsGroup = {
-      group: 'Independent: Reading Texts',
-      keys: ['evidence'],
-      new: true
-    }
+export const activityClassificationGroupings = [
+  {
+    group: 'Independent: Reading Texts',
+    keys: ['evidence'],
+    new: true
+  },
+  {
+    group: 'Independent: Language Skills',
+    keys: ['connect', 'sentence', 'passage']
+  },
+  {
+    group: 'Whole Class Instruction',
+    keys: ['lessons']
+  },
+  {
+    group: 'Diagnostics',
+    keys: ['diagnostic']
   }
-  return ([
-    independentReadingTextsGroup,
-    {
-      group: 'Independent: Language Skills',
-      keys: ['connect', 'sentence', 'passage']
-    },
-    {
-      group: 'Whole Class Instruction',
-      keys: ['lessons']
-    },
-    {
-      group: 'Diagnostics',
-      keys: ['diagnostic']
-    }
-  ].filter(Boolean))
-}
+]
 
 export const getNumberFromString = (string) => {
   if (!string) { return null }
@@ -50,6 +44,8 @@ export const ACTIVITY_CLASSIFICATION_FILTERS = 'activityClassificationFilters'
 export const ACTIVITY_CATEGORY_FILTERS = 'activityCategoryFilters'
 
 export const CONTENT_PARTNER_FILTERS = 'contentPartnerFilters'
+
+export const EARLY_ACCESS_FILTERS = 'earlyAccessFilters'
 
 export const FLAG_FILTERS = 'flagFilters'
 
@@ -124,6 +120,11 @@ function filterByContentPartners(contentPartnerFilters: number[], activity: Acti
   return contentPartnerFilters.some(id => activity.content_partners.some(cp => cp.id === id))
 }
 
+function filterByEarlyAccess(earlyAccessFilters: string[], activity: Activity) {
+  if (!earlyAccessFilters.length) { return true }
+  return earlyAccessFilters.some(flag => activity.flags.includes(flag))
+}
+
 function filterByTopic(topicFilters: number[], activity: Activity) {
   if (!topicFilters.length) { return true }
   return topicFilters.some(id => activity.topics.some(cp => cp.id === id))
@@ -147,6 +148,7 @@ export const filters = {
   readabilityGradeLevelFilters: filterByReadabilityGradeLevel,
   [ACTIVITY_CATEGORY_FILTERS]: filterByActivityCategory,
   [CONTENT_PARTNER_FILTERS]: filterByContentPartners,
+  [EARLY_ACCESS_FILTERS]: filterByEarlyAccess,
   [TOPIC_FILTERS]: filterByTopic,
   [SAVED_ACTIVITY_FILTERS]: filterBySavedActivityIds,
   [FLAG_FILTERS]: filterByFlag

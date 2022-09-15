@@ -1,0 +1,178 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SchoolSelector component should render when the dismiss reminder checkbox does not show 1`] = `
+<SchoolSelector
+  handleDismissSchoolSelectionReminder={[Function]}
+  selectSchool={[Function]}
+  showDismissSchoolSelectionReminderCheckbox={false}
+>
+  <div
+    className="school-search-container"
+  >
+    <span />
+    <Input
+      autoComplete="on"
+      className="search"
+      handleChange={[Function]}
+      id="search"
+      label="Search by school name or zip code"
+      type="text"
+      value=""
+    >
+      <div
+        className="input-container  inactive  search "
+        onClick={[Function]}
+        onKeyDown={[Function]}
+        role="button"
+        tabIndex={-1}
+      >
+        <label
+          htmlFor="search"
+        >
+          Search by school name or zip code
+        </label>
+        <input
+          autoComplete="on"
+          id="search"
+          maxLength={10000}
+          onChange={[Function]}
+          onFocus={[Function]}
+          placeholder={false}
+          type="text"
+          value=""
+        />
+      </div>
+    </Input>
+    <div
+      className="schools-list-section"
+    >
+      <div
+        className="title"
+      >
+        Results
+      </div>
+      <div
+        className="default-school-search"
+      >
+        <img
+          alt="Map with a magnifying glass over it"
+          src="undefined/images/onboarding/map-search.svg"
+        />
+        <p
+          className="message"
+        >
+          Search for your school above
+        </p>
+      </div>
+      <div
+        className="school-not-listed"
+      >
+        <button
+          className="interactive-wrapper"
+          onClick={[Function]}
+          type="button"
+        >
+          Skip for now
+        </button>
+        <span />
+      </div>
+    </div>
+  </div>
+</SchoolSelector>
+`;
+
+exports[`SchoolSelector component should render when the dismiss reminder checkbox does show 1`] = `
+<SchoolSelector
+  handleDismissSchoolSelectionReminder={[Function]}
+  selectSchool={[Function]}
+  showDismissSchoolSelectionReminderCheckbox={true}
+>
+  <div
+    className="school-search-container"
+  >
+    <span />
+    <Input
+      autoComplete="on"
+      className="search"
+      handleChange={[Function]}
+      id="search"
+      label="Search by school name or zip code"
+      type="text"
+      value=""
+    >
+      <div
+        className="input-container  inactive  search "
+        onClick={[Function]}
+        onKeyDown={[Function]}
+        role="button"
+        tabIndex={-1}
+      >
+        <label
+          htmlFor="search"
+        >
+          Search by school name or zip code
+        </label>
+        <input
+          autoComplete="on"
+          id="search"
+          maxLength={10000}
+          onChange={[Function]}
+          onFocus={[Function]}
+          placeholder={false}
+          type="text"
+          value=""
+        />
+      </div>
+    </Input>
+    <div
+      className="schools-list-section"
+    >
+      <div
+        className="title"
+      >
+        Results
+      </div>
+      <div
+        className="default-school-search"
+      >
+        <img
+          alt="Map with a magnifying glass over it"
+          src="undefined/images/onboarding/map-search.svg"
+        />
+        <p
+          className="message"
+        >
+          Search for your school above
+        </p>
+      </div>
+      <div
+        className="school-not-listed"
+      >
+        <button
+          className="interactive-wrapper"
+          onClick={[Function]}
+          type="button"
+        >
+          Skip for now
+        </button>
+        <div
+          className="checkbox-wrapper"
+        >
+          <button
+            aria-checked={false}
+            aria-label="Unchecked"
+            className="quill-checkbox unselected focus-on-light"
+            onClick={[Function]}
+            role="checkbox"
+            type="button"
+          />
+           
+          <span>
+            Don't remind me again to select a school
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</SchoolSelector>
+`;

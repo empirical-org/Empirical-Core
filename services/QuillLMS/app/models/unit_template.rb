@@ -35,7 +35,7 @@ class UnitTemplate < ApplicationRecord
   serialize :grades, Array
 
   validates :flag,
-    inclusion: { in: %w(archived alpha beta gamma production private) },
+    inclusion: { in: Flags::FLAGS },
     allow_nil: true
 
   PRODUCTION = 'production'

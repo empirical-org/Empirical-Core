@@ -10,6 +10,7 @@
 #  classcode             :string
 #  email                 :string
 #  flags                 :string           default([]), not null, is an Array
+#  flagset               :string           default("production"), not null
 #  ip_address            :inet
 #  last_active           :datetime
 #  last_sign_in          :datetime
@@ -480,34 +481,6 @@ describe User, type: :model do
     end
   end
 
-  describe '#send_premium_user_subscription_email' do
-    let(:user) { create(:user) }
-
-    before do
-      allow(UserMailer).to receive(:premium_user_subscription_email).and_return(double(:email, deliver_now!: true))
-    end
-
-    it 'should send the premium user subscription email' do
-      expect(UserMailer).to receive(:premium_user_subscription_email).with(user)
-      user.send_premium_user_subscription_email
-    end
-  end
-
-  describe '#send_premium_school_subscription_email' do
-    let(:user)  { create(:user) }
-    let(:school) { double(:school) }
-    let(:admin) { double(:admin) }
-
-    before do
-      allow(UserMailer).to receive(:premium_school_subscription_email).and_return(double(:email, deliver_now!: true))
-    end
-
-    it 'should send the premium school subscription email' do
-      expect(UserMailer).to receive(:premium_school_subscription_email).with(user, school, admin)
-      user.send_premium_school_subscription_email(school, admin)
-    end
-  end
-
   describe '#send_new_admin_email' do
     let(:user) { create(:user) }
     let(:school) { double(:school) }
@@ -565,22 +538,31 @@ describe User, type: :model do
   describe '#generate_teacher_account_info' do
     let(:user) { create(:user) }
     let(:premium_state) { double(:premium_state) }
-    let(:school) { create(:school) }
-    let(:hash) {
-      user.attributes.merge!({
-        subscription: {'subscriptionType' => premium_state},
-        school: school,
-        school_type: School::US_K12_SCHOOL_DISPLAY_NAME
-        })
-    }
 
     before do
-      allow(user).to receive(:school).and_return(school)
-      allow(user).to receive(:subscription).and_return(false)
+      allow(user).to receive(:subscription).and_return(nil)
       allow(user).to receive(:premium_state).and_return(premium_state)
     end
 
     it 'should give the correct hash' do
+      school = create(:school)
+      SchoolsUsers.create(school: school, user: user)
+      user.reload
+      hash = user.attributes.merge!({
+        subscription: {'subscriptionType' => premium_state},
+        school: school,
+        school_type: School::US_K12_SCHOOL_DISPLAY_NAME
+      })
+      expect(user.generate_teacher_account_info).to eq(hash)
+    end
+
+    it 'should have the no school selected school if the user has no school' do
+      school = create(:school, name: School::NO_SCHOOL_SELECTED_SCHOOL_NAME)
+      hash = user.attributes.merge!({
+        subscription: {'subscriptionType' => premium_state},
+        school: school,
+        school_type: School::US_K12_SCHOOL_DISPLAY_NAME
+      })
       expect(user.generate_teacher_account_info).to eq(hash)
     end
   end
@@ -928,6 +910,12 @@ describe User, type: :model do
         expect(user).to be_valid
       end
 
+      it 'is invalid when there is a space in it' do
+        user = build(:user,  email: 'test@test.lan ')
+        user.save
+        expect(user.errors[:email]).to include("That email is not valid because it has a space. Try another.")
+      end
+
       context 'when role requires email' do
         it 'is invalid without email' do
           user.safe_role_assignment 'teacher'
@@ -1126,50 +1114,6 @@ describe User, type: :model do
 
       it 'returns "name, name"' do
         expect(sort_name).to eq "#{name}, #{name}"
-      end
-    end
-  end
-
-  describe '#subscribe_to_newsletter' do
-    let(:user) { build(:user, role: role, send_newsletter: newsletter) }
-
-    context 'role = teacher and send_newsletter = false' do
-      let(:newsletter) { false }
-      let(:role) { 'teacher' }
-
-      it 'does call the newsletter worker' do
-        expect(SubscribeToNewsletterWorker).to receive(:perform_async)
-        user.subscribe_to_newsletter
-      end
-    end
-
-    context 'role = teacher and send_newsletter = true' do
-      let(:newsletter) { true }
-      let(:role) { 'teacher' }
-
-      it 'does call the newsletter worker' do
-        expect(SubscribeToNewsletterWorker).to receive(:perform_async)
-        user.subscribe_to_newsletter
-      end
-    end
-
-    context 'role = student and send_newsletter = false' do
-      let(:newsletter) { false }
-      let(:role) { 'student' }
-
-      it 'does not call the newsletter worker' do
-        expect(SubscribeToNewsletterWorker).to_not receive(:perform_async)
-        user.subscribe_to_newsletter
-      end
-    end
-
-    context 'role = student and send_newsletter = true' do
-      let(:newsletter) { true }
-      let(:role) { 'student' }
-
-      it 'does not call the newsletter worker' do
-        expect(SubscribeToNewsletterWorker).to_not receive(:perform_async)
-        user.subscribe_to_newsletter
       end
     end
   end

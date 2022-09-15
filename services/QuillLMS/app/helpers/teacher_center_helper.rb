@@ -8,12 +8,6 @@ module TeacherCenterHelper
   ALL = 'All'
 
   def teacher_center_tabs(large: true)
-    is_comprehension_user = current_user && AppSetting.enabled?(name: AppSetting::COMPREHENSION, user: current_user)
-    comprehension_tab = {
-      id: BlogPost::USING_QUILL_FOR_READING_COMPREHENSION,
-      name: COMPREHENSION,
-      url: 'teacher-center/topic/using-quill-for-reading-comprehension'
-    }
     premium_tab = {
       id: PREMIUM,
       name: PREMIUM,
@@ -24,6 +18,11 @@ module TeacherCenterHelper
         id: BlogPost::ALL_RESOURCES,
         name: ALL,
         url: 'teacher-center'
+      },
+      {
+        id: BlogPost::USING_QUILL_FOR_READING_COMPREHENSION,
+        name: COMPREHENSION,
+        url: 'teacher-center/topic/using-quill-for-reading-comprehension'
       },
       {
         id: BlogPost::GETTING_STARTED,
@@ -46,7 +45,6 @@ module TeacherCenterHelper
         url: 'faq'
       }
     ]
-    tabs.insert(1, comprehension_tab) if is_comprehension_user
     tabs << premium_tab if !current_user
     tabs
   end

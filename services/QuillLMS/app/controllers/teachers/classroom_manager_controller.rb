@@ -162,6 +162,7 @@ class Teachers::ClassroomManagerController < ApplicationController
     @google_or_clever_just_set = session[ApplicationController::GOOGLE_OR_CLEVER_JUST_SET]
     session[ApplicationController::GOOGLE_OR_CLEVER_JUST_SET] = nil
     @account_info = current_user.generate_teacher_account_info
+    @show_dismiss_school_selection_reminder_checkbox = show_school_selection_reminders
   end
 
   def update_my_account
@@ -244,6 +245,10 @@ class Teachers::ClassroomManagerController < ApplicationController
     return redirect_to params[:redirect] if params[:redirect]
 
     redirect_to '/profile'
+  end
+
+  def demo_id
+    render json: { current_user_demo_id: session[:demo_id] }
   end
 
   def preview_as_student

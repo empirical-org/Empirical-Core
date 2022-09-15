@@ -21,7 +21,7 @@ module Evidence
     let(:chunk2_response) {['four response']}
     let(:seed_labels) {['full_passage_temp1','full_passage_temp0.9', 'full_passage_noun_noun1', 'text_chunk_1', 'text_chunk_2']}
 
-    let(:data) { Evidence::Synthetic::SeedDataGenerator.new(passage: passage, stem: stem, nouns: nouns)}
+    let(:data) { described_class.new(passage: passage, stem: stem, nouns: nouns)}
 
     before do
       stub_const("Evidence::Synthetic::SeedDataGenerator::WORD_SPLIT_COUNT", 4)
@@ -40,7 +40,7 @@ module Evidence
       end
 
       let(:passage_dirty) {' <p><strong>&quot;It&#x27;s</strong> a good day&quot;, he said.</p>  '}
-      let(:data_dirty) { Evidence::Synthetic::SeedDataGenerator.new(passage: passage_dirty, stem: stem, nouns: nouns)}
+      let(:data_dirty) { described_class.new(passage: passage_dirty, stem: stem, nouns: nouns)}
 
       it "should clean passage of all special characters" do
         expect(data_dirty.passage).to eq("\"It's a good day\", he said.")
@@ -82,7 +82,7 @@ module Evidence
       end
 
       it "should generate a hash" do
-        output = Evidence::Synthetic::SeedDataGenerator.csvs_for_activity(activity_id: activity.id, nouns: ['hello'])
+        output = described_class.csvs_for_activity(activity_id: activity.id, nouns: ['hello'])
 
         expect(output.class).to be Hash
         expect(output.keys).to eq(['Some_Activity_Name_because.csv', 'Some_Activity_Name_passage_chunks.csv'])

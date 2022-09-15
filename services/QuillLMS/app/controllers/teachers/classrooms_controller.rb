@@ -67,7 +67,8 @@ class Teachers::ClassroomsController < ApplicationController
   def remove_students
     StudentsClassrooms
       .where(student_id: params[:student_ids], classroom_id: params[:classroom_id])
-      .each { |sc| sc.archive }
+      .each { |sc| sc.archive! }
+
     render json: {}
   end
 
@@ -182,8 +183,6 @@ class Teachers::ClassroomsController < ApplicationController
   # rubocop:enable Metrics/CyclomaticComplexity
 
   private def format_classrooms_for_index
-    has_classroom_order = ClassroomsTeacher.where(user_id: current_user.id).all? { |classroom| classroom.order }
-
     classrooms = Classroom.unscoped
       .joins(:classrooms_teachers)
       .where(classrooms_teachers: {user_id: current_user.id})
@@ -192,7 +191,7 @@ class Teachers::ClassroomsController < ApplicationController
         coteacher_classroom_invitations: :invitation,
         classrooms_teachers: :user
       )
-      .order(has_classroom_order ? 'classrooms_teachers.order' : 'created_at DESC')
+      .order('classrooms_teachers.order ASC, created_at DESC')
 
     student_ids = classrooms.flat_map(&:students).map(&:id)
 

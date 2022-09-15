@@ -167,3 +167,8 @@ export const warningIcon = {
   alt: 'Warning icon',
   src: `${process.env.CDN_URL}/images/icons/warning-icon.svg`
 }
+
+export const disclosureIcon = {
+  alt: '',
+  src: `${process.env.CDN_URL}/images/icons/disclosure.svg`
+}

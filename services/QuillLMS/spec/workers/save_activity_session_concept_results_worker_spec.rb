@@ -5,25 +5,42 @@ require 'rails_helper'
 describe SaveActivitySessionConceptResultsWorker, type: :worker do
 
   context '#perform' do
-    let(:old_concept_result) { create(:old_concept_result) }
+    let(:activity_session) { create(:activity_session_without_concept_results) }
+    let(:concept) { create(:concept) }
+    let(:json_payload) {
+      {
+        activity_session_id: activity_session.id,
+        concept_id: concept.id,
+        question_type: "sentence-writing",
+        metadata: {
+          answer: "This is a response answer",
+          attemptNumber: 1,
+          correct: 1,
+          directions: "This a student response directions 2.",
+          instructions: "This a student response directions 2.",
+          lastFeedback: "This a student response answer 2.",
+          prompt: "This a student response prompt 2.",
+          questionNumber: 1
+        }
+      }
+    }
 
-    it 'should save new ConceptResult records based on an array of OldConceptResult ids' do
-      expect { subject.perform([old_concept_result.id]) }
+    it 'should save new ConceptResult records' do
+      expect { subject.perform(json_payload) }
         .to change(ConceptResult, :count).by(1)
-      expect(old_concept_result.concept_result).to be
+      expect(activity_session.reload.concept_results).to be
     end
 
-    it 'should create new ConceptResults that are related to the same ActivitySession as the original OldConceptResult' do
-      subject.perform([old_concept_result.id])
-
-      expect(old_concept_result.concept_result.activity_session).to eq(old_concept_result.activity_session)
+    it 'should save new OldConceptResult records linked to the new ConceptResult' do
+      expect { subject.perform(json_payload) }
+        .to change(OldConceptResult, :count).by(1)
+      expect(activity_session.reload.concept_results.first.old_concept_result).to be
     end
 
-    it 'should re-enqueue old_concept_result.ids if new concept_results are not created' do
-      expect(ConceptResult).to receive(:find_or_create_from_old_concept_result).and_return(nil)
-      expect(SaveActivitySessionConceptResultsWorker).to receive(:perform_async).with([old_concept_result.id])
-
-      subject.perform([old_concept_result.id])
+    it 'should handle creating multiple records if an array is passed in' do
+      expect { subject.perform([json_payload, json_payload]) }
+        .to change(ConceptResult, :count).by(2)
+      expect(activity_session.reload.concept_results.count).to eq(2)
     end
   end
 end

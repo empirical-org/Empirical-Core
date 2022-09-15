@@ -3,21 +3,8 @@
 class ActivitySearch
   # filters = hash of model_name/model_id pairs
   # sort = hash with 'field' and 'asc_or_desc' (?) as keys
-  def self.search(flag)
-    case flag
-    when 'archived'
-      flags = "'private', 'alpha', 'beta', 'gamma', 'production', 'archived'"
-    when 'private'
-      flags = "'private', 'alpha', 'beta', 'gamma', 'production'"
-    when 'alpha'
-      flags = "'alpha', 'beta', 'gamma', 'production'"
-    when 'beta'
-      flags = "'beta', 'production'"
-    when 'gamma'
-      flags = "'gamma', 'production', 'beta'"
-    else
-      flags = "'production'"
-    end
+  def self.search(flagset)
+    flags = UserFlagset.flags_for_flagset(flagset).to_s
 
     RawSqlRunner.execute(
       <<-SQL

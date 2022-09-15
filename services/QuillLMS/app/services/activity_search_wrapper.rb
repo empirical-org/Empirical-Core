@@ -3,13 +3,13 @@
 class ActivitySearchWrapper
   RESULTS_PER_PAGE = 12
 
-  def initialize(flag=nil, user_id=nil)
+  def initialize(flagset=nil, user_id=nil)
     @activities = nil
     @activity_classifications = []
     @standards = []
     @activity_categories = []
     @standard_levels = []
-    @flag = flag
+    @flagset = flagset
     @user_id = user_id
   end
 
@@ -30,9 +30,9 @@ class ActivitySearchWrapper
     }
   end
 
-  def self.search_cache_data(flag = nil)
-    substring = flag ? "#{flag}_" : ""
-    activity_search_json = ActivitySearchWrapper.new(flag).search.to_json
+  def self.search_cache_data(flagset = nil)
+    substring = flagset ? "#{flagset}_" : ""
+    activity_search_json = ActivitySearchWrapper.new(flagset).search.to_json
     $redis.set("default_#{substring}activity_search", activity_search_json)
     activity_search_json
   end
@@ -44,7 +44,7 @@ class ActivitySearchWrapper
   end
 
   private def activity_search
-    @activities = ActivitySearch.search(@flag)
+    @activities = ActivitySearch.search(@flagset)
   end
 
   private def formatted_search_results

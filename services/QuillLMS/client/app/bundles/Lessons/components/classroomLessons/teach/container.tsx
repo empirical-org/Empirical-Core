@@ -47,9 +47,15 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
 
     const classroomUnitId: ClassroomUnitId|null = getParameterByName('classroom_unit_id')
     const activityUid = props.match.params.lessonID
+    const classroomSessionId = classroomUnitId ? classroomUnitId.concat(activityUid) : null
+
     this.state = {
       classroomUnitId,
-      classroomSessionId: classroomUnitId ? classroomUnitId.concat(activityUid) : null
+      classroomSessionId
+    }
+
+    if (classroomSessionId) {
+      registerTeacherPresence(classroomSessionId);
     }
 
     props.dispatch(getCurrentUserAndCoteachersFromLMS())
@@ -64,7 +70,6 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
       startLesson(classroomUnitId, classroomSessionId, () => {
         dispatch(startListeningToSessionForTeacher(activityId, classroomUnitId, classroomSessionId));
       });
-      registerTeacherPresence(classroomSessionId);
     } else {
       this.setupPreviewSession()
     }
@@ -79,6 +84,11 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
 
   UNSAFE_componentWillReceiveProps(nextProps) {
     this.setInitialData(nextProps)
+  }
+
+  componentDidUpdate() {
+    const { classroomSessionId, } = this.state
+    registerTeacherPresence(classroomSessionId)
   }
 
   componentWillUnmount() {

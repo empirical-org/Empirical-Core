@@ -22,18 +22,23 @@
       .name-and-checkbox-wrapper {
         display: flex;
         align-items: flex-start;
+        width: 100%;
         .quill-checkbox {
           margin-right: 16px;
           margin-top: 2px;
+        }
+        .quill-tooltip-trigger {
+          white-space: normal;
+          width: 100%;
         }
       }
       .buttons-wrapper {
         display: flex;
         .non-toggle-buttons {
           display: flex;
-          .interactive-wrapper {
-            height: min-content;
-          }
+        }
+        .interactive-wrapper {
+          height: min-content;
         }
       }
       .preview-link, .remove-button {
@@ -156,10 +161,14 @@
       img {
         margin-top: 3px;
       }
-      .grade-range {
-        width: 58px;
-        margin-right: 16px;
-        display: inline-block;
+      .grade-range-and-label {
+        display: flex;
+        .grade-range {
+          width: 64px;
+          margin-right: 16px;
+          display: inline-block;
+          white-space: nowrap;
+        }
       }
     }
     &.not-selected:hover {
@@ -201,6 +210,14 @@
     }
     @media (max-width: 1050px) {
       margin: 0px 16px;
+      .quill-tooltip-wrapper {
+        white-space: normal;
+        width: 100% !important;
+      }
+      .quill-tooltip-trigger {
+        white-space: normal;
+        width: 100%;
+      }
       .second-line .classification-concept-topic-wrapper {
         display: flex;
         flex-direction: column;
@@ -252,9 +269,9 @@
         .vertical-divider {
           display: none;
         }
-      }
-      .grade-range {
-        margin: 8px 0px;
+        .grade-range, .standard-level {
+          margin: 0px 0px 8px;
+        }
       }
       .non-toggle-buttons {
         .interactive-wrapper {

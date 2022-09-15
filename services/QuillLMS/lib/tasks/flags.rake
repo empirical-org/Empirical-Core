@@ -3,7 +3,41 @@
 require 'csv'
 
 namespace :flags do
+  namespace :activities do
+    desc 'Add college_board flag to all activity holders of gamma flag'
+    task :add_college_board_flag_to_gamma_activities => :environment do
+      ids = Activity.find_by_sql("select id from activities where flags::text[] @> ARRAY['gamma']").pluck(:id)
+      puts ids
+      ids.each do |id|
+        activity = Activity.find(id)
+        activity.update!(flags: activity.flags << 'college_board')
+      end
+    end
+  end
+
   namespace :users do
+    desc 'add custom flagsets for quill.org emails'
+    task :add_custom_flagsets => :environment do
+      ids = User.find_by_sql(
+        "select id from users where email LIKE '%quill.org'"
+      ).pluck(:id)
+      puts ids
+      ids.each do |id|
+        user = User.find(id)
+        user.update!(flagset: 'alpha')
+      end
+    end
+
+    desc 'Add college_board flag to all holders of gamma flag'
+    task :add_college_board_flag_to_gamma_users => :environment do
+      ids = User.find_by_sql("select id from users where flags::text[] @> ARRAY['gamma']").pluck(:id)
+      puts ids
+      ids.each do |id|
+        user = User.find(id)
+        user.update!(flags: user.flags << 'college_board')
+      end
+    end
+
     desc 'Update User.flags from a CSV file'
     task :update_from_csv, [:filepath] => :environment do |t, args|
       iostream = File.read(args[:filepath])
