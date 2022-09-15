@@ -163,7 +163,7 @@ const DiagnosticActivityPacks = ({ classrooms, }) => {
   const classroomElements = selectedClassroomId === ALL ? classrooms.map(c => <Classroom classroom={c} key={c.id} />) : <Classroom classroom={classrooms.find(c => c.id === selectedClassroomId)} />
 
   return (
-    <div className="diagnostic-activity-packs-container">
+    <div className="diagnostic-activity-packs-container white-background-accommodate-footer">
       <DemoOnboardingTour pageKey={DEMO_ONBOARDING_DIAGNOSTIC_ACTIVITY_PACKS_INDEX} />
       <div className="container diagnostic-activity-packs">
         <h1>Diagnostic Reports</h1>

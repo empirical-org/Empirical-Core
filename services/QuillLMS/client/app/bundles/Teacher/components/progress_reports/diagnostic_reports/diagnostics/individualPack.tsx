@@ -208,7 +208,7 @@ const IndividualPack = ({ classrooms, history, match, location, lessonsBannerIsS
   }
 
   return (
-    <div className="diagnostic-individual-pack">
+    <div className="diagnostic-individual-pack white-background-accommodate-footer">
       <nav className="diagnostic-report-navigation hide-on-mobile">
         {classroomDropdown}
         <DiagnosticSection activity={activeDiagnostic.pre} search={location.search} />
