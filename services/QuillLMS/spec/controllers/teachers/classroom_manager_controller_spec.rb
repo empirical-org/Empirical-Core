@@ -676,7 +676,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
           {activity.id => activity_session.id},
           {activity.id => activity_session.id},
           {activity.id => activity_session.id},
-          {activity.id => activity_session.id},
+          {activity.id => activity_session.id}
         ]
       }
     end
