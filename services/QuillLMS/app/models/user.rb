@@ -662,7 +662,7 @@ class User < ApplicationRecord
 
     if school_timezone.present?
       self.time_zone = school_timezone
-    elsif ip_address.present?
+    else
       geocoder_results = Geocoder.search(ip_address)
       self.time_zone = geocoder_results&.first&.timezone
     end
