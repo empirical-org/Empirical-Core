@@ -663,10 +663,10 @@ describe Teachers::ClassroomManagerController, type: :controller do
     let!(:teacher) { create(:teacher) }
     let!(:demo_teacher) { create(:teacher, email: Demo::ReportDemoCreator::EMAIL)}
     let!(:analyzer) { double(:analyzer, track: true) }
+
     let(:activity) { create(:activity, follow_up_activity: nil) }
     let(:activity_session) { create(:activity_session, activity: activity) }
     let(:concept_result) {create(:concept_result, activity_session: activity_session)}
-
     let(:activity_pack_config) do
       {
         name: "Test Activity Pack",
@@ -680,7 +680,6 @@ describe Teachers::ClassroomManagerController, type: :controller do
         ]
       }
     end
-
     let(:demo_config) { [activity_pack_config] }
 
     before do

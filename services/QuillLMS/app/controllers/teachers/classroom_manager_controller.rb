@@ -235,6 +235,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   def view_demo
     demo = User.find_by_email(Demo::ReportDemoCreator::EMAIL)
     return render json: {errors: "Demo Account does not exist"}, status: 422 if demo.nil?
+
     Demo::ReportDemoCreator.reset_account_changes(demo)
 
     self.current_user_demo_id = demo.id

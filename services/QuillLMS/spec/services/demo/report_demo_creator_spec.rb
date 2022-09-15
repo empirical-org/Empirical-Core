@@ -21,7 +21,6 @@ RSpec.describe Demo::ReportDemoCreator do
     expect(teacher.email).to eq(email)
     expect(teacher.role).to eq("teacher")
     expect(teacher.flags).to eq(["beta"])
-    expect(AppSetting.find_by(name: Demo::ReportDemoCreator::EVIDENCE_APP_SETTING).user_ids_allow_list).to eq([teacher.id])
   end
 
   it 'creates a classroom for the teacher' do

@@ -347,7 +347,7 @@ module Demo::ReportDemoCreator
   end
 
   def self.non_demo_classrooms(teacher)
-    teacher.classrooms_i_teach.select {|c| c.code != classcode(teacher.id) }
+    teacher.classrooms_i_teach.reject {|c| c.code == classcode(teacher.id) }
   end
 
 
