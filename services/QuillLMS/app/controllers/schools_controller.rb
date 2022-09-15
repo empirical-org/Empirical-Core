@@ -107,6 +107,7 @@ class SchoolsController < ApplicationController
         school_user.school_id = school.id
         school_user.save
         find_or_create_checkbox('Add School', current_user)
+        current_user.set_time_zone
         render json: { school: school, subscription: school.subscription }
       }
     end
