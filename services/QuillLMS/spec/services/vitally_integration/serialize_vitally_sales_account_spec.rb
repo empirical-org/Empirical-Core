@@ -49,7 +49,7 @@ describe 'SerializeVitallySalesAccount' do
   it 'includes the organizationId if a different school in the district has a subscription' do
     different_school = create(:school, district: district)
     create(:school_subscription, school: different_school, subscription: subscription)
-   
+
     school_data = SerializeVitallySalesAccount.new(school).data
 
     expect(school_data).to include(organizationId: school.district_id.to_s)
