@@ -6,7 +6,7 @@ describe SyncSalesFormSubmissionToVitallyWorker do
   subject { described_class.new }
 
   let(:sales_form_submission) { create(:sales_form_submission) }
-  let!(:stub_api) { double.as_null_object }
+  let!(:stub_api) { double }
 
   before do
     allow(VitallyRestApi).to receive(:new).and_return(stub_api)
@@ -17,8 +17,7 @@ describe SyncSalesFormSubmissionToVitallyWorker do
 
   describe '#perform' do
     it 'should run all three steps: create school/district in vitally, create user in vitally, send opportunity to vitally' do
-      district = create(:district)
-      create(:school, name: sales_form_submission.school_name, district: district)
+      create(:school, name: sales_form_submission.school_name)
 
       fake_id = 1
 
@@ -183,8 +182,7 @@ describe SyncSalesFormSubmissionToVitallyWorker do
     end
 
     it 'should send a payload with the id for Unknown School if the school does not exist in the db' do
-      district = create(:district)
-      school = create(:school, name: 'Unknown School', district: district)
+      school = create(:school, name: 'Unknown School')
       sales_form_submission.update(collection_type: SalesFormSubmission::SCHOOL_COLLECTION_TYPE, submission_type: 'quote request', school_name: 'nonexistent school name', source: SalesFormSubmission::FORM_SOURCE)
 
       vitally_school_id = '123'
@@ -218,8 +216,7 @@ describe SyncSalesFormSubmissionToVitallyWorker do
     end
 
     it 'should send update call to update school with custom hasOpportunity trait' do
-      district = create(:district)
-      school = create(:school, district: district)
+      school = create(:school)
       vitally_school_id = '123'
       sales_form_submission.update(collection_type: SalesFormSubmission::SCHOOL_COLLECTION_TYPE, source: SalesFormSubmission::FORM_SOURCE, submission_type: 'quote request', school_name: school.name)
 
