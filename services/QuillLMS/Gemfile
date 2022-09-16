@@ -150,7 +150,8 @@ gem 'rb-readline'
 gem 'awesome_print'
 
 group :production, :staging do
-  gem 'rails_autoscale_agent'
+  gem 'rails-autoscale-web'
+  gem 'rails-autoscale-sidekiq'
   gem 'lograge'
   gem 'sqreen'
 end

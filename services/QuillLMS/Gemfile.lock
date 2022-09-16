@@ -561,6 +561,13 @@ GEM
       bundler (>= 1.15.0)
       railties (= 6.1.6)
       sprockets-rails (>= 2.0.0)
+    rails-autoscale-core (1.0.1)
+    rails-autoscale-sidekiq (1.0.1)
+      rails-autoscale-core
+      sidekiq (>= 5.0)
+    rails-autoscale-web (1.0.1)
+      rails-autoscale-core
+      railties
     rails-controller-testing (0.0.3)
       rails (>= 4.2)
     rails-dom-testing (2.0.3)
@@ -580,7 +587,6 @@ GEM
       rails (>= 5.0, < 7)
       remotipart (~> 1.3)
       sassc-rails (>= 1.3, < 3)
-    rails_autoscale_agent (0.10.2)
     railties (6.1.6)
       actionpack (= 6.1.6)
       activesupport (= 6.1.6)
@@ -875,9 +881,10 @@ DEPENDENCIES
   rack-host-redirect
   rack-test (~> 0.6.3)
   rails (= 6.1.6)
+  rails-autoscale-sidekiq
+  rails-autoscale-web
   rails-controller-testing
   rails_admin (~> 2.2)
-  rails_autoscale_agent
   ranked-model (~> 0.4.3)
   rb-readline
   react_on_rails (= 11.3.0)
