@@ -193,12 +193,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
   # rubocop:enable Metrics/CyclomaticComplexity
 
   def assign_selected_packs
-    if params[:selections]
-      params[:selections].map { |s| s['id']}.each do |ut_id|
-        ut = UnitTemplate.find(ut_id)
-        Unit.unscoped.find_or_create_by(unit_template_id: ut.id, name: ut.name, user_id: current_user.id)
-      end
-    end
+    find_or_create_selected_packs
     create_or_update_selected_packs
     render json: { data: 'Hi' }
   end
@@ -299,34 +294,50 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
       $redis.set("user_id:#{current_user.id}_lesson_diagnostic_recommendations_start_time", Time.current)
       return render json: {}, status: 401 unless current_user.classrooms_i_teach.map(&:id).include?(params[:classroom_id].to_i)
 
+      last_worker_index = params[:unit_template_ids].length - 1
+
       params[:unit_template_ids].each_with_index do |unit_template_id, index|
-        last = (params[:unit_template_ids].length - 1 == index)
-        UnitTemplate.assign_to_whole_class(params[:classroom_id], unit_template_id, last)
+        AssignRecommendationsWorker.perform_async(
+          assign_on_join: true,
+          classroom_id: params[:classroom_id],
+          is_last_worker: last_worker_index == index,
+          lesson: true,
+          student_ids: [],
+          unit_template_id: unit_template_id
+        )
       end
     else
       selections_with_students = params[:selections].select { |ut| ut[:classrooms][0][:student_ids]&.compact&.any? }
 
-      return unless selections_with_students.any?
+      return if selections_with_students.none?
 
       $redis.set("user_id:#{current_user.id}_diagnostic_recommendations_start_time", Time.current)
-      number_of_selections = selections_with_students.length
-      selections_with_students.each_with_index do |value, index|
-        last = (number_of_selections - 1) == index
-        # this only accommodates one classroom at a time
-        classroom = value[:classrooms][0]
-        argument_hash = {
-          unit_template_id: value[:id],
+      last_worker_index = selections_with_students.length - 1
+      classrooms_i_teach_ids = current_user.classrooms_i_teach.pluck(:id)
+
+      selections_with_students.each_with_index do |selection_with_students, index|
+        classroom = selection_with_students[:classrooms][0]
+
+        next unless classroom[:id].to_i.in?(classrooms_i_teach_ids)
+
+        AssignRecommendationsWorker.perform_async(
+          assigning_all_recommended_packs: params[:assigning_all_recommended_packs],
           classroom_id: classroom[:id],
-          student_ids: classroom[:student_ids].compact,
-          last: last,
+          is_last_worker: last_worker_index == index,
           lesson: false,
-          assigning_all_recommended_packs: params[:assigning_all_recommended_packs]
-        }
-        AssignRecommendationsWorker.perform_async(**argument_hash) if current_user.classrooms_i_teach.map(&:id).include?(classroom[:id].to_i)
+          student_ids: classroom[:student_ids].compact,
+          unit_template_id: selection_with_students[:id]
+        )
       end
     end
   end
   # rubocop:enable Metrics/CyclomaticComplexity
+
+  private def find_or_create_selected_units
+    params[:selections]
+      &.map { |selection| UnitTemplate.find(selection['id']) }
+      &.each { |ut| Unit.unscoped.find_or_create_by(unit_template_id: ut.id, name: ut.name, user_id: current_user.id) }
+  end
 
   private def authorize_teacher!
     classroom_teacher!(params[:classroom_id])

@@ -36,6 +36,8 @@ class ClassroomUnit < ApplicationRecord
   has_many :completed_activity_sessions, -> {completed}, class_name: 'ActivitySession'
   has_many :classroom_unit_activity_states
 
+  scope :visible, -> { where(visible: true) }
+
   validates :unit, uniqueness: { scope: :classroom }
   before_save :check_for_assign_on_join_and_update_students_array_if_true
   after_save  :hide_appropriate_activity_sessions

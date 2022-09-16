@@ -226,12 +226,13 @@ describe PublicProgressReports, type: :model do
     let!(:teacher) { create(:teacher) }
     let!(:unit1) { create(:unit, unit_template_id: unit_template1.id, user: teacher) }
     let!(:unit2) { create(:unit, unit_template_id: unit_template2.id, user: teacher) }
-    let!(:classroom) { create(:classroom) }
+    let!(:classroom) { create(:classroom, :with_no_teacher) }
     let!(:classroom2) { create(:classroom) }
     let!(:diagnostic) { create(:diagnostic) }
     let!(:diagnostic_activity) { create(:diagnostic_activity) }
-    let!(:recommendation) { create(:recommendation, activity: diagnostic_activity, unit_template: unit_template1, category: 1)}
-    let!(:recommendation2) { create(:recommendation, activity: diagnostic_activity, unit_template: unit_template2, category: 1)}
+    let!(:recommendation1) { create(:recommendation, activity: diagnostic_activity, unit_template: unit_template1, category: 0)}
+    let!(:recommendation2) { create(:recommendation, activity: diagnostic_activity, unit_template: unit_template1, category: 1)}
+    let!(:recommendation3) { create(:recommendation, activity: diagnostic_activity, unit_template: unit_template2, category: 1)}
     let!(:unit_activity) { create(:unit_activity, activity: diagnostic_activity, unit: unit1)}
     let!(:student_not_in_class) { create(:student) }
     let!(:student1) { create(:student) }
@@ -243,15 +244,44 @@ describe PublicProgressReports, type: :model do
     let!(:classroom_unit1) { create(:classroom_unit, classroom: classroom, unit: unit1, assigned_student_ids: [student1.id, student2.id] )}
     let!(:classroom_unit2) { create(:classroom_unit, classroom: classroom2, unit: unit2, assigned_student_ids: [] )}
 
-    it 'will return previously assigned lesson recommendation only if that classroom has been assigned the lesson' do
-      create(:classrooms_teacher, classroom: classroom, user: teacher)
-      expected_response = {
-        previouslyAssignedIndependentRecommendations: [],
-        previouslyAssignedLessonsRecommendations: [unit_template1.id]
+    let(:expected_independent_recommendation) do
+      {
+        activity_count: 0,
+        activity_pack_id: unit_template1.id,
+        name: recommendation1.name,
+        students: [student1.id, student2.id]
       }
-      expect(FakeReports.new.get_previously_assigned_recommendations_by_classroom(classroom.id, diagnostic_activity.id).to_json).to eq(expected_response.to_json)
     end
 
+    let(:expected_response) do
+      {
+        previouslyAssignedIndependentRecommendations: [expected_independent_recommendation],
+        previouslyAssignedLessonsRecommendations: [unit_template1.id],
+        releaseMethod: release_method
+      }
+    end
+
+    before { create(:classrooms_teacher, classroom: classroom, user: teacher) }
+
+    subject { FakeReports.new.get_previously_assigned_recommendations_by_classroom(classroom.id, diagnostic_activity.id) }
+
+    context 'no activity pack sequence exits' do
+      let(:release_method) { nil }
+
+      it 'will return previously assigned lesson recommendation only if that classroom has been assigned the lesson' do
+        expect(subject.to_json).to eq expected_response.to_json
+      end
+    end
+
+    context 'activity pack sequence exists' do
+      let(:release_method) { ActivityPackSequence::STAGGERED_RELEASE }
+
+      before { create(:activity_pack_sequence, classroom: classroom, diagnostic_activity: diagnostic_activity) }
+
+      it 'will return a release method for previously assigned staggered release ActivityPackSequences' do
+        expect(subject.to_json).to eq(expected_response.to_json)
+      end
+    end
   end
 
   describe '#generic_questions_for_report' do
