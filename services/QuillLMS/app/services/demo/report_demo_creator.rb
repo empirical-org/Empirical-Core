@@ -243,16 +243,18 @@ module Demo::ReportDemoCreator
     }
   ]
 
-  def self.create_demo(email)
+  def self.create_demo(email = nil)
     teacher = create_teacher(email)
     classroom = create_classroom(teacher)
     students = create_students(classroom, !email) # using the presence of a passed email to determine whether this is the standard /demo account or not
     units = create_units(teacher)
     classroom_units = create_classroom_units(classroom, units)
-    activity_sessions = create_activity_sessions(students, classroom)
-    subscription = create_subscription(teacher)
-    create_replayed_activity_session(students.first, classroom_units.first)
 
+    session_data = Demo::SessionData.new
+    create_activity_sessions(students, classroom, session_data)
+    create_replayed_activity_session(students.first, classroom_units.first, session_data)
+
+    create_subscription(teacher)
     TeacherActivityFeedRefillWorker.perform_async(teacher.id)
   end
 
@@ -367,43 +369,39 @@ module Demo::ReportDemoCreator
     end
   end
 
-  def self.create_replayed_activity_session(student, classroom_unit)
-    replayed_session = ActivitySession.unscoped.where({activity_id: REPLAYED_ACTIVITY_ID, user_id: REPLAYED_SAMPLE_USER_ID, is_final_score: true}).first
-    student_id = student.id
-    act_session = ActivitySession.create({activity_id: REPLAYED_ACTIVITY_ID, classroom_unit_id: classroom_unit.id, user_id: student.id, state: "finished", percentage: replayed_session&.percentage})
-    replayed_session&.concept_results&.each do |cr|
+  def self.create_replayed_activity_session(student, classroom_unit, session_data)
+    clone_activity_session(student.id, classroom_unit.unit_id, classroom_unit.classroom_id, REPLAYED_SAMPLE_USER_ID, REPLAYED_ACTIVITY_ID, session_data)
+  end
+
+  def self.clone_activity_session(student_id, unit_id, classroom_id, clone_user_id, clone_activity_id, session_data)
+    session_to_clone = session_data.activity_sessions.first {|session| session.activity_id == clone_activity_id && session.user_id == clone_user_id}
+
+    return unless session_to_clone
+
+    cu = ClassroomUnit.find_by(classroom_id: classroom_id, unit_id: unit_id)
+    act_session = ActivitySession.create(activity_id: clone_activity_id, classroom_unit_id: cu.id, user_id: student_id, state: "finished", percentage: session_to_clone.percentage)
+
+    concept_results = session_data.concept_results.select {|cr| cr.activity_session_id == session_to_clone.id }
+
+    concept_results.each do |cr|
+      question_type = session_data.concept_result_question_types.first {|qt| qt.id == cr.concept_result_question_type_id}
       values = {
         activity_session_id: act_session.id,
         concept_id: cr.concept_id,
-        metadata: cr.legacy_format[:metadata],
-        question_type: cr.concept_result_question_type&.text
+        metadata: session_data.concept_result_legacy_metadata[cr.id],
+        question_type: question_type&.text
       }
       SaveActivitySessionConceptResultsWorker.perform_async(values)
     end
   end
 
-  def self.create_activity_sessions(students, classroom)
-
+  def self.create_activity_sessions(students, classroom, session_data)
     students.each_with_index do |student, num|
       ACTIVITY_PACKS_TEMPLATES.each do |activity_pack|
         unit = Unit.where(name: activity_pack[:name]).last
         act_sessions = activity_pack[:activity_sessions]
-        act_sessions[num].each do |act_id, user_id|
-          temp = ActivitySession.unscoped.where({activity_id: act_id, user_id: user_id, is_final_score: true}).first
-          next unless temp
-
-          cu = ClassroomUnit.find_by(classroom_id: classroom.id, unit_id: unit.id)
-          act_session = ActivitySession.create({activity_id: act_id, classroom_unit_id: cu.id, user_id: student.id, state: "finished", percentage: temp.percentage})
-
-          temp.concept_results.each do |cr|
-            values = {
-              activity_session_id: act_session.id,
-              concept_id: cr.concept_id,
-              metadata: cr.legacy_format[:metadata],
-              question_type: cr.concept_result_question_type&.text
-            }
-            SaveActivitySessionConceptResultsWorker.perform_async(values)
-          end
+        act_sessions[num].each do |clone_activity_id, clone_user_id|
+          clone_activity_session(student.id, unit.id, classroom.id, clone_user_id, clone_activity_id, session_data)
         end
       end
     end

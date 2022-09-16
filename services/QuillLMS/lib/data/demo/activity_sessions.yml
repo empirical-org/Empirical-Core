@@ -8426,3 +8426,62 @@
     value_before_type_cast: 812
   new_record: false
   active_record_yaml_version: 2
+- !ruby/object:ActivitySession
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 11281766
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_activity_id
+    value_before_type_cast: 690774
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_id
+    value_before_type_cast: 434
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: user_id
+    value_before_type_cast: 312664
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: pairing_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: percentage
+    value_before_type_cast: 0.93
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: state
+    value_before_type_cast: finished
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: completed_at
+    value_before_type_cast: 2017-01-11 15:09:32.229060000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: uid
+    value_before_type_cast: 3WkzYfJju1rNOBx8NS78vA
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: temporary
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: data
+    value_before_type_cast: "{}"
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2017-01-11 14:21:59.604906000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: updated_at
+    value_before_type_cast: 2017-02-23 13:56:37.835078000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: started_at
+    value_before_type_cast: 2017-01-11 15:06:07.175873000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_retry
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_final_score
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: visible
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_unit_id
+    value_before_type_cast: 1832347
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: timespent
+  new_record: false
+  active_record_yaml_version: 2
