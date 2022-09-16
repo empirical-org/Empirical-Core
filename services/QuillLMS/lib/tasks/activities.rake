@@ -78,4 +78,35 @@ namespace :activities do
       puts "Updated activity with id '#{activity_id}' to '#{new_name}'"
     end
   end
+
+  desc 'Take a pipe of CSV with activity IDs and new descriptions, update the specified Activities with their new description'
+  task bulk_update_descriptions: :environment do
+    pipe_data = $stdin.read unless $stdin.tty?
+
+    unless pipe_data
+      puts 'No data detected on STDIN.  You must pass data to the task for it to run.  Example:'
+      puts '  rake activities:bulk_update_descriptions < path/to/local/file.csv'
+      puts ''
+      puts 'If you are piping data into Heroku, you need to include the --no-tty flag:'
+      puts '  heroku run rake activities:bulk_update_descriptions -a empirical-grammar --no-tty < path/to/local/file.csv'
+      exit 1
+    end
+
+    CSV.parse(pipe_data, headers: true) do |row|
+      activity_id = row['Activity ID']
+      activity = Activity.find(activity_id)
+
+      # Normalize any whitespace from the spreadsheet, but keep newlines
+      # since there are long-term plans of allowing newlines in descriptions
+      new_description = row['New Description - No Line Breaks'].gsub(/[^\S\r\n]/, ' ')
+      raise "New description column is empty" if new_description.blank?
+
+      activity.description = new_description
+      activity.save!
+    rescue
+      puts "Failed to update for activity with id '#{activity_id}'"
+    else
+      puts "Updated activity with id '#{activity_id}' to '#{new_description}'"
+    end
+  end
 end
