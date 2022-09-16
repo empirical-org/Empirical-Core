@@ -134,7 +134,7 @@ RSpec.describe Demo::ReportDemoCreator do
     context 'with no demo data present' do
       subject {Demo::ReportDemoCreator.reset_account_changes(teacher)}
 
-      it { expect { subject }.to change { teacher.classrooms_i_teach.count }.from(0).to(1) }
+      it { expect { subject }.to change {teacher.classrooms_i_teach.count}.from(0).to(1) }
     end
 
     context 'with demo data' do
@@ -144,26 +144,26 @@ RSpec.describe Demo::ReportDemoCreator do
 
       subject { Demo::ReportDemoCreator.reset_account_changes(teacher) }
 
+      context 'present and unedited' do
+        it { expect { subject }.not_to change { teacher.classrooms_i_teach.map(&:id) } }
+      end
+
       context 'teacher has added classrooms' do
         let(:classroom) {create(:classroom)}
         let(:classrooms_teachers) {create(:classrooms_teacher, classroom: classroom, user: teacher)}
 
-        before { classrooms_teachers}
+        before { classrooms_teachers }
 
         it { expect { subject }.to change { teacher.classrooms_i_teach.count }.from(2).to(1) }
-      end
-
-      context 'present and unedited' do
-        it { expect { subject }.not_to change { teacher.classrooms_i_teach.map(&:id) } }
       end
 
       context 'demo classroom has added student' do
         let(:student) {create(:student)}
 
-        before { teacher.classrooms_i_teach.first.students += [student]}
+        before { teacher.classrooms_i_teach.first.students += [student] }
 
-        it { expect { subject }.to change { teacher.classrooms_i_teach.map(&:id) } }
-        it { expect { subject }.not_to change(teacher.classrooms_i_teach, :count) }
+        it { expect { subject }.to change { teacher.classrooms_i_teach.map(&:id)} }
+        it { expect { subject }.not_to change { teacher.classrooms_i_teach.count } }
       end
     end
   end
