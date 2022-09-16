@@ -595,10 +595,6 @@ describe Teachers::ClassroomManagerController, type: :controller do
         is_last_page: true
       }.to_json)
     end
-
-    it 'should render records even if the underlying activities are archived' do
-      raise NotImplementedError
-    end
   end
 
   describe '#retreive_google_clasrooms' do

@@ -35,6 +35,13 @@ describe 'ScorebookQuery' do
     expect(results.map{|res| res["id"]}).to include(activity_session2.id)
   end
 
+  it 'returns activities even if the underlying activity has been archived' do
+    activity2.update(flags: [Activity::ARCHIVED])
+
+    results = Scorebook::Query.run(classroom.id)
+    expect(results.map{|res| res["id"]}).to include(activity_session2.id)
+  end
+
   describe 'support date constraints' do
     it 'returns activities completed between the specified dates' do
       begin_date = activity_session1.completed_at - 1.day
