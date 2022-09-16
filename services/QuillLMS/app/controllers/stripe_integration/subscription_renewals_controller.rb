@@ -22,8 +22,12 @@ module StripeIntegration
       params[:stripe_subscription_id]
     end
 
+    private def stripe_subscription
+      @stripe_subscription ||= Stripe::Subscription.retrieve(stripe_subscription_id)
+    end
+
     private def stripe_subscription_canceled?
-      Stripe::Subscription.retrieve(stripe_subscription_id).canceled_at.present?
+      stripe_subscription.status == StripeIntegration::Subscription::CANCELED
     end
   end
 end
