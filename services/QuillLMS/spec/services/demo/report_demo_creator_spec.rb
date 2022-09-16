@@ -138,42 +138,32 @@ RSpec.describe Demo::ReportDemoCreator do
     end
 
     context 'with demo data' do
+      before do
+        Demo::ReportDemoCreator.create_demo_classroom_data(teacher, teacher_demo: true)
+      end
+
+      subject { Demo::ReportDemoCreator.reset_account_changes(teacher) }
+
       context 'teacher has added classrooms' do
         let(:classroom) {create(:classroom)}
         let(:classrooms_teachers) {create(:classrooms_teacher, classroom: classroom, user: teacher)}
 
-        before do
-          Demo::ReportDemoCreator.create_demo_classroom_data(teacher, teacher_demo: true)
-          classrooms_teachers
-        end
-
-        subject {Demo::ReportDemoCreator.reset_account_changes(teacher)}
+        before { classrooms_teachers}
 
         it { expect { subject }.to change { teacher.classrooms_i_teach.count }.from(2).to(1) }
       end
 
       context 'present and unedited' do
-        before do
-          Demo::ReportDemoCreator.create_demo_classroom_data(teacher, teacher_demo: true)
-        end
-
-        subject {Demo::ReportDemoCreator.reset_account_changes(teacher)}
-
-        it { expect { subject }.not_to change( -> { teacher.classrooms_i_teach.map(&:id) }) }
+        it { expect { subject }.not_to change { teacher.classrooms_i_teach.map(&:id) } }
       end
 
       context 'demo classroom has added student' do
         let(:student) {create(:student)}
 
-        before do
-          Demo::ReportDemoCreator.create_demo_classroom_data(teacher, teacher_demo: true)
-          teacher.classrooms_i_teach.first.students += [student]
-        end
+        before { teacher.classrooms_i_teach.first.students += [student]}
 
-        subject {Demo::ReportDemoCreator.reset_account_changes(teacher)}
-
-        it { expect { subject }.to change( -> { teacher.classrooms_i_teach.map(&:id) }) }
-        it { expect { subject }.not_to change( -> { teacher.classrooms_i_teach.count }) }
+        it { expect { subject }.to change { teacher.classrooms_i_teach.map(&:id) } }
+        it { expect { subject }.not_to change(teacher.classrooms_i_teach, :count) }
       end
     end
   end
