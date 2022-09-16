@@ -164,7 +164,7 @@ export const EvidenceTool = ({ loggedInUser }) => {
         </section>
       </section>
       <section className="screenshot-container">
-        <img alt="screenshot of example Reading for Evidence activity" src="https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Screenshot1.png" />
+        <iframe allowFullScreen width="560" height="315" src="https://www.youtube.com/embed/vN3Rd-kJgFI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"/>
         <p>Students receive instant feedback on the quality of their writing.</p>
       </section>
       <section className="evidence-feature-container">
