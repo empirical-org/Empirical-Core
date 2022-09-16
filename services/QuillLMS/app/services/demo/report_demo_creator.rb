@@ -374,7 +374,9 @@ module Demo::ReportDemoCreator
   end
 
   def self.clone_activity_session(student_id, unit_id, classroom_id, clone_user_id, clone_activity_id, session_data)
-    session_to_clone = session_data.activity_sessions.first {|session| session.activity_id == clone_activity_id && session.user_id == clone_user_id}
+    session_to_clone = session_data.activity_sessions
+      .select {|session| session.activity_id == clone_activity_id && session.user_id == clone_user_id}
+      .first
 
     return unless session_to_clone
 
