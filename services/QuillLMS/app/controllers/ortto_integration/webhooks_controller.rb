@@ -5,31 +5,31 @@ module OrttoIntegration
     protect_from_forgery except: :create
     http_basic_authenticate_with name: 'ortto_webhook_user', password: ENV['ORTTO_WEBHOOK_PASSWORD']
 
-    before_action :valid_params?, only: [:create]
-
     class OrttoWebhookBadRequestException < StandardError; end
 
     def create
       puts "\n\n --- PARAMS: #{params.inspect}"
-      unless valid_params?
-        ErrorNotifier.report(
-          OrttoWebhookBadRequestException.new("Bad request with params: #{params}")
-        )
-        return head(:bad_request)
-      end
+      puts "\nactivity: #{params.dig(:activity).class} #{params.dig(:activity)}"
+      puts "\ncontact: #{params.dig(:activity, :contact).class} #{params.dig(:activity, :contact)}"
 
       email = params.dig(:activity, :contact, :email)
       user = User.find_by_email(email)
-      return head :accepted unless user
+
+      if email.nil? || user.nil?
+        ErrorNotifier.report(
+          OrttoWebhookBadRequestException.new("Bad request with params: #{params}")
+        )
+        return head :accepted
+      end
 
       user.update!(send_newsletter: false)
       head :ok
     end
 
-    private def valid_params?
-      return false unless params.dig(:activity, :contact, :email)
-      true
-    end
+    # private def valid_params?
+    #   return false unless params.dig(:activity, :contact, :email)
+    #   true
+    # end
 
   end
 end
