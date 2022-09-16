@@ -8,9 +8,10 @@ FactoryBot.define do
     parent_id       nil
 
     after(:build) do |t|
-      if t.level == 2
+      case t.level
+      when 2
         t.parent_id = Topic.find_by_level(3)&.id || create(:topic, level: 3).id
-      elsif t.level == 1
+      when 1
         t.parent_id = Topic.find_by_level(2)&.id || create(:topic, level: 2).id
       end
     end
