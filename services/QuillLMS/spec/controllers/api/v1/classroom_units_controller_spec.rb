@@ -109,7 +109,6 @@ describe Api::V1::ClassroomUnitsController, type: :controller do
     it 'sends the appropriate methods to ActivitySession' do
       expect(ActivitySession).to receive(:mark_all_activity_sessions_complete).with(match_array(activity_sessions), {})
       expect(ActivitySession).to receive(:save_concept_results).with(match_array(activity_sessions), [])
-      expect(ActivitySession).to receive(:delete_activity_sessions_with_no_concept_results).with(match_array(activity_sessions))
       expect(ActivitySession).to receive(:save_timetracking_data_from_active_activity_session).with(match_array(activity_sessions))
       session[:user_id] = teacher.id
       put :finish_lesson,
@@ -152,6 +151,42 @@ describe Api::V1::ClassroomUnitsController, type: :controller do
         as: :json
 
       expect(JSON.parse(response.body)).to eq({"follow_up_url"=> (ENV['DEFAULT_URL']).to_s})
+    end
+
+    it 'destroys ActivitySessions with no ConceptResults related to them' do
+      concept = create(:concept)
+
+      session[:user_id] = teacher.id
+
+      concept_result_payload = {
+        "concept_id": concept.uid,
+        "question_type": "lessons-slide",
+        "metadata": {
+          "activity_session_uid": activity_sessions.first.uid,
+          "correct": 1,
+          "directions": "",
+          "prompt": "<p>What is one reason to use time order joining words in your writing instead of using two shorter sentences?</p>",
+          "answer": "It makes causal relationships more obvious.",
+          "attemptNumber": 1,
+          "questionNumber": 1
+        },
+        "activity_session_uid": activity_sessions.first.uid
+      }
+      concept_results_payload = [concept_result_payload]
+
+      # There are 5 students with ActivitySessions assigned, but we're only submitting
+      # one ConceptResult here, so the other 4 ActivitySessions should be orphaned and
+      # removed
+      expect do
+        put :finish_lesson,
+          params: {
+            activity_id: activity.uid,
+            classroom_unit_id: classroom_unit.id,
+            concept_results: concept_results_payload,
+            follow_up: false
+          },
+          as: :json
+      end.to change(ActivitySession, :count).by(-4)
     end
 
     it 'saves ConceptResults related to the ActivitySession' do

@@ -21,6 +21,7 @@ const MAX_VIEW_WIDTH_FOR_MOBILE = 1103
 
 const Dashboard = ({ onboardingChecklist, firstName, mustSeeModal, linkedToClever, featuredBlogPosts, showDiagnosticPromotionCard, }) => {
   const size = useWindowSize();
+  const className = "dashboard white-background-accommodate-footer"
   const onMobile = () => size.width <= MAX_VIEW_WIDTH_FOR_MOBILE
 
   const [showWelcomeModal, setShowWelcomeModal] = React.useState(mustSeeModal)
@@ -31,7 +32,7 @@ const Dashboard = ({ onboardingChecklist, firstName, mustSeeModal, linkedToCleve
 
   if (!onboardingChecklist.every(obj => obj.checked)) {
     return (
-      <div className="dashboard">
+      <div className={className}>
         {showWelcomeModal && <WelcomeModal close={closeWelcomeModal} size={size} />}
         {showDemoModal && <DemoModal close={closeDemoModal} size={size} />}
         <OnboardingChecklist firstName={firstName} onboardingChecklist={onboardingChecklist} />
@@ -92,7 +93,7 @@ const Dashboard = ({ onboardingChecklist, firstName, mustSeeModal, linkedToCleve
 
   if (loading) {
     return (
-      <div className="dashboard">
+      <div className={className}>
         <div className="post-checklist-container loading">
           <Spinner />
         </div>
@@ -101,7 +102,7 @@ const Dashboard = ({ onboardingChecklist, firstName, mustSeeModal, linkedToCleve
   }
 
   return (
-    <div className="dashboard">
+    <div className={className}>
       <div className="post-checklist-container">
         <DemoOnboardingTour
           pageKey={DEMO_ONBOARDING_DASHBOARD}

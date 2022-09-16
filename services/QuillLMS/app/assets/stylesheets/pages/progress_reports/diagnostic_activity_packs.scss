@@ -128,6 +128,24 @@
             border-right: 1px solid #e0e0e0;
           }
         }
+        .post {
+          .post-buttons-container {
+            display: flex;
+            a:first-of-type {
+              margin-right: 8px;
+            }
+            a:focus, button:focus {
+              outline-offset: 4px;
+            }
+          }
+        }
+        .diagnostic-reports-button {
+          color: #000000;
+          font-size: 13px;
+        }
+        .diagnostic-reports-button:hover, .diagnostic-reports-button:focus {
+          background-color: #f5f5f5;
+        }
       }
     }
   }
@@ -152,6 +170,28 @@
         &.pre, &.post {
           max-width: 100%;
         }
+      }
+      .post {
+        .post-buttons-container {
+          align-items: baseline;
+          a {
+            text-align: left;
+            margin-right: 8px;
+            padding-right: 0;
+            min-width: auto;
+          }
+          button {
+            margin-top: 0px;
+          }
+        }
+      }
+      .diagnostic-reports-button {
+        border: none;
+        font-weight: 700 !important;
+        font-size: 14px;
+        padding-left: 0;
+        margin-top: 20px;
+        color: #5C5C5C;
       }
     }
   }

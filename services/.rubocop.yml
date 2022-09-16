@@ -130,10 +130,8 @@ Lint/AmbiguousAssignment:
 
 Lint/AmbiguousBlockAssociation:
   Enabled: true
-  Exclude:
-    - "QuillLMS/spec/models/activity_session_spec.rb"
-    - "QuillLMS/spec/models/user_spec.rb"
-    - "QuillLMS/spec/controllers/pages_controller_spec.rb"
+  IgnoredMethods:
+    - change
 
 Lint/AmbiguousOperatorPrecedence:
   Enabled: true

@@ -120,7 +120,7 @@ describe PagesController do
       get :activities
       expect(assigns(:body_class)).to eq 'full-width-page white-page'
       expect(assigns(:standard_level)).to eq standard_level
-      expect(assigns(:standards)).to eq standard_level.standards.map{ |standard| [standard, standard.activities.production] }.select{ |group| group.second.any? }
+      expect(assigns(:standards)).to eq(standard_level.standards.map{ |standard| [standard, standard.activities.production] }.select{ |group| group.second.any? })
     end
   end
 

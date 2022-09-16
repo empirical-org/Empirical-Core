@@ -846,17 +846,19 @@ end
       expect(SaveActivitySessionConceptResultsWorker).to receive(:perform_async)
       ActivitySession.save_concept_results([activity_session], concept_results)
     end
-  end
 
-  describe '#delete_activity_sessions_with_no_concept_results' do
-    let!(:activity) { create(:activity)}
-    let(:classroom_unit) { create(:classroom_unit) }
-    let!(:activity_session) { create(:activity_session_without_concept_results, activity: activity, classroom_unit: classroom_unit) }
-    let!(:activity_session1) { create(:activity_session_without_concept_results, activity: activity, classroom_unit: classroom_unit) }
+    it 'should call ErrorNotifier.report with a ConceptResultSubmittedWithoutActivitySessionError if any ConceptResults do not have valid ActivitySessions' do
+      expect(ErrorNotifier).to receive(:report).with(an_instance_of(ActivitySession::ConceptResultSubmittedWithoutActivitySessionError))
 
-    it 'should delete the activity sessions without the concept results' do
-      create(:concept_result, activity_session: activity_session)
-      expect{ ActivitySession.delete_activity_sessions_with_no_concept_results([activity_session, activity_session1]) }.to change(ActivitySession, :count).by(-1)
+      concept_results.first[:activity_session_uid] = nil
+
+      ActivitySession.save_concept_results([activity_session], concept_results)
+    end
+
+    it 'should not call ErrorNotifier.report if ConceptResults have all necessary data' do
+      expect(ErrorNotifier).not_to receive(:report).with(an_instance_of(ActivitySession::ConceptResultSubmittedWithoutActivitySessionError))
+
+      ActivitySession.save_concept_results([activity_session], concept_results)
     end
   end
 
