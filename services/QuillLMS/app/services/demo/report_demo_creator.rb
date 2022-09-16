@@ -2,7 +2,6 @@
 
 module Demo::ReportDemoCreator
 
-  EVIDENCE_APP_SETTING = "comprehension"
   REPLAYED_ACTIVITY_ID = 434
   REPLAYED_SAMPLE_USER_ID = 312664
   ACTIVITY_PACKS_TEMPLATES = [
@@ -273,12 +272,6 @@ module Demo::ReportDemoCreator
     }
 
     teacher = User.create(values)
-    app_setting = AppSetting.find_by(name: EVIDENCE_APP_SETTING)
-
-    return teacher if app_setting.blank?
-
-    app_setting.user_ids_allow_list << teacher.id
-    app_setting.save
     teacher
   end
 
