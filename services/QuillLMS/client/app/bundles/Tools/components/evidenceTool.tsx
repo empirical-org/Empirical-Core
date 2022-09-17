@@ -163,8 +163,10 @@ export const EvidenceTool = ({ loggedInUser }) => {
           </section>
         </section>
       </section>
-      <section className="screenshot-container">
-        <iframe allowFullScreen width="560" height="315" src="https://www.youtube.com/embed/vN3Rd-kJgFI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"/>
+      <section className="player-container">
+        <div className="youtube-container">
+          <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen className="youtube-iframe" frameBorder="0" src="https://www.youtube.com/embed/vN3Rd-kJgFI" title="YouTube video player" />
+        </div>
         <p>Students receive instant feedback on the quality of their writing.</p>
       </section>
       <section className="evidence-feature-container">

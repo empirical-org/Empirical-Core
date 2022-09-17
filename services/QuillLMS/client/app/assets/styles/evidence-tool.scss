@@ -245,6 +245,9 @@
       box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.15) !important;
     }
   }
+  .player-container {
+    padding: 0 22%;
+  }
 }
 
 .prompts-walkthrough-container {
@@ -355,6 +358,9 @@
         max-width: 352px;
         height: auto;
       }
+    }
+    .player-container {
+      padding: 0 22%;
     }
     .topics-section {
       display: none;
