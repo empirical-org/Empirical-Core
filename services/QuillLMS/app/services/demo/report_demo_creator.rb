@@ -273,8 +273,7 @@ module Demo::ReportDemoCreator
       flags: ["beta"]
     }
 
-    teacher = User.create(values)
-    teacher
+    User.create(values)
   end
 
   def self.create_classroom(teacher)

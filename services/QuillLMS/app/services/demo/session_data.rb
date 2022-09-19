@@ -2,7 +2,8 @@
 
 module Demo
   class SessionData
-    FILE_DIRECTORY = Rails.root + 'lib/data/demo'
+    DEMO_PATH = 'lib/data/demo'
+    FILE_DIRECTORY = Rails.root + DEMO_PATH
 
     # The parsed yaml files need access to the Models not nested in modules to load properly
     ActivitySession = ::ActivitySession
@@ -69,7 +70,7 @@ module Demo
     end
 
     def write_to_file(data, file)
-      File.open(FILE_DIRECTORY + file, "w"){ |o| o.write(data.to_yaml)  }
+      File.write(FILE_DIRECTORY + file, data.to_yaml)
     end
   end
 end
