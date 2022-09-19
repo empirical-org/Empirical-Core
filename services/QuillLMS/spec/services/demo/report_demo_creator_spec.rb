@@ -19,7 +19,13 @@ RSpec.describe Demo::ReportDemoCreator do
       {
         name: "Quill Activity Pack",
         activity_ids: [activity_id],
-        activity_sessions: [{activity_id => user_id}]
+        activity_sessions: [
+          {activity_id => user_id},
+          {activity_id => user_id},
+          {activity_id => user_id},
+          {activity_id => user_id},
+          {activity_id => user_id}
+        ]
       }
     ]
   end
@@ -29,6 +35,24 @@ RSpec.describe Demo::ReportDemoCreator do
     stub_const("Demo::ReportDemoCreator::REPLAYED_ACTIVITY_ID", activity_id)
     stub_const("Demo::ReportDemoCreator::REPLAYED_SAMPLE_USER_ID", user_id)
   end
+
+  describe 'create_demo' do
+    let(:demo_teacher) { User.find_by(email: "hello+demoteacher@quill.org") }
+
+    it 'should create teacher and classroom with activity' do
+      Sidekiq::Testing.inline! do
+        Demo::ReportDemoCreator.create_demo
+      end
+
+      expect(demo_teacher.classrooms_i_teach.count).to eq(1)
+      classroom = demo_teacher.classrooms_i_teach.first
+
+      expect(classroom.students.count).to eq(5)
+      expect(classroom.activity_sessions.count).to eq(6)
+      expect(classroom.activity_sessions.map(&:concepts).flatten.count).to eq(concept_ids.count * 6)
+    end
+  end
+
 
   it 'creates a teacher with name' do
     email = "hello+demoteacher@quill.org"
