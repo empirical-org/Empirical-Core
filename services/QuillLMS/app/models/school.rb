@@ -212,6 +212,7 @@ class School < ApplicationRecord
 
   private def zipcode_length
     return true unless zipcode && zipcode.length != 5
+
     errors.add(:zipcode, 'must be 5 digits')
   end
 end
