@@ -72,6 +72,7 @@ module PublicProgressReports
     end
 
     return questions_arr unless question_arr.empty?
+
     generic_questions_for_report(activity)
   end
   # rubocop:enable Metrics/CyclomaticComplexity
