@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class UnitTemplatePseudoSerializer
-  # attributes :id, :name, :time, :grades, :order_number, :number_of_standards, :activity_info, :unit_template_category, :activities, :standards, :readability, :activities_recommended_by
+  # attributes :id, :name, :time, :grades, :order_number, :number_of_standards, :activity_info, :unit_template_category, :activities, :tools, :standards, :readability, :activities_recommended_by
 
   def initialize(unit_template, flag=nil)
     @unit_template = unit_template
@@ -20,6 +20,7 @@ class UnitTemplatePseudoSerializer
       activity_info: ut.activity_info,
       unit_template_category: unit_template_category,
       activities: activities,
+      tools: tools(activities),
       type: type,
       readability: ut.readability,
       grade_level_range: ut.grade_level_range,
@@ -43,6 +44,10 @@ class UnitTemplatePseudoSerializer
       name: cat&.name,
       id: cat&.id
     }
+  end
+
+  def tools(activities)
+    activities.map {|activity| activity[:classification][:name].gsub("Quill ", "") }.uniq
   end
 
   def activities

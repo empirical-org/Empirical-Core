@@ -81,11 +81,15 @@
           white-space: break-spaces;
           line-height: 18px;
           color: #666666;
-          &.pack-type-section, .pack-name-section {
+          &.pack-type-section, &.pack-name-section {
             font-weight: 700;
           }
           &.activities-section {
             text-align: left !important;
+          }
+          .tools-section {
+            border-bottom: none;
+            padding: 0;
           }
           .duration-section {
             display: flex;

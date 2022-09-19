@@ -5,8 +5,8 @@ import { READING_TEXTS } from '../assignmentFlowConstants';
 export const UnitTemplateMinisTable = ({ unitTemplates }) => {
   const dataTableFields = [
     { name: "Pack type", attribute:"packType", width: "160px", rowSectionClassName: 'pack-type-section', noTooltip: true },
-    { name: "Pack name", attribute:"packName", width: "240px", rowSectionClassName: 'pack-name-section', noTooltip: true },
-    { name: "Tools", attribute:"tools", width: "100px", rowSectionClassName: '', noTooltip: true },
+    { name: "Pack name", attribute:"packName", width: "190px", rowSectionClassName: 'pack-name-section', noTooltip: true },
+    { name: "Tools", attribute:"tools", width: "140px", rowSectionClassName: '', noTooltip: true },
     { name: "Grade Level", attribute:"gradeLevel", width: "70px", rowSectionClassName: '', noTooltip: true },
     { name: "Activities", attribute:"activities", width: "50px", rowSectionClassName: 'activities-section', noTooltip: true },
     { name: "Duration", attribute:"duration", width: "150px", rowSectionClassName: '', noTooltip: true },
@@ -28,16 +28,28 @@ export const UnitTemplateMinisTable = ({ unitTemplates }) => {
     return `${time} mins`;
   }
 
+  function getToolsElement(tools) {
+    return(
+      <section className="tools-section">
+        {tools.map((tool, i) => {
+          const toolName = i === tools.length - 1 ? tool : `${tool},`;
+          return <p>{toolName}</p>
+        })}
+      </section>
+    )
+  }
+
   function unitTemplateRows() {
     return unitTemplates.map(unitTemplate => {
-      const { id, name, readability, activities, time, unit_template_category } = unitTemplate;
+      const { id, name, readability, activities, time, unit_template_category, tools } = unitTemplate;
       const { primary_color } = unit_template_category;
       const durationElement = getDurationElement(unit_template_category, time);
+      const toolsElement = getToolsElement(tools)
       return {
         id,
         packType: <p style={{ color: primary_color }}>{unit_template_category.name}</p>,
         packName: name,
-        tools: '',
+        tools: toolsElement,
         gradeLevel: readability,
         activities: activities.length,
         duration: durationElement
