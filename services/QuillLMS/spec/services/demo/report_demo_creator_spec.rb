@@ -53,7 +53,6 @@ RSpec.describe Demo::ReportDemoCreator do
     end
   end
 
-
   it 'creates a teacher with name' do
     email = "hello+demoteacher@quill.org"
     Demo::ReportDemoCreator.create_teacher(email)

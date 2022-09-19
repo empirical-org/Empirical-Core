@@ -40,8 +40,10 @@ module Demo
       YAML.load_file(FILE_DIRECTORY + file)
     end
 
-    # Connect to Prod Follower and run
+    # To refresh the fixture data if the config changes:
+    # Connect to your local to the prod Follower and run
     # Demo::SessionData.new.generate_files
+    # Then commit the generated files to the repo
     def generate_files
       activity_sessions = activity_sessions_to_store
 
