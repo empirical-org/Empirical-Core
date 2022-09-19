@@ -66,7 +66,7 @@ class School < ApplicationRecord
   after_save :attach_new_district_school_admins, if: :saved_change_to_district_id?
 
   validate :lower_grade_within_bounds, :upper_grade_within_bounds,
-           :lower_grade_greater_than_upper_grade
+           :lower_grade_greater_than_upper_grade, :zipcode_length
 
   ALTERNATIVE_SCHOOL_NAMES = [
     HOME_SCHOOL_SCHOOL_NAME = 'home school',
@@ -208,5 +208,10 @@ class School < ApplicationRecord
     schools_admins
       .where(user: old_district_admins)
       .destroy_all
+  end
+
+  private def zipcode_length
+    return true unless zipcode && zipcode.length != 5
+    errors.add(:zipcode, 'must be 5 digits')
   end
 end
