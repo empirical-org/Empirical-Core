@@ -217,7 +217,9 @@ class Teachers::UnitsController < ApplicationController
 
     scores, completed = ''
 
-    completed = lessons ? "HAVING ca.completed" : "HAVING SUM(CASE WHEN act_sesh.visible = true AND act_sesh.state = 'finished' THEN 1 ELSE 0 END) > 0" if report
+    if report
+      completed = lessons ? "HAVING ca.completed" : "HAVING SUM(CASE WHEN act_sesh.visible = true AND act_sesh.state = 'finished' THEN 1 ELSE 0 END) > 0"
+    end
 
     if lessons
       lessons = "AND activities.activity_classification_id = 6"

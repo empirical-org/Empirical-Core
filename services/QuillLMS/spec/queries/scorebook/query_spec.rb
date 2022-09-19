@@ -32,14 +32,14 @@ describe 'ScorebookQuery' do
 
   it 'returns a completed activity that is a final scores' do
     results = Scorebook::Query.run(classroom.id)
-    expect(results.map{|res| res["id"]}).to include(activity_session2.id)
+    expect(results.pluck('id')).to include(activity_session2.id)
   end
 
   it 'returns activities even if the underlying activity has been archived' do
     activity2.update(flags: [Activity::ARCHIVED])
 
     results = Scorebook::Query.run(classroom.id)
-    expect(results.map{|res| res["id"]}).to include(activity_session2.id)
+    expect(results.pluck('id')).to include(activity_session2.id)
   end
 
   describe 'support date constraints' do
