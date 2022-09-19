@@ -14,7 +14,7 @@ RSpec.describe Demo::ReportDemoCreator do
   let(:concept_ids) { [566, 506, 508, 641, 640, 671, 239, 551, 488, 385, 524, 540, 664, 83, 673, 450] }
   let!(:concepts) { concept_ids.map {|id|  create(:concept, id: id)} }
 
-  let (:demo_config) do
+  let(:demo_config) do
     [
       {
         name: "Quill Activity Pack",
