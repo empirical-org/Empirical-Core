@@ -4,13 +4,31 @@ require 'rails_helper'
 
 RSpec.describe Demo::ReportDemoCreator do
   let!(:teacher) {create(:teacher)}
+  let(:session_data) { Demo::SessionData.new }
 
-  before do
-    Demo::ReportDemoCreator::ACTIVITY_PACKS_TEMPLATES.each do |ap|
-      ap[:activity_ids].each {|id| create(:activity, id: id)}
-    end
+  # essentially using these as fixtures to test the demo data
+  let(:activity_id) { 1663 }
+  let(:user_id) { 9706466 }
+  let!(:activity) { create(:activity, id: activity_id) }
+
+  let(:concept_ids) { [566, 506, 508, 641, 640, 671, 239, 551, 488, 385, 524, 540, 664, 83, 673, 450] }
+  let!(:concepts) { concept_ids.map {|id|  create(:concept, id: id)} }
+
+  let (:demo_config) do
+    [
+      {
+        name: "Quill Activity Pack",
+        activity_ids: [activity_id],
+        activity_sessions: [{activity_id => user_id}]
+      }
+    ]
   end
 
+  before do
+    stub_const("Demo::ReportDemoCreator::ACTIVITY_PACKS_TEMPLATES", demo_config)
+    stub_const("Demo::ReportDemoCreator::REPLAYED_ACTIVITY_ID", activity_id)
+    stub_const("Demo::ReportDemoCreator::REPLAYED_SAMPLE_USER_ID", user_id)
+  end
 
   it 'creates a teacher with name' do
     email = "hello+demoteacher@quill.org"
@@ -62,27 +80,17 @@ RSpec.describe Demo::ReportDemoCreator do
     student = create(:student)
     classroom = create(:classroom)
     create(:students_classrooms, student: student, classroom: classroom)
-    user = build(:user, id: Demo::ReportDemoCreator::REPLAYED_SAMPLE_USER_ID)
-    user.save
-    sample_session = create(:activity_session, activity_id: Demo::ReportDemoCreator::REPLAYED_ACTIVITY_ID, user_id: Demo::ReportDemoCreator::REPLAYED_SAMPLE_USER_ID, is_final_score: true)
     units = Demo::ReportDemoCreator.create_units(teacher)
     classroom_unit = Demo::ReportDemoCreator.create_classroom_units(classroom, units).first
-    expect {Demo::ReportDemoCreator.create_replayed_activity_session(student, classroom_unit)}.to change {ActivitySession.count}.by(1)
+    expect {Demo::ReportDemoCreator.create_replayed_activity_session(student, classroom_unit, session_data)}.to change {ActivitySession.count}.by(1)
   end
 
   it 'creates activity sessions' do
     Sidekiq::Testing.inline! do
-      Demo::ReportDemoCreator::ACTIVITY_PACKS_TEMPLATES.each do |ap|
-        ap[:activity_sessions][0].each do |act_id, user_id|
-          user = build(:user, id: user_id)
-          user.save
-          activity_session = create(:activity_session_without_concept_results, state: 'finished', activity_id: act_id, user_id: user_id, is_final_score: true)
-          concept_result_question_type = ConceptResultQuestionType.find_or_create_by(text: 'sentence-combining')
-          create(:concept_result, activity_session: activity_session, concept_result_question_type: concept_result_question_type)
-        end
-      end
+      temp = session_data.activity_sessions
+        .select {|session| session.activity_id == activity_id && session.user_id == user_id}
+        .first
 
-      temp = ActivitySession.last
       student = create(:student)
       classroom = create(:classroom)
       create(:students_classrooms, student: student, classroom: classroom)
@@ -90,7 +98,7 @@ RSpec.describe Demo::ReportDemoCreator do
 
       Demo::ReportDemoCreator.create_classroom_units(classroom, units)
       total_act_sesh_count = Demo::ReportDemoCreator::ACTIVITY_PACKS_TEMPLATES.map {|ap| ap[:activity_sessions][0].keys.count}.sum
-      expect {Demo::ReportDemoCreator.create_activity_sessions([student], classroom)}.to change {ActivitySession.count}.by(total_act_sesh_count)
+      expect {Demo::ReportDemoCreator.create_activity_sessions([student], classroom, session_data)}.to change {ActivitySession.count}.by(total_act_sesh_count)
       act_sesh = ActivitySession.last
 
       last_template = Demo::ReportDemoCreator::ACTIVITY_PACKS_TEMPLATES.last
@@ -98,8 +106,9 @@ RSpec.describe Demo::ReportDemoCreator do
       expect(act_sesh.user_id).to eq(student.id)
       expect(act_sesh.state).to eq('finished')
       expect(act_sesh.percentage).to eq(temp.percentage)
-      expect(act_sesh.concept_results.first.extra_metadata).to eq(temp.concept_results.first.extra_metadata)
-      expect(act_sesh.concept_results.first.answer).to eq(temp.concept_results.first.answer)
+      expect(act_sesh.concept_results.first.extra_metadata).to be nil
+      # Taken from actual concept_result
+      expect(act_sesh.concept_results.first.answer).to eq("Pho is a soup made with herbs, bone broth and noodles.")
     end
   end
 end
