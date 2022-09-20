@@ -71,10 +71,9 @@ module PublicProgressReports
        instructions: v[:instructions]}
     end
 
-    if questions_arr.empty?
-      questions_arr = generic_questions_for_report(params[:activity_id])
-    end
-    questions_arr
+    return questions_arr unless questions_arr.empty?
+
+    generic_questions_for_report(activity)
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 
@@ -365,9 +364,12 @@ module PublicProgressReports
     hash
   end
 
-  def generic_questions_for_report(activity_id)
-    questions = Activity.find_by_id(activity_id).data['questions'].map { |q| Question.find_by_uid(q['key']) }
+  def generic_questions_for_report(activity)
     question_array = []
+    return question_array unless activity.data['questions'].respond_to?(:map)
+
+    questions = activity.data['questions'].map { |q| Question.find_by_uid(q['key']) }
+
     questions.compact.each do |q|
       next if !q.data['prompt']
 
