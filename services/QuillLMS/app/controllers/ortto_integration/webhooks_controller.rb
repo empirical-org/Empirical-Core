@@ -9,13 +9,21 @@ module OrttoIntegration
 
     def create
       email = params[:email]
-      user = User.find_by_email(email)
 
-      if email.nil? || user.nil?
+      if email.nil?
         ErrorNotifier.report(
           OrttoWebhookBadRequestException.new("Bad request with params: #{params}")
         )
-        return head :accepted
+        return head 202
+      end
+
+      user = User.find_by_email(email)
+
+      if user.nil?
+        ErrorNotifier.report(
+          OrttoWebhookBadRequestException.new("Bad request with params: #{params}")
+        )
+        return head 202
       end
 
       user.update!(send_newsletter: false)
@@ -23,7 +31,7 @@ module OrttoIntegration
     end
 
     def authenticate
-      return head :forbidden unless params['secret'] == ENV['ORTTO_WEBHOOK_PASSWORD']
+      return head 403 unless params['secret'] == ENV['ORTTO_WEBHOOK_PASSWORD']
     end
 
   end

@@ -21,7 +21,7 @@ RSpec.describe OrttoIntegration::WebhooksController, type: :controller do
 
     context 'invalid payload' do
       context 'bad authentication' do
-        it 'should return 401' do
+        it 'should return 403' do
           post :create, params: { email: 'an email', secret: 'incorrect secret' }
           expect(response.status).to eq 403
         end
