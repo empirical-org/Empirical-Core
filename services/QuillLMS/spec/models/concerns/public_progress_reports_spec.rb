@@ -12,6 +12,16 @@ describe PublicProgressReports, type: :model do
     end
   end
 
+  describe '#results_by_question' do
+    let!(:activity) { create(:evidence_activity) }
+
+    it 'should return an empty array when questions array is empty' do
+      report = FakeReports.new
+      report.instance_variable_set(:@activity_sessions, [])
+      expect(report.results_by_question(activity.id)).to eq []
+    end
+  end
+
   describe '#results_for_classroom' do
     let!(:classroom) { create(:classroom) }
     let!(:activity) { create(:evidence_activity) }
