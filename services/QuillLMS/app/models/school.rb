@@ -67,7 +67,7 @@ class School < ApplicationRecord
 
   validate :lower_grade_within_bounds, :upper_grade_within_bounds,
            :lower_grade_greater_than_upper_grade
-  validates :zipcode, length: { min: 5 }, allow_blank: true
+  validates :zipcode, length: { minimum: 5 }, allow_blank: true
 
   ALTERNATIVE_SCHOOL_NAMES = [
     HOME_SCHOOL_SCHOOL_NAME = 'home school',
