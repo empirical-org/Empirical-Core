@@ -71,7 +71,7 @@ module PublicProgressReports
        instructions: v[:instructions]}
     end
 
-    return questions_arr unless question_arr.empty?
+    return questions_arr unless questions_arr.empty?
 
     generic_questions_for_report(activity)
   end
