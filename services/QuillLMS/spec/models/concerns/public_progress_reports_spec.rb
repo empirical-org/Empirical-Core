@@ -250,6 +250,14 @@ describe PublicProgressReports, type: :model do
     let!(:question3) { create(:question) }
     let!(:activity) { create(:activity, data: { 'questions' => [{ 'key' => question1.uid }, { 'key' => question2.uid }, { 'key' => question3.uid }] }) }
 
+    context 'Activity.data has no \'questions\' property' do
+      let(:questionless_activity) { create(:activity, data: {}) }
+
+      it 'should return an empty array' do
+        expect(FakeReports.new.generic_questions_for_report(questionless_activity)).to eq []
+      end
+    end
+
     it 'should return an array of question hashes with the relevant information' do
       expected_response = [
         {
@@ -272,7 +280,7 @@ describe PublicProgressReports, type: :model do
         }
       ]
 
-      expect(FakeReports.new.generic_questions_for_report(activity.id).to_json).to eq(expected_response.to_json)
+      expect(FakeReports.new.generic_questions_for_report(activity).to_json).to eq(expected_response.to_json)
 
     end
   end
