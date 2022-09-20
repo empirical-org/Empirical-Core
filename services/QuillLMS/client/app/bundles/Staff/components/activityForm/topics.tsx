@@ -43,10 +43,9 @@ const Topics = ({ activity, createNewTopic, topicOptions, handleTopicsChange, })
     const newTopic = topicOptions.find(t => t.id === topicId)
     const previousTopic = getSelectedOptionForLevel(newTopic.level)
 
-    if (previousTopic && previousTopic.id === newTopic.id) {
-      newTopicIds = removeExistingTopicAndParents(newTopicIds, previousTopic)
-    } else {
-      newTopicIds = removeExistingTopicAndParents(newTopicIds, previousTopic)
+    newTopicIds = removeExistingTopicAndParents(newTopicIds, previousTopic)
+
+    if (previousTopic?.id != newTopic.id) {
       newTopicIds = addNewTopicAndParents(newTopicIds, newTopic)
     }
 
