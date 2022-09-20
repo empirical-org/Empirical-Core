@@ -17,6 +17,7 @@ class SaveActivitySessionConceptResultsWorker
 
   private def create_records(json_payload)
     return if json_payload['question_type'] == 'lessons-slide' && json_payload['activity_session_id'].nil?
+
     # TODO: When we stop writing OldConceptResult records, update this to
     # just save new ConceptResult records from JSON data, and skip the transaction
     old_concept_result = OldConceptResult.create!(json_payload)
