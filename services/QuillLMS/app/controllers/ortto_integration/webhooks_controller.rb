@@ -3,17 +3,12 @@
 module OrttoIntegration
   class WebhooksController < ApplicationController
     protect_from_forgery except: :create
-    before_action :create, :authenticate
-    #http_basic_authenticate_with name: 'ortto_webhook_user', password: ENV['ORTTO_WEBHOOK_PASSWORD']
+    before_action :authenticate
 
     class OrttoWebhookBadRequestException < StandardError; end
 
     def create
-      puts "\n\n --- PARAMS: #{params.inspect}"
-      puts "\nactivity: #{params.dig(:activity).class} #{params.dig(:activity)}"
-      puts "\ncontact: #{params.dig(:activity, :contact).class} #{params.dig(:activity, :contact)}"
-
-      email = params.dig(:activity, :contact, :email)
+      email = params[:email]
       user = User.find_by_email(email)
 
       if email.nil? || user.nil?
@@ -27,15 +22,9 @@ module OrttoIntegration
       head :ok
     end
 
-    # private def valid_params?
-    #   return false unless params.dig(:activity, :contact, :email)
-    #   true
-    # end
+    def authenticate
+      return head :forbidden unless params['secret'] == ENV['ORTTO_WEBHOOK_PASSWORD']
+    end
 
-  end
-
-  def authenticate
-    puts "authenticate value: {params['secret'] == ENV['ORTTO_WEBHOOK_PASSWORD']}"
-    params['secret'] == ENV['ORTTO_WEBHOOK_PASSWORD']
   end
 end
