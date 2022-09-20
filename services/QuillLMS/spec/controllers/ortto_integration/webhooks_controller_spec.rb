@@ -6,6 +6,7 @@ RSpec.describe OrttoIntegration::WebhooksController, type: :controller do
 
   describe '#create' do
     let(:ortto_secret) { 'xyz' }
+
     context 'valid event payload' do
       let!(:subscribed_user) { create(:user, email: 'a@b.com', send_newsletter: true) }
 
@@ -21,7 +22,7 @@ RSpec.describe OrttoIntegration::WebhooksController, type: :controller do
     context 'invalid payload' do
       context 'bad authentication' do
         it 'should return 401' do
-          post :create, params: { email: 'an email' }
+          post :create, params: { email: 'an email', secret: 'incorrect secret' }
           expect(response.status).to eq 403
         end
       end
