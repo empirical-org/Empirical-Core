@@ -40,34 +40,49 @@ const Topics = ({ activity, createNewTopic, topicOptions, handleTopicsChange, })
 
   function onChangeTopics(topicId) {
     let newTopicIds = [activity.topic_ids]
-    const topic = topicOptions.find(t => t.id === topicId)
-    const existingTopic = getSelectedOptionForLevel(topic.level)
+    const newTopic = topicOptions.find(t => t.id === topicId)
+    const previousTopic = getSelectedOptionForLevel(newTopic.level)
 
-    if (existingTopic) {
-      newTopicIds = newTopicIds.filter(id => id !== existingTopic.id)
-      const existingParentTopic = topicOptions.find(t => t.id === existingTopic.parent_id)
-      if (existingParentTopic) {
-        newTopicIds = newTopicIds.filter(id => id !== existingParentTopic.id)
-        const existingGrandparentTopic = topicOptions.find(t => t.id === existingParentTopic.parent_id)
-        if (existingGrandparentTopic) {
-          newTopicIds = newTopicIds.filter(id => id !== existingGrandparentTopic.id)
-        }
-      }
-    }
-
-    if (!existingTopic || existingTopic.id !== topic.id) {
-      newTopicIds.push(topic.id)
-      if (topic.parent_id) {
-        const parentTopic = topicOptions.find(t => t.id === topic.parent_id)
-        newTopicIds.push(parentTopic.id)
-        if (parentTopic.parent_id) {
-          const grandparentTopic = topicOptions.find(t => t.id === parentTopic.parent_id)
-          newTopicIds.push(grandparentTopic.id)
-        }
-      }
+    if (previousTopic && previousTopic.id === newTopic.id) {
+      newTopicIds = removeExistingTopicAndParents(newTopicIds, previousTopic)
+    } else {
+      newTopicIds = removeExistingTopicAndParents(newTopicIds, previousTopic)
+      newTopicIds = addNewTopicAndParents(newTopicIds, newTopic)
     }
 
     handleTopicsChange(newTopicIds)
+  }
+
+  function removeExistingTopicAndParents(listToFilter, existingTopic) {
+    if (existingTopic) {
+      const existingParentTopic = findParentTopic(topicOptions, existingTopic)
+      listToFilter = listToFilter.filter(id => id !== existingTopic.id)
+      if (existingParentTopic) {
+        listToFilter = listToFilter.filter(id => id !== existingParentTopic.id)
+        const existingGrandparentTopic = findParentTopic(topicOptions, existingParentTopic)
+        if (existingGrandparentTopic) {
+          listToFilter = listToFilter.filter(id => id !== existingGrandparentTopic.id)
+        }
+      }
+    }
+    return listToFilter
+  }
+
+  function addNewTopicAndParents(listToModify, newTopic) {
+    listToModify.push(newTopic.id)
+    if (newTopic.parent_id) {
+      const newParentTopic = findParentTopic(topicOptions, newTopic)
+      listToModify.push(newParentTopic.id)
+      if (newParentTopic.parent_id) {
+        const newGrandparentTopic = findParentTopic(topicOptions, newParentTopic)
+        listToModify.push(newGrandparentTopic.id)
+      }
+    }
+    return listToModify
+  }
+
+  function findParentTopic(topicList, topic) {
+    return topicList.find(t => t.id === topic.parent_id)
   }
 
   function toggleTopicsEnabled(e) {

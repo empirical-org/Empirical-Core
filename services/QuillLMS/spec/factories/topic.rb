@@ -9,7 +9,10 @@ FactoryBot.define do
 
     after(:build) do |topic|
       topic.parent_id = Topic.find_or_create_by!(level: 3, name: 'level three').id if topic.level_two?
-      topic.parent_id = Topic.find_or_create_by!(level: 2, name: 'level two').id if topic.level_one?
+      if topic.level_one?
+        level_three_topic = Topic.find_or_create_by!(level: 3, name: 'level three')
+        topic.parent_id = Topic.find_or_create_by!(level: 2, name: 'level two', parent_id: level_three_topic.id).id
+      end
     end
 
     trait :with_change_log do
