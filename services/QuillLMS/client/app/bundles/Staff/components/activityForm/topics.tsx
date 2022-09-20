@@ -49,7 +49,6 @@ const Topics = ({ activity, createNewTopic, topicOptions, handleTopicsChange, })
       newTopicIds = removeExistingTopicAndParents(newTopicIds, previousTopic)
       newTopicIds = addNewTopicAndParents(newTopicIds, newTopic)
     }
-    console.log(newTopicIds)
 
     handleTopicsChange(newTopicIds)
   }
