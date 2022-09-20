@@ -85,32 +85,36 @@ describe SyncSalesFormSubmissionToVitallyWorker do
       subject.create_vitally_user_if_none_exists
     end
 
-    it 'should update a Vitally user if with two different districts if the users school already has a different district attached' do
-      other_district = create(:district)
-      school = create(:school, district: other_district)
-      create(:schools_users, school: school, user: user)
+    context 'when a users school has a different district from the district in the sales form submission' do
+      it 'should send a payload with both district IDs' do
+        other_district = create(:district)
+        school = create(:school, district: other_district)
+        create(:schools_users, school: school, user: user)
 
-      expect(stub_api).to receive(:exists?).with(SalesFormSubmission::VITALLY_USERS_TYPE, user.id).and_return(true)
-      expect(stub_api).to receive(:get).twice.with(SalesFormSubmission::VITALLY_DISTRICTS_TYPE, other_district.id).and_return({'id' => other_district.id})
-      expect(stub_api).to receive(:get).with(SalesFormSubmission::VITALLY_DISTRICTS_TYPE, district.id).and_return({'id' => district.id})
-      expect(stub_api).to receive(:update).with(SalesFormSubmission::VITALLY_USERS_TYPE, user.id, subject.send(:vitally_user_update_data))
+        expect(stub_api).to receive(:exists?).with(SalesFormSubmission::VITALLY_USERS_TYPE, user.id).and_return(true)
+        expect(stub_api).to receive(:get).twice.with(SalesFormSubmission::VITALLY_DISTRICTS_TYPE, other_district.id).and_return({'id' => other_district.id})
+        expect(stub_api).to receive(:get).with(SalesFormSubmission::VITALLY_DISTRICTS_TYPE, district.id).and_return({'id' => district.id})
+        expect(stub_api).to receive(:update).with(SalesFormSubmission::VITALLY_USERS_TYPE, user.id, subject.send(:vitally_user_update_data))
 
-      subject.create_vitally_user_if_none_exists
+        subject.create_vitally_user_if_none_exists
+      end
     end
 
-    it 'should update a Vitally user if with two different schools if the user already has a different school attached' do
-      school = create(:school)
-      other_school = create(:school)
-      create(:schools_users, school: school, user: user)
-      school_sales_form_submission = create(:sales_form_submission, collection_type: SalesFormSubmission::SCHOOL_COLLECTION_TYPE, school_name: other_school.name, email: user.email)
-      subject.sales_form_submission = school_sales_form_submission
+    context 'when a user has a different school in our DB from the school they designated on the sales form submission' do
+      it 'should send a payload with both school IDs in an array' do
+        school = create(:school)
+        other_school = create(:school)
+        create(:schools_users, school: school, user: user)
+        school_sales_form_submission = create(:sales_form_submission, collection_type: SalesFormSubmission::SCHOOL_COLLECTION_TYPE, school_name: other_school.name, email: user.email)
+        subject.sales_form_submission = school_sales_form_submission
 
-      expect(stub_api).to receive(:exists?).with(SalesFormSubmission::VITALLY_USERS_TYPE, user.id).and_return(true)
-      expect(stub_api).to receive(:get).twice.with(SalesFormSubmission::VITALLY_SCHOOLS_TYPE, school.id).and_return({'id' => school.id})
-      expect(stub_api).to receive(:get).with(SalesFormSubmission::VITALLY_SCHOOLS_TYPE, other_school.id).and_return({'id' => other_school.id})
-      expect(stub_api).to receive(:update).with(SalesFormSubmission::VITALLY_USERS_TYPE, user.id, subject.send(:vitally_user_update_data))
+        expect(stub_api).to receive(:exists?).with(SalesFormSubmission::VITALLY_USERS_TYPE, user.id).and_return(true)
+        expect(stub_api).to receive(:get).twice.with(SalesFormSubmission::VITALLY_SCHOOLS_TYPE, school.id).and_return({'id' => school.id})
+        expect(stub_api).to receive(:get).with(SalesFormSubmission::VITALLY_SCHOOLS_TYPE, other_school.id).and_return({'id' => other_school.id})
+        expect(stub_api).to receive(:update).with(SalesFormSubmission::VITALLY_USERS_TYPE, user.id, subject.send(:vitally_user_update_data))
 
-      subject.create_vitally_user_if_none_exists
+        subject.create_vitally_user_if_none_exists
+      end
     end
   end
 
