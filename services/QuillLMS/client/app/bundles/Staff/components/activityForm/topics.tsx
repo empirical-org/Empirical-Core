@@ -39,7 +39,7 @@ const Topics = ({ activity, createNewTopic, topicOptions, handleTopicsChange, })
   }
 
   function onChangeTopics(topicId) {
-    let newTopicIds = [activity.topic_ids]
+    let newTopicIds = activity.topic_ids
     const newTopic = topicOptions.find(t => t.id === topicId)
     const previousTopic = getSelectedOptionForLevel(newTopic.level)
 
@@ -49,6 +49,7 @@ const Topics = ({ activity, createNewTopic, topicOptions, handleTopicsChange, })
       newTopicIds = removeExistingTopicAndParents(newTopicIds, previousTopic)
       newTopicIds = addNewTopicAndParents(newTopicIds, newTopic)
     }
+    console.log(newTopicIds)
 
     handleTopicsChange(newTopicIds)
   }
