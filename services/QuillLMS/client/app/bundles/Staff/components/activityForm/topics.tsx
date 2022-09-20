@@ -39,23 +39,23 @@ const Topics = ({ activity, createNewTopic, topicOptions, handleTopicsChange, })
   }
 
   function onChangeTopics(topicId) {
-    let newTopicIds = [...activity.topic_ids]
+    let newTopicIds = [activity.topic_ids]
     const topic = topicOptions.find(t => t.id === topicId)
-    const existingOption = getSelectedOptionForLevel(topic.level)
+    const existingTopic = getSelectedOptionForLevel(topic.level)
 
-    if (existingOption) {
-      newTopicIds = newTopicIds.filter(id => id !== existingOption.id)
-      const existingParent = topicOptions.find(t => t.id === existingOption.parent_id)
-      if (existingParent) {
-        newTopicIds = newTopicIds.filter(id => id !== existingParent.id)
-        const existingGrandparent = topicOptions.find(t => t.id === existingParent.parent_id)
-        if (existingGrandparent) {
-          newTopicIds = newTopicIds.filter(id => id !== existingGrandparent.id)
+    if (existingTopic) {
+      newTopicIds = newTopicIds.filter(id => id !== existingTopic.id)
+      const existingParentTopic = topicOptions.find(t => t.id === existingTopic.parent_id)
+      if (existingParentTopic) {
+        newTopicIds = newTopicIds.filter(id => id !== existingParentTopic.id)
+        const existingGrandparentTopic = topicOptions.find(t => t.id === existingParentTopic.parent_id)
+        if (existingGrandparentTopic) {
+          newTopicIds = newTopicIds.filter(id => id !== existingGrandparentTopic.id)
         }
       }
     }
 
-    if (!existingOption || existingOption.id !== topic.id) {
+    if (!existingTopic || existingTopic.id !== topic.id) {
       newTopicIds.push(topic.id)
       if (topic.parent_id) {
         const parentTopic = topicOptions.find(t => t.id === topic.parent_id)

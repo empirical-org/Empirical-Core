@@ -68,12 +68,9 @@ class Topic < ApplicationRecord
   end
 
   private def valid_parent_structure?
-    if level_one?
-      level_two_parent?
-    elsif level_two?
-      level_three_parent?
-    else
-      no_parent?
-    end
+    return level_two_parent? if level_one?
+    return level_three_parent? if level_two?
+
+    no_parent?
   end
 end

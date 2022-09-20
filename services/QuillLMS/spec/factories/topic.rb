@@ -7,13 +7,9 @@ FactoryBot.define do
     visible         true
     parent_id       nil
 
-    after(:build) do |t|
-      case t.level
-      when 2
-        t.parent_id = Topic.find_by_level(3)&.id || create(:topic, level: 3).id
-      when 1
-        t.parent_id = Topic.find_by_level(2)&.id || create(:topic, level: 2).id
-      end
+    after(:build) do |topic|
+      topic.parent_id = Topic.find_or_create_by!(level: 3, name: 'level three').id if topic.level_two?
+      topic.parent_id = Topic.find_or_create_by!(level: 2, name: 'level two').id if topic.level_one?
     end
 
     trait :with_change_log do
