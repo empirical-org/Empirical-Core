@@ -5,7 +5,6 @@
 # Table name: activity_topics
 #
 #  id          :integer          not null, primary key
-#  order       :integer          default(0), not null
 #  activity_id :integer          not null
 #  topic_id    :integer          not null
 #
