@@ -112,13 +112,13 @@ describe Cms::SchoolsController do
           name: "test",
           city: "test city",
           state: "test state",
-          zipcode: "1100",
+          zipcode: "11000",
           free_lunches: 2
       } }
       expect(School.last.name).to eq "test"
       expect(School.last.city).to eq "test city"
       expect(School.last.state).to eq "test state"
-      expect(School.last.zipcode).to eq "1100"
+      expect(School.last.zipcode).to eq "11000"
       expect(School.last.free_lunches).to eq 2
       expect(response).to redirect_to cms_school_path(School.last.id)
     end
