@@ -101,6 +101,17 @@ describe ApplicationController, type: :controller do
           expect(controller).to receive(:reset_session_and_redirect_to_sign_in)
           subject
         end
+
+        context 'when admin is impersonating current user' do
+          let(:admin) { create(:user) }
+
+          before { session[:admin_id] = admin.id }
+
+          it do
+            expect(controller).not_to receive(:reset_session_and_redirect_to_sign_in)
+            subject
+          end
+        end
       end
     end
 
