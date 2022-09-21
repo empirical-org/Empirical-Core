@@ -138,7 +138,7 @@ RSpec.describe Demo::ReportDemoCreator do
 
     it 'creates activity sessions' do
       Sidekiq::Testing.inline! do
-        temp = session_data.activity_sessions
+        session_clone = session_data.activity_sessions
           .find {|session| session.activity_id == activity_id && session.user_id == user_id}
 
         student = create(:student)
@@ -155,7 +155,7 @@ RSpec.describe Demo::ReportDemoCreator do
         expect(act_sesh.activity_id).to eq(last_template[:activity_sessions][0].keys.last)
         expect(act_sesh.user_id).to eq(student.id)
         expect(act_sesh.state).to eq('finished')
-        expect(act_sesh.percentage).to eq(temp.percentage)
+        expect(act_sesh.percentage).to eq(session_clone.percentage)
         expect(act_sesh.concept_results.first.extra_metadata).to be nil
         # Taken from actual concept_result
         expect(act_sesh.concept_results.first.answer).to eq("Pho is a soup made with herbs, bone broth and noodles.")

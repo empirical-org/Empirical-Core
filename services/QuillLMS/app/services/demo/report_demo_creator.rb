@@ -258,16 +258,14 @@ module Demo::ReportDemoCreator
     existing_teacher = User.find_by_email(email)
     existing_teacher.destroy if existing_teacher
 
-    values = {
+    User.create(
       name: "Demo Teacher",
       email: email,
       role: "teacher",
       password: 'password',
       password_confirmation: 'password',
       flags: ["beta"]
-    }
-
-    User.create(values)
+    )
   end
 
   def self.create_classroom(teacher)
@@ -387,13 +385,12 @@ module Demo::ReportDemoCreator
 
     concept_results.each do |cr|
       question_type = session_data.concept_result_question_types.first {|qt| qt.id == cr.concept_result_question_type_id}
-      values = {
+      SaveActivitySessionConceptResultsWorker.perform_async({
         activity_session_id: act_session.id,
         concept_id: cr.concept_id,
         metadata: session_data.concept_result_legacy_metadata[cr.id],
         question_type: question_type&.text
-      }
-      SaveActivitySessionConceptResultsWorker.perform_async(values)
+      })
     end
   end
 
