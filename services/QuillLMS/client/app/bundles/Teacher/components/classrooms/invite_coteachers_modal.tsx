@@ -84,7 +84,7 @@ export default class InviteCoteachersModal extends React.Component<InviteCoteach
   inviteCoteachers() {
     const { onSuccess, close, } = this.props
     const { email, selectedClassroomIds } = this.state
-    const dataForInvite = { classroom_ids: selectedClassroomIds, invitee_email: email }
+    const dataForInvite = { classroom_ids: selectedClassroomIds, invitee_email: email.trim() }
     requestPost('/invitations/create_coteacher_invitation', dataForInvite, (body) => {
       onSuccess('Co-teacher invited')
       close()
