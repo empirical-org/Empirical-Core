@@ -341,19 +341,23 @@ describe Teachers::ClassroomManagerController, type: :controller do
 
   describe '#scorebook' do
     let(:teacher) { create(:teacher) }
-    let(:classroom) { create(:classroom) }
     let(:classroom1) { create(:classroom) }
+    let(:classroom2) { create(:classroom) }
+    let(:classroom3) { create(:classroom) }
+    let(:classrooms_teacher1) {create(:classrooms_teacher, user_id: teacher.id, classroom_id: classroom1.id, order: 1)}
+    let(:classrooms_teacher2) {create(:classrooms_teacher, user_id: teacher.id, classroom_id: classroom2.id, order: 0)}
+    let(:classrooms_teacher3) {create(:classrooms_teacher, user_id: teacher.id, classroom_id: classroom3.id, order: 2)}
 
     before do
       allow(controller).to receive(:current_user) { teacher }
-      allow(RawSqlRunner).to receive(:execute).and_return([classroom, classroom1])
+      allow(RawSqlRunner).to receive(:execute).and_return([classroom2, classroom1, classroom3])
       allow(controller).to receive(:classroom_teacher!) { true }
     end
 
     context 'when classroom id is passed' do
-      it 'should assign the classrooms and classroom' do
+      it 'should assign the classrooms (sorted by order) and classroom' do
         get :scorebook, params: { classroom_id: classroom1.id }
-        expect(assigns(:classrooms)).to eq ([classroom, classroom1].as_json)
+        expect(assigns(:classrooms)).to eq ([classroom2, classroom1, classroom3].as_json)
         expect(assigns(:classroom)).to eq (classroom1.as_json)
       end
     end
