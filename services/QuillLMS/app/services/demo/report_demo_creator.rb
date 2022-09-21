@@ -259,6 +259,7 @@ module Demo::ReportDemoCreator
     StudentTemplate.new(name: "Angie Thomas", email_eligible: true),
   ]
   PASSWORD = 'password'
+  CLASSROOM_NAME = "Quill Classroom"
 
   STUDENT_COUNT = STUDENT_TEMPLATES.count
   UNITS_COUNT = ACTIVITY_PACKS_TEMPLATES.count
@@ -266,7 +267,6 @@ module Demo::ReportDemoCreator
     .map {|hash| hash[:activity_sessions].map(&:keys)}
     .flatten
     .count
-
 
   def self.create_demo(email = nil, teacher_demo: false)
     teacher = create_teacher(email)
@@ -299,30 +299,27 @@ module Demo::ReportDemoCreator
     create_units(teacher)
   end
 
-  def self.reset_account_changes(teacher)
-    if demo_classroom_edited?(teacher)
-      demo_classroom(teacher)&.destroy
-
-      create_demo_classroom_data(teacher, teacher_demo: true)
-    end
-
+  def self.reset_account(teacher)
     non_demo_classrooms(teacher).each(&:destroy)
     teacher.auth_credential&.destroy
     teacher.update(google_id: nil, clever_id: nil)
+
+    return unless demo_classroom_modified?(teacher)
+
+    # recreate the classroom from scratch
+    demo_classroom(teacher)&.destroy
+    create_demo_classroom_data(teacher, teacher_demo: true)
   end
 
-  def self.demo_classroom_has_original_counts?(teacher)
+  def self.demo_classroom_modified?(teacher)
     classroom = demo_classroom(teacher)
 
-    return false if classroom.nil?
+    return true if classroom.nil?
 
-    classroom.students.count == STUDENT_COUNT &&
-      classroom.units.count == UNITS_COUNT &&
-      classroom.activity_sessions.count == SESSIONS_COUNT
-  end
-
-  def self.demo_classroom_edited?(teacher)
-    !demo_classroom_has_original_counts?(teacher)
+    classroom.name != CLASSROOM_NAME ||
+      classroom.students.count != STUDENT_COUNT ||
+      classroom.units.count != UNITS_COUNT ||
+      classroom.activity_sessions.count != SESSIONS_COUNT
   end
 
   def self.create_teacher(email)
