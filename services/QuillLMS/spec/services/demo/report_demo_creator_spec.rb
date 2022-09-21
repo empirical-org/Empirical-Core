@@ -92,7 +92,8 @@ RSpec.describe Demo::ReportDemoCreator do
 
     it 'creates a classroom for the teacher' do
       Demo::ReportDemoCreator.create_classroom(teacher)
-      classroom = Classroom.find_by(name: "Quill Classroom")
+      classroom = teacher.classrooms_i_teach.find {|c| c.name == "Quill Classroom"}
+
       expect(classroom.code).to eq("demo-#{teacher.id}")
       expect(classroom.grade).to eq('9')
       expect(teacher.classrooms_i_teach.include?(classroom)).to eq(true)
