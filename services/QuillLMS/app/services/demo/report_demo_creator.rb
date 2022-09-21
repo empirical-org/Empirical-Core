@@ -367,57 +367,47 @@ module Demo::ReportDemoCreator
     Subscription.create_and_attach_subscriber(attributes, teacher)
   end
 
+  StudentTemplate = Struct.new(:name, :email_eligible, keyword_init: true) do
+    def username(classroom_id)
+      "#{name.downcase.gsub(' ','.')}.#{classroom_id}@demo-teacher"
+    end
+
+    def email
+      return nil unless email_eligible
+
+      "#{name.downcase.gsub(' ','_')}_demo@quill.org"
+    end
+  end
+
+  STUDENT_TEMPLATES = [
+    StudentTemplate.new(name: "Ken Liu", email_eligible: false),
+    StudentTemplate.new(name: "Jason Reynolds", email_eligible: false),
+    StudentTemplate.new(name: "Nic Stone", email_eligible: false),
+    StudentTemplate.new(name: "Tahereh Mafi", email_eligible: false),
+    StudentTemplate.new(name: "Angie Thomas", email_eligible: true),
+  ]
   PASSWORD = 'password'
 
-  def self.create_students(classroom, is_teacher_facing_demo_account)
-    student_values = [
-      {
-        name: "Ken Liu",
-        username: "ken.liu.#{classroom.id}@demo-teacher",
-        role: "student",
-        password: 'password',
-        password_confirmation: 'password',
-      },
-      {
-        name: "Jason Reynolds",
-        username: "jason.reynolds.#{classroom.id}@demo-teacher",
-        role: "student",
-        password: 'password',
-        password_confirmation: 'password',
-      },
-      {
-        name: "Nic Stone",
-        username: "nic.stone.#{classroom.id}@demo-teacher",
-        role: "student",
-        password: 'password',
-        password_confirmation: 'password',
-      },
-      {
-        name: "Tahereh Mafi",
-        username: "tahereh.mafi.#{classroom.id}@demo-teacher",
-        role: "student",
-        password: 'password',
-        password_confirmation: 'password',
-      },
-      {
-        name: "Angie Thomas",
-        username: "angie.thomas.#{classroom.id}@demo-teacher",
-        role: "student",
-        email: is_teacher_facing_demo_account ? 'angie_thomas_demo@quill.org' : nil, # we only want to generate this account with the email linked to quill.org/student_demo if this is the standard quill.org/demo account
-        password: 'password',
-        password_confirmation: 'password'
-      }
-    ]
-
-    if is_teacher_facing_demo_account
+  def self.create_students(classroom, is_teacher_facing)
+    if is_teacher_facing
       # In case the old one didn't get deleted, delete Angie Thomas so that we
       # won't raise a validation error.
       # This is important as we have /student_demo set to go to the Angie Thomas email
-      User.where(email: 'angie_thomas_demo@quill.org').each(&:destroy)
+      STUDENT_TEMPLATES
+        .select {|template| template.email_eligible }
+        .reject {|template| template.email.nil? }
+        .each {|template| User.find_by(email: template.email)&.destroy }
     end
 
-    student_values.map do |values|
-      student = User.create(values)
+    STUDENT_TEMPLATES.map do |template|
+      student = User.create(
+        name: template.name,
+        username: template.username(classroom.id),
+        role: 'student',
+        email: is_teacher_facing ? template.email : nil,
+        password: PASSWORD,
+        password_confirmation: PASSWORD
+      )
       StudentsClassrooms.create({student_id: student.id, classroom_id: classroom.id})
 
       student
