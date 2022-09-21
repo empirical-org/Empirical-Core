@@ -7,7 +7,6 @@ module Demo::ReportDemoCreator
   ACTIVITY_PACKS_TEMPLATES = [
     {
       name: "Quill Activity Pack",
-      activity_ids: [1663, 437, 434, 215, 41, 386, 289, 295, 418],
       activity_sessions: [
         {
           1663 => 9706466,
@@ -68,7 +67,6 @@ module Demo::ReportDemoCreator
     },
     {
       name: "Paragraph Transitions",
-      activity_ids: [851, 863, 861, 985, 986, 1446],
       activity_sessions: [
         {
           851 => 9962415,
@@ -114,7 +112,6 @@ module Demo::ReportDemoCreator
     },
     {
       name: "Social Studies: Maya, Aztec, and Inca Sentence Combining Practice",
-      activity_ids: [627, 628, 629, 535, 523],
       activity_sessions: [
         {
           627 => 9962415,
@@ -155,7 +152,6 @@ module Demo::ReportDemoCreator
     },
     {
       name: "Subject-Verb Agreement Practice",
-      activity_ids: [742, 751, 765],
       activity_sessions: [
         {
           742 => 9962415,
@@ -186,7 +182,6 @@ module Demo::ReportDemoCreator
     },
     {
       name: "Starter Growth Diagnostic (Post)",
-      activity_ids: [1664],
       activity_sessions: [
         {
           1664 => 11662573
@@ -207,7 +202,6 @@ module Demo::ReportDemoCreator
     },
     {
       name: "Evidence-Based Writing: Ethics in Science [Beta]",
-      activity_ids: [1726, 1815, 1813, 1830],
       activity_sessions: [
         {
           1726 => 11776892,
@@ -289,10 +283,18 @@ module Demo::ReportDemoCreator
     units = []
     ACTIVITY_PACKS_TEMPLATES.each do |ap|
       unit = Unit.create({name: ap[:name], user: teacher})
-      ap[:activity_ids].each { |act_id| UnitActivity.create({activity_id: act_id, unit: unit}) }
+      activity_ids = activity_ids_for_config(ap)
+      activity_ids.each { |act_id| UnitActivity.create({activity_id: act_id, unit: unit}) }
       units.push(unit)
     end
     units
+  end
+
+  def self.activity_ids_for_config(template_hash)
+    template_hash[:activity_sessions]
+      .map(&:keys)
+      .flatten
+      .uniq
   end
 
   def self.create_subscription(teacher)
