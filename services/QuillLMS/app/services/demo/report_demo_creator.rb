@@ -278,14 +278,13 @@ module Demo::ReportDemoCreator
   end
 
   def self.create_units(teacher)
-    units = []
-    ACTIVITY_PACKS_TEMPLATES.each do |ap|
+    ACTIVITY_PACKS_TEMPLATES.map do |ap|
       unit = Unit.create({name: ap[:name], user: teacher})
       activity_ids = activity_ids_for_config(ap)
       activity_ids.each { |act_id| UnitActivity.create({activity_id: act_id, unit: unit}) }
-      units.push(unit)
+
+      unit
     end
-    units
   end
 
   def self.activity_ids_for_config(template_hash)
@@ -304,7 +303,6 @@ module Demo::ReportDemoCreator
   end
 
   def self.create_students(classroom, is_teacher_facing_demo_account)
-    students = []
     student_values = [
       {
         name: "Ken Liu",
@@ -351,12 +349,12 @@ module Demo::ReportDemoCreator
       User.where(email: 'angie_thomas_demo@quill.org').each(&:destroy)
     end
 
-    student_values.each do |values|
+    student_values.map do |values|
       student = User.create(values)
       StudentsClassrooms.create({student_id: student.id, classroom_id: classroom.id})
-      students.push(student)
+
+      student
     end
-    students
   end
 
   def self.create_classroom_units(classroom, units)
