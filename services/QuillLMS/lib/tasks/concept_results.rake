@@ -7,7 +7,7 @@ namespace :concept_results do
     query = Sidekiq::RetrySet.new
     query.select do |job|
       job.klass == 'SaveActivitySessionConceptResultsWorker' &&
-      job.args[0]['activity_session_id'].nil?
+        job.args[0]['activity_session_id'].nil?
     end.map(&:delete)
   end
 end
