@@ -11,9 +11,9 @@ RSpec.describe Demo::ReportDemoCreator do
 
     it { expect(subject.class).to be Array }
     it { expect(subject.all? {|template| template.keys.sort == expected_keys}).to be true }
-    it { expect(subject.all? {|template| template[:activity_sessions].class == Array}).to be true }
-    it { expect(subject.all? {|template| template[:activity_sessions].map(&:keys).flatten.all? {|k| k.class == Integer}}).to be true }
-    it { expect(subject.all? {|template| template[:activity_sessions].map(&:values).flatten.all? {|v| v.class == Integer}}).to be true }
+    it { expect(subject.all? {|template| template[:activity_sessions].instance_of?(Array)}).to be true }
+    it { expect(subject.all? {|template| template[:activity_sessions].map(&:keys).flatten.all? {|k| k.instance_of?(Integer)}}).to be true }
+    it { expect(subject.all? {|template| template[:activity_sessions].map(&:values).flatten.all? {|v| v.instance_of?(Integer)}}).to be true }
   end
 
   context 'full data set' do
