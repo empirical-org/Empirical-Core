@@ -15,10 +15,12 @@ module Demo
     FILE_CONCEPT_RESULT_QUESTION_TYPES = 'concept_result_question_types.yml'
     FILE_CONCEPT_RESULT_LEGACY_METADATA = 'concept_result_legacy_metadata.yml'
 
+    REPLAYED_PAIR = [Demo::ReportDemoCreator::REPLAYED_ACTIVITY_ID, Demo::ReportDemoCreator::REPLAYED_SAMPLE_USER_ID]
+
     ACTIVITY_USER_PAIRS = Demo::ReportDemoCreator::ACTIVITY_PACKS_TEMPLATES
       .map {|hash| hash[:activity_sessions].map(&:to_a)}
       .flatten(2)
-      .push([Demo::ReportDemoCreator::REPLAYED_ACTIVITY_ID, Demo::ReportDemoCreator::REPLAYED_SAMPLE_USER_ID])
+      .push(REPLAYED_PAIR)
 
     def activity_sessions
       @activity_sessions ||= load_file(FILE_ACTIVITY_SESSION)
@@ -40,8 +42,10 @@ module Demo
       YAML.load_file(FILE_DIRECTORY + file)
     end
 
-    # To refresh the fixture data if the config changes:
-    # Connect to your local to the prod Follower and run
+    # Important! This only needs to be run if there is a change to:
+    # Demo::ReportDemoCreator::ACTIVITY_PACKS_TEMPLATES
+    # If that happens:
+    # Connect your local app to the prod Follower and run
     # Demo::SessionData.new.generate_files
     # Then commit the generated files to the repo
     def generate_files
@@ -63,7 +67,7 @@ module Demo
       write_to_file(concept_result_metadata, FILE_CONCEPT_RESULT_LEGACY_METADATA)
     end
 
-    def activity_sessions_to_store
+    private def activity_sessions_to_store
       ACTIVITY_USER_PAIRS.map do |id_pair|
         activity_id, user_id = id_pair
 
@@ -71,7 +75,7 @@ module Demo
       end.compact
     end
 
-    def write_to_file(data, file)
+    private def write_to_file(data, file)
       File.write(FILE_DIRECTORY + file, data.to_yaml)
     end
   end
