@@ -5,6 +5,7 @@
 # Table name: activity_topics
 #
 #  id          :integer          not null, primary key
+#  order       :integer          default(0), not null
 #  activity_id :integer          not null
 #  topic_id    :integer          not null
 #
@@ -23,4 +24,12 @@ class ActivityTopic < ApplicationRecord
   belongs_to :topic
 
   validates :topic_id, presence: true
+  validates :order, presence: true
+  validates :order, numericality: { only_integer: true, greater_than_or_equal_to: 0, allow_nil: false }
+
+  before_save :validate_topic_level_one
+
+  def validate_topic_level_one
+    throw(:abort) unless topic.level_one?
+  end
 end
