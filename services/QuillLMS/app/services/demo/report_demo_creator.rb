@@ -239,7 +239,28 @@ module Demo::ReportDemoCreator
     }
   ]
 
-  STUDENT_COUNT = 5
+  StudentTemplate = Struct.new(:name, :email_eligible, keyword_init: true) do
+    def username(classroom_id)
+      "#{name.downcase.gsub(' ','.')}.#{classroom_id}@demo-teacher"
+    end
+
+    def email
+      return nil unless email_eligible
+
+      "#{name.downcase.gsub(' ','_')}_demo@quill.org"
+    end
+  end
+
+  STUDENT_TEMPLATES = [
+    StudentTemplate.new(name: "Ken Liu", email_eligible: false),
+    StudentTemplate.new(name: "Jason Reynolds", email_eligible: false),
+    StudentTemplate.new(name: "Nic Stone", email_eligible: false),
+    StudentTemplate.new(name: "Tahereh Mafi", email_eligible: false),
+    StudentTemplate.new(name: "Angie Thomas", email_eligible: true),
+  ]
+  PASSWORD = 'password'
+
+  STUDENT_COUNT = STUDENT_TEMPLATES.count
   UNITS_COUNT = ACTIVITY_PACKS_TEMPLATES.count
   SESSIONS_COUNT = ACTIVITY_PACKS_TEMPLATES
     .map {|hash| hash[:activity_sessions].map(&:keys)}
@@ -366,27 +387,6 @@ module Demo::ReportDemoCreator
     }
     Subscription.create_and_attach_subscriber(attributes, teacher)
   end
-
-  StudentTemplate = Struct.new(:name, :email_eligible, keyword_init: true) do
-    def username(classroom_id)
-      "#{name.downcase.gsub(' ','.')}.#{classroom_id}@demo-teacher"
-    end
-
-    def email
-      return nil unless email_eligible
-
-      "#{name.downcase.gsub(' ','_')}_demo@quill.org"
-    end
-  end
-
-  STUDENT_TEMPLATES = [
-    StudentTemplate.new(name: "Ken Liu", email_eligible: false),
-    StudentTemplate.new(name: "Jason Reynolds", email_eligible: false),
-    StudentTemplate.new(name: "Nic Stone", email_eligible: false),
-    StudentTemplate.new(name: "Tahereh Mafi", email_eligible: false),
-    StudentTemplate.new(name: "Angie Thomas", email_eligible: true),
-  ]
-  PASSWORD = 'password'
 
   def self.create_students(classroom, is_teacher_facing)
     if is_teacher_facing
