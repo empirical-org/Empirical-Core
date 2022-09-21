@@ -7,7 +7,7 @@ RSpec.describe Demo::SessionData do
 
   context 'activity_sessions' do
     it "should load an array of ActivitySessions" do
-      expect(subject.activity_sessions.count).to eq (140)
+      expect(subject.activity_sessions.count).to eq 140
       expect(subject.activity_sessions.class).to eq Array
       expect(subject.activity_sessions.first.class).to eq ActivitySession
     end
@@ -15,7 +15,7 @@ RSpec.describe Demo::SessionData do
 
   context 'concept_results' do
     it "should load an array of ConceptResults" do
-      expect(subject.concept_results.count).to eq (2004)
+      expect(subject.concept_results.count).to eq 2004
       expect(subject.concept_results.class).to eq Array
       expect(subject.concept_results.first.class).to eq ConceptResult
     end
@@ -23,7 +23,7 @@ RSpec.describe Demo::SessionData do
 
   context 'concept_result_question_types' do
     it "should load an array of ConceptResultQuestionTypes" do
-      expect(subject.concept_result_question_types.count).to eq (5)
+      expect(subject.concept_result_question_types.count).to eq 5
       expect(subject.concept_result_question_types.class).to eq Array
       expect(subject.concept_result_question_types.first.class).to eq ConceptResultQuestionType
     end
@@ -31,7 +31,7 @@ RSpec.describe Demo::SessionData do
 
   context 'concept_result_legacy_metadata' do
     it "should load a hash of integer to hash of key/values" do
-      expect(subject.concept_result_legacy_metadata.count).to eq (2004)
+      expect(subject.concept_result_legacy_metadata.count).to eq 2004
       expect(subject.concept_result_legacy_metadata.class).to eq Hash
 
       expect(subject.concept_result_legacy_metadata.first.first.class).to eq Integer
