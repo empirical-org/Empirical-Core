@@ -249,7 +249,7 @@ module Demo::ReportDemoCreator
 
   def self.create_demo(email = nil, teacher_demo: false)
     teacher = create_teacher(email)
-    subscription = create_subscription(teacher)
+    create_subscription(teacher)
 
     create_demo_classroom_data(teacher, teacher_demo: teacher_demo)
   end
@@ -263,10 +263,10 @@ module Demo::ReportDemoCreator
     classroom_units = create_classroom_units(classroom, units)
 
     session_data = Demo::SessionData.new
+
     create_activity_sessions(students, classroom, session_data)
     create_replayed_activity_session(students.first, classroom_units.first, session_data)
 
-    create_subscription(teacher)
     TeacherActivityFeedRefillWorker.perform_async(teacher.id)
   end
 
@@ -279,21 +279,15 @@ module Demo::ReportDemoCreator
   end
 
   def self.reset_account_changes(teacher)
-    ActiveRecord::Base.transaction do
-      if demo_classroom_edited?(teacher)
-        demo_classroom(teacher)&.destroy
+    if demo_classroom_edited?(teacher)
+      demo_classroom(teacher)&.destroy
 
-        create_demo_classroom_data(teacher, teacher_demo: true)
-      end
-
-      non_demo_classrooms(teacher).each(&:destroy)
-      teacher.auth_credential&.destroy
-      teacher.update(google_id: nil, clever_id: nil)
+      create_demo_classroom_data(teacher, teacher_demo: true)
     end
-  # because of the ID-specific demo setup,
-  # swallow FK errors in case an activity doesn't exist
-  rescue ActiveRecord::InvalidForeignKey => e
-    ErrorNotifier.report(e)
+
+    non_demo_classrooms(teacher).each(&:destroy)
+    teacher.auth_credential&.destroy
+    teacher.update(google_id: nil, clever_id: nil)
   end
 
   def self.demo_classroom_has_original_counts?(teacher)
@@ -347,7 +341,6 @@ module Demo::ReportDemoCreator
   def self.non_demo_classrooms(teacher)
     teacher.classrooms_i_teach.reject {|c| c.code == classcode(teacher.id) }
   end
-
 
   def self.create_units(teacher)
     ACTIVITY_PACKS_TEMPLATES.map do |ap|
