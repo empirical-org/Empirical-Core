@@ -367,6 +367,8 @@ module Demo::ReportDemoCreator
     Subscription.create_and_attach_subscriber(attributes, teacher)
   end
 
+  PASSWORD = 'password'
+
   def self.create_students(classroom, is_teacher_facing_demo_account)
     student_values = [
       {

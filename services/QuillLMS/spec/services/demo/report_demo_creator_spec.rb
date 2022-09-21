@@ -127,6 +127,35 @@ RSpec.describe Demo::ReportDemoCreator do
       end
     end
 
+    context 'create students' do
+      let(:classroom) {create(:classroom)}
+      let(:student_names) { ["Angie Thomas", "Jason Reynolds", "Ken Liu", "Nic Stone", "Tahereh Mafi"]}
+      let(:angie_email) { 'angie_thomas_demo@quill.org' }
+      let(:demo_password) {described_class::PASSWORD}
+
+      subject { classroom.students }
+
+      context 'teacher-facing' do
+        before { Demo::ReportDemoCreator.create_students(classroom, true) }
+
+        it { expect(subject.count).to eq 5 }
+        it { expect(subject.map(&:name).sort).to eq student_names }
+        it { expect(subject.find_by(name: "Angie Thomas").username).to eq "angie.thomas.#{classroom.id}@demo-teacher" }
+        it { expect(subject.all?{|s| s.authenticate(demo_password) }).to be true }
+        it { expect(subject.exists?(email: angie_email)).to be true }
+      end
+
+      context 'not teacher-facing' do
+        before { Demo::ReportDemoCreator.create_students(classroom, false) }
+
+        it { expect(subject.count).to eq 5 }
+        it { expect(subject.map(&:name).sort).to eq student_names }
+        it { expect(subject.find_by(name: "Angie Thomas").username).to eq "angie.thomas.#{classroom.id}@demo-teacher" }
+        it { expect(subject.all?{|s| s.authenticate(demo_password) }).to be true }
+        it { expect(subject.exists?(email: angie_email)).to be false}
+      end
+    end
+
     it 'creates replayed activity session' do
       student = create(:student)
       classroom = create(:classroom)
