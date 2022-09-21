@@ -67,6 +67,7 @@ class School < ApplicationRecord
 
   validate :lower_grade_within_bounds, :upper_grade_within_bounds,
            :lower_grade_greater_than_upper_grade
+  validates :zipcode, length: { minimum: 5 }, allow_blank: true
 
   ALTERNATIVE_SCHOOL_NAMES = [
     HOME_SCHOOL_SCHOOL_NAME = 'home school',
@@ -208,5 +209,11 @@ class School < ApplicationRecord
     schools_admins
       .where(user: old_district_admins)
       .destroy_all
+  end
+
+  private def zipcode_length
+    return true unless zipcode && zipcode.length != 5
+
+    errors.add(:zipcode, 'must be 5 digits')
   end
 end
