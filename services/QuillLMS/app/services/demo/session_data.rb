@@ -67,7 +67,7 @@ module Demo
       ACTIVITY_USER_PAIRS.map do |id_pair|
         activity_id, user_id = id_pair
 
-        ActivitySession.unscoped.where(activity_id: activity_id, user_id: user_id, is_final_score: true).first
+        ActivitySession.unscoped.find_by(activity_id: activity_id, user_id: user_id, is_final_score: true)
       end.compact
     end
 
