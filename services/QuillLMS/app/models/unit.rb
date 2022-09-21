@@ -52,7 +52,7 @@ class Unit < ApplicationRecord
   after_commit :touch_all_classrooms_and_classroom_units
 
   def hide_if_no_visible_unit_activities
-    return if unit_activities.exists?(visible: true)
+    return if unit_activities.where(visible: true).exists?
 
     update(visible: false)
   end
@@ -60,8 +60,8 @@ class Unit < ApplicationRecord
   def hide_classroom_units_and_unit_activities_if_visible_false
     return if visible
 
-    unit_activities.where(visible: true).update(visible: false)
-    classroom_units.where(visible: true).update(visible: false)
+    UnitActivity.where(unit_id: id, visible: true).each{|ua| ua.update(visible: false)}
+    ClassroomUnit.where(unit_id: id, visible: true).each{|cu| cu.update(visible: false)}
   end
 
   def email_lesson_plan

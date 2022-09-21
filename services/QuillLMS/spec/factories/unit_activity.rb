@@ -2,8 +2,8 @@
 
 FactoryBot.define do
   factory :unit_activity do
-    unit
-    activity { create(:activity, :production) }
+    unit            { create(:unit) }
+    activity        { create(:activity, :production) }
 
     factory :unit_activity_with_activity do
       activity { Activity.first || create(:activity) }

@@ -365,6 +365,7 @@ class Teachers::ClassroomManagerController < ApplicationController
           ON ct.classroom_id = classrooms.id
           AND classrooms.visible = true
         WHERE ct.user_id = #{current_user.id}
+        ORDER BY ct.order ASC
       SQL
     ).to_a
   end

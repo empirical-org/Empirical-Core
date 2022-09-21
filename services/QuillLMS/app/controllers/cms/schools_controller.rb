@@ -94,7 +94,7 @@ class Cms::SchoolsController < Cms::CmsController
     if new_school.save
       redirect_to cms_school_path(new_school.id)
     else
-      render :new
+      redirect_to new_cms_school_path, flash: { error: new_school.errors }
     end
   end
 

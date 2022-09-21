@@ -99,7 +99,7 @@ class SyncSalesFormSubmissionToVitallyWorker
 
   private def school_array_for_existing_user
     previous_school = @sales_form_submission.find_or_create_user&.school
-    if previous_school.present? && previous_school != school
+    if previous_school.present? && previous_school != @sales_form_submission.school
       [api.get(SalesFormSubmission::VITALLY_SCHOOLS_TYPE, previous_school.id)["id"], school_vitally_id]
     else
       [school_vitally_id]
@@ -108,7 +108,7 @@ class SyncSalesFormSubmissionToVitallyWorker
 
   private def district_array_for_existing_user
     previous_district = @sales_form_submission.find_or_create_user&.school&.district
-    if previous_district.present? && previous_district != district
+    if previous_district.present? && previous_district != @sales_form_submission.district
       [api.get(SalesFormSubmission::VITALLY_DISTRICTS_TYPE, previous_district.id)["id"], district_vitally_id]
     else
       [district_vitally_id]

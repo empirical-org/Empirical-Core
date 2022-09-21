@@ -9,7 +9,6 @@ module Demo::ReportDemoCreator
   ACTIVITY_PACKS_TEMPLATES = [
     {
       name: "Quill Activity Pack",
-      activity_ids: [1663, 437, 434, 215, 41, 386, 289, 295, 418],
       activity_sessions: [
         {
           1663 => 9706466,
@@ -70,7 +69,6 @@ module Demo::ReportDemoCreator
     },
     {
       name: "Paragraph Transitions",
-      activity_ids: [851, 863, 861, 985, 986, 1446],
       activity_sessions: [
         {
           851 => 9962415,
@@ -116,7 +114,6 @@ module Demo::ReportDemoCreator
     },
     {
       name: "Social Studies: Maya, Aztec, and Inca Sentence Combining Practice",
-      activity_ids: [627, 628, 629, 535, 523],
       activity_sessions: [
         {
           627 => 9962415,
@@ -157,7 +154,6 @@ module Demo::ReportDemoCreator
     },
     {
       name: "Subject-Verb Agreement Practice",
-      activity_ids: [742, 751, 765],
       activity_sessions: [
         {
           742 => 9962415,
@@ -188,7 +184,6 @@ module Demo::ReportDemoCreator
     },
     {
       name: "Starter Growth Diagnostic (Post)",
-      activity_ids: [1664],
       activity_sessions: [
         {
           1664 => 11662573
@@ -209,7 +204,6 @@ module Demo::ReportDemoCreator
     },
     {
       name: "Evidence-Based Writing: Ethics in Science [Beta]",
-      activity_ids: [1726, 1815, 1813, 1830],
       activity_sessions: [
         {
           1726 => 11776892,
@@ -253,7 +247,7 @@ module Demo::ReportDemoCreator
     .count
 
 
-  def self.create_demo(email, teacher_demo: false)
+  def self.create_demo(email = nil, teacher_demo: false)
     teacher = create_teacher(email)
     subscription = create_subscription(teacher)
 
@@ -268,9 +262,11 @@ module Demo::ReportDemoCreator
 
     classroom_units = create_classroom_units(classroom, units)
 
-    create_activity_sessions(students, classroom)
-    create_replayed_activity_session(students.first, classroom_units.first)
+    session_data = Demo::SessionData.new
+    create_activity_sessions(students, classroom, session_data)
+    create_replayed_activity_session(students.first, classroom_units.first, session_data)
 
+    create_subscription(teacher)
     TeacherActivityFeedRefillWorker.perform_async(teacher.id)
   end
 
@@ -320,16 +316,14 @@ module Demo::ReportDemoCreator
     existing_teacher = User.find_by_email(email)
     existing_teacher.destroy if existing_teacher
 
-    values = {
+    User.create(
       name: "Demo Teacher",
       email: email,
       role: "teacher",
       password: 'password',
       password_confirmation: 'password',
       flags: ["beta"]
-    }
-
-    User.create(values)
+    )
   end
 
   def self.create_classroom(teacher)
@@ -338,7 +332,8 @@ module Demo::ReportDemoCreator
       code: classcode(teacher.id),
       grade: '9'
     }
-    classroom = Classroom.create_with_join(values, teacher.id)
+
+    Classroom.create_with_join(values, teacher.id)
   end
 
   def self.classcode(teacher_id)
@@ -355,13 +350,20 @@ module Demo::ReportDemoCreator
 
 
   def self.create_units(teacher)
-    units = []
-    ACTIVITY_PACKS_TEMPLATES.each do |ap|
-      unit = Unit.find_or_create_by(name: ap[:name], user: teacher)
-      ap[:activity_ids].each { |act_id| UnitActivity.find_or_create_by(activity_id: act_id, unit: unit) }
-      units.push(unit)
+    ACTIVITY_PACKS_TEMPLATES.map do |ap|
+      unit = Unit.create({name: ap[:name], user: teacher})
+      activity_ids = activity_ids_for_config(ap)
+      activity_ids.each { |act_id| UnitActivity.create({activity_id: act_id, unit: unit}) }
+
+      unit
     end
-    units
+  end
+
+  def self.activity_ids_for_config(template_hash)
+    template_hash[:activity_sessions]
+      .map(&:keys)
+      .flatten
+      .uniq
   end
 
   def self.create_subscription(teacher)
@@ -373,7 +375,6 @@ module Demo::ReportDemoCreator
   end
 
   def self.create_students(classroom, is_teacher_facing_demo_account)
-    students = []
     student_values = [
       {
         name: "Ken Liu",
@@ -420,12 +421,12 @@ module Demo::ReportDemoCreator
       User.where(email: 'angie_thomas_demo@quill.org').each(&:destroy)
     end
 
-    student_values.each do |values|
+    student_values.map do |values|
       student = User.create(values)
       StudentsClassrooms.create({student_id: student.id, classroom_id: classroom.id})
-      students.push(student)
+
+      student
     end
-    students
   end
 
   def self.create_classroom_units(classroom, units)
@@ -437,49 +438,39 @@ module Demo::ReportDemoCreator
     end
   end
 
-  def self.create_replayed_activity_session(student, classroom_unit)
-    replayed_session = ActivitySession.unscoped.where({activity_id: REPLAYED_ACTIVITY_ID, user_id: REPLAYED_SAMPLE_USER_ID, is_final_score: true}).first
-    student_id = student.id
-    act_session = ActivitySession.create(
-      activity_id: REPLAYED_ACTIVITY_ID,
-      classroom_unit_id: classroom_unit&.id,
-      user_id: student.id,
-      state: "finished",
-      percentage: replayed_session&.percentage
-    )
-    replayed_session&.concept_results&.each do |cr|
-      values = {
+  def self.create_replayed_activity_session(student, classroom_unit, session_data)
+    clone_activity_session(student.id, classroom_unit.unit_id, classroom_unit.classroom_id, REPLAYED_SAMPLE_USER_ID, REPLAYED_ACTIVITY_ID, session_data)
+  end
+
+  def self.clone_activity_session(student_id, unit_id, classroom_id, clone_user_id, clone_activity_id, session_data)
+    session_to_clone = session_data.activity_sessions
+      .find {|session| session.activity_id == clone_activity_id && session.user_id == clone_user_id}
+
+    return unless session_to_clone
+
+    cu = ClassroomUnit.find_by(classroom_id: classroom_id, unit_id: unit_id)
+    act_session = ActivitySession.create(activity_id: clone_activity_id, classroom_unit_id: cu.id, user_id: student_id, state: "finished", percentage: session_to_clone.percentage)
+
+    concept_results = session_data.concept_results.select {|cr| cr.activity_session_id == session_to_clone.id }
+
+    concept_results.each do |cr|
+      question_type = session_data.concept_result_question_types.first {|qt| qt.id == cr.concept_result_question_type_id}
+      SaveActivitySessionConceptResultsWorker.perform_async({
         activity_session_id: act_session.id,
         concept_id: cr.concept_id,
-        metadata: cr.legacy_format[:metadata],
-        question_type: cr.concept_result_question_type&.text
-      }
-      SaveActivitySessionConceptResultsWorker.perform_async(values)
+        metadata: session_data.concept_result_legacy_metadata[cr.id],
+        question_type: question_type&.text
+      })
     end
   end
 
-  def self.create_activity_sessions(students, classroom)
-
+  def self.create_activity_sessions(students, classroom, session_data)
     students.each_with_index do |student, num|
       ACTIVITY_PACKS_TEMPLATES.each do |activity_pack|
         unit = Unit.where(name: activity_pack[:name]).last
         act_sessions = activity_pack[:activity_sessions]
-        act_sessions[num].each do |act_id, user_id|
-          temp = ActivitySession.unscoped.where({activity_id: act_id, user_id: user_id, is_final_score: true}).first
-          next unless temp
-
-          cu = ClassroomUnit.find_by(classroom_id: classroom.id, unit_id: unit.id)
-          act_session = ActivitySession.create({activity_id: act_id, classroom_unit_id: cu.id, user_id: student.id, state: "finished", percentage: temp.percentage})
-
-          temp.concept_results.each do |cr|
-            values = {
-              activity_session_id: act_session.id,
-              concept_id: cr.concept_id,
-              metadata: cr.legacy_format[:metadata],
-              question_type: cr.concept_result_question_type&.text
-            }
-            SaveActivitySessionConceptResultsWorker.perform_async(values)
-          end
+        act_sessions[num].each do |clone_activity_id, clone_user_id|
+          clone_activity_session(student.id, unit.id, classroom.id, clone_user_id, clone_activity_id, session_data)
         end
       end
     end
