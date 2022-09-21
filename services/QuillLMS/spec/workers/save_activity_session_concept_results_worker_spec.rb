@@ -42,14 +42,5 @@ describe SaveActivitySessionConceptResultsWorker, type: :worker do
         .to change(ConceptResult, :count).by(2)
       expect(activity_session.reload.concept_results.count).to eq(2)
     end
-
-    it 'should return early if the question type is lessons-slide and now activity_session_id is present' do
-      json_payload[:activity_session_id] = nil
-      json_payload[:question_type] = 'lessons-slide'
-
-      expect(OldConceptResult).not_to receive(:create!)
-
-      subject.perform(json_payload.stringify_keys)
-    end
   end
 end
