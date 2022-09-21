@@ -9,7 +9,6 @@ module SegmentIntegration
       }.reject {|_,v| v.nil? }
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity
     def content_params
       {
         **common_params,
@@ -20,7 +19,6 @@ module SegmentIntegration
         third_topic: topics.third.name
       }.reject {|_,v| v.nil? }
     end
-    # rubocop:enable Metrics/CyclomaticComplexity
 
   end
 end
