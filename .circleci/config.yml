@@ -153,10 +153,9 @@ jobs:
     steps:
       - checkout
       - run:
-        name: Install npm 8
-        command: |
-          sudo apt-cache search npm
-          sudo apt install -y npm=8.19.2
+          name: Install npm 8
+          command: |
+            sudo npm install npm@8.19.2 -g
 
       - restore_cache:
           keys:
