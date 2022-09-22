@@ -56,15 +56,6 @@ describe Api::V1::UsersController do
       end
     end
 
-    context 'admins' do
-      let(:user) { create(:admin) }
-
-      it 'should return admin for admin users' do
-        get :current_user_role, as: :json
-        expect(response.body).to eq({ role: "admin" }.to_json)
-      end
-    end
-
     context 'students' do
       let(:user)  { create(:student) }
 

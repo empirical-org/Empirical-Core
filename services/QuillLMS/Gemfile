@@ -150,7 +150,8 @@ gem 'rb-readline'
 gem 'awesome_print'
 
 group :production, :staging do
-  gem 'rails_autoscale_agent'
+  gem 'rails-autoscale-web'
+  gem 'rails-autoscale-sidekiq'
   gem 'lograge'
   gem 'sqreen'
 end
@@ -197,16 +198,12 @@ end
 group :test do
   gem 'capybara'
   gem 'capybara-screenshot'
-  gem 'codeclimate-test-reporter', require: nil
-  gem 'codecov'
   gem 'mini_racer', '= 0.4.0'
   gem 'fakeredis', '~> 0.7.0'
   gem 'rails-controller-testing'
   gem 'selenium-webdriver', '~> 3'
   gem 'shoulda-matchers', '~> 4'
   gem 'shoulda-callback-matchers', '~> 1.1.1'
-  gem 'simplecov'
-  gem 'simplecov-json', require: false
   gem 'super_diff', require: false
   gem 'vcr'
   gem 'webmock'

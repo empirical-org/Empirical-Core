@@ -273,13 +273,14 @@ export default class CreateUnit extends React.Component {
 
   stage1SpecificComponents = () => {
     const { activities, } = this.state
-    const { showLessonsBanner, showEvidenceBanner} = this.props
+    const { showLessonsBanner, showEvidenceBanner, flagset, } = this.props
     return (
       <Stage1
         activities={activities}
         clickContinue={this.clickContinue}
         determineIfInputProvidedAndValid={this.determineIfInputProvidedAndValid}
         errorMessage={this.determineStage1ErrorMessage()}
+        flagset={flagset}
         selectedActivities={this.getSelectedActivities()}
         setSelectedActivities={this.setSelectedActivities}
         showEvidenceBanner={showEvidenceBanner}

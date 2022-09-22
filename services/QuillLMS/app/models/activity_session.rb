@@ -41,6 +41,7 @@ require 'new_relic/agent'
 
 class ActivitySession < ApplicationRecord
 
+  class ConceptResultSubmittedWithoutActivitySessionError < StandardError; end
   class LongTimeTrackingError < StandardError; end
 
   include ::NewRelic::Agent
@@ -403,16 +404,11 @@ class ActivitySession < ApplicationRecord
         metadata: concept_result[:metadata],
       })
     end
+    report_invalid_concept_results(concept_results)
   end
 
-  def self.delete_activity_sessions_with_no_concept_results(activity_sessions)
-    incomplete_activity_session_ids = []
-    activity_sessions.each do |as|
-      if as.concept_result_ids.empty?
-        incomplete_activity_session_ids.push(as.id)
-      end
-    end
-    ActivitySession.where(id: incomplete_activity_session_ids).destroy_all
+  def self.report_invalid_concept_results(concept_results)
+    ErrorNotifier.report(ConceptResultSubmittedWithoutActivitySessionError.new("Received a request to record a ConceptResult with no related ActivitySession.")) if concept_results.any? { |cr| cr[:activity_session_id].blank? }
   end
 
   # this function is only for use by Lesson activities, which are not individually saved when the activity ends

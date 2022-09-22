@@ -79,7 +79,9 @@
       background-color: #cccccc;
     }
   }
-
+  &.unbolded {
+    font-weight: 400 !important;
+  }
 }
 
 #teacher-preview-menu-button {

@@ -44,7 +44,7 @@ export default class SelectActivitiesContainer extends React.Component {
   }
 
   render() {
-    const { editing, errorMessage, clickContinue, activities, selectedActivities, setSelectedActivities, toggleActivitySelection, unitName, showLessonsBanner, showEvidenceBanner } = this.props
+    const { editing, errorMessage, clickContinue, activities, selectedActivities, setSelectedActivities, toggleActivitySelection, unitName, showLessonsBanner, showEvidenceBanner, flagset, } = this.props
     const error = errorMessage ? <span><i className="fas fa-exclamation-triangle" />{errorMessage}</span> : '';
     const navigation = editing ? null : <AssignmentFlowNavigation />
 
@@ -56,6 +56,7 @@ export default class SelectActivitiesContainer extends React.Component {
         <CustomActivityPack
           clickContinue={clickFunction}
           errorMessage={errorMessage}
+          flagset={flagset}
           passedActivities={activities}
           selectedActivities={selectedActivities}
           setSelectedActivities={setSelectedActivities}
