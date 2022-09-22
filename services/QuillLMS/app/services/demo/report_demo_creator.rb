@@ -256,7 +256,7 @@ module Demo::ReportDemoCreator
     StudentTemplate.new(name: "Jason Reynolds", email_eligible: false),
     StudentTemplate.new(name: "Nic Stone", email_eligible: false),
     StudentTemplate.new(name: "Tahereh Mafi", email_eligible: false),
-    StudentTemplate.new(name: "Angie Thomas", email_eligible: true),
+    StudentTemplate.new(name: "Angie Thomas", email_eligible: true)
   ]
   PASSWORD = 'password'
   CLASSROOM_NAME = "Quill Classroom"
@@ -387,15 +387,7 @@ module Demo::ReportDemoCreator
   end
 
   def self.create_students(classroom, is_teacher_facing)
-    if is_teacher_facing
-      # In case the old one didn't get deleted, delete Angie Thomas so that we
-      # won't raise a validation error.
-      # This is important as we have /student_demo set to go to the Angie Thomas email
-      STUDENT_TEMPLATES
-        .select {|template| template.email_eligible }
-        .reject {|template| template.email.nil? }
-        .each {|template| User.find_by(email: template.email)&.destroy }
-    end
+    delete_student_email_accounts if is_teacher_facing
 
     STUDENT_TEMPLATES.map do |template|
       student = User.create(
@@ -410,6 +402,16 @@ module Demo::ReportDemoCreator
 
       student
     end
+  end
+
+  def self.delete_student_email_accounts
+    # In case the old one didn't get deleted, delete Angie Thomas so that we
+    # won't raise a validation error.
+    # This is important as we have /student_demo set to go to the Angie Thomas email
+    STUDENT_TEMPLATES
+      .select {|template| template.email_eligible }
+      .reject {|template| template.email.nil? }
+      .each {|template| User.find_by(email: template.email)&.destroy }
   end
 
   def self.create_classroom_units(classroom, units)
