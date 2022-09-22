@@ -194,5 +194,53 @@ RSpec.describe Demo::ReportDemoCreator do
         expect(act_sesh.concept_results.first.answer).to eq("Pho is a soup made with herbs, bone broth and noodles.")
       end
     end
+
+    describe "#reset_account" do
+      context "untouched demo account" do
+        before do
+          Demo::ReportDemoCreator.create_demo_classroom_data(teacher, teacher_demo: true)
+        end
+
+        subject { Demo::ReportDemoCreator.reset_account(teacher) }
+
+        it { expect{ subject }.to_not change(teacher, :google_id).from(nil) }
+        it { expect{ subject }.to_not change(teacher, :clever_id).from(nil) }
+        it { expect{ subject }.to_not change{teacher.classrooms_i_teach.count}.from(1) }
+        it { expect{ subject }.to_not change{teacher.classrooms_i_teach.map(&:id)} }
+        it { expect{ subject }.to_not change(teacher, :auth_credential).from(nil) }
+      end
+
+      context "teacher account has added data" do
+        let(:teacher) {create(:teacher, google_id: 1234, clever_id: 5678)}
+        let!(:auth_credential) {create(:auth_credential, user: teacher) }
+        let(:classroom) {create(:classroom)}
+        let!(:classrooms_teacher) {create(:classrooms_teacher, classroom: classroom, user: teacher)}
+
+        before do
+          Demo::ReportDemoCreator.create_demo_classroom_data(teacher, teacher_demo: true)
+        end
+
+        subject { Demo::ReportDemoCreator.reset_account(teacher) }
+
+        it { expect{ subject }.to change(teacher, :google_id).from("1234").to(nil) }
+        it { expect{ subject }.to change(teacher, :clever_id).from("5678").to(nil) }
+        it { expect{ subject }.to change {teacher.classrooms_i_teach.count}.from(2).to(1) }
+        it { expect{ subject }.to change(AuthCredential, :count).from(1).to(0) }
+        it { expect{ subject }.to_not change{Demo::ReportDemoCreator.demo_classroom(teacher).id} }
+      end
+
+      context "demo classroom changed" do
+
+        before do
+          Demo::ReportDemoCreator.create_demo_classroom_data(teacher, teacher_demo: true)
+          demo_classroom = teacher.classrooms_i_teach.first
+          demo_classroom.update(name: "my classroom name")
+        end
+
+        subject { Demo::ReportDemoCreator.reset_account(teacher) }
+
+        it { expect{ subject }.to change{Demo::ReportDemoCreator.demo_classroom(teacher).id} }
+      end
+    end
   end
 end
