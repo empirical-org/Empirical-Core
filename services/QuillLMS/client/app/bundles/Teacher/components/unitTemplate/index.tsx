@@ -15,19 +15,18 @@ const TIME_OPTIONS = ['0', '10', '20', '30', '40', '50', '60', '70', '80', '90',
 const SUCCESS_MESSAGE = 'Activity pack successfully saved!';
 
 export const UnitTemplate = ({ unitTemplate }) => {
-  const { id, flag, time, unit_template_category_id, name, activity_info, readability, diagnostic_names, activities } = unitTemplate;
+  const { id, flag, time, unit_template_category_id, name, activity_info, readability, diagnostic_names, activities, image_link } = unitTemplate;
   const [activityPackFlag, setActivityPackFlag] = React.useState<DropdownObjectInterface>(flag ? {value: flag, label: flag} : null);
   const [activityPackName, setActivityPackName] = React.useState<any>(name);
   const [activityPackInfo, setActivityPackInfo] = React.useState<string>(activity_info);
   const [activityPackType, setActivityPackType] = React.useState<DropdownObjectInterface>(null);
   const [activityPackTime, setActivityPackTime] = React.useState<DropdownObjectInterface>(time ? {value: time.toString(), label: time.toString()} : null);
+  const [activityPackImageLink, setActivityPackImageLink] = React.useState<string>(image_link || '');
   const [activityPackActivities, setActivityPackActivities] = React.useState<any>(activities || []);
   const [unitTemplateCategories, setUnitTemplateCategories] = React.useState<any>([])
   const [uploadedFileLink, setUploadedFileLink] = React.useState<string>('');
-  const [showSnackbar, setShowSnackbar] = React.useState(false)
-  const [snackbarMessage, setSnackbarMessage] = React.useState('')
-  const [showModal, setShowModal] = React.useState<boolean>(false);
-  const [modalMessage, setModalMessage] = React.useState<string>('');
+  const [showSnackbar, setShowSnackbar] = React.useState(false);
+  const [snackbarMessage, setSnackbarMessage] = React.useState('');
   const [errors, setErrors] = React.useState<any>(null);
 
   React.useEffect(() => {
@@ -65,6 +64,12 @@ export const UnitTemplate = ({ unitTemplate }) => {
     const { target } = e;
     const { value } = target;
     setActivityPackName(value);
+  }
+
+  function handleImageLinkChange(e) {
+    const { target } = e;
+    const { value } = target;
+    setActivityPackImageLink(value);
   }
 
   function handlePackTypeChange(option: DropdownObjectInterface) {
@@ -133,7 +138,7 @@ export const UnitTemplate = ({ unitTemplate }) => {
       time: activityPackTime.value,
       unit_template_category_id: activityPackType.value,
       activity_ids: activityPackActivities.map(activity => activity.id),
-      invalidParam: true
+      image_link: activityPackImageLink
     };
     if(id) {
       updateUnitTemplate(unitTemplateObject, id).then(response => {
@@ -266,6 +271,12 @@ export const UnitTemplate = ({ unitTemplate }) => {
         {renderReadabilitySection()}
       </section>
       {renderPdfUploadSection()}
+      <Input
+        className="image-link-input"
+        handleChange={handleImageLinkChange}
+        label="Image link (copy and paste the link from above if just uploaded)"
+        value={activityPackImageLink}
+      />
       <div className="error-message-and-button-container">
         <button className="quill-button primary contained medium focus-on-light" onClick={handleSaveUnitTemplate}>Save</button>
         {errors && <p className="all-errors-message">Please fix the form errors and try submitting again.</p>}

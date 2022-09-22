@@ -263,6 +263,13 @@ exports[`UnitTemplate component should match snapshot 1`] = `
       Here is the link to your uploaded file:
     </p>
   </div>
+  <Input
+    autoComplete="on"
+    className="image-link-input"
+    handleChange={[Function]}
+    label="Image link (copy and paste the link from above if just uploaded)"
+    value=""
+  />
   <div
     className="error-message-and-button-container"
   >
