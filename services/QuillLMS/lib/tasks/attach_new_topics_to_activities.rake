@@ -9,8 +9,7 @@ namespace :topics do
       next if activity.blank?
 
       topic_names = [row["Topic 1"], row["Topic 2"], row["Topic 3"]]
-      topic_ids = topic_names.map { |topic_name| Topic.find_by(name: topic_name)&.id }
-      activity.topic_ids = topic_ids
+      activity.topic_ids = topic_names.map { |topic_name| Topic.find_by(name: topic_name)&.id }
       activity.save!
     rescue => e
       puts "Error on Activity: #{row['Activity ID']}: #{e}"
