@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-class DemoAccountResetWorker
+# destroy demo account and recreates it from scratch
+class Demo::RecreateAccountWorker
   include Sidekiq::Worker
   sidekiq_options queue: SidekiqQueue::LOW
   STAFF_DEMO_EMAIL = "hello+demoteacher+staff@quill.org"

@@ -54,8 +54,8 @@ describe "Cron", type: :model do
       Cron.interval_1_day
     end
 
-    it "enqueues DemoAccountResetWorker" do
-      expect(DemoAccountResetWorker).to receive(:perform_async)
+    it "enqueues Demo::RecreateAccountWorker" do
+      expect(Demo::RecreateAccountWorker).to receive(:perform_async)
       Cron.interval_1_day
     end
 

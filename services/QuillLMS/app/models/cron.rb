@@ -28,7 +28,7 @@ class Cron
     AlertSoonToExpireSubscriptionsWorker.perform_async
 
     # demo
-    DemoAccountResetWorker.perform_async
+    Demo::RecreateAccountWorker.perform_async
 
     # third party analytics
     SyncVitallyWorker.perform_async
