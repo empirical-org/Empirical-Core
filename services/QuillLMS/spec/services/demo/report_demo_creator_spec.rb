@@ -196,13 +196,16 @@ RSpec.describe Demo::ReportDemoCreator do
     end
 
     describe "#reset_account" do
+      before do
+        stub_const("Demo::ReportDemoCreator::UNITS_COUNT", 1)
+        stub_const("Demo::ReportDemoCreator::SESSIONS_COUNT", 6)
+
+        Demo::ReportDemoCreator.create_demo_classroom_data(teacher, teacher_demo: true)
+      end
+
+      subject { Demo::ReportDemoCreator.reset_account(teacher) }
+
       context "untouched demo account" do
-        before do
-          Demo::ReportDemoCreator.create_demo_classroom_data(teacher, teacher_demo: true)
-        end
-
-        subject { Demo::ReportDemoCreator.reset_account(teacher) }
-
         it { expect{ subject }.to_not change(teacher, :google_id).from(nil) }
         it { expect{ subject }.to_not change(teacher, :clever_id).from(nil) }
         it { expect{ subject }.to_not change{teacher.classrooms_i_teach.count}.from(1) }
@@ -216,12 +219,6 @@ RSpec.describe Demo::ReportDemoCreator do
         let(:classroom) {create(:classroom)}
         let!(:classrooms_teacher) {create(:classrooms_teacher, classroom: classroom, user: teacher)}
 
-        before do
-          Demo::ReportDemoCreator.create_demo_classroom_data(teacher, teacher_demo: true)
-        end
-
-        subject { Demo::ReportDemoCreator.reset_account(teacher) }
-
         it { expect{ subject }.to change(teacher, :google_id).from("1234").to(nil) }
         it { expect{ subject }.to change(teacher, :clever_id).from("5678").to(nil) }
         it { expect{ subject }.to change {teacher.classrooms_i_teach.count}.from(2).to(1) }
@@ -230,14 +227,10 @@ RSpec.describe Demo::ReportDemoCreator do
       end
 
       context "demo classroom changed" do
-
         before do
-          Demo::ReportDemoCreator.create_demo_classroom_data(teacher, teacher_demo: true)
           demo_classroom = teacher.classrooms_i_teach.first
           demo_classroom.update(name: "my classroom name")
         end
-
-        subject { Demo::ReportDemoCreator.reset_account(teacher) }
 
         it { expect{ subject }.to change{Demo::ReportDemoCreator.demo_classroom(teacher).id} }
       end
