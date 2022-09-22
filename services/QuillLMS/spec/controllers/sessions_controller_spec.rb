@@ -166,7 +166,7 @@ describe SessionsController, type: :controller do
     before { allow(controller).to receive(:current_user) { user } }
 
     context 'when session admin id present' do
-      let!(:admin) { create(:admin) }
+      let!(:admin) { create(:teacher) }
 
       before { session[:admin_id] = admin.id }
 

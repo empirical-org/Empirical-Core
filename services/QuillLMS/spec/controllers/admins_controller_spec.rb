@@ -3,16 +3,16 @@
 require 'rails_helper'
 
 describe AdminsController  do
-  before { allow(controller).to receive(:current_user) { user } }
+  before { allow(controller).to receive(:current_user) { admin } }
 
   it { should use_before_action :admin! }
   it { should use_before_action :set_teacher }
   it { should use_before_action :admin_of_this_teacher! }
   it { should use_before_action :sign_in }
 
-  let(:user) { create(:admin) }
+  let(:admin) { create(:teacher) }
   let!(:teacher) { create(:teacher_with_school) }
-  let!(:schools_admins) { create(:schools_admins, school: teacher.reload.school, user: user) }
+  let!(:schools_admins) { create(:schools_admins, school: teacher.reload.school, user: admin) }
 
 
   describe '#show' do
@@ -20,7 +20,7 @@ describe AdminsController  do
 
     it 'should render the correct json' do
       get :show, params: { id: teacher.id }
-      expect(response.body).to eq(({id: user.id}).to_json)
+      expect(response.body).to eq(({id: admin.id}).to_json)
     end
   end
 
