@@ -74,10 +74,6 @@ FactoryBot.define do
       role 'staff'
     end
 
-    factory :admin do
-      role 'admin'
-    end
-
     factory :teacher do
       role 'teacher'
 

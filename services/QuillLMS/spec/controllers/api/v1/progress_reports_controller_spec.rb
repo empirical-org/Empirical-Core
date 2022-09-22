@@ -8,7 +8,7 @@ describe Api::V1::ProgressReportsController, type: :controller do
   let(:unaffiliated_teacher) { create(:teacher) }
   let(:student) { classroom.students.first }
   let(:unaffiliated_student) { create(:student) }
-  let(:admin) { create(:admin) }
+  let(:admin) { create(:teacher) }
 
   context '#activities_scores_by_classroom_data' do
     it 'should return ProgressReports::ActivitiesScoresByClassroom for my classes' do

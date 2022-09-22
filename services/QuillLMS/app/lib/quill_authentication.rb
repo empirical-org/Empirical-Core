@@ -173,4 +173,8 @@ module QuillAuthentication
   private def staff_impersonating_user?(user)
     session[:staff_id].present? && session[:staff_id] != user.id
   end
+
+  private def admin_impersonating_user?(user)
+    session[:admin_id].present? && session[:admin_id] != user.id
+  end
 end
