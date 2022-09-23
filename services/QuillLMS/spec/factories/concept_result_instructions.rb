@@ -14,6 +14,6 @@
 #
 FactoryBot.define do
   factory :concept_result_instructions do
-    sequence(:text) { |n| "This a student response directions #{n}." }
+    sequence(:text) { |n| "These are student response instructions #{n}." }
   end
 end
