@@ -6,8 +6,10 @@
     "url": "https://github.com/empirical-org/Empirical-Core.git"
   },
   "license": "AGPL-3.0",
+  "engineStrict" : true,
   "engines": {
-    "node": "12.x"
+    "node": "12.x",
+    "npm": "8.x"
   },
   "main": "js/app.js",
   "dependencies": {

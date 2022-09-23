@@ -152,6 +152,10 @@ jobs:
       - image: circleci/node:erbium
     steps:
       - checkout
+      - run:
+          name: Install npm 8
+          command: |
+            sudo npm install npm@8.19.2 -g
 
       - restore_cache:
           keys:
