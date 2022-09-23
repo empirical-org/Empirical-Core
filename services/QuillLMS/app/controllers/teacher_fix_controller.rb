@@ -70,7 +70,6 @@ class TeacherFixController < ApplicationController
           activity_sessions = ActivitySession.unscoped.where(classroom_unit_id: cu.id)
           recovered_assigned_students = activity_sessions.map(&:user_id)
           cu.update(visible: true, assigned_student_ids: cu.assigned_student_ids.union(recovered_assigned_students))
-          #cu.update(visible: true, assigned_student_ids: activity_sessions.map(&:user_id))
           activity_sessions.update_all(visible: true)
         end
         render json: {}, status: 200
