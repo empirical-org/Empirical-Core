@@ -10,6 +10,7 @@ interface TooltipProps {
   tooltipTriggerTextClass?: string,
   tooltipTriggerTextStyle?: { [key:string]: any }
   tooltipTriggerStyle?: { [key:string]: any }
+  manuallyShowTooltip?: boolean
 }
 
 class Tooltip extends React.Component<TooltipProps, { clickedFromMobile: boolean, tooltipVisible: boolean }> {
@@ -29,6 +30,15 @@ class Tooltip extends React.Component<TooltipProps, { clickedFromMobile: boolean
 
   componentWillUnmount() {
     document.removeEventListener('click', this.handlePageClick, false)
+  }
+
+  componentDidUpdate(prevProps) {
+    const { manuallyShowTooltip } = this.props;
+    if(prevProps.manuallyShowTooltip !== manuallyShowTooltip && manuallyShowTooltip) {
+      this.showTooltip();
+    } else if(prevProps.manuallyShowTooltip !== manuallyShowTooltip && !manuallyShowTooltip) {
+      this.hideTooltip();
+    }
   }
 
   showTooltip() {
@@ -81,7 +91,8 @@ class Tooltip extends React.Component<TooltipProps, { clickedFromMobile: boolean
   }
 
   render() {
-    const { tooltipTriggerText, tooltipTriggerTextClass, tooltipTriggerStyle, tooltipTriggerTextStyle, isTabbable, } = this.props
+    const { tooltipTriggerText, tooltipTriggerTextClass, tooltipTriggerStyle, tooltipTriggerTextStyle, isTabbable, manuallyShowTooltip } = this.props
+    console.log("🚀 ~ file: tooltip.tsx ~ line 86 ~ Tooltip ~ render ~ manuallyShowTooltip", manuallyShowTooltip)
     const { tooltipVisible, } = this.state
     const tabIndex = isTabbable ? 0 : null;
 

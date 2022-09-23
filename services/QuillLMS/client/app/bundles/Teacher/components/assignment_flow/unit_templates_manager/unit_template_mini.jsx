@@ -1,11 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { renderToString } from 'react-dom/server'
 
 import UnitTemplateFirstRow from './unit_template_first_row'
 import UnitTemplateSecondRow from './unit_template_second_row'
 
 import String from '../../modules/string.jsx'
 import { CLICKED_ACTIVITY_PACK_ID } from '../assignmentFlowConstants'
+import { Tooltip } from '../../../../Shared'
 
 export default class UnitTemplateMini extends React.Component {
   constructor(props) {
@@ -13,6 +15,7 @@ export default class UnitTemplateMini extends React.Component {
 
     this.modules = { string: new String() }
     this.miniRef = React.createRef()
+    this.state = { showTooltip: false }
   }
 
   componentDidMount() {
@@ -62,6 +65,35 @@ export default class UnitTemplateMini extends React.Component {
     return <a href={this.getLink()}>{innerContent}</a>
   }
 
+  renderTooltipElement() {
+    const { data } = this.props
+    if (!data) { return }
+    const { activities } = data;
+    const table = (
+      <table className="activity-tooltip-table">
+        <tbody>
+          <tr>
+            <th>Activity</th>
+            <th>Tool</th>
+            <th>Grade Level Range</th>
+          </tr>
+          <div className="border"></div>
+          {activities && activities.length && activities.map(activity => {
+            const { name, readability, classification } = activity
+            return(
+              <tr>
+                <td>{name}</td>
+                <td>{classification.name}</td>
+                <td>{readability}</td>
+              </tr>
+            )
+          })}
+        </tbody>
+      </table>
+    )
+    return renderToString(table)
+  }
+
   miniSpecificComponents() {
     const { data, } = this.props
     const { id } = data;
@@ -92,10 +124,27 @@ export default class UnitTemplateMini extends React.Component {
     }
   }
 
+  setShowToolTip = () => {
+    this.setState({ showTooltip: true });
+  }
+
+  setHideToolTip = () => {
+    this.setState({ showTooltip: false });
+  }
+
   render() {
+    const { showTooltip } = this.state;
     return (
-      <div className='unit-template-mini' onClick={this.onClickAction}>
+      <div className='unit-template-mini' onClick={this.onClickAction} onMouseEnter={this.setShowToolTip} onMouseLeave={this.setHideToolTip}>
         {this.miniSpecificComponents()}
+        <div className="tooltip-container">
+          <Tooltip
+            manuallyShowTooltip={showTooltip}
+            tooltipText={this.renderTooltipElement()}
+            tooltipTriggerText=""
+            tooltipTriggerTextClass=""
+          />
+        </div>
       </div>
     );
   }
