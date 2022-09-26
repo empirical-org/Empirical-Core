@@ -198,20 +198,18 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
     const width = longestCue ? (longestCue.length * 15) + 10 : 50
     const styling = { width: `${width}px`}
     return (
-      <span key={`span${i}`}>
-        <input
-          aria-label={fillInBlankInputLabel(cues, blankAllowed)}
-          autoComplete="off"
-          className={className}
-          disabled={maxAttemptsReached || responseOptimal}
-          id={`input${i}`}
-          key={i + 100}
-          onChange={this.getChangeHandler(i)}
-          style={styling}
-          type="text"
-          value={inputVals[i]}
-        />
-      </span>
+      <input
+        aria-label={fillInBlankInputLabel(cues, blankAllowed)}
+        autoComplete="off"
+        className={className}
+        disabled={maxAttemptsReached || responseOptimal}
+        id={`input${i}`}
+        key={i + 100}
+        onChange={this.getChangeHandler(i)}
+        style={styling}
+        type="text"
+        value={inputVals[i]}
+      />
     );
   }
 
