@@ -424,17 +424,16 @@ module Demo::ReportDemoCreator
   end
 
   def self.create_replayed_activity_session(student, classroom_unit, session_data)
-    clone_activity_session(student.id, classroom_unit.unit_id, classroom_unit.classroom_id, REPLAYED_SAMPLE_USER_ID, REPLAYED_ACTIVITY_ID, session_data)
+    clone_activity_session(student.id, classroom_unit.id, REPLAYED_SAMPLE_USER_ID, REPLAYED_ACTIVITY_ID, session_data)
   end
 
-  def self.clone_activity_session(student_id, unit_id, classroom_id, clone_user_id, clone_activity_id, session_data)
+  def self.clone_activity_session(student_id, classroom_unit_id, clone_user_id, clone_activity_id, session_data)
     session_to_clone = session_data.activity_sessions
       .find {|session| session.activity_id == clone_activity_id && session.user_id == clone_user_id}
 
     return unless session_to_clone
 
-    cu = ClassroomUnit.find_by(classroom_id: classroom_id, unit_id: unit_id)
-    act_session = ActivitySession.create(activity_id: clone_activity_id, classroom_unit_id: cu.id, user_id: student_id, state: "finished", percentage: session_to_clone.percentage)
+    act_session = ActivitySession.create(activity_id: clone_activity_id, classroom_unit_id: classroom_unit_id, user_id: student_id, state: "finished", percentage: session_to_clone.percentage)
 
     concept_results = session_data.concept_results.select {|cr| cr.activity_session_id == session_to_clone.id }
 
@@ -453,9 +452,10 @@ module Demo::ReportDemoCreator
     students.each_with_index do |student, num|
       ACTIVITY_PACKS_TEMPLATES.each do |activity_pack|
         unit = Unit.where(name: activity_pack[:name]).last
+        classroom_unit = ClassroomUnit.find_or_create_by(classroom: classroom, unit: unit)
         act_sessions = activity_pack[:activity_sessions]
         act_sessions[num].each do |clone_activity_id, clone_user_id|
-          clone_activity_session(student.id, unit.id, classroom.id, clone_user_id, clone_activity_id, session_data)
+          clone_activity_session(student.id, classroom_unit.id, clone_user_id, clone_activity_id, session_data)
         end
       end
     end
