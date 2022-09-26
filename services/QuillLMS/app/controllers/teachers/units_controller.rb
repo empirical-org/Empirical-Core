@@ -215,12 +215,10 @@ class Teachers::UnitsController < ApplicationController
 
     return [] if teach_own_or_coteach_classrooms_array.empty?
 
-    scores, completed, archived_activities = ''
+    scores, completed = ''
 
     if report
       completed = lessons ? "HAVING ca.completed" : "HAVING SUM(CASE WHEN act_sesh.visible = true AND act_sesh.state = 'finished' THEN 1 ELSE 0 END) > 0"
-    else
-      archived_activities = "AND 'archived' != ANY(activities.flags)"
     end
 
     if lessons
@@ -291,7 +289,6 @@ class Teachers::UnitsController < ApplicationController
           AND units.visible = true
           AND cu.visible = true
           AND ua.visible = true
-          #{archived_activities}
           #{lessons}
         GROUP BY
           units.name,

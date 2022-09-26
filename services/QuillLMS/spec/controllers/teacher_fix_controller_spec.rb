@@ -153,6 +153,14 @@ describe TeacherFixController do
           expect(classroom_unit.reload.assigned_student_ids).to eq [another_user.id]
           expect(response.code).to eq "200"
         end
+
+        it 'should not un-assign students from the ClassroomUnit just because they are missing an ActivitySession' do
+          other_student = create(:user)
+          classroom_unit.update(assigned_student_ids: [other_student.id])
+
+          post :recover_activity_sessions, params: { email: user.email, unit_name: "some name" }
+          expect(classroom_unit.reload.assigned_student_ids).to include(another_user.id, other_student.id)
+        end
       end
 
       context 'when unit does not exist' do

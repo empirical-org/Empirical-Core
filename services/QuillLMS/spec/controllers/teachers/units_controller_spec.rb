@@ -223,6 +223,15 @@ describe Teachers::UnitsController, type: :controller do
       expect(parsed_response[0]['number_of_assigned_students']).to eq(original_assigned_student_ids_length)
     end
 
+    it 'should return activities even if they have been archived' do
+      diagnostic_activity.update(flags: [Activity::ARCHIVED])
+
+      response = get :index, params: { report: false }
+      parsed_response = JSON.parse(response.body)
+
+      expect(parsed_response.length).to eq(1)
+    end
+
     # TODO: write a VCR-like test to check when this request returns something other than what we expect.
   end
 
