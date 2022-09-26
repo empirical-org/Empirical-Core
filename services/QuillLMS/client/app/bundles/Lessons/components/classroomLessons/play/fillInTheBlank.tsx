@@ -164,20 +164,18 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
     const styling = { width: `${width}px` }
     const updateBlankValue = (e) => this.updateBlankValue(e, i)
     return (
-      <span key={`span${i}`}>
-        <input
-          aria-label={fillInBlankInputLabel(cues)}
-          autoComplete="off"
-          className={inputClass}
-          disabled={disabled}
-          id={`input${i}`}
-          key={i + 100}
-          onChange={updateBlankValue}
-          style={styling}
-          type="text"
-          value={value}
-        />
-      </span>
+      <input
+        aria-label={fillInBlankInputLabel(cues)}
+        autoComplete="off"
+        className={inputClass}
+        disabled={disabled}
+        id={`input${i}`}
+        key={i + 100}
+        onChange={updateBlankValue}
+        style={styling}
+        type="text"
+        value={value}
+      />
     );
   }
 
