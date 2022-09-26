@@ -206,6 +206,7 @@ export const UnitTemplate = ({ unitTemplate }) => {
   function renderPdfUploadSection() {
     return (
       <div className="pdf-upload-container padded-element">
+        <p>IMPORTANT: For activity pack images, please convert image to grayscale before uploading as a JPEG image using an <a className="data-link" href="https://pinetools.com/grayscale-image" rel="noopener noreferrer" target="_blank">online conversion tool</a></p>
         <label>Click the square below or drag a file into it to upload a file:</label>
         <Dropzone onDrop={handleFileDrop} />
         <p>Here is the link to your uploaded file:</p>

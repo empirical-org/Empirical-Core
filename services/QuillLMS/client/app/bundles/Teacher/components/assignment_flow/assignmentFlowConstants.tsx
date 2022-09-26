@@ -225,6 +225,12 @@ export const imageTagForClassification = (classificationKey: string): JSX.Elemen
 }
 
 export const READING_TEXTS = 'Reading Texts'
+export const READING_FOR_EVIDENCE = 'Reading for Evidence'
+export const CONNECT = 'Connect'
+export const DIAGNOSTIC = 'Diagnostic'
+export const GRAMMAR = 'Grammar'
+export const PROOFREADER = 'Proofreader'
+export const LESSONS = 'Lessons'
 
 export const ACTIVITY_PACK_TYPES = [
   {

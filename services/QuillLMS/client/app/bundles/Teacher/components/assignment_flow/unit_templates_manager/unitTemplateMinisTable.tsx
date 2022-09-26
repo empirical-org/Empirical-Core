@@ -1,8 +1,16 @@
 import * as React from 'react'
 import { DataTable } from '../../../../Shared';
-import { READING_TEXTS } from '../assignmentFlowConstants';
+import { READING_TEXTS, READING_FOR_EVIDENCE, CONNECT, DIAGNOSTIC, GRAMMAR, PROOFREADER, LESSONS } from '../assignmentFlowConstants';
 
 export const UnitTemplateMinisTable = ({ unitTemplates }) => {
+  const toolsColorScheme = {
+    [READING_FOR_EVIDENCE]: '#2C7F9B',
+    [CONNECT]: '#DF9E3D',
+    [DIAGNOSTIC]: '#EB4F47',
+    [GRAMMAR]: '#9035D6',
+    [PROOFREADER]: '#4D8DD9',
+    [LESSONS]: '#AD287B'
+  }
   const dataTableFields = [
     { name: "Pack type", attribute:"packType", width: "160px", rowSectionClassName: 'pack-type-section', noTooltip: true },
     { name: "Pack name", attribute:"packName", width: "190px", rowSectionClassName: 'pack-name-section', noTooltip: true },
@@ -33,7 +41,7 @@ export const UnitTemplateMinisTable = ({ unitTemplates }) => {
       <section className="tools-section">
         {tools.map((tool, i) => {
           const toolName = i === tools.length - 1 ? tool : `${tool},`;
-          return <p>{toolName}</p>
+          return <p style={{ color: toolsColorScheme[tool] }}>{toolName}</p>
         })}
       </section>
     )

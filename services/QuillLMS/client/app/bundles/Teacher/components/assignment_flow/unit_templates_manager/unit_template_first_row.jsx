@@ -4,13 +4,32 @@ import * as _ from 'lodash'
 
 import CategoryLabel from '../category_label'
 import { imageTagForClassification, READING_TEXTS } from '../assignmentFlowConstants'
+import { hexToRGBA } from '../../../../Shared'
 
 const cutOffTimeForNew = moment().subtract('months', 1).unix()
 
 export default class UnitTemplateFirstRow extends React.Component {
-  getBackgroundColor() {
-    const { data, } = this.props
-    return data.type.primary_color;
+
+  getBackgroundStyle(data) {
+    if(!data) { return }
+
+    const { image_link, type } = data
+    const { unit_template_category } = data
+    if(!image_link) {
+      const color = unit_template_category.primary_color || type.primary_color
+      return { backgroundColor: color }
+    }
+
+    const color = unit_template_category.primary_color || type.primary_color
+    const fullColor = hexToRGBA(color, 1)
+    const translucentColor = hexToRGBA(color, 0.4)
+    return {
+      backgroundSize: 'cover',
+      backgroundRepeat: 'no-repeat',
+      backgroundPositionX: '70px',
+      backgroundColor: fullColor,
+      backgroundImage: `linear-gradient(to right, ${fullColor},${translucentColor}), url(${image_link})`
+    }
   }
 
   renderFlag(renderEvidenceTag) {
@@ -49,9 +68,9 @@ export default class UnitTemplateFirstRow extends React.Component {
   render() {
     const { data, } = this.props
     const { unit_template_category, name } = data
-    const renderEvidenceTag = unit_template_category.name === "Themed"
+    const renderEvidenceTag = unit_template_category.name === READING_TEXTS
     return (
-      <div className='first-row' style={{backgroundColor: this.getBackgroundColor()}}>
+      <div className='first-row' style={this.getBackgroundStyle(data)}>
         <div className="name-and-label">
           <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
             <CategoryLabel
