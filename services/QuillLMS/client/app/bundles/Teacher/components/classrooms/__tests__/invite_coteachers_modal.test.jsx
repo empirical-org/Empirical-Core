@@ -5,6 +5,11 @@ import InviteCoteacherModal from '../invite_coteachers_modal'
 import { Input, DataTable, } from '../../../../Shared/index'
 
 import { classroomWithStudents, classroomProps } from './test_data/test_data'
+import { requestPost } from '../../../../../modules/request';
+
+jest.mock('../../../../../modules/request/index.js', () => ({
+  requestPost: jest.fn()
+}))
 
 describe('InviteCoteacherModal component', () => {
 
@@ -30,7 +35,6 @@ describe('InviteCoteacherModal component', () => {
     it('should render a datatable', () => {
       expect(wrapper.find(DataTable).exists()).toBe(true)
     })
-
   })
 
   describe('if a coteacher does not get passed', () => {
@@ -53,6 +57,12 @@ describe('InviteCoteacherModal component', () => {
 
     it('should render a datatable', () => {
       expect(wrapper.find(DataTable).exists()).toBe(true)
+    })
+
+    it('should trim trailing whitespace for coteacher email after submission', () => {
+      wrapper.setState({ email: "test-user@gmail.com "})
+      wrapper.instance().inviteCoteachers()
+      expect(requestPost).toHaveBeenCalledWith("/invitations/create_coteacher_invitation", {classroom_ids: [285383], invitee_email: "test-user@gmail.com"}, expect.any(Function))
     })
   })
 

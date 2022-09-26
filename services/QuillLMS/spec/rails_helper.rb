@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 ENV["RAILS_ENV"] = 'test'
-require 'simplecov'
-SimpleCov.start "rails"
 
 require File.expand_path("../../config/environment", __FILE__)
 
@@ -99,10 +97,6 @@ RSpec.configure do |config|
       allow($stdout).to receive(:write)
     end
   end
-end
-
-if defined?(Coveralls)
-  Coveralls.wear!('rails')
 end
 
 def vcr_ignores_localhost

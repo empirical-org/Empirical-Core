@@ -146,7 +146,7 @@ class ApplicationController < ActionController::Base
   end
 
   protected def confirm_valid_session
-    return if current_user.nil? || session.nil? || session[:staff_id]
+    return if current_user.nil? || session.nil? || session[:staff_id] || admin_impersonating_user?(current_user)
     return unless reset_session? || current_user.google_access_expired?
 
     reset_session_and_redirect_to_sign_in
@@ -159,6 +159,7 @@ class ApplicationController < ActionController::Base
     respond_to do |format|
       format.html { redirect_to new_session_path }
       format.json { render json: { redirect: new_session_path }, status: 303 }
+      format.pdf { redirect_to new_session_path }
     end
   end
 

@@ -245,6 +245,10 @@
       box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.15) !important;
     }
   }
+  .player-container {
+    padding: 82px 22%;
+    background-color: #F8F9F9;
+  }
 }
 
 .prompts-walkthrough-container {
@@ -355,6 +359,10 @@
         max-width: 352px;
         height: auto;
       }
+    }
+    .player-container {
+      padding: 82px 22%;
+      background-color: #F8F9F9;
     }
     .topics-section {
       display: none;

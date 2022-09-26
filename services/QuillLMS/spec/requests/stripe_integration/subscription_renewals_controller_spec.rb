@@ -26,7 +26,7 @@ RSpec.describe StripeIntegration::SubscriptionRenewalsController, type: :request
   end
 
   context 'Stripe Subscription exists but was canceled' do
-    let(:stripe_subscription_canceled_at) { Time.current.to_i }
+    let(:stripe_subscription_status) { StripeIntegration::Subscription::CANCELED }
 
     it 'returns 500 since updates are not allowed on canceled subscriptions' do
       expect(ErrorNotifier)

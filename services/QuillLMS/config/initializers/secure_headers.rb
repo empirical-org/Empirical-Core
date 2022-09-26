@@ -15,7 +15,9 @@ SecureHeaders::Configuration.default do |config|
       "https://*.coview.com",
       "https://intercom-sheets.com",
       "https://stripe.com",
-      "https://*.stripe.com"
+      "https://*.stripe.com",
+      "https://youtube.com",
+      "https://*.youtube.com"
     ],
 
     object_src: %w('none'),                                       # addresses <embed>, <object>, and <applet>

@@ -1,0 +1,66 @@
+---
+- !ruby/object:ConceptResultQuestionType
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 3149
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: text
+    value_before_type_cast: sentence-combining
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2022-07-13 19:51:45.250483000 Z
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ConceptResultQuestionType
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 3156
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: text
+    value_before_type_cast: sentence-writing
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2022-07-13 19:51:48.682812000 Z
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ConceptResultQuestionType
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 3159
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: text
+    value_before_type_cast: passage-proofreader
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2022-07-13 19:51:49.777696000 Z
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ConceptResultQuestionType
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 3411
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: text
+    value_before_type_cast: comprehension
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2022-07-15 01:11:52.041143000 Z
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ConceptResultQuestionType
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 3388
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: text
+    value_before_type_cast: fill-in-the-blanks
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2022-07-13 20:40:20.905380000 Z
+  new_record: false
+  active_record_yaml_version: 2

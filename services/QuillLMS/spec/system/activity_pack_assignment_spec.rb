@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Activity Pack Assignment' do
+  include AuthenticationHelper
+
   let!(:teacher) { create(:teacher_with_a_couple_classrooms_with_one_student_each) }
   let!(:student) { teacher.students.first }
   let!(:classroom) { student.classrooms.first }
@@ -78,18 +80,5 @@ RSpec.describe 'Activity Pack Assignment' do
     click_on 'Begin'
     expect(page).to have_content question_instructions
     click_on 'Save and exit'
-  end
-
-  def login_user(email_or_username, password)
-    visit root_path
-    click_link 'Log In'
-    fill_in 'email-or-username', with: email_or_username
-    fill_in 'password', with: password
-    click_on 'Log in'
-  end
-
-  def logout_user(user)
-    find('span', text: user.name).click
-    click_on 'Logout'
   end
 end

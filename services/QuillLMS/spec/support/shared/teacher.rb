@@ -48,11 +48,11 @@ shared_examples_for "teacher" do
   end
 
   describe "default scope" do
-    let(:teacher){create(:teacher)}
-    let(:user){create(:user)}
-    let(:student){create(:student)}
-    let(:admin){create(:admin)}
-    let(:staff){create(:staff)}
+    let(:teacher) { create(:teacher) }
+    let(:user) { create(:user) }
+    let(:student) { create(:student) }
+    let(:admin) { create(:teacher) }
+    let(:staff) { create(:staff) }
 
     it "must list only teacher users" do
       Teacher.all.each do |teacher|

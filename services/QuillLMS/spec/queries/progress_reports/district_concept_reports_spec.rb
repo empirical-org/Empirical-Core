@@ -6,7 +6,7 @@ describe ProgressReports::DistrictConceptReports do
   describe '#results' do
     let!(:school) { create(:school) }
     let!(:teacher) { create(:teacher) }
-    let!(:admin) { create(:admin) }
+    let!(:admin) { create(:teacher) }
     let!(:classroom) { create(:classroom) }
     let!(:student) { create(:student) }
     let!(:schools_admins) { create(:schools_admins, school: school, user: admin) }

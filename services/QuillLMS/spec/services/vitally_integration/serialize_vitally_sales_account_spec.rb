@@ -19,6 +19,7 @@ describe 'SerializeVitallySalesAccount' do
       ulocal: '41'
     )
   end
+  let(:subscription) { create(:subscription, account_type: Subscription::SCHOOL_PAID) }
 
   before do
     previous_year_data = {
@@ -37,10 +38,35 @@ describe 'SerializeVitallySalesAccount' do
     expect(school_data).to include(accountId: school.id.to_s)
   end
 
-  it 'includes the organizationId' do
+  it 'includes the organizationId if the school has a subscription' do
+    create(:school_subscription, school: school, subscription: subscription)
+
     school_data = SerializeVitallySalesAccount.new(school).data
 
     expect(school_data).to include(organizationId: school.district_id.to_s)
+  end
+
+  it 'includes the organizationId if a different school in the district has a subscription' do
+    different_school = create(:school, district: district)
+    create(:school_subscription, school: different_school, subscription: subscription)
+
+    school_data = SerializeVitallySalesAccount.new(school).data
+
+    expect(school_data).to include(organizationId: school.district_id.to_s)
+  end
+
+  it 'does not include the organizationId if no schools in the district have a subscription' do
+    school_data = SerializeVitallySalesAccount.new(school).data
+
+    expect(school_data).to include(organizationId: '')
+  end
+
+  it 'does not include the organizationId if the school is not part of a district' do
+    school.update(district: nil)
+
+    school_data = SerializeVitallySalesAccount.new(school).data
+
+    expect(school_data).to include(organizationId: '')
   end
 
   it 'generates basic school params' do

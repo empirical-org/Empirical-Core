@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'simplecov'
-require 'simplecov-json'
 require 'webmock/rspec'
 
 WebMock.disable_net_connect!
