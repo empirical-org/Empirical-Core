@@ -47,7 +47,6 @@ class Scorebook::Query
           AND unit_activities.visible
           AND cu.visible
           AND sc.visible
-          AND 'archived' != ANY(activity.flags)
           #{last_unit}
           #{date_conditional_string(begin_date, end_date, offset)}
         GROUP BY

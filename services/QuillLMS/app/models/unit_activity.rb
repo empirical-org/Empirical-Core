@@ -162,7 +162,6 @@ class UnitActivity < ApplicationRecord
           AND cu.visible = true
           AND unit.visible = true
           AND ua.visible = true
-          AND 'archived' != ANY(activity.flags)
         GROUP BY
           unit.id,
           unit.name,

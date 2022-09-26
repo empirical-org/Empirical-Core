@@ -154,5 +154,11 @@ describe UnitActivity, type: :model, redis: true do
       units = UnitActivity.get_classroom_user_profile(nil, nil)
       expect(units.count).to eq(0)
     end
+
+    it 'includes units even if their activities are archived' do
+      activity.update(flags: [Activity::ARCHIVED])
+      units = UnitActivity.get_classroom_user_profile(classroom.id, student.id)
+      expect(units.count).to eq(2)
+    end
   end
 end
