@@ -56,7 +56,6 @@
 #  users_to_tsvector_idx5             (to_tsvector('english'::regconfig, split_part((ip_address)::text, '/'::text, 1))) USING gin
 #
 require 'rails_helper'
-require("webmock/minitest")
 
 describe User, type: :model do
 
