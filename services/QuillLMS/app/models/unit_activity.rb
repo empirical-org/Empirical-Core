@@ -36,6 +36,8 @@ class UnitActivity < ApplicationRecord
 
   after_save :hide_appropriate_activity_sessions, :teacher_checkbox
 
+  DEFAULT_TIMEZONE = "UTC"
+
   def teacher_checkbox
     return unless unit
     return unless unit.user
@@ -123,6 +125,7 @@ class UnitActivity < ApplicationRecord
           MAX(acts.updated_at) AS act_sesh_updated_at,
           ua.order_number,
           ua.due_date,
+          ua.publish_date,
           pre_activity.id AS pre_activity_id,
           cu.created_at AS unit_activity_created_at,
           COALESCE(cuas.locked, false) AS locked,
@@ -157,11 +160,13 @@ class UnitActivity < ApplicationRecord
         LEFT JOIN classroom_unit_activity_states AS cuas
           ON ua.id = cuas.unit_activity_id
           AND cu.id = cuas.classroom_unit_id
+        JOIN users AS teachers ON unit.user_id = teachers.id
         WHERE #{user_id.to_i} = ANY (cu.assigned_student_ids::int[])
           AND cu.classroom_id = #{classroom_id.to_i}
           AND cu.visible = true
           AND unit.visible = true
           AND ua.visible = true
+          AND (ua.publish_date IS NULL OR ua.publish_date <= NOW() at time zone '#{supply_timezone(teachers.time_zone)}')
         GROUP BY
           unit.id,
           unit.name,
@@ -190,6 +195,10 @@ class UnitActivity < ApplicationRecord
           ua.id ASC
       SQL
     ).to_a
+  end
+
+  def supply_timezone(teachers_timezone)
+    teachers_timezone || DEFAULT_TIMEZONE
   end
 
 end
