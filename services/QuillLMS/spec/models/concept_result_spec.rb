@@ -217,7 +217,7 @@ RSpec.describe ConceptResult, type: :model do
       end
       let(:concept_result) { ConceptResult.create_from_json({concept_id: concept.id, activity_session_id: activity_session.id, metadata: metadata, activity_classification_id: activity.activity_classification_id, question_type: 'sentence-combining'}) }
 
-      it 'should return data in the same shape as a ConceptResult' do
+      it 'should return data in the same shape as a legacy ConceptResult model' do
         expect(concept_result.legacy_format.except(:id)).to eq({
           activity_classification_id: activity.activity_classification_id,
           activity_session_id: activity_session.id,
