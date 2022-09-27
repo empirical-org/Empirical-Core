@@ -13,7 +13,7 @@ describe Teachers::ProgressReportsController do
   describe '#demo' do
     context 'when name not given' do
       context 'when demo accounts exist' do
-        let!(:user) { create(:user, email: "hello+demoteacher@quill.org" ) }
+        let!(:user) { create(:user, email: Demo::ReportDemoCreator::EMAIL ) }
         let!(:ap_user) { create(:user, email: "hello+demoteacher+ap@quill.org" ) }
 
         it 'should use the hello+demot\eacher@quill account and redirect to scorebook teachers classrooms path' do
@@ -31,13 +31,11 @@ describe Teachers::ProgressReportsController do
 
       context 'when demo account does not exist' do
         before do
-          allow(Demo::ReportDemoDestroyer).to receive(:destroy_demo) { true }
           allow(Demo::ReportDemoCreator).to receive(:create_demo) {|email| create(:user, email: email) }
         end
 
         it 'should destroy the current demo and create a new demo' do
-          expect(Demo::ReportDemoDestroyer).to receive(:destroy_demo).with("hello+demoteacher@quill.org")
-          expect(Demo::ReportDemoCreator).to receive(:create_demo).with("hello+demoteacher@quill.org")
+          expect(Demo::ReportDemoCreator).to receive(:create_demo).with(Demo::ReportDemoCreator::EMAIL)
           get :demo
         end
       end
@@ -74,12 +72,10 @@ describe Teachers::ProgressReportsController do
 
       context 'when demo account does not exist' do
         before do
-          allow(Demo::ReportDemoDestroyer).to receive(:destroy_demo) { true }
           allow(Demo::ReportDemoCreator).to receive(:create_demo) {|email| create(:user, email: email) }
         end
 
         it 'should destroy the current demo and create a new demo' do
-          expect(Demo::ReportDemoDestroyer).to receive(:destroy_demo).with("hello+test@quill.org")
           expect(Demo::ReportDemoCreator).to receive(:create_demo).with("hello+test@quill.org")
           get :demo, params: { name: "test" }
         end

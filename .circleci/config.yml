@@ -64,7 +64,7 @@ jobs:
           command: |
             cd services/QuillLMS
             TESTFILES=$(circleci tests glob "spec/**/*_spec.rb" | grep -v "spec/system/" | grep -v "/skip_ci/" | circleci tests split)
-            bundle exec rspec -- ${TESTFILES}
+            bin/rspec -- ${TESTFILES}
           environment:
             SUPPRESS_PUTS: "true"
   lms_integration_build:
@@ -142,7 +142,7 @@ jobs:
           command: |
             cd services/QuillLMS
             TESTFILES=$(circleci tests glob "spec/system/*_spec.rb" | circleci tests split)
-            bundle exec rspec ${TESTFILES}
+            bin/rspec ${TESTFILES}
       - store_artifacts:
           path: /home/circleci/Empirical-Core/services/QuillLMS/tmp/screenshots
   lms_node_build:

@@ -2,8 +2,10 @@
 
 module Demo::ReportDemoCreator
 
+  EMAIL = "hello+demoteacher@quill.org"
   REPLAYED_ACTIVITY_ID = 434
   REPLAYED_SAMPLE_USER_ID = 312664
+
   ACTIVITY_PACKS_TEMPLATES = [
     {
       name: "Quill Activity Pack",
@@ -237,23 +239,93 @@ module Demo::ReportDemoCreator
     }
   ]
 
-  def self.create_demo(email = nil)
+  StudentTemplate = Struct.new(:name, :email_eligible, keyword_init: true) do
+    def username(classroom_id)
+      "#{name.downcase.gsub(' ','.')}.#{classroom_id}@demo-teacher"
+    end
+
+    def email
+      return nil unless email_eligible
+
+      "#{name.downcase.gsub(' ','_')}_demo@quill.org"
+    end
+  end
+
+  STUDENT_TEMPLATES = [
+    StudentTemplate.new(name: "Ken Liu", email_eligible: false),
+    StudentTemplate.new(name: "Jason Reynolds", email_eligible: false),
+    StudentTemplate.new(name: "Nic Stone", email_eligible: false),
+    StudentTemplate.new(name: "Tahereh Mafi", email_eligible: false),
+    StudentTemplate.new(name: "Angie Thomas", email_eligible: true)
+  ]
+  PASSWORD = 'password'
+  CLASSROOM_NAME = "Quill Classroom"
+
+  STUDENT_COUNT = STUDENT_TEMPLATES.count
+  UNITS_COUNT = ACTIVITY_PACKS_TEMPLATES.count
+  SESSIONS_COUNT = ACTIVITY_PACKS_TEMPLATES
+    .map {|hash| hash[:activity_sessions].map(&:keys)}
+    .flatten
+    .count
+
+  def self.create_demo(email = nil, teacher_demo: false)
     teacher = create_teacher(email)
+    create_subscription(teacher)
+
+    create_demo_classroom_data(teacher, teacher_demo: teacher_demo)
+  end
+
+  def self.create_demo_classroom_data(teacher, teacher_demo: false)
+    units = reset_units(teacher)
+
     classroom = create_classroom(teacher)
-    students = create_students(classroom, !email) # using the presence of a passed email to determine whether this is the standard /demo account or not
-    units = create_units(teacher)
+    students = create_students(classroom, teacher_demo)
+
     classroom_units = create_classroom_units(classroom, units)
 
     session_data = Demo::SessionData.new
+
     create_activity_sessions(students, classroom, session_data)
     create_replayed_activity_session(students.first, classroom_units.first, session_data)
 
-    create_subscription(teacher)
     TeacherActivityFeedRefillWorker.perform_async(teacher.id)
   end
 
+  def self.reset_units(teacher)
+    teacher.units.reload # this relation is empty until it is reloaded for some reason
+    return teacher.units if teacher.units.count == UNITS_COUNT
+
+    teacher.units&.destroy_all
+
+    create_units(teacher)
+  end
+
+  def self.reset_account(teacher)
+    non_demo_classrooms(teacher).each(&:destroy)
+
+    teacher.auth_credential&.destroy
+    teacher.update(google_id: nil, clever_id: nil)
+
+    return unless demo_classroom_modified?(teacher)
+
+    # recreate the classroom from scratch
+    demo_classroom(teacher)&.destroy
+    create_demo_classroom_data(teacher, teacher_demo: true)
+  end
+
+  def self.demo_classroom_modified?(teacher)
+    classroom = demo_classroom(teacher)
+
+    return true if classroom.nil?
+
+    classroom.name != CLASSROOM_NAME ||
+      classroom.students.count != STUDENT_COUNT ||
+      classroom.units.count != UNITS_COUNT ||
+      classroom.activity_sessions.count != SESSIONS_COUNT
+  end
+
   def self.create_teacher(email)
-    email ||= "hello+demoteacher@quill.org"
+    email ||= EMAIL
 
     existing_teacher = User.find_by_email(email)
     existing_teacher.destroy if existing_teacher
@@ -271,18 +343,30 @@ module Demo::ReportDemoCreator
   def self.create_classroom(teacher)
     values = {
       name: "Quill Classroom",
-      code: "demo-#{teacher.id}",
+      code: classcode(teacher.id),
       grade: '9'
     }
 
     Classroom.create_with_join(values, teacher.id)
   end
 
+  def self.classcode(teacher_id)
+    "demo-#{teacher_id}"
+  end
+
+  def self.demo_classroom(teacher)
+    teacher.classrooms_i_teach.first {|c| c.code == classcode(teacher.id) }
+  end
+
+  def self.non_demo_classrooms(teacher)
+    teacher.classrooms_i_teach.reject {|c| c.code == classcode(teacher.id) }
+  end
+
   def self.create_units(teacher)
     ACTIVITY_PACKS_TEMPLATES.map do |ap|
-      unit = Unit.create({name: ap[:name], user: teacher})
+      unit = Unit.find_or_create_by({name: ap[:name], user: teacher})
       activity_ids = activity_ids_for_config(ap)
-      activity_ids.each { |act_id| UnitActivity.create({activity_id: act_id, unit: unit}) }
+      activity_ids.each { |act_id| UnitActivity.find_or_create_by({activity_id: act_id, unit: unit}) }
 
       unit
     end
@@ -303,64 +387,37 @@ module Demo::ReportDemoCreator
     Subscription.create_and_attach_subscriber(attributes, teacher)
   end
 
-  def self.create_students(classroom, is_teacher_facing_demo_account)
-    student_values = [
-      {
-        name: "Ken Liu",
-        username: "ken.liu.#{classroom.id}@demo-teacher",
-        role: "student",
-        password: 'password',
-        password_confirmation: 'password',
-      },
-      {
-        name: "Jason Reynolds",
-        username: "jason.reynolds.#{classroom.id}@demo-teacher",
-        role: "student",
-        password: 'password',
-        password_confirmation: 'password',
-      },
-      {
-        name: "Nic Stone",
-        username: "nic.stone.#{classroom.id}@demo-teacher",
-        role: "student",
-        password: 'password',
-        password_confirmation: 'password',
-      },
-      {
-        name: "Tahereh Mafi",
-        username: "tahereh.mafi.#{classroom.id}@demo-teacher",
-        role: "student",
-        password: 'password',
-        password_confirmation: 'password',
-      },
-      {
-        name: "Angie Thomas",
-        username: "angie.thomas.#{classroom.id}@demo-teacher",
-        role: "student",
-        email: is_teacher_facing_demo_account ? 'angie_thomas_demo@quill.org' : nil, # we only want to generate this account with the email linked to quill.org/student_demo if this is the standard quill.org/demo account
-        password: 'password',
-        password_confirmation: 'password'
-      }
-    ]
+  def self.create_students(classroom, is_teacher_facing)
+    delete_student_email_accounts if is_teacher_facing
 
-    if is_teacher_facing_demo_account
-      # In case the old one didn't get deleted, delete Angie Thomas so that we
-      # won't raise a validation error.
-      # This is important as we have /student_demo set to go to the Angie Thomas email
-      User.where(email: 'angie_thomas_demo@quill.org').each(&:destroy)
-    end
-
-    student_values.map do |values|
-      student = User.create(values)
+    STUDENT_TEMPLATES.map do |template|
+      student = User.create(
+        name: template.name,
+        username: template.username(classroom.id),
+        role: 'student',
+        email: is_teacher_facing ? template.email : nil,
+        password: PASSWORD,
+        password_confirmation: PASSWORD
+      )
       StudentsClassrooms.create({student_id: student.id, classroom_id: classroom.id})
 
       student
     end
   end
 
+  def self.delete_student_email_accounts
+    # In case the old one didn't get deleted, delete Angie Thomas so that we
+    # won't raise a validation error.
+    # This is important as we have /student_demo set to go to the Angie Thomas email
+    STUDENT_TEMPLATES
+      .select {|template| template.email_eligible }
+      .reject {|template| template.email.nil? }
+      .each {|template| User.find_by(email: template.email)&.destroy }
+  end
+
   def self.create_classroom_units(classroom, units)
     units.map do |unit|
-      ClassroomUnit.create(
+      ClassroomUnit.find_or_create_by(
         classroom: classroom,
         unit: unit,
         assign_on_join: true)
@@ -368,17 +425,16 @@ module Demo::ReportDemoCreator
   end
 
   def self.create_replayed_activity_session(student, classroom_unit, session_data)
-    clone_activity_session(student.id, classroom_unit.unit_id, classroom_unit.classroom_id, REPLAYED_SAMPLE_USER_ID, REPLAYED_ACTIVITY_ID, session_data)
+    clone_activity_session(student.id, classroom_unit.id, REPLAYED_SAMPLE_USER_ID, REPLAYED_ACTIVITY_ID, session_data)
   end
 
-  def self.clone_activity_session(student_id, unit_id, classroom_id, clone_user_id, clone_activity_id, session_data)
+  def self.clone_activity_session(student_id, classroom_unit_id, clone_user_id, clone_activity_id, session_data)
     session_to_clone = session_data.activity_sessions
       .find {|session| session.activity_id == clone_activity_id && session.user_id == clone_user_id}
 
     return unless session_to_clone
 
-    cu = ClassroomUnit.find_by(classroom_id: classroom_id, unit_id: unit_id)
-    act_session = ActivitySession.create(activity_id: clone_activity_id, classroom_unit_id: cu.id, user_id: student_id, state: "finished", percentage: session_to_clone.percentage)
+    act_session = ActivitySession.create(activity_id: clone_activity_id, classroom_unit_id: classroom_unit_id, user_id: student_id, state: "finished", percentage: session_to_clone.percentage)
 
     concept_results = session_data.concept_results.select {|cr| cr.activity_session_id == session_to_clone.id }
 
@@ -397,9 +453,10 @@ module Demo::ReportDemoCreator
     students.each_with_index do |student, num|
       ACTIVITY_PACKS_TEMPLATES.each do |activity_pack|
         unit = Unit.where(name: activity_pack[:name]).last
+        classroom_unit = ClassroomUnit.find_or_create_by(classroom: classroom, unit: unit)
         act_sessions = activity_pack[:activity_sessions]
         act_sessions[num].each do |clone_activity_id, clone_user_id|
-          clone_activity_session(student.id, unit.id, classroom.id, clone_user_id, clone_activity_id, session_data)
+          clone_activity_session(student.id, classroom_unit.id, clone_user_id, clone_activity_id, session_data)
         end
       end
     end
