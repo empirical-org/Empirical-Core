@@ -28,7 +28,7 @@ describe ActivityTopic, type: :model do
     it 'should raise error if topic is not level 1' do
       level_two_topic = create(:topic, level: 2)
       activity_topic = build(:activity_topic, topic: level_two_topic)
-      expect { activity_topic.save! }.to raise_error(ActiveRecord::RecordNotSaved)
+      expect { activity_topic.save! }.to raise_error(ActiveRecord::RecordInvalid)
     end
 
     it 'should save if topic is level 1' do
