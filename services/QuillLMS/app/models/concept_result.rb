@@ -19,10 +19,12 @@
 #  concept_result_previous_feedback_id :integer
 #  concept_result_prompt_id            :integer
 #  concept_result_question_type_id     :integer
+#  old_concept_result_id               :bigint
 #
 # Indexes
 #
-#  index_concept_results_on_activity_session_id  (activity_session_id)
+#  index_concept_results_on_activity_session_id    (activity_session_id)
+#  index_concept_results_on_old_concept_result_id  (old_concept_result_id)
 #
 class ConceptResult < ApplicationRecord
   belongs_to :activity_session
