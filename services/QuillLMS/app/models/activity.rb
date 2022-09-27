@@ -320,7 +320,6 @@ class Activity < ApplicationRecord
     # Rename "student" to "session" because it's called "student" in all tools other than Evidence
     initial_params[:session] = initial_params.delete :student if initial_params[:student]
     initial_params[:uid] = Evidence::Activity.find_by(parent_activity_id: id).id
-    initial_params[:skipToPrompts] = true
     construct_redirect_url(base_url, initial_params)
   end
 
