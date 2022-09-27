@@ -35,7 +35,7 @@ describe GradesController do
         percentage: activity_session.percentage
       )
       expect(json_response[:scores].first[:completed_at].to_datetime.to_i)
-        .to eq(activity_session.reload.completed_at.to_i)
+        .to eq(activity_session.reload.completed_at.to_i + teacher.utc_offset.seconds)
 
       expect(json_response[:concept_results].first).to include(
         correct: concept_result.correct,
@@ -44,7 +44,7 @@ describe GradesController do
         due_date: activity_session.classroom_unit.unit_activities.first.due_date
       )
       expect(json_response[:concept_results].first[:completed_at].to_datetime.to_i)
-        .to eq(activity_session.reload.completed_at.to_i)
+        .to eq(activity_session.reload.completed_at.to_i + teacher.utc_offset.seconds)
     end
   end
 end
