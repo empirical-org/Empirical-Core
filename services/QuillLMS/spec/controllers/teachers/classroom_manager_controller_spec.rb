@@ -665,7 +665,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
 
   describe '#view_demo' do
     let!(:teacher) { create(:teacher) }
-    let!(:demo_teacher) { create(:teacher, email: 'hello+demoteacher@quill.org')}
+    let!(:demo_teacher) { create(:teacher, email: Demo::ReportDemoCreator::EMAIL)}
     let!(:analyzer) { double(:analyzer, track: true) }
 
     before do
@@ -674,65 +674,78 @@ describe Teachers::ClassroomManagerController, type: :controller do
     end
 
     it 'will call current_user_demo_id= if the demo account exists' do
+      expect(Demo::ReportDemoCreator).to receive(:reset_account).with(demo_teacher)
       expect(controller).to receive(:current_user_demo_id=).with(demo_teacher.id)
+
       get :view_demo
     end
 
     it 'will redirect to the profile path' do
+      expect(Demo::ReportDemoCreator).to receive(:reset_account).with(demo_teacher)
+
       get :view_demo
       expect(response).to redirect_to profile_path
     end
 
     it 'will not call current_user_demo_id= and raise error if demo account does not exist' do
       demo_teacher.destroy
+      expect(Demo::ReportDemoCreator).to_not receive(:reset_account)
       expect(controller).not_to receive(:current_user_demo_id=)
+
       get :view_demo
       expect(JSON.parse(response.body)["errors"]).to eq("Demo Account does not exist")
     end
 
     it 'will track event' do
+      expect(Demo::ReportDemoCreator).to receive(:reset_account).with(demo_teacher)
       expect(analyzer).to receive(:track).with(teacher, SegmentIo::BackgroundEvents::VIEWED_DEMO)
+
       get :view_demo
     end
   end
 
   describe '#demo_id' do
     let!(:teacher) { create(:teacher) }
-    let!(:demo_teacher) { create(:teacher, email: 'hello+demoteacher@quill.org')}
+    let!(:demo_teacher) { create(:teacher, email: Demo::ReportDemoCreator::EMAIL)}
 
     before do
       controller.sign_in(teacher)
     end
 
     it 'will return the value of session[:demo_id]' do
-      session[:demo_id] = demo_teacher.id
-      get :demo_id
+      get :demo_id, session: {demo_id: demo_teacher.id}
       expect(JSON.parse(response.body)['current_user_demo_id']).to eq(demo_teacher.id)
     end
   end
 
   describe '#unset_view_demo' do
     let!(:teacher) { create(:teacher) }
-    let!(:demo_teacher) { create(:teacher, email: 'hello+demoteacher@quill.org')}
+    let!(:demo_teacher) { create(:teacher, email: Demo::ReportDemoCreator::EMAIL)}
 
     before do
       controller.sign_in(teacher)
     end
 
     it 'will redirect to the redirect param if it exists' do
+      expect(Demo::ResetAccountWorker).to receive(:perform_async).with(demo_teacher.id)
       redirect = '/teachers/classes'
-      get :unset_view_demo, params: { redirect: redirect }
+
+      get :unset_view_demo, params: { redirect: redirect }, session: {demo_id: demo_teacher.id}
       expect(response).to redirect_to redirect
     end
 
     it 'will redirect to the profile path if there is no redirect param' do
-      get :unset_view_demo
+      expect(Demo::ResetAccountWorker).to receive(:perform_async).with(demo_teacher.id)
+
+      get :unset_view_demo, session: {demo_id: demo_teacher.id}
       expect(response).to redirect_to profile_path
     end
 
     it 'will call current_user_demo_id=' do
+      expect(Demo::ResetAccountWorker).to receive(:perform_async).with(demo_teacher.id)
       expect(controller).to receive(:current_user_demo_id=).with(nil)
-      get :unset_view_demo
+
+      get :unset_view_demo, session: {demo_id: demo_teacher.id}
     end
   end
 
