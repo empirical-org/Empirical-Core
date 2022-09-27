@@ -69,6 +69,9 @@ RSpec.describe 'Activity Pack Assignment' do
     # the following line checks for the presence of an element that only loads once activity data has loaded, ensuring that the assign click will be successful
     first('.review-activities-data-table-section').click
     click_on 'Assign pack to classes'
+
+    # TODO: Fix bug in which you can click too fast and break this flow (remove sleep when that is done)
+    sleep 2
     click_on 'Next'
     click_on 'Take me to my dashboard'
     logout_user(teacher)
