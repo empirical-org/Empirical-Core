@@ -10,28 +10,6 @@ const cutOffTimeForNew = moment().subtract('months', 1).unix()
 
 export default class UnitTemplateFirstRow extends React.Component {
 
-  getBackgroundStyle(data) {
-    if(!data) { return }
-
-    const { image_link, type } = data
-    const { unit_template_category } = data
-    if(!image_link) {
-      const color = unit_template_category.primary_color || type.primary_color
-      return { backgroundColor: color }
-    }
-
-    const color = unit_template_category.primary_color || type.primary_color
-    const fullColor = hexToRGBA(color, 1)
-    const translucentColor = hexToRGBA(color, 0.4)
-    return {
-      backgroundSize: 'cover',
-      backgroundRepeat: 'no-repeat',
-      backgroundPositionX: '70px',
-      backgroundColor: fullColor,
-      backgroundImage: `linear-gradient(to right, ${fullColor},${translucentColor}), url(${image_link})`
-    }
-  }
-
   renderFlag(renderEvidenceTag) {
     const { data, } = this.props
     if(renderEvidenceTag) {
@@ -65,30 +43,53 @@ export default class UnitTemplateFirstRow extends React.Component {
     )
   }
 
+  renderImageOrDefaultColorPanel(data) {
+    if(!data || !data.image_link) { return }
+
+    const { image_link, type } = data
+    const { unit_template_category } = data
+    const color = unit_template_category.primary_color || type.primary_color
+    const fullColor = hexToRGBA(color, 1)
+    const translucentColor = hexToRGBA(color, 0.4)
+
+    return(
+      <div className="activity-pack-image-container" style={{ backgroundColor: color }}>
+        <div className="activity-pack-image-overlay" style={{ backgroundImage: `linear-gradient(to right, ${fullColor},${translucentColor})`}} />
+        <img className="activity-pack-image" src={image_link} />
+      </div>
+    )
+  }
+
   render() {
     const { data, } = this.props
-    const { unit_template_category, name } = data
+    const { unit_template_category, type, name, image_link } = data
     const renderEvidenceTag = unit_template_category.name === READING_TEXTS
+    const color = unit_template_category.primary_color || type.primary_color
+    const cardColorStyle = image_link ? {} : { backgroundColor: color }
+
     return (
-      <div className='first-row' style={this.getBackgroundStyle(data)}>
-        <div className="name-and-label">
-          <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
-            <CategoryLabel
-              data={unit_template_category}
-              extraClassName='float-right'
-            />
-            {renderEvidenceTag && <span className="evidence-new-tag">NEW</span>}
-          </div>
-          <div>
+      <div className='first-row' style={cardColorStyle}>
+        {this.renderImageOrDefaultColorPanel(data)}
+        <div className="content-section">
+          <div className="name-and-label">
+            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+              <CategoryLabel
+                data={unit_template_category}
+                extraClassName='float-right'
+              />
+              {renderEvidenceTag && <span className="evidence-new-tag">NEW</span>}
+            </div>
             <div>
-              <div className='unit-template-name'>
-                {name}
+              <div>
+                <div className='unit-template-name'>
+                  {name}
+                </div>
+                {this.renderFlag(renderEvidenceTag)}
               </div>
-              {this.renderFlag(renderEvidenceTag)}
             </div>
           </div>
+          {this.renderToolNames()}
         </div>
-        {this.renderToolNames()}
       </div>
     );
   }

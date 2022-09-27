@@ -37,6 +37,7 @@ export const UnitTemplateMinisTable = ({ unitTemplates }) => {
   }
 
   function getToolsElement(tools) {
+    if(!tools) { return }
     return(
       <section className="tools-section">
         {tools.map((tool, i) => {
