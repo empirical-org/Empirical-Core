@@ -39,21 +39,17 @@ describe UnitActivity, type: :model, redis: true do
   let!(:activity_classification2) { create(:grammar)}
   let!(:activity_classification6) { create(:lesson_classification)}
   let!(:diagnostic_activity_classification ) { create(:diagnostic) }
-  let!(:activity) { create(:activity) }
-  let!(:diagnostic_activity) { create(:diagnostic_activity, activity_classification_id: diagnostic_activity_classification.id) }
+  let!(:activity) { create(:activity, name: 'activity') }
+  let!(:diagnostic_activity) { create(:diagnostic_activity, activity_classification_id: diagnostic_activity_classification.id, name: 'diagnostic activity') }
   let!(:student) { create(:user, role: 'student', username: 'great', name: 'hi hi', password: 'pwd') }
   let!(:classroom) { create(:classroom, students: [student]) }
-  let!(:classrooms_teacher) { create(:classrooms_teacher, classroom: classroom)}
-  let!(:classroom2) { create(:classroom) }
   let!(:teacher) {classroom.owner}
   let!(:unit) { create(:unit, name: 'Tapioca', user: teacher) }
   let!(:unit_activity) { create(:unit_activity, unit: unit, activity: activity) }
+  let!(:lessons_activity) { create(:activity, activity_classification_id: 6, name: 'lesson activity') }
+  let!(:lessons_unit_activity) { create(:unit_activity, unit: unit, activity: lessons_activity) }
   let!(:classroom_unit ) { create(:classroom_unit , unit: unit, classroom: classroom, assigned_student_ids: [student.id]) }
-  let!(:activity_session) {create(:activity_session, user_id: student.id, state: 'unstarted', classroom_unit_id: classroom_unit.id)}
-  let(:lessons_activity) { create(:activity, activity_classification_id: 6) }
-  let(:lessons_unit_activity) { create(:unit_activity, unit: unit, activity: lessons_activity) }
-  let(:lessons_unit_activity2) { create(:unit_activity, unit: unit, activity: lessons_activity) }
-  let!(:unit_activity_with_no_activity_session) { create(:unit_activity, activity: activity) }
+  let!(:activity_session) {create(:activity_session, user_id: student.id, state: 'unstarted', classroom_unit_id: classroom_unit.id, unit: unit, activity: activity)}
 
   describe '#formatted_due_date' do
     context 'when due date exists' do
@@ -146,19 +142,66 @@ describe UnitActivity, type: :model, redis: true do
 
   context 'self.get_classroom_user_profile' do
     it 'get user profile data' do
-      units = UnitActivity.get_classroom_user_profile(classroom.id, student.id)
-      expect(units.count).to eq(2)
+      unit_activities = UnitActivity.get_classroom_user_profile(classroom.id, student.id)
+      expect(unit_activities.count).to eq(2)
     end
 
     it 'gracefully account for nils' do
-      units = UnitActivity.get_classroom_user_profile(nil, nil)
-      expect(units.count).to eq(0)
+      unit_activities = UnitActivity.get_classroom_user_profile(nil, nil)
+      expect(unit_activities.count).to eq(0)
     end
 
-    it 'includes units even if their activities are archived' do
+    it 'includes unit_activities even if their activities are archived' do
       activity.update(flags: [Activity::ARCHIVED])
-      units = UnitActivity.get_classroom_user_profile(classroom.id, student.id)
-      expect(units.count).to eq(2)
+      unit_activities = UnitActivity.get_classroom_user_profile(classroom.id, student.id)
+      expect(unit_activities.count).to eq(2)
     end
+
+    describe 'publish dates' do
+
+      it 'includes unit activities that do not have a publish date' do
+        unit_activity.update(publish_date: nil)
+        lessons_unit_activity.update(publish_date: nil)
+        unit_activities = UnitActivity.get_classroom_user_profile(classroom.id, student.id)
+        expect(unit_activities.count).to eq(2)
+      end
+
+      it 'includes unit activities that have a publish date that have already passed in the timezone of the teacher' do
+        tz_string = 'America/New_York'
+        teacher.update(time_zone: tz_string)
+        unit_activity.update(publish_date: Time.now.in_time_zone(tz_string) - 4.hours - 1.minute)
+        lessons_unit_activity.update(publish_date: Time.now.in_time_zone(tz_string) - 5.hours)
+        unit_activities = UnitActivity.get_classroom_user_profile(classroom.id, student.id)
+        expect(unit_activities.count).to eq(2)
+      end
+
+      it 'includes unit activities that have a publish date that have already passed when the teacher has no timezone' do
+        teacher.update(time_zone: nil)
+        unit_activity.update(publish_date: Time.now - 1.hour)
+        lessons_unit_activity.update(publish_date: Time.now - 1.minute)
+        unit_activities = UnitActivity.get_classroom_user_profile(classroom.id, student.id)
+        expect(unit_activities.count).to eq(2)
+      end
+
+      it 'does not include unit activities that have a publish date that has not yet passed in the timezone of the assigning teacher' do
+        tz_string = 'America/New_York'
+        teacher.update(time_zone: tz_string)
+        unit_activity.update(publish_date: Time.now.in_time_zone(tz_string) + 1.hour)
+        lessons_unit_activity.update(publish_date: Time.now.in_time_zone(tz_string) + 1.month)
+        unit_activities = UnitActivity.get_classroom_user_profile(classroom.id, student.id)
+        expect(unit_activities.count).to eq(0)
+      end
+
+      it 'does not include unit activities that have a publish date that has not yet passed when the teacher has no time zone' do
+        teacher.update(time_zone: nil)
+        unit_activity.update(publish_date: Time.now + 1.hour)
+        lessons_unit_activity.update(publish_date: Time.now + 1.month)
+        unit_activities = UnitActivity.get_classroom_user_profile(classroom.id, student.id)
+        expect(unit_activities.count).to eq(0)
+      end
+
+    end
+
   end
+
 end

@@ -166,7 +166,12 @@ class UnitActivity < ApplicationRecord
           AND cu.visible = true
           AND unit.visible = true
           AND ua.visible = true
-          AND (ua.publish_date IS NULL OR ua.publish_date <= NOW() at time zone '#{supply_timezone(teachers.time_zone)}')
+          AND
+          (
+            ua.publish_date IS NULL
+            OR (teachers.time_zone IS NOT NULL AND ua.publish_date <= NOW() at time zone teachers.time_zone)
+            OR (teachers.time_zone IS NULL AND ua.publish_date <= NOW())
+          )
         GROUP BY
           unit.id,
           unit.name,
@@ -177,6 +182,7 @@ class UnitActivity < ApplicationRecord
           activity.id,
           activity.uid,
           ua.due_date,
+          ua.publish_date,
           ua.created_at,
           unit_activity_id,
           cuas.completed,
@@ -195,10 +201,6 @@ class UnitActivity < ApplicationRecord
           ua.id ASC
       SQL
     ).to_a
-  end
-
-  def supply_timezone(teachers_timezone)
-    teachers_timezone || DEFAULT_TIMEZONE
   end
 
 end
