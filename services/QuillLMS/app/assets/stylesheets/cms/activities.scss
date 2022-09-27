@@ -1,0 +1,13 @@
+.topic-groups-container {
+  display: grid;
+  padding: 10px;
+}
+
+.topic-group {
+  display: flex;
+  padding: 10px;
+}
+
+.topic-column {
+  min-width: 300px;
+}
