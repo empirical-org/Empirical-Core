@@ -92,16 +92,11 @@ export default class UnitTemplatesManager extends React.Component {
   filterModels = (category, grade, typeId, gradeLevelRange) => {
     const { unitTemplatesManager, } = this.state
     let displayedModels = unitTemplatesManager.models
-    let selectedCategoryId
     if (grade) {
       displayedModels = this.modelsInGrade(grade)
     }
     if (category) {
-      const categoryName = category.toUpperCase() === 'ELL' ? category.toUpperCase() : category
-      selectedCategoryId = unitTemplatesManager.categories.find(cat => cat.name === categoryName).id
-      displayedModels = displayedModels.filter(ut => {
-        return ut.unit_template_category.name === categoryName
-      })
+      displayedModels = displayedModels.filter(ut => ut.unit_template_category.name === category)
     }
     if (typeId) {
       const selectedType = ACTIVITY_PACK_TYPES.find(t => t.id === typeId)

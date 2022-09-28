@@ -91,7 +91,7 @@ class Tooltip extends React.Component<TooltipProps, { clickedFromMobile: boolean
   }
 
   render() {
-    const { tooltipTriggerText, tooltipTriggerTextClass, tooltipTriggerStyle, tooltipTriggerTextStyle, isTabbable, manuallyShowTooltip } = this.props
+    const { tooltipTriggerText, tooltipTriggerTextClass, tooltipTriggerStyle, tooltipTriggerTextStyle, isTabbable } = this.props
     const { tooltipVisible, } = this.state
     const tabIndex = isTabbable ? 0 : null;
 

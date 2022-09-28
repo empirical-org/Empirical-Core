@@ -56,12 +56,12 @@ export class UnitTemplateFirstRow extends React.Component {
     const { name } = unit_template_category
     const link = image_link || DEFAULT_ACTIVITY_PACK_IMAGE_LINKS[name] || DEFAULT_ACTIVITY_PACK_IMAGE_LINKS['Default']
     const color = unit_template_category.primary_color || type.primary_color
-    const fullColor = hexToRGBA(color, 1)
+    const opaqueColor = hexToRGBA(color, 1)
     const translucentColor = hexToRGBA(color, 0.4)
 
     return(
       <div className="activity-pack-image-container" style={{ backgroundColor: color }}>
-        <div className="activity-pack-image-overlay" style={{ backgroundImage: `linear-gradient(to right, ${fullColor},${translucentColor})`}} />
+        <div className="activity-pack-image-overlay" style={{ backgroundImage: `linear-gradient(to right, ${opaqueColor},${translucentColor})`}} />
         <img alt="" className="activity-pack-image" src={image_link || link} />
       </div>
     )
