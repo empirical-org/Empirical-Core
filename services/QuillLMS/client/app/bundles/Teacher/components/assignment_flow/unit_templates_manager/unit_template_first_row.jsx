@@ -10,7 +10,7 @@ const cutOffTimeForNew = moment().subtract(1, 'months').unix()
 const DEFAULT_ACTIVITY_PACK_IMAGE_LINKS = {
   'Default': 'https://s3.amazonaws.com/quill-image-uploads/uploads/files/Writing_1_2379.jpg',
   'Diagnostic': 'https://s3.amazonaws.com/quill-image-uploads/uploads/files/Chart_2380.jpg',
-  'Whole Class Lesson': 'https://s3.amazonaws.com/quill-image-uploads/uploads/files/Class_2381.jpg'
+  'Whole Class Lessons': 'https://s3.amazonaws.com/quill-image-uploads/uploads/files/Class_2381.jpg'
 }
 
 export class UnitTemplateFirstRow extends React.Component {
