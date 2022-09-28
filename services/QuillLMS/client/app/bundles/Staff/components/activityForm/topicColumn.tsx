@@ -1,10 +1,9 @@
 import * as React from 'react'
-import { ReactTable, TextFilter, } from '../../../Shared/index'
 
-const TopicColumn = ({ createNewTopicNew, levelNumber, selectTopicNew, getFilteredOptionsForLevelNew, topic, removeTopic }) => {
+const TopicColumn = ({ createNewTopic, levelNumber, selectTopic, getFilteredOptionsForLevel, topic, removeTopic }) => {
   const [newTopicName, setNewTopicName] = React.useState('')
 
-  const options = getFilteredOptionsForLevelNew(levelNumber, topic.id)
+  const options = getFilteredOptionsForLevel(levelNumber, topic.id)
 
   function handleNewTopicNameChange(e) {
     setNewTopicName(e.target.value)
@@ -16,26 +15,17 @@ const TopicColumn = ({ createNewTopicNew, levelNumber, selectTopicNew, getFilter
       level: 1,
       name: newTopicName
     }
-    createNewTopicNew(newTopic)
+    createNewTopic(newTopic)
     setNewTopicName('')
   }
 
+  const handleClickSelectTopic = (id) => {
+    selectTopic(id, levelNumber)
+  }
 
-  const columns = (selectedOption) => ([
-    {
-      Header: 'Name',
-      accessor: 'name',
-      key: 'name',
-      Cell: ({row}) => (<div className={`record-cell ${selectedOption && selectedOption.id === row.original.id  ? 'selected' : ''}`} onClick={() => selectTopicNew(row.original.id, levelNumber)}>{row.original.name}</div>),
-      sortType:  (a, b) => (a && b ? a.original.name.localeCompare(b.original.name) : 0),
-      Filter: TextFilter,
-      filter: (rows, idArray, filterValue) => {
-        return rows.filter(row => {
-          return row.original.name ? row.original.name.toLowerCase().includes(filterValue.toLowerCase()) : ''
-        })
-      },
-    }
-  ]);
+  function handleClickRemoveTopic(e) {
+    removeTopic(levelNumber)
+  }
 
   const selectedOption = topic
 
@@ -45,7 +35,7 @@ const TopicColumn = ({ createNewTopicNew, levelNumber, selectTopicNew, getFilter
   if (selectedOption) {
     selectedOptionElement = (<div className="selected-option" >
       <span>{selectedOption.name}</span>
-      <button className="interactive-wrapper" onClick={(e) => removeTopic(levelNumber)}><i className="fas fa-times" /></button>
+      <button aria-label="remove topic" className="interactive-wrapper" onClick={handleClickRemoveTopic} type="button"><i className="fas fa-times" /></button>
     </div>)
   }
 
@@ -55,7 +45,7 @@ const TopicColumn = ({ createNewTopicNew, levelNumber, selectTopicNew, getFilter
       buttonClassName+= ' disabled'
     }
     newTopicField = (<div className="new-topic-field">
-      <label>New Topic Level 1</label>
+      <span>New Topic Level 1</span>
       <input disabled={!options.length} onChange={handleNewTopicNameChange} value={newTopicName} />
       <button className={buttonClassName} disabled={!options.length} onClick={handleClickAddTopic}>Add</button>
     </div>)
@@ -65,12 +55,20 @@ const TopicColumn = ({ createNewTopicNew, levelNumber, selectTopicNew, getFilter
     <div className="topic-column">
       <label>Topic Level {levelNumber}</label>
       {selectedOptionElement}
-      <ReactTable
-        columns={columns(selectedOption)}
-        data={options}
-        defaultFilterMethod={(filter, row) => row._original.name ? row._original.name.toLowerCase().includes(filter.value.toLowerCase()) : ''}
-        filterable
-      />
+      <div>
+        {
+          options.map((option, i) => {
+            let clickEventHelper = () => {
+              handleClickSelectTopic(option.id)
+            };
+            return (
+              <button className="record-cell" key={i} onClick={clickEventHelper} onKeyDown={clickEventHelper} type="button">
+                {option.name}
+              </button>
+            )
+          })
+        }
+      </div>
       {newTopicField}
     </div>
   );

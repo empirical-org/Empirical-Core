@@ -9,18 +9,19 @@ const TopicGroup = ({ createNewTopic, findParentTopic, topic, topicOptions, hand
   const [levelThreeTopic, setLevelThreeTopic] = levelOneTopic.id ? React.useState(findParentTopic(levelTwoTopic)) : React.useState({})
 
   React.useEffect(() => {
-    if (levelOneTopic.parent_id != levelTwoTopic.id) {
+    if (levelOneTopic.parent_id !== levelTwoTopic.id) {
+      handleLevelOneChange(levelOneTopic.id, null)
       setLevelOneTopic({})
     }
   }, [levelTwoTopic]);
 
   React.useEffect(() => {
-    if (levelTwoTopic.parent_id != levelThreeTopic.id) {
+    if (levelTwoTopic.parent_id !== levelThreeTopic.id) {
       setLevelTwoTopic({})
     }
   }, [levelThreeTopic]);
 
-  function selectTopicNew(topicId, level) {
+  function selectTopic(topicId, level) {
     const newTopic = topicOptions.find(t => t.id === topicId)
     if (level === 1) {
       handleLevelOneChange(levelOneTopic.id, newTopic.id)
@@ -47,7 +48,7 @@ const TopicGroup = ({ createNewTopic, findParentTopic, topic, topicOptions, hand
     return topicOptions.filter(to => to.level === level)
   }
 
-  function getFilteredOptionsForLevelNew(level: number, selectedId: number) {
+  function getFilteredOptionsForLevel(level: number, selectedId: number) {
     let allOptions = getOptionsForLevel(level)
     allOptions = allOptions.filter(o => o.id !== selectedId)
 
@@ -62,19 +63,16 @@ const TopicGroup = ({ createNewTopic, findParentTopic, topic, topicOptions, hand
     return allOptions
   }
 
-  function createNewTopicNew(topic: object) {
+  function createNewLevelOneTopic(topic: object) {
     topic.parent_id = levelTwoTopic.id
     createNewTopic(topic)
   }
 
-  console.log(topic)
-  console.log(levelOneTopic)
-
   return (
     <div className="topic-group">
-      <TopicColumn createNewTopicNew={createNewTopicNew} getFilteredOptionsForLevelNew={getFilteredOptionsForLevelNew} levelNumber={3} selectTopicNew={selectTopicNew} topic={levelThreeTopic} removeTopic={removeTopic} />
-      <TopicColumn createNewTopicNew={createNewTopicNew} getFilteredOptionsForLevelNew={getFilteredOptionsForLevelNew} levelNumber={2} selectTopicNew={selectTopicNew} topic={levelTwoTopic} removeTopic={removeTopic} />
-      <TopicColumn createNewTopicNew={createNewTopicNew} getFilteredOptionsForLevelNew={getFilteredOptionsForLevelNew} levelNumber={1} selectTopicNew={selectTopicNew} topic={levelOneTopic} removeTopic={removeTopic} />
+      <TopicColumn createNewTopic={createNewLevelOneTopic} getFilteredOptionsForLevel={getFilteredOptionsForLevel} levelNumber={3} removeTopic={removeTopic} selectTopic={selectTopic} topic={levelThreeTopic} />
+      <TopicColumn createNewTopic={createNewLevelOneTopic} getFilteredOptionsForLevel={getFilteredOptionsForLevel} levelNumber={2} removeTopic={removeTopic} selectTopic={selectTopic} topic={levelTwoTopic} />
+      <TopicColumn createNewTopic={createNewLevelOneTopic} getFilteredOptionsForLevel={getFilteredOptionsForLevel} levelNumber={1} removeTopic={removeTopic} selectTopic={selectTopic} topic={levelOneTopic} />
     </div>
   );
 }

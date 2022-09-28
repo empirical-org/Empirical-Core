@@ -2,6 +2,8 @@ import * as React from 'react'
 
 import TopicGroup from './topicGroup'
 
+import '../../../../../../app/assets/stylesheets/cms/activities.scss'
+
 const Topics = ({ activity, createNewTopic, topicOptions, handleTopicsChange, }) => {
   const [topicsEnabled, setTopicsEnabled] = React.useState(!!activity.topic_ids.length)
 
@@ -21,7 +23,7 @@ const Topics = ({ activity, createNewTopic, topicOptions, handleTopicsChange, })
 
   function handleLevelOneChange(oldId, newId) {
     let newTopicIds = activity.topic_ids.filter(t => t !== oldId)
-    newTopicIds.push(newId)
+    if (newId) { newTopicIds.push(newId) }
     handleTopicsChange(newTopicIds)
   }
 
@@ -36,13 +38,13 @@ const Topics = ({ activity, createNewTopic, topicOptions, handleTopicsChange, })
   return (
     <section className="topics-container enabled-attribute-container">
       <section className="enable-topics-container checkbox-container">
-        <input checked={topicsEnabled} onChange={toggleTopicsEnabled} type="checkbox" />
+        <input aria-label="Topics enabled?" checked={topicsEnabled} onChange={toggleTopicsEnabled} type="checkbox" />
         <label>Topics enabled</label>
       </section>
       <div className="topic-groups-container">
-        <TopicGroup createNewTopic={createNewTopic} findParentTopic={findParentTopic} topic={firstTopic} topicOptions={topicOptions} handleLevelOneChange={handleLevelOneChange} />
-        <TopicGroup createNewTopic={createNewTopic} findParentTopic={findParentTopic} topic={secondTopic} topicOptions={topicOptions} handleLevelOneChange={handleLevelOneChange} />
-        <TopicGroup createNewTopic={createNewTopic} findParentTopic={findParentTopic} topic={thirdTopic} topicOptions={topicOptions} handleLevelOneChange={handleLevelOneChange} />
+        <TopicGroup createNewTopic={createNewTopic} findParentTopic={findParentTopic} handleLevelOneChange={handleLevelOneChange} topic={firstTopic} topicOptions={topicOptions} />
+        <TopicGroup createNewTopic={createNewTopic} findParentTopic={findParentTopic} handleLevelOneChange={handleLevelOneChange} topic={secondTopic} topicOptions={topicOptions} />
+        <TopicGroup createNewTopic={createNewTopic} findParentTopic={findParentTopic} handleLevelOneChange={handleLevelOneChange} topic={thirdTopic} topicOptions={topicOptions} />
       </div>
     </section>
   )
