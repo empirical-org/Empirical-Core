@@ -362,6 +362,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
           <div style={fullPageInstructions}>
             <div className="flex-column-reverse">
               {this.renderFeedback()}
+              <span className="sr-only">Screenreader users: make sure to read through the whole sentence before filling in the blanks.</span>
               <Cues
                 diagnosticID={diagnosticID}
                 displayArrowAndText={true}
