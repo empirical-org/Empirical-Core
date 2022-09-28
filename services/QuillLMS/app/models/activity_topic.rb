@@ -18,15 +18,14 @@
 #  fk_rails_...  (activity_id => activities.id)
 #  fk_rails_...  (topic_id => topics.id)
 #
-class ActivityTopicLevelOneValidator < ActiveModel::Validator
-  def validate(record)
-    record.errors.add :base, "Topics associated with Activities must be level one." unless record.topic.present? && record.topic.level_one?
-  end
-end
 
 class ActivityTopic < ApplicationRecord
   belongs_to :activity
   belongs_to :topic
 
-  validates_with ActivityTopicLevelOneValidator
+  validate :activity_topic_level_one_validator
+
+  def activity_topic_level_one_validator
+    errors.add(:base, "Topics associated with Activities must be level one.") unless topic.present? && topic.level_one?
+  end
 end
