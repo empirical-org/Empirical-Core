@@ -124,8 +124,8 @@ class UnitActivity < ApplicationRecord
           ua.activity_id,
           MAX(acts.updated_at) AS act_sesh_updated_at,
           ua.order_number,
-          ua.due_date,
-          ua.publish_date,
+          CASE WHEN teachers.time_zone IS NOT NULL THEN ua.due_date at time zone teachers.time_zone ELSE ua.due_date END AS due_date,
+          CASE WHEN teachers.time_zone IS NOT NULL THEN ua.publish_date at time zone teachers.time_zone ELSE ua.publish_date END AS publish_date,
           pre_activity.id AS pre_activity_id,
           cu.created_at AS unit_activity_created_at,
           COALESCE(cuas.locked, false) AS locked,
@@ -166,12 +166,7 @@ class UnitActivity < ApplicationRecord
           AND cu.visible = true
           AND unit.visible = true
           AND ua.visible = true
-          AND
-          (
-            ua.publish_date IS NULL
-            OR (teachers.time_zone IS NOT NULL AND ua.publish_date <= NOW() at time zone teachers.time_zone)
-            OR (teachers.time_zone IS NULL AND ua.publish_date <= NOW())
-          )
+          AND (ua.publish_date IS NULL OR ua.publish_date <= NOW())
         GROUP BY
           unit.id,
           unit.name,
@@ -190,7 +185,8 @@ class UnitActivity < ApplicationRecord
           cuas.pinned,
           ua.id,
           activity_classifications.key,
-          pre_activity.id
+          pre_activity.id,
+          teachers.time_zone
         ORDER BY
           pinned DESC,
           locked ASC,

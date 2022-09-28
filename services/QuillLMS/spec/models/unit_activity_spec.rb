@@ -163,41 +163,38 @@ describe UnitActivity, type: :model, redis: true do
         unit_activity.update(publish_date: nil)
         lessons_unit_activity.update(publish_date: nil)
         unit_activities = UnitActivity.get_classroom_user_profile(classroom.id, student.id)
-        expect(unit_activities.count).to eq(2)
+        expect(unit_activities.map{ |ua| ua['ua_id'] }).to include(unit_activity.id, lessons_unit_activity.id)
       end
 
-      it 'includes unit activities that have a publish date that have already passed in the timezone of the teacher' do
-        tz_string = 'America/New_York'
-        teacher.update(time_zone: tz_string)
-        unit_activity.update(publish_date: Time.now.in_time_zone(tz_string) - 4.hours - 1.minute)
-        lessons_unit_activity.update(publish_date: Time.now.in_time_zone(tz_string) - 5.hours)
-        unit_activities = UnitActivity.get_classroom_user_profile(classroom.id, student.id)
-        expect(unit_activities.count).to eq(2)
-      end
-
-      it 'includes unit activities that have a publish date that have already passed when the teacher has no timezone' do
-        teacher.update(time_zone: nil)
+      it 'includes unit activities that have a publish date that has already passed' do
         unit_activity.update(publish_date: Time.now.utc - 1.hour)
         lessons_unit_activity.update(publish_date: Time.now.utc - 1.minute)
         unit_activities = UnitActivity.get_classroom_user_profile(classroom.id, student.id)
-        expect(unit_activities.count).to eq(2)
+        expect(unit_activities.map{ |ua| ua['ua_id'] }).to include(unit_activity.id, lessons_unit_activity.id)
       end
 
-      it 'does not include unit activities that have a publish date that has not yet passed in the timezone of the assigning teacher' do
-        tz_string = 'America/New_York'
-        teacher.update(time_zone: tz_string)
-        unit_activity.update(publish_date: Time.now.in_time_zone(tz_string) + 1.hour)
-        lessons_unit_activity.update(publish_date: Time.now.in_time_zone(tz_string) + 1.month)
-        unit_activities = UnitActivity.get_classroom_user_profile(classroom.id, student.id)
-        expect(unit_activities.count).to eq(0)
-      end
-
-      it 'does not include unit activities that have a publish date that has not yet passed when the teacher has no time zone' do
+      it 'does not include unit activities that have a publish date that has not yet passed' do
         teacher.update(time_zone: nil)
         unit_activity.update(publish_date: Time.now.utc + 1.hour)
         lessons_unit_activity.update(publish_date: Time.now.utc + 1.month)
         unit_activities = UnitActivity.get_classroom_user_profile(classroom.id, student.id)
         expect(unit_activities.count).to eq(0)
+      end
+
+      it 'converts the publish date to the time zone of the assigning teacher if the teacher has a time zone' do
+        tz_string = 'America/New_York'
+        teacher.update(time_zone: tz_string)
+        publish_date = Time.now.utc - 1.hour
+        unit_activity.update(publish_date: publish_date)
+        unit_activities = UnitActivity.get_classroom_user_profile(classroom.id, student.id)
+        expect(unit_activities.find{ |ua| ua['ua_id'].to_i == unit_activity.id}['publish_date'].to_datetime).to eq((publish_date - teacher.utc_offset).to_datetime)
+      end
+
+      it 'leaves the publish date in utc if the teacher does not have a time zone' do
+        publish_date = Time.now.utc - 1.hour
+        unit_activity.update(publish_date: publish_date)
+        unit_activities = UnitActivity.get_classroom_user_profile(classroom.id, student.id)
+        expect(unit_activities.find{ |ua| ua['ua_id'].to_i == unit_activity.id}['publish_date'].to_datetime).to eq(publish_date.to_datetime)
       end
 
     end
