@@ -88,7 +88,6 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
           >
             Screenreader users: make sure to read through the whole sentence before filling in the blanks.
           </span>
-          span&gt;
           <Cues
             displayArrowAndText={true}
             question={
