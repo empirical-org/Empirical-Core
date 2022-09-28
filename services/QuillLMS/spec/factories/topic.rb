@@ -3,7 +3,7 @@
 FactoryBot.define do
   factory :topic do
     sequence(:name) { |i| "Topic #{i}" }
-    level           { rand(4) }
+    level           { rand(1..3) }
     visible         true
     parent_id       nil
 
