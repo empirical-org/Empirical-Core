@@ -16,11 +16,7 @@ class SaveActivitySessionConceptResultsWorker
   end
 
   private def create_records(json_payload)
-    # TODO: When we stop writing OldConceptResult records, update this to
-    # just save new ConceptResult records from JSON data, and skip the transaction
-    old_concept_result = OldConceptResult.create!(json_payload)
     concept_result = ConceptResult.init_from_json(json_payload)
-    concept_result.old_concept_result_id = old_concept_result.id
     concept_result.save!
   end
 end

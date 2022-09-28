@@ -31,12 +31,6 @@ describe SaveActivitySessionConceptResultsWorker, type: :worker do
       expect(activity_session.reload.concept_results).to be
     end
 
-    it 'should save new OldConceptResult records linked to the new ConceptResult' do
-      expect { subject.perform(json_payload) }
-        .to change(OldConceptResult, :count).by(1)
-      expect(activity_session.reload.concept_results.first.old_concept_result).to be
-    end
-
     it 'should handle creating multiple records if an array is passed in' do
       expect { subject.perform([json_payload, json_payload]) }
         .to change(ConceptResult, :count).by(2)

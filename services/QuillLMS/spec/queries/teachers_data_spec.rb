@@ -22,7 +22,7 @@ describe 'TeachersData' do
 
   let!(:classroom_unit) { create(:classroom_unit, classroom_id: classroom.id,
                                                         unit: unit)}
-  let!(:activity_session1) { create(:activity_session,
+  let!(:activity_session1) { create(:activity_session_without_concept_results,
                                                 user: student1,
                                                 state: 'finished',
                                                 started_at: time1,
@@ -30,7 +30,7 @@ describe 'TeachersData' do
                                                 classroom_unit: classroom_unit
                                                 ) }
 
-  let!(:activity_session2) { create(:activity_session,
+  let!(:activity_session2) { create(:activity_session_without_concept_results,
                                                 user: student1,
                                                 state: 'finished',
                                                 started_at: time1,
@@ -40,8 +40,6 @@ describe 'TeachersData' do
 
   let!(:concept1) { create(:concept) }
   let!(:concept2) { create(:concept) }
-  let!(:concept_result1) { create(:old_concept_result, concept: concept1, activity_session: activity_session1) }
-  let!(:concept_result2) { create(:old_concept_result, concept: concept2, activity_session: activity_session2) }
 
   before do
     @results = teachers_data_module.run(teacher_ids)
