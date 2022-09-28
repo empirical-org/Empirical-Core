@@ -187,14 +187,14 @@ describe UnitActivity, type: :model, redis: true do
         publish_date = Time.now.utc - 1.hour
         unit_activity.update(publish_date: publish_date)
         unit_activities = UnitActivity.get_classroom_user_profile(classroom.id, student.id)
-        expect(unit_activities.find{ |ua| ua['ua_id'].to_i == unit_activity.id}['publish_date'].to_datetime).to eq((publish_date - teacher.utc_offset).to_datetime)
+        expect(unit_activities.find{ |ua| ua['ua_id'].to_i == unit_activity.id}['publish_date'].to_time.strftime('%a %b %d %H:%M:%S %Z %Y')).to eq((publish_date - teacher.utc_offset).to_time.strftime('%a %b %d %H:%M:%S %Z %Y'))
       end
 
       it 'leaves the publish date in utc if the teacher does not have a time zone' do
         publish_date = Time.now.utc - 1.hour
         unit_activity.update(publish_date: publish_date)
         unit_activities = UnitActivity.get_classroom_user_profile(classroom.id, student.id)
-        expect(unit_activities.find{ |ua| ua['ua_id'].to_i == unit_activity.id}['publish_date'].to_datetime).to eq(publish_date.to_datetime)
+        expect(unit_activities.find{ |ua| ua['ua_id'].to_i == unit_activity.id}['publish_date'].to_time.strftime('%a %b %d %H:%M:%S %Z %Y')).to eq(publish_date.to_time.strftime('%a %b %d %H:%M:%S %Z %Y'))
       end
 
     end
