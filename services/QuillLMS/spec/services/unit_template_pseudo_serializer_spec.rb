@@ -11,7 +11,6 @@ describe UnitTemplatePseudoSerializer do
   let(:unit_template_with_diagnostic) { create(:unit_template, activities: [diagnostic] ) }
   let(:unit_template_with_lesson) { create(:unit_template, activities: [lesson] ) }
   let(:unit_template_with_archived_activity) { create(:unit_template, activities: [archived_activity])}
-  let(:unit_template_with_multiple_tools) { create(:unit_template, activities: [diagnostic, diagnostic, grammar])}
 
   it('will have nil values for the unit template category attributes if there is no unit template category') do
     serialized_ut = UnitTemplatePseudoSerializer.new(unit_template)
@@ -51,9 +50,5 @@ describe UnitTemplatePseudoSerializer do
     unit_template.activities.each { |a| ActivityCategoryActivity.where(activity_id: a.id).destroy_all }
     serialized_ut = UnitTemplatePseudoSerializer.new(unit_template)
     expect(serialized_ut.activities.length).to eq 1
-  end
-  it('will have expected tools array property') do
-    serialized_ut = UnitTemplatePseudoSerializer.new(unit_template_with_multiple_tools)
-    expect(serialized_ut.tools).to eq ['Diagnostic', 'Grammar']
   end
 end

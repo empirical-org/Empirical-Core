@@ -103,7 +103,6 @@ class Teachers::UnitTemplatesController < ApplicationController
   end
 
   private def set_cache_if_necessary_and_return(cached, ut_cache_name)
-    puts ut_cache_name
     ut_cache = cached.nil? || cached&.blank? ? nil : JSON.parse(cached)
     # if ut_cache
     #   ut_cache

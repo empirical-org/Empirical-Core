@@ -20,7 +20,6 @@ class UnitTemplatePseudoSerializer
       activity_info: ut.activity_info,
       unit_template_category: unit_template_category,
       activities: activities,
-      tools: tools(activities),
       type: type,
       readability: ut.readability,
       grade_level_range: ut.grade_level_range,
@@ -45,10 +44,6 @@ class UnitTemplatePseudoSerializer
       name: cat&.name,
       id: cat&.id
     }
-  end
-
-  def tools(activities)
-    activities.map {|activity| activity[:classification][:name].gsub("Quill ", "") }.uniq
   end
 
   def activities

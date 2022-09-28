@@ -1,9 +1,12 @@
 import * as React from 'react'
+
 import { DataTable } from '../../../../Shared';
 import { READING_TEXTS, READING_FOR_EVIDENCE, CONNECT, DIAGNOSTIC, GRAMMAR, PROOFREADER, LESSONS } from '../assignmentFlowConstants';
+import { UnitTemplateInterface } from '../../../../../interfaces/unitTemplate';
+import { Activity } from '../../../../../interfaces/activity';
 
 export const UnitTemplateMinisTable = ({ unitTemplates }) => {
-  const toolsColorScheme = {
+  const toolColors = {
     [READING_FOR_EVIDENCE]: '#2C7F9B',
     [CONNECT]: '#DF9E3D',
     [DIAGNOSTIC]: '#EB4F47',
@@ -36,24 +39,31 @@ export const UnitTemplateMinisTable = ({ unitTemplates }) => {
     return `${time} mins`;
   }
 
-  function getToolsElement(tools) {
-    if(!tools) { return }
+  function getToolsElement(activities: Activity[]) {
+    if(!activities) { return }
+
+    const tools = Array.from(new Set(activities.map(activity => {
+      const { classification } = activity
+      const { name } = classification
+      return name.replace('Quill ', '')
+    })))
+
     return(
       <section className="tools-section">
         {tools.map((tool, i) => {
           const toolName = i === tools.length - 1 ? tool : `${tool},`;
-          return <p style={{ color: toolsColorScheme[tool] }}>{toolName}</p>
+          return <p style={{ color: toolColors[tool] }}>{toolName}</p>
         })}
       </section>
     )
   }
 
   function unitTemplateRows() {
-    return unitTemplates.map(unitTemplate => {
-      const { id, name, readability, activities, time, unit_template_category, tools } = unitTemplate;
+    return unitTemplates.map((unitTemplate: UnitTemplateInterface) => {
+      const { id, name, readability, activities, time, unit_template_category } = unitTemplate;
       const { primary_color } = unit_template_category;
       const durationElement = getDurationElement(unit_template_category, time);
-      const toolsElement = getToolsElement(tools)
+      const toolsElement = getToolsElement(activities)
       return {
         id,
         packType: <p style={{ color: primary_color }}>{unit_template_category.name}</p>,

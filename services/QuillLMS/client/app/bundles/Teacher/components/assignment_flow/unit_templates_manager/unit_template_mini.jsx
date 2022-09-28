@@ -9,7 +9,7 @@ import String from '../../modules/string.jsx'
 import { CLICKED_ACTIVITY_PACK_ID } from '../assignmentFlowConstants'
 import { Tooltip } from '../../../../Shared'
 
-export default class UnitTemplateMini extends React.Component {
+export class UnitTemplateMini extends React.Component {
   constructor(props) {
     super(props)
 
@@ -77,7 +77,6 @@ export default class UnitTemplateMini extends React.Component {
             <th>Tool</th>
             <th>Grade Level Range</th>
           </tr>
-          <div className="border"></div>
           {activities && activities.length && activities.map(activity => {
             const { name, readability, classification } = activity
             return(
@@ -149,3 +148,5 @@ export default class UnitTemplateMini extends React.Component {
     );
   }
 }
+
+export default UnitTemplateMini

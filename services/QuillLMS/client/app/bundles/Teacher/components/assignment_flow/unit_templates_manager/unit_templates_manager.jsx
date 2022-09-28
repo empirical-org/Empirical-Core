@@ -98,10 +98,8 @@ export default class UnitTemplatesManager extends React.Component {
     }
     if (category) {
       const categoryName = category.toUpperCase() === 'ELL' ? category.toUpperCase() : category
-      console.log("🚀 ~ file: unit_templates_manager.jsx ~ line 101 ~ UnitTemplatesManager ~ categoryName", categoryName)
       selectedCategoryId = unitTemplatesManager.categories.find(cat => cat.name === categoryName).id
       displayedModels = displayedModels.filter(ut => {
-        console.log("🚀 ~ file: unit_templates_manager.jsx ~ line 104 ~ UnitTemplatesManager ~ ut", ut)
         return ut.unit_template_category.name === categoryName
       })
     }

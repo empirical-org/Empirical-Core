@@ -300,7 +300,7 @@ export default class UnitTemplateMinis extends React.Component {
     if(value === LIST_VIEW_OPTION.value) {
       return(
         <React.Fragment>
-          <UnitTemplateMinisTable unitTemplates={displayedModels}/>
+          <UnitTemplateMinisTable unitTemplates={displayedModels} />
           <div>
             {this.generateShowAllGradesView()}
           </div>
@@ -310,6 +310,7 @@ export default class UnitTemplateMinis extends React.Component {
   }
 
   render() {
+    console.log('props', this.props)
     return (
       <div className='unit-template-minis-container' key='always-display'>
         {this.userLoggedIn() ? <AssignmentFlowNavigation /> : null}

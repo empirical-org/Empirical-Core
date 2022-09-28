@@ -6,9 +6,14 @@ import CategoryLabel from '../category_label'
 import { imageTagForClassification, READING_TEXTS } from '../assignmentFlowConstants'
 import { hexToRGBA } from '../../../../Shared'
 
-const cutOffTimeForNew = moment().subtract('months', 1).unix()
+const cutOffTimeForNew = moment().subtract(1, 'months').unix()
+const DEFAULT_ACTIVITY_PACK_IMAGE_LINKS = {
+  'Default': 'https://s3.amazonaws.com/quill-image-uploads/uploads/files/Writing_1_2379.jpg',
+  'Diagnostic': 'https://s3.amazonaws.com/quill-image-uploads/uploads/files/Chart_2380.jpg',
+  'Whole Class Lesson': 'https://s3.amazonaws.com/quill-image-uploads/uploads/files/Class_2381.jpg'
+}
 
-export default class UnitTemplateFirstRow extends React.Component {
+export class UnitTemplateFirstRow extends React.Component {
 
   renderFlag(renderEvidenceTag) {
     const { data, } = this.props
@@ -43,11 +48,13 @@ export default class UnitTemplateFirstRow extends React.Component {
     )
   }
 
-  renderImageOrDefaultColorPanel(data) {
-    if(!data || !data.image_link) { return }
+  renderActivityPackImage(data) {
+    if(!data) { return }
 
     const { image_link, type } = data
     const { unit_template_category } = data
+    const { name } = unit_template_category
+    const link = image_link || DEFAULT_ACTIVITY_PACK_IMAGE_LINKS[name] || DEFAULT_ACTIVITY_PACK_IMAGE_LINKS['Default']
     const color = unit_template_category.primary_color || type.primary_color
     const fullColor = hexToRGBA(color, 1)
     const translucentColor = hexToRGBA(color, 0.4)
@@ -55,21 +62,20 @@ export default class UnitTemplateFirstRow extends React.Component {
     return(
       <div className="activity-pack-image-container" style={{ backgroundColor: color }}>
         <div className="activity-pack-image-overlay" style={{ backgroundImage: `linear-gradient(to right, ${fullColor},${translucentColor})`}} />
-        <img className="activity-pack-image" src={image_link} />
+        <img alt="" className="activity-pack-image" src={image_link || link} />
       </div>
     )
   }
 
   render() {
     const { data, } = this.props
-    const { unit_template_category, type, name, image_link } = data
+    const { unit_template_category, type, name } = data
     const renderEvidenceTag = unit_template_category.name === READING_TEXTS
     const color = unit_template_category.primary_color || type.primary_color
-    const cardColorStyle = image_link ? {} : { backgroundColor: color }
 
     return (
-      <div className='first-row' style={cardColorStyle}>
-        {this.renderImageOrDefaultColorPanel(data)}
+      <div className='first-row' style={{ backgroundColor: color }}>
+        {this.renderActivityPackImage(data)}
         <div className="content-section">
           <div className="name-and-label">
             <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
@@ -93,5 +99,6 @@ export default class UnitTemplateFirstRow extends React.Component {
       </div>
     );
   }
-
 }
+
+export default UnitTemplateFirstRow
