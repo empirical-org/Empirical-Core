@@ -19,17 +19,16 @@
 #  concept_result_previous_feedback_id :integer
 #  concept_result_prompt_id            :integer
 #  concept_result_question_type_id     :integer
-#  old_concept_result_id               :integer
+#  old_concept_result_id               :bigint
 #
 # Indexes
 #
 #  index_concept_results_on_activity_session_id    (activity_session_id)
-#  index_concept_results_on_old_concept_result_id  (old_concept_result_id) UNIQUE
+#  index_concept_results_on_old_concept_result_id  (old_concept_result_id)
 #
 class ConceptResult < ApplicationRecord
   belongs_to :activity_session
   belongs_to :concept
-  belongs_to :old_concept_result
   belongs_to :concept_result_directions
   belongs_to :concept_result_instructions
   belongs_to :concept_result_previous_feedback
@@ -72,7 +71,6 @@ class ConceptResult < ApplicationRecord
       concept_id: data_hash[:concept_id],
       attempt_number: metadata[:attemptNumber],
       correct: ActiveModel::Type::Boolean.new.cast(metadata[:correct]),
-      old_concept_result_id: data_hash[:old_concept_result_id],
       question_number: metadata[:questionNumber],
       question_score: metadata[:questionScore]
     )
@@ -85,15 +83,6 @@ class ConceptResult < ApplicationRecord
 
   def self.bulk_create_from_json(data_hash_array)
     data_hash_array.map { |data_hash| create_from_json(data_hash) }
-  end
-
-  def self.find_or_create_from_old_concept_result(old_concept_result)
-    return old_concept_result.concept_result if old_concept_result.concept_result
-
-    data_hash = old_concept_result.as_json
-    data_hash['old_concept_result_id'] = old_concept_result.id
-
-    create_from_json(data_hash)
   end
 
   def self.parse_metadata(metadata)
