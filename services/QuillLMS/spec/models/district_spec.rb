@@ -105,7 +105,7 @@ describe District, type: :model do
       end
 
       it 'should roll up diagnostic data when diagnostics are assigned last year' do
-        classroom_unit.update(created_at: Time.current - 1.year)
+        classroom_unit.update(created_at: 1.year.ago)
 
         expect(district.vitally_data[:traits]).to include(
           diagnostics_assigned_this_year: 0,
@@ -148,7 +148,7 @@ describe District, type: :model do
       end
 
       it 'should roll up diagnostic completions from last year' do
-        activity_session1.update(completed_at: Time.current - 1.year)
+        activity_session1.update(completed_at: 1.year.ago)
 
         expect(district.vitally_data[:traits]).to include(
           diagnostics_completed_this_year: 0,
@@ -197,13 +197,13 @@ describe District, type: :model do
         create(:activity_session, activity: diagnostic, classroom_unit: classroom_unit1, user: student1, completed_at: Time.current)
 
         expect(district.vitally_data[:traits]).to include(
-	  percent_diagnostics_completed_this_year: 0.5
+          percent_diagnostics_completed_this_year: 0.5
         )
       end
 
       it 'should set the completion rate to 0.0 if no activities were assigned' do
         expect(district.vitally_data[:traits]).to include(
-	  percent_diagnostics_completed_this_year: 0.0
+          percent_diagnostics_completed_this_year: 0.0
         )
       end
     end
