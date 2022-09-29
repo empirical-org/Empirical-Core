@@ -674,14 +674,14 @@ describe Teachers::ClassroomManagerController, type: :controller do
     end
 
     it 'will call current_user_demo_id= if the demo account exists' do
-      expect(Demo::ReportDemoCreator).to receive(:reset_account).with(demo_teacher)
+     expect(Demo::ResetAccountWorker).to receive(:perform_async).with(demo_teacher.id)
       expect(controller).to receive(:current_user_demo_id=).with(demo_teacher.id)
 
       get :view_demo
     end
 
     it 'will redirect to the profile path' do
-      expect(Demo::ReportDemoCreator).to receive(:reset_account).with(demo_teacher)
+      expect(Demo::ResetAccountWorker).to receive(:perform_async).with(demo_teacher.id)
 
       get :view_demo
       expect(response).to redirect_to profile_path
@@ -689,7 +689,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
 
     it 'will not call current_user_demo_id= and raise error if demo account does not exist' do
       demo_teacher.destroy
-      expect(Demo::ReportDemoCreator).to_not receive(:reset_account)
+      expect(Demo::ResetAccountWorker).to_not receive(:perform_async)
       expect(controller).not_to receive(:current_user_demo_id=)
 
       get :view_demo
@@ -697,7 +697,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
     end
 
     it 'will track event' do
-      expect(Demo::ReportDemoCreator).to receive(:reset_account).with(demo_teacher)
+      expect(Demo::ResetAccountWorker).to receive(:perform_async).with(demo_teacher.id)
       expect(analyzer).to receive(:track).with(teacher, SegmentIo::BackgroundEvents::VIEWED_DEMO)
 
       get :view_demo

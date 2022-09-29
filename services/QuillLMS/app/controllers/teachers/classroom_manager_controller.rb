@@ -236,8 +236,7 @@ class Teachers::ClassroomManagerController < ApplicationController
     demo = User.find_by_email(Demo::ReportDemoCreator::EMAIL)
     return render json: {errors: "Demo Account does not exist"}, status: 422 if demo.nil?
 
-    # perform this inline to ensure account is in good shape on entry
-    Demo::ReportDemoCreator.reset_account(demo)
+    Demo::ResetAccountWorker.perform_async(demo.id)
 
     self.current_user_demo_id = demo.id
     redirect_to '/profile'
