@@ -103,7 +103,7 @@ export default class UnitTemplatesManager extends React.Component {
       const { name } = selectedType
       displayedModels = displayedModels.filter(ut => {
         const { type, unit_template_category } = ut
-        if(selectedType.types || typeId === 'independent-practice') {
+        if(typeId === 'independent-practice') {
           return selectedType.types.includes(unit_template_category.name)
         } else if(unit_template_category) {
           return unit_template_category.name === name
