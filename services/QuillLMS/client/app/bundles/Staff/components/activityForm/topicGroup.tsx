@@ -6,11 +6,28 @@ const TopicGroup = ({ createNewTopic, findParentTopic, topic, topicOptions, hand
 
   const [levelOneTopic, setLevelOneTopic] = React.useState(topic)
   const [levelTwoTopic, setLevelTwoTopic] = levelOneTopic.id ? React.useState(findParentTopic(topic)) : React.useState({})
-  const [levelThreeTopic, setLevelThreeTopic] = levelOneTopic.id ? React.useState(findParentTopic(levelTwoTopic)) : React.useState({})
+  const [levelThreeTopic, setLevelThreeTopic] = levelTwoTopic && levelTwoTopic.id ? React.useState(findParentTopic(levelTwoTopic)) : React.useState({})
+  const levelNumberToFunction = {
+    1: setLevelOneTopic,
+    2: setLevelTwoTopic,
+    3: setLevelThreeTopic
+  }
+
+  function usePrevious(value) {
+    const ref = React.useRef();
+    React.useEffect(() => {
+      ref.current = value;
+    });
+    return ref.current;
+  }
+  const prevLevelOneTopic = usePrevious(levelOneTopic);
+
+  React.useEffect(() => {
+    handleLevelOneChange(prevLevelOneTopic?.id, levelOneTopic.id)
+  }, [levelOneTopic]);
 
   React.useEffect(() => {
     if (levelOneTopic.parent_id !== levelTwoTopic.id) {
-      handleLevelOneChange(levelOneTopic.id, null)
       setLevelOneTopic({})
     }
   }, [levelTwoTopic]);
@@ -23,25 +40,11 @@ const TopicGroup = ({ createNewTopic, findParentTopic, topic, topicOptions, hand
 
   function selectTopic(topicId, level) {
     const newTopic = topicOptions.find(t => t.id === topicId)
-    if (level === 1) {
-      handleLevelOneChange(levelOneTopic.id, newTopic.id)
-      setLevelOneTopic(newTopic)
-    } else if (level === 2) {
-      setLevelTwoTopic(newTopic)
-    } else if (level === 3) {
-      setLevelThreeTopic(newTopic)
-    }
+    levelNumberToFunction[level](newTopic)
   }
 
   function removeTopic(level: number) {
-    if (level === 1) {
-      setLevelOneTopic({})
-    } else if (level === 2) {
-      setLevelTwoTopic({})
-    } else if (level === 3) {
-      setLevelThreeTopic({})
-    }
-    handleLevelOneChange(levelOneTopic.id, null)
+    levelNumberToFunction[level]({})
   }
 
   function getOptionsForLevel(level: number) {

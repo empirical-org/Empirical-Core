@@ -2,8 +2,6 @@ import * as React from 'react'
 
 import TopicGroup from './topicGroup'
 
-import '../../../../../../app/assets/stylesheets/cms/activities.scss'
-
 const Topics = ({ activity, createNewTopic, topicOptions, handleTopicsChange, }) => {
   const [topicsEnabled, setTopicsEnabled] = React.useState(!!activity.topic_ids.length)
 
@@ -23,7 +21,7 @@ const Topics = ({ activity, createNewTopic, topicOptions, handleTopicsChange, })
 
   function handleLevelOneChange(oldId, newId) {
     let newTopicIds = activity.topic_ids.filter(t => t !== oldId)
-    if (newId) { newTopicIds.push(newId) }
+    if (newId && !newTopicIds.includes(newId)) { newTopicIds.push(newId) }
     handleTopicsChange(newTopicIds)
   }
 

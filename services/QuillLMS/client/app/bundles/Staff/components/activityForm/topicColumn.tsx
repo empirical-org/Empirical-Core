@@ -51,23 +51,23 @@ const TopicColumn = ({ createNewTopic, levelNumber, selectTopic, getFilteredOpti
     </div>)
   }
 
+  const optionsList = options.map((option, i) => {
+    const clickEventHelper = () => {
+      handleClickSelectTopic(option.id)
+    };
+    return (
+      <button className="record-cell" key={i} onClick={clickEventHelper} type="button">
+        {option.name}
+      </button>
+    )
+  })
+
   return (
     <div className="topic-column">
       <label>Topic Level {levelNumber}</label>
       {selectedOptionElement}
       <div>
-        {
-          options.map((option, i) => {
-            let clickEventHelper = () => {
-              handleClickSelectTopic(option.id)
-            };
-            return (
-              <button className="record-cell" key={i} onClick={clickEventHelper} onKeyDown={clickEventHelper} type="button">
-                {option.name}
-              </button>
-            )
-          })
-        }
+        {optionsList}
       </div>
       {newTopicField}
     </div>
