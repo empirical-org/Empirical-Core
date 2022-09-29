@@ -263,16 +263,13 @@ module Demo::ReportDemoCreator
 
   STUDENT_COUNT = STUDENT_TEMPLATES.count
   UNITS_COUNT = ACTIVITY_PACKS_TEMPLATES.count
-  SESSIONS_COUNT = ACTIVITY_PACKS_TEMPLATES
-    .map {|hash| hash[:activity_sessions].map(&:keys)}
-    .flatten
-    .count
 
   def self.create_demo(email = nil, teacher_demo: false)
-    teacher = create_teacher(email)
-    create_subscription(teacher)
-
-    create_demo_classroom_data(teacher, teacher_demo: teacher_demo)
+    ActiveRecord::Base.transaction do
+      teacher = create_teacher(email)
+      create_subscription(teacher)
+      create_demo_classroom_data(teacher, teacher_demo: teacher_demo)
+    end
   end
 
   def self.create_demo_classroom_data(teacher, teacher_demo: false)
@@ -300,17 +297,22 @@ module Demo::ReportDemoCreator
     create_units(teacher)
   end
 
-  def self.reset_account(teacher)
-    non_demo_classrooms(teacher).each(&:destroy)
+  def self.reset_account(teacher_id)
+    # Wrap the lookup and actions within a transaction to avoid race conditions
+    ActiveRecord::Base.transaction do
+      teacher = User.find_by(id: teacher_id, role: User::TEACHER)
+      # Note, you can't early return within a transaction in Rails 6.1+
+      if teacher
+        non_demo_classrooms(teacher).each(&:destroy)
+        teacher.auth_credential&.destroy
+        teacher.update(google_id: nil, clever_id: nil)
 
-    teacher.auth_credential&.destroy
-    teacher.update(google_id: nil, clever_id: nil)
-
-    return unless demo_classroom_modified?(teacher)
-
-    # recreate the classroom from scratch
-    demo_classroom(teacher)&.destroy
-    create_demo_classroom_data(teacher, teacher_demo: true)
+        if demo_classroom_modified?(teacher)
+          demo_classroom(teacher)&.destroy
+          create_demo_classroom_data(teacher, teacher_demo: true)
+        end
+      end
+    end
   end
 
   def self.demo_classroom_modified?(teacher)
@@ -320,8 +322,7 @@ module Demo::ReportDemoCreator
 
     classroom.name != CLASSROOM_NAME ||
       classroom.students.count != STUDENT_COUNT ||
-      classroom.units.count != UNITS_COUNT ||
-      classroom.activity_sessions.count != SESSIONS_COUNT
+      classroom.units.count != UNITS_COUNT
   end
 
   def self.create_teacher(email)
@@ -391,7 +392,7 @@ module Demo::ReportDemoCreator
     delete_student_email_accounts if is_teacher_facing
 
     STUDENT_TEMPLATES.map do |template|
-      student = User.create(
+      student = User.create!(
         name: template.name,
         username: template.username(classroom.id),
         role: 'student',
@@ -399,7 +400,7 @@ module Demo::ReportDemoCreator
         password: PASSWORD,
         password_confirmation: PASSWORD
       )
-      StudentsClassrooms.create({student_id: student.id, classroom_id: classroom.id})
+      StudentsClassrooms.create!({student_id: student.id, classroom_id: classroom.id})
 
       student
     end
@@ -417,7 +418,7 @@ module Demo::ReportDemoCreator
 
   def self.create_classroom_units(classroom, units)
     units.map do |unit|
-      ClassroomUnit.find_or_create_by(
+      ClassroomUnit.create!(
         classroom: classroom,
         unit: unit,
         assign_on_join: true)
@@ -434,10 +435,8 @@ module Demo::ReportDemoCreator
 
     return unless session_to_clone
 
-    act_session = ActivitySession.create(activity_id: clone_activity_id, classroom_unit_id: classroom_unit_id, user_id: student_id, state: "finished", percentage: session_to_clone.percentage)
-
+    act_session = ActivitySession.create!(activity_id: clone_activity_id, classroom_unit_id: classroom_unit_id, user_id: student_id, state: "finished", percentage: session_to_clone.percentage)
     concept_results = session_data.concept_results.select {|cr| cr.activity_session_id == session_to_clone.id }
-
     concept_results.each do |cr|
       question_type = session_data.concept_result_question_types.first {|qt| qt.id == cr.concept_result_question_type_id}
       SaveActivitySessionConceptResultsWorker.perform_async({
@@ -453,7 +452,7 @@ module Demo::ReportDemoCreator
     students.each_with_index do |student, num|
       ACTIVITY_PACKS_TEMPLATES.each do |activity_pack|
         unit = Unit.where(name: activity_pack[:name]).last
-        classroom_unit = ClassroomUnit.find_or_create_by(classroom: classroom, unit: unit)
+        classroom_unit = ClassroomUnit.find_by(classroom: classroom, unit: unit)
         act_sessions = activity_pack[:activity_sessions]
         act_sessions[num].each do |clone_activity_id, clone_user_id|
           clone_activity_session(student.id, classroom_unit.id, clone_user_id, clone_activity_id, session_data)
