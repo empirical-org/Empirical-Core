@@ -83,6 +83,11 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
               </div>
             </div>
           </Feedback>
+          <span
+            className="sr-only"
+          >
+            Screenreader users: make sure to read through the whole sentence before filling in the blanks.
+          </span>
           <Cues
             displayArrowAndText={true}
             question={
@@ -182,7 +187,7 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
                   
                 </span>,
                 <input
-                  aria-label="Complete the sentence with one of the following options or leave it blank: the, an, a"
+                  aria-label="Choose which one of the following options fits best in the blank  or leave it empty: the, an, a."
                   autoComplete="off"
                   className="fill-in-blank-input"
                   disabled={false}
@@ -260,7 +265,7 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
                   
                 </span>,
                 <input
-                  aria-label="Complete the sentence with one of the following options or leave it blank: the, an, a"
+                  aria-label="Choose which one of the following options fits best in the blank  or leave it empty: the, an, a."
                   autoComplete="off"
                   className="fill-in-blank-input"
                   disabled={false}
@@ -338,7 +343,7 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
                 }
               />
               <input
-                aria-label="Complete the sentence with one of the following options or leave it blank: the, an, a"
+                aria-label="Choose which one of the following options fits best in the blank  or leave it empty: the, an, a."
                 autoComplete="off"
                 className="fill-in-blank-input"
                 disabled={false}
@@ -374,7 +379,7 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
                 }
               />
               <input
-                aria-label="Complete the sentence with one of the following options or leave it blank: the, an, a"
+                aria-label="Choose which one of the following options fits best in the blank  or leave it empty: the, an, a."
                 autoComplete="off"
                 className="fill-in-blank-input"
                 disabled={false}
