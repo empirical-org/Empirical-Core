@@ -232,6 +232,7 @@ describe ProfilesController, type: :controller do
                 'act_sesh_updated_at' => activity_session&.updated_at,
                 'order_number' => unit_activity.order_number,
                 'due_date' => unit_activity.due_date,
+                'publish_date' => unit_activity.publish_date,
                 'pre_activity_id' => pre_test&.id,
                 'unit_activity_created_at' => classroom_unit.created_at,
                 'locked' => unit_activity.classroom_unit_activity_states[0].locked,
