@@ -27,5 +27,5 @@ Geocoder.configure(
   #   prefix: 'geocoder:'
   # }
 
-  api_key: ENV.fetch('IPINFO_IO_KEY', ''),               # API key for geocoding service
+  api_key: ENV.fetch('IPINFO_IO_KEY', '')               # API key for geocoding service
 )
