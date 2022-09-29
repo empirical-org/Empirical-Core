@@ -664,7 +664,7 @@ class User < ApplicationRecord
       self.time_zone = school_timezone
     else
       geocoder_results = Geocoder.search(ip_address)
-      self.time_zone = geocoder_results&.first&.timezone
+      self.time_zone = geocoder_results&.first&.data ? geocoder_results.first.data['timezone'] : nil
     end
   end
 
