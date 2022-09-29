@@ -674,7 +674,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
     end
 
     it 'will call current_user_demo_id= if the demo account exists' do
-     expect(Demo::ResetAccountWorker).to receive(:perform_async).with(demo_teacher.id)
+      expect(Demo::ResetAccountWorker).to receive(:perform_async).with(demo_teacher.id)
       expect(controller).to receive(:current_user_demo_id=).with(demo_teacher.id)
 
       get :view_demo
