@@ -8,7 +8,7 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   respond_to :json, :html
 
-  around_action :force_writer_db_role, only: [:assign, :dashboard, :lesson_planner]
+  around_action :force_writer_db_role, only: [:assign, :dashboard, :lesson_planner, :view_demo]
 
   before_action :teacher_or_public_activity_packs, except: [:unset_preview_as_student, :unset_view_demo]
   # WARNING: these filter methods check against classroom_id, not id.
@@ -236,11 +236,16 @@ class Teachers::ClassroomManagerController < ApplicationController
     demo = User.find_by_email(Demo::ReportDemoCreator::EMAIL)
     return render json: {errors: "Demo Account does not exist"}, status: 422 if demo.nil?
 
+    # perform this inline to ensure account is in good shape on entry
+    Demo::ReportDemoCreator.reset_account(demo)
+
     self.current_user_demo_id = demo.id
     redirect_to '/profile'
   end
 
   def unset_view_demo
+    Demo::ResetAccountWorker.perform_async(session[:demo_id])
+
     self.current_user_demo_id = nil
     return redirect_to params[:redirect] if params[:redirect]
 
