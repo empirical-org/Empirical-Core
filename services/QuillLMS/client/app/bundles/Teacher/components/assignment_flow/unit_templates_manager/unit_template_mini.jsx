@@ -15,7 +15,6 @@ export class UnitTemplateMini extends React.Component {
 
     this.modules = { string: new String() }
     this.miniRef = React.createRef()
-    this.state = { showTooltip: false }
   }
 
   componentDidMount() {
@@ -123,28 +122,21 @@ export class UnitTemplateMini extends React.Component {
     }
   }
 
-  setShowToolTip = () => {
-    this.setState({ showTooltip: true });
-  }
-
-  setHideToolTip = () => {
-    this.setState({ showTooltip: false });
+  renderMiniContent = () => {
+    return(
+      <div className='unit-template-mini' onClick={this.onClickAction}>
+        {this.miniSpecificComponents()}
+      </div>
+    )
   }
 
   render() {
-    const { showTooltip } = this.state;
     return (
-      <div className='unit-template-mini' onClick={this.onClickAction} onMouseEnter={this.setShowToolTip} onMouseLeave={this.setHideToolTip}>
-        {this.miniSpecificComponents()}
-        <div className="tooltip-container">
-          <Tooltip
-            manuallyShowTooltip={showTooltip}
-            tooltipText={this.renderTooltipElement()}
-            tooltipTriggerText=""
-            tooltipTriggerTextClass=""
-          />
-        </div>
-      </div>
+      <Tooltip
+        tooltipText={this.renderTooltipElement()}
+        tooltipTriggerText={this.renderMiniContent()}
+        tooltipTriggerTextClass=""
+      />
     );
   }
 }

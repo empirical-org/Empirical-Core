@@ -104,7 +104,8 @@ export {
   fillInBlankInputLabel,
   getIconForActivityClassification,
   isTrackableStudentEvent,
-  hexToRGBA
+  hexToRGBA,
+  uniqueValuesArray
 } from './libs/index'
 
 export {

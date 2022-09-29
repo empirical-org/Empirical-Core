@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { DataTable } from '../../../../Shared';
+import { DataTable, uniqueValuesArray } from '../../../../Shared';
 import { READING_TEXTS, READING_FOR_EVIDENCE, CONNECT, DIAGNOSTIC, GRAMMAR, PROOFREADER, LESSONS } from '../assignmentFlowConstants';
 import { UnitTemplateInterface } from '../../../../../interfaces/unitTemplate';
 import { Activity } from '../../../../../interfaces/activity';
@@ -42,11 +42,11 @@ export const UnitTemplateMinisTable = ({ unitTemplates }) => {
   function getToolsElement(activities: Activity[]) {
     if(!activities) { return }
 
-    const tools = Array.from(new Set(activities.map(activity => {
+    const tools = uniqueValuesArray(activities.map(activity => {
       const { classification } = activity
       const { name } = classification
       return name.replace('Quill ', '')
-    })))
+    }))
 
     return(
       <section className="tools-section">

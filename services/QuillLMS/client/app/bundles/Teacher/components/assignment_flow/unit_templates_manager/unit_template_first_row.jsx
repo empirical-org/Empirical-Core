@@ -51,8 +51,7 @@ export class UnitTemplateFirstRow extends React.Component {
   renderActivityPackImage(data) {
     if(!data) { return }
 
-    const { image_link, type } = data
-    const { unit_template_category } = data
+    const { image_link, type, unit_template_category } = data
     const { name } = unit_template_category
     const link = image_link || DEFAULT_ACTIVITY_PACK_IMAGE_LINKS[name] || DEFAULT_ACTIVITY_PACK_IMAGE_LINKS['Default']
     const color = unit_template_category.primary_color || type.primary_color

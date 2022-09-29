@@ -10,7 +10,6 @@ interface TooltipProps {
   tooltipTriggerTextClass?: string,
   tooltipTriggerTextStyle?: { [key:string]: any }
   tooltipTriggerStyle?: { [key:string]: any }
-  manuallyShowTooltip?: boolean
 }
 
 class Tooltip extends React.Component<TooltipProps, { clickedFromMobile: boolean, tooltipVisible: boolean }> {
@@ -30,15 +29,6 @@ class Tooltip extends React.Component<TooltipProps, { clickedFromMobile: boolean
 
   componentWillUnmount() {
     document.removeEventListener('click', this.handlePageClick, false)
-  }
-
-  componentDidUpdate(prevProps) {
-    const { manuallyShowTooltip } = this.props;
-    if(prevProps.manuallyShowTooltip !== manuallyShowTooltip && manuallyShowTooltip) {
-      this.showTooltip();
-    } else if(prevProps.manuallyShowTooltip !== manuallyShowTooltip && !manuallyShowTooltip) {
-      this.hideTooltip();
-    }
   }
 
   showTooltip() {
