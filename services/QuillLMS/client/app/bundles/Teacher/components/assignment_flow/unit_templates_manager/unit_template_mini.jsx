@@ -100,9 +100,9 @@ export class UnitTemplateMini extends React.Component {
         <a href={this.getLink()}>
           <div className='text-center create-your-own'>
             <div className='content-wrapper'>
-              <img alt="" className='plus_icon' src='/add_class.png' />
-              <h3>Create Your Own Activity Pack</h3>
-              <h5 style={{paddingTop: '5px'}}>Select from over 150 grammar exercises.</h5>
+              <img alt="plus icon" className='plus_icon' src='https://assets.quill.org/images/icons/plus-icon.svg' />
+              <h3>Create your own activity pack</h3>
+              <h5 style={{paddingTop: '5px'}}>Select from over 800 writing activities</h5>
             </div>
           </div>
         </a>

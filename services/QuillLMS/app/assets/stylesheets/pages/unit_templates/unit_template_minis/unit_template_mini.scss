@@ -14,11 +14,24 @@
   }
   .create-your-own {
     background-color: white;
-    height: 270px;
-    border: 1px dashed #929292;
+    height: 285px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
     .content-wrapper {
+      color: #666666;
+      h3 {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+      h5 {
+        font-size: 14px;
+        font-weight: 510;
+      }
       img {
-        margin-bottom: 26px;
+        width: 43px;
+        height: 43px;
+        margin-bottom: 8px;
       }
       @include vertical-align();
     }

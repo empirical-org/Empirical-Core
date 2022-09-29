@@ -77,6 +77,8 @@
     .data-table-body {
       .data-table-row {
         min-height: 70px;
+        align-items: flex-start;
+        padding: 17px 16px;
         .data-table-row-section {
           white-space: break-spaces;
           line-height: 18px;
