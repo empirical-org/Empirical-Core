@@ -36,8 +36,6 @@ class UnitActivity < ApplicationRecord
 
   after_save :hide_appropriate_activity_sessions, :teacher_checkbox
 
-  DEFAULT_TIMEZONE = "UTC"
-
   def teacher_checkbox
     return unless unit
     return unless unit.user
