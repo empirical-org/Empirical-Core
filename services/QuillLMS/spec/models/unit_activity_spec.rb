@@ -174,7 +174,8 @@ describe UnitActivity, type: :model, redis: true do
       end
 
       it 'does not include unit activities that have a publish date that has not yet passed' do
-        teacher.update(time_zone: nil)
+        # have to do update_columns here because time_zone is set by a callback
+        teacher.update_columns(time_zone: nil)
         unit_activity.update(publish_date: Time.now.utc + 1.hour)
         lessons_unit_activity.update(publish_date: Time.now.utc + 1.month)
         unit_activities = UnitActivity.get_classroom_user_profile(classroom.id, student.id)
@@ -191,6 +192,8 @@ describe UnitActivity, type: :model, redis: true do
       end
 
       it 'leaves the publish date in utc if the teacher does not have a time zone' do
+        # have to do update_columns here because time_zone is set by a callback
+        teacher.update_columns(time_zone: nil)
         publish_date = Time.now.utc - 1.hour
         unit_activity.update(publish_date: publish_date)
         unit_activities = UnitActivity.get_classroom_user_profile(classroom.id, student.id)
