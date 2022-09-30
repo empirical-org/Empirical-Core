@@ -270,6 +270,7 @@ module Demo::ReportDemoCreator
       create_subscription(teacher)
       create_demo_classroom_data(teacher, teacher_demo: teacher_demo)
     end
+  rescue ActiveRecord::RecordInvalid
   end
 
   def self.create_demo_classroom_data(teacher, teacher_demo: false)
@@ -313,6 +314,7 @@ module Demo::ReportDemoCreator
         end
       end
     end
+  rescue ActiveRecord::RecordInvalid
   end
 
   def self.demo_classroom_modified?(teacher)
@@ -348,7 +350,9 @@ module Demo::ReportDemoCreator
       grade: '9'
     }
 
-    Classroom.create_with_join(values, teacher.id)
+    classroom = Classroom.create_with_join(values, teacher.id)
+    classroom.save!
+    classroom
   end
 
   def self.classcode(teacher_id)
@@ -356,7 +360,7 @@ module Demo::ReportDemoCreator
   end
 
   def self.demo_classroom(teacher)
-    teacher.classrooms_i_teach.first {|c| c.code == classcode(teacher.id) }
+    teacher.classrooms_i_teach.find {|c| c.code == classcode(teacher.id) }
   end
 
   def self.non_demo_classrooms(teacher)
@@ -365,9 +369,9 @@ module Demo::ReportDemoCreator
 
   def self.create_units(teacher)
     ACTIVITY_PACKS_TEMPLATES.map do |ap|
-      unit = Unit.find_or_create_by({name: ap[:name], user: teacher})
+      unit = Unit.find_or_create_by(name: ap[:name], user: teacher)
       activity_ids = activity_ids_for_config(ap)
-      activity_ids.each { |act_id| UnitActivity.find_or_create_by({activity_id: act_id, unit: unit}) }
+      activity_ids.each { |act_id| UnitActivity.find_or_create_by(activity_id: act_id, unit: unit) }
 
       unit
     end
@@ -395,12 +399,12 @@ module Demo::ReportDemoCreator
       student = User.create!(
         name: template.name,
         username: template.username(classroom.id),
-        role: 'student',
+        role: User::STUDENT,
         email: is_teacher_facing ? template.email : nil,
         password: PASSWORD,
         password_confirmation: PASSWORD
       )
-      StudentsClassrooms.create!({student_id: student.id, classroom_id: classroom.id})
+      StudentsClassrooms.create!(student_id: student.id, classroom_id: classroom.id)
 
       student
     end
