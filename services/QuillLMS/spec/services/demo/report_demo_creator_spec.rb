@@ -232,6 +232,14 @@ RSpec.describe Demo::ReportDemoCreator do
         end
 
         it { expect{ subject }.to change{Demo::ReportDemoCreator.demo_classroom(teacher.reload).id} }
+
+        it "should not raise an error with two occurences running at once" do
+          threads = Array.new(2) do
+            Thread.new { subject }.tap {|thread| thread.report_on_exception = false}
+          end
+
+          expect{threads.map(&:join)}.to_not raise_error
+        end
       end
     end
   end
