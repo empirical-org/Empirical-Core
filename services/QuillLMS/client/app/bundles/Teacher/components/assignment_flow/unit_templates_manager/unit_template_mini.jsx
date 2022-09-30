@@ -9,6 +9,8 @@ import String from '../../modules/string.jsx'
 import { CLICKED_ACTIVITY_PACK_ID } from '../assignmentFlowConstants'
 import { Tooltip } from '../../../../Shared'
 
+const CREATE_YOUR_OWN_ID = 'createYourOwn'
+
 export class UnitTemplateMini extends React.Component {
   constructor(props) {
     super(props)
@@ -95,7 +97,7 @@ export class UnitTemplateMini extends React.Component {
   miniSpecificComponents() {
     const { data, } = this.props
     const { id } = data;
-    if (id === 'createYourOwn') {
+    if (id === CREATE_YOUR_OWN_ID) {
       return (
         <a href={this.getLink()}>
           <div className='text-center create-your-own'>
@@ -131,6 +133,11 @@ export class UnitTemplateMini extends React.Component {
   }
 
   render() {
+    const { data } = this.props
+    const { id } = data;
+    if(id === CREATE_YOUR_OWN_ID) {
+      return this.renderMiniContent()
+    }
     return (
       <Tooltip
         tooltipText={this.renderTooltipElement()}

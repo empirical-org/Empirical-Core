@@ -3,6 +3,7 @@
   margin-top: 30px;
   position: relative;
   cursor: pointer;
+  border: 2px solid transparent;
   @media (max-width: 500px) { width: 95%; }
   a {
     text-decoration: none;
@@ -74,7 +75,7 @@
       flex-direction: column;
       justify-content: space-between;
       width: 100%;
-      padding: 16px 24px;
+      padding: 14px 22px;
       z-index: 1;
       .name-and-label {
         .evidence-new-tag {
@@ -141,7 +142,7 @@
     background-color: white;
     color: #646464;
     font-weight: 400;
-    padding: 16px 24px;
+    padding: 14px 22px;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     .info-row {
@@ -170,6 +171,11 @@
       }
     }
   }
+}
+
+.unit-template-mini:hover {
+  border: 2px solid #377E6C;
+  border-radius: 12px;
 }
 
 .quill-tooltip {
