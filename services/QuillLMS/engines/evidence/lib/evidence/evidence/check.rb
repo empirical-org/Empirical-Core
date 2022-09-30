@@ -82,8 +82,8 @@ module Evidence
     end
 
     def self.normalize_entry_text(entry)
-        # The first three replacements are duplicates of the normalization
-        # we do in the Connect front-end: https://github.com/empirical-org/quill-string-normalizer/blob/master/src/main.ts
+      # The first three replacements are duplicates of the normalization
+      # we do in the Connect front-end: https://github.com/empirical-org/quill-string-normalizer/blob/master/src/main.ts
       entry.gsub(/[\u2018\u2019\u0301\u02BB\u02C8\u00B4\u0060]/, "'")
         .gsub(/[\u201C\u201D\u02DD\u0308]/, '"')
         .gsub(/[\u02CC\u201A\uFF0C]/, ',')
