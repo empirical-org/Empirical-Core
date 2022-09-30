@@ -83,7 +83,7 @@ module Evidence
 
     def self.normalize_entry_text(entry)
         # You may not be able to tell, but this is an endash
-      entry.gsub("\u2013", "–")
+      entry.gsub(/[\u2013]/, "–")
         # You may not be able to tell, but this is an emdash
         .gsub(/[\u2014]/, "—")
         .gsub(/[\u2026]/, "...")
