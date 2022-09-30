@@ -42,6 +42,11 @@ describe InvitationsController, type: :controller do
       expect(response.body).to eq({error: "Please make sure you've entered a valid email and selected at least one classroom."}.to_json)
     end
 
+    it 'should give error for a nil email' do
+      post :create_coteacher_invitation, params: { classroom_ids: [classroom.id] }
+      expect(response.body).to eq({error: "Please make sure you've entered a valid email and selected at least one classroom."}.to_json)
+    end
+
     it 'should give error for empty classroom ids' do
       post :create_coteacher_invitation,
         params: {
