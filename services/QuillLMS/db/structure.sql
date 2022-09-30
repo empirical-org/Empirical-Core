@@ -4152,7 +4152,8 @@ CREATE TABLE public.unit_activities (
     due_date timestamp without time zone,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    order_number smallint
+    order_number smallint,
+    publish_date timestamp without time zone
 );
 
 
@@ -8710,6 +8711,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220825144048'),
 ('20220830201825'),
 ('20220830205005'),
-('20220920190724');
-
+('20220920190724'),
+('20220927124042');
 

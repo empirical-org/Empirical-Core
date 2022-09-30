@@ -122,7 +122,8 @@ class UnitActivity < ApplicationRecord
           ua.activity_id,
           MAX(acts.updated_at) AS act_sesh_updated_at,
           ua.order_number,
-          ua.due_date,
+          CASE WHEN teachers.time_zone IS NOT NULL THEN ua.due_date at time zone teachers.time_zone ELSE ua.due_date END AS due_date,
+          CASE WHEN teachers.time_zone IS NOT NULL THEN ua.publish_date at time zone teachers.time_zone ELSE ua.publish_date END AS publish_date,
           pre_activity.id AS pre_activity_id,
           cu.created_at AS unit_activity_created_at,
           COALESCE(cuas.locked, false) AS locked,
@@ -157,11 +158,13 @@ class UnitActivity < ApplicationRecord
         LEFT JOIN classroom_unit_activity_states AS cuas
           ON ua.id = cuas.unit_activity_id
           AND cu.id = cuas.classroom_unit_id
+        JOIN users AS teachers ON unit.user_id = teachers.id
         WHERE #{user_id.to_i} = ANY (cu.assigned_student_ids::int[])
           AND cu.classroom_id = #{classroom_id.to_i}
           AND cu.visible = true
           AND unit.visible = true
           AND ua.visible = true
+          AND (ua.publish_date IS NULL OR ua.publish_date <= NOW())
         GROUP BY
           unit.id,
           unit.name,
@@ -172,6 +175,7 @@ class UnitActivity < ApplicationRecord
           activity.id,
           activity.uid,
           ua.due_date,
+          ua.publish_date,
           ua.created_at,
           unit_activity_id,
           cuas.completed,
@@ -179,7 +183,8 @@ class UnitActivity < ApplicationRecord
           cuas.pinned,
           ua.id,
           activity_classifications.key,
-          pre_activity.id
+          pre_activity.id,
+          teachers.time_zone
         ORDER BY
           pinned DESC,
           locked ASC,

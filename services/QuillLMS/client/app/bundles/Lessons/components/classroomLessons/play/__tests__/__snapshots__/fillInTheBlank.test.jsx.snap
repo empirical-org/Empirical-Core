@@ -131,7 +131,7 @@ exports[`FillInTheBlank component projector view inactive renders 1`] = `
               }
             />
             <input
-              aria-label="Complete the sentence with one of the following options: the, a"
+              aria-label="Choose which one of the following options fits best in the blank : the, a."
               autoComplete="off"
               className="disabled"
               disabled={true}
@@ -236,7 +236,7 @@ exports[`FillInTheBlank component projector view inactive renders 1`] = `
             key="store.6"
           />
           <input
-            aria-label="Complete the sentence with one of the following options: the, a"
+            aria-label="Choose which one of the following options fits best in the blank : the, a."
             autoComplete="off"
             className="disabled"
             disabled={true}
@@ -540,7 +540,7 @@ exports[`FillInTheBlank component projector view when an answer is being display
               }
             />
             <input
-              aria-label="Complete the sentence with one of the following options: the, a"
+              aria-label="Choose which one of the following options fits best in the blank : the, a."
               autoComplete="off"
               className="disabled"
               disabled={true}
@@ -645,7 +645,7 @@ exports[`FillInTheBlank component projector view when an answer is being display
             key="store.6"
           />
           <input
-            aria-label="Complete the sentence with one of the following options: the, a"
+            aria-label="Choose which one of the following options fits best in the blank : the, a."
             autoComplete="off"
             className="disabled"
             disabled={true}
@@ -903,7 +903,7 @@ exports[`FillInTheBlank component student view inactive renders 1`] = `
               }
             />
             <input
-              aria-label="Complete the sentence with one of the following options: the, a"
+              aria-label="Choose which one of the following options fits best in the blank : the, a."
               autoComplete="off"
               className=""
               id="input0"
@@ -1007,7 +1007,7 @@ exports[`FillInTheBlank component student view inactive renders 1`] = `
             key="store.6"
           />
           <input
-            aria-label="Complete the sentence with one of the following options: the, a"
+            aria-label="Choose which one of the following options fits best in the blank : the, a."
             autoComplete="off"
             className=""
             id="input0"
@@ -1277,7 +1277,7 @@ exports[`FillInTheBlank component student view when an answer is being displayed
               }
             />
             <input
-              aria-label="Complete the sentence with one of the following options: the, a"
+              aria-label="Choose which one of the following options fits best in the blank : the, a."
               autoComplete="off"
               className=""
               id="input0"
@@ -1381,7 +1381,7 @@ exports[`FillInTheBlank component student view when an answer is being displayed
             key="store.6"
           />
           <input
-            aria-label="Complete the sentence with one of the following options: the, a"
+            aria-label="Choose which one of the following options fits best in the blank : the, a."
             autoComplete="off"
             className=""
             id="input0"
@@ -1645,7 +1645,7 @@ exports[`FillInTheBlank component student view when the student has submitted an
               }
             />
             <input
-              aria-label="Complete the sentence with one of the following options: the, a"
+              aria-label="Choose which one of the following options fits best in the blank : the, a."
               autoComplete="off"
               className=""
               id="input0"
@@ -1749,7 +1749,7 @@ exports[`FillInTheBlank component student view when the student has submitted an
             key="store.6"
           />
           <input
-            aria-label="Complete the sentence with one of the following options: the, a"
+            aria-label="Choose which one of the following options fits best in the blank : the, a."
             autoComplete="off"
             className=""
             id="input0"

@@ -183,6 +183,7 @@ class User < ApplicationRecord
   before_validation :generate_student_username_if_absent
   before_validation :prep_authentication_terms
   before_save :capitalize_name
+  before_save :set_time_zone, unless: :time_zone, if: proc { teacher? }
   after_save  :update_invitee_email_address, if: proc { saved_change_to_email? }
   after_save :check_for_school
   after_create :generate_referrer_id, if: proc { teacher? }
@@ -653,6 +654,18 @@ class User < ApplicationRecord
   # during auth flows because they haven't actually signed up.
   def sales_contact?
     role == SALES_CONTACT
+  end
+
+  def set_time_zone
+    z = ::Ziptz.new
+    school_timezone = z.time_zone_name(school&.zipcode || school&.mail_zipcode)
+
+    if school_timezone.present?
+      self.time_zone = school_timezone
+    else
+      geocoder_results = Geocoder.search(ip_address)
+      self.time_zone = geocoder_results.first&.data ? geocoder_results.first.data['timezone'] : nil
+    end
   end
 
   private def validate_flags
