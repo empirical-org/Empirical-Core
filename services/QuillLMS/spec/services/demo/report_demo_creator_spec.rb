@@ -198,19 +198,18 @@ RSpec.describe Demo::ReportDemoCreator do
     describe "#reset_account" do
       before do
         stub_const("Demo::ReportDemoCreator::UNITS_COUNT", 1)
-        stub_const("Demo::ReportDemoCreator::SESSIONS_COUNT", 6)
 
         Demo::ReportDemoCreator.create_demo_classroom_data(teacher, teacher_demo: true)
       end
 
-      subject { Demo::ReportDemoCreator.reset_account(teacher) }
+      subject { Demo::ReportDemoCreator.reset_account(teacher.id) }
 
       context "untouched demo account" do
-        it { expect{ subject }.to_not change(teacher, :google_id).from(nil) }
-        it { expect{ subject }.to_not change(teacher, :clever_id).from(nil) }
+        it { expect{ subject }.to_not change{teacher.reload.google_id}.from(nil) }
+        it { expect{ subject }.to_not change{teacher.reload.clever_id}.from(nil) }
         it { expect{ subject }.to_not change{teacher.classrooms_i_teach.count}.from(1) }
         it { expect{ subject }.to_not change{teacher.classrooms_i_teach.map(&:id)} }
-        it { expect{ subject }.to_not change(teacher, :auth_credential).from(nil) }
+        it { expect{ subject }.to_not change{teacher.reload.auth_credential}.from(nil) }
       end
 
       context "teacher account has added data" do
@@ -219,11 +218,11 @@ RSpec.describe Demo::ReportDemoCreator do
         let(:classroom) {create(:classroom)}
         let!(:classrooms_teacher) {create(:classrooms_teacher, classroom: classroom, user: teacher)}
 
-        it { expect{ subject }.to change(teacher, :google_id).from("1234").to(nil) }
-        it { expect{ subject }.to change(teacher, :clever_id).from("5678").to(nil) }
-        it { expect{ subject }.to change {teacher.classrooms_i_teach.count}.from(2).to(1) }
+        it { expect{ subject }.to change{teacher.reload.google_id}.from("1234").to(nil) }
+        it { expect{ subject }.to change{teacher.reload.clever_id}.from("5678").to(nil) }
+        it { expect{ subject }.to change {teacher.reload.classrooms_i_teach.count}.from(2).to(1) }
         it { expect{ subject }.to change(AuthCredential, :count).from(1).to(0) }
-        it { expect{ subject }.to_not change{Demo::ReportDemoCreator.demo_classroom(teacher).id} }
+        it { expect{ subject }.to_not change{Demo::ReportDemoCreator.demo_classroom(teacher.reload).id} }
       end
 
       context "demo classroom changed" do
@@ -232,7 +231,15 @@ RSpec.describe Demo::ReportDemoCreator do
           demo_classroom.update(name: "my classroom name")
         end
 
-        it { expect{ subject }.to change{Demo::ReportDemoCreator.demo_classroom(teacher).id} }
+        it { expect{ subject }.to change{Demo::ReportDemoCreator.demo_classroom(teacher.reload).id} }
+
+        it "should not raise an error with two occurences running at once" do
+          threads = Array.new(2) do
+            Thread.new { subject }.tap {|thread| thread.report_on_exception = false}
+          end
+
+          expect{threads.map(&:join)}.to_not raise_error
+        end
       end
     end
   end
