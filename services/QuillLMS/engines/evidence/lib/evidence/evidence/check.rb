@@ -82,16 +82,14 @@ module Evidence
     end
 
     def self.normalize_entry_text(entry)
-        # You may not be able to tell, but this is an endash
-      entry.gsub(/[\u2013]/, "–")
-        # You may not be able to tell, but this is an emdash
-        .gsub(/[\u2014]/, "—")
-        .gsub(/[\u2026]/, "...")
-        # The following three replacements are duplicates of the normalization
+        # The first three replacements are duplicates of the normalization
         # we do in the Connect front-end: https://github.com/empirical-org/quill-string-normalizer/blob/master/src/main.ts
-        .gsub(/[\u2018\u2019\u0301\u02BB\u02C8\u00B4\u0060]/, "'")
+      entry.gsub(/[\u2018\u2019\u0301\u02BB\u02C8\u00B4\u0060]/, "'")
         .gsub(/[\u201C\u201D\u02DD\u0308]/, '"')
         .gsub(/[\u02CC\u201A\uFF0C]/, ',')
+        .gsub(/[\u2013]/, "–") # You may not be able to tell, but this is an endash
+        .gsub(/[\u2014]/, "—") # You may not be able to tell, but this is an emdash
+        .gsub(/[\u2026]/, "...")
     end
   end
 end

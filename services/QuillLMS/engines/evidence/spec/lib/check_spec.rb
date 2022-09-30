@@ -217,7 +217,7 @@ module Evidence
           left_double_quotation_mark = "\u201C",
           right_double_quotation_mark = "\u201D",
           double_acute_accent = "\u02DD",
-          combining_diaeresis = "\u0308",
+          combining_diaeresis = "\u0308"
         ].each do |character|
           expect(Check.normalize_entry_text(character)).to eq('"')
         end
