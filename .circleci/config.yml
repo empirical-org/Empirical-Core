@@ -2,7 +2,7 @@ version: 2
 jobs:
   lms_rails_build:
     working_directory: ~/Empirical-Core
-    parallelism: 4
+    parallelism: 6
     docker:
       - image: cimg/ruby:2.7.6
         environment:
