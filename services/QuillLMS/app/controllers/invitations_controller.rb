@@ -59,14 +59,14 @@ class InvitationsController < ApplicationController
   end
 
   private def validate_email_format
-    return if @invitee_email =~ /.+@.+\..+/i
+    return if @invitee_email =~ User::VALID_EMAIL_REGEX
 
     raise StandardError, "Please make sure you've entered a valid email."
   end
 
   private def set_classroom_ids_and_inviteee_email
     @classroom_ids = params[:classroom_ids]
-    @invitee_email = params[:invitee_email]
+    @invitee_email = params[:invitee_email].gsub(/\s/, '') #strip whitespace
   end
 
 

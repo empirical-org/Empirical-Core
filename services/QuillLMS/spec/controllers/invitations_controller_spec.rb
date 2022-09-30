@@ -32,6 +32,11 @@ describe InvitationsController, type: :controller do
       expect(response.body).to eq({error: "Please make sure you've entered a valid email."}.to_json)
     end
 
+    it 'should give error when multiple emails entered' do
+      post :create_coteacher_invitation, params: { classroom_ids: [classroom.id], invitee_email: "email@one.com email@two.com" }
+      expect(response.body).to eq({error: "Please make sure you've entered a valid email."}.to_json)
+    end
+
     it 'should give error for empty email' do
       post :create_coteacher_invitation, params: { classroom_ids: [classroom.id], invitee_email: "" }
       expect(response.body).to eq({error: "Please make sure you've entered a valid email and selected at least one classroom."}.to_json)
@@ -72,6 +77,17 @@ describe InvitationsController, type: :controller do
       expect(Invitation.last.inviter).to eq user
       expect(Invitation.last.invitee_email).to eq "test@test.com"
       expect(Invitation.last.invitation_type).to eq Invitation::TYPES[:coteacher]
+    end
+
+    it 'should correct an email with spaces' do
+      post :create_coteacher_invitation, params: { classroom_ids: [classroom.id], invitee_email: "test@test .com" }
+
+      invite = Invitation.last
+
+      expect(response.body).to eq ({invite_id: invite.id}.to_json)
+      expect(invite.inviter).to eq user
+      expect(invite.invitee_email).to eq "test@test.com"
+      expect(invite.invitation_type).to eq Invitation::TYPES[:coteacher]
     end
   end
 
