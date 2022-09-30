@@ -23,6 +23,8 @@ module Evidence
     }
 
     def self.get_feedback(entry, prompt, previous_feedback, feedback_types=nil)
+      entry = normalize_entry_text(entry)
+
       triggered_check = find_triggered_check(entry, prompt, previous_feedback, feedback_types)
 
       triggered_check || fallback_feedback
@@ -77,6 +79,19 @@ module Evidence
       raise NoMatchedFeedbackTypesError, "None of the specified feedback_types (#{feedback_types}) were valid." if filtered_checks.empty?
 
       filtered_checks
+    end
+
+    def self.normalize_entry_text(entry)
+        # You may not be able to tell, but this is an endash
+      entry.gsub("\u2013", "–")
+        # You may not be able to tell, but this is an emdash
+        .gsub(/[\u2014]/, "—")
+        .gsub(/[\u2026]/, "...")
+        # The following three replacements are duplicates of the normalization
+        # we do in the Connect front-end: https://github.com/empirical-org/quill-string-normalizer/blob/master/src/main.ts
+        .gsub(/[\u2018\u2019\u0301\u02BB\u02C8\u00B4\u0060]/, "'")
+        .gsub(/[\u201C\u201D\u02DD\u0308]/, '"')
+        .gsub(/[\u02CC\u201A\uFF0C]/, ',')
     end
   end
 end
