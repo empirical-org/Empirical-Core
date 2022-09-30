@@ -271,6 +271,7 @@ module Demo::ReportDemoCreator
       create_demo_classroom_data(teacher, teacher_demo: teacher_demo)
     end
   rescue ActiveRecord::RecordInvalid
+    # ignore invalid records
   end
 
   def self.create_demo_classroom_data(teacher, teacher_demo: false)
@@ -315,6 +316,7 @@ module Demo::ReportDemoCreator
       end
     end
   rescue ActiveRecord::RecordInvalid
+    # ignore invalid records
   end
 
   def self.demo_classroom_modified?(teacher)
