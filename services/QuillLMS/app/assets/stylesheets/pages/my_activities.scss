@@ -45,6 +45,13 @@
     border: solid 1px #e0e0e0 !important;
     background-color: white;
     margin-top: 32px;
+    .is-owner {
+      .list-item:first-of-type .data-table-row {
+        height: 86px;
+        align-items: flex-start;
+        padding-top: 20px;
+      }
+    }
     .top-section {
       padding: 32px;
       border-bottom: 1px solid #e0e0e0;
@@ -62,6 +69,14 @@
     .data-table-row:hover {
       .share-activity-button {
         background-color: #f2f2f2;
+      }
+    }
+    .copy-to-all-button {
+      margin-top: 12px;
+      display: flex;
+      align-items: center;
+      img {
+        margin-right: 8px;
       }
     }
     .left-side {
@@ -147,9 +162,6 @@
     .data-table {
       overflow: visible;
       margin: 32px 32px 16px;
-      .due-date-picker .DateInput_input::placeholder {
-        color: #000;
-      }
       .data-table-headers {
         max-width: min-content;
       }
@@ -189,7 +201,7 @@
       }
       .data-table {
         overflow: hidden;
-        .due-date-picker, .due-date-header-container, .reorder-header, .reorder-section {
+        .due-date-picker, .publish-date-picker, .publish-date-header-container, .due-date-header-container, .reorder-header, .reorder-section {
           display: none;
         }
       }

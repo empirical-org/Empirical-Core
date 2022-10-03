@@ -34,6 +34,9 @@ class UnitActivity < ApplicationRecord
 
   # validates :unit, uniqueness: { scope: :activity }
 
+  before_save :adjust_due_date_for_timezone, if: [:will_save_change_to_due_date?, :due_date?]
+  before_save :adjust_publish_date_for_timezone, if: [:will_save_change_to_publish_date?, :publish_date?]
+
   after_save :hide_appropriate_activity_sessions, :teacher_checkbox
 
   def teacher_checkbox
@@ -82,6 +85,18 @@ class UnitActivity < ApplicationRecord
     else
       true
     end
+  end
+
+  def adjust_due_date_for_timezone
+    return unless due_date.present?
+
+    due_date = due_date - unit&.user&.utc_offset
+  end
+
+  def adjust_publish_date_for_timezone
+    return unless publish_date.present?
+
+    publish_date = publish_date - unit&.user&.utc_offset
   end
 
   private def hide_appropriate_activity_sessions

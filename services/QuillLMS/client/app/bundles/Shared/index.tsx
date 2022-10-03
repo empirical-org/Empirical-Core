@@ -142,6 +142,9 @@ export {
   evidenceToolIcon,
   warningIcon,
   disclosureIcon,
+  copyIcon,
+  scheduledIcon,
+  publishedIcon,
 } from './images/index'
 
 export {

@@ -1,29 +1,89 @@
 import * as React from 'react'
-import { SingleDatePicker } from 'react-dates'
+import Datetime from 'react-datetime';
 import * as moment from 'moment';
 
 import * as api from '../../modules/call_api';
 import { requestPut } from '../../../../../modules/request/index.js';
-import { DataTable } from '../../../../Shared/index'
+import { DataTable, copyIcon, } from '../../../../Shared/index'
 import { addKeyDownListener, } from '../../../../Shared/hooks/addKeyDownListener'
 import { getIconForActivityClassification } from '../../../../Shared/libs';
 
 const shareActivitySrc = `${process.env.CDN_URL}/images/icons/icons-share.svg`
+
+const copyImage = <img alt={copyIcon.alt} src={copyIcon.src} />
+
 export const AVERAGE_FONT_WIDTH = 7
+
+const DUE_DATE_DEFAULT_TEXT = 'No due date'
+const PUBLISH_DATE_DEFAULT_TEXT = 'Right away'
+
+const DatePickerContainer = ({ initialValue, defaultText, rowIndex, closeFunction, copyFunction, }) => {
+  const copyDateToAllButton = rowIndex === 0 ? <CopyToAllButton copyFunction={copyFunction} /> : ''
+
+  // note: the key in this uncontrolled component is necessary in order for it to rerender when "copy to all" is clicked
+  return (
+    <div className="date-picker-container">
+      <Datetime
+        initialValue={initialValue}
+        onClose={closeFunction}
+        renderInput={(props) => <DatetimeInput defaultText={defaultText} props={props} />}
+        utc={true}
+      />
+      {copyDateToAllButton}
+    </div>
+  )
+}
+
+const DatetimeInput = ({ props, defaultText, }) => {
+  const { onClick, value, } = props
+  const valueInMoment = value ? moment.utc(value) : null
+  const buttonText = valueInMoment ? formatDateTimeForDisplay(valueInMoment) : defaultText
+  return (
+    <button className="interactive-wrapper focus-on-light datetime-input" onClick={onClick} type="button">
+      <span className="text">{buttonText}</span>
+      <img alt="dropdown indicator" className="dropdown-indicator" src="https://assets.quill.org/images/icons/dropdown.svg" />
+    </button>
+  )
+}
+
+const CopyToAllButton = ({ copyFunction, }) => (
+  <button
+    className="interactive-wrapper focus-on-light copy-to-all-button"
+    onClick={copyFunction}
+    type="button"
+  >
+    {copyImage}
+    <span>Copy to all</span>
+  </button>
+)
+
+const formatDateTimeForDisplay = (datetime) => {
+  if (datetime.minutes()) {
+    return datetime.format('MMM D, h:mma')
+  }
+  return datetime.format('MMM D, ha')
+}
 
 const tableHeaders = (isOwner) => ([
   {
     name: <span className="tool-and-name-header"><span>Tool</span><span>Activity</span></span>,
     attribute: 'toolAndNameSection',
-    width: isOwner ? '607px' : '724px',
+    width: isOwner ? '460px' : '577px',
     rowSectionClassName: 'tool-and-name-section'
+  },
+  {
+    name: <span className="publish-date-header">Publish date <span>(optional)</span></span>,
+    attribute: 'publishDatePicker',
+    width: isOwner ? '126px' : '110px',
+    headerClassName: 'publish-date-header-container',
+    rowSectionClassName: 'datetime-picker'
   },
   {
     name: <span className="due-date-header">Due date <span>(optional)</span></span>,
     attribute: 'dueDatePicker',
-    width: isOwner ? '120px' : '110px',
+    width: isOwner ? '126px' : '110px',
     headerClassName: isOwner ? 'due-date-header-container' : 'due-date-header-container no-right-margin',
-    rowSectionClassName: isOwner ? 'due-date-picker' : 'due-date-picker no-right-margin'
+    rowSectionClassName: isOwner ? 'datetime-picker' : 'datetime-picker no-right-margin'
   },
   {
     name: '',
@@ -56,15 +116,18 @@ const ActivityTable = ({ data, onSuccess, isOwner, handleActivityClicked, handle
     requestPut(`${process.env.DEFAULT_URL}/teachers/unit_activities/${unitActivityId}/hide`, {}, () => onSuccess('Activity removed'))
   }
 
-  function handleDueDateChange(date, unitActivityId) {
+  function closeDatePicker(date, unitActivityId, dateAttributeKey) {
     const formattedDate = date ? date : null
-    requestPut(`/teachers/unit_activities/${unitActivityId}`, { unit_activity: { due_date: formattedDate, } }, () => onSuccess());
+    requestPut(`/teachers/unit_activities/${unitActivityId}`, { unit_activity: { [dateAttributeKey]: formattedDate, } }, () => onSuccess());
   }
 
-  function updateFocused(unitActivityId, isFocused) {
-    const newFocused = {...focusedHash}
-    newFocused[unitActivityId] = isFocused
-    setFocusedHash(newFocused)
+  function copyPublishDateToAll() { copyDateToAll(classroomActivityArray[0].publishDate, 'publish_date') }
+
+  function copyDueDateToAll() { copyDateToAll(classroomActivityArray[0].dueDate, 'due_date') }
+
+  function copyDateToAll(date, dateAttributeKey) {
+    const unitActivityIds = classroomActivityArray.map(ca => ca.uaId)
+    requestPut('/teachers/unit_activities/update_multiple_dates', { unit_activity_ids: unitActivityIds, date: date, date_attribute: dateAttributeKey }, () => onSuccess());
   }
 
   function reorderCallback(sortInfo) {
@@ -79,7 +142,7 @@ const ActivityTable = ({ data, onSuccess, isOwner, handleActivityClicked, handle
     handleToggleModal()
   }
 
-  const activityRows = activityOrder.map(activityId => {
+  const activityRows = activityOrder.map((activityId, i) => {
     const activity = classroomActivityArray.find(act => act.activityId === activityId)
     if (!activity){ return }
     const toolIcon = getIconForActivityClassification(activity.activityClassificationId)
@@ -89,25 +152,41 @@ const ActivityTable = ({ data, onSuccess, isOwner, handleActivityClicked, handle
       {previewLink}
     </a>)
 
-    const startDate = activity.dueDate ? moment(activity.dueDate) : null
-    const focused = focusedHash[activity.uaId]
-    const dropdownIconStyle = focused ? { transform: 'rotate(180deg)', } : null;
+    const dueDateInMoment = activity.dueDate ? moment.utc(activity.dueDate) : null
+    const publishDateInMoment = activity.publishDate ? moment.utc(activity.publishDate) : null
 
-    const placeholderText = startDate ? startDate.format('MM/DD/YYYY') : 'No due date'
-    /* eslint-disable react/jsx-no-bind */
-    activity.dueDatePicker = isOwner ? (<SingleDatePicker
-      customInputIcon={<img alt="dropdown indicator" src="https://assets.quill.org/images/icons/dropdown.svg" style={dropdownIconStyle} />}
-      date={startDate}
-      focused={focused}
-      id={`${activity.uaId}-date-picker`}
-      inputIconPosition="after"
-      navNext='›'
-      navPrev='‹'
-      numberOfMonths={1}
-      onDateChange={(date) => handleDueDateChange(date, activity.uaId)}
-      onFocusChange={({ focused }) => updateFocused(activity.uaId, focused)}
-      placeholder={placeholderText}
-    />) : placeholderText
+    let activityDueDatePicker = dueDateInMoment ? formatDateTimeForDisplay(dueDateInMoment) : DUE_DATE_DEFAULT_TEXT
+    let activityPublishDatePicker = publishDateInMoment ? formatDateTimeForDisplay(publishDateInMoment) : PUBLISH_DATE_DEFAULT_TEXT
+
+    if (isOwner) {
+      activityDueDatePicker = (
+        <DatePickerContainer
+          closeFunction={(date) => closeDatePicker(date, activity.uaId, 'due_date')}
+          copyFunction={copyDueDateToAll}
+          defaultText={DUE_DATE_DEFAULT_TEXT}
+          initialValue={dueDateInMoment}
+          key={dueDateInMoment ? dueDateInMoment.date() : activity.uaId}
+          rowIndex={i}
+          unitActivityId={activity.uaId}
+        />
+      )
+
+      activityPublishDatePicker = (
+        <DatePickerContainer
+          closeFunction={(date) => closeDatePicker(date, activity.uaId, 'publish_date')}
+          copyFunction={copyPublishDateToAll}
+          defaultText={PUBLISH_DATE_DEFAULT_TEXT}
+          initialValue={publishDateInMoment}
+          key={publishDateInMoment ? publishDateInMoment.date() : activity.uaId}
+          rowIndex={i}
+          unitActivityId={activity.uaId}
+        />
+      )
+    }
+
+    activity.dueDatePicker = activityDueDatePicker
+    activity.publishDatePicker = activityPublishDatePicker
+
     activity.shareActivity = (
       <button className="share-activity-button focus-on-light" onClick={() => handleShareActivityClick(activity)} type="button" value="row-button">
         <img alt='share-arrow' src={shareActivitySrc} />
@@ -119,6 +198,7 @@ const ActivityTable = ({ data, onSuccess, isOwner, handleActivityClicked, handle
   }).filter(Boolean)
   return (
     <DataTable
+      className={isOwner ? 'is-owner' : ''}
       headers={tableHeaders(isOwner)}
       isReorderable={isOwner}
       removeRow={hideUnitActivity}

@@ -34,10 +34,10 @@ describe Teachers::UnitActivitiesController, type: :controller do
     end
   end
 
-  describe '#update_multiple_due_dates' do
+  describe '#update_multiple_dates' do
     it 'should be able to update due dates for an array of unit_activity ids' do
       new_due_date = '01-01-2020'
-      put :update_multiple_due_dates, params: { unit_activity_ids: [unit_activity.id, unit_activity2.id, unit_activity3.id], due_date: new_due_date }
+      put :update_multiple_dates, params: { unit_activity_ids: [unit_activity.id, unit_activity2.id, unit_activity3.id], due_date: new_due_date }
       expect(unit_activity.reload.due_date).to eq new_due_date
       expect(unit_activity2.reload.due_date).to eq new_due_date
       expect(unit_activity3.reload.due_date).to eq new_due_date
