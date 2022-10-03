@@ -42,7 +42,6 @@ class Subscription < ApplicationRecord
   has_many :user_subscriptions
   has_many :users, through: :user_subscriptions
   belongs_to :purchaser, class_name: "User"
-  belongs_to :subscription_type
   belongs_to :plan, optional: true
 
   validates :expiration, presence: true
