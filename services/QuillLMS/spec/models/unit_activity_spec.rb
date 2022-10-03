@@ -198,17 +198,6 @@ describe UnitActivity, type: :model, redis: true do
     end
   end
 
-  describe 'adjust_publish_date_for_timezone' do
-    it 'adjusts the submitted time to the utc equivalent of that time in the timezone of the teacher' do
-      tz_string = 'America/New_York'
-      teacher.update(time_zone: tz_string)
-      publish_date = Time.now.utc - 1.hour
-      unit_activity.publish_date = publish_date
-      unit_activity.adjust_publish_date_for_timezone
-      expect(unit_activity.publish_date).to eq(publish_date - 4.hours)
-    end
-  end
-
   context 'self.get_classroom_user_profile' do
     it 'get user profile data' do
       unit_activities = UnitActivity.get_classroom_user_profile(classroom.id, student.id)

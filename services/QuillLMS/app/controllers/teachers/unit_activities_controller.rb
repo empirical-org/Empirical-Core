@@ -24,7 +24,7 @@ class Teachers::UnitActivitiesController < ApplicationController
   end
 
   def update_multiple_dates
-    UnitActivity.where(id: params[:unit_activity_ids]).each { |ua| ua.update("#{params[:date_attribute]}" => "#{params[:date]}") }
+    UnitActivity.where(id: params[:unit_activity_ids]).each { |ua| ua.update(params[:date_attribute] => params[:date]) }
     render json: {}
   end
 
