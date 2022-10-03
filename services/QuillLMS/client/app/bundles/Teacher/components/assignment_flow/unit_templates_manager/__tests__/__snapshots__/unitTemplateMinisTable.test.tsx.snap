@@ -110,6 +110,7 @@ exports[`UnitTemplateMinisTable component should render activity_info has html 1
           "duration": "60 mins",
           "gradeLevel": "",
           "id": 3,
+          "link": "/activities/packs/3",
           "packName": "Test Activity Pack",
           "packType": <p
             style={
@@ -225,104 +226,107 @@ exports[`UnitTemplateMinisTable component should render activity_info has html 1
       <tbody
         className="data-table-body"
       >
-        <tr
-          className="data-table-row  "
-          key="3"
-        >
-          <td
-            className="data-table-row-section pack-type-section"
-            key="packType-3"
-            style={
-              Object {
-                "minWidth": "160px",
-                "textAlign": "left",
-                "width": "160px",
-              }
-            }
+        <tr>
+          <a
+            className="data-table-row  "
+            href="/activities/packs/3"
+            key="3"
           >
-            <p
+            <td
+              className="data-table-row-section pack-type-section"
+              key="packType-3"
               style={
                 Object {
-                  "color": "",
+                  "minWidth": "160px",
+                  "textAlign": "left",
+                  "width": "160px",
                 }
               }
-            />
-          </td>
-          <td
-            className="data-table-row-section pack-name-section"
-            key="packName-3"
-            style={
-              Object {
-                "minWidth": "190px",
-                "textAlign": "left",
-                "width": "190px",
-              }
-            }
-          >
-            Test Activity Pack
-          </td>
-          <td
-            className="data-table-row-section "
-            key="tools-3"
-            style={
-              Object {
-                "minWidth": "140px",
-                "textAlign": "left",
-                "width": "140px",
-              }
-            }
-          >
-            <section
-              className="tools-section"
             >
               <p
                 style={
                   Object {
-                    "color": "#9035D6",
+                    "color": "",
                   }
                 }
+              />
+            </td>
+            <td
+              className="data-table-row-section pack-name-section"
+              key="packName-3"
+              style={
+                Object {
+                  "minWidth": "190px",
+                  "textAlign": "left",
+                  "width": "190px",
+                }
+              }
+            >
+              Test Activity Pack
+            </td>
+            <td
+              className="data-table-row-section "
+              key="tools-3"
+              style={
+                Object {
+                  "minWidth": "140px",
+                  "textAlign": "left",
+                  "width": "140px",
+                }
+              }
+            >
+              <section
+                className="tools-section"
               >
-                Grammar
-              </p>
-            </section>
-          </td>
-          <td
-            className="data-table-row-section "
-            key="gradeLevel-3"
-            style={
-              Object {
-                "minWidth": "70px",
-                "textAlign": "right",
-                "width": "70px",
+                <p
+                  style={
+                    Object {
+                      "color": "#9035D6",
+                    }
+                  }
+                >
+                  Grammar
+                </p>
+              </section>
+            </td>
+            <td
+              className="data-table-row-section "
+              key="gradeLevel-3"
+              style={
+                Object {
+                  "minWidth": "70px",
+                  "textAlign": "right",
+                  "width": "70px",
+                }
               }
-            }
-          />
-          <td
-            className="data-table-row-section activities-section"
-            key="activities-3"
-            style={
-              Object {
-                "minWidth": "50px",
-                "textAlign": "right",
-                "width": "50px",
+            />
+            <td
+              className="data-table-row-section activities-section"
+              key="activities-3"
+              style={
+                Object {
+                  "minWidth": "50px",
+                  "textAlign": "right",
+                  "width": "50px",
+                }
               }
-            }
-          >
-            1
-          </td>
-          <td
-            className="data-table-row-section "
-            key="duration-3"
-            style={
-              Object {
-                "minWidth": "150px",
-                "textAlign": "left",
-                "width": "150px",
+            >
+              1
+            </td>
+            <td
+              className="data-table-row-section "
+              key="duration-3"
+              style={
+                Object {
+                  "minWidth": "150px",
+                  "textAlign": "left",
+                  "width": "150px",
+                }
               }
-            }
-          >
-            60 mins
-          </td>
+            >
+              60 mins
+            </td>
+          </a>
         </tr>
       </tbody>
     </table>

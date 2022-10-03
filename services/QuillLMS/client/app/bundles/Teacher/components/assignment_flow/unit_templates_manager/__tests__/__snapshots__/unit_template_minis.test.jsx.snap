@@ -306,13 +306,13 @@ exports[`UnitTemplateMinis component should render without createYourOwn mini wh
             className="type-options"
           >
             <Link
-              className="active"
+              className="focus-on-light active"
               to="/activities/packs"
             >
               All Packs
             </Link>
             <Link
-              className={null}
+              className="focus-on-light "
               key="diagnostic"
               to="/activities/packs?type=diagnostic"
             >

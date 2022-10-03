@@ -5,7 +5,7 @@ import { READING_TEXTS, READING_FOR_EVIDENCE, CONNECT, DIAGNOSTIC, GRAMMAR, PROO
 import { UnitTemplateInterface } from '../../../../../interfaces/unitTemplate';
 import { Activity } from '../../../../../interfaces/activity';
 
-export const UnitTemplateMinisTable = ({ unitTemplates }) => {
+export const UnitTemplateMinisTable = ({ unitTemplates, userSignedIn }) => {
   const toolColors = {
     [READING_FOR_EVIDENCE]: '#2C7F9B',
     [CONNECT]: '#DF9E3D',
@@ -63,9 +63,11 @@ export const UnitTemplateMinisTable = ({ unitTemplates }) => {
       const { id, name, readability, activities, time, unit_template_category } = unitTemplate;
       const { primary_color } = unit_template_category;
       const durationElement = getDurationElement(unit_template_category, time);
-      const toolsElement = getToolsElement(activities)
+      const toolsElement = getToolsElement(activities);
+      const packUrl = userSignedIn ? `/assign/featured-activity-packs/${id}` : `/activities/packs/${id}`;
       return {
         id,
+        link: packUrl,
         packType: <p style={{ color: primary_color }}>{unit_template_category.name}</p>,
         packName: name,
         tools: toolsElement,

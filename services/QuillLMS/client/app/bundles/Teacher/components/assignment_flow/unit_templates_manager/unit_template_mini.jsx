@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import { renderToString } from 'react-dom/server'
 
 import UnitTemplateFirstRow from './unit_template_first_row'
@@ -58,14 +57,6 @@ export class UnitTemplateMini extends React.Component {
     return link
   }
 
-  renderMini(innerContent) {
-    if (this.isSignedIn()) {
-      return (<Link to={this.getLink()}>{innerContent}</Link>)
-    }
-
-    return <a href={this.getLink()}>{innerContent}</a>
-  }
-
   renderTooltipElement() {
     const { data } = this.props
     if (!data) { return }
@@ -99,36 +90,36 @@ export class UnitTemplateMini extends React.Component {
     const { id } = data;
     if (id === CREATE_YOUR_OWN_ID) {
       return (
-        <a href={this.getLink()}>
-          <div className='text-center create-your-own'>
-            <div className='content-wrapper'>
-              <img alt="plus icon" className='plus_icon' src='https://assets.quill.org/images/icons/plus-icon.svg' />
-              <h3>Create your own activity pack</h3>
-              <h5 style={{paddingTop: '5px'}}>Select from over 800 writing activities</h5>
-            </div>
+        <div className='text-center create-your-own'>
+          <div className='content-wrapper'>
+            <img alt="plus icon" className='plus_icon' src='https://assets.quill.org/images/icons/plus-icon.svg' />
+            <h3>Create your own activity pack</h3>
+            <h5 style={{paddingTop: '5px'}}>Select from over 800 writing activities</h5>
           </div>
-        </a>
+        </div>
       );
     }
-    // else it is a normal mini
-    else {
-      const innerContent = (<div className="unit-template-mini-inner-container" id={id} ref={this.miniRef}>
+    return (
+      <div className="unit-template-mini-inner-container" id={id} ref={this.miniRef}>
         <UnitTemplateFirstRow
           data={data}
           modules={{string: this.modules.string}}
         />
         <UnitTemplateSecondRow data={data} modules={{string: this.modules.string}} />
-      </div>)
+      </div>
+    )
+  }
 
-      return this.renderMini(innerContent, id)
-    }
+  handleClick = () => {
+    const url = this.getLink()
+    window.location.href = url
   }
 
   renderMiniContent = () => {
     return(
-      <div className='unit-template-mini' onClick={this.onClickAction}>
+      <button className='unit-template-mini interactive-wrapper focus-on-light' onClick={this.handleClick}>
         {this.miniSpecificComponents()}
-      </div>
+      </button>
     )
   }
 
@@ -140,9 +131,9 @@ export class UnitTemplateMini extends React.Component {
     }
     return (
       <Tooltip
+        isTabbable={false}
         tooltipText={this.renderTooltipElement()}
         tooltipTriggerText={this.renderMiniContent()}
-        tooltipTriggerTextClass=""
       />
     );
   }

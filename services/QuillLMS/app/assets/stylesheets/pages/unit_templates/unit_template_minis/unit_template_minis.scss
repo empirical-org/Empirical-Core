@@ -75,6 +75,9 @@
   .unit-templates-table {
     background-color: #ffffff;
     .data-table-body {
+      tr {
+        border-bottom: 1px solid #E0E0E0;
+      }
       .data-table-row {
         min-height: 70px;
         align-items: flex-start;
@@ -122,6 +125,9 @@
             }
           }
         }
+      }
+      .data-table-row:hover {
+        text-decoration: none;
       }
     }
   }

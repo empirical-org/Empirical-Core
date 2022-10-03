@@ -202,7 +202,7 @@ export default class UnitTemplateMinis extends React.Component {
       const qs = this.generateQueryString(currentCategory, data.selectedGradeLevel, id)
       return (
         <Link
-          className={selectedTypeId === id ? 'active' : null}
+          className={`focus-on-light ${selectedTypeId === id ? 'active' : ''}`}
           key={id}
           to={`${baseLink}${qs}`}
         >{name}</Link>
@@ -221,7 +221,7 @@ export default class UnitTemplateMinis extends React.Component {
 
     const allPacksLink = (
       <Link
-        className={!selectedTypeId ? 'active' : null}
+        className={`focus-on-light ${!selectedTypeId ? 'active' : null}`}
         to={`${baseLink}${this.generateQueryString(currentCategory, data.selectedGradeLevel)}`}
       >All Packs</Link>
     );
@@ -300,7 +300,7 @@ export default class UnitTemplateMinis extends React.Component {
     if(value === LIST_VIEW_OPTION.value) {
       return(
         <React.Fragment>
-          <UnitTemplateMinisTable unitTemplates={displayedModels} />
+          <UnitTemplateMinisTable unitTemplates={displayedModels} userSignedIn={this.userLoggedIn()} />
           <div>
             {this.generateShowAllGradesView()}
           </div>
