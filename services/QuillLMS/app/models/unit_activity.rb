@@ -88,20 +88,15 @@ class UnitActivity < ApplicationRecord
   end
 
   def adjust_due_date_for_timezone
-    puts 'due_date', due_date
-    puts 'self.due_date', self.due_date
-    return unless self.due_date.present? && unit&.user&.utc_offset&.present?
+    return unless due_date.present? && unit&.user&.utc_offset&.present?
 
-    self.due_date = self.due_date + unit.user.utc_offset
+    self.due_date = due_date + unit.user.utc_offset
   end
 
   def adjust_publish_date_for_timezone
-    puts 'publish_date', publish_date
-    puts 'self.publish_date', self.publish_date
+    return unless publish_date.present? && unit&.user&.utc_offset&.present?
 
-    return unless self.publish_date.present? && unit&.user&.utc_offset&.present?
-
-    self.publish_date = self.publish_date + unit.user.utc_offset
+    self.publish_date = publish_date + unit.user.utc_offset
   end
 
   private def hide_appropriate_activity_sessions
