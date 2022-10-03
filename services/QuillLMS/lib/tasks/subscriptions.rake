@@ -1,9 +1,10 @@
 # frozen_string_literal: true
+
 require 'csv'
 
 namespace :subscriptions do
   desc 'Add credit to users from a CSV file'
-  task :add_credit_to_users, [:filepath, :amount] => :environment do |t, args|
+  task :add_credit_to_users, [:filepath, :amount_in_days] => :environment do |t, args|
     iostream = File.read(args[:filepath])
     if (CSV.parse(iostream, headers: true).headers & ['email']).count != 1
       puts 'Invalid headers. Exiting.'
@@ -19,7 +20,7 @@ namespace :subscriptions do
       end
 
       begin
-        CreditTransaction.create!(user_id: user.id, amount: amount_in_days, source: self)
+        CreditTransaction.create!(user_id: user.id, amount: args[:amount_in_days].to_i, source: user)
         puts "CreditTransaction created for #{user.email}"
 
         user.redeem_credit unless user.subscription
