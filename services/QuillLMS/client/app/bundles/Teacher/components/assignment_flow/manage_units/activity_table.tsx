@@ -4,31 +4,36 @@ import * as moment from 'moment';
 
 import * as api from '../../modules/call_api';
 import { requestPut } from '../../../../../modules/request/index.js';
-import { DataTable, copyIcon, } from '../../../../Shared/index'
+import { DataTable, copyIcon, publishedIcon, scheduledIcon, } from '../../../../Shared/index'
 import { addKeyDownListener, } from '../../../../Shared/hooks/addKeyDownListener'
 import { getIconForActivityClassification } from '../../../../Shared/libs';
 
 const shareActivitySrc = `${process.env.CDN_URL}/images/icons/icons-share.svg`
 
 const copyImage = <img alt={copyIcon.alt} src={copyIcon.src} />
+const publishedIconImage = <img alt={publishedIcon.alt} src={publishedIcon.src} />
+const scheduledIconImage = <img alt={scheduledIcon.alt} src={scheduledIcon.src} />
 
 export const AVERAGE_FONT_WIDTH = 7
 
 const DUE_DATE_DEFAULT_TEXT = 'No due date'
 const PUBLISH_DATE_DEFAULT_TEXT = 'Right away'
 
-const DatePickerContainer = ({ initialValue, defaultText, rowIndex, closeFunction, copyFunction, }) => {
+const DatePickerContainer = ({ initialValue, defaultText, rowIndex, closeFunction, copyFunction, icon, }) => {
   const copyDateToAllButton = rowIndex === 0 ? <CopyToAllButton copyFunction={copyFunction} /> : ''
 
   // note: the key in this uncontrolled component is necessary in order for it to rerender when "copy to all" is clicked
   return (
     <div className="date-picker-container">
-      <Datetime
-        initialValue={initialValue}
-        onClose={closeFunction}
-        renderInput={(props) => <DatetimeInput defaultText={defaultText} props={props} />}
-        utc={true}
-      />
+      <div className="icon-and-datetime-picker">
+        {icon}
+        <Datetime
+          initialValue={initialValue}
+          onClose={closeFunction}
+          renderInput={(props) => <DatetimeInput defaultText={defaultText} props={props} />}
+          utc={true}
+        />
+      </div>
       {copyDateToAllButton}
     </div>
   )
@@ -176,6 +181,7 @@ const ActivityTable = ({ data, onSuccess, isOwner, handleActivityClicked, handle
           closeFunction={(date) => closeDatePicker(date, activity.uaId, 'publish_date')}
           copyFunction={copyPublishDateToAll}
           defaultText={PUBLISH_DATE_DEFAULT_TEXT}
+          icon={activity.scheduled ? scheduledIconImage : publishedIconImage}
           initialValue={publishDateInMoment}
           key={publishDateInMoment ? publishDateInMoment.date() : activity.uaId}
           rowIndex={i}

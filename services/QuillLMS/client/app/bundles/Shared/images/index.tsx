@@ -175,12 +175,12 @@ export const disclosureIcon = {
 
 export const scheduledIcon = {
   alt: 'Clock icon',
-  src: `${process.env.CDN_URL}/images/icons/scheduled_icon.svg`
+  src: `${process.env.CDN_URL}/images/icons/scheduled.svg`
 }
 
 export const publishedIcon = {
   alt: 'Checkmark icon',
-  src: `${process.env.CDN_URL}/images/icons/published_icon.svg`
+  src: `${process.env.CDN_URL}/images/icons/published.svg`
 }
 
 export const copyIcon = {
