@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :evidence_hint, class: 'Evidence::Hint' do
-    association :rule, factory: :evidence_rule
+    name { "Hint Name" }
     explanation { "This is an explanation." }
     image_link { "https://quill.org" }
     image_alt_text { "Text that describes the picture" }

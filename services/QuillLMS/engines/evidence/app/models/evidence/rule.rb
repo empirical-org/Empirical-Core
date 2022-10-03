@@ -50,11 +50,12 @@ module Evidence
     has_many :required_sequences, -> { required_sequences }, class_name: 'Evidence::RegexRule'
     has_many :incorrect_sequences, -> { incorrect_sequences }, class_name: 'Evidence::RegexRule'
 
-    has_one :hint, inverse_of: :rule, dependent: :destroy
+    has_one :rule_hint, inverse_of: :rule, dependent: :destroy
+    has_one :hint, through: :rule_hint, inverse_of: :rule
 
     accepts_nested_attributes_for :plagiarism_texts, allow_destroy: true
     accepts_nested_attributes_for :feedbacks, allow_destroy: true
-    accepts_nested_attributes_for :hint, allow_destroy: true
+    accepts_nested_attributes_for :rule_hint, allow_destroy: true
     accepts_nested_attributes_for :label
     accepts_nested_attributes_for :regex_rules
 
