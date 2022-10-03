@@ -3,6 +3,7 @@ import Datetime from 'react-datetime';
 import * as moment from 'moment';
 
 import * as api from '../../modules/call_api';
+import { formatDateTimeForDisplay, } from '../../../helpers/unitActivityDates'
 import { requestPut } from '../../../../../modules/request/index.js';
 import { DataTable, Tooltip, copyIcon, publishedIcon, scheduledIcon, Snackbar, defaultSnackbarTimeout, } from '../../../../Shared/index'
 import useSnackbarMonitor from '../../../../Shared/hooks/useSnackbarMonitor'
@@ -83,13 +84,6 @@ const CopyToAllButton = ({ openModalFunction, }) => (
     <span>Copy to all</span>
   </button>
 )
-
-const formatDateTimeForDisplay = (datetime) => {
-  if (datetime.minutes()) {
-    return datetime.format('MMM D, h:mma')
-  }
-  return datetime.format('MMM D, ha')
-}
 
 const tableHeaders = (isOwner) => ([
   {
