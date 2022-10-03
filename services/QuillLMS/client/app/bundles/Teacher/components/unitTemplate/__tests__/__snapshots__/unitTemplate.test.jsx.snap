@@ -253,6 +253,9 @@ exports[`UnitTemplate component should match snapshot 1`] = `
   <div
     className="pdf-upload-container padded-element"
   >
+    <p>
+      Note: for activity pack images, please upload an image that has a minimum height of 310px
+    </p>
     <label>
       Click the square below or drag a file into it to upload a file:
     </label>
