@@ -62,8 +62,9 @@ class District < ApplicationRecord
         zipcode: zipcode,
         phone: phone,
         total_students: total_students,
-        total_schools: total_schools
-      }.merge(vitally_diagnostic_rollups)
+        total_schools: total_schools,
+        **vitally_diagnostic_rollups
+      }
     }
   end
 
