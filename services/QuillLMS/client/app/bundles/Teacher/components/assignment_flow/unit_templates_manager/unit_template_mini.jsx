@@ -5,10 +5,8 @@ import UnitTemplateFirstRow from './unit_template_first_row'
 import UnitTemplateSecondRow from './unit_template_second_row'
 
 import String from '../../modules/string.jsx'
-import { CLICKED_ACTIVITY_PACK_ID } from '../assignmentFlowConstants'
+import { CLICKED_ACTIVITY_PACK_ID, CREATE_YOUR_OWN_ID } from '../assignmentFlowConstants'
 import { Tooltip } from '../../../../Shared'
-
-const CREATE_YOUR_OWN_ID = 'createYourOwn'
 
 export class UnitTemplateMini extends React.Component {
   constructor(props) {

@@ -48,6 +48,7 @@
   .pack-type-header {
     font-weight: 700;
     font-size: 20px;
+    margin-left: 4px;
   }
 
   .type-options {
@@ -70,6 +71,20 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    .all-packs-section {
+      padding: 0;
+      border-bottom: none;
+      .packs-section {
+        padding: 0;
+        border-bottom: none;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+      }
+    }
+    .all-packs-section:not(:first-child) {
+      margin-top: 48px;
+    }
   }
 
   .unit-templates-table {
