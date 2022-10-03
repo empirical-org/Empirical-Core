@@ -23,7 +23,9 @@ module Evidence
     }
 
     def self.get_feedback(entry, prompt, previous_feedback, feedback_types=nil)
-      triggered_check = find_triggered_check(entry, prompt, previous_feedback, feedback_types)
+      normalized_entry = StringNormalizer.new(entry).run
+
+      triggered_check = find_triggered_check(normalized_entry, prompt, previous_feedback, feedback_types)
 
       triggered_check || fallback_feedback
     end
