@@ -52,11 +52,36 @@
         padding-top: 20px;
       }
     }
-    .top-section {
+    .activity-pack-top-section {
       padding: 32px;
       border-bottom: 1px solid #e0e0e0;
       .quill-button {
         margin-top: 16px;
+      }
+    }
+    .copy-dates-modal {
+      max-width: 560px;
+      width: 100%;
+      height: min-content;
+      justify-content: space-between;
+      h1 {
+        font-size: 24px;
+        font-weight: bold;
+        line-height: 1.33;
+      }
+      p {
+        font-size: 14px;
+        font-weight: normal;
+        line-height: 1.57;
+        color: #646464;
+        margin: 24px 0px 48px;
+      }
+      .button-section {
+        display: flex;
+        justify-content: flex-end;
+        .quill-button {
+          margin-left: 24px;
+        }
       }
     }
     .top-section-header {
@@ -64,16 +89,16 @@
       flex-direction: row-reverse;
     }
     .share-activity-button {
-      background-color: #ffffff;
-    }
-    .data-table-row:hover {
-      .share-activity-button {
-        background-color: #f2f2f2;
-      }
+      background-color: inherit;
     }
     .icon-and-datetime-picker {
       display: flex;
-      
+      .rdt {
+        width: 100%;
+      }
+      .published-icon, .scheduled-icon {
+        margin-right: 8px;
+      }
     }
     .copy-to-all-button {
       margin-top: 12px;

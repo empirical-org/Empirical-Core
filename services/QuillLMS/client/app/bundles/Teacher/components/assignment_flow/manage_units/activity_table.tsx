@@ -4,23 +4,45 @@ import * as moment from 'moment';
 
 import * as api from '../../modules/call_api';
 import { requestPut } from '../../../../../modules/request/index.js';
-import { DataTable, copyIcon, publishedIcon, scheduledIcon, } from '../../../../Shared/index'
-import { addKeyDownListener, } from '../../../../Shared/hooks/addKeyDownListener'
+import { DataTable, Tooltip, copyIcon, publishedIcon, scheduledIcon, Snackbar, defaultSnackbarTimeout, } from '../../../../Shared/index'
+import useSnackbarMonitor from '../../../../Shared/hooks/useSnackbarMonitor'
 import { getIconForActivityClassification } from '../../../../Shared/libs';
 
 const shareActivitySrc = `${process.env.CDN_URL}/images/icons/icons-share.svg`
 
 const copyImage = <img alt={copyIcon.alt} src={copyIcon.src} />
-const publishedIconImage = <img alt={publishedIcon.alt} src={publishedIcon.src} />
-const scheduledIconImage = <img alt={scheduledIcon.alt} src={scheduledIcon.src} />
+const publishedIconImage = <img alt={publishedIcon.alt} className="published-icon" src={publishedIcon.src} />
+const scheduledIconImage = <img alt={scheduledIcon.alt} className="scheduled-icon" src={scheduledIcon.src} />
 
 export const AVERAGE_FONT_WIDTH = 7
 
+const INVALID_DATES_SNACKBAR_COPY = 'The due date must be after the publish date.'
 const DUE_DATE_DEFAULT_TEXT = 'No due date'
 const PUBLISH_DATE_DEFAULT_TEXT = 'Right away'
 
-const DatePickerContainer = ({ initialValue, defaultText, rowIndex, closeFunction, copyFunction, icon, }) => {
-  const copyDateToAllButton = rowIndex === 0 ? <CopyToAllButton copyFunction={copyFunction} /> : ''
+const PUBLISH_DATE_ATTRIBUTE_KEY = 'publish_date'
+const DUE_DATE_ATTRIBUTE_KEY = 'due_date'
+
+const CopyModal = ({ attributeName, closeFunction, copyFunction, }) => {
+  return (
+    <div aria-live="polite" className="modal-container copy-dates-modal-container" tabIndex={-1}>
+      <div className="modal-background" />
+      <div className="copy-dates-modal quill-modal modal-body">
+        <div className="top-section">
+          <h1>Copy {attributeName} to all activities?</h1>
+          <p>Copying will overwrite the settings you previously entered. Please confirm that you want to continue.</p>
+        </div>
+        <div className="button-section">
+          <button className="quill-button medium secondary outlined focus-on-light" onClick={closeFunction} type="button">Cancel</button>
+          <button className="quill-button medium primary contained focus-on-light" onClick={copyFunction} type="button">Yes, copy</button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+const DatePickerContainer = ({ initialValue, defaultText, rowIndex, closeFunction, openModalFunction, icon, }) => {
+  const copyDateToAllButton = rowIndex === 0 ? <CopyToAllButton openModalFunction={openModalFunction} /> : ''
 
   // note: the key in this uncontrolled component is necessary in order for it to rerender when "copy to all" is clicked
   return (
@@ -51,10 +73,10 @@ const DatetimeInput = ({ props, defaultText, }) => {
   )
 }
 
-const CopyToAllButton = ({ copyFunction, }) => (
+const CopyToAllButton = ({ openModalFunction, }) => (
   <button
     className="interactive-wrapper focus-on-light copy-to-all-button"
-    onClick={copyFunction}
+    onClick={openModalFunction}
     type="button"
   >
     {copyImage}
@@ -77,14 +99,24 @@ const tableHeaders = (isOwner) => ([
     rowSectionClassName: 'tool-and-name-section'
   },
   {
-    name: <span className="publish-date-header">Publish date <span>(optional)</span></span>,
+    name: (
+      <Tooltip
+        tooltipText="When you schedule an activity, it is displayed in your dashboard, but it is hidden from a student until the publish date."
+        tooltipTriggerText={<span className="publish-date-header">Publish date <span>(optional)</span></span>}
+      />
+    ),
     attribute: 'publishDatePicker',
     width: isOwner ? '126px' : '110px',
     headerClassName: 'publish-date-header-container',
     rowSectionClassName: 'datetime-picker'
   },
   {
-    name: <span className="due-date-header">Due date <span>(optional)</span></span>,
+    name: (
+      <Tooltip
+        tooltipText="Display a due date to students for this activity. Students can still access an activity after the due date."
+        tooltipTriggerText={<span className="due-date-header">Due date <span>(optional)</span></span>}
+      />
+    ),
     attribute: 'dueDatePicker',
     width: isOwner ? '126px' : '110px',
     headerClassName: isOwner ? 'due-date-header-container' : 'due-date-header-container no-right-margin',
@@ -101,34 +133,68 @@ const tableHeaders = (isOwner) => ([
 const ActivityTable = ({ data, onSuccess, isOwner, handleActivityClicked, handleToggleModal }) => {
   const classroomActivityArray = Array.from(data.classroomActivities).map(ca => ca[1])
 
-  const [focusedHash, setFocusedHash] = React.useState({})
   const [activityOrder, setActivityOrder] = React.useState(classroomActivityArray.map(ca => ca.activityId) || [])
+  const [showCopyPublishDateModal, setShowCopyPublishDateModal] = React.useState(false)
+  const [showCopyDueDateModal, setShowCopyDueDateModal] = React.useState(false)
+  const [erroredUnitActivityIds, setErroredUnitActivityIds] = React.useState([])
+  const [showSnackbar, setShowSnackbar] = React.useState(false)
+  const [snackbarText, setSnackbarText] = React.useState('')
 
-  function handleKeyDown(event) {
-    if (event.key !== 'Tab') { return }
+  useSnackbarMonitor(showSnackbar, setShowSnackbar, defaultSnackbarTimeout)
 
-    const focusUnitActivityId = Object.keys(focusedHash).find(k => focusedHash[k])
-    if (!focusUnitActivityId) { return }
-
-    event.preventDefault()
-    event.shiftKey ? document.getElementById(`tool-and-name-section-${focusUnitActivityId}`).focus() : document.getElementById(`remove-button-${focusUnitActivityId}`).focus()
-    setFocusedHash({})
-  }
-
-  addKeyDownListener(handleKeyDown)
+  React.useEffect(() => {
+    setErroredUnitActivityIds([])
+  }, [data])
 
   function hideUnitActivity(unitActivityId) {
     requestPut(`${process.env.DEFAULT_URL}/teachers/unit_activities/${unitActivityId}/hide`, {}, () => onSuccess('Activity removed'))
   }
 
   function closeDatePicker(date, unitActivityId, dateAttributeKey) {
-    const formattedDate = date ? date : null
-    requestPut(`/teachers/unit_activities/${unitActivityId}`, { unit_activity: { [dateAttributeKey]: formattedDate, } }, () => onSuccess());
+    const activitiesWithEarlierDueDates = classroomActivityArray.filter(act => act.uaId === unitActivityId && (dateAttributeKey === PUBLISH_DATE_ATTRIBUTE_KEY ? date >= moment.utc(act.dueDate) : date <= moment.utc(act.publishDate)))
+    if (date && activitiesWithEarlierDueDates.length) {
+      setErroredUnitActivityIds(activitiesWithEarlierDueDates.map(a => a.uaId))
+      setSnackbarText(INVALID_DATES_SNACKBAR_COPY)
+      setShowSnackbar(true)
+    } else {
+      const formattedDate = date ? date : null
+      requestPut(`/teachers/unit_activities/${unitActivityId}`, { unit_activity: { [dateAttributeKey]: formattedDate, } }, () => onSuccess());
+    }
   }
 
-  function copyPublishDateToAll() { copyDateToAll(classroomActivityArray[0].publishDate, 'publish_date') }
+  function closeCopyPublishDateModal() { setShowCopyPublishDateModal(false) }
 
-  function copyDueDateToAll() { copyDateToAll(classroomActivityArray[0].dueDate, 'due_date') }
+  function closeCopyDueDateModal() { setShowCopyDueDateModal(false) }
+
+  function openCopyPublishDateModal() { setShowCopyPublishDateModal(true) }
+
+  function openCopyDueDateModal() { setShowCopyDueDateModal(true) }
+
+  function copyPublishDateToAll() {
+    const publishDate = classroomActivityArray[0].publishDate
+    const activitiesWithEarlierDueDates = classroomActivityArray.filter(act => publishDate >= act.dueDate)
+    if (publishDate && activitiesWithEarlierDueDates.length) {
+      setErroredUnitActivityIds(activitiesWithEarlierDueDates.map(a => a.uaId))
+      setSnackbarText(INVALID_DATES_SNACKBAR_COPY)
+      setShowSnackbar(true)
+    } else {
+      copyDateToAll(publishDate, PUBLISH_DATE_ATTRIBUTE_KEY)
+    }
+    setShowCopyPublishDateModal(false)
+  }
+
+  function copyDueDateToAll() {
+    const dueDate = classroomActivityArray[0].dueDate
+    const activitiesWithEarlierDueDates = classroomActivityArray.filter(act => dueDate <= act.publishDate)
+    if (dueDate && activitiesWithEarlierDueDates.length) {
+      setErroredUnitActivityIds(activitiesWithEarlierDueDates.map(a => a.uaId))
+      setSnackbarText(INVALID_DATES_SNACKBAR_COPY)
+      setShowSnackbar(true)
+    } else {
+      copyDateToAll(dueDate, DUE_DATE_ATTRIBUTE_KEY)
+    }
+    setShowCopyDueDateModal(false)
+  }
 
   function copyDateToAll(date, dateAttributeKey) {
     const unitActivityIds = classroomActivityArray.map(ca => ca.uaId)
@@ -166,11 +232,11 @@ const ActivityTable = ({ data, onSuccess, isOwner, handleActivityClicked, handle
     if (isOwner) {
       activityDueDatePicker = (
         <DatePickerContainer
-          closeFunction={(date) => closeDatePicker(date, activity.uaId, 'due_date')}
-          copyFunction={copyDueDateToAll}
+          closeFunction={(date) => closeDatePicker(date, activity.uaId, DUE_DATE_ATTRIBUTE_KEY)}
           defaultText={DUE_DATE_DEFAULT_TEXT}
           initialValue={dueDateInMoment}
           key={dueDateInMoment ? dueDateInMoment.date() : activity.uaId}
+          openModalFunction={openCopyDueDateModal}
           rowIndex={i}
           unitActivityId={activity.uaId}
         />
@@ -178,12 +244,12 @@ const ActivityTable = ({ data, onSuccess, isOwner, handleActivityClicked, handle
 
       activityPublishDatePicker = (
         <DatePickerContainer
-          closeFunction={(date) => closeDatePicker(date, activity.uaId, 'publish_date')}
-          copyFunction={copyPublishDateToAll}
+          closeFunction={(date) => closeDatePicker(date, activity.uaId, PUBLISH_DATE_ATTRIBUTE_KEY)}
           defaultText={PUBLISH_DATE_DEFAULT_TEXT}
           icon={activity.scheduled ? scheduledIconImage : publishedIconImage}
           initialValue={publishDateInMoment}
           key={publishDateInMoment ? publishDateInMoment.date() : activity.uaId}
+          openModalFunction={openCopyPublishDateModal}
           rowIndex={i}
           unitActivityId={activity.uaId}
         />
@@ -200,18 +266,36 @@ const ActivityTable = ({ data, onSuccess, isOwner, handleActivityClicked, handle
     )
     activity.removable = true
     activity.id = activity.uaId
+    activity.className = erroredUnitActivityIds.includes(activity.uaId) ? 'checked' : ''
     return activity
   }).filter(Boolean)
   return (
-    <DataTable
-      className={isOwner ? 'is-owner' : ''}
-      headers={tableHeaders(isOwner)}
-      isReorderable={isOwner}
-      removeRow={hideUnitActivity}
-      reorderCallback={reorderCallback}
-      rows={activityRows}
-      showRemoveIcon={isOwner}
-    />
+    <React.Fragment>
+      <Snackbar text={snackbarText} visible={showSnackbar} />
+      {showCopyDueDateModal && (
+        <CopyModal
+          attributeName="due date"
+          closeFunction={closeCopyDueDateModal}
+          copyFunction={copyDueDateToAll}
+        />
+      )}
+      {showCopyPublishDateModal && (
+        <CopyModal
+          attributeName="publish date"
+          closeFunction={closeCopyPublishDateModal}
+          copyFunction={copyPublishDateToAll}
+        />
+      )}
+      <DataTable
+        className={isOwner ? 'is-owner' : ''}
+        headers={tableHeaders(isOwner)}
+        isReorderable={isOwner}
+        removeRow={hideUnitActivity}
+        reorderCallback={reorderCallback}
+        rows={activityRows}
+        showRemoveIcon={isOwner}
+      />
+    </React.Fragment>
   )
 }
 
