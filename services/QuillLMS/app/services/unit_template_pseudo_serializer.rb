@@ -23,7 +23,8 @@ class UnitTemplatePseudoSerializer
       type: type,
       readability: ut.readability,
       grade_level_range: ut.grade_level_range,
-      diagnostics_recommended_by: ut.diagnostics_recommended_by
+      diagnostics_recommended_by: ut.diagnostics_recommended_by,
+      image_link: ut.image_link
     }
   end
 

@@ -223,3 +223,31 @@ export const imageTagForClassification = (classificationKey: string): JSX.Elemen
 
   return <img alt={imgAlt} src={imgSrc} />
 }
+
+export const READING_TEXTS = 'Reading Texts'
+export const READING_FOR_EVIDENCE = 'Reading for Evidence'
+export const CONNECT = 'Connect'
+export const DIAGNOSTIC = 'Diagnostic'
+export const GRAMMAR = 'Grammar'
+export const PROOFREADER = 'Proofreader'
+export const LESSONS = 'Lessons'
+
+export const ACTIVITY_PACK_TYPES = [
+  {
+    name: 'Reading Texts',
+    id: 'reading-texts'
+  },
+  {
+    name: 'Diagnostic',
+    id: 'diagnostic'
+  },
+  {
+    name: 'Language Skills',
+    id: 'independent-practice',
+    types: ['Language Skill Review', 'Language Skills for Writing Genres', 'Language Skills Themed Practice']
+  },
+  {
+    name: 'Whole Class Lessons',
+    id: 'whole-class'
+  },
+]

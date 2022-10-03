@@ -103,7 +103,9 @@ export {
   onMobile,
   fillInBlankInputLabel,
   getIconForActivityClassification,
-  isTrackableStudentEvent
+  isTrackableStudentEvent,
+  hexToRGBA,
+  uniqueValuesArray
 } from './libs/index'
 
 export {

@@ -21,8 +21,8 @@ import {
 } from '../../assignmentFlowConstants'
 import parsedQueryParams from '../../parsedQueryParams'
 import { requestGet } from '../../../../../../modules/request/index.js';
-import Activity from '../../../../../../interfaces/activity';
-import UnitTemplateProfileInterface from '../../../../../../interfaces/unitTemplateProfileInterface';
+import { Activity } from '../../../../../../interfaces/activity';
+import { UnitTemplateProfileInterface } from '../../../../../../interfaces/unitTemplate';
 
 interface UnitTemplateProfileState {
   data: UnitTemplateProfile,
@@ -55,12 +55,12 @@ export class UnitTemplateProfile extends React.Component<RouteComponentProps, Un
   }
 
   getProfileInfo = (id: string) => {
-    requestGet(`/teachers/unit_templates/profile_info?id=${id}`, (response: { data: UnitTemplateProfile, referral_code: string }) => {
+    requestGet(`/teachers/unit_templates/profile_info?id=${id}`, (response: { data: UnitTemplateProfileInterface, referral_code: string }) => {
       this.displayUnit(response)
     })
   }
 
-  displayUnit = (response: { data: UnitTemplateProfile, referral_code: string }) => {
+  displayUnit = (response: { data: UnitTemplateProfileInterface, referral_code: string }) => {
     const { data, referral_code } = response;
     this.setState({
       data,

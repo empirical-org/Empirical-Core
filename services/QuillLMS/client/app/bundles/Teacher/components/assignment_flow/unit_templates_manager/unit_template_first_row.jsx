@@ -3,20 +3,25 @@ import moment from 'moment'
 import * as _ from 'lodash'
 
 import CategoryLabel from '../category_label'
-import { imageTagForClassification, } from '../assignmentFlowConstants'
+import { imageTagForClassification, READING_TEXTS } from '../assignmentFlowConstants'
+import { hexToRGBA } from '../../../../Shared'
 
-const cutOffTimeForNew = moment().subtract('months', 1).unix()
+const cutOffTimeForNew = moment().subtract(1, 'months').unix()
+const DEFAULT_ACTIVITY_PACK_IMAGE_LINKS = {
+  'Default': 'https://s3.amazonaws.com/quill-image-uploads/uploads/files/Writing_1_2379.jpg',
+  'Diagnostic': 'https://s3.amazonaws.com/quill-image-uploads/uploads/files/Chart_2380.jpg',
+  'Whole Class Lessons': 'https://s3.amazonaws.com/quill-image-uploads/uploads/files/Class_2381.jpg'
+}
 
-export default class UnitTemplateFirstRow extends React.Component {
-  getBackgroundColor() {
+export class UnitTemplateFirstRow extends React.Component {
+
+  renderFlag(renderEvidenceTag) {
     const { data, } = this.props
-    return data.type.primary_color;
-  }
-
-  newFlag() {
-    const { data, } = this.props
+    if(renderEvidenceTag) {
+      return <p className="new-beta-tag">BETA</p>
+    }
     if (cutOffTimeForNew < data.created_at) {
-      return <span className='new-flag category-label'>NEW</span>
+      return <p className='new-beta-tag'>NEW</p>
     }
   }
 
@@ -43,32 +48,56 @@ export default class UnitTemplateFirstRow extends React.Component {
     )
   }
 
+  renderActivityPackImage(data) {
+    if(!data) { return }
+
+    const { image_link, type, unit_template_category } = data
+    const { name } = unit_template_category
+    const link = image_link || DEFAULT_ACTIVITY_PACK_IMAGE_LINKS[name] || DEFAULT_ACTIVITY_PACK_IMAGE_LINKS['Default']
+    const color = unit_template_category.primary_color || type.primary_color
+    const opaqueColor = hexToRGBA(color, 1)
+    const translucentColor = hexToRGBA(color, 0.4)
+
+    return(
+      <div className="activity-pack-image-container" style={{ backgroundColor: color }}>
+        <div className="activity-pack-image-overlay" style={{ backgroundImage: `linear-gradient(to right, ${opaqueColor},${translucentColor})`}} />
+        <img alt="" className="activity-pack-image" src={image_link || link} />
+      </div>
+    )
+  }
+
   render() {
     const { data, } = this.props
+    const { unit_template_category, type, name } = data
+    const renderEvidenceTag = unit_template_category.name === READING_TEXTS
+    const color = unit_template_category.primary_color || type.primary_color
+
     return (
-      <div className='first-row' style={{backgroundColor: this.getBackgroundColor()}}>
-        <div className="name-and-label">
-          <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
-            <div className='unit-template-type'>
-              {data.type.name}
+      <div className='first-row' style={{ backgroundColor: color }}>
+        {this.renderActivityPackImage(data)}
+        <div className="content-section">
+          <div className="name-and-label">
+            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+              <CategoryLabel
+                data={unit_template_category}
+                extraClassName='float-right'
+              />
+              {renderEvidenceTag && <span className="evidence-new-tag">NEW</span>}
             </div>
-            <CategoryLabel
-              data={data.unit_template_category}
-              extraClassName='float-right'
-            />
-          </div>
-          <div>
             <div>
-              <div className='unit-template-name'>
-                {data.name}
-                {this.newFlag()}
+              <div>
+                <div className='unit-template-name'>
+                  {name}
+                </div>
+                {this.renderFlag(renderEvidenceTag)}
               </div>
             </div>
           </div>
+          {this.renderToolNames()}
         </div>
-        {this.renderToolNames()}
       </div>
     );
   }
-
 }
+
+export default UnitTemplateFirstRow

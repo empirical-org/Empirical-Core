@@ -13,21 +13,7 @@ import WindowPosition from '../../modules/windowPosition'
 import AnalyticsWrapper from '../../shared/analytics_wrapper'
 import LoadingIndicator from '../../shared/loading_indicator'
 import { requestGet } from '../../../../../modules/request';
-
-const types = [
-  {
-    name: 'Diagnostic',
-    id: 'diagnostic'
-  },
-  {
-    name: 'Whole class lessons',
-    id: 'whole-class'
-  },
-  {
-    name: 'Independent practice',
-    id: 'independent-practice'
-  }
-]
+import { ACTIVITY_PACK_TYPES } from '../assignmentFlowConstants'
 
 export default class UnitTemplatesManager extends React.Component {
   constructor(props) {
@@ -106,20 +92,25 @@ export default class UnitTemplatesManager extends React.Component {
   filterModels = (category, grade, typeId, gradeLevelRange) => {
     const { unitTemplatesManager, } = this.state
     let displayedModels = unitTemplatesManager.models
-    let selectedCategoryId
     if (grade) {
       displayedModels = this.modelsInGrade(grade)
     }
     if (category) {
-      const categoryName = category.toUpperCase() === 'ELL' ? category.toUpperCase() : category
-      selectedCategoryId = unitTemplatesManager.categories.find(cat => cat.name === categoryName).id
-      displayedModels = displayedModels.filter(ut =>
-        ut.unit_template_category.name === categoryName
-      )
+      displayedModels = displayedModels.filter(ut => ut.unit_template_category.name === category)
     }
     if (typeId) {
-      const selectedTypeName = types.find(t => t.id === typeId).name
-      displayedModels = displayedModels.filter(ut => ut.type.name === selectedTypeName)
+      const selectedType = ACTIVITY_PACK_TYPES.find(t => t.id === typeId)
+      const { name } = selectedType
+      displayedModels = displayedModels.filter(ut => {
+        const { type, unit_template_category } = ut
+        if(typeId === 'independent-practice') {
+          return selectedType.types.includes(unit_template_category.name)
+        } else if(unit_template_category) {
+          return unit_template_category.name === name
+        } else if(type) {
+          return type.name === name
+        }
+      })
     }
     if (gradeLevelRange) {
       displayedModels = displayedModels.filter(ut => ut.grade_level_range === gradeLevelRange)
@@ -181,7 +172,7 @@ export default class UnitTemplatesManager extends React.Component {
         selectedTypeId={type}
         selectGradeLevel={this.selectGradeLevel}
         signedInTeacher={signedInTeacher}
-        types={types}
+        types={ACTIVITY_PACK_TYPES}
       />
     )
   }
