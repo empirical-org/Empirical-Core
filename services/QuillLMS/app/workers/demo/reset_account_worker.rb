@@ -6,10 +6,8 @@ class Demo::ResetAccountWorker
   sidekiq_options queue: SidekiqQueue::CRITICAL
 
   def perform(teacher_id)
-    teacher = User.find_by(id: teacher_id, role: User::TEACHER)
+    return if teacher_id.nil?
 
-    return unless teacher
-
-    Demo::ReportDemoCreator.reset_account(teacher)
+    Demo::ReportDemoCreator.reset_account(teacher_id)
   end
 end

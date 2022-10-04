@@ -520,7 +520,7 @@ class ActivitySession < ApplicationRecord
       begin
         raise 'Student was not assigned this activity'
       rescue => e
-        NewRelic::Agent.notice_error(e)
+        ErrorNotifier.report(e)
         errors.add(:incorrectly_assigned, "student was not assigned this activity")
       end
     else

@@ -206,6 +206,7 @@ export const UnitTemplate = ({ unitTemplate }) => {
   function renderPdfUploadSection() {
     return (
       <div className="pdf-upload-container padded-element">
+        <p>Note: for activity pack images, please upload an image that has a minimum height of 310px</p>
         <label>Click the square below or drag a file into it to upload a file:</label>
         <Dropzone onDrop={handleFileDrop} />
         <p>Here is the link to your uploaded file:</p>

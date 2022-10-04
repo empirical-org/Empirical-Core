@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :activity_topic do
-    topic { Topic.last || create(:topic) }
+    topic { create(:topic, level: 1) }
     activity { Activity.last || create(:activity) }
   end
 end

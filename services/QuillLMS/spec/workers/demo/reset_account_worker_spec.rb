@@ -4,22 +4,21 @@ require 'rails_helper'
 
 describe Demo::ResetAccountWorker, type: :worker do
   let(:worker) { described_class.new }
-  let(:teacher) { create(:teacher) }
 
   describe "#perform" do
     context 'no teacher found' do
       it "should NOT call reset_account" do
         expect(Demo::ReportDemoCreator).to_not receive(:reset_account)
 
-        worker.perform(1234)
+        worker.perform(nil)
       end
     end
 
     context 'teacher found' do
       it "should call reset_account" do
-        expect(Demo::ReportDemoCreator).to receive(:reset_account).with(teacher).once
+        expect(Demo::ReportDemoCreator).to receive(:reset_account).with(1234).once
 
-        worker.perform(teacher.id)
+        worker.perform(1234)
       end
     end
   end

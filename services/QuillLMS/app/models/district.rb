@@ -62,8 +62,59 @@ class District < ApplicationRecord
         zipcode: zipcode,
         phone: phone,
         total_students: total_students,
-        total_schools: total_schools
+        total_schools: total_schools,
+        **vitally_diagnostic_rollups
       }
     }
+  end
+
+  def vitally_diagnostic_rollups
+    school_year_start = School.school_year_start(Time.current)
+
+    diagnostics_assigned_this_year = diagnostics_assigned_between_count(school_year_start, school_year_start + 1.year)
+    diagnostics_assigned_last_year = diagnostics_assigned_between_count(school_year_start - 1.year, school_year_start)
+    diagnostics_completed_this_year = diagnostics_completed_between(school_year_start, school_year_start + 1.year)
+    diagnostics_completed_last_year = diagnostics_completed_between(school_year_start - 1.year, school_year_start)
+    percent_completed_this_year = diagnostics_assigned_this_year > 0 ? (1.0 * diagnostics_completed_this_year / diagnostics_assigned_this_year) : 0.0
+    percent_completed_last_year = diagnostics_assigned_last_year > 0 ? (1.0 * diagnostics_completed_last_year / diagnostics_assigned_last_year) : 0.0
+
+    {
+      diagnostics_assigned_this_year: diagnostics_assigned_this_year,
+      diagnostics_assigned_last_year: diagnostics_assigned_last_year,
+      diagnostics_completed_this_year: diagnostics_completed_this_year,
+      diagnostics_completed_last_year: diagnostics_completed_last_year,
+      percent_diagnostics_completed_this_year: percent_completed_this_year,
+      percent_diagnostics_completed_last_year: percent_completed_last_year
+    }
+  end
+
+  def diagnostics_assigned_between_count(start, stop)
+    schools.select("array_length(classroom_units.assigned_student_ids, 1) AS assigned_students")
+      .joins(users: {
+      classrooms_i_teach: {
+        classroom_units: {
+          unit_activities: {
+           activity: :classification
+          }
+        }
+      }
+    }).where(classification: {key: ActivityClassification::DIAGNOSTIC_KEY})
+      .where(classroom_units: {created_at: start..stop})
+      .map(&:assigned_students).reject(&:blank?).sum
+  end
+
+  def diagnostics_completed_between(start, stop)
+    schools.joins(users: {
+      classrooms_i_teach: {
+        classroom_units: {
+          activity_sessions: {
+            activity: :classification
+          }
+        }
+      }
+    }).where(classification: {key: ActivityClassification::DIAGNOSTIC_KEY})
+      .where(activity_sessions: {completed_at: start..stop})
+      .distinct
+      .count
   end
 end

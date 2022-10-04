@@ -28,6 +28,17 @@ module Evidence
 
         expect(feedback).to eq(Check.fallback_feedback)
       end
+
+      it "should normalize the entry text before trying to get feedback" do
+        normalized_entry = "#{entry} with special characters replaced"
+        normalizer_double = double
+        expect(StringNormalizer).to receive(:new).with(entry).and_return(normalizer_double)
+        expect(normalizer_double).to receive(:run).and_return(normalized_entry)
+
+        expect(Check).to receive(:find_triggered_check).with(normalized_entry, prompt, previous_feedback, nil)
+
+        Check.get_feedback(entry, prompt, previous_feedback)
+      end
     end
 
     context "find_triggered_check" do

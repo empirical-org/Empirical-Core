@@ -11,33 +11,12 @@ exports[`UnitTemplateMinis component should render dropdowns when on mobile 1`] 
   >
     <div>
       <h1>
-        Select an activity pack for your students
+        Select an activity pack for your students.
       </h1>
       <div>
         <div
           className="filter-options"
         >
-          <DropdownInput
-            handleChange={[Function]}
-            options={
-              Array [
-                Object {
-                  "label": "All packs",
-                  "value": "/activities/packs",
-                },
-                Object {
-                  "label": "Diagnostic",
-                  "value": "/assign/featured-activity-packs?type=diagnostic",
-                },
-              ]
-            }
-            value={
-              Object {
-                "label": "All packs",
-                "value": "/activities/packs",
-              }
-            }
-          />
           <div
             className="dropdowns"
           >
@@ -106,8 +85,58 @@ exports[`UnitTemplateMinis component should render dropdowns when on mobile 1`] 
                 }
               }
             />
+            <DropdownInput
+              className="category-dropdown"
+              handleChange={[Function]}
+              label="View"
+              options={
+                Array [
+                  Object {
+                    "label": "Grid",
+                    "value": "grid",
+                  },
+                  Object {
+                    "label": "List",
+                    "value": "list",
+                  },
+                ]
+              }
+              value={
+                Object {
+                  "label": "Grid",
+                  "value": "grid",
+                }
+              }
+            />
           </div>
+          <DropdownInput
+            className="pack-type-dropdown"
+            handleChange={[Function]}
+            options={
+              Array [
+                Object {
+                  "label": "All Packs",
+                  "value": "/activities/packs",
+                },
+                Object {
+                  "label": "Diagnostic",
+                  "value": "/assign/featured-activity-packs?type=diagnostic",
+                },
+              ]
+            }
+            value={
+              Object {
+                "label": "All Packs",
+                "value": "/activities/packs",
+              }
+            }
+          />
         </div>
+        <p
+          className="pack-type-header"
+        >
+          All Packs
+        </p>
         <div
           className="unit-template-minis"
         >
@@ -175,29 +204,12 @@ exports[`UnitTemplateMinis component should render without createYourOwn mini wh
   >
     <div>
       <h1>
-        Select an activity pack for your students
+        Select an activity pack for your students.
       </h1>
       <div>
         <div
           className="filter-options"
         >
-          <div
-            className="type-options"
-          >
-            <Link
-              className="active"
-              to="/activities/packs"
-            >
-              All packs
-            </Link>
-            <Link
-              className={null}
-              key="diagnostic"
-              to="/activities/packs?type=diagnostic"
-            >
-              Diagnostic
-            </Link>
-          </div>
           <div
             className="dropdowns"
           >
@@ -266,8 +278,53 @@ exports[`UnitTemplateMinis component should render without createYourOwn mini wh
                 }
               }
             />
+            <DropdownInput
+              className="category-dropdown"
+              handleChange={[Function]}
+              label="View"
+              options={
+                Array [
+                  Object {
+                    "label": "Grid",
+                    "value": "grid",
+                  },
+                  Object {
+                    "label": "List",
+                    "value": "list",
+                  },
+                ]
+              }
+              value={
+                Object {
+                  "label": "Grid",
+                  "value": "grid",
+                }
+              }
+            />
+          </div>
+          <div
+            className="type-options"
+          >
+            <Link
+              className="focus-on-light active"
+              to="/activities/packs"
+            >
+              All Packs
+            </Link>
+            <Link
+              className="focus-on-light "
+              key="diagnostic"
+              to="/activities/packs?type=diagnostic"
+            >
+              Diagnostic
+            </Link>
           </div>
         </div>
+        <p
+          className="pack-type-header"
+        >
+          All Packs
+        </p>
         <div
           className="unit-template-minis"
         >
