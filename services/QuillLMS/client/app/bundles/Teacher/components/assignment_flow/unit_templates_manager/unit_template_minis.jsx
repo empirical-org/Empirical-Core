@@ -112,7 +112,9 @@ export default class UnitTemplateMinis extends React.Component {
       if(unit_template_category && type === LANGUAGE_SKILLS) {
         return ACTIVITY_PACK_TYPES.find(type => type.name === LANGUAGE_SKILLS).types.includes(unit_template_category.name)
       }
-      return unit_template_category && unit_template_category.name === type
+      if(!unit_template_category) { return }
+
+      return unit_template_category.name === type
     })
     return filteredModels.map(this.generateUnitTemplateView);
   }
