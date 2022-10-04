@@ -297,19 +297,27 @@ module Demo::ReportDemoCreator
   end
 
   def self.reset_account(teacher_id)
+    teacher = User.find_by(id: teacher_id, role: User::TEACHER)
+
+    return unless teacher
+
+    non_demo_classrooms(teacher).each do |classroom|
+      # mimic classroom#hide controller action
+      classroom.visible = false
+      classroom.save(validate: false)
+    end
+
+    teacher.auth_credential&.destroy
+    teacher.update(google_id: nil, clever_id: nil)
+
     # Wrap the lookup and actions within a transaction to avoid race conditions
     ActiveRecord::Base.transaction do
       teacher = User.find_by(id: teacher_id, role: User::TEACHER)
       # Note, you can't early return within a transaction in Rails 6.1+
-      if teacher
-        non_demo_classrooms(teacher).each {|c| c.update(visible: false)}
-        teacher.auth_credential&.destroy
-        teacher.update(google_id: nil, clever_id: nil)
 
-        if demo_classroom_modified?(teacher)
-          demo_classroom(teacher)&.destroy
-          create_demo_classroom_data(teacher, teacher_demo: true)
-        end
+      if teacher && demo_classroom_modified?(teacher)
+        demo_classroom(teacher)&.destroy
+        create_demo_classroom_data(teacher, teacher_demo: true)
       end
     end
   rescue ActiveRecord::RecordInvalid
@@ -458,7 +466,13 @@ module Demo::ReportDemoCreator
         classroom_unit = ClassroomUnit.find_by(classroom: classroom, unit: unit)
         act_sessions = activity_pack[:activity_sessions]
         act_sessions[num].each do |clone_activity_id, clone_user_id|
-          clone_activity_session(student.id, classroom_unit.id, clone_user_id, clone_activity_id, session_data)
+          clone_activity_session(
+            student.id,
+            classroom_unit.id,
+            clone_user_id,
+            clone_activity_id,
+            session_data
+          )
         end
       end
     end
