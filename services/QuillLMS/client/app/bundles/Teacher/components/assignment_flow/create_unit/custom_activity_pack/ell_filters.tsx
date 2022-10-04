@@ -46,19 +46,19 @@ interface ELLFiltersProps {
 }
 
 const levelOne = {
-  standardLevelName: 'ELL Level 1',
+  standardLevelName: 'ELL Starter',
   displayName: 'ELL Starter',
   filterNumber: 1
 }
 
 const levelTwo = {
-  standardLevelName: 'ELL Level 2',
+  standardLevelName: 'ELL Intermediate',
   displayName: 'ELL Intermediate',
   filterNumber: 2
 }
 
 const levelThree = {
-  standardLevelName: 'ELL Level 3',
+  standardLevelName: 'ELL Advanced',
   displayName: 'ELL Advanced',
   filterNumber: 3
 }
