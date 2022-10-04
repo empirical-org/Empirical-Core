@@ -8,7 +8,7 @@ import UnitTemplateMinisTable from './unitTemplateMinisTable'
 
 import AssignmentFlowNavigation from '../assignment_flow_navigation.tsx'
 import { DropdownInput } from '../../../../Shared/index'
-import { ACTIVITY_PACK_TYPES } from '../assignmentFlowConstants'
+import { ACTIVITY_PACK_TYPES, READING_TEXTS, DIAGNOSTIC, WHOLE_CLASS_LESSONS, LANGUAGE_SKILLS, CREATE_YOUR_OWN_ID } from '../assignmentFlowConstants'
 
 const ALL = 'All'
 const GRADE_LEVEL_LABELS = ['4th-12th', '6th-12th', '8th-12th', '10th-12th']
@@ -29,7 +29,7 @@ export default class UnitTemplateMinis extends React.Component {
     const { data } = this.props;
     const { non_authenticated } = data;
     if (models && models.length) {
-      models.push({id: 'createYourOwn', non_authenticated: non_authenticated});
+      models.push({id: 'createYourOwn', non_authenticated: non_authenticated, unit_template_category: null });
     }
     return _l.uniqBy(models, 'id');
   }
@@ -102,8 +102,25 @@ export default class UnitTemplateMinis extends React.Component {
     )
   };
 
+  getModelCardsByType(models, type) {
+    const filteredModels = models.filter(model => {
+      const { unit_template_category, id } = model
+      if(id === CREATE_YOUR_OWN_ID && type === WHOLE_CLASS_LESSONS)  {
+        // we want to include the create your own pack card as the last card in the last section which is Whole Class Lessons
+        return model
+      }
+      if(unit_template_category && type === LANGUAGE_SKILLS) {
+        return ACTIVITY_PACK_TYPES.find(type => type.name === LANGUAGE_SKILLS).types.includes(unit_template_category.name)
+      }
+      if(!unit_template_category) { return }
+
+      return unit_template_category.name === type
+    })
+    return filteredModels.map(this.generateUnitTemplateView);
+  }
+
   generateUnitTemplateViews() {
-    const { signedInTeacher, data, displayedModels, } = this.props;
+    const { signedInTeacher, data, displayedModels, selectedTypeId } = this.props;
     const { grade, } = data;
     let models;
     if (grade) {
@@ -116,6 +133,40 @@ export default class UnitTemplateMinis extends React.Component {
     models = _.sortBy(models, 'order_number');
     if (signedInTeacher) {
       models = this.addCreateYourOwnModel(models);
+    }
+    if(!selectedTypeId) {
+      const readingTextModels = this.getModelCardsByType(models, READING_TEXTS)
+      const diagnosticModels = this.getModelCardsByType(models, DIAGNOSTIC)
+      const languageSkillsModels = this.getModelCardsByType(models, LANGUAGE_SKILLS)
+      const wholeClassModels = this.getModelCardsByType(models, WHOLE_CLASS_LESSONS)
+      return(
+        <React.Fragment>
+          <section className="all-packs-section">
+            <p className="pack-type-header">{READING_TEXTS}</p>
+            <section className="packs-section">
+              {readingTextModels}
+            </section>
+          </section>
+          <section className="all-packs-section">
+            <p className="pack-type-header">{DIAGNOSTIC}</p>
+            <section className="packs-section">
+              {diagnosticModels}
+            </section>
+          </section>
+          <section className="all-packs-section">
+            <p className="pack-type-header">{LANGUAGE_SKILLS}</p>
+            <section className="packs-section">
+              {languageSkillsModels}
+            </section>
+          </section>
+          <section className="all-packs-section">
+            <p className="pack-type-header">{WHOLE_CLASS_LESSONS}</p>
+            <section className="packs-section">
+              {wholeClassModels}
+            </section>
+          </section>
+        </React.Fragment>
+      )
     }
     const modelCards = models.map(this.generateUnitTemplateView);
     return modelCards;
@@ -275,9 +326,7 @@ export default class UnitTemplateMinis extends React.Component {
     const { currentView } = this.state;
     const { value } = currentView;
     if(value === LIST_VIEW_OPTION.value) { return }
-    if(!selectedTypeId) {
-      return <p className="pack-type-header">All Packs</p>
-    }
+    if(!selectedTypeId) { return }
     return <p className="pack-type-header">{ACTIVITY_PACK_TYPES.filter(type => type.id === selectedTypeId)[0].name}</p>
   }
 
