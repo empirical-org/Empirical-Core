@@ -20,8 +20,8 @@ namespace :subscriptions do
       end
 
       begin
-        CreditTransaction.create!(user_id: user.id, amount: args[:amount_in_days].to_i, source: user)
-        puts "CreditTransaction created for #{user.email}"
+        credit_transaction = CreditTransaction.create!(user_id: user.id, amount: args[:amount_in_days].to_i, source: user)
+        puts "CreditTransaction with id #{credit_transaction.id} created for #{user.email}"
 
         user.redeem_credit unless user.subscription
       rescue => e
