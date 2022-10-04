@@ -29,7 +29,7 @@ export default class UnitTemplateMinis extends React.Component {
     const { data } = this.props;
     const { non_authenticated } = data;
     if (models && models.length) {
-      models.push({id: 'createYourOwn', non_authenticated: non_authenticated});
+      models.push({id: 'createYourOwn', non_authenticated: non_authenticated, unit_template_category: null });
     }
     return _l.uniqBy(models, 'id');
   }
@@ -105,15 +105,14 @@ export default class UnitTemplateMinis extends React.Component {
   getModelCardsByType(models, type) {
     const filteredModels = models.filter(model => {
       const { unit_template_category, id } = model
-      if(id === CREATE_YOUR_OWN_ID) {
+      if(id === CREATE_YOUR_OWN_ID && type === WHOLE_CLASS_LESSONS)  {
         // we want to include the create your own pack card as the last card in the last section which is Whole Class Lessons
-        if(type !== WHOLE_CLASS_LESSONS) { return }
         return model
       }
-      if(type === LANGUAGE_SKILLS) {
-        return ACTIVITY_PACK_TYPES[2].types.includes(unit_template_category.name)
+      if(unit_template_category && type === LANGUAGE_SKILLS) {
+        return ACTIVITY_PACK_TYPES.find(type => type.name === LANGUAGE_SKILLS).types.includes(unit_template_category.name)
       }
-      return unit_template_category.name === type
+      return unit_template_category && unit_template_category.name === type
     })
     return filteredModels.map(this.generateUnitTemplateView);
   }
