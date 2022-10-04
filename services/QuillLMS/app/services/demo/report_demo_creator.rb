@@ -291,9 +291,6 @@ module Demo::ReportDemoCreator
   end
 
   def self.reset_units(teacher)
-    teacher.units.reload # this relation is empty until it is reloaded for some reason
-    return teacher.units if teacher.units.count == UNITS_COUNT
-
     teacher.units&.destroy_all
 
     create_units(teacher)
