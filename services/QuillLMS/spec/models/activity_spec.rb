@@ -265,7 +265,7 @@ describe Activity, type: :model, redis: true do
         notes: 'Test Evidence Activity')
       expect(classified_activity).to receive(:evidence_url_helper).with({anonymous: true}).and_call_original
       result = classified_activity.anonymous_module_url
-      expect(result.to_s).to eq("#{classification.module_url}?anonymous=true&uid=#{comp_activity.id}")
+      expect(result.to_s).to eq("#{classification.module_url}?anonymous=true&skipToPrompts=true&uid=#{comp_activity.id}")
     end
   end
 
