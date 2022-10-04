@@ -68,6 +68,7 @@ const CustomActivityPack = ({
   const [savedActivityIds, setSavedActivityIds] = React.useState([])
   const [showSnackbar, setShowSnackbar] = React.useState(false)
   const [snackbarText, setSnackbarText] = React.useState('')
+  const [topics, setTopics] = React.useState([])
 
   const debouncedSearch = useDebounce(search, DEBOUNCE_LENGTH);
   const debouncedActivityClassificationFilters = useDebounce(activityClassificationFilters, DEBOUNCE_LENGTH);
@@ -115,11 +116,23 @@ const CustomActivityPack = ({
     }
   }, [activities])
 
+  React.useEffect(() => {
+    getTopics();
+  }, []);
+
   React.useEffect(handleFilterChange, [debouncedSearch, debouncedActivityClassificationFilters, debouncedCCSSGradeLevelFilters, debouncedGradeLevelFilters, debouncedELLFilters, debouncedActivityCategoryFilters, debouncedContentPartnerFilters, debouncedEarlyAccessActivityFilters, debouncedReadabilityGradeLevelFilters, debouncedTopicFilters, debouncedSavedActivityFilters, debouncedFlagFilters])
 
   function handleFilterChange() {
     updateQueryString()
     updateFilteredActivities()
+  }
+
+  function getTopics() {
+    requestGet('/topics',
+      (data) => {
+        setTopics(data.topics)
+      }
+    )
   }
 
   function calculateNumberOfFilters() {
@@ -379,6 +392,7 @@ const CustomActivityPack = ({
           showLessonsBanner={showLessonsBanner}
           sort={sort}
           toggleActivitySelection={toggleActivitySelection}
+          topics={topics}
           undoLastFilter={undoLastFilter}
           unsaveActivity={unsaveActivity}
         />

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Activity } from './interfaces'
+import { Activity, Topic } from './interfaces'
 import { lowerBound, upperBound, sortFunctions, } from './shared'
 import ActivityRow from './activity_row'
 import Pagination from './pagination'
@@ -35,7 +35,8 @@ interface ActivityTableContainerProps {
   savedActivityIds: number[],
   showEvidenceBanner: boolean,
   showLessonsBanner: boolean,
-  gradeLevelFilters: number[]
+  gradeLevelFilters: number[],
+  topics: Topic[]
 }
 
 const FilterAndSort = ({ setShowMobileFilterMenu, setShowMobileSortMenu, }) => {
@@ -118,6 +119,7 @@ const ActivityTableContainer = ({
   savedActivityIds,
   showEvidenceBanner,
   showLessonsBanner,
+  topics,
   gradeLevelFilters,
 }: ActivityTableContainerProps) => {
   const [lessonsBannerShowing, setLessonsBannerShowing] = React.useState(showLessonsBanner)
@@ -141,6 +143,7 @@ const ActivityTableContainer = ({
     return (
       <ActivityRow
         activity={act}
+        allTopics={topics}
         gradeLevelFilters={gradeLevelFilters}
         isFirst={i === 0}
         isSelected={isSelected}

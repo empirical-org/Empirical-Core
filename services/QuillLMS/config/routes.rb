@@ -650,6 +650,8 @@ EmpiricalGrammar::Application.routes.draw do
     end
   end
 
+  resources :topics, only: [:index]
+
   other_pages = %w(
     beta
     board

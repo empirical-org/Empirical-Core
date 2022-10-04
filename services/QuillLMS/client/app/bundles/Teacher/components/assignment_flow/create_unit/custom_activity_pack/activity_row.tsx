@@ -60,7 +60,8 @@ interface ActivityRowProps {
   saveActivity: (activityId: number) => void,
   unsaveActivity: (activityId: number) => void,
   savedActivityIds: number[],
-  gradeLevelFilters: number[]
+  gradeLevelFilters: number[],
+  allTopics: Topic[]
 }
 
 // the following method is a pretty hacky solution for helping to determine whether or not to show a truncated string and tooltip or the whole topic string in the <TopicSection />
@@ -104,7 +105,7 @@ const ActivityRowConcept = ({ conceptName, }: { conceptName?: string }) => {
   return <span className={className} />
 }
 
-const ActivityRowTopics = ({ topics, maxAllowedLength, onTertiaryLine, inExpandedView, hasConcept, }: { topics?: Topic[], maxAllowedLength: number, onTertiaryLine: boolean, inExpandedView: boolean, hasConcept: boolean, }) => {
+const ActivityRowTopics = ({ allTopics, topics, maxAllowedLength, onTertiaryLine, inExpandedView, hasConcept, }: { allTopics?: Topic[], topics?: Topic[], maxAllowedLength: number, onTertiaryLine: boolean, inExpandedView: boolean, hasConcept: boolean, }) => {
   const className = "attribute-section topic"
 
   if (!(topics && topics.length)) { return <span /> }
@@ -112,30 +113,39 @@ const ActivityRowTopics = ({ topics, maxAllowedLength, onTertiaryLine, inExpande
   if (inExpandedView && !onTertiaryLine) { return <span /> }
 
   const topicString = stringifyLowerLevelTopics(topics)
-  const widthOfTopicSectionInPixels = (topicString.length * AVERAGE_FONT_WIDTH) + IMAGE_WIDTH + MARGIN
+  const widthOfTopicSectionInPixels = (topicString.length * AVERAGE_FONT_WIDTH) + (topicString.length * IMAGE_WIDTH) + (topicString.length * MARGIN)
   const widthExceedsAllottedSpaceOnSecondLine = widthOfTopicSectionInPixels >= maxAllowedLength
 
+  function getParentTopic(topic: Topic) {
+    return allTopics.find(t => t.id === topic.parent_id)
+  }
+
   if (inExpandedView && onTertiaryLine) {
-    const thirdLevelTopic = topics.find(t => Number(t.level) === 3)
-    const secondLevelTopic = topics.find(t => Number(t.level) === 2)
-    const diagonalDivider = <span className="diagonal-divider">/</span>
-    return (
-      <span className="attribute-section extended-topic">
-        <span><img alt="Globe icon" src={topicSrc} />{thirdLevelTopic?.name}</span>
-        {diagonalDivider}
-        <span>{secondLevelTopic?.name}</span>
-        {diagonalDivider}
-        <span className="lowest-level">{topicString}</span>
-      </span>
-    )
+    const topicsWithParentBadges = topics.map((topic, i) => {
+      const secondLevelTopic = getParentTopic(topic)
+      const thirdLevelTopic = getParentTopic(secondLevelTopic)
+      const diagonalDivider = <span className="diagonal-divider">/</span>
+      return (
+        <span className="attribute-section extended-topic">
+          <span><img alt="Globe icon" src={topicSrc} />{thirdLevelTopic?.name}</span>
+          {diagonalDivider}
+          <span>{secondLevelTopic?.name}</span>
+          {diagonalDivider}
+          <span className="lowest-level">{topic.name}</span>
+        </span>
+      )
+    })
+    return topicsWithParentBadges
   } else if ((widthExceedsAllottedSpaceOnSecondLine && onTertiaryLine) || (!widthExceedsAllottedSpaceOnSecondLine && !onTertiaryLine)) {
-    return (
-      <span className={className}>
+    const topicBadgeList = topics.map((topic, i) => {
+      return (<span className={className}>
         {!onTertiaryLine && hasConcept && <span className="vertical-divider" />}
         <img alt="Globe icon" src={topicSrc} />
-        <span>{topicString}</span>
-      </span>
-    )
+        <span>{topic.name}</span>
+        {i !== (topics.length - 1) && <span className="vertical-divider" />}
+      </span>)
+    })
+    return topicBadgeList
   }
 
   return <span />
@@ -250,7 +260,7 @@ const ActivityRowTooltip = ({ activity, }: { activity: Activity }) => {
   )
 }
 
-const ActivityRow = ({ activity, isSelected, toggleActivitySelection, showCheckbox, showRemoveButton, isFirst, setShowSnackbar, saveActivity, unsaveActivity, savedActivityIds, gradeLevelFilters, }: ActivityRowProps) => {
+const ActivityRow = ({ activity, isSelected, toggleActivitySelection, showCheckbox, showRemoveButton, isFirst, setShowSnackbar, saveActivity, allTopics, unsaveActivity, savedActivityIds, gradeLevelFilters, }: ActivityRowProps) => {
   const size = useWindowSize();
   const [isExpanded, setIsExpanded] = React.useState(false)
 
@@ -301,6 +311,7 @@ const ActivityRow = ({ activity, isSelected, toggleActivitySelection, showCheckb
     topicLine = (
       <div className="third-line">
         <ActivityRowTopics
+          allTopics={allTopics}
           hasConcept={!!activity_category_name}
           inExpandedView={isExpanded}
           maxAllowedLength={calculateMaxAllowedLengthForTopicSection({ activity_classification, })}
@@ -339,6 +350,7 @@ const ActivityRow = ({ activity, isSelected, toggleActivitySelection, showCheckb
         <div className="classification-concept-topic-wrapper">
           <ActivityRowConcept conceptName={activity_category_name} />
           <ActivityRowTopics
+            allTopics={allTopics}
             hasConcept={!!activity_category_name}
             inExpandedView={isExpanded}
             maxAllowedLength={calculateMaxAllowedLengthForTopicSection({ activity_classification, })}
