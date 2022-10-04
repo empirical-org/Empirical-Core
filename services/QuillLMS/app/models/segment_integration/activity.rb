@@ -9,19 +9,16 @@ module SegmentIntegration
       }.reject {|_,v| v.nil? }
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity
     def content_params
       {
         **common_params,
         concepts: activity_categories.pluck(:name).join(", "),
         content_partners: content_partners.pluck(:name).join(", "),
-        topic_level_three: topics.find(&:level_three?)&.name,
-        topic_level_two: topics.find(&:level_two?)&.name,
-        topic_level_one: topics.find(&:level_one?)&.name,
-        topic_level_zero: topics.find(&:level_zero?)&.name
+        first_topic: topics.first&.name,
+        second_topic: topics.second&.name,
+        third_topic: topics.third&.name
       }.reject {|_,v| v.nil? }
     end
-    # rubocop:enable Metrics/CyclomaticComplexity
 
   end
 end

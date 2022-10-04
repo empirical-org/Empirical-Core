@@ -11,7 +11,7 @@ describe Cms::ActivitiesController, type: :controller do
   let!(:classification) { create(:activity_classification) }
   let(:activities) { double(:activities, production: "production set", flagged: "flagged set") }
   let(:user) { create(:staff) }
-  let(:topic) { create(:topic) }
+  let(:topic) { create(:topic, level: 1) }
   let(:content_partner) { create(:content_partner) }
   let(:raw_score) { create(:raw_score, order: 1) }
   let(:activity_category) { create(:activity_category) }
