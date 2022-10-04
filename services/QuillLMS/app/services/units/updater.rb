@@ -14,12 +14,12 @@ module Units::Updater
     classroom_array = [classrooms_data]
     # converted to array so we can map in helper function as we would otherwise
     unit_template = UnitTemplate.find(unit_template_id)
-    activities_data = unit_template.activities.map{ |a| {id: a.id, due_date: nil} }
+    activities_data = unit_template.activities.map{ |a| {id: a.id, due_date: nil, publish_date: nil} }
     update_helper(unit_id, activities_data, classroom_array, current_user_id, concatenate_existing_student_ids: concatenate_existing_student_ids)
   end
 
   def self.fast_assign_unit_template(teacher_id, unit_template, unit_id, current_user_id=nil)
-    activities_data = unit_template.activities.select('activities.id AS id, NULL as due_date')
+    activities_data = unit_template.activities.select('activities.id AS id, NULL as due_date, NULL as publish_date')
     classrooms_data = User.find(teacher_id).classrooms_i_teach.map{|classroom| {id: classroom.id, student_ids: [], assign_on_join: true}}
     update_helper(unit_id, activities_data, classrooms_data, current_user_id || teacher_id)
   end
@@ -53,16 +53,19 @@ module Units::Updater
   def self.matching_or_new_unit_activity(activity_data, existing_unit_activities, new_uas, hidden_ua_ids, unit_id, order_number)
     activity_data_id = activity_data[:id].to_i || activity_data['id'].to_i
     activity_data_due_date = activity_data[:due_date] || activity_data['due_date']
+    activity_data_publish_date = activity_data[:publish_date] || activity_data['publish_date']
     matching_ua = existing_unit_activities.find{|ua| (ua.activity_id == activity_data_id )}
     if matching_ua
       matching_ua.update!(visible: true,
         due_date: activity_data_due_date || matching_ua.due_date,
+        publish_date: activity_data_publish_date || matching_ua.publish_date,
         order_number: order_number)
     elsif activity_data_id
       # making an array of hashes to create in one bulk option
       new_uas.push({activity_id: activity_data_id,
          unit_id: unit_id,
          due_date: activity_data_due_date,
+         publish_date: activity_data_publish_date,
          order_number: order_number})
     end
   end

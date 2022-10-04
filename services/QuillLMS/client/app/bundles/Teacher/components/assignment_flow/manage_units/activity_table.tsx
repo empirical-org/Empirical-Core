@@ -1,25 +1,25 @@
 import * as React from 'react'
-import Datetime from 'react-datetime';
 import * as moment from 'moment';
 
 import * as api from '../../modules/call_api';
-import { formatDateTimeForDisplay, } from '../../../helpers/unitActivityDates'
+import {
+  formatDateTimeForDisplay,
+  DatePickerContainer,
+  DUE_DATE_DEFAULT_TEXT,
+  PUBLISH_DATE_DEFAULT_TEXT,
+  INVALID_DATES_SNACKBAR_COPY,
+} from '../../../helpers/unitActivityDates'
 import { requestPut } from '../../../../../modules/request/index.js';
-import { DataTable, Tooltip, copyIcon, publishedIcon, scheduledIcon, Snackbar, defaultSnackbarTimeout, } from '../../../../Shared/index'
+import { DataTable, Tooltip, publishedIcon, scheduledIcon, Snackbar, defaultSnackbarTimeout, } from '../../../../Shared/index'
 import useSnackbarMonitor from '../../../../Shared/hooks/useSnackbarMonitor'
 import { getIconForActivityClassification } from '../../../../Shared/libs';
 
 const shareActivitySrc = `${process.env.CDN_URL}/images/icons/icons-share.svg`
 
-const copyImage = <img alt={copyIcon.alt} src={copyIcon.src} />
 const publishedIconImage = <img alt={publishedIcon.alt} className="published-icon" src={publishedIcon.src} />
 const scheduledIconImage = <img alt={scheduledIcon.alt} className="scheduled-icon" src={scheduledIcon.src} />
 
 export const AVERAGE_FONT_WIDTH = 7
-
-const INVALID_DATES_SNACKBAR_COPY = 'The due date must be after the publish date.'
-const DUE_DATE_DEFAULT_TEXT = 'No due date'
-const PUBLISH_DATE_DEFAULT_TEXT = 'Right away'
 
 const PUBLISH_DATE_ATTRIBUTE_KEY = 'publish_date'
 const DUE_DATE_ATTRIBUTE_KEY = 'due_date'
@@ -41,49 +41,6 @@ const CopyModal = ({ attributeName, closeFunction, copyFunction, }) => {
     </div>
   )
 }
-
-const DatePickerContainer = ({ initialValue, defaultText, rowIndex, closeFunction, openModalFunction, icon, }) => {
-  const copyDateToAllButton = rowIndex === 0 ? <CopyToAllButton openModalFunction={openModalFunction} /> : ''
-
-  // note: the key in this uncontrolled component is necessary in order for it to rerender when "copy to all" is clicked
-  return (
-    <div className="date-picker-container">
-      <div className="icon-and-datetime-picker">
-        {icon}
-        <Datetime
-          initialValue={initialValue}
-          onClose={closeFunction}
-          renderInput={(props) => <DatetimeInput defaultText={defaultText} props={props} />}
-          utc={true}
-        />
-      </div>
-      {copyDateToAllButton}
-    </div>
-  )
-}
-
-const DatetimeInput = ({ props, defaultText, }) => {
-  const { onClick, value, } = props
-  const valueInMoment = value ? moment.utc(value) : null
-  const buttonText = valueInMoment ? formatDateTimeForDisplay(valueInMoment) : defaultText
-  return (
-    <button className="interactive-wrapper focus-on-light datetime-input" onClick={onClick} type="button">
-      <span className="text">{buttonText}</span>
-      <img alt="dropdown indicator" className="dropdown-indicator" src="https://assets.quill.org/images/icons/dropdown.svg" />
-    </button>
-  )
-}
-
-const CopyToAllButton = ({ openModalFunction, }) => (
-  <button
-    className="interactive-wrapper focus-on-light copy-to-all-button"
-    onClick={openModalFunction}
-    type="button"
-  >
-    {copyImage}
-    <span>Copy to all</span>
-  </button>
-)
 
 const tableHeaders = (isOwner) => ([
   {
@@ -228,11 +185,10 @@ const ActivityTable = ({ data, onSuccess, isOwner, handleActivityClicked, handle
         <DatePickerContainer
           closeFunction={(date) => closeDatePicker(date, activity.uaId, DUE_DATE_ATTRIBUTE_KEY)}
           defaultText={DUE_DATE_DEFAULT_TEXT}
+          handleClickCopyToAll={openCopyDueDateModal}
           initialValue={dueDateInMoment}
-          key={dueDateInMoment ? dueDateInMoment.date() : activity.uaId}
-          openModalFunction={openCopyDueDateModal}
+          key={dueDateInMoment ? formatDateTimeForDisplay(dueDateInMoment) : activity.uaId}
           rowIndex={i}
-          unitActivityId={activity.uaId}
         />
       )
 
@@ -240,12 +196,11 @@ const ActivityTable = ({ data, onSuccess, isOwner, handleActivityClicked, handle
         <DatePickerContainer
           closeFunction={(date) => closeDatePicker(date, activity.uaId, PUBLISH_DATE_ATTRIBUTE_KEY)}
           defaultText={PUBLISH_DATE_DEFAULT_TEXT}
+          handleClickCopyToAll={openCopyPublishDateModal}
           icon={activity.scheduled ? scheduledIconImage : publishedIconImage}
           initialValue={publishDateInMoment}
-          key={publishDateInMoment ? publishDateInMoment.date() : activity.uaId}
-          openModalFunction={openCopyPublishDateModal}
+          key={publishDateInMoment ? formatDateTimeForDisplay(publishDateInMoment) : activity.uaId}
           rowIndex={i}
-          unitActivityId={activity.uaId}
         />
       )
     }

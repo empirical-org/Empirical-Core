@@ -2,10 +2,16 @@ import React from 'react';
 import moment from 'moment';
 import "react-dates/initialize";
 
-import { SingleDatePicker } from 'react-dates'
+import {
+  formatDateTimeForDisplay,
+  DatePickerContainer,
+  DUE_DATE_DEFAULT_TEXT,
+  PUBLISH_DATE_DEFAULT_TEXT,
+  INVALID_DATES_SNACKBAR_COPY,
+} from '../../../../helpers/unitActivityDates'
 import { DataTable, Tooltip, getIconForActivityClassification } from '../../../../../Shared/index'
 
-const activityColumnMaxWidth = '350px';
+const activityColumnMaxWidth = '322px';
 const rowSectionTooltipClassName =  'tooltip-section review-activities-data-table-section';
 const tableHeaders = [
   {
@@ -23,13 +29,31 @@ const tableHeaders = [
   {
     name: 'Concept',
     attribute: 'concept',
-    width: '200px'
+    width: '166px'
   },
   {
-    name: 'Due date (optional)',
-    attribute: 'dueDate',
-    width: '150px',
-    rowSectionClassName: 'due-date-picker'
+    name: (
+      <Tooltip
+        tooltipText="When you schedule an activity, it is displayed in your dashboard, but it is hidden from a student until the publish date."
+        tooltipTriggerText={<span className="publish-date-header">Publish date <span>(optional)</span></span>}
+      />
+    ),
+    attribute: 'publishDatePicker',
+    width: '123px',
+    headerClassName: 'publish-date-header-container',
+    rowSectionClassName: 'datetime-picker'
+  },
+  {
+    name: (
+      <Tooltip
+        tooltipText="Display a due date to students for this activity. Students can still access an activity after the due date."
+        tooltipTriggerText={<span className="due-date-header">Due date <span>(optional)</span></span>}
+      />
+    ),
+    attribute: 'dueDatePicker',
+    width: '123px',
+    headerClassName: 'due-date-header-container',
+    rowSectionClassName: 'datetime-picker'
   }
 ]
 
@@ -45,17 +69,23 @@ export default class ReviewActivities extends React.Component {
     this.state = state
   }
 
-  handleDueDateChange(id, date) {
-    const { activities, assignActivityDueDate, dueDates, } = this.props
+  handleDateChange = (date, id, dateAttributeKey) => {
+    const { activities, assignActivityDate, } = this.props
+    const dates = this.props[dateAttributeKey]
     const activity = activities.find(act => act.id === id)
-    const existingDate = dueDates[id] ? moment(dueDates[id]) : null
-    // if same date is selected twice, unselect it
-    if (date && existingDate && existingDate.dayOfYear() === date.dayOfYear()) {
-      assignActivityDueDate(activity, null)
-    } else {
-      const formattedDate = date ? `${date.year()}/${date.month() + 1}/${date.date()}` : null
-      assignActivityDueDate(activity, formattedDate);
-    }
+    const formattedDate = date ? date : null
+    assignActivityDate(activity, formattedDate, dateAttributeKey);
+  }
+
+  copyPublishDateToAll = () => this.copyDateToAll('publishDates')
+
+  copyDueDateToAll = () => this.copyDateToAll('dueDates')
+
+  copyDateToAll = (dateAttributeKey) => {
+    const { activities, assignActivityDate, } = this.props
+    const dates = this.props[dateAttributeKey]
+    const existingDate = dates[activities[0].id] ? moment.utc(dates[activities[0].id]) : null
+    activities.forEach(a => assignActivityDate(a, existingDate, dateAttributeKey))
   }
 
   removeRow = id => {
@@ -65,9 +95,9 @@ export default class ReviewActivities extends React.Component {
   };
 
   rows() {
-    const { activities, dueDates, } = this.props
+    const { activities, dueDates, publishDates, } = this.props
 
-    return activities.map((activity) => {
+    return activities.map((activity, i) => {
       const {
         name,
         activity_classification,
@@ -77,23 +107,33 @@ export default class ReviewActivities extends React.Component {
         id,
         readability_grade_level
       } = activity
-      const selectedDate = dueDates[id] ? moment(dueDates[id]) : null
+      const dueDateInMoment = dueDates[id] ? moment.utc(dueDates[id]) : null
+      const publishDateInMoment = publishDates[id] ? moment.utc(publishDates[id]) : null
       const focusedKey = `focused-${id}`
       const dropdownIconStyle = this.state[focusedKey] ? { transform: 'rotate(180deg)', } : null;
 
-      const dueDate = (<SingleDatePicker
-        customInputIcon={<img alt="dropdown indicator" src="https://assets.quill.org/images/icons/dropdown.svg" style={dropdownIconStyle} />} // momentPropTypes.momentObj or null
-        date={selectedDate}
-        focused={this.state[focusedKey]} // PropTypes.bool
-        id={`${id}-date-picker`} // PropTypes.func.isRequired
-        inputIconPosition="after" // PropTypes.string.isRequired,
-        navNext="›"
-        navPrev="‹"
-        numberOfMonths={1}
-        onDateChange={date => this.handleDueDateChange(id, date)}
-        onFocusChange={({ focused, }) => this.setState({ [focusedKey]: focused })}
-        placeholder="No due date"
-      />)
+      const dueDatePicker = (
+        <DatePickerContainer
+          closeFunction={(date) => this.handleDateChange(date, id, 'dueDates')}
+          defaultText={DUE_DATE_DEFAULT_TEXT}
+          handleClickCopyToAll={this.copyDueDateToAll}
+          initialValue={dueDateInMoment}
+          key={dueDateInMoment ? formatDateTimeForDisplay(dueDateInMoment) : id}
+          rowIndex={i}
+        />
+      )
+
+      const publishDatePicker = (
+        <DatePickerContainer
+          closeFunction={(date) => this.handleDateChange(date, id, 'publishDates')}
+          defaultText={PUBLISH_DATE_DEFAULT_TEXT}
+          handleClickCopyToAll={this.copyPublishDateToAll}
+          initialValue={publishDateInMoment}
+          key={publishDateInMoment ? formatDateTimeForDisplay(publishDateInMoment) : id}
+          rowIndex={i}
+        />
+      )
+
       const toolName = activity_classification.alias;
       const toolDescription = activity_classification.description;
       const readabilityScore = readability_grade_level ? `<br/><p>Readability score: ${readability_grade_level}</p>` : '';
@@ -121,7 +161,8 @@ export default class ReviewActivities extends React.Component {
         tool: toolIcon,
         activity: activityName,
         concept: activity_category.name,
-        dueDate,
+        dueDatePicker,
+        publishDatePicker,
         removable: true
       }
     })

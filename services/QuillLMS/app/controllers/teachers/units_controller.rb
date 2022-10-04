@@ -183,7 +183,7 @@ class Teachers::UnitsController < ApplicationController
   end
 
   private def unit_params
-    params.require(:unit).permit(:id, :create, :name, classrooms: [:id, :all_students, student_ids: []], activities: [:id, :due_date])
+    params.require(:unit).permit(:id, :create, :name, classrooms: [:id, :all_students, student_ids: []], activities: [:id, :due_date, :publish_date])
   end
 
   private def authorize!
