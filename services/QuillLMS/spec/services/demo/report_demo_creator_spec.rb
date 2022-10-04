@@ -222,6 +222,8 @@ RSpec.describe Demo::ReportDemoCreator do
         it { expect{ subject }.to change{teacher.reload.clever_id}.from("5678").to(nil) }
         it { expect{ subject }.to change {teacher.reload.classrooms_i_teach.count}.from(2).to(1) }
         it { expect{ subject }.to change(AuthCredential, :count).from(1).to(0) }
+        it { expect{ subject }.to change(Classroom.where(id: classroom.id), :count).from(1).to(0) }
+        it { expect{ subject }.to_not change(Classroom.unscoped.where(id: classroom.id), :count).from(1) }
         it { expect{ subject }.to_not change{Demo::ReportDemoCreator.demo_classroom(teacher.reload).id} }
       end
 

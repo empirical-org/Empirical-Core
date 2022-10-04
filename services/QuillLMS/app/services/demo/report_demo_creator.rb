@@ -305,7 +305,7 @@ module Demo::ReportDemoCreator
       teacher = User.find_by(id: teacher_id, role: User::TEACHER)
       # Note, you can't early return within a transaction in Rails 6.1+
       if teacher
-        non_demo_classrooms(teacher).each(&:destroy)
+        non_demo_classrooms(teacher).each {|c| c.update(visible: false)}
         teacher.auth_credential&.destroy
         teacher.update(google_id: nil, clever_id: nil)
 
