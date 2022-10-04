@@ -1,0 +1,21 @@
+.topic-groups-container {
+  display: grid;
+  padding: 10px;
+}
+
+.topic-group {
+  display: flex;
+  padding: 10px;
+}
+
+.topic-column {
+  min-width: 300px;
+}
+
+.record-cell {
+  border: 1px solid lightgray;
+  padding: 5px;
+  width: 100%;
+  text-align: left;
+  background-color: white;
+}
