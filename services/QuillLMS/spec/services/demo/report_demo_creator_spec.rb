@@ -204,13 +204,16 @@ RSpec.describe Demo::ReportDemoCreator do
 
       subject { Demo::ReportDemoCreator.reset_account(teacher.id) }
 
-      context "untouched demo account" do
-        it { expect{ subject }.to_not change{teacher.reload.google_id}.from(nil) }
-        it { expect{ subject }.to_not change{teacher.reload.clever_id}.from(nil) }
-        it { expect{ subject }.to_not change{teacher.classrooms_i_teach.count}.from(1) }
-        it { expect{ subject }.to_not change{teacher.classrooms_i_teach.map(&:id)} }
-        it { expect{ subject }.to_not change{teacher.reload.auth_credential}.from(nil) }
+
+      it "should create expected counts for untouched account" do
+        expect{ subject }
+          .to not_change{teacher.reload.google_id}.from(nil)
+          .and not_change{teacher.reload.clever_id}.from(nil)
+          .and not_change{teacher.classrooms_i_teach.count}.from(1)
+          .and not_change{teacher.classrooms_i_teach.map(&:id)}
+          .and not_change{teacher.reload.auth_credential}.from(nil)
       end
+
 
       context "teacher account has added data" do
         let(:teacher) {create(:teacher, google_id: 1234, clever_id: 5678)}
@@ -218,13 +221,16 @@ RSpec.describe Demo::ReportDemoCreator do
         let(:classroom) {create(:classroom)}
         let!(:classrooms_teacher) {create(:classrooms_teacher, classroom: classroom, user: teacher)}
 
-        it { expect{ subject }.to change{teacher.reload.google_id}.from("1234").to(nil) }
-        it { expect{ subject }.to change{teacher.reload.clever_id}.from("5678").to(nil) }
-        it { expect{ subject }.to change {teacher.reload.classrooms_i_teach.count}.from(2).to(1) }
-        it { expect{ subject }.to change(AuthCredential, :count).from(1).to(0) }
-        it { expect{ subject }.to change(Classroom.where(id: classroom.id), :count).from(1).to(0) }
-        it { expect{ subject }.to_not change(Classroom.unscoped.where(id: classroom.id), :count).from(1) }
-        it { expect{ subject }.to_not change{Demo::ReportDemoCreator.demo_classroom(teacher.reload).id} }
+        it "should create expected counts" do
+          expect{ subject }
+            .to change{teacher.reload.google_id}.from("1234").to(nil)
+            .and change{teacher.reload.clever_id}.from("5678").to(nil)
+            .and change {teacher.reload.classrooms_i_teach.count}.from(2).to(1)
+            .and change(AuthCredential, :count).from(1).to(0)
+            .and change(Classroom.where(id: classroom.id), :count).from(1).to(0)
+            .and not_change(Classroom.unscoped.where(id: classroom.id), :count).from(1)
+            .and not_change{Demo::ReportDemoCreator.demo_classroom(teacher.reload).id}
+        end
       end
 
       context "demo classroom changed" do
