@@ -223,6 +223,7 @@ exports[`UnitTemplateMinis component should render dropdowns when on mobile 1`] 
                   Object {
                     "id": "createYourOwn",
                     "non_authenticated": undefined,
+                    "unit_template_category": null,
                   }
                 }
                 index={0}
