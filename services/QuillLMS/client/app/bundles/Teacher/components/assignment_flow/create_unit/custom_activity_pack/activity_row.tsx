@@ -140,7 +140,7 @@ const ActivityRowTopics = ({ allTopics, topics, maxAllowedLength, onTertiaryLine
     const topicBadgeList = topics.map((topic, i) => {
       return (
         <span className={className}>
-          {!onTertiaryLine && hasConcept && <span className="vertical-divider" />}
+          {!onTertiaryLine && hasConcept && i === 0 && <span className="vertical-divider" />}
           <img alt="Globe icon" src={topicSrc} />
           <span>{topic.name}</span>
           {i !== (topics.length - 1) && <span className="vertical-divider" />}
