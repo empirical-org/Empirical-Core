@@ -32,11 +32,8 @@ class UnitActivity < ApplicationRecord
   belongs_to :activity
   has_many :classroom_unit_activity_states
 
-  # validates :unit, uniqueness: { scope: :activity }
-
   before_save :adjust_due_date_for_timezone, if: :will_save_change_to_due_date?
   before_save :adjust_publish_date_for_timezone, if: :will_save_change_to_publish_date?
-
   after_save :hide_appropriate_activity_sessions, :teacher_checkbox
 
   def teacher_checkbox
