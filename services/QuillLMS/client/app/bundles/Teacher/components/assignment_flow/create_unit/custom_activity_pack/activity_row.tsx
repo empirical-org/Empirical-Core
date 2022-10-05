@@ -113,7 +113,7 @@ const ActivityRowTopics = ({ allTopics, topics, maxAllowedLength, onTertiaryLine
   if (inExpandedView && !onTertiaryLine) { return <span /> }
 
   const topicString = stringifyLowerLevelTopics(topics)
-  const widthOfTopicSectionInPixels = (topicString.length * AVERAGE_FONT_WIDTH) + (topicString.length * IMAGE_WIDTH) + (topicString.length * MARGIN)
+  const widthOfTopicSectionInPixels = (topicString.length * AVERAGE_FONT_WIDTH) + (topics.length * IMAGE_WIDTH) + (topics.length * MARGIN)
   const widthExceedsAllottedSpaceOnSecondLine = widthOfTopicSectionInPixels >= maxAllowedLength
 
   function getParentTopic(topic: Topic) {
