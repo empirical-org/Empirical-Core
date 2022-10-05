@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 
 class UnitActivitiesSaver < ApplicationService
-  attr_reader :activities_data, :new_unit_activities_data, :unit_id
+  attr_reader :activities_data, :unit_id
 
   def initialize(activities_data, unit_id)
-    @new_unit_activities_data = []
     @unit_id = unit_id
 
     @activities_data =
@@ -15,15 +14,10 @@ class UnitActivitiesSaver < ApplicationService
   end
 
   def run
-    update_existing_unit_activities_and_aggregate_new_unit_activities_data
-    bulk_create_unit_activities
+    save_unit_activities
   end
 
-  private def bulk_create_unit_activities
-    UnitActivity.create!(new_unit_activities_data)
-  end
-
-  private def update_existing_unit_activities_and_aggregate_new_unit_activities_data
+  private def save_unit_activities
     activities_data.each.with_index(1) do |activity_data, order_number|
       activity_id = activity_data[:id].to_i
       due_date = activity_data[:due_date]
@@ -36,7 +30,7 @@ class UnitActivitiesSaver < ApplicationService
           visible: true
         )
       else
-        new_unit_activities_data.push(
+        UnitActivity.create!(
           activity_id: activity_id,
           due_date: due_date,
           order_number: order_number,
