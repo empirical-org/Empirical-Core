@@ -132,6 +132,7 @@ Lint/AmbiguousBlockAssociation:
   Enabled: true
   IgnoredMethods:
     - change
+    - not_change
 
 Lint/AmbiguousOperatorPrecedence:
   Enabled: true
