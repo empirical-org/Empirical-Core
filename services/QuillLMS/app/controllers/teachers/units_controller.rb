@@ -9,14 +9,13 @@ class Teachers::UnitsController < ApplicationController
   before_action :authorize!
 
   def create
-    if params[:unit][:create]
-      params[:unit][:classrooms] = JSON.parse(params[:unit][:classrooms])
-      params[:unit][:activities] = JSON.parse(params[:unit][:activities])
-    end
     units_with_same_name = units_with_same_name_by_current_user(params[:unit][:name], current_user.id)
     includes_ell_starter_diagnostic = params[:unit][:activities].include?({"id"=>1161})
+
     if units_with_same_name.any?
-      Units::Updater.run(units_with_same_name.first.id, params[:unit][:activities], params[:unit][:classrooms], current_user.id)
+      activities_data = unit_params[:activities].map(&:to_h)
+      classrooms_data = unit_params[:classrooms].map(&:to_h)
+      Units::Updater.run(units_with_same_name.first.id, activities_data, classrooms_data, current_user.id)
     else
       Units::Creator.run(current_user, params[:unit][:name], params[:unit][:activities], params[:unit][:classrooms], params[:unit][:unit_template_id], current_user.id)
     end
@@ -54,6 +53,7 @@ class Teachers::UnitsController < ApplicationController
 
   def update_classroom_unit_assigned_students
     activities_data = UnitActivity.where(unit_id: params[:id]).order(:order_number).pluck(:activity_id).map { |id| { id: id } }
+
     if activities_data.any?
       classroom_data = JSON.parse(params[:unit][:classrooms], symbolize_names: true)
       Units::Updater.run(params[:id], activities_data, classroom_data, current_user.id)
@@ -64,10 +64,11 @@ class Teachers::UnitsController < ApplicationController
   end
 
   def update_activities
-    data = params[:data]
+    activities_data = params[:data].permit(activities_data: [:id, :due_date])[:activities_data].map(&:to_h)
     classrooms_data = formatted_classrooms_data(params[:id])
+
     if classrooms_data.any?
-      Units::Updater.run(params[:id], data[:activities_data], classrooms_data, current_user.id)
+      Units::Updater.run(params[:id], activities_data, classrooms_data, current_user.id)
       render json: {}
     else
       render json: {errors: 'Unit can not be found'}, status: 422
@@ -183,7 +184,16 @@ class Teachers::UnitsController < ApplicationController
   end
 
   private def unit_params
-    params.require(:unit).permit(:id, :create, :name, classrooms: [:id, :all_students, student_ids: []], activities: [:id, :due_date])
+    params
+      .require(:unit)
+      .permit(
+        :id,
+        :create,
+        :name,
+        :unit_template_id,
+        activities: [:id, :due_date],
+        classrooms: [:id, :assign_on_join, student_ids: []]
+      )
   end
 
   private def authorize!

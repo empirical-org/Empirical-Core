@@ -32,8 +32,6 @@ class UnitActivity < ApplicationRecord
   belongs_to :activity
   has_many :classroom_unit_activity_states
 
-  # validates :unit, uniqueness: { scope: :activity }
-
   after_save :hide_appropriate_activity_sessions, :teacher_checkbox
 
   def teacher_checkbox

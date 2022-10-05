@@ -16,37 +16,34 @@ export default class ClassroomsWithStudents extends React.Component {
   }
 
   classroomUpdates = () => {
-    const classrooms_data = [];
-    let classroomsWithNoAssignedStudents = 0;
-    this.props.classrooms.forEach((classy) => {
-      if (classy.edited) {
-        const class_data = { id: classy.id, };
-        if (classy.allSelected) {
-          class_data.student_ids = classy.students.map(s => s.id);
-          class_data.assign_on_join = true;
+    const classroomsData = []
+
+    this.props.classrooms.forEach((classroom) => {
+      if (classroom.edited) {
+        const classroomData = { id: classroom.id, }
+
+        if (classroom.allSelected) {
+          classroomData.student_ids = classroom.students.map(s => s.id)
+          classroomData.assign_on_join = true
         } else {
-          const student_ids_arr = [];
-          class_data.assign_on_join = false;
-          classy.students.forEach((stud) => {
-            if (stud.isSelected) {
-              student_ids_arr.push(stud.id);
-            }
-          });
-          if (student_ids_arr.length > 0) {
-            class_data.student_ids = student_ids_arr;
+          const studentIds = []
+
+          classroomData.assign_on_join = false
+          classroom.students.forEach((student) => { if (student.isSelected) { studentIds.push(student.id) } })
+
+          if (studentIds.length > 0) {
+            classroomData.student_ids = studentIds
           } else {
-            class_data.student_ids = false;
-            classroomsWithNoAssignedStudents += 1;
+            classroomData.student_ids = false
           }
         }
-        classrooms_data.push(class_data);
-      }			else if (classy.noneSelected) {
-        classroomsWithNoAssignedStudents += 1;
+
+        classroomsData.push(classroomData)
       }
     }
-    );
-    return classrooms_data;
-  };
+    )
+    return classroomsData
+  }
 
   createButton() {
     if (!this.props.isSaveButtonEnabled) { return null }
