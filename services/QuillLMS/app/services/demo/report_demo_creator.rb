@@ -315,6 +315,7 @@ module Demo::ReportDemoCreator
 
       # Note, you can't early return within a transaction in Rails 6.1+
       if teacher && demo_classroom_modified?(teacher)
+        # mark as invisible and reset class code (since the demo logic uses a specific class code)
         demo_classroom(teacher)&.update(visible: false, code: nil)
         create_demo_classroom_data(teacher, teacher_demo: true)
       end
