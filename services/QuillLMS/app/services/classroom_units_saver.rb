@@ -11,8 +11,7 @@ class ClassroomUnitsSaver < ApplicationService
     @classrooms_data =
       classrooms_data
         .map(&:symbolize_keys)
-        .select { |classroom_data| classroom_data.key?(:id) }
-        .reject { |classroom_data| classroom_data[:id].nil? }
+        .select { |classroom_data| classroom_data[:id] }
         .uniq { |classroom_data| classroom_data[:id].to_i }
   end
 

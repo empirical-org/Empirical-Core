@@ -11,13 +11,13 @@ module Units::Updater
   end
 
   def self.assign_unit_template_to_one_class(unit_id, classrooms_data, unit_template_id, current_user_id=nil, concatenate_existing_student_ids: false)
-    activities_data = UnitTemplate.find(unit_template_id).activities.map { |a| {id: a.id, due_date: nil} }
+    activities_data = UnitTemplate.find(unit_template_id).activities.pluck(:id).map { |id| {id: id, due_date: nil} }
     update_helper(unit_id, activities_data, [classrooms_data], current_user_id, concatenate_existing_student_ids: concatenate_existing_student_ids)
   end
 
   def self.fast_assign_unit_template(teacher_id, unit_template, unit_id, current_user_id=nil)
     activities_data = unit_template.activities.pluck(:id).map { |activity_id| { id: activity_id, due_date: nil } }
-    classrooms_data = User.find(teacher_id).classrooms_i_teach.map { |classroom| {id: classroom.id, student_ids: [], assign_on_join: true } }
+    classrooms_data = User.find(teacher_id).classrooms_i_teach.pluck(:id).map { |id| {id: id, student_ids: [], assign_on_join: true } }
     update_helper(unit_id, activities_data, classrooms_data, current_user_id || teacher_id)
   end
 

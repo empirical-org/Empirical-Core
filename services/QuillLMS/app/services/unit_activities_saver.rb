@@ -10,8 +10,7 @@ class UnitActivitiesSaver < ApplicationService
     @activities_data =
       activities_data
         .map(&:symbolize_keys)
-        .select { |activity_data| activity_data.key?(:id) }
-        .reject { |activity_data| activity_data[:id].nil? }
+        .select { |activity_data| activity_data[:id] }
         .uniq { |activity_data| activity_data[:id].to_i }
   end
 

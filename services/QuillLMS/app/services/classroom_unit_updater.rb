@@ -30,6 +30,11 @@ class ClassroomUnitUpdater < ApplicationService
   end
 
   private def assigned_student_ids
-    concatenate_existing_student_ids ? classroom_unit.assigned_student_ids.concat(student_ids).uniq.sort : student_ids
+    return student_ids unless concatenate_existing_student_ids
+
+    classroom_unit
+      .assigned_student_ids
+      .union(student_ids)
+      .sort
   end
 end
