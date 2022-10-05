@@ -233,6 +233,9 @@ export default createReactClass({
         marked_complete: s.marked_complete,
         activity_description: s.activity_description,
         activity_classification_id: s.activity_classification_id,
+        dueDate: s.due_date,
+        publishDate: s.publish_date,
+        scheduled: s.scheduled
       });
     });
     this.setState({ loading: false, scores: newScores, missing: this.checkMissing(newScores), });

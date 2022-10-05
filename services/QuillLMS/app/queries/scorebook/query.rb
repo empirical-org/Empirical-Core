@@ -21,6 +21,10 @@ class Scorebook::Query
           activity.description AS activity_description,
           MAX(acts.updated_at) #{user_timezone_offset} AS updated_at,
           MIN(acts.started_at) #{user_timezone_offset} AS started_at,
+          CASE WHEN unit_activities.publish_date IS NOT NULL THEN unit_activities.publish_date #{user_timezone_offset} ELSE unit_activities.created_at #{user_timezone_offset} END AS publish_date,
+          unit_activities.due_date AS due_date,
+          unit_activities.publish_date >= NOW() as scheduled,
+          MIN(acts.started_at) #{user_timezone_offset} AS started_at,
           MAX(acts.percentage) AS percentage,
           SUM(acts.timespent) AS timespent,
           SUM(CASE WHEN acts.state = '#{ActivitySession::STATE_FINISHED}' THEN 1 ELSE 0 END) AS completed_attempts,
@@ -57,7 +61,10 @@ class Scorebook::Query
           activity.name,
           activity.description,
           cuas.completed,
-          activity.id
+          activity.id,
+          unit_activities.publish_date,
+          unit_activities.due_date,
+          unit_activities.created_at
         ORDER BY split_part( students.name, ' ' , 2),
           CASE WHEN SUM(CASE WHEN acts.percentage IS NOT NULL THEN 1 ELSE 0 END) > 0 THEN true ELSE false END DESC,
           MIN(acts.completed_at),

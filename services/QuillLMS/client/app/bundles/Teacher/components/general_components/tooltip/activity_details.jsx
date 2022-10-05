@@ -5,9 +5,8 @@ export const ActivityDetails = ({ data }) => {
 
   if (!Object.keys(data).length) { return <span /> }
 
-  const { concept_results, started_at, updated, scores, activity_description } = data
-
   function getClassName() {
+    const { concept_results, } = data
     if (concept_results && concept_results.length) {
       return 'activity-details'
     }
@@ -15,6 +14,7 @@ export const ActivityDetails = ({ data }) => {
   }
 
   function detailOrNot() {
+    const { concept_results, started_at, updated, scores, activity_description, dueDate, publishDate, scheduled } = data
     let dateTitle, dateBody, completedTitle, completedBody
 
     if (!concept_results || !concept_results.length) {
@@ -39,19 +39,20 @@ export const ActivityDetails = ({ data }) => {
           dateBody = updated
         }
 
-      } else {
-        dateTitle = 'Due'
-        dateBody = firstCr.due_date
       }
     }
 
     const objectiveSection = activity_description ? <p><strong>Objectives:</strong>{` ${activity_description}`}</p> : <span />
-    const dateSection = dateTitle ? <p><strong>{`${dateTitle}: `}</strong>{`${moment(dateBody).format('MMMM D, YYYY')}`}</p> : <span />
-    const completedSection = completedTitle ? <p><strong>{`${completedTitle}: `}</strong>{`${moment(completedBody).format('MMMM D, YYYY')}`}</p> : <span />
+    const publishDateSection = <p><strong>{scheduled ? 'Scheduled For: ' : 'Published: '}</strong>{`${moment.utc(publishDate).format('MMMM D, YYYY [at] h:mm a')}`}</p>
+    const dueDateSection = <p><strong>Due: </strong>{dueDate ? `${moment.utc(dueDate).format('MMMM D, YYYY [at] h:mm a')}` : 'N/A'}</p>
+    const dateSection = dateTitle ? <p><strong>{`${dateTitle}: `}</strong>{`${moment.utc(dateBody).format('MMMM D, YYYY')}`}</p> : <span />
+    const completedSection = completedTitle ? <p><strong>{`${completedTitle}: `}</strong>{`${moment.utc(completedBody).format('MMMM D, YYYY')}`}</p> : <span />
 
     return (
       <div className="activity-detail">
         {objectiveSection}
+        {publishDateSection}
+        {dueDateSection}
         {dateSection}
         {completedSection}
       </div>
