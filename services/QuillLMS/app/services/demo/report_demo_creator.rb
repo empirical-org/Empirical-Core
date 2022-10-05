@@ -301,12 +301,7 @@ module Demo::ReportDemoCreator
 
     return unless teacher
 
-    non_demo_classrooms(teacher).each do |classroom|
-      # mimic classroom#hide controller action
-      classroom.visible = false
-      classroom.save(validate: false)
-    end
-
+    non_demo_classrooms(teacher).each {|c| c.update(visible: false)}
     teacher.auth_credential&.destroy
     teacher.update(google_id: nil, clever_id: nil)
 
