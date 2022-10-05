@@ -1,6 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import "react-dates/initialize";
+import * as _ from 'lodash'
 
 import {
   formatDateTimeForDisplay,
@@ -9,10 +10,20 @@ import {
   PUBLISH_DATE_DEFAULT_TEXT,
   INVALID_DATES_SNACKBAR_COPY,
 } from '../../../../helpers/unitActivityDates'
-import { DataTable, Tooltip, getIconForActivityClassification } from '../../../../../Shared/index'
+import {
+  DataTable,
+  Tooltip,
+  getIconForActivityClassification,
+  Snackbar,
+  defaultSnackbarTimeout,
+} from '../../../../../Shared/index'
+
+const PUBLISH_DATE_ATTRIBUTE_KEY = 'publishDates'
+const DUE_DATE_ATTRIBUTE_KEY = 'dueDates'
 
 const activityColumnMaxWidth = '322px';
 const rowSectionTooltipClassName =  'tooltip-section review-activities-data-table-section';
+
 const tableHeaders = [
   {
     name: 'Tool',
@@ -61,12 +72,10 @@ export default class ReviewActivities extends React.Component {
   constructor(props) {
     super(props)
 
-    const state = {}
-    props.activities.forEach(act => {
-      state[`focused-${act.id}`] = false
-    })
-
-    this.state = state
+    this.state = {
+      snackbarVisible: false,
+      erroredActivityIds: []
+    }
   }
 
   handleDateChange = (date, id, dateAttributeKey) => {
@@ -74,17 +83,73 @@ export default class ReviewActivities extends React.Component {
     const dates = this.props[dateAttributeKey]
     const activity = activities.find(act => act.id === id)
     const formattedDate = date ? date : null
+    this.setState({ erroredActivityIds: [], })
     assignActivityDate(activity, formattedDate, dateAttributeKey);
   }
 
-  copyPublishDateToAll = () => this.copyDateToAll('publishDates')
+  triggerSnackbar() {
+    this.setState({ snackbarVisible: true }, () => {
+      setTimeout(() => this.setState({ snackbarVisible: false, }), defaultSnackbarTimeout)
+    })
+  }
 
-  copyDueDateToAll = () => this.copyDateToAll('dueDates')
+  handleDueDateChange = (date, id) => {
+    const { activities, publishDates, } = this.props
+    const activitiesWithEarlierDueDates = activities.filter(act => act.id === id && date && publishDates[id] && date <= moment.utc(publishDates[id]))
+    if (date && activitiesWithEarlierDueDates.length) {
+      this.setState({
+        erroredActivityIds: activitiesWithEarlierDueDates.map(a => a.id)
+      }, this.triggerSnackbar)
+    } else {
+      this.handleDateChange(date, id, DUE_DATE_ATTRIBUTE_KEY)
+    }
+  }
+
+  handlePublishDateChange = (date, id) => {
+    const { activities, dueDates, } = this.props
+    const activitiesWithEarlierDueDates = activities.filter(act => act.id === id && date && dueDates[id] && date > moment.utc(dueDates[id]))
+    if (date && activitiesWithEarlierDueDates.length) {
+      this.setState({
+        erroredActivityIds: activitiesWithEarlierDueDates.map(a => a.id)
+      }, this.triggerSnackbar)
+    } else {
+      this.handleDateChange(date, id, PUBLISH_DATE_ATTRIBUTE_KEY)
+    }
+  }
+
+  copyPublishDateToAll = () => {
+    const { publishDates, dueDates, activities, } = this.props
+    const publishDate = publishDates[activities[0].id]
+    const activitiesWithEarlierDueDates = activities.filter(act => dueDates[act.id] && (publishDate >= dueDates[act.id]))
+
+    if (publishDate && activitiesWithEarlierDueDates.length) {
+      this.setState({
+        erroredActivityIds: activitiesWithEarlierDueDates.map(a => a.id)
+      }, this.triggerSnackbar)
+    } else {
+      this.copyDateToAll(PUBLISH_DATE_ATTRIBUTE_KEY)
+    }
+  }
+
+  copyDueDateToAll = () => {
+    const { publishDates, dueDates, activities, } = this.props
+    const dueDate = dueDates[activities[0].id]
+    const activitiesWithEarlierDueDates = activities.filter(act => publishDates[act.id] && (dueDate < publishDates[act.id]))
+
+    if (dueDate && activitiesWithEarlierDueDates.length) {
+      this.setState({
+        erroredActivityIds: activitiesWithEarlierDueDates.map(a => a.id)
+      }, this.triggerSnackbar)
+    } else {
+      this.copyDateToAll(DUE_DATE_ATTRIBUTE_KEY)
+    }
+  }
 
   copyDateToAll = (dateAttributeKey) => {
     const { activities, assignActivityDate, } = this.props
     const dates = this.props[dateAttributeKey]
     const existingDate = dates[activities[0].id] ? moment.utc(dates[activities[0].id]) : null
+    this.setState({ erroredActivityIds: [], })
     activities.forEach(a => assignActivityDate(a, existingDate, dateAttributeKey))
   }
 
@@ -96,6 +161,7 @@ export default class ReviewActivities extends React.Component {
 
   rows() {
     const { activities, dueDates, publishDates, } = this.props
+    const { erroredActivityIds, } = this.state
 
     return activities.map((activity, i) => {
       const {
@@ -109,12 +175,10 @@ export default class ReviewActivities extends React.Component {
       } = activity
       const dueDateInMoment = dueDates[id] ? moment.utc(dueDates[id]) : null
       const publishDateInMoment = publishDates[id] ? moment.utc(publishDates[id]) : null
-      const focusedKey = `focused-${id}`
-      const dropdownIconStyle = this.state[focusedKey] ? { transform: 'rotate(180deg)', } : null;
 
       const dueDatePicker = (
         <DatePickerContainer
-          closeFunction={(date) => this.handleDateChange(date, id, 'dueDates')}
+          closeFunction={(date) => this.handleDueDateChange(date, id)}
           defaultText={DUE_DATE_DEFAULT_TEXT}
           handleClickCopyToAll={this.copyDueDateToAll}
           initialValue={dueDateInMoment}
@@ -125,7 +189,7 @@ export default class ReviewActivities extends React.Component {
 
       const publishDatePicker = (
         <DatePickerContainer
-          closeFunction={(date) => this.handleDateChange(date, id, 'publishDates')}
+          closeFunction={(date) => this.handlePublishDateChange(date, id)}
           defaultText={PUBLISH_DATE_DEFAULT_TEXT}
           handleClickCopyToAll={this.copyPublishDateToAll}
           initialValue={publishDateInMoment}
@@ -156,8 +220,11 @@ export default class ReviewActivities extends React.Component {
         />
       );
 
+      const className = erroredActivityIds.includes(activity.id) ? 'checked' : ''
+
       return {
         id,
+        className,
         tool: toolIcon,
         activity: activityName,
         concept: activity_category.name,
@@ -169,8 +236,10 @@ export default class ReviewActivities extends React.Component {
   }
 
   render() {
+    const { snackbarVisible, } = this.state
     return (
       <div className="assignment-section review-activities-section">
+        <Snackbar text={INVALID_DATES_SNACKBAR_COPY} visible={snackbarVisible} />
         <div className="assignment-section-header">
           <span className="assignment-section-number">2</span>
           <span className="assignment-section-name">Review activities and pick due dates</span>
