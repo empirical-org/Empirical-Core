@@ -315,7 +315,7 @@ module Demo::ReportDemoCreator
 
       # Note, you can't early return within a transaction in Rails 6.1+
       if teacher && demo_classroom_modified?(teacher)
-        demo_classroom(teacher)&.destroy
+        demo_classroom(teacher)&.update(visible: false)
         create_demo_classroom_data(teacher, teacher_demo: true)
       end
     end
