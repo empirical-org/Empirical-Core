@@ -289,8 +289,24 @@
       > .activity-classification-new-tag {
         margin-left: 48px;
       }
+      .level-one-row {
+        margin-left: 84px;
+        display: flex;
+        flex-direction: row;
+        margin-top: 16px;
+        .quill-checkbox {
+          display: inline;
+        }
+      }
       .individual-row {
         margin-left: 48px;
+        .filter-toggle-button {
+          margin: 0px 4px;
+          z-index: 2;
+          .is-closed {
+            transform: rotate(270deg);
+          }
+        }
         .activity-classification-data {
           flex-direction: column;
           .description {

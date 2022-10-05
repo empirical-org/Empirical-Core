@@ -40,7 +40,8 @@ interface TopicToggleProps {
 
 interface TopicFiltersProps {
   activities: Activity[],
-  filterActivities: (ignoredKey?: string) => Activity[]
+  filterActivities: (ignoredKey?: string) => Activity[],
+  topics: Topic[],
   topicFilters: number[],
   handleTopicFilterChange: (topicFilters: number[]) => void,
 }
@@ -167,25 +168,12 @@ const TopicToggle = ({filteredActivities, grouping, uniqueLevelTwoTopics, unique
   )
 }
 
-const TopicFilters = ({ activities, filterActivities, topicFilters, handleTopicFilterChange, }: TopicFiltersProps) => {
-  const [topics, setTopics] = React.useState([])
+const TopicFilters = ({ activities, filterActivities, topicFilters, topics, handleTopicFilterChange, }: TopicFiltersProps) => {
   let levelOneTopicsInUse = []
   let uniqueLevelOneTopics = []
   let uniqueLevelTwoTopics = []
   let filteredActivities = []
   let topicGroupings = []
-
-  React.useEffect(() => {
-    getTopics();
-  }, []);
-
-  function getTopics() {
-    requestGet('/topics',
-      (data) => {
-        setTopics(data.topics)
-      }
-    )
-  }
 
   function clearAllTopicFilters() { handleTopicFilterChange([]) }
 
