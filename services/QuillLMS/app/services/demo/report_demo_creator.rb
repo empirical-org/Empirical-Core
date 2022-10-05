@@ -305,11 +305,15 @@ module Demo::ReportDemoCreator
     teacher.auth_credential&.destroy
     teacher.update(google_id: nil, clever_id: nil)
 
+    reset_demo_classroom_if_needed(teacher_id)
+  end
+
+  def self.reset_demo_classroom_if_needed(teacher_id)
     # Wrap the lookup and actions within a transaction to avoid race conditions
     ActiveRecord::Base.transaction do
       teacher = User.find_by(id: teacher_id, role: User::TEACHER)
-      # Note, you can't early return within a transaction in Rails 6.1+
 
+      # Note, you can't early return within a transaction in Rails 6.1+
       if teacher && demo_classroom_modified?(teacher)
         demo_classroom(teacher)&.destroy
         create_demo_classroom_data(teacher, teacher_demo: true)
