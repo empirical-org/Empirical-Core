@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Activity, ActivityCategoryEditor } from './interfaces'
+import { Activity, ActivityCategoryEditor, Topic } from './interfaces'
 import ActivityClassificationFilters from './activity_classification_filters'
 import ActivityCategoryFilters from './activity_category_filters'
 import StaffActivityCategoryFilters from './staff_activity_category_filters'
@@ -46,7 +46,8 @@ interface FilterColumnProps {
   handleEarlyAccessFilterChange: (earlyAccessFilters: string[]) => void,
   flagset: string,
   isStaff?: boolean,
-  activityCategoryEditor?: ActivityCategoryEditor
+  activityCategoryEditor?: ActivityCategoryEditor,
+  topics: Topic[],
 }
 
 const FilterColumn = ({
@@ -81,6 +82,7 @@ const FilterColumn = ({
   handleEarlyAccessFilterChange,
   earlyAccessFilters,
   flagset,
+  topics,
 }: FilterColumnProps) => {
   const numberOfFilters = calculateNumberOfFilters()
   const clearAllButton = numberOfFilters ? <button className="interactive-wrapper clear-filter focus-on-light" onClick={resetAllFilters} type="button">Clear all filters</button> : <span />
@@ -165,6 +167,7 @@ const FilterColumn = ({
           filterActivities={filterActivities}
           handleTopicFilterChange={handleTopicFilterChange}
           topicFilters={topicFilters}
+          topics={topics}
         />
         <ContentPartnerFilters
           activities={activities}

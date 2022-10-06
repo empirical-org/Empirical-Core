@@ -291,6 +291,9 @@
       }
       .individual-row {
         margin-left: 48px;
+        .filter-toggle-button {
+          margin: 0px 4px;
+        }
         .activity-classification-data {
           flex-direction: column;
           .description {
@@ -319,6 +322,10 @@
             justify-content: center;
           }
         }
+      }
+      .level-one-row {
+        margin-left: 84px;
+        margin-top: 16px;
       }
     }
   }

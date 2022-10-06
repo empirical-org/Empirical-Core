@@ -123,14 +123,6 @@ const CustomActivityPack = ({
     updateFilteredActivities()
   }
 
-  function getTopics() {
-    requestGet('/topics',
-      (data) => {
-        setTopics(data.topics)
-      }
-    )
-  }
-
   function calculateNumberOfFilters() {
     let number = 0
     number += search.length ? 1 : 0
@@ -351,6 +343,7 @@ const CustomActivityPack = ({
     isStaff,
     activityCategoryEditor,
     flagset,
+    topics,
   }
 
   const selectedActivitiesFilteredByFlag =  isStaff && !flagFilters.length ? [] : selectedActivities.filter(a => filterByFlag(flagFilters, a))
