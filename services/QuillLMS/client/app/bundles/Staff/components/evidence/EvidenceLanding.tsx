@@ -15,7 +15,7 @@ const EvidenceLanding = () => (
       <Route component={UniversalRule} path='/universal-rules/:ruleId' />
       <Route component={UniversalRulesIndex} path='/universal-rules' />
       <Route component={Activities} path='/activities' />
-      <Route component={Hints} path='/hints' />
+      <Route component={Hints} path='/hints/:hintId?' />
     </Switch>
   </div>
 )

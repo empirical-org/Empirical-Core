@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useQuery, useQueryClient, } from 'react-query';
+import { useHistory, } from 'react-router-dom';
 
 import Navigation from './navigation';
 
@@ -11,6 +12,11 @@ import RuleHint from "./configureRules/ruleHint";
 import RuleHintDropdown from "./configureRules/ruleHintDropdown";
 
 const Hints = ({ location, match }) => {
+  const { params } = match;
+  const { hintId } = params;
+
+  const history = useHistory();
+
   const newHint: HintInterface = {
     id: ''
     name: '',
@@ -28,11 +34,19 @@ const Hints = ({ location, match }) => {
 
   const queryClient = useQueryClient()
 
+  if (hintId && hintsData && hint.id != hintId) {
+    const hintFromUrl = hintsData.hints.find((hint) => hint.id == hintId)
+    if (hintFromUrl) setHint(hintFromUrl)
+  }
+
   const onHintChange = (selectedHint) => {
     if (!selectedHint) {
       return setHint(newHint)
     }
-    setHint(selectedHint) 
+    setHint(selectedHint)
+    history.push({
+      pathname: `/hints/${selectedHint.id}`
+    })
   }
 
   const handleSaveHint = () => {
