@@ -69,19 +69,19 @@ const IndividualELLFilterRow = ({ ellFilters, level, handleELLFilterChange, filt
   const { filterNumber, displayName, standardLevelName, } = level
 
   function checkIndividualFilter() {
-    const newELLFilters = Array.from(new Set(ellFilters.concat([filterNumber])))
+    const newELLFilters = Array.from(new Set(ellFilters.concat([standardLevelName])))
     handleELLFilterChange(newELLFilters)
   }
 
   function uncheckIndividualFilter() {
-    const newELLFilters = ellFilters.filter(k => k !== filterNumber)
+    const newELLFilters = ellFilters.filter(k => k !== standardLevelName)
     handleELLFilterChange(newELLFilters)
   }
 
   const activityCount = filteredActivities.filter(act => act.standard_level_name === standardLevelName).length
   let checkbox = <button aria-label={`Check ${displayName}`} className="focus-on-light quill-checkbox unselected" onClick={checkIndividualFilter} type="button" />
 
-  if (ellFilters.includes(filterNumber)) {
+  if (ellFilters.includes(standardLevelName)) {
     checkbox = (<button aria-label={`Uncheck ${displayName}`} className="focus-on-light quill-checkbox selected" onClick={uncheckIndividualFilter} type="button">
       <img alt="Checked checkbox" src={smallWhiteCheckSrc} />
     </button>)
@@ -108,7 +108,7 @@ const ELLToggle = ({filteredActivities, grouping, ellFilters, handleELLFilterCha
   }
 
   function checkAllFilters() {
-    handleELLFilterChange(allELLOptions.map(opt => opt.filterNumber))
+    handleELLFilterChange(allELLOptions.map(opt => opt.standardLevelName))
   }
 
   const toggleArrow = <button aria-label="Toggle menu" className="interactive-wrapper focus-on-light filter-toggle-button" onClick={toggleIsOpen} type="button"><img alt="" className={isOpen ? 'is-open' : 'is-closed'} src={dropdownIconSrc} /></button>

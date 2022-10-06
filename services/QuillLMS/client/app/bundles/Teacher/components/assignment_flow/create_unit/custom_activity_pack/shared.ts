@@ -94,10 +94,12 @@ function filterByCCSSGradeLevel(ccssGradeLevelFilters: number[], activity: Activ
 }
 
 function filterByELL(ellLevelFilters: number[], activity: Activity) {
-  if (!activity.standard_level_name?.includes('ELL')) { return }
 
+  if (!activity.standard_level_name?.includes('ELL')) { return }
+  console.log("filterByELL: ", ellLevelFilters)
+  console.log("activity standard level name:", activity.standard_level_name)
   const numberFromStandardLevel = getNumberFromString(activity.standard_level_name)
-  return ellLevelFilters.includes(numberFromStandardLevel)
+  return ellLevelFilters.includes(activity.standard_level_name)
 }
 
 const READABILITY_GRADE_LEVEL_OPTIONS = ['2nd-3rd', '4th-5th', '6th-7th', '8th-9th', '10th-12th']
