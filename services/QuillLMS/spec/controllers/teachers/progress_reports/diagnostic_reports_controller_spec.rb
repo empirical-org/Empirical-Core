@@ -268,7 +268,7 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
     end
   end
 
-  describe 'assign_selected_packs recommendations' do
+  describe 'assign_independent_practice_activity_pack recommendations' do
     let(:unit_template_ids) { [unit_template1, unit_template2, unit_template3, unit_template4].map(&:id) }
 
     let(:selections) do
@@ -286,7 +286,7 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
     end
 
     it 'creates units but does not create new classroom activities if passed no students ids' do
-      post "assign_independent_activity_packs",
+      post 'assign_independent_practice_activity_packs',
         params: { selections: selections },
         as: :json
 
