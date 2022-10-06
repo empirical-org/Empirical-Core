@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { mount } from 'enzyme';
 
-import { activities } from './data'
+import { activities, topics } from './data'
 
 import FilterColumn from '../filter_column'
 import { EVIDENCE_BETA1, EVIDENCE_BETA2, PRODUCTION, } from '../../../../../../../constants/flagOptions'
@@ -36,7 +36,8 @@ describe('FilterColumn component', () => {
     handleSavedActivityFilterChange: () => {},
     savedActivityFilters: [],
     savedActivityIds: [],
-    flagset: PRODUCTION
+    flagset: PRODUCTION,
+    topics: topics,
   }
 
   it('should render', () => {

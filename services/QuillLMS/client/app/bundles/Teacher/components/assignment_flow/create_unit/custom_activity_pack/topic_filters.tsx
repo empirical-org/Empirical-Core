@@ -43,6 +43,7 @@ interface TopicFiltersProps {
   filterActivities: (ignoredKey?: string) => Activity[]
   topicFilters: number[],
   handleTopicFilterChange: (topicFilters: number[]) => void,
+  topics: Topic[],
 }
 
 const IndividualTopicFilterRow = ({ topicFilters, topicKey, handleTopicFilterChange, uniqueLevelOneTopics, filteredActivities, }: IndividualTopicFilterRowProps) => {
