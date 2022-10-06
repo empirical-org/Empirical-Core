@@ -163,6 +163,14 @@ export interface PromptHealthInterface {
   num_first_attempt_not_optimal: number
 }
 
+export interface HintInterface {
+  id?: string,
+  name: string,
+  explanation: string,
+  image_link: string,
+  image_alt_text: string
+}
+
 export type InputEvent = React.ChangeEvent<HTMLInputElement>;
 export type TextAreaEvent = React.ChangeEvent<HTMLTextAreaElement>;
 export type ClickEvent = React.MouseEvent<HTMLElement>;

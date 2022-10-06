@@ -12,12 +12,8 @@ const RuleHint = ({
   setHint,
 }) => {
 
-  function handleHintCreation() {
-    setHint({
-      explanation: '',
-      image_link: '',
-      image_alt_text: ''
-    });
+  function onHintNameChange(e: InputEvent) {
+    setHint({ ...hint, name: e.target.value })
   }
 
   function onHintExplanationChange(explanation) {
@@ -53,12 +49,14 @@ const RuleHint = ({
   function renderHint() {
     return (
       <React.Fragment>
+        <label className="form-subsection-label">Name</label><br/>
+        <input className="name-input" type="text" value={hint.name || ''} onChange={onHintNameChange} />
         <p className="form-subsection-label">Hint Explanation</p>
         <TextEditor
           ContentState={ContentState}
           EditorState={EditorState}
           handleTextChange={onHintExplanationChange}
-          key="universal-feedback"
+          key={hint.explanation}
           shouldCheckSpelling={true}
           text={hint.explanation}
         />
@@ -69,11 +67,10 @@ const RuleHint = ({
         <p className="form-subsection-label">Hint Image Alt Text</p>
         <textarea
           aria-label="Hint Image Alt Text"
-          className="image-attribution-text-area"
+          className="image-alt-text-area"
           onChange={handleHintAltTextChange}
           value={hint.image_alt_text}
         />
-        <button className="remove-highlight quill-button small secondary outlined" onClick={handleRemoveHint} type="button">Remove Hint</button>
       </React.Fragment>
     )
   }
@@ -81,7 +78,7 @@ const RuleHint = ({
   return(
     // eslint-disable-next-line
     <React.Fragment>
-      {hint && !hint._destroy ? renderHint() : <button className="add-feedback-layer quill-button small primary outlined" onClick={handleHintCreation} type="button">Add Hint</button>}
+      {renderHint()}
     </React.Fragment>
   );
 };

@@ -1,0 +1,59 @@
+.hints-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: calc(100vw - 200px);
+  padding: 0px 20px 20px 20px;
+
+  .hint-form {
+    .delete-hint, .save-hint {
+      margin-top: 20px;
+    }
+    .delete-hint {
+      color: red;
+    }
+    .save-hint {
+      color: green;
+    }
+    .error-message {
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 1.33;
+      color: #ff0000;
+      margin-top: 20px;
+    }
+    .text-editor-label {
+      color: #7f7f7f;
+      font-size: 16px;
+      margin: 10px 0px -10px 0px;
+      font-weight: normal;
+      display: flex;
+      align-items: center;
+      &.has-text {
+        font-size: 12px;
+        font-weight: 600;
+      }
+      .quill-button {
+        margin-left: 8px;
+      }
+    }
+    .image-alt-text-area {
+      margin-top: 16px;
+      width: 100%;
+      min-height: 112px;
+    }
+    .card {
+      max-width: 1000px !important;
+      padding: 10px;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      margin-top: 20px;
+    }
+    .form-subsection-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #7f7f7f;
+      margin-top: 15px;
+    }
+  }
+}
