@@ -76,5 +76,6 @@ module Units::Creator
     unit.email_lesson_plan
 
     AssignActivityWorker.perform_async((current_user_id || teacher.id), unit.id)
+    unit
   end
 end

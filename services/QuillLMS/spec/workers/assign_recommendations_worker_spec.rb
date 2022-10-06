@@ -28,7 +28,7 @@ describe AssignRecommendationsWorker do
             unit_template_id: unit_template.id,
             classroom_id: classroom.id,
             student_ids: [student.id],
-            is_last_worker: true,
+            is_last_recommendation: true,
             lesson: "lesson"
           })
         end
@@ -75,7 +75,7 @@ describe AssignRecommendationsWorker do
             unit_template_id: unit_template.id,
             classroom_id: classroom.id,
             student_ids: [student.id],
-            is_last_worker: true,
+            is_last_recommendation: true,
             lesson: "lesson"
           })
         end
@@ -119,7 +119,7 @@ describe AssignRecommendationsWorker do
           unit_template_id: unit_template.id,
           classroom_id: classroom.id,
           student_ids: [student.id],
-          is_last_worker: true,
+          is_last_recommendation: true,
           lesson: "lesson"
         })
       end
@@ -163,7 +163,7 @@ describe AssignRecommendationsWorker do
           unit_template_id: unit_template.id,
           classroom_id: classroom.id,
           student_ids: [student.id],
-          is_last_worker: true,
+          is_last_recommendation: true,
           lesson: "lesson"
         })
       end
@@ -205,7 +205,7 @@ describe AssignRecommendationsWorker do
           unit_template_id: unit_template.id,
           classroom_id: classroom.id,
           student_ids: [student.id],
-          is_last_worker: true,
+          is_last_recommendation: true,
           lesson: false,
           assigning_all_recommended_packs: false
         })
@@ -224,7 +224,7 @@ describe AssignRecommendationsWorker do
           unit_template_id: unit_template.id,
           classroom_id: classroom.id,
           student_ids: [student.id],
-          is_last_worker: false,
+          is_last_recommendation: false,
           lesson: false,
           assigning_all_recommended_packs: true
         })
@@ -243,7 +243,7 @@ describe AssignRecommendationsWorker do
           unit_template_id: unit_template.id,
           classroom_id: classroom.id,
           student_ids: [student.id],
-          is_last_worker: true,
+          is_last_recommendation: true,
           lesson: false,
           assigning_all_recommended_packs: true
         })
@@ -258,12 +258,3 @@ describe AssignRecommendationsWorker do
 
   end
 end
-
-
-# describe 'assign_to_whole_class' do
-#   it 'should set off background job to populate the student ids' do
-#     expect(AssignRecommendationsWorker.jobs.size).to eq 0
-#     UnitTemplate.assign_to_whole_class(1 ,2, true)
-#     expect(AssignRecommendationsWorker.jobs.size).to eq 1
-#   end
-# end
