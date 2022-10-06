@@ -16,7 +16,7 @@ const RuleHintPicker = ({
     // eslint-disable-next-line
     <React.Fragment>
       <RuleHintDropdown
-        emptySelectionText="Create new hint"
+        emptySelectionText="(no hint)"
         onHintChange={onHintChange}
         selectedHintId={hintId}
       />

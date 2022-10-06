@@ -27,7 +27,7 @@ const RuleHintDropdown = ({
     )
   )
 
-  const selectedHintOption = hintOptions.find((hintOption) => hintOption.value === selectedHintId)
+  const selectedHintOption = hintOptions.find((hintOption) => hintOption.value === selectedHintId) || hintOptions[0]
 
   const handleOnHintChange = (selection) => {
     const selectedHint = hintsData.hints.find((hint) => hint.id === selection.value)
