@@ -192,11 +192,56 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 
-  def assign_selected_packs
-    find_or_create_selected_packs
-    create_or_update_selected_packs
-    render json: { data: 'Hi' }
+  def assign_whole_class_instruction_activity_packs
+    teaches_this_classroom = parms[:classroom].to_i.in?(current_user.classrooms_i_teach.pluck(:id))
+    return render json: {}, status: 401 unless teaches_this_classroom
+
+    $redis.set("user_id:#{current_user.id}_lesson_diagnostic_recommendations_start_time", Time.current)
+    last_recommendation_index = params[:unit_template_ids].length - 1
+
+    params[:unit_template_ids].each_with_index do |unit_template_id, index|
+      AssignRecommendationsWorker.perform_async(
+        assign_on_join: true,
+        classroom_id: params[:classroom_id],
+        is_last_recommendation: index == last_recommendation_index,
+        lesson: true,
+        student_ids: [],
+        unit_template_id: unit_template_id
+      )
+    end
+
+    render json: {}
   end
+
+  def assign_independent_practice_activity_packs
+    selections_with_students = params[:selections].select { |ut| ut[:classrooms][0][:student_ids]&.compact&.any? }
+    return if selections_with_students.none?
+
+    find_or_create_selected_independent_practice_activity_packs
+
+    $redis.set("user_id:#{current_user.id}_diagnostic_recommendations_start_time", Time.current)
+    last_recommendation_index = selections_with_students.length - 1
+    classrooms_i_teach_ids = current_user.classrooms_i_teach.pluck(:id)
+
+    selections_with_students.each_with_index do |selection_with_students, index|
+      classroom = selection_with_students[:classrooms][0]
+      next unless classroom[:id].to_i.in?(classrooms_i_teach_ids)
+
+      binding.pry
+
+      AssignRecommendationsWorker.perform_async(
+        assigning_all_recommended_packs: params[:assigning_all_recommended_packs],
+        classroom_id: classroom[:id],
+        is_last_recommendation: index == last_recommendation_index,
+        lesson: false,
+        student_ids: classroom[:student_ids].compact,
+        unit_template_id: selection_with_students[:id]
+      )
+    end
+
+    render json: {}
+  end
+
 
   def default_diagnostic_report
     redirect_to default_diagnostic_url
@@ -288,55 +333,10 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     render json: GrowthResultsSummary.growth_results_summary(pre_test.id, results_summary_params[:activity_id], results_summary_params[:classroom_id])
   end
 
-  # rubocop:disable Metrics/CyclomaticComplexity
-  private def create_or_update_selected_packs
-    if params[:whole_class]
-      $redis.set("user_id:#{current_user.id}_lesson_diagnostic_recommendations_start_time", Time.current)
-      return render json: {}, status: 401 unless current_user.classrooms_i_teach.map(&:id).include?(params[:classroom_id].to_i)
-
-      last_worker_index = params[:unit_template_ids].length - 1
-
-      params[:unit_template_ids].each_with_index do |unit_template_id, index|
-        AssignRecommendationsWorker.perform_async(
-          assign_on_join: true,
-          classroom_id: params[:classroom_id],
-          is_last_worker: last_worker_index == index,
-          lesson: true,
-          student_ids: [],
-          unit_template_id: unit_template_id
-        )
-      end
-    else
-      selections_with_students = params[:selections].select { |ut| ut[:classrooms][0][:student_ids]&.compact&.any? }
-
-      return if selections_with_students.none?
-
-      $redis.set("user_id:#{current_user.id}_diagnostic_recommendations_start_time", Time.current)
-      last_worker_index = selections_with_students.length - 1
-      classrooms_i_teach_ids = current_user.classrooms_i_teach.pluck(:id)
-
-      selections_with_students.each_with_index do |selection_with_students, index|
-        classroom = selection_with_students[:classrooms][0]
-
-        next unless classroom[:id].to_i.in?(classrooms_i_teach_ids)
-
-        AssignRecommendationsWorker.perform_async(
-          assigning_all_recommended_packs: params[:assigning_all_recommended_packs],
-          classroom_id: classroom[:id],
-          is_last_worker: last_worker_index == index,
-          lesson: false,
-          student_ids: classroom[:student_ids].compact,
-          unit_template_id: selection_with_students[:id]
-        )
-      end
-    end
-  end
-  # rubocop:enable Metrics/CyclomaticComplexity
-
-  private def find_or_create_selected_units
+  private def find_or_create_selected_independent_practice_activity_packs
     params[:selections]
       &.map { |selection| UnitTemplate.find(selection['id']) }
-      &.each { |ut| Unit.unscoped.find_or_create_by(unit_template_id: ut.id, name: ut.name, user_id: current_user.id) }
+      &.each { |ut| Unit.unscoped.find_or_create_by(unit_template: ut, name: ut.name, user: current_user) }
   end
 
   private def authorize_teacher!

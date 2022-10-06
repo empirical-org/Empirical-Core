@@ -172,7 +172,7 @@ const IndependentRecommendationsButtons = ({ assignActivityPacks, independentSel
   return <RecommendationsButtons assignActivityPacks={assignActivityPacks} assigned={assigned} assigning={assigning} deselectAll={handleDeselectAllClick} numberSelected={numberSelected} selectAll={handleSelectAllClick} selectAllRecommended={handleSelectAllRecommendedClick} />
 }
 
-const LessonsRecommendationsButtons = ({ lessonsSelections, assignLessonsActivityPacks, setLessonsSelections, lessonsRecommendations, assigned, assigning, }) => {
+const LessonsRecommendationsButtons = ({ lessonsSelections, assignLessonActivityPacks, setLessonsSelections, lessonsRecommendations, assigned, assigning, }) => {
   function handleSelectAllClick() {
     const newSelections = lessonsRecommendations.map(r => r.activity_pack_id)
     setLessonsSelections(newSelections)
@@ -187,7 +187,7 @@ const LessonsRecommendationsButtons = ({ lessonsSelections, assignLessonsActivit
     setLessonsSelections([])
   }
 
-  return <RecommendationsButtons assignActivityPacks={assignLessonsActivityPacks} assigned={assigned} assigning={assigning} deselectAll={handleDeselectAllClick} numberSelected={lessonsSelections.length} selectAll={handleSelectAllClick} selectAllRecommended={handleSelectAllRecommendedClick} />
+  return <RecommendationsButtons assignActivityPacks={assignLessonActivityPacks} assigned={assigned} assigning={assigning} deselectAll={handleDeselectAllClick} numberSelected={lessonsSelections.length} selectAll={handleSelectAllClick} selectAllRecommended={handleSelectAllRecommendedClick} />
 }
 
 export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passedPreviouslyAssignedLessonRecommendations, passedIndependentRecommendations, passedLessonRecommendations, match, mobileNavigation, activityName, location, lessonsBannerIsShowable, }) => {
@@ -322,7 +322,7 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
 
   function assignLessonsActivityPacks() {
     initializePusher(true)
-    requestPost('/teachers/progress_reports/assign_selected_packs/', { whole_class: true, unit_template_ids: lessonsSelections, classroom_id: params.classroomId }, (data) => {}, (data) => {
+    requestPost('/teachers/progress_reports/assign_whole_class_activity_packs/', { unit_template_ids: lessonsSelections, classroom_id: params.classroomId }, (data) => {}, (data) => {
       alert('We had trouble processing your request. Please check your network connection and try again.');
     })
   }
@@ -350,7 +350,7 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
     }
     setIndependentAssigning(true)
     initializePusher()
-    requestPost('/teachers/progress_reports/assign_selected_packs/', dataToPass, (data) => {}, (data) => {
+    requestPost('/teachers/progress_reports/assign_independent_activity_packs/', dataToPass, (data) => {}, (data) => {
       alert('We had trouble processing your request. Please check your network connection and try again.');
       setIndependentAssigning(false)
     })

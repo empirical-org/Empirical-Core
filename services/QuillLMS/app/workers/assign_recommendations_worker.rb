@@ -11,8 +11,10 @@ class AssignRecommendationsWorker
     unit_template_id:,
     assign_on_join: false,
     assigning_all_recommended_packs: false,
-    is_last_worker: true
+    is_last_recommendation: true
   )
+
+    binding.pry
 
     classroom = Classroom.find(classroom_id)
     teacher = classroom.owner
@@ -31,8 +33,10 @@ class AssignRecommendationsWorker
     }
 
     assign_unit_to_one_class(unit, classroom_id, classroom_data, unit_template_id, teacher.id)
+    create_or_update_activity_pack_sequence(release_method, teacher, unit_template_id)
+
     track_recommendation_assignment(teacher)
-    return unless is_last_worker
+    return unless is_last_recommendation
 
     handle_error_tracking_for_diagnostic_recommendation_assignment_time(teacher.id, lesson)
     PusherRecommendationCompleted.run(classroom, unit_template_id, lesson)
@@ -44,12 +48,19 @@ class AssignRecommendationsWorker
       show_classroom_units(unit.id, classroom_id)
       Units::Updater.assign_unit_template_to_one_class(unit.id, classroom_data, unit_template_id, teacher_id, concatenate_existing_student_ids: true)
     else
-      #  TODO: use a find or create for the unit var above.
-      #  This way, we can just pass the units creator a unit argument.
-      #  The reason we are not doing so at this time, is because the unit creator
-      #  Is used elsewhere, and we do not want to overly optimize it for the diagnostic
       Units::Creator.assign_unit_template_to_one_class(teacher_id, unit_template_id, classroom_data)
     end
+  end
+
+  def create_or_update_activity_pack_sequence(release_method, teacher, unit_template_id)
+    name = UnitTemplate.find(unit_template_id).name
+    unit = Unit.find_by(name: name, user: teacher, unit_template_id: unit_template_id)
+    activity_pack_sequence = ActivityPackSequence.create_or_find_by(
+      release_method: release_method
+    )
+
+
+
   end
 
   def show_classroom_units(unit_id, classroom_id)

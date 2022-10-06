@@ -286,7 +286,7 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
     end
 
     it 'creates units but does not create new classroom activities if passed no students ids' do
-      post "assign_selected_packs",
+      post "assign_independent_activity_packs",
         params: { selections: selections },
         as: :json
 

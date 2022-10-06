@@ -299,6 +299,7 @@ module PublicProgressReports
       end
       return_value_for_recommendation(students, activity_pack_recommendation)
     end
+
     {
       students: sorted_students,
       recommendations: recommendations
@@ -355,7 +356,7 @@ module PublicProgressReports
       Unit
         .where(unit_template_id: recommended_lesson_activity_ids, user_id: associated_teacher_ids)
         .joins(:classroom_units)
-        .where("classroom_units.classroom_id=?", classroom_id)
+        .where(classroom_units: { classroom_id: classroom_id })
         .pluck(:unit_template_id)
 
     {
