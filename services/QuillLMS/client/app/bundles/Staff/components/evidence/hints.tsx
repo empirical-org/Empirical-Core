@@ -4,17 +4,18 @@ import { useQuery, useQueryClient, } from 'react-query';
 import Navigation from './navigation';
 
 import { HintInterface } from '../../interfaces/evidenceInterfaces';
-import { createHint, deleteHint, fetchHints, updateHint,  } from '../../utils/evidence/hintAPIs';
+import { createHint, deleteHint, fetchHints, updateHint, } from '../../utils/evidence/hintAPIs';
 import { DropdownInput, Error, Spinner, Snackbar, defaultSnackbarTimeout, } from '../../../Shared/index';
 import { renderErrorsContainer } from "../../helpers/evidence/renderHelpers";
 import RuleHint from "./configureRules/ruleHint";
+import RuleHintDropdown from "./configureRules/ruleHintDropdown";
 
 const Hints = ({ location, match }) => {
   const newHint: HintInterface = {
     id: ''
     name: '',
     explanation: '',
-    image_link: '',
+    image_link: 'no image',
     image_alt_text: ''
   }
 
@@ -27,11 +28,10 @@ const Hints = ({ location, match }) => {
 
   const queryClient = useQueryClient()
 
-  const onHintChange = (selector) => {
-    if (selector.value == '') {
+  const onHintChange = (selectedHint) => {
+    if (!selectedHint) {
       return setHint(newHint)
     }
-    const selectedHint = hintsData.hints.find((h) => (h.id === selector.value))
     setHint(selectedHint) 
   }
 
@@ -89,27 +89,12 @@ const Hints = ({ location, match }) => {
     <option value={''}>Create New Hint</option>
   )
 
-  const hintOptionsList = () => {
-    return [{value: '', label: 'Create new hint'}].concat(
-      hintsData.hints.sort((a,b) => (
-         (a.name || a.explanation) > (b.name || b.explanation) ? 1 : -1
-      )).map((hint) => (
-        {value: hint.id, label: (hint.name || hint.explanation)}
-      ))
-    )
-  }
-
   const hintDropdown = () => {
-    const hintOptions = hintOptionsList()
-    const selectedHintOption = hintOptions.find((option) => option.value == hint.id)
     return (
-      <DropdownInput
-        className='hint-selected'
-        handleChange={onHintChange}
-        isSearchable={true}
-        label="Hint"
-        options={hintOptions}
-        value={selectedHintOption}
+      <RuleHintDropdown
+        emptySelectionText="Create new hint"
+        onHintChange={onHintChange}
+        selectedHintId={hint.id}
       />
     )
   }
@@ -135,7 +120,6 @@ const Hints = ({ location, match }) => {
     return (<button className="quill-button medium primary outlined delete-hint" onClick={handleDeleteHint} type="button">Delete Hint</button>)
   }
     
-
   return(
     <React.Fragment>
       <Navigation location={location} match={match} />

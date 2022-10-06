@@ -320,7 +320,7 @@ export const buildRule = ({
     rule_type: ruleType.value,
     suborder: suborder ? suborder : order,
     universal: universal,
-    hint_attributes: ruleHint,
+    hint_id: ruleHint && ruleHint.id,
     state
   };
 

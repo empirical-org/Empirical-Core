@@ -20,10 +20,6 @@ const RuleHint = ({
     setHint({ ...hint, explanation })
   }
 
-  function handleRemoveHint() {
-    setHint({ ...hint, _destroy: true, })
-  }
-
   function handleHintAltTextChange(e: TextAreaEvent) {
     setHint({ ...hint, image_alt_text: e.target.value })
   }
