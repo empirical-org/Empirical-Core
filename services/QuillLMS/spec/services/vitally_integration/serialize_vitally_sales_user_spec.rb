@@ -64,6 +64,7 @@ describe 'SerializeVitallySalesUser' do
 
     expect(teacher_data[:traits]).to include(
       email: 'teach@teaching.edu',
+      flagset: 'production',
       name: 'Pops Mcgee',
       school: 'Kool Skool',
       account_uid: school.id.to_s,

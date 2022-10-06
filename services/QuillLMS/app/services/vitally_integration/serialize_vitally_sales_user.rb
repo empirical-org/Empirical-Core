@@ -46,6 +46,7 @@ class SerializeVitallySalesUser
         auditor: @user.auditor?,
         purchaser: @user.purchaser?,
         flags: @user.flags.to_s,
+        flagset: @user.flagset,
         school_point_of_contact: @user.school_poc?,
         premium_status: premium_status,
         premium_expiry_date: subscription_expiration_date,
