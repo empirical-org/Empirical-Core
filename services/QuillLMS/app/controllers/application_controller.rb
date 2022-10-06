@@ -153,6 +153,7 @@ class ApplicationController < ActionController::Base
   end
 
   protected def reset_session_and_redirect_to_sign_in
+    log_google_auth_credential
     reset_session
     session[EXPIRED_SESSION_REDIRECT] = true
 
@@ -168,4 +169,15 @@ class ApplicationController < ActionController::Base
 
     current_user.inactive_too_long?
   end
+
+  protected def log_google_auth_credential
+    return unless current_user.google_access_expired?
+
+    LogGoogleAuthCredentialWorker.perform_async(
+      current_user.id,
+      current_user.auth_credential&.id,
+      current_user.auth_credential&.refresh_token_expires_at
+    )
+  end
 end
+
