@@ -100,7 +100,8 @@ class ChangeLog < ApplicationRecord
     show: 'Visited User Admin Page',
     edit: 'Visited User Edit Page',
     update: 'Edited User',
-    skipped_import: 'Skipped User import'
+    skipped_import: 'Skipped User import',
+    google_access_expired_reset_session: 'User session reset due to expired google access'
   }
 
   GENERIC_USER_ACTIONS = [
