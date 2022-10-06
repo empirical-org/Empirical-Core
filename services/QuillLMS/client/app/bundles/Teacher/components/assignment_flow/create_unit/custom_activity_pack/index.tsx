@@ -84,7 +84,7 @@ const CustomActivityPack = ({
   const debouncedFlagFilters = useDebounce(flagFilters, DEBOUNCE_LENGTH);
 
   React.useEffect(() => {
-    if (loading) { getActivities() }
+    if (loading) { getActivitiesAndTopics() }
     getSavedActivities();
   }, []);
 
@@ -115,10 +115,6 @@ const CustomActivityPack = ({
       setLoading(false)
     }
   }, [activities])
-
-  React.useEffect(() => {
-    getTopics();
-  }, []);
 
   React.useEffect(handleFilterChange, [debouncedSearch, debouncedActivityClassificationFilters, debouncedCCSSGradeLevelFilters, debouncedGradeLevelFilters, debouncedELLFilters, debouncedActivityCategoryFilters, debouncedContentPartnerFilters, debouncedEarlyAccessActivityFilters, debouncedReadabilityGradeLevelFilters, debouncedTopicFilters, debouncedSavedActivityFilters, debouncedFlagFilters])
 
@@ -160,10 +156,11 @@ const CustomActivityPack = ({
     return number
   }
 
-  function getActivities() {
+  function getActivitiesAndTopics() {
     requestGet('/activities/search',
       (data) => {
         setActivities(data.activities);
+        setTopics(data.topics);
       }
     )
   }
