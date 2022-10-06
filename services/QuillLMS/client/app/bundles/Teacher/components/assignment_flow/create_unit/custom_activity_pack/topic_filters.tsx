@@ -73,7 +73,7 @@ const IndividualTopicFilterRow = ({ topicFilters, topicKey, handleTopicFilterCha
 
   return (
     <div className="level-one-row filter-row topic-row" key={topicKey}>
-      <div>
+      <div className="checkbox-row">
         {checkbox}
         {topicNameElement}
       </div>
