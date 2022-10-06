@@ -121,7 +121,7 @@ const ActivityRowTopics = ({ allTopics, topics, maxAllowedLength, onTertiaryLine
   }
 
   if (inExpandedView && onTertiaryLine) {
-    const topicsWithParentBadges = topics.map((topic, i) => {
+    return topics.map((topic, i) => {
       const secondLevelTopic = getParentTopic(topic)
       const thirdLevelTopic = getParentTopic(secondLevelTopic)
       const diagonalDivider = <span className="diagonal-divider">/</span>
@@ -135,9 +135,8 @@ const ActivityRowTopics = ({ allTopics, topics, maxAllowedLength, onTertiaryLine
         </span>
       )
     })
-    return topicsWithParentBadges
   } else if ((widthExceedsAllottedSpaceOnSecondLine && onTertiaryLine) || (!widthExceedsAllottedSpaceOnSecondLine && !onTertiaryLine)) {
-    const topicBadgeList = topics.map((topic, i) => {
+    return topics.map((topic, i) => {
       return (
         <span className={className}>
           {!onTertiaryLine && hasConcept && i === 0 && <span className="vertical-divider" />}
@@ -147,7 +146,6 @@ const ActivityRowTopics = ({ allTopics, topics, maxAllowedLength, onTertiaryLine
         </span>
       )
     })
-    return topicBadgeList
   }
 
   return <span />
