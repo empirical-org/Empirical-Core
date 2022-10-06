@@ -2,8 +2,7 @@
 
 module Evidence
   class Hint < ApplicationRecord
-    has_many :rule_hints, dependent: :destroy
-    has_many :rules, through: :rule_hints, inverse_of: :hint
+    has_many :rules, inverse_of: :hint
 
     validates_presence_of :explanation
     validates_presence_of :image_link

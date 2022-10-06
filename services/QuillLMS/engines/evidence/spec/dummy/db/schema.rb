@@ -156,6 +156,8 @@ ActiveRecord::Schema.define(version: 2022_10_03_205702) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "state", null: false
+    t.bigint "hint_id"
+    t.index ["hint_id"], name: "index_comprehension_rules_on_hint_id"
     t.index ["uid"], name: "index_comprehension_rules_on_uid", unique: true
   end
 
