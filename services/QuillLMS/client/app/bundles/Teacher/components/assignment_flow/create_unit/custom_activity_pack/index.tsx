@@ -212,7 +212,7 @@ const CustomActivityPack = ({
     setGradeLevelFilters(newGradeLevelFilters)
   }
 
-  function handleELLFilterChange(newELLFilters: number[]) {
+  function handleELLFilterChange(newELLFilters: string[]) {
     setFilterHistory(prevFilterHistory => prevFilterHistory.concat([{ function: setELLFilters, argument: ellFilters }]))
     setELLFilters(newELLFilters)
   }
@@ -268,8 +268,6 @@ const CustomActivityPack = ({
   }
 
   function filterActivities(ignoredKey=null) {
-    console.log("filteredActivites: ell activities: ", activities.filter(x => x.activity_category_name = "Diagnostics"))
-    console.log("filter keys:", Object.keys(filters))
     return activities.filter(activity => Object.keys(filters).every(k => {
       if (k === ignoredKey) { return true }
       return filters[k](eval(k), activity)

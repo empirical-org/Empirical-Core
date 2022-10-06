@@ -14,7 +14,6 @@ const tooltipText = 'Quill’s ELL activities are designed based on ELL standard
 interface ELLLevel {
   standardLevelName: string,
   displayName: string,
-  filterNumber: number,
 }
 
 interface Grouping {
@@ -23,17 +22,17 @@ interface Grouping {
 }
 
 interface IndividualELLFilterRowProps {
-  ellFilters: number[],
+  ellFilters: string[],
   level: ELLLevel,
-  handleELLFilterChange: (ellFilters: number[]) => void,
+  handleELLFilterChange: (ellFilters: string[]) => void,
   filteredActivities: Activity[],
 }
 
 interface ELLToggleProps {
   filteredActivities: Activity[],
   grouping: Grouping,
-  ellFilters: number[],
-  handleELLFilterChange: (ellFilters: number[]) => void,
+  ellFilters: string[],
+  handleELLFilterChange: (ellFilters: string[]) => void,
   isOpen: boolean,
   setIsOpen: (isOpen: boolean) => void
 }
@@ -41,32 +40,29 @@ interface ELLToggleProps {
 interface ELLFiltersProps {
   activities: Activity[],
   filterActivities: (ignoredKey?: string) => Activity[]
-  ellFilters: number[],
-  handleELLFilterChange: (ellFilters: number[]) => void,
+  ellFilters: string[],
+  handleELLFilterChange: (ellFilters: string[]) => void,
 }
 
 const levelOne = {
   standardLevelName: 'ELL Starter',
   displayName: 'ELL Starter',
-  filterNumber: 1
 }
 
 const levelTwo = {
   standardLevelName: 'ELL Intermediate',
   displayName: 'ELL Intermediate',
-  filterNumber: 2
 }
 
 const levelThree = {
   standardLevelName: 'ELL Advanced',
   displayName: 'ELL Advanced',
-  filterNumber: 3
 }
 
 const allELLOptions = [levelOne, levelTwo, levelThree]
 
 const IndividualELLFilterRow = ({ ellFilters, level, handleELLFilterChange, filteredActivities, }: IndividualELLFilterRowProps) => {
-  const { filterNumber, displayName, standardLevelName, } = level
+  const { displayName, standardLevelName, } = level
 
   function checkIndividualFilter() {
     const newELLFilters = Array.from(new Set(ellFilters.concat([standardLevelName])))
@@ -90,7 +86,7 @@ const IndividualELLFilterRow = ({ ellFilters, level, handleELLFilterChange, filt
   }
 
   return (
-    <div className="individual-row filter-row topic-row" key={filterNumber}>
+    <div className="individual-row filter-row topic-row" key={standardLevelName}>
       <div>
         {checkbox}
         <span>{displayName}</span>
@@ -135,7 +131,7 @@ const ELLToggle = ({filteredActivities, grouping, ellFilters, handleELLFilterCha
         ellFilters={ellFilters}
         filteredActivities={filteredActivities}
         handleELLFilterChange={handleELLFilterChange}
-        key={ellOption.filterNumber}
+        key={ellOption.standardLevelName}
         level={ellOption}
       />)
     )
