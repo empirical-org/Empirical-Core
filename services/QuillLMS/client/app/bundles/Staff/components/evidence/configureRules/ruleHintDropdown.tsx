@@ -37,11 +37,11 @@ const RuleHintDropdown = ({
   return(
     // eslint-disable-next-line
     <React.Fragment>
+      <div class="form-subsection-label">Hint</div>
       <DropdownInput
         className='hint-selected'
         handleChange={handleOnHintChange}
         isSearchable={true}
-        label="Hint"
         options={hintOptions}
         value={selectedHintOption}
       />
