@@ -192,6 +192,36 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 
+  def assign_independent_practice_activity_packs
+    binding.pry
+    return
+
+    selections_with_students = params[:selections].select { |ut| ut[:classrooms][0][:student_ids]&.compact&.any? }
+    return if selections_with_students.none?
+
+    find_or_create_selected_independent_practice_activity_packs
+
+    $redis.set("user_id:#{current_user.id}_diagnostic_recommendations_start_time", Time.current)
+    last_recommendation_index = selections_with_students.length - 1
+    classrooms_i_teach_ids = current_user.classrooms_i_teach.pluck(:id)
+
+    selections_with_students.each_with_index do |selection_with_students, index|
+      classroom = selection_with_students[:classrooms][0]
+      next unless classroom[:id].to_i.in?(classrooms_i_teach_ids)
+
+      AssignRecommendationsWorker.perform_async(
+        assigning_all_recommended_packs: params[:assigning_all_recommended_packs],
+        classroom_id: classroom[:id],
+        is_last_recommendation: index == last_recommendation_index,
+        lesson: false,
+        student_ids: classroom[:student_ids].compact,
+        unit_template_id: selection_with_students[:id]
+      )
+    end
+
+    render json: {}
+  end
+
   def assign_whole_class_instruction_activity_packs
     teaches_this_classroom = parms[:classroom].to_i.in?(current_user.classrooms_i_teach.pluck(:id))
     return render json: {}, status: 401 unless teaches_this_classroom
@@ -212,36 +242,6 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
 
     render json: {}
   end
-
-  def assign_independent_practice_activity_packs
-    selections_with_students = params[:selections].select { |ut| ut[:classrooms][0][:student_ids]&.compact&.any? }
-    return if selections_with_students.none?
-
-    find_or_create_selected_independent_practice_activity_packs
-
-    $redis.set("user_id:#{current_user.id}_diagnostic_recommendations_start_time", Time.current)
-    last_recommendation_index = selections_with_students.length - 1
-    classrooms_i_teach_ids = current_user.classrooms_i_teach.pluck(:id)
-
-    selections_with_students.each_with_index do |selection_with_students, index|
-      classroom = selection_with_students[:classrooms][0]
-      next unless classroom[:id].to_i.in?(classrooms_i_teach_ids)
-
-      binding.pry
-
-      AssignRecommendationsWorker.perform_async(
-        assigning_all_recommended_packs: params[:assigning_all_recommended_packs],
-        classroom_id: classroom[:id],
-        is_last_recommendation: index == last_recommendation_index,
-        lesson: false,
-        student_ids: classroom[:student_ids].compact,
-        unit_template_id: selection_with_students[:id]
-      )
-    end
-
-    render json: {}
-  end
-
 
   def default_diagnostic_report
     redirect_to default_diagnostic_url

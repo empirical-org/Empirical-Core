@@ -14,8 +14,6 @@ class AssignRecommendationsWorker
     is_last_recommendation: true
   )
 
-    binding.pry
-
     classroom = Classroom.find(classroom_id)
     teacher = classroom.owner
     units = find_units(unit_template_id, teacher.id)
@@ -58,9 +56,6 @@ class AssignRecommendationsWorker
     activity_pack_sequence = ActivityPackSequence.create_or_find_by(
       release_method: release_method
     )
-
-
-
   end
 
   def show_classroom_units(unit_id, classroom_id)
