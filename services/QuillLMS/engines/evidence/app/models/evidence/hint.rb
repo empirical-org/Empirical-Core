@@ -13,7 +13,7 @@ module Evidence
       options ||= {}
 
       super(options.reverse_merge(
-        only: [:id, :name, :explanation, :image_link, :image_alt_text, :rule_id]
+        only: [:id, :name, :explanation, :image_link, :image_alt_text]
       ))
     end
   end

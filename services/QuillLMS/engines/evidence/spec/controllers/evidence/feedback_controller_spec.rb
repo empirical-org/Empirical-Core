@@ -17,16 +17,16 @@ module Evidence
 
     let(:entry) {'hello you'}
     let!(:prompt) { create(:evidence_prompt) }
-    let!(:rule) { create(:evidence_rule, :rule_type => "plagiarism") }
+    let!(:hint) { create(:evidence_hint) }
+    let!(:rule) { create(:evidence_rule, :rule_type => "plagiarism", :hint => hint) }
     let!(:rule_regex) { create(:evidence_rule, :rule_type => "rules-based-1") }
-    let!(:low_confidence_rule) { create(:evidence_rule, :rule_type => "low-confidence") }
+    let!(:low_confidence_hint) { create(:evidence_hint) }
+    let!(:low_confidence_rule) { create(:evidence_rule, :rule_type => "low-confidence", :hint => low_confidence_hint) }
     let(:plagiarized_text1) { "do not plagiarize this text please there will be consequences" }
     let(:plagiarized_text2) { "this is completely different text that you also should not plagiarize or else" }
-    let!(:hint) { create(:evidence_hint, :rule => (rule)) }
     let!(:first_feedback) { create(:evidence_feedback, :text => "here is our first feedback", :rule => (rule), :order => 0) }
     let!(:second_feedback) { create(:evidence_feedback, :text => "here is our second feedback", :rule => (rule), :order => 1) }
     let!(:low_confidence_feedback) { create(:evidence_feedback, :text => "here is low confidence feedback", :rule => (low_confidence_rule), :order => 0) }
-    let!(:low_confidence_hint) { create(:evidence_hint, :rule => (low_confidence_rule)) }
 
     describe '#create' do
 
@@ -222,9 +222,9 @@ module Evidence
           }
         end
 
-        let!(:grammar_rule) {create(:evidence_rule, uid: example_rule_uid, optimal: false, concept_uid: 'xyz')}
+        let!(:grammar_hint) { create(:evidence_hint) }
+        let!(:grammar_rule) {create(:evidence_rule, uid: example_rule_uid, optimal: false, concept_uid: 'xyz', :hint => grammar_hint)}
 
-        let!(:grammar_hint) { create(:evidence_hint, rule: grammar_rule) }
 
         before do
           allow(Grammar::FeedbackAssembler).to receive(:error_to_rule_uid).and_return(
@@ -245,7 +245,7 @@ module Evidence
             'highlight' => [
               { 'type' => 'response', 'text' => 'someText', 'character' => 0 }
             ],
-            'hint' => { 'id' => grammar_hint.id, 'explanation' => grammar_hint.explanation, 'image_link' => grammar_hint.image_link, 'image_alt_text' => grammar_hint.image_alt_text, 'rule_id' => grammar_hint.rule_id },
+            'hint' => { 'id' => grammar_hint.id, 'explanation' => grammar_hint.explanation, 'image_link' => grammar_hint.image_link, 'image_alt_text' => grammar_hint.image_alt_text, 'name' => grammar_hint.name },
             'labels' => '',
             'rule_uid' => example_rule_uid.to_s
           })
@@ -273,11 +273,11 @@ module Evidence
           }
         end
 
+        let!(:opinion_hint) { create(:evidence_hint) }
         let!(:opinion_rule) do
-          create(:evidence_rule, uid: example_rule_uid, optimal: false, concept_uid: 'xyz')
+          create(:evidence_rule, uid: example_rule_uid, optimal: false, concept_uid: 'xyz', :hint => opinion_hint)
         end
 
-        let!(:opinion_hint) { create(:evidence_hint, rule: opinion_rule) }
 
         before do
           stub_const("Evidence::Check::ALL_CHECKS", [Check::Opinion])
@@ -298,7 +298,7 @@ module Evidence
             'highlight' => [
               { 'type' => 'response', 'text' => 'someText', 'character' => 0 }
             ],
-            'hint' => { 'id' => opinion_hint.id, 'explanation' => opinion_hint.explanation, 'image_link' => opinion_hint.image_link, 'image_alt_text' => opinion_hint.image_alt_text, 'rule_id' => opinion_hint.rule_id },
+            'hint' => { 'id' => opinion_hint.id, 'explanation' => opinion_hint.explanation, 'image_link' => opinion_hint.image_link, 'image_alt_text' => opinion_hint.image_alt_text, 'name' => opinion_hint.name },
             'labels' => '',
             'rule_uid' => example_rule_uid.to_s
           })
@@ -320,7 +320,7 @@ module Evidence
               'highlight' => [
                 { 'type' => 'response', 'text' => 'someText', 'character' => 0 }
               ],
-              'hint' => { 'id' => opinion_hint.id, 'explanation' => opinion_hint.explanation, 'image_link' => opinion_hint.image_link, 'image_alt_text' => opinion_hint.image_alt_text, 'rule_id' => opinion_hint.rule_id },
+              'hint' => { 'id' => opinion_hint.id, 'explanation' => opinion_hint.explanation, 'image_link' => opinion_hint.image_link, 'image_alt_text' => opinion_hint.image_alt_text, 'name' => opinion_hint.name },
               'labels' => '',
               'rule_uid' => example_rule_uid.to_s
             })
@@ -351,11 +351,11 @@ module Evidence
         }
       end
 
+      let!(:grammar_hint) { create(:evidence_hint) }
       let!(:grammar_rule) do
-        create(:evidence_rule, uid: example_rule_uid, optimal: false, concept_uid: 'xyz')
+        create(:evidence_rule, uid: example_rule_uid, optimal: false, concept_uid: 'xyz', :hint => grammar_hint)
       end
 
-      let!(:grammar_hint) { create(:evidence_hint, rule: grammar_rule) }
 
       before do
         allow(Grammar::FeedbackAssembler).to receive(:error_to_rule_uid).and_return(
@@ -377,7 +377,7 @@ module Evidence
           'highlight' => [
             { 'type' => 'response', 'text' => 'someText', 'character' => 0 }
           ],
-          'hint' => { 'id' => grammar_hint.id, 'explanation' => grammar_hint.explanation, 'image_link' => grammar_hint.image_link, 'image_alt_text' => grammar_hint.image_alt_text, 'rule_id' => grammar_hint.rule_id },
+          'hint' => { 'id' => grammar_hint.id, 'explanation' => grammar_hint.explanation, 'image_link' => grammar_hint.image_link, 'image_alt_text' => grammar_hint.image_alt_text, 'name' => grammar_hint.name },
           'labels' => '',
           'rule_uid' => example_rule_uid.to_s
         })
@@ -401,7 +401,7 @@ module Evidence
             'highlight' => [
               { 'type' => 'response', 'text' => 'someText', 'character' => 0 }
             ],
-            'hint' => { 'id' => grammar_hint.id, 'explanation' => grammar_hint.explanation, 'image_link' => grammar_hint.image_link, 'image_alt_text' => grammar_hint.image_alt_text, 'rule_id' => grammar_hint.rule_id },
+            'hint' => { 'id' => grammar_hint.id, 'explanation' => grammar_hint.explanation, 'image_link' => grammar_hint.image_link, 'image_alt_text' => grammar_hint.image_alt_text, 'name' => grammar_hint.name },
             'labels' => '',
             'rule_uid' => example_rule_uid.to_s
           })
@@ -432,11 +432,11 @@ module Evidence
         }
       end
 
+      let!(:opinion_hint) { create(:evidence_hint) }
       let!(:opinion_rule) do
-        create(:evidence_rule, uid: example_rule_uid, optimal: false, concept_uid: 'xyz')
+        create(:evidence_rule, uid: example_rule_uid, optimal: false, concept_uid: 'xyz', :hint => opinion_hint)
       end
 
-      let!(:opinion_hint) { create(:evidence_hint, rule: opinion_rule) }
 
       before do
         allow(Opinion::FeedbackAssembler).to receive(:error_to_rule_uid).and_return(
@@ -458,7 +458,7 @@ module Evidence
           'highlight' => [
             { 'type' => 'response', 'text' => 'someText', 'character' => 0 }
           ],
-          'hint' => { 'id' => opinion_hint.id, 'explanation' => opinion_hint.explanation, 'image_link' => opinion_hint.image_link, 'image_alt_text' => opinion_hint.image_alt_text, 'rule_id' => opinion_hint.rule_id },
+          'hint' => { 'id' => opinion_hint.id, 'explanation' => opinion_hint.explanation, 'image_link' => opinion_hint.image_link, 'image_alt_text' => opinion_hint.image_alt_text, 'name' => opinion_hint.name },
           'labels' => '',
           'rule_uid' => example_rule_uid.to_s
         })
@@ -482,7 +482,7 @@ module Evidence
             'highlight' => [
               { 'type' => 'response', 'text' => 'someText', 'character' => 0 }
             ],
-            'hint' => { 'id' => opinion_hint.id, 'explanation' => opinion_hint.explanation, 'image_link' => opinion_hint.image_link, 'image_alt_text' => opinion_hint.image_alt_text, 'rule_id' => opinion_hint.rule_id },
+            'hint' => { 'id' => opinion_hint.id, 'explanation' => opinion_hint.explanation, 'image_link' => opinion_hint.image_link, 'image_alt_text' => opinion_hint.image_alt_text, 'name' => opinion_hint.name },
             'labels' => '',
             'rule_uid' => example_rule_uid.to_s
           })
