@@ -45,8 +45,8 @@ const RuleHint = ({
   function renderHint() {
     return (
       <React.Fragment>
-        <label className="form-subsection-label">Name</label><br/>
-        <input className="name-input" type="text" value={hint.name || ''} onChange={onHintNameChange} />
+        <label className="form-subsection-label">Name</label><br />
+        <input className="name-input" onChange={onHintNameChange} type="text" value={hint.name || ''} />
         <p className="form-subsection-label">Hint Explanation</p>
         <TextEditor
           ContentState={ContentState}

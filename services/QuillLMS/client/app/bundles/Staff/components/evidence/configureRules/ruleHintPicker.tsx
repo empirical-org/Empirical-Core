@@ -20,7 +20,7 @@ const RuleHintPicker = ({
         onHintChange={onHintChange}
         selectedHintId={hintId}
       />
-      <div dangerouslySetInnerHTML={ {__html: hintExplanation} } />
+      <div dangerouslySetInnerHTML={{__html: hintExplanation}} />
       <img alt={hintImageAltText} src={hintImageLink} />
     </React.Fragment>
   );

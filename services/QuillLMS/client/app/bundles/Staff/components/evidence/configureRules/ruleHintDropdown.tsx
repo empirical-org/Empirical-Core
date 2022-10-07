@@ -20,7 +20,7 @@ const RuleHintDropdown = ({
   const hintOptions = (
     [{value: '', label: emptySelectionText}].concat(
       hintsData.hints.sort((a,b) => (
-         (a.name || a.explanation) > (b.name || b.explanation) ? 1 : -1
+        (a.name || a.explanation) > (b.name || b.explanation) ? 1 : -1
       )).map((hint) => (
         {value: hint.id, label: (hint.name || hint.explanation)}
       ))
@@ -37,7 +37,7 @@ const RuleHintDropdown = ({
   return(
     // eslint-disable-next-line
     <React.Fragment>
-      <div class="form-subsection-label">Hint</div>
+      <div className="form-subsection-label">Hint</div>
       <DropdownInput
         className='hint-selected'
         handleChange={handleOnHintChange}
