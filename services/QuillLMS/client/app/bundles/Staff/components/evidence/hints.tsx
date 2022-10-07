@@ -18,7 +18,7 @@ const Hints = ({ location, match }) => {
   const history = useHistory();
 
   const newHint: HintInterface = {
-    id: ''
+    id: '',
     name: '',
     explanation: '',
     image_link: 'no image',
