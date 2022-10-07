@@ -99,10 +99,6 @@ const Hints = ({ location, match }) => {
     );
   }
 
-  const createNewHintOption = (
-    <option value={''}>Create New Hint</option>
-  )
-
   const hintDropdown = () => {
     return (
       <RuleHintDropdown
