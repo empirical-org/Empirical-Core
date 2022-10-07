@@ -336,8 +336,9 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
           {
             id: classroomId,
             student_ids: students,
+            order: index
           }
-        ],
+        ]
       }
     });
     return { selections: independentSelectionsArr ,};
@@ -345,9 +346,10 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
 
   function assignIndependentActivityPacks() {
     const dataToPass = {
+      classroom_id: classroomId,
       diagnostic_activity_id: activityId,
       ...formatSelectionsForAssignment(),
-      assigning_all_recommended_packs: _.isEqual(independentSelections, independentRecommendations)
+      assigning_all_recommendations: _.isEqual(independentSelections, independentRecommendations)
     }
     setIndependentAssigning(true)
     initializePusher()
