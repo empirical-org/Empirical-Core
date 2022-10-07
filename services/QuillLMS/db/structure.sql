@@ -1651,7 +1651,8 @@ CREATE TABLE public.comprehension_rules (
     concept_uid character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    state character varying NOT NULL
+    state character varying NOT NULL,
+    hint_id bigint
 );
 
 
@@ -1941,7 +1942,6 @@ CREATE TABLE public.concept_results (
     answer jsonb,
     attempt_number integer,
     concept_id integer,
-    old_concept_result_id integer,
     correct boolean NOT NULL,
     extra_metadata jsonb,
     question_number integer,
@@ -2341,9 +2341,10 @@ CREATE TABLE public.evidence_hints (
     explanation character varying NOT NULL,
     image_link character varying NOT NULL,
     image_alt_text character varying NOT NULL,
-    rule_id bigint NOT NULL,
+    rule_id bigint,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    name text
 );
 
 
@@ -2902,40 +2903,6 @@ CREATE SEQUENCE public.objectives_id_seq
 --
 
 ALTER SEQUENCE public.objectives_id_seq OWNED BY public.objectives.id;
-
-
---
--- Name: old_concept_results; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.old_concept_results (
-    id integer NOT NULL,
-    activity_session_id integer,
-    concept_id integer NOT NULL,
-    metadata json,
-    activity_classification_id integer,
-    question_type character varying
-);
-
-
---
--- Name: old_concept_results_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.old_concept_results_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: old_concept_results_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.old_concept_results_id_seq OWNED BY public.old_concept_results.id;
 
 
 --
@@ -5035,13 +5002,6 @@ ALTER TABLE ONLY public.objectives ALTER COLUMN id SET DEFAULT nextval('public.o
 
 
 --
--- Name: old_concept_results id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.old_concept_results ALTER COLUMN id SET DEFAULT nextval('public.old_concept_results_id_seq'::regclass);
-
-
---
 -- Name: page_areas id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -5958,14 +5918,6 @@ ALTER TABLE ONLY public.objectives
 
 
 --
--- Name: old_concept_results old_concept_results_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.old_concept_results
-    ADD CONSTRAINT old_concept_results_pkey PRIMARY KEY (id);
-
-
---
 -- Name: page_areas page_areas_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -6829,6 +6781,13 @@ CREATE INDEX index_comprehension_regex_rules_on_rule_id ON public.comprehension_
 
 
 --
+-- Name: index_comprehension_rules_on_hint_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_comprehension_rules_on_hint_id ON public.comprehension_rules USING btree (hint_id);
+
+
+--
 -- Name: index_comprehension_rules_on_uid; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -6903,13 +6862,6 @@ CREATE UNIQUE INDEX index_concept_result_question_types_on_text ON public.concep
 --
 
 CREATE INDEX index_concept_results_on_activity_session_id ON public.concept_results USING btree (activity_session_id);
-
-
---
--- Name: index_concept_results_on_old_concept_result_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_concept_results_on_old_concept_result_id ON public.concept_results USING btree (old_concept_result_id);
 
 
 --
@@ -7148,20 +7100,6 @@ CREATE UNIQUE INDEX index_oauth_access_tokens_on_token ON public.oauth_access_to
 --
 
 CREATE UNIQUE INDEX index_oauth_applications_on_uid ON public.oauth_applications USING btree (uid);
-
-
---
--- Name: index_old_concept_results_on_activity_session_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_old_concept_results_on_activity_session_id ON public.old_concept_results USING btree (activity_session_id);
-
-
---
--- Name: index_old_concept_results_on_concept_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_old_concept_results_on_concept_id ON public.old_concept_results USING btree (concept_id);
 
 
 --
@@ -8206,14 +8144,6 @@ ALTER TABLE ONLY public.standards
 
 
 --
--- Name: old_concept_results fk_rails_cebe4a6023; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.old_concept_results
-    ADD CONSTRAINT fk_rails_cebe4a6023 FOREIGN KEY (activity_classification_id) REFERENCES public.activity_classifications(id);
-
-
---
 -- Name: teacher_saved_activities fk_rails_d0477bd187; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -8790,6 +8720,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220825144048'),
 ('20220830201825'),
 ('20220830205005'),
-('20220927124042');
+('20220920190724'),
+('20220927124042'),
+('20221006201923');
 
 

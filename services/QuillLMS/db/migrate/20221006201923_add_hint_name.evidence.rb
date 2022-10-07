@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # This migration comes from evidence (originally 20221003205702)
 
 class AddHintName < ActiveRecord::Migration[6.1]
