@@ -9,9 +9,11 @@ class AssignRecommendationsWorker
     lesson:,
     student_ids:,
     unit_template_id:,
+    activity_pack_sequence_id: nil,
     assign_on_join: false,
-    assigning_all_recommended_packs: false,
-    is_last_recommendation: true
+    assigning_all_recommendations: false,
+    is_last_recommendation: true,
+    order: nil
   )
 
     classroom = Classroom.find(classroom_id)
@@ -21,7 +23,7 @@ class AssignRecommendationsWorker
 
     if units.present?
       unit = find_unit(units)
-      unit.update(visible:true) if unit && !unit.visible
+      unit.update(visible: true) if unit && !unit.visible
     end
 
     classroom_data = {
@@ -31,14 +33,16 @@ class AssignRecommendationsWorker
     }
 
     assign_unit_to_one_class(unit, classroom_id, classroom_data, unit_template_id, teacher.id)
-    create_or_update_activity_pack_sequence(release_method, teacher, unit_template_id)
+
+    unit = find_unit(find_units(unit_template_id, teacher.id)) if unit.nil?
+    save_activity_pack_sequence_activity_pack(activity_pack_sequence_id, order, unit)
 
     track_recommendation_assignment(teacher)
     return unless is_last_recommendation
 
     handle_error_tracking_for_diagnostic_recommendation_assignment_time(teacher.id, lesson)
     PusherRecommendationCompleted.run(classroom, unit_template_id, lesson)
-    track_assign_all_recommendations(teacher) if assigning_all_recommended_packs
+    track_assign_all_recommendations(teacher) if assigning_all_recommendations
   end
 
   def assign_unit_to_one_class(unit, classroom_id, classroom_data, unit_template_id, teacher_id)
@@ -50,11 +54,13 @@ class AssignRecommendationsWorker
     end
   end
 
-  def create_or_update_activity_pack_sequence(release_method, teacher, unit_template_id)
-    name = UnitTemplate.find(unit_template_id).name
-    unit = Unit.find_by(name: name, user: teacher, unit_template_id: unit_template_id)
-    activity_pack_sequence = ActivityPackSequence.create_or_find_by(
-      release_method: release_method
+  def save_activity_pack_sequence_activity_pack(activity_pack_sequence_id, order, unit)
+    return if activity_pack_sequence_id.nil? || unit.nil?
+
+    ActivityPackSequenceActivityPack.find_or_create_by!(
+      activity_pack_id: unit.id,
+      activity_pack_sequence_id: activity_pack_sequence_id,
+      order: order
     )
   end
 

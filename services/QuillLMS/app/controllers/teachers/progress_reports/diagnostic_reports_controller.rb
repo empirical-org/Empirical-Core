@@ -6,7 +6,16 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
   include DiagnosticReports
   require 'pusher'
 
-  before_action :authorize_teacher!, only: [:question_view, :students_by_classroom, :recommendations_for_classroom, :lesson_recommendations_for_classroom, :previously_assigned_recommendations, :growth_results_summary, :results_summary]
+  before_action :authorize_teacher!,
+    only: [
+      :growth_results_summary,
+      :lesson_recommendations_for_classroom,
+      :previously_assigned_recommendations,
+      :question_view,
+      :recommendations_for_classroom,
+      :results_summary,
+      :students_by_classroom
+    ]
 
   def show
     set_banner_variables
@@ -193,40 +202,17 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
   # rubocop:enable Metrics/CyclomaticComplexity
 
   def assign_independent_practice_activity_packs
-    binding.pry
-    return
-
-    selections_with_students = params[:selections].select { |ut| ut[:classrooms][0][:student_ids]&.compact&.any? }
-    return if selections_with_students.none?
-
-    find_or_create_selected_independent_practice_activity_packs
-
-    $redis.set("user_id:#{current_user.id}_diagnostic_recommendations_start_time", Time.current)
-    last_recommendation_index = selections_with_students.length - 1
-    classrooms_i_teach_ids = current_user.classrooms_i_teach.pluck(:id)
-
-    selections_with_students.each_with_index do |selection_with_students, index|
-      classroom = selection_with_students[:classrooms][0]
-      next unless classroom[:id].to_i.in?(classrooms_i_teach_ids)
-
-      AssignRecommendationsWorker.perform_async(
-        assigning_all_recommended_packs: params[:assigning_all_recommended_packs],
-        classroom_id: classroom[:id],
-        is_last_recommendation: index == last_recommendation_index,
-        lesson: false,
-        student_ids: classroom[:student_ids].compact,
-        unit_template_id: selection_with_students[:id]
-      )
-    end
+    IndependentPracticeActivityPacksAssigner.run(params, current_user)
 
     render json: {}
+  rescue IndependentPracticeActivityPacksAssigner::UnauthorizedActivityPacksAssignmentError => e
+    render json: { error: e.message }, status: 401
   end
 
   def assign_whole_class_instruction_activity_packs
-    teaches_this_classroom = parms[:classroom].to_i.in?(current_user.classrooms_i_teach.pluck(:id))
-    return render json: {}, status: 401 unless teaches_this_classroom
+    return render json: {}, status: 401 unless params[:classroom_id].in?(user.classrooms_i_teach.pluck(:id))
 
-    $redis.set("user_id:#{current_user.id}_lesson_diagnostic_recommendations_start_time", Time.current)
+    set_lesson_diagnostic_recommendations_start_time
     last_recommendation_index = params[:unit_template_ids].length - 1
 
     params[:unit_template_ids].each_with_index do |unit_template_id, index|
@@ -315,6 +301,11 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     render json: fetch_diagnostic_results_summary_cache
   end
 
+  def diagnostic_growth_results_summary
+    pre_test = Activity.find_by(follow_up_activity_id: results_summary_params[:activity_id])
+    render json: GrowthResultsSummary.growth_results_summary(pre_test.id, results_summary_params[:activity_id], results_summary_params[:classroom_id])
+  end
+
   private def fetch_diagnostic_results_summary_cache
     groups = { activity_id: params[:activity_id] }
     current_user.classroom_unit_by_ids_cache(
@@ -326,17 +317,6 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     ) do
       ResultsSummary.results_summary(results_summary_params[:activity_id], results_summary_params[:classroom_id], results_summary_params[:unit_id])
     end
-  end
-
-  def diagnostic_growth_results_summary
-    pre_test = Activity.find_by(follow_up_activity_id: results_summary_params[:activity_id])
-    render json: GrowthResultsSummary.growth_results_summary(pre_test.id, results_summary_params[:activity_id], results_summary_params[:classroom_id])
-  end
-
-  private def find_or_create_selected_independent_practice_activity_packs
-    params[:selections]
-      &.map { |selection| UnitTemplate.find(selection['id']) }
-      &.each { |ut| Unit.unscoped.find_or_create_by(unit_template: ut, name: ut.name, user: current_user) }
   end
 
   private def authorize_teacher!
@@ -406,6 +386,10 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
   private def set_banner_variables
     acknowledge_lessons_banner_milestone = Milestone.find_by_name(Milestone::TYPES[:acknowledge_lessons_banner])
     @show_lessons_banner = !UserMilestone.find_by(milestone_id: acknowledge_lessons_banner_milestone&.id, user_id: current_user&.id) && current_user&.classroom_unit_activity_states&.where(completed: true)&.none?
+  end
+
+  private def set_lesson_diagnostic_recommendations_start_time
+    $redis.set("user_id:#{current_user.id}_lesson_diagnostic_recommendations_start_time", Time.current)
   end
 
 end
