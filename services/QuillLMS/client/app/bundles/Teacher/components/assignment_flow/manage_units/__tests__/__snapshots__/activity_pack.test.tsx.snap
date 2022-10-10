@@ -16,10 +16,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
           "dueDatePicker": <DatePickerContainer
             closeFunction={[Function]}
             defaultText="No due date"
+            handleClickCopyToAll={[Function]}
             initialValue={null}
-            openModalFunction={[Function]}
             rowIndex={0}
-            unitActivityId={7543552}
           />,
           "id": 7543552,
           "name": "Adverbs of Manner 1 (Starter)",
@@ -28,6 +27,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
           "publishDatePicker": <DatePickerContainer
             closeFunction={[Function]}
             defaultText="Right away"
+            handleClickCopyToAll={[Function]}
             icon={
               <img
                 alt="Checkmark icon"
@@ -36,9 +36,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
               />
             }
             initialValue={null}
-            openModalFunction={[Function]}
             rowIndex={0}
-            unitActivityId={7543552}
           />,
           "removable": true,
           "shareActivity": <button
@@ -85,10 +83,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
           "dueDatePicker": <DatePickerContainer
             closeFunction={[Function]}
             defaultText="No due date"
+            handleClickCopyToAll={[Function]}
             initialValue={null}
-            openModalFunction={[Function]}
             rowIndex={1}
-            unitActivityId={7543553}
           />,
           "id": 7543553,
           "name": "Adverbs of Manner (Intermediate)",
@@ -97,6 +94,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
           "publishDatePicker": <DatePickerContainer
             closeFunction={[Function]}
             defaultText="Right away"
+            handleClickCopyToAll={[Function]}
             icon={
               <img
                 alt="Checkmark icon"
@@ -105,9 +103,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
               />
             }
             initialValue={null}
-            openModalFunction={[Function]}
             rowIndex={1}
-            unitActivityId={7543553}
           />,
           "removable": true,
           "shareActivity": <button
@@ -154,10 +150,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
           "dueDatePicker": <DatePickerContainer
             closeFunction={[Function]}
             defaultText="No due date"
+            handleClickCopyToAll={[Function]}
             initialValue={null}
-            openModalFunction={[Function]}
             rowIndex={2}
-            unitActivityId={7543554}
           />,
           "id": 7543554,
           "name": "Adjectives and Adverbs (Starter)",
@@ -166,6 +161,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
           "publishDatePicker": <DatePickerContainer
             closeFunction={[Function]}
             defaultText="Right away"
+            handleClickCopyToAll={[Function]}
             icon={
               <img
                 alt="Checkmark icon"
@@ -174,9 +170,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
               />
             }
             initialValue={null}
-            openModalFunction={[Function]}
             rowIndex={2}
-            unitActivityId={7543554}
           />,
           "removable": true,
           "shareActivity": <button
@@ -223,10 +217,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
           "dueDatePicker": <DatePickerContainer
             closeFunction={[Function]}
             defaultText="No due date"
+            handleClickCopyToAll={[Function]}
             initialValue={null}
-            openModalFunction={[Function]}
             rowIndex={3}
-            unitActivityId={7543555}
           />,
           "id": 7543555,
           "name": "Adjectives vs. Adverbs",
@@ -235,6 +228,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
           "publishDatePicker": <DatePickerContainer
             closeFunction={[Function]}
             defaultText="Right away"
+            handleClickCopyToAll={[Function]}
             icon={
               <img
                 alt="Checkmark icon"
@@ -243,9 +237,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
               />
             }
             initialValue={null}
-            openModalFunction={[Function]}
             rowIndex={3}
-            unitActivityId={7543555}
           />,
           "removable": true,
           "shareActivity": <button
@@ -292,10 +284,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
           "dueDatePicker": <DatePickerContainer
             closeFunction={[Function]}
             defaultText="No due date"
+            handleClickCopyToAll={[Function]}
             initialValue={null}
-            openModalFunction={[Function]}
             rowIndex={4}
-            unitActivityId={7543556}
           />,
           "id": 7543556,
           "name": "Adjectives, Adverbs, and Prepositional Phrases 1",
@@ -304,6 +295,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
           "publishDatePicker": <DatePickerContainer
             closeFunction={[Function]}
             defaultText="Right away"
+            handleClickCopyToAll={[Function]}
             icon={
               <img
                 alt="Checkmark icon"
@@ -312,9 +304,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
               />
             }
             initialValue={null}
-            openModalFunction={[Function]}
             rowIndex={4}
-            unitActivityId={7543556}
           />,
           "removable": true,
           "shareActivity": <button
@@ -498,10 +488,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
               "dueDatePicker": <DatePickerContainer
                 closeFunction={[Function]}
                 defaultText="No due date"
+                handleClickCopyToAll={[Function]}
                 initialValue={null}
-                openModalFunction={[Function]}
                 rowIndex={0}
-                unitActivityId={7543552}
               />,
               "id": 7543552,
               "name": "Adverbs of Manner 1 (Starter)",
@@ -510,6 +499,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
               "publishDatePicker": <DatePickerContainer
                 closeFunction={[Function]}
                 defaultText="Right away"
+                handleClickCopyToAll={[Function]}
                 icon={
                   <img
                     alt="Checkmark icon"
@@ -518,9 +508,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                   />
                 }
                 initialValue={null}
-                openModalFunction={[Function]}
                 rowIndex={0}
-                unitActivityId={7543552}
               />,
               "removable": true,
               "shareActivity": <button
@@ -567,10 +555,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
               "dueDatePicker": <DatePickerContainer
                 closeFunction={[Function]}
                 defaultText="No due date"
+                handleClickCopyToAll={[Function]}
                 initialValue={null}
-                openModalFunction={[Function]}
                 rowIndex={1}
-                unitActivityId={7543553}
               />,
               "id": 7543553,
               "name": "Adverbs of Manner (Intermediate)",
@@ -579,6 +566,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
               "publishDatePicker": <DatePickerContainer
                 closeFunction={[Function]}
                 defaultText="Right away"
+                handleClickCopyToAll={[Function]}
                 icon={
                   <img
                     alt="Checkmark icon"
@@ -587,9 +575,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                   />
                 }
                 initialValue={null}
-                openModalFunction={[Function]}
                 rowIndex={1}
-                unitActivityId={7543553}
               />,
               "removable": true,
               "shareActivity": <button
@@ -636,10 +622,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
               "dueDatePicker": <DatePickerContainer
                 closeFunction={[Function]}
                 defaultText="No due date"
+                handleClickCopyToAll={[Function]}
                 initialValue={null}
-                openModalFunction={[Function]}
                 rowIndex={2}
-                unitActivityId={7543554}
               />,
               "id": 7543554,
               "name": "Adjectives and Adverbs (Starter)",
@@ -648,6 +633,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
               "publishDatePicker": <DatePickerContainer
                 closeFunction={[Function]}
                 defaultText="Right away"
+                handleClickCopyToAll={[Function]}
                 icon={
                   <img
                     alt="Checkmark icon"
@@ -656,9 +642,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                   />
                 }
                 initialValue={null}
-                openModalFunction={[Function]}
                 rowIndex={2}
-                unitActivityId={7543554}
               />,
               "removable": true,
               "shareActivity": <button
@@ -705,10 +689,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
               "dueDatePicker": <DatePickerContainer
                 closeFunction={[Function]}
                 defaultText="No due date"
+                handleClickCopyToAll={[Function]}
                 initialValue={null}
-                openModalFunction={[Function]}
                 rowIndex={3}
-                unitActivityId={7543555}
               />,
               "id": 7543555,
               "name": "Adjectives vs. Adverbs",
@@ -717,6 +700,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
               "publishDatePicker": <DatePickerContainer
                 closeFunction={[Function]}
                 defaultText="Right away"
+                handleClickCopyToAll={[Function]}
                 icon={
                   <img
                     alt="Checkmark icon"
@@ -725,9 +709,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                   />
                 }
                 initialValue={null}
-                openModalFunction={[Function]}
                 rowIndex={3}
-                unitActivityId={7543555}
               />,
               "removable": true,
               "shareActivity": <button
@@ -774,10 +756,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
               "dueDatePicker": <DatePickerContainer
                 closeFunction={[Function]}
                 defaultText="No due date"
+                handleClickCopyToAll={[Function]}
                 initialValue={null}
-                openModalFunction={[Function]}
                 rowIndex={4}
-                unitActivityId={7543556}
               />,
               "id": 7543556,
               "name": "Adjectives, Adverbs, and Prepositional Phrases 1",
@@ -786,6 +767,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
               "publishDatePicker": <DatePickerContainer
                 closeFunction={[Function]}
                 defaultText="Right away"
+                handleClickCopyToAll={[Function]}
                 icon={
                   <img
                     alt="Checkmark icon"
@@ -794,9 +776,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                   />
                 }
                 initialValue={null}
-                openModalFunction={[Function]}
                 rowIndex={4}
-                unitActivityId={7543556}
               />,
               "removable": true,
               "shareActivity": <button
@@ -952,10 +932,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
               "dueDatePicker": <DatePickerContainer
                 closeFunction={[Function]}
                 defaultText="No due date"
+                handleClickCopyToAll={[Function]}
                 initialValue={null}
-                openModalFunction={[Function]}
                 rowIndex={0}
-                unitActivityId={7543552}
               />,
               "id": 7543552,
               "name": "Adverbs of Manner 1 (Starter)",
@@ -964,6 +943,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
               "publishDatePicker": <DatePickerContainer
                 closeFunction={[Function]}
                 defaultText="Right away"
+                handleClickCopyToAll={[Function]}
                 icon={
                   <img
                     alt="Checkmark icon"
@@ -972,9 +952,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                   />
                 }
                 initialValue={null}
-                openModalFunction={[Function]}
                 rowIndex={0}
-                unitActivityId={7543552}
               />,
               "removable": true,
               "shareActivity": <button
@@ -1021,10 +999,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
               "dueDatePicker": <DatePickerContainer
                 closeFunction={[Function]}
                 defaultText="No due date"
+                handleClickCopyToAll={[Function]}
                 initialValue={null}
-                openModalFunction={[Function]}
                 rowIndex={1}
-                unitActivityId={7543553}
               />,
               "id": 7543553,
               "name": "Adverbs of Manner (Intermediate)",
@@ -1033,6 +1010,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
               "publishDatePicker": <DatePickerContainer
                 closeFunction={[Function]}
                 defaultText="Right away"
+                handleClickCopyToAll={[Function]}
                 icon={
                   <img
                     alt="Checkmark icon"
@@ -1041,9 +1019,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                   />
                 }
                 initialValue={null}
-                openModalFunction={[Function]}
                 rowIndex={1}
-                unitActivityId={7543553}
               />,
               "removable": true,
               "shareActivity": <button
@@ -1090,10 +1066,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
               "dueDatePicker": <DatePickerContainer
                 closeFunction={[Function]}
                 defaultText="No due date"
+                handleClickCopyToAll={[Function]}
                 initialValue={null}
-                openModalFunction={[Function]}
                 rowIndex={2}
-                unitActivityId={7543554}
               />,
               "id": 7543554,
               "name": "Adjectives and Adverbs (Starter)",
@@ -1102,6 +1077,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
               "publishDatePicker": <DatePickerContainer
                 closeFunction={[Function]}
                 defaultText="Right away"
+                handleClickCopyToAll={[Function]}
                 icon={
                   <img
                     alt="Checkmark icon"
@@ -1110,9 +1086,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                   />
                 }
                 initialValue={null}
-                openModalFunction={[Function]}
                 rowIndex={2}
-                unitActivityId={7543554}
               />,
               "removable": true,
               "shareActivity": <button
@@ -1159,10 +1133,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
               "dueDatePicker": <DatePickerContainer
                 closeFunction={[Function]}
                 defaultText="No due date"
+                handleClickCopyToAll={[Function]}
                 initialValue={null}
-                openModalFunction={[Function]}
                 rowIndex={3}
-                unitActivityId={7543555}
               />,
               "id": 7543555,
               "name": "Adjectives vs. Adverbs",
@@ -1171,6 +1144,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
               "publishDatePicker": <DatePickerContainer
                 closeFunction={[Function]}
                 defaultText="Right away"
+                handleClickCopyToAll={[Function]}
                 icon={
                   <img
                     alt="Checkmark icon"
@@ -1179,9 +1153,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                   />
                 }
                 initialValue={null}
-                openModalFunction={[Function]}
                 rowIndex={3}
-                unitActivityId={7543555}
               />,
               "removable": true,
               "shareActivity": <button
@@ -1228,10 +1200,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
               "dueDatePicker": <DatePickerContainer
                 closeFunction={[Function]}
                 defaultText="No due date"
+                handleClickCopyToAll={[Function]}
                 initialValue={null}
-                openModalFunction={[Function]}
                 rowIndex={4}
-                unitActivityId={7543556}
               />,
               "id": 7543556,
               "name": "Adjectives, Adverbs, and Prepositional Phrases 1",
@@ -1240,6 +1211,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
               "publishDatePicker": <DatePickerContainer
                 closeFunction={[Function]}
                 defaultText="Right away"
+                handleClickCopyToAll={[Function]}
                 icon={
                   <img
                     alt="Checkmark icon"
@@ -1248,9 +1220,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                   />
                 }
                 initialValue={null}
-                openModalFunction={[Function]}
                 rowIndex={4}
-                unitActivityId={7543556}
               />,
               "removable": true,
               "shareActivity": <button
@@ -1522,6 +1492,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                         <DatePickerContainer
                           closeFunction={[Function]}
                           defaultText="Right away"
+                          handleClickCopyToAll={[Function]}
                           icon={
                             <img
                               alt="Checkmark icon"
@@ -1530,9 +1501,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             />
                           }
                           initialValue={null}
-                          openModalFunction={[Function]}
                           rowIndex={0}
-                          unitActivityId={7543552}
                         />
                       </td>
                       <td
@@ -1548,10 +1517,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                         <DatePickerContainer
                           closeFunction={[Function]}
                           defaultText="No due date"
+                          handleClickCopyToAll={[Function]}
                           initialValue={null}
-                          openModalFunction={[Function]}
                           rowIndex={0}
-                          unitActivityId={7543552}
                         />
                       </td>
                       <td
@@ -1644,6 +1612,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                         <DatePickerContainer
                           closeFunction={[Function]}
                           defaultText="Right away"
+                          handleClickCopyToAll={[Function]}
                           icon={
                             <img
                               alt="Checkmark icon"
@@ -1652,9 +1621,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             />
                           }
                           initialValue={null}
-                          openModalFunction={[Function]}
                           rowIndex={1}
-                          unitActivityId={7543553}
                         />
                       </td>
                       <td
@@ -1670,10 +1637,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                         <DatePickerContainer
                           closeFunction={[Function]}
                           defaultText="No due date"
+                          handleClickCopyToAll={[Function]}
                           initialValue={null}
-                          openModalFunction={[Function]}
                           rowIndex={1}
-                          unitActivityId={7543553}
                         />
                       </td>
                       <td
@@ -1766,6 +1732,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                         <DatePickerContainer
                           closeFunction={[Function]}
                           defaultText="Right away"
+                          handleClickCopyToAll={[Function]}
                           icon={
                             <img
                               alt="Checkmark icon"
@@ -1774,9 +1741,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             />
                           }
                           initialValue={null}
-                          openModalFunction={[Function]}
                           rowIndex={2}
-                          unitActivityId={7543554}
                         />
                       </td>
                       <td
@@ -1792,10 +1757,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                         <DatePickerContainer
                           closeFunction={[Function]}
                           defaultText="No due date"
+                          handleClickCopyToAll={[Function]}
                           initialValue={null}
-                          openModalFunction={[Function]}
                           rowIndex={2}
-                          unitActivityId={7543554}
                         />
                       </td>
                       <td
@@ -1888,6 +1852,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                         <DatePickerContainer
                           closeFunction={[Function]}
                           defaultText="Right away"
+                          handleClickCopyToAll={[Function]}
                           icon={
                             <img
                               alt="Checkmark icon"
@@ -1896,9 +1861,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             />
                           }
                           initialValue={null}
-                          openModalFunction={[Function]}
                           rowIndex={3}
-                          unitActivityId={7543555}
                         />
                       </td>
                       <td
@@ -1914,10 +1877,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                         <DatePickerContainer
                           closeFunction={[Function]}
                           defaultText="No due date"
+                          handleClickCopyToAll={[Function]}
                           initialValue={null}
-                          openModalFunction={[Function]}
                           rowIndex={3}
-                          unitActivityId={7543555}
                         />
                       </td>
                       <td
@@ -2010,6 +1972,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                         <DatePickerContainer
                           closeFunction={[Function]}
                           defaultText="Right away"
+                          handleClickCopyToAll={[Function]}
                           icon={
                             <img
                               alt="Checkmark icon"
@@ -2018,9 +1981,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             />
                           }
                           initialValue={null}
-                          openModalFunction={[Function]}
                           rowIndex={4}
-                          unitActivityId={7543556}
                         />
                       </td>
                       <td
@@ -2036,10 +1997,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                         <DatePickerContainer
                           closeFunction={[Function]}
                           defaultText="No due date"
+                          handleClickCopyToAll={[Function]}
                           initialValue={null}
-                          openModalFunction={[Function]}
                           rowIndex={4}
-                          unitActivityId={7543556}
                         />
                       </td>
                       <td
@@ -2147,6 +2107,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                           <DatePickerContainer
                             closeFunction={[Function]}
                             defaultText="Right away"
+                            handleClickCopyToAll={[Function]}
                             icon={
                               <img
                                 alt="Checkmark icon"
@@ -2155,9 +2116,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               />
                             }
                             initialValue={null}
-                            openModalFunction={[Function]}
                             rowIndex={0}
-                            unitActivityId={7543552}
                           />
                         </td>
                         <td
@@ -2173,10 +2132,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                           <DatePickerContainer
                             closeFunction={[Function]}
                             defaultText="No due date"
+                            handleClickCopyToAll={[Function]}
                             initialValue={null}
-                            openModalFunction={[Function]}
                             rowIndex={0}
-                            unitActivityId={7543552}
                           />
                         </td>
                         <td
@@ -2269,6 +2227,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                           <DatePickerContainer
                             closeFunction={[Function]}
                             defaultText="Right away"
+                            handleClickCopyToAll={[Function]}
                             icon={
                               <img
                                 alt="Checkmark icon"
@@ -2277,9 +2236,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               />
                             }
                             initialValue={null}
-                            openModalFunction={[Function]}
                             rowIndex={1}
-                            unitActivityId={7543553}
                           />
                         </td>
                         <td
@@ -2295,10 +2252,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                           <DatePickerContainer
                             closeFunction={[Function]}
                             defaultText="No due date"
+                            handleClickCopyToAll={[Function]}
                             initialValue={null}
-                            openModalFunction={[Function]}
                             rowIndex={1}
-                            unitActivityId={7543553}
                           />
                         </td>
                         <td
@@ -2391,6 +2347,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                           <DatePickerContainer
                             closeFunction={[Function]}
                             defaultText="Right away"
+                            handleClickCopyToAll={[Function]}
                             icon={
                               <img
                                 alt="Checkmark icon"
@@ -2399,9 +2356,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               />
                             }
                             initialValue={null}
-                            openModalFunction={[Function]}
                             rowIndex={2}
-                            unitActivityId={7543554}
                           />
                         </td>
                         <td
@@ -2417,10 +2372,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                           <DatePickerContainer
                             closeFunction={[Function]}
                             defaultText="No due date"
+                            handleClickCopyToAll={[Function]}
                             initialValue={null}
-                            openModalFunction={[Function]}
                             rowIndex={2}
-                            unitActivityId={7543554}
                           />
                         </td>
                         <td
@@ -2513,6 +2467,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                           <DatePickerContainer
                             closeFunction={[Function]}
                             defaultText="Right away"
+                            handleClickCopyToAll={[Function]}
                             icon={
                               <img
                                 alt="Checkmark icon"
@@ -2521,9 +2476,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               />
                             }
                             initialValue={null}
-                            openModalFunction={[Function]}
                             rowIndex={3}
-                            unitActivityId={7543555}
                           />
                         </td>
                         <td
@@ -2539,10 +2492,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                           <DatePickerContainer
                             closeFunction={[Function]}
                             defaultText="No due date"
+                            handleClickCopyToAll={[Function]}
                             initialValue={null}
-                            openModalFunction={[Function]}
                             rowIndex={3}
-                            unitActivityId={7543555}
                           />
                         </td>
                         <td
@@ -2635,6 +2587,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                           <DatePickerContainer
                             closeFunction={[Function]}
                             defaultText="Right away"
+                            handleClickCopyToAll={[Function]}
                             icon={
                               <img
                                 alt="Checkmark icon"
@@ -2643,9 +2596,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               />
                             }
                             initialValue={null}
-                            openModalFunction={[Function]}
                             rowIndex={4}
-                            unitActivityId={7543556}
                           />
                         </td>
                         <td
@@ -2661,10 +2612,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                           <DatePickerContainer
                             closeFunction={[Function]}
                             defaultText="No due date"
+                            handleClickCopyToAll={[Function]}
                             initialValue={null}
-                            openModalFunction={[Function]}
                             rowIndex={4}
-                            unitActivityId={7543556}
                           />
                         </td>
                         <td
@@ -2794,6 +2744,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             <DatePickerContainer
                               closeFunction={[Function]}
                               defaultText="Right away"
+                              handleClickCopyToAll={[Function]}
                               icon={
                                 <img
                                   alt="Checkmark icon"
@@ -2802,9 +2753,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                 />
                               }
                               initialValue={null}
-                              openModalFunction={[Function]}
                               rowIndex={0}
-                              unitActivityId={7543552}
                             />
                           </td>
                           <td
@@ -2820,10 +2769,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             <DatePickerContainer
                               closeFunction={[Function]}
                               defaultText="No due date"
+                              handleClickCopyToAll={[Function]}
                               initialValue={null}
-                              openModalFunction={[Function]}
                               rowIndex={0}
-                              unitActivityId={7543552}
                             />
                           </td>
                           <td
@@ -2916,6 +2864,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             <DatePickerContainer
                               closeFunction={[Function]}
                               defaultText="Right away"
+                              handleClickCopyToAll={[Function]}
                               icon={
                                 <img
                                   alt="Checkmark icon"
@@ -2924,9 +2873,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                 />
                               }
                               initialValue={null}
-                              openModalFunction={[Function]}
                               rowIndex={1}
-                              unitActivityId={7543553}
                             />
                           </td>
                           <td
@@ -2942,10 +2889,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             <DatePickerContainer
                               closeFunction={[Function]}
                               defaultText="No due date"
+                              handleClickCopyToAll={[Function]}
                               initialValue={null}
-                              openModalFunction={[Function]}
                               rowIndex={1}
-                              unitActivityId={7543553}
                             />
                           </td>
                           <td
@@ -3038,6 +2984,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             <DatePickerContainer
                               closeFunction={[Function]}
                               defaultText="Right away"
+                              handleClickCopyToAll={[Function]}
                               icon={
                                 <img
                                   alt="Checkmark icon"
@@ -3046,9 +2993,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                 />
                               }
                               initialValue={null}
-                              openModalFunction={[Function]}
                               rowIndex={2}
-                              unitActivityId={7543554}
                             />
                           </td>
                           <td
@@ -3064,10 +3009,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             <DatePickerContainer
                               closeFunction={[Function]}
                               defaultText="No due date"
+                              handleClickCopyToAll={[Function]}
                               initialValue={null}
-                              openModalFunction={[Function]}
                               rowIndex={2}
-                              unitActivityId={7543554}
                             />
                           </td>
                           <td
@@ -3160,6 +3104,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             <DatePickerContainer
                               closeFunction={[Function]}
                               defaultText="Right away"
+                              handleClickCopyToAll={[Function]}
                               icon={
                                 <img
                                   alt="Checkmark icon"
@@ -3168,9 +3113,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                 />
                               }
                               initialValue={null}
-                              openModalFunction={[Function]}
                               rowIndex={3}
-                              unitActivityId={7543555}
                             />
                           </td>
                           <td
@@ -3186,10 +3129,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             <DatePickerContainer
                               closeFunction={[Function]}
                               defaultText="No due date"
+                              handleClickCopyToAll={[Function]}
                               initialValue={null}
-                              openModalFunction={[Function]}
                               rowIndex={3}
-                              unitActivityId={7543555}
                             />
                           </td>
                           <td
@@ -3282,6 +3224,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             <DatePickerContainer
                               closeFunction={[Function]}
                               defaultText="Right away"
+                              handleClickCopyToAll={[Function]}
                               icon={
                                 <img
                                   alt="Checkmark icon"
@@ -3290,9 +3233,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                 />
                               }
                               initialValue={null}
-                              openModalFunction={[Function]}
                               rowIndex={4}
-                              unitActivityId={7543556}
                             />
                           </td>
                           <td
@@ -3308,10 +3249,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             <DatePickerContainer
                               closeFunction={[Function]}
                               defaultText="No due date"
+                              handleClickCopyToAll={[Function]}
                               initialValue={null}
-                              openModalFunction={[Function]}
                               rowIndex={4}
-                              unitActivityId={7543556}
                             />
                           </td>
                           <td
@@ -3415,6 +3355,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               <DatePickerContainer
                                 closeFunction={[Function]}
                                 defaultText="Right away"
+                                handleClickCopyToAll={[Function]}
                                 icon={
                                   <img
                                     alt="Checkmark icon"
@@ -3423,9 +3364,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                   />
                                 }
                                 initialValue={null}
-                                openModalFunction={[Function]}
                                 rowIndex={0}
-                                unitActivityId={7543552}
                               />
                             </td>
                             <td
@@ -3441,10 +3380,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               <DatePickerContainer
                                 closeFunction={[Function]}
                                 defaultText="No due date"
+                                handleClickCopyToAll={[Function]}
                                 initialValue={null}
-                                openModalFunction={[Function]}
                                 rowIndex={0}
-                                unitActivityId={7543552}
                               />
                             </td>
                             <td
@@ -3541,6 +3479,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                 <DatePickerContainer
                                   closeFunction={[Function]}
                                   defaultText="Right away"
+                                  handleClickCopyToAll={[Function]}
                                   icon={
                                     <img
                                       alt="Checkmark icon"
@@ -3549,9 +3488,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                     />
                                   }
                                   initialValue={null}
-                                  openModalFunction={[Function]}
                                   rowIndex={0}
-                                  unitActivityId={7543552}
                                 />
                               </td>
                               <td
@@ -3567,10 +3504,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                 <DatePickerContainer
                                   closeFunction={[Function]}
                                   defaultText="No due date"
+                                  handleClickCopyToAll={[Function]}
                                   initialValue={null}
-                                  openModalFunction={[Function]}
                                   rowIndex={0}
-                                  unitActivityId={7543552}
                                 />
                               </td>
                               <td
@@ -3684,6 +3620,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               <DatePickerContainer
                                 closeFunction={[Function]}
                                 defaultText="Right away"
+                                handleClickCopyToAll={[Function]}
                                 icon={
                                   <img
                                     alt="Checkmark icon"
@@ -3693,9 +3630,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                 }
                                 initialValue={null}
                                 key="7543552"
-                                openModalFunction={[Function]}
                                 rowIndex={0}
-                                unitActivityId={7543552}
                               >
                                 <div
                                   className="date-picker-container"
@@ -3810,7 +3745,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                                 showView={[Function]}
                                                 timeFormat="h:mm A"
                                                 updateDate={[Function]}
-                                                viewDate={"2022-10-03T00:00:00.000Z"}
+                                                viewDate={"2022-10-10T00:00:00.000Z"}
                                               >
                                                 <div
                                                   className="rdtDays"
@@ -3990,7 +3925,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                                           2
                                                         </td>
                                                         <td
-                                                          className="rdtDay rdtToday"
+                                                          className="rdtDay"
                                                           data-month={9}
                                                           data-value={3}
                                                           data-year={2022}
@@ -4064,7 +3999,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                                           9
                                                         </td>
                                                         <td
-                                                          className="rdtDay"
+                                                          className="rdtDay rdtToday"
                                                           data-month={9}
                                                           data-value={10}
                                                           data-year={2022}
@@ -4368,7 +4303,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                     </n>
                                   </div>
                                   <CopyToAllButton
-                                    openModalFunction={[Function]}
+                                    handleClickCopyToAll={[Function]}
                                   >
                                     <button
                                       className="interactive-wrapper focus-on-light copy-to-all-button"
@@ -4401,11 +4336,10 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               <DatePickerContainer
                                 closeFunction={[Function]}
                                 defaultText="No due date"
+                                handleClickCopyToAll={[Function]}
                                 initialValue={null}
                                 key="7543552"
-                                openModalFunction={[Function]}
                                 rowIndex={0}
-                                unitActivityId={7543552}
                               >
                                 <div
                                   className="date-picker-container"
@@ -4515,7 +4449,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                                 showView={[Function]}
                                                 timeFormat="h:mm A"
                                                 updateDate={[Function]}
-                                                viewDate={"2022-10-03T00:00:00.000Z"}
+                                                viewDate={"2022-10-10T00:00:00.000Z"}
                                               >
                                                 <div
                                                   className="rdtDays"
@@ -4695,7 +4629,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                                           2
                                                         </td>
                                                         <td
-                                                          className="rdtDay rdtToday"
+                                                          className="rdtDay"
                                                           data-month={9}
                                                           data-value={3}
                                                           data-year={2022}
@@ -4769,7 +4703,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                                           9
                                                         </td>
                                                         <td
-                                                          className="rdtDay"
+                                                          className="rdtDay rdtToday"
                                                           data-month={9}
                                                           data-value={10}
                                                           data-year={2022}
@@ -5073,7 +5007,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                     </n>
                                   </div>
                                   <CopyToAllButton
-                                    openModalFunction={[Function]}
+                                    handleClickCopyToAll={[Function]}
                                   >
                                     <button
                                       className="interactive-wrapper focus-on-light copy-to-all-button"
@@ -5190,6 +5124,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               <DatePickerContainer
                                 closeFunction={[Function]}
                                 defaultText="Right away"
+                                handleClickCopyToAll={[Function]}
                                 icon={
                                   <img
                                     alt="Checkmark icon"
@@ -5198,9 +5133,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                   />
                                 }
                                 initialValue={null}
-                                openModalFunction={[Function]}
                                 rowIndex={1}
-                                unitActivityId={7543553}
                               />
                             </td>
                             <td
@@ -5216,10 +5149,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               <DatePickerContainer
                                 closeFunction={[Function]}
                                 defaultText="No due date"
+                                handleClickCopyToAll={[Function]}
                                 initialValue={null}
-                                openModalFunction={[Function]}
                                 rowIndex={1}
-                                unitActivityId={7543553}
                               />
                             </td>
                             <td
@@ -5316,6 +5248,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                 <DatePickerContainer
                                   closeFunction={[Function]}
                                   defaultText="Right away"
+                                  handleClickCopyToAll={[Function]}
                                   icon={
                                     <img
                                       alt="Checkmark icon"
@@ -5324,9 +5257,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                     />
                                   }
                                   initialValue={null}
-                                  openModalFunction={[Function]}
                                   rowIndex={1}
-                                  unitActivityId={7543553}
                                 />
                               </td>
                               <td
@@ -5342,10 +5273,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                 <DatePickerContainer
                                   closeFunction={[Function]}
                                   defaultText="No due date"
+                                  handleClickCopyToAll={[Function]}
                                   initialValue={null}
-                                  openModalFunction={[Function]}
                                   rowIndex={1}
-                                  unitActivityId={7543553}
                                 />
                               </td>
                               <td
@@ -5459,6 +5389,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               <DatePickerContainer
                                 closeFunction={[Function]}
                                 defaultText="Right away"
+                                handleClickCopyToAll={[Function]}
                                 icon={
                                   <img
                                     alt="Checkmark icon"
@@ -5468,9 +5399,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                 }
                                 initialValue={null}
                                 key="7543553"
-                                openModalFunction={[Function]}
                                 rowIndex={1}
-                                unitActivityId={7543553}
                               >
                                 <div
                                   className="date-picker-container"
@@ -5585,7 +5514,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                                 showView={[Function]}
                                                 timeFormat="h:mm A"
                                                 updateDate={[Function]}
-                                                viewDate={"2022-10-03T00:00:00.000Z"}
+                                                viewDate={"2022-10-10T00:00:00.000Z"}
                                               >
                                                 <div
                                                   className="rdtDays"
@@ -5765,7 +5694,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                                           2
                                                         </td>
                                                         <td
-                                                          className="rdtDay rdtToday"
+                                                          className="rdtDay"
                                                           data-month={9}
                                                           data-value={3}
                                                           data-year={2022}
@@ -5839,7 +5768,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                                           9
                                                         </td>
                                                         <td
-                                                          className="rdtDay"
+                                                          className="rdtDay rdtToday"
                                                           data-month={9}
                                                           data-value={10}
                                                           data-year={2022}
@@ -6159,11 +6088,10 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               <DatePickerContainer
                                 closeFunction={[Function]}
                                 defaultText="No due date"
+                                handleClickCopyToAll={[Function]}
                                 initialValue={null}
                                 key="7543553"
-                                openModalFunction={[Function]}
                                 rowIndex={1}
-                                unitActivityId={7543553}
                               >
                                 <div
                                   className="date-picker-container"
@@ -6273,7 +6201,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                                 showView={[Function]}
                                                 timeFormat="h:mm A"
                                                 updateDate={[Function]}
-                                                viewDate={"2022-10-03T00:00:00.000Z"}
+                                                viewDate={"2022-10-10T00:00:00.000Z"}
                                               >
                                                 <div
                                                   className="rdtDays"
@@ -6453,7 +6381,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                                           2
                                                         </td>
                                                         <td
-                                                          className="rdtDay rdtToday"
+                                                          className="rdtDay"
                                                           data-month={9}
                                                           data-value={3}
                                                           data-year={2022}
@@ -6527,7 +6455,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                                           9
                                                         </td>
                                                         <td
-                                                          className="rdtDay"
+                                                          className="rdtDay rdtToday"
                                                           data-month={9}
                                                           data-value={10}
                                                           data-year={2022}
@@ -6931,6 +6859,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               <DatePickerContainer
                                 closeFunction={[Function]}
                                 defaultText="Right away"
+                                handleClickCopyToAll={[Function]}
                                 icon={
                                   <img
                                     alt="Checkmark icon"
@@ -6939,9 +6868,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                   />
                                 }
                                 initialValue={null}
-                                openModalFunction={[Function]}
                                 rowIndex={2}
-                                unitActivityId={7543554}
                               />
                             </td>
                             <td
@@ -6957,10 +6884,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               <DatePickerContainer
                                 closeFunction={[Function]}
                                 defaultText="No due date"
+                                handleClickCopyToAll={[Function]}
                                 initialValue={null}
-                                openModalFunction={[Function]}
                                 rowIndex={2}
-                                unitActivityId={7543554}
                               />
                             </td>
                             <td
@@ -7057,6 +6983,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                 <DatePickerContainer
                                   closeFunction={[Function]}
                                   defaultText="Right away"
+                                  handleClickCopyToAll={[Function]}
                                   icon={
                                     <img
                                       alt="Checkmark icon"
@@ -7065,9 +6992,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                     />
                                   }
                                   initialValue={null}
-                                  openModalFunction={[Function]}
                                   rowIndex={2}
-                                  unitActivityId={7543554}
                                 />
                               </td>
                               <td
@@ -7083,10 +7008,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                 <DatePickerContainer
                                   closeFunction={[Function]}
                                   defaultText="No due date"
+                                  handleClickCopyToAll={[Function]}
                                   initialValue={null}
-                                  openModalFunction={[Function]}
                                   rowIndex={2}
-                                  unitActivityId={7543554}
                                 />
                               </td>
                               <td
@@ -7200,6 +7124,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               <DatePickerContainer
                                 closeFunction={[Function]}
                                 defaultText="Right away"
+                                handleClickCopyToAll={[Function]}
                                 icon={
                                   <img
                                     alt="Checkmark icon"
@@ -7209,9 +7134,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                 }
                                 initialValue={null}
                                 key="7543554"
-                                openModalFunction={[Function]}
                                 rowIndex={2}
-                                unitActivityId={7543554}
                               >
                                 <div
                                   className="date-picker-container"
@@ -7326,7 +7249,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                                 showView={[Function]}
                                                 timeFormat="h:mm A"
                                                 updateDate={[Function]}
-                                                viewDate={"2022-10-03T00:00:00.000Z"}
+                                                viewDate={"2022-10-10T00:00:00.000Z"}
                                               >
                                                 <div
                                                   className="rdtDays"
@@ -7506,7 +7429,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                                           2
                                                         </td>
                                                         <td
-                                                          className="rdtDay rdtToday"
+                                                          className="rdtDay"
                                                           data-month={9}
                                                           data-value={3}
                                                           data-year={2022}
@@ -7580,7 +7503,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                                           9
                                                         </td>
                                                         <td
-                                                          className="rdtDay"
+                                                          className="rdtDay rdtToday"
                                                           data-month={9}
                                                           data-value={10}
                                                           data-year={2022}
@@ -7900,11 +7823,10 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               <DatePickerContainer
                                 closeFunction={[Function]}
                                 defaultText="No due date"
+                                handleClickCopyToAll={[Function]}
                                 initialValue={null}
                                 key="7543554"
-                                openModalFunction={[Function]}
                                 rowIndex={2}
-                                unitActivityId={7543554}
                               >
                                 <div
                                   className="date-picker-container"
@@ -8014,7 +7936,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                                 showView={[Function]}
                                                 timeFormat="h:mm A"
                                                 updateDate={[Function]}
-                                                viewDate={"2022-10-03T00:00:00.000Z"}
+                                                viewDate={"2022-10-10T00:00:00.000Z"}
                                               >
                                                 <div
                                                   className="rdtDays"
@@ -8194,7 +8116,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                                           2
                                                         </td>
                                                         <td
-                                                          className="rdtDay rdtToday"
+                                                          className="rdtDay"
                                                           data-month={9}
                                                           data-value={3}
                                                           data-year={2022}
@@ -8268,7 +8190,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                                           9
                                                         </td>
                                                         <td
-                                                          className="rdtDay"
+                                                          className="rdtDay rdtToday"
                                                           data-month={9}
                                                           data-value={10}
                                                           data-year={2022}
@@ -8672,6 +8594,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               <DatePickerContainer
                                 closeFunction={[Function]}
                                 defaultText="Right away"
+                                handleClickCopyToAll={[Function]}
                                 icon={
                                   <img
                                     alt="Checkmark icon"
@@ -8680,9 +8603,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                   />
                                 }
                                 initialValue={null}
-                                openModalFunction={[Function]}
                                 rowIndex={3}
-                                unitActivityId={7543555}
                               />
                             </td>
                             <td
@@ -8698,10 +8619,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               <DatePickerContainer
                                 closeFunction={[Function]}
                                 defaultText="No due date"
+                                handleClickCopyToAll={[Function]}
                                 initialValue={null}
-                                openModalFunction={[Function]}
                                 rowIndex={3}
-                                unitActivityId={7543555}
                               />
                             </td>
                             <td
@@ -8798,6 +8718,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                 <DatePickerContainer
                                   closeFunction={[Function]}
                                   defaultText="Right away"
+                                  handleClickCopyToAll={[Function]}
                                   icon={
                                     <img
                                       alt="Checkmark icon"
@@ -8806,9 +8727,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                     />
                                   }
                                   initialValue={null}
-                                  openModalFunction={[Function]}
                                   rowIndex={3}
-                                  unitActivityId={7543555}
                                 />
                               </td>
                               <td
@@ -8824,10 +8743,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                 <DatePickerContainer
                                   closeFunction={[Function]}
                                   defaultText="No due date"
+                                  handleClickCopyToAll={[Function]}
                                   initialValue={null}
-                                  openModalFunction={[Function]}
                                   rowIndex={3}
-                                  unitActivityId={7543555}
                                 />
                               </td>
                               <td
@@ -8941,6 +8859,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               <DatePickerContainer
                                 closeFunction={[Function]}
                                 defaultText="Right away"
+                                handleClickCopyToAll={[Function]}
                                 icon={
                                   <img
                                     alt="Checkmark icon"
@@ -8950,9 +8869,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                 }
                                 initialValue={null}
                                 key="7543555"
-                                openModalFunction={[Function]}
                                 rowIndex={3}
-                                unitActivityId={7543555}
                               >
                                 <div
                                   className="date-picker-container"
@@ -9067,7 +8984,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                                 showView={[Function]}
                                                 timeFormat="h:mm A"
                                                 updateDate={[Function]}
-                                                viewDate={"2022-10-03T00:00:00.000Z"}
+                                                viewDate={"2022-10-10T00:00:00.000Z"}
                                               >
                                                 <div
                                                   className="rdtDays"
@@ -9247,7 +9164,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                                           2
                                                         </td>
                                                         <td
-                                                          className="rdtDay rdtToday"
+                                                          className="rdtDay"
                                                           data-month={9}
                                                           data-value={3}
                                                           data-year={2022}
@@ -9321,7 +9238,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                                           9
                                                         </td>
                                                         <td
-                                                          className="rdtDay"
+                                                          className="rdtDay rdtToday"
                                                           data-month={9}
                                                           data-value={10}
                                                           data-year={2022}
@@ -9641,11 +9558,10 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               <DatePickerContainer
                                 closeFunction={[Function]}
                                 defaultText="No due date"
+                                handleClickCopyToAll={[Function]}
                                 initialValue={null}
                                 key="7543555"
-                                openModalFunction={[Function]}
                                 rowIndex={3}
-                                unitActivityId={7543555}
                               >
                                 <div
                                   className="date-picker-container"
@@ -9755,7 +9671,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                                 showView={[Function]}
                                                 timeFormat="h:mm A"
                                                 updateDate={[Function]}
-                                                viewDate={"2022-10-03T00:00:00.000Z"}
+                                                viewDate={"2022-10-10T00:00:00.000Z"}
                                               >
                                                 <div
                                                   className="rdtDays"
@@ -9935,7 +9851,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                                           2
                                                         </td>
                                                         <td
-                                                          className="rdtDay rdtToday"
+                                                          className="rdtDay"
                                                           data-month={9}
                                                           data-value={3}
                                                           data-year={2022}
@@ -10009,7 +9925,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                                           9
                                                         </td>
                                                         <td
-                                                          className="rdtDay"
+                                                          className="rdtDay rdtToday"
                                                           data-month={9}
                                                           data-value={10}
                                                           data-year={2022}
@@ -10413,6 +10329,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               <DatePickerContainer
                                 closeFunction={[Function]}
                                 defaultText="Right away"
+                                handleClickCopyToAll={[Function]}
                                 icon={
                                   <img
                                     alt="Checkmark icon"
@@ -10421,9 +10338,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                   />
                                 }
                                 initialValue={null}
-                                openModalFunction={[Function]}
                                 rowIndex={4}
-                                unitActivityId={7543556}
                               />
                             </td>
                             <td
@@ -10439,10 +10354,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               <DatePickerContainer
                                 closeFunction={[Function]}
                                 defaultText="No due date"
+                                handleClickCopyToAll={[Function]}
                                 initialValue={null}
-                                openModalFunction={[Function]}
                                 rowIndex={4}
-                                unitActivityId={7543556}
                               />
                             </td>
                             <td
@@ -10539,6 +10453,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                 <DatePickerContainer
                                   closeFunction={[Function]}
                                   defaultText="Right away"
+                                  handleClickCopyToAll={[Function]}
                                   icon={
                                     <img
                                       alt="Checkmark icon"
@@ -10547,9 +10462,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                     />
                                   }
                                   initialValue={null}
-                                  openModalFunction={[Function]}
                                   rowIndex={4}
-                                  unitActivityId={7543556}
                                 />
                               </td>
                               <td
@@ -10565,10 +10478,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                 <DatePickerContainer
                                   closeFunction={[Function]}
                                   defaultText="No due date"
+                                  handleClickCopyToAll={[Function]}
                                   initialValue={null}
-                                  openModalFunction={[Function]}
                                   rowIndex={4}
-                                  unitActivityId={7543556}
                                 />
                               </td>
                               <td
@@ -10682,6 +10594,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               <DatePickerContainer
                                 closeFunction={[Function]}
                                 defaultText="Right away"
+                                handleClickCopyToAll={[Function]}
                                 icon={
                                   <img
                                     alt="Checkmark icon"
@@ -10691,9 +10604,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                 }
                                 initialValue={null}
                                 key="7543556"
-                                openModalFunction={[Function]}
                                 rowIndex={4}
-                                unitActivityId={7543556}
                               >
                                 <div
                                   className="date-picker-container"
@@ -10808,7 +10719,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                                 showView={[Function]}
                                                 timeFormat="h:mm A"
                                                 updateDate={[Function]}
-                                                viewDate={"2022-10-03T00:00:00.000Z"}
+                                                viewDate={"2022-10-10T00:00:00.000Z"}
                                               >
                                                 <div
                                                   className="rdtDays"
@@ -10988,7 +10899,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                                           2
                                                         </td>
                                                         <td
-                                                          className="rdtDay rdtToday"
+                                                          className="rdtDay"
                                                           data-month={9}
                                                           data-value={3}
                                                           data-year={2022}
@@ -11062,7 +10973,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                                           9
                                                         </td>
                                                         <td
-                                                          className="rdtDay"
+                                                          className="rdtDay rdtToday"
                                                           data-month={9}
                                                           data-value={10}
                                                           data-year={2022}
@@ -11382,11 +11293,10 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               <DatePickerContainer
                                 closeFunction={[Function]}
                                 defaultText="No due date"
+                                handleClickCopyToAll={[Function]}
                                 initialValue={null}
                                 key="7543556"
-                                openModalFunction={[Function]}
                                 rowIndex={4}
-                                unitActivityId={7543556}
                               >
                                 <div
                                   className="date-picker-container"
@@ -11496,7 +11406,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                                 showView={[Function]}
                                                 timeFormat="h:mm A"
                                                 updateDate={[Function]}
-                                                viewDate={"2022-10-03T00:00:00.000Z"}
+                                                viewDate={"2022-10-10T00:00:00.000Z"}
                                               >
                                                 <div
                                                   className="rdtDays"
@@ -11676,7 +11586,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                                           2
                                                         </td>
                                                         <td
-                                                          className="rdtDay rdtToday"
+                                                          className="rdtDay"
                                                           data-month={9}
                                                           data-value={3}
                                                           data-year={2022}
@@ -11750,7 +11660,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                                           9
                                                         </td>
                                                         <td
-                                                          className="rdtDay"
+                                                          className="rdtDay rdtToday"
                                                           data-month={9}
                                                           data-value={10}
                                                           data-year={2022}

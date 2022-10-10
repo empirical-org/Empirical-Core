@@ -142,7 +142,7 @@ class Teachers::ClassroomManagerController < ApplicationController
       offset: current_user.utc_offset
     }
 
-    # json = current_user.classroom_cache(classroom, key: 'classroom_manager.scores', groups: cache_groups) do
+    json = current_user.classroom_cache(classroom, key: 'classroom_manager.scores', groups: cache_groups) do
       scores = Scorebook::Query.run(params[:classroom_id], params[:current_page], params[:unit_id], params[:begin_date], params[:end_date], current_user.utc_offset)
 
       last_page = scores.length < 200
@@ -151,7 +151,7 @@ class Teachers::ClassroomManagerController < ApplicationController
         scores: scores,
         is_last_page: last_page
       }
-    # end
+    end
 
     render json: json
   end
