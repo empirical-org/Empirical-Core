@@ -82,7 +82,7 @@ export default class ReviewActivities extends React.Component {
     const { activities, assignActivityDate, } = this.props
     const dates = this.props[dateAttributeKey]
     const activity = activities.find(act => act.id === id)
-    const formattedDate = date ? date : null
+    const formattedDate = date || null
     this.setState({ erroredActivityIds: [], })
     assignActivityDate(activity, formattedDate, dateAttributeKey);
   }
@@ -95,10 +95,10 @@ export default class ReviewActivities extends React.Component {
 
   handleDueDateChange = (date, id) => {
     const { activities, publishDates, } = this.props
-    const activitiesWithEarlierDueDates = activities.filter(act => act.id === id && date && publishDates[id] && date <= moment.utc(publishDates[id]))
-    if (date && activitiesWithEarlierDueDates.length) {
+    const dueDateIsBeforePublishDate = date && publishDates[id] && date <= moment.utc(publishDates[id])
+    if (dueDateIsBeforePublishDate) {
       this.setState({
-        erroredActivityIds: activitiesWithEarlierDueDates.map(a => a.id)
+        erroredActivityIds: [id]
       }, this.triggerSnackbar)
     } else {
       this.handleDateChange(date, id, DUE_DATE_ATTRIBUTE_KEY)
@@ -107,10 +107,10 @@ export default class ReviewActivities extends React.Component {
 
   handlePublishDateChange = (date, id) => {
     const { activities, dueDates, } = this.props
-    const activitiesWithEarlierDueDates = activities.filter(act => act.id === id && date && dueDates[id] && date > moment.utc(dueDates[id]))
-    if (date && activitiesWithEarlierDueDates.length) {
+    const publishDateIsAfterDueDate = date && dueDates[id] && date > moment.utc(dueDates[id])
+    if (publishDateIsAfterDueDate) {
       this.setState({
-        erroredActivityIds: activitiesWithEarlierDueDates.map(a => a.id)
+        erroredActivityIds: [id]
       }, this.triggerSnackbar)
     } else {
       this.handleDateChange(date, id, PUBLISH_DATE_ATTRIBUTE_KEY)

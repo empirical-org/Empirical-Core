@@ -102,13 +102,14 @@ const ActivityTable = ({ data, onSuccess, isOwner, handleActivityClicked, handle
   }
 
   function closeDatePicker(date, unitActivityId, dateAttributeKey) {
-    const activitiesWithEarlierDueDates = classroomActivityArray.filter(act => act.uaId === unitActivityId && (dateAttributeKey === PUBLISH_DATE_ATTRIBUTE_KEY ? date >= moment.utc(act.dueDate) : date <= moment.utc(act.publishDate)))
-    if (date && activitiesWithEarlierDueDates.length) {
-      setErroredUnitActivityIds(activitiesWithEarlierDueDates.map(a => a.uaId))
+    const activity = classroomActivityArray.find(act => act.uaId === unitActivityId)
+    const activityHasDueDateBeforePublishDate = date && (dateAttributeKey === PUBLISH_DATE_ATTRIBUTE_KEY ? date >= moment.utc(activity.dueDate) : date <= moment.utc(activity.publishDate))
+    if (activityHasDueDateBeforePublishDate) {
+      setErroredUnitActivityIds([unitActivityId])
       setSnackbarText(INVALID_DATES_SNACKBAR_COPY)
       setShowSnackbar(true)
     } else {
-      const formattedDate = date ? date : null
+      const formattedDate = date || null
       requestPut(`/teachers/unit_activities/${unitActivityId}`, { unit_activity: { [dateAttributeKey]: formattedDate, } }, () => onSuccess());
     }
   }
