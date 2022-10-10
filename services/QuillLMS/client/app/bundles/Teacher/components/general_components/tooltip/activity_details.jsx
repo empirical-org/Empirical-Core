@@ -14,7 +14,7 @@ export const ActivityDetails = ({ data }) => {
   }
 
   function detailOrNot() {
-    const { concept_results, started_at, updated, scores, activity_description, dueDate, publishDate, scheduled } = data
+    const { concept_results, started_at, updated, scores, activity_description, dueDate, publishDate, scheduled, unitActivityCreatedAt, } = data
     let dateTitle, dateBody, completedTitle, completedBody
 
     if (!concept_results || !concept_results.length) {
@@ -42,8 +42,9 @@ export const ActivityDetails = ({ data }) => {
       }
     }
 
+    const publishDateForDisplay = publishDate || unitActivityCreatedAt
     const objectiveSection = activity_description ? <p><strong>Objectives:</strong>{` ${activity_description}`}</p> : <span />
-    const publishDateSection = <p><strong>{scheduled ? 'Scheduled For: ' : 'Published: '}</strong>{`${moment.utc(publishDate).format('MMMM D, YYYY [at] h:mm a')}`}</p>
+    const publishDateSection = <p><strong>{scheduled ? 'Scheduled For: ' : 'Published: '}</strong>{`${moment.utc(publishDateForDisplay).format('MMMM D, YYYY [at] h:mm a')}`}</p>
     const dueDateSection = <p><strong>Due: </strong>{dueDate ? `${moment.utc(dueDate).format('MMMM D, YYYY [at] h:mm a')}` : 'N/A'}</p>
     const dateSection = dateTitle ? <p><strong>{`${dateTitle}: `}</strong>{`${moment.utc(dateBody).format('MMMM D, YYYY')}`}</p> : <span />
     const completedSection = completedTitle ? <p><strong>{`${completedTitle}: `}</strong>{`${moment.utc(completedBody).format('MMMM D, YYYY')}`}</p> : <span />

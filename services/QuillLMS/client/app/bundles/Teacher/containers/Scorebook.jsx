@@ -235,6 +235,7 @@ export default createReactClass({
         activity_classification_id: s.activity_classification_id,
         dueDate: s.due_date,
         publishDate: s.publish_date,
+        unitActivityCreatedAt: s.unit_activity_created_at,
         scheduled: s.scheduled
       });
     });

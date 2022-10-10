@@ -254,7 +254,7 @@ class Teachers::UnitsController < ApplicationController
           COUNT(DISTINCT students_classrooms.id) AS class_size,
           CASE WHEN unit_owner.time_zone IS NOT NULL THEN ua.due_date at time zone unit_owner.time_zone ELSE ua.due_date END AS due_date,
           CASE WHEN unit_owner.time_zone IS NOT NULL THEN ua.publish_date at time zone unit_owner.time_zone ELSE ua.publish_date END AS publish_date,
-          ua.publish_date >= NOW() as scheduled,
+          CASE WHEN unit_owner.time_zone IS NOT NULL THEN ua.publish_date at time zone unit_owner.time_zone >= NOW() at time zone unit_owner.time_zone ELSE ua.publish_date >= NOW() END AS scheduled,
           state.completed,
           activities.id AS activity_id,
           activities.uid as activity_uid,
