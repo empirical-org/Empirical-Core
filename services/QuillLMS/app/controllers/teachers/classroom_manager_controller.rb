@@ -147,7 +147,7 @@ class Teachers::ClassroomManagerController < ApplicationController
 
       last_page = scores.length < 200
 
-      json = {
+      {
         scores: scores,
         is_last_page: last_page
       }
