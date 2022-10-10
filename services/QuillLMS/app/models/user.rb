@@ -183,7 +183,7 @@ class User < ApplicationRecord
   before_validation :generate_student_username_if_absent
   before_validation :prep_authentication_terms
   before_save :capitalize_name
-  before_save :set_time_zone, unless: :time_zone, if: proc { teacher? }
+  before_save :set_time_zone, unless: :time_zone
   after_save  :update_invitee_email_address, if: proc { saved_change_to_email? }
   after_save :check_for_school
   after_create :generate_referrer_id, if: proc { teacher? }
@@ -663,8 +663,8 @@ class User < ApplicationRecord
     if school_timezone.present?
       self.time_zone = school_timezone
     else
-      geocoder_results = Geocoder.search(ip_address)
-      self.time_zone = geocoder_results.first&.data ? geocoder_results.first.data['timezone'] : nil
+      geocoder_results = Geocoder.search(ip_address.to_s)
+      self.time_zone = geocoder_results.first&.data&.dig('location', 'time_zone')
     end
   end
 
