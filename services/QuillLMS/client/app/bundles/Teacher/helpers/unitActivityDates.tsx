@@ -1,6 +1,6 @@
 import * as React from 'react'
 import Datetime from 'react-datetime';
-import moment from 'moment'
+import * as moment from 'moment'
 
 import { copyIcon, } from '../../Shared/index'
 
