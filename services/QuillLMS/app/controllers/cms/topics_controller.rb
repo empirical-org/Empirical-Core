@@ -8,7 +8,11 @@ class Cms::TopicsController < Cms::CmsController
       topic = t.attributes
       if t.level == 3
         child_topics = Topic.where(visible: true, parent_id: t.id)
-        topic[:activity_count] = child_topics.map { |ct| ct.activities.count}.reduce(:+)
+        grandchild_topics = child_topics.map { |ct| Topic.where(parent_id: ct.id) }.flatten
+        topic[:activity_count] = grandchild_topics.map { |gct| gct.activities.count}.reduce(:+)
+      elsif t.level == 2
+        child_topics = Topic.where(visible: true, parent_id: t.id)
+        topic[:activity_count] = child_topics.map { |gct| gct.activities.count}.reduce(:+)
       else
         topic[:activity_count] = t.activities.count
       end
