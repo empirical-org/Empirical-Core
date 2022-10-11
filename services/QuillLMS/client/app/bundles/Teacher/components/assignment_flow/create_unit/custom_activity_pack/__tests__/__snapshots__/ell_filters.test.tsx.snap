@@ -2917,18 +2917,15 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 "ellOptions": Array [
                   Object {
                     "displayName": "ELL Starter",
-                    "filterNumber": 1,
-                    "standardLevelName": "ELL Level 1",
+                    "standardLevelName": "ELL Starter",
                   },
                   Object {
                     "displayName": "ELL Intermediate",
-                    "filterNumber": 2,
-                    "standardLevelName": "ELL Level 2",
+                    "standardLevelName": "ELL Intermediate",
                   },
                   Object {
                     "displayName": "ELL Advanced",
-                    "filterNumber": 3,
-                    "standardLevelName": "ELL Level 3",
+                    "standardLevelName": "ELL Advanced",
                   },
                 ],
                 "group": "Activities by Skill Level",
@@ -4426,18 +4423,15 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                   "ellOptions": Array [
                     Object {
                       "displayName": "ELL Starter",
-                      "filterNumber": 1,
-                      "standardLevelName": "ELL Level 1",
+                      "standardLevelName": "ELL Starter",
                     },
                     Object {
                       "displayName": "ELL Intermediate",
-                      "filterNumber": 2,
-                      "standardLevelName": "ELL Level 2",
+                      "standardLevelName": "ELL Intermediate",
                     },
                     Object {
                       "displayName": "ELL Advanced",
-                      "filterNumber": 3,
-                      "standardLevelName": "ELL Level 3",
+                      "standardLevelName": "ELL Advanced",
                     },
                   ],
                   "group": "Activities by Skill Level",
