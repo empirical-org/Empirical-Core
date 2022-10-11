@@ -210,6 +210,7 @@ describe Teachers::UnitsController, type: :controller do
       expect(parsed_response[0]['number_of_assigned_students']).to eq(classroom_unit.assigned_student_ids.length)
       expect(parsed_response[0]['activity_uid']).to eq(diagnostic_activity.uid)
       expect(DateTime.parse(parsed_response[0]['due_date']).to_i).to eq(unit_activity.due_date.to_i)
+      expect(DateTime.parse(parsed_response[0]['publish_date']).to_i).to eq(unit_activity.publish_date.to_i)
       expect(parsed_response[0]['unit_created_at'].to_i).to eq(unit.created_at.to_i)
       expect(parsed_response[0]['unit_activity_created_at'].to_i).to eq(unit_activity.created_at.to_i)
     end
@@ -232,29 +233,51 @@ describe Teachers::UnitsController, type: :controller do
       expect(parsed_response.length).to eq(1)
     end
 
-    context 'time_zones' do
-      describe 'when the teacher has a time zone' do
-        it 'should return activities with publish dates in the future as scheduled' do
-          tz_string = 'America/New_York'
-          teacher.update(time_zone: tz_string)
-          publish_date = Time.now.utc + 1.hour
-          # have to do update_columns here because otherwise the publish date is offset by a callback
-          unit_activity.update_columns(publish_date: publish_date)
-          response = get :index, params: { report: false }
-          parsed_response = JSON.parse(response.body)
-          expect(parsed_response[0]['scheduled']).to eq(true)
-        end
+    describe 'when the teacher has a time zone' do
+      it 'should return activities with publish dates in the future as scheduled' do
+        tz_string = 'America/New_York'
+        teacher.update(time_zone: tz_string)
+        publish_date = Time.now.utc + 1.hour
+        # have to do update_columns here because otherwise the publish date is offset by a callback
+        unit_activity.update_columns(publish_date: publish_date)
+        response = get :index, params: { report: false }
+        parsed_response = JSON.parse(response.body)
+        expect(parsed_response[0]['scheduled']).to eq(true)
+      end
 
-        it 'should return activities with publish dates in the past as not scheduled' do
-          tz_string = 'America/New_York'
-          teacher.update(time_zone: tz_string)
-          publish_date = Time.now.utc - 1.hour
-          # have to do update_columns here because otherwise the publish date is offset by a callback
-          unit_activity.update_columns(publish_date: publish_date)
-          response = get :index, params: { report: false }
-          parsed_response = JSON.parse(response.body)
-          expect(parsed_response[0]['scheduled']).to eq(false)
-        end
+      it 'should return activities with publish dates in the past as not scheduled' do
+        tz_string = 'America/New_York'
+        teacher.update(time_zone: tz_string)
+        publish_date = Time.now.utc - 1.hour
+        # have to do update_columns here because otherwise the publish date is offset by a callback
+        unit_activity.update_columns(publish_date: publish_date)
+        response = get :index, params: { report: false }
+        parsed_response = JSON.parse(response.body)
+        expect(parsed_response[0]['scheduled']).to eq(false)
+      end
+    end
+
+    describe 'when the teacher has no time zone' do
+      it 'should return activities with publish dates in the future as scheduled' do
+        # have to do update columns here because the time zone is set by a callback
+        teacher.update_columns(time_zone: nil)
+        publish_date = Time.now.utc + 1.hour
+        # have to do update_columns here because otherwise the publish date is offset by a callback
+        unit_activity.update_columns(publish_date: publish_date)
+        response = get :index, params: { report: false }
+        parsed_response = JSON.parse(response.body)
+        expect(parsed_response[0]['scheduled']).to eq(true)
+      end
+
+      it 'should return activities with publish dates in the past as not scheduled' do
+        # have to do update columns here because the time zone is set by a callback
+        teacher.update_columns(time_zone: nil)
+        publish_date = Time.now.utc - 1.hour
+        # have to do update_columns here because otherwise the publish date is offset by a callback
+        unit_activity.update_columns(publish_date: publish_date)
+        response = get :index, params: { report: false }
+        parsed_response = JSON.parse(response.body)
+        expect(parsed_response[0]['scheduled']).to eq(false)
       end
     end
 
