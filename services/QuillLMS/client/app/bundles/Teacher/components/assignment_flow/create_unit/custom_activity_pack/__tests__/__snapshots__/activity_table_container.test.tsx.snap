@@ -4969,7 +4969,49 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 src="undefined/images/icons/icons-description-topic.svg"
               />
               <span>
-                Maya, Aztec, & Inca Civilizations: Hernan Cortes & the Aztec Empire
+                History
+              </span>
+              <span
+                className="vertical-divider"
+              />
+            </span>
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                World Historical Figures
+              </span>
+              <span
+                className="vertical-divider"
+              />
+            </span>
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                Hernan Cortes & the Aztec Empire
+              </span>
+              <span
+                className="vertical-divider"
+              />
+            </span>
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                Maya, Aztec, & Inca Civilizations
               </span>
             </span>
           </ActivityRowTopics>
@@ -5490,7 +5532,49 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 src="undefined/images/icons/icons-description-topic.svg"
               />
               <span>
-                Maya, Aztec, & Inca Civilizations: Maya Civilization
+                History
+              </span>
+              <span
+                className="vertical-divider"
+              />
+            </span>
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                World History
+              </span>
+              <span
+                className="vertical-divider"
+              />
+            </span>
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                Maya, Aztec, & Inca Civilizations
+              </span>
+              <span
+                className="vertical-divider"
+              />
+            </span>
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                Maya Civilization
               </span>
             </span>
           </ActivityRowTopics>
@@ -6011,7 +6095,49 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 src="undefined/images/icons/icons-description-topic.svg"
               />
               <span>
-                Maya, Aztec, & Inca Civilizations: Tenochtitlán Origin Myth
+                Culture
+              </span>
+              <span
+                className="vertical-divider"
+              />
+            </span>
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                Stories & Myths
+              </span>
+              <span
+                className="vertical-divider"
+              />
+            </span>
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                Maya, Aztec, & Inca Civilizations
+              </span>
+              <span
+                className="vertical-divider"
+              />
+            </span>
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                Tenochtitlán Origin Myth
               </span>
             </span>
           </ActivityRowTopics>
@@ -6532,7 +6658,49 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 src="undefined/images/icons/icons-description-topic.svg"
               />
               <span>
-                Maya, Aztec, & Inca Civilizations: The Inca
+                History
+              </span>
+              <span
+                className="vertical-divider"
+              />
+            </span>
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                World History
+              </span>
+              <span
+                className="vertical-divider"
+              />
+            </span>
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                Maya, Aztec, & Inca Civilizations
+              </span>
+              <span
+                className="vertical-divider"
+              />
+            </span>
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                The Inca
               </span>
             </span>
           </ActivityRowTopics>
@@ -7053,7 +7221,49 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 src="undefined/images/icons/icons-description-topic.svg"
               />
               <span>
-                Chinese Dynasties: Hui Zong's Defeat
+                History
+              </span>
+              <span
+                className="vertical-divider"
+              />
+            </span>
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                World Historical Figures
+              </span>
+              <span
+                className="vertical-divider"
+              />
+            </span>
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                Hui Zong's Defeat
+              </span>
+              <span
+                className="vertical-divider"
+              />
+            </span>
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                Chinese Dynasties
               </span>
             </span>
           </ActivityRowTopics>
@@ -7574,7 +7784,49 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 src="undefined/images/icons/icons-description-topic.svg"
               />
               <span>
-                Chinese Dynasties: Shihuangdi Unifies China
+                History
+              </span>
+              <span
+                className="vertical-divider"
+              />
+            </span>
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                World Historical Figures
+              </span>
+              <span
+                className="vertical-divider"
+              />
+            </span>
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                Chinese Dynasties
+              </span>
+              <span
+                className="vertical-divider"
+              />
+            </span>
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                Shihuangdi Unifies China
               </span>
             </span>
           </ActivityRowTopics>
@@ -8095,7 +8347,49 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 src="undefined/images/icons/icons-description-topic.svg"
               />
               <span>
-                Chinese Dynasties: Tang Dynasty Inventions
+                History
+              </span>
+              <span
+                className="vertical-divider"
+              />
+            </span>
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                World History
+              </span>
+              <span
+                className="vertical-divider"
+              />
+            </span>
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                Chinese Dynasties
+              </span>
+              <span
+                className="vertical-divider"
+              />
+            </span>
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                Tang Dynasty Inventions
               </span>
             </span>
           </ActivityRowTopics>
@@ -8616,7 +8910,49 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 src="undefined/images/icons/icons-description-topic.svg"
               />
               <span>
-                Chinese Dynasties: The Mongol Invasion of China
+                History
+              </span>
+              <span
+                className="vertical-divider"
+              />
+            </span>
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                World History
+              </span>
+              <span
+                className="vertical-divider"
+              />
+            </span>
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                Chinese Dynasties
+              </span>
+              <span
+                className="vertical-divider"
+              />
+            </span>
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                The Mongol Invasion of China
               </span>
             </span>
           </ActivityRowTopics>
@@ -9137,7 +9473,49 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 src="undefined/images/icons/icons-description-topic.svg"
               />
               <span>
-                The Age of Exploration: Marco Polo
+                History
+              </span>
+              <span
+                className="vertical-divider"
+              />
+            </span>
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                World Historical Figures
+              </span>
+              <span
+                className="vertical-divider"
+              />
+            </span>
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                The Age of Exploration
+              </span>
+              <span
+                className="vertical-divider"
+              />
+            </span>
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                Marco Polo
               </span>
             </span>
           </ActivityRowTopics>
@@ -9658,7 +10036,49 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 src="undefined/images/icons/icons-description-topic.svg"
               />
               <span>
-                The Age of Exploration: Hernando de Soto
+                History
+              </span>
+              <span
+                className="vertical-divider"
+              />
+            </span>
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                U.S. Historical Figures
+              </span>
+              <span
+                className="vertical-divider"
+              />
+            </span>
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                The Age of Exploration
+              </span>
+              <span
+                className="vertical-divider"
+              />
+            </span>
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                Hernando de Soto
               </span>
             </span>
           </ActivityRowTopics>
@@ -10179,7 +10599,49 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 src="undefined/images/icons/icons-description-topic.svg"
               />
               <span>
-                The Age of Exploration: Magellan
+                History
+              </span>
+              <span
+                className="vertical-divider"
+              />
+            </span>
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                World Historical Figures
+              </span>
+              <span
+                className="vertical-divider"
+              />
+            </span>
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                Magellan
+              </span>
+              <span
+                className="vertical-divider"
+              />
+            </span>
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                The Age of Exploration
               </span>
             </span>
           </ActivityRowTopics>
@@ -10700,7 +11162,49 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 src="undefined/images/icons/icons-description-topic.svg"
               />
               <span>
-                The Age of Exploration: Jamestown Settlement
+                History
+              </span>
+              <span
+                className="vertical-divider"
+              />
+            </span>
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                U.S. History
+              </span>
+              <span
+                className="vertical-divider"
+              />
+            </span>
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                The Age of Exploration
+              </span>
+              <span
+                className="vertical-divider"
+              />
+            </span>
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                Jamestown Settlement
               </span>
             </span>
           </ActivityRowTopics>
@@ -11221,7 +11725,49 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 src="undefined/images/icons/icons-description-topic.svg"
               />
               <span>
-                The Renaissance: Humanism
+                History
+              </span>
+              <span
+                className="vertical-divider"
+              />
+            </span>
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                World History
+              </span>
+              <span
+                className="vertical-divider"
+              />
+            </span>
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                Humanism
+              </span>
+              <span
+                className="vertical-divider"
+              />
+            </span>
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                The Renaissance
               </span>
             </span>
           </ActivityRowTopics>
@@ -11742,7 +12288,49 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 src="undefined/images/icons/icons-description-topic.svg"
               />
               <span>
-                The Renaissance: The Renaissance in Italy
+                History
+              </span>
+              <span
+                className="vertical-divider"
+              />
+            </span>
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                World History
+              </span>
+              <span
+                className="vertical-divider"
+              />
+            </span>
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                The Renaissance
+              </span>
+              <span
+                className="vertical-divider"
+              />
+            </span>
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                The Renaissance in Italy
               </span>
             </span>
           </ActivityRowTopics>
@@ -12263,7 +12851,49 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 src="undefined/images/icons/icons-description-topic.svg"
               />
               <span>
-                The Renaissance: The Medici Family
+                History
+              </span>
+              <span
+                className="vertical-divider"
+              />
+            </span>
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                World Historical Figures
+              </span>
+              <span
+                className="vertical-divider"
+              />
+            </span>
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                The Renaissance
+              </span>
+              <span
+                className="vertical-divider"
+              />
+            </span>
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                The Medici Family
               </span>
             </span>
           </ActivityRowTopics>
@@ -12784,7 +13414,49 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 src="undefined/images/icons/icons-description-topic.svg"
               />
               <span>
-                The Renaissance: The Northern Renaissance
+                History
+              </span>
+              <span
+                className="vertical-divider"
+              />
+            </span>
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                World History
+              </span>
+              <span
+                className="vertical-divider"
+              />
+            </span>
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                The Renaissance
+              </span>
+              <span
+                className="vertical-divider"
+              />
+            </span>
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                The Northern Renaissance
               </span>
             </span>
           </ActivityRowTopics>
@@ -13305,7 +13977,49 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 src="undefined/images/icons/icons-description-topic.svg"
               />
               <span>
-                The American Revolution: The Battles of Lexington & Concord
+                History
+              </span>
+              <span
+                className="vertical-divider"
+              />
+            </span>
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                U.S. History
+              </span>
+              <span
+                className="vertical-divider"
+              />
+            </span>
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                The American Revolution
+              </span>
+              <span
+                className="vertical-divider"
+              />
+            </span>
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                The Battles of Lexington & Concord
               </span>
             </span>
           </ActivityRowTopics>
@@ -13826,7 +14540,49 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 src="undefined/images/icons/icons-description-topic.svg"
               />
               <span>
-                The American Revolution: The Battle at Yorktown
+                History
+              </span>
+              <span
+                className="vertical-divider"
+              />
+            </span>
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                U.S. History
+              </span>
+              <span
+                className="vertical-divider"
+              />
+            </span>
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                The American Revolution
+              </span>
+              <span
+                className="vertical-divider"
+              />
+            </span>
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                The Battle at Yorktown
               </span>
             </span>
           </ActivityRowTopics>
@@ -14347,7 +15103,49 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 src="undefined/images/icons/icons-description-topic.svg"
               />
               <span>
-                The American Revolution: The Battle of Bunker Hill
+                History
+              </span>
+              <span
+                className="vertical-divider"
+              />
+            </span>
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                U.S. History
+              </span>
+              <span
+                className="vertical-divider"
+              />
+            </span>
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                The American Revolution
+              </span>
+              <span
+                className="vertical-divider"
+              />
+            </span>
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                The Battle of Bunker Hill
               </span>
             </span>
           </ActivityRowTopics>
@@ -14868,7 +15666,49 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 src="undefined/images/icons/icons-description-topic.svg"
               />
               <span>
-                The American Revolution: The Battle of Saratoga
+                History
+              </span>
+              <span
+                className="vertical-divider"
+              />
+            </span>
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                U.S. History
+              </span>
+              <span
+                className="vertical-divider"
+              />
+            </span>
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                The American Revolution
+              </span>
+              <span
+                className="vertical-divider"
+              />
+            </span>
+            <span
+              className="attribute-section topic"
+            >
+              <img
+                alt="Globe icon"
+                src="undefined/images/icons/icons-description-topic.svg"
+              />
+              <span>
+                The Battle of Saratoga
               </span>
             </span>
           </ActivityRowTopics>

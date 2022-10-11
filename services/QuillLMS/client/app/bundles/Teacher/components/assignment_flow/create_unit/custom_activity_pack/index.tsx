@@ -68,6 +68,7 @@ const CustomActivityPack = ({
   const [savedActivityIds, setSavedActivityIds] = React.useState([])
   const [showSnackbar, setShowSnackbar] = React.useState(false)
   const [snackbarText, setSnackbarText] = React.useState('')
+  const [topics, setTopics] = React.useState([])
 
   const debouncedSearch = useDebounce(search, DEBOUNCE_LENGTH);
   const debouncedActivityClassificationFilters = useDebounce(activityClassificationFilters, DEBOUNCE_LENGTH);
@@ -83,7 +84,7 @@ const CustomActivityPack = ({
   const debouncedFlagFilters = useDebounce(flagFilters, DEBOUNCE_LENGTH);
 
   React.useEffect(() => {
-    if (loading) { getActivities() }
+    if (loading) { getActivitiesAndTopics() }
     getSavedActivities();
   }, []);
 
@@ -147,10 +148,11 @@ const CustomActivityPack = ({
     return number
   }
 
-  function getActivities() {
+  function getActivitiesAndTopics() {
     requestGet('/activities/search',
       (data) => {
         setActivities(data.activities);
+        setTopics(data.topics);
       }
     )
   }
@@ -379,6 +381,7 @@ const CustomActivityPack = ({
           showLessonsBanner={showLessonsBanner}
           sort={sort}
           toggleActivitySelection={toggleActivitySelection}
+          topics={topics}
           undoLastFilter={undoLastFilter}
           unsaveActivity={unsaveActivity}
         />
