@@ -86,7 +86,7 @@ export const UnitTemplateProfileActivityTable = ({ data }) => {
     const standardLevelName = a.standard_level_name ? `${divider}<p>${a.standard_level_name}</p>` : ''
     const standardName = a.standard.name ? `${divider}<p>${a.standard.name}</p>` : ''
     const readability = a.readability ? `${divider}<p>Readability: ${a.readability}</p>` : ''
-    const topic = a.topic_names ? `${divider}<p>Topics: ${a.topic_names}</p>` : ''
+    const topic = a.topic_names ? `${divider}<p>Topics: ${a.topic_names.join(', ')}</p>` : ''
     const tooltipText = `<p>Tool: ${a.classification.name}</p>${standardLevelName}${standardName}${readability}${topic}<p>${a.description}</p>`
     formattedActivity.tooltipText = tooltipText
     return formattedActivity
