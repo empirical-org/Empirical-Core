@@ -238,6 +238,8 @@ class Teachers::UnitsController < ApplicationController
     end
     teach_own_or_coteach_string = "(#{teach_own_or_coteach_classrooms_array.join(', ')})"
 
+    user_timezone_offset_string = "+ INTERVAL '#{current_user.utc_offset}' SECOND"
+
     units = RawSqlRunner.execute(
       <<-SQL
         SELECT
@@ -252,10 +254,10 @@ class Teachers::UnitsController < ApplicationController
           cu.unit_id AS unit_id,
           array_to_json(cu.assigned_student_ids) AS assigned_student_ids,
           COUNT(DISTINCT students_classrooms.id) AS class_size,
-          CASE WHEN unit_owner.time_zone IS NOT NULL THEN ua.due_date at time zone unit_owner.time_zone ELSE ua.due_date END AS due_date,
-          CASE WHEN unit_owner.time_zone IS NOT NULL THEN ua.publish_date at time zone unit_owner.time_zone ELSE ua.publish_date END AS publish_date,
-          CASE WHEN unit_owner.time_zone IS NOT NULL THEN ua.publish_date at time zone unit_owner.time_zone >= NOW() at time zone unit_owner.time_zone ELSE ua.publish_date >= NOW() END AS scheduled,
-          ua.publish_date >= NOW() at time zone 'utc' AS scheduled_in_utc,
+          ua.due_date #{user_timezone_offset_string} AS due_date,
+          ua.publish_date #{user_timezone_offset_string} AS publish_date,
+          CASE WHEN unit_owner.time_zone IS NOT NULL THEN ua.publish_date at time zone unit_owner.time_zone >= NOW() at time zone unit_owner.time_zone ELSE ua.publish_date >= NOW() END AS scheduled_in_user_time_zone,
+          ua.publish_date >= NOW() AS scheduled,
           NOW() as now_with_no_time_zone,
           NOW() at time zone 'utc' AS now_in_utc,
           NOW() at time zone unit_owner.time_zone AS now_in_est,

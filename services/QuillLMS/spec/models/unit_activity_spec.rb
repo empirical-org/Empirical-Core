@@ -244,7 +244,8 @@ describe UnitActivity, type: :model, redis: true do
         tz_string = 'America/New_York'
         teacher.update(time_zone: tz_string)
         publish_date = Time.now.utc - 1.hour
-        unit_activity.update(publish_date: publish_date)
+        # have to do update_columns here because otherwise the publish date is offset by a callback
+        unit_activity.update_columns(publish_date: publish_date)
         unit_activities = UnitActivity.get_classroom_user_profile(classroom.id, student.id)
         expect(unit_activities.find{ |ua| ua['ua_id'].to_i == unit_activity.id}['publish_date'].to_time.strftime('%a %b %d %H:%M:%S %Z %Y')).to eq((publish_date - teacher.utc_offset).to_time.strftime('%a %b %d %H:%M:%S %Z %Y'))
       end
