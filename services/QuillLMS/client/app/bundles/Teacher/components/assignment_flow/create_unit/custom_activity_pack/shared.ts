@@ -154,12 +154,7 @@ export const filters = {
 }
 
 export const stringifyLowerLevelTopics = (topics) => {
-  const levelOneTopic = topics.find(t => Number(t.level) === 1)
-  const levelZeroTopic = topics.find(t => Number(t.level) === 0)
-  let topicString = levelOneTopic ? levelOneTopic.name : ''
-  topicString += levelOneTopic && levelZeroTopic ? ': ' : ''
-  topicString += levelZeroTopic ? levelZeroTopic.name : ''
-  return topicString
+  return topics.map(topic => topic.name).join()
 }
 
 const conceptSort = (activities) => activities.sort((a, b) => {
