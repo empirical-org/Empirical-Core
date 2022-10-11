@@ -20,6 +20,8 @@ module Evidence
         spelling_passage_specific: Synthetic::Generators::SpellingPassageSpecific
       }
 
+      TEST_GENERATOR_KEYS = [:spelling_passage_specific]
+
       FREE_GENERATORS = GENERATORS.except(:translations)
       DEFAULT_LANGUAGES = Evidence::Synthetic::Generators::Translation::TRAIN_LANGUAGES.keys
 
@@ -56,6 +58,10 @@ module Evidence
       def run
         run_generators(generators, results_training)
 
+        if manual_types
+          run_generators(test_generators, results_test_validation)
+        end
+
         self
       end
 
@@ -73,6 +79,17 @@ module Evidence
         return results unless manual_types
 
         results.select {|r| r.type == TYPE_TRAIN}
+      end
+
+      def test_generators
+        generators.slice(*TEST_GENERATOR_KEYS)
+      end
+
+
+      def results_test_validation
+        return results unless manual_types
+
+        results.select {|r| r.type == TYPE_VALIDATION || r.type == TYPE_TEST}
       end
 
       LABEL_FILE = 'synthetic'
