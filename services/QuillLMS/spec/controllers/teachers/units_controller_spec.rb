@@ -238,8 +238,7 @@ describe Teachers::UnitsController, type: :controller do
           tz_string = 'America/New_York'
           teacher.update(time_zone: tz_string)
           publish_date = Time.now.utc + 1.hour
-          # have to do update_columns here because otherwise the publish date is offset by a callback
-          unit_activity.update_columns(publish_date: publish_date)
+          unit_activity.update(publish_date: publish_date)
           response = get :index, params: { report: false }
           parsed_response = JSON.parse(response.body)
           expect(parsed_response[0]['scheduled']).to eq(true)
@@ -249,10 +248,10 @@ describe Teachers::UnitsController, type: :controller do
           tz_string = 'America/New_York'
           teacher.update(time_zone: tz_string)
           publish_date = Time.now.utc - 1.hour
-          # have to do update_columns here because otherwise the publish date is offset by a callback
-          unit_activity.update_columns(publish_date: publish_date)
+          unit_activity.update(publish_date: publish_date)
           response = get :index, params: { report: false }
           parsed_response = JSON.parse(response.body)
+          binding.pry
           expect(parsed_response[0]['scheduled']).to eq(false)
         end
       end

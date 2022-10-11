@@ -181,7 +181,7 @@ class UnitActivity < ApplicationRecord
           AND cu.visible = true
           AND unit.visible = true
           AND ua.visible = true
-          AND (ua.publish_date IS NULL OR ua.publish_date at time zone 'utc '<= NOW() at time zone 'utc')
+          AND (ua.publish_date IS NULL OR ua.publish_date <= NOW() at time zone 'utc')
         GROUP BY
           unit.id,
           unit.name,

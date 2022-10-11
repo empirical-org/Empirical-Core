@@ -43,7 +43,7 @@ describe('ActivityDetails component', () => {
   it('should render due date text if due', () => {
     const wrapper = shallow(
       <ActivityDetails
-        data={Object.assign({}, baseData, {scores: [], concept_results: [{ metadata: null, description: 'Combine sentences to create 9 sentences that have an appositive phrase in the middle of the sentence.', name: null, completed_at: null, dueDate: '2016-11-04 00:00:00', }], })}
+        data={Object.assign({}, baseData, {scores: [], dueDate: '2016-11-04 00:00:00', concept_results: [{ metadata: null, description: 'Combine sentences to create 9 sentences that have an appositive phrase in the middle of the sentence.', name: null, completed_at: null, }], })}
       />
     );
     expect(wrapper.text()).toMatch('Due:');
