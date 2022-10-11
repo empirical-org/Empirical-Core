@@ -52,7 +52,7 @@ const RuleHint = ({
           ContentState={ContentState}
           EditorState={EditorState}
           handleTextChange={onHintExplanationChange}
-          key={hint.explanation}
+          key={`hint-explanation-${hint.id}`}
           shouldCheckSpelling={true}
           text={hint.explanation}
         />
