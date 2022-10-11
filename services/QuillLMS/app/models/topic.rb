@@ -52,8 +52,8 @@ class Topic < ApplicationRecord
   end
 
   def activity_count
-    case level
     child_topics = Topic.where(visible: true, parent_id: id)
+    case level
     when 3
       grandchild_topics = child_topics.map { |ct| Topic.where(parent_id: ct.id) }.flatten
       grandchild_topics.map { |gct| gct.activities.count}.reduce(:+)
