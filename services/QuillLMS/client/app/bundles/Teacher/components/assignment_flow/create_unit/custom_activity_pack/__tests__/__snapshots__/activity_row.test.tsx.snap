@@ -374,7 +374,49 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
             src="undefined/images/icons/icons-description-topic.svg"
           />
           <span>
-            Maya, Aztec, & Inca Civilizations: Hernan Cortes & the Aztec Empire
+            History
+          </span>
+          <span
+            className="vertical-divider"
+          />
+        </span>
+        <span
+          className="attribute-section topic"
+        >
+          <img
+            alt="Globe icon"
+            src="undefined/images/icons/icons-description-topic.svg"
+          />
+          <span>
+            World Historical Figures
+          </span>
+          <span
+            className="vertical-divider"
+          />
+        </span>
+        <span
+          className="attribute-section topic"
+        >
+          <img
+            alt="Globe icon"
+            src="undefined/images/icons/icons-description-topic.svg"
+          />
+          <span>
+            Hernan Cortes & the Aztec Empire
+          </span>
+          <span
+            className="vertical-divider"
+          />
+        </span>
+        <span
+          className="attribute-section topic"
+        >
+          <img
+            alt="Globe icon"
+            src="undefined/images/icons/icons-description-topic.svg"
+          />
+          <span>
+            Maya, Aztec, & Inca Civilizations
           </span>
         </span>
       </ActivityRowTopics>
@@ -824,7 +866,49 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
             src="undefined/images/icons/icons-description-topic.svg"
           />
           <span>
-            Maya, Aztec, & Inca Civilizations: Hernan Cortes & the Aztec Empire
+            History
+          </span>
+          <span
+            className="vertical-divider"
+          />
+        </span>
+        <span
+          className="attribute-section topic"
+        >
+          <img
+            alt="Globe icon"
+            src="undefined/images/icons/icons-description-topic.svg"
+          />
+          <span>
+            World Historical Figures
+          </span>
+          <span
+            className="vertical-divider"
+          />
+        </span>
+        <span
+          className="attribute-section topic"
+        >
+          <img
+            alt="Globe icon"
+            src="undefined/images/icons/icons-description-topic.svg"
+          />
+          <span>
+            Hernan Cortes & the Aztec Empire
+          </span>
+          <span
+            className="vertical-divider"
+          />
+        </span>
+        <span
+          className="attribute-section topic"
+        >
+          <img
+            alt="Globe icon"
+            src="undefined/images/icons/icons-description-topic.svg"
+          />
+          <span>
+            Maya, Aztec, & Inca Civilizations
           </span>
         </span>
       </ActivityRowTopics>
@@ -1349,7 +1433,49 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
             src="undefined/images/icons/icons-description-topic.svg"
           />
           <span>
-            Maya, Aztec, & Inca Civilizations: Hernan Cortes & the Aztec Empire
+            History
+          </span>
+          <span
+            className="vertical-divider"
+          />
+        </span>
+        <span
+          className="attribute-section topic"
+        >
+          <img
+            alt="Globe icon"
+            src="undefined/images/icons/icons-description-topic.svg"
+          />
+          <span>
+            World Historical Figures
+          </span>
+          <span
+            className="vertical-divider"
+          />
+        </span>
+        <span
+          className="attribute-section topic"
+        >
+          <img
+            alt="Globe icon"
+            src="undefined/images/icons/icons-description-topic.svg"
+          />
+          <span>
+            Hernan Cortes & the Aztec Empire
+          </span>
+          <span
+            className="vertical-divider"
+          />
+        </span>
+        <span
+          className="attribute-section topic"
+        >
+          <img
+            alt="Globe icon"
+            src="undefined/images/icons/icons-description-topic.svg"
+          />
+          <span>
+            Maya, Aztec, & Inca Civilizations
           </span>
         </span>
       </ActivityRowTopics>
@@ -1878,7 +2004,49 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
             src="undefined/images/icons/icons-description-topic.svg"
           />
           <span>
-            Maya, Aztec, & Inca Civilizations: Hernan Cortes & the Aztec Empire
+            History
+          </span>
+          <span
+            className="vertical-divider"
+          />
+        </span>
+        <span
+          className="attribute-section topic"
+        >
+          <img
+            alt="Globe icon"
+            src="undefined/images/icons/icons-description-topic.svg"
+          />
+          <span>
+            World Historical Figures
+          </span>
+          <span
+            className="vertical-divider"
+          />
+        </span>
+        <span
+          className="attribute-section topic"
+        >
+          <img
+            alt="Globe icon"
+            src="undefined/images/icons/icons-description-topic.svg"
+          />
+          <span>
+            Hernan Cortes & the Aztec Empire
+          </span>
+          <span
+            className="vertical-divider"
+          />
+        </span>
+        <span
+          className="attribute-section topic"
+        >
+          <img
+            alt="Globe icon"
+            src="undefined/images/icons/icons-description-topic.svg"
+          />
+          <span>
+            Maya, Aztec, & Inca Civilizations
           </span>
         </span>
       </ActivityRowTopics>

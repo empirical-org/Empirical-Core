@@ -23,7 +23,7 @@ interface FilterColumnProps {
   activityClassificationFilters: string[],
   handleActivityClassificationFilterChange: (activityClassificationFilters: string[]) => void,
   ccssGradeLevelFilters: number[],
-  ellFilters: number[],
+  ellFilters: string[],
   handleCCSSGradeLevelFilterChange: (ccssGradeLevelFilters: number[]) => void,
   handleELLFilterChange: (ellFilters: number[]) => void,
   gradeLevelFilters: number[],
