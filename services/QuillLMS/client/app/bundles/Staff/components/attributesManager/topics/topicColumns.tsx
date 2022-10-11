@@ -20,6 +20,7 @@ const TopicColumns = ({ topics, searchValue, saveTopicChanges, createNewTopic, v
   const sharedTopicBoxProps = {
     closeTopicBox,
     levelThreeTopics: topics.filter(t => t.level === 3 && t.visible),
+    levelTwoTopics: topics.filter(t => t.level === 2 && t.visible)
   }
 
   if (selectedTopicId) {
@@ -40,7 +41,6 @@ const TopicColumns = ({ topics, searchValue, saveTopicChanges, createNewTopic, v
       <NewTopicBox {...createNewTopicBoxProps} levelNumber={3} />
       <NewTopicBox {...createNewTopicBoxProps} levelNumber={2} />
       <NewTopicBox {...createNewTopicBoxProps} levelNumber={1} />
-      <NewTopicBox {...createNewTopicBoxProps} levelNumber={0} />
     </React.Fragment>)
   }
 
@@ -56,7 +56,6 @@ const TopicColumns = ({ topics, searchValue, saveTopicChanges, createNewTopic, v
       <TopicLevelTable {...sharedProps} levelNumber={3} />
       <TopicLevelTable {...sharedProps} levelNumber={2} />
       <TopicLevelTable {...sharedProps} levelNumber={1} />
-      <TopicLevelTable {...sharedProps} levelNumber={0} />
       <div className="record-box-container">
         {topicBox}
         {newTopicBoxes}

@@ -214,7 +214,7 @@ const CustomActivityPack = ({
     setGradeLevelFilters(newGradeLevelFilters)
   }
 
-  function handleELLFilterChange(newELLFilters: string[]) {
+  function handleELLFilterChange(newELLFilters: number[]) {
     setFilterHistory(prevFilterHistory => prevFilterHistory.concat([{ function: setELLFilters, argument: ellFilters }]))
     setELLFilters(newELLFilters)
   }
@@ -343,6 +343,7 @@ const CustomActivityPack = ({
     isStaff,
     activityCategoryEditor,
     flagset,
+    topics,
   }
 
   const selectedActivitiesFilteredByFlag =  isStaff && !flagFilters.length ? [] : selectedActivities.filter(a => filterByFlag(flagFilters, a))
