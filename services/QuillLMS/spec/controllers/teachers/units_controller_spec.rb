@@ -232,6 +232,32 @@ describe Teachers::UnitsController, type: :controller do
       expect(parsed_response.length).to eq(1)
     end
 
+    context 'time_zones' do
+      describe 'when the teacher has a time zone' do
+        it 'should return activities with publish dates in the future as scheduled' do
+          tz_string = 'America/New_York'
+          teacher.update(time_zone: tz_string)
+          publish_date = Time.now.utc + 1.hour
+          # have to do update_columns here because otherwise the publish date is offset by a callback
+          unit_activity.update_columns(publish_date: publish_date)
+          response = get :index, params: { report: false }
+          parsed_response = JSON.parse(response.body)
+          expect(parsed_response[0]['scheduled']).to eq(true)
+        end
+
+        it 'should return activities with publish dates in the past as not scheduled' do
+          tz_string = 'America/New_York'
+          teacher.update(time_zone: tz_string)
+          publish_date = Time.now.utc - 1.hour
+          # have to do update_columns here because otherwise the publish date is offset by a callback
+          unit_activity.update_columns(publish_date: publish_date)
+          response = get :index, params: { report: false }
+          parsed_response = JSON.parse(response.body)
+          expect(parsed_response[0]['scheduled']).to eq(false)
+        end
+      end
+    end
+
     # TODO: write a VCR-like test to check when this request returns something other than what we expect.
   end
 
