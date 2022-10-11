@@ -117,6 +117,9 @@ class UnitActivity < ApplicationRecord
   def self.get_classroom_user_profile(classroom_id, user_id)
     return [] unless classroom_id && user_id
 
+    # AND (ua.publish_date IS NULL OR (CASE WHEN teachers.time_zone IS NOT NULL THEN ua.publish_date at time zone teachers.time_zone <= NOW() at time zone teachers.time_zone ELSE ua.publish_date <= NOW() END))
+
+
     # Generate a rich profile of Classroom Activities for a given user in a given classroom
     RawSqlRunner.execute(
       <<-SQL
@@ -178,7 +181,7 @@ class UnitActivity < ApplicationRecord
           AND cu.visible = true
           AND unit.visible = true
           AND ua.visible = true
-          AND (ua.publish_date IS NULL OR (CASE WHEN teachers.time_zone IS NOT NULL THEN ua.publish_date at time zone teachers.time_zone <= NOW() at time zone teachers.time_zone ELSE ua.publish_date <= NOW() END))
+          AND (ua.publish_date IS NULL OR ua.publish_date at time zone 'utc '<= NOW() at time zone 'utc')
         GROUP BY
           unit.id,
           unit.name,
