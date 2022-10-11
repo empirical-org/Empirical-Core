@@ -85,7 +85,6 @@ module Evidence
         generators.slice(*TEST_GENERATOR_KEYS)
       end
 
-
       def results_test_validation
         return results unless manual_types
 
