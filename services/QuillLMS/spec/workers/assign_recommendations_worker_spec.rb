@@ -13,15 +13,17 @@ describe AssignRecommendationsWorker do
   let(:is_last_recommendation) { true }
   let(:lesson) { 'lesson' }
   let(:assigning_all_recommendations) { false }
-  let(:activity_pack_id) { nil }
+  let(:activity_pack_sequence_id) { nil }
+  let(:order) { 0 }
 
   let(:args) do
     {
-      activity_pack_id: activity_pack_id,
+      activity_pack_sequence_id: activity_pack_sequence_id,
       assigning_all_recommendations: assigning_all_recommendations,
       classroom_id: classroom.id,
       is_last_recommendation: is_last_recommendation,
       lesson: lesson,
+      order: order,
       student_ids: [student.id],
       unit_template_id: unit_template.id
     }
@@ -42,7 +44,6 @@ describe AssignRecommendationsWorker do
     context 'when unit was found with the unit template name' do
       let!(:unit) { create(:unit, name: unit_template.name, user: teacher, visible: false) }
 
-      it { expect { subject }.to change { unit.reload.visible}.from(false).to(true) }
       it { should_track_that_all_recommendations_are_being_assigned }
       it { should_run_the_pusher_recommendations }
       it { should_update_the_unit_and_assign_it_to_one_class }
@@ -52,8 +53,6 @@ describe AssignRecommendationsWorker do
   context 'when only one unit is found' do
     let!(:unit) { create(:unit, unit_template: unit_template, user: teacher, visible: false) }
 
-    it { expect { subject }.to change { unit.reload.visible}.from(false).to(true) }
-
     it { should_track_that_all_recommendations_are_being_assigned }
     it { should_run_the_pusher_recommendations }
     it { should_update_the_unit_and_assign_it_to_one_class }
@@ -62,8 +61,6 @@ describe AssignRecommendationsWorker do
   context 'when more than one unit is found' do
     let!(:unit) { create(:unit, unit_template: unit_template, user: teacher, visible: false, updated_at: Date.current) }
     let!(:unit1) { create(:unit, unit_template: unit_template, user: teacher, visible: false, updated_at: 1.day.ago) }
-
-    it { expect { subject }.to change { unit.reload.visible}.from(false).to(true) }
 
     it { should_track_that_all_recommendations_are_being_assigned }
     it { should_run_the_pusher_recommendations }
@@ -92,6 +89,32 @@ describe AssignRecommendationsWorker do
     let(:assigning_all_recommendations) { true }
 
     it { should_track_that_all_recommendations_are_being_assigned }
+  end
+
+  context 'when activity_pack_sequence_id is nil' do
+    let(:activity_pack_sequence_id) { nil }
+
+    it { expect { subject }.not_to change(ActivityPackSequenceActivityPack, :count).from(0) }
+  end
+
+  context 'when activity_pack_sequence_id exists' do
+    let(:activity_pack_sequence_id) { create(:activity_pack_sequence).id }
+
+    it { expect { subject }.to change(ActivityPackSequenceActivityPack, :count).from(0).to(1) }
+
+    context 'when activity_pack_sequence_activity_pack already exists' do
+      let(:unit) { create(:unit, unit_template: unit_template, user: teacher) }
+
+      before do
+        create(:activity_pack_sequence_activity_pack,
+          activity_pack_id: unit.id,
+          activity_pack_sequence_id: activity_pack_sequence_id,
+          order: 0
+        )
+      end
+
+      it { expect { subject }.not_to change(ActivityPackSequenceActivityPack, :count).from(1) }
+    end
   end
 
   def should_track_that_all_recommendations_are_being_assigned

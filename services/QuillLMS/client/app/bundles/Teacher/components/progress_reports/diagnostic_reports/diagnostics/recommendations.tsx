@@ -172,7 +172,7 @@ const IndependentRecommendationsButtons = ({ assignActivityPacks, independentSel
   return <RecommendationsButtons assignActivityPacks={assignActivityPacks} assigned={assigned} assigning={assigning} deselectAll={handleDeselectAllClick} numberSelected={numberSelected} selectAll={handleSelectAllClick} selectAllRecommended={handleSelectAllRecommendedClick} />
 }
 
-const LessonsRecommendationsButtons = ({ lessonsSelections, assignLessonActivityPacks, setLessonsSelections, lessonsRecommendations, assigned, assigning, }) => {
+const LessonsRecommendationsButtons = ({ lessonsSelections, assignLessonsActivityPacks, setLessonsSelections, lessonsRecommendations, assigned, assigning, }) => {
   function handleSelectAllClick() {
     const newSelections = lessonsRecommendations.map(r => r.activity_pack_id)
     setLessonsSelections(newSelections)
@@ -187,7 +187,7 @@ const LessonsRecommendationsButtons = ({ lessonsSelections, assignLessonActivity
     setLessonsSelections([])
   }
 
-  return <RecommendationsButtons assignActivityPacks={assignLessonActivityPacks} assigned={assigned} assigning={assigning} deselectAll={handleDeselectAllClick} numberSelected={lessonsSelections.length} selectAll={handleSelectAllClick} selectAllRecommended={handleSelectAllRecommendedClick} />
+  return <RecommendationsButtons assignActivityPacks={assignLessonsActivityPacks} assigned={assigned} assigning={assigning} deselectAll={handleDeselectAllClick} numberSelected={lessonsSelections.length} selectAll={handleSelectAllClick} selectAllRecommended={handleSelectAllRecommendedClick} />
 }
 
 export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passedPreviouslyAssignedLessonRecommendations, passedIndependentRecommendations, passedLessonRecommendations, match, mobileNavigation, activityName, location, lessonsBannerIsShowable, }) => {
