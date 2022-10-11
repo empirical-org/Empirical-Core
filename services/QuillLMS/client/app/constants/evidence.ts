@@ -209,6 +209,14 @@ export const blankActivity = {
   ]
 }
 
+export const blankHint: HintInterface = {
+  id: '',
+  name: '',
+  explanation: '',
+  image_link: '',
+  image_alt_text: ''
+}
+
 export const blankRule = {
   name: '',
   description: null,

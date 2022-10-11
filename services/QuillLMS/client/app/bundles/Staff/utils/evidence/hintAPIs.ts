@@ -4,7 +4,7 @@ import { handleApiError, apiFetch, handleRequestErrors, requestFailed } from '..
 export const fetchHints = async () => {
   const response = await apiFetch(`hints`);
   let hints = await response.json();
-  if(hints && hints.hints) {
+  if(hints?.hints) {
     hints = hints.hints;
   }
   return {

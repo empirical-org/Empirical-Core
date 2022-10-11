@@ -35,7 +35,6 @@ const RuleHintDropdown = ({
   }
 
   return(
-    // eslint-disable-next-line
     <React.Fragment>
       <div className="form-subsection-label">Hint</div>
       <DropdownInput

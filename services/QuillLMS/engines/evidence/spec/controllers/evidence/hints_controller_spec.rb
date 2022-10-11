@@ -12,8 +12,7 @@ module Evidence
         get(:index)
         parsed_response = JSON.parse(response.body)
         expect(response.status).to eq(200)
-        expect(parsed_response.class).to(eq(Array))
-        expect(parsed_response.empty?).to(eq(true))
+        expect(parsed_response).to(match_array([]))
       end
 
       context 'should with hints' do

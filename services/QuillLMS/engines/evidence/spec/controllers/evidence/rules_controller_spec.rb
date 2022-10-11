@@ -309,7 +309,19 @@ module Evidence
       it 'should connect a Hint when a hint_id is passed' do
         hint = create(:evidence_hint)
 
-        post(:create, :params => ({ :rule => ({ :concept_uid => rule.concept_uid, :note => rule.note, :name => rule.name, :optimal => rule.optimal, :state => rule.state, :suborder => rule.suborder, :rule_type => rule.rule_type, :universal => rule.universal, :hint_id => hint.id }) }))
+        post(:create, :params => ({
+          :rule => ({
+            :concept_uid => rule.concept_uid,
+            :note => rule.note,
+            :name => rule.name,
+            :optimal => rule.optimal,
+            :state => rule.state,
+            :suborder => rule.suborder,
+            :rule_type => rule.rule_type,
+            :universal => rule.universal,
+            :hint_id => hint.id
+          }) 
+        }))
         parsed_response = JSON.parse(response.body)
         expect(response.code.to_i).to(eq(201))
         expect(parsed_response["hint"]["id"]).to(eq(hint.id))

@@ -7,21 +7,17 @@ const RuleHintPicker = ({
   onHintChange,
 }) => {
 
-  const hintId = (hint && hint.id) || null
-  const hintExplanation = (hint && hint.explanation) || null
-  const hintImageLink = (hint && hint.image_link) || null
-  const hintImageAltText = (hint && hint.image_alt_text) || null
+  const { id, explanation, image_link, image_alt_text, } = hint || {}
 
   return(
-    // eslint-disable-next-line
     <React.Fragment>
       <RuleHintDropdown
         emptySelectionText="(no hint)"
         onHintChange={onHintChange}
-        selectedHintId={hintId}
+        selectedHintId={id}
       />
-      <div dangerouslySetInnerHTML={{__html: hintExplanation}} />
-      <img alt={hintImageAltText} src={hintImageLink} />
+      <div dangerouslySetInnerHTML={{__html: explanation}} />
+      <img alt={image_alt_text} src={image_link} />
     </React.Fragment>
   );
 };

@@ -7,6 +7,8 @@ import Navigation from './navigation';
 import { HintInterface } from '../../interfaces/evidenceInterfaces';
 import { createHint, deleteHint, fetchHints, updateHint, } from '../../utils/evidence/hintAPIs';
 import { DropdownInput, Error, Spinner, Snackbar, defaultSnackbarTimeout, } from '../../../Shared/index';
+import useSnackbarMonitor from '../../../Shared/hooks/useSnackbarMonitor'
+import { blankHint, } from "../../../../constants/evidence";
 import { renderErrorsContainer } from "../../helpers/evidence/renderHelpers";
 import RuleHint from "./configureRules/ruleHint";
 import RuleHintDropdown from "./configureRules/ruleHintDropdown";
@@ -17,31 +19,28 @@ const Hints = ({ location, match }) => {
 
   const history = useHistory();
 
-  const newHint: HintInterface = {
-    id: '',
-    name: '',
-    explanation: '',
-    image_link: 'no image',
-    image_alt_text: ''
-  }
-
   // cache hint data for updates
   const { data: hintsData } = useQuery("hints", fetchHints);
   const [errors, setErrors] = React.useState<string[]>([])
-  const [hint, setHint] = React.useState<HintInterface>(newHint)
+  const [hint, setHint] = React.useState<HintInterface>(blankHint)
   const [snackbarText, setSnackbarText] = React.useState<string[]>('')
-  const [snackbarVisible, setSnackbarVisible] = React.useState<Boolean>(false)
+  const [showSnackbar, setShowSnackbar] = React.useState<Boolean>(false)
+
+  useSnackbarMonitor(showSnackbar, setShowSnackbar, defaultSnackbarTimeout)
 
   const queryClient = useQueryClient()
 
-  if (hintId && hintsData && hint.id != hintId) {
-    const hintFromUrl = hintsData.hints.find((hint) => hint.id == hintId)
+  const NO_VALUE = ''
+
+  if (hintId && hintsData && hint.id !== hintId) {
+    const hintFromUrl = hintsData.hints.find((hint) => hint.id === hintId)
     if (hintFromUrl) setHint(hintFromUrl)
   }
 
   const onHintChange = (selectedHint) => {
+    console.log(selectedHint)
     if (!selectedHint) {
-      return setHint(newHint)
+      return setHint(blankHint)
     }
     setHint(selectedHint)
     history.push({
@@ -50,7 +49,7 @@ const Hints = ({ location, match }) => {
   }
 
   const handleSaveHint = () => {
-    if (hint.id == '') {
+    if (hint.id === NO_VALUE) {
       createHint(hint).then(handleSaveResponse)
     } else {
       updateHint(hint.id, hint).then(handleSaveResponse)
@@ -58,7 +57,7 @@ const Hints = ({ location, match }) => {
   }
 
   const handleSaveResponse = (response) => {
-    if (response.errors.length > 0) setErrors(result.errors)
+    if (response.errors.length) setErrors(result.errors)
 
     queryClient.refetchQueries("hints")
     if (response.hint) {
@@ -71,13 +70,12 @@ const Hints = ({ location, match }) => {
 
     flashSnackbar('Hint deleted.')
     deleteHint(hint.id).then(handleSaveResponse)
-      .then(() => setHint(newHint))
+      .then(() => setHint(blankHint))
   }
 
   const flashSnackbar = (text: string) => {
     setSnackbarText(text)
-    setSnackbarVisible(true)
-    setTimeout(() => setSnackbarVisible(false), defaultSnackbarTimeout)
+    setShowSnackbar(true)
   }
 
   if(!hintsData) {
@@ -120,12 +118,12 @@ const Hints = ({ location, match }) => {
   }
 
   const saveButton = () => {
-    const buttonText = hint.id == '' ? 'Create Hint' : 'Update Hint'
+    const buttonText = hint.id === NO_VALUE ? 'Create Hint' : 'Update Hint'
     return (<button className="quill-button medium primary outlined save-hint" onClick={handleSaveHint} type="button">{buttonText}</button>)
   }
 
   const deleteButton = () => {
-    if (hint.id == '') return;
+    if (hint.id === NO_VALUE) return;
 
     return (<button className="quill-button medium primary outlined delete-hint" onClick={handleDeleteHint} type="button">Delete Hint</button>)
   }
@@ -144,7 +142,7 @@ const Hints = ({ location, match }) => {
             {deleteButton()}
           </div>
         </div>
-        <Snackbar text={snackbarText} visible={snackbarVisible} />
+        <Snackbar text={snackbarText} visible={showSnackbar} />
       </div>
     </React.Fragment>
   );

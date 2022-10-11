@@ -72,7 +72,6 @@ const RuleHint = ({
   }
 
   return(
-    // eslint-disable-next-line
     <React.Fragment>
       {renderHint()}
     </React.Fragment>
