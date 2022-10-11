@@ -1,9 +1,10 @@
 import * as React from 'react'
 
-import { DataTable, uniqueValuesArray } from '../../../../Shared';
+import { DataTable, uniqueValuesArray, Tooltip } from '../../../../Shared';
 import { READING_TEXTS, READING_FOR_EVIDENCE, CONNECT, DIAGNOSTIC, GRAMMAR, PROOFREADER, LESSONS } from '../assignmentFlowConstants';
-import { UnitTemplateInterface } from '../../../../../interfaces/unitTemplate';
+import { UnitTemplateCategoryInterface, UnitTemplateInterface } from '../../../../../interfaces/unitTemplate';
 import { Activity } from '../../../../../interfaces/activity';
+import { renderActivityPackTooltipElement } from '../../../helpers/unitTemplates';
 
 export const UnitTemplateMinisTable = ({ unitTemplates, userSignedIn }) => {
   const toolColors = {
@@ -15,15 +16,15 @@ export const UnitTemplateMinisTable = ({ unitTemplates, userSignedIn }) => {
     [LESSONS]: '#AD287B'
   }
   const dataTableFields = [
-    { name: "Pack type", attribute:"packType", width: "160px", rowSectionClassName: 'pack-type-section', noTooltip: true },
-    { name: "Pack name", attribute:"packName", width: "190px", rowSectionClassName: 'pack-name-section', noTooltip: true },
-    { name: "Tools", attribute:"tools", width: "140px", rowSectionClassName: '', noTooltip: true },
-    { name: "Grade Level", attribute:"gradeLevel", width: "70px", rowSectionClassName: '', noTooltip: true },
-    { name: "Activities", attribute:"activities", width: "50px", rowSectionClassName: 'activities-section', noTooltip: true },
-    { name: "Duration", attribute:"duration", width: "150px", rowSectionClassName: '', noTooltip: true },
+    { name: "Pack type", attribute:"packType", width: "160px", rowSectionClassName: 'pack-type-section', noTooltip: true, isSortable: true, sortAttribute: 'alphabeticalPackType' },
+    { name: "Pack name", attribute:"packName", width: "190px", rowSectionClassName: 'pack-name-section', noTooltip: false, isSortable: true, sortAttribute: 'alphabeticalPackName' },
+    { name: "Tools", attribute:"tools", width: "140px", rowSectionClassName: '', noTooltip: true, isSortable: true, sortAttribute: 'alphabeticalTools' },
+    { name: "Grade Level", attribute:"gradeLevel", width: "70px", rowSectionClassName: '', noTooltip: true, isSortable: true, sortAttribute: 'chronologicalGradeLevel' },
+    { name: "Activities", attribute:"activities", width: "50px", rowSectionClassName: 'activities-section', noTooltip: true, isSortable: true },
+    { name: "Duration", attribute:"duration", width: "150px", rowSectionClassName: '', noTooltip: true, isSortable: true, sortAttribute: 'chronologicalDuration' },
   ];
 
-  function getDurationElement(unit_template_category, time) {
+  function getDurationElement(unit_template_category: UnitTemplateCategoryInterface, time: string) {
     const { name } = unit_template_category
     if(name === READING_TEXTS) {
       return(
@@ -39,14 +40,20 @@ export const UnitTemplateMinisTable = ({ unitTemplates, userSignedIn }) => {
     return `${time} mins`;
   }
 
-  function getToolsElement(activities: Activity[]) {
-    if(!activities) { return }
+  function activityPackTools(activities) {
+    if(!activities.length) { return [] }
 
-    const tools = uniqueValuesArray(activities.map(activity => {
+    return uniqueValuesArray(activities.map((activity: Activity)=> {
       const { classification } = activity
       const { name } = classification
       return name.replace('Quill ', '')
-    }))
+    })).sort();
+  }
+
+  function getToolsElement(activities: Activity[]) {
+    if(!activities) { return }
+
+    const tools = activityPackTools(activities)
 
     return(
       <section className="tools-section">
@@ -58,22 +65,44 @@ export const UnitTemplateMinisTable = ({ unitTemplates, userSignedIn }) => {
     )
   }
 
+  function getNameElement(name: string, activities: Activity[]) {
+    return(
+      <Tooltip
+        tooltipText={renderActivityPackTooltipElement({ activities })}
+        tooltipTriggerText={name}
+        tooltipTriggerTextClass="activity-pack-name"
+      />
+    )
+  }
+
+  function getChronologicalGradeLevel(readability: string) {
+    if(!readability) { return 0 }
+    if(readability.slice(0,2) === '10') { return 10 }
+    return parseInt(readability.slice(0, 1))
+  }
+
   function unitTemplateRows() {
     return unitTemplates.map((unitTemplate: UnitTemplateInterface) => {
       const { id, name, readability, activities, time, unit_template_category } = unitTemplate;
       const { primary_color } = unit_template_category;
+      const nameElement = getNameElement(name, activities);
       const durationElement = getDurationElement(unit_template_category, time);
       const toolsElement = getToolsElement(activities);
       const packUrl = userSignedIn ? `/assign/featured-activity-packs/${id}` : `/activities/packs/${id}`;
       return {
         id,
         link: packUrl,
+        alphabeticalPackType: unit_template_category.name,
         packType: <p style={{ color: primary_color }}>{unit_template_category.name}</p>,
-        packName: name,
+        alphabeticalPackName: name,
+        packName: nameElement,
         tools: toolsElement,
+        alphabeticalTools: activityPackTools(activities)[0],
         gradeLevel: readability,
+        chronologicalGradeLevel: getChronologicalGradeLevel(readability),
         activities: activities.length,
-        duration: durationElement
+        duration: durationElement,
+        chronologicalDuration: time
       }
     });
   }

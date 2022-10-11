@@ -178,7 +178,7 @@
 
 .quill-tooltip {
   max-width: max-content;
-  table {
+  .activity-tooltip-table {
     color: #FFFFFF;
     width: max-content;
     tbody {
@@ -192,6 +192,9 @@
         td {
           padding: 16px 48px 8px 0px;
         }
+      }
+      tr:last-of-type {
+        border-bottom: none;
       }
       tr {
         th, td {
