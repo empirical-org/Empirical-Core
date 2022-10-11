@@ -54,18 +54,22 @@ module Evidence
       end
 
       def run
-        generators.each do |type, generator|
-          results_hash = generator.run(results_to_train.map(&:text), languages: languages, passage: passage)
-
-          results_to_train.each do |result|
-            result.generated[type] = results_hash[result.text] || {}
-          end
-        end
+        run_generators(generators, results_training)
 
         self
       end
 
-      def results_to_train
+      def run_generators(generator_hash, results_set)
+        generator_hash.each do |type, generator|
+          results_hash = generator.run(results_set.map(&:text), languages: languages, passage: passage)
+
+          results_set.each do |result|
+            result.generated[type] = results_hash[result.text] || {}
+          end
+        end
+      end
+
+      def results_training
         return results unless manual_types
 
         results.select {|r| r.type == TYPE_TRAIN}
