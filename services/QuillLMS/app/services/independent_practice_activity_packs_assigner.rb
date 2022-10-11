@@ -1,25 +1,38 @@
 # frozen_string_literal: true
 
-class IndependentPracticeRecommendationsAssigner < ApplicationService
-  attr_reader :assigning_all_recommendations, :classroom_id, :diagnostic_activity_id, :release_method, :selections, :user
+class IndependentPracticeActivityPacksAssigner < ApplicationService
+  attr_reader :assigning_all_recommendations,
+    :classroom_id,
+    :diagnostic_activity_id,
+    :release_method,
+    :selections,
+    :user
 
-  class UnauthorizedRecommendationsAssignmentError < StandardError; end
+  class TeacherNotAssociatedWithClassroomError < StandardError; end
 
-  def initialize(params, user)
-    @assigning_all_recommendations = params[:assigning_all_recommendations]
-    @classroom_id = params[:classroom_id]
-    @diagnostic_activity_id = params[:diagnostic_activity_id]
-    @release_method = params[:release_method]
-    @selections = params[:selections]
+  def initialize(
+    assigning_all_recommendations:,
+    classroom_id:,
+    diagnostic_activity_id:,
+    release_method:,
+    selections:,
+    user:
+  )
+    @assigning_all_recommendations = assigning_all_recommendations
+    @classroom_id = classroom_id
+    @diagnostic_activity_id = diagnostic_activity_id
+    @release_method = release_method
+    @selections = selections
     @user = user
   end
 
   def run
-    raise UnauthorizedRecommendationsAssignmentError unless teaches_this_classroom?
+    raise TeacherNotAssociatedWithClassroomError unless teaches_classroom?
+
+    find_or_create_activity_packs
 
     return if selections_with_students.empty?
 
-    find_or_create_activity_packs
     set_diagnostic_recommendations_start_time
     assign_recommendations
   end
@@ -61,9 +74,7 @@ class IndependentPracticeRecommendationsAssigner < ApplicationService
     $redis.set("user_id:#{user.id}_diagnostic_recommendations_start_time", Time.current)
   end
 
-  private def teaches_this_classroom?
+  private def teaches_classroom?
     classroom_id.in?(user.classrooms_i_teach.pluck(:id))
   end
 end
-
-
