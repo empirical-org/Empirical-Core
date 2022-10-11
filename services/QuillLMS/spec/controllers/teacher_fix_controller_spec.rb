@@ -163,7 +163,7 @@ describe TeacherFixController do
         end
 
         it 'should touch ActivitySessions to bubble up touch for cache invalidation purposes' do
-          expect_any_instance_of(ClassroomUnit).to receive(:touch) 
+          expect_any_instance_of(ClassroomUnit).to receive(:touch)
           post :recover_activity_sessions, params: { email: user.email, unit_name: "some name" }
         end
       end
