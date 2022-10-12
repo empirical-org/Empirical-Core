@@ -406,9 +406,17 @@
       }
     }
   }
+  .student-actions-dropdown-wrapper {
+    display: flex;
+    align-items: center;
+    margin-bottom: 32px;
+    .quill-tooltip-trigger {
+      margin-top: 12px;
+      margin-left: 10px;
+    }
+  }
   .student-actions-dropdown {
     width: 200px;
-    height: 91px;
     justify-content: flex-start;
     .dropdown {
       font-size: 16px;
