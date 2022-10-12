@@ -55,9 +55,7 @@ SecureHeaders::Configuration.default do |config|
       "https://*.intercomcdn.com",
       "https://*.coview.com",
       "https://*.sentry.io",
-      "https://*.heapanalytics.com",
-      "https://cdn3l.ink/app.js",
-      "https://capture-api.ap3prod.com"
+      "https://*.heapanalytics.com"
     ],
 
     font_src: [
