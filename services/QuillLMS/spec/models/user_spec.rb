@@ -1450,4 +1450,19 @@ describe User, type: :model do
       end
     end
   end
+
+  describe '#units_with_same_name' do
+    let(:user) { create(:user) }
+    let(:name) { 'name' }
+
+    context 'user has no units' do
+      it { expect(user.units_with_same_name(name)).to eq [] }
+    end
+
+    context 'user has a unit' do
+      let!(:unit) { create(:unit, user: user, name: 'NaMe') }
+
+      it { expect(user.reload.units_with_same_name(name)).to eq [unit] }
+    end
+  end
 end

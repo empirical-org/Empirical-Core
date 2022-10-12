@@ -4,6 +4,7 @@ class AssignRecommendationsWorker
   include Sidekiq::Worker
   sidekiq_options queue: SidekiqQueue::CRITICAL
 
+  # rubocop:disable Metrics/ParameterLists
   def perform(
     classroom_id:,
     lesson:,
@@ -44,6 +45,7 @@ class AssignRecommendationsWorker
     PusherRecommendationCompleted.run(classroom, unit_template_id, lesson)
     track_assign_all_recommendations(teacher) if assigning_all_recommendations
   end
+  # rubocop:enable Metrics/ParameterLists
 
   def assign_unit_to_one_class(unit, classroom_id, classroom_data, unit_template_id, teacher_id)
     if unit.present?

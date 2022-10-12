@@ -5,8 +5,6 @@ class Teachers::UnitTemplatesController < ApplicationController
   before_action :redirect_to_public_index_if_no_unit_template_found, only: [:show]
   before_action :set_root_url
 
-  include Units
-
   def index
     respond_to do |format|
       format.html do

@@ -668,6 +668,10 @@ class User < ApplicationRecord
     end
   end
 
+  def units_with_same_name(name)
+    units.where('name ILIKE ?', name)
+  end
+
   private def validate_flags
     invalid_flags = flags - VALID_FLAGS
 
