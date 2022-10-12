@@ -214,7 +214,7 @@ const CustomActivityPack = ({
     setGradeLevelFilters(newGradeLevelFilters)
   }
 
-  function handleELLFilterChange(newELLFilters: number[]) {
+  function handleELLFilterChange(newELLFilters: string[]) {
     setFilterHistory(prevFilterHistory => prevFilterHistory.concat([{ function: setELLFilters, argument: ellFilters }]))
     setELLFilters(newELLFilters)
   }

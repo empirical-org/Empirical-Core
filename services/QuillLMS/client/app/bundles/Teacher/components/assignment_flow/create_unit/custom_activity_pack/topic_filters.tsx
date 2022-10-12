@@ -4,7 +4,6 @@ import { Activity, Topic } from './interfaces'
 import { TOPIC_FILTERS, AVERAGE_FONT_WIDTH, activityClassificationGroupings, } from './shared'
 
 import { Tooltip } from '../../../../../Shared/index'
-import { requestGet } from '../../../../../../modules/request/index'
 
 const dropdownIconSrc = `${process.env.CDN_URL}/images/icons/dropdown.svg`
 const indeterminateSrc = `${process.env.CDN_URL}/images/icons/indeterminate.svg`
@@ -172,8 +171,8 @@ const TopicFilters = ({ activities, filterActivities, topicFilters, handleTopicF
   let levelOneTopicsInUse = []
   let uniqueLevelOneTopics = []
   let uniqueLevelTwoTopics = []
-  let filteredActivities = []
   let topicGroupings = []
+  const filteredActivities = filterActivities(TOPIC_FILTERS)
 
   function clearAllTopicFilters() { handleTopicFilterChange([]) }
 
@@ -188,8 +187,6 @@ const TopicFilters = ({ activities, filterActivities, topicFilters, handleTopicF
 
     const levelThreeTopicsInUse = uniqueLevelTwoTopics.map(levelTwoTopic => topics.find(topic => topic.id === levelTwoTopic.parent_id))
     const uniqueLevelThreeTopics = getUniqueTopics(levelThreeTopicsInUse)
-
-    filteredActivities = filterActivities(TOPIC_FILTERS)
 
     topicGroupings = uniqueLevelThreeTopics.sort((a, b) => a.name.localeCompare(b.name)).map(levelThree => {
       const levelTwoIds =  uniqueLevelTwoTopics.filter(levelTwo => levelTwo.parent_id === levelThree.id).sort((a, b) => a.name.localeCompare(b.name)).map(levelTwo => levelTwo.id)
