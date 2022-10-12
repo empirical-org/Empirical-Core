@@ -161,6 +161,12 @@ describe TeacherFixController do
           post :recover_activity_sessions, params: { email: user.email, unit_name: "some name" }
           expect(classroom_unit.reload.assigned_student_ids).to include(another_user.id, other_student.id)
         end
+
+        it 'should touch ActivitySessions to bubble up touch for cache invalidation purposes' do
+          # Testing that a ClassroomUnit gets a touch bubbled up to it from the underlying ActivitySession
+          expect_any_instance_of(ClassroomUnit).to receive(:touch)
+          post :recover_activity_sessions, params: { email: user.email, unit_name: "some name" }
+        end
       end
 
       context 'when unit does not exist' do

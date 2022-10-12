@@ -71,6 +71,10 @@ class TeacherFixController < ApplicationController
           recovered_assigned_students = activity_sessions.map(&:user_id)
           cu.update(visible: true, assigned_student_ids: cu.assigned_student_ids.union(recovered_assigned_students))
           activity_sessions.update_all(visible: true)
+          # update_all bypasses ActiveRecord callbacks, and thus doesn't
+          # trigger the `touch` bubble-up that we use for cache invalidation.
+          # So we need to do the touches manually.
+          activity_sessions.each(&:touch)
         end
         render json: {}, status: 200
       else
