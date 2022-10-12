@@ -40,6 +40,7 @@ class District < ApplicationRecord
   scope :by_state, ->(state) { where(state: state.upcase) }
   scope :by_zipcode, ->(zipcode) { where(zipcode: zipcode) }
   scope :by_nces_id, ->(nces_id) { where(nces_id: nces_id) }
+  scope :by_premium_status, ->(premium_status) { joins(:district_subscriptions).joins(:subscriptions).where("subscriptions.account_type=?", premium_status) }
 
   def attach_subscription(subscription)
     district_subscriptions.create(subscription: subscription)
