@@ -19,12 +19,15 @@ class SessionsController < ApplicationController
     if @user.nil?
       report_that_route_is_still_in_use
       login_failure_message
-    elsif @user.signed_up_with_google
+    elsif @user.signed_up_with_google || @user.google_id
       report_that_route_is_still_in_use
       login_failure 'You signed up with Google, please log in with Google using the link above.'
+    elsif @user.clever_id
+      report_that_route_is_still_in_use
+      login_failure 'You signed up with Clever, please log in with Clever using the link above.'
     elsif @user.password_digest.nil?
       report_that_route_is_still_in_use
-      login_failure 'Login failed. Did you sign up with Google? If so, please log in with Google using the link above.'
+      login_failure 'Something went wrong verifying your password. Please use the "Forgot password?" link below to reset it.'
     elsif @user.authenticate(params[:user][:password])
       sign_in(@user)
       if session[ApplicationController::POST_AUTH_REDIRECT].present?
