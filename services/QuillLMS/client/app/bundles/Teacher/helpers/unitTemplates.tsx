@@ -1,6 +1,7 @@
 
 import * as React from 'react';
 import { renderToString } from 'react-dom/server'
+import { Activity } from '../../../interfaces/activity';
 
 import { Tooltip, getIconForActivityClassification, NOT_APPLICABLE } from '../../Shared';
 
@@ -142,13 +143,13 @@ export const renderActivityPackTooltipElement = (data) => {
           <th>Tool</th>
           <th>Grade Level Range</th>
         </tr>
-        {activities && activities.length && activities.map(activity => {
-          const { name, readability, classification } = activity
+        {activities && activities.length && activities.map((activity: Activity) => {
+          const { name, grade_level_range, classification } = activity
           return(
             <tr>
               <td>{name}</td>
               <td>{classification.name}</td>
-              <td>{readability}</td>
+              <td>{grade_level_range}</td>
             </tr>
           )
         })}

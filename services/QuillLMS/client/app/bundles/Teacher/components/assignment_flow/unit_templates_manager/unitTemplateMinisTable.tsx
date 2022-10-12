@@ -75,15 +75,15 @@ export const UnitTemplateMinisTable = ({ unitTemplates, userSignedIn }) => {
     )
   }
 
-  function getChronologicalGradeLevel(readability: string) {
-    if(!readability) { return 0 }
-    if(readability.slice(0,2) === '10') { return 10 }
-    return parseInt(readability.slice(0, 1))
+  function getChronologicalGradeLevel(grade_level_range: string) {
+    if(!grade_level_range) { return 0 }
+    if(grade_level_range.slice(0,2) === '10') { return 10 }
+    return parseInt(grade_level_range.slice(0, 1))
   }
 
   function unitTemplateRows() {
     return unitTemplates.map((unitTemplate: UnitTemplateInterface) => {
-      const { id, name, readability, activities, time, unit_template_category } = unitTemplate;
+      const { id, name, grade_level_range, activities, time, unit_template_category } = unitTemplate;
       const { primary_color } = unit_template_category;
       const nameElement = getNameElement(name, activities);
       const durationElement = getDurationElement(unit_template_category, time);
@@ -98,8 +98,8 @@ export const UnitTemplateMinisTable = ({ unitTemplates, userSignedIn }) => {
         packName: nameElement,
         tools: toolsElement,
         alphabeticalTools: activityPackTools(activities)[0],
-        gradeLevel: readability,
-        chronologicalGradeLevel: getChronologicalGradeLevel(readability),
+        gradeLevel: grade_level_range,
+        chronologicalGradeLevel: getChronologicalGradeLevel(grade_level_range),
         activities: activities.length,
         duration: durationElement,
         chronologicalDuration: time

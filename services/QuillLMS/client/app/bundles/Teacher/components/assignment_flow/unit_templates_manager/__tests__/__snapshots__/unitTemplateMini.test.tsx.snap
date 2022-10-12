@@ -54,7 +54,7 @@ exports[`UnitTemplateMini component should render activity_info has html 1`] = `
 >
   <Tooltip
     isTabbable={false}
-    tooltipText="<table class=\\"activity-tooltip-table\\" data-reactroot=\\"\\"><tbody><tr><th>Activity</th><th>Tool</th><th>Grade Level Range</th></tr><tr><td>Their, They&#x27;re, There</td><td>Quill Grammar</td><td>4th-5th</td></tr></tbody></table>"
+    tooltipText="<table class=\\"activity-tooltip-table\\" data-reactroot=\\"\\"><tbody><tr><th>Activity</th><th>Tool</th><th>Grade Level Range</th></tr><tr><td>Their, They&#x27;re, There</td><td>Quill Grammar</td><td></td></tr></tbody></table>"
     tooltipTriggerText={
       <button
         className="unit-template-mini interactive-wrapper focus-on-light"

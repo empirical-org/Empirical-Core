@@ -124,12 +124,12 @@ exports[`UnitTemplateMinisTable component should render activity_info has html 1
           "chronologicalDuration": 60,
           "chronologicalGradeLevel": 0,
           "duration": "60 mins",
-          "gradeLevel": "",
+          "gradeLevel": undefined,
           "id": 3,
           "link": "/activities/packs/3",
           "packName": <Tooltip
             isTabbable={true}
-            tooltipText="<table class=\\"activity-tooltip-table\\" data-reactroot=\\"\\"><tbody><tr><th>Activity</th><th>Tool</th><th>Grade Level Range</th></tr><tr><td>Their, They&#x27;re, There</td><td>Quill Grammar</td><td>4th-5th</td></tr></tbody></table>"
+            tooltipText="<table class=\\"activity-tooltip-table\\" data-reactroot=\\"\\"><tbody><tr><th>Activity</th><th>Tool</th><th>Grade Level Range</th></tr><tr><td>Their, They&#x27;re, There</td><td>Quill Grammar</td><td></td></tr></tbody></table>"
             tooltipTriggerText="Test Activity Pack"
             tooltipTriggerTextClass="activity-pack-name"
           />,
@@ -321,7 +321,7 @@ exports[`UnitTemplateMinisTable component should render activity_info has html 1
             >
               <Tooltip
                 isTabbable={true}
-                tooltipText="<table class=\\"activity-tooltip-table\\" data-reactroot=\\"\\"><tbody><tr><th>Activity</th><th>Tool</th><th>Grade Level Range</th></tr><tr><td>Their, They&#x27;re, There</td><td>Quill Grammar</td><td>4th-5th</td></tr></tbody></table>"
+                tooltipText="<table class=\\"activity-tooltip-table\\" data-reactroot=\\"\\"><tbody><tr><th>Activity</th><th>Tool</th><th>Grade Level Range</th></tr><tr><td>Their, They&#x27;re, There</td><td>Quill Grammar</td><td></td></tr></tbody></table>"
                 tooltipTriggerText="Test Activity Pack"
                 tooltipTriggerTextClass="activity-pack-name"
               >
