@@ -45,10 +45,10 @@ shared_context 'Unit Assignments Variables' do
   end
 
   def units_have_corresponding_unit_activities?(unit_template_ids)
-    UnitActivity
-      .joins(:unit)
+    UnitTemplate
+      .where(id: unit_template_ids)
       .pluck(:name)
-      .difference(UnitTemplate.where(id: unit_template_ids).pluck(:name))
+      .difference(UnitActivity.joins(:unit).pluck(:name))
       .none?
   end
 end
