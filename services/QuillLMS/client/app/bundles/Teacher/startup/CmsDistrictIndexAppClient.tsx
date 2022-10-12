@@ -165,7 +165,7 @@ export default class CmsDistrictIndex extends React.Component {
     return (
       <div>
         <ReactTable
-          className='cms-districts-table'
+          className='progress-report activity-scores-table'
           columns={columns}
           data={data}
           defaultPageSize={100}
