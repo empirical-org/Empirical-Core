@@ -29,6 +29,7 @@ describe Cms::DistrictsController do
 
   describe '#search' do
     let!(:district) { create(:district, name: "Test District") }
+    let!(:subscription) { create(:subscription, account_type: Subscription::OFFICIAL_DISTRICT_TYPES.first)}
     let(:district_hash) do
       {
         id: district.id,
@@ -38,15 +39,28 @@ describe Cms::DistrictsController do
         state: district.state,
         zipcode: district.zipcode,
         phone: district.phone,
+        premium_status: district.subscription.account_type,
         total_students: district.total_students,
         total_schools: district.total_schools
       }
     end
 
     it 'should search for the district and give the results' do
+      create(:district_subscription, district: district, subscription: subscription)
       get :search, params: {:district_name => 'test'}
       expect(JSON.parse(response.body).deep_symbolize_keys)
         .to eq({numberOfPages: 1, districtSearchQueryResults: [district_hash]})
+    end
+
+    context 'user sorts the search results by premium status' do
+      it 'should display the results in sort order with the correct direction' do
+        create(:district_subscription, district: district, subscription: subscription)
+        district_without_subscription = create(:district)
+
+        get :search, params: {:sort => 'premium_status', :sort_direction => 'desc'}
+        expect(JSON.parse(response.body)["districtSearchQueryResults"][0]["id"]).to eq(district_without_subscription.id)
+        expect(JSON.parse(response.body)["districtSearchQueryResults"][1]["id"]).to eq(district.id)
+      end
     end
   end
 
