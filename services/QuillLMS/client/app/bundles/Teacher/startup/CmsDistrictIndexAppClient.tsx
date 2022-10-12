@@ -49,10 +49,6 @@ export default class CmsDistrictIndex extends React.Component {
         resizable: false,
         minWidth: 80
       }, {
-        Header: "Premium?",
-        accessor: 'premium_status',
-        minWidth: 90,
-      }, {
         Header: "Schools",
         accessor: 'total_schools',
         resizable: false,
@@ -137,18 +133,6 @@ export default class CmsDistrictIndex extends React.Component {
     this.setState(newState, this.search)
   };
 
-  handleUpdatePremiumStatus = e => {
-    const selectedOptions = []
-    Array.from(e.target.options).forEach(o => {
-      if (o.selected) {
-        selectedOptions.push(o.value)
-      }
-    })
-    const newState = { ...this.state }
-    newState.query.premium_status = selectedOptions
-    this.setState(newState)
-  };
-
   renderPageSelector() {
     const { query, numberOfPages } = this.state
 
@@ -162,16 +146,6 @@ export default class CmsDistrictIndex extends React.Component {
         </form>
         <a onClick={() => this.updatePage(totalPages)}>Last</a>
       </div>
-    )
-  }
-
-  renderPremiumStatusSelect() {
-    const { districtPremiumTypes } = this.props
-    const options = districtPremiumTypes.map((o, i) => <option key={i} value={o}>{o}</option>)
-    return (
-      <select className="premium-select" multiple={true} onChange={this.handleUpdatePremiumStatus}>
-        {options}
-      </select>
     )
   }
 
@@ -242,11 +216,6 @@ export default class CmsDistrictIndex extends React.Component {
             </div>
 
             <div className='cms-meta-right districts-meta-right'>
-              <div className='cms-form-row'>
-                <label htmlFor="premium-select">Premium Status</label>
-                {this.renderPremiumStatusSelect()}
-              </div>
-
               <div className='cms-submit-row'>
                 <input type="submit" value="Submit" />
               </div>
