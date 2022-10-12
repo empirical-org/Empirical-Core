@@ -38,7 +38,6 @@ const Hints = ({ location, match }) => {
   }
 
   const onHintChange = (selectedHint) => {
-    console.log(selectedHint)
     if (!selectedHint) {
       return setHint(blankHint)
     }

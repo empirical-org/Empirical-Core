@@ -42,40 +42,32 @@ const RuleHint = ({
     });
   }
 
-  function renderHint() {
-    return (
-      <React.Fragment>
-        <label className="form-subsection-label">Name</label><br />
-        <input className="name-input" onChange={onHintNameChange} type="text" value={hint.name || ''} />
-        <p className="form-subsection-label">Hint Explanation</p>
-        <TextEditor
-          ContentState={ContentState}
-          EditorState={EditorState}
-          handleTextChange={onHintExplanationChange}
-          key={`hint-explanation-${hint.id}`}
-          shouldCheckSpelling={true}
-          text={hint.explanation}
-        />
-        <p className="form-subsection-label">Hint Annotated Example</p>
-        <i>Click the square below or drag a file into it to upload. Please make sure to upload an .svg image and ensure that any extra whitespace below the image is cropped.</i>
-        <Dropzone onDrop={handleDrop} />
-        {hint.image_link && hint.image_link.length ? <img alt={hint.image_alt_text} src={hint.image_link} /> : null}
-        <p className="form-subsection-label">Hint Image Alt Text</p>
-        <textarea
-          aria-label="Hint Image Alt Text"
-          className="image-alt-text-area"
-          onChange={handleHintAltTextChange}
-          value={hint.image_alt_text}
-        />
-      </React.Fragment>
-    )
-  }
-
-  return(
+  return (
     <React.Fragment>
-      {renderHint()}
+      <label className="form-subsection-label">Name</label><br />
+      <input className="name-input" onChange={onHintNameChange} type="text" value={hint.name || ''} />
+      <p className="form-subsection-label">Hint Explanation</p>
+      <TextEditor
+        ContentState={ContentState}
+        EditorState={EditorState}
+        handleTextChange={onHintExplanationChange}
+        key={`hint-explanation-${hint.id}`}
+        shouldCheckSpelling={true}
+        text={hint.explanation}
+      />
+      <p className="form-subsection-label">Hint Annotated Example</p>
+      <i>Click the square below or drag a file into it to upload. Please make sure to upload an .svg image and ensure that any extra whitespace below the image is cropped.</i>
+      <Dropzone onDrop={handleDrop} />
+      {hint.image_link && hint.image_link.length ? <img alt={hint.image_alt_text} src={hint.image_link} /> : null}
+      <p className="form-subsection-label">Hint Image Alt Text</p>
+      <textarea
+        aria-label="Hint Image Alt Text"
+        className="image-alt-text-area"
+        onChange={handleHintAltTextChange}
+        value={hint.image_alt_text}
+      />
     </React.Fragment>
-  );
+  )
 };
 
 export default RuleHint;

@@ -320,7 +320,7 @@ module Evidence
             :rule_type => rule.rule_type,
             :universal => rule.universal,
             :hint_id => hint.id
-          }) 
+          })
         }))
         parsed_response = JSON.parse(response.body)
         expect(response.code.to_i).to(eq(201))
