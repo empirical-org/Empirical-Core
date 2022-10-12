@@ -134,10 +134,6 @@ module QuillAuthentication
 
   end
 
-  def signed_out!
-
-  end
-
   def admin?
     signed_in? && current_user.role.admin?
   end

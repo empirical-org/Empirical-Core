@@ -23,4 +23,18 @@ require 'rails_helper'
 describe ActivityTopic, type: :model do
   it { should belong_to(:activity) }
   it { should belong_to(:topic) }
+
+  describe 'saving an activity topic' do
+    it 'should raise error if topic is not level 1' do
+      level_two_topic = create(:topic, level: 2)
+      activity_topic = build(:activity_topic, topic: level_two_topic)
+      expect { activity_topic.save! }.to raise_error(ActiveRecord::RecordInvalid)
+    end
+
+    it 'should save if topic is level 1' do
+      level_one_topic = create(:topic, level: 1)
+      activity_topic = build(:activity_topic, topic: level_one_topic)
+      expect { activity_topic.save! }.not_to raise_error
+    end
+  end
 end

@@ -147,8 +147,10 @@ describe UnitTemplate, redis: true, type: :model do
     let(:author) { create(:author) }
     let(:raw_score) { create(:raw_score, :five_hundred_to_six_hundred )}
     let(:activity) { create(:activity, raw_score: raw_score) }
-    let(:topic) { create(:topic, level: 0) }
-    let!(:activity_topic) { create(:activity_topic, topic: topic, activity: activity) }
+    let(:first_topic) { create(:topic, level: 1) }
+    let(:second_topic) { create(:topic, level: 1)}
+    let!(:activity_topic) { create(:activity_topic, topic: first_topic, activity: activity) }
+    let!(:activity_topic_two) { create(:activity_topic, topic: second_topic, activity: activity) }
     let(:unit_template1) { create(:unit_template, author: author, unit_template_category: category, activities: [activity]) }
     let(:json) {
       {
@@ -171,7 +173,7 @@ describe UnitTemplate, redis: true, type: :model do
             name: activity.classification.name
           },
           readability: activity.readability_grade_level,
-          level_zero_topic_name: topic.name
+          topic_names: [first_topic.name, second_topic.name]
         }],
         diagnostics_recommended_by: [],
         activity_info: nil,

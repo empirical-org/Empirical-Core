@@ -6,6 +6,7 @@ class Cms::DistrictsController < Cms::CmsController
   before_action :subscription_data, only: [:new_subscription, :edit_subscription]
 
   DISTRICTS_PER_PAGE = 30
+  PREMIUM_STATUS_SORT = 'premium_status'
 
   def index
     @district_search_query = {}
@@ -17,7 +18,7 @@ class Cms::DistrictsController < Cms::CmsController
     district_search_query = district_query_params
     district_search_query_results = district_query(district_query_params)
     district_search_query_results ||= []
-    number_of_pages = (district_search_query_results.count / DISTRICTS_PER_PAGE.to_f).ceil
+    number_of_pages = (district_search_query_results.size / DISTRICTS_PER_PAGE.to_f).ceil
     render json: {numberOfPages: number_of_pages, districtSearchQueryResults: district_search_query_results}
   end
 
@@ -76,6 +77,7 @@ class Cms::DistrictsController < Cms::CmsController
 
   private def text_search_inputs
     @text_search_inputs = ['district_name', 'district_city', 'district_state', 'district_zip', 'district_name', 'nces_id']
+    @district_premium_types = Subscription::OFFICIAL_DISTRICT_TYPES
   end
 
   private def all_search_inputs
@@ -93,12 +95,16 @@ class Cms::DistrictsController < Cms::CmsController
     sort = district_query_params[:sort]
     sort_direction = district_query_params[:sort_direction]
     if sort && sort_direction && sort != 'undefined' && sort_direction != 'undefined'
-      result = result.order("#{sort} #{sort_direction}")
+      if sort == PREMIUM_STATUS_SORT
+        result = result.includes(:subscriptions).order("subscriptions.account_type #{sort_direction}")
+      else
+        result = result.order("#{sort} #{sort_direction}")
+      end
     else
       result = result.order("total_students DESC")
     end
 
-    result = add_where_conditions(result).select(:id, :name, :city, :state, :zipcode, :phone, :total_students, :total_schools, :nces_id)
+    result = add_where_conditions(result).includes(:subscriptions).select('subscriptions.account_type AS premium_status, districts.id, districts.name, districts.city, districts.state, districts.zipcode, districts.phone, districts.total_students, districts.total_schools, districts.nces_id').references(:subscriptions)
   end
 
   private def add_where_conditions(districts)
@@ -107,6 +113,7 @@ class Cms::DistrictsController < Cms::CmsController
     districts = districts.by_state(district_query_params[:district_state]) if district_query_params[:district_state].present?
     districts = districts.by_zipcode(district_query_params[:district_zipcode]) if district_query_params[:district_zipcode].present?
     districts = districts.by_nces_id(district_query_params[:nces_id]) if district_query_params[:nces_id].present?
+    districts = districts.by_premium_status(district_query_params[:premium_status]) if district_query_params[:premium_status].present?
     districts
   end
 

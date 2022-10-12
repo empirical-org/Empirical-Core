@@ -51,6 +51,10 @@ class Topic < ApplicationRecord
     level == 3
   end
 
+  private def level_two_parent?
+    parent? && Topic.find(parent_id).level_two?
+  end
+
   private def level_three_parent?
     parent? && Topic.find(parent_id).level_three?
   end
@@ -64,6 +68,8 @@ class Topic < ApplicationRecord
   end
 
   private def valid_parent_structure?
-    level_two? ? level_three_parent? : no_parent?
+    return level_two_parent? if level_one?
+    return level_three_parent? if level_two?
+    return no_parent? if level_three?
   end
 end

@@ -48,6 +48,9 @@ gem 'fog-aws'
 # TIME
 gem 'tzinfo'
 gem 'tzinfo-data'
+gem 'ziptz'
+gem 'geocoder'
+gem 'maxminddb'
 
 # OTHERS
 gem 'global'

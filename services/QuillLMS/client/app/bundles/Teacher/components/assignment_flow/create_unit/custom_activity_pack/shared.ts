@@ -78,7 +78,7 @@ function filterByActivityCategory(activityCategoryFilters: number[], activity: A
   return activityCategoryFilters.includes(activity.activity_category.id)
 }
 
-function filterByStandards(standardsFilters: { ccssGradeLevelFilters: number[], ellFilters: number[]}, activity: Activity) {
+function filterByStandards(standardsFilters: { ccssGradeLevelFilters: number[], ellFilters: string[]}, activity: Activity) {
   const { ccssGradeLevelFilters, ellFilters, } = standardsFilters
 
   if (!ccssGradeLevelFilters.length && !ellFilters.length) { return true }
@@ -93,11 +93,10 @@ function filterByCCSSGradeLevel(ccssGradeLevelFilters: number[], activity: Activ
   return ccssGradeLevelFilters.includes(numberFromStandardLevel)
 }
 
-function filterByELL(ellLevelFilters: number[], activity: Activity) {
+function filterByELL(ellLevelFilters: string[], activity: Activity) {
   if (!activity.standard_level_name?.includes('ELL')) { return }
 
-  const numberFromStandardLevel = getNumberFromString(activity.standard_level_name)
-  return ellLevelFilters.includes(numberFromStandardLevel)
+  return ellLevelFilters.includes(activity.standard_level_name)
 }
 
 const READABILITY_GRADE_LEVEL_OPTIONS = ['2nd-3rd', '4th-5th', '6th-7th', '8th-9th', '10th-12th']
@@ -155,12 +154,7 @@ export const filters = {
 }
 
 export const stringifyLowerLevelTopics = (topics) => {
-  const levelOneTopic = topics.find(t => Number(t.level) === 1)
-  const levelZeroTopic = topics.find(t => Number(t.level) === 0)
-  let topicString = levelOneTopic ? levelOneTopic.name : ''
-  topicString += levelOneTopic && levelZeroTopic ? ': ' : ''
-  topicString += levelZeroTopic ? levelZeroTopic.name : ''
-  return topicString
+  return topics.map(topic => topic.name).join()
 }
 
 const conceptSort = (activities) => activities.sort((a, b) => {

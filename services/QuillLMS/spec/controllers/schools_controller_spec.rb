@@ -74,6 +74,11 @@ describe SchoolsController, type: :controller do
 
         expect(SchoolsUsers.find_by(user_id: user.id, school_id: @school1.id)).to be
       end
+
+      it 'should call set_time_zone for the current user' do
+        expect(user).to receive(:set_time_zone)
+        put :select_school, params: { school_id_or_type: @school1.id }, as: :json
+      end
     end
 
   end

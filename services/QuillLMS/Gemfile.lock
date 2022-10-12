@@ -244,6 +244,7 @@ GEM
       googleapis-common-protos-types (>= 1.0.4, < 2.0)
       googleauth (~> 0.9)
       grpc (~> 1.25)
+    geocoder (1.8.0)
     get_process_mem (0.2.7)
       ffi (~> 1.0)
     global (1.1.0)
@@ -399,6 +400,7 @@ GEM
       mini_mime (>= 0.1.1)
     marcel (1.0.2)
     matrix (0.4.2)
+    maxminddb (0.1.22)
     memoist (0.16.2)
     method_source (1.0.0)
     mime-types (3.3.1)
@@ -770,6 +772,7 @@ GEM
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zeitwerk (2.6.0)
+    ziptz (3.0.11)
 
 PLATFORMS
   ruby
@@ -811,6 +814,7 @@ DEPENDENCIES
   firebase_token_generator
   fog-aws
   foreman
+  geocoder
   global
   google-api-client (= 0.8.6)
   graphiql-rails
@@ -828,6 +832,7 @@ DEPENDENCIES
   kaminari (~> 1.2.1)
   letter_opener
   lograge
+  maxminddb
   mini_racer (= 0.4.0)
   newrelic_rpm (~> 7.2)
   nokogiri (>= 1.13.2)
@@ -909,9 +914,10 @@ DEPENDENCIES
   webmock
   webpacker (~> 3.0.0)
   websocket-driver (= 0.6.5)
+  ziptz
 
 RUBY VERSION
    ruby 2.7.6p219
 
 BUNDLED WITH
-   2.2.33
+   2.3.17

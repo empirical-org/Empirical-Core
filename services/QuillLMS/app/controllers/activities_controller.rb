@@ -11,6 +11,7 @@ class ActivitiesController < ApplicationController
   def search
     flagset = params[:flagset] || current_user&.flagset
     search_result = Activity.search_results(flagset)
+    search_result[:topics] = Topic.all.select(:id, :name, :level, :parent_id)
     render json: search_result.to_json
   end
 
