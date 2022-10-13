@@ -242,7 +242,6 @@ class Cms::SchoolsController < Cms::CmsController
     'HAVING COUNT(schools_users.*) != 0'
   end
 
-  # rubocop:disable Metrics/CyclomaticComplexity
   private def where_query_string_builder
     conditions = [
       "subscriptions.expiration IS NULL OR subscriptions.expiration > '#{Date.current}'",
@@ -260,7 +259,6 @@ class Cms::SchoolsController < Cms::CmsController
     conditions = conditions.reject(&:nil?)
     "WHERE #{conditions.join(' AND ')}"
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
 
   private def where_query_string_clause_for(param, param_value)
     # Potential params by which to search:
