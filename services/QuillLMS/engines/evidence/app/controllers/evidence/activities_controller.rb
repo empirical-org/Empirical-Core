@@ -22,6 +22,16 @@ module Evidence
     # POST /activities.json
     def create
       if @activity.save
+        changelog_params = {
+          action: Evidence.change_log_class::EVIDENCE_ACTIONS[:create],
+          changed_record_type: 'Evidence::Activity',
+          changed_record_id: @activity.id,
+          explanation: "Activity Created",
+          changed_attribute: 'version',
+          previous_value: "0",
+          new_value: "1"
+        }
+        Evidence.change_log_class.create!(changelog_params)
         render json: @activity, status: :created
       else
         render json: @activity.errors, status: :unprocessable_entity
