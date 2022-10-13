@@ -20,6 +20,8 @@ module Evidence
         spelling_passage_specific: Synthetic::Generators::SpellingPassageSpecific
       }
 
+      TEST_GENERATOR_KEYS = [:spelling_passage_specific]
+
       FREE_GENERATORS = GENERATORS.except(:translations)
       DEFAULT_LANGUAGES = Evidence::Synthetic::Generators::Translation::TRAIN_LANGUAGES.keys
 
@@ -54,21 +56,39 @@ module Evidence
       end
 
       def run
-        generators.each do |type, generator|
-          results_hash = generator.run(results_to_train.map(&:text), languages: languages, passage: passage)
+        run_generators(generators, results_training)
 
-          results_to_train.each do |result|
-            result.generated[type] = results_hash[result.text] || {}
-          end
+        if manual_types
+          run_generators(test_generators, results_test_validation)
         end
 
         self
       end
 
-      def results_to_train
+      def run_generators(generator_hash, results_set)
+        generator_hash.each do |type, generator|
+          results_hash = generator.run(results_set.map(&:text), languages: languages, passage: passage)
+
+          results_set.each do |result|
+            result.generated[type] = results_hash[result.text] || {}
+          end
+        end
+      end
+
+      def results_training
         return results unless manual_types
 
         results.select {|r| r.type == TYPE_TRAIN}
+      end
+
+      def test_generators
+        generators.slice(*TEST_GENERATOR_KEYS)
+      end
+
+      def results_test_validation
+        return results unless manual_types
+
+        results.select {|r| r.type == TYPE_VALIDATION || r.type == TYPE_TEST}
       end
 
       LABEL_FILE = 'synthetic'
