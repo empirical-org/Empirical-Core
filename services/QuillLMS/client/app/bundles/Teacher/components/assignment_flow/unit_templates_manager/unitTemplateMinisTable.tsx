@@ -17,7 +17,7 @@ export const UnitTemplateMinisTable = ({ unitTemplates, userSignedIn }) => {
   }
   const dataTableFields = [
     { name: "Pack type", attribute:"packType", width: "160px", rowSectionClassName: 'pack-type-section', noTooltip: true, isSortable: true, sortAttribute: 'alphabeticalPackType' },
-    { name: "Pack name", attribute:"packName", width: "190px", rowSectionClassName: 'pack-name-section', noTooltip: false, isSortable: true, sortAttribute: 'alphabeticalPackName' },
+    { name: "Pack name", attribute:"packName", width: "204px", rowSectionClassName: 'pack-name-section', noTooltip: false, isSortable: true, sortAttribute: 'alphabeticalPackName' },
     { name: "Tools", attribute:"tools", width: "140px", rowSectionClassName: '', noTooltip: true, isSortable: true, sortAttribute: 'alphabeticalTools' },
     { name: "Grade Level", attribute:"gradeLevel", width: "70px", rowSectionClassName: '', noTooltip: true, isSortable: true, sortAttribute: 'chronologicalGradeLevel' },
     { name: "Activities", attribute:"activities", width: "50px", rowSectionClassName: 'activities-section', noTooltip: true, isSortable: true },
