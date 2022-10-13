@@ -8,8 +8,8 @@ namespace :reports do
   desc 'Diagnostic scores by school and class'
   task :diagnostic_scores_by_school_and_class, [:space_separated_school_ids, :space_separated_unit_template_ids] => :environment do |t,args|
     default_unit_template_ids = '99,100,126,154,193,194,195,299,300,217,237,409,411,444,445'
-    unit_template_ids = args[:space_separated_unit_template_ids] ? args[:unit_template_ids].split(' ').join(',') : default_unit_template_ids
-    school_ids = args[:space_separated_school_ids].split(' ').join(',')
+    unit_template_ids = args[:space_separated_unit_template_ids] ? args[:unit_template_ids].split.join(',') : default_unit_template_ids
+    school_ids = args[:space_separated_school_ids].split.join(',')
 
     activity_session_rows = ActiveRecord::Base.connection.execute("
       select schools.name AS SchoolName, activity_sessions.id AS ActivitySessionId, classroom_units.created_at as AssignDate, classrooms.name as Class, users.name as StudentName, activities.name as Activity
@@ -65,6 +65,6 @@ namespace :reports do
       end
     end
 
-    STDOUT.puts report
+    $stdout.puts report
   end
 end
