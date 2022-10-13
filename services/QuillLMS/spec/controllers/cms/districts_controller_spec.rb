@@ -96,7 +96,7 @@ describe Cms::DistrictsController do
     context 'when the district has schools with some expired subscriptions' do
       it 'should show only one record of each school' do
         school = create(:school, district: district)
-        expired_sub = create(:subscription, expiration: Time.current - 1.year)
+        expired_sub = create(:subscription, expiration: 15.days.ago.to_date)
         active_sub = create(:subscription)
         create(:school_subscription, school: school, subscription: expired_sub)
         create(:school_subscription, school: school, subscription: active_sub)

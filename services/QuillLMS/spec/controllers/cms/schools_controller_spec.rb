@@ -44,7 +44,7 @@ describe Cms::SchoolsController do
     context 'when a school has an expired subscription and an active subscription' do
       it 'should only one record of that school, without duplicates' do
         school = create(:school)
-        expired_sub = create(:subscription, expiration: Time.zone.current - 1.year)
+        expired_sub = create(:subscription, expiration: 15.days.ago.to_date)
         active_sub = create(:subscription)
         create(:school_subscription, school: school, subscription: expired_sub)
         create(:school_subscription, school: school, subscription: active_sub)
