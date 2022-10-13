@@ -244,7 +244,10 @@ class Cms::SchoolsController < Cms::CmsController
 
   # rubocop:disable Metrics/CyclomaticComplexity
   private def where_query_string_builder
-    conditions = []
+    conditions = [
+      "subscriptions.expiration IS NULL OR subscriptions.expiration > '#{Date.current}'",
+      "subscriptions.de_activated_date IS NULL"
+    ]
     # This converts all of the search inputs into strings so we can iterate
     # over them and grab the value from params. The weird ternary here is in
     # case we have arrays as inputs (e.g. the 'premium_status' field).
@@ -255,7 +258,7 @@ class Cms::SchoolsController < Cms::CmsController
       end
     end
     conditions = conditions.reject(&:nil?)
-    "WHERE #{conditions.join(' AND ')}" unless conditions.empty?
+    "WHERE #{conditions.join(' AND ')}"
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 

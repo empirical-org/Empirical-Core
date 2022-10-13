@@ -92,6 +92,20 @@ describe Cms::DistrictsController do
         'Expiration' => district.subscription.expiration.strftime('%b %d, %Y')
        })
     end
+
+    context 'when the district has schools with some expired subscriptions' do
+      it 'should show only one record of each school' do
+        school = create(:school, district: district)
+        expired_sub = create(:subscription, expiration: Date.today - 1.year)
+        active_sub = create(:subscription)
+        create(:school_subscription, school: school, subscription: expired_sub)
+        create(:school_subscription, school: school, subscription: active_sub)
+
+        get :show, params: { id: district.id }
+        expect(assigns(:school_data)[0]).to eq(school)
+        expect(assigns(:school_data).length).to eq(1)
+      end
+    end
   end
 
   describe '#edit' do

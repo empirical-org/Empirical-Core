@@ -156,6 +156,8 @@ class Cms::DistrictsController < Cms::CmsController
       .left_joins(:schools_users)
       .left_joins(:schools_admins)
       .left_joins(school_subscriptions: :subscription)
+      .where("subscriptions.expiration IS NULL OR subscriptions.expiration > ?", Date.current)
+      .where("subscriptions.de_activated_date IS NULL")
       .group('schools.name, schools.id, subscriptions.account_type')
   end
 
