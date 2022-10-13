@@ -23,7 +23,7 @@ class SyncVitallyOrganizationWorker
   end
 
   private def requeue_after_rate_limit(district_id)
-    ErrorNotifier.report(VitallyApiRateLimitException.new("Hit the Vitally REST API rate limit trying to sync District ##{district_id}.  Automatically enqueueing to retry."))
+    ErrorNotifier.report(VitallyApiRateLimitException.new("Hit the Vitally REST API rate limit trying to sync Districts.  Automatically enqueueing to retry."), {district_id: district_id})
     delay = rand(MINIMUM_REQUEUE_WAIT_MINUTES..MAXIMUM_REQUEUE_WAIT_MINUTES)
     SyncVitallyOrganizationWorker.perform_in(delay.minutes, district_id)
   end
