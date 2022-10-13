@@ -24,7 +24,6 @@ class Scorebook::Query
           unit_activities.due_date #{user_timezone_offset} AS due_date,
           unit_activities.publish_date #{user_timezone_offset} AS publish_date,
           unit_activities.created_at #{user_timezone_offset} AS unit_activity_created_at,
-          CASE WHEN unit_owner.time_zone IS NOT NULL THEN unit_activities.publish_date at time zone unit_owner.time_zone >= NOW() at time zone unit_owner.time_zone ELSE unit_activities.publish_date >= NOW() END AS scheduled_in_user_time_zone,
           unit_activities.publish_date >= NOW() AS scheduled,
           MIN(acts.started_at) #{user_timezone_offset} AS started_at,
           MAX(acts.percentage) AS percentage,
