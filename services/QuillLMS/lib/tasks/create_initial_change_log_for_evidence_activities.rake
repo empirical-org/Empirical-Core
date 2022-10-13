@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-namespace :update_schools_with_4_digit_zipcodes do
+namespace :create_initial_change_log_for_evidence_activities do
   desc 'create change log for all Evidence activities with no initial version'
   task :run => :environment do
     Evidence::Activity.all.each do |activity|
