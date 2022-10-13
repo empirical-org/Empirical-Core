@@ -39,7 +39,11 @@ const Hints = ({ location, match }) => {
 
   const onHintChange = (selectedHint) => {
     if (!selectedHint) {
-      return setHint(blankHint)
+      setHint(blankHint)
+      history.push({
+        pathname: `/hints`
+      })
+      return
     }
     setHint(selectedHint)
     history.push({
@@ -50,8 +54,10 @@ const Hints = ({ location, match }) => {
   const handleSaveHint = () => {
     if (hint.id === NO_VALUE) {
       createHint(hint).then(handleSaveResponse)
+      flashSnackbar('New hint created.')
     } else {
       updateHint(hint.id, hint).then(handleSaveResponse)
+      flashSnackbar('Hint updated.')
     }
   }
 
