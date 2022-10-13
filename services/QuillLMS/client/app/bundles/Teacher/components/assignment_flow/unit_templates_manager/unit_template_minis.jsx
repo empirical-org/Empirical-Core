@@ -321,15 +321,6 @@ export default class UnitTemplateMinis extends React.Component {
     )
   }
 
-  renderPackTypeLabel() {
-    const { selectedTypeId } = this.props
-    const { currentView } = this.state;
-    const { value } = currentView;
-    if(value === LIST_VIEW_OPTION.value) { return }
-    if(!selectedTypeId) { return }
-    return <p className="pack-type-header">{ACTIVITY_PACK_TYPES.filter(type => type.id === selectedTypeId)[0].name}</p>
-  }
-
   renderActivityPacks() {
     const { displayedModels } = this.props;
     const { currentView } = this.state;
@@ -368,7 +359,6 @@ export default class UnitTemplateMinis extends React.Component {
             <div>
               {this.renderFilterOptions()}
               {this.generateShowAllGradesView()}
-              {this.renderPackTypeLabel()}
               {this.renderActivityPacks()}
             </div>
           </div>

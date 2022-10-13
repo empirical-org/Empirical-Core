@@ -38,7 +38,8 @@ export interface UnitTemplateCategoryInterface {
 export interface UnitTemplateInterface {
   id: number,
   name: string,
-  readability: string,
+  readability?: string,
+  grade_level_range?: string,
   activities: Activity[],
   time: string,
   unit_template_category: UnitTemplateCategoryInterface,
