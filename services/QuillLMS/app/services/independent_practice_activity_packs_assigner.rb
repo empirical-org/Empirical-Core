@@ -34,14 +34,21 @@ class IndependentPracticeActivityPacksAssigner < ApplicationService
     return if selections_with_students.empty?
 
     set_diagnostic_recommendations_start_time
+    destroy_existing_activity_pack_sequences
     assign_recommendations
   end
 
-  private def activity_pack_sequence
-    @activity_pack_sequence ||= ActivityPackSequenceGetter.run(classroom_id, diagnostic_activity_id, release_method)
+  private def activity_pack_sequence_getter
+    ActivityPackSequence.find_or_create_by!(
+      classroom_id: classroom_id,
+      diagnostic_activity_id: diagnostic_activity_id,
+      release_method:  release_method
+    )
   end
 
   private def assign_recommendations
+    activity_pack_sequence = staggered_release? ? activity_pack_sequence_getter : nil
+
     selections_with_students.each_with_index do |selection, index|
       AssignRecommendationsWorker.perform_async(
         activity_pack_sequence_id: activity_pack_sequence&.id,
@@ -54,6 +61,14 @@ class IndependentPracticeActivityPacksAssigner < ApplicationService
         unit_template_id: selection[:id]
       )
     end
+  end
+
+  private def destroy_existing_activity_pack_sequences
+    return if staggered_release?
+
+    ActivityPackSequence
+      .where(classroom_id: classroom_id, diagnostic_activity_id: diagnostic_activity_id)
+      .destroy_all
   end
 
   private def find_or_create_activity_packs
@@ -74,6 +89,10 @@ class IndependentPracticeActivityPacksAssigner < ApplicationService
 
   private def set_diagnostic_recommendations_start_time
     $redis.set("user_id:#{user.id}_diagnostic_recommendations_start_time", Time.current)
+  end
+
+  private def staggered_release?
+    release_method == ActivityPackSequence::STAGGERED_RELEASE
   end
 
   private def teaches_classroom?
