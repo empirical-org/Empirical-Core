@@ -57,9 +57,11 @@ class IndependentPracticeActivityPacksAssigner < ApplicationService
   end
 
   private def find_or_create_activity_packs
-    selections
-      .map { |selection| UnitTemplate.find(selection['id']) }
-      .each { |ut| Unit.unscoped.find_or_create_by!(unit_template: ut, name: ut.name, user: user) }
+    ActiveRecord::Base.transaction do
+      selections
+        .map { |selection| UnitTemplate.find(selection['id']) }
+        .each { |ut| Unit.unscoped.find_or_create_by!(unit_template: ut, name: ut.name, user: user) }
+    end
   end
 
   private def last_recommendation_index
