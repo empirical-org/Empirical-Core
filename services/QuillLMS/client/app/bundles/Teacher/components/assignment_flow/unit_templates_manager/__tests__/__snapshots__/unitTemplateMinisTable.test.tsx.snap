@@ -75,7 +75,7 @@ exports[`UnitTemplateMinisTable component should render activity_info has html 1
           "noTooltip": false,
           "rowSectionClassName": "pack-name-section",
           "sortAttribute": "alphabeticalPackName",
-          "width": "190px",
+          "width": "204px",
         },
         Object {
           "attribute": "tools",
@@ -189,9 +189,9 @@ exports[`UnitTemplateMinisTable component should render activity_info has html 1
           scope="col"
           style={
             Object {
-              "minWidth": "190px",
+              "minWidth": "204px",
               "textAlign": "left",
-              "width": "190px",
+              "width": "204px",
             }
           }
         >
@@ -313,9 +313,9 @@ exports[`UnitTemplateMinisTable component should render activity_info has html 1
               key="packName-3"
               style={
                 Object {
-                  "minWidth": "190px",
+                  "minWidth": "204px",
                   "textAlign": "left",
-                  "width": "190px",
+                  "width": "204px",
                 }
               }
             >
