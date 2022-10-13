@@ -343,6 +343,7 @@ const CustomActivityPack = ({
     isStaff,
     activityCategoryEditor,
     flagset,
+    topics,
   }
 
   const selectedActivitiesFilteredByFlag =  isStaff && !flagFilters.length ? [] : selectedActivities.filter(a => filterByFlag(flagFilters, a))
