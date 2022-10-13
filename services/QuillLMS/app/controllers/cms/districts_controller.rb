@@ -26,6 +26,10 @@ class Cms::DistrictsController < Cms::CmsController
     @subscription = @district&.subscription
     @school_data = school_query
     @admins = DistrictAdmin.includes(:user).where(district_id: params[:id].to_i)
+    @district_subscription_info = {
+      'District Premium Type' => @district&.subscription&.account_type,
+      'Expiration' => @district&.subscription&.expiration&.strftime('%b %d, %Y')
+    }
   end
 
   def new

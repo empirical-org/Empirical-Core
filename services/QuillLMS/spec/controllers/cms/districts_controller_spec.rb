@@ -25,6 +25,11 @@ describe Cms::DistrictsController do
       expect(assigns(:district_search_query_results)).to eq []
       expect(assigns(:number_of_pages)).to eq 0
     end
+
+    it 'should assign the correct default values' do
+      get :index
+      expect(assigns(:district_premium_types)).to match_array(Subscription::OFFICIAL_DISTRICT_TYPES)
+    end
   end
 
   describe '#search' do
@@ -66,8 +71,10 @@ describe Cms::DistrictsController do
 
   describe '#show' do
     let!(:district) { create(:district) }
+    let!(:subscription) { create(:subscription, account_type: Subscription::OFFICIAL_DISTRICT_TYPES.first)}
 
     it 'should assign the correct values' do
+      create(:district_subscription, district: district, subscription: subscription)
       get :show, params: { id: district.id }
       expect(assigns(:district)).to eq(district)
       expect(assigns(:school_data)).to eq([])
@@ -80,6 +87,10 @@ describe Cms::DistrictsController do
         }
       end
       )
+      expect(assigns(:district_subscription_info)).to eq({
+        'District Premium Type' => district.subscription.account_type,
+        'Expiration' => district.subscription.expiration.strftime('%b %d, %Y')
+       })
     end
   end
 
