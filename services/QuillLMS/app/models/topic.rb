@@ -51,6 +51,19 @@ class Topic < ApplicationRecord
     level == 3
   end
 
+  def activity_count
+    child_topics = Topic.where(visible: true, parent_id: id)
+    case level
+    when 3
+      grandchild_topics = child_topics.map { |child| Topic.where(parent_id: child.id) }.flatten
+      grandchild_topics.map { |grandchild| grandchild.activities.count}.sum
+    when 2
+      child_topics.map { |child| child.activities.count}.sum
+    else
+      activities.count
+    end
+  end
+
   private def level_two_parent?
     parent? && Topic.find(parent_id).level_two?
   end

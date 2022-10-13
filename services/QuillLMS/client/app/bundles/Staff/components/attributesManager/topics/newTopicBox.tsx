@@ -8,11 +8,12 @@ import { Input, DropdownInput, } from '../../../../Shared/index'
 interface NewTopicBoxProps {
   levelNumber: number;
   levelThreeTopics: Topic[],
+  levelTwoTopics: Topic[],
   createNewTopic(topic: Topic): void,
   closeTopicBoxProps(event): void
 }
 
-const NewTopicBox = ({ levelNumber, levelThreeTopics, createNewTopic, closeTopicBox, }) => {
+const NewTopicBox = ({ levelNumber, levelThreeTopics, levelTwoTopics, createNewTopic, closeTopicBox, }) => {
   const [showChangeLogModal, setShowChangeLogModal] = React.useState(false)
   const [topic, setTopic] = React.useState({ level: levelNumber, name: '', visible: true, parent_id: null })
   const [changeLogs, setChangeLogs] = React.useState([])
@@ -66,14 +67,14 @@ const NewTopicBox = ({ levelNumber, levelThreeTopics, createNewTopic, closeTopic
     setTopic(newTopic)
   }
 
-  function renderDropdownInput() {
-    const options = levelThreeTopics.map(t => ({ value: t.id, label: t.name })).sort((a, b) => a.label.localeCompare(b.label))
+  function renderDropdownInput(topics, level) {
+    const options = topics.map(t => ({ value: t.id, label: t.name })).sort((a, b) => a.label.localeCompare(b.label))
     const value = options.find(opt => opt.value === topic.parent_id)
     return (
       <DropdownInput
         handleChange={changeLevel1}
         isSearchable={true}
-        label="Level 3"
+        label={"Level " + level}
         options={options}
         value={value}
       />
@@ -81,7 +82,12 @@ const NewTopicBox = ({ levelNumber, levelThreeTopics, createNewTopic, closeTopic
   }
 
   function renderLevels() {
-    const dropdown = topic.level === 2 ? renderDropdownInput() : null
+    let dropdown
+    if (topic.level === 2) {
+      dropdown = renderDropdownInput(levelThreeTopics, 3)
+    } else if (topic.level === 1) {
+      dropdown = renderDropdownInput(levelTwoTopics, 2)
+    }
 
     return (
       <div>

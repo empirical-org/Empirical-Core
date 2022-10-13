@@ -70,4 +70,44 @@ describe Topic, type: :model do
     end
   end
 
+  describe '#activity_count' do
+    context 'when a topic is level 1' do
+      it 'should provide the count of activities directly atttached to the topic' do
+        topic = create(:topic, level: 1)
+        create_list(:activity_topic, 6, topic: topic)
+        expect(topic.activity_count).to eq(6)
+      end
+    end
+
+    context 'when a topic is level 2' do
+      it 'should provide the count of activities attached to all the topics children' do
+        topic_two = create(:topic, level: 2)
+        child_topic = create(:topic, level: 1)
+        child_topic.update(parent_id: topic_two.id)
+        another_child_topic = create(:topic, level: 1)
+        another_child_topic.update(parent_id: topic_two.id)
+        create_list(:activity_topic, 6, topic: child_topic)
+        create_list(:activity_topic, 5, topic: another_child_topic)
+        expect(topic_two.activity_count).to eq(11)
+      end
+    end
+
+    context 'when a topic is level 3' do
+      it 'should provide the count of activities attached to all the topics grandchildren' do
+        topic_three = create(:topic, level: 3)
+        child_topic = create(:topic, level: 2)
+        child_topic.update(parent_id: topic_three.id)
+        another_child_topic = create(:topic, level: 2)
+        another_child_topic.update(parent_id: topic_three.id)
+        grandchild_topic = create(:topic, level: 1)
+        another_grandchild_topic = create(:topic, level: 1)
+        grandchild_topic.update(parent_id: child_topic.id)
+        another_grandchild_topic.update(parent_id: another_child_topic.id)
+        create_list(:activity_topic, 6, topic: grandchild_topic)
+        create_list(:activity_topic, 5, topic: another_grandchild_topic)
+        expect(topic_three.activity_count).to eq(11)
+      end
+    end
+  end
+
 end
