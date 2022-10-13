@@ -24,7 +24,7 @@ class Teachers::UnitActivitiesController < ApplicationController
   end
 
   def update_multiple_dates
-    if params[:date_attribute].in?('publish_date', 'due_date')
+    if params[:date_attribute].in?(['publish_date', 'due_date'])
       begin
         ActiveRecord::Base.transaction do
           UnitActivity
