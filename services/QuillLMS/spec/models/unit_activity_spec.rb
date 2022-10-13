@@ -150,7 +150,7 @@ describe UnitActivity, type: :model, redis: true do
       due_date = Time.now.utc - 1.hour
       unit_activity.due_date = due_date
       unit_activity.adjust_due_date_for_timezone
-      expect(unit_activity.due_date).to eq(due_date + teacher_offset)
+      expect(unit_activity.due_date).to eq(due_date - teacher_offset)
     end
 
     it 'adjusts the submitted time to utc if the teacher has no time zone but the submitted time is not in utc' do
@@ -188,7 +188,7 @@ describe UnitActivity, type: :model, redis: true do
       publish_date = Time.now.utc - 1.hour
       unit_activity.publish_date = publish_date
       unit_activity.adjust_publish_date_for_timezone
-      expect(unit_activity.publish_date).to eq(publish_date + teacher_offset)
+      expect(unit_activity.publish_date).to eq(publish_date - teacher_offset)
     end
 
     it 'adjusts the submitted time to utc if the teacher has no time zone but the submitted time is not in utc' do
