@@ -70,21 +70,49 @@ describe Evidence::Synthetic::LabeledDataGenerator do
 
   describe '#run spelling-passage-specific errors' do
     let(:text1) {'the dancing step'}
+    let(:text2) {'the dancing'}
+    let(:text3) {'the dancing other'}
     let(:passage) {"passage text #{'dancing '* 5}"}
 
-    let(:generator) { described_class.run([[text1,label1]], languages: [:es], generators: [:spelling_passage_specific], passage: passage)}
+    let(:data) {[[text1,label1], [text2,label1], [text3,label1]]}
+
+    before do
+      stub_const("Evidence::Synthetic::ManualTypes::MIN_TRAIN_PER_LABEL", 1)
+      stub_const("Evidence::Synthetic::ManualTypes::MIN_TEST_PER_LABEL", 1)
+    end
+
+    subject { described_class.run(data, generators: [:spelling_passage_specific], passage: passage)}
 
     it 'fetch and store spelling changes' do
-      expect(generator.results.count).to eq 1
+      expect(subject.results.count).to eq 3
 
-      first_result = generator.results.first
+      first_result = subject.results.first
 
       expect(first_result.text).to eq text1
       expect(first_result.label).to eq label1
       expect(first_result.generated[:spelling_passage_specific]['dancing']).to be_present
     end
-  end
 
+    context 'manual types' do
+      let(:generator) { described_class.run(data, generators: [:spelling_passage_specific], passage: passage, manual_types: true) }
+
+      context 'test types' do
+        subject { generator.results.find {|r| r.type == "TEST"} }
+
+        it 'should populate passage errors' do
+          expect(subject.generated[:spelling_passage_specific]['dancing']).to be_present
+        end
+      end
+
+      context 'validation types' do
+        subject { generator.results.find {|r| r.type == "VALIDATION"} }
+
+        it 'should populate passage errors' do
+          expect(subject.generated[:spelling_passage_specific]['dancing']).to be_present
+        end
+      end
+    end
+  end
 
   describe 'data exports' do
     let(:generator) { described_class.run(labeled_data, languages: [:es], generators: [:translation, :spelling])}
