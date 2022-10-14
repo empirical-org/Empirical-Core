@@ -19,7 +19,7 @@
 # Foreign Keys
 #
 #  fk_rails_...  (activity_pack_id => units.id)
-#  fk_rails_...  (activity_pack_sequence_id => activity_pack_sequences.id)
+#  fk_rails_...  (activity_pack_sequence_id => pack_sequences.id)
 #
 require 'rails_helper'
 

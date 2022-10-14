@@ -19,7 +19,7 @@
 # Foreign Keys
 #
 #  fk_rails_...  (activity_pack_id => units.id)
-#  fk_rails_...  (activity_pack_sequence_id => activity_pack_sequences.id)
+#  fk_rails_...  (activity_pack_sequence_id => pack_sequences.id)
 #
 FactoryBot.define do
   factory :activity_pack_sequence_activity_pack do

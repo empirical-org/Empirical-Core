@@ -110,7 +110,7 @@ CREATE FUNCTION public.timespent_question(act_sess integer, question character v
           item timestamp;
         BEGIN
           SELECT created_at INTO as_created_at FROM activity_sessions WHERE id = act_sess;
-          
+
           -- backward compatibility block
           IF as_created_at IS NULL OR as_created_at < timestamp '2013-08-25 00:00:00.000000' THEN
             SELECT SUM(
@@ -125,11 +125,11 @@ CREATE FUNCTION public.timespent_question(act_sess integer, question character v
                       'epoch' FROM (activity_sessions.completed_at - activity_sessions.started_at)
                     )
                 END) INTO time_spent FROM activity_sessions WHERE id = act_sess AND state='finished';
-                
+
                 RETURN COALESCE(time_spent,0);
           END IF;
-          
-          
+
+
           first_item := NULL;
           last_item := NULL;
           max_item := NULL;
@@ -153,11 +153,11 @@ CREATE FUNCTION public.timespent_question(act_sess integer, question character v
 
             END IF;
           END LOOP;
-          
+
           IF max_item IS NOT NULL AND first_item IS NOT NULL THEN
             time_spent := time_spent + EXTRACT( EPOCH FROM max_item - first_item );
           END IF;
-          
+
           RETURN time_spent;
         END;
       $$;
@@ -172,7 +172,7 @@ CREATE FUNCTION public.timespent_student(student integer) RETURNS bigint
     AS $$
         SELECT COALESCE(SUM(time_spent),0) FROM (
           SELECT id,timespent_activity_session(id) AS time_spent FROM activity_sessions
-          WHERE activity_sessions.user_id = student 
+          WHERE activity_sessions.user_id = student
           GROUP BY id) as as_ids;
 
       $$;
@@ -509,39 +509,6 @@ ALTER SEQUENCE public.activity_pack_sequence_activity_packs_id_seq OWNED BY publ
 
 
 --
--- Name: activity_pack_sequences; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.activity_pack_sequences (
-    id bigint NOT NULL,
-    classroom_id bigint,
-    diagnostic_activity_id bigint,
-    release_method character varying,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
-);
-
-
---
--- Name: activity_pack_sequences_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.activity_pack_sequences_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: activity_pack_sequences_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.activity_pack_sequences_id_seq OWNED BY public.activity_pack_sequences.id;
-
-
---
 -- Name: activity_sessions; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -828,8 +795,8 @@ ALTER SEQUENCE public.app_settings_id_seq OWNED BY public.app_settings.id;
 CREATE TABLE public.ar_internal_metadata (
     key character varying NOT NULL,
     value character varying,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
 );
 
 
@@ -1024,8 +991,8 @@ CREATE TABLE public.change_logs (
     id integer NOT NULL,
     explanation text,
     action character varying NOT NULL,
-    changed_record_id integer,
     changed_record_type character varying NOT NULL,
+    changed_record_id integer,
     user_id integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
@@ -1255,7 +1222,7 @@ CREATE TABLE public.classrooms_teachers (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     "order" integer,
-    CONSTRAINT check_role_is_valid CHECK ((((role)::text = ANY (ARRAY[('owner'::character varying)::text, ('coteacher'::character varying)::text])) AND (role IS NOT NULL)))
+    CONSTRAINT check_role_is_valid CHECK ((((role)::text = ANY ((ARRAY['owner'::character varying, 'coteacher'::character varying])::text[])) AND (role IS NOT NULL)))
 );
 
 
@@ -1605,8 +1572,8 @@ ALTER SEQUENCE public.comprehension_prompts_rules_id_seq OWNED BY public.compreh
 
 CREATE TABLE public.comprehension_regex_rules (
     id integer NOT NULL,
-    regex_text character varying(200),
-    case_sensitive boolean,
+    regex_text character varying(200) NOT NULL,
+    case_sensitive boolean NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     rule_id integer,
@@ -2119,8 +2086,8 @@ CREATE TABLE public.credit_transactions (
     id integer NOT NULL,
     amount integer NOT NULL,
     user_id integer NOT NULL,
-    source_id integer,
     source_type character varying,
+    source_id integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone
 );
@@ -2372,8 +2339,8 @@ ALTER SEQUENCE public.evidence_hints_id_seq OWNED BY public.evidence_hints.id;
 CREATE TABLE public.feedback_histories (
     id integer NOT NULL,
     feedback_session_uid text,
-    prompt_id integer,
     prompt_type character varying,
+    prompt_id integer,
     concept_uid text,
     attempt integer NOT NULL,
     entry text NOT NULL,
@@ -2901,6 +2868,39 @@ CREATE SEQUENCE public.objectives_id_seq
 --
 
 ALTER SEQUENCE public.objectives_id_seq OWNED BY public.objectives.id;
+
+
+--
+-- Name: pack_sequences; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.pack_sequences (
+    id bigint NOT NULL,
+    classroom_id bigint,
+    diagnostic_activity_id bigint,
+    release_method character varying,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: pack_sequences_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.pack_sequences_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pack_sequences_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.pack_sequences_id_seq OWNED BY public.pack_sequences.id;
 
 
 --
@@ -4531,13 +4531,6 @@ ALTER TABLE ONLY public.activity_pack_sequence_activity_packs ALTER COLUMN id SE
 
 
 --
--- Name: activity_pack_sequences id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.activity_pack_sequences ALTER COLUMN id SET DEFAULT nextval('public.activity_pack_sequences_id_seq'::regclass);
-
-
---
 -- Name: activity_sessions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -5000,6 +4993,13 @@ ALTER TABLE ONLY public.objectives ALTER COLUMN id SET DEFAULT nextval('public.o
 
 
 --
+-- Name: pack_sequences id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.pack_sequences ALTER COLUMN id SET DEFAULT nextval('public.pack_sequences_id_seq'::regclass);
+
+
+--
 -- Name: page_areas id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -5369,14 +5369,6 @@ ALTER TABLE ONLY public.activity_healths
 
 ALTER TABLE ONLY public.activity_pack_sequence_activity_packs
     ADD CONSTRAINT activity_pack_sequence_activity_packs_pkey PRIMARY KEY (id);
-
-
---
--- Name: activity_pack_sequences activity_pack_sequences_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.activity_pack_sequences
-    ADD CONSTRAINT activity_pack_sequences_pkey PRIMARY KEY (id);
 
 
 --
@@ -5916,6 +5908,14 @@ ALTER TABLE ONLY public.objectives
 
 
 --
+-- Name: pack_sequences pack_sequences_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.pack_sequences
+    ADD CONSTRAINT pack_sequences_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: page_areas page_areas_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -6025,6 +6025,14 @@ ALTER TABLE ONLY public.sales_stage_types
 
 ALTER TABLE ONLY public.sales_stages
     ADD CONSTRAINT sales_stages_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: schema_migrations schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.schema_migrations
+    ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
 
 
 --
@@ -6370,20 +6378,6 @@ CREATE INDEX index_activity_pack_sequence_activity_packs_on_act_pack_seq_id ON p
 --
 
 CREATE INDEX index_activity_pack_sequence_activity_packs_on_activity_pack_id ON public.activity_pack_sequence_activity_packs USING btree (activity_pack_id);
-
-
---
--- Name: index_activity_pack_sequences_on_classroom_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_activity_pack_sequences_on_classroom_id ON public.activity_pack_sequences USING btree (classroom_id);
-
-
---
--- Name: index_activity_pack_sequences_on_diagnostic_activity_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_activity_pack_sequences_on_diagnostic_activity_id ON public.activity_pack_sequences USING btree (diagnostic_activity_id);
 
 
 --
@@ -7094,6 +7088,20 @@ CREATE UNIQUE INDEX index_oauth_applications_on_uid ON public.oauth_applications
 
 
 --
+-- Name: index_pack_sequences_on_classroom_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pack_sequences_on_classroom_id ON public.pack_sequences USING btree (classroom_id);
+
+
+--
+-- Name: index_pack_sequences_on_diagnostic_activity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pack_sequences_on_diagnostic_activity_id ON public.pack_sequences USING btree (diagnostic_activity_id);
+
+
+--
 -- Name: index_partner_contents_on_content_type_and_content_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -7738,17 +7746,10 @@ CREATE UNIQUE INDEX unique_index_users_on_username ON public.users USING btree (
 
 
 --
--- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX unique_schema_migrations ON public.schema_migrations USING btree (version);
-
-
---
 -- Name: user_activity_classification_unique_index; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX user_activity_classification_unique_index ON public.user_activity_classifications USING btree (user_id, activity_classification_id);
+CREATE UNIQUE INDEX user_activity_classification_unique_index ON public.user_activity_classifications USING btree (user_id, activity_classification_id);
 
 
 --
@@ -7911,10 +7912,10 @@ ALTER TABLE ONLY public.sales_stages
 
 
 --
--- Name: activity_pack_sequences fk_rails_4239cff1e5; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: pack_sequences fk_rails_4239cff1e5; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.activity_pack_sequences
+ALTER TABLE ONLY public.pack_sequences
     ADD CONSTRAINT fk_rails_4239cff1e5 FOREIGN KEY (classroom_id) REFERENCES public.classrooms(id);
 
 
@@ -8011,14 +8012,14 @@ ALTER TABLE ONLY public.recommendations
 --
 
 ALTER TABLE ONLY public.activity_pack_sequence_activity_packs
-    ADD CONSTRAINT fk_rails_712efc80a2 FOREIGN KEY (activity_pack_sequence_id) REFERENCES public.activity_pack_sequences(id);
+    ADD CONSTRAINT fk_rails_712efc80a2 FOREIGN KEY (activity_pack_sequence_id) REFERENCES public.pack_sequences(id);
 
 
 --
--- Name: activity_pack_sequences fk_rails_79fa628e65; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: pack_sequences fk_rails_79fa628e65; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.activity_pack_sequences
+ALTER TABLE ONLY public.pack_sequences
     ADD CONSTRAINT fk_rails_79fa628e65 FOREIGN KEY (diagnostic_activity_id) REFERENCES public.activities(id);
 
 
@@ -8670,7 +8671,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211019143514'),
 ('20211026160939'),
 ('20211108171529'),
-('20211202235402'),
 ('20220105145446'),
 ('20220106193721'),
 ('20220128175405'),
@@ -8712,5 +8712,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220830201825'),
 ('20220830205005'),
 ('20220920190724'),
-('20220927124042');
+('20220927124042'),
+('20221014103417');
+
 
