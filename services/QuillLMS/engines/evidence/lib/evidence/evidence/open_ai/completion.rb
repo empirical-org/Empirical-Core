@@ -3,8 +3,8 @@
 module Evidence
   module OpenAI
     class Completion < Evidence::ApplicationService
-      include Evidence::OpenAI::APIConcern
-      include Evidence::OpenAI::SentenceResultsConcern
+      include Evidence::OpenAI::Concerns::API
+      include Evidence::OpenAI::Concerns::SentenceResults
 
       ENDPOINT = '/completions'
 

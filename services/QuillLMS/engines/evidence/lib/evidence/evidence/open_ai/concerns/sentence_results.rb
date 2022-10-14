@@ -2,7 +2,7 @@
 
 module Evidence
   module OpenAI
-    module SentenceResultsConcern
+    module Concerns::SentenceResults
       extend ActiveSupport::Concern
 
       BLANK = ''

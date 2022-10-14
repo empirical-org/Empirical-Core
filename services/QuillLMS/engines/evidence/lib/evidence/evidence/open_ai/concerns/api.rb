@@ -2,7 +2,7 @@
 
 module Evidence
   module OpenAI
-    module APIConcern
+    module Concerns::API
       extend ActiveSupport::Concern
 
       included do
