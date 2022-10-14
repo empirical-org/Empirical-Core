@@ -74,7 +74,7 @@ module Evidence
         expect(change_log.user_id).to(eq(1))
         expect(change_log.changed_record_type).to(eq("Evidence::Activity"))
         expect(change_log.changed_record_id).to(eq(new_activity.id))
-        expect(change_log.new_value).to(eq(nil))
+        expect(change_log.new_value).to(eq("1"))
       end
 
       it 'should not create an invalid record and return errors as json' do
