@@ -18,7 +18,7 @@ module Evidence
       }
       BLANK = ''
       STOP_TOKENS = [". ", ", "]
-      MAX_COUNT = 128 # API has an undocument max of 128 for 'n'
+      MAX_COUNT = 128 # API has an undocumented max of 128 for 'n'
       MIN_RESPONSE_LENGTH = 10
 
       attr_accessor :response, :prompt, :temperature, :count, :model_key, :options_hash
