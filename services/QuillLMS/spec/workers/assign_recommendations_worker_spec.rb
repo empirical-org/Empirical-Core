@@ -13,12 +13,12 @@ describe AssignRecommendationsWorker do
   let(:is_last_recommendation) { true }
   let(:lesson) { 'lesson' }
   let(:assigning_all_recommendations) { false }
-  let(:activity_pack_sequence_id) { nil }
+  let(:pack_sequence_id) { nil }
   let(:order) { 0 }
 
   let(:args) do
     {
-      activity_pack_sequence_id: activity_pack_sequence_id,
+      pack_sequence_id: pack_sequence_id,
       assigning_all_recommendations: assigning_all_recommendations,
       classroom_id: classroom.id,
       is_last_recommendation: is_last_recommendation,
@@ -91,29 +91,23 @@ describe AssignRecommendationsWorker do
     it { should_track_that_all_recommendations_are_being_assigned }
   end
 
-  context 'when activity_pack_sequence_id is nil' do
-    let(:activity_pack_sequence_id) { nil }
+  context 'when pack_sequence_id is nil' do
+    let(:pack_sequence_id) { nil }
 
-    it { expect { subject }.not_to change(ActivityPackSequenceActivityPack, :count).from(0) }
+    it { expect { subject }.not_to change(PackSequenceItem, :count).from(0) }
   end
 
-  context 'when activity_pack_sequence_id exists' do
-    let(:activity_pack_sequence_id) { create(:activity_pack_sequence).id }
+  context 'when pack_sequence_id exists' do
+    let(:pack_sequence_id) { create(:pack_sequence).id }
 
-    it { expect { subject }.to change(ActivityPackSequenceActivityPack, :count).from(0).to(1) }
+    it { expect { subject }.to change(PackSequenceItem, :count).from(0).to(1) }
 
-    context 'when activity_pack_sequence_activity_pack already exists' do
+    context 'when pack_sequence_item already exists' do
       let(:unit) { create(:unit, unit_template: unit_template, user: teacher) }
 
-      before do
-        create(:activity_pack_sequence_activity_pack,
-          activity_pack_id: unit.id,
-          activity_pack_sequence_id: activity_pack_sequence_id,
-          order: 0
-        )
-      end
+      before { create(:pack_sequence_item, item_id: unit.id, pack_sequence_id: pack_sequence_id, order: 0) }
 
-      it { expect { subject }.not_to change(ActivityPackSequenceActivityPack, :count).from(1) }
+      it { expect { subject }.not_to change(PackSequenceItem, :count).from(1) }
     end
   end
 

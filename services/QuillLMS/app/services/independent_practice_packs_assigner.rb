@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class IndependentPracticeActivityPacksAssigner < ApplicationService
+class IndependentPracticePacksAssigner < ApplicationService
   attr_reader :assigning_all_recommendations,
     :classroom_id,
     :diagnostic_activity_id,
@@ -34,12 +34,12 @@ class IndependentPracticeActivityPacksAssigner < ApplicationService
     return if selections_with_students.empty?
 
     set_diagnostic_recommendations_start_time
-    destroy_existing_activity_pack_sequences
+    destroy_existing_pack_sequences
     assign_recommendations
   end
 
-  private def activity_pack_sequence_getter
-    ActivityPackSequence.find_or_create_by!(
+  private def pack_sequence_getter
+    PackSequence.find_or_create_by!(
       classroom_id: classroom_id,
       diagnostic_activity_id: diagnostic_activity_id,
       release_method:  release_method
@@ -47,11 +47,11 @@ class IndependentPracticeActivityPacksAssigner < ApplicationService
   end
 
   private def assign_recommendations
-    activity_pack_sequence = staggered_release? ? activity_pack_sequence_getter : nil
+    pack_sequence = staggered_release? ? pack_sequence_getter : nil
 
     selections_with_students.each_with_index do |selection, index|
       AssignRecommendationsWorker.perform_async(
-        activity_pack_sequence_id: activity_pack_sequence&.id,
+        pack_sequence_id: pack_sequence&.id,
         assigning_all_recommendations: assigning_all_recommendations,
         classroom_id: classroom_id,
         is_last_recommendation: index == last_recommendation_index,
@@ -63,10 +63,10 @@ class IndependentPracticeActivityPacksAssigner < ApplicationService
     end
   end
 
-  private def destroy_existing_activity_pack_sequences
+  private def destroy_existing_pack_sequences
     return if staggered_release?
 
-    ActivityPackSequence
+    PackSequence
       .where(classroom_id: classroom_id, diagnostic_activity_id: diagnostic_activity_id)
       .destroy_all
   end
@@ -92,7 +92,7 @@ class IndependentPracticeActivityPacksAssigner < ApplicationService
   end
 
   private def staggered_release?
-    release_method == ActivityPackSequence::STAGGERED_RELEASE
+    release_method == PackSequence::STAGGERED_RELEASE
   end
 
   private def teaches_classroom?

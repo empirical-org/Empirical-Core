@@ -321,7 +321,7 @@ module PublicProgressReports
     teacher_id = classroom.owner.id
     diagnostic = Activity.find(activity_id)
 
-    release_method = ActivityPackSequence.find_by(classroom: classroom, diagnostic_activity: diagnostic)&.release_method
+    release_method = PackSequence.find_by(classroom: classroom, diagnostic_activity: diagnostic)&.release_method
 
     assigned_recommendations = RecommendationsQuery.new(diagnostic.id).activity_recommendations.map do |recommendation|
       unit_template_id = recommendation[:activityPackId]

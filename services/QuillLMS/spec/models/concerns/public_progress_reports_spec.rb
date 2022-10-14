@@ -265,7 +265,7 @@ describe PublicProgressReports, type: :model do
 
     subject { FakeReports.new.get_previously_assigned_recommendations_by_classroom(classroom.id, diagnostic_activity.id) }
 
-    context 'no activity pack sequence exits' do
+    context 'no pack sequence exits' do
       let(:release_method) { nil }
 
       it 'will return previously assigned lesson recommendation only if that classroom has been assigned the lesson' do
@@ -273,12 +273,12 @@ describe PublicProgressReports, type: :model do
       end
     end
 
-    context 'activity pack sequence exists' do
-      let(:release_method) { ActivityPackSequence::STAGGERED_RELEASE }
+    context 'pack sequence exists' do
+      let(:release_method) { PackSequence::STAGGERED_RELEASE }
 
-      before { create(:activity_pack_sequence, classroom: classroom, diagnostic_activity: diagnostic_activity) }
+      before { create(:pack_sequence, classroom: classroom, diagnostic_activity: diagnostic_activity) }
 
-      it 'will return a release method for previously assigned staggered release ActivityPackSequences' do
+      it 'will return a release method for previously assigned staggered release PackSequences' do
         expect(subject.to_json).to eq(expected_response.to_json)
       end
     end
