@@ -26,7 +26,7 @@ module Evidence
           action: Evidence.change_log_class::EVIDENCE_ACTIONS[:create],
           changed_record_type: 'Evidence::Activity',
           changed_record_id: @activity.id,
-          user_id: current_user.id,
+          user_id: lms_user_id,
           explanation: "Activity Created",
           changed_attribute: 'version',
           previous_value: "0",
