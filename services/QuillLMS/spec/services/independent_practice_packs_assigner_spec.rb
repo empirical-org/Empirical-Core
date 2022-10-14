@@ -7,7 +7,7 @@ RSpec.describe IndependentPracticePacksAssigner do
     described_class.run(
       assigning_all_recommendations: true,
       classroom_id: classroom.id,
-      diagnostic_activity_id: create(:diagnostic_activity).id,
+      diagnostic_activity_id: diagnostic_activity.id,
       release_method: release_method,
       selections: selections,
       user: user
@@ -16,6 +16,7 @@ RSpec.describe IndependentPracticePacksAssigner do
 
   let(:classroom) { create(:classroom) }
   let(:user) { classroom.owner }
+  let(:diagnostic_activity) { create(:diagnostic_activity) }
 
   let(:unit_template1_selection) do
     ActionController::Parameters.new(
@@ -35,8 +36,8 @@ RSpec.describe IndependentPracticePacksAssigner do
 
   let(:pack_sequence) do
     create(:pack_sequence,
-      classroom_id: classroom_id,
-      diagnostic_activity_id: diagnostic_activity_id,
+      classroom_id: classroom.id,
+      diagnostic_activity_id: diagnostic_activity.id,
       release_method: PackSequence::STAGGERED_RELEASE
     )
   end
@@ -80,23 +81,29 @@ RSpec.describe IndependentPracticePacksAssigner do
   end
 
   context 'release method is staggered release' do
+    let(:selections) { [unit_template1_selection] }
+    let(:student_ids1) { [1] }
     let(:release_method) { PackSequence::STAGGERED_RELEASE }
 
     context 'Pack Sequence does not exist' do
-      it { expect { subject }.to change(PackSequenceItem, :count).from(0).to(1) }
+      it { expect { subject }.to change(PackSequence, :count).from(0).to(1) }
     end
 
     context 'Pack Sequence already exists' do
       before { pack_sequence }
 
-      it { expect { subject }.not_to change(PackSequenceItem, :count).from(1) }
+      it { expect { subject }.not_to change(PackSequence, :count).from(1) }
     end
   end
 
   context 'release method is not staggered release' do
+    let(:selections) { [unit_template1_selection] }
+    let(:student_ids1) { [1] }
     let(:release_method) { 'immediate' }
 
-    it { expect(subject).to eq nil }
+    context 'Pack Sequence does not exist' do
+      it { expect { subject }.not_to change(PackSequence, :count).from(0) }
+    end
 
     context 'Pack Sequence already exists' do
       before { pack_sequence }

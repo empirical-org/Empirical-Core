@@ -287,7 +287,7 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
     end
 
     subject do
-      post 'assign_independent_practice_activity_packs',
+      post 'assign_independent_practice_packs',
         params: { classroom_id: classroom.id, selections: selections },
         as: :json
     end
