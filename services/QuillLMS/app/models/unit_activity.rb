@@ -32,8 +32,6 @@ class UnitActivity < ApplicationRecord
   belongs_to :activity
   has_many :classroom_unit_activity_states
 
-  before_save :adjust_due_date_for_timezone, if: :will_save_change_to_due_date?
-  before_save :adjust_publish_date_for_timezone, if: :will_save_change_to_publish_date?
   after_save :hide_appropriate_activity_sessions, :teacher_checkbox
 
   def teacher_checkbox
@@ -82,6 +80,17 @@ class UnitActivity < ApplicationRecord
     else
       true
     end
+  end
+
+  def save_new_attributes_and_adjust_dates!(unit_activity_data)
+    assign_attributes(unit_activity_data)
+    adjust_dates_for_timezone
+    save!
+  end
+
+  def adjust_dates_for_timezone
+    adjust_due_date_for_timezone if will_save_change_to_due_date?
+    adjust_publish_date_for_timezone if will_save_change_to_publish_date?
   end
 
   def adjust_due_date_for_timezone

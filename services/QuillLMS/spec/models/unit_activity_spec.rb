@@ -34,8 +34,6 @@ describe UnitActivity, type: :model, redis: true do
 
   it { is_expected.to callback(:teacher_checkbox).after(:save) }
   it { is_expected.to callback(:hide_appropriate_activity_sessions).after(:save) }
-  it { is_expected.to callback(:adjust_due_date_for_timezone).before(:save).if(:will_save_change_to_due_date?) }
-  it { is_expected.to callback(:adjust_publish_date_for_timezone).before(:save).if(:will_save_change_to_publish_date?) }
 
   let!(:activity_classification3) { create(:activity_classification, id: 3)}
   let!(:activity_classification2) { create(:grammar)}
@@ -139,6 +137,41 @@ describe UnitActivity, type: :model, redis: true do
       it 'must have a getter' do
         expect(unit_activity.due_date_string).to eq('03/02/2012')
       end
+    end
+  end
+
+  describe '#save_new_attributes_and_adjust_dates!' do
+    it 'takes new attributes and saves them to the unit activity' do
+      old_order_number = 0
+      new_order_number = 1
+      unit_activity.update(order_number: old_order_number)
+      unit_activity.save_new_attributes_and_adjust_dates!(order_number: new_order_number)
+      expect(UnitActivity.find(unit_activity.id).order_number).to eq(new_order_number)
+    end
+
+    it 'calls the due date adjustment method if the due date has changed' do
+      expect(unit_activity).to receive(:adjust_due_date_for_timezone)
+      unit_activity.save_new_attributes_and_adjust_dates!(due_date: Date.tomorrow)
+    end
+
+    it 'does not call the due date adjustment method if the due date has not changed' do
+      existing_due_date = Date.tomorrow
+      unit_activity.update(due_date: existing_due_date)
+      expect(unit_activity).not_to receive(:adjust_due_date_for_timezone)
+      unit_activity.save_new_attributes_and_adjust_dates!(due_date: existing_due_date)
+
+    end
+
+    it 'calls the publish date adjustment method if the publish date has changed' do
+      expect(unit_activity).to receive(:adjust_publish_date_for_timezone)
+      unit_activity.save_new_attributes_and_adjust_dates!(publish_date: Date.tomorrow)
+    end
+
+    it 'does not call the publish date adjustment method if the publish date has not changed' do
+      existing_publish_date = Date.tomorrow
+      unit_activity.update(publish_date: existing_publish_date)
+      expect(unit_activity).not_to receive(:adjust_publish_date_for_timezone)
+      unit_activity.save_new_attributes_and_adjust_dates!(publish_date: existing_publish_date)
     end
   end
 

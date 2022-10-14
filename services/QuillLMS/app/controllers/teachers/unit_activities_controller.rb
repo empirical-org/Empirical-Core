@@ -11,7 +11,7 @@ class Teachers::UnitActivitiesController < ApplicationController
   before_action :set_activity_session, only: :hide
 
   def update
-    @unit_activities.each { |unit_activity| unit_activity&.update(unit_activity_params) }
+    @unit_activities.each { |unit_activity| unit_activity&.save_new_attributes_and_adjust_dates!(unit_activity_params) }
     render json: @unit_activities.to_json
   end
 
@@ -28,8 +28,8 @@ class Teachers::UnitActivitiesController < ApplicationController
       begin
         ActiveRecord::Base.transaction do
           UnitActivity
-              .where(id: params[:unit_activity_ids])
-              .each { |ua| ua.update!(params[:date_attribute] => params[:date]) }
+            .where(id: params[:unit_activity_ids])
+            .each { |ua| ua.save_new_attributes_and_adjust_dates!(params[:date_attribute] => params[:date]) }
         end
       rescue => e
         return render json: { error: "Error updating unit activity. #{e}" }, status: 401

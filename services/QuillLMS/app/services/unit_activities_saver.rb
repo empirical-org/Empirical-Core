@@ -20,7 +20,10 @@ class UnitActivitiesSaver < ApplicationService
   end
 
   private def bulk_create_unit_activities
-    UnitActivity.create!(new_unit_activities_data)
+    new_unit_activities_data.each do |new_ua_data|
+      ua = UnitActivity.new
+      ua.save_new_attributes_and_adjust_dates!(new_ua_data)
+    end
   end
 
   private def update_existing_unit_activities_and_aggregate_new_unit_activities_data
@@ -31,7 +34,7 @@ class UnitActivitiesSaver < ApplicationService
       unit_activity = unit_activities.find { |ua| ua.activity_id == activity_id }
 
       if unit_activity
-        unit_activity.update!(
+        unit_activity.save_new_attributes_and_adjust_dates!(
           due_date: due_date || unit_activity.due_date,
           publish_date: publish_date || unit_activity.publish_date,
           order_number: order_number,
