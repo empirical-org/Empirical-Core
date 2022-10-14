@@ -201,8 +201,8 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 
-  def assign_independent_practice_activity_packs
-    IndependentPracticeActivityPacksAssigner.run(
+  def assign_independent_practice_packs
+    IndependentPracticePacksAssigner.run(
       assigning_all_recommendations: params[:assigning_all_recommendations],
       classroom_id: params[:classroom_id],
       diagnostic_activity_id: params[:diagnostic_activity_id],
@@ -212,11 +212,11 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     )
 
     render json: {}
-  rescue IndependentPracticeActivityPacksAssigner::TeacherNotAssociatedWithClassroomError => e
+  rescue IndependentPracticePacksAssigner::TeacherNotAssociatedWithClassroomError => e
     render json: { error: e.message }, status: 401
   end
 
-  def assign_whole_class_instruction_activity_packs
+  def assign_whole_class_instruction_packs
     return render json: {}, status: 401 unless params[:classroom_id].in?(current_user.classrooms_i_teach.pluck(:id))
 
     set_lesson_diagnostic_recommendations_start_time

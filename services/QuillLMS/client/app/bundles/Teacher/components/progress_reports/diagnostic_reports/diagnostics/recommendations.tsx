@@ -322,7 +322,7 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
 
   function assignLessonsActivityPacks() {
     initializePusher(true)
-    requestPost('/teachers/progress_reports/assign_whole_class_instruction_activity_packs/', { unit_template_ids: lessonsSelections, classroom_id: params.classroomId }, (data) => {}, (data) => {
+    requestPost('/teachers/progress_reports/assign_whole_class_instruction_packs/', { unit_template_ids: lessonsSelections, classroom_id: params.classroomId }, (data) => {}, (data) => {
       alert('We had trouble processing your request. Please check your network connection and try again.');
     })
   }
@@ -353,7 +353,7 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
     }
     setIndependentAssigning(true)
     initializePusher()
-    requestPost('/teachers/progress_reports/assign_independent_practice_activity_packs/', dataToPass, (data) => {}, (data) => {
+    requestPost('/teachers/progress_reports/assign_independent_practice_packs/', dataToPass, (data) => {}, (data) => {
       alert('We had trouble processing your request. Please check your network connection and try again.');
       setIndependentAssigning(false)
     })
