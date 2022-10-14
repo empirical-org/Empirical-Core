@@ -34,6 +34,7 @@ module Evidence
         ENDPOINT
       end
 
+      # https://beta.openai.com/docs/api-reference/completions/create
       def request_body
         {
           model: MODELS[model_key],
