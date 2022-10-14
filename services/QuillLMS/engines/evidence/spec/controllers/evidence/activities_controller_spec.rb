@@ -283,8 +283,9 @@ module Evidence
 
         expect(response.code.to_i).to(eq(200))
         expect(parsed_response.select {|cl| cl["changed_record_type"] == 'Evidence::Passage'}.count).to(eq(1))
-        expect(parsed_response.select {|cl| cl["changed_record_type"] == 'Evidence::Activity'}.count).to(eq(1))
+        expect(parsed_response.select {|cl| cl["changed_record_type"] == 'Evidence::Activity'}.count).to(eq(2))
         expect(parsed_response.select {|cl| cl["changed_record_type"] == 'Evidence::Prompt'}.count).to(eq(1))
+        expect(parsed_response.select {|cl| cl["changed_attribute"] == 'version'}.count).to(eq(1))
 
       end
 

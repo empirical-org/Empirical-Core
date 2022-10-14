@@ -4,7 +4,7 @@ namespace :create_initial_change_log_for_evidence_activities do
   desc 'create change log for all Evidence activities with no initial version'
   task :run => :environment do
     Evidence::Activity.all.each do |activity|
-      initial_version = Evidence.change_log_class.where(changed_record_id: activity.id, changed_attribute: 'version', changed_record_type: 'Evidence::Activity').length == 0
+      initial_version = Evidence.change_log_class.where(changed_record_id: activity.id, changed_attribute: 'version', changed_record_type: 'Evidence::Activity').empty?
       if initial_version
         changelog_params = {
           action: Evidence.change_log_class::EVIDENCE_ACTIONS[:create],
