@@ -1,6 +1,5 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-
 import moment from 'moment';
 import request from 'request'
 
@@ -192,7 +191,6 @@ describe('Scorebook component', () => {
     it('should set state and call fetchData on callback', () => {
       wrapper.instance().selectDates(beginDate, endDate);
       expect(wrapper.state().scores).toEqual(new Map());
-      expect(wrapper.state().currentPage).toBe(0);
       expect(wrapper.state().beginDate).toBe(beginDate);
       expect(wrapper.state().endDate).toBe(endDate);
       expect(wrapper.instance().fetchData).toHaveBeenCalled();
