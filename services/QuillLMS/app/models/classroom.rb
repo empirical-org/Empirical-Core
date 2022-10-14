@@ -50,7 +50,7 @@ class Classroom < ApplicationRecord
   has_many :activity_sessions, through: :classroom_units
   has_many :standard_levels, through: :activities
   has_many :coteacher_classroom_invitations, dependent: :destroy
-  has_many :activity_pack_sequences, dependent: :destroy
+  has_many :pack_sequences, dependent: :destroy
 
   has_many :students_classrooms, foreign_key: 'classroom_id', dependent: :destroy, class_name: "StudentsClassrooms"
   has_many :students, through: :students_classrooms, source: :student, inverse_of: :classrooms, class_name: "User"
