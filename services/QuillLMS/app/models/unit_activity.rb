@@ -133,7 +133,7 @@ class UnitActivity < ApplicationRecord
           COALESCE(cuas.pinned, false) AS pinned,
           MAX(acts.percentage) AS max_percentage,
           SUM(CASE WHEN pre_activity_sessions_classroom_units.id > 0 AND pre_activity_sessions.state = '#{ActivitySession::STATE_FINISHED}' THEN 1 ELSE 0 END) > 0 AS completed_pre_activity_session,
-          SUM(CASE WHEN acts.state = '#{ActivitySession::STATE_FINISHED}' THEN 1 ELSE 0 END) > 0 AS #{ACTIVITY_SESSION_STATE_FINISHED_KEY},
+          SUM(CASE WHEN acts.state = '#{ActivitySession::STATE_FINISHED}' THEN 1 ELSE 0 END) > 0 AS #{ActivitySession::STATE_FINISHED_KEY},
           SUM(CASE WHEN acts.state = '#{ActivitySession::STATE_STARTED}' THEN 1 ELSE 0 END) AS resume_link
         FROM unit_activities AS ua
         JOIN units AS unit

@@ -3,79 +3,75 @@
 require 'rails_helper'
 
 RSpec.describe PackSequenceItemStatusMerger do
-  subject { described_class.run(classroom_user_profile) }
+  subject { described_class.run(results) }
 
   let(:staggered) { PackSequence::STAGGERED_RELEASE }
 
-  let(:profile_result1) do
-    {
-      "name" => "Some name 1",
-      "release_method" => release_method1,
-      "activity_pack_sequence_id" => activity_pack_sequence1_id
-    }
+  let(:locked) { PackSequenceItem::LOCKED}
+  let(:no_lock) { PackSequenceItem::NO_LOCK }
+  let(:unlocked) { PackSequenceItem::UNLOCKED }
+  let(:status_key) { PackSequenceItem::STATUS_KEY }
+
+  let(:result1) { result(true, pack_sequence_id1, release_method1, pack_sequence_item_id1, 1) }
+  let(:result2) { result(false, pack_sequence_id2, release_method2, pack_sequence_item_id2, 2) }
+  let(:result3) { result(true, pack_sequence_id3, release_method3, pack_sequence_item_id3, 3) }
+
+  context 'results is empty' do
+    let(:results) { [] }
+
+    it { expect(subject).to eq([]) }
   end
 
-  let(:profile_result2) do
-    {
-      "name" => "Some name 1",
-      "release_method" => release_method2,
-      "activity_pack_sequence_id" => activity_pack_sequence2_id
-    }
+  context 'result contains a nil release_method1' do
+    let(:results) { [result1] }
+    let(:release_method1) { nil }
+    let(:pack_sequence_id1) { nil }
+    let(:pack_sequence_item_id1) { nil }
+
+    it { expect(subject).to eq([result1.merge(status_key => no_lock)]) }
   end
 
-  context 'profile is empty' do
-    let(:classroom_user_profile) { [] }
-
-    it { expect(subject).to eq({}) }
-  end
-
-  context 'profile contains a result with no activity_pack_id' do
-    let(:classroom_user_profile) { [profile_result1] }
-    let(:activity_pack_sequence1_id) { nil }
+  context 'result contains a staggered release' do
+    let(:results) { [result1] }
     let(:release_method1) { staggered }
 
-    it { expect(subject).to eq({}) }
-  end
+    context 'with a nil pack_sequence_id' do
+      let(:pack_sequence_id1) { nil }
+      let(:pack_sequence_item_id1) { nil }
 
-  context 'profile contains a result with activity_pack_id' do
-    let(:classroom_user_profile) { [profile_result1] }
-    let(:activity_pack_sequence1_id) { create(:activity_pack_sequence).id }
-
-    context 'release method is not staggered' do
-      let(:release_method1) { nil }
-
-      it { expect(subject).to eq({}) }
+      it { expect(subject).to eq([result1.merge(status_key => no_lock)]) }
     end
 
-    context 'release method is staggered' do
-      let(:release_method1) { staggered }
+    context 'with a pack_sequence_id' do
+      let(:pack_sequence_id1) { 1 }
 
-      it { expect(subject).to eq(activity_pack_sequence1_id => [profile_result1]) }
+      context 'and a finished pack_sequence_item' do
+        let(:pack_sequence_item_id1) { 1 }
+
+        it { expect(subject).to eq([result1.merge(status_key => unlocked)]) }
+      end
     end
   end
 
-  context 'profile contains two results with same activity_pack_ids' do
-    let(:classroom_user_profile) { [profile_result1, profile_result2] }
-    let(:activity_pack_sequence1_id) { create(:activity_pack_sequence).id }
-    let(:activity_pack_sequence2_id) { activity_pack_sequence1_id }
-    let(:release_method1) { staggered }
+  context 'results contains two results with same pack_sequence but different pack_sequence_item' do
+    let(:results) { [result2, result3] }
+    let(:pack_sequence_id2) { 2 }
+    let(:pack_sequence_id3) { pack_sequence_id2 }
+    let(:pack_sequence_item_id2) { 2 }
+    let(:pack_sequence_item_id3) { pack_sequence_id2 + 1 }
     let(:release_method2) { staggered }
+    let(:release_method3) { staggered }
 
-    it { expect(subject).to eq(activity_pack_sequence1_id => [profile_result1, profile_result2]) }
+    it { expect(subject).to eq([result2.merge(status_key => unlocked), result3.merge(status_key => locked)]) }
   end
 
-  context 'profile contains two results with different activity_pack_ids' do
-    let(:classroom_user_profile) { [profile_result1, profile_result2] }
-    let(:activity_pack_sequence1_id) { create(:activity_pack_sequence).id }
-    let(:activity_pack_sequence2_id) { create(:activity_pack_sequence).id }
-    let(:release_method1) { staggered }
-    let(:release_method2) { staggered }
-
-    it do
-      expect(subject).to eq(
-        activity_pack_sequence1_id => [profile_result1],
-        activity_pack_sequence2_id => [profile_result2]
-      )
-    end
+  def result(finished, pack_sequence_id, pack_sequence_release_method, pack_sequence_item_id, pack_sequence_item_order)
+    {
+      ActivitySession::STATE_FINISHED_KEY => finished,
+      PackSequence::ID_KEY => pack_sequence_id,
+      PackSequence::RELEASE_METHOD_KEY => pack_sequence_release_method,
+      PackSequenceItem::ID_KEY => pack_sequence_item_id,
+      PackSequenceItem::ORDER_KEY => pack_sequence_item_order,
+    }
   end
 end

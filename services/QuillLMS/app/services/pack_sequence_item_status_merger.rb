@@ -9,7 +9,7 @@ class PackSequenceItemStatusMerger < ApplicationService
   end
 
   def run
-    compute_statuses
+    map_statuses
     merge_statuses
   end
 
@@ -21,15 +21,15 @@ class PackSequenceItemStatusMerger < ApplicationService
       .values
   end
 
-  private def compute_statuses
+  private def map_statuses
     all_pack_sequence_item_results.each do |pack_sequence_item_results|
-      pack_sequence_item_statuses.merge(PackSequenceItemStatusMapper.run(pack_sequence_item_results))
+      pack_sequence_item_statuses.merge!(PackSequenceItemStatusMapper.run(pack_sequence_item_results))
     end
   end
 
   private def merge_statuses
     results.map do |result|
-      result.merge(PackSequenceItem::STATUS_KEY => pack_sequence_item_statuses[result[PACK_SEQUENCE_ITEM_ID_KEY]])
+      result.merge(PackSequenceItem::STATUS_KEY => pack_sequence_item_statuses[result[PackSequenceItem::ID_KEY]])
     end
   end
 end
