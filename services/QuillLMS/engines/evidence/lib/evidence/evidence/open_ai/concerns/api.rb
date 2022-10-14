@@ -14,9 +14,17 @@ module Evidence
 
       # classes using this concern require these methods
       prepended do
-        def endpoint; raise NotImplementedError; end
-        def request_body; raise NotImplementedError; end
-        def cleaned_results; raise NotImplementedError; end
+        def endpoint
+          raise NotImplementedError
+        end
+
+        def request_body
+          raise NotImplementedError
+        end
+
+        def cleaned_results
+          raise NotImplementedError
+        end
       end
 
       def run
