@@ -476,39 +476,6 @@ ALTER SEQUENCE public.activity_healths_id_seq OWNED BY public.activity_healths.i
 
 
 --
--- Name: activity_pack_sequence_activity_packs; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.activity_pack_sequence_activity_packs (
-    id bigint NOT NULL,
-    activity_pack_id bigint,
-    activity_pack_sequence_id bigint,
-    "order" integer,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
-);
-
-
---
--- Name: activity_pack_sequence_activity_packs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.activity_pack_sequence_activity_packs_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: activity_pack_sequence_activity_packs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.activity_pack_sequence_activity_packs_id_seq OWNED BY public.activity_pack_sequence_activity_packs.id;
-
-
---
 -- Name: activity_sessions; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -2871,6 +2838,39 @@ ALTER SEQUENCE public.objectives_id_seq OWNED BY public.objectives.id;
 
 
 --
+-- Name: pack_sequence_items; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.pack_sequence_items (
+    id bigint NOT NULL,
+    item_id bigint,
+    pack_sequence_id bigint,
+    "order" integer,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: pack_sequence_items_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.pack_sequence_items_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pack_sequence_items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.pack_sequence_items_id_seq OWNED BY public.pack_sequence_items.id;
+
+
+--
 -- Name: pack_sequences; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -4524,13 +4524,6 @@ ALTER TABLE ONLY public.activity_healths ALTER COLUMN id SET DEFAULT nextval('pu
 
 
 --
--- Name: activity_pack_sequence_activity_packs id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.activity_pack_sequence_activity_packs ALTER COLUMN id SET DEFAULT nextval('public.activity_pack_sequence_activity_packs_id_seq'::regclass);
-
-
---
 -- Name: activity_sessions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -4993,6 +4986,13 @@ ALTER TABLE ONLY public.objectives ALTER COLUMN id SET DEFAULT nextval('public.o
 
 
 --
+-- Name: pack_sequence_items id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.pack_sequence_items ALTER COLUMN id SET DEFAULT nextval('public.pack_sequence_items_id_seq'::regclass);
+
+
+--
 -- Name: pack_sequences id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -5361,14 +5361,6 @@ ALTER TABLE ONLY public.activity_classifications
 
 ALTER TABLE ONLY public.activity_healths
     ADD CONSTRAINT activity_healths_pkey PRIMARY KEY (id);
-
-
---
--- Name: activity_pack_sequence_activity_packs activity_pack_sequence_activity_packs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.activity_pack_sequence_activity_packs
-    ADD CONSTRAINT activity_pack_sequence_activity_packs_pkey PRIMARY KEY (id);
 
 
 --
@@ -5908,6 +5900,14 @@ ALTER TABLE ONLY public.objectives
 
 
 --
+-- Name: pack_sequence_items pack_sequence_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.pack_sequence_items
+    ADD CONSTRAINT pack_sequence_items_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: pack_sequences pack_sequences_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -6364,20 +6364,6 @@ CREATE UNIQUE INDEX index_activities_on_uid ON public.activities USING btree (ui
 --
 
 CREATE UNIQUE INDEX index_activity_classifications_on_uid ON public.activity_classifications USING btree (uid);
-
-
---
--- Name: index_activity_pack_sequence_activity_packs_on_act_pack_seq_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_activity_pack_sequence_activity_packs_on_act_pack_seq_id ON public.activity_pack_sequence_activity_packs USING btree (activity_pack_sequence_id);
-
-
---
--- Name: index_activity_pack_sequence_activity_packs_on_activity_pack_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_activity_pack_sequence_activity_packs_on_activity_pack_id ON public.activity_pack_sequence_activity_packs USING btree (activity_pack_id);
 
 
 --
@@ -7085,6 +7071,20 @@ CREATE UNIQUE INDEX index_oauth_access_tokens_on_token ON public.oauth_access_to
 --
 
 CREATE UNIQUE INDEX index_oauth_applications_on_uid ON public.oauth_applications USING btree (uid);
+
+
+--
+-- Name: index_pack_sequence_items_on_item_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pack_sequence_items_on_item_id ON public.pack_sequence_items USING btree (item_id);
+
+
+--
+-- Name: index_pack_sequence_items_on_pack_sequence_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pack_sequence_items_on_pack_sequence_id ON public.pack_sequence_items USING btree (pack_sequence_id);
 
 
 --
@@ -8008,11 +8008,11 @@ ALTER TABLE ONLY public.recommendations
 
 
 --
--- Name: activity_pack_sequence_activity_packs fk_rails_712efc80a2; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: pack_sequence_items fk_rails_712efc80a2; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.activity_pack_sequence_activity_packs
-    ADD CONSTRAINT fk_rails_712efc80a2 FOREIGN KEY (activity_pack_sequence_id) REFERENCES public.pack_sequences(id);
+ALTER TABLE ONLY public.pack_sequence_items
+    ADD CONSTRAINT fk_rails_712efc80a2 FOREIGN KEY (pack_sequence_id) REFERENCES public.pack_sequences(id);
 
 
 --
@@ -8056,11 +8056,11 @@ ALTER TABLE ONLY public.comprehension_highlights
 
 
 --
--- Name: activity_pack_sequence_activity_packs fk_rails_a1e39dcd4a; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: pack_sequence_items fk_rails_a1e39dcd4a; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.activity_pack_sequence_activity_packs
-    ADD CONSTRAINT fk_rails_a1e39dcd4a FOREIGN KEY (activity_pack_id) REFERENCES public.units(id);
+ALTER TABLE ONLY public.pack_sequence_items
+    ADD CONSTRAINT fk_rails_a1e39dcd4a FOREIGN KEY (item_id) REFERENCES public.units(id);
 
 
 --
@@ -8713,6 +8713,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220830205005'),
 ('20220920190724'),
 ('20220927124042'),
-('20221014103417');
+('20221014103417'),
+('20221014103843');
 
 
