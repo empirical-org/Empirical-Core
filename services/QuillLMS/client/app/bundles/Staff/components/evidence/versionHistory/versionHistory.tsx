@@ -130,7 +130,7 @@ const VersionHistory = ({ history, match }) => {
       />
 
       <div className="button-and-id-container">
-        <button className="quill-button fun primary contained focus-on-light" id="activity-submit-button" onClick={handleUpdateActivity} type="submit">Increment version to {activity?.version + 1}</button>
+        <button className="quill-button fun primary contained focus-on-light" id="activity-submit-button" onClick={handleUpdateActivity} type="submit">Increment version to {activity?.version}</button>
       </div>
       <br />
 
