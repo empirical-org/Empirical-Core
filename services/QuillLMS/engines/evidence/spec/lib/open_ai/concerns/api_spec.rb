@@ -6,13 +6,8 @@ module Evidence
   RSpec.describe(OpenAI::Concerns::API, type: :model) do
 
     let(:endpoint) {'https://api.openai.com/v1/some_endpoint'}
-    let(:result_value_url) {'https://test.com'}
-    let(:sample_request) {{'key1' => 'value'}}
-    let(:sample_response_body) do
-      {
-        "key"=>"value",
-      }
-    end
+    let(:sample_response_body) {{"key"=>"value"}}
+
     # include headers in response for proper parsing by HTTParty
     let(:sample_response) { {body: sample_response_body.to_json, headers: {content_type: 'application/json'}} }
 
