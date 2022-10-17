@@ -53,6 +53,8 @@ class ActivitySession < ApplicationRecord
   STATE_STARTED = 'started'
   STATE_FINISHED = 'finished'
 
+  STATE_FINISHED_KEY = 'finished'
+
   TIME_TRACKING_KEY = 'time_tracking'
   TIME_TRACKING_EDITS_KEY = 'time_tracking_edits'
 

@@ -141,7 +141,7 @@ describe UnitActivity, type: :model, redis: true do
     end
   end
 
-  context 'self.get_classroom_user_profile' do
+  context '.get_classroom_user_profile' do
     it 'get user profile data' do
       unit_activities = UnitActivity.get_classroom_user_profile(classroom.id, student.id)
       expect(unit_activities.count).to eq(2)
