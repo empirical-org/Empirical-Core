@@ -117,6 +117,7 @@ module Evidence
         @activity = Evidence::Activity.find(params[:id])
       else
         @activity = Evidence::Activity.new(activity_params)
+        @activity.version = 1
       end
     end
 

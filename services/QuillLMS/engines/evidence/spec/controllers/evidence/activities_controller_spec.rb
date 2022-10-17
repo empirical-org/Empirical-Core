@@ -62,6 +62,7 @@ module Evidence
         expect(response.code.to_i).to(eq(201))
         expect(parsed_response["title"]).to(eq("First Activity"))
         expect(parsed_response["notes"]).to(eq("First Activity - Notes"))
+        expect(parsed_response["version"]).to(eq(1))
         expect(Activity.count).to(eq(1))
       end
 
