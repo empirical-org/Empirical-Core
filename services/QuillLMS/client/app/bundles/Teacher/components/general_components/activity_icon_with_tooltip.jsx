@@ -107,7 +107,7 @@ export default class ActivityIconWithTooltip extends React.Component {
   statusIndicator() {
     const { data, } = this.props
     const { started, completed_attempts, scheduled, } = data
-    if (scheduled && !completed_attempts.length) {
+    if (scheduled && completed_attempts < 1) {
       return <img alt="" className="scheduled-symbol" src={scheduledIcon.src} />
     } else if (started) {
       return <img alt="" className="in-progress-symbol" src="https://assets.quill.org/images/scorebook/blue-circle-sliced.svg" />
