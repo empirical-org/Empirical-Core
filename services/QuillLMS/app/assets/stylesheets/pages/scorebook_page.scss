@@ -73,12 +73,17 @@
 		}
 	}
 
-	.in-progress-symbol, .attempt-symbol {
+	.in-progress-symbol, .attempt-symbol, .scheduled-symbol {
 		vertical-align: middle;
 		position: absolute;
 		top: -8px;
 		right: -8px;
 	}
+
+  .scheduled-symbol {
+    height: 16px;
+    background-color: #f7f5f5;
+  }
 
 	.missed-indicator {
 		height: 38px;

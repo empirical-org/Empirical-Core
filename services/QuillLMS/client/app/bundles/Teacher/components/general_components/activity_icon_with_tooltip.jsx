@@ -6,6 +6,7 @@ import request from 'request';
 import gradeColor from '../modules/grade_color.js';
 import { nonRelevantActivityClassificationIds, } from '../../../../modules/activity_classifications'
 import activityFromClassificationId from '../modules/activity_from_classification_id.js';
+import { scheduledIcon, } from '../../../Shared/index'
 
 export default class ActivityIconWithTooltip extends React.Component {
   constructor(props) {
@@ -104,8 +105,11 @@ export default class ActivityIconWithTooltip extends React.Component {
   };
 
   statusIndicator() {
-    const {started, completed_attempts} = this.props.data
-    if (started) {
+    const { data, } = this.props
+    const { started, completed_attempts, scheduled, } = data
+    if (scheduled) {
+      return <img alt="" className="scheduled-symbol" src={scheduledIcon.src} />
+    } else if (started) {
       return <img alt="" className="in-progress-symbol" src="https://assets.quill.org/images/scorebook/blue-circle-sliced.svg" />
     } else if (completed_attempts > 1) {
       const completedNumber = completed_attempts > 9 ? '+' : completed_attempts
