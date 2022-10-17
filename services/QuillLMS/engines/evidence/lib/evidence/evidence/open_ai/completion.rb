@@ -22,7 +22,7 @@ module Evidence
 
       attr_accessor :response, :prompt, :temperature, :count, :model_key, :options_hash
 
-      def initialize(prompt:, temperature: 0.5, count: 1, model_key: :babbage, options_hash: {})
+      def initialize(prompt:, temperature: 0.5, count: 1, model_key: :curie, options_hash: {})
         @prompt = prompt
         @temperature = temperature
         @count = count
