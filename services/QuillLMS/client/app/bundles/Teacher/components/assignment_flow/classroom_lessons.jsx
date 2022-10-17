@@ -37,7 +37,7 @@ export default class ClassroomLessons extends React.Component {
       if (classrooms.length > 0) {
         const localStorageSelectedClassroomId = window.localStorage.getItem(PROGRESS_REPORTS_SELECTED_CLASSROOM_ID)
         const classroomFromLocalStorageClassroomId = classrooms.find(c => Number(c.id) === Number(localStorageSelectedClassroomId))
-        const classroomIdToUse = classroomFromLocalStorageClassroomId && !classroomId ? localStorageSelectedClassroomId : classroomId
+        const classroomIdToUse = classroomFromLocalStorageClassroomId && !classroomId ? Number(localStorageSelectedClassroomId) : classroomId
         this.setState({ classrooms, selectedClassroomId: classroomIdToUse || classrooms[0].id, }, () => this.getAllLessons());
       } else {
         this.setState({ empty: true, loaded: true, });
