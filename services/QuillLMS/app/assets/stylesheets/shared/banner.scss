@@ -33,15 +33,11 @@
     cursor: pointer;
   }
   .content-container {
-    max-width: 1165px;
-    width: 100%;
+    max-width: $sitewidepagewidth;
+    width: calc(100% - 30px);
     display: flex;
     align-items: flex-start;
     position: relative;
     margin: 0px auto;
-    @media (max-width: 1165px) {
-      padding: 0 15px;
-      width: calc(100% - 30px);
-    }
   }
 }

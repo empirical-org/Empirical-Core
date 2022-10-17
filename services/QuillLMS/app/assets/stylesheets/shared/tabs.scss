@@ -5,14 +5,14 @@
   width: 100%;
   li {
     a {
-      background: #009f7d;
-      border-left: 1px solid #027360;
+      background: #06806B;
+      border-left: 1px solid #006150;
       color: $white;
       font-size: 14px;
       font-weight: 600;
       line-height: 41px;
       margin-top: 0px;
-      padding: 3px 20px 3px;
+      padding: 3px 32px 3px;
       text-decoration: none;
       &:hover {
         background-color: #0E927C;
@@ -25,11 +25,11 @@
 
     &:first-of-type a {
       border-left-width: 0;
-      border-radius: 5px 0 0 0;
+      border-radius: 8px 0 0 0;
     }
 
     &:last-of-type a {
-      border-radius: 0 5px 0 0;
+      border-radius: 0 8px 0 0;
     }
 
     &.active {
@@ -81,7 +81,7 @@
       padding: 5px;
 
       a {
-        border-radius: 5px;
+        border-radius: 6px;
         color: #3b3b3b;
         font-size: 13px;
         height: 35px;

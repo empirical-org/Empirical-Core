@@ -30,16 +30,10 @@
       height: inherit;
       margin-left: 0px !important;
     }
-    @media only screen and (max-width: 1165px) and (min-width: 600px) {
-      nav.q-navbar-home {
-        width: 100%;
-        padding: 0px;
-      }
-    }
   }
   .container {
     width: 100%;
-    max-width: 980px;
+    max-width: $sitewidepagewidth;
   }
 }
 
@@ -60,16 +54,6 @@
   }
 }
 
-  .navigation-vertical-rule {
-    background: $white;
-    display: inline-block;
-    height: 32px;
-    position: relative;
-    top: 2px;
-    width: 1px;
-  }
-
-
 #nav-user-dropdown {
   position: relative;
   margin-top: 3px;
@@ -86,7 +70,7 @@
     }
   }
   .user-dropdown-button {
-    border-radius: 2px;
+    border-radius: 6px;
     float: right;
     height: 30px;
     align-items: center;
@@ -182,11 +166,12 @@
 }
 
 nav.q-navbar-home {
-  max-width: 1165px;
+  max-width: $sitewidepagewidth;
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-content: center;
+  align-items: center;
   position:relative;
   margin: 0px auto;
 
@@ -203,7 +188,6 @@ nav.q-navbar-home {
   }
 
   .home-nav-right {
-    max-width: 700px;
     width: 100%;
     display: flex;
     justify-content: flex-end;
@@ -372,7 +356,6 @@ nav.q-navbar-home {
     }
   }
   @media only screen and (max-width : 1165px) and (min-width: 600px) {
-    padding: 0 15px;
     width: calc(100% - 30px);
   }
 
@@ -380,11 +363,7 @@ nav.q-navbar-home {
 
 .q-nav-bar {
   margin: auto;
-  max-width: 965px;
-  padding-left: 7px;
-  @media (max-width: 990px) {
-    padding-left: 0px;
-  }
+  max-width: $sitewidepagewidth;
   ul {
     display: flex;
     flex-wrap: wrap;
