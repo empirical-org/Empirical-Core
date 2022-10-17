@@ -4,7 +4,7 @@ module Auth
   class CleverController < ApplicationController
     around_action :force_writer_db_role, only: [:clever]
 
-    class CleverAccountConflictError < StandardError ; end
+    class CleverAccountConflictError < StandardError; end
 
     def clever
       update_current_user_email
@@ -30,7 +30,7 @@ module Auth
           CleverAccountConflictError.new, {
             current_user_email: current_user&.email,
             auth_hash_email: auth_hash['info']['email'],
-            validation_errors: current_user&.errors.full_messages.join('|')
+            validation_errors: current_user&.errors&.full_messages&.join('|')
           }
         )
         flash[:error] = t('clever.account_conflict')

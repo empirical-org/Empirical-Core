@@ -6,6 +6,7 @@ describe Auth::CleverController, type: :controller do
 
   describe '#update_current_user_email' do
     let(:user) { create(:user) }
+
     before do
       allow(controller).to receive(:current_user) { user }
 
