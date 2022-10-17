@@ -21,7 +21,7 @@ namespace :create_initial_change_log_for_evidence_activities do
       change_logs = Evidence.change_log_class.where(changed_record_id: activity.id, changed_attribute: 'version', changed_record_type: 'Evidence::Activity')
 
       if change_logs.any?
-        changes_logs.each do |change_log|
+        change_logs.each do |change_log|
           change_log.previous_value = "#{change_log.previous_value.to_i + 1}"
           change_log.new_value = "#{change_log.new_value.to_i + 1}"
           change_log.save!
