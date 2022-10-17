@@ -10,6 +10,8 @@ namespace :create_initial_change_log_for_evidence_activities do
           action: Evidence.change_log_class::EVIDENCE_ACTIONS[:create],
           changed_record_type: 'Evidence::Activity',
           changed_record_id: activity.id,
+          # this is the user_id associated with our hello@quill.org staff account
+          user_id: 188146,
           explanation: "Activity Created",
           changed_attribute: 'version',
           previous_value: "0",
