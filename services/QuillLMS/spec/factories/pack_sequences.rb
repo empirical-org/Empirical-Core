@@ -2,7 +2,7 @@
 
 # == Schema Information
 #
-# Table name: activity_pack_sequences
+# Table name: pack_sequences
 #
 #  id                     :bigint           not null, primary key
 #  release_method         :string
@@ -13,8 +13,8 @@
 #
 # Indexes
 #
-#  index_activity_pack_sequences_on_classroom_id            (classroom_id)
-#  index_activity_pack_sequences_on_diagnostic_activity_id  (diagnostic_activity_id)
+#  index_pack_sequences_on_classroom_id            (classroom_id)
+#  index_pack_sequences_on_diagnostic_activity_id  (diagnostic_activity_id)
 #
 # Foreign Keys
 #
@@ -22,9 +22,9 @@
 #  fk_rails_...  (diagnostic_activity_id => activities.id)
 #
 FactoryBot.define do
-  factory :activity_pack_sequence do
+  factory :pack_sequence do
     classroom
     association :diagnostic_activity, factory: :diagnostic_activity
-    release_method ActivityPackSequence::STAGGERED_RELEASE
+    release_method PackSequence::STAGGERED_RELEASE
   end
 end

@@ -3,6 +3,7 @@ export interface Activity {
   name: string,
   description: string,
   standard_level_name: string,
+  grade_level_range: string,
   standard: {
     id: string,
     name: string,

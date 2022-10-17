@@ -40,7 +40,6 @@ export default createReactClass({
       beginDate: null,
       premium_state: premium_state,
       endDate: null,
-      currentPage: 0,
       loading: false,
       is_last_page: false,
       noLoadHasEverOccurredYet: true,
@@ -132,15 +131,13 @@ export default createReactClass({
 
   fetchData() {
     const {
-      currentPage,
       selectedClassroom,
       selectedUnit,
       beginDate,
       endDate,
       noLoadHasEverOccurredYet,
     } = this.state
-    const newCurrentPage = currentPage + 1;
-    this.setState({ loading: true, currentPage: newCurrentPage, });
+    this.setState({ loading: true });
     if (!selectedClassroom) {
       this.setState({ missing: 'classrooms', loading: false, });
       return;
@@ -148,7 +145,6 @@ export default createReactClass({
     $.ajax({
       url: '/teachers/classrooms/scores',
       data: {
-        current_page: newCurrentPage,
         classroom_id: selectedClassroom.value,
         unit_id: selectedUnit.value,
         begin_date: this.formatDate(beginDate),
@@ -241,7 +237,6 @@ export default createReactClass({
   selectUnit(option) {
     this.setState({
       scores: new Map(),
-      currentPage: 0,
       selectedUnit: option,
     }, this.fetchData);
   },
@@ -251,7 +246,6 @@ export default createReactClass({
     this.getUpdatedUnits(option.value);
     this.setState({
       scores: new Map(),
-      currentPage: 0,
       selectedClassroom: option,
     }, this.fetchData
     );
@@ -262,7 +256,6 @@ export default createReactClass({
     window.localStorage.setItem('scorebookDateFilterName', dateFilterName);
     this.setState({
       scores: new Map(),
-      currentPage: 0,
       beginDate,
       endDate,
       dateFilterName,

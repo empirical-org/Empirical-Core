@@ -1,5 +1,30 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: unit_activities
+#
+#  id           :integer          not null, primary key
+#  due_date     :datetime
+#  order_number :integer
+#  publish_date :datetime
+#  visible      :boolean          default(TRUE)
+#  created_at   :datetime
+#  updated_at   :datetime
+#  activity_id  :integer          not null
+#  unit_id      :integer          not null
+#
+# Indexes
+#
+#  index_unit_activities_on_activity_id              (activity_id)
+#  index_unit_activities_on_unit_id                  (unit_id)
+#  index_unit_activities_on_unit_id_and_activity_id  (unit_id,activity_id) UNIQUE
+#
+# Foreign Keys
+#
+#  fk_rails_...  (activity_id => activities.id)
+#  fk_rails_...  (unit_id => units.id)
+#
 FactoryBot.define do
   factory :unit_activity do
     unit

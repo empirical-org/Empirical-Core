@@ -18,13 +18,15 @@ module Evidence
       TEMPS_PASSAGE = [1, 0.9, 0.7, 0.5]
       TEMP_SECTION = 0.5 # give a lower temp (creativity) when it has less info
 
+      CONJUNCTIONS = ['because', 'but', 'so']
+
       attr_reader :passage, :stem, :nouns, :results
 
       # returns a hash of the form {'csv name' => CSVString, 'csv name2' =>...}
-      def self.csvs_for_activity(activity_id:, nouns: [])
+      def self.csvs_for_activity(activity_id:, nouns: [], conjunctions: nil)
         activity = Evidence::Activity.find(activity_id)
         passage = activity.passages.first.text
-        prompts = activity.prompts
+        prompts = conjunctions.present? ? activity.prompts.where(conjunction: conjunctions) : activity.prompts
         short_name = activity.title.first(20).gsub(' ', '_')
         passage_csv_name = "#{short_name}_passage_chunks#{CSV_SUFFIX}"
 

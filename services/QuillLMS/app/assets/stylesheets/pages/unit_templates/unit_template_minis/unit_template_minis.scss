@@ -88,6 +88,7 @@
   }
 
   .unit-templates-table {
+    overflow: hidden;
     background-color: #ffffff;
     .data-table-body {
       tr {
@@ -103,6 +104,18 @@
           color: #666666;
           &.pack-type-section, &.pack-name-section {
             font-weight: 700;
+          }
+          &.pack-name-section {
+            overflow: inherit;
+            .quill-tooltip-trigger {
+              width: 100%;
+              .activity-pack-name {
+                white-space: break-spaces;
+              }
+              .quill-tooltip-wrapper {
+                transform: inherit;
+              }
+            }
           }
           &.activities-section {
             text-align: left !important;

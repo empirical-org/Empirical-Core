@@ -8,6 +8,8 @@ class Scorebook::Query
     first_unit = units(unit_id) ? units(unit_id).first : nil
     last_unit = units(unit_id) ? units(unit_id).last : nil
     user_timezone_offset = "+ INTERVAL '#{offset}' SECOND"
+    offset_clause = current_page ? "OFFSET (#{(current_page.to_i - 1) * SCORES_PER_PAGE})" : nil
+
     RawSqlRunner.execute(
       <<-SQL
         SELECT
@@ -63,7 +65,7 @@ class Scorebook::Query
           MIN(acts.completed_at),
           CASE WHEN SUM(CASE WHEN acts.state = '#{ActivitySession::STATE_STARTED}' THEN 1 ELSE 0 END) > 0 THEN true ELSE false END DESC,
           cu.created_at ASC
-          OFFSET (#{(current_page.to_i - 1) * SCORES_PER_PAGE})
+          #{offset_clause}
           FETCH NEXT #{SCORES_PER_PAGE} ROWS ONLY
       SQL
     ).to_a

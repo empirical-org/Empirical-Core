@@ -17,12 +17,12 @@ module Evidence
         davinci: 'text-davinci-002'
       }
 
-      STOP_TOKENS = [". ", ", "]
+      STOP_TOKENS = [". ", "; ", "? ", "! "] # max of 4 stop tokens
       MAX_COUNT = 128 # API has an undocument max of 128 for 'n'
 
       attr_accessor :prompt, :temperature, :count, :model_key, :options_hash
 
-      def initialize(prompt:, temperature: 0.5, count: 1, model_key: :babbage, options_hash: {})
+      def initialize(prompt:, temperature: 0.5, count: 1, model_key: :curie, options_hash: {})
         @prompt = prompt
         @temperature = temperature
         @count = count
@@ -36,6 +36,7 @@ module Evidence
 
       # https://beta.openai.com/docs/api-reference/completions/create
       def request_body
+        # NB: 'suffix' key in documentation is not a valid key, will raise error
         {
           model: MODELS[model_key],
           temperature: temperature,
