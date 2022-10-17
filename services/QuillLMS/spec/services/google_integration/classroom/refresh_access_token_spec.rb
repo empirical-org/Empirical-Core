@@ -23,7 +23,7 @@ describe GoogleIntegration::RefreshAccessToken do
       code: 200,
       parsed_response: {
         'access_token' => 'what',
-        'expires_in' => 1.day.from_now,
+        'expires_in' => 60.minutes,
         'issued_at' => Time.current,
       }
     )
@@ -52,7 +52,7 @@ describe GoogleIntegration::RefreshAccessToken do
       code: 200,
       parsed_response: {
         'access_token' => 'what',
-        'expires_in' => 1.day.from_now,
+        'expires_in' => 60.minutes,
         'issued_at' => Time.current,
       }
     )
