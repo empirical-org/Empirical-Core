@@ -7,6 +7,7 @@
 #  id           :integer          not null, primary key
 #  due_date     :datetime
 #  order_number :integer
+#  publish_date :datetime
 #  visible      :boolean          default(TRUE)
 #  created_at   :datetime
 #  updated_at   :datetime

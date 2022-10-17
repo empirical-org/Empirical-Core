@@ -1,5 +1,7 @@
 
 import * as React from 'react';
+import { renderToString } from 'react-dom/server'
+import { Activity } from '../../../interfaces/activity';
 
 import { Tooltip, getIconForActivityClassification, NOT_APPLICABLE } from '../../Shared';
 
@@ -128,4 +130,31 @@ export const validateUnitTemplateForm = ({ activityPackFlag, activityPackName, a
     errors['activityPackType'] = 'Activity pack type is required.'
   }
   return errors;
+}
+
+export const renderActivityPackTooltipElement = (data) => {
+  if (!data) { return }
+  const { activities } = data;
+  const table = (
+    <table className="activity-tooltip-table">
+      <tbody>
+        <tr>
+          <th>Activity</th>
+          <th>Tool</th>
+          <th>Grade Level Range</th>
+        </tr>
+        {activities && activities.length && activities.map((activity: Activity) => {
+          const { name, grade_level_range, classification } = activity
+          return(
+            <tr>
+              <td>{name}</td>
+              <td>{classification.name}</td>
+              <td>{grade_level_range}</td>
+            </tr>
+          )
+        })}
+      </tbody>
+    </table>
+  )
+  return renderToString(table)
 }

@@ -18,6 +18,7 @@ module Evidence
       TEMPS_PASSAGE = [1,0.7,0.4, 0.3]
       TEMP_SECTION = 0.4 # give a lower temp (creativity) when it has less info
 
+
       CONJUNCTION_SUBS = {
         'so' => ['which had that outcome that', 'with the result that', 'therefore'],
         'but' => ['nevertheless', 'but the counter argument is that', 'but, according to the passage, the counter argument is that'],
