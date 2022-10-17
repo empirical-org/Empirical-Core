@@ -207,7 +207,7 @@ class UnitActivity < ApplicationRecord
       SQL
     ).to_a
 
-    PackSequenceItemStatusMerger.run(results)
+    PackSequenceItemStatusCombiner.run(results)
   end
 
 end

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe PackSequenceItemStatusMerger do
+RSpec.describe PackSequenceItemStatusCombiner do
   subject { described_class.run(results) }
 
   let(:staggered) { PackSequence::STAGGERED_RELEASE }

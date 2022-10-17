@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class PackSequenceItemStatusMerger < ApplicationService
+class PackSequenceItemStatusCombiner < ApplicationService
   attr_reader :pack_sequence_item_statuses, :results
 
   def initialize(results)
@@ -10,7 +10,7 @@ class PackSequenceItemStatusMerger < ApplicationService
 
   def run
     map_statuses
-    merge_statuses
+    combine_statuses
   end
 
   private def all_pack_sequence_item_results
@@ -27,7 +27,7 @@ class PackSequenceItemStatusMerger < ApplicationService
     end
   end
 
-  private def merge_statuses
+  private def combine_statuses
     results.map do |result|
       result.merge(PackSequenceItem::STATUS_KEY => pack_sequence_item_statuses[result[PackSequenceItem::ID_KEY]])
     end
