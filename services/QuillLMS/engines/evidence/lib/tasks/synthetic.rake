@@ -9,7 +9,6 @@ namespace :synthetic do
   # Run: bundle exec rake synthetic:generate_seed_data\[262,1\]
   # Some conjunctions (NB: don't leave spaces after commas)
   # Run: bundle exec rake synthetic:generate_seed_data\[262,1,'but','so'\]
-
   desc "generate seed data to local files"
   task :generate_seed_data, [:activity_id, :run_number] => :environment do |t, args|
     activity_id = args[:activity_id]
