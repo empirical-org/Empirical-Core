@@ -2,7 +2,7 @@
 
 # == Schema Information
 #
-# Table name: activity_pack_sequences
+# Table name: pack_sequences
 #
 #  id                     :bigint           not null, primary key
 #  release_method         :string
@@ -13,8 +13,8 @@
 #
 # Indexes
 #
-#  index_activity_pack_sequences_on_classroom_id            (classroom_id)
-#  index_activity_pack_sequences_on_diagnostic_activity_id  (diagnostic_activity_id)
+#  index_pack_sequences_on_classroom_id            (classroom_id)
+#  index_pack_sequences_on_diagnostic_activity_id  (diagnostic_activity_id)
 #
 # Foreign Keys
 #
@@ -23,13 +23,13 @@
 #
 require 'rails_helper'
 
-RSpec.describe ActivityPackSequence, type: :model do
-  subject { create(:activity_pack_sequence) }
+RSpec.describe PackSequence, type: :model do
+  subject { create(:pack_sequence) }
 
   it { should belong_to(:classroom) }
   it { should belong_to(:diagnostic_activity) }
 
   it { expect(subject).to be_valid }
 
-  it { expect(subject.release_method).to eq ActivityPackSequence::STAGGERED_RELEASE }
+  it { expect(subject.release_method).to eq PackSequence::STAGGERED_RELEASE }
 end
