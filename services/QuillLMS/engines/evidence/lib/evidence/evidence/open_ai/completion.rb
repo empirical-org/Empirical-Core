@@ -17,7 +17,7 @@ module Evidence
         davinci: 'text-davinci-002'
       }
       BLANK = ''
-      STOP_TOKENS = [". ", ", "]
+      STOP_TOKENS = [". ", "; ", "? ", "! "] # max of 4 stop tokens
       MAX_COUNT = 128 # API has an undocument max of 128 for 'n'
 
       attr_accessor :response, :prompt, :temperature, :count, :model_key, :options_hash
@@ -38,6 +38,7 @@ module Evidence
       end
 
       def request_body
+        # NB: 'suffix' key in documentation is not a valid key, will raise error
         {
           model: MODELS[model_key],
           temperature: temperature,
