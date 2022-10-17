@@ -15,11 +15,11 @@ module Evidence
       FULL_NOUN_COUNT = ENV.fetch('SYNTHETIC_SEED_NOUN_COUNT', 50).to_i
       SECTION_COUNT = ENV.fetch('SYNTHETIC_SEED_SECTION_COUNT', 10).to_i
 
-      TEMPS_PASSAGE = [0.7, 0.6, 0.5]
+      TEMPS_PASSAGE = [1,0.7,0.4, 0.3]
       TEMP_SECTION = 0.4 # give a lower temp (creativity) when it has less info
 
       CONJUNCTION_SUBS = {
-        'so' => ['so, consequently', 'so thus', 'so therefore'],
+        'so' => ['which had that outcome that', 'with the result that', 'therefore'],
         'but' => ['nevertheless', 'but the counter argument is that', 'but, according to the passage, the counter argument is that'],
         'because' => ['for the reason that', 'since', 'owing to the fact that', 'the cause of this was']
       }
