@@ -15,12 +15,13 @@ module Evidence
       FULL_NOUN_COUNT = ENV.fetch('SYNTHETIC_SEED_NOUN_COUNT', 50).to_i
       SECTION_COUNT = ENV.fetch('SYNTHETIC_SEED_SECTION_COUNT', 10).to_i
 
-      TEMPS_PASSAGE = [1,0.7,0.4, 0.3]
+      TEMPS_PASSAGE = [1,0.8,0.7,0.5,0.4]
       TEMP_SECTION = 0.4 # give a lower temp (creativity) when it has less info
 
+      STEM_KEY = '%{stem}'
 
       CONJUNCTION_SUBS = {
-        'so' => ['which had that outcome that', 'with the result that', 'therefore'],
+        'so' => ["with the result that", "Because #{STEM_KEY}"],
         'but' => ['nevertheless', 'but the counter argument is that', 'but, according to the passage, the counter argument is that'],
         'because' => ['for the reason that', 'since', 'owing to the fact that', 'the cause of this was']
       }
@@ -126,7 +127,17 @@ module Evidence
 
       private def stem_alternates_hash
         CONJUNCTION_SUBS[conjunction]
-          .to_h {|conjunction_alternate| [conjunction_alternate, stem.sub(/(.*)\K#{conjunction}/, conjunction_alternate)]}
+          .to_h {|alternate| [alternate, create_alternate_stem(stem, conjunction, alternate)]}
+      end
+
+      private def create_alternate_stem(stem, conjunction, alternate)
+        stem_without_conjunction = stem.sub(/(.*)\K#{conjunction}/, BLANK)
+
+        if alternate.match(STEM_KEY)
+          (alternate % {stem: stem_without_conjunction}).squish
+        else
+          stem_without_conjunction + alternate
+        end
       end
 
       def results_csv_string
