@@ -22,6 +22,16 @@
 #  fk_rails_...  (pack_sequence_id => pack_sequences.id)
 #
 class PackSequenceItem < ApplicationRecord
+  ID_KEY = 'pack_sequence_item_id'
+  ORDER_KEY = 'pack_sequence_item_order'
+  STATUS_KEY = 'pack_sequence_item_status'
+
+  STATUSES = [
+    LOCKED = 'locked',
+    NO_LOCK = 'no lock',
+    UNLOCKED = 'unlocked'
+  ]
+
   belongs_to :pack_sequence
   belongs_to :item, class_name: 'Unit'
 end
