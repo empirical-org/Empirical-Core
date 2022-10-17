@@ -26,6 +26,9 @@ class PackSequence < ApplicationRecord
     STAGGERED_RELEASE = 'staggered'
   ]
 
+  ID_KEY = 'pack_sequence_id'
+  RELEASE_METHOD_KEY = 'pack_sequence_release_method'
+
   belongs_to :classroom
   belongs_to :diagnostic_activity, class_name: 'Activity'
 
