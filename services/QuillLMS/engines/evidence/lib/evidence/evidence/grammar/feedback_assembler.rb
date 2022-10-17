@@ -29,6 +29,8 @@ module Evidence
         'punctuation' => 'c37fd0d2-4342-41e1-a628-b9381effdefa',
         'repeated_conjunction' => 'f68c5847-9bc9-4f9f-80bf-07ddae7cbc38',
         'repeated_word' => '98e19806-c3a2-4ea7-926d-50a0dead43d8',
+        'runon' => '67b52a0e-9641-4e66-a9cc-7468ea8e8220',
+        'runon_with_conjunctive_adverb' => '4344e40e-9594-4d87-9607-ba7c5693e8a3',
         'singular_and_plural_nouns' => '41ddcd4c-fe53-491c-8d94-a13da0ef28de',
         'spacing' => 'c745ca1f-b94f-41ea-912a-2012cc654054',
         'starts_with_punctuation' => '0a8d1d20-e7e0-493c-9fa1-29d4facb5dfe',

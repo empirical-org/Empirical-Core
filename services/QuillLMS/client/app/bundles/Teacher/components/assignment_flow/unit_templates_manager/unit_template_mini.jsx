@@ -1,5 +1,4 @@
 import React from 'react'
-import { renderToString } from 'react-dom/server'
 
 import UnitTemplateFirstRow from './unit_template_first_row'
 import UnitTemplateSecondRow from './unit_template_second_row'
@@ -7,6 +6,7 @@ import UnitTemplateSecondRow from './unit_template_second_row'
 import String from '../../modules/string.jsx'
 import { CLICKED_ACTIVITY_PACK_ID, CREATE_YOUR_OWN_ID } from '../assignmentFlowConstants'
 import { Tooltip } from '../../../../Shared'
+import { renderActivityPackTooltipElement } from '../../../helpers/unitTemplates'
 
 export class UnitTemplateMini extends React.Component {
   constructor(props) {
@@ -53,34 +53,6 @@ export class UnitTemplateMini extends React.Component {
       }
     }
     return link
-  }
-
-  renderTooltipElement() {
-    const { data } = this.props
-    if (!data) { return }
-    const { activities } = data;
-    const table = (
-      <table className="activity-tooltip-table">
-        <tbody>
-          <tr>
-            <th>Activity</th>
-            <th>Tool</th>
-            <th>Grade Level Range</th>
-          </tr>
-          {activities && activities.length && activities.map(activity => {
-            const { name, readability, classification } = activity
-            return(
-              <tr>
-                <td>{name}</td>
-                <td>{classification.name}</td>
-                <td>{readability}</td>
-              </tr>
-            )
-          })}
-        </tbody>
-      </table>
-    )
-    return renderToString(table)
   }
 
   miniSpecificComponents() {
@@ -130,7 +102,7 @@ export class UnitTemplateMini extends React.Component {
     return (
       <Tooltip
         isTabbable={false}
-        tooltipText={this.renderTooltipElement()}
+        tooltipText={renderActivityPackTooltipElement(data)}
         tooltipTriggerText={this.renderMiniContent()}
       />
     );

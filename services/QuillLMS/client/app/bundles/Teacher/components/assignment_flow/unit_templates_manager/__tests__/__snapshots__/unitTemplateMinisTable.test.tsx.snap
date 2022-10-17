@@ -61,34 +61,43 @@ exports[`UnitTemplateMinisTable component should render activity_info has html 1
       Array [
         Object {
           "attribute": "packType",
+          "isSortable": true,
           "name": "Pack type",
           "noTooltip": true,
           "rowSectionClassName": "pack-type-section",
+          "sortAttribute": "alphabeticalPackType",
           "width": "160px",
         },
         Object {
           "attribute": "packName",
+          "isSortable": true,
           "name": "Pack name",
-          "noTooltip": true,
+          "noTooltip": false,
           "rowSectionClassName": "pack-name-section",
-          "width": "190px",
+          "sortAttribute": "alphabeticalPackName",
+          "width": "204px",
         },
         Object {
           "attribute": "tools",
+          "isSortable": true,
           "name": "Tools",
           "noTooltip": true,
           "rowSectionClassName": "",
+          "sortAttribute": "alphabeticalTools",
           "width": "140px",
         },
         Object {
           "attribute": "gradeLevel",
+          "isSortable": true,
           "name": "Grade Level",
           "noTooltip": true,
           "rowSectionClassName": "",
+          "sortAttribute": "chronologicalGradeLevel",
           "width": "70px",
         },
         Object {
           "attribute": "activities",
+          "isSortable": true,
           "name": "Activities",
           "noTooltip": true,
           "rowSectionClassName": "activities-section",
@@ -96,9 +105,11 @@ exports[`UnitTemplateMinisTable component should render activity_info has html 1
         },
         Object {
           "attribute": "duration",
+          "isSortable": true,
           "name": "Duration",
           "noTooltip": true,
           "rowSectionClassName": "",
+          "sortAttribute": "chronologicalDuration",
           "width": "150px",
         },
       ]
@@ -107,11 +118,21 @@ exports[`UnitTemplateMinisTable component should render activity_info has html 1
       Array [
         Object {
           "activities": 1,
+          "alphabeticalPackName": "Test Activity Pack",
+          "alphabeticalPackType": "",
+          "alphabeticalTools": "Grammar",
+          "chronologicalDuration": 60,
+          "chronologicalGradeLevel": 0,
           "duration": "60 mins",
-          "gradeLevel": "",
+          "gradeLevel": undefined,
           "id": 3,
           "link": "/activities/packs/3",
-          "packName": "Test Activity Pack",
+          "packName": <Tooltip
+            isTabbable={true}
+            tooltipText="<table class=\\"activity-tooltip-table\\" data-reactroot=\\"\\"><tbody><tr><th>Activity</th><th>Tool</th><th>Grade Level Range</th></tr><tr><td>Their, They&#x27;re, There</td><td>Quill Grammar</td><td></td></tr></tbody></table>"
+            tooltipTriggerText="Test Activity Pack"
+            tooltipTriggerTextClass="activity-pack-name"
+          />,
           "packType": <p
             style={
               Object {
@@ -145,7 +166,7 @@ exports[`UnitTemplateMinisTable component should render activity_info has html 1
         className="data-table-headers"
       >
         <th
-          className="data-table-header undefined"
+          className="data-table-header undefined sortable"
           scope="col"
           style={
             Object {
@@ -155,23 +176,35 @@ exports[`UnitTemplateMinisTable component should render activity_info has html 1
             }
           }
         >
-          Pack type
+          <button
+            className="interactive-wrapper focus-on-light"
+            onClick={[Function]}
+            type="button"
+          >
+            Pack type
+          </button>
         </th>
         <th
-          className="data-table-header undefined"
+          className="data-table-header undefined sortable"
           scope="col"
           style={
             Object {
-              "minWidth": "190px",
+              "minWidth": "204px",
               "textAlign": "left",
-              "width": "190px",
+              "width": "204px",
             }
           }
         >
-          Pack name
+          <button
+            className="interactive-wrapper focus-on-light"
+            onClick={[Function]}
+            type="button"
+          >
+            Pack name
+          </button>
         </th>
         <th
-          className="data-table-header undefined"
+          className="data-table-header undefined sortable"
           scope="col"
           style={
             Object {
@@ -181,10 +214,16 @@ exports[`UnitTemplateMinisTable component should render activity_info has html 1
             }
           }
         >
-          Tools
+          <button
+            className="interactive-wrapper focus-on-light"
+            onClick={[Function]}
+            type="button"
+          >
+            Tools
+          </button>
         </th>
         <th
-          className="data-table-header undefined"
+          className="data-table-header undefined sortable"
           scope="col"
           style={
             Object {
@@ -194,10 +233,16 @@ exports[`UnitTemplateMinisTable component should render activity_info has html 1
             }
           }
         >
-          Grade Level
+          <button
+            className="interactive-wrapper focus-on-light"
+            onClick={[Function]}
+            type="button"
+          >
+            Grade Level
+          </button>
         </th>
         <th
-          className="data-table-header undefined"
+          className="data-table-header undefined sortable"
           scope="col"
           style={
             Object {
@@ -207,10 +252,16 @@ exports[`UnitTemplateMinisTable component should render activity_info has html 1
             }
           }
         >
-          Activities
+          <button
+            className="interactive-wrapper focus-on-light"
+            onClick={[Function]}
+            type="button"
+          >
+            Activities
+          </button>
         </th>
         <th
-          className="data-table-header undefined"
+          className="data-table-header undefined sortable"
           scope="col"
           style={
             Object {
@@ -220,7 +271,13 @@ exports[`UnitTemplateMinisTable component should render activity_info has html 1
             }
           }
         >
-          Duration
+          <button
+            className="interactive-wrapper focus-on-light"
+            onClick={[Function]}
+            type="button"
+          >
+            Duration
+          </button>
         </th>
       </tr>
       <tbody
@@ -256,13 +313,46 @@ exports[`UnitTemplateMinisTable component should render activity_info has html 1
               key="packName-3"
               style={
                 Object {
-                  "minWidth": "190px",
+                  "minWidth": "204px",
                   "textAlign": "left",
-                  "width": "190px",
+                  "width": "204px",
                 }
               }
             >
-              Test Activity Pack
+              <Tooltip
+                isTabbable={true}
+                tooltipText="<table class=\\"activity-tooltip-table\\" data-reactroot=\\"\\"><tbody><tr><th>Activity</th><th>Tool</th><th>Grade Level Range</th></tr><tr><td>Their, They&#x27;re, There</td><td>Quill Grammar</td><td></td></tr></tbody></table>"
+                tooltipTriggerText="Test Activity Pack"
+                tooltipTriggerTextClass="activity-pack-name"
+              >
+                <span
+                  aria-hidden={false}
+                  className="quill-tooltip-trigger "
+                  role="tooltip"
+                >
+                  <span
+                    className="activity-pack-name"
+                    onBlur={[Function]}
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onKeyDown={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    role="button"
+                    tabIndex={0}
+                  >
+                    Test Activity Pack
+                  </span>
+                  <span
+                    className="quill-tooltip-wrapper"
+                  >
+                    <span
+                      aria-live="polite"
+                      className="quill-tooltip"
+                    />
+                  </span>
+                </span>
+              </Tooltip>
             </td>
             <td
               className="data-table-row-section "
