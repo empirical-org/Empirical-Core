@@ -6,6 +6,12 @@ describe GoogleIntegration::RefreshAccessToken do
   let(:user) { create(:user) }
   let!(:auth_credential) { create(:google_auth_credential, user: user) }
 
+  let(:current_time) { Time.current }
+
+  before { Timecop.freeze(current_time) }
+
+  after { Timecop.return }
+
   subject { described_class.new(user) }
 
   describe '#refresh' do
@@ -94,8 +100,8 @@ describe GoogleIntegration::RefreshAccessToken do
     end
 
     it 'should convert key named "expires_in" to :expires_at' do
-      input = {'expires_in' => 'foo'}
-      output = {expires_at: 'foo'}
+      input = {'expires_in' => 3600 }
+      output = {expires_at: 3600.seconds.from_now }
       expect(subject.send(:parse_attributes, input)).to eq(output)
     end
 
