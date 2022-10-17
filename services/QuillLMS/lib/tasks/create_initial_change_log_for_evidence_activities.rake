@@ -22,8 +22,8 @@ namespace :create_initial_change_log_for_evidence_activities do
 
       if change_logs.any?
         change_logs.each do |change_log|
-          change_log.previous_value = "#{change_log.previous_value.to_i + 1}"
-          change_log.new_value = "#{change_log.new_value.to_i + 1}"
+          change_log.previous_value = (change_log.previous_value.to_i + 1).to_s
+          change_log.new_value = (change_log.new_value.to_i + 1).to_s
           change_log.save!
         end
       end
