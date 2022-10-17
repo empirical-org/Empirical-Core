@@ -23,6 +23,7 @@
 #
 FactoryBot.define do
   factory :pack_sequence_item do
+    sequence(:order) { |n| n }
     pack_sequence
     association :item, factory: :unit
   end

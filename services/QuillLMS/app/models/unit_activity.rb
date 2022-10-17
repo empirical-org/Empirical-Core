@@ -128,7 +128,7 @@ class UnitActivity < ApplicationRecord
     teacher_timezone_offset_string = "+ INTERVAL '#{offset}' SECOND"
 
     # Generate a rich profile of Classroom Activities for a given user in a given classroom
-    RawSqlRunner.execute(
+    results = RawSqlRunner.execute(
       <<-SQL
         SELECT
           unit.name,
@@ -150,11 +150,15 @@ class UnitActivity < ApplicationRecord
           ua.publish_date #{teacher_timezone_offset_string} AS publish_date,
           pre_activity.id AS pre_activity_id,
           cu.created_at AS unit_activity_created_at,
+          ps.release_method AS #{PackSequence::RELEASE_METHOD_KEY},
+          ps.id AS #{PackSequence::ID_KEY},
+          psi.id AS #{PackSequenceItem::ID_KEY},
+          psi.order AS #{PackSequenceItem::ORDER_KEY},
           COALESCE(cuas.locked, false) AS locked,
           COALESCE(cuas.pinned, false) AS pinned,
           MAX(acts.percentage) AS max_percentage,
           SUM(CASE WHEN pre_activity_sessions_classroom_units.id > 0 AND pre_activity_sessions.state = '#{ActivitySession::STATE_FINISHED}' THEN 1 ELSE 0 END) > 0 AS completed_pre_activity_session,
-          SUM(CASE WHEN acts.state = '#{ActivitySession::STATE_FINISHED}' THEN 1 ELSE 0 END) > 0 AS finished,
+          SUM(CASE WHEN acts.state = '#{ActivitySession::STATE_FINISHED}' THEN 1 ELSE 0 END) > 0 AS #{ActivitySession::STATE_FINISHED_KEY},
           SUM(CASE WHEN acts.state = '#{ActivitySession::STATE_STARTED}' THEN 1 ELSE 0 END) AS resume_link
         FROM unit_activities AS ua
         JOIN units AS unit
@@ -182,6 +186,11 @@ class UnitActivity < ApplicationRecord
         LEFT JOIN classroom_unit_activity_states AS cuas
           ON ua.id = cuas.unit_activity_id
           AND cu.id = cuas.classroom_unit_id
+        JOIN users AS teachers ON unit.user_id = teachers.id
+        LEFT JOIN pack_sequence_items AS psi
+          ON psi.item_id = unit.id
+        LEFT JOIN pack_sequences AS ps
+          ON ps.id = psi.pack_sequence_id
         WHERE #{user_id.to_i} = ANY (cu.assigned_student_ids::int[])
           AND cu.classroom_id = #{classroom_id.to_i}
           AND cu.visible = true
@@ -206,7 +215,12 @@ class UnitActivity < ApplicationRecord
           cuas.pinned,
           ua.id,
           activity_classifications.key,
-          pre_activity.id
+          pre_activity.id,
+          teachers.time_zone,
+          ps.id,
+          ps.release_method,
+          psi.id,
+          psi.order
         ORDER BY
           pinned DESC,
           locked ASC,
@@ -217,6 +231,8 @@ class UnitActivity < ApplicationRecord
           ua.id ASC
       SQL
     ).to_a
+
+    PackSequenceItemStatusCombiner.run(results)
   end
 
 end
