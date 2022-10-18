@@ -42,5 +42,16 @@ module Evidence
         assert change_logs.select {|cl| cl["action"] == 'Universal Rule - created'}.count, 1
       end
     end
+
+    context 'activity_versions' do
+      it 'should fetch the versions for the activity' do
+        versions = @activity.activity_versions
+
+        assert versions.select {|version| version["note"] == 'Activity Created'}.count, 1
+        assert versions.select {|version| version["created_at"] == @activity.created_at}.count, 1
+        assert versions.select {|version| version["new_value"] == '1'}.count, 1
+        assert versions.select {|version| version["sessions"] == 0}.count, 1
+      end
+    end
   end
 end

@@ -63,10 +63,23 @@ module Evidence
       Evidence.change_log_class.where(changed_record_id: id, changed_attribute: 'version', changed_record_type: 'Evidence::Activity').map do |row|
         {
           note: row.explanation,
-          updated_at: row.updated_at,
-          new_value: row.new_value
+          created_at: row.created_at,
+          new_value: row.new_value,
+          sessions: version_sessions(row, id).count
         }
       end
+    end
+
+    def version_sessions(change_log, activity_id)
+      start_date = change_log.created_at
+      end_date = Time.now
+
+      if change_log.previous_value != "0"
+        value = change_log.new_value.to_i + 1
+        next_change_log = Evidence.change_log_class.where(changed_record_id: activity_id, changed_attribute: 'version', changed_record_type: 'Evidence::Activity', new_value: value.to_s).first
+        end_date = next_change_log.created_at if next_change_log
+      end
+      ActivitySession.where(activity_id: activity_id, created_at: start_date..end_date)
     end
 
     def change_logs_for_activity
