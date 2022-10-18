@@ -244,7 +244,7 @@ class Cms::SchoolsController < Cms::CmsController
 
   private def where_query_string_builder
     conditions = [
-      "subscriptions.expiration IS NULL OR subscriptions.expiration > '#{Date.current}'",
+      "(subscriptions.expiration IS NULL OR subscriptions.expiration > '#{Date.current}')",
       "subscriptions.de_activated_date IS NULL"
     ]
     # This converts all of the search inputs into strings so we can iterate
