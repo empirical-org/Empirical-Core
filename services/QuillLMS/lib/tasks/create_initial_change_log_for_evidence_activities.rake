@@ -3,7 +3,7 @@
 namespace :create_initial_change_log_for_evidence_activities do
   desc 'create change log for all Evidence activities with no initial version'
   task :run => :environment do
-    rake_task_user = User.find_by(name: "Rake Robot")
+    rake_task_user = User.find_by(email: ENV['RAKE_ROBOT_EMAIL'])
     Evidence::Activity.all.each do |activity|
       changelog_params = {
         action: Evidence.change_log_class::EVIDENCE_ACTIONS[:create],
