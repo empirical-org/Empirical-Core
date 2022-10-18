@@ -11,7 +11,7 @@ module Evidence
       PERIOD = '.'
       CSV_SUFFIX = '.csv'
 
-      FULL_COUNT = ENV.fetch('SYNTHETIC_SEED_PASSAGE_COUNT', 30).to_i
+      FULL_COUNT = ENV.fetch('SYNTHETIC_SEED_PASSAGE_COUNT', 50).to_i
       FULL_NOUN_COUNT = ENV.fetch('SYNTHETIC_SEED_NOUN_COUNT', 50).to_i
       SECTION_COUNT = ENV.fetch('SYNTHETIC_SEED_SECTION_COUNT', 10).to_i
 
@@ -22,8 +22,8 @@ module Evidence
 
       CONJUNCTION_SUBS = {
         'so' => ["with the result that", "Because #{STEM_KEY}"],
-        'but' => ['but the counter argument is that', "Even though #{STEM_KEY} a reason for it is that"],
-        'because' => ['for the reason that', 'since', 'owing to the fact that', 'the cause of this was']
+        'but' => ['but the counter argument is that', "Even though #{STEM_KEY}"],
+        'because' => ['for the reason that', 'owing to the fact that']
       }
       CONJUNCTIONS = CONJUNCTION_SUBS.keys
       class InvalidConjunctionError < StandardError; end
@@ -55,7 +55,7 @@ module Evidence
         end
 
         # include a csv with a text guide to the passage chunks
-        # csvs[passage_csv_name] = new(passage: passage, stem: '', conjunction: 'but').text_guide_csv_string
+        csvs[passage_csv_name] = new(passage: passage, stem: '', conjunction: 'but').text_guide_csv_string
 
         csvs
       end
@@ -85,12 +85,12 @@ module Evidence
         end
 
         # chunks plus prompt
-        # split_passage.each.with_index do |text_chunk, index|
-        #   stem_variants_hash.each do |conjunction, stem_variant|
-        #     prompt = prompt_text(context: text_chunk, stem_variant: stem_variant)
-        #     run_prompt(prompt: prompt, count: SECTION_COUNT, seed: "text_chunk_#{index + 1}_temp#{TEMP_SECTION}_#{conjunction}", temperature: TEMP_SECTION)
-        #   end
-        # end
+        split_passage.each.with_index do |text_chunk, index|
+          stem_variants_hash.each do |conjunction, stem_variant|
+            prompt = prompt_text(context: text_chunk, stem_variant: stem_variant)
+            run_prompt(prompt: prompt, count: SECTION_COUNT, seed: "text_chunk_#{index + 1}_temp#{TEMP_SECTION}_#{conjunction}", temperature: TEMP_SECTION)
+          end
+        end
 
         results
       end
