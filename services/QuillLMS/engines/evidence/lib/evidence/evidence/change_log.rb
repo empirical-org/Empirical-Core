@@ -72,7 +72,7 @@ module Evidence
 
     def version_sessions(change_log, activity_id)
       start_date = change_log.created_at
-      end_date = Time.now
+      end_date = Time.current
 
       if change_log.previous_value != "0"
         value = change_log.new_value.to_i + 1
