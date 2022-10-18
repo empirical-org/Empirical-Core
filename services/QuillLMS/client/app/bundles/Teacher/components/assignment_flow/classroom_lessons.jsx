@@ -35,8 +35,8 @@ export default class ClassroomLessons extends React.Component {
     request.get(`${process.env.DEFAULT_URL}/teachers/classrooms_i_teach_with_lessons`, (error, httpStatus, body) => {
       const classrooms = JSON.parse(body).classrooms;
       if (classrooms.length > 0) {
-        const localStorageSelectedClassroomId = window.localStorage.getItem(PROGRESS_REPORTS_SELECTED_CLASSROOM_ID)
-        const classroomFromLocalStorageClassroomId = classrooms.find(c => Number(c.id) === Number(localStorageSelectedClassroomId))
+        const localStorageSelectedClassroomId = Number(window.localStorage.getItem(PROGRESS_REPORTS_SELECTED_CLASSROOM_ID))
+        const classroomFromLocalStorageClassroomId = classrooms.find(c => Number(c.id) === localStorageSelectedClassroomId)
         const classroomIdToUse = classroomFromLocalStorageClassroomId && !classroomId ? localStorageSelectedClassroomId : classroomId
         this.setState({ classrooms, selectedClassroomId: classroomIdToUse || classrooms[0].id, }, () => this.getAllLessons());
       } else {
