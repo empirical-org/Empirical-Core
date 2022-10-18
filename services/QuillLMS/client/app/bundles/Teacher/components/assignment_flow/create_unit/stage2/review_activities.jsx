@@ -46,7 +46,7 @@ const tableHeaders = [
     name: (
       <Tooltip
         tooltipText="When you schedule an activity, it is displayed in your dashboard, but it is hidden from a student until the publish date."
-        tooltipTriggerText={<span className="publish-date-header">Publish date <span>(optional)</span></span>}
+        tooltipTriggerText={<span className="publish-date-header">Publish date</span>}
       />
     ),
     attribute: 'publishDatePicker',
@@ -175,6 +175,7 @@ export default class ReviewActivities extends React.Component {
       } = activity
       const dueDateInMoment = dueDates[id] ? moment.utc(dueDates[id]) : null
       const publishDateInMoment = publishDates[id] ? moment.utc(publishDates[id]) : null
+      const showCopyToAll = i === 0 && activities.length > 1
 
       const dueDatePicker = (
         <DatePickerContainer
@@ -183,7 +184,7 @@ export default class ReviewActivities extends React.Component {
           handleClickCopyToAll={this.copyDueDateToAll}
           initialValue={dueDateInMoment}
           key={dueDateInMoment ? formatDateTimeForDisplay(dueDateInMoment) : id}
-          rowIndex={i}
+          showCopyToAll={showCopyToAll}
         />
       )
 
@@ -194,7 +195,7 @@ export default class ReviewActivities extends React.Component {
           handleClickCopyToAll={this.copyPublishDateToAll}
           initialValue={publishDateInMoment}
           key={publishDateInMoment ? formatDateTimeForDisplay(publishDateInMoment) : id}
-          rowIndex={i}
+          showCopyToAll={showCopyToAll}
         />
       )
 

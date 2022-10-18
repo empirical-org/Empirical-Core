@@ -8,7 +8,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
         "438" => Object {
           "activityClassificationId": 5,
           "activityId": 438,
-          "className": "",
+          "className": " show-copy-to-all",
           "classroomId": 484154,
           "created_at": "1610377917.5772",
           "cuId": 2898069,
@@ -18,7 +18,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
             defaultText="No due date"
             handleClickCopyToAll={[Function]}
             initialValue={null}
-            rowIndex={0}
+            showCopyToAll={true}
           />,
           "id": 7543552,
           "name": "Adverbs of Manner 1 (Starter)",
@@ -36,7 +36,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
               />
             }
             initialValue={null}
-            rowIndex={0}
+            showCopyToAll={true}
           />,
           "removable": true,
           "shareActivity": <button
@@ -85,7 +85,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
             defaultText="No due date"
             handleClickCopyToAll={[Function]}
             initialValue={null}
-            rowIndex={1}
+            showCopyToAll={false}
           />,
           "id": 7543553,
           "name": "Adverbs of Manner (Intermediate)",
@@ -103,7 +103,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
               />
             }
             initialValue={null}
-            rowIndex={1}
+            showCopyToAll={false}
           />,
           "removable": true,
           "shareActivity": <button
@@ -152,7 +152,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
             defaultText="No due date"
             handleClickCopyToAll={[Function]}
             initialValue={null}
-            rowIndex={2}
+            showCopyToAll={false}
           />,
           "id": 7543554,
           "name": "Adjectives and Adverbs (Starter)",
@@ -170,7 +170,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
               />
             }
             initialValue={null}
-            rowIndex={2}
+            showCopyToAll={false}
           />,
           "removable": true,
           "shareActivity": <button
@@ -219,7 +219,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
             defaultText="No due date"
             handleClickCopyToAll={[Function]}
             initialValue={null}
-            rowIndex={3}
+            showCopyToAll={false}
           />,
           "id": 7543555,
           "name": "Adjectives vs. Adverbs",
@@ -237,7 +237,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
               />
             }
             initialValue={null}
-            rowIndex={3}
+            showCopyToAll={false}
           />,
           "removable": true,
           "shareActivity": <button
@@ -286,7 +286,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
             defaultText="No due date"
             handleClickCopyToAll={[Function]}
             initialValue={null}
-            rowIndex={4}
+            showCopyToAll={false}
           />,
           "id": 7543556,
           "name": "Adjectives, Adverbs, and Prepositional Phrases 1",
@@ -304,7 +304,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
               />
             }
             initialValue={null}
-            rowIndex={4}
+            showCopyToAll={false}
           />,
           "removable": true,
           "shareActivity": <button
@@ -392,7 +392,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
             </span>
           </span>,
           "rowSectionClassName": "tool-and-name-section",
-          "width": "460px",
+          "width": "442px",
         },
         Object {
           "attribute": "publishDatePicker",
@@ -404,15 +404,12 @@ exports[`ActivityTable component renders if the current user created the unit 1`
               <span
                 className="publish-date-header"
               >
-                Publish date 
-                <span>
-                  (optional)
-                </span>
+                Publish date
               </span>
             }
           />,
           "rowSectionClassName": "datetime-picker",
-          "width": "126px",
+          "width": "135px",
         },
         Object {
           "attribute": "dueDatePicker",
@@ -432,7 +429,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
             }
           />,
           "rowSectionClassName": "datetime-picker",
-          "width": "126px",
+          "width": "135px",
         },
         Object {
           "attribute": "shareActivity",
@@ -450,7 +447,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
         Object {
           "activityClassificationId": 5,
           "activityId": 438,
-          "className": "",
+          "className": " show-copy-to-all",
           "classroomId": 484154,
           "created_at": "1610377917.5772",
           "cuId": 2898069,
@@ -460,7 +457,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
             defaultText="No due date"
             handleClickCopyToAll={[Function]}
             initialValue={null}
-            rowIndex={0}
+            showCopyToAll={true}
           />,
           "id": 7543552,
           "name": "Adverbs of Manner 1 (Starter)",
@@ -478,7 +475,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
               />
             }
             initialValue={null}
-            rowIndex={0}
+            showCopyToAll={true}
           />,
           "removable": true,
           "shareActivity": <button
@@ -527,7 +524,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
             defaultText="No due date"
             handleClickCopyToAll={[Function]}
             initialValue={null}
-            rowIndex={1}
+            showCopyToAll={false}
           />,
           "id": 7543553,
           "name": "Adverbs of Manner (Intermediate)",
@@ -545,7 +542,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
               />
             }
             initialValue={null}
-            rowIndex={1}
+            showCopyToAll={false}
           />,
           "removable": true,
           "shareActivity": <button
@@ -594,7 +591,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
             defaultText="No due date"
             handleClickCopyToAll={[Function]}
             initialValue={null}
-            rowIndex={2}
+            showCopyToAll={false}
           />,
           "id": 7543554,
           "name": "Adjectives and Adverbs (Starter)",
@@ -612,7 +609,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
               />
             }
             initialValue={null}
-            rowIndex={2}
+            showCopyToAll={false}
           />,
           "removable": true,
           "shareActivity": <button
@@ -661,7 +658,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
             defaultText="No due date"
             handleClickCopyToAll={[Function]}
             initialValue={null}
-            rowIndex={3}
+            showCopyToAll={false}
           />,
           "id": 7543555,
           "name": "Adjectives vs. Adverbs",
@@ -679,7 +676,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
               />
             }
             initialValue={null}
-            rowIndex={3}
+            showCopyToAll={false}
           />,
           "removable": true,
           "shareActivity": <button
@@ -728,7 +725,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
             defaultText="No due date"
             handleClickCopyToAll={[Function]}
             initialValue={null}
-            rowIndex={4}
+            showCopyToAll={false}
           />,
           "id": 7543556,
           "name": "Adjectives, Adverbs, and Prepositional Phrases 1",
@@ -746,7 +743,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
               />
             }
             initialValue={null}
-            rowIndex={4}
+            showCopyToAll={false}
           />,
           "removable": true,
           "shareActivity": <button
@@ -803,9 +800,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
           scope="col"
           style={
             Object {
-              "minWidth": "460px",
+              "minWidth": "442px",
               "textAlign": "left",
-              "width": "460px",
+              "width": "442px",
             }
           }
         >
@@ -825,9 +822,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
           scope="col"
           style={
             Object {
-              "minWidth": "126px",
+              "minWidth": "135px",
               "textAlign": "left",
-              "width": "126px",
+              "width": "135px",
             }
           }
         >
@@ -838,10 +835,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
               <span
                 className="publish-date-header"
               >
-                Publish date 
-                <span>
-                  (optional)
-                </span>
+                Publish date
               </span>
             }
           >
@@ -864,10 +858,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                 <span
                   className="publish-date-header"
                 >
-                  Publish date 
-                  <span>
-                    (optional)
-                  </span>
+                  Publish date
                 </span>
               </span>
               <span
@@ -886,9 +877,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
           scope="col"
           style={
             Object {
-              "minWidth": "126px",
+              "minWidth": "135px",
               "textAlign": "left",
-              "width": "126px",
+              "width": "135px",
             }
           }
         >
@@ -966,7 +957,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
           data={
             Array [
               <tr
-                className="data-table-row  "
+                className="data-table-row   show-copy-to-all"
               >
                 <React.Fragment>
                   <span
@@ -978,9 +969,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                     className="data-table-row-section tool-and-name-section"
                     style={
                       Object {
-                        "minWidth": "460px",
+                        "minWidth": "442px",
                         "textAlign": "left",
-                        "width": "460px",
+                        "width": "442px",
                       }
                     }
                   >
@@ -1009,9 +1000,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                     className="data-table-row-section datetime-picker"
                     style={
                       Object {
-                        "minWidth": "126px",
+                        "minWidth": "135px",
                         "textAlign": "left",
-                        "width": "126px",
+                        "width": "135px",
                       }
                     }
                   >
@@ -1027,16 +1018,16 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         />
                       }
                       initialValue={null}
-                      rowIndex={0}
+                      showCopyToAll={true}
                     />
                   </td>
                   <td
                     className="data-table-row-section datetime-picker"
                     style={
                       Object {
-                        "minWidth": "126px",
+                        "minWidth": "135px",
                         "textAlign": "left",
-                        "width": "126px",
+                        "width": "135px",
                       }
                     }
                   >
@@ -1045,7 +1036,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                       defaultText="No due date"
                       handleClickCopyToAll={[Function]}
                       initialValue={null}
-                      rowIndex={0}
+                      showCopyToAll={true}
                     />
                   </td>
                   <td
@@ -1098,9 +1089,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                     className="data-table-row-section tool-and-name-section"
                     style={
                       Object {
-                        "minWidth": "460px",
+                        "minWidth": "442px",
                         "textAlign": "left",
-                        "width": "460px",
+                        "width": "442px",
                       }
                     }
                   >
@@ -1129,9 +1120,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                     className="data-table-row-section datetime-picker"
                     style={
                       Object {
-                        "minWidth": "126px",
+                        "minWidth": "135px",
                         "textAlign": "left",
-                        "width": "126px",
+                        "width": "135px",
                       }
                     }
                   >
@@ -1147,16 +1138,16 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         />
                       }
                       initialValue={null}
-                      rowIndex={1}
+                      showCopyToAll={false}
                     />
                   </td>
                   <td
                     className="data-table-row-section datetime-picker"
                     style={
                       Object {
-                        "minWidth": "126px",
+                        "minWidth": "135px",
                         "textAlign": "left",
-                        "width": "126px",
+                        "width": "135px",
                       }
                     }
                   >
@@ -1165,7 +1156,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                       defaultText="No due date"
                       handleClickCopyToAll={[Function]}
                       initialValue={null}
-                      rowIndex={1}
+                      showCopyToAll={false}
                     />
                   </td>
                   <td
@@ -1218,9 +1209,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                     className="data-table-row-section tool-and-name-section"
                     style={
                       Object {
-                        "minWidth": "460px",
+                        "minWidth": "442px",
                         "textAlign": "left",
-                        "width": "460px",
+                        "width": "442px",
                       }
                     }
                   >
@@ -1249,9 +1240,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                     className="data-table-row-section datetime-picker"
                     style={
                       Object {
-                        "minWidth": "126px",
+                        "minWidth": "135px",
                         "textAlign": "left",
-                        "width": "126px",
+                        "width": "135px",
                       }
                     }
                   >
@@ -1267,16 +1258,16 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         />
                       }
                       initialValue={null}
-                      rowIndex={2}
+                      showCopyToAll={false}
                     />
                   </td>
                   <td
                     className="data-table-row-section datetime-picker"
                     style={
                       Object {
-                        "minWidth": "126px",
+                        "minWidth": "135px",
                         "textAlign": "left",
-                        "width": "126px",
+                        "width": "135px",
                       }
                     }
                   >
@@ -1285,7 +1276,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                       defaultText="No due date"
                       handleClickCopyToAll={[Function]}
                       initialValue={null}
-                      rowIndex={2}
+                      showCopyToAll={false}
                     />
                   </td>
                   <td
@@ -1338,9 +1329,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                     className="data-table-row-section tool-and-name-section"
                     style={
                       Object {
-                        "minWidth": "460px",
+                        "minWidth": "442px",
                         "textAlign": "left",
-                        "width": "460px",
+                        "width": "442px",
                       }
                     }
                   >
@@ -1369,9 +1360,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                     className="data-table-row-section datetime-picker"
                     style={
                       Object {
-                        "minWidth": "126px",
+                        "minWidth": "135px",
                         "textAlign": "left",
-                        "width": "126px",
+                        "width": "135px",
                       }
                     }
                   >
@@ -1387,16 +1378,16 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         />
                       }
                       initialValue={null}
-                      rowIndex={3}
+                      showCopyToAll={false}
                     />
                   </td>
                   <td
                     className="data-table-row-section datetime-picker"
                     style={
                       Object {
-                        "minWidth": "126px",
+                        "minWidth": "135px",
                         "textAlign": "left",
-                        "width": "126px",
+                        "width": "135px",
                       }
                     }
                   >
@@ -1405,7 +1396,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                       defaultText="No due date"
                       handleClickCopyToAll={[Function]}
                       initialValue={null}
-                      rowIndex={3}
+                      showCopyToAll={false}
                     />
                   </td>
                   <td
@@ -1458,9 +1449,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                     className="data-table-row-section tool-and-name-section"
                     style={
                       Object {
-                        "minWidth": "460px",
+                        "minWidth": "442px",
                         "textAlign": "left",
-                        "width": "460px",
+                        "width": "442px",
                       }
                     }
                   >
@@ -1489,9 +1480,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                     className="data-table-row-section datetime-picker"
                     style={
                       Object {
-                        "minWidth": "126px",
+                        "minWidth": "135px",
                         "textAlign": "left",
-                        "width": "126px",
+                        "width": "135px",
                       }
                     }
                   >
@@ -1507,16 +1498,16 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         />
                       }
                       initialValue={null}
-                      rowIndex={4}
+                      showCopyToAll={false}
                     />
                   </td>
                   <td
                     className="data-table-row-section datetime-picker"
                     style={
                       Object {
-                        "minWidth": "126px",
+                        "minWidth": "135px",
                         "textAlign": "left",
-                        "width": "126px",
+                        "width": "135px",
                       }
                     }
                   >
@@ -1525,7 +1516,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                       defaultText="No due date"
                       handleClickCopyToAll={[Function]}
                       initialValue={null}
-                      rowIndex={4}
+                      showCopyToAll={false}
                     />
                   </td>
                   <td
@@ -1581,7 +1572,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
             items={
               Array [
                 <tr
-                  className="data-table-row  "
+                  className="data-table-row   show-copy-to-all"
                 >
                   <React.Fragment>
                     <span
@@ -1593,9 +1584,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                       className="data-table-row-section tool-and-name-section"
                       style={
                         Object {
-                          "minWidth": "460px",
+                          "minWidth": "442px",
                           "textAlign": "left",
-                          "width": "460px",
+                          "width": "442px",
                         }
                       }
                     >
@@ -1624,9 +1615,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                       className="data-table-row-section datetime-picker"
                       style={
                         Object {
-                          "minWidth": "126px",
+                          "minWidth": "135px",
                           "textAlign": "left",
-                          "width": "126px",
+                          "width": "135px",
                         }
                       }
                     >
@@ -1642,16 +1633,16 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           />
                         }
                         initialValue={null}
-                        rowIndex={0}
+                        showCopyToAll={true}
                       />
                     </td>
                     <td
                       className="data-table-row-section datetime-picker"
                       style={
                         Object {
-                          "minWidth": "126px",
+                          "minWidth": "135px",
                           "textAlign": "left",
-                          "width": "126px",
+                          "width": "135px",
                         }
                       }
                     >
@@ -1660,7 +1651,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         defaultText="No due date"
                         handleClickCopyToAll={[Function]}
                         initialValue={null}
-                        rowIndex={0}
+                        showCopyToAll={true}
                       />
                     </td>
                     <td
@@ -1713,9 +1704,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                       className="data-table-row-section tool-and-name-section"
                       style={
                         Object {
-                          "minWidth": "460px",
+                          "minWidth": "442px",
                           "textAlign": "left",
-                          "width": "460px",
+                          "width": "442px",
                         }
                       }
                     >
@@ -1744,9 +1735,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                       className="data-table-row-section datetime-picker"
                       style={
                         Object {
-                          "minWidth": "126px",
+                          "minWidth": "135px",
                           "textAlign": "left",
-                          "width": "126px",
+                          "width": "135px",
                         }
                       }
                     >
@@ -1762,16 +1753,16 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           />
                         }
                         initialValue={null}
-                        rowIndex={1}
+                        showCopyToAll={false}
                       />
                     </td>
                     <td
                       className="data-table-row-section datetime-picker"
                       style={
                         Object {
-                          "minWidth": "126px",
+                          "minWidth": "135px",
                           "textAlign": "left",
-                          "width": "126px",
+                          "width": "135px",
                         }
                       }
                     >
@@ -1780,7 +1771,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         defaultText="No due date"
                         handleClickCopyToAll={[Function]}
                         initialValue={null}
-                        rowIndex={1}
+                        showCopyToAll={false}
                       />
                     </td>
                     <td
@@ -1833,9 +1824,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                       className="data-table-row-section tool-and-name-section"
                       style={
                         Object {
-                          "minWidth": "460px",
+                          "minWidth": "442px",
                           "textAlign": "left",
-                          "width": "460px",
+                          "width": "442px",
                         }
                       }
                     >
@@ -1864,9 +1855,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                       className="data-table-row-section datetime-picker"
                       style={
                         Object {
-                          "minWidth": "126px",
+                          "minWidth": "135px",
                           "textAlign": "left",
-                          "width": "126px",
+                          "width": "135px",
                         }
                       }
                     >
@@ -1882,16 +1873,16 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           />
                         }
                         initialValue={null}
-                        rowIndex={2}
+                        showCopyToAll={false}
                       />
                     </td>
                     <td
                       className="data-table-row-section datetime-picker"
                       style={
                         Object {
-                          "minWidth": "126px",
+                          "minWidth": "135px",
                           "textAlign": "left",
-                          "width": "126px",
+                          "width": "135px",
                         }
                       }
                     >
@@ -1900,7 +1891,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         defaultText="No due date"
                         handleClickCopyToAll={[Function]}
                         initialValue={null}
-                        rowIndex={2}
+                        showCopyToAll={false}
                       />
                     </td>
                     <td
@@ -1953,9 +1944,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                       className="data-table-row-section tool-and-name-section"
                       style={
                         Object {
-                          "minWidth": "460px",
+                          "minWidth": "442px",
                           "textAlign": "left",
-                          "width": "460px",
+                          "width": "442px",
                         }
                       }
                     >
@@ -1984,9 +1975,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                       className="data-table-row-section datetime-picker"
                       style={
                         Object {
-                          "minWidth": "126px",
+                          "minWidth": "135px",
                           "textAlign": "left",
-                          "width": "126px",
+                          "width": "135px",
                         }
                       }
                     >
@@ -2002,16 +1993,16 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           />
                         }
                         initialValue={null}
-                        rowIndex={3}
+                        showCopyToAll={false}
                       />
                     </td>
                     <td
                       className="data-table-row-section datetime-picker"
                       style={
                         Object {
-                          "minWidth": "126px",
+                          "minWidth": "135px",
                           "textAlign": "left",
-                          "width": "126px",
+                          "width": "135px",
                         }
                       }
                     >
@@ -2020,7 +2011,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         defaultText="No due date"
                         handleClickCopyToAll={[Function]}
                         initialValue={null}
-                        rowIndex={3}
+                        showCopyToAll={false}
                       />
                     </td>
                     <td
@@ -2073,9 +2064,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                       className="data-table-row-section tool-and-name-section"
                       style={
                         Object {
-                          "minWidth": "460px",
+                          "minWidth": "442px",
                           "textAlign": "left",
-                          "width": "460px",
+                          "width": "442px",
                         }
                       }
                     >
@@ -2104,9 +2095,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                       className="data-table-row-section datetime-picker"
                       style={
                         Object {
-                          "minWidth": "126px",
+                          "minWidth": "135px",
                           "textAlign": "left",
-                          "width": "126px",
+                          "width": "135px",
                         }
                       }
                     >
@@ -2122,16 +2113,16 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           />
                         }
                         initialValue={null}
-                        rowIndex={4}
+                        showCopyToAll={false}
                       />
                     </td>
                     <td
                       className="data-table-row-section datetime-picker"
                       style={
                         Object {
-                          "minWidth": "126px",
+                          "minWidth": "135px",
                           "textAlign": "left",
-                          "width": "126px",
+                          "width": "135px",
                         }
                       }
                     >
@@ -2140,7 +2131,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         defaultText="No due date"
                         handleClickCopyToAll={[Function]}
                         initialValue={null}
-                        rowIndex={4}
+                        showCopyToAll={false}
                       />
                     </td>
                     <td
@@ -2218,7 +2209,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
               items={
                 Array [
                   <tr
-                    className="data-table-row  "
+                    className="data-table-row   show-copy-to-all"
                   >
                     <React.Fragment>
                       <span
@@ -2230,9 +2221,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         className="data-table-row-section tool-and-name-section"
                         style={
                           Object {
-                            "minWidth": "460px",
+                            "minWidth": "442px",
                             "textAlign": "left",
-                            "width": "460px",
+                            "width": "442px",
                           }
                         }
                       >
@@ -2261,9 +2252,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         className="data-table-row-section datetime-picker"
                         style={
                           Object {
-                            "minWidth": "126px",
+                            "minWidth": "135px",
                             "textAlign": "left",
-                            "width": "126px",
+                            "width": "135px",
                           }
                         }
                       >
@@ -2279,16 +2270,16 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             />
                           }
                           initialValue={null}
-                          rowIndex={0}
+                          showCopyToAll={true}
                         />
                       </td>
                       <td
                         className="data-table-row-section datetime-picker"
                         style={
                           Object {
-                            "minWidth": "126px",
+                            "minWidth": "135px",
                             "textAlign": "left",
-                            "width": "126px",
+                            "width": "135px",
                           }
                         }
                       >
@@ -2297,7 +2288,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           defaultText="No due date"
                           handleClickCopyToAll={[Function]}
                           initialValue={null}
-                          rowIndex={0}
+                          showCopyToAll={true}
                         />
                       </td>
                       <td
@@ -2350,9 +2341,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         className="data-table-row-section tool-and-name-section"
                         style={
                           Object {
-                            "minWidth": "460px",
+                            "minWidth": "442px",
                             "textAlign": "left",
-                            "width": "460px",
+                            "width": "442px",
                           }
                         }
                       >
@@ -2381,9 +2372,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         className="data-table-row-section datetime-picker"
                         style={
                           Object {
-                            "minWidth": "126px",
+                            "minWidth": "135px",
                             "textAlign": "left",
-                            "width": "126px",
+                            "width": "135px",
                           }
                         }
                       >
@@ -2399,16 +2390,16 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             />
                           }
                           initialValue={null}
-                          rowIndex={1}
+                          showCopyToAll={false}
                         />
                       </td>
                       <td
                         className="data-table-row-section datetime-picker"
                         style={
                           Object {
-                            "minWidth": "126px",
+                            "minWidth": "135px",
                             "textAlign": "left",
-                            "width": "126px",
+                            "width": "135px",
                           }
                         }
                       >
@@ -2417,7 +2408,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           defaultText="No due date"
                           handleClickCopyToAll={[Function]}
                           initialValue={null}
-                          rowIndex={1}
+                          showCopyToAll={false}
                         />
                       </td>
                       <td
@@ -2470,9 +2461,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         className="data-table-row-section tool-and-name-section"
                         style={
                           Object {
-                            "minWidth": "460px",
+                            "minWidth": "442px",
                             "textAlign": "left",
-                            "width": "460px",
+                            "width": "442px",
                           }
                         }
                       >
@@ -2501,9 +2492,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         className="data-table-row-section datetime-picker"
                         style={
                           Object {
-                            "minWidth": "126px",
+                            "minWidth": "135px",
                             "textAlign": "left",
-                            "width": "126px",
+                            "width": "135px",
                           }
                         }
                       >
@@ -2519,16 +2510,16 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             />
                           }
                           initialValue={null}
-                          rowIndex={2}
+                          showCopyToAll={false}
                         />
                       </td>
                       <td
                         className="data-table-row-section datetime-picker"
                         style={
                           Object {
-                            "minWidth": "126px",
+                            "minWidth": "135px",
                             "textAlign": "left",
-                            "width": "126px",
+                            "width": "135px",
                           }
                         }
                       >
@@ -2537,7 +2528,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           defaultText="No due date"
                           handleClickCopyToAll={[Function]}
                           initialValue={null}
-                          rowIndex={2}
+                          showCopyToAll={false}
                         />
                       </td>
                       <td
@@ -2590,9 +2581,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         className="data-table-row-section tool-and-name-section"
                         style={
                           Object {
-                            "minWidth": "460px",
+                            "minWidth": "442px",
                             "textAlign": "left",
-                            "width": "460px",
+                            "width": "442px",
                           }
                         }
                       >
@@ -2621,9 +2612,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         className="data-table-row-section datetime-picker"
                         style={
                           Object {
-                            "minWidth": "126px",
+                            "minWidth": "135px",
                             "textAlign": "left",
-                            "width": "126px",
+                            "width": "135px",
                           }
                         }
                       >
@@ -2639,16 +2630,16 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             />
                           }
                           initialValue={null}
-                          rowIndex={3}
+                          showCopyToAll={false}
                         />
                       </td>
                       <td
                         className="data-table-row-section datetime-picker"
                         style={
                           Object {
-                            "minWidth": "126px",
+                            "minWidth": "135px",
                             "textAlign": "left",
-                            "width": "126px",
+                            "width": "135px",
                           }
                         }
                       >
@@ -2657,7 +2648,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           defaultText="No due date"
                           handleClickCopyToAll={[Function]}
                           initialValue={null}
-                          rowIndex={3}
+                          showCopyToAll={false}
                         />
                       </td>
                       <td
@@ -2710,9 +2701,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         className="data-table-row-section tool-and-name-section"
                         style={
                           Object {
-                            "minWidth": "460px",
+                            "minWidth": "442px",
                             "textAlign": "left",
-                            "width": "460px",
+                            "width": "442px",
                           }
                         }
                       >
@@ -2741,9 +2732,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                         className="data-table-row-section datetime-picker"
                         style={
                           Object {
-                            "minWidth": "126px",
+                            "minWidth": "135px",
                             "textAlign": "left",
-                            "width": "126px",
+                            "width": "135px",
                           }
                         }
                       >
@@ -2759,16 +2750,16 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             />
                           }
                           initialValue={null}
-                          rowIndex={4}
+                          showCopyToAll={false}
                         />
                       </td>
                       <td
                         className="data-table-row-section datetime-picker"
                         style={
                           Object {
-                            "minWidth": "126px",
+                            "minWidth": "135px",
                             "textAlign": "left",
-                            "width": "126px",
+                            "width": "135px",
                           }
                         }
                       >
@@ -2777,7 +2768,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           defaultText="No due date"
                           handleClickCopyToAll={[Function]}
                           initialValue={null}
-                          rowIndex={4}
+                          showCopyToAll={false}
                         />
                       </td>
                       <td
@@ -2829,7 +2820,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                   key="0"
                   value={
                     <tr
-                      className="data-table-row  "
+                      className="data-table-row   show-copy-to-all"
                     >
                       <React.Fragment>
                         <span
@@ -2841,9 +2832,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           className="data-table-row-section tool-and-name-section"
                           style={
                             Object {
-                              "minWidth": "460px",
+                              "minWidth": "442px",
                               "textAlign": "left",
-                              "width": "460px",
+                              "width": "442px",
                             }
                           }
                         >
@@ -2872,9 +2863,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           className="data-table-row-section datetime-picker"
                           style={
                             Object {
-                              "minWidth": "126px",
+                              "minWidth": "135px",
                               "textAlign": "left",
-                              "width": "126px",
+                              "width": "135px",
                             }
                           }
                         >
@@ -2890,16 +2881,16 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               />
                             }
                             initialValue={null}
-                            rowIndex={0}
+                            showCopyToAll={true}
                           />
                         </td>
                         <td
                           className="data-table-row-section datetime-picker"
                           style={
                             Object {
-                              "minWidth": "126px",
+                              "minWidth": "135px",
                               "textAlign": "left",
-                              "width": "126px",
+                              "width": "135px",
                             }
                           }
                         >
@@ -2908,7 +2899,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             defaultText="No due date"
                             handleClickCopyToAll={[Function]}
                             initialValue={null}
-                            rowIndex={0}
+                            showCopyToAll={true}
                           />
                         </td>
                         <td
@@ -2953,7 +2944,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                   <Component
                     value={
                       <tr
-                        className="data-table-row  "
+                        className="data-table-row   show-copy-to-all"
                       >
                         <React.Fragment>
                           <span
@@ -2965,9 +2956,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             className="data-table-row-section tool-and-name-section"
                             style={
                               Object {
-                                "minWidth": "460px",
+                                "minWidth": "442px",
                                 "textAlign": "left",
-                                "width": "460px",
+                                "width": "442px",
                               }
                             }
                           >
@@ -2996,9 +2987,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             className="data-table-row-section datetime-picker"
                             style={
                               Object {
-                                "minWidth": "126px",
+                                "minWidth": "135px",
                                 "textAlign": "left",
-                                "width": "126px",
+                                "width": "135px",
                               }
                             }
                           >
@@ -3014,16 +3005,16 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                 />
                               }
                               initialValue={null}
-                              rowIndex={0}
+                              showCopyToAll={true}
                             />
                           </td>
                           <td
                             className="data-table-row-section datetime-picker"
                             style={
                               Object {
-                                "minWidth": "126px",
+                                "minWidth": "135px",
                                 "textAlign": "left",
-                                "width": "126px",
+                                "width": "135px",
                               }
                             }
                           >
@@ -3032,7 +3023,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               defaultText="No due date"
                               handleClickCopyToAll={[Function]}
                               initialValue={null}
-                              rowIndex={0}
+                              showCopyToAll={true}
                             />
                           </td>
                           <td
@@ -3078,7 +3069,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                       className="list-item"
                     >
                       <tr
-                        className="data-table-row  "
+                        className="data-table-row   show-copy-to-all"
                         key="7543552"
                       >
                         <span
@@ -3105,9 +3096,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           key="toolAndNameSection-7543552"
                           style={
                             Object {
-                              "minWidth": "460px",
+                              "minWidth": "442px",
                               "textAlign": "left",
-                              "width": "460px",
+                              "width": "442px",
                             }
                           }
                         >
@@ -3137,9 +3128,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           key="publishDatePicker-7543552"
                           style={
                             Object {
-                              "minWidth": "126px",
+                              "minWidth": "135px",
                               "textAlign": "left",
-                              "width": "126px",
+                              "width": "135px",
                             }
                           }
                         >
@@ -3156,7 +3147,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             }
                             initialValue={null}
                             key="7543552"
-                            rowIndex={0}
+                            showCopyToAll={true}
                           >
                             <div
                               className="date-picker-container"
@@ -3174,7 +3165,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                   closeOnClickOutside={true}
                                   closeOnSelect={false}
                                   closeOnTab={true}
-                                  dateFormat={true}
+                                  dateFormat="MMM D"
                                   initialValue={null}
                                   input={true}
                                   inputProps={Object {}}
@@ -3192,7 +3183,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                   renderView={[Function]}
                                   strictParsing={true}
                                   timeConstraints={Object {}}
-                                  timeFormat={true}
+                                  timeFormat="h:mm a"
                                   utc={true}
                                 >
                                   <OnClickOutside(n)
@@ -3242,22 +3233,25 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                               }
                                             }
                                           >
-                                            <button
+                                            <span
                                               className="interactive-wrapper focus-on-light datetime-input"
-                                              onClick={[Function]}
-                                              type="button"
                                             >
-                                              <span
-                                                className="text"
-                                              >
-                                                Right away
-                                              </span>
+                                              <input
+                                                className="form-control"
+                                                onChange={[Function]}
+                                                onClick={[Function]}
+                                                onFocus={[Function]}
+                                                onKeyDown={[Function]}
+                                                placeholder="Right away"
+                                                type="text"
+                                                value=""
+                                              />
                                               <img
                                                 alt="dropdown indicator"
                                                 className="dropdown-indicator"
                                                 src="https://assets.quill.org/images/icons/dropdown.svg"
                                               />
-                                            </button>
+                                            </span>
                                           </DatetimeInput>
                                         </div>
                                         <div
@@ -3269,7 +3263,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                             navigate={[Function]}
                                             renderDay={[Function]}
                                             showView={[Function]}
-                                            timeFormat="h:mm A"
+                                            timeFormat="h:mm a"
                                             updateDate={[Function]}
                                             viewDate={"2022-11-10T00:00:00.000Z"}
                                           >
@@ -3815,7 +3809,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                                       colSpan={7}
                                                       onClick={[Function]}
                                                     >
-                                                      12:00 AM
+                                                      12:00 am
                                                     </td>
                                                   </tr>
                                                 </tfoot>
@@ -3853,9 +3847,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           key="dueDatePicker-7543552"
                           style={
                             Object {
-                              "minWidth": "126px",
+                              "minWidth": "135px",
                               "textAlign": "left",
-                              "width": "126px",
+                              "width": "135px",
                             }
                           }
                         >
@@ -3865,7 +3859,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             handleClickCopyToAll={[Function]}
                             initialValue={null}
                             key="7543552"
-                            rowIndex={0}
+                            showCopyToAll={true}
                           >
                             <div
                               className="date-picker-container"
@@ -3878,7 +3872,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                   closeOnClickOutside={true}
                                   closeOnSelect={false}
                                   closeOnTab={true}
-                                  dateFormat={true}
+                                  dateFormat="MMM D"
                                   initialValue={null}
                                   input={true}
                                   inputProps={Object {}}
@@ -3896,7 +3890,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                   renderView={[Function]}
                                   strictParsing={true}
                                   timeConstraints={Object {}}
-                                  timeFormat={true}
+                                  timeFormat="h:mm a"
                                   utc={true}
                                 >
                                   <OnClickOutside(n)
@@ -3946,22 +3940,25 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                               }
                                             }
                                           >
-                                            <button
+                                            <span
                                               className="interactive-wrapper focus-on-light datetime-input"
-                                              onClick={[Function]}
-                                              type="button"
                                             >
-                                              <span
-                                                className="text"
-                                              >
-                                                No due date
-                                              </span>
+                                              <input
+                                                className="form-control"
+                                                onChange={[Function]}
+                                                onClick={[Function]}
+                                                onFocus={[Function]}
+                                                onKeyDown={[Function]}
+                                                placeholder="No due date"
+                                                type="text"
+                                                value=""
+                                              />
                                               <img
                                                 alt="dropdown indicator"
                                                 className="dropdown-indicator"
                                                 src="https://assets.quill.org/images/icons/dropdown.svg"
                                               />
-                                            </button>
+                                            </span>
                                           </DatetimeInput>
                                         </div>
                                         <div
@@ -3973,7 +3970,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                             navigate={[Function]}
                                             renderDay={[Function]}
                                             showView={[Function]}
-                                            timeFormat="h:mm A"
+                                            timeFormat="h:mm a"
                                             updateDate={[Function]}
                                             viewDate={"2022-11-10T00:00:00.000Z"}
                                           >
@@ -4519,7 +4516,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                                       colSpan={7}
                                                       onClick={[Function]}
                                                     >
-                                                      12:00 AM
+                                                      12:00 am
                                                     </td>
                                                   </tr>
                                                 </tfoot>
@@ -4610,9 +4607,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           className="data-table-row-section tool-and-name-section"
                           style={
                             Object {
-                              "minWidth": "460px",
+                              "minWidth": "442px",
                               "textAlign": "left",
-                              "width": "460px",
+                              "width": "442px",
                             }
                           }
                         >
@@ -4641,9 +4638,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           className="data-table-row-section datetime-picker"
                           style={
                             Object {
-                              "minWidth": "126px",
+                              "minWidth": "135px",
                               "textAlign": "left",
-                              "width": "126px",
+                              "width": "135px",
                             }
                           }
                         >
@@ -4659,16 +4656,16 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               />
                             }
                             initialValue={null}
-                            rowIndex={1}
+                            showCopyToAll={false}
                           />
                         </td>
                         <td
                           className="data-table-row-section datetime-picker"
                           style={
                             Object {
-                              "minWidth": "126px",
+                              "minWidth": "135px",
                               "textAlign": "left",
-                              "width": "126px",
+                              "width": "135px",
                             }
                           }
                         >
@@ -4677,7 +4674,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             defaultText="No due date"
                             handleClickCopyToAll={[Function]}
                             initialValue={null}
-                            rowIndex={1}
+                            showCopyToAll={false}
                           />
                         </td>
                         <td
@@ -4734,9 +4731,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             className="data-table-row-section tool-and-name-section"
                             style={
                               Object {
-                                "minWidth": "460px",
+                                "minWidth": "442px",
                                 "textAlign": "left",
-                                "width": "460px",
+                                "width": "442px",
                               }
                             }
                           >
@@ -4765,9 +4762,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             className="data-table-row-section datetime-picker"
                             style={
                               Object {
-                                "minWidth": "126px",
+                                "minWidth": "135px",
                                 "textAlign": "left",
-                                "width": "126px",
+                                "width": "135px",
                               }
                             }
                           >
@@ -4783,16 +4780,16 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                 />
                               }
                               initialValue={null}
-                              rowIndex={1}
+                              showCopyToAll={false}
                             />
                           </td>
                           <td
                             className="data-table-row-section datetime-picker"
                             style={
                               Object {
-                                "minWidth": "126px",
+                                "minWidth": "135px",
                                 "textAlign": "left",
-                                "width": "126px",
+                                "width": "135px",
                               }
                             }
                           >
@@ -4801,7 +4798,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               defaultText="No due date"
                               handleClickCopyToAll={[Function]}
                               initialValue={null}
-                              rowIndex={1}
+                              showCopyToAll={false}
                             />
                           </td>
                           <td
@@ -4874,9 +4871,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           key="toolAndNameSection-7543553"
                           style={
                             Object {
-                              "minWidth": "460px",
+                              "minWidth": "442px",
                               "textAlign": "left",
-                              "width": "460px",
+                              "width": "442px",
                             }
                           }
                         >
@@ -4906,9 +4903,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           key="publishDatePicker-7543553"
                           style={
                             Object {
-                              "minWidth": "126px",
+                              "minWidth": "135px",
                               "textAlign": "left",
-                              "width": "126px",
+                              "width": "135px",
                             }
                           }
                         >
@@ -4925,7 +4922,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             }
                             initialValue={null}
                             key="7543553"
-                            rowIndex={1}
+                            showCopyToAll={false}
                           >
                             <div
                               className="date-picker-container"
@@ -4943,7 +4940,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                   closeOnClickOutside={true}
                                   closeOnSelect={false}
                                   closeOnTab={true}
-                                  dateFormat={true}
+                                  dateFormat="MMM D"
                                   initialValue={null}
                                   input={true}
                                   inputProps={Object {}}
@@ -4961,7 +4958,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                   renderView={[Function]}
                                   strictParsing={true}
                                   timeConstraints={Object {}}
-                                  timeFormat={true}
+                                  timeFormat="h:mm a"
                                   utc={true}
                                 >
                                   <OnClickOutside(n)
@@ -5011,22 +5008,25 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                               }
                                             }
                                           >
-                                            <button
+                                            <span
                                               className="interactive-wrapper focus-on-light datetime-input"
-                                              onClick={[Function]}
-                                              type="button"
                                             >
-                                              <span
-                                                className="text"
-                                              >
-                                                Right away
-                                              </span>
+                                              <input
+                                                className="form-control"
+                                                onChange={[Function]}
+                                                onClick={[Function]}
+                                                onFocus={[Function]}
+                                                onKeyDown={[Function]}
+                                                placeholder="Right away"
+                                                type="text"
+                                                value=""
+                                              />
                                               <img
                                                 alt="dropdown indicator"
                                                 className="dropdown-indicator"
                                                 src="https://assets.quill.org/images/icons/dropdown.svg"
                                               />
-                                            </button>
+                                            </span>
                                           </DatetimeInput>
                                         </div>
                                         <div
@@ -5038,7 +5038,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                             navigate={[Function]}
                                             renderDay={[Function]}
                                             showView={[Function]}
-                                            timeFormat="h:mm A"
+                                            timeFormat="h:mm a"
                                             updateDate={[Function]}
                                             viewDate={"2022-11-10T00:00:00.000Z"}
                                           >
@@ -5584,7 +5584,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                                       colSpan={7}
                                                       onClick={[Function]}
                                                     >
-                                                      12:00 AM
+                                                      12:00 am
                                                     </td>
                                                   </tr>
                                                 </tfoot>
@@ -5605,9 +5605,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           key="dueDatePicker-7543553"
                           style={
                             Object {
-                              "minWidth": "126px",
+                              "minWidth": "135px",
                               "textAlign": "left",
-                              "width": "126px",
+                              "width": "135px",
                             }
                           }
                         >
@@ -5617,7 +5617,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             handleClickCopyToAll={[Function]}
                             initialValue={null}
                             key="7543553"
-                            rowIndex={1}
+                            showCopyToAll={false}
                           >
                             <div
                               className="date-picker-container"
@@ -5630,7 +5630,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                   closeOnClickOutside={true}
                                   closeOnSelect={false}
                                   closeOnTab={true}
-                                  dateFormat={true}
+                                  dateFormat="MMM D"
                                   initialValue={null}
                                   input={true}
                                   inputProps={Object {}}
@@ -5648,7 +5648,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                   renderView={[Function]}
                                   strictParsing={true}
                                   timeConstraints={Object {}}
-                                  timeFormat={true}
+                                  timeFormat="h:mm a"
                                   utc={true}
                                 >
                                   <OnClickOutside(n)
@@ -5698,22 +5698,25 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                               }
                                             }
                                           >
-                                            <button
+                                            <span
                                               className="interactive-wrapper focus-on-light datetime-input"
-                                              onClick={[Function]}
-                                              type="button"
                                             >
-                                              <span
-                                                className="text"
-                                              >
-                                                No due date
-                                              </span>
+                                              <input
+                                                className="form-control"
+                                                onChange={[Function]}
+                                                onClick={[Function]}
+                                                onFocus={[Function]}
+                                                onKeyDown={[Function]}
+                                                placeholder="No due date"
+                                                type="text"
+                                                value=""
+                                              />
                                               <img
                                                 alt="dropdown indicator"
                                                 className="dropdown-indicator"
                                                 src="https://assets.quill.org/images/icons/dropdown.svg"
                                               />
-                                            </button>
+                                            </span>
                                           </DatetimeInput>
                                         </div>
                                         <div
@@ -5725,7 +5728,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                             navigate={[Function]}
                                             renderDay={[Function]}
                                             showView={[Function]}
-                                            timeFormat="h:mm A"
+                                            timeFormat="h:mm a"
                                             updateDate={[Function]}
                                             viewDate={"2022-11-10T00:00:00.000Z"}
                                           >
@@ -6271,7 +6274,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                                       colSpan={7}
                                                       onClick={[Function]}
                                                     >
-                                                      12:00 AM
+                                                      12:00 am
                                                     </td>
                                                   </tr>
                                                 </tfoot>
@@ -6345,9 +6348,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           className="data-table-row-section tool-and-name-section"
                           style={
                             Object {
-                              "minWidth": "460px",
+                              "minWidth": "442px",
                               "textAlign": "left",
-                              "width": "460px",
+                              "width": "442px",
                             }
                           }
                         >
@@ -6376,9 +6379,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           className="data-table-row-section datetime-picker"
                           style={
                             Object {
-                              "minWidth": "126px",
+                              "minWidth": "135px",
                               "textAlign": "left",
-                              "width": "126px",
+                              "width": "135px",
                             }
                           }
                         >
@@ -6394,16 +6397,16 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               />
                             }
                             initialValue={null}
-                            rowIndex={2}
+                            showCopyToAll={false}
                           />
                         </td>
                         <td
                           className="data-table-row-section datetime-picker"
                           style={
                             Object {
-                              "minWidth": "126px",
+                              "minWidth": "135px",
                               "textAlign": "left",
-                              "width": "126px",
+                              "width": "135px",
                             }
                           }
                         >
@@ -6412,7 +6415,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             defaultText="No due date"
                             handleClickCopyToAll={[Function]}
                             initialValue={null}
-                            rowIndex={2}
+                            showCopyToAll={false}
                           />
                         </td>
                         <td
@@ -6469,9 +6472,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             className="data-table-row-section tool-and-name-section"
                             style={
                               Object {
-                                "minWidth": "460px",
+                                "minWidth": "442px",
                                 "textAlign": "left",
-                                "width": "460px",
+                                "width": "442px",
                               }
                             }
                           >
@@ -6500,9 +6503,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             className="data-table-row-section datetime-picker"
                             style={
                               Object {
-                                "minWidth": "126px",
+                                "minWidth": "135px",
                                 "textAlign": "left",
-                                "width": "126px",
+                                "width": "135px",
                               }
                             }
                           >
@@ -6518,16 +6521,16 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                 />
                               }
                               initialValue={null}
-                              rowIndex={2}
+                              showCopyToAll={false}
                             />
                           </td>
                           <td
                             className="data-table-row-section datetime-picker"
                             style={
                               Object {
-                                "minWidth": "126px",
+                                "minWidth": "135px",
                                 "textAlign": "left",
-                                "width": "126px",
+                                "width": "135px",
                               }
                             }
                           >
@@ -6536,7 +6539,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               defaultText="No due date"
                               handleClickCopyToAll={[Function]}
                               initialValue={null}
-                              rowIndex={2}
+                              showCopyToAll={false}
                             />
                           </td>
                           <td
@@ -6609,9 +6612,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           key="toolAndNameSection-7543554"
                           style={
                             Object {
-                              "minWidth": "460px",
+                              "minWidth": "442px",
                               "textAlign": "left",
-                              "width": "460px",
+                              "width": "442px",
                             }
                           }
                         >
@@ -6641,9 +6644,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           key="publishDatePicker-7543554"
                           style={
                             Object {
-                              "minWidth": "126px",
+                              "minWidth": "135px",
                               "textAlign": "left",
-                              "width": "126px",
+                              "width": "135px",
                             }
                           }
                         >
@@ -6660,7 +6663,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             }
                             initialValue={null}
                             key="7543554"
-                            rowIndex={2}
+                            showCopyToAll={false}
                           >
                             <div
                               className="date-picker-container"
@@ -6678,7 +6681,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                   closeOnClickOutside={true}
                                   closeOnSelect={false}
                                   closeOnTab={true}
-                                  dateFormat={true}
+                                  dateFormat="MMM D"
                                   initialValue={null}
                                   input={true}
                                   inputProps={Object {}}
@@ -6696,7 +6699,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                   renderView={[Function]}
                                   strictParsing={true}
                                   timeConstraints={Object {}}
-                                  timeFormat={true}
+                                  timeFormat="h:mm a"
                                   utc={true}
                                 >
                                   <OnClickOutside(n)
@@ -6746,22 +6749,25 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                               }
                                             }
                                           >
-                                            <button
+                                            <span
                                               className="interactive-wrapper focus-on-light datetime-input"
-                                              onClick={[Function]}
-                                              type="button"
                                             >
-                                              <span
-                                                className="text"
-                                              >
-                                                Right away
-                                              </span>
+                                              <input
+                                                className="form-control"
+                                                onChange={[Function]}
+                                                onClick={[Function]}
+                                                onFocus={[Function]}
+                                                onKeyDown={[Function]}
+                                                placeholder="Right away"
+                                                type="text"
+                                                value=""
+                                              />
                                               <img
                                                 alt="dropdown indicator"
                                                 className="dropdown-indicator"
                                                 src="https://assets.quill.org/images/icons/dropdown.svg"
                                               />
-                                            </button>
+                                            </span>
                                           </DatetimeInput>
                                         </div>
                                         <div
@@ -6773,7 +6779,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                             navigate={[Function]}
                                             renderDay={[Function]}
                                             showView={[Function]}
-                                            timeFormat="h:mm A"
+                                            timeFormat="h:mm a"
                                             updateDate={[Function]}
                                             viewDate={"2022-11-10T00:00:00.000Z"}
                                           >
@@ -7319,7 +7325,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                                       colSpan={7}
                                                       onClick={[Function]}
                                                     >
-                                                      12:00 AM
+                                                      12:00 am
                                                     </td>
                                                   </tr>
                                                 </tfoot>
@@ -7340,9 +7346,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           key="dueDatePicker-7543554"
                           style={
                             Object {
-                              "minWidth": "126px",
+                              "minWidth": "135px",
                               "textAlign": "left",
-                              "width": "126px",
+                              "width": "135px",
                             }
                           }
                         >
@@ -7352,7 +7358,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             handleClickCopyToAll={[Function]}
                             initialValue={null}
                             key="7543554"
-                            rowIndex={2}
+                            showCopyToAll={false}
                           >
                             <div
                               className="date-picker-container"
@@ -7365,7 +7371,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                   closeOnClickOutside={true}
                                   closeOnSelect={false}
                                   closeOnTab={true}
-                                  dateFormat={true}
+                                  dateFormat="MMM D"
                                   initialValue={null}
                                   input={true}
                                   inputProps={Object {}}
@@ -7383,7 +7389,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                   renderView={[Function]}
                                   strictParsing={true}
                                   timeConstraints={Object {}}
-                                  timeFormat={true}
+                                  timeFormat="h:mm a"
                                   utc={true}
                                 >
                                   <OnClickOutside(n)
@@ -7433,22 +7439,25 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                               }
                                             }
                                           >
-                                            <button
+                                            <span
                                               className="interactive-wrapper focus-on-light datetime-input"
-                                              onClick={[Function]}
-                                              type="button"
                                             >
-                                              <span
-                                                className="text"
-                                              >
-                                                No due date
-                                              </span>
+                                              <input
+                                                className="form-control"
+                                                onChange={[Function]}
+                                                onClick={[Function]}
+                                                onFocus={[Function]}
+                                                onKeyDown={[Function]}
+                                                placeholder="No due date"
+                                                type="text"
+                                                value=""
+                                              />
                                               <img
                                                 alt="dropdown indicator"
                                                 className="dropdown-indicator"
                                                 src="https://assets.quill.org/images/icons/dropdown.svg"
                                               />
-                                            </button>
+                                            </span>
                                           </DatetimeInput>
                                         </div>
                                         <div
@@ -7460,7 +7469,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                             navigate={[Function]}
                                             renderDay={[Function]}
                                             showView={[Function]}
-                                            timeFormat="h:mm A"
+                                            timeFormat="h:mm a"
                                             updateDate={[Function]}
                                             viewDate={"2022-11-10T00:00:00.000Z"}
                                           >
@@ -8006,7 +8015,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                                       colSpan={7}
                                                       onClick={[Function]}
                                                     >
-                                                      12:00 AM
+                                                      12:00 am
                                                     </td>
                                                   </tr>
                                                 </tfoot>
@@ -8080,9 +8089,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           className="data-table-row-section tool-and-name-section"
                           style={
                             Object {
-                              "minWidth": "460px",
+                              "minWidth": "442px",
                               "textAlign": "left",
-                              "width": "460px",
+                              "width": "442px",
                             }
                           }
                         >
@@ -8111,9 +8120,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           className="data-table-row-section datetime-picker"
                           style={
                             Object {
-                              "minWidth": "126px",
+                              "minWidth": "135px",
                               "textAlign": "left",
-                              "width": "126px",
+                              "width": "135px",
                             }
                           }
                         >
@@ -8129,16 +8138,16 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               />
                             }
                             initialValue={null}
-                            rowIndex={3}
+                            showCopyToAll={false}
                           />
                         </td>
                         <td
                           className="data-table-row-section datetime-picker"
                           style={
                             Object {
-                              "minWidth": "126px",
+                              "minWidth": "135px",
                               "textAlign": "left",
-                              "width": "126px",
+                              "width": "135px",
                             }
                           }
                         >
@@ -8147,7 +8156,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             defaultText="No due date"
                             handleClickCopyToAll={[Function]}
                             initialValue={null}
-                            rowIndex={3}
+                            showCopyToAll={false}
                           />
                         </td>
                         <td
@@ -8204,9 +8213,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             className="data-table-row-section tool-and-name-section"
                             style={
                               Object {
-                                "minWidth": "460px",
+                                "minWidth": "442px",
                                 "textAlign": "left",
-                                "width": "460px",
+                                "width": "442px",
                               }
                             }
                           >
@@ -8235,9 +8244,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             className="data-table-row-section datetime-picker"
                             style={
                               Object {
-                                "minWidth": "126px",
+                                "minWidth": "135px",
                                 "textAlign": "left",
-                                "width": "126px",
+                                "width": "135px",
                               }
                             }
                           >
@@ -8253,16 +8262,16 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                 />
                               }
                               initialValue={null}
-                              rowIndex={3}
+                              showCopyToAll={false}
                             />
                           </td>
                           <td
                             className="data-table-row-section datetime-picker"
                             style={
                               Object {
-                                "minWidth": "126px",
+                                "minWidth": "135px",
                                 "textAlign": "left",
-                                "width": "126px",
+                                "width": "135px",
                               }
                             }
                           >
@@ -8271,7 +8280,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               defaultText="No due date"
                               handleClickCopyToAll={[Function]}
                               initialValue={null}
-                              rowIndex={3}
+                              showCopyToAll={false}
                             />
                           </td>
                           <td
@@ -8344,9 +8353,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           key="toolAndNameSection-7543555"
                           style={
                             Object {
-                              "minWidth": "460px",
+                              "minWidth": "442px",
                               "textAlign": "left",
-                              "width": "460px",
+                              "width": "442px",
                             }
                           }
                         >
@@ -8376,9 +8385,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           key="publishDatePicker-7543555"
                           style={
                             Object {
-                              "minWidth": "126px",
+                              "minWidth": "135px",
                               "textAlign": "left",
-                              "width": "126px",
+                              "width": "135px",
                             }
                           }
                         >
@@ -8395,7 +8404,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             }
                             initialValue={null}
                             key="7543555"
-                            rowIndex={3}
+                            showCopyToAll={false}
                           >
                             <div
                               className="date-picker-container"
@@ -8413,7 +8422,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                   closeOnClickOutside={true}
                                   closeOnSelect={false}
                                   closeOnTab={true}
-                                  dateFormat={true}
+                                  dateFormat="MMM D"
                                   initialValue={null}
                                   input={true}
                                   inputProps={Object {}}
@@ -8431,7 +8440,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                   renderView={[Function]}
                                   strictParsing={true}
                                   timeConstraints={Object {}}
-                                  timeFormat={true}
+                                  timeFormat="h:mm a"
                                   utc={true}
                                 >
                                   <OnClickOutside(n)
@@ -8481,22 +8490,25 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                               }
                                             }
                                           >
-                                            <button
+                                            <span
                                               className="interactive-wrapper focus-on-light datetime-input"
-                                              onClick={[Function]}
-                                              type="button"
                                             >
-                                              <span
-                                                className="text"
-                                              >
-                                                Right away
-                                              </span>
+                                              <input
+                                                className="form-control"
+                                                onChange={[Function]}
+                                                onClick={[Function]}
+                                                onFocus={[Function]}
+                                                onKeyDown={[Function]}
+                                                placeholder="Right away"
+                                                type="text"
+                                                value=""
+                                              />
                                               <img
                                                 alt="dropdown indicator"
                                                 className="dropdown-indicator"
                                                 src="https://assets.quill.org/images/icons/dropdown.svg"
                                               />
-                                            </button>
+                                            </span>
                                           </DatetimeInput>
                                         </div>
                                         <div
@@ -8508,7 +8520,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                             navigate={[Function]}
                                             renderDay={[Function]}
                                             showView={[Function]}
-                                            timeFormat="h:mm A"
+                                            timeFormat="h:mm a"
                                             updateDate={[Function]}
                                             viewDate={"2022-11-10T00:00:00.000Z"}
                                           >
@@ -9054,7 +9066,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                                       colSpan={7}
                                                       onClick={[Function]}
                                                     >
-                                                      12:00 AM
+                                                      12:00 am
                                                     </td>
                                                   </tr>
                                                 </tfoot>
@@ -9075,9 +9087,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           key="dueDatePicker-7543555"
                           style={
                             Object {
-                              "minWidth": "126px",
+                              "minWidth": "135px",
                               "textAlign": "left",
-                              "width": "126px",
+                              "width": "135px",
                             }
                           }
                         >
@@ -9087,7 +9099,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             handleClickCopyToAll={[Function]}
                             initialValue={null}
                             key="7543555"
-                            rowIndex={3}
+                            showCopyToAll={false}
                           >
                             <div
                               className="date-picker-container"
@@ -9100,7 +9112,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                   closeOnClickOutside={true}
                                   closeOnSelect={false}
                                   closeOnTab={true}
-                                  dateFormat={true}
+                                  dateFormat="MMM D"
                                   initialValue={null}
                                   input={true}
                                   inputProps={Object {}}
@@ -9118,7 +9130,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                   renderView={[Function]}
                                   strictParsing={true}
                                   timeConstraints={Object {}}
-                                  timeFormat={true}
+                                  timeFormat="h:mm a"
                                   utc={true}
                                 >
                                   <OnClickOutside(n)
@@ -9168,22 +9180,25 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                               }
                                             }
                                           >
-                                            <button
+                                            <span
                                               className="interactive-wrapper focus-on-light datetime-input"
-                                              onClick={[Function]}
-                                              type="button"
                                             >
-                                              <span
-                                                className="text"
-                                              >
-                                                No due date
-                                              </span>
+                                              <input
+                                                className="form-control"
+                                                onChange={[Function]}
+                                                onClick={[Function]}
+                                                onFocus={[Function]}
+                                                onKeyDown={[Function]}
+                                                placeholder="No due date"
+                                                type="text"
+                                                value=""
+                                              />
                                               <img
                                                 alt="dropdown indicator"
                                                 className="dropdown-indicator"
                                                 src="https://assets.quill.org/images/icons/dropdown.svg"
                                               />
-                                            </button>
+                                            </span>
                                           </DatetimeInput>
                                         </div>
                                         <div
@@ -9195,7 +9210,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                             navigate={[Function]}
                                             renderDay={[Function]}
                                             showView={[Function]}
-                                            timeFormat="h:mm A"
+                                            timeFormat="h:mm a"
                                             updateDate={[Function]}
                                             viewDate={"2022-11-10T00:00:00.000Z"}
                                           >
@@ -9741,7 +9756,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                                       colSpan={7}
                                                       onClick={[Function]}
                                                     >
-                                                      12:00 AM
+                                                      12:00 am
                                                     </td>
                                                   </tr>
                                                 </tfoot>
@@ -9815,9 +9830,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           className="data-table-row-section tool-and-name-section"
                           style={
                             Object {
-                              "minWidth": "460px",
+                              "minWidth": "442px",
                               "textAlign": "left",
-                              "width": "460px",
+                              "width": "442px",
                             }
                           }
                         >
@@ -9846,9 +9861,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           className="data-table-row-section datetime-picker"
                           style={
                             Object {
-                              "minWidth": "126px",
+                              "minWidth": "135px",
                               "textAlign": "left",
-                              "width": "126px",
+                              "width": "135px",
                             }
                           }
                         >
@@ -9864,16 +9879,16 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               />
                             }
                             initialValue={null}
-                            rowIndex={4}
+                            showCopyToAll={false}
                           />
                         </td>
                         <td
                           className="data-table-row-section datetime-picker"
                           style={
                             Object {
-                              "minWidth": "126px",
+                              "minWidth": "135px",
                               "textAlign": "left",
-                              "width": "126px",
+                              "width": "135px",
                             }
                           }
                         >
@@ -9882,7 +9897,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             defaultText="No due date"
                             handleClickCopyToAll={[Function]}
                             initialValue={null}
-                            rowIndex={4}
+                            showCopyToAll={false}
                           />
                         </td>
                         <td
@@ -9939,9 +9954,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             className="data-table-row-section tool-and-name-section"
                             style={
                               Object {
-                                "minWidth": "460px",
+                                "minWidth": "442px",
                                 "textAlign": "left",
-                                "width": "460px",
+                                "width": "442px",
                               }
                             }
                           >
@@ -9970,9 +9985,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             className="data-table-row-section datetime-picker"
                             style={
                               Object {
-                                "minWidth": "126px",
+                                "minWidth": "135px",
                                 "textAlign": "left",
-                                "width": "126px",
+                                "width": "135px",
                               }
                             }
                           >
@@ -9988,16 +10003,16 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                 />
                               }
                               initialValue={null}
-                              rowIndex={4}
+                              showCopyToAll={false}
                             />
                           </td>
                           <td
                             className="data-table-row-section datetime-picker"
                             style={
                               Object {
-                                "minWidth": "126px",
+                                "minWidth": "135px",
                                 "textAlign": "left",
-                                "width": "126px",
+                                "width": "135px",
                               }
                             }
                           >
@@ -10006,7 +10021,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                               defaultText="No due date"
                               handleClickCopyToAll={[Function]}
                               initialValue={null}
-                              rowIndex={4}
+                              showCopyToAll={false}
                             />
                           </td>
                           <td
@@ -10079,9 +10094,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           key="toolAndNameSection-7543556"
                           style={
                             Object {
-                              "minWidth": "460px",
+                              "minWidth": "442px",
                               "textAlign": "left",
-                              "width": "460px",
+                              "width": "442px",
                             }
                           }
                         >
@@ -10111,9 +10126,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           key="publishDatePicker-7543556"
                           style={
                             Object {
-                              "minWidth": "126px",
+                              "minWidth": "135px",
                               "textAlign": "left",
-                              "width": "126px",
+                              "width": "135px",
                             }
                           }
                         >
@@ -10130,7 +10145,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             }
                             initialValue={null}
                             key="7543556"
-                            rowIndex={4}
+                            showCopyToAll={false}
                           >
                             <div
                               className="date-picker-container"
@@ -10148,7 +10163,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                   closeOnClickOutside={true}
                                   closeOnSelect={false}
                                   closeOnTab={true}
-                                  dateFormat={true}
+                                  dateFormat="MMM D"
                                   initialValue={null}
                                   input={true}
                                   inputProps={Object {}}
@@ -10166,7 +10181,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                   renderView={[Function]}
                                   strictParsing={true}
                                   timeConstraints={Object {}}
-                                  timeFormat={true}
+                                  timeFormat="h:mm a"
                                   utc={true}
                                 >
                                   <OnClickOutside(n)
@@ -10216,22 +10231,25 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                               }
                                             }
                                           >
-                                            <button
+                                            <span
                                               className="interactive-wrapper focus-on-light datetime-input"
-                                              onClick={[Function]}
-                                              type="button"
                                             >
-                                              <span
-                                                className="text"
-                                              >
-                                                Right away
-                                              </span>
+                                              <input
+                                                className="form-control"
+                                                onChange={[Function]}
+                                                onClick={[Function]}
+                                                onFocus={[Function]}
+                                                onKeyDown={[Function]}
+                                                placeholder="Right away"
+                                                type="text"
+                                                value=""
+                                              />
                                               <img
                                                 alt="dropdown indicator"
                                                 className="dropdown-indicator"
                                                 src="https://assets.quill.org/images/icons/dropdown.svg"
                                               />
-                                            </button>
+                                            </span>
                                           </DatetimeInput>
                                         </div>
                                         <div
@@ -10243,7 +10261,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                             navigate={[Function]}
                                             renderDay={[Function]}
                                             showView={[Function]}
-                                            timeFormat="h:mm A"
+                                            timeFormat="h:mm a"
                                             updateDate={[Function]}
                                             viewDate={"2022-11-10T00:00:00.000Z"}
                                           >
@@ -10789,7 +10807,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                                       colSpan={7}
                                                       onClick={[Function]}
                                                     >
-                                                      12:00 AM
+                                                      12:00 am
                                                     </td>
                                                   </tr>
                                                 </tfoot>
@@ -10810,9 +10828,9 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                           key="dueDatePicker-7543556"
                           style={
                             Object {
-                              "minWidth": "126px",
+                              "minWidth": "135px",
                               "textAlign": "left",
-                              "width": "126px",
+                              "width": "135px",
                             }
                           }
                         >
@@ -10822,7 +10840,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                             handleClickCopyToAll={[Function]}
                             initialValue={null}
                             key="7543556"
-                            rowIndex={4}
+                            showCopyToAll={false}
                           >
                             <div
                               className="date-picker-container"
@@ -10835,7 +10853,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                   closeOnClickOutside={true}
                                   closeOnSelect={false}
                                   closeOnTab={true}
-                                  dateFormat={true}
+                                  dateFormat="MMM D"
                                   initialValue={null}
                                   input={true}
                                   inputProps={Object {}}
@@ -10853,7 +10871,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                   renderView={[Function]}
                                   strictParsing={true}
                                   timeConstraints={Object {}}
-                                  timeFormat={true}
+                                  timeFormat="h:mm a"
                                   utc={true}
                                 >
                                   <OnClickOutside(n)
@@ -10903,22 +10921,25 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                               }
                                             }
                                           >
-                                            <button
+                                            <span
                                               className="interactive-wrapper focus-on-light datetime-input"
-                                              onClick={[Function]}
-                                              type="button"
                                             >
-                                              <span
-                                                className="text"
-                                              >
-                                                No due date
-                                              </span>
+                                              <input
+                                                className="form-control"
+                                                onChange={[Function]}
+                                                onClick={[Function]}
+                                                onFocus={[Function]}
+                                                onKeyDown={[Function]}
+                                                placeholder="No due date"
+                                                type="text"
+                                                value=""
+                                              />
                                               <img
                                                 alt="dropdown indicator"
                                                 className="dropdown-indicator"
                                                 src="https://assets.quill.org/images/icons/dropdown.svg"
                                               />
-                                            </button>
+                                            </span>
                                           </DatetimeInput>
                                         </div>
                                         <div
@@ -10930,7 +10951,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                             navigate={[Function]}
                                             renderDay={[Function]}
                                             showView={[Function]}
-                                            timeFormat="h:mm A"
+                                            timeFormat="h:mm a"
                                             updateDate={[Function]}
                                             viewDate={"2022-11-10T00:00:00.000Z"}
                                           >
@@ -11476,7 +11497,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                                       colSpan={7}
                                                       onClick={[Function]}
                                                     >
-                                                      12:00 AM
+                                                      12:00 am
                                                     </td>
                                                   </tr>
                                                 </tfoot>
@@ -11550,7 +11571,7 @@ exports[`ActivityTable component renders if the current user did not create the 
         "41" => Object {
           "activityClassificationId": 1,
           "activityId": 41,
-          "className": "",
+          "className": " show-copy-to-all",
           "classroomId": 484154,
           "created_at": "1602619968.81477",
           "cuId": 2898054,
@@ -12033,10 +12054,7 @@ exports[`ActivityTable component renders if the current user did not create the 
               <span
                 className="publish-date-header"
               >
-                Publish date 
-                <span>
-                  (optional)
-                </span>
+                Publish date
               </span>
             }
           />,
@@ -12079,7 +12097,7 @@ exports[`ActivityTable component renders if the current user did not create the 
         Object {
           "activityClassificationId": 1,
           "activityId": 41,
-          "className": "",
+          "className": " show-copy-to-all",
           "classroomId": 484154,
           "created_at": "1602619968.81477",
           "cuId": 2898054,
@@ -12558,10 +12576,7 @@ exports[`ActivityTable component renders if the current user did not create the 
               <span
                 className="publish-date-header"
               >
-                Publish date 
-                <span>
-                  (optional)
-                </span>
+                Publish date
               </span>
             }
           >
@@ -12584,10 +12599,7 @@ exports[`ActivityTable component renders if the current user did not create the 
                 <span
                   className="publish-date-header"
                 >
-                  Publish date 
-                  <span>
-                    (optional)
-                  </span>
+                  Publish date
                 </span>
               </span>
               <span
@@ -12678,7 +12690,7 @@ exports[`ActivityTable component renders if the current user did not create the 
         className="data-table-body"
       >
         <tr
-          className="data-table-row  "
+          className="data-table-row   show-copy-to-all"
           key="7543506"
         >
           <td

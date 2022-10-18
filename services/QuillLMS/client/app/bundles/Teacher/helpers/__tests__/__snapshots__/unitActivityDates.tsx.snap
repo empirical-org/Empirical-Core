@@ -20,7 +20,7 @@ exports[`DatePickerContainer component renders when there is an initial value 1`
         closeOnClickOutside={true}
         closeOnSelect={false}
         closeOnTab={true}
-        dateFormat={true}
+        dateFormat="MMM D"
         initialValue={"2022-11-10T05:00:00.000Z"}
         input={true}
         inputProps={Object {}}
@@ -38,7 +38,7 @@ exports[`DatePickerContainer component renders when there is an initial value 1`
         renderView={[Function]}
         strictParsing={true}
         timeConstraints={Object {}}
-        timeFormat={true}
+        timeFormat="h:mm a"
         utc={true}
       >
         <OnClickOutside(n)
@@ -84,26 +84,29 @@ exports[`DatePickerContainer component renders when there is an initial value 1`
                       "onFocus": [Function],
                       "onKeyDown": [Function],
                       "type": "text",
-                      "value": "11/10/2022 5:00 AM",
+                      "value": "Nov 10 5:00 am",
                     }
                   }
                 >
-                  <button
+                  <span
                     className="interactive-wrapper focus-on-light datetime-input"
-                    onClick={[Function]}
-                    type="button"
                   >
-                    <span
-                      className="text"
-                    >
-                      Nov 10, 5am
-                    </span>
+                    <input
+                      className="form-control"
+                      onChange={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      placeholder="No date selected"
+                      type="text"
+                      value="Nov 10 5:00 am"
+                    />
                     <img
                       alt="dropdown indicator"
                       className="dropdown-indicator"
                       src="https://assets.quill.org/images/icons/dropdown.svg"
                     />
-                  </button>
+                  </span>
                 </DatetimeInput>
               </div>
               <div
@@ -116,7 +119,7 @@ exports[`DatePickerContainer component renders when there is an initial value 1`
                   renderDay={[Function]}
                   selectedDate={"2022-11-10T05:00:00.000Z"}
                   showView={[Function]}
-                  timeFormat="h:mm A"
+                  timeFormat="h:mm a"
                   updateDate={[Function]}
                   viewDate={"2022-11-10T05:00:00.000Z"}
                 >
@@ -662,7 +665,7 @@ exports[`DatePickerContainer component renders when there is an initial value 1`
                             colSpan={7}
                             onClick={[Function]}
                           >
-                            5:00 AM
+                            5:00 am
                           </td>
                         </tr>
                       </tfoot>
@@ -675,23 +678,6 @@ exports[`DatePickerContainer component renders when there is an initial value 1`
         </OnClickOutside(n)>
       </n>
     </div>
-    <CopyToAllButton
-      handleClickCopyToAll={[Function]}
-    >
-      <button
-        className="interactive-wrapper focus-on-light copy-to-all-button"
-        onClick={[Function]}
-        type="button"
-      >
-        <img
-          alt="Two identical rectangles, one on top of the other"
-          src="undefined/images/icons/copy_icon.svg"
-        />
-        <span>
-          Copy to all
-        </span>
-      </button>
-    </CopyToAllButton>
   </div>
 </DatePickerContainer>
 `;
@@ -716,7 +702,7 @@ exports[`DatePickerContainer component renders when there is no initial value 1`
         closeOnClickOutside={true}
         closeOnSelect={false}
         closeOnTab={true}
-        dateFormat={true}
+        dateFormat="MMM D"
         initialValue={null}
         input={true}
         inputProps={Object {}}
@@ -734,7 +720,7 @@ exports[`DatePickerContainer component renders when there is no initial value 1`
         renderView={[Function]}
         strictParsing={true}
         timeConstraints={Object {}}
-        timeFormat={true}
+        timeFormat="h:mm a"
         utc={true}
       >
         <OnClickOutside(n)
@@ -784,22 +770,25 @@ exports[`DatePickerContainer component renders when there is no initial value 1`
                     }
                   }
                 >
-                  <button
+                  <span
                     className="interactive-wrapper focus-on-light datetime-input"
-                    onClick={[Function]}
-                    type="button"
                   >
-                    <span
-                      className="text"
-                    >
-                      No date selected
-                    </span>
+                    <input
+                      className="form-control"
+                      onChange={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      placeholder="No date selected"
+                      type="text"
+                      value=""
+                    />
                     <img
                       alt="dropdown indicator"
                       className="dropdown-indicator"
                       src="https://assets.quill.org/images/icons/dropdown.svg"
                     />
-                  </button>
+                  </span>
                 </DatetimeInput>
               </div>
               <div
@@ -811,7 +800,7 @@ exports[`DatePickerContainer component renders when there is no initial value 1`
                   navigate={[Function]}
                   renderDay={[Function]}
                   showView={[Function]}
-                  timeFormat="h:mm A"
+                  timeFormat="h:mm a"
                   updateDate={[Function]}
                   viewDate={"2022-11-10T00:00:00.000Z"}
                 >
@@ -1357,7 +1346,7 @@ exports[`DatePickerContainer component renders when there is no initial value 1`
                             colSpan={7}
                             onClick={[Function]}
                           >
-                            12:00 AM
+                            12:00 am
                           </td>
                         </tr>
                       </tfoot>
@@ -1370,23 +1359,6 @@ exports[`DatePickerContainer component renders when there is no initial value 1`
         </OnClickOutside(n)>
       </n>
     </div>
-    <CopyToAllButton
-      handleClickCopyToAll={[Function]}
-    >
-      <button
-        className="interactive-wrapper focus-on-light copy-to-all-button"
-        onClick={[Function]}
-        type="button"
-      >
-        <img
-          alt="Two identical rectangles, one on top of the other"
-          src="undefined/images/icons/copy_icon.svg"
-        />
-        <span>
-          Copy to all
-        </span>
-      </button>
-    </CopyToAllButton>
   </div>
 </DatePickerContainer>
 `;

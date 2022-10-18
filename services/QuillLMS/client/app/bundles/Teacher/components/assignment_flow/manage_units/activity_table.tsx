@@ -30,18 +30,18 @@ const tableHeaders = (isOwner) => ([
   {
     name: <span className="tool-and-name-header"><span>Tool</span><span>Activity</span></span>,
     attribute: 'toolAndNameSection',
-    width: isOwner ? '460px' : '577px',
+    width: isOwner ? '442px' : '577px',
     rowSectionClassName: 'tool-and-name-section'
   },
   {
     name: (
       <Tooltip
         tooltipText="When you schedule an activity, it is displayed in your dashboard, but it is hidden from a student until the publish date."
-        tooltipTriggerText={<span className="publish-date-header">Publish date <span>(optional)</span></span>}
+        tooltipTriggerText={<span className="publish-date-header">Publish date</span>}
       />
     ),
     attribute: 'publishDatePicker',
-    width: isOwner ? '126px' : '110px',
+    width: isOwner ? '135px' : '110px',
     headerClassName: 'publish-date-header-container',
     rowSectionClassName: 'datetime-picker'
   },
@@ -53,7 +53,7 @@ const tableHeaders = (isOwner) => ([
       />
     ),
     attribute: 'dueDatePicker',
-    width: isOwner ? '126px' : '110px',
+    width: isOwner ? '135px' : '110px',
     headerClassName: isOwner ? 'due-date-header-container' : 'due-date-header-container no-right-margin',
     rowSectionClassName: isOwner ? 'datetime-picker' : 'datetime-picker no-right-margin'
   },
@@ -165,6 +165,8 @@ const ActivityTable = ({ data, onSuccess, isOwner, handleActivityClicked, handle
     let activityDueDatePicker = dueDateInMoment ? formatDateTimeForDisplay(dueDateInMoment) : DUE_DATE_DEFAULT_TEXT
     let activityPublishDatePicker = publishDateInMoment ? formatDateTimeForDisplay(publishDateInMoment) : PUBLISH_DATE_DEFAULT_TEXT
 
+    const showCopyToAll = i === 0 && activityOrder.length > 1
+
     if (isOwner) {
       activityDueDatePicker = (
         <DatePickerContainer
@@ -173,7 +175,7 @@ const ActivityTable = ({ data, onSuccess, isOwner, handleActivityClicked, handle
           handleClickCopyToAll={openCopyDueDateModal}
           initialValue={dueDateInMoment}
           key={dueDateInMoment ? formatDateTimeForDisplay(dueDateInMoment) : activity.uaId}
-          rowIndex={i}
+          showCopyToAll={showCopyToAll}
         />
       )
 
@@ -185,7 +187,7 @@ const ActivityTable = ({ data, onSuccess, isOwner, handleActivityClicked, handle
           icon={activity.scheduled ? scheduledIconImage : publishedIconImage}
           initialValue={publishDateInMoment}
           key={publishDateInMoment ? formatDateTimeForDisplay(publishDateInMoment) : activity.uaId}
-          rowIndex={i}
+          showCopyToAll={showCopyToAll}
         />
       )
     }
@@ -201,6 +203,7 @@ const ActivityTable = ({ data, onSuccess, isOwner, handleActivityClicked, handle
     activity.removable = true
     activity.id = activity.uaId
     activity.className = erroredUnitActivityIds.includes(activity.uaId) ? 'checked' : ''
+    activity.className += showCopyToAll ? ' show-copy-to-all' : ''
     return activity
   }).filter(Boolean)
   return (

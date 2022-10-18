@@ -56,10 +56,7 @@ exports[`ReviewActivities component should render 1`] = `
                 <span
                   className="publish-date-header"
                 >
-                  Publish date 
-                  <span>
-                    (optional)
-                  </span>
+                  Publish date
                 </span>
               }
             />,
@@ -110,7 +107,7 @@ exports[`ReviewActivities component should render 1`] = `
               defaultText="No due date"
               handleClickCopyToAll={[Function]}
               initialValue={"2019-09-25T04:00:00.000Z"}
-              rowIndex={0}
+              showCopyToAll={true}
             />,
             "id": 413,
             "publishDatePicker": <DatePickerContainer
@@ -118,7 +115,7 @@ exports[`ReviewActivities component should render 1`] = `
               defaultText="Right away"
               handleClickCopyToAll={[Function]}
               initialValue={"2019-08-25T04:00:00.000Z"}
-              rowIndex={0}
+              showCopyToAll={true}
             />,
             "removable": true,
             "tool": <Tooltip
@@ -151,7 +148,7 @@ exports[`ReviewActivities component should render 1`] = `
               defaultText="No due date"
               handleClickCopyToAll={[Function]}
               initialValue={null}
-              rowIndex={1}
+              showCopyToAll={false}
             />,
             "id": 654,
             "publishDatePicker": <DatePickerContainer
@@ -159,7 +156,7 @@ exports[`ReviewActivities component should render 1`] = `
               defaultText="Right away"
               handleClickCopyToAll={[Function]}
               initialValue={null}
-              rowIndex={1}
+              showCopyToAll={false}
             />,
             "removable": true,
             "tool": <Tooltip

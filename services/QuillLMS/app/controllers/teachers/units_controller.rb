@@ -255,7 +255,11 @@ class Teachers::UnitsController < ApplicationController
           array_to_json(cu.assigned_student_ids) AS assigned_student_ids,
           COUNT(DISTINCT students_classrooms.id) AS class_size,
           ua.due_date #{user_timezone_offset_string} AS due_date,
-          ua.publish_date #{user_timezone_offset_string} AS publish_date,
+          CASE
+            WHEN ua.publish_date IS NOT NULL
+            THEN ua.publish_date #{user_timezone_offset_string}
+            ELSE ua.created_at #{user_timezone_offset_string}
+          END AS publish_date,
           ua.publish_date >= NOW() AS scheduled,
           state.completed,
           activities.id AS activity_id,

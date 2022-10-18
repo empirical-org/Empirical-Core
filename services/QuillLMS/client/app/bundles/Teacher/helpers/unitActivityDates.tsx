@@ -29,28 +29,27 @@ const CopyToAllButton = ({ handleClickCopyToAll, }) => (
 )
 
 const DatetimeInput = ({ props, defaultText, }) => {
-  const { onClick, value, } = props
-  const valueInMoment = value ? moment.utc(value) : null
-  const buttonText = valueInMoment ? formatDateTimeForDisplay(valueInMoment) : defaultText
   return (
-    <button className="interactive-wrapper focus-on-light datetime-input" onClick={onClick} type="button">
-      <span className="text">{buttonText}</span>
+    <span className="interactive-wrapper focus-on-light datetime-input">
+      <input {...props} placeholder={defaultText} />
       <img alt="dropdown indicator" className="dropdown-indicator" src="https://assets.quill.org/images/icons/dropdown.svg" />
-    </button>
+    </span>
   )
 }
 
-export const DatePickerContainer = ({ initialValue, defaultText, rowIndex, closeFunction, handleClickCopyToAll, icon, }) => {
-  const copyDateToAllButton = rowIndex === 0 ? <CopyToAllButton handleClickCopyToAll={handleClickCopyToAll} /> : ''
+export const DatePickerContainer = ({ initialValue, defaultText, closeFunction, handleClickCopyToAll, icon, showCopyToAll, }) => {
+  const copyDateToAllButton = showCopyToAll ? <CopyToAllButton handleClickCopyToAll={handleClickCopyToAll} /> : ''
 
   return (
     <div className="date-picker-container">
       <div className="icon-and-datetime-picker">
         {icon}
         <Datetime
+          dateFormat="MMM D"
           initialValue={initialValue}
           onClose={closeFunction}
           renderInput={(props) => <DatetimeInput defaultText={defaultText} props={props} />}
+          timeFormat="h:mm a"
           utc={true}
         />
       </div>

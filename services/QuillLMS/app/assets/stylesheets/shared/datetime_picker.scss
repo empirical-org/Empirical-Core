@@ -12,6 +12,17 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    input {
+      padding: 0px;
+      border: none;
+      box-shadow: none;
+      background-color: inherit;
+      height: min-content;
+      color: black;
+      &::placeholder {
+        color: black;
+      }
+    }
   }
 
   .SingleDatePickerInput {
