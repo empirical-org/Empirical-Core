@@ -29,11 +29,12 @@ const CopyToAllButton = ({ handleClickCopyToAll, }) => (
 )
 
 const DatetimeInput = ({ props, defaultText, }) => {
+  const { onClick, } = props
   return (
-    <span className="interactive-wrapper focus-on-light datetime-input">
+    <button className="interactive-wrapper focus-on-light datetime-input" onClick={onClick} type="button">
       <input {...props} placeholder={defaultText} />
       <img alt="dropdown indicator" className="dropdown-indicator" src="https://assets.quill.org/images/icons/dropdown.svg" />
-    </span>
+    </button>
   )
 }
 

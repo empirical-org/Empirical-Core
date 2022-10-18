@@ -30,7 +30,7 @@ const tableHeaders = (isOwner) => ([
   {
     name: <span className="tool-and-name-header"><span>Tool</span><span>Activity</span></span>,
     attribute: 'toolAndNameSection',
-    width: isOwner ? '442px' : '577px',
+    width: isOwner ? '437px' : '577px',
     rowSectionClassName: 'tool-and-name-section'
   },
   {
@@ -41,7 +41,7 @@ const tableHeaders = (isOwner) => ([
       />
     ),
     attribute: 'publishDatePicker',
-    width: isOwner ? '135px' : '110px',
+    width: isOwner ? '140px' : '110px',
     headerClassName: 'publish-date-header-container',
     rowSectionClassName: 'datetime-picker'
   },
