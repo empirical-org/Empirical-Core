@@ -118,7 +118,7 @@ describe SessionsController, type: :controller do
 
       it 'should report login failiure' do
         post :login_through_ajax, params: { user: { email: user.email } }, as: :json
-        expect(response.body).to eq({message: 'Did you sign up with Google? If so, please log in with Google using the link above.', type: 'email'}.to_json)
+        expect(response.body).to eq({message: 'Something went wrong verifying your password. Please use the "Forgot password?" link below to reset it.', type: 'email'}.to_json)
       end
     end
 
