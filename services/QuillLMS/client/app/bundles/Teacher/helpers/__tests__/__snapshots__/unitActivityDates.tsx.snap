@@ -22,6 +22,7 @@ exports[`DatePickerContainer component renders when there is an initial value 1`
         closeOnTab={true}
         dateFormat="MMM D"
         initialValue={"2022-11-10T05:00:00.000Z"}
+        initialViewDate={2022-11-10T09:00:00.000Z}
         input={true}
         inputProps={Object {}}
         isValidDate={[Function]}
@@ -88,8 +89,10 @@ exports[`DatePickerContainer component renders when there is an initial value 1`
                     }
                   }
                 >
-                  <span
+                  <button
                     className="interactive-wrapper focus-on-light datetime-input"
+                    onClick={[Function]}
+                    type="button"
                   >
                     <input
                       className="form-control"
@@ -106,7 +109,7 @@ exports[`DatePickerContainer component renders when there is an initial value 1`
                       className="dropdown-indicator"
                       src="https://assets.quill.org/images/icons/dropdown.svg"
                     />
-                  </span>
+                  </button>
                 </DatetimeInput>
               </div>
               <div
@@ -121,7 +124,7 @@ exports[`DatePickerContainer component renders when there is an initial value 1`
                   showView={[Function]}
                   timeFormat="h:mm a"
                   updateDate={[Function]}
-                  viewDate={"2022-11-10T05:00:00.000Z"}
+                  viewDate={"2022-11-10T09:00:00.000Z"}
                 >
                   <div
                     className="rdtDays"
@@ -665,7 +668,7 @@ exports[`DatePickerContainer component renders when there is an initial value 1`
                             colSpan={7}
                             onClick={[Function]}
                           >
-                            5:00 am
+                            9:00 am
                           </td>
                         </tr>
                       </tfoot>
@@ -704,6 +707,7 @@ exports[`DatePickerContainer component renders when there is no initial value 1`
         closeOnTab={true}
         dateFormat="MMM D"
         initialValue={null}
+        initialViewDate={2022-11-10T09:00:00.000Z}
         input={true}
         inputProps={Object {}}
         isValidDate={[Function]}
@@ -770,8 +774,10 @@ exports[`DatePickerContainer component renders when there is no initial value 1`
                     }
                   }
                 >
-                  <span
+                  <button
                     className="interactive-wrapper focus-on-light datetime-input"
+                    onClick={[Function]}
+                    type="button"
                   >
                     <input
                       className="form-control"
@@ -788,7 +794,7 @@ exports[`DatePickerContainer component renders when there is no initial value 1`
                       className="dropdown-indicator"
                       src="https://assets.quill.org/images/icons/dropdown.svg"
                     />
-                  </span>
+                  </button>
                 </DatetimeInput>
               </div>
               <div
@@ -802,7 +808,7 @@ exports[`DatePickerContainer component renders when there is no initial value 1`
                   showView={[Function]}
                   timeFormat="h:mm a"
                   updateDate={[Function]}
-                  viewDate={"2022-11-10T00:00:00.000Z"}
+                  viewDate={"2022-11-10T09:00:00.000Z"}
                 >
                   <div
                     className="rdtDays"
@@ -1346,7 +1352,7 @@ exports[`DatePickerContainer component renders when there is no initial value 1`
                             colSpan={7}
                             onClick={[Function]}
                           >
-                            12:00 am
+                            9:00 am
                           </td>
                         </tr>
                       </tfoot>

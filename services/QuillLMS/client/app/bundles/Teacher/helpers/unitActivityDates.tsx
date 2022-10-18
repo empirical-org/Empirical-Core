@@ -41,6 +41,9 @@ const DatetimeInput = ({ props, defaultText, }) => {
 export const DatePickerContainer = ({ initialValue, defaultText, closeFunction, handleClickCopyToAll, icon, showCopyToAll, }) => {
   const copyDateToAllButton = showCopyToAll ? <CopyToAllButton handleClickCopyToAll={handleClickCopyToAll} /> : ''
 
+  const today = new Date();
+  const todayAtNineInUTC = Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate(), 9, 0, 0);
+
   return (
     <div className="date-picker-container">
       <div className="icon-and-datetime-picker">
@@ -48,6 +51,7 @@ export const DatePickerContainer = ({ initialValue, defaultText, closeFunction, 
         <Datetime
           dateFormat="MMM D"
           initialValue={initialValue}
+          initialViewDate={new Date(todayAtNineInUTC)}
           onClose={closeFunction}
           renderInput={(props) => <DatetimeInput defaultText={defaultText} props={props} />}
           timeFormat="h:mm a"
