@@ -20,6 +20,11 @@ module Evidence
 
       STEM_KEY = '%{stem}'
 
+      # Config for Conjunction alternates
+      # Use a plain 'string' for direct swap of conjunction
+      # e.g. "It is so" => "It is thus"
+      # Use 'Start string %{stem} end string' for more complex forms
+      # e.g. "It is so" => "Because It is thus" via 'Because %{stem} thus'
       CONJUNCTION_SUBS = {
         'so' => ["with the result that", "Because #{STEM_KEY}"],
         'but' => ['but the counter argument is that', "Even though #{STEM_KEY}"],

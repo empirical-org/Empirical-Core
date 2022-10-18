@@ -133,6 +133,27 @@ module Evidence
       end
     end
 
+    describe "#stem_variants_hash" do
+      let(:conjunction) {'thus'}
+      let(:stem) {"It is true, #{conjunction}"}
+
+      let(:conjunction_config) { {conjunction => ['therefore', 'Since %{stem} this is']}}
+
+      before do
+        stub_const("Evidence::Synthetic::SeedDataGenerator::CONJUNCTION_SUBS", conjunction_config)
+        stub_const("Evidence::Synthetic::SeedDataGenerator::CONJUNCTIONS", [conjunction])
+      end
+
+      subject {described_class.new(passage: '', stem: stem, conjunction: conjunction).send(:stem_variants_hash)}
+
+      it "should return hash of conjunctions => stems" do
+        expect(subject.keys).to eq(['thus', 'therefore', 'Since %{stem} this is'])
+        expect(subject['thus']).to eq "It is true, thus"
+        expect(subject['therefore']).to eq "It is true, therefore"
+        expect(subject['Since %{stem} this is']).to eq "Since It is true, this is"
+      end
+    end
+
     describe "#self.csvs_for_activity" do
       let!(:activity) { create(:evidence_activity, title: 'Some Activity Name')}
       let!(:passage) { create(:evidence_passage, activity: activity) }
