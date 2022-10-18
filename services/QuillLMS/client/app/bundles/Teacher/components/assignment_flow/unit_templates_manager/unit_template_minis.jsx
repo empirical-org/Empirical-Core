@@ -8,7 +8,7 @@ import UnitTemplateMinisTable from './unitTemplateMinisTable'
 
 import AssignmentFlowNavigation from '../assignment_flow_navigation.tsx'
 import { DropdownInput } from '../../../../Shared/index'
-import { ACTIVITY_PACK_TYPES, READING_TEXTS, DIAGNOSTIC, WHOLE_CLASS_LESSONS, LANGUAGE_SKILLS, CREATE_YOUR_OWN_ID } from '../assignmentFlowConstants'
+import { ACTIVITY_PACK_TYPES, READING_TEXTS, DIAGNOSTIC, WHOLE_CLASS_LESSONS, LANGUAGE_SKILLS, DAILY_PROOFREADING, CREATE_YOUR_OWN_ID } from '../assignmentFlowConstants'
 
 const ALL = 'All'
 const GRADE_LEVEL_LABELS = ['4th-12th', '6th-12th', '8th-12th', '10th-12th']
@@ -138,33 +138,40 @@ export default class UnitTemplateMinis extends React.Component {
       const readingTextModels = this.getModelCardsByType(models, READING_TEXTS)
       const diagnosticModels = this.getModelCardsByType(models, DIAGNOSTIC)
       const languageSkillsModels = this.getModelCardsByType(models, LANGUAGE_SKILLS)
+      const dailyProofreadingModels = this.getModelCardsByType(models, DAILY_PROOFREADING)
       const wholeClassModels = this.getModelCardsByType(models, WHOLE_CLASS_LESSONS)
       return(
         <React.Fragment>
-          <section className="all-packs-section">
+          {!!readingTextModels.length && <section className="all-packs-section">
             <p className="pack-type-header">{READING_TEXTS}</p>
             <section className="packs-section">
               {readingTextModels}
             </section>
-          </section>
-          <section className="all-packs-section">
+          </section>}
+          {!!diagnosticModels.length && <section className="all-packs-section">
             <p className="pack-type-header">{DIAGNOSTIC}</p>
             <section className="packs-section">
               {diagnosticModels}
             </section>
-          </section>
-          <section className="all-packs-section">
+          </section>}
+          {!!languageSkillsModels.length && <section className="all-packs-section">
             <p className="pack-type-header">{LANGUAGE_SKILLS}</p>
             <section className="packs-section">
               {languageSkillsModels}
             </section>
-          </section>
-          <section className="all-packs-section">
+          </section>}
+          {!!dailyProofreadingModels.length && <section className="all-packs-section">
+            <p className="pack-type-header">{DAILY_PROOFREADING}</p>
+            <section className="packs-section">
+              {dailyProofreadingModels}
+            </section>
+          </section>}
+          {!!wholeClassModels.length && <section className="all-packs-section">
             <p className="pack-type-header">{WHOLE_CLASS_LESSONS}</p>
             <section className="packs-section">
               {wholeClassModels}
             </section>
-          </section>
+          </section>}
         </React.Fragment>
       )
     }
