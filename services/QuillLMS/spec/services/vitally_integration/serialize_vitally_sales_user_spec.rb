@@ -59,6 +59,7 @@ describe 'SerializeVitallySalesUser' do
       email: 'teach@teaching.edu',
       school: school
     )
+    ip_location = create(:ip_location, user: teacher)
 
     teacher_data = SerializeVitallySalesUser.new(teacher).data
 
@@ -81,6 +82,8 @@ describe 'SerializeVitallySalesUser' do
       completed_activities_per_student: 0,
       completed_activities_per_student_this_year: 0,
       frl: 13,
+      ip_city: ip_location.city,
+      ip_state: ip_location.state,
       teacher_link: "https://www.quill.org/cms/users/#{teacher.id}/sign_in",
       city: school.city,
       state: school.state
