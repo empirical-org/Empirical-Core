@@ -958,8 +958,8 @@ CREATE TABLE public.change_logs (
     id integer NOT NULL,
     explanation text,
     action character varying NOT NULL,
-    changed_record_id integer,
     changed_record_type character varying NOT NULL,
+    changed_record_id integer,
     user_id integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
@@ -970,24 +970,10 @@ CREATE TABLE public.change_logs (
 
 
 --
--- Name: chapter_levels; Type: TABLE; Schema: public; Owner: -
+-- Name: change_logs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.chapter_levels (
-    id integer NOT NULL,
-    name character varying,
-    "position" integer,
-    workbook_id integer,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
-);
-
-
---
--- Name: chapter_levels_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.chapter_levels_id_seq
+CREATE SEQUENCE public.change_logs_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -997,48 +983,10 @@ CREATE SEQUENCE public.chapter_levels_id_seq
 
 
 --
--- Name: chapter_levels_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: change_logs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.chapter_levels_id_seq OWNED BY public.chapter_levels.id;
-
-
---
--- Name: chapters; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.chapters (
-    id integer NOT NULL,
-    title character varying,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    workbook_id integer,
-    article_header text,
-    rule_position text,
-    description text,
-    practice_description text,
-    chapter_level_id integer
-);
-
-
---
--- Name: chapters_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.chapters_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: chapters_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.chapters_id_seq OWNED BY public.chapters.id;
+ALTER SEQUENCE public.change_logs_id_seq OWNED BY public.change_logs.id;
 
 
 --
@@ -1114,42 +1062,6 @@ CREATE SEQUENCE public.classroom_activities_id_seq
 --
 
 ALTER SEQUENCE public.classroom_activities_id_seq OWNED BY public.classroom_activities.id;
-
-
---
--- Name: classroom_chapters; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.classroom_chapters (
-    id integer NOT NULL,
-    classcode character varying,
-    chapter_id integer,
-    due_date timestamp without time zone,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    temporary boolean DEFAULT false NOT NULL,
-    classroom_id integer
-);
-
-
---
--- Name: classroom_chapters_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.classroom_chapters_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: classroom_chapters_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.classroom_chapters_id_seq OWNED BY public.classroom_chapters.id;
 
 
 --
@@ -1314,7 +1226,7 @@ CREATE TABLE public.comprehension_activities (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     notes character varying,
-    version smallint DEFAULT 1 NOT NULL
+    version smallint DEFAULT 0 NOT NULL
 );
 
 
@@ -2408,7 +2320,7 @@ CREATE TABLE public.feedback_histories (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     rule_uid character varying,
-    activity_version smallint DEFAULT 1 NOT NULL
+    activity_version smallint DEFAULT 0 NOT NULL
 );
 
 
@@ -2609,73 +2521,6 @@ CREATE SEQUENCE public.firebase_apps_id_seq
 --
 
 ALTER SEQUENCE public.firebase_apps_id_seq OWNED BY public.firebase_apps.id;
-
-
---
--- Name: grammar_rules; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.grammar_rules (
-    id integer NOT NULL,
-    identifier character varying,
-    description text,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    practice_lesson text,
-    author_id integer
-);
-
-
---
--- Name: grammar_rules_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.grammar_rules_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: grammar_rules_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.grammar_rules_id_seq OWNED BY public.grammar_rules.id;
-
-
---
--- Name: grammar_tests; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.grammar_tests (
-    id integer NOT NULL,
-    text text,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
-);
-
-
---
--- Name: grammar_tests_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.grammar_tests_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: grammar_tests_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.grammar_tests_id_seq OWNED BY public.grammar_tests.id;
 
 
 --
@@ -3405,152 +3250,6 @@ ALTER SEQUENCE public.referrer_users_id_seq OWNED BY public.referrer_users.id;
 
 
 --
--- Name: rule_examples; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.rule_examples (
-    id integer NOT NULL,
-    title text,
-    correct boolean DEFAULT false NOT NULL,
-    text text,
-    rule_id integer,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
-);
-
-
---
--- Name: rule_examples_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.rule_examples_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: rule_examples_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.rule_examples_id_seq OWNED BY public.rule_examples.id;
-
-
---
--- Name: rule_question_inputs; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.rule_question_inputs (
-    id integer NOT NULL,
-    step character varying,
-    rule_question_id integer,
-    score_id integer,
-    first_input text,
-    second_input text,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    activity_session_id character varying
-);
-
-
---
--- Name: rule_question_inputs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.rule_question_inputs_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: rule_question_inputs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.rule_question_inputs_id_seq OWNED BY public.rule_question_inputs.id;
-
-
---
--- Name: rule_questions; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.rule_questions (
-    id integer NOT NULL,
-    body text,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    rule_id integer,
-    prompt text,
-    instructions text,
-    hint text
-);
-
-
---
--- Name: rule_questions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.rule_questions_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: rule_questions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.rule_questions_id_seq OWNED BY public.rule_questions.id;
-
-
---
--- Name: rules; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.rules (
-    id integer NOT NULL,
-    name text,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    category_id integer,
-    workbook_id integer DEFAULT 1,
-    description text,
-    classification character varying,
-    uid character varying,
-    flags character varying[] DEFAULT '{}'::character varying[] NOT NULL
-);
-
-
---
--- Name: rules_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.rules_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: rules_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.rules_id_seq OWNED BY public.rules.id;
-
-
---
 -- Name: sales_contacts; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3860,44 +3559,6 @@ CREATE SEQUENCE public.schools_users_id_seq
 --
 
 ALTER SEQUENCE public.schools_users_id_seq OWNED BY public.schools_users.id;
-
-
---
--- Name: scores; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.scores (
-    id integer NOT NULL,
-    user_id integer,
-    classroom_chapter_id integer,
-    completion_date timestamp without time zone,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    missed_rules text,
-    state character varying DEFAULT 'unstarted'::character varying NOT NULL,
-    story_step_input text,
-    grade double precision
-);
-
-
---
--- Name: scores_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.scores_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: scores_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.scores_id_seq OWNED BY public.scores.id;
 
 
 --
@@ -4954,17 +4615,10 @@ ALTER TABLE ONLY public.categories ALTER COLUMN id SET DEFAULT nextval('public.c
 
 
 --
--- Name: chapter_levels id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: change_logs id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.chapter_levels ALTER COLUMN id SET DEFAULT nextval('public.chapter_levels_id_seq'::regclass);
-
-
---
--- Name: chapters id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.chapters ALTER COLUMN id SET DEFAULT nextval('public.chapters_id_seq'::regclass);
+ALTER TABLE ONLY public.change_logs ALTER COLUMN id SET DEFAULT nextval('public.change_logs_id_seq'::regclass);
 
 
 --
@@ -4979,13 +4633,6 @@ ALTER TABLE ONLY public.checkboxes ALTER COLUMN id SET DEFAULT nextval('public.c
 --
 
 ALTER TABLE ONLY public.classroom_activities ALTER COLUMN id SET DEFAULT nextval('public.classroom_activities_id_seq'::regclass);
-
-
---
--- Name: classroom_chapters id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.classroom_chapters ALTER COLUMN id SET DEFAULT nextval('public.classroom_chapters_id_seq'::regclass);
 
 
 --
@@ -5276,20 +4923,6 @@ ALTER TABLE ONLY public.firebase_apps ALTER COLUMN id SET DEFAULT nextval('publi
 
 
 --
--- Name: grammar_rules id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.grammar_rules ALTER COLUMN id SET DEFAULT nextval('public.grammar_rules_id_seq'::regclass);
-
-
---
--- Name: grammar_tests id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.grammar_tests ALTER COLUMN id SET DEFAULT nextval('public.grammar_tests_id_seq'::regclass);
-
-
---
 -- Name: images id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -5437,34 +5070,6 @@ ALTER TABLE ONLY public.referrer_users ALTER COLUMN id SET DEFAULT nextval('publ
 
 
 --
--- Name: rule_examples id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.rule_examples ALTER COLUMN id SET DEFAULT nextval('public.rule_examples_id_seq'::regclass);
-
-
---
--- Name: rule_question_inputs id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.rule_question_inputs ALTER COLUMN id SET DEFAULT nextval('public.rule_question_inputs_id_seq'::regclass);
-
-
---
--- Name: rule_questions id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.rule_questions ALTER COLUMN id SET DEFAULT nextval('public.rule_questions_id_seq'::regclass);
-
-
---
--- Name: rules id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.rules ALTER COLUMN id SET DEFAULT nextval('public.rules_id_seq'::regclass);
-
-
---
 -- Name: sales_contacts id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -5518,13 +5123,6 @@ ALTER TABLE ONLY public.schools_admins ALTER COLUMN id SET DEFAULT nextval('publ
 --
 
 ALTER TABLE ONLY public.schools_users ALTER COLUMN id SET DEFAULT nextval('public.schools_users_id_seq'::regclass);
-
-
---
--- Name: scores id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.scores ALTER COLUMN id SET DEFAULT nextval('public.scores_id_seq'::regclass);
 
 
 --
@@ -5878,19 +5476,11 @@ ALTER TABLE ONLY public.categories
 
 
 --
--- Name: chapter_levels chapter_levels_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: change_logs change_logs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.chapter_levels
-    ADD CONSTRAINT chapter_levels_pkey PRIMARY KEY (id);
-
-
---
--- Name: chapters chapters_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.chapters
-    ADD CONSTRAINT chapters_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.change_logs
+    ADD CONSTRAINT change_logs_pkey PRIMARY KEY (id);
 
 
 --
@@ -5907,14 +5497,6 @@ ALTER TABLE ONLY public.checkboxes
 
 ALTER TABLE ONLY public.classroom_activities
     ADD CONSTRAINT classroom_activities_pkey PRIMARY KEY (id);
-
-
---
--- Name: classroom_chapters classroom_chapters_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.classroom_chapters
-    ADD CONSTRAINT classroom_chapters_pkey PRIMARY KEY (id);
 
 
 --
@@ -6246,22 +5828,6 @@ ALTER TABLE ONLY public.firebase_apps
 
 
 --
--- Name: grammar_rules grammar_rules_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.grammar_rules
-    ADD CONSTRAINT grammar_rules_pkey PRIMARY KEY (id);
-
-
---
--- Name: grammar_tests grammar_tests_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.grammar_tests
-    ADD CONSTRAINT grammar_tests_pkey PRIMARY KEY (id);
-
-
---
 -- Name: images images_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -6430,38 +5996,6 @@ ALTER TABLE ONLY public.referrer_users
 
 
 --
--- Name: rule_examples rule_examples_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.rule_examples
-    ADD CONSTRAINT rule_examples_pkey PRIMARY KEY (id);
-
-
---
--- Name: rule_question_inputs rule_question_inputs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.rule_question_inputs
-    ADD CONSTRAINT rule_question_inputs_pkey PRIMARY KEY (id);
-
-
---
--- Name: rule_questions rule_questions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.rule_questions
-    ADD CONSTRAINT rule_questions_pkey PRIMARY KEY (id);
-
-
---
--- Name: rules rules_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.rules
-    ADD CONSTRAINT rules_pkey PRIMARY KEY (id);
-
-
---
 -- Name: sales_contacts sales_contacts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -6531,14 +6065,6 @@ ALTER TABLE ONLY public.schools
 
 ALTER TABLE ONLY public.schools_users
     ADD CONSTRAINT schools_users_pkey PRIMARY KEY (id);
-
-
---
--- Name: scores scores_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.scores
-    ADD CONSTRAINT scores_pkey PRIMARY KEY (id);
 
 
 --
@@ -7023,10 +6549,17 @@ CREATE INDEX index_blog_posts_on_topic ON public.blog_posts USING btree (topic);
 
 
 --
--- Name: index_chapters_on_chapter_level_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_change_logs_on_changed_record_type_and_changed_record_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_chapters_on_chapter_level_id ON public.chapters USING btree (chapter_level_id);
+CREATE INDEX index_change_logs_on_changed_record_type_and_changed_record_id ON public.change_logs USING btree (changed_record_type, changed_record_id);
+
+
+--
+-- Name: index_change_logs_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_change_logs_on_user_id ON public.change_logs USING btree (user_id);
 
 
 --
@@ -7657,34 +7190,6 @@ CREATE UNIQUE INDEX index_referrer_users_on_referral_code ON public.referrer_use
 --
 
 CREATE UNIQUE INDEX index_referrer_users_on_user_id ON public.referrer_users USING btree (user_id);
-
-
---
--- Name: index_rule_question_inputs_on_activity_session_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_rule_question_inputs_on_activity_session_id ON public.rule_question_inputs USING btree (activity_session_id);
-
-
---
--- Name: index_rule_question_inputs_on_rule_question_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_rule_question_inputs_on_rule_question_id ON public.rule_question_inputs USING btree (rule_question_id);
-
-
---
--- Name: index_rule_question_inputs_on_step; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_rule_question_inputs_on_step ON public.rule_question_inputs USING btree (step);
-
-
---
--- Name: index_rules_on_uid; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_rules_on_uid ON public.rules USING btree (uid);
 
 
 --
@@ -8348,6 +7853,14 @@ ALTER TABLE ONLY public.skill_group_activities
 
 ALTER TABLE ONLY public.units
     ADD CONSTRAINT fk_rails_0b3b28b65f FOREIGN KEY (unit_template_id) REFERENCES public.unit_templates(id);
+
+
+--
+-- Name: change_logs fk_rails_1a847a1740; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.change_logs
+    ADD CONSTRAINT fk_rails_1a847a1740 FOREIGN KEY (user_id) REFERENCES public.users(id);
 
 
 --
@@ -9201,8 +8714,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220920190724'),
 ('20220927124042'),
 ('20221014103417'),
-('20221014103843'),
-('20221019184933'),
-('20221019185354');
+('20221014103843');
 
 

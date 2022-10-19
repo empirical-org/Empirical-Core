@@ -142,7 +142,7 @@ class FeedbackHistory < ApplicationRecord
     prompt_id:,
     activity_session_uid:,
     attempt:,
-    activity_version: 0,
+    activity_version: 1,
     api_metadata: nil
   )
     feedback_hash = feedback_hash_raw.deep_stringify_keys
