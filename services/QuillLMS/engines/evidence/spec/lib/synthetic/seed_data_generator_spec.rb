@@ -149,6 +149,7 @@ module Evidence
 
       context 'response in exclude regex' do
         let(:response) {['of getting excluded']}
+
         subject { because.send(:run_prompt, prompt: '', count: 1, seed: '') }
 
         it "should reject response" do
@@ -158,6 +159,7 @@ module Evidence
 
       context 'response not in exclude regex' do
         let(:response) {['it would not be excluded']}
+
         subject { because.send(:run_prompt, prompt: '', count: 1, seed: '') }
 
         it "should reject response" do
@@ -169,7 +171,6 @@ module Evidence
     describe "#stem_variants_hash" do
       let(:conjunction) {'thus'}
       let(:stem) {"It is true, #{conjunction}"}
-
       let(:conjunction_config) { {conjunction => ['therefore', 'Since %<stem>s this is']}}
 
       before do
