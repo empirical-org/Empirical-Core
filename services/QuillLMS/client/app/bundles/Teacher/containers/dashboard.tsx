@@ -12,7 +12,7 @@ import DailyTinyTip from '../components/dashboard/daily_tiny_tip'
 import TeacherCenterHighlights from '../components/dashboard/teacher_center_highlights'
 import CollegeBoard from '../components/dashboard/college_board'
 import KeyMetrics from '../components/dashboard/key_metrics'
-import GrowthDiagnosticsPromotionCard from '../components/dashboard/growth_diagnostics_promotion_card'
+import EvidencePromotionCard from '../components/dashboard/evidence_promotion_card'
 import DemoOnboardingTour, { DEMO_ONBOARDING_DASHBOARD, } from '../components/shared/demo_onboarding_tour'
 import useWindowSize from '../../Shared/hooks/useWindowSize'
 import { Spinner, } from '../../Shared/index'
@@ -109,7 +109,7 @@ const Dashboard = ({ onboardingChecklist, firstName, mustSeeModal, linkedToCleve
         />
         {showDemoModal && <DemoModal close={closeDemoModal} size={size} />}
         <main>
-          {showDiagnosticPromotionCard && <GrowthDiagnosticsPromotionCard />}
+          <EvidencePromotionCard />
           <KeyMetrics firstName={firstName} metrics={metrics} />
           <DiagnosticMini diagnostics={diagnostics} onMobile={onMobile()} />
           <LessonsMini lessons={lessons} onMobile={onMobile()} />

@@ -1,0 +1,77 @@
+.post-checklist-container main section.evidence-promotion-card {
+  align-items: flex-start;
+  padding: 20px;
+  position: relative;
+  border: 1px solid rgba(44, 127, 155, 0.15);
+  border-radius: 8px;
+  background: rgba(44, 127, 155, 0.1);
+  .badge-section {
+    display: inline-block;
+    height: 20px;
+  }
+  .new-tag {
+    color: #FFFFFF;
+    font-weight: 700;
+    font-size: 9px;
+    line-height: 11px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 2px 5px 0px;
+    position: absolute;
+    width: 57px;
+    height: 20px;
+    left: 20px;
+    top: 20px;
+    background: #2C7F9B;
+    border-radius: 5px;
+  }
+  .title-tag {
+    position: absolute;
+    height: 15px;
+    left: 84px;
+    top: 23px;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 15px;
+    color: #2C7F9B;
+  }
+  h2 {
+    font-style: normal;
+    font-size: 20px;
+    line-height: 26px;
+    font-weight: 700;
+    margin-top: 13px;
+  }
+  a {
+    margin-top: 32px;
+    align-items: center;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 20px;
+    color: #5C5C5C;
+    img {
+      margin-left: 4px;
+    }
+  }
+  a:not(:first-child) {
+    margin-left: 20px;
+  }
+  .link-section {
+    margin-top: 19px;
+    display: inline-block;
+  }
+  .chart-illustration {
+    position: absolute;
+    right: 20px;
+    bottom: 0px;
+  }
+
+  @media (max-width: 1103px) {
+    a {
+      margin-top: 62px;
+    }
+  }
+}
