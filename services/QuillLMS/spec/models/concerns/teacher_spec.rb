@@ -282,6 +282,34 @@ describe User, type: :model do
       end
     end
 
+    describe '#teaches_eighth_through_twelfth?' do
+      let!(:one_classroom_teacher) { create(:teacher_with_one_classroom) }
+
+      context 'when the classroom is not eighth through twelfth' do
+        it 'returns false' do
+          one_classroom_teacher.classrooms_i_teach.first.update(grade: 1)
+          expect(one_classroom_teacher.teaches_eighth_through_twelfth?).not_to be
+        end
+      end
+
+      context 'when the classroom is eighth through twelfth' do
+        it 'returns true' do
+          one_classroom_teacher.classrooms_i_teach.first.update(grade: 9)
+          expect(one_classroom_teacher.teaches_eighth_through_twelfth?).to be
+        end
+      end
+
+      context 'when a teacher has multiple classrooms and one is eighth through twelfth' do
+        it 'returns true' do
+          one_classroom_teacher.classrooms_i_teach.first.update(grade: 9)
+          new_classroom = create(:classroom, grade: 1)
+          create(:classrooms_teacher, classroom: new_classroom, user: one_classroom_teacher)
+
+          expect(one_classroom_teacher.teaches_eighth_through_twelfth?).to be
+        end
+      end
+    end
+
     describe '#unlink' do
       let!(:bronx_teacher) { create(:teacher_with_school) }
 

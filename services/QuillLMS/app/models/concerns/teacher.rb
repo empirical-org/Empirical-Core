@@ -322,6 +322,10 @@ module Teacher
     info
   end
 
+  def teaches_eighth_through_twelfth?
+    return classrooms_i_teach.map(&:grade).any? { |grade| grade.to_i <= 12 && grade.to_i >= 8 }
+  end
+
   def google_classrooms
     Classroom
       .joins(:classrooms_teachers)

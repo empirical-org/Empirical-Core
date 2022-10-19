@@ -19,7 +19,7 @@ import { Spinner, } from '../../Shared/index'
 
 const MAX_VIEW_WIDTH_FOR_MOBILE = 1103
 
-const Dashboard = ({ onboardingChecklist, firstName, mustSeeModal, linkedToClever, featuredBlogPosts, showDiagnosticPromotionCard, }) => {
+const Dashboard = ({ onboardingChecklist, firstName, mustSeeModal, linkedToClever, featuredBlogPosts, showEvidencePromotionCard, }) => {
   const size = useWindowSize();
   const className = "dashboard white-background-accommodate-footer"
   const onMobile = () => size.width <= MAX_VIEW_WIDTH_FOR_MOBILE
@@ -109,7 +109,7 @@ const Dashboard = ({ onboardingChecklist, firstName, mustSeeModal, linkedToCleve
         />
         {showDemoModal && <DemoModal close={closeDemoModal} size={size} />}
         <main>
-          <EvidencePromotionCard />
+          {showEvidencePromotionCard && <EvidencePromotionCard />}
           <KeyMetrics firstName={firstName} metrics={metrics} />
           <DiagnosticMini diagnostics={diagnostics} onMobile={onMobile()} />
           <LessonsMini lessons={lessons} onMobile={onMobile()} />
