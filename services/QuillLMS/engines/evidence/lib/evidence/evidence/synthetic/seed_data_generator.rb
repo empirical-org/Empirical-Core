@@ -26,7 +26,7 @@ module Evidence
       # Use 'Start string %{stem} end string' for more complex forms
       # e.g. "It is so" => "Because It is thus" via 'Because %{stem} thus'
       CONJUNCTION_SUBS = {
-        'so' => ["with the result that", "Because #{STEM_KEY}"],
+        'so' => ["Since #{STEM_KEY}", "Because #{STEM_KEY}"],
         'but' => ['but the counter argument is that', "Even though #{STEM_KEY}"],
         'because' => ['for the reason that', 'owing to the fact that']
       }
