@@ -67,10 +67,15 @@ module Evidence
       end
 
       let(:passage_dirty) {' <p><strong>&quot;It&#x27;s</strong> a good day&quot;, he said.</p>  '}
-      let(:data_dirty) { described_class.new(passage: passage_dirty, stem: stem, nouns: nouns, conjunction: conjunction)}
+      let(:data_dirty) { described_class.new(passage: passage_dirty, stem: stem, conjunction: conjunction)}
+      let(:invalid_conjunction) { described_class.new(passage: '', stem: '', conjunction: 'hello')}
 
       it "should clean passage of all special characters" do
         expect(data_dirty.passage).to eq("\"It's a good day\", he said.")
+      end
+
+      it "should raise if invalid conjunction" do
+        expect{invalid_conjunction}.to raise_error(described_class::InvalidConjunctionError)
       end
     end
 

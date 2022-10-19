@@ -22,7 +22,6 @@ load 'rails/tasks/engine.rake'
 
 load 'rails/tasks/statistics.rake'
 load 'lib/tasks/quill_scaffold.rake'
-load 'lib/tasks/synthetic.rake'
 
 
 Bundler::GemHelper.install_tasks

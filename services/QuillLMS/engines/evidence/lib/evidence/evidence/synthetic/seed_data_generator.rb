@@ -2,7 +2,7 @@
 
 module Evidence
   module Synthetic
-    class SeedDataGenerator < ApplicationService
+    class SeedDataGenerator
       Result = Struct.new(:text, :seed, keyword_init: true)
 
       WORD_SPLIT_COUNT = 70
@@ -13,12 +13,12 @@ module Evidence
 
       FULL_COUNT = ENV.fetch('SYNTHETIC_SEED_PASSAGE_COUNT', 50).to_i
       FULL_NOUN_COUNT = ENV.fetch('SYNTHETIC_SEED_NOUN_COUNT', 50).to_i
-      SECTION_COUNT = ENV.fetch('SYNTHETIC_SEED_SECTION_COUNT', 10).to_i
+      SECTION_COUNT = ENV.fetch('SYNTHETIC_SEED_SECTION_COUNT', 25).to_i
 
-      TEMPS_PASSAGE = [0.8,0.7,0.5,0.4]
+      TEMPS_PASSAGE = [0.8, 0.7, 0.5, 0.4]
       TEMP_SECTION = 0.4 # give a lower temp (creativity) when it has less info
 
-      STEM_KEY = "%<stem>s"
+      STEM_KEY = '%<stem>s'
 
       # Config for Conjunction alternates
       # Use a plain 'string' for direct swap of conjunction
@@ -136,13 +136,13 @@ module Evidence
       end
 
       private def create_alternate_stem(stem, conjunction, alternate)
-        stem_without_conjunction = stem.sub(/(.*)\K#{conjunction}/, BLANK)
+        stem_without_conjunction = stem.strip.sub(/#{conjunction}\z/, BLANK)
 
         if alternate.match(STEM_KEY)
-          format(alternate, stem: stem_without_conjunction).squish
-        else
-          stem_without_conjunction + alternate
+          return format(alternate, stem: stem_without_conjunction).squish
         end
+
+        stem_without_conjunction + alternate
       end
 
       def results_csv_string
