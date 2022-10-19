@@ -159,7 +159,7 @@ module Evidence
       private def regex_exclude?(text)
         return false if conjunction_exclusions.empty?
 
-        conjunction_exclusions.any?{|regex| regex.match(text) }
+        conjunction_exclusions.any?{|regex| regex.match(text.strip) }
       end
 
       private def conjunction_exclusions

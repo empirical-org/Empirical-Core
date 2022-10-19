@@ -194,6 +194,7 @@ module Evidence
 
       it "should be true for matching regex" do
         expect(because.send(:regex_exclude?, "of the reason")).to be true
+        expect(because.send(:regex_exclude?, "  of the reason")).to be true
         expect(so.send(:regex_exclude?, "that happened")).to be true
       end
 
