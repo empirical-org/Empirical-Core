@@ -4,6 +4,7 @@ export interface Activity {
   description: string,
   standard_level_name: string,
   grade_level_range: string,
+  readability: string,
   standard: {
     id: string,
     name: string,
