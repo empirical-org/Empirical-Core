@@ -138,6 +138,34 @@ module Evidence
       end
     end
 
+    describe "#run_prompt" do
+      let(:rejected_response) {['one response']}
+
+      let(:because) {described_class.new(passage: '', stem: stem, conjunction: 'because')}
+
+      before do
+        allow(Evidence::OpenAI::Completion).to receive(:run).and_return(response)
+      end
+
+      context 'response in exclude regex' do
+        let(:response) {['of getting excluded']}
+        subject { because.send(:run_prompt, prompt: '', count: 1, seed: '') }
+
+        it "should reject response" do
+          expect(subject.count).to eq 0
+        end
+      end
+
+      context 'response not in exclude regex' do
+        let(:response) {['it would not be excluded']}
+        subject { because.send(:run_prompt, prompt: '', count: 1, seed: '') }
+
+        it "should reject response" do
+          expect(subject.count).to eq 1
+        end
+      end
+    end
+
     describe "#stem_variants_hash" do
       let(:conjunction) {'thus'}
       let(:stem) {"It is true, #{conjunction}"}
@@ -157,6 +185,27 @@ module Evidence
         expect(subject['therefore']).to eq "It is true, therefore"
         expect(subject['Since %<stem>s this is']).to eq "Since It is true, this is"
       end
+    end
+
+    describe "#regex_exclude?" do
+      let(:because) {described_class.new(passage: '', stem: '', conjunction: 'because')}
+      let(:so) {described_class.new(passage: '', stem: '', conjunction: 'so')}
+      let(:but) {described_class.new(passage: '', stem: '', conjunction: 'but')}
+
+      it "should be true for matching regex" do
+        expect(because.send(:regex_exclude?, "of the reason")).to be true
+        expect(so.send(:regex_exclude?, "that happened")).to be true
+      end
+
+      it "should be false for non-matching regex" do
+        expect(but.send(:regex_exclude?, "of the reason")).to be false
+        expect(but.send(:regex_exclude?, "that happened")).to be false
+        expect(because.send(:regex_exclude?, "the reason of")).to be false
+        expect(because.send(:regex_exclude?, "that happened")).to be false
+        expect(so.send(:regex_exclude?, "happened like that")).to be false
+        expect(so.send(:regex_exclude?, "of the reason")).to be false
+      end
+
     end
 
     describe "#self.csvs_for_activity" do
