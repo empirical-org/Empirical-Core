@@ -42,7 +42,7 @@ module Evidence
           prompt_id: prompt.id,
           activity_session_uid: session_id,
           attempt: attempt,
-          activity_version: 0,
+          activity_version: 1,
           api_metadata: feedback.response[:api]
         )
 

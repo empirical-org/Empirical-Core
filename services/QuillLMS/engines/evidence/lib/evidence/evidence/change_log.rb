@@ -65,21 +65,26 @@ module Evidence
           note: row.explanation,
           created_at: row.created_at,
           new_value: row.new_value,
-          sessions: version_sessions(row, id).count
+          session_count: session_count(row, id)
         }
       end
     end
 
-    def version_sessions(change_log, activity_id)
+    def session_count(change_log, activity_id)
       start_date = change_log.created_at
       end_date = Time.current
 
       if change_log.previous_value != "0"
         value = change_log.new_value.to_i + 1
-        next_change_log = Evidence.change_log_class.where(changed_record_id: activity_id, changed_attribute: 'version', changed_record_type: 'Evidence::Activity', new_value: value.to_s).first
+        next_change_log =
+          Evidence::Activity
+            &.find_by(id: activity_id)
+            &.change_logs
+            &.where(changed_attribute: 'version', new_value: value)
+            &.first
         end_date = next_change_log.created_at if next_change_log
       end
-      ActivitySession.where(activity_id: activity_id, created_at: start_date..end_date)
+      ActivitySession.where(activity_id: activity_id, created_at: start_date..end_date).count
     end
 
     def change_logs_for_activity

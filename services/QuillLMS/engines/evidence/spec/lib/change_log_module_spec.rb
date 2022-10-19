@@ -50,7 +50,7 @@ module Evidence
         assert versions.select {|version| version["note"] == 'Activity Created'}.count, 1
         assert versions.select {|version| version["created_at"] == @activity.created_at}.count, 1
         assert versions.select {|version| version["new_value"] == '1'}.count, 1
-        assert versions.select {|version| version["sessions"] == 0}.count, 1
+        assert versions.select {|version| version["session_count"] == 0}.count, 1
       end
     end
   end
