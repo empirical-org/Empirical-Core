@@ -37,10 +37,10 @@ module Evidence
       [
         "full_passage_temp1_but",
         "full_passage_temp1_but the counter argument is that",
-        "full_passage_temp1_Even though %{stem}",
+        "full_passage_temp1_Even though %<stem>s",
         "full_passage_temp0.9_but",
         "full_passage_temp0.9_but the counter argument is that",
-        "full_passage_temp0.9_Even though %{stem}",
+        "full_passage_temp0.9_Even though %<stem>s",
         "full_passage_noun_noun1",
         "text_chunk_1_temp0.4_but",
         "text_chunk_2_temp0.4_but"
@@ -83,7 +83,7 @@ module Evidence
         expect(Evidence::OpenAI::Completion).to receive(:run)
           .with(prompt: full_passage_prompt, count: 1, temperature: 0.9)
           .and_return(full_passage_response2)
-         # full - alternate stem1
+        # full - alternate stem1
         expect(Evidence::OpenAI::Completion).to receive(:run)
           .with(prompt: full_passage_prompt_alternate1, count: 1, temperature: 1)
           .and_return(full_passage_alternate1_response1)
@@ -137,7 +137,7 @@ module Evidence
       let(:conjunction) {'thus'}
       let(:stem) {"It is true, #{conjunction}"}
 
-      let(:conjunction_config) { {conjunction => ['therefore', 'Since %{stem} this is']}}
+      let(:conjunction_config) { {conjunction => ['therefore', 'Since %<stem>s this is']}}
 
       before do
         stub_const("Evidence::Synthetic::SeedDataGenerator::CONJUNCTION_SUBS", conjunction_config)
@@ -147,10 +147,10 @@ module Evidence
       subject {described_class.new(passage: '', stem: stem, conjunction: conjunction).send(:stem_variants_hash)}
 
       it "should return hash of conjunctions => stems" do
-        expect(subject.keys).to eq(['thus', 'therefore', 'Since %{stem} this is'])
+        expect(subject.keys).to eq(['thus', 'therefore', 'Since %<stem>s this is'])
         expect(subject['thus']).to eq "It is true, thus"
         expect(subject['therefore']).to eq "It is true, therefore"
-        expect(subject['Since %{stem} this is']).to eq "Since It is true, this is"
+        expect(subject['Since %<stem>s this is']).to eq "Since It is true, this is"
       end
     end
 

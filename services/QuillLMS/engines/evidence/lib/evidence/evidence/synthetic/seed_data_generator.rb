@@ -18,7 +18,7 @@ module Evidence
       TEMPS_PASSAGE = [0.8,0.7,0.5,0.4]
       TEMP_SECTION = 0.4 # give a lower temp (creativity) when it has less info
 
-      STEM_KEY = '%{stem}'
+      STEM_KEY = "%<stem>s"
 
       # Config for Conjunction alternates
       # Use a plain 'string' for direct swap of conjunction
@@ -139,7 +139,7 @@ module Evidence
         stem_without_conjunction = stem.sub(/(.*)\K#{conjunction}/, BLANK)
 
         if alternate.match(STEM_KEY)
-          (alternate % {stem: stem_without_conjunction}).squish
+          format(alternate, stem: stem_without_conjunction).squish
         else
           stem_without_conjunction + alternate
         end
