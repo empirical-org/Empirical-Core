@@ -23,8 +23,8 @@ module Evidence
       # Config for Conjunction alternates
       # Use a plain 'string' for direct swap of conjunction
       # e.g. "It is so" => "It is thus"
-      # Use 'Start string %{stem} end string' for more complex forms
-      # e.g. "It is so" => "Because It is thus" via 'Because %{stem} thus'
+      # Use 'Start string %<stem>s end string' for more complex forms
+      # e.g. "It is so" => "Because It is thus" via 'Because %<stem>s thus'
       CONJUNCTION_SUBS = {
         'so' => ["Since #{STEM_KEY}", "Because #{STEM_KEY}"],
         'but' => ['but the counter argument is that', "Even though #{STEM_KEY}"],
