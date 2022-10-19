@@ -308,6 +308,14 @@ describe User, type: :model do
           expect(one_classroom_teacher.teaches_eighth_through_twelfth?).to be
         end
       end
+
+      context 'when the classroom grade is null' do
+        it 'returns false' do
+          one_classroom_teacher.classrooms_i_teach.first.update(grade: nil)
+
+          expect(one_classroom_teacher.teaches_eighth_through_twelfth?).not_to be
+        end
+      end
     end
 
     describe '#unlink' do
