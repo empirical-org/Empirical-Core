@@ -29,5 +29,7 @@ class PackSequence < ApplicationRecord
   belongs_to :classroom
   belongs_to :diagnostic_activity, class_name: 'Activity'
 
+  has_many :pack_sequence_items, dependent: :destroy
+
   validates :release_method, inclusion: { in: RELEASE_METHODS }
 end

@@ -4,51 +4,66 @@ class AssignRecommendationsWorker
   include Sidekiq::Worker
   sidekiq_options queue: SidekiqQueue::CRITICAL
 
-  # rubocop:disable Metrics/CyclomaticComplexity
-  def perform(options={})
-    options = options.with_indifferent_access
-    unit_template_id = options["unit_template_id"]
-    classroom_id = options["classroom_id"]
-    student_ids = options["student_ids"]
-    last = options["last"]
-    lesson = options["lesson"]
-    assign_on_join = options["assign_on_join"] || false
-    assigning_all_recommended_packs = options["assigning_all_recommended_packs"]
+  # rubocop:disable Metrics/ParameterLists
+  def perform(
+    classroom_id:,
+    lesson:,
+    student_ids:,
+    unit_template_id:,
+    pack_sequence_id: nil,
+    assign_on_join: false,
+    assigning_all_recommendations: false,
+    is_last_recommendation: true,
+    order: nil
+  )
 
     classroom = Classroom.find(classroom_id)
     teacher = classroom.owner
     units = find_units(unit_template_id, teacher.id)
+    unit = nil
+
     if units.present?
       unit = find_unit(units)
-      unit.update(visible:true) if unit && !unit.visible
+      unit.update(visible: true) if unit && !unit.visible
     end
+
     classroom_data = {
       id: classroom_id,
       student_ids: student_ids,
       assign_on_join: assign_on_join
     }
-    unit ||= nil
+
     assign_unit_to_one_class(unit, classroom_id, classroom_data, unit_template_id, teacher.id)
+
+    unit = find_unit(find_units(unit_template_id, teacher.id)) if unit.nil?
+    save_pack_sequence_item(pack_sequence_id, order, unit)
+
     track_recommendation_assignment(teacher)
-    return unless last
+    return unless is_last_recommendation
 
     handle_error_tracking_for_diagnostic_recommendation_assignment_time(teacher.id, lesson)
     PusherRecommendationCompleted.run(classroom, unit_template_id, lesson)
-    track_assign_all_recommendations(teacher) if assigning_all_recommended_packs
+    track_assign_all_recommendations(teacher) if assigning_all_recommendations
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
+  # rubocop:enable Metrics/ParameterLists
 
   def assign_unit_to_one_class(unit, classroom_id, classroom_data, unit_template_id, teacher_id)
     if unit.present?
       show_classroom_units(unit.id, classroom_id)
       Units::Updater.assign_unit_template_to_one_class(unit.id, classroom_data, unit_template_id, teacher_id, concatenate_existing_student_ids: true)
     else
-      #  TODO: use a find or create for the unit var above.
-      #  This way, we can just pass the units creator a unit argument.
-      #  The reason we are not doing so at this time, is because the unit creator
-      #  Is used elsewhere, and we do not want to overly optimize it for the diagnostic
       Units::Creator.assign_unit_template_to_one_class(teacher_id, unit_template_id, classroom_data)
     end
+  end
+
+  def save_pack_sequence_item(pack_sequence_id, order, unit)
+    return if pack_sequence_id.nil? || unit.nil?
+
+    PackSequenceItem.find_or_create_by!(
+      item_id: unit.id,
+      pack_sequence_id: pack_sequence_id,
+      order: order
+    )
   end
 
   def show_classroom_units(unit_id, classroom_id)

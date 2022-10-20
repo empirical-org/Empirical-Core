@@ -41,6 +41,7 @@ module Units::Creator
         ORDER BY activities_unit_templates.id;
       SQL
     ).map { |a| {id: a["id"], due_date: nil}}
+
     create_helper(teacher, unit_template.name, activities_data, classroom_array, unit_template_id, current_user_id)
   end
 
@@ -52,24 +53,23 @@ module Units::Creator
     )
     # makes a permutation of each classroom with each activity to
     # create all necessary activity sessions
-    act_data = activities_data.uniq.map.with_index do |activity, index|
-      {
+    activities_data.uniq.map.with_index do |activity, index|
+      UnitActivity.create(
         unit_id: unit.id,
         activity_id: activity[:id],
         due_date: activity[:due_date],
         order_number: index + 1
-      }
+      )
     end
-    UnitActivity.create(act_data)
-    class_data = classrooms.map do |classroom|
-      {
+
+    classrooms.map do |classroom|
+      ClassroomUnit.create(
         classroom_id: classroom[:id],
         assigned_student_ids: classroom[:student_ids],
         assign_on_join: classroom[:assign_on_join],
         unit_id: unit.id
-      }
+      )
     end
-    ClassroomUnit.create(class_data)
 
     unit.reload
     unit.save
