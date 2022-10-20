@@ -30,10 +30,6 @@ module Evidence
 
     describe '#create' do
 
-      before do
-        stub_const("::FeedbackHistory::DEFAULT_VERSION", 1)
-      end
-
       let(:feedback) { double('feedback', response: {key1: 'some value', api: {api_key: 'api_value'}} ) }
       let(:session_id) { 99 }
       let(:attempt) { 3 }
@@ -46,7 +42,7 @@ module Evidence
           prompt_id: prompt.id,
           activity_session_uid: session_id,
           attempt: attempt,
-          activity_version: Evidence.feedback_history_class::DEFAULT_VERSION,
+          activity_version: 1,
           api_metadata: feedback.response[:api]
         )
 
