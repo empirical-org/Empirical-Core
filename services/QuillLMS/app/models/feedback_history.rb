@@ -33,6 +33,7 @@ class FeedbackHistory < ApplicationRecord
   CONCEPT_UID_LENGTH = 22
   DEFAULT_PAGE_SIZE = 25
   DEFAULT_PROMPT_TYPE = "Evidence::Prompt"
+  DEFAULT_VERSION = 1
   MIN_ATTEMPT = 1
   MAX_ATTEMPT = 5
   MIN_FEEDBACK_LENGTH = 10
@@ -142,7 +143,7 @@ class FeedbackHistory < ApplicationRecord
     prompt_id:,
     activity_session_uid:,
     attempt:,
-    activity_version: 1,
+    activity_version: DEFAULT_VERSION,
     api_metadata: nil
   )
     feedback_hash = feedback_hash_raw.deep_stringify_keys
