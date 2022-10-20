@@ -5,7 +5,7 @@
 # Table name: feedback_histories
 #
 #  id                   :integer          not null, primary key
-#  activity_version     :integer          default(0), not null
+#  activity_version     :integer          default(1), not null
 #  attempt              :integer          not null
 #  concept_uid          :text
 #  entry                :text             not null
@@ -33,6 +33,7 @@ class FeedbackHistory < ApplicationRecord
   CONCEPT_UID_LENGTH = 22
   DEFAULT_PAGE_SIZE = 25
   DEFAULT_PROMPT_TYPE = "Evidence::Prompt"
+  DEFAULT_VERSION = 1
   MIN_ATTEMPT = 1
   MAX_ATTEMPT = 5
   MIN_FEEDBACK_LENGTH = 10
@@ -142,7 +143,7 @@ class FeedbackHistory < ApplicationRecord
     prompt_id:,
     activity_session_uid:,
     attempt:,
-    activity_version: 0,
+    activity_version: DEFAULT_VERSION,
     api_metadata: nil
   )
     feedback_hash = feedback_hash_raw.deep_stringify_keys
@@ -282,7 +283,7 @@ class FeedbackHistory < ApplicationRecord
       .where("comprehension_turking_round_activity_sessions.turking_round_id = ?", turk_session_id)
     end
     query = FeedbackHistory.apply_activity_session_filter(query, filter_type) if filter_type
-    query = query.limit(page_size)
+    query = query.limit(page_size) if page_size
     query = query.offset((page.to_i - 1) * page_size.to_i) if page && page.to_i > 1
     query
   end

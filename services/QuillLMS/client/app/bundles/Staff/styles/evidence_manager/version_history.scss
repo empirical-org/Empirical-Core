@@ -1,0 +1,23 @@
+.version-history-container {
+  .activity-versions-table {
+    .rt-th, .rt-td {
+      flex: inherit;
+    }
+    .rt-td {
+      white-space: break-spaces;
+    }
+  }
+  .version-info-section {
+    display: flex;
+    .version-history-label {
+      font-weight: 800;
+      margin-right: 8px;
+    }
+  }
+  .notes-input {
+    margin-bottom: 0;
+  }
+  .button-and-id-container {
+    margin-bottom: 24px;
+  }
+}
