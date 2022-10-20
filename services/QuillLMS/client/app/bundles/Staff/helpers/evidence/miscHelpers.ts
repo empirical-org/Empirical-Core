@@ -72,22 +72,18 @@ const scoredReadingLevelError = (value: string) => {
 export const handlePageFilterClick = ({
   startDate,
   endDate,
-  turkSessionID,
   filterOption,
   setStartDate,
   setEndDate,
   setShowError,
   setPageNumber,
-  setTurkSessionIDForQuery,
   setFilterOptionForQuery,
   storageKey }: {
     startDate: Date,
     endDate?: Date,
     filterOption?: DropdownObjectInterface,
-    turkSessionID?: string,
     setStartDate: (startDate: string) => void,
     setEndDate: (endDate: string) => void,
-    setTurkSessionIDForQuery?: (turkSessionID: string) => void,
     setFilterOptionForQuery?: (filterOption: DropdownObjectInterface) => void,
     setShowError: (showError: boolean) => void,
     setPageNumber: (pageNumber: DropdownObjectInterface) => void,
@@ -109,13 +105,6 @@ export const handlePageFilterClick = ({
     const endDateString = endDate.toISOString();
     window.sessionStorage.setItem(`${storageKey}endDate`, endDateString);
     setEndDate(endDateString);
-  }
-  if(turkSessionID === '') {
-    // reset to null so backend doesn't check on empty string
-    setTurkSessionIDForQuery(null);
-  } else if(turkSessionID) {
-    window.sessionStorage.setItem(`${storageKey}turkSessionId`, turkSessionID);
-    setTurkSessionIDForQuery(turkSessionID);
   }
   if(filterOption) {
     window.sessionStorage.setItem(`${storageKey}filterOption`, JSON.stringify(filterOption));

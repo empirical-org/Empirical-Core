@@ -77,7 +77,6 @@ const RuleAnalysis = ({ match }) => {
 
   const initialStartDateString = window.sessionStorage.getItem(`${RULES_ANALYSIS}startDate`) || window.sessionStorage.getItem(`${RULE_ANALYSIS}startDate`) || '';
   const initialEndDateString = window.sessionStorage.getItem(`${RULES_ANALYSIS}endDate`) || window.sessionStorage.getItem(`${RULE_ANALYSIS}endDate`) || '';
-  const initialTurkSessionId = window.sessionStorage.getItem(`${RULES_ANALYSIS}turkSessionId`) || '';
   const initialStartDate = initialStartDateString ? new Date(initialStartDateString) : null;
   const initialEndDate = initialEndDateString ? new Date(initialEndDateString) : null;
 
@@ -90,8 +89,6 @@ const RuleAnalysis = ({ match }) => {
   const [startDateForQuery, setStartDate] = React.useState<string>(initialStartDateString);
   const [endDate, onEndDateChange] = React.useState<Date>(initialEndDate);
   const [endDateForQuery, setEndDate] = React.useState<string>(initialEndDateString);
-  const [turkSessionID, setTurkSessionID] = React.useState<string>(initialTurkSessionId);
-  const [turkSessionIDForQuery, setTurkSessionIDForQuery] = React.useState<string>(initialTurkSessionId);
 
   const queryClient = useQueryClient()
 
@@ -111,7 +108,7 @@ const RuleAnalysis = ({ match }) => {
   });
 
   const { data: ruleFeedbackHistoryData } = useQuery({
-    queryKey: [`rule-feedback-histories-by-rule-${ruleId}-${promptId}`, ruleId, promptId, startDateForQuery, endDateForQuery, turkSessionIDForQuery],
+    queryKey: [`rule-feedback-histories-by-rule-${ruleId}-${promptId}`, ruleId, promptId, startDateForQuery, endDateForQuery],
     queryFn: fetchRuleFeedbackHistoriesByRule
   })
 
@@ -135,10 +132,8 @@ const RuleAnalysis = ({ match }) => {
     }
   }, [filter, search, selectedIds])
 
-  function handleSetTurkSessionID(e: InputEvent){ setTurkSessionID(e.target.value) };
-
   function handleFilterClick() {
-    handlePageFilterClick({ startDate, endDate, turkSessionID, setStartDate, setEndDate, setShowError, setTurkSessionIDForQuery, setPageNumber: null, storageKey: RULE_ANALYSIS });
+    handlePageFilterClick({ startDate, endDate, setStartDate, setEndDate, setShowError, setPageNumber: null, storageKey: RULE_ANALYSIS });
   }
 
   function handleFilterChange(e) { setFilter(e.target.value) }
@@ -342,13 +337,11 @@ const RuleAnalysis = ({ match }) => {
       <FilterWidget
         endDate={endDate}
         handleFilterClick={handleFilterClick}
-        handleSetTurkSessionID={handleSetTurkSessionID}
         onEndDateChange={onEndDateChange}
         onStartDateChange={onStartDateChange}
-        showError={showError}
         startDate={startDate}
-        turkSessionID={turkSessionID}
       />
+      {showError && <p className="error-message">Start date is required.</p>}
       <div className="radio-options">
         <div className="radio">
           <label id={ALL}>

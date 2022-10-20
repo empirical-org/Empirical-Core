@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import * as moment from 'moment';
 import { firstBy } from 'thenby';
-import DateTimePicker from 'react-datetime-picker';
 
+import FilterWidget from "../shared/filterWidget";
 import { handlePageFilterClick } from "../../../helpers/evidence/miscHelpers";
 import { renderHeader } from "../../../helpers/evidence/renderHelpers";
 import { Error, Spinner, DropdownInput, Input, ReactTable, } from '../../../../Shared/index';
@@ -20,7 +20,6 @@ const SessionsIndex = ({ match }) => {
 
   const initialStartDateString = window.sessionStorage.getItem(`${SESSION_INDEX}startDate`) || '';
   const initialEndDateString = window.sessionStorage.getItem(`${SESSION_INDEX}endDate`) || '';
-  const initialTurkSessionId = window.sessionStorage.getItem(`${SESSION_INDEX}turkSessionId`) || '';
   const initialFilterOption = JSON.parse(window.sessionStorage.getItem(`${SESSION_INDEX}filterOption`)) || activitySessionFilterOptions[0];
   const initialStartDate = initialStartDateString ? new Date(initialStartDateString) : null;
   const initialEndDate = initialEndDateString ? new Date(initialEndDateString) : null;
@@ -30,8 +29,6 @@ const SessionsIndex = ({ match }) => {
   const [pageDropdownOptions, setPageDropdownOptions] = React.useState<DropdownObjectInterface[]>(null);
   const [filterOption, setFilterOption] = React.useState<DropdownObjectInterface>(initialFilterOption);
   const [filterOptionForQuery, setFilterOptionForQuery] = React.useState<DropdownObjectInterface>(initialFilterOption);
-  const [turkSessionID, setTurkSessionID] = React.useState<string>(initialTurkSessionId);
-  const [turkSessionIDForQuery, setTurkSessionIDForQuery] = React.useState<string>(initialTurkSessionId);
   const [rowData, setRowData] = React.useState<any[]>([]);
   const pageNumberForQuery = pageNumber && pageNumber.value ? pageNumber.value : 1;
   const [startDate, onStartDateChange] = React.useState<Date>(initialStartDate);
@@ -47,7 +44,7 @@ const SessionsIndex = ({ match }) => {
 
   // cache activity sessions data for updates
   const { data: sessionsData } = useQuery({
-    queryKey: [`activity-${activityId}-sessions`, activityId, pageNumberForQuery, startDateForQuery, filterOptionForQuery, endDateForQuery, turkSessionIDForQuery],
+    queryKey: [`activity-${activityId}-sessions`, activityId, pageNumberForQuery, startDateForQuery, filterOptionForQuery, endDateForQuery],
     queryFn: fetchActivitySessions
   });
 
@@ -64,10 +61,8 @@ const SessionsIndex = ({ match }) => {
     }
   }, [sessionsData]);
 
-  function handleSetTurkSessionID(e: InputEvent){ setTurkSessionID(e.target.value) };
-
   function handleFilterClick() {
-    handlePageFilterClick({ startDate, endDate, turkSessionID, filterOption, setStartDate, setEndDate, setShowError, setPageNumber, setTurkSessionIDForQuery, setFilterOptionForQuery, storageKey: SESSION_INDEX });
+    handlePageFilterClick({ startDate, endDate, filterOption, setStartDate, setEndDate, setShowError, setPageNumber, setFilterOptionForQuery, storageKey: SESSION_INDEX });
   }
 
   function handleFilterOptionChange(filterOption: DropdownObjectInterface) {
@@ -192,36 +187,19 @@ const SessionsIndex = ({ match }) => {
             className="session-filters-dropdown"
             handleChange={handleFilterOptionChange}
             isSearchable={false}
-            label=""
+            label="Session filter options"
             options={activitySessionFilterOptions}
             value={filterOption}
           />
-          <p className="date-picker-label">Start Date:</p>
-          <DateTimePicker
-            ampm={false}
-            format='y-MM-dd HH:mm'
-            onChange={onStartDateChange}
-            value={startDate}
+          <FilterWidget
+            endDate={endDate}
+            handleFilterClick={handleFilterClick}
+            onEndDateChange={onEndDateChange}
+            onStartDateChange={onStartDateChange}
+            startDate={startDate}
           />
-          <p className="date-picker-label">End Date (optional):</p>
-          <DateTimePicker
-            ampm={false}
-            format='y-MM-dd HH:mm'
-            onChange={onEndDateChange}
-            value={endDate}
-          />
-          <p className="date-picker-label">Turk Session ID (optional):</p>
-          <Input
-            className="turk-session-id-input"
-            handleChange={handleSetTurkSessionID}
-            label=""
-            value={turkSessionID}
-          />
-          <button className="quill-button fun primary contained" onClick={handleFilterClick} type="submit">Filter</button>
         </section>
-        <div className="error-container">
-          {showError && <p className="error-message">Start date is required.</p>}
-        </div>
+        {showError && <p className="error-message">Start date is required.</p>}
         <ReactTable
           className="activity-sessions-table"
           columns={activitySessionIndexResponseHeaders}

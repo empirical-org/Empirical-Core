@@ -19,7 +19,6 @@ const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
 
   const initialStartDateString = window.sessionStorage.getItem(`${ACTIVITY_STATS}startDate`) || '';
   const initialEndDateString = window.sessionStorage.getItem(`${ACTIVITY_STATS}endDate`) || '';
-  const initialTurkSessionId = window.sessionStorage.getItem(`${ACTIVITY_STATS}turkSessionId`) || '';
   const initialStartDate = initialStartDateString ? new Date(initialStartDateString) : null;
   const initialEndDate = initialEndDateString ? new Date(initialEndDateString) : null;
 
@@ -28,8 +27,6 @@ const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
   const [startDateForQuery, setStartDate] = React.useState<string>(initialStartDateString);
   const [endDate, onEndDateChange] = React.useState<Date>(initialEndDate);
   const [endDateForQuery, setEndDate] = React.useState<string>(initialEndDateString);
-  const [turkSessionID, setTurkSessionID] = React.useState<string>(initialTurkSessionId);
-  const [turkSessionIDForQuery, setTurkSessionIDForQuery] = React.useState<string>(initialTurkSessionId);
 
   // get cached activity data to pass to rule
   const { data: activityData } = useQuery({
@@ -39,14 +36,12 @@ const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
 
   // cache rules data for updates
   const { data: promptHealth } = useQuery({
-    queryKey: [`prompt-health-by-activity-${activityId}`, activityId, startDateForQuery, endDateForQuery, turkSessionIDForQuery],
+    queryKey: [`prompt-health-by-activity-${activityId}`, activityId, startDateForQuery, endDateForQuery],
     queryFn: fetchPromptHealth
   });
 
-  function handleSetTurkSessionID(e: InputEvent){ setTurkSessionID(e.target.value) };
-
   function handleFilterClick() {
-    handlePageFilterClick({ startDate, endDate, turkSessionID, setStartDate, setEndDate, setShowError, setTurkSessionIDForQuery, setPageNumber: null, storageKey: ACTIVITY_STATS });
+    handlePageFilterClick({ startDate, endDate, setStartDate, setEndDate, setShowError, setPageNumber: null, storageKey: ACTIVITY_STATS });
   }
 
 
@@ -146,13 +141,11 @@ const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       <FilterWidget
         endDate={endDate}
         handleFilterClick={handleFilterClick}
-        handleSetTurkSessionID={handleSetTurkSessionID}
         onEndDateChange={onEndDateChange}
         onStartDateChange={onStartDateChange}
-        showError={showError}
         startDate={startDate}
-        turkSessionID={turkSessionID}
       />
+      {showError && <p className="error-message">Start date is required.</p>}
       {formattedRows && (<ReactTable
         className="activity-stats-table"
         columns={dataTableFields}

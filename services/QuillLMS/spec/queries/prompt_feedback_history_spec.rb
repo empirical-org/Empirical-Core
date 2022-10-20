@@ -157,18 +157,6 @@ RSpec.describe PromptFeedbackHistory, type: :model do
       result = PromptFeedbackHistory.prompt_health_query(activity_id: @main_activity.id, end_date: '2021-08-04T05:00:00.000Z')
       expect(result.all[0].session_count).to eq(1)
     end
-
-    it 'should return sessions that match the filter params for turk_session_id' do
-      activity_session1_uid = SecureRandom.uuid
-      activity_session2_uid = SecureRandom.uuid
-      feedback_session1_uid = FeedbackSession.get_uid_for_activity_session(activity_session1_uid)
-      comprehension_turking_round = create(:comprehension_turking_round_activity_session, activity_session_uid: activity_session1_uid)
-      first_session_feedback1 = create(:feedback_history, feedback_session_uid: activity_session1_uid, prompt_id: @prompt1.id)
-      first_session_feedback2 = create(:feedback_history, feedback_session_uid: activity_session2_uid, prompt_id: @prompt1.id)
-
-      result = PromptFeedbackHistory.prompt_health_query(activity_id: @main_activity.id, turk_session_id: comprehension_turking_round.turking_round_id)
-      expect(result.all[0].session_count).to eq(1)
-    end
   end
 
   describe '#serialize_results' do

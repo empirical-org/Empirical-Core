@@ -75,7 +75,6 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
   const ruleTypeFromUrl = (history.location && qs.parse(history.location.search.replace('?', '')).selected_rule_type) || DEFAULT_RULE_TYPE
   const initialStartDateString = window.sessionStorage.getItem(`${RULES_ANALYSIS}startDate`) || '';
   const initialEndDateString = window.sessionStorage.getItem(`${RULES_ANALYSIS}endDate`) || '';
-  const initialTurkSessionId = window.sessionStorage.getItem(`${RULES_ANALYSIS}turkSessionId`) || '';
   const initialStartDate = initialStartDateString ? new Date(initialStartDateString) : new Date(thirtyDaysAgo);
   const initialEndDate = initialEndDateString ? new Date(initialEndDateString) : null;
   const selectedRuleTypeOption = ruleTypeOptions.find(opt => opt.value === ruleTypeFromUrl)
@@ -88,8 +87,6 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
   const [endDate, onEndDateChange] = React.useState<Date>(initialEndDate);
   const [endDateForQuery, setEndDate] = React.useState<string>(initialEndDateString);
   const [totalResponsesByConjunction, setTotalResponsesByConjunction] = React.useState<number>(null);
-  const [turkSessionID, setTurkSessionID] = React.useState<string>(initialTurkSessionId);
-  const [turkSessionIDForQuery, setTurkSessionIDForQuery] = React.useState<string>(initialTurkSessionId);
   const [formattedRows, setFormattedRows] = React.useState<any[]>(null);
   const [startDate, onStartDateChange] = React.useState<Date>(initialStartDate);
 
@@ -103,12 +100,12 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
 
   // cache rules data for updates
   const { data: ruleFeedbackHistory } = useQuery({
-    queryKey: [`rule-feedback-history-by-conjunction-${selectedConjunction}-and-activity-${activityId}`, activityId, selectedConjunction, startDateForQuery, endDateForQuery, turkSessionIDForQuery],
+    queryKey: [`rule-feedback-history-by-conjunction-${selectedConjunction}-and-activity-${activityId}`, activityId, selectedConjunction, startDateForQuery, endDateForQuery],
     queryFn: fetchRuleFeedbackHistories
   });
 
   const { data: dataForTotalResponseCount } = useQuery({
-    queryKey: [`rule-feedback-history-for-total-response-count`, activityId, selectedConjunction, startDateForQuery, endDateForQuery, turkSessionIDForQuery],
+    queryKey: [`rule-feedback-history-for-total-response-count`, activityId, selectedConjunction, startDateForQuery, endDateForQuery],
     queryFn: fetchRuleFeedbackHistories
   });
 
@@ -194,10 +191,8 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
     }
   }, [ruleFeedbackHistory, selectedRuleType])
 
-  function handleSetTurkSessionID(e: InputEvent){ setTurkSessionID(e.target.value) };
-
   function handleFilterClick() {
-    handlePageFilterClick({ startDate, endDate, turkSessionID, setStartDate, setEndDate, setShowError, setTurkSessionIDForQuery, setPageNumber: null, storageKey: RULES_ANALYSIS });
+    handlePageFilterClick({ startDate, endDate, setStartDate, setEndDate, setShowError, setPageNumber: null, storageKey: RULES_ANALYSIS });
   }
 
   function setPromptBasedOnActivity() {
@@ -468,13 +463,11 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       <FilterWidget
         endDate={endDate}
         handleFilterClick={handleFilterClick}
-        handleSetTurkSessionID={handleSetTurkSessionID}
         onEndDateChange={onEndDateChange}
         onStartDateChange={onStartDateChange}
-        showError={showError}
         startDate={startDate}
-        turkSessionID={turkSessionID}
       />
+      {showError && <p className="error-message">Start date is required.</p>}
       {renderDataSection()}
     </div>
   );
