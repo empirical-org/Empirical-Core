@@ -13,7 +13,7 @@ module Evidence
       create(:evidence_prompts_rule, :rule => (rule_regex), :prompt => (prompt))
       create(:evidence_plagiarism_text, :text => (plagiarized_text1), :rule => (rule))
       create(:evidence_plagiarism_text, :text => (plagiarized_text2), :rule => (rule))
-      stub_const("Evidence.feedback_history_class::DEFAULT_VERSION", 1)
+      stub_const("::FeedbackHistory::DEFAULT_VERSION", 1)
     end
 
     let(:entry) {'hello you'}
