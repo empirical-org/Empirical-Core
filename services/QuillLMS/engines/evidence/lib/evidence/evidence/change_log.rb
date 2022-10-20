@@ -73,19 +73,22 @@ module Evidence
     def session_count(change_log, activity_id)
       start_date = change_log.created_at
       end_date = Time.current
-
-      if change_log.previous_value != "0"
-        value = change_log.new_value.to_i + 1
-        next_change_log =
-          Evidence::Activity
-            &.find_by(id: activity_id)
-            &.change_logs
-            &.where(changed_attribute: 'version', new_value: value)
-            &.first
-        end_date = next_change_log.created_at if next_change_log
-      end
-      ActivitySession.where(activity_id: activity_id, created_at: start_date..end_date).count
-    end
+      next_new_value = change_log.new_value.to_i + 1
+      next_change_log =
+        Evidence::Activity
+          &.find_by(id: activity_id)
+          &.change_logs
+          &.where(changed_attribute: 'version', new_value: next_new_value)
+          &.first
+      end_date = next_change_log.created_at if next_change_log
+      options = {
+        activity_id: activity_id,
+        start_date: start_date,
+        end_date: end_date,
+        page_size: nil
+      }
+      FeedbackHistory.list_by_activity_session(**options).length
+   end
 
     def change_logs_for_activity
       @activity = Evidence::Activity.includes(

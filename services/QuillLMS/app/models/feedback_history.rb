@@ -283,7 +283,7 @@ class FeedbackHistory < ApplicationRecord
       .where("comprehension_turking_round_activity_sessions.turking_round_id = ?", turk_session_id)
     end
     query = FeedbackHistory.apply_activity_session_filter(query, filter_type) if filter_type
-    query = query.limit(page_size)
+    query = query.limit(page_size) if page_size
     query = query.offset((page.to_i - 1) * page_size.to_i) if page && page.to_i > 1
     query
   end
