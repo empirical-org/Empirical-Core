@@ -119,6 +119,7 @@ module Evidence
           .uniq {|r| r.text }
           .reject {|r| r.text.in?(current_result_texts)}
           .reject {|r| regex_exclude?(r.text) }
+          .reject {|r| opinion_api_flagged?(r.text) }
 
         @results += new_results
       end
@@ -160,6 +161,15 @@ module Evidence
         return false if conjunction_exclusions.empty?
 
         conjunction_exclusions.any?{|regex| regex.match(text.strip) }
+      end
+
+      # Use a struct since Opinion API calls .text on the prompt
+      MockPrompt = Struct.new(:text, keyword_init: true)
+
+      private def opinion_api_flagged?(text)
+        response = ::Evidence::Check::Opinion.run(text, MockPrompt.new(text: stem), nil)
+
+        response.success? && !response.optimal?
       end
 
       private def conjunction_exclusions

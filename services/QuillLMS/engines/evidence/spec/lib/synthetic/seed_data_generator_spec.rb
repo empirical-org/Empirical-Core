@@ -20,7 +20,6 @@ module Evidence
     let(:full_passage_alternate2_response1) {['one response 5']}
     let(:full_passage_alternate2_response2) {['one response 6']}
 
-
     let(:full_noun_prompt) {"#{passage_clean}. #{stem} #{nouns.first}"}
     let(:full_noun_response) {['two response']}
 
@@ -55,6 +54,7 @@ module Evidence
       stub_const("Evidence::Synthetic::SeedDataGenerator::FULL_NOUN_COUNT", 1)
       stub_const("Evidence::Synthetic::SeedDataGenerator::SECTION_COUNT", 1)
       stub_const("Evidence::Synthetic::SeedDataGenerator::TEMPS_PASSAGE", [1,0.9])
+      allow(::Evidence::Check::Opinion).to receive(:run).and_return(double(success?: true, optimal?: true))
     end
 
     describe "#new" do
@@ -164,6 +164,40 @@ module Evidence
 
         it "should reject response" do
           expect(subject.count).to eq 1
+        end
+      end
+
+      context 'opinion check' do
+        before do
+          allow(::Evidence::Check::Opinion).to receive(:run).and_return(opinion_response)
+        end
+
+        let(:response) {['some text']}
+
+        subject { because.send(:run_prompt, prompt: '', count: 1, seed: '') }
+
+        context 'flagged as opinion' do
+          let(:opinion_response) { double(success?: true, optimal?: false) }
+
+          it "should reject response" do
+            expect(subject.count).to eq 0
+          end
+        end
+
+        context 'api failure' do
+          let(:opinion_response) { double(success?: false, optimal?: false) }
+
+          it "should NOT reject response" do
+            expect(subject.count).to eq 1
+          end
+        end
+
+        context 'non-opinion' do
+          let(:opinion_response) { double(success?: true, optimal?: true) }
+
+          it "should NOT reject response" do
+            expect(subject.count).to eq 1
+          end
         end
       end
     end
