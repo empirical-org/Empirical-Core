@@ -13,7 +13,6 @@ module Evidence
       create(:evidence_prompts_rule, :rule => (rule_regex), :prompt => (prompt))
       create(:evidence_plagiarism_text, :text => (plagiarized_text1), :rule => (rule))
       create(:evidence_plagiarism_text, :text => (plagiarized_text2), :rule => (rule))
-      stub_const("::FeedbackHistory::DEFAULT_VERSION", 1)
     end
 
     let(:entry) {'hello you'}
@@ -30,6 +29,10 @@ module Evidence
     let!(:low_confidence_hint) { create(:evidence_hint, :rule => (low_confidence_rule)) }
 
     describe '#create' do
+
+      before do
+        stub_const("::FeedbackHistory::DEFAULT_VERSION", 1)
+      end
 
       let(:feedback) { double('feedback', response: {key1: 'some value', api: {api_key: 'api_value'}} ) }
       let(:session_id) { 99 }
