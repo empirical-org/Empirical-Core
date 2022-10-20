@@ -19,19 +19,29 @@ module Evidence
       TEMP_SECTION = 0.4 # give a lower temp (creativity) when it has less info
 
       STEM_KEY = '%<stem>s'
-
+      CONJUNCTIONS = [
+        SO = 'so',
+        BUT = 'but',
+        BECAUSE = 'because'
+      ]
       # Config for Conjunction alternates
       # Use a plain 'string' for direct swap of conjunction
       # e.g. "It is so" => "It is thus"
       # Use 'Start string %<stem>s end string' for more complex forms
       # e.g. "It is so" => "Because It is thus" via 'Because %<stem>s thus'
       CONJUNCTION_SUBS = {
-        'so' => ["Since #{STEM_KEY}", "Because #{STEM_KEY}"],
-        'but' => ['but the counter argument is that', "Even though #{STEM_KEY}"],
-        'because' => ['for the reason that', 'owing to the fact that']
+        SO => ["Since #{STEM_KEY}", "Because #{STEM_KEY}"],
+        BUT => ['but the counter argument is that', "Even though #{STEM_KEY}"],
+        BECAUSE => ['for the reason that', 'owing to the fact that']
       }
-      CONJUNCTIONS = CONJUNCTION_SUBS.keys
+
       class InvalidConjunctionError < StandardError; end
+
+      CONJUNCTION_EXCLUSIONS = {
+        SO => [/^that/],
+        BUT => [],
+        BECAUSE => [/^of/],
+      }
 
       attr_reader :passage, :stem, :conjunction, :nouns, :results
 
@@ -108,6 +118,7 @@ module Evidence
           .map {|s| Result.new(text: noun.nil? ? s.lstrip : [noun, s].join(SPACE), seed: seed)}
           .uniq {|r| r.text }
           .reject {|r| r.text.in?(current_result_texts)}
+          .reject {|r| regex_exclude?(r.text) }
 
         @results += new_results
       end
@@ -143,6 +154,16 @@ module Evidence
         end
 
         stem_without_conjunction + alternate
+      end
+
+      private def regex_exclude?(text)
+        return false if conjunction_exclusions.empty?
+
+        conjunction_exclusions.any?{|regex| regex.match(text.strip) }
+      end
+
+      private def conjunction_exclusions
+        CONJUNCTION_EXCLUSIONS[conjunction]
       end
 
       def results_csv_string
