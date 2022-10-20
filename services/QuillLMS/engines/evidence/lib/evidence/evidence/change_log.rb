@@ -88,7 +88,7 @@ module Evidence
         page_size: nil
       }
       FeedbackHistory.list_by_activity_session(**options).length
-   end
+    end
 
     def change_logs_for_activity
       @activity = Evidence::Activity.includes(
