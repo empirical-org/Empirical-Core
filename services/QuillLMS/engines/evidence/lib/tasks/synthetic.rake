@@ -7,6 +7,7 @@ namespace :synthetic do
   # Specify a run_number (1 in this example) - for iteration to prevent overwriting older files
   # All conjunctions
   # Run: bundle exec rake synthetic:generate_seed_data\[262,1\]
+
   # Some conjunctions (NB: don't leave spaces after commas)
   # Run: bundle exec rake synthetic:generate_seed_data\[262,1,'but','so'\]
   desc "generate seed data to local files"
