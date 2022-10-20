@@ -3,258 +3,162 @@
 require 'rails_helper'
 
 describe AssignRecommendationsWorker do
-  subject { described_class.new }
+  subject { described_class.new.perform(args) }
 
   let(:unit_template) { create(:unit_template) }
   let(:classroom) { create(:classroom) }
   let(:teacher) { classroom.owner }
   let(:student) { create(:student) }
   let(:analyzer) { double(:analyzer, track: true) }
+  let(:is_last_recommendation) { true }
+  let(:lesson) { 'lesson' }
+  let(:assigning_all_recommendations) { false }
+  let(:pack_sequence_id) { nil }
+  let(:order) { 0 }
+
+  let(:args) do
+    {
+      pack_sequence_id: pack_sequence_id,
+      assigning_all_recommendations: assigning_all_recommendations,
+      classroom_id: classroom.id,
+      is_last_recommendation: is_last_recommendation,
+      lesson: lesson,
+      order: order,
+      student_ids: [student.id],
+      unit_template_id: unit_template.id
+    }
+  end
 
   before do
     allow(Analyzer).to receive(:new) { analyzer }
-    allow(PusherRecommendationCompleted).to receive(:run) { true }
-    allow(Units::Creator).to receive(:assign_unit_template_to_one_class) { true }
-    allow(Units::Updater).to receive(:assign_unit_template_to_one_class) { true }
+    allow(PusherRecommendationCompleted).to receive(:run)
   end
 
-  describe "#perform" do
-    context 'when no units is found' do
-      context 'when unit was found with the unit template name' do
-        let!(:unit) { create(:unit, name: unit_template.name, user: teacher, visible: false) }
+  context 'when no units is found' do
+    context 'when unit was not found with the unit template name' do
+      it { should_track_that_all_recommendations_are_being_assigned }
+      it { should_run_the_pusher_recommendations }
+      it { should_create_the_unit_and_assign_it_to_one_class }
+    end
 
-        def call_method
-          subject.perform({
-            unit_template_id: unit_template.id,
-            classroom_id: classroom.id,
+    context 'when unit was found with the unit template name' do
+      let!(:unit) { create(:unit, name: unit_template.name, user: teacher, visible: false) }
+
+      it { should_track_that_all_recommendations_are_being_assigned }
+      it { should_run_the_pusher_recommendations }
+      it { should_update_the_unit_and_assign_it_to_one_class }
+    end
+  end
+
+  context 'when only one unit is found' do
+    let!(:unit) { create(:unit, unit_template: unit_template, user: teacher, visible: false) }
+
+    it { should_track_that_all_recommendations_are_being_assigned }
+    it { should_run_the_pusher_recommendations }
+    it { should_update_the_unit_and_assign_it_to_one_class }
+  end
+
+  context 'when more than one unit is found' do
+    let!(:unit) { create(:unit, unit_template: unit_template, user: teacher, visible: false, updated_at: Date.current) }
+    let!(:unit1) { create(:unit, unit_template: unit_template, user: teacher, visible: false, updated_at: 1.day.ago) }
+
+    it { should_track_that_all_recommendations_are_being_assigned }
+    it { should_run_the_pusher_recommendations }
+    it { should_update_the_unit_and_assign_it_to_one_class }
+  end
+
+  context 'when it is the last recommendation and assigning_all_recommendations is false' do
+    let(:is_last_recommendation) { true }
+    let(:assigning_all_recommendations) { false }
+    let(:lesson) { false }
+
+    it { should_not_track_that_all_recommendations_are_being_assigned }
+  end
+
+  context 'when it is not the last recommendation and assigning_all_recommendations is true' do
+    let(:is_last_recommendation) { false }
+    let(:lesson) { false }
+    let(:assigning_all_recommendations) { true }
+
+    it { should_not_track_that_all_recommendations_are_being_assigned }
+  end
+
+  context 'when it is the last recommendation and assigning_all_recommendations is true' do
+    let(:is_last_recommendation) { true }
+    let(:lesson) { false }
+    let(:assigning_all_recommendations) { true }
+
+    it { should_track_that_all_recommendations_are_being_assigned }
+  end
+
+  context 'when pack_sequence_id is nil' do
+    let(:pack_sequence_id) { nil }
+
+    it { expect { subject }.not_to change(PackSequenceItem, :count).from(0) }
+  end
+
+  context 'when pack_sequence_id exists' do
+    let(:pack_sequence_id) { create(:pack_sequence).id }
+
+    it { expect { subject }.to change(PackSequenceItem, :count).from(0).to(1) }
+
+    context 'when pack_sequence_item already exists' do
+      let(:unit) { create(:unit, unit_template: unit_template, user: teacher) }
+
+      before { create(:pack_sequence_item, item_id: unit.id, pack_sequence_id: pack_sequence_id, order: 0) }
+
+      it { expect { subject }.not_to change(PackSequenceItem, :count).from(1) }
+    end
+  end
+
+  def should_track_that_all_recommendations_are_being_assigned
+    expect(analyzer).to receive(:track).with(teacher, SegmentIo::BackgroundEvents::ASSIGN_RECOMMENDATIONS)
+    subject
+  end
+
+
+  def should_not_track_that_all_recommendations_are_being_assigned
+    expect(analyzer).not_to receive(:track).with(teacher, SegmentIo::BackgroundEvents::ASSIGN_ALL_RECOMMENDATIONS)
+    subject
+  end
+
+  def should_run_the_pusher_recommendations
+    expect(PusherRecommendationCompleted).to receive(:run).with(classroom, unit_template.id, lesson)
+    subject
+  end
+
+  def should_update_the_unit_and_assign_it_to_one_class
+    expect(Units::Updater)
+      .to receive(:assign_unit_template_to_one_class)
+      .with(
+        unit.id,
+        {
+            id: classroom.id,
             student_ids: [student.id],
-            last: "last",
-            lesson: "lesson"
-          })
-        end
+            assign_on_join: false
+        },
+        unit_template.id,
+        teacher.id,
+        concatenate_existing_student_ids: true
+      )
 
-        before do
-          allow(Analyzer).to receive(:new) { analyzer }
-          allow(PusherRecommendationCompleted).to receive(:run) { true }
-        end
+    subject
+  end
 
-        it 'should make there unit visible and assign unit template to one class' do
-          call_method
-          expect(unit.reload.visible).to eq true
-        end
-
-        it 'should track the recommendation assignment' do
-          expect(analyzer).to receive(:track).with(teacher, SegmentIo::BackgroundEvents::ASSIGN_RECOMMENDATIONS)
-          call_method
-        end
-
-        it 'should run the pusher recommendations' do
-          expect(PusherRecommendationCompleted).to receive(:run).with(classroom, unit_template.id, "lesson")
-          call_method
-        end
-
-        it 'should update the unit and assign it to one class' do
-          expect(Units::Updater).to receive(:assign_unit_template_to_one_class).with(
-              unit.id,
-              {
-                  id: classroom.id,
-                  student_ids: [student.id],
-                  assign_on_join: false
-              },
-              unit_template.id,
-              teacher.id,
-              concatenate_existing_student_ids: true
-          )
-          call_method
-        end
-      end
-
-      context 'when unit was not found with the unit template name' do
-        def call_method
-          subject.perform({
-            unit_template_id: unit_template.id,
-            classroom_id: classroom.id,
+  def should_create_the_unit_and_assign_it_to_one_class
+    expect(Units::Creator)
+      .to receive(:assign_unit_template_to_one_class)
+      .with(
+        teacher.id,
+        unit_template.id,
+        {
+            id: classroom.id,
             student_ids: [student.id],
-            last: "last",
-            lesson: "lesson"
-          })
-        end
+            assign_on_join: false
+        }
+      )
 
-        before do
-          allow(Analyzer).to receive(:new) { analyzer }
-          allow(PusherRecommendationCompleted).to receive(:run) { true }
-        end
-
-        it 'should track the recommendation assignment' do
-          expect(analyzer).to receive(:track).with(teacher, SegmentIo::BackgroundEvents::ASSIGN_RECOMMENDATIONS)
-          call_method
-        end
-
-        it 'should run the pusher recommendations' do
-          expect(PusherRecommendationCompleted).to receive(:run).with(classroom, unit_template.id, "lesson")
-          call_method
-        end
-
-        it 'should update the unit and assign it to one class' do
-          expect(Units::Creator).to receive(:assign_unit_template_to_one_class).with(
-              teacher.id,
-              unit_template.id,
-              {
-                  id: classroom.id,
-                  student_ids: [student.id],
-                  assign_on_join: false
-              }
-          )
-          call_method
-        end
-      end
-    end
-
-    context 'when more than one unit is found' do
-      let!(:unit) { create(:unit, unit_template: unit_template, user: teacher, visible: false, updated_at: Date.current) }
-      let!(:unit1) { create(:unit, unit_template: unit_template, user: teacher, visible: false, updated_at: 1.day.ago) }
-
-      def call_method
-        subject.perform({
-          unit_template_id: unit_template.id,
-          classroom_id: classroom.id,
-          student_ids: [student.id],
-          last: "last",
-          lesson: "lesson"
-        })
-      end
-
-      it 'should make the unit visible' do
-        call_method
-        expect(unit.reload.visible).to eq true
-      end
-
-      it 'should track the recommendation assignment' do
-        expect(analyzer).to receive(:track).with(teacher, SegmentIo::BackgroundEvents::ASSIGN_RECOMMENDATIONS)
-        call_method
-      end
-
-      it 'should run the pusher recommendations' do
-        expect(PusherRecommendationCompleted).to receive(:run).with(classroom, unit_template.id, "lesson")
-        call_method
-      end
-
-      it 'should update the unit and assign it to one class' do
-        expect(Units::Updater).to receive(:assign_unit_template_to_one_class).with(
-            unit.id,
-            {
-                id: classroom.id,
-                student_ids: [student.id],
-                assign_on_join: false
-            },
-            unit_template.id,
-            teacher.id,
-            concatenate_existing_student_ids: true
-        )
-        call_method
-      end
-    end
-
-    context 'when only one unit is found' do
-      let!(:unit) { create(:unit, unit_template: unit_template, user: teacher, visible: false) }
-
-      def call_method
-        subject.perform({
-          unit_template_id: unit_template.id,
-          classroom_id: classroom.id,
-          student_ids: [student.id],
-          last: "last",
-          lesson: "lesson"
-        })
-      end
-
-      it 'should make the unit visible' do
-        call_method
-        expect(unit.reload.visible).to eq true
-      end
-
-      it 'should track the recommendation assignment' do
-        expect(analyzer).to receive(:track).with(teacher, SegmentIo::BackgroundEvents::ASSIGN_RECOMMENDATIONS)
-        call_method
-      end
-
-      it 'should run the pusher recommendations' do
-        expect(PusherRecommendationCompleted).to receive(:run).with(classroom, unit_template.id, "lesson")
-        call_method
-      end
-
-      it 'should update the unit and assign it to one class' do
-        expect(Units::Updater).to receive(:assign_unit_template_to_one_class).with(
-            unit.id,
-            {
-              id: classroom.id,
-              student_ids: [student.id],
-              assign_on_join: false
-            },
-            unit_template.id,
-            teacher.id,
-            concatenate_existing_student_ids: true
-        )
-        call_method
-      end
-    end
-
-    context 'when it is the last worker and assigning_all_recommended_packs is not true' do
-      def call_method
-        subject.perform({
-          unit_template_id: unit_template.id,
-          classroom_id: classroom.id,
-          student_ids: [student.id],
-          last: true,
-          lesson: false,
-          assigning_all_recommended_packs: false
-        })
-      end
-
-      it 'should not track that all recommendations are being assigned' do
-        expect(analyzer).not_to receive(:track).with(teacher, SegmentIo::BackgroundEvents::ASSIGN_ALL_RECOMMENDATIONS)
-        call_method
-      end
-
-    end
-
-    context 'when it is not the last worker and assigning_all_recommended_packs is true' do
-      def call_method
-        subject.perform({
-          unit_template_id: unit_template.id,
-          classroom_id: classroom.id,
-          student_ids: [student.id],
-          last: false,
-          lesson: false,
-          assigning_all_recommended_packs: true
-        })
-      end
-
-      it 'should not track that all recommendations are being assigned' do
-        expect(analyzer).not_to receive(:track).with(teacher, SegmentIo::BackgroundEvents::ASSIGN_ALL_RECOMMENDATIONS)
-        call_method
-      end
-
-    end
-
-    context 'when it is the last worker and assigning_all_recommended_packs is true' do
-      def call_method
-        subject.perform({
-          unit_template_id: unit_template.id,
-          classroom_id: classroom.id,
-          student_ids: [student.id],
-          last: true,
-          lesson: false,
-          assigning_all_recommended_packs: true
-        })
-      end
-
-      it 'should track that all recommendations are being assigned' do
-        expect(analyzer).to receive(:track).with(teacher, SegmentIo::BackgroundEvents::ASSIGN_ALL_RECOMMENDATIONS)
-        call_method
-      end
-
-    end
-
+    subject
   end
 end
+
