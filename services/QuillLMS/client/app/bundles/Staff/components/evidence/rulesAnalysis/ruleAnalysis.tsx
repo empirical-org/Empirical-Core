@@ -122,8 +122,13 @@ const RuleAnalysis = ({ match }) => {
   React.useEffect(() => {
     if(activityVersionData && activityVersionData.changeLogs && (!versionOption || !versionOptions.length)) {
       const options = getVersionOptions(activityVersionData);
-      !versionOption && setVersionOption(options[0]);
+      const defaultOption = options[0];
+      const { value } = defaultOption;
+      const { start_date, end_date } = value;
+      !versionOption && setVersionOption(defaultOption);
       setVersionOptions(options);
+      onStartDateChange(new Date(start_date))
+      onEndDateChange(new Date(end_date))
     }
   }, [activityVersionData]);
 
@@ -148,7 +153,11 @@ const RuleAnalysis = ({ match }) => {
   }, [filter, search, selectedIds])
 
   function handleVersionSelection(versionOption: DropdownObjectInterface) {
+    const { value } = versionOption;
+    const { start_date, end_date } = value;
     setVersionOption(versionOption);
+    onStartDateChange(new Date(start_date))
+    onEndDateChange(new Date(end_date))
   }
 
   function handleFilterClick() {
@@ -359,9 +368,9 @@ const RuleAnalysis = ({ match }) => {
         handleVersionSelection={handleVersionSelection}
         onEndDateChange={onEndDateChange}
         onStartDateChange={onStartDateChange}
+        selectedVersion={versionOption}
         startDate={startDate}
         versionOptions={versionOptions}
-        selectedVersion={versionOption}
       />
       <div className="radio-options">
         <div className="radio">

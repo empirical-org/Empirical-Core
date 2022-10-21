@@ -58,8 +58,14 @@ const SessionsIndex = ({ match }) => {
   React.useEffect(() => {
     if(activityVersionData && activityVersionData.changeLogs && (!versionOption || !versionOptions.length)) {
       const options = getVersionOptions(activityVersionData);
-      !versionOption && setVersionOption(options[0]);
+      const defaultOption = options[0];
+      const { value } = defaultOption;
+      const { start_date, end_date } = value;
+      !versionOption && setVersionOption(defaultOption);
       setVersionOptions(options);
+      onStartDateChange(new Date(start_date))
+      onEndDateChange(new Date(end_date))
+      handleFilterClick(defaultOption);
     }
   }, [activityVersionData]);
 
@@ -76,8 +82,8 @@ const SessionsIndex = ({ match }) => {
     }
   }, [sessionsData]);
 
-  function handleFilterClick() {
-    handlePageFilterClick({ startDate, endDate, filterOption, versionOption, setStartDate, setEndDate, setPageNumber, setFilterOptionForQuery, storageKey: SESSION_INDEX });
+  function handleFilterClick(e: React.SyntheticEvent, passedVersionOption?: DropdownObjectInterface) {
+    handlePageFilterClick({ startDate, endDate, filterOption, versionOption: passedVersionOption || versionOption, setStartDate, setEndDate, setPageNumber, setFilterOptionForQuery, storageKey: SESSION_INDEX });
   }
 
   function handleFilterOptionChange(filterOption: DropdownObjectInterface) {
@@ -85,7 +91,12 @@ const SessionsIndex = ({ match }) => {
   }
 
   function handleVersionSelection(versionOption: DropdownObjectInterface) {
+    console.log("🚀 ~ file: sessionsIndex.tsx ~ line 94 ~ handleVersionSelection ~ versionOption", versionOption)
+    const { value } = versionOption;
+    const { start_date, end_date } = value;
     setVersionOption(versionOption);
+    onStartDateChange(new Date(start_date))
+    onEndDateChange(new Date(end_date))
   }
 
   function handleDataUpdate(activitySessions, sorted) {
@@ -216,9 +227,9 @@ const SessionsIndex = ({ match }) => {
             handleVersionSelection={handleVersionSelection}
             onEndDateChange={onEndDateChange}
             onStartDateChange={onStartDateChange}
+            selectedVersion={versionOption}
             startDate={startDate}
             versionOptions={versionOptions}
-            selectedVersion={versionOption}
           />
         </section>
         <ReactTable

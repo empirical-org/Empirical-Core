@@ -149,12 +149,10 @@ RSpec.describe RuleFeedbackHistory, type: :model do
       activity_session = create(:activity_session)
 
       # feedbacks
-      create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule1.uid, time: "2021-03-07T19:02:54.814Z", feedback_session_uid: activity_session.uid)
       create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule2.uid, time: "2021-04-07T19:02:54.814Z", feedback_session_uid: "def")
       create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule3.uid, time: "2021-05-07T19:02:54.814Z", feedback_session_uid: "ghi")
       create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule4.uid, time: "2021-06-07T19:02:54.814Z", feedback_session_uid: "abc")
 
-      uid = FeedbackSession.find_by(activity_session_uid: "abc").uid
       sql_result = RuleFeedbackHistory.exec_query(conjunction: 'so', activity_id: activity1.id, start_date: "2021-03-06T19:02:54.814Z", end_date: "2021-04-10T19:02:54.814Z")
       expect(sql_result.all.length).to eq 1
       expect(sql_result[0].rule_type).to eq 'autoML'
@@ -215,8 +213,7 @@ RSpec.describe RuleFeedbackHistory, type: :model do
       f_h3 = create(:feedback_history, rule_uid: unused_rule.uid)
       f_h4 = create(:feedback_history, rule_uid: so_rule1.uid, prompt_id: 1, used: false)
       f_h5 = create(:feedback_history, rule_uid: so_rule1.uid, prompt_id: 1, created_at: "2021-03-07T19:02:54.814Z", feedback_session_uid: activity_session.uid)
-      f_h6 = create(:feedback_history, rule_uid: so_rule1.uid, prompt_id: 1, created_at: "2021-04-07T19:02:54.814Z", feedback_session_uid: "abc")
-      f_h7 = create(:feedback_history, rule_uid: so_rule1.uid, prompt_id: 1, created_at: "2021-05-07T19:02:54.814Z", feedback_session_uid: activity_session.uid)
+      f_h6 = create(:feedback_history, rule_uid: so_rule1.uid, prompt_id: 1, created_at: "2021-05-07T19:02:54.814Z", feedback_session_uid: activity_session.uid)
 
       result = RuleFeedbackHistory.generate_rulewise_report(
         rule_uid: so_rule1.uid,

@@ -4,162 +4,167 @@ exports[`FilterWidget component should render FilterWidget 1`] = `
 <div
   className="date-selection-container rules-analysis"
 >
-  <p
-    className="date-picker-label"
+  <div
+    className="left-side-container"
   >
-    Start Date:
-  </p>
-  <DateTimePicker
-    ampm={false}
-    calendarIcon={
-      <svg
-        className="react-datetime-picker__calendar-button__icon react-datetime-picker__button__icon"
-        height={19}
-        stroke="black"
-        strokeWidth={2}
-        viewBox="0 0 19 19"
-        width={19}
-        xmlns="http://www.w3.org/2000/svg"
+    <DropdownInput
+      className="version-dropdown"
+      isSearchable={true}
+      label="Version options"
+    />
+    <div
+      className="filter-container"
+    >
+      <p
+        className="date-picker-label"
       >
-        <rect
-          fill="none"
-          height="15"
-          width="15"
-          x="2"
-          y="2"
-        />
-        <line
-          x1="6"
-          x2="6"
-          y1="0"
-          y2="4"
-        />
-        <line
-          x1="13"
-          x2="13"
-          y1="0"
-          y2="4"
-        />
-      </svg>
-    }
-    className="start-date-picker"
-    clearIcon={
-      <svg
-        className="react-datetime-picker__clear-button__icon react-datetime-picker__button__icon"
-        height={19}
-        stroke="black"
-        strokeWidth={2}
-        viewBox="0 0 19 19"
-        width={19}
-        xmlns="http://www.w3.org/2000/svg"
+        Start Date:
+      </p>
+      <DateTimePicker
+        ampm={false}
+        calendarIcon={
+          <svg
+            className="react-datetime-picker__calendar-button__icon react-datetime-picker__button__icon"
+            height={19}
+            stroke="black"
+            strokeWidth={2}
+            viewBox="0 0 19 19"
+            width={19}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect
+              fill="none"
+              height="15"
+              width="15"
+              x="2"
+              y="2"
+            />
+            <line
+              x1="6"
+              x2="6"
+              y1="0"
+              y2="4"
+            />
+            <line
+              x1="13"
+              x2="13"
+              y1="0"
+              y2="4"
+            />
+          </svg>
+        }
+        className="start-date-picker"
+        clearIcon={
+          <svg
+            className="react-datetime-picker__clear-button__icon react-datetime-picker__button__icon"
+            height={19}
+            stroke="black"
+            strokeWidth={2}
+            viewBox="0 0 19 19"
+            width={19}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <line
+              x1="4"
+              x2="15"
+              y1="4"
+              y2="15"
+            />
+            <line
+              x1="15"
+              x2="4"
+              y1="4"
+              y2="15"
+            />
+          </svg>
+        }
+        closeWidgets={true}
+        format="y-MM-dd HH:mm"
+        isCalendarOpen={null}
+        isClockOpen={null}
+        maxDetail="minute"
+        onChange={[MockFunction]}
+        openWidgetsOnFocus={true}
+        value="2021-06-29T05:00:00.000Z"
+      />
+    </div>
+    <div
+      className="filter-container"
+    >
+      <p
+        className="date-picker-label"
       >
-        <line
-          x1="4"
-          x2="15"
-          y1="4"
-          y2="15"
-        />
-        <line
-          x1="15"
-          x2="4"
-          y1="4"
-          y2="15"
-        />
-      </svg>
-    }
-    closeWidgets={true}
-    format="y-MM-dd HH:mm"
-    isCalendarOpen={null}
-    isClockOpen={null}
-    maxDetail="minute"
-    onChange={[MockFunction]}
-    openWidgetsOnFocus={true}
-    value="2021-06-29T05:00:00.000Z"
-  />
-  <p
-    className="date-picker-label"
-  >
-    End Date (optional):
-  </p>
-  <DateTimePicker
-    ampm={false}
-    calendarIcon={
-      <svg
-        className="react-datetime-picker__calendar-button__icon react-datetime-picker__button__icon"
-        height={19}
-        stroke="black"
-        strokeWidth={2}
-        viewBox="0 0 19 19"
-        width={19}
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <rect
-          fill="none"
-          height="15"
-          width="15"
-          x="2"
-          y="2"
-        />
-        <line
-          x1="6"
-          x2="6"
-          y1="0"
-          y2="4"
-        />
-        <line
-          x1="13"
-          x2="13"
-          y1="0"
-          y2="4"
-        />
-      </svg>
-    }
-    className="end-date-picker"
-    clearIcon={
-      <svg
-        className="react-datetime-picker__clear-button__icon react-datetime-picker__button__icon"
-        height={19}
-        stroke="black"
-        strokeWidth={2}
-        viewBox="0 0 19 19"
-        width={19}
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <line
-          x1="4"
-          x2="15"
-          y1="4"
-          y2="15"
-        />
-        <line
-          x1="15"
-          x2="4"
-          y1="4"
-          y2="15"
-        />
-      </svg>
-    }
-    closeWidgets={true}
-    format="y-MM-dd HH:mm"
-    isCalendarOpen={null}
-    isClockOpen={null}
-    maxDetail="minute"
-    onChange={[MockFunction]}
-    openWidgetsOnFocus={true}
-    value="2021-08-03T05:00:00.000Z"
-  />
-  <p
-    className="date-picker-label"
-  >
-    Turk Session ID (optional):
-  </p>
-  <Input
-    autoComplete="on"
-    className="turk-session-id-input"
-    handleChange={[MockFunction]}
-    label=""
-    value=""
-  />
+        End Date:
+      </p>
+      <DateTimePicker
+        ampm={false}
+        calendarIcon={
+          <svg
+            className="react-datetime-picker__calendar-button__icon react-datetime-picker__button__icon"
+            height={19}
+            stroke="black"
+            strokeWidth={2}
+            viewBox="0 0 19 19"
+            width={19}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect
+              fill="none"
+              height="15"
+              width="15"
+              x="2"
+              y="2"
+            />
+            <line
+              x1="6"
+              x2="6"
+              y1="0"
+              y2="4"
+            />
+            <line
+              x1="13"
+              x2="13"
+              y1="0"
+              y2="4"
+            />
+          </svg>
+        }
+        className="end-date-picker"
+        clearIcon={
+          <svg
+            className="react-datetime-picker__clear-button__icon react-datetime-picker__button__icon"
+            height={19}
+            stroke="black"
+            strokeWidth={2}
+            viewBox="0 0 19 19"
+            width={19}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <line
+              x1="4"
+              x2="15"
+              y1="4"
+              y2="15"
+            />
+            <line
+              x1="15"
+              x2="4"
+              y1="4"
+              y2="15"
+            />
+          </svg>
+        }
+        closeWidgets={true}
+        format="y-MM-dd HH:mm"
+        isCalendarOpen={null}
+        isClockOpen={null}
+        maxDetail="minute"
+        onChange={[MockFunction]}
+        openWidgetsOnFocus={true}
+        value="2021-08-03T05:00:00.000Z"
+      />
+    </div>
+  </div>
   <button
     className="quill-button fun primary contained"
     onClick={[MockFunction]}
@@ -167,10 +172,5 @@ exports[`FilterWidget component should render FilterWidget 1`] = `
   >
     Filter
   </button>
-  <p
-    className="error-message"
-  >
-    Start date is required.
-  </p>
 </div>
 `;

@@ -50,17 +50,27 @@ const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
   React.useEffect(() => {
     if(activityVersionData && activityVersionData.changeLogs && (!versionOption || !versionOptions.length)) {
       const options = getVersionOptions(activityVersionData);
-      !versionOption && setVersionOption(options[0]);
+      const defaultOption = options[0];
+      const { value } = defaultOption;
+      const { start_date, end_date } = value;
+      !versionOption && setVersionOption(defaultOption);
       setVersionOptions(options);
+      onStartDateChange(new Date(start_date))
+      onEndDateChange(new Date(end_date))
+      handleFilterClick(defaultOption);
     }
   }, [activityVersionData]);
 
   function handleVersionSelection(versionOption: DropdownObjectInterface) {
+    const { value } = versionOption;
+    const { start_date, end_date } = value;
     setVersionOption(versionOption);
+    onStartDateChange(new Date(start_date))
+    onEndDateChange(new Date(end_date))
   }
 
-  function handleFilterClick() {
-    handlePageFilterClick({ startDate, endDate, versionOption, setStartDate, setEndDate, setPageNumber: null, storageKey: ACTIVITY_STATS });
+  function handleFilterClick(e: React.SyntheticEvent, passedVersionOption?: DropdownObjectInterface) {
+    handlePageFilterClick({ startDate, endDate, versionOption: passedVersionOption || versionOption, setStartDate, setEndDate, setPageNumber: null, storageKey: ACTIVITY_STATS });
   }
 
   const formattedRows = promptHealth && promptHealth.prompts && Object.values(promptHealth.prompts).map((prompt: PromptHealthInterface) => {
@@ -162,9 +172,9 @@ const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
         handleVersionSelection={handleVersionSelection}
         onEndDateChange={onEndDateChange}
         onStartDateChange={onStartDateChange}
+        selectedVersion={versionOption}
         startDate={startDate}
         versionOptions={versionOptions}
-        selectedVersion={versionOption}
       />
       {formattedRows && (<ReactTable
         className="activity-stats-table"

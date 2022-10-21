@@ -250,7 +250,6 @@ export function getVersionOptions(activityVersionData) {
       end_date: options[0].value.end_date
     }
   }
-  console.log("🚀 ~ file: miscHelpers.ts ~ line 257 ~ getVersionOptions ~ showAllOption", showAllOption)
   options.push(showAllOption);
   return options;
 }
