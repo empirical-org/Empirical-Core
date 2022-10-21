@@ -35,7 +35,7 @@ module Evidence
 
     let(:example) {'Example to paraphrase.'}
     let(:label) { 'label1' }
-    let(:label_config) {described_class::LabelConfig.new(label: label, examples: [example])}
+    let(:label_config) {::Evidence::Synthetic::SeedLabelConfig.new(label: label, examples: [example])}
     let(:example_prompt) { "rephrase with some synonyms:\n\nExample to paraphrase." }
     let(:example_response) { ["Example to rephrase."] }
 

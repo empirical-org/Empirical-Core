@@ -331,16 +331,18 @@ module Evidence
 
     context "#seed_data" do
       let(:activity) { create(:evidence_activity) }
+      # TODO: fill out test when frontend is complete
+      let(:label_configs) {{}}
 
       it "should call background worker" do
-        expect(Evidence::ActivitySeedDataWorker).to receive(:perform_async).with(activity.id, [])
+        expect(Evidence::ActivitySeedDataWorker).to receive(:perform_async).with(activity.id, [], label_configs)
         post :seed_data, params: { id: activity.id, nouns: "" }
 
         expect(response).to have_http_status(:success)
       end
 
       it "should call background worker with noun string converted to array" do
-        expect(Evidence::ActivitySeedDataWorker).to receive(:perform_async).with(activity.id, ['noun1','noun two','noun3'])
+        expect(Evidence::ActivitySeedDataWorker).to receive(:perform_async).with(activity.id, ['noun1','noun two','noun3'], label_configs)
         post :seed_data, params: { id: activity.id, nouns: "noun1, noun two,,noun3" }
 
         expect(response).to have_http_status(:success)

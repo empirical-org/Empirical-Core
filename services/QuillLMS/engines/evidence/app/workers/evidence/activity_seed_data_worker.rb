@@ -5,8 +5,8 @@ module Evidence
     include Evidence.sidekiq_module
     sidekiq_options retry: 0
 
-    def perform(activity_id, nouns)
-      csv_hash = Evidence::Synthetic::SeedDataGenerator.csvs_for_activity(activity_id: activity_id, nouns: nouns)
+    def perform(activity_id, nouns, label_configs)
+      csv_hash = Evidence::Synthetic::SeedDataGenerator.csvs_for_activity(activity_id: activity_id, nouns: nouns, label_configs: label_configs)
 
       activity = Evidence::Activity.find(activity_id)
       subject = "Evidence Seed Data: Activity #{activity_id} - #{activity.title}"

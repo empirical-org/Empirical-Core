@@ -4,7 +4,6 @@ module Evidence
   module Synthetic
     class SeedDataGenerator
       Result = Struct.new(:text, :seed, keyword_init: true)
-      LabelConfig = Struct.new(:label, :examples, keyword_init: true)
 
       WORD_SPLIT_COUNT = 70
       SPACE = ' '
@@ -52,7 +51,7 @@ module Evidence
       attr_reader :passage, :stem, :conjunction, :nouns, :results, :label_configs
 
       # returns a hash of the form {'csv name' => CSVString, 'csv name2' =>...}
-      def self.csvs_for_activity(activity_id:, nouns: [], conjunctions: nil)
+      def self.csvs_for_activity(activity_id:, nouns: [], conjunctions: nil, label_configs: {})
         activity = Evidence::Activity.find(activity_id)
         passage = activity.passages.first.text
         prompts = conjunctions.present? ? activity.prompts.where(conjunction: conjunctions) : activity.prompts
@@ -61,14 +60,15 @@ module Evidence
 
         csvs = {}
 
-        prompts.each.with_index do |prompt, index|
+        prompts.each do |prompt|
           csv_name = "#{short_name}_#{prompt.conjunction}#{CSV_SUFFIX}"
 
           generator = new(
             passage: passage,
             stem: prompt.text,
             conjunction: prompt.conjunction,
-            nouns: nouns
+            nouns: nouns,
+            label_configs: label_configs[prompt.conjunction] || []
           )
           generator.run
 

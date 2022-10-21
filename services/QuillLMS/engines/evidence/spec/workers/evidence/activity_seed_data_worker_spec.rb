@@ -18,17 +18,18 @@ module Evidence
       let(:generator_response) { double }
       let(:email_subject) {"Evidence Seed Data: Activity #{activity.id} - #{activity.title}"}
       let(:mailer) { double('mailer', deliver_now!: true) }
+      let(:label_configs) {{'key' => 'value'}}
 
       it 'call generate and call file_mailer' do
         expect(Evidence::Synthetic::SeedDataGenerator).to receive(:csvs_for_activity)
-          .with(activity_id: activity.id, nouns: nouns)
+          .with(activity_id: activity.id, nouns: nouns, label_configs: label_configs)
           .and_return(generator_response)
 
         expect(FileMailer).to receive(:send_multiple_files)
           .with(email, email_subject, generator_response)
           .and_return(mailer)
 
-        subject.perform(activity.id, nouns)
+        subject.perform(activity.id, nouns, label_configs)
       end
     end
   end

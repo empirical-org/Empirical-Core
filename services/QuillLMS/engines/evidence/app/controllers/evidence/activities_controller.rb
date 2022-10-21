@@ -90,7 +90,7 @@ module Evidence
       render json: @activity&.activity_versions
     end
 
-    # params [:id, nouns:]
+    # params [:id, nouns:, labels]
     def seed_data
       nouns_array = params[:nouns]
         .split(',')
@@ -98,7 +98,10 @@ module Evidence
         .map(&:strip)
         .uniq
 
-      Evidence::ActivitySeedDataWorker.perform_async(@activity.id, nouns_array)
+      # TODO: Fill in label_configs in frontend PR
+      label_configs = {}
+
+      Evidence::ActivitySeedDataWorker.perform_async(@activity.id, nouns_array, label_configs)
 
       head :no_content
     end
