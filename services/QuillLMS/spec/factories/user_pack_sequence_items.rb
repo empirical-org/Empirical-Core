@@ -8,8 +8,8 @@
 #  status                :string           default("locked")
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
-#  pack_sequence_item_id :bigint
-#  user_id               :bigint
+#  pack_sequence_item_id :bigint           not null
+#  user_id               :bigint           not null
 #
 # Indexes
 #

@@ -4354,8 +4354,8 @@ ALTER SEQUENCE public.user_milestones_id_seq OWNED BY public.user_milestones.id;
 
 CREATE TABLE public.user_pack_sequence_items (
     id bigint NOT NULL,
-    user_id bigint,
-    pack_sequence_item_id bigint,
+    user_id bigint NOT NULL,
+    pack_sequence_item_id bigint NOT NULL,
     status character varying DEFAULT 'locked'::character varying,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL

@@ -8,8 +8,8 @@
 #  status                :string           default("locked")
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
-#  pack_sequence_item_id :bigint
-#  user_id               :bigint
+#  pack_sequence_item_id :bigint           not null
+#  user_id               :bigint           not null
 #
 # Indexes
 #
@@ -31,4 +31,6 @@ class UserPackSequenceItem < ApplicationRecord
   belongs_to :pack_sequence_item
 
   validates :status, inclusion: { in: STATUSES }
+  validates :pack_sequence_item, presence: true
+  validates :user, presence: true
 end
