@@ -1,17 +1,28 @@
 import * as React from "react";
 import DateTimePicker from 'react-datetime-picker';
+import { DropdownInput } from "../../../../Shared";
 
 const FilterWidget = ({
   handleFilterClick,
+  handleVersionSelection,
   onEndDateChange,
   onStartDateChange,
   endDate,
-  startDate
+  startDate,
+  versionOptions,
+  selectedVersion
 }) => {
-
   return(
     <div className="date-selection-container rules-analysis">
       <div className="left-side-container">
+        <DropdownInput
+          className="version-dropdown"
+          handleChange={handleVersionSelection}
+          isSearchable={true}
+          label="Version options"
+          options={versionOptions}
+          value={selectedVersion}
+        />
         <div className="filter-container">
           <p className="date-picker-label">Start Date:</p>
           <DateTimePicker
@@ -23,7 +34,7 @@ const FilterWidget = ({
           />
         </div>
         <div className="filter-container">
-          <p className="date-picker-label">End Date (optional):</p>
+          <p className="date-picker-label">End Date:</p>
           <DateTimePicker
             ampm={false}
             className="end-date-picker"

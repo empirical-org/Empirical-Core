@@ -5,10 +5,10 @@ import * as moment from 'moment';
 import { firstBy } from 'thenby';
 
 import FilterWidget from "../shared/filterWidget";
-import { handlePageFilterClick } from "../../../helpers/evidence/miscHelpers";
+import { getVersionOptions, handlePageFilterClick } from "../../../helpers/evidence/miscHelpers";
 import { renderHeader } from "../../../helpers/evidence/renderHelpers";
-import { Error, Spinner, DropdownInput, Input, ReactTable, } from '../../../../Shared/index';
-import { fetchActivity, fetchActivitySessions } from '../../../utils/evidence/activityAPIs';
+import { Error, Spinner, DropdownInput, ReactTable, } from '../../../../Shared/index';
+import { fetchActivity, fetchActivitySessions, fetchActivityVersions } from '../../../utils/evidence/activityAPIs';
 import { DropdownObjectInterface, ActivitySessionInterface, ActivitySessionsInterface, InputEvent } from '../../../interfaces/evidenceInterfaces';
 import { activitySessionIndexResponseHeaders, activitySessionFilterOptions, SESSION_INDEX } from '../../../../../constants/evidence';
 
@@ -21,12 +21,14 @@ const SessionsIndex = ({ match }) => {
   const initialStartDateString = window.sessionStorage.getItem(`${SESSION_INDEX}startDate`) || '';
   const initialEndDateString = window.sessionStorage.getItem(`${SESSION_INDEX}endDate`) || '';
   const initialFilterOption = JSON.parse(window.sessionStorage.getItem(`${SESSION_INDEX}filterOption`)) || activitySessionFilterOptions[0];
+  const initialVersionOption = JSON.parse(window.sessionStorage.getItem(`${SESSION_INDEX}versionOption`)) || null;
   const initialStartDate = initialStartDateString ? new Date(initialStartDateString) : null;
   const initialEndDate = initialEndDateString ? new Date(initialEndDateString) : null;
 
-  const [showError, setShowError] = React.useState<boolean>(false);
   const [pageNumber, setPageNumber] = React.useState<DropdownObjectInterface>(null);
   const [pageDropdownOptions, setPageDropdownOptions] = React.useState<DropdownObjectInterface[]>(null);
+  const [versionOption, setVersionOption] = React.useState<DropdownObjectInterface>(null);
+  const [versionOptions, setVersionOptions] = React.useState<DropdownObjectInterface[]>([]);
   const [filterOption, setFilterOption] = React.useState<DropdownObjectInterface>(initialFilterOption);
   const [filterOptionForQuery, setFilterOptionForQuery] = React.useState<DropdownObjectInterface>(initialFilterOption);
   const [rowData, setRowData] = React.useState<any[]>([]);
@@ -48,6 +50,19 @@ const SessionsIndex = ({ match }) => {
     queryFn: fetchActivitySessions
   });
 
+  const { data: activityVersionData } = useQuery({
+    queryKey: [`change-logs-for-activity-versions-${activityId}`, activityId],
+    queryFn: fetchActivityVersions
+  });
+
+  React.useEffect(() => {
+    if(activityVersionData && activityVersionData.changeLogs && !versionOption && !versionOptions.length) {
+      const options = getVersionOptions(activityVersionData);
+      setVersionOption(options[0]);
+      setVersionOptions(options);
+    }
+  }, [activityVersionData]);
+
   React.useEffect(() => {
     sessionsData && !pageDropdownOptions && getPageDropdownOptions(sessionsData);
   }, [sessionsData]);
@@ -56,17 +71,21 @@ const SessionsIndex = ({ match }) => {
     if(sessionsData && sessionsData.activitySessions && sessionsData.activitySessions.activity_sessions && startDateForQuery) {
       const { activitySessions } = sessionsData;
       const { activity_sessions } = activitySessions;
-      const rows = formatSessionsData(activity_sessions)
+      const rows = formatSessionsData(activity_sessions);
       setRowData(rows);
     }
   }, [sessionsData]);
 
   function handleFilterClick() {
-    handlePageFilterClick({ startDate, endDate, filterOption, setStartDate, setEndDate, setShowError, setPageNumber, setFilterOptionForQuery, storageKey: SESSION_INDEX });
+    handlePageFilterClick({ startDate, endDate, filterOption, versionOption, setStartDate, setEndDate, setPageNumber, setFilterOptionForQuery, storageKey: SESSION_INDEX });
   }
 
   function handleFilterOptionChange(filterOption: DropdownObjectInterface) {
     setFilterOption(filterOption);
+  }
+
+  function handleVersionSelection(versionOption: DropdownObjectInterface) {
+    setVersionOption(versionOption);
   }
 
   function handleDataUpdate(activitySessions, sorted) {
@@ -194,12 +213,14 @@ const SessionsIndex = ({ match }) => {
           <FilterWidget
             endDate={endDate}
             handleFilterClick={handleFilterClick}
+            handleVersionSelection={handleVersionSelection}
             onEndDateChange={onEndDateChange}
             onStartDateChange={onStartDateChange}
             startDate={startDate}
+            versionOptions={versionOptions}
+            selectedVersion={versionOption}
           />
         </section>
-        {showError && <p className="error-message">Start date is required.</p>}
         <ReactTable
           className="activity-sessions-table"
           columns={activitySessionIndexResponseHeaders}
