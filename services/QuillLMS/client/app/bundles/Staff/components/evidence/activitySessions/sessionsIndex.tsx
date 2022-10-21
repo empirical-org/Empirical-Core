@@ -91,7 +91,6 @@ const SessionsIndex = ({ match }) => {
   }
 
   function handleVersionSelection(versionOption: DropdownObjectInterface) {
-    console.log("🚀 ~ file: sessionsIndex.tsx ~ line 94 ~ handleVersionSelection ~ versionOption", versionOption)
     const { value } = versionOption;
     const { start_date, end_date } = value;
     setVersionOption(versionOption);
