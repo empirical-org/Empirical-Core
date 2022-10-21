@@ -6,13 +6,13 @@ import qs from 'qs';
 import _ from 'lodash';
 
 import FilterWidget from "../shared/filterWidget";
-import { handlePageFilterClick } from "../../../helpers/evidence/miscHelpers";
+import { handlePageFilterClick, getVersionOptions } from "../../../helpers/evidence/miscHelpers";
 import { renderHeader } from "../../../helpers/evidence/renderHelpers";
 import { calculatePercentageForResponses } from "../../../helpers/evidence/ruleHelpers";
-import { ActivityRouteProps, PromptInterface, InputEvent } from '../../../interfaces/evidenceInterfaces';
-import { fetchActivity } from '../../../utils/evidence/activityAPIs';
+import { ActivityRouteProps, PromptInterface, DropdownObjectInterface } from '../../../interfaces/evidenceInterfaces';
+import { fetchActivity, fetchActivityVersions } from '../../../utils/evidence/activityAPIs';
 import { fetchRuleFeedbackHistories } from '../../../utils/evidence/ruleFeedbackHistoryAPIs';
-import { DropdownInput, Spinner, ReactTable, expanderColumn, } from '../../../../Shared/index';
+import { DropdownInput, Spinner, ReactTable } from '../../../../Shared/index';
 import { RULES_ANALYSIS } from '../../../../../constants/evidence';
 import { fetchModels } from "../../../utils/evidence/modelAPIs";
 
@@ -67,22 +67,22 @@ const getDateFromLatestAutoMLModel = (models) => {
 const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ history, match }) => {
   const { params } = match;
   const { activityId, promptConjunction, } = params;
-  const today = new Date();
-  const thirtyDaysAgo = new Date().setDate(today.getDate()-30);
 
   const ruleTypeValues = [DEFAULT_RULE_TYPE].concat(Object.keys(apiOrderLookup))
   const ruleTypeOptions = ruleTypeValues.map(val => ({ label: val, value: val, }))
   const ruleTypeFromUrl = (history.location && qs.parse(history.location.search.replace('?', '')).selected_rule_type) || DEFAULT_RULE_TYPE
   const initialStartDateString = window.sessionStorage.getItem(`${RULES_ANALYSIS}startDate`) || '';
   const initialEndDateString = window.sessionStorage.getItem(`${RULES_ANALYSIS}endDate`) || '';
-  const initialStartDate = initialStartDateString ? new Date(initialStartDateString) : new Date(thirtyDaysAgo);
+  const initialStartDate = initialStartDateString ? new Date(initialStartDateString) : null;
   const initialEndDate = initialEndDateString ? new Date(initialEndDateString) : null;
   const selectedRuleTypeOption = ruleTypeOptions.find(opt => opt.value === ruleTypeFromUrl)
+  const initialVersionOption = JSON.parse(window.sessionStorage.getItem(`${RULES_ANALYSIS}versionOption`)) || null;
 
-  const [showError, setShowError] = React.useState<boolean>(false);
   const [selectedPrompt, setSelectedPrompt] = React.useState(null)
   const [selectedRuleType, setSelectedRuleType] = React.useState(selectedRuleTypeOption)
   const [sorted, setSorted] = React.useState([])
+  const [versionOption, setVersionOption] = React.useState<DropdownObjectInterface>(initialVersionOption);
+  const [versionOptions, setVersionOptions] = React.useState<DropdownObjectInterface[]>([]);
   const [startDateForQuery, setStartDate] = React.useState<string>(initialStartDateString);
   const [endDate, onEndDateChange] = React.useState<Date>(initialEndDate);
   const [endDateForQuery, setEndDate] = React.useState<string>(initialEndDateString);
@@ -91,12 +91,6 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
   const [startDate, onStartDateChange] = React.useState<Date>(initialStartDate);
 
   const selectedConjunction = selectedPrompt ? selectedPrompt.conjunction : promptConjunction
-
-  const { data: modelsData } = useQuery({
-    queryKey: [`models-${selectedPrompt?.id}`, selectedPrompt?.id],
-    queryFn: fetchModels,
-    enabled: !!selectedPrompt
-  });
 
   // cache rules data for updates
   const { data: ruleFeedbackHistory } = useQuery({
@@ -115,13 +109,18 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
     queryFn: fetchActivity
   });
 
-  React.useEffect(() => {
-    if (modelsData?.models) {
-      onStartDateChange(new Date(getDateFromLatestAutoMLModel(modelsData.models)))
-      setStartDate(getDateFromLatestAutoMLModel(modelsData.models))
-    }
+  const { data: activityVersionData } = useQuery({
+    queryKey: [`change-logs-for-activity-versions-${activityId}`, activityId],
+    queryFn: fetchActivityVersions
+  });
 
-  }, [modelsData])
+  React.useEffect(() => {
+    if(activityVersionData && activityVersionData.changeLogs && (!versionOption || !versionOptions.length)) {
+      const options = getVersionOptions(activityVersionData);
+      !versionOption && setVersionOption(options[0]);
+      setVersionOptions(options);
+    }
+  }, [activityVersionData]);
 
   React.useEffect(() => {
     if (selectedPrompt) { return }
@@ -191,8 +190,12 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
     }
   }, [ruleFeedbackHistory, selectedRuleType])
 
+  function handleVersionSelection(versionOption: DropdownObjectInterface) {
+    setVersionOption(versionOption);
+  }
+
   function handleFilterClick() {
-    handlePageFilterClick({ startDate, endDate, setStartDate, setEndDate, setShowError, setPageNumber: null, storageKey: RULES_ANALYSIS });
+    handlePageFilterClick({ startDate, endDate, versionOption, setStartDate, setEndDate, setPageNumber: null, storageKey: RULES_ANALYSIS });
   }
 
   function setPromptBasedOnActivity() {
@@ -463,11 +466,13 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       <FilterWidget
         endDate={endDate}
         handleFilterClick={handleFilterClick}
+        handleVersionSelection={handleVersionSelection}
         onEndDateChange={onEndDateChange}
         onStartDateChange={onStartDateChange}
         startDate={startDate}
+        versionOptions={versionOptions}
+        selectedVersion={versionOption}
       />
-      {showError && <p className="error-message">Start date is required.</p>}
       {renderDataSection()}
     </div>
   );

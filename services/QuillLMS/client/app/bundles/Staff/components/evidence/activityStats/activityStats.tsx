@@ -5,11 +5,11 @@ import { useQuery } from 'react-query';
 import * as _ from 'lodash'
 
 import FilterWidget from "../shared/filterWidget";
-import { ActivityRouteProps, PromptHealthInterface, InputEvent } from '../../../interfaces/evidenceInterfaces';
-import { fetchActivity } from '../../../utils/evidence/activityAPIs';
+import { ActivityRouteProps, PromptHealthInterface, DropdownObjectInterface } from '../../../interfaces/evidenceInterfaces';
+import { fetchActivity, fetchActivityVersions } from '../../../utils/evidence/activityAPIs';
 import { fetchPromptHealth } from '../../../utils/evidence/ruleFeedbackHistoryAPIs';
 import { Spinner, ReactTable, } from '../../../../Shared/index';
-import { handlePageFilterClick } from '../../../helpers/evidence/miscHelpers';
+import { handlePageFilterClick, getVersionOptions } from '../../../helpers/evidence/miscHelpers';
 import { renderHeader } from '../../../helpers/evidence/renderHelpers';
 import { ACTIVITY_STATS } from '../../../../../constants/evidence';
 
@@ -21,8 +21,10 @@ const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
   const initialEndDateString = window.sessionStorage.getItem(`${ACTIVITY_STATS}endDate`) || '';
   const initialStartDate = initialStartDateString ? new Date(initialStartDateString) : null;
   const initialEndDate = initialEndDateString ? new Date(initialEndDateString) : null;
+  const initialVersionOption = JSON.parse(window.sessionStorage.getItem(`${ACTIVITY_STATS}versionOption`)) || null;
 
-  const [showError, setShowError] = React.useState<boolean>(false);
+  const [versionOption, setVersionOption] = React.useState<DropdownObjectInterface>(initialVersionOption);
+  const [versionOptions, setVersionOptions] = React.useState<DropdownObjectInterface[]>([]);
   const [startDate, onStartDateChange] = React.useState<Date>(initialStartDate);
   const [startDateForQuery, setStartDate] = React.useState<string>(initialStartDateString);
   const [endDate, onEndDateChange] = React.useState<Date>(initialEndDate);
@@ -40,10 +42,26 @@ const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
     queryFn: fetchPromptHealth
   });
 
-  function handleFilterClick() {
-    handlePageFilterClick({ startDate, endDate, setStartDate, setEndDate, setShowError, setPageNumber: null, storageKey: ACTIVITY_STATS });
+  const { data: activityVersionData } = useQuery({
+    queryKey: [`change-logs-for-activity-versions-${activityId}`, activityId],
+    queryFn: fetchActivityVersions
+  });
+
+  React.useEffect(() => {
+    if(activityVersionData && activityVersionData.changeLogs && (!versionOption || !versionOptions.length)) {
+      const options = getVersionOptions(activityVersionData);
+      !versionOption && setVersionOption(options[0]);
+      setVersionOptions(options);
+    }
+  }, [activityVersionData]);
+
+  function handleVersionSelection(versionOption: DropdownObjectInterface) {
+    setVersionOption(versionOption);
   }
 
+  function handleFilterClick() {
+    handlePageFilterClick({ startDate, endDate, versionOption, setStartDate, setEndDate, setPageNumber: null, storageKey: ACTIVITY_STATS });
+  }
 
   const formattedRows = promptHealth && promptHealth.prompts && Object.values(promptHealth.prompts).map((prompt: PromptHealthInterface) => {
     const {
@@ -141,11 +159,13 @@ const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       <FilterWidget
         endDate={endDate}
         handleFilterClick={handleFilterClick}
+        handleVersionSelection={handleVersionSelection}
         onEndDateChange={onEndDateChange}
         onStartDateChange={onStartDateChange}
         startDate={startDate}
+        versionOptions={versionOptions}
+        selectedVersion={versionOption}
       />
-      {showError && <p className="error-message">Start date is required.</p>}
       {formattedRows && (<ReactTable
         className="activity-stats-table"
         columns={dataTableFields}

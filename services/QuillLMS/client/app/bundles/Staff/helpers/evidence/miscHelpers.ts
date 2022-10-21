@@ -235,7 +235,8 @@ export function titleCase(string: string){
 export function getVersionOptions(activityVersionData) {
   if(!activityVersionData || !activityVersionData.changeLogs) { return };
   const { changeLogs } = activityVersionData;
-  const options = changeLogs.map(changeLog => {
+  let options = changeLogs.sort((a, b) => b.start_date.localeCompare(a.start_date))
+  options = options.map(changeLog => {
     const { new_value, session_count, start_date } = changeLog;
     return {
       label: `V${new_value}: ${moment(start_date).utcOffset('-0500').format('MM/DD/YY')} (${session_count})`,
@@ -245,10 +246,11 @@ export function getVersionOptions(activityVersionData) {
   const showAllOption = {
     label: 'Show all',
     value: {
-      start_date: options[0].value.start_date,
-      end_date: options[options.length - 1].value.end_date
+      start_date: options[options.length - 1].value.start_date,
+      end_date: options[0].value.end_date
     }
   }
+  console.log("🚀 ~ file: miscHelpers.ts ~ line 257 ~ getVersionOptions ~ showAllOption", showAllOption)
   options.push(showAllOption);
   return options;
 }

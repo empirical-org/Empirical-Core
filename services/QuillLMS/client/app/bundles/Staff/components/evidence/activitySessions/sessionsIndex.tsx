@@ -27,7 +27,7 @@ const SessionsIndex = ({ match }) => {
 
   const [pageNumber, setPageNumber] = React.useState<DropdownObjectInterface>(null);
   const [pageDropdownOptions, setPageDropdownOptions] = React.useState<DropdownObjectInterface[]>(null);
-  const [versionOption, setVersionOption] = React.useState<DropdownObjectInterface>(null);
+  const [versionOption, setVersionOption] = React.useState<DropdownObjectInterface>(initialVersionOption);
   const [versionOptions, setVersionOptions] = React.useState<DropdownObjectInterface[]>([]);
   const [filterOption, setFilterOption] = React.useState<DropdownObjectInterface>(initialFilterOption);
   const [filterOptionForQuery, setFilterOptionForQuery] = React.useState<DropdownObjectInterface>(initialFilterOption);
@@ -56,9 +56,9 @@ const SessionsIndex = ({ match }) => {
   });
 
   React.useEffect(() => {
-    if(activityVersionData && activityVersionData.changeLogs && !versionOption && !versionOptions.length) {
+    if(activityVersionData && activityVersionData.changeLogs && (!versionOption || !versionOptions.length)) {
       const options = getVersionOptions(activityVersionData);
-      setVersionOption(options[0]);
+      !versionOption && setVersionOption(options[0]);
       setVersionOptions(options);
     }
   }, [activityVersionData]);
