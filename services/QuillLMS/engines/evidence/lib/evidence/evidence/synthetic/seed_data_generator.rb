@@ -168,11 +168,8 @@ module Evidence
         conjunction_exclusions.any?{|regex| regex.match(text.strip) }
       end
 
-      # Use a struct since Opinion API calls .text on the prompt
-      MockPrompt = Struct.new(:text, keyword_init: true)
-
       private def opinion_api_flagged?(text)
-        response = ::Evidence::Check::Opinion.run(text, MockPrompt.new(text: stem), nil)
+        response = ::Evidence::Check::Opinion.run(text, ::Evidence::Prompt.new(text: stem), nil)
 
         response.success? && !response.optimal?
       end
