@@ -4,18 +4,18 @@ class AssignRecommendationsWorker
   include Sidekiq::Worker
   sidekiq_options queue: SidekiqQueue::CRITICAL
 
-  class TeacherAssignmentOfRecommendationsTakingTooLongError < StandardError; end
-
-  # rubocop:disable Metrics/CyclomaticComplexity
-  def perform(options={})
-    options = options.with_indifferent_access
-    unit_template_id = options["unit_template_id"]
-    classroom_id = options["classroom_id"]
-    student_ids = options["student_ids"]
-    last = options["last"]
-    lesson = options["lesson"]
-    assign_on_join = options["assign_on_join"] || false
-    assigning_all_recommended_packs = options["assigning_all_recommended_packs"]
+  # rubocop:disable Metrics/ParameterLists
+  def perform(
+    classroom_id:,
+    lesson:,
+    student_ids:,
+    unit_template_id:,
+    pack_sequence_id: nil,
+    assign_on_join: false,
+    assigning_all_recommendations: false,
+    is_last_recommendation: true,
+    order: nil
+  )
 
     classroom = Classroom.find(classroom_id)
     teacher = classroom.owner
@@ -45,7 +45,7 @@ class AssignRecommendationsWorker
     PusherRecommendationCompleted.run(classroom, unit_template_id, lesson)
     track_assign_all_recommendations(teacher) if assigning_all_recommendations
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
+  # rubocop:enable Metrics/ParameterLists
 
   def assign_unit_to_one_class(unit, classroom_id, classroom_data, unit_template_id, teacher_id)
     if unit.present?
@@ -114,13 +114,11 @@ class AssignRecommendationsWorker
       else
         $redis.set("#{lesson_text}diagnostic_recommendations_over_ten_seconds_count", 1)
       end
-
-      ErrorNotifier.report(
-        TeacherAssignmentOfRecommendationsTakingTooLongError.new,
-        elapsed_time: elapsed_time,
-        teacher_id: teacher_id,
-        lesson_text: lesson_text
-      )
+      begin
+        raise "#{elapsed_time} seconds for user #{teacher_id} to assign #{lesson_text} recommendations"
+      rescue => e
+        NewRelic::Agent.notice_error(e)
+      end
     else
       diagnostic_recommendations_under_ten_seconds_count = $redis.get("diagnostic_recommendations_under_ten_seconds_count")
       if diagnostic_recommendations_under_ten_seconds_count
