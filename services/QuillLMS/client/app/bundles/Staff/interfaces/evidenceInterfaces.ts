@@ -160,7 +160,8 @@ export interface PromptHealthInterface {
   num_sessions_with_consecutive_repeated_rule: number,
   num_sessions_with_non_consecutive_repeated_rule: number,
   num_first_attempt_optimal: number,
-  num_first_attempt_not_optimal: number
+  num_first_attempt_not_optimal: number,
+  time_spent: number,
 }
 
 export type InputEvent = React.ChangeEvent<HTMLInputElement>;

@@ -17,11 +17,19 @@ class PromptFeedbackHistory
       COUNT(DISTINCT CASE WHEN flag = 'repeated-consecutive' THEN feedback_histories.feedback_session_uid END) AS num_sessions_consecutive_repeated,
       COUNT(DISTINCT CASE WHEN flag = 'repeated-non-consecutive' THEN feedback_histories.feedback_session_uid END) AS num_sessions_non_consecutive_repeated,
       COUNT(DISTINCT CASE WHEN attempt = 1 AND optimal = true THEN feedback_histories.feedback_session_uid END) AS num_first_attempt_optimal,
-      COUNT(DISTINCT CASE WHEN attempt = 1 AND optimal = false THEN feedback_histories.feedback_session_uid END) AS num_first_attempt_not_optimal
+      COUNT(DISTINCT CASE WHEN attempt = 1 AND optimal = false THEN feedback_histories.feedback_session_uid END) AS num_first_attempt_not_optimal,
+      AVG(CAST(CASE
+        WHEN comprehension_prompts.conjunction = 'because' THEN (data->>'time_tracking')::json->>'because'
+        WHEN comprehension_prompts.conjunction = 'but' THEN (data->>'time_tracking')::json->>'but'
+        WHEN comprehension_prompts.conjunction = 'so' THEN (data->>'time_tracking')::json->>'so'
+        ELSE '0'
+      END AS int)) AS time_spent
     SELECT
     )
       .joins('JOIN comprehension_prompts ON feedback_histories.prompt_id = comprehension_prompts.id')
       .joins('LEFT JOIN feedback_history_flags ON feedback_histories.id = feedback_history_flags.feedback_history_id')
+      .joins('LEFT JOIN feedback_sessions ON feedback_histories.feedback_session_uid = feedback_sessions.uid')
+      .joins('LEFT JOIN activity_sessions ON feedback_sessions.activity_session_uid = activity_sessions.uid')
       .where(used: true)
       .where('comprehension_prompts.activity_id = ?', activity_id)
       .group('feedback_histories.prompt_id, comprehension_prompts.text')
@@ -38,7 +46,7 @@ class PromptFeedbackHistory
   def self.serialize_results(results)
     serialized_rows = results.map do |result|
       payload = result.serializable_hash(
-        only: [:prompt_id, :total_responses, :session_count, :display_name, :num_final_attempt_optimal, :num_final_attempt_not_optimal, :avg_attempts, :num_first_attempt_optimal, :num_first_attempt_not_optimal],
+        only: [:prompt_id, :total_responses, :session_count, :display_name, :num_final_attempt_optimal, :num_final_attempt_not_optimal, :avg_attempts, :num_first_attempt_optimal, :num_first_attempt_not_optimal, :time_spent],
         include: []
       )
       payload['num_sessions_with_consecutive_repeated_rule'] = result.num_sessions_consecutive_repeated

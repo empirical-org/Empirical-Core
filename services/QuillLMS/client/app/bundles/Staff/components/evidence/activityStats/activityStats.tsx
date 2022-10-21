@@ -62,6 +62,7 @@ const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       num_sessions_with_non_consecutive_repeated_rule,
       num_first_attempt_optimal,
       num_first_attempt_not_optimal,
+      time_spent,
     } = prompt;
 
     const percentageOptimalFinalAttempt = _.round(num_final_attempt_optimal / session_count * 100, 2)
@@ -82,6 +83,7 @@ const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       ruleRepeatedNotConsecutiveData:  `${percentageNotConsecutiveRepeatedRule}% (${num_sessions_with_non_consecutive_repeated_rule})`,
       averageAttempts: _.round(avg_attempts, 2),
       firstAttemptData: `${percentageOptimalFirstAttempt}% (${num_first_attempt_optimal}) | ${percentageNotOptimalFirstAttempt}% (${num_first_attempt_not_optimal})`,
+      timeSpent: time_spent,
     }
   })
 
@@ -117,6 +119,12 @@ const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       width: 120,
     },
     {
+      Header: 'AutoML Confidence',
+      accessor: "autoMLConfidence",
+      key: "autoMLConfidence",
+      width: 120,
+    },
+    {
       Header: 'Rule Repeated: Consecutive Attempt',
       accessor: "ruleRepeatedConsecutiveData",
       key: "ruleRepeatedConsecutiveData",
@@ -133,12 +141,25 @@ const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       accessor: "firstAttemptData",
       key: "firstAttemptData",
       width: 160,
+    },
+    {
+      Header: 'Time Spent',
+      accessor: "timeSpent",
+      key: "timeSpent",
+      width: 160,
     }
   ];
 
   if (!formattedRows) {
     return <Spinner />
   }
+
+  const overallStats = (
+    <div>
+      <p><strong>Average Time Spent: </strong></p>
+      <p><strong>Average Completion Rate: </strong> Completed</p>
+    </div>
+  )
 
   return(
     <div className="activity-stats-container">
@@ -153,6 +174,7 @@ const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
         startDate={startDate}
         turkSessionID={turkSessionID}
       />
+      {overallStats}
       {formattedRows && (<ReactTable
         className="activity-stats-table"
         columns={dataTableFields}
