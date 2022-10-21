@@ -111,16 +111,21 @@ module Evidence
       end
 
       private def run_prompt(prompt:, count:, seed:, noun: nil, temperature: 1)
-        output = Evidence::OpenAI::Completion.run(prompt: prompt, count: count, temperature: temperature)
+        api_results = Evidence::OpenAI::Completion.run(prompt: prompt, count: count, temperature: temperature)
         current_result_texts = results.map(&:text)
 
-        new_results = output
-          .map {|s| Result.new(text: noun.nil? ? s.lstrip : [noun, s].join(SPACE), seed: seed)}
-          .uniq {|r| r.text }
-          .reject {|r| r.text.in?(current_result_texts)}
-          .reject {|r| regex_exclude?(r.text) }
+        new_results = parse_completion_api_results(api_results, current_texts: current_result_texts, noun: noun, seed: seed)
 
         @results += new_results
+      end
+
+      private def parse_completion_api_results(api_results, current_texts:, seed:, noun: nil)
+        api_results
+          .map {|s| Result.new(text: [noun, s].join(SPACE).strip, seed: seed)}
+          .uniq {|r| r.text }
+          .reject {|r| r.text.in?(current_texts)}
+          .reject {|r| regex_exclude?(r.text) }
+          .reject {|r| opinion_api_flagged?(r.text) }
       end
 
       private def prompt_text(context: BLANK, noun: BLANK, stem_variant: stem)
@@ -160,6 +165,12 @@ module Evidence
         return false if conjunction_exclusions.empty?
 
         conjunction_exclusions.any?{|regex| regex.match(text.strip) }
+      end
+
+      private def opinion_api_flagged?(text)
+        response = ::Evidence::Check::Opinion.run(text, ::Evidence::Prompt.new(text: stem), nil)
+
+        response.success? && !response.optimal?
       end
 
       private def conjunction_exclusions
