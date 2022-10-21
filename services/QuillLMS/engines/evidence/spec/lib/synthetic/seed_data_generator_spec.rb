@@ -50,7 +50,7 @@ module Evidence
         "full_passage_noun_noun1",
         "text_chunk_1_temp0.4_but",
         "text_chunk_2_temp0.4_but",
-        "label_label1_example1_temp0.9"
+        "label_label1_example1_temp1"
       ]
     end
 
@@ -150,7 +150,7 @@ module Evidence
 
         # label example
         expect(Evidence::OpenAI::Completion).to receive(:run)
-          .with(prompt: example_prompt, count: 1, temperature: 0.9, options: {max_tokens: 40})
+          .with(prompt: example_prompt, count: 1, temperature: 1, options: {max_tokens: 40})
           .and_return(example_response)
 
         subject.run

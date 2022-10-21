@@ -18,7 +18,7 @@ module Evidence
 
       TEMPS_PASSAGE = [0.8, 0.7, 0.5, 0.4]
       TEMP_SECTION = 0.4 # give a lower temp (creativity) when it has less info
-      TEMP_PARAPHRASE = 0.9
+      TEMP_PARAPHRASE = 1
       OPTIONS_PARAPHRASE = {max_tokens: 40}
 
       STEM_KEY = '%<stem>s'
@@ -115,6 +115,12 @@ module Evidence
         end
 
         # label examples to paraphrase
+        generate_label_paraphrases
+
+        results
+      end
+
+      private def generate_label_paraphrases
         label_configs.each do |label_config|
           label_config.examples.each.with_index do |example, index|
             prompt = PARAPHRASE_INSTRUCTION + example
@@ -127,8 +133,6 @@ module Evidence
             )
           end
         end
-
-        results
       end
 
       private def run_prompt(prompt:, count:, seed:, noun: nil, temperature: 1, options: {})
