@@ -7,7 +7,8 @@ class Api::V1::ClassroomUnitsController < Api::ApiController
     activity          = Activity.find_by(uid: params[:activity_id])
     activity_sessions = ActivitySession.includes(:user).where(
       activity: activity,
-      classroom_unit_id: params[:classroom_unit_id]
+      classroom_unit_id: params[:classroom_unit_id],
+      visible: true
     )
 
     render json: assigned_students(activity_sessions)

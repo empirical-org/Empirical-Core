@@ -49,6 +49,21 @@ describe Api::V1::ClassroomUnitsController, type: :controller do
       get :student_names, params: { activity_id: activity.uid, classroom_unit_id: classroom_unit.id }, as: :json
       expect(JSON.parse(response.body)['student_ids'].keys.count).to eq(5)
     end
+
+    it 'only returns visible ActivitySessions' do
+      removed_activity_session = activity_sessions.first
+      removed_activity_session.update(visible: false)
+      replacement_activity_session = create(:activity_session,
+        classroom_unit: removed_activity_session.classroom_unit,
+        activity: removed_activity_session.activity,
+        user: removed_activity_session.user
+      )
+      session[:user_id] = teacher.id
+      get :student_names, params: { activity_id: activity.uid, classroom_unit_id: classroom_unit.id }, as: :json
+      expect(JSON.parse(response.body)['activity_sessions_and_names'].keys.count).to eq(5)
+      expect(JSON.parse(response.body)['activity_sessions_and_names'].keys).not_to include(removed_activity_session.uid)
+      expect(JSON.parse(response.body)['activity_sessions_and_names'].keys).to include(replacement_activity_session.uid)
+    end
   end
 
   context '#teacher_and_classroom_name' do
