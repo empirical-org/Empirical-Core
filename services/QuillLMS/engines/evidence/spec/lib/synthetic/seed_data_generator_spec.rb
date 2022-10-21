@@ -32,6 +32,13 @@ module Evidence
     let(:chunk2_prompt_alternate1) {"five six. Adding esports could benefit the Olympics, but the counter argument is that"}
     let(:chunk2_prompt_alternate2) {"five six. Even though Adding esports could benefit the Olympics,"}
     let(:chunk2_response) {['four response']}
+
+    let(:example) {'Example to paraphrase.'}
+    let(:label) { 'label1' }
+    let(:label_config) {described_class::LabelConfig.new(label: label, examples: [example])}
+    let(:example_prompt) { "rephrase with some synonyms:\n\nExample to paraphrase." }
+    let(:example_response) { ["Example to rephrase."] }
+
     let(:seed_labels) do
       [
         "full_passage_temp1_but",
@@ -42,17 +49,27 @@ module Evidence
         "full_passage_temp0.9_Even though %<stem>s",
         "full_passage_noun_noun1",
         "text_chunk_1_temp0.4_but",
-        "text_chunk_2_temp0.4_but"
+        "text_chunk_2_temp0.4_but",
+        "label_label1_example1_temp0.9"
       ]
     end
 
-    subject { described_class.new(passage: passage, stem: stem, nouns: nouns, conjunction: conjunction)}
+    subject do
+      described_class.new(
+        passage: passage,
+        stem: stem,
+        nouns: nouns,
+        conjunction: conjunction,
+        label_configs: [label_config]
+      )
+    end
 
     before do
       stub_const("Evidence::Synthetic::SeedDataGenerator::WORD_SPLIT_COUNT", 4)
       stub_const("Evidence::Synthetic::SeedDataGenerator::FULL_COUNT", 1)
       stub_const("Evidence::Synthetic::SeedDataGenerator::FULL_NOUN_COUNT", 1)
       stub_const("Evidence::Synthetic::SeedDataGenerator::SECTION_COUNT", 1)
+      stub_const("Evidence::Synthetic::SeedDataGenerator::EXAMPLE_COUNT", 1)
       stub_const("Evidence::Synthetic::SeedDataGenerator::TEMPS_PASSAGE", [1,0.9])
       allow(::Evidence::Check::Opinion).to receive(:run).and_return(double(success?: true, optimal?: true))
     end
@@ -83,57 +100,62 @@ module Evidence
       it "should hit open AI for each item and store results" do
         # full - original
         expect(Evidence::OpenAI::Completion).to receive(:run)
-          .with(prompt: full_passage_prompt, count: 1, temperature: 1)
+          .with(prompt: full_passage_prompt, count: 1, temperature: 1, options: {})
           .and_return(full_passage_response)
         expect(Evidence::OpenAI::Completion).to receive(:run)
-          .with(prompt: full_passage_prompt, count: 1, temperature: 0.9)
+          .with(prompt: full_passage_prompt, count: 1, temperature: 0.9, options: {})
           .and_return(full_passage_response2)
         # full - alternate stem1
         expect(Evidence::OpenAI::Completion).to receive(:run)
-          .with(prompt: full_passage_prompt_alternate1, count: 1, temperature: 1)
+          .with(prompt: full_passage_prompt_alternate1, count: 1, temperature: 1, options: {})
           .and_return(full_passage_alternate1_response1)
         expect(Evidence::OpenAI::Completion).to receive(:run)
-          .with(prompt: full_passage_prompt_alternate1, count: 1, temperature: 0.9)
+          .with(prompt: full_passage_prompt_alternate1, count: 1, temperature: 0.9, options: {})
           .and_return(full_passage_alternate1_response2)
         # full - alternate stem2
         expect(Evidence::OpenAI::Completion).to receive(:run)
-          .with(prompt: full_passage_prompt_alternate2, count: 1, temperature: 1)
+          .with(prompt: full_passage_prompt_alternate2, count: 1, temperature: 1, options: {})
           .and_return(full_passage_alternate2_response1)
         expect(Evidence::OpenAI::Completion).to receive(:run)
-          .with(prompt: full_passage_prompt_alternate2, count: 1, temperature: 0.9)
+          .with(prompt: full_passage_prompt_alternate2, count: 1, temperature: 0.9, options: {})
           .and_return(full_passage_alternate2_response2)
         # noun
         expect(Evidence::OpenAI::Completion).to receive(:run)
-          .with(prompt: full_noun_prompt, count: 1, temperature: 1)
+          .with(prompt: full_noun_prompt, count: 1, temperature: 1, options: {})
           .and_return(full_noun_response)
         # chunk1
         expect(Evidence::OpenAI::Completion).to receive(:run)
-          .with(prompt: chunk1_prompt, count: 1, temperature: 0.4)
+          .with(prompt: chunk1_prompt, count: 1, temperature: 0.4, options: {})
           .and_return(chunk1_response)
         # chunk1 - alternate1
         expect(Evidence::OpenAI::Completion).to receive(:run)
-          .with(prompt: chunk1_prompt_alternate1, count: 1, temperature: 0.4)
+          .with(prompt: chunk1_prompt_alternate1, count: 1, temperature: 0.4, options: {})
           .and_return(chunk1_response)
         # chunk1 - alternate2
         expect(Evidence::OpenAI::Completion).to receive(:run)
-          .with(prompt: chunk1_prompt_alternate2, count: 1, temperature: 0.4)
+          .with(prompt: chunk1_prompt_alternate2, count: 1, temperature: 0.4, options: {})
           .and_return(chunk1_response)
         # chunk2
         expect(Evidence::OpenAI::Completion).to receive(:run)
-          .with(prompt: chunk2_prompt, count: 1, temperature: 0.4)
+          .with(prompt: chunk2_prompt, count: 1, temperature: 0.4, options: {})
           .and_return(chunk2_response)
         # chunk2 - alternate1
         expect(Evidence::OpenAI::Completion).to receive(:run)
-          .with(prompt: chunk2_prompt_alternate1, count: 1, temperature: 0.4)
+          .with(prompt: chunk2_prompt_alternate1, count: 1, temperature: 0.4, options: {})
           .and_return(chunk2_response)
         # chunk2 - alternate2
         expect(Evidence::OpenAI::Completion).to receive(:run)
-          .with(prompt: chunk2_prompt_alternate2, count: 1, temperature: 0.4)
+          .with(prompt: chunk2_prompt_alternate2, count: 1, temperature: 0.4, options: {})
           .and_return(chunk2_response)
+
+        # label example
+        expect(Evidence::OpenAI::Completion).to receive(:run)
+          .with(prompt: example_prompt, count: 1, temperature: 0.9, options: {max_tokens: 40})
+          .and_return(example_response)
 
         subject.run
 
-        expect(subject.results.count).to be(9)
+        expect(subject.results.count).to be(10)
         expect(subject.results.map(&:seed)).to eq(seed_labels)
       end
     end

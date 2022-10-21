@@ -20,14 +20,14 @@ module Evidence
       STOP_TOKENS = [". ", "; ", "? ", "! "] # max of 4 stop tokens
       MAX_COUNT = 128 # API has an undocument max of 128 for 'n'
 
-      attr_accessor :prompt, :temperature, :count, :model_key, :options_hash
+      attr_accessor :prompt, :temperature, :count, :model_key, :options
 
-      def initialize(prompt:, temperature: 0.5, count: 1, model_key: :curie, options_hash: {})
+      def initialize(prompt:, temperature: 0.5, count: 1, model_key: :curie, options: {})
         @prompt = prompt
         @temperature = temperature
         @count = count
         @model_key = model_key
-        @options_hash = options_hash
+        @options = options
       end
 
       def endpoint
@@ -44,7 +44,7 @@ module Evidence
           n: [count.to_i, Evidence::OpenAI::MAX_COUNT].min,
           max_tokens: MAX_TOKENS,
           stop: STOP_TOKENS
-        }.merge(options_hash)
+        }.merge(options)
       end
     end
   end
