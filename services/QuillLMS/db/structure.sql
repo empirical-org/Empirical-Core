@@ -4452,6 +4452,39 @@ ALTER SEQUENCE public.user_milestones_id_seq OWNED BY public.user_milestones.id;
 
 
 --
+-- Name: user_pack_sequence_items; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.user_pack_sequence_items (
+    id bigint NOT NULL,
+    user_id bigint NOT NULL,
+    pack_sequence_item_id bigint NOT NULL,
+    status character varying DEFAULT 'locked'::character varying,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: user_pack_sequence_items_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.user_pack_sequence_items_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: user_pack_sequence_items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.user_pack_sequence_items_id_seq OWNED BY public.user_pack_sequence_items.id;
+
+
+--
 -- Name: user_subscriptions; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -5408,6 +5441,13 @@ ALTER TABLE ONLY public.user_activity_classifications ALTER COLUMN id SET DEFAUL
 --
 
 ALTER TABLE ONLY public.user_milestones ALTER COLUMN id SET DEFAULT nextval('public.user_milestones_id_seq'::regclass);
+
+
+--
+-- Name: user_pack_sequence_items id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.user_pack_sequence_items ALTER COLUMN id SET DEFAULT nextval('public.user_pack_sequence_items_id_seq'::regclass);
 
 
 --
@@ -6397,6 +6437,14 @@ ALTER TABLE ONLY public.user_activity_classifications
 
 ALTER TABLE ONLY public.user_milestones
     ADD CONSTRAINT user_milestones_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: user_pack_sequence_items user_pack_sequence_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.user_pack_sequence_items
+    ADD CONSTRAINT user_pack_sequence_items_pkey PRIMARY KEY (id);
 
 
 --
@@ -7754,6 +7802,20 @@ CREATE UNIQUE INDEX index_user_milestones_on_user_id_and_milestone_id ON public.
 
 
 --
+-- Name: index_user_pack_sequence_items_on_pack_sequence_item_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_user_pack_sequence_items_on_pack_sequence_item_id ON public.user_pack_sequence_items USING btree (pack_sequence_item_id);
+
+
+--
+-- Name: index_user_pack_sequence_items_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_user_pack_sequence_items_on_user_id ON public.user_pack_sequence_items USING btree (user_id);
+
+
+--
 -- Name: index_user_subscriptions_on_subscription_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -8217,6 +8279,14 @@ ALTER TABLE ONLY public.standards
 
 
 --
+-- Name: user_pack_sequence_items fk_rails_8011bf338d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.user_pack_sequence_items
+    ADD CONSTRAINT fk_rails_8011bf338d FOREIGN KEY (pack_sequence_item_id) REFERENCES public.pack_sequence_items(id);
+
+
+--
 -- Name: activities fk_rails_8b159cf902; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -8294,6 +8364,14 @@ ALTER TABLE ONLY public.criteria
 
 ALTER TABLE ONLY public.unit_activities
     ADD CONSTRAINT fk_rails_b921d87b04 FOREIGN KEY (activity_id) REFERENCES public.activities(id);
+
+
+--
+-- Name: user_pack_sequence_items fk_rails_ba92ed65d8; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.user_pack_sequence_items
+    ADD CONSTRAINT fk_rails_ba92ed65d8 FOREIGN KEY (user_id) REFERENCES public.users(id);
 
 
 --
@@ -8910,6 +8988,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20221014103843'),
 ('20221019184933'),
 ('20221019185354'),
+('20221020131338'),
 ('20221109181742'),
 ('20221109182042'),
 ('20221109182145');
