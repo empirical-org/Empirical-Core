@@ -191,20 +191,6 @@ describe Api::V1::ActivitySessionsController, type: :controller do
         expect(activity_session.data['time_tracking_edits']).to include(modified_data['time_tracking_edits'])
       end
 
-      it 'should log long session' do
-        data = {
-          'time_tracking' => {
-            'so' => 9999,
-            'but' => 9999,
-            'because' => 9999
-          }
-        }
-
-        expect(ErrorNotifier).to receive(:report).with(ActivitySession::LongTimeTrackingError).once
-
-        put :update, params: { id: activity_session.uid, data: data }, as: :json
-      end
-
       describe 'the total time tracking value is larger than the maximum 4-byte integer size' do
         it 'saves timespent with the maximum 4-byte integer size' do
           data = {
