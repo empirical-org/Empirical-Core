@@ -109,6 +109,11 @@ module PagesHelper
             img: 'team-shannon-browne@2x.png'
           },
           {
+            name: 'Nattalie Dai',
+            title: 'Partnerships Specialist I',
+            img: 'team-nattalie-dai@2x.png'
+          },
+          {
             name: 'Rachel Dantzler',
             title: 'Senior Curriculum Developer',
             img: 'team-rachel-dantzler@2x.png'
@@ -122,6 +127,11 @@ module PagesHelper
             name: 'Daniel Giovanniello',
             title: 'Senior Partnerships Specialist ',
             img: 'team-daniel-giovanniello@2x.png'
+          },
+          {
+            name: 'Sarah Kelly',
+            title: 'Managing Director of Strategic Impact',
+            img: 'team-sarah-kelly@2x.png'
           },
           {
             name: 'Peter Kong',
@@ -147,6 +157,11 @@ module PagesHelper
             name: 'Katie Moylan',
             title: 'Curriculum Developer II',
             img: 'team-katie-moylan@2x.png'
+          },
+          {
+            name: 'Alex Otstott',
+            title: 'Director of District Partnerships',
+            img: 'team-alex-otstott@2x.png'
           },
           {
             name: 'Erika Parker-Havens',

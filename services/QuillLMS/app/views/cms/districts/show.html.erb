@@ -7,9 +7,19 @@
     <h2>District Subscription</h2>
     <br />
     <% if @subscription %>
-      <%= link_to 'Edit Subscription', edit_cms_subscription_path(@subscription), class: 'btn button-green' %>
+      <% if @subscription.stripe? %>
+        <%= link_to 'View in Stripe', edit_cms_subscription_path(@subscription), class: 'btn button-green', target: '_blank' %>
+      <% else %>
+        <%= link_to 'Edit Subscription', edit_cms_subscription_path(@subscription), class: 'btn button-green' %>
+      <% end %>
     <% end %>
     <%= link_to 'New Subscription', new_subscription_cms_district_path(params[:id]), class: 'btn button-green' %>
+    <br />
+    <% @district_subscription_info.each do |k,v| %>
+      <br />
+      <p><strong><%= k %></strong></p>
+      <p><%= v || 'N/A' %></p>
+    <% end %>
     <br /> <br />
     <h2>District Info</h2>
     <br />

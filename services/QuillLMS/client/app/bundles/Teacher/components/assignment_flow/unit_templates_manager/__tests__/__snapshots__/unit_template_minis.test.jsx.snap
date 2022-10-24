@@ -141,18 +141,6 @@ exports[`UnitTemplateMinis component should render dropdowns when on mobile 1`] 
             <p
               className="pack-type-header"
             >
-              Reading Texts
-            </p>
-            <section
-              className="packs-section"
-            />
-          </section>
-          <section
-            className="all-packs-section"
-          >
-            <p
-              className="pack-type-header"
-            >
               Diagnostic
             </p>
             <section
@@ -194,18 +182,6 @@ exports[`UnitTemplateMinis component should render dropdowns when on mobile 1`] 
                 signedInTeacher={true}
               />
             </section>
-          </section>
-          <section
-            className="all-packs-section"
-          >
-            <p
-              className="pack-type-header"
-            >
-              Language Skills
-            </p>
-            <section
-              className="packs-section"
-            />
           </section>
           <section
             className="all-packs-section"
@@ -375,18 +351,6 @@ exports[`UnitTemplateMinis component should render without createYourOwn mini wh
             <p
               className="pack-type-header"
             >
-              Reading Texts
-            </p>
-            <section
-              className="packs-section"
-            />
-          </section>
-          <section
-            className="all-packs-section"
-          >
-            <p
-              className="pack-type-header"
-            >
               Diagnostic
             </p>
             <section
@@ -428,30 +392,6 @@ exports[`UnitTemplateMinis component should render without createYourOwn mini wh
                 signedInTeacher={false}
               />
             </section>
-          </section>
-          <section
-            className="all-packs-section"
-          >
-            <p
-              className="pack-type-header"
-            >
-              Language Skills
-            </p>
-            <section
-              className="packs-section"
-            />
-          </section>
-          <section
-            className="all-packs-section"
-          >
-            <p
-              className="pack-type-header"
-            >
-              Whole Class Lessons
-            </p>
-            <section
-              className="packs-section"
-            />
           </section>
         </div>
         <div />

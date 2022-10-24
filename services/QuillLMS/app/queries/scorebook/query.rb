@@ -2,13 +2,10 @@
 
 # SUM(CASE WHEN acts.is_final_score = true THEN acts.id ELSE 0 END) AS act_id
 class Scorebook::Query
-  SCORES_PER_PAGE = 10000
-
-  def self.run(classroom_id, current_page=1, unit_id=nil, begin_date=nil, end_date=nil, offset=0)
+  def self.run(classroom_id, current_page=1, unit_id=nil, begin_date=nil, end_date=nil, utc_offset=0)
     first_unit = units(unit_id) ? units(unit_id).first : nil
     last_unit = units(unit_id) ? units(unit_id).last : nil
-    user_timezone_offset = "+ INTERVAL '#{offset}' SECOND"
-    offset_clause = current_page ? "OFFSET (#{(current_page.to_i - 1) * SCORES_PER_PAGE})" : nil
+    user_timezone_offset = "+ INTERVAL '#{utc_offset}' SECOND"
 
     RawSqlRunner.execute(
       <<-SQL
@@ -58,7 +55,7 @@ class Scorebook::Query
           AND cu.visible
           AND sc.visible
           #{last_unit}
-          #{date_conditional_string(begin_date, end_date, offset)}
+          #{date_conditional_string(begin_date, end_date, utc_offset)}
         GROUP BY
           students.id,
           students.name,
@@ -77,8 +74,6 @@ class Scorebook::Query
           MIN(acts.completed_at),
           CASE WHEN SUM(CASE WHEN acts.state = '#{ActivitySession::STATE_STARTED}' THEN 1 ELSE 0 END) > 0 THEN true ELSE false END DESC,
           cu.created_at ASC
-          #{offset_clause}
-          FETCH NEXT #{SCORES_PER_PAGE} ROWS ONLY
       SQL
     ).to_a
   end

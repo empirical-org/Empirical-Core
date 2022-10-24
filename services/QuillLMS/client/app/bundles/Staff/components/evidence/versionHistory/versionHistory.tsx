@@ -1,11 +1,12 @@
 import * as React from "react";
 import { useQuery, useQueryClient, } from 'react-query';
+import moment from 'moment';
 
 import { sort } from '../../../../../modules/sortingMethods.js';
 import SubmissionModal from '../shared/submissionModal';
 import { fetchActivity, fetchActivityVersions, updateActivityVersion } from '../../../utils/evidence/activityAPIs';
 import { renderHeader } from "../../../helpers/evidence/renderHelpers";
-import { Input, ReactTable, Spinner } from '../../../../Shared/index';
+import { Input, ReactTable, Spinner, TextArea } from '../../../../Shared/index';
 import { TITLE } from "../../../../../constants/evidence";
 
 const formatChangeLogRows = (activityVersionData) => {
@@ -13,14 +14,16 @@ const formatChangeLogRows = (activityVersionData) => {
   return activityVersionData.changeLogs.map(row => {
     const {
       note,
-      updated_at,
+      created_at,
+      session_count,
       new_value
     } = row
 
     return {
-      updatedAt: updated_at,
-      note,
-      version: new_value
+      createdAt: `${moment(created_at).utcOffset('-0500').format('YYYY/MM/DD h:mm a')} ET`,
+      version: new_value,
+      sessionCount: session_count,
+      notes: note,
     }
   })
 }
@@ -82,7 +85,7 @@ const VersionHistory = ({ history, match }) => {
   }
 
   const activityVersionDisplayValue = ({version}): string => {
-    if (version === 0) return 'Initial Version'
+    if (version === 1) return 'Initial Version'
     return version
   }
 
@@ -90,25 +93,32 @@ const VersionHistory = ({ history, match }) => {
 
   const dataTableFields = [
     {
-      Header: 'Date/Time',
-      accessor: "updatedAt",
-      key: "updatedAt",
+      Header: 'Time',
+      accessor: "createdAt",
+      key: "createdAt",
       sortMethod: sort,
-      width: 160,
+      width: 200,
     },
     {
       Header: 'Version',
       accessor: "version",
       key: 'version',
       sortMethod: sort,
-      width: 160
+      width: 120
     },
     {
-      Header: 'Note',
-      accessor: "note",
-      key: "note",
+      Header: 'Sessions',
+      accessor: "sessionCount",
+      key: 'sessionCount',
       sortMethod: sort,
-      width: 251,
+      width: 120
+    },
+    {
+      Header: 'Notes',
+      accessor: "notes",
+      key: "notes",
+      sortMethod: sort,
+      width: 600,
     }
   ];
 
@@ -118,30 +128,40 @@ const VersionHistory = ({ history, match }) => {
     <div className="version-history-container">
       {showSubmissionModal && renderSubmissionModal()}
       {activity && renderHeader({activity: activity}, 'Version History', true)}
-      <p><b>Activity id:</b> {activity?.id}   <b>Activity title:</b> {activity?.title}</p>
-      <p><b>Current version:</b> {activityVersionDisplayValue(activity)}</p>
-      <p><b>Notes for new version:</b></p>
-      <Input
+      <section className="version-info-section">
+        <p className="version-history-label">Activity ID:</p>
+        <p>{activity?.id}</p>
+      </section>
+      <section className="version-info-section">
+        <p className="version-history-label">Activity title:</p>
+        <p>{activity?.title}</p>
+      </section>
+      <section className="version-info-section">
+        <p className="version-history-label">Current version:</p>
+        <p>{activityVersionDisplayValue(activity)}</p>
+      </section>
+      <TextArea
+        characterLimit={1000}
         className="notes-input"
         error={errors[TITLE]}
         handleChange={handleSetActivityVersionNote}
-        label="version notes"
+        label='Notes for new version:'
+        timesSubmitted={0}
         value={activityVersionNote}
       />
-
       <div className="button-and-id-container">
         <button className="quill-button fun primary contained focus-on-light" id="activity-submit-button" onClick={handleUpdateActivity} type="submit">Increment version to {activity?.version + 1}</button>
       </div>
-      <br />
-
+      {!!errors.length && errors.map(error => (
+        <p>{error}</p>
+      ))}
       {formattedRows && (<ReactTable
         className="activity-versions-table"
         columns={dataTableFields}
         data={formattedRows}
         defaultPageSize={100}
-        defaultSorted={[{id: 'updatedAt', desc: true}]}
+        defaultSorted={[{id: 'version', desc: true}]}
       />)}
-
     </div>
   );
 }

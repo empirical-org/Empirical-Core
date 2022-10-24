@@ -1,9 +1,9 @@
 ---
-:concurrency: <%= ENV.fetch("MAX_THREADS", 5).to_i - 1 %>
+:concurrency: <%= ENV.fetch("SIDEKIQ_PROCESS_MAX_THREADS", 5).to_i - 1 %>
 staging:
-  :concurrency: <%= ENV.fetch("MAX_THREADS", 5).to_i - 1 %>
+  :concurrency: <%= ENV.fetch("SIDEKIQ_PROCESS_MAX_THREADS", 5).to_i - 1 %>
 production:
-  :concurrency: <%= ENV.fetch("MAX_THREADS", 5).to_i - 1 %>
+  :concurrency: <%= ENV.fetch("SIDEKIQ_PROCESS_MAX_THREADS", 5).to_i - 1 %>
 :queues:
   - critical
   - default
