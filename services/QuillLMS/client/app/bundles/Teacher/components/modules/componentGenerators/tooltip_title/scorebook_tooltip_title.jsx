@@ -38,6 +38,8 @@ export default class ScorebookTooltip extends React.Component {
     const { data } = this.props;
     if (data.marked_complete && data.completed_attempts === 0) {
       return <span>This student has missed this lesson. To make up this material, you can assign this lesson again to the students who missed it.</span>
+    } else if (data.scheduled && !data.completed_attempts) {
+      return <span>This scheduled activity has not been published.</span>;
     } else if (!data.completed_attempts) {
       return <span>This activity has not been completed.</span>;
     } else if (data.concept_results && data.concept_results.length) {
