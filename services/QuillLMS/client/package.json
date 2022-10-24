@@ -6,7 +6,7 @@
     "url": "https://github.com/empirical-org/Empirical-Core.git"
   },
   "license": "AGPL-3.0",
-  "engineStrict" : true,
+  "engineStrict": true,
   "engines": {
     "node": "12.x",
     "npm": "8.x"
@@ -97,6 +97,7 @@
     "react-css-transition-replace": "^4.0.5",
     "react-csv": "^1.0.8",
     "react-dates": "^21.8.0",
+    "react-datetime": "^3.1.1",
     "react-datetime-picker": "^3.3.0",
     "react-dom": "^17.0.2",
     "react-dropzone": "^4.2.8",

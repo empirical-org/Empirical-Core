@@ -22,6 +22,7 @@ const reorderSrc = `${process.env.CDN_URL}/images/icons/reorder.svg`
 
 interface DataTableRow {
   id: number|string;
+  className?: string;
   actions?: Array<{name: string, action: Function}>
   [key:string]: any;
 }

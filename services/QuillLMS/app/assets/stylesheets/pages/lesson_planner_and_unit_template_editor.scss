@@ -100,6 +100,24 @@
         }
       }
       .assignment-section-body {
+        table.data-table .data-table-row, .data-table-headers {
+          .data-table-header, .data-table-row-section:not(.removable), .quill-tooltip-trigger {
+            margin-right: 16px;
+          }
+        }
+        .data-table-row:first-of-type {
+          height: 80px;
+          align-items: flex-start;
+          padding-top: 16px;
+        }
+        .copy-to-all-button {
+          margin-top: 12px;
+          display: flex;
+          align-items: center;
+          img {
+            margin-right: 8px;
+          }
+        }
         .no-active-classes {
           display: flex;
           flex-direction: column;

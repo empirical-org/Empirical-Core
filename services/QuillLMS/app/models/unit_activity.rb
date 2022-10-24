@@ -83,6 +83,29 @@ class UnitActivity < ApplicationRecord
     end
   end
 
+  def save_new_attributes_and_adjust_dates!(unit_activity_data)
+    assign_attributes(unit_activity_data)
+    adjust_dates_for_timezone
+    save!
+  end
+
+  def adjust_dates_for_timezone
+    adjust_due_date_for_timezone if will_save_change_to_due_date?
+    adjust_publish_date_for_timezone if will_save_change_to_publish_date?
+  end
+
+  def adjust_due_date_for_timezone
+    return unless due_date.present?
+
+    self.due_date = due_date.in_time_zone('UTC') - unit.user.utc_offset
+  end
+
+  def adjust_publish_date_for_timezone
+    return unless publish_date.present?
+
+    self.publish_date = publish_date.in_time_zone('UTC') - unit.user.utc_offset
+  end
+
   private def hide_appropriate_activity_sessions
     return if visible
 
@@ -101,6 +124,9 @@ class UnitActivity < ApplicationRecord
 
   def self.get_classroom_user_profile(classroom_id, user_id)
     return [] unless classroom_id && user_id
+
+    offset = Classroom.find(classroom_id).owner.utc_offset || 0
+    teacher_timezone_offset_string = "+ INTERVAL '#{offset}' SECOND"
 
     # Generate a rich profile of Classroom Activities for a given user in a given classroom
     RawSqlRunner.execute(
@@ -121,8 +147,8 @@ class UnitActivity < ApplicationRecord
           ua.activity_id,
           MAX(acts.updated_at) AS act_sesh_updated_at,
           ua.order_number,
-          CASE WHEN teachers.time_zone IS NOT NULL THEN ua.due_date at time zone teachers.time_zone ELSE ua.due_date END AS due_date,
-          CASE WHEN teachers.time_zone IS NOT NULL THEN ua.publish_date at time zone teachers.time_zone ELSE ua.publish_date END AS publish_date,
+          ua.due_date #{teacher_timezone_offset_string} AS due_date,
+          ua.publish_date #{teacher_timezone_offset_string} AS publish_date,
           pre_activity.id AS pre_activity_id,
           cu.created_at AS unit_activity_created_at,
           COALESCE(cuas.locked, false) AS locked,
@@ -157,7 +183,6 @@ class UnitActivity < ApplicationRecord
         LEFT JOIN classroom_unit_activity_states AS cuas
           ON ua.id = cuas.unit_activity_id
           AND cu.id = cuas.classroom_unit_id
-        JOIN users AS teachers ON unit.user_id = teachers.id
         WHERE #{user_id.to_i} = ANY (cu.assigned_student_ids::int[])
           AND cu.classroom_id = #{classroom_id.to_i}
           AND cu.visible = true
@@ -182,8 +207,7 @@ class UnitActivity < ApplicationRecord
           cuas.pinned,
           ua.id,
           activity_classifications.key,
-          pre_activity.id,
-          teachers.time_zone
+          pre_activity.id
         ORDER BY
           pinned DESC,
           locked ASC,
