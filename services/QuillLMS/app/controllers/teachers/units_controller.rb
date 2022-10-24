@@ -64,7 +64,7 @@ class Teachers::UnitsController < ApplicationController
   end
 
   def update_activities
-    activities_data = params[:data].permit(activities_data: [:id, :due_date])[:activities_data].map(&:to_h)
+    activities_data = params[:data].permit(activities_data: [:id, :due_date, :publish_date])[:activities_data].map(&:to_h)
     classrooms_data = formatted_classrooms_data(params[:id])
 
     if classrooms_data.any?
@@ -191,7 +191,7 @@ class Teachers::UnitsController < ApplicationController
         :create,
         :name,
         :unit_template_id,
-        activities: [:id, :due_date],
+        activities: [:id, :due_date, :publish_date],
         classrooms: [:id, :assign_on_join, student_ids: []]
       )
   end
@@ -238,6 +238,8 @@ class Teachers::UnitsController < ApplicationController
     end
     teach_own_or_coteach_string = "(#{teach_own_or_coteach_classrooms_array.join(', ')})"
 
+    user_timezone_offset_string = "+ INTERVAL '#{current_user.utc_offset}' SECOND"
+
     units = RawSqlRunner.execute(
       <<-SQL
         SELECT
@@ -252,7 +254,13 @@ class Teachers::UnitsController < ApplicationController
           cu.unit_id AS unit_id,
           array_to_json(cu.assigned_student_ids) AS assigned_student_ids,
           COUNT(DISTINCT students_classrooms.id) AS class_size,
-          ua.due_date,
+          ua.due_date #{user_timezone_offset_string} AS due_date,
+          CASE
+            WHEN ua.publish_date IS NOT NULL
+            THEN ua.publish_date #{user_timezone_offset_string}
+            ELSE ua.created_at #{user_timezone_offset_string}
+          END AS publish_date,
+          ua.publish_date >= NOW() AS scheduled,
           state.completed,
           activities.id AS activity_id,
           activities.uid as activity_uid,
@@ -312,6 +320,7 @@ class Teachers::UnitsController < ApplicationController
           unit_owner.name,
           unit_owner.id,
           ua.due_date,
+          ua.publish_date,
           ua.created_at,
           unit_activity_id,
           state.completed,

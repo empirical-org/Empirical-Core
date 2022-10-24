@@ -1,5 +1,27 @@
-.due-date-picker {
+.due-date-picker, .publish-date-picker, .datetime-picker {
   overflow: visible !important;
+
+  .rdtOpen {
+    .dropdown-indicator {
+      transform: rotate(180deg);
+    }
+  }
+
+  .datetime-input {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    input {
+      padding: 0px;
+      border: none;
+      box-shadow: none;
+      background-color: inherit;
+      height: min-content;
+      color: black;
+    }
+  }
+
   .SingleDatePickerInput {
     background-color: inherit;
     border: none;

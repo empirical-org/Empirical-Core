@@ -185,14 +185,16 @@ export default class Stage2 extends React.Component {
     const {
       selectedActivities,
       toggleActivitySelection,
-      assignActivityDueDate,
+      assignActivityDate,
       dueDates,
+      publishDates,
     } = this.props
     return (
       <ReviewActivities
         activities={selectedActivities}
-        assignActivityDueDate={assignActivityDueDate}
+        assignActivityDate={assignActivityDate}
         dueDates={dueDates}
+        publishDates={publishDates}
         toggleActivitySelection={toggleActivitySelection}
       />
     )

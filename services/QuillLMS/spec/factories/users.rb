@@ -60,6 +60,7 @@ FactoryBot.define do
     name 'Jane Doe'
     email 'fake@example.com'
     password 'password'
+    time_zone 'UTC'
   end
 
   factory :user do
@@ -69,6 +70,7 @@ FactoryBot.define do
     email      { "#{name.gsub(' ', '.').downcase}@fake-email.com" }
     ip_address { "192.168.0.0" }
     flagset    { 'production' }
+    time_zone 'UTC'
 
     factory :staff do
       role 'staff'

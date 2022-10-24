@@ -5,13 +5,13 @@ require 'pusher'
 class Teachers::UnitActivitiesController < ApplicationController
   respond_to :json
 
-  before_action :authorize!, :except => ["update_multiple_due_dates"]
+  before_action :authorize!, :except => ["update_multiple_dates"]
   before_action :teacher!
   before_action :set_unit_activities, only: [:update, :hide]
   before_action :set_activity_session, only: :hide
 
   def update
-    @unit_activities.each { |unit_activity| unit_activity&.update(unit_activity_params) }
+    @unit_activities.each { |unit_activity| unit_activity&.save_new_attributes_and_adjust_dates!(unit_activity_params) }
     render json: @unit_activities.to_json
   end
 
@@ -23,10 +23,19 @@ class Teachers::UnitActivitiesController < ApplicationController
     render json: {}
   end
 
-  def update_multiple_due_dates
-    base_unit_activities = UnitActivity.where(id: params[:unit_activity_ids])
-    activity_ids = base_unit_activities.map(&:activity_id)
-    UnitActivity.where(activity_id: activity_ids, unit_id: base_unit_activities.first.unit_id).update_all(due_date: params[:due_date])
+  def update_multiple_dates
+    if params[:date_attribute].in?(['publish_date', 'due_date'])
+      begin
+        ActiveRecord::Base.transaction do
+          UnitActivity
+            .where(id: params[:unit_activity_ids])
+            .each { |ua| ua.save_new_attributes_and_adjust_dates!(params[:date_attribute] => params[:date]) }
+        end
+      rescue => e
+        return render json: { error: "Error updating unit activity. #{e}" }, status: 401
+      end
+    end
+
     render json: {}
   end
 
@@ -52,6 +61,6 @@ class Teachers::UnitActivitiesController < ApplicationController
   end
 
   private def unit_activity_params
-    params[:unit_activity].permit(:due_date, :due_date_string, :unit_id)
+    params[:unit_activity].permit(:due_date, :due_date_string, :unit_id, :publish_date)
   end
 end
