@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-RSpec.shared_context 'Stripe Charge Dispute Created Event' do
+RSpec.shared_context 'Stripe Charge Dispute Closed Event' do
   include_context 'Stripe Dispute'
 
   let(:stripe_event_id) { "evt_#{SecureRandom.hex}"}
-  let(:stripe_event_type) { 'charge.dispute.created' }
-  let(:stripe_dispute_status) { 'needs_response' }
+  let(:stripe_event_type) { 'charge.dispute.closed' }
+  let(:stripe_dispute_status) { 'lost' }
 
   let(:stripe_event) do
     Stripe::Event.construct_from(
@@ -19,8 +19,8 @@ RSpec.shared_context 'Stripe Charge Dispute Created Event' do
       livemode: false,
       pending_webhooks: 3,
       request: {
-        id: 'req_ji2VMrCOcbaEc7',
-        idempotency_key: '14e12378-1935-43a8-ac5e-96b34539706f'
+        id: 'req_ji2VMrCOEcabc7',
+        idempotency_key: '14e51238-1935-43a8-ac5e-96bbc039706f'
       },
       type: stripe_event_type
     )

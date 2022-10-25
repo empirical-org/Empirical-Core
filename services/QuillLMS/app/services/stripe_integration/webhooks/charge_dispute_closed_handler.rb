@@ -2,7 +2,7 @@
 
 module StripeIntegration
   module Webhooks
-    class ChargeDisputeCreatedHandler < EventHandler
+    class ChargeDisputeClosedHandler < EventHandler
       def run
         send_notification
         stripe_webhook_event.processed!
@@ -11,7 +11,7 @@ module StripeIntegration
       end
 
       private def mailer_method
-        'charge_dispute_created'
+        'charge_dispute_closed'
       end
     end
   end

@@ -2,8 +2,8 @@
 
 require 'rails_helper'
 
-RSpec.describe StripeIntegration::Webhooks::ChargeDisputeCreatedHandler do
-  include_context 'Stripe Charge Dispute Created Event'
+RSpec.describe StripeIntegration::Webhooks::ChargeDisputeClosedHandler do
+  include_context 'Stripe Charge Dispute Closed Event'
 
   let(:stripe_webhook_event) { create(:stripe_webhook_event, event_type: stripe_event_type) }
   let(:external_id) { stripe_webhook_event.external_id }
@@ -13,7 +13,6 @@ RSpec.describe StripeIntegration::Webhooks::ChargeDisputeCreatedHandler do
   subject { described_class.run(stripe_webhook_event) }
 
   before { allow(Stripe::Event).to receive(:retrieve).with(external_id).and_return(stripe_event) }
-
 
   context 'check for status change' do
     before do
@@ -25,11 +24,8 @@ RSpec.describe StripeIntegration::Webhooks::ChargeDisputeCreatedHandler do
   end
 
   it 'sends a notification' do
-    mailer = double(:stripe_mailer, deliver_now!: nil)
-
-    expect(StripeIntegration::Mailer).to receive(:charge_dispute_created).with(external_id).and_return(mailer)
+    expect(StripeIntegration::Mailer).to receive(mailer_method).with(external_id).and_return(mailer)
     expect(mailer).to receive(:deliver_now!)
-
     subject
   end
 end
