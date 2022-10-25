@@ -118,14 +118,19 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
     if(activityVersionData && activityVersionData.changeLogs && (!versionOption || !versionOptions.length)) {
       const options = getVersionOptions(activityVersionData);
       const defaultOption = options[0];
-      const { value } = defaultOption;
-      const { start_date, end_date } = value;
       !versionOption && setVersionOption(defaultOption);
       setVersionOptions(options);
+    }
+  }, [activityVersionData]);
+
+  React.useEffect(() => {
+    if(versionOption && versionOption.value) {
+      const { value } = versionOption;
+      const { start_date, end_date } = value;
       onStartDateChange(new Date(start_date))
       onEndDateChange(new Date(end_date))
     }
-  }, [activityVersionData]);
+  }, [versionOption]);
 
   React.useEffect(() => {
     if (selectedPrompt) { return }
@@ -196,11 +201,6 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
   }, [ruleFeedbackHistory, selectedRuleType])
 
   function handleVersionSelection(versionOption: DropdownObjectInterface) {
-    const { value } = versionOption;
-    const { start_date, end_date } = value;
-    setVersionOption(versionOption);
-    onStartDateChange(new Date(start_date))
-    onEndDateChange(new Date(end_date))
     setVersionOption(versionOption);
   }
 

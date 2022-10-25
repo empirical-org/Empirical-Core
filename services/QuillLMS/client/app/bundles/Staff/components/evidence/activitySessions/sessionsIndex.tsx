@@ -59,15 +59,20 @@ const SessionsIndex = ({ match }) => {
     if(activityVersionData && activityVersionData.changeLogs && (!versionOption || !versionOptions.length)) {
       const options = getVersionOptions(activityVersionData);
       const defaultOption = options[0];
-      const { value } = defaultOption;
-      const { start_date, end_date } = value;
       !versionOption && setVersionOption(defaultOption);
       setVersionOptions(options);
-      onStartDateChange(new Date(start_date))
-      onEndDateChange(new Date(end_date))
       handleFilterClick(defaultOption);
     }
   }, [activityVersionData]);
+
+  React.useEffect(() => {
+    if(versionOption && versionOption.value) {
+      const { value } = versionOption;
+      const { start_date, end_date } = value;
+      onStartDateChange(new Date(start_date))
+      onEndDateChange(new Date(end_date))
+    }
+  }, [versionOption]);
 
   React.useEffect(() => {
     sessionsData && !pageDropdownOptions && getPageDropdownOptions(sessionsData);
@@ -91,11 +96,7 @@ const SessionsIndex = ({ match }) => {
   }
 
   function handleVersionSelection(versionOption: DropdownObjectInterface) {
-    const { value } = versionOption;
-    const { start_date, end_date } = value;
     setVersionOption(versionOption);
-    onStartDateChange(new Date(start_date))
-    onEndDateChange(new Date(end_date))
   }
 
   function handleDataUpdate(activitySessions, sorted) {

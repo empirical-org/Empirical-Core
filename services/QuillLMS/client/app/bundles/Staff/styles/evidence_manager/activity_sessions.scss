@@ -28,7 +28,7 @@
   .top-section {
     display: flex;
     align-items: center;
-    margin: 24px 0px 8px 0px;
+    margin: 16px 0px 8px 0px;
     .total-container {
       display: flex;
       align-items: center;
@@ -42,6 +42,9 @@
         padding: 3px 7px;
         margin-bottom: 0px;
       }
+    }
+    .left-side-container {
+      margin-top: 8px;
     }
     .dropdown-container {
       margin-right: 24px;

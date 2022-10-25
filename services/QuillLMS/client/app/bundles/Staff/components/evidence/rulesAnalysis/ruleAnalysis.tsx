@@ -123,14 +123,19 @@ const RuleAnalysis = ({ match }) => {
     if(activityVersionData && activityVersionData.changeLogs && (!versionOption || !versionOptions.length)) {
       const options = getVersionOptions(activityVersionData);
       const defaultOption = options[0];
-      const { value } = defaultOption;
-      const { start_date, end_date } = value;
       !versionOption && setVersionOption(defaultOption);
       setVersionOptions(options);
+    }
+  }, [activityVersionData]);
+
+  React.useEffect(() => {
+    if(versionOption && versionOption.value) {
+      const { value } = versionOption;
+      const { start_date, end_date } = value;
       onStartDateChange(new Date(start_date))
       onEndDateChange(new Date(end_date))
     }
-  }, [activityVersionData]);
+  }, [versionOption]);
 
   const prompt: any = activityData ? activityData.activity.prompts.find(prompt => prompt.conjunction === promptConjunction) : {}
 
@@ -153,11 +158,7 @@ const RuleAnalysis = ({ match }) => {
   }, [filter, search, selectedIds])
 
   function handleVersionSelection(versionOption: DropdownObjectInterface) {
-    const { value } = versionOption;
-    const { start_date, end_date } = value;
     setVersionOption(versionOption);
-    onStartDateChange(new Date(start_date))
-    onEndDateChange(new Date(end_date))
   }
 
   function handleFilterClick() {
