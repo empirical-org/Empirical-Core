@@ -8,6 +8,11 @@ module StripeIntegration
     STRIPE_BANKING_NOTIFICATIONS_EMAIL = ENV.fetch('STRIPE_BANKING_NOTIFICATIONS_EMAIL', '')
     STRIPE_PAYMENT_NOTIFICATIONS_EMAIL = ENV.fetch('STRIPE_PAYMENT_NOTIFICATIONS_EMAIL', '')
 
+    def capability_updated(external_id)
+      @dashboard_url = "#{STRIPE_DASHBOARD_URL}/events/#{external_id}"
+      mail to: STRIPE_BANKING_NOTIFICATIONS_EMAIL, subject: 'Capability Updated'
+    end
+
     def charge_dispute_closed(external_id)
       @external_id = external_id
       @dashboard_url = "#{STRIPE_DASHBOARD_URL}/disputes"

@@ -4,6 +4,8 @@ module StripeIntegration
   module Webhooks
     class EventHandlerFactory
       SINGLE_EVENT_HANDLER_LOOKUP = {
+        'account.updated' => AccountUpdatedHandler,
+        'capability.updated' => CapabilityUpdatedHandler,
         'charge.dispute.closed' => ChargeDisputeClosedHandler,
         'charge.dispute.created' => ChargeDisputeCreatedHandler,
         'checkout.session.completed' => CheckoutSessionCompletedEventHandler,
