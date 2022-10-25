@@ -39,27 +39,9 @@ RSpec.shared_context 'Stripe Capability' do
       },
       previous_attributes: {
         requirements: {
-          currently_due: [
-            "company.phone",
-            "person_adbcde.email",
-            "person_adbcde.relationship.title",
-            "settings.treasury.tos_acceptance.date",
-            "settings.treasury.tos_acceptance.ip"
-          ],
-          eventually_due: [
-            "company.phone",
-            "person_adbcde.email",
-            "person_adbcde.relationship.title",
-            "settings.treasury.tos_acceptance.date",
-            "settings.treasury.tos_acceptance.ip"
-          ],
-          past_due: [
-            "company.phone",
-            "person_adbcde.email",
-            "person_adbcde.relationship.title",
-            "settings.treasury.tos_acceptance.date",
-            "settings.treasury.tos_acceptance.ip"
-          ]
+          currently_due: [],
+          eventually_due: [],
+          past_due: []
         }
       }
     )

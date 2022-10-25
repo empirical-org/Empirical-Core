@@ -5,6 +5,8 @@ module StripeIntegration
     class EventHandler < ApplicationService
       attr_reader :stripe_webhook_event
 
+      delegate :external_id, to: :stripe_webhook_event
+
       def initialize(stripe_webhook_event)
         @stripe_webhook_event = stripe_webhook_event
       end

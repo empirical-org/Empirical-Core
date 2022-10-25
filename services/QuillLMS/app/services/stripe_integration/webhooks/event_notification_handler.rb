@@ -3,8 +3,6 @@
 module StripeIntegration
   module Webhooks
     class EventNotificationHandler < EventHandler
-      delegate :external_id, to: :stripe_webhook_event
-
       def run
         send_notification
         stripe_webhook_event.processed!

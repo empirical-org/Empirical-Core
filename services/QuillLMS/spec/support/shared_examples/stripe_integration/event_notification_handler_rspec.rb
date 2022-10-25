@@ -10,7 +10,6 @@ RSpec.shared_context 'an event notification handler' do
   let(:mailer) { double(:stripe_mailer, deliver_now!: nil) }
   let(:mailer_action) { described_class::MAILER_ACTION }
 
-
   before { allow(Stripe::Event).to receive(:retrieve).with(external_id).and_return(stripe_event) }
 
   describe 'check for status change' do

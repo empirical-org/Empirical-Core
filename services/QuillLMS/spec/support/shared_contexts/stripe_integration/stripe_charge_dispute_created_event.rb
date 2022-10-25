@@ -19,8 +19,8 @@ RSpec.shared_context 'Stripe Charge Dispute Created Event' do
       livemode: false,
       pending_webhooks: 3,
       request: {
-        id: 'req_ji2VMrCOcbaEc7',
-        idempotency_key: '14e12378-1935-43a8-ac5e-96b34539706f'
+        id: 'req_ji2VMrCOabDEc7',
+        idempotency_key: '14e52478-1935-43a8-ac5e-96bbc039706f'
       },
       type: stripe_event_type
     )
