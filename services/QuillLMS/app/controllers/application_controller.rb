@@ -169,8 +169,8 @@ class ApplicationController < ActionController::Base
     session[EXPIRED_SESSION_REDIRECT] = true
 
     respond_to do |format|
-      format.html { redirect_to new_session_path }
       format.json { render json: { redirect: new_session_path }, status: 303 }
+      format.html { redirect_to new_session_path }
       format.pdf { redirect_to new_session_path }
     end
   end
