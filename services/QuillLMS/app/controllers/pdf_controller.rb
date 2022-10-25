@@ -1,0 +1,2 @@
+class PdfController < ApplicationController
+end
