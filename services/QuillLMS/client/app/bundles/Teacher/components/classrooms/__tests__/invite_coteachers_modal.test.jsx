@@ -7,7 +7,7 @@ import { Input, DataTable, } from '../../../../Shared/index'
 import { classroomWithStudents, classroomProps } from './test_data/test_data'
 import { requestPost } from '../../../../../modules/request';
 
-jest.mock('../../../../../modules/request/index.js', () => ({
+jest.mock('../../../../../modules/request/index', () => ({
   requestPost: jest.fn()
 }))
 

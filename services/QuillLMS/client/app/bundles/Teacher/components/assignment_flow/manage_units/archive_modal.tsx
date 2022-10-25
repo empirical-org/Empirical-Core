@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { requestPut } from '../../../../../modules/request/index.js';
+import { requestPut } from '../../../../../modules/request/index';
 
 const ArchiveModal = ({ onSuccess, closeModal, unitId, unitName, }) => {
   function handleArchiveUnitButtonClick() {
