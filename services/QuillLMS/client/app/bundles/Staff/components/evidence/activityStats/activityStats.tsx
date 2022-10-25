@@ -7,7 +7,7 @@ import * as _ from 'lodash'
 import FilterWidget from "../shared/filterWidget";
 import { ActivityRouteProps, PromptHealthInterface, InputEvent } from '../../../interfaces/evidenceInterfaces';
 import { fetchActivity } from '../../../utils/evidence/activityAPIs';
-import { fetchPromptHealth } from '../../../utils/evidence/ruleFeedbackHistoryAPIs';
+import { fetchOverallStats, fetchPromptHealth } from '../../../utils/evidence/ruleFeedbackHistoryAPIs';
 import { Spinner, ReactTable, } from '../../../../Shared/index';
 import { handlePageFilterClick } from '../../../helpers/evidence/miscHelpers';
 import { renderHeader } from '../../../helpers/evidence/renderHelpers';
@@ -30,6 +30,12 @@ const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
   const [endDateForQuery, setEndDate] = React.useState<string>(initialEndDateString);
   const [turkSessionID, setTurkSessionID] = React.useState<string>(initialTurkSessionId);
   const [turkSessionIDForQuery, setTurkSessionIDForQuery] = React.useState<string>(initialTurkSessionId);
+
+  // get cached activity data to pass to rule
+  const { data: overallStatsData } = useQuery({
+    queryKey: [`activity-${activityId}`, activityId],
+    queryFn: fetchOverallStats
+  });
 
   // get cached activity data to pass to rule
   const { data: activityData } = useQuery({
@@ -156,8 +162,8 @@ const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
 
   const overallStats = (
     <div>
-      <p><strong>Average Time Spent: </strong></p>
-      <p><strong>Average Completion Rate: </strong> Completed</p>
+      <p><strong>Average Time Spent: </strong>{overallStatsData.stats.average_time_spent}</p>
+      <p><strong>Average Completion Rate: </strong> {overallStatsData.stats.average_completion_rate}%</p>
     </div>
   )
 

@@ -60,6 +60,10 @@ export const getActivityStatsUrl = ({ activityId, startDate, endDate, turkSessio
   return url;
 };
 
+export const getOverallActivityStatsUrl = ({ activityId }) => {
+  return `overall_stats?activity_id=${activityId}`;
+}
+
 // not a 2xx status
 export const requestFailed = (status: number ) => Math.round(status / 100) !== 2;
 

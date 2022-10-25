@@ -410,6 +410,7 @@ EmpiricalGrammar::Application.routes.draw do
       get 'rule_feedback_histories' => 'rule_feedback_histories#by_conjunction'
       get 'rule_feedback_history/:rule_uid' => 'rule_feedback_histories#rule_detail'
       get 'prompt_health' => 'rule_feedback_histories#prompt_health'
+      get 'overall_stats' => 'rule_feedback_histories#overall_stats'
 
 
       resources :activities,              except: [:index, :new, :edit]
