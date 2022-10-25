@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import { arrowPointingRightIcon } from '../../../Shared/index'
 
-const bookIllustrationSrc = `${process.env.CDN_URL}/images/pages/dashboard/chart-growth-green-illustration.svg`
+const bookIllustrationSrc = `${process.env.CDN_URL}/images/pages/dashboard/books-on-shelf.svg`
 
 const EvidencePromotionCard = () => {
 
