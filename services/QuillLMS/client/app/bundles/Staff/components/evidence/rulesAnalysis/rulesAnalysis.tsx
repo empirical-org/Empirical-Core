@@ -215,6 +215,8 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
           columns={dataTableFields}
           data={formattedRows ? formattedRows : []}
           defaultGroupBy={["apiName"]}
+          // the first row will be the toggle rule identifier row, so we need to increment by 1
+          defaultPageSize={formattedRows && formattedRows.length < 100 ? (formattedRows.length + 1) : 100}
           defaultSorted={sorted}
           manualSortBy
           onSortedChange={setSorted}
