@@ -394,5 +394,61 @@ describe TeacherFixes do
         end
       end
     end
+
   end
+
+  describe '#recover_classroom_units_and_associated_activity_sessions' do
+    it 'should unarchive the classroom units' do
+      classroom_unit_with_activity_sessions1.update(visible: false)
+      classroom_unit_with_activity_sessions2.update(visible: false)
+      TeacherFixes::recover_classroom_units_and_associated_activity_sessions([classroom_unit_with_activity_sessions1, classroom_unit_with_activity_sessions2])
+      expect(classroom_unit_with_activity_sessions1.reload.visible).to eq(true)
+      expect(classroom_unit_with_activity_sessions2.reload.visible).to eq(true)
+    end
+
+    it 'should unarchive the associated activity sessions' do
+      classroom_units = [classroom_unit_with_activity_sessions1, classroom_unit_with_activity_sessions2]
+      activity_sessions = ActivitySession.where(classroom_unit: classroom_units)
+      activity_sessions.each { |as| as.update(visible: false) }
+      TeacherFixes::recover_classroom_units_and_associated_activity_sessions(classroom_units)
+      activity_sessions.each { |as| expect(as.reload.visible).to eq(true) }
+    end
+
+    it 'should touch each activity session to bubble up touch for cache invalidation purposes' do
+      first_activity_session = ActivitySession.find_by(classroom_unit: classroom_unit_with_activity_sessions1)
+      stored_updated_at_value = first_activity_session.updated_at
+      TeacherFixes::recover_classroom_units_and_associated_activity_sessions([classroom_unit_with_activity_sessions1])
+      expect(first_activity_session.reload.updated_at).not_to equal(stored_updated_at_value)
+    end
+  end
+
+  describe '#recover_unit_activities_for_units' do
+    it 'should unarchive the unit activities' do
+      create(:unit_activity, unit: unit1, visible: false)
+      TeacherFixes::recover_unit_activities_for_units([unit1])
+      unit1.unit_activities.each { |ua| expect(ua.reload.visible).to eq(true) }
+    end
+
+    it 'should touch the unit activity to bubble up touch for cache invalidation purposes' do
+      first_unit_activity = create(:unit_activity, unit: unit1, visible: false)
+      stored_updated_at_value = first_unit_activity.updated_at
+      TeacherFixes::recover_unit_activities_for_units([unit1])
+      expect(first_unit_activity.reload.updated_at).not_to equal(stored_updated_at_value)
+    end
+  end
+
+  describe '#recover_units_by_id' do
+    it 'should unarchive the units' do
+      unit1.update(visible: false)
+      TeacherFixes::recover_units_by_id([unit1.id])
+      expect(unit1.reload.visible).to eq(true)
+    end
+
+    it 'should touch the unit to bubble up touch for cache invalidation purposes' do
+      stored_updated_at_value = unit1.updated_at
+      TeacherFixes::recover_units_by_id([unit1.id])
+      expect(unit1.reload.updated_at).not_to equal(stored_updated_at_value)
+    end
+  end
+
 end
