@@ -1,0 +1,2198 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Stage2 component should render 1`] = `
+<Stage2
+  alreadyCompletedDiagnosticStudentNames={Array []}
+  areAnyStudentsSelected={true}
+  assignActivityDate={[MockFunction]}
+  classrooms={Array []}
+  cleverLink=""
+  data={Object {}}
+  dueDates={Object {}}
+  errorMessage={null}
+  fetchClassrooms={[MockFunction]}
+  finish={[MockFunction]}
+  isFromDiagnosticPath={false}
+  lockedClassroomIds={Array []}
+  notYetCompletedPreTestStudentNames={Array []}
+  publishDates={Object {}}
+  restrictedActivity={false}
+  selectedActivities={
+    Array [
+      Object {
+        "activity_category": Object {
+          "name": "Quill Conenct",
+        },
+        "activity_classification": Object {
+          "alias": "test",
+        },
+        "id": 1,
+        "standard_level": Object {
+          "name": "Adjectives",
+        },
+      },
+    ]
+  }
+  showGradeLevelWarning={false}
+  toggleActivitySelection={[MockFunction]}
+  toggleClassroomSelection={[MockFunction]}
+  toggleStudentSelection={[MockFunction]}
+  unitName=""
+  unitTemplateId="1"
+  updateUnitName={[MockFunction]}
+  user={Object {}}
+>
+  <div>
+    <ScrollToTop />
+    <AssignmentFlowNavigation
+      button={
+        <button
+          className="quill-button contained primary medium pull-right"
+          id="assign"
+          onClick={[Function]}
+          type="button"
+        >
+          Assign pack to classes
+        </button>
+      }
+      isFromDiagnosticPath={false}
+      unitTemplateId="1"
+    >
+      <div
+        className="assignment-flow-navigation"
+      >
+        <div
+          className="assignment-flow-navigation-container"
+        >
+          <div
+            className="left"
+          >
+            <button
+              className="interactive-wrapper focus-on-light"
+              onClick={[Function]}
+              type="button"
+            >
+              <img
+                alt="green Quill logo"
+                src="undefined/images/logos/quill-logo-green.svg"
+              />
+            </button>
+            <div
+              className="links"
+            />
+          </div>
+          <div
+            className="right"
+          >
+            <button
+              className="quill-button contained primary medium pull-right"
+              id="assign"
+              onClick={[Function]}
+              type="button"
+            >
+              Assign pack to classes
+            </button>
+          </div>
+        </div>
+        <div
+          className="progress-bar"
+        >
+          <div
+            className={null}
+          />
+        </div>
+      </div>
+    </AssignmentFlowNavigation>
+    <div
+      className="name-and-assign-activity-pack container"
+    >
+      <h1
+        className="assign-header"
+      >
+        Review and assign
+      </h1>
+      <NameTheUnit
+        nameError={null}
+        timesSubmitted={0}
+        unitName=""
+        updateUnitName={[MockFunction]}
+      >
+        <div
+          className="assignment-section"
+        >
+          <div
+            className="assignment-section-header"
+          >
+            <span
+              className="assignment-section-number"
+            >
+              1
+            </span>
+            <span
+              className="assignment-section-name"
+            >
+              Name the assignment
+            </span>
+          </div>
+          <div
+            className="assignment-section-body"
+          >
+            <Input
+              autoComplete="on"
+              error={null}
+              handleChange={[MockFunction]}
+              label="Activity pack name"
+              timesSubmitted={0}
+              type="text"
+              value=""
+            >
+              <div
+                className="input-container  inactive  undefined "
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="button"
+                tabIndex={-1}
+              >
+                <label>
+                  Activity pack name
+                </label>
+                <input
+                  autoComplete="on"
+                  maxLength={10000}
+                  onChange={[MockFunction]}
+                  onFocus={[Function]}
+                  placeholder={false}
+                  type="text"
+                  value=""
+                />
+              </div>
+            </Input>
+          </div>
+        </div>
+      </NameTheUnit>
+      <ReviewActivities
+        activities={
+          Array [
+            Object {
+              "activity_category": Object {
+                "name": "Quill Conenct",
+              },
+              "activity_classification": Object {
+                "alias": "test",
+              },
+              "id": 1,
+              "standard_level": Object {
+                "name": "Adjectives",
+              },
+            },
+          ]
+        }
+        assignActivityDate={[MockFunction]}
+        dueDates={Object {}}
+        publishDates={Object {}}
+        toggleActivitySelection={[MockFunction]}
+      >
+        <div
+          className="assignment-section review-activities-section"
+        >
+          <Snackbar
+            text="The due date must be after the publish date."
+            visible={false}
+          >
+            <div
+              className="quill-snackbar "
+            >
+              The due date must be after the publish date.
+            </div>
+          </Snackbar>
+          <div
+            className="assignment-section-header"
+          >
+            <span
+              className="assignment-section-number"
+            >
+              2
+            </span>
+            <span
+              className="assignment-section-name"
+            >
+              Review activities and pick due dates
+            </span>
+          </div>
+          <div
+            className="assignment-section-body"
+          >
+            <DataTable
+              averageFontWidth={7}
+              headers={
+                Array [
+                  Object {
+                    "attribute": "tool",
+                    "name": "Tool",
+                    "rowSectionClassName": "tooltip-section review-activities-data-table-section",
+                    "width": "30px",
+                  },
+                  Object {
+                    "attribute": "activity",
+                    "name": "Activity",
+                    "rowSectionClassName": "tooltip-section review-activities-data-table-section",
+                    "width": "322px",
+                  },
+                  Object {
+                    "attribute": "concept",
+                    "name": "Concept",
+                    "width": "166px",
+                  },
+                  Object {
+                    "attribute": "publishDatePicker",
+                    "headerClassName": "publish-date-header-container",
+                    "name": <Tooltip
+                      isTabbable={true}
+                      tooltipText="When you schedule an activity, it is displayed in your dashboard, but it is hidden from a student until the publish date."
+                      tooltipTriggerText={
+                        <span
+                          className="publish-date-header"
+                        >
+                          Publish date
+                        </span>
+                      }
+                    />,
+                    "rowSectionClassName": "datetime-picker",
+                    "width": "123px",
+                  },
+                  Object {
+                    "attribute": "dueDatePicker",
+                    "headerClassName": "due-date-header-container",
+                    "name": <Tooltip
+                      isTabbable={true}
+                      tooltipText="Display a due date to students for this activity. Students can still access an activity after the due date."
+                      tooltipTriggerText={
+                        <span
+                          className="due-date-header"
+                        >
+                          Due date 
+                          <span>
+                            (optional)
+                          </span>
+                        </span>
+                      }
+                    />,
+                    "rowSectionClassName": "datetime-picker",
+                    "width": "123px",
+                  },
+                ]
+              }
+              removeRow={[Function]}
+              rows={
+                Array [
+                  Object {
+                    "activity": <Tooltip
+                      isTabbable={true}
+                      tooltipText="<h5>undefined</h5><br/><p>Tool: test</p><br/><p>Adjectives</p><br/><p>undefined</p>"
+                      tooltipTriggerTextClass="clipped-content"
+                      tooltipTriggerTextStyle={
+                        Object {
+                          "maxWidth": "322px",
+                        }
+                      }
+                    />,
+                    "className": "",
+                    "concept": "Quill Conenct",
+                    "dueDatePicker": <DatePickerContainer
+                      closeFunction={[Function]}
+                      defaultText="No due date"
+                      handleClickCopyToAll={[Function]}
+                      initialValue={null}
+                      showCopyToAll={false}
+                    />,
+                    "id": 1,
+                    "publishDatePicker": <DatePickerContainer
+                      closeFunction={[Function]}
+                      defaultText="Right away"
+                      handleClickCopyToAll={[Function]}
+                      initialValue={null}
+                      showCopyToAll={false}
+                    />,
+                    "removable": true,
+                    "tool": <Tooltip
+                      isTabbable={true}
+                      tooltipText="<h5>test</h5><br/><p>undefined</p>"
+                      tooltipTriggerText={
+                        <img
+                          alt=""
+                          src=""
+                        />
+                      }
+                    />,
+                  },
+                ]
+              }
+              showRemoveIcon={true}
+            >
+              <table
+                className="data-table undefined"
+              >
+                <tr
+                  className="data-table-headers"
+                >
+                  <th
+                    className="data-table-header undefined"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "30px",
+                        "textAlign": "left",
+                        "width": "30px",
+                      }
+                    }
+                  >
+                    Tool
+                  </th>
+                  <th
+                    className="data-table-header undefined"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "322px",
+                        "textAlign": "left",
+                        "width": "322px",
+                      }
+                    }
+                  >
+                    Activity
+                  </th>
+                  <th
+                    className="data-table-header undefined"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "166px",
+                        "textAlign": "left",
+                        "width": "166px",
+                      }
+                    }
+                  >
+                    Concept
+                  </th>
+                  <th
+                    className="data-table-header publish-date-header-container"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "123px",
+                        "textAlign": "left",
+                        "width": "123px",
+                      }
+                    }
+                  >
+                    <Tooltip
+                      isTabbable={true}
+                      tooltipText="When you schedule an activity, it is displayed in your dashboard, but it is hidden from a student until the publish date."
+                      tooltipTriggerText={
+                        <span
+                          className="publish-date-header"
+                        >
+                          Publish date
+                        </span>
+                      }
+                    >
+                      <span
+                        aria-hidden={false}
+                        className="quill-tooltip-trigger "
+                        role="tooltip"
+                      >
+                        <span
+                          className="undefined"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
+                        >
+                          <span
+                            className="publish-date-header"
+                          >
+                            Publish date
+                          </span>
+                        </span>
+                        <span
+                          className="quill-tooltip-wrapper"
+                        >
+                          <span
+                            aria-live="polite"
+                            className="quill-tooltip"
+                          />
+                        </span>
+                      </span>
+                    </Tooltip>
+                  </th>
+                  <th
+                    className="data-table-header due-date-header-container"
+                    scope="col"
+                    style={
+                      Object {
+                        "minWidth": "123px",
+                        "textAlign": "left",
+                        "width": "123px",
+                      }
+                    }
+                  >
+                    <Tooltip
+                      isTabbable={true}
+                      tooltipText="Display a due date to students for this activity. Students can still access an activity after the due date."
+                      tooltipTriggerText={
+                        <span
+                          className="due-date-header"
+                        >
+                          Due date 
+                          <span>
+                            (optional)
+                          </span>
+                        </span>
+                      }
+                    >
+                      <span
+                        aria-hidden={false}
+                        className="quill-tooltip-trigger "
+                        role="tooltip"
+                      >
+                        <span
+                          className="undefined"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
+                        >
+                          <span
+                            className="due-date-header"
+                          >
+                            Due date 
+                            <span>
+                              (optional)
+                            </span>
+                          </span>
+                        </span>
+                        <span
+                          className="quill-tooltip-wrapper"
+                        >
+                          <span
+                            aria-live="polite"
+                            className="quill-tooltip"
+                          />
+                        </span>
+                      </span>
+                    </Tooltip>
+                  </th>
+                  <th
+                    aria-label="Header for remove column"
+                    className="data-table-header"
+                    scope="col"
+                  />
+                </tr>
+                <tbody
+                  className="data-table-body"
+                >
+                  <tr
+                    className="data-table-row  "
+                    key="1"
+                  >
+                    <td>
+                      <Tooltip
+                        isTabbable={true}
+                        key="tool-1"
+                        tooltipText={
+                          <Tooltip
+                            isTabbable={true}
+                            tooltipText="<h5>test</h5><br/><p>undefined</p>"
+                            tooltipTriggerText={
+                              <img
+                                alt=""
+                                src=""
+                              />
+                            }
+                          />
+                        }
+                        tooltipTriggerStyle={
+                          Object {
+                            "minWidth": "30px",
+                            "textAlign": "left",
+                            "width": "30px",
+                          }
+                        }
+                        tooltipTriggerText={
+                          <Tooltip
+                            isTabbable={true}
+                            tooltipText="<h5>test</h5><br/><p>undefined</p>"
+                            tooltipTriggerText={
+                              <img
+                                alt=""
+                                src=""
+                              />
+                            }
+                          />
+                        }
+                        tooltipTriggerTextClass="data-table-row-section tooltip-section review-activities-data-table-section"
+                        tooltipTriggerTextStyle={
+                          Object {
+                            "minWidth": "30px",
+                            "textAlign": "left",
+                            "width": "30px",
+                          }
+                        }
+                      >
+                        <span
+                          aria-hidden={false}
+                          className="quill-tooltip-trigger "
+                          role="tooltip"
+                          style={
+                            Object {
+                              "minWidth": "30px",
+                              "textAlign": "left",
+                              "width": "30px",
+                            }
+                          }
+                        >
+                          <span
+                            className="data-table-row-section tooltip-section review-activities-data-table-section"
+                            onBlur={[Function]}
+                            onClick={[Function]}
+                            onFocus={[Function]}
+                            onKeyDown={[Function]}
+                            onMouseEnter={[Function]}
+                            onMouseLeave={[Function]}
+                            role="button"
+                            style={
+                              Object {
+                                "minWidth": "30px",
+                                "textAlign": "left",
+                                "width": "30px",
+                              }
+                            }
+                            tabIndex={0}
+                          >
+                            <Tooltip
+                              isTabbable={true}
+                              tooltipText="<h5>test</h5><br/><p>undefined</p>"
+                              tooltipTriggerText={
+                                <img
+                                  alt=""
+                                  src=""
+                                />
+                              }
+                            >
+                              <span
+                                aria-hidden={false}
+                                className="quill-tooltip-trigger "
+                                role="tooltip"
+                              >
+                                <span
+                                  className="undefined"
+                                  onBlur={[Function]}
+                                  onClick={[Function]}
+                                  onFocus={[Function]}
+                                  onKeyDown={[Function]}
+                                  onMouseEnter={[Function]}
+                                  onMouseLeave={[Function]}
+                                  role="button"
+                                  tabIndex={0}
+                                >
+                                  <img
+                                    alt=""
+                                    src=""
+                                  />
+                                </span>
+                                <span
+                                  className="quill-tooltip-wrapper"
+                                >
+                                  <span
+                                    aria-live="polite"
+                                    className="quill-tooltip"
+                                  />
+                                </span>
+                              </span>
+                            </Tooltip>
+                          </span>
+                          <span
+                            className="quill-tooltip-wrapper"
+                          >
+                            <span
+                              aria-live="polite"
+                              className="quill-tooltip"
+                            />
+                          </span>
+                        </span>
+                      </Tooltip>
+                    </td>
+                    <td
+                      className="data-table-row-section tooltip-section review-activities-data-table-section"
+                      key="activity-1"
+                      style={
+                        Object {
+                          "minWidth": "322px",
+                          "textAlign": "left",
+                          "width": "322px",
+                        }
+                      }
+                    >
+                      <Tooltip
+                        isTabbable={true}
+                        tooltipText="<h5>undefined</h5><br/><p>Tool: test</p><br/><p>Adjectives</p><br/><p>undefined</p>"
+                        tooltipTriggerTextClass="clipped-content"
+                        tooltipTriggerTextStyle={
+                          Object {
+                            "maxWidth": "322px",
+                          }
+                        }
+                      >
+                        <span
+                          aria-hidden={false}
+                          className="quill-tooltip-trigger "
+                          role="tooltip"
+                        >
+                          <span
+                            className="clipped-content"
+                            onBlur={[Function]}
+                            onClick={[Function]}
+                            onFocus={[Function]}
+                            onKeyDown={[Function]}
+                            onMouseEnter={[Function]}
+                            onMouseLeave={[Function]}
+                            role="button"
+                            style={
+                              Object {
+                                "maxWidth": "322px",
+                              }
+                            }
+                            tabIndex={0}
+                          />
+                          <span
+                            className="quill-tooltip-wrapper"
+                          >
+                            <span
+                              aria-live="polite"
+                              className="quill-tooltip"
+                            />
+                          </span>
+                        </span>
+                      </Tooltip>
+                    </td>
+                    <td
+                      className="data-table-row-section undefined"
+                      key="concept-1"
+                      style={
+                        Object {
+                          "minWidth": "166px",
+                          "textAlign": "left",
+                          "width": "166px",
+                        }
+                      }
+                    >
+                      Quill Conenct
+                    </td>
+                    <td
+                      className="data-table-row-section datetime-picker"
+                      key="publishDatePicker-1"
+                      style={
+                        Object {
+                          "minWidth": "123px",
+                          "textAlign": "left",
+                          "width": "123px",
+                        }
+                      }
+                    >
+                      <DatePickerContainer
+                        closeFunction={[Function]}
+                        defaultText="Right away"
+                        handleClickCopyToAll={[Function]}
+                        initialValue={null}
+                        key="1"
+                        showCopyToAll={false}
+                      >
+                        <div
+                          className="date-picker-container"
+                        >
+                          <div
+                            className="icon-and-datetime-picker"
+                          >
+                            <n
+                              className=""
+                              closeOnClickOutside={true}
+                              closeOnSelect={false}
+                              closeOnTab={true}
+                              dateFormat="MMM D"
+                              initialValue={null}
+                              initialViewDate={2022-10-25T09:00:00.000Z}
+                              input={true}
+                              inputProps={Object {}}
+                              isValidDate={[Function]}
+                              onBeforeNavigate={[Function]}
+                              onCalendarClose={[Function]}
+                              onCalendarOpen={[Function]}
+                              onChange={[Function]}
+                              onClose={[Function]}
+                              onNavigate={[Function]}
+                              onNavigateBack={[Function]}
+                              onNavigateForward={[Function]}
+                              onOpen={[Function]}
+                              renderInput={[Function]}
+                              renderView={[Function]}
+                              strictParsing={true}
+                              timeConstraints={Object {}}
+                              timeFormat="h:mm a"
+                              utc={true}
+                            >
+                              <OnClickOutside(n)
+                                className="rdt"
+                                eventTypes={
+                                  Array [
+                                    "mousedown",
+                                    "touchstart",
+                                  ]
+                                }
+                                excludeScrollbar={false}
+                                onClickOut={[Function]}
+                                outsideClickIgnoreClass="ignore-react-onclickoutside"
+                                preventDefault={false}
+                                stopPropagation={false}
+                              >
+                                <n
+                                  className="rdt"
+                                  disableOnClickOutside={[Function]}
+                                  enableOnClickOutside={[Function]}
+                                  eventTypes={
+                                    Array [
+                                      "mousedown",
+                                      "touchstart",
+                                    ]
+                                  }
+                                  onClickOut={[Function]}
+                                  outsideClickIgnoreClass="ignore-react-onclickoutside"
+                                  preventDefault={false}
+                                  stopPropagation={false}
+                                >
+                                  <div
+                                    className="rdt"
+                                  >
+                                    <div>
+                                      <DatetimeInput
+                                        defaultText="Right away"
+                                        props={
+                                          Object {
+                                            "className": "form-control",
+                                            "onChange": [Function],
+                                            "onClick": [Function],
+                                            "onFocus": [Function],
+                                            "onKeyDown": [Function],
+                                            "type": "text",
+                                            "value": "",
+                                          }
+                                        }
+                                      >
+                                        <button
+                                          className="interactive-wrapper focus-on-light datetime-input"
+                                          onClick={[Function]}
+                                          type="button"
+                                        >
+                                          <input
+                                            className="form-control"
+                                            onChange={[Function]}
+                                            onClick={[Function]}
+                                            onFocus={[Function]}
+                                            onKeyDown={[Function]}
+                                            placeholder="Right away"
+                                            type="text"
+                                            value=""
+                                          />
+                                          <img
+                                            alt="dropdown indicator"
+                                            className="dropdown-indicator"
+                                            src="https://assets.quill.org/images/icons/dropdown.svg"
+                                          />
+                                        </button>
+                                      </DatetimeInput>
+                                    </div>
+                                    <div
+                                      className="rdtPicker"
+                                    >
+                                      <a
+                                        isValidDate={[Function]}
+                                        moment={[Function]}
+                                        navigate={[Function]}
+                                        renderDay={[Function]}
+                                        showView={[Function]}
+                                        timeFormat="h:mm a"
+                                        updateDate={[Function]}
+                                        viewDate={"2022-10-25T09:00:00.000Z"}
+                                      >
+                                        <div
+                                          className="rdtDays"
+                                        >
+                                          <table>
+                                            <thead>
+                                              <l
+                                                onClickNext={[Function]}
+                                                onClickPrev={[Function]}
+                                                onClickSwitch={[Function]}
+                                                switchColSpan={5}
+                                                switchContent="October 2022"
+                                                switchProps={
+                                                  Object {
+                                                    "data-value": 9,
+                                                  }
+                                                }
+                                              >
+                                                <tr>
+                                                  <th
+                                                    className="rdtPrev"
+                                                    onClick={[Function]}
+                                                  >
+                                                    <span>
+                                                      ‹
+                                                    </span>
+                                                  </th>
+                                                  <th
+                                                    className="rdtSwitch"
+                                                    colSpan={5}
+                                                    data-value={9}
+                                                    onClick={[Function]}
+                                                  >
+                                                    October 2022
+                                                  </th>
+                                                  <th
+                                                    className="rdtNext"
+                                                    onClick={[Function]}
+                                                  >
+                                                    <span>
+                                                      ›
+                                                    </span>
+                                                  </th>
+                                                </tr>
+                                              </l>
+                                              <tr>
+                                                <th
+                                                  className="dow"
+                                                  key="Su0"
+                                                >
+                                                  Su
+                                                </th>
+                                                <th
+                                                  className="dow"
+                                                  key="Mo1"
+                                                >
+                                                  Mo
+                                                </th>
+                                                <th
+                                                  className="dow"
+                                                  key="Tu2"
+                                                >
+                                                  Tu
+                                                </th>
+                                                <th
+                                                  className="dow"
+                                                  key="We3"
+                                                >
+                                                  We
+                                                </th>
+                                                <th
+                                                  className="dow"
+                                                  key="Th4"
+                                                >
+                                                  Th
+                                                </th>
+                                                <th
+                                                  className="dow"
+                                                  key="Fr5"
+                                                >
+                                                  Fr
+                                                </th>
+                                                <th
+                                                  className="dow"
+                                                  key="Sa6"
+                                                >
+                                                  Sa
+                                                </th>
+                                              </tr>
+                                            </thead>
+                                            <tbody>
+                                              <tr
+                                                key="10_0"
+                                              >
+                                                <td
+                                                  className="rdtDay rdtOld"
+                                                  data-month={8}
+                                                  data-value={25}
+                                                  data-year={2022}
+                                                  key="9_25"
+                                                  onClick={[Function]}
+                                                >
+                                                  25
+                                                </td>
+                                                <td
+                                                  className="rdtDay rdtOld"
+                                                  data-month={8}
+                                                  data-value={26}
+                                                  data-year={2022}
+                                                  key="9_26"
+                                                  onClick={[Function]}
+                                                >
+                                                  26
+                                                </td>
+                                                <td
+                                                  className="rdtDay rdtOld"
+                                                  data-month={8}
+                                                  data-value={27}
+                                                  data-year={2022}
+                                                  key="9_27"
+                                                  onClick={[Function]}
+                                                >
+                                                  27
+                                                </td>
+                                                <td
+                                                  className="rdtDay rdtOld"
+                                                  data-month={8}
+                                                  data-value={28}
+                                                  data-year={2022}
+                                                  key="9_28"
+                                                  onClick={[Function]}
+                                                >
+                                                  28
+                                                </td>
+                                                <td
+                                                  className="rdtDay rdtOld"
+                                                  data-month={8}
+                                                  data-value={29}
+                                                  data-year={2022}
+                                                  key="9_29"
+                                                  onClick={[Function]}
+                                                >
+                                                  29
+                                                </td>
+                                                <td
+                                                  className="rdtDay rdtOld"
+                                                  data-month={8}
+                                                  data-value={30}
+                                                  data-year={2022}
+                                                  key="9_30"
+                                                  onClick={[Function]}
+                                                >
+                                                  30
+                                                </td>
+                                                <td
+                                                  className="rdtDay"
+                                                  data-month={9}
+                                                  data-value={1}
+                                                  data-year={2022}
+                                                  key="10_1"
+                                                  onClick={[Function]}
+                                                >
+                                                  1
+                                                </td>
+                                              </tr>
+                                              <tr
+                                                key="10_1"
+                                              >
+                                                <td
+                                                  className="rdtDay"
+                                                  data-month={9}
+                                                  data-value={2}
+                                                  data-year={2022}
+                                                  key="10_2"
+                                                  onClick={[Function]}
+                                                >
+                                                  2
+                                                </td>
+                                                <td
+                                                  className="rdtDay"
+                                                  data-month={9}
+                                                  data-value={3}
+                                                  data-year={2022}
+                                                  key="10_3"
+                                                  onClick={[Function]}
+                                                >
+                                                  3
+                                                </td>
+                                                <td
+                                                  className="rdtDay"
+                                                  data-month={9}
+                                                  data-value={4}
+                                                  data-year={2022}
+                                                  key="10_4"
+                                                  onClick={[Function]}
+                                                >
+                                                  4
+                                                </td>
+                                                <td
+                                                  className="rdtDay"
+                                                  data-month={9}
+                                                  data-value={5}
+                                                  data-year={2022}
+                                                  key="10_5"
+                                                  onClick={[Function]}
+                                                >
+                                                  5
+                                                </td>
+                                                <td
+                                                  className="rdtDay"
+                                                  data-month={9}
+                                                  data-value={6}
+                                                  data-year={2022}
+                                                  key="10_6"
+                                                  onClick={[Function]}
+                                                >
+                                                  6
+                                                </td>
+                                                <td
+                                                  className="rdtDay"
+                                                  data-month={9}
+                                                  data-value={7}
+                                                  data-year={2022}
+                                                  key="10_7"
+                                                  onClick={[Function]}
+                                                >
+                                                  7
+                                                </td>
+                                                <td
+                                                  className="rdtDay"
+                                                  data-month={9}
+                                                  data-value={8}
+                                                  data-year={2022}
+                                                  key="10_8"
+                                                  onClick={[Function]}
+                                                >
+                                                  8
+                                                </td>
+                                              </tr>
+                                              <tr
+                                                key="10_2"
+                                              >
+                                                <td
+                                                  className="rdtDay"
+                                                  data-month={9}
+                                                  data-value={9}
+                                                  data-year={2022}
+                                                  key="10_9"
+                                                  onClick={[Function]}
+                                                >
+                                                  9
+                                                </td>
+                                                <td
+                                                  className="rdtDay"
+                                                  data-month={9}
+                                                  data-value={10}
+                                                  data-year={2022}
+                                                  key="10_10"
+                                                  onClick={[Function]}
+                                                >
+                                                  10
+                                                </td>
+                                                <td
+                                                  className="rdtDay"
+                                                  data-month={9}
+                                                  data-value={11}
+                                                  data-year={2022}
+                                                  key="10_11"
+                                                  onClick={[Function]}
+                                                >
+                                                  11
+                                                </td>
+                                                <td
+                                                  className="rdtDay"
+                                                  data-month={9}
+                                                  data-value={12}
+                                                  data-year={2022}
+                                                  key="10_12"
+                                                  onClick={[Function]}
+                                                >
+                                                  12
+                                                </td>
+                                                <td
+                                                  className="rdtDay"
+                                                  data-month={9}
+                                                  data-value={13}
+                                                  data-year={2022}
+                                                  key="10_13"
+                                                  onClick={[Function]}
+                                                >
+                                                  13
+                                                </td>
+                                                <td
+                                                  className="rdtDay"
+                                                  data-month={9}
+                                                  data-value={14}
+                                                  data-year={2022}
+                                                  key="10_14"
+                                                  onClick={[Function]}
+                                                >
+                                                  14
+                                                </td>
+                                                <td
+                                                  className="rdtDay"
+                                                  data-month={9}
+                                                  data-value={15}
+                                                  data-year={2022}
+                                                  key="10_15"
+                                                  onClick={[Function]}
+                                                >
+                                                  15
+                                                </td>
+                                              </tr>
+                                              <tr
+                                                key="10_3"
+                                              >
+                                                <td
+                                                  className="rdtDay"
+                                                  data-month={9}
+                                                  data-value={16}
+                                                  data-year={2022}
+                                                  key="10_16"
+                                                  onClick={[Function]}
+                                                >
+                                                  16
+                                                </td>
+                                                <td
+                                                  className="rdtDay"
+                                                  data-month={9}
+                                                  data-value={17}
+                                                  data-year={2022}
+                                                  key="10_17"
+                                                  onClick={[Function]}
+                                                >
+                                                  17
+                                                </td>
+                                                <td
+                                                  className="rdtDay"
+                                                  data-month={9}
+                                                  data-value={18}
+                                                  data-year={2022}
+                                                  key="10_18"
+                                                  onClick={[Function]}
+                                                >
+                                                  18
+                                                </td>
+                                                <td
+                                                  className="rdtDay"
+                                                  data-month={9}
+                                                  data-value={19}
+                                                  data-year={2022}
+                                                  key="10_19"
+                                                  onClick={[Function]}
+                                                >
+                                                  19
+                                                </td>
+                                                <td
+                                                  className="rdtDay"
+                                                  data-month={9}
+                                                  data-value={20}
+                                                  data-year={2022}
+                                                  key="10_20"
+                                                  onClick={[Function]}
+                                                >
+                                                  20
+                                                </td>
+                                                <td
+                                                  className="rdtDay"
+                                                  data-month={9}
+                                                  data-value={21}
+                                                  data-year={2022}
+                                                  key="10_21"
+                                                  onClick={[Function]}
+                                                >
+                                                  21
+                                                </td>
+                                                <td
+                                                  className="rdtDay"
+                                                  data-month={9}
+                                                  data-value={22}
+                                                  data-year={2022}
+                                                  key="10_22"
+                                                  onClick={[Function]}
+                                                >
+                                                  22
+                                                </td>
+                                              </tr>
+                                              <tr
+                                                key="10_4"
+                                              >
+                                                <td
+                                                  className="rdtDay"
+                                                  data-month={9}
+                                                  data-value={23}
+                                                  data-year={2022}
+                                                  key="10_23"
+                                                  onClick={[Function]}
+                                                >
+                                                  23
+                                                </td>
+                                                <td
+                                                  className="rdtDay"
+                                                  data-month={9}
+                                                  data-value={24}
+                                                  data-year={2022}
+                                                  key="10_24"
+                                                  onClick={[Function]}
+                                                >
+                                                  24
+                                                </td>
+                                                <td
+                                                  className="rdtDay rdtToday"
+                                                  data-month={9}
+                                                  data-value={25}
+                                                  data-year={2022}
+                                                  key="10_25"
+                                                  onClick={[Function]}
+                                                >
+                                                  25
+                                                </td>
+                                                <td
+                                                  className="rdtDay"
+                                                  data-month={9}
+                                                  data-value={26}
+                                                  data-year={2022}
+                                                  key="10_26"
+                                                  onClick={[Function]}
+                                                >
+                                                  26
+                                                </td>
+                                                <td
+                                                  className="rdtDay"
+                                                  data-month={9}
+                                                  data-value={27}
+                                                  data-year={2022}
+                                                  key="10_27"
+                                                  onClick={[Function]}
+                                                >
+                                                  27
+                                                </td>
+                                                <td
+                                                  className="rdtDay"
+                                                  data-month={9}
+                                                  data-value={28}
+                                                  data-year={2022}
+                                                  key="10_28"
+                                                  onClick={[Function]}
+                                                >
+                                                  28
+                                                </td>
+                                                <td
+                                                  className="rdtDay"
+                                                  data-month={9}
+                                                  data-value={29}
+                                                  data-year={2022}
+                                                  key="10_29"
+                                                  onClick={[Function]}
+                                                >
+                                                  29
+                                                </td>
+                                              </tr>
+                                              <tr
+                                                key="10_5"
+                                              >
+                                                <td
+                                                  className="rdtDay"
+                                                  data-month={9}
+                                                  data-value={30}
+                                                  data-year={2022}
+                                                  key="10_30"
+                                                  onClick={[Function]}
+                                                >
+                                                  30
+                                                </td>
+                                                <td
+                                                  className="rdtDay"
+                                                  data-month={9}
+                                                  data-value={31}
+                                                  data-year={2022}
+                                                  key="10_31"
+                                                  onClick={[Function]}
+                                                >
+                                                  31
+                                                </td>
+                                                <td
+                                                  className="rdtDay rdtNew"
+                                                  data-month={10}
+                                                  data-value={1}
+                                                  data-year={2022}
+                                                  key="11_1"
+                                                  onClick={[Function]}
+                                                >
+                                                  1
+                                                </td>
+                                                <td
+                                                  className="rdtDay rdtNew"
+                                                  data-month={10}
+                                                  data-value={2}
+                                                  data-year={2022}
+                                                  key="11_2"
+                                                  onClick={[Function]}
+                                                >
+                                                  2
+                                                </td>
+                                                <td
+                                                  className="rdtDay rdtNew"
+                                                  data-month={10}
+                                                  data-value={3}
+                                                  data-year={2022}
+                                                  key="11_3"
+                                                  onClick={[Function]}
+                                                >
+                                                  3
+                                                </td>
+                                                <td
+                                                  className="rdtDay rdtNew"
+                                                  data-month={10}
+                                                  data-value={4}
+                                                  data-year={2022}
+                                                  key="11_4"
+                                                  onClick={[Function]}
+                                                >
+                                                  4
+                                                </td>
+                                                <td
+                                                  className="rdtDay rdtNew"
+                                                  data-month={10}
+                                                  data-value={5}
+                                                  data-year={2022}
+                                                  key="11_5"
+                                                  onClick={[Function]}
+                                                >
+                                                  5
+                                                </td>
+                                              </tr>
+                                            </tbody>
+                                            <tfoot>
+                                              <tr>
+                                                <td
+                                                  className="rdtTimeToggle"
+                                                  colSpan={7}
+                                                  onClick={[Function]}
+                                                >
+                                                  9:00 am
+                                                </td>
+                                              </tr>
+                                            </tfoot>
+                                          </table>
+                                        </div>
+                                      </a>
+                                    </div>
+                                  </div>
+                                </n>
+                              </OnClickOutside(n)>
+                            </n>
+                          </div>
+                        </div>
+                      </DatePickerContainer>
+                    </td>
+                    <td
+                      className="data-table-row-section datetime-picker"
+                      key="dueDatePicker-1"
+                      style={
+                        Object {
+                          "minWidth": "123px",
+                          "textAlign": "left",
+                          "width": "123px",
+                        }
+                      }
+                    >
+                      <DatePickerContainer
+                        closeFunction={[Function]}
+                        defaultText="No due date"
+                        handleClickCopyToAll={[Function]}
+                        initialValue={null}
+                        key="1"
+                        showCopyToAll={false}
+                      >
+                        <div
+                          className="date-picker-container"
+                        >
+                          <div
+                            className="icon-and-datetime-picker"
+                          >
+                            <n
+                              className=""
+                              closeOnClickOutside={true}
+                              closeOnSelect={false}
+                              closeOnTab={true}
+                              dateFormat="MMM D"
+                              initialValue={null}
+                              initialViewDate={2022-10-25T09:00:00.000Z}
+                              input={true}
+                              inputProps={Object {}}
+                              isValidDate={[Function]}
+                              onBeforeNavigate={[Function]}
+                              onCalendarClose={[Function]}
+                              onCalendarOpen={[Function]}
+                              onChange={[Function]}
+                              onClose={[Function]}
+                              onNavigate={[Function]}
+                              onNavigateBack={[Function]}
+                              onNavigateForward={[Function]}
+                              onOpen={[Function]}
+                              renderInput={[Function]}
+                              renderView={[Function]}
+                              strictParsing={true}
+                              timeConstraints={Object {}}
+                              timeFormat="h:mm a"
+                              utc={true}
+                            >
+                              <OnClickOutside(n)
+                                className="rdt"
+                                eventTypes={
+                                  Array [
+                                    "mousedown",
+                                    "touchstart",
+                                  ]
+                                }
+                                excludeScrollbar={false}
+                                onClickOut={[Function]}
+                                outsideClickIgnoreClass="ignore-react-onclickoutside"
+                                preventDefault={false}
+                                stopPropagation={false}
+                              >
+                                <n
+                                  className="rdt"
+                                  disableOnClickOutside={[Function]}
+                                  enableOnClickOutside={[Function]}
+                                  eventTypes={
+                                    Array [
+                                      "mousedown",
+                                      "touchstart",
+                                    ]
+                                  }
+                                  onClickOut={[Function]}
+                                  outsideClickIgnoreClass="ignore-react-onclickoutside"
+                                  preventDefault={false}
+                                  stopPropagation={false}
+                                >
+                                  <div
+                                    className="rdt"
+                                  >
+                                    <div>
+                                      <DatetimeInput
+                                        defaultText="No due date"
+                                        props={
+                                          Object {
+                                            "className": "form-control",
+                                            "onChange": [Function],
+                                            "onClick": [Function],
+                                            "onFocus": [Function],
+                                            "onKeyDown": [Function],
+                                            "type": "text",
+                                            "value": "",
+                                          }
+                                        }
+                                      >
+                                        <button
+                                          className="interactive-wrapper focus-on-light datetime-input"
+                                          onClick={[Function]}
+                                          type="button"
+                                        >
+                                          <input
+                                            className="form-control"
+                                            onChange={[Function]}
+                                            onClick={[Function]}
+                                            onFocus={[Function]}
+                                            onKeyDown={[Function]}
+                                            placeholder="No due date"
+                                            type="text"
+                                            value=""
+                                          />
+                                          <img
+                                            alt="dropdown indicator"
+                                            className="dropdown-indicator"
+                                            src="https://assets.quill.org/images/icons/dropdown.svg"
+                                          />
+                                        </button>
+                                      </DatetimeInput>
+                                    </div>
+                                    <div
+                                      className="rdtPicker"
+                                    >
+                                      <a
+                                        isValidDate={[Function]}
+                                        moment={[Function]}
+                                        navigate={[Function]}
+                                        renderDay={[Function]}
+                                        showView={[Function]}
+                                        timeFormat="h:mm a"
+                                        updateDate={[Function]}
+                                        viewDate={"2022-10-25T09:00:00.000Z"}
+                                      >
+                                        <div
+                                          className="rdtDays"
+                                        >
+                                          <table>
+                                            <thead>
+                                              <l
+                                                onClickNext={[Function]}
+                                                onClickPrev={[Function]}
+                                                onClickSwitch={[Function]}
+                                                switchColSpan={5}
+                                                switchContent="October 2022"
+                                                switchProps={
+                                                  Object {
+                                                    "data-value": 9,
+                                                  }
+                                                }
+                                              >
+                                                <tr>
+                                                  <th
+                                                    className="rdtPrev"
+                                                    onClick={[Function]}
+                                                  >
+                                                    <span>
+                                                      ‹
+                                                    </span>
+                                                  </th>
+                                                  <th
+                                                    className="rdtSwitch"
+                                                    colSpan={5}
+                                                    data-value={9}
+                                                    onClick={[Function]}
+                                                  >
+                                                    October 2022
+                                                  </th>
+                                                  <th
+                                                    className="rdtNext"
+                                                    onClick={[Function]}
+                                                  >
+                                                    <span>
+                                                      ›
+                                                    </span>
+                                                  </th>
+                                                </tr>
+                                              </l>
+                                              <tr>
+                                                <th
+                                                  className="dow"
+                                                  key="Su0"
+                                                >
+                                                  Su
+                                                </th>
+                                                <th
+                                                  className="dow"
+                                                  key="Mo1"
+                                                >
+                                                  Mo
+                                                </th>
+                                                <th
+                                                  className="dow"
+                                                  key="Tu2"
+                                                >
+                                                  Tu
+                                                </th>
+                                                <th
+                                                  className="dow"
+                                                  key="We3"
+                                                >
+                                                  We
+                                                </th>
+                                                <th
+                                                  className="dow"
+                                                  key="Th4"
+                                                >
+                                                  Th
+                                                </th>
+                                                <th
+                                                  className="dow"
+                                                  key="Fr5"
+                                                >
+                                                  Fr
+                                                </th>
+                                                <th
+                                                  className="dow"
+                                                  key="Sa6"
+                                                >
+                                                  Sa
+                                                </th>
+                                              </tr>
+                                            </thead>
+                                            <tbody>
+                                              <tr
+                                                key="10_0"
+                                              >
+                                                <td
+                                                  className="rdtDay rdtOld"
+                                                  data-month={8}
+                                                  data-value={25}
+                                                  data-year={2022}
+                                                  key="9_25"
+                                                  onClick={[Function]}
+                                                >
+                                                  25
+                                                </td>
+                                                <td
+                                                  className="rdtDay rdtOld"
+                                                  data-month={8}
+                                                  data-value={26}
+                                                  data-year={2022}
+                                                  key="9_26"
+                                                  onClick={[Function]}
+                                                >
+                                                  26
+                                                </td>
+                                                <td
+                                                  className="rdtDay rdtOld"
+                                                  data-month={8}
+                                                  data-value={27}
+                                                  data-year={2022}
+                                                  key="9_27"
+                                                  onClick={[Function]}
+                                                >
+                                                  27
+                                                </td>
+                                                <td
+                                                  className="rdtDay rdtOld"
+                                                  data-month={8}
+                                                  data-value={28}
+                                                  data-year={2022}
+                                                  key="9_28"
+                                                  onClick={[Function]}
+                                                >
+                                                  28
+                                                </td>
+                                                <td
+                                                  className="rdtDay rdtOld"
+                                                  data-month={8}
+                                                  data-value={29}
+                                                  data-year={2022}
+                                                  key="9_29"
+                                                  onClick={[Function]}
+                                                >
+                                                  29
+                                                </td>
+                                                <td
+                                                  className="rdtDay rdtOld"
+                                                  data-month={8}
+                                                  data-value={30}
+                                                  data-year={2022}
+                                                  key="9_30"
+                                                  onClick={[Function]}
+                                                >
+                                                  30
+                                                </td>
+                                                <td
+                                                  className="rdtDay"
+                                                  data-month={9}
+                                                  data-value={1}
+                                                  data-year={2022}
+                                                  key="10_1"
+                                                  onClick={[Function]}
+                                                >
+                                                  1
+                                                </td>
+                                              </tr>
+                                              <tr
+                                                key="10_1"
+                                              >
+                                                <td
+                                                  className="rdtDay"
+                                                  data-month={9}
+                                                  data-value={2}
+                                                  data-year={2022}
+                                                  key="10_2"
+                                                  onClick={[Function]}
+                                                >
+                                                  2
+                                                </td>
+                                                <td
+                                                  className="rdtDay"
+                                                  data-month={9}
+                                                  data-value={3}
+                                                  data-year={2022}
+                                                  key="10_3"
+                                                  onClick={[Function]}
+                                                >
+                                                  3
+                                                </td>
+                                                <td
+                                                  className="rdtDay"
+                                                  data-month={9}
+                                                  data-value={4}
+                                                  data-year={2022}
+                                                  key="10_4"
+                                                  onClick={[Function]}
+                                                >
+                                                  4
+                                                </td>
+                                                <td
+                                                  className="rdtDay"
+                                                  data-month={9}
+                                                  data-value={5}
+                                                  data-year={2022}
+                                                  key="10_5"
+                                                  onClick={[Function]}
+                                                >
+                                                  5
+                                                </td>
+                                                <td
+                                                  className="rdtDay"
+                                                  data-month={9}
+                                                  data-value={6}
+                                                  data-year={2022}
+                                                  key="10_6"
+                                                  onClick={[Function]}
+                                                >
+                                                  6
+                                                </td>
+                                                <td
+                                                  className="rdtDay"
+                                                  data-month={9}
+                                                  data-value={7}
+                                                  data-year={2022}
+                                                  key="10_7"
+                                                  onClick={[Function]}
+                                                >
+                                                  7
+                                                </td>
+                                                <td
+                                                  className="rdtDay"
+                                                  data-month={9}
+                                                  data-value={8}
+                                                  data-year={2022}
+                                                  key="10_8"
+                                                  onClick={[Function]}
+                                                >
+                                                  8
+                                                </td>
+                                              </tr>
+                                              <tr
+                                                key="10_2"
+                                              >
+                                                <td
+                                                  className="rdtDay"
+                                                  data-month={9}
+                                                  data-value={9}
+                                                  data-year={2022}
+                                                  key="10_9"
+                                                  onClick={[Function]}
+                                                >
+                                                  9
+                                                </td>
+                                                <td
+                                                  className="rdtDay"
+                                                  data-month={9}
+                                                  data-value={10}
+                                                  data-year={2022}
+                                                  key="10_10"
+                                                  onClick={[Function]}
+                                                >
+                                                  10
+                                                </td>
+                                                <td
+                                                  className="rdtDay"
+                                                  data-month={9}
+                                                  data-value={11}
+                                                  data-year={2022}
+                                                  key="10_11"
+                                                  onClick={[Function]}
+                                                >
+                                                  11
+                                                </td>
+                                                <td
+                                                  className="rdtDay"
+                                                  data-month={9}
+                                                  data-value={12}
+                                                  data-year={2022}
+                                                  key="10_12"
+                                                  onClick={[Function]}
+                                                >
+                                                  12
+                                                </td>
+                                                <td
+                                                  className="rdtDay"
+                                                  data-month={9}
+                                                  data-value={13}
+                                                  data-year={2022}
+                                                  key="10_13"
+                                                  onClick={[Function]}
+                                                >
+                                                  13
+                                                </td>
+                                                <td
+                                                  className="rdtDay"
+                                                  data-month={9}
+                                                  data-value={14}
+                                                  data-year={2022}
+                                                  key="10_14"
+                                                  onClick={[Function]}
+                                                >
+                                                  14
+                                                </td>
+                                                <td
+                                                  className="rdtDay"
+                                                  data-month={9}
+                                                  data-value={15}
+                                                  data-year={2022}
+                                                  key="10_15"
+                                                  onClick={[Function]}
+                                                >
+                                                  15
+                                                </td>
+                                              </tr>
+                                              <tr
+                                                key="10_3"
+                                              >
+                                                <td
+                                                  className="rdtDay"
+                                                  data-month={9}
+                                                  data-value={16}
+                                                  data-year={2022}
+                                                  key="10_16"
+                                                  onClick={[Function]}
+                                                >
+                                                  16
+                                                </td>
+                                                <td
+                                                  className="rdtDay"
+                                                  data-month={9}
+                                                  data-value={17}
+                                                  data-year={2022}
+                                                  key="10_17"
+                                                  onClick={[Function]}
+                                                >
+                                                  17
+                                                </td>
+                                                <td
+                                                  className="rdtDay"
+                                                  data-month={9}
+                                                  data-value={18}
+                                                  data-year={2022}
+                                                  key="10_18"
+                                                  onClick={[Function]}
+                                                >
+                                                  18
+                                                </td>
+                                                <td
+                                                  className="rdtDay"
+                                                  data-month={9}
+                                                  data-value={19}
+                                                  data-year={2022}
+                                                  key="10_19"
+                                                  onClick={[Function]}
+                                                >
+                                                  19
+                                                </td>
+                                                <td
+                                                  className="rdtDay"
+                                                  data-month={9}
+                                                  data-value={20}
+                                                  data-year={2022}
+                                                  key="10_20"
+                                                  onClick={[Function]}
+                                                >
+                                                  20
+                                                </td>
+                                                <td
+                                                  className="rdtDay"
+                                                  data-month={9}
+                                                  data-value={21}
+                                                  data-year={2022}
+                                                  key="10_21"
+                                                  onClick={[Function]}
+                                                >
+                                                  21
+                                                </td>
+                                                <td
+                                                  className="rdtDay"
+                                                  data-month={9}
+                                                  data-value={22}
+                                                  data-year={2022}
+                                                  key="10_22"
+                                                  onClick={[Function]}
+                                                >
+                                                  22
+                                                </td>
+                                              </tr>
+                                              <tr
+                                                key="10_4"
+                                              >
+                                                <td
+                                                  className="rdtDay"
+                                                  data-month={9}
+                                                  data-value={23}
+                                                  data-year={2022}
+                                                  key="10_23"
+                                                  onClick={[Function]}
+                                                >
+                                                  23
+                                                </td>
+                                                <td
+                                                  className="rdtDay"
+                                                  data-month={9}
+                                                  data-value={24}
+                                                  data-year={2022}
+                                                  key="10_24"
+                                                  onClick={[Function]}
+                                                >
+                                                  24
+                                                </td>
+                                                <td
+                                                  className="rdtDay rdtToday"
+                                                  data-month={9}
+                                                  data-value={25}
+                                                  data-year={2022}
+                                                  key="10_25"
+                                                  onClick={[Function]}
+                                                >
+                                                  25
+                                                </td>
+                                                <td
+                                                  className="rdtDay"
+                                                  data-month={9}
+                                                  data-value={26}
+                                                  data-year={2022}
+                                                  key="10_26"
+                                                  onClick={[Function]}
+                                                >
+                                                  26
+                                                </td>
+                                                <td
+                                                  className="rdtDay"
+                                                  data-month={9}
+                                                  data-value={27}
+                                                  data-year={2022}
+                                                  key="10_27"
+                                                  onClick={[Function]}
+                                                >
+                                                  27
+                                                </td>
+                                                <td
+                                                  className="rdtDay"
+                                                  data-month={9}
+                                                  data-value={28}
+                                                  data-year={2022}
+                                                  key="10_28"
+                                                  onClick={[Function]}
+                                                >
+                                                  28
+                                                </td>
+                                                <td
+                                                  className="rdtDay"
+                                                  data-month={9}
+                                                  data-value={29}
+                                                  data-year={2022}
+                                                  key="10_29"
+                                                  onClick={[Function]}
+                                                >
+                                                  29
+                                                </td>
+                                              </tr>
+                                              <tr
+                                                key="10_5"
+                                              >
+                                                <td
+                                                  className="rdtDay"
+                                                  data-month={9}
+                                                  data-value={30}
+                                                  data-year={2022}
+                                                  key="10_30"
+                                                  onClick={[Function]}
+                                                >
+                                                  30
+                                                </td>
+                                                <td
+                                                  className="rdtDay"
+                                                  data-month={9}
+                                                  data-value={31}
+                                                  data-year={2022}
+                                                  key="10_31"
+                                                  onClick={[Function]}
+                                                >
+                                                  31
+                                                </td>
+                                                <td
+                                                  className="rdtDay rdtNew"
+                                                  data-month={10}
+                                                  data-value={1}
+                                                  data-year={2022}
+                                                  key="11_1"
+                                                  onClick={[Function]}
+                                                >
+                                                  1
+                                                </td>
+                                                <td
+                                                  className="rdtDay rdtNew"
+                                                  data-month={10}
+                                                  data-value={2}
+                                                  data-year={2022}
+                                                  key="11_2"
+                                                  onClick={[Function]}
+                                                >
+                                                  2
+                                                </td>
+                                                <td
+                                                  className="rdtDay rdtNew"
+                                                  data-month={10}
+                                                  data-value={3}
+                                                  data-year={2022}
+                                                  key="11_3"
+                                                  onClick={[Function]}
+                                                >
+                                                  3
+                                                </td>
+                                                <td
+                                                  className="rdtDay rdtNew"
+                                                  data-month={10}
+                                                  data-value={4}
+                                                  data-year={2022}
+                                                  key="11_4"
+                                                  onClick={[Function]}
+                                                >
+                                                  4
+                                                </td>
+                                                <td
+                                                  className="rdtDay rdtNew"
+                                                  data-month={10}
+                                                  data-value={5}
+                                                  data-year={2022}
+                                                  key="11_5"
+                                                  onClick={[Function]}
+                                                >
+                                                  5
+                                                </td>
+                                              </tr>
+                                            </tbody>
+                                            <tfoot>
+                                              <tr>
+                                                <td
+                                                  className="rdtTimeToggle"
+                                                  colSpan={7}
+                                                  onClick={[Function]}
+                                                >
+                                                  9:00 am
+                                                </td>
+                                              </tr>
+                                            </tfoot>
+                                          </table>
+                                        </div>
+                                      </a>
+                                    </div>
+                                  </div>
+                                </n>
+                              </OnClickOutside(n)>
+                            </n>
+                          </div>
+                        </div>
+                      </DatePickerContainer>
+                    </td>
+                    <td>
+                      <button
+                        className="removable data-table-row-section focus-on-light"
+                        id="remove-button-1"
+                        onClick={[Function]}
+                        type="button"
+                      >
+                        <img
+                          alt="x"
+                          src="https://assets.quill.org/images/icons/remove.svg"
+                        />
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </DataTable>
+          </div>
+        </div>
+      </ReviewActivities>
+      <AssignStudents
+        classrooms={Array []}
+        cleverLink=""
+        fetchClassrooms={[MockFunction]}
+        lockedClassroomIds={Array []}
+        lockedMessage=""
+        toggleClassroomSelection={[MockFunction]}
+        toggleStudentSelection={[MockFunction]}
+        user={Object {}}
+      >
+        <div>
+          <Snackbar>
+            <div
+              className="quill-snackbar "
+            />
+          </Snackbar>
+          <div
+            className="assignment-section"
+          >
+            <div
+              className="assignment-section-header assign-students"
+            >
+              <div
+                className="number-and-name"
+              >
+                <span
+                  className="assignment-section-number"
+                >
+                  3
+                </span>
+                <span
+                  className="assignment-section-name"
+                >
+                  Choose classes or students
+                </span>
+              </div>
+              <div
+                className="import-or-create-classroom-buttons"
+              >
+                <button
+                  className="interactive-wrapper import-from-clever-button"
+                  onClick={[Function]}
+                  type="button"
+                >
+                  <img
+                    alt="Clever Icon"
+                    className="import-from-clever-button-icon"
+                    src="undefined/images/icons/clever.svg"
+                  />
+                  Import from Clever
+                </button>
+                <button
+                  className="interactive-wrapper import-from-google-button"
+                  onClick={[Function]}
+                  type="button"
+                >
+                  <img
+                    alt="Google Classroom Icon"
+                    className="import-from-google-button-icon"
+                    src="undefined/images/icons/google-classroom.svg"
+                  />
+                   Import from Google Classroom
+                </button>
+                <button
+                  className="quill-button medium secondary outlined create-a-class-button"
+                  onClick={[Function]}
+                  type="button"
+                >
+                  Create a class
+                </button>
+              </div>
+            </div>
+            <div
+              className="assignment-section-body"
+            >
+              <div
+                className="no-active-classes"
+              >
+                <img
+                  alt="empty class"
+                  src="undefined/images/illustrations/empty-class.svg"
+                />
+                <p>
+                  Your classrooms will appear here. Add a class to get started.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </AssignStudents>
+    </div>
+  </div>
+</Stage2>
+`;
