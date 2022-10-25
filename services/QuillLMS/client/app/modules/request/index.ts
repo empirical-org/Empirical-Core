@@ -9,6 +9,7 @@ async function handleFetch(url: string, method: string, success: Function, error
   }
   if (payload) {
     options['headers'] = addCsrfHeaders({
+      'Accept': 'application/json',
       'Content-Type': 'application/json',
     })
     options['body'] = JSON.stringify(payload)

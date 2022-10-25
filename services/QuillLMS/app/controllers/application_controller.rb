@@ -131,8 +131,8 @@ class ApplicationController < ActionController::Base
     flash[:error] = t('actioncontroller.errors.invalid_authenticity_token')
 
     respond_to do |format|
-      format.json { render json: { redirect: URI.parse(request.referer).path }, status: 303 }
       format.html { redirect_back(fallback_location: root_path) }
+      format.json { render json: { redirect: URI.parse(request.referer).path }, status: 303 }
     end
   end
 
@@ -169,8 +169,8 @@ class ApplicationController < ActionController::Base
     session[EXPIRED_SESSION_REDIRECT] = true
 
     respond_to do |format|
-      format.json { render json: { redirect: new_session_path }, status: 303 }
       format.html { redirect_to new_session_path }
+      format.json { render json: { redirect: new_session_path }, status: 303 }
       format.pdf { redirect_to new_session_path }
     end
   end
