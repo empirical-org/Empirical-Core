@@ -44,13 +44,19 @@ class TimeTrackingCleaner < ApplicationService
   end
 
   private def max_outliers
-    time_tracking
-      .except(*median_outliers.keys)
-      .select {|_,v| v > MAX_TIME_SECTION }
+    @max_outliers ||= begin
+      time_tracking
+        .except(*median_outliers.keys)
+        .select {|_,v| v > MAX_TIME_SECTION }
+    end
   end
 
   private def median_outliers
-    @median_outliers ||= time_tracking.select {|_, v| v > median_outlier_threshold}.except(*IGNORE_MEDIAN_KEYS)
+    @median_outliers ||= begin
+      time_tracking
+        .except(*IGNORE_MEDIAN_KEYS)
+        .select {|_, v| v > median_outlier_threshold}
+    end
   end
 
   private def median_value
