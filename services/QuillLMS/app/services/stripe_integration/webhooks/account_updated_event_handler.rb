@@ -2,7 +2,7 @@
 
 module StripeIntegration
   module Webhooks
-    class AccountUpdatedHandler < EventNotificationHandler
+    class AccountUpdatedEventHandler < EventNotificationHandler
       MAILER_ACTION = 'account_updated'
     end
   end

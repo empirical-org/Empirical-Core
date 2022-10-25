@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe StripeIntegration::Webhooks::CapabilityUpdatedHandler do
+RSpec.describe StripeIntegration::Webhooks::CapabilityUpdatedEventHandler do
   include_context 'Stripe Capability Updated Event'
 
   it_behaves_like 'an event notification handler'

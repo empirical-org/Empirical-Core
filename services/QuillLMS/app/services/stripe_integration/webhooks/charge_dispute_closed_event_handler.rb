@@ -2,7 +2,7 @@
 
 module StripeIntegration
   module Webhooks
-    class ChargeDisputeClosedHandler < EventNotificationHandler
+    class ChargeDisputeClosedEventHandler < EventNotificationHandler
       MAILER_ACTION = 'charge_dispute_closed'
     end
   end

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe StripeIntegration::Webhooks::ChargeDisputeClosedHandler do
+RSpec.describe StripeIntegration::Webhooks::ChargeDisputeClosedEventHandler do
   include_context 'Stripe Charge Dispute Closed Event'
 
   it_behaves_like 'an event notification handler'

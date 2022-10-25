@@ -2,7 +2,7 @@
 
 module StripeIntegration
   module Webhooks
-    class CapabilityUpdatedHandler < EventNotificationHandler
+    class CapabilityUpdatedEventHandler < EventNotificationHandler
       MAILER_ACTION = 'capability_updated'
     end
   end
