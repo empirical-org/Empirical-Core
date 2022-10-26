@@ -4,7 +4,7 @@ require_dependency 'evidence/application_controller'
 
 module Evidence
   class ActivitiesController < ApiController
-    before_action :set_activity, only: [:activity_versions, :create, :show, :update, :destroy, :change_logs, :seed_data, :labeled_synthetic_data]
+    before_action :set_activity, only: [:activity_versions, :create, :show, :update, :destroy, :change_logs, :labeled_synthetic_data]
     append_before_action :set_lms_user_id, only: [:create, :destroy]
 
     # GET /activities.json
@@ -90,18 +90,25 @@ module Evidence
       render json: @activity&.activity_versions
     end
 
+    EXAMPLES_KEY = 'examples'
+    EXAMPLE1_KEY = 'example1'
+    EXAMPLE2_KEY = 'example2'
+    LABEL_KEY = 'label'
+
     # params [:id, nouns:, labels]
     def seed_data
-      nouns_array = params[:nouns]
+      nouns_array = seed_data_params[:nouns]
         .split(',')
         .select(&:present?)
         .map(&:strip)
         .uniq
 
-      # TODO: Fill in label_configs in frontend PR
-      label_configs = {}
+      label_configs = seed_data_params[:label_configs]
+        .map{|lc| lc.merge(EXAMPLES_KEY => lc.to_h.fetch_values(EXAMPLE1_KEY, EXAMPLE2_KEY).map(&:strip).uniq.select(&:present?))}
+        .map{|lc| lc.slice(LABEL_KEY, EXAMPLES_KEY)}
 
-      Evidence::ActivitySeedDataWorker.perform_async(@activity.id, nouns_array, label_configs)
+      puts label_configs
+      # Evidence::ActivitySeedDataWorker.perform_async(@activity.id, nouns_array, label_configs)
 
       head :no_content
     end
@@ -130,6 +137,10 @@ module Evidence
 
     private def increment_version_params
       params.require(:note)
+    end
+
+    private def seed_data_params
+      params.permit(:id, :nouns, label_configs: [:label, :example1, :example2], activity: {})
     end
 
     private def activity_params
