@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as request from 'request';
 import { connect } from 'react-redux';
 import { Response } from 'quill-marking-logic'
 import { EditorState, ContentState } from 'draft-js'
@@ -20,6 +19,7 @@ import { DisplayReducerState } from '../../reducers/displayReducer'
 import { MassEditReducerState } from '../../reducers/massEditReducer'
 import { clearDisplayMessageAndError } from '../../actions/display';
 import { TextEditor, } from '../../../Shared/index'
+import { requestPost, } from '../../../../modules/request/index'
 
 interface MassEditState {
   responses: {[key: string]: Response},
@@ -61,19 +61,16 @@ class MassEditContainer extends React.Component<MassEditProps, MassEditState> {
   }
 
   getResponses = () => {
-    request(
-      {
-        url: `${process.env.QUILL_CMS}/responses/mass_edit/show_many`,
-        method: 'POST',
-        json: { responses: this.props.massEdit.selectedResponses, },
-      },
-      (err, httpResponse, data) => {
-        const parsedResponses = _.indexBy(data.responses, 'id');
+    requestPost(
+      `${process.env.QUILL_CMS}/responses/mass_edit/show_many`,
+      { responses: this.props.massEdit.selectedResponses, },
+      (body) => {
+        const parsedResponses = _.indexBy(body.responses, 'id');
         this.setState({
           responses: parsedResponses,
         });
       }
-    );
+    )
   }
 
   clearResponsesFromMassEditArray() {

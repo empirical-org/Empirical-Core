@@ -1,8 +1,8 @@
 import React from 'react'
-import request from 'request'
 
 import { SortableList, } from '../../Shared/index'
 import getAuthToken from '../components/modules/get_auth_token'
+import { requestDelete, requestPut, } from '../../../modules/request/index'
 
 export default class ActivityCategories extends React.Component {
   constructor(props) {
@@ -15,38 +15,37 @@ export default class ActivityCategories extends React.Component {
 
   deleteActivityCategory(key) {
     const activityCategoryToDelete = this.state.activity_categories[key]
-    request.del(`${process.env.DEFAULT_URL}/cms/activity_categories/${activityCategoryToDelete.id}`, {
-      json: {
-        authenticity_token: getAuthToken()
-      }}, (e, r, response) => {
-      if (r.statusCode === 400) {
-        // to do, use Sentry to capture error
-        alert(`We could not delete this activity category. Here is the response: ${response}`)
-      } else {
+    requestDelete(
+      `${process.env.DEFAULT_URL}/cms/activity_categories/${activityCategoryToDelete.id}`,
+      null,
+      (body) => {
         const newActivityCategories = this.state.activity_categories
         newActivityCategories.splice(key, 1)
         this.setState({activity_categories: newActivityCategories})
         alert('Your activity category has been deleted.')
+      },
+      (body) => {
+        alert(`We could not delete this activity category. Here is the response: ${response}`)
       }
-    })
+    )
   }
 
   saveActivityCategories = () => {
     const that = this
-    request.put(`${process.env.DEFAULT_URL}/cms/activity_categories/update_order_numbers`, {
-      json: {
+    requestPut(
+      `${process.env.DEFAULT_URL}/cms/activity_categories/update_order_numbers`,
+      {
         activity_categories: this.state.activity_categories,
         authenticity_token: getAuthToken()
-      }}, (e, r, response) => {
-      if (e) {
-        // to do, use Sentry to capture error
-        alert(`We could not save the updated activity category order. Here is the error: ${e}`)
-      } else {
-        this.setState({activity_categories: response.activity_categories})
+      },
+      (body) => {
+        this.setState({activity_categories: body.activity_categories})
         alert('The updated classroom order has been saved.')
-
+      },
+      (body) => {
+        alert(`We could not save the updated activity category order. Here is the error: ${body}`)
       }
-    })
+    )
   };
 
   updateActivityCategoryOrder = sortInfo => {

@@ -1,7 +1,8 @@
 import React from 'react'
-import request from 'request'
+
 import getAuthToken from '../components/modules/get_auth_token'
 import CustomActivityPackPage from '../components/assignment_flow/create_unit/custom_activity_pack/index'
+import { requestPost, } from '../../../modules/request/index'
 
 export default class ActivityCategory extends React.Component {
   constructor(props) {
@@ -15,19 +16,19 @@ export default class ActivityCategory extends React.Component {
   destroyAndRecreateOrderNumbers = () => {
     const that = this
     const activities = this.state.selectedActivities;
-    request.post(`${process.env.DEFAULT_URL}/cms/activity_categories/destroy_and_recreate_acas`, {
-      json: {
-        authenticity_token: getAuthToken(),
+    requestPost(
+      `${process.env.DEFAULT_URL}/cms/activity_categories/destroy_and_recreate_acas`,
+      {
         activities: activities,
         activity_category_id: that.props.activity_category.id
-      }}, (e, r, response) => {
-      if (e) {
-        alert(`We could not save the updated activity order. Here is the error: ${e}`)
-      } else {
-        this.setState({selectedActivities: response.activities})
+      },
+      (body) => {
+        this.setState({selectedActivities: body.activities})
         alert('The updated activity order has been saved.')
-      }
-    }
+      },
+      (body) => {
+        alert(`We could not save the updated activity order. Here is the error: ${body}`)
+      },
     )
   };
 

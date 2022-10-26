@@ -45,9 +45,7 @@ export default class TutorialIndex extends React.Component {
 
   finishTutorial() {
     if (this.props.match.params.tool === 'lessons') {
-      request.post(`${process.env.DEFAULT_URL}/milestones/complete_view_lesson_tutorial`, {
-        json: { authenticity_token: $('meta[name=csrf-token]').attr('content'), },
-      });
+      requestPost(`${process.env.DEFAULT_URL}/milestones/complete_view_lesson_tutorial`)
     }
   }
 

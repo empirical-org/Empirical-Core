@@ -4,7 +4,7 @@ import ConceptSelectorWithCheckbox from './conceptSelectorWithCheckbox.jsx';
 import { TextEditor, isValidRegex } from '../../../Shared/index';
 import { EditorState, ContentState } from 'draft-js'
 import ResponseComponent from '../questions/responseComponent'
-import request from 'request'
+import { requestPost, } from '../../../../modules/request/index'
 
 export default class extends React.Component {
   constructor(props) {
@@ -29,16 +29,14 @@ export default class extends React.Component {
     const qid = this.props.questionID
     const usedSeqs = this.props.usedSequences
     const newSeqs = this.state.itemText.split(/\|{3}(?!\|)/)
-    request(
-      {
-        url: `${process.env.QUILL_CMS}/responses/${qid}/incorrect_sequence_affected_count`,
-        method: 'POST',
-        json: {data: {used_sequences: usedSeqs, selected_sequences: newSeqs}},
-      },
-      (err, httpResponse, data) => {
-        this.setState({matchedCount: data.matchedCount})
+
+    requestPost(
+      `${process.env.QUILL_CMS}/responses/${qid}/incorrect_sequence_affected_count`,
+      {data: {used_sequences: usedSeqs, selected_sequences: newSeqs}},
+      (body) => {
+        this.setState({matchedCount: body.matchedCount})
       }
-    );
+    )
   };
 
   handleNameChange = (e) => {

@@ -1,12 +1,11 @@
 import React from 'react';
-import request from 'request'
 
 import LoadingIndicator from './loading_indicator.jsx';
 import SchoolOption from './school_option'
 
 import { Input, smallWhiteCheckIcon, } from '../../../Shared/index'
 import useDebounce from '../../hooks/useDebounce'
-import { requestPost, } from '../../../../modules/request'
+import { requestPost, requestGet, } from '../../../../modules/request'
 
 const mapSearchSrc = `${process.env.CDN_URL}/images/onboarding/map-search.svg`
 
@@ -66,20 +65,14 @@ const SchoolSelector = ({ selectSchool, showDismissSchoolSelectionReminderCheckb
   }
 
   function searchForSchool() {
-    request({
-      url: `${process.env.DEFAULT_URL}/schools`,
-      qs: { search },
-      method: 'GET',
-    },
-    (err, httpResponse, body) => {
-      if (httpResponse.statusCode === 200) {
+    requestGet(
+      `${process.env.DEFAULT_URL}/schools?search=${search}`,
+      (body) => {
         const schools = JSON.parse(body).data
         setSchools(schools)
         setLoading(false)
-      } else {
-        // to do, use Sentry to capture error
       }
-    });
+    )
   }
 
   function updateSearch(e) {
