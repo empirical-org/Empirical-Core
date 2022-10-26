@@ -15,10 +15,12 @@ module GoogleIntegration
     def run
       return if from_user_google_id.nil?
 
-      unlink_from_user
-      log_unlink
-      link_to_user
-      log_link
+      ActiveRecord::Base.transaction do
+        unlink_from_user
+        log_unlink
+        link_to_user
+        log_link
+      end
     end
 
     private def link_to_user
