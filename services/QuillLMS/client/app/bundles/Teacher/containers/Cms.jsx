@@ -1,9 +1,10 @@
 import React from 'react'
-import request from 'request'
+
 import CmsIndexTable from '../components/cms/cms_index_table/cms_index_table.jsx'
 import ItemDropdown from '../components/general_components/dropdown_selectors/item_dropdown';
 import Server from '../components/modules/server/server'
 import getAuthToken from '../components/modules/get_auth_token'
+import { requestPut, } from '../../../modules/request/index'
 
 export default class Cms extends React.Component {
 
@@ -134,19 +135,17 @@ export default class Cms extends React.Component {
     if(this.isSortable()) {
       const resourceName = this.props.resourceNamePlural;
       const that = this;
-      request.put(`${process.env.DEFAULT_URL}/cms/${resourceName}/update_order_numbers`, {
-        json: {
-          [resourceName]: that.state[resourceName],
-          authenticity_token: getAuthToken()
-        }}, (e, r, response) => {
-        if (e) {
-          // to do, use Sentry to capture error
-          alert(`We could not save the updated order. Here is the error: ${e}`);
-        } else {
+      requestPut(
+        `${process.env.DEFAULT_URL}/cms/${resourceName}/update_order_numbers`,
+        { [resourceName]: that.state[resourceName], },
+        (body) => {
           that.setState({[resourceName]: response[resourceName]});
           alert('The updated order has been saved.');
-        }
-      })
+        },
+        (body) => {
+          alert(`We could not save the updated order. Here is the error: ${body}`);
+        },
+      )
     }
   };
 

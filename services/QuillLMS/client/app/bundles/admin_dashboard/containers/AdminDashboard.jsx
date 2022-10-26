@@ -1,13 +1,13 @@
 import React from 'react';
-import request from 'request';
+import Pusher from 'pusher-js';
+
 import AdminsTeachers from '../components/admins_teachers.tsx';
 import PremiumFeatures from '../components/premium_features.tsx';
 import CreateNewAccounts from '../components/create_new_accounts.tsx';
 import LoadingSpinner from '../../Teacher/components/shared/loading_indicator';
 import QuestionsAndAnswers from '../../Teacher/containers/QuestionsAndAnswers.tsx';
-import Pusher from 'pusher-js';
-
 import getAuthToken from '../../Teacher/components/modules/get_auth_token';
+import { requestGet, requestPost, } from '../../../modules/request/index'
 
 export default class AdminDashboard extends React.Component {
   constructor(props) {
@@ -32,13 +32,13 @@ export default class AdminDashboard extends React.Component {
 
   getData = () => {
     this.initializePusher();
-    request.get({
-      url: `${process.env.DEFAULT_URL}/admins/${this.props.adminId}`,
-    },
-    (e, r, body) => {
-      const parsedBody = JSON.parse(body)
-      this.receiveData(parsedBody)
-    });
+    requestGet(
+      `${process.env.DEFAULT_URL}/admins/${this.props.adminId}`,
+      (body) => {
+        const parsedBody = JSON.parse(body)
+        this.receiveData(parsedBody)
+      }
+    );
   };
 
   receiveData = (data) => {
@@ -66,18 +66,20 @@ export default class AdminDashboard extends React.Component {
     const { adminId } = this.props;
     this.setState({ message: '', error: '', });
     data.authenticity_token = getAuthToken();
-    request.post(`${process.env.DEFAULT_URL}/admins/${adminId}/teachers`, {
-      json: data,
-    },
-    (e, r, response) => {
-      if (response.error) {
-        this.setState({ error: response.error, });
-      } else if (r.statusCode === 200) {
+    requestPost(
+      `${process.env.DEFAULT_URL}/admins/${adminId}/teachers`,
+      data,
+      (response) => {
         this.setState({ message: response.message, }, () => this.getData());
-      } else {
-        // to do, use Sentry to capture error
+      },
+      (response) => {
+        if (response.error) {
+          this.setState({ error: response.error, });
+        } else {
+          // to do, use Sentry to capture error
+        }
       }
-    });
+    );
   };
 
   render() {

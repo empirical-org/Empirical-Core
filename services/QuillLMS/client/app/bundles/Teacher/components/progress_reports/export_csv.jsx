@@ -1,8 +1,9 @@
 import React from 'react';
-import request from 'request';
+
 import auth_token from '../modules/get_auth_token';
 import Pusher from 'pusher-js';
 import ButtonLoadingIndicator from '../shared/button_loading_indicator.jsx';
+import { requestPost, } from '../../../../modules/request/index'
 
 export default class ExportCSV extends React.Component {
   static defaultProps = {requestUrl: `${process.env.DEFAULT_URL}/teachers/progress_reports/csv_exports`};
@@ -26,18 +27,17 @@ export default class ExportCSV extends React.Component {
         }
       }
       const that = this;
-      request({
-        url: this.props.requestUrl,
-        method: 'POST',
-        json: data
-      },
-      (err, httpResponse, body) => {
-        if (httpResponse.statusCode === 200) {
+
+      requestPost(
+        this.props.requestUrl,
+        data,
+        (body) => {
           that.initializePusher()
-        } else {
+        },
+        (body) => {
           alert('Something went wrong with your CSV export. Please contact support.')
         }
-      })
+      )
     }
   };
 

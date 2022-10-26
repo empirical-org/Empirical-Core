@@ -1,6 +1,6 @@
 import React from 'react'
-import request from 'request'
-import getAuthToken from '../modules/get_auth_token'
+
+import { requestPost, } from '../../../../modules/request/index'
 
 export default class RecoverUnitActivities extends React.Component {
   constructor(props) {
@@ -13,20 +13,18 @@ export default class RecoverUnitActivities extends React.Component {
 
   submit = () => {
     const that = this
-    request.post({
-      url: `${process.env.DEFAULT_URL}/teacher_fix/recover_unit_activities`,
-      json: {email: that.state.email, authenticity_token: getAuthToken()}
-    },
-    (e, r, response) => {
-      if (response.error) {
-        that.setState({error: response.error})
-      } else if (r.statusCode === 200){
+    requestPost(
+      `${process.env.DEFAULT_URL}/teacher_fix/recover_unit_activities`,
+      { email: that.state.email, },
+      (body) => {
         window.alert('Data has been restored!')
-      } else {
-        // to do, use Sentry to capture error
+      },
+      (body) => {
+        if (response.error) {
+          that.setState({error: response.error})
+        }
       }
-    })
-
+    )
   };
 
   updateEmail = e => {

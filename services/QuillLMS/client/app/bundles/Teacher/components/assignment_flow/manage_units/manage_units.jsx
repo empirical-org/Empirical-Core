@@ -1,5 +1,4 @@
 import React from 'react';
-import request from 'request';
 import _ from 'underscore';
 
 import ActivityPack from './activity_pack'
@@ -10,6 +9,7 @@ import getParameterByName from '../../modules/get_parameter_by_name';
 import getAuthToken from '../../modules/get_auth_token';
 import { DropdownInput, } from '../../../../Shared/index'
 import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from '../../progress_reports/progress_report_constants'
+import { requestGet, } from '../../../../../modules/request'
 
 const clipboardSrc = `${process.env.CDN_URL}/images/illustrations/clipboard.svg`
 
@@ -40,15 +40,18 @@ export default class ManageUnits extends React.Component {
 
   getClassrooms = () => {
     const { selectedClassroomId, } = this.state
-    request.get(`${process.env.DEFAULT_URL}/teachers/classrooms/classrooms_i_teach`, (error, httpStatus, body) => {
-      const classrooms = JSON.parse(body).classrooms;
-      const localStorageSelectedClassroomId = window.localStorage.getItem(PROGRESS_REPORTS_SELECTED_CLASSROOM_ID)
-      const classroomFromLocalStorageClassroomId = classrooms.find(c => Number(c.id) === Number(localStorageSelectedClassroomId))
-      if ((!selectedClassroomId || selectedClassroomId === allClassroomKey) && classroomFromLocalStorageClassroomId) {
-        this.setState({selectedClassroomId: Number(localStorageSelectedClassroomId)})
+    requestGet(
+      `${process.env.DEFAULT_URL}/teachers/classrooms/classrooms_i_teach`,
+      (body) => {
+        const classrooms = JSON.parse(body).classrooms;
+        const localStorageSelectedClassroomId = window.localStorage.getItem(PROGRESS_REPORTS_SELECTED_CLASSROOM_ID)
+        const classroomFromLocalStorageClassroomId = classrooms.find(c => Number(c.id) === Number(localStorageSelectedClassroomId))
+        if ((!selectedClassroomId || selectedClassroomId === allClassroomKey) && classroomFromLocalStorageClassroomId) {
+          this.setState({selectedClassroomId: Number(localStorageSelectedClassroomId)})
+        }
+        this.handleClassrooms(classrooms);
       }
-      this.handleClassrooms(classrooms);
-    });
+    )
   };
 
   getRecommendationIds = () => {
@@ -86,7 +89,7 @@ export default class ManageUnits extends React.Component {
   };
 
   getUnits = () => {
-    request.get(`${process.env.DEFAULT_URL}/teachers/units`, (error, httpStatus, body) => {
+    requestGet(`${process.env.DEFAULT_URL}/teachers/units`, (body) => {
       this.setAllUnits(JSON.parse(body));
     });
   };

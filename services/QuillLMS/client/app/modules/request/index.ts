@@ -11,10 +11,11 @@ async function handleFetch({ url, method, success, error, payload, }: {url: stri
       'Content-Type': 'application/json',
     })
   }
+  
   if (payload) {
     options['body'] = JSON.stringify(payload)
   }
-  
+
   const response = await fetch(fullyQualifiedUrl(url), options)
   const textResponse = await response.clone().text()
 
@@ -59,11 +60,11 @@ function requestGet(url: string, success?: Function, error?: Function) {
   return handleFetch({ url, method: 'get', success, error})
 }
 
-function requestPost(url: string, payload: any, success?: Function, error?: Function) {
+function requestPost(url: string, payload?: any, success?: Function, error?: Function) {
   return handleFetch({ url, method: 'post', success, error, payload, })
 }
 
-function requestPut(url: string, payload: any, success?: Function, error?: Function) {
+function requestPut(url: string, payload?: any, success?: Function, error?: Function) {
   return handleFetch({ url, method: 'put', success, error, payload, })
 }
 

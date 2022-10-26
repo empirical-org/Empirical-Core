@@ -1,5 +1,4 @@
 import * as React from 'react'
-import request from 'request'
 
 import UnitTemplateRow from './unitTemplateRow'
 import UnitTemplateFilterInputs from './unitTemplateFilterInputs'
@@ -9,6 +8,7 @@ import { SortableList, Tooltip } from  '../../../Shared/index'
 import getAuthToken from '../../components/modules/get_auth_token'
 import { orderedUnitTemplates, sortUnitTemplates, ALL_FLAGS, ALL_DIAGNOSTICS, NOT_ARCHIVED_FLAG, ARCHIVED_FLAG } from '../../helpers/unitTemplates'
 import { flagOptions } from '../../../../constants/flagOptions'
+import { requestGet, } from '../../../../modules/request/index'
 
 const UNIT_TEMPLATES_URL = `${process.env.DEFAULT_URL}/cms/unit_templates.json`
 const DIAGNOSTICS_URL = `${process.env.DEFAULT_URL}/api/v1/activities/diagnostic_activities.json`
@@ -54,33 +54,33 @@ export const UnitTemplates = () => {
 
   function fetchUnitTemplatesData() {
     setLoadingTableData(true)
-    request.get({
-      url: UNIT_TEMPLATES_URL,
-    }, (e, r, body) => {
-      if (e || r.statusCode !== 200) {
-        setLoadingTableData(false);
-        setError(ERROR_MESSAGE)
-      } else {
+    requestGet(
+      UNIT_TEMPLATES_URL,
+      (body) => {
         setError(null);
         const data = JSON.parse(body);
-        setFetchedData(data.unit_templates)
+        setDiagnostics(data.unit_templates)
+      },
+      (body) => {
+        setLoadingTableData(false);
+        setError(ERROR_MESSAGE)
       }
-    });
+    )
   }
 
   function fetchDiagnosticsData() {
-    request.get({
-      url: DIAGNOSTICS_URL,
-    }, (e, r, body) => {
-      if (e || r.statusCode !== 200) {
-        setLoadingTableData(false);
-        setError(ERROR_MESSAGE)
-      } else {
+    requestGet(
+      DIAGNOSTICS_URL,
+      (body) => {
         setError(null);
         const data = JSON.parse(body);
         setDiagnostics(data.diagnostics)
+      },
+      (body) => {
+        setLoadingTableData(false);
+        setError(ERROR_MESSAGE)
       }
-    });
+    )
   }
 
   function updateOrder(sortInfo) {

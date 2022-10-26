@@ -1,7 +1,7 @@
 import * as React from "react";
 import XLSX from 'xlsx'
-import request from 'request'
 
+import { requestPost, } from '../../../modules/request/index'
 
 export const UploadRosters = () => {
 
@@ -41,19 +41,21 @@ export const UploadRosters = () => {
   }
 
   function submitRosters() {
-    request.post(`${process.env.DEFAULT_URL}/cms/rosters/upload_teachers_and_students`, {
-      json: {
+    requestPost(`${process.env.DEFAULT_URL}/cms/rosters/upload_teachers_and_students`,
+      {
         authenticity_token: getAuthToken(),
         school_id: schoolId,
         teachers: teachers,
         students: students
-      }}, (e, r, response) => {
-      if (response.errors) {
-        alert(response.errors)
-      } else {
+      },
+      (body) => {
         alert("Rosters uploaded successfully!")
+      },
+      (body) => {
+        if (body.errors) {
+          alert(body.errors)
+        }
       }
-    }
     );
   }
 

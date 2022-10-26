@@ -1,11 +1,11 @@
 // The progress report shows all concepts for a given student.
 import React from 'react'
-import request from 'request'
 import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx'
 
 import LoadingSpinner from '../shared/loading_indicator.jsx'
 import userIsPremium from '../modules/user_is_premium'
 import { ReactTable, } from '../../../Shared/index'
+import { requestGet, } from '../../../../modules/request/index'
 
 export default class IndividualStudentConceptReport extends React.Component {
 
@@ -19,17 +19,18 @@ export default class IndividualStudentConceptReport extends React.Component {
   }
 
   componentDidMount() {
-    request.get({
-      url: `${process.env.DEFAULT_URL}/${this.props.sourceUrl}`
-    }, (e, r, body) => {
-      const data = JSON.parse(body)
-      this.setState({
-        loading: false,
-        errors: body.errors,
-        reportData: data.concepts,
-        studentName: data.student.name
-      });
-    });
+    requestGet(
+      `${process.env.DEFAULT_URL}/${this.props.sourceUrl}`,
+      (body) => {
+        const data = JSON.parse(body)
+        this.setState({
+          loading: false,
+          errors: body.errors,
+          reportData: data.concepts,
+          studentName: data.student.name
+        });
+      }
+    )
   }
 
   columns() {

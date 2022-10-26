@@ -1,5 +1,6 @@
-import request from 'request';
 import Pusher from 'pusher-js';
+
+import { requestGet, } from '../modules/request/index'
 
 export const receiveDistrictActivityScores = (body) => {
   return { type: 'RECIEVE_DISTRICT_ACTIVITY_SCORES', body, };
@@ -32,16 +33,16 @@ export const initializePusherForDistrictActivityScores = (adminId) => {
 
 export const getDistrictActivityScores = () => {
   return (dispatch) => {
-    request.get({
-      url: `${process.env.DEFAULT_URL}/api/v1/progress_reports/district_activity_scores`
-    },
-    (e, r, body) => {
-      const parsedBody = JSON.parse(body)
-      if (parsedBody.id) {
-        dispatch(initializePusherForDistrictActivityScores(String(parsedBody.id)))
-      } else {
-        dispatch(receiveDistrictActivityScores(parsedBody))
+    requestGet(
+      `${process.env.DEFAULT_URL}/api/v1/progress_reports/district_activity_scores`,
+      (body) => {
+        const parsedBody = JSON.parse(body)
+        if (parsedBody.id) {
+          dispatch(initializePusherForDistrictActivityScores(String(parsedBody.id)))
+        } else {
+          dispatch(receiveDistrictActivityScores(parsedBody))
+        }
       }
-    });
+    );
   }
 };

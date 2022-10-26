@@ -1,6 +1,6 @@
 import React from 'react'
-import request from 'request'
-import getAuthToken from '../modules/get_auth_token'
+
+import { requestPost, } from '../../../../modules/request/index'
 
 export default class MoveStudent extends React.Component {
   constructor(props) {
@@ -15,19 +15,18 @@ export default class MoveStudent extends React.Component {
 
   submitData = () => {
     const that = this
-    request.post({
-      url: `${process.env.DEFAULT_URL}/teacher_fix/move_student_from_one_class_to_another`,
-      json: {class_code1: that.state.classCode1, class_code2: that.state.classCode2, student_identifier: that.state.studentIdentifier, authenticity_token: getAuthToken()}
-    },
-    (e, r, response) => {
-      if (response.error) {
-        that.setState({error: response.error})
-      } else if (r.statusCode === 200){
+    requestPost(
+      `${process.env.DEFAULT_URL}/teacher_fix/move_student_from_one_class_to_another`,
+      {class_code1: that.state.classCode1, class_code2: that.state.classCode2, student_identifier: that.state.studentIdentifier},
+      (body) => {
         window.alert('Student has been moved!')
-      } else {
-        // to do, use Sentry to capture error
+      },
+      (body) => {
+        if (body.error) {
+          that.setState({error: body.error})
+        }
       }
-    })
+    )
   };
 
   updateClassCode = (e, classCodeNumber) => {

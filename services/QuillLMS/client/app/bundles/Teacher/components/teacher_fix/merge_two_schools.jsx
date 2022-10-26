@@ -1,6 +1,6 @@
 import React from 'react';
-import request from 'request';
-import getAuthToken from '../modules/get_auth_token';
+
+import { requestPost, } from '../../../../modules/request/index'
 
 class MergeTwoSchools extends React.Component {
   constructor(props) {
@@ -11,26 +11,26 @@ class MergeTwoSchools extends React.Component {
 
   submit = () => {
     const that = this;
-    request.post({
-      url: `${process.env.DEFAULT_URL}/teacher_fix/merge_two_schools`,
-      json: {
+    requestPost(
+      `${process.env.DEFAULT_URL}/teacher_fix/merge_two_schools`,
+      {
         from_school_id: that.state.fromSchoolId,
         to_school_id: that.state.toSchoolId,
         authenticity_token: getAuthToken(),
       },
-    }, (e, r, response) => {
-      if (response.error) {
-        this.setState({
-          error: response.error,
-        });
-      } else {
+      (body) => {
         this.setState({
           fromSchoolId: '',
           toSchoolId: '',
           success: 'Success!',
         });
+      },
+      (body) => {
+        if (body.error) {
+          that.setState({error: body.error})
+        }
       }
-    });
+    )
   };
 
   updateState = e => {

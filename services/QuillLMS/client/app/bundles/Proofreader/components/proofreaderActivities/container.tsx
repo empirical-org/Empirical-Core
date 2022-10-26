@@ -1,7 +1,6 @@
 import * as React from "react";
 import * as Redux from "redux";
 import {connect} from "react-redux";
-import * as request from 'request';
 import * as _ from 'lodash';
 import { stringNormalize } from 'quill-string-normalizer'
 import { sentences } from 'sbd'
@@ -35,6 +34,7 @@ import { SessionState } from '../../reducers/sessionReducer'
 import { ProofreaderActivityState } from '../../reducers/proofreaderActivitiesReducer'
 import { ConceptResultObject, WordObject } from '../../interfaces/proofreaderActivities'
 import LoadingSpinner from '../shared/loading_spinner'
+import { requestPut, requestPost, } from '../../../../modules/request/index'
 
 import {
   roundValuesToSeconds,
@@ -302,44 +302,35 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
     }
 
     handleCheckWorkClickSession = (sessionID: string, results: ConceptResultObject[], score: number, data) => {
-      request(
-        { url: `${process.env.DEFAULT_URL}/api/v1/activity_sessions/${sessionID}`,
-          method: 'PUT',
-          json:
-          {
-            state: 'finished',
-            concept_results: results,
-            percentage: score,
-            data
-          },
+      requestPut(
+        `${process.env.DEFAULT_URL}/api/v1/activity_sessions/${sessionID}`,
+        {
+          state: 'finished',
+          concept_results: results,
+          percentage: score,
+          data
         },
-        (err, httpResponse, body) => {
-          if (httpResponse && httpResponse.statusCode === 200) {
-            document.location.href = `${process.env.DEFAULT_URL}/activity_sessions/${sessionID}`;
-          }
+        (body) => {
+          document.location.href = `${process.env.DEFAULT_URL}/activity_sessions/${sessionID}`;
         }
-      );
+      )
     }
 
     createAnonActivitySession = (lessonID: string, results: ConceptResultObject[], score: number, sessionID: string|null, data) => {
-      request(
-        { url: `${process.env.DEFAULT_URL}/api/v1/activity_sessions/`,
-          method: 'POST',
-          json:
-          {
-            state: 'finished',
-            activity_uid: lessonID,
-            concept_results: results,
-            percentage: score,
-            data
-          },
+      requestPost(
+        `${process.env.DEFAULT_URL}/api/v1/activity_sessions/`,
+        {
+          state: 'finished',
+          activity_uid: lessonID,
+          concept_results: results,
+          percentage: score,
+          data
         },
-        (err, httpResponse, body) => {
-          if (httpResponse && httpResponse.statusCode === 200) {
-            document.location.href = `${process.env.DEFAULT_URL}/activity_sessions/${body.activity_session.uid}`;
-          }
+        (body) => {
+          document.location.href = `${process.env.DEFAULT_URL}/activity_sessions/${body.activity_session.uid}`;
         }
-      );
+      )
+
     }
 
     checkWork = (): { reviewablePassage: string, numberOfCorrectChanges: number, conceptResultsObjects: ConceptResultObject[]} => {

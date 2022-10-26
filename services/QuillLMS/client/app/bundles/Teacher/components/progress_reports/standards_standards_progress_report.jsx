@@ -1,5 +1,4 @@
 import React from 'react'
-import request from 'request'
 import _ from 'underscore'
 
 import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx'
@@ -11,6 +10,7 @@ import userIsPremium from '../modules/user_is_premium'
 import {sortTableByStandardLevel} from '../../../../modules/sortingMethods.js'
 import { getTimeSpent } from '../../helpers/studentReports'
 import { ReactTable, } from '../../../Shared/index'
+import { requestGet, } from '../../../../modules/request/index'
 
 export default class StandardsProgressReport extends React.Component {
   constructor() {
@@ -28,17 +28,18 @@ export default class StandardsProgressReport extends React.Component {
 
   getData() {
     const { sourceUrl } = this.props;
-    request.get({
-      url: `${process.env.DEFAULT_URL}/${sourceUrl}`
-    }, (e, r, body) => {
-      const parsedBody = JSON.parse(body)
-      const data = parsedBody.standards
-      const student = parsedBody.student
-      const csvData = this.formatDataForCSV(data, student.name)
-      const standardsData = this.formatStandardsData(data)
-      // gets unique classroom names
-      this.setState({loading: false, errors: body.errors, standardsData, csvData, student});
-    });
+    requestGet(
+      `${process.env.DEFAULT_URL}/${sourceUrl}`,
+      (body) => {
+        const parsedBody = JSON.parse(body)
+        const data = parsedBody.standards
+        const student = parsedBody.student
+        const csvData = this.formatDataForCSV(data, student.name)
+        const standardsData = this.formatStandardsData(data)
+        // gets unique classroom names
+        this.setState({loading: false, errors: body.errors, standardsData, csvData, student});
+      }
+    )
   }
 
   columns() {
