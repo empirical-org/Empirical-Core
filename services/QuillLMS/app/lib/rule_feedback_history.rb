@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 class RuleFeedbackHistory
-  def self.generate_report(conjunction:, activity_id:, start_date: nil, end_date: nil, turk_session_id: nil)
-    sql_result = exec_query(conjunction: conjunction, activity_id: activity_id, start_date: start_date, end_date: end_date, turk_session_id: turk_session_id)
+  def self.generate_report(conjunction:, activity_id:, start_date: nil, end_date: nil)
+    sql_result = exec_query(conjunction: conjunction, activity_id: activity_id, start_date: start_date, end_date: end_date)
     format_sql_results(sql_result)
   end
 
-  def self.exec_query(conjunction:, activity_id:, start_date:, end_date:, turk_session_id:)
+  def self.exec_query(conjunction:, activity_id:, start_date:, end_date:)
     query = Evidence::Rule.select(<<~SELECT
       comprehension_rules.id,
       comprehension_rules.uid AS rules_uid,
@@ -33,11 +33,6 @@ class RuleFeedbackHistory
     .includes(:feedbacks)
     query = query.where("feedback_histories.time >= ?", start_date) if start_date
     query = query.where("feedback_histories.time <= ?", end_date) if end_date
-    if turk_session_id
-      query = query.joins('LEFT JOIN feedback_sessions ON feedback_histories.feedback_session_uid = feedback_sessions.uid')
-      .joins('LEFT JOIN comprehension_turking_round_activity_sessions ON feedback_sessions.activity_session_uid = comprehension_turking_round_activity_sessions.activity_session_uid')
-      .where("comprehension_turking_round_activity_sessions.turking_round_id = ?", turk_session_id)
-    end
     query
   end
 
@@ -53,7 +48,7 @@ class RuleFeedbackHistory
     }
   end
 
-  def self.generate_rulewise_report(rule_uid:, prompt_id:, start_date: nil, end_date: nil, turk_session_id: nil)
+  def self.generate_rulewise_report(rule_uid:, prompt_id:, start_date: nil, end_date: nil)
     start_filter = start_date ? ["feedback_histories.created_at >= ?", start_date] : []
     end_filter = end_date ? ["feedback_histories.created_at <= ?", end_date] : []
 
@@ -61,11 +56,6 @@ class RuleFeedbackHistory
     .where(start_filter)
     .where(end_filter)
 
-    if turk_session_id
-      feedback_histories = feedback_histories.joins('LEFT JOIN feedback_sessions ON feedback_histories.feedback_session_uid = feedback_sessions.uid')
-      feedback_histories = feedback_histories.joins('LEFT JOIN comprehension_turking_round_activity_sessions ON feedback_sessions.activity_session_uid = comprehension_turking_round_activity_sessions.activity_session_uid')
-      feedback_histories = feedback_histories.where("comprehension_turking_round_activity_sessions.turking_round_id = ?", turk_session_id)
-    end
     response_jsons = []
     feedback_histories.each do |f_h|
       response_jsons.append(feedback_history_to_json(f_h))

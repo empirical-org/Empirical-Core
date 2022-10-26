@@ -243,7 +243,7 @@ class FeedbackHistory < ApplicationRecord
   # rubocop:enable Lint/DuplicateBranch
 
   # rubocop:disable Metrics/CyclomaticComplexity
-  def self.list_by_activity_session(activity_id: nil, page: 1, start_date: nil, end_date: nil, page_size: DEFAULT_PAGE_SIZE, turk_session_id: nil, filter_type: nil)
+  def self.list_by_activity_session(activity_id: nil, page: 1, start_date: nil, end_date: nil, page_size: DEFAULT_PAGE_SIZE, filter_type: nil)
     query = select(
       <<-SQL
         feedback_histories.feedback_session_uid AS session_uid,
@@ -277,11 +277,6 @@ class FeedbackHistory < ApplicationRecord
     query = query.where(comprehension_prompts: {activity_id: activity_id.to_i}) if activity_id
     query = query.where("feedback_histories.created_at >= ?", start_date) if start_date
     query = query.where("feedback_histories.created_at <= ?", end_date) if end_date
-    if turk_session_id
-      query = query.joins('LEFT JOIN feedback_sessions ON feedback_histories.feedback_session_uid = feedback_sessions.uid')
-      .joins('LEFT JOIN comprehension_turking_round_activity_sessions ON feedback_sessions.activity_session_uid = comprehension_turking_round_activity_sessions.activity_session_uid')
-      .where("comprehension_turking_round_activity_sessions.turking_round_id = ?", turk_session_id)
-    end
     query = FeedbackHistory.apply_activity_session_filter(query, filter_type) if filter_type
     query = query.limit(page_size) if page_size
     query = query.offset((page.to_i - 1) * page_size.to_i) if page && page.to_i > 1
@@ -289,18 +284,13 @@ class FeedbackHistory < ApplicationRecord
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 
-  def self.get_total_count(activity_id: nil, start_date: nil, end_date: nil, turk_session_id: nil)
+  def self.get_total_count(activity_id: nil, start_date: nil, end_date: nil)
     query = FeedbackHistory.select(:feedback_session_uid)
       .joins("LEFT OUTER JOIN comprehension_prompts ON feedback_histories.prompt_id = comprehension_prompts.id")
       .group(:feedback_session_uid, :activity_id)
     query = query.where(comprehension_prompts: {activity_id: activity_id.to_i}) if activity_id
     query = query.where("feedback_histories.created_at >= ?", start_date) if start_date
     query = query.where("feedback_histories.created_at <= ?", end_date) if end_date
-    if turk_session_id
-      query = query.joins('LEFT JOIN feedback_sessions ON feedback_histories.feedback_session_uid = feedback_sessions.uid')
-      .joins('LEFT JOIN comprehension_turking_round_activity_sessions ON feedback_sessions.activity_session_uid = comprehension_turking_round_activity_sessions.activity_session_uid')
-      .where("comprehension_turking_round_activity_sessions.turking_round_id = ?", turk_session_id)
-    end
     query.length
   end
 
