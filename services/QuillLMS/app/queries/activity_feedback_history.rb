@@ -2,38 +2,29 @@
 
 class ActivityFeedbackHistory
   def self.run(activity_id:)
-    serialize_results activity_stats_query(activity_id: activity_id)
+    activity_stats_query(activity_id: activity_id)
   end
 
   def self.activity_stats_query(activity_id:)
-    query = FeedbackHistory.select(<<~SELECT
-      AVG(timespent) AS average_time_spent,
-      CAST(COUNT(DISTINCT CASE WHEN state = 'finished' THEN feedback_session_uid END) AS DECIMAL) / COUNT(feedback_session_uid) AS average_completion_rate
-      FROM
-      (SELECT
-      DISTINCT timespent, feedback_session_uid, state
-      from activity_sessions
-      INNER JOIN feedback_sessions ON feedback_sessions.activity_session_uid = activity_sessions.uid
-      LEFT JOIN feedback_histories ON feedback_sessions.uid = feedback_histories.feedback_session_uid
-      LEFT JOIN comprehension_prompts ON feedback_histories.prompt_id = comprehension_prompts.id
-      WHERE comprehension_prompts.activity_id = 87
-      ) distinct_session_data
-    SELECT
-    )
-    query
-  end
+    activity_sessions_agg = RawSqlRunner.execute(
+      <<-SQL
+        SELECT
+        AVG(timespent) AS average_time_spent,
+        CAST(COUNT(DISTINCT CASE WHEN state = 'finished' THEN feedback_session_uid END) AS DECIMAL) / COUNT(feedback_session_uid) AS average_completion_rate
+        FROM
+        (SELECT activity_sessions.timespent AS timespent, feedback_sessions.uid AS feedback_session_uid, activity_sessions.state AS state
+          FROM
+          activity_sessions
+        INNER JOIN feedback_sessions ON feedback_sessions.activity_session_uid = activity_sessions.uid
+        LEFT JOIN feedback_histories ON feedback_sessions.uid = feedback_histories.feedback_session_uid
+        LEFT JOIN comprehension_prompts ON feedback_histories.prompt_id = comprehension_prompts.id
+        WHERE comprehension_prompts.activity_id = #{activity_id}) inner_query
+      SQL
+    ).to_a
 
-  def self.serialize_results(results)
-    serialized_rows = results.map do |result|
-      payload = result.serializable_hash(
-        only: [:prompt_id, :total_responses, :session_count, :display_name, :num_final_attempt_optimal, :num_final_attempt_not_optimal, :avg_attempts, :num_first_attempt_optimal, :num_first_attempt_not_optimal, :time_spent],
-        include: []
-      )
-      payload['num_sessions_with_consecutive_repeated_rule'] = result.num_sessions_consecutive_repeated
-      payload['num_sessions_with_non_consecutive_repeated_rule'] = result.num_sessions_non_consecutive_repeated
-      payload['avg_attempts'] = payload['avg_attempts']&.round(2)&.to_f || 0
-      payload
-    end
-    serialized_rows.map{ |row| [row['prompt_id'], row] }.to_h
+    {
+      average_time_spent: (activity_sessions_agg[0]['average_time_spent'].to_f / 60.00).round(2),
+      average_completion_rate: "#{(activity_sessions_agg[0]['average_completion_rate'].to_f * 100).round(2)}%"
+    }
   end
 end

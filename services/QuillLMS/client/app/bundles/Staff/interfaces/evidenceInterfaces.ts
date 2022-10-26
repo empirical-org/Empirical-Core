@@ -162,6 +162,7 @@ export interface PromptHealthInterface {
   num_first_attempt_optimal: number,
   num_first_attempt_not_optimal: number,
   time_spent: number,
+  confidence: number
 }
 
 export type InputEvent = React.ChangeEvent<HTMLInputElement>;

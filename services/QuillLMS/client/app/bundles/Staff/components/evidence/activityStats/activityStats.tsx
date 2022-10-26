@@ -12,6 +12,7 @@ import { Spinner, ReactTable, } from '../../../../Shared/index';
 import { handlePageFilterClick } from '../../../helpers/evidence/miscHelpers';
 import { renderHeader } from '../../../helpers/evidence/renderHelpers';
 import { ACTIVITY_STATS } from '../../../../../constants/evidence';
+import LowConfidenceRulesIndex from "../lowConfidenceRules/lowConfidenceRulesIndex";
 
 const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ history, match }) => {
   const { params } = match;
@@ -69,6 +70,7 @@ const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       num_first_attempt_optimal,
       num_first_attempt_not_optimal,
       time_spent,
+      confidence
     } = prompt;
 
     const percentageOptimalFinalAttempt = _.round(num_final_attempt_optimal / session_count * 100, 2)
@@ -90,6 +92,7 @@ const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       averageAttempts: _.round(avg_attempts, 2),
       firstAttemptData: `${percentageOptimalFirstAttempt}% (${num_first_attempt_optimal}) | ${percentageNotOptimalFirstAttempt}% (${num_first_attempt_not_optimal})`,
       timeSpent: time_spent,
+      autoMLConfidence: `${confidence}%`,
     }
   })
 
@@ -162,8 +165,8 @@ const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
 
   const overallStats = (
     <div>
-      <p><strong>Average Time Spent: </strong>{overallStatsData.stats.average_time_spent}</p>
-      <p><strong>Average Completion Rate: </strong> {overallStatsData.stats.average_completion_rate}%</p>
+      <p><strong>Average Time Spent: </strong>{overallStatsData ? overallStatsData.stats.average_time_spent : "Loading..."}</p>
+      <p><strong>Average Completion Rate: </strong> {overallStatsData ? overallStatsData.stats.average_completion_rate : "Loading..."}</p>
     </div>
   )
 

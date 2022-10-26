@@ -23,7 +23,8 @@ class PromptFeedbackHistory
         WHEN comprehension_prompts.conjunction = 'but' THEN (data->>'time_tracking')::json->>'but'
         WHEN comprehension_prompts.conjunction = 'so' THEN (data->>'time_tracking')::json->>'so'
         ELSE '0'
-      END AS int)) AS time_spent
+      END AS int)) AS time_spent,
+      AVG(CAST((feedback_histories.metadata->>'api')::json->>'confidence' AS float)) AS confidence
     SELECT
     )
       .joins('JOIN comprehension_prompts ON feedback_histories.prompt_id = comprehension_prompts.id')
@@ -46,12 +47,13 @@ class PromptFeedbackHistory
   def self.serialize_results(results)
     serialized_rows = results.map do |result|
       payload = result.serializable_hash(
-        only: [:prompt_id, :total_responses, :session_count, :display_name, :num_final_attempt_optimal, :num_final_attempt_not_optimal, :avg_attempts, :num_first_attempt_optimal, :num_first_attempt_not_optimal, :time_spent],
+        only: [:prompt_id, :total_responses, :session_count, :display_name, :num_final_attempt_optimal, :num_final_attempt_not_optimal, :avg_attempts, :num_first_attempt_optimal, :num_first_attempt_not_optimal, :time_spent, :confidence],
         include: []
       )
       payload['num_sessions_with_consecutive_repeated_rule'] = result.num_sessions_consecutive_repeated
       payload['num_sessions_with_non_consecutive_repeated_rule'] = result.num_sessions_non_consecutive_repeated
       payload['avg_attempts'] = payload['avg_attempts']&.round(2)&.to_f || 0
+      payload['confidence'] = payload['confidence'] ? payload['confidence'] * 100 : 0
       payload
     end
     serialized_rows.map{ |row| [row['prompt_id'], row] }.to_h

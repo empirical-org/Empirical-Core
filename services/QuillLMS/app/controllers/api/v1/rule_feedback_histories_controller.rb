@@ -28,7 +28,8 @@ class Api::V1::RuleFeedbackHistoriesController < Api::ApiController
   def overall_stats
     raise ArgumentError unless params.include?('activity_id')
 
-    report = {average_completion_rate: "123", average_time_spent: "123"}
+    options = params.permit(:activity_id).to_h.symbolize_keys
+    report = ActivityFeedbackHistory.run(options)
     render json: report
   end
 end
