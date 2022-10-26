@@ -2,16 +2,16 @@
 
 module StripeIntegration
   module Webhooks
-    class ChargeDisputeCreatedHandler < EventHandler
+    class EventNotificationHandler < EventHandler
       def run
-        notify_quill_team
+        send_notification
         stripe_webhook_event.processed!
       rescue => e
         stripe_webhook_event.log_error(e)
       end
 
-      private def notify_quill_team
-        StripeIntegration::Mailer.charge_dispute_created
+      private def send_notification
+        StripeIntegration::Mailer.send(self.class::MAILER_ACTION, external_id).deliver_now!
       end
     end
   end
