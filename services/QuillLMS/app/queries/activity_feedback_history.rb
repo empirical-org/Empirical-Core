@@ -23,7 +23,7 @@ class ActivityFeedbackHistory
     ).to_a
 
     {
-      average_time_spent: (activity_sessions_agg[0]['average_time_spent'].to_f / 60.00).round(2),
+      average_time_spent: Utils::Numeric.seconds_to_human_readable_time((activity_sessions_agg[0]['average_time_spent'].to_f)),
       average_completion_rate: "#{(activity_sessions_agg[0]['average_completion_rate'].to_f * 100).round(2)}%"
     }
   end
