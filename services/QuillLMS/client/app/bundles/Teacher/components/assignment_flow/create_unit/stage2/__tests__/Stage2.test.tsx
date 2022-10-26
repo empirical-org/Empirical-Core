@@ -30,11 +30,8 @@ describe('Stage2 component', () => {
     updateUnitName: jest.fn(),
     user: {}
   }
-  let wrapper = mount(<Stage2 {...mockProps} />)
-  it('should render', () => {
-    expect(wrapper).toMatchSnapshot()
-  })
   it('buttonEnabled returns expected value', () => {
+    let wrapper = mount(<Stage2 {...mockProps} />)
     expect(wrapper.instance().buttonEnabled()).toEqual(true)
     mockProps.errorMessage = { name: 'Please select a unit name.' }
     wrapper = mount(<Stage2 {...mockProps} />)
