@@ -61,9 +61,12 @@ module Evidence
 
     def activity_versions
       Evidence.change_log_class.where(changed_record_id: id, changed_attribute: 'version', changed_record_type: 'Evidence::Activity').map do |row|
+        next_new_value = row.new_value.to_i + 1
+        next_version = next_change_log(id, next_new_value)
         {
           note: row.explanation,
-          created_at: row.created_at,
+          start_date: row.created_at,
+          end_date: next_version ? next_version.created_at : Time.current,
           new_value: row.new_value,
           session_count: session_count(row, id)
         }
@@ -74,13 +77,9 @@ module Evidence
       start_date = change_log.created_at
       end_date = Time.current
       next_new_value = change_log.new_value.to_i + 1
-      next_change_log =
-        Evidence::Activity
-          &.find_by(id: activity_id)
-          &.change_logs
-          &.where(changed_attribute: 'version', new_value: next_new_value)
-          &.first
-      end_date = next_change_log.created_at if next_change_log
+      next_version = next_change_log(activity_id, next_new_value)
+      end_date = next_version.created_at if next_version
+
       options = {
         activity_id: activity_id,
         start_date: start_date,
@@ -88,6 +87,14 @@ module Evidence
         page_size: nil
       }
       FeedbackHistory.list_by_activity_session(**options).length
+    end
+
+    def next_change_log(activity_id, next_new_value)
+      Evidence::Activity
+        &.find_by(id: activity_id)
+        &.change_logs
+        &.where(changed_attribute: 'version', new_value: next_new_value)
+        &.first
     end
 
     def change_logs_for_activity
