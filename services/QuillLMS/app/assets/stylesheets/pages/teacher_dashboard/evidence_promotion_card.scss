@@ -68,10 +68,20 @@
     right: 20px;
     bottom: 0px;
   }
+  .book-illustration {
+    position: absolute;
+    left: 75%;
+  }
 
   @media (max-width: 1103px) {
     a {
       margin-top: 62px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .book-illustration {
+      display: none;
     }
   }
 }
