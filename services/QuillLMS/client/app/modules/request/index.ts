@@ -11,7 +11,7 @@ async function handleFetch({ url, method, success, error, payload, }: {url: stri
       'Content-Type': 'application/json',
     })
   }
-  
+
   if (payload) {
     options['body'] = JSON.stringify(payload)
   }
