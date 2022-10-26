@@ -18,7 +18,7 @@ module GoogleIntegration
     end
 
     private def another_student
-      @another_student ||= User.find_by(email: email)
+      @another_student ||= ::User.find_by(email: email)
     end
 
     private def email_unchanged?
