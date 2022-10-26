@@ -1,9 +1,10 @@
 'use strict'
 
 import React from 'react'
-import request from 'request'
+
 import UnitTemplateProfileShareButtons from './unit_templates_manager/unit_template_profile/unit_template_profile_share_buttons'
 import LoadingIndicator from '../shared/loading_indicator'
+import { requestGet, } from '../../../../modules/request/index'
 
 export default class UnitTemplateAssigned extends React.Component {
   constructor(props) {
@@ -23,33 +24,30 @@ export default class UnitTemplateAssigned extends React.Component {
   }
 
   UNSAFE_componentWillMount() {
-    // const that = this;
-    // const activityId = this.props.data.id;
-    request.get({
-      url: `${process.env.DEFAULT_URL}/teachers/classrooms_i_teach_with_students`
-    },
-    (e, r, body) => {
-      const parsedBody = JSON.parse(body)
-      const studentsPresent = this.anyClassroomsWithStudents(parsedBody.classrooms)
-      this.setState({ studentsPresent, loading: false, })
-    });
+    requestGet(
+      `${process.env.DEFAULT_URL}/teachers/classrooms_i_teach_with_students`,
+      (body) => {
+        const parsedBody = JSON.parse(body)
+        const studentsPresent = this.anyClassroomsWithStudents(parsedBody.classrooms)
+        this.setState({ studentsPresent, loading: false, })
+      }
+    )
 
-    request.get({
-      url: `${process.env.DEFAULT_URL}/teachers/last_assigned_unit_id`
-    },
-    (e, r, body) => {
-      const parsedBody = JSON.parse(body)
-      this.setState({ lastUnitId: parsedBody.id, referralCode: parsedBody.referral_code, loading: false, })
-    });
+    requestGet(
+      `${process.env.DEFAULT_URL}/teachers/last_assigned_unit_id`,
+      (body) => {
+        const parsedBody = JSON.parse(body)
+        this.setState({ lastUnitId: parsedBody.id, referralCode: parsedBody.referral_code, loading: false, })
+      }
+    )
 
-    request.get({
-      url: `${process.env.DEFAULT_URL}/teachers/unit_templates/assigned_info`,
-      qs: { id: this.props.match.params.activityPackId, }
-    },
-    (e, r, body) => {
-      const parsedBody = JSON.parse(body)
-      this.setState({ data: parsedBody })
-    });
+    requestGet(
+      `${process.env.DEFAULT_URL}/teachers/unit_templates/assigned_info?id=${this.props.match.params.activityPackId}`,
+      (body) => {
+        const parsedBody = JSON.parse(body)
+        this.setState({ data: parsedBody })
+      }
+    )
   }
 
   getInviteStudentsUrl() {

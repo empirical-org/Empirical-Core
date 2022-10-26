@@ -1,7 +1,6 @@
 // The progress report showing all students in a given classroom
 // along with their result counts.
 import React from 'react'
-import request from 'request'
 
 import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx'
 
@@ -13,6 +12,7 @@ import ItemDropdown from '../general_components/dropdown_selectors/item_dropdown
 import userIsPremium from '../modules/user_is_premium'
 import { getTimeSpent } from '../../helpers/studentReports'
 import { ReactTable, } from '../../../Shared/index'
+import { requestGet, } from '../../../../modules/request/index'
 
 const showAllClassroomKey = 'All classrooms'
 
@@ -38,21 +38,22 @@ export default class IndividualStandardsReport extends React.Component {
       const selectedStandardId = standard ? standard.id : null
       const selectedClassroomId = selectedClassroom && selectedClassroom.id ? selectedClassroom.id : 0
       const url = selectedStandardId && selectedClassroomId ? `${process.env.DEFAULT_URL}/teachers/progress_reports/standards/classrooms/${selectedClassroomId}/standards/${selectedStandardId}/students.json` : `${process.env.DEFAULT_URL}/${sourceUrl}`
-      request.get({
-        url: url
-      }, (e, r, body) => {
-        const data = JSON.parse(body)
-        const decorateAsEvidence = this.decorateAsEvidence(data.standards[0])
-        const studentData = this.formattedStudentData(data.students, decorateAsEvidence)
-        const csvData = this.formatDataForCSV(data.students)
-        const standard = data.standards[0]
-        const classrooms = JSON.parse(body).classrooms
+      requestGet(
+        url,
+        (body) => {
+          const data = JSON.parse(body)
+          const decorateAsEvidence = this.decorateAsEvidence(data.standards[0])
+          const studentData = this.formattedStudentData(data.students, decorateAsEvidence)
+          const csvData = this.formatDataForCSV(data.students)
+          const standard = data.standards[0]
+          const classrooms = JSON.parse(body).classrooms
 
-        const allClassrooms = {name: showAllClassroomKey}
-        const selectedClassroom = data.selected_classroom ? data.selected_classroom : allClassrooms
-        classrooms.unshift(allClassrooms)
-        this.setState({loading: false, errors: body.errors, studentData, csvData, standard, classrooms, selectedClassroom});
-      });
+          const allClassrooms = {name: showAllClassroomKey}
+          const selectedClassroom = data.selected_classroom ? data.selected_classroom : allClassrooms
+          classrooms.unshift(allClassrooms)
+          this.setState({loading: false, errors: body.errors, studentData, csvData, standard, classrooms, selectedClassroom});
+        }
+      );
     })
   }
 

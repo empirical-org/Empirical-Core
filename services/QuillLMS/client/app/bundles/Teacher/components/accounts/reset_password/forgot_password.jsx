@@ -3,6 +3,7 @@ import request from 'request'
 
 import getAuthToken from '../../modules/get_auth_token';
 import { Input, } from '../../../../Shared/index'
+import { requestPost, } from '../../../../../modules/request/index'
 
 const bulbSrc = `${process.env.CDN_URL}/images/onboarding/bulb.svg`
 
@@ -24,22 +25,19 @@ export default class ForgotPassword extends React.Component {
   handleSubmit = (e) => {
     const { email, password, timesSubmitted, } = this.state
     e.preventDefault();
-    request({
-      url: `${process.env.DEFAULT_URL}/password_reset`,
-      method: 'POST',
-      json: {
+
+    requestPost(
+      `${process.env.DEFAULT_URL}/password_reset`,
+      {
         user: {
           email,
-          password,
-        },
-        authenticity_token: getAuthToken(),
+          password
+        }
       },
-    },
-    (err, httpResponse, body) => {
-      if (httpResponse.statusCode === 200 && body.redirect) {
-        // console.log(body);
+      (body) => {
         window.location = `${process.env.DEFAULT_URL}${body.redirect}`;
-      } else {
+      },
+      (body) => {
         let state
         if (body.type && body.message) {
           const errors = {}
@@ -54,7 +52,7 @@ export default class ForgotPassword extends React.Component {
         }
         this.setState(state)
       }
-    });
+    )
   }
 
   submitClass() {

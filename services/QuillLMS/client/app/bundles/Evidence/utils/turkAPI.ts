@@ -1,6 +1,5 @@
-import * as request from 'request';
-
 import { handleApiError, apiFetch } from '../../Staff/helpers/evidence/routingHelpers';
+import { requestGet, } from '../../../modules/request/index'
 
 export const postTurkSession = async (turkingRoundID: string, activitySessionUID: string) => {
 
@@ -15,14 +14,9 @@ export const postTurkSession = async (turkingRoundID: string, activitySessionUID
 }
 
 export default function validateTurkSession(turkingRoundId, activityId, callback) {
-  const requestObject = {
-    url: `${process.env.DEFAULT_URL}/api/v1/evidence/turking_round_activity_sessions/validate?activity_id=${activityId}&turking_round_id=${turkingRoundId}`,
-    json: true,
-  }
-  request.get(requestObject, (e, r, body) => {
-    if (e) {
-      alert("Failed to validate turking activity session: " + e)
-    }
-    callback(body)
-  })
+  requestGet(
+    `${process.env.DEFAULT_URL}/api/v1/evidence/turking_round_activity_sessions/validate?activity_id=${activityId}&turking_round_id=${turkingRoundId}`,
+    (body) => callback(body),
+    (body) => alert("Failed to validate turking activity session: " + body)
+  )
 }

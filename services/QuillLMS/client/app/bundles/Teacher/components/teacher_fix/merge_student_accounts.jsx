@@ -1,6 +1,6 @@
 import React from 'react'
-import request from 'request'
-import getAuthToken from '../modules/get_auth_token'
+
+import { requestPost, } from '../../../../modules/request/index'
 
 export default class MergeStudentAccounts extends React.Component {
   constructor(props) {
@@ -14,23 +14,19 @@ export default class MergeStudentAccounts extends React.Component {
 
   submitStudents = () => {
     const that = this
-    request.post({
-      url: `${process.env.DEFAULT_URL}/teacher_fix/merge_student_accounts`,
-      json: {
-        account1_identifier: that.state.student1Identifier,
-        account2_identifier: that.state.student2Identifier,
-        authenticity_token: getAuthToken()
-      }
-    },
-    (e, r, response) => {
-      if (response.error) {
-        that.setState({error: response.error})
-      } else if (r.statusCode === 200){
+
+    requestPost(
+      `${process.env.DEFAULT_URL}/teacher_fix/merge_student_accounts`,
+      { account1_identifier: that.state.student1Identifier, account2_identifier: that.state.student2Identifier },
+      (body) => {
         window.alert('Accounts have been merged!')
-      } else {
-        // to do, use Sentry to capture error
+      },
+      (body) => {
+        if (body.error) {
+          that.setState({error: body.error})
+        }
       }
-    })
+    )
   };
 
   updateStudentIdentifier = (e, studentNumber) => {

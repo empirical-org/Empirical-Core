@@ -1,26 +1,21 @@
 import * as React from 'react'
-import request from 'request'
-import getAuthToken from '../../../components/modules/get_auth_token'
 import { Card } from '../../../../Shared/index'
 
 import AssignActivityPackBanner from '../assignActivityPackBanner'
+import { requestPost, } from '../../../../../modules/request/index'
 
 const studentPencilImg = `${process.env.CDN_URL}/images/onboarding/student-pencil.svg`
 const teacherChalkboardImg = `${process.env.CDN_URL}/images/onboarding/teacher-chalkboard.svg`
 
 class SelectUserType extends React.Component {
   setRoleOnSession = (role) => {
-    request.post(`${process.env.DEFAULT_URL}/account/role`, {
-      json: {
-        role,
-        authenticity_token: getAuthToken(),
-      }, }, (e) => {
-      if (e) {
-        this.setRoleOnSessionError()
-      } else {
+    requestPost(`${process.env.DEFAULT_URL}/account/role`, { role, },
+      (body) => {
         window.location = `/sign-up/${role}`;
+      },
+      (body) => {
+        this.setRoleOnSessionError()
       }
-    }
     )
   }
 

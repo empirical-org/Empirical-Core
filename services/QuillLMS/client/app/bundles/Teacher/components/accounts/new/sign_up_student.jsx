@@ -8,6 +8,7 @@ import AnalyticsWrapper from '../../shared/analytics_wrapper'
 import AgreementsAndLinkToLogin from './agreements_and_link_to_login'
 import getAuthToken from '../../modules/get_auth_token';
 import { Input, } from '../../../../Shared/index'
+import { requestPost, } from '../../../../../modules/request/index'
 
 class SignUpStudent extends React.Component {
   constructor(props) {
@@ -41,10 +42,9 @@ class SignUpStudent extends React.Component {
     const { firstName, lastName, username, password, timesSubmitted, email, } = this.state
     const emailToSubmit = email && email.length ? email : null
     e.preventDefault();
-    request({
-      url: `${process.env.DEFAULT_URL}/account`,
-      method: 'POST',
-      json: {
+    requestPost(
+      `${process.env.DEFAULT_URL}/account`,
+      {
         user: {
           name: `${firstName} ${lastName}`,
           password,
@@ -52,15 +52,12 @@ class SignUpStudent extends React.Component {
           email: emailToSubmit,
           role: 'student',
           account_type: 'Student Created Account'
-        },
-        authenticity_token: getAuthToken(),
+        }
       },
-    },
-    (err, httpResponse, body) => {
-      if (httpResponse.statusCode === 200 && body.redirect) {
-        // console.log(body);
+      (body) => {
         window.location = `${process.env.DEFAULT_URL}${body.redirect}`;
-      } else {
+      },
+      (body) => {
         let state
         if (body.errors) {
           state = { lastUpdate: new Date(), errors: body.errors, timesSubmitted: timesSubmitted + 1}
@@ -73,7 +70,7 @@ class SignUpStudent extends React.Component {
         }
         this.setState(state)
       }
-    });
+    )
   };
 
   submitClass = () => {

@@ -1,6 +1,6 @@
 import React from 'react'
-import request from 'request'
-import getAuthToken from '../modules/get_auth_token'
+
+import { requestPost, } from '../../../../modules/request/index'
 
 export default class DeleteLastActivitySession extends React.Component {
   constructor(props) {
@@ -14,19 +14,19 @@ export default class DeleteLastActivitySession extends React.Component {
 
   submitData = () => {
     const that = this
-    request.post({
-      url: `${process.env.DEFAULT_URL}/teacher_fix/delete_last_activity_session`,
-      json: {activity_name: that.state.activityName, student_identifier: that.state.studentIdentifier, authenticity_token: getAuthToken()}
-    },
-    (e, r, response) => {
-      if (response.error) {
-        that.setState({error: response.error})
-      } else if (r.statusCode === 200){
+
+    requestPost(
+      `${process.env.DEFAULT_URL}/teacher_fix/delete_last_activity_session`,
+      { activity_name: that.state.activityName, student_identifier: that.state.studentIdentifier },
+      (body) => {
         window.alert('Activity session has been deleted!')
-      } else {
-        // to do, use Sentry to capture error
+      },
+      (body) => {
+        if (body.error) {
+          that.setState({error: body.error})
+        }
       }
-    })
+    )
   };
 
   updateActivityName = (e, activityName) => {

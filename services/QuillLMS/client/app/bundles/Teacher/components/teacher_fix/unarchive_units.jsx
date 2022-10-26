@@ -1,6 +1,6 @@
 import React from 'react'
-import request from 'request'
-import getAuthToken from '../modules/get_auth_token'
+
+import { requestGet, requestPost, } from '../../../../modules/request/index'
 
 export default class UnarchiveUnits extends React.Component {
   constructor(props) {
@@ -17,17 +17,21 @@ export default class UnarchiveUnits extends React.Component {
   getArchivedUnits = () => {
     const that = this
     that.setState({archivedUnits: [], selectedUnitIds: [], error: ''})
-    request.get({
-      url: `${process.env.DEFAULT_URL}/teacher_fix/archived_units`,
-      qs: {teacher_identifier: that.state.teacherIdentifier}
-    },
-    (e, r, response) => {
-      const parsedResponse = JSON.parse(response)
-      if (parsedResponse.error) {
-        that.setState({error: parsedResponse.error})
-      } else if (parsedResponse.archived_units)
-        that.setState({ archivedUnits: parsedResponse.archived_units, selectedUnitIds: parsedResponse.archived_units.map(u => u.id)});
-    });
+    requestGet(
+      `${process.env.DEFAULT_URL}/teacher_fix/archived_units?teacher_identifier=${that.state.teacherIdentifier}`,
+      (body) => {
+        const parsedResponse = JSON.parse(body)
+        if (parsedResponse.archived_units) {
+          that.setState({ archivedUnits: parsedResponse.archived_units, selectedUnitIds: parsedResponse.archived_units.map(u => u.id)});
+        }
+      },
+      (body) => {
+        const parsedResponse = JSON.parse(body)
+        if (parsedResponse.error) {
+          that.setState({error: parsedResponse.error})
+        }
+      }
+    )
   };
 
   toggleSelectAllUnits = () => {
@@ -51,16 +55,14 @@ export default class UnarchiveUnits extends React.Component {
 
   unarchiveUnits = () => {
     const that = this
-    request.post({
-      url: `${process.env.DEFAULT_URL}/teacher_fix/unarchive_units`,
-      json: {unit_ids: that.state.selectedUnitIds, changed_names: that.state.changedNames, authenticity_token: getAuthToken()}
-    },
-    (e, r, response) => {
-      if (r.statusCode === 200) {
+    requestPost(
+      `${process.env.DEFAULT_URL}/teacher_fix/unarchive_units`,
+      { unit_ids: that.state.selectedUnitIds, changed_names: that.state.changedNames },
+      (body) => {
         that.setState({ archivedUnits: [], changedNames: {}, selectedUnitIds: [], teacherIdentifier: ''})
         window.alert('These units have been unarchived.')
       }
-    })
+    )
   };
 
   updateName = (e, id) => {

@@ -1,5 +1,4 @@
 import React from 'react';
-import request from 'request'
 
 import AuthSignUp from './auth_sign_up'
 
@@ -9,6 +8,7 @@ import AgreementsAndLinkToLogin from './agreements_and_link_to_login'
 import AssignActivityPackBanner from '../assignActivityPackBanner'
 import getAuthToken from '../../modules/get_auth_token';
 import { Input, } from '../../../../Shared/index'
+import { requestPost, } from '../../../../../modules/request/index'
 
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
 
@@ -50,25 +50,22 @@ class SignUpTeacher extends React.Component {
   handleSubmit = (e) => {
     const { firstName, lastName, email, password, sendNewsletter, timesSubmitted, } = this.state
     e.preventDefault();
-    request({
-      url: `${process.env.DEFAULT_URL}/account`,
-      method: 'POST',
-      json: {
+
+    requestPost(
+      `${process.env.DEFAULT_URL}/account`,
+      {
         user: {
           name: `${firstName} ${lastName}`,
           password,
           email,
           role: 'teacher',
           send_newsletter: sendNewsletter,
-        },
-        authenticity_token: getAuthToken(),
+        }
       },
-    },
-    (err, httpResponse, body) => {
-      if (httpResponse.statusCode === 200) {
-        // console.log(body);
+      (body) => {
         window.location = '/sign-up/add-k12'
-      } else {
+      },
+      (body) => {
         let state
         if (body.errors) {
           state = { lastUpdate: new Date(), errors: body.errors, timesSubmitted: timesSubmitted + 1}
@@ -81,7 +78,7 @@ class SignUpTeacher extends React.Component {
         }
         this.setState(state)
       }
-    });
+    )
   }
 
   handleToggleNewsletter = () => {

@@ -1,7 +1,6 @@
 import React from 'react'
-import request from 'request'
 
-import getAuthToken from '../modules/get_auth_token'
+import { requestGet, requestPost, } from '../../../../modules/request/index'
 
 export default class RemoveUnsyncedStudents extends React.Component {
   state = {
@@ -13,34 +12,36 @@ export default class RemoveUnsyncedStudents extends React.Component {
   handleUnsyncedStudentsByClassroomListing = () => {
     const { teacherIdentifier } = this.state
 
-    request.get({
-      url: `${process.env.DEFAULT_URL}/teacher_fix/list_unsynced_students_by_classroom`,
-      qs: {teacher_identifier: teacherIdentifier }
-    },
-    (_error, _response, body) => {
-      const parsedResponse = JSON.parse(body)
+    requestGet(
+      `${process.env.DEFAULT_URL}/teacher_fix/list_unsynced_students_by_classroom?teacher_identifier=${teacherIdentifier}`,
+      (body) => {
+        const parsedResponse = JSON.parse(body)
 
-      if (parsedResponse.error) {
-        this.setState({error: parsedResponse.error})
-      } else if (parsedResponse.unsynced_students_by_classroom) {
-        this.setState({error: null, unsyncedStudentsByClassroom: parsedResponse.unsynced_students_by_classroom})
+        if (parsedResponse.unsynced_students_by_classroom) {
+          this.setState({error: null, unsyncedStudentsByClassroom: parsedResponse.unsynced_students_by_classroom})
+        }
+      },
+      (body) => {
+        const parsedResponse = JSON.parse(body)
+
+        if (parsedResponse.error) {
+          this.setState({error: parsedResponse.error})
+        }
       }
-    });
+    )
   }
 
   handleUnsyncedStudentsRemoval = () => {
     const { teacherIdentifier } = this.state
 
-    request.post({
-      url: `${process.env.DEFAULT_URL}/teacher_fix/remove_unsynced_students`,
-      json: {teacher_identifier: teacherIdentifier, authenticity_token: getAuthToken()}
-    },
-    (_error, response, _body) => {
-      if (response.statusCode === 200) {
+    requestPost(
+      `${process.env.DEFAULT_URL}/teacher_fix/remove_unsynced_students`,
+      { teacher_identifier: teacherIdentifier, },
+      (body) => {
         this.setState({ teacherIdentifier: '', unsyncedStudentsByClassroom: null, error: null})
         window.alert('All unsynced students have been removed from their classrooms')
       }
-    })
+    )
   }
 
   handleTeacherIdentifierUpdate = (e) => {

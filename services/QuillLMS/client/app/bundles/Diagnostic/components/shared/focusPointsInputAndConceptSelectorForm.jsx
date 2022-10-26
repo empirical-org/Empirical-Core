@@ -6,6 +6,7 @@ import { EditorState, ContentState } from 'draft-js'
 
 import ConceptSelectorWithCheckbox from './conceptSelectorWithCheckbox.jsx';
 import ResponseComponent from '../questions/responseComponent'
+import { requestPost, } from '../../../../modules/request/index'
 
 export default class FocusPointsInputAndConceptResultSelectorForm extends React.Component {
   constructor(props) {
@@ -29,16 +30,13 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
   getNewAffectedCount = () => {
     const qid = this.props.questionID
     const newSeqs = this.state.itemText.split(/\|{3}(?!\|)/)
-    request(
-      {
-        url: `${process.env.QUILL_CMS}/responses/${qid}/focus_point_affected_count`,
-        method: 'POST',
-        json: {data: {selected_sequences: newSeqs}},
-      },
-      (err, httpResponse, data) => {
-        this.setState({matchedCount: data.matchedCount})
+    requestPost(
+      `${process.env.QUILL_CMS}/responses/${qid}/focus_point_affected_count`,
+      {data: {selected_sequences: newSeqs}},
+      (body) => {
+        this.setState({matchedCount: body.matchedCount})
       }
-    );
+    )
   };
 
   handleNameChange = e => {

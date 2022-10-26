@@ -1,12 +1,13 @@
 import _ from 'lodash';
 import React from 'react';
-import ScorebookTooltip from '../modules/componentGenerators/tooltip_title/scorebook_tooltip_title';
 import $ from 'jquery';
-import request from 'request';
+
+import ScorebookTooltip from '../modules/componentGenerators/tooltip_title/scorebook_tooltip_title';
 import gradeColor from '../modules/grade_color.js';
 import { nonRelevantActivityClassificationIds, } from '../../../../modules/activity_classifications'
 import activityFromClassificationId from '../modules/activity_from_classification_id.js';
 import { scheduledIcon, } from '../../../Shared/index'
+import { requestGet, } from '../../../../modules/request/index'
 
 export default class ActivityIconWithTooltip extends React.Component {
   constructor(props) {
@@ -31,12 +32,13 @@ export default class ActivityIconWithTooltip extends React.Component {
 
   getConceptResultInfo() {
     const that = this;
-    request.get({
-      url: `${process.env.DEFAULT_URL}/grades/tooltip/classroom_unit_id/${this.props.data.cuId}/user_id/${this.props.data.userId}/activity_id/${this.activityId()}/completed/${!!this.props.data.completed_attempts}`,
-    }, (error, httpStatus, body) => {
-      const parsedBody = JSON.parse(body);
-      that.loadTooltipTitle(parsedBody);
-    });
+    requestGet(
+      `${process.env.DEFAULT_URL}/grades/tooltip/classroom_unit_id/${this.props.data.cuId}/user_id/${this.props.data.userId}/activity_id/${this.activityId()}/completed/${!!this.props.data.completed_attempts}`,
+      (body) => {
+        const parsedBody = JSON.parse(body);
+        that.loadTooltipTitle(parsedBody);
+      }
+    );
   }
 
   activityId = () => {
