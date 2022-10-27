@@ -1,6 +1,6 @@
 import React from 'react';
 import NewSignUpBanner from './new_signup_banner.jsx';
-import { requestPost } from '../../../../../modules/request/index';
+import { requestPost } from '../../../../../modules/request/index.js';
 
 
 export default class FreeTrialBanner extends React.Component {

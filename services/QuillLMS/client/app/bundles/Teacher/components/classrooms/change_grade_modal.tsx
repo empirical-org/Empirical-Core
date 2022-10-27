@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 import GradeOptions from './grade_options'
-import { requestPut } from '../../../../modules/request/index';
+import { requestPut } from '../../../../modules/request/index.js';
 import { DropdownInput } from '../../../Shared/index'
 
 interface ChangeGradeModalProps {

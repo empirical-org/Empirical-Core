@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 import { TextArea } from '../../Shared/index'
-import { requestPost } from '../../../modules/request/index';
+import { requestPost } from '../../../modules/request/index.js';
 
 const StudentFeedbackModal = ({ question, gradeLevels, }) => {
   const [response, setResponse] = React.useState('')

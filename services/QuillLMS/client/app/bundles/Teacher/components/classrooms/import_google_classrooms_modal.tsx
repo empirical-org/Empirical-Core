@@ -6,7 +6,7 @@ import GradeOptions from './grade_options'
 
 import { DropdownInput, DataTable } from '../../../Shared/index'
 import ButtonLoadingIndicator from '../shared/button_loading_indicator'
-import { requestPost, requestPut } from '../../../../modules/request/index';
+import { requestPost, requestPut } from '../../../../modules/request/index.js';
 
 interface ImportGoogleClassroomsModalProps {
   close: (event) => void;
