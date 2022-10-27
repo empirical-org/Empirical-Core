@@ -676,10 +676,9 @@ class User < ApplicationRecord
     end
   end
 
-  def self.duplicate_empty_student_accounts(id, email)
-    return none unless exists?(id: id)
-
-    student
+  def duplicate_empty_student_accounts
+    User
+      .student
       .where(email: email)
       .where.not(id: id)
       .where.missing(:activity_sessions, :students_classrooms)

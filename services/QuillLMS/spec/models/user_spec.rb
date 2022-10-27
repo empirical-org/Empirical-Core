@@ -1478,13 +1478,18 @@ describe User, type: :model do
     end
   end
 
-  describe '.duplicate_empty_student_accounts' do
-    subject { described_class.duplicate_empty_student_accounts(id, email) }
+  describe '#duplicate_empty_student_accounts' do
+    subject { student.duplicate_empty_student_accounts }
 
     let(:student) { create(:student) }
     let(:id) { student.id }
     let(:email) { student.email }
-    let(:duplicate) { create(:student) }
+
+    let(:duplicate) do
+      s = build(:student, email: student.email)
+      s.save(validate: false)
+      s
+    end
 
     context 'nil id' do
       let(:id) { nil }
@@ -1500,7 +1505,6 @@ describe User, type: :model do
 
     context 'duplicates exist' do
       let(:student_ids) { [student.id, duplicate.id] }
-      let(:email) { [student.email, duplicate.email] } # HACK: using array obviates the email uniqueness constraint
 
       it { expect(subject).to eq [duplicate] }
 
