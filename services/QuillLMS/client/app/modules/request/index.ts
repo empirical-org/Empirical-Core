@@ -1,7 +1,7 @@
 // A lightweight convenience wrapper for the fetch to handle security credentials.
 // This is just to centralize some of the common boilerplate for reuse.
 
-async function handleFetch(url: string, method: string, success: Function, error: Function, payload?: object): Promise<any> {
+async function handleFetch({ url, method, success, error, payload, }: {url: string, method: string, success?: Function, error?: Function, payload?: object}): Promise<any> {
   let options = {
     method: method,
     cors: 'cors',
@@ -20,19 +20,28 @@ async function handleFetch(url: string, method: string, success: Function, error
 
   if (response.status === 303 && jsonResponse.redirect) {
     window.location.href = jsonResponse.redirect
-  } else if (response.ok) {
+  } else if (response.ok && success) {
     success(jsonResponse)
-  } else {
+  } else if (!response.ok && error) {
     error(jsonResponse)
+  } else {
+    const contentType = String(response.headers.get('content-type'))
+    if (contentType.startsWith('application/json;')) {
+      return jsonResponse
+    }
+    const textResponse = await response.text()
+    return textResponse
   }
 }
 
+// Build a fully-qualified URL if we're only passed a path
 function fullyQualifiedUrl(url) {
-  // Build a fully-qualified URL if we're only passed a path
-  if (!url.includes(process.env.DEFAULT_URL)) {
-    return `${process.env.DEFAULT_URL}${url}`;
+  // solution from here: https://stackoverflow.com/questions/10687099/how-to-test-if-a-url-string-is-absolute-or-relative
+  const fullUrlTest = new RegExp('^(?:[a-z+]+:)?//', 'i');
+  if (fullUrlTest.test(url)) {
+    return url;
   }
-  return url;
+  return `${process.env.DEFAULT_URL}${url}`;
 }
 
 function addCsrfHeaders(headers = {}) {
@@ -44,20 +53,20 @@ function addCsrfHeaders(headers = {}) {
   return headers;
 }
 
-function requestGet(url, success, error) {
-  return handleFetch(url, 'get', success, error)
+function requestGet(url: string, success?: Function, error?: Function) {
+  return handleFetch({ url, method: 'get', success, error})
 }
 
-function requestPost(url, data, success, error) {
-  return handleFetch(url, 'post', success, error, data)
+function requestPost(url: string, payload: any, success?: Function, error?: Function) {
+  return handleFetch({ url, method: 'post', success, error, payload, })
 }
 
-function requestPut(url, data, success, error) {
-  return handleFetch(url, 'put', success, error, data)
+function requestPut(url: string, payload: any, success?: Function, error?: Function) {
+  return handleFetch({ url, method: 'put', success, error, payload, })
 }
 
-function requestDelete(url, data, success, error) {
-  return handleFetch(url, 'delete', success, error, data)
+function requestDelete(url: string, payload?: any, success?: Function, error?: Function) {
+  return handleFetch({ url, method: 'delete', success, error, payload, })
 }
 
 export {

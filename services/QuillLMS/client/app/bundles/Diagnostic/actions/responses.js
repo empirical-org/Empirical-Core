@@ -1,7 +1,7 @@
 /* eslint-env browser*/
 import _ from 'underscore';
 import request from 'request';
-import { requestGet } from '../libs/request';
+import { requestGet } from '../../../modules/request/index';
 import objectWithSnakeKeysFromCamel from '../libs/objectWithSnakeKeysFromCamel';
 
 const C = require('../constants').default;
