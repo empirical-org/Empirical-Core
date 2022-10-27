@@ -7,23 +7,23 @@ const conceptFeedbackApiBaseUrl = `${process.env.DEFAULT_URL}/api/v1/activity_ty
 
 class ConceptFeedbackApi {
   static getAll(): Promise<ConceptFeedbackCollection> {
-    return requestGet(`${conceptFeedbackApiBaseUrl}.json`);
+    return requestGet(`${conceptFeedbackApiBaseUrl}.json`, null, (error) => {throw(error)});
   }
 
   static get(uid: string): Promise<ConceptFeedback> {
-    return requestGet(`${conceptFeedbackApiBaseUrl}/${uid}.json`);
+    return requestGet(`${conceptFeedbackApiBaseUrl}/${uid}.json`, null, (error) => {throw(error)});
   }
 
   static create(data: ConceptFeedback): Promise<ConceptFeedback> {
-    return requestPost(`${conceptFeedbackApiBaseUrl}.json`, {concept_feedback: data});
+    return requestPost(`${conceptFeedbackApiBaseUrl}.json`, {concept_feedback: data}, null, (error) => {throw(error)});
   }
 
   static update(uid: string, data: ConceptFeedback): Promise<ConceptFeedback> {
-    return requestPut(`${conceptFeedbackApiBaseUrl}/${uid}.json`, {concept_feedback: data});
+    return requestPut(`${conceptFeedbackApiBaseUrl}/${uid}.json`, {concept_feedback: data}, null, (error) => {throw(error)});
   }
 
   static remove(uid: string): Promise<string> {
-    return requestDelete(`${conceptFeedbackApiBaseUrl}/${uid}.json`);
+    return requestDelete(`${conceptFeedbackApiBaseUrl}/${uid}.json`, null, null, (error) => {throw(error)});
   }
 }
 
