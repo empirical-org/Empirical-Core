@@ -25,13 +25,13 @@ export default class ClassroomLessons extends React.Component {
 
   getAllLessons = () => {
     requestGet(`${process.env.DEFAULT_URL}/teachers/lesson_units`, (body) => {
-      this.setState({ allLessons: JSON.parse(body), }, () => this.getLessonsForCurrentClass());
+      this.setState({ allLessons: body, }, () => this.getLessonsForCurrentClass());
     });
   }
 
   getClassrooms = (classroomId) => {
     requestGet(`${process.env.DEFAULT_URL}/teachers/classrooms_i_teach_with_lessons`, (body) => {
-      const classrooms = JSON.parse(body).classrooms;
+      const classrooms = body.classrooms;
       if (classrooms.length > 0) {
         const localStorageSelectedClassroomId = Number(window.localStorage.getItem(PROGRESS_REPORTS_SELECTED_CLASSROOM_ID))
         const classroomFromLocalStorageClassroomId = classrooms.find(c => Number(c.id) === localStorageSelectedClassroomId)

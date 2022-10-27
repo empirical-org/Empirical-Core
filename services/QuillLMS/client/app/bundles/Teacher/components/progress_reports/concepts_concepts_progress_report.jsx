@@ -22,12 +22,11 @@ export default class IndividualStudentConceptReport extends React.Component {
     requestGet(
       `${process.env.DEFAULT_URL}/${this.props.sourceUrl}`,
       (body) => {
-        const data = JSON.parse(body)
         this.setState({
           loading: false,
           errors: body.errors,
-          reportData: data.concepts,
-          studentName: data.student.name
+          reportData: body.concepts,
+          studentName: body.student.name
         });
       }
     )

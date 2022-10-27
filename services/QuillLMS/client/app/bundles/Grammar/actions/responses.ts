@@ -205,7 +205,7 @@ export function getGradedResponsesWithoutCallback(questionID) {
     `${process.env.QUILL_CMS}/questions/${questionID}/responses`,
     (body) => {
       const bodyToObj = {};
-      JSON.parse(body).forEach((resp) => {
+      body.forEach((resp) => {
         bodyToObj[resp.id] = resp;
         if (typeof resp.concept_results === 'string') {
           resp.concept_results = JSON.parse(resp.concept_results);

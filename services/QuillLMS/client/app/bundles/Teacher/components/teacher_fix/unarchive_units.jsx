@@ -20,15 +20,13 @@ export default class UnarchiveUnits extends React.Component {
     requestGet(
       `${process.env.DEFAULT_URL}/teacher_fix/archived_units?teacher_identifier=${that.state.teacherIdentifier}`,
       (body) => {
-        const parsedResponse = JSON.parse(body)
-        if (parsedResponse.archived_units) {
-          that.setState({ archivedUnits: parsedResponse.archived_units, selectedUnitIds: parsedResponse.archived_units.map(u => u.id)});
+        if (body.archived_units) {
+          that.setState({ archivedUnits: body.archived_units, selectedUnitIds: body.archived_units.map(u => u.id)});
         }
       },
       (body) => {
-        const parsedResponse = JSON.parse(body)
-        if (parsedResponse.error) {
-          that.setState({error: parsedResponse.error})
+        if (body.error) {
+          that.setState({error: body.error})
         }
       }
     )

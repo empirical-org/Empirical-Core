@@ -30,8 +30,7 @@ export class ActivitiesScoresByClassroomProgressReport extends React.Component {
     requestGet(
       `${process.env.DEFAULT_URL}/api/v1/progress_reports/activities_scores_by_classroom_data`,
       (body) => {
-        const data = JSON.parse(body).data
-        const classroomsData = data;
+        const classroomsData = body.data;
         // gets unique classroom names
         const classroomNames = Array.from(new Set(classroomsData.map(row => row.classroom_name)))
         classroomNames.unshift(showAllClassroomKey)

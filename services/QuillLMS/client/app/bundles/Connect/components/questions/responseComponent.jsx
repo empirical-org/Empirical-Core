@@ -121,7 +121,7 @@ class ResponseComponent extends React.Component {
       `${process.env.QUILL_CMS}/questions/${this.props.questionID}/grade_breakdown`,
       (body) => {
         this.setState({
-          gradeBreakdown: JSON.parse(body),
+          gradeBreakdown: body,
         });
       }
     )
@@ -132,7 +132,7 @@ class ResponseComponent extends React.Component {
       `${process.env.QUILL_CMS}/questions/${this.props.questionID}/health`,
       (body) => {
         this.setState({
-          health: JSON.parse(body),
+          health: body,
         });
       }
     )

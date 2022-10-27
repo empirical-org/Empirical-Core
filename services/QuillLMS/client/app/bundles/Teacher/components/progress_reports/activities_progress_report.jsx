@@ -53,9 +53,7 @@ export default createReactClass({
     this.setState({ loadingNewTableData: true });
     requestGet(
       queryString.stringifyUrl({ url: `${process.env.DEFAULT_URL}/teachers/progress_reports/activity_sessions.json`, query: this.requestParams()}),
-      (body) => {
-        const data = JSON.parse(body);
-
+      (data) => {
         const classroomFilters = this.getFilterOptions(data.classrooms, 'name', 'id', 'All classes')
         const studentFilters = this.getFilterOptions(data.students, 'name', 'id', 'All students')
         const unitFilters = this.getFilterOptions(data.units, 'name', 'id', 'All activity packs')

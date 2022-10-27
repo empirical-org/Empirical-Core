@@ -58,8 +58,7 @@ export const UnitTemplates = () => {
       UNIT_TEMPLATES_URL,
       (body) => {
         setError(null);
-        const data = JSON.parse(body);
-        setDiagnostics(data.unit_templates)
+        setDiagnostics(body.unit_templates)
       },
       (body) => {
         setLoadingTableData(false);
@@ -73,8 +72,7 @@ export const UnitTemplates = () => {
       DIAGNOSTICS_URL,
       (body) => {
         setError(null);
-        const data = JSON.parse(body);
-        setDiagnostics(data.diagnostics)
+        setDiagnostics(body.diagnostics)
       },
       (body) => {
         setLoadingTableData(false);

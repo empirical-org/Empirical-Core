@@ -45,8 +45,7 @@ export const UnitTemplateActivitySelector = ({ parentActivities, setParentActivi
   function getActivities() {
     requestGet(
       ACTIVITIES_URL,
-      (body) => {
-        const data = JSON.parse(body);
+      (data) => {
         setLoading(false)
         setActivities(data.activities);
 

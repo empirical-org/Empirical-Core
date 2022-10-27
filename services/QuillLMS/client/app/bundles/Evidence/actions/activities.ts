@@ -15,9 +15,8 @@ export const getActivity = (sessionID: string, activityUID: string) => {
     const activityUrl = `${process.env.DEFAULT_URL}/api/v1/evidence/activities/${activityUID}`
 
     await requestGet(activityUrl, (body) => {
-      const activity = JSON.parse(body)
-      if (activity) {
-        dispatch({ type: ActionTypes.RECEIVE_ACTIVITY_DATA, data: activity, });
+      if (body) {
+        dispatch({ type: ActionTypes.RECEIVE_ACTIVITY_DATA, data: body, });
       } else {
         dispatch({ type: ActionTypes.NO_ACTIVITY_FOUND })
       }

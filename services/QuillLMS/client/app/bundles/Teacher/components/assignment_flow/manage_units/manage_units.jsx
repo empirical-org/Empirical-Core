@@ -43,7 +43,7 @@ export default class ManageUnits extends React.Component {
     requestGet(
       `${process.env.DEFAULT_URL}/teachers/classrooms/classrooms_i_teach`,
       (body) => {
-        const classrooms = JSON.parse(body).classrooms;
+        const classrooms = body.classrooms;
         const localStorageSelectedClassroomId = window.localStorage.getItem(PROGRESS_REPORTS_SELECTED_CLASSROOM_ID)
         const classroomFromLocalStorageClassroomId = classrooms.find(c => Number(c.id) === Number(localStorageSelectedClassroomId))
         if ((!selectedClassroomId || selectedClassroomId === allClassroomKey) && classroomFromLocalStorageClassroomId) {
@@ -90,7 +90,7 @@ export default class ManageUnits extends React.Component {
 
   getUnits = () => {
     requestGet(`${process.env.DEFAULT_URL}/teachers/units`, (body) => {
-      this.setAllUnits(JSON.parse(body));
+      this.setAllUnits(body);
     });
   };
 

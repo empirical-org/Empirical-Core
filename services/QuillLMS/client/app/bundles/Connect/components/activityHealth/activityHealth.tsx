@@ -288,10 +288,9 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
     requestGet(
       ACTIVITY_HEALTHS_URL,
       (body) => {
-        const data = JSON.parse(body);
         this.setState({
           loadingTableData: false,
-          fetchedData: data.activities_health
+          fetchedData: body.activities_health
         })
       },
       (body) => {

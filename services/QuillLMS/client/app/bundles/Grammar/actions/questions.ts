@@ -1,4 +1,3 @@
-import * as request from 'request'
 import Pusher from 'pusher-js';
 import { push } from 'react-router-redux';
 import { ActionTypes } from './actionTypes'
@@ -12,6 +11,7 @@ import {
   QuestionApi,
   GRAMMAR_QUESTION_TYPE
 } from '../libs/questions_api'
+import { requestGet, requestPost, } from '../../../modules/request/index'
 
 export const startListeningToQuestions = (sessionID) => {
   return (dispatch: Function) => {
@@ -38,12 +38,9 @@ export const getQuestion = (questionID: string) => {
 }
 
 export const getGradedResponsesWithCallback = (questionID: string, callback: Function) => {
-  request(`${process.env.QUILL_CMS}/questions/${questionID}/responses`, (error, response, body) => {
-    if (error) {
-      // to do - do something with this error
-    }
+  requestGet(`${process.env.QUILL_CMS}/questions/${questionID}/responses`, (body) => {
     const bodyToObj: {[key: string]: Response} = {};
-    JSON.parse(body).forEach((resp: Response) => {
+    body.forEach((resp: Response) => {
       bodyToObj[resp.id] = resp;
       if (typeof resp.concept_results === 'string') {
         resp.concept_results = JSON.parse(resp.concept_results);
@@ -83,13 +80,10 @@ export const searchResponses = (qid: string) => {
   return (dispatch: Function, getState: Function) => {
     const requestNumber = getState().filters.requestCount
     // check for request number in state, save as const
-    request(
-      {
-        url: `${process.env.QUILL_CMS}/questions/${qid}/responses/search`,
-        method: 'POST',
-        json: { search: getFormattedSearchData(getState()), },
-      },
-      (err, httpResponse, data) => {
+    requestPost(
+      `${process.env.QUILL_CMS}/questions/${qid}/responses/search`,
+      { search: getFormattedSearchData(getState()), },
+      (data) => {
         // check again for number in state
         // if equal to const set earlier, update the state
         // otherwise, do nothing

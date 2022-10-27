@@ -18,16 +18,15 @@ function getParentName(concept, concepts) {
 const actions = {
   startListeningToConcepts() {
     return (dispatch) => {
-      request(conceptsEndpoint, (error, response, body) => {
-        if (!error && response.statusCode === 200) {
-          const concepts = splitInLevels(JSON.parse(body).concepts);
-          concepts['0'] = concepts['0'].map((concept) => {
-            concept.displayName = `${getParentName(concept, concepts)} | ${concept.name}`;
-            return concept;
-          });
-          dispatch({ type: C.RECEIVE_CONCEPTS_DATA, data: concepts, });
-        }
+      requestGet(conceptsEndpoint, (body) => {
+        const concepts = splitInLevels(body.concepts);
+        concepts['0'] = concepts['0'].map((concept) => {
+          concept.displayName = `${getParentName(concept, concepts)} | ${concept.name}`;
+          return concept;
+        });
+        dispatch({ type: C.RECEIVE_CONCEPTS_DATA, data: concepts, });
       });
+
     };
   },
 };
