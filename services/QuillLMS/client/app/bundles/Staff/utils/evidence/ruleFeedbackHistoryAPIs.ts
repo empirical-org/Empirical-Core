@@ -1,4 +1,4 @@
-import { handleApiError, mainApiFetch, getRuleFeedbackHistoriesUrl, getRuleFeedbackHistoryUrl, getActivityStatsUrl, getOverallActivityStatsUrl } from '../../helpers/evidence/routingHelpers';
+import { handleApiError, mainApiFetch, getRuleFeedbackHistoriesUrl, getRuleFeedbackHistoryUrl, getActivityStatsUrl, getActivityHealthUrl } from '../../helpers/evidence/routingHelpers';
 
 export const fetchRuleFeedbackHistories = async ({ queryKey, }) => {
   const [key, activityId, selectedConjunction, startDate, endDate, turkSessionID]: [string, string, string, string?, string?, string?] = queryKey
@@ -37,14 +37,14 @@ export const fetchPromptHealth = async ({ queryKey, }) => {
   };
 }
 
-export const fetchOverallStats = async({queryKey, }) => {
+export const fetchActivityHealth = async({queryKey, }) => {
   const [key, activityId, ]: [string, string, ] = queryKey
 
-  const url = getOverallActivityStatsUrl({ activityId, });
+  const url = getActivityHealthUrl({ activityId, });
   const response = await mainApiFetch(url);
-  const overallStats = await response.json();
+  const activityHealth = await response.json();
   return {
     error: handleApiError('Failed to fetch overall activity stats, please refresh the page.', response),
-    stats: overallStats
+    activity: activityHealth
   };
 }

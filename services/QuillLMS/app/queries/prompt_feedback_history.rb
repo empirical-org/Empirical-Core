@@ -54,7 +54,7 @@ class PromptFeedbackHistory
       payload['num_sessions_with_non_consecutive_repeated_rule'] = result.num_sessions_non_consecutive_repeated
       payload['avg_attempts'] = payload['avg_attempts']&.round(2)&.to_f || 0
       payload['confidence'] = payload['confidence'] ? payload['confidence'].round(2) * 100 : 0
-      payload['time_spent'] = Utils::Numeric.seconds_to_human_readable_time(payload['time_spent'])
+      payload['time_spent'] = payload['time_spent'] ? Utils::Numeric.seconds_to_human_readable_time(payload['time_spent']) : 0
       payload
     end
     serialized_rows.map{ |row| [row['prompt_id'], row] }.to_h

@@ -7,7 +7,7 @@ import * as _ from 'lodash'
 import FilterWidget from "../shared/filterWidget";
 import { ActivityRouteProps, PromptHealthInterface, InputEvent } from '../../../interfaces/evidenceInterfaces';
 import { fetchActivity } from '../../../utils/evidence/activityAPIs';
-import { fetchOverallStats, fetchPromptHealth } from '../../../utils/evidence/ruleFeedbackHistoryAPIs';
+import { fetchActivityHealth, fetchPromptHealth } from '../../../utils/evidence/ruleFeedbackHistoryAPIs';
 import { Spinner, ReactTable, } from '../../../../Shared/index';
 import { handlePageFilterClick } from '../../../helpers/evidence/miscHelpers';
 import { renderHeader } from '../../../helpers/evidence/renderHelpers';
@@ -33,9 +33,9 @@ const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
   const [turkSessionIDForQuery, setTurkSessionIDForQuery] = React.useState<string>(initialTurkSessionId);
 
   // get cached activity data to pass to rule
-  const { data: overallStatsData } = useQuery({
+  const { data: activityHealthData } = useQuery({
     queryKey: [`activity-${activityId}`, activityId],
-    queryFn: fetchOverallStats
+    queryFn: fetchActivityHealth
   });
 
   // get cached activity data to pass to rule
@@ -163,10 +163,10 @@ const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
     return <Spinner />
   }
 
-  const overallStats = (
+  const activityHealth = (
     <div>
-      <p><strong>Average Time Spent: </strong>{overallStatsData && overallStatsData.stats ? overallStatsData.stats.average_time_spent : "Loading..."}</p>
-      <p><strong>Average Completion Rate: </strong> {overallStatsData && overallStatsData.stats ? overallStatsData.stats.average_completion_rate : "Loading..."}</p>
+      <p><strong>Average Time Spent: </strong>{activityHealthData && activityHealthData.activity ? activityHealthData.activity.average_time_spent : "Loading..."}</p>
+      <p><strong>Average Completion Rate: </strong> {activityHealthData && activityHealthData.activity ? `${activityHealthData.activity.average_completion_rate}%` : "Loading..."}</p>
     </div>
   )
 
@@ -183,7 +183,7 @@ const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
         startDate={startDate}
         turkSessionID={turkSessionID}
       />
-      {overallStats}
+      {activityHealth}
       {formattedRows && (<ReactTable
         className="activity-stats-table"
         columns={dataTableFields}

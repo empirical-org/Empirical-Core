@@ -60,8 +60,8 @@ export const getActivityStatsUrl = ({ activityId, startDate, endDate, turkSessio
   return url;
 };
 
-export const getOverallActivityStatsUrl = ({ activityId }) => {
-  return `overall_stats?activity_id=${activityId}`;
+export const getActivityHealthUrl = ({ activityId }) => {
+  return `activity_health?activity_id=${activityId}`;
 }
 
 // not a 2xx status

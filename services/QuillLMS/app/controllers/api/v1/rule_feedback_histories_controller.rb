@@ -25,11 +25,11 @@ class Api::V1::RuleFeedbackHistoriesController < Api::ApiController
     render json: report
   end
 
-  def overall_stats
+  def activity_health
     raise ArgumentError unless params.include?('activity_id')
 
     options = params.permit(:activity_id).to_h.symbolize_keys
-    report = ActivityFeedbackHistory.run(options)
+    report = ActivityFeedbackHistory.run(**options)
     render json: report
   end
 end
