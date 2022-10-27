@@ -27,8 +27,7 @@ export default class UnitTemplateAssigned extends React.Component {
     requestGet(
       `${process.env.DEFAULT_URL}/teachers/classrooms_i_teach_with_students`,
       (body) => {
-        const parsedBody = JSON.parse(body)
-        const studentsPresent = this.anyClassroomsWithStudents(parsedBody.classrooms)
+        const studentsPresent = this.anyClassroomsWithStudents(body.classrooms)
         this.setState({ studentsPresent, loading: false, })
       }
     )
@@ -36,16 +35,14 @@ export default class UnitTemplateAssigned extends React.Component {
     requestGet(
       `${process.env.DEFAULT_URL}/teachers/last_assigned_unit_id`,
       (body) => {
-        const parsedBody = JSON.parse(body)
-        this.setState({ lastUnitId: parsedBody.id, referralCode: parsedBody.referral_code, loading: false, })
+        this.setState({ lastUnitId: body.id, referralCode: body.referral_code, loading: false, })
       }
     )
 
     requestGet(
       `${process.env.DEFAULT_URL}/teachers/unit_templates/assigned_info?id=${this.props.match.params.activityPackId}`,
       (body) => {
-        const parsedBody = JSON.parse(body)
-        this.setState({ data: parsedBody })
+        this.setState({ data: body })
       }
     )
   }

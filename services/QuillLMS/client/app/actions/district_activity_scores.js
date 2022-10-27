@@ -36,11 +36,10 @@ export const getDistrictActivityScores = () => {
     requestGet(
       `${process.env.DEFAULT_URL}/api/v1/progress_reports/district_activity_scores`,
       (body) => {
-        const parsedBody = JSON.parse(body)
-        if (parsedBody.id) {
-          dispatch(initializePusherForDistrictActivityScores(String(parsedBody.id)))
+        if (body.id) {
+          dispatch(initializePusherForDistrictActivityScores(String(body.id)))
         } else {
-          dispatch(receiveDistrictActivityScores(parsedBody))
+          dispatch(receiveDistrictActivityScores(body))
         }
       }
     );

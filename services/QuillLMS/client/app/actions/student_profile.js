@@ -10,8 +10,7 @@ export const fetchStudentProfile = (classroomId) => {
     requestGet(
       `${process.env.DEFAULT_URL}/student_profile_data?current_classroom_id=${classroomId}`,
       (body) => {
-        const parsedBody = JSON.parse(body)
-        dispatch(receiveStudentProfile(parsedBody))
+        dispatch(receiveStudentProfile(body))
       }
     );
   };
@@ -43,8 +42,7 @@ export const fetchStudentsClassrooms = () => {
     requestGet(
       `${process.env.DEFAULT_URL}/students_classrooms_json`,
       (body) => {
-        const parsedBody = JSON.parse(body)
-        dispatch(receiveStudentsClassrooms(parsedBody.classrooms))
+        dispatch(receiveStudentsClassrooms(body.classrooms))
       }
     );
   };
