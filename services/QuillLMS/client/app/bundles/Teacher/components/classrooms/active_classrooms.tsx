@@ -23,7 +23,7 @@ import ButtonLoadingIndicator from '../shared/button_loading_indicator'
 import BulkArchiveClassesBanner from '../shared/bulk_archive_classes_banner'
 import ViewAsStudentModal from '../shared/view_as_student_modal'
 import { Snackbar, defaultSnackbarTimeout, SortableList } from '../../../Shared/index'
-import { requestGet, requestPut } from '../../../../modules/request/index';
+import { requestGet, requestPut } from '../../../../modules/request/index.js';
 
 const bookEmptySrc = `${process.env.CDN_URL}/images/illustrations/book-empty.svg`
 const cleverIconSrc = `${process.env.CDN_URL}/images/icons/clever.svg`

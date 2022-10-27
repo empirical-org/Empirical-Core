@@ -11,7 +11,7 @@ import {
   PUBLISH_DATE_DEFAULT_TEXT,
   INVALID_DATES_SNACKBAR_COPY,
 } from '../../../helpers/unitActivityDates'
-import { requestPut } from '../../../../../modules/request/index';
+import { requestPut } from '../../../../../modules/request/index.js';
 import { DataTable, Tooltip, publishedIcon, scheduledIcon, Snackbar, defaultSnackbarTimeout, } from '../../../../Shared/index'
 import useSnackbarMonitor from '../../../../Shared/hooks/useSnackbarMonitor'
 import { getIconForActivityClassification } from '../../../../Shared/libs';
