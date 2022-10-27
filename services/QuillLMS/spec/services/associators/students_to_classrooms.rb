@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe Associators::StudentsToClassrooms do
-  let(:subject) { described_class }
+  subject { described_class }
 
   let!(:user) { create(:user, role: User::STUDENT) }
   let!(:classroom) { create(:classroom) }
