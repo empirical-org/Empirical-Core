@@ -1,7 +1,7 @@
 import * as React from 'react'
 import GradeOptions from './grade_options'
 import { Input, DropdownInput, } from '../../../Shared/index'
-import { requestGet, requestPost } from '../../../../modules/request/index';
+import { requestGet, requestPost } from '../../../../modules/request/index.js';
 
 interface CreateAClassFormProps {
   next: Function;

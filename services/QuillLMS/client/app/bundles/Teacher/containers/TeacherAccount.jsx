@@ -1,4 +1,5 @@
 import React from 'react';
+import request from 'request';
 
 import { Snackbar, defaultSnackbarTimeout } from '../../Shared/index'
 import TeacherGeneralAccountInfo from '../components/accounts/edit/teacher_general'
@@ -7,7 +8,6 @@ import TeacherLinkedAccounts from '../components/accounts/edit/teacher_linked_ac
 import TeacherEmailNotifications from '../components/accounts/edit/teacher_email_notifications'
 import TeacherDangerZone from '../components/accounts/edit/teacher_danger_zone'
 import getAuthToken from '../components/modules/get_auth_token'
-import { requestPut, requestPost, } from '../../../modules/request/index';
 
 export default class TeacherAccount extends React.Component {
   constructor(props) {
@@ -69,11 +69,12 @@ export default class TeacherAccount extends React.Component {
     const { accountInfo } = this.props
     const { id, } = accountInfo
 
-    requestPost(
-      `${process.env.DEFAULT_URL}/teachers/clear_data/${id}`,
-      { authenticity_token: getAuthToken(), },
-      () => window.location.href = window.location.origin
-    )
+    request.post({
+      url: `${process.env.DEFAULT_URL}/teachers/clear_data/${id}`,
+      json: { authenticity_token: getAuthToken(), },
+    }, () => {
+      window.location.href = window.location.origin;
+    })
   };
 
   showSnackbar = () => {
@@ -84,10 +85,11 @@ export default class TeacherAccount extends React.Component {
 
   updateUser = (data, url, snackbarCopy) => {
     const { timesSubmitted, } = this.state
-    requestPut(
-      `${process.env.DEFAULT_URL}${url}`,
-      { ...data, authenticity_token: getAuthToken(), },
-      (body) => {
+    request.put({
+      url: `${process.env.DEFAULT_URL}${url}`,
+      json: { ...data, authenticity_token: getAuthToken(), },
+    }, (error, httpStatus, body) => {
+      if (httpStatus && httpStatus.statusCode === 200) {
         const {
           name,
           email,
@@ -113,11 +115,10 @@ export default class TeacherAccount extends React.Component {
           this.showSnackbar()
           this.setState({ activeSection: null, })
         })
-      },
-      (body) => {
+      } else if (body.errors) {
         this.setState({ errors: body.errors, timesSubmitted: timesSubmitted + 1, })
       }
-    )
+    });
   };
 
   renderSnackbar = () => {
