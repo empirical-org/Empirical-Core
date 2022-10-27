@@ -87,21 +87,21 @@ class TeacherFixController < ApplicationController
 
   # rubocop:disable Metrics/CyclomaticComplexity
   def merge_student_accounts
-    primary_account = User.find_by_username_or_email(params['account1_identifier'])
-    secondary_account = User.find_by_username_or_email(params['account2_identifier'])
+    primary_account = User.find_by_username_or_email(params['destination_student_identifier'])
+    secondary_account = User.find_by_username_or_email(params['source_student_identifier'])
     if primary_account && secondary_account
       if primary_account.role == 'student' && secondary_account.role == 'student'
         if primary_account.merge_student_account(secondary_account)
           render json: {}, status: 200
         else
-          render json: {error: "#{params['account2_identifier']} is in at least one class that #{params['account1_identifier']} is not in, so we can't merge them."}
+          render json: {error: "#{params['source_student_identifier']} is in at least one class that #{params['destination_student_identifier']} is not in, so we can't merge them."}
         end
       else
-        nonstudent_account_identifier = primary_account.role == 'student' ? params['account2_identifier'] : params['account1_identifier']
+        nonstudent_account_identifier = primary_account.role == 'student' ? params['source_student_identifier'] : params['destination_student_identifier']
         render json: {error: "#{nonstudent_account_identifier} is not a student."}
       end
     else
-      missing_account_identifier = primary_account ? params['account2_identifier'] : params['account1_identifier']
+      missing_account_identifier = primary_account ? params['source_student_identifier'] : params['destination_student_identifier']
       render json: {error: "We do not have an account for #{missing_account_identifier}"}
     end
   end
