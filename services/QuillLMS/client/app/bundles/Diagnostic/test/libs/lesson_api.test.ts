@@ -26,7 +26,7 @@ describe('LessonApi calls', () => {
       const MOCK_LESSON_TYPE = 'TYPE';
       const url = `${lessonApiBaseUrl}.json?lesson_type=${MOCK_LESSON_TYPE}`
       LessonApi.getAll(MOCK_LESSON_TYPE)
-      expect(mockRequestGet).toHaveBeenLastCalledWith(url)
+      expect(mockRequestGet).toHaveBeenLastCalledWith(url, null, expect.any())
     })
   })
 
@@ -36,7 +36,7 @@ describe('LessonApi calls', () => {
       const MOCK_ID = 'id'
       const url = `${lessonApiBaseUrl}/${MOCK_ID}.json`
       LessonApi.get(MOCK_LESSON_TYPE, MOCK_ID)
-      expect(mockRequestGet).toHaveBeenLastCalledWith(url)
+      expect(mockRequestGet).toHaveBeenLastCalledWith(url, null, expect.any())
     })
   })
 
@@ -71,7 +71,7 @@ describe('LessonApi calls', () => {
       const MOCK_QUESTION_ID = 'id'
       const url = `${lessonApiBaseUrl}/${MOCK_QUESTION_ID}.json`
       LessonApi.remove(MOCK_LESSON_TYPE, MOCK_QUESTION_ID)
-      expect(mockRequestDelete).toHaveBeenLastCalledWith(url)
+      expect(mockRequestDelete).toHaveBeenLastCalledWith(url, null, expect.any())
     })
   })
 })
