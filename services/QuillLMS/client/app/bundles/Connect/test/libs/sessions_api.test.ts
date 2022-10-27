@@ -2,7 +2,7 @@ import {
   mockRequestGet,
   mockRequestPut,
 } from '../__mocks__/request_wrapper'
-jest.mock('../../libs/request', () => ({
+jest.mock('../../../../modules/request/index', () => ({
   requestGet: mockRequestGet,
   requestPut: mockRequestPut,
 }))

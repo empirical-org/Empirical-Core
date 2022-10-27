@@ -20,7 +20,7 @@ import {
   CLICKED_ACTIVITY_PACK_ID
 } from '../../assignmentFlowConstants'
 import parsedQueryParams from '../../parsedQueryParams'
-import { requestGet } from '../../../../../../modules/request/index.js';
+import { requestGet } from '../../../../../../modules/request/index';
 import { Activity } from '../../../../../../interfaces/activity';
 import { UnitTemplateProfileInterface } from '../../../../../../interfaces/unitTemplate';
 
