@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { requestPost } from '../../../../modules/request/index.js';
+import { requestPost } from '../../../../modules/request/index';
 
 interface CoteacherInvitationProps {
   getClassroomsAndCoteacherInvitations: () => void;

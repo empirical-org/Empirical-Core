@@ -1,4 +1,4 @@
-import { requestGet, requestPost, requestPut } from './request';
+import { requestGet, requestPost, requestPut } from '../../../modules/request/index';
 import { TitleCard, TitleCards } from '../interfaces/title_cards';
 
 const titleCardApiBaseUrl = `${process.env.DEFAULT_URL}/api/v1/title_cards`;

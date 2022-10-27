@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import { Input, } from '../../../Shared/index'
 
-import { requestPut } from '../../../../modules/request/index.js';
+import { requestPut } from '../../../../modules/request/index';
 
 interface ResetStudentPasswordModalProps {
   close: () => void;
