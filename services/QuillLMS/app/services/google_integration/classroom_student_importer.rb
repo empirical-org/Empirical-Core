@@ -15,7 +15,7 @@ module GoogleIntegration
     def run
       return unless email.present?
 
-      update_student_with_google_id_and_different_email
+      update_student_containing_inconsistent_email_and_google_id
 
       if student_is_active_teacher?
         log_skipped_import
@@ -36,7 +36,7 @@ module GoogleIntegration
     private def log_skipped_import
       ChangeLog.find_or_create_by(
         changed_record: student,
-        action: ChangeLog::USER_ACTIONS[:skipped_import],
+        action: ChangeLog::GOOGLE_IMPORT_ACTIONS[:skipped_import],
         explanation: caller_locations[0].to_s
       )
     end
@@ -49,8 +49,8 @@ module GoogleIntegration
       student&.teacher? && ::ClassroomsTeacher.exists?(user: student)
     end
 
-    private def update_student_with_google_id_and_different_email
-      StudentEmailUpdater.new(data).run
+    private def update_student_containing_inconsistent_email_and_google_id
+      StudentEmailAndGoogleIdUpdater.run(classroom&.owner&.id, email, data[:google_id])
     end
   end
 end
