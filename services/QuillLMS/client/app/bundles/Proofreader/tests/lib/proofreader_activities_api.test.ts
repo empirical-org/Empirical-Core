@@ -62,7 +62,7 @@ describe('ProofreaderPassageApi calls', () => {
       }
       const url = `${lessonApiBaseUrl}.json?lesson_type=${PROOFREADER_PASSAGE_TYPE}`
       ProofreaderPassageApi.create(MOCK_CONTENT)
-      expect(mockRequestPost).toHaveBeenLastCalledWith(url, {lesson: MOCK_CONTENT})
+      expect(mockRequestPost).toHaveBeenLastCalledWith(url, {lesson: MOCK_CONTENT}, null, expect.anything())
     })
   })
 
