@@ -1,4 +1,4 @@
-import { requestDelete, requestGet, requestPost, requestPut } from './request';
+import { requestDelete, requestGet, requestPost, requestPut } from '../../../modules/request/index';
 import { FocusPoint, IncorrectSequence, Question } from '../interfaces/questions';
 
 const GRAMMAR_QUESTION_TYPE = 'grammar'
