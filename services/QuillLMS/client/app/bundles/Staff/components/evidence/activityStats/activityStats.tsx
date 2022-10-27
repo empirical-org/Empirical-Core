@@ -165,8 +165,8 @@ const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
 
   const overallStats = (
     <div>
-      <p><strong>Average Time Spent: </strong>{overallStatsData ? overallStatsData.stats.average_time_spent : "Loading..."}</p>
-      <p><strong>Average Completion Rate: </strong> {overallStatsData ? overallStatsData.stats.average_completion_rate : "Loading..."}</p>
+      <p><strong>Average Time Spent: </strong>{overallStatsData && overallStatsData.stats ? overallStatsData.stats.average_time_spent : "Loading..."}</p>
+      <p><strong>Average Completion Rate: </strong> {overallStatsData && overallStatsData.stats ? overallStatsData.stats.average_completion_rate : "Loading..."}</p>
     </div>
   )
 
