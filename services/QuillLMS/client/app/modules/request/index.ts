@@ -5,31 +5,33 @@ async function handleFetch({ url, method, success, error, payload, }: {url: stri
   let options = {
     method: method,
     cors: 'cors',
-    credentials: 'include'
-  }
-  if (payload) {
-    options['headers'] = addCsrfHeaders({
+    credentials: 'include',
+    headers: addCsrfHeaders({
       'Accept': 'application/json',
       'Content-Type': 'application/json',
     })
+  }
+  if (payload) {
     options['body'] = JSON.stringify(payload)
   }
+  
   const response = await fetch(fullyQualifiedUrl(url), options)
+  const textResponse = await response.clone().text()
 
-  const jsonResponse = await response.json();
+  const jsonResponse = textResponse.length ? await response.clone().json() : {};
 
   if (response.status === 303 && jsonResponse.redirect) {
     window.location.href = jsonResponse.redirect
   } else if (response.ok && success) {
     success(jsonResponse)
   } else if (!response.ok && error) {
-    error(jsonResponse)
+    const jsonResponseWithErrorStatus = { ...jsonResponse, status: response.status, }
+    error(jsonResponseWithErrorStatus)
   } else {
     const contentType = String(response.headers.get('content-type'))
     if (contentType.startsWith('application/json;')) {
       return jsonResponse
     }
-    const textResponse = await response.text()
     return textResponse
   }
 }
