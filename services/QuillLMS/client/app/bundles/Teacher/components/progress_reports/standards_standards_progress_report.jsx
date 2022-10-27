@@ -31,9 +31,8 @@ export default class StandardsProgressReport extends React.Component {
     requestGet(
       `${process.env.DEFAULT_URL}/${sourceUrl}`,
       (body) => {
-        const parsedBody = JSON.parse(body)
-        const data = parsedBody.standards
-        const student = parsedBody.student
+        const data = body.standards
+        const student = body.student
         const csvData = this.formatDataForCSV(data, student.name)
         const standardsData = this.formatStandardsData(data)
         // gets unique classroom names

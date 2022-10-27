@@ -312,12 +312,11 @@ export default class CreateOrEditBlogPost extends React.Component {
         authenticity_token: ReactOnRails.authenticityToken()
       }
     }, (error, httpStatus, body) => {
-      const parsedBody = JSON.parse(body)
       if (httpStatus.statusCode === 200 && action === 'new') {
         alert('Post added successfully!');
-        window.location.href = (`/cms/blog_posts/${parsedBody.id}/edit`)
+        window.location.href = (`/cms/blog_posts/${body.id}/edit`)
       } else if (httpStatus.statusCode === 200) {
-        this.setState({draft: parsedBody.draft})
+        this.setState({draft: body.draft})
         alert('Update successful!');
       } else {
         alert("😨 Rut roh. Something went wrong! (Don't worry, it's probably not your fault.)");

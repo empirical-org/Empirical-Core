@@ -35,8 +35,7 @@ export default class AdminDashboard extends React.Component {
     requestGet(
       `${process.env.DEFAULT_URL}/admins/${this.props.adminId}`,
       (body) => {
-        const parsedBody = JSON.parse(body)
-        this.receiveData(parsedBody)
+        this.receiveData(body)
       }
     );
   };

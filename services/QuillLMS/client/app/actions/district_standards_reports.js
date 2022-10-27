@@ -36,11 +36,10 @@ export const getDistrictStandardsReports = () => {
     requestGet(
       `${process.env.DEFAULT_URL}/api/v1/progress_reports/district_standards_reports`,
       (body) => {
-        const parsedBody = JSON.parse(body)
-        if (parsedBody.id) {
-          dispatch(initializePusherForDistrictStandardsReports(String(parsedBody.id)))
+        if (body.id) {
+          dispatch(initializePusherForDistrictStandardsReports(String(body.id)))
         } else {
-          dispatch(recieveDistrictStandardsReports(parsedBody))
+          dispatch(recieveDistrictStandardsReports(body))
         }
       }
     );

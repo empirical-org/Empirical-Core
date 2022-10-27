@@ -162,8 +162,7 @@ export default createReactClass({
     requestGet(
       `${process.env.DEFAULT_URL}/teachers/classrooms/${classroomId}/units`,
       (body) => {
-        const parsedBody = JSON.parse(body);
-        const units = parsedBody.units;
+        const units = body.units;
         const { scores, } = this.state
         if (units.length === 1) {
           const selectedUnit = units[0];
