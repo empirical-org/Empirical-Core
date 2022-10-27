@@ -28,7 +28,7 @@
   .top-section {
     display: flex;
     align-items: center;
-    margin: 24px 0px 8px 0px;
+    margin: 16px 0px 8px 0px;
     .total-container {
       display: flex;
       align-items: center;
@@ -43,6 +43,9 @@
         margin-bottom: 0px;
       }
     }
+    .left-side-container {
+      margin-top: 8px;
+    }
     .dropdown-container {
       margin-right: 24px;
       min-height: auto;
@@ -53,9 +56,8 @@
         }
       }
     }
-    .turk-session-id-input {
-      min-height: 40px;
-      margin-right: 16px;
+    .session-filters-dropdown {
+      width: 300px;
     }
   }
   .activity-sessions-table {

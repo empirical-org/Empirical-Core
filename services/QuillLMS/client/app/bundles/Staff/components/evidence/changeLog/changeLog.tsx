@@ -12,7 +12,7 @@ import DateTimePicker from 'react-datetime-picker';
 import { renderHeader } from '../../../helpers/evidence/renderHelpers';
 import { sort } from '../../../../../modules/sortingMethods.js';
 import { fetchChangeLogs, fetchActivity } from '../../../utils/evidence/activityAPIs';
-import { DropdownInput, Spinner, ReactTable, } from '../../../../Shared/index';
+import { DropdownInput, Spinner, ReactTable, uniqueValuesArray, } from '../../../../Shared/index';
 
 const ChangeLog = ({ history, match }) => {
   const { params } = match;
@@ -88,8 +88,8 @@ const ChangeLog = ({ history, match }) => {
       author: user,
       dateTime: updated_local_time,
       actionLink: changed_record_url,
-      conjunctions: conjunctions,
-      name: changed_record_display_name,
+      conjunctions: uniqueValuesArray(conjunctions),
+      name: changed_record_display_name ? changed_record_display_name.split('_').join(' ') : '',
       changedAttribute: changed_attribute
     }
   })

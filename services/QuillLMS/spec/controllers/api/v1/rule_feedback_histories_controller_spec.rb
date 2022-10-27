@@ -18,19 +18,17 @@ describe Api::V1::RuleFeedbackHistoriesController, type: :controller do
       )
     end
 
-    it 'should pass conjunction, activity_id, start_date, end_date and turk_session_id through to #generate_report' do
+    it 'should pass conjunction, activity_id, start_date and end_date through to #generate_report' do
       CONJUNCTION = 'because'
       ACTIVITY_ID = '17'
       START_DATE = '2021-04-05T22:32:14.524Z'
       END_DATE = '2021-05-05T22:32:14.524Z'
-      TURK_SESSION_ID = '123-abc'
 
       expect(RuleFeedbackHistory).to receive(:generate_report).with({
         conjunction: CONJUNCTION,
         activity_id: ACTIVITY_ID,
         start_date: START_DATE,
-        end_date: END_DATE,
-        turk_session_id: TURK_SESSION_ID,
+        end_date: END_DATE
       })
 
       get :by_conjunction,
@@ -38,8 +36,7 @@ describe Api::V1::RuleFeedbackHistoriesController, type: :controller do
           conjunction: CONJUNCTION,
           activity_id: ACTIVITY_ID,
           start_date: START_DATE,
-          end_date: END_DATE,
-          turk_session_id: TURK_SESSION_ID
+          end_date: END_DATE
         }
     end
   end

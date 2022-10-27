@@ -14,13 +14,13 @@ const formatChangeLogRows = (activityVersionData) => {
   return activityVersionData.changeLogs.map(row => {
     const {
       note,
-      created_at,
+      start_date,
       session_count,
       new_value
     } = row
 
     return {
-      createdAt: `${moment(created_at).utcOffset('-0500').format('YYYY/MM/DD h:mm a')} ET`,
+      startDate: `${moment(start_date).utcOffset('-0500').format('YYYY/MM/DD h:mm a')} ET`,
       version: new_value,
       sessionCount: session_count,
       notes: note,
@@ -94,8 +94,8 @@ const VersionHistory = ({ history, match }) => {
   const dataTableFields = [
     {
       Header: 'Time',
-      accessor: "createdAt",
-      key: "createdAt",
+      accessor: "startDate",
+      key: "startDate",
       sortMethod: sort,
       width: 200,
     },

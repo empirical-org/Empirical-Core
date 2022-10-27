@@ -18,7 +18,6 @@ module GoogleIntegration
       student
     end
 
-
     private def update_existing_student_role_if_teacher
       return unless student.teacher?
 

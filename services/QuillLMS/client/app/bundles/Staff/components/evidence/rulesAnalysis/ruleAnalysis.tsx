@@ -6,13 +6,13 @@ import { firstBy } from 'thenby';
 
 import FilterWidget from "../shared/filterWidget";
 import { fetchRule } from '../../../utils/evidence/ruleAPIs';
-import { fetchActivity } from '../../../utils/evidence/activityAPIs';
+import { fetchActivity, fetchActivityVersions } from '../../../utils/evidence/activityAPIs';
 import { fetchRuleFeedbackHistoriesByRule } from '../../../utils/evidence/ruleFeedbackHistoryAPIs';
 import { fetchConcepts, } from '../../../utils/evidence/conceptAPIs';
 import { createOrUpdateFeedbackHistoryRating, massCreateOrUpdateFeedbackHistoryRating, } from '../../../utils/evidence/feedbackHistoryRatingAPIs';
-import { InputEvent } from '../../../interfaces/evidenceInterfaces';
+import { DropdownObjectInterface } from '../../../interfaces/evidenceInterfaces';
 import { DataTable, Error, Spinner, Input, smallWhiteCheckIcon, ReactTable, } from '../../../../Shared/index';
-import { handlePageFilterClick } from "../../../helpers/evidence/miscHelpers";
+import { handlePageFilterClick, getVersionOptions } from "../../../helpers/evidence/miscHelpers";
 import { renderHeader } from "../../../helpers/evidence/renderHelpers";
 import { ALL, SCORED, UNSCORED, STRONG, WEAK, RULE_ANALYSIS, RULES_ANALYSIS, LOW_CONFIDENCE } from '../../../../../constants/evidence';
 
@@ -77,21 +77,20 @@ const RuleAnalysis = ({ match }) => {
 
   const initialStartDateString = window.sessionStorage.getItem(`${RULES_ANALYSIS}startDate`) || window.sessionStorage.getItem(`${RULE_ANALYSIS}startDate`) || '';
   const initialEndDateString = window.sessionStorage.getItem(`${RULES_ANALYSIS}endDate`) || window.sessionStorage.getItem(`${RULE_ANALYSIS}endDate`) || '';
-  const initialTurkSessionId = window.sessionStorage.getItem(`${RULES_ANALYSIS}turkSessionId`) || '';
   const initialStartDate = initialStartDateString ? new Date(initialStartDateString) : null;
   const initialEndDate = initialEndDateString ? new Date(initialEndDateString) : null;
+  const initialVersionOption = JSON.parse(window.sessionStorage.getItem(`${RULES_ANALYSIS}versionOption`)) || null;
 
-  const [showError, setShowError] = React.useState<boolean>(false);
   const [responses, setResponses] = React.useState(null);
   const [filter, setFilter] = React.useState(ALL);
   const [search, setSearch] = React.useState('');
   const [selectedIds, setSelectedIds] = React.useState([]);
+  const [versionOption, setVersionOption] = React.useState<DropdownObjectInterface>(initialVersionOption);
+  const [versionOptions, setVersionOptions] = React.useState<DropdownObjectInterface[]>([]);
   const [startDate, onStartDateChange] = React.useState<Date>(initialStartDate);
   const [startDateForQuery, setStartDate] = React.useState<string>(initialStartDateString);
   const [endDate, onEndDateChange] = React.useState<Date>(initialEndDate);
   const [endDateForQuery, setEndDate] = React.useState<string>(initialEndDateString);
-  const [turkSessionID, setTurkSessionID] = React.useState<string>(initialTurkSessionId);
-  const [turkSessionIDForQuery, setTurkSessionIDForQuery] = React.useState<string>(initialTurkSessionId);
 
   const queryClient = useQueryClient()
 
@@ -111,9 +110,32 @@ const RuleAnalysis = ({ match }) => {
   });
 
   const { data: ruleFeedbackHistoryData } = useQuery({
-    queryKey: [`rule-feedback-histories-by-rule-${ruleId}-${promptId}`, ruleId, promptId, startDateForQuery, endDateForQuery, turkSessionIDForQuery],
+    queryKey: [`rule-feedback-histories-by-rule-${ruleId}-${promptId}`, ruleId, promptId, startDateForQuery, endDateForQuery],
     queryFn: fetchRuleFeedbackHistoriesByRule
   })
+
+  const { data: activityVersionData } = useQuery({
+    queryKey: [`change-logs-for-activity-versions-${activityId}`, activityId],
+    queryFn: fetchActivityVersions
+  });
+
+  React.useEffect(() => {
+    if(activityVersionData && activityVersionData.changeLogs && (!versionOption || !versionOptions.length)) {
+      const options = getVersionOptions(activityVersionData);
+      const defaultOption = options[0];
+      !versionOption && setVersionOption(defaultOption);
+      setVersionOptions(options);
+    }
+  }, [activityVersionData]);
+
+  React.useEffect(() => {
+    if(versionOption && versionOption.value) {
+      const { value } = versionOption;
+      const { start_date, end_date } = value;
+      onStartDateChange(new Date(start_date))
+      onEndDateChange(new Date(end_date))
+    }
+  }, [versionOption]);
 
   const prompt: any = activityData ? activityData.activity.prompts.find(prompt => prompt.conjunction === promptConjunction) : {}
 
@@ -135,10 +157,12 @@ const RuleAnalysis = ({ match }) => {
     }
   }, [filter, search, selectedIds])
 
-  function handleSetTurkSessionID(e: InputEvent){ setTurkSessionID(e.target.value) };
+  function handleVersionSelection(versionOption: DropdownObjectInterface) {
+    setVersionOption(versionOption);
+  }
 
   function handleFilterClick() {
-    handlePageFilterClick({ startDate, endDate, turkSessionID, setStartDate, setEndDate, setShowError, setTurkSessionIDForQuery, setPageNumber: null, storageKey: RULE_ANALYSIS });
+    handlePageFilterClick({ startDate, endDate, versionOption, setStartDate, setEndDate, setPageNumber: null, storageKey: RULE_ANALYSIS });
   }
 
   function handleFilterChange(e) { setFilter(e.target.value) }
@@ -342,12 +366,12 @@ const RuleAnalysis = ({ match }) => {
       <FilterWidget
         endDate={endDate}
         handleFilterClick={handleFilterClick}
-        handleSetTurkSessionID={handleSetTurkSessionID}
+        handleVersionSelection={handleVersionSelection}
         onEndDateChange={onEndDateChange}
         onStartDateChange={onStartDateChange}
-        showError={showError}
+        selectedVersion={versionOption}
         startDate={startDate}
-        turkSessionID={turkSessionID}
+        versionOptions={versionOptions}
       />
       <div className="radio-options">
         <div className="radio">
