@@ -1477,4 +1477,59 @@ describe User, type: :model do
       end
     end
   end
+
+  describe '.duplicate_empty_student_accounts' do
+    subject { described_class.duplicate_empty_student_accounts(id, email) }
+
+    let(:student) { create(:student) }
+    let(:id) { student.id }
+    let(:email) { student.email }
+    let(:duplicate) { create(:student) }
+    let(:results) { User.where(id: result_ids).to_a }
+
+    context 'nil id' do
+      let(:id) { nil }
+
+      it { expect(subject).to eq [] }
+    end
+
+    context 'no duplicates' do
+      let(:student_ids) { [student.id] }
+      let(:result_ids) { [] }
+
+      it { expect(subject).to eq results }
+    end
+
+    context 'duplicates exist' do
+      let(:student_ids) { [student.id, duplicate.id] }
+      let(:result_ids) { [duplicate.id] }
+      let(:email) { [student.email, duplicate.email] } # HACK: using array obviates the email uniqueness constraint
+
+      it { expect(subject).to eq results }
+
+      context 'duplicate is not a student' do
+        let(:duplicate) { create(:teacher) }
+        let(:result_ids) { [] }
+
+        it { expect(subject).to eq results }
+      end
+
+      context 'duplicate has activity session' do
+        let(:result_ids) { [] }
+
+        before { create(:activity_session, user: duplicate) }
+
+        it { expect(subject).to eq results }
+      end
+
+      context 'duplicate has students_classrooms' do
+        let(:result_ids) { [] }
+
+        before { create(:students_classrooms, student: duplicate) }
+
+        it { expect(subject).to eq results }
+      end
+    end
+  end
+
 end
