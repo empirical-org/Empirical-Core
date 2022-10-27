@@ -4,8 +4,8 @@ jest.mock('../../actions/analytics', () => ({
 }))
 
 const mockPost = jest.fn()
-jest.mock('request', () => ({
-  post: mockPost
+jest.mock('../../../../modules/request/index', () => ({
+  requestPost: mockPost
 }))
 
 import dispatch from '../../__mocks__/dispatch'
@@ -52,19 +52,15 @@ describe('Session actions', () => {
     })
 
     it('makes a POST request to the feedback API', () => {
-      const expectedRequest = {
-        url: process.env.GOLANG_FANOUT_URL,
-        body: {
-          prompt_id: mockPromptID,
-          prompt_text: mockPromptText,
-          session_id: mockSessionID,
-          entry: mockEntry,
-          previous_feedback: mockPreviousFeedback,
-          attempt: mockAttempt
-        },
-        json: true
+      const body = {
+        prompt_id: mockPromptID,
+        prompt_text: mockPromptText,
+        session_id: mockSessionID,
+        entry: mockEntry,
+        previous_feedback: mockPreviousFeedback,
+        attempt: mockAttempt
       }
-      expect(mockPost).toBeCalledWith(expectedRequest, expect.anything())
+      expect(mockPost).toBeCalledWith(process.env.GOLANG_FANOUT_URL, body, expect.anything())
     })
   })
 })
