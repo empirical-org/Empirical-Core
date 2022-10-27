@@ -20,7 +20,7 @@ describe('SessionApi calls', () => {
       const MOCK_ID = 'id'
       const url = `${sessionApiBaseUrl}/${MOCK_ID}.json`
       SessionApi.get(MOCK_ID)
-      expect(mockRequestGet).toHaveBeenLastCalledWith(url, null, expect.any())
+      expect(mockRequestGet).toHaveBeenLastCalledWith(url, null, expect.anything())
     })
   })
 
@@ -32,7 +32,7 @@ describe('SessionApi calls', () => {
       }
       const url = `${sessionApiBaseUrl}/${MOCK_ID}.json`
       SessionApi.update(MOCK_ID, MOCK_CONTENT)
-      expect(mockRequestPut).toHaveBeenLastCalledWith(url, {active_activity_session: MOCK_CONTENT}, null, expect.any())
+      expect(mockRequestPut).toHaveBeenLastCalledWith(url, {active_activity_session: MOCK_CONTENT}, null, expect.anything())
     })
   })
 })

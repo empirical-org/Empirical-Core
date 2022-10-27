@@ -26,7 +26,7 @@ describe('LessonApi calls', () => {
       const MOCK_LESSON_TYPE = 'TYPE';
       const url = `${lessonApiBaseUrl}.json?lesson_type=${MOCK_LESSON_TYPE}`
       LessonApi.getAll(MOCK_LESSON_TYPE)
-      expect(mockRequestGet).toHaveBeenLastCalledWith(url)
+      expect(mockRequestGet).toHaveBeenLastCalledWith(url, null, expect.anything())
     })
   })
 
@@ -36,7 +36,7 @@ describe('LessonApi calls', () => {
       const MOCK_ID = 'id'
       const url = `${lessonApiBaseUrl}/${MOCK_ID}.json`
       LessonApi.get(MOCK_LESSON_TYPE, MOCK_ID)
-      expect(mockRequestGet).toHaveBeenLastCalledWith(url)
+      expect(mockRequestGet).toHaveBeenLastCalledWith(url, null, expect.anything())
     })
   })
 
@@ -48,7 +48,7 @@ describe('LessonApi calls', () => {
       }
       const url = `${lessonApiBaseUrl}.json?lesson_type=${MOCK_LESSON_TYPE}`
       LessonApi.create(MOCK_LESSON_TYPE, MOCK_CONTENT)
-      expect(mockRequestPost).toHaveBeenLastCalledWith(url, {lesson: MOCK_CONTENT})
+      expect(mockRequestPost).toHaveBeenLastCalledWith(url, {lesson: MOCK_CONTENT}, null, expect.anything())
     })
   })
 
@@ -59,7 +59,7 @@ describe('LessonApi calls', () => {
       const MOCK_LESSON_QUESTION = {"key": "key", "questionType": "type"}
       const url = `${lessonApiBaseUrl}/${MOCK_LESSON_ID}/add_question.json`
       LessonApi.addQuestion(MOCK_LESSON_TYPE, MOCK_LESSON_ID, MOCK_LESSON_QUESTION)
-      expect(mockRequestPut).toHaveBeenLastCalledWith(url,  {lesson_type: MOCK_LESSON_TYPE, question: MOCK_LESSON_QUESTION})
+      expect(mockRequestPut).toHaveBeenLastCalledWith(url,  {lesson_type: MOCK_LESSON_TYPE, question: MOCK_LESSON_QUESTION}, null, expect.anything())
     })
   })
 
@@ -72,7 +72,7 @@ describe('LessonApi calls', () => {
       }
       const url = `${lessonApiBaseUrl}/${MOCK_ID}.json`
       LessonApi.update(MOCK_LESSON_TYPE, MOCK_ID, MOCK_CONTENT)
-      expect(mockRequestPut).toHaveBeenLastCalledWith(url, {lesson: MOCK_CONTENT})
+      expect(mockRequestPut).toHaveBeenLastCalledWith(url, {lesson: MOCK_CONTENT}, null, expect.anything())
     })
   })
 
@@ -82,7 +82,7 @@ describe('LessonApi calls', () => {
       const MOCK_QUESTION_ID = 'id'
       const url = `${lessonApiBaseUrl}/${MOCK_QUESTION_ID}.json`
       LessonApi.remove(MOCK_LESSON_TYPE, MOCK_QUESTION_ID)
-      expect(mockRequestDelete).toHaveBeenLastCalledWith(url)
+      expect(mockRequestDelete).toHaveBeenLastCalledWith(url, null, null, expect.anything())
     })
   })
 })

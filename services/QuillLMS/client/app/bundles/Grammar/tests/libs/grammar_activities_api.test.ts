@@ -26,7 +26,7 @@ describe('GrammarActivityApi calls', () => {
     it('should call requestGet', () => {
       const url = `${grammarActivityApiBaseUrl}.json?lesson_type=${TYPE_GRAMMAR_ACTIVITY}`
       GrammarActivityApi.getAll()
-      expect(mockRequestGet).toHaveBeenLastCalledWith(url)
+      expect(mockRequestGet).toHaveBeenLastCalledWith(url, null, expect.anything())
     })
   })
 
@@ -35,7 +35,7 @@ describe('GrammarActivityApi calls', () => {
       const MOCK_ID = 'id'
       const url = `${grammarActivityApiBaseUrl}/${MOCK_ID}.json`
       GrammarActivityApi.get(MOCK_ID)
-      expect(mockRequestGet).toHaveBeenLastCalledWith(url)
+      expect(mockRequestGet).toHaveBeenLastCalledWith(url, null, expect.anything())
     })
   })
 
@@ -47,7 +47,7 @@ describe('GrammarActivityApi calls', () => {
       }
       const url = `${grammarActivityApiBaseUrl}.json?lesson_type=${TYPE_GRAMMAR_ACTIVITY}`
       GrammarActivityApi.create(MOCK_CONTENT)
-      expect(mockRequestPost).toHaveBeenLastCalledWith(url, {lesson: MOCK_CONTENT})
+      expect(mockRequestPost).toHaveBeenLastCalledWith(url, {lesson: MOCK_CONTENT}, null, expect.anything())
     })
   })
 
@@ -60,7 +60,7 @@ describe('GrammarActivityApi calls', () => {
       }
       const url = `${grammarActivityApiBaseUrl}/${MOCK_ID}.json`
       GrammarActivityApi.update(MOCK_ID, MOCK_CONTENT)
-      expect(mockRequestPut).toHaveBeenLastCalledWith(url, {lesson: MOCK_CONTENT})
+      expect(mockRequestPut).toHaveBeenLastCalledWith(url, {lesson: MOCK_CONTENT}, null, expect.anything())
     })
   })
 
@@ -69,7 +69,8 @@ describe('GrammarActivityApi calls', () => {
       const MOCK_ID = 'id'
       const url = `${grammarActivityApiBaseUrl}/${MOCK_ID}.json`
       GrammarActivityApi.remove(MOCK_ID)
-      expect(mockRequestDelete).toHaveBeenLastCalledWith(url)
+      expect(mockRequestDelete).toHaveBeenLastCalledWith(url, null, null, expect.anything())
+
     })
   })
 })

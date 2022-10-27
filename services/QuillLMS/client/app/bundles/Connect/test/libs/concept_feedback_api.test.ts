@@ -26,7 +26,7 @@ describe('ConceptFeedbackApi calls', () => {
     it('should call requestGet', () => {
       const url = `${conceptFeedbackApiBaseUrl}.json`
       ConceptFeedbackApi.getAll()
-      expect(mockRequestGet).toHaveBeenLastCalledWith(url)
+      expect(mockRequestGet).toHaveBeenLastCalledWith(url, null, expect.anything())
     })
   })
 
@@ -35,7 +35,7 @@ describe('ConceptFeedbackApi calls', () => {
       const MOCK_ID = 'id'
       const url = `${conceptFeedbackApiBaseUrl}/${MOCK_ID}.json`
       ConceptFeedbackApi.get(MOCK_ID)
-      expect(mockRequestGet).toHaveBeenLastCalledWith(url)
+      expect(mockRequestGet).toHaveBeenLastCalledWith(url, null, expect.anything())
     })
   })
 
@@ -46,7 +46,7 @@ describe('ConceptFeedbackApi calls', () => {
       }
       const url = `${conceptFeedbackApiBaseUrl}.json`
       ConceptFeedbackApi.create(MOCK_CONTENT)
-      expect(mockRequestPost).toHaveBeenLastCalledWith(url, {concept_feedback: MOCK_CONTENT})
+      expect(mockRequestPost).toHaveBeenLastCalledWith(url, {concept_feedback: MOCK_CONTENT}, null, expect.anything())
     })
   })
 
@@ -58,7 +58,7 @@ describe('ConceptFeedbackApi calls', () => {
       }
       const url = `${conceptFeedbackApiBaseUrl}/${MOCK_ID}.json`
       ConceptFeedbackApi.update(MOCK_ID, MOCK_CONTENT)
-      expect(mockRequestPut).toHaveBeenLastCalledWith(url, {concept_feedback: MOCK_CONTENT})
+      expect(mockRequestPut).toHaveBeenLastCalledWith(url, {concept_feedback: MOCK_CONTENT}, null, expect.anything())
     })
   })
 
@@ -67,7 +67,8 @@ describe('ConceptFeedbackApi calls', () => {
       const MOCK_QUESTION_ID = 'id'
       const url = `${conceptFeedbackApiBaseUrl}/${MOCK_QUESTION_ID}.json`
       ConceptFeedbackApi.remove(MOCK_QUESTION_ID)
-      expect(mockRequestDelete).toHaveBeenLastCalledWith(url)
+      expect(mockRequestDelete).toHaveBeenLastCalledWith(url, null, null, expect.anything())
+
     })
   })
 })

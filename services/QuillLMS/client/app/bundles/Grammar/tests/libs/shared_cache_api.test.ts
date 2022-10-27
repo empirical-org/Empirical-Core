@@ -20,7 +20,7 @@ describe('SharedCacheApi calls', () => {
       const MOCK_ID = 1
       const url = `${sharedCacheApiBaseUrl}/${MOCK_ID}.json`
       SharedCacheApi.get(MOCK_ID)
-      expect(mockRequestGet).toHaveBeenLastCalledWith(url)
+      expect(mockRequestGet).toHaveBeenLastCalledWith(url, null, expect.anything())
     })
   })
 
@@ -29,7 +29,8 @@ describe('SharedCacheApi calls', () => {
       const MOCK_ID = 1
       const url = `${sharedCacheApiBaseUrl}/${MOCK_ID}.json`
       SharedCacheApi.remove(MOCK_ID)
-      expect(mockRequestDelete).toHaveBeenLastCalledWith(url)
+      expect(mockRequestDelete).toHaveBeenLastCalledWith(url, null, null, expect.anything())
+
     })
   })
 
@@ -39,7 +40,7 @@ describe('SharedCacheApi calls', () => {
       const MOCK_CONTENT = { foo: 'bar' }
       const url = `${sharedCacheApiBaseUrl}/${MOCK_ID}.json`
       SharedCacheApi.update(MOCK_ID, MOCK_CONTENT)
-      expect(mockRequestPut).toHaveBeenLastCalledWith(url, {data: MOCK_CONTENT})
+      expect(mockRequestPut).toHaveBeenLastCalledWith(url, {data: MOCK_CONTENT}, null, expect.anything())
     })
   })
 })
