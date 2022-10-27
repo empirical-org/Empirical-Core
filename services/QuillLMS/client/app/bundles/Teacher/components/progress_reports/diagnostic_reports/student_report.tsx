@@ -9,7 +9,7 @@ import LoadingSpinner from '../../shared/loading_indicator.jsx'
 import { Student } from '../../../../../interfaces/student';
 import { QuestionData } from '../../../../../interfaces/questionData';
 import { DropdownInput, expandIcon } from '../../../../Shared/index'
-import { requestGet } from '../../../../../modules/request/index';
+import { requestGet } from '../../../../../modules/request/index.js';
 import { GRAMMAR_KEY, CONNECT_KEY, EVIDENCE_KEY, } from '../constants';
 import { getTimeSpent } from '../../../helpers/studentReports';
 

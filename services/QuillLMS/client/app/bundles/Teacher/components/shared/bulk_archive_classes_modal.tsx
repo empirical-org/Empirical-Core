@@ -4,7 +4,7 @@ import * as moment from 'moment'
 import { DataTable } from '../../../Shared/index'
 
 import GradeOptions from '../classrooms/grade_options'
-import { requestPost } from '../../../../modules/request/index';
+import { requestPost } from '../../../../modules/request/index.js';
 
 const headers = [
   {

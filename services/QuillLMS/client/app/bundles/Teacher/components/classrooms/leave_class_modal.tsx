@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { requestDelete } from '../../../../modules/request/index';
+import { requestDelete } from '../../../../modules/request/index.js';
 
 interface LeaveClassModalProps {
   close: () => void;

@@ -1,4 +1,4 @@
-import { requestDelete, requestGet, requestPut } from '../../../modules/request/index';
+import { requestDelete, requestGet, requestPut } from './request';
 
 const sharedCacheApiBaseUrl = `${process.env.DEFAULT_URL}/api/v1/shared_cache`;
 
