@@ -9,7 +9,7 @@ class GoogleStudentClassroomWorker
     return unless student.google_authorized?
 
     GoogleIntegration::Classroom::Main.join_existing_google_classrooms(student)
-  rescue StandardError => e
-    NewRelic::Agent.notice_error(e, context: "Auth::GoogleController")
+  rescue => e
+    ErrorNotifier.report(e, context: "Auth::GoogleController")
   end
 end

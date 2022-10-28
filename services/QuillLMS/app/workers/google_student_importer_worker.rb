@@ -16,7 +16,7 @@ class GoogleStudentImporterWorker
     else
       PusherTrigger.run(teacher_id, PUSHER_FAILED_EVENT, "Reauthorization needed for user #{teacher_id}.")
     end
-  rescue StandardError => e
-    NewRelic::Agent.notice_error(e, context: context)
+  rescue => e
+    ErrorNotifier.report(e, context: context)
   end
 end

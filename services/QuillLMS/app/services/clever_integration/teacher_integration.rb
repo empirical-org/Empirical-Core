@@ -20,8 +20,8 @@ module CleverIntegration
       hydrate_teacher_classrooms_cache
       update_existing_teacher_classrooms
       { type: 'user_success', data: teacher }
-    rescue StandardError => e
-      NewRelic::Agent.notice_error(e, teacher_clever_id: info_hash.id)
+    rescue => e
+      ErrorNotifier.report(e, teacher_clever_id: info_hash.id)
       { type: 'user_failure', data: "Error: #{e.message}" }
     end
 

@@ -197,7 +197,13 @@ describe Api::V1::ActivitySessionsController, type: :controller do
           'time_tracking' => ('a'..'z').to_h {|k| [k,600]}
         }
 
-        expect(ErrorNotifier).to receive(:report).with(ActivitySession::LongTimeTrackingError).once
+        reporting_params = {
+          activity_session_id: activity_session.id,
+          timespent: 15600,
+          user_id: activity_session.user_id
+        }
+
+        expect(ErrorNotifier).to receive(:report).with(ActivitySession::LongTimeTrackingError, reporting_params).once
 
         put :update, params: { id: activity_session.uid, data: data }, as: :json
       end

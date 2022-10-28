@@ -11,18 +11,14 @@ module OrttoIntegration
       email = params[:email]
 
       if email.nil?
-        ErrorNotifier.report(
-          OrttoWebhookBadRequestException.new("Bad request with params: #{params}")
-        )
+        ErrorNotifier.report(OrttoWebhookBadRequestException.new, params: params)
         return head 202
       end
 
       user = User.find_by_email(email)
 
       if user.nil?
-        ErrorNotifier.report(
-          OrttoWebhookBadRequestException.new("Bad request with params: #{params}")
-        )
+        ErrorNotifier.report(OrttoWebhookBadRequestException.new, params: params)
         return head 202
       end
 
