@@ -42,9 +42,8 @@ require 'new_relic/agent'
 class ActivitySession < ApplicationRecord
 
   class ConceptResultSubmittedWithoutActivitySessionError < StandardError; end
+  class StudentNotAssignedActivityError < StandardError; end
   class LongTimeTrackingError < StandardError; end
-
-  include ::NewRelic::Agent
 
   include Uid
   include Concepts
@@ -408,7 +407,13 @@ class ActivitySession < ApplicationRecord
   end
 
   def self.report_invalid_concept_results(concept_results)
-    ErrorNotifier.report(ConceptResultSubmittedWithoutActivitySessionError.new("Received a request to record a ConceptResult with no related ActivitySession.")) if concept_results.any? { |cr| cr[:activity_session_id].blank? }
+    return unless concept_results.any? { |cr| cr[:activity_session_id].blank? }
+
+    ErrorNotifier.report(
+      ConceptResultSubmittedWithoutActivitySessionError.new(
+        "Received a request to record a ConceptResult with no related ActivitySession."
+      )
+    )
   end
 
   # this function is only for use by Lesson activities, which are not individually saved when the activity ends
@@ -517,12 +522,8 @@ class ActivitySession < ApplicationRecord
 
   private def correctly_assigned
     if classroom_unit && (classroom_unit.validate_assigned_student(user_id) == false)
-      begin
-        raise 'Student was not assigned this activity'
-      rescue => e
-        ErrorNotifier.report(e)
-        errors.add(:incorrectly_assigned, "student was not assigned this activity")
-      end
+      ErrorNotifier.report(StudentNotAssignedActivityError.new)
+      errors.add(:incorrectly_assigned, "student was not assigned this activity")
     else
       true
     end
