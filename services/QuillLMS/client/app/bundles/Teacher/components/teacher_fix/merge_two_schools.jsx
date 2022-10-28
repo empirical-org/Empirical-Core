@@ -16,7 +16,6 @@ class MergeTwoSchools extends React.Component {
       {
         from_school_id: that.state.fromSchoolId,
         to_school_id: that.state.toSchoolId,
-        authenticity_token: getAuthToken(),
       },
       (body) => {
         this.setState({
