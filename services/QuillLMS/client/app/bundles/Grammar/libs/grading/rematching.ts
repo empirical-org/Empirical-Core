@@ -221,7 +221,7 @@ function getGradedResponses(questionID) {
 
 function formatGradedResponses(jsonString: string): {[key: string]: Response} {
   const bodyToObj = {};
-  JSON.parse(jsonString).forEach((resp: any) => {
+  jsonString.forEach((resp: any) => {
     bodyToObj[resp.id] = resp;
     if (typeof resp.concept_results === 'string') {
       resp.concept_results = JSON.parse(resp.concept_results);
