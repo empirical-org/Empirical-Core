@@ -7,13 +7,17 @@ module Associators::StudentsToClassrooms
     @@classroom = classroom
     if legit_classroom && legit_teacher && (student&.role == 'student')
       @@classroom.update(updated_at: Time.current)
-      sc = StudentsClassrooms.unscoped.find_or_initialize_by(student_id: student.id, classroom_id: classroom[:id])
-      if sc.new_record?
-        sc.visible = true
-        if sc.save!
-          update_classroom_units(sc)
-          StudentJoinedClassroomWorker.perform_async(@@classroom&.owner&.id, student&.id)
+      begin
+        sc = StudentsClassrooms.unscoped.find_or_initialize_by(student_id: student.id, classroom_id: classroom[:id])
+        if sc.new_record?
+          sc.visible = true
+          if sc.save!
+            update_classroom_units(sc)
+            StudentJoinedClassroomWorker.perform_async(@@classroom&.owner&.id, student&.id)
+          end
         end
+      rescue ActiveRecord::RecordNotUnique
+        retry
       end
       if !sc.visible
         update_classroom_units(sc)
