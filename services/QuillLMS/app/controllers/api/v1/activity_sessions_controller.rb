@@ -119,11 +119,12 @@ class Api::V1::ActivitySessionsController < Api::ApiController
     return if timespent.nil?
     return if timespent <= 3600
 
-    begin
-      raise ActivitySession::LongTimeTrackingError, "#{timespent} seconds for user #{user_id} and activity session #{activity_session_id}"
-    rescue => e
-      ErrorNotifier.report(e)
-    end
+    ErrorNotifier.report(
+      ActivitySession::LongTimeTrackingError.new,
+      activity_session_id: activity_session_id,
+      timespent: timespent,
+      user_id: user_id
+    )
   end
 
   private def transform_incoming_request

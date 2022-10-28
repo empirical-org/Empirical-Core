@@ -70,7 +70,7 @@ class ConceptReplacementConnectWorker
         end
       end
     rescue => e
-      NewRelic::Agent.notice_error(e)
+      ErrorNotifier.report(e)
     end
     new_fp_obj
   end
@@ -98,7 +98,7 @@ class ConceptReplacementConnectWorker
         end
       end
     rescue => e
-      NewRelic::Agent.notice_error(e)
+      ErrorNotifier.report(e)
     end
     new_is_array
   end

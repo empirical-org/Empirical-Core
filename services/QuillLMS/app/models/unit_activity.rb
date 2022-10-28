@@ -26,7 +26,6 @@
 #  fk_rails_...  (unit_id => units.id)
 #
 class UnitActivity < ApplicationRecord
-  include ::NewRelic::Agent
   include CheckboxCallback
 
   belongs_to :unit, touch: true

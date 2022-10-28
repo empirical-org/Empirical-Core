@@ -280,14 +280,6 @@ class Subscription < ApplicationRecord
     { expiration: today + CB_LIFETIME_DURATION, start_date: today }
   end
 
-  protected def report_to_new_relic(error)
-    begin
-      raise error
-    rescue => e
-      NewRelic::Agent.notice_error(e)
-    end
-  end
-
   protected def set_null_start_date_to_today
     return if start_date
 
