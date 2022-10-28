@@ -41,15 +41,14 @@ export default class IndividualStandardsReport extends React.Component {
       requestGet(
         url,
         (body) => {
-          const data = JSON.parse(body)
-          const decorateAsEvidence = this.decorateAsEvidence(data.standards[0])
-          const studentData = this.formattedStudentData(data.students, decorateAsEvidence)
-          const csvData = this.formatDataForCSV(data.students)
-          const standard = data.standards[0]
-          const classrooms = JSON.parse(body).classrooms
+          const decorateAsEvidence = this.decorateAsEvidence(body.standards[0])
+          const studentData = this.formattedStudentData(body.students, decorateAsEvidence)
+          const csvData = this.formatDataForCSV(body.students)
+          const standard = body.standards[0]
+          const classrooms = body.classrooms
 
           const allClassrooms = {name: showAllClassroomKey}
-          const selectedClassroom = data.selected_classroom ? data.selected_classroom : allClassrooms
+          const selectedClassroom = body.selected_classroom ? body.selected_classroom : allClassrooms
           classrooms.unshift(allClassrooms)
           this.setState({loading: false, errors: body.errors, studentData, csvData, standard, classrooms, selectedClassroom});
         }

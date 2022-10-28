@@ -41,7 +41,7 @@ export default class ActivityPacks extends React.Component {
     requestGet(
       `${process.env.DEFAULT_URL}/teachers/classrooms/classrooms_i_teach`,
       (body) => {
-        const classrooms = JSON.parse(body).classrooms;
+        const classrooms = body.classrooms;
         if (classrooms.length > 0) {
           const newState = { classrooms, }
           const localStorageSelectedClassroomId = window.localStorage.getItem(PROGRESS_REPORTS_SELECTED_CLASSROOM_ID)
@@ -77,8 +77,8 @@ export default class ActivityPacks extends React.Component {
     requestGet(
       `${process.env.DEFAULT_URL}/teachers/units?report=true`,
       (body) => {
-        this.setAllUnits(JSON.parse(body));
-        this.populateCompletionAndAverageScore(JSON.parse(body));
+        this.setAllUnits(body);
+        this.populateCompletionAndAverageScore(body);
       }
     )
   }
@@ -202,8 +202,8 @@ export default class ActivityPacks extends React.Component {
             allUnits.forEach((stateUnit) => {
               const unitActivity = stateUnit.classroomActivities.get(u.activity_id)
               if (typeof unitActivity != 'undefined' && stateUnit.classrooms.find(c => Number(c.cuId) === Number(u.classroom_unit_id))) {
-                unitActivity.cumulativeScore += JSON.parse(body).cumulative_score;
-                unitActivity.completedCount += JSON.parse(body).completed_count;
+                unitActivity.cumulativeScore += body.cumulative_score;
+                unitActivity.completedCount += body.completed_count;
               }
             })
             resolve()

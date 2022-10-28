@@ -29,11 +29,10 @@ export default class extends React.Component {
     requestGet(
       `${process.env.DEFAULT_URL}/${this.props.sourceUrl}`,
       (body) => {
-        const data = JSON.parse(body)
-        const parsedClassrooms = this.parseClassrooms(data.classrooms_with_student_ids)
+        const parsedClassrooms = this.parseClassrooms(body.classrooms_with_student_ids)
         const dropdownClassrooms = parsedClassrooms.dropdownClassrooms;
         const classroomsWithStudentIds = parsedClassrooms.classroomsWithStudentIds
-        that.setState({loading: false, errors: body.errors, reportData: data.students, filteredReportData: data.students, dropdownClassrooms, classroomsWithStudentIds});
+        that.setState({loading: false, errors: body.errors, reportData: body.students, filteredReportData: body.students, dropdownClassrooms, classroomsWithStudentIds});
       }
     )
   }

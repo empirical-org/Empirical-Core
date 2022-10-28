@@ -68,8 +68,7 @@ const SchoolSelector = ({ selectSchool, showDismissSchoolSelectionReminderCheckb
     requestGet(
       `${process.env.DEFAULT_URL}/schools?search=${search}`,
       (body) => {
-        const schools = JSON.parse(body).data
-        setSchools(schools)
+        setSchools(body.data)
         setLoading(false)
       }
     )

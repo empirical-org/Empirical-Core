@@ -32,12 +32,11 @@ export default class ConceptsStudentsProgressReport extends React.Component {
     requestGet(
       `${process.env.DEFAULT_URL}/${this.props.sourceUrl}`,
       (body) => {
-        const data = JSON.parse(body)
-        const parsedClassrooms = this.parseClassrooms(data.classrooms_with_student_ids)
+        const parsedClassrooms = this.parseClassrooms(body.classrooms_with_student_ids)
         const dropdownClassrooms = parsedClassrooms.dropdownClassrooms;
         const classroomsWithStudentIds = parsedClassrooms.classroomsWithStudentIds
 
-        const newState = {loading: false, errors: body.errors, reportData: data.students, filteredReportData: data.students, dropdownClassrooms, classroomsWithStudentIds}
+        const newState = {loading: false, errors: body.errors, reportData: body.students, filteredReportData: body.students, dropdownClassrooms, classroomsWithStudentIds}
 
         const selectedClassroomId = queryString.parse(window.location.search).classroom_id
         const localStorageSelectedClassroomId = window.localStorage.getItem(PROGRESS_REPORTS_SELECTED_CLASSROOM_ID)

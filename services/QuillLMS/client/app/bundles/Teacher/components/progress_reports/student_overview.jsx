@@ -30,8 +30,7 @@ export default class extends React.Component {
     requestGet(
       `${process.env.DEFAULT_URL}/api/v1/progress_reports/student_overview_data/${studentId}/${classroomId}`,
       (body) => {
-        const data = JSON.parse(body);
-        this.setState({ loading: false, errors: body.errors, studentData: data.student_data, reportData: data.report_data, classroomName: data.classroom_name, });
+        this.setState({ loading: false, errors: body.errors, studentData: body.student_body, reportData: body.report_body, classroomName: body.classroom_name, });
       }
     )
   }

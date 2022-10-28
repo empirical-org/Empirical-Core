@@ -15,17 +15,13 @@ export default class RemoveUnsyncedStudents extends React.Component {
     requestGet(
       `${process.env.DEFAULT_URL}/teacher_fix/list_unsynced_students_by_classroom?teacher_identifier=${teacherIdentifier}`,
       (body) => {
-        const parsedResponse = JSON.parse(body)
-
-        if (parsedResponse.unsynced_students_by_classroom) {
-          this.setState({error: null, unsyncedStudentsByClassroom: parsedResponse.unsynced_students_by_classroom})
+        if (body.unsynced_students_by_classroom) {
+          this.setState({error: null, unsyncedStudentsByClassroom: body.unsynced_students_by_classroom})
         }
       },
       (body) => {
-        const parsedResponse = JSON.parse(body)
-
-        if (parsedResponse.error) {
-          this.setState({error: parsedResponse.error})
+        if (body.error) {
+          this.setState({error: body.error})
         }
       }
     )
