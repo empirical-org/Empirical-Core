@@ -324,11 +324,11 @@ class User < ApplicationRecord
   def username_cannot_be_an_email
     return unless username =~ VALID_EMAIL_REGEX
 
-    if persisted?
+    if new_record?
+      errors.add(:username, :invalid)
+    else
       db_self = User.find(id)
       errors.add(:username, :invalid) unless db_self.username == username
-    else
-      errors.add(:username, :invalid)
     end
   end
 
@@ -709,7 +709,7 @@ class User < ApplicationRecord
 
   private def clever_id_present_and_has_changed?
     return false if !clever_id
-    return true if !persisted?
+    return true if new_record?
 
     existing_user = User.find_by_id(id)
     existing_user.clever_id != clever_id
