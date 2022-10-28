@@ -26,15 +26,16 @@
 #
 # Indexes
 #
-#  index_activity_sessions_on_activity_id            (activity_id)
-#  index_activity_sessions_on_classroom_activity_id  (classroom_activity_id)
-#  index_activity_sessions_on_classroom_unit_id      (classroom_unit_id)
-#  index_activity_sessions_on_completed_at           (completed_at)
-#  index_activity_sessions_on_pairing_id             (pairing_id)
-#  index_activity_sessions_on_started_at             (started_at)
-#  index_activity_sessions_on_state                  (state)
-#  index_activity_sessions_on_uid                    (uid) UNIQUE
-#  index_activity_sessions_on_user_id                (user_id)
+#  index_activity_sessions_on_activity_id                        (activity_id)
+#  index_activity_sessions_on_activity_id_and_classroom_unit_id  (activity_id,classroom_unit_id)
+#  index_activity_sessions_on_classroom_activity_id              (classroom_activity_id)
+#  index_activity_sessions_on_classroom_unit_id                  (classroom_unit_id)
+#  index_activity_sessions_on_completed_at                       (completed_at)
+#  index_activity_sessions_on_pairing_id                         (pairing_id)
+#  index_activity_sessions_on_started_at                         (started_at)
+#  index_activity_sessions_on_state                              (state)
+#  index_activity_sessions_on_uid                                (uid) UNIQUE
+#  index_activity_sessions_on_user_id                            (user_id)
 #
 require 'newrelic_rpm'
 require 'new_relic/agent'
