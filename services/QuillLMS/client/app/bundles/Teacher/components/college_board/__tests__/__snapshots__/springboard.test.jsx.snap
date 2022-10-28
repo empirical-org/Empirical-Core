@@ -463,7 +463,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                             <p
                               class="learning-cycle-header"
                             >
-                              Learning Cycle
+                              Learning Cycle 
                               1
                             </p>
                             <div
@@ -511,7 +511,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                             <p
                               class="learning-cycle-header"
                             >
-                              Learning Cycle
+                              Learning Cycle 
                               2
                             </p>
                             <div
@@ -621,7 +621,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                             <p
                               class="learning-cycle-header"
                             >
-                              Learning Cycle
+                              Learning Cycle 
                               3
                             </p>
                             <div
@@ -725,7 +725,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                             <p
                               class="learning-cycle-header"
                             >
-                              Learning Cycle
+                              Learning Cycle 
                               1
                             </p>
                             <div
@@ -804,7 +804,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                             <p
                               class="learning-cycle-header"
                             >
-                              Learning Cycle
+                              Learning Cycle 
                               2
                             </p>
                             <div
@@ -883,7 +883,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                             <p
                               class="learning-cycle-header"
                             >
-                              Learning Cycle
+                              Learning Cycle 
                               3
                             </p>
                             <div
@@ -987,7 +987,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                             <p
                               class="learning-cycle-header"
                             >
-                              Learning Cycle
+                              Learning Cycle 
                               1
                             </p>
                             <div
@@ -1066,7 +1066,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                             <p
                               class="learning-cycle-header"
                             >
-                              Learning Cycle
+                              Learning Cycle 
                               2
                             </p>
                             <div
@@ -1145,7 +1145,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                             <p
                               class="learning-cycle-header"
                             >
-                              Learning Cycle
+                              Learning Cycle 
                               3
                             </p>
                             <div
@@ -1249,7 +1249,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                             <p
                               class="learning-cycle-header"
                             >
-                              Learning Cycle
+                              Learning Cycle 
                               1
                             </p>
                             <div
@@ -1328,7 +1328,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                             <p
                               class="learning-cycle-header"
                             >
-                              Learning Cycle
+                              Learning Cycle 
                               2
                             </p>
                             <div
@@ -1407,7 +1407,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                             <p
                               class="learning-cycle-header"
                             >
-                              Learning Cycle
+                              Learning Cycle 
                               3
                             </p>
                             <div
@@ -2007,7 +2007,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
               <p
                 className="activity-sub-text"
               >
-                Students complete a 25 item survey to gauge their understanding of key writing skills, fundamental grammatical elements, common editing mistakes, and compound/complex sentence constructions. The skills addressed in this survey are aligned to the grammar instruction featured in the SpringBoard Language and Writer’s Craft and Language Checkpoint lesson components.
+                Students complete a 25 item survey to gauge their understanding of key writing skills, fundamental grammatical elements, common editing mistakes, and compound/complex sentence constructions. The skills addressed in this survey are aligned to the grammar instruction featured in the SpringBoard Language and Writer’s Craft and Language Checkpoint lesson components. 
               </p>
               <p
                 className="activity-sub-header"
@@ -2065,7 +2065,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
             <p
               className="activity-sub-text"
             >
-              Students complete a 12 item survey their understanding of key writing skills, fundamental grammatical elements, and compound/complex sentence constructions. The skills addressed in this survey are aligned to the Pre-AP English High School Course Framework for English 1 and English 2.
+              Students complete a 12 item survey their understanding of key writing skills, fundamental grammatical elements, and compound/complex sentence constructions. The skills addressed in this survey are aligned to the Pre-AP English High School Course Framework for English 1 and English 2. 
             </p>
             <p
               className="activity-sub-header"
@@ -2217,7 +2217,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
             <p
               className="activity-sub-text"
             >
-              ELL students complete a 22 item survey to gauge their mastery of foundational English grammar. This survey is most appropriate for students who are in the Entering or Emerging
+              ELL students complete a 22 item survey to gauge their mastery of foundational English grammar. This survey is most appropriate for students who are in the Entering or Emerging 
               <a
                 className="underlined_link"
                 href="https://wida.wisc.edu/sites/default/files/resource/CanDo-KeyUses-Gr-9-12.pdf"
@@ -2267,7 +2267,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
             <p
               className="activity-sub-text"
             >
-              ELL students complete a 23 item survey to gauge their mastery of English grammar. This survey is most appropriate for students who are in the Emerging or Developing
+              ELL students complete a 23 item survey to gauge their mastery of English grammar. This survey is most appropriate for students who are in the Emerging or Developing 
               <a
                 className="underlined_link"
                 href="https://wida.wisc.edu/sites/default/files/resource/CanDo-KeyUses-Gr-9-12.pdf"
@@ -2317,7 +2317,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
             <p
               className="activity-sub-text"
             >
-              ELL students complete a 23 item survey to gauge their mastery of English grammar, specifically in areas that are challenging for non-native English speakers. This survey is most appropriate for students who are in the Developing or Expanding
+              ELL students complete a 23 item survey to gauge their mastery of English grammar, specifically in areas that are challenging for non-native English speakers. This survey is most appropriate for students who are in the Developing or Expanding 
               <a
                 className="underlined_link"
                 href="https://wida.wisc.edu/sites/default/files/resource/CanDo-KeyUses-Gr-9-12.pdf"
@@ -2610,7 +2610,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle
+                      Learning Cycle 
                       1
                     </p>
                     <div
@@ -2660,7 +2660,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle
+                      Learning Cycle 
                       2
                     </p>
                     <div
@@ -2774,7 +2774,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle
+                      Learning Cycle 
                       3
                     </p>
                     <div
@@ -2940,7 +2940,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle
+                      Learning Cycle 
                       1
                     </p>
                     <div
@@ -3022,7 +3022,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle
+                      Learning Cycle 
                       2
                     </p>
                     <div
@@ -3104,7 +3104,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle
+                      Learning Cycle 
                       3
                     </p>
                     <div
@@ -3270,7 +3270,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle
+                      Learning Cycle 
                       1
                     </p>
                     <div
@@ -3352,7 +3352,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle
+                      Learning Cycle 
                       2
                     </p>
                     <div
@@ -3434,7 +3434,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle
+                      Learning Cycle 
                       3
                     </p>
                     <div
@@ -3600,7 +3600,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle
+                      Learning Cycle 
                       1
                     </p>
                     <div
@@ -3682,7 +3682,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle
+                      Learning Cycle 
                       2
                     </p>
                     <div
@@ -3764,7 +3764,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle
+                      Learning Cycle 
                       3
                     </p>
                     <div
@@ -3980,7 +3980,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                     <p
                       className="college-board-q-and-a-text"
                     >
-                      Teachers generally begin by having students complete a writing skills survey during class time. The practice that is recommended once students complete a survey can be completed by students independently and at their own pace, or can also be completed during class time. Some teachers ask students to complete recommended activities during a “Do Now,” during another portion of class time, or as homework. Since SpringBoard’s Language and Writer’s Craft elements of activities feature focused practice on specific grammatical skills, you may also find that there are
+                      Teachers generally begin by having students complete a writing skills survey during class time. The practice that is recommended once students complete a survey can be completed by students independently and at their own pace, or can also be completed during class time. Some teachers ask students to complete recommended activities during a “Do Now,” during another portion of class time, or as homework. Since SpringBoard’s Language and Writer’s Craft elements of activities feature focused practice on specific grammatical skills, you may also find that there are 
                       <a
                         href="https://www.quill.org/tools/lessons"
                         rel="noopener noreferrer"
@@ -4039,7 +4039,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                     <p
                       className="college-board-q-and-a-text"
                     >
-                      It is recommended that you and your students create free accounts on Quill.org. Creating an account will give you access to the two skills surveys and recommended practice; creating an account also allows you to track your students’ progress and view data reports. You can create an account by visiting the Quill
+                      It is recommended that you and your students create free accounts on Quill.org. Creating an account will give you access to the two skills surveys and recommended practice; creating an account also allows you to track your students’ progress and view data reports. You can create an account by visiting the Quill 
                       <a
                         href="https://www.quill.org/sign-up/teacher"
                         rel="noopener noreferrer"
@@ -4097,7 +4097,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                   "answer": <p
                     className="college-board-q-and-a-text"
                   >
-                    Quill's writing skills surveys can be used in lieu of Quill's general diagnostics. For example, a 7th grade SpringBoard ELA teacher would likely assign the SpringBoard Writing Skills Survey in lieu of the Starter or Intermediate Diagnostic. Keep in mind, however, that teachers may want ELL students in Pre-AP, AP, or SpringBoard classes to begin with one of the ELL Diagnostics instead of a writing skills survey.
+                    Quill's writing skills surveys can be used in lieu of Quill's general diagnostics. For example, a 7th grade SpringBoard ELA teacher would likely assign the SpringBoard Writing Skills Survey in lieu of the Starter or Intermediate Diagnostic. Keep in mind, however, that teachers may want ELL students in Pre-AP, AP, or SpringBoard classes to begin with one of the ELL Diagnostics instead of a writing skills survey. 
                     <a
                       href="https://support.quill.org/en/articles/2554430-what-are-the-differences-between-the-various-diagnostic-assessments"
                       rel="noopener noreferrer"
@@ -4254,7 +4254,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                   "answer": <p
                     className="college-board-q-and-a-text"
                   >
-                    Quill has a variety of reports to help you track your students' performance and progress. In the
+                    Quill has a variety of reports to help you track your students' performance and progress. In the 
                     <a
                       href="https://support.quill.org/en/articles/1140159-how-does-the-activity-summary-work"
                       rel="noopener noreferrer"
@@ -4262,7 +4262,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                     >
                       Activity Summary report
                     </a>
-                    , you can quickly see which activities your students have completed, along with color-coded icons indicating proficiency. Quill has several other reports as well.
+                    , you can quickly see which activities your students have completed, along with color-coded icons indicating proficiency. Quill has several other reports as well. 
                     <a
                       href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill_Reports_Cheat_Sheet_Updated04_08_20.pdf"
                       rel="noopener noreferrer"
@@ -4270,7 +4270,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                     >
                       This cheat sheet
                     </a>
-                     shows you which report to go to for particular information, and
+                     shows you which report to go to for particular information, and 
                     <a
                       href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Getting_Started_-_Student_Data_Reports__Basic_.mp4"
                       rel="noopener noreferrer"
@@ -4373,7 +4373,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                         <p
                           className="college-board-q-and-a-text"
                         >
-                          Students complete an activity designed to help teachers determine which skills students need to work on. After students complete a Quill Diagnostic activity, Quill recommends writing activities for students based on their results.
+                          Students complete an activity designed to help teachers determine which skills students need to work on. After students complete a Quill Diagnostic activity, Quill recommends writing activities for students based on their results. 
                           <strong>
                             Note
                           </strong>
@@ -4422,7 +4422,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
               qa={
                 Object {
                   "answer": <p>
-                    Unfortunately, at this time, there are no sentence combining activities aligned to texts in SpringBoard ELA courses other than SpringBoard ELA Grade 9. If you would like to see activities like these for another course, please us know
+                    Unfortunately, at this time, there are no sentence combining activities aligned to texts in SpringBoard ELA courses other than SpringBoard ELA Grade 9. If you would like to see activities like these for another course, please us know 
                     <a
                       href="https://quillorg.canny.io/content-feedback"
                       rel="noopener noreferrer"
@@ -4483,7 +4483,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                       <strong>
                         Quill Instructional Coach:
                       </strong>
-                       You can reach out directly to Sherry Lewkowicz, Quill's coach dedicated to supporting College Board teachers, at
+                       You can reach out directly to Sherry Lewkowicz, Quill's coach dedicated to supporting College Board teachers, at 
                       <a
                         href="mailto:sherry@quill.org"
                       >
@@ -4511,7 +4511,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                       <strong>
                         Support:
                       </strong>
-                       Having a technical issue? Email
+                       Having a technical issue? Email 
                       <a
                         href="mailto:support@quill.org"
                       >
@@ -5030,7 +5030,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                             <p
                               class="learning-cycle-header"
                             >
-                              Learning Cycle
+                              Learning Cycle 
                               1
                             </p>
                             <div
@@ -5078,7 +5078,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                             <p
                               class="learning-cycle-header"
                             >
-                              Learning Cycle
+                              Learning Cycle 
                               2
                             </p>
                             <div
@@ -5188,7 +5188,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                             <p
                               class="learning-cycle-header"
                             >
-                              Learning Cycle
+                              Learning Cycle 
                               3
                             </p>
                             <div
@@ -5292,7 +5292,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                             <p
                               class="learning-cycle-header"
                             >
-                              Learning Cycle
+                              Learning Cycle 
                               1
                             </p>
                             <div
@@ -5371,7 +5371,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                             <p
                               class="learning-cycle-header"
                             >
-                              Learning Cycle
+                              Learning Cycle 
                               2
                             </p>
                             <div
@@ -5450,7 +5450,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                             <p
                               class="learning-cycle-header"
                             >
-                              Learning Cycle
+                              Learning Cycle 
                               3
                             </p>
                             <div
@@ -5554,7 +5554,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                             <p
                               class="learning-cycle-header"
                             >
-                              Learning Cycle
+                              Learning Cycle 
                               1
                             </p>
                             <div
@@ -5633,7 +5633,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                             <p
                               class="learning-cycle-header"
                             >
-                              Learning Cycle
+                              Learning Cycle 
                               2
                             </p>
                             <div
@@ -5712,7 +5712,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                             <p
                               class="learning-cycle-header"
                             >
-                              Learning Cycle
+                              Learning Cycle 
                               3
                             </p>
                             <div
@@ -5816,7 +5816,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                             <p
                               class="learning-cycle-header"
                             >
-                              Learning Cycle
+                              Learning Cycle 
                               1
                             </p>
                             <div
@@ -5895,7 +5895,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                             <p
                               class="learning-cycle-header"
                             >
-                              Learning Cycle
+                              Learning Cycle 
                               2
                             </p>
                             <div
@@ -5974,7 +5974,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                             <p
                               class="learning-cycle-header"
                             >
-                              Learning Cycle
+                              Learning Cycle 
                               3
                             </p>
                             <div
@@ -6574,7 +6574,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
               <p
                 className="activity-sub-text"
               >
-                Students complete a 25 item survey to gauge their understanding of key writing skills, fundamental grammatical elements, common editing mistakes, and compound/complex sentence constructions. The skills addressed in this survey are aligned to the grammar instruction featured in the SpringBoard Language and Writer’s Craft and Language Checkpoint lesson components.
+                Students complete a 25 item survey to gauge their understanding of key writing skills, fundamental grammatical elements, common editing mistakes, and compound/complex sentence constructions. The skills addressed in this survey are aligned to the grammar instruction featured in the SpringBoard Language and Writer’s Craft and Language Checkpoint lesson components. 
               </p>
               <p
                 className="activity-sub-header"
@@ -6632,7 +6632,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
             <p
               className="activity-sub-text"
             >
-              Students complete a 12 item survey their understanding of key writing skills, fundamental grammatical elements, and compound/complex sentence constructions. The skills addressed in this survey are aligned to the Pre-AP English High School Course Framework for English 1 and English 2.
+              Students complete a 12 item survey their understanding of key writing skills, fundamental grammatical elements, and compound/complex sentence constructions. The skills addressed in this survey are aligned to the Pre-AP English High School Course Framework for English 1 and English 2. 
             </p>
             <p
               className="activity-sub-header"
@@ -6784,7 +6784,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
             <p
               className="activity-sub-text"
             >
-              ELL students complete a 22 item survey to gauge their mastery of foundational English grammar. This survey is most appropriate for students who are in the Entering or Emerging
+              ELL students complete a 22 item survey to gauge their mastery of foundational English grammar. This survey is most appropriate for students who are in the Entering or Emerging 
               <a
                 className="underlined_link"
                 href="https://wida.wisc.edu/sites/default/files/resource/CanDo-KeyUses-Gr-9-12.pdf"
@@ -6834,7 +6834,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
             <p
               className="activity-sub-text"
             >
-              ELL students complete a 23 item survey to gauge their mastery of English grammar. This survey is most appropriate for students who are in the Emerging or Developing
+              ELL students complete a 23 item survey to gauge their mastery of English grammar. This survey is most appropriate for students who are in the Emerging or Developing 
               <a
                 className="underlined_link"
                 href="https://wida.wisc.edu/sites/default/files/resource/CanDo-KeyUses-Gr-9-12.pdf"
@@ -6884,7 +6884,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
             <p
               className="activity-sub-text"
             >
-              ELL students complete a 23 item survey to gauge their mastery of English grammar, specifically in areas that are challenging for non-native English speakers. This survey is most appropriate for students who are in the Developing or Expanding
+              ELL students complete a 23 item survey to gauge their mastery of English grammar, specifically in areas that are challenging for non-native English speakers. This survey is most appropriate for students who are in the Developing or Expanding 
               <a
                 className="underlined_link"
                 href="https://wida.wisc.edu/sites/default/files/resource/CanDo-KeyUses-Gr-9-12.pdf"
@@ -7178,7 +7178,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle
+                      Learning Cycle 
                       1
                     </p>
                     <div
@@ -7228,7 +7228,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle
+                      Learning Cycle 
                       2
                     </p>
                     <div
@@ -7342,7 +7342,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle
+                      Learning Cycle 
                       3
                     </p>
                     <div
@@ -7509,7 +7509,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle
+                      Learning Cycle 
                       1
                     </p>
                     <div
@@ -7591,7 +7591,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle
+                      Learning Cycle 
                       2
                     </p>
                     <div
@@ -7673,7 +7673,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle
+                      Learning Cycle 
                       3
                     </p>
                     <div
@@ -7840,7 +7840,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle
+                      Learning Cycle 
                       1
                     </p>
                     <div
@@ -7922,7 +7922,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle
+                      Learning Cycle 
                       2
                     </p>
                     <div
@@ -8004,7 +8004,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle
+                      Learning Cycle 
                       3
                     </p>
                     <div
@@ -8171,7 +8171,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle
+                      Learning Cycle 
                       1
                     </p>
                     <div
@@ -8253,7 +8253,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle
+                      Learning Cycle 
                       2
                     </p>
                     <div
@@ -8335,7 +8335,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle
+                      Learning Cycle 
                       3
                     </p>
                     <div
@@ -8551,7 +8551,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                     <p
                       className="college-board-q-and-a-text"
                     >
-                      Teachers generally begin by having students complete a writing skills survey during class time. The practice that is recommended once students complete a survey can be completed by students independently and at their own pace, or can also be completed during class time. Some teachers ask students to complete recommended activities during a “Do Now,” during another portion of class time, or as homework. Since SpringBoard’s Language and Writer’s Craft elements of activities feature focused practice on specific grammatical skills, you may also find that there are
+                      Teachers generally begin by having students complete a writing skills survey during class time. The practice that is recommended once students complete a survey can be completed by students independently and at their own pace, or can also be completed during class time. Some teachers ask students to complete recommended activities during a “Do Now,” during another portion of class time, or as homework. Since SpringBoard’s Language and Writer’s Craft elements of activities feature focused practice on specific grammatical skills, you may also find that there are 
                       <a
                         href="https://www.quill.org/tools/lessons"
                         rel="noopener noreferrer"
@@ -8610,7 +8610,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                     <p
                       className="college-board-q-and-a-text"
                     >
-                      It is recommended that you and your students create free accounts on Quill.org. Creating an account will give you access to the two skills surveys and recommended practice; creating an account also allows you to track your students’ progress and view data reports. You can create an account by visiting the Quill
+                      It is recommended that you and your students create free accounts on Quill.org. Creating an account will give you access to the two skills surveys and recommended practice; creating an account also allows you to track your students’ progress and view data reports. You can create an account by visiting the Quill 
                       <a
                         href="https://www.quill.org/sign-up/teacher"
                         rel="noopener noreferrer"
@@ -8668,7 +8668,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                   "answer": <p
                     className="college-board-q-and-a-text"
                   >
-                    Quill's writing skills surveys can be used in lieu of Quill's general diagnostics. For example, a 7th grade SpringBoard ELA teacher would likely assign the SpringBoard Writing Skills Survey in lieu of the Starter or Intermediate Diagnostic. Keep in mind, however, that teachers may want ELL students in Pre-AP, AP, or SpringBoard classes to begin with one of the ELL Diagnostics instead of a writing skills survey.
+                    Quill's writing skills surveys can be used in lieu of Quill's general diagnostics. For example, a 7th grade SpringBoard ELA teacher would likely assign the SpringBoard Writing Skills Survey in lieu of the Starter or Intermediate Diagnostic. Keep in mind, however, that teachers may want ELL students in Pre-AP, AP, or SpringBoard classes to begin with one of the ELL Diagnostics instead of a writing skills survey. 
                     <a
                       href="https://support.quill.org/en/articles/2554430-what-are-the-differences-between-the-various-diagnostic-assessments"
                       rel="noopener noreferrer"
@@ -8825,7 +8825,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                   "answer": <p
                     className="college-board-q-and-a-text"
                   >
-                    Quill has a variety of reports to help you track your students' performance and progress. In the
+                    Quill has a variety of reports to help you track your students' performance and progress. In the 
                     <a
                       href="https://support.quill.org/en/articles/1140159-how-does-the-activity-summary-work"
                       rel="noopener noreferrer"
@@ -8833,7 +8833,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                     >
                       Activity Summary report
                     </a>
-                    , you can quickly see which activities your students have completed, along with color-coded icons indicating proficiency. Quill has several other reports as well.
+                    , you can quickly see which activities your students have completed, along with color-coded icons indicating proficiency. Quill has several other reports as well. 
                     <a
                       href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill_Reports_Cheat_Sheet_Updated04_08_20.pdf"
                       rel="noopener noreferrer"
@@ -8841,7 +8841,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                     >
                       This cheat sheet
                     </a>
-                     shows you which report to go to for particular information, and
+                     shows you which report to go to for particular information, and 
                     <a
                       href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Getting_Started_-_Student_Data_Reports__Basic_.mp4"
                       rel="noopener noreferrer"
@@ -8944,7 +8944,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                         <p
                           className="college-board-q-and-a-text"
                         >
-                          Students complete an activity designed to help teachers determine which skills students need to work on. After students complete a Quill Diagnostic activity, Quill recommends writing activities for students based on their results.
+                          Students complete an activity designed to help teachers determine which skills students need to work on. After students complete a Quill Diagnostic activity, Quill recommends writing activities for students based on their results. 
                           <strong>
                             Note
                           </strong>
@@ -8993,7 +8993,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
               qa={
                 Object {
                   "answer": <p>
-                    Unfortunately, at this time, there are no sentence combining activities aligned to texts in SpringBoard ELA courses other than SpringBoard ELA Grade 9. If you would like to see activities like these for another course, please us know
+                    Unfortunately, at this time, there are no sentence combining activities aligned to texts in SpringBoard ELA courses other than SpringBoard ELA Grade 9. If you would like to see activities like these for another course, please us know 
                     <a
                       href="https://quillorg.canny.io/content-feedback"
                       rel="noopener noreferrer"
@@ -9054,7 +9054,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                       <strong>
                         Quill Instructional Coach:
                       </strong>
-                       You can reach out directly to Sherry Lewkowicz, Quill's coach dedicated to supporting College Board teachers, at
+                       You can reach out directly to Sherry Lewkowicz, Quill's coach dedicated to supporting College Board teachers, at 
                       <a
                         href="mailto:sherry@quill.org"
                       >
@@ -9082,7 +9082,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                       <strong>
                         Support:
                       </strong>
-                       Having a technical issue? Email
+                       Having a technical issue? Email 
                       <a
                         href="mailto:support@quill.org"
                       >
