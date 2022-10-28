@@ -212,7 +212,7 @@ export class ELLStudentDiagnostic extends React.Component {
         data
       },
       (body) => {
-        document.location.href = `${process.env.DEFAULT_URL}/activity_sessions/${sessionID}`;
+        document.location.href = process.env.DEFAULT_URL;
         this.setState({ saved: true, });
       },
       (body) => {
@@ -235,7 +235,7 @@ export class ELLStudentDiagnostic extends React.Component {
         data
       },
       (body) => {
-        document.location.href = `${process.env.DEFAULT_URL}/activity_sessions/${body.activity_session.uid}`;
+        document.location.href = process.env.DEFAULT_URL;
         this.setState({ saved: true, });
       }
     )
