@@ -78,16 +78,16 @@ class MassEditContainer extends React.Component {
   }
 
   updateResponseFeedbackInMassEditArray() {
-    const { dispatch, massEdit, params } = this.props;
+    const { dispatch, massEdit, match } = this.props;
     const { selectedResponses } = massEdit;
-    const { questionID } = params;
+    const { questionID } = match.params;
     const { massEditFeedback } = this.state;
     const { massEditOptimal } = this.refs;
     const optimal = massEditOptimal.checked || false;
     const parent_id = null;
     const author = null;
     const payload = {
-      massEditFeedback,
+      feedback: massEditFeedback,
       optimal,
       parent_id,
       author,
@@ -110,17 +110,17 @@ class MassEditContainer extends React.Component {
   };
 
   updateResponseConceptResultInMassEditArray() {
-    const { dispatch, massEdit, params } = this.props;
+    const { dispatch, massEdit, match } = this.props;
     const { selectedResponses } = massEdit;
-    const { questionID } = params;
+    const { questionID } = match.params;
     const { conceptResults } = this.state;
     dispatch(submitMassEditConceptResults(selectedResponses, conceptResults, questionID));
   }
 
   deleteAllResponsesInMassEditArray() {
-    const { dispatch, massEdit, params } = this.props;
+    const { dispatch, massEdit, match, } = this.props;
     const { selectedResponses } = massEdit;
-    const { questionID } = params;
+    const { questionID } = match.params;
 
     if (window.confirm(`⚠️ Delete ${selectedResponses.length} responses?! 😱`)) {
       dispatch(massEditDeleteResponses(selectedResponses, questionID));

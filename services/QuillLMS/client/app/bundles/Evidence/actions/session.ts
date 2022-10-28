@@ -134,6 +134,9 @@ export const saveActivitySurveyResponse = ({ sessionID, activitySurveyResponse, 
     },
     (body) => {
       if (callback) callback()
+    },
+    (body) => {
+      if (callback) callback()
     }
   )
 }

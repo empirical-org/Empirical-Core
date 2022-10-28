@@ -92,7 +92,8 @@ export const searchResponses = (qid: string) => {
             response.sortOrder = i;
             return response;
           });
-          const parsedResponses = _.keyBy(embeddedOrder, 'id');
+          const parsedResponses = _.indexBy(embeddedOrder, 'id');
+
           const responseData = {
             responses: parsedResponses,
             numberOfResponses: data.numberOfResults,
