@@ -70,6 +70,18 @@ class User < ApplicationRecord
   USER_INACTIVITY_DURATION = 30.days
   USER_SESSION_DURATION = 30.days
 
+  CLEVER_ID_UNIQUENESS_CONSTRAINT_MINIMUM_ID = 5593155 + 1
+  EMAIL_UNIQUENESS_CONSTRAINT_MINIMUM_ID = 1641954 + 1
+  GOOGLE_ID_UNIQUENESS_CONSTRAINT_MINIMUM_ID = 1641954 + 1
+  USERNAME_UNIQUENESS_CONSTRAINT_MINIMUM_ID = 1641954 + 1
+
+  UNIQUENESS_CONSTRAINT_MINIMUM_ID = [
+    CLEVER_ID_UNIQUENESS_CONSTRAINT_MINIMUM_ID,
+    EMAIL_UNIQUENESS_CONSTRAINT_MINIMUM_ID,
+    GOOGLE_ID_UNIQUENESS_CONSTRAINT_MINIMUM_ID,
+    USERNAME_UNIQUENESS_CONSTRAINT_MINIMUM_ID
+  ].max
+
   TEACHER = 'teacher'
   STUDENT = 'student'
   STAFF = 'staff'
@@ -77,7 +89,6 @@ class User < ApplicationRecord
   ROLES      = [TEACHER, STUDENT, STAFF, SALES_CONTACT]
   SAFE_ROLES = [STUDENT, TEACHER, SALES_CONTACT]
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
-
 
   ALPHA = 'alpha'
   BETA = 'beta'
@@ -162,11 +173,8 @@ class User < ApplicationRecord
 
   validate :username_cannot_be_an_email
 
-  validates :clever_id,
-    uniqueness:   { if: :clever_id_present_and_has_changed? }
-
-  validates :google_id,
-    uniqueness: { if: ->(u) { u.google_id.present? && u.student? } }
+  validates :clever_id, uniqueness: { if: :clever_id_present_and_has_changed? }
+  validates :google_id, uniqueness: { if: ->(u) { u.google_id.present? && u.student? } }
 
   validates_email_format_of :email,
     if: :email_required_or_present?,
@@ -316,7 +324,7 @@ class User < ApplicationRecord
   def username_cannot_be_an_email
     return unless username =~ VALID_EMAIL_REGEX
 
-    if id
+    if persisted?
       db_self = User.find(id)
       errors.add(:username, :invalid) unless db_self.username == username
     else
@@ -701,7 +709,7 @@ class User < ApplicationRecord
 
   private def clever_id_present_and_has_changed?
     return false if !clever_id
-    return true if !id
+    return true if !persisted?
 
     existing_user = User.find_by_id(id)
     existing_user.clever_id != clever_id
