@@ -74,10 +74,6 @@ export default class Unit extends React.Component {
     return <span className="edit-unit" onClick={this.handleSubmit}>Submit</span>;
   };
 
-  onSubmit = () => {
-    requestPut('/teachers/units', { name: this.state.unitName, });
-  };
-
   dueDate = () => {
     if (!this.props.report && !this.props.lesson) {
       return <span className="due-date-header">Due Date</span>;
