@@ -1,7 +1,5 @@
 import React from 'react'
-import request from 'request'
 
-import getAuthToken from '../../modules/get_auth_token';
 import { Input, } from '../../../../Shared/index'
 import { requestPost, } from '../../../../../modules/request/index'
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import _ from 'underscore';
-import request from 'request'
 import { TextEditor, isValidRegex } from '../../../Shared/index';
 import { EditorState, ContentState } from 'draft-js'
 

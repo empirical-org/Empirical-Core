@@ -1,12 +1,10 @@
 import React from 'react';
-import request from 'request'
 
 import AuthSignUp from './auth_sign_up'
 
 import PasswordWrapper from '../shared/password_wrapper'
 import AnalyticsWrapper from '../../shared/analytics_wrapper'
 import AgreementsAndLinkToLogin from './agreements_and_link_to_login'
-import getAuthToken from '../../modules/get_auth_token';
 import { Input, } from '../../../../Shared/index'
 import { requestPost, } from '../../../../../modules/request/index'
 

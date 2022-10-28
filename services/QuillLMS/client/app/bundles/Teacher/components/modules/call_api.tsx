@@ -2,10 +2,9 @@ import { requestPut, } from '../../../../modules/request/index'
 
 function put(path: string, payload: object, onSuccess: Function, onError: Function): void {
   let uri = `${window.location.protocol}//${window.location.host}${path}`;
-  let authedPayload = Object.assign(payload, {authenticity_token: getAuthToken()});
   requestPut(
     uri,
-    authedPayload,
+    payload,
     (body) => {
       if (onSuccess) onSuccess(body);
     },
