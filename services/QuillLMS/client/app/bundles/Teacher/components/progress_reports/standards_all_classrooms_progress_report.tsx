@@ -57,14 +57,14 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
     const { selectedClassroomId, } = this.state
 
     const that = this;
-    let qs = null
+    let qs = ''
 
-    if (selectedClassroomId !== null) {
-      qs = {classroom_id: selectedClassroomId}
+    if (selectedClassroomId) {
+      qs = `?classroom_id=${selectedClassroomId}`
     }
 
     requestGet(
-      `${process.env.DEFAULT_URL}/teachers/progress_reports/standards/classrooms.json?classroom_id=${selectedClassroomId}`,
+      `${process.env.DEFAULT_URL}/teachers/progress_reports/standards/classrooms.json${qs}`,
       (body) => {
         const standardsData = this.formatStandardsData(body.data)
         // gets unique classroom names

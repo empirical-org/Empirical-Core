@@ -7,8 +7,9 @@ export const receiveStudentProfile = data => ({
 
 export const fetchStudentProfile = (classroomId) => {
   return (dispatch) => {
+    const qs = classroomId ? `?current_classroom_id=${classroomId}` : ''
     requestGet(
-      `${process.env.DEFAULT_URL}/student_profile_data?current_classroom_id=${classroomId}`,
+      `${process.env.DEFAULT_URL}/student_profile_data${qs}`,
       (body) => {
         dispatch(receiveStudentProfile(body))
       }
