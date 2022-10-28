@@ -4,6 +4,8 @@ class AssignRecommendationsWorker
   include Sidekiq::Worker
   sidekiq_options queue: SidekiqQueue::CRITICAL
 
+  class TeacherAssignmentOfRecommendationsTakingTooLongError < StandardError; end
+
   # rubocop:disable Metrics/CyclomaticComplexity
   def perform(options={})
     options = options.with_indifferent_access
@@ -99,11 +101,13 @@ class AssignRecommendationsWorker
       else
         $redis.set("#{lesson_text}diagnostic_recommendations_over_ten_seconds_count", 1)
       end
-      begin
-        raise "#{elapsed_time} seconds for user #{teacher_id} to assign #{lesson_text} recommendations"
-      rescue => e
-        ErrorNotifier.report(e)
-      end
+
+      ErrorNotifier.report(
+        TeacherAssignmentOfRecommendationsTakingTooLongError.new,
+        elapsed_time: elapsed_time,
+        teacher_id: teacher_id,
+        lesson_text: lesson_text
+      )
     else
       diagnostic_recommendations_under_ten_seconds_count = $redis.get("diagnostic_recommendations_under_ten_seconds_count")
       if diagnostic_recommendations_under_ten_seconds_count
