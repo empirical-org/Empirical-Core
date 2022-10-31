@@ -167,20 +167,17 @@ export default class EditOrCreateSubscription extends React.Component {
     const that = this
 
     submitVars.requestMethod(
-      {
-        url: submitVars.urlString,
-        json: submitVars.data,
-      },
-      (e, httpResponse, _body) => {
-        if (httpResponse.statusCode === 200) {
-          alert('Subscription was saved');
-          if (view === 'new') {
-            // switch to the edit view after submission
-            window.location = window.location.href.replace('new', 'edit')
-          }
-        } else {
-          alert('There was an error. Please try again and contact a dev if you continue to get this warning.')
+      submitVars.urlString,
+      submitVars.data,
+      (body) => {
+        alert('Subscription was saved');
+        if (view === 'new') {
+          // switch to the edit view after submission
+          window.location = window.location.href.replace('new', 'edit')
         }
+      },
+      (body) => {
+        alert('There was an error. Please try again and contact a dev if you continue to get this warning.')
       }
     )
   }

@@ -139,7 +139,7 @@ export default class Cms extends React.Component {
         `${process.env.DEFAULT_URL}/cms/${resourceName}/update_order_numbers`,
         { [resourceName]: that.state[resourceName], },
         (body) => {
-          that.setState({[resourceName]: response[resourceName]});
+          that.setState({[resourceName]: body[resourceName]});
           alert('The updated order has been saved.');
         },
         (body) => {

@@ -1,10 +1,13 @@
 import Pusher from 'pusher-js';
+import _ from 'underscore';
 import { push } from 'react-router-redux';
+import { Response, ConceptResult } from 'quill-marking-logic'
+
 import { ActionTypes } from './actionTypes'
 import { Questions, Question, FocusPoint, IncorrectSequence } from '../interfaces/questions'
 import * as responseActions from './responses'
-import { Response, ConceptResult } from 'quill-marking-logic'
 import { populateQuestions, setSessionReducerToSavedSession } from './session.ts'
+
 import {
   FocusPointApi,
   IncorrectSequenceApi,

@@ -58,7 +58,7 @@ export const UnitTemplates = () => {
       UNIT_TEMPLATES_URL,
       (body) => {
         setError(null);
-        setDiagnostics(body.unit_templates)
+        setFetchedData(body.unit_templates)
       },
       (body) => {
         setLoadingTableData(false);
