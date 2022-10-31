@@ -19,7 +19,7 @@ namespace :students do
     [].tap do |ids_for_deletion|
       duplicate_emails.each do |email|
         student = User.find_by(email: email)
-        ids_for_deletion << student.duplicate_student_accounts.pluck(:id)
+        ids_for_deletion << student.duplicate_empty_student_accounts.pluck(:id)
         progress_bar.increment
       end
 
