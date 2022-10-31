@@ -1453,7 +1453,7 @@ describe User, type: :model do
       it { expect(subject).to eq [duplicate] }
 
       context 'duplicate is not a student' do
-        let(:duplicate) { create(:teacher) }
+        before { duplicate.update_columns(role: 'teacher') }
 
         it { expect(subject).to be_empty }
       end
