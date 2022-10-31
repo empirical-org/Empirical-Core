@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require_relative './progress_bar'
+require_relative '../progress_bar'
 
 namespace :students do
+  desc 'Remove duplicate student users with same email'
   task remove_users_with_same_email: :environment do
-
     duplicate_emails =
       User
         .student
