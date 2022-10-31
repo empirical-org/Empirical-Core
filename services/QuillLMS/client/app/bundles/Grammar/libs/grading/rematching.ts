@@ -159,7 +159,7 @@ function deleteRematchedResponse(response: any) {
 
 function updateResponse(rid, content) {
   const rubyConvertedResponse = objectWithSnakeKeysFromCamel(content, false);
-  requestPut(
+  return requestPut(
     `${process.env.QUILL_CMS}/responses/${rid}`,
     { response: rubyConvertedResponse, }
   )
