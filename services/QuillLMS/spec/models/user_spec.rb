@@ -1439,7 +1439,7 @@ describe User, type: :model do
   describe '#duplicate_empty_student_accounts' do
     subject { student.duplicate_empty_student_accounts }
 
-    let(:student) { create(:student) }
+    let(:student) { create(:student, id: described_class::EMAIL_UNIQUENESS_CONSTRAINT_MINIMUM_ID - 1) }
 
     it { expect(subject).to be_empty }
 
