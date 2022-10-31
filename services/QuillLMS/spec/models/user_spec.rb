@@ -1436,6 +1436,42 @@ describe User, type: :model do
     end
   end
 
+  describe '#duplicate_empty_student_accounts' do
+    subject { student.duplicate_empty_student_accounts }
+
+    let(:student) { create(:student, id: described_class::EMAIL_UNIQUENESS_CONSTRAINT_MINIMUM_ID - 1) }
+
+    it { expect(subject).to be_empty }
+
+    context 'duplicates exist' do
+      let!(:duplicate) do
+        s = build(:student, email: student.email)
+        s.save(validate: false)
+        s
+      end
+
+      it { expect(subject).to eq [duplicate] }
+
+      context 'duplicate is not a student' do
+        before { duplicate.update_columns(role: 'teacher') }
+
+        it { expect(subject).to be_empty }
+      end
+
+      context 'duplicate has activity session' do
+        before { create(:activity_session, user: duplicate) }
+
+        it { expect(subject).to be_empty}
+      end
+
+      context 'duplicate has students_classrooms' do
+        before { create(:students_classrooms, student: duplicate) }
+
+        it { expect(subject).to be_empty }
+      end
+    end
+  end
+
   describe '.find_by_stripe_customer_id_or_email!' do
     subject { User.find_by_stripe_customer_id_or_email!(stripe_customer_id, email) }
 
