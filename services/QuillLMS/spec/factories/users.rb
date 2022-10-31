@@ -57,6 +57,7 @@
 #
 FactoryBot.define do
   factory :simple_user, class: 'User' do
+    sequence(:id) { |n| n + User::UNIQUENESS_CONSTRAINT_MINIMUM_ID }
     name 'Jane Doe'
     email 'fake@example.com'
     password 'password'
@@ -64,6 +65,7 @@ FactoryBot.define do
   end
 
   factory :user do
+    sequence(:id) { |n| n + User::UNIQUENESS_CONSTRAINT_MINIMUM_ID }
     sequence(:name) { |n| "FirstName LastName #{n}" }
     username   { name.gsub(' ', '-') }
     password   { "password" }
