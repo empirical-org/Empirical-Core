@@ -676,6 +676,14 @@ class User < ApplicationRecord
     end
   end
 
+  def duplicate_empty_student_accounts
+    User
+      .student
+      .where(email: email)
+      .where.not(id: id)
+      .where.missing(:activity_sessions, :students_classrooms)
+  end
+
   private def validate_flags
     invalid_flags = flags - VALID_FLAGS
 
