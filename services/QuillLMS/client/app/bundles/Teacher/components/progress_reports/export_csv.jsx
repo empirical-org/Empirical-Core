@@ -1,6 +1,5 @@
 import React from 'react';
 
-import auth_token from '../modules/get_auth_token';
 import Pusher from 'pusher-js';
 import ButtonLoadingIndicator from '../shared/button_loading_indicator.jsx';
 import { requestPost, } from '../../../../modules/request/index'
@@ -19,7 +18,6 @@ export default class ExportCSV extends React.Component {
       alert('CSV Exports are a Quill Premium Feature! Upgrade to Premium for reports, diagnostics, and more.')
     } else {
       const data = {
-        authenticity_token: auth_token(),
         report_url: this.props.reportUrl,
         csv_export: {
           export_type: this.props.exportType,

@@ -176,8 +176,8 @@ function makeIterator(array) {
 }
 
 export function getGradedResponsesWithCallback(questionID, callback) {
-  requestGet(`${process.env.QUILL_CMS}/questions/${questionID}/responses`)
-    .then((body) => {
+  requestGet(`${process.env.QUILL_CMS}/questions/${questionID}/responses`,
+    (body) => {
       const bodyToObj = {};
       body.forEach((resp) => {
         bodyToObj[resp.id] = resp;
@@ -194,10 +194,8 @@ export function getGradedResponsesWithCallback(questionID, callback) {
         delete resp.concept_results;
       });
       callback(bodyToObj);
-    })
-    .catch((error) => {
-      // to do, use Sentry to capture error
-    })
+    }
+  )
 }
 
 export function getGradedResponsesWithoutCallback(questionID) {

@@ -17,6 +17,9 @@ export default function validateTurkSession(turkingRoundId, activityId, callback
   requestGet(
     `${process.env.DEFAULT_URL}/api/v1/evidence/turking_round_activity_sessions/validate?activity_id=${activityId}&turking_round_id=${turkingRoundId}`,
     (body) => callback(body),
-    (body) => alert("Failed to validate turking activity session: " + body)
+    (body) => {
+      alert("Failed to validate turking activity session: " + body)
+      callback(body)
+    }
   )
 }

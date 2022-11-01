@@ -225,20 +225,20 @@ function searchResponses(qid) {
     requestPost(
       `${process.env.QUILL_CMS}/questions/${qid}/responses/search`,
       { search: getFormattedSearchData(getState()), },
-      (data) => {
+      (body) => {
         // check again for number in state
         // if equal to const set earlier, update the state
         // otherwise, do nothing
-        if (getState().filters.requestCount === requestNumber && data) {
-          const embeddedOrder = _.map(data.results, (response, i) => {
+        if (getState().filters.requestCount === requestNumber && body) {
+          const embeddedOrder = _.map(body.results, (response, i) => {
             response.sortOrder = i;
             return response;
           });
           const parsedResponses = _.indexBy(embeddedOrder, 'id');
           const responseData = {
             responses: parsedResponses,
-            numberOfResponses: data.numberOfResults,
-            numberOfPages: data.numberOfPages,
+            numberOfResponses: body.numberOfResults,
+            numberOfPages: body.numberOfPages,
           };
           dispatch(updateResponses(responseData));
         }

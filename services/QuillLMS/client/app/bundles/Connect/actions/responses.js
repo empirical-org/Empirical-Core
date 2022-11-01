@@ -18,15 +18,6 @@ export function updateData(questionId, responses) {
   return { type: C.UPDATE_RESPONSE_DATA, data: { questionId, responses, }, };
 }
 
-function getQuestionLoadedStatusForGroupedResponses(groupedResponses) {
-  const questionsKeys = _.keys(groupedResponses);
-  const statuses = {};
-  questionsKeys.forEach((key) => {
-    statuses[key] = 'LOADED';
-  });
-  return statuses;
-}
-
 function groupResponsesByQuestion(snapshot) {
   const groupedResponses = {};
   for (const responseKey in snapshot) {

@@ -25,7 +25,6 @@ export default class BlogPost extends React.Component {
     requestPost(
       `${process.env.DEFAULT_URL}/rate_blog_post`,
       {
-        authenticity_token: ReactOnRails.authenticityToken(),
         rating: rating,
         blog_post_id: this.props.blogPost.id
       },

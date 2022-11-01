@@ -53,6 +53,9 @@ export const completeActivitySession = (sessionID, activityId, percentage, conce
       },
       (body) => {
         if (callback) callback()
+      },
+      (body) => {
+        if (callback) callback()
       }
     )
   }
@@ -60,7 +63,7 @@ export const completeActivitySession = (sessionID, activityId, percentage, conce
 
 export const processUnfetchableSession = () => {
   return (dispatch: Function) => {
-    dispatch({ type: ActionTypes.SESION_HAS_NO_DATA })
+    dispatch({ type: ActionTypes.SESSION_HAS_NO_DATA })
   }
 }
 
@@ -96,7 +99,7 @@ export const fetchActiveActivitySession = ({ sessionID, activityUID, callback, }
         if (callback) callback(body)
       },
       (body) => {
-        dispatch({ type: ActionTypes.SESION_HAS_NO_DATA })
+        dispatch({ type: ActionTypes.SESSION_HAS_NO_DATA })
       }
     )
   }
@@ -117,6 +120,9 @@ export const saveActiveActivitySession = ({ completedSteps, timeTracking, studen
           timeTracking,
           studentHighlights,
         }
+      },
+      (body) => {
+        if (callback) callback()
       },
       (body) => {
         if (callback) callback()
@@ -151,6 +157,9 @@ export const reportAProblem = ({ sessionID, entry, report, callback, isOptimal }
       report,
       activity_session_uid: sessionID,
       optimal: isOptimal
+    },
+    (body) => {
+      if (callback) callback()
     },
     (body) => {
       if (callback) callback()

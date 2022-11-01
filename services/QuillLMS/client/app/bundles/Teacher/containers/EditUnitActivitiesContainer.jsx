@@ -1,7 +1,6 @@
 import React from 'react'
 
 import UnitStage1 from '../components/assignment_flow/create_unit/select_activities_container.jsx'
-import getAuthToken from '../components/modules/get_auth_token';
 import { requestPut, } from '../../../modules/request/index'
 
 export default class EditUnitActivitiesContainer extends React.Component {
@@ -28,7 +27,6 @@ export default class EditUnitActivitiesContainer extends React.Component {
     requestPut(
       `${process.env.DEFAULT_URL}/teachers/units/${that.props.match.params.unitId}/update_activities`,
       {
-        authenticity_token: getAuthToken(),
         data: { activities_data: that.getActivityIds(), }
       },
       (body) => {

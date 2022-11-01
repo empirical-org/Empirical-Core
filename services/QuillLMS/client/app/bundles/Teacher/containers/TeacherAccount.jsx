@@ -6,7 +6,6 @@ import TeacherPasswordAccountInfo from '../components/accounts/edit/update_passw
 import TeacherLinkedAccounts from '../components/accounts/edit/teacher_linked_accounts'
 import TeacherEmailNotifications from '../components/accounts/edit/teacher_email_notifications'
 import TeacherDangerZone from '../components/accounts/edit/teacher_danger_zone'
-import getAuthToken from '../components/modules/get_auth_token'
 import { requestPut, requestPost, } from '../../../modules/request/index';
 
 export default class TeacherAccount extends React.Component {
@@ -71,7 +70,7 @@ export default class TeacherAccount extends React.Component {
 
     requestPost(
       `${process.env.DEFAULT_URL}/teachers/clear_data/${id}`,
-      { authenticity_token: getAuthToken(), },
+      {},
       () => window.location.href = window.location.origin
     )
   };
@@ -86,7 +85,7 @@ export default class TeacherAccount extends React.Component {
     const { timesSubmitted, } = this.state
     requestPut(
       `${process.env.DEFAULT_URL}${url}`,
-      { ...data, authenticity_token: getAuthToken(), },
+      data,
       (body) => {
         const {
           name,

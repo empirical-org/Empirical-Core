@@ -9,10 +9,6 @@ export const UploadRosters = () => {
   const [teachers, setTeachers] = React.useState<Array<any>>([]);
   const [students, setStudents] = React.useState<Array<any>>([])
 
-  function getAuthToken() {
-    return document.getElementsByName('csrf-token')[0] ? document.getElementsByName('csrf-token')[0].content : 0;
-  }
-
   function handleSchoolIdChange(e) {
     setSchoolId(e.target.value)
   }
@@ -43,7 +39,6 @@ export const UploadRosters = () => {
   function submitRosters() {
     requestPost(`${process.env.DEFAULT_URL}/cms/rosters/upload_teachers_and_students`,
       {
-        authenticity_token: getAuthToken(),
         school_id: schoolId,
         teachers: teachers,
         students: students

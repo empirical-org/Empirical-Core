@@ -66,9 +66,14 @@ export function startLesson(classroomUnitId: ClassroomUnitId, classroomSessionId
 export const fetchActiveActivitySession = ({ sessionID, callback, }) => {
   const activeActivitySessionUrl = `${process.env.DEFAULT_URL}/api/v1/active_activity_sessions/${sessionID}`
 
-  requestGet(activeActivitySessionUrl, (body) => {
-    if (callback) callback(body)
-  })
+  requestGet(activeActivitySessionUrl,
+    (body) => {
+      if (callback) callback(body)
+    },
+    (body) => {
+      if (callback) callback(body)
+    }
+  )
 }
 
 export const saveActiveActivitySession = ({ sessionID, timeTracking, callback, }) => {
@@ -80,6 +85,9 @@ export const saveActiveActivitySession = ({ sessionID, timeTracking, callback, }
       active_activity_session: {
         timeTracking,
       }
+    },
+    (body) => {
+      if (callback) callback()
     },
     (body) => {
       if (callback) callback()
