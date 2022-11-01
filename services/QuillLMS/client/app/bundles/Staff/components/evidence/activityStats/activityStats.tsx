@@ -12,7 +12,6 @@ import { Spinner, ReactTable, } from '../../../../Shared/index';
 import { handlePageFilterClick, getVersionOptions } from '../../../helpers/evidence/miscHelpers';
 import { renderHeader } from '../../../helpers/evidence/renderHelpers';
 import { ACTIVITY_STATS } from '../../../../../constants/evidence';
-import LowConfidenceRulesIndex from "../lowConfidenceRules/lowConfidenceRulesIndex";
 
 const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ history, match }) => {
   const { params } = match;
